@@ -7,6 +7,7 @@ import {
   UNKNOWN,
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
+  AGE,
 } from "../../data/utils/Constants";
 import styles from "../Card.module.scss";
 import { CardContent, Divider } from "@material-ui/core";
@@ -21,6 +22,7 @@ export const RACE_OR_ETHNICITY = "race or ethnicity";
 
 interface UnknownsAlertProps {
   queryResponse: MetricQueryResponse;
+  ageQueryResponse?: MetricQueryResponse;
   metricConfig: MetricConfig;
   breakdownVar: BreakdownVar;
   displayType: VisualizationType;
@@ -42,6 +44,17 @@ function UnknownsAlert(props: UnknownsAlertProps) {
         row[props.breakdownVar] === UNKNOWN ||
         row[props.breakdownVar] === UNKNOWN_ETHNICITY
     );
+
+  const additionalAgeUnknowns = props.ageQueryResponse
+    ? props.ageQueryResponse
+        .getValidRowsForField(props.metricConfig.metricId)
+        .filter(
+          (row: Row) =>
+            row[AGE] === UNKNOWN_RACE ||
+            row[AGE] === UNKNOWN ||
+            row[AGE] === UNKNOWN_ETHNICITY
+        )
+    : null;
 
   const breakdownVarDisplayName =
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar];
@@ -70,6 +83,8 @@ function UnknownsAlert(props: UnknownsAlertProps) {
     separately, the map shows the higher of the two metrics.`;
 
   const percentageUnknown = unknowns[0][props.metricConfig.metricId];
+  const secondaryPercentageUnknown =
+    additionalAgeUnknowns?.[0]?.[props.metricConfig.metricId];
 
   const diffRaceEthnicityText = raceEthnicityDiff
     ? `This state reports race and ethnicity separately.
@@ -93,6 +108,12 @@ function UnknownsAlert(props: UnknownsAlertProps) {
   /* for AGE-ADJUSTMENT TABLE */
   const showDataGapsRisk = props.displayType === "table";
 
+  function getSecondaryUnknownPhrase() {
+    return `, and ${secondaryPercentageUnknown}${
+      props.metricConfig.knownBreakdownComparisonMetric!.shortLabel
+    } reported an unknown age `;
+  }
+
   // In the case we have unknowns for race and ethnicity reported separately,
   // show the higher one on the map
   return raceEthnicityDiff ? (
@@ -110,14 +131,13 @@ function UnknownsAlert(props: UnknownsAlertProps) {
         <Alert severity="warning" role="note">
           {percentageUnknown}
           {props.metricConfig.knownBreakdownComparisonMetric!.shortLabel}
-          {" in "}
-          {props.fips.getDisplayName()}
-          {" reported "}
-          {props.overrideAndWithOr && "an"} unknown{" "}
+          {" reported an unknown "}
           {props.overrideAndWithOr
             ? RACE_OR_ETHNICITY
             : breakdownVarDisplayName}
-          . {showCardHelperText && cardHelperText}
+          {secondaryPercentageUnknown && getSecondaryUnknownPhrase()}
+          {" in "}
+          {props.fips.getDisplayName()}. {showCardHelperText && cardHelperText}
           {props.raceEthDiffMap && raceEthDiffMapText}
           {showDataGapsRisk && (
             <>
