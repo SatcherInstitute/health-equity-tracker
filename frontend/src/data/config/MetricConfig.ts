@@ -168,7 +168,6 @@ export type MetricConfig = {
   // (# of Asian covid cases in the US) divided by
   // (# of covid cases in the US excluding those with unknown race/ethnicity).
   knownBreakdownComparisonMetric?: MetricConfig;
-
   secondaryPopulationComparisonMetric?: MetricConfig;
 };
 
@@ -234,6 +233,10 @@ export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {
   pct: "%",
 };
 
+export function isPctType(metricType: MetricType) {
+  return metricType === "pct_share" || metricType === "pct";
+}
+
 /**
  * @param metricType The type of the metric to format.
  * @param value The value to format.
@@ -250,14 +253,13 @@ export function formatFieldValue(
   if (value === null || value === undefined) {
     return "";
   }
-  const isPct = metricType === "pct_share" || metricType === "pct";
   const isRatio = metricType.includes("ratio");
-  let formatOptions = isPct ? { minimumFractionDigits: 1 } : {};
+  let formatOptions = isPctType(metricType) ? { minimumFractionDigits: 1 } : {};
   const formattedValue =
     typeof value === "number"
       ? value.toLocaleString("en", formatOptions)
       : value;
-  const percentSuffix = isPct && !omitPctSymbol ? "%" : "";
+  const percentSuffix = isPctType(metricType) && !omitPctSymbol ? "%" : "";
   const ratioSuffix = isRatio ? "×" : "";
   return `${formattedValue}${percentSuffix}${ratioSuffix}`;
 }

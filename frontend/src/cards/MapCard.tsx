@@ -106,8 +106,6 @@ function MapCardWithKey(props: MapCardProps) {
   // hide demographic selectors / dropdowns / links to multimap if displaying VACCINATION at COUNTY level, as we don't have that data
   const hideDemographicUI =
     props.variableConfig.variableId === COVID_VAXX && props.fips.isCounty();
-  // ||
-  // CAWP_DETERMINANTS.includes(metricConfig.metricId)
 
   const selectedRaceSuffix = CAWP_DETERMINANTS.includes(metricConfig.metricId)
     ? ` Identifying as ${getWomenRaceLabel(activeBreakdownFilter).replace(

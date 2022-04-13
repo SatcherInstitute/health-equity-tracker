@@ -8,7 +8,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { isPctType, VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
@@ -37,9 +37,6 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
-
-  const isPct =
-    metricConfig.type === "pct_share" || metricConfig.type === "pct";
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -85,7 +82,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 metric={metricConfig}
                 showLegend={false}
                 filename={getTitleText()}
-                usePercentSuffix={isPct}
+                usePercentSuffix={isPctType(metricConfig.type)}
               />
             )}
           </CardContent>
