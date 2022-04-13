@@ -250,14 +250,14 @@ export function formatFieldValue(
   if (value === null || value === undefined) {
     return "";
   }
-  const isPctShare = metricType === "pct_share";
+  const isPct = metricType === "pct_share" || metricType === "pct";
   const isRatio = metricType.includes("ratio");
-  let formatOptions = isPctShare ? { minimumFractionDigits: 1 } : {};
+  let formatOptions = isPct ? { minimumFractionDigits: 1 } : {};
   const formattedValue =
     typeof value === "number"
       ? value.toLocaleString("en", formatOptions)
       : value;
-  const percentSuffix = isPctShare && !omitPctSymbol ? "%" : "";
+  const percentSuffix = isPct && !omitPctSymbol ? "%" : "";
   const ratioSuffix = isRatio ? "×" : "";
   return `${formattedValue}${percentSuffix}${ratioSuffix}`;
 }
@@ -1133,7 +1133,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Women in US Congress",
       variableFullDisplayName: "Women in US Congress",
       surveyCollectedData: true,
-      variableDefinition: `Individuals identifying as women who are currently serving in the Congress of the United States, including members of the U.S. Senate and members, territorial delegates/resident commissioners of the U.S. House of Representatives. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
+      variableDefinition: `Individuals identifying as women who are currently serving in the Congress of the United States, including members of the U.S. Senate and members, territorial delegates, and resident commissioners of the U.S. House of Representatives. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
       metrics: {
         per100k: {
           metricId: "women_us_congress_pct",
@@ -1173,7 +1173,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Women in State Legislatures", // DATA TOGGLE
       variableFullDisplayName: "Women in State Legislatures", // TABLE TITLE,
       surveyCollectedData: true,
-      variableDefinition: `Individuals identifying as women currently serving in their state or territory’s legislature, including Senate and House of Representatives or Unicameral bodies as applicable. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.
+      variableDefinition: `Individuals identifying as women currently serving in their state or territory’s legislature. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.
       `,
       metrics: {
         per100k: {

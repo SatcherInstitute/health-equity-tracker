@@ -177,8 +177,9 @@ function MapCardWithKey(props: MapCardProps) {
             <>
               <b>
                 {formatFieldValue(
-                  metricConfig.type,
-                  options[metricConfig.metricId]
+                  /* metricType: MetricType, */ metricConfig.type,
+                  /* value: any, */ options[metricConfig.metricId],
+                  /* omitPctSymbol: boolean = false */ true
                 )}
               </b>{" "}
               {/*} HYPERLINKED TO BOTTOM DEFINITION {condition} cases per 100k  */}
@@ -190,7 +191,7 @@ function MapCardWithKey(props: MapCardProps) {
                 }}
                 className={styles.ConditionDefinitionLink}
               >
-                {props.variableConfig.variableDisplayName}
+                {metricConfig.shortLabel}
               </a>
               {/*} for  */}
               {activeBreakdownFilter !== "All" && " for"}
