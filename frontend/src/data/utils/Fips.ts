@@ -193,7 +193,7 @@ export const STATE_FIPS_MAP: Record<string, string> = {
   "66": "Guam",
   "69": "Northern Mariana Islands",
   "72": "Puerto Rico",
-  "78": "Virgin Islands",
+  "78": "U.S. Virgin Islands",
 };
 
 export const COUNTY_FIPS_MAP: Record<string, string> = {
