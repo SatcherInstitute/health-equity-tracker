@@ -8,17 +8,31 @@ import { ChoroplethMap } from "../../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
 import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
-import { MetricConfig } from "../../data/config/MetricConfig";
+import { MetricConfig, MetricType } from "../../data/config/MetricConfig";
 import { Row, FieldRange } from "../../data/utils/DatasetTypes";
 import { Sources } from "./Sources";
 import styles from "./MultiMapDialog.module.scss";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import {
   BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../../data/query/Breakdowns";
 import { Alert } from "@material-ui/lab";
 import { DemographicGroup } from "../../data/utils/Constants";
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from "../../data/variables/CawpProvider";
+
+export const symbolTypeLookup: Record<MetricType, string> = {
+  per100k: "per 100k",
+  pct_share: "%",
+  count: "people",
+  index: "",
+  pct_share_to_pop_ratio: "",
+  ratio: "×",
+  percentile: "%",
+};
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -78,12 +92,18 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           >
             <Typography id="modalTitle" variant="h6" component="h2">
               {props.metricConfig.fullCardTitleName} Across All{" "}
-              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
+              {BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdown]} Groups
             </Typography>
           </Grid>
 
           {/* Multiples Maps */}
           {props.breakdownValues.map((breakdownValue) => {
+            const mapLabel = CAWP_DETERMINANTS.includes(
+              props.metricConfig.metricId
+            )
+              ? getWomenRaceLabel(breakdownValue)
+              : breakdownValue;
+
             const dataForValue = props.data.filter(
               (row: Row) => row[props.breakdown] === breakdownValue
             );
@@ -99,7 +119,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 className={styles.SmallMultipleMap}
                 component="li"
               >
-                <b>{breakdownValue}</b>
+                <b>{mapLabel}</b>
                 {props.metricConfig && dataForValue.length > 0 && (
                   <ChoroplethMap
                     key={breakdownValue}
@@ -168,7 +188,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             <Box mt={pageIsWide ? 10 : 0}>
               <Grid container item>
                 <Grid container justifyContent="center">
-                  <b>Legend</b>
+                  <b>Legend ({symbolTypeLookup[props.metricConfig.type]})</b>
                 </Grid>
                 <Grid container justifyContent="center">
                   <Legend
