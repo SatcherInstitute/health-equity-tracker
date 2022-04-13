@@ -108,12 +108,6 @@ function UnknownsAlert(props: UnknownsAlertProps) {
   /* for AGE-ADJUSTMENT TABLE */
   const showDataGapsRisk = props.displayType === "table";
 
-  function getUnknownAgePhrase() {
-    return `, and ${secondaryAgePercentageUnknown}${
-      props.metricConfig.knownBreakdownComparisonMetric!.shortLabel
-    } reported an unknown age `;
-  }
-
   // In the case we have unknowns for race and ethnicity reported separately,
   // show the higher one on the map
   return raceEthnicityDiff ? (
@@ -135,7 +129,10 @@ function UnknownsAlert(props: UnknownsAlertProps) {
           {props.overrideAndWithOr
             ? RACE_OR_ETHNICITY
             : breakdownVarDisplayName}
-          {secondaryAgePercentageUnknown && getUnknownAgePhrase()}
+          {secondaryAgePercentageUnknown &&
+            `, and ${secondaryAgePercentageUnknown}${
+              props.metricConfig.knownBreakdownComparisonMetric!.shortLabel
+            } reported an unknown age`}
           {" in "}
           {props.fips.getDisplayName()}. {showCardHelperText && cardHelperText}
           {props.raceEthDiffMap && raceEthDiffMapText}
