@@ -16,7 +16,7 @@ state_fips,state_name,population,population_pct,race_category_id,race,race_inclu
 01,Alabama,1603,0.03,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
 01,Alabama,70662,1.4,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
 01,Alabama,8083,0.2,OTHER_STANDARD_NH,Unrepresented race,False,Unrepresented race (Non-Hispanic)
-01,Alabama,4876250,100.0,TOTAL,Total,,Total
+01,Alabama,4876250,100.0,TOTAL,All,,All
 01,Alabama,3320247,68.1,WHITE,White,True,White
 01,Alabama,3194929,65.5,WHITE_NH,White,False,White (Non-Hispanic)
 72,Puerto Rico,6838,0.2,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
@@ -36,6 +36,6 @@ state_fips,state_name,population,population_pct,race_category_id,race,race_inclu
 72,Puerto Rico,21,0.0,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
 72,Puerto Rico,554764,16.7,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
 72,Puerto Rico,3143,0.1,OTHER_STANDARD_NH,Unrepresented race,False,Unrepresented race (Non-Hispanic)
-72,Puerto Rico,3318447,100.0,TOTAL,Total,,Total
+72,Puerto Rico,3318447,100.0,TOTAL,All,,All
 72,Puerto Rico,2188014,65.9,WHITE,White,True,White
 72,Puerto Rico,31723,1.0,WHITE_NH,White,False,White (Non-Hispanic)

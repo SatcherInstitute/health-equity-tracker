@@ -43,7 +43,7 @@ VOTER_AGE_GROUPS = [
 
 # single list of all unique age group options
 UHC_AGE_GROUPS = list(dict.fromkeys([
-    'Total',
+    std_col.TOTAL_VALUE,
     *SUICIDE_AGE_GROUPS,
     *VOTER_AGE_GROUPS,
     *BROAD_AGE_GROUPS
@@ -51,7 +51,7 @@ UHC_AGE_GROUPS = list(dict.fromkeys([
 
 # No Age Breakdowns for: Non-medical Drug (including Illicit Opioid, Non-Medical Rx Opioid)
 
-UHC_SEX_GROUPS = ['Male', 'Female', 'Total']
+UHC_SEX_GROUPS = ['Male', 'Female', std_col.TOTAL_VALUE]
 
 RACE_GROUPS_TO_STANDARD = {
     'American Indian/Alaska Native': Race.AIAN_NH.value,

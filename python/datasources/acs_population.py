@@ -97,15 +97,15 @@ def get_decade_age_bucket(age_range):
         return '70-79'
     elif age_range in {'80-84', '85+'}:
         return '80+'
-    elif age_range == 'Total':
-        return 'Total'
+    elif age_range == std_col.TOTAL_VALUE:
+        return std_col.TOTAL_VALUE
     else:
         return 'Unknown'
 
 
 def get_uhc_standard_age_bucket(age_range):
-    if age_range == 'Total':
-        return 'Total'
+    if age_range == std_col.TOTAL_VALUE:
+        return std_col.TOTAL_VALUE
     # buckets for most UHC / AHR determinants
     elif age_range in {'18-19', '20-24', '20-20', '21-21', '22-24',
                        '25-29', '30-34', '35-44', '35-39', '40-44'}:
@@ -117,8 +117,8 @@ def get_uhc_standard_age_bucket(age_range):
 
 
 def get_uhc_decade_plus_5_age_bucket(age_range):
-    if age_range == 'Total':
-        return 'Total'
+    if age_range == std_col.TOTAL_VALUE:
+        return std_col.TOTAL_VALUE
     # buckets for Suicide
     elif age_range in {'15-17', '18-19', '20-20', '21-21', '22-24'}:
         return '15-24'
@@ -139,8 +139,8 @@ def get_uhc_decade_plus_5_age_bucket(age_range):
 
 
 def get_uhc_voter_age_bucket(age_range):
-    if age_range == 'Total':
-        return 'Total'
+    if age_range == std_col.TOTAL_VALUE:
+        return std_col.TOTAL_VALUE
     # buckets for Voter Participation
     elif age_range in {'18-19', '20-20', '21-21', '22-24'}:
         return '18-24'

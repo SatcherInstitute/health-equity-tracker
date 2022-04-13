@@ -12,7 +12,7 @@ state_fips,state_name,cases,death_y,hosp_y,race_category_id,race,race_includes_h
 00,United States,2,1,0,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic),30-39
 00,United States,1,1,1,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic),40-49
 00,United States,2,1,0,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic),40-49
-00,United States,32,10,9,TOTAL,Total,,Total,
+00,United States,32,10,9,TOTAL,All,,All,
 00,United States,1,0,0,UNKNOWN,Unknown race,True,Unknown race,30-39
 00,United States,2,0,1,UNKNOWN,Unknown race,True,Unknown race,70-79
 00,United States,1,0,0,UNKNOWN,Unknown race,True,Unknown race,80+

@@ -136,6 +136,7 @@ def testWriteToBqSexAgeRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, m
     expected_df = pd.read_csv(GOLDEN_DATA_SEX_AGE_RACE, dtype={
         'state_fips': str,
     })
+
     assert_frame_equal(
         mock_bq.call_args_list[1].args[0], expected_df, check_like=True)
 

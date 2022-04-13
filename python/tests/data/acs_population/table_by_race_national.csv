@@ -16,6 +16,6 @@ state_fips,state_name,population,population_pct,race_category_id,race,race_inclu
 00,United States,1624,0.02,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
 00,United States,625426,7.6,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
 00,United States,11226,0.1,OTHER_STANDARD_NH,Unrepresented race,False,Unrepresented race (Non-Hispanic)
-00,United States,8194697,100.0,TOTAL,Total,,Total
+00,United States,8194697,100.0,TOTAL,All,,All
 00,United States,5508261,67.2,WHITE,White,True,White
 00,United States,3226652,39.4,WHITE_NH,White,False,White (Non-Hispanic)
