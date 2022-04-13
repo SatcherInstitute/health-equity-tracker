@@ -265,10 +265,11 @@ def load_json_as_df_from_data_dir_based_on_key(directory, filename, key_list, dt
     directory: directory within data to load from
     filename: file to load the json file from
     key_list: List of keys to represent the nested keys needed to get to the data in the json """
-    file_path = os.path.join(DATA_DIR, directory, filename)
-    data = json.loads(file_path)
-    df = pd.json_normalize(data, key_list, dtype=dtype)
 
+    file_path = os.path.join(DATA_DIR, directory, filename)
+    with open(file_path, 'r') as data_file:
+        data = json.loads(data_file.read())
+    df = pd.json_normalize(data, key_list)
     return df
 
 
