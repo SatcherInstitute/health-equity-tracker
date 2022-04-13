@@ -6,7 +6,12 @@ import AcsPopulationProvider, {
   GetAcsDatasetId,
 } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
-import { UNKNOWN_RACE, HISPANIC, MULTI } from "../utils/Constants";
+import {
+  UNKNOWN_RACE,
+  HISPANIC,
+  MULTI,
+  MULTI_OR_OTHER_STANDARD,
+} from "../utils/Constants";
 
 export const CAWP_DETERMINANTS: MetricId[] = [
   "cawp_population_pct",
@@ -22,6 +27,8 @@ export function getWomenRaceLabel(raceLabel: string) {
   switch (raceLabel) {
     case MULTI:
       return "Women of Two or More Races";
+    case MULTI_OR_OTHER_STANDARD:
+      return "Women of Two or More Races & Unrepresented Race";
     case UNKNOWN_RACE:
       return `Women of Unknown Race`;
     case HISPANIC:

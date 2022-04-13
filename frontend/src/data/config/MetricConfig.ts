@@ -1137,7 +1137,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "women_us_congress_pct",
-          fullCardTitleName: "Percentage of US Congress Members That Are Women",
+          fullCardTitleName: "Percentage of US Congress Members",
           shortLabel: "% women in US congress",
           type: "pct",
         },
@@ -1178,7 +1178,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "women_state_leg_pct",
-          fullCardTitleName: "Percentage of State Legislators That Are Women", // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER
+          fullCardTitleName: "Percentage of State Legislators", // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER
           shortLabel: "% women in state legislature", // SIMPLE BAR LEGEND
           type: "pct",
         },

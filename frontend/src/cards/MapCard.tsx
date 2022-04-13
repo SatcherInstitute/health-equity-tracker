@@ -30,6 +30,10 @@ import {
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from "../data/variables/CawpProvider";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
@@ -102,11 +106,15 @@ function MapCardWithKey(props: MapCardProps) {
   // hide demographic selectors / dropdowns / links to multimap if displaying VACCINATION at COUNTY level, as we don't have that data
   const hideDemographicUI =
     props.variableConfig.variableId === COVID_VAXX && props.fips.isCounty();
+  // ||
+  // CAWP_DETERMINANTS.includes(metricConfig.metricId)
 
-  const selectedRaceSuffix =
-    activeBreakdownFilter === "All"
-      ? ""
-      : ` Identifying as ${activeBreakdownFilter}`;
+  const selectedRaceSuffix = CAWP_DETERMINANTS.includes(metricConfig.metricId)
+    ? ` Identifying as ${getWomenRaceLabel(activeBreakdownFilter).replace(
+        "All ",
+        ""
+      )}`
+    : "";
 
   return (
     <CardWrapper
