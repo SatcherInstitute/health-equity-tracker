@@ -129,6 +129,7 @@ function UnknownsAlert(props: UnknownsAlertProps) {
           {props.overrideAndWithOr
             ? RACE_OR_ETHNICITY
             : breakdownVarDisplayName}
+          {/* Age Adjusted Card reports both unknown RACE + AGE */}
           {secondaryAgePercentageUnknown &&
             `, and ${secondaryAgePercentageUnknown}${
               props.metricConfig.knownBreakdownComparisonMetric!.shortLabel
