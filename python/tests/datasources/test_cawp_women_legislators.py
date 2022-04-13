@@ -152,9 +152,9 @@ def _get_test_json_as_df(*args):
     return pd.read_json(os.path.join(TEST_DIR, test_input_json), dtype=test_input_dtype)
 
 
-def _get_test_json_as_df_based_on_key(*args):
+def _get_test_json_as_df_based_on_key_list(*args):
 
-    [_mock_data_folder, mock_data_filename, mock_data_keys] = args
+    [_mock_data_folder, mock_data_filename, mock_data_keys_list] = args
 
     test_json_filename = os.path.join(
         TEST_DIR, f'test_input_{mock_data_filename}')
@@ -162,7 +162,7 @@ def _get_test_json_as_df_based_on_key(*args):
     with open(test_json_filename) as data_file:
         data = json.load(data_file)
 
-    df = pd.json_normalize(data, mock_data_keys)
+    df = pd.json_normalize(data, mock_data_keys_list)
     return df
 
 
@@ -185,8 +185,8 @@ def _get_test_state_names(*args, **kwargs):
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              side_effect=_get_test_state_names)
-@ mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key',
-             side_effect=_get_test_json_as_df_based_on_key)
+@ mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key_list',
+             side_effect=_get_test_json_as_df_based_on_key_list)
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
              side_effect=_get_test_pop_data_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_data_dir',
@@ -202,7 +202,7 @@ def testWriteToBq(mock_bq: mock.MagicMock,
                   mock_data_dir_csv: mock.MagicMock,
                   mock_data_dir_json: mock.MagicMock,
                   mock_pop_data: mock.MagicMock,
-                  mock_data_dir_based_on_key_data: mock.MagicMock,
+                  mock_data_dir_based_on_key_list_data: mock.MagicMock,
                   mock_bq_state_names: mock.MagicMock):
 
     cawp_data = CAWPData()
@@ -219,7 +219,7 @@ def testWriteToBq(mock_bq: mock.MagicMock,
     mock_data_dir_csv.assert_called_once
     mock_data_dir_json.assert_called_once
     mock_pop_data.assert_called_once
-    mock_data_dir_based_on_key_data.assert_called_once
+    mock_data_dir_based_on_key_list_data.assert_called_once
     mock_bq_state_names.assert_called_once
 
     expected_dtype = {
