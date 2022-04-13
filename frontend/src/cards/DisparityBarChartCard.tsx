@@ -99,7 +99,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
         // include a note about percents adding to over 100%
         // if race options include hispanic twice (eg "White" and "Hispanic" can both include Hispanic people)
         // also require at least some data to be available to avoid showing info on suppressed/undefined states
-        const showDoesntAddUpInfo =
+        const shouldShowDoesntAddUpMessage =
           props.breakdownVar === RACE &&
           queryResponse.data.every(
             (row) =>
@@ -156,7 +156,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 />
               </CardContent>
             )}
-            {showDoesntAddUpInfo && !isCawp && (
+            {shouldShowDoesntAddUpMessage && !isCawp && (
               <Alert severity="info" role="note">
                 Population percentages on this graph add up to over 100% because
                 the racial categories reported for{" "}
