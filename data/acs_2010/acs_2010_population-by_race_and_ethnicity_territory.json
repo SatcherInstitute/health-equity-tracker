@@ -3,7 +3,7 @@
     "state_fips": "78",
     "state_name": "U.S. Virgin Islands",
     "population": "106405",
-    "race_category_id": "TOTAL"
+    "race_category_id": "ALL"
   },
   {
     "state_fips": "78",
@@ -27,7 +27,7 @@
     "state_fips": "69",
     "state_name": "Northern Mariana Islands",
     "population": "53883",
-    "race_category_id": "TOTAL"
+    "race_category_id": "ALL"
   },
   {
     "state_fips": "69",
@@ -75,7 +75,7 @@
     "state_fips": "66",
     "state_name": "Guam",
     "population": "159358",
-    "race_category_id": "TOTAL"
+    "race_category_id": "ALL"
   },
   {
     "state_fips": "66",
