@@ -32,7 +32,7 @@ POPULATION_COL = "population"
 INCOME_COL = "income"
 POPULATION_PCT_COL = "population_pct"
 
-TOTAL_VALUE = "All"
+ALL_VALUE = "All"
 
 # Standardized column names for Covid cases, hospitalizations, and deaths.
 COVID_CASES = "cases"
@@ -177,7 +177,7 @@ class Race(Enum):
 
     # The total across races. This must always be included when the other race
     # values do not sum to 100%
-    TOTAL = ("TOTAL", TOTAL_VALUE, None)
+    ALL = ("ALL", ALL_VALUE, None)
 
     # We set the enum value to the first arg, which is the race category id, or
     # a unique code that can be used to reference that race. Race category ids

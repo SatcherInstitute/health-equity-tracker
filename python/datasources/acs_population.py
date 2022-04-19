@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas as pd  # type: ignore
 
 import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
@@ -38,7 +38,7 @@ GROUPS = {
 
 SEX_BY_AGE_CONCEPTS_TO_RACE = {
     # These include Hispanic/Latino, so they're not standardized categories.
-    "SEX BY AGE": Race.TOTAL.value,
+    "SEX BY AGE": Race.ALL.value,
     "SEX BY AGE (WHITE ALONE)": Race.WHITE.value,
     "SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)": Race.BLACK.value,
     "SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)": Race.AIAN.value,
@@ -97,15 +97,15 @@ def get_decade_age_bucket(age_range):
         return '70-79'
     elif age_range in {'80-84', '85+'}:
         return '80+'
-    elif age_range == std_col.TOTAL_VALUE:
-        return std_col.TOTAL_VALUE
+    elif age_range == std_col.ALL_VALUE:
+        return std_col.ALL_VALUE
     else:
         return 'Unknown'
 
 
 def get_uhc_standard_age_bucket(age_range):
-    if age_range == std_col.TOTAL_VALUE:
-        return std_col.TOTAL_VALUE
+    if age_range == std_col.ALL_VALUE:
+        return std_col.ALL_VALUE
     # buckets for most UHC / AHR determinants
     elif age_range in {'18-19', '20-24', '20-20', '21-21', '22-24',
                        '25-29', '30-34', '35-44', '35-39', '40-44'}:
@@ -117,8 +117,8 @@ def get_uhc_standard_age_bucket(age_range):
 
 
 def get_uhc_decade_plus_5_age_bucket(age_range):
-    if age_range == std_col.TOTAL_VALUE:
-        return std_col.TOTAL_VALUE
+    if age_range == std_col.ALL_VALUE:
+        return std_col.ALL_VALUE
     # buckets for Suicide
     elif age_range in {'15-17', '18-19', '20-20', '21-21', '22-24'}:
         return '15-24'
@@ -139,8 +139,8 @@ def get_uhc_decade_plus_5_age_bucket(age_range):
 
 
 def get_uhc_voter_age_bucket(age_range):
-    if age_range == std_col.TOTAL_VALUE:
-        return std_col.TOTAL_VALUE
+    if age_range == std_col.ALL_VALUE:
+        return std_col.ALL_VALUE
     # buckets for Voter Participation
     elif age_range in {'18-19', '20-20', '21-21', '22-24'}:
         return '18-24'
@@ -418,7 +418,7 @@ class ACSPopulationIngester():
 
         # Add derived rows.
         all_races = add_sum_of_rows(
-            all_races, std_col.RACE_CATEGORY_ID_COL, std_col.POPULATION_COL, Race.TOTAL.value,
+            all_races, std_col.RACE_CATEGORY_ID_COL, std_col.POPULATION_COL, Race.ALL.value,
             list(RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP.values()))
         all_races = add_sum_of_rows(
             all_races, std_col.RACE_CATEGORY_ID_COL, std_col.POPULATION_COL,
@@ -435,7 +435,7 @@ class ACSPopulationIngester():
 
         all_races = generate_pct_share_col(
             all_races, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL,
-            std_col.RACE_CATEGORY_ID_COL, Race.TOTAL.value)
+            std_col.RACE_CATEGORY_ID_COL, Race.ALL.value)
 
         std_col.add_race_columns_from_category_id(all_races)
         return self.sort_race_frame(all_races)
@@ -462,16 +462,16 @@ class ACSPopulationIngester():
             rename_age_bracket)
 
         result = add_sum_of_rows(
-            result, std_col.AGE_COL, std_col.POPULATION_COL, std_col.TOTAL_VALUE)
+            result, std_col.AGE_COL, std_col.POPULATION_COL, std_col.ALL_VALUE)
         result = add_sum_of_rows(
-            result, std_col.SEX_COL, std_col.POPULATION_COL, std_col.TOTAL_VALUE)
+            result, std_col.SEX_COL, std_col.POPULATION_COL, std_col.ALL_VALUE)
 
         std_col.add_race_columns_from_category_id(result)
         return self.sort_sex_age_race_frame(result)
 
     def get_by_sex_age(self, by_sex_age_race_frame, age_aggregator_func):
         by_sex_age = by_sex_age_race_frame.loc[by_sex_age_race_frame[std_col.RACE_CATEGORY_ID_COL]
-                                               == Race.TOTAL.value]
+                                               == Race.ALL.value]
 
         cols = [
             std_col.STATE_FIPS_COL,
@@ -498,7 +498,7 @@ class ACSPopulationIngester():
                    by_sex_decade_plus_5_age_uhc=None,
                    by_sex_voter_age_uhc=None):
         by_age = by_sex_age.loc[by_sex_age[std_col.SEX_COL]
-                                == std_col.TOTAL_VALUE]
+                                == std_col.ALL_VALUE]
 
         cols = [
             std_col.STATE_FIPS_COL,
@@ -512,13 +512,13 @@ class ACSPopulationIngester():
 
         if not self.county_level:
             by_standard_age_uhc = by_sex_standard_age_uhc.loc[
-                by_sex_standard_age_uhc[std_col.SEX_COL] == std_col.TOTAL_VALUE]
+                by_sex_standard_age_uhc[std_col.SEX_COL] == std_col.ALL_VALUE]
             by_standard_age_uhc = by_standard_age_uhc[cols[1:]]
             by_decade_plus_5_age_uhc = by_sex_decade_plus_5_age_uhc.loc[
-                by_sex_decade_plus_5_age_uhc[std_col.SEX_COL] == std_col.TOTAL_VALUE]
+                by_sex_decade_plus_5_age_uhc[std_col.SEX_COL] == std_col.ALL_VALUE]
             by_decade_plus_5_age_uhc = by_decade_plus_5_age_uhc[cols[1:]]
             by_voter_age_uhc = by_sex_voter_age_uhc.loc[
-                by_sex_voter_age_uhc[std_col.SEX_COL] == std_col.TOTAL_VALUE]
+                by_sex_voter_age_uhc[std_col.SEX_COL] == std_col.ALL_VALUE]
             by_voter_age_uhc = by_voter_age_uhc[cols[1:]]
 
             by_age = pd.concat([by_age,
@@ -528,15 +528,15 @@ class ACSPopulationIngester():
                                ).drop_duplicates().reset_index(drop=True)
 
         by_age = generate_pct_share_col(
-            by_age, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL, std_col.AGE_COL, std_col.TOTAL_VALUE)
+            by_age, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL, std_col.AGE_COL, std_col.ALL_VALUE)
 
         by_age = by_age.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_age
 
     def get_by_sex(self, by_sex_age_race_frame):
         by_sex = by_sex_age_race_frame.loc[
-            (by_sex_age_race_frame[std_col.RACE_CATEGORY_ID_COL] == Race.TOTAL.value) &
-            (by_sex_age_race_frame[std_col.AGE_COL] == std_col.TOTAL_VALUE)]
+            (by_sex_age_race_frame[std_col.RACE_CATEGORY_ID_COL] == Race.ALL.value) &
+            (by_sex_age_race_frame[std_col.AGE_COL] == std_col.ALL_VALUE)]
 
         cols = [
             std_col.STATE_FIPS_COL,
@@ -549,7 +549,7 @@ class ACSPopulationIngester():
         by_sex = by_sex[cols] if self.county_level else by_sex[cols[1:]]
 
         by_sex = generate_pct_share_col(
-            by_sex, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL, std_col.SEX_COL, std_col.TOTAL_VALUE)
+            by_sex, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL, std_col.SEX_COL, std_col.ALL_VALUE)
 
         by_sex = by_sex.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_sex
@@ -587,10 +587,10 @@ class ACSPopulation(DataSource):
 
 def generate_national_dataset_with_all_states(state_df, demographic_breakdown_category):
     all_state_fips = set(state_df[std_col.STATE_FIPS_COL].to_list())
-    return generate_national_dataset(state_df, all_state_fips, demographic_breakdown_category)
+    return GENERATE_NATIONAL_DATASET(state_df, all_state_fips, demographic_breakdown_category)
 
 
-def generate_national_dataset(state_df, states_to_include, demographic_breakdown_category):
+def GENERATE_NATIONAL_DATASET(state_df, states_to_include, demographic_breakdown_category):
     df = state_df.loc[state_df[std_col.STATE_FIPS_COL].isin(states_to_include)]
     df = df.drop(columns=std_col.POPULATION_PCT_COL)
 
@@ -613,9 +613,9 @@ def generate_national_dataset(state_df, states_to_include, demographic_breakdown
     else:
         needed_cols.append(breakdown_map[demographic_breakdown_category])
 
-    total_val = std_col.TOTAL_VALUE
+    total_val = std_col.ALL_VALUE
     if demographic_breakdown_category == 'race':
-        total_val = Race.TOTAL.value
+        total_val = Race.ALL.value
 
     df = generate_pct_share_col(
         df, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL,

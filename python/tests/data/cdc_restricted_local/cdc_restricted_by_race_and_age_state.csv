@@ -1,6 +1,7 @@
 state_postal,race_category_id,age,cases,hosp_y,hosp_n,hosp_unknown,death_y,death_n,death_unknown,race,race_includes_hispanic,race_and_ethnicity
 CA,AIAN_NH,0-9,1,1,0,0,0,1,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
 CA,AIAN_NH,UNKNOWN,1,0,0,1,0,1,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+CA,ALL,,18,5,6,7,5,5,8,All,,All
 CA,ASIAN_NH,10-19,1,0,1,0,0,1,0,Asian,False,Asian (Non-Hispanic)
 CA,BLACK_NH,20-29,2,1,1,0,1,0,1,Black or African American,False,Black or African American (Non-Hispanic)
 CA,BLACK_NH,70-79,1,1,0,0,0,0,1,Black or African American,False,Black or African American (Non-Hispanic)
@@ -9,37 +10,36 @@ CA,HISP,80+,1,0,1,0,1,0,0,Hispanic or Latino,True,Hispanic or Latino
 CA,MULTI_OR_OTHER_STANDARD_NH,30-39,1,0,0,1,1,0,0,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
 CA,MULTI_OR_OTHER_STANDARD_NH,40-49,1,1,0,0,1,0,0,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
 CA,NHPI_NH,40-49,1,0,0,1,0,0,1,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
-CA,TOTAL,,18,5,6,7,5,5,8,All,,All
 CA,UNKNOWN,30-39,1,0,1,0,0,0,1,Unknown race,True,Unknown race
 CA,UNKNOWN,70-79,1,0,0,1,0,0,1,Unknown race,True,Unknown race
 CA,UNKNOWN,80+,1,0,0,1,0,0,1,Unknown race,True,Unknown race
 CA,UNKNOWN,UNKNOWN,2,0,1,1,1,1,0,Unknown race,True,Unknown race
 CA,WHITE_NH,20-29,1,0,1,0,0,0,1,White,False,White (Non-Hispanic)
 CA,WHITE_NH,50-59,1,0,0,1,0,0,1,White,False,White (Non-Hispanic)
-DE,TOTAL,,1,1,0,0,,,,All,,All
+DE,ALL,,1,1,0,0,,,,All,,All
 DE,UNKNOWN,70-79,1,1,0,0,,,,Unknown race,True,Unknown race
 HI,AIAN_NH,0-9,1,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-HI,TOTAL,,1,,,,,,,All,,All
+HI,ALL,,1,,,,,,,All,,All
 LA,AIAN_NH,0-9,1,1,0,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-LA,TOTAL,,1,1,0,0,0,0,1,All,,All
+LA,ALL,,1,1,0,0,0,0,1,All,,All
+MD,ALL,,1,0,0,1,1,0,0,All,,All
 MD,ASIAN_NH,10-19,1,0,0,1,1,0,0,Asian,False,Asian (Non-Hispanic)
-MD,TOTAL,,1,0,0,1,1,0,0,All,,All
 MO,AIAN_NH,0-9,1,0,1,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-MO,TOTAL,,1,0,1,0,0,0,1,All,,All
+MO,ALL,,1,0,1,0,0,0,1,All,,All
 ND,AIAN_NH,10-19,1,0,0,1,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-ND,TOTAL,,1,0,0,1,1,0,0,All,,All
+ND,ALL,,1,0,0,1,1,0,0,All,,All
+NE,ALL,,1,,,,,,,All,,All
 NE,BLACK_NH,20-29,1,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
-NE,TOTAL,,1,,,,,,,All,,All
+NM,ALL,,1,0,1,0,0,1,0,All,,All
 NM,MULTI_OR_OTHER_STANDARD_NH,30-39,1,0,1,0,0,1,0,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
-NM,TOTAL,,1,0,1,0,0,1,0,All,,All
+RI,ALL,,1,,,,1,0,0,All,,All
 RI,NHPI_NH,40-49,1,,,,1,0,0,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
-RI,TOTAL,,1,,,,1,0,0,All,,All
-SD,TOTAL,,1,,,,,,,All,,All
+SD,ALL,,1,,,,,,,All,,All
 SD,WHITE_NH,50-59,1,,,,,,,White,False,White (Non-Hispanic)
 TX,AIAN_NH,0-9,1,1,0,0,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-TX,TOTAL,,1,1,0,0,1,0,0,All,,All
+TX,ALL,,1,1,0,0,1,0,0,All,,All
+Unknown,ALL,,2,1,0,1,1,0,1,All,,All
 Unknown,BLACK_NH,30-39,1,0,0,1,0,0,1,Black or African American,False,Black or African American (Non-Hispanic)
 Unknown,BLACK_NH,40-49,1,1,0,0,1,0,0,Black or African American,False,Black or African American (Non-Hispanic)
-Unknown,TOTAL,,2,1,0,1,1,0,1,All,,All
 WY,AIAN_NH,0-9,1,0,1,0,0,1,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-WY,TOTAL,,1,0,1,0,0,1,0,All,,All
+WY,ALL,,1,0,1,0,0,1,0,All,,All

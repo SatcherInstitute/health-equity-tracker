@@ -380,7 +380,7 @@
         "preventable_hospitalizations_per_100k": 4912.0,
         "race": "All",
         "race_and_ethnicity": "All",
-        "race_category_id": "TOTAL",
+        "race_category_id": "ALL",
         "race_includes_hispanic": null,
         "state_fips": "01",
         "state_name": "Alabama",

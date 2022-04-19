@@ -1,6 +1,7 @@
 state_fips,state_name,population,population_pct,race_category_id,race,race_includes_hispanic,race_and_ethnicity
 00,United States,32403,0.4,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 00,United States,22858,0.3,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+00,United States,8194697,100.0,ALL,All,,All
 00,United States,69385,0.8,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
 00,United States,72507,0.9,ASIAN,Asian,True,Asian
 00,United States,67761,0.8,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
@@ -16,6 +17,5 @@ state_fips,state_name,population,population_pct,race_category_id,race,race_inclu
 00,United States,1624,0.02,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
 00,United States,625426,7.6,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
 00,United States,11226,0.1,OTHER_STANDARD_NH,Unrepresented race,False,Unrepresented race (Non-Hispanic)
-00,United States,8194697,100.0,TOTAL,All,,All
 00,United States,5508261,67.2,WHITE,White,True,White
 00,United States,3226652,39.4,WHITE_NH,White,False,White (Non-Hispanic)

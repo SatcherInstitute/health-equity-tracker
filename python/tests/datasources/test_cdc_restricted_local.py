@@ -97,7 +97,7 @@ def testGenerateNationalDataset():
     race_age_state_df = pd.read_csv(race_age_state, keep_default_na=False)
 
     groupby_cols = list(std_col.RACE_COLUMNS) + [std_col.AGE_COL]
-    national_df = cdc.generate_national_dataset(race_age_state_df, groupby_cols)
+    national_df = cdc.GENERATE_NATIONAL_DATASET(race_age_state_df, groupby_cols)
     expected_df = pd.read_csv(GOLDEN_DATA_NATIONAL, dtype={
         std_col.STATE_FIPS_COL: str,
         std_col.COVID_CASES: int,
