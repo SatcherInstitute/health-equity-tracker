@@ -249,8 +249,7 @@ function ReportProvider(props: ReportProviderProps) {
             We primarily incorporate the U.S. Census Bureau's American Community
             Survey (ACS) 5-year estimates when presenting population
             information. However, certain situations have required an alternate
-            approach due to incompatible or missing population data, as outlined
-            below:{" "}
+            approach due to incompatible or missing data, as outlined below:{" "}
           </p>
 
           <ul>
