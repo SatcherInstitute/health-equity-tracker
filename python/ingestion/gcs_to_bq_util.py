@@ -260,7 +260,7 @@ def load_json_as_df_from_data_dir(directory, filename, dtype=None):
 
 def load_json_as_df_from_data_dir_based_on_key_list(directory, filename, key_list):
     """Loads json data from /data/{directory}/{filename} into a DataFrame.
-       Expects the data to be in json format, stored under the given key
+       Expects the data to be in json format, stored under the given list of nested keys
 
     directory: directory within data to load from
     filename: file to load the json file from

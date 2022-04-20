@@ -139,12 +139,12 @@ def replace_state_abbr_with_names(df):
     all_state_codes_df = all_state_codes_df[[
         std_col.STATE_NAME_COL, 'state_postal_abbreviation']]
 
-    # add USA to the list of states
+    # add USA as a "state" for potentially swapping
     united_states_code = pd.DataFrame(
         [{'state_postal_abbreviation': constants.US_ABBR, std_col.STATE_NAME_COL: constants.US_NAME}])
     all_state_codes_df = pd.concat([all_state_codes_df, united_states_code])
 
-    # combine tables, effectively adding the state names to the original df
+    # swap CODES for NAMES
     df = pd.merge(df, all_state_codes_df, how='left',
                   on='state_postal_abbreviation').reset_index(drop=True)
     df = df.drop(columns=['state_postal_abbreviation'])
