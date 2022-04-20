@@ -12,7 +12,8 @@ import ingestion.standardized_columns as std_col  # type: ignore
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "uhc_brfss")
 
-GOLDEN_DATA_RACE = os.path.join(TEST_DIR, 'uhc_test_output_race_and_ethnicity.json')
+GOLDEN_DATA_RACE = os.path.join(
+    TEST_DIR, 'uhc_test_output_race_and_ethnicity.json')
 GOLDEN_DATA_AGE = os.path.join(TEST_DIR, 'uhc_test_output_age.json')
 GOLDEN_DATA_SEX = os.path.join(TEST_DIR, 'uhc_test_output_sex.json')
 
@@ -39,6 +40,18 @@ def get_age_pop_data_as_df_state():
 
 def get_sex_pop_data_as_df_state():
     return pd.read_csv(os.path.join(TEST_DIR, 'population_sex.csv'), dtype=str)
+
+
+def get_race_pop_data_as_df_territory():
+    return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_race.csv'), dtype=str)
+
+
+def get_age_pop_data_as_df_territory():
+    return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_age.csv'), dtype=str)
+
+
+def get_sex_pop_data_as_df_territory():
+    return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_sex.csv'), dtype=str)
 
 
 def get_race_pop_data_as_df_national():
@@ -99,8 +112,11 @@ def testWriteToBqRaceState(
 
     mock_pop.side_effect = [
         get_race_pop_data_as_df_state(),
+        get_race_pop_data_as_df_territory(),
         get_age_pop_data_as_df_state(),
+        get_age_pop_data_as_df_territory(),
         get_sex_pop_data_as_df_state(),
+        get_sex_pop_data_as_df_territory(),
         get_race_pop_data_as_df_national(),
         get_age_pop_data_as_df_national(),
         get_sex_pop_data_as_df_national(),
@@ -118,7 +134,7 @@ def testWriteToBqRaceState(
 
     assert mock_bq.call_count == 6
 
-    assert mock_pop.call_count == 6
+    assert mock_pop.call_count == 9
     assert mock_pop.call_args_list[0].args[1] == 'by_race_state_std'
 
     # add column type for each demographic file
@@ -149,8 +165,11 @@ def testWriteToBqAgeState(
 
     mock_pop.side_effect = [
         get_race_pop_data_as_df_state(),
+        get_race_pop_data_as_df_territory(),
         get_age_pop_data_as_df_state(),
+        get_age_pop_data_as_df_territory(),
         get_sex_pop_data_as_df_state(),
+        get_sex_pop_data_as_df_territory(),
         get_race_pop_data_as_df_national(),
         get_age_pop_data_as_df_national(),
         get_sex_pop_data_as_df_national(),
@@ -168,8 +187,8 @@ def testWriteToBqAgeState(
 
     assert mock_bq.call_count == 6
 
-    assert mock_pop.call_count == 6
-    assert mock_pop.call_args_list[1].args[1] == 'by_age_state'
+    assert mock_pop.call_count == 9
+    assert mock_pop.call_args_list[2].args[1] == 'by_age_state'
 
     expected_dtype['age'] = str
 
@@ -195,8 +214,11 @@ def testWriteToBqSexState(
 
     mock_pop.side_effect = [
         get_race_pop_data_as_df_state(),
+        get_race_pop_data_as_df_territory(),
         get_age_pop_data_as_df_state(),
+        get_age_pop_data_as_df_territory(),
         get_sex_pop_data_as_df_state(),
+        get_sex_pop_data_as_df_territory(),
         get_race_pop_data_as_df_national(),
         get_age_pop_data_as_df_national(),
         get_sex_pop_data_as_df_national(),
@@ -214,8 +236,8 @@ def testWriteToBqSexState(
 
     assert mock_bq.call_count == 6
 
-    assert mock_pop.call_count == 6
-    assert mock_pop.call_args_list[2].args[1] == 'by_sex_state'
+    assert mock_pop.call_count == 9
+    assert mock_pop.call_args_list[4].args[1] == 'by_sex_state'
 
     expected_dtype['sex'] = str
 
@@ -245,8 +267,11 @@ def testWriteToBqRaceNational(
 
     mock_pop.side_effect = [
         get_race_pop_data_as_df_state(),
+        get_race_pop_data_as_df_territory(),
         get_age_pop_data_as_df_state(),
+        get_age_pop_data_as_df_territory(),
         get_sex_pop_data_as_df_state(),
+        get_sex_pop_data_as_df_territory(),
         get_race_pop_data_as_df_national(),
         get_age_pop_data_as_df_national(),
         get_sex_pop_data_as_df_national(),
@@ -263,8 +288,8 @@ def testWriteToBqRaceNational(
 
     assert mock_bq.call_count == 6
 
-    assert mock_pop.call_count == 6
-    assert mock_pop.call_args_list[3].args[1] == 'by_race_national'
+    assert mock_pop.call_count == 9
+    assert mock_pop.call_args_list[6].args[1] == 'by_race_national'
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
@@ -282,8 +307,11 @@ def testWriteToBqAgeNational(
 
     mock_pop.side_effect = [
         get_race_pop_data_as_df_state(),
+        get_race_pop_data_as_df_territory(),
         get_age_pop_data_as_df_state(),
+        get_age_pop_data_as_df_territory(),
         get_sex_pop_data_as_df_state(),
+        get_sex_pop_data_as_df_territory(),
         get_race_pop_data_as_df_national(),
         get_age_pop_data_as_df_national(),
         get_sex_pop_data_as_df_national(),
@@ -300,8 +328,8 @@ def testWriteToBqAgeNational(
 
     assert mock_bq.call_count == 6
 
-    assert mock_pop.call_count == 6
-    assert mock_pop.call_args_list[4].args[1] == 'by_age_national'
+    assert mock_pop.call_count == 9
+    assert mock_pop.call_args_list[7].args[1] == 'by_age_national'
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
@@ -319,8 +347,11 @@ def testWriteToBqSexNational(
 
     mock_pop.side_effect = [
         get_race_pop_data_as_df_state(),
+        get_race_pop_data_as_df_territory(),
         get_age_pop_data_as_df_state(),
+        get_age_pop_data_as_df_territory(),
         get_sex_pop_data_as_df_state(),
+        get_sex_pop_data_as_df_territory(),
         get_race_pop_data_as_df_national(),
         get_age_pop_data_as_df_national(),
         get_sex_pop_data_as_df_national(),
@@ -337,5 +368,5 @@ def testWriteToBqSexNational(
 
     assert mock_bq.call_count == 6
 
-    assert mock_pop.call_count == 6
-    assert mock_pop.call_args_list[5].args[1] == 'by_sex_national'
+    assert mock_pop.call_count == 9
+    assert mock_pop.call_args_list[8].args[1] == 'by_sex_national'
