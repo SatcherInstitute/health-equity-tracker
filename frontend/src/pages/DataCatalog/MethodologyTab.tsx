@@ -276,6 +276,13 @@ function MethodologyTab() {
                   Women in Legislative Office
                 </h4>
                 <p>
+                  A link has been established between having more women in
+                  legislative office and the advancement of health equity. Women
+                  in legislative office have been known to advocate for policies
+                  that pertain to some of the crucial social and political
+                  determinants of health that impact the overall health of our
+                  nation such as education, poverty, social welfare,
+                  reproductive and maternal health and children and family life.
                   By combining data from the Center for American Women in
                   Politics (CAWP) with data from ProPublica, we are able to
                   present two distinct metrics on these reports:
