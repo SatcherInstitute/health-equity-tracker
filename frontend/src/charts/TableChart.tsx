@@ -205,24 +205,6 @@ export function TableChart(props: TableChartProps) {
   );
 }
 
-// interface UnitsProps {
-//   column: number;
-//   metric: MetricConfig[];
-//   wrap100kUnit: boolean;
-// }
-// function Units(props: UnitsProps) {
-//   if (!props.column) return null;
-
-//   const unit =
-//     props.metric[props.column - 1].type === "per100k" ? "per 100k" : "";
-
-//   // inline vs block
-//   return props.wrap100kUnit && props.column === 1 ? (
-//     <p className={styles.Unit}>{unit}</p>
-//   ) : (
-//     <span className={styles.Unit}>{unit}</span>
-//   );
-// }
 interface UnitsProps {
   column: number;
   metric: MetricConfig[];
