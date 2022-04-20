@@ -282,9 +282,9 @@ function MethodologyTab() {
                 </p>
                 <ul>
                   <li>
-                    The race/ethnicity “percent share” of women (e.g. "What
-                    percent of women in the Georgia State Legislature are
-                    black?"){" "}
+                    The race/ethnicity distribution or “percent share” of women
+                    (e.g. "What percent of women in the Georgia State
+                    Legislature are black?"){" "}
                   </li>
 
                   <li>
