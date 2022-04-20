@@ -2,9 +2,7 @@ import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import AcsPopulationProvider, {
-  GetAcsDatasetId,
-} from "./AcsPopulationProvider";
+import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 import {
   UNKNOWN_RACE,
@@ -38,11 +36,8 @@ export function getWomenRaceLabel(raceLabel: string) {
 }
 
 class CawpProvider extends VariableProvider {
-  private acsProvider: AcsPopulationProvider;
-
-  constructor(acsProvider: AcsPopulationProvider) {
+  constructor() {
     super("cawp_provider", ["cawp_population_pct", ...CAWP_DETERMINANTS]);
-    this.acsProvider = acsProvider;
   }
 
   getDatasetId(breakdowns: Breakdowns): string {

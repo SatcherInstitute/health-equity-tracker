@@ -32,7 +32,7 @@ export default class VariableProviderMap {
       acsProvider,
       acs2010Provider,
       new CdcCovidProvider(acsProvider),
-      new CawpProvider(acsProvider),
+      new CawpProvider(),
       new BrfssProvider(),
       new AcsHealthInsuranceProvider(),
       new AcsPovertyProvider(),
