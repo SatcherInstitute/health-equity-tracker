@@ -145,9 +145,11 @@ class UHCData(DataSource):
         for geo in ['state', 'national']:
             loc_df = df.copy()
             if geo == 'national':
-                loc_df = loc_df.loc[loc_df[std_col.STATE_NAME_COL] == constants.US_NAME]
+                loc_df = loc_df.loc[loc_df[std_col.STATE_NAME_COL]
+                                    == constants.US_NAME]
             else:
-                loc_df = loc_df.loc[loc_df[std_col.STATE_NAME_COL] != constants.US_NAME]
+                loc_df = loc_df.loc[loc_df[std_col.STATE_NAME_COL]
+                                    != constants.US_NAME]
 
             for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
                 breakdown_df = loc_df.copy()
@@ -157,8 +159,10 @@ class UHCData(DataSource):
                 column_types = {c: 'STRING' for c in breakdown_df.columns}
 
                 for col in UHC_DETERMINANTS.values():
-                    column_types[std_col.generate_column_name(col, std_col.PER_100K_SUFFIX)] = 'FLOAT'
-                    column_types[std_col.generate_column_name(col, std_col.PCT_SHARE_SUFFIX)] = 'FLOAT'
+                    column_types[std_col.generate_column_name(
+                        col, std_col.PER_100K_SUFFIX)] = 'FLOAT'
+                    column_types[std_col.generate_column_name(
+                        col, std_col.PCT_SHARE_SUFFIX)] = 'FLOAT'
 
                 column_types[std_col.BRFSS_POPULATION_PCT] = 'FLOAT'
 
@@ -194,7 +198,8 @@ def parse_raw_data(df, breakdown):
                 output_row[breakdown] = breakdown_value.strip()
 
             for determinant, prefix in UHC_DETERMINANTS.items():
-                per_100k_col_name = std_col.generate_column_name(prefix, std_col.PER_100K_SUFFIX)
+                per_100k_col_name = std_col.generate_column_name(
+                    prefix, std_col.PER_100K_SUFFIX)
 
                 if breakdown_value in {'All', 'Total'}:
                     # find row that matches current nested iterations
@@ -207,7 +212,7 @@ def parse_raw_data(df, breakdown):
                     # TOTAL voter_participation is avg of pres and midterm data
                     if determinant in AVERAGED_DETERMINANTS:
                         output_row[per_100k_col_name] = get_average_determinate_value(
-                                matched_row, 'Voter Participation (Midterm)', df, state)
+                            matched_row, 'Voter Participation (Midterm)', df, state)
 
                     # already per 100k
                     elif determinant in PER100K_DETERMINANTS:
@@ -285,36 +290,43 @@ def post_process(breakdown_df, breakdown, geo):
     breakdown_df = dataset_utils.merge_fips_codes(breakdown_df)
 
     breakdown_name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
-    breakdown_df = dataset_utils.merge_pop_numbers(breakdown_df, breakdown_name, geo)
-    breakdown_df = breakdown_df.rename(columns={std_col.POPULATION_PCT_COL: std_col.BRFSS_POPULATION_PCT})
-    breakdown_df[std_col.BRFSS_POPULATION_PCT] = breakdown_df[std_col.BRFSS_POPULATION_PCT].astype(float)
+    breakdown_df = dataset_utils.merge_pop_numbers(
+        breakdown_df, breakdown_name, geo)
+    breakdown_df = breakdown_df.rename(
+        columns={std_col.POPULATION_PCT_COL: std_col.BRFSS_POPULATION_PCT})
+    breakdown_df[std_col.BRFSS_POPULATION_PCT] = breakdown_df[std_col.BRFSS_POPULATION_PCT].astype(
+        float)
 
     for determinant in UHC_DETERMINANTS.values():
-        per_100k_col = std_col.generate_column_name(determinant, std_col.PER_100K_SUFFIX)
+        per_100k_col = std_col.generate_column_name(
+            determinant, std_col.PER_100K_SUFFIX)
         breakdown_df[std_col.generate_column_name(determinant, 'estimated_total')] \
             = breakdown_df.apply(estimate_total, axis=1, args=(per_100k_col, ))
 
     for determinant in UHC_DETERMINANTS.values():
-        raw_count_col = std_col.generate_column_name(determinant, 'estimated_total')
-        pct_share_col = std_col.generate_column_name(determinant, std_col.PCT_SHARE_SUFFIX)
+        raw_count_col = std_col.generate_column_name(
+            determinant, 'estimated_total')
+        pct_share_col = std_col.generate_column_name(
+            determinant, std_col.PCT_SHARE_SUFFIX)
 
         total_val = Race.TOTAL.value if breakdown == std_col.RACE_CATEGORY_ID_COL else std_col.TOTAL_VALUE
         breakdown_df = dataset_utils.generate_pct_share_col(
-                breakdown_df, raw_count_col, pct_share_col, breakdown, total_val)
+            breakdown_df, raw_count_col, pct_share_col, breakdown, total_val)
 
     for determinant in UHC_DETERMINANTS.values():
-        breakdown_df = breakdown_df.drop(columns=std_col.generate_column_name(determinant, 'estimated_total'))
+        breakdown_df = breakdown_df.drop(
+            columns=std_col.generate_column_name(determinant, 'estimated_total'))
 
     breakdown_df = breakdown_df.drop(columns=std_col.POPULATION_COL)
     return breakdown_df
 
 
 def get_average_determinate_value(matched_row, measure_name, df, state):
-    """Gets the average value of two determinents, ignores null values.
+    """Gets the average value of two determinants, ignores null values.
 
        matched_row: row in the dataset that matches the measure and demographic we are looking for
        measure_name: measure name that we want to average with
-       df: the dataframe containing all informaiton
+       df: the dataframe containing all information
        state: string state name"""
 
     pres_breakdown_value, mid_breakdown_value = np.nan, np.nan
