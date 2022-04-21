@@ -354,17 +354,20 @@ function TwoVariableReport(props: {
         fips2={props.fips2}
         updateFips1={props.updateFips1Callback}
         updateFips2={props.updateFips2Callback}
+        jumpToData={props.jumpToData}
         createCard={(
           variableConfig: VariableConfig,
           fips: Fips,
           updateFips: (fips: Fips) => void,
-          dropdownVarId?: DropdownVarId
+          dropdownVarId?: DropdownVarId,
+          jumpToData?: Function
         ) => (
           <AgeAdjustedTableCard
             fips={fips}
             variableConfig={variableConfig}
             breakdownVar={currentBreakdown}
             dropdownVarId={dropdownVarId}
+            jumpToData={jumpToData}
           />
         )}
       />
@@ -384,10 +387,12 @@ function RowOfTwoOptionalMetrics(props: {
     variableConfig: VariableConfig,
     fips: Fips,
     updateFips: (fips: Fips) => void,
-    dropdownVarId?: DropdownVarId
+    dropdownVarId?: DropdownVarId,
+    jumpToData?: Function
   ) => JSX.Element;
   dropdownVarId1?: DropdownVarId;
   dropdownVarId2?: DropdownVarId;
+  jumpToData?: Function;
 }) {
   if (!props.variableConfig1 && !props.variableConfig2) {
     return <></>;
@@ -406,7 +411,8 @@ function RowOfTwoOptionalMetrics(props: {
                 props.variableConfig1,
                 props.fips1,
                 props.updateFips1 || unusedFipsCallback,
-                props.dropdownVarId1
+                props.dropdownVarId1,
+                props.jumpToData
               )}
             </>
           )}
@@ -420,7 +426,8 @@ function RowOfTwoOptionalMetrics(props: {
                 props.variableConfig2,
                 props.fips2,
                 props.updateFips2 || unusedFipsCallback,
-                props.dropdownVarId2
+                props.dropdownVarId2,
+                props.jumpToData
               )}
             </>
           )}
