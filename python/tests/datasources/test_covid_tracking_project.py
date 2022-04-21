@@ -133,7 +133,7 @@ def testMergeWithMetadata():
         col_std.Race.ETHNICITY_UNKNOWN.race,
         col_std.Race.OTHER_NONSTANDARD.race,
         col_std.Race.UNKNOWN.race,
-        col_std.Race.TOTAL.race
+        col_std.Race.ALL.race
     }
     assert set(df[col_std.RACE_COL]) == expected_race_categories
 

@@ -4,16 +4,16 @@ import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
 
 
-def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, total_val):
+def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, all_val):
     """Returns a DataFrame with a percent share row based on the raw_count_col
-       Each row must have a corresponding 'TOTAL' row.
+       Each row must have a corresponding 'ALL' row.
 
        df: DataFrame to generate the `pct_share_col` for.
        raw_count_col: String column name with the
                       raw count to use to calculate the `pct_share_col`.
        pct_share_col: String column name to create with the percent share.
        breakdown_col: The name of column to calculate the percent across.
-       total_val: The value representing 'ALL' or 'TOTAL'"""
+       all_val: The value representing 'ALL'"""
 
     def calc_pct_share(record, total_value):
         record[pct_share_col] = percent_avoid_rounding_to_zero(
@@ -28,14 +28,14 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, tota
     grouped = df.groupby(groupby_cols)
 
     for _, group_df in grouped:
-        total_row = group_df.loc[(group_df[breakdown_col] == total_val)]
+        total_row = group_df.loc[(group_df[breakdown_col] == all_val)]
 
         if len(total_row) == 0:
-            raise ValueError("There is no TOTAL value for this chunk of data")
+            raise ValueError("There is no ALL value for this chunk of data")
 
         if len(total_row) > 1:
             raise ValueError(
-                "There are multiple TOTAL values for this chunk of data, there should only be one")
+                "There are multiple ALL values for this chunk of data, there should only be one")
 
         total = total_row[raw_count_col].values[0]
         with_pct_share.append(group_df.reset_index(

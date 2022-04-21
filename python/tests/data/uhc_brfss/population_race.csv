@@ -16,6 +16,6 @@ state_fips,state_name,population,population_pct,race_category_id,race,race_inclu
 01,Alabama,1603,0.03,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
 01,Alabama,70662,1.4,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
 01,Alabama,8083,0.2,OTHER_STANDARD_NH,Unrepresented race,False,Unrepresented race (Non-Hispanic)
-01,Alabama,4876250,100.0,TOTAL,Total,,Total
+01,Alabama,4876250,100.0,ALL,All,,All
 01,Alabama,3320247,68.1,WHITE,White,True,White
 01,Alabama,3194929,65.5,WHITE_NH,White,False,White (Non-Hispanic)

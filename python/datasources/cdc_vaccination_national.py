@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas as pd  # type: ignore
 
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
@@ -12,7 +12,7 @@ CDC_SEX_GROUPS_TO_STANDARD = {
     'Sex_Female': Sex.FEMALE,
     'Sex_Male': Sex.MALE,
     'Sex_unknown': 'Unknown',
-    'US': std_col.TOTAL_VALUE,
+    'US': std_col.ALL_VALUE,
 }
 
 CDC_RACE_GROUPS_TO_STANDARD = {
@@ -24,7 +24,7 @@ CDC_RACE_GROUPS_TO_STANDARD = {
     'Race_eth_NHNHOPI': Race.NHPI_NH.value,
     'Race_eth_NHWhite': Race.WHITE_NH.value,
     'Race_eth_unknown': Race.UNKNOWN.value,
-    'US': Race.TOTAL.value,
+    'US': Race.ALL.value,
 }
 
 CDC_AGE_GROUPS_TO_STANDARD = {
@@ -37,7 +37,7 @@ CDC_AGE_GROUPS_TO_STANDARD = {
     'Ages_65-74_yrs': '65-74',
     'Ages_75+_yrs': '75+',
     'Age_unknown': 'Unknown',
-    'US': std_col.TOTAL_VALUE,
+    'US': std_col.ALL_VALUE,
 }
 
 
@@ -145,7 +145,7 @@ class CDCVaccinationNational(DataSource):
                 output_row[std_col.VACCINATED_SHARE_OF_KNOWN] = row['administered_dose1_pct_known'].values[0]
 
             # Manually set this to 100%
-            if standard_group == std_col.TOTAL_VALUE or standard_group == Race.TOTAL.value:
+            if standard_group == std_col.ALL_VALUE or standard_group == Race.ALL.value:
                 output_row[std_col.VACCINATED_SHARE_OF_KNOWN] = 100.0
 
             if breakdown == std_col.AGE_COL and standard_group != "Unknown":

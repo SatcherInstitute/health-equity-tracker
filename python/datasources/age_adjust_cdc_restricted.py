@@ -1,5 +1,5 @@
 import ingestion.standardized_columns as std_col
-import pandas as pd
+import pandas as pd  # type: ignore
 
 import datasources.census_pop_estimates as census_pop_estimates
 import datasources.cdc_restricted_local as cdc_restricted_local
@@ -8,7 +8,7 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion import dataset_utils
 
-REFERENCE_POPULATION = std_col.Race.TOTAL.value
+REFERENCE_POPULATION = std_col.Race.ALL.value
 BASE_POPULATION = std_col.Race.WHITE_NH.value
 
 AGE_ADJUST_RACES = {std_col.Race.WHITE_NH.value, std_col.Race.BLACK_NH.value, std_col.Race.HISP.value,
