@@ -53,9 +53,7 @@ class CawpProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
-
     const datasetId = this.getDatasetId(breakdowns);
-
     const cawp = await getDataManager().loadDataset(datasetId);
     let df = cawp.toDataFrame();
 
@@ -94,7 +92,7 @@ class CawpProvider extends VariableProvider {
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     const validDemographicBreakdownRequest =
-      !breakdowns.time && breakdowns.hasExactlyOneDemographic();
+      !breakdowns.time && breakdowns.hasOnlyRace();
 
     return (
       (breakdowns.geography === "state" ||

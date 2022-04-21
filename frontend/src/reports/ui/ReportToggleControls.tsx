@@ -14,11 +14,12 @@ import {
   DEMOGRAPHIC_BREAKDOWNS,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../../data/query/Breakdowns";
+import { RACE } from "../../data/utils/Constants";
 
 export const DATA_TYPE_LABEL = "Data Type";
 export const DEMOGRAPHIC_LABEL = "Demographic";
 
-export const hideDemographicToggleList: VariableId[] = [
+export const raceOnlyToggleList: VariableId[] = [
   "women_state_legislatures",
   "women_us_congress",
 ];
@@ -47,7 +48,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
     !!METRIC_CONFIG[props.dropdownVarId] &&
     METRIC_CONFIG[props.dropdownVarId].length > 1;
 
-  const hideDemographicToggle = hideDemographicToggleList.includes(
+  const onlyEnableRace = raceOnlyToggleList.includes(
     props.variableConfig.variableId
   );
 
@@ -88,37 +89,36 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
           </ToggleButtonGroup>
         </Grid>
       )}
-      {!hideDemographicToggle && (
-        <Grid item className={styles.ToggleBlock}>
-          <div className={styles.ToggleLabel}>{DEMOGRAPHIC_LABEL}</div>
-          <div id="onboarding-explore-trends">
-            {/* DEMOGRAPHIC TOGGLE */}
-            <ToggleButtonGroup
-              exclusive
-              value={props.currentBreakdown}
-              onChange={(e, v) => {
-                if (v !== null) {
-                  props.setCurrentBreakdown(v);
+      <Grid item className={styles.ToggleBlock}>
+        <div className={styles.ToggleLabel}>{DEMOGRAPHIC_LABEL}</div>
+        <div id="onboarding-explore-trends">
+          {/* DEMOGRAPHIC TOGGLE */}
+          <ToggleButtonGroup
+            exclusive
+            value={props.currentBreakdown}
+            onChange={(e, v) => {
+              if (v !== null) {
+                props.setCurrentBreakdown(v);
+              }
+            }}
+          >
+            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+              <ToggleButton
+                disabled={onlyEnableRace && breakdownVar !== RACE}
+                value={breakdownVar}
+                key={breakdownVar}
+                aria-label={
+                  BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar] +
+                  " " +
+                  DEMOGRAPHIC_LABEL
                 }
-              }}
-            >
-              {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                <ToggleButton
-                  value={breakdownVar}
-                  key={breakdownVar}
-                  aria-label={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar] +
-                    " " +
-                    DEMOGRAPHIC_LABEL
-                  }
-                >
-                  {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
-                </ToggleButton>
-              ))}
-            </ToggleButtonGroup>
-          </div>
-        </Grid>
-      )}
+              >
+                {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
+              </ToggleButton>
+            ))}
+          </ToggleButtonGroup>
+        </div>
+      </Grid>
     </Grid>
   );
 }
