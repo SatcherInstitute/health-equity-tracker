@@ -4,7 +4,7 @@
         "state_name": "United States",
         "population": "328016242",
         "population_pct": "100.0",
-        "race_category_id": "TOTAL",
+        "race_category_id": "ALL",
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total"
