@@ -6,6 +6,7 @@ export interface DataSourceMetadata {
   readonly description: string;
   readonly dataset_ids: string[];
   readonly data_source_name: string;
+  readonly data_source_pretty_site_name: string;
   readonly data_source_link: string;
   readonly geographic_level: string;
   readonly demographic_granularity: string;

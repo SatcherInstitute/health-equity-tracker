@@ -136,6 +136,20 @@ export function DataSourceListing(props: DataSourceListingProps) {
             </td>
             <td>{props.source_metadata.update_frequency}</td>
           </tr>
+          <tr>
+            <td>
+              <b>Source Website</b>
+            </td>
+            <td>
+              <Link
+                href={props.source_metadata.data_source_link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {props.source_metadata.data_source_pretty_site_name}
+              </Link>
+            </td>
+          </tr>
         </tbody>
       </table>
       <p className={styles.Description}>{props.source_metadata.description}</p>
