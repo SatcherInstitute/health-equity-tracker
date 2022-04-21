@@ -193,7 +193,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_link: "https://cawpdata.rutgers.edu/",
     geographic_level: "National, State",
     demographic_granularity: "Race/ethnicity",
-    update_frequency: "Daily",
+    update_frequency: "Monthly",
     description:
       "Representation of women, by race/ethnicity, in the US Congress and state legislatures.",
     dataset_ids: [

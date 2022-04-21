@@ -1,5 +1,5 @@
 import { getDataManager } from "../../utils/globals";
-import { MetricId } from "../config/MetricConfig";
+import { MetricId, VariableId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
@@ -19,6 +19,11 @@ export const CAWP_DETERMINANTS: MetricId[] = [
   "women_us_congress_pct",
   "women_us_congress_pct_share",
   "women_us_congress_ratio_age_adjusted",
+];
+
+export const CAWP_DATA_TYPES: VariableId[] = [
+  "women_state_legislatures",
+  "women_us_congress",
 ];
 
 export function getWomenRaceLabel(raceLabel: string) {
