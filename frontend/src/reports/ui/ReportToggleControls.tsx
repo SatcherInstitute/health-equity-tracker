@@ -6,6 +6,7 @@ import {
   DropdownVarId,
   METRIC_CONFIG,
   VariableConfig,
+  VariableId,
 } from "../../data/config/MetricConfig";
 import styles from "../Report.module.scss";
 import {
@@ -16,6 +17,27 @@ import {
 
 export const DATA_TYPE_LABEL = "Data Type";
 export const DEMOGRAPHIC_LABEL = "Demographic";
+
+/* Checks each demographic toggle option and disables if variableId doesn't offer that data at any geographic level*/
+function getToggleOptionStatus(
+  breakdownVar: BreakdownVar,
+  variableId: VariableId
+) {
+  const variableIdsMissingBreakdowns: Record<BreakdownVar, VariableId[]> = {
+    age: [
+      "non_medical_drug_use",
+      "non_medical_rx_opioid_use",
+      "illicit_opioid_use",
+      "preventable_hospitalizations",
+    ],
+    sex: [],
+    race_and_ethnicity: [],
+    fips: [],
+    date: [],
+  };
+
+  return variableIdsMissingBreakdowns[breakdownVar].includes(variableId);
+}
 
 interface ReportToggleControlsProps {
   dropdownVarId: DropdownVarId;
@@ -46,7 +68,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
       {enableMetricToggle && (
         <Grid className={styles.ToggleBlock}>
           <div className={styles.ToggleLabel}>
-            {props.dropdownVarId + " " + DATA_TYPE_LABEL}
+            {props.dropdownVarId.replaceAll("_", " ") + " " + DATA_TYPE_LABEL}
           </div>
           {/* DATA TYPE TOGGLE */}
           <ToggleButtonGroup
@@ -78,37 +100,39 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
           </ToggleButtonGroup>
         </Grid>
       )}
-      {
-        <Grid item className={styles.ToggleBlock}>
-          <div className={styles.ToggleLabel}>{DEMOGRAPHIC_LABEL}</div>
-          <div id="onboarding-explore-trends">
-            {/* DEMOGRAPHIC TOGGLE */}
-            <ToggleButtonGroup
-              exclusive
-              value={props.currentBreakdown}
-              onChange={(e, v) => {
-                if (v !== null) {
-                  props.setCurrentBreakdown(v);
+      <Grid item className={styles.ToggleBlock}>
+        <div className={styles.ToggleLabel}>{DEMOGRAPHIC_LABEL}</div>
+        <div id="onboarding-explore-trends">
+          {/* DEMOGRAPHIC TOGGLE */}
+          <ToggleButtonGroup
+            exclusive
+            value={props.currentBreakdown}
+            onChange={(e, v) => {
+              if (v !== null) {
+                props.setCurrentBreakdown(v);
+              }
+            }}
+          >
+            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+              <ToggleButton
+                disabled={getToggleOptionStatus(
+                  breakdownVar,
+                  props.variableConfig.variableId
+                )}
+                value={breakdownVar}
+                key={breakdownVar}
+                aria-label={
+                  BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar] +
+                  " " +
+                  DEMOGRAPHIC_LABEL
                 }
-              }}
-            >
-              {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                <ToggleButton
-                  value={breakdownVar}
-                  key={breakdownVar}
-                  aria-label={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar] +
-                    " " +
-                    DEMOGRAPHIC_LABEL
-                  }
-                >
-                  {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
-                </ToggleButton>
-              ))}
-            </ToggleButtonGroup>
-          </div>
-        </Grid>
-      }
+              >
+                {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
+              </ToggleButton>
+            ))}
+          </ToggleButtonGroup>
+        </div>
+      </Grid>
     </Grid>
   );
 }
