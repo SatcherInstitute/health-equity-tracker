@@ -117,13 +117,13 @@
         "women_state_leg_pct_share": 100.0,
         "women_us_congress_pct": 50.0,
         "women_us_congress_pct_share": 100.0,
-        "race_category_id": "TOTAL",
-        "race_women": "Total Women",
+        "race_category_id": "ALL",
+        "race_women": "All Women",
         "state_fips": "02",
         "population_pct": 100.0,
-        "race": "Total",
+        "race": "All",
         "race_includes_hispanic": null,
-        "race_and_ethnicity": "Total"
+        "race_and_ethnicity": "All"
     },
     {
         "state_name": "American Samoa",
@@ -243,13 +243,13 @@
         "women_state_leg_pct_share": 100.0,
         "women_us_congress_pct": 100.0,
         "women_us_congress_pct_share": 100.0,
-        "race_category_id": "TOTAL",
-        "race_women": "Total Women",
+        "race_category_id": "ALL",
+        "race_women": "All Women",
         "state_fips": "60",
         "population_pct": 100.0,
-        "race": "Total",
+        "race": "All",
         "race_includes_hispanic": null,
-        "race_and_ethnicity": "Total"
+        "race_and_ethnicity": "All"
     },
     {
         "state_name": "Nebraska",
@@ -369,12 +369,12 @@
         "women_state_leg_pct_share": 100.0,
         "women_us_congress_pct": 20.0,
         "women_us_congress_pct_share": 100.0,
-        "race_category_id": "TOTAL",
-        "race_women": "Total Women",
+        "race_category_id": "ALL",
+        "race_women": "All Women",
         "state_fips": "31",
         "population_pct": 100.0,
-        "race": "Total",
+        "race": "All",
         "race_includes_hispanic": null,
-        "race_and_ethnicity": "Total"
+        "race_and_ethnicity": "All"
     }
 ]
