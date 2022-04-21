@@ -92,13 +92,9 @@ class BrfssProvider extends VariableProvider {
     const brfss = await getDataManager().loadDataset(datasetId);
     let df = brfss.toDataFrame();
 
-    const breakdownColumnName =
-      breakdowns.getSoleDemographicBreakdown().columnName;
-
     const consumedDatasetIds = [datasetId, GetAcsDatasetId(breakdowns)];
 
     df = this.filterByGeo(df, breakdowns);
-    df = this.renameTotalToAll(df, breakdownColumnName);
     df = this.renameGeoColumns(df, breakdowns);
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
