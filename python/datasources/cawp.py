@@ -18,7 +18,7 @@ COUNT_W = "total_count_women"
 
 RATIO_COL = "Total Women/Total Legislators"
 PCT_W_COL = "%Women Overall"
-STATE_COL_TOTAL = "State"
+STATE_COL_CAWP_TOTALS = "State"
 STATE_COL_LINE = "state"
 POSITION_COL = "position"
 
@@ -40,7 +40,7 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
     'Black': Race.BLACK.value,
     'White': Race.WHITE.value,
     'Unavailable': Race.UNKNOWN.value,
-    'All': Race.TOTAL.value
+    'All': Race.ALL.value
 }
 
 CAWP_DATA_TYPES = {
@@ -189,13 +189,13 @@ class CAWPData(DataSource):
         # load in table STATE LEGISLATURES total members by race/state
         df_state_leg_totals = gcs_to_bq_util.load_csv_as_df_from_web(
             CAWP_TOTALS_URL)
-        df_state_leg_totals = df_state_leg_totals[[STATE_COL_TOTAL,
+        df_state_leg_totals = df_state_leg_totals[[STATE_COL_CAWP_TOTALS,
                                                    RATIO_COL,
                                                   PCT_W_COL]]
         df_state_leg_totals = df_state_leg_totals.dropna()
         df_state_leg_totals = df_state_leg_totals.applymap(remove_markup)
         df_state_leg_totals = df_state_leg_totals.rename(
-            columns={STATE_COL_TOTAL: POSTAL_COL})
+            columns={STATE_COL_CAWP_TOTALS: POSTAL_COL})
         df_state_leg_totals = replace_state_abbr_with_names(
             df_state_leg_totals)
         df_state_leg_totals[[COUNT_W, COUNT_ALL]
@@ -261,16 +261,12 @@ class CAWPData(DataSource):
                   COUNT_W: df_state_leg_totals[COUNT_W].astype(int).sum(),
                   COUNT_ALL: df_state_leg_totals[COUNT_ALL].astype(int).sum()}])
 
-            # add US row to other PLACE rows
-            df_state_leg_totals = pd.concat(
-                [df_state_leg_totals, national_sum_state_leg_count], ignore_index=True)
-
-            # add a row for US and set value to the sum of all states/territories
             us_congress_count = pd.DataFrame(
                 [{std_col.STATE_NAME_COL: constants.US_NAME, COUNT_ALL: df_us_congress_totals[COUNT_ALL].sum()}])
 
-            df_us_congress_totals = pd.concat(
-                [df_us_congress_totals, us_congress_count], ignore_index=True)
+            # replace state/terr dfs with just US dfs
+            df_state_leg_totals = national_sum_state_leg_count
+            df_us_congress_totals = us_congress_count
 
         elif level == STATE:
             all_places = df_us_congress_totals[std_col.STATE_NAME_COL].to_list(
