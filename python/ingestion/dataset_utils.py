@@ -114,14 +114,17 @@ def merge_fips_codes(df):
        df: dataframe to merge fips codes into, with a `state_name` column"""
 
     all_fips_codes_df = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
-            'census_utility', 'fips_codes_states', dtype={'state_fips_code': str})
+        'census_utility', 'fips_codes_states', dtype={'state_fips_code': str})
 
-    united_states_fips = pd.DataFrame([{'state_fips_code': constants.US_FIPS, 'state_name': constants.US_NAME}])
+    united_states_fips = pd.DataFrame(
+        [{'state_fips_code': constants.US_FIPS, 'state_name': constants.US_NAME}])
     all_fips_codes_df = all_fips_codes_df[['state_fips_code', 'state_name']]
     all_fips_codes_df = pd.concat([all_fips_codes_df, united_states_fips])
 
-    df = pd.merge(df, all_fips_codes_df, how='left', on=std_col.STATE_NAME_COL).reset_index(drop=True)
-    df = df.rename(columns={'state_fips_code': std_col.STATE_FIPS_COL}).reset_index(drop=True)
+    df = pd.merge(df, all_fips_codes_df, how='left',
+                  on=std_col.STATE_NAME_COL).reset_index(drop=True)
+    df = df.rename(
+        columns={'state_fips_code': std_col.STATE_FIPS_COL}).reset_index(drop=True)
 
     return df
 
@@ -139,15 +142,39 @@ def merge_pop_numbers(df, demo, loc):
         'sex': std_col.SEX_COL,
     }
 
+    pop_dtype = {std_col.STATE_FIPS_COL: str,
+                 std_col.POPULATION_COL: object,
+                 std_col.POPULATION_PCT_COL: float}
+
     if demo not in on_col_map:
-        raise ValueError('%s not a demographic option, must be one of: %s' % (demo, list(on_col_map.keys())))
+        raise ValueError('%s not a demographic option, must be one of: %s' % (
+            demo, list(on_col_map.keys())))
 
     pop_table_name = 'by_%s_%s' % (demo, loc)
+
+    # all states, DC, PR
     if demo == 'race' and loc == 'state':
         pop_table_name += '_std'
 
-    pop_df = gcs_to_bq_util.load_df_from_bigquery('acs_population', pop_table_name, dtype={'state_fips': str})
-    pop_df = pop_df[[std_col.STATE_FIPS_COL, on_col_map[demo], std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
+    pop_df = gcs_to_bq_util.load_df_from_bigquery(
+        'acs_population', pop_table_name, pop_dtype)
+    pop_df = pop_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
+                     std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
 
-    df = pd.merge(df, pop_df, how='left', on=[std_col.STATE_FIPS_COL, on_col_map[demo]])
+    # other territories from ACS 2010 (VI, GU, AS, MP)
+    if loc == 'state':
+        verbose_demo = "race_and_ethnicity" if demo == 'race' else demo
+        pop_2010_table_name = 'by_%s_territory' % (
+            verbose_demo)
+
+        pop_2010_df = gcs_to_bq_util.load_df_from_bigquery(
+            'acs_2010_population', pop_2010_table_name, pop_dtype)
+        pop_2010_df = pop_2010_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
+                                   std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
+        pop_df = pd.concat([pop_df, pop_2010_df])
+        pop_df = pop_df.sort_values(std_col.STATE_FIPS_COL)
+
+    df = pd.merge(df, pop_df, how='left', on=[
+                  std_col.STATE_FIPS_COL, on_col_map[demo]])
+
     return df.reset_index(drop=True)
