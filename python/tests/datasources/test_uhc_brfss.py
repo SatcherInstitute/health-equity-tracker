@@ -41,21 +41,6 @@ def get_age_pop_data_as_df_state():
 def get_sex_pop_data_as_df_state():
     return pd.read_csv(os.path.join(TEST_DIR, 'population_sex.csv'), dtype=str)
 
-# UHC Data doesn't include ACS2010 population info for (VI, GU, AS, MP)
-# so we can mock getting nothing
-
-
-def get_race_pop_data_as_df_territory():
-    return pd.DataFrame()
-
-
-def get_age_pop_data_as_df_territory():
-    return pd.DataFrame()
-
-
-def get_sex_pop_data_as_df_territory():
-    return pd.DataFrame()
-
 
 def get_race_pop_data_as_df_territory():
     return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_race.csv'), dtype=str)
