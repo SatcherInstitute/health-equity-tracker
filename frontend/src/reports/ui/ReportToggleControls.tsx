@@ -13,30 +13,24 @@ import {
   BreakdownVar,
   DEMOGRAPHIC_BREAKDOWNS,
   BREAKDOWN_VAR_DISPLAY_NAMES,
+  GeographicBreakdown,
 } from "../../data/query/Breakdowns";
+import { Fips } from "../../data/utils/Fips";
+import { dataGaps } from "../../data/utils/datasetutils";
 
 export const DATA_TYPE_LABEL = "Data Type";
 export const DEMOGRAPHIC_LABEL = "Demographic";
 
-/* Checks each demographic toggle option and disables if variableId doesn't offer that data at any geographic level*/
+/* 
+Checks for data gaps at current Datatype/Demographic/GeoLevel and 
+*/
 function getToggleOptionStatus(
   breakdownVar: BreakdownVar,
-  variableId: VariableId
+  variableId: VariableId,
+  fips: Fips
 ) {
-  const variableIdsMissingBreakdowns: Record<BreakdownVar, VariableId[]> = {
-    age: [
-      "non_medical_drug_use",
-      "non_medical_rx_opioid_use",
-      "illicit_opioid_use",
-      "preventable_hospitalizations",
-    ],
-    sex: [],
-    race_and_ethnicity: [],
-    fips: [],
-    date: [],
-  };
-
-  return variableIdsMissingBreakdowns[breakdownVar].includes(variableId);
+  const geoLevel = fips.getFipsTypeDisplayName() as GeographicBreakdown;
+  return dataGaps[geoLevel]?.[breakdownVar]?.includes(variableId);
 }
 
 interface ReportToggleControlsProps {
@@ -45,6 +39,7 @@ interface ReportToggleControlsProps {
   setVariableConfig: (variableConfig: VariableConfig) => void;
   currentBreakdown: BreakdownVar;
   setCurrentBreakdown: (breakdown: BreakdownVar) => void;
+  fips: Fips;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -117,7 +112,8 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
               <ToggleButton
                 disabled={getToggleOptionStatus(
                   breakdownVar,
-                  props.variableConfig.variableId
+                  props.variableConfig.variableId,
+                  props.fips
                 )}
                 value={breakdownVar}
                 key={breakdownVar}
