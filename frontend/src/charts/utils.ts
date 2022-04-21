@@ -2,7 +2,7 @@ import { formatFieldValue, MetricConfig } from "../data/config/MetricConfig";
 import { BreakdownVar } from "../data/query/Breakdowns";
 import { Row } from "../data/utils/DatasetTypes";
 
-export type VisualizationType = "chart" | "map";
+export type VisualizationType = "chart" | "map" | "table";
 
 export const PADDING_FOR_ACTIONS_MENU = 30;
 
@@ -21,7 +21,7 @@ export function oneLineLabel(field: string) {
   return `join(split(datum.${field}, '${DELIMITER}'), ' ')`;
 }
 
-// We use nested ternerys to determine the label's y axis delta based on the number of lines in the label to vertically align
+// We use nested ternaries to determine the label's y axis delta based on the number of lines in the label to vertically align
 export const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? -3 : length(${MULTILINE_LABEL}) > 2 ? -7 : 5`;
 
 export function addLineBreakDelimitersToField(

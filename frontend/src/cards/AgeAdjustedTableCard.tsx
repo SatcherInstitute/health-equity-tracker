@@ -28,6 +28,7 @@ import {
   ALL,
   WHITE_NH,
   MULTI_OR_OTHER_STANDARD_NH,
+  AGE,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import Alert from "@material-ui/lab/Alert";
@@ -40,6 +41,7 @@ import {
   COVID_HOSP_US_SETTING,
 } from "../utils/urlutils";
 import { Link } from "react-router-dom";
+import UnknownsAlert from "./ui/UnknownsAlert";
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 
@@ -60,13 +62,20 @@ export interface AgeAdjustedTableCardProps {
   breakdownVar: BreakdownVar;
   dropdownVarId?: DropdownVarId;
   setVariableConfigWithParam?: Function;
+  jumpToData?: Function;
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const metrics = getAgeAdjustedRatioMetric(props.variableConfig);
+  const metricConfigPctShare = props.variableConfig.metrics["pct_share"];
 
-  const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
+  const raceBreakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     RACE,
+    exclude(...exclusionList)
+  );
+
+  const ageBreakdowns = Breakdowns.forFips(props.fips).addBreakdown(
+    AGE,
     exclude(...exclusionList)
   );
 
@@ -76,8 +85,15 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   });
 
   const metricIds = Object.keys(metricConfigs) as MetricId[];
-  const query = new MetricQuery(metricIds as MetricId[], breakdowns);
+  const raceQuery = new MetricQuery(metricIds as MetricId[], raceBreakdowns);
+  const ageQuery = new MetricQuery(metricIds as MetricId[], ageBreakdowns);
+  console.log(ageQuery);
+
   const ratioId = metricIds[0];
+
+  const metricIdsForRatiosOnly = Object.values(metricConfigs).filter((config) =>
+    config.metricId.includes("ratio")
+  );
 
   const cardTitle = `${
     metrics[0]?.fullCardTitleName
@@ -95,11 +111,11 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     <CardWrapper
       isAgeAdjustedTable={true}
       minHeight={PRELOAD_HEIGHT}
-      queries={[query]}
+      queries={[raceQuery, ageQuery]}
       title={<>{cardTitle}</>}
     >
-      {([queryResponse]) => {
-        let knownData = queryResponse.data.filter((row: Row) => {
+      {([raceQueryResponse, ageQueryResponse]) => {
+        let knownRaceData = raceQueryResponse.data.filter((row: Row) => {
           return (
             // remove unknowns
             row[RACE] !== UNKNOWN &&
@@ -109,7 +125,9 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
         });
 
         const isWrongBreakdownVar = props.breakdownVar === "sex";
-        const noRatios = knownData.every((row) => row[ratioId] === undefined);
+        const noRatios = knownRaceData.every(
+          (row) => row[ratioId] === undefined
+        );
 
         return (
           <>
@@ -130,11 +148,28 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               </Alert>
             </CardContent>
             <Divider />
+
+            <UnknownsAlert
+              metricConfig={metricConfigPctShare}
+              queryResponse={raceQueryResponse}
+              breakdownVar={
+                props.breakdownVar === AGE || props.breakdownVar === RACE
+                  ? RACE
+                  : props.breakdownVar
+              }
+              ageQueryResponse={ageQueryResponse}
+              displayType="table"
+              known={true}
+              overrideAndWithOr={props.breakdownVar === RACE}
+              fips={props.fips}
+              jumpToData={props.jumpToData}
+            />
+
             {/* If TABLE can't display for any of these various reasons, show the missing data alert */}
             {(noRatios ||
               isWrongBreakdownVar ||
-              queryResponse.dataIsMissing() ||
-              queryResponse.shouldShowMissingDataMessage(
+              raceQueryResponse.dataIsMissing() ||
+              raceQueryResponse.shouldShowMissingDataMessage(
                 metricIds as MetricId[]
               )) && (
               <CardContent>
@@ -151,13 +186,13 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             )}
 
             {/* values are present or partially null, implying we have at least some age-adjustments */}
-            {!queryResponse.dataIsMissing() &&
+            {!raceQueryResponse.dataIsMissing() &&
               !noRatios &&
               props.breakdownVar !== "sex" && (
                 <div className={styles.TableChart}>
                   <AgeAdjustedTableChart
-                    data={knownData}
-                    metrics={Object.values(metricConfigs)}
+                    data={knownRaceData}
+                    metrics={metricIdsForRatiosOnly}
                   />
                 </div>
               )}
