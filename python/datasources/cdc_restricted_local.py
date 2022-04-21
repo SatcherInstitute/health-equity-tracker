@@ -252,7 +252,7 @@ def add_missing_demographic_values(df, geo, demographic):
                      ignore_index=True)
 
 
-def GENERATE_NATIONAL_DATASET(state_df, groupby_cols):
+def generate_national_dataset(state_df, groupby_cols):
     """Generates a national level dataset from the state_df.
        Returns a national level dataframe
 
