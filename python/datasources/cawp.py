@@ -63,27 +63,6 @@ def get_pct(numerator: int, denominator: int):
     return percent_avoid_rounding_to_zero(numerator, denominator)
 
 
-def get_women_only_race_group(race_code: str):
-    """ Accepts a standard race code and
-    returns a race name string specific to only women of that race/ethnicity """
-
-    women_race_overrides = {
-        Race.HISP.value: 'Hispanic Women and Latinas',
-        Race.MULTI.value: 'Women of two or more races or an unrepresented race',
-        Race.UNKNOWN.value: 'Women of unknown race',
-    }
-
-    if race_code in women_race_overrides.keys():
-        women_race_name = women_race_overrides[race_code]
-    else:
-        race_tuple = Race[race_code].as_tuple()
-        women_race_name = f'{race_tuple.race} Women'
-        if race_tuple.race_includes_hispanic is False:
-            women_race_name += " (Non-Hispanic)"
-
-    return women_race_name
-
-
 def get_standard_code_from_cawp_phrase(cawp_place_phrase: str):
     """ Accepts a CAWP place phrase found in the LINE ITEM table
     `{STATE_COL_LINE NAME} - {CODE}` with the standard 2 letter code
@@ -233,7 +212,6 @@ class CAWPData(DataSource):
         column_types[std_col.WOMEN_US_CONGRESS_PCT] = 'DECIMAL'
         column_types[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = 'DECIMAL'
         column_types[std_col.RACE_CATEGORY_ID_COL] = 'STRING'
-        column_types[std_col.RACE_WOMEN_COL] = "STRING"
         column_types[std_col.STATE_FIPS_COL] = 'STRING'
         column_types[std_col.POPULATION_PCT_COL] = 'DECIMAL'
         column_types[std_col.RACE_COL] = "STRING"
@@ -333,10 +311,6 @@ class CAWPData(DataSource):
                     state_leg_women_current_place_current_race,
                     state_leg_women_current_place_all_races)
 
-                # set "women only" version of race codes
-                output_row[std_col.RACE_WOMEN_COL] = get_women_only_race_group(
-                    race_code)
-
                 # set this rows PLACE and RACE
                 output_row[std_col.RACE_CATEGORY_ID_COL] = race_code
                 output_row[std_col.STATE_NAME_COL] = current_place
@@ -351,7 +325,6 @@ class CAWPData(DataSource):
                    std_col.WOMEN_US_CONGRESS_PCT,
                    std_col.WOMEN_US_CONGRESS_PCT_SHARE,
                    std_col.RACE_CATEGORY_ID_COL,
-                   std_col.RACE_WOMEN_COL
                    ]
 
         output_df = pd.DataFrame(output, columns=columns)

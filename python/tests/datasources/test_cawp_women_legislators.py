@@ -10,7 +10,6 @@ from datasources.cawp import (CAWPData,
                               CAWP_LINE_ITEMS_FILE,
                               PROPUB_US_HOUSE_FILE,
                               PROPUB_US_SENATE_FILE,
-                              get_women_only_race_group,
                               get_standard_code_from_cawp_phrase,
                               get_pct,
                               count_matching_rows,
@@ -24,13 +23,6 @@ import ingestion.standardized_columns as std_col
 
 
 # test utility functions
-def test_get_women_only_race_group():
-    assert get_women_only_race_group(
-        Race.HISP.value) == 'Hispanic Women and Latinas'
-    assert get_women_only_race_group(
-        Race.ASIAN_NH.value) == 'Asian Women (Non-Hispanic)'
-    assert get_women_only_race_group(Race.ASIAN.value) == 'Asian Women'
-
 
 def test_get_standard_code_from_cawp_phrase():
     assert get_standard_code_from_cawp_phrase("American Samoa - AS") == "AS"
@@ -235,7 +227,6 @@ def testWriteToBq(mock_bq: mock.MagicMock,
         'race': str,
         'race_includes_hispanic': object,
         'race_category_id': str,
-        'race_women': str
     }
 
     # read test OUTPUT file
