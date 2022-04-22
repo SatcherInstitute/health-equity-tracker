@@ -122,15 +122,6 @@ def count_matching_rows(df, place_name: str, gov_level: str, race_to_match: str)
 
 
 CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity.csv"
-# this URL could be used for an API endpoint but needs authentication
-# CAWP_LINE_ITEMS_URL = ("https://cawpdata.rutgers.edu/women-elected-officials/"
-#    "race-ethnicity/export-roles/csv?current=1&yearend_filter=All"
-#    "&level%5B0%5D=Federal%20Congress&level%5B1%5D=State%20Legislative"
-#    "&level%5B2%5D=Territorial/DC%20Legislative&items_per_page=50"
-#    "&page&_format=csv")
-
-# Table for STATE_COL_LINE LEG. TOTALS
-# WEBSITE FOR TOTALS https://cawp.rutgers.edu/facts/levels-office/state-legislature/women-state-legislatures-2022#table
 CAWP_TOTALS_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
 
 # Tables for US LEVEL LEG TOTALS
@@ -272,16 +263,6 @@ class CAWPData(DataSource):
             state_leg_members_current_place_all_races = (
                 0 if state_leg_match_row.empty
                 else state_leg_match_row[COUNT_ALL].values[0])
-
-            # print(current_place)
-            # print("\tus_congress_women_current_place_all_races",
-            #       us_congress_women_current_place_all_races)
-            # print("\tus_congress_members_current_place_all_races",
-            #       us_congress_members_current_place_all_races)
-            # print("\tstate_leg_women_current_place_all_races",
-            #       state_leg_women_current_place_all_races)
-            # print("\tstate_leg_members_current_place_all_races",
-            #       state_leg_members_current_place_all_races)
 
             for cawp_race_name in CAWP_RACE_GROUPS_TO_STANDARD.keys():
                 output_row = {}
