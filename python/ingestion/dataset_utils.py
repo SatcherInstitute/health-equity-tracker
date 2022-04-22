@@ -129,6 +129,28 @@ def merge_fips_codes(df):
     return df
 
 
+def replace_state_abbr_with_names(df):
+    """Replaces all two-letter place codes with the place name.  based on the `census_utility` big query public dataset.
+       df: dataframe to swap two-letter abbreviations for names, with a `state_postal_abbreviation` column"""
+
+    # get table from BQ
+    all_state_codes_df = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
+        'census_utility', 'fips_codes_states', dtype={std_col.STATE_NAME_COL: str, 'state_postal_abbreviation': str})
+    all_state_codes_df = all_state_codes_df[[
+        std_col.STATE_NAME_COL, 'state_postal_abbreviation']]
+
+    # add USA as a "state" for potentially swapping
+    united_states_code = pd.DataFrame(
+        [{'state_postal_abbreviation': constants.US_ABBR, std_col.STATE_NAME_COL: constants.US_NAME}])
+    all_state_codes_df = pd.concat([all_state_codes_df, united_states_code])
+
+    # swap CODES for NAMES
+    df = pd.merge(df, all_state_codes_df, how='left',
+                  on='state_postal_abbreviation').reset_index(drop=True)
+    df = df.drop(columns=['state_postal_abbreviation'])
+    return df
+
+
 def merge_pop_numbers(df, demo, loc):
     """Merges the corresponding `population` and `population_pct` column into the given df
 
