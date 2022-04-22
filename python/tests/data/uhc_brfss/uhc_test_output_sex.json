@@ -99,7 +99,7 @@
         "brfss_population_pct": "100.0",
         "preventable_hospitalizations_pct_share": 100.0,
         "preventable_hospitalizations_per_100k": 4912.0,
-        "sex": "Total",
+        "sex": "All",
         "state_fips": "01",
         "state_name": "Alabama",
         "suicide_pct_share": 100.0,

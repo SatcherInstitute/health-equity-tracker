@@ -43,7 +43,7 @@ VOTER_AGE_GROUPS = [
 
 # single list of all unique age group options
 UHC_AGE_GROUPS = list(dict.fromkeys([
-    'Total',
+    std_col.ALL_VALUE,
     *SUICIDE_AGE_GROUPS,
     *VOTER_AGE_GROUPS,
     *BROAD_AGE_GROUPS
@@ -51,7 +51,7 @@ UHC_AGE_GROUPS = list(dict.fromkeys([
 
 # No Age Breakdowns for: Non-medical Drug (including Illicit Opioid, Non-Medical Rx Opioid)
 
-UHC_SEX_GROUPS = ['Male', 'Female', 'Total']
+UHC_SEX_GROUPS = ['Male', 'Female', std_col.ALL_VALUE]
 
 RACE_GROUPS_TO_STANDARD = {
     'American Indian/Alaska Native': Race.AIAN_NH.value,
@@ -63,7 +63,7 @@ RACE_GROUPS_TO_STANDARD = {
     'Other Race': Race.OTHER_STANDARD_NH.value,
     'White': Race.WHITE_NH.value,
     'Multiracial': Race.MULTI_NH.value,
-    'All': Race.TOTAL.value,
+    'All': Race.ALL.value,
 }
 
 BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/251"
@@ -309,7 +309,7 @@ def post_process(breakdown_df, breakdown, geo):
         pct_share_col = std_col.generate_column_name(
             determinant, std_col.PCT_SHARE_SUFFIX)
 
-        total_val = Race.TOTAL.value if breakdown == std_col.RACE_CATEGORY_ID_COL else std_col.TOTAL_VALUE
+        total_val = Race.ALL.value if breakdown == std_col.RACE_CATEGORY_ID_COL else std_col.ALL_VALUE
         breakdown_df = dataset_utils.generate_pct_share_col(
             breakdown_df, raw_count_col, pct_share_col, breakdown, total_val)
 

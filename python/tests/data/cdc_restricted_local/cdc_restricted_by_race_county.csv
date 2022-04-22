@@ -1,44 +1,44 @@
 county_fips,county_name,state_postal,race_category_id,cases,hosp_y,hosp_n,hosp_unknown,death_y,death_n,death_unknown,race,race_includes_hispanic,race_and_ethnicity
+,Unknown,Unknown,ALL,2,1,0,1,1,0,1,All,,All
 ,Unknown,Unknown,BLACK_NH,2,1,0,1,1,0,1,Black or African American,False,Black or African American (Non-Hispanic)
-,Unknown,Unknown,TOTAL,2,1,0,1,1,0,1,Total,,Total
+06035,LASSEN,CA,ALL,4,1,2,1,1,1,2,All,,All
 06035,LASSEN,CA,BLACK_NH,1,0,1,0,0,0,1,Black or African American,False,Black or African American (Non-Hispanic)
 06035,LASSEN,CA,MULTI_OR_OTHER_STANDARD_NH,1,1,0,0,1,0,0,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
-06035,LASSEN,CA,TOTAL,4,1,2,1,1,1,2,Total,,Total
 06035,LASSEN,CA,UNKNOWN,1,0,0,1,0,1,0,Unknown race,True,Unknown race
 06035,LASSEN,CA,WHITE_NH,1,0,1,0,0,0,1,White,False,White (Non-Hispanic)
 06071,SAN BERNARDINO,CA,AIAN_NH,2,1,0,1,0,2,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+06071,SAN BERNARDINO,CA,ALL,14,4,4,6,4,4,6,All,,All
 06071,SAN BERNARDINO,CA,ASIAN_NH,1,0,1,0,0,1,0,Asian,False,Asian (Non-Hispanic)
 06071,SAN BERNARDINO,CA,BLACK_NH,2,2,0,0,1,0,1,Black or African American,False,Black or African American (Non-Hispanic)
 06071,SAN BERNARDINO,CA,HISP,2,1,1,0,1,1,0,Hispanic or Latino,True,Hispanic or Latino
 06071,SAN BERNARDINO,CA,MULTI_OR_OTHER_STANDARD_NH,1,0,0,1,1,0,0,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
 06071,SAN BERNARDINO,CA,NHPI_NH,1,0,0,1,0,0,1,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
-06071,SAN BERNARDINO,CA,TOTAL,14,4,4,6,4,4,6,Total,,Total
 06071,SAN BERNARDINO,CA,UNKNOWN,4,0,2,2,1,0,3,Unknown race,True,Unknown race
 06071,SAN BERNARDINO,CA,WHITE_NH,1,0,0,1,0,0,1,White,False,White (Non-Hispanic)
-10003,NEW CASTLE,DE,TOTAL,1,1,0,0,,,,Total,,Total
+10003,NEW CASTLE,DE,ALL,1,1,0,0,,,,All,,All
 10003,NEW CASTLE,DE,UNKNOWN,1,1,0,0,,,,Unknown race,True,Unknown race
 15003,HONOLULU,HI,AIAN_NH,1,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-15003,HONOLULU,HI,TOTAL,1,,,,,,,Total,,Total
+15003,HONOLULU,HI,ALL,1,,,,,,,All,,All
 22097,ST. LANDRY,LA,AIAN_NH,1,1,0,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-22097,ST. LANDRY,LA,TOTAL,1,1,0,0,0,0,1,Total,,Total
+22097,ST. LANDRY,LA,ALL,1,1,0,0,0,0,1,All,,All
 29077,GREENE,MO,AIAN_NH,1,0,1,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-29077,GREENE,MO,TOTAL,1,0,1,0,0,0,1,Total,,Total
+29077,GREENE,MO,ALL,1,0,1,0,0,0,1,All,,All
+31001,ADAMS,NE,ALL,1,,,,,,,All,,All
 31001,ADAMS,NE,BLACK_NH,1,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
-31001,ADAMS,NE,TOTAL,1,,,,,,,Total,,Total
+35001,BERNALILLO,NM,ALL,1,0,1,0,0,1,0,All,,All
 35001,BERNALILLO,NM,MULTI_OR_OTHER_STANDARD_NH,1,0,1,0,0,1,0,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
-35001,BERNALILLO,NM,TOTAL,1,0,1,0,0,1,0,Total,,Total
 38015,BURLEIGH,ND,AIAN_NH,1,0,0,1,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-38015,BURLEIGH,ND,TOTAL,1,0,0,1,1,0,0,Total,,Total
+38015,BURLEIGH,ND,ALL,1,0,0,1,1,0,0,All,,All
+44007,PROVIDENCE,RI,ALL,1,,,,1,0,0,All,,All
 44007,PROVIDENCE,RI,NHPI_NH,1,,,,1,0,0,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
-44007,PROVIDENCE,RI,TOTAL,1,,,,1,0,0,Total,,Total
-46005,BEADLE,SD,TOTAL,1,,,,,,,Total,,Total
+46005,BEADLE,SD,ALL,1,,,,,,,All,,All
 46005,BEADLE,SD,WHITE_NH,1,,,,,,,White,False,White (Non-Hispanic)
+47037,DAVIDSON,MD,ALL,1,0,0,1,1,0,0,All,,All
 47037,DAVIDSON,MD,ASIAN_NH,1,0,0,1,1,0,0,Asian,False,Asian (Non-Hispanic)
-47037,DAVIDSON,MD,TOTAL,1,0,0,1,1,0,0,Total,,Total
 48167,GALVESTON,TX,AIAN_NH,1,1,0,0,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-48167,GALVESTON,TX,TOTAL,1,1,0,0,1,0,0,Total,,Total
+48167,GALVESTON,TX,ALL,1,1,0,0,1,0,0,All,,All
 56005,CAMPBELL,WY,AIAN_NH,1,0,1,0,0,1,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-56005,CAMPBELL,WY,TOTAL,1,0,1,0,0,1,0,Total,,Total
+56005,CAMPBELL,WY,ALL,1,0,1,0,0,1,0,All,,All
 ,Unknown,Unknown,AIAN_NH,,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
 ,Unknown,Unknown,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
 ,Unknown,Unknown,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino

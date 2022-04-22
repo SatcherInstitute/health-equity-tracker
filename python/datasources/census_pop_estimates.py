@@ -5,14 +5,14 @@ from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
 
-import pandas as pd
+import pandas as pd  # type: ignore
 
 BASE_POPULATION_URL = ('https://www2.census.gov/programs-surveys/popest/'
                        'datasets/2010-2019/counties/asrh/cc-est2019-alldata.csv')
 
 RACES_MAP = {'NHWA': Race.WHITE_NH.value, 'NHBA': Race.BLACK_NH.value, 'NHIA': Race.AIAN_NH.value,
              'NHAA': Race.ASIAN_NH.value, 'NHNA': Race.NHPI_NH.value, 'H': Race.HISP.value,
-             'TOTAL': Race.TOTAL.value}
+             'ALL': Race.ALL.value}
 
 
 AGES_MAP = {
@@ -24,7 +24,7 @@ YEAR_2019 = 12
 
 
 def total_race(row, race):
-    if race == 'TOTAL':
+    if race == 'ALL':
         return row['TOT_POP']
 
     return row['%s_MALE' % race] + row['%s_FEMALE' % race]

@@ -37,7 +37,7 @@ class CovidTrackingProject(DataSource):
             "ethnicity_hispanic": Race.HISP.race,
             "ethnicity_nonhispanic": Race.NH.race,
             "ethnicity_unknown": Race.ETHNICITY_UNKNOWN.race,
-            "total": Race.TOTAL.race,
+            "total": Race.ALL.race,
         }
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):

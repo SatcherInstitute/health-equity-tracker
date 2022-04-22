@@ -9,6 +9,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: "cdc_restricted",
     data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
+    data_source_pretty_site_name: "data.cdc.gov",
     data_source_link:
       "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
     geographic_level: "State, County",
@@ -47,6 +48,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: "acs",
     data_source_name: "American Community Survey 5-year estimates",
+    data_source_pretty_site_name: "census.gov",
     data_source_link:
       "https://www.census.gov/data/developers/data-sets/acs-5year.html",
     geographic_level: "State",
@@ -81,6 +83,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     id: "acs_2010",
     data_source_name:
       "American Community Survey 5-year estimates from 2010, U.S. Territories",
+    data_source_pretty_site_name: "census.gov",
     data_source_link:
       "https://www.census.gov/data/datasets/2010/dec/virgin-islands.html",
     geographic_level: "State, County",
@@ -103,6 +106,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: "census_pop_estimates",
     data_source_name: "County Population by Characteristics: 2010-2019",
+    data_source_pretty_site_name: "census.gov",
     data_source_link:
       "https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html",
     geographic_level: "State/County",
@@ -118,6 +122,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: "cdc_vaccination_county",
     data_source_name: "CDC COVID-19 Vaccinations in the United States, County",
+    data_source_pretty_site_name: "data.cdc.gov",
     data_source_link:
       "https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh",
     geographic_level: "County",
@@ -136,6 +141,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     id: "cdc_vaccination_national",
     data_source_name:
       "CDC COVID-19 Vaccination Demographics in the United States, National",
+    data_source_pretty_site_name: "data.cdc.gov",
     data_source_link:
       "https://data.cdc.gov/Vaccinations/COVID-19-Vaccination-Demographics-in-the-United-St/km4m-vcsb",
     geographic_level: "National",
@@ -157,6 +163,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: "kff_vaccination",
     data_source_name: "Kaiser Family Foundation COVID-19 Indicators",
+    data_source_pretty_site_name: "kff.org",
     data_source_link: "https://www.kff.org/state-category/covid-19/",
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity",
@@ -173,6 +180,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: "uhc",
     data_source_name: "America's Health Rankings",
+    data_source_pretty_site_name: "americashealthrankings.org",
     data_source_link:
       "https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL",
     geographic_level: "National, State",
@@ -205,6 +213,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: "covid_tracking_project",
     data_source_name: "Covid Tracking Project’s Racial Data Tracker",
+    data_source_pretty_site_name: "covidtracking.com",
     data_source_link: "https://covidtracking.com/race",
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity",
