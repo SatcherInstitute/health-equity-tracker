@@ -200,7 +200,7 @@ const missingSexAllGeos: VariableId[] = [
   "women_us_congress",
 ];
 
-export const dataGaps: Partial<
+export const DATA_GAPS: Partial<
   Record<GeographicBreakdown, Partial<Record<BreakdownVar, VariableId[]>>>
 > = {
   national: {
