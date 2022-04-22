@@ -6,16 +6,32 @@ import {
   DropdownVarId,
   METRIC_CONFIG,
   VariableConfig,
+  VariableId,
 } from "../../data/config/MetricConfig";
 import styles from "../Report.module.scss";
 import {
   BreakdownVar,
   DEMOGRAPHIC_BREAKDOWNS,
   BREAKDOWN_VAR_DISPLAY_NAMES,
+  GeographicBreakdown,
 } from "../../data/query/Breakdowns";
+import { Fips } from "../../data/utils/Fips";
+import { dataGaps } from "../../data/utils/datasetutils";
 
 export const DATA_TYPE_LABEL = "Data Type";
 export const DEMOGRAPHIC_LABEL = "Demographic";
+
+/* 
+Checks for data gaps at current Datatype/Demographic/GeoLevel and 
+*/
+function getToggleOptionStatus(
+  breakdownVar: BreakdownVar,
+  variableId: VariableId,
+  fips: Fips
+) {
+  const geoLevel = fips.getFipsTypeDisplayName() as GeographicBreakdown;
+  return dataGaps[geoLevel]?.[breakdownVar]?.includes(variableId);
+}
 
 interface ReportToggleControlsProps {
   dropdownVarId: DropdownVarId;
@@ -23,6 +39,7 @@ interface ReportToggleControlsProps {
   setVariableConfig: (variableConfig: VariableConfig) => void;
   currentBreakdown: BreakdownVar;
   setCurrentBreakdown: (breakdown: BreakdownVar) => void;
+  fips: Fips;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -93,6 +110,11 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
           >
             {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
               <ToggleButton
+                disabled={getToggleOptionStatus(
+                  breakdownVar,
+                  props.variableConfig.variableId,
+                  props.fips
+                )}
                 value={breakdownVar}
                 key={breakdownVar}
                 aria-label={

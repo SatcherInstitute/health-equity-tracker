@@ -43,9 +43,6 @@ export type VariableId =
   | "women_state_legislatures"
   | "covid_vaccinations";
 
-// consts for simpler code
-export const COVID_VAXX: DropdownVarId = "covid_vaccinations";
-
 export type MetricId =
   | "acs_vaccine_population_pct"
   | "brfss_population_pct"

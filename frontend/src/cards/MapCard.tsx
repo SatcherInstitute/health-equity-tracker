@@ -3,11 +3,7 @@ import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import {
-  VariableConfig,
-  formatFieldValue,
-  COVID_VAXX,
-} from "../data/config/MetricConfig";
+import { VariableConfig, formatFieldValue } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
@@ -103,10 +99,6 @@ function MapCardWithKey(props: MapCardProps) {
     metricQuery(Breakdowns.forFips(props.fips)),
   ];
 
-  // hide demographic selectors / dropdowns / links to multimap if displaying VACCINATION at COUNTY level, as we don't have that data
-  const hideDemographicUI =
-    props.variableConfig.variableId === COVID_VAXX && props.fips.isCounty();
-
   const selectedRaceSuffix = CAWP_DETERMINANTS.includes(metricConfig.metricId)
     ? ` Identifying as ${getWomenRaceLabel(activeBreakdownFilter).replace(
         "All ",
@@ -172,6 +164,9 @@ function MapCardWithKey(props: MapCardProps) {
           [BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]]:
             breakdownValues,
         };
+
+        const hideGroupDropdown =
+          Object.values(filterOptions).toString() === ALL;
 
         // If possible, calculate the total for the selected demographic group and dynamically generate the rest of the phrase
         function generateDemographicTotalPhrase() {
@@ -259,7 +254,7 @@ function MapCardWithKey(props: MapCardProps) {
               />
             </CardContent>
 
-            {!mapQueryResponse.dataIsMissing() && !hideDemographicUI && (
+            {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
               <>
                 <Divider />
                 <CardContent className={styles.SmallMarginContent}>
@@ -300,17 +295,15 @@ function MapCardWithKey(props: MapCardProps) {
                     <Alert severity="info" role="note">
                       {generateDemographicTotalPhrase()}
                       {/* Compare across XYZ for all variables except vaccinated at county level */}
-                      {!hideDemographicUI && (
-                        <MultiMapLink
-                          setSmallMultiplesDialogOpen={
-                            setSmallMultiplesDialogOpen
-                          }
-                          currentBreakdown={props.currentBreakdown}
-                          currentVariable={
-                            props.variableConfig.variableFullDisplayName
-                          }
-                        />
-                      )}
+                      <MultiMapLink
+                        setSmallMultiplesDialogOpen={
+                          setSmallMultiplesDialogOpen
+                        }
+                        currentBreakdown={props.currentBreakdown}
+                        currentVariable={
+                          props.variableConfig.variableFullDisplayName
+                        }
+                      />
                     </Alert>
                   </CardContent>
                 </>

@@ -1,6 +1,6 @@
 import { IDataFrame } from "data-forge";
-import { MetricId, VariableId, COVID_VAXX } from "../config/MetricConfig";
-import { BreakdownVar } from "../query/Breakdowns";
+import { MetricId, VariableId } from "../config/MetricConfig";
+import { BreakdownVar, GeographicBreakdown } from "../query/Breakdowns";
 import { RACE } from "./Constants";
 import { Row } from "./DatasetTypes";
 
@@ -178,6 +178,46 @@ export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
   return (
     fromProps.fips.isState() &&
     fromProps.breakdownVar === RACE &&
-    fromProps.variableConfig.variableId === COVID_VAXX
+    fromProps.variableConfig.variableId === "covid_vaccinations"
   );
 }
+
+/* 
+There are many gaps in the data, and not every variable contains info at each demographic breakdown by each geographic level.
+This nested dictionary keeps track of known gaps, and is utilized by the UI (e.g. disable demographic toggle options)
+*/
+const missingAgeAllGeos: VariableId[] = [
+  "non_medical_drug_use",
+  "non_medical_rx_opioid_use",
+  "illicit_opioid_use",
+  "preventable_hospitalizations",
+  "women_state_legislatures",
+  "women_us_congress",
+];
+
+const missingSexAllGeos: VariableId[] = [
+  "women_state_legislatures",
+  "women_us_congress",
+];
+
+export const dataGaps: Partial<
+  Record<GeographicBreakdown, Partial<Record<BreakdownVar, VariableId[]>>>
+> = {
+  national: {
+    age: [...missingAgeAllGeos],
+    sex: [...missingSexAllGeos],
+  },
+  state: {
+    age: [...missingAgeAllGeos, "covid_vaccinations"],
+    sex: [...missingSexAllGeos, "covid_vaccinations"],
+  },
+  territory: {
+    age: [...missingAgeAllGeos, "covid_vaccinations"],
+    sex: [...missingSexAllGeos, "covid_vaccinations"],
+  },
+  county: {
+    age: [...missingAgeAllGeos, "covid_vaccinations"],
+    sex: [...missingSexAllGeos, "covid_vaccinations"],
+    race_and_ethnicity: ["covid_vaccinations"],
+  },
+};
