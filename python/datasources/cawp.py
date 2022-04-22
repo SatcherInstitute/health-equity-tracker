@@ -1,5 +1,4 @@
 import pandas as pd
-
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
 
@@ -241,7 +240,6 @@ class CAWPData(DataSource):
 
         output = []
         for current_place_code in all_place_codes:
-
             us_congress_women_current_place_all_races = count_matching_rows(
                 df_line_items, current_place_code, NATIONAL, std_col.ALL_VALUE)
 
