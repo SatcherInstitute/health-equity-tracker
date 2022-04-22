@@ -154,7 +154,7 @@ def generate_total_row(state_row_totals, state):
     """
     output_row = {}
     output_row[std_col.STATE_NAME_COL] = state
-    output_row[std_col.RACE_CATEGORY_ID_COL] = Race.TOTAL.value
+    output_row[std_col.RACE_CATEGORY_ID_COL] = Race.ALL.value
 
     state_row_totals = state_row_totals.loc[~state_row_totals['one_dose'].isnull(
     )]

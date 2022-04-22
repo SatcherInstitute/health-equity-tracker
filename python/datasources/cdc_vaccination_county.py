@@ -66,7 +66,7 @@ class CDCVaccinationCounty(DataSource):
             output_row = {}
             output_row[std_col.COUNTY_FIPS_COL] = row[COUNTY_FIPS_COL]
             output_row[std_col.COUNTY_NAME_COL] = row[COUNTY_COL]
-            output_row[std_col.RACE_CATEGORY_ID_COL] = Race.TOTAL.value
+            output_row[std_col.RACE_CATEGORY_ID_COL] = Race.ALL.value
             output_row[std_col.VACCINATED_FIRST_DOSE] = row['administered_dose1_recip']
 
             output.append(output_row)

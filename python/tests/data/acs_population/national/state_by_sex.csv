@@ -1,10 +1,10 @@
 state_fips,state_name,sex,population,population_pct
+01,Alabama,All,100,100.0
 01,Alabama,Female,40,40.0
 01,Alabama,Male,60,60.0
-01,Alabama,Total,100,100.0
+01,Alabama,All,100,100.0
 01,Alabama,Female,30,30.0
 01,Alabama,Male,70,70.0
-01,Alabama,Total,100,100.0
+72,Puerto Rico,All,3318447,100.0
 72,Puerto Rico,Female,1740129,52.4
 72,Puerto Rico,Male,1578318,47.6
-72,Puerto Rico,Total,3318447,100.0
