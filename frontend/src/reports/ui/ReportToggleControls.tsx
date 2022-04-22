@@ -6,7 +6,6 @@ import {
   DropdownVarId,
   METRIC_CONFIG,
   VariableConfig,
-  VariableId,
 } from "../../data/config/MetricConfig";
 import styles from "../Report.module.scss";
 import {
@@ -14,31 +13,9 @@ import {
   DEMOGRAPHIC_BREAKDOWNS,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../../data/query/Breakdowns";
-import { CAWP_DATA_TYPES } from "../../data/variables/CawpProvider";
 
 export const DATA_TYPE_LABEL = "Data Type";
 export const DEMOGRAPHIC_LABEL = "Demographic";
-
-export const raceOnlyToggleList: VariableId[] = [
-  "women_state_legislatures",
-  "women_us_congress",
-];
-
-/* Checks each demographic toggle option and disables if variableId doesn't offer that data */
-function getToggleOptionStatus(
-  breakdownVar: BreakdownVar,
-  variableId: VariableId
-) {
-  const variableIdsMissingBreakdowns: Record<BreakdownVar, VariableId[]> = {
-    age: [...CAWP_DATA_TYPES],
-    sex: [...CAWP_DATA_TYPES],
-    race_and_ethnicity: [],
-    fips: [],
-    date: [],
-  };
-
-  return variableIdsMissingBreakdowns[breakdownVar].includes(variableId);
-}
 
 interface ReportToggleControlsProps {
   dropdownVarId: DropdownVarId;
@@ -116,10 +93,6 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
           >
             {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
               <ToggleButton
-                disabled={getToggleOptionStatus(
-                  breakdownVar,
-                  props.variableConfig.variableId
-                )}
                 value={breakdownVar}
                 key={breakdownVar}
                 aria-label={
