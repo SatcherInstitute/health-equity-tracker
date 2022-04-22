@@ -9,7 +9,6 @@ import {
   MetricQueryResponse,
 } from "../query/MetricQuery";
 import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
-import { ALL, TOTAL } from "../utils/Constants";
 import { DatasetCalculator } from "../utils/DatasetCalculator";
 
 abstract class VariableProvider {
@@ -90,14 +89,6 @@ abstract class VariableProvider {
       .filter((column) => !requestedColumns.includes(column));
 
     return dataFrame.dropSeries(columnsToRemove).resetIndex();
-  }
-
-  // Renames all instances of Total in the column to All
-  // TODO: Backend should do this instead so frontend doesn't have to
-  renameTotalToAll(df: IDataFrame, columnName: string) {
-    return df.transformSeries({
-      [columnName]: (series) => (series === TOTAL ? ALL : series),
-    });
   }
 
   applyDemographicBreakdownFilters(
