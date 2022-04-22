@@ -149,6 +149,10 @@ function MapCardWithKey(props: MapCardProps) {
             breakdownValues,
         };
 
+        console.log(Object.values(filterOptions).toString());
+        const hideGroupDropdown =
+          Object.values(filterOptions).toString() === ALL;
+
         // If possible, calculate the total for the selected demographic group and dynamically generate the rest of the phrase
         function generateDemographicTotalPhrase() {
           const options = overallQueryResponse.data.find(
@@ -234,7 +238,7 @@ function MapCardWithKey(props: MapCardProps) {
               />
             </CardContent>
 
-            {!mapQueryResponse.dataIsMissing() && (
+            {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
               <>
                 <Divider />
                 <CardContent className={styles.SmallMarginContent}>
@@ -244,6 +248,7 @@ function MapCardWithKey(props: MapCardProps) {
                     align-items="flex-end"
                   >
                     <Grid item>
+                      {console.log(hideGroupDropdown)}
                       <DropDownMenu
                         idSuffix={`-${props.fips.getStateFipsCode()}-${
                           props.variableConfig.variableId
