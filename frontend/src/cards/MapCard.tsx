@@ -149,7 +149,6 @@ function MapCardWithKey(props: MapCardProps) {
             breakdownValues,
         };
 
-        console.log(Object.values(filterOptions).toString());
         const hideGroupDropdown =
           Object.values(filterOptions).toString() === ALL;
 
@@ -248,7 +247,6 @@ function MapCardWithKey(props: MapCardProps) {
                     align-items="flex-end"
                   >
                     <Grid item>
-                      {console.log(hideGroupDropdown)}
                       <DropDownMenu
                         idSuffix={`-${props.fips.getStateFipsCode()}-${
                           props.variableConfig.variableId
