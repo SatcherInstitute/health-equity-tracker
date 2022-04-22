@@ -184,7 +184,7 @@ export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
 
 /* 
 There are many gaps in the data, and not every variable contains info at each demographic breakdown by each geographic level.
-This object keeps track of known gaps, and it utilized by the UI (e.g. disable demographic toggle options)
+This nested dictionary keeps track of known gaps, and is utilized by the UI (e.g. disable demographic toggle options)
 */
 const missingAgeAllGeos: VariableId[] = [
   "non_medical_drug_use",
@@ -193,21 +193,26 @@ const missingAgeAllGeos: VariableId[] = [
   "preventable_hospitalizations",
 ];
 
+const missingSexAllGeos: VariableId[] = [];
+
 export const DATA_GAPS: Partial<
   Record<GeographicBreakdown, Partial<Record<BreakdownVar, VariableId[]>>>
 > = {
   national: {
     age: [...missingAgeAllGeos],
+    sex: [...missingSexAllGeos],
   },
   state: {
     age: [...missingAgeAllGeos, "covid_vaccinations"],
-    sex: ["covid_vaccinations"],
+    sex: [...missingSexAllGeos, "covid_vaccinations"],
   },
   territory: {
     age: [...missingAgeAllGeos, "covid_vaccinations"],
+    sex: [...missingSexAllGeos, "covid_vaccinations"],
   },
   county: {
     age: [...missingAgeAllGeos, "covid_vaccinations"],
-    sex: ["covid_vaccinations"],
+    sex: [...missingSexAllGeos, "covid_vaccinations"],
+    race_and_ethnicity: ["covid_vaccinations"],
   },
 };
