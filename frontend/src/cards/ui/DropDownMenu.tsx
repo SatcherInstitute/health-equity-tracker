@@ -9,7 +9,7 @@ import Popover, { PopoverOrigin } from "@material-ui/core/Popover";
 import { usePopover, PopoverElements } from "../../utils/usePopover";
 import styles from "./DropDownMenu.module.scss";
 import { useMediaQuery, useTheme } from "@material-ui/core";
-import { DemographicGroup } from "../../data/utils/Constants";
+import { ALL, DemographicGroup } from "../../data/utils/Constants";
 import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
 
 interface MenuPopoverProps {
@@ -124,6 +124,9 @@ function DropDownMenu(props: DropDownMenuProps) {
   );
 
   const oneLevelMenu = Object.keys(props.options).length === 1;
+
+  if (Object.values(props.options).toString() === ALL) return <></>;
+
   return (
     <>
       <label
