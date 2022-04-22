@@ -16,7 +16,7 @@ import {
   GeographicBreakdown,
 } from "../../data/query/Breakdowns";
 import { Fips } from "../../data/utils/Fips";
-import { dataGaps } from "../../data/utils/datasetutils";
+import { DATA_GAPS } from "../../data/utils/datasetutils";
 
 export const DATA_TYPE_LABEL = "Data Type";
 export const DEMOGRAPHIC_LABEL = "Demographic";
@@ -30,7 +30,7 @@ function getToggleOptionStatus(
   fips: Fips
 ) {
   const geoLevel = fips.getFipsTypeDisplayName() as GeographicBreakdown;
-  return dataGaps[geoLevel]?.[breakdownVar]?.includes(variableId);
+  return DATA_GAPS[geoLevel]?.[breakdownVar]?.includes(variableId);
 }
 
 interface ReportToggleControlsProps {

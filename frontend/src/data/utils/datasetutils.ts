@@ -193,7 +193,7 @@ const missingAgeAllGeos: VariableId[] = [
   "preventable_hospitalizations",
 ];
 
-export const dataGaps: Partial<
+export const DATA_GAPS: Partial<
   Record<GeographicBreakdown, Partial<Record<BreakdownVar, VariableId[]>>>
 > = {
   national: {
