@@ -108,24 +108,28 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
               }
             }}
           >
-            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-              <ToggleButton
-                disabled={getToggleOptionStatus(
-                  breakdownVar,
-                  props.variableConfig.variableId,
-                  props.fips
-                )}
-                value={breakdownVar}
-                key={breakdownVar}
-                aria-label={
-                  BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar] +
-                  " " +
-                  DEMOGRAPHIC_LABEL
-                }
-              >
-                {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
-              </ToggleButton>
-            ))}
+            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => {
+              const disabled = getToggleOptionStatus(
+                breakdownVar,
+                props.variableConfig.variableId,
+                props.fips
+              );
+
+              return (
+                <ToggleButton
+                  disabled={disabled}
+                  value={breakdownVar}
+                  key={breakdownVar}
+                  aria-label={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar] +
+                    " " +
+                    DEMOGRAPHIC_LABEL
+                  }
+                >
+                  {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
+                </ToggleButton>
+              );
+            })}
           </ToggleButtonGroup>
         </div>
       </Grid>
