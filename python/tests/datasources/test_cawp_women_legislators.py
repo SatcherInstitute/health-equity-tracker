@@ -11,7 +11,9 @@ from datasources.cawp import (CAWPData,
                               remove_markup,
                               NATIONAL,
                               STATE,
-                              POSITION_COL, RACE_COL)
+                              POSTAL_COL,
+                              POSITION_COL,
+                              RACE_COL)
 
 
 def test_get_standard_code_from_cawp_phrase():
@@ -36,21 +38,21 @@ def test_get_pct():
 
 def test_count_matching_rows():
     df_test = pd.DataFrame(
-        {std_col.STATE_NAME_COL: ["Florida", "Florida", "Puerto Rico", "Puerto Rico", "Maine", "Maine"],
+        {POSTAL_COL: ["FL", "FL", "PR", "PR", "ME", "ME"],
          RACE_COL: ["Black, White", "Black", "Black", "Black", "White", "Multiracial Alone"],
          POSITION_COL: ["U.S. Senator", "State Senator", "Territorial/D.C. Representative",
          "U.S. Delegate", "U.S. Representative", "U.S. Representative"]})
 
     assert count_matching_rows(
-        df_test, "United States", NATIONAL, "Black") == 2
+        df_test, "US", NATIONAL, "Black") == 2
     assert count_matching_rows(
-        df_test, "Florida", NATIONAL, "Black") == 1
+        df_test, "FL", NATIONAL, "Black") == 1
     assert count_matching_rows(
-        df_test, "Florida", NATIONAL, "All") == 1
+        df_test, "FL", NATIONAL, "All") == 1
     assert count_matching_rows(
-        df_test, "United States", STATE, "All") == 2
+        df_test, "US", STATE, "All") == 2
     assert count_matching_rows(
-        df_test, "United States", NATIONAL, "Multiracial Alone") == 2
+        df_test, "US", NATIONAL, "Multiracial Alone") == 2
 
 
 # Current working directory.
@@ -188,6 +190,14 @@ def testWriteToBq(mock_bq: mock.MagicMock,
 
     mock_df_state = mock_bq.call_args_list[0].args[0]
     mock_df_national = mock_bq.call_args_list[1].args[0]
+
+    # save STATE results to file
+    mock_df_state.to_json(
+        "cawp-run-results-state.json", orient="records")
+
+    # save NATIONAL results to file
+    mock_df_national.to_json(
+        "cawp-run-results-national.json", orient="records")
 
     # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
     assert set(mock_df_state) == set(
