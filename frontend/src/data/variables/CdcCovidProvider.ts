@@ -77,8 +77,6 @@ class CdcCovidProvider extends VariableProvider {
     const breakdownColumnName =
       breakdowns.getSoleDemographicBreakdown().columnName;
 
-    df = this.renameTotalToAll(df, breakdownColumnName);
-
     // If requested, filter geography by state or county level. We apply the
     // geo filter right away to reduce subsequent calculation times.
     df = this.filterByGeo(df, breakdowns);
