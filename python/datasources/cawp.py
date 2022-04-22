@@ -306,7 +306,7 @@ class CAWPData(DataSource):
 
         output_df = pd.DataFrame(output, columns=columns)
 
-        # TODO need new fn that accepts postal codes and/or state names and returns FIPS and NAMES
+        # TODO need new fn that accepts state postal codes/state names/state FIPS and returns only FIPS+NAMES
         output_df = replace_state_abbr_with_names(output_df)
         output_df = merge_fips_codes(output_df)
         output_df = merge_pop_numbers(output_df, std_col.RACE_COL, level)
