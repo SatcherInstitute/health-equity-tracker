@@ -35,6 +35,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: "propublica_congress",
     data_source_name: "ProPublica Congress API",
+    data_source_pretty_site_name: "propublica.org",
     data_source_link:
       "https://www.propublica.org/datastore/api/propublica-congress-api",
     geographic_level: "National, State",
@@ -198,6 +199,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: "cawp",
     data_source_name: "Center for American Women in Politics (CAWP)",
+    data_source_pretty_site_name: "cawpdata.rutgers.edu",
     data_source_link: "https://cawpdata.rutgers.edu/",
     geographic_level: "National, State",
     demographic_granularity: "Race/ethnicity",
