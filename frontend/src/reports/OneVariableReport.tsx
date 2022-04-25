@@ -13,7 +13,6 @@ import {
   DropdownVarId,
   METRIC_CONFIG,
   VariableConfig,
-  COVID_VAXX,
 } from "../data/config/MetricConfig";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { RACE } from "../data/utils/Constants";
@@ -118,17 +117,16 @@ export function OneVariableReport(props: OneVariableReportProps) {
       {variableConfig && (
         <Grid container spacing={1} justifyContent="center">
           {/* DEMOGRAPHIC / DATA TYPE TOGGLE(S) */}
-          {!(props.dropdownVarId === COVID_VAXX && props.fips.isCounty()) && (
-            <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
-              <ReportToggleControls
-                dropdownVarId={props.dropdownVarId}
-                variableConfig={variableConfig}
-                setVariableConfig={setVariableConfigWithParam}
-                currentBreakdown={currentBreakdown}
-                setCurrentBreakdown={setDemoWithParam}
-              />
-            </Grid>
-          )}
+          <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
+            <ReportToggleControls
+              dropdownVarId={props.dropdownVarId}
+              variableConfig={variableConfig}
+              setVariableConfig={setVariableConfigWithParam}
+              currentBreakdown={currentBreakdown}
+              setCurrentBreakdown={setDemoWithParam}
+              fips={props.fips}
+            />
+          </Grid>
 
           {/* 100k MAP CARD */}
           <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="map">
