@@ -21,6 +21,9 @@ export const NEWS_TAB_LINK = "/news";
 test('WIHE Page Loads', async ({ page }) => {
     await page.goto(WHAT_IS_HEALTH_EQUITY_PAGE_LINK);
     const mainHeading = page.locator('#main');
+
+
+
     await expect(mainHeading).toHaveText(['What is Health Equity?']);
 });
 
