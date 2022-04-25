@@ -197,6 +197,14 @@ class CAWPData(DataSource):
                                                    df_state_leg_totals,
                                                    df_line_items, geo_level)
 
+            # TODO need new fn that accepts state postal codes/state names/state FIPS and returns only FIPS+NAMES
+            breakdown_df = replace_state_abbr_with_names(breakdown_df)
+            breakdown_df = merge_fips_codes(breakdown_df)
+            breakdown_df = merge_pop_numbers(
+                breakdown_df, std_col.RACE_COL, geo_level)
+            breakdown_df = breakdown_df.drop(columns=[std_col.POPULATION_COL])
+            std_col.add_race_columns_from_category_id(breakdown_df)
+
             gcs_to_bq_util.add_df_to_bq(
                 breakdown_df, dataset, table_name, column_types=column_types)
 
@@ -288,13 +296,4 @@ class CAWPData(DataSource):
                    std_col.RACE_CATEGORY_ID_COL,
                    ]
 
-        output_df = pd.DataFrame(output, columns=columns)
-
-        # TODO need new fn that accepts state postal codes/state names/state FIPS and returns only FIPS+NAMES
-        output_df = replace_state_abbr_with_names(output_df)
-        output_df = merge_fips_codes(output_df)
-        output_df = merge_pop_numbers(output_df, std_col.RACE_COL, level)
-        output_df = output_df.drop(columns=[std_col.POPULATION_COL])
-        std_col.add_race_columns_from_category_id(output_df)
-
-        return output_df
+        return pd.DataFrame(output, columns=columns)
