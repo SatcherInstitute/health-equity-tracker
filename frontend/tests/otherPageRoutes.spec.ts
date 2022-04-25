@@ -82,3 +82,9 @@ test('Terms of Use Page Loads', async ({ page }) => {
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toHaveText([`Terms of Use`]);
 });
+
+test('Intentionally Failing Test', async ({ page }) => {
+    await page.goto('/');
+    const mainHeading = page.locator('#main');
+    await expect(mainHeading).toHaveText([`BLAH BLAH BLAH`]);
+});
