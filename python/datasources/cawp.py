@@ -97,11 +97,11 @@ def count_matching_rows(df, place_code: str, gov_level: str, race_to_match: str)
 
     # to get ALL women, don't restrict by race
     if race_to_match == std_col.ALL_VALUE:
-        race_to_match = ""
+        return len(df.index)
+    else:
+        df_race_matches = df[(df[RACE_COL].str.contains(race_to_match))]
 
-    # find race matches
-    df_race_matches = df[(df[RACE_COL].str.contains(race_to_match))]
-
+    # for individual race matches
     if race_to_match != "Multiracial Alone":
         return len(df_race_matches.index)
 
