@@ -50,6 +50,8 @@ def test_count_matching_rows():
         df_test, "US", NATIONAL, "Multiracial Alone") == 2
 
 
+# INTEGRATION TEST SETUP
+
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cawp_women_legislators")
@@ -61,7 +63,6 @@ GOLDEN_DATA = {
 
 
 def _get_test_line_items_csv_as_df(*args):
-
     [_folder, filename] = args
     test_input_data_types = {
         "id": str,
