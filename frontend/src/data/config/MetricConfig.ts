@@ -32,9 +32,6 @@ export type VariableId =
   | "non_medical_rx_opioid_use"
   | "illicit_opioid_use";
 
-// consts for simpler code
-export const COVID_VAXX: DropdownVarId = "covid_vaccinations";
-
 export type MetricId =
   | "acs_vaccine_population_pct"
   | "brfss_population_pct"
