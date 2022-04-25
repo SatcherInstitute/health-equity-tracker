@@ -48,20 +48,6 @@ CAWP_DATA_TYPES = {
 }
 
 
-def get_pct(numerator: int, denominator: int):
-    """ Prevents division by zero errors from using util pct function
-    numerator: top number as int
-    denominator: bottom number as int
-
-    returns: float representing the % value of that rounded fraction
-
-    Note: Division by zero just returns 0.0 instead of error
-    """
-    if denominator == 0:
-        return 0.0
-    return percent_avoid_rounding_to_zero(numerator, denominator)
-
-
 def get_standard_code_from_cawp_phrase(cawp_place_phrase: str):
     """ Accepts a CAWP place phrase found in the LINE ITEM table
     `{STATE_COL_LINE NAME} - {CODE}` with the standard 2 letter code
@@ -271,20 +257,20 @@ class CAWPData(DataSource):
                     df_line_items, current_place_code, STATE, cawp_race_name)
 
                 # calculate incidence rates
-                output_row[std_col.WOMEN_US_CONGRESS_PCT] = get_pct(
+                output_row[std_col.WOMEN_US_CONGRESS_PCT] = percent_avoid_rounding_to_zero(
                     us_congress_women_current_place_current_race,
                     us_congress_members_current_place_all_races)
 
-                output_row[std_col.WOMEN_STATE_LEG_PCT] = get_pct(
+                output_row[std_col.WOMEN_STATE_LEG_PCT] = percent_avoid_rounding_to_zero(
                     state_leg_women_current_place_current_race,
                     state_leg_members_current_place_all_races)
 
                 # calculate incidence shares
-                output_row[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = get_pct(
+                output_row[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = percent_avoid_rounding_to_zero(
                     us_congress_women_current_place_current_race,
                     us_congress_women_current_place_all_races)
 
-                output_row[std_col.WOMEN_STATE_LEG_PCT_SHARE] = get_pct(
+                output_row[std_col.WOMEN_STATE_LEG_PCT_SHARE] = percent_avoid_rounding_to_zero(
                     state_leg_women_current_place_current_race,
                     state_leg_women_current_place_all_races)
 

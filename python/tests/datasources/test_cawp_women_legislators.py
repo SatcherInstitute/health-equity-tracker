@@ -6,7 +6,6 @@ from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
 from datasources.cawp import (CAWPData,
                               get_standard_code_from_cawp_phrase,
-                              get_pct,
                               count_matching_rows,
                               remove_markup,
                               NATIONAL,
@@ -28,12 +27,6 @@ def test_remove_markup():
     assert remove_markup("Remove Asterisk*") == "Remove Asterisk"
     assert remove_markup("Double Star**") == "Double Star"
     assert remove_markup("<i>All the Above</i>**") == "All the Above"
-
-
-def test_get_pct():
-    assert get_pct(1, 3) == 33.3
-    assert get_pct(3, 3) == 100.0
-    assert get_pct(3, 0) == 0.0
 
 
 def test_count_matching_rows():

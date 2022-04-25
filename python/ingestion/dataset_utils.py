@@ -49,8 +49,13 @@ def percent_avoid_rounding_to_zero(numerator, denominator, default_decimals=1, m
        the percentage would round to 0, calculates with more decimal places until
        either it doesn't round to 0, or until `max_decimals`. `default_decimals`
        and `max_decimals` should be >= 0 and `max_decimals` should be >=
-       `default_decimals`. """
+       `default_decimals`.
 
+       Avoids division by zero errors and returns `0.0` instead
+        """
+
+    if denominator == 0:
+        return 0.0
     decimals = default_decimals
     pct = round((float(numerator) / float(denominator) * 100), decimals)
     while pct == 0 and numerator != 0 and decimals < max_decimals:
