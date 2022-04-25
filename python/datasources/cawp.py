@@ -194,7 +194,7 @@ class CAWPData(DataSource):
         column_types[std_col.RACE_OR_HISPANIC_COL] = "STRING"
 
         # make two tables
-        for geo_level in ['state', 'national']:
+        for geo_level in [STATE, NATIONAL]:
             table_name = f'race_and_ethnicity_{geo_level}'
             breakdown_df = self.generate_breakdown(df_us_congress_totals,
                                                    df_state_leg_totals,
