@@ -1,7 +1,11 @@
 @import "../../styles/variables.module";
 
 .MultiMapBox {
-  z-index: 100000001 !important; // to prioritize over FeedbackBox
+  z-index: 1 !important; // to get tooltips to render on top
+}
+
+:global(.vega-embed) {
+  z-index: 0 !important; // to stop non-modal actions menus from "peeking" through the modal
 }
 
 .SmallMultipleMap {
@@ -16,10 +20,12 @@
 
 .SmallMultipleLegendMap {
   padding-top: 15px;
+
   @media (min-width: $lg) {
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
+
   @media (min-width: $xl) {
     padding-top: 0px;
     padding-bottom: 2rem;
