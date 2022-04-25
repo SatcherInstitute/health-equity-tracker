@@ -151,8 +151,6 @@ class CAWPData(DataSource):
         df_state_leg_totals = df_state_leg_totals.applymap(remove_markup)
         df_state_leg_totals = df_state_leg_totals.rename(
             columns={STATE_COL_CAWP_TOTALS: POSTAL_COL})
-        # df_state_leg_totals = replace_state_abbr_with_names(
-        #     df_state_leg_totals)
         df_state_leg_totals[[COUNT_W, COUNT_ALL]
                             ] = df_state_leg_totals[RATIO_COL].str.split("/", expand=True)
         df_state_leg_totals = df_state_leg_totals[[
@@ -172,7 +170,6 @@ class CAWPData(DataSource):
         df_us_congress = pd.concat([df_us_senate, df_us_house])
         df_us_congress = df_us_congress.rename(
             columns={STATE_COL_LINE: POSTAL_COL})
-        # df_us_congress = replace_state_abbr_with_names(df_us_congress)
         df_us_congress_totals = df_us_congress[POSTAL_COL].value_counts(
         ).reset_index()
         df_us_congress_totals.columns = [POSTAL_COL, COUNT_ALL]
