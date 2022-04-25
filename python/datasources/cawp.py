@@ -9,6 +9,15 @@ from ingestion.dataset_utils import (percent_avoid_rounding_to_zero,
                                      merge_pop_numbers,
                                      replace_state_abbr_with_names)
 
+# Tables for CAWP data and State Legislature Denominators
+CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity.csv"
+CAWP_TOTALS_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
+
+# Tables for US Congress Denominators
+PROPUB_US_SENATE_FILE = "propublica-us-senate.json"
+PROPUB_US_HOUSE_FILE = "propublica-us-house.json"
+
+
 # CAWP COLUMNS
 RACE_COL = "race_ethnicity"
 POSTAL_COL = "state_postal_abbreviation"
@@ -104,14 +113,6 @@ def count_matching_rows(df, place_code: str, gov_level: str, race_to_match: str)
     df_race_other_matches = df[(df[RACE_COL].str.contains("Other"))]
 
     return len(df_race_matches.index) + len(df_race_list_matches.index) + len(df_race_other_matches.index)
-
-
-CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity.csv"
-CAWP_TOTALS_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
-
-# Tables for US LEVEL LEG TOTALS
-PROPUB_US_SENATE_FILE = "propublica-us-senate.json"
-PROPUB_US_HOUSE_FILE = "propublica-us-house.json"
 
 
 class CAWPData(DataSource):
