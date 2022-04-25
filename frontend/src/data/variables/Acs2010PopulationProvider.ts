@@ -11,8 +11,8 @@ class Acs2010PopulationProvider extends VariableProvider {
 
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
-    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
-      .columnName;
+    const breakdownColumnName =
+      breakdowns.getSoleDemographicBreakdown().columnName;
 
     return "acs_2010_population-by_" + breakdownColumnName + "_territory";
   }
@@ -22,13 +22,6 @@ class Acs2010PopulationProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
     let df = await this.getDataInternalWithoutPercents(breakdowns);
-
-    // Calculate population_pct based on total for breakdown
-    // Exactly one breakdown should be enabled per allowsBreakdowns()
-    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
-      .columnName;
-
-    df = this.renameTotalToAll(df, breakdownColumnName);
 
     df = df
       .generateSeries({ population_2010: (row) => row["population"] })

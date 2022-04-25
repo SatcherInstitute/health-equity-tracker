@@ -223,6 +223,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 dropdownVarId={props.dropdownVarId}
                 breakdownVar={currentBreakdown}
                 setVariableConfigWithParam={setVariableConfigWithParam}
+                jumpToData={props.jumpToData}
               />
             </LazyLoad>
           </Grid>

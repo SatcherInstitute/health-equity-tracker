@@ -1,6 +1,6 @@
 from enum import Enum, unique
 from collections import namedtuple
-import pandas
+import pandas as pd  # type: ignore
 
 # The name of the column for a unique string id for the race category. Should be
 # semi-human readable. See Race enum below for values.
@@ -32,7 +32,6 @@ POPULATION_COL = "population"
 INCOME_COL = "income"
 POPULATION_PCT_COL = "population_pct"
 
-TOTAL_VALUE = "Total"
 ALL_VALUE = "All"
 
 # Standardized column names for Covid cases, hospitalizations, and deaths.
@@ -178,7 +177,6 @@ class Race(Enum):
 
     # The total across races. This must always be included when the other race
     # values do not sum to 100%
-    TOTAL = ("TOTAL", TOTAL_VALUE, None)
     ALL = ("ALL", ALL_VALUE, None)
 
     # We set the enum value to the first arg, which is the race category id, or
@@ -246,7 +244,7 @@ def add_race_columns_from_category_id(df):
     df["race_tuple"] = df.apply(
         lambda r: Race.from_category_id(r[RACE_CATEGORY_ID_COL]).as_tuple(),
         axis=1)
-    df[Race.get_col_names()] = pandas.DataFrame(
+    df[Race.get_col_names()] = pd.DataFrame(
         df["race_tuple"].tolist(), index=df.index)
     df.drop("race_tuple", axis=1, inplace=True)
 

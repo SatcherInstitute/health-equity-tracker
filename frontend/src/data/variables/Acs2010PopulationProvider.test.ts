@@ -16,7 +16,6 @@ import {
   MALE,
   RACE,
   SEX,
-  TOTAL,
   WHITE_NH,
 } from "../utils/Constants";
 import { Fips } from "../utils/Fips";
@@ -129,10 +128,10 @@ describe("Acs2010PopulationProvider", () => {
   test("State and Age Breakdown", async () => {
     const rawData = [
       stateRow(AL, AGE, "10-19", 2, 100),
-      stateRow(AL, AGE, TOTAL, 2, 100),
+      stateRow(AL, AGE, ALL, 2, 100),
       stateRow(NC, AGE, "0-9", 15, 60),
       stateRow(NC, AGE, "10-19", 10, 40),
-      stateRow(NC, AGE, TOTAL, 25, 100),
+      stateRow(NC, AGE, ALL, 25, 100),
     ];
 
     const NC_AGE_0_9_FINAL = finalPopulationCountAndPctRow(
@@ -164,10 +163,10 @@ describe("Acs2010PopulationProvider", () => {
   test("State and Sex Breakdown", async () => {
     const rawData = [
       stateRow(AL, SEX, MALE, 2, 100),
-      stateRow(AL, SEX, TOTAL, 2, 100),
+      stateRow(AL, SEX, ALL, 2, 100),
       stateRow(NC, SEX, MALE, 15, 60),
       stateRow(NC, SEX, FEMALE, 10, 40),
-      stateRow(NC, SEX, TOTAL, 25, 100),
+      stateRow(NC, SEX, ALL, 25, 100),
     ];
 
     const NC_MALE_FINAL = finalPopulationCountAndPctRow(NC, SEX, MALE, 15, 60);

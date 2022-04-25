@@ -2,7 +2,7 @@
   {
     "state_fips": "66",
     "state_name": "Guam",
-    "age": "Total",
+    "age": "All",
     "population": "159358"
   },
   {
@@ -62,7 +62,7 @@
   {
     "state_fips": "69",
     "state_name": "Northern Mariana Islands",
-    "age": "Total",
+    "age": "All",
     "population": "53883"
   },
   {
@@ -122,7 +122,7 @@
   {
     "state_fips": "78",
     "state_name": "U.S. Virgin Islands",
-    "age": "Total",
+    "age": "All",
     "population": "106405"
   },
   {
