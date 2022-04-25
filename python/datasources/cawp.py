@@ -115,6 +115,57 @@ def count_matching_rows(df, place_code: str, gov_level: str, race_to_match: str)
     return len(df_race_matches.index) + len(df_race_list_matches.index) + len(df_race_other_matches.index)
 
 
+def get_cawp_line_items_as_df():
+    df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+        'cawp', CAWP_LINE_ITEMS_FILE)
+    df = df[[POSITION_COL, STATE_COL_LINE, RACE_COL]]
+    df = df.dropna()
+    df[STATE_COL_LINE] = df[STATE_COL_LINE].apply(
+        get_standard_code_from_cawp_phrase)
+    df = df.rename(
+        columns={STATE_COL_LINE: POSTAL_COL})
+    return df
+
+
+def get_state_leg_totals_as_df():
+    df = gcs_to_bq_util.load_csv_as_df_from_web(
+        CAWP_TOTALS_URL)
+    df = df[[STATE_COL_CAWP_TOTALS,
+             RATIO_COL,
+             PCT_W_COL]]
+    df = df.dropna()
+    df = df.applymap(remove_markup)
+    df = df.rename(
+        columns={STATE_COL_CAWP_TOTALS: POSTAL_COL})
+    df[[COUNT_W, COUNT_ALL]
+       ] = df[RATIO_COL].str.split("/", expand=True)
+    df = df[[
+        POSTAL_COL, COUNT_W, COUNT_ALL]]
+    df = df.sort_values(
+        by=[POSTAL_COL])
+    return df
+
+
+def get_congress_totals_as_df():
+    df_us_house = gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key_list(
+        'cawp', PROPUB_US_HOUSE_FILE, ["results", "members"])
+    df_us_senate = gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key_list(
+        'cawp', PROPUB_US_SENATE_FILE, ["results", "members"])
+    df_us_house = df_us_house[df_us_house[IN_OFFICE_COL]]
+    df_us_senate = df_us_senate[df_us_senate[IN_OFFICE_COL]]
+    df_us_house = df_us_house[[STATE]]
+    df_us_senate = df_us_senate[[STATE]]
+    df = pd.concat([df_us_senate, df_us_house])
+    df = df.rename(
+        columns={STATE_COL_LINE: POSTAL_COL})
+    df = df[POSTAL_COL].value_counts(
+    ).reset_index()
+    df.columns = [POSTAL_COL, COUNT_ALL]
+    df = df.sort_values(
+        by=[POSTAL_COL]).reset_index()
+    return df
+
+
 class CAWPData(DataSource):
 
     @ staticmethod
@@ -132,49 +183,13 @@ class CAWPData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
         # load in line-item table from CAWP with all women all levels by race/state
-        df_line_items = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            'cawp', CAWP_LINE_ITEMS_FILE)
-        df_line_items = df_line_items[[POSITION_COL, STATE_COL_LINE, RACE_COL]]
-        df_line_items = df_line_items.dropna()
-        df_line_items[STATE_COL_LINE] = df_line_items[STATE_COL_LINE].apply(
-            get_standard_code_from_cawp_phrase)
-        df_line_items = df_line_items.rename(
-            columns={STATE_COL_LINE: POSTAL_COL})
+        df_line_items = get_cawp_line_items_as_df()
 
         # load in table STATE LEGISLATURES total members by race/state
-        df_state_leg_totals = gcs_to_bq_util.load_csv_as_df_from_web(
-            CAWP_TOTALS_URL)
-        df_state_leg_totals = df_state_leg_totals[[STATE_COL_CAWP_TOTALS,
-                                                   RATIO_COL,
-                                                  PCT_W_COL]]
-        df_state_leg_totals = df_state_leg_totals.dropna()
-        df_state_leg_totals = df_state_leg_totals.applymap(remove_markup)
-        df_state_leg_totals = df_state_leg_totals.rename(
-            columns={STATE_COL_CAWP_TOTALS: POSTAL_COL})
-        df_state_leg_totals[[COUNT_W, COUNT_ALL]
-                            ] = df_state_leg_totals[RATIO_COL].str.split("/", expand=True)
-        df_state_leg_totals = df_state_leg_totals[[
-            POSTAL_COL, COUNT_W, COUNT_ALL]]
-        df_state_leg_totals = df_state_leg_totals.sort_values(
-            by=[POSTAL_COL])
+        df_state_leg_totals = get_state_leg_totals_as_df()
 
         # load in and combine PROPUBLICA US CONGRESS tables with members by state
-        df_us_house = gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key_list(
-            'cawp', PROPUB_US_HOUSE_FILE, ["results", "members"])
-        df_us_senate = gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key_list(
-            'cawp', PROPUB_US_SENATE_FILE, ["results", "members"])
-        df_us_house = df_us_house[df_us_house[IN_OFFICE_COL]]
-        df_us_senate = df_us_senate[df_us_senate[IN_OFFICE_COL]]
-        df_us_house = df_us_house[[STATE]]
-        df_us_senate = df_us_senate[[STATE]]
-        df_us_congress = pd.concat([df_us_senate, df_us_house])
-        df_us_congress = df_us_congress.rename(
-            columns={STATE_COL_LINE: POSTAL_COL})
-        df_us_congress_totals = df_us_congress[POSTAL_COL].value_counts(
-        ).reset_index()
-        df_us_congress_totals.columns = [POSTAL_COL, COUNT_ALL]
-        df_us_congress_totals = df_us_congress_totals.sort_values(
-            by=[POSTAL_COL]).reset_index()
+        df_us_congress_totals = get_congress_totals_as_df()
 
         # set column types for BigQuery
         column_types = {}
