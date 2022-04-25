@@ -126,6 +126,7 @@ def get_schema(frame, column_types, col_modes):
         col_modes = {}
 
     input_cols = column_types.keys()
+
     if (len(input_cols) != len(frame.columns)
             or set(input_cols) != set(frame.columns)):
         raise Exception('Column types did not match frame columns')
@@ -253,7 +254,41 @@ def load_json_as_df_from_data_dir(directory, filename, dtype=None):
     directory: directory within data to load from
     filename: file to load the json file from"""
     file_path = os.path.join(DATA_DIR, directory, filename)
+
     return pd.read_json(file_path, dtype=dtype)
+
+
+def load_json_as_df_from_data_dir_based_on_key_list(directory, filename, key_list):
+    """Loads json data from /data/{directory}/{filename} into a DataFrame.
+       Expects the data to be in json format, stored under the given list of nested keys
+
+    directory: directory within data to load from
+    filename: file to load the json file from
+    key_list: List of keys to represent the nested keys needed to get to the data in the json
+
+    For Example, given this JSON string:
+    grandparent: {
+        parent: {
+            child: {
+                grandchildren: [
+                    {name: "Joe"},
+                    {name: "Sally"},
+                    {name: "Steve"}
+                ]
+            }
+        }
+    }
+
+    To get a dataframe of the grandchildren by name, you would use the key_list
+    ["grandparent", "parent", "children", "grandchildren"]
+
+     """
+
+    file_path = os.path.join(DATA_DIR, directory, filename)
+    with open(file_path, 'r') as data_file:
+        data = json.loads(data_file.read())
+    df = pd.json_normalize(data, key_list)
+    return df
 
 
 def load_json_as_df_from_web(url, dtype=None, params=None):
