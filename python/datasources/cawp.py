@@ -116,6 +116,14 @@ def count_matching_rows(df, place_code: str, gov_level: str, race_to_match: str)
 
 
 def get_cawp_line_items_as_df():
+    """
+    Load in line-item table from CAWP (needs to be manually saved in /data)
+    with all women, all positions, by state/territory, by race
+    https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity/export-roles/csv?page&_format=csv
+
+    Returns a dataframe with columns POSTAL_COL, POSITION_COL, RACE_COL,
+    and each row as an individual woman in gov
+     """
     df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
         'cawp', CAWP_LINE_ITEMS_FILE)
     df = df[[POSITION_COL, STATE_COL_LINE, RACE_COL]]
@@ -128,6 +136,13 @@ def get_cawp_line_items_as_df():
 
 
 def get_state_leg_totals_as_df():
+    """
+    Fetches and parses table from CAWP "Facts" website with the COUNT_ALL (total of all genders)
+    state legislators and COUNT_W (total women of all races) from each state/territory
+    https://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0
+
+    Returns a dataframe with columns POSTAL_COL, COUNT_W, COUNT_ALL, and each row as a state/territory
+     """
     df = gcs_to_bq_util.load_csv_as_df_from_web(
         CAWP_TOTALS_URL)
     df = df[[STATE_COL_CAWP_TOTALS,
@@ -147,15 +162,20 @@ def get_state_leg_totals_as_df():
 
 
 def get_congress_totals_as_df():
+    """
+    Fetch ProPublica Congress tables (Senate and House)
+    and combine to create a US Congress totals (all genders) table
+    https://www.propublica.org/datastore/api/propublica-congress-api
+
+    Returns a dataframe with columns POSTAL_COL, COUNT_ALL, and each row as a state/territory
+     """
     df_us_house = gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key_list(
         'cawp', PROPUB_US_HOUSE_FILE, ["results", "members"])
     df_us_senate = gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key_list(
         'cawp', PROPUB_US_SENATE_FILE, ["results", "members"])
-    df_us_house = df_us_house[df_us_house[IN_OFFICE_COL]]
-    df_us_senate = df_us_senate[df_us_senate[IN_OFFICE_COL]]
-    df_us_house = df_us_house[[STATE]]
-    df_us_senate = df_us_senate[[STATE]]
     df = pd.concat([df_us_senate, df_us_house])
+    df = df[df[IN_OFFICE_COL]]
+    df = df[[STATE]]
     df = df.rename(
         columns={STATE_COL_LINE: POSTAL_COL})
     df = df[POSTAL_COL].value_counts(
@@ -182,13 +202,8 @@ class CAWPData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        # load in line-item table from CAWP with all women all levels by race/state
         df_line_items = get_cawp_line_items_as_df()
-
-        # load in table STATE LEGISLATURES total members by race/state
         df_state_leg_totals = get_state_leg_totals_as_df()
-
-        # load in and combine PROPUBLICA US CONGRESS tables with members by state
         df_us_congress_totals = get_congress_totals_as_df()
 
         # set column types for BigQuery
