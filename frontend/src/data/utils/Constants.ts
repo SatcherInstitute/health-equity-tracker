@@ -11,7 +11,6 @@ export const SEX = "sex";
 
 // MULTIUSE TERMS
 export const ALL = "All";
-export const TOTAL = "Total";
 export const UNKNOWN = "Unknown";
 
 // ETHNICITY

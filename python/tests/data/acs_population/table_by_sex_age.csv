@@ -1,4 +1,14 @@
 state_fips,state_name,sex,age,population
+01,Alabama,All,0-9,594251
+01,Alabama,All,10-19,632942
+01,Alabama,All,20-29,660802
+01,Alabama,All,30-39,605766
+01,Alabama,All,40-49,605502
+01,Alabama,All,50-59,656313
+01,Alabama,All,60-69,582830
+01,Alabama,All,70-79,354740
+01,Alabama,All,80+,183104
+01,Alabama,All,All,4876250
 01,Alabama,Female,0-9,291667
 01,Alabama,Female,10-19,311088
 01,Alabama,Female,20-29,329775
@@ -8,7 +18,7 @@ state_fips,state_name,sex,age,population
 01,Alabama,Female,60-69,308991
 01,Alabama,Female,70-79,195875
 01,Alabama,Female,80+,115839
-01,Alabama,Female,Total,2516895
+01,Alabama,Female,All,2516895
 01,Alabama,Male,0-9,302584
 01,Alabama,Male,10-19,321854
 01,Alabama,Male,20-29,331027
@@ -18,17 +28,17 @@ state_fips,state_name,sex,age,population
 01,Alabama,Male,60-69,273839
 01,Alabama,Male,70-79,158865
 01,Alabama,Male,80+,67265
-01,Alabama,Male,Total,2359355
-01,Alabama,Total,0-9,594251
-01,Alabama,Total,10-19,632942
-01,Alabama,Total,20-29,660802
-01,Alabama,Total,30-39,605766
-01,Alabama,Total,40-49,605502
-01,Alabama,Total,50-59,656313
-01,Alabama,Total,60-69,582830
-01,Alabama,Total,70-79,354740
-01,Alabama,Total,80+,183104
-01,Alabama,Total,Total,4876250
+01,Alabama,Male,All,2359355
+72,Puerto Rico,All,0-9,318830
+72,Puerto Rico,All,10-19,421094
+72,Puerto Rico,All,20-29,453809
+72,Puerto Rico,All,30-39,395035
+72,Puerto Rico,All,40-49,422720
+72,Puerto Rico,All,50-59,439949
+72,Puerto Rico,All,60-69,408689
+72,Puerto Rico,All,70-79,292530
+72,Puerto Rico,All,80+,165791
+72,Puerto Rico,All,All,3318447
 72,Puerto Rico,Female,0-9,156311
 72,Puerto Rico,Female,10-19,206109
 72,Puerto Rico,Female,20-29,226352
@@ -38,7 +48,7 @@ state_fips,state_name,sex,age,population
 72,Puerto Rico,Female,60-69,223719
 72,Puerto Rico,Female,70-79,163248
 72,Puerto Rico,Female,80+,99741
-72,Puerto Rico,Female,Total,1740129
+72,Puerto Rico,Female,All,1740129
 72,Puerto Rico,Male,0-9,162519
 72,Puerto Rico,Male,10-19,214985
 72,Puerto Rico,Male,20-29,227457
@@ -48,14 +58,4 @@ state_fips,state_name,sex,age,population
 72,Puerto Rico,Male,60-69,184970
 72,Puerto Rico,Male,70-79,129282
 72,Puerto Rico,Male,80+,66050
-72,Puerto Rico,Male,Total,1578318
-72,Puerto Rico,Total,0-9,318830
-72,Puerto Rico,Total,10-19,421094
-72,Puerto Rico,Total,20-29,453809
-72,Puerto Rico,Total,30-39,395035
-72,Puerto Rico,Total,40-49,422720
-72,Puerto Rico,Total,50-59,439949
-72,Puerto Rico,Total,60-69,408689
-72,Puerto Rico,Total,70-79,292530
-72,Puerto Rico,Total,80+,165791
-72,Puerto Rico,Total,Total,3318447
+72,Puerto Rico,Male,All,1578318

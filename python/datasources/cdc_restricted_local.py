@@ -163,9 +163,9 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     df = df.groupby(groupby_cols).sum().reset_index()
     totals = df.groupby(geo_cols).sum().reset_index()
     if demog_cols[0] == RACE_COL:  # Special case required due to later processing.
-        totals[demog_cols[0]] = std_col.Race.TOTAL.value
+        totals[demog_cols[0]] = std_col.Race.ALL.value
     else:
-        totals[demog_cols[0]] = std_col.TOTAL_VALUE
+        totals[demog_cols[0]] = std_col.ALL_VALUE
 
     df = pd.concat([df, totals])
     df = df.set_index(groupby_cols)

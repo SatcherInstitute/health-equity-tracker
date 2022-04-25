@@ -6,7 +6,8 @@ import pandas as pd
 from unittest import mock
 from pandas._testing import assert_frame_equal
 
-from datasources.acs_population import ACSPopulationIngester, SEX_BY_AGE_CONCEPTS_TO_RACE, generate_national_dataset
+from datasources.acs_population import (  # type: ignore
+        ACSPopulationIngester, SEX_BY_AGE_CONCEPTS_TO_RACE, GENERATE_NATIONAL_DATASET)
 from ingestion import gcs_to_bq_util
 
 # Current working directory.
@@ -69,7 +70,7 @@ def testGenerateNationalDatasetRace():
         TEST_DIR, 'national', 'national_by_race.csv'), dtype={'state_fips': str})
     states_to_include = {'01', '06'}
 
-    national_df = generate_national_dataset(
+    national_df = GENERATE_NATIONAL_DATASET(
         state_df, states_to_include, 'race')
     assert_frame_equal(national_df, expected_df, check_like=True)
 
@@ -81,7 +82,7 @@ def testGenerateNationalDatasetSex():
         TEST_DIR, 'national', 'national_by_sex.csv'), dtype={'state_fips': str})
     states_to_include = {'01', '06'}
 
-    national_df = generate_national_dataset(state_df, states_to_include, 'sex')
+    national_df = GENERATE_NATIONAL_DATASET(state_df, states_to_include, 'sex')
     assert_frame_equal(national_df, expected_df, check_like=True)
 
 
@@ -92,7 +93,7 @@ def testGenerateNationalDatasetAge():
         TEST_DIR, 'national', 'national_by_age.csv'), dtype={'state_fips': str})
     states_to_include = {'01', '06'}
 
-    national_df = generate_national_dataset(state_df, states_to_include, 'age')
+    national_df = GENERATE_NATIONAL_DATASET(state_df, states_to_include, 'age')
     assert_frame_equal(national_df, expected_df, check_like=True)
 
 
@@ -136,6 +137,7 @@ def testWriteToBqSexAgeRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, m
     expected_df = pd.read_csv(GOLDEN_DATA_SEX_AGE_RACE, dtype={
         'state_fips': str,
     })
+
     assert_frame_equal(
         mock_bq.call_args_list[1].args[0], expected_df, check_like=True)
 

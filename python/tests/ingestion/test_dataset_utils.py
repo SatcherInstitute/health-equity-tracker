@@ -76,12 +76,14 @@ _data_without_fips_codes = [
     ['United States', 'something_cool'],
     ['California', 'something'],
     ['Georgia', 'something_else'],
+    ['U.S. Virgin Islands', 'something_else_entirely'],
 ]
 
 _fips_codes_from_bq = [
     ['state_fips_code', 'state_postal_abbreviation', 'state_name', 'state_gnisid'],
     ['06', 'CA', 'California', '01779778'],
     ['13', 'GA', 'Georgia', '01705317'],
+    ['78', 'VI', 'U.S. Virgin Islands', 'NEEDTHISCODE'],
 ]
 
 _expected_merged_fips = [
@@ -89,6 +91,40 @@ _expected_merged_fips = [
     ['United States', 'something_cool', '00'],
     ['California', 'something', '06'],
     ['Georgia', 'something_else', '13'],
+    ['U.S. Virgin Islands', 'something_else_entirely', '78'],
+]
+
+_data_without_pop_numbers = [
+    ['state_fips', 'race_category_id', 'other_col'],
+    ['01', 'BLACK_NH', 'something_cool'],
+    ['01', 'WHITE_NH', 'something_else_cool'],
+    ['02', 'BLACK_NH', 'something_cooler'],
+    ['78', 'WHITE_NH', 'something_else_entirely'],
+    ['78', 'BLACK_NH', 'something_else_entirely'],
+]
+
+_pop_data = [
+    ['state_fips', 'race_category_id', 'population', 'population_pct'],
+    ['01', 'BLACK_NH', 100, 25.0],
+    ['01', 'WHITE_NH', 300, 75.0],
+    ['02', 'BLACK_NH', 100, 50.0],
+    ['100', 'BLACK_NH', 100, 50.0],
+]
+
+_pop_2010_data = [
+    ['state_fips', 'race_category_id', 'population', 'population_pct'],
+    ['78', 'BLACK_NH', 200, 40.0],
+    ['78', 'WHITE_NH', 300, 60.0],
+]
+
+_expected_merged_with_pop_numbers = [
+    ['state_fips', 'race_category_id', 'population', 'population_pct', 'other_col'],
+    ['01', 'BLACK_NH', 100, 25.0, 'something_cool'],
+    ['01', 'WHITE_NH', 300, 75.0, 'something_else_cool'],
+    ['02', 'BLACK_NH', 100, 50.0, 'something_cooler'],
+    ['78', 'WHITE_NH', 300, 60.0, 'something_else_entirely'],
+    ['78', 'BLACK_NH', 200, 40.0, 'something_else_entirely'],
+
 ]
 
 _data_without_pop_numbers = [
@@ -106,7 +142,7 @@ _pop_data = [
     ['100', 'BLACK_NH', '100', '50'],
 ]
 
-_expected_merged_with_pop_numnbers = [
+_expected_merged_with_pop_numbers = [
     ['state_fips', 'race_category_id', 'population', 'population_pct', 'other_col'],
     ['01', 'BLACK_NH', '100', '25', 'something_cool'],
     ['01', 'WHITE_NH', '300', '75', 'something_else_cool'],
@@ -119,9 +155,20 @@ def _get_fips_codes_as_df():
         json.dumps(_fips_codes_from_bq), dtype=str).reset_index(drop=True)
 
 
-def _get_pop_data_as_df():
+def _get_pop_data_as_df(*args):
+
+    # intercept mock call for territories and reroute
+    if args[1].endswith("_territory"):
+        return _get_pop_2010_data_as_df()
+
+    # regular mock call
     return gcs_to_bq_util.values_json_to_df(
         json.dumps(_pop_data), dtype=str).reset_index(drop=True)
+
+
+def _get_pop_2010_data_as_df():
+    return gcs_to_bq_util.values_json_to_df(
+        json.dumps(_pop_2010_data), dtype=str).reset_index(drop=True)
 
 
 def testRatioRoundToNone():
@@ -176,7 +223,7 @@ def testGeneratePctShareColNoTotalError():
 
     df['population'] = df['population'].astype(int)
 
-    expected_error = r"There is no TOTAL value for this chunk of data"
+    expected_error = r"There is no ALL value for this chunk of data"
     with pytest.raises(ValueError, match=expected_error):
         df = dataset_utils.generate_pct_share_col(
             df, 'population', 'pct_share', 'race', 'TOTAL')
@@ -197,7 +244,7 @@ def testGeneratePctShareColExtraTotalError():
 
     df['population'] = df['population'].astype(int)
 
-    expected_error = r"There are multiple TOTAL values for this chunk of data, there should only be one"
+    expected_error = r"There are multiple ALL values for this chunk of data, there should only be one"
     with pytest.raises(ValueError, match=expected_error):
         df = dataset_utils.generate_pct_share_col(
             df, 'population', 'pct_share', 'race', 'TOTAL')
@@ -208,6 +255,7 @@ def testGeneratePctShareColExtraTotalError():
 def testMergeFipsCodes(mock_bq: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
+
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
 
@@ -218,15 +266,16 @@ def testMergeFipsCodes(mock_bq: mock.MagicMock):
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-            return_value=_get_pop_data_as_df())
+            side_effect=_get_pop_data_as_df)
 def testMergePopNumbers(mock_bq: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_pop_numbers), dtype=str).reset_index(drop=True)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_merged_with_pop_numnbers), dtype=str).reset_index(drop=True)
+        json.dumps(_expected_merged_with_pop_numbers), dtype=str).reset_index(drop=True)
 
     df = dataset_utils.merge_pop_numbers(df, 'race', 'state')
 
-    assert mock_bq.call_count == 1
+    assert mock_bq.call_count == 2
+
     assert_frame_equal(df, expected_df, check_like=True)

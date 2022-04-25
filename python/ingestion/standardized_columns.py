@@ -1,6 +1,6 @@
 from enum import Enum, unique
 from collections import namedtuple
-import pandas
+import pandas as pd  # type: ignore
 
 # The name of the column for a unique string id for the race category. Should be
 # semi-human readable. See Race enum below for values.
@@ -32,7 +32,6 @@ POPULATION_COL = "population"
 INCOME_COL = "income"
 POPULATION_PCT_COL = "population_pct"
 
-TOTAL_VALUE = "Total"
 ALL_VALUE = "All"
 
 # Standardized column names for Covid cases, hospitalizations, and deaths.
@@ -55,23 +54,28 @@ WITHOUT_HEALTH_INSURANCE_COL = "without_health_insurance"
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"
 
-# Standardized names for UHC columns
-DEPRESSION_PER_100K = "depression_per_100k"
-ILLICIT_OPIOID_USE_PER_100K = "illicit_opioid_use_per_100k"
-NON_MEDICAL_RX_OPIOID_USE_PER_100K = "non_medical_rx_opioid_use_per_100k"
-NON_MEDICAL_DRUG_USE_PER_100K = "non_medical_drug_use_per_100k"
-EXCESSIVE_DRINKING_PER_100K = "excessive_drinking_per_100k"
-COPD_PER_100K = "copd_per_100k"
-DIABETES_PER_100K = "diabetes_per_100k"
-ANXIETY_PER_100K = "anxiety_per_100k"
-FREQUENT_MENTAL_DISTRESS_PER_100K = "frequent_mental_distress_per_100k"
-SUICIDE_PER_100K = "suicide_per_100k"
-PREVENTABLE_HOSP_PER_100K = "preventable_hospitalizations_per_100k"
-AVOIDED_CARE_PER_100K = "avoided_care_per_100k"
-CHRONIC_KIDNEY_PER_100K = "chronic_kidney_disease_per_100k"
-CARDIOVASCULAR_PER_100K = "cardiovascular_diseases_per_100k"
-ASTHMA_PER_100K = "asthma_per_100k"
-VOTER_PARTICIPATION_PER_100K = "voter_participation_per_100k"
+PER_100K_SUFFIX = "per_100k"
+PCT_SHARE_SUFFIX = "pct_share"
+
+# Standardized column prefixes for UHC columns
+DEPRESSION_PREFIX = "depression"
+ILLICIT_OPIOID_USE_PREFIX = "illicit_opioid_use"
+NON_MEDICAL_RX_OPIOID_USE_PREFIX = "non_medical_rx_opioid_use"
+NON_MEDICAL_DRUG_USE_PREFIX = "non_medical_drug_use"
+EXCESSIVE_DRINKING_PREFIX = "excessive_drinking"
+COPD_PREFIX = "copd"
+DIABETES_PREFIX = "diabetes"
+ANXIETY_PREFIX = "anxiety"
+FREQUENT_MENTAL_DISTRESS_PREFIX = "frequent_mental_distress"
+SUICIDE_PREFIX = "suicide"
+PREVENTABLE_HOSP_PREFIX = "preventable_hospitalizations"
+AVOIDED_CARE_PREFIX = "avoided_care"
+CHRONIC_KIDNEY_PREFIX = "chronic_kidney_disease"
+CARDIOVASCULAR_PREFIX = "cardiovascular_diseases"
+ASTHMA_PREFIX = "asthma"
+VOTER_PARTICIPATION_PREFIX = "voter_participation"
+
+BRFSS_POPULATION_PCT = "brfss_population_pct"
 
 # Standardized for Vaccination columns
 VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
@@ -173,7 +177,6 @@ class Race(Enum):
 
     # The total across races. This must always be included when the other race
     # values do not sum to 100%
-    TOTAL = ("TOTAL", TOTAL_VALUE, None)
     ALL = ("ALL", ALL_VALUE, None)
 
     # We set the enum value to the first arg, which is the race category id, or
@@ -241,6 +244,15 @@ def add_race_columns_from_category_id(df):
     df["race_tuple"] = df.apply(
         lambda r: Race.from_category_id(r[RACE_CATEGORY_ID_COL]).as_tuple(),
         axis=1)
-    df[Race.get_col_names()] = pandas.DataFrame(
+    df[Race.get_col_names()] = pd.DataFrame(
         df["race_tuple"].tolist(), index=df.index)
     df.drop("race_tuple", axis=1, inplace=True)
+
+
+def generate_column_name(prefix, suffix):
+    """Generates a standard column name.
+
+       prefix: A condition name
+       suffix: a type of measurement (pct_share, per_100k)"""
+
+    return '%s_%s' % (prefix, suffix)
