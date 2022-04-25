@@ -124,6 +124,7 @@ function DropDownMenu(props: DropDownMenuProps) {
   );
 
   const oneLevelMenu = Object.keys(props.options).length === 1;
+
   return (
     <>
       <label
