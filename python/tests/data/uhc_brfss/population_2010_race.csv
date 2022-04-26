@@ -1,6 +1,6 @@
 state_fips,state_name,population,race_category_id,population_pct,race,race_includes_hispanic,race_and_ethnicity,ingestion_ts
 66,Guam,1201,HISP,0.8,Hispanic or Latino,true,Hispanic or Latino,2022-03-28T20:38:16.905Z
-66,Guam,159358,TOTAL,100.0,Total,,Total,2022-03-28T20:38:16.905Z
+66,Guam,159358,ALL,100.0,Total,,Total,2022-03-28T20:38:16.905Z
 66,Guam,78582,NHPI_NH,49.3,Native Hawaiian and Pacific Islander,false,Native Hawaiian and Pacific Islander (Non-Hispanic),2022-03-28T20:38:16.905Z
 66,Guam,51381,ASIAN_NH,32.2,Asian,false,Asian (Non-Hispanic),2022-03-28T20:38:16.905Z
 66,Guam,1540,BLACK_NH,1.0,Black or African American,false,Black or African American (Non-Hispanic),2022-03-28T20:38:16.905Z

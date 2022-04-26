@@ -87,7 +87,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   const raceQuery = new MetricQuery(metricIds as MetricId[], raceBreakdowns);
   const ageQuery = new MetricQuery(metricIds as MetricId[], ageBreakdowns);
-
   const ratioId = metricIds[0];
 
   const metricIdsForRatiosOnly = Object.values(metricConfigs).filter((config) =>

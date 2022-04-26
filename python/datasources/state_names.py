@@ -28,7 +28,7 @@ class StateNames(DataSource):
         """Writes state names to BigQuery from the provided GCS bucket
 
         dataset: The BigQuery dataset to write to
-        table_name: The name of the biquery table to write to
+        table_name: The name of the bigquery table to write to
         gcs_bucket: The name of the gcs bucket to read the data from
         filename: The name of the file in the gcs bucket to read from"""
         try:
