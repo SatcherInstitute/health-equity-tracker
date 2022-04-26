@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { EXPLORE_DATA_PAGE_LINK } from './otherPageRoutes.spec';
+import { EXPLORE_DATA_PAGE_LINK } from './otherInternalPageRoutes.spec';
 
 const COVID_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos"
 
@@ -9,7 +9,7 @@ test('User Flow from Default Tracker Page to Compare Covid Deaths by race betwee
     await page.goto(EXPLORE_DATA_PAGE_LINK);
 
     // change carousel to "Compare Geo mode"
-    const advanceMadlibCarouselArrowButton =  await page.locator('id=onboarding-madlib-arrow')
+    const advanceMadlibCarouselArrowButton = await page.locator('id=onboarding-madlib-arrow')
     await advanceMadlibCarouselArrowButton.click();
 
     const madlibBox = await page.locator('id=onboarding-start-your-search')
@@ -34,7 +34,7 @@ test('User Flow from Default Tracker Page to Compare Covid Deaths by race betwee
     await page.keyboard.press('Enter');
 
     // Confirm correct URL
-    await expect(page).toHaveURL(EXPLORE_DATA_PAGE_LINK+COVID_DEN_VS_CO);
+    await expect(page).toHaveURL(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO);
 
     // Confirm no failed Vega visualizations
     let mainChunk = await page.locator('main')
