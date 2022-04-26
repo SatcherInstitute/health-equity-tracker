@@ -46,7 +46,7 @@ The frontend consists of
 
 In addition, we have a Storybook project that also lives in `health-equity-tracker/frontend/`. Storybook is a library that allows us to explore and develop UI components in isolation. Stories for each UI component are contained in the same directory as the component in a subfolder called "storybook". The current main branch version of Storybook can be seen here: https://het-storybook.netlify.app
 
-### Frontend React App Environments
+## Frontend React App Environments
 
 The frontend React App runs in different environments. We use configuration files (`frontend/.env.prod`, `frontend/.env.staging`, etc) to control settings in different environments. These include things like the data server URL and logging settings. These can be overridden for local development using a `frontend/.env.development` file.
 
