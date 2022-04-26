@@ -23,8 +23,8 @@ test('User Flow from Default Tracker Page to Compare Covid Deaths by race betwee
     await page.fill('[placeholder="County, State, Territory, or United States"]', 'denver');
     await page.keyboard.press('Enter');
 
-    const populationCard = await page.locator('id=populationCard')
-    await expect(populationCard).toContainText("Denver County, Colorado")
+    // const populationCard = await page.locator('id=populationCard')
+    // await expect(populationCard).toContainText("Denver County, Colorado")
 
     // Changing first location via madlib buttons
     const location2MadlibButton = await page.locator('#onboarding-start-your-search button:has-text("Georgia")')
