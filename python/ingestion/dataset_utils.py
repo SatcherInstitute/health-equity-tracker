@@ -65,8 +65,13 @@ def percent_avoid_rounding_to_zero(numerator, denominator, default_decimals=1, m
        the percentage would round to 0, calculates with more decimal places until
        either it doesn't round to 0, or until `max_decimals`. `default_decimals`
        and `max_decimals` should be >= 0 and `max_decimals` should be >=
-       `default_decimals`. """
+       `default_decimals`.
 
+       Avoids division by zero errors and returns `0.0` instead
+        """
+
+    if denominator == 0:
+        return 0.0
     decimals = default_decimals
     pct = round((float(numerator) / float(denominator) * 100), decimals)
     while pct == 0 and numerator != 0 and decimals < max_decimals:
@@ -160,6 +165,28 @@ def merge_fips_codes(df):
     if std_col.STATE_POSTAL_COL in df.columns:
         df = df.drop(columns=std_col.STATE_POSTAL_COL)
 
+    return df
+
+
+def replace_state_abbr_with_names(df):
+    """Replaces all two-letter place codes with the place name.  based on the `census_utility` big query public dataset.
+       df: dataframe to swap two-letter abbreviations for names, with a `state_postal_abbreviation` column"""
+
+    # get table from BQ
+    all_state_codes_df = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
+        'census_utility', 'fips_codes_states', dtype={std_col.STATE_NAME_COL: str, 'state_postal_abbreviation': str})
+    all_state_codes_df = all_state_codes_df[[
+        std_col.STATE_NAME_COL, 'state_postal_abbreviation']]
+
+    # add USA as a "state" for potentially swapping
+    united_states_code = pd.DataFrame(
+        [{'state_postal_abbreviation': constants.US_ABBR, std_col.STATE_NAME_COL: constants.US_NAME}])
+    all_state_codes_df = pd.concat([all_state_codes_df, united_states_code])
+
+    # swap CODES for NAMES
+    df = pd.merge(df, all_state_codes_df, how='left',
+                  on='state_postal_abbreviation').reset_index(drop=True)
+    df = df.drop(columns=['state_postal_abbreviation'])
     return df
 
 

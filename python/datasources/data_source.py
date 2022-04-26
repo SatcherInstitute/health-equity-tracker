@@ -86,7 +86,7 @@ class DataSource(ABC):
 
     def clean_frame_column_names(self, frame):
         """ Replaces unfitting BigQuery characters and
-        makes all coumn names lower case.
+        makes all column names lower case.
 
         frame: The pandas dataframe with unclean columns
         """

@@ -13,7 +13,6 @@ import {
   METRIC_CONFIG,
   VariableConfig,
   VariableId,
-  COVID_VAXX,
 } from "../data/config/MetricConfig";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { RACE } from "../data/utils/Constants";
@@ -142,32 +141,27 @@ function TwoVariableReport(props: {
 
           {/* 2 SETS OF DEMOGRAPHIC AND DATA TYPE TOGGLES */}
           <Grid container>
-            {!(
-              props.dropdownVarId1 === COVID_VAXX && props.fips1.isCounty()
-            ) && (
-              <Grid item xs={12} sm={6}>
-                <ReportToggleControls
-                  dropdownVarId={props.dropdownVarId1}
-                  variableConfig={variableConfig1}
-                  setVariableConfig={setVariableConfigWithParam1}
-                  currentBreakdown={currentBreakdown}
-                  setCurrentBreakdown={setDemoWithParam}
-                />
-              </Grid>
-            )}
-            {!(
-              props.dropdownVarId2 === COVID_VAXX && props.fips2.isCounty()
-            ) && (
-              <Grid item xs={12} sm={6}>
-                <ReportToggleControls
-                  dropdownVarId={props.dropdownVarId2}
-                  variableConfig={variableConfig2}
-                  setVariableConfig={setVariableConfigWithParam2}
-                  currentBreakdown={currentBreakdown}
-                  setCurrentBreakdown={setDemoWithParam}
-                />
-              </Grid>
-            )}
+            <Grid item xs={12} sm={6}>
+              <ReportToggleControls
+                dropdownVarId={props.dropdownVarId1}
+                variableConfig={variableConfig1}
+                setVariableConfig={setVariableConfigWithParam1}
+                currentBreakdown={currentBreakdown}
+                setCurrentBreakdown={setDemoWithParam}
+                fips={props.fips1}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <ReportToggleControls
+                dropdownVarId={props.dropdownVarId2}
+                variableConfig={variableConfig2}
+                setVariableConfig={setVariableConfigWithParam2}
+                currentBreakdown={currentBreakdown}
+                setCurrentBreakdown={setDemoWithParam}
+                fips={props.fips2}
+              />
+            </Grid>
           </Grid>
         </Grid>
       ) : (
@@ -175,34 +169,30 @@ function TwoVariableReport(props: {
           <Grid item xs={12} sm={6} id="populationCard">
             {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
             <PopulationCard jumpToData={props.jumpToData} fips={props.fips1} />
-            {!(
-              props.dropdownVarId1 === COVID_VAXX && props.fips1.isCounty()
-            ) && (
-              /* FIRST TOGGLE(S) FOR COMPARE RATES REPORT */
-              <ReportToggleControls
-                dropdownVarId={props.dropdownVarId1}
-                variableConfig={variableConfig1}
-                setVariableConfig={setVariableConfigWithParam1}
-                currentBreakdown={currentBreakdown}
-                setCurrentBreakdown={setDemoWithParam}
-              />
-            )}
+
+            {/*  FIRST TOGGLE(S) FOR COMPARE RATES REPORT */}
+            <ReportToggleControls
+              dropdownVarId={props.dropdownVarId1}
+              variableConfig={variableConfig1}
+              setVariableConfig={setVariableConfigWithParam1}
+              currentBreakdown={currentBreakdown}
+              setCurrentBreakdown={setDemoWithParam}
+              fips={props.fips1}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
             {/* SECOND POPULATION CARD FOR COMPARE RATES REPORT */}
             <PopulationCard jumpToData={props.jumpToData} fips={props.fips2} />
-            {!(
-              props.dropdownVarId2 === COVID_VAXX && props.fips2.isCounty()
-            ) && (
-              /* SECOND TOGGLE(S) FOR COMPARE RATES REPORT */
-              <ReportToggleControls
-                dropdownVarId={props.dropdownVarId2}
-                variableConfig={variableConfig2}
-                setVariableConfig={setVariableConfigWithParam2}
-                currentBreakdown={currentBreakdown}
-                setCurrentBreakdown={setDemoWithParam}
-              />
-            )}
+
+            {/*  SECOND TOGGLE(S) FOR COMPARE RATES REPORT */}
+            <ReportToggleControls
+              dropdownVarId={props.dropdownVarId2}
+              variableConfig={variableConfig2}
+              setVariableConfig={setVariableConfigWithParam2}
+              currentBreakdown={currentBreakdown}
+              setCurrentBreakdown={setDemoWithParam}
+              fips={props.fips2}
+            />
           </Grid>
         </>
       )}
