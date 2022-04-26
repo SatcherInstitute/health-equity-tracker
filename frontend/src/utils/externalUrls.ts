@@ -33,7 +33,7 @@ export const urlMap: Record<LinkName, string> = {
   cdcCovidDataInfo:
     "https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/about-us-cases-deaths.html",
   cdcWonder: "https://wonder.cdc.gov/mcd.html",
-  shliLinkedIn: "https://www.linkedin.com/in/satcherhealth",
+  shliLinkedIn: "https://www.linkedin.com/in/satcherheeeeeeeealth",
   shliTwitter: "https://twitter.com/SatcherHealth",
   shliYoutube: "https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA",
   shli: "https://satcherinstitute.org",
