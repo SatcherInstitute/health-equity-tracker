@@ -10,8 +10,7 @@
         "population_pct": null,
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-22T17:25:29.571Z"
+        "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian"
     },
     {
         "state_name": "United States",
@@ -24,8 +23,7 @@
         "population_pct": null,
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-22T17:25:29.571Z"
+        "race_and_ethnicity": "Middle Eastern \u0026 North African"
     },
     {
         "state_name": "United States",
@@ -38,8 +36,7 @@
         "population_pct": "8.4",
         "race": "Two or more races \u0026 Unrepresented race",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "Two or more races \u0026 Unrepresented race",
-        "ingestion_ts": "2022-04-22T17:25:29.571Z"
+        "race_and_ethnicity": "Two or more races \u0026 Unrepresented race"
     },
     {
         "state_name": "United States",
@@ -52,8 +49,7 @@
         "population_pct": null,
         "race": "Unknown race",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-22T17:25:29.571Z"
+        "race_and_ethnicity": "Unknown race"
     },
     {
         "state_name": "United States",
@@ -66,8 +62,7 @@
         "population_pct": "72.4",
         "race": "White",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-22T17:25:29.571Z"
+        "race_and_ethnicity": "White"
     },
     {
         "state_name": "United States",
@@ -80,8 +75,7 @@
         "population_pct": "12.7",
         "race": "Black or African American",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-22T17:25:29.571Z"
+        "race_and_ethnicity": "Black or African American"
     },
     {
         "state_name": "United States",
@@ -94,8 +88,7 @@
         "population_pct": null,
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-22T17:25:29.571Z"
+        "race_and_ethnicity": "Asian American \u0026 Pacific Islander"
     },
     {
         "state_name": "United States",
@@ -108,8 +101,7 @@
         "population_pct": "18.8",
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-22T17:25:29.571Z"
+        "race_and_ethnicity": "Hispanic or Latino"
     },
     {
         "state_name": "United States",
@@ -123,6 +115,6 @@
         "race": "All",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "All",
-        "ingestion_ts": "2022-04-22T17:25:29.571Z"
+        "ingestion_ts": "2022-04-26T02:08:09.223Z"
     }
 ]
