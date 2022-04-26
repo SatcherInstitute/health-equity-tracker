@@ -44,6 +44,22 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, all_
     return pd.concat(with_pct_share).reset_index(drop=True)
 
 
+def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
+    """Returns a dataframe with a `per_100k` column
+
+       df: DataFrame to generate the `per_100k_col` for.
+       raw_count_col: String column name with the total number of people
+                      who have the given condition.
+       pop_col: String column name with the population number.
+       per_100k_col: String column name to place the generate row in."""
+
+    def calc_per_100k(record):
+        return (float(record[raw_count_col]) / float(record[pop_col])) * 100000
+
+    df[per_100k_col] = df.apply(calc_per_100k, axis=1)
+    return df
+
+
 def percent_avoid_rounding_to_zero(numerator, denominator, default_decimals=1, max_decimals=2):
     """Calculates percentage to `default_decimals` number of decimal places. If
        the percentage would round to 0, calculates with more decimal places until

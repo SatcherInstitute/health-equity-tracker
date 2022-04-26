@@ -42,6 +42,16 @@ _expected_pct_share_data = [
     ['04', 'Arizona', 'TOTAL', '95', '100'],
 ]
 
+_fake_condition_data = [
+    ['state_fips', 'state_name', 'race', 'some_condition_total', 'population'],
+    ['01', 'Alabama', 'Asian alone', '100', '1000'],
+    ['01', 'Alabama', 'Some other race alone', '200', ''],
+    ['02', 'Alaska', 'Two or more races', '60'],
+    ['02', 'Alaska', 'TOTAL', '116'],
+    ['04', 'Arizona', 'Two or more races', '26'],
+    ['04', 'Arizona', 'TOTAL', '95'],
+]
+
 _fake_race_data_without_totals = [
     ['state_fips', 'state_name', 'race', 'population'],
     ['01', 'Alabama', 'Asian alone', '66'],
@@ -248,6 +258,10 @@ def testGeneratePctShareColExtraTotalError():
     with pytest.raises(ValueError, match=expected_error):
         df = dataset_utils.generate_pct_share_col(
             df, 'population', 'pct_share', 'race', 'TOTAL')
+
+
+def testGeneratePer100kCol():
+
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
