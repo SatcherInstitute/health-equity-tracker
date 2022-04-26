@@ -57,7 +57,6 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
                   : styles.LogoThumbnail
               }
               alt=""
-              role="link"
             />
           </LazyLoad>
 
