@@ -275,17 +275,44 @@ function MethodologyTab() {
                 <h4 className={styles.MethodologySubsubheaderText}>
                   Women in Legislative Office
                 </h4>
+
+                {/* 
+                
+                Blurb for Women in Legislative Office:    
+
+                References: 
+
+                1.	Ng, E., & Muntaner, C. (2018). The effect of women in government on population health: An ecological analysis among Canadian provinces, 1976–2009. SSM - Population Health, 6, 141–148. https://doi.org/10.1016/j.ssmph.2018.08.003
+                2.	Anzia, S. F., & Berry, C. R. (2011). The Jackie (and Jill) Robinson Effect: Why Do Congresswomen Outperform Congressmen? American Journal of Political Science, 55(3), 478–493. https://doi.org/10.1111/j.1540-5907.2011.00512.x
+                3.	Wängnerud, L. (2009). Women in Parliaments: Descriptive and Substantive Representation. Annual Review of Political Science, 12(1), 51–69. https://doi.org/10.1146/annurev.polisci.11.053106.123839
+
+                
+                
+                */}
                 <p>
-                  A link has been established between having more women in
-                  legislative office and the advancement of health equity. Women
-                  in legislative office have been known to advocate for policies
-                  that pertain to some of the crucial social and political
-                  determinants of health that impact the overall health of our
-                  nation such as education, poverty, social welfare,
-                  reproductive and maternal health and children and family life.
-                  By combining data from the Center for American Women in
-                  Politics (CAWP) with data from ProPublica, we are able to
-                  present two distinct metrics on these reports:
+                  A link has been established between having women in government
+                  and improvements in population health
+                  <a href={urlMap.doi1}>
+                    <sup>1</sup>
+                  </a>
+                  . Women in legislative office have been shown to advocate for
+                  policies that pertain to some of the crucial social and
+                  political determinants of health that impact the overall
+                  health of our nation such as education, poverty, social
+                  welfare, reproductive and maternal health, children, and
+                  family life
+                  <a href={urlMap.doi2}>
+                    <sup>2</sup>
+                  </a>
+                  <sup>,</sup>
+                  <a href={urlMap.doi3}>
+                    <sup>3</sup>
+                  </a>
+                  . These policies in turn play a significant role in the
+                  advancement of health equity for all. By combining data from
+                  the Center for American Women in Politics (CAWP) with data
+                  from ProPublica, we are able to present two distinct metrics
+                  on these reports:
                 </p>
                 <ul>
                   <li>
