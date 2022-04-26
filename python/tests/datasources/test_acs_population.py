@@ -46,8 +46,8 @@ def get_hispanic_or_latino_values_by_race_county_as_df():
     return gcs_to_bq_util.values_json_to_df(
         os.path.join(
             TEST_DIR,
-            'HISPANIC_OR_LATINO_ORIGIN_BY_RACE_county.json'
-        ), dtype={'state_fips': str}).reset_index(drop=True)
+            'HISPANIC_OR_LATINO_ORIGIN_BY_RACE_county.json'),
+        dtype={'state_fips': str}).reset_index(drop=True)
 
 
 def get_sex_by_age_value_as_df(concept):
