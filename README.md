@@ -6,7 +6,7 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 
 [![GitHub Super-Linter](https://github.com/SatcherInstitute/health-equity-tracker/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
-## Contributing!
+## Contributing!!
 
 To contribute to this project:
 
