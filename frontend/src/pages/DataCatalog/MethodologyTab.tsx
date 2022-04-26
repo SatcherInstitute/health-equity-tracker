@@ -276,19 +276,6 @@ function MethodologyTab() {
                   Women in Legislative Office
                 </h4>
 
-                {/* 
-                
-                Blurb for Women in Legislative Office:    
-
-                References: 
-
-                1.	Ng, E., & Muntaner, C. (2018). The effect of women in government on population health: An ecological analysis among Canadian provinces, 1976–2009. SSM - Population Health, 6, 141–148. https://doi.org/10.1016/j.ssmph.2018.08.003
-                2.	Anzia, S. F., & Berry, C. R. (2011). The Jackie (and Jill) Robinson Effect: Why Do Congresswomen Outperform Congressmen? American Journal of Political Science, 55(3), 478–493. https://doi.org/10.1111/j.1540-5907.2011.00512.x
-                3.	Wängnerud, L. (2009). Women in Parliaments: Descriptive and Substantive Representation. Annual Review of Political Science, 12(1), 51–69. https://doi.org/10.1146/annurev.polisci.11.053106.123839
-
-                
-                
-                */}
                 <p>
                   A link has been established between having women in government
                   and improvements in population health
@@ -310,9 +297,12 @@ function MethodologyTab() {
                   </a>
                   . These policies in turn play a significant role in the
                   advancement of health equity for all. By combining data from
-                  the Center for American Women in Politics (CAWP) with data
-                  from ProPublica, we are able to present two distinct metrics
-                  on these reports:
+                  the{" "}
+                  <a href={urlMap.cawp}>
+                    Center for American Women in Politics (CAWP)
+                  </a>{" "}
+                  with data from <a href={urlMap.propublica}>ProPublica</a>, we
+                  are able to present two distinct metrics on these reports:
                 </p>
                 <ul>
                   <li>
@@ -329,18 +319,19 @@ function MethodologyTab() {
 
                 <p>
                   These metrics are calculated for two distinct data types:
-                  Women in State Legislature, and Women in U.S. Congress, and
-                  both of these data types are currently available at the state,
-                  territory, and national levels. Our percentage calculations at
-                  the national level specifically include legislators from the
-                  U.S. territories, which can result in slightly different
-                  results than those presented on the CAWP website.
-                  Additionally, our "total legislator" count for U.S. Congress
-                  only includes actively seated legislators, as opposed to the
-                  total number of seats which are not always filled. All gender
-                  and race/ethnicity categorizations are self-reported, and a
-                  legislator may be represented in multiple race groupings if
-                  that is how they identify.
+                  <b>Women in State Legislature</b>, and{" "}
+                  <b>Women in U.S. Congress</b>, and both of these data types
+                  are currently available at the state, territory, and national
+                  levels. Our percentage calculations at the national level
+                  specifically include legislators from the U.S. territories,
+                  which can result in slightly different results than those
+                  presented on the CAWP website. Additionally, our "total
+                  legislator" count for U.S. Congress only includes actively
+                  seated legislators, as opposed to the total number of seats
+                  which are not always filled. All gender and race/ethnicity
+                  categorizations are self-reported, and a legislator may be
+                  represented in multiple race groupings if that is how they
+                  identify.
                 </p>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
