@@ -72,11 +72,11 @@ _expected_race_data_with_totals = [
 ]
 
 _data_without_fips_codes = [
-    ['state_name', 'other_col'],
-    ['United States', 'something_cool'],
-    ['California', 'something'],
-    ['Georgia', 'something_else'],
-    ['U.S. Virgin Islands', 'something_else_entirely'],
+    ['state_name', 'state_postal', 'other_col'],
+    ['United States', 'US', 'something_cool'],
+    ['California', 'CA', 'something'],
+    ['Georgia', 'GA', 'something_else'],
+    ['U.S. Virgin Islands', 'VI', 'something_else_entirely'],
 ]
 
 _fips_codes_from_bq = [
@@ -252,9 +252,28 @@ def testGeneratePctShareColExtraTotalError():
 
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=_get_fips_codes_as_df())
-def testMergeFipsCodes(mock_bq: mock.MagicMock):
+def testMergeFipsCodesStateName(mock_bq: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
+
+    df = df[['state_name', 'other_col']]
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
+
+    df = dataset_utils.merge_fips_codes(df)
+
+    assert mock_bq.call_count == 1
+    assert_frame_equal(df, expected_df, check_like=True)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=_get_fips_codes_as_df())
+def testMergeFipsCodesStatePostal(mock_bq: mock.MagicMock):
+    df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
+
+    df = df[['state_postal', 'other_col']]
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)

@@ -109,22 +109,40 @@ def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val,
 
 
 def merge_fips_codes(df):
-    """Merges in the `state_fips` column into a dataframe, based on the `census_utility` big query public dataset.
+    """Merges in the `state_fips` column into a dataframe, based on the
+       `census_utility` big query public dataset.
 
-       df: dataframe to merge fips codes into, with a `state_name` column"""
+       df: dataframe to merge fips codes into, with a `state_name` or `state_postal` column"""
 
     all_fips_codes_df = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
         'census_utility', 'fips_codes_states', dtype={'state_fips_code': str})
 
-    united_states_fips = pd.DataFrame(
-        [{'state_fips_code': constants.US_FIPS, 'state_name': constants.US_NAME}])
-    all_fips_codes_df = all_fips_codes_df[['state_fips_code', 'state_name']]
+    united_states_fips = pd.DataFrame([
+        {
+            'state_fips_code': constants.US_FIPS,
+            'state_name': constants.US_NAME,
+            'state_postal_abbreviation': constants.US_POSTAL,
+        }
+    ])
+
+    all_fips_codes_df = all_fips_codes_df[['state_fips_code', 'state_name', 'state_postal_abbreviation']]
     all_fips_codes_df = pd.concat([all_fips_codes_df, united_states_fips])
 
+    all_fips_codes_df = all_fips_codes_df.rename(
+        columns={
+            'state_fips_code': std_col.STATE_FIPS_COL,
+            'state_postal_abbreviation': std_col.STATE_POSTAL_COL,
+        }).reset_index(drop=True)
+
+    merge_col = std_col.STATE_NAME_COL
+    if std_col.STATE_POSTAL_COL in df.columns:
+        merge_col = std_col.STATE_POSTAL_COL
+
     df = pd.merge(df, all_fips_codes_df, how='left',
-                  on=std_col.STATE_NAME_COL).reset_index(drop=True)
-    df = df.rename(
-        columns={'state_fips_code': std_col.STATE_FIPS_COL}).reset_index(drop=True)
+                  on=merge_col).reset_index(drop=True)
+
+    if std_col.STATE_POSTAL_COL in df.columns:
+        df = df.drop(columns=std_col.STATE_POSTAL_COL)
 
     return df
 
