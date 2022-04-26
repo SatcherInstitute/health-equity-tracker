@@ -18,13 +18,6 @@ export const CONTACT_TAB_LINK = "/contact";
 export const OURTEAM_TAB_LINK = "/ourteam";
 export const NEWS_TAB_LINK = "/news";
 
-test('broken on purpose', async ({ page }) => {
-
-    await page.goto("/");
-    const mainHeading = page.locator('#main');
-
-    await expect(mainHeading).toHaveText(['blah blah']);
-});
 
 test('WIHE Page Loads', async ({ page }) => {
 
