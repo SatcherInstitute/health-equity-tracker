@@ -19,10 +19,13 @@ export const OURTEAM_TAB_LINK = "/ourteam";
 export const NEWS_TAB_LINK = "/news";
 
 test('WIHE Page Loads', async ({ page }) => {
+
+    console.log(page);
+
     await page.goto(WHAT_IS_HEALTH_EQUITY_PAGE_LINK);
     const mainHeading = page.locator('#main');
 
-
+    console.log(mainHeading.allTextContents);
 
     await expect(mainHeading).toHaveText(['What is Health Equity?']);
 });
