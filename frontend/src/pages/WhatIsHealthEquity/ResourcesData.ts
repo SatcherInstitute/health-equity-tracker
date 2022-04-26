@@ -150,7 +150,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     name: "Mapping Inequality",
-    url: "https://dsl.richmond.edu/panorama/redlining/#loc=5/39.1/-94.58",
+    url: "https://dsl.richmond.edu/panorama/redlining",
   },
   {
     name: "Social Vulnerability Index",
