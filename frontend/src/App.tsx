@@ -23,6 +23,7 @@ import { CookiesProvider } from "react-cookie";
 import styles from "./App.module.scss";
 import MaterialTheme from "./styles/MaterialTheme";
 import { autoInitGlobals } from "./utils/globals";
+import { LinkWithStickyParams, ReactRouterLinkButton } from "./utils/urlutils";
 import {
   ABOUT_US_PAGE_LINK,
   NEWS_TAB_LINK,
@@ -30,15 +31,13 @@ import {
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
   FAQ_TAB_LINK,
-  LinkWithStickyParams,
   METHODOLOGY_TAB_LINK,
   OURTEAM_TAB_LINK,
-  ReactRouterLinkButton,
   RESOURCES_TAB_LINK,
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   AGE_ADJUSTMENT_TAB_LINK,
-} from "./utils/urlutils";
+} from "./utils/internalRoutes";
 import AppBarLogo from "./assets/AppbarLogo.png";
 import { HelmetProvider } from "react-helmet-async";
 

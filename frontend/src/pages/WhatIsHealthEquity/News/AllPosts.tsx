@@ -6,10 +6,9 @@ import {
   useUrlSearchParams,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
-  NEWS_TAB_LINK,
-  CONTACT_TAB_LINK,
   LinkWithStickyParams,
 } from "../../../utils/urlutils";
+import { NEWS_TAB_LINK, CONTACT_TAB_LINK } from "../../../utils/internalRoutes";
 import { Helmet } from "react-helmet-async";
 import ArticleFilters from "./ArticleFilters";
 import NewsPreviewCard from "./NewsPreviewCard";

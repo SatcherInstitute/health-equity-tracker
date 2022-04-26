@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import {
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
-} from "../../../utils/urlutils";
+} from "../../../utils/internalRoutes";
 import { WithMetadata } from "../../../data/react/WithLoadingOrErrorUI";
 import { Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";

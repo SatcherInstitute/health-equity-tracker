@@ -1,13 +1,13 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./DataCatalogPage.module.scss";
+import { LinkWithStickyParams } from "../../utils/urlutils";
 import {
-  LinkWithStickyParams,
   CONTACT_TAB_LINK,
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
   HET_URL,
   DATA_TAB_LINK,
-} from "../../utils/urlutils";
+} from "../../utils/internalRoutes";
 import { Helmet } from "react-helmet-async";
 import { getHtml } from "../../utils/urlutils";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
