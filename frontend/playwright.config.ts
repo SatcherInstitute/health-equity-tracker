@@ -12,12 +12,12 @@ import { devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-  webServer: {
-    command: 'npm run start',
-    port: 3000,
-    timeout: 120 * 1000,
-    reuseExistingServer: true //!process.env.CI,
-  },
+  // webServer: {
+  //   command: 'npm run start',
+  //   port: 3000,
+  //   timeout: 120 * 1000,
+  //   reuseExistingServer: true //!process.env.CI,
+  // },
   testDir: './tests',
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
