@@ -1,5 +1,23 @@
 [
   {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "55519",
+    "sex": "ALL"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "55519",
+    "sex": "Male"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "55519",
+    "sex": "Female"
+  },
+  {
     "state_fips": "66",
     "state_name": "Guam",
     "sex": "All",
