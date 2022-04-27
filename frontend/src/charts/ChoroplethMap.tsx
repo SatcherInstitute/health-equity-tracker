@@ -229,7 +229,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     /* SET UP COLOR SCALE */
     const colorScale: any = {
       name: COLOR_SCALE,
-      type: props.scaleType,
+      type: "quantize", // props.scaleType,
       domain: { data: LEGEND_DATASET, field: props.metric.metricId },
       range: {
         scheme: props.scaleColorScheme || "yellowgreen",
