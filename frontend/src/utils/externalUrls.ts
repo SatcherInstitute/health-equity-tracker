@@ -24,10 +24,11 @@ export type LinkName =
   | "kffCovid"
   | "amr"
   | "amrMethodology"
-  | "lifeline";
-//
+  | "lifeline"
+  | "shouldFail";
 
 export const urlMap: Record<LinkName, string> = {
+  shouldFail: "rgjergekj",
   newsletterSignup:
     "https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&",
   censusVoting: "https://www.census.gov/topics/public-sector/voting.html",
