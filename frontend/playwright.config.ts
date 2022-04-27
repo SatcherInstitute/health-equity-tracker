@@ -23,6 +23,7 @@ const config: PlaywrightTestConfig = {
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI ? "dot" : 'html',
+  workers: process.env.CI ? 5 : undefined,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
@@ -32,6 +33,7 @@ const config: PlaywrightTestConfig = {
     baseURL: 'http://localhost:3000',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
   },
 
 
