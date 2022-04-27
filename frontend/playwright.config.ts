@@ -23,7 +23,7 @@ const config: PlaywrightTestConfig = {
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI ? "github" : 'html',
-  workers: process.env.CI ? 10 : undefined,
+  workers: process.env.CI ? 6 : undefined,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
