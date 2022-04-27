@@ -5,6 +5,13 @@ import { GOOGLE_FELLOWS, PARTNERS } from "../src/pages/AboutUs/OurTeamData"
 import { RESOURCES } from "../src/pages/WhatIsHealthEquity/ResourcesData"
 
 
+test(`SHOULD FAIL External URL Test`, async ({ page }) => {
+    // console.log(url);
+    const response = await page.goto("failURL", { waitUntil: "domcontentloaded" });
+    if (response.status() !== 200) console.log(response.status());
+    // await expect(response.ok()).toBeTruthy()
+});
+
 
 for (const url of Object.values(urlMap)) {
     if (!url) continue
