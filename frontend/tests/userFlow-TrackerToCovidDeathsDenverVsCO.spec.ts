@@ -23,8 +23,8 @@ test('User Flow from Default Tracker Page to Compare Covid Deaths by race betwee
     await page.fill('[placeholder="County, State, Territory, or United States"]', 'denver');
     await page.keyboard.press('Enter');
 
-    // const populationCard = await page.locator('id=populationCard')
-    // await expect(populationCard).toContainText("Denver County, Colorado")
+    const populationCard = await page.locator('id=populationCard')
+    await expect(populationCard).toContainText("Denver County, Colorado")
 
     // Changing first location via madlib buttons
     const location2MadlibButton = await page.locator('#onboarding-start-your-search button:has-text("Georgia")')
@@ -37,8 +37,8 @@ test('User Flow from Default Tracker Page to Compare Covid Deaths by race betwee
     await expect(page).toHaveURL(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO);
 
     // Confirm no failed Vega visualizations
-    // let mainChunk = await page.locator('main')
-    // await expect(mainChunk).not.toContainText("Oops")
+    let mainChunk = await page.locator('main')
+    await expect(mainChunk).not.toContainText("Oops")
 
 
     // Change both data types to COVID deaths
@@ -60,8 +60,8 @@ test('User Flow from Default Tracker Page to Compare Covid Deaths by race betwee
     await expect(ageAdjustedCard2).toContainText("Age-Adjusted Risk of COVID-19 Death Compared to White (Non-Hispanic) in Colorado")
 
     // Confirm no failed Vega visualizations
-    // mainChunk = await page.locator('main')
-    // await expect(mainChunk).not.toContainText("Oops")
+    mainChunk = await page.locator('main')
+    await expect(mainChunk).not.toContainText("Oops")
 
 
 
