@@ -22,7 +22,7 @@ const config: PlaywrightTestConfig = {
   fullyParallel: true,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  reporter: process.env.CI ? "dot" : 'html',
+  reporter: process.env.CI ? "github" : 'html',
   workers: process.env.CI ? 10 : undefined,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
