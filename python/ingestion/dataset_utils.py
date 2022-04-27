@@ -54,7 +54,7 @@ def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
        per_100k_col: String column name to place the generate row in."""
 
     def calc_per_100k(record):
-        return (float(record[raw_count_col]) / float(record[pop_col])) * 100000
+        return int((float(record[raw_count_col]) / float(record[pop_col])) * 100000)
 
     df[per_100k_col] = df.apply(calc_per_100k, axis=1)
     return df
@@ -142,7 +142,7 @@ def merge_fips_codes(df):
         {
             'state_fips_code': constants.US_FIPS,
             'state_name': constants.US_NAME,
-            'state_postal_abbreviation': constants.US_POSTAL,
+            'state_postal_abbreviation': constants.US_ABBR,
         }
     ])
 
