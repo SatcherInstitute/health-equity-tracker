@@ -6,6 +6,9 @@
     "cases_per_100k": 10000,
     "deaths_per_100k": 1666.7,
     "hosp_per_100k": 3333.3,
+    "covid_cases_pct_share": "",
+    "covid_hosp_pct_share": "",
+    "covid_deaths_pct_share": "",
     "covid_cases_share_of_known": 50.0,
     "covid_hosp_share_of_known": 50.0,
     "covid_deaths_share_of_known": 50.0
@@ -17,6 +20,9 @@
     "cases_per_100k": 15000,
     "deaths_per_100k": 2500,
     "hosp_per_100k": 5000,
+    "covid_cases_pct_share": "",
+    "covid_hosp_pct_share": "",
+    "covid_deaths_pct_share": "",
     "covid_cases_share_of_known": 50.0,
     "covid_hosp_share_of_known": 50.0,
     "covid_deaths_share_of_known": 50.0
@@ -28,6 +34,9 @@
     "cases_per_100k": 18000,
     "deaths_per_100k": 5000,
     "hosp_per_100k": 5000,
+    "covid_cases_pct_share": "",
+    "covid_hosp_pct_share": "",
+    "covid_deaths_pct_share": "",
     "covid_cases_share_of_known": 100.0,
     "covid_hosp_share_of_known": 100.0,
     "covid_deaths_share_of_known": 100.0
@@ -36,8 +45,14 @@
     "state_fips": "06",
     "state_name": "California",
     "sex": "Unknown",
+    "cases_per_100k": "",
+    "deaths_per_100k": "",
+    "hosp_per_100k": "",
     "covid_cases_pct_share": 38.9,
     "covid_hosp_pct_share": 20.0,
-    "covid_deaths_pct_share": 60.0
+    "covid_deaths_pct_share": 60.0,
+    "covid_cases_share_of_known": "",
+    "covid_hosp_share_of_known": "",
+    "covid_deaths_share_of_known": ""
   }
 ]

@@ -68,4 +68,5 @@ class ACS2010Population(DataSource):
             table_name = table_name.replace(
                 'acs_2010_population-', '')  # Don't need this
             gcs_to_bq_util.add_df_to_bq(
+
                 df, dataset, table_name, column_types=column_types)
