@@ -24,8 +24,8 @@ test('User Flow from Home to Covid Vax by Age', async ({ page }) => {
     await expect(page).toHaveURL(`${EXPLORE_DATA_PAGE_LINK}${VAX_USA_RACE}`);
 
     // Confirm no failed Vega visualizations
-    let mainChunk = await page.locator('main')
-    await expect(mainChunk).not.toContainText("Oops")
+    // let mainChunk = await page.locator('main')
+    // await expect(mainChunk).not.toContainText("Oops")
 
 
     // MAP CARD contains correct title
