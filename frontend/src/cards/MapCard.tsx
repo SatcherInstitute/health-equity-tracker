@@ -66,7 +66,7 @@ function MapCardWithKey(props: MapCardProps) {
   const signalListeners: any = {
     click: (...args: any) => {
       const clickedData = args[1];
-      props.updateFipsCallback(new Fips(clickedData.id));
+      clickedData.id && props.updateFipsCallback(new Fips(clickedData.id));
     },
   };
 
