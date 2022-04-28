@@ -69,6 +69,11 @@ function getSpec(
         },
       ]
     : [];
+
+  const onlyZeros = data.every((row) => {
+    return !row[measure];
+  });
+
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: altText,
@@ -177,7 +182,12 @@ function getSpec(
       {
         name: "x",
         type: "linear",
-        domain: { data: DATASET, field: measure },
+        // if all rows contain 0 or null, set full x range to 100%
+        domainMax: onlyZeros ? 100 : undefined,
+        domain: {
+          data: DATASET,
+          field: measure,
+        },
         range: [0, { signal: "width" }],
         nice: !pageIsTiny, //on desktop, extend x-axis to a "nice" value
         zero: true,
