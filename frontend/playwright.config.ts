@@ -36,9 +36,19 @@ const config: PlaywrightTestConfig = {
 
   },
 
-
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
   outputDir: 'test-results/',
+
+  projects: [
+    {
+      name: 'URL',
+      testMatch: "externalUrls.spec.ts",
+    },
+    {
+      name: 'E2E',
+      testIgnore: "externalUrls.spec.ts",
+    },
+  ],
 
 };
 
