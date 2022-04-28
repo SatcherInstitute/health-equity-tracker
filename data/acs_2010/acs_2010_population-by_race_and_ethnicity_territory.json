@@ -62,6 +62,18 @@
   {
     "state_fips": "60",
     "state_name": "American Samoa",
+    "population": "1479",
+    "race_category_id": "MULTI"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "1479",
+    "race_category_id": "MULTI_NH"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
     "population": "64",
     "race_category_id": "OTHER_STANDARD"
   },
@@ -74,14 +86,14 @@
   {
     "state_fips": "60",
     "state_name": "American Samoa",
-    "population": "1479",
-    "race_category_id": "MULTI"
+    "population": "1543",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD"
   },
   {
     "state_fips": "60",
     "state_name": "American Samoa",
-    "population": "1479",
-    "race_category_id": "MULTI_NH"
+    "population": "1543",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH"
   },
   {
     "state_fips": "78",
@@ -130,6 +142,18 @@
     "state_name": "U.S. Virgin Islands",
     "population": "6648",
     "race_category_id": "OTHER_STANDARD_NH"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "population": "8851",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "population": "8851",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH"
   },
   {
     "state_fips": "78",
@@ -201,13 +225,13 @@
     "state_fips": "69",
     "state_name": "Northern Mariana Islands",
     "population": "6832",
-    "race_category_id": "MULTI_OR_OTHER_STANDARD"
+    "race_category_id": "MULTI"
   },
   {
     "state_fips": "69",
     "state_name": "Northern Mariana Islands",
     "population": "6832",
-    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH"
+    "race_category_id": "MULTI_NH"
   },
   {
     "state_fips": "69",
@@ -220,6 +244,18 @@
     "state_name": "Northern Mariana Islands",
     "population": "117",
     "race_category_id": "OTHER_STANDARD_NH"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "6949",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "6949",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH"
   },
   {
     "state_fips": "69",
@@ -285,13 +321,13 @@
     "state_fips": "66",
     "state_name": "Guam",
     "population": "14929",
-    "race_category_id": "MULTI_OR_OTHER_STANDARD"
+    "race_category_id": "MULTI"
   },
   {
     "state_fips": "66",
     "state_name": "Guam",
     "population": "14929",
-    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH"
+    "race_category_id": "MULTI_NH"
   },
   {
     "state_fips": "66",
@@ -304,6 +340,18 @@
     "state_name": "Guam",
     "population": "404",
     "race_category_id": "OTHER_STANDARD_NH"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "population": "15333",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "population": "15333",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH"
   },
   {
     "state_fips": "66",

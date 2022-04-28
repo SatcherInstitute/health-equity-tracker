@@ -93,7 +93,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "Population percentages at the territory level: " +
       "the census bureau has not included population data from " +
-      "the U.S. Virgin Islands, Guam, or the Northern Mariana Islands " +
+      "the U.S. Virgin Islands, Guam, American Samoa, or the Northern Mariana Islands " +
       "in its 5 year ACS estimates, so the most up to date population " +
       "estimates are from 2010. Interpret any metrics from " +
       "these territories with caution.",
