@@ -20,6 +20,7 @@ for (const url of Object.values(urlMap)) {
         const response = await page.goto(url, { waitUntil: "domcontentloaded" });
         if (response.status() !== 200) console.log(url, response.status());
         // await expect(response.ok()).toBeTruthy()
+        //
     });
 }
 
