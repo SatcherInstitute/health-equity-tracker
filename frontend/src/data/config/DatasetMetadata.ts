@@ -59,7 +59,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "acs_2010_population-by_age_territory",
-    name: "Population by Sex and Territory",
+    name: "Population by Age and Territory",
     update_time: "2010",
   },
   {
