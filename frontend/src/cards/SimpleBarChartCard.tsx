@@ -61,7 +61,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
     >
       {([queryResponse]) => {
-        let data = queryResponse.getValidRowsForField(metricConfig.metricId);
+        const data = queryResponse.getValidRowsForField(metricConfig.metricId);
 
         return (
           <CardContent>
