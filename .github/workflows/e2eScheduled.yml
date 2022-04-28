@@ -3,7 +3,7 @@
 name: Run e2e tests every 15 minutes
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "*/59 * * * *"
 
 defaults:
   run:
