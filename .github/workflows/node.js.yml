@@ -14,7 +14,9 @@ defaults:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v2
     - name: Run tests with Node.js 16.13.0
@@ -23,9 +25,7 @@ jobs:
         node-version: 16.13.0
     - run: npm install
     - run: npm run build
-  test-unit:
-    needs: [build]
-    - run: npm test
-  test-e2e:
-    needs: [build]
-    - run: npm run e2e
+    - run: | 
+      npm test
+    - run: |
+      npm run e2e
