@@ -4,17 +4,15 @@ import { urlMap } from "../src/utils/externalUrls"
 import { GOOGLE_FELLOWS, PARTNERS } from "../src/pages/AboutUs/OurTeamData"
 import { RESOURCES } from "../src/pages/WhatIsHealthEquity/ResourcesData"
 
+const knownFlakyUrls = [
+    "https://satcherinstitute.github.io/analysis/cdc_case_data",
+    "https://satcherinstitute.github.io/analysis/cdc_death_data",
+]
 
-// test(`SHOULD FAIL External URL Test`, async ({ page }) => {
-//     // console.log(url);
-//     const response = await page.goto("failURL", { waitUntil: "domcontentloaded" });
-//     if (response.status() !== 200) console.log(response.status());
-//     // await expect(response.ok()).toBeTruthy()
-// });
 
 
 for (const url of Object.values(urlMap)) {
-    if (!url) continue
+    if (!url || knownFlakyUrls.includes(url)) continue
     test(`External URL Test: ${url}`, async ({ page }) => {
         // console.log(url);
         const response = await page.goto(url, { waitUntil: "domcontentloaded" });
@@ -25,7 +23,7 @@ for (const url of Object.values(urlMap)) {
 }
 
 for (const url of PARTNERS.map(partner => partner.url)) {
-    if (!url) continue
+    if (!url || knownFlakyUrls.includes(url)) continue
     test(`Team Page: Partner External URL Test: ${url}`, async ({ page }) => {
         // console.log(url);
         const response = await page.goto(url, { waitUntil: "domcontentloaded" });
@@ -35,7 +33,7 @@ for (const url of PARTNERS.map(partner => partner.url)) {
 }
 
 for (const url of GOOGLE_FELLOWS.filter(fellow => fellow.link).map(fellow => fellow.link)) {
-    if (!url) continue
+    if (!url || knownFlakyUrls.includes(url)) continue
     test(`Team Page: Google Fellow External URL Test: ${url}`, async ({ page }) => {
         // console.log(url);
         const response = await page.goto(url, { waitUntil: "domcontentloaded" })
@@ -45,7 +43,7 @@ for (const url of GOOGLE_FELLOWS.filter(fellow => fellow.link).map(fellow => fel
 }
 
 for (const url of RESOURCES.filter(resource => resource.url).map(fellow => fellow.url)) {
-    if (!url) continue
+    if (!url || knownFlakyUrls.includes(url)) continue
     test(`Resource Page: External URL Test: ${url}`, async ({ page }) => {
         // console.log(url);
         const response = await page.goto(url, { waitUntil: "domcontentloaded" });
