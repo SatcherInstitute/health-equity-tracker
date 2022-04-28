@@ -84,6 +84,18 @@
     "race_category_id": "MULTI_NH"
   },
   {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "1543",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "1543",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH"
+  },
+  {
     "state_fips": "78",
     "state_name": "U.S. Virgin Islands",
     "population": "106405",
