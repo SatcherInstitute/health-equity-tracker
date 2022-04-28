@@ -24,7 +24,8 @@ export type LinkName =
   | "kffCovid"
   | "amr"
   | "amrMethodology"
-  | "lifeline";
+  | "lifeline"
+  | "fail";
 
 export const urlMap: Record<LinkName, string> = {
   newsletterSignup:
@@ -63,4 +64,5 @@ export const urlMap: Record<LinkName, string> = {
   cdcCovidRestricted:
     "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
   lifeline: "https://suicidepreventionlifeline.org/",
+  fail: "https://fail.fail/",
 };
