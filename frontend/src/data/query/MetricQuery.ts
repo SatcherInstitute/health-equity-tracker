@@ -120,7 +120,10 @@ export class MetricQueryResponse {
       const validRowsPerGroup = validRows.filter(
         (row) => row[fieldName] === group
       );
-      validRowsPerGroup.some((row) => row[targetMetric])
+      validRowsPerGroup.some((row) => {
+        // exclude null/undefined but do include zero
+        return row[targetMetric] >= 0;
+      })
         ? withData.push(group)
         : noData.push(group);
     });
