@@ -1,5 +1,65 @@
 [
   {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "55519",
+    "age": "All"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "age": "0-9",
+    "population": "13146"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "age": "10-19",
+    "population": "12576"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "age": "20-29",
+    "population": "7215"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "age": "30-39",
+    "population": "7110"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "age": "40-49",
+    "population": "6989"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "age": "50-59",
+    "population": "4735"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "age": "60-69",
+    "population": "2438"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "age": "70-79",
+    "population": "993"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "age": "80+",
+    "population": "317"
+  },
+  {
     "state_fips": "66",
     "state_name": "Guam",
     "age": "All",
