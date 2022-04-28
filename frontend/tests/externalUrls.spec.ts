@@ -13,7 +13,7 @@ const knownFlakyUrls = [
 
 for (const url of Object.values(urlMap)) {
     if (!url || knownFlakyUrls.includes(url)) continue
-    test(`External URL Test: ${url}`, async ({ page }) => {
+    test(`${url}`, async ({ page }) => {
         // console.log(url);
         const response = await page.goto(url, { waitUntil: "domcontentloaded" });
         if (response.status() !== 200) console.log(url, response.status());
@@ -24,7 +24,7 @@ for (const url of Object.values(urlMap)) {
 
 for (const url of PARTNERS.map(partner => partner.url)) {
     if (!url || knownFlakyUrls.includes(url)) continue
-    test(`Team Page: Partner External URL Test: ${url}`, async ({ page }) => {
+    test(`Team Page: Partner: ${url}`, async ({ page }) => {
         // console.log(url);
         const response = await page.goto(url, { waitUntil: "domcontentloaded" });
         if (response.status() !== 200) console.log(url, response.status());
@@ -34,7 +34,7 @@ for (const url of PARTNERS.map(partner => partner.url)) {
 
 for (const url of GOOGLE_FELLOWS.filter(fellow => fellow.link).map(fellow => fellow.link)) {
     if (!url || knownFlakyUrls.includes(url)) continue
-    test(`Team Page: Google Fellow External URL Test: ${url}`, async ({ page }) => {
+    test(`Team Page: Google Fellow: ${url}`, async ({ page }) => {
         // console.log(url);
         const response = await page.goto(url, { waitUntil: "domcontentloaded" })
         if (response.status() !== 200) console.log(url, response.status());
@@ -44,7 +44,7 @@ for (const url of GOOGLE_FELLOWS.filter(fellow => fellow.link).map(fellow => fel
 
 for (const url of RESOURCES.filter(resource => resource.url).map(fellow => fellow.url)) {
     if (!url || knownFlakyUrls.includes(url)) continue
-    test(`Resource Page: External URL Test: ${url}`, async ({ page }) => {
+    test(`Resource Page:: ${url}`, async ({ page }) => {
         // console.log(url);
         const response = await page.goto(url, { waitUntil: "domcontentloaded" });
         if (response.status() !== 200) console.log(url, response.status());
