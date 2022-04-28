@@ -18,13 +18,13 @@ const config: PlaywrightTestConfig = {
   },
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  /* run all tests, even those within a shared file, to run in parallel  */
+  /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   // reporter: process.env.CI ? "github" : 'html',
   reporter: "list",
-  workers: process.env.CI ? 8 : undefined,
+  workers: process.env.CI ? 5 : undefined,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
