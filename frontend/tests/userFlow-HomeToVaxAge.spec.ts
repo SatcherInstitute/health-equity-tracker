@@ -11,7 +11,7 @@ test.describe('Home to COVID Vax by Age', () => {
     test('Home to Tracker to Covid Vax', async ({ page }) => {
 
         // Landing Page Loads
-        await page.goto('/');
+        await page.goto('/', { waitUntil: "domcontentloaded" });
         const mainHeading = page.locator('#main');
         await expect(mainHeading).toContainText(['Advancing', 'Health', 'Equity']);
 
@@ -39,7 +39,7 @@ test.describe('Home to COVID Vax by Age', () => {
     test('Covid Vax Toggle Age', async ({ page }) => {
 
         // Starting with COVID VAX
-        await page.goto(`${EXPLORE_DATA_PAGE_LINK}${VAX_USA_RACE}`);
+        await page.goto(`${EXPLORE_DATA_PAGE_LINK}${VAX_USA_RACE}`, { waitUntil: "domcontentloaded" });
 
         // Changing to AGE demographic toggle should change URL
         const ageToggleButton = await page.locator('button:has-text("Age")')

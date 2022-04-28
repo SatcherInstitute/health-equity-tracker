@@ -10,7 +10,7 @@ test.describe('Tracker to COVID Deaths Comparing Geos', () => {
     test('Default Tracker to Compare Mode', async ({ page }) => {
 
         // Landing Page Loads
-        await page.goto(EXPLORE_DATA_PAGE_LINK + DEFAULT_COMPARE_GEO_MODE);
+        await page.goto(EXPLORE_DATA_PAGE_LINK + DEFAULT_COMPARE_GEO_MODE, { waitUntil: "domcontentloaded" });
 
         // change carousel to "Compare Geo mode"
         const advanceMadlibCarouselArrowButton = await page.locator('id=onboarding-madlib-arrow')
@@ -23,7 +23,7 @@ test.describe('Tracker to COVID Deaths Comparing Geos', () => {
 
     test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
 
-        await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO);
+        await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO, { waitUntil: "domcontentloaded" });
 
 
         // Changing first location via madlib buttons
@@ -55,7 +55,7 @@ test.describe('Tracker to COVID Deaths Comparing Geos', () => {
 
     test('Switch Data Types for Both Geos', async ({ page }) => {
 
-        await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO);
+        await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO, { waitUntil: "domcontentloaded" });
 
 
         // Change both data types to COVID deaths
