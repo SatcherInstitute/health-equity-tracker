@@ -85,7 +85,11 @@ export function HighestLowestList(props: HighestLowestListProps) {
                           props.metricConfig.type,
                           row[props.metricConfig.metricId]
                         )}{" "}
-                        <span className={styles.Unit}>per 100k</span>
+                        <span className={styles.Unit}>
+                          {props.metricConfig.type === "per100k"
+                            ? "per 100k"
+                            : ""}
+                        </span>
                       </li>
                     );
                   })}
@@ -102,7 +106,11 @@ export function HighestLowestList(props: HighestLowestListProps) {
                           props.metricConfig.type,
                           row[props.metricConfig.metricId]
                         )}{" "}
-                        <span className={styles.Unit}>per 100k</span>
+                        <span className={styles.Unit}>
+                          {props.metricConfig.type === "per100k"
+                            ? "per 100k"
+                            : ""}
+                        </span>
                       </li>
                     );
                   })}

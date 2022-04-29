@@ -234,7 +234,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   geoData={geoData}
                   filename={`${getTitleText()} in ${props.fips.getFullDisplayName()}`}
                 />
-                {props.fips.isUsa() && unknowns.length ? (
+                {props.fips.isUsa() && unknowns.length > 0 && (
                   <div className={styles.TerritoryCirclesContainer}>
                     {TERRITORY_CODES.map((code) => {
                       const fips = new Fips(code);
@@ -259,8 +259,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                       );
                     })}
                   </div>
-                ) : (
-                  <></>
                 )}
               </CardContent>
             )}

@@ -26,6 +26,10 @@ import {
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from "../data/variables/CawpProvider";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
@@ -95,10 +99,22 @@ function MapCardWithKey(props: MapCardProps) {
     metricQuery(Breakdowns.forFips(props.fips)),
   ];
 
+  const selectedRaceSuffix = CAWP_DETERMINANTS.includes(metricConfig.metricId)
+    ? ` Identifying as ${getWomenRaceLabel(activeBreakdownFilter).replace(
+        "All ",
+        ""
+      )}`
+    : "";
+
   return (
     <CardWrapper
       queries={queries}
-      title={<>{metricConfig.fullCardTitleName}</>}
+      title={
+        <>
+          {metricConfig.fullCardTitleName}
+          {selectedRaceSuffix}
+        </>
+      }
       loadGeographies={true}
       minHeight={PRELOAD_HEIGHT}
     >
@@ -162,8 +178,9 @@ function MapCardWithKey(props: MapCardProps) {
             <>
               <b>
                 {formatFieldValue(
-                  metricConfig.type,
-                  options[metricConfig.metricId]
+                  /* metricType: MetricType, */ metricConfig.type,
+                  /* value: any, */ options[metricConfig.metricId],
+                  /* omitPctSymbol: boolean = false */ true
                 )}
               </b>{" "}
               {/*} HYPERLINKED TO BOTTOM DEFINITION {condition} cases per 100k  */}
@@ -175,7 +192,7 @@ function MapCardWithKey(props: MapCardProps) {
                 }}
                 className={styles.ConditionDefinitionLink}
               >
-                {metricConfig?.fullCardTitleName}
+                {metricConfig.shortLabel}
               </a>
               {/*} for  */}
               {activeBreakdownFilter !== "All" && " for"}
@@ -322,7 +339,7 @@ function MapCardWithKey(props: MapCardProps) {
                   </Alert>
                 </CardContent>
               )}
-            {metricConfig && dataForActiveBreakdownFilter.length ? (
+            {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
               <CardContent>
                 <ChoroplethMap
                   signalListeners={signalListeners}
@@ -401,8 +418,6 @@ function MapCardWithKey(props: MapCardProps) {
                     />
                   )}
               </CardContent>
-            ) : (
-              <></>
             )}
           </>
         );
