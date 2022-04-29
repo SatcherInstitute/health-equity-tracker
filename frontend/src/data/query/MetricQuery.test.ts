@@ -33,6 +33,13 @@ describe("MetricQueryResponse", () => {
           invalid: undefined,
         },
         {
+          fips: "01",
+          race_and_ethnicity:
+            "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+          covid_cases: 0,
+          invalid: undefined,
+        },
+        {
           fips: "02",
           race_and_ethnicity: "White",
           covid_cases: 12,
@@ -51,7 +58,7 @@ describe("MetricQueryResponse", () => {
 
   test("getFieldRange()", async () => {
     expect(metricQueryResponse.getFieldRange("covid_cases")).toEqual({
-      min: 2,
+      min: 0,
       max: 12,
     });
     expect(metricQueryResponse.getFieldRange(RACE as MetricId)).toEqual(
@@ -63,8 +70,12 @@ describe("MetricQueryResponse", () => {
     const targetMetric = "covid_cases";
 
     expect(metricQueryResponse.getFieldValues(RACE, targetMetric)).toEqual({
-      noData: ["Asian (Non-Hispanic)"],
-      withData: ["White", "White (Non-Hispanic)", "Asian"],
+      noData: ["White (Non-Hispanic)", "Asian (Non-Hispanic)"],
+      withData: [
+        "White",
+        "Asian",
+        "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+      ],
     });
 
     expect(metricQueryResponse.getFieldValues("fips", targetMetric)).toEqual({
@@ -76,7 +87,7 @@ describe("MetricQueryResponse", () => {
   test("fieldHasMissingValues()", async () => {
     expect(metricQueryResponse.invalidValues).toEqual({
       covid_cases: 1,
-      invalid: 6,
+      invalid: 7,
     });
     expect(metricQueryResponse.isFieldMissing("covid_cases")).toEqual(false);
   });
