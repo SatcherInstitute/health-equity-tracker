@@ -84,6 +84,13 @@ VACCINATED_SHARE_OF_KNOWN = "vaccinated_share_of_known"
 VACCINATED_PER_100K = "vaccinated_per_100k"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
+# Standardized for CAWP Women in Legislature
+# (_PCT:  % state legislature who are black women)
+# (_PCT_SHARE: % of women legislators who are black)
+WOMEN_STATE_LEG_PCT = "women_state_leg_pct"
+WOMEN_STATE_LEG_PCT_SHARE = "women_state_leg_pct_share"
+WOMEN_US_CONGRESS_PCT = "women_us_congress_pct"
+WOMEN_US_CONGRESS_PCT_SHARE = "women_us_congress_pct_share"
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",
@@ -153,13 +160,21 @@ class Race(Enum):
     OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH",
                             "Unrepresented race", False)
 
+    # CAWP Non-standard, non-exclusive Race/Eth Categories
+    ASIAN_PAC = ("ASIAN_PAC", "Asian American & Pacific Islander", True)
+    MENA = ("MENA", "Middle Eastern & North African", True)
+    AIANNH = (
+        "AIANNH", "Native American, Alaska Native, & Native Hawaiian", True)
+    HISP_F = ("HISP_F", "Latina", True)
+
     # Categories that are combinations of other categories
-    # Currently only used in state level vaccination data
-    API = ("API", "Asian, Native Hawaiian, and Pacific Islander", True)
-    API_NH = ("API_NH", "Asian, Native Hawaiian, and Pacific Islander", False)
+
     # Combines AIAN and NHPI
-    INDIGENOUS = ("INDIGENOUS", "Indigenous", True)
+    API = ("API", "Asian, Native Hawaiian, and Pacific Islander", True)
     # Combines AIAN_NH and NHPI_NH
+    API_NH = ("API_NH", "Asian, Native Hawaiian, and Pacific Islander", False)
+
+    INDIGENOUS = ("INDIGENOUS", "Indigenous", True)
     INDIGENOUS_NH = ("INDIGENOUS_NH", "Indigenous", False)
     MULTI_OR_OTHER_STANDARD = (
         "MULTI_OR_OTHER_STANDARD",
