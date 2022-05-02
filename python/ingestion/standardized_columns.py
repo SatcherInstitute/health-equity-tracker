@@ -45,10 +45,11 @@ COVID_DEATH_UNKNOWN = "death_unknown"
 
 PER_100K_SUFFIX = "per_100k"
 PCT_SHARE_SUFFIX = "pct_share"
+SHARE_OF_KNOWN_SUFFIX = "share_of_known"
 
 COVID_CASES_PREFIX = "covid_cases"
 COVID_HOSP_PREFIX = "covid_hosp"
-COVID_DEATH_PREFIX = "covid_death"
+COVID_DEATH_PREFIX = "covid_deaths"
 
 COVID_DEATH_RATIO_AGE_ADJUSTED = "death_ratio_age_adjusted"
 COVID_HOSP_RATIO_AGE_ADJUSTED = "hosp_ratio_age_adjusted"

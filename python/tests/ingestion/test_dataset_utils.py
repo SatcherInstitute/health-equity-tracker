@@ -297,7 +297,7 @@ def testGeneratePer100kCol():
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_fake_condition_data_with_per_100k)).reset_index(drop=True)
 
-    expected_df['condition_per_100k'] = df['condition_per_100k'].astype(int)
+    expected_df['condition_per_100k'] = df['condition_per_100k'].astype(float)
 
     assert_frame_equal(expected_df, df, check_like=True)
 

@@ -16,8 +16,10 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, all_
        all_val: The value representing 'ALL'"""
 
     def calc_pct_share(record, total_value):
-        record[pct_share_col] = percent_avoid_rounding_to_zero(
+        thing = percent_avoid_rounding_to_zero(
             record[raw_count_col], total_value)
+
+        record[pct_share_col] = thing
         return record
 
     groupby_cols = [std_col.STATE_FIPS_COL]
@@ -54,7 +56,7 @@ def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
        per_100k_col: String column name to place the generate row in."""
 
     def calc_per_100k(record):
-        return int((float(record[raw_count_col]) / float(record[pop_col])) * 100000)
+        return percent_avoid_rounding_to_zero(1000 * float(record[raw_count_col]), float(record[pop_col]))
 
     df[per_100k_col] = df.apply(calc_per_100k, axis=1)
     return df
@@ -72,6 +74,7 @@ def percent_avoid_rounding_to_zero(numerator, denominator, default_decimals=1, m
 
     if denominator == 0:
         return 0.0
+
     decimals = default_decimals
     pct = round((float(numerator) / float(denominator) * 100), decimals)
     while pct == 0 and numerator != 0 and decimals < max_decimals:
