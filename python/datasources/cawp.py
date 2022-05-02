@@ -9,6 +9,10 @@ from ingestion.dataset_utils import (percent_avoid_rounding_to_zero,
                                      merge_pop_numbers,
                                      replace_state_abbr_with_names)
 
+from ingestion.gcs_to_bq_util import load_csv_as_df_from_web
+import requests
+
+
 # Tables for CAWP data and State Legislature Denominators
 CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity.csv"
 CAWP_TOTALS_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
@@ -16,6 +20,9 @@ CAWP_TOTALS_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/fie
 # Tables for US Congress Denominators
 PROPUB_US_SENATE_FILE = "propublica-us-senate.json"
 PROPUB_US_HOUSE_FILE = "propublica-us-house.json"
+
+# Tables for relating county FIPS to US Congressional Districts
+US_CONGRESS_DISTRICTS_BY_COUNTY_URL = "https://www2.census.gov/geo/relfiles/cdsld18/natl/natl_cocd_delim.txt"
 
 
 # CAWP COLUMNS
@@ -36,6 +43,7 @@ IN_OFFICE_COL = "in_office"
 # CAWP CONSTS
 NATIONAL = "national"
 STATE = "state"
+COUNTY = "county"
 
 
 CAWP_RACE_GROUPS_TO_STANDARD = {
@@ -208,20 +216,26 @@ class CAWPData(DataSource):
 
         # set column types for BigQuery
         column_types = {}
-        column_types[std_col.STATE_NAME_COL] = 'STRING'
         column_types[std_col.WOMEN_STATE_LEG_PCT] = 'DECIMAL'
         column_types[std_col.WOMEN_STATE_LEG_PCT_SHARE] = 'DECIMAL'
         column_types[std_col.WOMEN_US_CONGRESS_PCT] = 'DECIMAL'
         column_types[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = 'DECIMAL'
         column_types[std_col.RACE_CATEGORY_ID_COL] = 'STRING'
-        column_types[std_col.STATE_FIPS_COL] = 'STRING'
         column_types[std_col.POPULATION_PCT_COL] = 'DECIMAL'
         column_types[std_col.RACE_COL] = "STRING"
         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
         column_types[std_col.RACE_OR_HISPANIC_COL] = "STRING"
 
         # make two tables
-        for geo_level in [STATE, NATIONAL]:
+        for geo_level in [STATE, NATIONAL, COUNTY]:
+
+            if geo_level == COUNTY:
+                column_types[std_col.COUNTY_NAME_COL] = 'STRING'
+                column_types[std_col.COUNTY_FIPS_COL] = 'STRING'
+            else:
+                column_types[std_col.STATE_NAME_COL] = 'STRING'
+                column_types[std_col.STATE_FIPS_COL] = 'STRING'
+
             table_name = f'race_and_ethnicity_{geo_level}'
             breakdown_df = self.generate_breakdown(df_us_congress_totals,
                                                    df_state_leg_totals,
@@ -257,6 +271,14 @@ class CAWPData(DataSource):
             df_us_congress_totals = us_congress_count
 
         elif level == STATE:
+            all_place_codes = df_us_congress_totals[POSTAL_COL].to_list(
+            )
+
+        elif level == COUNTY:
+            df_districts = load_csv_as_df_from_web(
+                US_CONGRESS_DISTRICTS_BY_COUNTY_URL)
+            print(df_districts.to_string())
+            level == STATE
             all_place_codes = df_us_congress_totals[POSTAL_COL].to_list(
             )
 

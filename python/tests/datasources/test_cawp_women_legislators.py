@@ -57,6 +57,7 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cawp_women_legislators")
 
 GOLDEN_DATA = {
+    'race_and_ethnicity_county': os.path.join(TEST_DIR, 'cawp_test_output_race_and_ethnicity_county.json'),
     'race_and_ethnicity_state': os.path.join(TEST_DIR, 'cawp_test_output_race_and_ethnicity_state.json'),
     'race_and_ethnicity_national': os.path.join(TEST_DIR, 'cawp_test_output_race_and_ethnicity_national.json'),
 }
@@ -263,3 +264,72 @@ def testWriteStateLevelToBq(mock_bq: mock.MagicMock,
         expected_df_state.columns)
     assert_frame_equal(
         mock_df_state, expected_df_state, check_like=True)
+
+# RUN INTEGRATION TESTS ON COUNTY LEVEL
+
+
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             side_effect=_get_test_state_names)
+@ mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key_list',
+             side_effect=_get_test_json_as_df_based_on_key_list)
+@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+             side_effect=_get_test_pop_data_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+             side_effect=_get_test_line_items_csv_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
+             side_effect=_get_test_totals_csv_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+             return_value=None)
+def testWriteCountyLevelToBq(mock_bq: mock.MagicMock,
+                             mock_web_csv: mock.MagicMock,
+                             mock_data_dir_csv: mock.MagicMock,
+                             mock_pop_data: mock.MagicMock,
+                             mock_data_dir_based_on_key_list_data: mock.MagicMock,
+                             mock_bq_state_names: mock.MagicMock):
+
+    cawp_data = CAWPData()
+
+    # required by bigQuery
+    kwargs = {'filename': 'test_file.csv',
+              'metadata_table_id': 'test_metadata',
+              'table_name': 'output_table'}
+
+    cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+
+    mock_bq.assert_called_once
+    mock_web_csv.assert_called_once
+    mock_data_dir_csv.assert_called_once
+    mock_pop_data.assert_called_once
+    mock_data_dir_based_on_key_list_data.assert_called_once
+    mock_bq_state_names.assert_called_once
+
+    expected_dtype = {
+        'county_name': str,
+        'county_fips': str,
+        "women_state_leg_pct": float,
+        "women_state_leg_pct_share": float,
+        "women_us_congress_pct": float,
+        "women_us_congress_pct_share": float,
+        "population": object,
+        "population_pct": float,
+        'race_and_ethnicity': str,
+        'race': str,
+        'race_includes_hispanic': object,
+        'race_category_id': str,
+    }
+
+    # read test OUTPUT file
+    expected_df_county = pd.read_json(
+        GOLDEN_DATA['race_and_ethnicity_county'], dtype=expected_dtype)
+
+    mock_df_county = mock_bq.call_args_list[0].args[0]
+
+    # save county results to file
+    mock_df_county.to_json(
+        "cawp-run-results-county.json", orient="records")
+
+    # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
+    assert set(mock_df_county) == set(
+        expected_df_county.columns)
+    assert_frame_equal(
+        mock_df_county, expected_df_county, check_like=True)
