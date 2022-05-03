@@ -24,7 +24,12 @@ export type LinkName =
   | "kffCovid"
   | "amr"
   | "amrMethodology"
-  | "lifeline";
+  | "lifeline"
+  | "doi1"
+  | "doi2"
+  | "doi3"
+  | "cawp"
+  | "propublica";
 
 export const urlMap: Record<LinkName, string> = {
   newsletterSignup:
@@ -63,4 +68,10 @@ export const urlMap: Record<LinkName, string> = {
   cdcCovidRestricted:
     "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
   lifeline: "https://suicidepreventionlifeline.org/",
+  doi1: "https://doi.org/10.1016/j.ssmph.2018.08.003",
+  doi2: "https://doi.org/10.1111/j.1540-5907.2011.00512.x",
+  doi3: "https://doi.org/10.1146/annurev.polisci.11.053106.123839",
+  cawp: "https://cawpdata.rutgers.edu/",
+  propublica:
+    "https://www.propublica.org/datastore/api/propublica-congress-api",
 };

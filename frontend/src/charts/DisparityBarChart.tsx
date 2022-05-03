@@ -396,6 +396,7 @@ function getSpec(
         legendY: -35,
         font: LEGEND_TEXT_FONT,
         labelFont: LEGEND_TEXT_FONT,
+        labelLimit: 500,
       },
     ],
   };

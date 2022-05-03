@@ -18,6 +18,7 @@ import {
   MetricConfig,
   MetricId,
   formatFieldValue,
+  SYMBOL_TYPE_LOOKUP,
 } from "../data/config/MetricConfig";
 import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
@@ -212,11 +213,15 @@ interface UnitsProps {
 function Units(props: UnitsProps) {
   if (!props.column) return null;
 
+  const metric = props.metric[props.column - 1];
+
   const unit =
-    props.column === 1 ? "per 100k" : props.metric[props.column - 1].shortLabel;
+    metric.type === "per100k"
+      ? SYMBOL_TYPE_LOOKUP[metric.type]
+      : metric.shortLabel;
 
   // inline vs block
-  return props.wrap100kUnit && props.column === 1 ? (
+  return props.wrap100kUnit && metric.type === "per100k" ? (
     <p className={styles.Unit}>{unit}</p>
   ) : (
     <span className={styles.Unit}>{unit}</span>

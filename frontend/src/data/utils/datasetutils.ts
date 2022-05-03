@@ -191,9 +191,14 @@ const missingAgeAllGeos: VariableId[] = [
   "non_medical_rx_opioid_use",
   "illicit_opioid_use",
   "preventable_hospitalizations",
+  "women_state_legislatures",
+  "women_us_congress",
 ];
 
-const missingSexAllGeos: VariableId[] = [];
+const missingSexAllGeos: VariableId[] = [
+  "women_state_legislatures",
+  "women_us_congress",
+];
 
 export const DATA_GAPS: Partial<
   Record<GeographicBreakdown, Partial<Record<BreakdownVar, VariableId[]>>>
