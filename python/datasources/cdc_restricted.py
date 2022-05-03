@@ -11,8 +11,7 @@ from ingestion.dataset_utils import (
         merge_fips_codes,
         merge_pop_numbers,
         generate_per_100k_col,
-        generate_pct_share_col,
-        add_sum_of_rows)
+        generate_pct_share_col)
 
 
 # CDC_RESTRICTED_FILES = [
@@ -142,7 +141,7 @@ def null_out_unneeded_rows(df, breakdown_col, unknown_val):
     unknown_df = df.loc[df[breakdown_col] == unknown_val].reset_index(drop=True)
     known_df = df.loc[df[breakdown_col] != unknown_val].reset_index(drop=True)
 
-    for _, prefix in COVID_CONDITION_TO_PREFIX.items():
+    for prefix in COVID_CONDITION_TO_PREFIX.values():
         unknown_df[generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)] = np.nan
         known_df[generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)] = np.nan
 
