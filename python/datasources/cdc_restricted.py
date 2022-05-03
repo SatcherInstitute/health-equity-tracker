@@ -66,15 +66,13 @@ class CDCRestrictedData(DataSource):
 
     def generate_breakdown(self, df, demo, geo):
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo == 'race' else demo
-        all_columns = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, demo_col]
         unknown_val = Race.UNKNOWN.value if demo == 'race' else 'Unknown'
         total_val = Race.ALL.value if demo == 'race' else std_col.ALL_VALUE
         all_val = Race.ALL.value if demo == 'race' else std_col.ALL_VALUE
 
-        if geo == 'state':
-            # The county files already have fips codes
-            df = merge_fips_codes(df)
+        all_columns = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, demo_col]
 
+        df = merge_fips_codes(df)
         df = merge_pop_numbers(df, demo, geo)
 
         for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
@@ -86,19 +84,18 @@ class CDCRestrictedData(DataSource):
             df = generate_per_100k_col(df, raw_count_col, std_col.POPULATION_COL, per_100k_col)
             df = generate_pct_share_col(df, raw_count_col, pct_share_col, demo_col, total_val)
             df = generate_share_of_known_col(df, raw_count_col, share_of_known_col,
-                                             demo_col, all_val, unknown_val)
+                                             demo_col, all_val, unknown_val, geo)
 
             all_columns.extend([pct_share_col, share_of_known_col, per_100k_col])
 
         df = null_out_unneeded_rows(df, demo_col, unknown_val)
-        # Clean up column names.
         df = df[all_columns]
         self.clean_frame_column_names(df)
         return df
 
 
 def generate_share_of_known_col(df, raw_count_col, share_of_known_col,
-                                breakdown_col, all_val, unknown_val):
+                                breakdown_col, all_val, unknown_val, geo_level):
     """Generates a share of known column for a condition.
 
        df: DataFrame to generate the share_of_known column for.
@@ -108,14 +105,19 @@ def generate_share_of_known_col(df, raw_count_col, share_of_known_col,
        breakdown_col: String column name represting the demographic breakdown
                       (race/sex/age).
        all_val: String represting an ALL demographic value in the dataframe.
-       unknown_val: String respresting an UNKNOWN value in the dataframe."""
+       unknown_val: String respresting an UNKNOWN value in the dataframe.
+       geo_level: String representing geo level (state/county)"""
 
     unknown_df = df.loc[df[breakdown_col] == unknown_val].reset_index(drop=True)
     all_df = df.loc[df[breakdown_col] == all_val].reset_index(drop=True)
 
     df = df.loc[~df[breakdown_col].isin({unknown_val, all_val})]
 
-    alls = df.groupby([std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]).sum().reset_index()
+    groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
+    if geo_level == 'county':
+        groupby_cols.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
+
+    alls = df.groupby(groupby_cols).sum().reset_index()
     alls[breakdown_col] = all_val
     df = pd.concat([df, alls]).reset_index(drop=True)
 
