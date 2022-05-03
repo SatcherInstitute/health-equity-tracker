@@ -71,6 +71,8 @@ class CDCRestrictedData(DataSource):
         all_val = Race.ALL.value if demo == 'race' else std_col.ALL_VALUE
 
         all_columns = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, demo_col]
+        if geo == 'county':
+            all_columns.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
 
         df = merge_fips_codes(df)
         df = merge_pop_numbers(df, demo, geo)
