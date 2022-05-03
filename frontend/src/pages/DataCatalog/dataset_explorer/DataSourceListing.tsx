@@ -25,7 +25,6 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import { Grid, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import { urlMap } from "../../../utils/externalUrls";
 
 type LoadStatus = "loading" | "unloaded" | "error" | "loaded";
 
@@ -154,7 +153,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
       </table>
       <p className={styles.Description}>{props.source_metadata.description}</p>
       <footer className={styles.Footer}>
-        {props.source_metadata.downloadable && (
+        {props.source_metadata.downloadable ? (
           <Button
             color="primary"
             onClick={() => setDialogIsOpen(true)}
@@ -163,11 +162,9 @@ export function DataSourceListing(props: DataSourceListingProps) {
           >
             Download
           </Button>
-        )}
-        {/* CDC restricted data is not downloadable. */}
-        {props.source_metadata.id === "cdc_restricted" && (
+        ) : (
           <ReactRouterLinkButton
-            url={urlMap.cdcCovidRestricted}
+            url={props.source_metadata.data_source_link}
             className={styles.DownloadListItem}
             ariaLabel={
               "Apply For Access to " + props.source_metadata.data_source_name

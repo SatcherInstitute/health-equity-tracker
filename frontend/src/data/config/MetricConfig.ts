@@ -1,4 +1,8 @@
 //  IDs for the selectable conditions in the madlib
+// NOTE: these strings are displayed to the user if the data type toggle is enabled.
+// Underscores become spaces, and all letters are capitalized
+// TODO: integrate strings from Category / Madlib into the Metric Config
+// so ALL related topic data is contained in a single object
 
 export type DropdownVarId =
   | "covid"
@@ -17,7 +21,8 @@ export type DropdownVarId =
   | "chronic_kidney_disease"
   | "cardiovascular_diseases"
   | "asthma"
-  | "voter_participation";
+  | "voter_participation"
+  | "women_in_legislative_office";
 
 export type AgeAdjustedVariableId = "covid_deaths" | "covid_hospitalizations";
 
@@ -30,11 +35,18 @@ export type VariableId =
   | "covid_cases"
   | "non_medical_drug_use"
   | "non_medical_rx_opioid_use"
-  | "illicit_opioid_use";
+  | "illicit_opioid_use"
+  | "health_coverage"
+  | "poverty"
+  | "suicides"
+  | "women_us_congress"
+  | "women_state_legislatures"
+  | "covid_vaccinations";
 
 export type MetricId =
   | "acs_vaccine_population_pct"
   | "brfss_population_pct"
+  | "cawp_population_pct"
   | "copd_pct_share"
   | "copd_per_100k"
   | "copd_ratio_age_adjusted"
@@ -119,7 +131,13 @@ export type MetricId =
   | "asthma_ratio_age_adjusted"
   | "voter_participation_pct_share"
   | "voter_participation_per_100k"
-  | "voter_participation_ratio_age_adjusted";
+  | "voter_participation_ratio_age_adjusted"
+  | "women_state_leg_pct"
+  | "women_state_leg_pct_share"
+  | "women_state_leg_ratio_age_adjusted"
+  | "women_us_congress_pct"
+  | "women_us_congress_pct_share"
+  | "women_us_congress_ratio_age_adjusted";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -128,7 +146,7 @@ export type MetricType =
   | "pct_share"
   | "pct_share_to_pop_ratio"
   | "per100k"
-  | "percentile"
+  | "pct"
   | "index"
   | "ratio";
 
@@ -147,7 +165,6 @@ export type MetricConfig = {
   // (# of Asian covid cases in the US) divided by
   // (# of covid cases in the US excluding those with unknown race/ethnicity).
   knownBreakdownComparisonMetric?: MetricConfig;
-
   secondaryPopulationComparisonMetric?: MetricConfig;
 };
 
@@ -203,6 +220,20 @@ export const POPULATION_VARIABLE_CONFIG_2010: VariableConfig = {
   },
 };
 
+export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {
+  per100k: "per 100k",
+  pct_share: "% share",
+  count: "people",
+  index: "",
+  pct_share_to_pop_ratio: "",
+  ratio: "×",
+  pct: "%",
+};
+
+export function isPctType(metricType: MetricType) {
+  return metricType === "pct_share" || metricType === "pct";
+}
+
 /**
  * @param metricType The type of the metric to format.
  * @param value The value to format.
@@ -219,14 +250,13 @@ export function formatFieldValue(
   if (value === null || value === undefined) {
     return "";
   }
-  const isPctShare = metricType === "pct_share";
   const isRatio = metricType.includes("ratio");
-  let formatOptions = isPctShare ? { minimumFractionDigits: 1 } : {};
+  let formatOptions = isPctType(metricType) ? { minimumFractionDigits: 1 } : {};
   const formattedValue =
     typeof value === "number"
       ? value.toLocaleString("en", formatOptions)
       : value;
-  const percentSuffix = isPctShare && !omitPctSymbol ? "%" : "";
+  const percentSuffix = isPctType(metricType) && !omitPctSymbol ? "%" : "";
   const ratioSuffix = isRatio ? "×" : "";
   return `${formattedValue}${percentSuffix}${ratioSuffix}`;
 }
@@ -266,7 +296,6 @@ export function getAgeAdjustedRatioMetric(
   return tableFields;
 }
 
-// TODO - strongly type key
 // TODO - count and pct_share metric types should require populationComparisonMetric
 
 // Note: metrics must be declared in a consistent order because the UI relies
@@ -1094,6 +1123,89 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "voter_participation_ratio_age_adjusted",
           fullCardTitleName:
             "Age-Adjusted Voter Participation Ratio Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
+      },
+    },
+  ],
+  women_in_legislative_office: [
+    {
+      variableId: "women_us_congress",
+      variableDisplayName: "Women in US Congress",
+      variableFullDisplayName: "Women in US Congress",
+      surveyCollectedData: true,
+      variableDefinition: `Individuals identifying as women who are currently serving in the Congress of the United States, including members of the U.S. Senate and members, territorial delegates, and resident commissioners of the U.S. House of Representatives. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
+      metrics: {
+        per100k: {
+          metricId: "women_us_congress_pct",
+          fullCardTitleName: "Percentage of US Congress Members",
+          shortLabel: "% women in US congress",
+          type: "pct",
+        },
+        pct_share: {
+          metricId: "women_us_congress_pct_share",
+          fullCardTitleName: "Percent Share of Women US Congress Members",
+          shortLabel: "% of women members",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "cawp_population_pct",
+            fullCardTitleName: "Total Population Share (All Genders)",
+            shortLabel: `${populationPctShortLabel} (all genders)`,
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            metricId: "women_us_congress_pct_share",
+            fullCardTitleName: "Percent Share of Women US Congress Members",
+            shortLabel: "% of women members",
+            type: "pct_share",
+          },
+        },
+        age_adjusted_ratio: {
+          metricId: "women_us_congress_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Representation Ratio of Women in U.S. Congress Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
+      },
+    },
+    {
+      variableId: "women_state_legislatures",
+      variableDisplayName: "Women in State Legislatures", // DATA TOGGLE
+      variableFullDisplayName: "Women in State Legislatures", // TABLE TITLE,
+      surveyCollectedData: true,
+      variableDefinition: `Individuals identifying as women currently serving in their state or territory’s legislature. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.
+      `,
+      metrics: {
+        per100k: {
+          metricId: "women_state_leg_pct",
+          fullCardTitleName: "Percentage of State Legislators", // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER, HI/LOW DROPDOWN FOOTNOTE
+          shortLabel: "% of state legislators identifying as women", // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
+          type: "pct",
+        },
+        pct_share: {
+          metricId: "women_state_leg_pct_share",
+          fullCardTitleName: "Percent Share of Women State Legislators", // UNKNOWNS MAP TITLE, DISPARITY BAR TITLE
+          shortLabel: "% of women legislators", // DISPARITY BAR LEGEND
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "cawp_population_pct",
+            fullCardTitleName: "Total Population Share (All Genders)", // TABLE COLUMN HEADER
+            shortLabel: `${populationPctShortLabel} (all genders)`, // DISPARITY BAR LEGEND/AXIS
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            metricId: "women_state_leg_pct_share",
+            fullCardTitleName: "Percent Share of Women State Legislators", // TABLE COL HEADER
+            shortLabel: "% of women legislators", // UNKNOWNS MAP ALERT, DISPARITY BAR LABELS/AXIS
+            type: "pct_share",
+          },
+        },
+        age_adjusted_ratio: {
+          metricId: "women_state_leg_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Representation Ratio of Women in State Legislatures Compared to White (Non-Hispanic)",
           shortLabel: "",
           type: "ratio",
         },
