@@ -92,6 +92,10 @@ WOMEN_STATE_LEG_PCT_SHARE = "women_state_leg_pct_share"
 WOMEN_US_CONGRESS_PCT = "women_us_congress_pct"
 WOMEN_US_CONGRESS_PCT_SHARE = "women_us_congress_pct_share"
 
+PRISON_PER_100K = "prison_per_100k"
+PRISON_PCT_SHARE = "prison_pct_share"
+
+
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",
     "race",

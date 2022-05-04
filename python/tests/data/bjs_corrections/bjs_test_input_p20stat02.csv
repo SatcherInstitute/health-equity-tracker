@@ -1,0 +1,76 @@
+Bureau of Justice Statistics,,,,,,,,,,,,
+Filename: p20stat02.csv,,,,,,,,,,,,
+"Appendix Table 2. Prisoners under the jurisdiction of state or federal correctional authorities, by jurisdiction and race or ethnicity, December 31, 2020",,,,,,,,,,,,
+Report title: Prisoners in 2020 � Statistical Tables NCJ 302776,,,,,,,,,,,,
+"Data source: Bureau of Justice Statistics, Federal Justice Statistics Program, 2020 (preliminary); and National Prisoner Statistics, 2020",,,,,,,,,,,,
+"Author: E. Ann Carson, Ph.D., BJS Statistician",,,,,,,,,,,,
+Refer questions to: askbjs@usdoj.gov 202-307-0765,,,,,,,,,,,,
+Date of version: 12/14/2021,,,,,,,,,,,,
+,,,,,,,,,,,,
+"Appendix Table 2. Prisoners under the jurisdiction of state or federal correctional authorities, by jurisdiction and race or ethnicity, December 31, 2020",,,,,,,,,,,,
+Jurisdiction,,Total,White/a,Black/a,Hispanic,American Indian/Alaska Native/a,Asian/a,Native Hawaiian/Other Pacific Islander/a,Two or more races/a,Other/a,Unknown,Did not report
+"Federal/b,c",,"152,156","44,852","55,391","46,162","3,488","2,262",/,~,0,0,1
+State,,,,,,,,,,,,
+,Alabama,"25,328","11,607","13,519",0,2,3,0,0,0,197,0
+,Alaska,"4,578","1,850",464,124,"1,956",46,89,~,~,49,0
+,Arizona,"37,731","14,613","5,614","14,505","2,088",186,~,1,681,43,0
+,Arkansas,"16,094","8,691","6,721",549,51,50,14,0,17,1,0
+,California,"97,328","18,819","28,578","43,435","1,114","1,066",302,~,"4,014",~,0
+,Colorado,"16,168","7,363","3,016","4,994",574,203,10,~,0,8,0
+,Connecticut,"9,559","2,619","4,201","2,661",26,50,0,0,0,2,0
+,Delaware,"4,710","1,493","2,934",277,0,5,0,0,0,1,0
+,Florida,"81,027","31,647","38,665","10,352",81,15,8,/,253,6,0
+,Georgia,"47,141","16,650","28,406","1,895",25,157,0,/,~,8,0
+,Hawaii,"4,171",949,186,98,20,697,"1,837",147,0,237,0
+,Idaho,"8,171","5,966",267,"1,226",333,38,1,97,0,243,0
+,Illinois,"29,729","9,271","15,866","3,831",45,103,0,48,~,60,505
+,Indiana,"23,944","14,748","7,888","1,014",52,56,9,141,~,36,0
+,Iowa,"8,307","5,350","2,129",579,181,~,~,~,68,0,0
+,Kansas,"8,779","5,030","2,399","1,080",185,78,0,0,0,7,0
+,Kentucky,"18,552","13,936","4,052",290,14,28,0,218,0,14,0
+,Louisiana,"26,964","8,710","18,143",61,18,30,0,~,~,2,0
+,Maine,"1,714","1,389",178,/,47,13,1,18,/,68,0
+,Maryland/d,"15,623","3,531","11,120",694,74,45,10,/,131,18,0
+,Massachusetts,"6,762","2,805","1,934","1,783",37,114,1,~,88,~,0
+,Michigan/d,"33,617","14,194","17,231",596,302,104,9,"1,101",0,80,0
+,Minnesota,"8,148","3,744","2,994",460,727,211,/,/,/,12,0
+,Mississippi,"17,577","6,345","10,998",160,30,37,0,0,0,7,0
+,Missouri,"23,062","14,405","8,003",480,85,55,/,/,/,34,0
+,Montana/e,"3,927","2,778",103,127,899,~,~,~,20,~,0
+,Nebraska,"5,306","2,733","1,454",776,249,46,3,/,41,4,0
+,Nevada/d,"11,422","4,830","3,555","2,477",218,330,~,~,0,12,0
+,New Hampshire,"2,352","1,978",159,128,8,5,0,~,37,37,0
+,New Jersey,"12,830","2,619","7,772","2,096",9,96,0,/,0,238,0
+,New Mexico/f,"5,500","1,477",398,"3,498",451,17,22,/,~,43,0
+,New York,"34,128","7,685","17,066","8,322",304,211,/,/,445,95,0
+,North Carolina,"29,461","11,614","15,148","1,728",736,96,21,/,~,118,0
+,North Dakota,"1,401",848,167,87,292,5,2,0,~,0,0
+,Ohio/g,"45,036","22,470","19,454","1,235",81,65,/,/,360,/,"1,371"
+,Oklahoma,"22,462","11,165","5,940","1,717","2,393",79,27,~,45,11,"1,085"
+,Oregon,"12,753","9,257","1,179","1,696",404,179,35,~,~,3,0
+,Pennsylvania/d,"39,357","17,131","18,240","3,651",37,112,0,~,0,186,0
+,"Rhode Island/d,h","2,227",853,661,620,20,31,/,/,39,3,0
+,South Carolina,"16,157","5,896","9,680",430,19,17,0,/,114,1,0
+,South Dakota,"3,250","1,727",266,126,"1,095",25,1,~,10,0,0
+,Tennessee,"22,685","12,359","9,656",556,46,68,/,/,/,/,0
+,Texas,"135,906","45,596","44,760","44,766",65,525,0,0,194,0,0
+,Utah,"5,446","3,245",400,"1,078",308,39,124,0,0,252,0
+,Vermont,"1,284","1,108",123,0,16,4,1,0,0,32,0
+,"Virginia/c,i","31,838","13,266","17,414",984,26,129,0,0,0,19,0
+,Washington,"15,724","8,843","2,777","2,420",870,660,/,/,60,94,0
+,West Virginia,"6,044","5,144",802,42,5,3,1,47,0,0,0
+,Wisconsin,"20,298","8,879","8,542","1,823",789,256,~,/,/,9,0
+,Wyoming,"2,087","1,591",89,239,147,7,7,0,3,4,0
+"Note: Jurisdiction refers to the legal authority of state or federal correctional officials over a prisoner, regardless of where the prisoner is held. For jurisdiction-level information, see Jurisdiction notes on the BJS website. Estimates were provided by state and federal departments of corrections� administrative record systems and may not reflect prisoners� self-identification of race or ethnicity. State, federal, and national totals by race or ethnicity differ from other tables in this report due to adjustments that BJS made in other tables to correct for differences between administrative records and prisoner self-reported data on race or ethnicity. As of December 31, 2001, sentenced felons from the District of Columbia were the responsibility of the Federal Bureau of Prisons (BOP).",,,,,,,,,,,,
+~Not applicable. Jurisdiction does not track this race or ethnicity.,,,,,,,,,,,,
+/Not reported. ,,,,,,,,,,,,
+"a/Excludes persons of Hispanic origin (e.g., �white� refers to non-Hispanic whites and �black� refers to non-Hispanic blacks). See Methodology.",,,,,,,,,,,,
+"b/The BOP does not separate persons of Hispanic origin from the individual race categories when reporting to the National Prisoner Statistics. To do so, BJS used data from the 2020 Federal Justice Statistics Program (preliminary).",,,,,,,,,,,,
+"c/Asians, Native Hawaiians, and Other Pacific Islanders were combined into a single category and reported in the Asian category.",,,,,,,,,,,,
+d/Persons of Hispanic origin may be undercounted due to data collection methods.,,,,,,,,,,,,
+"e/Asians, Native Hawaiians, and Other Pacific Islanders were combined into a single category and reported in the Other race category.",,,,,,,,,,,,
+f/State reported counts of prisoners by race that exceeded its jurisdiction population. Data in this table are those reported by the state.,,,,,,,,,,,,
+g/Counts are based on prisoners held in state custody and private prison facilities. Excludes persons under the jurisdiction of the Ohio Department of Corrections who were held in local jails or in out-of-state prisons.,,,,,,,,,,,,
+"h/State does not collect data on Native Hawaiians, Other Pacific Islanders, or persons of two or more races.",,,,,,,,,,,,
+i/Data are preliminary.,,,,,,,,,,,,
+"Source: Bureau of Justice Statistics, Federal Justice Statistics Program, 2020 (preliminary); and National Prisoner Statistics, 2020.",,,,,,,,,,,,
