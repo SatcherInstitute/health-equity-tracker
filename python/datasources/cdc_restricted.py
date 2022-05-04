@@ -14,22 +14,28 @@ from ingestion.dataset_utils import (
         generate_pct_share_col)
 
 
-# CDC_RESTRICTED_FILES = [
-#     'cdc_restricted_by_race_county.csv',
-#     'cdc_restricted_by_race_state.csv',
-#     'cdc_restricted_by_age_county.csv',
-#     'cdc_restricted_by_age_state.csv',
-#     'cdc_restricted_by_sex_county.csv',
-#     'cdc_restricted_by_sex_state.csv',
-#     'cdc_restricted_by_race_and_age_state.csv'
-# ]
-
+EXTRA_FILES = ['cdc_restricted_by_race_and_age_state.csv']
 
 COVID_CONDITION_TO_PREFIX = {
     std_col.COVID_CASES: std_col.COVID_CASES_PREFIX,
     std_col.COVID_HOSP_Y: std_col.COVID_HOSP_PREFIX,
     std_col.COVID_DEATH_Y: std_col.COVID_DEATH_PREFIX,
 }
+
+
+def get_col_types(df):
+    column_types = {c: 'STRING' for c in df.columns}
+    for prefix in COVID_CONDITION_TO_PREFIX.values():
+        column_types[generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = 'FLOAT'
+        column_types[generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)] = 'FLOAT'
+        column_types[generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)] = 'FLOAT'
+
+    column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
+
+    if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+        column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
+    return column_types
 
 
 class CDCRestrictedData(DataSource):
@@ -53,23 +59,51 @@ class CDCRestrictedData(DataSource):
                 df = gcs_to_bq_util.load_csv_as_df(
                     gcs_bucket, filename, dtype={'county_fips': str})
 
-                column_types = {c: 'STRING' for c in df.columns}
-                if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                    column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-
                 df = self.generate_breakdown(df, demo, geo)
+
+                column_types = get_col_types(df)
 
                 table_name = f'by_{demo}_{geo}_processed'
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=column_types)
 
+        for filename in EXTRA_FILES:
+            df = gcs_to_bq_util.load_csv_as_df(
+                gcs_bucket, filename, dtype={'county_fips': str})
+
+            self.clean_frame_column_names(df)
+
+            int_cols = [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
+                        std_col.COVID_HOSP_N, std_col.COVID_HOSP_UNKNOWN,
+                        std_col.COVID_DEATH_Y, std_col.COVID_DEATH_N,
+                        std_col.COVID_DEATH_UNKNOWN]
+
+            column_types = {c: 'STRING' for c in df.columns}
+            for col in int_cols:
+                if col in column_types:
+                    column_types[col] = 'FLOAT'
+
+            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
+            table_name = filename.replace('.csv', '')  # Table name is file name
+            gcs_to_bq_util.add_df_to_bq(
+                df, dataset, table_name, column_types=column_types)
+
     def generate_breakdown(self, df, demo, geo):
+        print(f'processing {demo} {geo}')
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo == 'race' else demo
         unknown_val = Race.UNKNOWN.value if demo == 'race' else 'Unknown'
         total_val = Race.ALL.value if demo == 'race' else std_col.ALL_VALUE
         all_val = Race.ALL.value if demo == 'race' else std_col.ALL_VALUE
 
-        all_columns = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, demo_col]
+        all_columns = [
+           std_col.STATE_FIPS_COL,
+           std_col.STATE_NAME_COL,
+           demo_col,
+           std_col.POPULATION_PCT_COL
+        ]
+
         if geo == 'county':
             all_columns.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
 

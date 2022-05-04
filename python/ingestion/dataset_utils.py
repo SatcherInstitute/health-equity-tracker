@@ -1,4 +1,5 @@
 import pandas as pd  # type: ignore
+import numpy as np  # type: ignore
 from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
@@ -56,7 +57,10 @@ def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
        per_100k_col: String column name to place the generate row in."""
 
     def calc_per_100k(record):
-        return percent_avoid_rounding_to_zero(1000 * float(record[raw_count_col]), float(record[pop_col]))
+        per_100k = percent_avoid_rounding_to_zero(1000 * float(record[raw_count_col]), float(record[pop_col]))
+        if not pd.isna(per_100k):
+            return round(per_100k, 0)
+        return np.nan
 
     df[per_100k_col] = df.apply(calc_per_100k, axis=1)
     return df

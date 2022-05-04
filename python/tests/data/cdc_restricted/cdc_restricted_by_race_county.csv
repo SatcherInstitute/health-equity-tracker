@@ -1,0 +1,5 @@
+county_fips,county_name,state_postal,race_category_id,cases,hosp_y,hosp_n,hosp_unknown,death_y,death_n,death_unknown,race,race_includes_hispanic,race_and_ethnicity
+06123,San Mateo County,CA,BLACK_NH,6,2,3,0,1,2,2,Black,False,Black (Non-Hispanic)
+06123,San Mateo County,CA,WHITE_NH,6,2,1,3,1,3,2,White,False,White (Non-Hispanic)
+06123,San Mateo County,CA,ALL,18,5,6,7,5,5,8,All,,All
+06123,San Mateo County,CA,Unknown,7,1,2,4,3,0,4,Unknown,,Unknown
