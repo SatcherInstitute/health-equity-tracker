@@ -34,7 +34,7 @@ POPULATION_PCT_COL = "population_pct"
 
 ALL_VALUE = "All"
 
-# Standardized column names for Covid cases, hospitalizations, and deaths.
+# Covid cases, hospitalizations, and deaths columns
 COVID_CASES = "cases"
 COVID_HOSP_Y = "hosp_y"
 COVID_HOSP_N = "hosp_n"
@@ -46,7 +46,7 @@ COVID_DEATH_UNKNOWN = "death_unknown"
 COVID_DEATH_RATIO_AGE_ADJUSTED = "death_ratio_age_adjusted"
 COVID_HOSP_RATIO_AGE_ADJUSTED = "hosp_ratio_age_adjusted"
 
-# Standard Health Insurance Population Cols
+# Health Insurance Population Columns
 TOTAL_HEALTH_INSURANCE_COL = "total_health_insurance"
 WITH_HEALTH_INSURANCE_COL = "with_health_insurance"
 WITHOUT_HEALTH_INSURANCE_COL = "without_health_insurance"
@@ -57,7 +57,7 @@ BELOW_POVERTY_COL = "below_poverty_line"
 PER_100K_SUFFIX = "per_100k"
 PCT_SHARE_SUFFIX = "pct_share"
 
-# Standardized column prefixes for UHC columns
+# prefixes for UHC columns
 DEPRESSION_PREFIX = "depression"
 ILLICIT_OPIOID_USE_PREFIX = "illicit_opioid_use"
 NON_MEDICAL_RX_OPIOID_USE_PREFIX = "non_medical_rx_opioid_use"
@@ -77,14 +77,14 @@ VOTER_PARTICIPATION_PREFIX = "voter_participation"
 
 BRFSS_POPULATION_PCT = "brfss_population_pct"
 
-# Standardized for Vaccination columns
+# Vaccination columns
 VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
 VACCINATED_PCT = "vaccinated_pct"
 VACCINATED_SHARE_OF_KNOWN = "vaccinated_share_of_known"
 VACCINATED_PER_100K = "vaccinated_per_100k"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
-# Standardized for CAWP Women in Legislature
+# CAWP Women in Legislature columns
 # (_PCT:  % state legislature who are black women)
 # (_PCT_SHARE: % of women legislators who are black)
 WOMEN_STATE_LEG_PCT = "women_state_leg_pct"
@@ -92,8 +92,13 @@ WOMEN_STATE_LEG_PCT_SHARE = "women_state_leg_pct_share"
 WOMEN_US_CONGRESS_PCT = "women_us_congress_pct"
 WOMEN_US_CONGRESS_PCT_SHARE = "women_us_congress_pct_share"
 
+# Incarceration columns
 PRISON_PER_100K = "prison_per_100k"
 PRISON_PCT_SHARE = "prison_pct_share"
+JAIL_PER_100K = "jail_per_100k"
+JAIL_PCT_SHARE = "jail_pct_share"
+INCARCERATED_PER_100K = "incarcerated_per_100k"
+INCARCERATED_PCT_SHARE = "incarcerated_pct_share"
 
 
 RaceTuple = namedtuple("RaceTuple", [

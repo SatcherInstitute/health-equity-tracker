@@ -1,14 +1,21 @@
-import json
 from unittest import mock
 import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
-from datasources.bjs import (BJSData)
+from datasources.bjs import BJSData, drop_unnamed, strip_footnote_refs
+
+# UNIT TESTS
+
+
+def test_strip_footnote_refs():
+    assert strip_footnote_refs(
+        "Native Hawaiian/Other Pacific Islander/a") == "Native Hawaiian/Other Pacific Islander"
+    assert strip_footnote_refs("Anything/a,b,c,d,e,z") == "Anything"
+    assert strip_footnote_refs(1) == 1
 
 
 # INTEGRATION TEST SETUP
-
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "bjs_corrections")
@@ -25,14 +32,27 @@ def _get_test_data_as_df(*args):
         "race_ethnicity": str
     }
 
+    header_rows = list(range(0, 10))
+
     test_input_filename = f'bjs_test_input_{filename}'
-    return pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
-                       dtype=test_input_data_types)
+    df = pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
+                     dtype=test_input_data_types, skiprows=[*header_rows, 12], skipfooter=13, engine="python")
+
+    df['Jurisdiction'] = df["Jurisdiction"].combine_first(df["Unnamed: 1"])
+
+    df = drop_unnamed(df)
+
+    # strip out footnote references
+    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
+    df = df.applymap(strip_footnote_refs)
+
+    print(df.to_string())
+    return df
 
 
 # RUN INTEGRATION TESTS ON NATIONAL LEVEL
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-            side_effect=_get_test_data_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
+             side_effect=_get_test_data_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
 def testWriteNationalLevelToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
@@ -66,11 +86,11 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock
     expected_df_national = pd.read_json(
         GOLDEN_DATA['race_and_ethnicity_national'], dtype=expected_dtype)
 
-    print(mock_bq.call_args_list)
+    # print(mock_bq.call_args_list)
 
     args, kwargs = mock_bq.call_args_list
 
-    print(args, kwargs)
+    # print(args, kwargs)
 
     # # save NATIONAL results to file
     # mock_df_national.to_json(
