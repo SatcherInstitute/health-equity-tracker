@@ -3,9 +3,19 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
-from datasources.bjs import BJSData, drop_unnamed, strip_footnote_refs
+from datasources.bjs import BJSData, drop_unnamed, strip_footnote_refs, missing_data_to_none
 
 # UNIT TESTS
+
+_fake_by_race_state_national_df = pd.DataFrame({std_col.STATE_NAME_COL: ["Maine", "Florida"],
+                                                'Asian': ["~", 1000],
+                                                'Black': [100, "/"]
+                                                })
+
+_expected_by_race_state_national_df_missing_to_none = pd.DataFrame({std_col.STATE_NAME_COL: ["Maine", "Florida"],
+                                                                    'Asian': [None, 1000],
+                                                                    'Black': [100, None]
+                                                                    })
 
 
 def test_strip_footnote_refs():
@@ -13,6 +23,11 @@ def test_strip_footnote_refs():
         "Native Hawaiian/Other Pacific Islander/a") == "Native Hawaiian/Other Pacific Islander"
     assert strip_footnote_refs("Anything/a,b,c,d,e,z") == "Anything"
     assert strip_footnote_refs(1) == 1
+
+
+def test_missing_data_to_none():
+    assert missing_data_to_none(
+        _fake_by_race_state_national_df).equals(_expected_by_race_state_national_df_missing_to_none)
 
 
 # INTEGRATION TEST SETUP
@@ -38,13 +53,20 @@ def _get_test_data_as_df(*args):
     df = pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
                      dtype=test_input_data_types, skiprows=[*header_rows, 12], skipfooter=13, engine="python")
 
-    df['Jurisdiction'] = df["Jurisdiction"].combine_first(df["Unnamed: 1"])
+    df = df.rename(
+        columns={'Jurisdiction': std_col.STATE_NAME_COL})
+
+    df[std_col.STATE_NAME_COL] = df[std_col.STATE_NAME_COL].combine_first(
+        df["Unnamed: 1"])
 
     df = drop_unnamed(df)
 
-    # strip out footnote references
+    # strip out footnote references from column headers and state name col
     df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
-    df = df.applymap(strip_footnote_refs)
+    df[std_col.STATE_NAME_COL] = df[std_col.STATE_NAME_COL].apply(
+        strip_footnote_refs)
+
+    df = missing_data_to_none(df)
 
     print(df.to_string())
     return df

@@ -2,9 +2,26 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as std_col
 import re
+from ingestion.standardized_columns import Race
 
 
 BJS_PRISON_BY_RACE_STATE_NATIONAL = "p20stat02.csv"
+
+BJS_RACE_GROUPS_TO_STANDARD = {
+    'White': Race.WHITE_NH.value,
+    'Black': Race.BLACK_NH.value,
+    'Hispanic': Race.HISP.value,
+    'American Indian/Alaska Native': Race.AIAN_NH,
+    'Asian': Race.ASIAN_NH.value,
+    'Native Hawaiian/Other Pacific Islander': Race.NHPI_NH,
+    'Two or more races': Race.MULTI.value,
+    'Other': Race.OTHER_STANDARD_NH,
+    'Unknown': Race.UNKNOWN.value,
+    # for now summing 'Unknown' and 'Did not report' into "Unknown"
+    # but need to confirm
+    # 'Did not report': Race.UNKNOWN.value,
+    'All': Race.ALL.value
+}
 
 
 def strip_footnote_refs(cell_value):
@@ -23,6 +40,26 @@ def drop_unnamed(df):
     This fn removes those columns and returns the updated df
      """
     df = df.drop(df.filter(regex="Unnamed"), axis=1)
+    return df
+
+
+def missing_data_to_none(df):
+    """
+    Clean up a dataframe with by replacing all missing values with None.
+    BJS uses two kinds of missing data:
+    `~` N/A. Jurisdiction does not track this race or ethnicity.
+    `/` Not reported.
+
+    Parameters:
+            df (Pandas Dataframe): a dataframe with some missing values set to `~` or `/`
+
+    Returns:
+            df (Pandas Dataframe): a dataframe with all missing values set to `None`
+    """
+
+    df = df.applymap(lambda datum: None if datum ==
+                     "/" or datum == "~" else datum)
+
     return df
 
 
