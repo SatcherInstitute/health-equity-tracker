@@ -1247,55 +1247,14 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           knownBreakdownComparisonMetric: {
             metricId: "prison_pct_share",
             fullCardTitleName: "Percent Share of Total Prison Population",
-            shortLabel: "% of imprisonment",
+            shortLabel: "% of people in prison",
             type: "pct_share",
           },
         },
         age_adjusted_ratio: {
           metricId: "prison_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Representation Ratio of Women in U.S. Congress Compared to White (Non-Hispanic)",
-          shortLabel: "",
-          type: "ratio",
-        },
-      },
-    },
-    {
-      variableId: "women_state_legislatures",
-      variableDisplayName: "Women in State Legislatures", // DATA TOGGLE
-      variableFullDisplayName: "Women in State Legislatures", // TABLE TITLE,
-      surveyCollectedData: true,
-      variableDefinition: `Individuals identifying as women currently serving in their state or territory’s legislature. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.
-      `,
-      metrics: {
-        per100k: {
-          metricId: "women_state_leg_pct",
-          fullCardTitleName: "Percentage of State Legislators", // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER, HI/LOW DROPDOWN FOOTNOTE
-          shortLabel: "% of state legislators identifying as women", // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
-          type: "pct",
-        },
-        pct_share: {
-          metricId: "women_state_leg_pct_share",
-          fullCardTitleName: "Percent Share of Women State Legislators", // UNKNOWNS MAP TITLE, DISPARITY BAR TITLE
-          shortLabel: "% of women legislators", // DISPARITY BAR LEGEND
-          type: "pct_share",
-          populationComparisonMetric: {
-            metricId: "cawp_population_pct",
-            fullCardTitleName: "Total Population Share (All Genders)", // TABLE COLUMN HEADER
-            shortLabel: `${populationPctShortLabel} (all genders)`, // DISPARITY BAR LEGEND/AXIS
-            type: "pct_share",
-          },
-          knownBreakdownComparisonMetric: {
-            metricId: "women_state_leg_pct_share",
-            fullCardTitleName: "Percent Share of Women State Legislators", // TABLE COL HEADER
-            shortLabel: "% of women legislators", // UNKNOWNS MAP ALERT, DISPARITY BAR LABELS/AXIS
-            type: "pct_share",
-          },
-        },
-        age_adjusted_ratio: {
-          metricId: "women_state_leg_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-Adjusted Ratio of Imprisonment Compared to White (Non-Hispanic)",
+            "Age-Adjusted Imprisonment Ratio Compared to White (Non-Hispanic)",
           shortLabel: "",
           type: "ratio",
         },
