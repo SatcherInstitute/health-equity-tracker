@@ -1,7 +1,6 @@
 from datasources.data_source import DataSource
 import ingestion.standardized_columns as std_col
 import re
-from numpy import nan
 import pandas as pd
 from ingestion.standardized_columns import Race
 from ingestion import gcs_to_bq_util, dataset_utils
@@ -44,6 +43,10 @@ BJS_RACE_GROUPS_TO_STANDARD = {
 
 STANDARD_RACE_CODES = [
     race_tuple.value for race_tuple in BJS_RACE_GROUPS_TO_STANDARD.values()]
+
+
+def calc_per_100k(num, denom):
+    return round((num / denom) * 100000, 1)
 
 
 def strip_footnote_refs(cell_value):
@@ -171,30 +174,38 @@ def post_process(df, breakdown, geo):
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
         float)
 
-    print("in post process")
-    print(df.to_string())
+    # for data_type in BJS_DATA_TYPES:
+    #     per_100k_col = std_col.generate_column_name(
+    #         data_type, std_col.PER_100K_SUFFIX)
+    #     df[std_col.generate_column_name(data_type, 'estimated_total')] \
+    #         = df.apply(estimate_total, axis=1, args=(per_100k_col, ))
 
     for data_type in BJS_DATA_TYPES:
-        per_100k_col = std_col.generate_column_name(
+        raw_count_col = "raw"
+        # raw_count_col = std_col.generate_column_name(
+        #     data_type, 'estimated_total')
+
+        # calculate PER_100K
+        incidence_rate_col = std_col.generate_column_name(
             data_type, std_col.PER_100K_SUFFIX)
-        df[std_col.generate_column_name(data_type, 'estimated_total')] \
-            = df.apply(estimate_total, axis=1, args=(per_100k_col, ))
 
-    for data_type in BJS_DATA_TYPES:
-        raw_count_col = std_col.generate_column_name(
-            data_type, 'estimated_total')
+        # df[incidence_rate_col] = (df["raw"] /
+        #                           df[std_col.POPULATION_COL]) * 100_000
+
+        # df[incidence_rate_col] = round(float((df["raw"] /
+        #                                       df[std_col.POPULATION_COL]) * 100_000), 1)
+
+        df[incidence_rate_col] = df.apply(lambda row: calc_per_100k(
+            row['raw'], row[std_col.POPULATION_COL]), axis=1)
+
+        # calculate PCT_SHARES
         pct_share_col = std_col.generate_column_name(
             data_type, std_col.PCT_SHARE_SUFFIX)
-
         total_val = Race.ALL.value if breakdown == std_col.RACE_CATEGORY_ID_COL else std_col.ALL_VALUE
         df = dataset_utils.generate_pct_share_col(
             df, raw_count_col, pct_share_col, breakdown, total_val)
 
-    for data_type in BJS_DATA_TYPES:
-        df = df.drop(
-            columns=std_col.generate_column_name(data_type, 'estimated_total'))
-
-    df = df.drop(columns=std_col.POPULATION_COL)
+    df = df.drop(columns=[std_col.POPULATION_COL, "raw"])
     return df
 
 
