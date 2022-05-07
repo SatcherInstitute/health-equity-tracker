@@ -3,7 +3,10 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
-from datasources.bjs import BJSData, drop_unnamed, strip_footnote_refs, missing_data_to_none
+from datasources.bjs import (BJSData, strip_footnote_refs, clean_df,
+                             missing_data_to_none, header_rows, footer_rows,
+                             BJS_RACE_GROUPS_TO_STANDARD)
+
 
 # UNIT TESTS
 
@@ -40,44 +43,29 @@ GOLDEN_DATA = {
 }
 
 
-def _get_test_data_as_df(*args):
-    [filename] = args
-    test_input_data_types = {
-        "state": str,
-        "race_ethnicity": str
-    }
-
-    header_rows = list(range(0, 10))
-
-    test_input_filename = f'bjs_test_input_{filename}'
+def _get_test_bjs_by_race():
+    test_input_filename = "bjs_test_input_p20stat02.csv"
     df = pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
-                     dtype=test_input_data_types, skiprows=[*header_rows, 12], skipfooter=13, engine="python")
-
-    df = df.rename(
-        columns={'Jurisdiction': std_col.STATE_NAME_COL})
-
-    df[std_col.STATE_NAME_COL] = df[std_col.STATE_NAME_COL].combine_first(
-        df["Unnamed: 1"])
-
-    df = drop_unnamed(df)
-
-    # strip out footnote references from column headers and state name col
-    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
-    df[std_col.STATE_NAME_COL] = df[std_col.STATE_NAME_COL].apply(
-        strip_footnote_refs)
-
-    df = missing_data_to_none(df)
-
-    print(df.to_string())
+                     skiprows=header_rows["bjs_prison_by_race"],
+                     skipfooter=footer_rows["bjs_prison_by_race"],
+                     thousands=',',
+                     engine="python")
+    df = clean_df(df)
     return df
 
 
 # RUN INTEGRATION TESTS ON NATIONAL LEVEL
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-             side_effect=_get_test_data_as_df)
+             return_value=None)
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
 def testWriteNationalLevelToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
+
+    # run these in order as replacements for the
+    # actual calls to load_csv_as_df_from_web()
+    mock_csv.side_effect = [
+        _get_test_bjs_by_race(),
+    ]
 
     bjs_data = BJSData()
 
@@ -110,16 +98,20 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock
 
     # print(mock_bq.call_args_list)
 
-    args, kwargs = mock_bq.call_args_list
+    args = mock_bq.call_args_list
 
-    # print(args, kwargs)
+    mock_df_national_tuple, _mock_column_types = args[0]
 
-    # # save NATIONAL results to file
-    # mock_df_national.to_json(
-    #     "bjs-run-results-national.json", orient="records")
+    mock_df_national, _dataset, _gcs_bucket = mock_df_national_tuple
 
-    # # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
-    # assert set(mock_df_national) == set(
-    #     expected_df_national.columns)
-    # assert_frame_equal(
-    #     mock_df_national, expected_df_national, check_like=True)
+    # print(mock_df_national)
+
+    # save NATIONAL results to file
+    mock_df_national.to_json(
+        "bjs-run-results-national.json", orient="records")
+
+    # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
+    assert set(mock_df_national.columns) == set(
+        expected_df_national.columns)
+    assert_frame_equal(
+        mock_df_national, expected_df_national, check_like=True)

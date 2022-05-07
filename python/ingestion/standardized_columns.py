@@ -93,12 +93,9 @@ WOMEN_US_CONGRESS_PCT = "women_us_congress_pct"
 WOMEN_US_CONGRESS_PCT_SHARE = "women_us_congress_pct_share"
 
 # Incarceration columns
-PRISON_PER_100K = "prison_per_100k"
-PRISON_PCT_SHARE = "prison_pct_share"
-JAIL_PER_100K = "jail_per_100k"
-JAIL_PCT_SHARE = "jail_pct_share"
-INCARCERATED_PER_100K = "incarcerated_per_100k"
-INCARCERATED_PCT_SHARE = "incarcerated_pct_share"
+PRISON_PREFIX = "prison"
+JAIL_PREFIX = "jail"
+INCARCERATED_PREFIX = "incarcerated"
 
 
 RaceTuple = namedtuple("RaceTuple", [
