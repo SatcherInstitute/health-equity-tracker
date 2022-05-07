@@ -40,6 +40,7 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "bjs_corrections")
 
 GOLDEN_DATA = {
     'race_and_ethnicity_national': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_national.json'),
+    'race_and_ethnicity_state': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_state.json'),
 }
 
 
@@ -115,3 +116,66 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock
         expected_df_national.columns)
     assert_frame_equal(
         mock_df_national, expected_df_national, check_like=True)
+
+
+# RUN INTEGRATION TESTS ON STATE LEVEL
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
+             return_value=None)
+@ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+             return_value=None)
+def testWriteStateLevelToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
+
+    # run these in order as replacements for the
+    # actual calls to load_csv_as_df_from_web()
+    mock_csv.side_effect = [
+        _get_test_bjs_by_race(),
+    ]
+
+    bjs_data = BJSData()
+
+    # required by bigQuery
+    kwargs = {'filename': 'test_file.csv',
+              'metadata_table_id': 'test_metadata',
+              'table_name': 'output_table'}
+
+    bjs_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+
+    mock_bq.assert_called_once
+    mock_csv.assert_called_once
+
+    expected_dtype = {
+        'state_name': str,
+        'state_fips': str,
+        "prison_per_100k": float,
+        "prison_pct_share": float,
+        "population": object,
+        "population_pct": float,
+        'race_and_ethnicity': str,
+        'race': str,
+        'race_includes_hispanic': object,
+        'race_category_id': str,
+    }
+
+    # read test OUTPUT file
+    expected_df_state = pd.read_json(
+        GOLDEN_DATA['race_and_ethnicity_state'], dtype=expected_dtype)
+
+    # print(mock_bq.call_args_list)
+
+    args = mock_bq.call_args_list
+
+    mock_df_state_tuple, _mock_column_types = args[1]
+
+    mock_df_state, _dataset, _gcs_bucket = mock_df_state_tuple
+
+    # print(mock_df_national)
+
+    # save STATE results to file
+    mock_df_state.to_json(
+        "bjs-run-results-state.json", orient="records")
+
+    # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
+    assert set(mock_df_state.columns) == set(
+        expected_df_state.columns)
+    assert_frame_equal(
+        mock_df_state, expected_df_state, check_like=True)

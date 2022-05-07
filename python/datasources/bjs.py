@@ -174,29 +174,14 @@ def post_process(df, breakdown, geo):
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
         float)
 
-    # for data_type in BJS_DATA_TYPES:
-    #     per_100k_col = std_col.generate_column_name(
-    #         data_type, std_col.PER_100K_SUFFIX)
-    #     df[std_col.generate_column_name(data_type, 'estimated_total')] \
-    #         = df.apply(estimate_total, axis=1, args=(per_100k_col, ))
-
     for data_type in BJS_DATA_TYPES:
-        raw_count_col = "raw"
-        # raw_count_col = std_col.generate_column_name(
-        #     data_type, 'estimated_total')
+        raw_count_col = "prison_raw"
 
         # calculate PER_100K
         incidence_rate_col = std_col.generate_column_name(
             data_type, std_col.PER_100K_SUFFIX)
-
-        # df[incidence_rate_col] = (df["raw"] /
-        #                           df[std_col.POPULATION_COL]) * 100_000
-
-        # df[incidence_rate_col] = round(float((df["raw"] /
-        #                                       df[std_col.POPULATION_COL]) * 100_000), 1)
-
         df[incidence_rate_col] = df.apply(lambda row: calc_per_100k(
-            row['raw'], row[std_col.POPULATION_COL]), axis=1)
+            row['prison_raw'], row[std_col.POPULATION_COL]), axis=1)
 
         # calculate PCT_SHARES
         pct_share_col = std_col.generate_column_name(
@@ -205,7 +190,7 @@ def post_process(df, breakdown, geo):
         df = dataset_utils.generate_pct_share_col(
             df, raw_count_col, pct_share_col, breakdown, total_val)
 
-    df = df.drop(columns=[std_col.POPULATION_COL, "raw"])
+    df = df.drop(columns=[std_col.POPULATION_COL, "prison_raw"])
     return df
 
 
@@ -247,7 +232,7 @@ class BJSData(DataSource):
 
         # TODO need to clean() the df coming from the fetch (in test it's mocked and cleaned)
 
-        for geo_level in ["national"]:
+        for geo_level in ["national", "state"]:
 
             if geo_level == 'national':
 
@@ -261,6 +246,9 @@ class BJSData(DataSource):
                       df_bjs_states[STANDARD_RACE_CODES].sum())
                 df.loc[0, std_col.STATE_NAME_COL] = constants.US_NAME
 
+            elif geo_level == 'state':
+                df = bjs_df[bjs_df[std_col.STATE_NAME_COL] != 'Federal']
+
             for breakdown in [std_col.RACE_OR_HISPANIC_COL]:
 
                 table_name = f'{breakdown}_{geo_level}'
@@ -272,7 +260,7 @@ class BJSData(DataSource):
                              value_vars=[
                                  race_tuple.value for race_tuple in BJS_RACE_GROUPS_TO_STANDARD.values()],
                              var_name=std_col.RACE_CATEGORY_ID_COL,
-                             value_name="raw")
+                             value_name="prison_raw")
 
                 if breakdown == std_col.RACE_OR_HISPANIC_COL:
                     std_col.add_race_columns_from_category_id(df)
@@ -290,5 +278,8 @@ class BJSData(DataSource):
                 if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                     column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
+                print("/-/-/-/-/")
+                print(table_name)
+                print(df.to_string())
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=column_types)
