@@ -57,6 +57,9 @@ US_NAME = 'United States'
 US_ABBR = "US"
 
 
+EMDASH = '—'
+
+
 class Sex:
     MALE = "Male"
     FEMALE = "Female"
