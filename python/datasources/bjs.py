@@ -14,15 +14,19 @@ BJS_DATA_TYPES = [
 ]
 
 header_rows = {
-    "bjs_prison_by_race": [*list(range(10)), 12],
+    "prisoner2020_appendix_table_2": [*list(range(10)), 12],
+    "prisoners2020_table_23": [*list(range(11)), 12],
+
 }
 
 footer_rows = {
-    "bjs_prison_by_race": 13,
+    "prisoner2020_appendix_table_2": 13,
+    "prisoners2020_table_23": 10
 }
 
 
 BJS_RAW_PRISON_BY_RACE = "p20stat02.csv"
+BJS_RAW_TERRITORY_TOTALS = "p20stt23.csv"
 
 
 BJS_RACE_GROUPS_TO_STANDARD = {
@@ -34,7 +38,7 @@ BJS_RACE_GROUPS_TO_STANDARD = {
     'Native Hawaiian/Other Pacific Islander': Race.NHPI_NH,
     'Two or more races': Race.MULTI_NH,
     'Other': Race.OTHER_STANDARD_NH,
-    'Unknown': Race.UNKNOWN,
+    'Unknown': Race.UNKNOWN_NH,
     # for now summing 'Unknown' and 'Did not report' into "Unknown"
     # but need to confirm
     # 'Did not report': Race.UNKNOWN,
@@ -88,18 +92,48 @@ def missing_data_to_none(df):
     return df
 
 
-def df_to_ints(df):
+def col_to_ints(column: pd.Series):
     """
-
     Parameters:
 
     Returns:
     """
 
-    bjs_race_cols = list(BJS_RACE_GROUPS_TO_STANDARD.keys())
+    column = column.apply(lambda datum: 0 if
+                          datum is None or
+                          datum == "/" or
+                          datum == "~"
+                          else int(datum))
 
-    df[bjs_race_cols] = df[bjs_race_cols].applymap(lambda datum: 0 if datum ==
-                                                   "/" or datum == "~" else int(datum))
+    return column
+
+
+def df_to_ints(df: pd.DataFrame):
+    """
+    Parameters:
+
+    Returns:
+    """
+
+    df = df.applymap(lambda datum: 0 if
+                     pd.isnull(datum) or
+                     datum == "/" or
+                     datum == "~"
+                     else int(datum))
+
+    return df
+
+
+def df_to_ints_or_none(df: pd.DataFrame):
+    """
+    Parameters:
+
+    Returns:
+    """
+
+    df = df.applymap(lambda datum: None if
+                     datum is None
+                     else int(datum))
 
     return df
 
@@ -113,28 +147,21 @@ def swap_col_name(col_name: str):
         return col_name
 
 
-def clean_df(df, first_data_row=None, last_data_row=None):
+def clean_prison_appendix_table_2_df(df):
     """
-    Clean up a dataframe by
-    - combining "Jurisdiction" and "Unnamed: 1" rows into "state_name" column
-    - stripping out embedded footnote references
-    - replacing missing values with `None`
-    - replacing BJS demographic group names (eg `Black`) with
-    HET standard group names (eg `Black of African American (Non-Hispanic)`)
-    - moving/summing values from BJS `Did not report` into the `Unknown` column
+    Unique steps needed to clean BJS Prisoners 2020 - Appendix Table 2
+    Raw # Prisoners by state + federal by race/ethnicity
 
     Parameters:
-            df (Pandas Dataframe): a dataframe from BJS with formatting issues
+            df (Pandas Dataframe): specific dataframe from BJS
             * Note, excess header and footer info must be cleaned in the read_csv()
-            before this step
+            before this step (both mocked + prod flows)
     Returns:
-            df (Pandas Dataframe): a "clean" dataframe ready for processing
+            df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
     df = df.rename(
-        columns={'Jurisdiction': std_col.STATE_NAME_COL})
-    df = df.rename(
-        columns={'Total': std_col.ALL_VALUE})
+        columns={'Jurisdiction': std_col.STATE_NAME_COL, 'Total': Race.ALL.value})
     df[std_col.STATE_NAME_COL] = df[std_col.STATE_NAME_COL].combine_first(
         df["Unnamed: 1"])
     df = drop_unnamed(df)
@@ -142,16 +169,54 @@ def clean_df(df, first_data_row=None, last_data_row=None):
     df[std_col.STATE_NAME_COL] = df[std_col.STATE_NAME_COL].apply(
         strip_footnote_refs)
 
-    # df = missing_data_to_none(df)
-    df = df_to_ints(df)
-
+    df = missing_data_to_none(df)
     df.columns = [swap_col_name(col_name)
                   for col_name in df.columns]
 
-    df[Race.UNKNOWN.value] = (df[Race.UNKNOWN.value].astype(float) +
-                              df["Did not report"].astype(float))
-    df[Race.UNKNOWN.value] = df[Race.UNKNOWN.value].astype('Int64')
+    unknowns_as_ints = col_to_ints(df[Race.UNKNOWN_NH.value])
+
+    df[Race.UNKNOWN_NH.value] = (unknowns_as_ints +
+                                 df["Did not report"])
     df = df.drop(columns=["Did not report"])
+
+    df[STANDARD_RACE_CODES] = df_to_ints_or_none(df[STANDARD_RACE_CODES])
+
+    return df
+
+
+def clean_prison_table_23_df(df):
+    """
+    Unique steps needed to clean BJS Prisoners 2020 - Table 23
+    Raw # Prisoners Totals by Territory
+
+    Parameters:
+            df (Pandas Dataframe): specific dataframe from BJS
+            * Note, excess header and footer info must be cleaned in the read_csv()
+            before this step (both mocked + prod flows)
+    Returns:
+            df (Pandas Dataframe): a "clean" dataframe ready for manipulation
+    """
+
+    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
+    df = df.rename(
+        columns={'U.S. territory/U.S. commonwealth': std_col.STATE_NAME_COL, 'Total': Race.ALL.value})
+
+    df[std_col.STATE_NAME_COL] = df[std_col.STATE_NAME_COL].apply(
+        strip_footnote_refs)
+
+    df = missing_data_to_none(df)
+
+    df[Race.ALL.value] = df[Race.ALL.value].combine_first(
+        df["Total custody population"])
+
+    df[Race.ALL.value].apply(lambda datum: None if datum ==
+                             "/" or datum == "~" else datum)
+
+    df = df[[std_col.STATE_NAME_COL, Race.ALL.value]]
+
+    df[Race.ALL.value] = df[Race.ALL.value].apply(lambda datum: None if
+                                                  datum is None
+                                                  else int(datum))
 
     return df
 
@@ -199,10 +264,9 @@ def estimate_total(row, condition_name_per_100k):
 
        condition_name_per_100k: string column name of the condition per_100k to estimate the total of"""
 
-    if pd.isna(row[condition_name_per_100k]) or \
-        pd.isna(row[std_col.POPULATION_COL]) or \
-            int(row[std_col.POPULATION_COL]) == 0:
-
+    if (pd.isna(row[condition_name_per_100k]) or
+        pd.isna(row[std_col.POPULATION_COL]) or
+            int(row[std_col.POPULATION_COL]) == 0):
         return None
 
     return round((float(row[condition_name_per_100k]) / 100_000) * float(row[std_col.POPULATION_COL]))
@@ -210,11 +274,11 @@ def estimate_total(row, condition_name_per_100k):
 
 class BJSData(DataSource):
 
-    @staticmethod
+    @ staticmethod
     def get_id():
         return 'BJS_DATA'
 
-    @staticmethod
+    @ staticmethod
     def get_table_name():
         return 'bjs_data'
 
@@ -226,9 +290,13 @@ class BJSData(DataSource):
 
         print("\n")
 
-        # BJS data table
-        bjs_df = gcs_to_bq_util.load_csv_as_df_from_web(
+        # BJS by race by state+federal table
+        bjs_race_df = gcs_to_bq_util.load_csv_as_df_from_web(
             BJS_RAW_PRISON_BY_RACE)
+
+        # BJS totals by territory table
+        bjs_territory_totals_df = gcs_to_bq_util.load_csv_as_df_from_web(
+            BJS_RAW_TERRITORY_TOTALS)
 
         # TODO need to clean() the df coming from the fetch (in test it's mocked and cleaned)
 
@@ -237,17 +305,23 @@ class BJSData(DataSource):
             if geo_level == 'national':
 
                 # split apart into STATE PRISON and FEDERAL_PRISON
-                df_bjs_states = bjs_df[bjs_df[std_col.STATE_NAME_COL] != 'Federal']
-                df_bjs_fed = bjs_df[bjs_df[std_col.STATE_NAME_COL]
-                                    == 'Federal']
+                df_bjs_states = bjs_race_df[bjs_race_df[std_col.STATE_NAME_COL] != 'Federal']
+                df_bjs_fed = bjs_race_df[bjs_race_df[std_col.STATE_NAME_COL]
+                                         == 'Federal']
 
                 # national# = federal# + sum of states#
-                df = (df_bjs_fed[STANDARD_RACE_CODES].astype(int) +
-                      df_bjs_states[STANDARD_RACE_CODES].sum())
+                df = (df_to_ints(df_bjs_fed[STANDARD_RACE_CODES]) +
+                      df_to_ints(df_bjs_states[STANDARD_RACE_CODES]).sum())
                 df.loc[0, std_col.STATE_NAME_COL] = constants.US_NAME
 
             elif geo_level == 'state':
-                df = bjs_df[bjs_df[std_col.STATE_NAME_COL] != 'Federal']
+                df = bjs_race_df[bjs_race_df[std_col.STATE_NAME_COL]
+                                 != 'Federal']
+
+                df = df.append(bjs_territory_totals_df)
+
+                print("##-##")
+                print(df.to_string())
 
             for breakdown in [std_col.RACE_OR_HISPANIC_COL]:
 

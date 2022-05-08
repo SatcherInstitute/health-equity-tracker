@@ -3,9 +3,16 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
-from datasources.bjs import (BJSData, strip_footnote_refs, clean_df,
-                             missing_data_to_none, header_rows, footer_rows,
-                             BJS_RACE_GROUPS_TO_STANDARD)
+from datasources.bjs import (BJSData,
+                             strip_footnote_refs,
+                             clean_prison_table_23_df,
+                             clean_prison_appendix_table_2_df,
+                             missing_data_to_none,
+                             header_rows,
+                             footer_rows,
+                             BJS_RACE_GROUPS_TO_STANDARD,
+                             BJS_RAW_PRISON_BY_RACE,
+                             BJS_RAW_TERRITORY_TOTALS)
 
 
 # UNIT TESTS
@@ -44,18 +51,32 @@ GOLDEN_DATA = {
 }
 
 
-def _get_test_bjs_by_race():
-    test_input_filename = "bjs_test_input_p20stat02.csv"
+def _load_prison_appendix_table_2_as_df():
+    test_input_filename = f'bjs_test_input_{BJS_RAW_PRISON_BY_RACE}'
     df = pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
-                     skiprows=header_rows["bjs_prison_by_race"],
-                     skipfooter=footer_rows["bjs_prison_by_race"],
+                     skiprows=header_rows["prisoner2020_appendix_table_2"],
+                     skipfooter=footer_rows["prisoner2020_appendix_table_2"],
                      thousands=',',
                      engine="python")
-    df = clean_df(df)
+    df = clean_prison_appendix_table_2_df(df)
+
     return df
 
 
+def _load_prison_table_23_as_df():
+    test_input_filename = f'bjs_test_input_{BJS_RAW_TERRITORY_TOTALS}'
+    df = pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
+                     skiprows=header_rows["prisoners2020_table_23"],
+                     skipfooter=footer_rows["prisoners2020_table_23"],
+                     thousands=',',
+                     engine="python")
+
+    df = clean_prison_table_23_df(df)
+    return df
+
 # RUN INTEGRATION TESTS ON NATIONAL LEVEL
+
+
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
              return_value=None)
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
@@ -65,7 +86,11 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock
     # run these in order as replacements for the
     # actual calls to load_csv_as_df_from_web()
     mock_csv.side_effect = [
-        _get_test_bjs_by_race(),
+        _load_prison_appendix_table_2_as_df(),
+        _load_prison_table_23_as_df(),
+        _load_prison_appendix_table_2_as_df(),
+        _load_prison_table_23_as_df(),
+
     ]
 
     bjs_data = BJSData()
@@ -97,15 +122,11 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock
     expected_df_national = pd.read_json(
         GOLDEN_DATA['race_and_ethnicity_national'], dtype=expected_dtype)
 
-    # print(mock_bq.call_args_list)
-
     args = mock_bq.call_args_list
 
     mock_df_national_tuple, _mock_column_types = args[0]
 
     mock_df_national, _dataset, _gcs_bucket = mock_df_national_tuple
-
-    # print(mock_df_national)
 
     # save NATIONAL results to file
     mock_df_national.to_json(
@@ -128,7 +149,10 @@ def testWriteStateLevelToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     # run these in order as replacements for the
     # actual calls to load_csv_as_df_from_web()
     mock_csv.side_effect = [
-        _get_test_bjs_by_race(),
+        _load_prison_appendix_table_2_as_df(),
+        _load_prison_table_23_as_df(),
+        _load_prison_appendix_table_2_as_df(),
+        _load_prison_table_23_as_df(),
     ]
 
     bjs_data = BJSData()
