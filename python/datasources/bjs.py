@@ -202,7 +202,16 @@ def make_prison_national_race_df(source_df):
     df.loc[0, std_col.STATE_NAME_COL] = constants.US_NAME
 
     df = cols_to_rows(
-        df, STANDARD_RACE_CODES, std_col.RACE_CATEGORY_ID_COL, "prison_raw")
+        df, STANDARD_RACE_CODES, std_col.RACE_CATEGORY_ID_COL, RAW_COL)
+
+    df = dataset_utils.merge_fips_codes(df)
+    df = dataset_utils.merge_pop_numbers(
+        df, std_col.RACE_COL, "national")
+    df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
+        float)
+
+    df[PER_100K_COL] = round(
+        df[RAW_COL] / df[std_col.POPULATION_COL] * 100_000, 1)
 
     return df
 
@@ -212,7 +221,21 @@ def make_prison_national_sex_df(source_df):
     df = source_df[source_df[std_col.STATE_NAME_COL] == 'U.S. total']
     df[std_col.STATE_NAME_COL] = constants.US_NAME
     df = cols_to_rows(
-        df, BJS_SEX_GROUPS, std_col.SEX_COL, "prison_raw")
+        df, BJS_SEX_GROUPS, std_col.SEX_COL, RAW_COL)
+    df = dataset_utils.merge_fips_codes(df)
+    df = dataset_utils.merge_pop_numbers(
+        df, std_col.SEX_COL, "national")
+    df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
+        float)
+
+    df[PER_100K_COL] = round(df[RAW_COL]
+                             / df[std_col.POPULATION_COL]
+                             * 100_000, 1)
+
+    # calculate PCT_SHARES
+    df = dataset_utils.generate_pct_share_col(
+        df, RAW_COL, PCT_SHARE_COL, std_col.SEX_COL, std_col.ALL_VALUE)
+
     return df
 
 
@@ -240,10 +263,11 @@ def make_prison_national_age_df(source_df, source_df_juveniles):
         row_juveniles_us, std_col.AGE_COL, "national")
     row_juveniles_us[std_col.POPULATION_PCT_COL] = row_juveniles_us[std_col.POPULATION_PCT_COL].astype(
         float)
+    row_juveniles_us[PER_100K_COL] = round(row_juveniles_us[RAW_COL]
+                                           / row_juveniles_us[std_col.POPULATION_COL]
+                                           * 100_000, 1)
 
-    row_juveniles_us[PER_100K_COL] = row_juveniles_us[RAW_COL] / \
-        row_juveniles_us[std_col.POPULATION_COL] * 100_000
-
+    # add combine 0-17 from table 13 with 18-65+ from table 11
     df = df.append(row_juveniles_us)
 
     # calculate PCT_SHARES
@@ -255,6 +279,10 @@ def make_prison_national_age_df(source_df, source_df_juveniles):
 
 def make_prison_state_race_df(source_df, source_df_territories):
     print("prison state race")
+
+    print(source_df.to_string())
+    print(source_df_territories.to_string())
+
     df = source_df[source_df[std_col.STATE_NAME_COL]
                    != 'Federal']
     df = df.append(source_df_territories)
@@ -264,7 +292,10 @@ def make_prison_state_race_df(source_df, source_df_territories):
 def make_prison_state_sex_df(source_df):
     demographic_groups = BJS_SEX_GROUPS
     print("prison state sex")
-    # return df
+
+    df = source_df.copy()
+
+    return df
 
 
 def make_prison_state_age_df(source_df):
@@ -557,6 +588,10 @@ class BJSData(DataSource):
 
                 # df = post_process(df, breakdown, geo_level)
 
+                print("/-/-/-/-/")
+                print(table_name)
+                print(df.to_string())
+
                 # set / add BQ types
                 column_types = {c: 'STRING' for c in df.columns}
                 for col in BJS_DATA_TYPES:
@@ -568,8 +603,5 @@ class BJSData(DataSource):
                 if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                     column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-                # print("/-/-/-/-/")
-                # print(table_name)
-                # print(df.to_string())
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=column_types)
