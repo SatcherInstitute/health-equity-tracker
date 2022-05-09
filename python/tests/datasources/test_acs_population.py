@@ -236,6 +236,9 @@ def testWriteToBqAgeNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, 
         'state_fips': str,
     })
 
+    print("$$")
+    print(mock_bq.call_args_list[5].args[0].to_string())
+
     assert_frame_equal(
         mock_bq.call_args_list[5].args[0], expected_df, check_like=True)
 
