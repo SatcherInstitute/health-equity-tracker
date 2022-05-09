@@ -9,6 +9,7 @@ from datasources.bjs import (BJSData,
                              clean_prison_table_23_df,
                              clean_prison_table_2_df,
                              clean_prison_table_11_df,
+                             clean_prison_table_13_df,
                              clean_prison_appendix_table_2_df,
                              missing_data_to_none,
                              header_rows,
@@ -17,6 +18,7 @@ from datasources.bjs import (BJSData,
                              BJS_RAW_PRISON_BY_RACE,
                              BJS_RAW_PRISON_BY_SEX,
                              BJS_PER_100K_PRISON_BY_AGE,
+                             BJS_RAW_PRISON_JUV_ADULT,
                              BJS_RAW_PRISON_TERRITORY_TOTALS)
 
 
@@ -131,6 +133,7 @@ GOLDEN_DATA = {
 
 
 def _load_prison_appendix_table_2_as_df():
+
     test_input_filename = f'bjs_test_input_{BJS_RAW_PRISON_BY_RACE}'
     df = pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
                      skiprows=header_rows["prisoner2020_appendix_table_2"],
@@ -143,6 +146,7 @@ def _load_prison_appendix_table_2_as_df():
 
 
 def _load_prison_table_2_as_df():
+
     test_input_filename = f'bjs_test_input_{BJS_RAW_PRISON_BY_SEX}'
     df = pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
 
@@ -175,6 +179,7 @@ def _load_prison_table_2_as_df():
 
 
 def _load_prison_table_11_as_df():
+
     test_input_filename = f'bjs_test_input_{BJS_PER_100K_PRISON_BY_AGE}'
     df = pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
                      skiprows=header_rows["prisoners2020_table_11"],
@@ -183,6 +188,19 @@ def _load_prison_table_11_as_df():
                      engine="python")
 
     df = clean_prison_table_11_df(df)
+    return df
+
+
+def _load_prison_table_13_as_df():
+
+    test_input_filename = f'bjs_test_input_{BJS_RAW_PRISON_JUV_ADULT}'
+    df = pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
+                     skiprows=header_rows["prisoners2020_table_13"],
+                     skipfooter=footer_rows["prisoners2020_table_13"],
+                     thousands=',',
+                     engine="python")
+
+    df = clean_prison_table_13_df(df)
     return df
 
 
@@ -218,21 +236,23 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
         _load_prison_appendix_table_2_as_df(),
         _load_prison_table_2_as_df(),
         _load_prison_table_11_as_df(),
+        _load_prison_table_13_as_df(),
         _load_prison_table_23_as_df(),
     ]
 
     # run these in order as replacements for the
     # actual calls to load_csv_as_df_from_web()
     mock_pop.side_effect = [
+        get_age_pop_data_as_df_national(),  # initial pop merge
+        get_age_pop_data_as_df_national(),  # extra pop merge for new '0-17' row
+        get_race_pop_data_as_df_national(),
+        get_sex_pop_data_as_df_national(),
         get_race_pop_data_as_df_state(),
         get_race_pop_data_as_df_territory(),
         get_age_pop_data_as_df_state(),
         get_age_pop_data_as_df_territory(),
         get_sex_pop_data_as_df_state(),
         get_sex_pop_data_as_df_territory(),
-        get_race_pop_data_as_df_national(),
-        get_age_pop_data_as_df_national(),
-        get_sex_pop_data_as_df_national(),
     ]
 
     bjs_data = BJSData()

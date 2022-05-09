@@ -56,6 +56,7 @@ BELOW_POVERTY_COL = "below_poverty_line"
 
 PER_100K_SUFFIX = "per_100k"
 PCT_SHARE_SUFFIX = "pct_share"
+RAW_SUFFIX = "estimated_total"
 
 # prefixes for UHC columns
 DEPRESSION_PREFIX = "depression"
