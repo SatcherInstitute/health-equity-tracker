@@ -37,7 +37,8 @@ BJS_RAW_PRISON_TERRITORY_TOTALS = "p20stt23.csv"
 
 BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
 
-# BJS_AGE_GROUPS = []
+BJS_AGE_GROUPS = ["18-19", "20-24", "25-29", "30-34",
+                  "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65+"]
 
 BJS_RACE_GROUPS_TO_STANDARD = {
     'White': Race.WHITE_NH,
@@ -197,6 +198,13 @@ def make_prison_national_sex_df(source_df):
 def make_prison_national_age_df(source_df):
     print("prison state age")
     print(source_df.to_string())
+
+    # TODO
+    # need to add new age groupings to ACS pop table
+    # need to use those populations to calculate the RAW values for these groups
+    # then choose to either keep those groups or sum the RAW numbers needed
+    # to create the standard age by decade groupings
+    #
 
     df = source_df
 
@@ -393,6 +401,8 @@ def post_process(df, breakdown, geo):
 
     df = dataset_utils.merge_fips_codes(df)
 
+    print("in post process ")
+
     name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
 
     df = dataset_utils.merge_pop_numbers(
@@ -400,16 +410,26 @@ def post_process(df, breakdown, geo):
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
         float)
 
+    print(df.to_string())
+
     for data_type in BJS_DATA_TYPES:
+
+        print(data_type)
+
         raw_count_col = f'{data_type}_raw'
 
         # calculate PER_100K
         if raw_count_col in df.columns:
-
+            print("raw count already there")
             incidence_rate_col = std_col.generate_column_name(
                 data_type, std_col.PER_100K_SUFFIX)
             df[incidence_rate_col] = df.apply(lambda row: calc_per_100k(
                 row['prison_raw'], row[std_col.POPULATION_COL]), axis=1)
+            print(df.to_string())
+        else:
+            print("no raw count")
+            df = df.apply(estimate_total, axis=1, args=("prison_per_100k", ))
+            print(df.to_string())
 
         # calculate PCT_SHARES
         pct_share_col = std_col.generate_column_name(
@@ -473,7 +493,7 @@ class BJSData(DataSource):
 
         for geo_level in ["national", "state"]:
 
-            for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL, std_col.AGE_COL]:
+            for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
 
                 table_name = f'{breakdown}_{geo_level}'
                 print("##-step of breakdown loop -##")
