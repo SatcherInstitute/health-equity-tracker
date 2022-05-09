@@ -3,6 +3,7 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
+from test_utils import get_state_fips_codes_as_df
 from datasources.bjs import (BJSData,
                              strip_footnote_refs,
                              clean_prison_table_23_df,
@@ -30,6 +31,80 @@ _expected_by_race_state_national_df_missing_to_none = pd.DataFrame({std_col.STAT
                                                                     'Asian': [None, 1000],
                                                                     'Black': [100, None]
                                                                     })
+
+
+def get_race_pop_data_as_df_state():
+
+    df = pd.read_json(os.path.join(
+        TEST_DIR, 'acs_population', 'by_race_state_std.json'))
+
+    return df
+
+
+def get_age_pop_data_as_df_state():
+
+    df = pd.read_json(os.path.join(
+        TEST_DIR, 'acs_population', 'by_age_state.json'))
+    return df
+
+
+def get_sex_pop_data_as_df_state():
+
+    df = pd.read_json(os.path.join(
+        TEST_DIR, 'acs_population', 'by_sex_state.json'))
+
+    return df
+
+
+def get_race_pop_data_as_df_territory():
+
+    df = pd.read_json(os.path.join(
+        TEST_DIR, 'acs_2010_population', 'by_race_and_ethnicity_territory.json'))
+
+    return df
+
+
+def get_age_pop_data_as_df_territory():
+
+    df = pd.read_json(os.path.join(
+        TEST_DIR, 'acs_2010_population', 'by_age_territory.json'))
+
+    return df
+
+
+def get_sex_pop_data_as_df_territory():
+
+    df = pd.read_json(os.path.join(
+        TEST_DIR, 'acs_2010_population', 'by_sex_territory.json'))
+
+    return df
+
+
+def get_race_pop_data_as_df_national():
+    df = pd.read_json(os.path.join(TEST_DIR, 'acs_population',
+                                   'by_race_national.json'))
+    df[std_col.STATE_FIPS_COL] = '00'
+    df[std_col.STATE_NAME_COL] = 'United States'
+
+    return df
+
+
+def get_age_pop_data_as_df_national():
+    df = pd.read_json(os.path.join(TEST_DIR, 'acs_population',
+                                   'by_age_national.json'))
+    df[std_col.STATE_FIPS_COL] = '00'
+    df[std_col.STATE_NAME_COL] = 'United States'
+
+    return df
+
+
+def get_sex_pop_data_as_df_national():
+    df = pd.read_json(os.path.join(TEST_DIR, 'acs_population',
+                                   'by_sex_national.json'))
+    df[std_col.STATE_FIPS_COL] = '00'
+    df[std_col.STATE_NAME_COL] = 'United States'
+
+    return df
 
 
 def test_strip_footnote_refs():
@@ -122,14 +197,20 @@ def _load_prison_table_23_as_df():
     df = clean_prison_table_23_df(df)
     return df
 
+
 # RUN INTEGRATION TESTS ON NATIONAL LEVEL
 
-
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
              return_value=None)
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
-def testWriteNationalLevelToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
+def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
+                               mock_csv: mock.MagicMock,
+                               mock_fips: mock.MagicMock,
+                               mock_pop: mock.MagicMock):
 
     # run these in order as replacements for the
     # actual calls to load_csv_as_df_from_web()
@@ -138,27 +219,20 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock
         _load_prison_table_2_as_df(),
         _load_prison_table_11_as_df(),
         _load_prison_table_23_as_df(),
-        # _load_prison_appendix_table_2_as_df(),
-        # _load_prison_table_2_as_df(),
-        # _load_prison_table_11_as_df(),
-        # _load_prison_table_23_as_df(),
-        # _load_prison_appendix_table_2_as_df(),
-        # _load_prison_table_2_as_df(),
-        # _load_prison_table_11_as_df(),
-        # _load_prison_table_23_as_df(),
-        # _load_prison_appendix_table_2_as_df(),
-        # _load_prison_table_2_as_df(),
-        # _load_prison_table_11_as_df(),
-        # _load_prison_table_23_as_df(),
-        # _load_prison_appendix_table_2_as_df(),
-        # _load_prison_table_2_as_df(),
-        # _load_prison_table_11_as_df(),
-        # _load_prison_table_23_as_df(),
-        # _load_prison_appendix_table_2_as_df(),
-        # _load_prison_table_2_as_df(),
-        # _load_prison_table_11_as_df(),
-        # _load_prison_table_23_as_df(),
+    ]
 
+    # run these in order as replacements for the
+    # actual calls to load_csv_as_df_from_web()
+    mock_pop.side_effect = [
+        get_race_pop_data_as_df_state(),
+        get_race_pop_data_as_df_territory(),
+        get_age_pop_data_as_df_state(),
+        get_age_pop_data_as_df_territory(),
+        get_sex_pop_data_as_df_state(),
+        get_sex_pop_data_as_df_territory(),
+        get_race_pop_data_as_df_national(),
+        get_age_pop_data_as_df_national(),
+        get_sex_pop_data_as_df_national(),
     ]
 
     bjs_data = BJSData()
@@ -171,7 +245,8 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock
     bjs_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     mock_bq.assert_called_once
-    mock_csv.assert_called_once
+    # mock_csv.assert_called_once
+    # mock_pop.assert_called_once
 
     expected_dtype = {
         'state_name': str,

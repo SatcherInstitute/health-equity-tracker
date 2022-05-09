@@ -196,8 +196,8 @@ def make_prison_national_sex_df(source_df):
 
 
 def make_prison_national_age_df(source_df):
-    print("prison state age")
-    print(source_df.to_string())
+    # print("prison state age")
+    # print(source_df.to_string())
 
     # TODO
     # need to add new age groupings to ACS pop table
@@ -208,8 +208,8 @@ def make_prison_national_age_df(source_df):
 
     df = source_df
 
-    print("df returned from prison national sex")
-    print(df.to_string())
+    # print("df returned from prison national sex")
+    # print(df.to_string())
 
     return df
 
@@ -410,11 +410,11 @@ def post_process(df, breakdown, geo):
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
         float)
 
-    print(df.to_string())
+    # print(df.to_string())
 
     for data_type in BJS_DATA_TYPES:
 
-        print(data_type)
+        # print(data_type)
 
         raw_count_col = f'{data_type}_raw'
 
@@ -425,11 +425,11 @@ def post_process(df, breakdown, geo):
                 data_type, std_col.PER_100K_SUFFIX)
             df[incidence_rate_col] = df.apply(lambda row: calc_per_100k(
                 row['prison_raw'], row[std_col.POPULATION_COL]), axis=1)
-            print(df.to_string())
+            # print(df.to_string())
         else:
             print("no raw count")
             df = df.apply(estimate_total, axis=1, args=("prison_per_100k", ))
-            print(df.to_string())
+            # print(df.to_string())
 
         # calculate PCT_SHARES
         pct_share_col = std_col.generate_column_name(
