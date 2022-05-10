@@ -1,0 +1,1094 @@
+[
+    {
+        "state_fips": "01",
+        "state_name": "Alabama",
+        "sex": "All",
+        "population": "4876250",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "02",
+        "state_name": "Alaska",
+        "sex": "All",
+        "population": "737068",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "04",
+        "state_name": "Arizona",
+        "sex": "All",
+        "population": "7050299",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "05",
+        "state_name": "Arkansas",
+        "sex": "All",
+        "population": "2999370",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "06",
+        "state_name": "California",
+        "sex": "All",
+        "population": "39283497",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "08",
+        "state_name": "Colorado",
+        "sex": "All",
+        "population": "5610349",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "09",
+        "state_name": "Connecticut",
+        "sex": "All",
+        "population": "3575074",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "10",
+        "state_name": "Delaware",
+        "sex": "All",
+        "population": "957248",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "11",
+        "state_name": "District of Columbia",
+        "sex": "All",
+        "population": "692683",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "12",
+        "state_name": "Florida",
+        "sex": "All",
+        "population": "20901636",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "13",
+        "state_name": "Georgia",
+        "sex": "All",
+        "population": "10403847",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "15",
+        "state_name": "Hawaii",
+        "sex": "All",
+        "population": "1422094",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "16",
+        "state_name": "Idaho",
+        "sex": "All",
+        "population": "1717750",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "17",
+        "state_name": "Illinois",
+        "sex": "All",
+        "population": "12770631",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "18",
+        "state_name": "Indiana",
+        "sex": "All",
+        "population": "6665703",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "19",
+        "state_name": "Iowa",
+        "sex": "All",
+        "population": "3139508",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "20",
+        "state_name": "Kansas",
+        "sex": "All",
+        "population": "2910652",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "21",
+        "state_name": "Kentucky",
+        "sex": "All",
+        "population": "4449052",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "22",
+        "state_name": "Louisiana",
+        "sex": "All",
+        "population": "4664362",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "23",
+        "state_name": "Maine",
+        "sex": "All",
+        "population": "1335492",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "24",
+        "state_name": "Maryland",
+        "sex": "All",
+        "population": "6018848",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "25",
+        "state_name": "Massachusetts",
+        "sex": "All",
+        "population": "6850553",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "26",
+        "state_name": "Michigan",
+        "sex": "All",
+        "population": "9965265",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "27",
+        "state_name": "Minnesota",
+        "sex": "All",
+        "population": "5563378",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "28",
+        "state_name": "Mississippi",
+        "sex": "All",
+        "population": "2984418",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "29",
+        "state_name": "Missouri",
+        "sex": "All",
+        "population": "6104910",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "30",
+        "state_name": "Montana",
+        "sex": "All",
+        "population": "1050649",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "31",
+        "state_name": "Nebraska",
+        "sex": "All",
+        "population": "1914571",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "32",
+        "state_name": "Nevada",
+        "sex": "All",
+        "population": "2972382",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "33",
+        "state_name": "New Hampshire",
+        "sex": "All",
+        "population": "1348124",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "34",
+        "state_name": "New Jersey",
+        "sex": "All",
+        "population": "8878503",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "35",
+        "state_name": "New Mexico",
+        "sex": "All",
+        "population": "2092454",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "36",
+        "state_name": "New York",
+        "sex": "All",
+        "population": "19572319",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "37",
+        "state_name": "North Carolina",
+        "sex": "All",
+        "population": "10264876",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "38",
+        "state_name": "North Dakota",
+        "sex": "All",
+        "population": "756717",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "39",
+        "state_name": "Ohio",
+        "sex": "All",
+        "population": "11655397",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "40",
+        "state_name": "Oklahoma",
+        "sex": "All",
+        "population": "3932870",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "41",
+        "state_name": "Oregon",
+        "sex": "All",
+        "population": "4129803",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "42",
+        "state_name": "Pennsylvania",
+        "sex": "All",
+        "population": "12791530",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "44",
+        "state_name": "Rhode Island",
+        "sex": "All",
+        "population": "1057231",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "45",
+        "state_name": "South Carolina",
+        "sex": "All",
+        "population": "5020806",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "46",
+        "state_name": "South Dakota",
+        "sex": "All",
+        "population": "870638",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "47",
+        "state_name": "Tennessee",
+        "sex": "All",
+        "population": "6709356",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "48",
+        "state_name": "Texas",
+        "sex": "All",
+        "population": "28260856",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "49",
+        "state_name": "Utah",
+        "sex": "All",
+        "population": "3096848",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "50",
+        "state_name": "Vermont",
+        "sex": "All",
+        "population": "624313",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "51",
+        "state_name": "Virginia",
+        "sex": "All",
+        "population": "8454463",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "53",
+        "state_name": "Washington",
+        "sex": "All",
+        "population": "7404107",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "54",
+        "state_name": "West Virginia",
+        "sex": "All",
+        "population": "1817305",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "55",
+        "state_name": "Wisconsin",
+        "sex": "All",
+        "population": "5790716",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "56",
+        "state_name": "Wyoming",
+        "sex": "All",
+        "population": "581024",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "72",
+        "state_name": "Puerto Rico",
+        "sex": "All",
+        "population": "3318447",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "53",
+        "state_name": "Washington",
+        "sex": "Male",
+        "population": "3703301",
+        "population_pct": "50.0"
+    },
+    {
+        "state_fips": "24",
+        "state_name": "Maryland",
+        "sex": "Male",
+        "population": "2917613",
+        "population_pct": "48.5"
+    },
+    {
+        "state_fips": "25",
+        "state_name": "Massachusetts",
+        "sex": "Male",
+        "population": "3324207",
+        "population_pct": "48.5"
+    },
+    {
+        "state_fips": "28",
+        "state_name": "Mississippi",
+        "sex": "Male",
+        "population": "1447873",
+        "population_pct": "48.5"
+    },
+    {
+        "state_fips": "36",
+        "state_name": "New York",
+        "sex": "Male",
+        "population": "9501001",
+        "population_pct": "48.5"
+    },
+    {
+        "state_fips": "45",
+        "state_name": "South Carolina",
+        "sex": "Male",
+        "population": "2435472",
+        "population_pct": "48.5"
+    },
+    {
+        "state_fips": "23",
+        "state_name": "Maine",
+        "sex": "Male",
+        "population": "653942",
+        "population_pct": "49.0"
+    },
+    {
+        "state_fips": "39",
+        "state_name": "Ohio",
+        "sex": "Male",
+        "population": "5711765",
+        "population_pct": "49.0"
+    },
+    {
+        "state_fips": "42",
+        "state_name": "Pennsylvania",
+        "sex": "Male",
+        "population": "6265113",
+        "population_pct": "49.0"
+    },
+    {
+        "state_fips": "56",
+        "state_name": "Wyoming",
+        "sex": "Male",
+        "population": "296202",
+        "population_pct": "51.0"
+    },
+    {
+        "state_fips": "33",
+        "state_name": "New Hampshire",
+        "sex": "Male",
+        "population": "667689",
+        "population_pct": "49.5"
+    },
+    {
+        "state_fips": "35",
+        "state_name": "New Mexico",
+        "sex": "Male",
+        "population": "1036190",
+        "population_pct": "49.5"
+    },
+    {
+        "state_fips": "01",
+        "state_name": "Alabama",
+        "sex": "Male",
+        "population": "2359355",
+        "population_pct": "48.4"
+    },
+    {
+        "state_fips": "10",
+        "state_name": "Delaware",
+        "sex": "Male",
+        "population": "462890",
+        "population_pct": "48.4"
+    },
+    {
+        "state_fips": "46",
+        "state_name": "South Dakota",
+        "sex": "Male",
+        "population": "438946",
+        "population_pct": "50.4"
+    },
+    {
+        "state_fips": "12",
+        "state_name": "Florida",
+        "sex": "Male",
+        "population": "10220813",
+        "population_pct": "48.9"
+    },
+    {
+        "state_fips": "22",
+        "state_name": "Louisiana",
+        "sex": "Male",
+        "population": "2278986",
+        "population_pct": "48.9"
+    },
+    {
+        "state_fips": "11",
+        "state_name": "District of Columbia",
+        "sex": "Male",
+        "population": "328644",
+        "population_pct": "47.4"
+    },
+    {
+        "state_fips": "54",
+        "state_name": "West Virginia",
+        "sex": "Male",
+        "population": "898578",
+        "population_pct": "49.4"
+    },
+    {
+        "state_fips": "31",
+        "state_name": "Nebraska",
+        "sex": "Male",
+        "population": "954950",
+        "population_pct": "49.9"
+    },
+    {
+        "state_fips": "08",
+        "state_name": "Colorado",
+        "sex": "Male",
+        "population": "2823201",
+        "population_pct": "50.3"
+    },
+    {
+        "state_fips": "30",
+        "state_name": "Montana",
+        "sex": "Male",
+        "population": "528573",
+        "population_pct": "50.3"
+    },
+    {
+        "state_fips": "49",
+        "state_name": "Utah",
+        "sex": "Male",
+        "population": "1558868",
+        "population_pct": "50.3"
+    },
+    {
+        "state_fips": "09",
+        "state_name": "Connecticut",
+        "sex": "Male",
+        "population": "1744245",
+        "population_pct": "48.8"
+    },
+    {
+        "state_fips": "34",
+        "state_name": "New Jersey",
+        "sex": "Male",
+        "population": "4335032",
+        "population_pct": "48.8"
+    },
+    {
+        "state_fips": "47",
+        "state_name": "Tennessee",
+        "sex": "Male",
+        "population": "3273278",
+        "population_pct": "48.8"
+    },
+    {
+        "state_fips": "18",
+        "state_name": "Indiana",
+        "sex": "Male",
+        "population": "3284846",
+        "population_pct": "49.3"
+    },
+    {
+        "state_fips": "50",
+        "state_name": "Vermont",
+        "sex": "Male",
+        "population": "308097",
+        "population_pct": "49.3"
+    },
+    {
+        "state_fips": "20",
+        "state_name": "Kansas",
+        "sex": "Male",
+        "population": "1450697",
+        "population_pct": "49.8"
+    },
+    {
+        "state_fips": "27",
+        "state_name": "Minnesota",
+        "sex": "Male",
+        "population": "2770873",
+        "population_pct": "49.8"
+    },
+    {
+        "state_fips": "15",
+        "state_name": "Hawaii",
+        "sex": "Male",
+        "population": "713260",
+        "population_pct": "50.2"
+    },
+    {
+        "state_fips": "32",
+        "state_name": "Nevada",
+        "sex": "Male",
+        "population": "1491294",
+        "population_pct": "50.2"
+    },
+    {
+        "state_fips": "02",
+        "state_name": "Alaska",
+        "sex": "Male",
+        "population": "384915",
+        "population_pct": "52.2"
+    },
+    {
+        "state_fips": "13",
+        "state_name": "Georgia",
+        "sex": "Male",
+        "population": "5062096",
+        "population_pct": "48.7"
+    },
+    {
+        "state_fips": "37",
+        "state_name": "North Carolina",
+        "sex": "Male",
+        "population": "4996638",
+        "population_pct": "48.7"
+    },
+    {
+        "state_fips": "21",
+        "state_name": "Kentucky",
+        "sex": "Male",
+        "population": "2190922",
+        "population_pct": "49.2"
+    },
+    {
+        "state_fips": "26",
+        "state_name": "Michigan",
+        "sex": "Male",
+        "population": "4905240",
+        "population_pct": "49.2"
+    },
+    {
+        "state_fips": "51",
+        "state_name": "Virginia",
+        "sex": "Male",
+        "population": "4159173",
+        "population_pct": "49.2"
+    },
+    {
+        "state_fips": "38",
+        "state_name": "North Dakota",
+        "sex": "Male",
+        "population": "387555",
+        "population_pct": "51.2"
+    },
+    {
+        "state_fips": "04",
+        "state_name": "Arizona",
+        "sex": "Male",
+        "population": "3504509",
+        "population_pct": "49.7"
+    },
+    {
+        "state_fips": "06",
+        "state_name": "California",
+        "sex": "Male",
+        "population": "19526298",
+        "population_pct": "49.7"
+    },
+    {
+        "state_fips": "48",
+        "state_name": "Texas",
+        "sex": "Male",
+        "population": "14034009",
+        "population_pct": "49.7"
+    },
+    {
+        "state_fips": "55",
+        "state_name": "Wisconsin",
+        "sex": "Male",
+        "population": "2879894",
+        "population_pct": "49.7"
+    },
+    {
+        "state_fips": "16",
+        "state_name": "Idaho",
+        "sex": "Male",
+        "population": "861025",
+        "population_pct": "50.1"
+    },
+    {
+        "state_fips": "44",
+        "state_name": "Rhode Island",
+        "sex": "Male",
+        "population": "513792",
+        "population_pct": "48.6"
+    },
+    {
+        "state_fips": "05",
+        "state_name": "Arkansas",
+        "sex": "Male",
+        "population": "1471760",
+        "population_pct": "49.1"
+    },
+    {
+        "state_fips": "17",
+        "state_name": "Illinois",
+        "sex": "Male",
+        "population": "6272172",
+        "population_pct": "49.1"
+    },
+    {
+        "state_fips": "29",
+        "state_name": "Missouri",
+        "sex": "Male",
+        "population": "2995725",
+        "population_pct": "49.1"
+    },
+    {
+        "state_fips": "72",
+        "state_name": "Puerto Rico",
+        "sex": "Male",
+        "population": "1578318",
+        "population_pct": "47.6"
+    },
+    {
+        "state_fips": "19",
+        "state_name": "Iowa",
+        "sex": "Male",
+        "population": "1558536",
+        "population_pct": "49.6"
+    },
+    {
+        "state_fips": "40",
+        "state_name": "Oklahoma",
+        "sex": "Male",
+        "population": "1949528",
+        "population_pct": "49.6"
+    },
+    {
+        "state_fips": "41",
+        "state_name": "Oregon",
+        "sex": "Male",
+        "population": "2047338",
+        "population_pct": "49.6"
+    },
+    {
+        "state_fips": "53",
+        "state_name": "Washington",
+        "sex": "Female",
+        "population": "3700806",
+        "population_pct": "50.0"
+    },
+    {
+        "state_fips": "33",
+        "state_name": "New Hampshire",
+        "sex": "Female",
+        "population": "680435",
+        "population_pct": "50.5"
+    },
+    {
+        "state_fips": "35",
+        "state_name": "New Mexico",
+        "sex": "Female",
+        "population": "1056264",
+        "population_pct": "50.5"
+    },
+    {
+        "state_fips": "56",
+        "state_name": "Wyoming",
+        "sex": "Female",
+        "population": "284822",
+        "population_pct": "49.0"
+    },
+    {
+        "state_fips": "23",
+        "state_name": "Maine",
+        "sex": "Female",
+        "population": "681550",
+        "population_pct": "51.0"
+    },
+    {
+        "state_fips": "39",
+        "state_name": "Ohio",
+        "sex": "Female",
+        "population": "5943632",
+        "population_pct": "51.0"
+    },
+    {
+        "state_fips": "42",
+        "state_name": "Pennsylvania",
+        "sex": "Female",
+        "population": "6526417",
+        "population_pct": "51.0"
+    },
+    {
+        "state_fips": "24",
+        "state_name": "Maryland",
+        "sex": "Female",
+        "population": "3101235",
+        "population_pct": "51.5"
+    },
+    {
+        "state_fips": "25",
+        "state_name": "Massachusetts",
+        "sex": "Female",
+        "population": "3526346",
+        "population_pct": "51.5"
+    },
+    {
+        "state_fips": "28",
+        "state_name": "Mississippi",
+        "sex": "Female",
+        "population": "1536545",
+        "population_pct": "51.5"
+    },
+    {
+        "state_fips": "36",
+        "state_name": "New York",
+        "sex": "Female",
+        "population": "10071318",
+        "population_pct": "51.5"
+    },
+    {
+        "state_fips": "45",
+        "state_name": "South Carolina",
+        "sex": "Female",
+        "population": "2585334",
+        "population_pct": "51.5"
+    },
+    {
+        "state_fips": "19",
+        "state_name": "Iowa",
+        "sex": "Female",
+        "population": "1580972",
+        "population_pct": "50.4"
+    },
+    {
+        "state_fips": "40",
+        "state_name": "Oklahoma",
+        "sex": "Female",
+        "population": "1983342",
+        "population_pct": "50.4"
+    },
+    {
+        "state_fips": "41",
+        "state_name": "Oregon",
+        "sex": "Female",
+        "population": "2082465",
+        "population_pct": "50.4"
+    },
+    {
+        "state_fips": "72",
+        "state_name": "Puerto Rico",
+        "sex": "Female",
+        "population": "1740129",
+        "population_pct": "52.4"
+    },
+    {
+        "state_fips": "05",
+        "state_name": "Arkansas",
+        "sex": "Female",
+        "population": "1527610",
+        "population_pct": "50.9"
+    },
+    {
+        "state_fips": "17",
+        "state_name": "Illinois",
+        "sex": "Female",
+        "population": "6498459",
+        "population_pct": "50.9"
+    },
+    {
+        "state_fips": "29",
+        "state_name": "Missouri",
+        "sex": "Female",
+        "population": "3109185",
+        "population_pct": "50.9"
+    },
+    {
+        "state_fips": "44",
+        "state_name": "Rhode Island",
+        "sex": "Female",
+        "population": "543439",
+        "population_pct": "51.4"
+    },
+    {
+        "state_fips": "16",
+        "state_name": "Idaho",
+        "sex": "Female",
+        "population": "856725",
+        "population_pct": "49.9"
+    },
+    {
+        "state_fips": "04",
+        "state_name": "Arizona",
+        "sex": "Female",
+        "population": "3545790",
+        "population_pct": "50.3"
+    },
+    {
+        "state_fips": "06",
+        "state_name": "California",
+        "sex": "Female",
+        "population": "19757199",
+        "population_pct": "50.3"
+    },
+    {
+        "state_fips": "48",
+        "state_name": "Texas",
+        "sex": "Female",
+        "population": "14226847",
+        "population_pct": "50.3"
+    },
+    {
+        "state_fips": "55",
+        "state_name": "Wisconsin",
+        "sex": "Female",
+        "population": "2910822",
+        "population_pct": "50.3"
+    },
+    {
+        "state_fips": "38",
+        "state_name": "North Dakota",
+        "sex": "Female",
+        "population": "369162",
+        "population_pct": "48.8"
+    },
+    {
+        "state_fips": "21",
+        "state_name": "Kentucky",
+        "sex": "Female",
+        "population": "2258130",
+        "population_pct": "50.8"
+    },
+    {
+        "state_fips": "26",
+        "state_name": "Michigan",
+        "sex": "Female",
+        "population": "5060025",
+        "population_pct": "50.8"
+    },
+    {
+        "state_fips": "51",
+        "state_name": "Virginia",
+        "sex": "Female",
+        "population": "4295290",
+        "population_pct": "50.8"
+    },
+    {
+        "state_fips": "13",
+        "state_name": "Georgia",
+        "sex": "Female",
+        "population": "5341751",
+        "population_pct": "51.3"
+    },
+    {
+        "state_fips": "37",
+        "state_name": "North Carolina",
+        "sex": "Female",
+        "population": "5268238",
+        "population_pct": "51.3"
+    },
+    {
+        "state_fips": "02",
+        "state_name": "Alaska",
+        "sex": "Female",
+        "population": "352153",
+        "population_pct": "47.8"
+    },
+    {
+        "state_fips": "15",
+        "state_name": "Hawaii",
+        "sex": "Female",
+        "population": "708834",
+        "population_pct": "49.8"
+    },
+    {
+        "state_fips": "32",
+        "state_name": "Nevada",
+        "sex": "Female",
+        "population": "1481088",
+        "population_pct": "49.8"
+    },
+    {
+        "state_fips": "20",
+        "state_name": "Kansas",
+        "sex": "Female",
+        "population": "1459955",
+        "population_pct": "50.2"
+    },
+    {
+        "state_fips": "27",
+        "state_name": "Minnesota",
+        "sex": "Female",
+        "population": "2792505",
+        "population_pct": "50.2"
+    },
+    {
+        "state_fips": "18",
+        "state_name": "Indiana",
+        "sex": "Female",
+        "population": "3380857",
+        "population_pct": "50.7"
+    },
+    {
+        "state_fips": "50",
+        "state_name": "Vermont",
+        "sex": "Female",
+        "population": "316216",
+        "population_pct": "50.7"
+    },
+    {
+        "state_fips": "09",
+        "state_name": "Connecticut",
+        "sex": "Female",
+        "population": "1830829",
+        "population_pct": "51.2"
+    },
+    {
+        "state_fips": "34",
+        "state_name": "New Jersey",
+        "sex": "Female",
+        "population": "4543471",
+        "population_pct": "51.2"
+    },
+    {
+        "state_fips": "47",
+        "state_name": "Tennessee",
+        "sex": "Female",
+        "population": "3436078",
+        "population_pct": "51.2"
+    },
+    {
+        "state_fips": "08",
+        "state_name": "Colorado",
+        "sex": "Female",
+        "population": "2787148",
+        "population_pct": "49.7"
+    },
+    {
+        "state_fips": "30",
+        "state_name": "Montana",
+        "sex": "Female",
+        "population": "522076",
+        "population_pct": "49.7"
+    },
+    {
+        "state_fips": "49",
+        "state_name": "Utah",
+        "sex": "Female",
+        "population": "1537980",
+        "population_pct": "49.7"
+    },
+    {
+        "state_fips": "31",
+        "state_name": "Nebraska",
+        "sex": "Female",
+        "population": "959621",
+        "population_pct": "50.1"
+    },
+    {
+        "state_fips": "54",
+        "state_name": "West Virginia",
+        "sex": "Female",
+        "population": "918727",
+        "population_pct": "50.6"
+    },
+    {
+        "state_fips": "11",
+        "state_name": "District of Columbia",
+        "sex": "Female",
+        "population": "364039",
+        "population_pct": "52.6"
+    },
+    {
+        "state_fips": "12",
+        "state_name": "Florida",
+        "sex": "Female",
+        "population": "10680823",
+        "population_pct": "51.1"
+    },
+    {
+        "state_fips": "22",
+        "state_name": "Louisiana",
+        "sex": "Female",
+        "population": "2385376",
+        "population_pct": "51.1"
+    },
+    {
+        "state_fips": "46",
+        "state_name": "South Dakota",
+        "sex": "Female",
+        "population": "431692",
+        "population_pct": "49.6"
+    },
+    {
+        "state_fips": "01",
+        "state_name": "Alabama",
+        "sex": "Female",
+        "population": "2516895",
+        "population_pct": "51.6"
+    },
+    {
+        "state_fips": "10",
+        "state_name": "Delaware",
+        "sex": "Female",
+        "population": "494358",
+        "population_pct": "51.6"
+    }
+]
