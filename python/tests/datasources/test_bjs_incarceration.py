@@ -67,7 +67,8 @@ def test_keep_only_states():
 def get_race_pop_data_as_df_state():
 
     df = pd.read_json(os.path.join(
-        TEST_DIR, 'acs_population', 'by_race_state_std.json'))
+        TEST_DIR, 'acs_population', 'by_race_state_std.json'),
+        dtype={'state_fips': str})
 
     return df
 
@@ -75,7 +76,8 @@ def get_race_pop_data_as_df_state():
 def get_age_pop_data_as_df_state():
 
     df = pd.read_json(os.path.join(
-        TEST_DIR, 'acs_population', 'by_age_state.json'))
+        TEST_DIR, 'acs_population', 'by_age_state.json'),
+        dtype={'state_fips': str})
 
     return df
 
@@ -83,7 +85,8 @@ def get_age_pop_data_as_df_state():
 def get_sex_pop_data_as_df_state():
 
     df = pd.read_json(os.path.join(
-        TEST_DIR, 'acs_population', 'by_sex_state.json'))
+        TEST_DIR, 'acs_population', 'by_sex_state.json'),
+        dtype={'state_fips': str})
 
     return df
 
@@ -91,7 +94,8 @@ def get_sex_pop_data_as_df_state():
 def get_race_pop_data_as_df_territory():
 
     df = pd.read_json(os.path.join(
-        TEST_DIR, 'acs_2010_population', 'by_race_and_ethnicity_territory.json'))
+        TEST_DIR, 'acs_2010_population', 'by_race_and_ethnicity_territory.json'),
+        dtype={'state_fips': str})
 
     return df
 
@@ -99,7 +103,8 @@ def get_race_pop_data_as_df_territory():
 def get_age_pop_data_as_df_territory():
 
     df = pd.read_json(os.path.join(
-        TEST_DIR, 'acs_2010_population', 'by_age_territory.json'))
+        TEST_DIR, 'acs_2010_population', 'by_age_territory.json'),
+        dtype={'state_fips': str})
 
     return df
 
@@ -107,14 +112,16 @@ def get_age_pop_data_as_df_territory():
 def get_sex_pop_data_as_df_territory():
 
     df = pd.read_json(os.path.join(
-        TEST_DIR, 'acs_2010_population', 'by_sex_territory.json'))
+        TEST_DIR, 'acs_2010_population', 'by_sex_territory.json'),
+        dtype={'state_fips': str})
 
     return df
 
 
 def get_race_pop_data_as_df_national():
     df = pd.read_json(os.path.join(TEST_DIR, 'acs_population',
-                                   'by_race_national.json'))
+                                   'by_race_national.json'),
+                      dtype={'state_fips': str})
     df[std_col.STATE_FIPS_COL] = '00'
     df[std_col.STATE_NAME_COL] = 'United States'
 
@@ -123,7 +130,8 @@ def get_race_pop_data_as_df_national():
 
 def get_age_pop_data_as_df_national():
     df = pd.read_json(os.path.join(TEST_DIR, 'acs_population',
-                                   'by_age_national.json'))
+                                   'by_age_national.json'),
+                      dtype={'state_fips': str})
     df[std_col.STATE_FIPS_COL] = '00'
     df[std_col.STATE_NAME_COL] = 'United States'
 
@@ -132,7 +140,8 @@ def get_age_pop_data_as_df_national():
 
 def get_sex_pop_data_as_df_national():
     df = pd.read_json(os.path.join(TEST_DIR, 'acs_population',
-                                   'by_sex_national.json'))
+                                   'by_sex_national.json'),
+                      dtype={'state_fips': str})
     df[std_col.STATE_FIPS_COL] = '00'
     df[std_col.STATE_NAME_COL] = 'United States'
 
@@ -174,7 +183,6 @@ def _load_prison_table_2_as_df():
     test_input_filename = f'bjs_test_input_{BJS_RAW_PRISON_BY_SEX}'
     df = pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
 
-                     # Jurisdiction,,Total,Male,Female,Total,Male,Female,Total,Male,Female,Total,,Male,,Female,
                      names=["Jurisdiction",
                             "Jurisdiction2",
                             "Total-2019",

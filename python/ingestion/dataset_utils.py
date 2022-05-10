@@ -203,6 +203,6 @@ def merge_pop_numbers(df, demo, loc):
         pop_df = pop_df.sort_values(std_col.STATE_FIPS_COL)
 
     df = pd.merge(df, pop_df, how='left', on=[
-                  std_col.STATE_FIPS_COL, on_col_map[demo]])
+        std_col.STATE_FIPS_COL, on_col_map[demo]])
 
     return df.reset_index(drop=True)
