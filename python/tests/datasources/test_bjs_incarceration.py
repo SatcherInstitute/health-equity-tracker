@@ -343,19 +343,19 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
 
     # save NATIONAL results to file
     mock_df_national_age.to_json(
-        "bjs-run-results-national_age.json", orient="records")
+        "bjs_data-age_national.json", orient="records")
     mock_df_national_race.to_json(
-        "bjs-run-results-national_race.json", orient="records")
+        "bjs_data-race_and_ethnicity_national.json", orient="records")
     mock_df_national_sex.to_json(
-        "bjs-run-results-national_sex.json", orient="records")
+        "bjs_data-sex_national.json", orient="records")
 
     # # save STATE/TERRITORY results to file
     mock_df_state_age.to_json(
-        "bjs-run-results-state_age.json", orient="records")
+        "bjs_data-age_state.json", orient="records")
     mock_df_state_race.to_json(
-        "bjs-run-results-state_race.json", orient="records")
+        "bjs_data-race_and_ethnicity_state.json", orient="records")
     mock_df_state_sex.to_json(
-        "bjs-run-results-state_sex.json", orient="records")
+        "bjs_data-sex_state.json", orient="records")
 
     # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
 
