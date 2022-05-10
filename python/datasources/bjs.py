@@ -51,6 +51,8 @@ BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
 BJS_AGE_GROUPS = ["18-19", "20-24", "25-29", "30-34",
                   "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65+"]
 
+BJS_AGE_GROUPS_JUV_ADULT = [std_col.ALL_VALUE, '0-17', '18+']
+
 
 BJS_RACE_GROUPS_TO_STANDARD = {
     'White': Race.WHITE_NH,
@@ -82,8 +84,15 @@ def cols_to_rows(df, demographic_groups, demographic_col, value_col):
                    value_name=value_col)
 
 
-def calc_per_100k(num, denom):
-    return round((num / denom) * 100000, 1)
+def calc_per_100k(row):
+    # print("in calc 100k")
+    # print(row)
+    # print(row.to_string())
+
+    if row[std_col.POPULATION_COL] == 0:
+        return None
+
+    return round((row[RAW_COL] / row[std_col.POPULATION_COL]) * 100_000, 1)
 
 
 def strip_footnote_refs(cell_value):
@@ -210,8 +219,13 @@ def make_prison_national_race_df(source_df):
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
         float)
 
-    df[PER_100K_COL] = round(
-        df[RAW_COL] / df[std_col.POPULATION_COL] * 100_000, 1)
+    df[PER_100K_COL] = df.apply(calc_per_100k, axis=1)
+
+    # calculate PCT_SHARES
+    df = dataset_utils.generate_pct_share_col(
+        df, RAW_COL, PCT_SHARE_COL, std_col.RACE_CATEGORY_ID_COL, Race.ALL.value)
+
+    df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
 
     return df
 
@@ -235,6 +249,8 @@ def make_prison_national_sex_df(source_df):
     # calculate PCT_SHARES
     df = dataset_utils.generate_pct_share_col(
         df, RAW_COL, PCT_SHARE_COL, std_col.SEX_COL, std_col.ALL_VALUE)
+
+    df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
 
     return df
 
@@ -274,33 +290,121 @@ def make_prison_national_age_df(source_df, source_df_juveniles):
     df = dataset_utils.generate_pct_share_col(
         df, RAW_COL, PCT_SHARE_COL, std_col.AGE_COL, std_col.ALL_VALUE)
 
+    df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
+
     return df
 
 
 def make_prison_state_race_df(source_df, source_df_territories):
-    print("prison state race")
-
-    print(source_df.to_string())
-    print(source_df_territories.to_string())
 
     df = source_df[source_df[std_col.STATE_NAME_COL]
                    != 'Federal']
+
     df = df.append(source_df_territories)
+
+    df = cols_to_rows(
+        df, STANDARD_RACE_CODES, std_col.RACE_CATEGORY_ID_COL, RAW_COL)
+
+    df = dataset_utils.merge_fips_codes(df)
+    df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].astype(int)
+
+    df = dataset_utils.merge_pop_numbers(
+        df, std_col.RACE_COL, "state")
+
+    df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
+        float)
+
+    # calculate PCT_SHARES
+    df = dataset_utils.generate_pct_share_col(
+        df, RAW_COL, PCT_SHARE_COL, std_col.RACE_CATEGORY_ID_COL, Race.ALL.value)
+
+    df[PER_100K_COL] = df.apply(calc_per_100k, axis=1)
+
+    df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
+
     return df
 
 
-def make_prison_state_sex_df(source_df):
-    demographic_groups = BJS_SEX_GROUPS
-    print("prison state sex")
+def make_prison_state_sex_df(source_df, source_df_territories):
 
-    df = source_df.copy()
+    df = source_df[source_df[std_col.STATE_NAME_COL] != 'U.S. total']
+    df = source_df[~source_df[std_col.STATE_NAME_COL].isin(
+        ['U.S. total', 'State', 'Federal'])]
+
+    df = df.append(source_df_territories)
+    df[std_col.ALL_VALUE] = df[std_col.ALL_VALUE].combine_first(
+        df[Race.ALL.value])
+    df = df.drop(columns=[Race.ALL.value])
+
+    df = cols_to_rows(
+        df, BJS_SEX_GROUPS, std_col.SEX_COL, RAW_COL)
+
+    df = dataset_utils.merge_fips_codes(df)
+    df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].astype(int)
+
+    df = dataset_utils.merge_pop_numbers(
+        df, std_col.SEX_COL, "national")
+    df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
+        float)
+
+    # calculate PCT_SHARES
+    df = dataset_utils.generate_pct_share_col(
+        df, RAW_COL, PCT_SHARE_COL, std_col.SEX_COL, std_col.ALL_VALUE)
+
+    df[PER_100K_COL] = df.apply(calc_per_100k, axis=1)
+
+    df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
 
     return df
 
 
-def make_prison_state_age_df(source_df):
-    print("prison state age")
-    # return df
+def make_prison_state_age_df(source_df_juveniles, source_df_totals, source_df_territories):
+
+    source_df_juveniles = source_df_juveniles[source_df_juveniles[std_col.STATE_NAME_COL]
+                                              != constants.US_NAME]
+
+    source_df_juveniles = source_df_juveniles.rename(columns={RAW_COL: '0-17'})
+
+    source_df_juveniles = source_df_juveniles.drop(columns=[std_col.AGE_COL])
+
+    source_df_totals = source_df_totals[source_df_totals[std_col.STATE_NAME_COL]
+                                        != 'U.S. total']
+    source_df_totals = source_df_totals[source_df_totals[std_col.STATE_NAME_COL]
+                                        != 'Federal']
+    source_df_totals = source_df_totals[source_df_totals[std_col.STATE_NAME_COL]
+                                        != 'State']
+    source_df_totals = source_df_totals[[
+        std_col.STATE_NAME_COL, std_col.ALL_VALUE]]
+
+    df = pd.merge(source_df_juveniles, source_df_totals,
+                  on=std_col.STATE_NAME_COL)
+
+    df = df.append(source_df_territories)
+
+    df[std_col.ALL_VALUE] = df[std_col.ALL_VALUE].combine_first(
+        df[Race.ALL.value])
+    df = df.drop(columns=[Race.ALL.value])
+
+    df["18+"] = df[std_col.ALL_VALUE] - df['0-17']
+
+    df = cols_to_rows(df, BJS_AGE_GROUPS_JUV_ADULT, std_col.AGE_COL, RAW_COL)
+
+    df = dataset_utils.merge_fips_codes(df)
+    df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].astype(int)
+    df = dataset_utils.merge_pop_numbers(
+        df, std_col.AGE_COL, "state")
+    df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
+        float)
+
+    df[PER_100K_COL] = df.apply(calc_per_100k, axis=1)
+
+    # calculate PCT_SHARES
+    df = dataset_utils.generate_pct_share_col(
+        df, RAW_COL, PCT_SHARE_COL, std_col.AGE_COL, std_col.ALL_VALUE)
+
+    df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
+
+    return df
 
 
 def clean_prison_appendix_table_2_df(df):
@@ -477,25 +581,6 @@ def post_process(df, breakdown, geo):
        geo: geographic level (national, state)
     """
 
-    for data_type in BJS_DATA_TYPES:
-
-        # print(data_type)
-
-        RAW_COL = f'{data_type}_raw'
-
-        # calculate PER_100K
-        if RAW_COL in df.columns:
-            print("raw count already there")
-            incidence_rate_col = std_col.generate_column_name(
-                data_type, std_col.PER_100K_SUFFIX)
-            df[incidence_rate_col] = df.apply(lambda row: calc_per_100k(
-                row['prison_raw'], row[std_col.POPULATION_COL]), axis=1)
-            # print(df.to_string())
-        else:
-            print("no raw count")
-            print(df.to_string())
-
-    df = df.drop(columns=[std_col.POPULATION_COL, "prison_raw"])
     return df
 
 
@@ -573,15 +658,17 @@ class BJSData(DataSource):
                         df = make_prison_national_sex_df(prison_table_2_df)
 
                 if geo_level == 'state':
+                    if breakdown == std_col.AGE_COL:
+                        df = make_prison_state_age_df(
+                            prison_table_13_df, prison_table_2_df, prison_table_23_df)
+
                     if breakdown == std_col.RACE_OR_HISPANIC_COL:
                         df = make_prison_state_race_df(
-                            prison_appendix_table_2_df)
+                            prison_appendix_table_2_df, prison_table_23_df)
 
                     if breakdown == std_col.SEX_COL:
-                        df = make_prison_state_sex_df(prison_table_2_df)
-
-                    if breakdown == std_col.AGE_COL:
-                        df = make_prison_state_age_df(prison_table_11_df)
+                        df = make_prison_state_sex_df(
+                            prison_table_2_df, prison_table_23_df)
 
                 if breakdown == std_col.RACE_OR_HISPANIC_COL:
                     std_col.add_race_columns_from_category_id(df)

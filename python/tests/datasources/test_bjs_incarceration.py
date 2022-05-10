@@ -47,6 +47,7 @@ def get_age_pop_data_as_df_state():
 
     df = pd.read_json(os.path.join(
         TEST_DIR, 'acs_population', 'by_age_state.json'))
+
     return df
 
 
@@ -247,10 +248,10 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
         get_age_pop_data_as_df_national(),  # extra pop merge for new '0-17' row
         get_race_pop_data_as_df_national(),
         get_sex_pop_data_as_df_national(),
-        get_race_pop_data_as_df_state(),
-        get_race_pop_data_as_df_territory(),
         get_age_pop_data_as_df_state(),
         get_age_pop_data_as_df_territory(),
+        get_race_pop_data_as_df_state(),
+        get_race_pop_data_as_df_territory(),
         get_sex_pop_data_as_df_state(),
         get_sex_pop_data_as_df_territory(),
     ]
@@ -264,7 +265,7 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
 
     bjs_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    mock_bq.assert_called_once
+    # mock_bq.assert_called_once
     # mock_csv.assert_called_once
     # mock_pop.assert_called_once
 
