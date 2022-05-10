@@ -1225,12 +1225,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Imprisoned People Per 100k Individuals",
       variableFullDisplayName: "Imprisonment",
       surveyCollectedData: true,
-      variableDefinition: `Individuals currently held in a state or federal adult prison facility.`,
+      variableDefinition: `Individuals of any age currently under the jurisdiction of an adult prison facility. For national reports, this number includes both state and federal prison; for state and county reports only the prisoners under the jurisdiction of that state or territory are included.`,
       metrics: {
         per100k: {
           metricId: "prison_per_100k",
-          fullCardTitleName: "Imprisoned Individuals Per 100k",
-          shortLabel: "Imprisonment per 100k",
+          fullCardTitleName: "Individuals in an Adult Prison Facility Per 100k",
+          shortLabel: "imprisoned per 100k",
           type: "per100k",
         },
         pct_share: {
