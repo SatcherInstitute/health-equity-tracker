@@ -1,6 +1,5 @@
 from datasources.data_source import DataSource
 import ingestion.standardized_columns as std_col
-import re
 import pandas as pd
 from ingestion.standardized_columns import Race
 from ingestion import gcs_to_bq_util, dataset_utils, constants
@@ -21,24 +20,6 @@ BJS_DATA_TYPES = [
 
 NON_STATE_ROWS = ['U.S. total', 'State', 'Federal']
 
-header_rows = {
-    "prisoner2020_appendix_table_2": [*list(range(10)), 12],
-    "prisoners2020_table_23": [*list(range(11)), 12],
-    "prisoners2020_table_2": [*list(range(12))],
-    "prisoners2020_table_11": [*list(range(12))],
-    "prisoners2020_table_13": [*list(range(11)), 13, 14],
-
-
-}
-
-footer_rows = {
-    "prisoner2020_appendix_table_2": 13,
-    "prisoners2020_table_23": 10,
-    "prisoners2020_table_2": 10,
-    "prisoners2020_table_11": 8,
-    "prisoners2020_table_13": 6,
-}
-
 
 BJS_RAW_PRISON_BY_RACE = "p20stat02.csv"
 BJS_RAW_PRISON_BY_SEX = "p20stt02.csv"
@@ -50,8 +31,8 @@ BJS_RAW_PRISON_TERRITORY_TOTALS = "p20stt23.csv"
 BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
 
 # need to manually calculate "0-17",
-BJS_AGE_GROUPS = ["18-19", "20-24", "25-29", "30-34",
-                  "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65+"]
+# BJS_AGE_GROUPS = ["18-19", "20-24", "25-29", "30-34",
+#                   "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65+"]
 
 BJS_AGE_GROUPS_JUV_ADULT = [std_col.ALL_VALUE, '0-17', '18+']
 
@@ -65,7 +46,7 @@ BJS_RACE_GROUPS_TO_STANDARD = {
     'Native Hawaiian/Other Pacific Islander': Race.NHPI_NH,
     'Two or more races': Race.MULTI_NH,
     'Other': Race.OTHER_STANDARD_NH,
-    'Unknown': Race.UNKNOWN_NH,
+    'Unknown': Race.UNKNOWN,
     # for now summing 'Unknown' and 'Did not report' into "Unknown"
     # but need to confirm
     # 'Did not report': Race.UNKNOWN,
@@ -91,66 +72,17 @@ def cols_to_rows(df, demographic_groups, demographic_col, value_col):
 
 
 def calc_per_100k(row):
-
+    """
+    Takes a row from a dataframe that includes a RAW_COL and a POPULATION_COL
+    and returns the calculated PER_100K number 
+     """
     if row[std_col.POPULATION_COL] == 0:
         return None
 
+    # print(row[RAW_COL], "/", row[std_col.POPULATION_COL],
+    #       "=", row[RAW_COL] / row[std_col.POPULATION_COL])
+
     return round((row[RAW_COL] / row[std_col.POPULATION_COL]) * 100_000, 1)
-
-
-def strip_footnote_refs(cell_value):
-    """
-    BJS embeds the footnote indicators into the cell values
-    This fn uses regex if input is a string to remove those
-    footnote indicators, and returns the cleaned string or original
-    non-string cell_value
-     """
-    return re.sub(r'/[a-z].*', "", cell_value) if isinstance(cell_value, str) else cell_value
-
-
-def drop_unnamed(df):
-    """
-    Because of the styling on the BJS .csv, some columns end up without names.
-    This fn removes those columns and returns the updated df
-     """
-    df = df.drop(df.filter(regex="Unnamed"), axis=1)
-    return df
-
-
-def missing_data_to_none(df):
-    """
-    Replace all missing df values with None.
-    BJS uses two kinds of missing data:
-    `~` N/A. Jurisdiction does not track this race or ethnicity.
-    `/` Not reported.
-
-    Parameters:
-            df (Pandas Dataframe): a dataframe with some missing values set to `~` or `/`
-
-    Returns:
-            df (Pandas Dataframe): a dataframe with all missing values set to `None`
-    """
-
-    df = df.applymap(lambda datum: None if datum ==
-                     "/" or datum == "~" else datum)
-
-    return df
-
-
-def col_to_ints(column: pd.Series):
-    """
-    Parameters:
-
-    Returns:
-    """
-
-    column = column.apply(lambda datum: 0 if
-                          datum is None or
-                          datum == "/" or
-                          datum == "~"
-                          else int(datum))
-
-    return column
 
 
 def df_to_ints(df: pd.DataFrame):
@@ -167,29 +99,6 @@ def df_to_ints(df: pd.DataFrame):
                      else int(datum))
 
     return df
-
-
-def df_to_ints_or_none(df: pd.DataFrame):
-    """
-    Parameters:
-
-    Returns:
-    """
-
-    df = df.applymap(lambda datum: None if
-                     datum is None
-                     else int(datum))
-
-    return df
-
-
-def swap_col_name(col_name: str):
-
-    if col_name in BJS_RACE_GROUPS_TO_STANDARD.keys():
-        race_tuple = BJS_RACE_GROUPS_TO_STANDARD[col_name]
-        return race_tuple.value
-    else:
-        return col_name
 
 
 def make_prison_national_race_df(source_df):
@@ -222,7 +131,9 @@ def make_prison_national_race_df(source_df):
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
         float)
 
-    df[PER_100K_COL] = df.apply(calc_per_100k, axis=1)
+    print("right before making per100k")
+    print(df.to_string())
+    df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
 
     # calculate PCT_SHARES
     df = dataset_utils.generate_pct_share_col(
@@ -245,7 +156,7 @@ def make_prison_national_sex_df(source_df):
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
         float)
 
-    df[PER_100K_COL] = df.apply(calc_per_100k, axis=1)
+    df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
 
     # calculate PCT_SHARES
     df = dataset_utils.generate_pct_share_col(
@@ -269,7 +180,7 @@ def make_prison_national_age_df(source_df, source_df_juveniles):
 
     # BJS table only has `per_100k` values, so calculate the raw #
     df[RAW_COL] = df.apply(
-        estimate_total, axis=1, args=(PER_100K_COL, ))
+        estimate_total, axis="columns", args=(PER_100K_COL, ))
 
     # get JUVENILE row to include RAW, PER_100K, POP
     row_juveniles_us = source_df_juveniles[
@@ -282,7 +193,7 @@ def make_prison_national_age_df(source_df, source_df_juveniles):
         float)
 
     row_juveniles_us[PER_100K_COL] = row_juveniles_us.apply(
-        calc_per_100k, axis=1)
+        calc_per_100k, axis="columns")
 
     # add combine 0-17 from table 13 with 18-65+ from table 11
     df = df.append(row_juveniles_us)
@@ -317,7 +228,7 @@ def make_prison_state_race_df(source_df, source_df_territories):
     df = dataset_utils.generate_pct_share_col(
         df, RAW_COL, PCT_SHARE_COL, std_col.RACE_CATEGORY_ID_COL, Race.ALL.value)
 
-    df[PER_100K_COL] = df.apply(calc_per_100k, axis=1)
+    df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
 
     df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
 
@@ -349,7 +260,7 @@ def make_prison_state_sex_df(source_df, source_df_territories):
     df = dataset_utils.generate_pct_share_col(
         df, RAW_COL, PCT_SHARE_COL, std_col.SEX_COL, std_col.ALL_VALUE)
 
-    df[PER_100K_COL] = df.apply(calc_per_100k, axis=1)
+    df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
 
     df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
 
@@ -388,178 +299,13 @@ def make_prison_state_age_df(source_df_juveniles, source_df_totals, source_df_te
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
         float)
 
-    df[PER_100K_COL] = df.apply(calc_per_100k, axis=1)
+    df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
 
     # calculate PCT_SHARES
     df = dataset_utils.generate_pct_share_col(
         df, RAW_COL, PCT_SHARE_COL, std_col.AGE_COL, std_col.ALL_VALUE)
 
     df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
-
-    return df
-
-
-def clean_prison_appendix_table_2_df(df):
-    """
-    Unique steps needed to clean BJS Prisoners 2020 - Appendix Table 2
-    Raw # Prisoners by state + federal by race/ethnicity
-
-    Parameters:
-            df (Pandas Dataframe): specific dataframe from BJS
-            * Note, excess header and footer info must be cleaned in the read_csv()
-            before this step (both mocked + prod flows)
-    Returns:
-            df (Pandas Dataframe): a "clean" dataframe ready for manipulation
-    """
-
-    df = df.rename(
-        columns={'Jurisdiction': std_col.STATE_NAME_COL, 'Total': Race.ALL.value})
-    df[std_col.STATE_NAME_COL] = df[std_col.STATE_NAME_COL].combine_first(
-        df["Unnamed: 1"])
-    df = drop_unnamed(df)
-    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
-    df[std_col.STATE_NAME_COL] = df[std_col.STATE_NAME_COL].apply(
-        strip_footnote_refs)
-
-    df = missing_data_to_none(df)
-    df.columns = [swap_col_name(col_name)
-                  for col_name in df.columns]
-
-    unknowns_as_ints = col_to_ints(df[Race.UNKNOWN_NH.value])
-
-    df[Race.UNKNOWN_NH.value] = (unknowns_as_ints +
-                                 df["Did not report"])
-    df = df.drop(columns=["Did not report"])
-
-    df[STANDARD_RACE_CODES] = df_to_ints_or_none(df[STANDARD_RACE_CODES])
-
-    return df
-
-
-def clean_prison_table_2_df(df):
-    """
-    Unique steps needed to clean BJS Prisoners 2020 - Table 2
-    Raw # Prisoners by Sex by State
-
-    Parameters:
-            df (Pandas Dataframe): specific dataframe from BJS
-            * Note, excess header and footer info must be cleaned in the read_csv()
-            before this step (both mocked + prod flows)
-    Returns:
-            df (Pandas Dataframe): a "clean" dataframe ready for manipulation
-    """
-
-    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
-    df = df.applymap(strip_footnote_refs)
-
-    df[std_col.STATE_NAME_COL] = df["Jurisdiction"].combine_first(
-        df["Jurisdiction2"])
-
-    df = df[[std_col.STATE_NAME_COL, std_col.ALL_VALUE,
-             constants.Sex.MALE, constants.Sex.FEMALE]]
-
-    df[BJS_SEX_GROUPS] = df[BJS_SEX_GROUPS].astype(int)
-
-    return df
-
-
-def clean_prison_table_11_df(df):
-    """
-    Unique steps needed to clean BJS Prisoners 2020 - Table 11
-    Per 100k Prisoners by Age - National
-
-    Parameters:
-            df (Pandas Dataframe): specific dataframe from BJS
-            * Note, excess header and footer info must be cleaned in the read_csv()
-            before this step (both mocked + prod flows)
-    Returns:
-            df (Pandas Dataframe): a "clean" dataframe ready for manipulation
-    """
-
-    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
-    df = df.applymap(strip_footnote_refs)
-
-    df[std_col.AGE_COL] = df["Age"].combine_first(
-        df["Unnamed: 1"])
-
-    # replace all weird characters (specifically EN-DASH –) with normal hyphen
-    df[std_col.AGE_COL] = df[std_col.AGE_COL].apply(
-        lambda datum: re.sub('[^0-9a-zA-Z ]+', '-', datum))
-
-    df = df.rename(
-        columns={'Total': "prison_per_100k"})
-
-    df = df[[std_col.AGE_COL, "prison_per_100k"]]
-
-    df = df.replace("Total", std_col.ALL_VALUE)
-    df = df.replace("65 or older", "65+")
-
-    df[std_col.STATE_NAME_COL] = "United States"
-
-    return df
-
-
-def clean_prison_table_13_df(df):
-    """
-    Unique steps needed to clean BJS Prisoners 2020 - Table 13
-    Raw Prisoners by Age (Adult / Juvenile) by Sex by Federal + State
-
-    Parameters:
-            df (Pandas Dataframe): specific dataframe from BJS
-            * Note, excess header and footer info must be cleaned in the read_csv()
-            before this step (both mocked + prod flows)
-    Returns:
-            df (Pandas Dataframe): a "clean" dataframe ready for manipulation
-    """
-
-    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
-    df = df.applymap(strip_footnote_refs)
-
-    df[std_col.STATE_NAME_COL] = df["Jurisdiction"].combine_first(
-        df["Unnamed: 1"])
-    df = df.rename(
-        columns={'Total': RAW_COL})
-    df = df[[std_col.STATE_NAME_COL, RAW_COL]]
-
-    df = df.replace("U.S. total", constants.US_NAME)
-
-    df[std_col.AGE_COL] = "0-17"
-    return df
-
-
-def clean_prison_table_23_df(df):
-    """
-    Unique steps needed to clean BJS Prisoners 2020 - Table 23
-    Raw # Prisoners Totals by Territory
-
-    Parameters:
-            df (Pandas Dataframe): specific dataframe from BJS
-            * Note, excess header and footer info must be cleaned in the read_csv()
-            before this step (both mocked + prod flows)
-    Returns:
-            df (Pandas Dataframe): a "clean" dataframe ready for manipulation
-    """
-
-    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
-    df = df.rename(
-        columns={'U.S. territory/U.S. commonwealth': std_col.STATE_NAME_COL, 'Total': Race.ALL.value})
-
-    df[std_col.STATE_NAME_COL] = df[std_col.STATE_NAME_COL].apply(
-        strip_footnote_refs)
-
-    df = missing_data_to_none(df)
-
-    df[Race.ALL.value] = df[Race.ALL.value].combine_first(
-        df["Total custody population"])
-
-    df[Race.ALL.value].apply(lambda datum: None if datum ==
-                             "/" or datum == "~" else datum)
-
-    df = df[[std_col.STATE_NAME_COL, Race.ALL.value]]
-
-    df[Race.ALL.value] = df[Race.ALL.value].apply(lambda datum: None if
-                                                  datum is None
-                                                  else int(datum))
 
     return df
 

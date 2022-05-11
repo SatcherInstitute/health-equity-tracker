@@ -5,24 +5,26 @@ from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
 from test_utils import get_state_fips_codes_as_df
 from datasources.bjs import (BJSData,
-                             strip_footnote_refs,
-                             clean_prison_table_23_df,
-                             clean_prison_table_2_df,
-                             clean_prison_table_11_df,
-                             clean_prison_table_13_df,
-                             clean_prison_appendix_table_2_df,
                              missing_data_to_none,
                              keep_only_states,
-                             header_rows,
-                             footer_rows,
                              BJS_RAW_PRISON_BY_RACE,
                              BJS_RAW_PRISON_BY_SEX,
                              BJS_PER_100K_PRISON_BY_AGE,
                              BJS_RAW_PRISON_JUV_ADULT,
                              BJS_RAW_PRISON_TERRITORY_TOTALS)
 
+from datasources.bjs_prisoners_tables_utils import (clean_prison_table_23_df,
+                                                    clean_prison_table_2_df,
+                                                    clean_prison_table_11_df,
+                                                    clean_prison_table_13_df,
+                                                    clean_prison_appendix_table_2_df,
+                                                    strip_footnote_refs,
+                                                    header_rows,
+                                                    footer_rows,
+                                                    )
 
 # UNIT TESTS
+
 
 def test_strip_footnote_refs():
     assert strip_footnote_refs(
