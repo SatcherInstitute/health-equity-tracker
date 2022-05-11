@@ -47,9 +47,8 @@ BJS_RACE_GROUPS_TO_STANDARD = {
     'Two or more races': Race.MULTI_NH,
     'Other': Race.OTHER_STANDARD_NH,
     'Unknown': Race.UNKNOWN,
-    # for now summing 'Unknown' and 'Did not report' into "Unknown"
-    # but need to confirm
-    # 'Did not report': Race.UNKNOWN,
+    # BJS's 'Did not report' gets summed into "Unknown" for pct_share
+
     'All': Race.ALL
 }
 
