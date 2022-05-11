@@ -133,12 +133,6 @@ def make_prison_national_race_df(source_df):
 
     df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
 
-    # calculate PCT_SHARES
-    df = dataset_utils.generate_pct_share_col(
-        df, RAW_COL, PCT_SHARE_COL, std_col.RACE_CATEGORY_ID_COL, Race.ALL.value)
-
-    df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
-
     return df
 
 
@@ -155,12 +149,6 @@ def make_prison_national_sex_df(source_df):
         float)
 
     df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
-
-    # calculate PCT_SHARES
-    df = dataset_utils.generate_pct_share_col(
-        df, RAW_COL, PCT_SHARE_COL, std_col.SEX_COL, std_col.ALL_VALUE)
-
-    df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
 
     return df
 
@@ -196,12 +184,6 @@ def make_prison_national_age_df(source_df, source_df_juveniles):
     # add combine 0-17 from table 13 with 18-65+ from table 11
     df = df.append(row_juveniles_us)
 
-    # calculate PCT_SHARES
-    df = dataset_utils.generate_pct_share_col(
-        df, RAW_COL, PCT_SHARE_COL, std_col.AGE_COL, std_col.ALL_VALUE)
-
-    df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
-
     return df
 
 
@@ -221,14 +203,7 @@ def make_prison_state_race_df(source_df, source_df_territories):
 
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
         float)
-
-    # calculate PCT_SHARES
-    df = dataset_utils.generate_pct_share_col(
-        df, RAW_COL, PCT_SHARE_COL, std_col.RACE_CATEGORY_ID_COL, Race.ALL.value)
-
     df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
-
-    df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
 
     return df
 
@@ -254,13 +229,7 @@ def make_prison_state_sex_df(source_df, source_df_territories):
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
         float)
 
-    # calculate PCT_SHARES
-    df = dataset_utils.generate_pct_share_col(
-        df, RAW_COL, PCT_SHARE_COL, std_col.SEX_COL, std_col.ALL_VALUE)
-
     df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
-
-    df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
 
     return df
 
@@ -299,12 +268,6 @@ def make_prison_state_age_df(source_df_juveniles, source_df_totals, source_df_te
 
     df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
 
-    # calculate PCT_SHARES
-    df = dataset_utils.generate_pct_share_col(
-        df, RAW_COL, PCT_SHARE_COL, std_col.AGE_COL, std_col.ALL_VALUE)
-
-    df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
-
     return df
 
 
@@ -316,6 +279,11 @@ def post_process(df, breakdown, geo):
        breakdown: demographic breakdown (race, sex, age)
        geo: geographic level (national, state)
     """
+
+    df = dataset_utils.generate_pct_share_col(
+        df, RAW_COL, PCT_SHARE_COL, breakdown, std_col.ALL_VALUE)
+
+    df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
 
     return df
 
@@ -405,7 +373,7 @@ class BJSData(DataSource):
                 if breakdown == std_col.RACE_OR_HISPANIC_COL:
                     std_col.add_race_columns_from_category_id(df)
 
-                # df = post_process(df, breakdown, geo_level)
+                df = post_process(df, breakdown, geo_level)
 
                 df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].astype(
                     str)

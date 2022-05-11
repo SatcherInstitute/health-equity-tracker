@@ -306,30 +306,42 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
         "prison_pct_share": float,
         "population": object,
         "population_pct": float,
+    }
+    expected_dtype_age = {
+        **expected_dtype,
+        'age': str,
+    }
+    expected_dtype_race = {
+        **expected_dtype,
         'race_and_ethnicity': str,
         'race': str,
         'race_includes_hispanic': object,
         'race_category_id': str,
     }
 
+    expected_dtype_sex = {
+        **expected_dtype,
+        'sex': str,
+    }
+
     # read test OUTPUT file
     expected_df_age_national = pd.read_json(
-        GOLDEN_DATA['age_national'], dtype=expected_dtype)
+        GOLDEN_DATA['age_national'], dtype=expected_dtype_age)
 
     expected_df_race_national = pd.read_json(
-        GOLDEN_DATA['race_and_ethnicity_national'], dtype=expected_dtype)
+        GOLDEN_DATA['race_and_ethnicity_national'], dtype=expected_dtype_race)
 
     expected_df_sex_national = pd.read_json(
-        GOLDEN_DATA['sex_national'], dtype=expected_dtype)
+        GOLDEN_DATA['sex_national'], dtype=expected_dtype_sex)
 
     expected_df_age_state = pd.read_json(
-        GOLDEN_DATA['age_state'], dtype=expected_dtype)
+        GOLDEN_DATA['age_state'], dtype=expected_dtype_age)
 
     expected_df_race_state = pd.read_json(
-        GOLDEN_DATA['race_state'], dtype=expected_dtype)
+        GOLDEN_DATA['race_state'], dtype=expected_dtype_race)
 
     expected_df_sex_state = pd.read_json(
-        GOLDEN_DATA['sex_state'], dtype=expected_dtype)
+        GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex)
 
     # unpack the data from the mocked calls
     # mock_tuple, mock_dtypes = args[i]
