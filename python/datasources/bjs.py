@@ -74,7 +74,7 @@ def cols_to_rows(df, demographic_groups, demographic_col, value_col):
 def calc_per_100k(row):
     """
     Takes a row from a dataframe that includes a RAW_COL and a POPULATION_COL
-    and returns the calculated PER_100K number 
+    and returns the calculated PER_100K number
      """
     if row[std_col.POPULATION_COL] == 0:
         return None
@@ -131,8 +131,6 @@ def make_prison_national_race_df(source_df):
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
         float)
 
-    print("right before making per100k")
-    print(df.to_string())
     df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
 
     # calculate PCT_SHARES

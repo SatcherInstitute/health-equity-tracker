@@ -5,7 +5,6 @@ from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
 from test_utils import get_state_fips_codes_as_df
 from datasources.bjs import (BJSData,
-                             missing_data_to_none,
                              keep_only_states,
                              BJS_RAW_PRISON_BY_RACE,
                              BJS_RAW_PRISON_BY_SEX,
@@ -14,6 +13,7 @@ from datasources.bjs import (BJSData,
                              BJS_RAW_PRISON_TERRITORY_TOTALS)
 
 from datasources.bjs_prisoners_tables_utils import (clean_prison_table_23_df,
+                                                    missing_data_to_none,
                                                     clean_prison_table_2_df,
                                                     clean_prison_table_11_df,
                                                     clean_prison_table_13_df,
