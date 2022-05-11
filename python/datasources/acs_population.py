@@ -154,8 +154,8 @@ def get_uhc_voter_age_bucket(age_range):
         return '55-64'
 
 
-# buckets for BJS prisoners 2020
 def get_bjs_age_bucket(age_range):
+    # buckets for BJS prisoners 2020
     if age_range in {'0-4', '5-9', '10-14', '15-17'}:
         return '0-17'
     elif age_range in {'18-19'}:
@@ -175,10 +175,9 @@ def get_bjs_age_bucket(age_range):
     else:
         return 'Unknown'
 
-# buckets for juvenile/adult
-
 
 def get_juv_adult_age_bucket(age_range):
+    # buckets for juvenile/adult
     if age_range in {'0-4', '5-9', '10-14', '15-17'}:
         return '0-17'
     elif age_range in {'18-19', '20-20', '21-21', '22-24', '25-29',
