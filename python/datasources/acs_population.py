@@ -154,6 +154,44 @@ def get_uhc_voter_age_bucket(age_range):
         return '55-64'
 
 
+# buckets for BJS prisoners 2020 - National
+def get_bjs_age_bucket(age_range):
+    if age_range in {'0-4', '5-9', '10-14', '15-17'}:
+        return '0-17'
+    elif age_range in {'18-19'}:
+        return '18-19'
+    elif age_range in {'20-20', '21-21', '22-24'}:
+        return '20-24'
+    elif age_range in {'25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59'}:
+        return age_range
+    elif age_range in {'60-61', '62-64'}:
+        return '60-64'
+    elif age_range in {'65-66', '67-69'}:
+        return '65-69'
+    elif age_range in {'70-74', '75-79', '80-84', '85+'}:
+        return age_range
+    elif age_range == std_col.ALL_VALUE:
+        return std_col.ALL_VALUE
+    else:
+        return 'Unknown'
+
+# buckets for BJS prisoners 2020 - State
+
+
+def get_juv_adult_age_bucket(age_range):
+    if age_range in {'0-4', '5-9', '10-14', '15-17'}:
+        return '0-17'
+    elif age_range in {'18-19', '20-20', '21-21', '22-24', '25-29',
+                       '30-34', '35-39', '40-44', '45-49', '50-54', '55-59',
+                       '60-61', '62-64', '65-66', '67-69', '70-74', '75-79',
+                       '80-84', '85+'}:
+        return '18+'
+    elif age_range == std_col.ALL_VALUE:
+        return std_col.ALL_VALUE
+    else:
+        return 'Unknown'
+
+
 def rename_age_bracket(bracket):
     """Converts ACS age bracket label to standardized bracket format of "a-b",
        where a is the lower end of the bracket and b is the upper end,
@@ -272,6 +310,9 @@ class ACSPopulationIngester():
         by_sex_standard_age_uhc = None
         by_sex_decade_plus_5_age_uhc = None
         by_sex_voter_age_uhc = None
+        by_sex_age_bjs = None
+        by_sex_age_juv_adult = None
+
         if not self.county_level:
             by_sex_standard_age_uhc = self.get_by_sex_age(
                 frames[self.get_table_name_by_sex_age_race()], get_uhc_standard_age_bucket)
@@ -279,10 +320,15 @@ class ACSPopulationIngester():
                 frames[self.get_table_name_by_sex_age_race()], get_uhc_decade_plus_5_age_bucket)
             by_sex_voter_age_uhc = self.get_by_sex_age(
                 frames[self.get_table_name_by_sex_age_race()], get_uhc_voter_age_bucket)
+            by_sex_age_bjs = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_bjs_age_bucket)
+            by_sex_age_juv_adult = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_juv_adult_age_bucket)
 
         frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
             frames['by_sex_age_%s' % self.get_geo_name()],
-            by_sex_standard_age_uhc, by_sex_decade_plus_5_age_uhc, by_sex_voter_age_uhc)
+            by_sex_standard_age_uhc, by_sex_decade_plus_5_age_uhc,
+            by_sex_voter_age_uhc, by_sex_age_bjs, by_sex_age_juv_adult)
 
         frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
             frames[self.get_table_name_by_sex_age_race()])
@@ -496,7 +542,10 @@ class ACSPopulationIngester():
                    by_sex_age,
                    by_sex_standard_age_uhc=None,
                    by_sex_decade_plus_5_age_uhc=None,
-                   by_sex_voter_age_uhc=None):
+                   by_sex_voter_age_uhc=None,
+                   by_sex_age_bjs=None,
+                   by_sex_age_juv_adult=None
+                   ):
         by_age = by_sex_age.loc[by_sex_age[std_col.SEX_COL]
                                 == std_col.ALL_VALUE]
 
@@ -520,12 +569,20 @@ class ACSPopulationIngester():
             by_voter_age_uhc = by_sex_voter_age_uhc.loc[
                 by_sex_voter_age_uhc[std_col.SEX_COL] == std_col.ALL_VALUE]
             by_voter_age_uhc = by_voter_age_uhc[cols[1:]]
+            by_age_bjs = by_sex_age_bjs.loc[
+                by_sex_age_bjs[std_col.SEX_COL] == std_col.ALL_VALUE]
+            by_age_bjs = by_age_bjs[cols[1:]]
+            by_age_juv_adult = by_sex_age_juv_adult.loc[
+                by_sex_age_juv_adult[std_col.SEX_COL] == std_col.ALL_VALUE]
+            by_age_juv_adult = by_age_juv_adult[cols[1:]]
 
             by_age = pd.concat([by_age,
                                 by_standard_age_uhc,
                                 by_decade_plus_5_age_uhc,
-                                by_voter_age_uhc]
-                               ).drop_duplicates().reset_index(drop=True)
+                                by_voter_age_uhc,
+                                by_age_bjs,
+                                by_age_juv_adult
+                                ]).drop_duplicates().reset_index(drop=True)
 
         by_age = generate_pct_share_col(
             by_age, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL, std_col.AGE_COL, std_col.ALL_VALUE)
