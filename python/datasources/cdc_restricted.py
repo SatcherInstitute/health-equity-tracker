@@ -1,6 +1,8 @@
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 
+import time
+
 import ingestion.standardized_columns as std_col
 from ingestion.standardized_columns import generate_column_name
 from ingestion.standardized_columns import Race
@@ -38,6 +40,9 @@ def get_col_types(df):
     return column_types
 
 
+combos = [('state', 'sex'), ('state', 'race'), ('state', 'age'), ('county', 'sex'), ('county', 'race'), ('county', 'age')]
+
+
 class CDCRestrictedData(DataSource):
 
     @staticmethod
@@ -53,19 +58,20 @@ class CDCRestrictedData(DataSource):
             'upload_to_gcs should not be called for CDCRestrictedData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        for geo in ['state', 'county']:
-            for demo in ['sex', 'race', 'age']:
-                filename = f'cdc_restricted_by_{demo}_{geo}.csv'
-                df = gcs_to_bq_util.load_csv_as_df(
-                    gcs_bucket, filename, dtype={'county_fips': str})
+        # for geo in ['state', 'county']:
+        #     for demo in ['sex', 'race', 'age']:
+        for geo, demo in combos:
+            filename = f'cdc_restricted_by_{demo}_{geo}.csv'
+            df = gcs_to_bq_util.load_csv_as_df(
+                gcs_bucket, filename, dtype={'county_fips': str})
 
-                df = self.generate_breakdown(df, demo, geo)
+            df = self.generate_breakdown(df, demo, geo)
 
-                column_types = get_col_types(df)
+            column_types = get_col_types(df)
 
-                table_name = f'by_{demo}_{geo}_processed'
-                gcs_to_bq_util.add_df_to_bq(
-                    df, dataset, table_name, column_types=column_types)
+            table_name = f'by_{demo}_{geo}_processed'
+            gcs_to_bq_util.add_df_to_bq(
+                df, dataset, table_name, column_types=column_types)
 
         for filename in EXTRA_FILES:
             df = gcs_to_bq_util.load_csv_as_df(
@@ -86,15 +92,20 @@ class CDCRestrictedData(DataSource):
             if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                 column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
+            print('uploading extra file')
+
             table_name = filename.replace('.csv', '')  # Table name is file name
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
+        print('uploaded extra file')
+
     def generate_breakdown(self, df, demo, geo):
         print(f'processing {demo} {geo}')
+        start = time.time()
+
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo == 'race' else demo
         unknown_val = Race.UNKNOWN.value if demo == 'race' else 'Unknown'
-        total_val = Race.ALL.value if demo == 'race' else std_col.ALL_VALUE
         all_val = Race.ALL.value if demo == 'race' else std_col.ALL_VALUE
 
         all_columns = [
@@ -111,25 +122,37 @@ class CDCRestrictedData(DataSource):
         df = merge_pop_numbers(df, demo, geo)
 
         for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
-            pct_share_col = generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)
             per_100k_col = generate_column_name(prefix, std_col.PER_100K_SUFFIX)
-            share_of_known_col = generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)
-            pct_share_col = generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)
-
+            all_columns.append(per_100k_col)
             df = generate_per_100k_col(df, raw_count_col, std_col.POPULATION_COL, per_100k_col)
-            df = generate_pct_share_col(df, raw_count_col, pct_share_col, demo_col, total_val)
-            df = generate_share_of_known_col(df, raw_count_col, share_of_known_col,
-                                             demo_col, all_val, unknown_val, geo)
 
-            all_columns.extend([pct_share_col, share_of_known_col, per_100k_col])
+        raw_count_to_pct_share = {}
+        for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
+            raw_count_to_pct_share[raw_count_col] = generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)
+
+        all_columns.extend(list(raw_count_to_pct_share.values()))
+
+        df = generate_pct_share_col(df, raw_count_to_pct_share, demo_col, all_val)
+
+        raw_count_to_pct_share_known = {}
+        for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
+            raw_count_to_pct_share_known[raw_count_col] = generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)
+
+        all_columns.extend(list(raw_count_to_pct_share_known.values()))
+
+        df = generate_share_of_known_col(df, raw_count_to_pct_share_known, demo_col, all_val, unknown_val, geo)
 
         df = null_out_unneeded_rows(df, demo_col, unknown_val)
+
         df = df[all_columns]
         self.clean_frame_column_names(df)
+
+        end = time.time()
+        print("took", round(end - start, 2), f"seconds to process {demo} {geo}")
         return df
 
 
-def generate_share_of_known_col(df, raw_count_col, share_of_known_col,
+def generate_share_of_known_col(df, raw_count_to_pct_share_known,
                                 breakdown_col, all_val, unknown_val, geo_level):
     """Generates a share of known column for a condition.
 
@@ -156,10 +179,12 @@ def generate_share_of_known_col(df, raw_count_col, share_of_known_col,
     alls[breakdown_col] = all_val
     df = pd.concat([df, alls]).reset_index(drop=True)
 
-    df = generate_pct_share_col(df, raw_count_col, share_of_known_col, breakdown_col, all_val)
+    df = generate_pct_share_col(df, raw_count_to_pct_share_known, breakdown_col, all_val)
 
     df = df.loc[df[breakdown_col] != all_val]
-    all_df[share_of_known_col] = 100.0
+
+    for share_of_known_col in raw_count_to_pct_share_known.values():
+        all_df[share_of_known_col] = 100.0
 
     df = pd.concat([df, all_df, unknown_df]).reset_index(drop=True)
     return df

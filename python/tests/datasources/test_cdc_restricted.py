@@ -219,7 +219,7 @@ def testWriteToBq(
     assert mock_pop.call_args_list[4].args[1] == 'by_age_state'
     assert mock_pop.call_args_list[5].args[1] == 'by_age_territory'
     assert mock_pop.call_args_list[6].args[1] == 'by_sex_county'
-    assert mock_pop.call_args_list[7].args[1] == 'by_race_county'
+    assert mock_pop.call_args_list[7].args[1] == 'by_race_county_std'
     assert mock_pop.call_args_list[8].args[1] == 'by_age_county'
 
     assert mock_bq.call_count == 7

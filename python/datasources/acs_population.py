@@ -434,7 +434,7 @@ class ACSPopulationIngester():
             [Race.ASIAN_NH.value, Race.NHPI_NH.value])
 
         all_races = generate_pct_share_col(
-            all_races, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL,
+            all_races, {std_col.POPULATION_COL: std_col.POPULATION_PCT_COL},
             std_col.RACE_CATEGORY_ID_COL, Race.ALL.value)
 
         std_col.add_race_columns_from_category_id(all_races)
@@ -528,7 +528,7 @@ class ACSPopulationIngester():
                                ).drop_duplicates().reset_index(drop=True)
 
         by_age = generate_pct_share_col(
-            by_age, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL, std_col.AGE_COL, std_col.ALL_VALUE)
+            by_age, {std_col.POPULATION_COL: std_col.POPULATION_PCT_COL}, std_col.AGE_COL, std_col.ALL_VALUE)
 
         by_age = by_age.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_age
@@ -549,7 +549,7 @@ class ACSPopulationIngester():
         by_sex = by_sex[cols] if self.county_level else by_sex[cols[1:]]
 
         by_sex = generate_pct_share_col(
-            by_sex, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL, std_col.SEX_COL, std_col.ALL_VALUE)
+            by_sex, {std_col.POPULATION_COL: std_col.POPULATION_PCT_COL}, std_col.SEX_COL, std_col.ALL_VALUE)
 
         by_sex = by_sex.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_sex
@@ -618,7 +618,7 @@ def GENERATE_NATIONAL_DATASET(state_df, states_to_include, demographic_breakdown
         total_val = Race.ALL.value
 
     df = generate_pct_share_col(
-        df, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL,
+        df, {std_col.POPULATION_COL: std_col.POPULATION_PCT_COL},
         breakdown_map[demographic_breakdown_category], total_val)
 
     if demographic_breakdown_category == 'race':

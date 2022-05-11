@@ -5,7 +5,7 @@ import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
 
 
-def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, all_val):
+def generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
     """Returns a DataFrame with a percent share row based on the raw_count_col
        Each row must have a corresponding 'ALL' row.
 
@@ -16,35 +16,60 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, all_
        breakdown_col: The name of column to calculate the percent across.
        all_val: The value representing 'ALL'"""
 
-    def calc_pct_share(record, total_value):
-        thing = percent_avoid_rounding_to_zero(
-            record[raw_count_col], total_value)
+    # def calc_pct_share(record, total_value):
+    #     record[pct_share_col] = percent_avoid_rounding_to_zero(
+    #         record[raw_count_col], total_value)
 
-        record[pct_share_col] = thing
-        return record
+    #     return record
 
-    groupby_cols = [std_col.STATE_FIPS_COL]
+    # groupby_cols = [std_col.STATE_FIPS_COL]
+    # if std_col.COUNTY_FIPS_COL in df.columns:
+    #     groupby_cols.append(std_col.COUNTY_FIPS_COL)
+
+    # with_pct_share = []
+    # grouped = df.groupby(groupby_cols)
+
+    # for _, group_df in grouped:
+    #     total_row = group_df.loc[(group_df[breakdown_col] == all_val)]
+
+    #     if len(total_row) == 0:
+    #         raise ValueError("There is no ALL value for this chunk of data")
+
+    #     if len(total_row) > 1:
+    #         raise ValueError(
+    #             "There are multiple ALL values for this chunk of data, there should only be one")
+
+    #     total = total_row.iloc[0][raw_count_col]
+    #     with_pct_share.append(group_df.reset_index(
+    #         drop=True).apply(calc_pct_share, args=(total,), axis=1))
+
+    # return pd.concat(with_pct_share).reset_index(drop=True)
+
+    def calc_pct_share(record, raw_count_col):
+        return percent_avoid_rounding_to_zero(
+            record[raw_count_col], record[f'{raw_count_col}_all'])
+
+    rename_cols = {}
+    for raw_count_col in raw_count_to_pct_share.keys():
+        rename_cols[raw_count_col] = f'{raw_count_col}_all'
+
+    alls = df.loc[df[breakdown_col] == all_val]
+    alls = alls.rename(columns=rename_cols)
+
+    on_cols = [std_col.STATE_FIPS_COL]
     if std_col.COUNTY_FIPS_COL in df.columns:
-        groupby_cols.append(std_col.COUNTY_FIPS_COL)
+        on_cols.append(std_col.COUNTY_FIPS_COL)
 
-    with_pct_share = []
-    grouped = df.groupby(groupby_cols)
+    alls = alls[on_cols + list(rename_cols.values())]
+    # grouped = df.groupby(groupby_cols)
 
-    for _, group_df in grouped:
-        total_row = group_df.loc[(group_df[breakdown_col] == all_val)]
+    df = pd.merge(df, alls, how='left', on=on_cols)
 
-        if len(total_row) == 0:
-            raise ValueError("There is no ALL value for this chunk of data")
+    for raw_count_col, pct_share_col in raw_count_to_pct_share.items():
+        df[pct_share_col] = df.apply(calc_pct_share, axis=1, args=(raw_count_col,))
 
-        if len(total_row) > 1:
-            raise ValueError(
-                "There are multiple ALL values for this chunk of data, there should only be one")
-
-        total = total_row[raw_count_col].values[0]
-        with_pct_share.append(group_df.reset_index(
-            drop=True).apply(calc_pct_share, args=(total,), axis=1))
-
-    return pd.concat(with_pct_share).reset_index(drop=True)
+    df = df.drop(columns=list(rename_cols.values()))
+    return df.reset_index(drop=True)
 
 
 def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
@@ -70,11 +95,10 @@ def percent_avoid_rounding_to_zero(numerator, denominator, default_decimals=1, m
     """Calculates percentage to `default_decimals` number of decimal places. If
        the percentage would round to 0, calculates with more decimal places until
        either it doesn't round to 0, or until `max_decimals`. `default_decimals`
-       and `max_decimals` should be >= 0 and `max_decimals` should be >=
+       and `max_decimals` should be >= -1 and `max_decimals` should be >=
        `default_decimals`.
 
-       Avoids division by zero errors and returns `0.0` instead
-        """
+       Avoids division by zero errors and returns `0.0` instead"""
 
     if denominator == 0:
         return 0.0
@@ -211,38 +235,47 @@ def merge_pop_numbers(df, demo, loc):
     }
 
     pop_dtype = {std_col.STATE_FIPS_COL: str,
-                 std_col.POPULATION_COL: object,
+                 std_col.POPULATION_COL: float,
                  std_col.POPULATION_PCT_COL: float}
 
     if demo not in on_col_map:
         raise ValueError('%s not a demographic option, must be one of: %s' % (
             demo, list(on_col_map.keys())))
 
-    pop_table_name = 'by_%s_%s' % (demo, loc)
+    pop_table_name = f'by_{demo}_{loc}'
 
     # all states, DC, PR
-    if demo == 'race' and loc == 'state':
+    if demo == 'race' and (loc == 'state' or loc == 'county'):
         pop_table_name += '_std'
 
     pop_df = gcs_to_bq_util.load_df_from_bigquery(
         'acs_population', pop_table_name, pop_dtype)
-    pop_df = pop_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
-                     std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
+
+    needed_cols = [std_col.STATE_FIPS_COL, on_col_map[demo],
+                   std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
+
+    if loc == 'county':
+        needed_cols.append(std_col.COUNTY_FIPS_COL)
+
+    pop_df = pop_df[needed_cols]
 
     # other territories from ACS 2010 (VI, GU, AS, MP)
     if loc == 'state':
         verbose_demo = "race_and_ethnicity" if demo == 'race' else demo
-        pop_2010_table_name = 'by_%s_territory' % (
-            verbose_demo)
+        pop_2010_table_name = f'by_{verbose_demo}_territory'
 
         pop_2010_df = gcs_to_bq_util.load_df_from_bigquery(
             'acs_2010_population', pop_2010_table_name, pop_dtype)
         pop_2010_df = pop_2010_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
                                    std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
+
         pop_df = pd.concat([pop_df, pop_2010_df])
         pop_df = pop_df.sort_values(std_col.STATE_FIPS_COL)
 
-    df = pd.merge(df, pop_df, how='left', on=[
-                  std_col.STATE_FIPS_COL, on_col_map[demo]])
+    on_cols = [std_col.STATE_FIPS_COL, on_col_map[demo]]
+    if loc == 'county':
+        on_cols.append(std_col.COUNTY_FIPS_COL)
+
+    df = pd.merge(df, pop_df, how='left', on=on_cols)
 
     return df.reset_index(drop=True)
