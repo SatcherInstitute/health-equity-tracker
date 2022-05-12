@@ -314,6 +314,10 @@ def estimate_total(row, condition_name_per_100k):
     return round((float(row[condition_name_per_100k]) / 100_000) * float(row[std_col.POPULATION_COL]))
 
 
+def fetch_zip(url):
+    return requests.get(url)
+
+
 class BJSData(DataSource):
 
     @ staticmethod
@@ -332,7 +336,7 @@ class BJSData(DataSource):
 
         loaded_tables = {}
 
-        response = requests.get(
+        response = fetch_zip(
             "https://bjs.ojp.gov/content/pub/sheets/p20st.zip")
         files = ZipFile(BytesIO(response.content))
         for file in files.namelist():
