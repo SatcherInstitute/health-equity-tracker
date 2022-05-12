@@ -157,6 +157,35 @@ def df_to_ints(df: pd.DataFrame):
     return df
 
 
+def generate_breakdown(demo, geo_level, source_df, source_df_territories=None):
+
+    if demo == std_col.SEX_COL:
+        demo_cols = BJS_SEX_GROUPS
+        demo_for_flip = demo
+
+    if demo == std_col.RACE_OR_HISPANIC_COL:
+        demo_cols = STANDARD_RACE_CODES
+        demo_for_flip = std_col.RACE_CATEGORY_ID_COL
+
+    if geo_level == STATE_LEVEL:
+        df = keep_only_states(source_df)
+        df = df.append(source_df_territories)
+
+        # race uses `ALL` and sex uses `All`
+        if demo == std_col.SEX_COL:
+            df[std_col.ALL_VALUE] = df[std_col.ALL_VALUE].combine_first(
+                df[Race.ALL.value])
+            df = df.drop(columns=[Race.ALL.value])
+
+    if geo_level == NATIONAL_LEVEL:
+        df = keep_only_national(source_df, demo_cols)
+
+    df = cols_to_rows(
+        df, demo_cols, demo_for_flip, RAW_COL)
+
+    return df
+
+
 """
 The following make_prison_ functions accept "cleaned" dataframes
 representing specific tables from the BJS Prisoners (2020) report
@@ -192,46 +221,45 @@ def make_prison_national_age_df(source_df_adults, source_df_juveniles):
     return df
 
 
-def make_prison_national_race_df(source_df):
+# def make_prison_national_race_df(source_df):
 
-    df = keep_only_national(source_df, STANDARD_RACE_CODES)
+#     df = keep_only_national(source_df, STANDARD_RACE_CODES)
+#     df = cols_to_rows(
+#         df, STANDARD_RACE_CODES, std_col.RACE_CATEGORY_ID_COL, RAW_COL)
 
-    df = cols_to_rows(
-        df, STANDARD_RACE_CODES, std_col.RACE_CATEGORY_ID_COL, RAW_COL)
-
-    return df
-
-
-def make_prison_national_sex_df(source_df):
-
-    df = keep_only_national(source_df, BJS_SEX_GROUPS)
-    df = cols_to_rows(
-        df, BJS_SEX_GROUPS, std_col.SEX_COL, RAW_COL)
-
-    return df
+#     return df
 
 
-def make_prison_state_race_df(source_df, source_df_territories):
+# def make_prison_national_sex_df(source_df):
 
-    df = keep_only_states(source_df)
-    df = df.append(source_df_territories)
-    df = cols_to_rows(
-        df, STANDARD_RACE_CODES, std_col.RACE_CATEGORY_ID_COL, RAW_COL)
+#     df = keep_only_national(source_df, BJS_SEX_GROUPS)
+#     df = cols_to_rows(
+#         df, BJS_SEX_GROUPS, std_col.SEX_COL, RAW_COL)
 
-    return df
+#     return df
 
 
-def make_prison_state_sex_df(source_df, source_df_territories):
+# def make_prison_state_race_df(source_df, source_df_territories):
 
-    df = keep_only_states(source_df)
-    df = df.append(source_df_territories)
-    df[std_col.ALL_VALUE] = df[std_col.ALL_VALUE].combine_first(
-        df[Race.ALL.value])
-    df = df.drop(columns=[Race.ALL.value])
-    df = cols_to_rows(
-        df, BJS_SEX_GROUPS, std_col.SEX_COL, RAW_COL)
+#     df = keep_only_states(source_df)
+#     df = df.append(source_df_territories)
+#     df = cols_to_rows(
+#         df, STANDARD_RACE_CODES, std_col.RACE_CATEGORY_ID_COL, RAW_COL)
 
-    return df
+#     return df
+
+
+# def make_prison_state_sex_df(source_df, source_df_territories):
+
+#     df = keep_only_states(source_df)
+#     df = df.append(source_df_territories)
+#     df[std_col.ALL_VALUE] = df[std_col.ALL_VALUE].combine_first(
+#         df[Race.ALL.value])
+#     df = df.drop(columns=[Race.ALL.value])
+#     df = cols_to_rows(
+#         df, BJS_SEX_GROUPS, std_col.SEX_COL, RAW_COL)
+
+#     return df
 
 
 def make_prison_state_age_df(source_df_juveniles, source_df_totals, source_df_territories):
@@ -335,40 +363,37 @@ class BJSData(DataSource):
             loaded_tables[APPENDIX_TABLE_2])
         df_23 = clean_prison_table_23_df(loaded_tables[TABLE_23])
 
+        # which BJS tables are needed to make each breakdown
+        table_lookup = {
+            f'{std_col.AGE_COL}_{NATIONAL_LEVEL}': [df_11, df_13],
+            f'{std_col.RACE_OR_HISPANIC_COL}_{NATIONAL_LEVEL}': [df_app_2],
+            f'{std_col.SEX_COL}_{NATIONAL_LEVEL}': [df_2],
+            f'{std_col.AGE_COL}_{STATE_LEVEL}': [df_13, df_2, df_23],
+            f'{std_col.RACE_OR_HISPANIC_COL}_{STATE_LEVEL}': [df_app_2, df_23],
+            f'{std_col.SEX_COL}_{STATE_LEVEL}': [df_2, df_23],
+        }
+
         for geo_level in [NATIONAL_LEVEL, STATE_LEVEL]:
 
             for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
 
                 table_name = f'{breakdown}_{geo_level}'
 
-                if geo_level == NATIONAL_LEVEL:
+                if breakdown == std_col.AGE_COL and geo_level == NATIONAL_LEVEL:
+                    df = make_prison_national_age_df(*table_lookup[table_name])
 
-                    if breakdown == std_col.AGE_COL:
-                        df = make_prison_national_age_df(
-                            df_11, df_13)
+                elif breakdown == std_col.AGE_COL and geo_level == STATE_LEVEL:
+                    df = make_prison_state_age_df(*table_lookup[table_name])
 
-                    if breakdown == std_col.RACE_OR_HISPANIC_COL:
-                        df = make_prison_national_race_df(
-                            df_app_2)
-
-                    if breakdown == std_col.SEX_COL:
-                        df = make_prison_national_sex_df(
-                            df_2)
-
-                if geo_level == STATE_LEVEL:
-                    if breakdown == std_col.AGE_COL:
-                        df = make_prison_state_age_df(
-                            df_13, df_2, df_23)
-
-                    if breakdown == std_col.RACE_OR_HISPANIC_COL:
-                        df = make_prison_state_race_df(
-                            df_app_2, df_23)
-
-                    if breakdown == std_col.SEX_COL:
-                        df = make_prison_state_sex_df(
-                            df_2, df_23)
+                else:
+                    df = generate_breakdown(
+                        breakdown, geo_level, *table_lookup[table_name])
 
                 df = post_process(df, breakdown, geo_level)
+
+                # print("final df")
+                # print(table_name)
+                # print(df.to_string())
 
                 # set / add BQ types
                 column_types = {c: 'STRING' for c in df.columns}

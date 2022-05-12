@@ -6,7 +6,7 @@ from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
 from test_utils import get_state_fips_codes_as_df
 from datasources.bjs import (BJSData,
-                             keep_only_states,
+                             keep_only_states, PCT_SHARE_COL
                              )
 
 
