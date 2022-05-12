@@ -59,14 +59,11 @@ def test_keep_only_states():
 
 
 def get_test_zip_as_files():
-    print("in mocked zip fetch")
     files = ZipFile(os.path.join(TEST_DIR, 'p20st.zip'))
     return files
 
 
 def get_race_pop_data_as_df_state():
-
-    print("get_race_pop_data_as_df_state")
 
     df = pd.read_json(os.path.join(
         TEST_DIR, 'acs_population', 'by_race_state_std.json'),
@@ -77,8 +74,6 @@ def get_race_pop_data_as_df_state():
 
 def get_age_pop_data_as_df_state():
 
-    print("get_age_pop_data_as_df_state")
-
     df = pd.read_json(os.path.join(
         TEST_DIR, 'acs_population', 'by_age_state.json'),
         dtype={'state_fips': str})
@@ -87,8 +82,6 @@ def get_age_pop_data_as_df_state():
 
 
 def get_sex_pop_data_as_df_state():
-
-    print("get_sex_pop_data_as_df_state")
 
     df = pd.read_json(os.path.join(
         TEST_DIR, 'acs_population', 'by_sex_state.json'),
@@ -99,8 +92,6 @@ def get_sex_pop_data_as_df_state():
 
 def get_race_pop_data_as_df_territory():
 
-    print("get_race_pop_data_as_df_territory")
-
     df = pd.read_json(os.path.join(
         TEST_DIR, 'acs_2010_population', 'by_race_and_ethnicity_territory.json'),
         dtype={'state_fips': str})
@@ -109,8 +100,6 @@ def get_race_pop_data_as_df_territory():
 
 
 def get_age_pop_data_as_df_territory():
-
-    print("get_age_pop_data_as_df_territory")
 
     df = pd.read_json(os.path.join(
         TEST_DIR, 'acs_2010_population', 'by_age_territory.json'),
@@ -121,8 +110,6 @@ def get_age_pop_data_as_df_territory():
 
 def get_sex_pop_data_as_df_territory():
 
-    print("get_sex_pop_data_as_df_territory")
-
     df = pd.read_json(os.path.join(
         TEST_DIR, 'acs_2010_population', 'by_sex_territory.json'),
         dtype={'state_fips': str})
@@ -132,7 +119,6 @@ def get_sex_pop_data_as_df_territory():
 
 def get_race_pop_data_as_df_national():
 
-    print("get_race_pop_data_as_df_national")
     df = pd.read_json(os.path.join(TEST_DIR, 'acs_population',
                                    'by_race_national.json'),
                       dtype={'state_fips': str})
@@ -144,7 +130,6 @@ def get_race_pop_data_as_df_national():
 
 def get_age_pop_data_as_df_national():
 
-    print("get_age_pop_data_as_df_national")
     df = pd.read_json(os.path.join(TEST_DIR, 'acs_population',
                                    'by_age_national.json'),
                       dtype={'state_fips': str})
@@ -156,7 +141,6 @@ def get_age_pop_data_as_df_national():
 
 def get_sex_pop_data_as_df_national():
 
-    print("get_sex_pop_data_as_df_national")
     df = pd.read_json(os.path.join(TEST_DIR, 'acs_population',
                                    'by_sex_national.json'),
                       dtype={'state_fips': str})

@@ -86,22 +86,35 @@ def keep_only_states(df):
     return df[~df[std_col.STATE_NAME_COL].isin(NON_STATE_ROWS)]
 
 
-def keep_only_national(df):
+def keep_only_national(df, demo_group_cols):
+    """
+    Accepts a cleaned BJS table df, and returns a df with only a national row
+    If a US Total is already present in the table, that is used
+    Otherwise is it calculated as the sum of all states plus federal
 
-    # if there is already a US total row we can use it
-    df_us = df[df[std_col.STATE_NAME_COL] == US_TOTAL]
+    Parameters:
+        df: a cleaned pandas df from a BJS table where cols are the demographic groups
+        demo_group_cols: a list of string column names that contain the values to be summed if needed
+
+    Returns:
+        a pandas df with a single row with state_name: "United States" and the correlating values
+     """
+
+    # see if there is a US total row
+    df_us = df.loc[df[std_col.STATE_NAME_COL] == US_TOTAL]
+
+    if len(df_us.index) == 1:
+        df_us.loc[:, std_col.STATE_NAME_COL] = constants.US_NAME
+        return df_us
 
     if len(df_us.index) > 1:
         raise ValueError("There is more than one U.S. Total row")
 
-    if len(df_us.index) == 1:
-        return df
-
-    # otherwise national# = federal# + sum of states#
-    df_fed = df[df[std_col.STATE_NAME_COL] == FED]
+    # if not, national# = federal# + sum of states#
+    df_fed = df.loc[df[std_col.STATE_NAME_COL] == FED]
     df_states = keep_only_states(df)
-    df = (df_to_ints(df_fed[STANDARD_RACE_CODES]) +
-          df_to_ints(df_states[STANDARD_RACE_CODES]).sum())
+    df = (df_to_ints(df_fed[demo_group_cols]) +
+          df_to_ints(df_states[demo_group_cols]).sum())
     df[std_col.STATE_NAME_COL] = constants.US_NAME
 
     return df
@@ -181,7 +194,7 @@ def make_prison_national_age_df(source_df_adults, source_df_juveniles):
 
 def make_prison_national_race_df(source_df):
 
-    df = keep_only_national(source_df)
+    df = keep_only_national(source_df, STANDARD_RACE_CODES)
 
     df = cols_to_rows(
         df, STANDARD_RACE_CODES, std_col.RACE_CATEGORY_ID_COL, RAW_COL)
@@ -191,8 +204,7 @@ def make_prison_national_race_df(source_df):
 
 def make_prison_national_sex_df(source_df):
 
-    df = source_df[source_df[std_col.STATE_NAME_COL] == US_TOTAL]
-    df[std_col.STATE_NAME_COL] = constants.US_NAME
+    df = keep_only_national(source_df, BJS_SEX_GROUPS)
     df = cols_to_rows(
         df, BJS_SEX_GROUPS, std_col.SEX_COL, RAW_COL)
 
@@ -201,11 +213,8 @@ def make_prison_national_sex_df(source_df):
 
 def make_prison_state_race_df(source_df, source_df_territories):
 
-    df = source_df[source_df[std_col.STATE_NAME_COL]
-                   != FED]
-
+    df = keep_only_states(source_df)
     df = df.append(source_df_territories)
-
     df = cols_to_rows(
         df, STANDARD_RACE_CODES, std_col.RACE_CATEGORY_ID_COL, RAW_COL)
 
@@ -214,32 +223,21 @@ def make_prison_state_race_df(source_df, source_df_territories):
 
 def make_prison_state_sex_df(source_df, source_df_territories):
 
-    # df = source_df[source_df[std_col.STATE_NAME_COL] != US_TOTAL]
     df = keep_only_states(source_df)
-
     df = df.append(source_df_territories)
     df[std_col.ALL_VALUE] = df[std_col.ALL_VALUE].combine_first(
         df[Race.ALL.value])
     df = df.drop(columns=[Race.ALL.value])
-
     df = cols_to_rows(
         df, BJS_SEX_GROUPS, std_col.SEX_COL, RAW_COL)
-
-    # df = dataset_utils.merge_fips_codes(df)
-
-    # df = dataset_utils.merge_pop_numbers(
-    #     df, std_col.SEX_COL, "state")
 
     return df
 
 
 def make_prison_state_age_df(source_df_juveniles, source_df_totals, source_df_territories):
 
-    source_df_juveniles = source_df_juveniles[source_df_juveniles[std_col.STATE_NAME_COL]
-                                              != constants.US_NAME]
-
+    source_df_juveniles = keep_only_states(source_df_juveniles)
     source_df_juveniles = source_df_juveniles.rename(columns={RAW_COL: '0-17'})
-
     source_df_juveniles = source_df_juveniles.drop(columns=[std_col.AGE_COL])
 
     source_df_totals = keep_only_states(source_df_totals)
@@ -255,13 +253,10 @@ def make_prison_state_age_df(source_df_juveniles, source_df_totals, source_df_te
         df[Race.ALL.value])
     df = df.drop(columns=[Race.ALL.value])
 
+    # calculate 18+
     df["18+"] = df[std_col.ALL_VALUE] - df['0-17']
 
     df = cols_to_rows(df, BJS_AGE_GROUPS_JUV_ADULT, std_col.AGE_COL, RAW_COL)
-
-    # df = dataset_utils.merge_fips_codes(df)
-    # df = dataset_utils.merge_pop_numbers(
-    #     df, std_col.AGE_COL, "state")
 
     return df
 
@@ -345,7 +340,6 @@ class BJSData(DataSource):
             for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
 
                 table_name = f'{breakdown}_{geo_level}'
-                print("in loop", table_name)
 
                 if geo_level == NATIONAL_LEVEL:
 
