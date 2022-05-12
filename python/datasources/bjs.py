@@ -27,18 +27,19 @@ BJS_DATA_TYPES = [
     # std_col.INCARCERATED_PREFIX
 ]
 
-BJS_PRISONERS_ZIP = "https://bjs.ojp.gov/content/pub/sheets/p20st.zip"
-
 NON_STATE_ROWS = ['U.S. total', 'State', 'Federal']
 
+# BJS Prisoners Report
 
-APPENDIX_TABLE_2 = "p20stat02.csv"
-TABLE_2 = "p20stt02.csv"
-TABLE_11 = "p20stt11.csv"
-TABLE_13 = "p20stt13.csv"
-TABLE_23 = "p20stt23.csv"
+BJS_PRISONERS_ZIP = "https://bjs.ojp.gov/content/pub/sheets/p20st.zip"
 
-needed_tables = {
+APPENDIX_TABLE_2 = "p20stat02.csv"  # RAW# / STATE+FED / RACE
+TABLE_2 = "p20stt02.csv"  # RAW# / STATE+FED / SEX
+TABLE_11 = "p20stt11.csv"  # 100K / AGE / SEX / RACE
+TABLE_13 = "p20stt13.csv"  # RAW# / STATE+FED / AGE: JUV-ADULT / SEX
+TABLE_23 = "p20stt23.csv"  # RAW# / TERRITORY
+
+bjs_prisoners_tables = {
     APPENDIX_TABLE_2: {"header_rows": [*list(range(10)), 12], "footer_rows": 13},
     TABLE_2: {"header_rows": [*list(range(11))], "footer_rows": 10, },
     TABLE_11: {"header_rows": [*list(range(12))], "footer_rows": 8},
@@ -115,16 +116,42 @@ def df_to_ints(df: pd.DataFrame):
     return df
 
 
-def make_prison_national_race_df(source_df):
-    """
-    Parameter:
-        source_df: takes a "cleaned" df representing a BJS Prisoners 2020 table
+"""
+The following make_prison_ functions accept "cleaned" dataframes
+representing specific tables from the BJS Prisoners (2020) report
+and return standardized dfs with rows for each combo of place + demographic group,
+and columns for | RAW# | "race" or "age" or "sex" | "state_name"
 
-    Returns:
-        df: a df containing the final columns needed for the frontend
-        | race_category_id | state_name | state_fips | prison_per_100k |
-        | prison_pct_share | population_pct_share |
-     """
+Parameters:
+    1 or more cleaned source df generated in the clean_df utils
+
+Returns:
+    df: standardized with raw numbers by demographic by place
+
+ """
+
+
+def make_prison_national_age_df(source_df_adults, source_df_juveniles):
+
+    # standardize df with ADULT RAW # / AGE / USA
+    df_adults = dataset_utils.merge_fips_codes(source_df_adults)
+    df_adults = dataset_utils.merge_pop_numbers(
+        df_adults, std_col.AGE_COL, "national")
+    df_adults[RAW_COL] = df_adults.apply(
+        estimate_total, axis="columns", args=(PER_100K_COL, ))
+    df_adults = df_adults[[RAW_COL, std_col.STATE_NAME_COL, std_col.AGE_COL]]
+
+    # standardize df with JUVENILE RAW # / AGE / USA
+    df_juv = source_df_juveniles[
+        source_df_juveniles[std_col.STATE_NAME_COL] == constants.US_NAME]
+
+    # combine to create standardized df of RAW # / AGE / USA
+    df = df_adults.append(df_juv)
+
+    return df
+
+
+def make_prison_national_race_df(source_df):
 
     # split apart into STATE PRISON and FEDERAL_PRISON
     df_bjs_states = source_df[source_df[std_col.STATE_NAME_COL] != 'Federal']
@@ -139,14 +166,6 @@ def make_prison_national_race_df(source_df):
     df = cols_to_rows(
         df, STANDARD_RACE_CODES, std_col.RACE_CATEGORY_ID_COL, RAW_COL)
 
-    df = dataset_utils.merge_fips_codes(df)
-    df = dataset_utils.merge_pop_numbers(
-        df, std_col.RACE_COL, "national")
-    df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
-        float)
-
-    df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
-
     return df
 
 
@@ -156,47 +175,6 @@ def make_prison_national_sex_df(source_df):
     df[std_col.STATE_NAME_COL] = constants.US_NAME
     df = cols_to_rows(
         df, BJS_SEX_GROUPS, std_col.SEX_COL, RAW_COL)
-    df = dataset_utils.merge_fips_codes(df)
-    df = dataset_utils.merge_pop_numbers(
-        df, std_col.SEX_COL, "national")
-    df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
-        float)
-
-    df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
-
-    return df
-
-
-def make_prison_national_age_df(source_df, source_df_juveniles):
-
-    # get ADULT rows to include RAW, PER_100K, POP
-    df = source_df.copy()
-
-    df = dataset_utils.merge_fips_codes(df)
-    df = dataset_utils.merge_pop_numbers(
-        df, std_col.AGE_COL, "national")
-    df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
-        float)
-
-    # BJS table only has `per_100k` values, so calculate the raw #
-    df[RAW_COL] = df.apply(
-        estimate_total, axis="columns", args=(PER_100K_COL, ))
-
-    # get JUVENILE row to include RAW, PER_100K, POP
-    row_juveniles_us = source_df_juveniles[
-        source_df_juveniles[std_col.STATE_NAME_COL] == constants.US_NAME]
-
-    row_juveniles_us = dataset_utils.merge_fips_codes(row_juveniles_us)
-    row_juveniles_us = dataset_utils.merge_pop_numbers(
-        row_juveniles_us, std_col.AGE_COL, "national")
-    row_juveniles_us[std_col.POPULATION_PCT_COL] = row_juveniles_us[std_col.POPULATION_PCT_COL].astype(
-        float)
-
-    row_juveniles_us[PER_100K_COL] = row_juveniles_us.apply(
-        calc_per_100k, axis="columns")
-
-    # add combine 0-17 from table 13 with 18-65+ from table 11
-    df = df.append(row_juveniles_us)
 
     return df
 
@@ -211,21 +189,13 @@ def make_prison_state_race_df(source_df, source_df_territories):
     df = cols_to_rows(
         df, STANDARD_RACE_CODES, std_col.RACE_CATEGORY_ID_COL, RAW_COL)
 
-    df = dataset_utils.merge_fips_codes(df)
-    df = dataset_utils.merge_pop_numbers(
-        df, std_col.RACE_COL, "state")
-
-    df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
-        float)
-    df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
-
     return df
 
 
 def make_prison_state_sex_df(source_df, source_df_territories):
 
-    df = source_df[source_df[std_col.STATE_NAME_COL] != 'U.S. total']
-    df = keep_only_states(df)
+    # df = source_df[source_df[std_col.STATE_NAME_COL] != 'U.S. total']
+    df = keep_only_states(source_df)
 
     df = df.append(source_df_territories)
     df[std_col.ALL_VALUE] = df[std_col.ALL_VALUE].combine_first(
@@ -235,15 +205,10 @@ def make_prison_state_sex_df(source_df, source_df_territories):
     df = cols_to_rows(
         df, BJS_SEX_GROUPS, std_col.SEX_COL, RAW_COL)
 
-    df = dataset_utils.merge_fips_codes(df)
+    # df = dataset_utils.merge_fips_codes(df)
 
-    df = dataset_utils.merge_pop_numbers(
-        df, std_col.SEX_COL, "state")
-
-    df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
-        float)
-
-    df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
+    # df = dataset_utils.merge_pop_numbers(
+    #     df, std_col.SEX_COL, "state")
 
     return df
 
@@ -274,25 +239,41 @@ def make_prison_state_age_df(source_df_juveniles, source_df_totals, source_df_te
 
     df = cols_to_rows(df, BJS_AGE_GROUPS_JUV_ADULT, std_col.AGE_COL, RAW_COL)
 
-    df = dataset_utils.merge_fips_codes(df)
-    df = dataset_utils.merge_pop_numbers(
-        df, std_col.AGE_COL, "state")
-    df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
-        float)
-
-    df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
+    # df = dataset_utils.merge_fips_codes(df)
+    # df = dataset_utils.merge_pop_numbers(
+    #     df, std_col.AGE_COL, "state")
 
     return df
 
 
 def post_process(df, breakdown, geo):
-    """Merge the population data and then do all needed calculations with it.
-       Returns a dataframe ready for the frontend.
+    """
+        Takes a standardized breakdown df with raw incidence values and fills in missing columns
+        - generates `PER_100K` column (some incoming df may already have this col and partial data)
+        - generates `PCT_SHARE` column
+        - removes temporary columns needed only for calculating our metrics
 
-       df: Dataframe with all the raw data.
+       df: Dataframe with all the raw data containing:
+       "state_name" column, raw values, and demographic col of groups
        breakdown: demographic breakdown (race, sex, age)
        geo: geographic level (national, state)
     """
+
+    if breakdown == std_col.RACE_OR_HISPANIC_COL:
+        std_col.add_race_columns_from_category_id(df)
+        pop_breakdown = std_col.RACE_COL
+    else:
+        pop_breakdown = breakdown
+
+    df = dataset_utils.merge_fips_codes(df)
+
+    df = dataset_utils.merge_pop_numbers(
+        df, pop_breakdown, geo)
+
+    df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
+        float)
+
+    df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
 
     df = dataset_utils.generate_pct_share_col(
         df, RAW_COL, PCT_SHARE_COL, breakdown, std_col.ALL_VALUE)
@@ -335,12 +316,12 @@ class BJSData(DataSource):
 
         files = fetch_zip_as_files(BJS_PRISONERS_ZIP)
         for file in files.namelist():
-            if file in needed_tables:
+            if file in bjs_prisoners_tables:
                 source_df = pd.read_csv(files.open(
                     file),
                     encoding="ISO-8859-1",
-                    skiprows=needed_tables[file]["header_rows"],
-                    skipfooter=needed_tables[file]["footer_rows"],
+                    skiprows=bjs_prisoners_tables[file]["header_rows"],
+                    skipfooter=bjs_prisoners_tables[file]["footer_rows"],
                     thousands=',',
                     engine="python")
                 loaded_tables[file] = source_df
@@ -385,13 +366,7 @@ class BJSData(DataSource):
                         df = make_prison_state_sex_df(
                             df_2, df_23)
 
-                if breakdown == std_col.RACE_OR_HISPANIC_COL:
-                    std_col.add_race_columns_from_category_id(df)
-
                 df = post_process(df, breakdown, geo_level)
-
-                df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].astype(
-                    str)
 
                 # set / add BQ types
                 column_types = {c: 'STRING' for c in df.columns}

@@ -182,16 +182,6 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
 
     # run these in order as replacements for the
     # actual calls to load_csv_as_df_from_web()
-    # mock_csv.side_effect = [
-    #     _load_prison_appendix_table_2_as_df(),
-    #     _load_prison_table_2_as_df(),
-    #     _load_prison_table_11_as_df(),
-    #     _load_prison_table_13_as_df(),
-    #     _load_prison_table_23_as_df(),
-    # ]
-
-    # run these in order as replacements for the
-    # actual calls to load_csv_as_df_from_web()
     mock_pop.side_effect = [
         get_age_pop_data_as_df_national(),  # initial pop merge
         get_age_pop_data_as_df_national(),  # extra pop merge for new '0-17' row
