@@ -8,23 +8,6 @@ RAW_COL = std_col.generate_column_name(
     std_col.PRISON_PREFIX, std_col.RAW_SUFFIX)
 
 
-header_rows = {
-    "prisoner2020_appendix_table_2": [*list(range(10)), 12],
-    "prisoners2020_table_23": [*list(range(11)), 12],
-    "prisoners2020_table_2": [*list(range(12))],
-    "prisoners2020_table_11": [*list(range(12))],
-    "prisoners2020_table_13": [*list(range(11)), 13, 14],
-}
-
-footer_rows = {
-    "prisoner2020_appendix_table_2": 13,
-    "prisoners2020_table_23": 10,
-    "prisoners2020_table_2": 10,
-    "prisoners2020_table_11": 8,
-    "prisoners2020_table_13": 6,
-}
-
-
 BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
 
 
@@ -180,7 +163,12 @@ def clean_prison_table_2_df(df):
     df = df.applymap(strip_footnote_refs)
 
     df[std_col.STATE_NAME_COL] = df["Jurisdiction"].combine_first(
-        df["Jurisdiction2"])
+        df["Unnamed: 1"])
+
+    df = df.drop(columns=[constants.Sex.MALE, constants.Sex.FEMALE])
+
+    df = df.rename(
+        columns={'Total.1': std_col.ALL_VALUE, "Male.1": constants.Sex.MALE, "Female.1": constants.Sex.FEMALE})
 
     df = df[[std_col.STATE_NAME_COL, std_col.ALL_VALUE,
              constants.Sex.MALE, constants.Sex.FEMALE]]

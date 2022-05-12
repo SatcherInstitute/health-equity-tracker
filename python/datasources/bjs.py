@@ -3,6 +3,16 @@ import ingestion.standardized_columns as std_col
 import pandas as pd
 from ingestion.standardized_columns import Race
 from ingestion import gcs_to_bq_util, dataset_utils, constants
+from zipfile import ZipFile
+import requests
+from io import BytesIO
+
+from datasources.bjs_prisoners_tables_utils import (clean_prison_table_11_df,
+                                                    clean_prison_table_2_df,
+                                                    clean_prison_table_23_df,
+                                                    clean_prison_table_13_df,
+                                                    clean_prison_appendix_table_2_df)
+
 
 RAW_COL = std_col.generate_column_name(
     std_col.PRISON_PREFIX, std_col.RAW_SUFFIX)
@@ -21,11 +31,19 @@ BJS_DATA_TYPES = [
 NON_STATE_ROWS = ['U.S. total', 'State', 'Federal']
 
 
-BJS_RAW_PRISON_BY_RACE = "p20stat02.csv"
-BJS_RAW_PRISON_BY_SEX = "p20stt02.csv"
-BJS_PER_100K_PRISON_BY_AGE = "p20stt11.csv"
-BJS_RAW_PRISON_JUV_ADULT = "p20stt13.csv"
-BJS_RAW_PRISON_TERRITORY_TOTALS = "p20stt23.csv"
+APPENDIX_TABLE_2 = "p20stat02.csv"
+TABLE_2 = "p20stt02.csv"
+TABLE_11 = "p20stt11.csv"
+TABLE_13 = "p20stt13.csv"
+TABLE_23 = "p20stt23.csv"
+
+needed_tables = {
+    APPENDIX_TABLE_2: {"header_rows": [*list(range(10)), 12], "footer_rows": 13},
+    TABLE_2: {"header_rows": [*list(range(11))], "footer_rows": 10, },
+    TABLE_11: {"header_rows": [*list(range(12))], "footer_rows": 8},
+    TABLE_13: {"header_rows": [*list(range(11)), 13, 14], "footer_rows": 6},
+    TABLE_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10}
+}
 
 
 BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
@@ -48,7 +66,6 @@ BJS_RACE_GROUPS_TO_STANDARD = {
     'Other': Race.OTHER_STANDARD_NH,
     'Unknown': Race.UNKNOWN,
     # BJS's 'Did not report' gets summed into "Unknown" for pct_share
-
     'All': Race.ALL
 }
 
@@ -77,9 +94,6 @@ def calc_per_100k(row):
      """
     if row[std_col.POPULATION_COL] == 0:
         return None
-
-    # print(row[RAW_COL], "/", row[std_col.POPULATION_COL],
-    #       "=", row[RAW_COL] / row[std_col.POPULATION_COL])
 
     return round((row[RAW_COL] / row[std_col.POPULATION_COL]) * 100_000, 1)
 
@@ -316,26 +330,28 @@ class BJSData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        # BJS by race by state+federal table
-        prison_appendix_table_2_df = gcs_to_bq_util.load_csv_as_df_from_web(
-            BJS_RAW_PRISON_BY_RACE)
+        loaded_tables = {}
 
-        # BJS by sex by state+federal table
-        prison_table_2_df = gcs_to_bq_util.load_csv_as_df_from_web(
-            BJS_RAW_PRISON_BY_SEX)
+        response = requests.get(
+            "https://bjs.ojp.gov/content/pub/sheets/p20st.zip")
+        files = ZipFile(BytesIO(response.content))
+        for file in files.namelist():
+            if file in needed_tables:
+                source_df = pd.read_csv(files.open(
+                    file),
+                    encoding="ISO-8859-1",
+                    skiprows=needed_tables[file]["header_rows"],
+                    skipfooter=needed_tables[file]["footer_rows"],
+                    thousands=',',
+                    engine="python")
+                loaded_tables[file] = source_df
 
-        # BJS by age by state+federal table
-        prison_table_11_df = gcs_to_bq_util.load_csv_as_df_from_web(
-            BJS_PER_100K_PRISON_BY_AGE)
-
-        prison_table_13_df = gcs_to_bq_util.load_csv_as_df_from_web(
-            BJS_RAW_PRISON_JUV_ADULT)
-
-        # BJS totals by territory table
-        prison_table_23_df = gcs_to_bq_util.load_csv_as_df_from_web(
-            BJS_RAW_PRISON_TERRITORY_TOTALS)
-
-        # TODO need to clean() the df coming from the fetch (in test it's mocked and cleaned)
+        df_11 = clean_prison_table_11_df(loaded_tables[TABLE_11])
+        df_13 = clean_prison_table_13_df(loaded_tables[TABLE_13])
+        df_2 = clean_prison_table_2_df(loaded_tables[TABLE_2])
+        df_app_2 = clean_prison_appendix_table_2_df(
+            loaded_tables[APPENDIX_TABLE_2])
+        df_23 = clean_prison_table_23_df(loaded_tables[TABLE_23])
 
         for geo_level in ["national", "state"]:
 
@@ -347,27 +363,28 @@ class BJSData(DataSource):
 
                     if breakdown == std_col.AGE_COL:
                         df = make_prison_national_age_df(
-                            prison_table_11_df, prison_table_13_df)
+                            df_11, df_13)
 
                     if breakdown == std_col.RACE_OR_HISPANIC_COL:
                         df = make_prison_national_race_df(
-                            prison_appendix_table_2_df)
+                            df_app_2)
 
                     if breakdown == std_col.SEX_COL:
-                        df = make_prison_national_sex_df(prison_table_2_df)
+                        df = make_prison_national_sex_df(
+                            df_2)
 
                 if geo_level == 'state':
                     if breakdown == std_col.AGE_COL:
                         df = make_prison_state_age_df(
-                            prison_table_13_df, prison_table_2_df, prison_table_23_df)
+                            df_13, df_2, df_23)
 
                     if breakdown == std_col.RACE_OR_HISPANIC_COL:
                         df = make_prison_state_race_df(
-                            prison_appendix_table_2_df, prison_table_23_df)
+                            df_app_2, df_23)
 
                     if breakdown == std_col.SEX_COL:
                         df = make_prison_state_sex_df(
-                            prison_table_2_df, prison_table_23_df)
+                            df_2, df_23)
 
                 if breakdown == std_col.RACE_OR_HISPANIC_COL:
                     std_col.add_race_columns_from_category_id(df)
