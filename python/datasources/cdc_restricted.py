@@ -40,9 +40,6 @@ def get_col_types(df):
     return column_types
 
 
-combos = [('state', 'sex'), ('state', 'race'), ('state', 'age'), ('county', 'sex'), ('county', 'race'), ('county', 'age')]
-
-
 class CDCRestrictedData(DataSource):
 
     @staticmethod
@@ -58,20 +55,20 @@ class CDCRestrictedData(DataSource):
             'upload_to_gcs should not be called for CDCRestrictedData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        # for geo in ['state', 'county']:
-        #     for demo in ['sex', 'race', 'age']:
-        for geo, demo in combos:
-            filename = f'cdc_restricted_by_{demo}_{geo}.csv'
-            df = gcs_to_bq_util.load_csv_as_df(
-                gcs_bucket, filename, dtype={'county_fips': str})
+        for geo in ['state', 'county']:
+            for demo in ['sex', 'race', 'age']:
 
-            df = self.generate_breakdown(df, demo, geo)
+                filename = f'cdc_restricted_by_{demo}_{geo}.csv'
+                df = gcs_to_bq_util.load_csv_as_df(
+                    gcs_bucket, filename, dtype={'county_fips': str})
 
-            column_types = get_col_types(df)
+                df = self.generate_breakdown(df, demo, geo)
 
-            table_name = f'by_{demo}_{geo}_processed'
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=column_types)
+                column_types = get_col_types(df)
+
+                table_name = f'by_{demo}_{geo}_processed'
+                gcs_to_bq_util.add_df_to_bq(
+                    df, dataset, table_name, column_types=column_types)
 
         for filename in EXTRA_FILES:
             df = gcs_to_bq_util.load_csv_as_df(
