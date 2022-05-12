@@ -3,6 +3,7 @@ import ingestion.standardized_columns as std_col
 import pandas as pd
 from ingestion.standardized_columns import Race
 from ingestion import gcs_to_bq_util, dataset_utils, constants
+from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
 from ingestion.gcs_to_bq_util import fetch_zip_as_files
 from ingestion.dataset_utils import estimate_total
 from datasources.bjs_prisoners_tables_utils import (clean_prison_table_11_df,
@@ -26,7 +27,13 @@ BJS_DATA_TYPES = [
     # std_col.INCARCERATED_PREFIX
 ]
 
-NON_STATE_ROWS = ['U.S. total', 'State', 'Federal']
+
+# consts used in BJS Tables
+US_TOTAL = "U.S. total"
+STATE = "State"
+FED = "Federal"
+
+NON_STATE_ROWS = [US_TOTAL, STATE, FED]
 
 # BJS Prisoners Report
 
@@ -82,7 +89,7 @@ def keep_only_states(df):
 def keep_only_national(df):
 
     # if there is already a US total row we can use it
-    df_us = df[df[std_col.STATE_NAME_COL] == 'U.S. total']
+    df_us = df[df[std_col.STATE_NAME_COL] == US_TOTAL]
 
     if len(df_us.index) > 1:
         raise ValueError("There is more than one U.S. Total row")
@@ -91,7 +98,7 @@ def keep_only_national(df):
         return df
 
     # otherwise national# = federal# + sum of states#
-    df_fed = df[df[std_col.STATE_NAME_COL] == 'Federal']
+    df_fed = df[df[std_col.STATE_NAME_COL] == FED]
     df_states = keep_only_states(df)
     df = (df_to_ints(df_fed[STANDARD_RACE_CODES]) +
           df_to_ints(df_states[STANDARD_RACE_CODES]).sum())
@@ -157,7 +164,7 @@ def make_prison_national_age_df(source_df_adults, source_df_juveniles):
     # standardize df with ADULT RAW # / AGE / USA
     df_adults = dataset_utils.merge_fips_codes(source_df_adults)
     df_adults = dataset_utils.merge_pop_numbers(
-        df_adults, std_col.AGE_COL, "national")
+        df_adults, std_col.AGE_COL, NATIONAL_LEVEL)
     df_adults[RAW_COL] = df_adults.apply(
         estimate_total, axis="columns", args=(PER_100K_COL, ))
     df_adults = df_adults[[RAW_COL, std_col.STATE_NAME_COL, std_col.AGE_COL]]
@@ -184,7 +191,7 @@ def make_prison_national_race_df(source_df):
 
 def make_prison_national_sex_df(source_df):
 
-    df = source_df[source_df[std_col.STATE_NAME_COL] == 'U.S. total']
+    df = source_df[source_df[std_col.STATE_NAME_COL] == US_TOTAL]
     df[std_col.STATE_NAME_COL] = constants.US_NAME
     df = cols_to_rows(
         df, BJS_SEX_GROUPS, std_col.SEX_COL, RAW_COL)
@@ -195,7 +202,7 @@ def make_prison_national_sex_df(source_df):
 def make_prison_state_race_df(source_df, source_df_territories):
 
     df = source_df[source_df[std_col.STATE_NAME_COL]
-                   != 'Federal']
+                   != FED]
 
     df = df.append(source_df_territories)
 
@@ -207,7 +214,7 @@ def make_prison_state_race_df(source_df, source_df_territories):
 
 def make_prison_state_sex_df(source_df, source_df_territories):
 
-    # df = source_df[source_df[std_col.STATE_NAME_COL] != 'U.S. total']
+    # df = source_df[source_df[std_col.STATE_NAME_COL] != US_TOTAL]
     df = keep_only_states(source_df)
 
     df = df.append(source_df_territories)
@@ -333,13 +340,14 @@ class BJSData(DataSource):
             loaded_tables[APPENDIX_TABLE_2])
         df_23 = clean_prison_table_23_df(loaded_tables[TABLE_23])
 
-        for geo_level in ["national", "state"]:
+        for geo_level in [NATIONAL_LEVEL, STATE_LEVEL]:
 
             for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
 
                 table_name = f'{breakdown}_{geo_level}'
+                print("in loop", table_name)
 
-                if geo_level == 'national':
+                if geo_level == NATIONAL_LEVEL:
 
                     if breakdown == std_col.AGE_COL:
                         df = make_prison_national_age_df(
@@ -353,7 +361,7 @@ class BJSData(DataSource):
                         df = make_prison_national_sex_df(
                             df_2)
 
-                if geo_level == 'state':
+                if geo_level == STATE_LEVEL:
                     if breakdown == std_col.AGE_COL:
                         df = make_prison_state_age_df(
                             df_13, df_2, df_23)

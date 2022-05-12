@@ -57,7 +57,8 @@ US_NAME = 'United States'
 US_ABBR = "US"
 
 
-EMDASH = '—'
+NATIONAL_LEVEL = "national"
+STATE_LEVEL = "state"
 
 
 class Sex:
