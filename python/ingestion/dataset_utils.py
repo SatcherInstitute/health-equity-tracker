@@ -16,35 +16,6 @@ def generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
        breakdown_col: The name of column to calculate the percent across.
        all_val: The value representing 'ALL'"""
 
-    # def calc_pct_share(record, total_value):
-    #     record[pct_share_col] = percent_avoid_rounding_to_zero(
-    #         record[raw_count_col], total_value)
-
-    #     return record
-
-    # groupby_cols = [std_col.STATE_FIPS_COL]
-    # if std_col.COUNTY_FIPS_COL in df.columns:
-    #     groupby_cols.append(std_col.COUNTY_FIPS_COL)
-
-    # with_pct_share = []
-    # grouped = df.groupby(groupby_cols)
-
-    # for _, group_df in grouped:
-    #     total_row = group_df.loc[(group_df[breakdown_col] == all_val)]
-
-    #     if len(total_row) == 0:
-    #         raise ValueError("There is no ALL value for this chunk of data")
-
-    #     if len(total_row) > 1:
-    #         raise ValueError(
-    #             "There are multiple ALL values for this chunk of data, there should only be one")
-
-    #     total = total_row.iloc[0][raw_count_col]
-    #     with_pct_share.append(group_df.reset_index(
-    #         drop=True).apply(calc_pct_share, args=(total,), axis=1))
-
-    # return pd.concat(with_pct_share).reset_index(drop=True)
-
     def calc_pct_share(record, raw_count_col):
         return percent_avoid_rounding_to_zero(
             record[raw_count_col], record[f'{raw_count_col}_all'])
@@ -61,7 +32,12 @@ def generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
         on_cols.append(std_col.COUNTY_FIPS_COL)
 
     alls = alls[on_cols + list(rename_cols.values())]
-    # grouped = df.groupby(groupby_cols)
+
+    grouped = df.groupby(on_cols)
+
+    if len(alls) != len(grouped):
+        raise ValueError(
+            f'This dataset has {len(alls)} alls and {len(grouped)} groups, they should be the same')
 
     df = pd.merge(df, alls, how='left', on=on_cols)
 

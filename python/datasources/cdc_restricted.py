@@ -131,7 +131,6 @@ class CDCRestrictedData(DataSource):
             raw_count_to_pct_share[raw_count_col] = generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)
 
         all_columns.extend(list(raw_count_to_pct_share.values()))
-
         df = generate_pct_share_col(df, raw_count_to_pct_share, demo_col, all_val)
 
         raw_count_to_pct_share_known = {}
@@ -139,7 +138,6 @@ class CDCRestrictedData(DataSource):
             raw_count_to_pct_share_known[raw_count_col] = generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)
 
         all_columns.extend(list(raw_count_to_pct_share_known.values()))
-
         df = generate_share_of_known_col(df, raw_count_to_pct_share_known, demo_col, all_val, unknown_val, geo)
 
         df = null_out_unneeded_rows(df, demo_col, unknown_val)

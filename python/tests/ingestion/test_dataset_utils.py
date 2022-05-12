@@ -255,39 +255,39 @@ def testGeneratePctShareCol():
     assert_frame_equal(expected_df, df)
 
 
-# def testGeneratePctShareColNoTotalError():
-#     df = gcs_to_bq_util.values_json_to_df(
-#         json.dumps(_fake_race_data)).reset_index(drop=True)
+def testGeneratePctShareColNoTotalError():
+    df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_fake_race_data)).reset_index(drop=True)
 
-#     df = df.loc[df['race'] != 'ALL']
+    df = df.loc[df['race'] != 'ALL']
 
-#     df['population'] = df['population'].astype(int)
+    df['population'] = df['population'].astype(int)
 
-#     expected_error = r"There is no ALL value for this chunk of data"
-#     with pytest.raises(ValueError, match=expected_error):
-#         df = dataset_utils.generate_pct_share_col(
-#             df, 'population', 'pct_share', 'race', 'ALL')
+    expected_error = r"This dataset has 0 alls and 3 groups, they should be the same"
+    with pytest.raises(ValueError, match=expected_error):
+        df = dataset_utils.generate_pct_share_col(
+            df, {'population': 'pct_share'}, 'race', 'ALL')
 
 
-# def testGeneratePctShareColExtraTotalError():
-#     df = gcs_to_bq_util.values_json_to_df(
-#         json.dumps(_fake_race_data)).reset_index(drop=True)
+def testGeneratePctShareColExtraTotalError():
+    df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_fake_race_data)).reset_index(drop=True)
 
-#     extra_row = pd.DataFrame([{
-#         'state_fips': '01',
-#         'state_name': 'Alabama',
-#         'race': 'ALL',
-#         'population': '66',
-#     }])
+    extra_row = pd.DataFrame([{
+        'state_fips': '01',
+        'state_name': 'Alabama',
+        'race': 'ALL',
+        'population': '66',
+    }])
 
-#     df = pd.concat([df, extra_row])
+    df = pd.concat([df, extra_row])
 
-#     df['population'] = df['population'].astype(int)
+    df['population'] = df['population'].astype(int)
 
-#     expected_error = r"There are multiple ALL values for this chunk of data, there should only be one"
-#     with pytest.raises(ValueError, match=expected_error):
-#         df = dataset_utils.generate_pct_share_col(
-#             df, 'population', 'pct_share', 'race', 'ALL')
+    expected_error = r"This dataset has 4 alls and 3 groups, they should be the same"
+    with pytest.raises(ValueError, match=expected_error):
+        df = dataset_utils.generate_pct_share_col(
+            df, {'population': 'pct_share'}, 'race', 'ALL')
 
 
 def testGeneratePer100kCol():
