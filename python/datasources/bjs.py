@@ -3,9 +3,8 @@ import ingestion.standardized_columns as std_col
 import pandas as pd
 from ingestion.standardized_columns import Race
 from ingestion import gcs_to_bq_util, dataset_utils, constants
-from zipfile import ZipFile
-import requests
-from io import BytesIO
+from ingestion.gcs_to_bq_util import fetch_zip_as_files
+
 
 from datasources.bjs_prisoners_tables_utils import (clean_prison_table_11_df,
                                                     clean_prison_table_2_df,
@@ -27,6 +26,8 @@ BJS_DATA_TYPES = [
     # std_col.JAIL_PREFIX,
     # std_col.INCARCERATED_PREFIX
 ]
+
+BJS_PRISONERS_ZIP = "https://bjs.ojp.gov/content/pub/sheets/p20st.zip"
 
 NON_STATE_ROWS = ['U.S. total', 'State', 'Federal']
 
@@ -314,10 +315,6 @@ def estimate_total(row, condition_name_per_100k):
     return round((float(row[condition_name_per_100k]) / 100_000) * float(row[std_col.POPULATION_COL]))
 
 
-def fetch_zip(url):
-    return requests.get(url)
-
-
 class BJSData(DataSource):
 
     @ staticmethod
@@ -336,9 +333,7 @@ class BJSData(DataSource):
 
         loaded_tables = {}
 
-        response = fetch_zip(
-            "https://bjs.ojp.gov/content/pub/sheets/p20st.zip")
-        files = ZipFile(BytesIO(response.content))
+        files = fetch_zip_as_files(BJS_PRISONERS_ZIP)
         for file in files.namelist():
             if file in needed_tables:
                 source_df = pd.read_csv(files.open(

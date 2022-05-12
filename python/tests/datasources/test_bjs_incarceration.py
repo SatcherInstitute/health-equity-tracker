@@ -1,5 +1,6 @@
 from unittest import mock
 import os
+from zipfile import ZipFile
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
@@ -7,6 +8,7 @@ from test_utils import get_state_fips_codes_as_df
 from datasources.bjs import (BJSData,
                              keep_only_states,
                              )
+
 
 from datasources.bjs_prisoners_tables_utils import (
     missing_data_to_none,
@@ -54,6 +56,12 @@ def test_keep_only_states():
 
 
 # MOCKS FOR READING IN TABLES
+
+
+def get_test_zip_as_files():
+    print("in mocked zip fetch")
+    files = ZipFile(os.path.join(TEST_DIR, 'p20st.zip'))
+    return files
 
 
 def get_race_pop_data_as_df_state():
@@ -157,99 +165,17 @@ GOLDEN_DATA = {
 }
 
 
-# def _load_prison_appendix_table_2_as_df():
-
-#     test_input_filename = f'bjs_test_input_{BJS_RAW_PRISON_BY_RACE}'
-#     df = pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
-#                      skiprows=header_rows["prisoner2020_appendix_table_2"],
-#                      skipfooter=footer_rows["prisoner2020_appendix_table_2"],
-#                      thousands=',',
-#                      engine="python")
-#     df = clean_prison_appendix_table_2_df(df)
-
-#     return df
-
-
-# def _load_prison_table_2_as_df():
-
-# test_input_filename = f'bjs_test_input_{BJS_RAW_PRISON_BY_SEX}'
-# df = pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
-#                  names=["Jurisdiction",
-#                         "Jurisdiction2",
-#                         "Total-2019",
-#                         "Male-2019",
-#                         "Female-2019",
-#                         "All",
-#                         "Male",
-#                         "Female",
-#                         "Total-change",
-#                         "Male-change",
-#                         "Female-change",
-#                         "Total-pct_change",
-#                         "total_symbol",
-#                         "Male-pct_change",
-#                         "male_symbol",
-#                         "Female-pct_change",
-#                         "female_symbol"],
-#                  header=None,
-#                  skiprows=header_rows["prisoners2020_table_2"],
-#                  skipfooter=footer_rows["prisoners2020_table_2"],
-#                  thousands=',',
-#                  engine="python")
-
-#     df = clean_prison_table_2_df(df)
-#     return df
-
-
-# def _load_prison_table_11_as_df():
-
-#     test_input_filename = f'bjs_test_input_{BJS_PER_100K_PRISON_BY_AGE}'
-#     df = pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
-#                      skiprows=header_rows["prisoners2020_table_11"],
-#                      skipfooter=footer_rows["prisoners2020_table_11"],
-#                      thousands=',',
-#                      engine="python")
-
-#     df = clean_prison_table_11_df(df)
-#     return df
-
-
-# def _load_prison_table_13_as_df():
-
-#     test_input_filename = f'bjs_test_input_{BJS_RAW_PRISON_JUV_ADULT}'
-#     df = pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
-#                      skiprows=header_rows["prisoners2020_table_13"],
-#                      skipfooter=footer_rows["prisoners2020_table_13"],
-#                      thousands=',',
-#                      engine="python")
-
-#     df = clean_prison_table_13_df(df)
-#     return df
-
-
-# def _load_prison_table_23_as_df():
-#     test_input_filename = f'bjs_test_input_{BJS_RAW_PRISON_TERRITORY_TOTALS}'
-#     df = pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
-#                      skiprows=header_rows["prisoners2020_table_23"],
-#                      skipfooter=footer_rows["prisoners2020_table_23"],
-#                      thousands=',',
-#                      engine="python")
-
-#     df = clean_prison_table_23_df(df)
-#     return df
-
-
 # RUN INTEGRATION TESTS ON NATIONAL LEVEL
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=get_state_fips_codes_as_df())
-# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-#              return_value=None)
+@ mock.patch('datasources.bjs.fetch_zip_as_files',
+             return_value=get_test_zip_as_files())
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
 def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
-                               #    mock_csv: mock.MagicMock,
+                               mock_zip: mock.MagicMock,
                                mock_fips: mock.MagicMock,
                                mock_pop: mock.MagicMock
                                ):
