@@ -7,6 +7,7 @@ import ingestion.constants as constants
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, dataset_utils
+from ingestion.dataset_utils import estimate_total
 
 UHC_RACE_GROUPS = [
     'American Indian/Alaska Native',
@@ -345,17 +346,3 @@ def get_average_determinate_value(matched_row, measure_name, df, state):
         [pres_breakdown_value, mid_breakdown_value])
 
     return average_value * 1000
-
-
-def estimate_total(row, condition_name_per_100k):
-    """Returns an estimate of the total number of people with a given condition.
-
-       condition_name_per_100k: string column name of the condition per_100k to estimate the total of"""
-
-    if pd.isna(row[condition_name_per_100k]) or \
-        pd.isna(row[std_col.POPULATION_COL]) or \
-            int(row[std_col.POPULATION_COL]) == 0:
-
-        return None
-
-    return round((float(row[condition_name_per_100k]) / 100000) * float(row[std_col.POPULATION_COL]))

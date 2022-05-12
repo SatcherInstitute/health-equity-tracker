@@ -4,8 +4,7 @@ import pandas as pd
 from ingestion.standardized_columns import Race
 from ingestion import gcs_to_bq_util, dataset_utils, constants
 from ingestion.gcs_to_bq_util import fetch_zip_as_files
-
-
+from ingestion.dataset_utils import estimate_total
 from datasources.bjs_prisoners_tables_utils import (clean_prison_table_11_df,
                                                     clean_prison_table_2_df,
                                                     clean_prison_table_23_df,
@@ -76,7 +75,29 @@ STANDARD_RACE_CODES = [
 
 
 def keep_only_states(df):
+
     return df[~df[std_col.STATE_NAME_COL].isin(NON_STATE_ROWS)]
+
+
+def keep_only_national(df):
+
+    # if there is already a US total row we can use it
+    df_us = df[df[std_col.STATE_NAME_COL] == 'U.S. total']
+
+    if len(df_us.index) > 1:
+        raise ValueError("There is more than one U.S. Total row")
+
+    if len(df_us.index) == 1:
+        return df
+
+    # otherwise national# = federal# + sum of states#
+    df_fed = df[df[std_col.STATE_NAME_COL] == 'Federal']
+    df_states = keep_only_states(df)
+    df = (df_to_ints(df_fed[STANDARD_RACE_CODES]) +
+          df_to_ints(df_states[STANDARD_RACE_CODES]).sum())
+    df[std_col.STATE_NAME_COL] = constants.US_NAME
+
+    return df
 
 
 def cols_to_rows(df, demographic_groups, demographic_col, value_col):
@@ -153,15 +174,7 @@ def make_prison_national_age_df(source_df_adults, source_df_juveniles):
 
 def make_prison_national_race_df(source_df):
 
-    # split apart into STATE PRISON and FEDERAL_PRISON
-    df_bjs_states = source_df[source_df[std_col.STATE_NAME_COL] != 'Federal']
-    df_bjs_fed = source_df[source_df[std_col.STATE_NAME_COL]
-                           == 'Federal']
-
-    # national# = federal# + sum of states#
-    df = (df_to_ints(df_bjs_fed[STANDARD_RACE_CODES]) +
-          df_to_ints(df_bjs_states[STANDARD_RACE_CODES]).sum())
-    df.loc[0, std_col.STATE_NAME_COL] = constants.US_NAME
+    df = keep_only_national(source_df)
 
     df = cols_to_rows(
         df, STANDARD_RACE_CODES, std_col.RACE_CATEGORY_ID_COL, RAW_COL)
@@ -281,19 +294,6 @@ def post_process(df, breakdown, geo):
     df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
 
     return df
-
-
-def estimate_total(row, condition_name_per_100k):
-    """Returns an estimate of the total number of people with a given condition.
-
-       condition_name_per_100k: string column name of the condition per_100k to estimate the total of"""
-
-    if (pd.isna(row[condition_name_per_100k]) or
-        pd.isna(row[std_col.POPULATION_COL]) or
-            int(row[std_col.POPULATION_COL]) == 0):
-        return None
-
-    return round((float(row[condition_name_per_100k]) / 100_000) * float(row[std_col.POPULATION_COL]))
 
 
 class BJSData(DataSource):

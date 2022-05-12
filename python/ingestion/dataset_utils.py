@@ -206,3 +206,16 @@ def merge_pop_numbers(df, demo, loc):
         std_col.STATE_FIPS_COL, on_col_map[demo]])
 
     return df.reset_index(drop=True)
+
+
+def estimate_total(row, condition_name_per_100k):
+    """Returns an estimate of the total number of people with a given condition.
+
+       condition_name_per_100k: string column name of the condition per_100k to estimate the total of"""
+
+    if (pd.isna(row[condition_name_per_100k]) or
+        pd.isna(row[std_col.POPULATION_COL]) or
+            int(row[std_col.POPULATION_COL]) == 0):
+        return None
+
+    return round((float(row[condition_name_per_100k]) / 100_000) * float(row[std_col.POPULATION_COL]))
