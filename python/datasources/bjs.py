@@ -265,7 +265,6 @@ def post_process(df, breakdown, geo):
         pop_breakdown = breakdown
 
     df = dataset_utils.merge_fips_codes(df)
-
     df = dataset_utils.merge_pop_numbers(
         df, pop_breakdown, geo)
 
@@ -303,13 +302,14 @@ class BJSData(DataSource):
         files = fetch_zip_as_files(BJS_PRISONERS_ZIP)
         for file in files.namelist():
             if file in bjs_prisoners_tables:
-                source_df = pd.read_csv(files.open(
-                    file),
+                source_df = pd.read_csv(
+                    files.open(file),
                     encoding="ISO-8859-1",
                     skiprows=bjs_prisoners_tables[file]["header_rows"],
                     skipfooter=bjs_prisoners_tables[file]["footer_rows"],
                     thousands=',',
-                    engine="python")
+                    engine="python",
+                )
 
                 source_df = strip_footnote_refs_from_df(source_df)
 
@@ -349,10 +349,6 @@ class BJSData(DataSource):
                         breakdown, geo_level, *table_lookup[table_name])
 
                 df = post_process(df, breakdown, geo_level)
-
-                # print("final df")
-                # print(table_name)
-                # print(df.to_string())
 
                 # set / add BQ types
                 column_types = {c: 'STRING' for c in df.columns}

@@ -10,7 +10,6 @@ STATE = "State"
 FED = "Federal"
 NON_STATE_ROWS = [US_TOTAL, STATE, FED]
 
-
 RAW_COL = std_col.generate_column_name(
     std_col.PRISON_PREFIX, std_col.RAW_SUFFIX)
 PER_100K_COL = std_col.generate_column_name(
@@ -83,7 +82,7 @@ def col_to_ints(column: pd.Series):
                           datum is None or
                           datum == "/" or
                           datum == "~"
-                          else int(datum))
+                          else round(float(datum), 0))
 
     return column
 
@@ -102,13 +101,19 @@ def df_to_ints_or_none(df: pd.DataFrame):
     return df
 
 
-def swap_col_name(col_name: str):
+def swap_race_col_name(col_name: str):
 
     if col_name in BJS_RACE_GROUPS_TO_STANDARD.keys():
         race_tuple = BJS_RACE_GROUPS_TO_STANDARD[col_name]
         return race_tuple.value
     else:
         return col_name
+
+
+# For every "clean" fn, the goal is to:
+# - start by making the correct columns, which generally are state_name + demo_breakdown_groups
+# - get all cell values in demo_group columns as numbers (not strings) or None is data is missing
+# - remove any extra columns
 
 
 def clean_prison_appendix_table_2_df(df):
@@ -128,19 +133,21 @@ def clean_prison_appendix_table_2_df(df):
         columns={'Jurisdiction': std_col.STATE_NAME_COL, 'Total': Race.ALL.value})
     df[std_col.STATE_NAME_COL] = df[std_col.STATE_NAME_COL].combine_first(
         df["Unnamed: 1"])
-    df = drop_unnamed(df)
 
-    df = missing_data_to_none(df)
-    df.columns = [swap_col_name(col_name)
+    df.columns = [swap_race_col_name(col_name)
                   for col_name in df.columns]
 
     unknowns_as_ints = col_to_ints(df[Race.UNKNOWN.value])
+    df[Race.UNKNOWN.value] = (unknowns_as_ints + df["Did not report"])
 
-    df[Race.UNKNOWN.value] = (unknowns_as_ints +
-                              df["Did not report"])
-    df = df.drop(columns=["Did not report"])
+    df = missing_data_to_none(df)
 
-    df[STANDARD_RACE_CODES] = df_to_ints_or_none(df[STANDARD_RACE_CODES])
+    df = df[[std_col.STATE_NAME_COL, *STANDARD_RACE_CODES]]
+
+    df[STANDARD_RACE_CODES] = df[STANDARD_RACE_CODES].astype(
+        float).round(decimals=0)
+
+    # df[STANDARD_RACE_CODES] = df_to_ints_or_none(df[STANDARD_RACE_CODES])
 
     return df
 
@@ -169,7 +176,9 @@ def clean_prison_table_2_df(df):
     df = df[[std_col.STATE_NAME_COL, std_col.ALL_VALUE,
              constants.Sex.MALE, constants.Sex.FEMALE]]
 
-    df[BJS_SEX_GROUPS] = df[BJS_SEX_GROUPS].astype(int)
+    df[BJS_SEX_GROUPS] = df[BJS_SEX_GROUPS].astype(float).round(decimals=0)
+
+    # df[BJS_SEX_GROUPS] = df_to_ints_or_none(df[BJS_SEX_GROUPS])
 
     return df
 
@@ -195,14 +204,14 @@ def clean_prison_table_11_df(df):
         lambda datum: re.sub('[^0-9a-zA-Z ]+', '-', datum))
 
     df = df.rename(
-        columns={'Total': "prison_per_100k"})
+        columns={'Total': PER_100K_COL})
 
-    df = df[[std_col.AGE_COL, "prison_per_100k"]]
+    df = df[[std_col.AGE_COL, PER_100K_COL]]
 
     df = df.replace("Total", std_col.ALL_VALUE)
     df = df.replace("65 or older", "65+")
 
-    df[std_col.STATE_NAME_COL] = "United States"
+    df[std_col.STATE_NAME_COL] = constants.US_NAME
 
     return df
 
@@ -248,18 +257,15 @@ def clean_prison_table_23_df(df):
     df = df.rename(
         columns={'U.S. territory/U.S. commonwealth': std_col.STATE_NAME_COL, 'Total': Race.ALL.value})
 
-    df = missing_data_to_none(df)
-
     df[Race.ALL.value] = df[Race.ALL.value].combine_first(
         df["Total custody population"])
 
-    df[Race.ALL.value].apply(lambda datum: None if datum ==
-                             "/" or datum == "~" else datum)
-
+    # df[Race.ALL.value].apply(lambda datum: None if datum ==
+    #                          "/" or datum == "~" else datum)
     df = df[[std_col.STATE_NAME_COL, Race.ALL.value]]
 
-    df[Race.ALL.value] = df[Race.ALL.value].apply(lambda datum: None if
-                                                  datum is None
-                                                  else int(datum))
+    df = missing_data_to_none(df)
+
+    df[Race.ALL.value] = df[Race.ALL.value].astype(float).round(decimals=0)
 
     return df

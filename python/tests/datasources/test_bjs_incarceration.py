@@ -302,7 +302,6 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
         expected_df_sex_state.columns)
     assert_frame_equal(
         mock_df_state_sex, expected_df_sex_state, check_like=True)
-
     assert set(mock_df_state_age.columns) == set(
         expected_df_age_state.columns)
     assert_frame_equal(
