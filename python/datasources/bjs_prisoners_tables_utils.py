@@ -1,5 +1,4 @@
 import ingestion.standardized_columns as std_col
-import pandas as pd
 from ingestion.standardized_columns import Race
 from ingestion import constants
 import re
@@ -17,6 +16,7 @@ PER_100K_COL = std_col.generate_column_name(
 PCT_SHARE_COL = std_col.generate_column_name(
     std_col.PRISON_PREFIX, std_col.PCT_SHARE_SUFFIX)
 
+# maps BJS labels to our race CODES
 BJS_RACE_GROUPS_TO_STANDARD = {
     'White': Race.WHITE_NH,
     'Black': Race.BLACK_NH,
@@ -39,6 +39,28 @@ STANDARD_RACE_CODES = [
 BJS_AGE_GROUPS_JUV_ADULT = [std_col.ALL_VALUE, '0-17', '18+']
 
 BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
+
+
+def filter_cols(df, demo_type):
+
+    cols_to_keep = {
+        std_col.RACE_COL: STANDARD_RACE_CODES,
+        std_col.SEX_COL: BJS_SEX_GROUPS,
+        # std_col.ALL_VALUE: [std_col.ALL_VALUE, Race.ALL.value]
+        # Age uses a very different flow
+    }
+
+    if demo_type not in cols_to_keep.keys():
+        raise ValueError(
+            f'{demo_type} is not a demographic option, must be one of: {list(cols_to_keep.keys())} ')
+
+    df = df[df.columns.intersection(
+        [std_col.STATE_NAME_COL, *cols_to_keep[demo_type]])]
+
+    df[df.columns.intersection(cols_to_keep[demo_type])] = df[df.columns.intersection(cols_to_keep[demo_type])].astype(
+        float).round(decimals=0)
+
+    return df
 
 
 def missing_data_to_none(df):
@@ -105,15 +127,12 @@ def clean_prison_appendix_table_2_df(df):
     df.columns = [swap_race_col_names_to_codes(col_name)
                   for col_name in df.columns]
 
-    df = missing_data_to_none(df)
-
-    df[[*STANDARD_RACE_CODES, "Did not report"]] = df[[*STANDARD_RACE_CODES, "Did not report"]].astype(
-        float).round(decimals=0)
-
     df[Race.UNKNOWN.value] = (
-        df[Race.UNKNOWN.value] + df["Did not report"])
+        df[Race.UNKNOWN.value].astype(
+            float).round(decimals=0) + df["Did not report"].astype(
+            float).round(decimals=0))
 
-    df = df[[std_col.STATE_NAME_COL, *STANDARD_RACE_CODES]]
+    df = filter_cols(df, std_col.RACE_COL)
 
     return df
 
@@ -134,15 +153,41 @@ def clean_prison_table_2_df(df):
     df[std_col.STATE_NAME_COL] = df["Jurisdiction"].combine_first(
         df["Unnamed: 1"])
 
-    df = df.drop(columns=[constants.Sex.MALE, constants.Sex.FEMALE])
+    df = df.rename(
+        columns={'Total.1': std_col.ALL_VALUE,
+                 "Male": "Male-2019",
+                 "Female": "Female-2019",
+                 "Male.1": constants.Sex.MALE,
+                 "Female.1": constants.Sex.FEMALE})
+
+    df = filter_cols(df, std_col.SEX_COL)
+
+    return df
+
+
+def clean_prison_table_23_df(df):
+    """
+    Unique steps needed to clean BJS Prisoners 2020 - Table 23
+    Raw # Prisoners Totals by Territory
+
+    Parameters:
+            df (Pandas Dataframe): specific dataframe from BJS
+            * Note, excess header and footer info must be cleaned in the read_csv()
+            before this step (both mocked + prod flows)
+    Returns:
+            df (Pandas Dataframe): a "clean" dataframe ready for manipulation
+    """
 
     df = df.rename(
-        columns={'Total.1': std_col.ALL_VALUE, "Male.1": constants.Sex.MALE, "Female.1": constants.Sex.FEMALE})
+        columns={'U.S. territory/U.S. commonwealth': std_col.STATE_NAME_COL, 'Total': Race.ALL.value})
 
-    df = df[[std_col.STATE_NAME_COL, std_col.ALL_VALUE,
-             constants.Sex.MALE, constants.Sex.FEMALE]]
+    # since American Samoa reports numbers differently,
+    # we will use their Custody # instead of the null jurisdiction #
+    df[Race.ALL.value] = df[Race.ALL.value].combine_first(
+        df["Total custody population"])
 
-    df[BJS_SEX_GROUPS] = df[BJS_SEX_GROUPS].astype(float).round(decimals=0)
+    # use RACE because we need ALL not All
+    df = filter_cols(df, std_col.RACE_COL)
 
     return df
 
@@ -202,32 +247,4 @@ def clean_prison_table_13_df(df):
     df = df.replace("U.S. total", constants.US_NAME)
 
     df[std_col.AGE_COL] = "0-17"
-    return df
-
-
-def clean_prison_table_23_df(df):
-    """
-    Unique steps needed to clean BJS Prisoners 2020 - Table 23
-    Raw # Prisoners Totals by Territory
-
-    Parameters:
-            df (Pandas Dataframe): specific dataframe from BJS
-            * Note, excess header and footer info must be cleaned in the read_csv()
-            before this step (both mocked + prod flows)
-    Returns:
-            df (Pandas Dataframe): a "clean" dataframe ready for manipulation
-    """
-
-    df = df.rename(
-        columns={'U.S. territory/U.S. commonwealth': std_col.STATE_NAME_COL, 'Total': Race.ALL.value})
-
-    df[Race.ALL.value] = df[Race.ALL.value].combine_first(
-        df["Total custody population"])
-
-    df = df[[std_col.STATE_NAME_COL, Race.ALL.value]]
-
-    df = missing_data_to_none(df)
-
-    df[Race.ALL.value] = df[Race.ALL.value].astype(float).round(decimals=0)
-
     return df
