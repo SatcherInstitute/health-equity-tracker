@@ -1,6 +1,7 @@
 from datasources.data_source import DataSource
 import ingestion.standardized_columns as std_col
 import pandas as pd
+import re
 from ingestion.standardized_columns import Race
 from ingestion import gcs_to_bq_util, dataset_utils, constants
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
@@ -10,15 +11,18 @@ from datasources.bjs_prisoners_tables_utils import (clean_prison_table_11_df,
                                                     clean_prison_table_2_df,
                                                     clean_prison_table_23_df,
                                                     clean_prison_table_13_df,
-                                                    clean_prison_appendix_table_2_df)
-
-
-RAW_COL = std_col.generate_column_name(
-    std_col.PRISON_PREFIX, std_col.RAW_SUFFIX)
-PER_100K_COL = std_col.generate_column_name(
-    std_col.PRISON_PREFIX, std_col.PER_100K_SUFFIX)
-PCT_SHARE_COL = std_col.generate_column_name(
-    std_col.PRISON_PREFIX, std_col.PCT_SHARE_SUFFIX)
+                                                    clean_prison_appendix_table_2_df,
+                                                    STANDARD_RACE_CODES,
+                                                    BJS_SEX_GROUPS,
+                                                    BJS_AGE_GROUPS_JUV_ADULT,
+                                                    NON_STATE_ROWS,
+                                                    FED,
+                                                    STATE,
+                                                    US_TOTAL,
+                                                    RAW_COL,
+                                                    PER_100K_COL,
+                                                    PCT_SHARE_COL
+                                                    )
 
 
 BJS_DATA_TYPES = [
@@ -27,13 +31,6 @@ BJS_DATA_TYPES = [
     # std_col.INCARCERATED_PREFIX
 ]
 
-
-# consts used in BJS Tables
-US_TOTAL = "U.S. total"
-STATE = "State"
-FED = "Federal"
-
-NON_STATE_ROWS = [US_TOTAL, STATE, FED]
 
 # BJS Prisoners Report
 
@@ -53,32 +50,32 @@ bjs_prisoners_tables = {
     TABLE_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10}
 }
 
-
-BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
-
 # need to manually calculate "0-17",
 # BJS_AGE_GROUPS = ["18-19", "20-24", "25-29", "30-34",
 #                   "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65+"]
 
-BJS_AGE_GROUPS_JUV_ADULT = [std_col.ALL_VALUE, '0-17', '18+']
 
+def strip_footnote_refs_from_df(df):
+    """
+    BJS embeds the footnote indicators into the cell values of the tables.
+    This fn uses regex on every cell in the df (including the column names)
+    and removes matching footnote indicators if cell is a string.
 
-BJS_RACE_GROUPS_TO_STANDARD = {
-    'White': Race.WHITE_NH,
-    'Black': Race.BLACK_NH,
-    'Hispanic': Race.HISP,
-    'American Indian/Alaska Native': Race.AIAN_NH,
-    'Asian': Race.ASIAN_NH,
-    'Native Hawaiian/Other Pacific Islander': Race.NHPI_NH,
-    'Two or more races': Race.MULTI_NH,
-    'Other': Race.OTHER_STANDARD_NH,
-    'Unknown': Race.UNKNOWN,
-    # BJS's 'Did not report' gets summed into "Unknown" for pct_share
-    'All': Race.ALL
-}
+    Parameters:
+        df: df from BJS table, potentially with embedded footnotes
+        refs (eg `/b,c`) in some cells.
 
-STANDARD_RACE_CODES = [
-    race_tuple.value for race_tuple in BJS_RACE_GROUPS_TO_STANDARD.values()]
+    Returns:
+        the same df with footnote refs removed from every string cell
+     """
+
+    def strip_footnote_refs(cell_value):
+        return re.sub(r'/[a-z].*', "", cell_value) if isinstance(cell_value, str) else cell_value
+
+    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
+    df = df.applymap(strip_footnote_refs)
+
+    return df
 
 
 def keep_only_states(df):
@@ -221,47 +218,6 @@ def make_prison_national_age_df(source_df_adults, source_df_juveniles):
     return df
 
 
-# def make_prison_national_race_df(source_df):
-
-#     df = keep_only_national(source_df, STANDARD_RACE_CODES)
-#     df = cols_to_rows(
-#         df, STANDARD_RACE_CODES, std_col.RACE_CATEGORY_ID_COL, RAW_COL)
-
-#     return df
-
-
-# def make_prison_national_sex_df(source_df):
-
-#     df = keep_only_national(source_df, BJS_SEX_GROUPS)
-#     df = cols_to_rows(
-#         df, BJS_SEX_GROUPS, std_col.SEX_COL, RAW_COL)
-
-#     return df
-
-
-# def make_prison_state_race_df(source_df, source_df_territories):
-
-#     df = keep_only_states(source_df)
-#     df = df.append(source_df_territories)
-#     df = cols_to_rows(
-#         df, STANDARD_RACE_CODES, std_col.RACE_CATEGORY_ID_COL, RAW_COL)
-
-#     return df
-
-
-# def make_prison_state_sex_df(source_df, source_df_territories):
-
-#     df = keep_only_states(source_df)
-#     df = df.append(source_df_territories)
-#     df[std_col.ALL_VALUE] = df[std_col.ALL_VALUE].combine_first(
-#         df[Race.ALL.value])
-#     df = df.drop(columns=[Race.ALL.value])
-#     df = cols_to_rows(
-#         df, BJS_SEX_GROUPS, std_col.SEX_COL, RAW_COL)
-
-#     return df
-
-
 def make_prison_state_age_df(source_df_juveniles, source_df_totals, source_df_territories):
 
     source_df_juveniles = keep_only_states(source_df_juveniles)
@@ -354,6 +310,9 @@ class BJSData(DataSource):
                     skipfooter=bjs_prisoners_tables[file]["footer_rows"],
                     thousands=',',
                     engine="python")
+
+                source_df = strip_footnote_refs_from_df(source_df)
+
                 loaded_tables[file] = source_df
 
         df_11 = clean_prison_table_11_df(loaded_tables[TABLE_11])

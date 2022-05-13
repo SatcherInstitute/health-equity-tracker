@@ -6,38 +6,29 @@ from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
 from test_utils import get_state_fips_codes_as_df
 from datasources.bjs import (BJSData,
-                             keep_only_states, PCT_SHARE_COL
+                             keep_only_states,
+                             #  keep_only_national,
+                             #  strip_footnote_refs_from_df,
                              )
-
-
 from datasources.bjs_prisoners_tables_utils import (
     missing_data_to_none,
-    strip_footnote_refs,
 )
 
 # UNIT TESTS
 
-
-def test_strip_footnote_refs():
-    assert strip_footnote_refs(
-        "Native Hawaiian/Other Pacific Islander/a") == "Native Hawaiian/Other Pacific Islander"
-    assert strip_footnote_refs("Anything/a,b,c,d,e,z") == "Anything"
-    assert strip_footnote_refs(1) == 1
-
-
-_fake_by_race_state_national_df = pd.DataFrame({
-    std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida"],
+_fake_by_race_df = pd.DataFrame({
+    std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
     'Asian': [1_000_000, "~", 1000],
     'Black': [1_000_000, 100, "/"]
 })
 
-_expected_by_race_state_national_df_missing_to_none = pd.DataFrame({
+_expected_by_race_df_missing_to_none = pd.DataFrame({
     std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida"],
     'Asian': [1_000_000, None, 1000],
     'Black': [1_000_000, 100, None]
 })
 
-_expected_by_race_state_national_df_only_states = pd.DataFrame({
+_expected_by_race_df_only_states = pd.DataFrame({
     std_col.STATE_NAME_COL: ["Maine", "Florida"],
     'Asian': ["~", 1000],
     'Black': [100, "/"]
@@ -46,13 +37,19 @@ _expected_by_race_state_national_df_only_states = pd.DataFrame({
 
 def test_missing_data_to_none():
     assert missing_data_to_none(
-        _fake_by_race_state_national_df).equals(_expected_by_race_state_national_df_missing_to_none)
+        _fake_by_race_df).equals(_expected_by_race_df_missing_to_none)
 
 
 def test_keep_only_states():
     assert keep_only_states(
-        _fake_by_race_state_national_df).reset_index(drop=True).equals(
-            _expected_by_race_state_national_df_only_states.reset_index(drop=True))
+        _fake_by_race_df).reset_index(drop=True).equals(
+            _expected_by_race_df_only_states.reset_index(drop=True))
+
+
+# def test_keep_only_national():
+
+
+# def test_strip_footnote_refs():
 
 
 # MOCKS FOR READING IN TABLES

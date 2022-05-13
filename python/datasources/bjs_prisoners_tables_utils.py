@@ -1,15 +1,22 @@
 import ingestion.standardized_columns as std_col
-import re
 import pandas as pd
 from ingestion.standardized_columns import Race
 from ingestion import constants
+import re
+
+# consts used in BJS Tables
+US_TOTAL = "U.S. total"
+STATE = "State"
+FED = "Federal"
+NON_STATE_ROWS = [US_TOTAL, STATE, FED]
+
 
 RAW_COL = std_col.generate_column_name(
     std_col.PRISON_PREFIX, std_col.RAW_SUFFIX)
-
-
-BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
-
+PER_100K_COL = std_col.generate_column_name(
+    std_col.PRISON_PREFIX, std_col.PER_100K_SUFFIX)
+PCT_SHARE_COL = std_col.generate_column_name(
+    std_col.PRISON_PREFIX, std_col.PCT_SHARE_SUFFIX)
 
 BJS_RACE_GROUPS_TO_STANDARD = {
     'White': Race.WHITE_NH,
@@ -31,14 +38,9 @@ STANDARD_RACE_CODES = [
     race_tuple.value for race_tuple in BJS_RACE_GROUPS_TO_STANDARD.values()]
 
 
-def strip_footnote_refs(cell_value):
-    """
-    BJS embeds the footnote indicators into the cell values
-    This fn uses regex if input is a string to remove those
-    footnote indicators, and returns the cleaned string or original
-    non-string cell_value
-     """
-    return re.sub(r'/[a-z].*', "", cell_value) if isinstance(cell_value, str) else cell_value
+BJS_AGE_GROUPS_JUV_ADULT = [std_col.ALL_VALUE, '0-17', '18+']
+
+BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
 
 
 def drop_unnamed(df):
@@ -127,9 +129,6 @@ def clean_prison_appendix_table_2_df(df):
     df[std_col.STATE_NAME_COL] = df[std_col.STATE_NAME_COL].combine_first(
         df["Unnamed: 1"])
     df = drop_unnamed(df)
-    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
-    df[std_col.STATE_NAME_COL] = df[std_col.STATE_NAME_COL].apply(
-        strip_footnote_refs)
 
     df = missing_data_to_none(df)
     df.columns = [swap_col_name(col_name)
@@ -159,9 +158,6 @@ def clean_prison_table_2_df(df):
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
-    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
-    df = df.applymap(strip_footnote_refs)
-
     df[std_col.STATE_NAME_COL] = df["Jurisdiction"].combine_first(
         df["Unnamed: 1"])
 
@@ -190,9 +186,6 @@ def clean_prison_table_11_df(df):
     Returns:
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
-
-    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
-    df = df.applymap(strip_footnote_refs)
 
     df[std_col.AGE_COL] = df["Age"].combine_first(
         df["Unnamed: 1"])
@@ -227,9 +220,6 @@ def clean_prison_table_13_df(df):
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
-    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
-    df = df.applymap(strip_footnote_refs)
-
     df[std_col.STATE_NAME_COL] = df["Jurisdiction"].combine_first(
         df["Unnamed: 1"])
     df = df.rename(
@@ -255,12 +245,8 @@ def clean_prison_table_23_df(df):
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
-    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
     df = df.rename(
         columns={'U.S. territory/U.S. commonwealth': std_col.STATE_NAME_COL, 'Total': Race.ALL.value})
-
-    df[std_col.STATE_NAME_COL] = df[std_col.STATE_NAME_COL].apply(
-        strip_footnote_refs)
 
     df = missing_data_to_none(df)
 
