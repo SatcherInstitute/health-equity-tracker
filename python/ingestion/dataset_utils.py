@@ -33,11 +33,14 @@ def generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
 
     alls = alls[on_cols + list(rename_cols.values())]
 
-    grouped = df.groupby(on_cols)
+    fips = std_col.COUNTY_FIPS_COL if std_col.COUNTY_NAME_COL in df.columns else std_col.STATE_FIPS_COL
 
-    if len(alls) != len(grouped):
-        raise ValueError(
-            f'This dataset has {len(alls)} alls and {len(grouped)} groups, they should be the same')
+    # Ensure there is exactly one ALL value for each fips group.
+    all_fips = df[fips].drop_duplicates().to_list()
+    for f in all_fips:
+        count = alls[fips].value_counts()[f]
+        if count != 1:
+            raise ValueError(f'Fips {f} has {count} ALL rows, there should be 1')
 
     df = pd.merge(df, alls, how='left', on=on_cols)
 
@@ -153,8 +156,16 @@ def merge_fips_codes(df):
         }
     ])
 
+    unkown_fips = pd.DataFrame([
+        {
+            'state_fips_code': 'Unknown',
+            'state_name': 'Unknown',
+            'state_postal_abbreviation': 'Unknown',
+        }
+    ])
+
     all_fips_codes_df = all_fips_codes_df[['state_fips_code', 'state_name', 'state_postal_abbreviation']]
-    all_fips_codes_df = pd.concat([all_fips_codes_df, united_states_fips])
+    all_fips_codes_df = pd.concat([all_fips_codes_df, united_states_fips, unkown_fips])
 
     all_fips_codes_df = all_fips_codes_df.rename(
         columns={

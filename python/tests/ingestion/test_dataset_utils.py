@@ -98,6 +98,7 @@ _data_without_fips_codes = [
     ['California', 'CA', 'something'],
     ['Georgia', 'GA', 'something_else'],
     ['U.S. Virgin Islands', 'VI', 'something_else_entirely'],
+    ['Unknown', 'Unknown', 'who_am_i'],
 ]
 
 _data_without_state_names = [
@@ -121,6 +122,7 @@ _expected_merged_fips = [
     ['California', 'something', '06'],
     ['Georgia', 'something_else', '13'],
     ['U.S. Virgin Islands', 'something_else_entirely', '78'],
+    ['Unknown', 'who_am_i', 'Unknown'],
 ]
 
 _data_without_pop_numbers = [
@@ -255,20 +257,6 @@ def testGeneratePctShareCol():
     assert_frame_equal(expected_df, df)
 
 
-def testGeneratePctShareColNoTotalError():
-    df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_race_data)).reset_index(drop=True)
-
-    df = df.loc[df['race'] != 'ALL']
-
-    df['population'] = df['population'].astype(int)
-
-    expected_error = r"This dataset has 0 alls and 3 groups, they should be the same"
-    with pytest.raises(ValueError, match=expected_error):
-        df = dataset_utils.generate_pct_share_col(
-            df, {'population': 'pct_share'}, 'race', 'ALL')
-
-
 def testGeneratePctShareColExtraTotalError():
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_fake_race_data)).reset_index(drop=True)
@@ -284,7 +272,7 @@ def testGeneratePctShareColExtraTotalError():
 
     df['population'] = df['population'].astype(int)
 
-    expected_error = r"This dataset has 4 alls and 3 groups, they should be the same"
+    expected_error = r"Fips 01 has 2 ALL rows, there should be 1"
     with pytest.raises(ValueError, match=expected_error):
         df = dataset_utils.generate_pct_share_col(
             df, {'population': 'pct_share'}, 'race', 'ALL')

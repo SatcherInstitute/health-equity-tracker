@@ -16,6 +16,8 @@ from ingestion.dataset_utils import (
         generate_pct_share_col)
 
 
+DC_COUNTY_FIPS = '11001'
+
 EXTRA_FILES = ['cdc_restricted_by_race_and_age_state.csv']
 
 COVID_CONDITION_TO_PREFIX = {
@@ -23,21 +25,6 @@ COVID_CONDITION_TO_PREFIX = {
     std_col.COVID_HOSP_Y: std_col.COVID_HOSP_PREFIX,
     std_col.COVID_DEATH_Y: std_col.COVID_DEATH_PREFIX,
 }
-
-
-def get_col_types(df):
-    column_types = {c: 'STRING' for c in df.columns}
-    for prefix in COVID_CONDITION_TO_PREFIX.values():
-        column_types[generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = 'FLOAT'
-        column_types[generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)] = 'FLOAT'
-        column_types[generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)] = 'FLOAT'
-
-    column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
-
-    if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-        column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-
-    return column_types
 
 
 class CDCRestrictedData(DataSource):
@@ -57,7 +44,6 @@ class CDCRestrictedData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         for geo in ['state', 'county']:
             for demo in ['sex', 'race', 'age']:
-
                 filename = f'cdc_restricted_by_{demo}_{geo}.csv'
                 df = gcs_to_bq_util.load_csv_as_df(
                     gcs_bucket, filename, dtype={'county_fips': str})
@@ -116,7 +102,18 @@ class CDCRestrictedData(DataSource):
             all_columns.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
 
         df = merge_fips_codes(df)
+        fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
+        df = df[df[fips].notna()]
+
+        if geo == 'county':
+            df = remove_bad_fips_cols(df)
+
+        # Drop annoying column that doesnt match any fips code
         df = merge_pop_numbers(df, demo, geo)
+
+        df = null_out_all_unknown_deaths_hosps(df)
+        if geo == 'county':
+            null_out_dc_county_rows(df)
 
         for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
             per_100k_col = generate_column_name(prefix, std_col.PER_100K_SUFFIX)
@@ -201,3 +198,61 @@ def null_out_unneeded_rows(df, breakdown_col, unknown_val):
 
     df = pd.concat([known_df, unknown_df]).reset_index(drop=True)
     return df
+
+
+def null_out_all_unknown_deaths_hosps(df):
+    """If a given geo x breakdown has all unknown hospitalizations or deaths,
+       we treat it as if it has "no data," i.e. we clear the hosp/death fields.
+
+       df: DataFrame to null out rows on"""
+    def null_out_row(row):
+        if row[std_col.COVID_DEATH_UNKNOWN] == row[std_col.COVID_CASES]:
+            row[std_col.COVID_DEATH_Y] = np.nan
+        if row[std_col.COVID_HOSP_UNKNOWN] == row[std_col.COVID_CASES]:
+            row[std_col.COVID_HOSP_Y] = np.nan
+        return row
+
+    return df.apply(null_out_row, axis=1)
+
+
+def null_out_dc_county_rows(df):
+    """Clear all county-level DC data. See issue for more details:
+       https://github.com/SatcherInstitute/health-equity-tracker/issues/872.
+
+       Note: This is an in place function so it doesnt return anything
+
+       df: DataFrame to remove DC info from"""
+    df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, std_col.COVID_CASES] = np.nan
+    df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, std_col.COVID_HOSP_Y] = np.nan
+    df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, std_col.COVID_DEATH_Y] = np.nan
+
+
+def get_col_types(df):
+    """Returns a dict of column types to send to bigquery
+
+      df: DataFrame to generate column types dict for"""
+    column_types = {c: 'STRING' for c in df.columns}
+    for prefix in COVID_CONDITION_TO_PREFIX.values():
+        column_types[generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = 'FLOAT'
+        column_types[generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)] = 'FLOAT'
+        column_types[generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)] = 'FLOAT'
+
+    column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
+
+    if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+        column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
+    return column_types
+
+
+def remove_bad_fips_cols(df):
+    """Throws out any row where the first two digits of the county fips do not
+       equal the state fips. This is a mistake in the dataset and we can not
+       tell where the cases are from.
+
+       df: The DataFrame to toss rows out of."""
+    def remove_row(row):
+        return row[std_col.COUNTY_FIPS_COL][0:2] == row[std_col.STATE_FIPS_COL]
+
+    df = df[df.apply(remove_row, axis=1)]
+    return df.reset_index(drop=True)
