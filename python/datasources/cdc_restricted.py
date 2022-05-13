@@ -50,6 +50,9 @@ class CDCRestrictedData(DataSource):
 
                 df = self.generate_breakdown(df, demo, geo)
 
+                if demo == 'race':
+                    std_col.add_race_columns_from_category_id(df)
+
                 column_types = get_col_types(df)
 
                 table_name = f'by_{demo}_{geo}_processed'
@@ -103,12 +106,13 @@ class CDCRestrictedData(DataSource):
 
         df = merge_fips_codes(df)
         fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
+
+        # Drop annoying column that doesnt match any fips code
         df = df[df[fips].notna()]
 
         if geo == 'county':
             df = remove_bad_fips_cols(df)
 
-        # Drop annoying column that doesnt match any fips code
         df = merge_pop_numbers(df, demo, geo)
 
         df = null_out_all_unknown_deaths_hosps(df)
@@ -251,8 +255,8 @@ def remove_bad_fips_cols(df):
        tell where the cases are from.
 
        df: The DataFrame to toss rows out of."""
-    def remove_row(row):
+    def fips_code_is_good(row):
         return row[std_col.COUNTY_FIPS_COL][0:2] == row[std_col.STATE_FIPS_COL]
 
-    df = df[df.apply(remove_row, axis=1)]
+    df = df[df.apply(fips_code_is_good, axis=1)]
     return df.reset_index(drop=True)

@@ -84,8 +84,8 @@ class AgeAdjustCDCRestricted(DataSource):
             df = get_expected_hosps(df, pop_df_hosp)
             age_adjusted_df = age_adjust_from_expected(df)
 
-            only_race = 'by_race_%s' % geo
-            table_name = '%s-with_age_adjust' % only_race
+            only_race = f'by_race_{geo}_processed'
+            table_name = f'{only_race}-with_age_adjust'
 
             # TODO: Get rid of this when we do all national calculations on the backend
             if geo == 'state':

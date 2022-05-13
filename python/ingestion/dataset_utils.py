@@ -37,8 +37,9 @@ def generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
 
     # Ensure there is exactly one ALL value for each fips group.
     all_fips = df[fips].drop_duplicates().to_list()
+    value_counts = alls[fips].value_counts()
     for f in all_fips:
-        count = alls[fips].value_counts()[f]
+        count = value_counts[f]
         if count != 1:
             raise ValueError(f'Fips {f} has {count} ALL rows, there should be 1')
 
