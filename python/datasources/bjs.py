@@ -6,7 +6,7 @@ from ingestion.standardized_columns import Race
 from ingestion import gcs_to_bq_util, dataset_utils, constants
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
 from ingestion.gcs_to_bq_util import fetch_zip_as_files
-from ingestion.dataset_utils import estimate_total
+from ingestion.dataset_utils import estimate_total, generate_per_100k_col
 from datasources.bjs_prisoners_tables_utils import (clean_prison_table_11_df,
                                                     clean_prison_table_2_df,
                                                     clean_prison_table_23_df,
@@ -270,7 +270,8 @@ def post_process(df, breakdown, geo):
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
         float)
 
-    df[PER_100K_COL] = df.apply(calc_per_100k, axis="columns")
+    df = generate_per_100k_col(
+        df, RAW_COL, std_col.POPULATION_COL, PER_100K_COL)
 
     df = dataset_utils.generate_pct_share_col(
         df, RAW_COL, PCT_SHARE_COL, breakdown, std_col.ALL_VALUE)

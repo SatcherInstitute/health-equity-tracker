@@ -10,7 +10,6 @@ from datasources.bjs import (BJSData,
                              keep_only_national,
                              strip_footnote_refs_from_df,
                              cols_to_rows,
-                             calc_per_100k,
                              )
 from datasources.bjs_prisoners_tables_utils import (
     missing_data_to_none,
