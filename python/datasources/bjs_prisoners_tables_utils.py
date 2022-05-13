@@ -36,19 +36,9 @@ BJS_RACE_GROUPS_TO_STANDARD = {
 STANDARD_RACE_CODES = [
     race_tuple.value for race_tuple in BJS_RACE_GROUPS_TO_STANDARD.values()]
 
-
 BJS_AGE_GROUPS_JUV_ADULT = [std_col.ALL_VALUE, '0-17', '18+']
 
 BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
-
-
-def drop_unnamed(df):
-    """
-    Because of the styling on the BJS .csv, some columns end up without names.
-    This fn removes those columns and returns the updated df
-     """
-    df = df.drop(df.filter(regex="Unnamed"), axis="columns")
-    return df
 
 
 def missing_data_to_none(df):
@@ -71,38 +61,16 @@ def missing_data_to_none(df):
     return df
 
 
-def col_to_ints(column: pd.Series):
+def swap_race_col_names_to_codes(col_name: str):
     """
-    Parameters:
+    Swap a BJS race column name for the HET standard race code.
+    BJS uses exclusive races, so equivalent codes will be _NH 
 
+    Parameter:
+        col_name: string representing a BJS table race (eg `American Indian/Alaska Native`)
     Returns:
+        string race code (eg `AIAN_NH`)
     """
-
-    column = column.apply(lambda datum: 0 if
-                          datum is None or
-                          datum == "/" or
-                          datum == "~"
-                          else round(float(datum), 0))
-
-    return column
-
-
-def df_to_ints_or_none(df: pd.DataFrame):
-    """
-    Parameters:
-
-    Returns:
-    """
-
-    df = df.applymap(lambda datum: None if
-                     datum is None
-                     else int(datum))
-
-    return df
-
-
-def swap_race_col_name(col_name: str):
-
     if col_name in BJS_RACE_GROUPS_TO_STANDARD.keys():
         race_tuple = BJS_RACE_GROUPS_TO_STANDARD[col_name]
         return race_tuple.value
@@ -134,20 +102,18 @@ def clean_prison_appendix_table_2_df(df):
     df[std_col.STATE_NAME_COL] = df[std_col.STATE_NAME_COL].combine_first(
         df["Unnamed: 1"])
 
-    df.columns = [swap_race_col_name(col_name)
+    df.columns = [swap_race_col_names_to_codes(col_name)
                   for col_name in df.columns]
-
-    unknowns_as_ints = col_to_ints(df[Race.UNKNOWN.value])
-    df[Race.UNKNOWN.value] = (unknowns_as_ints + df["Did not report"])
 
     df = missing_data_to_none(df)
 
-    df = df[[std_col.STATE_NAME_COL, *STANDARD_RACE_CODES]]
-
-    df[STANDARD_RACE_CODES] = df[STANDARD_RACE_CODES].astype(
+    df[[*STANDARD_RACE_CODES, "Did not report"]] = df[[*STANDARD_RACE_CODES, "Did not report"]].astype(
         float).round(decimals=0)
 
-    # df[STANDARD_RACE_CODES] = df_to_ints_or_none(df[STANDARD_RACE_CODES])
+    df[Race.UNKNOWN.value] = (
+        df[Race.UNKNOWN.value] + df["Did not report"])
+
+    df = df[[std_col.STATE_NAME_COL, *STANDARD_RACE_CODES]]
 
     return df
 
@@ -177,8 +143,6 @@ def clean_prison_table_2_df(df):
              constants.Sex.MALE, constants.Sex.FEMALE]]
 
     df[BJS_SEX_GROUPS] = df[BJS_SEX_GROUPS].astype(float).round(decimals=0)
-
-    # df[BJS_SEX_GROUPS] = df_to_ints_or_none(df[BJS_SEX_GROUPS])
 
     return df
 
@@ -260,8 +224,6 @@ def clean_prison_table_23_df(df):
     df[Race.ALL.value] = df[Race.ALL.value].combine_first(
         df["Total custody population"])
 
-    # df[Race.ALL.value].apply(lambda datum: None if datum ==
-    #                          "/" or datum == "~" else datum)
     df = df[[std_col.STATE_NAME_COL, Race.ALL.value]]
 
     df = missing_data_to_none(df)

@@ -536,7 +536,7 @@
         "state_fips": "06",
         "population_pct": null,
         "prison_per_100k": null,
-        "prison_pct_share": 0.0
+        "prison_pct_share": null
     },
     {
         "state_name": "California",
@@ -2296,7 +2296,7 @@
         "state_fips": "25",
         "population_pct": null,
         "prison_per_100k": null,
-        "prison_pct_share": 0.0
+        "prison_pct_share": null
     },
     {
         "state_name": "Massachusetts",
@@ -2846,7 +2846,7 @@
         "state_fips": "30",
         "population_pct": null,
         "prison_per_100k": null,
-        "prison_pct_share": 0.0
+        "prison_pct_share": null
     },
     {
         "state_name": "Montana",
@@ -3836,7 +3836,7 @@
         "state_fips": "39",
         "population_pct": null,
         "prison_per_100k": null,
-        "prison_pct_share": 3.0
+        "prison_pct_share": null
     },
     {
         "state_name": "Ohio",
@@ -4606,7 +4606,7 @@
         "state_fips": "47",
         "population_pct": null,
         "prison_per_100k": null,
-        "prison_pct_share": 0.0
+        "prison_pct_share": null
     },
     {
         "state_name": "Tennessee",

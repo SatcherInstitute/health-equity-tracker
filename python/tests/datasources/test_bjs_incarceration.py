@@ -12,6 +12,7 @@ from datasources.bjs import (BJSData,
                              )
 from datasources.bjs_prisoners_tables_utils import (
     missing_data_to_none,
+    swap_race_col_names_to_codes,
 )
 
 # UNIT TESTS
@@ -50,6 +51,14 @@ def test_keep_only_states():
 
 
 # def test_strip_footnote_refs():
+
+
+def test_swap_race_col_names_to_codes():
+    assert swap_race_col_names_to_codes(
+        "American Indian/Alaska Native") == "AIAN_NH"
+    assert swap_race_col_names_to_codes(
+        "Middle Eastern") == "Middle Eastern"
+    assert swap_race_col_names_to_codes(123) == 123
 
 
 # MOCKS FOR READING IN TABLES
