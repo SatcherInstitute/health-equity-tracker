@@ -7,8 +7,10 @@ import ingestion.standardized_columns as std_col
 from test_utils import get_state_fips_codes_as_df
 from datasources.bjs import (BJSData,
                              keep_only_states,
-                             #  keep_only_national,
-                             #  strip_footnote_refs_from_df,
+                             keep_only_national,
+                             strip_footnote_refs_from_df,
+                             cols_to_rows,
+                             calc_per_100k,
                              )
 from datasources.bjs_prisoners_tables_utils import (
     missing_data_to_none,
@@ -45,6 +47,44 @@ def test_keep_only_states():
     assert keep_only_states(
         _fake_by_race_df).reset_index(drop=True).equals(
             _expected_by_race_df_only_states.reset_index(drop=True))
+
+
+# print("****")
+# print(keep_only_national(_fake_by_age_df, ["0-17", "18+"]))
+# print(_expected_by_age_df_only_national)
+
+
+def test_keep_only_national():
+    _fake_by_age_df_with_total = pd.DataFrame({
+        std_col.STATE_NAME_COL: ["Federal", "Maine", "Florida", ],
+        '0-17': [1000, 100, 10],
+        '18+': [1_000_000, 100_000, 10_000]
+    })
+
+    _fake_by_age_df_without_total = pd.DataFrame({
+        std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
+        '0-17': [1110, 100, 10],
+        '18+': [1_110_000, 100_000, 10_000]
+    })
+
+    _expected_by_age_df_only_national = pd.DataFrame({
+        std_col.STATE_NAME_COL: ["United States", ],
+        '0-17': [1110],
+        '18+': [1_110_000]
+    })
+
+    assert_frame_equal(
+        keep_only_national(_fake_by_age_df_with_total,
+                           ["0-17", "18+"]),
+        _expected_by_age_df_only_national,
+        check_like=True)
+
+    assert_frame_equal(
+        keep_only_national(_fake_by_age_df_without_total,
+                           ["0-17",
+                            "18+"]),
+        _expected_by_age_df_only_national,
+        check_like=True)
 
 
 # def test_keep_only_national():

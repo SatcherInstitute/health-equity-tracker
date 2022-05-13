@@ -64,7 +64,7 @@ def missing_data_to_none(df):
 def swap_race_col_names_to_codes(col_name: str):
     """
     Swap a BJS race column name for the HET standard race code.
-    BJS uses exclusive races, so equivalent codes will be _NH 
+    BJS uses exclusive races, so equivalent codes will be _NH
 
     Parameter:
         col_name: string representing a BJS table race (eg `American Indian/Alaska Native`)
