@@ -82,6 +82,27 @@ def test_keep_only_national():
         check_like=True)
 
 
+def test_cols_to_rows():
+
+    _fake_bjs_table_df = pd.DataFrame({
+        std_col.STATE_NAME_COL: ["Maine", "Florida", ],
+        'Asian': [100, 200],
+        'Black': [1000, 2000]
+    })
+
+    _expected_bjs_table_df_flipped_cols_to_rows = pd.DataFrame({
+        std_col.STATE_NAME_COL: ["Maine", "Florida", "Maine", "Florida", ],
+        'race': ["Asian", "Asian", "Black", "Black"],
+        'some_value': [100, 200, 1000, 2000]
+    })
+
+    assert_frame_equal(
+        cols_to_rows(_fake_bjs_table_df, [
+            "Asian", "Black"], "race", "some_value"),
+        _expected_bjs_table_df_flipped_cols_to_rows,
+        check_like=True)
+
+
 def test_strip_footnote_refs():
     _fake_df_with_footnote_refs = pd.DataFrame({
         std_col.STATE_NAME_COL: ["U.S. total/a", "Maine/b,c", "Florida", ],
