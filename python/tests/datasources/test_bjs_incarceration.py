@@ -49,11 +49,6 @@ def test_keep_only_states():
             _expected_by_race_df_only_states.reset_index(drop=True))
 
 
-# print("****")
-# print(keep_only_national(_fake_by_age_df, ["0-17", "18+"]))
-# print(_expected_by_age_df_only_national)
-
-
 def test_keep_only_national():
     _fake_by_age_df_with_total = pd.DataFrame({
         std_col.STATE_NAME_COL: ["Federal", "Maine", "Florida", ],
@@ -87,10 +82,23 @@ def test_keep_only_national():
         check_like=True)
 
 
-# def test_keep_only_national():
+def test_strip_footnote_refs():
+    _fake_df_with_footnote_refs = pd.DataFrame({
+        std_col.STATE_NAME_COL: ["U.S. total/a", "Maine/b,c", "Florida", ],
+        'Asian/e': [1, 2, 3],
+        'Black': [4, 5, 6]
+    })
 
+    _expected_df_stripped_of_footnote_refs = pd.DataFrame({
+        std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
+        'Asian': [1, 2, 3],
+        'Black': [4, 5, 6]
+    })
 
-# def test_strip_footnote_refs():
+    assert_frame_equal(
+        strip_footnote_refs_from_df(_fake_df_with_footnote_refs),
+        _expected_df_stripped_of_footnote_refs,
+        check_like=True)
 
 
 def test_swap_race_col_names_to_codes():
@@ -215,9 +223,9 @@ GOLDEN_DATA = {
 
 # RUN INTEGRATION TESTS ON NATIONAL LEVEL
 
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
+@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=get_state_fips_codes_as_df())
 @ mock.patch('datasources.bjs.fetch_zip_as_files',
              return_value=get_test_zip_as_files())
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
