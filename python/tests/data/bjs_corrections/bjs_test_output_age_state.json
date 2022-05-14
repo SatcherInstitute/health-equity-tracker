@@ -4,7 +4,7 @@
         "age": "All",
         "state_fips": "01",
         "population_pct": 100.0,
-        "prison_per_100k": 519.4,
+        "prison_per_100k": 519.0,
         "prison_pct_share": 100.0
     },
     {
@@ -12,7 +12,7 @@
         "age": "0-17",
         "state_fips": "01",
         "population_pct": 22.5,
-        "prison_per_100k": 0.1,
+        "prison_per_100k": 0.0,
         "prison_pct_share": 0.0
     },
     {

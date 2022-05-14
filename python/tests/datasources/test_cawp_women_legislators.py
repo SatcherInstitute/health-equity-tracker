@@ -186,8 +186,8 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
     mock_df_national = mock_bq.call_args_list[1].args[0]
 
     # save NATIONAL results to file
-    mock_df_national.to_json(
-        "cawp-run-results-national.json", orient="records")
+    # mock_df_national.to_json(
+    #     "cawp-run-results-national.json", orient="records")
 
     # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
     assert set(mock_df_national) == set(
@@ -255,8 +255,8 @@ def testWriteStateLevelToBq(mock_bq: mock.MagicMock,
     mock_df_state = mock_bq.call_args_list[0].args[0]
 
     # save STATE results to file
-    mock_df_state.to_json(
-        "cawp-run-results-state.json", orient="records")
+    # mock_df_state.to_json(
+    #     "cawp-run-results-state.json", orient="records")
 
     # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
     assert set(mock_df_state) == set(

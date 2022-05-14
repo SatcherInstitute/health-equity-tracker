@@ -4,7 +4,7 @@
         "sex": "Female",
         "state_fips": "01",
         "population_pct": 51.6,
-        "prison_per_100k": 85.9,
+        "prison_per_100k": 86.0,
         "prison_pct_share": 8.5
     },
     {
@@ -12,7 +12,7 @@
         "sex": "Male",
         "state_fips": "01",
         "population_pct": 48.4,
-        "prison_per_100k": 981.9,
+        "prison_per_100k": 982.0,
         "prison_pct_share": 91.5
     },
     {
@@ -20,7 +20,7 @@
         "sex": "All",
         "state_fips": "01",
         "population_pct": 100.0,
-        "prison_per_100k": 519.4,
+        "prison_per_100k": 519.0,
         "prison_pct_share": 100.0
     },
     {

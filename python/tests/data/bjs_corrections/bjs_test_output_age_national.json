@@ -100,7 +100,7 @@
         "age": "0-17",
         "state_fips": "00",
         "population_pct": 22.6,
-        "prison_per_100k": 0.5,
+        "prison_per_100k": 0.0,
         "prison_pct_share": 0.03
     }
 ]
