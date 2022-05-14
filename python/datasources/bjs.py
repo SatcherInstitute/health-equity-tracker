@@ -55,6 +55,35 @@ bjs_prisoners_tables = {
 #                   "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65+"]
 
 
+def load_tables(zip_url: str):
+    """
+    Loads all of the tables needed from remote zip file,
+    applying specific cropping of header/footer rows
+
+        Parameters:
+            zip_url: string with url where the .zip can be found with the specific tables
+        Returns:
+            a dictionary mapping <filename.csv>: <table as dataframe>. The dataframes have 
+            been partially formatted, but still need to be cleaned before using in generate_breakdown
+    """
+    loaded_tables = {}
+    files = fetch_zip_as_files(zip_url)
+    for file in files.namelist():
+        if file in bjs_prisoners_tables:
+            source_df = pd.read_csv(
+                files.open(file),
+                encoding="ISO-8859-1",
+                skiprows=bjs_prisoners_tables[file]["header_rows"],
+                skipfooter=bjs_prisoners_tables[file]["footer_rows"],
+                thousands=',',
+                engine="python",
+            )
+
+            source_df = strip_footnote_refs_from_df(source_df)
+            loaded_tables[file] = missing_data_to_none(source_df)
+    return loaded_tables
+
+
 def strip_footnote_refs_from_df(df):
     """
     BJS embeds the footnote indicators into the cell values of the tables.
@@ -321,22 +350,7 @@ class BJSData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        loaded_tables = {}
-        files = fetch_zip_as_files(BJS_PRISONERS_ZIP)
-        for file in files.namelist():
-            if file in bjs_prisoners_tables:
-                source_df = pd.read_csv(
-                    files.open(file),
-                    encoding="ISO-8859-1",
-                    skiprows=bjs_prisoners_tables[file]["header_rows"],
-                    skipfooter=bjs_prisoners_tables[file]["footer_rows"],
-                    thousands=',',
-                    engine="python",
-                )
-
-                source_df = strip_footnote_refs_from_df(source_df)
-                loaded_tables[file] = missing_data_to_none(source_df)
-
+        loaded_tables = load_tables(BJS_PRISONERS_ZIP)
         df_11 = clean_prison_table_11_df(loaded_tables[TABLE_11])
         df_13 = clean_prison_table_13_df(loaded_tables[TABLE_13])
         df_2 = clean_prison_table_2_df(loaded_tables[TABLE_2])

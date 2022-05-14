@@ -6,6 +6,7 @@ from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
 from test_utils import get_state_fips_codes_as_df
 from datasources.bjs import (BJSData,
+                             bjs_prisoners_tables,
                              keep_only_states,
                              keep_only_national,
                              strip_footnote_refs_from_df,
@@ -187,9 +188,21 @@ def test_swap_race_col_names_to_codes():
 # MOCKS FOR READING IN TABLES
 
 
-def get_test_zip_as_files():
-    files = ZipFile(os.path.join(TEST_DIR, 'p20st.zip'))
-    return files
+def get_test_table_files():
+
+    loaded_tables = {}
+    for file in bjs_prisoners_tables.keys():
+        if file in bjs_prisoners_tables:
+            source_df = pd.read_csv(os.path.join(
+                TEST_DIR, f'bjs_test_input_{file}'),
+                encoding="ISO-8859-1",
+                thousands=',',
+                engine="python",
+            )
+
+            source_df = strip_footnote_refs_from_df(source_df)
+            loaded_tables[file] = missing_data_to_none(source_df)
+    return loaded_tables
 
 
 def get_race_pop_data_as_df_state():
@@ -301,8 +314,8 @@ GOLDEN_DATA = {
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
-@ mock.patch('datasources.bjs.fetch_zip_as_files',
-             return_value=get_test_zip_as_files())
+@ mock.patch('datasources.bjs.load_tables',
+             return_value=get_test_table_files())
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
 def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
