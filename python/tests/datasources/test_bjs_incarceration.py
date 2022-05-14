@@ -1,6 +1,5 @@
 from unittest import mock
 import os
-from zipfile import ZipFile
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
