@@ -63,8 +63,9 @@ def load_tables(zip_url: str):
         Parameters:
             zip_url: string with url where the .zip can be found with the specific tables
         Returns:
-            a dictionary mapping <filename.csv>: <table as dataframe>. The dataframes have 
-            been partially formatted, but still need to be cleaned before using in generate_breakdown
+            a dictionary mapping <filename.csv>: <table as dataframe>. The dataframes have
+            been partially formatted, but still need to be cleaned before using in
+            generate_breakdown
     """
     loaded_tables = {}
     files = fetch_zip_as_files(zip_url)
