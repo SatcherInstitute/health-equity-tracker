@@ -40,7 +40,17 @@ BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
 
 
 def filter_cols(df, demo_type):
+    """
+    Takes a df, removes any columns that aren't either state_name or a relevant demographic group,
+    and converts all data in those demographic columns to floats
 
+    Parameters:
+            df (Pandas Dataframe): a dataframe with any columns
+            demo_type: string "race_or_ethnicity" | "sex" to decide demographic groups
+
+    Returns:
+            df (Pandas Dataframe): the same dataframe with extra columns removed and data values as floats
+    """
     cols_to_keep = {
         std_col.RACE_COL: STANDARD_RACE_CODES,
         std_col.SEX_COL: BJS_SEX_GROUPS,
@@ -69,7 +79,6 @@ def missing_data_to_none(df):
     Returns:
             df (Pandas Dataframe): a dataframe with all missing values set to `None`
     """
-
     df = df.applymap(lambda datum: None if datum ==
                      "/" or datum == "~" else datum)
 

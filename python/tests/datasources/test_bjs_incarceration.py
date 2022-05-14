@@ -14,9 +14,31 @@ from datasources.bjs import (BJSData,
 from datasources.bjs_prisoners_tables_utils import (
     missing_data_to_none,
     swap_race_col_names_to_codes,
+    filter_cols
 )
 
+
 # UNIT TESTS
+
+def test_filter_cols():
+
+    _fake_by_sex_df = pd.DataFrame({
+        std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
+        'Male': [2.0, 4.0, 6.0],
+        'Female': [1.0, 3.0, 5.0],
+        'ignored_values': [1.0, 1.0, 1.0]
+    })
+
+    _expected_by_sex_filtered_cols = pd.DataFrame({
+        std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
+        'Male': [2.0, 4.0, 6.0],
+        'Female': [1.0, 3.0, 5.0],
+    })
+    assert_frame_equal(
+        filter_cols(_fake_by_sex_df, std_col.SEX_COL),
+        _expected_by_sex_filtered_cols,
+        check_like=True)
+
 
 _fake_by_race_df = pd.DataFrame({
     std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
