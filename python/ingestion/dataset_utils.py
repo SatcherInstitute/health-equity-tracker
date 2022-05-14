@@ -231,7 +231,10 @@ def merge_pop_numbers(df, demo, loc):
 def estimate_total(row, condition_name_per_100k):
     """Returns an estimate of the total number of people with a given condition.
 
-       condition_name_per_100k: string column name of the condition per_100k to estimate the total of"""
+        Parameters:
+            row: a dataframe row containing a "per_100k" column with values for the incidence rate
+                and a "population" column containing the total number of people
+            condition_name_per_100k: string column name of the "per_100k" referenced above used for the calc"""
 
     if (pd.isna(row[condition_name_per_100k]) or
         pd.isna(row[std_col.POPULATION_COL]) or

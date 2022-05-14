@@ -122,12 +122,23 @@ def test_strip_footnote_refs():
 
 
 def test_swap_race_col_names_to_codes():
-    assert swap_race_col_names_to_codes(
-        "American Indian/Alaska Native") == "AIAN_NH"
-    assert swap_race_col_names_to_codes(
-        "Middle Eastern") == "Middle Eastern"
-    assert swap_race_col_names_to_codes(123) == 123
 
+    _fake_df = pd.DataFrame({
+        std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
+        'American Indian/Alaska Native': [1, 2, 3],
+        'Total': [4, 5, 6]
+    })
+
+    _expected_df_swapped_cols = pd.DataFrame({
+        std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
+        'AIAN_NH': [1, 2, 3],
+        'ALL': [4, 5, 6]
+    })
+
+    assert_frame_equal(
+        swap_race_col_names_to_codes(_fake_df),
+        _expected_df_swapped_cols,
+        check_like=True)
 
 # MOCKS FOR READING IN TABLES
 
