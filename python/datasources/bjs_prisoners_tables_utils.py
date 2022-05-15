@@ -130,10 +130,10 @@ def clean_prison_appendix_table_2_df(df):
     df = set_state_col(df)
     df = swap_race_col_names_to_codes(df)
 
-    df[Race.UNKNOWN.value] = (
-        df[Race.UNKNOWN.value].astype(
-            float).round(decimals=0) + df["Did not report"].astype(
-            float).round(decimals=0))
+    df[[Race.UNKNOWN.value, "Did not report"]] = df[[
+        Race.UNKNOWN.value, "Did not report"]].astype(float).round(decimals=0)
+    df[Race.UNKNOWN.value] = df[[Race.UNKNOWN.value,
+                                 "Did not report"]].sum(axis="columns")
     df = filter_cols(df, std_col.RACE_COL)
 
     return df
