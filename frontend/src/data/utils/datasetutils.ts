@@ -6,6 +6,7 @@ import {
   UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
   UHC_DETERMINANTS,
   UHC_VOTER_AGE_DETERMINANTS,
+  ALL_UHC_DETERMINANTS,
 } from "../variables/BrfssProvider";
 import {
   RACE,
@@ -251,13 +252,6 @@ Conditionally hide some of the extra buckets from the table card, which generall
 const showAllGroupIds: VariableId[] = [
   "women_state_legislatures",
   "women_us_congress",
-];
-
-// only for UHC variables
-const ALL_UHC_DETERMINANTS = [
-  ...UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
-  ...UHC_VOTER_AGE_DETERMINANTS,
-  ...UHC_DETERMINANTS,
 ];
 
 export function getExclusionList(
