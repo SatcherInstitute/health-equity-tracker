@@ -143,6 +143,23 @@ export const CDC_AGE_BUCKETS = [
   "Total",
 ];
 
+export const UNUSED_BUCKETS = ["18+", "65-69", "70-74", "75-79", "80-84"];
+
+export const BJS_AGE_BUCKETS = [
+  "0-17",
+  "18-19",
+  "20-24",
+  "25-29",
+  "30-34",
+  "35-39",
+  "40-44",
+  "45-49",
+  "50-54",
+  "55-59",
+  "60-64",
+  "65+",
+] as const;
+
 // COMBINE ALL AGE GROUP OPTIONS INTO A SINGLE ARRAY
 export const AGE_BUCKETS = [
   "All",
@@ -150,6 +167,8 @@ export const AGE_BUCKETS = [
   ...DECADE_PLUS_5_AGE_BUCKETS,
   ...BROAD_AGE_BUCKETS,
   ...CDC_AGE_BUCKETS,
+  ...BJS_AGE_BUCKETS,
+  ...UNUSED_BUCKETS,
 ] as const;
 
 // ENUMERATE THOSE PROPERTIES TO CREATE AN AGE-GROUP TYPE
