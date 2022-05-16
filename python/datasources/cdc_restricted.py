@@ -116,8 +116,6 @@ class CDCRestrictedData(DataSource):
         df = merge_pop_numbers(df, demo, geo)
 
         df = null_out_all_unknown_deaths_hosps(df)
-        if geo == 'county':
-            null_out_dc_county_rows(df)
 
         for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
             per_100k_col = generate_column_name(prefix, std_col.PER_100K_SUFFIX)
@@ -142,6 +140,12 @@ class CDCRestrictedData(DataSource):
 
         df = df[all_columns]
         self.clean_frame_column_names(df)
+
+        sortby_cols = [fips, demo_col]
+        df = df.sort_values(by=sortby_cols).reset_index(drop=True)
+
+        if geo == 'county':
+            null_out_dc_county_rows(df)
 
         end = time.time()
         print("took", round(end - start, 2), f"seconds to process {demo} {geo}")
@@ -226,9 +230,15 @@ def null_out_dc_county_rows(df):
        Note: This is an in place function so it doesnt return anything
 
        df: DataFrame to remove DC info from"""
-    df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, std_col.COVID_CASES] = np.nan
-    df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, std_col.COVID_HOSP_Y] = np.nan
-    df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, std_col.COVID_DEATH_Y] = np.nan
+    for prefix in COVID_CONDITION_TO_PREFIX.values():
+        df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS,
+               generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = np.nan
+        df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS,
+               generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)] = np.nan
+        df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS,
+               generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)] = np.nan
+
+    df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, std_col.POPULATION_PCT_COL] = np.nan
 
 
 def get_col_types(df):

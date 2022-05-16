@@ -4,3 +4,6 @@ county_fips,county_name,state_postal,sex,cases,hosp_y,hosp_n,hosp_unknown,death_
 06123,San Mateo County,CA,All,18,5,6,7,5,5,8
 06123,San Mateo County,CA,Unknown,7,1,2,4,3,0,4
 06123,San Mateo County,MA,Unknown,7,1,2,4,3,0,4
+11001,District of Columbia,DC,Female,6,2,3,0,1,2,2
+11001,District of Columbia,DC,All,6,2,3,0,1,2,2
+12345,All null county,FL,All,6,0,0,6,2,0,0
