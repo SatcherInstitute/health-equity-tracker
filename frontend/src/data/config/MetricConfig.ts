@@ -4,6 +4,19 @@
 // TODO: integrate strings from Category / Madlib into the Metric Config
 // so ALL related topic data is contained in a single object
 
+import { BreakdownVar } from "../query/Breakdowns";
+import {
+  BROAD_AGE_BUCKETS,
+  CDC_AGE_BUCKETS,
+  DECADE_AGE_BUCKETS,
+  DECADE_PLUS_5_AGE_BUCKETS,
+  NON_STANDARD_RACES,
+  SEX_GROUPS,
+  STANDARD_RACES,
+  STANDARD_RACES_API,
+  VOTER_AGE_BUCKETS,
+} from "../utils/Constants";
+
 export type DropdownVarId =
   | "covid"
   | "diabetes"
@@ -175,6 +188,7 @@ export type VariableConfig = {
   variableDefinition?: string;
   metrics: Record<string, MetricConfig>; // TODO - strongly type key
   surveyCollectedData?: boolean;
+  buckets?: Partial<Record<BreakdownVar, any>>;
 };
 
 const populationPctTitle = "Population Share";
@@ -308,6 +322,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Cases",
       variableFullDisplayName: "COVID-19 Cases",
       variableDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: DECADE_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         count: {
           metricId: "covid_cases",
@@ -360,6 +379,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Deaths",
       variableFullDisplayName: "COVID-19 Deaths",
       variableDefinition: `The number of people who died due to COVID-19.`,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: DECADE_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         count: {
           metricId: "covid_deaths",
@@ -413,6 +437,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Hospitalizations",
       variableFullDisplayName: "COVID-19 Hospitalizations",
       variableDefinition: `The number of people hospitalized at any point while ill with COVID-19.`,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: DECADE_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         count: {
           metricId: "covid_hosp",
@@ -469,6 +498,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Vaccinations",
       variableFullDisplayName: "COVID-19 Vaccinations",
       variableDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
+      buckets: {
+        race_and_ethnicity: [...STANDARD_RACES, ...NON_STANDARD_RACES],
+        age: CDC_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         per100k: {
           metricId: "vaccinated_per_100k",
@@ -519,6 +553,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Suicides",
       variableDefinition: `Deaths due to intentional self-harm.`,
       surveyCollectedData: true,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: DECADE_PLUS_5_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         pct_share: {
           metricId: "suicide_pct_share",
@@ -555,6 +594,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Depression Cases",
       variableDefinition: `Adults who reported being told by a health professional that they have a depressive disorder including depression, major depression, minor depression or dysthymia.`,
       surveyCollectedData: true,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: BROAD_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         pct_share: {
           metricId: "depression_pct_share",
@@ -591,6 +635,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Excessive Drinking Cases",
       variableDefinition: `Adults who reported binge drinking (four or more [females] or five or more [males] drinks on one occasion in the past 30 days) or heavy drinking (eight or more [females] or 15 or more [males] drinks per week).`,
       surveyCollectedData: true,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: BROAD_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         pct_share: {
           metricId: "excessive_drinking_pct_share",
@@ -628,6 +677,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Non-medical Drug Use",
       variableDefinition: `Adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months. Note: This data type includes both of the other opioid-related data types: “Non-medical Use of Prescription Opioids” and “Use of Illicit Opioids”.`,
       surveyCollectedData: true,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: BROAD_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         pct_share: {
           metricId: "non_medical_drug_use_pct_share",
@@ -662,6 +716,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Non-medical Prescription Opioid Use",
       variableDefinition: `Adults who reported using illicit opioids. Note: This is a subset of the “Non-medical Drug Use” data type.`,
       surveyCollectedData: true,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: BROAD_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         pct_share: {
           metricId: "non_medical_rx_opioid_use_pct_share",
@@ -698,6 +757,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Illicit Opioid Use",
       variableDefinition: `Adults who reported using prescription opioids non-medically. Note: This is a subset of the “Non-medical Drug Use” data type.`,
       surveyCollectedData: true,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: BROAD_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         pct_share: {
           metricId: "illicit_opioid_use_pct_share",
@@ -735,6 +799,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Frequent Mental Distress Cases",
       variableDefinition: `Adults who reported their mental health was not good 14 or more days in the past 30 days.`,
       surveyCollectedData: true,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: BROAD_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         pct_share: {
           metricId: "frequent_mental_distress_pct_share",
@@ -771,6 +840,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Diabetes",
       variableDefinition: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
       surveyCollectedData: true,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: BROAD_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         pct_share: {
           metricId: "diabetes_pct_share",
@@ -807,6 +881,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "COPD",
       variableDefinition: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
       surveyCollectedData: true,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: BROAD_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         pct_share: {
           metricId: "copd_pct_share",
@@ -848,6 +927,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         are not considered comprehensive health coverage. Likewise, other types of insurance like
         dental, vision, life, and disability insurance are not considered comprehensive health
         insurance coverage.`,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: DECADE_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         per100k: {
           metricId: "health_insurance_per_100k",
@@ -883,6 +967,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Poverty",
       variableFullDisplayName: "Individuals Below The Poverty Line",
       variableDefinition: `Following the Office of Management and Budget's (OMB) Statistical Policy Directive 14, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. The official poverty thresholds do not vary geographically, but they are updated for inflation using the Consumer Price Index (CPI-U). The official poverty definition uses money income before taxes and does not include capital gains or noncash benefits (such as public housing, Medicaid, and food stamps).`,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: DECADE_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         per100k: {
           metricId: "poverty_per_100k",
@@ -919,6 +1008,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Preventable Hospitalizations",
       variableFullDisplayName: "Preventable Hospitalizations",
       variableDefinition: `Discharges following hospitalization for diabetes with short- or long-term complications, uncontrolled diabetes without complications, diabetes with lower-extremity amputation, chronic obstructive pulmonary disease, angina without a procedure, asthma, hypertension, heart failure, dehydration, bacterial pneumonia or urinary tract infection per 100,000 Medicare beneficiaries ages 18 and older continuously enrolled in Medicare fee-for-service Part A.`,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES_API,
+        age: BROAD_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         per100k: {
           metricId: "preventable_hospitalizations_per_100k",
@@ -955,6 +1049,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Care Avoidance Due to Cost",
       variableDefinition: `Adults who reported a time in the past 12 months when they needed to see a doctor but could not because of cost.`,
       surveyCollectedData: true,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: BROAD_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         per100k: {
           metricId: "avoided_care_per_100k",
@@ -992,6 +1091,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Asthma Cases",
       surveyCollectedData: true,
       variableDefinition: `Adults who reported being told by a health professional that they currently have asthma.`,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: BROAD_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         per100k: {
           metricId: "asthma_per_100k",
@@ -1028,6 +1132,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Cases of Cardiovascular Diseases",
       surveyCollectedData: true,
       variableDefinition: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: BROAD_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         per100k: {
           metricId: "cardiovascular_diseases_per_100k",
@@ -1064,6 +1173,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       surveyCollectedData: true,
       variableFullDisplayName: "Cases of Chronic Kidney Disease",
       variableDefinition: `Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.`,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: BROAD_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         per100k: {
           metricId: "chronic_kidney_disease_per_100k",
@@ -1100,6 +1214,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Voter Participation",
       surveyCollectedData: true,
       variableDefinition: `U.S. citizens ages 18 and older who voted in either the last presidential election, the last midterm national election, or the average of both where that data is available.`,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: VOTER_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         per100k: {
           metricId: "voter_participation_per_100k",
@@ -1136,6 +1255,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Women in US Congress",
       surveyCollectedData: true,
       variableDefinition: `Individuals identifying as women who are currently serving in the Congress of the United States, including members of the U.S. Senate and members, territorial delegates, and resident commissioners of the U.S. House of Representatives. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: DECADE_AGE_BUCKETS,
+        sex: SEX_GROUPS,
+      },
       metrics: {
         per100k: {
           metricId: "women_us_congress_pct",
@@ -1177,6 +1301,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       surveyCollectedData: true,
       variableDefinition: `Individuals identifying as women currently serving in their state or territory’s legislature. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.
       `,
+      buckets: {
+        race_and_ethnicity: STANDARD_RACES,
+        age: [],
+        sex: [],
+      },
       metrics: {
         per100k: {
           metricId: "women_state_leg_pct",
