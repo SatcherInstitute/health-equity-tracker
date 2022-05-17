@@ -48,21 +48,27 @@ export const UHC_DETERMINANTS: MetricId[] = [
   "asthma_ratio_age_adjusted",
 ];
 
-export const UHC_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [
-  "suicide_pct_share",
-  "suicide_per_100k",
-  "suicide_ratio_age_adjusted",
-];
-
 export const UHC_VOTER_AGE_DETERMINANTS: MetricId[] = [
   "voter_participation_pct_share",
   "voter_participation_per_100k",
   "voter_participation_ratio_age_adjusted",
 ];
 
+export const UHC_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [
+  "suicide_pct_share",
+  "suicide_per_100k",
+  "suicide_ratio_age_adjusted",
+];
+
 export const UHC_API_NH_DETERMINANTS: MetricId[] = [
   "preventable_hospitalizations_pct_share",
   "preventable_hospitalizations_per_100k",
+];
+
+export const ALL_UHC_DETERMINANTS = [
+  ...UHC_VOTER_AGE_DETERMINANTS,
+  ...UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
+  ...UHC_DETERMINANTS,
 ];
 
 class BrfssProvider extends VariableProvider {

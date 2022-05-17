@@ -1,7 +1,29 @@
 import { IDataFrame } from "data-forge";
-import { MetricId, VariableId } from "../config/MetricConfig";
+import { MetricId, VariableConfig, VariableId } from "../config/MetricConfig";
 import { BreakdownVar, GeographicBreakdown } from "../query/Breakdowns";
-import { RACE } from "./Constants";
+import {
+  UHC_API_NH_DETERMINANTS,
+  UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
+  UHC_DETERMINANTS,
+  UHC_VOTER_AGE_DETERMINANTS,
+  ALL_UHC_DETERMINANTS,
+} from "../variables/BrfssProvider";
+import {
+  RACE,
+  ALL,
+  BROAD_AGE_BUCKETS,
+  DECADE_PLUS_5_AGE_BUCKETS,
+  VOTER_AGE_BUCKETS,
+  AGE_BUCKETS,
+  ASIAN_NH,
+  NHPI_NH,
+  API_NH,
+  NON_HISPANIC,
+  UNKNOWN,
+  UNKNOWN_ETHNICITY,
+  UNKNOWN_RACE,
+  AGE,
+} from "./Constants";
 import { Row } from "./DatasetTypes";
 
 /**
@@ -221,3 +243,56 @@ export const DATA_GAPS: Partial<
     race_and_ethnicity: ["covid_vaccinations"],
   },
 };
+
+/* 
+
+Conditionally hide some of the extra buckets from the table card, which generally should be showing only 1 complete set of buckets that show the entire population's comparison values.
+
+*/
+const showAllGroupIds: VariableId[] = [
+  "women_state_legislatures",
+  "women_us_congress",
+];
+
+export function getExclusionList(
+  currentVariable: VariableConfig,
+  currentBreakdown: BreakdownVar
+) {
+  const current100k = currentVariable.metrics.per100k.metricId;
+  const currentVariableId = currentVariable.variableId;
+  let exclusionList = [UNKNOWN, UNKNOWN_ETHNICITY, UNKNOWN_RACE];
+
+  if (!showAllGroupIds.includes(currentVariableId)) {
+    exclusionList.push(ALL);
+  }
+
+  if (currentBreakdown === RACE) {
+    exclusionList.push(NON_HISPANIC);
+  }
+
+  // UHC/BRFSS/AHR
+  if (ALL_UHC_DETERMINANTS.includes(current100k) && currentBreakdown === RACE) {
+    UHC_API_NH_DETERMINANTS.includes(current100k)
+      ? exclusionList.push(ASIAN_NH, NHPI_NH)
+      : exclusionList.push(API_NH);
+  }
+
+  if (ALL_UHC_DETERMINANTS.includes(current100k) && currentBreakdown === AGE) {
+    // get correct age buckets for this determinant
+    let determinantBuckets: any[] = [];
+    if (UHC_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k))
+      determinantBuckets.push(...DECADE_PLUS_5_AGE_BUCKETS);
+    else if (UHC_VOTER_AGE_DETERMINANTS.includes(current100k))
+      determinantBuckets.push(...VOTER_AGE_BUCKETS);
+    else if (UHC_DETERMINANTS.includes(current100k))
+      determinantBuckets.push(...BROAD_AGE_BUCKETS);
+
+    // remove all of the other age groups
+    const irrelevantAgeBuckets = AGE_BUCKETS.filter(
+      (bucket) => !determinantBuckets.includes(bucket)
+    );
+    exclusionList.push(...irrelevantAgeBuckets);
+  }
+
+  return exclusionList;
+}
