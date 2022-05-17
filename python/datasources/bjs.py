@@ -249,9 +249,9 @@ def make_prison_national_age_df(source_df, source_df_juveniles):
         df: standardized with raw numbers by age group nationally
     """
 
+    # get total raw and remove that row leaving only age rows
     total_raw = source_df.loc[
         source_df[std_col.AGE_COL] == 'Number of sentenced prisoners', PCT_SHARE_COL].values[0]
-
     source_df = source_df.loc[source_df[std_col.AGE_COL]
                               != 'Number of sentenced prisoners']
 
@@ -260,6 +260,7 @@ def make_prison_national_age_df(source_df, source_df_juveniles):
     df_adults = dataset_utils.merge_pop_numbers(
         df_adults, std_col.AGE_COL, NATIONAL_LEVEL)
 
+    # infer the raw count for each age breakdown
     df_adults[RAW_COL] = df_adults[PCT_SHARE_COL] / 100 * total_raw
 
     df_adults = df_adults[[
@@ -304,7 +305,7 @@ def make_prison_state_age_df(source_df_juveniles, source_df_totals, source_df_te
     source_df_totals = source_df_totals[[
         std_col.STATE_NAME_COL, std_col.ALL_VALUE]]
 
-    # df with TOTAL+JuV AGE / STATE+TERRITORY
+    # df with TOTAL+JUV AGE / STATE+TERRITORY
     df = pd.merge(source_df_juveniles, source_df_totals,
                   on=std_col.STATE_NAME_COL)
     df = df.append(source_df_territories)
@@ -344,13 +345,13 @@ def post_process(df, breakdown, geo):
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
         float)
 
-    df = generate_per_100k_col(
-        df, RAW_COL, std_col.POPULATION_COL, PER_100K_COL)
-    df_old = dataset_utils.generate_pct_share_col(
-        df, RAW_COL, PCT_SHARE_COL, breakdown, std_col.ALL_VALUE)
-
-    print("percent share re-generated")
-    print(df_old.to_string())
+    # if a rate isn't coming directly from BJS, calculate it here
+    if PER_100K_COL not in df.columns:
+        df = generate_per_100k_col(
+            df, RAW_COL, std_col.POPULATION_COL, PER_100K_COL)
+    if PCT_SHARE_COL not in df.columns:
+        df = dataset_utils.generate_pct_share_col(
+            df, RAW_COL, PCT_SHARE_COL, breakdown, std_col.ALL_VALUE)
 
     df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
 

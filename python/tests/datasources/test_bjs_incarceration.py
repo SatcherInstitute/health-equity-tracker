@@ -423,9 +423,9 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
     # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
 
     print("mock")
-    print(mock_df_national_age.to_string())
+    print(mock_df_national_race.to_string())
     print("expected")
-    print(expected_df_age_national.to_string())
+    print(expected_df_race_national.to_string())
 
     assert set(mock_df_national_race.columns) == set(
         expected_df_race_national.columns)

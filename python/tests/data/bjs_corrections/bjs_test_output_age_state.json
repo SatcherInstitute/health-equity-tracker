@@ -9,10 +9,10 @@
     },
     {
         "state_name": "Alabama",
-        "age": "0-17",
+        "age": "15-17",
         "state_fips": "01",
-        "population_pct": 22.5,
-        "prison_per_100k": 0.0,
+        "population_pct": null,
+        "prison_per_100k": null,
         "prison_pct_share": 0.0
     },
     {
@@ -33,7 +33,7 @@
     },
     {
         "state_name": "American Samoa",
-        "age": "0-17",
+        "age": "15-17",
         "state_fips": "60",
         "population_pct": null,
         "prison_per_100k": null,
