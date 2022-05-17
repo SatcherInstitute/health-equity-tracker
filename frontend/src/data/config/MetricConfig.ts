@@ -70,6 +70,7 @@ export type MetricId =
   | "covid_hosp_reporting_population_pct"
   | "covid_hosp_share"
   | "covid_hosp_share_of_known"
+  | "covid_population_pct"
   | "hosp_ratio_age_adjusted"
   | "diabetes_pct_share"
   | "diabetes_per_100k"
@@ -309,18 +310,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "COVID-19 Cases",
       variableDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
       metrics: {
-        count: {
-          metricId: "covid_cases",
-          fullCardTitleName: "COVID-19 Cases",
-          shortLabel: "COVID-19 cases",
-          type: "count",
-          populationComparisonMetric: {
-            metricId: "covid_cases_reporting_population",
-            fullCardTitleName: "Population",
-            shortLabel: "people",
-            type: "count",
-          },
-        },
         pct_share: {
           metricId: "covid_cases_share",
           fullCardTitleName: "Share Of Total COVID-19 Cases",
@@ -328,7 +317,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of COVID-19 cases",
           type: "pct_share",
           populationComparisonMetric: {
-            metricId: "covid_cases_reporting_population_pct",
+            metricId: "covid_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
