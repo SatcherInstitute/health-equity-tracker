@@ -1,9 +1,15 @@
 import { getDataManager } from "../../utils/globals";
-import { MetricId } from "../config/MetricConfig";
+import { MetricId, VariableId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
+
+export const BJS_VARIABLE_IDS: VariableId[] = [
+  "prison",
+  "jail",
+  "combined_incarceration",
+];
 
 export const BJS_DETERMINANTS: MetricId[] = [
   "bjs_population_pct",
@@ -69,11 +75,6 @@ class BjsProvider extends VariableProvider {
         breakdowns.geography === "national") &&
       validDemographicBreakdownRequest
     );
-    // return (
-    //   (
-    //     breakdowns.geography === "national") &&
-    //   validDemographicBreakdownRequest
-    // );
   }
 }
 

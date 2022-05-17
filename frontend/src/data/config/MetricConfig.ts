@@ -43,6 +43,8 @@ export type VariableId =
   | "women_us_congress"
   | "women_state_legislatures"
   | "prison"
+  | "jail"
+  | "combined_incarceration"
   | "covid_vaccinations";
 
 export type MetricId =
