@@ -23,9 +23,9 @@ EXTRA_FILES = [
 
     # TODO: Remove these files once we do national
     # calculations on the backend.
-    'cdc_restricted_by_race_state',
-    'cdc_restricted_by_age_state',
-    'cdc_restricted_by_sex_state',
+    'cdc_restricted_by_race_state.csv',
+    'cdc_restricted_by_age_state.csv',
+    'cdc_restricted_by_sex_state.csv',
 ]
 
 COVID_CONDITION_TO_PREFIX = {
@@ -132,7 +132,7 @@ class CDCRestrictedData(DataSource):
 
         raw_count_to_pct_share = {}
         for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
-            raw_count_to_pct_share[raw_count_col] = generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)
+            raw_count_to_pct_share[raw_count_col] = generate_column_name(prefix, std_col.SHARE_SUFFIX)
 
         all_columns.extend(list(raw_count_to_pct_share.values()))
         df = generate_pct_share_col(df, raw_count_to_pct_share, demo_col, all_val)
@@ -210,7 +210,7 @@ def null_out_unneeded_rows(df, breakdown_col, unknown_val):
 
     for prefix in COVID_CONDITION_TO_PREFIX.values():
         unknown_df[generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)] = np.nan
-        known_df[generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)] = np.nan
+        known_df[generate_column_name(prefix, std_col.SHARE_SUFFIX)] = np.nan
 
     df = pd.concat([known_df, unknown_df]).reset_index(drop=True)
     return df
@@ -242,7 +242,7 @@ def null_out_dc_county_rows(df):
         df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS,
                generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = np.nan
         df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS,
-               generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)] = np.nan
+               generate_column_name(prefix, std_col.SHARE_SUFFIX)] = np.nan
         df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS,
                generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)] = np.nan
 
@@ -256,7 +256,7 @@ def get_col_types(df):
     column_types = {c: 'STRING' for c in df.columns}
     for prefix in COVID_CONDITION_TO_PREFIX.values():
         column_types[generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = 'FLOAT'
-        column_types[generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)] = 'FLOAT'
+        column_types[generate_column_name(prefix, std_col.SHARE_SUFFIX)] = 'FLOAT'
         column_types[generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)] = 'FLOAT'
 
     column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'

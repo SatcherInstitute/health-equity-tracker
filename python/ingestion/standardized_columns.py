@@ -45,6 +45,7 @@ COVID_DEATH_UNKNOWN = "death_unknown"
 
 PER_100K_SUFFIX = "per_100k"
 PCT_SHARE_SUFFIX = "pct_share"
+SHARE_SUFFIX = "share"
 SHARE_OF_KNOWN_SUFFIX = "share_of_known"
 
 COVID_CASES_PREFIX = "covid_cases"
