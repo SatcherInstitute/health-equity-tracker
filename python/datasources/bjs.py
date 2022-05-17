@@ -7,7 +7,8 @@ from ingestion import gcs_to_bq_util, dataset_utils, constants
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
 from ingestion.gcs_to_bq_util import fetch_zip_as_files
 from ingestion.dataset_utils import estimate_total, generate_per_100k_col
-from datasources.bjs_prisoners_tables_utils import (clean_prison_table_11_df,
+from datasources.bjs_prisoners_tables_utils import (clean_prison_table_10_df,
+                                                    # clean_prison_table_11_df,
                                                     clean_prison_table_2_df,
                                                     clean_prison_table_23_df,
                                                     clean_prison_table_13_df,
@@ -36,21 +37,24 @@ BJS_DATA_TYPES = [
 
 BJS_PRISONERS_ZIP = "https://bjs.ojp.gov/content/pub/sheets/p20st.zip"
 
+# NOTE: the rates used in the BJS tables are calculated with a different population source
 APPENDIX_TABLE_2 = "p20stat02.csv"  # RAW# / STATE+FED / RACE
 TABLE_2 = "p20stt02.csv"  # RAW# / STATE+FED / SEX
-TABLE_11 = "p20stt11.csv"  # 100K / AGE / SEX / RACE
+TABLE_10 = "p20stt10.csv"  # PCT_SHARE & RAW TOTAL / AGE / SEX / RACE
+TABLE_11 = "p20stt11.csv"  # 100K & RAW TOTAL / AGE / SEX / RACE
 TABLE_13 = "p20stt13.csv"  # RAW# / STATE+FED / AGE: JUV-ADULT / SEX
 TABLE_23 = "p20stt23.csv"  # RAW# / TERRITORY
 
 bjs_prisoners_tables = {
     APPENDIX_TABLE_2: {"header_rows": [*list(range(10)), 12], "footer_rows": 13},
     TABLE_2: {"header_rows": [*list(range(11))], "footer_rows": 10, },
+    TABLE_10: {"header_rows": [*list(range(11))], "footer_rows": 9},
     TABLE_11: {"header_rows": [*list(range(12))], "footer_rows": 8},
     TABLE_13: {"header_rows": [*list(range(11)), 13, 14], "footer_rows": 6},
     TABLE_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10}
 }
 
-# need to manually calculate "0-17",
+# need to manually calculate Juvenile,
 # BJS_AGE_GROUPS = ["18-19", "20-24", "25-29", "30-34",
 #                   "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65+"]
 
@@ -230,27 +234,36 @@ def generate_breakdown(demo, geo_level, source_df_list, source_df_territories=No
     return df
 
 
-def make_prison_national_age_df(source_df_adults, source_df_juveniles):
+def make_prison_national_age_df(source_df, source_df_juveniles):
     """
-    Takes "cleaned" dataframes representing specific tables 11 and 13
+    Takes "cleaned" dataframes representing specific tables 10 and 13
     from the BJS Prisoners (2020) report and returns a standardized df
     with rows for each combo of place + demographic group,
     and columns for | RAW# | "race" or "age" or "sex" | "state_name"
 
     Parameters:
-        source_df_adults: df of table 11
+        source_df_adults: df of table 10
         source_df_juveniles: df of table 13
 
     Returns:
         df: standardized with raw numbers by age group nationally
     """
+
+    total_raw = source_df.loc[
+        source_df[std_col.AGE_COL] == 'Number of sentenced prisoners', PCT_SHARE_COL].values[0]
+
+    source_df = source_df.loc[source_df[std_col.AGE_COL]
+                              != 'Number of sentenced prisoners']
+
     # standardize df with ADULT RAW # / AGE / USA
-    df_adults = dataset_utils.merge_fips_codes(source_df_adults)
+    df_adults = dataset_utils.merge_fips_codes(source_df)
     df_adults = dataset_utils.merge_pop_numbers(
         df_adults, std_col.AGE_COL, NATIONAL_LEVEL)
-    df_adults[RAW_COL] = df_adults.apply(
-        estimate_total, axis="columns", args=(PER_100K_COL, ))
-    df_adults = df_adults[[RAW_COL, std_col.STATE_NAME_COL, std_col.AGE_COL]]
+
+    df_adults[RAW_COL] = df_adults[PCT_SHARE_COL] * total_raw / 100
+
+    df_adults = df_adults[[
+        RAW_COL, std_col.STATE_NAME_COL, std_col.AGE_COL, PCT_SHARE_COL]]
 
     # standardize df with JUVENILE RAW # / AGE / USA
     df_juv = source_df_juveniles[
@@ -258,6 +271,9 @@ def make_prison_national_age_df(source_df_adults, source_df_juveniles):
 
     # combine to create standardized df of RAW # / AGE / USA
     df = df_adults.append(df_juv)
+
+    print("in make prison national")
+    print(df_adults.to_string())
 
     return df
 
@@ -279,7 +295,8 @@ def make_prison_state_age_df(source_df_juveniles, source_df_totals, source_df_te
     """
     # standardize df with JUVENILE RAW # / AGE / STATE
     source_df_juveniles = keep_only_states(source_df_juveniles)
-    source_df_juveniles = source_df_juveniles.rename(columns={RAW_COL: '0-17'})
+    source_df_juveniles = source_df_juveniles.rename(
+        columns={RAW_COL: '15-17'})
     source_df_juveniles = source_df_juveniles.drop(columns=[std_col.AGE_COL])
 
     # standardize df with TOTAL RAW # / AGE / STATE
@@ -296,7 +313,7 @@ def make_prison_state_age_df(source_df_juveniles, source_df_totals, source_df_te
     df = df.drop(columns=[Race.ALL.value])
 
     # df with TOTAL+JUV+18+ AGE / STATE+TERRITORY
-    df["18+"] = df[std_col.ALL_VALUE] - df['0-17']
+    df["18+"] = df[std_col.ALL_VALUE] - df['15-17']
     df = cols_to_rows(df, BJS_AGE_GROUPS_JUV_ADULT, std_col.AGE_COL, RAW_COL)
 
     return df
@@ -354,7 +371,8 @@ class BJSData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
         loaded_tables = load_tables(BJS_PRISONERS_ZIP)
-        df_11 = clean_prison_table_11_df(loaded_tables[TABLE_11])
+        df_10 = clean_prison_table_10_df(loaded_tables[TABLE_10])
+        # df_11 = clean_prison_table_11_df(loaded_tables[TABLE_11])
         df_13 = clean_prison_table_13_df(loaded_tables[TABLE_13])
         df_2 = clean_prison_table_2_df(loaded_tables[TABLE_2])
         df_app_2 = clean_prison_appendix_table_2_df(
@@ -363,7 +381,7 @@ class BJSData(DataSource):
 
         # BJS tables needed per breakdown
         table_lookup = {
-            f'{std_col.AGE_COL}_{NATIONAL_LEVEL}': [df_11, df_13],
+            f'{std_col.AGE_COL}_{NATIONAL_LEVEL}': [df_10, df_13],
             f'{std_col.RACE_OR_HISPANIC_COL}_{NATIONAL_LEVEL}': [df_app_2],
             f'{std_col.SEX_COL}_{NATIONAL_LEVEL}': [df_2],
             f'{std_col.AGE_COL}_{STATE_LEVEL}': [df_13, df_2, df_23],

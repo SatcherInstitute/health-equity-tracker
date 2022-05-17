@@ -35,7 +35,7 @@ BJS_RACE_GROUPS_TO_STANDARD = {
 
 STANDARD_RACE_CODES = [
     race_tuple.value for race_tuple in BJS_RACE_GROUPS_TO_STANDARD.values()]
-BJS_AGE_GROUPS_JUV_ADULT = [std_col.ALL_VALUE, '0-17', '18+']
+BJS_AGE_GROUPS_JUV_ADULT = [std_col.ALL_VALUE, '15-17', '18+']
 BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
 
 
@@ -189,10 +189,10 @@ def clean_prison_table_23_df(df):
     return df
 
 
-def clean_prison_table_11_df(df):
+def clean_prison_table_10_df(df):
     """
-    Unique steps needed to clean BJS Prisoners 2020 - Table 11
-    Per 100k Prisoners by Age - National
+    Unique steps needed to clean BJS Prisoners 2020 - Table 10
+    % Share of Prisoners by Age - National
 
     Parameters:
             df (Pandas Dataframe): specific dataframe from BJS
@@ -204,17 +204,49 @@ def clean_prison_table_11_df(df):
 
     df[std_col.AGE_COL] = df["Age"].combine_first(
         df["Unnamed: 1"])
+
     # replace all weird characters (specifically EN-DASH –) with normal hyphen
     df[std_col.AGE_COL] = df[std_col.AGE_COL].apply(
         lambda datum: re.sub('[^0-9a-zA-Z ]+', '-', datum))
-    df = df.rename(
-        columns={'Total': PER_100K_COL})
-    df = df[[std_col.AGE_COL, PER_100K_COL]]
+
+    df = df[[std_col.AGE_COL, "Total"]]
+
     df = df.replace("Total", std_col.ALL_VALUE)
     df = df.replace("65 or older", "65+")
-    df[std_col.STATE_NAME_COL] = constants.US_NAME
 
+    df = df.rename(
+        columns={'Total': PCT_SHARE_COL})
+
+    df[std_col.STATE_NAME_COL] = constants.US_NAME
     return df
+
+
+# def clean_prison_table_11_df(df):
+#     """
+#     Unique steps needed to clean BJS Prisoners 2020 - Table 11
+#     Per 100k Prisoners by Age - National
+
+#     Parameters:
+#             df (Pandas Dataframe): specific dataframe from BJS
+#             * Note, excess header and footer info must be cleaned in the read_csv()
+#             before this step (both mocked + prod flows)
+#     Returns:
+#             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
+#     """
+
+#     df[std_col.AGE_COL] = df["Age"].combine_first(
+#         df["Unnamed: 1"])
+#     # replace all weird characters (specifically EN-DASH –) with normal hyphen
+#     df[std_col.AGE_COL] = df[std_col.AGE_COL].apply(
+#         lambda datum: re.sub('[^0-9a-zA-Z ]+', '-', datum))
+#     df = df.rename(
+#         columns={'Total': PER_100K_COL})
+#     df = df[[std_col.AGE_COL, PER_100K_COL]]
+#     df = df.replace("Total", std_col.ALL_VALUE)
+#     df = df.replace("65 or older", "65+")
+#     df[std_col.STATE_NAME_COL] = constants.US_NAME
+
+#     return df
 
 
 def clean_prison_table_13_df(df):
@@ -235,5 +267,5 @@ def clean_prison_table_13_df(df):
         columns={'Total': RAW_COL})
     df = df[[std_col.STATE_NAME_COL, RAW_COL]]
     df = df.replace("U.S. total", constants.US_NAME)
-    df[std_col.AGE_COL] = "0-17"
+    df[std_col.AGE_COL] = "15-17"
     return df

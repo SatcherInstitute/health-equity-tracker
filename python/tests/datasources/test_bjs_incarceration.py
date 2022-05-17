@@ -95,31 +95,31 @@ def test_keep_only_states():
 def test_keep_only_national():
     _fake_by_age_df_with_total = pd.DataFrame({
         std_col.STATE_NAME_COL: ["Federal", "Maine", "Florida", ],
-        '0-17': [1000, 100, 10],
+        '15-17': [1000, 100, 10],
         '18+': [1_000_000, 100_000, 10_000]
     })
 
     _fake_by_age_df_without_total = pd.DataFrame({
         std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
-        '0-17': [1110, 100, 10],
+        '15-17': [1110, 100, 10],
         '18+': [1_110_000, 100_000, 10_000]
     })
 
     _expected_by_age_df_only_national = pd.DataFrame({
         std_col.STATE_NAME_COL: ["United States", ],
-        '0-17': [1110],
+        '15-17': [1110],
         '18+': [1_110_000]
     })
 
     assert_frame_equal(
         keep_only_national(_fake_by_age_df_with_total,
-                           ["0-17", "18+"]),
+                           ["15-17", "18+"]),
         _expected_by_age_df_only_national,
         check_like=True)
 
     assert_frame_equal(
         keep_only_national(_fake_by_age_df_without_total,
-                           ["0-17",
+                           ["15-17",
                             "18+"]),
         _expected_by_age_df_only_national,
         check_like=True)
@@ -421,6 +421,11 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
         "bjs_data-sex_state.json", orient="records")
 
     # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
+
+    print("mock")
+    print(mock_df_national_age.to_string())
+    print("expected")
+    print(expected_df_age_national.to_string())
 
     assert set(mock_df_national_race.columns) == set(
         expected_df_race_national.columns)
