@@ -18,7 +18,15 @@ from ingestion.dataset_utils import (
 
 DC_COUNTY_FIPS = '11001'
 
-EXTRA_FILES = ['cdc_restricted_by_race_and_age_state.csv']
+EXTRA_FILES = [
+    'cdc_restricted_by_race_and_age_state.csv',
+
+    # TODO: Remove these files once we do national
+    # calculations on the backend.
+    'cdc_restricted_by_race_state',
+    'cdc_restricted_by_age_state',
+    'cdc_restricted_by_sex_state',
+]
 
 COVID_CONDITION_TO_PREFIX = {
     std_col.COVID_CASES: std_col.COVID_CASES_PREFIX,
@@ -163,7 +171,7 @@ def generate_share_of_known_col(df, raw_count_to_pct_share_known,
        breakdown_col: String column name represting the demographic breakdown
                       (race/sex/age).
        all_val: String represting an ALL demographic value in the dataframe.
-       unknown_val: String respresting an UNKNOWN value in the dataframe.
+       unknown_val: String representing an UNKNOWN value in the dataframe.
        geo_level: String representing geo level (state/county)"""
 
     unknown_df = df.loc[df[breakdown_col] == unknown_val].reset_index(drop=True)
@@ -196,7 +204,7 @@ def null_out_unneeded_rows(df, breakdown_col, unknown_val):
        df: DataFrame to null out the rows in.
        breakdown_col: String column name represting the demographic breakdown
                       (race/sex/age).
-       unknown_val: String respresting an UNKNOWN value in the dataframe."""
+       unknown_val: String representing an UNKNOWN value in the dataframe."""
     unknown_df = df.loc[df[breakdown_col] == unknown_val].reset_index(drop=True)
     known_df = df.loc[df[breakdown_col] != unknown_val].reset_index(drop=True)
 

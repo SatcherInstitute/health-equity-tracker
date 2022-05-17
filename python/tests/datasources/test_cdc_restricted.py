@@ -192,6 +192,9 @@ def testWriteToBq(
         # We just upload this file as is so it doesnt
         # matter what is in it.
         get_doesnt_matter_as_df(),
+        get_doesnt_matter_as_df(),
+        get_doesnt_matter_as_df(),
+        get_doesnt_matter_as_df(),
     ]
 
     cdc_restricted = CDCRestrictedData()
@@ -202,7 +205,7 @@ def testWriteToBq(
 
     cdc_restricted.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    assert mock_csv.call_count == 7
+    assert mock_csv.call_count == 10
     assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_sex_state.csv'
     assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_race_state.csv'
     assert mock_csv.call_args_list[2].args[1] == 'cdc_restricted_by_age_state.csv'
@@ -210,6 +213,9 @@ def testWriteToBq(
     assert mock_csv.call_args_list[4].args[1] == 'cdc_restricted_by_race_county.csv'
     assert mock_csv.call_args_list[5].args[1] == 'cdc_restricted_by_age_county.csv'
     assert mock_csv.call_args_list[6].args[1] == 'cdc_restricted_by_race_and_age_state.csv'
+    assert mock_csv.call_args_list[7].args[1] == 'cdc_restricted_by_race_state'
+    assert mock_csv.call_args_list[8].args[1] == 'cdc_restricted_by_age_state'
+    assert mock_csv.call_args_list[9].args[1] == 'cdc_restricted_by_sex_state'
 
     assert mock_pop.call_count == 9
     assert mock_pop.call_args_list[0].args[1] == 'by_sex_state'
@@ -222,7 +228,7 @@ def testWriteToBq(
     assert mock_pop.call_args_list[7].args[1] == 'by_race_county_std'
     assert mock_pop.call_args_list[8].args[1] == 'by_age_county'
 
-    assert mock_bq.call_count == 7
+    assert mock_bq.call_count == 10
     assert mock_bq.call_args_list[0].args[2] == 'by_sex_state_processed'
     assert mock_bq.call_args_list[1].args[2] == 'by_race_state_processed'
     assert mock_bq.call_args_list[2].args[2] == 'by_age_state_processed'
@@ -230,3 +236,6 @@ def testWriteToBq(
     assert mock_bq.call_args_list[4].args[2] == 'by_race_county_processed'
     assert mock_bq.call_args_list[5].args[2] == 'by_age_county_processed'
     assert mock_bq.call_args_list[6].args[2] == 'cdc_restricted_by_race_and_age_state'
+    assert mock_bq.call_args_list[7].args[2] == 'cdc_restricted_by_race_state'
+    assert mock_bq.call_args_list[8].args[2] == 'cdc_restricted_by_age_state'
+    assert mock_bq.call_args_list[9].args[2] == 'cdc_restricted_by_sex_state'

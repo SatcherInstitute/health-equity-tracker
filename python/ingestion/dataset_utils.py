@@ -10,9 +10,9 @@ def generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
        Each row must have a corresponding 'ALL' row.
 
        df: DataFrame to generate the `pct_share_col` for.
-       raw_count_col: String column name with the
-                      raw count to use to calculate the `pct_share_col`.
-       pct_share_col: String column name to create with the percent share.
+       raw_count_to_pct_share: A dictionary with the mapping of raw_count
+                               columns to the pct_share columns they should
+                               be used to genrate. eg: ({population: population_pct})
        breakdown_col: The name of column to calculate the percent across.
        all_val: The value representing 'ALL'"""
 
@@ -59,7 +59,7 @@ def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
        raw_count_col: String column name with the total number of people
                       who have the given condition.
        pop_col: String column name with the population number.
-       per_100k_col: String column name to place the generate row in."""
+       per_100k_col: String column name to place the generated row in."""
 
     def calc_per_100k(record):
         per_100k = percent_avoid_rounding_to_zero(1000 * float(record[raw_count_col]), float(record[pop_col]))

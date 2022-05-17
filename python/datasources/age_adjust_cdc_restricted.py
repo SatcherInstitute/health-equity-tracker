@@ -85,7 +85,7 @@ class AgeAdjustCDCRestricted(DataSource):
             age_adjusted_df = age_adjust_from_expected(df)
 
             only_race = f'by_race_{geo}_processed'
-            table_name = f'{only_race}-with_age_adjust_processed'
+            table_name = f'{only_race}-with_age_adjust'
 
             # TODO: Get rid of this when we do all national calculations on the backend
             if geo == 'state':
