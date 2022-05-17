@@ -61,7 +61,7 @@ def filter_cols(df, demo_type):
     df = df[df.columns.intersection(
         [std_col.STATE_NAME_COL, *cols_to_keep[demo_type]])]
     df[df.columns.intersection(cols_to_keep[demo_type])] = df[df.columns.intersection(cols_to_keep[demo_type])].astype(
-        float).round(decimals=0)
+        float)
 
     return df
 
@@ -131,7 +131,7 @@ def clean_prison_appendix_table_2_df(df):
     df = swap_race_col_names_to_codes(df)
 
     df[[Race.UNKNOWN.value, "Did not report"]] = df[[
-        Race.UNKNOWN.value, "Did not report"]].astype(float).round(decimals=0)
+        Race.UNKNOWN.value, "Did not report"]].astype(float)
     df[Race.UNKNOWN.value] = df[[Race.UNKNOWN.value,
                                  "Did not report"]].sum(axis="columns")
     df = filter_cols(df, std_col.RACE_COL)

@@ -163,15 +163,15 @@ def cols_to_rows(df, demographic_groups, demographic_col, value_col):
                    value_name=value_col)
 
 
-def calc_per_100k(row):
-    """
-    Takes a row from a dataframe that includes a RAW_COL and a POPULATION_COL
-    and returns the calculated PER_100K number
-     """
-    if row[std_col.POPULATION_COL] == 0:
-        return None
+# def calc_per_100k(row):
+#     """
+#     Takes a row from a dataframe that includes a RAW_COL and a POPULATION_COL
+#     and returns the calculated PER_100K number
+#      """
+#     if row[std_col.POPULATION_COL] == 0:
+#         return None
 
-    return round((row[RAW_COL] / row[std_col.POPULATION_COL]) * 100_000, 1)
+#     return round((row[RAW_COL] / row[std_col.POPULATION_COL]) * 100_000, 1)
 
 
 def df_to_ints(df: pd.DataFrame):
@@ -260,7 +260,7 @@ def make_prison_national_age_df(source_df, source_df_juveniles):
     df_adults = dataset_utils.merge_pop_numbers(
         df_adults, std_col.AGE_COL, NATIONAL_LEVEL)
 
-    df_adults[RAW_COL] = df_adults[PCT_SHARE_COL] * total_raw / 100
+    df_adults[RAW_COL] = df_adults[PCT_SHARE_COL] / 100 * total_raw
 
     df_adults = df_adults[[
         RAW_COL, std_col.STATE_NAME_COL, std_col.AGE_COL, PCT_SHARE_COL]]
@@ -346,8 +346,11 @@ def post_process(df, breakdown, geo):
 
     df = generate_per_100k_col(
         df, RAW_COL, std_col.POPULATION_COL, PER_100K_COL)
-    df = dataset_utils.generate_pct_share_col(
+    df_old = dataset_utils.generate_pct_share_col(
         df, RAW_COL, PCT_SHARE_COL, breakdown, std_col.ALL_VALUE)
+
+    print("percent share re-generated")
+    print(df_old.to_string())
 
     df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
 
