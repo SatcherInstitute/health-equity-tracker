@@ -42,6 +42,7 @@ COVID_HOSP_UNKNOWN = "hosp_unknown"
 COVID_DEATH_Y = "death_y"
 COVID_DEATH_N = "death_n"
 COVID_DEATH_UNKNOWN = "death_unknown"
+COVID_POPULATION_PCT = "covid_population_pct"
 
 PER_100K_SUFFIX = "per_100k"
 PCT_SHARE_SUFFIX = "pct_share"

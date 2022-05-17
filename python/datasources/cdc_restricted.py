@@ -106,7 +106,7 @@ class CDCRestrictedData(DataSource):
            std_col.STATE_FIPS_COL,
            std_col.STATE_NAME_COL,
            demo_col,
-           std_col.POPULATION_PCT_COL
+           std_col.COVID_POPULATION_PCT,
         ]
 
         if geo == 'county':
@@ -122,6 +122,8 @@ class CDCRestrictedData(DataSource):
             df = remove_bad_fips_cols(df)
 
         df = merge_pop_numbers(df, demo, geo)
+
+        df = df.rename(columns={std_col.POPULATION_PCT_COL: std_col.COVID_POPULATION_PCT})
 
         df = null_out_all_unknown_deaths_hosps(df)
 
@@ -259,7 +261,7 @@ def get_col_types(df):
         column_types[generate_column_name(prefix, std_col.SHARE_SUFFIX)] = 'FLOAT'
         column_types[generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)] = 'FLOAT'
 
-    column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
+    column_types[std_col.COVID_POPULATION_PCT] = 'FLOAT'
 
     if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
