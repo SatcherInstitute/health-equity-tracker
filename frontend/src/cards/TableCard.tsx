@@ -27,6 +27,7 @@ import {
   shouldShowAltPopCompare,
 } from "../data/utils/datasetutils";
 import styles from "./Card.module.scss";
+import { BJS_VARIABLE_IDS } from "../data/variables/BjsProvider";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -85,6 +86,10 @@ export function TableCard(props: TableCardProps) {
     .map((config) => config.metricId)
     .some((metricId) => metricId.includes("covid"));
 
+  const shouldSwapUnder18 = BJS_VARIABLE_IDS.includes(
+    props.variableConfig.variableId
+  );
+
   return (
     <CardWrapper
       minHeight={PRELOAD_HEIGHT}
@@ -97,6 +102,10 @@ export function TableCard(props: TableCardProps) {
     >
       {([queryResponse]) => {
         let data = queryResponse.data;
+
+        if (shouldSwapUnder18) {
+          data = swapUnder18(data);
+        }
 
         if (shouldShowAltPopCompare(props)) {
           // This should only happen in the vaccine kff state case
@@ -158,11 +167,7 @@ export function TableCard(props: TableCardProps) {
             {!queryResponse.dataIsMissing() && (
               <div className={styles.TableChart}>
                 <TableChart
-                  data={data.map((row) =>
-                    row["age"] === "Under 18"
-                      ? { ...row, age: "Juveniles" }
-                      : row
-                  )}
+                  data={data}
                   breakdownVar={props.breakdownVar}
                   metrics={Object.values(metricConfigs).filter(
                     (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
@@ -174,5 +179,11 @@ export function TableCard(props: TableCardProps) {
         );
       }}
     </CardWrapper>
+  );
+}
+
+function swapUnder18(data: any[]) {
+  return data.map((row) =>
+    row["age"] === "15-17" ? { ...row, age: "Under 18 in Adult Prison" } : row
   );
 }
