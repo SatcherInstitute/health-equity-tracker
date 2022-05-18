@@ -4,18 +4,77 @@ from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
 
+from ingestion.standardized_columns import Race
 
-def generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
-    """Returns a DataFrame with a percent share row based on the raw_count_col
+
+def generate_pct_share_col_without_unknowns(df, raw_count_to_pct_share, breakdown_col, all_val):
+    """Returns a DataFrame with a percent share row based on the raw_count_cols
        Each row must have a corresponding 'ALL' row.
+       This function is meant to be used on datasets without any rows where the
+       breakdown value is `Unknown`.
 
        df: DataFrame to generate the `pct_share_col` for.
        raw_count_to_pct_share: A dictionary with the mapping of raw_count
                                columns to the pct_share columns they should
-                               be used to genrate. eg: ({population: population_pct})
+                               be used to genrate. eg: ({'population': 'population_pct'})
        breakdown_col: The name of column to calculate the percent across.
        all_val: The value representing 'ALL'"""
 
+    all_demo_values = set(df[breakdown_col].to_list())
+    if Race.UNKNOWN.value in all_demo_values or 'Unknown' in all_demo_values:
+        raise ValueError(('This dataset contains unknowns, use the'
+                          'generate_pct_share_col_with_unknowns function instead'))
+
+    return _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val)
+
+
+def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
+                                         breakdown_col, all_val, unknown_val):
+    """Returns a DataFrame with a percent share column based on the raw_count_cols.
+       The `pct_share` for the 'unknown' column will the the raw percent share, whereas
+       the `pct_share` for all other columns will be the percent share disregarding unknowns.
+
+       df: DataFrame to generate the share_of_known column for.
+       raw_count_col: String column name with the raw condition count.
+       share_of_known_col: String column name to place the generate share of known
+                           numbers in.
+       breakdown_col: String column name represting the demographic breakdown
+                      (race/sex/age).
+       all_val: String represting an ALL demographic value in the dataframe.
+       unknown_val: String representing an UNKNOWN value in the dataframe."""
+    df = _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val)
+
+    unknown_df = df.loc[df[breakdown_col] == unknown_val].reset_index(drop=True)
+    if len(unknown_df) == 0:
+        raise ValueError(('This dataset does not contains unknowns, use the'
+                          'generate_pct_share_col_without_unknowns function instead'))
+
+    all_df = df.loc[df[breakdown_col] == all_val].reset_index(drop=True)
+
+    df = df.loc[~df[breakdown_col].isin({unknown_val, all_val})]
+
+    groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
+    if std_col.COUNTY_FIPS_COL in df.columns:
+        groupby_cols.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
+
+    df = df.drop(columns=list(raw_count_to_pct_share.values()))
+
+    alls = df.groupby(groupby_cols).sum().reset_index()
+    alls[breakdown_col] = all_val
+    df = pd.concat([df, alls]).reset_index(drop=True)
+
+    df = _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val)
+
+    df = df.loc[df[breakdown_col] != all_val]
+
+    for share_of_known_col in raw_count_to_pct_share.values():
+        all_df[share_of_known_col] = 100.0
+
+    df = pd.concat([df, all_df, unknown_df]).reset_index(drop=True)
+    return df
+
+
+def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
     def calc_pct_share(record, raw_count_col):
         return percent_avoid_rounding_to_zero(
             record[raw_count_col], record[f'{raw_count_col}_all'])

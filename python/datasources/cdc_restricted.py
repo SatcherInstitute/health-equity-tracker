@@ -162,44 +162,6 @@ class CDCRestrictedData(DataSource):
         return df
 
 
-def generate_share_of_known_col(df, raw_count_to_pct_share_known,
-                                breakdown_col, all_val, unknown_val, geo_level):
-    """Generates a share of known column for a condition.
-
-       df: DataFrame to generate the share_of_known column for.
-       raw_count_col: String column name with the raw condition count.
-       share_of_known_col: String column name to place the generate share of known
-                           numbers in.
-       breakdown_col: String column name represting the demographic breakdown
-                      (race/sex/age).
-       all_val: String represting an ALL demographic value in the dataframe.
-       unknown_val: String representing an UNKNOWN value in the dataframe.
-       geo_level: String representing geo level (state/county)"""
-
-    unknown_df = df.loc[df[breakdown_col] == unknown_val].reset_index(drop=True)
-    all_df = df.loc[df[breakdown_col] == all_val].reset_index(drop=True)
-
-    df = df.loc[~df[breakdown_col].isin({unknown_val, all_val})]
-
-    groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
-    if geo_level == 'county':
-        groupby_cols.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
-
-    alls = df.groupby(groupby_cols).sum().reset_index()
-    alls[breakdown_col] = all_val
-    df = pd.concat([df, alls]).reset_index(drop=True)
-
-    df = generate_pct_share_col(df, raw_count_to_pct_share_known, breakdown_col, all_val)
-
-    df = df.loc[df[breakdown_col] != all_val]
-
-    for share_of_known_col in raw_count_to_pct_share_known.values():
-        all_df[share_of_known_col] = 100.0
-
-    df = pd.concat([df, all_df, unknown_df]).reset_index(drop=True)
-    return df
-
-
 def null_out_unneeded_rows(df, breakdown_col, unknown_val):
     """Nulls out rows in the dataframe that will not be used by the frontend.
 
