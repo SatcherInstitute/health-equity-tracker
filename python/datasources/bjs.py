@@ -200,7 +200,7 @@ def generate_breakdown(demo, geo_level, source_df_list, source_df_territories=No
     return df
 
 
-def make_prison_national_age_df(source_df, source_df_juveniles):
+def make_prison_national_age_raw_df(source_df, source_df_juveniles):
     """
     Takes "cleaned" dataframes representing specific tables 10 and 13
     from the BJS Prisoners (2020) report and returns a standardized df
@@ -235,7 +235,7 @@ def make_prison_national_age_df(source_df, source_df_juveniles):
         RAW_COL,
         std_col.STATE_NAME_COL,
         std_col.AGE_COL,
-        PCT_SHARE_COL]]
+    ]]
 
     # standardize df with JUVENILE RAW # / AGE / USA
     df_juv = source_df_juveniles[
@@ -247,7 +247,7 @@ def make_prison_national_age_df(source_df, source_df_juveniles):
     return df
 
 
-def make_prison_state_age_df(source_df_juveniles, source_df_totals, source_df_territories):
+def make_prison_state_age_raw_df(source_df_juveniles, source_df_totals, source_df_territories):
     """
     Takes "cleaned" dataframes representing specific tables 13, 2, and 23
     from the BJS Prisoners (2020) report and returns a standardized df
@@ -366,10 +366,12 @@ class BJSData(DataSource):
                 table_name = f'{breakdown}_{geo_level}'
 
                 if breakdown == std_col.AGE_COL and geo_level == NATIONAL_LEVEL:
-                    df = make_prison_national_age_df(*table_lookup[table_name])
+                    df = make_prison_national_age_raw_df(
+                        *table_lookup[table_name])
 
                 elif breakdown == std_col.AGE_COL and geo_level == STATE_LEVEL:
-                    df = make_prison_state_age_df(*table_lookup[table_name])
+                    df = make_prison_state_age_raw_df(
+                        *table_lookup[table_name])
 
                 else:
                     df = generate_breakdown(
