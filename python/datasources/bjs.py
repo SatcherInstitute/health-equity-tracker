@@ -38,7 +38,6 @@ BJS_PRISONERS_ZIP = "https://bjs.ojp.gov/content/pub/sheets/p20st.zip"
 APPENDIX_TABLE_2 = "p20stat02.csv"  # RAW# / STATE+FED / RACE
 TABLE_2 = "p20stt02.csv"  # RAW# / STATE+FED / SEX
 TABLE_10 = "p20stt10.csv"  # PCT_SHARE & RAW TOTAL / AGE / SEX / RACE
-# TABLE_11 = "p20stt11.csv"  # 100K & RAW TOTAL / AGE / SEX / RACE
 TABLE_13 = "p20stt13.csv"  # RAW# / STATE+FED / AGE: JUV-ADULT / SEX
 TABLE_23 = "p20stt23.csv"  # RAW# / TERRITORY
 
@@ -46,7 +45,6 @@ bjs_prisoners_tables = {
     APPENDIX_TABLE_2: {"header_rows": [*list(range(10)), 12], "footer_rows": 13},
     TABLE_2: {"header_rows": [*list(range(11))], "footer_rows": 10, },
     TABLE_10: {"header_rows": [*list(range(11))], "footer_rows": 8},
-    # TABLE_11: {"header_rows": [*list(range(12))], "footer_rows": 8},
     TABLE_13: {"header_rows": [*list(range(11)), 13, 14], "footer_rows": 6},
     TABLE_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10}
 }
@@ -347,7 +345,6 @@ class BJSData(DataSource):
 
         loaded_tables = load_tables(BJS_PRISONERS_ZIP)
         df_10 = clean_prison_table_10_df(loaded_tables[TABLE_10])
-        # df_11 = clean_prison_table_11_df(loaded_tables[TABLE_11])
         df_13 = clean_prison_table_13_df(loaded_tables[TABLE_13])
         df_2 = clean_prison_table_2_df(loaded_tables[TABLE_2])
         df_app_2 = clean_prison_appendix_table_2_df(

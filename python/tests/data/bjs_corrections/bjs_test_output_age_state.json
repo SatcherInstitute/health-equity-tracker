@@ -11,8 +11,8 @@
         "state_name": "Alabama",
         "age": "15-17",
         "state_fips": "01",
-        "population_pct": null,
-        "prison_per_100k": null,
+        "population_pct": 3.9,
+        "prison_per_100k": 0.0,
         "prison_pct_share": 0.0
     },
     {
