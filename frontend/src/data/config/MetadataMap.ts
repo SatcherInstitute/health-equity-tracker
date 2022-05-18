@@ -197,6 +197,26 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
+    id: "bjs",
+    data_source_name: "Bureau of Justice Statistics (BJS)",
+    data_source_pretty_site_name: "bjs.ojp.gov/",
+    data_source_link: "https://bjs.ojp.gov/",
+    geographic_level: "National, State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Every Few Years",
+    description:
+      "Rates of individuals incarcerated in adult prison facilities.",
+    dataset_ids: [
+      "bjs_data-race_and_ethnicity_national",
+      "bjs_data-race_and_ethnicity_state",
+      "bjs_data-age_national",
+      "bjs_data-age_state",
+      "bjs_data-sex_national",
+      "bjs_data-sex_state",
+    ],
+    downloadable: true,
+  },
+  {
     id: "cawp",
     data_source_name: "Center for American Women in Politics (CAWP)",
     data_source_pretty_site_name: "cawpdata.rutgers.edu",

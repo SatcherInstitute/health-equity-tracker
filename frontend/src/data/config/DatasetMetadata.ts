@@ -203,6 +203,21 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2021",
   },
   {
+    id: "bjs_data-age",
+    name: "Rates of individuals incarcerated in adult prison facilities by Age and State",
+    update_time: "2021",
+  },
+  {
+    id: "bjs_data-race_and_ethnicity",
+    name: "Rates of individuals incarcerated in adult prison facilities by Race/Ethnicity and State",
+    update_time: "2021",
+  },
+  {
+    id: "bjs_data-sex",
+    name: "Rates of individuals incarcerated in adult prison facilities by Sex and State",
+    update_time: "2021",
+  },
+  {
     id: "cawp_data-race_and_ethnicity_national",
     name: "National representation of women by race/ethnicity in the US Congress and across state and territory legislatures",
     update_time: "2022",
