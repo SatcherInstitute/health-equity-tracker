@@ -4,6 +4,8 @@ Arrays to sort through distinct groupings
 Converts to types for TS checking
 */
 
+import { DELIMITER } from "../../charts/utils";
+
 // DEMOGRAPHIC BREAKDOWN CATEGORY TERMS
 export const RACE = "race_and_ethnicity";
 export const AGE = "age";
@@ -152,8 +154,10 @@ export const UNUSED_BUCKETS = [
   "80-84",
 ];
 
+export const UNDER_18_PRISON = `Under 18${DELIMITER}in Adult Prison`;
+
 export const BJS_AGE_BUCKETS = [
-  "15-17",
+  UNDER_18_PRISON,
   "18-19",
   "20-24",
   "25-29",
@@ -167,7 +171,7 @@ export const BJS_AGE_BUCKETS = [
   "65+",
 ] as const;
 
-export const ADULT_JUV_AGE_BUCKETS = ["15-17", "18+"] as const;
+export const ADULT_JUV_AGE_BUCKETS = [UNDER_18_PRISON, "18+"] as const;
 
 // COMBINE ALL AGE GROUP OPTIONS INTO A SINGLE ARRAY
 export const AGE_BUCKETS = [

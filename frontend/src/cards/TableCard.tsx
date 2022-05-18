@@ -82,13 +82,13 @@ export function TableCard(props: TableCardProps) {
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
+  const shouldRemoveExcessRows = BJS_VARIABLE_IDS.includes(
+    props.variableConfig.variableId
+  );
+
   const displayingCovidData = metrics
     .map((config) => config.metricId)
     .some((metricId) => metricId.includes("covid"));
-
-  const shouldSwapUnder18 = BJS_VARIABLE_IDS.includes(
-    props.variableConfig.variableId
-  );
 
   return (
     <CardWrapper
@@ -103,25 +103,8 @@ export function TableCard(props: TableCardProps) {
       {([queryResponse]) => {
         let data = queryResponse.data;
 
-        if (shouldSwapUnder18) {
-          data = swapUnder18(data);
-        }
-
-        if (shouldShowAltPopCompare(props)) {
-          // This should only happen in the vaccine kff state case
-          data = data.map((item) => {
-            const {
-              vaccine_population_pct,
-              acs_vaccine_population_pct,
-              ...restOfItem
-            } = item;
-            return {
-              vaccine_population_pct:
-                vaccine_population_pct || acs_vaccine_population_pct,
-              ...restOfItem,
-            };
-          });
-        }
+        if (shouldRemoveExcessRows) data = removeExcessRows(data);
+        if (shouldShowAltPopCompare(props)) data = fillInAltPops(data);
 
         return (
           <>
@@ -182,8 +165,22 @@ export function TableCard(props: TableCardProps) {
   );
 }
 
-function swapUnder18(data: any[]) {
-  return data.map((row) =>
-    row["age"] === "15-17" ? { ...row, age: "Under 18 in Adult Prison" } : row
-  );
+function removeExcessRows(data: any[]) {
+  return data.filter((row) => row["age"] !== "15-17");
+}
+
+function fillInAltPops(data: any[]) {
+  // This should only happen in the vaccine kff state case
+  return data.map((item) => {
+    const {
+      vaccine_population_pct,
+      acs_vaccine_population_pct,
+      ...restOfItem
+    } = item;
+    return {
+      vaccine_population_pct:
+        vaccine_population_pct || acs_vaccine_population_pct,
+      ...restOfItem,
+    };
+  });
 }

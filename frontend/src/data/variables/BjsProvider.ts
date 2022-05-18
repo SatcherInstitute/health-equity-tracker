@@ -2,6 +2,7 @@ import { getDataManager } from "../../utils/globals";
 import { MetricId, VariableId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { UNDER_18_PRISON } from "../utils/Constants";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
@@ -55,13 +56,14 @@ class BjsProvider extends VariableProvider {
       "acs_2010_population-by_race_and_ethnicity_territory" // We merge this in on the backend
     );
 
-    df = df.renameSeries({
-      population_pct: "bjs_population_pct",
-    });
-
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
 
     df = this.removeUnrequestedColumns(df, metricQuery);
+
+    // swap "15-17" with more frontend label
+    df = df.map((row) =>
+      row["age"] === "15-17" ? { ...row, age: UNDER_18_PRISON } : row
+    );
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
