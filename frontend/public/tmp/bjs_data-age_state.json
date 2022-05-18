@@ -9,7 +9,7 @@
     },
     {
         "state_name": "Alabama",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "01",
         "population_pct": 22.5,
         "prison_per_100k": 0.0,
@@ -33,7 +33,7 @@
     },
     {
         "state_name": "Alaska",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "02",
         "population_pct": 25.0,
         "prison_per_100k": 4.0,
@@ -57,7 +57,7 @@
     },
     {
         "state_name": "Arizona",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "04",
         "population_pct": 23.2,
         "prison_per_100k": 2.0,
@@ -81,7 +81,7 @@
     },
     {
         "state_name": "Arkansas",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "05",
         "population_pct": 23.5,
         "prison_per_100k": 1.0,
@@ -105,7 +105,7 @@
     },
     {
         "state_name": "California",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "06",
         "population_pct": 23.0,
         "prison_per_100k": 0.0,
@@ -129,7 +129,7 @@
     },
     {
         "state_name": "Colorado",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "08",
         "population_pct": 22.5,
         "prison_per_100k": 0.0,
@@ -153,7 +153,7 @@
     },
     {
         "state_name": "Connecticut",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "09",
         "population_pct": 20.8,
         "prison_per_100k": 4.0,
@@ -177,7 +177,7 @@
     },
     {
         "state_name": "Delaware",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "10",
         "population_pct": 21.3,
         "prison_per_100k": 0.0,
@@ -201,7 +201,7 @@
     },
     {
         "state_name": "Florida",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "12",
         "population_pct": 20.0,
         "prison_per_100k": 1.0,
@@ -225,7 +225,7 @@
     },
     {
         "state_name": "Georgia",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "13",
         "population_pct": 24.1,
         "prison_per_100k": 0.0,
@@ -249,7 +249,7 @@
     },
     {
         "state_name": "Hawaii",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "15",
         "population_pct": 21.4,
         "prison_per_100k": 0.0,
@@ -273,7 +273,7 @@
     },
     {
         "state_name": "Idaho",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "16",
         "population_pct": 25.7,
         "prison_per_100k": 0.0,
@@ -297,7 +297,7 @@
     },
     {
         "state_name": "Illinois",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "17",
         "population_pct": 22.6,
         "prison_per_100k": 0.0,
@@ -321,7 +321,7 @@
     },
     {
         "state_name": "Indiana",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "18",
         "population_pct": 23.6,
         "prison_per_100k": 1.0,
@@ -345,7 +345,7 @@
     },
     {
         "state_name": "Iowa",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "19",
         "population_pct": 23.2,
         "prison_per_100k": 1.0,
@@ -369,7 +369,7 @@
     },
     {
         "state_name": "Kansas",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "20",
         "population_pct": 24.4,
         "prison_per_100k": 0.0,
@@ -393,7 +393,7 @@
     },
     {
         "state_name": "Kentucky",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "21",
         "population_pct": 22.7,
         "prison_per_100k": 0.0,
@@ -417,7 +417,7 @@
     },
     {
         "state_name": "Louisiana",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "22",
         "population_pct": 23.7,
         "prison_per_100k": 1.0,
@@ -441,7 +441,7 @@
     },
     {
         "state_name": "Maine",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "23",
         "population_pct": 18.9,
         "prison_per_100k": 0.0,
@@ -465,7 +465,7 @@
     },
     {
         "state_name": "Maryland",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "24",
         "population_pct": 22.3,
         "prison_per_100k": 0.0,
@@ -489,7 +489,7 @@
     },
     {
         "state_name": "Massachusetts",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "25",
         "population_pct": 20.0,
         "prison_per_100k": 0.0,
@@ -513,7 +513,7 @@
     },
     {
         "state_name": "Michigan",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "26",
         "population_pct": 21.9,
         "prison_per_100k": 1.0,
@@ -537,7 +537,7 @@
     },
     {
         "state_name": "Minnesota",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "27",
         "population_pct": 23.3,
         "prison_per_100k": 0.0,
@@ -561,7 +561,7 @@
     },
     {
         "state_name": "Mississippi",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "28",
         "population_pct": 23.9,
         "prison_per_100k": 1.0,
@@ -585,7 +585,7 @@
     },
     {
         "state_name": "Missouri",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "29",
         "population_pct": 22.6,
         "prison_per_100k": 0.0,
@@ -609,7 +609,7 @@
     },
     {
         "state_name": "Montana",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "30",
         "population_pct": 21.7,
         "prison_per_100k": 0.0,
@@ -633,7 +633,7 @@
     },
     {
         "state_name": "Nebraska",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "31",
         "population_pct": 24.8,
         "prison_per_100k": 3.0,
@@ -657,7 +657,7 @@
     },
     {
         "state_name": "Nevada",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "32",
         "population_pct": 22.9,
         "prison_per_100k": 2.0,
@@ -681,7 +681,7 @@
     },
     {
         "state_name": "New Hampshire",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "33",
         "population_pct": 19.3,
         "prison_per_100k": 0.0,
@@ -705,7 +705,7 @@
     },
     {
         "state_name": "New Jersey",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "34",
         "population_pct": 22.1,
         "prison_per_100k": 0.0,
@@ -729,7 +729,7 @@
     },
     {
         "state_name": "New Mexico",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "35",
         "population_pct": 23.3,
         "prison_per_100k": 0.0,
@@ -753,7 +753,7 @@
     },
     {
         "state_name": "New York",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "36",
         "population_pct": 21.0,
         "prison_per_100k": 0.0,
@@ -777,7 +777,7 @@
     },
     {
         "state_name": "North Carolina",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "37",
         "population_pct": 22.4,
         "prison_per_100k": 1.0,
@@ -801,7 +801,7 @@
     },
     {
         "state_name": "North Dakota",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "38",
         "population_pct": 23.2,
         "prison_per_100k": 0.0,
@@ -825,7 +825,7 @@
     },
     {
         "state_name": "Ohio",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "39",
         "population_pct": 22.4,
         "prison_per_100k": 1.0,
@@ -849,7 +849,7 @@
     },
     {
         "state_name": "Oklahoma",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "40",
         "population_pct": 24.3,
         "prison_per_100k": 0.0,
@@ -873,7 +873,7 @@
     },
     {
         "state_name": "Oregon",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "41",
         "population_pct": 21.0,
         "prison_per_100k": 0.0,
@@ -897,7 +897,7 @@
     },
     {
         "state_name": "Pennsylvania",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "42",
         "population_pct": 20.8,
         "prison_per_100k": 0.0,
@@ -921,7 +921,7 @@
     },
     {
         "state_name": "Rhode Island",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "44",
         "population_pct": 19.6,
         "prison_per_100k": 0.0,
@@ -945,7 +945,7 @@
     },
     {
         "state_name": "South Carolina",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "45",
         "population_pct": 22.0,
         "prison_per_100k": 0.0,
@@ -969,7 +969,7 @@
     },
     {
         "state_name": "South Dakota",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "46",
         "population_pct": 24.6,
         "prison_per_100k": 0.0,
@@ -993,7 +993,7 @@
     },
     {
         "state_name": "Tennessee",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "47",
         "population_pct": 22.4,
         "prison_per_100k": 1.0,
@@ -1017,7 +1017,7 @@
     },
     {
         "state_name": "Texas",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "48",
         "population_pct": 26.0,
         "prison_per_100k": 0.0,
@@ -1041,7 +1041,7 @@
     },
     {
         "state_name": "Utah",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "49",
         "population_pct": 29.8,
         "prison_per_100k": 0.0,
@@ -1065,7 +1065,7 @@
     },
     {
         "state_name": "Vermont",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "50",
         "population_pct": 18.7,
         "prison_per_100k": 0.0,
@@ -1089,7 +1089,7 @@
     },
     {
         "state_name": "Virginia",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "51",
         "population_pct": 22.1,
         "prison_per_100k": 0.0,
@@ -1113,7 +1113,7 @@
     },
     {
         "state_name": "Washington",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "53",
         "population_pct": 22.2,
         "prison_per_100k": 0.0,
@@ -1137,7 +1137,7 @@
     },
     {
         "state_name": "West Virginia",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "54",
         "population_pct": 20.3,
         "prison_per_100k": 0.0,
@@ -1161,7 +1161,7 @@
     },
     {
         "state_name": "Wisconsin",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "55",
         "population_pct": 22.1,
         "prison_per_100k": 0.0,
@@ -1185,7 +1185,7 @@
     },
     {
         "state_name": "Wyoming",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "56",
         "population_pct": 23.5,
         "prison_per_100k": 0.0,
@@ -1209,7 +1209,7 @@
     },
     {
         "state_name": "American Samoa",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "60",
         "population_pct": null,
         "prison_per_100k": null,
@@ -1233,7 +1233,7 @@
     },
     {
         "state_name": "Guam",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "66",
         "population_pct": null,
         "prison_per_100k": null,
@@ -1257,7 +1257,7 @@
     },
     {
         "state_name": "Northern Mariana Islands",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "69",
         "population_pct": null,
         "prison_per_100k": null,
@@ -1281,7 +1281,7 @@
     },
     {
         "state_name": "Puerto Rico",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "72",
         "population_pct": 19.5,
         "prison_per_100k": null,
@@ -1305,7 +1305,7 @@
     },
     {
         "state_name": "U.S. Virgin Islands",
-        "age": "15-17",
+        "age": "Under 18",
         "state_fips": "78",
         "population_pct": null,
         "prison_per_100k": null,

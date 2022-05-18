@@ -158,7 +158,11 @@ export function TableCard(props: TableCardProps) {
             {!queryResponse.dataIsMissing() && (
               <div className={styles.TableChart}>
                 <TableChart
-                  data={data}
+                  data={data.map((row) =>
+                    row["age"] === "Under 18"
+                      ? { ...row, age: "Juveniles" }
+                      : row
+                  )}
                   breakdownVar={props.breakdownVar}
                   metrics={Object.values(metricConfigs).filter(
                     (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
