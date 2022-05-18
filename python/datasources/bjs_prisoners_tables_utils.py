@@ -27,9 +27,7 @@ BJS_RACE_GROUPS_TO_STANDARD = {
     'Two or more races': Race.MULTI_NH,
     'Other': Race.OTHER_STANDARD_NH,
     'Unknown': Race.UNKNOWN,
-    # for now summing 'Unknown' and 'Did not report' into "Unknown"
-    # but need to confirm
-    # 'Did not report': Race.UNKNOWN,
+    # 'Unknown' + 'Did not report' -> "Unknown"
     'Total': Race.ALL
 }
 
@@ -219,34 +217,6 @@ def clean_prison_table_10_df(df):
 
     df[std_col.STATE_NAME_COL] = constants.US_NAME
     return df
-
-
-# def clean_prison_table_11_df(df):
-#     """
-#     Unique steps needed to clean BJS Prisoners 2020 - Table 11
-#     Per 100k Prisoners by Age - National
-
-#     Parameters:
-#             df (Pandas Dataframe): specific dataframe from BJS
-#             * Note, excess header and footer info must be cleaned in the read_csv()
-#             before this step (both mocked + prod flows)
-#     Returns:
-#             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
-#     """
-
-#     df[std_col.AGE_COL] = df["Age"].combine_first(
-#         df["Unnamed: 1"])
-#     # replace all weird characters (specifically EN-DASH –) with normal hyphen
-#     df[std_col.AGE_COL] = df[std_col.AGE_COL].apply(
-#         lambda datum: re.sub('[^0-9a-zA-Z ]+', '-', datum))
-#     df = df.rename(
-#         columns={'Total': PER_100K_COL})
-#     df = df[[std_col.AGE_COL, PER_100K_COL]]
-#     df = df.replace("Total", std_col.ALL_VALUE)
-#     df = df.replace("65 or older", "65+")
-#     df[std_col.STATE_NAME_COL] = constants.US_NAME
-
-#     return df
 
 
 def clean_prison_table_13_df(df):

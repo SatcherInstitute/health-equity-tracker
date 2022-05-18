@@ -326,8 +326,7 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
     # run these in order as replacements for the
     # actual calls to load_csv_as_df_from_web()
     mock_pop.side_effect = [
-        get_age_pop_data_as_df_national(),  # extra initial pop merge for ADULT table
-        # another pop merge for entire table with JUVENILE
+        get_age_pop_data_as_df_national(),  # extra
         get_age_pop_data_as_df_national(),
         get_race_pop_data_as_df_national(),
         get_sex_pop_data_as_df_national(),
@@ -421,11 +420,6 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
         "bjs_data-sex_state.json", orient="records")
 
     # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
-
-    print("mock")
-    print(mock_df_national_race.to_string())
-    print("expected")
-    print(expected_df_race_national.to_string())
 
     assert set(mock_df_national_race.columns) == set(
         expected_df_race_national.columns)

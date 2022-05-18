@@ -8,7 +8,6 @@ from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
 from ingestion.gcs_to_bq_util import fetch_zip_as_files
 from ingestion.dataset_utils import estimate_total, generate_per_100k_col
 from datasources.bjs_prisoners_tables_utils import (clean_prison_table_10_df,
-                                                    # clean_prison_table_11_df,
                                                     clean_prison_table_2_df,
                                                     clean_prison_table_23_df,
                                                     clean_prison_table_13_df,
@@ -32,16 +31,14 @@ BJS_DATA_TYPES = [
     # std_col.INCARCERATED_PREFIX
 ]
 
-
 # BJS Prisoners Report
-
 BJS_PRISONERS_ZIP = "https://bjs.ojp.gov/content/pub/sheets/p20st.zip"
 
 # NOTE: the rates used in the BJS tables are calculated with a different population source
 APPENDIX_TABLE_2 = "p20stat02.csv"  # RAW# / STATE+FED / RACE
 TABLE_2 = "p20stt02.csv"  # RAW# / STATE+FED / SEX
 TABLE_10 = "p20stt10.csv"  # PCT_SHARE & RAW TOTAL / AGE / SEX / RACE
-TABLE_11 = "p20stt11.csv"  # 100K & RAW TOTAL / AGE / SEX / RACE
+# TABLE_11 = "p20stt11.csv"  # 100K & RAW TOTAL / AGE / SEX / RACE
 TABLE_13 = "p20stt13.csv"  # RAW# / STATE+FED / AGE: JUV-ADULT / SEX
 TABLE_23 = "p20stt23.csv"  # RAW# / TERRITORY
 
@@ -49,14 +46,10 @@ bjs_prisoners_tables = {
     APPENDIX_TABLE_2: {"header_rows": [*list(range(10)), 12], "footer_rows": 13},
     TABLE_2: {"header_rows": [*list(range(11))], "footer_rows": 10, },
     TABLE_10: {"header_rows": [*list(range(11))], "footer_rows": 9},
-    TABLE_11: {"header_rows": [*list(range(12))], "footer_rows": 8},
+    # TABLE_11: {"header_rows": [*list(range(12))], "footer_rows": 8},
     TABLE_13: {"header_rows": [*list(range(11)), 13, 14], "footer_rows": 6},
     TABLE_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10}
 }
-
-# need to manually calculate Juvenile,
-# BJS_AGE_GROUPS = ["18-19", "20-24", "25-29", "30-34",
-#                   "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65+"]
 
 
 def load_tables(zip_url: str):
@@ -163,17 +156,6 @@ def cols_to_rows(df, demographic_groups, demographic_col, value_col):
                    value_name=value_col)
 
 
-# def calc_per_100k(row):
-#     """
-#     Takes a row from a dataframe that includes a RAW_COL and a POPULATION_COL
-#     and returns the calculated PER_100K number
-#      """
-#     if row[std_col.POPULATION_COL] == 0:
-#         return None
-
-#     return round((row[RAW_COL] / row[std_col.POPULATION_COL]) * 100_000, 1)
-
-
 def df_to_ints(df: pd.DataFrame):
     """
     Parameters:
@@ -263,18 +245,20 @@ def make_prison_national_age_df(source_df, source_df_juveniles):
     # infer the raw count for each age breakdown
     df_adults[RAW_COL] = df_adults[PCT_SHARE_COL] / 100 * total_raw
 
+    # drop fips/pop columns because juv is missing
+    # will be re-merged in post-process
     df_adults = df_adults[[
-        RAW_COL, std_col.STATE_NAME_COL, std_col.AGE_COL, PCT_SHARE_COL]]
+        RAW_COL,
+        std_col.STATE_NAME_COL,
+        std_col.AGE_COL,
+        PCT_SHARE_COL]]
 
     # standardize df with JUVENILE RAW # / AGE / USA
     df_juv = source_df_juveniles[
         source_df_juveniles[std_col.STATE_NAME_COL] == constants.US_NAME]
 
     # combine to create standardized df of RAW # / AGE / USA
-    df = df_adults.append(df_juv)
-
-    print("in make prison national")
-    print(df_adults.to_string())
+    df = df_adults.append(df_juv).reset_index(drop=True)
 
     return df
 
@@ -328,7 +312,7 @@ def post_process(df, breakdown, geo):
         - removes temporary columns needed only for calculating our metrics
 
        df: Dataframe with all the raw data containing:
-       "state_name" column, raw values, and demographic col of groups
+       "state_name" column, raw values column, and demographic column
        breakdown: demographic breakdown (race, sex, age)
        geo: geographic level (national, state)
     """
@@ -342,6 +326,7 @@ def post_process(df, breakdown, geo):
     df = dataset_utils.merge_fips_codes(df)
     df = dataset_utils.merge_pop_numbers(
         df, pop_breakdown, geo)
+
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
         float)
 
