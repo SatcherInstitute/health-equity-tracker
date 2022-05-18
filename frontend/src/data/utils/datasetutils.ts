@@ -29,8 +29,10 @@ import {
   UNKNOWN_ETHNICITY,
   UNKNOWN_RACE,
   AGE,
+  ADULT_JUV_AGE_BUCKETS,
 } from "./Constants";
 import { Row } from "./DatasetTypes";
+import { Fips } from "./Fips";
 
 /**
  * Reshapes the data frame by creating a new column for each value in
@@ -262,7 +264,8 @@ const showAllGroupIds: VariableId[] = [
 
 export function getExclusionList(
   currentVariable: VariableConfig,
-  currentBreakdown: BreakdownVar
+  currentBreakdown: BreakdownVar,
+  currentFips: Fips
 ) {
   const current100k = currentVariable.metrics.per100k.metricId;
   const currentVariableId = currentVariable.variableId;
@@ -287,9 +290,18 @@ export function getExclusionList(
       );
 
     currentBreakdown === AGE &&
+      currentFips.isUsa() &&
       exclusionList.push(
         ...AGE_BUCKETS.filter(
           (bucket: AgeBucket) => !BJS_AGE_BUCKETS.includes(bucket as any)
+        )
+      );
+
+    currentBreakdown === AGE &&
+      currentFips.isStateOrTerritory() &&
+      exclusionList.push(
+        ...AGE_BUCKETS.filter(
+          (bucket: AgeBucket) => !ADULT_JUV_AGE_BUCKETS.includes(bucket as any)
         )
       );
   }

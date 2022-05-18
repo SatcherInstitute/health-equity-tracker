@@ -52,7 +52,8 @@ export function TableCard(props: TableCardProps) {
     exclude(
       ...(getExclusionList(
         props.variableConfig,
-        props.breakdownVar
+        props.breakdownVar,
+        props.fips
       ) as string[])
     )
   );
