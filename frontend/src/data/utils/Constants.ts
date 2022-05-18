@@ -146,7 +146,7 @@ export const CDC_AGE_BUCKETS = [
 export const UNUSED_BUCKETS = ["18+", "65-69", "70-74", "75-79", "80-84"];
 
 export const BJS_AGE_BUCKETS = [
-  "0-17",
+  "15-17",
   "18-19",
   "20-24",
   "25-29",
@@ -160,6 +160,8 @@ export const BJS_AGE_BUCKETS = [
   "65+",
 ] as const;
 
+export const ADULT_JUV_AGE_BUCKETS = ["15-17", "18+"] as const;
+
 // COMBINE ALL AGE GROUP OPTIONS INTO A SINGLE ARRAY
 export const AGE_BUCKETS = [
   "All",
@@ -168,6 +170,7 @@ export const AGE_BUCKETS = [
   ...BROAD_AGE_BUCKETS,
   ...CDC_AGE_BUCKETS,
   ...BJS_AGE_BUCKETS,
+  ...ADULT_JUV_AGE_BUCKETS,
   ...UNUSED_BUCKETS,
 ] as const;
 
