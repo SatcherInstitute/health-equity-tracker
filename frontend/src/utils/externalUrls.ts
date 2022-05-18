@@ -29,9 +29,19 @@ export type LinkName =
   | "doi2"
   | "doi3"
   | "cawp"
-  | "propublica";
+  | "propublica"
+  | "repJohnLewisTweet"
+  | "deniedVoting"
+  | "aafp"
+  | "rwjf";
 
 export const urlMap: Record<LinkName, string> = {
+  rwjf: "https://www.rwjf.org/en/library/research/2019/01/mass-incarceration-threatens-health-equity-in-america.html",
+  aafp: "https://www.aafp.org/about/policies/all/incarceration.html",
+  deniedVoting:
+    "https://www.sentencingproject.org/publications/locked-out-2020-estimates-of-people-denied-voting-rights-due-to-a-felony-conviction/",
+  repJohnLewisTweet:
+    "https://twitter.com/repjohnlewis/status/758023941998776321?lang=en",
   newsletterSignup:
     "https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&",
   censusVoting: "https://www.census.gov/topics/public-sector/voting.html",

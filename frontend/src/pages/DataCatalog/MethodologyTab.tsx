@@ -277,27 +277,17 @@ function MethodologyTab() {
                 </h4>
 
                 <p>
-                  A link has been established between having women in government
-                  and improvements in population health
-                  <a href={urlMap.doi1}>
-                    <sup>1</sup>
-                  </a>
-                  . Women in legislative office have been shown to advocate for
-                  policies that pertain to some of the crucial social and
-                  political determinants of health that impact the overall
-                  health of our nation such as education, poverty, social
-                  welfare, reproductive and maternal health, children, and
-                  family life
-                  <a href={urlMap.doi2}>
-                    <sup>2</sup>
-                  </a>
-                  <sup>,</sup>
-                  <a href={urlMap.doi3}>
-                    <sup>3</sup>
-                  </a>
-                  . These policies in turn play a significant role in the
-                  advancement of health equity for all. By combining data from
-                  the{" "}
+                  <a href={urlMap.doi1}>A link has been established</a> between
+                  having women in government and improvements in population
+                  health. <a href={urlMap.doi2}>Women in legislative office</a>{" "}
+                  have been shown to{" "}
+                  <a href={urlMap.doi3}>advocate for policies</a> that pertain
+                  to some of the crucial social and political determinants of
+                  health that impact the overall health of our nation such as
+                  education, poverty, social welfare, reproductive and maternal
+                  health, children, and family life. These policies in turn play
+                  a significant role in the advancement of health equity for
+                  all. By combining data from the{" "}
                   <a href={urlMap.cawp}>
                     Center for American Women in Politics (CAWP)
                   </a>{" "}
@@ -332,6 +322,49 @@ function MethodologyTab() {
                   categorizations are self-reported, and a legislator may be
                   represented in multiple race groupings if that is how they
                   identify.
+                </p>
+
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  Incarceration
+                </h4>
+
+                <p>
+                  Incarceration is influenced by a blend of political forces,
+                  laws, and public opinion. Party affiliations and laws that
+                  govern sentencing policies and disenfranchisement of convicted
+                  felons are some of the political forces that determine voter
+                  participation in the justice-involved population.
+                </p>
+                <p>
+                  The ability to vote{" "}
+                  <a href={urlMap.repJohnLewisTweet}>has been described</a> as
+                  the singular most powerful, non-violent tool in American
+                  democracy. As of 2020, an estimated 5.17 million people were
+                  disenfranchised because of a prior felony conviction with
+                  minority populations of voting age being disproportionately
+                  represented{" "}
+                  <a href={urlMap.deniedVoting}>(Sentencing Project)</a>.
+                </p>
+                <p>
+                  <a href={urlMap.aafp}>Studies have also shown</a> that
+                  incarceration increases the prevalence of chronic health
+                  conditions, infectious diseases such as HIV/ AIDS, mental
+                  illnesses and substance use disorders. Incarceration has also
+                  been{" "}
+                  <a href={urlMap.rwjf}>
+                    shown to cause a reduction in life expectancy
+                  </a>
+                  , with each year spent in prison corresponding to 2 years of
+                  reduced life expectancy.
+                </p>
+                <p>
+                  The impact of incarceration on the health of the justice
+                  involved lingers long after the period of incarceration is
+                  over. Upon reentry into society, the lack of adequate access
+                  to healthcare and the resources that engender health such as
+                  health insurance coverage, housing, employment, the lack of
+                  opportunities for upward advancement etc. further exacerbates
+                  the health inequities experienced by this group.
                 </p>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
