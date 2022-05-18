@@ -6,7 +6,7 @@ from ingestion.standardized_columns import Race
 from ingestion import gcs_to_bq_util, dataset_utils, constants
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
 from ingestion.gcs_to_bq_util import fetch_zip_as_files
-from ingestion.dataset_utils import estimate_total, generate_per_100k_col
+from ingestion.dataset_utils import generate_per_100k_col
 from datasources.bjs_prisoners_tables_utils import (clean_prison_table_10_df,
                                                     clean_prison_table_2_df,
                                                     clean_prison_table_23_df,
@@ -17,7 +17,7 @@ from datasources.bjs_prisoners_tables_utils import (clean_prison_table_10_df,
                                                     BJS_SEX_GROUPS,
                                                     BJS_AGE_GROUPS_JUV_ADULT,
                                                     NON_STATE_ROWS,
-                                                    FED,
+                                                    STATE, FED,
                                                     US_TOTAL,
                                                     RAW_COL,
                                                     PER_100K_COL,
@@ -45,7 +45,7 @@ TABLE_23 = "p20stt23.csv"  # RAW# / TERRITORY
 bjs_prisoners_tables = {
     APPENDIX_TABLE_2: {"header_rows": [*list(range(10)), 12], "footer_rows": 13},
     TABLE_2: {"header_rows": [*list(range(11))], "footer_rows": 10, },
-    TABLE_10: {"header_rows": [*list(range(11))], "footer_rows": 9},
+    TABLE_10: {"header_rows": [*list(range(11))], "footer_rows": 8},
     # TABLE_11: {"header_rows": [*list(range(12))], "footer_rows": 8},
     TABLE_13: {"header_rows": [*list(range(11)), 13, 14], "footer_rows": 6},
     TABLE_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10}
@@ -136,12 +136,14 @@ def keep_only_national(df, demo_group_cols):
     if len(df_us.index) > 1:
         raise ValueError("There is more than one U.S. Total row")
 
-    # if not, national# = federal# + sum of states#
-    df_fed = df.loc[df[std_col.STATE_NAME_COL] == FED]
-    df_states = keep_only_states(df)
-    df = (df_to_ints(df_fed[demo_group_cols]) +
-          df_to_ints(df_states[demo_group_cols]).sum())
-    df[std_col.STATE_NAME_COL] = constants.US_NAME
+    # if not, remove any rows that aren't states or federal
+    df = keep_only_states(df).append(
+        df.loc[df[std_col.STATE_NAME_COL] == FED])
+
+    # sum, treating nan as 0, and set as United States
+    df.loc[0, demo_group_cols] = df[demo_group_cols].sum(min_count=1)
+    df.loc[0, std_col.STATE_NAME_COL] = constants.US_NAME
+    df = df.loc[df[std_col.STATE_NAME_COL] == constants.US_NAME]
 
     return df
 
@@ -154,22 +156,6 @@ def cols_to_rows(df, demographic_groups, demographic_col, value_col):
                    value_vars=demographic_groups,
                    var_name=demographic_col,
                    value_name=value_col)
-
-
-def df_to_ints(df: pd.DataFrame):
-    """
-    Parameters:
-
-    Returns:
-    """
-
-    df = df.applymap(lambda datum: 0 if
-                     pd.isnull(datum) or
-                     datum == "/" or
-                     datum == "~"
-                     else int(datum))
-
-    return df
 
 
 def generate_breakdown(demo, geo_level, source_df_list, source_df_territories=None):

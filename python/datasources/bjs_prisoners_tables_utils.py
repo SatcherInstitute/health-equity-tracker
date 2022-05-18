@@ -131,7 +131,7 @@ def clean_prison_appendix_table_2_df(df):
     df[[Race.UNKNOWN.value, "Did not report"]] = df[[
         Race.UNKNOWN.value, "Did not report"]].astype(float)
     df[Race.UNKNOWN.value] = df[[Race.UNKNOWN.value,
-                                 "Did not report"]].sum(axis="columns")
+                                 "Did not report"]].sum(axis="columns", min_count=1)
     df = filter_cols(df, std_col.RACE_COL)
 
     return df
