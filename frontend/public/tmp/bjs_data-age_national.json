@@ -9,11 +9,12 @@
     },
     {
         "state_name": "United States",
-        "age": "15-17",
-        "prison_pct_share": 0.03,
+        "age": "0-17",
+        "prison_pct_share": null,
         "state_fips": "00",
         "population_pct": 3.9,
-        "prison_per_100k": 3.0
+        "prison_per_100k": null,
+        "prison_estimated_total": 352.0
     },
     {
         "state_name": "United States",

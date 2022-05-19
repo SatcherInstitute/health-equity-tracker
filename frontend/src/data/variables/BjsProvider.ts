@@ -62,7 +62,7 @@ class BjsProvider extends VariableProvider {
 
     // swap "15-17" with more frontend label
     df = df.map((row) =>
-      row["age"] === "15-17" ? { ...row, age: UNDER_18_PRISON } : row
+      row["age"] === "0-17" ? { ...row, age: UNDER_18_PRISON } : row
     );
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);

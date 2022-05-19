@@ -101,15 +101,10 @@ export class MetricQueryResponse {
     fieldName: BreakdownVar,
     targetMetric: MetricId
   ): { withData: DemographicGroup[]; noData: DemographicGroup[] } {
-    if (this.isFieldMissing(fieldName)) {
-      return {
-        withData: [],
-        noData: [],
-      };
-    }
-
     const withData: DemographicGroup[] = [];
     const noData: DemographicGroup[] = [];
+
+    if (this.isFieldMissing(fieldName)) return { withData, noData };
 
     const validRows = this.getValidRowsForField(fieldName);
     const groupOptions = new Set<DemographicGroup>(

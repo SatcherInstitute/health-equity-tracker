@@ -146,7 +146,7 @@ export const CDC_AGE_BUCKETS = [
 ];
 
 export const UNUSED_BUCKETS = [
-  "0-17",
+  // "0-17",
   // "15-17",
   "65-69",
   "70-74",
@@ -157,7 +157,8 @@ export const UNUSED_BUCKETS = [
 export const UNDER_18_PRISON = `Under 18${DELIMITER}in Adult Prison`;
 
 export const BJS_AGE_BUCKETS = [
-  UNDER_18_PRISON,
+  // UNDER_18_PRISON,
+  "0-17",
   "18-19",
   "20-24",
   "25-29",
@@ -171,7 +172,11 @@ export const BJS_AGE_BUCKETS = [
   "65+",
 ] as const;
 
-export const ADULT_JUV_AGE_BUCKETS = [UNDER_18_PRISON, "18+"] as const;
+export const ADULT_JUV_AGE_BUCKETS = [
+  // UNDER_18_PRISON,
+  "0-17",
+  "18+",
+] as const;
 
 // COMBINE ALL AGE GROUP OPTIONS INTO A SINGLE ARRAY
 export const AGE_BUCKETS = [
