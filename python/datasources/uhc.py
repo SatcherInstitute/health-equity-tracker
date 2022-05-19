@@ -310,7 +310,7 @@ def post_process(breakdown_df, breakdown, geo):
             determinant, std_col.PCT_SHARE_SUFFIX)
 
         total_val = Race.ALL.value if breakdown == std_col.RACE_CATEGORY_ID_COL else std_col.ALL_VALUE
-        breakdown_df = dataset_utils.generate_pct_share_col(
+        breakdown_df = dataset_utils.generate_pct_share_col_without_unknowns(
             breakdown_df, {raw_count_col: pct_share_col}, breakdown, total_val)
 
     for determinant in UHC_DETERMINANTS.values():

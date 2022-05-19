@@ -2,7 +2,7 @@ import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
-from ingestion.dataset_utils import generate_pct_share_col
+from ingestion.dataset_utils import generate_pct_share_col_without_unknowns
 from ingestion.standardized_columns import Race
 
 
@@ -48,8 +48,8 @@ class ACS2010Population(DataSource):
             total_val = (
                 Race.ALL.value if get_breakdown_col(df) == std_col.RACE_CATEGORY_ID_COL else std_col.ALL_VALUE)
 
-            df = generate_pct_share_col(df, {std_col.POPULATION_COL: std_col.POPULATION_PCT_COL},
-                                        get_breakdown_col(df), total_val)
+            df = generate_pct_share_col_without_unknowns(df, {std_col.POPULATION_COL: std_col.POPULATION_PCT_COL},
+                                                         get_breakdown_col(df), total_val)
 
             if std_col.RACE_CATEGORY_ID_COL in df.columns:
                 std_col.add_race_columns_from_category_id(df)

@@ -6,13 +6,10 @@
     "covid_cases_per_100k": 18000,
     "covid_deaths_per_100k": 5000,
     "covid_hosp_per_100k": 5000,
-    "covid_cases_pct_share": null,
-    "covid_hosp_pct_share": null,
-    "covid_deaths_pct_share": null,
-    "covid_cases_share_of_known": 100.0,
-    "covid_hosp_share_of_known": 100.0,
-    "covid_deaths_share_of_known": 100.0,
-    "population_pct": 100.0
+    "covid_cases_share": 100.0,
+    "covid_hosp_share": 100.0,
+    "covid_deaths_share": 100.0,
+    "covid_population_pct": 100.0
   },
   {
     "state_fips": "06",
@@ -21,13 +18,10 @@
     "covid_cases_per_100k": 10000,
     "covid_deaths_per_100k": 1667,
     "covid_hosp_per_100k": 3333,
-    "covid_cases_pct_share": null,
-    "covid_hosp_pct_share": null,
-    "covid_deaths_pct_share": null,
-    "covid_cases_share_of_known": 50.0,
-    "covid_hosp_share_of_known": 50.0,
-    "covid_deaths_share_of_known": 50.0,
-    "population_pct": 60.0
+    "covid_cases_share": 50.0,
+    "covid_hosp_share": 50.0,
+    "covid_deaths_share": 50.0,
+    "covid_population_pct": 60.0
   },
   {
     "state_fips": "06",
@@ -36,13 +30,10 @@
     "covid_cases_per_100k": 15000,
     "covid_deaths_per_100k": 2500,
     "covid_hosp_per_100k": 5000,
-    "covid_cases_pct_share": null,
-    "covid_hosp_pct_share": null,
-    "covid_deaths_pct_share": null,
-    "covid_cases_share_of_known": 50.0,
-    "covid_hosp_share_of_known": 50.0,
-    "covid_deaths_share_of_known": 50.0,
-    "population_pct": 40.0
+    "covid_cases_share": 50.0,
+    "covid_hosp_share": 50.0,
+    "covid_deaths_share": 50.0,
+    "covid_population_pct": 40.0
   },
   {
     "state_fips": "06",
@@ -51,12 +42,9 @@
     "covid_cases_per_100k": null,
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
-    "covid_cases_pct_share": 38.9,
-    "covid_hosp_pct_share": 20.0,
-    "covid_deaths_pct_share": 60.0,
-    "covid_cases_share_of_known": null,
-    "covid_hosp_share_of_known": null,
-    "covid_deaths_share_of_known": null,
-    "population_pct": null
+    "covid_cases_share": 38.9,
+    "covid_hosp_share": 20.0,
+    "covid_deaths_share": 60.0,
+    "covid_population_pct": null
   }
 ]

@@ -13,7 +13,7 @@ from ingestion.dataset_utils import (
         merge_fips_codes,
         merge_pop_numbers,
         generate_per_100k_col,
-        generate_pct_share_col)
+        generate_pct_share_col_with_unknowns)
 
 
 DC_COUNTY_FIPS = '11001'
@@ -137,16 +137,8 @@ class CDCRestrictedData(DataSource):
             raw_count_to_pct_share[raw_count_col] = generate_column_name(prefix, std_col.SHARE_SUFFIX)
 
         all_columns.extend(list(raw_count_to_pct_share.values()))
-        df = generate_pct_share_col(df, raw_count_to_pct_share, demo_col, all_val)
-
-        raw_count_to_pct_share_known = {}
-        for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
-            raw_count_to_pct_share_known[raw_count_col] = generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)
-
-        all_columns.extend(list(raw_count_to_pct_share_known.values()))
-        df = generate_share_of_known_col(df, raw_count_to_pct_share_known, demo_col, all_val, unknown_val, geo)
-
-        df = null_out_unneeded_rows(df, demo_col, unknown_val)
+        df = generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
+                                                  demo_col, all_val, unknown_val)
 
         df = df[all_columns]
         self.clean_frame_column_names(df)
@@ -160,24 +152,6 @@ class CDCRestrictedData(DataSource):
         end = time.time()
         print("took", round(end - start, 2), f"seconds to process {demo} {geo}")
         return df
-
-
-def null_out_unneeded_rows(df, breakdown_col, unknown_val):
-    """Nulls out rows in the dataframe that will not be used by the frontend.
-
-       df: DataFrame to null out the rows in.
-       breakdown_col: String column name represting the demographic breakdown
-                      (race/sex/age).
-       unknown_val: String representing an UNKNOWN value in the dataframe."""
-    unknown_df = df.loc[df[breakdown_col] == unknown_val].reset_index(drop=True)
-    known_df = df.loc[df[breakdown_col] != unknown_val].reset_index(drop=True)
-
-    for prefix in COVID_CONDITION_TO_PREFIX.values():
-        unknown_df[generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)] = np.nan
-        known_df[generate_column_name(prefix, std_col.SHARE_SUFFIX)] = np.nan
-
-    df = pd.concat([known_df, unknown_df]).reset_index(drop=True)
-    return df
 
 
 def null_out_all_unknown_deaths_hosps(df):
@@ -207,10 +181,8 @@ def null_out_dc_county_rows(df):
                generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = np.nan
         df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS,
                generate_column_name(prefix, std_col.SHARE_SUFFIX)] = np.nan
-        df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS,
-               generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)] = np.nan
 
-    df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, std_col.POPULATION_PCT_COL] = np.nan
+    df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, std_col.COVID_POPULATION_PCT] = np.nan
 
 
 def get_col_types(df):

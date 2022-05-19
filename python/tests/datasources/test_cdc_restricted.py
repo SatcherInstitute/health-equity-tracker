@@ -134,7 +134,11 @@ def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state')
     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_STATE, dtype={
         'state_fips': str,
+        'covid_cases_share': float,
+        'covid_hosp_share': float,
+        'covid_deaths_share': float,
     })
+
     assert_frame_equal(df, expected_df, check_like=True)
 
 
@@ -149,7 +153,11 @@ def testGenerateBreakdownSexCounty(mock_fips: mock.MagicMock, mock_pop: mock.Mag
     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_COUNTY, dtype={
         'state_fips': str,
         'county_fips': str,
+        'covid_cases_share': float,
+        'covid_hosp_share': float,
+        'covid_deaths_share': float,
     })
+
     assert_frame_equal(df, expected_df, check_like=True)
 
 
@@ -213,9 +221,9 @@ def testWriteToBq(
     assert mock_csv.call_args_list[4].args[1] == 'cdc_restricted_by_race_county.csv'
     assert mock_csv.call_args_list[5].args[1] == 'cdc_restricted_by_age_county.csv'
     assert mock_csv.call_args_list[6].args[1] == 'cdc_restricted_by_race_and_age_state.csv'
-    assert mock_csv.call_args_list[7].args[1] == 'cdc_restricted_by_race_state'
-    assert mock_csv.call_args_list[8].args[1] == 'cdc_restricted_by_age_state'
-    assert mock_csv.call_args_list[9].args[1] == 'cdc_restricted_by_sex_state'
+    assert mock_csv.call_args_list[7].args[1] == 'cdc_restricted_by_race_state.csv'
+    assert mock_csv.call_args_list[8].args[1] == 'cdc_restricted_by_age_state.csv'
+    assert mock_csv.call_args_list[9].args[1] == 'cdc_restricted_by_sex_state.csv'
 
     assert mock_pop.call_count == 9
     assert mock_pop.call_args_list[0].args[1] == 'by_sex_state'
