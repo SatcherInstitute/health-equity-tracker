@@ -2,6 +2,7 @@
     {
         "state_name": "Alabama",
         "age": "All",
+        "prison_estimated_total": 25328.0,
         "state_fips": "01",
         "population_pct": 100.0,
         "prison_per_100k": 519.0,
@@ -9,15 +10,17 @@
     },
     {
         "state_name": "Alabama",
-        "age": "15-17",
+        "age": "0-17",
+        "prison_estimated_total": 1.0,
         "state_fips": "01",
-        "population_pct": 3.9,
-        "prison_per_100k": 0.0,
-        "prison_pct_share": 0.0
+        "population_pct": 22.5,
+        "prison_per_100k": null,
+        "prison_pct_share": null
     },
     {
         "state_name": "Alabama",
         "age": "18+",
+        "prison_estimated_total": 25327.0,
         "state_fips": "01",
         "population_pct": 77.5,
         "prison_per_100k": 670.0,
@@ -26,6 +29,7 @@
     {
         "state_name": "American Samoa",
         "age": "All",
+        "prison_estimated_total": 196.0,
         "state_fips": "60",
         "population_pct": 100.0,
         "prison_per_100k": 353.0,
@@ -33,7 +37,8 @@
     },
     {
         "state_name": "American Samoa",
-        "age": "15-17",
+        "age": "0-17",
+        "prison_estimated_total": null,
         "state_fips": "60",
         "population_pct": null,
         "prison_per_100k": null,
@@ -42,6 +47,7 @@
     {
         "state_name": "American Samoa",
         "age": "18+",
+        "prison_estimated_total": null,
         "state_fips": "60",
         "population_pct": null,
         "prison_per_100k": null,

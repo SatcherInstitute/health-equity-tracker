@@ -33,7 +33,7 @@ BJS_RACE_GROUPS_TO_STANDARD = {
 
 STANDARD_RACE_CODES = [
     race_tuple.value for race_tuple in BJS_RACE_GROUPS_TO_STANDARD.values()]
-BJS_AGE_GROUPS_JUV_ADULT = [std_col.ALL_VALUE, '15-17', '18+']
+BJS_AGE_GROUPS_JUV_ADULT = [std_col.ALL_VALUE, '0-17', '18+']
 BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
 
 
@@ -237,5 +237,5 @@ def clean_prison_table_13_df(df):
         columns={'Total': RAW_COL})
     df = df[[std_col.STATE_NAME_COL, RAW_COL]]
     df = df.replace("U.S. total", constants.US_NAME)
-    df[std_col.AGE_COL] = "15-17"
+    df[std_col.AGE_COL] = "0-17"
     return df

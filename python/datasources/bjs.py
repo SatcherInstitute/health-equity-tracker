@@ -1,5 +1,6 @@
 from datasources.data_source import DataSource
 import ingestion.standardized_columns as std_col
+import numpy as np
 import pandas as pd
 import re
 from ingestion.standardized_columns import Race
@@ -265,7 +266,7 @@ def make_prison_state_age_raw_df(source_df_juveniles, source_df_totals, source_d
     # standardize df with JUVENILE RAW # / AGE / STATE
     source_df_juveniles = keep_only_states(source_df_juveniles)
     source_df_juveniles = source_df_juveniles.rename(
-        columns={RAW_COL: '15-17'})
+        columns={RAW_COL: '0-17'})
     source_df_juveniles = source_df_juveniles.drop(columns=[std_col.AGE_COL])
 
     # standardize df with TOTAL RAW # / AGE / STATE
@@ -281,8 +282,11 @@ def make_prison_state_age_raw_df(source_df_juveniles, source_df_totals, source_d
         df[Race.ALL.value])
     df = df.drop(columns=[Race.ALL.value])
 
+    print(" in make age state")
+    print(df.to_string())
+
     # df with TOTAL+JUV+18+ AGE / STATE+TERRITORY
-    df["18+"] = df[std_col.ALL_VALUE] - df['15-17']
+    df["18+"] = df[std_col.ALL_VALUE] - df['0-17']
     df = cols_to_rows(df, BJS_AGE_GROUPS_JUV_ADULT, std_col.AGE_COL, RAW_COL)
 
     return df
@@ -322,7 +326,19 @@ def post_process(df, breakdown, geo):
         df = dataset_utils.generate_pct_share_col(
             df, RAW_COL, PCT_SHARE_COL, breakdown, std_col.ALL_VALUE)
 
-    df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
+    # manually set 0-17 rates to nan (keeping RAW count for frontend)
+    if breakdown == std_col.AGE_COL:
+        df.loc[df[std_col.AGE_COL] == '0-17',
+               [PER_100K_COL, PCT_SHARE_COL]] = np.nan
+
+        # keep raw column; frontend will only use 0-17 value
+        df = df.drop(columns=[std_col.POPULATION_COL])
+
+    else:
+        df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
+
+    print("in post")
+    print(df.to_string())
 
     return df
 
