@@ -193,7 +193,6 @@ def get_col_types(df):
     for prefix in COVID_CONDITION_TO_PREFIX.values():
         column_types[generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = 'FLOAT'
         column_types[generate_column_name(prefix, std_col.SHARE_SUFFIX)] = 'FLOAT'
-        column_types[generate_column_name(prefix, std_col.SHARE_OF_KNOWN_SUFFIX)] = 'FLOAT'
 
     column_types[std_col.COVID_POPULATION_PCT] = 'FLOAT'
 
