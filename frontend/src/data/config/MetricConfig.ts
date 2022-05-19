@@ -322,12 +322,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
-          knownBreakdownComparisonMetric: {
-            metricId: "covid_cases_share_of_known",
-            fullCardTitleName: "Share Of Total COVID-19 Cases",
-            shortLabel: "% of COVID-19 cases",
-            type: "pct_share",
-          },
         },
         per100k: {
           metricId: "covid_cases_per_100k",
@@ -369,15 +363,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
           populationComparisonMetric: {
-            metricId: "covid_deaths_reporting_population_pct",
+            metricId: "covid_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
-            type: "pct_share",
-          },
-          knownBreakdownComparisonMetric: {
-            metricId: "covid_deaths_share_of_known",
-            fullCardTitleName: "Share Of Total COVID-19 Deaths",
-            shortLabel: "% of COVID-19 deaths",
             type: "pct_share",
           },
         },
@@ -403,18 +391,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "COVID-19 Hospitalizations",
       variableDefinition: `The number of people hospitalized at any point while ill with COVID-19.`,
       metrics: {
-        count: {
-          metricId: "covid_hosp",
-          fullCardTitleName: "COVID-19 Hospitalizations",
-          shortLabel: "COVID-19 hospitalizations",
-          type: "count",
-          populationComparisonMetric: {
-            metricId: "covid_hosp_reporting_population",
-            fullCardTitleName: "Population",
-            shortLabel: "people",
-            type: "count",
-          },
-        },
         pct_share: {
           metricId: "covid_hosp_share",
           fullCardTitleName: "Share Of Total COVID-19 Hospitalizations",
@@ -422,15 +398,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
           populationComparisonMetric: {
-            metricId: "covid_hosp_reporting_population_pct",
+            metricId: "covid_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
-            type: "pct_share",
-          },
-          knownBreakdownComparisonMetric: {
-            metricId: "covid_hosp_share_of_known",
-            fullCardTitleName: "Share Of Total COVID-19 Hospitalizations",
-            shortLabel: "% of COVID-19 hospitalizations",
             type: "pct_share",
           },
         },
