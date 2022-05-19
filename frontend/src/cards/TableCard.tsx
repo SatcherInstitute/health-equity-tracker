@@ -28,6 +28,7 @@ import {
 } from "../data/utils/datasetutils";
 import styles from "./Card.module.scss";
 import { BJS_VARIABLE_IDS } from "../data/variables/BjsProvider";
+import IncarceratedChildrenAlert from "./ui/IncarceratedChildrenAlert";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -82,7 +83,7 @@ export function TableCard(props: TableCardProps) {
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
-  const shouldRemoveExcessRows = BJS_VARIABLE_IDS.includes(
+  const isIncarceration = BJS_VARIABLE_IDS.includes(
     props.variableConfig.variableId
   );
 
@@ -103,7 +104,7 @@ export function TableCard(props: TableCardProps) {
       {([queryResponse]) => {
         let data = queryResponse.data;
 
-        if (shouldRemoveExcessRows) data = removeExcessRows(data);
+        if (isIncarceration) data = removeExcessRows(data);
         if (shouldShowAltPopCompare(props)) data = fillInAltPops(data);
 
         return (
@@ -146,6 +147,16 @@ export function TableCard(props: TableCardProps) {
                   <Divider />
                 </>
               )}
+            {isIncarceration && (
+              <>
+                <CardContent>
+                  <IncarceratedChildrenAlert
+                    fips={props.fips}
+                    prisonCountUnder18={321}
+                  />
+                </CardContent>
+              </>
+            )}
 
             {!queryResponse.dataIsMissing() && (
               <div className={styles.TableChart}>
