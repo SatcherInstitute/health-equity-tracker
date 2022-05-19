@@ -67,7 +67,8 @@ function MethodologyTab() {
               component="article"
             >
               <h3 className={styles.MethodologyQuestion}>
-                What are the limitations of the tracker?
+                What are the limitations of the tracker, and why were these
+                health equity topics chosen?
               </h3>
               <div className={styles.MethodologyAnswer}>
                 <h4 className={styles.MethodologySubsubheaderText}>COVID-19</h4>
@@ -367,6 +368,83 @@ function MethodologyTab() {
                   health insurance coverage, housing, employment, the lack of
                   opportunities for upward advancement etc. further exacerbates
                   the health inequities experienced by this group.
+                </p>
+
+                <p>
+                  Combining data presented across tables in the BJS Prisoners in
+                  2020 report allows us to generate reports on{" "}
+                  <b>Imprisonment</b> in the United States. The data presented
+                  differs slightly by geographic level:
+                </p>
+
+                <ul>
+                  <li>
+                    National report: All individuals under the jurisdiction of a
+                    state or federal adult prison facility in the United States.
+                    This data is disaggregated by race/ethnicity, age, and sex.
+                  </li>
+
+                  <li>
+                    State reports: All individuals under the jurisdiction of
+                    that state's adult prison facilities. This data is
+                    disaggregated by race/ethnicity, age (juvenile / adult), and
+                    sex.
+                  </li>
+                  <li>
+                    Territory reports: All individuals under the jurisdiction of
+                    that territory's adult prison facilities. Because American
+                    Samoa did not report a value for jurisdictional population,
+                    we have used their value for custody population instead.
+                    This data is not disaggregated by any demographic breakdown.
+                  </li>
+                </ul>
+
+                <p>
+                  Jurisdiction refers to the legal authority of state or federal
+                  correctional officials over a incarcerated person, regardless
+                  of where they are held. <b>Alaska</b>, <b>Connecticut</b>,{" "}
+                  <b>Delaware</b>,<b>Hawaii</b>, Rhode <b>Island</b>, and{" "}
+                  <b>Vermont</b> each operate an integrated system that combines
+                  both prisons and jails; for our reports all individuals
+                  incarcerated in those states are presented under the{" "}
+                  <b>Imprisonment</b> data type.
+                </p>
+
+                <p>
+                  To generate incidence and percent share rates for our
+                  race/ethnicity and sex breakdowns, we obtain the raw number of
+                  individuals in prison (or each demographic group) directly
+                  from the source tables, and calculate incidence rates using
+                  the ACS 5 year population source.{" "}
+                </p>
+
+                <p>
+                  To obtain the age breakdowns for over 18 nationally, we infer
+                  the raw number of individuals in each age group by multiplying
+                  the provided total raw number by the provided percent share.
+                  The number of individuals under 18 is then calculated by
+                  subtracting the sum of over 18 groups from the total. Finally,
+                  the incidence rates are generated using the ACS 5 year
+                  population. Because of this, our per 100k rates differ
+                  slightly from the per 100k rates found on table 11, as BJS is
+                  using a different population source.{" "}
+                </p>
+
+                <p>
+                  To obtain the age breakdowns for states, we take the given raw
+                  numbers (under 18 and total) of individuals in adult prisons,
+                  and calculate the 18+ population as the total for that state
+                  minus the under 18 group for that state. Then using these raw
+                  numbers, we can calculate the percent share of each age group,
+                  and also incidence rate by incorporating the ACS 5 year
+                  populations.{" "}
+                </p>
+
+                <p>
+                  The race/ethnicity breakdowns provided match those used in the
+                  ACS population source, however we do combine the BJS{" "}
+                  <b>Did not report</b> race values into our <b>Unknown</b> race
+                  group.{" "}
                 </p>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
