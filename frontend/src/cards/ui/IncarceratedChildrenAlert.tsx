@@ -25,11 +25,10 @@ function IncarceratedChildrenAlert(props: IncarceratedChildrenAlertProps) {
       </b>
       . This total is distinct from the larger number who are incarcerated
       elsewhere including local jails or juvenile detention centers. There is no
-      absolute minimum in most states nor federally for a child to be
+      absolute minimum age in most states nor federally for a child to be
       incarcerated within an adult prison facility, and in some cases{" "}
-      <b>children as young as 8 years old</b> have been imprisoned in adult
-      facilities. Learn more about how this lack of minimum-age sentencing
-      requirements{" "}
+      <b>children as young as 8 years old</b> have been so imprisoned. Learn
+      more about how this lack of minimum-age sentencing requirements{" "}
       <LinkWithStickyParams to={"https://eji.org/issues/children-in-prison/"}>
         affects health equity, particularly for Black and Latino youths.
       </LinkWithStickyParams>
