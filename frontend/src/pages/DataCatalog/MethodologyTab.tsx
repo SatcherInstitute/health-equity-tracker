@@ -330,20 +330,22 @@ function MethodologyTab() {
 
                 <p>
                   Incarceration is influenced by a blend of political forces,
-                  laws, and public opinion. Party affiliations and laws that
-                  govern sentencing policies and disenfranchisement of convicted
-                  felons are some of the political forces that determine voter
-                  participation in the justice-involved population.
+                  laws, and public opinion. Laws that govern sentencing policies
+                  and disenfranchisement of convicted felons are some of the
+                  political forces that determine voter participation in the
+                  justice-involved population.
                 </p>
                 <p>
-                  The ability to vote{" "}
-                  <a href={urlMap.repJohnLewisTweet}>has been described</a> as
-                  the singular most powerful, non-violent tool in American
-                  democracy. As of 2020, an estimated 5.17 million people were
+                  The ability to vote has been described as{" "}
+                  <a href={urlMap.repJohnLewisTweet}>
+                    the singular most powerful, non-violent tool in American
+                    democracy
+                  </a>
+                  . As of 2020, an estimated 5.17 million people were
                   disenfranchised because of a prior felony conviction with
                   minority populations of voting age being disproportionately
-                  represented{" "}
-                  <a href={urlMap.deniedVoting}>(Sentencing Project)</a>.
+                  represented.{" "}
+                  <a href={urlMap.deniedVoting}>(Sentencing Project)</a>
                 </p>
                 <p>
                   <a href={urlMap.aafp}>Studies have also shown</a> that
