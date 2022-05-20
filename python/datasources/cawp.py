@@ -66,11 +66,10 @@ def pct_never_null(numerator, denominator):
 
         Parameters:
             numerator: top number of ratio to convert to pct
-            denominator: bottom number of ratio to convert to pct.
-             Avoid div by zero and return 0.0, instead util which will return null
+            denominator: bottom number of ratio to convert to pct
 
         Returns:
-            the pct value, with an attempt to avoid rounding to zero
+            the pct value, with an attempt to avoid rounding to zero if both inputs are not 0
     """
     if numerator == 0 and denominator == 0:
         return 0.0
