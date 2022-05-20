@@ -137,25 +137,6 @@ def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
     return df
 
 
-def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
-    """Returns a dataframe with a `per_100k` column
-       df: DataFrame to generate the `per_100k_col` for.
-       raw_count_col: String column name with the total number of people
-                      who have the given condition.
-       pop_col: String column name with the population number.
-       per_100k_col: String column name for the generated column."""
-
-    def calc_per_100k(record):
-        per_100k = percent_avoid_rounding_to_zero(1000 *
-                                                  float(record[raw_count_col]), float(record[pop_col]))
-        if not pd.isna(per_100k):
-            return round(per_100k, 0)
-        return np.nan
-
-    df[per_100k_col] = df.apply(calc_per_100k, axis=1)
-    return df
-
-
 def percent_avoid_rounding_to_zero(numerator, denominator, default_decimals=1, max_decimals=2):
     """Calculates percentage to `default_decimals` number of decimal places. If
        the percentage would round to 0, calculates with more decimal places until
@@ -242,7 +223,7 @@ def merge_fips_codes(df):
         }
     ])
 
-    unkown_fips = pd.DataFrame([
+    unknown_fips = pd.DataFrame([
         {
             'state_fips_code': 'Unknown',
             'state_name': 'Unknown',
@@ -253,7 +234,7 @@ def merge_fips_codes(df):
     all_fips_codes_df = all_fips_codes_df[[
         'state_fips_code', 'state_name', 'state_postal_abbreviation']]
     all_fips_codes_df = pd.concat(
-        [all_fips_codes_df, united_states_fips, unkown_fips])
+        [all_fips_codes_df, united_states_fips, unknown_fips])
 
     all_fips_codes_df = all_fips_codes_df.rename(
         columns={
