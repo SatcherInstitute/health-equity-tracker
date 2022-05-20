@@ -8,7 +8,7 @@ from ingestion import url_file_to_gcs, gcs_to_bq_util, census
 from datasources.data_source import DataSource
 from ingestion.census import (get_census_params, parse_acs_metadata,
                               get_vars_for_group, standardize_frame)
-from ingestion.dataset_utils import add_sum_of_rows, generate_pct_share_col
+from ingestion.dataset_utils import add_sum_of_rows, generate_pct_share_col_without_unknowns
 
 # TODO pass this in from message data.
 BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
@@ -99,8 +99,6 @@ def get_decade_age_bucket(age_range):
         return '80+'
     elif age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
-    else:
-        return 'Unknown'
 
 
 def get_uhc_standard_age_bucket(age_range):
@@ -184,8 +182,6 @@ def get_juv_adult_age_bucket(age_range):
         return '18+'
     elif age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
-    else:
-        return 'Unknown'
 
 
 def rename_age_bracket(bracket):
@@ -475,8 +471,8 @@ class ACSPopulationIngester():
             Race.API_NH.value,
             [Race.ASIAN_NH.value, Race.NHPI_NH.value])
 
-        all_races = generate_pct_share_col(
-            all_races, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL,
+        all_races = generate_pct_share_col_without_unknowns(
+            all_races, {std_col.POPULATION_COL: std_col.POPULATION_PCT_COL},
             std_col.RACE_CATEGORY_ID_COL, Race.ALL.value)
 
         std_col.add_race_columns_from_category_id(all_races)
@@ -580,8 +576,8 @@ class ACSPopulationIngester():
                                 by_age_juv_adult
                                 ]).drop_duplicates().reset_index(drop=True)
 
-        by_age = generate_pct_share_col(
-            by_age, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL, std_col.AGE_COL, std_col.ALL_VALUE)
+        by_age = generate_pct_share_col_without_unknowns(
+            by_age, {std_col.POPULATION_COL: std_col.POPULATION_PCT_COL}, std_col.AGE_COL, std_col.ALL_VALUE)
 
         by_age = by_age.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_age
@@ -601,8 +597,8 @@ class ACSPopulationIngester():
 
         by_sex = by_sex[cols] if self.county_level else by_sex[cols[1:]]
 
-        by_sex = generate_pct_share_col(
-            by_sex, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL, std_col.SEX_COL, std_col.ALL_VALUE)
+        by_sex = generate_pct_share_col_without_unknowns(
+            by_sex, {std_col.POPULATION_COL: std_col.POPULATION_PCT_COL}, std_col.SEX_COL, std_col.ALL_VALUE)
 
         by_sex = by_sex.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_sex
@@ -670,8 +666,8 @@ def GENERATE_NATIONAL_DATASET(state_df, states_to_include, demographic_breakdown
     if demographic_breakdown_category == 'race':
         total_val = Race.ALL.value
 
-    df = generate_pct_share_col(
-        df, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL,
+    df = generate_pct_share_col_without_unknowns(
+        df, {std_col.POPULATION_COL: std_col.POPULATION_PCT_COL},
         breakdown_map[demographic_breakdown_category], total_val)
 
     if demographic_breakdown_category == 'race':

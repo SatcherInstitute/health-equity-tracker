@@ -42,6 +42,16 @@ COVID_HOSP_UNKNOWN = "hosp_unknown"
 COVID_DEATH_Y = "death_y"
 COVID_DEATH_N = "death_n"
 COVID_DEATH_UNKNOWN = "death_unknown"
+COVID_POPULATION_PCT = "covid_population_pct"
+
+PER_100K_SUFFIX = "per_100k"
+PCT_SHARE_SUFFIX = "pct_share"
+SHARE_SUFFIX = "share"
+SHARE_OF_KNOWN_SUFFIX = "share_of_known"
+
+COVID_CASES_PREFIX = "covid_cases"
+COVID_HOSP_PREFIX = "covid_hosp"
+COVID_DEATH_PREFIX = "covid_deaths"
 
 COVID_DEATH_RATIO_AGE_ADJUSTED = "death_ratio_age_adjusted"
 COVID_HOSP_RATIO_AGE_ADJUSTED = "hosp_ratio_age_adjusted"
@@ -53,9 +63,6 @@ WITHOUT_HEALTH_INSURANCE_COL = "without_health_insurance"
 
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"
-
-PER_100K_SUFFIX = "per_100k"
-PCT_SHARE_SUFFIX = "pct_share"
 
 # Standardized column prefixes for UHC columns
 DEPRESSION_PREFIX = "depression"
