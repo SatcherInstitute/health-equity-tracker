@@ -1,37 +1,39 @@
 import React from "react";
 import { Alert } from "@material-ui/lab";
-import { LinkWithStickyParams } from "../../utils/urlutils";
 import { Fips } from "../../data/utils/Fips";
+import { urlMap } from "../../utils/externalUrls";
 
 interface IncarceratedChildrenAlertProps {
-  prisonCountUnder18: number;
+  prisonCountUnder18: number | undefined;
   fips: Fips;
-  // dataName: string;
-  // breakdownString: BreakdownVarDisplayName;
-  // noDemographicInfo?: boolean;
-  // isMapCard?: boolean;
-  // fips: Fips;
-  // dropdownVarId?: DropdownVarId;
-  // ageAdjustedDataTypes?: VariableConfig[];
 }
 
 function IncarceratedChildrenAlert(props: IncarceratedChildrenAlertProps) {
+  let are = "are";
+  let children = "children";
+  let adultPrisonFacilities = "adult prison facilities";
+
+  if (props.prisonCountUnder18 === 1) {
+    are = "is";
+    children = "child";
+    adultPrisonFacilities = "an adult prison facility";
+  }
   return (
     <Alert severity="error" role="note">
-      There are currently{" "}
+      There {are} currently{" "}
       <b>
-        {props.prisonCountUnder18} children under the age of 18 incarcerated in
-        adult prison facilities in {props.fips.getDisplayName()}
+        {props.prisonCountUnder18} {children} under the age of eighteen
+        incarcerated in {adultPrisonFacilities} in {props.fips.getDisplayName()}
       </b>
-      . This total is distinct from the larger number who are incarcerated
-      elsewhere including local jails or juvenile detention centers. There is no
-      absolute minimum age in most states nor federally for a child to be
-      incarcerated within an adult prison facility, and in some cases{" "}
-      <b>children as young as 8 years old</b> have been so imprisoned. Learn
-      more about how this lack of minimum-age sentencing requirements{" "}
-      <LinkWithStickyParams to={"https://eji.org/issues/children-in-prison/"}>
+      ; distinct from the larger number incarcerated elsewhere including local
+      jails or juvenile detention centers. There is no absolute minimum age in
+      most states nor federally for sentencing as an adult, and in some cases{" "}
+      <b>children as young as 8 years old</b> have been imprisoned in adult
+      facilities. Learn more about how this lack of minimum-age sentencing
+      requirements{" "}
+      <a href={urlMap.childrenInPrison}>
         affects health equity, particularly for Black and Latino youths.
-      </LinkWithStickyParams>
+      </a>
     </Alert>
   );
 }

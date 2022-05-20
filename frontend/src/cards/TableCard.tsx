@@ -17,7 +17,7 @@ import {
   getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
-import { RACE } from "../data/utils/Constants";
+import { CHILD_AGE_BUCKETS, RACE } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
@@ -29,6 +29,7 @@ import {
 import styles from "./Card.module.scss";
 import { BJS_VARIABLE_IDS } from "../data/variables/BjsProvider";
 import IncarceratedChildrenAlert from "./ui/IncarceratedChildrenAlert";
+import { Row } from "../data/utils/DatasetTypes";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -80,12 +81,13 @@ export function TableCard(props: TableCardProps) {
         metricConfig.secondaryPopulationComparisonMetric;
     }
   });
-  const metricIds = Object.keys(metricConfigs) as MetricId[];
-  const query = new MetricQuery(metricIds as MetricId[], breakdowns);
-
   const isIncarceration = BJS_VARIABLE_IDS.includes(
     props.variableConfig.variableId
   );
+
+  const metricIds = Object.keys(metricConfigs) as MetricId[];
+  isIncarceration && metricIds.push("prison_estimated_total");
+  const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
   const displayingCovidData = metrics
     .map((config) => config.metricId)
@@ -103,9 +105,15 @@ export function TableCard(props: TableCardProps) {
     >
       {([queryResponse]) => {
         let data = queryResponse.data;
-
-        if (isIncarceration) data = removeExcessRows(data);
+        let prisonCountUnder18;
         if (shouldShowAltPopCompare(props)) data = fillInAltPops(data);
+
+        // extract the under 18 RAW value for the alert
+        if (isIncarceration) {
+          prisonCountUnder18 = data.find((row: Row) =>
+            CHILD_AGE_BUCKETS.includes(row.age)
+          )?.["prison_estimated_total"];
+        }
 
         return (
           <>
@@ -147,12 +155,12 @@ export function TableCard(props: TableCardProps) {
                   <Divider />
                 </>
               )}
-            {isIncarceration && (
+            {isIncarceration && prisonCountUnder18 != null && (
               <>
                 <CardContent>
                   <IncarceratedChildrenAlert
                     fips={props.fips}
-                    prisonCountUnder18={321}
+                    prisonCountUnder18={prisonCountUnder18}
                   />
                 </CardContent>
               </>
@@ -174,10 +182,6 @@ export function TableCard(props: TableCardProps) {
       }}
     </CardWrapper>
   );
-}
-
-function removeExcessRows(data: any[]) {
-  return data.filter((row) => row["age"] !== "15-17");
 }
 
 function fillInAltPops(data: any[]) {

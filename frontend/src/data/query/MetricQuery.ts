@@ -1,7 +1,7 @@
 import { Breakdowns, BreakdownVar } from "./Breakdowns";
 import { Row, FieldRange } from "../utils/DatasetTypes";
 import { MetricId } from "../config/MetricConfig";
-import { DemographicGroup, UNDER_18_PRISON } from "../utils/Constants";
+import { DemographicGroup } from "../utils/Constants";
 
 export class MetricQuery {
   readonly metricIds: MetricId[];
@@ -113,13 +113,13 @@ export class MetricQueryResponse {
 
     groupOptions.forEach((group) => {
       const validRowsPerGroup = validRows.filter((row) => {
-        if (group === UNDER_18_PRISON) {
-        }
         return row[fieldName] === group;
       });
       validRowsPerGroup.some((row) => {
         // exclude null and undefined, include any values including 0
-        return row[targetMetric] != null;
+        return (
+          !isNaN(parseFloat(row[targetMetric])) && row[targetMetric] != null
+        );
       })
         ? withData.push(group)
         : noData.push(group);

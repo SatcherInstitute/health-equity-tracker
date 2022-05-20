@@ -47,7 +47,7 @@ export interface MapCardProps {
   key?: string;
   fips: Fips;
   variableConfig: VariableConfig;
-  updateFipsCallback: (fips: Fips) => void;
+  updateFipsCallback: (_fips: Fips) => void;
   currentBreakdown: BreakdownVar;
   jumpToDefinitions: Function;
   jumpToData: Function;
@@ -133,8 +133,6 @@ function MapCardWithKey(props: MapCardProps) {
           /* fieldName: BreakdownVar */ props.currentBreakdown,
           /* relevantMetric: MetricId */ metricConfig.metricId
         );
-
-        console.log(fieldValues.withData);
 
         const breakdownValues = fieldValues.withData.sort.apply(
           fieldValues.withData,

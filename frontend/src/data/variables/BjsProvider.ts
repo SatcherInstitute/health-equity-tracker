@@ -2,7 +2,7 @@ import { getDataManager } from "../../utils/globals";
 import { MetricId, VariableId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { UNDER_18_PRISON } from "../utils/Constants";
+// import { UNDER_18_PRISON } from "../utils/Constants";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
@@ -14,6 +14,7 @@ export const BJS_VARIABLE_IDS: VariableId[] = [
 
 export const BJS_DETERMINANTS: MetricId[] = [
   "bjs_population_pct",
+  "prison_estimated_total",
   "prison_pct_share",
   "prison_per_100k",
   "prison_ratio_age_adjusted",
@@ -60,10 +61,10 @@ class BjsProvider extends VariableProvider {
 
     df = this.removeUnrequestedColumns(df, metricQuery);
 
-    // swap "15-17" with more frontend label
-    df = df.map((row) =>
-      row["age"] === "0-17" ? { ...row, age: UNDER_18_PRISON } : row
-    );
+    // swap backend juvenile bucket with frontend label
+    // df = df.map((row) =>
+    //   row["age"] === "0-17" ? { ...row, age: UNDER_18_PRISON } : row
+    // );
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }

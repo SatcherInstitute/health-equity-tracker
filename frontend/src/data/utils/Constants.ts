@@ -147,7 +147,7 @@ export const CDC_AGE_BUCKETS = [
 
 export const UNUSED_BUCKETS = [
   // "0-17",
-  // "15-17",
+  "15-17",
   "65-69",
   "70-74",
   "75-79",
@@ -189,6 +189,8 @@ export const AGE_BUCKETS = [
   ...ADULT_JUV_AGE_BUCKETS,
   ...UNUSED_BUCKETS,
 ] as const;
+
+export const CHILD_AGE_BUCKETS = [UNDER_18_PRISON, "0-17", "15-17"];
 
 // ENUMERATE THOSE PROPERTIES TO CREATE AN AGE-GROUP TYPE
 export type AgeBucket = typeof AGE_BUCKETS[number];
