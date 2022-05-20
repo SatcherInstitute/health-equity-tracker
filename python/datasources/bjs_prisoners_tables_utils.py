@@ -7,7 +7,7 @@ import re
 US_TOTAL = "U.S. total"
 STATE = "State"
 FED = "Federal"
-NON_STATE_ROWS = [US_TOTAL, STATE, FED]
+NON_STATE_ROWS = [US_TOTAL, STATE, FED, constants.US_ABBR, constants.US_NAME]
 
 RAW_COL = std_col.generate_column_name(
     std_col.PRISON_PREFIX, std_col.RAW_SUFFIX)
@@ -181,8 +181,12 @@ def clean_prison_table_23_df(df):
     # we will use their Custody # instead of the null jurisdiction #
     df[Race.ALL.value] = df[Race.ALL.value].combine_first(
         df["Total custody population"])
+
     # use RACE because we need ALL not All
     df = filter_cols(df, std_col.RACE_COL)
+
+    # remove any weird leftover rows
+    df = df.dropna()
 
     return df
 

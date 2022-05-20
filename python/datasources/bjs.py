@@ -278,12 +278,10 @@ def make_prison_state_age_raw_df(source_df_juveniles, source_df_totals, source_d
     df = pd.merge(source_df_juveniles, source_df_totals,
                   on=std_col.STATE_NAME_COL)
     df = df.append(source_df_territories)
+
     df[std_col.ALL_VALUE] = df[std_col.ALL_VALUE].combine_first(
         df[Race.ALL.value])
     df = df.drop(columns=[Race.ALL.value])
-
-    print(" in make age state")
-    print(df.to_string())
 
     # df with TOTAL+JUV+18+ AGE / STATE+TERRITORY
     df["18+"] = df[std_col.ALL_VALUE] - df['0-17']
@@ -323,8 +321,23 @@ def post_process(df, breakdown, geo):
         df = generate_per_100k_col(
             df, RAW_COL, std_col.POPULATION_COL, PER_100K_COL)
     if PCT_SHARE_COL not in df.columns:
-        df = dataset_utils.generate_pct_share_col(
-            df, RAW_COL, PCT_SHARE_COL, breakdown, std_col.ALL_VALUE)
+        if breakdown == std_col.RACE_OR_HISPANIC_COL:
+            df = dataset_utils.generate_pct_share_col_with_unknowns(
+                df,
+                {RAW_COL:
+                 PCT_SHARE_COL},
+                breakdown,
+                std_col.ALL_VALUE,
+                Race.UNKNOWN_NH.race
+            )
+        else:
+            df = dataset_utils.generate_pct_share_col_without_unknowns(
+                df,
+                {RAW_COL:
+                 PCT_SHARE_COL},
+                breakdown,
+                std_col.ALL_VALUE,
+            )
 
     # manually set 0-17 rates to nan (keeping RAW count for frontend)
     if breakdown == std_col.AGE_COL:
