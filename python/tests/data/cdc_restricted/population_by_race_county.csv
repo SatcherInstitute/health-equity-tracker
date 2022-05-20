@@ -1,0 +1,4 @@
+state_fips,county_fips,county_name,race_category_id,population,population_pct,race,race_includes_hispanic,race_and_ethnicity
+06,06123,San Mateo County,BLACK_NH,60,60.0,Black,False,Black (Non-Hispanic)
+06,06123,San Mateo County,WHITE_NH,40,40.0,White,False,White (Non-Hispanic)
+06,06123,San Mateo County,ALL,100,100.0,All,,All
