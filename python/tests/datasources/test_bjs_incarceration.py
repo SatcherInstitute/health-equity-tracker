@@ -310,33 +310,33 @@ GOLDEN_DATA = {
 
 # RUN INTEGRATION TESTS ON NATIONAL LEVEL
 
-# @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-# @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#              return_value=get_state_fips_codes_as_df())
-# @ mock.patch('datasources.bjs.load_tables',
-#              return_value=get_test_table_files())
+@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=get_state_fips_codes_as_df())
+@ mock.patch('datasources.bjs.load_tables',
+             return_value=get_test_table_files())
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
 def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
-                               #    mock_zip: mock.MagicMock,
-                               #    mock_fips: mock.MagicMock,
-                               #    mock_pop: mock.MagicMock
+                               mock_zip: mock.MagicMock,
+                               mock_fips: mock.MagicMock,
+                               mock_pop: mock.MagicMock
                                ):
 
     # run these in order as replacements for the
     # actual calls to load_csv_as_df_from_web()
-    # mock_pop.side_effect = [
-    #     get_age_pop_data_as_df_national(),  # extra
-    #     get_age_pop_data_as_df_national(),
-    #     get_race_pop_data_as_df_national(),
-    #     get_sex_pop_data_as_df_national(),
-    #     get_age_pop_data_as_df_state(),
-    #     get_age_pop_data_as_df_territory(),
-    #     get_race_pop_data_as_df_state(),
-    #     get_race_pop_data_as_df_territory(),
-    #     get_sex_pop_data_as_df_state(),
-    #     get_sex_pop_data_as_df_territory(),
-    # ]
+    mock_pop.side_effect = [
+        get_age_pop_data_as_df_national(),  # extra
+        get_age_pop_data_as_df_national(),
+        get_race_pop_data_as_df_national(),
+        get_sex_pop_data_as_df_national(),
+        get_age_pop_data_as_df_state(),
+        get_age_pop_data_as_df_territory(),
+        get_race_pop_data_as_df_state(),
+        get_race_pop_data_as_df_territory(),
+        get_sex_pop_data_as_df_state(),
+        get_sex_pop_data_as_df_territory(),
+    ]
 
     bjs_data = BJSData()
 
