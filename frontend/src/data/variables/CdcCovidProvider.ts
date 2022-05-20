@@ -1,15 +1,9 @@
 import { DataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
-import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { joinOnCols } from "../utils/datasetutils";
-import {
-  DC_COUNTY_FIPS,
-  USA_DISPLAY_NAME,
-  USA_FIPS,
-  ACS_2010_FIPS,
-} from "../utils/Fips";
+import { USA_DISPLAY_NAME, USA_FIPS, ACS_2010_FIPS } from "../utils/Fips";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
@@ -57,14 +51,22 @@ class CdcCovidProvider extends VariableProvider {
       }
     }
     if (breakdowns.hasOnlyAge()) {
-      return breakdowns.geography === "county"
-        ? "cdc_restricted_data-by_age_county"
-        : "cdc_restricted_data-by_age_state";
+      if (breakdowns.geography === "county") {
+        return "cdc_restricted_data-by_age_county_processed";
+      } else if (breakdowns.geography === "state") {
+        return "cdc_restricted_data-by_age_state_processed";
+      } else if (breakdowns.geography === "national") {
+        return "cdc_restricted_data-by_age_state";
+      }
     }
     if (breakdowns.hasOnlySex()) {
-      return breakdowns.geography === "county"
-        ? "cdc_restricted_data-by_sex_county"
-        : "cdc_restricted_data-by_sex_state";
+      if (breakdowns.geography === "county") {
+        return "cdc_restricted_data-by_sex_county_processed";
+      } else if (breakdowns.geography === "state") {
+        return "cdc_restricted_data-by_sex_state_processed";
+      } else if (breakdowns.geography === "national") {
+        return "cdc_restricted_data-by_sex_state";
+      }
     }
     throw new Error("Not implemented");
   }
@@ -76,7 +78,6 @@ class CdcCovidProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns;
     const datasetId = this.getDatasetId(breakdowns);
 
-    console.log(datasetId);
     const covidDataset = await getDataManager().loadDataset(datasetId);
     let consumedDatasetIds = [datasetId];
     let df = covidDataset.toDataFrame();
