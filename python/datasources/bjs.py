@@ -329,13 +329,14 @@ def post_process(df, breakdown, geo):
             df, RAW_COL, std_col.POPULATION_COL, PER_100K_COL)
     if PCT_SHARE_COL not in df.columns:
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
+            print(df.to_string())
             df = dataset_utils.generate_pct_share_col_with_unknowns(
                 df,
                 {RAW_COL:
                  PCT_SHARE_COL},
                 breakdown,
                 std_col.ALL_VALUE,
-                Race.UNKNOWN_NH.race
+                Race.UNKNOWN.race
             )
         else:
             df = dataset_utils.generate_pct_share_col_without_unknowns(
