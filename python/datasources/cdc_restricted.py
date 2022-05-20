@@ -121,7 +121,6 @@ class CDCRestrictedData(DataSource):
             df = remove_bad_fips_cols(df)
 
         df = merge_pop_numbers(df, demo, geo)
-
         df = df.rename(columns={std_col.POPULATION_PCT_COL: std_col.COVID_POPULATION_PCT})
 
         df = null_out_all_unknown_deaths_hosps(df)

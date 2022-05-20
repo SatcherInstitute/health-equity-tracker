@@ -243,7 +243,7 @@ def testRatioRoundToNone():
 def testPercentAvoidRoundingToZero():
     assert dataset_utils.percent_avoid_rounding_to_zero(1, 3) == 33.3
     assert dataset_utils.percent_avoid_rounding_to_zero(1, 5000) == .02
-    assert dataset_utils.percent_avoid_rounding_to_zero(1, 0) == 0.0
+    assert dataset_utils.percent_avoid_rounding_to_zero(1, 0) is None
 
 
 def testAddSumOfRows():
