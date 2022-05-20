@@ -73,7 +73,7 @@ def pct_never_null(numerator, denominator):
     """
     if numerator == 0 and denominator == 0:
         return 0.0
-    return pct_never_null(numerator, denominator)
+    return percent_avoid_rounding_to_zero(numerator, denominator)
 
 
 def get_standard_code_from_cawp_phrase(cawp_place_phrase: str):
