@@ -223,7 +223,7 @@ class Race(Enum):
 
     @property
     def race_and_ethnicity(self) -> str:
-        """The fully-qualified dispaly name that specifies both race and whether
+        """The fully-qualified display name that specifies both race and whether
            the category includes Hispanic or Latino."""
         if (self.includes_hispanic is True or
                 self.includes_hispanic is None or
