@@ -107,7 +107,7 @@ class AgeAdjustCDCRestricted(DataSource):
             if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                 column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-            if geo == 'state':
+            if 'state' in table_name:
                 column_types = get_col_types(df)
 
             # Clean up column names.
