@@ -57,6 +57,26 @@ CAWP_DATA_TYPES = {
 }
 
 
+def pct_never_null(numerator, denominator):
+    """ The function acts as a filter for the util fn that calculates a pct
+         based on two values. Normally we would want a number divided by 0 to be null,
+         but for CAWP data we want it to return 0.0% (e.g. if there are 0 black women
+         senators, and zero women senators of any color, we still want to show the
+         result as 0% rather than null)
+
+        Parameters:
+            numerator: top number of ratio to convert to pct
+            denominator: bottom number of ratio to convert to pct.
+             Avoid div by zero and return 0.0, instead util which will return null
+
+        Returns:
+            the pct value, with an attempt to avoid rounding to zero
+    """
+    if numerator == 0 and denominator == 0:
+        return 0.0
+    return percent_avoid_rounding_to_zero(numerator, denominator)
+
+
 def get_standard_code_from_cawp_phrase(cawp_place_phrase: str):
     """ Accepts a CAWP place phrase found in the LINE ITEM table
     `{STATE_COL_LINE NAME} - {CODE}` with the standard 2 letter code
