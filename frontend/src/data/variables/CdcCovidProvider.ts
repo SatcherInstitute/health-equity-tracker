@@ -197,24 +197,6 @@ class CdcCovidProvider extends VariableProvider {
         "hosp_unknown",
       ]);
 
-      // Clear all county-level DC data. See issue for more details:
-      // https://github.com/SatcherInstitute/health-equity-tracker/issues/872.
-      // TODO - fix this the right way.
-      df = df.withSeries({
-        covid_cases: (df) =>
-          df.deflate((row) =>
-            row.fips === DC_COUNTY_FIPS ? null : row.covid_cases
-          ),
-        covid_deaths: (df) =>
-          df.deflate((row) =>
-            row.fips === DC_COUNTY_FIPS ? null : row.covid_deaths
-          ),
-        covid_hosp: (df) =>
-          df.deflate((row) =>
-            row.fips === DC_COUNTY_FIPS ? null : row.covid_hosp
-          ),
-      });
-
       df = df
         .generateSeries({
           // Calculate per100k
@@ -267,34 +249,8 @@ class CdcCovidProvider extends VariableProvider {
         );
       });
 
-      const populationMetric: MetricId[] = [
-        "covid_cases_reporting_population",
-        "covid_deaths_reporting_population",
-        "covid_hosp_reporting_population",
-      ];
-      populationMetric.forEach((reportingPopulation) => {
-        if (metricQuery.metricIds.includes(reportingPopulation)) {
-          df = df
-            .generateSeries({
-              [reportingPopulation]: (row) => row["population"],
-            })
-            .resetIndex();
-        }
-      });
-
-      const populationPctMetric: MetricId[] = [
-        "covid_cases_reporting_population_pct",
-        "covid_deaths_reporting_population_pct",
-        "covid_hosp_reporting_population_pct",
-      ];
-      populationPctMetric.forEach((reportingPopulation) => {
-        if (metricQuery.metricIds.includes(reportingPopulation)) {
-          df = df
-            .generateSeries({
-              [reportingPopulation]: (row) => row["population_pct"],
-            })
-            .resetIndex();
-        }
+      df = df.renameSeries({
+        population_pct: "covid_population_pct",
       });
 
       // Must reset index or calculation is wrong. TODO how to make this less brittle?
