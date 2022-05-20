@@ -1,7 +1,37 @@
+import numpy as np  # type: ignore
+
+import time
+
 import ingestion.standardized_columns as std_col
+from ingestion.standardized_columns import generate_column_name
+from ingestion.standardized_columns import Race
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
+from ingestion.dataset_utils import (
+        merge_fips_codes,
+        merge_pop_numbers,
+        generate_per_100k_col,
+        generate_pct_share_col_with_unknowns)
+
+
+DC_COUNTY_FIPS = '11001'
+
+EXTRA_FILES = [
+    'cdc_restricted_by_race_and_age_state.csv',
+
+    # TODO: Remove these files once we do national
+    # calculations on the backend.
+    'cdc_restricted_by_race_state.csv',
+    'cdc_restricted_by_age_state.csv',
+    'cdc_restricted_by_sex_state.csv',
+]
+
+COVID_CONDITION_TO_PREFIX = {
+    std_col.COVID_CASES: std_col.COVID_CASES_PREFIX,
+    std_col.COVID_HOSP_Y: std_col.COVID_HOSP_PREFIX,
+    std_col.COVID_DEATH_Y: std_col.COVID_DEATH_PREFIX,
+}
 
 
 class CDCRestrictedData(DataSource):
@@ -19,39 +49,166 @@ class CDCRestrictedData(DataSource):
             'upload_to_gcs should not be called for CDCRestrictedData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        gcs_files = self.get_attr(attrs, 'filename')
+        for geo in ['state', 'county']:
+            for demo in ['sex', 'race', 'age']:
+                filename = f'cdc_restricted_by_{demo}_{geo}.csv'
+                df = gcs_to_bq_util.load_csv_as_df(
+                    gcs_bucket, filename, dtype={'county_fips': str})
 
-        # In this instance, we expect filename to be a string with
-        # comma-separated CSV filenames.
-        if ',' not in gcs_files:
-            raise ValueError('filename passed to write_to_bq is not a '
-                             'comma-separated list of files')
-        files = gcs_files.split(',')
-        print("Files that will be written to BQ:", files)
+                df = self.generate_breakdown(df, demo, geo)
 
-        # For each of the files, we load it as a dataframe and add it as a
-        # table in the BigQuery dataset. We expect that all aggregation and
-        # standardization of the data has been done by this point.
-        int_cols = [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
-                    std_col.COVID_HOSP_N, std_col.COVID_HOSP_UNKNOWN,
-                    std_col.COVID_DEATH_Y, std_col.COVID_DEATH_N,
-                    std_col.COVID_DEATH_UNKNOWN]
-        for f in files:
-            # Explicitly specify county_fips is a string.
+                if demo == 'race':
+                    std_col.add_race_columns_from_category_id(df)
+
+                column_types = get_col_types(df)
+
+                table_name = f'by_{demo}_{geo}_processed'
+                gcs_to_bq_util.add_df_to_bq(
+                    df, dataset, table_name, column_types=column_types)
+
+        for filename in EXTRA_FILES:
             df = gcs_to_bq_util.load_csv_as_df(
-                gcs_bucket, f, dtype={'county_fips': str})
+                gcs_bucket, filename, dtype={'county_fips': str})
 
-            # All columns are str, except outcome columns.
+            self.clean_frame_column_names(df)
+
+            int_cols = [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
+                        std_col.COVID_HOSP_N, std_col.COVID_HOSP_UNKNOWN,
+                        std_col.COVID_DEATH_Y, std_col.COVID_DEATH_N,
+                        std_col.COVID_DEATH_UNKNOWN]
+
             column_types = {c: 'STRING' for c in df.columns}
             for col in int_cols:
                 if col in column_types:
                     column_types[col] = 'FLOAT'
+
             if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                 column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-            # Clean up column names.
-            self.clean_frame_column_names(df)
+            print('uploading extra file')
 
-            table_name = f.replace('.csv', '')  # Table name is file name
+            table_name = filename.replace('.csv', '')  # Table name is file name
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types)
+
+        print('uploaded extra file')
+
+    def generate_breakdown(self, df, demo, geo):
+        print(f'processing {demo} {geo}')
+        start = time.time()
+
+        demo_col = std_col.RACE_CATEGORY_ID_COL if demo == 'race' else demo
+        unknown_val = Race.UNKNOWN.value if demo == 'race' else 'Unknown'
+        all_val = Race.ALL.value if demo == 'race' else std_col.ALL_VALUE
+
+        all_columns = [
+           std_col.STATE_FIPS_COL,
+           std_col.STATE_NAME_COL,
+           demo_col,
+           std_col.COVID_POPULATION_PCT,
+        ]
+
+        if geo == 'county':
+            all_columns.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
+
+        df = merge_fips_codes(df)
+        fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
+
+        # Drop annoying column that doesnt match any fips code
+        df = df[df[fips].notna()]
+
+        if geo == 'county':
+            df = remove_bad_fips_cols(df)
+
+        df = merge_pop_numbers(df, demo, geo)
+
+        df = df.rename(columns={std_col.POPULATION_PCT_COL: std_col.COVID_POPULATION_PCT})
+
+        df = null_out_all_unknown_deaths_hosps(df)
+
+        for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
+            per_100k_col = generate_column_name(prefix, std_col.PER_100K_SUFFIX)
+            all_columns.append(per_100k_col)
+            df = generate_per_100k_col(df, raw_count_col, std_col.POPULATION_COL, per_100k_col)
+
+        raw_count_to_pct_share = {}
+        for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
+            raw_count_to_pct_share[raw_count_col] = generate_column_name(prefix, std_col.SHARE_SUFFIX)
+
+        all_columns.extend(list(raw_count_to_pct_share.values()))
+        df = generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
+                                                  demo_col, all_val, unknown_val)
+
+        df = df[all_columns]
+        self.clean_frame_column_names(df)
+
+        sortby_cols = [fips, demo_col]
+        df = df.sort_values(by=sortby_cols).reset_index(drop=True)
+
+        if geo == 'county':
+            null_out_dc_county_rows(df)
+
+        end = time.time()
+        print("took", round(end - start, 2), f"seconds to process {demo} {geo}")
+        return df
+
+
+def null_out_all_unknown_deaths_hosps(df):
+    """If a given geo x breakdown has all unknown hospitalizations or deaths,
+       we treat it as if it has "no data," i.e. we clear the hosp/death fields.
+
+       df: DataFrame to null out rows on"""
+    def null_out_row(row):
+        if row[std_col.COVID_DEATH_UNKNOWN] == row[std_col.COVID_CASES]:
+            row[std_col.COVID_DEATH_Y] = np.nan
+        if row[std_col.COVID_HOSP_UNKNOWN] == row[std_col.COVID_CASES]:
+            row[std_col.COVID_HOSP_Y] = np.nan
+        return row
+
+    return df.apply(null_out_row, axis=1)
+
+
+def null_out_dc_county_rows(df):
+    """Clear all county-level DC data. See issue for more details:
+       https://github.com/SatcherInstitute/health-equity-tracker/issues/872.
+
+       Note: This is an in place function so it doesnt return anything
+
+       df: DataFrame to remove DC info from"""
+    for prefix in COVID_CONDITION_TO_PREFIX.values():
+        df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS,
+               generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = np.nan
+        df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS,
+               generate_column_name(prefix, std_col.SHARE_SUFFIX)] = np.nan
+
+    df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, std_col.COVID_POPULATION_PCT] = np.nan
+
+
+def get_col_types(df):
+    """Returns a dict of column types to send to bigquery
+
+      df: DataFrame to generate column types dict for"""
+    column_types = {c: 'STRING' for c in df.columns}
+    for prefix in COVID_CONDITION_TO_PREFIX.values():
+        column_types[generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = 'FLOAT'
+        column_types[generate_column_name(prefix, std_col.SHARE_SUFFIX)] = 'FLOAT'
+
+    column_types[std_col.COVID_POPULATION_PCT] = 'FLOAT'
+
+    if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+        column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
+    return column_types
+
+
+def remove_bad_fips_cols(df):
+    """Throws out any row where the first two digits of the county fips do not
+       equal the state fips. This is a mistake in the dataset and we can not
+       tell where the cases are from.
+
+       df: The DataFrame to toss rows out of."""
+    def fips_code_is_good(row):
+        return row[std_col.COUNTY_FIPS_COL][0:2] == row[std_col.STATE_FIPS_COL]
+
+    df = df[df.apply(fips_code_is_good, axis=1)]
+    return df.reset_index(drop=True)
