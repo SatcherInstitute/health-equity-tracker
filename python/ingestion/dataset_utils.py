@@ -8,7 +8,7 @@ from ingestion.standardized_columns import Race
 
 
 def generate_pct_share_col_without_unknowns(df, raw_count_to_pct_share, breakdown_col, all_val):
-    """Returns a DataFrame with a percent share row based on the raw_count_cols
+    """Returns a DataFrame with a percent share column based on the raw_count_cols
        Each row must have a corresponding 'ALL' row.
        This function is meant to be used on datasets without any rows where the
        breakdown value is `Unknown`.
@@ -31,8 +31,9 @@ def generate_pct_share_col_without_unknowns(df, raw_count_to_pct_share, breakdow
 def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
                                          breakdown_col, all_val, unknown_val):
     """Returns a DataFrame with a percent share column based on the raw_count_cols.
-       The `pct_share` for the 'unknown' column will the the raw percent share, whereas
-       the `pct_share` for all other columns will be the percent share disregarding unknowns.
+       The resulting `pct_share` value for the 'unknown' row will the the raw
+       percent share, whereas the resulting `pct_share` values for all other
+       rows will be the percent share disregarding unknowns.
 
        df: DataFrame to generate the share_of_known column for.
        raw_count_col: String column name with the raw condition count.
