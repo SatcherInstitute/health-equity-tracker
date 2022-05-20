@@ -19,7 +19,7 @@
         "state_fips": "60",
         "population_pct": 0.9,
         "prison_per_100k": null,
-        "prison_pct_share": 0.0
+        "prison_pct_share": null
     },
     {
         "state_name": "Alabama",
@@ -41,7 +41,7 @@
         "state_fips": "60",
         "population_pct": 0.02,
         "prison_per_100k": null,
-        "prison_pct_share": 0.0
+        "prison_pct_share": null
     },
     {
         "state_name": "Alabama",
@@ -63,7 +63,7 @@
         "state_fips": "60",
         "population_pct": 0.1,
         "prison_per_100k": null,
-        "prison_pct_share": 0.0
+        "prison_pct_share": null
     },
     {
         "state_name": "Alabama",
@@ -85,7 +85,7 @@
         "state_fips": "60",
         "population_pct": null,
         "prison_per_100k": null,
-        "prison_pct_share": 0.0
+        "prison_pct_share": null
     },
     {
         "state_name": "Alabama",
@@ -107,7 +107,7 @@
         "state_fips": "60",
         "population_pct": 3.6,
         "prison_per_100k": null,
-        "prison_pct_share": 0.0
+        "prison_pct_share": null
     },
     {
         "state_name": "Alabama",
@@ -129,7 +129,7 @@
         "state_fips": "60",
         "population_pct": 92.6,
         "prison_per_100k": null,
-        "prison_pct_share": 0.0
+        "prison_pct_share": null
     },
     {
         "state_name": "Alabama",
@@ -151,7 +151,7 @@
         "state_fips": "60",
         "population_pct": 2.7,
         "prison_per_100k": null,
-        "prison_pct_share": 0.0
+        "prison_pct_share": null
     },
     {
         "state_name": "Alabama",
@@ -173,7 +173,7 @@
         "state_fips": "60",
         "population_pct": 0.1,
         "prison_per_100k": null,
-        "prison_pct_share": 0.0
+        "prison_pct_share": null
     },
     {
         "state_name": "Alabama",
@@ -195,7 +195,7 @@
         "state_fips": "60",
         "population_pct": 100.0,
         "prison_per_100k": 353.0,
-        "prison_pct_share": 100.0
+        "prison_pct_share": null
     },
     {
         "state_name": "Alabama",
