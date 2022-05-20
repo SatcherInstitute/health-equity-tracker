@@ -73,7 +73,7 @@ def pct_never_null(numerator, denominator):
     """
     if numerator == 0 and denominator == 0:
         return 0.0
-    return percent_avoid_rounding_to_zero(numerator, denominator)
+    return pct_never_null(numerator, denominator)
 
 
 def get_standard_code_from_cawp_phrase(cawp_place_phrase: str):
@@ -312,20 +312,20 @@ class CAWPData(DataSource):
                     df_line_items, current_place_code, STATE, cawp_race_name)
 
                 # calculate incidence rates
-                output_row[std_col.WOMEN_US_CONGRESS_PCT] = percent_avoid_rounding_to_zero(
+                output_row[std_col.WOMEN_US_CONGRESS_PCT] = pct_never_null(
                     us_congress_women_current_place_current_race,
                     us_congress_members_current_place_all_races)
 
-                output_row[std_col.WOMEN_STATE_LEG_PCT] = percent_avoid_rounding_to_zero(
+                output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_never_null(
                     state_leg_women_current_place_current_race,
                     state_leg_members_current_place_all_races)
 
                 # calculate incidence shares
-                output_row[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = percent_avoid_rounding_to_zero(
+                output_row[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = pct_never_null(
                     us_congress_women_current_place_current_race,
                     us_congress_women_current_place_all_races)
 
-                output_row[std_col.WOMEN_STATE_LEG_PCT_SHARE] = percent_avoid_rounding_to_zero(
+                output_row[std_col.WOMEN_STATE_LEG_PCT_SHARE] = pct_never_null(
                     state_leg_women_current_place_current_race,
                     state_leg_women_current_place_all_races)
 
