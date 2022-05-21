@@ -157,33 +157,32 @@ def cols_to_rows(df, demographic_groups, demographic_col, value_col):
                    value_name=value_col)
 
 
-def fill_in_missing_races(df):
+# def fill_in_missing_races(df):
+#     """
+#     For dataframes where we only have ALL values and no race breakdowns,
+#     we want to set the UNKNOWN row to ALL minus the sum of any other KNOWN races.
+#     We also want to explicitly set the other expected race columns' values to null.
 
-    df = df.copy()
-    """
-    For dataframes where we only have ALL values and no race breakdowns,
-    we want to set the UNKNOWN row to ALL minus the sum of any other KNOWN races.
-    We also want to explicitly set the other expected race columns' values to null.
+#     NOTE: at this point, the df is unmelted; with RACES as columns and PLACES as rows
 
-    NOTE: at this point, the df is unmelted; with RACES as columns and PLACES as rows
+#     Parameters:
+#         df: dataframe with an ALL column
+#     Returns:
+#         df with columns filled: existing columns untouched;
+#         UNKNOWN column calculated and set, other named races with no values set to null
+#      """
+#     df = df.copy()
 
-    Parameters:
-        df: dataframe with an ALL column
-    Returns:
-        df with columns filled: existing columns untouched;
-        UNKNOWN column calculated and set, other named races with no values set to null
-     """
+#     for race in STANDARD_RACE_CODES:
+#         if race == Race.ALL.value:
+#             continue
+#         elif race == Race.UNKNOWN.value:
+#             df[race] = df[Race.ALL.value]
+#         # else:
+#         #     if race not in df.columns:
+#         #         df[race] = np.nan
 
-    for race in STANDARD_RACE_CODES:
-        if race == Race.ALL.value:
-            continue
-        elif race == Race.UNKNOWN.value:
-            df[race] = df[Race.ALL.value]
-        else:
-            if race not in df.columns:
-                df[race] = np.nan
-
-    return df
+#     return df
 
 
 def generate_breakdown(demo, geo_level, source_tables):
@@ -212,8 +211,8 @@ def generate_breakdown(demo, geo_level, source_tables):
     if demo == std_col.RACE_OR_HISPANIC_COL:
         demo_cols = STANDARD_RACE_CODES
         demo_for_flip = std_col.RACE_CATEGORY_ID_COL
-        source_df_territories = fill_in_missing_races(
-            source_df_territories)
+        # territories have no demographic breakdowns, so set UNKNOWN to ALL
+        source_df_territories[Race.UNKNOWN.value] = source_df_territories[Race.ALL.value]
 
     if geo_level == STATE_LEVEL:
         df = keep_only_states(source_df)
@@ -230,9 +229,6 @@ def generate_breakdown(demo, geo_level, source_tables):
 
     df = cols_to_rows(
         df, demo_cols, demo_for_flip, RAW_COL)
-
-    # print("out of gen breakdown")
-    # print(df.to_string())
 
     return df
 
@@ -364,8 +360,6 @@ def post_process(df, breakdown, geo):
     if PCT_SHARE_COL not in df.columns:
 
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
-            print("going in to gen pct share w unknowns")
-            print(df.to_string())
             df = dataset_utils.generate_pct_share_col_with_unknowns(
                 df,
                 {RAW_COL:
@@ -393,9 +387,6 @@ def post_process(df, breakdown, geo):
 
     else:
         df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
-
-    print("in post")
-    print(df.to_string())
 
     return df
 
