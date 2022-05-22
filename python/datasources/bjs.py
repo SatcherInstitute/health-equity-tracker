@@ -157,34 +157,6 @@ def cols_to_rows(df, demographic_groups, demographic_col, value_col):
                    value_name=value_col)
 
 
-# def fill_in_missing_races(df):
-#     """
-#     For dataframes where we only have ALL values and no race breakdowns,
-#     we want to set the UNKNOWN row to ALL minus the sum of any other KNOWN races.
-#     We also want to explicitly set the other expected race columns' values to null.
-
-#     NOTE: at this point, the df is unmelted; with RACES as columns and PLACES as rows
-
-#     Parameters:
-#         df: dataframe with an ALL column
-#     Returns:
-#         df with columns filled: existing columns untouched;
-#         UNKNOWN column calculated and set, other named races with no values set to null
-#      """
-#     df = df.copy()
-
-#     for race in STANDARD_RACE_CODES:
-#         if race == Race.ALL.value:
-#             continue
-#         elif race == Race.UNKNOWN.value:
-#             df[race] = df[Race.ALL.value]
-#         # else:
-#         #     if race not in df.columns:
-#         #         df[race] = np.nan
-
-#     return df
-
-
 def generate_breakdown(demo, geo_level, source_tables):
     """
     Takes demographic type and geographic level, along with
@@ -358,7 +330,6 @@ def post_process(df, breakdown, geo):
     if PCT_SHARE_COL not in df.columns:
 
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
-
             df = dataset_utils.generate_pct_share_col_with_unknowns(
                 df,
                 {RAW_COL:
