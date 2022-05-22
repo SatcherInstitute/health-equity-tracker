@@ -27,7 +27,7 @@
         "prison_pct_share": 7.5
     },
     {
-        "prison_estimated_total": 171414.07,
+        "prison_estimated_total": null,
         "state_name": "United States",
         "age": "25-29",
         "state_fips": "00",
@@ -36,7 +36,7 @@
         "prison_pct_share": 14.5
     },
     {
-        "prison_estimated_total": 192693.058,
+        "prison_estimated_total": null,
         "state_name": "United States",
         "age": "30-34",
         "state_fips": "00",
@@ -45,7 +45,7 @@
         "prison_pct_share": 16.3
     },
     {
-        "prison_estimated_total": 186782.228,
+        "prison_estimated_total": null,
         "state_name": "United States",
         "age": "35-39",
         "state_fips": "00",
@@ -54,7 +54,7 @@
         "prison_pct_share": 15.8
     },
     {
-        "prison_estimated_total": 153681.58,
+        "prison_estimated_total": null,
         "state_name": "United States",
         "age": "40-44",
         "state_fips": "00",
@@ -63,7 +63,7 @@
         "prison_pct_share": 13.0
     },
     {
-        "prison_estimated_total": 119398.766,
+        "prison_estimated_total": null,
         "state_name": "United States",
         "age": "45-49",
         "state_fips": "00",
@@ -72,7 +72,7 @@
         "prison_pct_share": 10.1
     },
     {
-        "prison_estimated_total": 95755.446,
+        "prison_estimated_total": null,
         "state_name": "United States",
         "age": "50-54",
         "state_fips": "00",
@@ -81,7 +81,7 @@
         "prison_pct_share": 8.1
     },
     {
-        "prison_estimated_total": 76840.79,
+        "prison_estimated_total": null,
         "state_name": "United States",
         "age": "55-59",
         "state_fips": "00",
@@ -90,7 +90,7 @@
         "prison_pct_share": 6.5
     },
     {
-        "prison_estimated_total": 47286.64,
+        "prison_estimated_total": null,
         "state_name": "United States",
         "age": "60-64",
         "state_fips": "00",
@@ -99,7 +99,7 @@
         "prison_pct_share": 4.0
     },
     {
-        "prison_estimated_total": 41375.81,
+        "prison_estimated_total": null,
         "state_name": "United States",
         "age": "65+",
         "state_fips": "00",

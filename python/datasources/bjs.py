@@ -32,6 +32,8 @@ BJS_DATA_TYPES = [
     # std_col.INCARCERATED_PREFIX
 ]
 
+NON_NULL_RAW_COUNT_GROUPS = ["0-17"]
+
 # BJS Prisoners Report
 BJS_PRISONERS_ZIP = "https://bjs.ojp.gov/content/pub/sheets/p20st.zip"
 
@@ -347,12 +349,12 @@ def post_process(df, breakdown, geo):
                 std_col.ALL_VALUE,
             )
 
-    # manually set 0-17 rates to nan (keeping RAW count for frontend)
+    # manually null RATES for 0-17 and null RAW for all other groups
     if breakdown == std_col.AGE_COL:
-        df.loc[df[std_col.AGE_COL] == '0-17',
+        df.loc[df[std_col.AGE_COL].isin(NON_NULL_RAW_COUNT_GROUPS),
                [PER_100K_COL, PCT_SHARE_COL]] = np.nan
-
-        # keep raw column; frontend will only use 0-17 value
+        df.loc[~df[std_col.AGE_COL].isin(NON_NULL_RAW_COUNT_GROUPS),
+               [RAW_COL]] = np.nan
         df = df.drop(columns=[std_col.POPULATION_COL])
 
     else:
