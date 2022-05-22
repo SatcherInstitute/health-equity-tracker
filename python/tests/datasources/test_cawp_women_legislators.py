@@ -8,6 +8,7 @@ from datasources.cawp import (CAWPData,
                               get_standard_code_from_cawp_phrase,
                               count_matching_rows,
                               remove_markup,
+                              pct_never_null,
                               NATIONAL,
                               STATE,
                               POSTAL_COL,
@@ -16,6 +17,13 @@ from datasources.cawp import (CAWPData,
 
 
 # UNIT TESTS
+
+def test_pct_never_null():
+    assert pct_never_null(1, 2) == 50
+    assert pct_never_null(0, 0) == 0
+    # TODO uncomment next test once util fn is fixed
+    # assert pct_never_null(1, 0) is None
+
 
 def test_get_standard_code_from_cawp_phrase():
     assert get_standard_code_from_cawp_phrase("American Samoa - AS") == "AS"
