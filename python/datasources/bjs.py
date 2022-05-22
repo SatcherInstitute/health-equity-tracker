@@ -211,8 +211,6 @@ def generate_breakdown(demo, geo_level, source_tables):
     if demo == std_col.RACE_OR_HISPANIC_COL:
         demo_cols = STANDARD_RACE_CODES
         demo_for_flip = std_col.RACE_CATEGORY_ID_COL
-        # territories have no demographic breakdowns, so set UNKNOWN to ALL
-        source_df_territories[Race.UNKNOWN.value] = source_df_territories[Race.ALL.value]
 
     if geo_level == STATE_LEVEL:
         df = keep_only_states(source_df)

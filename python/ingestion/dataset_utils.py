@@ -48,31 +48,34 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
     df = _generate_pct_share_col(
         df, raw_count_to_pct_share, breakdown_col, all_val)
 
+    # split off incoming ALL
+    all_df = df.loc[df[breakdown_col] == all_val].reset_index(drop=True)
+
+    # split off incoming UNKNOWNS
     unknown_df = df.loc[df[breakdown_col] ==
                         unknown_val].reset_index(drop=True)
     if len(unknown_df) == 0:
         raise ValueError(('This dataset does not contains unknowns, use the'
                           'generate_pct_share_col_without_unknowns function instead'))
 
-    all_df = df.loc[df[breakdown_col] == all_val].reset_index(drop=True)
-
+    # split off incoming KNOWNS
     df = df.loc[~df[breakdown_col].isin({unknown_val, all_val})]
 
+    # setup to calculate share of KNOWN
     groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
     if std_col.COUNTY_FIPS_COL in df.columns:
         groupby_cols.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
-
     df = df.drop(columns=list(raw_count_to_pct_share.values()))
 
-    # require at least one non-NaN number for sum to be a number
-    alls = df.groupby(groupby_cols).sum(min_count=1).reset_index()
+    # sum all KNOWNS to get new ALL (require at least one non-NaN value for a number sum)
+    all_knowns = df.groupby(groupby_cols).sum(min_count=1).reset_index()
 
     # if a row's sum of named races is still NaN, then we need to use the row's original ALL
-    alls["prison_estimated_total"] = alls["prison_estimated_total"].combine_first(
+    all_knowns["prison_estimated_total"] = all_knowns["prison_estimated_total"].combine_first(
         all_df["prison_estimated_total"])
 
-    alls[breakdown_col] = all_val
-    df = pd.concat([df, alls]).reset_index(drop=True)
+    all_knowns[breakdown_col] = all_val
+    df = pd.concat([df, all_knowns]).reset_index(drop=True)
 
     df = _generate_pct_share_col(
         df, raw_count_to_pct_share, breakdown_col, all_val)
@@ -82,7 +85,12 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
     for share_of_known_col in raw_count_to_pct_share.values():
         all_df[share_of_known_col] = 100.0
 
+    # if a row's UNKNOWN SHARE is NaN, we should treat as ALL UNKNOWN data)
+    unknown_df["prison_pct_share"] = unknown_df["prison_pct_share"].combine_first(
+        all_df["prison_pct_share"])
+
     df = pd.concat([df, all_df, unknown_df]).reset_index(drop=True)
+
     return df
 
 
