@@ -37,9 +37,10 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
        rows will be the percent share disregarding unknowns.
 
        df: DataFrame to generate the share_of_known column for.
-       raw_count_col: String column name with the raw condition count.
-       share_of_known_col: String column name to place the generate share of known
-                           numbers in.
+                    raw_count_to_pct_share: dictionary {raw_col_name: pct_share_col_name }
+                    mapping a string column name for the raw condition count column to a
+                    string column name for the resulting percent share of known / percent
+                    share unknown column.
        breakdown_col: String column name representing the demographic breakdown
                       (race/sex/age).
        all_val: String representing an ALL demographic value in the dataframe.
@@ -70,9 +71,10 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
     # sum all KNOWNS to get new ALL (require at least one non-NaN value for a number sum)
     all_knowns = df.groupby(groupby_cols).sum(min_count=1).reset_index()
 
-    # if a row's sum of named races is still NaN, then we need to use the row's original ALL
-    all_knowns["prison_estimated_total"] = all_knowns["prison_estimated_total"].combine_first(
-        all_df["prison_estimated_total"])
+    for raw_col_name in raw_count_to_pct_share.keys():
+        # if a row's sum of named races is still NaN, then we need to use the row's original ALL
+        all_knowns[raw_col_name] = all_knowns[raw_col_name].combine_first(
+            all_df[raw_col_name])
 
     all_knowns[breakdown_col] = all_val
     df = pd.concat([df, all_knowns]).reset_index(drop=True)
@@ -84,10 +86,9 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
 
     for share_of_known_col in raw_count_to_pct_share.values():
         all_df[share_of_known_col] = 100.0
-
-    # if a row's UNKNOWN SHARE is NaN, we should treat as ALL UNKNOWN data)
-    unknown_df["prison_pct_share"] = unknown_df["prison_pct_share"].combine_first(
-        all_df["prison_pct_share"])
+        # if a row's UNKNOWN SHARE is NaN, we should treat as ALL UNKNOWN data)
+        unknown_df[share_of_known_col] = unknown_df[share_of_known_col].combine_first(
+            all_df[share_of_known_col])
 
     df = pd.concat([df, all_df, unknown_df]).reset_index(drop=True)
 
