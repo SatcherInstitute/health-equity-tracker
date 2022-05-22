@@ -358,6 +358,7 @@ def post_process(df, breakdown, geo):
     if PCT_SHARE_COL not in df.columns:
 
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
+
             df = dataset_utils.generate_pct_share_col_with_unknowns(
                 df,
                 {RAW_COL:
