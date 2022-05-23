@@ -4,6 +4,8 @@ import pandas as pd  # type: ignore
 import datasources.census_pop_estimates as census_pop_estimates
 import datasources.cdc_restricted_local as cdc_restricted_local
 
+from datasources.cdc_restricted import get_col_types
+
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion import dataset_utils
@@ -84,8 +86,8 @@ class AgeAdjustCDCRestricted(DataSource):
             df = get_expected_hosps(df, pop_df_hosp)
             age_adjusted_df = age_adjust_from_expected(df)
 
-            only_race = 'by_race_%s' % geo
-            table_name = '%s-with_age_adjust' % only_race
+            only_race = f'by_race_{geo}_processed'
+            table_name = f'{only_race}-with_age_adjust'
 
             # TODO: Get rid of this when we do all national calculations on the backend
             if geo == 'state':
@@ -99,19 +101,14 @@ class AgeAdjustCDCRestricted(DataSource):
         # For each of the files, we load it as a dataframe and add it as a
         # table in the BigQuery dataset. We expect that all aggregation and
         # standardization of the data has been done by this point.
-        int_cols = [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
-                    std_col.COVID_HOSP_N, std_col.COVID_HOSP_UNKNOWN,
-                    std_col.COVID_DEATH_Y, std_col.COVID_DEATH_N,
-                    std_col.COVID_DEATH_UNKNOWN]
-
         for table_name, df in table_names_to_dfs.items():
             # All columns are str, except outcome columns.
             column_types = {c: 'STRING' for c in df.columns}
-            for col in int_cols:
-                if col in column_types:
-                    column_types[col] = 'FLOAT'
             if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                 column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
+            if 'state' in table_name:
+                column_types = get_col_types(df)
 
             # Clean up column names.
             self.clean_frame_column_names(df)

@@ -1,0 +1,5 @@
+state_postal,age,cases,hosp_y,hosp_n,hosp_unknown,death_y,death_n,death_unknown
+CA,Age-1,6,2,3,0,1,2,2
+CA,Age-2,6,2,1,3,1,3,2
+CA,All,18,5,6,7,5,5,8
+CA,Unknown,7,1,2,4,3,0,4
