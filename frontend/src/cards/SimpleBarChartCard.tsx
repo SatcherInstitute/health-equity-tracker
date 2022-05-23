@@ -8,11 +8,17 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { isPctType, VariableConfig } from "../data/config/MetricConfig";
+import {
+  isPctType,
+  MetricId,
+  VariableConfig,
+} from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
+import { BJS_VARIABLE_IDS } from "../data/variables/BjsProvider";
+import IncarceratedChildrenAlert from "./ui/IncarceratedChildrenAlert";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -38,12 +44,19 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
 
+  const isIncarceration = BJS_VARIABLE_IDS.includes(
+    props.variableConfig.variableId
+  );
+  const metricIdsToFetch: MetricId[] = [];
+  metricIdsToFetch.push(metricConfig.metricId);
+  isIncarceration && metricIdsToFetch.push("prison_estimated_total");
+
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(NON_HISPANIC)
   );
 
-  const query = new MetricQuery([metricConfig.metricId], breakdowns);
+  const query = new MetricQuery(metricIdsToFetch, breakdowns);
 
   function getTitleText() {
     return `${metricConfig.fullCardTitleName} By ${
@@ -76,14 +89,27 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 fips={props.fips}
               />
             ) : (
-              <SimpleHorizontalBarChart
-                data={data}
-                breakdownVar={props.breakdownVar}
-                metric={metricConfig}
-                showLegend={false}
-                filename={getTitleText()}
-                usePercentSuffix={isPctType(metricConfig.type)}
-              />
+              <>
+                {isIncarceration && (
+                  <>
+                    <CardContent>
+                      <IncarceratedChildrenAlert
+                        fips={props.fips}
+                        queryResponse={queryResponse}
+                      />
+                    </CardContent>
+                  </>
+                )}
+
+                <SimpleHorizontalBarChart
+                  data={data}
+                  breakdownVar={props.breakdownVar}
+                  metric={metricConfig}
+                  showLegend={false}
+                  filename={getTitleText()}
+                  usePercentSuffix={isPctType(metricConfig.type)}
+                />
+              </>
             )}
           </CardContent>
         );

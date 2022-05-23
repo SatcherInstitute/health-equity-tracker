@@ -17,7 +17,7 @@ import {
   getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
-import { CHILD_AGE_BUCKETS, RACE } from "../data/utils/Constants";
+import { RACE } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
@@ -29,7 +29,6 @@ import {
 import styles from "./Card.module.scss";
 import { BJS_VARIABLE_IDS } from "../data/variables/BjsProvider";
 import IncarceratedChildrenAlert from "./ui/IncarceratedChildrenAlert";
-import { Row } from "../data/utils/DatasetTypes";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -105,15 +104,7 @@ export function TableCard(props: TableCardProps) {
     >
       {([queryResponse]) => {
         let data = queryResponse.data;
-        let prisonCountUnder18;
         if (shouldShowAltPopCompare(props)) data = fillInAltPops(data);
-
-        // extract the under 18 RAW value for the alert
-        if (isIncarceration) {
-          prisonCountUnder18 = data.find((row: Row) =>
-            CHILD_AGE_BUCKETS.includes(row.age)
-          )?.["prison_estimated_total"];
-        }
 
         return (
           <>
@@ -155,12 +146,12 @@ export function TableCard(props: TableCardProps) {
                   <Divider />
                 </>
               )}
-            {isIncarceration && prisonCountUnder18 != null && (
+            {isIncarceration && (
               <>
                 <CardContent>
                   <IncarceratedChildrenAlert
                     fips={props.fips}
-                    prisonCountUnder18={prisonCountUnder18}
+                    queryResponse={queryResponse}
                   />
                 </CardContent>
               </>

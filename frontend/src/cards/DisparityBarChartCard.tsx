@@ -26,6 +26,8 @@ import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
+import { BJS_VARIABLE_IDS } from "../data/variables/BjsProvider";
+import IncarceratedChildrenAlert from "./ui/IncarceratedChildrenAlert";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 719;
@@ -51,6 +53,10 @@ export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
 function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["pct_share"];
 
+  const isIncarceration = BJS_VARIABLE_IDS.includes(
+    props.variableConfig.variableId
+  );
+
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(ALL, NON_HISPANIC)
@@ -68,6 +74,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   if (metricConfig.secondaryPopulationComparisonMetric) {
     metricIds.push(metricConfig.secondaryPopulationComparisonMetric.metricId);
   }
+
+  isIncarceration && metricIds.push("prison_estimated_total");
 
   const query = new MetricQuery(metricIds, breakdowns);
 
@@ -138,19 +146,32 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               </CardContent>
             )}
             {dataAvailable && dataWithoutUnknowns.length !== 0 && (
-              <CardContent>
-                <DisparityBarChart
-                  data={dataWithoutUnknowns}
-                  lightMetric={metricConfig.populationComparisonMetric!}
-                  darkMetric={
-                    metricConfig.knownBreakdownComparisonMetric || metricConfig
-                  }
-                  breakdownVar={props.breakdownVar}
-                  metricDisplayName={metricConfig.shortLabel}
-                  filename={getTitleText()}
-                  showAltPopCompare={shouldShowAltPopCompare(props)}
-                />
-              </CardContent>
+              <>
+                {isIncarceration && (
+                  <>
+                    <CardContent>
+                      <IncarceratedChildrenAlert
+                        fips={props.fips}
+                        queryResponse={queryResponse}
+                      />
+                    </CardContent>
+                  </>
+                )}
+                <CardContent>
+                  <DisparityBarChart
+                    data={dataWithoutUnknowns}
+                    lightMetric={metricConfig.populationComparisonMetric!}
+                    darkMetric={
+                      metricConfig.knownBreakdownComparisonMetric ||
+                      metricConfig
+                    }
+                    breakdownVar={props.breakdownVar}
+                    metricDisplayName={metricConfig.shortLabel}
+                    filename={getTitleText()}
+                    showAltPopCompare={shouldShowAltPopCompare(props)}
+                  />
+                </CardContent>{" "}
+              </>
             )}
             {shouldShowDoesntAddUpMessage && !isCawp && (
               <Alert severity="info" role="note">

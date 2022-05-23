@@ -2,7 +2,6 @@ import { getDataManager } from "../../utils/globals";
 import { MetricId, VariableId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-// import { UNDER_18_PRISON } from "../utils/Constants";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
@@ -61,7 +60,7 @@ class BjsProvider extends VariableProvider {
 
     df = this.removeUnrequestedColumns(df, metricQuery);
 
-    // swap backend juvenile bucket with frontend label
+    // // swap backend juvenile bucket with frontend label
     // df = df.map((row) =>
     //   row["age"] === "0-17" ? { ...row, age: UNDER_18_PRISON } : row
     // );
