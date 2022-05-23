@@ -1,6 +1,6 @@
 [
     {
-        "prison_estimated_total": 1182166.0,
+        "prison_estimated_total": null,
         "state_name": "United States",
         "age": "All",
         "state_fips": "00",
@@ -9,7 +9,7 @@
         "prison_pct_share": 100.0
     },
     {
-        "prison_estimated_total": 7092.996,
+        "prison_estimated_total": null,
         "state_name": "United States",
         "age": "18-19",
         "state_fips": "00",
@@ -18,7 +18,7 @@
         "prison_pct_share": 0.6
     },
     {
-        "prison_estimated_total": 88662.45,
+        "prison_estimated_total": null,
         "state_name": "United States",
         "age": "20-24",
         "state_fips": "00",

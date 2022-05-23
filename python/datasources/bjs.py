@@ -229,9 +229,10 @@ def make_prison_national_age_raw_df(source_tables):
                               != 'Number of sentenced prisoners']
 
     # standardize df with ADULT RAW # / AGE / USA
-    df_adults = dataset_utils.merge_fips_codes(source_df)
-    df_adults = dataset_utils.merge_pop_numbers(
-        df_adults, std_col.AGE_COL, NATIONAL_LEVEL)
+    # df_adults = dataset_utils.merge_fips_codes(source_df)
+    # df_adults = dataset_utils.merge_pop_numbers(
+    #     df_adults, std_col.AGE_COL, NATIONAL_LEVEL)
+    df_adults = source_df.copy()
 
     # infer the raw count for each age breakdown
     df_adults[RAW_COL] = df_adults[PCT_SHARE_COL] / 100 * total_raw

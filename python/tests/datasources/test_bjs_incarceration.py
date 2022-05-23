@@ -204,89 +204,13 @@ def get_test_table_files():
     return loaded_tables
 
 
-def get_race_pop_data_as_df_state():
+def _get_pop_as_df(*args):
+    # retrieve fake ACS table subsets
+    data_source, table_name, _dtypes = args
 
-    df = pd.read_json(os.path.join(
-        TEST_DIR, 'acs_population', 'by_race_state_std.json'),
-        dtype={'state_fips': str})
-
-    return df
-
-
-def get_age_pop_data_as_df_state():
-
-    df = pd.read_json(os.path.join(
-        TEST_DIR, 'acs_population', 'by_age_state.json'),
-        dtype={'state_fips': str})
-
-    return df
-
-
-def get_sex_pop_data_as_df_state():
-
-    df = pd.read_json(os.path.join(
-        TEST_DIR, 'acs_population', 'by_sex_state.json'),
-        dtype={'state_fips': str})
-
-    return df
-
-
-def get_race_pop_data_as_df_territory():
-
-    df = pd.read_json(os.path.join(
-        TEST_DIR, 'acs_2010_population', 'by_race_and_ethnicity_territory.json'),
-        dtype={'state_fips': str})
-
-    return df
-
-
-def get_age_pop_data_as_df_territory():
-
-    df = pd.read_json(os.path.join(
-        TEST_DIR, 'acs_2010_population', 'by_age_territory.json'),
-        dtype={'state_fips': str})
-
-    return df
-
-
-def get_sex_pop_data_as_df_territory():
-
-    df = pd.read_json(os.path.join(
-        TEST_DIR, 'acs_2010_population', 'by_sex_territory.json'),
-        dtype={'state_fips': str})
-
-    return df
-
-
-def get_race_pop_data_as_df_national():
-
-    df = pd.read_json(os.path.join(TEST_DIR, 'acs_population',
-                                   'by_race_national.json'),
+    df = pd.read_json(os.path.join(TEST_DIR, data_source,
+                                   f'{table_name}.json'),
                       dtype={'state_fips': str})
-    df[std_col.STATE_FIPS_COL] = '00'
-    df[std_col.STATE_NAME_COL] = 'United States'
-
-    return df
-
-
-def get_age_pop_data_as_df_national():
-
-    df = pd.read_json(os.path.join(TEST_DIR, 'acs_population',
-                                   'by_age_national.json'),
-                      dtype={'state_fips': str})
-    df[std_col.STATE_FIPS_COL] = '00'
-    df[std_col.STATE_NAME_COL] = 'United States'
-
-    return df
-
-
-def get_sex_pop_data_as_df_national():
-
-    df = pd.read_json(os.path.join(TEST_DIR, 'acs_population',
-                                   'by_sex_national.json'),
-                      dtype={'state_fips': str})
-    df[std_col.STATE_FIPS_COL] = '00'
-    df[std_col.STATE_NAME_COL] = 'United States'
 
     return df
 
@@ -310,7 +234,7 @@ GOLDEN_DATA = {
 
 # RUN INTEGRATION TESTS ON NATIONAL LEVEL
 
-@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
+@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
 @ mock.patch('datasources.bjs.load_tables',
@@ -323,21 +247,6 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
                                mock_pop: mock.MagicMock
                                ):
 
-    # run these in order as replacements for the
-    # actual calls to load_csv_as_df_from_web()
-    mock_pop.side_effect = [
-        get_age_pop_data_as_df_national(),  # extra
-        get_age_pop_data_as_df_national(),
-        get_race_pop_data_as_df_national(),
-        get_sex_pop_data_as_df_national(),
-        get_age_pop_data_as_df_state(),
-        get_age_pop_data_as_df_territory(),
-        get_race_pop_data_as_df_state(),
-        get_race_pop_data_as_df_territory(),
-        get_sex_pop_data_as_df_state(),
-        get_sex_pop_data_as_df_territory(),
-    ]
-
     bjs_data = BJSData()
 
     # required by bigQuery
@@ -346,6 +255,34 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
               'table_name': 'output_table'}
 
     bjs_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+
+    assert mock_bq.call_count == 6
+    mock_df_national_age = mock_bq.call_args_list[0][0][0]
+    mock_df_national_race = mock_bq.call_args_list[1][0][0]
+    mock_df_national_sex = mock_bq.call_args_list[2][0][0]
+    mock_df_state_age = mock_bq.call_args_list[3][0][0]
+    mock_df_state_race = mock_bq.call_args_list[4][0][0]
+    mock_df_state_sex = mock_bq.call_args_list[5][0][0]
+
+    assert mock_zip.call_count == 1
+
+    assert mock_fips.call_count == 6
+    for call_arg in mock_fips.call_args_list:
+        assert call_arg.args[1] == "fips_codes_states"
+
+    assert mock_pop.call_count == 9
+    assert mock_pop.call_args_list[0].args[1] == 'by_age_national'
+    assert mock_pop.call_args_list[1].args[1] == 'by_race_national'
+    assert mock_pop.call_args_list[2].args[1] == 'by_sex_national'
+    assert mock_pop.call_args_list[3].args[1] == 'by_age_state'
+    assert mock_pop.call_args_list[4].args[1] == 'by_age_territory'
+    assert mock_pop.call_args_list[5].args[1] == 'by_race_state_std'
+    assert mock_pop.call_args_list[6].args[1] == 'by_race_and_ethnicity_territory'
+    assert mock_pop.call_args_list[7].args[1] == 'by_sex_state'
+    assert mock_pop.call_args_list[8].args[1] == 'by_sex_territory'
+
+
+# COMPARE MOCKED BREAKDOWNS (PROCESSED TEST INPUT) TO EXPECTED BREAKDOWNS (TEST OUTPUT)
 
     expected_dtype = {
         'state_name': str,
@@ -390,18 +327,6 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
 
     expected_df_sex_state = pd.read_json(
         GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex)
-
-    # unpack the data from the mocked calls
-    # mock_tuple, mock_dtypes = args[i]
-    # mock_df, _dataset, _gcs_bucket = mock_tuple
-    args = mock_bq.call_args_list
-
-    mock_df_national_age = args[0][0][0]
-    mock_df_national_race = args[1][0][0]
-    mock_df_national_sex = args[2][0][0]
-    mock_df_state_age = args[3][0][0]
-    mock_df_state_race = args[4][0][0]
-    mock_df_state_sex = args[5][0][0]
 
     # save NATIONAL results to file
     mock_df_national_age.to_json(
