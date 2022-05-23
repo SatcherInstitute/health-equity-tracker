@@ -20,7 +20,6 @@ import pytest
 # UNIT TESTS
 
 def test_pct_never_null():
-
     # normal percent
     assert pct_never_null(1, 2) == 50
     # never null; return 0.0 instead
