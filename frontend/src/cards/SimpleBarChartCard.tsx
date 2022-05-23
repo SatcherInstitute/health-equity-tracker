@@ -18,7 +18,7 @@ import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { BJS_VARIABLE_IDS } from "../data/variables/BjsProvider";
-import IncarceratedChildrenAlert from "./ui/IncarceratedChildrenAlert";
+import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -93,7 +93,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 {isIncarceration && (
                   <>
                     <CardContent>
-                      <IncarceratedChildrenAlert
+                      <IncarceratedChildrenShortAlert
                         fips={props.fips}
                         queryResponse={queryResponse}
                       />

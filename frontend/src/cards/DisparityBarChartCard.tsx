@@ -27,7 +27,7 @@ import UnknownsAlert from "./ui/UnknownsAlert";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 import { BJS_VARIABLE_IDS } from "../data/variables/BjsProvider";
-import IncarceratedChildrenAlert from "./ui/IncarceratedChildrenAlert";
+import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 719;
@@ -150,7 +150,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 {isIncarceration && (
                   <>
                     <CardContent>
-                      <IncarceratedChildrenAlert
+                      <IncarceratedChildrenShortAlert
                         fips={props.fips}
                         queryResponse={queryResponse}
                       />

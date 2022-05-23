@@ -28,7 +28,7 @@ import {
 } from "../data/utils/datasetutils";
 import styles from "./Card.module.scss";
 import { BJS_VARIABLE_IDS } from "../data/variables/BjsProvider";
-import IncarceratedChildrenAlert from "./ui/IncarceratedChildrenAlert";
+import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -149,7 +149,7 @@ export function TableCard(props: TableCardProps) {
             {isIncarceration && (
               <>
                 <CardContent>
-                  <IncarceratedChildrenAlert
+                  <IncarceratedChildrenShortAlert
                     fips={props.fips}
                     queryResponse={queryResponse}
                   />
