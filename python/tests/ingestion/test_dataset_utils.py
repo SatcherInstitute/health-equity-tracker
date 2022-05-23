@@ -157,7 +157,7 @@ _fips_codes_from_bq = [
     ['state_fips_code', 'state_postal_abbreviation', 'state_name', 'state_gnisid'],
     ['06', 'CA', 'California', '01779778'],
     ['13', 'GA', 'Georgia', '01705317'],
-    ['78', 'VI', 'U.S. Virgin Islands', 'NEEDTHISCODE'],
+    ['78', 'VI', 'U.S. Virgin Islands', 'NEED_THIS_CODE'],
 ]
 
 _expected_merged_fips = [
