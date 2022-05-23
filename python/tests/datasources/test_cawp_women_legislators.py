@@ -21,7 +21,7 @@ from datasources.cawp import (CAWPData,
 def test_pct_never_null():
     assert pct_never_null(1, 2) == 50
     assert pct_never_null(0, 0) == 0
-    assert pct_never_null(1, 0) is None
+    assert pct_never_null(1, 0) == 0
 
 
 def test_get_standard_code_from_cawp_phrase():
