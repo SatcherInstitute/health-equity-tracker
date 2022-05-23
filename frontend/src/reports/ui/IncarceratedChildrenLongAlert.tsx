@@ -22,11 +22,12 @@ function IncarceratedChildrenLongAlert() {
         numbers held in adult jails and juveniles detention centers. When
         showing reports filtered by age, we have highlighted the{" "}
         <b>total count</b> of these imprisoned children, rather than presenting
-        a rate per 100k. Learn more about how this lack of minimum-age
-        sentencing requirements{" "}
+        a rate per 100k.{" "}
         <a href={urlMap.childrenInPrison}>
-          affects health equity, particularly for Black and Latino youths.
-        </a>
+          Learn more about the lack of minimum-age sentencing requirements
+        </a>{" "}
+        and how it affects health equity, particularly for Black and Latino
+        youths.
       </Alert>
     </div>
   );
