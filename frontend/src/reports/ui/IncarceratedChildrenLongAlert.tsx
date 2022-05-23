@@ -18,11 +18,10 @@ function IncarceratedChildrenLongAlert() {
         There is no absolute minimum age in most states nor federally for
         sentencing as an adult, and in some cases{" "}
         <b>children as young as 8 years old</b> have been imprisoned in adult
-        facilities. This type incarceration is distinct from the much larger
-        numbers held in adult jails and juveniles detention centers. When
-        showing reports filtered by age, we have highlighted the{" "}
-        <b>total count</b> of these imprisoned children, rather than presenting
-        a rate per 100k.{" "}
+        facilities. This imprisonment is distinct from the much larger numbers
+        held in adult jails and juveniles detention centers. When showing
+        reports filtered by age, we have highlighted the <b>total count</b> of
+        these imprisoned children, rather than presenting a rate per 100k.{" "}
         <a href={urlMap.childrenInPrison}>
           Learn more about the lack of minimum-age sentencing requirements
         </a>{" "}

@@ -6,7 +6,8 @@ import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { Row } from "../../data/utils/DatasetTypes";
 import { CHILD_AGE_BUCKETS } from "../../data/utils/Constants";
 
-let childrenAre = "children";
+let children = "children";
+let are = "are";
 let adultPrisonFacilities = "adult prison facilities";
 
 interface IncarceratedChildrenShortAlertProps {
@@ -24,17 +25,19 @@ function IncarceratedChildrenShortAlert(
   if (!count) return <></>;
 
   if (count === 1) {
-    childrenAre = "child is";
+    children = "child";
+    are = "is";
     adultPrisonFacilities = "an adult prison facility";
   }
 
   return (
     <Alert severity="error" role="note">
       <b>
-        {count} {childrenAre} are currently incarcerated in{" "}
-        {adultPrisonFacilities} in {props.fips.getDisplayName()}
-      </b>
-      . <a href={urlMap.childrenInPrison}>Learn more.</a>
+        {count} {children}
+      </b>{" "}
+      {are} currently incarcerated in {adultPrisonFacilities} in{" "}
+      <b>{props.fips.getDisplayName()}</b>.{" "}
+      <a href={urlMap.childrenInPrison}>Learn more.</a>
     </Alert>
   );
 }

@@ -30,7 +30,6 @@ import {
 import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
-import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
 
 export interface OneVariableReportProps {
   key: string;
@@ -97,8 +96,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
   const breakdownIsShown = (breakdownVar: BreakdownVar) =>
     currentBreakdown === breakdownVar;
 
-  const isPrison = variableConfig?.variableId === "prison";
-
   return (
     <Grid
       item
@@ -116,8 +113,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
       )}
 
       {!variableConfig && <NoDataAlert dropdownVarId={props.dropdownVarId} />}
-
-      {isPrison && <IncarceratedChildrenLongAlert />}
 
       {variableConfig && (
         <Grid container spacing={1} justifyContent="center">

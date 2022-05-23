@@ -32,6 +32,7 @@ import { Box } from "@material-ui/core";
 import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
+import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -42,6 +43,7 @@ interface ReportProviderProps {
   showLifeLineAlert: boolean;
   setMadLib: Function;
   doScrollToData?: boolean;
+  showIncarceratedChildrenAlert: boolean;
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -160,6 +162,10 @@ function ReportProvider(props: ReportProviderProps) {
         <ShareButtons madLib={props.madLib} />
         {props.showLifeLineAlert && <LifelineAlert />}
         <DisclaimerAlert jumpToData={jumpToData} />
+        {props.showIncarceratedChildrenAlert && (
+          <IncarceratedChildrenLongAlert />
+        )}
+
         {getReport()}
       </div>
       <div className={styles.MissingDataContainer}>

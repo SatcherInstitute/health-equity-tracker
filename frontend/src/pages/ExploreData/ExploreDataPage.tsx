@@ -46,6 +46,8 @@ function ExploreDataPage() {
     location?.hash === `#${WHAT_DATA_ARE_MISSING_ID}`;
 
   const [showStickyLifeline, setShowStickyLifeline] = useState(false);
+  const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
+    useState(false);
 
   // Set up initial mad lib values based on defaults and query params
   const params = useSearchParams();
@@ -206,6 +208,12 @@ function ExploreDataPage() {
       )
     );
 
+    setShowIncarceratedChildrenAlert(
+      getSelectedConditions(madLib).some(
+        (condition: VariableConfig) => condition?.variableId === "prison"
+      )
+    );
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [madLib]);
 
@@ -272,6 +280,7 @@ function ExploreDataPage() {
             madLib={madLib}
             selectedConditions={getSelectedConditions(madLib)}
             showLifeLineAlert={showStickyLifeline}
+            showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
             setMadLib={setMadLibWithParam}
             doScrollToData={doScrollToData}
           />
