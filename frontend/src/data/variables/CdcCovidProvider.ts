@@ -25,12 +25,6 @@ class CdcCovidProvider extends VariableProvider {
       "covid_deaths_per_100k",
       "covid_cases_per_100k",
       "covid_hosp_per_100k",
-      "covid_cases_reporting_population",
-      "covid_deaths_reporting_population",
-      "covid_hosp_reporting_population",
-      "covid_cases_reporting_population_pct",
-      "covid_deaths_reporting_population_pct",
-      "covid_hosp_reporting_population_pct",
       "death_ratio_age_adjusted",
       "hosp_ratio_age_adjusted",
       "cases_ratio_age_adjusted",
@@ -93,37 +87,6 @@ class CdcCovidProvider extends VariableProvider {
     }
     df = this.renameGeoColumns(df, breakdowns);
 
-    df = df.renameSeries({
-      cases: "covid_cases",
-      death_y: "covid_deaths",
-      hosp_y: "covid_hosp",
-    });
-
-    // NaN signifies missing data.
-    df = df.transformSeries({
-      covid_cases: (value) => (isNaN(value) ? null : value),
-      covid_deaths: (value) => (isNaN(value) ? null : value),
-      covid_hosp: (value) => (isNaN(value) ? null : value),
-    });
-
-    // TODO: Move this calculation to the backend
-    df =
-      breakdowns.geography === "national"
-        ? df
-            .pivot([breakdownColumnName], {
-              fips: (series) => USA_FIPS,
-              fips_name: (series) => USA_DISPLAY_NAME,
-              covid_cases: (series) => series.sum(),
-              covid_deaths: (series) => series.sum(),
-              covid_hosp: (series) => series.sum(),
-              population: (series) =>
-                series.where((population) => !isNaN(population)).sum(),
-            })
-            .resetIndex()
-        : df;
-
-    // TODO: Allow for population sources to have multiple sources
-    // so we don't have to do this weirdness
     const stateFips = df.getSeries("fips").toArray()[0];
     if (
       breakdowns.geography === "state" &&
@@ -139,8 +102,32 @@ class CdcCovidProvider extends VariableProvider {
       consumedDatasetIds = consumedDatasetIds.concat(acsDatasetId);
     }
 
-    // TODO: Move this merge to the backend
     if (breakdowns.geography === "national") {
+      df = df.renameSeries({
+        cases: "covid_cases",
+        death_y: "covid_deaths",
+        hosp_y: "covid_hosp",
+      });
+
+      df = df.transformSeries({
+        covid_cases: (value) => (isNaN(value) ? null : value),
+        covid_deaths: (value) => (isNaN(value) ? null : value),
+        covid_hosp: (value) => (isNaN(value) ? null : value),
+      });
+
+      // TODO: Move this calculation to the backend
+      df = df
+        .pivot([breakdownColumnName], {
+          fips: (series) => USA_FIPS,
+          fips_name: (series) => USA_DISPLAY_NAME,
+          covid_cases: (series) => series.sum(),
+          covid_deaths: (series) => series.sum(),
+          covid_hosp: (series) => series.sum(),
+          population: (series) =>
+            series.where((population) => !isNaN(population)).sum(),
+        })
+        .resetIndex();
+
       if (breakdownColumnName === "race_and_ethnicity") {
         const ageAdjustDatasetID =
           "cdc_restricted_data-by_race_national-with_age_adjust";
@@ -257,6 +244,7 @@ class CdcCovidProvider extends VariableProvider {
       // Must reset index or calculation is wrong. TODO how to make this less brittle?
       df = df.dropSeries(["population", "population_pct"]).resetIndex();
     }
+
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
