@@ -57,6 +57,33 @@ CAWP_DATA_TYPES = {
 }
 
 
+def pct_never_null(numerator, denominator):
+    """ The function acts as a filter for the util fn that calculates a pct
+         based on two values. Normally we would want a number divided by 0 to be null,
+         but for CAWP data we want it to return 0.0% (e.g. if there are 0 black women
+         senators, and zero women senators of any color, we still want to show the
+         result as 0% rather than null)
+
+        Parameters:
+            numerator: top number of ratio to convert to pct
+            denominator: bottom number of ratio to convert to pct
+
+        Returns:
+            the pct value, with an attempt to avoid rounding to zero if both inputs are not 0
+    """
+    numerator = int(numerator)
+    denominator = int(denominator)
+
+    if numerator > denominator:
+        raise ValueError(
+            f'The number of women legislators *of a particular race*: ({numerator}) ' +
+            "cannot be larger then the *total* number of " +
+            f'women legislators in that place: ({denominator})')
+    if numerator == 0 and denominator == 0:
+        return 0.0
+    return percent_avoid_rounding_to_zero(numerator, denominator)
+
+
 def get_standard_code_from_cawp_phrase(cawp_place_phrase: str):
     """ Accepts a CAWP place phrase found in the LINE ITEM table
     `{STATE_COL_LINE NAME} - {CODE}` with the standard 2 letter code
@@ -293,20 +320,20 @@ class CAWPData(DataSource):
                     df_line_items, current_place_code, STATE, cawp_race_name)
 
                 # calculate incidence rates
-                output_row[std_col.WOMEN_US_CONGRESS_PCT] = percent_avoid_rounding_to_zero(
+                output_row[std_col.WOMEN_US_CONGRESS_PCT] = pct_never_null(
                     us_congress_women_current_place_current_race,
                     us_congress_members_current_place_all_races)
 
-                output_row[std_col.WOMEN_STATE_LEG_PCT] = percent_avoid_rounding_to_zero(
+                output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_never_null(
                     state_leg_women_current_place_current_race,
                     state_leg_members_current_place_all_races)
 
                 # calculate incidence shares
-                output_row[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = percent_avoid_rounding_to_zero(
+                output_row[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = pct_never_null(
                     us_congress_women_current_place_current_race,
                     us_congress_women_current_place_all_races)
 
-                output_row[std_col.WOMEN_STATE_LEG_PCT_SHARE] = percent_avoid_rounding_to_zero(
+                output_row[std_col.WOMEN_STATE_LEG_PCT_SHARE] = pct_never_null(
                     state_leg_women_current_place_current_race,
                     state_leg_women_current_place_all_races)
 
