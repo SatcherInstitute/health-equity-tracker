@@ -29,12 +29,20 @@ export interface HighestLowestListProps {
   lowestRatesList: Row[];
   // to scroll user to bottom text box about Missing Data
   jumpToData: Function;
+  // items in highest/lowest list that should receive asterisks
+  asteriskItems?: string[];
+  // message to display under a list with asterisks
+  asteriskMessage?: string;
 }
 
 /*
    Collapsible box showing lists of geographies with the highest and lowest rates
 */
 export function HighestLowestList(props: HighestLowestListProps) {
+  function addAsterisk(fipsName: string) {
+    return props.asteriskItems?.includes(fipsName) ? "*" : "";
+  }
+
   return (
     <AnimateHeight
       duration={500}
@@ -80,7 +88,8 @@ export function HighestLowestList(props: HighestLowestListProps) {
                   {props.highestRatesList.map((row) => {
                     return (
                       <li key={row["fips_name"]}>
-                        {row["fips_name"]}:{" "}
+                        {row["fips_name"]}
+                        {addAsterisk(row["fips_name"])}:{" "}
                         {formatFieldValue(
                           props.metricConfig.type,
                           row[props.metricConfig.metricId]
@@ -101,7 +110,8 @@ export function HighestLowestList(props: HighestLowestListProps) {
                   {props.lowestRatesList.map((row) => {
                     return (
                       <li key={row["fips_name"]}>
-                        {row["fips_name"]}:{" "}
+                        {row["fips_name"]}
+                        {addAsterisk(row["fips_name"])}:{" "}
                         {formatFieldValue(
                           props.metricConfig.type,
                           row[props.metricConfig.metricId]
@@ -119,9 +129,11 @@ export function HighestLowestList(props: HighestLowestListProps) {
             </Grid>
           </div>
 
+          {props.asteriskMessage && <p>* {props.asteriskMessage}</p>}
+
           <p>
             All rates are reported as:{" "}
-            <b>{props.metricConfig.fullCardTitleName}</b>
+            <b>{props.metricConfig.fullCardTitleName}</b>.
           </p>
           <p>
             Consider the possible impact of{" "}

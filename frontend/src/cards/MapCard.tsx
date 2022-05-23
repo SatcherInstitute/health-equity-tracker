@@ -415,6 +415,15 @@ function MapCardWithKey(props: MapCardProps) {
                       lowestRatesList={lowestRatesList}
                       fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
                       jumpToData={props.jumpToData}
+                      asteriskItems={[
+                        "Alaska",
+                        "Connecticut",
+                        "Delaware",
+                        "Hawaii",
+                        "Rhode Island",
+                        "Vermont",
+                      ]}
+                      asteriskMessage="Alaska, Connecticut, Delaware, Hawaii, Rhode Island, and Vermont each operate an integrated system that combines prisons and jails."
                     />
                   )}
               </CardContent>
