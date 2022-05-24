@@ -40,7 +40,9 @@ export interface HighestLowestListProps {
 */
 export function HighestLowestList(props: HighestLowestListProps) {
   function addAsterisk(fipsName: string) {
-    return props.asteriskItems?.includes(fipsName) ? "*" : "";
+    return props.asteriskItems?.includes(fipsName)
+      ? " (combined prison & jail)"
+      : "";
   }
 
   return (
@@ -74,7 +76,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
         <span className={styles.HideOnMobile}>
           the {props.fipsTypePluralDisplayName} with the{" "}
         </span>
-        <b>highest</b> and <b>lowest</b> rates
+        <b>highest</b> and <b>lowest</b> rates.
       </div>
 
       {/* Don't render collapsed info, so keyboard nav will skip */}
@@ -129,8 +131,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
             </Grid>
           </div>
 
-          {props.asteriskMessage && <p>* {props.asteriskMessage}</p>}
-
+          {/* {props.asteriskMessage && <p>*{props.asteriskMessage}</p>} */}
           <p>
             All rates are reported as:{" "}
             <b>{props.metricConfig.fullCardTitleName}</b>.

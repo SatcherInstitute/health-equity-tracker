@@ -27,12 +27,18 @@ import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import {
+  BJS_VARIABLE_IDS,
+  COMBINED_INCARCERATION_STATES_LIST,
+  COMBINED_INCARCERATION_STATES_MESSAGE,
+} from "../data/variables/BjsProvider";
+import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
 } from "../data/variables/CawpProvider";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
+import CombinedIncarcerationInfoAlert from "./ui/CombinedIncarcerationInfoAlert";
 import DropDownMenu from "./ui/DropDownMenu";
 import { HighestLowestList } from "./ui/HighestLowestList";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
@@ -66,6 +72,13 @@ export function MapCard(props: MapCardProps) {
 
 function MapCardWithKey(props: MapCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
+
+  const showCombinedStateAlert =
+    (props.fips.isUsa() ||
+      COMBINED_INCARCERATION_STATES_LIST.includes(
+        props.fips.getStateDisplayName()
+      )) &&
+    BJS_VARIABLE_IDS.includes(props.variableConfig.variableId);
 
   const signalListeners: any = {
     click: (...args: any) => {
@@ -308,6 +321,9 @@ function MapCardWithKey(props: MapCardProps) {
                   </CardContent>
                 </>
               )}
+
+            {showCombinedStateAlert && <CombinedIncarcerationInfoAlert />}
+
             {(mapQueryResponse.dataIsMissing() ||
               dataForActiveBreakdownFilter.length === 0) && (
               <CardContent>
@@ -415,15 +431,8 @@ function MapCardWithKey(props: MapCardProps) {
                       lowestRatesList={lowestRatesList}
                       fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
                       jumpToData={props.jumpToData}
-                      asteriskItems={[
-                        "Alaska",
-                        "Connecticut",
-                        "Delaware",
-                        "Hawaii",
-                        "Rhode Island",
-                        "Vermont",
-                      ]}
-                      asteriskMessage="Alaska, Connecticut, Delaware, Hawaii, Rhode Island, and Vermont each operate an integrated system that combines prisons and jails."
+                      asteriskItems={COMBINED_INCARCERATION_STATES_LIST}
+                      asteriskMessage={COMBINED_INCARCERATION_STATES_MESSAGE}
                     />
                   )}
               </CardContent>

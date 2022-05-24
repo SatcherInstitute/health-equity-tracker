@@ -5,6 +5,19 @@ import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
+// states with combined prison and jail systems
+export const COMBINED_INCARCERATION_STATES_LIST = [
+  "Alaska",
+  "Connecticut",
+  "Delaware",
+  "Hawaii",
+  "Rhode Island",
+  "Vermont",
+];
+
+export const COMBINED_INCARCERATION_STATES_MESSAGE =
+  "Note: Alaska, Connecticut, Delaware, Hawaii, Rhode Island, and Vermont each operate an integrated system that combines prisons and jails.";
+
 export const BJS_VARIABLE_IDS: VariableId[] = [
   "prison",
   "jail",
