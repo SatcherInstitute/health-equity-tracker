@@ -40,7 +40,8 @@ BJS_PRISONERS_ZIP = "https://bjs.ojp.gov/content/pub/sheets/p20st.zip"
 # NOTE: the rates used in the BJS tables are calculated with a different population source
 APPENDIX_TABLE_2 = "p20stat02.csv"  # RAW# / STATE+FED / RACE
 TABLE_2 = "p20stt02.csv"  # RAW# / STATE+FED / SEX
-TABLE_10 = "p20stt10.csv"  # PCT_SHARE & RAW TOTAL / AGE / SEX / RACE
+# PCT_SHARE & RAW TOTAL (SENTENCED ONLY!) / AGE / SEX / RACE
+TABLE_10 = "p20stt10.csv"
 TABLE_13 = "p20stt13.csv"  # RAW# / STATE+FED / AGE: JUV-ADULT / SEX
 TABLE_23 = "p20stt23.csv"  # RAW# / TERRITORY
 
@@ -229,9 +230,6 @@ def make_prison_national_age_raw_df(source_tables):
                               != 'Number of sentenced prisoners']
 
     # standardize df with ADULT RAW # / AGE / USA
-    # df_adults = dataset_utils.merge_fips_codes(source_df)
-    # df_adults = dataset_utils.merge_pop_numbers(
-    #     df_adults, std_col.AGE_COL, NATIONAL_LEVEL)
     df_adults = source_df.copy()
 
     # infer the raw count for each age breakdown
