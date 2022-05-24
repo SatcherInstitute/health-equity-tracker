@@ -29,8 +29,8 @@ export async function ensureCorrectDatasetsDownloaded(
   acsDatasetIds: string[],
   baseBreakdown: Breakdowns,
   breakdownVar: BreakdownVar,
-  rawCovidData: any[],
-  finalCovidData: any[]
+  rawCovidData: any,
+  finalCovidData: any
 ) {
   const acsProvider = new AcsPopulationProvider();
   const cdcCovidProvider = new CdcCovidProvider(acsProvider);

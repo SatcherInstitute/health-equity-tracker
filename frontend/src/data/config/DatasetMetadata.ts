@@ -133,18 +133,8 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019",
   },
   {
-    id: "cdc_restricted_data-by_race_county",
-    name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and County",
-    update_time: "May 2022",
-  },
-  {
     id: "cdc_restricted_data-by_race_state-with_age_adjust",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and State",
-    update_time: "May 2022",
-  },
-  {
-    id: "cdc_restricted_data-by_age_county",
-    name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and County",
     update_time: "May 2022",
   },
   {
@@ -153,12 +143,37 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "May 2022",
   },
   {
-    id: "cdc_restricted_data-by_sex_county",
+    id: "cdc_restricted_data-by_sex_state",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and State",
+    update_time: "May 2022",
+  },
+  {
+    id: "cdc_restricted_data-by_race_county_processed",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and County",
+    update_time: "May 2022",
+  },
+  {
+    id: "cdc_restricted_data-by_race_state_processed-with_age_adjust",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and State",
+    update_time: "May 2022",
+  },
+  {
+    id: "cdc_restricted_data-by_age_county_processed",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and County",
+    update_time: "May 2022",
+  },
+  {
+    id: "cdc_restricted_data-by_age_state_processed",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and State",
+    update_time: "May 2022",
+  },
+  {
+    id: "cdc_restricted_data-by_sex_county_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and County",
     update_time: "May 2022",
   },
   {
-    id: "cdc_restricted_data-by_sex_state",
+    id: "cdc_restricted_data-by_sex_state_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and State",
     update_time: "May 2022",
   },
