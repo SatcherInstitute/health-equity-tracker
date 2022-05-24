@@ -22,7 +22,6 @@ import {
   NON_STANDARD_RACES,
   MULTI_OR_OTHER_STANDARD,
   MULTI_OR_OTHER_STANDARD_NH,
-  BJS_AGE_BUCKETS,
   AgeBucket,
   NON_HISPANIC,
   UNKNOWN,
@@ -290,15 +289,6 @@ export function getExclusionList(
       );
 
     currentBreakdown === AGE &&
-      currentFips.isUsa() &&
-      exclusionList.push(
-        ...AGE_BUCKETS.filter(
-          (bucket: AgeBucket) => !BJS_AGE_BUCKETS.includes(bucket as any)
-        )
-      );
-
-    currentBreakdown === AGE &&
-      currentFips.isStateOrTerritory() &&
       exclusionList.push(
         ...AGE_BUCKETS.filter(
           (bucket: AgeBucket) => !ADULT_JUV_AGE_BUCKETS.includes(bucket as any)
