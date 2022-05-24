@@ -14,7 +14,7 @@ _fake_race_data = [
     ['01', 'Alabama', 'Asian alone', '660'],
     ['01', 'Alabama', 'Some other race alone', '700'],
     ['01', 'Alabama', 'Two or more races', '919'],
-    ['01', 'Alabama', 'An underespresented race', '1'],
+    ['01', 'Alabama', 'An underrepresented race', '1'],
     ['01', 'Alabama', 'ALL', '2280'],
     ['01', 'Alabama', 'UNKNOWN', '30'],
     ['02', 'Alaska', 'Asian alone', '45'],
@@ -34,7 +34,7 @@ _expected_pct_share_data_without_unknowns = [
     ['01', 'Alabama', 'Asian alone', '660', '28.9'],
     ['01', 'Alabama', 'Some other race alone', '700', '30.7'],
     ['01', 'Alabama', 'Two or more races', '919', '40.3'],
-    ['01', 'Alabama', 'An underespresented race', '1', '.04'],
+    ['01', 'Alabama', 'An underrepresented race', '1', '.04'],
     ['01', 'Alabama', 'ALL', '2280', '100'],
     ['02', 'Alaska', 'Asian alone', '45', '38.8'],
     ['02', 'Alaska', 'Some other race alone', '11', '9.5'],
@@ -51,7 +51,7 @@ _expected_pct_share_data_with_unknowns = [
     ['01', 'Alabama', 'Asian alone', '660', '28.9'],
     ['01', 'Alabama', 'Some other race alone', '700', '30.7'],
     ['01', 'Alabama', 'Two or more races', '919', '40.3'],
-    ['01', 'Alabama', 'An underespresented race', '1', '.04'],
+    ['01', 'Alabama', 'An underrepresented race', '1', '.04'],
     ['01', 'Alabama', 'ALL', '2280', '100'],
     ['01', 'Alabama', 'UNKNOWN', '30', '1.3'],
     ['02', 'Alaska', 'Asian alone', '45', '38.8'],
@@ -77,7 +77,8 @@ _fake_condition_data = [
 ]
 
 _fake_condition_data_with_per_100k = [
-    ['state_fips', 'state_name', 'race', 'some_condition_total', 'population', 'condition_per_100k'],
+    ['state_fips', 'state_name', 'race', 'some_condition_total',
+        'population', 'condition_per_100k'],
     ['01', 'Alabama', 'Asian alone', 100, 1000, 10000],
     ['01', 'Alabama', 'Some other race alone', 200, 5000, 4000],
     ['02', 'Alaska', 'Two or more races', 10, 2000, 500],
@@ -136,7 +137,7 @@ _fips_codes_from_bq = [
     ['state_fips_code', 'state_postal_abbreviation', 'state_name', 'state_gnisid'],
     ['06', 'CA', 'California', '01779778'],
     ['13', 'GA', 'Georgia', '01705317'],
-    ['78', 'VI', 'U.S. Virgin Islands', 'NEEDTHISCODE'],
+    ['78', 'VI', 'U.S. Virgin Islands', 'NEED_THIS_CODE'],
 ]
 
 _expected_merged_fips = [
@@ -196,7 +197,8 @@ _pop_data_county = [
 ]
 
 _expected_merged_with_pop_numbers_county = [
-    ['state_fips', 'county_fips', 'race_category_id', 'population', 'population_pct', 'other_col'],
+    ['state_fips', 'county_fips', 'race_category_id',
+        'population', 'population_pct', 'other_col'],
     ['01', '01000', 'BLACK_NH', 100, 25.0, 'something_cool'],
     ['01', '01000', 'WHITE_NH', 300, 75.0, 'something_else_cool'],
     ['01', '01234', 'BLACK_NH', 100, 50.0, 'something_cooler'],
@@ -243,7 +245,7 @@ def testRatioRoundToNone():
 def testPercentAvoidRoundingToZero():
     assert dataset_utils.percent_avoid_rounding_to_zero(1, 3) == 33.3
     assert dataset_utils.percent_avoid_rounding_to_zero(1, 5000) == .02
-    assert dataset_utils.percent_avoid_rounding_to_zero(1, 0) == 0.0
+    assert dataset_utils.percent_avoid_rounding_to_zero(1, 0) is None
 
 
 def testAddSumOfRows():
@@ -327,7 +329,8 @@ def testGeneratePer100kCol():
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_fake_condition_data)).reset_index(drop=True)
 
-    df = dataset_utils.generate_per_100k_col(df, 'some_condition_total', 'population', 'condition_per_100k')
+    df = dataset_utils.generate_per_100k_col(
+        df, 'some_condition_total', 'population', 'condition_per_100k')
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_fake_condition_data_with_per_100k)).reset_index(drop=True)
@@ -375,12 +378,12 @@ def testMergeFipsCodesStatePostal(mock_bq: mock.MagicMock):
             side_effect=_get_pop_data_as_df)
 def testMergePopNumbersState(mock_bq: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
-            json.dumps(_data_without_pop_numbers),
-            dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
+        json.dumps(_data_without_pop_numbers),
+        dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-            json.dumps(_expected_merged_with_pop_numbers),
-            dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
+        json.dumps(_expected_merged_with_pop_numbers),
+        dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
 
     df = dataset_utils.merge_pop_numbers(df, 'race', 'state')
 
@@ -393,12 +396,12 @@ def testMergePopNumbersState(mock_bq: mock.MagicMock):
             side_effect=_get_pop_data_as_df)
 def testMergePopNumbersCounty(mock_bq: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
-            json.dumps(_data_without_pop_numbers_county),
-            dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
+        json.dumps(_data_without_pop_numbers_county),
+        dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-            json.dumps(_expected_merged_with_pop_numbers_county),
-            dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
+        json.dumps(_expected_merged_with_pop_numbers_county),
+        dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
 
     df = dataset_utils.merge_pop_numbers(df, 'race', 'county')
 

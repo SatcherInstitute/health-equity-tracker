@@ -14,13 +14,19 @@ from datasources.cawp import (CAWPData,
                               POSTAL_COL,
                               POSITION_COL,
                               RACE_COL)
+import pytest
 
 
 # UNIT TESTS
 
 def test_pct_never_null():
+    # normal percent
     assert pct_never_null(1, 2) == 50
+    # never null; return 0.0 instead
     assert pct_never_null(0, 0) == 0
+    # doesn't allow numerator > denominator
+    with pytest.raises(ValueError):
+        pct_never_null(2, 1)
     # TODO uncomment next test once util fn is fixed
     # assert pct_never_null(1, 0) is None
 
