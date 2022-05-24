@@ -223,6 +223,8 @@ def make_prison_national_age_raw_df(source_tables):
 
     [source_df, source_df_juveniles, source_df_territories] = source_tables
 
+    print(source_df)
+
     # get total raw and remove that row leaving only age rows
     total_raw = source_df.loc[
         source_df[std_col.AGE_COL] == 'Number of sentenced prisoners', PCT_SHARE_COL].values[0]
