@@ -33,7 +33,7 @@ BJS_RACE_GROUPS_TO_STANDARD = {
 
 STANDARD_RACE_CODES = [
     race_tuple.value for race_tuple in BJS_RACE_GROUPS_TO_STANDARD.values()]
-BJS_AGE_GROUPS_JUV_ADULT = [std_col.ALL_VALUE, '0-17', '18+']
+BJS_AGE_GROUPS = [std_col.ALL_VALUE, '0-17', '18+']
 BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
 
 
