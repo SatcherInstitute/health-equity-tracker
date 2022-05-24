@@ -1,4 +1,5 @@
 import { DataFrame } from "data-forge";
+import { UNKNOWN, UNKNOWN_RACE } from "../utils/Constants";
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
@@ -216,18 +217,36 @@ class CdcCovidProvider extends VariableProvider {
         );
       });
 
+      const orginalUnknownRow = df.where(
+        (row) =>
+          row[breakdownColumnName] === UNKNOWN ||
+          row[breakdownColumnName] === UNKNOWN_RACE
+      );
+
+      df = df.where(
+        (row) =>
+          row[breakdownColumnName] !== UNKNOWN ||
+          row[breakdownColumnName] !== UNKNOWN_RACE
+      );
+
+      df = df.dropSeries([
+        "covid_cases_share",
+        "covid_deaths_share",
+        "covid_hosp_share",
+      ]);
+
       // Calculate any share_of_known metrics that may have been requested in the query
       const shareOfUnknownMetrics = metricQuery.metricIds.filter((metricId) =>
         [
-          "covid_cases_share_of_known",
-          "covid_deaths_share_of_known",
-          "covid_hosp_share_of_known",
+          "covid_cases_share",
+          "covid_deaths_share",
+          "covid_hosp_share",
         ].includes(metricId)
       );
       shareOfUnknownMetrics.forEach((shareOfUnknownColumnName) => {
         const rawCountColumn = shareOfUnknownColumnName.slice(
           0,
-          -"_share_of_known".length
+          -"_share".length
         );
         df = this.calculations.calculatePctShareOfKnown(
           df,
@@ -236,6 +255,8 @@ class CdcCovidProvider extends VariableProvider {
           breakdownColumnName
         );
       });
+
+      df = df.concat(orginalUnknownRow).resetIndex();
 
       df = df.renameSeries({
         population_pct: "covid_population_pct",

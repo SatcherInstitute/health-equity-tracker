@@ -178,8 +178,7 @@ describe("cdcCovidProvider", () => {
       sex: FEMALE,
       covid_cases: 970,
       covid_cases_per_100k: 882,
-      covid_cases_share: 323.3,
-      covid_cases_share_of_known: 100,
+      covid_cases_share: 100,
     };
     const FINAL_ALL_ROW = {
       fips: USA.code,
@@ -188,7 +187,6 @@ describe("cdcCovidProvider", () => {
       covid_cases: 300,
       covid_cases_per_100k: 167,
       covid_cases_share: 100,
-      covid_cases_share_of_known: 100,
     };
 
     await evaluateWithAndWithoutAll(
