@@ -360,7 +360,11 @@ def estimate_total(row, condition_name_per_100k):
         Parameters:
             row: a dataframe row containing a "per_100k" column with values for the incidence rate
                 and a "population" column containing the total number of people
-            condition_name_per_100k: string column name of the "per_100k" referenced above used for the calc"""
+            condition_name_per_100k: string column name of the "per_100k" referenced above used for the calc
+
+        Returns:
+            float value representing the estimated raw total for the row
+            """
 
     if (pd.isna(row[condition_name_per_100k]) or
         pd.isna(row[std_col.POPULATION_COL]) or
