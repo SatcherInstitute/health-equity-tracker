@@ -8,8 +8,7 @@ from ingestion import gcs_to_bq_util, dataset_utils, constants
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
 from ingestion.gcs_to_bq_util import fetch_zip_as_files
 from ingestion.dataset_utils import generate_per_100k_col
-from datasources.bjs_prisoners_tables_utils import (clean_prison_table_10_df,
-                                                    clean_prison_table_2_df,
+from datasources.bjs_prisoners_tables_utils import (clean_prison_table_2_df,
                                                     clean_prison_table_23_df,
                                                     clean_prison_table_13_df,
                                                     clean_prison_appendix_table_2_df,
