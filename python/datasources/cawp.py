@@ -79,6 +79,7 @@ def pct_never_null(numerator, denominator):
             f'The number of women legislators *of a particular race*: ({numerator}) ' +
             "cannot be larger then the *total* number of " +
             f'women legislators in that place: ({denominator})')
+
     if numerator == 0 and denominator == 0:
         return 0.0
     return percent_avoid_rounding_to_zero(numerator, denominator)
