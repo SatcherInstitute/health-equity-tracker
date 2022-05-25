@@ -1,7 +1,9 @@
 import ingestion.standardized_columns as std_col
 from ingestion.standardized_columns import Race
+from ingestion.gcs_to_bq_util import fetch_zip_as_files
 from ingestion import constants
 import re
+import pandas as pd
 
 # consts used in BJS Tables
 US_TOTAL = "U.S. total"
@@ -37,6 +39,119 @@ BJS_AGE_GROUPS = [std_col.ALL_VALUE, '0-17', '18+']
 BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
 
 
+BJS_DATA_TYPES = [
+    std_col.PRISON_PREFIX,
+    # std_col.JAIL_PREFIX,
+    # std_col.INCARCERATED_PREFIX
+]
+
+NON_NULL_RAW_COUNT_GROUPS = ["0-17"]
+
+# BJS Prisoners Report
+BJS_PRISONERS_ZIP = "https://bjs.ojp.gov/content/pub/sheets/p20st.zip"
+
+# NOTE: the rates used in the BJS tables are calculated with a different population source
+APPENDIX_TABLE_2 = "p20stat02.csv"  # RAW# / STATE+FED / RACE
+TABLE_2 = "p20stt02.csv"  # RAW# / TOTAL+STATE+FED / SEX
+TABLE_13 = "p20stt13.csv"  # RAW# / TOTAL+STATE+FED / AGE / SEX
+TABLE_23 = "p20stt23.csv"  # RAW# / TERRITORY
+
+# BJS tables include excess header and footer rows that need to be trimmed
+bjs_prisoners_tables = {
+    APPENDIX_TABLE_2: {"header_rows": [*list(range(10)), 12], "footer_rows": 13},
+    TABLE_2: {"header_rows": [*list(range(11))], "footer_rows": 10, },
+    TABLE_13: {"header_rows": [*list(range(11)), 13, 14], "footer_rows": 6},
+    TABLE_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10}
+}
+
+
+def load_tables(zip_url: str):
+    """
+    Loads all of the tables needed from remote zip file,
+    applying specific cropping of header/footer rows
+
+        Parameters:
+            zip_url: string with url where the .zip can be found with the specific tables
+        Returns:
+            a dictionary mapping <filename.csv>: <table as dataframe>. The dataframes have
+            been partially formatted, but still need to be cleaned before using in
+            generate_raw_race_or_sex_breakdown
+    """
+    loaded_tables = {}
+    files = fetch_zip_as_files(zip_url)
+    for file in files.namelist():
+        if file in bjs_prisoners_tables:
+            source_df = pd.read_csv(
+                files.open(file),
+                encoding="ISO-8859-1",
+                skiprows=bjs_prisoners_tables[file]["header_rows"],
+                skipfooter=bjs_prisoners_tables[file]["footer_rows"],
+                thousands=',',
+                engine="python",
+            )
+
+            source_df = strip_footnote_refs_from_df(source_df)
+            source_df = missing_data_to_none(source_df)
+            source_df = set_state_col(source_df)
+
+            loaded_tables[file] = source_df
+    return loaded_tables
+
+
+def strip_footnote_refs_from_df(df):
+    """
+    BJS embeds the footnote indicators into the cell values of the tables.
+    This fn uses regex on every cell in the df (including the column names)
+    and removes matching footnote indicators if cell is a string.
+
+    Parameters:
+        df: df from BJS table, potentially with embedded footnotes
+        refs (eg `/b,c`) in some cells.
+
+    Returns:
+        the same df with footnote refs removed from every string cell
+     """
+
+    def strip_footnote_refs(cell_value):
+        return re.sub(r'/[a-z].*', "", cell_value) if isinstance(cell_value, str) else cell_value
+
+    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
+    df = df.applymap(strip_footnote_refs)
+
+    return df
+
+
+def missing_data_to_none(df):
+    """
+    Replace all missing df values with None.
+    BJS uses two kinds of missing data:
+    `~` N/A. Jurisdiction does not track this race or ethnicity.
+    `/` Not reported.
+
+    Parameters:
+            df (Pandas Dataframe): a dataframe with some missing values set to `~` or `/`
+
+    Returns:
+            df (Pandas Dataframe): a dataframe with all missing values set to `None`
+    """
+    df = df.applymap(lambda datum: None if datum ==
+                     "/" or datum == "~" else datum)
+
+    return df
+
+
+def set_state_col(df):
+
+    if 'U.S. territory/U.S. commonwealth' in list(df.columns):
+        df[std_col.STATE_NAME_COL] = df['U.S. territory/U.S. commonwealth']
+        return df
+
+    df[std_col.STATE_NAME_COL] = df['Jurisdiction'].combine_first(
+        df["Unnamed: 1"])
+
+    return df
+
+
 def filter_cols(df, demo_type):
     """
     Takes a df, removes any columns that aren't either state_name or a relevant demographic group,
@@ -64,25 +179,6 @@ def filter_cols(df, demo_type):
     return df
 
 
-def missing_data_to_none(df):
-    """
-    Replace all missing df values with None.
-    BJS uses two kinds of missing data:
-    `~` N/A. Jurisdiction does not track this race or ethnicity.
-    `/` Not reported.
-
-    Parameters:
-            df (Pandas Dataframe): a dataframe with some missing values set to `~` or `/`
-
-    Returns:
-            df (Pandas Dataframe): a dataframe with all missing values set to `None`
-    """
-    df = df.applymap(lambda datum: None if datum ==
-                     "/" or datum == "~" else datum)
-
-    return df
-
-
 def swap_race_col_names_to_codes(df):
     """
     Swap BJS race column names for the HET standard race codes.
@@ -106,19 +202,7 @@ def swap_race_col_names_to_codes(df):
     return df
 
 
-def set_state_col(df):
-
-    if 'U.S. territory/U.S. commonwealth' in list(df.columns):
-        df[std_col.STATE_NAME_COL] = df['U.S. territory/U.S. commonwealth']
-        return df
-
-    df[std_col.STATE_NAME_COL] = df['Jurisdiction'].combine_first(
-        df["Unnamed: 1"])
-
-    return df
-
-
-def clean_prison_appendix_table_2_df(df):
+def standardize_appendix_table_2_df(df):
     """
     Unique steps needed to clean BJS Prisoners 2020 - Appendix Table 2
     Raw # Prisoners by state + federal by race/ethnicity
@@ -142,7 +226,7 @@ def clean_prison_appendix_table_2_df(df):
     return df
 
 
-def clean_prison_table_2_df(df):
+def standardize_table_2_df(df):
     """
     Unique steps needed to clean BJS Prisoners 2020 - Table 2
     Raw # Prisoners by Sex by State
@@ -166,7 +250,7 @@ def clean_prison_table_2_df(df):
     return df
 
 
-def clean_prison_table_23_df(df):
+def standardize_table_23_df(df):
     """
     Unique steps needed to clean BJS Prisoners 2020 - Table 23
     Raw # Prisoners Totals by Territory
@@ -195,7 +279,7 @@ def clean_prison_table_23_df(df):
     return df
 
 
-def clean_prison_table_13_df(df):
+def standardize_table_13_df(df):
     """
     Unique steps needed to clean BJS Prisoners 2020 - Table 13
     Raw Prisoners by Age (Adult / Juvenile) by Sex by Federal + State
@@ -214,3 +298,55 @@ def clean_prison_table_13_df(df):
     df = df.replace("U.S. total", constants.US_NAME)
     df[std_col.AGE_COL] = "0-17"
     return df
+
+
+def keep_only_states(df):
+
+    return df[~df[std_col.STATE_NAME_COL].isin(NON_STATE_ROWS)]
+
+
+def keep_only_national(df, demo_group_cols):
+    """
+    Accepts a cleaned BJS table df, and returns a df with only a national row
+    If a "U.S. Total" or "United States" row is already present in the table, that is used
+    Otherwise is it calculated as the sum of all states plus federal
+
+    Parameters:
+        df: a cleaned pandas df from a BJS table where cols are the demographic groups
+        demo_group_cols: a list of string column names that contain the values to be summed if needed
+
+    Returns:
+        a pandas df with a single row with state_name: "United States" and the correlating values
+     """
+
+    # see if there is a US total row
+    df_us = df.loc[df[std_col.STATE_NAME_COL].isin(
+        [US_TOTAL, constants.US_NAME])]
+
+    if len(df_us.index) == 1:
+        df_us.loc[:, std_col.STATE_NAME_COL] = constants.US_NAME
+        return df_us
+
+    if len(df_us.index) > 1:
+        raise ValueError("There is more than one U.S. Total row")
+
+    # if not, remove any rows that aren't states or federal
+    df = keep_only_states(df).append(
+        df.loc[df[std_col.STATE_NAME_COL] == FED])
+
+    # sum, treating nan as 0, and set as United States
+    df.loc[0, demo_group_cols] = df[demo_group_cols].sum(min_count=1)
+    df.loc[0, std_col.STATE_NAME_COL] = constants.US_NAME
+    df = df.loc[df[std_col.STATE_NAME_COL] == constants.US_NAME]
+
+    return df
+
+
+def cols_to_rows(df, demographic_groups, demographic_col, value_col):
+    # make "wide" table into a "long" table
+    # move columns for demographic groups (e.g. `All`, `White (Non-Hispanic)`
+    # to be additional rows per geo
+    return df.melt(id_vars=[std_col.STATE_NAME_COL],
+                   value_vars=demographic_groups,
+                   var_name=demographic_col,
+                   value_name=value_col)

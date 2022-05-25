@@ -4,18 +4,17 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
 from test_utils import get_state_fips_codes_as_df
-from datasources.bjs import (BJSData,
-                             bjs_prisoners_tables,
-                             keep_only_states,
-                             keep_only_national,
-                             strip_footnote_refs_from_df,
-                             cols_to_rows,
-                             )
+from datasources.bjs import (BJSData)
 from datasources.bjs_prisoners_tables_utils import (
     missing_data_to_none,
     swap_race_col_names_to_codes,
     filter_cols,
-    set_state_col
+    set_state_col,
+    bjs_prisoners_tables,
+    keep_only_states,
+    keep_only_national,
+    strip_footnote_refs_from_df,
+    cols_to_rows,
 )
 
 

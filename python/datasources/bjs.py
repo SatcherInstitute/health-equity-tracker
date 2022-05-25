@@ -2,161 +2,32 @@ from datasources.data_source import DataSource
 import ingestion.standardized_columns as std_col
 import numpy as np
 import pandas as pd
-import re
 from ingestion.standardized_columns import Race
-from ingestion import gcs_to_bq_util, dataset_utils, constants
+from ingestion import gcs_to_bq_util, dataset_utils
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
-from ingestion.gcs_to_bq_util import fetch_zip_as_files
 from ingestion.dataset_utils import generate_per_100k_col
-from datasources.bjs_prisoners_tables_utils import (clean_prison_table_2_df,
-                                                    clean_prison_table_23_df,
-                                                    clean_prison_table_13_df,
-                                                    clean_prison_appendix_table_2_df,
-                                                    missing_data_to_none,
-                                                    set_state_col,
+from datasources.bjs_prisoners_tables_utils import (standardize_table_2_df,
+                                                    standardize_table_23_df,
+                                                    standardize_table_13_df,
+                                                    standardize_appendix_table_2_df,
+                                                    NON_NULL_RAW_COUNT_GROUPS,
+                                                    cols_to_rows,
+                                                    keep_only_national,
+                                                    keep_only_states,
+                                                    BJS_DATA_TYPES,
                                                     STANDARD_RACE_CODES,
                                                     BJS_SEX_GROUPS,
                                                     BJS_AGE_GROUPS,
-                                                    NON_STATE_ROWS,
-                                                    FED,
-                                                    US_TOTAL,
                                                     RAW_COL,
                                                     PER_100K_COL,
-                                                    PCT_SHARE_COL
+                                                    PCT_SHARE_COL,
+                                                    APPENDIX_TABLE_2,
+                                                    BJS_PRISONERS_ZIP,
+                                                    TABLE_13,
+                                                    TABLE_2,
+                                                    TABLE_23,
+                                                    load_tables
                                                     )
-
-
-BJS_DATA_TYPES = [
-    std_col.PRISON_PREFIX,
-    # std_col.JAIL_PREFIX,
-    # std_col.INCARCERATED_PREFIX
-]
-
-NON_NULL_RAW_COUNT_GROUPS = ["0-17"]
-
-# BJS Prisoners Report
-BJS_PRISONERS_ZIP = "https://bjs.ojp.gov/content/pub/sheets/p20st.zip"
-
-# NOTE: the rates used in the BJS tables are calculated with a different population source
-APPENDIX_TABLE_2 = "p20stat02.csv"  # RAW# / STATE+FED / RACE
-TABLE_2 = "p20stt02.csv"  # RAW# / TOTAL+STATE+FED / SEX
-TABLE_13 = "p20stt13.csv"  # RAW# / TOTAL+STATE+FED / AGE / SEX
-TABLE_23 = "p20stt23.csv"  # RAW# / TERRITORY
-
-bjs_prisoners_tables = {
-    APPENDIX_TABLE_2: {"header_rows": [*list(range(10)), 12], "footer_rows": 13},
-    TABLE_2: {"header_rows": [*list(range(11))], "footer_rows": 10, },
-    TABLE_13: {"header_rows": [*list(range(11)), 13, 14], "footer_rows": 6},
-    TABLE_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10}
-}
-
-
-def load_tables(zip_url: str):
-    """
-    Loads all of the tables needed from remote zip file,
-    applying specific cropping of header/footer rows
-
-        Parameters:
-            zip_url: string with url where the .zip can be found with the specific tables
-        Returns:
-            a dictionary mapping <filename.csv>: <table as dataframe>. The dataframes have
-            been partially formatted, but still need to be cleaned before using in
-            generate_raw_race_or_sex_breakdown
-    """
-    loaded_tables = {}
-    files = fetch_zip_as_files(zip_url)
-    for file in files.namelist():
-        if file in bjs_prisoners_tables:
-            source_df = pd.read_csv(
-                files.open(file),
-                encoding="ISO-8859-1",
-                skiprows=bjs_prisoners_tables[file]["header_rows"],
-                skipfooter=bjs_prisoners_tables[file]["footer_rows"],
-                thousands=',',
-                engine="python",
-            )
-
-            source_df = strip_footnote_refs_from_df(source_df)
-            source_df = missing_data_to_none(source_df)
-            source_df = set_state_col(source_df)
-
-            loaded_tables[file] = source_df
-    return loaded_tables
-
-
-def strip_footnote_refs_from_df(df):
-    """
-    BJS embeds the footnote indicators into the cell values of the tables.
-    This fn uses regex on every cell in the df (including the column names)
-    and removes matching footnote indicators if cell is a string.
-
-    Parameters:
-        df: df from BJS table, potentially with embedded footnotes
-        refs (eg `/b,c`) in some cells.
-
-    Returns:
-        the same df with footnote refs removed from every string cell
-     """
-
-    def strip_footnote_refs(cell_value):
-        return re.sub(r'/[a-z].*', "", cell_value) if isinstance(cell_value, str) else cell_value
-
-    df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
-    df = df.applymap(strip_footnote_refs)
-
-    return df
-
-
-def keep_only_states(df):
-
-    return df[~df[std_col.STATE_NAME_COL].isin(NON_STATE_ROWS)]
-
-
-def keep_only_national(df, demo_group_cols):
-    """
-    Accepts a cleaned BJS table df, and returns a df with only a national row
-    If a "U.S. Total" or "United States" row is already present in the table, that is used
-    Otherwise is it calculated as the sum of all states plus federal
-
-    Parameters:
-        df: a cleaned pandas df from a BJS table where cols are the demographic groups
-        demo_group_cols: a list of string column names that contain the values to be summed if needed
-
-    Returns:
-        a pandas df with a single row with state_name: "United States" and the correlating values
-     """
-
-    # see if there is a US total row
-    df_us = df.loc[df[std_col.STATE_NAME_COL].isin(
-        [US_TOTAL, constants.US_NAME])]
-
-    if len(df_us.index) == 1:
-        df_us.loc[:, std_col.STATE_NAME_COL] = constants.US_NAME
-        return df_us
-
-    if len(df_us.index) > 1:
-        raise ValueError("There is more than one U.S. Total row")
-
-    # if not, remove any rows that aren't states or federal
-    df = keep_only_states(df).append(
-        df.loc[df[std_col.STATE_NAME_COL] == FED])
-
-    # sum, treating nan as 0, and set as United States
-    df.loc[0, demo_group_cols] = df[demo_group_cols].sum(min_count=1)
-    df.loc[0, std_col.STATE_NAME_COL] = constants.US_NAME
-    df = df.loc[df[std_col.STATE_NAME_COL] == constants.US_NAME]
-
-    return df
-
-
-def cols_to_rows(df, demographic_groups, demographic_col, value_col):
-    # make "wide" table into a "long" table
-    # move columns for demographic groups (e.g. `All`, `White (Non-Hispanic)`
-    # to be additional rows per geo
-    return df.melt(id_vars=[std_col.STATE_NAME_COL],
-                   value_vars=demographic_groups,
-                   var_name=demographic_col,
-                   value_name=value_col)
 
 
 def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
@@ -336,11 +207,11 @@ class BJSData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
         loaded_tables = load_tables(BJS_PRISONERS_ZIP)
-        df_13 = clean_prison_table_13_df(loaded_tables[TABLE_13])
-        df_2 = clean_prison_table_2_df(loaded_tables[TABLE_2])
-        df_app_2 = clean_prison_appendix_table_2_df(
+        df_13 = standardize_table_13_df(loaded_tables[TABLE_13])
+        df_2 = standardize_table_2_df(loaded_tables[TABLE_2])
+        df_app_2 = standardize_appendix_table_2_df(
             loaded_tables[APPENDIX_TABLE_2])
-        df_23 = clean_prison_table_23_df(loaded_tables[TABLE_23])
+        df_23 = standardize_table_23_df(loaded_tables[TABLE_23])
 
         # BJS tables needed per breakdown
         table_lookup = {
