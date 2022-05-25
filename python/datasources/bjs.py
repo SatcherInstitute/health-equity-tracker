@@ -152,29 +152,26 @@ def post_process(df, breakdown, geo):
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
         float)
 
-    # if a rate isn't coming directly from BJS, calculate it here
-    if PER_100K_COL not in df.columns:
-        df = generate_per_100k_col(
-            df, RAW_COL, std_col.POPULATION_COL, PER_100K_COL)
-    if PCT_SHARE_COL not in df.columns:
+    df = generate_per_100k_col(
+        df, RAW_COL, std_col.POPULATION_COL, PER_100K_COL)
 
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
-            df = dataset_utils.generate_pct_share_col_with_unknowns(
-                df,
-                {RAW_COL:
-                 PCT_SHARE_COL},
-                std_col.RACE_CATEGORY_ID_COL,
-                Race.ALL.value,
-                Race.UNKNOWN.value
-            )
-        else:
-            df = dataset_utils.generate_pct_share_col_without_unknowns(
-                df,
-                {RAW_COL:
-                 PCT_SHARE_COL},
-                breakdown,
-                std_col.ALL_VALUE,
-            )
+    if breakdown == std_col.RACE_OR_HISPANIC_COL:
+        df = dataset_utils.generate_pct_share_col_with_unknowns(
+            df,
+            {RAW_COL:
+                PCT_SHARE_COL},
+            std_col.RACE_CATEGORY_ID_COL,
+            Race.ALL.value,
+            Race.UNKNOWN.value
+        )
+    else:
+        df = dataset_utils.generate_pct_share_col_without_unknowns(
+            df,
+            {RAW_COL:
+                PCT_SHARE_COL},
+            breakdown,
+            std_col.ALL_VALUE,
+        )
 
     # manually null RATES for 0-17 and null RAW for all other groups
     if breakdown == std_col.AGE_COL:
