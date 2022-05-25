@@ -3,6 +3,7 @@ from ingestion.standardized_columns import Race
 from ingestion.gcs_to_bq_util import fetch_zip_as_files
 from ingestion import constants
 import re
+import numpy as np
 import pandas as pd
 
 # consts used in BJS Tables
@@ -49,8 +50,6 @@ NON_NULL_RAW_COUNT_GROUPS = ["0-17"]
 
 # BJS Prisoners Report
 BJS_PRISONERS_ZIP = "https://bjs.ojp.gov/content/pub/sheets/p20st.zip"
-
-# NOTE: the rates used in the BJS tables are calculated with a different population source
 APPENDIX_TABLE_2 = "p20stat02.csv"  # RAW# / STATE+FED / RACE
 TABLE_2 = "p20stt02.csv"  # RAW# / TOTAL+STATE+FED / SEX
 TABLE_13 = "p20stt13.csv"  # RAW# / TOTAL+STATE+FED / AGE / SEX
@@ -74,8 +73,7 @@ def load_tables(zip_url: str):
             zip_url: string with url where the .zip can be found with the specific tables
         Returns:
             a dictionary mapping <filename.csv>: <table as dataframe>. The dataframes have
-            been partially formatted, but still need to be cleaned before using in
-            generate_raw_race_or_sex_breakdown
+            been cleaned, but still need to be standardized before using to generate a breakdown
     """
     loaded_tables = {}
     files = fetch_zip_as_files(zip_url)
@@ -123,7 +121,7 @@ def strip_footnote_refs_from_df(df):
 
 def missing_data_to_none(df):
     """
-    Replace all missing df values with None.
+    Replace all missing df values with null.
     BJS uses two kinds of missing data:
     `~` N/A. Jurisdiction does not track this race or ethnicity.
     `/` Not reported.
@@ -132,24 +130,37 @@ def missing_data_to_none(df):
             df (Pandas Dataframe): a dataframe with some missing values set to `~` or `/`
 
     Returns:
-            df (Pandas Dataframe): a dataframe with all missing values set to `None`
+            df (Pandas Dataframe): a dataframe with all missing values nulled
     """
-    df = df.applymap(lambda datum: None if datum ==
+    df = df.applymap(lambda datum: np.nan if datum ==
                      "/" or datum == "~" else datum)
 
     return df
 
 
 def set_state_col(df):
+    """
+    Takes a df from a BJS table and assigns the places to a "state_name" column
 
+    Parameters:
+            df (Pandas Dataframe): a dataframe with various options for place columns
+
+    Returns:
+            df (Pandas Dataframe): the same dataframe with a "state_name" column added, using existing place columns
+    """
     if 'U.S. territory/U.S. commonwealth' in list(df.columns):
         df[std_col.STATE_NAME_COL] = df['U.S. territory/U.S. commonwealth']
         return df
 
-    df[std_col.STATE_NAME_COL] = df['Jurisdiction'].combine_first(
-        df["Unnamed: 1"])
+    elif 'Jurisdiction' in list(df.columns):
+        df[std_col.STATE_NAME_COL] = df['Jurisdiction'].combine_first(
+            df["Unnamed: 1"])
+        return df
 
-    return df
+    else:
+        raise ValueError(
+            "Dataframe does not contain correct place columns." +
+            "Should be `Jurisdiction` or `U.S. territory/U.S. commonwealth`")
 
 
 def filter_cols(df, demo_type):
@@ -307,12 +318,12 @@ def keep_only_states(df):
 
 def keep_only_national(df, demo_group_cols):
     """
-    Accepts a cleaned BJS table df, and returns a df with only a national row
+    Accepts a cleaned and standardized BJS table df, and returns a df with only a national row
     If a "U.S. Total" or "United States" row is already present in the table, that is used
     Otherwise is it calculated as the sum of all states plus federal
 
     Parameters:
-        df: a cleaned pandas df from a BJS table where cols are the demographic groups
+        df: a cleaned and standardized pandas df from a BJS table where cols are the demographic groups
         demo_group_cols: a list of string column names that contain the values to be summed if needed
 
     Returns:
