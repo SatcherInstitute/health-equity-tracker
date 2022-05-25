@@ -87,6 +87,26 @@ _fake_condition_data_with_per_100k = [
     ['04', 'Arizona', 'TOTAL', 10, 2000, 500],
 ]
 
+_fake_condition_data = [
+    ['state_fips', 'state_name', 'race', 'some_condition_total', 'population'],
+    ['01', 'Alabama', 'Asian alone', 100, 1000],
+    ['01', 'Alabama', 'Some other race alone', 200, 5000],
+    ['02', 'Alaska', 'Two or more races', 10, 2000],
+    ['02', 'Alaska', 'TOTAL', 100, 4000],
+    ['04', 'Arizona', 'Two or more races', 20, 4000],
+    ['04', 'Arizona', 'TOTAL', 10, 2000],
+]
+
+_fake_condition_data_with_per_100k = [
+    ['state_fips', 'state_name', 'race', 'some_condition_total',
+        'population', 'condition_per_100k'],
+    ['01', 'Alabama', 'Asian alone', 100, 1000, 10000],
+    ['01', 'Alabama', 'Some other race alone', 200, 5000, 4000],
+    ['02', 'Alaska', 'Two or more races', 10, 2000, 500],
+    ['02', 'Alaska', 'TOTAL', 100, 4000, 2500],
+    ['04', 'Arizona', 'Two or more races', 20, 4000, 500],
+    ['04', 'Arizona', 'TOTAL', 10, 2000, 500],
+]
 _fake_race_data_without_totals = [
     ['state_fips', 'state_name', 'race', 'population'],
     ['01', 'Alabama', 'Asian alone', '66'],

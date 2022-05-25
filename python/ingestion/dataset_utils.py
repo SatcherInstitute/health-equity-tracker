@@ -16,11 +16,12 @@ def generate_pct_share_col_without_unknowns(df, raw_count_to_pct_share, breakdow
        df: DataFrame to generate the `pct_share_col` for.
        raw_count_to_pct_share: A dictionary with the mapping of raw_count
                                columns to the pct_share columns they should
-                               be used to genrate. eg: ({'population': 'population_pct'})
+                               be used to generate. eg: ({'population': 'population_pct'})
        breakdown_col: The name of column to calculate the percent across.
        all_val: The value representing 'ALL'"""
 
     all_demo_values = set(df[breakdown_col].to_list())
+
     if Race.UNKNOWN.value in all_demo_values or 'Unknown' in all_demo_values:
         raise ValueError(('This dataset contains unknowns, use the'
                           'generate_pct_share_col_with_unknowns function instead'))
@@ -36,42 +37,61 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
        rows will be the percent share disregarding unknowns.
 
        df: DataFrame to generate the share_of_known column for.
-       raw_count_col: String column name with the raw condition count.
-       share_of_known_col: String column name to place the generate share of known
-                           numbers in.
-       breakdown_col: String column name represting the demographic breakdown
+                    raw_count_to_pct_share: dictionary {raw_col_name: pct_share_col_name }
+                    mapping a string column name for the raw condition count column to a
+                    string column name for the resulting percent share of known / percent
+                    share unknown column.
+       breakdown_col: String column name representing the demographic breakdown
                       (race/sex/age).
-       all_val: String represting an ALL demographic value in the dataframe.
+       all_val: String representing an ALL demographic value in the dataframe.
        unknown_val: String representing an UNKNOWN value in the dataframe."""
-    df = _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val)
 
-    unknown_df = df.loc[df[breakdown_col] == unknown_val].reset_index(drop=True)
+    df = _generate_pct_share_col(
+        df, raw_count_to_pct_share, breakdown_col, all_val)
+
+    # split off incoming ALL
+    all_df = df.loc[df[breakdown_col] == all_val].reset_index(drop=True)
+
+    # split off incoming UNKNOWNS
+    unknown_df = df.loc[df[breakdown_col] ==
+                        unknown_val].reset_index(drop=True)
     if len(unknown_df) == 0:
         raise ValueError(('This dataset does not contains unknowns, use the'
                           'generate_pct_share_col_without_unknowns function instead'))
 
-    all_df = df.loc[df[breakdown_col] == all_val].reset_index(drop=True)
-
+    # split off incoming KNOWNS
     df = df.loc[~df[breakdown_col].isin({unknown_val, all_val})]
 
+    # setup to calculate share of KNOWN
     groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
     if std_col.COUNTY_FIPS_COL in df.columns:
         groupby_cols.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
-
     df = df.drop(columns=list(raw_count_to_pct_share.values()))
 
-    alls = df.groupby(groupby_cols).sum().reset_index()
-    alls[breakdown_col] = all_val
-    df = pd.concat([df, alls]).reset_index(drop=True)
+    # sum all KNOWNS to get new ALL (require at least one non-NaN value for a number sum)
+    all_knowns = df.groupby(groupby_cols).sum(min_count=1).reset_index()
 
-    df = _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val)
+    for raw_col_name in raw_count_to_pct_share.keys():
+        # if a row's sum of named races is still NaN, then we need to use the row's original ALL
+        all_knowns[raw_col_name] = all_knowns[raw_col_name].combine_first(
+            all_df[raw_col_name])
+
+    all_knowns[breakdown_col] = all_val
+    df = pd.concat([df, all_knowns]).reset_index(drop=True)
+
+    df = _generate_pct_share_col(
+        df, raw_count_to_pct_share, breakdown_col, all_val)
 
     df = df.loc[df[breakdown_col] != all_val]
 
     for share_of_known_col in raw_count_to_pct_share.values():
         all_df[share_of_known_col] = 100.0
+        # if a row's UNKNOWN SHARE is NaN, we should treat as ALL UNKNOWN data)
+        unknown_df[share_of_known_col] = unknown_df[share_of_known_col].combine_first(
+            all_df[share_of_known_col])
 
     df = pd.concat([df, all_df, unknown_df]).reset_index(drop=True)
+
     return df
 
 
@@ -101,12 +121,14 @@ def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
     for f in all_fips:
         count = value_counts[f]
         if count != 1:
-            raise ValueError(f'Fips {f} has {count} ALL rows, there should be 1')
+            raise ValueError(
+                f'Fips {f} has {count} ALL rows, there should be 1')
 
     df = pd.merge(df, alls, how='left', on=on_cols)
 
     for raw_count_col, pct_share_col in raw_count_to_pct_share.items():
-        df[pct_share_col] = df.apply(calc_pct_share, axis=1, args=(raw_count_col,))
+        df[pct_share_col] = df.apply(
+            calc_pct_share, axis=1, args=(raw_count_col,))
 
     df = df.drop(columns=list(rename_cols.values()))
     return df.reset_index(drop=True)
@@ -218,7 +240,7 @@ def merge_fips_codes(df):
         }
     ])
 
-    unkown_fips = pd.DataFrame([
+    unknown_fips = pd.DataFrame([
         {
             'state_fips_code': 'Unknown',
             'state_name': 'Unknown',
@@ -226,8 +248,10 @@ def merge_fips_codes(df):
         }
     ])
 
-    all_fips_codes_df = all_fips_codes_df[['state_fips_code', 'state_name', 'state_postal_abbreviation']]
-    all_fips_codes_df = pd.concat([all_fips_codes_df, united_states_fips, unkown_fips])
+    all_fips_codes_df = all_fips_codes_df[[
+        'state_fips_code', 'state_name', 'state_postal_abbreviation']]
+    all_fips_codes_df = pd.concat(
+        [all_fips_codes_df, united_states_fips, unknown_fips])
 
     all_fips_codes_df = all_fips_codes_df.rename(
         columns={
@@ -328,3 +352,23 @@ def merge_pop_numbers(df, demo, loc):
     df = pd.merge(df, pop_df, how='left', on=on_cols)
 
     return df.reset_index(drop=True)
+
+
+def estimate_total(row, condition_name_per_100k):
+    """Returns an estimate of the total number of people with a given condition.
+
+        Parameters:
+            row: a dataframe row containing a "per_100k" column with values for the incidence rate
+                and a "population" column containing the total number of people
+            condition_name_per_100k: string column name of the "per_100k" referenced above used for the calc
+
+        Returns:
+            float value representing the estimated raw total for the row
+            """
+
+    if (pd.isna(row[condition_name_per_100k]) or
+        pd.isna(row[std_col.POPULATION_COL]) or
+            int(row[std_col.POPULATION_COL]) == 0):
+        return None
+
+    return round((float(row[condition_name_per_100k]) / 100_000) * float(row[std_col.POPULATION_COL]))
