@@ -112,7 +112,8 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
 
     for share_of_known_col in raw_count_to_pct_share.values():
         all_df[share_of_known_col] = 100.0
-        # if a row's UNKNOWN SHARE is NaN, we should treat as ALL UNKNOWN data)
+
+        # if a place's calculated UNKNOWN SHARE is still NaN, we should treat as ALL UNKNOWN data)
         unknown_df[share_of_known_col] = unknown_df[share_of_known_col].combine_first(
             all_df[share_of_known_col])
         unknown_df[std_col.POPULATION_COL] = unknown_df[std_col.POPULATION_COL].combine_first(
