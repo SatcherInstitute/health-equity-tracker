@@ -9,6 +9,7 @@ import {
   EXPLORE_DATA_PAGE_LINK,
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
   ReactRouterLinkButton,
+  NEWS_TAB_LINK,
 } from "../../utils/urlutils";
 import FaqSection from "../ui/FaqSection";
 import { Box } from "@material-ui/core";
@@ -82,20 +83,17 @@ function LandingPage() {
               paragraph={true}
               component="h3"
             >
-              Advancing
-              <br aria-hidden="true" />
-              Health
-              <br aria-hidden="true" />
-              Equity
+              One Year of Advancing Health Equity
             </Typography>
             <Typography
               className={styles.HeaderSubtext}
               variant="body1"
               paragraph={true}
             >
-              We know that the data we collect can be imperfect and at times
-              even worsen health inequities many people face if not reported or
-              analyzed correctly.
+              The Satcher Health Leadership Institute is leading the creation
+              and advancement of equitable health data. We know that the data we
+              collect can be imperfect and at times worsen health inequities
+              many communities face if not reported and analyzed correctly.
             </Typography>
 
             <Typography
@@ -103,10 +101,14 @@ function LandingPage() {
               variant="body1"
               paragraph={true}
             >
-              We work to change that narrative by identifying, understanding,
-              and responding to health inequities in our communities in a way
-              that will allow every person to live well and long from generation
-              to generation.
+              After one year of working on our award-winning Health Equity
+              Tracker, we are expanding on what we have learned and growing our
+              open-source framework to support the advancement of health equity
+              for all. Read more from our principle investigator Daniel Dawes:{" "}
+              <a href={NEWS_TAB_LINK}>
+                "Celebrating One Year of Advancing Health Equity"
+              </a>
+              .
             </Typography>
 
             <Typography
@@ -114,7 +116,19 @@ function LandingPage() {
               variant="body1"
               paragraph={true}
             >
-              Join us in powering transformational action!
+              <Box mt={5}>
+                {/* <Typography
+                  className={styles.PrioritizeHealthEquityHeaderSubtext}
+                  variant="body1"
+                  paragraph={true}
+                > */}
+                {/* <ReactRouterLinkButton
+                  url={NEWS_TAB_LINK}
+                  className={styles.LearnMoreAboutHealthEquity}
+                  displayName=""
+                /> */}
+                {/* </Typography> */}
+              </Box>
             </Typography>
             <Box mt={5}>
               <Button
