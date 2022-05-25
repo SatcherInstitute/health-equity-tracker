@@ -107,8 +107,14 @@ def swap_race_col_names_to_codes(df):
 
 
 def set_state_col(df):
+
+    if 'U.S. territory/U.S. commonwealth' in list(df.columns):
+        df[std_col.STATE_NAME_COL] = df['U.S. territory/U.S. commonwealth']
+        return df
+
     df[std_col.STATE_NAME_COL] = df['Jurisdiction'].combine_first(
         df["Unnamed: 1"])
+
     return df
 
 
@@ -125,7 +131,6 @@ def clean_prison_appendix_table_2_df(df):
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
-    df = set_state_col(df)
     df = swap_race_col_names_to_codes(df)
 
     df[[Race.UNKNOWN.value, "Did not report"]] = df[[
@@ -150,7 +155,6 @@ def clean_prison_table_2_df(df):
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
-    df = set_state_col(df)
     df = df.rename(
         columns={'Total.1': std_col.ALL_VALUE,
                  "Male": "Male-2019",
@@ -176,7 +180,7 @@ def clean_prison_table_23_df(df):
     """
 
     df = df.rename(
-        columns={'U.S. territory/U.S. commonwealth': std_col.STATE_NAME_COL, 'Total': Race.ALL.value})
+        columns={'Total': Race.ALL.value})
     # since American Samoa reports numbers differently,
     # we will use their Custody # instead of the null jurisdiction #
     df[Race.ALL.value] = df[Race.ALL.value].combine_first(
@@ -188,38 +192,6 @@ def clean_prison_table_23_df(df):
     # remove any weird leftover rows
     df = df.dropna()
 
-    return df
-
-
-def clean_prison_table_10_df(df):
-    """
-    Unique steps needed to clean BJS Prisoners 2020 - Table 10
-    % Share of Prisoners by Age - National
-
-    Parameters:
-            df (Pandas Dataframe): specific dataframe from BJS
-            * Note, excess header and footer info must be cleaned in the read_csv()
-            before this step (both mocked + prod flows)
-    Returns:
-            df (Pandas Dataframe): a "clean" dataframe ready for manipulation
-    """
-
-    df[std_col.AGE_COL] = df["Age"].combine_first(
-        df["Unnamed: 1"])
-
-    # replace all weird characters (specifically EN-DASH –) with normal hyphen
-    df[std_col.AGE_COL] = df[std_col.AGE_COL].apply(
-        lambda datum: re.sub('[^0-9a-zA-Z ]+', '-', datum))
-
-    df = df[[std_col.AGE_COL, "Total"]]
-
-    df = df.replace("Total", std_col.ALL_VALUE)
-    df = df.replace("65 or older", "65+")
-
-    df = df.rename(
-        columns={'Total': PCT_SHARE_COL})
-
-    df[std_col.STATE_NAME_COL] = constants.US_NAME
     return df
 
 
@@ -236,7 +208,6 @@ def clean_prison_table_13_df(df):
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
-    df = set_state_col(df)
     df = df.rename(
         columns={'Total': RAW_COL})
     df = df[[std_col.STATE_NAME_COL, RAW_COL]]

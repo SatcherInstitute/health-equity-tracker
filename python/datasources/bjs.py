@@ -13,6 +13,7 @@ from datasources.bjs_prisoners_tables_utils import (clean_prison_table_2_df,
                                                     clean_prison_table_13_df,
                                                     clean_prison_appendix_table_2_df,
                                                     missing_data_to_none,
+                                                    set_state_col,
                                                     STANDARD_RACE_CODES,
                                                     BJS_SEX_GROUPS,
                                                     BJS_AGE_GROUPS,
@@ -77,6 +78,7 @@ def load_tables(zip_url: str):
 
             source_df = strip_footnote_refs_from_df(source_df)
             source_df = missing_data_to_none(source_df)
+            source_df = set_state_col(source_df)
 
             loaded_tables[file] = source_df
     return loaded_tables

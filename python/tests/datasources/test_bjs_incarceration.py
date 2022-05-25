@@ -200,7 +200,9 @@ def get_test_table_files():
             )
 
             source_df = strip_footnote_refs_from_df(source_df)
-            loaded_tables[file] = missing_data_to_none(source_df)
+            source_df = missing_data_to_none(source_df)
+            loaded_tables[file] = set_state_col(source_df)
+
     return loaded_tables
 
 
