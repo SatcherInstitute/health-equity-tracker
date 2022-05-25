@@ -1,6 +1,7 @@
 from unittest import mock
 
 import json
+import numpy as np
 import pytest
 import pandas as pd
 
@@ -27,6 +28,21 @@ _fake_race_data = [
     ['04', 'Arizona', 'Two or more races', '26'],
     ['04', 'Arizona', 'ALL', '95'],
     ['04', 'Arizona', 'UNKNOWN', '10'],
+]
+
+_fake_race_data_some_only_all = [
+    ['state_fips', 'state_name', 'race', 'population'],
+    ['01', 'Alabama', 'Asian alone', '660'],
+    ['01', 'Alabama', 'Some other race alone', '700'],
+    ['01', 'Alabama', 'Two or more races', '919'],
+    ['01', 'Alabama', 'An underrepresented race', '1'],
+    ['01', 'Alabama', 'ALL', '2280'],
+    ['01', 'Alabama', 'UNKNOWN', '30'],
+    ['60', 'American Samoa', 'Asian alone', np.nan],
+    ['60', 'American Samoa', 'Some other race alone', np.nan],
+    ['60', 'American Samoa', 'Two or more races', np.nan],
+    ['60', 'American Samoa', 'ALL', '196'],
+    ['60', 'American Samoa', 'UNKNOWN', np.nan],
 ]
 
 _expected_pct_share_data_without_unknowns = [
@@ -64,6 +80,21 @@ _expected_pct_share_data_with_unknowns = [
     ['04', 'Arizona', 'Two or more races', '26', '27.4'],
     ['04', 'Arizona', 'ALL', '95', '100'],
     ['04', 'Arizona', 'UNKNOWN', '10', '10.5'],
+]
+
+_expected_pct_share_data_with_unknowns_some_only_all = [
+    ['state_fips', 'state_name', 'race', 'population', 'pct_share'],
+    ['01', 'Alabama', 'Asian alone', '660', '28.9'],
+    ['01', 'Alabama', 'Some other race alone', '700', '30.7'],
+    ['01', 'Alabama', 'Two or more races', '919', '40.3'],
+    ['01', 'Alabama', 'An underrepresented race', '1', '.04'],
+    ['01', 'Alabama', 'ALL', '2280', '100'],
+    ['01', 'Alabama', 'UNKNOWN', '30', '1.3'],
+    ['60', 'American Samoa', 'Asian alone', np.nan, np.nan],
+    ['60', 'American Samoa', 'Some other race alone', np.nan, np.nan],
+    ['60', 'American Samoa', 'Two or more races', np.nan, np.nan],
+    ['60', 'American Samoa', 'ALL', '196', '100.0'],
+    ['60', 'American Samoa', 'UNKNOWN', '196', '100.0'],
 ]
 
 _fake_condition_data = [
@@ -288,12 +319,12 @@ def testGeneratePctShareColWithoutUnknowns():
         json.dumps(_fake_race_data)).reset_index(drop=True)
 
     df = df.loc[df['race'] != 'UNKNOWN']
-    df['population'] = df['population'].astype(int)
+    df['population'] = df['population'].astype(float)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_pct_share_data_without_unknowns)).reset_index(drop=True)
 
-    expected_df['population'] = expected_df['population'].astype(int)
+    expected_df['population'] = expected_df['population'].astype(float)
 
     expected_df['pct_share'] = expected_df['pct_share'].astype(float)
 
@@ -307,12 +338,32 @@ def testGeneratePctShareColWithUnknowns():
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_fake_race_data)).reset_index(drop=True)
 
-    df['population'] = df['population'].astype(int)
+    df['population'] = df['population'].astype(float)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_pct_share_data_with_unknowns)).reset_index(drop=True)
 
-    expected_df['population'] = expected_df['population'].astype(int)
+    expected_df['population'] = expected_df['population'].astype(float)
+
+    expected_df['pct_share'] = expected_df['pct_share'].astype(float)
+
+    df = dataset_utils.generate_pct_share_col_with_unknowns(
+        df, {'population': 'pct_share'}, 'race', 'ALL', 'UNKNOWN')
+
+    df = df.sort_values(by=['state_fips']).reset_index(drop=True)
+    assert_frame_equal(expected_df, df)
+
+
+def testGeneratePctShareColWithUnknownsSomeOnlyAll():
+    df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_fake_race_data_some_only_all)).reset_index(drop=True)
+
+    df['population'] = df['population'].astype(float)
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_expected_pct_share_data_with_unknowns_some_only_all)).reset_index(drop=True)
+
+    expected_df['population'] = expected_df['population'].astype(float)
 
     expected_df['pct_share'] = expected_df['pct_share'].astype(float)
 
@@ -337,7 +388,7 @@ def testGeneratePctShareColExtraTotalError():
     df = pd.concat([df, extra_row])
 
     df = df.loc[df['race'] != 'UNKNOWN']
-    df['population'] = df['population'].astype(int)
+    df['population'] = df['population'].astype(float)
 
     expected_error = r"Fips 01 has 2 ALL rows, there should be 1"
     with pytest.raises(ValueError, match=expected_error):
