@@ -104,11 +104,12 @@ function LandingPage() {
               After one year of working on our award-winning Health Equity
               Tracker, we are expanding on what we have learned and growing our
               open-source framework to support the advancement of health equity
-              for all. Read more from our principle investigator Daniel Dawes:{" "}
+              for all.
+              {/* Read more from our principle investigator Daniel Dawes:{" "}
               <a href={NEWS_TAB_LINK}>
                 "Celebrating One Year of Advancing Health Equity"
               </a>
-              .
+              . */}
             </Typography>
 
             <Typography
@@ -116,19 +117,19 @@ function LandingPage() {
               variant="body1"
               paragraph={true}
             >
-              <Box mt={5}>
-                {/* <Typography
-                  className={styles.PrioritizeHealthEquityHeaderSubtext}
-                  variant="body1"
-                  paragraph={true}
-                > */}
-                {/* <ReactRouterLinkButton
+              {/* <Box mt={5}> */}
+              <Typography
+                className={styles.PrioritizeHealthEquityHeaderSubtext}
+                variant="body1"
+                paragraph={true}
+              >
+                <ReactRouterLinkButton
                   url={NEWS_TAB_LINK}
                   className={styles.LearnMoreAboutHealthEquity}
-                  displayName=""
-                /> */}
-                {/* </Typography> */}
-              </Box>
+                  displayName="Read more here"
+                />
+              </Typography>
+              {/* </Box> */}
             </Typography>
             <Box mt={5}>
               <Button
