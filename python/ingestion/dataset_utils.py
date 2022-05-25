@@ -36,6 +36,32 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
        percent share, whereas the resulting `pct_share` values for all other
        rows will be the percent share disregarding unknowns.
 
+       Note: if the incoming df contains locations that only have an "all" value, but
+       no other demographic breakdowns, you must fill in the missing demographic groups
+       before using the df in this fn. For example:
+
+       If your incoming data looks like this:
+
+       STATE      | RACE     | RAW
+       Florida    | White    | 1
+       Florida    | Black    | 2
+       Florida    | Unknown  | 3
+       Florida    | All      | 6
+       Guam       | All      | 10
+
+       You must fill in the expected missing rows like this first:
+
+       STATE      | RACE     | some other columns with raw values, etc....
+       Florida    | White    | 1
+       Florida    | Black    | 2
+       Florida    | Unknown  | 3
+       Florida    | All      | 6
+       Guam       | White    | null
+       Guam       | Black    | null
+       Guam       | Unknown  | null
+       Guam       | All      | 10
+
+
        df: DataFrame to generate the share_of_known column for.
                     raw_count_to_pct_share: dictionary {raw_col_name: pct_share_col_name }
                     mapping a string column name for the raw condition count column to a
@@ -89,6 +115,8 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
         # if a row's UNKNOWN SHARE is NaN, we should treat as ALL UNKNOWN data)
         unknown_df[share_of_known_col] = unknown_df[share_of_known_col].combine_first(
             all_df[share_of_known_col])
+        unknown_df[std_col.POPULATION_COL] = unknown_df[std_col.POPULATION_COL].combine_first(
+            all_df[std_col.POPULATION_COL])
 
     df = pd.concat([df, all_df, unknown_df]).reset_index(drop=True)
 
