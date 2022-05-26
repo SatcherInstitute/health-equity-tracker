@@ -127,8 +127,8 @@ def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
        per_100k_col: String column name to place the generated row in."""
 
     def calc_per_100k(record):
-        per_100k = percent_avoid_rounding_to_zero(
-            1000 * float(record[raw_count_col]), float(record[pop_col]))
+        per_100k = percent_avoid_rounding_to_zero(1000 * float(record[raw_count_col]),
+                                                  float(record[pop_col]), 0, 0)
         if not pd.isna(per_100k):
             return round(per_100k, 0)
         return np.nan
@@ -146,8 +146,8 @@ def percent_avoid_rounding_to_zero(numerator, denominator, default_decimals=1, m
 
        Avoids division by zero errors and returns `0.0` instead"""
 
-    if denominator == 0:
-        return 0.0
+    if (denominator == 0) or (numerator is None) or (denominator is None):
+        return None
 
     decimals = default_decimals
     pct = round((float(numerator) / float(denominator) * 100), decimals)
