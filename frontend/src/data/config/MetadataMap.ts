@@ -203,7 +203,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_link: "https://bjs.ojp.gov",
     geographic_level: "National, State",
     demographic_granularity: "Race/ethnicity, age, sex",
-    update_frequency: "Every Few Years",
+    update_frequency: "Annually",
     description:
       "Rates of individuals, including children, who are under the jurisdiction of federal, state, and territory adult prison facilities.",
     dataset_ids: [

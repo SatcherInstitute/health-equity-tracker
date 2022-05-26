@@ -16,7 +16,10 @@ export const COMBINED_INCARCERATION_STATES_LIST = [
 ];
 
 export const COMBINED_INCARCERATION_STATES_MESSAGE =
-  "Note: Alaska, Connecticut, Delaware, Hawaii, Rhode Island, and Vermont each operate an integrated system that combines prisons and jails.";
+  "Alaska, Connecticut, Delaware, Hawaii, Rhode Island, and Vermont each operate an integrated system that combines prisons and jails, which are included here as prison facilities.";
+
+export const MISSING_PRISON_DATA =
+  "The rates presented for imprisonment nationally do not include individuals under the jurisdiction of territorial, military, or Indian Country facilities.";
 
 export const BJS_VARIABLE_IDS: VariableId[] = [
   "prison",

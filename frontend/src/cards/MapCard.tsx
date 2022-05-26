@@ -38,7 +38,7 @@ import {
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
-import CombinedIncarcerationInfoAlert from "./ui/CombinedIncarcerationInfoAlert";
+import IncarcerationAlert from "./ui/IncarcerationAlert";
 import DropDownMenu from "./ui/DropDownMenu";
 import { HighestLowestList } from "./ui/HighestLowestList";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
@@ -73,12 +73,9 @@ export function MapCard(props: MapCardProps) {
 function MapCardWithKey(props: MapCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
 
-  const showCombinedStateAlert =
-    (props.fips.isUsa() ||
-      COMBINED_INCARCERATION_STATES_LIST.includes(
-        props.fips.getStateDisplayName()
-      )) &&
-    BJS_VARIABLE_IDS.includes(props.variableConfig.variableId);
+  const isIncarceration = BJS_VARIABLE_IDS.includes(
+    props.variableConfig.variableId
+  );
 
   const signalListeners: any = {
     click: (...args: any) => {
@@ -322,7 +319,7 @@ function MapCardWithKey(props: MapCardProps) {
                 </>
               )}
 
-            {showCombinedStateAlert && <CombinedIncarcerationInfoAlert />}
+            {isIncarceration && <IncarcerationAlert fips={props.fips} />}
 
             {(mapQueryResponse.dataIsMissing() ||
               dataForActiveBreakdownFilter.length === 0) && (
