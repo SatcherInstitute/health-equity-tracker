@@ -9,7 +9,6 @@ import {
   EXPLORE_DATA_PAGE_LINK,
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
   ReactRouterLinkButton,
-  NEWS_TAB_LINK,
 } from "../../utils/urlutils";
 import FaqSection from "../ui/FaqSection";
 import { Box } from "@material-ui/core";
@@ -90,10 +89,12 @@ function LandingPage() {
               variant="body1"
               paragraph={true}
             >
-              The Satcher Health Leadership Institute is leading the creation
-              and advancement of equitable health data. We know that the data we
-              collect can be imperfect and at times worsen health inequities
-              many communities face if not reported and analyzed correctly.
+              We know that the data we collect can be imperfect and at times
+              even worsen health inequities many people face if not reported or
+              analyzed correctly. We work to change that narrative by leveraging
+              the power of data and technology to identify, understand, and
+              respond to health inequities in our communities in a way that will
+              allow every person to achieve an optimum level of health.
             </Typography>
 
             <Typography
@@ -105,11 +106,6 @@ function LandingPage() {
               Tracker, we are expanding on what we have learned and growing our
               open-source framework to support the advancement of health equity
               for all.
-              {/* Read more from our principle investigator Daniel Dawes:{" "}
-              <a href={NEWS_TAB_LINK}>
-                "Celebrating One Year of Advancing Health Equity"
-              </a>
-              . */}
             </Typography>
 
             <Typography
@@ -117,20 +113,14 @@ function LandingPage() {
               variant="body1"
               paragraph={true}
             >
-              {/* <Box mt={5}> */}
-              <Typography
-                className={styles.PrioritizeHealthEquityHeaderSubtext}
-                variant="body1"
-                paragraph={true}
-              >
-                <ReactRouterLinkButton
-                  url={NEWS_TAB_LINK}
-                  className={styles.LearnMoreAboutHealthEquity}
-                  displayName="Read more here"
-                />
-              </Typography>
-              {/* </Box> */}
+              Please read more from our Executive Director Daniel E. Dawes, JD,
+              celebrating “
+              <a href="https://healthequitytracker.org/news/one-year-of-advancing-health-equity">
+                One Year of Advancing Health Equity
+              </a>
+              ”.
             </Typography>
+
             <Box mt={5}>
               <Button
                 variant="contained"
