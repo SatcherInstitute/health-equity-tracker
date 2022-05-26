@@ -379,23 +379,26 @@ function MethodologyTab() {
 
                 <ul>
                   <li>
-                    National report: All individuals under the jurisdiction of a
-                    state or federal adult prison facility in the United States.
-                    This data is disaggregated by race/ethnicity, age, and sex.
+                    National report: All individuals including children under
+                    the jurisdiction of a state or federal adult prison facility
+                    in the United States, but not inclusive of territorial,
+                    military, or Indian Country facilities. This data is
+                    disaggregated by race/ethnicity, age, and sex.
                   </li>
 
                   <li>
-                    State reports: All individuals under the jurisdiction of
-                    that state's adult prison facilities. This data is
-                    disaggregated by race/ethnicity, age (juvenile / adult), and
-                    sex.
+                    State reports: All individuals including under the
+                    jurisdiction of that state's adult prison facilities. This
+                    data is disaggregated by race/ethnicity, age (juvenile /
+                    adult), and sex.
                   </li>
                   <li>
                     Territory reports: All individuals under the jurisdiction of
-                    that territory's adult prison facilities. Because American
-                    Samoa did not report a value for jurisdictional population,
-                    we have used their value for custody population instead.
-                    This data is not disaggregated by any demographic breakdown.
+                    that territory's adult prison facilities. Because{" "}
+                    <b>American Samoa</b> did not report a value for
+                    jurisdictional population, we have used their value for
+                    custodial population instead. This data is not disaggregated
+                    by any demographic breakdown.
                   </li>
                 </ul>
 
@@ -411,33 +414,13 @@ function MethodologyTab() {
                 </p>
 
                 <p>
-                  To generate incidence and percent share rates for our
-                  race/ethnicity and sex breakdowns, we obtain the raw number of
-                  individuals in prison (or each demographic group) directly
-                  from the source tables, and calculate incidence rates using
-                  the ACS 5 year population source.{" "}
-                </p>
-
-                <p>
-                  To obtain the age breakdowns for over 18 nationally, we infer
-                  the raw number of individuals in each age group by multiplying
-                  the provided total raw number by the provided percent share.
-                  The number of individuals under 18 is then calculated by
-                  subtracting the sum of over 18 groups from the total. Finally,
-                  the incidence rates are generated using the ACS 5 year
-                  population. Because of this, our per 100k rates differ
-                  slightly from the per 100k rates found on table 11, as BJS is
-                  using a different population source.{" "}
-                </p>
-
-                <p>
-                  To obtain the age breakdowns for states, we take the given raw
-                  numbers (under 18 and total) of individuals in adult prisons,
-                  and calculate the 18+ population as the total for that state
-                  minus the under 18 group for that state. Then using these raw
-                  numbers, we can calculate the percent share of each age group,
-                  and also incidence rate by incorporating the ACS 5 year
-                  populations.{" "}
+                  To obtain the age breakdowns of <b>Under 18</b> and <b>18+</b>
+                  , we take the given raw numbers (under 18 and total) of
+                  individuals in adult prisons, and calculate the 18+ population
+                  as the total for that state minus the under 18 group for that
+                  state. Using these raw numbers, we can calculate the percent
+                  share of each age group, and also incidence rate by
+                  incorporating the ACS 5 year populations.{" "}
                 </p>
 
                 <p>
