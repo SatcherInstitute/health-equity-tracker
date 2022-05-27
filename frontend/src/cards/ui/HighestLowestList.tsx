@@ -131,7 +131,6 @@ export function HighestLowestList(props: HighestLowestListProps) {
             </Grid>
           </div>
 
-          {/* {props.asteriskMessage && <p>*{props.asteriskMessage}</p>} */}
           <p>
             All rates are reported as:{" "}
             <b>{props.metricConfig.fullCardTitleName}</b>.
