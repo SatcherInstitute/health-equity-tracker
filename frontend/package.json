@@ -67,12 +67,6 @@
     "build:deploy_preview": "env-cmd -f .env.deploy_preview npm run build",
     "build:storybook": "env-cmd -f .env.storybook npm run build-storybook"
   },
-  "@typescript-eslint/no-unused-vars": [
-    "error",
-    {
-      "ignoreRestSiblings": true
-    }
-  ],
   "eslintConfig": {
     "extends": "react-app"
   },
