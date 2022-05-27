@@ -111,7 +111,7 @@ class CDCRestrictedData(DataSource):
         if geo == 'county':
             all_columns.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
 
-        df = merge_fips_codes(df)
+        df = merge_fips_codes(df, geo == 'county')
         fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
 
         # Drop annoying column that doesnt match any fips code
