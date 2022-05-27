@@ -9,7 +9,7 @@ import {
   EXPLORE_DATA_PAGE_LINK,
 } from "../../../utils/urlutils";
 import { WithMetadata } from "../../../data/react/WithLoadingOrErrorUI";
-import { Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
@@ -98,13 +98,15 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
                     </li>
                   ))}
                   {viewingSubsetOfSources && (
-                    <Button
-                      href={DATA_CATALOG_PAGE_LINK}
-                      color="primary"
-                      variant="contained"
-                    >
-                      View All Datasets
-                    </Button>
+                    <Box mt={5}>
+                      <Button
+                        href={DATA_CATALOG_PAGE_LINK}
+                        color="primary"
+                        variant="contained"
+                      >
+                        View All Datasets
+                      </Button>
+                    </Box>
                   )}
                 </>
               );
