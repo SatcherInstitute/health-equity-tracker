@@ -140,7 +140,7 @@ def _get_test_state_names(*args, **kwargs):
         })
 
 
-# RUN INTEGRATION TESTS ON NATIONAL_LEVEL LEVEL
+# RUN INTEGRATION TESTS ON NATIONAL LEVEL
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              side_effect=_get_test_state_names)
@@ -209,7 +209,7 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
         mock_df_national, expected_df_national, check_like=True)
 
 
-# RUN INTEGRATION TESTS ON STATE_LEVEL/TERRITORY LEVEL
+# RUN INTEGRATION TESTS ON STATE/TERRITORY LEVEL
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              side_effect=_get_test_state_names)
