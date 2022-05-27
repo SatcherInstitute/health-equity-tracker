@@ -67,7 +67,8 @@ function MethodologyTab() {
               component="article"
             >
               <h3 className={styles.MethodologyQuestion}>
-                What are the limitations of the tracker?
+                What are the limitations of the tracker, and why were these
+                health equity topics chosen?
               </h3>
               <div className={styles.MethodologyAnswer}>
                 <h4 className={styles.MethodologySubsubheaderText}>COVID-19</h4>
@@ -277,27 +278,17 @@ function MethodologyTab() {
                 </h4>
 
                 <p>
-                  A link has been established between having women in government
-                  and improvements in population health
-                  <a href={urlMap.doi1}>
-                    <sup>1</sup>
-                  </a>
-                  . Women in legislative office have been shown to advocate for
-                  policies that pertain to some of the crucial social and
-                  political determinants of health that impact the overall
-                  health of our nation such as education, poverty, social
-                  welfare, reproductive and maternal health, children, and
-                  family life
-                  <a href={urlMap.doi2}>
-                    <sup>2</sup>
-                  </a>
-                  <sup>,</sup>
-                  <a href={urlMap.doi3}>
-                    <sup>3</sup>
-                  </a>
-                  . These policies in turn play a significant role in the
-                  advancement of health equity for all. By combining data from
-                  the{" "}
+                  <a href={urlMap.doi1}>A link has been established</a> between
+                  having women in government and improvements in population
+                  health. <a href={urlMap.doi2}>Women in legislative office</a>{" "}
+                  have been shown to{" "}
+                  <a href={urlMap.doi3}>advocate for policies</a> that pertain
+                  to some of the crucial social and political determinants of
+                  health that impact the overall health of our nation such as
+                  education, poverty, social welfare, reproductive and maternal
+                  health, children, and family life. These policies in turn play
+                  a significant role in the advancement of health equity for
+                  all. By combining data from the{" "}
                   <a href={urlMap.cawp}>
                     Center for American Women in Politics (CAWP)
                   </a>{" "}
