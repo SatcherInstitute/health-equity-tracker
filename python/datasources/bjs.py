@@ -33,18 +33,18 @@ from datasources.bjs_prisoners_tables_utils import (standardize_table_2_df,
 def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
     """
     Takes demographic type and geographic level, along with
-     "cleaned" dataframes representing specific tables
-    from the BJS Prisoners (2020) report and returns a standardized df
+     standardized dataframes representing specific tables
+    from the BJS Prisoners (2020) report and returns a raw breakdown df
     with rows for each combo of place + demographic group,
     and columns for | RAW# | "race" or "age" or "sex" | "state_name"
 
     Parameters:
         demo: string "race_or_ethnicity" | "sex" for breakdown to generate
         geo_level: string "national" | "state" for breakdown to generate
-        source_df_list: list of specific data frames needed for breakdown
+        source_tables: list of specific data frames needed for breakdown
 
     Returns:
-        df: standardized with raw numbers by demographic group by geographic place(s)
+        df: with raw numbers by demographic group by geographic place(s)
     """
 
     [main_table, table_23] = source_tables
@@ -76,16 +76,16 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
     return df
 
 
-def generate_raw_age_breakdown(source_tables, geo_level):
+def generate_raw_age_breakdown(geo_level, source_tables, ):
     """
-    Takes "cleaned" dataframes representing specific tables
-    from the BJS Prisoners (2020) report and returns a standardized df
+    Takes standardized dataframes representing specific tables
+    from the BJS Prisoners (2020) report and returns a df
     with rows for each combo of place + demographic group,
     and columns for | RAW# | "age" group | "state_name" (national or states+territories)
 
     Parameters:
-        source_tables: [list of specific df tables needed]
         geo_level: "national" or "state" to determine breakdown type
+        source_tables: [list of specific df tables needed]
 
     Returns:
         df: standardized with raw numbers by age by place
@@ -94,10 +94,10 @@ def generate_raw_age_breakdown(source_tables, geo_level):
     [table_2, table_13, table_23] = source_tables
 
     # standardize dfs with JUVENILE and ADULT RAW # / AGE / PLACE
-    if geo_level == "state":
+    if geo_level == STATE_LEVEL:
         table_2 = keep_only_states(table_2)
         table_13 = keep_only_states(table_13)
-    elif geo_level == "national":
+    elif geo_level == NATIONAL_LEVEL:
         table_2 = keep_only_national(table_2, BJS_AGE_GROUPS)
         table_13 = keep_only_national(table_13, "Total")
 
@@ -113,7 +113,7 @@ def generate_raw_age_breakdown(source_tables, geo_level):
                   on=std_col.STATE_NAME_COL)
 
     # add territories to state-level only
-    if geo_level == "state":
+    if geo_level == STATE_LEVEL:
         df = df.append(table_23)
         df[std_col.ALL_VALUE] = df[std_col.ALL_VALUE].combine_first(
             df[Race.ALL.value])
@@ -128,14 +128,14 @@ def generate_raw_age_breakdown(source_tables, geo_level):
 
 def post_process(df, breakdown, geo):
     """
-        Takes a standardized breakdown df with raw incidence values and fills in missing columns
+        Takes a breakdown df with raw incidence values by demographic by place and:
         - generates `PER_100K` column (some incoming df may already have this col and partial data)
         - generates `PCT_SHARE` column
         - removes temporary columns needed only for calculating our metrics
 
        df: Dataframe with all the raw data containing:
        "state_name" column, raw values column, and demographic column
-       breakdown: demographic breakdown (race, sex, age)
+       breakdown: string column name containing demographic breakdown groups (race, sex, age)
        geo: geographic level (national, state)
     """
 
@@ -156,6 +156,7 @@ def post_process(df, breakdown, geo):
         df, RAW_COL, std_col.POPULATION_COL, PER_100K_COL)
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
+        # some states and all territories will have unknown race data
         df = dataset_utils.generate_pct_share_col_with_unknowns(
             df,
             {RAW_COL:
@@ -165,6 +166,7 @@ def post_process(df, breakdown, geo):
             Race.UNKNOWN.value
         )
     else:
+        # sex and age contain no unknown data
         df = dataset_utils.generate_pct_share_col_without_unknowns(
             df,
             {RAW_COL:
@@ -225,8 +227,8 @@ class BJSData(DataSource):
                 table_name = f'{breakdown}_{geo_level}'
 
                 if breakdown == std_col.AGE_COL:
-                    df = generate_raw_age_breakdown(
-                        table_lookup[table_name], geo_level)
+                    df = generate_raw_age_breakdown(geo_level,
+                                                    table_lookup[table_name])
                 else:
                     df = generate_raw_race_or_sex_breakdown(
                         breakdown, geo_level, table_lookup[table_name])

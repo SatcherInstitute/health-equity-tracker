@@ -4,13 +4,12 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
+from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
 from datasources.cawp import (CAWPData,
                               get_standard_code_from_cawp_phrase,
                               count_matching_rows,
                               remove_markup,
                               pct_never_null,
-                              NATIONAL,
-                              STATE,
                               POSTAL_COL,
                               POSITION_COL,
                               RACE_COL)
@@ -53,15 +52,15 @@ def test_count_matching_rows():
          "U.S. Delegate", "U.S. Representative", "U.S. Representative"]})
 
     assert count_matching_rows(
-        df_test, "US", NATIONAL, "Black") == 2
+        df_test, "US", NATIONAL_LEVEL, "Black") == 2
     assert count_matching_rows(
-        df_test, "FL", NATIONAL, "Black") == 1
+        df_test, "FL", NATIONAL_LEVEL, "Black") == 1
     assert count_matching_rows(
-        df_test, "FL", NATIONAL, "All") == 1
+        df_test, "FL", NATIONAL_LEVEL, "All") == 1
     assert count_matching_rows(
-        df_test, "US", STATE, "All") == 2
+        df_test, "US", STATE_LEVEL, "All") == 2
     assert count_matching_rows(
-        df_test, "US", NATIONAL, "Multiracial Alone") == 2
+        df_test, "US", NATIONAL_LEVEL, "Multiracial Alone") == 2
 
 
 # INTEGRATION TEST SETUP
@@ -141,7 +140,7 @@ def _get_test_state_names(*args, **kwargs):
         })
 
 
-# RUN INTEGRATION TESTS ON NATIONAL LEVEL
+# RUN INTEGRATION TESTS ON NATIONAL_LEVEL LEVEL
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              side_effect=_get_test_state_names)
@@ -199,7 +198,7 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
 
     mock_df_national = mock_bq.call_args_list[1].args[0]
 
-    # save NATIONAL results to file
+    # save NATIONAL_LEVEL results to file
     mock_df_national.to_json(
         "cawp-run-results-national.json", orient="records")
 
@@ -210,7 +209,7 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
         mock_df_national, expected_df_national, check_like=True)
 
 
-# RUN INTEGRATION TESTS ON STATE/TERRITORY LEVEL
+# RUN INTEGRATION TESTS ON STATE_LEVEL/TERRITORY LEVEL
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              side_effect=_get_test_state_names)
@@ -268,7 +267,7 @@ def testWriteStateLevelToBq(mock_bq: mock.MagicMock,
 
     mock_df_state = mock_bq.call_args_list[0].args[0]
 
-    # save STATE results to file
+    # save STATE_LEVEL results to file
     mock_df_state.to_json(
         "cawp-run-results-state.json", orient="records")
 

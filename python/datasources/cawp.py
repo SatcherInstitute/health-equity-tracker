@@ -9,6 +9,8 @@ from ingestion.dataset_utils import (percent_avoid_rounding_to_zero,
                                      merge_pop_numbers,
                                      replace_state_abbr_with_names)
 
+from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
+
 # Tables for CAWP data and State Legislature Denominators
 CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity.csv"
 CAWP_TOTALS_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
@@ -33,11 +35,6 @@ POSITION_COL = "position"
 # PROPUB COLUMNS
 IN_OFFICE_COL = "in_office"
 
-# CAWP CONSTS
-NATIONAL = "national"
-STATE = "state"
-
-
 CAWP_RACE_GROUPS_TO_STANDARD = {
     'Asian American/Pacific Islander': Race.ASIAN_PAC.value,
     'Latina': Race.HISP.value,
@@ -52,8 +49,11 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
 }
 
 CAWP_DATA_TYPES = {
-    STATE: ["Territorial/D.C. Senator", "Territorial/D.C. Representative", "State Representative", "State Senator"],
-    NATIONAL: ["U.S. Representative", "U.S. Senator", "U.S. Delegate"]
+    STATE_LEVEL: ["Territorial/D.C. Senator",
+                  "Territorial/D.C. Representative",
+                  "State Representative",
+                  "State Senator"],
+    NATIONAL_LEVEL: ["U.S. Representative", "U.S. Senator", "U.S. Delegate"]
 }
 
 
@@ -203,7 +203,7 @@ def get_congress_totals_as_df():
         'cawp', PROPUB_US_SENATE_FILE, ["results", "members"])
     df = pd.concat([df_us_senate, df_us_house])
     df = df[df[IN_OFFICE_COL]]
-    df = df[[STATE]]
+    df = df[[STATE_LEVEL]]
     df = df.rename(
         columns={STATE_COL_LINE: POSTAL_COL})
     df = df[POSTAL_COL].value_counts(
@@ -249,7 +249,7 @@ class CAWPData(DataSource):
         column_types[std_col.RACE_OR_HISPANIC_COL] = "STRING"
 
         # make two tables
-        for geo_level in [STATE, NATIONAL]:
+        for geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
             table_name = f'race_and_ethnicity_{geo_level}'
             breakdown_df = self.generate_breakdown(df_us_congress_totals,
                                                    df_state_leg_totals,
@@ -268,7 +268,7 @@ class CAWPData(DataSource):
 
     def generate_breakdown(self, df_us_congress_totals, df_state_leg_totals, df_line_items, level: str):
 
-        if level == NATIONAL:
+        if level == NATIONAL_LEVEL:
             all_place_codes = [constants.US_ABBR]
 
             # make a row for US and set value to the sum of all states/territories
@@ -284,14 +284,14 @@ class CAWPData(DataSource):
             df_state_leg_totals = national_sum_state_leg_count
             df_us_congress_totals = us_congress_count
 
-        elif level == STATE:
+        elif level == STATE_LEVEL:
             all_place_codes = df_us_congress_totals[POSTAL_COL].to_list(
             )
 
         output = []
         for current_place_code in all_place_codes:
             us_congress_women_current_place_all_races = count_matching_rows(
-                df_line_items, current_place_code, NATIONAL, std_col.ALL_VALUE)
+                df_line_items, current_place_code, NATIONAL_LEVEL, std_col.ALL_VALUE)
 
             us_congress_match_row = df_us_congress_totals.loc[
                 df_us_congress_totals[POSTAL_COL] == current_place_code]
@@ -316,9 +316,9 @@ class CAWPData(DataSource):
 
                 # calculate raw counts
                 us_congress_women_current_place_current_race = count_matching_rows(
-                    df_line_items, current_place_code, NATIONAL, cawp_race_name)
+                    df_line_items, current_place_code, NATIONAL_LEVEL, cawp_race_name)
                 state_leg_women_current_place_current_race = count_matching_rows(
-                    df_line_items, current_place_code, STATE, cawp_race_name)
+                    df_line_items, current_place_code, STATE_LEVEL, cawp_race_name)
 
                 # calculate incidence rates
                 output_row[std_col.WOMEN_US_CONGRESS_PCT] = pct_never_null(
