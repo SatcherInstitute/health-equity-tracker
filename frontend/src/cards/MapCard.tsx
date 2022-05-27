@@ -53,7 +53,7 @@ export interface MapCardProps {
   key?: string;
   fips: Fips;
   variableConfig: VariableConfig;
-  updateFipsCallback: (_fips: Fips) => void;
+  updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar;
   jumpToDefinitions: Function;
   jumpToData: Function;
