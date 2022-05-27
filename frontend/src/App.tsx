@@ -64,7 +64,7 @@ const DataCatalogTab = React.lazy(
 const MOBILE_BREAKPOINT = 600;
 
 const PAGE_URL_TO_NAMES: Record<string, string> = {
-  "/": "Homepage",
+  "/": "Home",
   [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: "What is Health Equity?",
   [EXPLORE_DATA_PAGE_LINK]: "Explore the Data",
   [DATA_CATALOG_PAGE_LINK]: "Downloads & Methodology",

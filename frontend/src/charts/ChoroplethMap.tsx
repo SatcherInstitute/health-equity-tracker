@@ -103,6 +103,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // Dataset to use for computing the legend
   const legendData = props.legendData || props.data;
 
+  const legendLowerBound = Math.min(
+    ...legendData.map((row) => row[props.metric.metricId])
+  );
+  const legendUpperBound = Math.max(
+    ...legendData.map((row) => row[props.metric.metricId])
+  );
+
   // Generate meaningful alt text
   const altText = `Map showing ${props.filename}${
     !props.fips.isCounty()
@@ -243,6 +250,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.scaleType === "symlog") {
       // Controls the slope of the linear behavior of symlog around 0.
       colorScale["constant"] = 0.01;
+    }
+
+    // if there is no range, use a dot instead of a gradient bar for legend to prevent weirdness
+    if (legendLowerBound === legendUpperBound) {
+      colorScale["type"] = "ordinal";
     }
 
     /* SET UP PROJECTION USED TO CREATE MARKS ON THE UI */
@@ -490,6 +502,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props,
     heightWidthRatio,
     altText,
+    legendLowerBound,
+    legendUpperBound,
   ]);
 
   const mapStyle = pageIsTiny

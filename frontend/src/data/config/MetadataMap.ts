@@ -12,14 +12,14 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_pretty_site_name: "data.cdc.gov",
     data_source_link:
       "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
-    geographic_level: "State",
+    geographic_level: "State, County",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Biweekly",
     description:
       "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
       "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
-      "Surveillance Data Access, Summary, and Limitations (04/04/2022). The last case data included is 2 " +
-      "weeks before 04/04/2022. The CDC does not take responsibility for the scientific validity " +
+      "Surveillance Data Access, Summary, and Limitations (05/02/2022). The last case data included is 2 " +
+      "weeks before 05/02/2022. The CDC does not take responsibility for the scientific validity " +
       "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
       "dataset is not available for download; please click the link below to apply for access.",
     dataset_ids: [
@@ -30,6 +30,20 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "cdc_restricted_data-by_sex_county",
       "cdc_restricted_data-by_sex_state",
     ],
+    downloadable: false,
+  },
+  {
+    id: "propublica_congress",
+    data_source_name: "ProPublica Congress API",
+    data_source_pretty_site_name: "propublica.org",
+    data_source_link:
+      "https://www.propublica.org/datastore/api/propublica-congress-api",
+    geographic_level: "National, State",
+    demographic_granularity: "N/A",
+    update_frequency: "At Least Daily",
+    description:
+      "Total members of the United States Congress (Senate and House of Representatives including delegates) both nationally and by state/territory.",
+    dataset_ids: ["propublica_congress"],
     downloadable: false,
   },
   {
@@ -73,13 +87,13 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_pretty_site_name: "census.gov",
     data_source_link:
       "https://www.census.gov/data/datasets/2010/dec/virgin-islands.html",
-    geographic_level: "State",
+    geographic_level: "State, County",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "None",
     description:
       "Population percentages at the territory level: " +
       "the census bureau has not included population data from " +
-      "the U.S. Virgin Islands, Guam, or the Northern Mariana Islands " +
+      "the U.S. Virgin Islands, Guam, American Samoa, or the Northern Mariana Islands " +
       "in its 5 year ACS estimates, so the most up to date population " +
       "estimates are from 2010. Interpret any metrics from " +
       "these territories with caution.",
@@ -170,7 +184,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_pretty_site_name: "americashealthrankings.org",
     data_source_link:
       "https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL",
-    geographic_level: "State",
+    geographic_level: "National, State",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annual",
     description:
@@ -183,13 +197,29 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
+    id: "cawp",
+    data_source_name: "Center for American Women in Politics (CAWP)",
+    data_source_pretty_site_name: "cawpdata.rutgers.edu",
+    data_source_link: "https://cawpdata.rutgers.edu/",
+    geographic_level: "National, State",
+    demographic_granularity: "Race/ethnicity",
+    update_frequency: "Monthly",
+    description:
+      "Representation of women, by race/ethnicity, in the US Congress and state legislatures.",
+    dataset_ids: [
+      "cawp_data-race_and_ethnicity_national",
+      "cawp_data-race_and_ethnicity_state",
+    ],
+    downloadable: true,
+  },
+  {
     id: "covid_tracking_project",
     data_source_name: "Covid Tracking Project’s Racial Data Tracker",
     data_source_pretty_site_name: "covidtracking.com",
     data_source_link: "https://covidtracking.com/race",
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity",
-    update_frequency: "Final update was March 7 2021",
+    update_frequency: "Final update was March 7 2021",
     description:
       "The numbers of confirmed COVID-19 deaths, cases, hospitalizations, and tests at the state level. " +
       "Please note that Covid Tracking Project data is not used for any visualizations on the tracker, " +

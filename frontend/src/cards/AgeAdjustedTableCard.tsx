@@ -88,13 +88,12 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const raceQuery = new MetricQuery(metricIds as MetricId[], raceBreakdowns);
   const ageQuery = new MetricQuery(metricIds as MetricId[], ageBreakdowns);
   const ratioId = metricIds[0];
-
   const metricIdsForRatiosOnly = Object.values(metricConfigs).filter((config) =>
     config.metricId.includes("ratio")
   );
 
   const cardTitle = `${
-    metrics[0].fullCardTitleName
+    metrics[0]?.fullCardTitleName
   } in ${props.fips.getFullDisplayName()}`;
 
   // collect data types from the currently selected condition that offer age-adjusted ratios

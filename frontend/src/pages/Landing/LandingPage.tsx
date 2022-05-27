@@ -82,11 +82,7 @@ function LandingPage() {
               paragraph={true}
               component="h3"
             >
-              Advancing
-              <br aria-hidden="true" />
-              Health
-              <br aria-hidden="true" />
-              Equity
+              One Year of Advancing Health Equity
             </Typography>
             <Typography
               className={styles.HeaderSubtext}
@@ -95,7 +91,10 @@ function LandingPage() {
             >
               We know that the data we collect can be imperfect and at times
               even worsen health inequities many people face if not reported or
-              analyzed correctly.
+              analyzed correctly. We work to change that narrative by leveraging
+              the power of data and technology to identify, understand, and
+              respond to health inequities in our communities in a way that will
+              allow every person to achieve an optimum level of health.
             </Typography>
 
             <Typography
@@ -103,10 +102,10 @@ function LandingPage() {
               variant="body1"
               paragraph={true}
             >
-              We work to change that narrative by identifying, understanding,
-              and responding to health inequities in our communities in a way
-              that will allow every person to live well and long from generation
-              to generation.
+              After one year of working on our award-winning Health Equity
+              Tracker, we are expanding on what we have learned and growing our
+              open-source framework to support the advancement of health equity
+              for all.
             </Typography>
 
             <Typography
@@ -114,8 +113,14 @@ function LandingPage() {
               variant="body1"
               paragraph={true}
             >
-              Join us in powering transformational action!
+              Please read more from our Executive Director Daniel E. Dawes, JD,
+              celebrating “
+              <a href="https://healthequitytracker.org/news/one-year-of-advancing-health-equity">
+                One Year of Advancing Health Equity
+              </a>
+              ”.
             </Typography>
+
             <Box mt={5}>
               <Button
                 variant="contained"

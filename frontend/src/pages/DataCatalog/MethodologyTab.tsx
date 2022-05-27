@@ -273,6 +273,68 @@ function MethodologyTab() {
                 </ul>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
+                  Women in Legislative Office
+                </h4>
+
+                <p>
+                  A link has been established between having women in government
+                  and improvements in population health
+                  <a href={urlMap.doi1}>
+                    <sup>1</sup>
+                  </a>
+                  . Women in legislative office have been shown to advocate for
+                  policies that pertain to some of the crucial social and
+                  political determinants of health that impact the overall
+                  health of our nation such as education, poverty, social
+                  welfare, reproductive and maternal health, children, and
+                  family life
+                  <a href={urlMap.doi2}>
+                    <sup>2</sup>
+                  </a>
+                  <sup>,</sup>
+                  <a href={urlMap.doi3}>
+                    <sup>3</sup>
+                  </a>
+                  . These policies in turn play a significant role in the
+                  advancement of health equity for all. By combining data from
+                  the{" "}
+                  <a href={urlMap.cawp}>
+                    Center for American Women in Politics (CAWP)
+                  </a>{" "}
+                  with data from <a href={urlMap.propublica}>ProPublica</a>, we
+                  are able to present two distinct metrics on these reports:
+                </p>
+                <ul>
+                  <li>
+                    The race/ethnicity distribution or “percent share” of women
+                    (e.g. "What percent of women in the Georgia State
+                    Legislature are black?"){" "}
+                  </li>
+
+                  <li>
+                    The intersectional representation (e.g. "What percent of all
+                    Georgia state legislators are black women?").{" "}
+                  </li>
+                </ul>
+
+                <p>
+                  These metrics are calculated for two distinct data types:
+                  <b>Women in State Legislature</b>, and{" "}
+                  <b>Women in U.S. Congress</b>, and both of these data types
+                  are currently available at the state, territory, and national
+                  levels. Our percentage calculations at the national level
+                  specifically include legislators from the U.S. territories,
+                  which can result in slightly different results than those
+                  presented on the CAWP website. Additionally, our "total
+                  legislator" count for U.S. Congress only includes actively
+                  seated legislators, as opposed to the total number of seats
+                  which are not always filled. All gender and race/ethnicity
+                  categorizations are self-reported, and a legislator may be
+                  represented in multiple race groupings if that is how they
+                  identify.
+                </p>
+
+                <h4 className={styles.MethodologySubsubheaderText}>
                   Visualizations
                 </h4>
                 <p>
@@ -280,31 +342,6 @@ function MethodologyTab() {
                   when exploring the visualizations. These issues may lead to
                   incorrect conclusions, e.g. low rates in a given location may
                   be due to under-reporting rather than absence of impact.
-                </p>
-              </div>
-            </Grid>
-            <Grid
-              item
-              className={styles.MethodologyQuestionAndAnswer}
-              component="article"
-            >
-              <h3 className={styles.MethodologyQuestion}>
-                What data is missing?
-              </h3>
-              <div className={styles.MethodologyAnswer}>
-                <p>
-                  Our tracker will expand to include additional health
-                  variables, social and political determinants of health.
-                </p>
-              </div>
-              <div className={styles.MethodologyInfoBar}>
-                <p>
-                  Do you have information on health outcomes at the state and
-                  local level that belong in the Health Equity Tracker?
-                  <br />
-                  <LinkWithStickyParams to={CONTACT_TAB_LINK}>
-                    We would love to hear from you!
-                  </LinkWithStickyParams>
                 </p>
               </div>
             </Grid>
@@ -445,6 +482,32 @@ function MethodologyTab() {
                     not Hispanic/Latino.
                   </li>
                 </ul>
+              </div>
+            </Grid>
+
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
+                What data is missing?
+              </h3>
+              <div className={styles.MethodologyAnswer}>
+                <p>
+                  Our tracker will expand to include additional health
+                  variables, social and political determinants of health.
+                </p>
+              </div>
+              <div className={styles.MethodologyInfoBar}>
+                <p>
+                  Do you have information on health outcomes at the state and
+                  local level that belong in the Health Equity Tracker?
+                  <br />
+                  <LinkWithStickyParams to={CONTACT_TAB_LINK}>
+                    We would love to hear from you!
+                  </LinkWithStickyParams>
+                </p>
               </div>
             </Grid>
           </Grid>

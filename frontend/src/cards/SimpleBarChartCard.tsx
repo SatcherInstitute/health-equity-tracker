@@ -8,7 +8,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { isPctType, VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
@@ -61,6 +61,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
     >
       {([queryResponse]) => {
+        const data = queryResponse.getValidRowsForField(metricConfig.metricId);
+
         return (
           <CardContent>
             {queryResponse.shouldShowMissingDataMessage([
@@ -75,11 +77,12 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
               />
             ) : (
               <SimpleHorizontalBarChart
-                data={queryResponse.getValidRowsForField(metricConfig.metricId)}
+                data={data}
                 breakdownVar={props.breakdownVar}
                 metric={metricConfig}
                 showLegend={false}
                 filename={getTitleText()}
+                usePercentSuffix={isPctType(metricConfig.type)}
               />
             )}
           </CardContent>
