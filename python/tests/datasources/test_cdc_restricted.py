@@ -18,6 +18,13 @@ GOLDEN_DATA_BY_SEX_COUNTY = os.path.join(
     TEST_DIR, 'golden_data', 'by_sex_county.json')
 
 
+def get_fips_and_county_names_as_df(*args, **kwargs):
+    if args[1] == 'fips_codes_all':
+        return pd.read_csv(os.path.join(TEST_DIR, 'county_names.csv'), dtype=str)
+    else:
+        return get_state_fips_codes_as_df()
+
+
 def get_population_by_sex_state_as_df():
     return pd.read_csv(os.path.join(TEST_DIR, 'population_by_sex_state.csv'), dtype={
         'state_fips': str,
@@ -145,7 +152,7 @@ def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
             return_value=get_population_by_sex_county_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
+            side_effect=get_fips_and_county_names_as_df)
 def testGenerateBreakdownSexCounty(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
@@ -163,7 +170,7 @@ def testGenerateBreakdownSexCounty(mock_fips: mock.MagicMock, mock_pop: mock.Mag
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
+            side_effect=get_fips_and_county_names_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df')
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
