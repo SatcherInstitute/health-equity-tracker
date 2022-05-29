@@ -119,8 +119,7 @@ def generate_raw_age_breakdown(geo_level, source_tables, ):
             df[Race.ALL.value])
         df = df.drop(columns=[Race.ALL.value])
 
-    # df with RAW COUNT BY AGE (All, Under 18, 18+) / PLACE
-    df["18+"] = df[std_col.ALL_VALUE] - df['0-17']
+    # df with RAW COUNT Under 18 / PLACE
     df = cols_to_rows(df, BJS_AGE_GROUPS, std_col.AGE_COL, RAW_COL)
 
     return df
