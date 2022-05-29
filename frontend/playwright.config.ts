@@ -10,11 +10,11 @@ const config: PlaywrightTestConfig = {
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
   },
-  testDir: './tests',
+  testDir: './playwright-tests',
   /* Maximum time one test can run for. */
-  timeout: 30 * 1000,
+  timeout: 60 * 1000,
   expect: {
-    timeout: 5000
+    timeout: 60 * 1000
   },
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
@@ -43,10 +43,14 @@ const config: PlaywrightTestConfig = {
     {
       name: 'URL',
       testMatch: "externalUrls.spec.ts",
+      use: {
+        headless: false,
+      }
     },
     {
       name: 'E2E',
       testIgnore: "externalUrls.spec.ts",
+
     },
   ],
 
