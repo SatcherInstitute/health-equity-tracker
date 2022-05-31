@@ -184,11 +184,29 @@ _data_without_state_names = [
     ['VI', 'something_else_entirely'],
 ]
 
+_data_with_bad_county_names = [
+    ['state_postal', 'county_fips', 'county_name'],
+    ['CA', '06123', 'drop-me'],
+    ['GA', '13345', 'also-drop-me'],
+]
+
+_county_names_from_bq = [
+    ['county_fips_code', 'area_name', 'summary_level_name'],
+    ['06123', 'California County', 'state-county'],
+    ['13345', 'Georgia County', 'state-county'],
+]
+
 _fips_codes_from_bq = [
     ['state_fips_code', 'state_postal_abbreviation', 'state_name', 'state_gnisid'],
     ['06', 'CA', 'California', '01779778'],
     ['13', 'GA', 'Georgia', '01705317'],
     ['78', 'VI', 'U.S. Virgin Islands', 'NEED_THIS_CODE'],
+]
+
+_expected_merged_fips_county = [
+    ['state_name', 'state_fips', 'county_fips', 'county_name'],
+    ['California', '06', '06123', 'California County'],
+    ['Georgia', '13', '13345', 'Georgia County'],
 ]
 
 _expected_merged_fips = [
@@ -267,6 +285,11 @@ _expected_swapped_abbr_for_names = [
 def _get_fips_codes_as_df(*args, **kwargs):
     return gcs_to_bq_util.values_json_to_df(
         json.dumps(_fips_codes_from_bq), dtype=str).reset_index(drop=True)
+
+
+def _get_county_names_as_df(*args, **kwargs):
+    return gcs_to_bq_util.values_json_to_df(
+        json.dumps(_county_names_from_bq), dtype=str).reset_index(drop=True)
 
 
 def _get_pop_data_as_df(*args):
@@ -409,6 +432,25 @@ def testGeneratePer100kCol():
     expected_df['condition_per_100k'] = df['condition_per_100k'].astype(float)
 
     assert_frame_equal(expected_df, df, check_like=True)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=_get_fips_codes_as_df())
+def testMergeFipsCodesCounty(mock_bq: mock.MagicMock):
+    mock_bq.side_effect = [
+        _get_county_names_as_df(),
+        _get_fips_codes_as_df(),
+    ]
+    df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_data_with_bad_county_names), dtype=str).reset_index(drop=True)
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_expected_merged_fips_county), dtype=str).reset_index(drop=True)
+
+    df = dataset_utils.merge_fips_codes(df, county_level=True)
+
+    assert mock_bq.call_count == 2
+    assert_frame_equal(df, expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
