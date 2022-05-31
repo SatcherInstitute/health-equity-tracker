@@ -295,7 +295,7 @@ def merge_fips_codes(df, county_level=False):
     all_fips_codes_df = all_fips_codes_df[['state_fips_code', 'state_name',
                                            'state_postal_abbreviation']]
     all_fips_codes_df = pd.concat(
-        [all_fips_codes_df, united_states_fips, unkown_fips])
+        [all_fips_codes_df, united_states_fips, unknown_fips])
 
     all_fips_codes_df = all_fips_codes_df.rename(
         columns={
