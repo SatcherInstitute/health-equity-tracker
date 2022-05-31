@@ -36,9 +36,9 @@ BJS_RACE_GROUPS_TO_STANDARD = {
 
 STANDARD_RACE_CODES = [
     race_tuple.value for race_tuple in BJS_RACE_GROUPS_TO_STANDARD.values()]
-BJS_AGE_GROUPS = [std_col.ALL_VALUE, '0-17']
-# BJS_AGE_GROUPS = [std_col.ALL_VALUE, "18-19", "20-24", "25-29", "30-34",
-#                   "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65+"]
+# BJS_AGE_GROUPS = [std_col.ALL_VALUE, '0-17']
+BJS_AGE_GROUPS = [std_col.ALL_VALUE, "18-19", "20-24", "25-29", "30-34",
+                  "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65+"]
 
 BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
 
@@ -53,15 +53,17 @@ NON_NULL_RAW_COUNT_GROUPS = ["0-17"]
 
 # BJS Prisoners Report
 BJS_PRISONERS_ZIP = "https://bjs.ojp.gov/content/pub/sheets/p20st.zip"
-APPENDIX_TABLE_2 = "p20stat02.csv"  # RAW# / STATE+FED / RACE
-TABLE_2 = "p20stt02.csv"  # RAW# / TOTAL+STATE+FED / SEX
-TABLE_13 = "p20stt13.csv"  # RAW# / TOTAL+STATE+FED / AGE / SEX
-TABLE_23 = "p20stt23.csv"  # RAW# / TERRITORY
+TABLE_2 = "p20stt02.csv"  # RAW# JURISDICTION / TOTAL+STATE+FED / SEX
+TABLE_10 = "p20stt10.csv"  # %, RAW # SENTENCED JURISDICTION / TOTAL+STATE+FED / SEX
+TABLE_13 = "p20stt13.csv"  # RAW# JUVENILE CUSTODY / TOTAL+STATE+FED / AGE / SEX
+TABLE_23 = "p20stt23.csv"  # RAW# JURISDICTION / TERRITORY
+APPENDIX_TABLE_2 = "p20stat02.csv"  # RAW# JURISDICTION / STATE+FED / RACE
 
 # BJS tables include excess header and footer rows that need to be trimmed
 bjs_prisoners_tables = {
     APPENDIX_TABLE_2: {"header_rows": [*list(range(10)), 12], "footer_rows": 13},
     TABLE_2: {"header_rows": [*list(range(11))], "footer_rows": 10, },
+    TABLE_10: {"header_rows": [*list(range(11))], "footer_rows": 9, },
     TABLE_13: {"header_rows": [*list(range(11)), 13, 14], "footer_rows": 6},
     TABLE_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10}
 }
@@ -160,10 +162,7 @@ def set_state_col(df):
             df["Unnamed: 1"])
         return df
 
-    else:
-        raise ValueError(
-            "Dataframe does not contain correct place columns." +
-            "Should be `Jurisdiction` or `U.S. territory/U.S. commonwealth`")
+    return df
 
 
 def filter_cols(df, demo_type):
@@ -216,30 +215,6 @@ def swap_race_col_names_to_codes(df):
     return df
 
 
-def standardize_appendix_table_2_df(df):
-    """
-    Unique steps needed to clean BJS Prisoners 2020 - Appendix Table 2
-    Raw # Prisoners by state + federal by race/ethnicity
-
-    Parameters:
-            df (Pandas Dataframe): specific dataframe from BJS
-            * Note, excess header and footer info must be cleaned in the read_csv()
-            before this step (both mocked + prod flows)
-    Returns:
-            df (Pandas Dataframe): a "clean" dataframe ready for manipulation
-    """
-
-    df = swap_race_col_names_to_codes(df)
-
-    df[[Race.UNKNOWN.value, "Did not report"]] = df[[
-        Race.UNKNOWN.value, "Did not report"]].astype(float)
-    df[Race.UNKNOWN.value] = df[[Race.UNKNOWN.value,
-                                 "Did not report"]].sum(axis="columns", min_count=1)
-    df = filter_cols(df, std_col.RACE_COL)
-
-    return df
-
-
 def standardize_table_2_df(df):
     """
     Unique steps needed to clean BJS Prisoners 2020 - Table 2
@@ -261,6 +236,56 @@ def standardize_table_2_df(df):
                  "Female.1": constants.Sex.FEMALE})
     df = filter_cols(df, std_col.SEX_COL)
 
+    return df
+
+
+def standardize_table_10_df(df):
+    """
+    Unique steps needed to clean BJS Prisoners 2020 - Table 10
+    Percent Share by Age plus Total Raw # of Sentenced Prisoners
+    under Jurisdiction by Age
+
+    Parameters:
+            df (Pandas Dataframe): specific dataframe from BJS
+            * Note, excess header and footer info must be cleaned in the read_csv()
+            before this step (both mocked + prod flows)
+    Returns:
+            df (Pandas Dataframe): a "clean" dataframe ready for manipulation
+    """
+
+    print("df coming into standardize 10")
+    print(df)
+
+    df = df[[std_col.AGE_COL, "Total"]]
+
+    df = df.replace("Total", std_col.ALL_VALUE)
+    df = df.replace("65 or older", "65+")
+
+    df = df.rename(
+        columns={'Total': PCT_SHARE_COL})
+
+    df[std_col.STATE_NAME_COL] = constants.US_NAME
+    return df
+
+
+def standardize_table_13_df(df):
+    """
+    Unique steps needed to clean BJS Prisoners 2020 - Table 13
+    Raw Prisoners by Age (Adult / Juvenile) by Sex by Federal + State
+
+    Parameters:
+            df (Pandas Dataframe): specific dataframe from BJS
+            * Note, excess header and footer info must be cleaned in the read_csv()
+            before this step (both mocked + prod flows)
+    Returns:
+            df (Pandas Dataframe): a "clean" dataframe ready for manipulation
+    """
+
+    df = df.rename(
+        columns={'Total': RAW_COL})
+    df = df[[std_col.STATE_NAME_COL, RAW_COL]]
+    df = df.replace("U.S. total", constants.US_NAME)
+    df[std_col.AGE_COL] = "0-17"
     return df
 
 
@@ -293,10 +318,10 @@ def standardize_table_23_df(df):
     return df
 
 
-def standardize_table_13_df(df):
+def standardize_appendix_table_2_df(df):
     """
-    Unique steps needed to clean BJS Prisoners 2020 - Table 13
-    Raw Prisoners by Age (Adult / Juvenile) by Sex by Federal + State
+    Unique steps needed to clean BJS Prisoners 2020 - Appendix Table 2
+    Raw # Prisoners by state + federal by race/ethnicity
 
     Parameters:
             df (Pandas Dataframe): specific dataframe from BJS
@@ -306,11 +331,14 @@ def standardize_table_13_df(df):
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
-    df = df.rename(
-        columns={'Total': RAW_COL})
-    df = df[[std_col.STATE_NAME_COL, RAW_COL]]
-    df = df.replace("U.S. total", constants.US_NAME)
-    df[std_col.AGE_COL] = "0-17"
+    df = swap_race_col_names_to_codes(df)
+
+    df[[Race.UNKNOWN.value, "Did not report"]] = df[[
+        Race.UNKNOWN.value, "Did not report"]].astype(float)
+    df[Race.UNKNOWN.value] = df[[Race.UNKNOWN.value,
+                                 "Did not report"]].sum(axis="columns", min_count=1)
+    df = filter_cols(df, std_col.RACE_COL)
+
     return df
 
 
