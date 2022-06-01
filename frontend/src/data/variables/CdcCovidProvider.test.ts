@@ -35,12 +35,12 @@ export async function ensureCorrectDatasetsDownloaded(
   const acsProvider = new AcsPopulationProvider();
   const cdcCovidProvider = new CdcCovidProvider(acsProvider);
 
-  var consumedDatasetIds = [];
+  const consumedDatasetIds = [];
 
   dataFetcher.setFakeDatasetLoaded(cdcDatasetId, [rawCovidData]);
   consumedDatasetIds.push(cdcDatasetId);
 
-  for (var id of acsDatasetIds) {
+  for (const id of acsDatasetIds) {
     dataFetcher.setFakeDatasetLoaded(id, []);
     consumedDatasetIds.push(id);
   }
