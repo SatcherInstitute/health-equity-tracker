@@ -35,7 +35,7 @@ function IncarceratedChildrenShortAlert(
       <b>
         {count} {children}
       </b>{" "}
-      {are} currently incarcerated in {adultPrisonFacilities} in{" "}
+      {are} currently confined in {adultPrisonFacilities} in{" "}
       <b>{props.fips.getDisplayName()}</b>.{" "}
       <a href={urlMap.childrenInPrison}>Learn more.</a>
     </Alert>
