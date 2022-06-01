@@ -133,7 +133,7 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019",
   },
   {
-    id: "cdc_restricted_data-by_race_state-with_age_adjust",
+    id: "cdc_restricted_data-by_race_state",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and State",
     update_time: "May 2022",
   },
