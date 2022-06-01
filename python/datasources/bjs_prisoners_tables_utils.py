@@ -63,7 +63,7 @@ APPENDIX_TABLE_2 = "p20stat02.csv"  # RAW# JURISDICTION / STATE+FED / RACE
 bjs_prisoners_tables = {
     APPENDIX_TABLE_2: {"header_rows": [*list(range(10)), 12], "footer_rows": 13},
     TABLE_2: {"header_rows": [*list(range(11))], "footer_rows": 10, },
-    TABLE_10: {"header_rows": [*list(range(11))], "footer_rows": 9, },
+    TABLE_10: {"header_rows": [*list(range(11))], "footer_rows": 8, },
     TABLE_13: {"header_rows": [*list(range(11)), 13, 14], "footer_rows": 6},
     TABLE_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10}
 }

@@ -93,6 +93,8 @@ def generate_raw_national_age_breakdown(source_tables):
 
     [table_10, table_13] = source_tables
 
+    print(table_10.to_string())
+
     total_raw = table_10.loc[
         table_10[std_col.AGE_COL] == 'Number of sentenced prisoners', PCT_SHARE_COL].values[0]
 
