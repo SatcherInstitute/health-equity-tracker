@@ -32,10 +32,9 @@ function IncarceratedChildrenLongAlert() {
         </p>
         <p>
           When showing reports filtered by age, we have highlighted the{" "}
-          <b>total number of these imprisoned children</b>, rather than
-          presenting a per 100k rate calculated using an ambiguous population
-          base. Read more in{" "}
-          <Link to={METHODOLOGY_TAB_LINK}>our methodology</Link>.
+          <b>total number of these confined children</b>, rather than presenting
+          a ‘per 100k’ rate calculated using an ambiguous population base. Read
+          more in <Link to={METHODOLOGY_TAB_LINK}>our methodology</Link>.
         </p>
       </Alert>
     </div>
