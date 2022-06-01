@@ -56,9 +56,9 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
 
     df = df.loc[~df[breakdown_col].isin({unknown_val, all_val})]
 
-    groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
+    groupby_cols = [std_col.STATE_FIPS_COL]
     if std_col.COUNTY_FIPS_COL in df.columns:
-        groupby_cols.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
+        groupby_cols.append(std_col.COUNTY_FIPS_COL)
 
     df = df.drop(columns=list(raw_count_to_pct_share.values()))
 
@@ -96,7 +96,7 @@ def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
 
     alls = alls[on_cols + list(rename_cols.values())]
 
-    fips = std_col.COUNTY_FIPS_COL if std_col.COUNTY_NAME_COL in df.columns else std_col.STATE_FIPS_COL
+    fips = std_col.COUNTY_FIPS_COL if std_col.COUNTY_FIPS_COL in df.columns else std_col.STATE_FIPS_COL
 
     # Ensure there is exactly one ALL value for each fips group.
     all_fips = df[fips].drop_duplicates().to_list()
@@ -206,11 +206,27 @@ def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val,
     return result
 
 
-def merge_fips_codes(df):
+def merge_fips_codes(df, county_level=False):
     """Merges in the `state_fips` column into a dataframe, based on the
        `census_utility` big query public dataset.
 
        df: dataframe to merge fips codes into, with a `state_name` or `state_postal` column"""
+
+    if county_level:
+        all_county_names = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
+            'census_utility', 'fips_codes_all', dtype={'state_fips_code': str, 'county_fips_code': str})
+        all_county_names = all_county_names.loc[all_county_names['summary_level_name'] == 'state-county']
+
+        all_county_names = all_county_names[['county_fips_code', 'area_name']]
+        all_county_names = all_county_names.rename(
+            columns={
+                'county_fips_code': std_col.COUNTY_FIPS_COL,
+                'area_name': std_col.COUNTY_NAME_COL,
+            })
+
+        df = df.drop(columns=std_col.COUNTY_NAME_COL)
+        df = pd.merge(df, all_county_names, how='left',
+                      on=std_col.COUNTY_FIPS_COL).reset_index(drop=True)
 
     all_fips_codes_df = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
         'census_utility', 'fips_codes_states', dtype={'state_fips_code': str})
@@ -231,8 +247,8 @@ def merge_fips_codes(df):
         }
     ])
 
-    all_fips_codes_df = all_fips_codes_df[[
-        'state_fips_code', 'state_name', 'state_postal_abbreviation']]
+    all_fips_codes_df = all_fips_codes_df[['state_fips_code', 'state_name',
+                                           'state_postal_abbreviation']]
     all_fips_codes_df = pd.concat(
         [all_fips_codes_df, united_states_fips, unknown_fips])
 
