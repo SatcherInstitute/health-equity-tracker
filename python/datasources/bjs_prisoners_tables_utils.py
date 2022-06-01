@@ -253,16 +253,19 @@ def standardize_table_10_df(df):
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
-    print("df coming into standardize 10")
-    print(df)
+    df[std_col.AGE_COL] = df['Age'].combine_first(
+        df["Unnamed: 1"])
+
+    # replace all weird characters (specifically EN-DASH –) with normal hyphen
+    df[std_col.AGE_COL] = df[std_col.AGE_COL].apply(
+        lambda datum: re.sub('[^0-9a-zA-Z ]+', '-', datum))
 
     df = df[[std_col.AGE_COL, "Total"]]
 
+    df = df.rename(columns={"Total": PCT_SHARE_COL})
+
     df = df.replace("Total", std_col.ALL_VALUE)
     df = df.replace("65 or older", "65+")
-
-    df = df.rename(
-        columns={'Total': PCT_SHARE_COL})
 
     df[std_col.STATE_NAME_COL] = constants.US_NAME
     return df

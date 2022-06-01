@@ -92,7 +92,7 @@ def generate_raw_national_age_breakdown(source_tables):
         df: standardized with raw numbers by age by place
     """
 
-    [table_10, table_13, table_23] = source_tables
+    [table_10, table_13] = source_tables
 
     total_raw = table_10.loc[
         table_10[std_col.AGE_COL] == 'Number of sentenced prisoners', PCT_SHARE_COL].values[0]
@@ -109,6 +109,11 @@ def generate_raw_national_age_breakdown(source_tables):
 
     df = df[[
         RAW_COL, std_col.STATE_NAME_COL, std_col.AGE_COL, PCT_SHARE_COL]]
+
+    # RAW count of sentenced children in adult jurisdiction
+    table_13 = keep_only_national(table_13, "Total")
+
+    df = df.append(table_13)
 
     return df
 
@@ -127,11 +132,11 @@ def generate_raw_state_age_breakdown(source_tables):
         df: standardized with raw numbers by age by place
     """
 
-    [table_2, table_10, table_13, table_23] = source_tables
+    [table_2, table_13, table_23] = source_tables
 
     # standardize dfs with JUVENILE RAW # IN CUSTODY and TOTAL RAW # UNDER JURISDICTION / AGE / PLACE
-    table_2 = keep_only_national(table_2, BJS_AGE_GROUPS)
-    table_13 = keep_only_national(table_13, "Total")
+    table_2 = keep_only_states(table_2)
+    table_13 = keep_only_states(table_13)
 
     table_2 = table_2[[
         std_col.STATE_NAME_COL, std_col.ALL_VALUE]]
@@ -146,12 +151,14 @@ def generate_raw_state_age_breakdown(source_tables):
 
     # add territories
     df = df.append(table_23)
+
     df[std_col.ALL_VALUE] = df[std_col.ALL_VALUE].combine_first(
         df[Race.ALL.value])
     df = df.drop(columns=[Race.ALL.value])
 
     # df with RAW COUNT Under 18 / PLACE
-    df = cols_to_rows(df, BJS_AGE_GROUPS, std_col.AGE_COL, RAW_COL)
+    df = cols_to_rows(df, [std_col.ALL_VALUE, "0-17"],
+                      std_col.AGE_COL, RAW_COL)
 
     return df
 
@@ -245,7 +252,7 @@ class BJSData(DataSource):
 
         # BJS tables needed per breakdown
         table_lookup = {
-            f'{std_col.AGE_COL}_{NATIONAL_LEVEL}': [df_10, df_13, None],
+            f'{std_col.AGE_COL}_{NATIONAL_LEVEL}': [df_10, df_13],
             f'{std_col.AGE_COL}_{STATE_LEVEL}': [df_2, df_13, df_23],
             f'{std_col.RACE_OR_HISPANIC_COL}_{NATIONAL_LEVEL}': [df_app_2, df_23],
             f'{std_col.SEX_COL}_{NATIONAL_LEVEL}': [df_2, df_23],
