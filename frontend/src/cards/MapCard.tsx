@@ -319,10 +319,6 @@ function MapCardWithKey(props: MapCardProps) {
                 </>
               )}
 
-            {isIncarceration && (
-              <IncarcerationAlert breakdown={props.currentBreakdown} />
-            )}
-
             {(mapQueryResponse.dataIsMissing() ||
               dataForActiveBreakdownFilter.length === 0) && (
               <CardContent>
@@ -355,86 +351,94 @@ function MapCardWithKey(props: MapCardProps) {
                 </CardContent>
               )}
             {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
-              <CardContent>
-                <ChoroplethMap
-                  signalListeners={signalListeners}
-                  metric={metricConfig}
-                  legendTitle={metricConfig.shortLabel}
-                  data={
-                    listExpanded
-                      ? highestRatesList.concat(lowestRatesList)
-                      : dataForActiveBreakdownFilter
-                  }
-                  hideMissingDataTooltip={listExpanded}
-                  legendData={dataForActiveBreakdownFilter}
-                  hideLegend={
-                    mapQueryResponse.dataIsMissing() ||
-                    dataForActiveBreakdownFilter.length <= 1
-                  }
-                  showCounties={props.fips.isUsa() ? false : true}
-                  fips={props.fips}
-                  scaleType="quantile"
-                  geoData={geoData}
-                  // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
-                  filename={`${metricConfig.fullCardTitleName}${
-                    activeBreakdownFilter === "All"
-                      ? ""
-                      : ` for ${activeBreakdownFilter}`
-                  } in ${props.fips.getDisplayName()}${
-                    // include the state name if the location is a county
-                    props.fips.isCounty()
-                      ? `, ${props.fips.getParentFips().getFullDisplayName()}`
-                      : ""
-                  }`}
-                />
-                {/* generate additional VEGA canvases for territories on national map */}
-                {props.fips.isUsa() && (
-                  <div className={styles.TerritoryCirclesContainer}>
-                    {TERRITORY_CODES.map((code) => {
-                      const fips = new Fips(code);
-                      return (
-                        <div className={styles.TerritoryCircle} key={code}>
-                          <ChoroplethMap
-                            signalListeners={signalListeners}
-                            metric={metricConfig}
-                            legendTitle={metricConfig.fullCardTitleName}
-                            data={
-                              listExpanded
-                                ? highestRatesList.concat(lowestRatesList)
-                                : dataForActiveBreakdownFilter
-                            }
-                            hideMissingDataTooltip={listExpanded}
-                            legendData={dataForActiveBreakdownFilter}
-                            hideLegend={true}
-                            hideActions={true}
-                            showCounties={props.fips.isUsa() ? false : true}
-                            fips={fips}
-                            scaleType="quantile"
-                            geoData={geoData}
-                            overrideShapeWithCircle={true}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
+              <>
+                {isIncarceration && (
+                  <IncarcerationAlert
+                    fips={props.fips}
+                    breakdown={props.currentBreakdown}
+                  />
                 )}
-
-                {!mapQueryResponse.dataIsMissing() &&
-                  dataForActiveBreakdownFilter.length > 1 && (
-                    <HighestLowestList
-                      variableConfig={props.variableConfig}
-                      metricConfig={metricConfig}
-                      listExpanded={listExpanded}
-                      setListExpanded={setListExpanded}
-                      highestRatesList={highestRatesList}
-                      lowestRatesList={lowestRatesList}
-                      fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
-                      jumpToData={props.jumpToData}
-                      asteriskItems={COMBINED_INCARCERATION_STATES_LIST}
-                      asteriskMessage={COMBINED_INCARCERATION_STATES_MESSAGE}
-                    />
+                <CardContent>
+                  <ChoroplethMap
+                    signalListeners={signalListeners}
+                    metric={metricConfig}
+                    legendTitle={metricConfig.shortLabel}
+                    data={
+                      listExpanded
+                        ? highestRatesList.concat(lowestRatesList)
+                        : dataForActiveBreakdownFilter
+                    }
+                    hideMissingDataTooltip={listExpanded}
+                    legendData={dataForActiveBreakdownFilter}
+                    hideLegend={
+                      mapQueryResponse.dataIsMissing() ||
+                      dataForActiveBreakdownFilter.length <= 1
+                    }
+                    showCounties={props.fips.isUsa() ? false : true}
+                    fips={props.fips}
+                    scaleType="quantile"
+                    geoData={geoData}
+                    // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
+                    filename={`${metricConfig.fullCardTitleName}${
+                      activeBreakdownFilter === "All"
+                        ? ""
+                        : ` for ${activeBreakdownFilter}`
+                    } in ${props.fips.getDisplayName()}${
+                      // include the state name if the location is a county
+                      props.fips.isCounty()
+                        ? `, ${props.fips.getParentFips().getFullDisplayName()}`
+                        : ""
+                    }`}
+                  />
+                  {/* generate additional VEGA canvases for territories on national map */}
+                  {props.fips.isUsa() && (
+                    <div className={styles.TerritoryCirclesContainer}>
+                      {TERRITORY_CODES.map((code) => {
+                        const fips = new Fips(code);
+                        return (
+                          <div className={styles.TerritoryCircle} key={code}>
+                            <ChoroplethMap
+                              signalListeners={signalListeners}
+                              metric={metricConfig}
+                              legendTitle={metricConfig.fullCardTitleName}
+                              data={
+                                listExpanded
+                                  ? highestRatesList.concat(lowestRatesList)
+                                  : dataForActiveBreakdownFilter
+                              }
+                              hideMissingDataTooltip={listExpanded}
+                              legendData={dataForActiveBreakdownFilter}
+                              hideLegend={true}
+                              hideActions={true}
+                              showCounties={props.fips.isUsa() ? false : true}
+                              fips={fips}
+                              scaleType="quantile"
+                              geoData={geoData}
+                              overrideShapeWithCircle={true}
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
                   )}
-              </CardContent>
+
+                  {!mapQueryResponse.dataIsMissing() &&
+                    dataForActiveBreakdownFilter.length > 1 && (
+                      <HighestLowestList
+                        variableConfig={props.variableConfig}
+                        metricConfig={metricConfig}
+                        listExpanded={listExpanded}
+                        setListExpanded={setListExpanded}
+                        highestRatesList={highestRatesList}
+                        lowestRatesList={lowestRatesList}
+                        fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
+                        jumpToData={props.jumpToData}
+                        asteriskItems={COMBINED_INCARCERATION_STATES_LIST}
+                        asteriskMessage={COMBINED_INCARCERATION_STATES_MESSAGE}
+                      />
+                    )}
+                </CardContent>
+              </>
             )}
           </>
         );

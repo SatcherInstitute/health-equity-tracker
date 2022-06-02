@@ -5,6 +5,7 @@ import { urlMap } from "../../utils/externalUrls";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { Row } from "../../data/utils/DatasetTypes";
 import { CHILD_AGE_BUCKETS } from "../../data/utils/Constants";
+import FlagIcon from "@material-ui/icons/Flag";
 
 let children = "children";
 let are = "are";
@@ -31,7 +32,7 @@ function IncarceratedChildrenShortAlert(
   }
 
   return (
-    <Alert severity="error" role="note">
+    <Alert severity="error" role="note" icon={<FlagIcon />}>
       <b>
         {count} {children}
       </b>{" "}
