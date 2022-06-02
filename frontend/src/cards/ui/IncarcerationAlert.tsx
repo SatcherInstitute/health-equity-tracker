@@ -1,18 +1,24 @@
 import React from "react";
 import { Alert } from "@material-ui/lab";
 import { CardContent } from "@material-ui/core";
-import { BreakdownVar } from "../../data/query/Breakdowns";
+import {
+  BreakdownVar,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+} from "../../data/query/Breakdowns";
 
 interface IncarcerationAlertProps {
   breakdown: BreakdownVar;
 }
 
 function IncarcerationAlert(props: IncarcerationAlertProps) {
+  const breakdown = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown];
+
   return (
     <>
       <CardContent>
         <Alert severity="warning" role="note">
-          The rates on this report{" "}
+          The disaggregated <b>{breakdown}</b> data available from the Bureau of
+          Justice Statistics{" "}
           {props.breakdown === "age" ? (
             <>
               only include <b>sentenced</b>

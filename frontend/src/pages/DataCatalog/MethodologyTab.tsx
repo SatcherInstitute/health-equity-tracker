@@ -406,8 +406,11 @@ function MethodologyTab() {
                   Jurisdiction refers to the legal authority of state or federal
                   correctional officials over a incarcerated person, regardless
                   of where they are held. Our ‘Sex’ and ‘Race’ reports present
-                  this jurisdictional population, while our ‘Age’ reports only
-                  display the <b>sentenced</b> jurisdictional population.{" "}
+                  this jurisdictional population, while our ‘Age’ reports (due
+                  to the limitations in the data provided by BJS) only display
+                  the <b>sentenced</b> jurisdictional population.{" "}
+                </p>
+                <p>
                   <b>Alaska</b>, <b>Connecticut</b>, <b>Delaware</b>,
                   <b>Hawaii</b>, Rhode <b>Island</b>, and <b>Vermont</b> each
                   operate an integrated system that combines both prisons and
