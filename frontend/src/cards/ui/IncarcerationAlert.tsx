@@ -18,15 +18,15 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
 
   return (
     <Alert severity={severity} role="note">
-      The disaggregated <b>{breakdown}</b> data available from the Bureau of
+      The disaggregated <b>{breakdown}</b> dataset available from the Bureau of
       Justice Statistics{" "}
       {props.breakdown === "age" ? (
         <>
-          only include <b>sentenced</b>
+          only includes <b>sentenced</b>
         </>
       ) : (
         <>
-          include both <b>sentenced</b> and <b>unsentenced</b>
+          includes both <b>sentenced</b> and <b>unsentenced</b>
         </>
       )}{" "}
       individuals under the jurisdiction of an adult prison facility.

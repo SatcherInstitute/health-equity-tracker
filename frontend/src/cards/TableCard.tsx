@@ -80,12 +80,12 @@ export function TableCard(props: TableCardProps) {
         metricConfig.secondaryPopulationComparisonMetric;
     }
   });
-  const isIncarceration = BJS_VARIABLE_IDS.includes(
-    props.variableConfig.variableId
-  );
+  const isIncarcerationByAge =
+    BJS_VARIABLE_IDS.includes(props.variableConfig.variableId) &&
+    props.breakdownVar === "age";
 
   const metricIds = Object.keys(metricConfigs) as MetricId[];
-  isIncarceration && metricIds.push("prison_estimated_total");
+  isIncarcerationByAge && metricIds.push("prison_estimated_total");
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
   const displayingCovidData = metrics
@@ -112,7 +112,7 @@ export function TableCard(props: TableCardProps) {
 
         return (
           <>
-            {isIncarceration && (
+            {isIncarcerationByAge && (
               <>
                 <CardContent>
                   <IncarceratedChildrenShortAlert

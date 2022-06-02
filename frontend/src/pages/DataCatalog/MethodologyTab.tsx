@@ -389,8 +389,7 @@ function MethodologyTab() {
                   <li>
                     State reports: All individuals including under the
                     jurisdiction of that state's adult prison facilities. This
-                    data is disaggregated by race/ethnicity, age (juvenile /
-                    adult), and sex.
+                    data is disaggregated by race/ethnicity and sex.
                   </li>
                   <li>
                     Territory reports: All individuals under the jurisdiction of
