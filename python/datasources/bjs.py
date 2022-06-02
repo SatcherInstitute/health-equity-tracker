@@ -82,7 +82,7 @@ def generate_raw_national_age_breakdown(source_tables):
     Takes standardized dataframes representing specific tables
     from the BJS Prisoners (2020) report and returns a df
     with rows for each combo of place + demographic group,
-    and columns for | RAW# | "age" group | "state_name" (national or states+territories)
+    and columns for | RAW# | "age" group | "state_name" (national total)
 
     Parameters:
         source_tables: [list of specific df tables needed]

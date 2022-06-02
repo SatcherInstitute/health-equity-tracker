@@ -94,32 +94,32 @@ def test_keep_only_states():
 def test_keep_only_national():
     _fake_by_age_df_with_total = pd.DataFrame({
         std_col.STATE_NAME_COL: ["Federal", "Maine", "Florida", ],
-        '15-17': [1000, 100, 10],
-        '18+': [1_000_000, 100_000, 10_000]
+        'Female': [1000, 100, 10],
+        'Male': [1_000_000, 100_000, 10_000]
     })
 
     _fake_by_age_df_without_total = pd.DataFrame({
         std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
-        '15-17': [1110, 100, 10],
-        '18+': [1_110_000, 100_000, 10_000]
+        'Female': [1110, 100, 10],
+        'Male': [1_110_000, 100_000, 10_000]
     })
 
     _expected_by_age_df_only_national = pd.DataFrame({
         std_col.STATE_NAME_COL: ["United States", ],
-        '15-17': [1110],
-        '18+': [1_110_000]
+        'Female': [1110],
+        'Male': [1_110_000]
     })
 
     assert_frame_equal(
         keep_only_national(_fake_by_age_df_with_total,
-                           ["15-17", "18+"]),
+                           ["Female", "Male"]),
         _expected_by_age_df_only_national,
         check_like=True)
 
     assert_frame_equal(
         keep_only_national(_fake_by_age_df_without_total,
-                           ["15-17",
-                            "18+"]),
+                           ["Female",
+                            "Male"]),
         _expected_by_age_df_only_national,
         check_like=True)
 
