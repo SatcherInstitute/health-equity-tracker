@@ -28,7 +28,7 @@ import {
   UNKNOWN_ETHNICITY,
   UNKNOWN_RACE,
   AGE,
-  ADULT_JUV_AGE_BUCKETS,
+  BJS_NATIONAL_AGE_BUCKETS,
 } from "./Constants";
 import { Row } from "./DatasetTypes";
 import { Fips } from "./Fips";
@@ -287,13 +287,18 @@ export function getExclusionList(
         MULTI_OR_OTHER_STANDARD_NH,
         API_NH
       );
+  }
 
-    currentBreakdown === AGE &&
+  if (currentBreakdown === AGE) {
+    currentFips.isUsa() &&
       exclusionList.push(
         ...AGE_BUCKETS.filter(
-          (bucket: AgeBucket) => !ADULT_JUV_AGE_BUCKETS.includes(bucket as any)
+          (bucket: AgeBucket) =>
+            !BJS_NATIONAL_AGE_BUCKETS.includes(bucket as any)
         )
       );
+
+    currentFips.isState() && exclusionList.push(...AGE_BUCKETS);
   }
 
   // UHC/BRFSS/AHR

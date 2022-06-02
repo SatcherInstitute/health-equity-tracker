@@ -15,6 +15,9 @@ export const COMBINED_INCARCERATION_STATES_LIST = [
   "Vermont",
 ];
 
+export const SENTENCED_PRISONERS_MESSAGE =
+  "The rates presented for the ‘Age’ filtered reports measure from those represents individuals under the jurisdiction of an adult prison facility who have been sentenced";
+
 export const COMBINED_INCARCERATION_STATES_MESSAGE =
   "Alaska, Connecticut, Delaware, Hawaii, Rhode Island, and Vermont each operate an integrated system that combines prisons and jails, which are included here as prison facilities.";
 

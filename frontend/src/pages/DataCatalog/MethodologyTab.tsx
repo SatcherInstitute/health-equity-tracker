@@ -405,22 +405,14 @@ function MethodologyTab() {
                 <p>
                   Jurisdiction refers to the legal authority of state or federal
                   correctional officials over a incarcerated person, regardless
-                  of where they are held. <b>Alaska</b>, <b>Connecticut</b>,{" "}
-                  <b>Delaware</b>,<b>Hawaii</b>, Rhode <b>Island</b>, and{" "}
-                  <b>Vermont</b> each operate an integrated system that combines
-                  both prisons and jails; for our reports all individuals
-                  incarcerated in those states are presented under the{" "}
-                  <b>Imprisonment</b> data type.
-                </p>
-
-                <p>
-                  To obtain the age breakdowns of <b>Under 18</b> and <b>18+</b>
-                  , we take the given raw numbers (under 18 and total) of
-                  individuals in adult prisons, and calculate the 18+ population
-                  as the total for that state minus the under 18 group for that
-                  state. Using these raw numbers, we can calculate the percent
-                  share of each age group, and also incidence rate by
-                  incorporating the ACS 5 year populations.{" "}
+                  of where they are held. Our ‘Sex’ and ‘Race’ reports present
+                  this jurisdictional population, while our ‘Age’ reports only
+                  display the <b>sentenced</b> jurisdictional population.{" "}
+                  <b>Alaska</b>, <b>Connecticut</b>, <b>Delaware</b>,
+                  <b>Hawaii</b>, Rhode <b>Island</b>, and <b>Vermont</b> each
+                  operate an integrated system that combines both prisons and
+                  jails; for our reports all individuals incarcerated in those
+                  states are presented under the <b>Imprisonment</b> data type.
                 </p>
 
                 <p>

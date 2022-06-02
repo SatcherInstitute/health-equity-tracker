@@ -319,7 +319,9 @@ function MapCardWithKey(props: MapCardProps) {
                 </>
               )}
 
-            {isIncarceration && <IncarcerationAlert fips={props.fips} />}
+            {isIncarceration && (
+              <IncarcerationAlert breakdown={props.currentBreakdown} />
+            )}
 
             {(mapQueryResponse.dataIsMissing() ||
               dataForActiveBreakdownFilter.length === 0) && (
