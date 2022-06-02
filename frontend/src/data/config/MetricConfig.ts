@@ -1192,7 +1192,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "prison_per_100k",
-          fullCardTitleName: "Individuals in an Adult Prison Facility Per 100k",
+          fullCardTitleName: "Imprisoned Per 100k",
           shortLabel: "imprisoned per 100k",
           type: "per100k",
         },
