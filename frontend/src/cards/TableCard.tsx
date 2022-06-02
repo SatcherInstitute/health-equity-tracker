@@ -104,14 +104,11 @@ export function TableCard(props: TableCardProps) {
     >
       {([queryResponse]) => {
         let data = queryResponse.data;
-        console.log(data);
         if (shouldShowAltPopCompare(props)) data = fillInAltPops(data);
 
         const normalMetricIds = metricIds.filter(
           (id) => id !== "prison_estimated_total"
         );
-        console.log(metricIds);
-        console.log(normalMetricIds);
 
         return (
           <>

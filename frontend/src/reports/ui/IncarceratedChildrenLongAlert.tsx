@@ -18,6 +18,7 @@ function IncarceratedChildrenLongAlert() {
         role="note"
       >
         <AlertTitle>Children in Adult Prisons</AlertTitle>
+
         <p>
           Although the criminal justice system makes distinctions between adults
           and children, individual states have laws that remove children from
@@ -31,9 +32,9 @@ function IncarceratedChildrenLongAlert() {
           inequities that plague the entire criminal justice system.
         </p>
         <p>
-          When showing reports filtered by age, we have highlighted the{" "}
-          <b>total number of these confined children</b>, rather than presenting
-          a ‘per 100k’ rate calculated using an ambiguous population base. Read
+          When showing reports filtered by age, we highlight the{" "}
+          <b>total number of confined children</b>, rather than presenting a
+          ‘per 100k’ rate calculated using an ambiguous population base. Read
           more in <Link to={METHODOLOGY_TAB_LINK}>our methodology</Link>.
         </p>
       </Alert>
