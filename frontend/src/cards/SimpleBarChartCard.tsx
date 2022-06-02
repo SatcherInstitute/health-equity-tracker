@@ -77,35 +77,40 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
 
-        const hasDemographics =
-          data.map((row) => row[props.breakdownVar]).join() !== ALL;
+        const hasOnlyAll =
+          data.map((row) => row[props.breakdownVar]).join() === ALL;
 
         return (
           <CardContent>
             {queryResponse.shouldShowMissingDataMessage([
               metricConfig.metricId,
             ]) ? (
-              <MissingDataAlert
-                dataName={metricConfig.fullCardTitleName}
-                breakdownString={
-                  BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-                }
-                fips={props.fips}
-              />
+              <>
+                <MissingDataAlert
+                  dataName={metricConfig.fullCardTitleName}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                  }
+                  fips={props.fips}
+                />
+              </>
             ) : (
               <>
-                {isIncarceration && hasDemographics && (
+                {isIncarceration && (
                   <CardContent>
-                    <IncarcerationAlert
+                    {!hasOnlyAll && (
+                      <Box mb={1}>
+                        <IncarcerationAlert
+                          fips={props.fips}
+                          breakdown={props.breakdownVar}
+                        />
+                      </Box>
+                    )}
+
+                    <IncarceratedChildrenShortAlert
                       fips={props.fips}
-                      breakdown={props.breakdownVar}
+                      queryResponse={queryResponse}
                     />
-                    <Box mt={1}>
-                      <IncarceratedChildrenShortAlert
-                        fips={props.fips}
-                        queryResponse={queryResponse}
-                      />
-                    </Box>
                   </CardContent>
                 )}
 

@@ -353,10 +353,12 @@ function MapCardWithKey(props: MapCardProps) {
             {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
               <>
                 {isIncarceration && (
-                  <IncarcerationAlert
-                    fips={props.fips}
-                    breakdown={props.currentBreakdown}
-                  />
+                  <CardContent>
+                    <IncarcerationAlert
+                      fips={props.fips}
+                      breakdown={props.currentBreakdown}
+                    />
+                  </CardContent>
                 )}
                 <CardContent>
                   <ChoroplethMap

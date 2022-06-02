@@ -29,6 +29,7 @@ import {
   UNKNOWN_RACE,
   AGE,
   BJS_NATIONAL_AGE_BUCKETS,
+  BJS_STATE_AGE_BUCKETS,
 } from "./Constants";
 import { Row } from "./DatasetTypes";
 import { Fips } from "./Fips";
@@ -259,6 +260,7 @@ Conditionally hide some of the extra buckets from the table card, which generall
 const showAllGroupIds: VariableId[] = [
   "women_state_legislatures",
   "women_us_congress",
+  "prison",
 ];
 
 export function getExclusionList(
@@ -298,7 +300,12 @@ export function getExclusionList(
         )
       );
 
-    currentFips.isState() && exclusionList.push(...AGE_BUCKETS);
+    currentFips.isState() &&
+      exclusionList.push(
+        ...AGE_BUCKETS.filter(
+          (bucket: AgeBucket) => !BJS_STATE_AGE_BUCKETS.includes(bucket as any)
+        )
+      );
   }
 
   // UHC/BRFSS/AHR

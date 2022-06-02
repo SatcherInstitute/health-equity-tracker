@@ -104,13 +104,29 @@ export function TableCard(props: TableCardProps) {
     >
       {([queryResponse]) => {
         let data = queryResponse.data;
+        console.log(data);
         if (shouldShowAltPopCompare(props)) data = fillInAltPops(data);
+
+        const normalMetricIds = metricIds.filter(
+          (id) => id !== "prison_estimated_total"
+        );
+        console.log(metricIds);
+        console.log(normalMetricIds);
 
         return (
           <>
-            {queryResponse.shouldShowMissingDataMessage(
-              metricIds as MetricId[]
-            ) && (
+            {isIncarceration && (
+              <>
+                <CardContent>
+                  <IncarceratedChildrenShortAlert
+                    fips={props.fips}
+                    queryResponse={queryResponse}
+                  />
+                </CardContent>
+              </>
+            )}
+
+            {queryResponse.shouldShowMissingDataMessage(normalMetricIds) && (
               <CardContent>
                 <MissingDataAlert
                   dataName={props.variableConfig.variableFullDisplayName + " "}
@@ -146,16 +162,6 @@ export function TableCard(props: TableCardProps) {
                   <Divider />
                 </>
               )}
-            {isIncarceration && (
-              <>
-                <CardContent>
-                  <IncarceratedChildrenShortAlert
-                    fips={props.fips}
-                    queryResponse={queryResponse}
-                  />
-                </CardContent>
-              </>
-            )}
 
             {!queryResponse.dataIsMissing() && (
               <div className={styles.TableChart}>
