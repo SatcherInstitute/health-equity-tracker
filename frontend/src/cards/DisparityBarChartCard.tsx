@@ -118,9 +118,10 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
         const isCawp = CAWP_DETERMINANTS.includes(metricConfig.metricId);
 
-        const dataAvailable = !queryResponse.shouldShowMissingDataMessage([
-          metricConfig.metricId,
-        ]);
+        const dataAvailable =
+          dataWithoutUnknowns.length > 0 &&
+          !queryResponse.shouldShowMissingDataMessage([metricConfig.metricId]);
+
         return (
           <>
             {/* Display either UnknownsAlert OR MissingDataAlert */}

@@ -1,6 +1,6 @@
 import React from "react";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
-import { CardContent } from "@material-ui/core";
+import { Box, CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -15,10 +15,11 @@ import {
 } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
-import { NON_HISPANIC } from "../data/utils/Constants";
+import { ALL, NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { BJS_VARIABLE_IDS } from "../data/variables/BjsProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
+import IncarcerationAlert from "./ui/IncarcerationAlert";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -76,6 +77,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
 
+        const hasDemographics =
+          data.map((row) => row[props.breakdownVar]).join() !== ALL;
+
         return (
           <CardContent>
             {queryResponse.shouldShowMissingDataMessage([
@@ -90,15 +94,19 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
               />
             ) : (
               <>
-                {isIncarceration && (
-                  <>
-                    <CardContent>
+                {isIncarceration && hasDemographics && (
+                  <CardContent>
+                    <IncarcerationAlert
+                      fips={props.fips}
+                      breakdown={props.breakdownVar}
+                    />
+                    <Box mt={1}>
                       <IncarceratedChildrenShortAlert
                         fips={props.fips}
                         queryResponse={queryResponse}
                       />
-                    </CardContent>
-                  </>
+                    </Box>
+                  </CardContent>
                 )}
 
                 <SimpleHorizontalBarChart
