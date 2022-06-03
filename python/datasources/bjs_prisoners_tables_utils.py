@@ -88,8 +88,8 @@ JAIL_7 = "cj0519stt07.csv"  # Raw Total by State with Pct Share Breakdown by Rac
 # BJS tables include excess header and footer rows that need to be trimmed
 # TODO fix cropping with PROD run
 BJS_CENSUS_OF_JAILS_CROPS = {
-    JAIL_6: {"header_rows": [*list(range(0))], "footer_rows": 0},
-    JAIL_7: {"header_rows": [*list(range(0))], "footer_rows": 0}
+    JAIL_6: {"header_rows": [*list(range(11))], "footer_rows": 7},
+    JAIL_7: {"header_rows": [*list(range(10))], "footer_rows": 6}
 }
 
 
