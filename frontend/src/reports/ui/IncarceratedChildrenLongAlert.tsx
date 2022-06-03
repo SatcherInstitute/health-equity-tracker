@@ -20,22 +20,16 @@ function IncarceratedChildrenLongAlert() {
         <AlertTitle>Children in Adult Prisons</AlertTitle>
 
         <p>
-          Although the criminal justice system makes distinctions between adults
-          and children, individual states have laws that remove children from
-          the protective cover of these distinctions and enable the
-          incarceration of children in adult facilities. Such children are more
-          exposed to physical and sexual abuse, fewer age-appropriate services,
-          and worse health outcomes. Lower socioeconomic status and the
-          inability to properly understand and navigate the criminal justice
-          process amongst others are responsible for the overrepresentation of
-          children of color in adult facilities and are reflective of the
-          inequities that plague the entire criminal justice system.
+          Although the criminal justice system makes distinctions between
+          children and adults, there are state-level laws that remove children
+          from the protective cover of these distinctions and enable the
+          incarceration of children in adult correctional institutions.
         </p>
         <p>
-          When showing reports filtered by age, we highlight the{" "}
-          <b>total number of confined children</b>, rather than presenting a
-          ‘per 100k’ rate calculated using an ambiguous population base. Read
-          more in <Link to={METHODOLOGY_TAB_LINK}>our methodology</Link>.
+          When showing prison reports filtered by age, we highlight the{" "}
+          <b>total number of confined children</b>, rather than a ‘per 100k’
+          rate calculated using an ambiguous population base. Read more in{" "}
+          <Link to={METHODOLOGY_TAB_LINK}>our methodology</Link>.
         </p>
       </Alert>
     </div>
