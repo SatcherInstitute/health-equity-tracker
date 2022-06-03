@@ -158,12 +158,14 @@ export const BJS_NATIONAL_AGE_BUCKETS = [
   "65+",
 ];
 
+export const BJS_JAIL_AGE_BUCKETS = ["0-17", "18+"];
+
 export const BJS_STATE_AGE_BUCKETS = ["0-17"];
 
 export const UNUSED_BUCKETS = [
   // "0-17",
   "15-17",
-  "18+",
+  // "18+",
   // "18-19",
   // "20-24",
   // "25-29",
@@ -190,6 +192,7 @@ export const AGE_BUCKETS = [
   ...BROAD_AGE_BUCKETS,
   ...CDC_AGE_BUCKETS,
   ...BJS_NATIONAL_AGE_BUCKETS,
+  ...BJS_JAIL_AGE_BUCKETS,
   ...UNUSED_BUCKETS,
 ] as const;
 

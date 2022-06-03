@@ -219,32 +219,32 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "bjs_data-age_national",
-    name: "National rates of individuals under the jurisdiction of federal or state adult prison facilities, by Age",
+    name: "National rates of individuals under the jurisdiction of local adult jail facilities or federal and state adult prison facilities, by Age",
     update_time: "2022",
   },
   {
     id: "bjs_data-age_state",
-    name: "Rates of individuals under the jurisdiction of a state or territory prison facility, by Age and State/Territory",
+    name: "Rates of individuals under the jurisdiction of local adult jail facilities or a state or territory prison facility, by Age and State/Territory",
     update_time: "2022",
   },
   {
     id: "bjs_data-race_and_ethnicity_national",
-    name: "National rates of individuals under the jurisdiction of federal or state adult prison facilities, by Race/Ethnicity",
+    name: "National rates of individuals under the jurisdiction of local adult jail facilities or federal and state adult prison facilities, by Race/Ethnicity",
     update_time: "2022",
   },
   {
     id: "bjs_data-race_and_ethnicity_state",
-    name: "Rates of individuals under the jurisdiction of a state or territory prison facility, by Race/Ethnicity and State/Territory",
+    name: "Rates of individuals under the jurisdiction of local adult jail facilities or a state or territory prison facility, by Race/Ethnicity and State/Territory",
     update_time: "2022",
   },
   {
     id: "bjs_data-sex_national",
-    name: "National rates of individuals under the jurisdiction of federal or state adult prison facilities, by Sex",
+    name: "National rates of individuals under the jurisdiction of local adult jail facilities or federal and state adult prison facilities, by Sex",
     update_time: "2022",
   },
   {
     id: "bjs_data-sex_state",
-    name: "Rates of individuals under the jurisdiction of a state or territory prison facility, by Sex and State/Territory",
+    name: "Rates of individuals under the jurisdiction of local adult jail facilities or a state or territory prison facility, by Sex and State/Territory",
     update_time: "2022",
   },
   {

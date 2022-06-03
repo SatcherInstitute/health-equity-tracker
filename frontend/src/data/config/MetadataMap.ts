@@ -208,7 +208,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annually",
     description:
-      "Rates of individuals, including children, who are under the jurisdiction of federal, state, and territory adult prison facilities.",
+      "Rates of individuals, including children, who are under the jurisdiction of a local adult jail facility, or a federal, state, or territory adult prison facility.",
     dataset_ids: [
       "bjs_data-race_and_ethnicity_national",
       "bjs_data-race_and_ethnicity_state",

@@ -36,6 +36,10 @@ export const BJS_DETERMINANTS: MetricId[] = [
   "prison_pct_share",
   "prison_per_100k",
   "prison_ratio_age_adjusted",
+  "jail_estimated_total",
+  "jail_pct_share",
+  "jail_per_100k",
+  "jail_ratio_age_adjusted",
 ];
 
 class BjsProvider extends VariableProvider {

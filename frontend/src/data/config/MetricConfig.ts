@@ -146,9 +146,12 @@ export type MetricId =
   | "women_us_congress_ratio_age_adjusted"
   | "prison_pct_share"
   | "prison_per_100k"
-  | "sentenced_prison_per_100k"
   | "prison_estimated_total"
-  | "prison_ratio_age_adjusted";
+  | "prison_ratio_age_adjusted"
+  | "jail_pct_share"
+  | "jail_per_100k"
+  | "jail_estimated_total"
+  | "jail_ratio_age_adjusted";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -1185,7 +1188,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   incarceration: [
     {
       variableId: "prison",
-      variableDisplayName: "Imprisoned People Per 100k Individuals",
+      variableDisplayName: "Prison",
       variableFullDisplayName: "Imprisonment",
       surveyCollectedData: true,
       variableDefinition: `Individuals of any age, including children, currently under the jurisdiction of an adult prison facility. ‘Age’ reports include only the subset of this jurisdictional population who have been sentenced to one year or more, which accounted for 97% of the total
@@ -1195,12 +1198,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "prison_per_100k",
           fullCardTitleName: "Imprisoned Per 100k",
           shortLabel: "imprisoned per 100k",
-          type: "per100k",
-        },
-        altPer100k: {
-          metricId: "sentenced_prison_per_100k",
-          fullCardTitleName: "SENTENCED",
-          shortLabel: "SENTENCED imprisoned per 100k",
           type: "per100k",
         },
         pct_share: {
@@ -1225,6 +1222,47 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "prison_ratio_age_adjusted",
           fullCardTitleName:
             "Age-Adjusted Imprisonment Ratio Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
+      },
+    },
+
+    {
+      variableId: "jail",
+      variableDisplayName: "Jail",
+      variableFullDisplayName: "Jail",
+      surveyCollectedData: true,
+      variableDefinition: `Individuals of any age, including children, currently currently confined in a local, adult jail facility. AK, CT, DE, HI, RI, and VT each operate an integrated system that combines prisons and jails; in accordance with the BJS data source we include those facilities as adult prisons but not as jails.`,
+      metrics: {
+        per100k: {
+          metricId: "jail_per_100k",
+          fullCardTitleName: "Jailed Per 100k",
+          shortLabel: "Jailed per 100k",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "jail_pct_share",
+          fullCardTitleName: "Percent Share of Total Jail Population",
+          shortLabel: "% of Jailed",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "population_pct",
+            fullCardTitleName: "Total Population Share",
+            shortLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            metricId: "jail_pct_share",
+            fullCardTitleName: "Percent Share of Total Jail Population",
+            shortLabel: "% of people in jail",
+            type: "pct_share",
+          },
+        },
+        age_adjusted_ratio: {
+          metricId: "jail_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Jailed Ratio Compared to White (Non-Hispanic)",
           shortLabel: "",
           type: "ratio",
         },
