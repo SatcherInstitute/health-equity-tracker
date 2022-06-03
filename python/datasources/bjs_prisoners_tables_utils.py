@@ -10,7 +10,8 @@ import pandas as pd
 US_TOTAL = "U.S. total"
 STATE = "State"
 FED = "Federal"
-NON_STATE_ROWS = [US_TOTAL, STATE, FED, constants.US_ABBR, constants.US_NAME]
+NON_STATE_ROWS = [US_TOTAL, STATE, FED, constants.US_ABBR,
+                  constants.US_NAME, "Northeast", "Midwest", "South", "West", ]
 
 RAW_PRISON_COL = std_col.generate_column_name(
     std_col.PRISON_PREFIX, std_col.RAW_SUFFIX)
@@ -44,6 +45,7 @@ BJS_RACE_GROUPS_TO_STANDARD = {
 
 STANDARD_RACE_CODES = [
     race_tuple.value for race_tuple in BJS_RACE_GROUPS_TO_STANDARD.values()]
+
 # BJS_AGE_GROUPS = [std_col.ALL_VALUE, '0-17']
 BJS_AGE_GROUPS = [std_col.ALL_VALUE, "18-19", "20-24", "25-29", "30-34",
                   "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65+"]
@@ -422,13 +424,14 @@ def standardize_jail_7(df):
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
-    print("in standardize 7")
     df = swap_race_col_names_to_codes(df)
     df = df.rename(
-        columns={'Total inmates in custody': RAW_JAIL_COL,
+        columns={'Total inmates in custody': Race.ALL.value,
                  })
+    # df[Race.UNKNOWN.value] = np.nan
+    # df[Race.OTHER_STANDARD_NH.value] = np.nan
 
-    print(df)
+    df = filter_cols(df, std_col.RACE_COL)
 
     return df
 
@@ -479,7 +482,11 @@ def cols_to_rows(df, demographic_groups, demographic_col, value_col):
     # make "wide" table into a "long" table
     # move columns for demographic groups (e.g. `All`, `White (Non-Hispanic)`
     # to be additional rows per geo
+
+    represented_groups = [
+        group for group in demographic_groups if group in df.columns]
+
     return df.melt(id_vars=[std_col.STATE_NAME_COL],
-                   value_vars=demographic_groups,
+                   value_vars=represented_groups,
                    var_name=demographic_col,
                    value_name=value_col)

@@ -23,6 +23,7 @@ from datasources.bjs_prisoners_tables_utils import (standardize_table_2_df,
                                                     RAW_PRISON_COL,
                                                     PRISON_PER_100K_COL,
                                                     PRISON_PCT_SHARE_COL,
+                                                    JAIL_PCT_SHARE_COL, JAIL_PER_100K_COL,
                                                     APPENDIX_TABLE_2,
                                                     BJS_PRISONERS_ZIP,
                                                     BJS_CENSUS_OF_JAILS_ZIP,
@@ -55,16 +56,12 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
 
     [main_prison_table, table_23, main_jail_table] = source_tables
 
-    print("in gen sex/race breakdown : MAIN JAIL TABLE")
     bjs_races = list(main_jail_table.columns)
 
     for race in STANDARD_RACE_CODES:
-        if race in bjs_races:
-            print(race)
+        if race in bjs_races and race != "ALL":
             main_jail_table[race] = main_jail_table[race].astype(float) * \
-                main_jail_table[RAW_JAIL_COL].astype(float) / 100
-
-    print(main_jail_table)
+                main_jail_table[Race.ALL.value].astype(float) / 100
 
     if demo == std_col.SEX_COL:
         demo_cols = BJS_SEX_GROUPS
@@ -86,23 +83,26 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
             df_prison[std_col.ALL_VALUE] = df_prison[std_col.ALL_VALUE].combine_first(
                 df_prison[Race.ALL.value])
             df_prison = df_prison.drop(columns=[Race.ALL.value])
-            df_jail[std_col.ALL_VALUE] = df_jail[std_col.ALL_VALUE].combine_first(
-                df_jail[Race.ALL.value])
-            df_jail = df_jail.drop(columns=[Race.ALL.value])
+            # df_jail[std_col.ALL_VALUE] = df_jail[std_col.ALL_VALUE].combine_first(
+            #     df_jail[Race.ALL.value])
+            # df_jail = df_jail.drop(columns=[Race.ALL.value])
 
     if geo_level == NATIONAL_LEVEL:
         df_prison = keep_only_national(main_prison_table, demo_cols)
         df_jail = keep_only_national(main_jail_table, demo_cols)
-        print("df jail")
-        print(df_jail)
 
     df_prison = cols_to_rows(
         df_prison, demo_cols, demo_for_flip, RAW_PRISON_COL)
 
     df_jail = cols_to_rows(
-        df_jail, list(main_jail_table.columns), demo_for_flip, RAW_JAIL_COL)
+        df_jail, demo_cols, demo_for_flip, RAW_JAIL_COL)
 
-    return df_prison
+    df_jail = df_jail.reset_index(drop=True)
+    df_prison = df_prison.reset_index(drop=True)
+
+    merge_cols = [std_col.STATE_NAME_COL, demo_for_flip]
+
+    return pd.merge(df_prison, df_jail, how='left', on=merge_cols)
 
 
 def generate_raw_national_age_breakdown(source_tables):
@@ -219,6 +219,9 @@ def post_process(df, breakdown, geo):
     df = generate_per_100k_col(
         df, RAW_PRISON_COL, std_col.POPULATION_COL, PRISON_PER_100K_COL)
 
+    df = generate_per_100k_col(
+        df, RAW_JAIL_COL, std_col.POPULATION_COL, JAIL_PER_100K_COL)
+
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         # some states and all territories will have unknown race data
         df = dataset_utils.generate_pct_share_col_with_unknowns(
@@ -234,7 +237,7 @@ def post_process(df, breakdown, geo):
         df = dataset_utils.generate_pct_share_col_without_unknowns(
             df,
             {RAW_PRISON_COL:
-                PRISON_PCT_SHARE_COL},
+                PRISON_PCT_SHARE_COL, RAW_JAIL_COL: JAIL_PCT_SHARE_COL},
             breakdown,
             std_col.ALL_VALUE,
         )
