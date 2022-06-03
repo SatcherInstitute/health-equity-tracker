@@ -10,8 +10,9 @@ import pandas as pd
 US_TOTAL = "U.S. total"
 STATE = "State"
 FED = "Federal"
+# note the extra trailing space on most regional strings
 NON_STATE_ROWS = [US_TOTAL, STATE, FED, constants.US_ABBR,
-                  constants.US_NAME, "Northeast", "Midwest", "South", "West", ]
+                  constants.US_NAME, "Northeast", "Midwest ", "South ", "West ", ]
 
 RAW_PRISON_COL = std_col.generate_column_name(
     std_col.PRISON_PREFIX, std_col.RAW_SUFFIX)
@@ -46,9 +47,9 @@ BJS_RACE_GROUPS_TO_STANDARD = {
 STANDARD_RACE_CODES = [
     race_tuple.value for race_tuple in BJS_RACE_GROUPS_TO_STANDARD.values()]
 
-# BJS_AGE_GROUPS = [std_col.ALL_VALUE, '0-17']
-BJS_AGE_GROUPS = [std_col.ALL_VALUE, "18-19", "20-24", "25-29", "30-34",
-                  "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65+"]
+BJS_JAIL_AGE_GROUPS = [std_col.ALL_VALUE, "0-17", "18+"]
+BJS_PRISON_AGE_GROUPS = [std_col.ALL_VALUE, "18-19", "20-24", "25-29", "30-34",
+                         "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65+"]
 
 BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
 
@@ -437,6 +438,10 @@ def standardize_jail_7(df):
 
 
 def keep_only_states(df):
+
+    print("keep only states")
+    print(df)
+    print(df[~df[std_col.STATE_NAME_COL].isin(NON_STATE_ROWS)])
 
     return df[~df[std_col.STATE_NAME_COL].isin(NON_STATE_ROWS)]
 
