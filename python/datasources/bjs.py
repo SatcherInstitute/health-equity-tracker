@@ -35,8 +35,6 @@ from datasources.bjs_prisoners_tables_utils import (standardize_table_2_df,
                                                     TABLE_23,
                                                     JAIL_6, JAIL_7,
                                                     load_tables,
-                                                    filter_cols
-
                                                     )
 
 

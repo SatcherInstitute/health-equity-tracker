@@ -10,7 +10,6 @@ from datasources.bjs_prisoners_tables_utils import (
     swap_race_col_names_to_codes,
     filter_cols,
     set_state_col,
-    BJS_PRISONERS_CROPS, BJS_CENSUS_OF_JAILS_CROPS,
     keep_only_states,
     keep_only_national,
     strip_footnote_refs_from_df,
