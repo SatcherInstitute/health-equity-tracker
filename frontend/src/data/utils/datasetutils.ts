@@ -1,7 +1,6 @@
 import { IDataFrame } from "data-forge";
 import { MetricId, VariableConfig, VariableId } from "../config/MetricConfig";
 import { BreakdownVar, GeographicBreakdown } from "../query/Breakdowns";
-import { BJS_VARIABLE_IDS } from "../variables/BjsProvider";
 import {
   UHC_API_NH_DETERMINANTS,
   UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
@@ -30,6 +29,8 @@ import {
   AGE,
   BJS_NATIONAL_AGE_BUCKETS,
   BJS_STATE_AGE_BUCKETS,
+  OTHER_STANDARD_NH,
+  BJS_JAIL_AGE_BUCKETS,
 } from "./Constants";
 import { Row } from "./DatasetTypes";
 import { Fips } from "./Fips";
@@ -281,29 +282,48 @@ export function getExclusionList(
   }
 
   // BJS / Incarceration
-  if (BJS_VARIABLE_IDS.includes(currentVariableId)) {
-    currentBreakdown === RACE &&
+  if (currentVariableId === "prison") {
+    if (currentBreakdown === RACE) {
       exclusionList.push(
         ...NON_STANDARD_RACES,
         MULTI_OR_OTHER_STANDARD,
         MULTI_OR_OTHER_STANDARD_NH,
         API_NH
       );
-  }
+    }
 
-  if (currentBreakdown === AGE) {
-    currentFips.isUsa() &&
+    if (currentBreakdown === AGE) {
+      currentFips.isUsa() &&
+        exclusionList.push(
+          ...AGE_BUCKETS.filter(
+            (bucket: AgeBucket) =>
+              !BJS_NATIONAL_AGE_BUCKETS.includes(bucket as any)
+          )
+        );
+
+      currentFips.isState() &&
+        exclusionList.push(
+          ...AGE_BUCKETS.filter(
+            (bucket: AgeBucket) =>
+              !BJS_STATE_AGE_BUCKETS.includes(bucket as any)
+          )
+        );
+    }
+  }
+  if (currentVariableId === "jail") {
+    currentBreakdown === RACE &&
       exclusionList.push(
-        ...AGE_BUCKETS.filter(
-          (bucket: AgeBucket) =>
-            !BJS_NATIONAL_AGE_BUCKETS.includes(bucket as any)
-        )
+        ...NON_STANDARD_RACES,
+        MULTI_OR_OTHER_STANDARD,
+        MULTI_OR_OTHER_STANDARD_NH,
+        API_NH,
+        OTHER_STANDARD_NH
       );
 
-    currentFips.isState() &&
+    currentBreakdown === AGE &&
       exclusionList.push(
         ...AGE_BUCKETS.filter(
-          (bucket: AgeBucket) => !BJS_STATE_AGE_BUCKETS.includes(bucket as any)
+          (bucket: AgeBucket) => !BJS_JAIL_AGE_BUCKETS.includes(bucket as any)
         )
       );
   }

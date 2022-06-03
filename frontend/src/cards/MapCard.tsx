@@ -355,6 +355,7 @@ function MapCardWithKey(props: MapCardProps) {
                 {isIncarceration && (
                   <CardContent>
                     <IncarcerationAlert
+                      dataType={props.variableConfig.variableId}
                       fips={props.fips}
                       breakdown={props.currentBreakdown}
                     />

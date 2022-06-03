@@ -101,6 +101,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                     {!hasOnlyAll && (
                       <Box mb={1}>
                         <IncarcerationAlert
+                          dataType={props.variableConfig.variableId}
                           fips={props.fips}
                           breakdown={props.breakdownVar}
                         />

@@ -23,6 +23,9 @@ function IncarceratedChildrenShortAlert(
     CHILD_AGE_BUCKETS.includes(row.age)
   )?.["prison_estimated_total"];
 
+  console.log(props.queryResponse);
+  console.log(count);
+
   if (!count) return <></>;
 
   if (count === 1) {

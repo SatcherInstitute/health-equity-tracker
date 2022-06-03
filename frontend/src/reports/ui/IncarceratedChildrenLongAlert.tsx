@@ -4,7 +4,6 @@ import AlertTitle from "@material-ui/lab/AlertTitle";
 import styles from "./IncarceratedChildrenLongAlert.module.scss";
 import { Link } from "react-router-dom";
 import { METHODOLOGY_TAB_LINK } from "../../utils/urlutils";
-// import GavelIcon from "@material-ui/icons/Gavel";
 import FlagIcon from "@material-ui/icons/Flag";
 
 function IncarceratedChildrenLongAlert() {
@@ -13,17 +12,19 @@ function IncarceratedChildrenLongAlert() {
       <Alert
         severity="error"
         className={styles.ReportAlert}
-        // icon={<GavelIcon />}
         icon={<FlagIcon />}
         role="note"
       >
-        <AlertTitle>Children in Adult Prisons</AlertTitle>
+        <AlertTitle>Children in Adult Jails and Prisons</AlertTitle>
 
         <p>
           Although the criminal justice system makes distinctions between
           children and adults, there are state-level laws that remove children
-          from the protective cover of these distinctions and enable the
-          incarceration of children in adult correctional institutions.
+          from the protective cover of these distinctions and enable the{" "}
+          <Link to="https://www.prisonpolicy.org/reports/youth2019.html">
+            incarceration of children in adult correctional institutions
+          </Link>
+          .
         </p>
         <p>
           When showing prison reports filtered by age, we highlight the{" "}
