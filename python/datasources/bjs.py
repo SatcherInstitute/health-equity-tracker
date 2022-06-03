@@ -11,6 +11,7 @@ from datasources.bjs_prisoners_tables_utils import (standardize_table_2_df,
                                                     standardize_table_13_df,
                                                     standardize_table_23_df,
                                                     standardize_appendix_table_2_df,
+                                                    standardize_jail_6, standardize_jail_7,
                                                     NON_NULL_RAW_COUNT_GROUPS,
                                                     cols_to_rows,
                                                     keep_only_national,
@@ -18,15 +19,19 @@ from datasources.bjs_prisoners_tables_utils import (standardize_table_2_df,
                                                     BJS_DATA_TYPES,
                                                     STANDARD_RACE_CODES,
                                                     BJS_SEX_GROUPS,
-                                                    RAW_COL,
-                                                    PER_100K_COL,
-                                                    PCT_SHARE_COL,
+                                                    RAW_JAIL_COL,
+                                                    RAW_PRISON_COL,
+                                                    PRISON_PER_100K_COL,
+                                                    PRISON_PCT_SHARE_COL,
                                                     APPENDIX_TABLE_2,
                                                     BJS_PRISONERS_ZIP,
+                                                    BJS_CENSUS_OF_JAILS_ZIP,
+                                                    BJS_CENSUS_OF_JAILS_CROPS, BJS_PRISONERS_CROPS,
                                                     TABLE_2,
                                                     TABLE_10,
                                                     TABLE_13,
                                                     TABLE_23,
+                                                    JAIL_6, JAIL_7,
                                                     load_tables
                                                     )
 
@@ -35,9 +40,9 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
     """
     Takes demographic type and geographic level, along with
      standardized dataframes representing specific tables
-    from the BJS Prisoners (2020) report and returns a raw breakdown df
+    from the BJS reports and returns a raw breakdown df
     with rows for each combo of place + demographic group,
-    and columns for | RAW# | "race" or "age" or "sex" | "state_name"
+    and columns for | RAW# jail | RAW# prison | "race" or "age" or "sex" | "state_name"
 
     Parameters:
         demo: string "race_or_ethnicity" | "sex" for breakdown to generate
@@ -48,7 +53,18 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
         df: with raw numbers by demographic group by geographic place(s)
     """
 
-    [main_table, table_23] = source_tables
+    [main_prison_table, table_23, main_jail_table] = source_tables
+
+    print("in gen sex/race breakdown : MAIN JAIL TABLE")
+    bjs_races = list(main_jail_table.columns)
+
+    for race in STANDARD_RACE_CODES:
+        if race in bjs_races:
+            print(race)
+            main_jail_table[race] = main_jail_table[race].astype(float) * \
+                main_jail_table[RAW_JAIL_COL].astype(float) / 100
+
+    print(main_jail_table)
 
     if demo == std_col.SEX_COL:
         demo_cols = BJS_SEX_GROUPS
@@ -59,22 +75,34 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
         demo_for_flip = std_col.RACE_CATEGORY_ID_COL
 
     if geo_level == STATE_LEVEL:
-        df = keep_only_states(main_table)
-        df = df.append(table_23)
+        df_prison = keep_only_states(main_prison_table)
+        df_prison = df_prison.append(table_23)
+
+        df_jail = keep_only_states(main_jail_table)
+        df_jail = df_jail.append(table_23)
 
         # race uses `ALL` and sex uses `All`
         if demo == std_col.SEX_COL:
-            df[std_col.ALL_VALUE] = df[std_col.ALL_VALUE].combine_first(
-                df[Race.ALL.value])
-            df = df.drop(columns=[Race.ALL.value])
+            df_prison[std_col.ALL_VALUE] = df_prison[std_col.ALL_VALUE].combine_first(
+                df_prison[Race.ALL.value])
+            df_prison = df_prison.drop(columns=[Race.ALL.value])
+            df_jail[std_col.ALL_VALUE] = df_jail[std_col.ALL_VALUE].combine_first(
+                df_jail[Race.ALL.value])
+            df_jail = df_jail.drop(columns=[Race.ALL.value])
 
     if geo_level == NATIONAL_LEVEL:
-        df = keep_only_national(main_table, demo_cols)
+        df_prison = keep_only_national(main_prison_table, demo_cols)
+        df_jail = keep_only_national(main_jail_table, demo_cols)
+        print("df jail")
+        print(df_jail)
 
-    df = cols_to_rows(
-        df, demo_cols, demo_for_flip, RAW_COL)
+    df_prison = cols_to_rows(
+        df_prison, demo_cols, demo_for_flip, RAW_PRISON_COL)
 
-    return df
+    df_jail = cols_to_rows(
+        df_jail, list(main_jail_table.columns), demo_for_flip, RAW_JAIL_COL)
+
+    return df_prison
 
 
 def generate_raw_national_age_breakdown(source_tables):
@@ -91,10 +119,10 @@ def generate_raw_national_age_breakdown(source_tables):
         df: standardized with raw numbers by age by place
     """
 
-    [table_10, table_13] = source_tables
+    [table_10, table_13, jail_6] = source_tables
 
     total_raw = table_10.loc[
-        table_10[std_col.AGE_COL] == 'Number of sentenced prisoners', PCT_SHARE_COL].values[0]
+        table_10[std_col.AGE_COL] == 'Number of sentenced prisoners', PRISON_PCT_SHARE_COL].values[0]
 
     df = table_10.loc[table_10[std_col.AGE_COL]
                       != 'Number of sentenced prisoners']
@@ -104,10 +132,10 @@ def generate_raw_national_age_breakdown(source_tables):
     df = dataset_utils.merge_pop_numbers(
         df, std_col.AGE_COL, NATIONAL_LEVEL)
 
-    df[RAW_COL] = df[PCT_SHARE_COL] * total_raw / 100
+    df[RAW_PRISON_COL] = df[PRISON_PCT_SHARE_COL] * total_raw / 100
 
     df = df[[
-        RAW_COL, std_col.STATE_NAME_COL, std_col.AGE_COL, PCT_SHARE_COL]]
+        RAW_PRISON_COL, std_col.STATE_NAME_COL, std_col.AGE_COL, PRISON_PCT_SHARE_COL]]
 
     # RAW count of sentenced children in adult jurisdiction
     table_13 = keep_only_national(table_13, "Total")
@@ -131,7 +159,7 @@ def generate_raw_state_age_breakdown(source_tables):
         df: standardized with raw numbers by age by place
     """
 
-    [table_2, table_13, table_23] = source_tables
+    [table_2, table_13, table_23, jail_6] = source_tables
 
     # standardize dfs with JUVENILE RAW # IN CUSTODY and TOTAL RAW # UNDER JURISDICTION / AGE / PLACE
     table_2 = keep_only_states(table_2)
@@ -141,7 +169,7 @@ def generate_raw_state_age_breakdown(source_tables):
         std_col.STATE_NAME_COL, std_col.ALL_VALUE]]
 
     table_13 = table_13.rename(
-        columns={RAW_COL: '0-17'})
+        columns={RAW_PRISON_COL: '0-17'})
     table_13 = table_13.drop(columns=[std_col.AGE_COL])
 
     # df with TOTAL+JUV AGE / PLACE
@@ -157,7 +185,7 @@ def generate_raw_state_age_breakdown(source_tables):
 
     # df with RAW COUNT Under 18 / PLACE
     df = cols_to_rows(df, [std_col.ALL_VALUE, "0-17"],
-                      std_col.AGE_COL, RAW_COL)
+                      std_col.AGE_COL, RAW_PRISON_COL)
 
     return df
 
@@ -189,14 +217,14 @@ def post_process(df, breakdown, geo):
         float)
 
     df = generate_per_100k_col(
-        df, RAW_COL, std_col.POPULATION_COL, PER_100K_COL)
+        df, RAW_PRISON_COL, std_col.POPULATION_COL, PRISON_PER_100K_COL)
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         # some states and all territories will have unknown race data
         df = dataset_utils.generate_pct_share_col_with_unknowns(
             df,
-            {RAW_COL:
-                PCT_SHARE_COL},
+            {RAW_PRISON_COL:
+                PRISON_PCT_SHARE_COL},
             std_col.RACE_CATEGORY_ID_COL,
             Race.ALL.value,
             Race.UNKNOWN.value
@@ -205,8 +233,8 @@ def post_process(df, breakdown, geo):
         # sex and age contain no unknown data
         df = dataset_utils.generate_pct_share_col_without_unknowns(
             df,
-            {RAW_COL:
-                PCT_SHARE_COL},
+            {RAW_PRISON_COL:
+                PRISON_PCT_SHARE_COL},
             breakdown,
             std_col.ALL_VALUE,
         )
@@ -214,13 +242,13 @@ def post_process(df, breakdown, geo):
     # manually null RATES for 0-17 and null RAW for all other groups
     if breakdown == std_col.AGE_COL:
         df.loc[df[std_col.AGE_COL].isin(NON_NULL_RAW_COUNT_GROUPS),
-               [PER_100K_COL, PCT_SHARE_COL]] = np.nan
+               [PRISON_PER_100K_COL, PRISON_PCT_SHARE_COL]] = np.nan
         df.loc[~df[std_col.AGE_COL].isin(NON_NULL_RAW_COUNT_GROUPS),
-               [RAW_COL]] = np.nan
+               [RAW_PRISON_COL]] = np.nan
         df = df.drop(columns=[std_col.POPULATION_COL])
 
     else:
-        df = df.drop(columns=[std_col.POPULATION_COL, RAW_COL])
+        df = df.drop(columns=[std_col.POPULATION_COL, RAW_PRISON_COL])
 
     return df
 
@@ -241,22 +269,27 @@ class BJSData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        loaded_tables = load_tables(BJS_PRISONERS_ZIP)
-        df_2 = standardize_table_2_df(loaded_tables[TABLE_2])
-        df_10 = standardize_table_10_df(loaded_tables[TABLE_10])
-        df_13 = standardize_table_13_df(loaded_tables[TABLE_13])
-        df_23 = standardize_table_23_df(loaded_tables[TABLE_23])
-        df_app_2 = standardize_appendix_table_2_df(
-            loaded_tables[APPENDIX_TABLE_2])
+        prison_tables = load_tables(BJS_PRISONERS_ZIP, BJS_PRISONERS_CROPS)
+        prisoners_2 = standardize_table_2_df(prison_tables[TABLE_2])
+        prisoners_10 = standardize_table_10_df(prison_tables[TABLE_10])
+        prisoners_13 = standardize_table_13_df(prison_tables[TABLE_13])
+        prisoners_23 = standardize_table_23_df(prison_tables[TABLE_23])
+        prisoners_app_2 = standardize_appendix_table_2_df(
+            prison_tables[APPENDIX_TABLE_2])
+
+        jail_tables = load_tables(
+            BJS_CENSUS_OF_JAILS_ZIP, BJS_CENSUS_OF_JAILS_CROPS)
+        jail_6 = standardize_jail_6(jail_tables[JAIL_6])
+        jail_7 = standardize_jail_7(jail_tables[JAIL_7])
 
         # BJS tables needed per breakdown
         table_lookup = {
-            f'{std_col.AGE_COL}_{NATIONAL_LEVEL}': [df_10, df_13],
-            f'{std_col.AGE_COL}_{STATE_LEVEL}': [df_2, df_13, df_23],
-            f'{std_col.RACE_OR_HISPANIC_COL}_{NATIONAL_LEVEL}': [df_app_2, df_23],
-            f'{std_col.SEX_COL}_{NATIONAL_LEVEL}': [df_2, df_23],
-            f'{std_col.RACE_OR_HISPANIC_COL}_{STATE_LEVEL}': [df_app_2, df_23],
-            f'{std_col.SEX_COL}_{STATE_LEVEL}': [df_2, df_23],
+            f'{std_col.AGE_COL}_{NATIONAL_LEVEL}': [prisoners_10, prisoners_13, jail_6],
+            f'{std_col.AGE_COL}_{STATE_LEVEL}': [prisoners_2, prisoners_13, prisoners_23, jail_6],
+            f'{std_col.RACE_OR_HISPANIC_COL}_{NATIONAL_LEVEL}': [prisoners_app_2, prisoners_23, jail_7],
+            f'{std_col.RACE_OR_HISPANIC_COL}_{STATE_LEVEL}': [prisoners_app_2, prisoners_23, jail_7],
+            f'{std_col.SEX_COL}_{NATIONAL_LEVEL}': [prisoners_2, prisoners_23, jail_6],
+            f'{std_col.SEX_COL}_{STATE_LEVEL}': [prisoners_2, prisoners_23, jail_6],
         }
 
         for geo_level in [NATIONAL_LEVEL, STATE_LEVEL]:

@@ -12,12 +12,20 @@ STATE = "State"
 FED = "Federal"
 NON_STATE_ROWS = [US_TOTAL, STATE, FED, constants.US_ABBR, constants.US_NAME]
 
-RAW_COL = std_col.generate_column_name(
+RAW_PRISON_COL = std_col.generate_column_name(
     std_col.PRISON_PREFIX, std_col.RAW_SUFFIX)
-PER_100K_COL = std_col.generate_column_name(
+PRISON_PER_100K_COL = std_col.generate_column_name(
     std_col.PRISON_PREFIX, std_col.PER_100K_SUFFIX)
-PCT_SHARE_COL = std_col.generate_column_name(
+PRISON_PCT_SHARE_COL = std_col.generate_column_name(
     std_col.PRISON_PREFIX, std_col.PCT_SHARE_SUFFIX)
+
+RAW_JAIL_COL = std_col.generate_column_name(
+    std_col.JAIL_PREFIX, std_col.RAW_SUFFIX)
+JAIL_PER_100K_COL = std_col.generate_column_name(
+    std_col.JAIL_PREFIX, std_col.PER_100K_SUFFIX)
+JAIL_PCT_SHARE_COL = std_col.generate_column_name(
+    std_col.JAIL_PREFIX, std_col.PCT_SHARE_SUFFIX)
+
 
 # maps BJS labels to our race CODES
 BJS_RACE_GROUPS_TO_STANDARD = {
@@ -45,7 +53,7 @@ BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
 
 BJS_DATA_TYPES = [
     std_col.PRISON_PREFIX,
-    # std_col.JAIL_PREFIX,
+    std_col.JAIL_PREFIX,
     # std_col.INCARCERATED_PREFIX
 ]
 
@@ -60,7 +68,7 @@ TABLE_23 = "p20stt23.csv"  # RAW# JURISDICTION / TERRITORY
 APPENDIX_TABLE_2 = "p20stat02.csv"  # RAW# JURISDICTION / STATE+FED / RACE
 
 # BJS tables include excess header and footer rows that need to be trimmed
-bjs_prisoners_tables = {
+BJS_PRISONERS_CROPS = {
     APPENDIX_TABLE_2: {"header_rows": [*list(range(10)), 12], "footer_rows": 13},
     TABLE_2: {"header_rows": [*list(range(11))], "footer_rows": 10, },
     TABLE_10: {"header_rows": [*list(range(11))], "footer_rows": 8, },
@@ -68,8 +76,21 @@ bjs_prisoners_tables = {
     TABLE_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10}
 }
 
+# BJS Census of Jails Report
+BJS_CENSUS_OF_JAILS_ZIP = "https://bjs.ojp.gov/sites/g/files/xyckuh236/files/media/document/cj0519st.zip"
+# Raw Total Age (Juv/Adult) and Raw Total Sex by State
+JAIL_6 = "cj0519stt06.csv"
+JAIL_7 = "cj0519stt07.csv"  # Raw Total by State with Pct Share Breakdown by Race
 
-def load_tables(zip_url: str):
+# BJS tables include excess header and footer rows that need to be trimmed
+# TODO fix cropping with PROD run
+BJS_CENSUS_OF_JAILS_CROPS = {
+    JAIL_6: {"header_rows": [*list(range(0))], "footer_rows": 0},
+    JAIL_7: {"header_rows": [*list(range(0))], "footer_rows": 0}
+}
+
+
+def load_tables(zip_url: str, table_crops):
     """
     Loads all of the tables needed from remote zip file,
     applying specific cropping of header/footer rows
@@ -83,12 +104,12 @@ def load_tables(zip_url: str):
     loaded_tables = {}
     files = fetch_zip_as_files(zip_url)
     for file in files.namelist():
-        if file in bjs_prisoners_tables:
+        if file in table_crops:
             source_df = pd.read_csv(
                 files.open(file),
                 encoding="ISO-8859-1",
-                skiprows=bjs_prisoners_tables[file]["header_rows"],
-                skipfooter=bjs_prisoners_tables[file]["footer_rows"],
+                skiprows=table_crops[file]["header_rows"],
+                skipfooter=table_crops[file]["footer_rows"],
                 thousands=',',
                 engine="python",
             )
@@ -98,6 +119,7 @@ def load_tables(zip_url: str):
             source_df = set_state_col(source_df)
 
             loaded_tables[file] = source_df
+
     return loaded_tables
 
 
@@ -127,18 +149,23 @@ def strip_footnote_refs_from_df(df):
 def missing_data_to_none(df):
     """
     Replace all missing df values with null.
-    BJS uses two kinds of missing data:
+    BJS Prisoners uses two kinds of missing data:
     `~` N/A. Jurisdiction does not track this race or ethnicity.
     `/` Not reported.
+    BJS Census of Jails uses two kinds of missing data:
+    `^` Less than 0.05%
 
     Parameters:
-            df (Pandas Dataframe): a dataframe with some missing values set to `~` or `/`
+            df (Pandas Dataframe): a dataframe with some missing value symbols
 
     Returns:
             df (Pandas Dataframe): a dataframe with all missing values nulled
     """
-    df = df.applymap(lambda datum: np.nan if datum ==
-                     "/" or datum == "~" else datum)
+
+    symbols_to_null = ["/", "~", "^"]
+
+    df = df.applymap(lambda datum: np.nan if datum in symbols_to_null
+                     else datum)
 
     return df
 
@@ -153,12 +180,18 @@ def set_state_col(df):
     Returns:
             df (Pandas Dataframe): the same dataframe with a "state_name" column added, using existing place columns
     """
+
     if 'U.S. territory/U.S. commonwealth' in list(df.columns):
         df[std_col.STATE_NAME_COL] = df['U.S. territory/U.S. commonwealth']
         return df
 
     elif 'Jurisdiction' in list(df.columns):
         df[std_col.STATE_NAME_COL] = df['Jurisdiction'].combine_first(
+            df["Unnamed: 1"])
+        return df
+
+    elif 'State' in list(df.columns):
+        df[std_col.STATE_NAME_COL] = df['State'].combine_first(
             df["Unnamed: 1"])
         return df
 
@@ -223,7 +256,7 @@ def standardize_table_2_df(df):
     Parameters:
             df (Pandas Dataframe): specific dataframe from BJS
             * Note, excess header and footer info must be cleaned in the read_csv()
-            before this step (both mocked + prod flows)
+            before this step
     Returns:
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
@@ -248,7 +281,7 @@ def standardize_table_10_df(df):
     Parameters:
             df (Pandas Dataframe): specific dataframe from BJS
             * Note, excess header and footer info must be cleaned in the read_csv()
-            before this step (both mocked + prod flows)
+            before this step
     Returns:
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
@@ -262,7 +295,7 @@ def standardize_table_10_df(df):
 
     df = df[[std_col.AGE_COL, "Total"]]
 
-    df = df.rename(columns={"Total": PCT_SHARE_COL})
+    df = df.rename(columns={"Total": PRISON_PCT_SHARE_COL})
 
     df = df.replace("Total", std_col.ALL_VALUE)
     df = df.replace("65 or older", "65+")
@@ -279,14 +312,14 @@ def standardize_table_13_df(df):
     Parameters:
             df (Pandas Dataframe): specific dataframe from BJS
             * Note, excess header and footer info must be cleaned in the read_csv()
-            before this step (both mocked + prod flows)
+            before this step
     Returns:
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
     df = df.rename(
-        columns={'Total': RAW_COL})
-    df = df[[std_col.STATE_NAME_COL, RAW_COL]]
+        columns={'Total': RAW_PRISON_COL})
+    df = df[[std_col.STATE_NAME_COL, RAW_PRISON_COL]]
     df = df.replace("U.S. total", constants.US_NAME)
     df[std_col.AGE_COL] = "0-17"
     return df
@@ -300,7 +333,7 @@ def standardize_table_23_df(df):
     Parameters:
             df (Pandas Dataframe): specific dataframe from BJS
             * Note, excess header and footer info must be cleaned in the read_csv()
-            before this step (both mocked + prod flows)
+            before this step
     Returns:
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
@@ -329,7 +362,7 @@ def standardize_appendix_table_2_df(df):
     Parameters:
             df (Pandas Dataframe): specific dataframe from BJS
             * Note, excess header and footer info must be cleaned in the read_csv()
-            before this step (both mocked + prod flows)
+            before this step
     Returns:
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
@@ -341,6 +374,61 @@ def standardize_appendix_table_2_df(df):
     df[Race.UNKNOWN.value] = df[[Race.UNKNOWN.value,
                                  "Did not report"]].sum(axis="columns", min_count=1)
     df = filter_cols(df, std_col.RACE_COL)
+
+    return df
+
+
+def standardize_jail_6(df):
+    """
+    Unique steps needed to clean BJS Census of Jails 2019 - Table 6
+    Raw #Confined inmates in local jails, by adult or juvenile status, sex, and state, midyear 2019
+
+    Parameters:
+            df (Pandas Dataframe): specific dataframe from BJS
+            * Note, excess header and footer info must be cleaned in the read_csv()
+            before this step
+    Returns:
+            df (Pandas Dataframe): a "clean" dataframe ready for manipulation
+    """
+
+    df = df.rename(
+        columns={'Total inmates in custody': RAW_JAIL_COL,
+                 "Total": "18+",
+                 "Male": "Male 18+",
+                 "Female": "Female 18+",
+                 "Total.1": "0-17",
+                 "Male.1": "Male 0-17",
+                 "Female.1": "Female 0-17",
+                 "Male.2": "Male Pct",
+                 "Female.2": "Female Pct"})
+
+    df = df[[std_col.STATE_NAME_COL, RAW_JAIL_COL, "0-17", "18+", "Male 0-17",
+             "Male 18+", "Female 0-17", "Female 18+", "Male Pct", "Female Pct"]]
+
+    return df
+
+
+def standardize_jail_7(df):
+    """
+    Unique steps needed to clean BJS Census of Jails 2019 - Table 7
+    Percent of confined inmates in local jails, by race or ethnicity and state, midyear 2019
+    Raw # Total, Pct Share Breakdowns
+
+    Parameters:
+            df (Pandas Dataframe): specific dataframe from BJS
+            * Note, excess header and footer info must be cleaned in the read_csv()
+            before this step
+    Returns:
+            df (Pandas Dataframe): a "clean" dataframe ready for manipulation
+    """
+
+    print("in standardize 7")
+    df = swap_race_col_names_to_codes(df)
+    df = df.rename(
+        columns={'Total inmates in custody': RAW_JAIL_COL,
+                 })
+
+    print(df)
 
     return df
 

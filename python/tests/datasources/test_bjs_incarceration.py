@@ -10,7 +10,7 @@ from datasources.bjs_prisoners_tables_utils import (
     swap_race_col_names_to_codes,
     filter_cols,
     set_state_col,
-    bjs_prisoners_tables,
+    BJS_PRISONERS_CROPS, BJS_CENSUS_OF_JAILS_CROPS,
     keep_only_states,
     keep_only_national,
     strip_footnote_refs_from_df,
@@ -64,19 +64,19 @@ def test_filter_cols():
 _fake_by_race_df = pd.DataFrame({
     std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
     'Asian': [1_000_000, "~", 1000],
-    'Black': [1_000_000, 100, "/"]
+    'Black': [1_000_000, "^", "/"]
 })
 
 _expected_by_race_df_missing_to_none = pd.DataFrame({
     std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida"],
     'Asian': [1_000_000, None, 1000],
-    'Black': [1_000_000, 100, None]
+    'Black': [1_000_000, None, None]
 })
 
 _expected_by_race_df_only_states = pd.DataFrame({
     std_col.STATE_NAME_COL: ["Maine", "Florida"],
     'Asian': ["~", 1000],
-    'Black': [100, "/"]
+    'Black': ["^", "/"]
 })
 
 
@@ -186,11 +186,14 @@ def test_swap_race_col_names_to_codes():
 # MOCKS FOR READING IN TABLES
 
 
-def get_test_table_files():
+def _get_test_table_files(*args):
+
+    [zip_url, table_crops] = args
+    print("URL requested:", zip_url)
 
     loaded_tables = {}
-    for file in bjs_prisoners_tables.keys():
-        if file in bjs_prisoners_tables:
+    for file in table_crops.keys():
+        if file in table_crops:
             source_df = pd.read_csv(os.path.join(
                 TEST_DIR, f'bjs_test_input_{file}'),
                 encoding="ISO-8859-1",
@@ -240,7 +243,7 @@ GOLDEN_DATA = {
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
 @ mock.patch('datasources.bjs.load_tables',
-             return_value=get_test_table_files())
+             side_effect=_get_test_table_files)
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
 def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
@@ -266,7 +269,7 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
     mock_df_state_race = mock_bq.call_args_list[4][0][0]
     mock_df_state_sex = mock_bq.call_args_list[5][0][0]
 
-    assert mock_zip.call_count == 1
+    assert mock_zip.call_count == 2
 
     assert mock_fips.call_count == 7
     for call_arg in mock_fips.call_args_list:
@@ -292,6 +295,8 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
         'state_fips': str,
         "prison_per_100k": float,
         "prison_pct_share": float,
+        "jail_per_100k": float,
+        "jail_pct_share": float,
         "population": object,
         "population_pct": float,
     }
