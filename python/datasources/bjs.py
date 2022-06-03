@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from ingestion.standardized_columns import Race
 from ingestion import gcs_to_bq_util, dataset_utils
-from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
+from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, Sex
 from ingestion.dataset_utils import generate_per_100k_col
 from datasources.bjs_prisoners_tables_utils import (standardize_table_2_df,
                                                     standardize_table_10_df,
@@ -59,29 +59,39 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
 
     [main_prison_table, table_23, main_jail_table] = source_tables
 
-    bjs_races = list(main_jail_table.columns)
-
-    for race in STANDARD_RACE_CODES:
-        if race in bjs_races and race != "ALL":
-            main_jail_table[race] = main_jail_table[race].astype(float) * \
-                main_jail_table[Race.ALL.value].astype(float) / 100
+    df_jail = main_jail_table.copy()
 
     if demo == std_col.SEX_COL:
         demo_cols = BJS_SEX_GROUPS
         demo_for_flip = demo
 
+        df_jail[Sex.MALE] = df_jail[RAW_JAIL_COL].astype(
+            float) * df_jail["Male Pct"] / 100
+        df_jail[Sex.FEMALE] = df_jail[RAW_JAIL_COL].astype(
+            float) * df_jail["Female Pct"] / 100
+        df_jail = df_jail.rename(
+            columns={RAW_JAIL_COL: std_col.ALL_VALUE})
+        columns_to_keep = [*BJS_SEX_GROUPS, std_col.STATE_NAME_COL]
+        df_jail = df_jail[columns_to_keep]
+
     if demo == std_col.RACE_OR_HISPANIC_COL:
         demo_cols = STANDARD_RACE_CODES
         demo_for_flip = std_col.RACE_CATEGORY_ID_COL
+
+        bjs_races = list(df_jail.columns)
+
+        for race in STANDARD_RACE_CODES:
+            if race in bjs_races and race != "ALL":
+                df_jail[race] = df_jail[race].astype(float) * \
+                    df_jail[Race.ALL.value].astype(float) / 100
 
     if geo_level == STATE_LEVEL:
         df_prison = keep_only_states(main_prison_table)
         df_prison = df_prison.append(table_23)
 
-        df_jail = keep_only_states(main_jail_table)
-        df_jail = df_jail.append(table_23)
+        df_jail = keep_only_states(df_jail)
 
-        # race uses `ALL` and sex uses `All`
+        # race (and territory totals) uses `ALL` and sex uses `All`
         if demo == std_col.SEX_COL:
             df_prison[std_col.ALL_VALUE] = df_prison[std_col.ALL_VALUE].combine_first(
                 df_prison[Race.ALL.value])
@@ -92,7 +102,7 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
 
     if geo_level == NATIONAL_LEVEL:
         df_prison = keep_only_national(main_prison_table, demo_cols)
-        df_jail = keep_only_national(main_jail_table, demo_cols)
+        df_jail = keep_only_national(df_jail, demo_cols)
 
     df_prison = cols_to_rows(
         df_prison, demo_cols, demo_for_flip, RAW_PRISON_COL)
@@ -124,8 +134,6 @@ def generate_raw_national_age_breakdown(source_tables):
 
     [table_10, table_13, jail_6] = source_tables
 
-    # print("table 6 incoming")
-    # print(jail_6)
     jail_6 = jail_6.rename(
         columns={RAW_JAIL_COL: std_col.ALL_VALUE})
 
@@ -162,8 +170,6 @@ def generate_raw_national_age_breakdown(source_tables):
     merge_cols = [std_col.STATE_NAME_COL, std_col.AGE_COL]
 
     df = pd.merge(df_prison, df_jail, how='outer', on=merge_cols)
-
-    print(df)
 
     return df
 
@@ -223,9 +229,6 @@ def generate_raw_state_age_breakdown(source_tables):
 
     df = pd.merge(df_prison, df_jail, how='outer', on=merge_cols)
 
-    print("after merge state age")
-    print(df)
-
     return df
 
 
@@ -241,8 +244,6 @@ def post_process(df, breakdown, geo):
        breakdown: string column name containing demographic breakdown groups (race, sex, age)
        geo: geographic level (national, state)
     """
-    # print("in post")
-    # print(df)
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         std_col.add_race_columns_from_category_id(df)
@@ -346,7 +347,6 @@ class BJSData(DataSource):
         for geo_level in [NATIONAL_LEVEL, STATE_LEVEL]:
             for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
                 table_name = f'{breakdown}_{geo_level}'
-                print(table_name, "******")
 
                 if breakdown == std_col.AGE_COL:
                     if geo_level == NATIONAL_LEVEL:

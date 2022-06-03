@@ -429,8 +429,6 @@ def standardize_jail_7(df):
     df = df.rename(
         columns={'Total inmates in custody': Race.ALL.value,
                  })
-    # df[Race.UNKNOWN.value] = np.nan
-    # df[Race.OTHER_STANDARD_NH.value] = np.nan
 
     df = filter_cols(df, std_col.RACE_COL)
 
@@ -438,10 +436,6 @@ def standardize_jail_7(df):
 
 
 def keep_only_states(df):
-
-    print("keep only states")
-    print(df)
-    print(df[~df[std_col.STATE_NAME_COL].isin(NON_STATE_ROWS)])
 
     return df[~df[std_col.STATE_NAME_COL].isin(NON_STATE_ROWS)]
 
