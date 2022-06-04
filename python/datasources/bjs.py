@@ -162,7 +162,6 @@ def generate_raw_national_age_breakdown(source_tables):
 
     # RAW count of sentenced children in adult jurisdiction
     table_13 = keep_only_national(table_13, "Total")
-
     df_prison = df_prison.append(table_13)
 
     merge_cols = [std_col.STATE_NAME_COL, std_col.AGE_COL]
@@ -288,17 +287,17 @@ def post_process(df, breakdown, geo):
             std_col.ALL_VALUE,
         )
 
-    # manually null RATES for 0-17 and null RAW for all other groups
     if breakdown == std_col.AGE_COL:
+        # sum RAW PRISON + RAW JAIL for 0-17 and set in new age field
+        df["confined_estimated_total"] = df[[RAW_JAIL_COL,
+                                            RAW_PRISON_COL]].astype(float).sum(axis=1, min_count=1)
         df.loc[df[std_col.AGE_COL].isin(NON_NULL_RAW_COUNT_GROUPS),
                [PRISON_PER_100K_COL, PRISON_PCT_SHARE_COL]] = np.nan
         df.loc[~df[std_col.AGE_COL].isin(NON_NULL_RAW_COUNT_GROUPS),
-               [RAW_PRISON_COL, RAW_JAIL_COL]] = np.nan
-        df = df.drop(columns=[std_col.POPULATION_COL])
+               ["confined_estimated_total"]] = np.nan
 
-    else:
-        df = df.drop(columns=[std_col.POPULATION_COL,
-                     RAW_JAIL_COL, RAW_PRISON_COL])
+    df = df.drop(columns=[std_col.POPULATION_COL,
+                          RAW_JAIL_COL, RAW_PRISON_COL])
 
     return df
 
