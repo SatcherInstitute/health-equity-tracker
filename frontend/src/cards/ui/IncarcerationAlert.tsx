@@ -15,6 +15,9 @@ interface IncarcerationAlertProps {
 }
 
 function IncarcerationAlert(props: IncarcerationAlertProps) {
+  // we may decide to show this info box on jail as well...
+  if (props.dataType === "jail") return <></>;
+
   const severity: Color =
     props.breakdown === "age" && props.dataType === "prison"
       ? "warning"
@@ -29,8 +32,7 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
         dataType={props.dataType}
         breakdown={props.breakdown}
       />{" "}
-      individuals (including children){" "}
-      {props.dataType === "jail" ? "in" : "under the jurisdiction of"} an adult{" "}
+      individuals (including children) under the jurisdiction of an adult{" "}
       {props.dataType} facility.
     </Alert>
   );
