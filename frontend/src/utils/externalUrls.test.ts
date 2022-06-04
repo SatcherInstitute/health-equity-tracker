@@ -13,6 +13,7 @@ export const SUCCESS_CODE = 200;
 export const UNTESTABLE_URLS = [
   urlMap.shliLinkedIn,
   urlMap.shliTwitter,
+  urlMap.uihiBestPractice,
   "https://www.who.int/healthsystems/topics/equity/en/",
   "https://www.who.int/health-topics/social-determinants-of-health#tab=tab_1",
   "https://www.uclahealth.org/covid19-exposes-how-native-hawaiians-and-pacific-islanders-face-stark-health-care-disparities",
