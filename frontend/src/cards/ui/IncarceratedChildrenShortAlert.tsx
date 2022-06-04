@@ -9,7 +9,7 @@ import FlagIcon from "@material-ui/icons/Flag";
 
 let children = "children";
 let are = "are";
-let adultPrisonFacilities = "adult prison facilities";
+let adultPrisonFacilities = "adult prison and jail facilities";
 
 interface IncarceratedChildrenShortAlertProps {
   queryResponse: MetricQueryResponse;
@@ -21,7 +21,7 @@ function IncarceratedChildrenShortAlert(
 ) {
   const count = props.queryResponse.data.find((row: Row) =>
     CHILD_AGE_BUCKETS.includes(row.age)
-  )?.["prison_estimated_total"];
+  )?.["confined_estimated_total"];
 
   console.log(props.queryResponse);
   console.log(count);
@@ -31,7 +31,7 @@ function IncarceratedChildrenShortAlert(
   if (count === 1) {
     children = "child";
     are = "is";
-    adultPrisonFacilities = "an adult prison facility";
+    adultPrisonFacilities = "an adult prison or jail facility";
   }
 
   return (

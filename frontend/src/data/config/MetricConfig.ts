@@ -146,12 +146,11 @@ export type MetricId =
   | "women_us_congress_ratio_age_adjusted"
   | "prison_pct_share"
   | "prison_per_100k"
-  | "prison_estimated_total"
   | "prison_ratio_age_adjusted"
   | "jail_pct_share"
   | "jail_per_100k"
-  | "jail_estimated_total"
-  | "jail_ratio_age_adjusted";
+  | "jail_ratio_age_adjusted"
+  | "confined_estimated_total";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.

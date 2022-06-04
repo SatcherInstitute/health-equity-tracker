@@ -32,14 +32,13 @@ export const BJS_VARIABLE_IDS: VariableId[] = [
 
 export const BJS_DETERMINANTS: MetricId[] = [
   "bjs_population_pct",
-  "prison_estimated_total",
   "prison_pct_share",
   "prison_per_100k",
   "prison_ratio_age_adjusted",
-  "jail_estimated_total",
   "jail_pct_share",
   "jail_per_100k",
   "jail_ratio_age_adjusted",
+  "confined_estimated_total",
 ];
 
 class BjsProvider extends VariableProvider {
