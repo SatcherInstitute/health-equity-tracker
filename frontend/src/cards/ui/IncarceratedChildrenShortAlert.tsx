@@ -37,7 +37,7 @@ function IncarceratedChildrenShortAlert(
       icon={count !== 0 ? <FlagIcon /> : null}
     >
       <b>
-        {count} {children}
+        {count.toLocaleString()} {children}
       </b>{" "}
       {are} currently confined in {adultPrisonFacilities} in{" "}
       <b>{props.fips.getDisplayName()}</b>.{" "}
