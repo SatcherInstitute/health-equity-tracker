@@ -8,6 +8,12 @@ const knownFlakyUrls = [
     "https://satcherinstitute.github.io/analysis/cdc_death_data",
 ]
 
+let failUrl = "https://www.benhammondmusic123123123123.com"
+
+test(`Should fail: ${failUrl}`, async ({ page }) => {
+    const response = await page.goto(failUrl, { waitUntil: "domcontentloaded" });
+    if (response.status() !== 200) console.log(failUrl, response.status());
+});
 
 
 for (const url of Object.values(urlMap)) {
