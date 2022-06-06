@@ -81,3 +81,9 @@ test('Terms of Use Page Loads', async ({ page }) => {
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toHaveText([`Terms of Use`]);
 });
+
+test('should fail', async ({ page }) => {
+    await page.goto(TERMS_OF_USE_PAGE_LINK, { waitUntil: "networkidle" });
+    const mainHeading = page.locator('#main');
+    await expect(mainHeading).toHaveText([`This should fail and not be there`]);
+});
