@@ -12,7 +12,7 @@ To contribute to this project:
 
 1. [Fork the repository on github](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo)
 2. On your development machine, clone your forked repo and add the official repo as a remote.
-    - Tip: our development team keeps the remote name `origin` for the original repo, and uses a different name for our forked remote like `josh` or `ben`.
+    - Tip: our development team keeps the remote name `origin` for the original repo, and uses a different name for our forked remote like `josh`, `ben`, or `eric`.
 
 When you're ready to make changes:
 
