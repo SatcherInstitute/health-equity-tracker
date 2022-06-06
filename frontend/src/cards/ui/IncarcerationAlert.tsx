@@ -4,9 +4,19 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
-import { Fips } from "../../data/utils/Fips";
+import { Fips, USA_DISPLAY_NAME } from "../../data/utils/Fips";
 import { VariableId } from "../../data/config/MetricConfig";
 import { AGE } from "../../data/utils/Constants";
+import {
+  COMBINED_INCARCERATION_STATES_LIST,
+  COMBINED_INCARCERATION_STATES_MESSAGE,
+  ALASKA_PRIVATE_JAIL_CAVEAT,
+} from "../../data/variables/BjsProvider";
+
+const combinedAlertFipsList = [
+  USA_DISPLAY_NAME,
+  ...COMBINED_INCARCERATION_STATES_LIST,
+];
 
 interface IncarcerationAlertProps {
   dataType: VariableId;
@@ -15,8 +25,9 @@ interface IncarcerationAlertProps {
 }
 
 function IncarcerationAlert(props: IncarcerationAlertProps) {
-  // we may decide to show this info box on jail as well...
-  if (props.dataType === "jail") return <></>;
+  const showAlaskaJailCaveat = [USA_DISPLAY_NAME, "Alaska"].includes(
+    props.fips.getDisplayName()
+  );
 
   const severity: Color =
     props.breakdown === "age" && props.dataType === "prison"
@@ -33,7 +44,10 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
         breakdown={props.breakdown}
       />{" "}
       individuals (including children) under the jurisdiction of an adult{" "}
-      {props.dataType} facility.
+      {props.dataType} facility.{" "}
+      {combinedAlertFipsList.includes(props.fips.getDisplayName()) &&
+        COMBINED_INCARCERATION_STATES_MESSAGE}{" "}
+      {showAlaskaJailCaveat && ALASKA_PRIVATE_JAIL_CAVEAT}
     </Alert>
   );
 }

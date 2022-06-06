@@ -297,6 +297,8 @@ function MapCardWithKey(props: MapCardProps) {
               </>
             )}
 
+            {/* TODO: The "all" display in this info box should appear even if the only data available is the current level total */}
+            {/*  TODO: refactor this into its own component see #1620 */}
             {!mapQueryResponse.dataIsMissing() &&
               !!dataForActiveBreakdownFilter.length && (
                 <>
@@ -318,6 +320,16 @@ function MapCardWithKey(props: MapCardProps) {
                   </CardContent>
                 </>
               )}
+
+            {isIncarceration && (
+              <CardContent>
+                <IncarcerationAlert
+                  dataType={props.variableConfig.variableId}
+                  fips={props.fips}
+                  breakdown={props.currentBreakdown}
+                />
+              </CardContent>
+            )}
 
             {(mapQueryResponse.dataIsMissing() ||
               dataForActiveBreakdownFilter.length === 0) && (
@@ -350,17 +362,9 @@ function MapCardWithKey(props: MapCardProps) {
                   </Alert>
                 </CardContent>
               )}
+
             {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
               <>
-                {isIncarceration && (
-                  <CardContent>
-                    <IncarcerationAlert
-                      dataType={props.variableConfig.variableId}
-                      fips={props.fips}
-                      breakdown={props.currentBreakdown}
-                    />
-                  </CardContent>
-                )}
                 <CardContent>
                   <ChoroplethMap
                     signalListeners={signalListeners}

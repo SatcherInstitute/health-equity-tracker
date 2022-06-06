@@ -19,7 +19,10 @@ export const SENTENCED_PRISONERS_MESSAGE =
   "The rates presented for the ‘Age’ filtered reports measure from those represents individuals under the jurisdiction of an adult prison facility who have been sentenced";
 
 export const COMBINED_INCARCERATION_STATES_MESSAGE =
-  "Alaska, Connecticut, Delaware, Hawaii, Rhode Island, and Vermont each operate an integrated system that combines prisons and jails, which are included here as prison facilities.";
+  "Alaska, Connecticut, Delaware, Hawaii, Rhode Island, and Vermont each operate an integrated system that combines prisons and jails, which are displayed here only as prison facilities.";
+
+export const ALASKA_PRIVATE_JAIL_CAVEAT =
+  "In addition, Alaska contracts with a small network of private jails, which are included here only as jail facilities.";
 
 export const MISSING_PRISON_DATA =
   "The rates presented for imprisonment nationally do not include individuals under the jurisdiction of territorial, military, or Indian Country facilities.";
