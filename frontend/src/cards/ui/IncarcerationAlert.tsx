@@ -9,7 +9,7 @@ import { VariableId } from "../../data/config/MetricConfig";
 import { AGE } from "../../data/utils/Constants";
 import {
   COMBINED_INCARCERATION_STATES_LIST,
-  COMBINED_INCARCERATION_STATES_MESSAGE,
+  CombinedIncarcerationStateMessage,
   ALASKA_PRIVATE_JAIL_CAVEAT,
 } from "../../data/variables/BjsProvider";
 
@@ -46,7 +46,7 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
       individuals (including children) under the jurisdiction of an adult{" "}
       {props.dataType} facility.{" "}
       {combinedAlertFipsList.includes(props.fips.getDisplayName()) &&
-        COMBINED_INCARCERATION_STATES_MESSAGE}{" "}
+        CombinedIncarcerationStateMessage()}{" "}
       {showAlaskaJailCaveat && ALASKA_PRIVATE_JAIL_CAVEAT}
     </Alert>
   );

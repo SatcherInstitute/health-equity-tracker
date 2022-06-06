@@ -1,3 +1,4 @@
+import React from "react";
 import { getDataManager } from "../../utils/globals";
 import { MetricId, VariableId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
@@ -21,8 +22,16 @@ export const SENTENCED_PRISONERS_MESSAGE =
 export const MISSING_PRISON_DATA =
   "The rates presented for imprisonment nationally do not include individuals under the jurisdiction of territorial, military, or Indian Country facilities.";
 
-export const COMBINED_INCARCERATION_STATES_MESSAGE =
-  "Alaska, Connecticut, Delaware, Hawaii, Rhode Island, and Vermont each operate an integrated system that combines prisons and jails, which are displayed here only as prison facilities.";
+export function CombinedIncarcerationStateMessage() {
+  return (
+    <>
+      <b>Alaska</b>, <b>Connecticut</b>, <b>Delaware</b>, <b>Hawaii</b>,{" "}
+      <b>Rhode Island</b>, and <b>Vermont</b> each operate an integrated system
+      that combines both prisons and jails; for our reports these are treated
+      only as prison facilities.
+    </>
+  );
+}
 
 export const ALASKA_PRIVATE_JAIL_CAVEAT =
   "In addition, Alaska contracts with a small network of private jails, which are included here only as jail facilities.";

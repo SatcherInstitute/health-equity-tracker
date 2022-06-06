@@ -19,7 +19,7 @@ import DefinitionsList from "../../reports/ui/DefinitionsList";
 import { currentYear } from "../../Footer";
 import {
   ALASKA_PRIVATE_JAIL_CAVEAT,
-  COMBINED_INCARCERATION_STATES_MESSAGE,
+  CombinedIncarcerationStateMessage,
 } from "../../data/variables/BjsProvider";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
@@ -456,7 +456,7 @@ function MethodologyTab() {
                   operate an integrated system that combines both prisons and
                   jails; for our reports all individuals incarcerated in those
                   states are presented under the <b>Prison</b> data type. */}
-                  {COMBINED_INCARCERATION_STATES_MESSAGE}{" "}
+                  {CombinedIncarcerationStateMessage()}{" "}
                   {ALASKA_PRIVATE_JAIL_CAVEAT}
                 </p>
 
