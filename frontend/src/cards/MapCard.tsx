@@ -26,11 +26,7 @@ import {
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
-import {
-  BJS_VARIABLE_IDS,
-  COMBINED_INCARCERATION_STATES_LIST,
-  COMBINED_INCARCERATION_STATES_MESSAGE,
-} from "../data/variables/BjsProvider";
+import { COMBINED_INCARCERATION_STATES_LIST } from "../data/variables/BjsProvider";
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
@@ -73,9 +69,10 @@ export function MapCard(props: MapCardProps) {
 function MapCardWithKey(props: MapCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
 
-  const isIncarceration = BJS_VARIABLE_IDS.includes(
-    props.variableConfig.variableId
-  );
+  const isPrison = props.variableConfig.variableId === "prison";
+  const isJail = props.variableConfig.variableId === "jail";
+
+  const isIncarceration = isPrison || isJail;
 
   const signalListeners: any = {
     click: (...args: any) => {
@@ -115,6 +112,10 @@ function MapCardWithKey(props: MapCardProps) {
         ""
       )}`
     : "";
+
+  let asteriskMessage = "";
+  if (isPrison) asteriskMessage = " (combined prison and jail)";
+  if (isJail) asteriskMessage = " (private jails only)";
 
   return (
     <CardWrapper
@@ -441,7 +442,7 @@ function MapCardWithKey(props: MapCardProps) {
                         fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
                         jumpToData={props.jumpToData}
                         asteriskItems={COMBINED_INCARCERATION_STATES_LIST}
-                        asteriskMessage={COMBINED_INCARCERATION_STATES_MESSAGE}
+                        asteriskMessage={asteriskMessage}
                       />
                     )}
                 </CardContent>

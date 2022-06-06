@@ -41,7 +41,7 @@ export interface HighestLowestListProps {
 export function HighestLowestList(props: HighestLowestListProps) {
   function addAsterisk(fipsName: string) {
     return props.asteriskItems?.includes(fipsName)
-      ? " (combined prison & jail)"
+      ? ` ${props.asteriskMessage}`
       : "";
   }
 
