@@ -124,7 +124,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
         return (
           <>
-            {isIncarceration && (
+            {isIncarceration && props.breakdownVar === "age" && (
               <>
                 <CardContent>
                   <IncarceratedChildrenShortAlert
