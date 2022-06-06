@@ -130,9 +130,8 @@ function UnknownsAlert(props: UnknownsAlertProps) {
             ? RACE_OR_ETHNICITY
             : breakdownVarDisplayName}
           {/* Age Adjusted Card reports both unknown RACE + AGE */}
-          {secondaryAgePercentageUnknown
-            ? `, and ${secondaryAgePercentageUnknown}${props.metricConfig.shortLabel} reported an unknown age`
-            : null}
+          {secondaryAgePercentageUnknown &&
+            `, and ${secondaryAgePercentageUnknown}${props.metricConfig.shortLabel} reported an unknown age`}
           {" in "}
           {props.fips.getDisplayName()}. {showCardHelperText && cardHelperText}
           {props.raceEthDiffMap && raceEthDiffMapText}
