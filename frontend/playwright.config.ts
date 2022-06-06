@@ -43,9 +43,6 @@ const config: PlaywrightTestConfig = {
     {
       name: 'URL',
       testMatch: "externalUrls.spec.ts",
-      use: {
-        headless: false,
-      }
     },
     {
       name: 'E2E',
