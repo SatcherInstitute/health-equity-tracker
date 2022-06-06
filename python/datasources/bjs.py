@@ -94,9 +94,6 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
             df_prison[std_col.ALL_VALUE] = df_prison[std_col.ALL_VALUE].combine_first(
                 df_prison[Race.ALL.value])
             df_prison = df_prison.drop(columns=[Race.ALL.value])
-            # df_jail[std_col.ALL_VALUE] = df_jail[std_col.ALL_VALUE].combine_first(
-            #     df_jail[Race.ALL.value])
-            # df_jail = df_jail.drop(columns=[Race.ALL.value])
 
     if geo_level == NATIONAL_LEVEL:
         df_prison = keep_only_national(main_prison_table, demo_cols)
