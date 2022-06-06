@@ -5,7 +5,7 @@ from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
 from test_utils import get_state_fips_codes_as_df
 from datasources.bjs import (BJSData)
-from datasources.bjs_prisoners_tables_utils import (
+from datasources.bjs_table_utils import (
     missing_data_to_none,
     swap_race_col_names_to_codes,
     filter_cols,
