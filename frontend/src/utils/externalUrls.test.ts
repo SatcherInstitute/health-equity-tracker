@@ -11,6 +11,7 @@ export const SUCCESS_CODE = 200;
 
 // URL SAFELIST skip some URLs (like linkedin) that block traffic / error out
 export const UNTESTABLE_URLS = [
+  "https://www.uihi.org/resources/indigenous-health-equity/",
   urlMap.uihiBestPractice,
   urlMap.shliLinkedIn,
   urlMap.shliTwitter,
