@@ -17,6 +17,10 @@ import { Card } from "@material-ui/core";
 import { urlMap } from "../../utils/externalUrls";
 import DefinitionsList from "../../reports/ui/DefinitionsList";
 import { currentYear } from "../../Footer";
+import {
+  ALASKA_PRIVATE_JAIL_CAVEAT,
+  COMBINED_INCARCERATION_STATES_MESSAGE,
+} from "../../data/variables/BjsProvider";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
@@ -371,25 +375,49 @@ function MethodologyTab() {
                 </p>
 
                 <p>
-                  Combining data presented across tables in the BJS Prisoners in
-                  2020 report allows us to generate reports on{" "}
-                  <b>Imprisonment</b> in the United States. The data presented
-                  differs slightly by geographic level:
+                  The Bureau of Justice Statistic (BJS) releases a variety of
+                  reports on people under correctional control; by combing
+                  tables from two of these reports (
+                  <a href={urlMap.bjsPrisoners}>“Prisoners in 2020”</a> and{" "}
+                  <a href={urlMap.bjsCensusOfJails}>
+                    “Census of Jails 2005-2019”
+                  </a>
+                  ), we are able to generate reports on individuals (including
+                  children) incarcerated in <b>Prison</b> and <b>Jail</b> in the
+                  United States.
+                </p>
+                <p>
+                  <b>Jail</b>
+                </p>
+
+                <p>
+                  Jail includes all individuals currently confined by a local,
+                  adult jail facility, but does not include individuals who are
+                  supervised outside of jail or who report only on weekends.
+                </p>
+                <p>
+                  <b>Prison</b>
+                </p>
+
+                <p>
+                  Data presented for prison differs slightly by geographic level
+                  and by data type:
                 </p>
 
                 <ul>
                   <li>
-                    National report: All individuals including children under
-                    the jurisdiction of a state or federal adult prison facility
-                    in the United States, but not inclusive of territorial,
+                    National report: Prison includes all individuals under the
+                    jurisdiction of a state or federal adult prison facility in
+                    the United States, but not inclusive of territorial,
                     military, or Indian Country facilities. This data is
                     disaggregated by race/ethnicity, age, and sex.
                   </li>
 
                   <li>
-                    State reports: All individuals including under the
-                    jurisdiction of that state's adult prison facilities. This
-                    data is disaggregated by race/ethnicity and sex.
+                    State reports: Prison includes all individuals including
+                    under the jurisdiction of that state's adult prison
+                    facilities. This data is disaggregated by race/ethnicity and
+                    sex.
                   </li>
                   <li>
                     Territory reports: All individuals under the jurisdiction of
@@ -397,7 +425,8 @@ function MethodologyTab() {
                     <b>American Samoa</b> did not report a value for
                     jurisdictional population, we have used their value for
                     custodial population instead. This data is not disaggregated
-                    by any demographic breakdown.
+                    by any demographic breakdown. All incarcerated people in the
+                    U.S. territories are counted under <b>Prison</b>.
                   </li>
                 </ul>
 
@@ -409,19 +438,26 @@ function MethodologyTab() {
                   to the limitations in the data provided by BJS) only display
                   the <b>sentenced</b> jurisdictional population.{" "}
                 </p>
-                <p>
-                  <b>Alaska</b>, <b>Connecticut</b>, <b>Delaware</b>,
-                  <b>Hawaii</b>, Rhode <b>Island</b>, and <b>Vermont</b> each
-                  operate an integrated system that combines both prisons and
-                  jails; for our reports all individuals incarcerated in those
-                  states are presented under the <b>Imprisonment</b> data type.
-                </p>
 
                 <p>
                   The race/ethnicity breakdowns provided match those used in the
                   ACS population source, however we do combine the BJS{" "}
                   <b>Did not report</b> race values into our <b>Unknown</b> race
                   group.{" "}
+                </p>
+
+                <p>
+                  <b>Combined Systems</b>
+                </p>
+
+                <p>
+                  {/* <b>Alaska</b>, <b>Connecticut</b>, <b>Delaware</b>,
+                  <b>Hawaii</b>, <b>Rhode Island</b>, and <b>Vermont</b> each
+                  operate an integrated system that combines both prisons and
+                  jails; for our reports all individuals incarcerated in those
+                  states are presented under the <b>Prison</b> data type. */}
+                  {COMBINED_INCARCERATION_STATES_MESSAGE}{" "}
+                  {ALASKA_PRIVATE_JAIL_CAVEAT}
                 </p>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
