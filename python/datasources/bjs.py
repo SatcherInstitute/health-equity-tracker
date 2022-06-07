@@ -31,16 +31,18 @@ from datasources.bjs_table_utils import (standardize_table_2_df,
                                          )
 
 
-# DEMOGRAPHIC_COL_MAPPING = {
-#     'race': ([RACE_COL], RACE_NAMES_MAPPING),
-#     'sex': ([SEX_COL], SEX_NAMES_MAPPING),
-#     'age': ([AGE_COL], AGE_NAMES_MAPPING),
-#     'race_and_age': ([RACE_COL, AGE_COL], {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING}),
-# }
+def add_missing_demographic_values(df, demographic, null_values_column):
+    """
+    For dataframes where some geo/demo rows are expected to be missing data
+    (e.g. only the "All" value is known), we need to manually fill in those missing
+    rows with null to allow the pct_share functions to operate properly
 
-def add_missing_demographic_values(df, demographic):
-    print("demographic:", demographic)
-    df = df.copy()
+    Parameters:
+        df: pandas dataframe with columns | "state_name" | "age" or "sex" or "race_category_id"
+        demographic: string of which breakdown we want, either "race_and_ethnicity" or "sex".
+        null_values_column: string column name for the added null values
+
+    """
     unique_places = df[std_col.STATE_NAME_COL].drop_duplicates()
 
     expected_groups = STANDARD_RACE_CODES if demographic == "race_and_ethnicity" else BJS_SEX_GROUPS
@@ -52,15 +54,13 @@ def add_missing_demographic_values(df, demographic):
         for group in expected_groups:
             if not ((df[std_col.STATE_NAME_COL] == place)
                     & (df[demo_col] == group)).any():
-                print("need a row for ", group, "-", place)
                 missing_rows.append(
-                    {std_col.STATE_NAME_COL: place, demo_col: group, RAW_COL: np.nan})
+                    {std_col.STATE_NAME_COL: place, demo_col: group, null_values_column: np.nan})
 
     missing_df = pd.DataFrame(missing_rows, columns=[
-                              std_col.STATE_NAME_COL, demo_col, RAW_COL])
+                              std_col.STATE_NAME_COL, demo_col, null_values_column])
 
     df = df.append(missing_df)
-    print(df)
 
     return df
 
@@ -111,7 +111,6 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
     df = cols_to_rows(
         df, demo_cols, demo_for_flip, RAW_COL)
 
-    # melt territories separately
     if geo_level == STATE_LEVEL:
 
         expected_demo_groups = [std_col.ALL_VALUE]
@@ -125,21 +124,12 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
             df_territories[std_col.ALL_VALUE] = df_territories[Race.ALL.value]
             df_territories = df_territories.drop(columns=[Race.ALL.value])
 
-        print("pre-melted territories")
-        print(df_territories)
+        # melt territories separately, fill in missing nulls, and then combine with states
         df_territories = cols_to_rows(
             df_territories, expected_demo_groups, demo_for_flip, RAW_COL)
-        print("melted territories")
-        print(df_territories)
-
-        df_territories = add_missing_demographic_values(df_territories, demo)
-        print("fill in with blanks")
-        print(df_territories)
-
+        df_territories = add_missing_demographic_values(
+            df_territories, demo, RAW_COL)
         df = df.append(df_territories)
-
-        print("appended")
-        print(df)
 
     return df
 
