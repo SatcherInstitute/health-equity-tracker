@@ -6,12 +6,12 @@ import { useEffect } from "react";
 import styles from "./News.module.scss";
 import { Redirect, useParams } from "react-router-dom";
 import {
-  NEWS_TAB_LINK,
   fetchNewsData,
   ReactRouterLinkButton,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
 } from "../../../utils/urlutils";
+import { NEWS_TAB_LINK } from "../../../utils/internalRoutes";
 import { Helmet } from "react-helmet-async";
 import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";

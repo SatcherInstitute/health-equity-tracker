@@ -1,7 +1,7 @@
 import { Typography } from "@material-ui/core";
 import React from "react";
 import { Link } from "react-router-dom";
-import { NEWS_TAB_LINK } from "../../../utils/urlutils";
+import { NEWS_TAB_LINK } from "../../../utils/internalRoutes";
 import styles from "./News.module.scss";
 
 type FilterType = "author" | "category";

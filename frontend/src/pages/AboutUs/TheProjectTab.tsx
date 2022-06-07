@@ -3,6 +3,7 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
+import { LinkWithStickyParams } from "../../utils/urlutils";
 import {
   COPD_US_SETTING,
   COVID_HOSP_NY_COUNTY_SETTING,
@@ -10,11 +11,10 @@ import {
   DATA_CATALOG_PAGE_LINK,
   DIABETES_US_SETTING,
   EXPLORE_DATA_PAGE_LINK,
-  LinkWithStickyParams,
   OPIOID_US_SETTING,
   POVERTY_US_SETTING,
   UNINSURANCE_US_SETTING,
-} from "../../utils/urlutils";
+} from "../../utils/internalRoutes";
 import Hidden from "@material-ui/core/Hidden";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet-async";
