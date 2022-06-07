@@ -1,0 +1,23 @@
+[
+    {
+        "state_fips": "01",
+        "state_name": "Alabama",
+        "sex": "All",
+        "population": "4876250",
+        "population_pct": "100.0"
+    },
+    {
+        "state_fips": "01",
+        "state_name": "Alabama",
+        "sex": "Male",
+        "population": "2359355",
+        "population_pct": "48.4"
+    },
+    {
+        "state_fips": "01",
+        "state_name": "Alabama",
+        "sex": "Female",
+        "population": "2516895",
+        "population_pct": "51.6"
+    }
+]
