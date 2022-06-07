@@ -1,0 +1,38 @@
+name: e2e
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'frontend/*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run tests with Node.js 12.19.0
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.19.0
+
+    - run: npm i element-cli
+
+    - name: Get preview URL
+      id: get-preview-url
+      run: |
+        id=$(jq -r .pull_request.number < ${GITHUB_EVENT_PATH})
+        preview_url="https://deploy-preview-${id}--health-equity-tracker.netlify.app"
+
+        echo "::set-output name=preview_url::$preview_url"
+
+    - name: run tests
+      run: |
+        bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' ${PREVIEW_URL})" != "200" ]]; do sleep 5; done'
+        element run e2e_tests/browser/flood-test.perf.ts
+      env:
+        PREVIEW_URL: ${{ steps.get-preview-url.outputs.preview_url }}
