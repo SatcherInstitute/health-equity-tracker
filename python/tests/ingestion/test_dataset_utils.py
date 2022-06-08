@@ -30,21 +30,6 @@ _fake_race_data = [
     ['04', 'Arizona', 'UNKNOWN', '10'],
 ]
 
-_fake_race_data_some_only_all = [
-    ['state_fips', 'state_name', 'race', 'population'],
-    ['01', 'Alabama', 'Asian alone', '660'],
-    ['01', 'Alabama', 'Some other race alone', '700'],
-    ['01', 'Alabama', 'Two or more races', '919'],
-    ['01', 'Alabama', 'An underrepresented race', '1'],
-    ['01', 'Alabama', 'ALL', '2280'],
-    ['01', 'Alabama', 'UNKNOWN', '30'],
-    ['60', 'American Samoa', 'Asian alone', np.nan],
-    ['60', 'American Samoa', 'Some other race alone', np.nan],
-    ['60', 'American Samoa', 'Two or more races', np.nan],
-    ['60', 'American Samoa', 'ALL', '196'],
-    ['60', 'American Samoa', 'UNKNOWN', np.nan],
-]
-
 _expected_pct_share_data_without_unknowns = [
     ['state_fips', 'state_name', 'race', 'population', 'pct_share'],
     ['01', 'Alabama', 'Asian alone', '660', '28.9'],
@@ -365,26 +350,6 @@ def testGeneratePctShareColWithUnknowns():
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_pct_share_data_with_unknowns)).reset_index(drop=True)
-
-    expected_df['population'] = expected_df['population'].astype(float)
-
-    expected_df['pct_share'] = expected_df['pct_share'].astype(float)
-
-    df = dataset_utils.generate_pct_share_col_with_unknowns(
-        df, {'population': 'pct_share'}, 'race', 'ALL', 'UNKNOWN')
-
-    df = df.sort_values(by=['state_fips']).reset_index(drop=True)
-    assert_frame_equal(expected_df, df)
-
-
-def testGeneratePctShareColWithUnknownsSomeOnlyAll():
-    df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_race_data_some_only_all)).reset_index(drop=True)
-
-    df['population'] = df['population'].astype(float)
-
-    expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_pct_share_data_with_unknowns_some_only_all)).reset_index(drop=True)
 
     expected_df['population'] = expected_df['population'].astype(float)
 
