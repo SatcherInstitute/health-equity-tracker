@@ -64,39 +64,22 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
 
     if geo_level == STATE_LEVEL:
         df = keep_only_states(df)
-        # df = df.append(table_23)
-        # race uses `ALL` and sex uses `All`
-        # if demo == std_col.SEX_COL:
-        #     df[std_col.ALL_VALUE] = df[std_col.ALL_VALUE].combine_first(
-        #         df[Race.ALL.value])
-        #     df = df.drop(columns=[Race.ALL.value])
+
+        # force territory unknowns to end up as 100% share
+        df_territories[Race.UNKNOWN.value] = df_territories[Race.ALL.value]
+        df = df.append(df_territories)
+
+        # `ALL` vs `All`
+        if demo == std_col.SEX_COL:
+            df[std_col.ALL_VALUE] = df[std_col.ALL_VALUE].combine_first(
+                df[Race.ALL.value])
+            df = df.drop(columns=[Race.ALL.value])
 
     if geo_level == NATIONAL_LEVEL:
         df = keep_only_national(df, demo_cols)
 
-    # melt states-only or national
     df = cols_to_rows(
         df, demo_cols, demo_for_flip, RAW_COL)
-
-    if geo_level == STATE_LEVEL:
-
-        expected_demo_groups = [std_col.ALL_VALUE]
-
-        # manually set UNKNOWN RAW to same as ALL RAW since
-        # territories have no demographic data, only totals
-        if demo == std_col.RACE_OR_HISPANIC_COL:
-            df_territories[Race.UNKNOWN.value] = df_territories[Race.ALL.value]
-            expected_demo_groups = [Race.ALL.value, Race.UNKNOWN.value]
-        else:
-            df_territories[std_col.ALL_VALUE] = df_territories[Race.ALL.value]
-            df_territories = df_territories.drop(columns=[Race.ALL.value])
-
-        # melt territories separately, fill in missing nulls, and then combine with states
-        df_territories = cols_to_rows(
-            df_territories, expected_demo_groups, demo_for_flip, RAW_COL)
-        df_territories = null_expected_rows(
-            df_territories, demo, RAW_COL)
-        df = df.append(df_territories)
 
     return df
 

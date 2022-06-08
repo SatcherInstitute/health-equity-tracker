@@ -187,36 +187,6 @@ def test_swap_race_col_names_to_codes():
         check_like=True)
 
 
-def test_null_expected_rows():
-
-    _value_col = "foo_estimated_total"
-
-    #  Florida is missing demographic rows, only has "All"
-    _fake_df = pd.DataFrame({
-        std_col.STATE_NAME_COL: ["Florida", "Maine", "Maine", "Maine", ],
-        "sex": ["All", "Male", "Female", "All", ],
-        _value_col: [0, 1, 2, 3, ],
-    })
-
-    _expected_df_with_nulls = pd.DataFrame({
-        std_col.STATE_NAME_COL: ["Florida", "Maine", "Maine", "Maine", "Florida", "Florida"],
-        "sex": ["All", "Male", "Female", "All", "Male", "Female", ],
-        _value_col: [0, 1, 2, 3, np.nan, np.nan, ],
-    })
-
-    assert_frame_equal(
-        null_expected_rows(_fake_df, "sex", _value_col),
-        _expected_df_with_nulls,
-        check_like=True)
-
-    with pytest.raises(ValueError):
-        # wrong demographic argument
-        null_expected_rows(_fake_by_race_df, "age", "foo")
-
-    with pytest.raises(ValueError):
-        # wrong value column
-        null_expected_rows(_fake_by_race_df, "sex", _value_col)
-
 # MOCKS FOR READING IN TABLES
 
 
