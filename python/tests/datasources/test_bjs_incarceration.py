@@ -1,10 +1,8 @@
 from unittest import mock
 import os
-import numpy as np
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
-import pytest
 from test_utils import get_state_fips_codes_as_df
 from datasources.bjs import (BJSData)
 from datasources.bjs_table_utils import (
