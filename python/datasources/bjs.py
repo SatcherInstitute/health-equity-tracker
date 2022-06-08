@@ -28,7 +28,6 @@ from datasources.bjs_table_utils import (standardize_table_2_df,
                                          TABLE_13,
                                          TABLE_23,
                                          load_tables,
-                                         null_expected_rows
                                          )
 
 
