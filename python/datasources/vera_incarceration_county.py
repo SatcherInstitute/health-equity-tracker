@@ -8,6 +8,8 @@ COUNTY_FIPS_COL = 'fips'
 COUNTY_COL = 'recip_county'
 BASE_VERA_URL = 'https://github.com/vera-institute/incarceration_trends/blob/master/incarceration_trends.csv?raw=true'
 
+# VERA_RACE_COLS =
+
 
 class VeraIncarcerationCounty(DataSource):
 
@@ -26,6 +28,58 @@ class VeraIncarcerationCounty(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_VERA_URL, dtype={COUNTY_FIPS_COL: str}, )
+
+        df = df[df["year"] == "2018"].reset_index(drop=True)
+
+        df = df[["fips",
+                "state",
+                 "county_name",
+                 #  "total_pop",
+                 "total_jail_pop",
+                 # by sex
+                 "female_jail_pop",
+                 "male_jail_pop",
+                 # by age(sum sexes)
+                 "female_adult_jail_pop",
+                 "female_juvenile_jail_pop",
+                 "male_adult_jail_pop",
+                 "male_juvenile_jail_pop",
+                 # by race
+                 "aapi_jail_pop",
+                 "black_jail_pop",
+                 "latinx_jail_pop",
+                 "native_jail_pop",
+                 "white_jail_pop",
+                 "other_race_jail_pop",
+                 #  "total_prison_pop",
+                 #  "female_prison_pop",
+                 #  "male_prison_pop",
+                 #  "aapi_prison_pop",
+                 #  "black_prison_pop",
+                 #  "latinx_prison_pop",
+                 #  "native_prison_pop",
+                 #  "other_race_prison_pop",
+                 #  "white_prison_pop",
+                 "total_jail_pop_rate",
+                 "female_jail_pop_rate",
+                 "male_jail_pop_rate",
+                 "aapi_jail_pop_rate",
+                 "black_jail_pop_rate",
+                 "latinx_jail_pop_rate",
+                 "native_jail_pop_rate",
+                 "white_jail_pop_rate",
+                 #  "total_prison_pop_rate",
+                 #  "female_prison_pop_rate",
+                 #  "male_prison_pop_rate",
+                 #  "aapi_prison_pop_rate",
+                 #  "black_prison_pop_rate",
+                 #  "latinx_prison_pop_rate",
+                 #  "native_prison_pop_rate",
+                 #  "white_prison_pop_rate",
+                 ]]
+
+        print("\n\n")
+        print(df.to_string())
 
         df = self.generate_for_bq(df)
 

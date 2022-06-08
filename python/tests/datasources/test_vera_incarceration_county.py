@@ -12,11 +12,13 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data",
                         "vera_incarceration_county")
 
 GOLDEN_DATA = os.path.join(
-    TEST_DIR, 'vera_incarceration_county-race_and_ethnicity.csv')
+    TEST_DIR, 'vera_incarceration_county-race_and_ethnicity.json')
 
 
 def get_mocked_data_as_df():
-    return pd.read_csv(os.path.join(TEST_DIR, 'vera_incarceration_county_input.csv'), dtype=str)
+    df = pd.read_csv(os.path.join(
+        TEST_DIR, 'vera_incarceration_county_test_input.csv'), dtype=str)
+    return df
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
