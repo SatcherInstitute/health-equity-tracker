@@ -15,7 +15,6 @@ from datasources.bjs_table_utils import (
     keep_only_national,
     strip_footnote_refs_from_df,
     cols_to_rows,
-    null_expected_rows
 )
 
 
