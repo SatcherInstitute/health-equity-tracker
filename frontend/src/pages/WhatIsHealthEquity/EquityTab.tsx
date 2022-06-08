@@ -10,8 +10,8 @@ import {
   DYNAMIC_COPY_KEY,
   fetchCopyData,
   REACT_QUERY_OPTIONS,
-  WIHE_JOIN_THE_EFFORT_SECTION_ID,
 } from "../../utils/urlutils";
+import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "../../utils/internalRoutes";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet-async";

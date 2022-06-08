@@ -9,12 +9,12 @@ import {
   getPhraseValue,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
+import { LinkWithStickyParams } from "../utils/urlutils";
 import {
-  LinkWithStickyParams,
   DATA_CATALOG_PAGE_LINK,
   CONTACT_TAB_LINK,
   METHODOLOGY_TAB_LINK,
-} from "../utils/urlutils";
+} from "../utils/internalRoutes";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import styles from "./Report.module.scss";
