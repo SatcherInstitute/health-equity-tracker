@@ -81,6 +81,14 @@ class VeraIncarcerationCounty(DataSource):
         print("\n\n")
         print(df.to_string())
 
+        # rename columns as expected
+        # iterate over AGE SEX RACE
+        # create df subset of columns for each
+        # calculate unknown is TOTAL - (sum of known)
+        # melt columns into our geo/demo per row format
+        # generate pct_share_with_unknowns
+        # keep existing pop/rate fields or recalculate with ACS 5yr?
+
         df = self.generate_for_bq(df)
 
         column_types = {c: 'STRING' for c in df.columns}
