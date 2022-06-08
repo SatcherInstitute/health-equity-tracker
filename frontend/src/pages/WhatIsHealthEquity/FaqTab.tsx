@@ -6,7 +6,7 @@ import {
   AGE_ADJUSTMENT_TAB_LINK,
   CONTACT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
-} from "../../utils/urlutils";
+} from "../../utils/internalRoutes";
 import { Helmet } from "react-helmet-async";
 import { CITATION_APA } from "../DataCatalog/MethodologyTab";
 import { getHtml } from "../../utils/urlutils";
