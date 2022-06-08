@@ -103,21 +103,21 @@ class VeraIncarcerationCounty(DataSource):
     def generate_for_bq(self, df):
         output = []
 
+        # for _, row in df.iterrows():
+        #     output_row = {}
+        #     output_row[std_col.COUNTY_FIPS_COL] = row[COUNTY_FIPS_COL]
+        #     output_row[std_col.COUNTY_NAME_COL] = row[COUNTY_COL]
+        #     output_row[std_col.RACE_CATEGORY_ID_COL] = Race.ALL.value
+        #     # output_row[std_col.VACCINATED_FIRST_DOSE] = row['administered_dose1_recip']
+
+        #     output.append(output_row)
+
         columns = [
             std_col.COUNTY_FIPS_COL,
             std_col.COUNTY_NAME_COL,
             std_col.RACE_CATEGORY_ID_COL,
             # std_col.VACCINATED_FIRST_DOSE,
         ]
-
-        for _, row in df.iterrows():
-            output_row = {}
-            output_row[std_col.COUNTY_FIPS_COL] = row[COUNTY_FIPS_COL]
-            output_row[std_col.COUNTY_NAME_COL] = row[COUNTY_COL]
-            output_row[std_col.RACE_CATEGORY_ID_COL] = Race.ALL.value
-            # output_row[std_col.VACCINATED_FIRST_DOSE] = row['administered_dose1_recip']
-
-            output.append(output_row)
 
         output_df = pd.DataFrame(output, columns=columns)
         std_col.add_race_columns_from_category_id(output_df)
