@@ -1,5 +1,6 @@
 from unittest import mock
 import os
+import numpy as np
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
@@ -15,6 +16,7 @@ from datasources.bjs_table_utils import (
     keep_only_national,
     strip_footnote_refs_from_df,
     cols_to_rows,
+    add_missing_demographic_values
 )
 
 
@@ -182,6 +184,29 @@ def test_swap_race_col_names_to_codes():
         swap_race_col_names_to_codes(_fake_df),
         _expected_df_swapped_cols,
         check_like=True)
+
+
+def test_add_missing_demographic_values():
+
+    _value_col = "foo_estimated_total"
+
+    _fake_df = pd.DataFrame({
+        std_col.STATE_NAME_COL: ["Florida", "Maine", "Maine", "Maine", ],
+        "sex": ["All", "Male", "Female", "All", ],
+        _value_col: [0, 1, 2, 3, ],
+    })
+
+    _expected_df_with_nulls = pd.DataFrame({
+        std_col.STATE_NAME_COL: ["Florida", "Maine", "Maine", "Maine", "Florida", "Florida"],
+        "sex": ["All", "Male", "Female", "All", "Male", "Female", ],
+        _value_col: [0, 1, 2, 3, np.nan, np.nan, ],
+    })
+
+    assert_frame_equal(
+        add_missing_demographic_values(_fake_df, "sex", _value_col),
+        _expected_df_with_nulls,
+        check_like=True)
+
 
 # MOCKS FOR READING IN TABLES
 

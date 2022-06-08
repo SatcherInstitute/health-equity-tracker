@@ -33,17 +33,17 @@
     },
     {
         "state_name": "American Samoa",
-        "sex": "Female",
+        "sex": "Male",
         "state_fips": "60",
-        "population_pct": 49.3,
+        "population_pct": 50.7,
         "prison_per_100k": null,
         "prison_pct_share": null
     },
     {
         "state_name": "American Samoa",
-        "sex": "Male",
+        "sex": "Female",
         "state_fips": "60",
-        "population_pct": 50.7,
+        "population_pct": 49.3,
         "prison_per_100k": null,
         "prison_pct_share": null
     }
