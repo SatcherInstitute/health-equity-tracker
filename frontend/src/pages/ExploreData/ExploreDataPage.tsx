@@ -27,8 +27,8 @@ import {
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
   useSearchParams,
-  WHAT_DATA_ARE_MISSING_ID,
 } from "../../utils/urlutils";
+import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 import styles from "./ExploreDataPage.module.scss";
 import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";

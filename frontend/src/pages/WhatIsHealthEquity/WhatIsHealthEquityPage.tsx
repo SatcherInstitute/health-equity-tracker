@@ -3,13 +3,13 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import EquityTab from "./EquityTab";
 import FaqTab from "./FaqTab";
+import { useUrlSearchParams } from "../../utils/urlutils";
 import {
   NEWS_TAB_LINK,
   FAQ_TAB_LINK,
   RESOURCES_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  useUrlSearchParams,
-} from "../../utils/urlutils";
+} from "../../utils/internalRoutes";
 import ResourcesTab from "./ResourcesTab";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";

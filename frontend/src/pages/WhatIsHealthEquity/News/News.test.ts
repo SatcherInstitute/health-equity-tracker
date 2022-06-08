@@ -46,7 +46,7 @@ describe.each(testEndpoints)(
       5 * 60 * 1000
     );
     test("should use HTTPS", () => {
-      expect(endpoint.slice(0, 8)).toEqual("https://");
+      expect(endpoint.startsWith("https://")).toBe(true);
     });
   }
 );
