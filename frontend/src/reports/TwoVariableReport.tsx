@@ -199,7 +199,7 @@ function TwoVariableReport(props: {
 
       {/* SIDE-BY-SIDE 100K MAP CARDS */}
       <RowOfTwoOptionalMetrics
-        id="mapCard"
+        id="map"
         variableConfig1={variableConfig1}
         variableConfig2={variableConfig2}
         fips1={props.fips1}
@@ -229,7 +229,7 @@ function TwoVariableReport(props: {
         !breakdownIsShown(breakdownVar) ? null : (
           <Fragment key={breakdownVar}>
             <RowOfTwoOptionalMetrics
-              id="simpleBarChartCard"
+              id="bar"
               variableConfig1={variableConfig1}
               variableConfig2={variableConfig2}
               fips1={props.fips1}
@@ -252,7 +252,7 @@ function TwoVariableReport(props: {
 
       {/* SIDE-BY-SIDE UNKNOWNS MAP CARDS */}
       <RowOfTwoOptionalMetrics
-        id="unknownsMapCard"
+        id="unknowns"
         variableConfig1={variableConfig1}
         variableConfig2={variableConfig2}
         fips1={props.fips1}
@@ -282,7 +282,7 @@ function TwoVariableReport(props: {
         !breakdownIsShown(breakdownVar) ? null : (
           <Fragment key={breakdownVar}>
             <RowOfTwoOptionalMetrics
-              id="disparityBarChartCard"
+              id="disparity"
               variableConfig1={variableConfig1}
               variableConfig2={variableConfig2}
               fips1={props.fips1}
@@ -307,7 +307,7 @@ function TwoVariableReport(props: {
       {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
         !breakdownIsShown(breakdownVar) ? null : (
           <RowOfTwoOptionalMetrics
-            id="tableCard"
+            id="table"
             key={breakdownVar}
             variableConfig1={variableConfig1}
             variableConfig2={variableConfig2}
@@ -333,7 +333,7 @@ function TwoVariableReport(props: {
       {/* SIDE-BY-SIDE AGE-ADJUSTED TABLE CARDS */}
 
       <RowOfTwoOptionalMetrics
-        id="ageAdjustedTableCard"
+        id="age-adjusted"
         // specific data type
         variableConfig1={variableConfig1}
         variableConfig2={variableConfig2}
@@ -408,7 +408,7 @@ function RowOfTwoOptionalMetrics(props: {
           )}
         </LazyLoad>
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={6} id={`${props.id}2`}>
         <LazyLoad offset={800} height={600} once>
           {props.variableConfig2 && (
             <>

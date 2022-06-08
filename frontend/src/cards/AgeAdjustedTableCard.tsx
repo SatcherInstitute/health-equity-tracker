@@ -39,7 +39,7 @@ import {
   AGE_ADJUSTMENT_TAB_LINK,
   COVID_DEATHS_US_SETTING,
   COVID_HOSP_US_SETTING,
-} from "../utils/urlutils";
+} from "../utils/internalRoutes";
 import { Link } from "react-router-dom";
 import UnknownsAlert from "./ui/UnknownsAlert";
 
