@@ -5,10 +5,8 @@ from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
 
 COUNTY_FIPS_COL = 'fips'
-COUNTY_COL = 'recip_county'
+# COUNTY_COL = 'recip_county'
 BASE_VERA_URL = 'https://github.com/vera-institute/incarceration_trends/blob/master/incarceration_trends.csv?raw=true'
-
-# VERA_RACE_COLS =
 
 
 class VeraIncarcerationCounty(DataSource):
@@ -32,10 +30,12 @@ class VeraIncarcerationCounty(DataSource):
         df_jail = df.copy()
         df_prison = df.copy()
 
+        # eliminate rows with unneeded years
         df_jail = df_jail[df_jail["year"] == "2018"].reset_index(drop=True)
         df_prison = df_prison[df_prison["year"]
                               == "2016"].reset_index(drop=True)
 
+        # eliminate columns with unneeded properties
         df_prison = df_prison[["fips",
                                "state",
                                "county_name",

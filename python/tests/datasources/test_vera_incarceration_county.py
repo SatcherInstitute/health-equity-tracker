@@ -26,6 +26,7 @@ def get_mocked_data_as_df():
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
+
     veraIncarcerationCounty = VeraIncarcerationCounty()
 
     kwargs = {'filename': 'test_file.csv',
