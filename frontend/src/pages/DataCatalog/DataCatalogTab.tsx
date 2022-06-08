@@ -3,13 +3,12 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import DatasetExplorer from "./dataset_explorer/DatasetExplorer";
 import MethodologyTab from "./MethodologyTab";
+import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from "../../utils/urlutils";
 import {
   DATA_CATALOG_PAGE_LINK,
-  DATA_SOURCE_PRE_FILTERS,
-  useSearchParams,
   METHODOLOGY_TAB_LINK,
   AGE_ADJUSTMENT_TAB_LINK,
-} from "../../utils/urlutils";
+} from "../../utils/internalRoutes";
 import styles from "../AboutUs/AboutUsPage.module.scss";
 import { Link, Route, Switch } from "react-router-dom";
 import FeedbackBox from "../ui/FeedbackBox";

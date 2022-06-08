@@ -4,12 +4,12 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
+import { ReactRouterLinkButton } from "../../utils/urlutils";
 import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
-  ReactRouterLinkButton,
-} from "../../utils/urlutils";
+} from "../../utils/internalRoutes";
 import FaqSection from "../ui/FaqSection";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";

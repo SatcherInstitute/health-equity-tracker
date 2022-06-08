@@ -3,8 +3,8 @@ import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
 import {
   LinkWithStickyParams,
   DATA_SOURCE_PRE_FILTERS,
-  DATA_CATALOG_PAGE_LINK,
 } from "../../utils/urlutils";
+import { DATA_CATALOG_PAGE_LINK } from "../../utils/internalRoutes";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 

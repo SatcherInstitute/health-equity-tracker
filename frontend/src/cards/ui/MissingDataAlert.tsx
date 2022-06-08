@@ -1,10 +1,10 @@
 import React from "react";
 import { Alert } from "@material-ui/lab";
+import { LinkWithStickyParams } from "../../utils/urlutils";
 import {
   EXPLORE_DATA_PAGE_LINK,
-  LinkWithStickyParams,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-} from "../../utils/urlutils";
+} from "../../utils/internalRoutes";
 import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
 import { Fips } from "../../data/utils/Fips";
 import {
