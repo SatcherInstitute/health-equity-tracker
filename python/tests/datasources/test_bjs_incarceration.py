@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
+import pytest
 from test_utils import get_state_fips_codes_as_df
 from datasources.bjs import (BJSData)
 from datasources.bjs_table_utils import (
@@ -208,8 +209,13 @@ def test_null_expected_rows():
         _expected_df_with_nulls,
         check_like=True)
 
-    null_expected_rows(_fake_by_race_df, "age", "foo")
+    with pytest.raises(ValueError):
+        # wrong demographic argument
+        null_expected_rows(_fake_by_race_df, "age", "foo")
 
+    with pytest.raises(ValueError):
+        # wrong value column
+        null_expected_rows(_fake_by_race_df, "sex", _value_col)
 
 # MOCKS FOR READING IN TABLES
 
