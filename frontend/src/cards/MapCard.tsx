@@ -435,8 +435,8 @@ function MapCardWithKey(props: MapCardProps) {
                         lowestRatesList={lowestRatesList}
                         fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
                         jumpToData={props.jumpToData}
-                        asteriskItems={COMBINED_INCARCERATION_STATES_LIST}
-                        asteriskMessage={COMBINED_INCARCERATION_STATES_MESSAGE}
+                        qualifierItems={COMBINED_INCARCERATION_STATES_LIST}
+                        qualifierMessage={COMBINED_INCARCERATION_STATES_MESSAGE}
                       />
                     )}
                 </CardContent>

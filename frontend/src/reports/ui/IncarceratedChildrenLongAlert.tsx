@@ -3,9 +3,8 @@ import Alert from "@material-ui/lab/Alert";
 import AlertTitle from "@material-ui/lab/AlertTitle";
 import styles from "./IncarceratedChildrenLongAlert.module.scss";
 import { Link } from "react-router-dom";
-import { METHODOLOGY_TAB_LINK } from "../../utils/urlutils";
-// import GavelIcon from "@material-ui/icons/Gavel";
 import FlagIcon from "@material-ui/icons/Flag";
+import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";
 
 function IncarceratedChildrenLongAlert() {
   return (
@@ -13,7 +12,6 @@ function IncarceratedChildrenLongAlert() {
       <Alert
         severity="error"
         className={styles.ReportAlert}
-        // icon={<GavelIcon />}
         icon={<FlagIcon />}
         role="note"
       >

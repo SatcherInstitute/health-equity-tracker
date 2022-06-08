@@ -29,18 +29,18 @@ export interface HighestLowestListProps {
   lowestRatesList: Row[];
   // to scroll user to bottom text box about Missing Data
   jumpToData: Function;
-  // items in highest/lowest list that should receive asterisks
-  asteriskItems?: string[];
-  // message to display under a list with asterisks
-  asteriskMessage?: string;
+  // items in highest/lowest list that should receive qualifiers
+  qualifierItems?: string[];
+  // message to display under a list with qualifiers
+  qualifierMessage?: string;
 }
 
 /*
    Collapsible box showing lists of geographies with the highest and lowest rates
 */
 export function HighestLowestList(props: HighestLowestListProps) {
-  function addAsterisk(fipsName: string) {
-    return props.asteriskItems?.includes(fipsName)
+  function addqualifier(fipsName: string) {
+    return props.qualifierItems?.includes(fipsName)
       ? " (combined prison & jail)"
       : "";
   }
@@ -91,7 +91,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
                     return (
                       <li key={row["fips_name"]}>
                         {row["fips_name"]}
-                        {addAsterisk(row["fips_name"])}:{" "}
+                        {addqualifier(row["fips_name"])}:{" "}
                         {formatFieldValue(
                           props.metricConfig.type,
                           row[props.metricConfig.metricId]
@@ -113,7 +113,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
                     return (
                       <li key={row["fips_name"]}>
                         {row["fips_name"]}
-                        {addAsterisk(row["fips_name"])}:{" "}
+                        {addqualifier(row["fips_name"])}:{" "}
                         {formatFieldValue(
                           props.metricConfig.type,
                           row[props.metricConfig.metricId]
