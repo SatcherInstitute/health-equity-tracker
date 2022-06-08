@@ -397,11 +397,11 @@ def cols_to_rows(df, demographic_groups, demographic_col, value_col):
                    value_name=value_col)
 
 
-def add_missing_demographic_values(df, demographic, null_values_column):
+def null_expected_rows(df, demographic, null_values_column):
     """
-    For dataframes where some geo/demo rows are expected to be missing data
-    (e.g. only the "All" value is known), we need to manually fill in those missing
-    rows with null to allow the pct_share functions to operate properly
+    For dataframes where some geo/demo rows are expected to be null / missing data
+    (e.g. only the "All" value is known for that place), we need to manually fill in those missing
+    geo/demo rows to allow the pct_share functions to operate properly
 
     Parameters:
         df: pandas dataframe with columns | "state_name" | "age" or "sex" or "race_category_id"
@@ -412,6 +412,16 @@ def add_missing_demographic_values(df, demographic, null_values_column):
         df with additional rows containing the missing geo/demo rows with null values
 
     """
+    if std_col.STATE_NAME_COL not in df or null_values_column not in df:
+        raise ValueError(
+            (f'Dataframe must contain a "state_name" column and your null_values_column: "{null_values_column}".' +
+             f'Your dataframe only contains these columns: {list(df.columns)}'))
+
+    valid_demographics = ["sex", "race_and_ethnicity"]
+    if demographic not in valid_demographics:
+        raise ValueError(
+            f'demographic "{demographic}" is not valid; it must be one of: {valid_demographics}')
+
     unique_places = df[std_col.STATE_NAME_COL].drop_duplicates()
 
     expected_groups = STANDARD_RACE_CODES if demographic == "race_and_ethnicity" else BJS_SEX_GROUPS
@@ -426,7 +436,7 @@ def add_missing_demographic_values(df, demographic, null_values_column):
                 missing_rows.append(
                     {std_col.STATE_NAME_COL: place, demo_col: group, null_values_column: np.nan})
 
-    # so territories are in the same order as states
+    # so new, nulled rows are in the same order as states
     missing_rows.reverse()
 
     missing_df = pd.DataFrame(missing_rows, columns=[

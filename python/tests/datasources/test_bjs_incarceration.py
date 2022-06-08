@@ -16,7 +16,7 @@ from datasources.bjs_table_utils import (
     keep_only_national,
     strip_footnote_refs_from_df,
     cols_to_rows,
-    add_missing_demographic_values
+    null_expected_rows
 )
 
 
@@ -186,10 +186,11 @@ def test_swap_race_col_names_to_codes():
         check_like=True)
 
 
-def test_add_missing_demographic_values():
+def test_null_expected_rows():
 
     _value_col = "foo_estimated_total"
 
+    #  Florida is missing demographic rows, only has "All"
     _fake_df = pd.DataFrame({
         std_col.STATE_NAME_COL: ["Florida", "Maine", "Maine", "Maine", ],
         "sex": ["All", "Male", "Female", "All", ],
@@ -203,9 +204,11 @@ def test_add_missing_demographic_values():
     })
 
     assert_frame_equal(
-        add_missing_demographic_values(_fake_df, "sex", _value_col),
+        null_expected_rows(_fake_df, "sex", _value_col),
         _expected_df_with_nulls,
         check_like=True)
+
+    null_expected_rows(_fake_by_race_df, "age", "foo")
 
 
 # MOCKS FOR READING IN TABLES

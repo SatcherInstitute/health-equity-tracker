@@ -28,7 +28,7 @@ from datasources.bjs_table_utils import (standardize_table_2_df,
                                          TABLE_13,
                                          TABLE_23,
                                          load_tables,
-                                         add_missing_demographic_values
+                                         null_expected_rows
                                          )
 
 
@@ -94,7 +94,7 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
         # melt territories separately, fill in missing nulls, and then combine with states
         df_territories = cols_to_rows(
             df_territories, expected_demo_groups, demo_for_flip, RAW_COL)
-        df_territories = add_missing_demographic_values(
+        df_territories = null_expected_rows(
             df_territories, demo, RAW_COL)
         df = df.append(df_territories)
 
