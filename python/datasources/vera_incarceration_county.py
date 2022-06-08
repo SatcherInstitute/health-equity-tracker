@@ -32,8 +32,6 @@ class VeraIncarcerationCounty(DataSource):
         df_jail = df.copy()
         df_prison = df.copy()
 
-        print(df[["year", "black_prison_pop"]].to_string())
-
         df_jail = df_jail[df_jail["year"] == "2018"].reset_index(drop=True)
         df_prison = df_prison[df_prison["year"]
                               == "2016"].reset_index(drop=True)
@@ -133,8 +131,8 @@ class VeraIncarcerationCounty(DataSource):
                            ]]
 
         print("\n\n")
-        # print(df_jail.to_string())
-        # print(df_prison.to_string())
+        print(df_jail.to_string())
+        print(df_prison.to_string())
 
         # rename columns as expected
         # iterate over AGE SEX RACE
@@ -156,25 +154,14 @@ class VeraIncarcerationCounty(DataSource):
             df, dataset, "race_and_ethnicity", column_types=column_types)
 
     def generate_for_bq(self, df):
-        output = []
 
-        # for _, row in df.iterrows():
-        #     output_row = {}
-        #     output_row[std_col.COUNTY_FIPS_COL] = row[COUNTY_FIPS_COL]
-        #     output_row[std_col.COUNTY_NAME_COL] = row[COUNTY_COL]
-        #     output_row[std_col.RACE_CATEGORY_ID_COL] = Race.ALL.value
-        #     # output_row[std_col.VACCINATED_FIRST_DOSE] = row['administered_dose1_recip']
+        # columns = [
+        #     std_col.COUNTY_FIPS_COL,
+        #     std_col.COUNTY_NAME_COL,
+        #     std_col.RACE_CATEGORY_ID_COL,
+        #     # std_col.VACCINATED_FIRST_DOSE,
+        # ]
 
-        #     output.append(output_row)
+        std_col.add_race_columns_from_category_id(df)
 
-        columns = [
-            std_col.COUNTY_FIPS_COL,
-            std_col.COUNTY_NAME_COL,
-            std_col.RACE_CATEGORY_ID_COL,
-            # std_col.VACCINATED_FIRST_DOSE,
-        ]
-
-        output_df = pd.DataFrame(output, columns=columns)
-        std_col.add_race_columns_from_category_id(output_df)
-
-        return output_df
+        return df
