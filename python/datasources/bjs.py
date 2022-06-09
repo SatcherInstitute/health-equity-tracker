@@ -275,7 +275,7 @@ class BJSData(DataSource):
                 table_name = f'{breakdown}_{geo_level}'
 
                 df = self.generate_breakdown_df(
-                    breakdown, geo_level, table_name, table_lookup, )
+                    breakdown, geo_level, table_lookup[table_name])
 
                 # set / add BQ types
                 column_types = {c: 'STRING' for c in df.columns}
@@ -291,7 +291,7 @@ class BJSData(DataSource):
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=column_types)
 
-    def generate_breakdown_df(self, breakdown, geo_level, table_name, table_lookup, ):
+    def generate_breakdown_df(self, breakdown, geo_level, table_list, ):
         """
         Accepts demographic and geographic settings, along with the mapping of BJS tables
         to HET breakdowns, and generates the specified HET breakdown
@@ -309,13 +309,13 @@ class BJSData(DataSource):
         if breakdown == std_col.AGE_COL:
             if geo_level == NATIONAL_LEVEL:
                 raw_df = generate_raw_national_age_breakdown(
-                    table_lookup[table_name])
+                    table_list)
             if geo_level == STATE_LEVEL:
                 raw_df = generate_raw_state_age_breakdown(
-                    table_lookup[table_name])
+                    table_list)
         else:
             raw_df = generate_raw_race_or_sex_breakdown(
-                breakdown, geo_level, table_lookup[table_name])
+                breakdown, geo_level, table_list)
 
         processed_df = post_process(raw_df, breakdown, geo_level)
         return processed_df

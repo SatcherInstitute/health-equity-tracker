@@ -185,10 +185,6 @@ def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_jso
         'state_fips': str,
     })
 
-    # save results to file
-    # mock_bq.call_args_list[3].args[0].to_csv(
-    #     "acs-run-results-state.csv")
-
     assert_frame_equal(
         mock_bq.call_args_list[3].args[0], expected_df, check_like=True)
 

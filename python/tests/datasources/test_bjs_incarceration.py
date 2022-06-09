@@ -1,5 +1,6 @@
 from unittest import mock
 import os
+from io import StringIO
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
@@ -43,6 +44,58 @@ def _get_pop_as_df(*args):
     return df
 
 
+def _get_standardized_table2():
+    table_2_data = StringIO("""All,Male,Female,state_name
+1215821.0,1132767.0,83054.0,U.S. total
+25328.0,23166.0,2162.0,Alabama""")
+    df_2 = pd.read_csv(table_2_data, sep=",")
+    return df_2
+
+
+def _get_standardized_table10():
+    table_10_data = StringIO("""age,prison_pct_share,state_name
+All,100.0,United States
+18-19,0.6,United States
+20-24,7.5,United States
+25-29,14.5,United States
+30-34,16.3,United States
+35-39,15.8,United States
+40-44,13.0,United States
+45-49,10.1,United States
+50-54,8.1,United States
+55-59,6.5,United States
+60-64,4.0,United States
+65+,3.5,United States
+Number of sentenced prisoners,1182166.0,United States""")
+    df_10 = pd.read_csv(table_10_data, sep=",")
+    return df_10
+
+
+def _get_standardized_table13():
+    table_13_data = StringIO("""state_name,prison_estimated_total,age
+United States,352,0-17
+Alabama,1,0-17
+    """)
+    df_13 = pd.read_csv(table_13_data, sep=",")
+    return df_13
+
+
+def _get_standardized_table23():
+    table_23_data = StringIO("""ALL,state_name
+196.0,American Samoa""")
+    df_23 = pd.read_csv(table_23_data, sep=",")
+    return df_23
+
+
+def _get_standardized_table_app2():
+    table_app_2_data = StringIO("""ALL,WHITE_NH,BLACK_NH,HISP,AIAN_NH,ASIAN_NH,NHPI_NH,MULTI_NH,OTHER_STANDARD_NH,UNKNOWN,state_name
+152156.0,44852.0,55391.0,46162.0,3488.0,2262.0,,,0.0,1.0,Federal
+,,,,,,,,,,State
+25328.0,11607.0,13519.0,0.0,2.0,3.0,0.0,0.0,0.0,197.0,Alabama""")
+    df_app_2 = pd.read_csv(table_app_2_data, sep=",")
+    return df_app_2
+
+
 # INTEGRATION TEST SETUP
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -59,11 +112,60 @@ GOLDEN_DATA = {
     'sex_state': os.path.join(TEST_DIR, 'bjs_test_output_sex_state.json'),
 }
 
+expected_dtype = {
+    'state_name': str,
+    'state_fips': str,
+    "prison_per_100k": float,
+    "prison_pct_share": float,
+    "population": object,
+    "population_pct": float,
+}
+expected_dtype_age = {
+    **expected_dtype,
+    'age': str,
+}
 
-# INTEGRATION TESTS
+
+# INTEGRATION TEST - NATIONAL AGE
+@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=get_state_fips_codes_as_df())
+def testGenerateBreakdownAgeNational(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+
+    df_10 = _get_standardized_table10()
+    df_13 = _get_standardized_table13()
+
+    bjs_data = BJSData()
+    df = bjs_data.generate_breakdown_df("age", "national", [df_10, df_13])
+
+    expected_df_age_national = pd.read_json(
+        GOLDEN_DATA['age_national'], dtype=expected_dtype_age)
+
+    assert_frame_equal(df, expected_df_age_national, check_like=True)
+
+# INTEGRATION TEST - STATE AGE
 
 
-# TEST CORRECT NETWORK CALLS FOR MAIN FUNCTION
+@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=get_state_fips_codes_as_df())
+def testGenerateBreakdownAgeState(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+
+    df_2 = _get_standardized_table2()
+    df_13 = _get_standardized_table13()
+    df_23 = _get_standardized_table23()
+
+    bjs_data = BJSData()
+    df = bjs_data.generate_breakdown_df("age", "state", [df_2, df_13, df_23])
+
+    expected_df_age_state = pd.read_json(
+        GOLDEN_DATA['age_state'], dtype=expected_dtype_age)
+
+    assert_frame_equal(df, expected_df_age_state, check_like=True)
+
+# INTEGRATION TEST - CORRECT NETWORK CALLS
+
+
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
