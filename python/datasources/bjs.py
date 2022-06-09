@@ -246,7 +246,12 @@ class BJSData(DataSource):
             'upload_to_gcs should not be called for BJSData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
+        """
+        Main function for this data source that fetches external data and runs
+        needed cleaning and standardization, and then writes needed tables to
+        BigQuery
 
+        """
         loaded_tables = load_tables(BJS_PRISONERS_ZIP)
         df_2 = standardize_table_2_df(loaded_tables[TABLE_2])
         df_10 = standardize_table_10_df(loaded_tables[TABLE_10])
@@ -269,18 +274,8 @@ class BJSData(DataSource):
             for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
                 table_name = f'{breakdown}_{geo_level}'
 
-                if breakdown == std_col.AGE_COL:
-                    if geo_level == NATIONAL_LEVEL:
-                        df = generate_raw_national_age_breakdown(
-                            table_lookup[table_name])
-                    if geo_level == STATE_LEVEL:
-                        df = generate_raw_state_age_breakdown(
-                            table_lookup[table_name])
-                else:
-                    df = generate_raw_race_or_sex_breakdown(
-                        breakdown, geo_level, table_lookup[table_name])
-
-                df = post_process(df, breakdown, geo_level)
+                df = self.generate_breakdown_df(
+                    breakdown, geo_level, table_name, table_lookup, )
 
                 # set / add BQ types
                 column_types = {c: 'STRING' for c in df.columns}
@@ -295,3 +290,32 @@ class BJSData(DataSource):
 
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=column_types)
+
+    def generate_breakdown_df(self, breakdown, geo_level, table_name, table_lookup, ):
+        """
+        Accepts demographic and geographic settings, along with the mapping of BJS tables
+        to HET breakdowns, and generates the specified HET breakdown
+
+        Parameters:
+            breakdown: string of "age", "race_and_ethnicity", or "sex" to determine
+                resulting demographic breakdown
+            geo_level: string of "national" or "state" to determine resulting
+                geographic breakdown
+            table_name: string combining breakdown and geo_level
+            table_lookup: dictionary mapping HET table_name to a list of BJS tables
+        Returns:
+            Processed HET style df ready for BigQuery and HET frontend
+        """
+        if breakdown == std_col.AGE_COL:
+            if geo_level == NATIONAL_LEVEL:
+                raw_df = generate_raw_national_age_breakdown(
+                    table_lookup[table_name])
+            if geo_level == STATE_LEVEL:
+                raw_df = generate_raw_state_age_breakdown(
+                    table_lookup[table_name])
+        else:
+            raw_df = generate_raw_race_or_sex_breakdown(
+                breakdown, geo_level, table_lookup[table_name])
+
+        processed_df = post_process(raw_df, breakdown, geo_level)
+        return processed_df

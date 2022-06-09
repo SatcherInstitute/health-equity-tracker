@@ -10,8 +10,8 @@ from datasources.bjs_table_utils import (bjs_prisoners_tables,
                                          missing_data_to_none,
                                          set_state_col)
 
-
 # MOCKS FOR READING IN TABLES
+
 
 def get_test_table_files():
 
@@ -60,9 +60,10 @@ GOLDEN_DATA = {
 }
 
 
-# RUN INTEGRATION TESTS ON NATIONAL LEVEL
+# INTEGRATION TESTS
 
 
+# TEST CORRECT NETWORK CALLS FOR MAIN FUNCTION
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
@@ -70,11 +71,11 @@ GOLDEN_DATA = {
              return_value=get_test_table_files())
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
-def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
-                               mock_zip: mock.MagicMock,
-                               mock_fips: mock.MagicMock,
-                               mock_pop: mock.MagicMock
-                               ):
+def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
+                              mock_zip: mock.MagicMock,
+                              mock_fips: mock.MagicMock,
+                              mock_pop: mock.MagicMock
+                              ):
 
     bjs_data = BJSData()
 
@@ -86,12 +87,14 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
     bjs_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
-    mock_df_national_age = mock_bq.call_args_list[0][0][0]
-    mock_df_national_race = mock_bq.call_args_list[1][0][0]
-    mock_df_national_sex = mock_bq.call_args_list[2][0][0]
-    mock_df_state_age = mock_bq.call_args_list[3][0][0]
-    mock_df_state_race = mock_bq.call_args_list[4][0][0]
-    mock_df_state_sex = mock_bq.call_args_list[5][0][0]
+
+    # Un-comment to view output
+    # mock_df_national_age = mock_bq.call_args_list[0][0][0]
+    # mock_df_national_race = mock_bq.call_args_list[1][0][0]
+    # mock_df_national_sex = mock_bq.call_args_list[2][0][0]
+    # mock_df_state_age = mock_bq.call_args_list[3][0][0]
+    # mock_df_state_race = mock_bq.call_args_list[4][0][0]
+    # mock_df_state_sex = mock_bq.call_args_list[5][0][0]
 
     assert mock_zip.call_count == 1
 
@@ -114,77 +117,77 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
 
 # COMPARE MOCKED BREAKDOWNS (PROCESSED TEST INPUT) TO EXPECTED BREAKDOWNS (TEST OUTPUT)
 
-    expected_dtype = {
-        'state_name': str,
-        'state_fips': str,
-        "prison_per_100k": float,
-        "prison_pct_share": float,
-        "population": object,
-        "population_pct": float,
-    }
-    expected_dtype_age = {
-        **expected_dtype,
-        'age': str,
-    }
-    expected_dtype_race = {
-        **expected_dtype,
-        'race_and_ethnicity': str,
-        'race': str,
-        'race_includes_hispanic': object,
-        'race_category_id': str,
-    }
+    # expected_dtype = {
+    #     'state_name': str,
+    #     'state_fips': str,
+    #     "prison_per_100k": float,
+    #     "prison_pct_share": float,
+    #     "population": object,
+    #     "population_pct": float,
+    # }
+    # expected_dtype_age = {
+    #     **expected_dtype,
+    #     'age': str,
+    # }
+    # expected_dtype_race = {
+    #     **expected_dtype,
+    #     'race_and_ethnicity': str,
+    #     'race': str,
+    #     'race_includes_hispanic': object,
+    #     'race_category_id': str,
+    # }
 
-    expected_dtype_sex = {
-        **expected_dtype,
-        'sex': str,
-    }
+    # expected_dtype_sex = {
+    #     **expected_dtype,
+    #     'sex': str,
+    # }
 
-    # read test OUTPUT file
-    expected_df_age_national = pd.read_json(
-        GOLDEN_DATA['age_national'], dtype=expected_dtype_age)
+    # # read test OUTPUT file
+    # expected_df_age_national = pd.read_json(
+    #     GOLDEN_DATA['age_national'], dtype=expected_dtype_age)
 
-    expected_df_race_national = pd.read_json(
-        GOLDEN_DATA['race_and_ethnicity_national'], dtype=expected_dtype_race)
+    # expected_df_race_national = pd.read_json(
+    #     GOLDEN_DATA['race_and_ethnicity_national'], dtype=expected_dtype_race)
 
-    expected_df_sex_national = pd.read_json(
-        GOLDEN_DATA['sex_national'], dtype=expected_dtype_sex)
+    # expected_df_sex_national = pd.read_json(
+    #     GOLDEN_DATA['sex_national'], dtype=expected_dtype_sex)
 
-    expected_df_age_state = pd.read_json(
-        GOLDEN_DATA['age_state'], dtype=expected_dtype_age)
+    # expected_df_age_state = pd.read_json(
+    #     GOLDEN_DATA['age_state'], dtype=expected_dtype_age)
 
-    expected_df_race_state = pd.read_json(
-        GOLDEN_DATA['race_state'], dtype=expected_dtype_race)
+    # expected_df_race_state = pd.read_json(
+    #     GOLDEN_DATA['race_state'], dtype=expected_dtype_race)
 
-    expected_df_sex_state = pd.read_json(
-        GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex)
+    # expected_df_sex_state = pd.read_json(
+    #     GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex)
 
-    # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
-    assert set(mock_df_national_race.columns) == set(
-        expected_df_race_national.columns)
-    assert_frame_equal(
-        mock_df_national_race, expected_df_race_national, check_like=True)
+    # # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
+    # assert set(mock_df_national_race.columns) == set(
+    #     expected_df_race_national.columns)
+    # assert_frame_equal(
+    #     mock_df_national_race, expected_df_race_national, check_like=True)
 
-    assert set(mock_df_national_sex.columns) == set(
-        expected_df_sex_national.columns)
-    assert_frame_equal(
-        mock_df_national_sex, expected_df_sex_national, check_like=True)
+    # assert set(mock_df_national_sex.columns) == set(
+    #     expected_df_sex_national.columns)
+    # assert_frame_equal(
+    #     mock_df_national_sex, expected_df_sex_national, check_like=True)
 
-    assert set(mock_df_national_age.columns) == set(
-        expected_df_age_national.columns)
-    assert_frame_equal(
-        mock_df_national_age, expected_df_age_national, check_like=True)
+    # assert set(mock_df_national_age.columns) == set(
+    #     expected_df_age_national.columns)
+    # assert_frame_equal(
+    #     mock_df_national_age, expected_df_age_national, check_like=True)
 
-    assert set(mock_df_state_race.columns) == set(
-        expected_df_race_state.columns)
-    assert_frame_equal(
-        mock_df_state_race, expected_df_race_state, check_like=True)
+    # assert set(mock_df_state_race.columns) == set(
+    #     expected_df_race_state.columns)
+    # assert_frame_equal(
+    #     mock_df_state_race, expected_df_race_state, check_like=True)
 
-    assert set(mock_df_state_sex.columns) == set(
-        expected_df_sex_state.columns)
-    assert_frame_equal(
-        mock_df_state_sex, expected_df_sex_state, check_like=True)
+    # assert set(mock_df_state_sex.columns) == set(
+    #     expected_df_sex_state.columns)
+    # assert_frame_equal(
+    #     mock_df_state_sex, expected_df_sex_state, check_like=True)
 
-    assert set(mock_df_state_age.columns) == set(
-        expected_df_age_state.columns)
-    assert_frame_equal(
-        mock_df_state_age, expected_df_age_state, check_like=True)
+    # assert set(mock_df_state_age.columns) == set(
+    #     expected_df_age_state.columns)
+    # assert_frame_equal(
+    #     mock_df_state_age, expected_df_age_state, check_like=True)
