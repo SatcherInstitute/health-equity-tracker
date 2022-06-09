@@ -346,7 +346,16 @@ def standardize_appendix_table_2_df(df):
 
 
 def keep_only_states(df):
+    """
+    Accepts a cleaned and standardized BJS table df, and returns a df with any
+    non-state / non-territory rows removed (e.g. removes "U.S. Total" and "Federal" rows).
 
+    Parameters:
+        df: a cleaned and standardized pandas df from a BJS table where cols are the demographic groups
+
+    Returns:
+        a pandas df with a single row per state (or territory) with "state_name" column and their values
+     """
     return df[~df[std_col.STATE_NAME_COL].isin(NON_STATE_ROWS)]
 
 
