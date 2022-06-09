@@ -67,42 +67,6 @@ _expected_pct_share_data_with_unknowns = [
     ['04', 'Arizona', 'UNKNOWN', '10', '10.5'],
 ]
 
-_expected_pct_share_data_with_unknowns_some_only_all = [
-    ['state_fips', 'state_name', 'race', 'population', 'pct_share'],
-    ['01', 'Alabama', 'Asian alone', '660', '28.9'],
-    ['01', 'Alabama', 'Some other race alone', '700', '30.7'],
-    ['01', 'Alabama', 'Two or more races', '919', '40.3'],
-    ['01', 'Alabama', 'An underrepresented race', '1', '.04'],
-    ['01', 'Alabama', 'ALL', '2280', '100'],
-    ['01', 'Alabama', 'UNKNOWN', '30', '1.3'],
-    ['60', 'American Samoa', 'Asian alone', np.nan, np.nan],
-    ['60', 'American Samoa', 'Some other race alone', np.nan, np.nan],
-    ['60', 'American Samoa', 'Two or more races', np.nan, np.nan],
-    ['60', 'American Samoa', 'ALL', '196', '100.0'],
-    ['60', 'American Samoa', 'UNKNOWN', '196', '100.0'],
-]
-
-_fake_condition_data = [
-    ['state_fips', 'state_name', 'race', 'some_condition_total', 'population'],
-    ['01', 'Alabama', 'Asian alone', 100, 1000],
-    ['01', 'Alabama', 'Some other race alone', 200, 5000],
-    ['02', 'Alaska', 'Two or more races', 10, 2000],
-    ['02', 'Alaska', 'TOTAL', 100, 4000],
-    ['04', 'Arizona', 'Two or more races', 20, 4000],
-    ['04', 'Arizona', 'TOTAL', 10, 2000],
-]
-
-_fake_condition_data_with_per_100k = [
-    ['state_fips', 'state_name', 'race', 'some_condition_total',
-        'population', 'condition_per_100k'],
-    ['01', 'Alabama', 'Asian alone', 100, 1000, 10000],
-    ['01', 'Alabama', 'Some other race alone', 200, 5000, 4000],
-    ['02', 'Alaska', 'Two or more races', 10, 2000, 500],
-    ['02', 'Alaska', 'TOTAL', 100, 4000, 2500],
-    ['04', 'Arizona', 'Two or more races', 20, 4000, 500],
-    ['04', 'Arizona', 'TOTAL', 10, 2000, 500],
-]
-
 _fake_condition_data = [
     ['state_fips', 'state_name', 'race', 'some_condition_total', 'population'],
     ['01', 'Alabama', 'Asian alone', 100, 1000],
