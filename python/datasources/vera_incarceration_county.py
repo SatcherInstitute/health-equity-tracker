@@ -1,12 +1,22 @@
+from sys import stderr
 import pandas as pd
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion.standardized_columns import Race
-from ingestion.constants import Sex
+from ingestion.dataset_utils import generate_pct_share_col_with_unknowns
+from ingestion.constants import Sex, UNKNOWN
 import ingestion.standardized_columns as std_col
 
-COUNTY_FIPS_COL = 'fips'
-# COUNTY_COL = 'recip_county'
+JAIL = "jail"
+PRISON = "prison"
+
+RAW = "raw"
+RATE = "rate"
+
+JAIL_RAW_COL = "jail_estimated_total"
+PRISON_RAW_COL = "prison_estimated_total"
+JAIL_RATE_COL = "jail_per_100k"
+PRISON_RATE_COL = "prison_per_100k"
 BASE_VERA_URL = 'https://github.com/vera-institute/incarceration_trends/blob/master/incarceration_trends.csv?raw=true'
 
 JUVENILE = "0-17"
@@ -14,6 +24,8 @@ ADULT = "18+"
 
 PRISON_RAW_ALL = "total_prison_pop"
 JAIL_RAW_ALL = "total_jail_pop"
+PRISON_RATE_ALL = "total_prison_pop_rate"
+JAIL_RATE_ALL = "total_jail_pop_rate"
 
 RACE_PRISON_RAW_COLS_TO_STANDARD = {
     # "total_prison_pop": Race.ALL.value,
@@ -77,13 +89,13 @@ SEX_JAIL_RATE_COLS_TO_STANDARD = {
     "male_jail_pop_rate": Sex.MALE,
 }
 
-AGE_JAIL_RAW_COLS_TO_STANDARD = {
-    # "total_jail_pop": std_col.ALL_VALUE,
-    "female_adult_jail_pop": ADULT,
-    "female_juvenile_jail_pop": JUVENILE,
-    "male_adult_jail_pop": ADULT,
-    "male_juvenile_jail_pop": JUVENILE,
-}
+# AGE_JAIL_RAW_COLS_TO_STANDARD = {
+#     # "total_jail_pop": std_col.ALL_VALUE,
+#     "female_adult_jail_pop": ADULT,
+#     "female_juvenile_jail_pop": JUVENILE,
+#     "male_adult_jail_pop": ADULT,
+#     "male_juvenile_jail_pop": JUVENILE,
+# }
 
 # NO PRISON/AGE DATA
 
@@ -109,7 +121,7 @@ class VeraIncarcerationCounty(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         df = gcs_to_bq_util.load_csv_as_df_from_web(
-            BASE_VERA_URL, dtype={COUNTY_FIPS_COL: str}, )
+            BASE_VERA_URL, dtype={std_col.COUNTY_FIPS_COL: str}, )
 
         df_jail = df.copy()
         df_prison = df.copy()
@@ -120,20 +132,21 @@ class VeraIncarcerationCounty(DataSource):
                               == "2016"].reset_index(drop=True)
 
         """
-        county_fips			
-        county_name			
-        race_category_id			
-        vaccinated_first_dose			
-        race			
-        race_includes_hispanic			
-        race_and_ethnicity			
-        population			
+        county_fips
+        county_name
+        race_category_id
+        vaccinated_first_dose
+        race
+        race_includes_hispanic
+        race_and_ethnicity
+        population
 
         """
 
         # eliminate columns with unneeded properties
         df_prison = df_prison[[*GEO_COLS_TO_STANDARD.keys(),
                                PRISON_RAW_ALL,
+                               PRISON_RATE_ALL,
                                *RACE_PRISON_RAW_COLS_TO_STANDARD.keys(),
                                *SEX_PRISON_RAW_COLS_TO_STANDARD.keys(),
                                *RACE_PRISON_RATE_COLS_TO_STANDARD.keys(),
@@ -142,37 +155,24 @@ class VeraIncarcerationCounty(DataSource):
 
         df_jail = df_jail[[*GEO_COLS_TO_STANDARD.keys(),
                            JAIL_RAW_ALL,
-                           *AGE_JAIL_RAW_COLS_TO_STANDARD.keys(),
+                           JAIL_RATE_ALL,
                            *RACE_JAIL_RAW_COLS_TO_STANDARD.keys(),
                            *SEX_JAIL_RAW_COLS_TO_STANDARD.keys(),
                            *RACE_JAIL_RATE_COLS_TO_STANDARD.keys(),
                            *SEX_JAIL_RATE_COLS_TO_STANDARD.keys(),
                            ]]
 
-        # print(df_jail)
-        # print(df_prison)
-
         # re-combine into single, unmelted df
         df = pd.merge(df_jail, df_prison, how='left',
                       on=list(GEO_COLS_TO_STANDARD.keys()))
 
-        # rename columns as expected
         df = df.rename(columns=GEO_COLS_TO_STANDARD)
 
-        # create df subset of columns for each
-        # calculate unknown is TOTAL - (sum of known)
-        # melt columns into our geo/demo per row format
-        # generate pct_share_with_unknowns
-        # keep existing pop/rate fields or recalculate with ACS 5yr?
-
         column_types = {c: 'STRING' for c in df.columns}
-        # column_types[std_col.VACCINATED_FIRST_DOSE] = 'FLOAT'
 
         for breakdown in [std_col.RACE_OR_HISPANIC_COL,
-                          std_col.AGE_COL,
                           std_col.SEX_COL]:
 
-            print(breakdown)
             df = self.generate_for_bq(df, breakdown)
 
             if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
@@ -181,21 +181,139 @@ class VeraIncarcerationCounty(DataSource):
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, breakdown, column_types=column_types)
 
-    def generate_for_bq(self, df, breakdown):
+    def generate_for_bq(self, df, demo_type):
 
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
+        partial_breakdowns = []
 
-            df_jail_raw = df[[*GEO_COLS_TO_STANDARD.values(), JAIL_RAW_ALL, *RACE_JAIL_RAW_COLS_TO_STANDARD.keys(),
-                              ]]
-            df_jail_raw = df_jail_raw.rename(
-                columns={**RACE_JAIL_RAW_COLS_TO_STANDARD,
-                         JAIL_RAW_ALL: Race.ALL.value,
-                         **RACE_PRISON_RAW_COLS_TO_STANDARD})
+        for data_type in [JAIL, PRISON]:
+            for property_type in [RAW, RATE]:
+                print("***", demo_type, data_type, property_type)
+                partial_df = generate_partial_breakdown(
+                    df, demo_type, data_type, property_type)
+                partial_breakdowns.append(partial_df)
 
-            df_jail_raw[Race.UNKNOWN.value] = "need to calc"
+        breakdown = pd.concat(partial_breakdowns)
 
-            print(df_jail_raw)
+        if demo_type == std_col.SEX_COL:
+            all_val = std_col.ALL_VALUE
+            unknown_val = UNKNOWN
+            demo_col = demo_type
+        if demo_type == std_col.RACE_OR_HISPANIC_COL:
+            all_val = Race.ALL.value
+            unknown_val = Race.UNKNOWN.value
+            demo_col = std_col.RACE_CATEGORY_ID_COL
 
-            std_col.add_race_columns_from_category_id(df)
+        breakdown[std_col.STATE_FIPS_COL] = breakdown[std_col.COUNTY_FIPS_COL].astype(
+            str).str[:2]
+
+        for data_type in [JAIL, PRISON]:
+            breakdown = generate_pct_share_col_with_unknowns(
+                breakdown, {f'{data_type}_estimated_total': f'{data_type}_pct_share'}, demo_col, all_val, unknown_val)
+
+        if demo_type == std_col.RACE_OR_HISPANIC_COL:
+            std_col.add_race_columns_from_category_id(breakdown)
+
+        print(breakdown)
 
         return df
+
+
+def generate_partial_breakdown(df, demo_type, data_type, property_type):
+    """
+    Takes a Vera style df with demographic groups as columns and geographies as rows, and
+    generates a partial HET style df with each row representing a geo/demo combo and a single property
+
+
+     and columns:
+    | "county_name" | "county_fips" | single_property |  "sex" or "race_and_ethnicity" |
+
+    Parameters:
+        df: dataframe with one county per row and the columns:
+            | "county_name" | "county_fips" |
+            plus Vera columns for relevant demographic groups, like
+            | "female_prison_pop" | "male_prison_pop" | etc
+        demo_type: string column name for generated df column containing the demographic group value
+             "sex" or "race_and_ethnicity"
+        data_type:
+        property_type:
+
+    """
+
+    # set configuration based on demo/data/property types
+    if demo_type == std_col.RACE_OR_HISPANIC_COL:
+        all_val = Race.ALL.value
+        unknown_val = Race.UNKNOWN.value
+        het_group_column = std_col.RACE_CATEGORY_ID_COL
+
+        if data_type == JAIL:
+            if property_type == RAW:
+                col_to_demographic_map = RACE_JAIL_RAW_COLS_TO_STANDARD
+                vera_all_col = JAIL_RAW_ALL
+                het_value_column = JAIL_RAW_COL
+
+            if property_type == RATE:
+                col_to_demographic_map = RACE_JAIL_RATE_COLS_TO_STANDARD
+                vera_all_col = JAIL_RATE_ALL
+                het_value_column = JAIL_RATE_COL
+
+        if data_type == PRISON:
+            if property_type == RAW:
+                col_to_demographic_map = RACE_PRISON_RAW_COLS_TO_STANDARD
+                vera_all_col = PRISON_RAW_ALL
+                het_value_column = PRISON_RAW_COL
+
+            if property_type == RATE:
+                col_to_demographic_map = RACE_PRISON_RATE_COLS_TO_STANDARD
+                vera_all_col = PRISON_RATE_ALL
+                het_value_column = PRISON_RATE_COL
+
+    if demo_type == std_col.SEX_COL:
+        all_val = std_col.ALL_VALUE
+        unknown_val = UNKNOWN
+        het_group_column = demo_type
+
+        if data_type == JAIL:
+            if property_type == RAW:
+                col_to_demographic_map = SEX_JAIL_RAW_COLS_TO_STANDARD
+                vera_all_col = JAIL_RAW_ALL
+                het_value_column = JAIL_RAW_COL
+
+            if property_type == RATE:
+                col_to_demographic_map = SEX_JAIL_RATE_COLS_TO_STANDARD
+                vera_all_col = JAIL_RATE_ALL
+                het_value_column = JAIL_RATE_COL
+
+        if data_type == PRISON:
+            if property_type == RAW:
+                col_to_demographic_map = SEX_PRISON_RAW_COLS_TO_STANDARD
+                vera_all_col = PRISON_RAW_ALL
+                het_value_column = PRISON_RAW_COL
+
+            if property_type == RATE:
+                col_to_demographic_map = SEX_PRISON_RATE_COLS_TO_STANDARD
+                vera_all_col = PRISON_RATE_ALL
+                het_value_column = PRISON_RATE_COL
+
+    # discard unneeded columns
+    df = df[[*GEO_COLS_TO_STANDARD.values(),
+             vera_all_col,
+             *col_to_demographic_map.keys(),
+             ]]
+
+    # rename to match this breakdown
+    df = df.rename(
+        columns={**col_to_demographic_map,
+                 vera_all_col: all_val,
+                 })
+
+    # manually set UNKNOWN to ALL minus KNOWNS
+    df[unknown_val] = "need to calc #"
+
+    # make wide table into long table
+    df = df.melt(id_vars=GEO_COLS_TO_STANDARD.values(),
+                 value_vars=[
+        all_val, *col_to_demographic_map.values()],
+        var_name=het_group_column,
+        value_name=het_value_column)
+
+    return df

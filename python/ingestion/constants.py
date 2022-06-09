@@ -60,6 +60,8 @@ US_ABBR = "US"
 NATIONAL_LEVEL = "national"
 STATE_LEVEL = "state"
 
+UNKNOWN = "Unknown"
+
 
 class Sex:
     MALE = "Male"
