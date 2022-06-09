@@ -398,6 +398,29 @@ def keep_only_national(df, demo_group_cols):
 
 
 def cols_to_rows(df, demographic_groups, demographic_col, value_col):
+    """
+    Makes a "wide" BJS style table into a "long" HET style table. The
+    incoming BJS tables store demographic breakdowns as their own columns,
+    and the values per location in those columns. Each geography has a single
+    row. For our HET style tables, we need a row for every combination of
+    places/demographic groups. To do this we have a specific type of "melt"
+    we must perform
+
+    Parameters:
+        df: "Wide" BJS style df with a column "state_name" and columns for
+          each demographic group
+        demographic_groups: list of strings containing the column names for
+            demographic groups (e.g. [`All`, `White (Non-Hispanic)`])
+        demographic_col: string column name for new column that will store the
+            previous "demographic_groups" column headers as values per row
+        value_col: string column name to contain the values per place/group row,
+          previously stored as values under the "demographic_groups" columns
+
+    Returns:
+        A HET-style "melted" or "un-pivoted" long table, where each row contains a
+        unique place/ demographic group pair
+
+    """
     # make "wide" table into a "long" table
     # move columns for demographic groups (e.g. `All`, `White (Non-Hispanic)`
     # to be additional rows per geo
