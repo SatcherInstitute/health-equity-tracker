@@ -376,8 +376,9 @@ def keep_only_national(df, demo_group_cols):
         raise ValueError("There is more than one U.S. Total row")
 
     # if not, remove any rows that aren't states or federal
-    df = keep_only_states(df).append(
-        df.loc[df[std_col.STATE_NAME_COL] == FED])
+    df_states = keep_only_states(df)
+    df_fed = df.loc[df[std_col.STATE_NAME_COL] == FED]
+    df = pd.concat([df_states, df_fed])
 
     # sum, treating nan as 0, and set as United States
     df.loc[0, demo_group_cols] = df[demo_group_cols].sum(min_count=1)
@@ -395,55 +396,3 @@ def cols_to_rows(df, demographic_groups, demographic_col, value_col):
                    value_vars=demographic_groups,
                    var_name=demographic_col,
                    value_name=value_col)
-
-
-def null_expected_rows(df, demographic, null_values_column):
-    """
-    For dataframes where some geo/demo rows are expected to be null / missing data
-    (e.g. only the "All" value is known for that place), we need to manually fill in those missing
-    geo/demo rows to allow the pct_share functions to operate properly
-
-    Parameters:
-        df: pandas dataframe with columns | "state_name" | "age" or "sex" or "race_category_id"
-        demographic: string of which breakdown we want, either "race_and_ethnicity" or "sex".
-        null_values_column: string column name for the added null values
-
-    Returns:
-        df with additional rows containing the missing geo/demo rows with null values
-
-    """
-    if std_col.STATE_NAME_COL not in df or null_values_column not in df:
-        raise ValueError(
-            (f'Dataframe must contain a "state_name" column and your null_values_column: "{null_values_column}".' +
-             f'Your dataframe only contains these columns: {list(df.columns)}'))
-
-    valid_demographics = ["sex", "race_and_ethnicity"]
-    if demographic not in valid_demographics:
-        raise ValueError(
-            f'demographic "{demographic}" is not valid; it must be one of: {valid_demographics}')
-
-    unique_places = df[std_col.STATE_NAME_COL].drop_duplicates()
-
-    expected_groups = STANDARD_RACE_CODES if demographic == "race_and_ethnicity" else BJS_SEX_GROUPS
-    demo_col = "race_category_id" if demographic == "race_and_ethnicity" else demographic
-
-    missing_rows = []
-
-    for place in unique_places:
-        for group in expected_groups:
-            if not ((df[std_col.STATE_NAME_COL] == place)
-                    & (df[demo_col] == group)).any():
-                missing_rows.append(
-                    {std_col.STATE_NAME_COL: place, demo_col: group, null_values_column: np.nan})
-
-    # so new, nulled rows are in the same order as states
-    missing_rows.reverse()
-
-    missing_df = pd.DataFrame(missing_rows, columns=[
-                              std_col.STATE_NAME_COL, demo_col, null_values_column])
-
-    df = df.append(missing_df)
-
-    df = df.reset_index(drop=True)
-
-    return df
