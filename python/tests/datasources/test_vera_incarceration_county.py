@@ -4,7 +4,7 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 
-from datasources.vera_incarceration_county import VeraIncarcerationCounty
+from datasources.vera_incarceration_county import VeraIncarcerationCounty, VERA_COL_TYPES
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -17,7 +17,7 @@ GOLDEN_DATA = os.path.join(
 
 def get_mocked_data_as_df():
     df = pd.read_csv(os.path.join(
-        TEST_DIR, 'vera_incarceration_county_test_input.csv'), dtype=str)
+        TEST_DIR, 'vera_incarceration_county_test_input.csv'), dtype=VERA_COL_TYPES,)
     return df
 
 

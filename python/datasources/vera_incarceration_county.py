@@ -6,6 +6,7 @@ from ingestion.standardized_columns import Race
 from ingestion.dataset_utils import generate_pct_share_col_with_unknowns
 from ingestion.constants import Sex, UNKNOWN
 import ingestion.standardized_columns as std_col
+from functools import reduce
 
 JAIL = "jail"
 PRISON = "prison"
@@ -99,10 +100,29 @@ SEX_JAIL_RATE_COLS_TO_STANDARD = {
 
 # NO PRISON/AGE DATA
 
+
+DATA_COLS = [
+    *RACE_PRISON_RAW_COLS_TO_STANDARD.keys(),
+    *RACE_PRISON_RATE_COLS_TO_STANDARD.keys(),
+    *SEX_PRISON_RAW_COLS_TO_STANDARD.keys(),
+    *SEX_PRISON_RATE_COLS_TO_STANDARD.keys(),
+    *RACE_JAIL_RAW_COLS_TO_STANDARD.keys(),
+    *RACE_JAIL_RATE_COLS_TO_STANDARD.keys(),
+    *SEX_JAIL_RAW_COLS_TO_STANDARD.keys(),
+    *SEX_JAIL_RATE_COLS_TO_STANDARD.keys(),
+]
+
 GEO_COLS_TO_STANDARD = {
     "fips": std_col.COUNTY_FIPS_COL,
     "county_name": std_col.COUNTY_NAME_COL
 }
+
+
+VERA_COL_TYPES = {}
+for location_col in GEO_COLS_TO_STANDARD.keys():
+    VERA_COL_TYPES[location_col] = str
+for data_col in DATA_COLS:
+    VERA_COL_TYPES[data_col] = float
 
 
 class VeraIncarcerationCounty(DataSource):
@@ -120,16 +140,20 @@ class VeraIncarcerationCounty(DataSource):
             'upload_to_gcs should not be called for VeraIncarcerationCounty')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
+
         df = gcs_to_bq_util.load_csv_as_df_from_web(
-            BASE_VERA_URL, dtype={std_col.COUNTY_FIPS_COL: str}, )
+            BASE_VERA_URL, dtype=VERA_COL_TYPES, )
+
+        # ensure 5 digit county fips (fill leading zeros)
+        df["fips"] = df["fips"].apply(lambda code: (str(code).rjust(5, '0')))
 
         df_jail = df.copy()
         df_prison = df.copy()
 
         # eliminate rows with unneeded years
-        df_jail = df_jail[df_jail["year"] == "2018"].reset_index(drop=True)
+        df_jail = df_jail[df_jail["year"] == 2018].reset_index(drop=True)
         df_prison = df_prison[df_prison["year"]
-                              == "2016"].reset_index(drop=True)
+                              == 2016].reset_index(drop=True)
 
         """
         county_fips
@@ -168,31 +192,23 @@ class VeraIncarcerationCounty(DataSource):
 
         df = df.rename(columns=GEO_COLS_TO_STANDARD)
 
-        column_types = {c: 'STRING' for c in df.columns}
+        bq_column_types = {c: 'STRING' for c in df.columns}
 
         for breakdown in [std_col.RACE_OR_HISPANIC_COL,
                           std_col.SEX_COL]:
 
-            df = self.generate_for_bq(df, breakdown)
+            breakdown_df = df.copy()
+            breakdown_df = self.generate_for_bq(breakdown_df, breakdown)
 
-            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+            if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
+                bq_column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
             gcs_to_bq_util.add_df_to_bq(
-                df, dataset, breakdown, column_types=column_types)
+                breakdown_df, dataset, breakdown, column_types=bq_column_types)
 
     def generate_for_bq(self, df, demo_type):
 
-        partial_breakdowns = []
-
-        for data_type in [JAIL, PRISON]:
-            for property_type in [RAW, RATE]:
-                print("***", demo_type, data_type, property_type)
-                partial_df = generate_partial_breakdown(
-                    df, demo_type, data_type, property_type)
-                partial_breakdowns.append(partial_df)
-
-        breakdown = pd.concat(partial_breakdowns)
+        print(demo_type, "<<<<>>>>")
 
         if demo_type == std_col.SEX_COL:
             all_val = std_col.ALL_VALUE
@@ -203,19 +219,46 @@ class VeraIncarcerationCounty(DataSource):
             unknown_val = Race.UNKNOWN.value
             demo_col = std_col.RACE_CATEGORY_ID_COL
 
-        breakdown[std_col.STATE_FIPS_COL] = breakdown[std_col.COUNTY_FIPS_COL].astype(
-            str).str[:2]
+        partial_breakdowns = []
 
         for data_type in [JAIL, PRISON]:
-            breakdown = generate_pct_share_col_with_unknowns(
-                breakdown, {f'{data_type}_estimated_total': f'{data_type}_pct_share'}, demo_col, all_val, unknown_val)
+            for property_type in [RAW, RATE]:
+                # print("***", demo_type, data_type, property_type)
+                partial_df = df.copy()
+                partial_df = generate_partial_breakdown(
+                    partial_df, demo_type, data_type, property_type)
+                partial_breakdowns.append(partial_df)
+
+        # print("partials")
+        # for partial in partial_breakdowns:
+        #     print(partial)
+
+        # print("after concat")
+
+        # breakdown = pd.concat(partial_breakdowns)
+        breakdown_df = reduce(lambda x, y: pd.merge(
+            x, y, on=[*GEO_COLS_TO_STANDARD.values(), demo_col]), partial_breakdowns)
+
+        # print(breakdown_df)
+
+        breakdown_df[std_col.STATE_FIPS_COL] = breakdown_df[std_col.COUNTY_FIPS_COL].astype(
+            str).str[:2]
+
+        breakdown_df = generate_pct_share_col_with_unknowns(
+            breakdown_df,
+            {"jail_estimated_total": "jail_pct_share",
+                "prison_estimated_total": "prison_pct_share"},
+            demo_col,
+            all_val,
+            unknown_val)
 
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
-            std_col.add_race_columns_from_category_id(breakdown)
+            std_col.add_race_columns_from_category_id(breakdown_df)
 
-        print(breakdown)
+        print("breakdown_df")
+        print(breakdown_df)
 
-        return df
+        return breakdown_df
 
 
 def generate_partial_breakdown(df, demo_type, data_type, property_type):
@@ -295,10 +338,16 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
                 het_value_column = PRISON_RATE_COL
 
     # discard unneeded columns
+    # print("----- incoming columns for partial breakdown")
+    # print(df.columns)
+
     df = df[[*GEO_COLS_TO_STANDARD.values(),
              vera_all_col,
              *col_to_demographic_map.keys(),
              ]]
+
+    # print("after removing excess cols")
+    # print(df)
 
     # rename to match this breakdown
     df = df.rename(
@@ -306,13 +355,16 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
                  vera_all_col: all_val,
                  })
 
+    # print("after renaming cols")
+    # print(df)
+
     # manually set UNKNOWN to ALL minus KNOWNS
-    df[unknown_val] = "need to calc #"
+    df[unknown_val] = 0.0
 
     # make wide table into long table
     df = df.melt(id_vars=GEO_COLS_TO_STANDARD.values(),
                  value_vars=[
-        all_val, *col_to_demographic_map.values()],
+        all_val, unknown_val, *col_to_demographic_map.values()],
         var_name=het_group_column,
         value_name=het_value_column)
 
