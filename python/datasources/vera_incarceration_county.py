@@ -27,6 +27,22 @@ PRISON_RAW_ALL = "total_prison_pop"
 JAIL_RAW_ALL = "total_jail_pop"
 PRISON_RATE_ALL = "total_prison_pop_rate"
 JAIL_RATE_ALL = "total_jail_pop_rate"
+POP_ALL = "total_pop_15to64"
+
+
+RACE_POP_TO_STANDARD = {
+    "aapi_pop_15to64": Race.API_NH.value,
+    "black_pop_15to64": Race.BLACK_NH.value,
+    "latinx_pop_15to64": Race.HISP.value,
+    "native_pop_15to64": Race.AIAN_NH.value,
+    "white_pop_15to64": Race.WHITE_NH.value
+}
+
+SEX_POP_TO_STANDARD = {
+    "female_pop_15to64": Sex.FEMALE,
+    "male_pop_15to64": Sex.MALE
+}
+
 
 RACE_PRISON_RAW_COLS_TO_STANDARD = {
     # "total_prison_pop": Race.ALL.value,
@@ -117,12 +133,20 @@ GEO_COLS_TO_STANDARD = {
     "county_name": std_col.COUNTY_NAME_COL
 }
 
+POP_COLS = [
+    POP_ALL,
+    *RACE_POP_TO_STANDARD.keys(),
+    *SEX_POP_TO_STANDARD.keys()
+]
+
 
 VERA_COL_TYPES = {}
 for location_col in GEO_COLS_TO_STANDARD.keys():
     VERA_COL_TYPES[location_col] = str
 for data_col in DATA_COLS:
     VERA_COL_TYPES[data_col] = float
+for pop_col in POP_COLS:
+    VERA_COL_TYPES[pop_col] = float
 
 
 class VeraIncarcerationCounty(DataSource):
@@ -169,6 +193,7 @@ class VeraIncarcerationCounty(DataSource):
 
         # eliminate columns with unneeded properties
         df_prison = df_prison[[*GEO_COLS_TO_STANDARD.keys(),
+                               *POP_COLS,
                                PRISON_RAW_ALL,
                                PRISON_RATE_ALL,
                                *RACE_PRISON_RAW_COLS_TO_STANDARD.keys(),
@@ -178,6 +203,7 @@ class VeraIncarcerationCounty(DataSource):
                                ]]
 
         df_jail = df_jail[[*GEO_COLS_TO_STANDARD.keys(),
+                           *POP_COLS,
                            JAIL_RAW_ALL,
                            JAIL_RATE_ALL,
                            *RACE_JAIL_RAW_COLS_TO_STANDARD.keys(),
@@ -186,9 +212,12 @@ class VeraIncarcerationCounty(DataSource):
                            *SEX_JAIL_RATE_COLS_TO_STANDARD.keys(),
                            ]]
 
+        merge_cols = list(GEO_COLS_TO_STANDARD.keys())
+        merge_cols.extend(POP_COLS)
+
         # re-combine into single, unmelted df
         df = pd.merge(df_jail, df_prison, how='left',
-                      on=list(GEO_COLS_TO_STANDARD.keys()))
+                      on=merge_cols)
 
         df = df.rename(columns=GEO_COLS_TO_STANDARD)
 
@@ -221,19 +250,17 @@ class VeraIncarcerationCounty(DataSource):
 
         partial_breakdowns = []
 
+        pop_partial_df = df.copy()
+        pop_partial_df = generate_partial_breakdown(
+            pop_partial_df, demo_type, "population", None)
+        partial_breakdowns.append(pop_partial_df)
+
         for data_type in [JAIL, PRISON]:
-            for property_type in [RAW, RATE]:
-                # print("***", demo_type, data_type, property_type)
+            for property_type in [RAW, RATE, ]:
                 partial_df = df.copy()
                 partial_df = generate_partial_breakdown(
                     partial_df, demo_type, data_type, property_type)
                 partial_breakdowns.append(partial_df)
-
-        # print("partials")
-        # for partial in partial_breakdowns:
-        #     print(partial)
-
-        # print("after concat")
 
         # breakdown = pd.concat(partial_breakdowns)
         breakdown_df = reduce(lambda x, y: pd.merge(
@@ -288,6 +315,11 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
         unknown_val = Race.UNKNOWN.value
         het_group_column = std_col.RACE_CATEGORY_ID_COL
 
+        if data_type == "population":
+            col_to_demographic_map = RACE_POP_TO_STANDARD
+            vera_all_col = POP_ALL
+            het_value_column = "population"
+
         if data_type == JAIL:
             if property_type == RAW:
                 col_to_demographic_map = RACE_JAIL_RAW_COLS_TO_STANDARD
@@ -314,6 +346,11 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
         all_val = std_col.ALL_VALUE
         unknown_val = UNKNOWN
         het_group_column = demo_type
+
+        if data_type == "population":
+            col_to_demographic_map = SEX_POP_TO_STANDARD
+            vera_all_col = POP_ALL
+            het_value_column = "population"
 
         if data_type == JAIL:
             if property_type == RAW:
