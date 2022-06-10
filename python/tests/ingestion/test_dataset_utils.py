@@ -1,5 +1,4 @@
 from unittest import mock
-
 import json
 import pytest
 import pandas as pd
@@ -86,7 +85,6 @@ _fake_condition_data_with_per_100k = [
     ['04', 'Arizona', 'Two or more races', 20, 4000, 500],
     ['04', 'Arizona', 'TOTAL', 10, 2000, 500],
 ]
-
 _fake_race_data_without_totals = [
     ['state_fips', 'state_name', 'race', 'population'],
     ['01', 'Alabama', 'Asian alone', '66'],
@@ -291,12 +289,12 @@ def testGeneratePctShareColWithoutUnknowns():
         json.dumps(_fake_race_data)).reset_index(drop=True)
 
     df = df.loc[df['race'] != 'UNKNOWN']
-    df['population'] = df['population'].astype(int)
+    df['population'] = df['population'].astype(float)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_pct_share_data_without_unknowns)).reset_index(drop=True)
 
-    expected_df['population'] = expected_df['population'].astype(int)
+    expected_df['population'] = expected_df['population'].astype(float)
 
     expected_df['pct_share'] = expected_df['pct_share'].astype(float)
 
@@ -310,12 +308,12 @@ def testGeneratePctShareColWithUnknowns():
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_fake_race_data)).reset_index(drop=True)
 
-    df['population'] = df['population'].astype(int)
+    df['population'] = df['population'].astype(float)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_pct_share_data_with_unknowns)).reset_index(drop=True)
 
-    expected_df['population'] = expected_df['population'].astype(int)
+    expected_df['population'] = expected_df['population'].astype(float)
 
     expected_df['pct_share'] = expected_df['pct_share'].astype(float)
 
@@ -340,7 +338,7 @@ def testGeneratePctShareColExtraTotalError():
     df = pd.concat([df, extra_row])
 
     df = df.loc[df['race'] != 'UNKNOWN']
-    df['population'] = df['population'].astype(int)
+    df['population'] = df['population'].astype(float)
 
     expected_error = r"Fips 01 has 2 ALL rows, there should be 1"
     with pytest.raises(ValueError, match=expected_error):
