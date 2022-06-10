@@ -57,7 +57,7 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
         demo_cols = BJS_SEX_GROUPS
         demo_for_flip = demo
 
-    if demo == std_col.RACE_OR_HISPANIC_COL:
+    else:
         demo_cols = STANDARD_RACE_CODES
         demo_for_flip = std_col.RACE_CATEGORY_ID_COL
 

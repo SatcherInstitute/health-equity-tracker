@@ -124,9 +124,22 @@ expected_dtype_age = {
     **expected_dtype,
     'age': str,
 }
+expected_dtype_race = {
+    **expected_dtype,
+    'race_and_ethnicity': str,
+    'race': str,
+    'race_includes_hispanic': object,
+    'race_category_id': str,
+}
 
+expected_dtype_sex = {
+    **expected_dtype,
+    'sex': str,
+}
 
 # INTEGRATION TEST - NATIONAL AGE
+
+
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
@@ -162,6 +175,49 @@ def testGenerateBreakdownAgeState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
         GOLDEN_DATA['age_state'], dtype=expected_dtype_age)
 
     assert_frame_equal(df, expected_df_age_state, check_like=True)
+
+
+# INTEGRATION TEST - NATIONAL RACE
+
+
+@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=get_state_fips_codes_as_df())
+def testGenerateBreakdownRaceNational(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+
+    df_app_2 = _get_standardized_table_app2()
+    df_23 = _get_standardized_table23()
+
+    bjs_data = BJSData()
+    df = bjs_data.generate_breakdown_df(
+        "race_and_ethnicity", "national", [df_app_2, df_23])
+
+    expected_df_race_national = pd.read_json(
+        GOLDEN_DATA['race_national'], dtype=expected_dtype_race)
+
+    assert_frame_equal(df, expected_df_race_national, check_like=True)
+
+
+# INTEGRATION TEST - STATE SEX
+
+
+@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=get_state_fips_codes_as_df())
+def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+
+    df_2 = _get_standardized_table2()
+    df_23 = _get_standardized_table23()
+
+    bjs_data = BJSData()
+    df = bjs_data.generate_breakdown_df(
+        "sex", "state", [df_2, df_23])
+
+    expected_df_sex_state = pd.read_json(
+        GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex)
+
+    assert_frame_equal(df, expected_df_sex_state, check_like=True)
+
 
 # INTEGRATION TEST - CORRECT NETWORK CALLS
 
