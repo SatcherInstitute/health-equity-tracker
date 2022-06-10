@@ -291,7 +291,7 @@ class BJSIncarcerationData(DataSource):
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=column_types)
 
-    def generate_breakdown_df(self, breakdown, geo_level, table_list, ):
+    def generate_breakdown_df(self, breakdown, geo_level, table_list):
         """
         Accepts demographic and geographic settings, along with the mapping of BJS tables
         to HET breakdowns, and generates the specified HET breakdown
