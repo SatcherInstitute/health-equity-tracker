@@ -262,7 +262,17 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
     # Un-comment and remove all mocks except mock_bq
     # to save json to files
     # mock_df_national_age.to_json(
-    #     "bjs_incarceration_data-national_age.json", orient="records")
+    #     "bjs_data-age_national.json", orient="records")
+    # mock_df_national_race.to_json(
+    #     "bjs_data-race_and_ethnicity_national.json", orient="records")
+    # mock_df_national_sex.to_json(
+    #     "bjs_data-sex_national.json", orient="records")
+    # mock_df_state_age.to_json(
+    #     "bjs_data-rage_state.json", orient="records")
+    # mock_df_state_race.to_json(
+    #     "bjs_data-race_and_ethnicity_state.json", orient="records")
+    # mock_df_state_sex.to_json(
+    #     "bjs_data-sex_state.json", orient="records")
 
     assert mock_zip.call_count == 1
 
