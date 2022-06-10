@@ -320,14 +320,14 @@ def process_data(dir, files):
 
     all_demographic_combos = [
         ("state", "race"),
-        # ("county", "race"),
-        # ("state", "age"),
-        # ("county", "age"),
-        # ("state", "sex"),
-        # ("county", "sex"),
+        ("county", "race"),
+        ("state", "age"),
+        ("county", "age"),
+        ("state", "sex"),
+        ("county", "sex"),
 
-        # # for age adjustment
-        # ("state", "race_and_age"),
+        # for age adjustment
+        ("state", "race_and_age"),
     ]
 
     all_dfs = {}
@@ -371,6 +371,9 @@ def process_data(dir, files):
 
                 if demo == 'race':
                     demog_col = [RACE_ETH_COL]
+
+                if demo == 'race_and_age':
+                    demog_col = [RACE_ETH_COL, AGE_COL]
 
                 all_dfs[(geo, demo)] = accumulate_data(
                     sliced_df, geo_cols, all_dfs[(geo, demo)], demog_col,
