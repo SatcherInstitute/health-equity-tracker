@@ -107,7 +107,7 @@ def _get_standardized_table_app2():
 # INTEGRATION TEST SETUP
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "bjs_corrections")
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "bjs_incarceration")
 
 GOLDEN_DATA = {
     'race_national': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_national.json'),
