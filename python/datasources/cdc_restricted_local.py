@@ -35,10 +35,13 @@ parser.add_argument("-prefix", "--prefix", help="Prefix for the CDC restricted C
 STATE_COL = 'res_state'
 COUNTY_FIPS_COL = 'county_fips_code'
 COUNTY_COL = 'res_county'
-RACE_COL = 'race_ethnicity_combined'
+RACE_ETH_COL = 'race_ethnicity_combined'
 SEX_COL = 'sex'
 AGE_COL = 'age_group'
 OUTCOME_COLS = ['hosp_yn', 'death_yn']
+RACE_COL = 'race'
+ETH_COL = 'ethnicity'
+
 
 # Convenience list for when we group the data by county.
 COUNTY_COLS = [COUNTY_FIPS_COL, COUNTY_COL, STATE_COL]
@@ -48,7 +51,7 @@ COL_NAME_MAPPING = {
     STATE_COL: std_col.STATE_POSTAL_COL,
     COUNTY_FIPS_COL: std_col.COUNTY_FIPS_COL,
     COUNTY_COL: std_col.COUNTY_NAME_COL,
-    RACE_COL: std_col.RACE_CATEGORY_ID_COL,
+    RACE_ETH_COL: std_col.RACE_CATEGORY_ID_COL,
     SEX_COL: std_col.SEX_COL,
     AGE_COL: std_col.AGE_COL,
 }
@@ -62,16 +65,13 @@ STATE_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 # Note that these mappings exhaustively cover the possible values in the data
 # as of the latest dataset. New data should be checked for schema changes.
 RACE_NAMES_MAPPING = {
-    "American Indian/Alaska Native, Non-Hispanic": std_col.Race.AIAN_NH.value,
-    "Asian, Non-Hispanic": std_col.Race.ASIAN_NH.value,
-    "Black, Non-Hispanic": std_col.Race.BLACK_NH.value,
-    "Multiple/Other, Non-Hispanic": std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
-    "Native Hawaiian/Other Pacific Islander, Non-Hispanic": std_col.Race.NHPI_NH.value,
-    "White, Non-Hispanic": std_col.Race.WHITE_NH.value,
-    "Hispanic/Latino": std_col.Race.HISP.value,
-    "NA": std_col.Race.UNKNOWN.value,
-    "Missing": std_col.Race.UNKNOWN.value,
-    "Unknown": std_col.Race.UNKNOWN.value,
+    "American Indian/Alaska Native": std_col.Race.AIAN_NH.value,
+    "Asian": std_col.Race.ASIAN_NH.value,
+    "Black": std_col.Race.BLACK_NH.value,
+    "Multiple/Other": std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
+    "Native Hawaiian/Other Pacific Islander": std_col.Race.NHPI_NH.value,
+    "White": std_col.Race.WHITE_NH.value,
+    'Hispanic/Latino': std_col.Race.HISP.value,
 }
 
 SEX_NAMES_MAPPING = {
@@ -102,10 +102,10 @@ AGE_NAMES_MAPPING = {
 # to their standardized form.
 GEO_COL_MAPPING = {'state': [STATE_COL], 'county': COUNTY_COLS}
 DEMOGRAPHIC_COL_MAPPING = {
-    'race': ([RACE_COL], RACE_NAMES_MAPPING),
+    'race': ([RACE_COL, ETH_COL], RACE_NAMES_MAPPING),
     'sex': ([SEX_COL], SEX_NAMES_MAPPING),
     'age': ([AGE_COL], AGE_NAMES_MAPPING),
-    'race_and_age': ([RACE_COL, AGE_COL], {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING}),
+    'race_and_age': ([RACE_COL, ETH_COL, AGE_COL], {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING}),
 }
 
 # States that we have decided to suppress different kinds of data for, due to
@@ -115,6 +115,26 @@ DEMOGRAPHIC_COL_MAPPING = {
 ALL_DATA_SUPPRESSION_STATES = ("MP", "MS", "WV")
 HOSP_DATA_SUPPRESSION_STATES = ("HI", "NE", "RI", "SD")
 DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD", "DE")
+
+
+def combine_race_eth(df):
+    """Combines the race and ethnicity fields into the legacy race/ethnicity category.
+       We will keep ths in place until we can figure out a plan on how to display
+       the race and ethnicty to our users diagregted."""
+
+    def get_combibed_value(row):
+        if row[RACE_COL] in {'NA', 'Missing', 'Unknown'} or row[ETH_COL] in {'NA', 'Missing', 'Unknown'}:
+            return std_col.Race.UNKNOWN.value
+
+        elif row[ETH_COL] == 'Hispanic/Latino':
+            return std_col.Race.HISP.value
+
+        else:
+            return RACE_NAMES_MAPPING[row[RACE_COL]]
+
+    df[RACE_ETH_COL] = df.apply(get_combibed_value, axis=1)
+    df = df.drop(columns=[RACE_COL, ETH_COL])
+    return df
 
 
 def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
@@ -155,14 +175,17 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
 
     # Standardize the values in demog_col using names_mapping.
     for demog_col in demog_cols:
-        df = df.replace({demog_col: names_mapping})
+        if demog_col == RACE_ETH_COL:
+            df = combine_race_eth(df)
+        else:
+            df = df.replace({demog_col: names_mapping})
 
     # Group by the geo and demographic columns and compute the sum/counts of
     # cases/hospitalizations/deaths. Add total rows and add to overall_df.
     groupby_cols = geo_cols + demog_cols
     df = df.groupby(groupby_cols).sum().reset_index()
     totals = df.groupby(geo_cols).sum().reset_index()
-    if demog_cols[0] == RACE_COL:  # Special case required due to later processing.
+    if demog_cols[0] == RACE_ETH_COL:  # Special case required due to later processing.
         totals[demog_cols[0]] = std_col.Race.ALL.value
     else:
         totals[demog_cols[0]] = std_col.ALL_VALUE
@@ -222,6 +245,9 @@ def add_missing_demographic_values(df, geo, demographic):
 
     # Map from each geo to the demographic values present. Note that multiple
     # values/columns may define each geo.
+    if demographic == 'race':
+        demog_col = RACE_ETH_COL
+
     geo_demo_map = df.loc[:, geo_cols + [demog_col]].groupby(geo_cols)
     geo_demo_map = geo_demo_map.agg({demog_col: list}).to_dict()[demog_col]
 
@@ -294,14 +320,14 @@ def process_data(dir, files):
 
     all_demographic_combos = [
         ("state", "race"),
-        ("county", "race"),
-        ("state", "age"),
-        ("county", "age"),
-        ("state", "sex"),
-        ("county", "sex"),
+        # ("county", "race"),
+        # ("state", "age"),
+        # ("county", "age"),
+        # ("state", "sex"),
+        # ("county", "sex"),
 
-        # for age adjustment
-        ("state", "race_and_age"),
+        # # for age adjustment
+        # ("state", "race_and_age"),
     ]
 
     all_dfs = {}
@@ -342,6 +368,10 @@ def process_data(dir, files):
 
                 # Slice the data and aggregate for the given dimension.
                 sliced_df = df[geo_cols + demog_col + OUTCOME_COLS]
+
+                if demo == 'race':
+                    demog_col = [RACE_ETH_COL]
+
                 all_dfs[(geo, demo)] = accumulate_data(
                     sliced_df, geo_cols, all_dfs[(geo, demo)], demog_col,
                     demog_names_mapping)
