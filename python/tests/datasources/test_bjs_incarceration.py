@@ -45,6 +45,8 @@ def _get_pop_as_df(*args):
 
 
 def _get_standardized_table2():
+    """generate a df that matches the cleaned and standardized BJS table
+needed for generate_breakdown_df()"""
     table_2_data = StringIO("""All,Male,Female,state_name
 1215821.0,1132767.0,83054.0,U.S. total
 25328.0,23166.0,2162.0,Alabama""")
@@ -53,6 +55,8 @@ def _get_standardized_table2():
 
 
 def _get_standardized_table10():
+    """generate a df that matches the cleaned and standardized BJS table
+needed for generate_breakdown_df()"""
     table_10_data = StringIO("""age,prison_pct_share,state_name
 All,100.0,United States
 18-19,0.6,United States
@@ -72,6 +76,8 @@ Number of sentenced prisoners,1182166.0,United States""")
 
 
 def _get_standardized_table13():
+    """generate a df that matches the cleaned and standardized BJS table
+needed for generate_breakdown_df()"""
     table_13_data = StringIO("""state_name,prison_estimated_total,age
 United States,352,0-17
 Alabama,1,0-17
@@ -81,6 +87,8 @@ Alabama,1,0-17
 
 
 def _get_standardized_table23():
+    """generate a df that matches the cleaned and standardized BJS table
+needed for generate_breakdown_df()"""
     table_23_data = StringIO("""ALL,state_name
 196.0,American Samoa""")
     df_23 = pd.read_csv(table_23_data, sep=",")
@@ -102,13 +110,9 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "bjs_corrections")
 
 GOLDEN_DATA = {
-    'race_and_ethnicity_national': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_national.json'),
     'race_national': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_national.json'),
-    'race_and_ethnicity_state': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_state.json'),
-    'race_state': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_state.json'),
     'age_national': os.path.join(TEST_DIR, 'bjs_test_output_age_national.json'),
     'age_state': os.path.join(TEST_DIR, 'bjs_test_output_age_state.json'),
-    'sex_national': os.path.join(TEST_DIR, 'bjs_test_output_sex_national.json'),
     'sex_state': os.path.join(TEST_DIR, 'bjs_test_output_sex_state.json'),
 }
 
@@ -271,81 +275,3 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
     assert mock_pop.call_args_list[7].args[1] == 'by_race_and_ethnicity_territory'
     assert mock_pop.call_args_list[8].args[1] == 'by_sex_state'
     assert mock_pop.call_args_list[9].args[1] == 'by_sex_territory'
-
-
-# COMPARE MOCKED BREAKDOWNS (PROCESSED TEST INPUT) TO EXPECTED BREAKDOWNS (TEST OUTPUT)
-
-    # expected_dtype = {
-    #     'state_name': str,
-    #     'state_fips': str,
-    #     "prison_per_100k": float,
-    #     "prison_pct_share": float,
-    #     "population": object,
-    #     "population_pct": float,
-    # }
-    # expected_dtype_age = {
-    #     **expected_dtype,
-    #     'age': str,
-    # }
-    # expected_dtype_race = {
-    #     **expected_dtype,
-    #     'race_and_ethnicity': str,
-    #     'race': str,
-    #     'race_includes_hispanic': object,
-    #     'race_category_id': str,
-    # }
-
-    # expected_dtype_sex = {
-    #     **expected_dtype,
-    #     'sex': str,
-    # }
-
-    # # read test OUTPUT file
-    # expected_df_age_national = pd.read_json(
-    #     GOLDEN_DATA['age_national'], dtype=expected_dtype_age)
-
-    # expected_df_race_national = pd.read_json(
-    #     GOLDEN_DATA['race_and_ethnicity_national'], dtype=expected_dtype_race)
-
-    # expected_df_sex_national = pd.read_json(
-    #     GOLDEN_DATA['sex_national'], dtype=expected_dtype_sex)
-
-    # expected_df_age_state = pd.read_json(
-    #     GOLDEN_DATA['age_state'], dtype=expected_dtype_age)
-
-    # expected_df_race_state = pd.read_json(
-    #     GOLDEN_DATA['race_state'], dtype=expected_dtype_race)
-
-    # expected_df_sex_state = pd.read_json(
-    #     GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex)
-
-    # # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
-    # assert set(mock_df_national_race.columns) == set(
-    #     expected_df_race_national.columns)
-    # assert_frame_equal(
-    #     mock_df_national_race, expected_df_race_national, check_like=True)
-
-    # assert set(mock_df_national_sex.columns) == set(
-    #     expected_df_sex_national.columns)
-    # assert_frame_equal(
-    #     mock_df_national_sex, expected_df_sex_national, check_like=True)
-
-    # assert set(mock_df_national_age.columns) == set(
-    #     expected_df_age_national.columns)
-    # assert_frame_equal(
-    #     mock_df_national_age, expected_df_age_national, check_like=True)
-
-    # assert set(mock_df_state_race.columns) == set(
-    #     expected_df_race_state.columns)
-    # assert_frame_equal(
-    #     mock_df_state_race, expected_df_race_state, check_like=True)
-
-    # assert set(mock_df_state_sex.columns) == set(
-    #     expected_df_sex_state.columns)
-    # assert_frame_equal(
-    #     mock_df_state_sex, expected_df_sex_state, check_like=True)
-
-    # assert set(mock_df_state_age.columns) == set(
-    #     expected_df_age_state.columns)
-    # assert_frame_equal(
-    #     mock_df_state_age, expected_df_age_state, check_like=True)
