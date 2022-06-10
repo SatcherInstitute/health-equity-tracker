@@ -321,6 +321,8 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
 
     """
 
+    print("---", demo_type, data_type, property_type)
+
     # set configuration based on demo/data/property types
     if demo_type == std_col.RACE_OR_HISPANIC_COL:
         all_val = Race.ALL.value
@@ -404,11 +406,15 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
                  vera_all_col: all_val,
                  })
 
-    # print("after renaming cols")
-    # print(df)
+    print("in gen partial ^^^^")
+    # print(df[[*col_to_demographic_map.values()]])
+    # print(df[[*col_to_demographic_map.values()]].sum(axis="columns"))
 
     # manually set UNKNOWN to ALL minus KNOWNS
-    df[unknown_val] = 0.0
+    df[unknown_val] = df[all_val] - \
+        df[[*col_to_demographic_map.values()]].sum(axis="columns", min_count=1)
+
+    print(df)
 
     # make wide table into long table
     df = df.melt(id_vars=GEO_COLS_TO_STANDARD.values(),
