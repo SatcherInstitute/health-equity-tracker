@@ -1,0 +1,23 @@
+[
+    {
+        "state_fips": "00",
+        "state_name": "United States",
+        "population": "328016242",
+        "population_pct": "100.0",
+        "sex": "All"
+    },
+    {
+        "state_fips": "00",
+        "state_name": "United States",
+        "population": "166551005",
+        "population_pct": "50.8",
+        "sex": "Female"
+    },
+    {
+        "state_fips": "00",
+        "state_name": "United States",
+        "population": "161465237",
+        "population_pct": "49.2",
+        "sex": "Male"
+    }
+]
