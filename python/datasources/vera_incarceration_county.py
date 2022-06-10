@@ -291,8 +291,8 @@ class VeraIncarcerationCounty(DataSource):
             unknown_val
         )
 
-        # if demo_type == std_col.RACE_OR_HISPANIC_COL:
-        #     std_col.add_race_columns_from_category_id(breakdown_df)
+        if demo_type == std_col.RACE_OR_HISPANIC_COL:
+            std_col.add_race_columns_from_category_id(breakdown_df)
 
         print("breakdown_df")
         print(breakdown_df)

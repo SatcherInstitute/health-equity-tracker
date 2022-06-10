@@ -36,6 +36,12 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
     assert mock_bq.call_count == 2
 
+    for call_arg in mock_bq.call_args_list:
+        print(call_arg[0][0])
+        print(call_arg[0][2])
+        call_arg[0][0].to_json(
+            f'vera_incarceration_{call_arg[0][2]}_county.json', orient="records")
+
     # expected_df = pd.read_csv(GOLDEN_DATA, dtype={
     #     'county_fips': str,
     #     'jail_per_100k': float,
