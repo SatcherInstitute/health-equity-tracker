@@ -259,6 +259,11 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
     # mock_df_state_race = mock_bq.call_args_list[4][0][0]
     # mock_df_state_sex = mock_bq.call_args_list[5][0][0]
 
+    # Un-comment and remove all mocks except mock_bq
+    # to save json to files
+    # mock_df_national_age.to_json(
+    #     "bjs_incarceration_data-national_age.json", orient="records")
+
     assert mock_zip.call_count == 1
 
     assert mock_fips.call_count == 7
