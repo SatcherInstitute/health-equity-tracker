@@ -3,9 +3,8 @@ import os
 from io import StringIO
 import pandas as pd
 from pandas._testing import assert_frame_equal
-import ingestion.standardized_columns as std_col
 from test_utils import get_state_fips_codes_as_df
-from datasources.bjs import (BJSData)
+from datasources.bjs_incarceration import (BJSIncarcerationData)
 from datasources.bjs_table_utils import (bjs_prisoners_tables,
                                          strip_footnote_refs_from_df,
                                          missing_data_to_none,
@@ -152,8 +151,9 @@ def testGenerateBreakdownAgeNational(mock_fips: mock.MagicMock, mock_pop: mock.M
     df_10 = _get_standardized_table10()
     df_13 = _get_standardized_table13()
 
-    bjs_data = BJSData()
-    df = bjs_data.generate_breakdown_df("age", "national", [df_10, df_13])
+    datasource = BJSIncarcerationData()
+    df = datasource.generate_breakdown_df(
+        "age", "national", [df_10, df_13])
 
     expected_df_age_national = pd.read_json(
         GOLDEN_DATA['age_national'], dtype=expected_dtype_age)
@@ -172,8 +172,9 @@ def testGenerateBreakdownAgeState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
     df_13 = _get_standardized_table13()
     df_23 = _get_standardized_table23()
 
-    bjs_data = BJSData()
-    df = bjs_data.generate_breakdown_df("age", "state", [df_2, df_13, df_23])
+    datasource = BJSIncarcerationData()
+    df = datasource.generate_breakdown_df(
+        "age", "state", [df_2, df_13, df_23])
 
     expected_df_age_state = pd.read_json(
         GOLDEN_DATA['age_state'], dtype=expected_dtype_age)
@@ -192,8 +193,8 @@ def testGenerateBreakdownRaceNational(mock_fips: mock.MagicMock, mock_pop: mock.
     df_app_2 = _get_standardized_table_app2()
     df_23 = _get_standardized_table23()
 
-    bjs_data = BJSData()
-    df = bjs_data.generate_breakdown_df(
+    datasource = BJSIncarcerationData()
+    df = datasource.generate_breakdown_df(
         "race_and_ethnicity", "national", [df_app_2, df_23])
 
     expected_df_race_national = pd.read_json(
@@ -213,8 +214,8 @@ def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
     df_2 = _get_standardized_table2()
     df_23 = _get_standardized_table23()
 
-    bjs_data = BJSData()
-    df = bjs_data.generate_breakdown_df(
+    datasource = BJSIncarcerationData()
+    df = datasource.generate_breakdown_df(
         "sex", "state", [df_2, df_23])
 
     expected_df_sex_state = pd.read_json(
@@ -229,7 +230,7 @@ def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
-@ mock.patch('datasources.bjs.load_tables',
+@ mock.patch('datasources.bjs_incarceration.load_tables',
              return_value=get_test_table_files())
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
@@ -239,14 +240,14 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
                               mock_pop: mock.MagicMock
                               ):
 
-    bjs_data = BJSData()
+    datasource = BJSIncarcerationData()
 
     # required by bigQuery
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
 
-    bjs_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
 

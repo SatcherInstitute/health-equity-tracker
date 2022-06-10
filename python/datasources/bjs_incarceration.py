@@ -235,11 +235,11 @@ class BJSIncarcerationData(DataSource):
 
     @ staticmethod
     def get_id():
-        return 'BJS_DATA'
+        return 'BJS_INCARCERATION_DATA'
 
     @ staticmethod
     def get_table_name():
-        return 'bjs_data'
+        return 'bjs_incarceration_data'
 
     def upload_to_gcs(self, _, **attrs):
         raise NotImplementedError(
