@@ -3,10 +3,14 @@ import pandas as pd
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion.standardized_columns import Race
-from ingestion.dataset_utils import generate_pct_share_col_with_unknowns
+from ingestion.dataset_utils import (
+    generate_pct_share_col_with_unknowns,
+    # generate_pct_share_col_without_unknowns
+)
 from ingestion.constants import Sex, UNKNOWN
 import ingestion.standardized_columns as std_col
 from functools import reduce
+
 
 JAIL = "jail"
 PRISON = "prison"
@@ -279,8 +283,16 @@ class VeraIncarcerationCounty(DataSource):
             all_val,
             unknown_val)
 
-        if demo_type == std_col.RACE_OR_HISPANIC_COL:
-            std_col.add_race_columns_from_category_id(breakdown_df)
+        breakdown_df = generate_pct_share_col_with_unknowns(
+            breakdown_df,
+            {"population": "population_pct_share"},
+            demo_col,
+            all_val,
+            unknown_val
+        )
+
+        # if demo_type == std_col.RACE_OR_HISPANIC_COL:
+        #     std_col.add_race_columns_from_category_id(breakdown_df)
 
         print("breakdown_df")
         print(breakdown_df)
