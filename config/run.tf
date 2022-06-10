@@ -46,7 +46,7 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
           value = var.bq_dataset_name
         }
         env {
-          # Name of the BQ dataset that will contain manunally uploaded data tables.
+          # Name of the BQ dataset that will contain manually uploaded data tables.
           name  = "MANUAL_UPLOADS_DATASET"
           value = var.bq_manual_dataset_name
         }
