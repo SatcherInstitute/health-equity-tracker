@@ -84,6 +84,10 @@ export function TableCard(props: TableCardProps) {
     BJS_VARIABLE_IDS.includes(props.variableConfig.variableId) &&
     props.breakdownVar === "age";
 
+  // const isIncarcerationByAge =
+  // BJS_VARIABLE_IDS.includes(props.variableConfig.variableId) &&
+  // props.breakdownVar === "age" && props.fips.isUsa();
+
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   isIncarcerationByAge && metricIds.push("prison_estimated_total");
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);

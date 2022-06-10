@@ -158,7 +158,7 @@ export const BJS_NATIONAL_AGE_BUCKETS = [
   "65+",
 ];
 
-export const BJS_STATE_AGE_BUCKETS = ["0-17"];
+export const BJS_STATE_AGE_BUCKETS = ["All", "0-17", "18+"];
 
 export const UNUSED_BUCKETS = [
   // "0-17",
