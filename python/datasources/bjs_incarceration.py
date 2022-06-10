@@ -231,7 +231,7 @@ def post_process(df, breakdown, geo):
     return df
 
 
-class BJSData(DataSource):
+class BJSIncarcerationData(DataSource):
 
     @ staticmethod
     def get_id():
@@ -243,7 +243,7 @@ class BJSData(DataSource):
 
     def upload_to_gcs(self, _, **attrs):
         raise NotImplementedError(
-            'upload_to_gcs should not be called for BJSData')
+            'upload_to_gcs should not be called for BJSIncarcerationData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         """
