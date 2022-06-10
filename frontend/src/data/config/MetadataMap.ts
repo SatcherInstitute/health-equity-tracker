@@ -210,12 +210,12 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "Rates of individuals, including children, who are under the jurisdiction of federal, state, and territory adult prison facilities.",
     dataset_ids: [
-      "bjs_data-race_and_ethnicity_national",
-      "bjs_data-race_and_ethnicity_state",
-      "bjs_data-age_national",
-      "bjs_data-age_state",
-      "bjs_data-sex_national",
-      "bjs_data-sex_state",
+      "bjs_incarceration_data-race_and_ethnicity_national",
+      "bjs_incarceration_data-race_and_ethnicity_state",
+      "bjs_incarceration_data-age_national",
+      "bjs_incarceration_data-age_state",
+      "bjs_incarceration_data-sex_national",
+      "bjs_incarceration_data-sex_state",
     ],
     downloadable: true,
   },

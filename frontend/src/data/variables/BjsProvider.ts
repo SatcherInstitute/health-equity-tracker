@@ -45,7 +45,7 @@ class BjsProvider extends VariableProvider {
 
   getDatasetId(breakdowns: Breakdowns): string {
     return (
-      "bjs_data-" +
+      "bjs_incarceration_data-" +
       breakdowns.getSoleDemographicBreakdown().columnName +
       "_" +
       breakdowns.geography

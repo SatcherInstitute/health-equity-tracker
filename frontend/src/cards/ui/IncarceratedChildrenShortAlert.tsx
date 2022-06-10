@@ -8,7 +8,6 @@ import { CHILD_AGE_BUCKETS } from "../../data/utils/Constants";
 import FlagIcon from "@material-ui/icons/Flag";
 
 let children = "children";
-let are = "are";
 let adultPrisonFacilities = "adult prison facilities";
 
 interface IncarceratedChildrenShortAlertProps {
@@ -27,7 +26,6 @@ function IncarceratedChildrenShortAlert(
 
   if (count === 1) {
     children = "child";
-    are = "is";
     adultPrisonFacilities = "an adult prison facility";
   }
 
@@ -36,7 +34,7 @@ function IncarceratedChildrenShortAlert(
       <b>
         {count} {children}
       </b>{" "}
-      {are} currently confined in {adultPrisonFacilities} in{" "}
+      confined in {adultPrisonFacilities} in{" "}
       <b>{props.fips.getDisplayName()}</b>.{" "}
       <a href={urlMap.childrenInPrison}>Learn more.</a>
     </Alert>
