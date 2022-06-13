@@ -57,7 +57,6 @@ def run_test(key):
     expected_df = pd.read_csv(GOLDEN_DATA[key], dtype=str, keep_default_na=False)
 
     assert set(dfs[key].columns) == set(expected_df.columns)
-    dfs[key].to_csv('thing.csv')
     assert_frame_equal(dfs[key], expected_df, check_like=True)
 
 
