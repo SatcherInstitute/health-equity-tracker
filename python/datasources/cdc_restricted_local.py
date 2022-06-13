@@ -120,14 +120,14 @@ DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD", "DE")
 def combine_race_eth(df):
     """Combines the race and ethnicity fields into the legacy race/ethnicity category.
        We will keep ths in place until we can figure out a plan on how to display
-       the race and ethnicty to our users diagregted."""
+       the race and ethnicty to our users disagregted."""
 
     def get_combibed_value(row):
-        if row[RACE_COL] in {'NA', 'Missing', 'Unknown'} or row[ETH_COL] in {'NA', 'Missing', 'Unknown'}:
-            return std_col.Race.UNKNOWN.value
-
-        elif row[ETH_COL] == 'Hispanic/Latino':
+        if row[ETH_COL] == 'Hispanic/Latino':
             return std_col.Race.HISP.value
+
+        elif row[RACE_COL] in {'NA', 'Missing', 'Unknown'} or row[ETH_COL] in {'NA', 'Missing', 'Unknown'}:
+            return std_col.Race.UNKNOWN.value
 
         else:
             return RACE_NAMES_MAPPING[row[RACE_COL]]

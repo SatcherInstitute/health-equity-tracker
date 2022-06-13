@@ -1,9 +1,12 @@
 import os
+import json
 import pandas as pd  # type: ignore
 from pandas._testing import assert_frame_equal  # type: ignore
 
 import ingestion.standardized_columns as std_col  # type: ignore
 import datasources.cdc_restricted_local as cdc  # type: ignore
+from ingestion import gcs_to_bq_util  # pylint: disable=no-name-in-module
+
 
 # TO UPDATE THE GOLDEN DATA FOR THIS TEST PLEASE RUN THE FOLLOWING:
 # python cdc_restricted_local.py --dir="../tests/data/cdc_restricted_local" \
@@ -105,3 +108,95 @@ def testGenerateNationalDataset():
     }, keep_default_na=False)
 
     assert_frame_equal(expected_df, national_df, check_like=True)
+
+
+def test_combine_race_ethicity():
+    _fake_race_eth_data = [
+        ['ethnicity', 'race'],
+
+        ['Hispanic/Latino', 'American Indian/Alaska Native'],
+        ['Hispanic/Latino', 'Asian'],
+        ['Hispanic/Latino', 'Multiple/Other'],
+        ['Hispanic/Latino', 'White'],
+        ['Hispanic/Latino', 'Native Hawaiian/Other Pacific Islander'],
+        ['Hispanic/Latino', 'Black'],
+        ['Hispanic/Latino', 'Unknown'],
+        ['Hispanic/Latino', 'Missing'],
+
+        ['Non-Hispanic/Latino', 'American Indian/Alaska Native'],
+        ['Non-Hispanic/Latino', 'Asian'],
+        ['Non-Hispanic/Latino', 'Multiple/Other'],
+        ['Non-Hispanic/Latino', 'White'],
+        ['Non-Hispanic/Latino', 'Native Hawaiian/Other Pacific Islander'],
+        ['Non-Hispanic/Latino', 'Black'],
+        ['Non-Hispanic/Latino', 'Unknown'],
+        ['Non-Hispanic/Latino', 'Missing'],
+
+        ['Unknown', 'American Indian/Alaska Native'],
+        ['Unknown', 'Asian'],
+        ['Unknown', 'Multiple/Other'],
+        ['Unknown', 'White'],
+        ['Unknown', 'Native Hawaiian/Other Pacific Islander'],
+        ['Unknown', 'Black'],
+        ['Unknown', 'Unknown'],
+        ['Unknown', 'Missing'],
+
+        ['Missing', 'American Indian/Alaska Native'],
+        ['Missing', 'Asian'],
+        ['Missing', 'Multiple/Other'],
+        ['Missing', 'White'],
+        ['Missing', 'Native Hawaiian/Other Pacific Islander'],
+        ['Missing', 'Black'],
+        ['Missing', 'Unknown'],
+        ['Missing', 'Missing'],
+    ]
+
+    _expected_race_eth_combined_data = [
+        ['race_ethnicity_combined'],
+
+        [std_col.Race.HISP.value],
+        [std_col.Race.HISP.value],
+        [std_col.Race.HISP.value],
+        [std_col.Race.HISP.value],
+        [std_col.Race.HISP.value],
+        [std_col.Race.HISP.value],
+        [std_col.Race.HISP.value],
+        [std_col.Race.HISP.value],
+
+        [std_col.Race.AIAN_NH.value],
+        [std_col.Race.ASIAN_NH.value],
+        [std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value],
+        [std_col.Race.WHITE_NH.value],
+        [std_col.Race.NHPI_NH.value],
+        [std_col.Race.BLACK_NH.value],
+        [std_col.Race.UNKNOWN.value],
+        [std_col.Race.UNKNOWN.value],
+
+        [std_col.Race.UNKNOWN.value],
+        [std_col.Race.UNKNOWN.value],
+        [std_col.Race.UNKNOWN.value],
+        [std_col.Race.UNKNOWN.value],
+        [std_col.Race.UNKNOWN.value],
+        [std_col.Race.UNKNOWN.value],
+        [std_col.Race.UNKNOWN.value],
+        [std_col.Race.UNKNOWN.value],
+
+        [std_col.Race.UNKNOWN.value],
+        [std_col.Race.UNKNOWN.value],
+        [std_col.Race.UNKNOWN.value],
+        [std_col.Race.UNKNOWN.value],
+        [std_col.Race.UNKNOWN.value],
+        [std_col.Race.UNKNOWN.value],
+        [std_col.Race.UNKNOWN.value],
+        [std_col.Race.UNKNOWN.value],
+    ]
+
+    df = gcs_to_bq_util.values_json_to_df(
+            json.dumps(_fake_race_eth_data), dtype=str).reset_index(drop=True)
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+            json.dumps(_expected_race_eth_combined_data), dtype=str).reset_index(drop=True)
+
+    df = cdc.combine_race_eth(df)
+
+    assert_frame_equal(df, expected_df, check_like=True)
