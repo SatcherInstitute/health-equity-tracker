@@ -6,7 +6,7 @@ import {
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { Fips, ACS_2010_FIPS } from "../data/utils/Fips";
-import { Box, CardContent } from "@material-ui/core";
+import { Box, CardContent, Popper } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
 import AnimateHeight from "react-animate-height";
@@ -66,10 +66,14 @@ export function PopulationCard(props: PopulationCardProps) {
     metricIds,
     Breakdowns.forFips(props.fips).andAge(onlyIncludeDecadeAgeBrackets())
   );
+  const sviQuery = new MetricQuery("cdc_svi", Breakdowns.forFips(props.fips));
+
+  const queries = [raceQuery, ageQuery, sviQuery];
 
   return (
-    <CardWrapper minHeight={PRELOAD_HEIGHT} queries={[raceQuery, ageQuery]}>
-      {([raceQueryResponse, ageQueryResponse]) => {
+    <CardWrapper minHeight={PRELOAD_HEIGHT} queries={queries}>
+      {([raceQueryResponse, ageQueryResponse, sviQueryResponse]) => {
+        console.log(sviQueryResponse);
         const totalPopulation = raceQueryResponse.data.find(
           (r) => r.race_and_ethnicity === ALL
         );
@@ -92,6 +96,8 @@ export function PopulationCard(props: PopulationCardProps) {
             {expanded ? <ArrowDropUp /> : <ArrowDropDown />}
           </Button>
         );
+
+        console.log(props.fips.code);
 
         return (
           <CardContent className={styles.PopulationCardContent}>
@@ -131,6 +137,16 @@ export function PopulationCard(props: PopulationCardProps) {
                 <Grid item>{CollapseButton}</Grid>
               )}
             </Grid>
+
+            <Alert severity="info">
+              This county has a social vulnerability index of <b>0.97</b>; which
+              indicates a{" "}
+              <a href="" className={styles.SVILink}>
+                <span className={styles.SVIText}>
+                  high level of vulernability.
+                </span>
+              </a>{" "}
+            </Alert>
 
             {props.fips.needsACS2010() && (
               <CardContent>
