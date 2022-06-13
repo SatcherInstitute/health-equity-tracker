@@ -241,7 +241,8 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
 
     assert mock_bq.call_count == 5
 
-    # Un-comment to view output and save to file for copy/paste into frontend /tmp
+    # Un-comment to log output and save to file
+    # (can copy/paste into frontend /tmp )
     for bq_call in mock_bq.call_args_list:
         df, _, table_name = bq_call[0]
         print(table_name)
