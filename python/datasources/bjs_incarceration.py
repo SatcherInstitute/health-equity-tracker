@@ -30,7 +30,7 @@ from ingestion.bjs_utils import (standardize_table_2_df,
                                  )
 
 
-def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
+def generate_raw_race_or_sex_breakdown(demo, geo_level, table_list):
     """
     Takes demographic type and geographic level, along with
      standardized dataframes representing specific tables
@@ -41,13 +41,13 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, source_tables):
     Parameters:
         demo: string "race_or_ethnicity" | "sex" for breakdown to generate
         geo_level: string "national" | "state" for breakdown to generate
-        source_tables: list of specific data frames needed for breakdown
+        table_list: list of specific data frames needed for breakdown
 
     Returns:
         df: with raw numbers by demographic group by geographic place(s)
     """
 
-    main_table, table_23 = source_tables
+    main_table, table_23 = table_list
 
     df = main_table.copy()
     df_territories = table_23.copy()
@@ -90,7 +90,7 @@ def generate_raw_national_age_breakdown(table_list):
     and columns for | RAW# | "age" group | "state_name" (national total)
 
     Parameters:
-        source_tables: [list of specific df tables needed]
+        table_list: [list of specific df tables needed]
 
     Returns:
         df: standardized with raw numbers by age by place
@@ -171,11 +171,10 @@ def post_process(df, breakdown, geo, df_13):
             all_val,
         )
 
-    # get RAW PRISON for 0-17 and set as new property for "All" rows for every demo-breakdowns
-    # eventually this property will sum RAW PRISON 0-17 + RAW JAIL 0-17
     df = df.drop(columns=[std_col.POPULATION_COL,
                           RAW_COL])
-
+    # get RAW PRISON for 0-17 and set as new property for "All" rows for every demo-breakdowns
+    # eventually this property will sum RAW PRISON 0-17 + RAW JAIL 0-17
     df_13 = df_13.rename(
         columns={RAW_COL: TOTAL_CHILDREN_COL, "age": group_col})
 
