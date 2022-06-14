@@ -238,29 +238,31 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
 
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    assert mock_bq.call_count == 5
+    assert mock_bq.call_count == 6
 
     # Un-comment to log output and save to file
     # (can copy/paste into frontend /tmp )
-    # for bq_call in mock_bq.call_args_list:
-    #     df, _, table_name = bq_call[0]
-    #     print(table_name)
-    #     print(df)
-    #     df.to_json(
-    #         f'bjs_data-{table_name}.json', orient="records")
+    for bq_call in mock_bq.call_args_list:
+        df, _, table_name = bq_call[0]
+        print(table_name)
+        print(df)
+        df.to_json(
+            f'bjs_data-{table_name}.json', orient="records")
 
     assert mock_zip.call_count == 1
 
-    assert mock_fips.call_count == 6
+    assert mock_fips.call_count == 7
     for call_arg in mock_fips.call_args_list:
         assert call_arg.args[1] == "fips_codes_states"
 
-    assert mock_pop.call_count == 8
+    assert mock_pop.call_count == 10
     assert mock_pop.call_args_list[0].args[1] == 'by_age_national'
     assert mock_pop.call_args_list[1].args[1] == 'by_age_national'
     assert mock_pop.call_args_list[2].args[1] == 'by_race_national'
     assert mock_pop.call_args_list[3].args[1] == 'by_sex_national'
-    assert mock_pop.call_args_list[4].args[1] == 'by_race_state_std'
-    assert mock_pop.call_args_list[5].args[1] == 'by_race_and_ethnicity_territory'
-    assert mock_pop.call_args_list[6].args[1] == 'by_sex_state'
-    assert mock_pop.call_args_list[7].args[1] == 'by_sex_territory'
+    assert mock_pop.call_args_list[4].args[1] == 'by_age_state'
+    assert mock_pop.call_args_list[5].args[1] == 'by_age_territory'
+    assert mock_pop.call_args_list[6].args[1] == 'by_race_state_std'
+    assert mock_pop.call_args_list[7].args[1] == 'by_race_and_ethnicity_territory'
+    assert mock_pop.call_args_list[8].args[1] == 'by_sex_state'
+    assert mock_pop.call_args_list[9].args[1] == 'by_sex_territory'

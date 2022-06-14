@@ -30,7 +30,7 @@ from ingestion.bjs_utils import (standardize_table_2_df,
                                  )
 
 
-def generate_raw_race_or_sex_breakdown(demo, geo_level, table_list):
+def generate_raw_breakdown(demo, geo_level, table_list):
     """
     Takes demographic type and geographic level, along with
      standardized dataframes representing specific tables
@@ -47,6 +47,8 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, table_list):
         df: with raw numbers by demographic group by geographic place(s)
     """
 
+    # TODO error if national-age and suggest alt fn
+
     main_table, table_23 = table_list
 
     df = main_table.copy()
@@ -56,7 +58,12 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, table_list):
         demo_cols = BJS_SEX_GROUPS
         demo_for_flip = demo
 
-    else:
+    # STATE/AGE only has ALLS
+    if demo == std_col.AGE_COL:
+        demo_cols = [std_col.ALL_VALUE]
+        demo_for_flip = demo
+
+    if demo == std_col.RACE_OR_HISPANIC_COL:
         demo_cols = STANDARD_RACE_CODES
         demo_for_flip = std_col.RACE_CATEGORY_ID_COL
 
@@ -68,7 +75,7 @@ def generate_raw_race_or_sex_breakdown(demo, geo_level, table_list):
         df = pd.concat([df, df_territories])
 
         # `ALL` vs `All`
-        if demo == std_col.SEX_COL:
+        if demo == std_col.SEX_COL or demo == std_col.AGE_COL:
             df[std_col.ALL_VALUE] = df[std_col.ALL_VALUE].combine_first(
                 df[Race.ALL.value])
             df = df.drop(columns=[Race.ALL.value])
@@ -221,6 +228,7 @@ class BJSIncarcerationData(DataSource):
             f'{std_col.AGE_COL}_{NATIONAL_LEVEL}': [df_10],
             f'{std_col.RACE_OR_HISPANIC_COL}_{NATIONAL_LEVEL}': [df_app_2, df_23],
             f'{std_col.SEX_COL}_{NATIONAL_LEVEL}': [df_2, df_23],
+            f'{std_col.AGE_COL}_{STATE_LEVEL}': [df_2, df_23],
             f'{std_col.RACE_OR_HISPANIC_COL}_{STATE_LEVEL}': [df_app_2, df_23],
             f'{std_col.SEX_COL}_{STATE_LEVEL}': [df_2, df_23],
         }
@@ -228,9 +236,6 @@ class BJSIncarcerationData(DataSource):
         for geo_level in [NATIONAL_LEVEL, STATE_LEVEL]:
             for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
                 table_name = f'{breakdown}_{geo_level}'
-
-                if table_name == "age_state":
-                    continue
 
                 df = self.generate_breakdown_df(
                     breakdown, geo_level, table_lookup[table_name], df_13)
@@ -269,7 +274,7 @@ class BJSIncarcerationData(DataSource):
             raw_df = generate_raw_national_age_breakdown(
                 table_list)
         else:
-            raw_df = generate_raw_race_or_sex_breakdown(
+            raw_df = generate_raw_breakdown(
                 breakdown, geo_level, table_list)
 
         processed_df = post_process(
