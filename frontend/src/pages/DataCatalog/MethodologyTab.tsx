@@ -373,9 +373,45 @@ function MethodologyTab() {
                 <p>
                   Combining data presented across tables in the BJS Prisoners in
                   2020 report allows us to generate reports on{" "}
-                  <b>Imprisonment</b> in the United States. The data presented
-                  differs slightly by geographic level:
+                  <b>Imprisonment</b> in the United States. These are the
+                  specific tables used in each geographic/demographic report:
                 </p>
+
+                <ul>
+                  <li>
+                    <b>National by Age:</b> Prisoners Table 10
+                  </li>
+
+                  <li>
+                    <b>State by Age:</b> Prisoners Table 2 (totals only)
+                  </li>
+
+                  <li>
+                    <b>National by Race:</b> Prisoners Appendix Table 2
+                  </li>
+
+                  <li>
+                    <b>State by Race:</b> Prisoners Appendix Table 2
+                  </li>
+
+                  <li>
+                    <b>National by Sex:</b> Prisoners Table 2
+                  </li>
+
+                  <li>
+                    <b>State by Sex:</b> Prisoners Table 2
+                  </li>
+
+                  <li>
+                    <b>All Territories:</b> Prisoners Table 23 (totals only)
+                  </li>
+                  <li>
+                    <b>All Reports:</b> Prisoners Table 13 (children in prison
+                    alert)
+                  </li>
+                </ul>
+
+                <p>The data presented differs slightly by geographic level:</p>
 
                 <ul>
                   <li>
@@ -423,6 +459,37 @@ function MethodologyTab() {
                   <b>Did not report</b> race values into our <b>Unknown</b> race
                   group.{" "}
                 </p>
+
+                <p>
+                  When presenting incarceration reports, we have chosen to
+                  highlight the total number of confined children (in adult
+                  prisons), rather than only including this information as our
+                  standard “per 100k” rate. This decision was based on several
+                  factors:
+                </p>
+
+                <ul>
+                  <li>
+                    There is no national limit on the age at which a child can
+                    be confined in an adult facility, and the variance in
+                    state-specific laws makes it impossible to derive an
+                    accurate population base for individuals eligible for
+                    prison. Because of this, any rate calculations for{" "}
+                    <b>0-17</b> would be comparing the{" "}
+                    <b>number of prisoners under 18</b> proportional to entire
+                    population of children all the way down to newborns. This
+                    resultant rate cannot therefor be meaningfully compared with
+                    other age groups.
+                  </li>
+                  <li>
+                    The numbers presented in the BJS Prisoners 2020 report for
+                    juveniles include <b>confined</b> population (literally held
+                    within a specific facility), as opposed to the other reports
+                    which present the <b>jurisdictional</b> population (under
+                    the control of a facility but potentially confined
+                    elsewhere).
+                  </li>
+                </ul>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
                   Visualizations
