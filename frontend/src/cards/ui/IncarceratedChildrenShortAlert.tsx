@@ -24,7 +24,6 @@ function IncarceratedChildrenShortAlert(
     (row: Row) => row[props.breakdownVar] === ALL
   )?.total_confined_children;
 
-  console.log(count);
   // const count = props.queryResponse.data.find((row: Row) => ALLS_BUCKETS.includes(row[props.breakdownVar]))
 
   if (!count) return <></>;

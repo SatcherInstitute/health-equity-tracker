@@ -80,7 +80,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
         const hasOnlyAll =
           data.map((row) => row[props.breakdownVar]).join() === ALL;
 
-        console.log(data);
         return (
           <CardContent>
             {queryResponse.shouldShowMissingDataMessage([
