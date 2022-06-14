@@ -181,8 +181,6 @@ export const AGE_BUCKETS = [
   ...UNUSED_BUCKETS,
 ] as const;
 
-export const ALLS_BUCKETS = ["ALL", "All"];
-
 // ENUMERATE THOSE PROPERTIES TO CREATE AN AGE-GROUP TYPE
 export type AgeBucket = typeof AGE_BUCKETS[number];
 
