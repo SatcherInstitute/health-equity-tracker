@@ -157,11 +157,6 @@ def testGenerateBreakdownAgeNational(mock_fips: mock.MagicMock, mock_pop: mock.M
     expected_df_age_national = pd.read_json(
         GOLDEN_DATA['age_national'], dtype=expected_dtype_age)
 
-    # print("mock results")
-    # print(df)
-    # print("expected")
-    # print(expected_df_age_national)
-
     assert_frame_equal(df, expected_df_age_national, check_like=True)
 
 
@@ -183,11 +178,6 @@ def testGenerateBreakdownRaceNational(mock_fips: mock.MagicMock, mock_pop: mock.
 
     expected_df_race_national = pd.read_json(
         GOLDEN_DATA['race_national'], dtype=expected_dtype_race)
-
-    # print("mock results")
-    # print(df)
-    # print("expected")
-    # print(expected_df_race_national)
 
     assert_frame_equal(df, expected_df_race_national, check_like=True)
 
