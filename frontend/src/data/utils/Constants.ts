@@ -144,7 +144,7 @@ export const CDC_AGE_BUCKETS = [
 ];
 
 export const BJS_NATIONAL_AGE_BUCKETS = [
-  "0-17",
+  "All",
   "18-19",
   "20-24",
   "25-29",
@@ -158,23 +158,10 @@ export const BJS_NATIONAL_AGE_BUCKETS = [
   "65+",
 ];
 
-// export const BJS_STATE_AGE_BUCKETS = [];
-// export const BJS_STATE_AGE_BUCKETS = ["All", "0-17", "18+"];
-
 export const UNUSED_BUCKETS = [
-  // "0-17",
+  "0-17",
   "15-17",
   "18+",
-  // "18-19",
-  // "20-24",
-  // "25-29",
-  // "30-34",
-  // "35-39",
-  // "40-44",
-  // "45-49",
-  // "50-54",
-  // "55-59",
-  // "60-64",
   "65-69",
   "70-74",
   "75-79",
