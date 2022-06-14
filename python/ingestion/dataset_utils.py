@@ -44,6 +44,7 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
                       (race/sex/age).
        all_val: String representing an ALL demographic value in the dataframe.
        unknown_val: String representing an UNKNOWN value in the dataframe."""
+
     df = _generate_pct_share_col(
         df, raw_count_to_pct_share, breakdown_col, all_val)
 
