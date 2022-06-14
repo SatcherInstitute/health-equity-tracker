@@ -122,7 +122,7 @@ def combine_race_eth(df):
        We will keep ths in place until we can figure out a plan on how to display
        the race and ethnicty to our users disagregted."""
 
-    def get_combibed_value(row):
+    def get_combined_value(row):
         if row[ETH_COL] == 'Hispanic/Latino':
             return std_col.Race.HISP.value
 
@@ -132,7 +132,7 @@ def combine_race_eth(df):
         else:
             return RACE_NAMES_MAPPING[row[RACE_COL]]
 
-    df[RACE_ETH_COL] = df.apply(get_combibed_value, axis=1)
+    df[RACE_ETH_COL] = df.apply(get_combined_value, axis=1)
     df = df.drop(columns=[RACE_COL, ETH_COL])
     return df
 
