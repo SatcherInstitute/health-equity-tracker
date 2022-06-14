@@ -1,6 +1,6 @@
 state_postal,race_category_id,age,cases,hosp_y,hosp_n,hosp_unknown,death_y,death_n,death_unknown,race,race_includes_hispanic,race_and_ethnicity
 CA,AIAN_NH,0-9,1,1,0,0,0,1,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-CA,AIAN_NH,UNKNOWN,1,0,0,1,0,1,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+CA,AIAN_NH,Unknown,1,0,0,1,0,1,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
 CA,ALL,,18,5,6,7,5,5,8,All,,All
 CA,ASIAN_NH,10-19,1,0,1,0,0,1,0,Asian,False,Asian (Non-Hispanic)
 CA,BLACK_NH,20-29,2,1,1,0,1,0,1,Black or African American,False,Black or African American (Non-Hispanic)
@@ -13,7 +13,7 @@ CA,NHPI_NH,40-49,1,0,0,1,0,0,1,Native Hawaiian and Pacific Islander,False,Native
 CA,UNKNOWN,30-39,1,0,1,0,0,0,1,Unknown race,True,Unknown race
 CA,UNKNOWN,70-79,1,0,0,1,0,0,1,Unknown race,True,Unknown race
 CA,UNKNOWN,80+,1,0,0,1,0,0,1,Unknown race,True,Unknown race
-CA,UNKNOWN,UNKNOWN,2,0,1,1,1,1,0,Unknown race,True,Unknown race
+CA,UNKNOWN,Unknown,2,0,1,1,1,1,0,Unknown race,True,Unknown race
 CA,WHITE_NH,20-29,1,0,1,0,0,0,1,White,False,White (Non-Hispanic)
 CA,WHITE_NH,50-59,1,0,0,1,0,0,1,White,False,White (Non-Hispanic)
 DE,ALL,,1,1,0,0,,,,All,,All
