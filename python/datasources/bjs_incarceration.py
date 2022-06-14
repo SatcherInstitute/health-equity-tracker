@@ -143,11 +143,11 @@ def post_process(df, breakdown, geo, df_13):
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         std_col.add_race_columns_from_category_id(df)
         pop_breakdown = std_col.RACE_COL
-        all_val = 'ALL'
+        all_val = Race.ALL.value
         group_col = std_col.RACE_CATEGORY_ID_COL
     else:
         pop_breakdown = breakdown
-        all_val = 'All'
+        all_val = std_col.ALL_VALUE
         group_col = breakdown
 
     df = dataset_utils.merge_fips_codes(df)
