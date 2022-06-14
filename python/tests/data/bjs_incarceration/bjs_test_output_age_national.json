@@ -1,6 +1,6 @@
 [
     {
-        "prison_estimated_total": null,
+        "total_confined_children": 352.0,
         "state_name": "United States",
         "age": "All",
         "prison_pct_share": 100.0,
@@ -9,7 +9,7 @@
         "prison_per_100k": 360.0
     },
     {
-        "prison_estimated_total": null,
+        "total_confined_children": null,
         "state_name": "United States",
         "age": "18-19",
         "prison_pct_share": 0.6,
@@ -18,7 +18,7 @@
         "prison_per_100k": 81.0
     },
     {
-        "prison_estimated_total": null,
+        "total_confined_children": null,
         "state_name": "United States",
         "age": "20-24",
         "prison_pct_share": 7.5,
@@ -27,7 +27,7 @@
         "prison_per_100k": 399.0
     },
     {
-        "prison_estimated_total": null,
+        "total_confined_children": null,
         "state_name": "United States",
         "age": "25-29",
         "prison_pct_share": 14.5,
@@ -36,7 +36,7 @@
         "prison_per_100k": 736.0
     },
     {
-        "prison_estimated_total": null,
+        "total_confined_children": null,
         "state_name": "United States",
         "age": "30-34",
         "prison_pct_share": 16.3,
@@ -45,7 +45,7 @@
         "prison_per_100k": 870.0
     },
     {
-        "prison_estimated_total": null,
+        "total_confined_children": null,
         "state_name": "United States",
         "age": "35-39",
         "prison_pct_share": 15.8,
@@ -54,7 +54,7 @@
         "prison_per_100k": 878.0
     },
     {
-        "prison_estimated_total": null,
+        "total_confined_children": null,
         "state_name": "United States",
         "age": "40-44",
         "prison_pct_share": 13.0,
@@ -63,7 +63,7 @@
         "prison_per_100k": 764.0
     },
     {
-        "prison_estimated_total": null,
+        "total_confined_children": null,
         "state_name": "United States",
         "age": "45-49",
         "prison_pct_share": 10.1,
@@ -72,7 +72,7 @@
         "prison_per_100k": 570.0
     },
     {
-        "prison_estimated_total": null,
+        "total_confined_children": null,
         "state_name": "United States",
         "age": "50-54",
         "prison_pct_share": 8.1,
@@ -81,7 +81,7 @@
         "prison_per_100k": 444.0
     },
     {
-        "prison_estimated_total": null,
+        "total_confined_children": null,
         "state_name": "United States",
         "age": "55-59",
         "prison_pct_share": 6.5,
@@ -90,7 +90,7 @@
         "prison_per_100k": 351.0
     },
     {
-        "prison_estimated_total": null,
+        "total_confined_children": null,
         "state_name": "United States",
         "age": "60-64",
         "prison_pct_share": 4.0,
@@ -99,21 +99,12 @@
         "prison_per_100k": 233.0
     },
     {
-        "prison_estimated_total": null,
+        "total_confined_children": null,
         "state_name": "United States",
         "age": "65+",
         "prison_pct_share": 3.5,
         "state_fips": "00",
         "population_pct": 15.7,
         "prison_per_100k": 80.0
-    },
-    {
-        "prison_estimated_total": 352.0,
-        "state_name": "United States",
-        "age": "0-17",
-        "prison_pct_share": null,
-        "state_fips": "00",
-        "population_pct": 22.6,
-        "prison_per_100k": null
     }
 ]
