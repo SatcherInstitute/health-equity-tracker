@@ -30,8 +30,8 @@ function IncarceratedChildrenLongAlert() {
         </p>
         <p>
           When reporting on this age group, we highlight the{" "}
-          <b>total number of confined children</b>, rather than a ‘per 100k’.
-          Read more in <Link to={METHODOLOGY_TAB_LINK}>our methodology</Link>.
+          <b>total number of confined children</b>. Read more in{" "}
+          <Link to={METHODOLOGY_TAB_LINK}>our methodology</Link>.
         </p>
       </Alert>
     </div>

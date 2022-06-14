@@ -301,11 +301,8 @@ export function getExclusionList(
 
     currentFips.isState() &&
       exclusionList.push(
+        // No demographic breakdowns so exclude ALL age buckets
         ...AGE_BUCKETS
-
-        // ...AGE_BUCKETS.filter(
-        //   (bucket: AgeBucket) => !BJS_STATE_AGE_BUCKETS.includes(bucket as any)
-        // )
       );
   }
 

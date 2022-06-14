@@ -26,10 +26,7 @@ export const COMBINED_QUALIFIER = "combined prison and jail";
 export const MISSING_PRISON_DATA =
   "The rates presented for imprisonment nationally do not include individuals under the jurisdiction of territorial, military, or Indian Country facilities.";
 
-export const BJS_VARIABLE_IDS: VariableId[] = [
-  "prison",
-  // "jail",
-];
+export const BJS_VARIABLE_IDS: VariableId[] = ["prison", "jail"];
 
 export const BJS_DETERMINANTS: MetricId[] = [
   "bjs_population_pct",
@@ -77,13 +74,7 @@ class BjsProvider extends VariableProvider {
     );
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
-
     df = this.removeUnrequestedColumns(df, metricQuery);
-
-    // // swap backend juvenile bucket with frontend label
-    // df = df.map((row) =>
-    //   row["age"] === "0-17" ? { ...row, age: UNDER_18_PRISON } : row
-    // );
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
