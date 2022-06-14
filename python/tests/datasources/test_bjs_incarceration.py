@@ -215,8 +215,7 @@ def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
 
 
 # INTEGRATION TEST - CORRECT NETWORK CALLS
-
-
+# comment out all mocks expect BQ to see real results (not just test sample results)
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
