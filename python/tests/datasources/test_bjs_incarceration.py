@@ -111,7 +111,6 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "bjs_incarceration")
 GOLDEN_DATA = {
     'race_national': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_national.json'),
     'age_national': os.path.join(TEST_DIR, 'bjs_test_output_age_national.json'),
-    'age_state': os.path.join(TEST_DIR, 'bjs_test_output_age_state.json'),
     'sex_state': os.path.join(TEST_DIR, 'bjs_test_output_sex_state.json'),
 }
 
@@ -153,33 +152,12 @@ def testGenerateBreakdownAgeNational(mock_fips: mock.MagicMock, mock_pop: mock.M
 
     datasource = BJSIncarcerationData()
     df = datasource.generate_breakdown_df(
-        "age", "national", [df_10, df_13])
+        "age", "national", [df_10, ], df_13)
 
     expected_df_age_national = pd.read_json(
         GOLDEN_DATA['age_national'], dtype=expected_dtype_age)
 
     assert_frame_equal(df, expected_df_age_national, check_like=True)
-
-# INTEGRATION TEST - STATE AGE
-
-
-@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
-@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-             return_value=get_state_fips_codes_as_df())
-def testGenerateBreakdownAgeState(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
-
-    df_2 = _get_standardized_table2()
-    df_13 = _get_standardized_table13()
-    df_23 = _get_standardized_table23()
-
-    datasource = BJSIncarcerationData()
-    df = datasource.generate_breakdown_df(
-        "age", "state", [df_2, df_13, df_23])
-
-    expected_df_age_state = pd.read_json(
-        GOLDEN_DATA['age_state'], dtype=expected_dtype_age)
-
-    assert_frame_equal(df, expected_df_age_state, check_like=True)
 
 
 # INTEGRATION TEST - NATIONAL RACE
@@ -192,10 +170,11 @@ def testGenerateBreakdownRaceNational(mock_fips: mock.MagicMock, mock_pop: mock.
 
     df_app_2 = _get_standardized_table_app2()
     df_23 = _get_standardized_table23()
+    df_13 = _get_standardized_table13()
 
     datasource = BJSIncarcerationData()
     df = datasource.generate_breakdown_df(
-        "race_and_ethnicity", "national", [df_app_2, df_23])
+        "race_and_ethnicity", "national", [df_app_2, df_23], df_13)
 
     expected_df_race_national = pd.read_json(
         GOLDEN_DATA['race_national'], dtype=expected_dtype_race)
@@ -213,10 +192,11 @@ def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
 
     df_2 = _get_standardized_table2()
     df_23 = _get_standardized_table23()
+    df_13 = _get_standardized_table13()
 
     datasource = BJSIncarcerationData()
     df = datasource.generate_breakdown_df(
-        "sex", "state", [df_2, df_23])
+        "sex", "state", [df_2, df_23], df_13)
 
     expected_df_sex_state = pd.read_json(
         GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex)
@@ -225,8 +205,7 @@ def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
 
 
 # INTEGRATION TEST - CORRECT NETWORK CALLS
-
-
+# comment out all mocks expect BQ to see real results (not just test sample results)
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
@@ -251,28 +230,14 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
 
     assert mock_bq.call_count == 6
 
-    # Un-comment to view output
-    # mock_df_national_age = mock_bq.call_args_list[0][0][0]
-    # mock_df_national_race = mock_bq.call_args_list[1][0][0]
-    # mock_df_national_sex = mock_bq.call_args_list[2][0][0]
-    # mock_df_state_age = mock_bq.call_args_list[3][0][0]
-    # mock_df_state_race = mock_bq.call_args_list[4][0][0]
-    # mock_df_state_sex = mock_bq.call_args_list[5][0][0]
-
-    # Un-comment and remove all mocks except mock_bq
-    # to save json to files
-    # mock_df_national_age.to_json(
-    #     "bjs_data-age_national.json", orient="records")
-    # mock_df_national_race.to_json(
-    #     "bjs_data-race_and_ethnicity_national.json", orient="records")
-    # mock_df_national_sex.to_json(
-    #     "bjs_data-sex_national.json", orient="records")
-    # mock_df_state_age.to_json(
-    #     "bjs_data-rage_state.json", orient="records")
-    # mock_df_state_race.to_json(
-    #     "bjs_data-race_and_ethnicity_state.json", orient="records")
-    # mock_df_state_sex.to_json(
-    #     "bjs_data-sex_state.json", orient="records")
+    # Un-comment to log output and save to file
+    # (can copy/paste into frontend /tmp )
+    # for bq_call in mock_bq.call_args_list:
+    #     df, _, table_name = bq_call[0]
+    #     print(table_name)
+    #     print(df)
+    #     df.to_json(
+    #         f'bjs_incarceration_data-{table_name}.json', orient="records")
 
     assert mock_zip.call_count == 1
 
