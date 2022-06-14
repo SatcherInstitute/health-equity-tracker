@@ -2,7 +2,6 @@ import { getDataManager } from "../../utils/globals";
 import { MetricId, VariableId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 import {
   UNKNOWN_RACE,
@@ -13,7 +12,7 @@ import {
 
 class CdcSviProvider extends VariableProvider {
   constructor() {
-    super("cdc_svi_provider", ["cdc_svi"]);
+    super("cdc_svi_provider", ["svi"]);
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
@@ -28,7 +27,6 @@ class CdcSviProvider extends VariableProvider {
     const cdc_svi = await getDataManager().loadDataset(datasetId);
     let df = cdc_svi.toDataFrame();
 
-    df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
 
     let consumedDatasetIds = [datasetId];
@@ -39,7 +37,11 @@ class CdcSviProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    return breakdowns.geography === "county";
+    const validDemographicBreakdownRequest = !breakdowns.time;
+
+    return (
+      validDemographicBreakdownRequest && breakdowns.geography === "county"
+    );
   }
 }
 

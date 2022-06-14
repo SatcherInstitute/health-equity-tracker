@@ -9,6 +9,7 @@ import { Fips, ACS_2010_FIPS } from "../data/utils/Fips";
 import { Box, CardContent, Popper } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
+import variables from "../styles/variables.module.scss";
 import AnimateHeight from "react-animate-height";
 import Button from "@material-ui/core/Button";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
@@ -66,14 +67,42 @@ export function PopulationCard(props: PopulationCardProps) {
     metricIds,
     Breakdowns.forFips(props.fips).andAge(onlyIncludeDecadeAgeBrackets())
   );
-  const sviQuery = new MetricQuery("cdc_svi", Breakdowns.forFips(props.fips));
 
-  const queries = [raceQuery, ageQuery, sviQuery];
+  const queries = [raceQuery, ageQuery];
+
+  if (props.fips.isCounty()) {
+    const sviQuery = new MetricQuery(
+      "svi",
+      Breakdowns.forFips(props.fips).andRace()
+    );
+    queries.push(sviQuery);
+  }
+
+  const findRating = (svi: number) => {
+    if (svi < 0.34) {
+      return "low";
+    }
+    if (svi > 0.67) {
+      return "high";
+    } else return "medium";
+  };
+
+  const findColor = (rating: string) => {
+    if (rating === "high") {
+      return "#d32f2f";
+    }
+    if (rating === "low") {
+      return variables.altGreen;
+    } else return "#d85c47";
+  };
 
   return (
     <CardWrapper minHeight={PRELOAD_HEIGHT} queries={queries}>
       {([raceQueryResponse, ageQueryResponse, sviQueryResponse]) => {
-        console.log(sviQueryResponse);
+        console.log({ sviQueryResponse });
+        const svi = sviQueryResponse.data[0].svi;
+        const rating = findRating(svi);
+        const color = findColor(rating);
         const totalPopulation = raceQueryResponse.data.find(
           (r) => r.race_and_ethnicity === ALL
         );
@@ -96,8 +125,6 @@ export function PopulationCard(props: PopulationCardProps) {
             {expanded ? <ArrowDropUp /> : <ArrowDropDown />}
           </Button>
         );
-
-        console.log(props.fips.code);
 
         return (
           <CardContent className={styles.PopulationCardContent}>
@@ -139,11 +166,11 @@ export function PopulationCard(props: PopulationCardProps) {
             </Grid>
 
             <Alert severity="info">
-              This county has a social vulnerability index of <b>0.97</b>; which
-              indicates a{" "}
-              <a href="" className={styles.SVILink}>
-                <span className={styles.SVIText}>
-                  high level of vulernability.
+              This county has a social vulnerability index of <b>{svi}</b>;
+              which indicates a{" "}
+              <a href="testing" style={{ textDecorationColor: color }}>
+                <span style={{ color: color, fontWeight: "bold" }}>
+                  {rating} level of vulernability.
                 </span>
               </a>{" "}
             </Alert>
