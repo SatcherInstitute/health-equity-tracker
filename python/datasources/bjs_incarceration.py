@@ -122,10 +122,12 @@ def post_process(df, breakdown, geo, df_13):
         Takes a breakdown df with raw incidence values by demographic by place and:
         - generates `PER_100K` column (some incoming df may already have this col and partial data)
         - generates `PCT_SHARE` column
+        - generates `total_confined_children` column, where number will be stored under the
+            "All/ALL" demographic group rows for all demographic breakdowns
         - removes temporary columns needed only for calculating our metrics
 
        df: Dataframe with all the raw data containing:
-       "state_name" column, raw values column, and demographic column
+            "state_name" column, raw values column, and demographic column
        breakdown: string column name containing demographic breakdown groups (race, sex, age)
        geo: geographic level (national, state)
        df_13: df for table 13 that includes total_confined_children data
@@ -269,8 +271,6 @@ class BJSIncarcerationData(DataSource):
         else:
             raw_df = generate_raw_race_or_sex_breakdown(
                 breakdown, geo_level, table_list)
-
-        # need to retrieve corresponding raw # confined children from table_13
 
         processed_df = post_process(
             raw_df, breakdown, geo_level, df_13)
