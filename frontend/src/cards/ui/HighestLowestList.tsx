@@ -40,6 +40,7 @@ export interface HighestLowestListProps {
    Collapsible box showing lists of geographies with the highest and lowest rates
 */
 export function HighestLowestList(props: HighestLowestListProps) {
+  // helper method to append a note to certain list entries
   function addQualifier(fipsName: string, qualifier: string) {
     return props.qualifierItems?.includes(fipsName) ? ` (${qualifier})` : "";
   }
