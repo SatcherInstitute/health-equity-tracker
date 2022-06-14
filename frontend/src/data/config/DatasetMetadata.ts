@@ -219,12 +219,12 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "bjs_incarceration_data-age_national",
-    name: "National rates of individuals under the jurisdiction of federal or state adult prison facilities, by Age",
+    name: "National rates of sentenced individuals under the jurisdiction of federal or state adult prison facilities, by Age",
     update_time: "2022",
   },
   {
     id: "bjs_incarceration_data-age_state",
-    name: "Rates of individuals under the jurisdiction of a state or territory prison facility, by Age and State/Territory",
+    name: "Rates of individuals under the jurisdiction of a state or territory prison facility, State/Territory (totals only)",
     update_time: "2022",
   },
   {
