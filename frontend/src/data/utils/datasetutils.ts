@@ -29,7 +29,6 @@ import {
   UNKNOWN_RACE,
   AGE,
   BJS_NATIONAL_AGE_BUCKETS,
-  BJS_STATE_AGE_BUCKETS,
 } from "./Constants";
 import { Row } from "./DatasetTypes";
 import { Fips } from "./Fips";
@@ -238,7 +237,7 @@ export const DATA_GAPS: Partial<
     sex: [...missingSexAllGeos],
   },
   state: {
-    age: [...missingAgeAllGeos, "covid_vaccinations"],
+    age: [...missingAgeAllGeos, "covid_vaccinations", "prison"],
     sex: [...missingSexAllGeos, "covid_vaccinations"],
   },
   territory: {
@@ -260,7 +259,7 @@ Conditionally hide some of the extra buckets from the table card, which generall
 const showAllGroupIds: VariableId[] = [
   "women_state_legislatures",
   "women_us_congress",
-  "prison",
+  // "prison",
 ];
 
 export function getExclusionList(
@@ -302,11 +301,11 @@ export function getExclusionList(
 
     currentFips.isState() &&
       exclusionList.push(
-        // ...AGE_BUCKETS
+        ...AGE_BUCKETS
 
-        ...AGE_BUCKETS.filter(
-          (bucket: AgeBucket) => !BJS_STATE_AGE_BUCKETS.includes(bucket as any)
-        )
+        // ...AGE_BUCKETS.filter(
+        //   (bucket: AgeBucket) => !BJS_STATE_AGE_BUCKETS.includes(bucket as any)
+        // )
       );
   }
 
