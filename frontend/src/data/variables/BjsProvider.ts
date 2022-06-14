@@ -26,8 +26,7 @@ export const MISSING_PRISON_DATA =
 
 export const BJS_VARIABLE_IDS: VariableId[] = [
   "prison",
-  "jail",
-  "combined_incarceration",
+  // "jail",
 ];
 
 export const BJS_DETERMINANTS: MetricId[] = [
