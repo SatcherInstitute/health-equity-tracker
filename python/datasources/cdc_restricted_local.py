@@ -119,8 +119,8 @@ DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD", "DE")
 
 def combine_race_eth(df):
     """Combines the race and ethnicity fields into the legacy race/ethnicity category.
-       We will keep ths in place until we can figure out a plan on how to display
-       the race and ethnicty to our users disagregted."""
+       We will keep this in place until we can figure out a plan on how to display
+       the race and ethnicty to our users in a disaggregated way."""
 
     def get_combined_value(row):
         if row[ETH_COL] == 'Hispanic/Latino':
