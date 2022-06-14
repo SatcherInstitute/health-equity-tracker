@@ -243,12 +243,12 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
 
     # Un-comment to log output and save to file
     # (can copy/paste into frontend /tmp )
-    for bq_call in mock_bq.call_args_list:
-        df, _, table_name = bq_call[0]
-        print(table_name)
-        print(df)
-        df.to_json(
-            f'bjs_data-{table_name}.json', orient="records")
+    # for bq_call in mock_bq.call_args_list:
+    #     df, _, table_name = bq_call[0]
+    #     print(table_name)
+    #     print(df)
+    #     df.to_json(
+    #         f'bjs_data-{table_name}.json', orient="records")
 
     assert mock_zip.call_count == 1
 
