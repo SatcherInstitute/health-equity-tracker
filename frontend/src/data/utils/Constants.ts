@@ -193,7 +193,7 @@ export const AGE_BUCKETS = [
   ...UNUSED_BUCKETS,
 ] as const;
 
-export const CHILD_AGE_BUCKETS = [UNDER_18_PRISON, "0-17", "15-17"];
+export const ALLS_BUCKETS = ["ALL", "All"];
 
 // ENUMERATE THOSE PROPERTIES TO CREATE AN AGE-GROUP TYPE
 export type AgeBucket = typeof AGE_BUCKETS[number];

@@ -4,8 +4,9 @@ import { Fips } from "../../data/utils/Fips";
 import { urlMap } from "../../utils/externalUrls";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { Row } from "../../data/utils/DatasetTypes";
-import { CHILD_AGE_BUCKETS } from "../../data/utils/Constants";
+import { ALL } from "../../data/utils/Constants";
 import FlagIcon from "@material-ui/icons/Flag";
+import { BreakdownVar } from "../../data/query/Breakdowns";
 
 let children = "children";
 let adultPrisonFacilities = "adult prison facilities";
@@ -13,14 +14,18 @@ let adultPrisonFacilities = "adult prison facilities";
 interface IncarceratedChildrenShortAlertProps {
   queryResponse: MetricQueryResponse;
   fips: Fips;
+  breakdownVar: BreakdownVar;
 }
 
 function IncarceratedChildrenShortAlert(
   props: IncarceratedChildrenShortAlertProps
 ) {
-  const count = props.queryResponse.data.find((row: Row) =>
-    CHILD_AGE_BUCKETS.includes(row.age)
-  )?.["prison_estimated_total"];
+  const count = props.queryResponse.data.find(
+    (row: Row) => row[props.breakdownVar] === ALL
+  )?.total_confined_children;
+
+  console.log(count);
+  // const count = props.queryResponse.data.find((row: Row) => ALLS_BUCKETS.includes(row[props.breakdownVar]))
 
   if (!count) return <></>;
 

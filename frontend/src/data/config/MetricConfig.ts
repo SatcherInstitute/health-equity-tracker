@@ -44,7 +44,6 @@ export type VariableId =
   | "women_state_legislatures"
   | "prison"
   | "jail"
-  | "combined_incarceration"
   | "covid_vaccinations";
 
 export type MetricId =
@@ -146,9 +145,8 @@ export type MetricId =
   | "women_us_congress_ratio_age_adjusted"
   | "prison_pct_share"
   | "prison_per_100k"
-  | "sentenced_prison_per_100k"
-  | "prison_estimated_total"
-  | "prison_ratio_age_adjusted";
+  | "prison_ratio_age_adjusted"
+  | "total_confined_children";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -1195,12 +1193,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "prison_per_100k",
           fullCardTitleName: "Imprisoned Per 100k",
           shortLabel: "imprisoned per 100k",
-          type: "per100k",
-        },
-        altPer100k: {
-          metricId: "sentenced_prison_per_100k",
-          fullCardTitleName: "SENTENCED",
-          shortLabel: "SENTENCED imprisoned per 100k",
           type: "per100k",
         },
         pct_share: {

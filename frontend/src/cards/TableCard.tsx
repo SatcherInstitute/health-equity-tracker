@@ -80,16 +80,12 @@ export function TableCard(props: TableCardProps) {
         metricConfig.secondaryPopulationComparisonMetric;
     }
   });
-  const isIncarcerationByAge =
-    BJS_VARIABLE_IDS.includes(props.variableConfig.variableId) &&
-    props.breakdownVar === "age";
-
-  // const isIncarcerationByAge =
-  // BJS_VARIABLE_IDS.includes(props.variableConfig.variableId) &&
-  // props.breakdownVar === "age" && props.fips.isUsa();
+  const IsIncarceration = BJS_VARIABLE_IDS.includes(
+    props.variableConfig.variableId
+  );
 
   const metricIds = Object.keys(metricConfigs) as MetricId[];
-  isIncarcerationByAge && metricIds.push("prison_estimated_total");
+  IsIncarceration && metricIds.push("total_confined_children");
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
   const displayingCovidData = metrics
@@ -111,17 +107,18 @@ export function TableCard(props: TableCardProps) {
         if (shouldShowAltPopCompare(props)) data = fillInAltPops(data);
 
         const normalMetricIds = metricIds.filter(
-          (id) => id !== "prison_estimated_total"
+          (id) => id !== "total_confined_children"
         );
 
         return (
           <>
-            {isIncarcerationByAge && (
+            {IsIncarceration && (
               <>
                 <CardContent>
                   <IncarceratedChildrenShortAlert
                     fips={props.fips}
                     queryResponse={queryResponse}
+                    breakdownVar={props.breakdownVar}
                   />
                 </CardContent>
               </>

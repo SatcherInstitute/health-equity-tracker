@@ -75,7 +75,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     metricIds.push(metricConfig.secondaryPopulationComparisonMetric.metricId);
   }
 
-  isIncarceration && metricIds.push("prison_estimated_total");
+  isIncarceration && metricIds.push("total_confined_children");
 
   const query = new MetricQuery(metricIds, breakdowns);
 
@@ -154,6 +154,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                       <IncarceratedChildrenShortAlert
                         fips={props.fips}
                         queryResponse={queryResponse}
+                        breakdownVar={props.breakdownVar}
                       />
                     </CardContent>
                   </>

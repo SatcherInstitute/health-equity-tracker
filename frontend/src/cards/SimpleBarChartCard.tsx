@@ -50,7 +50,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   );
   const metricIdsToFetch: MetricId[] = [];
   metricIdsToFetch.push(metricConfig.metricId);
-  isIncarceration && metricIdsToFetch.push("prison_estimated_total");
+  isIncarceration && metricIdsToFetch.push("total_confined_children");
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -111,6 +111,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                     <IncarceratedChildrenShortAlert
                       fips={props.fips}
                       queryResponse={queryResponse}
+                      breakdownVar={props.breakdownVar}
                     />
                   </CardContent>
                 )}
