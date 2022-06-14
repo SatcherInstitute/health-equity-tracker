@@ -5,6 +5,7 @@ import styles from "./IncarceratedChildrenLongAlert.module.scss";
 import { Link } from "react-router-dom";
 import FlagIcon from "@material-ui/icons/Flag";
 import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";
+import { urlMap } from "../../utils/externalUrls";
 
 function IncarceratedChildrenLongAlert() {
   return (
@@ -20,14 +21,12 @@ function IncarceratedChildrenLongAlert() {
         <p>
           Although the criminal justice system makes distinctions between adults
           and children, individual states have laws that remove children from
-          the protective cover of these distinctions and enable the
-          incarceration of children in adult institutions. Such children are
-          more exposed to physical and sexual abuse, fewer age-appropriate
-          services, and{" "}
-          <Link to={"https://www.prisonpolicy.org/reports/youth2019.html"}>
-            worse health outcomes
-          </Link>
-          .
+          the protective cover of these distinctions and{" "}
+          <a href={urlMap.prisonPolicy}>
+            enable the incarceration of children in adult institutions
+          </a>
+          . Such children are more exposed to physical and sexual abuse, fewer
+          age-appropriate services, and worse health outcomes.
         </p>
         <p>
           When reporting on this age group, we highlight the{" "}

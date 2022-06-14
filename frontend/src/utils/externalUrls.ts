@@ -34,9 +34,11 @@ export type LinkName =
   | "deniedVoting"
   | "aafp"
   | "rwjf"
-  | "childrenInPrison";
+  | "childrenInPrison"
+  | "prisonPolicy";
 
 export const urlMap: Record<LinkName, string> = {
+  prisonPolicy: "https://www.prisonpolicy.org/reports/youth2019.html",
   childrenInPrison: "https://eji.org/issues/children-in-prison/",
   rwjf: "https://www.rwjf.org/en/library/research/2019/01/mass-incarceration-threatens-health-equity-in-america.html",
   aafp: "https://www.aafp.org/about/policies/all/incarceration.html",

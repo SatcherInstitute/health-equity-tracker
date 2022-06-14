@@ -256,10 +256,10 @@ export const DATA_GAPS: Partial<
 Conditionally hide some of the extra buckets from the table card, which generally should be showing only 1 complete set of buckets that show the entire population's comparison values.
 
 */
-const showAllGroupIds: VariableId[] = [
+const includeAllsGroupsIds: VariableId[] = [
   "women_state_legislatures",
   "women_us_congress",
-  // "prison",
+  "prison",
 ];
 
 export function getExclusionList(
@@ -271,7 +271,7 @@ export function getExclusionList(
   const currentVariableId = currentVariable.variableId;
   let exclusionList = [UNKNOWN, UNKNOWN_ETHNICITY, UNKNOWN_RACE];
 
-  if (!showAllGroupIds.includes(currentVariableId)) {
+  if (!includeAllsGroupsIds.includes(currentVariableId)) {
     exclusionList.push(ALL);
   }
 
