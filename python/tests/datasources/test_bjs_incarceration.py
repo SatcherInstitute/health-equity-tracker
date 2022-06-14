@@ -1,186 +1,14 @@
 from unittest import mock
 import os
+from io import StringIO
 import pandas as pd
 from pandas._testing import assert_frame_equal
-import ingestion.standardized_columns as std_col
 from test_utils import get_state_fips_codes_as_df
-from datasources.bjs import (BJSData)
-from datasources.bjs_table_utils import (
-    missing_data_to_none,
-    swap_race_col_names_to_codes,
-    filter_cols,
-    set_state_col,
-    keep_only_states,
-    keep_only_national,
-    strip_footnote_refs_from_df,
-    cols_to_rows,
-)
-
-
-# UNIT TESTS
-
-def test_set_state_col():
-
-    _fake_df = pd.DataFrame({
-        'Jurisdiction': ["Federal", None, None],
-        'Unnamed: 1': [None, "Georgia", "Alaska"],
-        'ignored_values': [1.0, 1.0, 1.0]
-    })
-    _expected_df_set_state_cols = pd.DataFrame({
-        std_col.STATE_NAME_COL: ["Federal", "Georgia", "Alaska"],
-        'Jurisdiction': ["Federal", None, None],
-        'Unnamed: 1': [None, "Georgia", "Alaska"],
-        'ignored_values': [1.0, 1.0, 1.0]
-    })
-
-    assert_frame_equal(
-        set_state_col(_fake_df),
-        _expected_df_set_state_cols,
-        check_like=True)
-
-
-def test_filter_cols():
-
-    _fake_by_sex_df = pd.DataFrame({
-        std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
-        'Male': [2.0, 4.0, 6.0],
-        'Female': [1.0, 3.0, 5.0],
-        'ignored_values': [1.0, 1.0, 1.0]
-    })
-
-    _expected_by_sex_filtered_cols = pd.DataFrame({
-        std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
-        'Male': [2.0, 4.0, 6.0],
-        'Female': [1.0, 3.0, 5.0],
-    })
-
-    assert_frame_equal(
-        filter_cols(_fake_by_sex_df, std_col.SEX_COL),
-        _expected_by_sex_filtered_cols,
-        check_like=True)
-
-
-_fake_by_race_df = pd.DataFrame({
-    std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
-    'Asian': [1_000_000, "~", 1000],
-    'Black': [1_000_000, "^", "/"]
-})
-
-_expected_by_race_df_missing_to_none = pd.DataFrame({
-    std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida"],
-    'Asian': [1_000_000, None, 1000],
-    'Black': [1_000_000, None, None]
-})
-
-_expected_by_race_df_only_states = pd.DataFrame({
-    std_col.STATE_NAME_COL: ["Maine", "Florida"],
-    'Asian': ["~", 1000],
-    'Black': ["^", "/"]
-})
-
-
-def test_missing_data_to_none():
-    assert missing_data_to_none(
-        _fake_by_race_df).equals(_expected_by_race_df_missing_to_none)
-
-
-def test_keep_only_states():
-    assert keep_only_states(
-        _fake_by_race_df).reset_index(drop=True).equals(
-            _expected_by_race_df_only_states.reset_index(drop=True))
-
-
-def test_keep_only_national():
-    _fake_by_age_df_with_total = pd.DataFrame({
-        std_col.STATE_NAME_COL: ["Federal", "Maine", "Florida", ],
-        'Female': [1000, 100, 10],
-        'Male': [1_000_000, 100_000, 10_000]
-    })
-
-    _fake_by_age_df_without_total = pd.DataFrame({
-        std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
-        'Female': [1110, 100, 10],
-        'Male': [1_110_000, 100_000, 10_000]
-    })
-
-    _expected_by_age_df_only_national = pd.DataFrame({
-        std_col.STATE_NAME_COL: ["United States", ],
-        'Female': [1110],
-        'Male': [1_110_000]
-    })
-
-    assert_frame_equal(
-        keep_only_national(_fake_by_age_df_with_total,
-                           ["Female", "Male"]),
-        _expected_by_age_df_only_national,
-        check_like=True)
-
-    assert_frame_equal(
-        keep_only_national(_fake_by_age_df_without_total,
-                           ["Female",
-                            "Male"]),
-        _expected_by_age_df_only_national,
-        check_like=True)
-
-
-def test_cols_to_rows():
-
-    _fake_bjs_table_df = pd.DataFrame({
-        std_col.STATE_NAME_COL: ["Maine", "Florida", ],
-        'Asian': [100, 200],
-        'Black': [1000, 2000]
-    })
-
-    _expected_bjs_table_df_flipped_cols_to_rows = pd.DataFrame({
-        std_col.STATE_NAME_COL: ["Maine", "Florida", "Maine", "Florida", ],
-        'race': ["Asian", "Asian", "Black", "Black"],
-        'some_value': [100, 200, 1000, 2000]
-    })
-
-    assert_frame_equal(
-        cols_to_rows(_fake_bjs_table_df, [
-            "Asian", "Black"], "race", "some_value"),
-        _expected_bjs_table_df_flipped_cols_to_rows,
-        check_like=True)
-
-
-def test_strip_footnote_refs():
-    _fake_df_with_footnote_refs = pd.DataFrame({
-        std_col.STATE_NAME_COL: ["U.S. total/a", "Maine/b,c", "Florida", ],
-        'Asian/e': [1, 2, 3],
-        'Black': [4, 5, 6]
-    })
-
-    _expected_df_stripped_of_footnote_refs = pd.DataFrame({
-        std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
-        'Asian': [1, 2, 3],
-        'Black': [4, 5, 6]
-    })
-
-    assert_frame_equal(
-        strip_footnote_refs_from_df(_fake_df_with_footnote_refs),
-        _expected_df_stripped_of_footnote_refs,
-        check_like=True)
-
-
-def test_swap_race_col_names_to_codes():
-
-    _fake_df = pd.DataFrame({
-        std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
-        'American Indian/Alaska Native': [1, 2, 3],
-        'Total': [4, 5, 6]
-    })
-
-    _expected_df_swapped_cols = pd.DataFrame({
-        std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida", ],
-        'AIAN_NH': [1, 2, 3],
-        'ALL': [4, 5, 6]
-    })
-
-    assert_frame_equal(
-        swap_race_col_names_to_codes(_fake_df),
-        _expected_df_swapped_cols,
-        check_like=True)
+from datasources.bjs_incarceration import (BJSIncarcerationData)
+from ingestion.bjs_utils import (bjs_prisoners_tables,
+                                 strip_footnote_refs_from_df,
+                                 missing_data_to_none,
+                                 set_state_col)
 
 # MOCKS FOR READING IN TABLES
 
@@ -218,57 +46,203 @@ def _get_pop_as_df(*args):
     return df
 
 
+def _get_standardized_table2():
+    """generate a df that matches the cleaned and standardized BJS table
+needed for generate_breakdown_df()"""
+    table_2_data = StringIO("""All,Male,Female,state_name
+1215821.0,1132767.0,83054.0,U.S. total
+25328.0,23166.0,2162.0,Alabama""")
+    df_2 = pd.read_csv(table_2_data, sep=",")
+    return df_2
+
+
+def _get_standardized_table10():
+    """generate a df that matches the cleaned and standardized BJS table
+needed for generate_breakdown_df()"""
+    table_10_data = StringIO("""age,prison_pct_share,state_name
+All,100.0,United States
+18-19,0.6,United States
+20-24,7.5,United States
+25-29,14.5,United States
+30-34,16.3,United States
+35-39,15.8,United States
+40-44,13.0,United States
+45-49,10.1,United States
+50-54,8.1,United States
+55-59,6.5,United States
+60-64,4.0,United States
+65+,3.5,United States
+Number of sentenced prisoners,1182166.0,United States""")
+    df_10 = pd.read_csv(table_10_data, sep=",")
+    return df_10
+
+
+def _get_standardized_table13():
+    """generate a df that matches the cleaned and standardized BJS table
+needed for generate_breakdown_df()"""
+    table_13_data = StringIO("""state_name,prison_estimated_total,age
+United States,352,0-17
+Alabama,1,0-17
+    """)
+    df_13 = pd.read_csv(table_13_data, sep=",")
+    return df_13
+
+
+def _get_standardized_table23():
+    """generate a df that matches the cleaned and standardized BJS table
+needed for generate_breakdown_df()"""
+    table_23_data = StringIO("""ALL,state_name
+196.0,American Samoa""")
+    df_23 = pd.read_csv(table_23_data, sep=",")
+    return df_23
+
+
+def _get_standardized_table_app2():
+    table_app_2_data = StringIO("""ALL,WHITE_NH,BLACK_NH,HISP,AIAN_NH,ASIAN_NH,NHPI_NH,MULTI_NH,OTHER_STANDARD_NH,UNKNOWN,state_name
+152156.0,44852.0,55391.0,46162.0,3488.0,2262.0,,,0.0,1.0,Federal
+,,,,,,,,,,State
+25328.0,11607.0,13519.0,0.0,2.0,3.0,0.0,0.0,0.0,197.0,Alabama""")
+    df_app_2 = pd.read_csv(table_app_2_data, sep=",")
+    return df_app_2
+
+
 # INTEGRATION TEST SETUP
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "bjs_corrections")
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "bjs_incarceration")
 
 GOLDEN_DATA = {
-    'race_and_ethnicity_national': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_national.json'),
     'race_national': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_national.json'),
-    'race_and_ethnicity_state': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_state.json'),
-    'race_state': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_state.json'),
     'age_national': os.path.join(TEST_DIR, 'bjs_test_output_age_national.json'),
-    'age_state': os.path.join(TEST_DIR, 'bjs_test_output_age_state.json'),
-    'sex_national': os.path.join(TEST_DIR, 'bjs_test_output_sex_national.json'),
     'sex_state': os.path.join(TEST_DIR, 'bjs_test_output_sex_state.json'),
 }
 
+expected_dtype = {
+    'state_name': str,
+    'state_fips': str,
+    "prison_per_100k": float,
+    "prison_pct_share": float,
+    "population": object,
+    "population_pct": float,
+}
+expected_dtype_age = {
+    **expected_dtype,
+    'age': str,
+}
+expected_dtype_race = {
+    **expected_dtype,
+    'race_and_ethnicity': str,
+    'race': str,
+    'race_includes_hispanic': object,
+    'race_category_id': str,
+}
 
-# RUN INTEGRATION TESTS ON NATIONAL LEVEL
+expected_dtype_sex = {
+    **expected_dtype,
+    'sex': str,
+}
+
+# INTEGRATION TEST - NATIONAL AGE
 
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
-@ mock.patch('datasources.bjs.load_tables',
-             side_effect=_get_test_table_files)
+def testGenerateBreakdownAgeNational(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+
+    df_10 = _get_standardized_table10()
+    df_13 = _get_standardized_table13()
+
+    datasource = BJSIncarcerationData()
+    df = datasource.generate_breakdown_df(
+        "age", "national", [df_10, ], df_13)
+
+    expected_df_age_national = pd.read_json(
+        GOLDEN_DATA['age_national'], dtype=expected_dtype_age)
+
+    assert_frame_equal(df, expected_df_age_national, check_like=True)
+
+
+# INTEGRATION TEST - NATIONAL RACE
+
+
+@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=get_state_fips_codes_as_df())
+def testGenerateBreakdownRaceNational(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+
+    df_app_2 = _get_standardized_table_app2()
+    df_23 = _get_standardized_table23()
+    df_13 = _get_standardized_table13()
+
+    datasource = BJSIncarcerationData()
+    df = datasource.generate_breakdown_df(
+        "race_and_ethnicity", "national", [df_app_2, df_23], df_13)
+
+    expected_df_race_national = pd.read_json(
+        GOLDEN_DATA['race_national'], dtype=expected_dtype_race)
+
+    assert_frame_equal(df, expected_df_race_national, check_like=True)
+
+
+# INTEGRATION TEST - STATE SEX
+
+
+@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=get_state_fips_codes_as_df())
+def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+
+    df_2 = _get_standardized_table2()
+    df_23 = _get_standardized_table23()
+    df_13 = _get_standardized_table13()
+
+    datasource = BJSIncarcerationData()
+    df = datasource.generate_breakdown_df(
+        "sex", "state", [df_2, df_23], df_13)
+
+    expected_df_sex_state = pd.read_json(
+        GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex)
+
+    assert_frame_equal(df, expected_df_sex_state, check_like=True)
+
+
+# INTEGRATION TEST - CORRECT NETWORK CALLS
+# comment out all mocks expect BQ to see real results (not just test sample results)
+@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=get_state_fips_codes_as_df())
+@ mock.patch('datasources.bjs_incarceration.load_tables',
+             return_value=_get_test_table_files())
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
-def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
-                               mock_zip: mock.MagicMock,
-                               mock_fips: mock.MagicMock,
-                               mock_pop: mock.MagicMock
-                               ):
+def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
+                              mock_zip: mock.MagicMock,
+                              mock_fips: mock.MagicMock,
+                              mock_pop: mock.MagicMock
+                              ):
 
-    bjs_data = BJSData()
+    datasource = BJSIncarcerationData()
 
     # required by bigQuery
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
 
-    bjs_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
-    mock_df_national_age = mock_bq.call_args_list[0][0][0]
-    mock_df_national_race = mock_bq.call_args_list[1][0][0]
-    mock_df_national_sex = mock_bq.call_args_list[2][0][0]
-    mock_df_state_age = mock_bq.call_args_list[3][0][0]
-    mock_df_state_race = mock_bq.call_args_list[4][0][0]
-    mock_df_state_sex = mock_bq.call_args_list[5][0][0]
 
-    assert mock_zip.call_count == 2
+    # Un-comment to log output and save to file
+    # (can copy/paste into frontend /tmp )
+    # for bq_call in mock_bq.call_args_list:
+    #     df, _, table_name = bq_call[0]
+    #     print(table_name)
+    #     print(df)
+    #     df.to_json(
+    #         f'bjs_incarceration_data-{table_name}.json', orient="records")
+
+    assert mock_zip.call_count == 1
 
     assert mock_fips.call_count == 7
     for call_arg in mock_fips.call_args_list:
@@ -285,105 +259,3 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
     assert mock_pop.call_args_list[7].args[1] == 'by_race_and_ethnicity_territory'
     assert mock_pop.call_args_list[8].args[1] == 'by_sex_state'
     assert mock_pop.call_args_list[9].args[1] == 'by_sex_territory'
-
-
-# COMPARE MOCKED BREAKDOWNS (PROCESSED TEST INPUT) TO EXPECTED BREAKDOWNS (TEST OUTPUT)
-
-    expected_dtype = {
-        'state_name': str,
-        'state_fips': str,
-        "prison_per_100k": float,
-        "prison_pct_share": float,
-        "jail_per_100k": float,
-        "jail_pct_share": float,
-        "population": object,
-        "population_pct": float,
-    }
-    expected_dtype_age = {
-        **expected_dtype,
-        'age': str,
-    }
-    expected_dtype_race = {
-        **expected_dtype,
-        'race_and_ethnicity': str,
-        'race': str,
-        'race_includes_hispanic': object,
-        'race_category_id': str,
-    }
-
-    expected_dtype_sex = {
-        **expected_dtype,
-        'sex': str,
-    }
-
-    # read test OUTPUT file
-    expected_df_age_national = pd.read_json(
-        GOLDEN_DATA['age_national'], dtype=expected_dtype_age)
-
-    expected_df_race_national = pd.read_json(
-        GOLDEN_DATA['race_and_ethnicity_national'], dtype=expected_dtype_race)
-
-    expected_df_sex_national = pd.read_json(
-        GOLDEN_DATA['sex_national'], dtype=expected_dtype_sex)
-
-    expected_df_age_state = pd.read_json(
-        GOLDEN_DATA['age_state'], dtype=expected_dtype_age)
-
-    expected_df_race_state = pd.read_json(
-        GOLDEN_DATA['race_state'], dtype=expected_dtype_race)
-
-    expected_df_sex_state = pd.read_json(
-        GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex)
-
-    # save NATIONAL results to file
-    mock_df_national_age.to_json(
-        "bjs_data-age_national.json", orient="records")
-    mock_df_national_race.to_json(
-        "bjs_data-race_and_ethnicity_national.json", orient="records")
-    mock_df_national_sex.to_json(
-        "bjs_data-sex_national.json", orient="records")
-
-    # # save STATE/TERRITORY results to file
-    mock_df_state_age.to_json(
-        "bjs_data-age_state.json", orient="records")
-    mock_df_state_race.to_json(
-        "bjs_data-race_and_ethnicity_state.json", orient="records")
-    mock_df_state_sex.to_json(
-        "bjs_data-sex_state.json", orient="records")
-
-    # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
-
-    print("mock")
-    print(mock_df_national_race)
-    print("expected")
-    print(expected_df_race_national)
-
-    assert set(mock_df_national_race.columns) == set(
-        expected_df_race_national.columns)
-    assert_frame_equal(
-        mock_df_national_race, expected_df_race_national, check_like=True)
-
-    assert set(mock_df_national_sex.columns) == set(
-        expected_df_sex_national.columns)
-    assert_frame_equal(
-        mock_df_national_sex, expected_df_sex_national, check_like=True)
-
-    assert set(mock_df_national_age.columns) == set(
-        expected_df_age_national.columns)
-    assert_frame_equal(
-        mock_df_national_age, expected_df_age_national, check_like=True)
-
-    assert set(mock_df_state_race.columns) == set(
-        expected_df_race_state.columns)
-    assert_frame_equal(
-        mock_df_state_race, expected_df_race_state, check_like=True)
-
-    assert set(mock_df_state_sex.columns) == set(
-        expected_df_sex_state.columns)
-    assert_frame_equal(
-        mock_df_state_sex, expected_df_sex_state, check_like=True)
-
-    assert set(mock_df_state_age.columns) == set(
-        expected_df_age_state.columns)
-    assert_frame_equal(
-        mock_df_state_age, expected_df_age_state, check_like=True)

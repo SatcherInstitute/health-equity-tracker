@@ -21,7 +21,7 @@ from datasources.acs_poverty import ACSPovertyDataSource
 from datasources.acs_household_income import ACSHouseholdIncomeDatasource
 from datasources.uhc import UHCData
 from datasources.cawp import CAWPData
-from datasources.bjs import BJSData
+from datasources.bjs_incarceration import BJSIncarcerationData
 
 # Map of data source ID to the class that implements the ingestion methods for
 # that data source.
@@ -49,5 +49,5 @@ DATA_SOURCES_DICT = {
     ACSPovertyDataSource.get_id(): ACSPovertyDataSource(),
     UHCData.get_id(): UHCData(),
     CAWPData.get_id(): CAWPData(),
-    BJSData.get_id(): BJSData(),
+    BJSIncarcerationData.get_id(): BJSIncarcerationData(),
 }

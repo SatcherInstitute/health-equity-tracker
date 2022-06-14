@@ -1,0 +1,142 @@
+[
+    {
+        "state_fips": "60",
+        "state_name": "American Samoa",
+        "population": "55519",
+        "race_category_id": "ALL",
+        "population_pct": "100.0",
+        "race": "All",
+        "race_includes_hispanic": null,
+        "race_and_ethnicity": "All"
+    },
+    {
+        "state_fips": "60",
+        "state_name": "American Samoa",
+        "population": "51403",
+        "race_category_id": "NHPI",
+        "population_pct": "92.6",
+        "race": "Native Hawaiian and Pacific Islander",
+        "race_includes_hispanic": "true",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander"
+    },
+    {
+        "state_fips": "60",
+        "state_name": "American Samoa",
+        "population": "51403",
+        "race_category_id": "NHPI_NH",
+        "population_pct": "92.6",
+        "race": "Native Hawaiian and Pacific Islander",
+        "race_includes_hispanic": "false",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)"
+    },
+    {
+        "state_fips": "60",
+        "state_name": "American Samoa",
+        "population": "1994",
+        "race_category_id": "ASIAN",
+        "population_pct": "3.6",
+        "race": "Asian",
+        "race_includes_hispanic": "true",
+        "race_and_ethnicity": "Asian"
+    },
+    {
+        "state_fips": "60",
+        "state_name": "American Samoa",
+        "population": "1994",
+        "race_category_id": "ASIAN_NH",
+        "population_pct": "3.6",
+        "race": "Asian",
+        "race_includes_hispanic": "false",
+        "race_and_ethnicity": "Asian (Non-Hispanic)"
+    },
+    {
+        "state_fips": "60",
+        "state_name": "American Samoa",
+        "population": "13",
+        "race_category_id": "BLACK",
+        "population_pct": "0.02",
+        "race": "Black or African American",
+        "race_includes_hispanic": "true",
+        "race_and_ethnicity": "Black or African American"
+    },
+    {
+        "state_fips": "60",
+        "state_name": "American Samoa",
+        "population": "13",
+        "race_category_id": "BLACK_NH",
+        "population_pct": "0.02",
+        "race": "Black or African American",
+        "race_includes_hispanic": "false",
+        "race_and_ethnicity": "Black or African American (Non-Hispanic)"
+    },
+    {
+        "state_fips": "60",
+        "state_name": "American Samoa",
+        "population": "73",
+        "race_category_id": "HISP",
+        "population_pct": "0.1",
+        "race": "Hispanic or Latino",
+        "race_includes_hispanic": "true",
+        "race_and_ethnicity": "Hispanic or Latino"
+    },
+    {
+        "state_fips": "60",
+        "state_name": "American Samoa",
+        "population": "493",
+        "race_category_id": "WHITE",
+        "population_pct": "0.9",
+        "race": "White",
+        "race_includes_hispanic": "true",
+        "race_and_ethnicity": "White"
+    },
+    {
+        "state_fips": "60",
+        "state_name": "American Samoa",
+        "population": "493",
+        "race_category_id": "WHITE_NH",
+        "population_pct": "0.9",
+        "race": "White",
+        "race_includes_hispanic": "false",
+        "race_and_ethnicity": "White (Non-Hispanic)"
+    },
+    {
+        "state_fips": "60",
+        "state_name": "American Samoa",
+        "population": "64",
+        "race_category_id": "OTHER_STANDARD",
+        "population_pct": "0.1",
+        "race": "Unrepresented race",
+        "race_includes_hispanic": "true",
+        "race_and_ethnicity": "Unrepresented race"
+    },
+    {
+        "state_fips": "60",
+        "state_name": "American Samoa",
+        "population": "64",
+        "race_category_id": "OTHER_STANDARD_NH",
+        "population_pct": "0.1",
+        "race": "Unrepresented race",
+        "race_includes_hispanic": "false",
+        "race_and_ethnicity": "Unrepresented race (Non-Hispanic)"
+    },
+    {
+        "state_fips": "60",
+        "state_name": "American Samoa",
+        "population": "1479",
+        "race_category_id": "MULTI",
+        "population_pct": "2.7",
+        "race": "Two or more races",
+        "race_includes_hispanic": "true",
+        "race_and_ethnicity": "Two or more races"
+    },
+    {
+        "state_fips": "60",
+        "state_name": "American Samoa",
+        "population": "1479",
+        "race_category_id": "MULTI_NH",
+        "population_pct": "2.7",
+        "race": "Two or more races",
+        "race_includes_hispanic": "false",
+        "race_and_ethnicity": "Two or more races (Non-Hispanic)"
+    }
+]

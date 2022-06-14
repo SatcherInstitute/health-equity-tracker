@@ -1,5 +1,4 @@
 from unittest import mock
-
 import json
 import numpy as np
 import pytest
@@ -95,27 +94,6 @@ _expected_pct_share_data_with_unknowns_some_only_all = [
     ['60', 'American Samoa', 'Two or more races', np.nan, np.nan],
     ['60', 'American Samoa', 'ALL', '196', '100.0'],
     ['60', 'American Samoa', 'UNKNOWN', '196', '100.0'],
-]
-
-_fake_condition_data = [
-    ['state_fips', 'state_name', 'race', 'some_condition_total', 'population'],
-    ['01', 'Alabama', 'Asian alone', 100, 1000],
-    ['01', 'Alabama', 'Some other race alone', 200, 5000],
-    ['02', 'Alaska', 'Two or more races', 10, 2000],
-    ['02', 'Alaska', 'TOTAL', 100, 4000],
-    ['04', 'Arizona', 'Two or more races', 20, 4000],
-    ['04', 'Arizona', 'TOTAL', 10, 2000],
-]
-
-_fake_condition_data_with_per_100k = [
-    ['state_fips', 'state_name', 'race', 'some_condition_total',
-        'population', 'condition_per_100k'],
-    ['01', 'Alabama', 'Asian alone', 100, 1000, 10000],
-    ['01', 'Alabama', 'Some other race alone', 200, 5000, 4000],
-    ['02', 'Alaska', 'Two or more races', 10, 2000, 500],
-    ['02', 'Alaska', 'TOTAL', 100, 4000, 2500],
-    ['04', 'Arizona', 'Two or more races', 20, 4000, 500],
-    ['04', 'Arizona', 'TOTAL', 10, 2000, 500],
 ]
 
 _fake_condition_data = [
@@ -365,26 +343,6 @@ def testGeneratePctShareColWithUnknowns():
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_pct_share_data_with_unknowns)).reset_index(drop=True)
-
-    expected_df['population'] = expected_df['population'].astype(float)
-
-    expected_df['pct_share'] = expected_df['pct_share'].astype(float)
-
-    df = dataset_utils.generate_pct_share_col_with_unknowns(
-        df, {'population': 'pct_share'}, 'race', 'ALL', 'UNKNOWN')
-
-    df = df.sort_values(by=['state_fips']).reset_index(drop=True)
-    assert_frame_equal(expected_df, df)
-
-
-def testGeneratePctShareColWithUnknownsSomeOnlyAll():
-    df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_race_data_some_only_all)).reset_index(drop=True)
-
-    df['population'] = df['population'].astype(float)
-
-    expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_pct_share_data_with_unknowns_some_only_all)).reset_index(drop=True)
 
     expected_df['population'] = expected_df['population'].astype(float)
 
