@@ -48,6 +48,9 @@ def generate_raw_breakdown(demo, geo_level, table_list):
     """
 
     # TODO error if national-age and suggest alt fn
+    if demo == std_col.AGE_COL and geo_level == NATIONAL_LEVEL:
+        raise ValueError("This function cannot generate the BJS Prisoners" +
+                         "National Age breakdown; use generate_raw_national_age_breakdown() instead")
 
     main_table, table_23 = table_list
 
