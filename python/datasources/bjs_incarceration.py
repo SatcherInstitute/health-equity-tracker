@@ -121,9 +121,6 @@ def generate_raw_breakdown(demo, geo_level, table_list):
             # force territory unknowns to end up as 100% share
             df_territories[Race.UNKNOWN.value] = df_territories[Race.ALL.value]
 
-        print("prison with territories")
-        print(df_prison)
-
     if geo_level == NATIONAL_LEVEL:
         df_prison = keep_only_national(df_prison, prison_demo_cols)
         df_jail = keep_only_national(df_jail, jail_demo_cols)
@@ -136,12 +133,6 @@ def generate_raw_breakdown(demo, geo_level, table_list):
 
     df_jail = df_jail.reset_index(drop=True)
     df_prison = df_prison.reset_index(drop=True)
-
-    print("pre merge jail")
-    print(df_jail.to_string())
-
-    print("pre merge prison")
-    print(df_prison.to_string())
 
     merge_cols = [std_col.STATE_NAME_COL, demo_for_flip]
     df = pd.merge(df_prison, df_jail, how='left', on=merge_cols)
@@ -368,8 +359,5 @@ class BJSIncarcerationData(DataSource):
 
         processed_df = post_process(
             raw_df, breakdown, geo_level, prison_13)
-
-        print("=")
-        print(processed_df)
 
         return processed_df
