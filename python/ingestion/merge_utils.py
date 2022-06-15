@@ -127,5 +127,3 @@ def merge_pop_numbers(df, demo, loc):
     df = pd.merge(df, pop_df, how='left', on=on_cols)
 
     return df.reset_index(drop=True)
-
-
