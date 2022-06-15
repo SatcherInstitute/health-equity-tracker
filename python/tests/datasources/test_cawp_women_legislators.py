@@ -10,7 +10,6 @@ from datasources.cawp import (CAWPData,
                               count_matching_rows,
                               remove_markup,
                               pct_never_null,
-                              POSTAL_COL,
                               POSITION_COL,
                               RACE_COL)
 import pytest
@@ -46,7 +45,7 @@ def test_remove_markup():
 
 def test_count_matching_rows():
     df_test = pd.DataFrame(
-        {POSTAL_COL: ["FL", "FL", "PR", "PR", "ME", "ME"],
+        {std_col.STATE_POSTAL_COL: ["FL", "FL", "PR", "PR", "ME", "ME"],
          RACE_COL: ["Black, White", "Black", "Black", "Black", "White", "Multiracial Alone"],
          POSITION_COL: ["U.S. Senator", "State Senator", "Territorial/D.C. Representative",
          "U.S. Delegate", "U.S. Representative", "U.S. Representative"]})
