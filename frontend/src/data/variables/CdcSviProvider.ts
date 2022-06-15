@@ -25,6 +25,7 @@ class CdcSviProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns;
     const datasetId = this.getDatasetId(breakdowns);
     const cdc_svi = await getDataManager().loadDataset(datasetId);
+
     let df = cdc_svi.toDataFrame();
 
     df = this.renameGeoColumns(df, breakdowns);

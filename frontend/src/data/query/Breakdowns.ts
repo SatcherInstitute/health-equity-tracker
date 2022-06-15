@@ -85,6 +85,7 @@ export class Breakdowns {
   // We may want to extend this to an explicit type to support variants for
   // day/week/month/year.
   time: boolean;
+  locationContext: boolean;
   demographicBreakdowns: Record<
     DemographicBreakdownKey,
     Readonly<DemographicBreakdown>
@@ -98,6 +99,7 @@ export class Breakdowns {
       DemographicBreakdown
     >,
     time = false,
+    locationContext = false,
     filterFips?: Fips | undefined
   ) {
     this.geography = geography;
@@ -109,6 +111,7 @@ export class Breakdowns {
           sex: createDemographicBreakdown("sex"),
         };
     this.time = time;
+    this.locationContext = locationContext;
     this.filterFips = filterFips;
   }
 
@@ -117,6 +120,7 @@ export class Breakdowns {
     let breakdowns: Record<string, any> = {
       geography: this.geography,
       time: this.time || undefined,
+      svi: this.locationContext || undefined,
       filterFips: this.filterFips ? this.filterFips.code : undefined,
     };
     Object.entries(this.demographicBreakdowns).forEach(
@@ -137,6 +141,7 @@ export class Breakdowns {
       this.geography,
       { ...this.demographicBreakdowns },
       this.time,
+      this.locationContext,
       this.filterFips ? new Fips(this.filterFips.code) : undefined
     );
   }
@@ -222,6 +227,18 @@ export class Breakdowns {
     return this.addBreakdown("date");
   }
 
+  andSvi() {
+    return (this.locationContext = true);
+  }
+
+  allDemBreakdowns(filter?: BreakdownFilter) {
+    this.andSvi();
+    this.addBreakdown("race_and_ethnicity", filter);
+    this.addBreakdown("age", filter);
+    this.addBreakdown("sex", filter);
+    return this;
+  }
+
   // Helper function returning how many demographic breakdowns are currently requested
   demographicBreakdownCount() {
     return Object.entries(this.demographicBreakdowns).filter(
@@ -238,7 +255,7 @@ export class Breakdowns {
   }
 
   getSoleDemographicBreakdown(): DemographicBreakdown {
-    if (!this.hasExactlyOneDemographic()) {
+    if (!this.hasExactlyOneDemographic() && this.locationContext === false) {
       throw new Error("Invalid assertion of only one demographic breakdown");
     }
 

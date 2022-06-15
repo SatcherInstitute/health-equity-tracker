@@ -73,7 +73,7 @@ export function PopulationCard(props: PopulationCardProps) {
   if (props.fips.isCounty()) {
     const sviQuery = new MetricQuery(
       "svi",
-      Breakdowns.forFips(props.fips).andRace()
+      Breakdowns.forFips(props.fips).allDemBreakdowns()
     );
     queries.push(sviQuery);
   }
@@ -99,7 +99,6 @@ export function PopulationCard(props: PopulationCardProps) {
   return (
     <CardWrapper minHeight={PRELOAD_HEIGHT} queries={queries}>
       {([raceQueryResponse, ageQueryResponse, sviQueryResponse]) => {
-        console.log({ sviQueryResponse });
         const svi = sviQueryResponse.data[0].svi;
         const rating = findRating(svi);
         const color = findColor(rating);
