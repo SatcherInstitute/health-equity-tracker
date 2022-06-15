@@ -86,7 +86,14 @@ JAIL_6 = "cj0519stt06.csv"
 JAIL_7 = "cj0519stt07.csv"  # Raw Total by State with Pct Share Breakdown by Race
 
 # BJS tables include excess header and footer rows that need to be trimmed
-# TODO fix cropping with PROD run
+BJS_PRISONERS_CROPS = {
+    APPENDIX_PRISON_2: {"header_rows": [*list(range(10)), 12], "footer_rows": 13},
+    PRISON_2: {"header_rows": [*list(range(11))], "footer_rows": 10, },
+    PRISON_10: {"header_rows": [*list(range(11))], "footer_rows": 8, },
+    PRISON_13: {"header_rows": [*list(range(11)), 13, 14], "footer_rows": 6},
+    PRISON_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10}
+}
+
 BJS_CENSUS_OF_JAILS_CROPS = {
     JAIL_6: {"header_rows": [*list(range(11))], "footer_rows": 7},
     JAIL_7: {"header_rows": [*list(range(10))], "footer_rows": 6}

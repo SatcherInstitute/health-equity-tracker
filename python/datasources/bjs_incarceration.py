@@ -6,39 +6,38 @@ from ingestion.standardized_columns import Race
 from ingestion import gcs_to_bq_util, dataset_utils
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, Sex
 from ingestion.dataset_utils import generate_per_100k_col
-from datasources.bjs_table_utils import (standardize_table_2_df,
-                                         standardize_table_10_df,
-                                         standardize_table_13_df,
-                                         standardize_table_23_df,
-                                         standardize_appendix_table_2_df,
-                                         standardize_jail_6, standardize_jail_7,
-                                         NON_NULL_RAW_COUNT_GROUPS,
-                                         cols_to_rows,
-                                         keep_only_national,
-                                         keep_only_states,
-                                         BJS_DATA_TYPES,
-                                         STANDARD_RACE_CODES,
-                                         BJS_SEX_GROUPS,
-                                         BJS_JAIL_AGE_GROUPS,
-                                         RAW_JAIL_COL,
-                                         RAW_PRISON_COL,
-                                         PRISON_PER_100K_COL,
-                                         PRISON_PCT_SHARE_COL,
-                                         JAIL_PCT_SHARE_COL,
-                                         JAIL_PER_100K_COL,
-                                         TOTAL_CHILDREN_COL,
-                                         APPENDIX_TABLE_2,
-                                         BJS_PRISONERS_ZIP,
-                                         BJS_CENSUS_OF_JAILS_ZIP,
-                                         BJS_CENSUS_OF_JAILS_CROPS,
-                                         BJS_PRISONERS_CROPS,
-                                         TABLE_2,
-                                         TABLE_10,
-                                         TABLE_13,
-                                         TABLE_23,
-                                         JAIL_6, JAIL_7,
-                                         load_tables,
-                                         )
+from ingestion.bjs_utils import (standardize_table_2_df,
+                                 standardize_table_10_df,
+                                 standardize_table_13_df,
+                                 standardize_table_23_df,
+                                 standardize_appendix_table_2_df,
+                                 standardize_jail_6, standardize_jail_7,
+                                 cols_to_rows,
+                                 keep_only_national,
+                                 keep_only_states,
+                                 BJS_DATA_TYPES,
+                                 STANDARD_RACE_CODES,
+                                 BJS_SEX_GROUPS,
+                                 BJS_JAIL_AGE_GROUPS,
+                                 RAW_JAIL_COL,
+                                 RAW_PRISON_COL,
+                                 PRISON_PER_100K_COL,
+                                 PRISON_PCT_SHARE_COL,
+                                 JAIL_PCT_SHARE_COL,
+                                 JAIL_PER_100K_COL,
+                                 TOTAL_CHILDREN_COL,
+                                 APPENDIX_PRISON_2,
+                                 BJS_PRISONERS_ZIP,
+                                 BJS_CENSUS_OF_JAILS_ZIP,
+                                 BJS_CENSUS_OF_JAILS_CROPS,
+                                 BJS_PRISONERS_CROPS,
+                                 PRISON_2,
+                                 PRISON_10,
+                                 PRISON_13,
+                                 PRISON_23,
+                                 JAIL_6, JAIL_7,
+                                 load_tables,
+                                 )
 
 
 def generate_raw_breakdown(demo, geo_level, table_list):
@@ -275,12 +274,12 @@ class BJSIncarcerationData(DataSource):
         """
 
         prison_tables = load_tables(BJS_PRISONERS_ZIP, BJS_PRISONERS_CROPS)
-        prisoners_2 = standardize_table_2_df(prison_tables[TABLE_2])
-        prisoners_10 = standardize_table_10_df(prison_tables[TABLE_10])
-        prisoners_13 = standardize_table_13_df(prison_tables[TABLE_13])
-        prisoners_23 = standardize_table_23_df(prison_tables[TABLE_23])
+        prisoners_2 = standardize_table_2_df(prison_tables[PRISON_2])
+        prisoners_10 = standardize_table_10_df(prison_tables[PRISON_10])
+        prisoners_13 = standardize_table_13_df(prison_tables[PRISON_13])
+        prisoners_23 = standardize_table_23_df(prison_tables[PRISON_23])
         prisoners_app_2 = standardize_appendix_table_2_df(
-            prison_tables[APPENDIX_TABLE_2])
+            prison_tables[APPENDIX_PRISON_2])
 
         jail_tables = load_tables(
             BJS_CENSUS_OF_JAILS_ZIP, BJS_CENSUS_OF_JAILS_CROPS)
