@@ -191,7 +191,7 @@ def generate_raw_national_age_breakdown(table_list):
     return df
 
 
-def post_process(df, breakdown, geo, df_13):
+def post_process(df, breakdown, geo, children_tables):
     """
         Takes a breakdown df with raw incidence values by demographic by place and:
         - generates `PER_100K` column (some incoming df may already have this col and partial data)
@@ -204,8 +204,11 @@ def post_process(df, breakdown, geo, df_13):
             "state_name" column, raw values column, and demographic column
        breakdown: string column name containing demographic breakdown groups (race, sex, age)
        geo: geographic level (national, state)
-       df_13: df for table 13 that includes total_confined_children data
+       children_tables: [prison_13, jail_6] list of dfs that contain data needed for
+            confined_children metric
     """
+
+    prison_13, jail_6 = children_tables
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         std_col.add_race_columns_from_category_id(df)
@@ -253,14 +256,24 @@ def post_process(df, breakdown, geo, df_13):
     df = df.drop(columns=[std_col.POPULATION_COL,
                           RAW_JAIL_COL, RAW_PRISON_COL])
 
-    # get RAW PRISON for 0-17 and set as new property for "All" rows for every demo-breakdowns
-    # eventually this property will sum RAW PRISON 0-17 + RAW JAIL 0-17
-    df_13 = df_13.rename(
-        columns={RAW_PRISON_COL: TOTAL_CHILDREN_COL, "age": group_col})
+    # get RAW JAIL for 0-17 and melt to set as new property for "All" rows for every demo-breakdowns
+    jail_6 = jail_6.rename(
+        columns={'0-17': all_val})
+    jail_6 = jail_6[[std_col.STATE_NAME_COL, all_val]]
+    jail_6 = cols_to_rows(jail_6, [all_val],
+                          group_col, TOTAL_CHILDREN_COL)
 
-    df_13[group_col] = all_val
-    df = pd.merge(df, df_13, how='left', on=[
+    # get RAW PRISON for 0-17 and set as new property for "All" rows for every demo-breakdowns
+    prison_13 = prison_13.rename(
+        columns={RAW_PRISON_COL: TOTAL_CHILDREN_COL, "age": group_col})
+    prison_13[group_col] = all_val
+
+    # add a column with confined children in prison
+    df = pd.merge(df, prison_13, how='left', on=[
         std_col.STATE_NAME_COL, group_col])
+
+    # sum with confined children in jail
+    df[TOTAL_CHILDREN_COL] = df[TOTAL_CHILDREN_COL] + jail_6[TOTAL_CHILDREN_COL]
 
     return df
 
@@ -310,6 +323,8 @@ class BJSIncarcerationData(DataSource):
             f'{std_col.SEX_COL}_{STATE_LEVEL}': [prisoners_2, prisoners_23, jail_6],
         }
 
+        children_tables = [prisoners_13, jail_6]
+
         for geo_level in [NATIONAL_LEVEL, STATE_LEVEL]:
             for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
                 table_name = f'{breakdown}_{geo_level}'
@@ -317,7 +332,7 @@ class BJSIncarcerationData(DataSource):
                 print("_________", table_name, "_________")
 
                 df = self.generate_breakdown_df(
-                    breakdown, geo_level, table_lookup[table_name], prisoners_13)
+                    breakdown, geo_level, table_lookup[table_name], children_tables)
 
                 # set / add BQ types
                 column_types = {c: 'STRING' for c in df.columns}
@@ -333,7 +348,7 @@ class BJSIncarcerationData(DataSource):
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=column_types)
 
-    def generate_breakdown_df(self, breakdown, geo_level, table_list, prison_13):
+    def generate_breakdown_df(self, breakdown, geo_level, table_list, children_tables):
         """
         Accepts demographic and geographic settings, along with the mapping of BJS tables
         to HET breakdowns, and generates the specified HET breakdown
@@ -358,6 +373,6 @@ class BJSIncarcerationData(DataSource):
                 breakdown, geo_level, table_list)
 
         processed_df = post_process(
-            raw_df, breakdown, geo_level, prison_13)
+            raw_df, breakdown, geo_level, children_tables)
 
         return processed_df
