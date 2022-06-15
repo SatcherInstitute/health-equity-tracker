@@ -5,8 +5,6 @@ import pandas as pd
 from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, dataset_utils
 
-import ingestion.standardized_columns as std_col
-
 _fake_race_data = [
     ['state_fips', 'state_name', 'race', 'population'],
     ['01', 'Alabama', 'Asian alone', '660'],
