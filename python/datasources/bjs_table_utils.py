@@ -54,12 +54,6 @@ BJS_PRISON_AGE_GROUPS = [std_col.ALL_VALUE, "18-19", "20-24", "25-29", "30-34",
 BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
 
 
-BJS_DATA_TYPES = [
-    std_col.PRISON_PREFIX,
-    std_col.JAIL_PREFIX,
-    # std_col.INCARCERATED_PREFIX
-]
-
 NON_NULL_RAW_COUNT_GROUPS = ["0-17"]
 
 # BJS Prisoners Report
