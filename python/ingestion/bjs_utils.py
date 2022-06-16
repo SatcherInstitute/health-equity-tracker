@@ -5,6 +5,7 @@ from ingestion import constants
 import re
 import numpy as np
 import pandas as pd
+from ingestion.constants import STATE_NAMES
 
 # consts used in BJS Tables
 US_TOTAL = "U.S. total"
@@ -455,7 +456,7 @@ def keep_only_states(df):
     Returns:
         a pandas df with a single row per state (or territory) with "state_name" column and their values
      """
-    return df[~df[std_col.STATE_NAME_COL].isin(NON_STATE_ROWS)]
+    return df[df[std_col.STATE_NAME_COL].isin(STATE_NAMES)]
 
 
 def keep_only_national(df, demo_group_cols):

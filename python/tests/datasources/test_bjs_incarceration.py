@@ -305,12 +305,7 @@ def testGenerateBreakdownRaceState(mock_fips: mock.MagicMock, mock_pop: mock.Mag
         "race_and_ethnicity", "state", [prison_app_2, prison_23, jail_7], [prison_13, jail_6])
 
     expected_df_race_state = pd.read_json(
-        GOLDEN_DATA['race_and_ethnicity_state'], dtype=expected_dtype_race)
-    print("mock result")
-    print(df)
-    print("expected")
-    print(expected_df_race_state)
-
+        GOLDEN_DATA['race_state'], dtype=expected_dtype_race)
     assert_frame_equal(df, expected_df_race_state, check_like=True)
 
 

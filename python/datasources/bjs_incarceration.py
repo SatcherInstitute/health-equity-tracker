@@ -59,8 +59,6 @@ def generate_raw_breakdown(demo, geo_level, table_list):
         df: with raw numbers by demographic group by geographic place(s)
     """
 
-    print("incoming demo")
-    print(demo)
     if demo == std_col.AGE_COL and geo_level == NATIONAL_LEVEL:
         raise ValueError("This function cannot generate the BJS Prisoners" +
                          "National Age breakdown; use generate_raw_national_age_breakdown() instead")
@@ -215,8 +213,6 @@ def post_process(df, breakdown, geo, children_tables):
             confined_children metric
     """
 
-    prison_13, jail_6 = children_tables
-
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         std_col.add_race_columns_from_category_id(df)
         pop_breakdown = std_col.RACE_COL
@@ -242,9 +238,6 @@ def post_process(df, breakdown, geo, children_tables):
     raw_to_share_cols_map = {RAW_PRISON_COL: PRISON_PCT_SHARE_COL,
                              RAW_JAIL_COL: JAIL_PCT_SHARE_COL}
 
-    print("in post")
-    print(df)
-
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         # some states and all territories will have unknown race data
         df = generate_pct_share_col_with_unknowns(
@@ -265,6 +258,8 @@ def post_process(df, breakdown, geo, children_tables):
 
     df = df.drop(columns=[std_col.POPULATION_COL,
                           RAW_JAIL_COL, RAW_PRISON_COL])
+
+    prison_13, jail_6 = children_tables
 
     # get RAW JAIL for 0-17 and melt to set as new property for "All" rows for every demo-breakdowns
     jail_6 = jail_6.rename(
@@ -289,7 +284,7 @@ def post_process(df, breakdown, geo, children_tables):
     df_confined = df_confined[[
         std_col.STATE_NAME_COL, TOTAL_CHILDREN_COL, group_col]]
 
-    # add a column with the confined children in prison
+    # add a column with the confined children
     df = pd.merge(df, df_confined, how="left", on=[
         std_col.STATE_NAME_COL, group_col])
 
