@@ -11,9 +11,6 @@ from ingestion.constants import STATE_NAMES
 US_TOTAL = "U.S. total"
 STATE = "State"
 FED = "Federal"
-# note the extra trailing space on most regional strings
-NON_STATE_ROWS = [US_TOTAL, STATE, FED, constants.US_ABBR,
-                  constants.US_NAME, "Northeast", "Midwest ", "South ", "West ", ]
 
 RAW_PRISON_COL = std_col.generate_column_name(
     std_col.PRISON_PREFIX, std_col.RAW_SUFFIX)
