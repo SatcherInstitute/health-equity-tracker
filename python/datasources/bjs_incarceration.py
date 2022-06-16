@@ -118,6 +118,7 @@ def generate_raw_breakdown(demo, geo_level, table_list):
             df_prison[std_col.ALL_VALUE] = df_prison[std_col.ALL_VALUE].combine_first(
                 df_prison[Race.ALL.value])
             df_prison = df_prison.drop(columns=[Race.ALL.value])
+
         else:
             # force territory unknowns to end up as 100% share
             df_territories[Race.UNKNOWN.value] = df_territories[Race.ALL.value]
@@ -129,14 +130,15 @@ def generate_raw_breakdown(demo, geo_level, table_list):
     df_prison = cols_to_rows(
         df_prison, prison_demo_cols, demo_for_flip, RAW_PRISON_COL)
 
-    df_jail = cols_to_rows(
-        df_jail, jail_demo_cols, demo_for_flip, RAW_JAIL_COL)
+    if demo != std_col.AGE_COL:
+        df_jail = cols_to_rows(
+            df_jail, jail_demo_cols, demo_for_flip, RAW_JAIL_COL)
 
     df_jail = df_jail.reset_index(drop=True)
     df_prison = df_prison.reset_index(drop=True)
 
     merge_cols = [std_col.STATE_NAME_COL, demo_for_flip]
-    df = pd.merge(df_prison, df_jail, how='left', on=merge_cols)
+    df = pd.merge(df_prison, df_jail, how='outer', on=merge_cols)
 
     return df
 
