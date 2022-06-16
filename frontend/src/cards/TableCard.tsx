@@ -17,7 +17,7 @@ import {
   getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
-import { RACE } from "../data/utils/Constants";
+import { ALL, RACE } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
@@ -29,6 +29,7 @@ import {
 import styles from "./Card.module.scss";
 import { BJS_VARIABLE_IDS } from "../data/variables/BjsProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
+import { Row } from "../data/utils/DatasetTypes";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -80,12 +81,12 @@ export function TableCard(props: TableCardProps) {
         metricConfig.secondaryPopulationComparisonMetric;
     }
   });
-  const isIncarcerationByAge =
-    BJS_VARIABLE_IDS.includes(props.variableConfig.variableId) &&
-    props.breakdownVar === "age";
+  const isIncarceration = BJS_VARIABLE_IDS.includes(
+    props.variableConfig.variableId
+  );
 
   const metricIds = Object.keys(metricConfigs) as MetricId[];
-  isIncarcerationByAge && metricIds.push("total_confined_children");
+  isIncarceration && metricIds.push("total_confined_children");
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
   const displayingCovidData = metrics
@@ -104,20 +105,27 @@ export function TableCard(props: TableCardProps) {
     >
       {([queryResponse]) => {
         let data = queryResponse.data;
+        console.log(queryResponse);
         if (shouldShowAltPopCompare(props)) data = fillInAltPops(data);
+        let normalMetricIds = metricIds;
 
-        const normalMetricIds = metricIds.filter(
-          (id) => id !== "total_confined_children"
-        );
+        // revert metric ids to normal data structure, and revert "displayed" rows to exclude ALLs
+        if (isIncarceration) {
+          normalMetricIds = metricIds.filter(
+            (id) => id !== "total_confined_children"
+          );
+          data = data.filter((row: Row) => row[props.breakdownVar] !== ALL);
+        }
 
         return (
           <>
-            {isIncarcerationByAge && (
+            {isIncarceration && (
               <>
                 <CardContent>
                   <IncarceratedChildrenShortAlert
                     fips={props.fips}
                     queryResponse={queryResponse}
+                    breakdownVar={props.breakdownVar}
                   />
                 </CardContent>
               </>

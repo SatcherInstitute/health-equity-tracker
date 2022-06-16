@@ -28,7 +28,6 @@ import {
   UNKNOWN_RACE,
   AGE,
   BJS_NATIONAL_AGE_BUCKETS,
-  BJS_STATE_AGE_BUCKETS,
   OTHER_STANDARD_NH,
   BJS_JAIL_AGE_BUCKETS,
 } from "./Constants";
@@ -239,7 +238,7 @@ export const DATA_GAPS: Partial<
     sex: [...missingSexAllGeos],
   },
   state: {
-    age: [...missingAgeAllGeos, "covid_vaccinations"],
+    age: [...missingAgeAllGeos, "covid_vaccinations", "prison"],
     sex: [...missingSexAllGeos, "covid_vaccinations"],
   },
   territory: {
@@ -258,10 +257,11 @@ export const DATA_GAPS: Partial<
 Conditionally hide some of the extra buckets from the table card, which generally should be showing only 1 complete set of buckets that show the entire population's comparison values.
 
 */
-const showAllGroupIds: VariableId[] = [
+const includeAllsGroupsIds: VariableId[] = [
   "women_state_legislatures",
   "women_us_congress",
   "prison",
+  "jail",
 ];
 
 export function getExclusionList(
@@ -273,7 +273,7 @@ export function getExclusionList(
   const currentVariableId = currentVariable.variableId;
   let exclusionList = [UNKNOWN, UNKNOWN_ETHNICITY, UNKNOWN_RACE];
 
-  if (!showAllGroupIds.includes(currentVariableId)) {
+  if (!includeAllsGroupsIds.includes(currentVariableId)) {
     exclusionList.push(ALL);
   }
 
@@ -303,10 +303,8 @@ export function getExclusionList(
 
       currentFips.isState() &&
         exclusionList.push(
-          ...AGE_BUCKETS.filter(
-            (bucket: AgeBucket) =>
-              !BJS_STATE_AGE_BUCKETS.includes(bucket as any)
-          )
+          // No demographic breakdowns so exclude ALL age buckets
+          ...AGE_BUCKETS
         );
     }
   }

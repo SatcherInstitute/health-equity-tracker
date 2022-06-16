@@ -130,6 +130,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   <IncarceratedChildrenShortAlert
                     fips={props.fips}
                     queryResponse={queryResponse}
+                    breakdownVar={props.breakdownVar}
                   />
                 </CardContent>
               </>
@@ -159,6 +160,17 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             )}
             {dataAvailable && dataWithoutUnknowns.length !== 0 && (
               <>
+                {isIncarceration && (
+                  <>
+                    <CardContent>
+                      <IncarceratedChildrenShortAlert
+                        fips={props.fips}
+                        queryResponse={queryResponse}
+                        breakdownVar={props.breakdownVar}
+                      />
+                    </CardContent>
+                  </>
+                )}
                 <CardContent>
                   <DisparityBarChart
                     data={dataWithoutUnknowns}

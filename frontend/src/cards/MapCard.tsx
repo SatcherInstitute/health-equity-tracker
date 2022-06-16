@@ -26,7 +26,10 @@ import {
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
-import { COMBINED_INCARCERATION_STATES_LIST } from "../data/variables/BjsProvider";
+import {
+  COMBINED_INCARCERATION_STATES_LIST,
+  COMBINED_QUALIFIER,
+} from "../data/variables/BjsProvider";
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
@@ -113,9 +116,9 @@ function MapCardWithKey(props: MapCardProps) {
       )}`
     : "";
 
-  let asteriskMessage = "";
-  if (isPrison) asteriskMessage = " (combined prison and jail)";
-  if (isJail) asteriskMessage = " (private jails only)";
+  let qualifierMessage = "";
+  if (isPrison) qualifierMessage = COMBINED_QUALIFIER;
+  if (isJail) qualifierMessage = " (private jails only)";
 
   return (
     <CardWrapper
@@ -134,6 +137,8 @@ function MapCardWithKey(props: MapCardProps) {
         const mapQueryResponse = queryResponses[0];
         // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
+
+        console.log(mapQueryResponse);
 
         const sortArgs =
           props.currentBreakdown === "age"
@@ -441,8 +446,8 @@ function MapCardWithKey(props: MapCardProps) {
                         lowestRatesList={lowestRatesList}
                         fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
                         jumpToData={props.jumpToData}
-                        asteriskItems={COMBINED_INCARCERATION_STATES_LIST}
-                        asteriskMessage={asteriskMessage}
+                        qualifierItems={COMBINED_INCARCERATION_STATES_LIST}
+                        qualifierMessage={qualifierMessage}
                       />
                     )}
                 </CardContent>

@@ -11,6 +11,7 @@ import {
   formatFieldValue,
 } from "../../data/config/MetricConfig";
 import { Row } from "../../data/utils/DatasetTypes";
+import { COMBINED_QUALIFIER } from "../../data/variables/BjsProvider";
 
 export interface HighestLowestListProps {
   // MetricConfig for data
@@ -29,20 +30,19 @@ export interface HighestLowestListProps {
   lowestRatesList: Row[];
   // to scroll user to bottom text box about Missing Data
   jumpToData: Function;
-  // items in highest/lowest list that should receive asterisks
-  asteriskItems?: string[];
-  // message to display under a list with asterisks
-  asteriskMessage?: string;
+  // items in highest/lowest list that should receive qualifiers
+  qualifierItems?: string[];
+  // message to display under a list with qualifiers
+  qualifierMessage?: string;
 }
 
 /*
    Collapsible box showing lists of geographies with the highest and lowest rates
 */
 export function HighestLowestList(props: HighestLowestListProps) {
-  function addAsterisk(fipsName: string) {
-    return props.asteriskItems?.includes(fipsName)
-      ? ` ${props.asteriskMessage}`
-      : "";
+  // helper method to append a note to certain list entries
+  function addQualifier(fipsName: string, qualifier: string) {
+    return props.qualifierItems?.includes(fipsName) ? ` (${qualifier})` : "";
   }
 
   return (
@@ -88,10 +88,14 @@ export function HighestLowestList(props: HighestLowestListProps) {
                 <h4>{props.highestRatesList.length} Highest Rates</h4>
                 <ul>
                   {props.highestRatesList.map((row) => {
+                    const placeName = addQualifier(
+                      row["fips_name"],
+                      COMBINED_QUALIFIER
+                    );
                     return (
                       <li key={row["fips_name"]}>
                         {row["fips_name"]}
-                        {addAsterisk(row["fips_name"])}:{" "}
+                        {placeName}:{" "}
                         {formatFieldValue(
                           props.metricConfig.type,
                           row[props.metricConfig.metricId]
@@ -110,10 +114,14 @@ export function HighestLowestList(props: HighestLowestListProps) {
                 <h4>{props.lowestRatesList.length} Lowest Rates</h4>
                 <ul>
                   {props.lowestRatesList.map((row) => {
+                    const placeName = addQualifier(
+                      row["fips_name"],
+                      COMBINED_QUALIFIER
+                    );
                     return (
                       <li key={row["fips_name"]}>
                         {row["fips_name"]}
-                        {addAsterisk(row["fips_name"])}:{" "}
+                        {placeName}:{" "}
                         {formatFieldValue(
                           props.metricConfig.type,
                           row[props.metricConfig.metricId]

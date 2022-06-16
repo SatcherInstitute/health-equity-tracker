@@ -19,6 +19,11 @@ export const COMBINED_INCARCERATION_STATES_LIST = [
 export const SENTENCED_PRISONERS_MESSAGE =
   "The rates presented for the ‘Age’ filtered reports measure from those represents individuals under the jurisdiction of an adult prison facility who have been sentenced";
 
+export const COMBINED_INCARCERATION_STATES_MESSAGE =
+  "Alaska, Connecticut, Delaware, Hawaii, Rhode Island, and Vermont each operate an integrated system that combines prisons and jails, which are included here as prison facilities.";
+
+export const COMBINED_QUALIFIER = "combined prison and jail";
+
 export const MISSING_PRISON_DATA =
   "The rates presented for imprisonment nationally do not include individuals under the jurisdiction of territorial, military, or Indian Country facilities.";
 
@@ -72,6 +77,7 @@ class BjsProvider extends VariableProvider {
     let df = bjs.toDataFrame();
 
     df = this.filterByGeo(df, breakdowns);
+
     df = this.renameGeoColumns(df, breakdowns);
 
     let consumedDatasetIds = [datasetId];
@@ -89,11 +95,6 @@ class BjsProvider extends VariableProvider {
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
 
     df = this.removeUnrequestedColumns(df, metricQuery);
-
-    // // swap backend juvenile bucket with frontend label
-    // df = df.map((row) =>
-    //   row["age"] === "0-17" ? { ...row, age: UNDER_18_PRISON } : row
-    // );
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }

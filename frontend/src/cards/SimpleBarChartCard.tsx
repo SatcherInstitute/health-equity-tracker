@@ -112,6 +112,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                       <IncarceratedChildrenShortAlert
                         fips={props.fips}
                         queryResponse={queryResponse}
+                        breakdownVar={props.breakdownVar}
                       />
                     )}
                   </CardContent>

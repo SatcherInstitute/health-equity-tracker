@@ -158,9 +158,7 @@ export const BJS_NATIONAL_AGE_BUCKETS = [
   "65+",
 ];
 
-export const BJS_JAIL_AGE_BUCKETS = ["0-17", "18+"];
-
-export const BJS_STATE_AGE_BUCKETS = ["0-17"];
+export const BJS_JAIL_AGE_BUCKETS = [ALL, "0-17", "18+"];
 
 export const UNUSED_BUCKETS = [
   // "0-17",
@@ -195,8 +193,6 @@ export const AGE_BUCKETS = [
   ...BJS_JAIL_AGE_BUCKETS,
   ...UNUSED_BUCKETS,
 ] as const;
-
-export const CHILD_AGE_BUCKETS = [UNDER_18_PRISON, "0-17", "15-17"];
 
 // ENUMERATE THOSE PROPERTIES TO CREATE AN AGE-GROUP TYPE
 export type AgeBucket = typeof AGE_BUCKETS[number];

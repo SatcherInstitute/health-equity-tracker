@@ -36,6 +36,7 @@ import { useLocation } from "react-router-dom";
 import { srSpeak } from "../../utils/a11yutils";
 import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
+import { BJS_VARIABLE_IDS } from "../../data/variables/BjsProvider";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -209,8 +210,8 @@ function ExploreDataPage() {
     );
 
     setShowIncarceratedChildrenAlert(
-      getSelectedConditions(madLib).some(
-        (condition: VariableConfig) => condition?.variableId === "prison"
+      getSelectedConditions(madLib).some((condition: VariableConfig) =>
+        BJS_VARIABLE_IDS.includes(condition?.variableId)
       )
     );
 
