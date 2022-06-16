@@ -1,0 +1,16 @@
+[
+    {
+        "county_fips": "01001",
+        "county_name": "Autauga County",
+        "age": "All",
+        "population": 36279.0,
+        "jail_estimated_total": 165.0,
+        "jail_per_100k": 454.81,
+        "prison_estimated_total": null,
+        "prison_per_100k": null,
+        "state_fips": "01",
+        "jail_pct_share": 100.0,
+        "prison_pct_share": 100.0,
+        "population_pct_share": 100.0
+    }
+]
