@@ -20,9 +20,10 @@ interface IncarceratedChildrenShortAlertProps {
 function IncarceratedChildrenShortAlert(
   props: IncarceratedChildrenShortAlertProps
 ) {
-  const count = props.queryResponse.data.find(
-    (row: Row) => row[props.breakdownVar] === ALL
-  )?.total_confined_children;
+  const count = parseInt(
+    props.queryResponse.data.find((row: Row) => row[props.breakdownVar] === ALL)
+      ?.total_confined_children
+  );
 
   if (!count) return <></>;
 
@@ -34,7 +35,7 @@ function IncarceratedChildrenShortAlert(
   return (
     <Alert severity="error" role="note" icon={<FlagIcon />}>
       <b>
-        {count} {children}
+        {count.toLocaleString()} {children}
       </b>{" "}
       confined in {adultPrisonFacilities} in{" "}
       <b>{props.fips.getDisplayName()}</b>.{" "}
