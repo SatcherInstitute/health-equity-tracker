@@ -1,9 +1,9 @@
 from datasources.data_source import DataSource
 import ingestion.standardized_columns as std_col
 import pandas as pd
-from ingestion.standardized_columns import Race, Sex
+from ingestion.standardized_columns import Race
 from ingestion import gcs_to_bq_util
-from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
+from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, Sex
 from ingestion.dataset_utils import (generate_per_100k_col,
                                      generate_pct_share_col_with_unknowns,
                                      generate_pct_share_col_without_unknowns)
