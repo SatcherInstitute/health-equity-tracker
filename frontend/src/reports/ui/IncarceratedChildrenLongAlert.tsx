@@ -22,7 +22,7 @@ function IncarceratedChildrenLongAlert() {
           Although the criminal justice system makes distinctions between adults
           and children, individual states have laws that remove children from
           the protective cover of these distinctions and{" "}
-          <a href={urlMap.prisonPolicy}>
+          <a target="_blank" rel="noreferrer" href={urlMap.prisonPolicy}>
             enable the incarceration of children in adult institutions
           </a>
           . Such children are more exposed to physical and sexual abuse, fewer
