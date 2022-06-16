@@ -85,7 +85,7 @@ export function TableCard(props: TableCardProps) {
     props.breakdownVar === "age";
 
   const metricIds = Object.keys(metricConfigs) as MetricId[];
-  isIncarcerationByAge && metricIds.push("confined_estimated_total");
+  isIncarcerationByAge && metricIds.push("total_confined_children");
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
   const displayingCovidData = metrics
@@ -107,7 +107,7 @@ export function TableCard(props: TableCardProps) {
         if (shouldShowAltPopCompare(props)) data = fillInAltPops(data);
 
         const normalMetricIds = metricIds.filter(
-          (id) => id !== "confined_estimated_total"
+          (id) => id !== "total_confined_children"
         );
 
         return (

@@ -22,7 +22,7 @@ function IncarceratedChildrenShortAlert(
   const count =
     props.queryResponse.data.find((row: Row) =>
       CHILD_AGE_BUCKETS.includes(row.age)
-    )?.["confined_estimated_total"] || 0;
+    )?.["total_confined_children"] || 0;
 
   if (count === 1) {
     children = "child";

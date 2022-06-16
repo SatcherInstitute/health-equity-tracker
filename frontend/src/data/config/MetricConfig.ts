@@ -150,7 +150,7 @@ export type MetricId =
   | "jail_pct_share"
   | "jail_per_100k"
   | "jail_ratio_age_adjusted"
-  | "confined_estimated_total";
+  | "total_confined_children";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
