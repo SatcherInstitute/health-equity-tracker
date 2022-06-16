@@ -9,11 +9,12 @@ from ingestion.standardized_columns import Race
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import (
-        merge_fips_codes,
-        merge_pop_numbers,
         generate_per_100k_col,
         generate_pct_share_col_with_unknowns)
 
+from ingestion.merge_utils import (
+        merge_fips_codes,
+        merge_pop_numbers)
 
 DC_COUNTY_FIPS = '11001'
 
