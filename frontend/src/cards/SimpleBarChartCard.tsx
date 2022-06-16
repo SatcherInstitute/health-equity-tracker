@@ -108,13 +108,11 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                       </Box>
                     )}
 
-                    {props.breakdownVar === "age" && (
-                      <IncarceratedChildrenShortAlert
-                        fips={props.fips}
-                        queryResponse={queryResponse}
-                        breakdownVar={props.breakdownVar}
-                      />
-                    )}
+                    <IncarceratedChildrenShortAlert
+                      fips={props.fips}
+                      queryResponse={queryResponse}
+                      breakdownVar={props.breakdownVar}
+                    />
                   </CardContent>
                 )}
 
