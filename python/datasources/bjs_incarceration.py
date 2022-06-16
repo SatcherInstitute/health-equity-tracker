@@ -2,9 +2,12 @@ from datasources.data_source import DataSource
 import ingestion.standardized_columns as std_col
 import pandas as pd
 from ingestion.standardized_columns import Race
-from ingestion import gcs_to_bq_util, dataset_utils
+from ingestion import gcs_to_bq_util
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
-from ingestion.dataset_utils import generate_per_100k_col
+from ingestion.dataset_utils import (generate_per_100k_col,
+                                     generate_pct_share_col_with_unknowns,
+                                     generate_pct_share_col_without_unknowns)
+from ingestion.merge_utils import merge_fips_codes, merge_pop_numbers
 from ingestion.bjs_utils import (standardize_table_2_df,
                                  standardize_table_10_df,
                                  standardize_table_13_df,
@@ -112,8 +115,8 @@ def generate_raw_national_age_breakdown(table_list):
                       != 'Number of sentenced prisoners']
 
     # standardize df with ADULT RAW # / AGE / USA
-    df = dataset_utils.merge_fips_codes(df)
-    df = dataset_utils.merge_pop_numbers(
+    df = merge_fips_codes(df)
+    df = merge_pop_numbers(
         df, std_col.AGE_COL, NATIONAL_LEVEL)
 
     df[RAW_COL] = df[PCT_SHARE_COL] * total_raw / 100
@@ -150,8 +153,8 @@ def post_process(df, breakdown, geo, df_13):
         all_val = std_col.ALL_VALUE
         group_col = breakdown
 
-    df = dataset_utils.merge_fips_codes(df)
-    df = dataset_utils.merge_pop_numbers(
+    df = merge_fips_codes(df)
+    df = merge_pop_numbers(
         df, pop_breakdown, geo)
 
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
@@ -162,7 +165,7 @@ def post_process(df, breakdown, geo, df_13):
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         # some states and all territories will have unknown race data
-        df = dataset_utils.generate_pct_share_col_with_unknowns(
+        df = generate_pct_share_col_with_unknowns(
             df,
             {RAW_COL:
                 PCT_SHARE_COL},
@@ -172,7 +175,7 @@ def post_process(df, breakdown, geo, df_13):
         )
     else:
         # sex and age contain no unknown data
-        df = dataset_utils.generate_pct_share_col_without_unknowns(
+        df = generate_pct_share_col_without_unknowns(
             df,
             {RAW_COL:
                 PCT_SHARE_COL},

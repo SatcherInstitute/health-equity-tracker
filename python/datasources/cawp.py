@@ -4,9 +4,8 @@ import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, constants
-from ingestion.dataset_utils import (percent_avoid_rounding_to_zero,
-                                     merge_fips_codes,
-                                     merge_pop_numbers)
+from ingestion.dataset_utils import percent_avoid_rounding_to_zero
+from ingestion.merge_utils import merge_fips_codes, merge_pop_numbers
 
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
 
