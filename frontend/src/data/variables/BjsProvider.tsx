@@ -36,11 +36,7 @@ export function CombinedIncarcerationStateMessage() {
 export const ALASKA_PRIVATE_JAIL_CAVEAT =
   "In addition, Alaska contracts with a small network of private jails, which are included here only as jail facilities.";
 
-export const BJS_VARIABLE_IDS: VariableId[] = [
-  "prison",
-  "jail",
-  "combined_incarceration",
-];
+export const BJS_VARIABLE_IDS: VariableId[] = ["prison", "jail"];
 
 export const BJS_DETERMINANTS: MetricId[] = [
   "bjs_population_pct",
@@ -60,7 +56,7 @@ class BjsProvider extends VariableProvider {
 
   getDatasetId(breakdowns: Breakdowns): string {
     return (
-      "bjs_data-" +
+      "bjs_incarceration_data-" +
       breakdowns.getSoleDemographicBreakdown().columnName +
       "_" +
       breakdowns.geography
