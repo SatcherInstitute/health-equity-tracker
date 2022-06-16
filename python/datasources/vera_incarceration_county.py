@@ -294,8 +294,8 @@ class VeraIncarcerationCounty(DataSource):
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(breakdown_df)
 
-        print("breakdown_df")
-        print(breakdown_df)
+        # print("breakdown_df")
+        # print(breakdown_df)
 
         return breakdown_df
 
@@ -321,7 +321,7 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
 
     """
 
-    print("---", demo_type, data_type, property_type)
+    # print("---", demo_type, data_type, property_type)
 
     # set configuration based on demo/data/property types
     if demo_type == std_col.RACE_OR_HISPANIC_COL:
@@ -406,7 +406,7 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
                  vera_all_col: all_val,
                  })
 
-    print("in gen partial ^^^^")
+    # print("in gen partial ^^^^")
     # print(df[[*col_to_demographic_map.values()]])
     # print(df[[*col_to_demographic_map.values()]].sum(axis="columns"))
 
@@ -414,7 +414,7 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
     df[unknown_val] = df[all_val] - \
         df[[*col_to_demographic_map.values()]].sum(axis="columns", min_count=1)
 
-    print(df)
+    # print(df)
 
     # make wide table into long table
     df = df.melt(id_vars=GEO_COLS_TO_STANDARD.values(),
