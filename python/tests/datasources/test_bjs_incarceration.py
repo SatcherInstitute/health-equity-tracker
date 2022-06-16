@@ -164,23 +164,23 @@ expected_dtype_sex = {
 # INTEGRATION TEST - NATIONAL AGE
 
 
-# @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
-# @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#              return_value=get_state_fips_codes_as_df())
-# def testGenerateBreakdownAgeNational(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=get_state_fips_codes_as_df())
+def testGenerateBreakdownAgeNational(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
 
-#     df_prison_10 = _get_prison_10()
-#     df_prison_13 = _get_prison_13()
-#     df_jail_6 = _get_jail_6()
+    df_prison_10 = _get_prison_10()
+    df_prison_13 = _get_prison_13()
+    df_jail_6 = _get_jail_6()
 
-#     datasource = BJSIncarcerationData()
-#     df = datasource.generate_breakdown_df(
-#         "age", "national", [df_prison_10, df_jail_6], [df_prison_13, df_jail_6])
+    datasource = BJSIncarcerationData()
+    df = datasource.generate_breakdown_df(
+        "age", "national", [df_prison_10, df_jail_6], [df_prison_13, df_jail_6])
 
-#     expected_df_age_national = pd.read_json(
-#         GOLDEN_DATA['age_national'], dtype=expected_dtype_age)
+    expected_df_age_national = pd.read_json(
+        GOLDEN_DATA['age_national'], dtype=expected_dtype_age)
 
-#     assert_frame_equal(df, expected_df_age_national, check_like=True)
+    assert_frame_equal(df, expected_df_age_national, check_like=True)
 
 
 # INTEGRATION TEST - NATIONAL RACE
@@ -215,23 +215,24 @@ def testGenerateBreakdownRaceNational(mock_fips: mock.MagicMock, mock_pop: mock.
 # INTEGRATION TEST - STATE SEX
 
 
-# @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
-# @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#              return_value=get_state_fips_codes_as_df())
-# def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=get_state_fips_codes_as_df())
+def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
 
-#     df_2 = _get_prison_2()
-#     df_23 = _get_prison_23()
-#     df_13 = _get_prison_13()
+    prison_2 = _get_prison_2()
+    prison_23 = _get_prison_23()
+    prison_13 = _get_prison_13()
+    jail_6 = _get_jail_6()
 
-#     datasource = BJSIncarcerationData()
-#     df = datasource.generate_breakdown_df(
-#         "sex", "state", [df_2, df_23], df_13)
+    datasource = BJSIncarcerationData()
+    df = datasource.generate_breakdown_df(
+        "sex", "state", [prison_2, prison_23, jail_6], [prison_13, jail_6])
 
-#     expected_df_sex_state = pd.read_json(
-#         GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex)
+    expected_df_sex_state = pd.read_json(
+        GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex)
 
-#     assert_frame_equal(df, expected_df_sex_state, check_like=True)
+    assert_frame_equal(df, expected_df_sex_state, check_like=True)
 
 
 # INTEGRATION TEST - CORRECT NETWORK CALLS
@@ -262,12 +263,12 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
 
     # Un-comment to log output and save to file
     # (can copy/paste into frontend /tmp )
-    for bq_call in mock_bq.call_args_list:
-        df, _, table_name = bq_call[0]
-        # print(table_name)
-        # print(df)
-        df.to_json(
-            f'bjs_incarceration_data-{table_name}.json', orient="records")
+    # for bq_call in mock_bq.call_args_list:
+    #     df, _, table_name = bq_call[0]
+    # print(table_name)
+    # print(df)
+    # df.to_json(
+    #     f'bjs_incarceration_data-{table_name}.json', orient="records")
 
     assert mock_zip.call_count == 2
 

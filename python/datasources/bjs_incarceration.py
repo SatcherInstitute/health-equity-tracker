@@ -108,7 +108,6 @@ def generate_raw_breakdown(demo, geo_level, table_list):
 
     if geo_level == STATE_LEVEL:
         df_jail = keep_only_states(df_jail)
-
         df_prison = keep_only_states(df_prison)
         df_prison = pd.concat([df_prison, df_territories])
 
@@ -279,10 +278,6 @@ def post_process(df, breakdown, geo, children_tables):
     df_confined = df_confined[[
         std_col.STATE_NAME_COL, TOTAL_CHILDREN_COL, group_col]]
 
-    print("*___ pre merge")
-    print(df)
-    print(df_confined)
-
     # add a column with the confined children in prison
     df = pd.merge(df, df_confined, how="left", on=[
         std_col.STATE_NAME_COL, group_col])
@@ -340,8 +335,8 @@ class BJSIncarcerationData(DataSource):
         for geo_level in [NATIONAL_LEVEL, STATE_LEVEL]:
             for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
                 table_name = f'{breakdown}_{geo_level}'
-                print("\n\n")
-                print("_________", table_name, "_________")
+                # print("\n\n")
+                # print("_________", table_name, "_________")
 
                 df = self.generate_breakdown_df(
                     breakdown, geo_level, table_lookup[table_name], children_tables)
