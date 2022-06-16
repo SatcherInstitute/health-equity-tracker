@@ -1,11 +1,13 @@
 from datasources.data_source import DataSource
 import ingestion.standardized_columns as std_col
-import numpy as np
 import pandas as pd
-from ingestion.standardized_columns import Race
-from ingestion import gcs_to_bq_util, dataset_utils
-from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, Sex
-from ingestion.dataset_utils import generate_per_100k_col
+from ingestion.standardized_columns import Race, Sex
+from ingestion import gcs_to_bq_util
+from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
+from ingestion.dataset_utils import (generate_per_100k_col,
+                                     generate_pct_share_col_with_unknowns,
+                                     generate_pct_share_col_without_unknowns)
+from ingestion.merge_utils import merge_fips_codes, merge_pop_numbers
 from ingestion.bjs_utils import (standardize_table_2_df,
                                  standardize_table_10_df,
                                  standardize_table_13_df,
@@ -174,8 +176,8 @@ def generate_raw_national_age_breakdown(table_list):
                               != 'Number of sentenced prisoners']
 
     # standardize df_prison with ADULT RAW # / AGE / USA
-    df_prison = dataset_utils.merge_fips_codes(df_prison)
-    df_prison = dataset_utils.merge_pop_numbers(
+    df_prison = merge_fips_codes(df_prison)
+    df_prison = merge_pop_numbers(
         df_prison, std_col.AGE_COL, NATIONAL_LEVEL)
 
     df_prison[RAW_PRISON_COL] = df_prison[PRISON_PCT_SHARE_COL] * \
@@ -219,8 +221,8 @@ def post_process(df, breakdown, geo, children_tables):
         all_val = std_col.ALL_VALUE
         group_col = breakdown
 
-    df = dataset_utils.merge_fips_codes(df)
-    df = dataset_utils.merge_pop_numbers(
+    df = merge_fips_codes(df)
+    df = merge_pop_numbers(
         df, pop_breakdown, geo)
 
     df[std_col.POPULATION_PCT_COL] = df[std_col.POPULATION_PCT_COL].astype(
@@ -236,7 +238,7 @@ def post_process(df, breakdown, geo, children_tables):
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         # some states and all territories will have unknown race data
-        df = dataset_utils.generate_pct_share_col_with_unknowns(
+        df = generate_pct_share_col_with_unknowns(
             df,
             raw_to_share_cols_map,
             std_col.RACE_CATEGORY_ID_COL,
@@ -245,7 +247,7 @@ def post_process(df, breakdown, geo, children_tables):
         )
     else:
         # sex and age contain no unknown data
-        df = dataset_utils.generate_pct_share_col_without_unknowns(
+        df = generate_pct_share_col_without_unknowns(
             df,
             raw_to_share_cols_map,
             breakdown,
