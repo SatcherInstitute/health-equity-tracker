@@ -1,12 +1,12 @@
 import React from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import { useUrlSearchParams } from "../../utils/urlutils";
 import {
   ABOUT_US_PAGE_LINK,
   CONTACT_TAB_LINK,
   OURTEAM_TAB_LINK,
-  useUrlSearchParams,
-} from "../../utils/urlutils";
+} from "../../utils/internalRoutes";
 import styles from "./AboutUsPage.module.scss";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
 import OurTeamTab from "./OurTeamTab";
