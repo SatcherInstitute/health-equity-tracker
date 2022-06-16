@@ -415,6 +415,8 @@ def standardize_jail_6(df):
     df = df[[std_col.STATE_NAME_COL, RAW_JAIL_COL, "0-17", "18+", "Male 0-17",
              "Male 18+", "Female 0-17", "Female 18+", "Male Pct", "Female Pct"]]
 
+    df = df.replace("U.S. total", constants.US_NAME)
+
     return df
 
 

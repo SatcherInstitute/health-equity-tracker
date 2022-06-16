@@ -263,17 +263,29 @@ def post_process(df, breakdown, geo, children_tables):
     jail_6 = cols_to_rows(jail_6, [all_val],
                           group_col, TOTAL_CHILDREN_COL)
 
+    jail_6 = jail_6.rename(
+        columns={TOTAL_CHILDREN_COL: f'{TOTAL_CHILDREN_COL}_jail'})
+
     # get RAW PRISON for 0-17 and set as new property for "All" rows for every demo-breakdowns
     prison_13 = prison_13.rename(
-        columns={RAW_PRISON_COL: TOTAL_CHILDREN_COL, "age": group_col})
+        columns={RAW_PRISON_COL: f'{TOTAL_CHILDREN_COL}_prison', "age": group_col})
     prison_13[group_col] = all_val
 
-    # add a column with confined children in prison
-    df = pd.merge(df, prison_13, how='left', on=[
+    # sum confined children in prison+jail
+    df_confined = pd.merge(jail_6, prison_13, how="outer", on=[
         std_col.STATE_NAME_COL, group_col])
+    df_confined[TOTAL_CHILDREN_COL] = df_confined[[
+        f'{TOTAL_CHILDREN_COL}_jail', f'{TOTAL_CHILDREN_COL}_prison']].sum(axis="columns")
+    df_confined = df_confined[[
+        std_col.STATE_NAME_COL, TOTAL_CHILDREN_COL, group_col]]
 
-    # sum with confined children in jail
-    df[TOTAL_CHILDREN_COL] = df[TOTAL_CHILDREN_COL] + jail_6[TOTAL_CHILDREN_COL]
+    print("*___ pre merge")
+    print(df)
+    print(df_confined)
+
+    # add a column with the confined children in prison
+    df = pd.merge(df, df_confined, how="left", on=[
+        std_col.STATE_NAME_COL, group_col])
 
     return df
 
