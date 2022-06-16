@@ -59,6 +59,8 @@ def generate_raw_breakdown(demo, geo_level, table_list):
         df: with raw numbers by demographic group by geographic place(s)
     """
 
+    print("incoming demo")
+    print(demo)
     if demo == std_col.AGE_COL and geo_level == NATIONAL_LEVEL:
         raise ValueError("This function cannot generate the BJS Prisoners" +
                          "National Age breakdown; use generate_raw_national_age_breakdown() instead")
@@ -70,7 +72,8 @@ def generate_raw_breakdown(demo, geo_level, table_list):
     df_jail = main_jail_table.copy()
 
     if demo == std_col.SEX_COL:
-        prison_demo_cols = jail_demo_cols = BJS_SEX_GROUPS
+        prison_demo_cols = BJS_SEX_GROUPS
+        jail_demo_cols = BJS_SEX_GROUPS
         demo_for_flip = demo
 
         df_jail[Sex.MALE] = df_jail[RAW_JAIL_COL].astype(
@@ -98,7 +101,8 @@ def generate_raw_breakdown(demo, geo_level, table_list):
                                std_col.AGE_COL, RAW_JAIL_COL)
 
     if demo == std_col.RACE_OR_HISPANIC_COL:
-        prison_demo_cols = jail_demo_cols = STANDARD_RACE_CODES
+        prison_demo_cols = STANDARD_RACE_CODES
+        jail_demo_cols = STANDARD_RACE_CODES
         demo_for_flip = std_col.RACE_CATEGORY_ID_COL
 
         bjs_races = list(df_jail.columns)
@@ -237,6 +241,9 @@ def post_process(df, breakdown, geo, children_tables):
 
     raw_to_share_cols_map = {RAW_PRISON_COL: PRISON_PCT_SHARE_COL,
                              RAW_JAIL_COL: JAIL_PCT_SHARE_COL}
+
+    print("in post")
+    print(df)
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         # some states and all territories will have unknown race data
