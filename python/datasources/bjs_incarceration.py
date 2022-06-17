@@ -173,9 +173,11 @@ def generate_raw_national_age_breakdown(table_list):
     df_jail = cols_to_rows(df_jail, BJS_JAIL_AGE_GROUPS,
                            std_col.AGE_COL, RAW_JAIL_COL)
 
-    total_raw_prison = prison_10.loc[
+    # get and store the total value from the last row
+    total_raw_prison_value = prison_10.loc[
         prison_10[std_col.AGE_COL] == 'Number of sentenced prisoners', PRISON_PCT_SHARE_COL].values[0]
 
+    # drop the last row and just keep normal rows
     df_prison = prison_10.loc[prison_10[std_col.AGE_COL]
                               != 'Number of sentenced prisoners']
 
@@ -184,8 +186,9 @@ def generate_raw_national_age_breakdown(table_list):
     df_prison = merge_pop_numbers(
         df_prison, std_col.AGE_COL, NATIONAL_LEVEL)
 
+    # infer RAW counts from the TOTAL count and the PCT_SHARE
     df_prison[RAW_PRISON_COL] = df_prison[PRISON_PCT_SHARE_COL] * \
-        total_raw_prison / 100
+        total_raw_prison_value / 100
 
     df_prison = df_prison[[
         RAW_PRISON_COL, std_col.STATE_NAME_COL, std_col.AGE_COL, PRISON_PCT_SHARE_COL]]
@@ -259,6 +262,7 @@ def post_process(df, breakdown, geo, children_tables):
     df = df.drop(columns=[std_col.POPULATION_COL,
                           RAW_JAIL_COL, RAW_PRISON_COL])
 
+    # generate the confined children combined value
     prison_13, jail_6 = children_tables
 
     # get RAW JAIL for 0-17 and melt to set as new property for "All" rows for every demo-breakdowns
@@ -267,7 +271,6 @@ def post_process(df, breakdown, geo, children_tables):
     jail_6 = jail_6[[std_col.STATE_NAME_COL, all_val]]
     jail_6 = cols_to_rows(jail_6, [all_val],
                           group_col, TOTAL_CHILDREN_COL)
-
     jail_6 = jail_6.rename(
         columns={TOTAL_CHILDREN_COL: f'{TOTAL_CHILDREN_COL}_jail'})
 
