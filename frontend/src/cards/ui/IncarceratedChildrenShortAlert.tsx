@@ -9,8 +9,7 @@ import FlagIcon from "@material-ui/icons/Flag";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 
 let children = "children";
-let are = "are";
-let adultFacilities = "adult prison and jail facilities";
+let adultPrisonFacilities = "adult prison facilities";
 
 interface IncarceratedChildrenShortAlertProps {
   queryResponse: MetricQueryResponse;
@@ -30,8 +29,7 @@ function IncarceratedChildrenShortAlert(
 
   if (count === 1) {
     children = "child";
-    are = "is";
-    adultFacilities = "an adult prison or jail facility";
+    adultPrisonFacilities = "an adult prison facility";
   }
 
   return (
@@ -43,7 +41,7 @@ function IncarceratedChildrenShortAlert(
       <b>
         {count.toLocaleString()} {children}
       </b>{" "}
-      {are} currently confined in {adultFacilities} in{" "}
+      confined in {adultPrisonFacilities} in{" "}
       <b>{props.fips.getDisplayName()}</b>.{" "}
       <a href={urlMap.childrenInPrison}>Learn more.</a>
     </Alert>

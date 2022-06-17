@@ -94,7 +94,6 @@ class BjsProvider extends VariableProvider {
     );
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
-
     df = this.removeUnrequestedColumns(df, metricQuery);
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);

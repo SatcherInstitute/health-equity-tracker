@@ -36,13 +36,15 @@ export type LinkName =
   | "rwjf"
   | "childrenInPrison"
   | "bjsPrisoners"
-  | "bjsCensusOfJails";
+  | "bjsCensusOfJails"
+  | "prisonPolicy";
 
 export const urlMap: Record<LinkName, string> = {
   bjsPrisoners:
     "https://bjs.ojp.gov/library/publications/prisoners-2020-statistical-tables",
   bjsCensusOfJails:
     "https://bjs.ojp.gov/library/publications/census-jails-2005-2019-statistical-tables",
+  prisonPolicy: "https://www.prisonpolicy.org/reports/youth2019.html",
   childrenInPrison: "https://eji.org/issues/children-in-prison/",
   rwjf: "https://www.rwjf.org/en/library/research/2019/01/mass-incarceration-threatens-health-equity-in-america.html",
   aafp: "https://www.aafp.org/about/policies/all/incarceration.html",

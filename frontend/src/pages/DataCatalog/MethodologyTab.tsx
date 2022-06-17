@@ -635,6 +635,40 @@ function MethodologyTab() {
                     elsewhere).
                   </li>
                 </ul>
+
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  Visualizations
+                </h4>
+                <p>
+                  When presenting incarceration reports, we have chosen to
+                  highlight the total number of confined children (in adult
+                  prisons), rather than only including this information as our
+                  standard “per 100k” rate. This decision was based on several
+                  factors:
+                </p>
+
+                <ul>
+                  <li>
+                    There is no national limit on the age at which a child can
+                    be confined in an adult facility, and the variance in
+                    state-specific laws makes it impossible to derive an
+                    accurate population base for individuals eligible for
+                    prison. Because of this, any rate calculations for{" "}
+                    <b>0-17</b> would be comparing the{" "}
+                    <b>number of prisoners under 18</b> proportional to entire
+                    population of children all the way down to newborns. This
+                    resultant rate cannot therefor be meaningfully compared with
+                    other age groups.
+                  </li>
+                  <li>
+                    The numbers presented in the BJS Prisoners 2020 report for
+                    juveniles include <b>confined</b> population (literally held
+                    within a specific facility), as opposed to the other reports
+                    which present the <b>jurisdictional</b> population (under
+                    the control of a facility but potentially confined
+                    elsewhere).
+                  </li>
+                </ul>
               </div>
             </Grid>
 

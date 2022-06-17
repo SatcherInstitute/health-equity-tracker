@@ -144,6 +144,7 @@ export const CDC_AGE_BUCKETS = [
 ];
 
 export const BJS_NATIONAL_AGE_BUCKETS = [
+  "All",
   "18-19",
   "20-24",
   "25-29",

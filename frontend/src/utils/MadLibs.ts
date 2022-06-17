@@ -129,7 +129,7 @@ const CATEGORIES_LIST: Category[] = [
     options: [
       "voter_participation",
       "women_in_legislative_office",
-      "incarceration",
+      // "incarceration",
     ],
   },
   {
