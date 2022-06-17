@@ -11,7 +11,6 @@ import {
   formatFieldValue,
 } from "../../data/config/MetricConfig";
 import { Row } from "../../data/utils/DatasetTypes";
-import { COMBINED_QUALIFIER } from "../../data/variables/BjsProvider";
 
 export interface HighestLowestListProps {
   // MetricConfig for data
@@ -90,7 +89,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
                   {props.highestRatesList.map((row) => {
                     const placeName = addQualifier(
                       row["fips_name"],
-                      COMBINED_QUALIFIER
+                      props.qualifierMessage || ""
                     );
                     return (
                       <li key={row["fips_name"]}>
@@ -116,7 +115,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
                   {props.lowestRatesList.map((row) => {
                     const placeName = addQualifier(
                       row["fips_name"],
-                      COMBINED_QUALIFIER
+                      props.qualifierMessage || ""
                     );
                     return (
                       <li key={row["fips_name"]}>

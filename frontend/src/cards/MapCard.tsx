@@ -29,6 +29,7 @@ import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import {
   COMBINED_INCARCERATION_STATES_LIST,
   COMBINED_QUALIFIER,
+  PRIVATE_JAILS_QUALIFIER,
 } from "../data/variables/BjsProvider";
 import {
   CAWP_DETERMINANTS,
@@ -118,7 +119,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   let qualifierMessage = "";
   if (isPrison) qualifierMessage = COMBINED_QUALIFIER;
-  if (isJail) qualifierMessage = " (private jails only)";
+  if (isJail) qualifierMessage = PRIVATE_JAILS_QUALIFIER;
 
   return (
     <CardWrapper
@@ -137,8 +138,6 @@ function MapCardWithKey(props: MapCardProps) {
         const mapQueryResponse = queryResponses[0];
         // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
-
-        console.log(mapQueryResponse);
 
         const sortArgs =
           props.currentBreakdown === "age"
