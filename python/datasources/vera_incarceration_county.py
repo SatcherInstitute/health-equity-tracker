@@ -1,4 +1,5 @@
 from sys import stderr
+import numpy as np
 import pandas as pd
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
@@ -216,32 +217,40 @@ class VeraIncarcerationCounty(DataSource):
                            *SEX_JAIL_RATE_COLS_TO_STANDARD.keys(),
                            ]]
 
-        merge_cols = list(GEO_COLS_TO_STANDARD.keys())
-        merge_cols.extend(POP_COLS)
+        # merge_cols = list(GEO_COLS_TO_STANDARD.keys())
+        # merge_cols.extend(POP_COLS)
 
-        # re-combine into single, unmelted df
-        df = pd.merge(df_jail, df_prison, how='left',
-                      on=merge_cols)
+        # # re-combine into single, unmelted df
+        # df = df_jail.merge(df_prison, how="outer",
+        #                    on=merge_cols)
 
-        df = df.rename(columns=GEO_COLS_TO_STANDARD)
+        df_jail = df_jail.rename(columns=GEO_COLS_TO_STANDARD)
+        df_prison = df_prison.rename(columns=GEO_COLS_TO_STANDARD)
+
+        datatypes_to_df_map = {
+            PRISON: df_prison,
+            JAIL: df_jail
+        }
 
         bq_column_types = {c: 'STRING' for c in df.columns}
 
-        for breakdown in [std_col.RACE_OR_HISPANIC_COL,
-                          std_col.SEX_COL]:
+        for datatype in datatypes_to_df_map.keys():
+            for breakdown in [std_col.RACE_OR_HISPANIC_COL,
+                              std_col.SEX_COL]:
 
-            breakdown_df = df.copy()
-            breakdown_df = self.generate_for_bq(breakdown_df, breakdown)
+                df = datatypes_to_df_map[datatype].copy()
 
-            if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
-                bq_column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+                df = self.generate_for_bq(df, breakdown)
 
-            gcs_to_bq_util.add_df_to_bq(
-                breakdown_df, dataset, breakdown, column_types=bq_column_types)
+                if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+                    bq_column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
+                gcs_to_bq_util.add_df_to_bq(
+                    df, dataset, f'{datatype}_{breakdown}', column_types=bq_column_types)
 
     def generate_for_bq(self, df, demo_type):
 
-        print(demo_type, "<<<<>>>>")
+        # print(demo_type, "<<<<>>>>")
 
         if demo_type == std_col.SEX_COL:
             all_val = std_col.ALL_VALUE
@@ -260,7 +269,7 @@ class VeraIncarcerationCounty(DataSource):
         partial_breakdowns.append(pop_partial_df)
 
         for data_type in [JAIL, PRISON]:
-            for property_type in [RAW, RATE, ]:
+            for property_type in [RAW, RATE]:
                 partial_df = df.copy()
                 partial_df = generate_partial_breakdown(
                     partial_df, demo_type, data_type, property_type)
@@ -269,8 +278,6 @@ class VeraIncarcerationCounty(DataSource):
         # breakdown = pd.concat(partial_breakdowns)
         breakdown_df = reduce(lambda x, y: pd.merge(
             x, y, on=[*GEO_COLS_TO_STANDARD.values(), demo_col]), partial_breakdowns)
-
-        # print(breakdown_df)
 
         breakdown_df[std_col.STATE_FIPS_COL] = breakdown_df[std_col.COUNTY_FIPS_COL].astype(
             str).str[:2]
@@ -388,17 +395,10 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
                 vera_all_col = PRISON_RATE_ALL
                 het_value_column = PRISON_RATE_COL
 
-    # discard unneeded columns
-    # print("----- incoming columns for partial breakdown")
-    # print(df.columns)
-
     df = df[[*GEO_COLS_TO_STANDARD.values(),
              vera_all_col,
              *col_to_demographic_map.keys(),
              ]]
-
-    # print("after removing excess cols")
-    # print(df)
 
     # rename to match this breakdown
     df = df.rename(
@@ -406,21 +406,21 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
                  vera_all_col: all_val,
                  })
 
-    # print("in gen partial ^^^^")
-    # print(df[[*col_to_demographic_map.values()]])
-    # print(df[[*col_to_demographic_map.values()]].sum(axis="columns"))
+    if property_type == RATE:
+        df[unknown_val] = np.nan
 
-    # manually set UNKNOWN to ALL minus KNOWNS
-    df[unknown_val] = df[all_val] - \
-        df[[*col_to_demographic_map.values()]].sum(axis="columns", min_count=1)
-
-    # print(df)
+    else:
+        # manually set UNKNOWN to ALL minus KNOWNS
+        df[unknown_val] = df[all_val] - \
+            df[[*col_to_demographic_map.values()]].sum(axis="columns", min_count=1)
 
     # make wide table into long table
+    value_vars = [all_val, unknown_val, *col_to_demographic_map.values()]
     df = df.melt(id_vars=GEO_COLS_TO_STANDARD.values(),
-                 value_vars=[
-        all_val, unknown_val, *col_to_demographic_map.values()],
-        var_name=het_group_column,
-        value_name=het_value_column)
+                 value_vars=value_vars,
+                 var_name=het_group_column,
+                 value_name=het_value_column)
+
+    # print(df)
 
     return df
