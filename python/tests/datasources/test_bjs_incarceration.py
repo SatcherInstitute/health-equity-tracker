@@ -5,8 +5,7 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 from test_utils import get_state_fips_codes_as_df
 from datasources.bjs_incarceration import (BJSIncarcerationData)
-from ingestion.bjs_utils import (bjs_prisoners_tables,
-                                 strip_footnote_refs_from_df,
+from ingestion.bjs_utils import (strip_footnote_refs_from_df,
                                  missing_data_to_none,
                                  set_state_col)
 

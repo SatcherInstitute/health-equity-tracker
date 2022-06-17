@@ -1,8 +1,6 @@
 import os
 import json
-
 import pandas as pd
-
 from unittest import mock
 from pandas._testing import assert_frame_equal
 
