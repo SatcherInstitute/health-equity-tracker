@@ -39,11 +39,6 @@ export interface HighestLowestListProps {
    Collapsible box showing lists of geographies with the highest and lowest rates
 */
 export function HighestLowestList(props: HighestLowestListProps) {
-  // helper method to append a note to certain list entries
-  function addQualifier(fipsName: string, qualifier: string) {
-    return props.qualifierItems?.includes(fipsName) ? ` (${qualifier})` : "";
-  }
-
   return (
     <AnimateHeight
       duration={500}
@@ -87,13 +82,13 @@ export function HighestLowestList(props: HighestLowestListProps) {
                 <h4>{props.highestRatesList.length} Highest Rates</h4>
                 <ul>
                   {props.highestRatesList.map((row) => {
-                    const placeName = addQualifier(
-                      row["fips_name"],
-                      props.qualifierMessage || ""
-                    );
+                    let placeName = row["fips_name"];
+                    if (props.qualifierItems?.includes(placeName)) {
+                      placeName = `${placeName} (${props.qualifierMessage})`;
+                    }
+
                     return (
                       <li key={row["fips_name"]}>
-                        {row["fips_name"]}
                         {placeName}:{" "}
                         {formatFieldValue(
                           props.metricConfig.type,
@@ -113,13 +108,13 @@ export function HighestLowestList(props: HighestLowestListProps) {
                 <h4>{props.lowestRatesList.length} Lowest Rates</h4>
                 <ul>
                   {props.lowestRatesList.map((row) => {
-                    const placeName = addQualifier(
-                      row["fips_name"],
-                      props.qualifierMessage || ""
-                    );
+                    let placeName = row["fips_name"];
+                    if (props.qualifierItems?.includes(placeName)) {
+                      placeName = `${placeName} (${props.qualifierMessage})`;
+                    }
+
                     return (
                       <li key={row["fips_name"]}>
-                        {row["fips_name"]}
                         {placeName}:{" "}
                         {formatFieldValue(
                           props.metricConfig.type,
