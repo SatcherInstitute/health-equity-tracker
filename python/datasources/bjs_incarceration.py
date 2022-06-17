@@ -150,14 +150,14 @@ def generate_raw_national_age_breakdown(table_list):
     Takes standardized dataframes representing specific tables
     from the BJS Prisoners and Census of Jails reports and returns a df
     with rows for each combo of place + demographic group,
-    # PRISON | RAW# JAIL | "age" group | "state_name" (national total)
+    RAW# PRISON | RAW# JAIL | "age" group | "state_name" (national total)
     and columns for  | RAW
 
     Parameters:
         table_list: [list of specific df_prison tables needed]
 
     Returns:
-        df_prison: standardized with raw numbers by age by place
+        df: standardized with raw numbers by age by place
     """
 
     prison_10, jail_6 = table_list
