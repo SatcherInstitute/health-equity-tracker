@@ -250,7 +250,7 @@ def testWriteToBq(
     assert mock_bq.call_args_list[3].args[2] == 'by_sex_county_processed'
     assert mock_bq.call_args_list[4].args[2] == 'by_race_county_processed'
     assert mock_bq.call_args_list[5].args[2] == 'by_age_county_processed'
-    assert mock_bq.call_args_list[6].args[2] == 'cdc_restricted_by_race_and_age_state'
+    assert mock_bq.call_args_list[6].args[2] == 'by_race_age_state'
     assert mock_bq.call_args_list[7].args[2] == 'cdc_restricted_by_race_state'
     assert mock_bq.call_args_list[8].args[2] == 'cdc_restricted_by_age_state'
     assert mock_bq.call_args_list[9].args[2] == 'cdc_restricted_by_sex_state'

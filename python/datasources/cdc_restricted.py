@@ -18,9 +18,12 @@ from ingestion.merge_utils import (
 
 DC_COUNTY_FIPS = '11001'
 
-EXTRA_FILES = [
-    'cdc_restricted_by_race_and_age_state.csv',
+ONLY_FIPS_FILES = {
+    # These files only need to get their fips codes merged in
+    'cdc_restricted_by_race_and_age_state.csv': 'by_race_age_state',
+}
 
+EXTRA_FILES = [
     # TODO: Remove these files once we do national
     # calculations on the backend.
     'cdc_restricted_by_race_state.csv',
@@ -67,6 +70,34 @@ class CDCRestrictedData(DataSource):
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=column_types)
 
+        for filename, table_name in ONLY_FIPS_FILES.items():
+            df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename)
+
+            df = df[df[std_col.STATE_POSTAL_COL] != 'Unknown']
+            df = merge_fips_codes(df)
+            df = df[df[std_col.STATE_FIPS_COL].notna()]
+
+            self.clean_frame_column_names(df)
+
+            int_cols = [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
+                        std_col.COVID_HOSP_N, std_col.COVID_HOSP_UNKNOWN,
+                        std_col.COVID_DEATH_Y, std_col.COVID_DEATH_N,
+                        std_col.COVID_DEATH_UNKNOWN]
+
+            column_types = {c: 'STRING' for c in df.columns}
+            for col in int_cols:
+                if col in column_types:
+                    column_types[col] = 'FLOAT'
+
+            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
+            print(f'uploading {table_name}')
+            gcs_to_bq_util.add_df_to_bq(
+                df, dataset, table_name, column_types=column_types)
+
+        # TODO, delete this whole section after national data
+        # is calculated here
         for filename in EXTRA_FILES:
             df = gcs_to_bq_util.load_csv_as_df(
                 gcs_bucket, filename, dtype={'county_fips': str})

@@ -74,7 +74,7 @@ class AgeAdjustCDCRestricted(DataSource):
 
             # Clean with race age df
             with_race_age_df = with_race_age_df.loc[
-                with_race_age_df[std_col.AGE_COL] != "UNKNOWN"
+                with_race_age_df[std_col.AGE_COL] != "Unknown"
             ].reset_index(drop=True)
 
             with_race_age_df = with_race_age_df.loc[
