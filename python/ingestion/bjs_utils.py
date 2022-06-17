@@ -160,7 +160,7 @@ def missing_data_to_none(df):
     BJS Prisoners uses two kinds of missing data:
     `~` N/A. Jurisdiction does not track this race or ethnicity.
     `/` Not reported.
-    BJS Census of Jails uses two kinds of missing data:
+    BJS Census of Jails uses another kind of missing data:
     `^` Less than 0.05%
 
     Parameters:
