@@ -167,9 +167,10 @@ expected_dtype_sex = {
     'sex': str,
 }
 
-# INTEGRATION TEST - NATIONAL AGE
+# --- INTEGRATION TESTS NATIONAL LEVEL
 
 
+# - AGE
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
@@ -189,9 +190,7 @@ def testGenerateBreakdownAgeNational(mock_fips: mock.MagicMock, mock_pop: mock.M
     assert_frame_equal(df, expected_df_age_national, check_like=True)
 
 
-# INTEGRATION TEST - NATIONAL RACE
-
-
+# - RACE
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
@@ -210,14 +209,9 @@ def testGenerateBreakdownRaceNational(mock_fips: mock.MagicMock, mock_pop: mock.
     expected_df_race_national = pd.read_json(
         GOLDEN_DATA['race_national'], dtype=expected_dtype_race)
 
-    # print("mock result")
-    # print(df)
-    # print("expected")
-    # print(expected_df_race_national)
-
     assert_frame_equal(df, expected_df_race_national, check_like=True)
 
-# INTEGRATION TEST - NATIONAL SEX
+# - SEX
 
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
@@ -240,9 +234,10 @@ def testGenerateBreakdownSexNational(mock_fips: mock.MagicMock, mock_pop: mock.M
     assert_frame_equal(df, expected_df_sex_national, check_like=True)
 
 
-# INTEGRATION TEST - STATE SEX
+# INTEGRATION TEST - STATE LEVEL
 
 
+# - SEX
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
@@ -263,9 +258,7 @@ def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
     assert_frame_equal(df, expected_df_sex_state, check_like=True)
 
 
-# INTEGRATION TEST - STATE AGE
-
-
+# - AGE
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
@@ -286,9 +279,7 @@ def testGenerateBreakdownAgeState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
     assert_frame_equal(df, expected_df_age_state, check_like=True)
 
 
-# INTEGRATION TEST - STATE RACE
-
-
+# - RACE
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
