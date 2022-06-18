@@ -239,9 +239,6 @@ class VeraIncarcerationCounty(DataSource):
                 table_name = f'{data_type}_{demo_type}'
                 df = datatypes_to_df_map[data_type].copy()
 
-                df.to_csv(
-                    f'{data_type}.csv')
-
                 df = self.generate_for_bq(df, data_type, demo_type)
 
                 if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
@@ -281,6 +278,15 @@ class VeraIncarcerationCounty(DataSource):
             DATA_TYPE_TO_COL_MAP[data_type],
             demo_col,
             all_val)
+
+        breakdown_df = generate_pct_share_col_without_unknowns(
+            breakdown_df,
+            {POP: "population_pct_share"},
+            demo_col,
+            all_val)
+
+        breakdown_df = breakdown_df.drop(
+            columns=[std_col.POPULATION_COL, std_col.STATE_FIPS_COL])
 
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(breakdown_df)

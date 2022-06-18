@@ -11,6 +11,12 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data",
                         "vera_incarceration_county")
 
+
+FAKE_SPLIT_DF_DATA = {
+    'prison': os.path.join(TEST_DIR, 'test_input_prison_df.csv'),
+    'jail': os.path.join(TEST_DIR, 'test_input_jail_df.csv'),
+}
+
 GOLDEN_DATA = {
     'prison_race_county': os.path.join(TEST_DIR, 'vera_incarceration_county-prison_race_and_ethnicity.json'),
     'prison_age_county': os.path.join(TEST_DIR, 'vera_incarceration_county-prison_age.json'),
@@ -42,7 +48,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
     assert mock_bq.call_count == 4
 
-    print(mock_bq.call_args_list)
+    # print(mock_bq.call_args_list)
 
     assert mock_bq.call_args_list[0].args[2] == 'prison_race_and_ethnicity'
     assert mock_bq.call_args_list[1].args[2] == 'prison_sex'
@@ -50,30 +56,94 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     assert mock_bq.call_args_list[3].args[2] == 'jail_sex'
     # TODO Add AGE calls
 
-    for call_arg in mock_bq.call_args_list:
-        mock_df, _, bq_table_name = call_arg[0]
-        print("\n\n")
-        print(bq_table_name)
-        print(mock_df)
-        mock_df.to_json(
-            f'vera_incarceration_county-{bq_table_name}.json', orient="records")
+    # for call_arg in mock_bq.call_args_list:
+    #     mock_df, _, bq_table_name = call_arg[0]
+    #     print("\n\n")
+    #     print(bq_table_name)
+    #     print(mock_df)
+    #     mock_df.to_json(
+    #         f'vera_incarceration_county-{bq_table_name}.json', orient="records")
+
+
+fake_geo_pop_dtype = {
+    "county_fips": str,
+    "county_name": str,
+    "total_pop_15to64": float,
+    "aapi_pop_15to64": float,
+    "black_pop_15to64": float,
+    "latinx_pop_15to64": float,
+    "native_pop_15to64": float,
+    "white_pop_15to64": float,
+    "female_pop_15to64": float,
+    "male_pop_15to64": float,
+}
+
+
+fake_prison_dtype = {
+    **fake_geo_pop_dtype,
+    "total_prison_pop": float,
+    "total_prison_pop_rate": float,
+    "aapi_prison_pop": float,
+    "black_prison_pop": float,
+    "latinx_prison_pop": float,
+    "native_prison_pop": float,
+    "other_race_prison_pop": float,
+    "white_prison_pop": float,
+    "female_prison_pop": float,
+    "male_prison_pop": float,
+    "aapi_prison_pop_rate": float,
+    "black_prison_pop_rate": float,
+    "latinx_prison_pop_rate": float,
+    "native_prison_pop_rate": float,
+    "white_prison_pop_rate": float,
+    "female_prison_pop_rate": float,
+    "male_prison_pop_rate": float
+}
+
+fake_jail_dtype = {
+    **fake_geo_pop_dtype,
+    "total_jail_pop": float,
+    "total_jail_pop_rate": float,
+    "aapi_jail_pop": float,
+    "black_jail_pop": float,
+    "latinx_jail_pop": float,
+    "native_jail_pop": float,
+    "other_race_jail_pop": float,
+    "white_jail_pop": float,
+    "female_jail_pop": float,
+    "male_jail_pop": float,
+    "aapi_jail_pop_rate": float,
+    "black_jail_pop_rate": float,
+    "latinx_jail_pop_rate": float,
+    "native_jail_pop_rate": float,
+    "white_jail_pop_rate": float,
+    "female_jail_pop_rate": float,
+    "male_jail_pop_rate": float
+}
+
+expected_dtype = {
+    "county_fips": str,
+    "population_pct_share": float,
+    "race_includes_hispanic": object,
+}
 
 
 def testCountyPrisonRace():
 
     veraIncarcerationCounty = VeraIncarcerationCounty()
 
-    _fake_df = []
+    _fake_prison_df = pd.read_csv(
+        FAKE_SPLIT_DF_DATA['prison'], dtype=fake_prison_dtype)
 
-    generated_df = veraIncarcerationCounty.generate_for_bq(
-        _fake_df, "prison", "race_and_ethnicity")
+    _generated_df = veraIncarcerationCounty.generate_for_bq(
+        _fake_prison_df, "prison", "race_and_ethnicity")
 
-    expected_df = pd.read_csv(GOLDEN_DATA['prison_race_county'], dtype={
-        'county_fips': str,
-        'prison_per_100k': float,
-        'prison_pct_share': float,
-        'population_pct_share': float,
-        'race_includes_hispanic': str,
-    })
+    _expected_df_prison_race = pd.read_json(
+        GOLDEN_DATA['prison_race_county'], dtype=expected_dtype)
+
+    # print("\n\n")
+    # print(_generated_df)
+    # print(_expected_df_prison_race)
+
     assert_frame_equal(
-        generated_df, expected_df, check_like=True)
+        _generated_df, _expected_df_prison_race, check_like=True)
