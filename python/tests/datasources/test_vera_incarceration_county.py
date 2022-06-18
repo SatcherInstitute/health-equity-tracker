@@ -11,8 +11,14 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data",
                         "vera_incarceration_county")
 
-GOLDEN_DATA = os.path.join(
-    TEST_DIR, 'vera_incarceration_county-race_and_ethnicity.json')
+GOLDEN_DATA = {
+    'prison_race_county': os.path.join(TEST_DIR, 'vera_incarceration_county-prison_race_and_ethnicity.json'),
+    'prison_age_county': os.path.join(TEST_DIR, 'vera_incarceration_county-prison_age.json'),
+    'prison_sex_county': os.path.join(TEST_DIR, 'vera_incarceration_county-prison_sex.json'),
+    'jail_race_county': os.path.join(TEST_DIR, 'vera_incarceration_county-jail_race_and_ethnicity.json'),
+    'jail_age_county': os.path.join(TEST_DIR, 'vera_incarceration_county-jail_age.json'),
+    'jail_sex_county': os.path.join(TEST_DIR, 'vera_incarceration_county-jail_sex.json'),
+}
 
 
 def get_mocked_data_as_df():
@@ -34,22 +40,40 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
               'table_name': 'output_table'}
 
     veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-    assert mock_bq.call_count == 2
+    assert mock_bq.call_count == 4
+
+    print(mock_bq.call_args_list)
+
+    assert mock_bq.call_args_list[0].args[2] == 'prison_race_and_ethnicity'
+    assert mock_bq.call_args_list[1].args[2] == 'prison_sex'
+    assert mock_bq.call_args_list[2].args[2] == 'jail_race_and_ethnicity'
+    assert mock_bq.call_args_list[3].args[2] == 'jail_sex'
+    # TODO Add AGE calls
 
     for call_arg in mock_bq.call_args_list:
-        print(call_arg[0][0])
-        print(call_arg[0][2])
-        call_arg[0][0].to_json(
-            f'vera_incarceration_{call_arg[0][2]}_county.json', orient="records")
+        mock_df, _, bq_table_name = call_arg[0]
+        print("\n\n")
+        print(bq_table_name)
+        print(mock_df)
+        mock_df.to_json(
+            f'vera_incarceration_county-{bq_table_name}.json', orient="records")
 
-    # expected_df = pd.read_csv(GOLDEN_DATA, dtype={
-    #     'county_fips': str,
-    #     'jail_per_100k': float,
-    #     'prison_per_100k': float,
-    #     'jail_pct_share': float,
-    #     'prison_pct_share': float,
-    #     'population_pct_share': float,
-    #     'race_includes_hispanic': str,
-    # })
-    # assert_frame_equal(
-    #     mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
+
+def testCountyPrisonRace():
+
+    veraIncarcerationCounty = VeraIncarcerationCounty()
+
+    _fake_df = []
+
+    generated_df = veraIncarcerationCounty.generate_for_bq(
+        _fake_df, "prison", "race_and_ethnicity")
+
+    expected_df = pd.read_csv(GOLDEN_DATA['prison_race_county'], dtype={
+        'county_fips': str,
+        'prison_per_100k': float,
+        'prison_pct_share': float,
+        'population_pct_share': float,
+        'race_includes_hispanic': str,
+    })
+    assert_frame_equal(
+        generated_df, expected_df, check_like=True)
