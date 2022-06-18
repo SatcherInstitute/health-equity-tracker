@@ -46,15 +46,16 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
               'table_name': 'output_table'}
 
     veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-    assert mock_bq.call_count == 4
+    assert mock_bq.call_count == 6
 
     # print(mock_bq.call_args_list)
 
     assert mock_bq.call_args_list[0].args[2] == 'prison_race_and_ethnicity'
     assert mock_bq.call_args_list[1].args[2] == 'prison_sex'
-    assert mock_bq.call_args_list[2].args[2] == 'jail_race_and_ethnicity'
-    assert mock_bq.call_args_list[3].args[2] == 'jail_sex'
-    # TODO Add AGE calls
+    assert mock_bq.call_args_list[2].args[2] == 'prison_age'
+    assert mock_bq.call_args_list[3].args[2] == 'jail_race_and_ethnicity'
+    assert mock_bq.call_args_list[4].args[2] == 'jail_sex'
+    assert mock_bq.call_args_list[5].args[2] == 'jail_age'
 
     # for call_arg in mock_bq.call_args_list:
     #     mock_df, _, bq_table_name = call_arg[0]
@@ -131,6 +132,8 @@ _fake_jail_df = pd.read_csv(
 expected_dtype = {
     "county_fips": str,
     "population_pct_share": float,
+    "jail_pct_share": float,
+    "prison_pct_share": float,
     "race_includes_hispanic": object,
 }
 
@@ -183,3 +186,35 @@ def testCountyJailBySex():
 
     assert_frame_equal(
         _generated_df, _expected_df_jail_sex, check_like=True)
+
+
+def testCountyPrisonByAge():
+
+    _generated_df = vera.generate_for_bq(
+        _fake_prison_df, "prison", "age")
+
+    _expected_df_prison_age = pd.read_json(
+        GOLDEN_DATA['prison_age_county'], dtype=expected_dtype)
+
+    print("\n\n")
+    print(_generated_df)
+    print(_expected_df_prison_age)
+
+    assert_frame_equal(
+        _generated_df, _expected_df_prison_age, check_like=True)
+
+
+def testCountyJailByAge():
+
+    _generated_df = vera.generate_for_bq(
+        _fake_jail_df, "jail", "age")
+
+    _expected_df_jail_age = pd.read_json(
+        GOLDEN_DATA['jail_age_county'], dtype=expected_dtype)
+
+    print("\n\n")
+    print(_generated_df)
+    print(_expected_df_jail_age)
+
+    assert_frame_equal(
+        _generated_df, _expected_df_jail_age, check_like=True)

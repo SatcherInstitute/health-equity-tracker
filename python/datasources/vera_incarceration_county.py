@@ -115,11 +115,11 @@ DATA_TYPE_TO_COL_MAP = {
 }
 
 # AGE_JAIL_RAW_COLS_TO_STANDARD = {
-#     # "total_jail_pop": std_col.ALL_VALUE,
-#     "female_adult_jail_pop": ADULT,
-#     "female_juvenile_jail_pop": JUVENILE,
-#     "male_adult_jail_pop": ADULT,
-#     "male_juvenile_jail_pop": JUVENILE,
+# "total_jail_pop": std_col.ALL_VALUE,
+# "female_adult_jail_pop": ADULT,
+# "female_juvenile_jail_pop": JUVENILE,
+# "male_adult_jail_pop": ADULT,
+# "male_juvenile_jail_pop": JUVENILE,
 # }
 
 # NO PRISON/AGE DATA
@@ -241,7 +241,8 @@ class VeraIncarcerationCounty(DataSource):
         for data_type in datatypes_to_df_map.keys():
 
             for demo_type in [std_col.RACE_OR_HISPANIC_COL,
-                              std_col.SEX_COL]:
+                              std_col.SEX_COL,
+                              std_col.AGE_COL]:
 
                 table_name = f'{data_type}_{demo_type}'
                 df = datatypes_to_df_map[data_type].copy()
@@ -256,12 +257,12 @@ class VeraIncarcerationCounty(DataSource):
 
     def generate_for_bq(self, df, data_type, demo_type):
 
-        if demo_type == std_col.SEX_COL:
-            all_val = std_col.ALL_VALUE
-            demo_col = demo_type
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
             all_val = Race.ALL.value
             demo_col = std_col.RACE_CATEGORY_ID_COL
+        else:
+            all_val = std_col.ALL_VALUE
+            demo_col = demo_type
 
         # collect partial dfs for merging
         partial_breakdowns = []
@@ -311,7 +312,7 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
 
 
      and columns:
-    | "county_name" | "county_fips" | single_property |  "sex" or "race_and_ethnicity" |
+    | "county_name" | "county_fips" | single_property |  "sex", "age", or "race_and_ethnicity" |
 
     Parameters:
         df: dataframe with one county per row and the columns:
@@ -319,7 +320,7 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
             plus Vera columns for relevant demographic groups, like
             | "female_prison_pop" | "male_prison_pop" | etc
         demo_type: string column name for generated df column containing the demographic group value
-             "sex" or "race_and_ethnicity"
+             "sex", "age" or "race_and_ethnicity"
         data_type: "jail" | "prison"
         property_type: string for metric to calculate: RAW | RATE | "population"
 
@@ -388,20 +389,56 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
                 vera_all_col = PRISON_RATE_ALL
                 het_value_column = PRISON_RATE_COL
 
+    # only generate Alls for Age
+    if demo_type == std_col.AGE_COL:
+        all_val = std_col.ALL_VALUE
+        het_group_column = demo_type
+
+        if property_type == POP:
+            col_to_demographic_map = []
+            vera_all_col = POP_ALL
+            het_value_column = POP
+
+        if data_type == JAIL:
+            if property_type == RAW:
+                col_to_demographic_map = []
+                vera_all_col = JAIL_RAW_ALL
+                het_value_column = JAIL_RAW_COL
+
+            if property_type == RATE:
+                col_to_demographic_map = []
+                vera_all_col = JAIL_RATE_ALL
+                het_value_column = JAIL_RATE_COL
+
+        if data_type == PRISON:
+            if property_type == RAW:
+                col_to_demographic_map = []
+                vera_all_col = PRISON_RAW_ALL
+                het_value_column = PRISON_RAW_COL
+
+            if property_type == RATE:
+                col_to_demographic_map = []
+                vera_all_col = PRISON_RATE_ALL
+                het_value_column = PRISON_RATE_COL
+
+    cols_to_keep = [*GEO_COLS_TO_STANDARD.values(), vera_all_col]
+    col_rename_map = {vera_all_col: all_val}
+    value_vars = [all_val]
+
+    # age is only Alls; sex/race get demographic groups
+    if demo_type != std_col.AGE_COL:
+        cols_to_keep.extend(col_to_demographic_map.keys())
+        col_rename_map = {**col_to_demographic_map, **col_rename_map}
+        value_vars.extend(col_to_demographic_map.values())
+
     # drop extra cols
-    df = df[[*GEO_COLS_TO_STANDARD.values(),
-             vera_all_col,
-             *col_to_demographic_map.keys(),
-             ]]
+    df = df[cols_to_keep]
 
     # rename to match this breakdown
     df = df.rename(
-        columns={**col_to_demographic_map,
-                 vera_all_col: all_val,
-                 })
+        columns=col_rename_map)
 
     # melt into HET style df with a row per GEO/DEMO combo
-    value_vars = [all_val, *col_to_demographic_map.values()]
     df = df.melt(id_vars=GEO_COLS_TO_STANDARD.values(),
                  value_vars=value_vars,
                  var_name=het_group_column,
