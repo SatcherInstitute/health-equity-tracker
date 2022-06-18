@@ -28,9 +28,13 @@ RAW_COL_MAP = {
 
 JAIL_RATE_COL = "jail_per_100k"
 PRISON_RATE_COL = "prison_per_100k"
+
+RATE_COL_MAP = {
+    JAIL: JAIL_RATE_COL,
+    PRISON: PRISON_RATE_COL
+}
+
 BASE_VERA_URL = 'https://github.com/vera-institute/incarceration_trends/blob/master/incarceration_trends.csv?raw=true'
-
-
 JUVENILE = "0-17"
 ADULT = "18+"
 
@@ -277,6 +281,12 @@ class VeraIncarcerationCounty(DataSource):
         # merge all the partial DFs for POP, RAW, RATE into a single DF per datatype/breakdown
         breakdown_df = reduce(lambda x, y: pd.merge(
             x, y, on=[*GEO_COLS_TO_STANDARD.values(), demo_col]), partial_breakdowns)
+
+        print(breakdown_df)
+
+        # round 100k values
+        breakdown_df[RATE_COL_MAP[data_type]
+                     ] = breakdown_df[RATE_COL_MAP[data_type]].dropna().round().astype(int)
 
         breakdown_df[std_col.STATE_FIPS_COL] = breakdown_df[std_col.COUNTY_FIPS_COL].astype(
             str).str[:2]

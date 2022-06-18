@@ -134,6 +134,8 @@ expected_dtype = {
     "population_pct_share": float,
     "jail_pct_share": float,
     "prison_pct_share": float,
+    "jail_per_100k": int,
+    "prison_per_100k": int,
     "race_includes_hispanic": object,
 }
 
@@ -196,10 +198,6 @@ def testCountyPrisonByAge():
     _expected_df_prison_age = pd.read_json(
         GOLDEN_DATA['prison_age_county'], dtype=expected_dtype)
 
-    print("\n\n")
-    print(_generated_df)
-    print(_expected_df_prison_age)
-
     assert_frame_equal(
         _generated_df, _expected_df_prison_age, check_like=True)
 
@@ -211,10 +209,6 @@ def testCountyJailByAge():
 
     _expected_df_jail_age = pd.read_json(
         GOLDEN_DATA['jail_age_county'], dtype=expected_dtype)
-
-    print("\n\n")
-    print(_generated_df)
-    print(_expected_df_jail_age)
 
     assert_frame_equal(
         _generated_df, _expected_df_jail_age, check_like=True)

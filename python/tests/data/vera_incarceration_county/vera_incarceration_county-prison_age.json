@@ -3,7 +3,7 @@
             "county_fips": "01001",
             "county_name": "Autauga County",
             "age": "All",
-            "prison_per_100k": 502.84,
+            "prison_per_100k": 503,
             "population_pct_share": 100.0,
             "prison_pct_share": 100.0
         },
@@ -11,7 +11,7 @@
             "county_fips": "56045",
             "county_name": "Weston County",
             "age": "All",
-            "prison_per_100k": 305.54,
+            "prison_per_100k": 306,
             "population_pct_share": 100.0,
             "prison_pct_share": 100.0
         }
