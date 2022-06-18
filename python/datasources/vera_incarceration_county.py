@@ -34,6 +34,15 @@ RATE_COL_MAP = {
     PRISON: PRISON_RATE_COL
 }
 
+JAIL_PCT_SHARE_COL = "jail_pct_share"
+PRISON_PCT_SHARE_COL = "prison_pct_share"
+POP_PCT_SHARE_COL = "population_pct_share"
+
+PCT_SHARE_COL_MAP = {
+    JAIL: JAIL_PCT_SHARE_COL,
+    PRISON: PRISON_PCT_SHARE_COL,
+}
+
 BASE_VERA_URL = 'https://github.com/vera-institute/incarceration_trends/blob/master/incarceration_trends.csv?raw=true'
 JUVENILE = "0-17"
 ADULT = "18+"
@@ -114,8 +123,8 @@ SEX_JAIL_RATE_COLS_TO_STANDARD = {
 }
 
 DATA_TYPE_TO_COL_MAP = {
-    PRISON: {"prison_estimated_total": "prison_pct_share"},
-    JAIL: {"jail_estimated_total": "jail_pct_share"}
+    PRISON: {PRISON_RAW_COL: PRISON_PCT_SHARE_COL},
+    JAIL: {JAIL_RAW_COL: JAIL_PCT_SHARE_COL}
 }
 
 # AGE_JAIL_RAW_COLS_TO_STANDARD = {
@@ -255,6 +264,9 @@ class VeraIncarcerationCounty(DataSource):
 
                 if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                     bq_column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+                bq_column_types[RATE_COL_MAP[data_type]] = 'INT'
+                bq_column_types[PCT_SHARE_COL_MAP[data_type]] = 'FLOAT'
+                bq_column_types[POP_PCT_SHARE_COL] = 'FLOAT'
 
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=bq_column_types)
@@ -282,7 +294,7 @@ class VeraIncarcerationCounty(DataSource):
         breakdown_df = reduce(lambda x, y: pd.merge(
             x, y, on=[*GEO_COLS_TO_STANDARD.values(), demo_col]), partial_breakdowns)
 
-        print(breakdown_df)
+        # print(breakdown_df)
 
         # round 100k values
         breakdown_df[RATE_COL_MAP[data_type]

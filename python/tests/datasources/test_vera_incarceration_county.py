@@ -37,7 +37,10 @@ def get_mocked_data_as_df():
             return_value=get_mocked_data_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
-def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
+def testWriteToBq(
+    mock_bq: mock.MagicMock,
+    mock_csv: mock.MagicMock
+):
 
     veraIncarcerationCounty = VeraIncarcerationCounty()
 
@@ -46,10 +49,10 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
               'table_name': 'output_table'}
 
     veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+
+    mock_csv.assert_called_once()
+
     assert mock_bq.call_count == 6
-
-    # print(mock_bq.call_args_list)
-
     assert mock_bq.call_args_list[0].args[2] == 'prison_race_and_ethnicity'
     assert mock_bq.call_args_list[1].args[2] == 'prison_sex'
     assert mock_bq.call_args_list[2].args[2] == 'prison_age'
