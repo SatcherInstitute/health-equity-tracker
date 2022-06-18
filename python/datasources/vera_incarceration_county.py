@@ -20,9 +20,16 @@ POP = "population"
 
 JAIL_RAW_COL = "jail_estimated_total"
 PRISON_RAW_COL = "prison_estimated_total"
+
+RAW_COL_MAP = {
+    JAIL: JAIL_RAW_COL,
+    PRISON: PRISON_RAW_COL
+}
+
 JAIL_RATE_COL = "jail_per_100k"
 PRISON_RATE_COL = "prison_per_100k"
 BASE_VERA_URL = 'https://github.com/vera-institute/incarceration_trends/blob/master/incarceration_trends.csv?raw=true'
+
 
 JUVENILE = "0-17"
 ADULT = "18+"
@@ -285,8 +292,11 @@ class VeraIncarcerationCounty(DataSource):
             demo_col,
             all_val)
 
+        cols_to_drop = [std_col.POPULATION_COL,
+                        std_col.STATE_FIPS_COL, RAW_COL_MAP[data_type]]
+
         breakdown_df = breakdown_df.drop(
-            columns=[std_col.POPULATION_COL, std_col.STATE_FIPS_COL])
+            columns=cols_to_drop)
 
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(breakdown_df)
