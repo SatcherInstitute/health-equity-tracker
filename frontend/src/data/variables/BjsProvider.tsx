@@ -44,20 +44,27 @@ export const ALASKA_PRIVATE_JAIL_CAVEAT =
 
 export const BJS_VARIABLE_IDS: VariableId[] = ["prison", "jail"];
 
-export const BJS_DETERMINANTS: MetricId[] = [
-  "bjs_population_pct",
-  "prison_pct_share",
-  "prison_per_100k",
-  "prison_ratio_age_adjusted",
+export const JAIL_METRICS: MetricId[] = [
   "jail_pct_share",
   "jail_per_100k",
   "jail_ratio_age_adjusted",
+];
+
+export const PRISON_METRICS: MetricId[] = [
+  "prison_pct_share",
+  "prison_per_100k",
+  "prison_ratio_age_adjusted",
+];
+
+export const INCARCERATION_METRICS: MetricId[] = [
+  ...JAIL_METRICS,
+  ...PRISON_METRICS,
   "total_confined_children",
 ];
 
 class BjsProvider extends VariableProvider {
   constructor() {
-    super("bjs_provider", ["bjs_population_pct", ...BJS_DETERMINANTS]);
+    super("bjs_provider", ["bjs_population_pct", ...INCARCERATION_METRICS]);
   }
 
   getDatasetId(breakdowns: Breakdowns): string {

@@ -51,6 +51,7 @@ export type MetricId =
   | "brfss_population_pct"
   | "cawp_population_pct"
   | "bjs_population_pct"
+  | "vera_population_pct"
   | "copd_pct_share"
   | "copd_per_100k"
   | "copd_ratio_age_adjusted"
