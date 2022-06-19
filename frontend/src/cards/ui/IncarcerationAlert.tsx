@@ -29,6 +29,10 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
     props.fips.getDisplayName()
   );
 
+  const source = props.fips.isCounty()
+    ? "Vera Institute of Justice"
+    : "Bureau of Justice Statistics";
+
   const severity: Color =
     props.breakdown === "age" && props.dataType === "prison"
       ? "warning"
@@ -37,8 +41,7 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
 
   return (
     <Alert severity={severity} role="note">
-      The disaggregated <b>{breakdown}</b> dataset available from the Bureau of
-      Justice Statistics{" "}
+      The disaggregated <b>{breakdown}</b> dataset available from the {source}{" "}
       <IncarcerationDetailsText
         dataType={props.dataType}
         breakdown={props.breakdown}

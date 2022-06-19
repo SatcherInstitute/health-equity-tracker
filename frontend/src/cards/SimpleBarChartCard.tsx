@@ -77,6 +77,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
 
+        console.log(data);
+
         const hasOnlyAll =
           data.map((row) => row[props.breakdownVar]).join() === ALL;
 
