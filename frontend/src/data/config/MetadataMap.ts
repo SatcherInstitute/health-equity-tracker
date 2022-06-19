@@ -220,6 +220,26 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
+    id: "vera",
+    data_source_name: "Vera Institute of Justice",
+    data_source_pretty_site_name: "vera.org",
+    data_source_link: "https://www.vera.org/projects/incarceration-trends",
+    geographic_level: "County",
+    demographic_granularity: "Race/ethnicity, sex",
+    update_frequency: "None",
+    description:
+      "Rates of individuals, including children, who are incarcerated in local adult jail facilities, or federal and state adult prison facilities.",
+    dataset_ids: [
+      "vera_jail_data-sex_county",
+      "vera_jail_data-race_and_ethnicity_county",
+      "vera_jail_data-age_county",
+      "vera_prison_data-sex_county",
+      "vera_prison_data-race_and_ethnicity_county",
+      "vera_prison_data-age_county",
+    ],
+    downloadable: true,
+  },
+  {
     id: "cawp",
     data_source_name: "Center for American Women in Politics (CAWP)",
     data_source_pretty_site_name: "cawpdata.rutgers.edu",
