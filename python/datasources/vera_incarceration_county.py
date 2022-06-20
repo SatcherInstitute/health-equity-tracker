@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
@@ -241,6 +242,8 @@ class VeraIncarcerationCounty(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
+        # TODO need to update naming scheme to be `vera_jail_data-age_county`
+
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_VERA_URL, dtype=VERA_COL_TYPES)
 
@@ -257,7 +260,7 @@ class VeraIncarcerationCounty(DataSource):
                               std_col.SEX_COL,
                               std_col.AGE_COL]:
 
-                table_name = f'{data_type}_{demo_type}'
+                table_name = f'{data_type}_{demo_type}_county'
                 df = datatypes_to_df_map[data_type].copy()
 
                 df = self.generate_for_bq(df, data_type, demo_type)
@@ -323,6 +326,10 @@ class VeraIncarcerationCounty(DataSource):
 
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(breakdown_df)
+
+        # PLACEHOLDER SO FRONTEND DOESNT BREAK
+        # need to populate this field with raw number of children if possible
+        breakdown_df["total_confined_children"] = np.nan
 
         return breakdown_df
 

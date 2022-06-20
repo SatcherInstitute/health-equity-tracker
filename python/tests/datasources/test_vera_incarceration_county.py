@@ -18,13 +18,42 @@ FAKE_SPLIT_DF_DATA = {
 }
 
 GOLDEN_DATA = {
-    'prison_race_county': os.path.join(TEST_DIR, 'vera_incarceration_county-prison_race_and_ethnicity.json'),
-    'prison_age_county': os.path.join(TEST_DIR, 'vera_incarceration_county-prison_age.json'),
-    'prison_sex_county': os.path.join(TEST_DIR, 'vera_incarceration_county-prison_sex.json'),
-    'jail_race_county': os.path.join(TEST_DIR, 'vera_incarceration_county-jail_race_and_ethnicity.json'),
-    'jail_age_county': os.path.join(TEST_DIR, 'vera_incarceration_county-jail_age.json'),
-    'jail_sex_county': os.path.join(TEST_DIR, 'vera_incarceration_county-jail_sex.json'),
+    'prison_race_county': os.path.join(TEST_DIR, 'vera_incarceration_data-prison_race_and_ethnicity_county.json'),
+    'prison_age_county': os.path.join(TEST_DIR, 'vera_incarceration_data-prison_age_county.json'),
+    'prison_sex_county': os.path.join(TEST_DIR, 'vera_incarceration_data-prison_sex_county.json'),
+    'jail_race_county': os.path.join(TEST_DIR, 'vera_incarceration_data-jail_race_and_ethnicity_county.json'),
+    'jail_age_county': os.path.join(TEST_DIR, 'vera_incarceration_data-jail_age_county.json'),
+    'jail_sex_county': os.path.join(TEST_DIR, 'vera_incarceration_data-jail_sex_county.json'),
 }
+
+
+# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+#             return_value=None)
+# def testSaveBqOutputToJson(
+#     mock_bq: mock.MagicMock,
+# ):
+#     """ Uncomment and run this test to save full run results that would be
+#     uploaded to BigQuery to local json files instead. These json files can be
+#     copied over to frontend/tmp for local development
+
+#     Note: this is hitting the real API endpoints
+#     """
+
+#     veraIncarcerationCounty = VeraIncarcerationCounty()
+
+#     kwargs = {'filename': 'test_file.csv',
+#               'metadata_table_id': 'test_metadata',
+#               'table_name': 'output_table'}
+
+#     veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+
+#     for call_arg in mock_bq.call_args_list:
+#         mock_df, _, bq_table_name = call_arg[0]
+#         print("\n\n")
+#         print(bq_table_name)
+#         print(mock_df)
+#         mock_df.to_json(
+#             f'vera_incarceration_county-{bq_table_name}.json', orient="records")
 
 
 def get_mocked_data_as_df():
@@ -53,20 +82,12 @@ def testWriteToBq(
     mock_csv.assert_called_once()
 
     assert mock_bq.call_count == 6
-    assert mock_bq.call_args_list[0].args[2] == 'prison_race_and_ethnicity'
-    assert mock_bq.call_args_list[1].args[2] == 'prison_sex'
-    assert mock_bq.call_args_list[2].args[2] == 'prison_age'
-    assert mock_bq.call_args_list[3].args[2] == 'jail_race_and_ethnicity'
-    assert mock_bq.call_args_list[4].args[2] == 'jail_sex'
-    assert mock_bq.call_args_list[5].args[2] == 'jail_age'
-
-    # for call_arg in mock_bq.call_args_list:
-    #     mock_df, _, bq_table_name = call_arg[0]
-    #     print("\n\n")
-    #     print(bq_table_name)
-    #     print(mock_df)
-    #     mock_df.to_json(
-    #         f'vera_incarceration_county-{bq_table_name}.json', orient="records")
+    assert mock_bq.call_args_list[0].args[2] == 'prison_race_and_ethnicity_county'
+    assert mock_bq.call_args_list[1].args[2] == 'prison_sex_county'
+    assert mock_bq.call_args_list[2].args[2] == 'prison_age_county'
+    assert mock_bq.call_args_list[3].args[2] == 'jail_race_and_ethnicity_county'
+    assert mock_bq.call_args_list[4].args[2] == 'jail_sex_county'
+    assert mock_bq.call_args_list[5].args[2] == 'jail_age_county'
 
 
 fake_geo_pop_dtype = {
