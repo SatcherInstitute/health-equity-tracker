@@ -1,0 +1,56 @@
+[
+    {
+        "county_fips": "01001",
+        "county_name": "Autauga County",
+        "sex": "All",
+        "jail_per_100k": 455,
+        "population_pct_share": 100.0,
+        "jail_pct_share": 100.0,
+        "total_confined_children": null
+    },
+    {
+        "county_fips": "56045",
+        "county_name": "Weston County",
+        "sex": "All",
+        "jail_per_100k": 115,
+        "population_pct_share": 100.0,
+        "jail_pct_share": 100.0,
+        "total_confined_children": null
+    },
+    {
+        "county_fips": "01001",
+        "county_name": "Autauga County",
+        "sex": "Female",
+        "jail_per_100k": 135,
+        "population_pct_share": 51.1,
+        "jail_pct_share": 15.2,
+        "total_confined_children": null
+    },
+    {
+        "county_fips": "56045",
+        "county_name": "Weston County",
+        "sex": "Female",
+        "jail_per_100k": 307,
+        "population_pct_share": 45.2,
+        "jail_pct_share": 120.0,
+        "total_confined_children": null
+    },
+    {
+        "county_fips": "01001",
+        "county_name": "Autauga County",
+        "sex": "Male",
+        "jail_per_100k": 717,
+        "population_pct_share": 48.9,
+        "jail_pct_share": 77.0,
+        "total_confined_children": null
+    },
+    {
+        "county_fips": "56045",
+        "county_name": "Weston County",
+        "sex": "Male",
+        "jail_per_100k": 1178,
+        "population_pct_share": 54.8,
+        "jail_pct_share": 560.0,
+        "total_confined_children": null
+    }
+]
