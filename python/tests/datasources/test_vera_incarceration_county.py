@@ -53,7 +53,7 @@ GOLDEN_DATA = {
 #         print(bq_table_name)
 #         print(mock_df)
 #         mock_df.to_json(
-#             f'vera_incarceration_county-{bq_table_name}.json', orient="records")
+#             f'vera_incarceration_data-{bq_table_name}.json', orient="records")
 
 
 def get_mocked_data_as_df():
