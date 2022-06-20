@@ -13,7 +13,7 @@ class VeraPrisonProvider extends VariableProvider {
     console.log(breakdowns);
 
     return (
-      "vera_prison_data-" +
+      "vera_incarceration_data-prison_" +
       breakdowns.getSoleDemographicBreakdown().columnName +
       "_" +
       breakdowns.geography
