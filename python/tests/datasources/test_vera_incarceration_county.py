@@ -4,7 +4,13 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 
-from datasources.vera_incarceration_county import VeraIncarcerationCounty, VERA_COL_TYPES
+from datasources.vera_incarceration_county import (
+    VeraIncarcerationCounty,
+    VERA_COL_TYPES,
+    JAIL,
+    PRISON,
+    split_df_by_data_type
+)
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -153,6 +159,21 @@ _fake_jail_df = pd.read_csv(
     FAKE_SPLIT_DF_DATA['jail'], dtype=fake_jail_dtype)
 
 
+def test_split_df_by_data_type():
+    """
+    Checks that splitting the sample CSV file generates the same
+    split-Prison and split-Jail dfs used in our other tests
+    """
+
+    split_results = split_df_by_data_type(
+        get_mocked_data_as_df())
+
+    assert_frame_equal(
+        split_results[PRISON], _fake_prison_df, check_like=True)
+    assert_frame_equal(
+        split_results[JAIL], _fake_jail_df, check_like=True)
+
+
 expected_dtype = {
     "county_fips": str,
     "population_pct_share": float,
@@ -162,6 +183,7 @@ expected_dtype = {
     "prison_per_100k": int,
     "race_includes_hispanic": object,
 }
+
 
 vera = VeraIncarcerationCounty()
 

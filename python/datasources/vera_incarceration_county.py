@@ -13,10 +13,8 @@ from functools import reduce
 
 JAIL = "jail"
 PRISON = "prison"
-
 RAW = "raw"
 RATE = "rate"
-
 POP = "population"
 
 JAIL_RAW_COL = "jail_estimated_total"
@@ -177,7 +175,10 @@ def split_df_by_data_type(df):
     for `jail` and `prison`.
 
     Parameters:
-        df: pandas df containing the entire Vera csv file
+        df: pandas df containing the entire Vera csv file. Must contain columns:
+        | "fips" | with values as 5 digit FIPS codes. Missing leading zeros will be added
+        | "year" | Rows with 2016 will be used for prison; 2018 for jail
+        All other columns containing geographic info, population info, and data
 
     Returns:
         a dict mapping the data_type strings to the newly focused dfs for those types
