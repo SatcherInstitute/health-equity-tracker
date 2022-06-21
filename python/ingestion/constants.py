@@ -1,4 +1,4 @@
-# Used in Primary Care Access URL and filenames
+# Used in BJS, Primary Care Access URL, and filenames
 STATE_NAMES = [
     "Alabama",
     "Alaska",
