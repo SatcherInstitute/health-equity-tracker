@@ -62,6 +62,7 @@ _expected_pct_share_data_with_unknowns = [
     ['04', 'Arizona', 'UNKNOWN', '10', '10.5'],
 ]
 
+
 _fake_condition_data = [
     ['state_fips', 'state_name', 'race', 'some_condition_total', 'population'],
     ['01', 'Alabama', 'Asian alone', 100, 1000],
