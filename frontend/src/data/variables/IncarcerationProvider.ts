@@ -55,14 +55,18 @@ class IncarcerationProvider extends VariableProvider {
   async getDataInternal(
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
+    const breakdowns = metricQuery.breakdowns;
+
     let dataType = "";
     // determine JAIL vs PRISON based on the incoming requested metric ids
-    if (metricQuery.metricIds.some((id) => JAIL_METRICS.includes(id)))
-      dataType = "jail";
-    if (metricQuery.metricIds.some((id) => PRISON_METRICS.includes(id)))
-      dataType = "prison";
 
-    const breakdowns = metricQuery.breakdowns;
+    if (breakdowns.geography === "county") {
+      if (metricQuery.metricIds.some((id) => JAIL_METRICS.includes(id)))
+        dataType = "jail";
+      else if (metricQuery.metricIds.some((id) => PRISON_METRICS.includes(id)))
+        dataType = "prison";
+    }
+
     const datasetId = this.getDatasetId(breakdowns, dataType);
     const dataSource = await getDataManager().loadDataset(datasetId);
     let df = dataSource.toDataFrame();
