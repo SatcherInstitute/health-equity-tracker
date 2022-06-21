@@ -5,21 +5,19 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 from test_utils import get_state_fips_codes_as_df
 from datasources.bjs_incarceration import (BJSIncarcerationData)
-from ingestion.bjs_utils import (strip_footnote_refs_from_df,
+from ingestion.bjs_utils import (bjs_prisoners_tables,
+                                 strip_footnote_refs_from_df,
                                  missing_data_to_none,
                                  set_state_col)
 
+# MOCKS FOR READING IN TABLES
 
-# INTEGRATION TEST SETUP
 
-def _get_test_table_files(*args):
-
-    [zip_url, table_crops] = args
-    print("URL (mock) requested:", zip_url)
+def get_test_table_files():
 
     loaded_tables = {}
-    for file in table_crops.keys():
-        if file in table_crops:
+    for file in bjs_prisoners_tables.keys():
+        if file in bjs_prisoners_tables:
             source_df = pd.read_csv(os.path.join(
                 TEST_DIR, f'bjs_test_input_{file}'),
                 encoding="ISO-8859-1",
@@ -34,8 +32,6 @@ def _get_test_table_files(*args):
     return loaded_tables
 
 
-# MOCKS FOR READING IN TABLES
-
 def _get_pop_as_df(*args):
     # retrieve fake ACS table subsets
     data_source, table_name, _dtypes = args
@@ -47,7 +43,7 @@ def _get_pop_as_df(*args):
     return df
 
 
-def _get_prison_2():
+def _get_standardized_table2():
     """generate a df that matches the cleaned and standardized BJS table
 needed for generate_breakdown_df()"""
     table_2_data = StringIO("""All,Male,Female,state_name
@@ -57,7 +53,7 @@ needed for generate_breakdown_df()"""
     return df_2
 
 
-def _get_prison_10():
+def _get_standardized_table10():
     """generate a df that matches the cleaned and standardized BJS table
 needed for generate_breakdown_df()"""
     table_10_data = StringIO("""age,prison_pct_share,state_name
@@ -78,7 +74,7 @@ Number of sentenced prisoners,1182166.0,United States""")
     return df_10
 
 
-def _get_prison_13():
+def _get_standardized_table13():
     """generate a df that matches the cleaned and standardized BJS table
 needed for generate_breakdown_df()"""
     table_13_data = StringIO("""state_name,prison_estimated_total,age
@@ -89,7 +85,7 @@ Alabama,1,0-17
     return df_13
 
 
-def _get_prison_23():
+def _get_standardized_table23():
     """generate a df that matches the cleaned and standardized BJS table
 needed for generate_breakdown_df()"""
     table_23_data = StringIO("""ALL,state_name
@@ -98,7 +94,7 @@ needed for generate_breakdown_df()"""
     return df_23
 
 
-def _get_prison_app2():
+def _get_standardized_table_app2():
     table_app_2_data = StringIO("""ALL,WHITE_NH,BLACK_NH,HISP,AIAN_NH,ASIAN_NH,NHPI_NH,MULTI_NH,OTHER_STANDARD_NH,UNKNOWN,state_name
 152156.0,44852.0,55391.0,46162.0,3488.0,2262.0,,,0.0,1.0,Federal
 ,,,,,,,,,,State
@@ -107,24 +103,7 @@ def _get_prison_app2():
     return df_app_2
 
 
-def _get_jail_6():
-    table_6_data = StringIO("""state_name,jail_estimated_total,0-17,18+,Male 0-17,Male 18+,Female 0-17,Female 18+,Male Pct,Female Pct
-United States,734470,2880,731580,2660,621070,230,110510,84.9,15.1
-Alabama,16450,34,16410,34,13680,0,2730,83.4,16.6""")
-    df_6 = pd.read_csv(table_6_data, sep=",")
-
-    return df_6
-
-
-def _get_jail_7():
-    table_7_data = StringIO("""ALL,WHITE_NH,BLACK_NH,HISP,AIAN_NH,ASIAN_NH,NHPI_NH,MULTI_NH,state_name
-734470.0,49.4,33.6,14.6,1.4,0.6,0.1,0.3,United States
-386770.0,49.7,40.0,9.3,0.5,0.3,,0.1,South
-16450.0,53.8,43.2,2.7,0.1,0.1,,,Alabama""")
-    df_7 = pd.read_csv(table_7_data, sep=",")
-    return df_7
-
-
+# INTEGRATION TEST SETUP
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "bjs_incarceration")
@@ -132,9 +111,6 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "bjs_incarceration")
 GOLDEN_DATA = {
     'race_national': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_national.json'),
     'age_national': os.path.join(TEST_DIR, 'bjs_test_output_age_national.json'),
-    'sex_national': os.path.join(TEST_DIR, 'bjs_test_output_sex_national.json'),
-    'race_state': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_state.json'),
-    'age_state': os.path.join(TEST_DIR, 'bjs_test_output_age_state.json'),
     'sex_state': os.path.join(TEST_DIR, 'bjs_test_output_sex_state.json'),
 }
 
@@ -143,9 +119,6 @@ expected_dtype = {
     'state_fips': str,
     "prison_per_100k": float,
     "prison_pct_share": float,
-    "jail_per_100k": float,
-    "jail_pct_share": float,
-    "total_confined_children": int,
     "population": object,
     "population_pct": float,
 }
@@ -166,22 +139,20 @@ expected_dtype_sex = {
     'sex': str,
 }
 
-# --- INTEGRATION TESTS NATIONAL LEVEL
+# INTEGRATION TEST - NATIONAL AGE
 
 
-# - AGE
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
 def testGenerateBreakdownAgeNational(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
 
-    df_prison_10 = _get_prison_10()
-    df_prison_13 = _get_prison_13()
-    df_jail_6 = _get_jail_6()
+    df_10 = _get_standardized_table10()
+    df_13 = _get_standardized_table13()
 
     datasource = BJSIncarcerationData()
     df = datasource.generate_breakdown_df(
-        "age", "national", [df_prison_10, df_jail_6], [df_prison_13, df_jail_6])
+        "age", "national", [df_10, ], df_13)
 
     expected_df_age_national = pd.read_json(
         GOLDEN_DATA['age_national'], dtype=expected_dtype_age)
@@ -189,114 +160,48 @@ def testGenerateBreakdownAgeNational(mock_fips: mock.MagicMock, mock_pop: mock.M
     assert_frame_equal(df, expected_df_age_national, check_like=True)
 
 
-# - RACE
+# INTEGRATION TEST - NATIONAL RACE
+
+
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
 def testGenerateBreakdownRaceNational(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
 
-    prison_app_2 = _get_prison_app2()
-    prison_23 = _get_prison_23()
-    prison_13 = _get_prison_13()
-    jail_6 = _get_jail_6()
-    jail_7 = _get_jail_7()
+    df_app_2 = _get_standardized_table_app2()
+    df_23 = _get_standardized_table23()
+    df_13 = _get_standardized_table13()
 
     datasource = BJSIncarcerationData()
     df = datasource.generate_breakdown_df(
-        "race_and_ethnicity", "national", [prison_app_2, prison_23, jail_7], [prison_13, jail_6])
+        "race_and_ethnicity", "national", [df_app_2, df_23], df_13)
 
     expected_df_race_national = pd.read_json(
         GOLDEN_DATA['race_national'], dtype=expected_dtype_race)
 
     assert_frame_equal(df, expected_df_race_national, check_like=True)
 
-# - SEX
+
+# INTEGRATION TEST - STATE SEX
 
 
-@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
-@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-             return_value=get_state_fips_codes_as_df())
-def testGenerateBreakdownSexNational(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
-
-    prison_2 = _get_prison_2()
-    prison_23 = _get_prison_23()
-    prison_13 = _get_prison_13()
-    jail_6 = _get_jail_6()
-
-    datasource = BJSIncarcerationData()
-    df = datasource.generate_breakdown_df(
-        "sex", "national", [prison_2, prison_23, jail_6], [prison_13, jail_6])
-
-    expected_df_sex_national = pd.read_json(
-        GOLDEN_DATA['sex_national'], dtype=expected_dtype_sex)
-
-    assert_frame_equal(df, expected_df_sex_national, check_like=True)
-
-
-# INTEGRATION TEST - STATE LEVEL
-
-
-# - SEX
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
 def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
 
-    prison_2 = _get_prison_2()
-    prison_23 = _get_prison_23()
-    prison_13 = _get_prison_13()
-    jail_6 = _get_jail_6()
+    df_2 = _get_standardized_table2()
+    df_23 = _get_standardized_table23()
+    df_13 = _get_standardized_table13()
 
     datasource = BJSIncarcerationData()
     df = datasource.generate_breakdown_df(
-        "sex", "state", [prison_2, prison_23, jail_6], [prison_13, jail_6])
+        "sex", "state", [df_2, df_23], df_13)
 
     expected_df_sex_state = pd.read_json(
         GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex)
 
     assert_frame_equal(df, expected_df_sex_state, check_like=True)
-
-
-# - AGE
-@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
-@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-             return_value=get_state_fips_codes_as_df())
-def testGenerateBreakdownAgeState(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
-
-    prison_2 = _get_prison_2()
-    prison_23 = _get_prison_23()
-    prison_13 = _get_prison_13()
-    jail_6 = _get_jail_6()
-
-    datasource = BJSIncarcerationData()
-    df = datasource.generate_breakdown_df(
-        "age", "state", [prison_2, prison_23, jail_6], [prison_13, jail_6])
-
-    expected_df_age_state = pd.read_json(
-        GOLDEN_DATA['age_state'], dtype=expected_dtype_age)
-
-    assert_frame_equal(df, expected_df_age_state, check_like=True)
-
-
-# - RACE
-@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df)
-@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-             return_value=get_state_fips_codes_as_df())
-def testGenerateBreakdownRaceState(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
-
-    prison_app_2 = _get_prison_app2()
-    prison_23 = _get_prison_23()
-    prison_13 = _get_prison_13()
-    jail_6 = _get_jail_6()
-    jail_7 = _get_jail_7()
-
-    datasource = BJSIncarcerationData()
-    df = datasource.generate_breakdown_df(
-        "race_and_ethnicity", "state", [prison_app_2, prison_23, jail_7], [prison_13, jail_6])
-
-    expected_df_race_state = pd.read_json(
-        GOLDEN_DATA['race_state'], dtype=expected_dtype_race)
-    assert_frame_equal(df, expected_df_race_state, check_like=True)
 
 
 # INTEGRATION TEST - CORRECT NETWORK CALLS
@@ -305,7 +210,7 @@ def testGenerateBreakdownRaceState(mock_fips: mock.MagicMock, mock_pop: mock.Mag
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
 @ mock.patch('datasources.bjs_incarceration.load_tables',
-             side_effect=_get_test_table_files)
+             return_value=get_test_table_files())
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
 def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
@@ -334,7 +239,7 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
     #     df.to_json(
     #         f'bjs_incarceration_data-{table_name}.json', orient="records")
 
-    assert mock_zip.call_count == 2
+    assert mock_zip.call_count == 1
 
     assert mock_fips.call_count == 7
     for call_arg in mock_fips.call_args_list:

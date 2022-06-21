@@ -5,9 +5,7 @@
         "state_fips": "01",
         "population_pct": 51.6,
         "prison_per_100k": 86.0,
-        "jail_per_100k": 108.0,
         "prison_pct_share": 8.5,
-        "jail_pct_share": 16.6,
         "total_confined_children": null
     },
     {
@@ -16,9 +14,7 @@
         "state_fips": "60",
         "population_pct": 49.3,
         "prison_per_100k": null,
-        "jail_per_100k": null,
         "prison_pct_share": null,
-        "jail_pct_share": null,
         "total_confined_children": null
     },
     {
@@ -27,9 +23,7 @@
         "state_fips": "01",
         "population_pct": 48.4,
         "prison_per_100k": 982.0,
-        "jail_per_100k": 581.0,
         "prison_pct_share": 91.5,
-        "jail_pct_share": 83.4,
         "total_confined_children": null
     },
     {
@@ -38,9 +32,7 @@
         "state_fips": "60",
         "population_pct": 50.7,
         "prison_per_100k": null,
-        "jail_per_100k": null,
         "prison_pct_share": null,
-        "jail_pct_share": null,
         "total_confined_children": null
     },
     {
@@ -49,10 +41,8 @@
         "state_fips": "01",
         "population_pct": 100.0,
         "prison_per_100k": 519.0,
-        "jail_per_100k": 337.0,
         "prison_pct_share": 100.0,
-        "jail_pct_share": 100.0,
-        "total_confined_children": 35.0
+        "total_confined_children": 1
     },
     {
         "state_name": "American Samoa",
@@ -60,9 +50,7 @@
         "state_fips": "60",
         "population_pct": 100.0,
         "prison_per_100k": 353.0,
-        "jail_per_100k": null,
         "prison_pct_share": 100.0,
-        "jail_pct_share": null,
         "total_confined_children": null
     }
 ]

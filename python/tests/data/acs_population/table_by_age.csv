@@ -1,9 +1,7 @@
 state_fips,state_name,age,population,population_pct
-01,Alabama,0-17,1096376,22.5
 01,Alabama,0-9,594251,12.2
 01,Alabama,10-19,632942,13.0
 01,Alabama,15-24,650666,13.3
-01,Alabama,18+,3779874,77.5
 01,Alabama,18-19,130817,2.7
 01,Alabama,18-24,458997,9.4
 01,Alabama,18-44,1693332,34.7
@@ -33,11 +31,9 @@ state_fips,state_name,age,population,population_pct
 01,Alabama,80+,183104,3.8
 01,Alabama,85+,84349,1.7
 01,Alabama,All,4876250,100.0
-72,Puerto Rico,0-17,648346,19.5
 72,Puerto Rico,0-9,318830,9.6
 72,Puerto Rico,10-19,421094,12.7
 72,Puerto Rico,15-24,454150,13.7
-72,Puerto Rico,18+,2670101,80.5
 72,Puerto Rico,18-19,91578,2.8
 72,Puerto Rico,18-24,324142,9.8
 72,Puerto Rico,18-44,1149869,34.7
