@@ -50,7 +50,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   );
   const metricIdsToFetch: MetricId[] = [];
   metricIdsToFetch.push(metricConfig.metricId);
-  isIncarceration && metricIdsToFetch.push("total_confined_children");
+  isIncarceration &&
+    !props.fips.isCounty() &&
+    metricIdsToFetch.push("total_confined_children");
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -76,8 +78,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
-
-        console.log(data);
 
         const hasOnlyAll =
           data.map((row) => row[props.breakdownVar]).join() === ALL;

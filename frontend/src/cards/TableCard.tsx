@@ -86,7 +86,9 @@ export function TableCard(props: TableCardProps) {
   );
 
   const metricIds = Object.keys(metricConfigs) as MetricId[];
-  isIncarceration && metricIds.push("total_confined_children");
+  isIncarceration &&
+    !props.fips.isCounty() &&
+    metricIds.push("total_confined_children");
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
   const displayingCovidData = metrics

@@ -75,7 +75,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     metricIds.push(metricConfig.secondaryPopulationComparisonMetric.metricId);
   }
 
-  isIncarceration && metricIds.push("total_confined_children");
+  isIncarceration &&
+    !props.fips.isCounty() &&
+    metricIds.push("total_confined_children");
 
   const query = new MetricQuery(metricIds, breakdowns);
 

@@ -230,12 +230,12 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "Rates of individuals, including children, who are incarcerated in local adult jail facilities, or federal and state adult prison facilities.",
     dataset_ids: [
-      "vera_jail_data-sex_county",
-      "vera_jail_data-race_and_ethnicity_county",
-      "vera_jail_data-age_county",
-      "vera_prison_data-sex_county",
-      "vera_prison_data-race_and_ethnicity_county",
-      "vera_prison_data-age_county",
+      "vera_incarceration_data-jail_sex_county",
+      "vera_incarceration_data-jail_race_and_ethnicity_county",
+      "vera_incarceration_data-jail_age_county",
+      "vera_incarceration_data-prison_sex_county",
+      "vera_incarceration_data-prison_race_and_ethnicity_county",
+      "vera_incarceration_data-prison_age_county",
     ],
     downloadable: true,
   },

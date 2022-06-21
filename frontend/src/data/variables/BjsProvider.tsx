@@ -1,10 +1,10 @@
 import React from "react";
-import { getDataManager } from "../../utils/globals";
+// import { getDataManager } from "../../utils/globals";
 import { MetricId, VariableId } from "../config/MetricConfig";
-import { Breakdowns } from "../query/Breakdowns";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { GetAcsDatasetId } from "./AcsPopulationProvider";
-import VariableProvider from "./VariableProvider";
+// import { Breakdowns } from "../query/Breakdowns";
+// import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+// import { GetAcsDatasetId } from "./AcsPopulationProvider";
+// import VariableProvider from "./VariableProvider";
 
 // states with combined prison and jail systems
 export const COMBINED_INCARCERATION_STATES_LIST = [
@@ -62,60 +62,63 @@ export const INCARCERATION_METRICS: MetricId[] = [
   "total_confined_children",
 ];
 
-class BjsProvider extends VariableProvider {
-  constructor() {
-    super("bjs_provider", ["bjs_population_pct", ...INCARCERATION_METRICS]);
-  }
+// class BjsProvider extends VariableProvider {
+//   constructor() {
+//     super("bjs_provider", ["bjs_population_pct", ...INCARCERATION_METRICS]);
 
-  getDatasetId(breakdowns: Breakdowns): string {
-    return (
-      "bjs_incarceration_data-" +
-      breakdowns.getSoleDemographicBreakdown().columnName +
-      "_" +
-      breakdowns.geography
-    );
-  }
+//   }
 
-  async getDataInternal(
-    metricQuery: MetricQuery
-  ): Promise<MetricQueryResponse> {
-    const breakdowns = metricQuery.breakdowns;
-    const datasetId = this.getDatasetId(breakdowns);
-    const bjs = await getDataManager().loadDataset(datasetId);
-    let df = bjs.toDataFrame();
+//   getDatasetId(breakdowns: Breakdowns): string {
+//     return (
+//       "bjs_incarceration_data-" +
+//       breakdowns.getSoleDemographicBreakdown().columnName +
+//       "_" +
+//       breakdowns.geography
+//     );
+//   }
 
-    df = this.filterByGeo(df, breakdowns);
+//   async getDataInternal(
+//     metricQuery: MetricQuery
+//   ): Promise<MetricQueryResponse> {
 
-    df = this.renameGeoColumns(df, breakdowns);
+//     const breakdowns = metricQuery.breakdowns;
+//     const datasetId = this.getDatasetId(breakdowns);
+//     const bjs = await getDataManager().loadDataset(datasetId);
+//     let df = bjs.toDataFrame();
 
-    let consumedDatasetIds = [datasetId];
+//     df = this.filterByGeo(df, breakdowns);
 
-    let acsBreakdowns = breakdowns.copy();
-    acsBreakdowns.time = false;
+//     df = this.renameGeoColumns(df, breakdowns);
 
-    const acsDatasetId = GetAcsDatasetId(breakdowns);
-    consumedDatasetIds.push(acsDatasetId);
+//     let consumedDatasetIds = [datasetId];
 
-    consumedDatasetIds.push(
-      "acs_2010_population-by_race_and_ethnicity_territory" // We merge this in on the backend
-    );
+//     let acsBreakdowns = breakdowns.copy();
+//     acsBreakdowns.time = false;
 
-    df = this.applyDemographicBreakdownFilters(df, breakdowns);
-    df = this.removeUnrequestedColumns(df, metricQuery);
+//     const acsDatasetId = GetAcsDatasetId(breakdowns);
+//     consumedDatasetIds.push(acsDatasetId);
 
-    return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
-  }
+//     consumedDatasetIds.push(
+//       "acs_2010_population-by_race_and_ethnicity_territory" // We merge this in on the backend
+//     );
 
-  allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest =
-      !breakdowns.time && breakdowns.hasExactlyOneDemographic();
+//     df = this.applyDemographicBreakdownFilters(df, breakdowns);
+//     df = this.removeUnrequestedColumns(df, metricQuery);
 
-    return (
-      (breakdowns.geography === "state" ||
-        breakdowns.geography === "national") &&
-      validDemographicBreakdownRequest
-    );
-  }
-}
+//     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
+//   }
 
-export default BjsProvider;
+//   allowsBreakdowns(breakdowns: Breakdowns): boolean {
+//     const validDemographicBreakdownRequest =
+//       !breakdowns.time && breakdowns.hasExactlyOneDemographic();
+
+//     return (
+//       (breakdowns.geography === "state" ||
+//         breakdowns.geography === "national") &&
+//       validDemographicBreakdownRequest
+//     );
+//   }
+// }
+
+// export default BjsProvider;
+export {};
