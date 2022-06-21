@@ -245,7 +245,7 @@ export const DATA_GAPS: Partial<
     sex: [...missingSexAllGeos, "covid_vaccinations"],
   },
   county: {
-    age: [...missingAgeAllGeos, "covid_vaccinations"],
+    age: [...missingAgeAllGeos, "covid_vaccinations", "prison", "jail"],
     sex: [...missingSexAllGeos, "covid_vaccinations"],
     race_and_ethnicity: ["covid_vaccinations"],
   },
