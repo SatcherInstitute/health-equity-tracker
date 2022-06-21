@@ -339,9 +339,7 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
     """
     Takes a Vera style df with demographic groups as columns and geographies as rows, and
     generates a partial HET style df with each row representing a geo/demo combo and a single property
-
-
-     and columns:
+    and columns:
     | "county_name" | "county_fips" | single_property |  "sex", "age", or "race_and_ethnicity" |
 
     Parameters:
@@ -352,7 +350,7 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
         demo_type: string column name for generated df column containing the demographic group value
              "sex", "age" or "race_and_ethnicity"
         data_type: "jail" | "prison"
-        property_type: string for metric to calculate: RAW | RATE | "population"
+        property_type: string for metric to calculate: "raw" | "rate" | "population"
 
     """
 

@@ -1,6 +1,6 @@
 from unittest import mock
 import os
-
+from io import StringIO
 import pandas as pd
 from pandas._testing import assert_frame_equal
 
@@ -9,7 +9,8 @@ from datasources.vera_incarceration_county import (
     VERA_COL_TYPES,
     JAIL,
     PRISON,
-    split_df_by_data_type
+    split_df_by_data_type,
+    generate_partial_breakdown
 )
 
 # Current working directory.
@@ -174,6 +175,25 @@ def test_split_df_by_data_type():
         split_results[JAIL], _fake_jail_df, check_like=True)
 
 
+def test_generate_partial_breakdown():
+
+    _partial_sex_jail_rate = generate_partial_breakdown(
+        _fake_jail_df, "sex", "jail", "rate")
+
+    _expected_sex_jail_rate_data = StringIO("""county_fips,county_name,sex,jail_per_100k
+01001,Autauga County,All,454.81
+56045,Weston County,All,115.37
+01001,Autauga County,Female,134.73
+56045,Weston County,Female,306.59
+01001,Autauga County,Male,716.54
+56045,Weston County,Male,1177.96""")
+    _expected_partial_sex_jail_rate = pd.read_csv(
+        _expected_sex_jail_rate_data, sep=",", dtype={"county_fips": str})
+
+    assert_frame_equal(
+        _partial_sex_jail_rate, _expected_partial_sex_jail_rate, check_like=True)
+
+
 expected_dtype = {
     "county_fips": str,
     "population_pct_share": float,
@@ -182,6 +202,8 @@ expected_dtype = {
     "jail_per_100k": int,
     "prison_per_100k": int,
     "race_includes_hispanic": object,
+
+
 }
 
 
