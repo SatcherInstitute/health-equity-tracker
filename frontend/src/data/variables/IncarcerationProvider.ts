@@ -56,8 +56,11 @@ class IncarcerationProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     let dataType = "";
-    if (metricQuery.metricIds.includes("jail_per_100k")) dataType = "jail";
-    if (metricQuery.metricIds.includes("prison_per_100k")) dataType = "prison";
+    // determine JAIL vs PRISON based on the incoming requested metric ids
+    if (metricQuery.metricIds.some((id) => JAIL_METRICS.includes(id)))
+      dataType = "jail";
+    if (metricQuery.metricIds.some((id) => PRISON_METRICS.includes(id)))
+      dataType = "prison";
 
     const breakdowns = metricQuery.breakdowns;
     const datasetId = this.getDatasetId(breakdowns, dataType);
