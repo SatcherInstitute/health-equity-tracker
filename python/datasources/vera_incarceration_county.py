@@ -315,7 +315,7 @@ class VeraIncarcerationCounty(DataSource):
 
         breakdown_df = generate_pct_share_col_without_unknowns(
             breakdown_df,
-            {POP: "population_pct_share"},
+            {POP: POP_PCT_SHARE_COL},
             demo_col,
             all_val)
 
