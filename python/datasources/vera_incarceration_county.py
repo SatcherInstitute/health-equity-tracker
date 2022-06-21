@@ -307,12 +307,14 @@ class VeraIncarcerationCounty(DataSource):
         breakdown_df[std_col.STATE_FIPS_COL] = breakdown_df[std_col.COUNTY_FIPS_COL].astype(
             str).str[:2]
 
+        # condition pct_share
         breakdown_df = generate_pct_share_col_without_unknowns(
             breakdown_df,
             DATA_TYPE_TO_COL_MAP[data_type],
             demo_col,
             all_val)
 
+        # population pct_share
         breakdown_df = generate_pct_share_col_without_unknowns(
             breakdown_df,
             {POP: POP_PCT_SHARE_COL},
