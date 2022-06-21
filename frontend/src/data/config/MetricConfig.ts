@@ -1191,8 +1191,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Prison",
       variableFullDisplayName: "Imprisonment",
       surveyCollectedData: true,
-      variableDefinition: `Individuals of any age, including children, currently under the jurisdiction of an adult prison facility. ‘Age’ reports include only the subset of this jurisdictional population who have been sentenced to one year or more, which accounted for 97% of the total
-      U.S. prison population in 2020. For national reports, this rate includes both state and federal prison; for state and territory reports only the prisoners under the jurisdiction of that state or territory are included.  AK, CT, DE, HI, RI, and VT each operate an integrated system that combines prisons and jails; in accordance with the BJS data source we include those facilities as adult prisons.`,
+      variableDefinition: `Individuals of any age, including children, under the jurisdiction of an adult prison facility. ‘Age’ reports include only the subset of this jurisdictional population who have been sentenced to one year or more, which accounted for 97% of the total
+      U.S. prison population in 2020. For national reports, this rate includes both state and federal prison; for state and territory reports only the prisoners under the jurisdiction of that state or territory are included. AK, CT, DE, HI, RI, and VT each operate an integrated system that combines prisons and jails; in accordance with the BJS data source we include those facilities as adult prisons.`,
       metrics: {
         per100k: {
           metricId: "prison_per_100k",
@@ -1233,7 +1233,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Jail",
       variableFullDisplayName: "Jail",
       surveyCollectedData: true,
-      variableDefinition: `Individuals of any age, including children, currently currently confined in a local, adult jail facility. AK, CT, DE, HI, RI, and VT each operate an integrated system that combines prisons and jails; in accordance with the BJS data source we include those facilities as adult prisons but not as jails.`,
+      variableDefinition: `Individuals of any age, including children, confined in a local, adult jail facility. AK, CT, DE, HI, RI, and VT each operate an integrated system that combines prisons and jails; in accordance with the BJS data source we include those facilities as adult prisons but not as jails.`,
       metrics: {
         per100k: {
           metricId: "jail_per_100k",
