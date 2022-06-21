@@ -7,6 +7,7 @@ from ingestion.standardized_columns import generate_column_name
 from ingestion.standardized_columns import Race
 
 from datasources.data_source import DataSource
+from datasources.cdc_restricted_local import generate_national_dataset
 from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import (
         generate_per_100k_col,
@@ -22,14 +23,6 @@ ONLY_FIPS_FILES = {
     # These files only need to get their fips codes merged in
     'cdc_restricted_by_race_and_age_state.csv': 'by_race_age_state',
 }
-
-EXTRA_FILES = [
-    # TODO: Remove these files once we do national
-    # calculations on the backend.
-    'cdc_restricted_by_race_state.csv',
-    'cdc_restricted_by_age_state.csv',
-    'cdc_restricted_by_sex_state.csv',
-]
 
 COVID_CONDITION_TO_PREFIX = {
     std_col.COVID_CASES: std_col.COVID_CASES_PREFIX,
@@ -96,35 +89,6 @@ class CDCRestrictedData(DataSource):
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
-        # TODO, delete this whole section after national data
-        # is calculated here
-        for filename in EXTRA_FILES:
-            df = gcs_to_bq_util.load_csv_as_df(
-                gcs_bucket, filename, dtype={'county_fips': str})
-
-            self.clean_frame_column_names(df)
-
-            int_cols = [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
-                        std_col.COVID_HOSP_N, std_col.COVID_HOSP_UNKNOWN,
-                        std_col.COVID_DEATH_Y, std_col.COVID_DEATH_N,
-                        std_col.COVID_DEATH_UNKNOWN]
-
-            column_types = {c: 'STRING' for c in df.columns}
-            for col in int_cols:
-                if col in column_types:
-                    column_types[col] = 'FLOAT'
-
-            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-
-            print('uploading extra file')
-
-            table_name = filename.replace('.csv', '')  # Table name is file name
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=column_types)
-
-        print('uploaded extra file')
-
     def generate_breakdown(self, df, demo, geo):
         print(f'processing {demo} {geo}')
         start = time.time()
@@ -142,6 +106,9 @@ class CDCRestrictedData(DataSource):
 
         if geo == 'county':
             all_columns.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
+
+        if geo == 'national':
+            df = generate_national_dataset(df, [demo_col])
 
         df = merge_fips_codes(df, geo == 'county')
         fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
