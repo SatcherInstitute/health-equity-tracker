@@ -4,7 +4,7 @@ import VariableProvider from "../variables/VariableProvider";
 import CdcCovidProvider from "../variables/CdcCovidProvider";
 import BrfssProvider from "../variables/BrfssProvider";
 import CawpProvider from "../variables/CawpProvider";
-// import BjsProvider from "../variables/BjsProvider";
+// import IncarcerationProvider from "../variables/IncarcerationProvider";
 import IncarcerationProvider from "../variables/IncarcerationProvider";
 // import VeraJailProvider from "../variables/VeraJailProvider";
 // import VeraPrisonProvider from "../variables/VeraPrisonProvider";
@@ -42,7 +42,7 @@ export default class VariableProviderMap {
       new CdcCovidProvider(acsProvider),
       new CawpProvider(),
       new IncarcerationProvider(),
-      // new BjsProvider(),
+      // new IncarcerationProvider(),
       // new VeraPrisonProvider(),
       // new VeraJailProvider(),
       new BrfssProvider(),

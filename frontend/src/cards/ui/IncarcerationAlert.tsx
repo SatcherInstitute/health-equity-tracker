@@ -11,7 +11,7 @@ import {
   COMBINED_INCARCERATION_STATES_LIST,
   CombinedIncarcerationStateMessage,
   ALASKA_PRIVATE_JAIL_CAVEAT,
-} from "../../data/variables/BjsProvider";
+} from "../../data/variables/IncarcerationProvider";
 
 const combinedAlertFipsList = [
   USA_DISPLAY_NAME,

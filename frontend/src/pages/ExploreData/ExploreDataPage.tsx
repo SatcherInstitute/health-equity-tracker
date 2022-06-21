@@ -36,7 +36,7 @@ import { useLocation } from "react-router-dom";
 import { srSpeak } from "../../utils/a11yutils";
 import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
-import { BJS_VARIABLE_IDS } from "../../data/variables/BjsProvider";
+import { BJS_VARIABLE_IDS } from "../../data/variables/IncarcerationProvider";
 
 const EXPLORE_DATA_ID = "main";
 

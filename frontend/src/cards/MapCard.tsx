@@ -30,7 +30,7 @@ import {
   COMBINED_INCARCERATION_STATES_LIST,
   COMBINED_QUALIFIER,
   PRIVATE_JAILS_QUALIFIER,
-} from "../data/variables/BjsProvider";
+} from "../data/variables/IncarcerationProvider";
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,

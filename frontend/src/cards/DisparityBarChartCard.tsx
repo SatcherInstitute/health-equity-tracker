@@ -26,8 +26,8 @@ import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
-import { BJS_VARIABLE_IDS } from "../data/variables/BjsProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
+import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 719;
@@ -53,7 +53,7 @@ export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
 function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["pct_share"];
 
-  const isIncarceration = BJS_VARIABLE_IDS.includes(
+  const isIncarceration = INCARCERATION_IDS.includes(
     props.variableConfig.variableId
   );
 

@@ -1,9 +1,23 @@
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { MetricId } from "../config/MetricConfig";
-
+import { MetricId, VariableId } from "../config/MetricConfig";
 import VariableProvider from "./VariableProvider";
+
+// states with combined prison and jail systems
+export const COMBINED_INCARCERATION_STATES_LIST = [
+  "Alaska",
+  "Connecticut",
+  "Delaware",
+  "Hawaii",
+  "Rhode Island",
+  "Vermont",
+];
+
+export const COMBINED_QUALIFIER = "combined prison and jail";
+export const PRIVATE_JAILS_QUALIFIER = "private jail system only";
+
+export const INCARCERATION_IDS: VariableId[] = ["prison", "jail"];
 
 export const JAIL_METRICS: MetricId[] = [
   "jail_pct_share",

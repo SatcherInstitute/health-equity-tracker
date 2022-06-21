@@ -20,7 +20,7 @@ import { currentYear } from "../../Footer";
 import {
   ALASKA_PRIVATE_JAIL_CAVEAT,
   CombinedIncarcerationStateMessage,
-} from "../../data/variables/BjsProvider";
+} from "../../data/variables/IncarcerationProvider";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 

@@ -17,7 +17,7 @@ import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
 import { ALL, NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
-import { BJS_VARIABLE_IDS } from "../data/variables/BjsProvider";
+import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import IncarcerationAlert from "./ui/IncarcerationAlert";
 
@@ -45,7 +45,7 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
 
-  const isIncarceration = BJS_VARIABLE_IDS.includes(
+  const isIncarceration = INCARCERATION_IDS.includes(
     props.variableConfig.variableId
   );
   const metricIdsToFetch: MetricId[] = [];

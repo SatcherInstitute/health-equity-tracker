@@ -27,7 +27,7 @@ import {
   shouldShowAltPopCompare,
 } from "../data/utils/datasetutils";
 import styles from "./Card.module.scss";
-import { BJS_VARIABLE_IDS } from "../data/variables/BjsProvider";
+import { BJS_VARIABLE_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { Row } from "../data/utils/DatasetTypes";
 
