@@ -28,7 +28,6 @@ import {
   UNKNOWN_RACE,
   AGE,
   BJS_NATIONAL_AGE_BUCKETS,
-  OTHER_STANDARD_NH,
   BJS_JAIL_AGE_BUCKETS,
 } from "./Constants";
 import { Row } from "./DatasetTypes";
@@ -281,15 +280,25 @@ export function getExclusionList(
     exclusionList.push(NON_HISPANIC);
   }
 
-  // BJS / Incarceration
+  // Incarceration
   if (currentVariableId === "prison") {
     if (currentBreakdown === RACE) {
-      exclusionList.push(
-        ...NON_STANDARD_RACES,
-        MULTI_OR_OTHER_STANDARD,
-        MULTI_OR_OTHER_STANDARD_NH,
-        API_NH
-      );
+      !currentFips.isCounty() &&
+        exclusionList.push(
+          ...NON_STANDARD_RACES,
+          MULTI_OR_OTHER_STANDARD,
+          MULTI_OR_OTHER_STANDARD_NH,
+          API_NH
+        );
+
+      currentFips.isCounty() &&
+        exclusionList.push(
+          ...NON_STANDARD_RACES,
+          MULTI_OR_OTHER_STANDARD,
+          MULTI_OR_OTHER_STANDARD_NH,
+          ASIAN_NH,
+          NHPI_NH
+        );
     }
 
     if (currentBreakdown === AGE) {
@@ -309,14 +318,26 @@ export function getExclusionList(
     }
   }
   if (currentVariableId === "jail") {
-    currentBreakdown === RACE &&
-      exclusionList.push(
-        ...NON_STANDARD_RACES,
-        MULTI_OR_OTHER_STANDARD,
-        MULTI_OR_OTHER_STANDARD_NH,
-        API_NH,
-        OTHER_STANDARD_NH
-      );
+    if (currentBreakdown === RACE) {
+      if (currentBreakdown === RACE) {
+        !currentFips.isCounty() &&
+          exclusionList.push(
+            ...NON_STANDARD_RACES,
+            MULTI_OR_OTHER_STANDARD,
+            MULTI_OR_OTHER_STANDARD_NH,
+            API_NH
+          );
+
+        currentFips.isCounty() &&
+          exclusionList.push(
+            ...NON_STANDARD_RACES,
+            MULTI_OR_OTHER_STANDARD,
+            MULTI_OR_OTHER_STANDARD_NH,
+            ASIAN_NH,
+            NHPI_NH
+          );
+      }
+    }
 
     currentBreakdown === AGE &&
       exclusionList.push(
