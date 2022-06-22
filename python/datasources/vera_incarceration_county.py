@@ -14,8 +14,11 @@ from functools import reduce
 JAIL = "jail"
 PRISON = "prison"
 RAW = "raw"
+
 RATE = "rate"
 POP = "population"
+CHILDREN = "total_confined_children"
+
 
 JAIL_RAW_COL = "jail_estimated_total"
 PRISON_RAW_COL = "prison_estimated_total"
@@ -127,12 +130,17 @@ DATA_TYPE_TO_COL_MAP = {
 }
 
 # AGE_JAIL_RAW_COLS_TO_STANDARD = {
-# "total_jail_pop": std_col.ALL_VALUE,
-# "female_adult_jail_pop": ADULT,
-# "female_juvenile_jail_pop": JUVENILE,
-# "male_adult_jail_pop": ADULT,
-# "male_juvenile_jail_pop": JUVENILE,
+#     # "total_jail_pop": std_col.ALL_VALUE,
+#     # "female_adult_jail_pop": ADULT,
+#     "female_juvenile_jail_pop": JUVENILE,
+#     # "male_adult_jail_pop": ADULT,
+#     "male_juvenile_jail_pop": JUVENILE,
 # }
+
+JUVENILE_COLS = [
+    "female_juvenile_jail_pop",
+    "male_juvenile_jail_pop"
+]
 
 # NO PRISON/AGE DATA
 
@@ -193,6 +201,7 @@ def split_df_by_data_type(df):
 
     # eliminate rows with unneeded years
     df_jail = df_jail[df_jail["year"] == 2018].reset_index(drop=True)
+    df_children = df_jail.copy()
     df_prison = df_prison[df_prison["year"]
                           == 2016].reset_index(drop=True)
 
@@ -217,13 +226,19 @@ def split_df_by_data_type(df):
                        *SEX_JAIL_RATE_COLS_TO_STANDARD.keys(),
                        ]]
 
+    df_children = df_children[[*GEO_COLS_TO_STANDARD.keys(),
+                               *JUVENILE_COLS
+                               ]]
+
     # can rename geo cols first because no naming collisions when melting
     df_jail = df_jail.rename(columns=GEO_COLS_TO_STANDARD)
     df_prison = df_prison.rename(columns=GEO_COLS_TO_STANDARD)
+    df_children = df_children.rename(columns=GEO_COLS_TO_STANDARD)
 
     return {
         PRISON: df_prison,
-        JAIL: df_jail
+        JAIL: df_jail,
+        CHILDREN: df_children
     }
 
 
@@ -255,16 +270,20 @@ class VeraIncarcerationCounty(DataSource):
         # need to place PRISON and JAIL into distinct tables, as the most recent
         # data comes from different years and will have different population comparison
         # metrics
-        for data_type in datatypes_to_df_map.keys():
+        for demo_type in [std_col.RACE_OR_HISPANIC_COL,
+                          std_col.SEX_COL,
+                          std_col.AGE_COL]:
 
-            for demo_type in [std_col.RACE_OR_HISPANIC_COL,
-                              std_col.SEX_COL,
-                              std_col.AGE_COL]:
+            df_children = generate_partial_breakdown(
+                datatypes_to_df_map[CHILDREN], demo_type, JAIL, CHILDREN)
+
+            for data_type in [PRISON, JAIL]:
 
                 table_name = f'{data_type}_{demo_type}_county'
                 df = datatypes_to_df_map[data_type].copy()
 
-                df = self.generate_for_bq(df, data_type, demo_type)
+                df = self.generate_for_bq(
+                    df, data_type, demo_type, df_children)
 
                 if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                     bq_column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
@@ -275,7 +294,7 @@ class VeraIncarcerationCounty(DataSource):
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=bq_column_types)
 
-    def generate_for_bq(self, df, data_type, demo_type):
+    def generate_for_bq(self, df, data_type, demo_type, df_children):
 
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
             all_val = Race.ALL.value
@@ -298,8 +317,6 @@ class VeraIncarcerationCounty(DataSource):
         breakdown_df = reduce(lambda x, y: pd.merge(
             x, y, on=[*GEO_COLS_TO_STANDARD.values(), demo_col]), partial_breakdowns)
 
-        # print(breakdown_df)
-
         # round 100k values
         breakdown_df[RATE_COL_MAP[data_type]
                      ] = breakdown_df[RATE_COL_MAP[data_type]].dropna().round().astype(int)
@@ -307,19 +324,26 @@ class VeraIncarcerationCounty(DataSource):
         breakdown_df[std_col.STATE_FIPS_COL] = breakdown_df[std_col.COUNTY_FIPS_COL].astype(
             str).str[:2]
 
-        # condition pct_share
         breakdown_df = generate_pct_share_col_without_unknowns(
             breakdown_df,
             DATA_TYPE_TO_COL_MAP[data_type],
             demo_col,
             all_val)
 
-        # population pct_share
         breakdown_df = generate_pct_share_col_without_unknowns(
             breakdown_df,
-            {POP: POP_PCT_SHARE_COL},
+            {POP: "population_pct_share"},
             demo_col,
             all_val)
+
+        # add a column with the confined children
+
+        print(data_type, demo_type)
+        print(breakdown_df)
+        print(df_children)
+
+        breakdown_df = pd.merge(breakdown_df, df_children, how="left", on=[
+            *GEO_COLS_TO_STANDARD.values(), demo_col])
 
         cols_to_drop = [std_col.POPULATION_COL,
                         std_col.STATE_FIPS_COL, RAW_COL_MAP[data_type]]
@@ -329,10 +353,6 @@ class VeraIncarcerationCounty(DataSource):
 
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(breakdown_df)
-
-        # PLACEHOLDER SO FRONTEND DOESNT BREAK
-        # need to populate this field with raw number of children if possible
-        breakdown_df["total_confined_children"] = np.nan
 
         return breakdown_df
 
@@ -355,6 +375,7 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
         property_type: string for metric to calculate: "raw" | "rate" | "population"
 
     """
+    # print("\n\t\t\t", demo_type, data_type, property_type)
 
     # set configuration based on demo/data/property types
     if demo_type == std_col.RACE_OR_HISPANIC_COL:
@@ -425,31 +446,38 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
         het_group_column = demo_type
 
         if property_type == POP:
-            col_to_demographic_map = []
+            col_to_demographic_map = {}
             vera_all_col = POP_ALL
             het_value_column = POP
 
         if data_type == JAIL:
             if property_type == RAW:
-                col_to_demographic_map = []
+                col_to_demographic_map = {}
                 vera_all_col = JAIL_RAW_ALL
                 het_value_column = JAIL_RAW_COL
 
             if property_type == RATE:
-                col_to_demographic_map = []
+                col_to_demographic_map = {}
                 vera_all_col = JAIL_RATE_ALL
                 het_value_column = JAIL_RATE_COL
 
         if data_type == PRISON:
             if property_type == RAW:
-                col_to_demographic_map = []
+                col_to_demographic_map = {}
                 vera_all_col = PRISON_RAW_ALL
                 het_value_column = PRISON_RAW_COL
 
             if property_type == RATE:
-                col_to_demographic_map = []
+                col_to_demographic_map = {}
                 vera_all_col = PRISON_RATE_ALL
                 het_value_column = PRISON_RATE_COL
+
+    if property_type == CHILDREN:
+        df[all_val] = df[["female_juvenile_jail_pop",
+                          "male_juvenile_jail_pop"]].sum(axis="columns")
+        col_to_demographic_map = {}
+        vera_all_col = all_val
+        het_value_column = CHILDREN
 
     cols_to_keep = [*GEO_COLS_TO_STANDARD.values(), vera_all_col]
     col_rename_map = {vera_all_col: all_val}
