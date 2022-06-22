@@ -36,35 +36,6 @@ GOLDEN_DATA = {
 }
 
 
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#             return_value=None)
-# def testSaveBqOutputToJson(
-#     mock_bq: mock.MagicMock,
-# ):
-#     """ Uncomment and run this test to save full run results that would be
-#     uploaded to BigQuery to local json files instead. These json files can be
-#     copied over to frontend/tmp for local development
-
-#     Note: this is hitting the real API endpoints
-#     """
-
-#     veraIncarcerationCounty = VeraIncarcerationCounty()
-
-#     kwargs = {'filename': 'test_file.csv',
-#               'metadata_table_id': 'test_metadata',
-#               'table_name': 'output_table'}
-
-#     veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-
-#     for call_arg in mock_bq.call_args_list:
-#         mock_df, _, bq_table_name = call_arg[0]
-#         print("\n\n")
-#         print(bq_table_name)
-#         print(mock_df)
-#         mock_df.to_json(
-#             f'vera_incarceration_data-{bq_table_name}.json', orient="records")
-
-
 def get_mocked_data_as_df():
     df = pd.read_csv(os.path.join(
         TEST_DIR, 'vera_incarceration_county_test_input.csv'), dtype=VERA_COL_TYPES,)
@@ -304,3 +275,33 @@ def testCountyJailByAge():
 
     assert_frame_equal(
         _generated_df, _expected_df_jail_age, check_like=True)
+
+
+# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+#             return_value=None)
+# def testSaveBqOutputToJson(
+#     mock_bq: mock.MagicMock,
+# ):
+#     """ Uncomment and run this test to save full run results that would be
+#     uploaded to BigQuery to local json files instead. These json files can be
+#     copied over to frontend/tmp for local development
+
+#     Note: this is hitting the real API endpoints
+#     """
+
+#     veraIncarcerationCounty = VeraIncarcerationCounty()
+
+#     kwargs = {'filename': 'test_file.csv',
+#               'metadata_table_id': 'test_metadata',
+#               'table_name': 'output_table'}
+
+#     veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+
+#     for call_arg in mock_bq.call_args_list:
+#         mock_df, _, bq_table_name = call_arg[0]
+#         print("\n\n")
+#         print("Generating full .json tables, hitting real API endpoints")
+#         print(bq_table_name)
+#         print(mock_df)
+#         mock_df.to_json(
+#             f'vera_incarceration_data-{bq_table_name}.json', orient="records")
