@@ -1,7 +1,13 @@
 [
     {
+        "county_fips": "24019", 
+        "county_name": "Dorchester County", 
+        "age": "All", 
+        "svi": "0.25"
+    },
+    {
         "county_fips": "01001", 
         "county_name": "Autauga County", 
-        "svi": 0.25
+        "age": "All"
     }
 ]

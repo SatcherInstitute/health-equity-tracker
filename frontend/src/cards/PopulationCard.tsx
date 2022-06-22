@@ -23,6 +23,7 @@ import {
 } from "../data/config/MetricConfig";
 import { ALL, RACE } from "../data/utils/Constants";
 import {
+  onlyInclude,
   onlyIncludeDecadeAgeBrackets,
   onlyIncludeStandardRaces,
 } from "../data/query/BreakdownFilter";
@@ -73,7 +74,7 @@ export function PopulationCard(props: PopulationCardProps) {
   if (props.fips.isCounty()) {
     const sviQuery = new MetricQuery(
       "svi",
-      Breakdowns.forFips(props.fips).allDemBreakdowns()
+      Breakdowns.forFips(props.fips).andAge(onlyInclude("All"))
     );
     queries.push(sviQuery);
   }
@@ -99,7 +100,12 @@ export function PopulationCard(props: PopulationCardProps) {
   return (
     <CardWrapper minHeight={PRELOAD_HEIGHT} queries={queries}>
       {([raceQueryResponse, ageQueryResponse, sviQueryResponse]) => {
-        const svi = sviQueryResponse.data[0].svi;
+        console.log(sviQueryResponse);
+        const svi =
+          props.fips.isCounty() &&
+          sviQueryResponse.data.find((a) => a.age === ALL)?.svi;
+        const hasSvi = svi != null;
+
         const rating = findRating(svi);
         const color = findColor(rating);
         const totalPopulation = raceQueryResponse.data.find(
@@ -164,15 +170,17 @@ export function PopulationCard(props: PopulationCardProps) {
               )}
             </Grid>
 
-            <Alert severity="info">
-              This county has a social vulnerability index of <b>{svi}</b>;
-              which indicates a{" "}
-              <a href="testing" style={{ textDecorationColor: color }}>
-                <span style={{ color: color, fontWeight: "bold" }}>
-                  {rating} level of vulernability.
-                </span>
-              </a>{" "}
-            </Alert>
+            {hasSvi && (
+              <Alert severity="info">
+                This county has a social vulnerability index of <b>{svi}</b>;
+                which indicates a{" "}
+                <a href="testing" style={{ textDecorationColor: color }}>
+                  <span style={{ color: color, fontWeight: "bold" }}>
+                    {rating} level of vulernability.
+                  </span>
+                </a>{" "}
+              </Alert>
+            )}
 
             {props.fips.needsACS2010() && (
               <CardContent>
