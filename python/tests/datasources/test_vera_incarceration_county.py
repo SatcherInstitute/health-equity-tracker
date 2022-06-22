@@ -172,44 +172,44 @@ _fake_children_df = pd.read_csv(
     FAKE_SPLIT_DF_DATA[CHILDREN], dtype=fake_children_dtype)
 
 
-# def test_split_df_by_data_type():
-#     """
-#     Checks that splitting the sample CSV file generates the same
-#     Jail/Prison/Children dfs used in our other tests
-#     """
+def test_split_df_by_data_type():
+    """
+    Checks that splitting the sample CSV file generates the same
+    Jail/Prison/Children dfs used in our other tests
+    """
 
-#     split_results = split_df_by_data_type(
-#         get_mocked_data_as_df())
+    split_results = split_df_by_data_type(
+        get_mocked_data_as_df())
 
-#     assert_frame_equal(
-#         split_results[PRISON], _fake_prison_df, check_like=True)
-#     assert_frame_equal(
-#         split_results[JAIL], _fake_jail_df, check_like=True)
-#     assert_frame_equal(
-#         split_results[CHILDREN], _fake_children_df, check_like=True)
+    assert_frame_equal(
+        split_results[PRISON], _fake_prison_df, check_like=True)
+    assert_frame_equal(
+        split_results[JAIL], _fake_jail_df, check_like=True)
+    assert_frame_equal(
+        split_results[CHILDREN], _fake_children_df, check_like=True)
 
 
-# def test_generate_partial_breakdown():
+def test_generate_partial_breakdown():
 
-#     _partial_sex_jail_rate = generate_partial_breakdown(
-#         _fake_jail_df, "sex", "jail", "rate")
+    _partial_sex_jail_rate = generate_partial_breakdown(
+        _fake_jail_df, "sex", "jail", "rate")
 
-#     _expected_sex_jail_rate_data = StringIO("""county_fips,county_name,sex,jail_per_100k
-# 01001,Autauga County,All,454.81
-# 37119,Mecklenburg County,All,206.55
-# 56045,Weston County,All,115.37
-# 01001,Autauga County,Female,134.73
-# 37119,Mecklenburg County,Female,37.90
-# 56045,Weston County,Female,306.59
-# 01001,Autauga County,Male,716.54
-# 37119,Mecklenburg County,Male,386.58
-# 56045,Weston County,Male,1177.96""")
+    _expected_sex_jail_rate_data = StringIO("""county_fips,county_name,sex,jail_per_100k
+01001,Autauga County,All,454.81
+37119,Mecklenburg County,All,206.55
+56045,Weston County,All,115.37
+01001,Autauga County,Female,134.73
+37119,Mecklenburg County,Female,37.90
+56045,Weston County,Female,306.59
+01001,Autauga County,Male,716.54
+37119,Mecklenburg County,Male,386.58
+56045,Weston County,Male,1177.96""")
 
-#     _expected_partial_sex_jail_rate = pd.read_csv(
-#         _expected_sex_jail_rate_data, sep=",", dtype={"county_fips": str})
+    _expected_partial_sex_jail_rate = pd.read_csv(
+        _expected_sex_jail_rate_data, sep=",", dtype={"county_fips": str})
 
-#     assert_frame_equal(
-#         _partial_sex_jail_rate, _expected_partial_sex_jail_rate, check_like=True)
+    assert_frame_equal(
+        _partial_sex_jail_rate, _expected_partial_sex_jail_rate, check_like=True)
 
 
 expected_dtype = {
@@ -219,7 +219,8 @@ expected_dtype = {
     "prison_pct_share": float,
     "jail_per_100k": int,
     "prison_per_100k": int,
-    "race_includes_hispanic": object
+    "race_includes_hispanic": object,
+    "total_confined_children": float
 }
 
 
@@ -233,49 +234,40 @@ _fake_children_df_age = _fake_children_df.copy()
 _fake_children_df_age["age"] = "All"
 
 
-# def testCountyPrisonRace():
+def testCountyPrisonRace():
 
-#     _generated_df = vera.generate_for_bq(
-#         _fake_prison_df, "prison", "race_and_ethnicity", _fake_children_df_race)
+    _generated_df = vera.generate_for_bq(
+        _fake_prison_df, "prison", "race_and_ethnicity", _fake_children_df_race)
 
-#     _expected_df_prison_race = pd.read_json(
-#         GOLDEN_DATA['prison_race_county'], dtype=expected_dtype)
+    _expected_df_prison_race = pd.read_json(
+        GOLDEN_DATA['prison_race_county'], dtype=expected_dtype)
 
-#     _generated_df.to_json('results-prison-race.json', orient="records")
-
-#     assert_frame_equal(
-#         _generated_df, _expected_df_prison_race, check_like=True)
+    assert_frame_equal(
+        _generated_df, _expected_df_prison_race, check_like=True)
 
 
-# def testCountyJailRace():
+def testCountyJailRace():
 
-#     _generated_df = vera.generate_for_bq(
-#         _fake_jail_df, "jail", "race_and_ethnicity", _fake_children_df_race)
+    _generated_df = vera.generate_for_bq(
+        _fake_jail_df, "jail", "race_and_ethnicity", _fake_children_df_race)
 
-#     _expected_df_jail_race = pd.read_json(
-#         GOLDEN_DATA['jail_race_county'], dtype=expected_dtype)
+    _expected_df_jail_race = pd.read_json(
+        GOLDEN_DATA['jail_race_county'], dtype=expected_dtype)
 
-#     print("gen")
-#     print(_generated_df)
-#     print("expect")
-#     print(_expected_df_jail_race)
-#     _generated_df.to_json('results.json', orient="records")
-#     assert_frame_equal(
-#         _generated_df, _expected_df_jail_race, check_like=True)
+    assert_frame_equal(
+        _generated_df, _expected_df_jail_race, check_like=True)
 
 
-# def testCountyPrisonBySex():
+def testCountyPrisonBySex():
 
-#     _generated_df = vera.generate_for_bq(
-#         _fake_prison_df, "prison", "sex", _fake_children_df_sex)
+    _generated_df = vera.generate_for_bq(
+        _fake_prison_df, "prison", "sex", _fake_children_df_sex)
 
-#     _expected_df_prison_sex = pd.read_json(
-#         GOLDEN_DATA['prison_sex_county'], dtype=expected_dtype)
+    _expected_df_prison_sex = pd.read_json(
+        GOLDEN_DATA['prison_sex_county'], dtype=expected_dtype)
 
-#     _generated_df.to_json('results.json', orient="records")
-
-#     assert_frame_equal(
-#         _generated_df, _expected_df_prison_sex, check_like=True)
+    assert_frame_equal(
+        _generated_df, _expected_df_prison_sex, check_like=True)
 
 
 def testCountyJailBySex():
@@ -286,30 +278,29 @@ def testCountyJailBySex():
     _expected_df_jail_sex = pd.read_json(
         GOLDEN_DATA['jail_sex_county'], dtype=expected_dtype)
 
-    _generated_df.to_json('results.json', orient="records")
     assert_frame_equal(
         _generated_df, _expected_df_jail_sex, check_like=True)
 
 
-# def testCountyPrisonByAge():
+def testCountyPrisonByAge():
 
-#     _generated_df = vera.generate_for_bq(
-#         _fake_prison_df, "prison", "age")
+    _generated_df = vera.generate_for_bq(
+        _fake_prison_df, "prison", "age", _fake_children_df_age)
 
-#     _expected_df_prison_age = pd.read_json(
-#         GOLDEN_DATA['prison_age_county'], dtype=expected_dtype)
+    _expected_df_prison_age = pd.read_json(
+        GOLDEN_DATA['prison_age_county'], dtype=expected_dtype)
 
-#     assert_frame_equal(
-#         _generated_df, _expected_df_prison_age, check_like=True)
+    assert_frame_equal(
+        _generated_df, _expected_df_prison_age, check_like=True)
 
 
-# def testCountyJailByAge():
+def testCountyJailByAge():
 
-#     _generated_df = vera.generate_for_bq(
-#         _fake_jail_df, "jail", "age")
+    _generated_df = vera.generate_for_bq(
+        _fake_jail_df, "jail", "age", _fake_children_df_age)
 
-#     _expected_df_jail_age = pd.read_json(
-#         GOLDEN_DATA['jail_age_county'], dtype=expected_dtype)
+    _expected_df_jail_age = pd.read_json(
+        GOLDEN_DATA['jail_age_county'], dtype=expected_dtype)
 
-#     assert_frame_equal(
-#         _generated_df, _expected_df_jail_age, check_like=True)
+    assert_frame_equal(
+        _generated_df, _expected_df_jail_age, check_like=True)
