@@ -233,30 +233,35 @@ _fake_children_df_age = _fake_children_df.copy()
 _fake_children_df_age["age"] = "All"
 
 
-def testCountyPrisonRace():
-
-    _generated_df = vera.generate_for_bq(
-        _fake_prison_df, "prison", "race_and_ethnicity", _fake_children_df_race)
-
-    _expected_df_prison_race = pd.read_json(
-        GOLDEN_DATA['prison_race_county'], dtype=expected_dtype)
-
-    _generated_df.to_json('results-prison-race.json', orient="records")
-
-    assert_frame_equal(
-        _generated_df, _expected_df_prison_race, check_like=True)
-
-
-# def testCountyJailRace():
+# def testCountyPrisonRace():
 
 #     _generated_df = vera.generate_for_bq(
-#         _fake_jail_df, "jail", "race_and_ethnicity")
+#         _fake_prison_df, "prison", "race_and_ethnicity", _fake_children_df_race)
 
-#     _expected_df_jail_race = pd.read_json(
-#         GOLDEN_DATA['jail_race_county'], dtype=expected_dtype)
+#     _expected_df_prison_race = pd.read_json(
+#         GOLDEN_DATA['prison_race_county'], dtype=expected_dtype)
+
+#     _generated_df.to_json('results-prison-race.json', orient="records")
 
 #     assert_frame_equal(
-#         _generated_df, _expected_df_jail_race, check_like=True)
+#         _generated_df, _expected_df_prison_race, check_like=True)
+
+
+def testCountyJailRace():
+
+    _generated_df = vera.generate_for_bq(
+        _fake_jail_df, "jail", "race_and_ethnicity", _fake_children_df_race)
+
+    _expected_df_jail_race = pd.read_json(
+        GOLDEN_DATA['jail_race_county'], dtype=expected_dtype)
+
+    print("gen")
+    print(_generated_df)
+    print("expect")
+    print(_expected_df_jail_race)
+    _generated_df.to_json('results.json', orient="records")
+    assert_frame_equal(
+        _generated_df, _expected_df_jail_race, check_like=True)
 
 
 # def testCountyPrisonBySex():
