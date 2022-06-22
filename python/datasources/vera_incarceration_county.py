@@ -129,14 +129,6 @@ DATA_TYPE_TO_COL_MAP = {
     JAIL: {JAIL_RAW_COL: JAIL_PCT_SHARE_COL}
 }
 
-# AGE_JAIL_RAW_COLS_TO_STANDARD = {
-#     # "total_jail_pop": std_col.ALL_VALUE,
-#     # "female_adult_jail_pop": ADULT,
-#     "female_juvenile_jail_pop": JUVENILE,
-#     # "male_adult_jail_pop": ADULT,
-#     "male_juvenile_jail_pop": JUVENILE,
-# }
-
 JUVENILE_COLS = [
     "female_juvenile_jail_pop",
     "male_juvenile_jail_pop"
