@@ -201,7 +201,7 @@ def split_df_by_data_type(df):
 
     # eliminate rows with unneeded years
     df_jail = df_jail[df_jail["year"] == 2018].reset_index(drop=True)
-    df_children = df_jail.copy()
+    df_juvenile_by_sex = df_jail.copy()
     df_prison = df_prison[df_prison["year"]
                           == 2016].reset_index(drop=True)
 
@@ -226,19 +226,26 @@ def split_df_by_data_type(df):
                        *SEX_JAIL_RATE_COLS_TO_STANDARD.keys(),
                        ]]
 
-    df_children = df_children[[*GEO_COLS_TO_STANDARD.keys(),
-                               *JUVENILE_COLS
-                               ]]
+    df_juvenile_by_sex = df_juvenile_by_sex[[*GEO_COLS_TO_STANDARD.keys(),
+                                             *JUVENILE_COLS
+                                             ]]
+
+    df_confined_children = df_juvenile_by_sex.copy()
+
+    df_confined_children["summed_juvenile_cols"] = df_confined_children[JUVENILE_COLS].sum(
+        axis="columns")
+    df_confined_children = df_confined_children.drop(columns=JUVENILE_COLS)
 
     # can rename geo cols first because no naming collisions when melting
     df_jail = df_jail.rename(columns=GEO_COLS_TO_STANDARD)
     df_prison = df_prison.rename(columns=GEO_COLS_TO_STANDARD)
-    df_children = df_children.rename(columns=GEO_COLS_TO_STANDARD)
+    df_confined_children = df_confined_children.rename(
+        columns=GEO_COLS_TO_STANDARD)
 
     return {
         PRISON: df_prison,
         JAIL: df_jail,
-        CHILDREN: df_children
+        CHILDREN: df_confined_children
     }
 
 
@@ -274,16 +281,20 @@ class VeraIncarcerationCounty(DataSource):
                           std_col.SEX_COL,
                           std_col.AGE_COL]:
 
-            df_children = generate_partial_breakdown(
-                datatypes_to_df_map[CHILDREN], demo_type, JAIL, CHILDREN)
+            df_children = datatypes_to_df_map[CHILDREN].copy()
+            df_children_partial = generate_partial_breakdown(
+                df_children, demo_type, JAIL, CHILDREN)
 
             for data_type in [PRISON, JAIL]:
 
                 table_name = f'{data_type}_{demo_type}_county'
+
+                print("<<<", table_name, ">>>")
+
                 df = datatypes_to_df_map[data_type].copy()
 
                 df = self.generate_for_bq(
-                    df, data_type, demo_type, df_children)
+                    df, data_type, demo_type, df_children_partial)
 
                 if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                     bq_column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
@@ -296,6 +307,10 @@ class VeraIncarcerationCounty(DataSource):
 
     def generate_for_bq(self, df, data_type, demo_type, df_children):
 
+        # print(df_children)
+
+        # print("normalized children df ready for merging")
+        # print(df_children)
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
             all_val = Race.ALL.value
             demo_col = std_col.RACE_CATEGORY_ID_COL
@@ -312,6 +327,10 @@ class VeraIncarcerationCounty(DataSource):
             partial_df = generate_partial_breakdown(
                 partial_df, demo_type, data_type, property_type)
             partial_breakdowns.append(partial_df)
+
+        # for x in partial_breakdowns:
+        #     print("\n")
+        #     print(x)
 
         # merge all the partial DFs for POP, RAW, RATE into a single DF per datatype/breakdown
         breakdown_df = reduce(lambda x, y: pd.merge(
@@ -338,10 +357,6 @@ class VeraIncarcerationCounty(DataSource):
 
         # add a column with the confined children
 
-        print(data_type, demo_type)
-        print(breakdown_df)
-        print(df_children)
-
         breakdown_df = pd.merge(breakdown_df, df_children, how="left", on=[
             *GEO_COLS_TO_STANDARD.values(), demo_col])
 
@@ -352,6 +367,8 @@ class VeraIncarcerationCounty(DataSource):
             columns=cols_to_drop)
 
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
+            # print("adding extra race cols to")
+            # print(breakdown_df)
             std_col.add_race_columns_from_category_id(breakdown_df)
 
         return breakdown_df
@@ -473,10 +490,9 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
                 het_value_column = PRISON_RATE_COL
 
     if property_type == CHILDREN:
-        df[all_val] = df[["female_juvenile_jail_pop",
-                          "male_juvenile_jail_pop"]].sum(axis="columns")
+        # treat children as All; no extra groups to calc
         col_to_demographic_map = {}
-        vera_all_col = all_val
+        vera_all_col = "summed_juvenile_cols"
         het_value_column = CHILDREN
 
     cols_to_keep = [*GEO_COLS_TO_STANDARD.values(), vera_all_col]
@@ -501,5 +517,8 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
                  value_vars=value_vars,
                  var_name=het_group_column,
                  value_name=het_value_column)
+
+    # print("melted partial")
+    # print(df)
 
     return df
