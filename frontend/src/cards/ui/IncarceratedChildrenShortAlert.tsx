@@ -9,7 +9,7 @@ import FlagIcon from "@material-ui/icons/Flag";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 
 let children = "children";
-let adultFacilities = "adult prisons and jails";
+let adultFacilities = "adult facilities";
 
 interface IncarceratedChildrenShortAlertProps {
   queryResponse: MetricQueryResponse;
@@ -25,11 +25,13 @@ function IncarceratedChildrenShortAlert(
       ?.total_confined_children
   );
 
-  if (!count) return <></>;
+  console.log(count);
+
+  if (count == null) return <></>;
 
   if (count === 1) {
     children = "child";
-    adultFacilities = "an adult prison or jail";
+    adultFacilities = "an adult facility";
   }
 
   return (
