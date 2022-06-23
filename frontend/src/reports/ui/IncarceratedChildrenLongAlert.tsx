@@ -26,12 +26,10 @@ function IncarceratedChildrenLongAlert() {
             enable the incarceration of children in adult institutions
           </a>
           . Such children are more exposed to physical and sexual abuse, fewer
-          age-appropriate services, and worse health outcomes.
-        </p>
-        <p>
-          When reporting on this age group, we highlight the{" "}
-          <b>total number of confined children</b>. Read more in{" "}
-          <Link to={METHODOLOGY_TAB_LINK}>our methodology</Link>.
+          age-appropriate services, and worse health outcomes. When reporting on
+          incarceration, we highlight the{" "}
+          <b>total number of confined children</b> in adult facilities. Read
+          more in <Link to={METHODOLOGY_TAB_LINK}>our methodology</Link>.
         </p>
       </Alert>
     </div>

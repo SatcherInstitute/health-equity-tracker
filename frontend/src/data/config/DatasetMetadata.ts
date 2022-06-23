@@ -219,12 +219,12 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "bjs_incarceration_data-age_national",
-    name: "National rates of sentenced individuals under the jurisdiction of federal or state adult prison facilities or confined in a local adult jail facilities, by Age",
+    name: "National rates of sentenced individuals under the jurisdiction of federal or state adult prison facilities, or confined in a local adult jail facilities, by Age",
     update_time: "2019 for Jail, 2020 for Prison",
   },
   {
     id: "bjs_incarceration_data-age_state",
-    name: "Rates of individuals under the jurisdiction of a state or territory prison facility or confined in a local adult jail facility, by State/Territory (totals only)",
+    name: "Rates of individuals under the jurisdiction of a state or territory prison facility by State/Territory (totals only), or confined in a local adult jail facility by Age by State/Territory",
     update_time: "2019 for Jail, 2020 for Prison",
   },
   {
@@ -264,17 +264,17 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "vera_incarceration_data-prison_age_county",
-    name: "Rates of individuals within a county incarcerated in a state or federal prison facility, by Age (totals only)",
+    name: "Rates of individuals within a county incarcerated in a state prison facility, by Age (totals only)",
     update_time: "2016",
   },
   {
     id: "vera_incarceration_data-prison_sex_county",
-    name: "Rates of individuals within a county incarcerated in a state or federal prison facility, by Sex",
+    name: "Rates of individuals within a county incarcerated in a state prison facility, by Sex",
     update_time: "2016",
   },
   {
     id: "vera_incarceration_data-prison_race_and_ethnicity_county",
-    name: "Rates of individuals within a county incarcerated in a state or federal prison facility, by Race/Ethnicity",
+    name: "Rates of individuals within a county incarcerated in a state prison facility, by Race/Ethnicity",
     update_time: "2016",
   },
   {

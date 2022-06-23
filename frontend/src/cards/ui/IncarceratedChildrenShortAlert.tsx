@@ -25,8 +25,6 @@ function IncarceratedChildrenShortAlert(
       ?.total_confined_children
   );
 
-  console.log(count);
-
   if (count == null) return <></>;
 
   if (count === 1) {
