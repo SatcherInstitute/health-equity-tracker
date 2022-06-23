@@ -1,6 +1,6 @@
 import React from "react";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
-import { Box, CardContent } from "@material-ui/core";
+import { CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -15,11 +15,10 @@ import {
 } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
-import { ALL, NON_HISPANIC } from "../data/utils/Constants";
+import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
-import IncarcerationAlert from "./ui/IncarcerationAlert";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -77,9 +76,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
 
-        const hasOnlyAll =
-          data.map((row) => row[props.breakdownVar]).join() === ALL;
-
         return (
           <CardContent>
             {queryResponse.shouldShowMissingDataMessage([
@@ -98,7 +94,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
               <>
                 {isIncarceration && (
                   <CardContent>
-                    {!hasOnlyAll && (
+                    {/* {!hasOnlyAll && (
                       <Box mb={1}>
                         <IncarcerationAlert
                           dataType={props.variableConfig.variableId}
@@ -106,7 +102,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                           breakdown={props.breakdownVar}
                         />
                       </Box>
-                    )}
+                    )} */}
 
                     <IncarceratedChildrenShortAlert
                       fips={props.fips}

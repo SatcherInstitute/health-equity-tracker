@@ -37,9 +37,11 @@ export type LinkName =
   | "childrenInPrison"
   | "bjsPrisoners"
   | "bjsCensusOfJails"
+  | "veraGithub"
   | "prisonPolicy";
 
 export const urlMap: Record<LinkName, string> = {
+  veraGithub: "https://github.com/vera-institute/incarceration-trends",
   bjsPrisoners:
     "https://bjs.ojp.gov/library/publications/prisoners-2020-statistical-tables",
   bjsCensusOfJails:

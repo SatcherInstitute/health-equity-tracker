@@ -38,7 +38,6 @@ import {
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
-import IncarcerationAlert from "./ui/IncarcerationAlert";
 import DropDownMenu from "./ui/DropDownMenu";
 import { HighestLowestList } from "./ui/HighestLowestList";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
@@ -75,8 +74,6 @@ function MapCardWithKey(props: MapCardProps) {
 
   const isPrison = props.variableConfig.variableId === "prison";
   const isJail = props.variableConfig.variableId === "jail";
-
-  const isIncarceration = isPrison || isJail;
 
   const signalListeners: any = {
     click: (...args: any) => {
@@ -326,7 +323,7 @@ function MapCardWithKey(props: MapCardProps) {
                 </>
               )}
 
-            {isIncarceration && (
+            {/* {isIncarceration && (
               <CardContent>
                 <IncarcerationAlert
                   dataType={props.variableConfig.variableId}
@@ -334,7 +331,7 @@ function MapCardWithKey(props: MapCardProps) {
                   breakdown={props.currentBreakdown}
                 />
               </CardContent>
-            )}
+            )} */}
 
             {(mapQueryResponse.dataIsMissing() ||
               dataForActiveBreakdownFilter.length === 0) && (

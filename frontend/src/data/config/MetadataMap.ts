@@ -208,7 +208,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annually",
     description:
-      "Rates of individuals, including children, who are under the jurisdiction of a local adult jail facility, or a federal, state, or territory adult prison facility.",
+      "Rates of individuals, including children, who are confined in a local adult jail facility, or under the jurisdiction of a federal, state, or territory adult prison facility.",
     dataset_ids: [
       "bjs_incarceration_data-race_and_ethnicity_national",
       "bjs_incarceration_data-race_and_ethnicity_state",
@@ -228,7 +228,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity, sex",
     update_frequency: "None",
     description:
-      "Rates of individuals, including children, who are incarcerated in local adult jail facilities, or federal and state adult prison facilities.",
+      "Rates of individuals, including children, who are confined in local adult jail facilities, or under the jurisdiction of state adult prison facilities.",
     dataset_ids: [
       "vera_incarceration_data-jail_sex_county",
       "vera_incarceration_data-jail_race_and_ethnicity_county",
