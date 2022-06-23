@@ -235,4 +235,7 @@ def test_ensure_leading_zeros():
         json.dumps(_fake_data_missing_zeros)).reset_index(drop=True)
     df = dataset_utils.ensure_leading_zeros(df, "state_fips", 2)
 
-    assert_frame_equal(df, _fake_race_data_without_totals, check_like=True)
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_fake_race_data_without_totals)).reset_index(drop=True)
+
+    assert_frame_equal(df, expected_df, check_like=True)
