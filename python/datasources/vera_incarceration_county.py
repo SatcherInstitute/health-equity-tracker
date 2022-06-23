@@ -3,7 +3,8 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion.standardized_columns import Race
 from ingestion.dataset_utils import (
-    generate_pct_share_col_without_unknowns
+    generate_pct_share_col_without_unknowns,
+    ensure_leading_zeros
 )
 from ingestion.constants import Sex
 import ingestion.standardized_columns as std_col
@@ -12,47 +13,35 @@ from functools import reduce
 
 JAIL = "jail"
 PRISON = "prison"
-RAW = "raw"
 
+RAW = "raw"
 RATE = "rate"
 POP = "population"
 CHILDREN = "total_confined_children"
 
-
-JAIL_RAW_COL = "jail_estimated_total"
-PRISON_RAW_COL = "prison_estimated_total"
-
 RAW_COL_MAP = {
-    JAIL: JAIL_RAW_COL,
-    PRISON: PRISON_RAW_COL
+    JAIL: "jail_estimated_total",
+    PRISON: "prison_estimated_total"
 }
-
-JAIL_RATE_COL = "jail_per_100k"
-PRISON_RATE_COL = "prison_per_100k"
 
 RATE_COL_MAP = {
-    JAIL: JAIL_RATE_COL,
-    PRISON: PRISON_RATE_COL
+    JAIL: "jail_per_100k",
+    PRISON: "prison_per_100k"
 }
-
-JAIL_PCT_SHARE_COL = "jail_pct_share"
-PRISON_PCT_SHARE_COL = "prison_pct_share"
-POP_PCT_SHARE_COL = "population_pct_share"
 
 PCT_SHARE_COL_MAP = {
-    JAIL: JAIL_PCT_SHARE_COL,
-    PRISON: PRISON_PCT_SHARE_COL,
+    JAIL: "jail_pct_share",
+    PRISON: "prison_pct_share",
+    POP: "population_pct_share"
 }
-
-BASE_VERA_URL = 'https://github.com/vera-institute/incarceration_trends/blob/master/incarceration_trends.csv?raw=true'
-JUVENILE = "0-17"
-ADULT = "18+"
 
 PRISON_RAW_ALL = "total_prison_pop"
 JAIL_RAW_ALL = "total_jail_pop"
 PRISON_RATE_ALL = "total_prison_pop_rate"
 JAIL_RATE_ALL = "total_jail_pop_rate"
 POP_ALL = "total_pop_15to64"
+
+BASE_VERA_URL = 'https://github.com/vera-institute/incarceration_trends/blob/master/incarceration_trends.csv?raw=true'
 
 
 RACE_POP_TO_STANDARD = {
@@ -124,8 +113,8 @@ SEX_JAIL_RATE_COLS_TO_STANDARD = {
 }
 
 DATA_TYPE_TO_COL_MAP = {
-    PRISON: {PRISON_RAW_COL: PRISON_PCT_SHARE_COL},
-    JAIL: {JAIL_RAW_COL: JAIL_PCT_SHARE_COL}
+    PRISON: {RAW_COL_MAP[PRISON]: PCT_SHARE_COL_MAP[PRISON]},
+    JAIL: {RAW_COL_MAP[JAIL]: PCT_SHARE_COL_MAP[JAIL]}
 }
 
 JUVENILE_COLS = [
@@ -133,8 +122,10 @@ JUVENILE_COLS = [
     "male_juvenile_jail_pop"
 ]
 
-# NO PRISON/AGE BREAKDOWN DATA
+JUVENILE = "0-17"
+ADULT = "18+"
 
+# NO PRISON/AGE BREAKDOWN DATA
 
 DATA_COLS = [
     *RACE_PRISON_RAW_COLS_TO_STANDARD.keys(),
@@ -157,7 +148,6 @@ POP_COLS = [
     *RACE_POP_TO_STANDARD.keys(),
     *SEX_POP_TO_STANDARD.keys()
 ]
-
 
 VERA_COL_TYPES = {}
 for location_col in GEO_COLS_TO_STANDARD.keys():
@@ -183,9 +173,6 @@ def split_df_by_data_type(df):
         a dict mapping the data_type strings to the newly focused dfs for those types
         { "prison": prison_df, "jail", jail_df}
     """
-
-    # ensure 5 digit county fips (fill leading zeros)
-    df["fips"] = df["fips"].apply(lambda code: (str(code).rjust(5, '0')))
 
     df_jail = df.copy()
     df_prison = df.copy()
@@ -260,9 +247,8 @@ class VeraIncarcerationCounty(DataSource):
 
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_VERA_URL, dtype=VERA_COL_TYPES)
-
+        df = ensure_leading_zeros(df, "fips", 5)
         datatypes_to_df_map = split_df_by_data_type(df)
-
         bq_column_types = {c: 'STRING' for c in df.columns}
 
         # need to place PRISON and JAIL into distinct tables, as the most recent
@@ -287,7 +273,7 @@ class VeraIncarcerationCounty(DataSource):
                     bq_column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
                 bq_column_types[RATE_COL_MAP[data_type]] = 'INT'
                 bq_column_types[PCT_SHARE_COL_MAP[data_type]] = 'FLOAT'
-                bq_column_types[POP_PCT_SHARE_COL] = 'FLOAT'
+                bq_column_types[PCT_SHARE_COL_MAP[POP]] = 'FLOAT'
 
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=bq_column_types)
@@ -330,7 +316,7 @@ class VeraIncarcerationCounty(DataSource):
 
         breakdown_df = generate_pct_share_col_without_unknowns(
             breakdown_df,
-            {POP: "population_pct_share"},
+            {POP: PCT_SHARE_COL_MAP[POP]},
             demo_col,
             all_val)
 
@@ -382,23 +368,23 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
             if property_type == RAW:
                 col_to_demographic_map = RACE_JAIL_RAW_COLS_TO_STANDARD
                 vera_all_col = JAIL_RAW_ALL
-                het_value_column = JAIL_RAW_COL
+                het_value_column = RAW_COL_MAP[JAIL]
 
             if property_type == RATE:
                 col_to_demographic_map = RACE_JAIL_RATE_COLS_TO_STANDARD
                 vera_all_col = JAIL_RATE_ALL
-                het_value_column = JAIL_RATE_COL
+                het_value_column = RATE_COL_MAP[JAIL]
 
         if data_type == PRISON:
             if property_type == RAW:
                 col_to_demographic_map = RACE_PRISON_RAW_COLS_TO_STANDARD
                 vera_all_col = PRISON_RAW_ALL
-                het_value_column = PRISON_RAW_COL
+                het_value_column = RAW_COL_MAP[PRISON]
 
             if property_type == RATE:
                 col_to_demographic_map = RACE_PRISON_RATE_COLS_TO_STANDARD
                 vera_all_col = PRISON_RATE_ALL
-                het_value_column = PRISON_RATE_COL
+                het_value_column = RATE_COL_MAP[PRISON]
 
     if demo_type == std_col.SEX_COL:
         all_val = std_col.ALL_VALUE
@@ -413,23 +399,23 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
             if property_type == RAW:
                 col_to_demographic_map = SEX_JAIL_RAW_COLS_TO_STANDARD
                 vera_all_col = JAIL_RAW_ALL
-                het_value_column = JAIL_RAW_COL
+                het_value_column = RAW_COL_MAP[JAIL]
 
             if property_type == RATE:
                 col_to_demographic_map = SEX_JAIL_RATE_COLS_TO_STANDARD
                 vera_all_col = JAIL_RATE_ALL
-                het_value_column = JAIL_RATE_COL
+                het_value_column = RATE_COL_MAP[JAIL]
 
         if data_type == PRISON:
             if property_type == RAW:
                 col_to_demographic_map = SEX_PRISON_RAW_COLS_TO_STANDARD
                 vera_all_col = PRISON_RAW_ALL
-                het_value_column = PRISON_RAW_COL
+                het_value_column = RAW_COL_MAP[PRISON]
 
             if property_type == RATE:
                 col_to_demographic_map = SEX_PRISON_RATE_COLS_TO_STANDARD
                 vera_all_col = PRISON_RATE_ALL
-                het_value_column = PRISON_RATE_COL
+                het_value_column = RATE_COL_MAP[PRISON]
 
     # only generate Alls for Age
     if demo_type == std_col.AGE_COL:
@@ -445,23 +431,23 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
             if property_type == RAW:
                 col_to_demographic_map = {}
                 vera_all_col = JAIL_RAW_ALL
-                het_value_column = JAIL_RAW_COL
+                het_value_column = RAW_COL_MAP[JAIL]
 
             if property_type == RATE:
                 col_to_demographic_map = {}
                 vera_all_col = JAIL_RATE_ALL
-                het_value_column = JAIL_RATE_COL
+                het_value_column = RATE_COL_MAP[JAIL]
 
         if data_type == PRISON:
             if property_type == RAW:
                 col_to_demographic_map = {}
                 vera_all_col = PRISON_RAW_ALL
-                het_value_column = PRISON_RAW_COL
+                het_value_column = RAW_COL_MAP[PRISON]
 
             if property_type == RATE:
                 col_to_demographic_map = {}
                 vera_all_col = PRISON_RATE_ALL
-                het_value_column = PRISON_RATE_COL
+                het_value_column = RATE_COL_MAP[PRISON]
 
     if property_type == CHILDREN:
         # treat children as All; no extra groups to calc

@@ -3,6 +3,7 @@ import os
 from io import StringIO
 import pandas as pd
 from pandas._testing import assert_frame_equal
+from ingestion.dataset_utils import ensure_leading_zeros
 
 from datasources.vera_incarceration_county import (
     VeraIncarcerationCounty,
@@ -149,8 +150,9 @@ def test_split_df_by_data_type():
     Jail/Prison/Children dfs used in our other tests
     """
 
-    split_results = split_df_by_data_type(
-        get_mocked_data_as_df())
+    mocked_df = get_mocked_data_as_df()
+    mocked_df = ensure_leading_zeros(mocked_df, "fips", 5)
+    split_results = split_df_by_data_type(mocked_df)
 
     assert_frame_equal(
         split_results[PRISON], _fake_prison_df, check_like=True)
