@@ -1,0 +1,17 @@
+state_fips,state_name,age,population,race_category_id,race,race_includes_hispanic,race_and_ethnicity
+00,United States,0-29,600000,WHITE_NH,White,False,White (Non-Hispanic)
+00,United States,0-29,200000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,0-29,10000,HISP,Hispanic or Latino,True,Hispanic or Latino
+00,United States,0-29,810000,ALL,All,,All
+00,United States,30-59,800000,WHITE_NH,White,False,White (Non-Hispanic)
+00,United States,30-59,300000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,30-59,60000,HISP,Hispanic or Latino,True,Hispanic or Latino
+00,United States,30-59,1160000,ALL,All,,All
+00,United States,60+,200000,WHITE_NH,White,False,White (Non-Hispanic)
+00,United States,60+,60000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,60+,6000,HISP,Hispanic or Latino,True,Hispanic or Latino
+00,United States,60+,266000,ALL,All,,All
+00,United States,All,1600000,WHITE_NH,White,False,White (Non-Hispanic)
+00,United States,All,560000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,All,76000,HISP,Hispanic or Latino,True,Hispanic or Latino
+00,United States,All,2236000,ALL,All,,All

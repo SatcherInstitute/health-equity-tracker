@@ -1,0 +1,29 @@
+[
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "race_category_id": "BLACK_NH",
+    "prison_estimated_total": "1020.0",
+    "race": "Black or African American",
+    "race_includes_hispanic": false,
+    "race_and_ethnicity": "Black or African American (Non-Hispanic)"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "race_category_id": "HISP",
+    "prison_estimated_total": "610.0",
+    "race": "Hispanic or Latino",
+    "race_includes_hispanic": true,
+    "race_and_ethnicity": "Hispanic or Latino"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "race_category_id": "WHITE_NH",
+    "prison_estimated_total": "5550.0",
+    "race": "White",
+    "race_includes_hispanic": false,
+    "race_and_ethnicity": "White (Non-Hispanic)"
+  }
+]
