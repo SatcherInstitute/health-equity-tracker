@@ -3,7 +3,7 @@
     "state_fips": "00",
     "state_name": "United States",
     "race_category_id": "BLACK_NH",
-    "prison_estimated_total": "100000.0",
+    "prison_estimated_total": 389500,
     "race": "Black or African American",
     "race_includes_hispanic": false,
     "race_and_ethnicity": "Black or African American (Non-Hispanic)"
@@ -12,7 +12,7 @@
     "state_fips": "00",
     "state_name": "United States",
     "race_category_id": "HISP",
-    "prison_estimated_total": "2000000.0",
+    "prison_estimated_total": 275300,
     "race": "Hispanic or Latino",
     "race_includes_hispanic": true,
     "race_and_ethnicity": "Hispanic or Latino"
@@ -21,9 +21,36 @@
     "state_fips": "00",
     "state_name": "United States",
     "race_category_id": "WHITE_NH",
-    "prison_estimated_total": "3000000.0",
+    "prison_estimated_total": 358900,
     "race": "White",
     "race_includes_hispanic": false,
     "race_and_ethnicity": "White (Non-Hispanic)"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "race_category_id": "AIAN_NH",
+    "prison_estimated_total": 19000,
+    "race": "American Indian and Alaska Native",
+    "race_includes_hispanic": false,
+    "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "race_category_id": "API_NH",
+    "prison_estimated_total": 14900,
+    "race": "Asian, Native Hawaiian, and Pacific Islander",
+    "race_includes_hispanic": false,
+    "race_and_ethnicity": "Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH",
+    "prison_estimated_total": 124600,
+    "race": "Two or more races & Unrepresented race",
+    "race_includes_hispanic": false,
+    "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)"
   }
 ]

@@ -2,9 +2,6 @@ from unittest import mock
 import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
-
-import datasources.age_adjust_bjs as age_adjust
-
 from datasources.age_adjust_bjs import AgeAdjustBjsIncarceration
 
 # Current working directory.
@@ -41,38 +38,38 @@ def get_bjs_by_race_national_as_df():
     return pd.read_json(os.path.join(TEST_DIR, 'bjs_race_national.json'), dtype={'state_fips': str})
 
 
-# "Unit" tests
-def testExpectedPrisoners():
-    incarceration_data = pd.read_json(
-        PRISON_DATA_SIMPLE, dtype={'state_fips': str})
-    pop_data = get_census_pop_estimates_as_df()
+# # "Unit" tests
+# def testExpectedPrisoners():
+#     incarceration_data = pd.read_json(
+#         PRISON_DATA_SIMPLE, dtype={'state_fips': str})
+#     pop_data = get_census_pop_estimates_as_df()
 
-    df = age_adjust.get_expected_prisoners(incarceration_data, pop_data)
-    expected_df = pd.read_json(
-        EXPECTED_PRISONERS_JSON, dtype={'state_fips': str})
+#     df = AgeAdjustBjsIncarceration.get_expected_prisoners(incarceration_data, pop_data)
+#     expected_df = pd.read_json(
+#         EXPECTED_PRISONERS_JSON, dtype={'state_fips': str})
 
-    print("generated df (expected prisoners)")
-    print(df.to_string())
-    print("expected df")
-    print(expected_df.to_string())
+#     print("generated df (expected prisoners)")
+#     print(df.to_string())
+#     print("expected df")
+#     print(expected_df.to_string())
 
-    assert_frame_equal(df, expected_df, check_like=True)
+#     assert_frame_equal(df, expected_df, check_like=True)
 
 
-def testBjsAgeAdjust():
-    expected_prisoners_df = pd.read_json(
-        EXPECTED_PRISONERS_JSON, dtype={'state_fips': str})
+# def testBjsAgeAdjust():
+#     expected_prisoners_df = pd.read_json(
+#         EXPECTED_PRISONERS_JSON, dtype={'state_fips': str})
 
-    df = age_adjust.age_adjust_from_expected(expected_prisoners_df)
-    expected_df = pd.read_json(
-        GOLDEN_INTEGRATION_DATA_NATIONAL, dtype={'state_fips': str})
+#     df = AgeAdjustBjsIncarceration.age_adjust_from_expected(expected_prisoners_df)
+#     expected_df = pd.read_json(
+#         GOLDEN_INTEGRATION_DATA_NATIONAL, dtype={'state_fips': str})
 
-    print("generated df (age-adjust)")
-    print(df.to_string())
-    print("expected df")
-    print(expected_df.to_string())
+#     print("generated df (age-adjust)")
+#     print(df.to_string())
+#     print("expected df")
+#     print(expected_df.to_string())
 
-    assert_frame_equal(df, expected_df, check_like=True)
+#     assert_frame_equal(df, expected_df, check_like=True)
 
 
 # Integration tests
@@ -102,10 +99,50 @@ def testWriteToBqNational(mock_bq: mock.MagicMock, mock_df: mock.MagicMock):
         'state_fips': str,
     })
 
+    df = mock_bq.call_args_list[0].args[0]
+
     print("generated df (mock bq table)")
-    print(mock_bq.call_args_list[0].args[0].to_string())
+    print(df.to_string())
+
     print("expected df")
     print(expected_df.to_string())
 
     assert_frame_equal(
-        mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
+        df, expected_df, check_like=True)
+
+
+# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+#             return_value=None)
+# def testFullLocalJsonNational(mock_bq: mock.MagicMock):
+#     # mock_df.side_effect = [
+#     #     get_bjs_by_race_age_state_as_df(),
+#     #     get_census_pop_estimates_as_df(),
+#     #     get_bjs_by_race_state_as_df(),
+#     #     get_bjs_by_race_age_state_as_df(),
+#     #     get_census_pop_estimates_as_df(),
+#     # ]
+
+#     age_adjust = AgeAdjustBjsIncarceration()
+
+#     kwargs = {'filename': 'test_file.csv',
+#               'metadata_table_id': 'test_metadata',
+#               'table_name': 'output_table'}
+
+#     age_adjust.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+#     assert mock_bq.call_count == 1
+
+#     expected_df = pd.read_json(GOLDEN_INTEGRATION_DATA_NATIONAL, dtype={
+#         'state_fips': str,
+#     })
+
+#     df = mock_bq.call_args_list[0].args[0]
+
+#     print("generated df (mock bq table)")
+#     print(df.to_string())
+#     df.to_json("age-adjust-bjs-results.json", orient="records")
+
+#     print("expected df")
+#     print(expected_df.to_string())
+
+#     # assert_frame_equal(
+#     #     df, expected_df, check_like=True)
