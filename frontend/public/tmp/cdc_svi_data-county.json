@@ -7,7 +7,8 @@
     },
     {
         "county_fips": "01001", 
-        "county_name": "Autauga County", 
-        "age": "All"
+        "county_name": "Autauga County",
+        "age": "All",
+        "svi": "0.65"
     }
 ]
