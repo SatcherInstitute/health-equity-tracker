@@ -25,8 +25,10 @@ pd.options.mode.chained_assignment = None  # default='warn'
 
 # Command line flags for the dir and file name prefix for the data.
 parser = argparse.ArgumentParser()
-parser.add_argument("-dir", "--dir", help="Path to the CDC restricted data CSV files")
-parser.add_argument("-prefix", "--prefix", help="Prefix for the CDC restricted CSV files")
+parser.add_argument(
+    "-dir", "--dir", help="Path to the CDC restricted data CSV files")
+parser.add_argument("-prefix", "--prefix",
+                    help="Prefix for the CDC restricted CSV files")
 
 # These are the columns that we want to keep from the data.
 # Geo columns (state, county) - we aggregate or groupby either state or county.
@@ -120,7 +122,7 @@ DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD", "DE")
 def combine_race_eth(df):
     """Combines the race and ethnicity fields into the legacy race/ethnicity category.
        We will keep this in place until we can figure out a plan on how to display
-       the race and ethnicty to our users in a disaggregated way."""
+       the race and ethnicity to our users in a disaggregated way."""
 
     def get_combined_value(row):
         if row[ETH_COL] == 'Hispanic/Latino':
@@ -283,11 +285,12 @@ def generate_national_dataset(state_df, groupby_cols):
        Returns a national level dataframe
 
        state_df: state level dataframe
-       groupy_cols: list of columns to group on"""
+       groupby_cols: list of columns to group on"""
 
     # This is hacky but I think we have to do this because everything comes
     # from big query as a string.
-    int_cols = [std_col.COVID_CASES, std_col.COVID_DEATH_Y, std_col.COVID_HOSP_Y]
+    int_cols = [std_col.COVID_CASES,
+                std_col.COVID_DEATH_Y, std_col.COVID_HOSP_Y]
     state_df[int_cols] = state_df[int_cols].fillna(0)
     state_df[int_cols] = state_df[int_cols].replace("", 0)
     state_df[int_cols] = state_df[int_cols].astype(int)
@@ -397,7 +400,8 @@ def process_data(dir, files):
         # Ensure that all geos have a row for all possible demographic values,
         # adding the missing values in with empty data.
         if demographic != "race_and_age":
-            all_dfs[key] = add_missing_demographic_values(all_dfs[key], geo, demographic)
+            all_dfs[key] = add_missing_demographic_values(
+                all_dfs[key], geo, demographic)
 
         # Standardize the column names and race/age/sex values.
         all_dfs[key] = standardize_data(all_dfs[key])
