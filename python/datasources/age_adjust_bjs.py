@@ -34,49 +34,52 @@ class AgeAdjustBjsIncarceration(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         table_names_to_dfs = {}
 
-        for geo in ['national']:
-            with_race_age = 'by_race_age_state'
-            with_race_age_df = gcs_to_bq_util.load_df_from_bigquery(
-                'bjs_incarceration_data', with_race_age, dtype={'state_fips': str})
+        with_race_age = 'by_race_age_state'
+        with_race_age_df = gcs_to_bq_util.load_df_from_bigquery(
+            'bjs_incarceration_data', with_race_age, dtype={'state_fips': str})
 
-            pop_df = gcs_to_bq_util.load_df_from_bigquery(
-                'census_pop_estimates', 'race_and_ethnicity', dtype={'state_fips': str})
+        print(with_race_age_df)
 
-            # Only get the prison data from states we have population data for
-            states_with_pop = set(
-                pop_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
-            with_race_age_df = with_race_age_df.loc[
-                with_race_age_df[std_col.STATE_FIPS_COL].isin(states_with_pop)
-            ].reset_index(drop=True)
+        pop_df = gcs_to_bq_util.load_df_from_bigquery(
+            'census_pop_estimates', 'race_and_ethnicity', dtype={'state_fips': str})
 
-            pop_df_prison = pop_df
+        print(pop_df)
 
-            with_race_age_df_prison = with_race_age_df.loc[
-                ~with_race_age_df["prison_estimated_total"].isna(
-                )]
-            states_to_include_prison = set(
-                with_race_age_df_prison[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
+        # Only get the prison data from states we have population data for
+        states_with_pop = set(
+            pop_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
+        with_race_age_df = with_race_age_df.loc[
+            with_race_age_df[std_col.STATE_FIPS_COL].isin(states_with_pop)
+        ].reset_index(drop=True)
 
-            pop_df_prison = census_pop_estimates.generate_national_pop_data(
-                pop_df, states_to_include_prison)
+        pop_df_prison = pop_df
 
-            # Clean with race age df
-            with_race_age_df = with_race_age_df.loc[
-                with_race_age_df[std_col.AGE_COL] != "Unknown"
-            ].reset_index(drop=True)
+        with_race_age_df_prison = with_race_age_df.loc[
+            ~with_race_age_df["prison_estimated_total"].isna(
+            )]
+        states_to_include_prison = set(
+            with_race_age_df_prison[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
 
-            with_race_age_df = with_race_age_df.loc[
-                with_race_age_df[std_col.RACE_CATEGORY_ID_COL].isin(
-                    AGE_ADJUST_RACES)
-            ].reset_index(drop=True)
+        pop_df_prison = census_pop_estimates.generate_national_pop_data(
+            pop_df, states_to_include_prison)
 
-            df = get_expected_prisoners(with_race_age_df, pop_df_prison)
-            age_adjusted_df = age_adjust_from_expected(df)
+        # Clean with race age df
+        with_race_age_df = with_race_age_df.loc[
+            with_race_age_df[std_col.AGE_COL] != "Unknown"
+        ].reset_index(drop=True)
 
-            only_race = f'by_race_{geo}_processed'
-            table_name = f'{only_race}-with_age_adjust'
+        with_race_age_df = with_race_age_df.loc[
+            with_race_age_df[std_col.RACE_CATEGORY_ID_COL].isin(
+                AGE_ADJUST_RACES)
+        ].reset_index(drop=True)
 
-            table_names_to_dfs[table_name] = age_adjusted_df
+        df = get_expected_prisoners(with_race_age_df, pop_df_prison)
+        age_adjusted_df = age_adjust_from_expected(df)
+
+        only_race = 'by_race_national_processed'
+        table_name = f'{only_race}-with_age_adjust'
+
+        table_names_to_dfs[table_name] = age_adjusted_df
 
         # For each of the files, we load it as a dataframe and add it as a
         # table in the BigQuery dataset. We expect that all aggregation and

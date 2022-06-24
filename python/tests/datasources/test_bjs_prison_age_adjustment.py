@@ -59,7 +59,7 @@ def testExpectedPrisoners():
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-def testAgeAdjust():
+def testBjsAgeAdjust():
     expected_prisoners_df = pd.read_json(
         EXPECTED_PRISONERS_JSON, dtype={'state_fips': str})
 
