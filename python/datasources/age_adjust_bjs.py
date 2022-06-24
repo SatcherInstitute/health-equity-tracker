@@ -52,7 +52,7 @@ class AgeAdjustBjsIncarceration(DataSource):
             pop_df_prison = pop_df
 
             with_race_age_df_prison = with_race_age_df.loc[
-                ~with_race_age_df["prison_not_sure_which_metric_this_is"].isna(
+                ~with_race_age_df["prison_estimated_total"].isna(
                 )]
             states_to_include_prison = set(
                 with_race_age_df_prison[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
@@ -131,7 +131,7 @@ def get_expected_prisoners(race_and_age_df, population_df):
                              row[std_col.RACE_CATEGORY_ID_COL])
 
         true_prison_rate = float(
-            row["prison_not_sure_which_metric_this_is"]) / this_pop_size
+            row["prison_estimated_total"]) / this_pop_size
 
         ref_pop_size = float(population_df.loc[
             (population_df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION) &
@@ -144,11 +144,11 @@ def get_expected_prisoners(race_and_age_df, population_df):
             raise ValueError(
                 'Population size for %s demographic is 0 or nil' % REFERENCE_POPULATION)
 
-        if not row["prison_not_sure_which_metric_this_is"]:
+        if not row["prison_estimated_total"]:
             return None
         else:
             true_prison_rate = float(
-                row["prison_not_sure_which_metric_this_is"]) / this_pop_size
+                row["prison_estimated_total"]) / this_pop_size
             return round(true_prison_rate * ref_pop_size, 2)
 
     df = race_and_age_df

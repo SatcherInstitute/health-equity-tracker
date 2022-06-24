@@ -9,7 +9,8 @@ from datasources.age_adjust_bjs import AgeAdjustBjsIncarceration
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "age_adjustment")
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data",
+                        "bjs_prison_age_adjustment")
 
 PRISON_DATA_SIMPLE = os.path.join(TEST_DIR, 'race_age_state_simple.json')
 
@@ -50,6 +51,11 @@ def testExpectedPrisoners():
     expected_df = pd.read_json(
         EXPECTED_PRISONERS_JSON, dtype={'state_fips': str})
 
+    print("generated df (expected prisoners)")
+    print(df.to_string())
+    print("expected df")
+    print(expected_df.to_string())
+
     assert_frame_equal(df, expected_df, check_like=True)
 
 
@@ -59,6 +65,11 @@ def testAgeAdjust():
 
     df = age_adjust.age_adjust_from_expected(expected_prisoners_df)
     expected_df = pd.read_json(AGE_ADJUST_JSON, dtype={'state_fips': str})
+
+    print("generated df (age-adjust)")
+    print(df.to_string())
+    print("expected df")
+    print(expected_df.to_string())
 
     assert_frame_equal(df, expected_df, check_like=True)
 
@@ -84,11 +95,16 @@ def testWriteToBqNational(mock_bq: mock.MagicMock, mock_df: mock.MagicMock):
               'table_name': 'output_table'}
 
     age_adjust.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-    assert mock_bq.call_count == 2
+    assert mock_bq.call_count == 1
 
     expected_df = pd.read_json(GOLDEN_INTEGRATION_DATA_NATIONAL, dtype={
         'state_fips': str,
     })
 
+    print("generated df (mock bq table)")
+    print(mock_bq.call_args_list[0].args[0].to_string())
+    print("expected df")
+    print(expected_df.to_string())
+
     assert_frame_equal(
-        mock_bq.call_args_list[1].args[0], expected_df, check_like=True)
+        mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
