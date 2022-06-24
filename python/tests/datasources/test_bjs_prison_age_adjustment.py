@@ -15,7 +15,7 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data",
 PRISON_DATA_SIMPLE = os.path.join(TEST_DIR, 'race_age_state_simple.json')
 
 EXPECTED_PRISONERS_JSON = os.path.join(TEST_DIR, "expected_prisoners.json")
-AGE_ADJUST_JSON = os.path.join(TEST_DIR, "age_adjusted.json")
+# AGE_ADJUST_JSON = os.path.join(TEST_DIR, "age_adjusted.json")
 
 GOLDEN_INTEGRATION_DATA_NATIONAL = os.path.join(
     TEST_DIR, 'bjs-by_race_national-with_age_adjust.json')
@@ -64,7 +64,8 @@ def testBjsAgeAdjust():
         EXPECTED_PRISONERS_JSON, dtype={'state_fips': str})
 
     df = age_adjust.age_adjust_from_expected(expected_prisoners_df)
-    expected_df = pd.read_json(AGE_ADJUST_JSON, dtype={'state_fips': str})
+    expected_df = pd.read_json(
+        GOLDEN_INTEGRATION_DATA_NATIONAL, dtype={'state_fips': str})
 
     print("generated df (age-adjust)")
     print(df.to_string())
