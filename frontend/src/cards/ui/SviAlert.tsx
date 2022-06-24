@@ -2,7 +2,6 @@ import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { Fips } from "../../data/utils/Fips";
-import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";
 import styles from "./SviAlert.module.scss";
 import { urlMap } from "../../utils/externalUrls";
 
