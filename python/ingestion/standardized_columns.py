@@ -31,6 +31,7 @@ COUNTY_NAME_COL = "county_name"
 POPULATION_COL = "population"
 INCOME_COL = "income"
 POPULATION_PCT_COL = "population_pct"
+SVI = "svi"
 
 ALL_VALUE = "All"
 
