@@ -51,19 +51,14 @@ class AgeAdjustBjsIncarceration(DataSource):
 
             pop_df_prison = pop_df
 
-            if geo == 'national':
-                with_race_age_df_prison = with_race_age_df.loc[
-                    ~with_race_age_df["prison_not_sure_which_metric_this_is"].isna(
-                    )]
-                states_to_include_prison = set(
-                    with_race_age_df_prison[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
+            with_race_age_df_prison = with_race_age_df.loc[
+                ~with_race_age_df["prison_not_sure_which_metric_this_is"].isna(
+                )]
+            states_to_include_prison = set(
+                with_race_age_df_prison[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
 
-                pop_df_prison = census_pop_estimates.generate_national_pop_data(
-                    pop_df, states_to_include_prison)
-
-                groupby_cols = list(std_col.RACE_COLUMNS) + [std_col.AGE_COL]
-                with_race_age_df = bjs_incarceration.generate_national_dataset(
-                    with_race_age_df, groupby_cols)
+            pop_df_prison = census_pop_estimates.generate_national_pop_data(
+                pop_df, states_to_include_prison)
 
             # Clean with race age df
             with_race_age_df = with_race_age_df.loc[
