@@ -107,6 +107,7 @@ WOMEN_US_CONGRESS_PCT_SHARE = "women_us_congress_pct_share"
 PRISON_PREFIX = "prison"
 JAIL_PREFIX = "jail"
 INCARCERATED_PREFIX = "incarcerated"
+PRISON_RATIO_AGE_ADJUSTED = "prison_ratio_age_adjusted"
 
 
 RaceTuple = namedtuple("RaceTuple", [
