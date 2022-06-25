@@ -32,18 +32,16 @@ class AgeAdjustBjsIncarceration(DataSource):
             'upload_to_gcs should not be called for AgeAdjustBjsIncarceration')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
+
+        print("\n\n")
         table_names_to_dfs = {}
 
         with_race_age = 'by_race_age_state'
         with_race_age_df = gcs_to_bq_util.load_df_from_bigquery(
             'bjs_incarceration_data', with_race_age, dtype={'state_fips': str})
 
-        print(with_race_age_df)
-
         pop_df = gcs_to_bq_util.load_df_from_bigquery(
             'census_pop_estimates', 'race_and_ethnicity', dtype={'state_fips': str})
-
-        print(pop_df)
 
         # Only get the prison data from states we have population data for
         states_with_pop = set(
@@ -122,19 +120,24 @@ def get_expected_prisoners(race_and_age_df, population_df):
        population_df: a dataframe with population broken down by race and age"""
 
     def get_expected_prison_rate(row):
-        this_pop_size = float(population_df.loc[
+        # print("** ROW IN POP DF? **")
+        # print(row)
+        # print(population_df.to_string())
+        this_pop_size_cell = population_df.loc[
             (population_df[std_col.RACE_CATEGORY_ID_COL] == row[std_col.RACE_CATEGORY_ID_COL]) &
             (population_df[std_col.AGE_COL] == row[std_col.AGE_COL]) &
             (population_df[std_col.STATE_FIPS_COL]
              == row[std_col.STATE_FIPS_COL])
-        ][std_col.POPULATION_COL].values[0])
+        ][std_col.POPULATION_COL]
 
-        if not this_pop_size:
+        if this_pop_size_cell.empty:
             raise ValueError('Population size for %s demographic is 0 or nil' %
                              row[std_col.RACE_CATEGORY_ID_COL])
 
+        this_pop_value = float(this_pop_size_cell.values[0])
+
         true_prison_rate = float(
-            row["prison_estimated_total"]) / this_pop_size
+            row["prison_estimated_total"]) / this_pop_value
 
         ref_pop_size = float(population_df.loc[
             (population_df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION) &
@@ -151,7 +154,7 @@ def get_expected_prisoners(race_and_age_df, population_df):
             return None
         else:
             true_prison_rate = float(
-                row["prison_estimated_total"]) / this_pop_size
+                row["prison_estimated_total"]) / this_pop_value
             return round(true_prison_rate * ref_pop_size, 2)
 
     df = race_and_age_df

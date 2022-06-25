@@ -22,14 +22,6 @@ def get_census_pop_estimates_as_df():
     return pd.read_csv(os.path.join(TEST_DIR, "census_pop_estimates.csv"), dtype={'state_fips': str})
 
 
-def get_bjs_by_race_age_state_as_df():
-    return pd.read_json(os.path.join(TEST_DIR, "bjs-race_age_state.json"), dtype={'state_fips': str})
-
-
-def get_bjs_by_race_state_as_df():
-    return pd.read_json(os.path.join(TEST_DIR, 'bjs_race_state.json'), dtype={'state_fips': str})
-
-
 def get_bjs_by_race_age_national_as_df():
     return pd.read_json(os.path.join(TEST_DIR, "bjs-race_age_national.json"), dtype={'state_fips': str})
 
@@ -79,12 +71,16 @@ def get_bjs_by_race_national_as_df():
             return_value=None)
 def testWriteToBqNational(mock_bq: mock.MagicMock, mock_df: mock.MagicMock):
     mock_df.side_effect = [
-        get_bjs_by_race_age_state_as_df(),
-        get_census_pop_estimates_as_df(),
-        get_bjs_by_race_state_as_df(),
-        get_bjs_by_race_age_state_as_df(),
+        get_bjs_by_race_age_national_as_df(),
         get_census_pop_estimates_as_df(),
     ]
+
+    # CDC Age-Adjustment SideEffects
+    # get_cdc_restricted_by_race_age_state_as_df(),
+    # get_census_pop_estimates_as_df(),
+    # get_cdc_restricted_by_race_state_as_df(),
+    # get_cdc_restricted_by_race_age_state_as_df(),
+    # get_census_pop_estimates_as_df(),
 
     age_adjust = AgeAdjustBjsIncarceration()
 
@@ -101,11 +97,11 @@ def testWriteToBqNational(mock_bq: mock.MagicMock, mock_df: mock.MagicMock):
 
     df = mock_bq.call_args_list[0].args[0]
 
-    print("generated df (mock bq table)")
-    print(df.to_string())
+    # print("generated df (mock bq table)")
+    # print(df.to_string())
 
-    print("expected df")
-    print(expected_df.to_string())
+    # print("expected df")
+    # print(expected_df.to_string())
 
     assert_frame_equal(
         df, expected_df, check_like=True)

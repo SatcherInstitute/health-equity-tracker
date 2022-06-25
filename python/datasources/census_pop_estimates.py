@@ -10,9 +10,32 @@ import pandas as pd  # type: ignore
 BASE_POPULATION_URL = ('https://www2.census.gov/programs-surveys/popest/'
                        'datasets/2010-2019/counties/asrh/cc-est2019-alldata.csv')
 
+
 RACES_MAP = {'NHWA': Race.WHITE_NH.value, 'NHBA': Race.BLACK_NH.value, 'NHIA': Race.AIAN_NH.value,
              'NHAA': Race.ASIAN_NH.value, 'NHNA': Race.NHPI_NH.value, 'H': Race.HISP.value,
              'ALL': Race.ALL.value}
+
+# TODO: Sum NHAA+NHNA to make API_NH; we really need MULTI+OTHER but ONLY HAVE MULTI as a census option?
+"""Responses
+of "Some Other Race" from the 2010 Census are modified. This results in differences between
+the population for specific race categories shown for the 2010 Census population in this file
+versus those in the original 2010 Census data.
+"""
+
+
+BJS_PRISON_AGES_MAP = {
+    'All': (0, ),
+    '20-24': (5, ),
+    '25-29': (6, ),
+    '30-34': (7, ),
+    '35-39': (8, ),
+    '40-44': (9, ),
+    '45-49': (10, ),
+    '50-54': (11, ),
+    '55-59': (12, ),
+    '60-64': (13, ),
+    '65+': (14, 15, 16, 17, 18),
+}
 
 
 AGES_MAP = {
@@ -88,7 +111,8 @@ def generate_state_pop_data(df):
         age_df[std_col.AGE_COL] = std_age
 
         for state_fips in age_df['STATE'].drop_duplicates().to_list():
-            state_name = age_df.loc[age_df['STATE'] == state_fips]['STNAME'].drop_duplicates().to_list()[0]
+            state_name = age_df.loc[age_df['STATE'] == state_fips]['STNAME'].drop_duplicates().to_list()[
+                0]
 
             for race in RACES_MAP.values():
                 pop_row = {}
@@ -126,7 +150,8 @@ def generate_national_pop_data(state_df, states_to_include):
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME
 
-    needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.POPULATION_COL, std_col.AGE_COL]
+    needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL,
+                   std_col.POPULATION_COL, std_col.AGE_COL]
     needed_cols.extend(std_col.RACE_COLUMNS)
 
     std_col.add_race_columns_from_category_id(df)

@@ -2,11 +2,20 @@
   {
     "state_fips": "00",
     "state_name": "United States",
+    "race_category_id": "AIAN_NH",
+    "race": "American Indian and Alaska Native",
+    "race_includes_hispanic": false,
+    "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+    "prison_ratio_age_adjusted": null
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
     "race_category_id": "BLACK_NH",
     "race": "Black or African American",
     "race_includes_hispanic": false,
     "race_and_ethnicity": "Black or African American (Non-Hispanic)",
-    "prison_ratio_age_adjusted": 0.6
+    "prison_ratio_age_adjusted": 3.6
   },
   {
     "state_fips": "00",
@@ -15,7 +24,7 @@
     "race": "Hispanic or Latino",
     "race_includes_hispanic": true,
     "race_and_ethnicity": "Hispanic or Latino",
-    "prison_ratio_age_adjusted": 3.3
+    "prison_ratio_age_adjusted": 30.2
   },
   {
     "state_fips": "00",
