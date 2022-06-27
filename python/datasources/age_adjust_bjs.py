@@ -100,11 +100,11 @@ class AgeAdjustBjsIncarceration(DataSource):
 
 
 def merge_age_adjusted(df, age_adjusted_df):
-    """Merges the age adjusted death rate into the standard COVID dataset.
-       Returns a dataframe with all needed COVID info for the frontend.
+    """Merges the age adjusted death rate into the standard dataset.
+       Returns a dataframe with all needed health topic info for the frontend.
 
-       df: a dataframe with covid date without age adjusted numbers
-       age_adjusted_df: a dataframe with age adjusted covid numbers"""
+       df: a dataframe with standard health topic data, but without age adjusted numbers
+       age_adjusted_df: a dataframe with standard data and age adjusted numbers"""
 
     merge_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
     merge_cols.extend(std_col.RACE_COLUMNS)
@@ -123,16 +123,7 @@ def get_expected_prisoners(race_and_age_df, population_df):
        race_and_age_df: a dataframe with number of people in prison broken down by race and age
        population_df: a dataframe with population broken down by race and age"""
 
-    # print("in get_exp")
-    # print("race age df")
-    # print(race_and_age_df)
-    # print("pop df")
-    # print(population_df)
-
     def get_expected_prison_rate(row):
-        # print("** ROW IN POP DF? **")
-        # print(row)
-        # print(population_df.to_string())
         this_pop_size_cell = population_df.loc[
             (population_df[std_col.RACE_CATEGORY_ID_COL] == row[std_col.RACE_CATEGORY_ID_COL]) &
             (population_df[std_col.AGE_COL] == row[std_col.AGE_COL]) &

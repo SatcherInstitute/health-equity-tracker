@@ -121,7 +121,7 @@ def merge_age_adjusted(df, age_adjusted_df):
     """Merges the age adjusted death rate into the standard COVID dataset.
        Returns a dataframe with all needed COVID info for the frontend.
 
-       df: a dataframe with covid date without age adjusted numbers
+       df: a dataframe with covid data without age adjusted numbers
        age_adjusted_df: a dataframe with age adjusted covid numbers"""
 
     merge_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]

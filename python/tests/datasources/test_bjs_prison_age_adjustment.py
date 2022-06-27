@@ -27,37 +27,29 @@ def get_bjs_by_race_age_national_as_df():
 
 
 # # "Unit" tests
-# def testExpectedPrisoners():
-#     incarceration_data = pd.read_json(
-#         PRISON_DATA_SIMPLE, dtype={'state_fips': str})
-#     pop_data = get_census_pop_estimates_as_df()
+def testExpectedPrisoners():
+    incarceration_data = pd.read_json(
+        PRISON_DATA_SIMPLE, dtype={'state_fips': str})
+    pop_data = get_census_pop_estimates_as_df()
 
-#     df = AgeAdjustBjsIncarceration.get_expected_prisoners(incarceration_data, pop_data)
-#     expected_df = pd.read_json(
-#         EXPECTED_PRISONERS_JSON, dtype={'state_fips': str})
+    df = AgeAdjustBjsIncarceration.get_expected_prisoners(
+        incarceration_data, pop_data)
+    expected_df = pd.read_json(
+        EXPECTED_PRISONERS_JSON, dtype={'state_fips': str})
 
-#     print("generated df (expected prisoners)")
-#     print(df.to_string())
-#     print("expected df")
-#     print(expected_df.to_string())
-
-#     assert_frame_equal(df, expected_df, check_like=True)
+    assert_frame_equal(df, expected_df, check_like=True)
 
 
-# def testBjsAgeAdjust():
-#     expected_prisoners_df = pd.read_json(
-#         EXPECTED_PRISONERS_JSON, dtype={'state_fips': str})
+def testBjsAgeAdjust():
+    expected_prisoners_df = pd.read_json(
+        EXPECTED_PRISONERS_JSON, dtype={'state_fips': str})
 
-#     df = AgeAdjustBjsIncarceration.age_adjust_from_expected(expected_prisoners_df)
-#     expected_df = pd.read_json(
-#         GOLDEN_INTEGRATION_DATA_NATIONAL, dtype={'state_fips': str})
+    df = AgeAdjustBjsIncarceration.age_adjust_from_expected(
+        expected_prisoners_df)
+    expected_df = pd.read_json(
+        GOLDEN_INTEGRATION_DATA_NATIONAL, dtype={'state_fips': str})
 
-#     print("generated df (age-adjust)")
-#     print(df.to_string())
-#     print("expected df")
-#     print(expected_df.to_string())
-
-#     assert_frame_equal(df, expected_df, check_like=True)
+    assert_frame_equal(df, expected_df, check_like=True)
 
 
 # Integration tests
@@ -88,12 +80,6 @@ def testWriteToBqNational(
     })
 
     df = mock_bq.call_args_list[0].args[0]
-
-    print("generated df (mock bq table)")
-    print(df[["race", "prison_ratio_age_adjusted"]].to_string())
-
-    print("expected df")
-    print(expected_df.to_string())
 
     assert_frame_equal(
         df, expected_df, check_like=True)
