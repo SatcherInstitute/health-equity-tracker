@@ -9,7 +9,8 @@ from datasources.age_adjust_cdc_restricted import AgeAdjustCDCRestricted
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "age_adjustment")
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data",
+                        "cdc_covid_age_adjustment")
 
 COVID_DATA_SIMPLE = os.path.join(TEST_DIR, 'race_age_state_simple.json')
 
