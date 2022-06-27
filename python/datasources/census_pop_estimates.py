@@ -80,10 +80,39 @@ YEAR_2019 = 12
 
 
 def total_race(row, race):
+    """
+    Combines the Male+Female values to create a complete race value
+
+    Parameters:
+        row: a row from a dataframe containing either a 'TOT_POP' column or a
+          male and female column for the race arg, e.g. ('H_MALE' and 'H_FEMALE')
+        race: string value for the currently calculated race in the Census format, e.g. 'H'
+
+    Returns:
+        A number value combining both male and female
+    """
     if race == 'ALL':
         return row['TOT_POP']
 
     return row['%s_MALE' % race] + row['%s_FEMALE' % race]
+
+
+def total_api(row):
+    """
+    Combines Asian + NHPI (incl male and female columns for each) into a single value
+    for API
+
+    Parameters:
+        row: a row from a dataframe containing columns 'M_NHNA' 'M_NHAA' 'F_NHNA' 'F_NHAA'
+
+    Returns:
+        a number value representing the combine male and female Asian + NHPI population
+    """
+
+    nhaa = total_race(row, 'NHAA')
+    nhna = total_race(row, 'NHNA')
+
+    return nhaa + nhna
 
 
 class CensusPopEstimates(DataSource):
@@ -139,11 +168,10 @@ def generate_state_pop_data(df, races_map, ages_map):
         needed_cols.append(races_map[race])
 
         if race == 'API':
-            df['NHAA'] = df.apply(total_race, axis=1, args=('NHAA', ))
-            df['NHNA'] = df.apply(total_race, axis=1, args=('NHNA', ))
-            df[races_map['API']] = df[['NHAA', 'NHNA']].sum(axis="columns")
+            df[races_map[race]] = df.apply(total_api, axis="columns")
         else:
-            df[races_map[race]] = df.apply(total_race, axis=1, args=(race, ))
+            df[races_map[race]] = df.apply(
+                total_race, axis="columns", args=(race, ))
 
     df = df[needed_cols]
     new_df = []
