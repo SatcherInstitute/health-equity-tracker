@@ -112,6 +112,19 @@ _expected_race_data_with_totals = [
     ['04', 'Arizona', 'ALL', '95'],
 ]
 
+_fake_data_missing_zeros = [
+    ['state_fips', 'state_name', 'race', 'population'],
+    ['1', 'Alabama', 'Asian alone', '66'],
+    ['1', 'Alabama', 'Some other race alone', '70'],
+    ['1', 'Alabama', 'Two or more races', '92'],
+    ['2', 'Alaska', 'Asian alone', '45'],
+    ['2', 'Alaska', 'Some other race alone', '11'],
+    ['2', 'Alaska', 'Two or more races', '60'],
+    ['4', 'Arizona', 'Asian alone', '23'],
+    ['4', 'Arizona', 'Some other race alone', '46'],
+    ['4', 'Arizona', 'Two or more races', '26'],
+]
+
 
 def testRatioRoundToNone():
     assert dataset_utils.ratio_round_to_None(1, 3) == 0.3
@@ -214,3 +227,15 @@ def testGeneratePer100kCol():
     expected_df['condition_per_100k'] = df['condition_per_100k'].astype(float)
 
     assert_frame_equal(expected_df, df, check_like=True)
+
+
+def test_ensure_leading_zeros():
+
+    df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_fake_data_missing_zeros)).reset_index(drop=True)
+    df = dataset_utils.ensure_leading_zeros(df, "state_fips", 2)
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_fake_race_data_without_totals)).reset_index(drop=True)
+
+    assert_frame_equal(df, expected_df, check_like=True)
