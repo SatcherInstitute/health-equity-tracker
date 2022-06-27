@@ -90,7 +90,7 @@ def testWriteToBqNational(
     df = mock_bq.call_args_list[0].args[0]
 
     print("generated df (mock bq table)")
-    print(df.to_string())
+    print(df[["race", "prison_ratio_age_adjusted"]].to_string())
 
     print("expected df")
     print(expected_df.to_string())
