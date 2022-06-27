@@ -1,5 +1,6 @@
 from unittest import mock
 import os
+from numpy import float64
 
 import pandas as pd
 from pandas._testing import assert_frame_equal
@@ -15,7 +16,7 @@ GOLDEN_DATA = os.path.join(
 
 
 def get_svi_as_df():
-    return pd.read_csv(os.path.join(TEST_DIR, 'cdc_svi_county_test.csv'), dtype=str)
+    return pd.read_csv(os.path.join(TEST_DIR, 'cdc_svi_county_test.csv'), dtype={"FIPS": str})
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
@@ -34,7 +35,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     expected_df = pd.read_csv(GOLDEN_DATA, dtype={
         'county_fips': str,
-        'svi': str,
+        
     })
     assert_frame_equal(
         mock_bq.call_args_list[0].args[0], expected_df, check_like=True)

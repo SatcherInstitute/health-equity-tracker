@@ -6,6 +6,8 @@ import ingestion.standardized_columns as std_col
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 
+# from ingestion.dataset_utils import merge_fips_codes
+
 # need to add merge_utils file, temporarily removed to pass test
 
 
@@ -36,10 +38,10 @@ class CDCSviCounty(DataSource):
             'upload_to_gcs should not be called for CDCSviCounty')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
+        # for geo in ['state', 'county']: 
         params = {"$limit": FILE_SIZE_LIMIT}
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_CDC_URL, dtype={COUNTY_FIPS_COL: str}, params=params)
-
 
 
         df = self.generate_for_bq(df)
@@ -53,18 +55,18 @@ class CDCSviCounty(DataSource):
 
     def generate_for_bq(self, df):
 
-
-
         df = df.rename(columns_to_standard, axis="columns")
+
+        # df = merge_fips_codes(df, geo == 'county')
+        # fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
+
 
         def update_county_name(x: str):
             return x.split(",")[0]
 
-        def round_svi(x: str):
-            x = float(x)
-            x = round(x,2)
-            x = str(x)
-            return x 
+        def round_svi(x):
+            return round(x,2)
+
  
         df["county_name"] = df["county_name"].apply(update_county_name)
         df["svi"] = df["svi"].apply(round_svi)
