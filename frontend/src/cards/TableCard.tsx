@@ -116,6 +116,10 @@ export function TableCard(props: TableCardProps) {
           data = data.filter((row: Row) => row[props.breakdownVar] !== ALL);
         }
 
+        const showMissingDataAlert =
+          queryResponse.shouldShowMissingDataMessage(normalMetricIds) ||
+          data.length <= 0;
+
         return (
           <>
             {isIncarceration && (
@@ -130,7 +134,7 @@ export function TableCard(props: TableCardProps) {
               </>
             )}
 
-            {queryResponse.shouldShowMissingDataMessage(normalMetricIds) && (
+            {showMissingDataAlert && (
               <CardContent>
                 <MissingDataAlert
                   dataName={props.variableConfig.variableFullDisplayName + " "}
@@ -167,7 +171,7 @@ export function TableCard(props: TableCardProps) {
                 </>
               )}
 
-            {!queryResponse.dataIsMissing() && (
+            {!queryResponse.dataIsMissing() && data.length > 0 && (
               <div className={styles.TableChart}>
                 <TableChart
                   data={data}
