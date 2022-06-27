@@ -87,7 +87,6 @@ def total_race(row, race):
         row: a row from a dataframe containing either a 'TOT_POP' column or a
           male and female column for the race arg, e.g. ('H_MALE' and 'H_FEMALE')
         race: string value for the currently calculated race in the Census format, e.g. 'H'
-
     Returns:
         A number value combining both male and female
     """
@@ -97,22 +96,24 @@ def total_race(row, race):
     return row['%s_MALE' % race] + row['%s_FEMALE' % race]
 
 
-def total_api(row):
+def total_race_combo(row, race_list):
     """
-    Combines Asian + NHPI (incl male and female columns for each) into a single value
-    for API
+    Combines all races in a list (incl male and female columns for each) into a single value
 
     Parameters:
-        row: a row from a dataframe containing columns 'M_NHNA' 'M_NHAA' 'F_NHNA' 'F_NHAA'
-
+        row: a row from a dataframe containing columns with {race}_MALE and {race}_FEMALE for
+            each race in race_list
+        race_list: a list of string for the race prefixes to combine
     Returns:
         a number value representing the combine male and female Asian + NHPI population
     """
 
-    nhaa = total_race(row, 'NHAA')
-    nhna = total_race(row, 'NHNA')
+    total = 0
 
-    return nhaa + nhna
+    for census_race_prefix in race_list:
+        total += total_race(row, census_race_prefix)
+
+    return total
 
 
 class CensusPopEstimates(DataSource):
@@ -168,7 +169,8 @@ def generate_state_pop_data(df, races_map, ages_map):
         needed_cols.append(races_map[race])
 
         if race == 'API':
-            df[races_map[race]] = df.apply(total_api, axis="columns")
+            df[races_map[race]] = df.apply(
+                total_race_combo, axis="columns", args=(["NHAA", "NHNA"], ))
         else:
             df[races_map[race]] = df.apply(
                 total_race, axis="columns", args=(race, ))
