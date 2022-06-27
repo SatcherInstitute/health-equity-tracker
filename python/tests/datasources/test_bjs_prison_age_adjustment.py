@@ -26,10 +26,6 @@ def get_bjs_by_race_age_national_as_df():
     return pd.read_json(os.path.join(TEST_DIR, "bjs-race_age_national.json"), dtype={'state_fips': str})
 
 
-def get_bjs_by_race_national_as_df():
-    return pd.read_json(os.path.join(TEST_DIR, 'bjs_race_national.json'), dtype={'state_fips': str})
-
-
 # # "Unit" tests
 # def testExpectedPrisoners():
 #     incarceration_data = pd.read_json(
@@ -69,7 +65,10 @@ def get_bjs_by_race_national_as_df():
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
-def testWriteToBqNational(mock_bq: mock.MagicMock, mock_df: mock.MagicMock):
+def testWriteToBqNational(
+    mock_bq: mock.MagicMock,
+    mock_df: mock.MagicMock
+):
     mock_df.side_effect = [
         get_bjs_by_race_age_national_as_df(),
         get_census_pop_estimates_as_df(),

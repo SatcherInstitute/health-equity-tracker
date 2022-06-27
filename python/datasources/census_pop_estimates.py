@@ -11,17 +11,49 @@ BASE_POPULATION_URL = ('https://www2.census.gov/programs-surveys/popest/'
                        'datasets/2010-2019/counties/asrh/cc-est2019-alldata.csv')
 
 
-RACES_MAP = {'NHWA': Race.WHITE_NH.value, 'NHBA': Race.BLACK_NH.value, 'NHIA': Race.AIAN_NH.value,
-             'NHAA': Race.ASIAN_NH.value, 'NHNA': Race.NHPI_NH.value, 'H': Race.HISP.value,
-             'ALL': Race.ALL.value}
+CDC_COVID_RACES_MAP = {
+    'NHWA': Race.WHITE_NH.value,
+    'NHBA': Race.BLACK_NH.value,
+    'NHIA': Race.AIAN_NH.value,
+    'NHAA': Race.ASIAN_NH.value,
+    'NHNA': Race.NHPI_NH.value,
+    'H': Race.HISP.value,
+    'ALL': Race.ALL.value
+}
 
-# TODO: Sum NHAA+NHNA to make API_NH; we really need MULTI+OTHER but ONLY HAVE MULTI as a census option?
-"""Responses
+BJS_PRISON_RACES_MAP = {
+    'NHWA': Race.WHITE_NH.value,
+    'NHBA': Race.BLACK_NH.value,
+    'NHIA': Race.AIAN_NH.value,
+    # NHAA+NHNA = API
+    'API': Race.API_NH.value,
+    'H': Race.HISP.value,
+    'TOM': Race.MULTI_NH.value,
+    'ALL': Race.ALL.value
+}
+
+
+"""
+TODO:  we really need MULTI+OTHER but ONLY HAVE MULTI as a census option?
+Responses
 of "Some Other Race" from the 2010 Census are modified. This results in differences between
 the population for specific race categories shown for the 2010 Census population in this file
 versus those in the original 2010 Census data.
 """
 
+
+CDC_COVID_AGES_MAP = {
+    'All': (0, ),
+    '0-9': (1, 2),
+    '10-19': (3, 4),
+    '20-29': (5, 6),
+    '30-39': (7, 8),
+    '40-49': (9, 10),
+    '50-59': (11, 12),
+    '60-69': (13, 14),
+    '70-79': (15, 16),
+    '80+': (17, 18)
+}
 
 BJS_PRISON_AGES_MAP = {
     'All': (0, ),
@@ -38,10 +70,11 @@ BJS_PRISON_AGES_MAP = {
 }
 
 
-AGES_MAP = {
-    'All': (0, ), '0-9': (1, 2), '10-19': (3, 4), '20-29': (5, 6),
-    '30-39': (7, 8), '40-49': (9, 10), '50-59': (11, 12),
-    '60-69': (13, 14), '70-79': (15, 16), '80+': (17, 18)}
+DATA_SOURCES = {
+    'cdc_covid': [CDC_COVID_RACES_MAP, CDC_COVID_AGES_MAP],
+    'bjs_prison': [BJS_PRISON_RACES_MAP, BJS_PRISON_AGES_MAP]
+}
+
 
 YEAR_2019 = 12
 
@@ -71,18 +104,22 @@ class CensusPopEstimates(DataSource):
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_POPULATION_URL, dtype={'STATE': str, 'COUNTY': str}, encoding="ISO-8859-1")
 
-        state_df = generate_state_pop_data(df)
+        for data_source, demographic_maps in DATA_SOURCES.items():
 
-        column_types = {c: 'STRING' for c in state_df.columns}
+            races_map, ages_map = demographic_maps
 
-        if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-            column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+            state_df = generate_state_pop_data(df, races_map, ages_map)
 
-        gcs_to_bq_util.add_df_to_bq(
-            state_df, dataset, "race_and_ethnicity", column_types=column_types)
+            column_types = {c: 'STRING' for c in state_df.columns}
+
+            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
+            gcs_to_bq_util.add_df_to_bq(
+                state_df, dataset, f'{data_source}_race_and_ethnicity', column_types=column_types)
 
 
-def generate_state_pop_data(df):
+def generate_state_pop_data(df, races_map, ages_map):
     """Generates the state level race and age population data for the latest
        year in the county population dataset.
        Returns a state level dataframe with age/race population numbers for the
@@ -98,14 +135,20 @@ def generate_state_pop_data(df):
 
     needed_cols = groupby_cols
 
-    for race in RACES_MAP:
-        needed_cols.append(RACES_MAP[race])
-        df[RACES_MAP[race]] = df.apply(total_race, axis=1, args=(race, ))
+    for race in races_map:
+        needed_cols.append(races_map[race])
+
+        if race == 'API':
+            df['NHAA'] = df.apply(total_race, axis=1, args=('NHAA', ))
+            df['NHNA'] = df.apply(total_race, axis=1, args=('NHNA', ))
+            df[races_map['API']] = df[['NHAA', 'NHNA']].sum(axis="columns")
+        else:
+            df[races_map[race]] = df.apply(total_race, axis=1, args=(race, ))
 
     df = df[needed_cols]
     new_df = []
 
-    for std_age, census_age in AGES_MAP.items():
+    for std_age, census_age in ages_map.items():
         age_df = df.loc[df['AGEGRP'].isin(census_age)]
         age_df = age_df.groupby(['STATE', 'STNAME']).sum().reset_index()
         age_df[std_col.AGE_COL] = std_age
@@ -114,7 +157,7 @@ def generate_state_pop_data(df):
             state_name = age_df.loc[age_df['STATE'] == state_fips]['STNAME'].drop_duplicates().to_list()[
                 0]
 
-            for race in RACES_MAP.values():
+            for race in races_map.values():
                 pop_row = {}
                 pop_row[std_col.STATE_FIPS_COL] = state_fips
                 pop_row[std_col.STATE_NAME_COL] = state_name
