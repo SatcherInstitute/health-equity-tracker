@@ -30,6 +30,29 @@ def get_pop_estimates_as_df():
     })
 
 
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
+            return_value=get_pop_estimates_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+            return_value=None)
+def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
+    censusPopEstimates = CensusPopEstimates()
+
+    kwargs = {'filename': 'test_file.csv',
+              'metadata_table_id': 'test_metadata',
+              'table_name': 'output_table'}
+
+    censusPopEstimates.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    assert mock_bq.call_count == 2
+    assert mock_csv.call_count == 1
+
+    expected_df = pd.read_csv(STATE_POP_DATA_CDC, dtype={
+        'state_fips': str,
+    })
+
+    assert_frame_equal(
+        mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
+
+
 def testGenerateCdcNationalPopData():
     state_df = pd.read_csv(STATE_POP_DATA_CDC, dtype={
         'state_fips': str,
