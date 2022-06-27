@@ -2,20 +2,28 @@ from unittest import mock
 import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
-from datasources.age_adjust_bjs import AgeAdjustBjsIncarceration
+from datasources.age_adjust_bjs import (
+    AgeAdjustBjsIncarceration,
+    get_expected_prisoners,
+    age_adjust_from_expected
+)
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data",
                         "bjs_prison_age_adjustment")
 
-PRISON_DATA_SIMPLE = os.path.join(TEST_DIR, 'race_age_state_simple.json')
+PRISON_DATA_SIMPLE = os.path.join(
+    TEST_DIR, 'test_input_race_age_state.json')
 
-EXPECTED_PRISONERS_JSON = os.path.join(TEST_DIR, "expected_prisoners.json")
-# AGE_ADJUST_JSON = os.path.join(TEST_DIR, "age_adjusted.json")
+EXPECTED_PRISONERS_JSON = os.path.join(
+    TEST_DIR, "test_output_expected_prisoners.json")
 
-GOLDEN_INTEGRATION_DATA_NATIONAL = os.path.join(
-    TEST_DIR, 'bjs-by_race_national-with_age_adjust.json')
+GOLDEN_DATA_NATIONAL_SAMPLE = os.path.join(
+    TEST_DIR, 'bjs-by_race_national-with_age_adjust_based_on_sample.json')
+
+GOLDEN_DATA_NATIONAL_ALL_STATES = os.path.join(
+    TEST_DIR, 'bjs-by_race_national-with_age_adjust_based_on_all_states.json')
 
 
 def get_census_pop_estimates_as_df():
@@ -32,7 +40,7 @@ def testExpectedPrisoners():
         PRISON_DATA_SIMPLE, dtype={'state_fips': str})
     pop_data = get_census_pop_estimates_as_df()
 
-    df = AgeAdjustBjsIncarceration.get_expected_prisoners(
+    df = get_expected_prisoners(
         incarceration_data, pop_data)
     expected_df = pd.read_json(
         EXPECTED_PRISONERS_JSON, dtype={'state_fips': str})
@@ -44,10 +52,10 @@ def testBjsAgeAdjust():
     expected_prisoners_df = pd.read_json(
         EXPECTED_PRISONERS_JSON, dtype={'state_fips': str})
 
-    df = AgeAdjustBjsIncarceration.age_adjust_from_expected(
+    df = age_adjust_from_expected(
         expected_prisoners_df)
     expected_df = pd.read_json(
-        GOLDEN_INTEGRATION_DATA_NATIONAL, dtype={'state_fips': str})
+        GOLDEN_DATA_NATIONAL_SAMPLE, dtype={'state_fips': str})
 
     assert_frame_equal(df, expected_df, check_like=True)
 
@@ -75,11 +83,14 @@ def testWriteToBqNational(
     age_adjust.write_to_bq('dataset', 'gcs_bucket', **kwargs)
     assert mock_bq.call_count == 1
 
-    expected_df = pd.read_json(GOLDEN_INTEGRATION_DATA_NATIONAL, dtype={
+    expected_df = pd.read_json(GOLDEN_DATA_NATIONAL_ALL_STATES, dtype={
         'state_fips': str,
     })
 
     df = mock_bq.call_args_list[0].args[0]
+
+    print(df.to_string())
+    print(expected_df.to_string())
 
     assert_frame_equal(
         df, expected_df, check_like=True)
