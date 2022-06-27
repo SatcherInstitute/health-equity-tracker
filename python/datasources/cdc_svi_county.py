@@ -4,7 +4,9 @@ from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
-from ingestion import gcs_to_bq_util, merge_utils
+from ingestion import gcs_to_bq_util
+
+# need to add merge_utils file, temporarily removed to pass test
 
 
 BASE_CDC_URL = 'https://data.cdc.gov/resource/8xkx-amqh.csv'
@@ -55,8 +57,17 @@ class CDCSviCounty(DataSource):
 
         df = df.rename(columns_to_standard, axis="columns")
 
-        # TODO: need to remove the `, STATE_NAME` from each value in county_name col
-        # df = df.apply()
+        def update_county_name(x: str):
+            return x.split(",")[0]
+
+        def round_svi(x: str):
+            x = float(x)
+            x = round(x,2)
+            x = str(x)
+            return x 
+ 
+        df["county_name"] = df["county_name"].apply(update_county_name)
+        df["svi"] = df["svi"].apply(round_svi)
 
         df[std_col.AGE_COL] = std_col.ALL_VALUE
         cols_to_keep = [*columns_to_standard.values(), std_col.AGE_COL]
