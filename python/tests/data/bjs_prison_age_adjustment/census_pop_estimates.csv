@@ -1,85 +1,78 @@
-state_fips,state_name,age,population,race_category_id,race,race_includes_hispanic,race_and_ethnicity
-00,United States,All,1600000,WHITE_NH,White,False,White (Non-Hispanic)
-00,United States,All,560000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
-00,United States,All,76000,HISP,Hispanic or Latino,True,Hispanic or Latino
-00,United States,All,1600000,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-00,United States,All,560000,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
-00,United States,All,76000,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
-00,United States,All,2236000,ALL,All,,All
-00,United States,"18-19",160000,WHITE_NH,White,False,White (Non-Hispanic)
-00,United States,"18-19",56000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
-00,United States,"18-19",7600,HISP,Hispanic or Latino,True,Hispanic or Latino
-00,United States,"18-19",160000,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-00,United States,"18-19",56000,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
-00,United States,"18-19",7600,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
-00,United States,"18-19",223600,ALL,All,,All
-00,United States,"20-24",160000,WHITE_NH,White,False,White (Non-Hispanic)
-00,United States,"20-24",56000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
-00,United States,"20-24",7600,HISP,Hispanic or Latino,True,Hispanic or Latino
-00,United States,"20-24",160000,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-00,United States,"20-24",56000,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
-00,United States,"20-24",7600,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
-00,United States,"20-24",223600,ALL,All,,All
-00,United States,"25-29",160000,WHITE_NH,White,False,White (Non-Hispanic)
-00,United States,"25-29",56000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
-00,United States,"25-29",7600,HISP,Hispanic or Latino,True,Hispanic or Latino
-00,United States,"25-29",160000,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-00,United States,"25-29",56000,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
-00,United States,"25-29",7600,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
-00,United States,"25-29",223600,ALL,All,,All
-00,United States,"30-34",160000,WHITE_NH,White,False,White (Non-Hispanic)
-00,United States,"30-34",56000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
-00,United States,"30-34",7600,HISP,Hispanic or Latino,True,Hispanic or Latino
-00,United States,"30-34",160000,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-00,United States,"30-34",56000,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
-00,United States,"30-34",7600,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
-00,United States,"30-34",223600,ALL,All,,All
-00,United States,"35-39",160000,WHITE_NH,White,False,White (Non-Hispanic)
-00,United States,"35-39",56000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
-00,United States,"35-39",7600,HISP,Hispanic or Latino,True,Hispanic or Latino
-00,United States,"35-39",160000,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-00,United States,"35-39",56000,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
-00,United States,"35-39",7600,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
-00,United States,"35-39",223600,ALL,All,,All
-00,United States,"40-44",160000,WHITE_NH,White,False,White (Non-Hispanic)
-00,United States,"40-44",56000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
-00,United States,"40-44",7600,HISP,Hispanic or Latino,True,Hispanic or Latino
-00,United States,"40-44",160000,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-00,United States,"40-44",56000,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
-00,United States,"40-44",7600,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
-00,United States,"40-44",223600,ALL,All,,All
-00,United States,"45-49",160000,WHITE_NH,White,False,White (Non-Hispanic)
-00,United States,"45-49",56000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
-00,United States,"45-49",7600,HISP,Hispanic or Latino,True,Hispanic or Latino
-00,United States,"45-49",160000,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-00,United States,"45-49",56000,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
-00,United States,"45-49",7600,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
-00,United States,"45-49",223600,ALL,All,,All
-00,United States,"50-54",160000,WHITE_NH,White,False,White (Non-Hispanic)
-00,United States,"50-54",56000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
-00,United States,"50-54",7600,HISP,Hispanic or Latino,True,Hispanic or Latino
-00,United States,"50-54",160000,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-00,United States,"50-54",56000,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
-00,United States,"50-54",7600,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
-00,United States,"50-54",223600,ALL,All,,All
-00,United States,"55-59",160000,WHITE_NH,White,False,White (Non-Hispanic)
-00,United States,"55-59",56000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
-00,United States,"55-59",7600,HISP,Hispanic or Latino,True,Hispanic or Latino
-00,United States,"55-59",160000,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-00,United States,"55-59",56000,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
-00,United States,"55-59",7600,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
-00,United States,"55-59",223600,ALL,All,,All
-00,United States,"60-64",160000,WHITE_NH,White,False,White (Non-Hispanic)
-00,United States,"60-64",56000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
-00,United States,"60-64",7600,HISP,Hispanic or Latino,True,Hispanic or Latino
-00,United States,"60-64",160000,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-00,United States,"60-64",56000,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
-00,United States,"60-64",7600,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
-00,United States,"60-64",223600,ALL,All,,All
-00,United States,"65+",160000,WHITE_NH,White,False,White (Non-Hispanic)
-00,United States,"65+",56000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
-00,United States,"65+",7600,HISP,Hispanic or Latino,True,Hispanic or Latino
-00,United States,"65+",160000,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-00,United States,"65+",56000,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
-00,United States,"65+",7600,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
-00,United States,"65+",223600,ALL,All,,All
+state_fips,state_name,population,age,race_category_id,race,race_includes_hispanic,race_and_ethnicity
+00,United States,181686,20-24,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+00,United States,21632940,20-24,ALL,All,,All
+00,United States,1299389,20-24,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+00,United States,3060213,20-24,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,4844542,20-24,HISP,Hispanic or Latino,True,Hispanic or Latino
+00,United States,837526,20-24,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+00,United States,11574506,20-24,WHITE_NH,White,False,White (Non-Hispanic)
+00,United States,200776,25-29,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+00,United States,23509016,25-29,ALL,All,,All
+00,United States,1625930,25-29,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+00,United States,3493114,25-29,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,4939078,25-29,HISP,Hispanic or Latino,True,Hispanic or Latino
+00,United States,734840,25-29,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+00,United States,12665969,25-29,WHITE_NH,White,False,White (Non-Hispanic)
+00,United States,175046,30-34,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+00,United States,22431305,30-34,ALL,All,,All
+00,United States,1713390,30-34,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+00,United States,3026581,30-34,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,4586185,30-34,HISP,Hispanic or Latino,True,Hispanic or Latino
+00,United States,569107,30-34,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+00,United States,12488443,30-34,WHITE_NH,White,False,White (Non-Hispanic)
+00,United States,159155,35-39,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+00,United States,21737521,35-39,ALL,All,,All
+00,United States,1649762,35-39,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+00,United States,2783964,35-39,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,4509927,35-39,HISP,Hispanic or Latino,True,Hispanic or Latino
+00,United States,495437,35-39,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+00,United States,12257885,35-39,WHITE_NH,White,False,White (Non-Hispanic)
+00,United States,142290,40-44,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+00,United States,19921623,40-44,ALL,All,,All
+00,United States,1485881,40-44,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+00,United States,2533979,40-44,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,4146558,40-44,HISP,Hispanic or Latino,True,Hispanic or Latino
+00,United States,410169,40-44,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+00,United States,11304550,40-44,WHITE_NH,White,False,White (Non-Hispanic)
+00,United States,142567,45-49,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+00,United States,20397751,45-49,ALL,All,,All
+00,United States,1448602,45-49,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+00,United States,2566124,45-49,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,3815729,45-49,HISP,Hispanic or Latino,True,Hispanic or Latino
+00,United States,355161,45-49,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+00,United States,12149412,45-49,WHITE_NH,White,False,White (Non-Hispanic)
+00,United States,145125,50-54,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+00,United States,20477151,50-54,ALL,All,,All
+00,United States,1236141,50-54,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+00,United States,2537690,50-54,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,3312479,50-54,HISP,Hispanic or Latino,True,Hispanic or Latino
+00,United States,303752,50-54,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+00,United States,13007754,50-54,WHITE_NH,White,False,White (Non-Hispanic)
+00,United States,157082,55-59,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+00,United States,21877391,55-59,ALL,All,,All
+00,United States,1151501,55-59,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+00,United States,2612639,55-59,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,2848574,55-59,HISP,Hispanic or Latino,True,Hispanic or Latino
+00,United States,291241,55-59,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+00,United States,14872649,55-59,WHITE_NH,White,False,White (Non-Hispanic)
+00,United States,141109,60-64,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+00,United States,20571146,60-64,ALL,All,,All
+00,United States,1031964,60-64,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+00,United States,2340884,60-64,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,2228354,60-64,HISP,Hispanic or Latino,True,Hispanic or Latino
+00,United States,247443,60-64,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+00,United States,14624720,60-64,WHITE_NH,White,False,White (Non-Hispanic)
+00,United States,301418,65+,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+00,United States,54058263,65+,ALL,All,,All
+00,United States,2553331,65+,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+00,United States,4979133,65+,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,4638966,65+,HISP,Hispanic or Latino,True,Hispanic or Latino
+00,United States,503954,65+,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+00,United States,41156394,65+,WHITE_NH,White,False,White (Non-Hispanic)
+00,United States,2434908,All,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+00,United States,328239523,All,ALL,All,,All
+00,United States,19501787,All,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+00,United States,41147488,All,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,60572237,All,HISP,Hispanic or Latino,True,Hispanic or Latino
+00,United States,9142356,All,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+00,United States,197309822,All,WHITE_NH,White,False,White (Non-Hispanic)

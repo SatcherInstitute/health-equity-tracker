@@ -74,13 +74,6 @@ def testWriteToBqNational(
         get_census_pop_estimates_as_df(),
     ]
 
-    # CDC Age-Adjustment SideEffects
-    # get_cdc_restricted_by_race_age_state_as_df(),
-    # get_census_pop_estimates_as_df(),
-    # get_cdc_restricted_by_race_state_as_df(),
-    # get_cdc_restricted_by_race_age_state_as_df(),
-    # get_census_pop_estimates_as_df(),
-
     age_adjust = AgeAdjustBjsIncarceration()
 
     kwargs = {'filename': 'test_file.csv',
@@ -96,48 +89,11 @@ def testWriteToBqNational(
 
     df = mock_bq.call_args_list[0].args[0]
 
-    # print("generated df (mock bq table)")
-    # print(df.to_string())
+    print("generated df (mock bq table)")
+    print(df.to_string())
 
-    # print("expected df")
-    # print(expected_df.to_string())
+    print("expected df")
+    print(expected_df.to_string())
 
     assert_frame_equal(
         df, expected_df, check_like=True)
-
-
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#             return_value=None)
-# def testFullLocalJsonNational(mock_bq: mock.MagicMock):
-#     # mock_df.side_effect = [
-#     #     get_bjs_by_race_age_state_as_df(),
-#     #     get_census_pop_estimates_as_df(),
-#     #     get_bjs_by_race_state_as_df(),
-#     #     get_bjs_by_race_age_state_as_df(),
-#     #     get_census_pop_estimates_as_df(),
-#     # ]
-
-#     age_adjust = AgeAdjustBjsIncarceration()
-
-#     kwargs = {'filename': 'test_file.csv',
-#               'metadata_table_id': 'test_metadata',
-#               'table_name': 'output_table'}
-
-#     age_adjust.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-#     assert mock_bq.call_count == 1
-
-#     expected_df = pd.read_json(GOLDEN_INTEGRATION_DATA_NATIONAL, dtype={
-#         'state_fips': str,
-#     })
-
-#     df = mock_bq.call_args_list[0].args[0]
-
-#     print("generated df (mock bq table)")
-#     print(df.to_string())
-#     df.to_json("age-adjust-bjs-results.json", orient="records")
-
-#     print("expected df")
-#     print(expected_df.to_string())
-
-#     # assert_frame_equal(
-#     #     df, expected_df, check_like=True)

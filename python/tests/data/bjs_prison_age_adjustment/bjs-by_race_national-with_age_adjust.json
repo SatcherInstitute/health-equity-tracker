@@ -6,7 +6,16 @@
     "race": "American Indian and Alaska Native",
     "race_includes_hispanic": false,
     "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
-    "prison_ratio_age_adjusted": null
+    "prison_ratio_age_adjusted": 5.1
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "race_category_id": "API_NH",
+    "race": "Asian, Native Hawaiian, and Pacific Islander",
+    "race_includes_hispanic": false,
+    "race_and_ethnicity": "Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)",
+    "prison_ratio_age_adjusted": 0.5
   },
   {
     "state_fips": "00",
@@ -15,7 +24,7 @@
     "race": "Black or African American",
     "race_includes_hispanic": false,
     "race_and_ethnicity": "Black or African American (Non-Hispanic)",
-    "prison_ratio_age_adjusted": 3.6
+    "prison_ratio_age_adjusted": 5.7
   },
   {
     "state_fips": "00",
@@ -24,7 +33,7 @@
     "race": "Hispanic or Latino",
     "race_includes_hispanic": true,
     "race_and_ethnicity": "Hispanic or Latino",
-    "prison_ratio_age_adjusted": 30.2
+    "prison_ratio_age_adjusted": 4.5
   },
   {
     "state_fips": "00",

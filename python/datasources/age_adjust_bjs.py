@@ -2,9 +2,7 @@ import ingestion.standardized_columns as std_col
 import pandas as pd  # type: ignore
 
 import datasources.census_pop_estimates as census_pop_estimates
-import datasources.bjs_incarceration as bjs_incarceration
-
-# from datasources.bjs_incarceration import get_col_types
+from datasources.census_pop_estimates import BJS_PRISON_RACES_MAP, BJS_PRISON_AGES_MAP
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
@@ -12,9 +10,6 @@ from ingestion import dataset_utils
 
 REFERENCE_POPULATION = std_col.Race.ALL.value
 BASE_POPULATION = std_col.Race.WHITE_NH.value
-
-AGE_ADJUST_RACES = {std_col.Race.WHITE_NH.value, std_col.Race.BLACK_NH.value, std_col.Race.HISP.value,
-                    std_col.Race.AIAN_NH.value, std_col.Race.NHPI_NH.value, std_col.Race.ASIAN_NH.value}
 
 
 class AgeAdjustBjsIncarceration(DataSource):
@@ -66,9 +61,18 @@ class AgeAdjustBjsIncarceration(DataSource):
             with_race_age_df[std_col.AGE_COL] != "Unknown"
         ].reset_index(drop=True)
 
+        # remove rows with races we dont have pop. info for
         with_race_age_df = with_race_age_df.loc[
             with_race_age_df[std_col.RACE_CATEGORY_ID_COL].isin(
-                AGE_ADJUST_RACES)
+                BJS_PRISON_RACES_MAP.values()
+            )
+        ].reset_index(drop=True)
+
+        # remove rows with age groups we dont have pop. info for
+        with_race_age_df = with_race_age_df.loc[
+            with_race_age_df[std_col.AGE_COL].isin(
+                BJS_PRISON_AGES_MAP.keys()
+            )
         ].reset_index(drop=True)
 
         df = get_expected_prisoners(with_race_age_df, pop_df_prison)
@@ -118,6 +122,12 @@ def get_expected_prisoners(race_and_age_df, population_df):
 
        race_and_age_df: a dataframe with number of people in prison broken down by race and age
        population_df: a dataframe with population broken down by race and age"""
+
+    # print("in get_exp")
+    # print("race age df")
+    # print(race_and_age_df)
+    # print("pop df")
+    # print(population_df)
 
     def get_expected_prison_rate(row):
         # print("** ROW IN POP DF? **")
