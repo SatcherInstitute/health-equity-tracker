@@ -36,7 +36,8 @@ GOLDEN_DATA = {
 }
 
 
-GOLDEN_DATA_NATIONAL = os.path.join(TEST_DIR, "cdc_restricted_by_race_and_age_national.csv")
+GOLDEN_DATA_NATIONAL = os.path.join(
+    TEST_DIR, "cdc_restricted_by_race_and_age_national.csv")
 
 
 def testKeyMap():
@@ -54,7 +55,8 @@ def testKeyMap():
 
 def run_test(key):
     dfs = cdc.process_data(TEST_DIR, TEST_DATA)
-    expected_df = pd.read_csv(GOLDEN_DATA[key], dtype=str, keep_default_na=False)
+    expected_df = pd.read_csv(
+        GOLDEN_DATA[key], dtype=str, keep_default_na=False)
 
     assert set(dfs[key].columns) == set(expected_df.columns)
     assert_frame_equal(dfs[key], expected_df, check_like=True)
@@ -100,7 +102,8 @@ def testGenerateNationalDataset():
     race_age_state_df = pd.read_csv(race_age_state, keep_default_na=False)
 
     groupby_cols = list(std_col.RACE_COLUMNS) + [std_col.AGE_COL]
-    national_df = cdc.generate_national_dataset(race_age_state_df, groupby_cols)
+    national_df = cdc.generate_national_dataset(
+        race_age_state_df, groupby_cols)
     expected_df = pd.read_csv(GOLDEN_DATA_NATIONAL, dtype={
         std_col.STATE_FIPS_COL: str,
         std_col.COVID_CASES: int,
@@ -109,7 +112,7 @@ def testGenerateNationalDataset():
     assert_frame_equal(expected_df, national_df, check_like=True)
 
 
-def test_combine_race_ethicity():
+def test_combine_race_ethnicity():
     _fake_race_eth_data = [
         ['ethnicity', 'race'],
 
@@ -190,11 +193,11 @@ def test_combine_race_ethicity():
         [std_col.Race.UNKNOWN.value],
     ]
 
-    df = gcs_to_bq_util.values_json_to_df(
-            json.dumps(_fake_race_eth_data), dtype=str).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(json.dumps(
+        _fake_race_eth_data), dtype=str).reset_index(drop=True)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-            json.dumps(_expected_race_eth_combined_data), dtype=str).reset_index(drop=True)
+        json.dumps(_expected_race_eth_combined_data), dtype=str).reset_index(drop=True)
 
     df = cdc.combine_race_eth(df)
 
