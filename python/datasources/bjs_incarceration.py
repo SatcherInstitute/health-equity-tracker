@@ -7,7 +7,7 @@ from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, Sex
 from ingestion.dataset_utils import (generate_per_100k_col,
                                      generate_pct_share_col_with_unknowns,
                                      generate_pct_share_col_without_unknowns)
-from ingestion.merge_utils import merge_fips_codes, merge_pop_numbers
+from ingestion.merge_utils import merge_state_fips_codes, merge_pop_numbers
 from ingestion.bjs_utils import (standardize_table_2_df,
                                  standardize_table_10_df,
                                  standardize_table_13_df,
@@ -182,7 +182,7 @@ def generate_raw_national_age_breakdown(table_list):
                               != 'Number of sentenced prisoners']
 
     # standardize df_prison with ADULT RAW # / AGE / USA
-    df_prison = merge_fips_codes(df_prison)
+    df_prison = merge_state_fips_codes(df_prison)
     df_prison = merge_pop_numbers(
         df_prison, std_col.AGE_COL, NATIONAL_LEVEL)
 
@@ -226,7 +226,7 @@ def post_process(df, breakdown, geo, children_tables):
         all_val = std_col.ALL_VALUE
         group_col = breakdown
 
-    df = merge_fips_codes(df)
+    df = merge_state_fips_codes(df)
     df = merge_pop_numbers(
         df, pop_breakdown, geo)
 

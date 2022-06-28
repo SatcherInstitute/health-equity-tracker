@@ -4,27 +4,56 @@ import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
 
 
-def merge_fips_codes(df, county_level=False):
+def merge_county_names(df):
+    """Merges standardized county names by county FIPS code found in the `census_utility`
+     big query public dataset into an existing county level dataframe. Any existing
+    'county_name' data in the incoming df will be overwritten.
+
+    Parameters:
+        df: county-level dataframe with a 'county_fips' column containing 5-digit FIPS code strings
+    Returns:
+        The same df with 'county_name' column filled with standardized county names
+          """
+
+    if std_col.COUNTY_FIPS_COL not in df.columns:
+        raise ValueError(
+            'Dataframe must be a county-level table with a `county_fips` column containing 5 digit FIPS strings.' +
+            f'This dataframe only contains these columns: {list(df.columns)}')
+
+    all_county_names = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
+        'census_utility', 'fips_codes_all', dtype={'state_fips_code': str, 'county_fips_code': str})
+    all_county_names = all_county_names.loc[all_county_names['summary_level_name'] == 'state-county']
+
+    all_county_names = all_county_names[['county_fips_code', 'area_name']]
+    all_county_names = all_county_names.rename(
+        columns={
+            'county_fips_code': std_col.COUNTY_FIPS_COL,
+            'area_name': std_col.COUNTY_NAME_COL,
+        })
+
+    df = df.drop(columns=std_col.COUNTY_NAME_COL)
+    df = pd.merge(df, all_county_names, how='left',
+                  on=std_col.COUNTY_FIPS_COL).reset_index(drop=True)
+
+    return df
+
+
+def merge_state_fips_codes(df):
     """Merges in the `state_fips` column into a dataframe, based on the
-       `census_utility` big query public dataset.
+       `census_utility` big query public dataset. Used when the source contains
+       state names or postal codes but not state FIPS codes
 
-       df: dataframe to merge fips codes into, with a `state_name` or `state_postal` column"""
+    Parameters:
+       df: dataframe to merge fips codes into, with a `state_name` or`state_postal`
+    Returns:
+        the same df with a 'state_fips' column containing 2-digit string FIPS codes
+    """
 
-    if county_level:
-        all_county_names = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
-            'census_utility', 'fips_codes_all', dtype={'state_fips_code': str, 'county_fips_code': str})
-        all_county_names = all_county_names.loc[all_county_names['summary_level_name'] == 'state-county']
-
-        all_county_names = all_county_names[['county_fips_code', 'area_name']]
-        all_county_names = all_county_names.rename(
-            columns={
-                'county_fips_code': std_col.COUNTY_FIPS_COL,
-                'area_name': std_col.COUNTY_NAME_COL,
-            })
-
-        df = df.drop(columns=std_col.COUNTY_NAME_COL)
-        df = pd.merge(df, all_county_names, how='left',
-                      on=std_col.COUNTY_FIPS_COL).reset_index(drop=True)
+    if std_col.STATE_NAME_COL not in df.columns and std_col.STATE_POSTAL_COL not in df.columns:
+        raise ValueError(
+            'Dataframe must be a state-level table with a `state_name` or `state_postal`' +
+            'column containing 2 digit FIPS strings.' +
+            f'This dataframe only contains these columns: {list(df.columns)}')
 
     all_fips_codes_df = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
         'census_utility', 'fips_codes_states', dtype={'state_fips_code': str})

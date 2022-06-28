@@ -26,7 +26,7 @@ def __create_bq_load_job_config(frame, column_types, col_modes, overwrite):
     """
     Creates a job to write the given data frame into BigQuery.
 
-    Paramenters:
+    Parameters:
         frame: A pd.DataFrame representing the data for the job.
         column_types: Optional dict of column name to BigQuery data type.
         col_modes: Optional dict of modes for each field.
