@@ -6,6 +6,7 @@ from ingestion.dataset_utils import (
     generate_pct_share_col_without_unknowns,
     ensure_leading_zeros
 )
+from ingestion.merge_utils import merge_county_names
 from ingestion.constants import Sex
 import ingestion.standardized_columns as std_col
 from functools import reduce
@@ -248,6 +249,7 @@ class VeraIncarcerationCounty(DataSource):
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_VERA_URL, dtype=VERA_COL_TYPES)
         df = ensure_leading_zeros(df, "fips", 5)
+
         datatypes_to_df_map = split_df_by_data_type(df)
         bq_column_types = {c: 'STRING' for c in df.columns}
 
@@ -329,6 +331,8 @@ class VeraIncarcerationCounty(DataSource):
 
         breakdown_df = breakdown_df.drop(
             columns=cols_to_drop)
+
+        breakdown_df = merge_county_names(breakdown_df)
 
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(breakdown_df)
