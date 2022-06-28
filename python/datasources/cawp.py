@@ -5,7 +5,7 @@ import ingestion.standardized_columns as std_col
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, constants
 from ingestion.dataset_utils import percent_avoid_rounding_to_zero
-from ingestion.merge_utils import merge_fips_codes, merge_pop_numbers
+from ingestion.merge_utils import merge_state_fips_codes, merge_pop_numbers
 
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
 
@@ -252,7 +252,7 @@ class CAWPData(DataSource):
                                                    df_state_leg_totals,
                                                    df_line_items, geo_level)
 
-            breakdown_df = merge_fips_codes(breakdown_df)
+            breakdown_df = merge_state_fips_codes(breakdown_df)
             breakdown_df = merge_pop_numbers(
                 breakdown_df, std_col.RACE_COL, geo_level)
             breakdown_df = breakdown_df.drop(columns=[std_col.POPULATION_COL])
