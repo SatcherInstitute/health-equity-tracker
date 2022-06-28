@@ -245,8 +245,6 @@ class VeraIncarcerationCounty(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        # TODO need to update naming scheme to be `vera_jail_data-age_county`
-
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_VERA_URL, dtype=VERA_COL_TYPES)
         df = ensure_leading_zeros(df, "fips", 5)
