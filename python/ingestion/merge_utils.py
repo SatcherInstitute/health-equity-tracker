@@ -12,7 +12,7 @@ def merge_county_names(df):
     Parameters:
         df: county-level dataframe with a 'county_fips' column containing 5-digit FIPS code strings
     Returns:
-        The same df with an updated 'county_name' column filled with standardized county names
+        The same df with 'county_name' column filled with standardized county names
           """
 
     if std_col.COUNTY_FIPS_COL not in df.columns:
