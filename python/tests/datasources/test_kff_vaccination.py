@@ -19,7 +19,7 @@ def get_github_file_list_as_df():
     return pd.read_json(os.path.join(TEST_DIR, 'github_file_list.json'))
 
 
-def get_perecentage_of_race_test_data_as_df():
+def get_percentage_of_race_test_data_as_df():
     return pd.read_csv(os.path.join(TEST_DIR, 'kff_vaccination_percentage_of_race_test.csv'))
 
 
@@ -58,7 +58,7 @@ def testWriteToBq(
         mock_csv: mock.MagicMock,
         mock_csv_web: mock.MagicMock):
     mock_csv.side_effect = [
-        get_perecentage_of_race_test_data_as_df(),
+        get_percentage_of_race_test_data_as_df(),
         get_pct_share_race_test_data_as_df(),
         get_population_numbers_as_df(),
     ]
