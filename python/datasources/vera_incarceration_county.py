@@ -42,7 +42,8 @@ JAIL_RATE_ALL = "total_jail_pop_rate"
 POP_ALL = "total_pop_15to64"
 
 BASE_VERA_URL = 'https://github.com/vera-institute/incarceration_trends/blob/master/incarceration_trends.csv?raw=true'
-
+LATEST_JAIL_YEAR = 2018
+LATEST_PRISON_YEAR = 2016
 
 RACE_POP_TO_STANDARD = {
     "aapi_pop_15to64": Race.API_NH.value,
@@ -166,7 +167,7 @@ def split_df_by_data_type(df):
     Parameters:
         df: pandas df containing the entire Vera csv file. Must contain columns:
         | "fips" | with values as 5 digit FIPS codes. Missing leading zeros will be added
-        | "year" | Rows with 2016 will be used for prison; 2018 for jail
+        | "year" | Rows with latest PRISON year will be used for prison; latest JAIL year for jail
         All other columns containing geographic info, population info, and data
 
     Returns:
@@ -178,10 +179,11 @@ def split_df_by_data_type(df):
     df_prison = df.copy()
 
     # eliminate rows with unneeded years
-    df_jail = df_jail[df_jail["year"] == 2018].reset_index(drop=True)
+    df_jail = df_jail[df_jail["year"] ==
+                      LATEST_JAIL_YEAR].reset_index(drop=True)
     df_juvenile_by_sex = df_jail.copy()
     df_prison = df_prison[df_prison["year"]
-                          == 2016].reset_index(drop=True)
+                          == LATEST_PRISON_YEAR].reset_index(drop=True)
 
     # eliminate columns with unneeded properties
     df_prison = df_prison[[*GEO_COLS_TO_STANDARD.keys(),

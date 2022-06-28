@@ -22,8 +22,8 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data",
 
 
 FAKE_SPLIT_DF_DATA = {
-    'prison': os.path.join(TEST_DIR, 'test_input_prison_df.csv'),
-    'jail': os.path.join(TEST_DIR, 'test_input_jail_df.csv'),
+    PRISON: os.path.join(TEST_DIR, 'test_input_prison_df.csv'),
+    JAIL: os.path.join(TEST_DIR, 'test_input_jail_df.csv'),
     CHILDREN: os.path.join(TEST_DIR, 'test_input_children_df.csv'),
 }
 
@@ -135,10 +135,10 @@ fake_children_dtype = {
 }
 
 _fake_prison_df = pd.read_csv(
-    FAKE_SPLIT_DF_DATA['prison'], dtype=fake_prison_dtype)
+    FAKE_SPLIT_DF_DATA[PRISON], dtype=fake_prison_dtype)
 
 _fake_jail_df = pd.read_csv(
-    FAKE_SPLIT_DF_DATA['jail'], dtype=fake_jail_dtype)
+    FAKE_SPLIT_DF_DATA[JAIL], dtype=fake_jail_dtype)
 
 _fake_children_df = pd.read_csv(
     FAKE_SPLIT_DF_DATA[CHILDREN], dtype=fake_children_dtype)
@@ -165,7 +165,7 @@ def test_split_df_by_data_type():
 def test_generate_partial_breakdown():
 
     _partial_sex_jail_rate = generate_partial_breakdown(
-        _fake_jail_df, "sex", "jail", "rate")
+        _fake_jail_df, "sex", JAIL, "rate")
 
     _expected_sex_jail_rate_data = StringIO("""county_fips,county_name,sex,jail_per_100k
 01001,Autauga County,All,454.81
@@ -210,7 +210,7 @@ _fake_children_df_age["age"] = "All"
 def testCountyPrisonRace():
 
     _generated_df = vera.generate_for_bq(
-        _fake_prison_df, "prison", "race_and_ethnicity", _fake_children_df_race)
+        _fake_prison_df, PRISON, "race_and_ethnicity", _fake_children_df_race)
 
     _expected_df_prison_race = pd.read_json(
         GOLDEN_DATA['prison_race_county'], dtype=expected_dtype)
@@ -222,7 +222,7 @@ def testCountyPrisonRace():
 def testCountyJailRace():
 
     _generated_df = vera.generate_for_bq(
-        _fake_jail_df, "jail", "race_and_ethnicity", _fake_children_df_race)
+        _fake_jail_df, JAIL, "race_and_ethnicity", _fake_children_df_race)
 
     _expected_df_jail_race = pd.read_json(
         GOLDEN_DATA['jail_race_county'], dtype=expected_dtype)
@@ -234,7 +234,7 @@ def testCountyJailRace():
 def testCountyPrisonBySex():
 
     _generated_df = vera.generate_for_bq(
-        _fake_prison_df, "prison", "sex", _fake_children_df_sex)
+        _fake_prison_df, PRISON, "sex", _fake_children_df_sex)
 
     _expected_df_prison_sex = pd.read_json(
         GOLDEN_DATA['prison_sex_county'], dtype=expected_dtype)
@@ -246,7 +246,7 @@ def testCountyPrisonBySex():
 def testCountyJailBySex():
 
     _generated_df = vera.generate_for_bq(
-        _fake_jail_df, "jail", "sex", _fake_children_df_sex)
+        _fake_jail_df, JAIL, "sex", _fake_children_df_sex)
 
     _expected_df_jail_sex = pd.read_json(
         GOLDEN_DATA['jail_sex_county'], dtype=expected_dtype)
@@ -258,7 +258,7 @@ def testCountyJailBySex():
 def testCountyPrisonByAge():
 
     _generated_df = vera.generate_for_bq(
-        _fake_prison_df, "prison", "age", _fake_children_df_age)
+        _fake_prison_df, PRISON, "age", _fake_children_df_age)
 
     _expected_df_prison_age = pd.read_json(
         GOLDEN_DATA['prison_age_county'], dtype=expected_dtype)
@@ -270,7 +270,7 @@ def testCountyPrisonByAge():
 def testCountyJailByAge():
 
     _generated_df = vera.generate_for_bq(
-        _fake_jail_df, "jail", "age", _fake_children_df_age)
+        _fake_jail_df, JAIL, "age", _fake_children_df_age)
 
     _expected_df_jail_age = pd.read_json(
         GOLDEN_DATA['jail_age_county'], dtype=expected_dtype)
