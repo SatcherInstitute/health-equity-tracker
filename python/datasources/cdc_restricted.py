@@ -10,12 +10,14 @@ from datasources.data_source import DataSource
 from datasources.cdc_restricted_local import generate_national_dataset
 from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import (
-        generate_per_100k_col,
-        generate_pct_share_col_with_unknowns)
+    generate_per_100k_col,
+    generate_pct_share_col_with_unknowns)
 
 from ingestion.merge_utils import (
-        merge_fips_codes,
-        merge_pop_numbers)
+    merge_state_fips_codes,
+    merge_pop_numbers,
+    merge_county_names
+)
 
 DC_COUNTY_FIPS = '11001'
 
@@ -67,7 +69,7 @@ class CDCRestrictedData(DataSource):
             df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename)
 
             df = df[df[std_col.STATE_POSTAL_COL] != 'Unknown']
-            df = merge_fips_codes(df)
+            df = merge_state_fips_codes(df)
             df = df[df[std_col.STATE_FIPS_COL].notna()]
 
             self.clean_frame_column_names(df)
@@ -98,19 +100,22 @@ class CDCRestrictedData(DataSource):
         all_val = Race.ALL.value if demo == 'race' else std_col.ALL_VALUE
 
         all_columns = [
-           std_col.STATE_FIPS_COL,
-           std_col.STATE_NAME_COL,
-           demo_col,
-           std_col.COVID_POPULATION_PCT,
+            std_col.STATE_FIPS_COL,
+            std_col.STATE_NAME_COL,
+            demo_col,
+            std_col.COVID_POPULATION_PCT,
         ]
 
         if geo == 'county':
-            all_columns.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
+            all_columns.extend(
+                [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
+            df = merge_county_names(df)
 
         if geo == 'national':
             df = generate_national_dataset(df, [demo_col])
 
-        df = merge_fips_codes(df, geo == 'county')
+        df = merge_state_fips_codes(df)
+
         fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
 
         # Drop annoying column that doesnt match any fips code
@@ -120,18 +125,22 @@ class CDCRestrictedData(DataSource):
             df = remove_bad_fips_cols(df)
 
         df = merge_pop_numbers(df, demo, geo)
-        df = df.rename(columns={std_col.POPULATION_PCT_COL: std_col.COVID_POPULATION_PCT})
+        df = df.rename(
+            columns={std_col.POPULATION_PCT_COL: std_col.COVID_POPULATION_PCT})
 
         df = null_out_all_unknown_deaths_hosps(df)
 
         for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
-            per_100k_col = generate_column_name(prefix, std_col.PER_100K_SUFFIX)
+            per_100k_col = generate_column_name(
+                prefix, std_col.PER_100K_SUFFIX)
             all_columns.append(per_100k_col)
-            df = generate_per_100k_col(df, raw_count_col, std_col.POPULATION_COL, per_100k_col)
+            df = generate_per_100k_col(
+                df, raw_count_col, std_col.POPULATION_COL, per_100k_col)
 
         raw_count_to_pct_share = {}
         for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
-            raw_count_to_pct_share[raw_count_col] = generate_column_name(prefix, std_col.SHARE_SUFFIX)
+            raw_count_to_pct_share[raw_count_col] = generate_column_name(
+                prefix, std_col.SHARE_SUFFIX)
 
         all_columns.extend(list(raw_count_to_pct_share.values()))
         df = generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
@@ -147,7 +156,8 @@ class CDCRestrictedData(DataSource):
             null_out_dc_county_rows(df)
 
         end = time.time()
-        print("took", round(end - start, 2), f"seconds to process {demo} {geo}")
+        print("took", round(end - start, 2),
+              f"seconds to process {demo} {geo}")
         return df
 
 
@@ -179,7 +189,8 @@ def null_out_dc_county_rows(df):
         df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS,
                generate_column_name(prefix, std_col.SHARE_SUFFIX)] = np.nan
 
-    df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, std_col.COVID_POPULATION_PCT] = np.nan
+    df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS,
+           std_col.COVID_POPULATION_PCT] = np.nan
 
 
 def get_col_types(df):
@@ -188,8 +199,10 @@ def get_col_types(df):
       df: DataFrame to generate column types dict for"""
     column_types = {c: 'STRING' for c in df.columns}
     for prefix in COVID_CONDITION_TO_PREFIX.values():
-        column_types[generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = 'FLOAT'
-        column_types[generate_column_name(prefix, std_col.SHARE_SUFFIX)] = 'FLOAT'
+        column_types[generate_column_name(
+            prefix, std_col.PER_100K_SUFFIX)] = 'FLOAT'
+        column_types[generate_column_name(
+            prefix, std_col.SHARE_SUFFIX)] = 'FLOAT'
 
     column_types[std_col.COVID_POPULATION_PCT] = 'FLOAT'
 
