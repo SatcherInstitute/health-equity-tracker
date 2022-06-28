@@ -185,6 +185,7 @@ def merge_pop_numbers_per_condition(df, demo, loc, condition_cols):
     for col in condition_cols:
         df[f'{col}_population'] = df.apply(
                 lambda row: row[std_col.POPULATION_COL] if not
-                pd.isna(row[std_col.POPULATION_COL]) else np.nan, axis=1)
+                pd.isna(row[col]) else 0, axis=1)
 
+    df = df.drop(columns=[std_col.POPULATION_COL, std_col.POPULATION_PCT_COL])
     return df

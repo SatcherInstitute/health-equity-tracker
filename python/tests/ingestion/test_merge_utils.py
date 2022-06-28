@@ -3,7 +3,6 @@ import json
 
 from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, merge_utils
-
 import ingestion.standardized_columns as std_col
 
 _fips_codes_from_bq = [
@@ -116,8 +115,8 @@ _data_without_pop_numbers_multiple_rows = [
 _expected_merge_with_pop_numbers_multiple_rows = [
     ['state_fips', 'race_category_id', 'cases', 'deaths', 'cases_population', 'deaths_population'],
     ['01', 'BLACK_NH', 10, 1, 100, 100],
-    ['01', 'WHITE_NH', 100, None, 300, None],
-    ['02', 'BLACK_NH', 20, None, 100, None],
+    ['01', 'WHITE_NH', 100, None, 300, 0],
+    ['02', 'BLACK_NH', 20, None, 100, 0],
     ['78', 'WHITE_NH', 10, 2, 300, 300],
     ['78', 'BLACK_NH', 5, 0, 200, 200],
 ]
