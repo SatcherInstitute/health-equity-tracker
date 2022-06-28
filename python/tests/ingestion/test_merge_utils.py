@@ -3,9 +3,7 @@ import json
 
 from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, merge_utils
-
 import ingestion.standardized_columns as std_col
-from ingestion.merge_utils import standardize_county_names
 
 _fips_codes_from_bq = [
     ['state_fips_code', 'state_postal_abbreviation', 'state_name', 'state_gnisid'],
@@ -46,6 +44,12 @@ _data_with_bad_county_names = [
     ['state_postal', 'county_fips', 'county_name'],
     ['CA', '06123', 'drop-me'],
     ['GA', '13345', 'also-drop-me'],
+]
+
+_data_with_good_county_names = [
+    ['state_postal', 'county_fips', 'county_name'],
+    ['CA', '06123', 'California County'],
+    ['GA', '13345', 'Georgia County'],
 ]
 
 _expected_merged_fips_county = [
@@ -137,21 +141,39 @@ def _get_pop_data_as_df(*args):
 
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=_get_fips_codes_as_df())
-def testMergeFipsCodesCounty(mock_bq: mock.MagicMock):
+def testStandardizeCountyNames(mock_bq: mock.MagicMock):
+
     mock_bq.side_effect = [
         _get_county_names_as_df(),
-        _get_fips_codes_as_df(),
     ]
+
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_with_bad_county_names), dtype=str).reset_index(drop=True)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_data_with_good_county_names), dtype=str).reset_index(drop=True)
+
+    df = merge_utils.merge_county_names(df)
+
+    assert mock_bq.call_count == 1
+    assert_frame_equal(df, expected_df, check_like=True)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=_get_fips_codes_as_df())
+def testMergeFipsCodesCounty(mock_bq: mock.MagicMock):
+    mock_bq.side_effect = [
+        _get_fips_codes_as_df(),
+    ]
+    df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_data_with_good_county_names), dtype=str).reset_index(drop=True)
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_merged_fips_county), dtype=str).reset_index(drop=True)
 
-    df = standardize_county_names(df)
     df = merge_utils.merge_state_fips_codes(df)
 
-    assert mock_bq.call_count == 2
+    assert mock_bq.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
 
 

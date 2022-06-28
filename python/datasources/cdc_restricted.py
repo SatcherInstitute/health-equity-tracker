@@ -15,7 +15,7 @@ from ingestion.dataset_utils import (
 from ingestion.merge_utils import (
     merge_state_fips_codes,
     merge_pop_numbers,
-    standardize_county_names
+    merge_county_names
 )
 
 DC_COUNTY_FIPS = '11001'
@@ -146,7 +146,7 @@ class CDCRestrictedData(DataSource):
         if geo == 'county':
             all_columns.extend(
                 [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
-            df = standardize_county_names(df)
+            df = merge_county_names(df)
 
         df = merge_state_fips_codes(df)
         fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
