@@ -17,6 +17,8 @@ GOLDEN_DATA = os.path.join(
 
 def get_svi_as_df():
     return pd.read_csv(os.path.join(TEST_DIR, 'cdc_svi_county_test.csv'), dtype={"FIPS": str})
+def get_realsvi_as_df():
+    return pd.read_csv(os.path.join(TEST_DIR, 'cdc_svi_county_test.csv'), dtype={"FIPS": str})
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',

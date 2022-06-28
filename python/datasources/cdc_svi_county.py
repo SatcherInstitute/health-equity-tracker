@@ -6,7 +6,7 @@ import ingestion.standardized_columns as std_col
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 
-# from ingestion.dataset_utils import merge_fips_codes
+from ingestion.dataset_utils import merge_fips_codes
 
 # need to add merge_utils file, temporarily removed to pass test
 
@@ -58,8 +58,6 @@ class CDCSviCounty(DataSource):
         df = df.rename(columns_to_standard, axis="columns")
 
         # df = merge_fips_codes(df, geo == 'county')
-        # fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
-
 
         def update_county_name(x: str):
             return x.split(",")[0]
@@ -77,5 +75,6 @@ class CDCSviCounty(DataSource):
 
         print("df inside gen for bq")
         print(df.to_string())
+        print(df.to_json("test_results.json",orient="records"))
 
         return df
