@@ -146,7 +146,7 @@ def percent_avoid_rounding_to_zero(numerator, denominator, default_decimals=1, m
 
        Avoids division by zero errors and returns `0.0` instead"""
 
-    if (denominator == 0) or (numerator is None) or (denominator is None):
+    if (float(denominator) == 0.0) or (numerator is None) or (denominator is None):
         return None
 
     decimals = default_decimals
@@ -222,3 +222,19 @@ def estimate_total(row, condition_name_per_100k):
         return None
 
     return round((float(row[condition_name_per_100k]) / 100_000) * float(row[std_col.POPULATION_COL]))
+
+
+def ensure_leading_zeros(df, fips_col_name: str, num_digits: int):
+    """
+    Ensure a column contains values of a certain digit length, adding leading zeros as needed.
+    This could be used for 5 digit fips codes, or zip codes, etc.
+
+    Parameters:
+        df: dataframe containing a column of value that need leading zeros padded to
+             ensure a consistent number of digits
+        fips_col_name: string column name containing the values to be padded
+        num_digits: how many digits should be present after leading zeros are added
+    """
+    df[fips_col_name] = df[fips_col_name].apply(
+        lambda code: (str(code).rjust(num_digits, '0')))
+    return df
