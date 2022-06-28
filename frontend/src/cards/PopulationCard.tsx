@@ -104,7 +104,6 @@ export function PopulationCard(props: PopulationCardProps) {
         const svi =
           props.fips.isCounty() &&
           sviQueryResponse.data.find((a) => a.age === ALL)?.svi;
-        const hasSvi = svi != null;
 
         const rating = findRating(svi);
         const color = findColor(rating);
@@ -170,7 +169,7 @@ export function PopulationCard(props: PopulationCardProps) {
               )}
             </Grid>
 
-            {hasSvi && (
+            {svi && (
               <Alert severity="info">
                 This county has a social vulnerability index of <b>{svi}</b>;
                 which indicates a{" "}
