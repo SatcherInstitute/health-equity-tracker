@@ -5,6 +5,7 @@ from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, merge_utils
 
 import ingestion.standardized_columns as std_col
+from ingestion.merge_utils import standardize_county_names
 
 _fips_codes_from_bq = [
     ['state_fips_code', 'state_postal_abbreviation', 'state_name', 'state_gnisid'],
@@ -147,7 +148,8 @@ def testMergeFipsCodesCounty(mock_bq: mock.MagicMock):
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_merged_fips_county), dtype=str).reset_index(drop=True)
 
-    df = merge_utils.merge_fips_codes(df, county_level=True)
+    df = standardize_county_names(df)
+    df = merge_utils.merge_state_fips_codes(df)
 
     assert mock_bq.call_count == 2
     assert_frame_equal(df, expected_df, check_like=True)
@@ -164,7 +166,7 @@ def testMergeFipsCodesStateName(mock_bq: mock.MagicMock):
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
 
-    df = merge_utils.merge_fips_codes(df)
+    df = merge_utils.merge_state_fips_codes(df)
 
     assert mock_bq.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
@@ -181,7 +183,7 @@ def testMergeFipsCodesStatePostal(mock_bq: mock.MagicMock):
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
 
-    df = merge_utils.merge_fips_codes(df)
+    df = merge_utils.merge_state_fips_codes(df)
 
     assert mock_bq.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
