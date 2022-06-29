@@ -281,14 +281,16 @@ class VeraIncarcerationCounty(DataSource):
                 bq_column_types[PCT_SHARE_COL_MAP[data_type]] = 'FLOAT'
                 bq_column_types[PCT_SHARE_COL_MAP[POP]] = 'FLOAT'
 
-                print("df cols:", df.columns)
-                print("table name", table_name)
-                print("bq ol types", bq_column_types)
+                # print("df cols:", df.columns)
+                # print("table name", table_name)
+                # print("bq ol types", bq_column_types)
 
-                df.to_json(f'{table_name}_results.json', orient="records")
+                # df.to_json(f'{table_name}_results.json', orient="records")
+
+                # column_types=bq_column_types
 
                 gcs_to_bq_util.add_df_to_bq(
-                    df, dataset, table_name, column_types=bq_column_types)
+                    df, dataset, table_name)
 
     def generate_for_bq(self, df, data_type, demo_type, df_children):
 
