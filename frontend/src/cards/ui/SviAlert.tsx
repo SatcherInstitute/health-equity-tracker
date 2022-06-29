@@ -2,8 +2,8 @@ import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { Fips } from "../../data/utils/Fips";
-import styles from "./SviAlert.module.scss";
 import { urlMap } from "../../utils/externalUrls";
+import styles from "./SviAlert.module.scss";
 
 interface SviAlertProps {
   svi: number;
@@ -11,7 +11,7 @@ interface SviAlertProps {
   fips: Fips;
 }
 
-export const findRating = (svi: number) => {
+const findRating = (svi: number) => {
   if (svi < 0.34) {
     return "low";
   }
