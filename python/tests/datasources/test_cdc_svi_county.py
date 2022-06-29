@@ -10,6 +10,8 @@ from datasources.cdc_svi_county import CDCSviCounty
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cdc_svi_county")
+REAL_DIR = os.path.abspath('data/cdc_svi_county')
+
 
 GOLDEN_DATA = os.path.join(
     TEST_DIR, 'test_output_cdc_svi_county_by_age.csv')
@@ -17,8 +19,8 @@ GOLDEN_DATA = os.path.join(
 
 def get_svi_as_df():
     return pd.read_csv(os.path.join(TEST_DIR, 'cdc_svi_county_test.csv'), dtype={"FIPS": str})
-def get_realsvi_as_df():
-    return pd.read_csv(os.path.join(TEST_DIR, 'cdc_svi_county_test.csv'), dtype={"FIPS": str})
+def get_real_svi_as_df():
+    return pd.read_csv(os.path.join(REAL_DIR, 'cdc_svi_county_totals.csv'), dtype={"FIPS": str})
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
@@ -26,7 +28,9 @@ def get_realsvi_as_df():
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
+    print(REAL_DIR)
     cdcSviCounty = CDCSviCounty()
+    
 
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',

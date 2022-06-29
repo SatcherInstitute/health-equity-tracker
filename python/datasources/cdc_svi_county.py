@@ -72,9 +72,7 @@ class CDCSviCounty(DataSource):
         df[std_col.AGE_COL] = std_col.ALL_VALUE
         cols_to_keep = [*columns_to_standard.values(), std_col.AGE_COL]
         df = df[cols_to_keep]
-
-        print("df inside gen for bq")
+        
         print(df.to_string())
-        print(df.to_json("test_results.json",orient="records"))
 
         return df
