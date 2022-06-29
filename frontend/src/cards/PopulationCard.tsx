@@ -9,7 +9,6 @@ import { Fips, ACS_2010_FIPS } from "../data/utils/Fips";
 import { Box, CardContent, Popper } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
-import variables from "../styles/variables.module.scss";
 import AnimateHeight from "react-animate-height";
 import Button from "@material-ui/core/Button";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
@@ -30,6 +29,7 @@ import {
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Hidden from "@material-ui/core/Hidden";
 import Alert from "@material-ui/lab/Alert";
+import SviAlert from "./ui/SviAlert";
 
 export const POPULATION_BY_RACE = "Population by race and ethnicity";
 export const POPULATION_BY_AGE = "Population by age";
@@ -79,34 +79,13 @@ export function PopulationCard(props: PopulationCardProps) {
     queries.push(sviQuery);
   }
 
-  const findRating = (svi: number) => {
-    if (svi < 0.34) {
-      return "low";
-    }
-    if (svi > 0.67) {
-      return "high";
-    } else return "medium";
-  };
-
-  const findColor = (rating: string) => {
-    if (rating === "high") {
-      return "#d32f2f";
-    }
-    if (rating === "low") {
-      return variables.altGreen;
-    } else return "#d85c47";
-  };
-
   return (
     <CardWrapper minHeight={PRELOAD_HEIGHT} queries={queries}>
       {([raceQueryResponse, ageQueryResponse, sviQueryResponse]) => {
-        console.log(sviQueryResponse);
         const svi =
           props.fips.isCounty() &&
           sviQueryResponse.data.find((a) => a.age === ALL)?.svi;
 
-        const rating = findRating(svi);
-        const color = findColor(rating);
         const totalPopulation = raceQueryResponse.data.find(
           (r) => r.race_and_ethnicity === ALL
         );
@@ -169,17 +148,7 @@ export function PopulationCard(props: PopulationCardProps) {
               )}
             </Grid>
 
-            {svi && (
-              <Alert severity="info">
-                This county has a social vulnerability index of <b>{svi}</b>;
-                which indicates a{" "}
-                <a href="testing" style={{ textDecorationColor: color }}>
-                  <span style={{ color: color, fontWeight: "bold" }}>
-                    {rating} level of vulernability.
-                  </span>
-                </a>{" "}
-              </Alert>
-            )}
+            {svi && <SviAlert svi={svi} sviQueryResponse={sviQueryResponse} />}
 
             {props.fips.needsACS2010() && (
               <CardContent>
