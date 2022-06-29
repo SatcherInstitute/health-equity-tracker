@@ -106,7 +106,33 @@ def merge_pop_numbers(df, demo, loc):
       df: a pandas df with demographic (race, sex, or age) and a `state_fips` column
       demo: the demographic in the df, either `age`, `race`, or `sex`
       loc: the location level for the df, either `state` or `national`"""
+    return _merge_pop(df, demo, loc)
 
+
+def merge_pop_numbers_per_condition(df, demo, loc, condition_cols):
+    """Merges the population of each state into a column for each condition in `condition_cols`.
+       If a condition is NaN for that state the population gets counted as zero.
+
+      df: a pandas df with demographic (race, sex, or age) and a `state_fips` column
+      demo: the demographic in the df, either `age`, `race`, or `sex`
+      loc: the location level for the df, either `state` or `national
+      condition_cols: a list of condition column names to generate population cols for."""
+
+    if loc != 'state':
+        raise ValueError('This function should only be called for the "state" level')
+
+    df = _merge_pop(df, demo, loc)
+
+    for col in condition_cols:
+        df[f'{col}_population'] = df.apply(
+                lambda row: row[std_col.POPULATION_COL] if not
+                pd.isna(row[col]) else 0, axis=1)
+
+    df = df.drop(columns=[std_col.POPULATION_COL, std_col.POPULATION_PCT_COL])
+    return df
+
+
+def _merge_pop(df, demo, loc):
     on_col_map = {
         'age': std_col.AGE_COL,
         'race': std_col.RACE_CATEGORY_ID_COL,
@@ -158,63 +184,3 @@ def merge_pop_numbers(df, demo, loc):
     df = pd.merge(df, pop_df, how='left', on=on_cols)
 
     return df.reset_index(drop=True)
-
-
-def merge_pop_numbers_per_condition(df, demo, loc, condition_cols):
-    if loc != 'state':
-        raise ValueError('This function should only be called for the "state" level')
-
-    on_col_map = {
-        'age': std_col.AGE_COL,
-        'race': std_col.RACE_CATEGORY_ID_COL,
-        'sex': std_col.SEX_COL,
-    }
-
-    pop_dtype = {std_col.STATE_FIPS_COL: str,
-                 std_col.POPULATION_COL: float,
-                 std_col.POPULATION_PCT_COL: float}
-
-    if demo not in on_col_map:
-        raise ValueError('%s not a demographic option, must be one of: %s' % (
-            demo, list(on_col_map.keys())))
-
-    pop_table_name = f'by_{demo}_{loc}'
-
-    # all states, DC, PR
-    if demo == 'race' and (loc == 'state' or loc == 'county'):
-        pop_table_name += '_std'
-
-    pop_df = gcs_to_bq_util.load_df_from_bigquery(
-        'acs_population', pop_table_name, pop_dtype)
-
-    needed_cols = [std_col.STATE_FIPS_COL, on_col_map[demo],
-                   std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
-
-    if loc == 'county':
-        needed_cols.append(std_col.COUNTY_FIPS_COL)
-
-    pop_df = pop_df[needed_cols]
-
-    # other territories from ACS 2010 (VI, GU, AS, MP)
-    if loc == 'state':
-        verbose_demo = "race_and_ethnicity" if demo == 'race' else demo
-        pop_2010_table_name = f'by_{verbose_demo}_territory'
-
-        pop_2010_df = gcs_to_bq_util.load_df_from_bigquery(
-            'acs_2010_population', pop_2010_table_name, pop_dtype)
-        pop_2010_df = pop_2010_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
-                                   std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
-
-        pop_df = pd.concat([pop_df, pop_2010_df])
-        pop_df = pop_df.sort_values(std_col.STATE_FIPS_COL)
-
-    on_cols = [std_col.STATE_FIPS_COL, on_col_map[demo]]
-    df = pd.merge(df, pop_df, how='left', on=on_cols)
-
-    for col in condition_cols:
-        df[f'{col}_population'] = df.apply(
-                lambda row: row[std_col.POPULATION_COL] if not
-                pd.isna(row[col]) else 0, axis=1)
-
-    df = df.drop(columns=[std_col.POPULATION_COL, std_col.POPULATION_PCT_COL])
-    return df
