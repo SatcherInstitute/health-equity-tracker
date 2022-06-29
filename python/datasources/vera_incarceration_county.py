@@ -243,6 +243,8 @@ class VeraIncarcerationCounty(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
+        print("gcs bucket:", gcs_bucket)
+
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_VERA_URL, dtype=VERA_COL_TYPES)
         df = df.rename(columns={"fips": std_col.COUNTY_FIPS_COL})
@@ -278,6 +280,12 @@ class VeraIncarcerationCounty(DataSource):
                 bq_column_types[CHILDREN] = 'FLOAT'
                 bq_column_types[PCT_SHARE_COL_MAP[data_type]] = 'FLOAT'
                 bq_column_types[PCT_SHARE_COL_MAP[POP]] = 'FLOAT'
+
+                print("df cols:", df.columns)
+                print("table name", table_name)
+                print("bq ol types", bq_column_types)
+
+                df.to_json(f'{table_name}_results.json', orient="records")
 
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=bq_column_types)

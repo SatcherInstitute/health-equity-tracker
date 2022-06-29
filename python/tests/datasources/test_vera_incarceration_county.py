@@ -51,6 +51,19 @@ def get_mocked_county_names_as_df():
     return df
 
 
+# def testWrite():
+#     veraIncarcerationCounty = VeraIncarcerationCounty()
+
+#     kwargs = {'filename': 'test_file.csv',
+#               'metadata_table_id': 'test_metadata',
+#               'table_name': 'output_table'}
+
+#     veraIncarcerationCounty.write_to_bq(
+#         'vera_incarceration_county', 'hammond-het-infra-test-75', **kwargs)
+
+#     assert 1 == 1
+
+
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_mocked_county_names_as_df())
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
