@@ -9,7 +9,7 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import (estimate_total,
                                      generate_pct_share_col_without_unknowns)
-from ingestion.merge_utils import merge_fips_codes, merge_pop_numbers
+from ingestion.merge_utils import merge_state_fips_codes, merge_pop_numbers
 
 UHC_RACE_GROUPS = [
     'American Indian/Alaska Native',
@@ -290,7 +290,7 @@ def post_process(breakdown_df, breakdown, geo):
        breakdown: demographic breakdown (race, sex, age)
        geo: geographic level (national, state)"""
 
-    breakdown_df = merge_fips_codes(breakdown_df)
+    breakdown_df = merge_state_fips_codes(breakdown_df)
 
     breakdown_name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
     breakdown_df = merge_pop_numbers(
