@@ -12,7 +12,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
   BreakdownVarDisplayName,
 } from "../data/query/Breakdowns";
-import { MetricQuery } from "../data/query/MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../data/query/MetricQuery";
 import { AgeSorterStrategy } from "../data/sorting/AgeSorterStrategy";
 import {
   ALL,
@@ -132,7 +132,7 @@ function MapCardWithKey(props: MapCardProps) {
     >
       {(queryResponses, metadata, geoData) => {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
-        const mapQueryResponse = queryResponses[0];
+        const mapQueryResponse: MetricQueryResponse = queryResponses[0];
         // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
 
@@ -322,16 +322,6 @@ function MapCardWithKey(props: MapCardProps) {
                   </CardContent>
                 </>
               )}
-
-            {/* {isIncarceration && (
-              <CardContent>
-                <IncarcerationAlert
-                  dataType={props.variableConfig.variableId}
-                  fips={props.fips}
-                  breakdown={props.currentBreakdown}
-                />
-              </CardContent>
-            )} */}
 
             {(mapQueryResponse.dataIsMissing() ||
               dataForActiveBreakdownFilter.length === 0) && (
