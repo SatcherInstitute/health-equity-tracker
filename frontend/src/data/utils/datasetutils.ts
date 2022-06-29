@@ -263,6 +263,12 @@ const includeAllsGroupsIds: VariableId[] = [
   "jail",
 ];
 
+const NON_STANDARD_AND_MULTI = [
+  ...NON_STANDARD_RACES,
+  MULTI_OR_OTHER_STANDARD,
+  MULTI_OR_OTHER_STANDARD_NH,
+];
+
 export function getExclusionList(
   currentVariable: VariableConfig,
   currentBreakdown: BreakdownVar,
@@ -283,22 +289,9 @@ export function getExclusionList(
   // Incarceration
   if (currentVariableId === "prison") {
     if (currentBreakdown === RACE) {
-      !currentFips.isCounty() &&
-        exclusionList.push(
-          ...NON_STANDARD_RACES,
-          MULTI_OR_OTHER_STANDARD,
-          MULTI_OR_OTHER_STANDARD_NH,
-          API_NH
-        );
-
-      currentFips.isCounty() &&
-        exclusionList.push(
-          ...NON_STANDARD_RACES,
-          MULTI_OR_OTHER_STANDARD,
-          MULTI_OR_OTHER_STANDARD_NH,
-          ASIAN_NH,
-          NHPI_NH
-        );
+      currentFips.isCounty()
+        ? exclusionList.push(...NON_STANDARD_AND_MULTI, ASIAN_NH, NHPI_NH)
+        : exclusionList.push(...NON_STANDARD_AND_MULTI, API_NH);
     }
 
     if (currentBreakdown === AGE) {
@@ -319,32 +312,18 @@ export function getExclusionList(
   }
   if (currentVariableId === "jail") {
     if (currentBreakdown === RACE) {
-      if (currentBreakdown === RACE) {
-        !currentFips.isCounty() &&
-          exclusionList.push(
-            ...NON_STANDARD_RACES,
-            MULTI_OR_OTHER_STANDARD,
-            MULTI_OR_OTHER_STANDARD_NH,
-            API_NH
-          );
-
-        currentFips.isCounty() &&
-          exclusionList.push(
-            ...NON_STANDARD_RACES,
-            MULTI_OR_OTHER_STANDARD,
-            MULTI_OR_OTHER_STANDARD_NH,
-            ASIAN_NH,
-            NHPI_NH
-          );
-      }
+      currentFips.isCounty()
+        ? exclusionList.push(...NON_STANDARD_AND_MULTI, ASIAN_NH, NHPI_NH)
+        : exclusionList.push(...NON_STANDARD_AND_MULTI, API_NH);
     }
 
-    currentBreakdown === AGE &&
+    if (currentBreakdown === AGE) {
       exclusionList.push(
         ...AGE_BUCKETS.filter(
           (bucket: AgeBucket) => !BJS_JAIL_AGE_BUCKETS.includes(bucket as any)
         )
       );
+    }
   }
 
   // UHC/BRFSS/AHR
