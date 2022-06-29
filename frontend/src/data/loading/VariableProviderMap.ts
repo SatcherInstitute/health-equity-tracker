@@ -4,10 +4,7 @@ import VariableProvider from "../variables/VariableProvider";
 import CdcCovidProvider from "../variables/CdcCovidProvider";
 import BrfssProvider from "../variables/BrfssProvider";
 import CawpProvider from "../variables/CawpProvider";
-// import IncarcerationProvider from "../variables/IncarcerationProvider";
 import IncarcerationProvider from "../variables/IncarcerationProvider";
-// import VeraJailProvider from "../variables/VeraJailProvider";
-// import VeraPrisonProvider from "../variables/VeraPrisonProvider";
 import { MetricId } from "../config/MetricConfig";
 import AcsHealthInsuranceProvider from "../variables/AcsHealthInsuranceProvider";
 import AcsPovertyProvider from "../variables/AcsPovertyProvider";
@@ -22,9 +19,6 @@ export type ProviderId =
   | "covid_provider"
   | "brfss_provider"
   | "cawp_provider"
-  // | "bjs_provider"
-  // | "vera_prison_provider"
-  // | "vera_jail_provider"
   | "incarceration_provider"
   | "acs_2010_pop_provider";
 
@@ -42,9 +36,6 @@ export default class VariableProviderMap {
       new CdcCovidProvider(acsProvider),
       new CawpProvider(),
       new IncarcerationProvider(),
-      // new IncarcerationProvider(),
-      // new VeraPrisonProvider(),
-      // new VeraJailProvider(),
       new BrfssProvider(),
       new AcsHealthInsuranceProvider(),
       new AcsPovertyProvider(),
