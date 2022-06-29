@@ -276,6 +276,8 @@ def testMergePopNumberPerCondition(mock_bq: mock.MagicMock):
         json.dumps(_expected_merge_with_pop_numbers_multiple_rows),
         dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
 
+    expected_df = expected_df.astype({'cases_population': int, 'deaths_population': int})
+
     df = merge_utils.merge_pop_numbers_per_condition(df, 'race', 'state', ['cases', 'deaths'])
 
     assert mock_bq.call_count == 2
