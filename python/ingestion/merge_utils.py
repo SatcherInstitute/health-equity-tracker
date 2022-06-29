@@ -1,5 +1,4 @@
 import pandas as pd  # type: ignore
-import numpy as np  # type: ignore
 
 from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as std_col
