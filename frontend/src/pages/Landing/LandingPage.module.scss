@@ -11,6 +11,8 @@
 
 .HeaderRow {
   border-bottom: $bottom-border-style;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
 
   .HeaderTextItem {
     justify-content: center;
@@ -24,6 +26,7 @@
     color: $alt-green;
     font-size: $biggerHeader;
     line-height: $lhNormal;
+
     @media (min-width: $sm) {
       font-size: $biggestHeader;
       padding-bottom: 20px;
@@ -54,89 +57,74 @@
   }
 }
 
-/** ------------- TAKE A LOOK AROUND ROW ------------- **/
+/** ------------- RECENT NEWS ROW ------------- **/
 
-.TakeALookAroundRow {
+.RecentNewsRow {
   padding: 75px 30px 75px 30px;
   align-items: center;
   border-bottom: $bottom-border-style;
 
-  .TakeALookAroundHeaderText {
+  .RecentNewsHeaderText {
     @include tav300();
     font-size: $biggerHeader;
     text-align: center;
     color: $alt-green;
-    padding-bottom: 20px;
+    padding-bottom: 4rem;
   }
 
-  .TakeALookAroundHeaderSubtext {
-    @include inter400();
-    font-size: $title;
-    text-align: center;
-  }
+  // .RecentNewsHeaderSubtext {
+  //   @include inter400();
+  //   font-size: $title;
+  //   text-align: center;
+  // }
 
-  .TakeALookAroundItemRow {
-    padding: 35px;
-  }
+  // .RecentNewsItemRow {
+  //   padding: 35px;
+  // }
 
   // For each item in the "Where We Aim To Go" section
-  .TakeALookAroundItem {
+  .RecentNewsItem {
     padding: 0 15px 0 15px;
-  }
-
-  // For each image in the "Where We Aim To Go" section
-  .TakeALookAroundImg {
-    height: auto;
-    max-height: 255px;
-    width: 100%;
-    max-width: 255px;
-  }
-
-  .TakeALookAroundText {
-    @include inter400();
-    font-size: $title;
-    text-align: center;
-    color: $alt-green;
   }
 }
 
 /** ------------- TIME TO PRIORITIZE HEALTH EQUITY ROW  ------------- **/
 
-.PrioritizeHealthEquityRow {
-  .PrioritizeHealthEquityTextItem {
-    justify-content: center;
-    padding: 56px;
-    text-align: left !important;
+// .PrioritizeHealthEquityRow {
+//   .PrioritizeHealthEquityTextItem {
+//     justify-content: center;
+//     padding: 56px;
+//     text-align: left !important;
 
-    .PrioritizeHealthEquityHeader {
-      @include tav300();
-      font-size: $biggerHeader;
-      text-align: left;
-      color: $alt-green;
-      padding-bottom: 20px;
-    }
+//     .PrioritizeHealthEquityHeader {
+//       @include tav300();
+//       font-size: $biggerHeader;
+//       text-align: left;
+//       color: $alt-green;
+//       padding-bottom: 20px;
+//     }
 
-    .PrioritizeHealthEquityHeaderSubtext {
-      @include inter400();
-      font-size: $title;
-      text-align: left;
-    }
-  }
+//     .PrioritizeHealthEquityHeaderSubtext {
+//       @include inter400();
+//       font-size: $title;
+//       text-align: left;
+//     }
+//   }
 
-  .PrioritizeHealthEquityImgItem {
-    border-right: 1px solid $border-color;
-    display: flex;
-    justify-content: center;
-  }
+//   .PrioritizeHealthEquityImgItem {
+//     border-right: 1px solid $border-color;
+//     display: flex;
+//     justify-content: center;
+//   }
 
-  .PrioritizeHealthEquityImg {
-    width: 95%;
-    max-width: 560px;
-    height: auto;
-    border-radius: 30px;
-    margin: 10px;
-  }
-}
+//   .PrioritizeHealthEquityImg {
+//     width: 95%;
+//     max-width: 560px;
+//     height: auto;
+//     border-radius: 30px;
+//     margin: 10px;
+//   }
+// }
 
 /** ------------- HOW TO SECTION ------------- **/
 
@@ -144,7 +132,7 @@
   padding: 120px 30px 120px 30px;
   align-items: center;
   border-bottom: $bottom-border-style;
-  border-top: 1px solid $border-color;
+  // border-top: 1px solid $border-color;
 
   ul {
     padding-inline-start: 0px;
@@ -176,6 +164,7 @@
     @include dmSans500();
     font-size: $smallestHeader;
     text-align: center;
+
     @media only screen and (min-width: $md) {
       text-align: left;
     }
@@ -186,6 +175,7 @@
     font-size: $text;
     letter-spacing: 0.1px;
     text-align: center;
+
     @media only screen and (min-width: $md) {
       text-align: left;
     }
