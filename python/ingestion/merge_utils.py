@@ -108,19 +108,17 @@ def merge_pop_numbers(df, demo, loc):
     return _merge_pop(df, demo, loc)
 
 
-def merge_pop_numbers_per_condition(df, demo, loc, condition_cols):
+def merge_pop_numbers_per_condition(df, demo, condition_cols):
     """Merges the population of each state into a column for each condition in `condition_cols`.
        If a condition is NaN for that state the population gets counted as zero.
 
+       This function must be called on a state level dataset.
+
       df: a pandas df with demographic (race, sex, or age) and a `state_fips` column
       demo: the demographic in the df, either `age`, `race`, or `sex`
-      loc: the location level for the df, either `state` or `national
       condition_cols: a list of condition column names to generate population cols for."""
 
-    if loc != 'state':
-        raise ValueError('This function should only be called for the "state" level')
-
-    df = _merge_pop(df, demo, loc)
+    df = _merge_pop(df, demo, 'state')
 
     for col in condition_cols:
         df[f'{col}_population'] = df.apply(
