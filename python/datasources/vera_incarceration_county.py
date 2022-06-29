@@ -251,7 +251,6 @@ class VeraIncarcerationCounty(DataSource):
         df = ensure_leading_zeros(df, "fips", 5)
 
         datatypes_to_df_map = split_df_by_data_type(df)
-        bq_column_types = {c: 'STRING' for c in df.columns}
 
         # need to place PRISON and JAIL into distinct tables, as the most recent
         # data comes from different years and will have different population comparison
@@ -271,11 +270,18 @@ class VeraIncarcerationCounty(DataSource):
                 df = self.generate_for_bq(
                     df, data_type, demo_type, df_children_partial)
 
+                print(table_name)
+                print(df)
+
+                bq_column_types = {c: 'STRING' for c in df.columns}
                 if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                     bq_column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-                bq_column_types[RATE_COL_MAP[data_type]] = 'INT'
+                bq_column_types[RATE_COL_MAP[data_type]] = 'INT64'
+                bq_column_types[CHILDREN] = 'FLOAT'
                 bq_column_types[PCT_SHARE_COL_MAP[data_type]] = 'FLOAT'
                 bq_column_types[PCT_SHARE_COL_MAP[POP]] = 'FLOAT'
+
+                print(bq_column_types)
 
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=bq_column_types)
