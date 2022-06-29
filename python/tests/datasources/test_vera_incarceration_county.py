@@ -79,7 +79,7 @@ def testWriteToBq(
     assert mock_bq.call_args_list[4].args[2] == 'prison_age_county'
     assert mock_bq.call_args_list[5].args[2] == 'jail_age_county'
     assert mock_csv.call_count == 1
-    assert mock_counties.call_count == 6
+    assert mock_counties.call_count == 1
 
 
 fake_geo_pop_dtype = {
@@ -162,7 +162,7 @@ def test_split_df_by_data_type():
     """
 
     mocked_df = get_mocked_data_as_df()
-    mocked_df = ensure_leading_zeros(mocked_df, "fips", 5)
+    mocked_df = ensure_leading_zeros(mocked_df, "county_fips", 5)
     split_results = split_df_by_data_type(mocked_df)
 
     assert_frame_equal(
