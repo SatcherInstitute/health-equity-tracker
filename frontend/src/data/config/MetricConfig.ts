@@ -1203,7 +1203,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "prison_pct_share",
           fullCardTitleName: "Percent Share of Total Prison Population",
-          shortLabel: "% of imprisonment",
+          shortLabel: "% of the total prison population",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "population_pct",
@@ -1214,7 +1214,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           knownBreakdownComparisonMetric: {
             metricId: "prison_pct_share",
             fullCardTitleName: "Percent Share of Total Prison Population",
-            shortLabel: "% of people in prison",
+            shortLabel: "% of the total prison population",
             type: "pct_share",
           },
         },
@@ -1244,7 +1244,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "jail_pct_share",
           fullCardTitleName: "Percent Share of Total Jail Population",
-          shortLabel: "% of Jailed",
+          shortLabel: "% of the total jail population",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "population_pct",
@@ -1255,7 +1255,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           knownBreakdownComparisonMetric: {
             metricId: "jail_pct_share",
             fullCardTitleName: "Percent Share of Total Jail Population",
-            shortLabel: "% of people in jail",
+            shortLabel: "% of the total jail population",
             type: "pct_share",
           },
         },

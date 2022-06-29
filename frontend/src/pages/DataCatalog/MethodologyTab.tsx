@@ -525,20 +525,20 @@ function MethodologyTab() {
 
                 <ul>
                   <li>
-                    There is no national limit on the age at which a child can
-                    be confined in an adult facility, and the variance in
-                    state-specific laws makes it impossible to derive an
-                    accurate population base for individuals eligible for
-                    incarceration in an adult prison or jail facility. Because
-                    of this, any rate calculations for <b>0-17</b> are comparing
-                    the <b>number of prisoners under 18</b> proportional to
-                    entire population of children all the way down to newborns,
-                    resulting in a diluted incidence rate. This can be seen on
-                    national and state level jail reports, as BJS provides these
-                    figures directly. In other reports, we have chosen not to
-                    calculate the incidence rate and instead rely on the total
-                    number of confined children to highlight this health
-                    inequity.
+                    The lack of federal law regarding the maximum age of
+                    juvenile court jurisdiction and transfer to adult courts
+                    coupled with the variance in state-specific laws makes it
+                    unfeasible to derive an accurate population base for
+                    individuals that may be incarcerated in an adult prison or
+                    jail facility. Because of this, any rate calculations for{" "}
+                    <b>0-17</b> are comparing the{" "}
+                    <b>number of prisoners under 18</b> proportional to the
+                    entire population of children down to newborns, resulting in
+                    a diluted incidence rate. This can be seen on national and
+                    state-level jail reports, as BJS provides these figures
+                    directly. In other reports, we have chosen not to calculate
+                    the incidence rate and instead rely on the total number of
+                    confined children to highlight this health inequity.
                   </li>
                   <li>
                     The prison numbers presented in the BJS Prisoners 2020
