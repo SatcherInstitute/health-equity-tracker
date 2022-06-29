@@ -7,6 +7,7 @@ import { Row } from "../../data/utils/DatasetTypes";
 import { ALL } from "../../data/utils/Constants";
 import FlagIcon from "@material-ui/icons/Flag";
 import { BreakdownVar } from "../../data/query/Breakdowns";
+import { CardContent } from "@material-ui/core";
 
 let children = "children";
 let adultFacilities = "adult facilities";
@@ -20,10 +21,11 @@ interface IncarceratedChildrenShortAlertProps {
 function IncarceratedChildrenShortAlert(
   props: IncarceratedChildrenShortAlertProps
 ) {
-  const count = parseInt(
-    props.queryResponse.data.find((row: Row) => row[props.breakdownVar] === ALL)
-      ?.total_confined_children
-  );
+  let count = props.queryResponse.data.find(
+    (row: Row) => row[props.breakdownVar] === ALL
+  )?.total_confined_children;
+
+  if (count) count = parseInt(count);
 
   if (count == null) return <></>;
 
@@ -33,17 +35,19 @@ function IncarceratedChildrenShortAlert(
   }
 
   return (
-    <Alert
-      severity={count === 0 ? "info" : "error"}
-      role="note"
-      icon={count !== 0 ? <FlagIcon /> : null}
-    >
-      <b>
-        {count.toLocaleString()} {children}
-      </b>{" "}
-      confined in {adultFacilities} in <b>{props.fips.getDisplayName()}</b>.{" "}
-      <a href={urlMap.childrenInPrison}>Learn more.</a>
-    </Alert>
+    <CardContent>
+      <Alert
+        severity={count === 0 ? "info" : "error"}
+        role="note"
+        icon={count !== 0 ? <FlagIcon /> : null}
+      >
+        <b>
+          {count.toLocaleString()} {children}
+        </b>{" "}
+        confined in {adultFacilities} in <b>{props.fips.getDisplayName()}</b>.{" "}
+        <a href={urlMap.childrenInPrison}>Learn more.</a>
+      </Alert>
+    </CardContent>
   );
 }
 

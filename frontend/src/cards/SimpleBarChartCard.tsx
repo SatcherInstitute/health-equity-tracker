@@ -93,23 +93,11 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
             ) : (
               <>
                 {isIncarceration && (
-                  <CardContent>
-                    {/* {!hasOnlyAll && (
-                      <Box mb={1}>
-                        <IncarcerationAlert
-                          dataType={props.variableConfig.variableId}
-                          fips={props.fips}
-                          breakdown={props.breakdownVar}
-                        />
-                      </Box>
-                    )} */}
-
-                    <IncarceratedChildrenShortAlert
-                      fips={props.fips}
-                      queryResponse={queryResponse}
-                      breakdownVar={props.breakdownVar}
-                    />
-                  </CardContent>
+                  <IncarceratedChildrenShortAlert
+                    fips={props.fips}
+                    queryResponse={queryResponse}
+                    breakdownVar={props.breakdownVar}
+                  />
                 )}
 
                 <SimpleHorizontalBarChart

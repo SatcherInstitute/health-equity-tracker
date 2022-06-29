@@ -123,15 +123,11 @@ export function TableCard(props: TableCardProps) {
         return (
           <>
             {isIncarceration && (
-              <>
-                <CardContent>
-                  <IncarceratedChildrenShortAlert
-                    fips={props.fips}
-                    queryResponse={queryResponse}
-                    breakdownVar={props.breakdownVar}
-                  />
-                </CardContent>
-              </>
+              <IncarceratedChildrenShortAlert
+                fips={props.fips}
+                queryResponse={queryResponse}
+                breakdownVar={props.breakdownVar}
+              />
             )}
 
             {showMissingDataAlert && (
