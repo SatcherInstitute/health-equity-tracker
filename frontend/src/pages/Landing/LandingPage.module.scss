@@ -69,14 +69,14 @@
     font-size: $biggerHeader;
     text-align: center;
     color: $alt-green;
-    padding-bottom: 4rem;
   }
 
-  // .RecentNewsHeaderSubtext {
-  //   @include inter400();
-  //   font-size: $title;
-  //   text-align: center;
-  // }
+  .RecentNewsHeaderSubtext {
+    @include inter400();
+    font-size: $title;
+    text-align: center;
+    padding-bottom: 4rem;
+  }
 
   // .RecentNewsItemRow {
   //   padding: 35px;
@@ -129,7 +129,7 @@
 /** ------------- HOW TO SECTION ------------- **/
 
 .HowToRow {
-  padding: 120px 30px 120px 30px;
+  padding: 75px 30px 120px 30px;
   align-items: center;
   border-bottom: $bottom-border-style;
   // border-top: 1px solid $border-color;

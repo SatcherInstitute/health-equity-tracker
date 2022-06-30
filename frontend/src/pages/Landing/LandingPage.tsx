@@ -16,15 +16,13 @@ import {
   NEWS_TAB_LINK,
 } from "../../utils/internalRoutes";
 import FaqSection from "../ui/FaqSection";
-import { Box } from "@material-ui/core";
+import { Box, useMediaQuery, useTheme } from "@material-ui/core";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 import NewsPreviewCard from "../WhatIsHealthEquity/News/NewsPreviewCard";
 import { useQuery } from "react-query";
 import { Article } from "../WhatIsHealthEquity/NewsTab";
 import { ArticlesSkeleton } from "../WhatIsHealthEquity/News/AllPosts";
-
-export const NUM_POSTS_ON_HOME = 4;
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -33,7 +31,17 @@ function LandingPage() {
     REACT_QUERY_OPTIONS
   );
 
-  const recentArticles = data?.data.slice(0, NUM_POSTS_ON_HOME);
+  const theme = useTheme();
+  const pageIsSmall = useMediaQuery(theme.breakpoints.only("sm"));
+  const pageIsMedium = useMediaQuery(theme.breakpoints.only("md"));
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("lg"));
+
+  let numberOfArticlePreviews = 1;
+  if (pageIsSmall) numberOfArticlePreviews = 2;
+  if (pageIsMedium) numberOfArticlePreviews = 3;
+  if (pageIsWide) numberOfArticlePreviews = 4;
+
+  const recentArticles = data?.data.slice(0, numberOfArticlePreviews);
 
   return (
     <main>
@@ -131,19 +139,25 @@ function LandingPage() {
               variant="h2"
               component="h3"
             >
-              Recent news and stories
+              Recent news
             </Typography>
           </Grid>
-          {/* <Grid item xs={12}>
+          <Grid item xs={12}>
             <Typography
               className={styles.RecentNewsHeaderSubtext}
               variant="subtitle1"
               component="p"
             >
+              News and stories from the Satcher Health Leadership Institute and
+              beyond, sharing insights into the Health Equity movement.{" "}
+              <a href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
+                What is health equity?
+              </a>
+              {/* 
               We’re working toward health equity, but can’t do it alone. Please
-              join our effort to move the needle forward.
+              join our effort to move the needle forward. */}
             </Typography>
-          </Grid> */}
+          </Grid>
           <Grid item xs={12}>
             <Grid
               container
@@ -154,7 +168,7 @@ function LandingPage() {
               {recentArticles && !isLoading ? (
                 recentArticles.map((article: Article) => {
                   return (
-                    <Grid item xs={3}>
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={article.id}>
                       <NewsPreviewCard article={article} />
                     </Grid>
                   );
@@ -162,7 +176,7 @@ function LandingPage() {
               ) : (
                 <ArticlesSkeleton
                   doPulse={!error}
-                  numberLoading={NUM_POSTS_ON_HOME}
+                  numberLoading={numberOfArticlePreviews}
                 />
               )}
             </Grid>
