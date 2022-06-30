@@ -492,7 +492,8 @@ function MethodologyTab() {
                     State reports: Prison includes all individuals including
                     under the jurisdiction of that state's adult prison
                     facilities. This data is disaggregated by race/ethnicity and
-                    sex.
+                    sex, however the BJS Prisoners report does not provide age
+                    disaggregation to the state level.
                   </li>
                   <li>
                     Territory reports: All individuals under the jurisdiction of
@@ -502,6 +503,11 @@ function MethodologyTab() {
                     custodial population instead. This data is not disaggregated
                     by any demographic breakdown. All incarcerated people in the
                     U.S. territories are counted under <b>Prison</b>.
+                  </li>
+                  <li>
+                    County reports: All individuals under the under the
+                    jurisdiction of a state prison system on charges arising
+                    from a criminal case in a specific county.
                   </li>
                 </ul>
 
