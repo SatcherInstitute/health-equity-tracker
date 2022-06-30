@@ -1,14 +1,7 @@
 import { getDataManager } from "../../utils/globals";
-import { MetricId, VariableId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import VariableProvider from "./VariableProvider";
-import {
-  UNKNOWN_RACE,
-  HISPANIC,
-  MULTI,
-  MULTI_OR_OTHER_STANDARD,
-} from "../utils/Constants";
 
 class CdcSviProvider extends VariableProvider {
   constructor() {

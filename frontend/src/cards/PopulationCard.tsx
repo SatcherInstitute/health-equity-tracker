@@ -6,7 +6,7 @@ import {
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { Fips, ACS_2010_FIPS } from "../data/utils/Fips";
-import { Box, CardContent, Popper } from "@material-ui/core";
+import { Box, CardContent } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
 import AnimateHeight from "react-animate-height";
