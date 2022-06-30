@@ -4,6 +4,7 @@ import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { MetricId, VariableId } from "../config/MetricConfig";
 import VariableProvider from "./VariableProvider";
+import { GetAcsDatasetId } from "./AcsPopulationProvider";
 
 export function CombinedIncarcerationStateMessage() {
   return (
@@ -103,7 +104,20 @@ class IncarcerationProvider extends VariableProvider {
 
     df = this.renameGeoColumns(df, breakdowns);
 
-    let consumedDatasetIds = [datasetId];
+    const consumedDatasetIds = [datasetId];
+
+    if (breakdowns.geography !== "county") {
+      consumedDatasetIds.push(GetAcsDatasetId(breakdowns));
+    }
+
+    if (
+      breakdowns.geography === "national" ||
+      breakdowns.geography === "territory"
+    ) {
+      consumedDatasetIds.push(
+        "acs_2010_population-by_race_and_ethnicity_territory"
+      );
+    }
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
