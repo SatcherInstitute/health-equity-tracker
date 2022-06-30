@@ -48,6 +48,8 @@ def testGetDataUrlPctShare(mock_json: mock.MagicMock):
     assert get_data_url('pct_share') == "some-other-up-to-date-url"
 
 
+@mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_web_based_on_key',
+            return_value=get_github_file_list_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
             return_value=get_state_totals_test_data_as_df())
 @mock.patch('ingestion.github_util.decode_json_from_url_into_df')
@@ -56,7 +58,9 @@ def testGetDataUrlPctShare(mock_json: mock.MagicMock):
 def testWriteToBq(
         mock_bq: mock.MagicMock,
         mock_csv: mock.MagicMock,
-        mock_csv_web: mock.MagicMock):
+        mock_csv_web: mock.MagicMock,
+        mock_json: mock.MagicMock
+):
     mock_csv.side_effect = [
         get_percentage_of_race_test_data_as_df(),
         get_pct_share_race_test_data_as_df(),
