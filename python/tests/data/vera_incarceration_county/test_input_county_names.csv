@@ -1,0 +1,4 @@
+summary_level,summary_level_name,state_fips_code,county_fips_code,county_subdivision_fips_code,place_fips_code,consolidated_city_fips_code,area_name
+050,state-county,01,01001,,,,Autauga County
+050,state-county,37,37119,,,,Mecklenburg County
+050,state-county,56,56045,,,,Weston County
