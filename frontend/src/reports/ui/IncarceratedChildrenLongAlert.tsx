@@ -16,12 +16,14 @@ function IncarceratedChildrenLongAlert() {
         icon={<FlagIcon />}
         role="note"
       >
-        <AlertTitle>Children in Adult Jails and Prisons</AlertTitle>
+        <AlertTitle>Jails and Prison Incarceration</AlertTitle>
 
         <p>
-          Although the criminal justice system makes distinctions between adults
-          and children, individual states have laws that remove children from
-          the protective cover of these distinctions and{" "}
+          Jail is this....is this....is this....is this....is this..... prison
+          iis this....is this....is this....is this....is this..... Although the
+          criminal justice system makes distinctions between adults and
+          children, individual states have laws that remove children from the
+          protective cover of these distinctions and{" "}
           <a target="_blank" rel="noreferrer" href={urlMap.prisonPolicy}>
             enable the incarceration of children in adult institutions
           </a>
