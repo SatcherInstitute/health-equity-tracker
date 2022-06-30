@@ -16,6 +16,7 @@ from ingestion.dataset_utils import (
 from ingestion.merge_utils import (
     merge_state_fips_codes,
     merge_pop_numbers,
+    merge_pop_numbers_per_condition,
     merge_county_names
 )
 
@@ -48,7 +49,7 @@ class CDCRestrictedData(DataSource):
             'upload_to_gcs should not be called for CDCRestrictedData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        for geo in ['state', 'county']:
+        for geo in ['national', 'state', 'county']:
             for demo in ['sex', 'race', 'age']:
                 filename = f'cdc_restricted_by_{demo}_{geo}.csv'
                 df = gcs_to_bq_util.load_csv_as_df(
@@ -112,6 +113,10 @@ class CDCRestrictedData(DataSource):
             df = merge_county_names(df)
 
         if geo == 'national':
+            df = merge_pop_numbers_per_condition(df, demo,
+                                                 [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
+                                                  std_col.COVID_DEATH_Y])
+
             df = generate_national_dataset(df, [demo_col])
 
         df = merge_state_fips_codes(df)
