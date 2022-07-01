@@ -259,16 +259,12 @@ class VeraIncarcerationCounty(DataSource):
                           std_col.AGE_COL]:
 
             df_children = datatypes_to_df_map[CHILDREN].copy()
-
             df_children_partial = generate_partial_breakdown(
                 df_children, demo_type, JAIL, CHILDREN)
 
             for data_type in [PRISON, JAIL]:
-
                 table_name = f'{data_type}_{demo_type}_county'
-
                 df = datatypes_to_df_map[data_type].copy()
-
                 df = self.generate_for_bq(
                     df, data_type, demo_type, df_children_partial)
 
@@ -278,6 +274,7 @@ class VeraIncarcerationCounty(DataSource):
                 df[[CHILDREN, RATE_COL_MAP[data_type]]] = df[[CHILDREN,
                                                               RATE_COL_MAP[data_type]]].convert_dtypes()
 
+                # set BigQuery types object
                 bq_column_types = {c: 'STRING' for c in df.columns}
                 if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                     bq_column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
