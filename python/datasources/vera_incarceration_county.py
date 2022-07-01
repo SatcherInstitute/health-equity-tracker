@@ -138,6 +138,10 @@ DATA_COLS = [
     *RACE_JAIL_RATE_COLS_TO_STANDARD.keys(),
     *SEX_JAIL_RAW_COLS_TO_STANDARD.keys(),
     *SEX_JAIL_RATE_COLS_TO_STANDARD.keys(),
+    PRISON_RAW_ALL,
+    JAIL_RAW_ALL,
+    PRISON_RATE_ALL,
+    JAIL_RATE_ALL
 ]
 
 GEO_COLS_TO_STANDARD = {
@@ -151,13 +155,14 @@ POP_COLS = [
     *SEX_POP_TO_STANDARD.keys()
 ]
 
-VERA_COL_TYPES = {}
-for location_col in GEO_COLS_TO_STANDARD.keys():
-    VERA_COL_TYPES[location_col] = str
-for data_col in DATA_COLS:
-    VERA_COL_TYPES[data_col] = float
-for pop_col in POP_COLS:
-    VERA_COL_TYPES[pop_col] = float
+location_col_types = {col: str for col in GEO_COLS_TO_STANDARD.keys()}
+data_col_types = {col: float for col in DATA_COLS}
+pop_col_types = {col: float for col in POP_COLS}
+VERA_COL_TYPES = {
+    **location_col_types,
+    **data_col_types,  # type: ignore
+    **pop_col_types  # type: ignore
+}
 
 
 def split_df_by_data_type(df):
@@ -167,7 +172,7 @@ def split_df_by_data_type(df):
 
     Parameters:
         df: pandas df containing the entire Vera csv file. Must contain columns:
-        | "fips" | with values as 5 digit FIPS codes. Missing leading zeros will be added
+        | "county_fips" | with values as 5 digit FIPS codes.
         | "year" | Rows with latest PRISON year will be used for prison; latest JAIL year for jail
         All other columns containing geographic info, population info, and data
 
@@ -187,7 +192,8 @@ def split_df_by_data_type(df):
                           == LATEST_PRISON_YEAR].reset_index(drop=True)
 
     # eliminate columns with unneeded properties
-    df_prison = df_prison[[*GEO_COLS_TO_STANDARD.keys(),
+    df_prison = df_prison[[std_col.COUNTY_FIPS_COL,
+                           std_col.COUNTY_NAME_COL,
                            *POP_COLS,
                            PRISON_RAW_ALL,
                            PRISON_RATE_ALL,
@@ -197,7 +203,8 @@ def split_df_by_data_type(df):
                            *SEX_PRISON_RATE_COLS_TO_STANDARD.keys(),
                            ]]
 
-    df_jail = df_jail[[*GEO_COLS_TO_STANDARD.keys(),
+    df_jail = df_jail[[std_col.COUNTY_FIPS_COL,
+                       std_col.COUNTY_NAME_COL,
                        *POP_COLS,
                        JAIL_RAW_ALL,
                        JAIL_RATE_ALL,
@@ -207,7 +214,8 @@ def split_df_by_data_type(df):
                        *SEX_JAIL_RATE_COLS_TO_STANDARD.keys(),
                        ]]
 
-    df_juvenile_by_sex = df_juvenile_by_sex[[*GEO_COLS_TO_STANDARD.keys(),
+    df_juvenile_by_sex = df_juvenile_by_sex[[std_col.COUNTY_FIPS_COL,
+                                             std_col.COUNTY_NAME_COL,
                                              *JUVENILE_COLS
                                              ]]
 
@@ -216,12 +224,6 @@ def split_df_by_data_type(df):
     df_confined_children[CHILDREN] = df_confined_children[JUVENILE_COLS].sum(
         axis="columns")
     df_confined_children = df_confined_children.drop(columns=JUVENILE_COLS)
-
-    # can rename geo cols first because no naming collisions when melting
-    df_jail = df_jail.rename(columns=GEO_COLS_TO_STANDARD)
-    df_prison = df_prison.rename(columns=GEO_COLS_TO_STANDARD)
-    df_confined_children = df_confined_children.rename(
-        columns=GEO_COLS_TO_STANDARD)
 
     return {
         PRISON: df_prison,
@@ -248,10 +250,11 @@ class VeraIncarcerationCounty(DataSource):
 
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_VERA_URL, dtype=VERA_COL_TYPES)
-        df = ensure_leading_zeros(df, "fips", 5)
+        df = df.rename(columns={"fips": std_col.COUNTY_FIPS_COL})
+        df = ensure_leading_zeros(df, std_col.COUNTY_FIPS_COL, 5)
+        df = merge_county_names(df)
 
         datatypes_to_df_map = split_df_by_data_type(df)
-        bq_column_types = {c: 'STRING' for c in df.columns}
 
         # need to place PRISON and JAIL into distinct tables, as the most recent
         # data comes from different years and will have different population comparison
@@ -265,15 +268,23 @@ class VeraIncarcerationCounty(DataSource):
                 df_children, demo_type, JAIL, CHILDREN)
 
             for data_type in [PRISON, JAIL]:
-
                 table_name = f'{data_type}_{demo_type}_county'
                 df = datatypes_to_df_map[data_type].copy()
                 df = self.generate_for_bq(
                     df, data_type, demo_type, df_children_partial)
 
+                # deal with nullable INT columns
+                df[[CHILDREN, RATE_COL_MAP[data_type]]] = df[[CHILDREN,
+                                                              RATE_COL_MAP[data_type]]].dropna().astype(int)
+                df[[CHILDREN, RATE_COL_MAP[data_type]]] = df[[CHILDREN,
+                                                              RATE_COL_MAP[data_type]]].convert_dtypes()
+
+                # set BigQuery types object
+                bq_column_types = {c: 'STRING' for c in df.columns}
                 if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                     bq_column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-                bq_column_types[RATE_COL_MAP[data_type]] = 'INT'
+                bq_column_types[RATE_COL_MAP[data_type]] = 'INT64'
+                bq_column_types[CHILDREN] = 'INT64'
                 bq_column_types[PCT_SHARE_COL_MAP[data_type]] = 'FLOAT'
                 bq_column_types[PCT_SHARE_COL_MAP[POP]] = 'FLOAT'
 
@@ -331,8 +342,6 @@ class VeraIncarcerationCounty(DataSource):
 
         breakdown_df = breakdown_df.drop(
             columns=cols_to_drop)
-
-        breakdown_df = merge_county_names(breakdown_df)
 
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(breakdown_df)
