@@ -79,7 +79,7 @@ def testWriteToBq(
     assert mock_bq.call_args_list[4].args[2] == 'prison_age_county'
     assert mock_bq.call_args_list[5].args[2] == 'jail_age_county'
     assert mock_csv.call_count == 1
-    assert mock_counties.call_count == 6
+    assert mock_counties.call_count == 1
 
 
 fake_geo_pop_dtype = {
@@ -97,7 +97,7 @@ fake_geo_pop_dtype = {
 
 
 fake_prison_dtype = {
-    **fake_geo_pop_dtype,
+    **fake_geo_pop_dtype,  # type: ignore
     "total_prison_pop": float,
     "total_prison_pop_rate": float,
     "aapi_prison_pop": float,
@@ -118,7 +118,7 @@ fake_prison_dtype = {
 }
 
 fake_jail_dtype = {
-    **fake_geo_pop_dtype,
+    **fake_geo_pop_dtype,  # type: ignore
     "total_jail_pop": float,
     "total_jail_pop_rate": float,
     "aapi_jail_pop": float,
@@ -162,7 +162,7 @@ def test_split_df_by_data_type():
     """
 
     mocked_df = get_mocked_data_as_df()
-    mocked_df = ensure_leading_zeros(mocked_df, "fips", 5)
+    mocked_df = ensure_leading_zeros(mocked_df, "county_fips", 5)
     split_results = split_df_by_data_type(mocked_df)
 
     assert_frame_equal(
@@ -218,9 +218,7 @@ _fake_children_df_age = _fake_children_df.copy()
 _fake_children_df_age["age"] = "All"
 
 
-@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-             return_value=get_mocked_county_names_as_df())
-def testCountyPrisonRace(mock_counties: mock.MagicMock):
+def testCountyPrisonRace():
 
     _generated_df = vera.generate_for_bq(
         _fake_prison_df, PRISON, "race_and_ethnicity", _fake_children_df_race)
@@ -232,9 +230,7 @@ def testCountyPrisonRace(mock_counties: mock.MagicMock):
         _generated_df, _expected_df_prison_race, check_like=True)
 
 
-@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-             return_value=get_mocked_county_names_as_df())
-def testCountyJailRace(mock_counties: mock.MagicMock):
+def testCountyJailRace():
 
     _generated_df = vera.generate_for_bq(
         _fake_jail_df, JAIL, "race_and_ethnicity", _fake_children_df_race)
@@ -246,9 +242,7 @@ def testCountyJailRace(mock_counties: mock.MagicMock):
         _generated_df, _expected_df_jail_race, check_like=True)
 
 
-@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-             return_value=get_mocked_county_names_as_df())
-def testCountyPrisonBySex(mock_counties: mock.MagicMock):
+def testCountyPrisonBySex():
 
     _generated_df = vera.generate_for_bq(
         _fake_prison_df, PRISON, "sex", _fake_children_df_sex)
@@ -260,9 +254,7 @@ def testCountyPrisonBySex(mock_counties: mock.MagicMock):
         _generated_df, _expected_df_prison_sex, check_like=True)
 
 
-@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-             return_value=get_mocked_county_names_as_df())
-def testCountyJailBySex(mock_counties: mock.MagicMock):
+def testCountyJailBySex():
 
     _generated_df = vera.generate_for_bq(
         _fake_jail_df, JAIL, "sex", _fake_children_df_sex)
@@ -274,9 +266,7 @@ def testCountyJailBySex(mock_counties: mock.MagicMock):
         _generated_df, _expected_df_jail_sex, check_like=True)
 
 
-@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-             return_value=get_mocked_county_names_as_df())
-def testCountyPrisonByAge(mock_counties: mock.MagicMock):
+def testCountyPrisonByAge():
 
     _generated_df = vera.generate_for_bq(
         _fake_prison_df, PRISON, "age", _fake_children_df_age)
@@ -288,9 +278,7 @@ def testCountyPrisonByAge(mock_counties: mock.MagicMock):
         _generated_df, _expected_df_prison_age, check_like=True)
 
 
-@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-             return_value=get_mocked_county_names_as_df())
-def testCountyJailByAge(mock_counties: mock.MagicMock):
+def testCountyJailByAge():
 
     _generated_df = vera.generate_for_bq(
         _fake_jail_df, JAIL, "age", _fake_children_df_age)

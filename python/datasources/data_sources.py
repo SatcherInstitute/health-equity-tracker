@@ -13,6 +13,7 @@ from datasources.acs_poverty import ACSPovertyDataSource
 from datasources.uhc import UHCData
 from datasources.cawp import CAWPData
 from datasources.bjs_incarceration import BJSIncarcerationData
+from datasources.vera_incarceration_county import VeraIncarcerationCounty
 
 # Map of data source ID to the class that implements the ingestion methods for
 # that data source.
@@ -32,4 +33,5 @@ DATA_SOURCES_DICT = {
     UHCData.get_id(): UHCData(),
     CAWPData.get_id(): CAWPData(),
     BJSIncarcerationData.get_id(): BJSIncarcerationData(),
+    VeraIncarcerationCounty.get_id(): VeraIncarcerationCounty(),
 }
