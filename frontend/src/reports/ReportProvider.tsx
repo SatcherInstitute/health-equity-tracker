@@ -174,9 +174,24 @@ function ReportProvider(props: ReportProviderProps) {
           ref={fieldRef}
           className={styles.MissingDataInfo}
         >
-          <h3 className={styles.FootnoteLargeHeading}>
-            What Data Are Missing?
-          </h3>
+          {/* Display condition definition(s) based on the tracker madlib settings */}
+          <div ref={definitionsRef}>
+            {definedConditions.length > 0 && (
+              <Box mb={5}>
+                <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
+                <LazyLoad offset={300} height={181} once>
+                  <DefinitionsList variablesToDefine={metricConfigSubset} />
+                </LazyLoad>
+              </Box>
+            )}
+          </div>
+
+          <Box mt={10}>
+            <h3 className={styles.FootnoteLargeHeading}>
+              What Data Are Missing?
+            </h3>
+          </Box>
+
           <p>Unfortunately there are crucial data missing in our sources.</p>
           <h4>Missing and Misidentified People</h4>
           <p>
@@ -304,18 +319,6 @@ function ReportProvider(props: ReportProviderProps) {
           >
             See Our Data Sources
           </Button>
-
-          {/* Display condition definition(s) based on the tracker madlib settings */}
-          <div ref={definitionsRef}>
-            {definedConditions.length > 0 && (
-              <Box mt={5}>
-                <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
-                <LazyLoad offset={300} height={181} once>
-                  <DefinitionsList variablesToDefine={metricConfigSubset} />
-                </LazyLoad>
-              </Box>
-            )}
-          </div>
 
           <div className={styles.MissingDataContactUs}>
             <p>
