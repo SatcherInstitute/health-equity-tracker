@@ -203,17 +203,32 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "June 2022",
   },
   {
-    id: "uhc_data-age",
+    id: "uhc_data-age_national",
+    name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by Age, National",
+    update_time: "2021",
+  },
+  {
+    id: "uhc_data-race_and_ethnicity_national",
+    name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by Race, National",
+    update_time: "2021",
+  },
+  {
+    id: "uhc_data-sex_national",
+    name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by Sex, National",
+    update_time: "2021",
+  },
+  {
+    id: "uhc_data-age_state",
     name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by Age and State",
     update_time: "2021",
   },
   {
-    id: "uhc_data-race_and_ethnicity",
+    id: "uhc_data-race_and_ethnicity_state",
     name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by Race and State",
     update_time: "2021",
   },
   {
-    id: "uhc_data-sex",
+    id: "uhc_data-sex_state",
     name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by Sex and State",
     update_time: "2021",
   },
