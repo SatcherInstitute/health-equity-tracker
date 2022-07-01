@@ -243,8 +243,6 @@ class VeraIncarcerationCounty(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        print("gcs bucket:", gcs_bucket)
-
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_VERA_URL, dtype=VERA_COL_TYPES)
         df = df.rename(columns={"fips": std_col.COUNTY_FIPS_COL})
@@ -261,6 +259,7 @@ class VeraIncarcerationCounty(DataSource):
                           std_col.AGE_COL]:
 
             df_children = datatypes_to_df_map[CHILDREN].copy()
+
             df_children_partial = generate_partial_breakdown(
                 df_children, demo_type, JAIL, CHILDREN)
 
@@ -273,24 +272,22 @@ class VeraIncarcerationCounty(DataSource):
                 df = self.generate_for_bq(
                     df, data_type, demo_type, df_children_partial)
 
+                # deal with nullable INT columns
+                df[[CHILDREN, RATE_COL_MAP[data_type]]] = df[[CHILDREN,
+                                                              RATE_COL_MAP[data_type]]].dropna().astype(int)
+                df[[CHILDREN, RATE_COL_MAP[data_type]]] = df[[CHILDREN,
+                                                              RATE_COL_MAP[data_type]]].convert_dtypes()
+
                 bq_column_types = {c: 'STRING' for c in df.columns}
                 if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                     bq_column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
                 bq_column_types[RATE_COL_MAP[data_type]] = 'INT64'
-                bq_column_types[CHILDREN] = 'FLOAT'
+                bq_column_types[CHILDREN] = 'INT64'
                 bq_column_types[PCT_SHARE_COL_MAP[data_type]] = 'FLOAT'
                 bq_column_types[PCT_SHARE_COL_MAP[POP]] = 'FLOAT'
 
-                # print("df cols:", df.columns)
-                # print("table name", table_name)
-                # print("bq ol types", bq_column_types)
-
-                # df.to_json(f'{table_name}_results.json', orient="records")
-
-                # column_types=bq_column_types
-
                 gcs_to_bq_util.add_df_to_bq(
-                    df, dataset, table_name)
+                    df, dataset, table_name, column_types=bq_column_types)
 
     def generate_for_bq(self, df, data_type, demo_type, df_children):
 
