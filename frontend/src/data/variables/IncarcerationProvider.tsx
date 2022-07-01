@@ -63,20 +63,23 @@ class IncarcerationProvider extends VariableProvider {
   getDatasetId(breakdowns: Breakdowns, dataType: string): string {
     let source = "";
     let dataType_ = "";
+    let detail = "";
 
     if (
       breakdowns.geography === "national" ||
       breakdowns.geography === "state"
     ) {
       source = "bjs";
+      detail = "data";
     }
 
     if (breakdowns.geography === "county") {
       source = "vera";
       dataType_ = `${dataType}_`;
+      detail = "county";
     }
 
-    return `${source}_incarceration_data-${dataType_}${
+    return `${source}_incarceration_${detail}-${dataType_}${
       breakdowns.getSoleDemographicBreakdown().columnName
     }_${breakdowns.geography}`;
   }

@@ -263,32 +263,32 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019 for Jail, 2020 for Prison",
   },
   {
-    id: "vera_incarceration_data-jail_age_county",
+    id: "vera_incarceration_county-jail_age_county",
     name: "Rates of individuals within a county incarcerated in local jail facilities, by Age (totals only)",
     update_time: "2018",
   },
   {
-    id: "vera_incarceration_data-jail_sex_county",
+    id: "vera_incarceration_county-jail_sex_county",
     name: "Rates of individuals within a county incarcerated in local jail facilities, by Sex",
     update_time: "2018",
   },
   {
-    id: "vera_incarceration_data-jail_race_and_ethnicity_county",
+    id: "vera_incarceration_county-jail_race_and_ethnicity_county",
     name: "Rates of individuals within a county incarcerated in local jail facilities, by Race/Ethnicity",
     update_time: "2018",
   },
   {
-    id: "vera_incarceration_data-prison_age_county",
+    id: "vera_incarceration_county-prison_age_county",
     name: "Rates of individuals within a county incarcerated in state prison facilities, by Age (totals only)",
     update_time: "2016",
   },
   {
-    id: "vera_incarceration_data-prison_sex_county",
+    id: "vera_incarceration_county-prison_sex_county",
     name: "Rates of individuals within a county incarcerated in state prison facilities, by Sex",
     update_time: "2016",
   },
   {
-    id: "vera_incarceration_data-prison_race_and_ethnicity_county",
+    id: "vera_incarceration_county-prison_race_and_ethnicity_county",
     name: "Rates of individuals within a county incarcerated in state prison facilities, by Race/Ethnicity",
     update_time: "2016",
   },
