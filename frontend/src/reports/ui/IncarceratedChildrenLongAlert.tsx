@@ -16,9 +16,23 @@ function IncarceratedChildrenLongAlert() {
         icon={<FlagIcon />}
         role="note"
       >
-        <AlertTitle>The 3 Ws of Incarceration: Where, What and Why</AlertTitle>
+        {/* <AlertTitle>The 3 Ws of Incarceration: Where, What and Why</AlertTitle> */}
+        <AlertTitle>Children in Adult Jails and Prisons</AlertTitle>
 
         <p>
+          Although the criminal justice system makes distinctions between adults
+          and children, individual states have laws that remove children from
+          the protective cover of these distinctions and{" "}
+          <a target="_blank" rel="noreferrer" href={urlMap.prisonPolicy}>
+            enable the incarceration of children in adult institutions
+          </a>
+          . Such children are more exposed to physical and sexual abuse, fewer
+          age-appropriate services, and worse health outcomes. When reporting on
+          incarceration, we highlight the{" "}
+          <b>total number of confined children</b> in adult facilities. Read
+          more in <Link to={METHODOLOGY_TAB_LINK}>our methodology</Link>.
+        </p>
+        {/* <p>
           <b>Where are Justice involved individuals confined?</b> A Prison or a
           Jail.
         </p>
@@ -50,7 +64,7 @@ function IncarceratedChildrenLongAlert() {
           outcomes. When reporting on incarceration, we highlight the{" "}
           <b>total number of confined children</b> in adult facilities. Read
           more in <Link to={METHODOLOGY_TAB_LINK}>our methodology</Link>.
-        </p>
+        </p> */}
       </Alert>
     </div>
   );

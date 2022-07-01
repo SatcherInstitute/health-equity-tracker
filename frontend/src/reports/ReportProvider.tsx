@@ -162,7 +162,7 @@ function ReportProvider(props: ReportProviderProps) {
         <ShareButtons madLib={props.madLib} />
         {props.showLifeLineAlert && <LifelineAlert />}
         <DisclaimerAlert jumpToData={jumpToData} />
-        {props.showIncarceratedChildrenAlert && (
+        {props.showIncarceratedChildrenAlert && false && (
           <IncarceratedChildrenLongAlert />
         )}
 

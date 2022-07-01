@@ -1233,7 +1233,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Jail",
       variableFullDisplayName: "Individuals in Jail",
       surveyCollectedData: true,
-      variableDefinition: `Individuals of any age, including children, confined in a local, adult jail facility. AK, CT, DE, HI, RI, and VT each operate an integrated system that combines prisons and jails; in accordance with the data sources we include those facilities as adult prisons but not as local jails.`,
+      variableDefinition: `Individuals of any age, including children, confined in a local, adult jail facility. AK, CT, DE, HI, RI, and VT each operate an integrated system that combines prisons and jails; in accordance with the data sources we include those facilities as adult prisons but not as local jails. Jails are locally operated short-term facilities that hold inmates awaiting trial or sentencing or both, and inmates sentenced to a term of less than one year, typically misdemeanants. Prisons are longer-term facilities run by the state or the federal government that typically holds felons and persons with sentences of more than one year. Definitions may vary by state.`,
       metrics: {
         per100k: {
           metricId: "jail_per_100k",
