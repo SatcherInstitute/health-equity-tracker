@@ -97,7 +97,7 @@ fake_geo_pop_dtype = {
 
 
 fake_prison_dtype = {
-    **fake_geo_pop_dtype,
+    **fake_geo_pop_dtype,  # type: ignore
     "total_prison_pop": float,
     "total_prison_pop_rate": float,
     "aapi_prison_pop": float,
@@ -118,7 +118,7 @@ fake_prison_dtype = {
 }
 
 fake_jail_dtype = {
-    **fake_geo_pop_dtype,
+    **fake_geo_pop_dtype,  # type: ignore
     "total_jail_pop": float,
     "total_jail_pop_rate": float,
     "aapi_jail_pop": float,

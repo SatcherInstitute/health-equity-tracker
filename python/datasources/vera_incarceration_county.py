@@ -138,6 +138,10 @@ DATA_COLS = [
     *RACE_JAIL_RATE_COLS_TO_STANDARD.keys(),
     *SEX_JAIL_RAW_COLS_TO_STANDARD.keys(),
     *SEX_JAIL_RATE_COLS_TO_STANDARD.keys(),
+    PRISON_RAW_ALL,
+    JAIL_RAW_ALL,
+    PRISON_RATE_ALL,
+    JAIL_RATE_ALL
 ]
 
 GEO_COLS_TO_STANDARD = {
@@ -151,13 +155,14 @@ POP_COLS = [
     *SEX_POP_TO_STANDARD.keys()
 ]
 
-VERA_COL_TYPES = {}
-for location_col in GEO_COLS_TO_STANDARD.keys():
-    VERA_COL_TYPES[location_col] = str
-for data_col in DATA_COLS:
-    VERA_COL_TYPES[data_col] = float
-for pop_col in POP_COLS:
-    VERA_COL_TYPES[pop_col] = float
+location_col_types = {col: str for col in GEO_COLS_TO_STANDARD.keys()}
+data_col_types = {col: float for col in DATA_COLS}
+pop_col_types = {col: float for col in POP_COLS}
+VERA_COL_TYPES = {
+    **location_col_types,
+    **data_col_types,  # type: ignore
+    **pop_col_types  # type: ignore
+}
 
 
 def split_df_by_data_type(df):
