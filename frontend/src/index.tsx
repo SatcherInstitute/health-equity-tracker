@@ -4,6 +4,7 @@ import "./styles/index.scss";
 import App from "./App";
 import "typeface-hind";
 import "typeface-montserrat";
+import { SnackbarProvider } from "notistack";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { persistQueryClient } from "react-query/persistQueryClient-experimental";
 import { createWebStoragePersistor } from "react-query/createWebStoragePersistor-experimental";
@@ -30,7 +31,9 @@ persistQueryClient({
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <SnackbarProvider variant="success" preventDuplicate={true}>
+        <App />
+      </SnackbarProvider>
     </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")

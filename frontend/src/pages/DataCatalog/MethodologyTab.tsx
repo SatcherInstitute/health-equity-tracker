@@ -12,8 +12,9 @@ import { Helmet } from "react-helmet-async";
 import { getHtml } from "../../utils/urlutils";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
-import { Link } from "react-router-dom";
 import { Card } from "@material-ui/core";
+// import { useSnackbar } from "notistack";
+import { Link } from "react-router-dom";
 import { urlMap } from "../../utils/externalUrls";
 import DefinitionsList from "../../reports/ui/DefinitionsList";
 import { currentYear } from "../../Footer";
@@ -21,6 +22,12 @@ import { currentYear } from "../../Footer";
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
 function MethodologyTab() {
+  // const { enqueueSnackbar } = useSnackbar();
+
+  // function handleCopy() {
+  //   enqueueSnackbar("Citation Copied.");
+  // }
+
   return (
     <>
       <Helmet>
