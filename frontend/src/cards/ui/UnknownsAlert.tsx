@@ -7,6 +7,7 @@ import {
   UNKNOWN,
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
+  AGE,
 } from "../../data/utils/Constants";
 import styles from "../Card.module.scss";
 import { CardContent, Divider } from "@material-ui/core";
@@ -14,19 +15,27 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
+import { Fips } from "../../data/utils/Fips";
+import { VisualizationType } from "../../charts/utils";
 
 export const RACE_OR_ETHNICITY = "race or ethnicity";
 
-function UnknownsAlert(props: {
+interface UnknownsAlertProps {
   queryResponse: MetricQueryResponse;
+  ageQueryResponse?: MetricQueryResponse;
   metricConfig: MetricConfig;
   breakdownVar: BreakdownVar;
-  displayType: string; // "chart" or "map"
+  displayType: VisualizationType;
   known: Boolean;
   overrideAndWithOr?: Boolean;
   raceEthDiffMap?: Boolean;
   noDemographicInfoMap?: Boolean;
-}) {
+  showingVisualization?: Boolean;
+  fips: Fips;
+  jumpToData?: Function;
+}
+
+function UnknownsAlert(props: UnknownsAlertProps) {
   const unknowns = props.queryResponse
     .getValidRowsForField(props.metricConfig.metricId)
     .filter(
@@ -35,6 +44,17 @@ function UnknownsAlert(props: {
         row[props.breakdownVar] === UNKNOWN ||
         row[props.breakdownVar] === UNKNOWN_ETHNICITY
     );
+
+  const additionalAgeUnknowns = props.ageQueryResponse
+    ? props.ageQueryResponse
+        .getValidRowsForField(props.metricConfig.metricId)
+        .filter(
+          (row: Row) =>
+            row[AGE] === UNKNOWN_RACE ||
+            row[AGE] === UNKNOWN ||
+            row[AGE] === UNKNOWN_ETHNICITY
+        )
+    : null;
 
   const breakdownVarDisplayName =
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar];
@@ -63,45 +83,74 @@ function UnknownsAlert(props: {
     separately, the map shows the higher of the two metrics.`;
 
   const percentageUnknown = unknowns[0][props.metricConfig.metricId];
+  const secondaryAgePercentageUnknown =
+    additionalAgeUnknowns?.[0]?.[props.metricConfig.metricId];
 
   const diffRaceEthnicityText = raceEthnicityDiff
     ? `This state reports race and ethnicity separately.
     ${unknowns[0][props.metricConfig.metricId]}${
-        props.metricConfig.shortVegaLabel
+        props.metricConfig.shortLabel
       } reported an
     ${unknowns[0][props.breakdownVar].toLowerCase()} and
     ${unknowns[1][props.metricConfig.metricId]}${
-        props.metricConfig.knownBreakdownComparisonMetric!.shortVegaLabel
+        props.metricConfig.knownBreakdownComparisonMetric!.shortLabel
       } reported an
     ${unknowns[1][props.breakdownVar].toLowerCase()}.`
     : "";
+
+  const showCardHelperText =
+    /* for DISPARITY CHART  */ (props.displayType === "chart" &&
+      percentageUnknown !== 100 &&
+      !props.noDemographicInfoMap) ||
+    /* for UNKNOWNS MAP */ (percentageUnknown !== 100 &&
+      percentageUnknown !== 0 &&
+      props.showingVisualization);
+  /* for AGE-ADJUSTMENT TABLE */
+  const showDataGapsRisk = props.displayType === "table";
 
   // In the case we have unknowns for race and ethnicity reported separately,
   // show the higher one on the map
   return raceEthnicityDiff ? (
     <>
       <CardContent className={styles.SmallMarginContent}>
-        <Alert severity="warning">{diffRaceEthnicityText}</Alert>
+        <Alert severity="warning" role="note">
+          {diffRaceEthnicityText}
+        </Alert>
       </CardContent>
       <Divider />
     </>
   ) : (
     <>
       <CardContent className={styles.SmallMarginContent}>
-        <Alert severity="warning">
+        <Alert severity="warning" role="note">
           {percentageUnknown}
-          {
-            props.metricConfig.knownBreakdownComparisonMetric!.shortVegaLabel
-          }{" "}
-          reported {props.overrideAndWithOr && "an"} unknown{" "}
+          {props.metricConfig.shortLabel}
+          {" reported an unknown "}
           {props.overrideAndWithOr
             ? RACE_OR_ETHNICITY
             : breakdownVarDisplayName}
-          .{" "}
-          {percentageUnknown !== 100 &&
-            !props.noDemographicInfoMap &&
-            cardHelperText}{" "}
+          {/* Age Adjusted Card reports both unknown RACE + AGE */}
+          {secondaryAgePercentageUnknown
+            ? `, and ${secondaryAgePercentageUnknown}${props.metricConfig.shortLabel} reported an unknown age`
+            : null}
+          {" in "}
+          {props.fips.getDisplayName()}. {showCardHelperText && cardHelperText}
           {props.raceEthDiffMap && raceEthDiffMapText}
+          {showDataGapsRisk && (
+            <>
+              Consider the possible impact of{" "}
+              <a
+                href="#missingDataInfo"
+                onClick={(e) => {
+                  e.preventDefault();
+                  props.jumpToData && props.jumpToData();
+                }}
+              >
+                data reporting gaps
+              </a>{" "}
+              when interpreting age-adjusted risk.
+            </>
+          )}
         </Alert>
       </CardContent>
       <Divider />

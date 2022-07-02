@@ -1,8 +1,8 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 import "typeface-dm-sans";
 import sass from "./variables.module.scss";
 
-const MaterialTheme = createMuiTheme({
+const MaterialTheme = createTheme({
   palette: {
     primary: {
       light: sass.barChartLight,
@@ -22,7 +22,7 @@ const MaterialTheme = createMuiTheme({
     MuiCssBaseline: {
       "@global": {
         body: {
-          fontFamily: '"Inter", serif',
+          fontFamily: '"Inter", sans-serif',
         },
         ".MuiAlert-standardInfo	.MuiAlert-icon": {
           color: `${sass.altGreen} !important`,
@@ -47,7 +47,7 @@ const MaterialTheme = createMuiTheme({
     MuiButton: {
       root: {
         textTransform: "none",
-        fontFamily: '"Inter", serif',
+        fontFamily: '"Inter", sans-serif',
       },
       containedPrimary: {
         color: `${sass.white} !important`,
@@ -79,7 +79,7 @@ const MaterialTheme = createMuiTheme({
     },
     MuiAlert: {
       root: {
-        fontFamily: '"Inter", serif',
+        fontFamily: '"Inter", sans-serif',
       },
       standardInfo: {
         backgroundColor: `${sass.standardInfo} !important`,

@@ -5,9 +5,11 @@ import Typography from "@material-ui/core/Typography";
 import { Accordion, AccordionSummary } from "@material-ui/core";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { FAQ_TAB_LINK, ReactRouterLinkButton } from "../../utils/urlutils";
+import { FAQ_TAB_LINK } from "../../utils/internalRoutes";
+import { ReactRouterLinkButton } from "../../utils/urlutils";
+
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
-import parse from "html-react-parser";
+import { getHtml } from "../../utils/urlutils";
 
 function Question(props: {
   questionText: string;
@@ -16,13 +18,13 @@ function Question(props: {
   answer: JSX.Element;
 }) {
   return (
-    <Accordion>
+    <Accordion component="li" className={styles.FaqListItem}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls={props.ariaControls}
         id={props.id}
       >
-        <Typography className={styles.FaqQuestion} variant="h2">
+        <Typography className={styles.FaqQuestion} variant="h2" component="h4">
           {props.questionText}
         </Typography>
       </AccordionSummary>
@@ -35,13 +37,13 @@ function Question(props: {
 
 function FaqSection() {
   return (
-    <Grid container className={styles.FaqRow}>
-      <Grid item xs={12}>
-        <Typography className={styles.FaqHeader} variant="h1">
+    <Grid container component="article">
+      <Grid item>
+        <Typography className={styles.FaqHeader} variant="h1" component="h3">
           Frequently asked questions
         </Typography>
       </Grid>
-      <Grid item xs={12} className={styles.FaqQAItem}>
+      <Grid item xs={12} className={styles.FaqQAItem} component="ul">
         {selectFaqs.map((faq, index) => {
           return (
             <Question
@@ -49,7 +51,7 @@ function FaqSection() {
               questionText={faq.q}
               ariaControls={`panel${index + 1}-content`}
               id={`panel${index + 1}-header`}
-              answer={<>{parse(faq.a)}</>}
+              answer={<>{getHtml(faq.a)}</>}
             />
           );
         })}

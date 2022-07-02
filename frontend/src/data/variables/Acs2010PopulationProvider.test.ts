@@ -5,17 +5,17 @@ import {
   resetCacheDebug,
 } from "../../utils/globals";
 import { DatasetMetadataMap } from "../config/DatasetMetadata";
-import { Breakdowns } from "../query/Breakdowns";
+import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import { createMissingDataResponse, MetricQuery } from "../query/MetricQuery";
 import {
   AGE,
   ALL,
   ASIAN_NH,
+  DemographicGroup,
   FEMALE,
   MALE,
   RACE,
   SEX,
-  TOTAL,
   WHITE_NH,
 } from "../utils/Constants";
 import { Fips } from "../utils/Fips";
@@ -29,8 +29,8 @@ import {
 
 function stateRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   population: number,
   population_pct: number
 ) {
@@ -45,8 +45,8 @@ function stateRow(
 
 function finalPopulationCountAndPctRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   population: number,
   population_pct: number
 ) {
@@ -63,11 +63,12 @@ autoInitGlobals();
 
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
-const evaluatePopulationCountAndPctWithAndWithoutTotal = createWithAndWithoutAllEvaluator(
-  ["population", "population_pct"],
-  dataFetcher,
-  new Acs2010PopulationProvider()
-);
+const evaluatePopulationCountAndPctWithAndWithoutTotal =
+  createWithAndWithoutAllEvaluator(
+    ["population", "population_pct"],
+    dataFetcher,
+    new Acs2010PopulationProvider()
+  );
 
 describe("Acs2010PopulationProvider", () => {
   beforeEach(() => {
@@ -127,10 +128,10 @@ describe("Acs2010PopulationProvider", () => {
   test("State and Age Breakdown", async () => {
     const rawData = [
       stateRow(AL, AGE, "10-19", 2, 100),
-      stateRow(AL, AGE, TOTAL, 2, 100),
+      stateRow(AL, AGE, ALL, 2, 100),
       stateRow(NC, AGE, "0-9", 15, 60),
       stateRow(NC, AGE, "10-19", 10, 40),
-      stateRow(NC, AGE, TOTAL, 25, 100),
+      stateRow(NC, AGE, ALL, 25, 100),
     ];
 
     const NC_AGE_0_9_FINAL = finalPopulationCountAndPctRow(
@@ -162,10 +163,10 @@ describe("Acs2010PopulationProvider", () => {
   test("State and Sex Breakdown", async () => {
     const rawData = [
       stateRow(AL, SEX, MALE, 2, 100),
-      stateRow(AL, SEX, TOTAL, 2, 100),
+      stateRow(AL, SEX, ALL, 2, 100),
       stateRow(NC, SEX, MALE, 15, 60),
       stateRow(NC, SEX, FEMALE, 10, 40),
-      stateRow(NC, SEX, TOTAL, 25, 100),
+      stateRow(NC, SEX, ALL, 25, 100),
     ];
 
     const NC_MALE_FINAL = finalPopulationCountAndPctRow(NC, SEX, MALE, 15, 60);

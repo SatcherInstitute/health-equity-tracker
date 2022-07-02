@@ -1,4 +1,6 @@
+import { MetricId } from "../config/MetricConfig";
 import { MetricQueryResponse } from "../query/MetricQuery";
+import { RACE } from "../utils/Constants";
 
 let metricQueryResponse: MetricQueryResponse;
 
@@ -31,6 +33,13 @@ describe("MetricQueryResponse", () => {
           invalid: undefined,
         },
         {
+          fips: "01",
+          race_and_ethnicity:
+            "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+          covid_cases: 0,
+          invalid: undefined,
+        },
+        {
           fips: "02",
           race_and_ethnicity: "White",
           covid_cases: 12,
@@ -49,37 +58,37 @@ describe("MetricQueryResponse", () => {
 
   test("getFieldRange()", async () => {
     expect(metricQueryResponse.getFieldRange("covid_cases")).toEqual({
-      min: 2,
+      min: 0,
       max: 12,
     });
-    expect(metricQueryResponse.getFieldRange("race_and_ethnicity")).toEqual(
+    expect(metricQueryResponse.getFieldRange(RACE as MetricId)).toEqual(
       undefined
     );
-    expect(metricQueryResponse.getFieldRange("invalid")).toEqual(undefined);
   });
 
   test("getUniqueFieldValues()", async () => {
-    expect(
-      metricQueryResponse.getUniqueFieldValues("race_and_ethnicity")
-    ).toEqual([
-      "White",
-      "White (Non-Hispanic)",
-      "Asian",
-      "Asian (Non-Hispanic)",
-    ]);
-    expect(metricQueryResponse.getUniqueFieldValues("fips")).toEqual([
-      "01",
-      "02",
-    ]);
-    expect(metricQueryResponse.getUniqueFieldValues("invalid")).toEqual([]);
+    const targetMetric = "covid_cases";
+
+    expect(metricQueryResponse.getFieldValues(RACE, targetMetric)).toEqual({
+      noData: ["White (Non-Hispanic)", "Asian (Non-Hispanic)"],
+      withData: [
+        "White",
+        "Asian",
+        "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+      ],
+    });
+
+    expect(metricQueryResponse.getFieldValues("fips", targetMetric)).toEqual({
+      noData: [],
+      withData: ["01", "02"],
+    });
   });
 
   test("fieldHasMissingValues()", async () => {
     expect(metricQueryResponse.invalidValues).toEqual({
       covid_cases: 1,
-      invalid: 6,
+      invalid: 7,
     });
     expect(metricQueryResponse.isFieldMissing("covid_cases")).toEqual(false);
-    expect(metricQueryResponse.isFieldMissing("invalid")).toEqual(true);
   });
 });

@@ -4,6 +4,7 @@ import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import { UnknownsMapCard, UnknownsMapCardProps } from "../UnknownsMapCard";
 import { Fips, USA_FIPS } from "../../data/utils/Fips";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
+import { RACE } from "../../data/utils/Constants";
 
 export default {
   title: "Cards/UnknownsMapCard",
@@ -31,11 +32,11 @@ const Template: Story<UnknownsMapCardProps> = (args) => (
 export const CovidPercentShareMap = Template.bind({});
 CovidPercentShareMap.args = {
   variableConfig: METRIC_CONFIG["covid"][0],
-  currentBreakdown: "race_and_ethnicity",
+  currentBreakdown: RACE,
 };
 
 export const VaccinePercentShareMap = Template.bind({});
 VaccinePercentShareMap.args = {
-  variableConfig: METRIC_CONFIG["vaccinations"][0],
-  currentBreakdown: "race_and_ethnicity",
+  variableConfig: METRIC_CONFIG["covid_vaccinations"][0],
+  currentBreakdown: RACE,
 };

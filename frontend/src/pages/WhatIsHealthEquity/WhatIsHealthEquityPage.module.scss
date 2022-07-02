@@ -1,52 +1,5 @@
+@import "../../styles/globals.scss";
 @import "../../styles/variables.module";
-
-// For styles Grid-wide
-.Grid {
-  margin: auto;
-  max-width: 1440px;
-  font-family: "Inter", serif;
-}
-
-// For primary-themed buttons
-.PrimaryButton {
-  background-color: $alt-green;
-  color: white;
-  border-radius: 40px;
-  height: 52px;
-  width: 220px;
-  font-size: 18px;
-  font-weight: 500;
-  font-family: "DM Sans", sans-serif !important;
-  text-decoration: none;
-  padding: 10px 30px 10px 30px;
-}
-
-// For major links, in primary colors
-.MajorLink {
-  color: $alt-green;
-  font-weight: 600;
-  font-size: 26px;
-  line-height: 31.47px;
-}
-
-// For minor links, in black
-.MinorLink {
-  color: black;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 28px;
-}
-
-// For the title of the page read off by screenreaders in an h1
-.ScreenreaderTitleHeader {
-  left: -999px;
-  position: absolute;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  z-index: -999;
-}
 
 /** ------------- HEADER ROW ------------- **/
 
@@ -69,27 +22,25 @@
 
   .HeaderTextItem {
     justify-content: center;
-    padding: 104px 66px 104px 66px;
-
+    padding: 2rem 15%;
     @media (min-width: $md) {
       border-left: 1px solid $border-color;
+      padding: 104px 66px 104px 66px;
     }
 
     .HeaderText {
-      font-size: 62px;
+      @include tav300();
+      font-size: $biggerHeader;
       text-align: left;
-      font-weight: 300;
-      font-family: "Taviraj", serif !important;
-      line-height: 64px;
+      line-height: 100%;
       color: $alt-green;
     }
 
     .HeaderSubtext {
-      font-size: 20px;
+      @include inter400();
+      font-size: $title;
       text-align: left;
-      font-weight: 400;
-      line-height: 30px;
-      font-family: "Inter", sans-serif !important;
+      line-height: $lhLoose;
     }
 
     .DefinitionsContainer {
@@ -107,26 +58,23 @@
     }
 
     .DefinitionHeader {
-      font-size: 22px;
-      font-weight: 400;
-      line-height: 150%;
+      @include tav500();
+      font-size: $title;
+      line-height: $lhLoose;
       color: $alt-green;
-      font-family: "Taviraj", sans-serif !important;
       margin: 0px !important;
       padding-top: 1rem;
     }
 
     .DefinitionText {
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 24px;
+      font-size: $small;
+      line-height: $lhLoose;
       margin-block: 0.5rem;
     }
 
     .DefinitionSourceSpan {
       color: $alt-dark;
-      font-weight: 400;
-      font-size: small;
+      font-size: $small;
     }
   }
 }
@@ -134,9 +82,7 @@
 /** ------------- HEALTH EQUITY RESOURCES & NEWS SECTION ------------- **/
 
 .ResourcesAndNewsRow {
-  padding: 75px 30px 75px 30px;
   align-items: center;
-  border-bottom: $bottom-border-style;
 
   /** ------------- RESOURCES SECTION ------------- **/
 
@@ -144,11 +90,10 @@
     padding: 20px 0 20px 0;
 
     .ResourcesHeaderText {
-      font-size: 52px;
+      @include tav300();
+      font-size: $biggerHeader;
       text-align: center;
-      font-weight: 300;
-      font-family: "Taviraj", serif !important;
-      line-height: 88.71px;
+      line-height: $lhLoose;
       color: $alt-green;
     }
 
@@ -166,7 +111,7 @@
 
       a {
         text-decoration: none;
-        color: black;
+        color: $black;
       }
     }
 
@@ -182,30 +127,26 @@
     }
 
     .MainResourceTitleText {
-      font-size: 28px;
-      font-weight: 500;
-      line-height: 33.89px;
+      @include inter500();
+      font-size: $smallHeader;
       margin: 15px 0 15px 0;
     }
 
     .MainResourceSubtitleText {
-      font-size: 18px;
-      font-weight: 400;
-      line-height: 26px;
+      @include inter300();
+      font-size: $title;
       margin: 0px;
     }
 
     .ResourceTitleText {
-      font-size: 22px;
-      font-weight: 600;
-      line-height: 26.63px;
+      @include inter500();
+      font-size: $title;
       margin: 15px 0 15px 0;
     }
 
     .ResourceSubtitleText {
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 22px;
+      @include inter300();
+      font-size: $text;
       margin: 0px;
     }
   }
@@ -216,21 +157,18 @@
     padding: 20px 0 20px 0;
 
     .NewsAndStoriesHeaderText {
-      font-size: 52px;
+      @include tav300();
+      font-size: $biggerHeader;
       text-align: center;
-      font-weight: 300;
-      font-family: "Taviraj", serif !important;
-      line-height: 88.71px;
+      line-height: $lhLoose;
       color: $alt-green;
     }
 
     .NewsAndStoriesSubheaderText {
-      font-size: 18px;
+      @include inter300();
+      font-size: $title;
       text-align: left;
-      font-weight: 300;
-      line-height: 24px;
-      font-family: "Inter", sans-serif !important;
-      color: black !important;
+      color: $black !important;
     }
 
     .NewsAndStoriesItem {
@@ -251,23 +189,25 @@
       width: 100%;
       border-radius: 30px;
     }
-
+    .NewsAndStoriesTitleLink {
+      text-decoration: none;
+    }
     .NewsAndStoriesTitleText {
-      font-size: 22px;
-      font-weight: 600;
-      line-height: 26.63px;
+      @include tav300();
+      text-align: center;
+      line-height: 130%;
+      color: $alt-green;
+      font-size: $smallestHeader;
       margin: 15px 0 15px 0;
     }
 
     .NewsAndStoriesSubtitleText {
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 22px;
+      font-size: $text;
       margin: 0px;
 
       a {
         text-decoration: underline;
-        color: black;
+        color: $black;
       }
     }
   }
@@ -278,10 +218,6 @@
 .FaqRow {
   padding: 50px 0;
   border-bottom: $bottom-border-style;
-}
-
-.FaqGrid {
-  max-width: 1024px;
 }
 
 .FaqSection {
@@ -295,42 +231,25 @@
 }
 
 .FaqHeaderText {
-  font-size: 32px !important;
+  @include tav300();
+  font-size: $header !important;
   text-align: center;
-  font-weight: 300;
-  font-family: "Taviraj", serif !important;
-  line-height: 40px;
   color: $alt-black;
   padding-bottom: 20px;
 }
 
 .FaqQuestion {
-  font-size: 18px !important;
+  @include dmSans500();
+  font-size: $title !important;
   text-align: left;
-  font-weight: 500;
-  font-family: "DM Sans", sans-serif;
-  line-height: 1 !important; // 5px was causing bug.
   color: $alt-black;
 }
 
 .FaqAnswer {
-  font-size: 14px;
+  @include inter400();
+  font-size: $small;
   text-align: left;
-  font-weight: 400;
-  font-family: "Inter", sans-serif;
-  line-height: 20px;
   color: $alt-black;
-
-  .FaqContactUsButton {
-    border: none;
-    text-decoration: underline;
-    background-color: transparent;
-  }
-}
-
-.FaqSubheaderText {
-  font-weight: 700;
-  font-family: "Inter", sans-serif !important;
 }
 
 /** ------------- HOW TO JOIN THE EFFORT SECTION ------------- **/
@@ -343,19 +262,17 @@
     padding: 60px 0;
 
     .JoinTheEffortHeaderText {
-      font-size: 52px;
+      @include tav300();
+      font-size: $biggerHeader;
       text-align: center;
-      font-weight: 300;
-      font-family: "Taviraj", serif !important;
-      line-height: 88.71px;
       color: $alt-green;
+      margin-bottom: 1rem;
     }
 
     .JoinTheEffortSubheaderText {
-      font-family: "Inter", sans-serif;
-      font-weight: 400;
-      font-size: 20px;
-      line-height: 30px;
+      @include inter400();
+      font-size: $title;
+      line-height: $lhLoose;
       margin: 0px;
     }
   }
@@ -392,79 +309,55 @@
   }
 
   .JoinTheEffortStepHeaderText {
-    font-size: 44px !important;
-    font-weight: 400 !important;
-    line-height: 50px !important;
-    font-family: "Taviraj", sans-serif !important;
+    @include tav300();
+    font-size: $bigHeader !important;
     padding: 10px 0 10px 0;
   }
 
   .JoinTheEffortStepText {
-    font-size: 22px !important;
-    font-weight: 400 !important;
-    line-height: 30px !important;
-    font-family: "DM Sans", sans-serif !important;
+    @include dmSans400();
+    font-size: $title !important;
+    line-height: $lhLoose;
     padding: 10px 0 10px 0;
   }
 
   .EmailTextField {
+    height: 56px;
     width: 260px;
   }
-
   .EmailAddressFormSubmit {
     height: 56px;
     margin-left: 5px;
   }
 
-  .SocialsDiv {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    color: $alt-green;
-    padding: 10px 0 10px 0;
-  }
-
-  .SocialsIcon {
-    color: $alt-green;
-    font-size: 35px;
-  }
-
-  .CopyIcon {
-    color: $alt-green;
-    height: 35px;
-  }
-
   .ContactUsLink {
     color: $alt-green !important;
-    font-weight: 500 !important;
-    font-size: 26px !important;
-    line-height: 31.47px !important;
+    font-size: $smallestHeader !important;
     text-decoration: underline !important;
   }
 }
 
-/** ------------- RESOURCES ------------- **/
+/** ------------- RESOURCES TAB ------------- **/
 
-.ResourcesSection {
+.ResourcesTabSection {
   padding: 50px 20px 50px 20px;
   border-bottom: 1px solid $alt-grey;
 }
 
-.ResourcesHeaderText {
-  font-size: 32px !important;
+.ResourcesTabHeaderText {
+  @include tav300();
+  font-size: $header !important;
   text-align: center;
-  font-weight: 300;
-  font-family: "Taviraj", serif !important;
-  line-height: 40px;
   color: $alt-black;
   padding-bottom: 20px;
 }
 
-.ResourcesList {
+.ResourcesTabList {
   text-align: left;
 }
 
-.ResourcesListItem {
+.ResourcesTabListItem {
   padding: 7px 0;
 }
+
+/** ------------- NEWS ------------- **/

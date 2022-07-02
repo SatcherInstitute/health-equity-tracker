@@ -13,24 +13,39 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableFooter from "@material-ui/core/TableFooter";
 import TablePagination from "@material-ui/core/TablePagination";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Paper from "@material-ui/core/Paper";
 import {
   MetricConfig,
   MetricId,
   formatFieldValue,
+  SYMBOL_TYPE_LOOKUP,
 } from "../data/config/MetricConfig";
 import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BreakdownVar,
 } from "../data/query/Breakdowns";
-import { Tooltip } from "@material-ui/core";
+import { Tooltip, useMediaQuery } from "@material-ui/core";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
-import styles from "./TableChart.module.scss";
+import styles from "./Chart.module.scss";
+import sass from "../styles/variables.module.scss";
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20;
+
+const headerCellStyle = {
+  width: "200px",
+  backgroundColor: sass.exploreBgColor,
+};
+
+const cellStyle = {
+  width: "200px",
+};
+
+const altCellStyle = {
+  backgroundColor: sass.standardInfo,
+  width: "200px",
+};
 
 export interface TableChartProps {
   data: Readonly<Record<string, any>>[];
@@ -39,6 +54,8 @@ export interface TableChartProps {
 }
 
 export function TableChart(props: TableChartProps) {
+  const wrap100kUnit = useMediaQuery("(max-width:500px)");
+
   const { data, metrics, breakdownVar } = props;
   let columns = metrics.map((metricConfig) => {
     return {
@@ -97,21 +114,8 @@ export function TableChart(props: TableChartProps) {
     return (
       <TableRow {...group.getHeaderGroupProps()}>
         {group.headers.map((col, index) => (
-          <TableCell
-            {...col.getHeaderProps(col.getSortByToggleProps())}
-            style={{ width: "200px", cursor: "pointer" }}
-            title={
-              col.isSorted
-                ? `Toggle Sort Direction`
-                : `Sort by ${col.render("Header")}`
-            }
-          >
+          <TableCell key={col.id} style={headerCellStyle}>
             {col.render("Header")}
-            <TableSortLabel
-              active={col.isSorted}
-              direction={col.isSortedDesc ? "desc" : "asc"}
-              hideSortIcon={false}
-            />
           </TableCell>
         ))}
       </TableRow>
@@ -125,15 +129,28 @@ export function TableChart(props: TableChartProps) {
       <TableRow {...row.getRowProps()}>
         {row.cells.map((cell, index) =>
           cell.value == null ? (
-            <TableCell {...cell.getCellProps()} style={{ width: "200px" }}>
-              <Tooltip title="No data available">
+            <TableCell
+              {...cell.getCellProps()}
+              style={row.index % 2 === 0 ? cellStyle : altCellStyle}
+            >
+              <Tooltip title="Insufficient Data">
                 <WarningRoundedIcon />
               </Tooltip>
+              <span className={styles.ScreenreaderTitleHeader}>
+                Insufficient Data
+              </span>
             </TableCell>
           ) : (
-            <TableCell {...cell.getCellProps()}>
+            <TableCell
+              {...cell.getCellProps()}
+              style={row.index % 2 === 0 ? cellStyle : altCellStyle}
+            >
               {cell.render("Cell")}
-              <Units column={index} />
+              <Units
+                column={index}
+                metric={props.metrics}
+                wrap100kUnit={wrap100kUnit}
+              />
             </TableCell>
           )
         )}
@@ -144,7 +161,7 @@ export function TableChart(props: TableChartProps) {
   return (
     <>
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
-        <h1>No Data provided</h1>
+        <h1>Insufficient Data</h1>
       ) : (
         <TableContainer component={Paper} style={{ maxHeight: "100%" }}>
           <Table stickyHeader {...getTableProps()}>
@@ -166,7 +183,7 @@ export function TableChart(props: TableChartProps) {
                     count={memoData.length}
                     rowsPerPage={pageSize}
                     page={pageIndex}
-                    onChangePage={(event, newPage) => {
+                    onPageChange={(event, newPage) => {
                       gotoPage(newPage);
                     }}
                     onChangeRowsPerPage={(event) => {
@@ -190,13 +207,23 @@ export function TableChart(props: TableChartProps) {
 
 interface UnitsProps {
   column: number;
+  metric: MetricConfig[];
+  wrap100kUnit: boolean;
 }
 function Units(props: UnitsProps) {
   if (!props.column) return null;
 
-  return (
-    <span className={styles.Unit}>
-      {props.column === 1 ? ` per 100k` : `%`}
-    </span>
+  const metric = props.metric[props.column - 1];
+
+  const unit =
+    metric.type === "per100k"
+      ? SYMBOL_TYPE_LOOKUP[metric.type]
+      : metric.shortLabel;
+
+  // inline vs block
+  return props.wrap100kUnit && metric.type === "per100k" ? (
+    <p className={styles.Unit}>{unit}</p>
+  ) : (
+    <span className={styles.Unit}>{unit}</span>
   );
 }

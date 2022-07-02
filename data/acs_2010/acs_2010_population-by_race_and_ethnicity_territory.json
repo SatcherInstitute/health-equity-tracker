@@ -1,9 +1,105 @@
 [
   {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "55519",
+    "race_category_id": "ALL"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "51403",
+    "race_category_id": "NHPI"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "51403",
+    "race_category_id": "NHPI_NH"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "1994",
+    "race_category_id": "ASIAN"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "1994",
+    "race_category_id": "ASIAN_NH"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "13",
+    "race_category_id": "BLACK"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "13",
+    "race_category_id": "BLACK_NH"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "73",
+    "race_category_id": "HISP"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "493",
+    "race_category_id": "WHITE"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "493",
+    "race_category_id": "WHITE_NH"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "1479",
+    "race_category_id": "MULTI"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "1479",
+    "race_category_id": "MULTI_NH"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "64",
+    "race_category_id": "OTHER_STANDARD"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "64",
+    "race_category_id": "OTHER_STANDARD_NH"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "1543",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "1543",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH"
+  },
+  {
     "state_fips": "78",
     "state_name": "U.S. Virgin Islands",
     "population": "106405",
-    "race_category_id": "TOTAL"
+    "race_category_id": "ALL"
   },
   {
     "state_fips": "78",
@@ -14,8 +110,56 @@
   {
     "state_fips": "78",
     "state_name": "U.S. Virgin Islands",
+    "population": "80908",
+    "race_category_id": "BLACK"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
     "population": "70379",
     "race_category_id": "BLACK_NH"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "population": "2203",
+    "race_category_id": "MULTI"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "population": "2203",
+    "race_category_id": "MULTI_NH"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "population": "6648",
+    "race_category_id": "OTHER_STANDARD"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "population": "6648",
+    "race_category_id": "OTHER_STANDARD_NH"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "population": "8851",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "population": "8851",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "population": "16646",
+    "race_category_id": "WHITE"
   },
   {
     "state_fips": "78",
@@ -27,7 +171,13 @@
     "state_fips": "69",
     "state_name": "Northern Mariana Islands",
     "population": "53883",
-    "race_category_id": "TOTAL"
+    "race_category_id": "ALL"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "26908",
+    "race_category_id": "ASIAN"
   },
   {
     "state_fips": "69",
@@ -39,7 +189,19 @@
     "state_fips": "69",
     "state_name": "Northern Mariana Islands",
     "population": "55",
+    "race_category_id": "BLACK"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "55",
     "race_category_id": "BLACK_NH"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "18800",
+    "race_category_id": "NHPI"
   },
   {
     "state_fips": "69",
@@ -51,19 +213,49 @@
     "state_fips": "69",
     "state_name": "Northern Mariana Islands",
     "population": "1117",
+    "race_category_id": "WHITE"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "1117",
     "race_category_id": "WHITE_NH"
   },
   {
     "state_fips": "69",
     "state_name": "Northern Mariana Islands",
     "population": "6832",
-    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH"
+    "race_category_id": "MULTI"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "6832",
+    "race_category_id": "MULTI_NH"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "117",
+    "race_category_id": "OTHER_STANDARD"
   },
   {
     "state_fips": "69",
     "state_name": "Northern Mariana Islands",
     "population": "117",
     "race_category_id": "OTHER_STANDARD_NH"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "6949",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "6949",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH"
   },
   {
     "state_fips": "69",
@@ -75,7 +267,13 @@
     "state_fips": "66",
     "state_name": "Guam",
     "population": "159358",
-    "race_category_id": "TOTAL"
+    "race_category_id": "ALL"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "population": "51381",
+    "race_category_id": "ASIAN"
   },
   {
     "state_fips": "66",
@@ -87,7 +285,19 @@
     "state_fips": "66",
     "state_name": "Guam",
     "population": "1540",
+    "race_category_id": "BLACK"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "population": "1540",
     "race_category_id": "BLACK_NH"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "population": "78582",
+    "race_category_id": "NHPI"
   },
   {
     "state_fips": "66",
@@ -99,19 +309,49 @@
     "state_fips": "66",
     "state_name": "Guam",
     "population": "11321",
+    "race_category_id": "WHITE"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "population": "11321",
     "race_category_id": "WHITE_NH"
   },
   {
     "state_fips": "66",
     "state_name": "Guam",
     "population": "14929",
-    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH"
+    "race_category_id": "MULTI"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "population": "14929",
+    "race_category_id": "MULTI_NH"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "population": "404",
+    "race_category_id": "OTHER_STANDARD"
   },
   {
     "state_fips": "66",
     "state_name": "Guam",
     "population": "404",
     "race_category_id": "OTHER_STANDARD_NH"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "population": "15333",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "population": "15333",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH"
   },
   {
     "state_fips": "66",

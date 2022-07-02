@@ -1,25 +1,25 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./DataCatalogPage.module.scss";
+import { LinkWithStickyParams } from "../../utils/urlutils";
 import {
-  LinkWithStickyParams,
   CONTACT_TAB_LINK,
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
   HET_URL,
-} from "../../utils/urlutils";
+  DATA_TAB_LINK,
+} from "../../utils/internalRoutes";
 import { Helmet } from "react-helmet-async";
-import parse from "html-react-parser";
+import { getHtml } from "../../utils/urlutils";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { Box, Button, Card } from "@material-ui/core";
-import FileCopyIcon from "@material-ui/icons/FileCopy";
+import { Card } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { Link } from "react-router-dom";
+import { urlMap } from "../../utils/externalUrls";
+import DefinitionsList from "../../reports/ui/DefinitionsList";
+import { currentYear } from "../../Footer";
 
-export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
-
-export const VACCINATED_DEF = `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`;
+export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
 function MethodologyTab() {
   const { enqueueSnackbar } = useSnackbar();
@@ -33,73 +33,52 @@ function MethodologyTab() {
       <Helmet>
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>Methodology</h1>
+      <h2 className={styles.ScreenreaderTitleHeader}>Methodology</h2>
       <Grid
         container
-        className={styles.Grid}
         direction="column"
-        justify="space-around"
+        justifyContent="space-around"
         alignItems="center"
       >
-        <Grid item xs={12} sm={12} md={9}>
+        <Grid item>
           <Grid container className={styles.MethodologySection}>
             <Grid
               item
-              xs={12}
-              lg={10}
-              xl={6}
               className={styles.MethodologyQuestionAndAnswer}
+              component="article"
             >
-              <h2
-                id="main"
-                tabIndex={-1}
-                className={styles.MethodologyQuestion}
-              >
+              <h3 id="main" className={styles.MethodologyQuestion}>
                 Recommended Citation (APA) for the Health Equity Tracker:
-              </h2>
+              </h3>
 
               <div className={styles.MethodologyAnswer}>
-                <Grid container justify="space-between" alignItems="center">
-                  <Grid item container xs={12}>
-                    <Box m={1}>
-                      <Card elevation={3}>
-                        <Box m={1}>
-                          <p className={styles.CitationAPA}>{CITATION_APA}</p>
-                        </Box>
-
-                        <Grid xs={12} item container justify="flex-end">
-                          <Box m={1}>
-                            <CopyToClipboard
-                              text={CITATION_APA}
-                              onCopy={() => handleCopy()}
-                            >
-                              <Button startIcon={<FileCopyIcon />}>
-                                Copy to clipboard
-                              </Button>
-                            </CopyToClipboard>
-                          </Box>
-                        </Grid>
-                      </Card>
-                    </Box>
-                  </Grid>
-                </Grid>
+                <Card elevation={3}>
+                  <p className={styles.CitationAPA}>{CITATION_APA}</p>
+                </Card>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 tabIndex={-1} className={styles.MethodologyQuestion}>
-                {selectFaqs[4].q}
-              </h2>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>{selectFaqs[4].q}</h3>
               <div className={styles.MethodologyAnswer}>
-                {<>{parse(selectFaqs[4].a)}</>}
+                {<>{getHtml(selectFaqs[4].a)}</>}
               </div>
             </Grid>
 
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
-                What are the limitations of the tracker?
-              </h2>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
+                What are the limitations of the tracker, and why were these
+                health equity topics chosen?
+              </h3>
               <div className={styles.MethodologyAnswer}>
-                <h3 className={styles.MethodologySubsubheaderText}>COVID-19</h3>
+                <h4 className={styles.MethodologySubsubheaderText}>COVID-19</h4>
                 <p>
                   For a description of some of the gaps in COVID-19 data, please
                   see the{" "}
@@ -115,10 +94,11 @@ function MethodologyTab() {
                     incomplete and potentially skewed.
                   </li>
                   <li>
-                    When calculating national-level per100k COVID-19 rates, we
-                    do not include the population of states whose data are
-                    suppressed as part of the total population. See the 'What
-                    data are missing' section for further details.
+                    When calculating national-level per100k COVID-19 rates for
+                    cases, deaths, and hospitalizations, we only include the
+                    population of states that do not have a suppressed case
+                    count as part of the total population. See the 'What data
+                    are missing' section for further details.
                   </li>
                   <li>
                     To protect the privacy of affected individuals, COVID-19
@@ -133,14 +113,8 @@ function MethodologyTab() {
                     for a state are suppressed if the aggregate counts for that
                     state are &lt; 5% of the source being used for comparison.
                     These analyses are available for{" "}
-                    <a href="https://satcherinstitute.github.io/analysis/cdc_case_data">
-                      cases
-                    </a>{" "}
-                    and{" "}
-                    <a href="https://satcherinstitute.github.io/analysis/cdc_death_data">
-                      deaths
-                    </a>
-                    .
+                    <a href={urlMap.shliGitHubSuppressCovidCases}>cases</a> and{" "}
+                    <a href={urlMap.shliGitHubSuppressCovidDeaths}>deaths</a>.
                   </li>
                   <li>
                     The underlying data is reported at the case-level, so we
@@ -151,9 +125,9 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h3 className={styles.MethodologySubsubheaderText}>
+                <h4 className={styles.MethodologySubsubheaderText}>
                   COVID-19 Vaccinations
-                </h3>
+                </h4>
                 <p>
                   Because there is currently no national vaccine demographic
                   dataset, we combine the best datasets we could find for each
@@ -162,7 +136,7 @@ function MethodologyTab() {
                 <ul>
                   <li>
                     For the national level numbers, we use the{" "}
-                    <a href="https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends">
+                    <a href={urlMap.cdcVaxTrends}>
                       CDC vaccine demographic dataset,
                     </a>{" "}
                     which provides data on the race/ethnicity, sex, and age
@@ -172,7 +146,7 @@ function MethodologyTab() {
 
                   <li>
                     For the state level we use{" "}
-                    <a href="https://www.kff.org/state-category/covid-19/">
+                    <a href={urlMap.kffCovid}>
                       the Kaiser Family Foundation COVID-19 Indicators dataset,
                     </a>{" "}
                     which is a hand-curated dataset based on analysis from state
@@ -188,13 +162,16 @@ function MethodologyTab() {
                     For the county level, we could not identify a dataset that
                     provides vaccine demographics, so to show some context we
                     use the{" "}
-                    <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh">
+                    <a href={urlMap.cdcVaxCounty}>
                       COVID-19 Vaccinations in the United States, County dataset
                     </a>{" "}
                     which provides the total number of vaccinations per county.
                   </li>
                 </ul>
-                <h4> Vaccination Population Sources </h4>
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  {" "}
+                  Vaccination Population Sources{" "}
+                </h4>
                 <ul>
                   <li>
                     For the national numbers we use the population numbers
@@ -220,15 +197,18 @@ function MethodologyTab() {
                     , and <b>Native Hawaiian and Pacific Islander</b>. These
                     alternate population comparisons metrics shown with a
                     different color on the disparities bar chart. We are unable
-                    to show a population comparison metric for “Some Other Race”
-                    because we are unsure of the definition in each state.
+                    to show a population comparison metric for “Unrepresented
+                    Race” because we are unsure of the definition in each state.
                   </li>
                   <li>
                     For the county level we use the ACS 2019 population
                     estimations.
                   </li>
                 </ul>
-                <h4> Vaccination Data Limitations </h4>
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  {" "}
+                  Vaccination Data Limitations{" "}
+                </h4>
                 <ul>
                   <li>
                     <b>Texas</b> does not report demographic-specific dose
@@ -269,19 +249,20 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h3 className={styles.MethodologySubsubheaderText}>
-                  Diabetes & COPD
-                </h3>
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  America's Health Rankings
+                </h4>
                 <p>
-                  Diabetes & COPD data in the tracker is sourced from{" "}
-                  <a href="https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL">
-                    America's Health Rankings
-                  </a>
-                  , who in turn source their diabetes & COPD data from the{" "}
-                  <a href="https://www.cdc.gov/brfss/index.html">
+                  Multiple chronic disease, behavioral health, and social
+                  determinants of health in the tracker are sourced from{" "}
+                  <a href={urlMap.amr}>America's Health Rankings</a>, who in
+                  turn source the majority of their data from the{" "}
+                  <a href={urlMap.cdcBrfss}>
                     Behavioral Risk Factor Surveillance System (BRFSS)
                   </a>
-                  , a survey run by the CDC.
+                  , a survey run by the CDC, along with supplemental data from{" "}
+                  <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{" "}
+                  <a href={urlMap.censusVoting}>US Census</a>.
                 </p>
                 <ul>
                   <li>
@@ -289,22 +270,71 @@ function MethodologyTab() {
                     respondents to provide a statistically meaningful estimate
                     of disease prevalence, especially for smaller and typically
                     marginalized racial groups. Please see the{" "}
-                    <a href="https://www.americashealthrankings.org/about/methodology/data-sources-and-measures">
-                      methodology page
-                    </a>{" "}
-                    of America's Health Rankings for details on data
-                    suppression.
+                    <a href={urlMap.amrMethodology}>methodology page</a> of
+                    America's Health Rankings for details on data suppression.
                   </li>
                   <li>
                     BRFSS data broken down by race and ethnicity is not
                     available at the county level, so the tracker does not
-                    display diabetes or COPD data at the county level either.
+                    display these conditions at the county level either.
                   </li>
                 </ul>
 
-                <h3 className={styles.MethodologySubheaderText}>
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  Women in Legislative Office
+                </h4>
+
+                <p>
+                  <a href={urlMap.doi1}>A link has been established</a> between
+                  having women in government and improvements in population
+                  health. <a href={urlMap.doi2}>Women in legislative office</a>{" "}
+                  have been shown to{" "}
+                  <a href={urlMap.doi3}>advocate for policies</a> that pertain
+                  to some of the crucial social and political determinants of
+                  health that impact the overall health of our nation such as
+                  education, poverty, social welfare, reproductive and maternal
+                  health, children, and family life. These policies in turn play
+                  a significant role in the advancement of health equity for
+                  all. By combining data from the{" "}
+                  <a href={urlMap.cawp}>
+                    Center for American Women in Politics (CAWP)
+                  </a>{" "}
+                  with data from <a href={urlMap.propublica}>ProPublica</a>, we
+                  are able to present two distinct metrics on these reports:
+                </p>
+                <ul>
+                  <li>
+                    The race/ethnicity distribution or “percent share” of women
+                    (e.g. "What percent of women in the Georgia State
+                    Legislature are black?"){" "}
+                  </li>
+
+                  <li>
+                    The intersectional representation (e.g. "What percent of all
+                    Georgia state legislators are black women?").{" "}
+                  </li>
+                </ul>
+
+                <p>
+                  These metrics are calculated for two distinct data types:
+                  <b>Women in State Legislature</b>, and{" "}
+                  <b>Women in U.S. Congress</b>, and both of these data types
+                  are currently available at the state, territory, and national
+                  levels. Our percentage calculations at the national level
+                  specifically include legislators from the U.S. territories,
+                  which can result in slightly different results than those
+                  presented on the CAWP website. Additionally, our "total
+                  legislator" count for U.S. Congress only includes actively
+                  seated legislators, as opposed to the total number of seats
+                  which are not always filled. All gender and race/ethnicity
+                  categorizations are self-reported, and a legislator may be
+                  represented in multiple race groupings if that is how they
+                  identify.
+                </p>
+
+                <h4 className={styles.MethodologySubsubheaderText}>
                   Visualizations
-                </h3>
+                </h4>
                 <p>
                   Please consider the impact of under-reporting and data gaps
                   when exploring the visualizations. These issues may lead to
@@ -313,40 +343,16 @@ function MethodologyTab() {
                 </p>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
-                What data is missing?
-              </h2>
-              <div className={styles.MethodologyAnswer}>
-                <p>
-                  Our tracker will expand to include additional health
-                  variables, social and political determinants of health.
-                </p>
-              </div>
-              <div className={styles.MethodologyInfoBar}>
-                <p>
-                  Do you have information on health outcomes at the state and
-                  local level that belong in the Health Equity Tracker?
-                  <br />
-                  <LinkWithStickyParams
-                    className={styles.MethodologyContactUsLink}
-                    to={`${CONTACT_TAB_LINK}`}
-                  >
-                    We would love to hear from you!
-                  </LinkWithStickyParams>
-                </p>
-              </div>
-            </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What do the metrics on the tracker mean?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
-                <p>
-                  None of the metrics/data shown on the tracker are
-                  age-adjusted. Showing non-adjusted data can mask disparities
-                  and are we working to use age-adjusted data instead.
-                </p>
                 <p>
                   In the definitions below, we use COVID-19 Cases as the
                   variable, and Race and Ethnicity as the demographic breakdown
@@ -391,26 +397,33 @@ function MethodologyTab() {
                 </ul>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What do the condition variables on the tracker mean?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
-                <ul>
-                  <li>
-                    <b>
-                      {METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}
-                    </b>
-                    {": "}
-                    {VACCINATED_DEF}
-                  </li>
-                </ul>
+                <DefinitionsList
+                  variablesToDefine={Object.entries(METRIC_CONFIG)}
+                />
+                <p>
+                  Links to the original sources of data and their definitions
+                  can be found on our{" "}
+                  <Link to={DATA_TAB_LINK}>Data Downloads</Link> page.
+                </p>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What do the race/ethnicity groups mean?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
                 <p>
                   The combined race/ethnicity groups shown on the tracker can be
@@ -445,26 +458,54 @@ function MethodologyTab() {
                     and Hispanic/Latino.
                   </li>
                   <li>
-                    {/* <b>Unrepresented race (Non-Hispanic)</b>
-                    {": "}
-                    {UNREPRESENTED_RACE_DEF} */}
-                    <b>Some other race (Non-Hispanic)</b>: A single race which
-                    is not otherwise represented by the data source's
-                    categorization, not Hispanic/Latino. The definition of "some
-                    other race" is dependent on what other race categories exist
-                    in the dataset.
+                    <b>Unrepresented race (Non-Hispanic)</b>: A single race not
+                    tabulated by the CDC, not of Hispanic/Latino ethnicity.
+                    Individuals not identifying as one of the distinct races
+                    listed in the source data, or multiracial individuals, are
+                    grouped together as “Some other race”. This is a problem as
+                    it obscures racial identity for many individuals. In our
+                    effort to take transformative action towards achieving
+                    health equity the Satcher Health Leadership Institute has
+                    decided to rename this category to highlight it as a health
+                    equity issue.
                   </li>
                   <li>
                     <b>Two or more races (Non-Hispanic)</b>: Multiple races, not
                     Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Two or more races & Some other race (Non-Hispanic)</b>:
-                    People who are either multiple races or a single race not
+                    <b>Two or more races & Unrepresented race (Non-Hispanic)</b>
+                    : People who are either multiple races or a single race not
                     represented by the data source's categorization, and who are
                     not Hispanic/Latino.
                   </li>
                 </ul>
+              </div>
+            </Grid>
+
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
+                What data is missing?
+              </h3>
+              <div className={styles.MethodologyAnswer}>
+                <p>
+                  Our tracker will expand to include additional health
+                  variables, social and political determinants of health.
+                </p>
+              </div>
+              <div className={styles.MethodologyInfoBar}>
+                <p>
+                  Do you have information on health outcomes at the state and
+                  local level that belong in the Health Equity Tracker?
+                  <br />
+                  <LinkWithStickyParams to={CONTACT_TAB_LINK}>
+                    We would love to hear from you!
+                  </LinkWithStickyParams>
+                </p>
               </div>
             </Grid>
           </Grid>

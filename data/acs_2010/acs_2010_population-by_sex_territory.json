@@ -1,8 +1,26 @@
 [
   {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "55519",
+    "sex": "All"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "28170",
+    "sex": "Male"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "27349",
+    "sex": "Female"
+  },
+  {
     "state_fips": "66",
     "state_name": "Guam",
-    "sex": "Total",
+    "sex": "All",
     "population": "159358"
   },
   {
@@ -20,7 +38,7 @@
   {
     "state_fips": "78",
     "state_name": "U.S. Virgin Islands",
-    "sex": "Total",
+    "sex": "All",
     "population": "106405"
   },
   {
@@ -38,7 +56,7 @@
   {
     "state_fips": "69",
     "state_name": "Northern Mariana Islands",
-    "sex": "Total",
+    "sex": "All",
     "population": "53883"
   },
   {

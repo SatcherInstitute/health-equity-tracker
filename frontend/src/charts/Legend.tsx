@@ -4,8 +4,8 @@ import { useResponsiveWidth } from "../utils/useResponsiveWidth";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { ScaleType } from "./ChoroplethMap";
-import { ORDINAL } from "vega-lite/build/src/type";
 import sass from "../styles/variables.module.scss";
+import { ORDINAL } from "./utils";
 const COLOR_SCALE = "color_scale";
 const DOT_SIZE_SCALE = "dot_size_scale";
 export const UNKNOWN_SCALE = "unknown_scale";
@@ -16,7 +16,7 @@ const DATASET_VALUES = "dataset_values";
 export const MISSING_PLACEHOLDER_VALUES = "missing_data";
 export const LEGEND_SYMBOL_TYPE = "square";
 export const LEGEND_TEXT_FONT = "inter";
-export const NO_DATA_MESSAGE = "No data";
+export const NO_DATA_MESSAGE = "Insufficient data";
 
 export const EQUAL_DOT_SIZE = 200;
 export const LEGEND_COLOR_COUNT = 7;
@@ -37,8 +37,10 @@ export interface LegendProps {
   // Whether the dots all be the same size or increase in size.
   // Size does not correlate to the range size.
   sameDotSize?: boolean;
+  // Alt text
+  description: string;
   // Whether legend entries stack vertical or horizontal (allows responsive design)
-  direction: string;
+  direction: "horizontal" | "vertical";
 }
 
 export function Legend(props: LegendProps) {
@@ -67,7 +69,8 @@ export function Legend(props: LegendProps) {
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
-      background: "white",
+      description: props.description,
+      background: sass.white,
       padding: 5,
       data: [
         {
@@ -86,7 +89,7 @@ export function Legend(props: LegendProps) {
         },
         {
           name: MISSING_PLACEHOLDER_VALUES,
-          values: [{ missing: "No data" }],
+          values: [{ missing: "Insufficient data" }],
         },
       ],
       layout: { padding: 20, bounds: "full", align: "each" },
@@ -157,7 +160,7 @@ export function Legend(props: LegendProps) {
 
   return (
     <div ref={ref}>
-      <Vega spec={spec} width={width} actions={false} />
+      <Vega renderer="svg" spec={spec} width={width} actions={false} />
     </div>
   );
 }

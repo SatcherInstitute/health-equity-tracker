@@ -1,69 +1,5 @@
+@import "../../styles/globals.scss";
 @import "../../styles/variables.module";
-
-.AboutUsPage {
-  // text-align: left;
-  h1 {
-    font-size: 18px;
-    line-height: 23px;
-  }
-}
-
-// For styles Grid-wide
-.Grid {
-  margin: auto;
-  max-width: 1440px;
-  font-family: "Inter", serif;
-}
-
-// For primary-themed buttons
-.PrimaryButton {
-  border-radius: 40px !important;
-  height: 52px;
-  width: 220px;
-  font-size: 18px !important;
-  font-weight: 500;
-  font-family: "DM Sans", sans-serif !important;
-  padding: 10px 30px;
-}
-
-.NoUnderline {
-  text-decoration: none !important;
-}
-
-// For the title of the page read off by screenreaders in an h1
-.ScreenreaderTitleHeader {
-  left: -999px;
-  position: absolute;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  z-index: -999;
-}
-
-/** ------------- GRID ITEM POSITIONING ------------- **/
-
-// Grid Item with content aligned to the bottom-right.
-.GridAlignRightItem {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-
-// Grid Item with content aligned to the bottom-left
-.GridAlignLeftItem {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-// Grid items that are centered both vertically and horizontally.
-.GridCenteredItem {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 25px;
-}
 
 /** ------------- TYPES OF GRID ROWS ------------- **/
 
@@ -74,6 +10,7 @@
   // Generic grid subrow with no special styling
   .GridSubRow {
     padding: 20px 0 20px 0;
+    list-style: none;
   }
 }
 
@@ -84,66 +21,48 @@
 
 // Grid rows that have outlines and an image in one cell.
 .GridOutlinedImgRow {
-  .ImgHeaderGridItem {
-    width: 100%;
-    height: auto;
-    max-width: 760px;
-    max-height: 645px;
-  }
-
   .GridVerticallyAlignedItem {
     justify-content: center;
     padding: 25px;
   }
 
   .HeaderText {
-    font-size: 50px;
+    @include tav300();
+    font-size: $biggerHeader;
     text-align: left;
-    font-weight: 300;
-    font-family: "Taviraj", serif !important;
-    line-height: 50px;
     color: $alt-green;
     padding-bottom: 20px;
   }
 
   .SubheaderL1Text {
-    font-family: "Taviraj", sans-serif;
-    font-weight: 300;
-    font-size: 36px;
-    line-height: 61.42px;
+    @include tav300();
+    font-size: $header;
     padding: 10px 0 10px 0;
   }
 
   .SubheaderL2Text {
-    font-family: "Taviraj", sans-serif;
-    font-weight: 300;
-    font-size: 30px;
-    line-height: 30px;
+    @include tav300();
+    font-size: $smallHeader;
     padding: 10px 0 10px 0;
+    text-align: left !important;
   }
 
   .HeaderSubtext {
-    font-size: 20px;
+    @include inter300();
+    font-size: $title;
     text-align: left;
-    font-weight: 300;
-    line-height: 24px;
-    font-family: "Inter", sans-serif !important;
   }
 
   .HeaderSubtextL2 {
-    font-size: 16px;
+    @include inter300();
+    font-size: $text;
     text-align: left;
-    font-weight: 300;
-    line-height: 22px;
-    font-family: "Inter", sans-serif !important;
   }
 
   .HeaderSubtextL3 {
-    font-size: 14px;
+    @include inter400();
+    font-size: $small;
     text-align: left;
-    font-weight: 400;
-    line-height: 20px;
-    font-family: "Inter", sans-serif !important;
   }
 }
 
@@ -152,21 +71,17 @@
   justify-content: center;
 
   .HeaderText {
-    font-size: 48px;
+    @include tav300();
+    font-size: $bigHeader;
     text-align: center;
-    font-weight: 300;
-    font-family: "Taviraj", serif !important;
-    line-height: 40px;
     color: $alt-green;
     padding-bottom: 20px;
   }
 
   .HeaderSubtext {
-    font-size: 20px;
+    @include inter300();
+    font-size: $title;
     text-align: left;
-    font-weight: 300;
-    line-height: 24px;
-    font-family: "Inter", serif !important;
   }
 }
 
@@ -195,74 +110,67 @@
   }
 
   .HeaderText {
-    font-size: 48px;
+    @include tav300();
+    font-size: $bigHeader;
     text-align: center;
-    font-weight: 300;
-    font-family: "Taviraj", serif !important;
-    line-height: 40px;
     color: $alt-green;
     padding-bottom: 20px;
   }
 
   .SubheaderL1Text {
-    font-family: "Taviraj", sans-serif;
-    font-weight: 300;
-    font-size: 36px;
-    line-height: 61.42px;
+    @include tav300();
+    font-size: $header;
     padding: 0 0 10px 0;
   }
 
   .SubheaderL2Text {
-    font-family: "Taviraj", sans-serif;
-    font-weight: 300;
-    font-size: 25px;
-    line-height: 25px;
-    padding: 30px 0 0 0;
+    @include tav300();
+    font-size: $smallestHeader;
+    padding: 30px 0 1rem 0;
+    text-align: left;
   }
 
   .HeaderSubtext {
-    font-size: 20px;
+    @include inter300();
+    font-size: $title;
     text-align: left;
-    font-weight: 300;
-    line-height: 24px;
-    font-family: "Inter", serif !important;
   }
 
   .HeaderSubtextL2 {
-    font-size: 16px;
+    @include inter300();
+    font-size: $text;
     text-align: left;
-    font-weight: 300;
-    line-height: 22px;
-    font-family: "Inter", sans-serif !important;
   }
 
   .HeaderSubtextL3 {
-    font-size: 14px;
+    @include inter400();
+    font-size: $small;
     text-align: left;
-    font-weight: 400;
-    line-height: 20px;
-    font-family: "Inter", sans-serif !important;
   }
 }
 
 /** ------------- HEADERS ------------- **/
 
-// Underlined Header H2
+// # data source / variables
 .UnderlinedHeaderL2 {
-  font-size: 28px !important;
-  line-height: 26px;
+  @include tav300();
+  font-size: $smallHeader !important;
   border-bottom: 1.5px solid $alt-green;
   margin: 25px 0 25px 0;
-  font-family: "Taviraj", serif !important;
   text-align: left;
-  font-weight: 400;
 }
 
 /** ------------- THE PROJECT ------------- **/
 
 // For each item in the "Where We Aim To Go" section
-.AimToGoItem {
-  padding: 0 15px 0 15px;
+.GoalList {
+  display: flex;
+  padding-left: 0;
+}
+
+.GoalListItem {
+  padding: 0 1.5rem 0 1.5rem;
+  list-style: none;
 }
 
 // For each image in the "Where We Aim To Go" section
@@ -302,23 +210,20 @@
 
 // For the  header text at the very top of the "Our Team" page
 .OurTeamHeaderText {
-  font-size: 50px !important;
-  font-weight: 300 !important;
-  font-family: "Taviraj", serif !important;
-  line-height: 50px !important;
+  @include tav300();
+  font-size: $biggerHeader !important;
+  line-height: $lhTight !important;
   color: $alt-green;
   padding: 72px 0 20px 0;
 }
 
 // For headers denoting each subgroup on the team
 .TeamHeader {
-  font-size: 28px !important;
-  line-height: 26px;
+  @include tav300();
+  font-size: $smallHeader !important;
   border-bottom: 2px solid $team-border-color;
   margin: 25px 0 25px 0;
-  font-family: "Taviraj", sans-serif !important;
   text-align: left;
-  font-weight: 400 !important;
 }
 
 // Profiles items for people in Our Team
@@ -336,17 +241,16 @@
   height: auto;
 }
 
-// For the leader name heading
-.LeaderNameHeading {
-  font-size: 16px;
-  font-weight: 500;
+// For the name heading
+.MemberName {
+  @include inter500();
+  font-size: $text;
   margin: 2px 0;
 }
 
-// For the leader role span
-.LeaderRoleSpan {
-  font-size: 14px;
-  font-weight: 400;
+// For the role
+.MemberRole {
+  font-size: $small;
 }
 
 // For partner images at the bottom of the page
@@ -354,30 +258,17 @@
   padding: 10px;
 }
 
-.GreyGridItem {
-  background-color: $grey-grid-color;
-  padding: 70px;
-}
-
-.MajorLink {
-  color: $alt-green;
-  font-weight: 600;
-}
-
 /** ------------- CONTACT US ------------- **/
 
 .ContactUsHeaderText {
-  font-size: 50px !important;
-  font-weight: 300 !important;
-  font-family: "Taviraj", sans-serif !important;
-  line-height: 50px !important;
+  @include tav300();
+  font-size: $biggerHeader !important;
+  line-height: $lhNormal !important;
   color: $alt-green;
 }
 
 .ContactUsSubheaderText {
-  font-weight: 300 !important;
-  font-family: "Taviraj", sans-serif !important;
-  line-height: 48px !important;
+  @include tav300();
   color: $alt-green;
 }
 

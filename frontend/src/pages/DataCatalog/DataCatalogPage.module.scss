@@ -1,74 +1,35 @@
+@import "../../styles/globals.scss";
 @import "../../styles/variables.module";
 
-.DataCatalogPage {
+/** ------------------ METHODOLOGY -------------------- **/
+
+.MethodologySection {
+  padding: 50px 20px 50px 20px;
   margin: auto;
   max-width: $max-width;
 }
 
-// For the title of the page read off by screenreaders in an h1
-.ScreenreaderTitleHeader {
-  left: -999px;
-  position: absolute;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  z-index: -999;
-}
-
-/** ------------------ METHODOLOGY -------------------- **/
-.MethodologyGrid {
-  max-width: 1024px;
-}
-
-.MethodologySection {
-  padding: 50px 20px 50px 20px;
-}
-
 .MethodologyQuestionAndAnswer {
-  padding-bottom: 20px;
-}
-
-.MethodologyHeaderText {
-  font-size: 32px !important;
-  text-align: center;
-  font-weight: 300;
-  font-family: "Taviraj", serif !important;
-  line-height: 40px;
-  color: $alt-black;
-  padding-bottom: 20px;
+  padding-bottom: 1.5rem;
 }
 
 .MethodologyQuestion {
-  font-size: 18px !important;
+  @include tav300();
+  font-size: $smallestHeader;
   text-align: left;
-  font-weight: 500;
-  font-family: "DM Sans", sans-serif;
-  line-height: 23.44px !important;
   color: $alt-black;
-  padding-top: 10px;
-  padding-bottom: 15px;
 }
 
 .MethodologyAnswer {
-  font-size: 14px;
+  @include inter400();
+  font-size: $small;
   text-align: left;
-  font-weight: 400;
-  font-family: "Inter", sans-serif;
-  line-height: 20px;
   color: $alt-black;
 }
 
-.MethodologySubheaderText {
-  font-weight: 700;
-  font-family: "Inter", sans-serif !important;
-  font-size: 1.17em;
-}
-
 .MethodologySubsubheaderText {
-  font-weight: 550;
-  font-family: "Inter", sans-serif !important;
-  font-size: 1.1em;
+  @include inter500();
+  font-size: $text;
 }
 
 .MethodologyInfoBar {
@@ -79,8 +40,63 @@
 
 p.CitationAPA {
   padding-left: 3rem;
+  padding-right: 1rem;
   margin: 1rem initial;
 }
 p.CitationAPA:first-of-type {
   text-indent: -2rem;
+}
+
+/* AGE ADJUSTMENT */
+
+.AgeAdjustmentSection {
+  padding: 5px 20px 50px 20px;
+  margin: auto;
+  max-width: $max-width;
+}
+
+.AgeAdjustmentHeader {
+  @include tav300();
+  font-size: $smallHeader;
+  text-align: center;
+  color: $alt-black;
+}
+
+.ExampleTable,
+.ExampleTable td {
+  border: 1px solid $bg-color;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+.ExampleTable thead {
+  background-color: $join-effort-bg1;
+  font-weight: bold;
+}
+
+.ExampleTable tr:nth-child(even) {
+  background-color: $explore-bg-color;
+}
+
+.Highlighted {
+  background-color: $standard-warning;
+  font-weight: bold;
+  outline: 3px solid $alert-color;
+}
+
+.Calculation {
+  font-style: italic;
+  font-size: $smallest;
+}
+
+pre,
+code {
+  border: 1px solid $bg-color;
+  padding: 5px;
+  margin: 3px 3px 2rem 3px;
+  background-color: $explore-bg-color;
+  font-size: $smallest;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }

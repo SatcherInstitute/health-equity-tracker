@@ -1,4 +1,4 @@
-import { ALL } from "../utils/Constants";
+import { ALL, DemographicGroup } from "../utils/Constants";
 
 /**
  * Specifies a set of filters to apply to a breakdown. When `include` is true,
@@ -16,7 +16,7 @@ const STANDARD_RACES = [
   "Black or African American (Non-Hispanic)",
   "Hispanic or Latino",
   "Native Hawaiian and Pacific Islander (Non-Hispanic)",
-  "Some other race (Non-Hispanic)",
+  "Unrepresented race (Non-Hispanic)",
   "Two or more races (Non-Hispanic)",
   "White (Non-Hispanic)",
   ALL,
@@ -34,11 +34,15 @@ const DECADE_AGE_BRACKETS = [
   "80+",
 ];
 
-export function exclude(...valuesToExclude: string[]): BreakdownFilter {
+export function exclude(
+  ...valuesToExclude: DemographicGroup[]
+): BreakdownFilter {
   return { include: false, values: [...valuesToExclude] };
 }
 
-export function onlyInclude(...valuesToInclude: string[]): BreakdownFilter {
+export function onlyInclude(
+  ...valuesToInclude: DemographicGroup[]
+): BreakdownFilter {
   return { include: true, values: [...valuesToInclude] };
 }
 

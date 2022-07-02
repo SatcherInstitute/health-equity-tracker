@@ -71,7 +71,7 @@ class DataSource(ABC):
         gcs_bucket: The name of the gcs bucket to read the data from
         filename: The name of the file in the gcs bucket to read from
         table_name: The name of the BigQuery table to write to"""
-        chunked_frame = gcs_to_bq_util.load_csv_as_dataframe(
+        chunked_frame = gcs_to_bq_util.load_csv_as_df(
             gcs_bucket, filename, chunksize=1000)
 
         # For the very first chunk, we set the mode to overwrite to clear the
@@ -79,14 +79,14 @@ class DataSource(ABC):
         overwrite = True
         for chunk in chunked_frame:
             self.clean_frame_column_names(chunk)
-            gcs_to_bq_util.add_dataframe_to_bq(
+            gcs_to_bq_util.add_df_to_bq(
                 chunk, dataset, table_name, project=project,
                 overwrite=overwrite)
             overwrite = False
 
     def clean_frame_column_names(self, frame):
         """ Replaces unfitting BigQuery characters and
-        makes all coumn names lower case.
+        makes all column names lower case.
 
         frame: The pandas dataframe with unclean columns
         """

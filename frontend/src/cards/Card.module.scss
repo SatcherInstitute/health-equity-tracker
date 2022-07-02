@@ -1,13 +1,9 @@
 @import "../styles/variables.module";
+@import "../styles/globals.scss";
 
 .CardHeader {
+  @include inter700();
   text-align: left;
-  font-weight: bold !important;
-}
-
-.TableContainer {
-  max-height: 500px;
-  overflow-y: scroll;
 }
 
 .ChartCard {
@@ -23,83 +19,66 @@
   padding: 16px 16px 0 16px !important;
 }
 
-.SmallMarginButton {
-  padding: 0 5px !important;
-  margin-top: -2px !important; // To align with surrounding text
-  text-decoration: underline !important;
-}
-
 .PopulationCard {
-  h1 {
-    text-align: left;
-  }
+  $populationTitleHeight: 57px; // specific heigh to vertically align all population card header text
+
+  h1,
   span {
     text-align: left;
   }
 
   .TotalPopulationKey {
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 57px;
+    font-size: $smallestHeader;
+    line-height: $populationTitleHeight;
     padding-right: 7px;
   }
 
   .TotalPopulationValue {
-    font-size: 32px;
-    line-height: 57px;
+    font-size: $smallestHeader;
+    line-height: $populationTitleHeight;
     color: $alt-green;
   }
 
   .PopulationCardTitle {
-    line-height: 40px;
+    @include inter500();
     padding-right: 20px;
-    font-weight: 500;
-    font-size: 32px;
-    line-height: 57px;
+    font-size: $header;
+    line-height: $populationTitleHeight;
   }
   .VerticalDivider {
-    height: 57px;
+    height: $populationTitleHeight;
     border-right: 1px solid grey;
     margin-left: 20px;
     float: right;
   }
 }
+.PopulationChartTitle {
+  @include inter700();
+  text-align: left;
+  font-size: $small;
+  letter-spacing: 0.00938em;
+}
 
 .PopulationAlert {
   margin: 10px;
-
-  .InfoLinkButton {
-    font-size: 0.875rem !important;
-    font-family: "Inter", serif !important;
-    font-weight: 400 !important;
-    line-height: 1.43 !important;
-    letter-spacing: 0.01071em !important;
-    text-decoration: underline !important;
-    color: $alt-green !important;
-    padding: 0 5px !important;
-    margin-top: -2px !important; // To align with the <p> text better
-  }
 }
 
 .PopulationMetric {
   padding: 10px;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: $small;
   // Smallest width at which current standardized strings all fit on 3 lines
   width: 131px;
 }
 .PopulationMetricValue {
   color: $alt-green;
-  font-size: 20px;
-  line-height: 32px;
+  font-size: $title;
 }
 
 .CardFooter {
   text-align: left;
   padding-bottom: 10px !important;
   padding-top: 10px !important;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: $smallest;
 }
 
 .CardInfoPopover {
@@ -110,54 +89,6 @@
   padding: 3px !important;
   margin: 0px !important;
   min-width: unset !important;
-}
-
-.TermInfoButton {
-  padding: 3px !important;
-  margin: 0px !important;
-  min-width: unset !important;
-  text-decoration: underline !important;
-  text-decoration-style: dashed !important;
-  text-underline-offset: 3px !important;
-  font-size: 16px !important;
-  line-height: 20px !important;
-}
-
-.BarChartCardPopover {
-  width: 300px;
-  h1 {
-    font-size: 14px;
-    line-height: 20px;
-  }
-}
-
-.CardTitlePopover {
-  width: 300px;
-  background-color: black;
-  color: white;
-  padding: 10px;
-
-  a:link,
-  a:active,
-  a:hover,
-  a:visited {
-    color: white;
-  }
-}
-
-.CompareAcrossLink,
-.ConditionDefinitionLink {
-  color: $alt-green;
-  text-decoration: underline;
-  &:hover {
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.04);
-  }
-}
-
-// This ensures that vega tooltips are always visible even when in dialog elements
-#vg-tooltip-element {
-  z-index: 2000 !important;
 }
 
 .TerritoryCirclesContainer {

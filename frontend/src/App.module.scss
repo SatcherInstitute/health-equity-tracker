@@ -1,17 +1,15 @@
+@import "styles/globals.scss";
 @import "styles/variables.module";
-@import url("https://fonts.googleapis.com/css2?family=Taviraj:wght@300&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Taviraj:wght@400&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&display=swap");
 
 .App {
   text-align: center;
   position: relative;
   min-height: 100%;
   background-color: $white;
+}
+
+.FallbackPage {
+  min-height: 100vh;
 }
 
 // For the "Skip to Main Content" link for screenreader users
@@ -38,7 +36,7 @@
     border-radius: 15px;
     border: 4px solid $yellow;
     text-align: center;
-    font-size: 1.2em;
+    font-size: $smallestHeader;
     z-index: 999;
   }
 }
@@ -65,11 +63,10 @@
 }
 
 .HomeLogo {
-  font-size: 1.25rem !important;
-  font-weight: 500 !important;
+  @include dmSans500();
+  font-size: $logo !important;
   flex-grow: 1;
   text-align: left;
-  font-family: "DM Sans", sans-serif !important;
   color: $alt-green;
   padding-left: 17px;
   a:link,
@@ -80,12 +77,11 @@
 }
 
 .NavLink {
+  @include dmSans500();
   color: $navlink-color !important;
   margin: 0 5px 0 5px !important;
   padding: 6px 16px !important;
-  font-family: "DM Sans", sans-serif !important;
-  font-weight: 500 !important;
-  font-size: 0.875rem !important;
+  font-size: $small !important;
 
   a,
   &:link,

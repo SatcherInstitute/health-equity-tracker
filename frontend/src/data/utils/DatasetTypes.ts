@@ -1,4 +1,5 @@
 import { DataFrame, IDataFrame } from "data-forge";
+import { STATE_FIPS_MAP } from "./Fips";
 
 // Data sources may provide multiple datasets
 export interface DataSourceMetadata {
@@ -6,6 +7,7 @@ export interface DataSourceMetadata {
   readonly description: string;
   readonly dataset_ids: string[];
   readonly data_source_name: string;
+  readonly data_source_pretty_site_name: string;
   readonly data_source_link: string;
   readonly geographic_level: string;
   readonly demographic_granularity: string;
@@ -57,7 +59,14 @@ export class Dataset {
   }
 
   toDataFrame(): IDataFrame {
-    return new DataFrame(this.rows);
+    // TODO Remove this once STATE FIPS are embedded during GCP/SQL step
+    const rowsWithFakeFips = this.rows.map((row) => {
+      const fipsCode = Object.keys(STATE_FIPS_MAP).find(
+        (key) => STATE_FIPS_MAP[key] === row.state_name
+      );
+      return { ...row, state_fips: fipsCode };
+    });
+    return new DataFrame(rowsWithFakeFips);
   }
 
   toCsvString() {

@@ -2,13 +2,23 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
-import { CONTACT_TAB_LINK, DATA_CATALOG_PAGE_LINK } from "../../utils/urlutils";
+import {
+  AGE_ADJUSTMENT_TAB_LINK,
+  CONTACT_TAB_LINK,
+  DATA_CATALOG_PAGE_LINK,
+} from "../../utils/internalRoutes";
 import { Helmet } from "react-helmet-async";
 import { CITATION_APA } from "../DataCatalog/MethodologyTab";
-import parse from "html-react-parser";
+import { getHtml } from "../../utils/urlutils";
 import FeedbackBox from "../ui/FeedbackBox";
+import { urlMap } from "../../utils/externalUrls";
 
-export const selectFaqs: any[] = [
+export interface qAndA {
+  q: string;
+  a: string;
+}
+
+export const selectFaqs: qAndA[] = [
   {
     q: "What is health equity? Why is it important?",
     a: `
@@ -43,10 +53,10 @@ ethnic, and other population groups, and communities (CDC).`,
 
 
 
-In this tracker, we are using many sources, including 
-<a href="https://www.census.gov/data/developers/data-sets/acs-5year.html">American Community Survey 5-year estimates (2015-2019)</a> 
-and the <a href="https://www.cdc.gov/brfss/index.html">CDC’s BRFSS data set</a>. Some sources are updated bi-weekly, 
-while other important data (such as information around social determinants of health) can lag from weeks to years. 
+In this tracker, we are using many sources, including
+<a href=${urlMap.acs5}>American Community Survey 5-year estimates (2015-2019)</a>
+and the <a href=${urlMap.cdcBrfss}>CDC’s BRFSS data set</a>. Some sources are updated bi-weekly,
+while other important data (such as information around social determinants of health) can lag from weeks to years.
 Specific information on update frequencies by source can be found on our <a href="${DATA_CATALOG_PAGE_LINK}">Data Downloads</a> page.
 </p>
 `,
@@ -65,9 +75,9 @@ Specific information on update frequencies by source can be found on our <a href
   <li>comprehensive race and ethnicity breakdowns</li>
   <li>comprehensive sex and age breakdowns</li>
 </ul>
-<span class={styles.FaqSubheaderText}>
+<h4 class={styles.FaqSubheaderText}>
   Known limitations in the data
-</span>
+</h4>
 <ul>
   <li>
     To protect the privacy of affected individuals, COVID-19 data
@@ -86,8 +96,8 @@ Specific information on update frequencies by source can be found on our <a href
   </li>
   <li>
     We typically refresh our data sources with newly available
-    data within a few days. Seeking the latest information? Please
-    navigate to the data sources directly.
+    data within a few days. Seeking the latest information? A direct link is provided for each of our <a href="/datacatalog">
+    data sources</a>.
   </li>
 </ul>
   `,
@@ -97,7 +107,7 @@ Specific information on update frequencies by source can be found on our <a href
     a: `
   <ul>
     <li>
-    In an effort to be fully transparent, all data is retrieved from publicly sourced APIs and manual downloads 
+    In an effort to be fully transparent, all data is retrieved from publicly sourced APIs and manual downloads
     </li>
     <li>
       Once acquired, this data is converted to tables in Google BigQuery
@@ -107,10 +117,13 @@ Specific information on update frequencies by source can be found on our <a href
       facilitate reporting, comparison and visualization
     </li>
     <li>
+    All of our map and graph visualizations present crude (non-age-adjusted) percentages and per 100k rates. When possible, we additionally calculate and present age-adjusted ratios in a separate table in an effort to reveal disproportionate impact to certain race/ethnicity groups, as compared to the white (non-Hispanic) population. To learn more, please view our <a href=${AGE_ADJUSTMENT_TAB_LINK}>age-adjustment methodology</a>
+  </li>
+    <li>
       Sources are refreshed when update notifications are received
     </li>
     <li>
-    The entire Health Equity Tracker codebase is publicly available and open-source; contributions are welcome via <a href="https://github.com/SatcherInstitute/health-equity-tracker">GitHub</a>.
+    The entire Health Equity Tracker codebase is publicly available and open-source; contributions are welcome via <a href=${urlMap.hetGitHub}>GitHub</a>.
     </li>
   </ul>
   `,
@@ -123,9 +136,9 @@ function FaqTab() {
       <Helmet>
         <title>FAQ - What Is Health Equity - Health Equity Tracker</title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>
+      <h2 className={styles.ScreenreaderTitleHeader}>
         Frequently Asked Questions
-      </h1>
+      </h2>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.FaqSection}>
           <Grid item xs={12} sm={12} md={3}>
@@ -142,15 +155,21 @@ function FaqTab() {
             <Grid container>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>{selectFaqs[4].q}</h3>
-                <div className={styles.FaqAnswer}>{parse(selectFaqs[4].a)}</div>
+                <div className={styles.FaqAnswer}>
+                  {getHtml(selectFaqs[4].a)}
+                </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>{selectFaqs[2].q}</h3>
-                <div className={styles.FaqAnswer}>{parse(selectFaqs[2].a)}</div>
+                <div className={styles.FaqAnswer}>
+                  {getHtml(selectFaqs[2].a)}
+                </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>{selectFaqs[3].q}</h3>
-                <div className={styles.FaqAnswer}>{parse(selectFaqs[3].a)}</div>
+                <div className={styles.FaqAnswer}>
+                  {getHtml(selectFaqs[3].a)}
+                </div>
                 <a href="/datacatalog" className={styles.MajorLink}>
                   See Data Sources
                 </a>
@@ -247,12 +266,20 @@ function FaqTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>{parse(selectFaqs[0].q)}</h3>
-                <div className={styles.FaqAnswer}>{parse(selectFaqs[0].a)}</div>
+                <h3 className={styles.FaqQuestion}>
+                  {getHtml(selectFaqs[0].q)}
+                </h3>
+                <div className={styles.FaqAnswer}>
+                  {getHtml(selectFaqs[0].a)}
+                </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>{parse(selectFaqs[1].q)}</h3>
-                <div className={styles.FaqAnswer}>{parse(selectFaqs[1].a)}</div>
+                <h3 className={styles.FaqQuestion}>
+                  {getHtml(selectFaqs[1].q)}
+                </h3>
+                <div className={styles.FaqAnswer}>
+                  {getHtml(selectFaqs[1].a)}
+                </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>

@@ -1,52 +1,44 @@
-@import "../../styles/variables.module.scss";
+@use "../../styles/globals.scss";
+@import "../../styles/variables.module";
 
 .ExploreData {
   background-color: $explore-bg-color;
   height: 100%;
 }
 
-// For the title of the page read off by screenreaders in an h1
-.ScreenreaderTitleHeader {
-  left: -999px;
-  position: absolute;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  z-index: -999;
-}
-
 .CarouselContainer {
   background: $white;
-  padding-bottom: 1rem;
-  padding-top: 1rem;
-  font-size: 20pt;
-  line-height: 20pt;
   box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3),
     0px 1px 3px 1px rgba(60, 64, 67, 0.15);
   transition: padding-top 0.2s, padding-bottom 0.2s;
+  padding-block: 1rem;
 }
 
 .Carousel {
   margin: auto;
-  width: 95%;
+  width: 98%;
 }
 
 // when scrolled to top of page
 .CarouselItem {
-  padding: 20px 60px 20px 60px;
-  margin: 20px auto;
-  line-height: 50pt;
-}
-
-.MadLibSelect {
-  margin: 5px;
-  margin-top: -7px;
-  font-size: 20pt;
+  line-height: $lhLoose;
+  font-size: $title;
+  @media (min-width: $sm) {
+    font-size: $smallestHeader;
+  }
+  @media (min-width: $lg) {
+    font-size: $smallerHeader;
+  }
+  padding: 0px 70px 0px 70px;
+  margin: 20px auto 0 auto;
 }
 
 .ReportContainer {
   width: 100%;
+}
+
+.LifelineSticky {
+  display: none;
 }
 
 // when sticky header appears after scrolling down page (not on small screens)
@@ -59,14 +51,18 @@
       z-index: 1001;
       padding-top: 0;
       padding-bottom: 0;
-      line-height: 20pt;
     }
     .CarouselItem {
       padding: 0px 55px 0px 55px;
+      margin-bottom: 10px;
       transition: padding 0.2s;
     }
     .ReportContainer {
       padding-top: 150px;
+    }
+    .LifelineSticky {
+      display: flex;
+      justify-content: center;
     }
   }
 }

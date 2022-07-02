@@ -6,7 +6,6 @@ import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 import sass from "../styles/variables.module.scss";
-import { ORDINAL } from "vega-lite/build/src/type";
 import {
   EQUAL_DOT_SIZE,
   GREY_DOT_SCALE,
@@ -18,10 +17,10 @@ import {
   UNKNOWN_SCALE,
 } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
+import { ORDINAL, PADDING_FOR_ACTIONS_MENU } from "./utils";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
-// import SASS variables for use in React / Vega
 const {
   unknownGrey: UNKNOWN_GREY,
   redOrange: RED_ORANGE,
@@ -71,8 +70,6 @@ export interface ChoroplethMapProps {
   scaleColorScheme?: string;
   // If true, the geography will be rendered as a circle. Used to display territories at national level.
   overrideShapeWithCircle?: boolean;
-  // Instead of missing data saying "no data" use a "sample size too small" message. Used for surveyed data.
-  useSmallSampleMessage: boolean;
   // Do not show a tooltip when there is no data.
   hideMissingDataTooltip?: boolean;
   // Callbacks set up so map interactions can update the React UI
@@ -88,7 +85,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   const [shouldRenderMap, setShouldRenderMap] = useState(false);
 
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during initialization */
+    90 /* default width during initialization */
   );
 
   // calculate page size to determine if tiny mobile or not
@@ -105,6 +102,20 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   // Dataset to use for computing the legend
   const legendData = props.legendData || props.data;
+
+  const legendLowerBound = Math.min(
+    ...legendData.map((row) => row[props.metric.metricId])
+  );
+  const legendUpperBound = Math.max(
+    ...legendData.map((row) => row[props.metric.metricId])
+  );
+
+  // Generate meaningful alt text
+  const altText = `Map showing ${props.filename}${
+    !props.fips.isCounty()
+      ? ` across ${props.fips.getPluralChildFipsTypeDisplayName()}`
+      : ""
+  }`;
 
   useEffect(() => {
     const geoData = props.geoData
@@ -145,9 +156,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }
 
     /* SET UP TOOLTIP */
-    const noDataText = props.useSmallSampleMessage
-      ? "Sample size too small"
-      : NO_DATA_MESSAGE;
 
     /* PROPERLY LABEL THE HOVERED GEO REGION IF TERRITORY */
     const countyOrEquivalent =
@@ -165,9 +173,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const tooltipLabel =
       props.isUnknownsMap && props.metric.unknownsVegaLabel
         ? props.metric.unknownsVegaLabel
-        : props.metric.shortVegaLabel;
+        : props.metric.shortLabel;
     const tooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum} }`;
-    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${noDataText}" }`;
+    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}" }`;
 
     /* SET UP LEGEND */
     let legendList = [];
@@ -244,6 +252,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       colorScale["constant"] = 0.01;
     }
 
+    // if there is no range, use a dot instead of a gradient bar for legend to prevent weirdness
+    if (legendLowerBound === legendUpperBound) {
+      colorScale["type"] = "ordinal";
+    }
+
     /* SET UP PROJECTION USED TO CREATE MARKS ON THE UI */
     let projection = props.overrideShapeWithCircle
       ? {
@@ -265,12 +278,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         };
 
     /* DEFINE HOW TO CREATE A MARK ON THE UI */
-    /** 
+    /**
     Function creating the Vega marks that appear on the chart (geographies or circles).
     * datasetName: name of the dataset the marks should correspond to
     * fillColor: schema defining how marks are filled - either a scale or static value.
     * hoverColor: single color that should appear on hover
-    * tooltipExpression: expression defining how to render the contents of the hover tooltip 
+    * tooltipExpression: expression defining how to render the contents of the hover tooltip
     */
     const createShapeMarks = (
       datasetName: string,
@@ -296,12 +309,16 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       }
       let marks: any = {
         name: datasetName + "_MARK",
+        aria: false,
         type: props.overrideShapeWithCircle ? "symbol" : "shape",
         from: { data: datasetName },
         encode: {
           enter: encodeEnter,
           update: { fill: fillColor },
-          hover: { fill: { value: hoverColor } },
+          hover: {
+            fill: { value: hoverColor },
+            cursor: { value: "pointer" },
+          },
         },
       };
       if (!props.overrideShapeWithCircle) {
@@ -313,6 +330,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       return {
         type: "text",
         interactive: false,
+        aria: false,
         from: { data: datasetName + "_MARK" },
         encode: {
           enter: {
@@ -343,14 +361,56 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ),
     ];
     if (props.overrideShapeWithCircle) {
+      // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET));
       marks.push(createCircleTextMark(MISSING_DATASET));
+    } else {
+      // ALT TEXT: verbose, invisible text for screen readers showing valid data (incl territories)
+      marks.push({
+        name: "alt_text_labels",
+        type: "text",
+        style: ["text"],
+        role: "list-item",
+        from: { data: VAR_DATASET },
+        encode: {
+          update: {
+            opacity: {
+              signal: "0",
+            },
+            fontSize: { value: 0 },
+            text: {
+              signal: `
+              datum.fips_name
+              +
+              ': '
+              +
+              ${tooltipDatum}
+              +
+              ' '
+              +
+              '${tooltipLabel}'
+                  `,
+            },
+          },
+        },
+      });
     }
+
+    let altText = props.overrideShapeWithCircle
+      ? props.fips.getDisplayName()
+      : `Map showing ${props.filename}`;
+
+    if (!props.fips.isCounty() && !props.overrideShapeWithCircle)
+      altText += `: including data from ${
+        props.data.length
+      } ${props.fips.getPluralChildFipsTypeDisplayName()}`;
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
-      background: "white",
-      description: props.legendTitle,
+      background: sass.white,
+      description: props.overrideShapeWithCircle
+        ? `Territory: ${props.fips.getDisplayName()}`
+        : altText,
       data: [
         {
           name: MISSING_PLACEHOLDER_VALUES,
@@ -431,7 +491,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.fieldRange,
     props.scaleType,
     props.scaleColorScheme,
-    props.useSmallSampleMessage,
     props.hideMissingDataTooltip,
     props.overrideShapeWithCircle,
     props.geoData,
@@ -442,18 +501,26 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     xOffsetNoDataLegend,
     props,
     heightWidthRatio,
+    altText,
+    legendLowerBound,
+    legendUpperBound,
   ]);
 
-  return (
-    <div
-      ref={ref}
-      style={{
-        width: "95%",
+  const mapStyle = pageIsTiny
+    ? {
+        width: "90%",
+        marginRight: PADDING_FOR_ACTIONS_MENU,
+      }
+    : {
+        width: "75%",
         margin: "auto",
-      }}
-    >
+      };
+
+  return (
+    <div ref={ref} style={mapStyle}>
       {shouldRenderMap && (
         <Vega
+          renderer="svg"
           spec={spec}
           width={width}
           // custom 3-dot options for states, hidden on territories

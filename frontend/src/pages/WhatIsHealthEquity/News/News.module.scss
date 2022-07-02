@@ -1,0 +1,323 @@
+@import "../../../styles/variables.module.scss";
+@import "../../../styles/globals.scss";
+
+/** ------------- HEADER ROW ------------- **/
+.HeaderRow {
+  border-bottom: $bottom-border-style;
+
+  .HeaderImgItem {
+    align-items: center;
+    justify-content: center;
+
+    .SingleArticleHeaderImg {
+      border-radius: 30px;
+      height: auto;
+      width: 60%;
+      object-fit: contain;
+      max-height: 300px;
+      max-width: 400px;
+      margin-top: 2rem;
+
+      @media only screen and (min-width: $md) {
+        max-height: 770px;
+        margin-top: 0;
+      }
+    }
+  }
+
+  .SingleArticleHeaderTextItem {
+    justify-content: center;
+    padding: 2rem 15%;
+
+    @media (min-width: $md) {
+      border-left: 1px solid $border-color;
+      padding: 104px 66px 104px 66px;
+    }
+
+    .SingleArticleHeaderText {
+      @include tav300();
+      text-align: left;
+      color: $alt-green;
+      padding-bottom: 1rem;
+      font-size: $header;
+      line-height: 110%;
+
+      @media (min-width: $md) {
+        font-size: $bigHeader;
+      }
+    }
+
+    .SingleArticleHeaderSubtext {
+      @include inter400();
+      font-size: $text;
+      text-align: left;
+      line-height: 100%;
+    }
+
+    .SingleArticleDetailText {
+      color: $alt-dark;
+      font-size: $text;
+      text-align: start;
+
+      a {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.AllArticlesSection {
+  padding: 50px 20px 50px 20px;
+  border-bottom: 1px solid $alt-grey;
+}
+
+.FeaturedContainer {
+  background-color: $bg-color;
+  border-radius: 20px;
+}
+
+.AllArticlesHeaderText,
+.FeaturedArticlesHeaderText {
+  @include tav300();
+  text-align: center;
+  color: $alt-green;
+}
+
+.AllArticlesHeaderText {
+  font-size: $bigHeader !important;
+}
+
+.AllArticlesHeaderSubtext {
+  @include inter300();
+  font-size: $title;
+  text-align: left;
+  line-height: 24px;
+}
+
+.AllPostsBigImg {
+  width: 60%;
+  height: auto;
+  border-radius: 30px;
+}
+
+// for mobile filter section
+.Divider {
+  border-top: 1px solid $alt-grey;
+  padding: 1rem;
+  margin-top: 4rem;
+}
+
+.AllArticlesBreadCrumbs {
+  @include inter500();
+  display: inline;
+  text-decoration: none;
+  padding: 6px 16px;
+  font-size: $small;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: none;
+}
+
+.FullArticleContainer {
+  overflow-wrap: anywhere;
+  width: 100vw;
+  max-width: $max-width;
+  min-height: $preload-article-height;
+  margin: 2rem;
+  border-bottom: 1px solid $alt-grey;
+  padding: 2rem;
+
+  @media (min-width: $sm) {
+    width: 75vw;
+  }
+
+  @media (min-width: $md) {
+    width: 50vw;
+  }
+
+  hr {
+    margin-block: 3rem;
+    width: 50%;
+  }
+
+  p,
+  li {
+    @include inter400();
+    font-size: $title;
+    line-height: 150%;
+    text-align: left;
+    color: $alt-black;
+  }
+
+  blockquote > p {
+    font-style: italic;
+  }
+
+  h1 {
+    font-size: $biggerHeader !important;
+  }
+
+  h2 {
+    font-size: $bigHeader !important;
+  }
+
+  h3 {
+    font-size: $header !important;
+  }
+
+  h4 {
+    font-size: $smallestHeader !important;
+  }
+
+  h5 {
+    font-size: $title !important;
+  }
+
+  h6 {
+    font-size: $text !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @include tav300();
+    line-height: 110%;
+    color: $alt-green;
+    text-align: left;
+
+    // For Heading "Buttons"
+    a {
+      @include dmSans500();
+      background-color: $alt-green;
+      color: white !important;
+      border-radius: 40px !important;
+      padding: 16px 30px !important;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      max-width: 400px;
+      margin: 40px auto 0px auto;
+      font-size: $smallestHeader !important;
+    }
+  }
+
+  ol,
+  ul,
+  blockquote {
+    text-align: left;
+  }
+
+  img {
+    display: block;
+    margin: 40px auto 0px auto;
+    width: 100%;
+    height: auto;
+  }
+
+  .ReprintNotice {
+    font-style: italic;
+    font-size: $small;
+  }
+}
+
+// hide featured image since already in header; hide HRs; show youtube embed <figure>
+:global(.wp-block-post-featured-image) {
+  display: none !important;
+}
+
+// set youtube video container to proper aspect ratio
+:global(.wp-block-embed-youtube .wp-block-embed__wrapper) {
+  margin-block: 3rem;
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+}
+
+// fill iframe to above container
+:global(.wp-block-embed-youtube .wp-block-embed__wrapper) > iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 20px;
+}
+
+.FullLink {
+  @include dmSans500();
+  background-color: $alt-green;
+  color: white !important;
+  border-radius: 40px !important;
+  font-size: $title !important;
+  padding: 16px 30px !important;
+  text-align: center;
+}
+
+.PrevNextSection {
+  border-bottom: 1px solid $alt-grey;
+  display: flex;
+  align-items: center;
+}
+
+.NewsPreviewHeaderText h2,
+.NewsPreviewHeaderText h3 {
+  @include tav300();
+  font-size: $title !important;
+  text-align: center;
+  line-height: 120% !important;
+  padding: 1rem !important;
+  margin: 0;
+}
+
+.NewsPreviewHeaderText > span {
+  display: block;
+}
+
+.NewsPreviewThumbnail,
+.LogoThumbnail {
+  max-height: 100px;
+  width: auto;
+  border-radius: 10%;
+}
+
+.PrevNextArrow {
+  @include tav500();
+  font-size: $bigHeader;
+}
+
+.FilterListBox {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  height: auto;
+  width: 90%;
+}
+
+.FilterListHeader {
+  @include tav300();
+  text-transform: capitalize;
+  font-size: $smallestHeader !important;
+  margin-bottom: 0px;
+  line-height: 40px;
+  color: $alt-green;
+}
+
+.FilterList {
+  text-align: start;
+  font-size: $text;
+  width: 100%;
+  margin-bottom: 5rem;
+  list-style: none;
+  padding-inline-start: 1rem;
+
+  a {
+    text-decoration: none;
+    color: $alt-black;
+  }
+}

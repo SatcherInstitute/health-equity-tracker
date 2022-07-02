@@ -1,3 +1,4 @@
+@import "../../../styles/globals.scss";
 @import "../../../styles/variables.module";
 
 .DatasetExplorer {
@@ -11,41 +12,20 @@
   text-align: center;
 }
 
-.FilterContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.FilterTitle {
-  padding: 5px;
-  font-size: large;
-}
-
-.Filter {
-  text-align: left;
-  flex-grow: 1;
-  padding: 5px;
+.DatasetList {
+  width: 100%;
+  list-style: none;
+  padding-inline-start: 0;
 }
 
 .DatasetListItem {
   padding: 5px;
   width: 100%;
-}
-
-.DatasetList {
-  width: 100%;
-}
-
-.Dataset {
   padding-bottom: 3px;
   padding-top: 3px;
   display: flex;
   flex-direction: row;
-}
-
-.Table {
-  padding: 5px;
+  width: 100%;
 }
 
 /** ------------- DATA DOWNLOADS ------------- **/
@@ -55,35 +35,20 @@
 }
 
 .DataDownloadsHeaderText {
-  font-size: 32px !important;
-  line-height: 32px !important;
-  font-weight: 400;
-  font-family: "Taviraj", sans-serif !important;
+  @include tav300();
+  font-size: $smallHeader !important;
   text-align: center;
   color: $alt-black;
   padding: 5px 0 5px 0;
 }
 
 .DataDownloadsHeaderSubtext {
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 400;
-  font-family: "Inter", sans-serif !important;
+  @include inter400();
+  font-size: $small;
   color: $alt-black;
 
   .DataDownloadsExploreLink {
     text-decoration: underline;
     background-color: transparent;
   }
-}
-
-// For the title of the page read off by screenreaders in an h1
-.ScreenreaderTitleHeader {
-  left: -999px;
-  position: absolute;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  z-index: -999;
 }

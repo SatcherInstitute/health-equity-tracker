@@ -1,13 +1,16 @@
 @import "../../styles/variables.module";
-
+@import "../../styles/globals.scss";
 .FaqHeader {
-  font-size: 54px !important;
+  @include tav300();
+  font-size: $bigHeader !important;
   text-align: left;
-  font-weight: 400;
-  font-family: "Taviraj", serif !important;
-  line-height: 64px !important;
   color: $alt-green;
   padding-bottom: 20px;
+}
+
+.FaqListItem {
+  list-style: none;
+  margin: 0px !important;
 }
 
 .FaqQAItem {
@@ -15,33 +18,26 @@
 }
 
 .FaqQuestion {
-  font-size: 28px !important;
+  @include tav300();
+  font-size: $title !important;
+  @media only screen and (min-width: $sm) {
+    font-size: $smallHeader !important;
+  }
   text-align: left;
-  font-weight: 300 !important;
-  font-family: "Taviraj", sans-serif !important;
-  line-height: 68px !important;
+  line-height: $lhSuperLoose !important;
   color: $alt-black;
 }
 
 .FaqAnswer {
-  font-size: 14px;
+  @include inter400();
+  font-size: $small;
   text-align: left;
-  font-weight: 400;
-  font-family: "Inter", sans-serif;
-  line-height: 20px;
   color: $alt-black;
 }
 
-.FaqSubheaderText {
-  font-weight: 700;
-  font-family: "Inter", sans-serif !important;
-}
-
 .FaqLink {
-  font-family: "Inter", sans-serif !important;
-  font-weight: 500 !important;
-  font-size: 24px !important;
-  line-height: 28px !important;
+  @include inter500();
+  font-size: $smallestHeader !important;
   margin-top: 20px !important;
   color: $alt-green !important;
   text-decoration: underline !important;

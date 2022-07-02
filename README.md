@@ -12,7 +12,7 @@ To contribute to this project:
 
 1. [Fork the repository on github](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo)
 2. On your development machine, clone your forked repo and add the official repo as a remote.
-    - Tip: our development team keeps the remote name `origin` for the original repo, and uses a different name for our forked remote like `josh` or `ben`.
+    - Tip: our development team keeps the remote name `origin` for the original repo, and uses a different name for our forked remote like `josh`, `ben`, or `eric`.
 
 When you're ready to make changes:
 
@@ -46,7 +46,7 @@ The frontend consists of
 
 In addition, we have a Storybook project that also lives in `health-equity-tracker/frontend/`. Storybook is a library that allows us to explore and develop UI components in isolation. Stories for each UI component are contained in the same directory as the component in a subfolder called "storybook". The current main branch version of Storybook can be seen here: https://het-storybook.netlify.app
 
-### Frontend React App Environments
+## Frontend React App Environments
 
 The frontend React App runs in different environments. We use configuration files (`frontend/.env.prod`, `frontend/.env.staging`, etc) to control settings in different environments. These include things like the data server URL and logging settings. These can be overridden for local development using a `frontend/.env.development` file.
 
@@ -302,7 +302,7 @@ gcloud auth configure-docker
 * Build and push docker images
 
 ```bash
-./push_images
+./scripts/push_images
 ```
 
 * Setup your cloud environment with `terraform`
@@ -327,7 +327,7 @@ popd
 * Build and push docker images
 
 ```bash
-./push_images
+./scripts/push_images
 ```
 
 * Setup your cloud environment with `terraform`

@@ -1,4 +1,4 @@
-import { Breakdowns } from "../query/Breakdowns";
+import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import { Fips } from "../utils/Fips";
 import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import {
@@ -16,6 +16,7 @@ import {
   MALE,
   FEMALE,
   SEX,
+  DemographicGroup,
 } from "../utils/Constants";
 import AcsPovertyProvider from "./AcsPovertyProvider";
 
@@ -33,8 +34,8 @@ export const KING_COUNTY: FipsSpec = {
 
 function finalRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   below_poverty_level_count: number,
   below_poverty_level_per_100k: number
 ) {
@@ -50,8 +51,8 @@ function finalRow(
 
 function finalCountyRow(
   countyFips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   below_poverty_level: number,
   below_poverty_level_per_100k: number
 ) {

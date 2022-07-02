@@ -1,4 +1,4 @@
-# Used in Primary Care Access URL and filenames
+# Used in BJS, Primary Care Access URL, and filenames
 STATE_NAMES = [
     "Alabama",
     "Alaska",
@@ -51,6 +51,16 @@ STATE_NAMES = [
     "Wisconsin",
     "Wyoming"
 ]
+
+US_FIPS = '00'
+US_NAME = 'United States'
+US_ABBR = "US"
+
+
+NATIONAL_LEVEL = "national"
+STATE_LEVEL = "state"
+
+UNKNOWN = "Unknown"
 
 
 class Sex:

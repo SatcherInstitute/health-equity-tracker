@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./HighestLowestList.module.scss";
 import AnimateHeight from "react-animate-height";
-import { Button, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import { IconButton } from "@material-ui/core";
@@ -68,57 +68,76 @@ export function HighestLowestList(props: HighestLowestListProps) {
         </span>
         <b>highest</b> and <b>lowest</b> rates
       </div>
-      <div className={styles.ListBoxLists}>
-        <Grid container justify="space-around">
-          <Grid item xs={12} sm={6}>
-            <h4>{props.highestRatesList.length} Highest Rates</h4>
-            <ul>
-              {props.highestRatesList.map((row) => {
-                return (
-                  <li key={row["fips_name"]}>
-                    {row["fips_name"]}:{" "}
-                    {formatFieldValue(
-                      props.metricConfig.type,
-                      row[props.metricConfig.metricId]
-                    )}{" "}
-                    <span className={styles.Unit}>per 100k</span>
-                  </li>
-                );
-              })}
-            </ul>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <h4>{props.lowestRatesList.length} Lowest Rates</h4>
-            <ul>
-              {props.lowestRatesList.map((row) => {
-                return (
-                  <li key={row["fips_name"]}>
-                    {row["fips_name"]}:{" "}
-                    {formatFieldValue(
-                      props.metricConfig.type,
-                      row[props.metricConfig.metricId]
-                    )}{" "}
-                    <span className={styles.Unit}>per 100k</span>
-                  </li>
-                );
-              })}
-            </ul>
-          </Grid>
-        </Grid>
-      </div>
-      <p>
-        All rates are reported as: <b>{props.metricConfig.fullCardTitleName}</b>
-      </p>
-      <p>
-        Consider the possible impact of
-        <Button
-          onClick={() => props.jumpToData()}
-          className={styles.LinkButton}
-        >
-          data reporting gaps
-        </Button>
-        when interpreting the highest and lowest rates.
-      </p>
+
+      {/* Don't render collapsed info, so keyboard nav will skip */}
+      {props.listExpanded && (
+        <>
+          <div className={styles.ListBoxLists}>
+            <Grid container justifyContent="space-around">
+              <Grid item xs={12} sm={6}>
+                <h4>{props.highestRatesList.length} Highest Rates</h4>
+                <ul>
+                  {props.highestRatesList.map((row) => {
+                    return (
+                      <li key={row["fips_name"]}>
+                        {row["fips_name"]}:{" "}
+                        {formatFieldValue(
+                          props.metricConfig.type,
+                          row[props.metricConfig.metricId]
+                        )}{" "}
+                        <span className={styles.Unit}>
+                          {props.metricConfig.type === "per100k"
+                            ? "per 100k"
+                            : ""}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <h4>{props.lowestRatesList.length} Lowest Rates</h4>
+                <ul>
+                  {props.lowestRatesList.map((row) => {
+                    return (
+                      <li key={row["fips_name"]}>
+                        {row["fips_name"]}:{" "}
+                        {formatFieldValue(
+                          props.metricConfig.type,
+                          row[props.metricConfig.metricId]
+                        )}{" "}
+                        <span className={styles.Unit}>
+                          {props.metricConfig.type === "per100k"
+                            ? "per 100k"
+                            : ""}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </Grid>
+            </Grid>
+          </div>
+
+          <p>
+            All rates are reported as:{" "}
+            <b>{props.metricConfig.fullCardTitleName}</b>
+          </p>
+          <p>
+            Consider the possible impact of{" "}
+            <a
+              href="#missingDataInfo"
+              onClick={(e) => {
+                e.preventDefault();
+                props.jumpToData();
+              }}
+            >
+              data reporting gaps
+            </a>{" "}
+            when interpreting the highest and lowest rates.
+          </p>
+        </>
+      )}
     </AnimateHeight>
   );
 }

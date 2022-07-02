@@ -56,9 +56,9 @@ def get_test_metadata_as_df():
 
 @mock.patch('datasources.covid_tracking_project.CovidTrackingProject._download_metadata',
             return_value=get_test_metadata_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe',
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df',
             return_value=get_test_data_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBq(mock_append_to_bq: mock.MagicMock, mock_csv: mock.MagicMock,
                   mock_download: mock.MagicMock):
@@ -133,7 +133,7 @@ def testMergeWithMetadata():
         col_std.Race.ETHNICITY_UNKNOWN.race,
         col_std.Race.OTHER_NONSTANDARD.race,
         col_std.Race.UNKNOWN.race,
-        col_std.Race.TOTAL.race
+        col_std.Race.ALL.race
     }
     assert set(df[col_std.RACE_COL]) == expected_race_categories
 
@@ -147,7 +147,7 @@ def testWriteToBq_MissingAttr():
 
 @mock.patch('datasources.covid_tracking_project.CovidTrackingProject._download_metadata',
             return_value=pd.DataFrame({}))
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe',
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df',
             return_value=get_test_data_as_df())
 def testWriteToBq_MetadataMissing(mock_csv: mock.MagicMock,
                                   mock_download: mock.MagicMock):

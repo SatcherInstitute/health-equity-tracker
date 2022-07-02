@@ -1,23 +1,32 @@
 import { formatFieldValue, MetricConfig } from "../data/config/MetricConfig";
+import { BreakdownVar } from "../data/query/Breakdowns";
 import { Row } from "../data/utils/DatasetTypes";
 
+export type VisualizationType = "chart" | "map" | "table";
+
+export const PADDING_FOR_ACTIONS_MENU = 30;
+
 const MAX_LINE_LENGTH = 20;
-export const DELIMITER = "*~*";
+
+// ! &nbsp&nbsp NON BREAKABLE SPACES that shouldn't occur in the data labels and can therefor be used as a delimiter that reads naturally on a screen reader &nbsp
+export const DELIMITER = "  ";
+
+export const ORDINAL = "ordinal";
 
 // Returns a Vega Expression to create an array of the multiple lines in the label
 export const MULTILINE_LABEL = `split(datum.value, '${DELIMITER}')`;
 
-// Returns a Vega Expression to create teplace delimiter token with a space for displaying the label on one label
+// Returns a Vega Expression to create replace delimiter token with a normal space for displaying the label on single line label
 export function oneLineLabel(field: string) {
   return `join(split(datum.${field}, '${DELIMITER}'), ' ')`;
 }
 
-// We use nested ternerys to determine the label's y axis delta based on the number of lines in the label to vertically align
+// We use nested ternaries to determine the label's y axis delta based on the number of lines in the label to vertically align
 export const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? -3 : length(${MULTILINE_LABEL}) > 2 ? -7 : 5`;
 
 export function addLineBreakDelimitersToField(
   rawData: Row[],
-  field: string
+  field: BreakdownVar
 ): Row[] {
   return rawData.map((data) => {
     let lines = [];
@@ -65,5 +74,6 @@ export function addMetricDisplayColumn(
       ),
     };
   });
+
   return [newData, displayColName];
 }

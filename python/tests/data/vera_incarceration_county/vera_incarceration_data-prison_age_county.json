@@ -1,0 +1,29 @@
+[
+    {
+        "county_fips": "01001",
+        "county_name": "Autauga County",
+        "age": "All",
+        "prison_per_100k": 503,
+        "prison_pct_share": 100.0,
+        "population_pct_share": 100.0,
+        "total_confined_children": 0.0
+    },
+    {
+        "county_fips": "37119",
+        "county_name": "Mecklenburg County",
+        "age": "All",
+        "prison_per_100k": 357,
+        "prison_pct_share": 100.0,
+        "population_pct_share": 100.0,
+        "total_confined_children": 54.0
+    },
+    {
+        "county_fips": "56045",
+        "county_name": "Weston County",
+        "age": "All",
+        "prison_per_100k": 306,
+        "prison_pct_share": 100.0,
+        "population_pct_share": 100.0,
+        "total_confined_children": 0.0
+    }
+]

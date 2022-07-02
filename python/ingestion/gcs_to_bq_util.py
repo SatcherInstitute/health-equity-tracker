@@ -3,9 +3,13 @@ from datetime import timezone
 import requests
 import json
 import os
-
-import pandas
+import pandas as pd
 from google.cloud import bigquery, storage
+from zipfile import ZipFile
+from io import BytesIO
+
+
+DATA_DIR = os.path.join(os.sep, 'app', 'data')
 
 
 def __convert_frame_to_json(frame):
@@ -22,8 +26,8 @@ def __create_bq_load_job_config(frame, column_types, col_modes, overwrite):
     """
     Creates a job to write the given data frame into BigQuery.
 
-    Paramenters:
-        frame: A pandas.DataFrame representing the data for the job.
+    Parameters:
+        frame: A pd.DataFrame representing the data for the job.
         column_types: Optional dict of column name to BigQuery data type.
         col_modes: Optional dict of modes for each field.
         overwrite: Boolean indicating whether we want to overwrite or append.
@@ -62,18 +66,18 @@ def __dataframe_to_bq(frame, dataset, table_name, column_types, col_modes,
     table_id = client.dataset(dataset).table(table_name)
 
     load_job = client.load_table_from_json(
-        json_data,	table_id, job_config=job_config)
+        json_data, table_id, job_config=job_config)
     load_job.result()  # Wait for table load to complete.
 
 
-def add_dataframe_to_bq_as_str_values(frame, dataset, table_name,
-                                      column_types=None, col_modes=None,
-                                      project=None, overwrite=True):
+def add_df_to_bq_as_str_values(frame, dataset, table_name,
+                               column_types=None, col_modes=None,
+                               project=None, overwrite=True):
     """Adds (either overwrites or appends) the provided DataFrame to the table
        specified by `dataset.table_name`. Automatically adds an ingestion time
        column and coverts all other values to a string.
 
-       frame: pandas.DataFrame representing the data to add.
+       frame: pd.DataFrame representing the data to add.
        dataset: The BigQuery dataset to write to.
        table_name: The BigQuery table to write to.
        column_types: Optional dict of column name to BigQuery data type. If
@@ -93,13 +97,13 @@ def add_dataframe_to_bq_as_str_values(frame, dataset, table_name,
                       project, json_data, overwrite)
 
 
-def add_dataframe_to_bq(frame, dataset, table_name, column_types=None,
-                        col_modes=None, project=None, overwrite=True):
+def add_df_to_bq(frame, dataset, table_name, column_types=None,
+                 col_modes=None, project=None, overwrite=True):
     """Adds (either overwrites or appends) the provided DataFrame to the table
        specified by `dataset.table_name`. Automatically adds an ingestion time
        column.
 
-       frame: pandas.DataFrame representing the data to add.
+       frame: pd.DataFrame representing the data to add.
        dataset: The BigQuery dataset to write to.
        table_name: The BigQuery table to write to.
        column_types: Optional dict of column name to BigQuery data type. If
@@ -118,12 +122,13 @@ def add_dataframe_to_bq(frame, dataset, table_name, column_types=None,
 def get_schema(frame, column_types, col_modes):
     """Generates the BigQuery table schema from the column types and modes.
 
-       frame: pandas.DataFrame representing the data to add.
+       frame: pd.DataFrame representing the data to add.
        column_types: a dict of column name to BigQuery data type."""
     if col_modes is None:
         col_modes = {}
 
     input_cols = column_types.keys()
+
     if (len(input_cols) != len(frame.columns)
             or set(input_cols) != set(frame.columns)):
         raise Exception('Column types did not match frame columns')
@@ -135,9 +140,9 @@ def get_schema(frame, column_types, col_modes):
     return list(map(create_field, column_types.keys()))
 
 
-def load_values_as_dataframe(gcs_bucket, filename):
+def load_values_as_df(gcs_bucket, filename):
     """Loads data from the provided gcs_bucket and filename to a DataFrame.
-       Expects the data to be in the pandas 'values' format: a list of rows,
+       Expects the data to be in the pd 'values' format: a list of rows,
        where each row is a list of values.
 
        gcs_bucket: The name of the gcs bucket to read the data from
@@ -145,28 +150,28 @@ def load_values_as_dataframe(gcs_bucket, filename):
     client = storage.Client()
     bucket = client.get_bucket(gcs_bucket)
     blob = bucket.blob(filename)
-    return load_values_blob_as_dataframe(blob)
+    return load_values_blob_as_df(blob)
 
 
-def values_json_to_dataframe(json_string):
-    frame = pandas.read_json(json_string, orient='values')
+def values_json_to_df(json_string, dtype=None):
+    frame = pd.read_json(json_string, orient='values', dtype=dtype)
     frame.rename(columns=frame.iloc[0], inplace=True)
     frame.drop([0], inplace=True)
     return frame
 
 
-def load_values_blob_as_dataframe(blob):
+def load_values_blob_as_df(blob):
     """Loads data from the provided GCS blob to a DataFrame.
-       Expects the data to be in the pandas 'values' format: a list of rows,
+       Expects the data to be in the pd 'values' format: a list of rows,
        where each row is a list of values.
 
        blob: google.cloud.storage.blob.Blob object"""
     json_string = blob.download_as_string()
-    return values_json_to_dataframe(json_string)
+    return values_json_to_df(json_string)
 
 
-def load_csv_as_dataframe(gcs_bucket, filename, dtype=None, chunksize=None,
-                          parse_dates=False, thousands=None):
+def load_csv_as_df(gcs_bucket, filename, dtype=None, chunksize=None,
+                   parse_dates=False, thousands=None):
     """Loads csv data from the provided gcs_bucket and filename to a DataFrame.
        Expects the data to be in csv format, with the first row as the column
        names.
@@ -174,7 +179,7 @@ def load_csv_as_dataframe(gcs_bucket, filename, dtype=None, chunksize=None,
        gcs_bucket: The name of the gcs bucket to read the data from
        filename: The name of the file in the gcs bucket to read from
        dtype: An optional dictionary of column names to column types, as
-              specified by the pandas API. Not all column types need to be
+              specified by the pd API. Not all column types need to be
               specified; column type is auto-detected. This is useful, for
               example, to force integer-like ids to be treated as strings
        parse_dates: Column(s) that should be parsed and interpreted as dates.
@@ -184,8 +189,8 @@ def load_csv_as_dataframe(gcs_bucket, filename, dtype=None, chunksize=None,
     blob = bucket.blob(filename)
     local_path = local_file_path(filename)
     blob.download_to_filename(local_path)
-    frame = pandas.read_csv(local_path, dtype=dtype, chunksize=chunksize,
-                            parse_dates=parse_dates, thousands=thousands)
+    frame = pd.read_csv(local_path, dtype=dtype, chunksize=chunksize,
+                        parse_dates=parse_dates, thousands=thousands)
 
     # Warning: os.remove() will remove the directory entry but will not release
     # the file's storage until the file is no longer being used by |frame|.
@@ -195,7 +200,7 @@ def load_csv_as_dataframe(gcs_bucket, filename, dtype=None, chunksize=None,
     return frame
 
 
-def load_json_as_dataframe(gcs_bucket, filename, dtype=None):
+def load_json_as_df(gcs_bucket, filename, dtype=None):
     """Loads json data from the provided gcs_bucket and filename to a DataFrame.
        Expects the data to be in csv format, with the first row as the column
        names.
@@ -203,7 +208,7 @@ def load_json_as_dataframe(gcs_bucket, filename, dtype=None):
        gcs_bucket: The name of the gcs bucket to read the data from
        filename: The name of the file in the gcs bucket to read from
        dtype: An optional dictionary of column names to column types, as
-              specified by the pandas API. Not all column types need to be
+              specified by the pd API. Not all column types need to be
               specified; column type is auto-detected. This is useful, for
               example, to force integer-like ids to be treated as strings"""
     client = storage.Client()
@@ -211,7 +216,7 @@ def load_json_as_dataframe(gcs_bucket, filename, dtype=None):
     blob = bucket.blob(filename)
     local_path = local_file_path(filename)
     blob.download_to_filename(local_path)
-    frame = pandas.read_json(local_path, dtype=dtype)
+    frame = pd.read_json(local_path, dtype=dtype)
 
     # Warning: os.remove() will remove the directory entry but will not release
     # the file's storage until the file is no longer being used by |frame|.
@@ -221,7 +226,7 @@ def load_json_as_dataframe(gcs_bucket, filename, dtype=None):
     return frame
 
 
-def load_csv_as_dataframe_from_web(url, dtype=None, params=None):
+def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None):
     """Loads csv data from the provided url to a DataFrame.
        Expects the data to be in csv format, with the first row as the column
        names.
@@ -229,7 +234,63 @@ def load_csv_as_dataframe_from_web(url, dtype=None, params=None):
        url: url to download the csv file from"""
 
     url = requests.Request('GET', url, params=params).prepare().url
-    return pandas.read_csv(url, dtype=dtype)
+    return pd.read_csv(url, dtype=dtype, encoding=encoding)
+
+
+def load_csv_as_df_from_data_dir(directory, filename, dtype=None):
+    """Loads csv data from /data/{directory}/{filename} into a DataFrame.
+       Expects the data to be in csv format, with the first row as the column
+       names.
+
+    directory: directory within data to load from
+    filename: file to load the csv file from"""
+    file_path = os.path.join(DATA_DIR, directory, filename)
+    return pd.read_csv(file_path, dtype=dtype)
+
+
+def load_json_as_df_from_data_dir(directory, filename, dtype=None):
+    """Loads json data from /data/{directory}/{filename} into a DataFrame.
+       Expects the data to be in json format, with the first row as the column
+       names.
+
+    directory: directory within data to load from
+    filename: file to load the json file from"""
+    file_path = os.path.join(DATA_DIR, directory, filename)
+
+    return pd.read_json(file_path, dtype=dtype)
+
+
+def load_json_as_df_from_data_dir_based_on_key_list(directory, filename, key_list):
+    """Loads json data from /data/{directory}/{filename} into a DataFrame.
+       Expects the data to be in json format, stored under the given list of nested keys
+
+    directory: directory within data to load from
+    filename: file to load the json file from
+    key_list: List of keys to represent the nested keys needed to get to the data in the json
+
+    For Example, given this JSON string:
+    grandparent: {
+        parent: {
+            child: {
+                grandchildren: [
+                    {name: "Joe"},
+                    {name: "Sally"},
+                    {name: "Steve"}
+                ]
+            }
+        }
+    }
+
+    To get a dataframe of the grandchildren by name, you would use the key_list
+    ["grandparent", "parent", "children", "grandchildren"]
+
+     """
+
+    file_path = os.path.join(DATA_DIR, directory, filename)
+    with open(file_path, 'r') as data_file:
+        data = json.loads(data_file.read())
+    df = pd.json_normalize(data, key_list)
+    return df
 
 
 def load_json_as_df_from_web(url, dtype=None, params=None):
@@ -238,7 +299,7 @@ def load_json_as_df_from_web(url, dtype=None, params=None):
     url: url to download the json from
     key: key in the json in which all data underneath will be loaded into the dataframe"""
     url = requests.Request('GET', url, params=params).prepare().url
-    return pandas.read_json(url, dtype=dtype)
+    return pd.read_json(url, dtype=dtype)
 
 
 def load_json_as_df_from_web_based_on_key(url, key, dtype=None):
@@ -248,12 +309,37 @@ def load_json_as_df_from_web_based_on_key(url, key, dtype=None):
     key: key in the json in which all data underneath will be loaded into the dataframe"""
     r = requests.get(url)
     jsn = json.loads(r.text)
-    return pandas.DataFrame(jsn[key], dtype=dtype)
+    return pd.DataFrame(jsn[key], dtype=dtype)
+
+
+def load_public_dataset_from_bigquery_as_df(dataset, table_name, dtype=None):
+    """Loads data from a public big query table into a dataframe.
+       Need this as a separate function because of the need for a
+       different way to generate the table_id.
+
+       dataset: The BigQuery dataset to write to.
+       table_name: The BigQuery table to write to."""
+    client = bigquery.Client()
+    table_id = 'bigquery-public-data.%s.%s' % (dataset, table_name)
+
+    return client.list_rows(table_id).to_dataframe(dtypes=dtype)
+
+
+def load_df_from_bigquery(dataset, table_name, dtype=None):
+    """Loads data from a big query table into a dataframe.
+
+       dataset: The BigQuery dataset to write to.
+       table_name: The BigQuery table to write to."""
+    client = bigquery.Client()
+    table_id = client.dataset(dataset).table(table_name)
+    table = client.get_table(table_id)
+
+    return client.list_rows(table).to_dataframe(dtypes=dtype)
 
 
 def load_values_as_json(gcs_bucket, filename):
     """Loads data from the provided gcs_bucket and filename.
-       Expects the data to be in the pandas 'values' format: a list of rows,
+       Expects the data to be in the pd 'values' format: a list of rows,
        where each row is a list of values.
 
        gcs_bucket: The name of the gcs bucket to read the data from
@@ -277,3 +363,13 @@ def list_bucket_files(bucket_name: str) -> list:
     blobs = bucket.list_blobs()
 
     return list(map(lambda blob: blob.name, blobs))
+
+
+def fetch_zip_as_files(url):
+    """
+    Fetches a .zip files from the given url and returns a zip object
+    with the listed internal files
+    """
+    response = requests.get(url)
+    files = ZipFile(BytesIO(response.content))
+    return files

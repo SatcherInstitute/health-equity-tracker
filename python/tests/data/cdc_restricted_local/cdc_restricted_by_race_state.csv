@@ -1,0 +1,115 @@
+state_postal,race_category_id,cases,hosp_y,hosp_n,hosp_unknown,death_y,death_n,death_unknown,race,race_includes_hispanic,race_and_ethnicity
+CA,AIAN_NH,2,1,0,1,0,2,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+CA,ALL,18,5,6,7,5,5,8,All,,All
+CA,ASIAN_NH,1,0,1,0,0,1,0,Asian,False,Asian (Non-Hispanic)
+CA,BLACK_NH,3,2,1,0,1,0,2,Black or African American,False,Black or African American (Non-Hispanic)
+CA,HISP,2,1,1,0,1,1,0,Hispanic or Latino,True,Hispanic or Latino
+CA,MULTI_OR_OTHER_STANDARD_NH,2,1,0,1,2,0,0,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+CA,NHPI_NH,1,0,0,1,0,0,1,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+CA,UNKNOWN,5,0,2,3,1,1,3,Unknown race,True,Unknown race
+CA,WHITE_NH,2,0,1,1,0,0,2,White,False,White (Non-Hispanic)
+DE,ALL,1,1,0,0,,,,All,,All
+DE,UNKNOWN,1,1,0,0,,,,Unknown race,True,Unknown race
+HI,AIAN_NH,1,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+HI,ALL,1,,,,,,,All,,All
+LA,AIAN_NH,1,1,0,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+LA,ALL,1,1,0,0,0,0,1,All,,All
+MD,ALL,1,0,0,1,1,0,0,All,,All
+MD,ASIAN_NH,1,0,0,1,1,0,0,Asian,False,Asian (Non-Hispanic)
+MO,AIAN_NH,1,0,1,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+MO,ALL,1,0,1,0,0,0,1,All,,All
+ND,AIAN_NH,1,0,0,1,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+ND,ALL,1,0,0,1,1,0,0,All,,All
+NE,ALL,1,,,,,,,All,,All
+NE,BLACK_NH,1,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+NM,ALL,1,0,1,0,0,1,0,All,,All
+NM,MULTI_OR_OTHER_STANDARD_NH,1,0,1,0,0,1,0,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+RI,ALL,1,,,,1,0,0,All,,All
+RI,NHPI_NH,1,,,,1,0,0,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+SD,ALL,1,,,,,,,All,,All
+SD,WHITE_NH,1,,,,,,,White,False,White (Non-Hispanic)
+TX,AIAN_NH,1,1,0,0,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+TX,ALL,1,1,0,0,1,0,0,All,,All
+Unknown,ALL,2,1,0,1,1,0,1,All,,All
+Unknown,BLACK_NH,2,1,0,1,1,0,1,Black or African American,False,Black or African American (Non-Hispanic)
+WY,AIAN_NH,1,0,1,0,0,1,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+WY,ALL,1,0,1,0,0,1,0,All,,All
+DE,AIAN_NH,,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+DE,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+DE,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+DE,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+DE,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+DE,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+DE,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
+HI,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+HI,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+HI,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+HI,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+HI,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+HI,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
+LA,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+LA,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+LA,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+LA,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+LA,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+LA,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
+MD,AIAN_NH,,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+MD,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+MD,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+MD,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+MD,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+MD,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
+MO,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+MO,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+MO,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+MO,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+MO,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+MO,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
+ND,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+ND,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+ND,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+ND,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+ND,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+ND,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
+NE,AIAN_NH,,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+NE,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+NE,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+NE,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+NE,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+NE,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
+NM,AIAN_NH,,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+NM,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+NM,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+NM,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+NM,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+NM,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
+RI,AIAN_NH,,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+RI,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+RI,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+RI,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+RI,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+RI,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
+SD,AIAN_NH,,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+SD,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+SD,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+SD,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+SD,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+SD,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+TX,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+TX,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+TX,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+TX,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+TX,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+TX,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
+Unknown,AIAN_NH,,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+Unknown,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+Unknown,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+Unknown,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+Unknown,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+Unknown,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
+WY,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+WY,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+WY,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+WY,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+WY,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+WY,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)

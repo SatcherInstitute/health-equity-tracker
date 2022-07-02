@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas as pd  # type: ignore
 
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
@@ -12,7 +12,7 @@ CDC_SEX_GROUPS_TO_STANDARD = {
     'Sex_Female': Sex.FEMALE,
     'Sex_Male': Sex.MALE,
     'Sex_unknown': 'Unknown',
-    'US': std_col.TOTAL_VALUE,
+    'US': std_col.ALL_VALUE,
 }
 
 CDC_RACE_GROUPS_TO_STANDARD = {
@@ -24,7 +24,7 @@ CDC_RACE_GROUPS_TO_STANDARD = {
     'Race_eth_NHNHOPI': Race.NHPI_NH.value,
     'Race_eth_NHWhite': Race.WHITE_NH.value,
     'Race_eth_unknown': Race.UNKNOWN.value,
-    'US': Race.TOTAL.value,
+    'US': Race.ALL.value,
 }
 
 CDC_AGE_GROUPS_TO_STANDARD = {
@@ -37,7 +37,7 @@ CDC_AGE_GROUPS_TO_STANDARD = {
     'Ages_65-74_yrs': '65-74',
     'Ages_75+_yrs': '75+',
     'Age_unknown': 'Unknown',
-    'US': std_col.TOTAL_VALUE,
+    'US': std_col.ALL_VALUE,
 }
 
 
@@ -100,7 +100,7 @@ class CDCVaccinationNational(DataSource):
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
                 column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-            gcs_to_bq_util.add_dataframe_to_bq(
+            gcs_to_bq_util.add_df_to_bq(
                 breakdown_df, dataset, breakdown, column_types=column_types)
 
     def generate_breakdown(self, breakdown, df):
@@ -133,8 +133,10 @@ class CDCVaccinationNational(DataSource):
                 output_row[breakdown] = standard_group
 
             row = df.loc[df['demographic_category'] == cdc_group]
-            output_row[std_col.VACCINATED_FIRST_DOSE] = int(row['administered_dose1'].values[0])
-            output_row[std_col.VACCINATED_PER_100K] = calc_per_100k(row['administered_dose1_pct'].values[0])
+            output_row[std_col.VACCINATED_FIRST_DOSE] = int(
+                row['administered_dose1'].values[0])
+            output_row[std_col.VACCINATED_PER_100K] = calc_per_100k(
+                row['administered_dose1_pct'].values[0])
 
             # We want the Total number of unknowns, not the unknowns of what is known
             if standard_group == "Unknown" or standard_group == Race.UNKNOWN.value:
@@ -143,7 +145,7 @@ class CDCVaccinationNational(DataSource):
                 output_row[std_col.VACCINATED_SHARE_OF_KNOWN] = row['administered_dose1_pct_known'].values[0]
 
             # Manually set this to 100%
-            if standard_group == std_col.TOTAL_VALUE or standard_group == Race.TOTAL.value:
+            if standard_group == std_col.ALL_VALUE or standard_group == Race.ALL.value:
                 output_row[std_col.VACCINATED_SHARE_OF_KNOWN] = 100.0
 
             if breakdown == std_col.AGE_COL and standard_group != "Unknown":

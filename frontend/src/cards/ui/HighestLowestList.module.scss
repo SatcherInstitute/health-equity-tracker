@@ -1,39 +1,36 @@
+@use "../../styles/globals.scss";
 @import "../../styles/variables.module";
 
 .ListBox {
   margin-top: 15px;
   background: $listbox-color;
   border-radius: 8px;
-  size: 14px;
-  line-height: 20px;
   text-align: left;
   p {
-    padding: 16px;
+    padding: 1rem;
     margin: 0;
   }
   h4 {
-    line-height: 0;
+    margin: 0;
   }
 }
 
 .ListBoxTitle,
 .ListBoxTitleExpanded {
   padding-left: 16px;
-  size: 14px;
   text-align: left;
-  margin-right: 50px;
   cursor: pointer;
 }
 
 .ListBoxTitle {
-  line-height: 47px;
+  line-height: 47px; // specific height to vertically center text on collapse/expand arrow
   @media (min-width: $sm) {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
   @media (max-width: $sm) {
-    font-size: smaller;
+    font-size: $smallest;
 
     .HideOnMobile {
       display: none;
@@ -42,7 +39,6 @@
 }
 
 .ListBoxTitleExpanded {
-  line-height: 20px;
   padding: 14px 0 14px 16px;
 }
 
@@ -52,19 +48,4 @@
 
 .CollapseButton {
   float: right;
-}
-
-.LinkButton {
-  text-decoration: underline !important;
-  color: $alt-green !important;
-  padding: 0 5px !important;
-  margin-top: -2px !important; // To align with the <p> text better
-}
-
-.Unit {
-  font-size: 0.7rem;
-  font-weight: 100;
-  font-stretch: ultra-condensed, extra-condensed, condensed;
-  margin-left: 0.075rem;
-  letter-spacing: -0.04rem;
 }

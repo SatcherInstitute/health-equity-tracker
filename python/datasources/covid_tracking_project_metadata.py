@@ -15,16 +15,17 @@ class CtpMetadata(DataSource):
         return "covid_tracking_project_metadata"
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError("upload_to_gcs should not be called for CtpMetadata")
+        raise NotImplementedError(
+            "upload_to_gcs should not be called for CtpMetadata")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         gcs_file = self.get_attr(attrs, "filename")
 
         # Download the raw data
-        df = gcs_to_bq_util.load_csv_as_dataframe(gcs_bucket, gcs_file)
+        df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, gcs_file)
         df = self.standardize(df)
         # Write to BQ
-        gcs_to_bq_util.add_dataframe_to_bq(df, dataset, self.get_table_name())
+        gcs_to_bq_util.add_df_to_bq(df, dataset, self.get_table_name())
 
     def standardize(self, df: pd.DataFrame) -> pd.DataFrame:
         """Reformats the metadata into the standard format."""
@@ -52,7 +53,8 @@ class CtpMetadata(DataSource):
         ]
         df = df[keep_cols]
         df = df.melt(id_vars=["state_postal_abbreviation"])
-        df[["col_name", "variable_type"]] = df.variable.str.rsplit("_", 1, expand=True)
+        df[["col_name", "variable_type"]] = df.variable.str.rsplit(
+            "_", 1, expand=True)
         df.drop("variable", axis=1, inplace=True)
         df = df.pivot(
             index=["state_postal_abbreviation", "variable_type"],

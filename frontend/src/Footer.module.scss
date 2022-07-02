@@ -1,4 +1,5 @@
 @import "styles/variables.module";
+@import "styles/globals.scss";
 
 /** ------------------ Footer styles -------------------- **/
 
@@ -23,10 +24,9 @@
 }
 
 .FooterTitleSpan {
-  font-family: "DM Sans", sans-serif !important;
-  font-size: 20px;
+  @include dmSans500();
+  font-size: $title;
   color: $alt-green;
-  font-weight: 500;
   display: inline-block;
   width: max-content;
 }
@@ -40,9 +40,9 @@
 /** ------------------ Links - second -------------------- **/
 
 .CopyrightSpan {
+  @include inter300();
   color: $alt-dark;
-  font-weight: 100;
-  font-size: small;
+  font-size: $small;
   margin-bottom: 2rem;
   @media only screen and (min-width: $sm) {
     // So it aligns with the button above it
@@ -79,6 +79,7 @@
   border: none;
 
   &:focus {
+    // use a grey "bubble" background on focus instead of default outline
     outline: none;
   }
 }

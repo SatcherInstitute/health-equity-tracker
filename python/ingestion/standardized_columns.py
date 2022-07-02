@@ -1,7 +1,6 @@
 from enum import Enum, unique
 from collections import namedtuple
-import pandas
-
+import pandas as pd  # type: ignore
 
 # The name of the column for a unique string id for the race category. Should be
 # semi-human readable. See Race enum below for values.
@@ -33,10 +32,9 @@ POPULATION_COL = "population"
 INCOME_COL = "income"
 POPULATION_PCT_COL = "population_pct"
 
-TOTAL_VALUE = "Total"
 ALL_VALUE = "All"
 
-# Standardized column names for Covid cases, hospitalizations, and deaths.
+# Covid cases, hospitalizations, and deaths columns
 COVID_CASES = "cases"
 COVID_HOSP_Y = "hosp_y"
 COVID_HOSP_N = "hosp_n"
@@ -44,8 +42,21 @@ COVID_HOSP_UNKNOWN = "hosp_unknown"
 COVID_DEATH_Y = "death_y"
 COVID_DEATH_N = "death_n"
 COVID_DEATH_UNKNOWN = "death_unknown"
+COVID_POPULATION_PCT = "covid_population_pct"
 
-# Standard Health Insurance Population Cols
+PER_100K_SUFFIX = "per_100k"
+PCT_SHARE_SUFFIX = "pct_share"
+SHARE_SUFFIX = "share"
+SHARE_OF_KNOWN_SUFFIX = "share_of_known"
+
+COVID_CASES_PREFIX = "covid_cases"
+COVID_HOSP_PREFIX = "covid_hosp"
+COVID_DEATH_PREFIX = "covid_deaths"
+
+COVID_DEATH_RATIO_AGE_ADJUSTED = "death_ratio_age_adjusted"
+COVID_HOSP_RATIO_AGE_ADJUSTED = "hosp_ratio_age_adjusted"
+
+# Health Insurance Population Columns
 TOTAL_HEALTH_INSURANCE_COL = "total_health_insurance"
 WITH_HEALTH_INSURANCE_COL = "with_health_insurance"
 WITHOUT_HEALTH_INSURANCE_COL = "without_health_insurance"
@@ -53,14 +64,50 @@ WITHOUT_HEALTH_INSURANCE_COL = "without_health_insurance"
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"
 
-COPD_PCT = "copd_pct"
-DIABETES_PCT = "diabetes_pct"
+PER_100K_SUFFIX = "per_100k"
+PCT_SHARE_SUFFIX = "pct_share"
+RAW_SUFFIX = "estimated_total"
 
+# prefixes for UHC columns
+DEPRESSION_PREFIX = "depression"
+ILLICIT_OPIOID_USE_PREFIX = "illicit_opioid_use"
+NON_MEDICAL_RX_OPIOID_USE_PREFIX = "non_medical_rx_opioid_use"
+NON_MEDICAL_DRUG_USE_PREFIX = "non_medical_drug_use"
+EXCESSIVE_DRINKING_PREFIX = "excessive_drinking"
+COPD_PREFIX = "copd"
+DIABETES_PREFIX = "diabetes"
+ANXIETY_PREFIX = "anxiety"
+FREQUENT_MENTAL_DISTRESS_PREFIX = "frequent_mental_distress"
+SUICIDE_PREFIX = "suicide"
+PREVENTABLE_HOSP_PREFIX = "preventable_hospitalizations"
+AVOIDED_CARE_PREFIX = "avoided_care"
+CHRONIC_KIDNEY_PREFIX = "chronic_kidney_disease"
+CARDIOVASCULAR_PREFIX = "cardiovascular_diseases"
+ASTHMA_PREFIX = "asthma"
+VOTER_PARTICIPATION_PREFIX = "voter_participation"
+
+BRFSS_POPULATION_PCT = "brfss_population_pct"
+
+# Vaccination columns
 VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
 VACCINATED_PCT = "vaccinated_pct"
 VACCINATED_SHARE_OF_KNOWN = "vaccinated_share_of_known"
 VACCINATED_PER_100K = "vaccinated_per_100k"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
+
+# CAWP Women in Legislature columns
+# (_PCT:  % state legislature who are black women)
+# (_PCT_SHARE: % of women legislators who are black)
+WOMEN_STATE_LEG_PCT = "women_state_leg_pct"
+WOMEN_STATE_LEG_PCT_SHARE = "women_state_leg_pct_share"
+WOMEN_US_CONGRESS_PCT = "women_us_congress_pct"
+WOMEN_US_CONGRESS_PCT_SHARE = "women_us_congress_pct_share"
+
+# Incarceration columns
+PRISON_PREFIX = "prison"
+JAIL_PREFIX = "jail"
+INCARCERATED_PREFIX = "incarcerated"
+
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",
@@ -68,6 +115,8 @@ RaceTuple = namedtuple("RaceTuple", [
     "race_includes_hispanic",
     "race_and_ethnicity"
 ])
+
+RACE_COLUMNS = RaceTuple._fields
 
 
 @unique
@@ -83,7 +132,7 @@ class Race(Enum):
     NHPI = ("NHPI", "Native Hawaiian and Pacific Islander", True)
     MULTI = ("MULTI", "Two or more races", True)
     WHITE = ("WHITE", "White", True)
-    OTHER_STANDARD = ("OTHER_STANDARD", "Some other race", True)
+    OTHER_STANDARD = ("OTHER_STANDARD", "Unrepresented race", True)
 
     # These categories are another format of standard categories used in ACS
     # data, where categories are mutually exclusive and exclude Hispanic/Latino.
@@ -98,7 +147,7 @@ class Race(Enum):
     MULTI_NH = ("MULTI_NH", "Two or more races", False)
     WHITE_NH = ("WHITE_NH", "White", False)
     HISP = ("HISP", "Hispanic or Latino", True)
-    OTHER_STANDARD_NH = ("OTHER_STANDARD_NH", "Some other race", False)
+    OTHER_STANDARD_NH = ("OTHER_STANDARD_NH", "Unrepresented race", False)
 
     # Below are special values that have slightly different characteristics.
 
@@ -124,24 +173,33 @@ class Race(Enum):
     # identifier in some places. Until we migrate to using race_category_id,
     # we add a * for the non-standard other so it doesn't accidentally get
     # joined with the standard other on the frontend.
-    OTHER_NONSTANDARD = ("OTHER_NONSTANDARD", "Some other race", True)
-    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH", "Some other race", False)
+    OTHER_NONSTANDARD = ("OTHER_NONSTANDARD", "Unrepresented race", True)
+    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH",
+                            "Unrepresented race", False)
+
+    # CAWP Non-standard, non-exclusive Race/Eth Categories
+    ASIAN_PAC = ("ASIAN_PAC", "Asian American & Pacific Islander", True)
+    MENA = ("MENA", "Middle Eastern & North African", True)
+    AIANNH = (
+        "AIANNH", "Native American, Alaska Native, & Native Hawaiian", True)
+    HISP_F = ("HISP_F", "Latina", True)
 
     # Categories that are combinations of other categories
-    # Currently only used in state level vaccination data
-    API = ("API", "Asian, Native Hawaiian, and Pacific Islander", True)
-    API_NH = ("API_NH", "Asian, Native Hawaiian, and Pacific Islander", False)
+
     # Combines AIAN and NHPI
-    INDIGENOUS = ("INDIGENOUS", "Indigenous", True)
+    API = ("API", "Asian, Native Hawaiian, and Pacific Islander", True)
     # Combines AIAN_NH and NHPI_NH
+    API_NH = ("API_NH", "Asian, Native Hawaiian, and Pacific Islander", False)
+
+    INDIGENOUS = ("INDIGENOUS", "Indigenous", True)
     INDIGENOUS_NH = ("INDIGENOUS_NH", "Indigenous", False)
     MULTI_OR_OTHER_STANDARD = (
         "MULTI_OR_OTHER_STANDARD",
-        "Two or more races & Some other race",
+        "Two or more races & Unrepresented race",
         True)
     MULTI_OR_OTHER_STANDARD_NH = (
         "MULTI_OR_OTHER_STANDARD_NH",
-        "Two or more races & Some other race",
+        "Two or more races & Unrepresented race",
         False)
 
     # When the race is unknown. Different from ETHNICITY_UNKNOWN, which
@@ -151,7 +209,6 @@ class Race(Enum):
 
     # The total across races. This must always be included when the other race
     # values do not sum to 100%
-    TOTAL = ("TOTAL", TOTAL_VALUE, None)
     ALL = ("ALL", ALL_VALUE, None)
 
     # We set the enum value to the first arg, which is the race category id, or
@@ -183,7 +240,7 @@ class Race(Enum):
 
     @property
     def race_and_ethnicity(self) -> str:
-        """The fully-qualified dispaly name that specifies both race and whether
+        """The fully-qualified display name that specifies both race and whether
            the category includes Hispanic or Latino."""
         if (self.includes_hispanic is True or
                 self.includes_hispanic is None or
@@ -219,6 +276,15 @@ def add_race_columns_from_category_id(df):
     df["race_tuple"] = df.apply(
         lambda r: Race.from_category_id(r[RACE_CATEGORY_ID_COL]).as_tuple(),
         axis=1)
-    df[Race.get_col_names()] = pandas.DataFrame(
+    df[Race.get_col_names()] = pd.DataFrame(
         df["race_tuple"].tolist(), index=df.index)
     df.drop("race_tuple", axis=1, inplace=True)
+
+
+def generate_column_name(prefix, suffix):
+    """Generates a standard column name.
+
+       prefix: A condition name
+       suffix: a type of measurement (pct_share, per_100k)"""
+
+    return '%s_%s' % (prefix, suffix)

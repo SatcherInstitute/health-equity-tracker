@@ -3,17 +3,14 @@ import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import {
-  VariableConfig,
-  formatFieldValue,
-  METRIC_CONFIG,
-} from "../data/config/MetricConfig";
+import { VariableConfig, formatFieldValue } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  BreakdownVarDisplayName,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { AgeSorterStrategy } from "../data/sorting/AgeSorterStrategy";
@@ -23,10 +20,16 @@ import {
   UNKNOWN,
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
+  DemographicGroup,
+  RACE,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from "../data/variables/CawpProvider";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
@@ -38,7 +41,7 @@ import { MultiMapDialog } from "./ui/MultiMapDialog";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 /* minimize layout shift */
-const PRELOAD_HEIGHT = 833;
+const PRELOAD_HEIGHT = 250;
 
 export interface MapCardProps {
   key?: string;
@@ -46,7 +49,7 @@ export interface MapCardProps {
   variableConfig: VariableConfig;
   updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar;
-  jumpToDefinitions?: Function;
+  jumpToDefinitions: Function;
   jumpToData: Function;
 }
 
@@ -67,19 +70,16 @@ function MapCardWithKey(props: MapCardProps) {
   const signalListeners: any = {
     click: (...args: any) => {
       const clickedData = args[1];
-      props.updateFipsCallback(new Fips(clickedData.id));
+      clickedData?.id && props.updateFipsCallback(new Fips(clickedData.id));
     },
   };
 
   const [listExpanded, setListExpanded] = useState(false);
-  const [activeBreakdownFilter, setActiveBreakdownFilter] = useState<string>(
-    ALL
-  );
+  const [activeBreakdownFilter, setActiveBreakdownFilter] =
+    useState<DemographicGroup>(ALL);
 
-  const [
-    smallMultiplesDialogOpen,
-    setSmallMultiplesDialogOpen,
-  ] = useAutoFocusDialog();
+  const [smallMultiplesDialogOpen, setSmallMultiplesDialogOpen] =
+    useAutoFocusDialog();
 
   const metricQuery = (geographyBreakdown: Breakdowns) =>
     new MetricQuery(
@@ -88,7 +88,7 @@ function MapCardWithKey(props: MapCardProps) {
         .copy()
         .addBreakdown(
           props.currentBreakdown,
-          props.currentBreakdown === "race_and_ethnicity"
+          props.currentBreakdown === RACE
             ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
             : exclude(UNKNOWN)
         )
@@ -99,36 +99,52 @@ function MapCardWithKey(props: MapCardProps) {
     metricQuery(Breakdowns.forFips(props.fips)),
   ];
 
-  // hide demographic selectors / dropdowns / links to multimap if displaying VACCINATION at COUNTY level, as we don't have that data
-  const hideDemographicUI =
-    props.variableConfig.variableId ===
-      METRIC_CONFIG["vaccinations"][0].variableId && props.fips.isCounty();
+  const selectedRaceSuffix = CAWP_DETERMINANTS.includes(metricConfig.metricId)
+    ? ` Identifying as ${getWomenRaceLabel(activeBreakdownFilter).replace(
+        "All ",
+        ""
+      )}`
+    : "";
 
   return (
     <CardWrapper
       queries={queries}
-      title={<>{metricConfig.fullCardTitleName}</>}
+      title={
+        <>
+          {metricConfig.fullCardTitleName}
+          {selectedRaceSuffix}
+        </>
+      }
       loadGeographies={true}
       minHeight={PRELOAD_HEIGHT}
     >
       {(queryResponses, metadata, geoData) => {
+        // contains data rows for sub-geos (if viewing US, this data will be STATE level)
         const mapQueryResponse = queryResponses[0];
+        // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
 
         const sortArgs =
           props.currentBreakdown === "age"
             ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
             : [];
-        const breakdownValues = mapQueryResponse.getUniqueFieldValues(
-          props.currentBreakdown
+
+        const fieldValues = mapQueryResponse.getFieldValues(
+          /* fieldName: BreakdownVar */ props.currentBreakdown,
+          /* relevantMetric: MetricId */ metricConfig.metricId
         );
-        breakdownValues.sort.apply(breakdownValues, sortArgs);
+
+        const breakdownValues = fieldValues.withData.sort.apply(
+          fieldValues.withData,
+          sortArgs
+        );
 
         const dataForActiveBreakdownFilter = mapQueryResponse
           .getValidRowsForField(metricConfig.metricId)
           .filter(
             (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
           );
+
         const highestRatesList = getHighestN(
           dataForActiveBreakdownFilter,
           metricConfig.metricId,
@@ -141,11 +157,16 @@ function MapCardWithKey(props: MapCardProps) {
         );
 
         // Create and populate a map of breakdown display name to options
-        const filterOptions: Record<string, string[]> = {
-          [BREAKDOWN_VAR_DISPLAY_NAMES[
-            props.currentBreakdown
-          ]]: breakdownValues,
+        const filterOptions: Record<
+          BreakdownVarDisplayName,
+          DemographicGroup[]
+        > = {
+          [BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]]:
+            breakdownValues,
         };
+
+        const hideGroupDropdown =
+          Object.values(filterOptions).toString() === ALL;
 
         // If possible, calculate the total for the selected demographic group and dynamically generate the rest of the phrase
         function generateDemographicTotalPhrase() {
@@ -157,28 +178,22 @@ function MapCardWithKey(props: MapCardProps) {
             <>
               <b>
                 {formatFieldValue(
-                  metricConfig.type,
-                  options[metricConfig.metricId]
+                  /* metricType: MetricType, */ metricConfig.type,
+                  /* value: any, */ options[metricConfig.metricId],
+                  /* omitPctSymbol: boolean = false */ true
                 )}
               </b>{" "}
-              {/*} cases per 100k   NOTE: vaccinations term gets hyperlinked to definitions on bottom of page*/}
-              {props.variableConfig.variableId ===
-              METRIC_CONFIG["vaccinations"][0].variableId ? (
-                <span
-                  role="button"
-                  onClick={() => {
-                    props.jumpToDefinitions && props.jumpToDefinitions();
-                  }}
-                  className={styles.ConditionDefinitionLink}
-                >
-                  {
-                    METRIC_CONFIG["vaccinations"][0].metrics.per100k
-                      .shortVegaLabel
-                  }
-                </span>
-              ) : (
-                metricConfig.shortVegaLabel
-              )}
+              {/*} HYPERLINKED TO BOTTOM DEFINITION {condition} cases per 100k  */}
+              <a
+                href="#definitionsList"
+                onClick={(e) => {
+                  e.preventDefault();
+                  props.jumpToDefinitions();
+                }}
+                className={styles.ConditionDefinitionLink}
+              >
+                {metricConfig.shortLabel}
+              </a>
               {/*} for  */}
               {activeBreakdownFilter !== "All" && " for"}
               {/*} [ ages 30-39] */}
@@ -226,7 +241,9 @@ function MapCardWithKey(props: MapCardProps) {
               queryResponses={queryResponses}
               metadata={metadata}
               geoData={geoData}
+              breakdownValuesNoData={fieldValues.noData}
             />
+
             <CardContent className={styles.SmallMarginContent}>
               <MapBreadcrumbs
                 fips={props.fips}
@@ -237,17 +254,20 @@ function MapCardWithKey(props: MapCardProps) {
               />
             </CardContent>
 
-            {!mapQueryResponse.dataIsMissing() && !hideDemographicUI && (
+            {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
               <>
                 <Divider />
                 <CardContent className={styles.SmallMarginContent}>
                   <Grid
                     container
-                    justify="space-between"
+                    justifyContent="space-between"
                     align-items="flex-end"
                   >
                     <Grid item>
                       <DropDownMenu
+                        idSuffix={`-${props.fips.getStateFipsCode()}-${
+                          props.variableConfig.variableId
+                        }`}
                         value={activeBreakdownFilter}
                         options={filterOptions}
                         onOptionUpdate={(
@@ -272,21 +292,18 @@ function MapCardWithKey(props: MapCardProps) {
                 <>
                   <Divider />
                   <CardContent>
-                    <Alert severity="info">
+                    <Alert severity="info" role="note">
                       {generateDemographicTotalPhrase()}
-
                       {/* Compare across XYZ for all variables except vaccinated at county level */}
-                      {!hideDemographicUI && (
-                        <MultiMapLink
-                          setSmallMultiplesDialogOpen={
-                            setSmallMultiplesDialogOpen
-                          }
-                          currentBreakdown={props.currentBreakdown}
-                          currentVariable={
-                            props.variableConfig.variableFullDisplayName
-                          }
-                        />
-                      )}
+                      <MultiMapLink
+                        setSmallMultiplesDialogOpen={
+                          setSmallMultiplesDialogOpen
+                        }
+                        currentBreakdown={props.currentBreakdown}
+                        currentVariable={
+                          props.variableConfig.variableFullDisplayName
+                        }
+                      />
                     </Alert>
                   </CardContent>
                 </>
@@ -299,7 +316,8 @@ function MapCardWithKey(props: MapCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                   }
-                  geoLevel={props.fips.getChildFipsTypeDisplayName()}
+                  isMapCard={true}
+                  fips={props.fips}
                 />
               </CardContent>
             )}
@@ -308,9 +326,9 @@ function MapCardWithKey(props: MapCardProps) {
               dataForActiveBreakdownFilter.length === 0 &&
               activeBreakdownFilter !== "All" && (
                 <CardContent>
-                  <Alert severity="warning">
-                    No data available for filter: <b>{activeBreakdownFilter}</b>
-                    .{" "}
+                  <Alert severity="warning" role="note">
+                    Insufficient data available for filter:{" "}
+                    <b>{activeBreakdownFilter}</b>.{" "}
                     <MultiMapLink
                       setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
                       currentBreakdown={props.currentBreakdown}
@@ -321,16 +339,12 @@ function MapCardWithKey(props: MapCardProps) {
                   </Alert>
                 </CardContent>
               )}
-            {metricConfig && dataForActiveBreakdownFilter.length ? (
+            {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
               <CardContent>
                 <ChoroplethMap
-                  useSmallSampleMessage={
-                    !mapQueryResponse.dataIsMissing() &&
-                    (props.variableConfig.surveyCollectedData || false)
-                  }
                   signalListeners={signalListeners}
                   metric={metricConfig}
-                  legendTitle={metricConfig.fullCardTitleName}
+                  legendTitle={metricConfig.shortLabel}
                   data={
                     listExpanded
                       ? highestRatesList.concat(lowestRatesList)
@@ -366,11 +380,6 @@ function MapCardWithKey(props: MapCardProps) {
                       return (
                         <div className={styles.TerritoryCircle} key={code}>
                           <ChoroplethMap
-                            useSmallSampleMessage={
-                              !mapQueryResponse.dataIsMissing() &&
-                              (props.variableConfig.surveyCollectedData ||
-                                false)
-                            }
                             signalListeners={signalListeners}
                             metric={metricConfig}
                             legendTitle={metricConfig.fullCardTitleName}
@@ -409,8 +418,6 @@ function MapCardWithKey(props: MapCardProps) {
                     />
                   )}
               </CardContent>
-            ) : (
-              <></>
             )}
           </>
         );
@@ -419,7 +426,7 @@ function MapCardWithKey(props: MapCardProps) {
   );
 }
 
-/* 
+/*
 Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
 */
 export interface MultiMapLinkProps {
@@ -433,12 +440,13 @@ function MultiMapLink(props: MultiMapLinkProps) {
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown];
   return (
     <>
-      <span
+      <a
+        href="#multiMap"
         onClick={() => props.setSmallMultiplesDialogOpen(true)}
         role="button"
         className={styles.CompareAcrossLink}
         aria-label={
-          "Compare " +
+          "Open modal to Compare " +
           props.currentVariable +
           " across " +
           groupTerm +
@@ -446,8 +454,8 @@ function MultiMapLink(props: MultiMapLinkProps) {
         }
       >
         Compare across {groupTerm} groups
-      </span>
-      .
+      </a>
+      <span aria-hidden={true}>.</span>
     </>
   );
 }

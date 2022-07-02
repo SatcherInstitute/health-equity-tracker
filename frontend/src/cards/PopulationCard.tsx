@@ -20,7 +20,7 @@ import {
   POPULATION_VARIABLE_CONFIG,
   POPULATION_VARIABLE_CONFIG_2010,
 } from "../data/config/MetricConfig";
-import { ALL } from "../data/utils/Constants";
+import { ALL, RACE } from "../data/utils/Constants";
 import {
   onlyIncludeDecadeAgeBrackets,
   onlyIncludeStandardRaces,
@@ -98,11 +98,11 @@ export function PopulationCard(props: PopulationCardProps) {
             <Grid
               container
               className={styles.PopulationCard}
-              justify="space-between"
+              justifyContent="space-between"
               alignItems="center"
             >
               <Grid item>
-                <Grid container justify="flex-start" alignItems="center">
+                <Grid container justifyContent="flex-start" alignItems="center">
                   <Grid item>
                     <div className={styles.PopulationCardTitle}>
                       {props.fips.getFullDisplayName()}
@@ -134,7 +134,7 @@ export function PopulationCard(props: PopulationCardProps) {
 
             {props.fips.needsACS2010() && (
               <CardContent>
-                <Alert severity="warning">
+                <Alert severity="warning" role="note">
                   Population data for U.S. Virgin Islands, Guam, and the
                   Northern Mariana Islands is from 2010; interpret metrics with
                   caution.
@@ -154,21 +154,26 @@ export function PopulationCard(props: PopulationCardProps) {
               >
                 <Grid container>
                   <Grid item xs={12}>
-                    <Alert severity="info" className={styles.PopulationAlert}>
+                    <Alert
+                      severity="info"
+                      role="note"
+                      className={styles.PopulationAlert}
+                    >
                       These racial categories are defined by the ACS and US
                       Census Bureau. While it is the standard for CDC reporting,
                       the definition of these categories often results in not
-                      counting or miscounting people in underrepresented groups.
-                      <Button
+                      counting or miscounting people in underrepresented groups.{" "}
+                      <a
+                        href="#missingDataInfo"
                         onClick={() => props.jumpToData()}
-                        className={styles.InfoLinkButton}
                       >
-                        Read about missing data.
-                      </Button>
+                        Read about missing data
+                      </a>
+                      .
                     </Alert>
-                    <Grid container justify="flex-start">
+                    <Grid container justifyContent="space-between">
                       {raceQueryResponse
-                        .getValidRowsForField("race_and_ethnicity")
+                        .getValidRowsForField(RACE)
                         .filter((r) => r.race_and_ethnicity !== ALL)
                         .sort((a, b) => {
                           return b.race_and_ethnicity - a.race_and_ethnicity;
@@ -205,7 +210,7 @@ export function PopulationCard(props: PopulationCardProps) {
                           (r) => r.race_and_ethnicity !== ALL
                         )}
                         metric={POP_CONFIG.metrics.pct_share}
-                        breakdownVar="race_and_ethnicity"
+                        breakdownVar={RACE}
                         showLegend={false}
                         usePercentSuffix={true}
                         filename={`${POPULATION_BY_RACE} in ${props.fips.getFullDisplayName()}`}
@@ -222,7 +227,7 @@ export function PopulationCard(props: PopulationCardProps) {
                         <MissingDataAlert
                           dataName={POP_CONFIG.variableDisplayName}
                           breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES["age"]}
-                          geoLevel={props.fips.getFipsTypeDisplayName()}
+                          fips={props.fips}
                         />
                       ) : (
                         <SimpleHorizontalBarChart

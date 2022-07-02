@@ -1,9 +1,10 @@
 @import "../../styles/variables.module.scss";
+@import "../../styles/globals.scss";
 
 .SearchForText,
 .CategoryTitleText {
-  font-size: 12pt;
-  font-weight: bold;
+  @include inter700();
+  font-size: $text;
 }
 
 .CategoryTitleText {
@@ -11,14 +12,13 @@
 }
 
 .NoteText {
-  font-size: 10pt;
+  font-size: $small;
   color: grey;
   font-style: italic;
 }
 
 .OptionsSelectorPopover {
   padding: 20px;
-  min-width: 385px;
 }
 
 .PopoverOverride {
@@ -32,9 +32,16 @@
 }
 
 .MadLibButton {
-  font-size: 25px !important;
-  font-weight: normal !important;
-  text-decoration: underline !important;
+  @include inter400();
   text-underline-offset: 3px !important;
-  margin-bottom: 3px !important;
+  text-decoration: underline !important;
+  padding: 0 0.25rem 5px 0.6rem !important;
+  line-height: $lhLoose;
+  font-size: $title;
+  @media (min-width: $sm) {
+    font-size: $smallestHeader;
+  }
+  @media (min-width: $lg) {
+    font-size: $smallerHeader;
+  }
 }

@@ -17,22 +17,26 @@ import {
   getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
-import {
-  NON_HISPANIC,
-  RACE,
-  UNKNOWN,
-  UNKNOWN_RACE,
-  UNKNOWN_ETHNICITY,
-} from "../data/utils/Constants";
-import { Row } from "../data/utils/DatasetTypes";
+import { RACE } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
-import { ALL } from "../data/utils/Constants";
-import { showAltPopCompare } from "./DisparityBarChartCard";
+import { urlMap } from "../utils/externalUrls";
+import {
+  getExclusionList,
+  shouldShowAltPopCompare,
+} from "../data/utils/datasetutils";
+import styles from "./Card.module.scss";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
+
+// We need to get this property, but we want to show it as
+// part of the "population_pct" column, and not as its own column
+export const NEVER_SHOW_PROPERTIES = [
+  METRIC_CONFIG.covid_vaccinations[0]?.metrics?.pct_share
+    ?.secondaryPopulationComparisonMetric,
+];
 
 export interface TableCardProps {
   fips: Fips;
@@ -40,27 +44,22 @@ export interface TableCardProps {
   variableConfig: VariableConfig;
 }
 
-// We need to get this property, but we want to show it as
-// part of the "population_pct" column, and not as its own column
-export const NEVER_SHOW_PROPERTIES = [
-  METRIC_CONFIG.vaccinations[0]?.metrics?.pct_share
-    ?.secondaryPopulationComparisonMetric,
-];
-
 export function TableCard(props: TableCardProps) {
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    props.breakdownVar === "race_and_ethnicity"
-      ? exclude(NON_HISPANIC, ALL)
-      : exclude(ALL)
+    exclude(
+      ...(getExclusionList(
+        props.variableConfig,
+        props.breakdownVar
+      ) as string[])
+    )
   );
 
   let metricConfigs: Record<string, MetricConfig> = {};
   metrics.forEach((metricConfig) => {
-    // We prefer to show the known breakdown metric over the vanilla metric, if
-    // it is available.
+    // We prefer known breakdown metric if available.
     if (metricConfig.knownBreakdownComparisonMetric) {
       metricConfigs[metricConfig.knownBreakdownComparisonMetric.metricId] =
         metricConfig.knownBreakdownComparisonMetric;
@@ -78,7 +77,7 @@ export function TableCard(props: TableCardProps) {
         metricConfig.secondaryPopulationComparisonMetric;
     }
   });
-  const metricIds = Object.keys(metricConfigs);
+  const metricIds = Object.keys(metricConfigs) as MetricId[];
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
   const displayingCovidData = metrics
@@ -96,16 +95,11 @@ export function TableCard(props: TableCardProps) {
       }
     >
       {([queryResponse]) => {
-        let dataWithoutUnknowns = queryResponse.data.filter(
-          (row: Row) =>
-            row[props.breakdownVar] !== UNKNOWN &&
-            row[props.breakdownVar] !== UNKNOWN_RACE &&
-            row[props.breakdownVar] !== UNKNOWN_ETHNICITY
-        );
+        let data = queryResponse.data;
 
-        if (showAltPopCompare(props)) {
+        if (shouldShowAltPopCompare(props)) {
           // This should only happen in the vaccine kff state case
-          dataWithoutUnknowns = dataWithoutUnknowns.map((item) => {
+          data = data.map((item) => {
             const {
               vaccine_population_pct,
               acs_vaccine_population_pct,
@@ -121,19 +115,16 @@ export function TableCard(props: TableCardProps) {
 
         return (
           <>
-            {queryResponse.shouldShowMissingDataMessage(metricIds) && (
+            {queryResponse.shouldShowMissingDataMessage(
+              metricIds as MetricId[]
+            ) && (
               <CardContent>
                 <MissingDataAlert
                   dataName={props.variableConfig.variableFullDisplayName + " "}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
-                  geoLevel={props.fips.getFipsTypeDisplayName()}
-                  noDemographicInfo={
-                    props.variableConfig.variableId ===
-                      METRIC_CONFIG["vaccinations"][0].variableId &&
-                    props.fips.isCounty()
-                  }
+                  fips={props.fips}
                 />
               </CardContent>
             )}
@@ -142,7 +133,7 @@ export function TableCard(props: TableCardProps) {
               props.breakdownVar === RACE && (
                 <>
                   <CardContent>
-                    <Alert severity="warning">
+                    <Alert severity="warning" role="note">
                       Share of COVID-19 cases reported for American Indian,
                       Alaska Native, Native Hawaiian and Pacific Islander are
                       underrepresented at the national level and in many states
@@ -151,7 +142,7 @@ export function TableCard(props: TableCardProps) {
                       <a
                         target="_blank"
                         rel="noopener noreferrer"
-                        href="https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/"
+                        href={urlMap.uihiBestPractice}
                       >
                         guidelines for American Indian and Alaska Native Data
                         Collection
@@ -164,13 +155,15 @@ export function TableCard(props: TableCardProps) {
               )}
 
             {!queryResponse.dataIsMissing() && (
-              <TableChart
-                data={dataWithoutUnknowns}
-                breakdownVar={props.breakdownVar}
-                metrics={Object.values(metricConfigs).filter(
-                  (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
-                )}
-              />
+              <div className={styles.TableChart}>
+                <TableChart
+                  data={data}
+                  breakdownVar={props.breakdownVar}
+                  metrics={Object.values(metricConfigs).filter(
+                    (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
+                  )}
+                />
+              </div>
             )}
           </>
         );

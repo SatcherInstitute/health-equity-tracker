@@ -6,6 +6,7 @@ import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import { useCookies } from "react-cookie";
 import useClickAway from "../../utils/useClickAway";
 import sass from "../../styles/variables.module.scss";
+import { useMediaQuery, useTheme } from "@material-ui/core";
 
 const TEST_FEEDER_ID = "6171cc2965b82c00045239dc"; // this is a test account; we can create a new ID for our real dashboard account once secrets are working
 const FEEDBACK_ID = process.env.REACT_APP_FEEDBACK_ID || TEST_FEEDER_ID; // view collected feedback at feeder.sh/dashboard
@@ -14,19 +15,24 @@ const BOTTOM_SCROLL_OPTIONS = {
 };
 
 export default function FeedbackBox(props: { alwaysShow?: boolean }) {
+  // calculate page size for responsive layout, dont show feedback box on mobile as it breaks iOS links
+  const theme = useTheme();
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("lg"));
+
   // If cookie is in place, this is a return user and therefor eligible for feedback
   const [cookies] = useCookies();
   const isReturnUser = cookies.skipOnboarding;
-  const [showFeedback, setShowFeedback] = useState(props.alwaysShow || false);
+  const [showFeedback, setShowFeedback] = useState(
+    (props.alwaysShow && pageIsWide) || false
+  );
   useBottomScrollListener(() => setShowFeedback(true), BOTTOM_SCROLL_OPTIONS);
 
   // allow user to close (by rerendering to default closed state) feedback modal by clicking anywhere outside of it
-
   const clickAwayRef: any = useRef();
   const [clickAwayChildKey] = useClickAway(clickAwayRef);
 
-  return showFeedback && isReturnUser ? (
-    <div ref={clickAwayRef}>
+  return showFeedback && pageIsWide && isReturnUser ? (
+    <div ref={clickAwayRef} aria-hidden={true}>
       <Feedback
         key={clickAwayChildKey}
         projectId={FEEDBACK_ID}

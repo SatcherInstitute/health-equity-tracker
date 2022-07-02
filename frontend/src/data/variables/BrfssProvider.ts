@@ -1,115 +1,111 @@
-import { DataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
-import { exclude } from "../query/BreakdownFilter";
+import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { NON_HISPANIC } from "../utils/Constants";
-import { joinOnCols } from "../utils/datasetutils";
-import { USA_FIPS } from "../utils/Fips";
-import AcsPopulationProvider from "./AcsPopulationProvider";
+import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
-class BrfssProvider extends VariableProvider {
-  private acsProvider: AcsPopulationProvider;
+export const UHC_DETERMINANTS: MetricId[] = [
+  "brfss_population_pct",
+  "copd_pct_share",
+  "copd_per_100k",
+  "copd_ratio_age_adjusted",
+  "diabetes_pct_share",
+  "diabetes_per_100k",
+  "diabetes_ratio_age_adjusted",
+  "depression_pct_share",
+  "depression_per_100k",
+  "depression_ratio_age_adjusted",
+  "illicit_opioid_use_pct_share",
+  "illicit_opioid_use_per_100k",
+  "illicit_opioid_use_ratio_age_adjusted",
+  "non_medical_rx_opioid_use_pct_share",
+  "non_medical_rx_opioid_use_per_100k",
+  "non_medical_rx_opioid_use_ratio_age_adjusted",
+  "non_medical_drug_use_ratio_age_adjusted",
+  "non_medical_drug_use_pct_share",
+  "non_medical_drug_use_per_100k",
+  "excessive_drinking_pct_share",
+  "excessive_drinking_per_100k",
+  "excessive_drinking_ratio_age_adjusted",
+  "frequent_mental_distress_pct_share",
+  "frequent_mental_distress_per_100k",
+  "frequent_mental_distress_ratio_age_adjusted",
+  "preventable_hospitalizations_pct_share",
+  "preventable_hospitalizations_per_100k",
+  "preventable_hospitalizations_ratio_age_adjusted",
+  "avoided_care_pct_share",
+  "avoided_care_per_100k",
+  "avoided_care_ratio_age_adjusted",
+  "chronic_kidney_disease_pct_share",
+  "chronic_kidney_disease_per_100k",
+  "chronic_kidney_disease_ratio_age_adjusted",
+  "cardiovascular_diseases_pct_share",
+  "cardiovascular_diseases_per_100k",
+  "cardiovascular_diseases_ratio_age_adjusted",
+  "asthma_pct_share",
+  "asthma_per_100k",
+  "asthma_ratio_age_adjusted",
+];
 
-  constructor(acsProvider: AcsPopulationProvider) {
+export const UHC_VOTER_AGE_DETERMINANTS: MetricId[] = [
+  "voter_participation_pct_share",
+  "voter_participation_per_100k",
+  "voter_participation_ratio_age_adjusted",
+];
+
+export const UHC_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [
+  "suicide_pct_share",
+  "suicide_per_100k",
+  "suicide_ratio_age_adjusted",
+];
+
+export const UHC_API_NH_DETERMINANTS: MetricId[] = [
+  "preventable_hospitalizations_pct_share",
+  "preventable_hospitalizations_per_100k",
+];
+
+export const ALL_UHC_DETERMINANTS = [
+  ...UHC_VOTER_AGE_DETERMINANTS,
+  ...UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
+  ...UHC_DETERMINANTS,
+];
+
+class BrfssProvider extends VariableProvider {
+  constructor() {
     super("brfss_provider", [
       "brfss_population_pct",
-      "copd_pct",
-      "copd_pct_share",
-      "copd_per_100k",
-      "diabetes_pct",
-      "diabetes_pct_share",
-      "diabetes_per_100k",
+      ...UHC_DETERMINANTS,
+      ...UHC_VOTER_AGE_DETERMINANTS,
+      ...UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
     ]);
-    this.acsProvider = acsProvider;
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    return "uhc_data-" + breakdowns.getSoleDemographicBreakdown().columnName;
+    return (
+      "uhc_data-" +
+      breakdowns.getSoleDemographicBreakdown().columnName +
+      "_" +
+      breakdowns.geography
+    );
   }
 
   async getDataInternal(
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
-
     const datasetId = this.getDatasetId(breakdowns);
     const brfss = await getDataManager().loadDataset(datasetId);
     let df = brfss.toDataFrame();
 
-    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
-      .columnName;
+    const consumedDatasetIds = [datasetId, GetAcsDatasetId(breakdowns)];
 
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
 
-    let acsBreakdowns = breakdowns.copy();
-    acsBreakdowns.time = false;
-    acsBreakdowns = acsBreakdowns.addBreakdown(
-      breakdownColumnName,
-      exclude(NON_HISPANIC)
-    );
-
-    if (breakdowns.geography === "national") {
-      df = df.where((row) => row.fips === USA_FIPS);
-    } else if (breakdowns.geography === "state") {
-      df = df.where((row) => row.fips !== USA_FIPS);
-    }
-    let consumedDatasetIds = [datasetId];
-
-    const acsQueryResponse = await this.acsProvider.getData(
-      new MetricQuery(["population", "population_pct"], acsBreakdowns)
-    );
-
-    consumedDatasetIds = consumedDatasetIds.concat(
-      acsQueryResponse.consumedDatasetIds
-    );
-
-    const acs = new DataFrame(acsQueryResponse.data);
-    df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
-
-    df = df.generateSeries({
-      estimated_total_diabetes: (row) =>
-        this.calculations.estimateTotal(row.diabetes_pct, row.population),
-      estimated_total_copd: (row) =>
-        this.calculations.estimateTotal(row.copd_pct, row.population),
-    });
-
-    df = df.renameSeries({
-      population_pct: "brfss_population_pct",
-    });
-
-    df = df.generateSeries({
-      diabetes_per_100k: (row) =>
-        row.diabetes_pct == null ? null : row.diabetes_pct * 1000,
-      copd_per_100k: (row) =>
-        row.copd_pct == null ? null : row.copd_pct * 1000,
-    });
-
-    // Calculate any share_of_known metrics that may have been requested in the query
-    if (this.allowsBreakdowns(breakdowns)) {
-      ["estimated_total_diabetes", "estimated_total_copd"].forEach((col) => {
-        df = this.calculations.calculatePctShare(
-          df,
-          col,
-          col.split("_")[2] + "_pct_share",
-          breakdownColumnName,
-          ["fips"]
-        );
-      });
-    }
-
-    df = df
-      .dropSeries([
-        "population",
-        "estimated_total_copd",
-        "estimated_total_diabetes",
-      ])
-      .resetIndex();
-
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
+
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
 

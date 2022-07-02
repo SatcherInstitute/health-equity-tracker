@@ -1,15 +1,22 @@
 import { Grid } from "@material-ui/core";
 import React, { useEffect, useState, Fragment } from "react";
+import LazyLoad from "react-lazyload";
+import { AgeAdjustedTableCard } from "../cards/AgeAdjustedTableCard";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
 import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
 import { TableCard } from "../cards/TableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
-import { METRIC_CONFIG, VariableConfig } from "../data/config/MetricConfig";
+import {
+  DropdownVarId,
+  METRIC_CONFIG,
+  VariableConfig,
+  VariableId,
+} from "../data/config/MetricConfig";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
+import { RACE } from "../data/utils/Constants";
 import { Fips } from "../data/utils/Fips";
-import { DropdownVarId } from "../utils/MadLibs";
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -17,6 +24,7 @@ import {
   getParameter,
   psSubscribe,
   setParameter,
+  swapOldParams,
 } from "../utils/urlutils";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
@@ -31,11 +39,11 @@ function TwoVariableReport(props: {
   fips2: Fips;
   updateFips1Callback: (fips: Fips) => void;
   updateFips2Callback: (fips: Fips) => void;
-  jumpToDefinitions?: Function;
+  jumpToDefinitions: Function;
   jumpToData: Function;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
-    getParameter(DEMOGRAPHIC_PARAM, "race_and_ethnicity")
+    getParameter(DEMOGRAPHIC_PARAM, RACE)
   );
 
   const [variableConfig1, setVariableConfig1] = useState<VariableConfig | null>(
@@ -69,7 +77,8 @@ function TwoVariableReport(props: {
       const demoParam1 = getParameter(
         DATA_TYPE_1_PARAM,
         undefined,
-        (val: string) => {
+        (val: VariableId) => {
+          val = swapOldParams(val);
           return METRIC_CONFIG[props.dropdownVarId1].find(
             (cfg) => cfg.variableId === val
           );
@@ -78,17 +87,15 @@ function TwoVariableReport(props: {
       const demoParam2 = getParameter(
         DATA_TYPE_2_PARAM,
         undefined,
-        (val: string) => {
+        (val: VariableId) => {
+          val = swapOldParams(val);
           return METRIC_CONFIG[props.dropdownVarId2].find(
             (cfg) => cfg.variableId === val
           );
         }
       );
 
-      const demo: BreakdownVar = getParameter(
-        DEMOGRAPHIC_PARAM,
-        "race_and_ethnicity"
-      );
+      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, RACE);
       setVariableConfig1(
         demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId1][0]
       );
@@ -108,14 +115,14 @@ function TwoVariableReport(props: {
 
   if (variableConfig1 === null) {
     return (
-      <Grid container spacing={1} alignItems="center" justify="center">
+      <Grid container spacing={1} alignItems="center" justifyContent="center">
         <NoDataAlert dropdownVarId={props.dropdownVarId1} />
       </Grid>
     );
   }
   if (variableConfig2 === null) {
     return (
-      <Grid container spacing={1} alignItems="center" justify="center">
+      <Grid container spacing={1} alignItems="center" justifyContent="center">
         <NoDataAlert dropdownVarId={props.dropdownVarId2} />
       </Grid>
     );
@@ -128,89 +135,71 @@ function TwoVariableReport(props: {
     <Grid container spacing={1} alignItems="flex-start">
       {/* POPULATION CARD(S) AND 2 SETS OF TOGGLE CONTROLS */}
       {props.fips1.code === props.fips2.code ? (
-        <>
-          <Grid item xs={12}>
-            {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
-            <PopulationCard jumpToData={props.jumpToData} fips={props.fips1} />
+        <Grid item xs={12} id="populationCard">
+          {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
+          <PopulationCard jumpToData={props.jumpToData} fips={props.fips1} />
 
-            {/* 2 SETS OF DEMOGRAPHIC AND DATA TYPE TOGGLES */}
-            <Grid container>
-              {!(
-                props.dropdownVarId1 ===
-                  METRIC_CONFIG["vaccinations"][0].variableId &&
-                props.fips1.isCounty()
-              ) && (
-                <Grid item xs={12} sm={6}>
-                  <ReportToggleControls
-                    dropdownVarId={props.dropdownVarId1}
-                    variableConfig={variableConfig1}
-                    setVariableConfig={setVariableConfigWithParam1}
-                    currentBreakdown={currentBreakdown}
-                    setCurrentBreakdown={setDemoWithParam}
-                  />
-                </Grid>
-              )}
-              {!(
-                props.dropdownVarId2 ===
-                  METRIC_CONFIG["vaccinations"][0].variableId &&
-                props.fips2.isCounty()
-              ) && (
-                <Grid item xs={12} sm={6}>
-                  <ReportToggleControls
-                    dropdownVarId={props.dropdownVarId2}
-                    variableConfig={variableConfig2}
-                    setVariableConfig={setVariableConfigWithParam2}
-                    currentBreakdown={currentBreakdown}
-                    setCurrentBreakdown={setDemoWithParam}
-                  />
-                </Grid>
-              )}
-            </Grid>
-          </Grid>
-        </>
-      ) : (
-        <>
-          <Grid item xs={12} sm={6}>
-            {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
-            <PopulationCard jumpToData={props.jumpToData} fips={props.fips1} />
-            {!(
-              props.dropdownVarId1 ===
-                METRIC_CONFIG["vaccinations"][0].variableId &&
-              props.fips1.isCounty()
-            ) && (
-              /* FIRST TOGGLE(S) FOR COMPARE RATES REPORT */
+          {/* 2 SETS OF DEMOGRAPHIC AND DATA TYPE TOGGLES */}
+          <Grid container>
+            <Grid item xs={12} sm={6}>
               <ReportToggleControls
                 dropdownVarId={props.dropdownVarId1}
                 variableConfig={variableConfig1}
                 setVariableConfig={setVariableConfigWithParam1}
                 currentBreakdown={currentBreakdown}
                 setCurrentBreakdown={setDemoWithParam}
+                fips={props.fips1}
               />
-            )}
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            {/* SECOND POPULATION CARD FOR COMPARE RATES REPORT */}
-            <PopulationCard jumpToData={props.jumpToData} fips={props.fips2} />
-            {!(
-              props.dropdownVarId2 ===
-                METRIC_CONFIG["vaccinations"][0].variableId &&
-              props.fips2.isCounty()
-            ) && (
-              /* SECOND TOGGLE(S) FOR COMPARE RATES REPORT */
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
               <ReportToggleControls
                 dropdownVarId={props.dropdownVarId2}
                 variableConfig={variableConfig2}
                 setVariableConfig={setVariableConfigWithParam2}
                 currentBreakdown={currentBreakdown}
                 setCurrentBreakdown={setDemoWithParam}
+                fips={props.fips2}
               />
-            )}
+            </Grid>
+          </Grid>
+        </Grid>
+      ) : (
+        <>
+          <Grid item xs={12} sm={6} id="populationCard">
+            {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
+            <PopulationCard jumpToData={props.jumpToData} fips={props.fips1} />
+
+            {/*  FIRST TOGGLE(S) FOR COMPARE RATES REPORT */}
+            <ReportToggleControls
+              dropdownVarId={props.dropdownVarId1}
+              variableConfig={variableConfig1}
+              setVariableConfig={setVariableConfigWithParam1}
+              currentBreakdown={currentBreakdown}
+              setCurrentBreakdown={setDemoWithParam}
+              fips={props.fips1}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            {/* SECOND POPULATION CARD FOR COMPARE RATES REPORT */}
+            <PopulationCard jumpToData={props.jumpToData} fips={props.fips2} />
+
+            {/*  SECOND TOGGLE(S) FOR COMPARE RATES REPORT */}
+            <ReportToggleControls
+              dropdownVarId={props.dropdownVarId2}
+              variableConfig={variableConfig2}
+              setVariableConfig={setVariableConfigWithParam2}
+              currentBreakdown={currentBreakdown}
+              setCurrentBreakdown={setDemoWithParam}
+              fips={props.fips2}
+            />
           </Grid>
         </>
       )}
 
       {/* SIDE-BY-SIDE 100K MAP CARDS */}
       <RowOfTwoOptionalMetrics
+        id="map"
         variableConfig1={variableConfig1}
         variableConfig2={variableConfig2}
         fips1={props.fips1}
@@ -240,6 +229,7 @@ function TwoVariableReport(props: {
         !breakdownIsShown(breakdownVar) ? null : (
           <Fragment key={breakdownVar}>
             <RowOfTwoOptionalMetrics
+              id="bar"
               variableConfig1={variableConfig1}
               variableConfig2={variableConfig2}
               fips1={props.fips1}
@@ -262,6 +252,7 @@ function TwoVariableReport(props: {
 
       {/* SIDE-BY-SIDE UNKNOWNS MAP CARDS */}
       <RowOfTwoOptionalMetrics
+        id="unknowns"
         variableConfig1={variableConfig1}
         variableConfig2={variableConfig2}
         fips1={props.fips1}
@@ -274,7 +265,7 @@ function TwoVariableReport(props: {
           updateFips: (fips: Fips) => void
         ) => (
           <UnknownsMapCard
-            overrideAndWithOr={currentBreakdown === "race_and_ethnicity"}
+            overrideAndWithOr={currentBreakdown === RACE}
             variableConfig={variableConfig}
             fips={fips}
             updateFipsCallback={(fips: Fips) => {
@@ -286,10 +277,12 @@ function TwoVariableReport(props: {
       />
 
       {/* SIDE-BY-SIDE DISPARITY BAR GRAPH (COMPARE TO POPULATION) CARDS */}
+
       {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
         !breakdownIsShown(breakdownVar) ? null : (
           <Fragment key={breakdownVar}>
             <RowOfTwoOptionalMetrics
+              id="disparity"
               variableConfig1={variableConfig1}
               variableConfig2={variableConfig2}
               fips1={props.fips1}
@@ -314,6 +307,7 @@ function TwoVariableReport(props: {
       {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
         !breakdownIsShown(breakdownVar) ? null : (
           <RowOfTwoOptionalMetrics
+            id="table"
             key={breakdownVar}
             variableConfig1={variableConfig1}
             variableConfig2={variableConfig2}
@@ -335,11 +329,44 @@ function TwoVariableReport(props: {
           />
         )
       )}
+
+      {/* SIDE-BY-SIDE AGE-ADJUSTED TABLE CARDS */}
+
+      <RowOfTwoOptionalMetrics
+        id="age-adjusted"
+        // specific data type
+        variableConfig1={variableConfig1}
+        variableConfig2={variableConfig2}
+        // parent variable
+        dropdownVarId1={props.dropdownVarId1}
+        dropdownVarId2={props.dropdownVarId2}
+        fips1={props.fips1}
+        fips2={props.fips2}
+        updateFips1={props.updateFips1Callback}
+        updateFips2={props.updateFips2Callback}
+        jumpToData={props.jumpToData}
+        createCard={(
+          variableConfig: VariableConfig,
+          fips: Fips,
+          updateFips: (fips: Fips) => void,
+          dropdownVarId?: DropdownVarId,
+          jumpToData?: Function
+        ) => (
+          <AgeAdjustedTableCard
+            fips={fips}
+            variableConfig={variableConfig}
+            breakdownVar={currentBreakdown}
+            dropdownVarId={dropdownVarId}
+            jumpToData={jumpToData}
+          />
+        )}
+      />
     </Grid>
   );
 }
 
 function RowOfTwoOptionalMetrics(props: {
+  id: string;
   variableConfig1: VariableConfig | undefined;
   variableConfig2: VariableConfig | undefined;
   fips1: Fips;
@@ -349,8 +376,13 @@ function RowOfTwoOptionalMetrics(props: {
   createCard: (
     variableConfig: VariableConfig,
     fips: Fips,
-    updateFips: (fips: Fips) => void
+    updateFips: (fips: Fips) => void,
+    dropdownVarId?: DropdownVarId,
+    jumpToData?: Function
   ) => JSX.Element;
+  dropdownVarId1?: DropdownVarId;
+  dropdownVarId2?: DropdownVarId;
+  jumpToData?: Function;
 }) {
   if (!props.variableConfig1 && !props.variableConfig2) {
     return <></>;
@@ -361,27 +393,35 @@ function RowOfTwoOptionalMetrics(props: {
 
   return (
     <>
-      <Grid item xs={12} sm={6}>
-        {props.variableConfig1 && (
-          <>
-            {props.createCard(
-              props.variableConfig1,
-              props.fips1,
-              props.updateFips1 || unusedFipsCallback
-            )}
-          </>
-        )}
+      <Grid item xs={12} sm={6} id={props.id}>
+        <LazyLoad offset={800} height={750} once>
+          {props.variableConfig1 && (
+            <>
+              {props.createCard(
+                props.variableConfig1,
+                props.fips1,
+                props.updateFips1 || unusedFipsCallback,
+                props.dropdownVarId1,
+                props.jumpToData
+              )}
+            </>
+          )}
+        </LazyLoad>
       </Grid>
-      <Grid item xs={12} sm={6}>
-        {props.variableConfig2 && (
-          <>
-            {props.createCard(
-              props.variableConfig2,
-              props.fips2,
-              props.updateFips2 || unusedFipsCallback
-            )}
-          </>
-        )}
+      <Grid item xs={12} sm={6} id={`${props.id}2`}>
+        <LazyLoad offset={800} height={600} once>
+          {props.variableConfig2 && (
+            <>
+              {props.createCard(
+                props.variableConfig2,
+                props.fips2,
+                props.updateFips2 || unusedFipsCallback,
+                props.dropdownVarId2,
+                props.jumpToData
+              )}
+            </>
+          )}
+        </LazyLoad>
       </Grid>
     </>
   );

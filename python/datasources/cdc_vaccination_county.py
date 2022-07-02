@@ -30,7 +30,8 @@ class CDCVaccinationCounty(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         params = {"$limit": FILE_SIZE_LIMIT}
-        df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_CDC_URL, dtype={COUNTY_FIPS_COL: str}, params=params)
+        df = gcs_to_bq_util.load_csv_as_df_from_web(
+            BASE_CDC_URL, dtype={COUNTY_FIPS_COL: str}, params=params)
 
         latest_date = df['date'].max()
         df = df.loc[df['date'] == latest_date]
@@ -48,7 +49,7 @@ class CDCVaccinationCounty(DataSource):
         if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
             column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-        gcs_to_bq_util.add_dataframe_to_bq(
+        gcs_to_bq_util.add_df_to_bq(
             df, dataset, "race_and_ethnicity", column_types=column_types)
 
     def generate_for_bq(self, df):
@@ -65,7 +66,7 @@ class CDCVaccinationCounty(DataSource):
             output_row = {}
             output_row[std_col.COUNTY_FIPS_COL] = row[COUNTY_FIPS_COL]
             output_row[std_col.COUNTY_NAME_COL] = row[COUNTY_COL]
-            output_row[std_col.RACE_CATEGORY_ID_COL] = Race.TOTAL.value
+            output_row[std_col.RACE_CATEGORY_ID_COL] = Race.ALL.value
             output_row[std_col.VACCINATED_FIRST_DOSE] = row['administered_dose1_recip']
 
             output.append(output_row)

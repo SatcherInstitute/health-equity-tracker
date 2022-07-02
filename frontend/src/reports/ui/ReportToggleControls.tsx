@@ -2,17 +2,36 @@ import React from "react";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { Grid } from "@material-ui/core";
-import { DropdownVarId } from "../../utils/MadLibs";
-import { METRIC_CONFIG, VariableConfig } from "../../data/config/MetricConfig";
+import {
+  DropdownVarId,
+  METRIC_CONFIG,
+  VariableConfig,
+  VariableId,
+} from "../../data/config/MetricConfig";
 import styles from "../Report.module.scss";
 import {
   BreakdownVar,
   DEMOGRAPHIC_BREAKDOWNS,
   BREAKDOWN_VAR_DISPLAY_NAMES,
+  GeographicBreakdown,
 } from "../../data/query/Breakdowns";
+import { Fips } from "../../data/utils/Fips";
+import { DATA_GAPS } from "../../data/utils/datasetutils";
 
 export const DATA_TYPE_LABEL = "Data Type";
 export const DEMOGRAPHIC_LABEL = "Demographic";
+
+/* 
+Checks for data gaps at current Datatype/Demographic/GeoLevel and 
+*/
+function getToggleOptionStatus(
+  breakdownVar: BreakdownVar,
+  variableId: VariableId,
+  fips: Fips
+) {
+  const geoLevel = fips.getFipsTypeDisplayName() as GeographicBreakdown;
+  return DATA_GAPS[geoLevel]?.[breakdownVar]?.includes(variableId);
+}
 
 interface ReportToggleControlsProps {
   dropdownVarId: DropdownVarId;
@@ -20,6 +39,7 @@ interface ReportToggleControlsProps {
   setVariableConfig: (variableConfig: VariableConfig) => void;
   currentBreakdown: BreakdownVar;
   setCurrentBreakdown: (breakdown: BreakdownVar) => void;
+  fips: Fips;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -42,11 +62,12 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
     <Grid container>
       {enableMetricToggle && (
         <Grid className={styles.ToggleBlock}>
-          <span className={styles.ToggleLabel}>{DATA_TYPE_LABEL}</span>
+          <div className={styles.ToggleLabel}>
+            {props.dropdownVarId.replaceAll("_", " ") + " " + DATA_TYPE_LABEL}
+          </div>
           {/* DATA TYPE TOGGLE */}
           <ToggleButtonGroup
             exclusive
-            role="radiogroup"
             value={props.variableConfig.variableId}
             onChange={(e, variableId) => {
               if (variableId !== null && METRIC_CONFIG[props.dropdownVarId]) {
@@ -63,10 +84,6 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
                 <ToggleButton
                   value={variable.variableId}
                   key={key}
-                  role="radio"
-                  aria-checked={
-                    variable.variableId === props.variableConfig.variableId
-                  }
                   aria-label={
                     variable.variableDisplayName + " " + DATA_TYPE_LABEL
                   }
@@ -78,27 +95,31 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
           </ToggleButtonGroup>
         </Grid>
       )}
-      {
-        <Grid item className={styles.ToggleBlock}>
-          <div className={styles.ToggleLabel}>{DEMOGRAPHIC_LABEL}</div>
-          <div id="onboarding-explore-trends">
-            {/* DEMOGRAPHIC TOGGLE */}
-            <ToggleButtonGroup
-              exclusive
-              role="radiogroup"
-              value={props.currentBreakdown}
-              onChange={(e, v) => {
-                if (v !== null) {
-                  props.setCurrentBreakdown(v);
-                }
-              }}
-            >
-              {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+      <Grid item className={styles.ToggleBlock}>
+        <div className={styles.ToggleLabel}>{DEMOGRAPHIC_LABEL}</div>
+        <div id="onboarding-explore-trends">
+          {/* DEMOGRAPHIC TOGGLE */}
+          <ToggleButtonGroup
+            exclusive
+            value={props.currentBreakdown}
+            onChange={(e, v) => {
+              if (v !== null) {
+                props.setCurrentBreakdown(v);
+              }
+            }}
+          >
+            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => {
+              const disabled = getToggleOptionStatus(
+                breakdownVar,
+                props.variableConfig.variableId,
+                props.fips
+              );
+
+              return (
                 <ToggleButton
+                  disabled={disabled}
                   value={breakdownVar}
                   key={breakdownVar}
-                  role="radio"
-                  aria-checked={breakdownVar === props.currentBreakdown}
                   aria-label={
                     BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar] +
                     " " +
@@ -107,11 +128,11 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
                 >
                   {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
                 </ToggleButton>
-              ))}
-            </ToggleButtonGroup>
-          </div>
-        </Grid>
-      }
+              );
+            })}
+          </ToggleButtonGroup>
+        </div>
+      </Grid>
     </Grid>
   );
 }

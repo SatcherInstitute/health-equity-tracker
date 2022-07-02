@@ -90,6 +90,7 @@ export class ApiDataFetcher implements DataFetcher {
 
     // TODO remove these once we figure out how to make BQ export integers as
     // integers
+
     if (
       datasetId.startsWith("acs_population") ||
       datasetId.startsWith("acs_2010_population")
@@ -97,8 +98,7 @@ export class ApiDataFetcher implements DataFetcher {
       result = result.map((row: any) => {
         return { ...row, population: Number(row["population"]) };
       });
-    }
-    if (datasetId.startsWith("cdc_restricted")) {
+    } else if (datasetId.startsWith("cdc_restricted")) {
       result = result.map((row: any) => {
         return {
           ...row,

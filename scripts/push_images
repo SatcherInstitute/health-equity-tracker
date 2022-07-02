@@ -1,0 +1,120 @@
+#!/bin/bash
+
+set -eu
+set -o pipefail
+
+readonly PROGDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly TRACKERDIR="$(cd "${PROGDIR}/.." && pwd)"
+
+# shellcheck source=SCRIPTDIR/.util/print.sh
+source "${PROGDIR}/.util/print.sh"
+
+function main() {
+  local build_frontend
+  local project_id
+
+  while [[ "${#}" != 0 ]]; do
+      case "${1}" in
+        --help|-h)
+          shift 1
+          usage
+          exit 0
+          ;;
+
+        --build-frontned|-b)
+          build_frontend="true"
+          shift 1
+          ;;
+
+        "")
+          shift 1
+          ;;
+
+        *)
+          util::print::info "unknown argument \"${1}\""
+          exit 1
+
+      esac
+    done
+
+  project_id=$(gcloud config get-value project)
+
+  images::build "${project_id}" "${build_frontend}"
+  images::push "${project_id}" "${build_frontend}"
+  digest::write "${project_id}"
+
+  util::print::success "Success !!"
+}
+
+
+function usage() {
+  cat <<-USAGE
+push_images.sh [OPTIONS]
+Builds and pushes images to google container storage. For testing puroposes.
+OPTIONS
+  --help            -h  prints the command usage
+  --build_frontend  -b  builds the frontend image, slows down the script a bit and is prone to failure
+USAGE
+}
+
+function images::build() {
+  local project_id build_frontend
+  project_id="${1}"
+  build_frontend="${2}"
+
+  util::print::info "Building Images Locally"
+  docker build -t "gcr.io/${project_id}/ingestion-service" -f "${TRACKERDIR}/run_ingestion/Dockerfile" .
+  docker build -t "gcr.io/${project_id}/gcs-to-bq-service" -f "${TRACKERDIR}/run_gcs_to_bq/Dockerfile" .
+  docker build -t "gcr.io/${project_id}/data-server-service" -f "${TRACKERDIR}/data_server/Dockerfile" .
+  docker build -t "gcr.io/${project_id}/exporter-service" -f "${TRACKERDIR}/exporter/Dockerfile" .
+  docker build -t "gcr.io/${project_id}/aggregator-service" -f "${TRACKERDIR}/aggregator/Dockerfile" .
+
+  if [[ -n "${build_frontend}" ]]; then
+    docker build -t "gcr.io/${project_id}/frontend-service" -f "${TRACKERDIR}/frontend_server/Dockerfile" . --build-arg="DEPLOY_CONTEXT=development"
+  fi
+}
+
+function images::push() {
+  local project_id
+  project_id="${1}"
+  build_frontend="${2}"
+
+  util::print::info "Pushing Images to gcr.io/${project_id}"
+
+  docker push "gcr.io/${project_id}/ingestion-service"
+  docker push "gcr.io/${project_id}/gcs-to-bq-service"
+  docker push "gcr.io/${project_id}/data-server-service"
+  docker push "gcr.io/${project_id}/exporter-service"
+  docker push "gcr.io/${project_id}/aggregator-service"
+
+  if [[ -n "${build_frontend}" ]]; then
+    docker push "gcr.io/${project_id}/frontend-service"
+  fi
+}
+
+function digest::write() {
+  local project_id digest_file
+
+  project_id="${1}"
+  digest_file="${TRACKERDIR}/config/digest.tfvars"
+
+  util::print::info "Writing image digests to ${digest_file}"
+
+  # Get the image digests
+  ingestion_digest=$(gcloud container images describe "gcr.io/${project_id}/ingestion-service" --format="value(image_summary.digest)")
+  gcs_to_bq_digest=$(gcloud container images describe "gcr.io/${project_id}/gcs-to-bq-service" --format="value(image_summary.digest)")
+  data_server_digest=$(gcloud container images describe "gcr.io/${project_id}/data-server-service" --format="value(image_summary.digest)")
+  exporter_digest=$(gcloud container images describe "gcr.io/${project_id}/exporter-service" --format="value(image_summary.digest)")
+  aggregator_digest=$(gcloud container images describe "gcr.io/${project_id}/aggregator-service" --format="value(image_summary.digest)")
+  frontend_digest=$(gcloud container images describe "gcr.io/${project_id}/frontend-service" --format="value(image_summary.digest)")
+
+  # Write them to digest.tfvars. Note this overwrites digest.tfvars if it exists.
+  echo "ingestion_image_digest=\"${ingestion_digest}\"" > "${digest_file}"
+  echo "gcs_to_bq_image_digest=\"${gcs_to_bq_digest}\"" >> "${digest_file}"
+  echo "data_server_image_digest=\"${data_server_digest}\"" >> "${digest_file}"
+  echo "exporter_image_digest=\"${exporter_digest}\"" >> "${digest_file}"
+  echo "aggregator_image_digest=\"${aggregator_digest}\"" >> "${digest_file}"
+  echo "frontend_image_digest=\"${frontend_digest}\"" >> "${digest_file}"
+}
+
+main "${@:-}"

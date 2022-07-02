@@ -1,6 +1,8 @@
 state_fips,state_name,population,population_pct,race_category_id,race,race_includes_hispanic,race_and_ethnicity
 01,Alabama,25565,0.5,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 01,Alabama,22740,0.5,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+01,Alabama,4876250,100.0,ALL,All,,All
+01,Alabama,67013,1.4,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
 01,Alabama,66270,1.4,ASIAN,Asian,True,Asian
 01,Alabama,65410,1.3,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
 01,Alabama,1299048,26.6,BLACK,Black or African American,True,Black or African American
@@ -8,18 +10,19 @@ state_fips,state_name,population,population_pct,race_category_id,race,race_inclu
 01,Alabama,208626,4.3,HISP,Hispanic or Latino,True,Hispanic or Latino
 01,Alabama,92220,1.9,MULTI,Two or more races,True,Two or more races
 01,Alabama,83335,1.7,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
-01,Alabama,162882,3.3,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
-01,Alabama,91418,1.9,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+01,Alabama,162882,3.3,MULTI_OR_OTHER_STANDARD,Two or more races & Unrepresented race,True,Two or more races & Unrepresented race
+01,Alabama,91418,1.9,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
 01,Alabama,4667624,95.7,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
 01,Alabama,2238,0.05,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 01,Alabama,1603,0.03,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
-01,Alabama,70662,1.4,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,8083,0.2,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
-01,Alabama,4876250,100.0,TOTAL,Total,,Total
+01,Alabama,70662,1.4,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,8083,0.2,OTHER_STANDARD_NH,Unrepresented race,False,Unrepresented race (Non-Hispanic)
 01,Alabama,3320247,68.1,WHITE,White,True,White
 01,Alabama,3194929,65.5,WHITE_NH,White,False,White (Non-Hispanic)
 72,Puerto Rico,6838,0.2,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 72,Puerto Rico,118,0.0,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+72,Puerto Rico,3318447,100.0,ALL,All,,All
+72,Puerto Rico,2372,0.1,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
 72,Puerto Rico,6237,0.2,ASIAN,Asian,True,Asian
 72,Puerto Rico,2351,0.1,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
 72,Puerto Rico,386676,11.7,BLACK,Black or African American,True,Black or African American
@@ -27,13 +30,12 @@ state_fips,state_name,population,population_pct,race_category_id,race,race_inclu
 72,Puerto Rico,3275919,98.7,HISP,Hispanic or Latino,True,Hispanic or Latino
 72,Puerto Rico,175649,5.3,MULTI,Two or more races,True,Two or more races
 72,Puerto Rico,1993,0.1,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
-72,Puerto Rico,730413,22.0,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
-72,Puerto Rico,5136,0.2,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+72,Puerto Rico,730413,22.0,MULTI_OR_OTHER_STANDARD,Two or more races & Unrepresented race,True,Two or more races & Unrepresented race
+72,Puerto Rico,5136,0.2,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
 72,Puerto Rico,42528,1.3,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
 72,Puerto Rico,269,0.01,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 72,Puerto Rico,21,0.0,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
-72,Puerto Rico,554764,16.7,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,3143,0.1,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
-72,Puerto Rico,3318447,100.0,TOTAL,Total,,Total
+72,Puerto Rico,554764,16.7,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,3143,0.1,OTHER_STANDARD_NH,Unrepresented race,False,Unrepresented race (Non-Hispanic)
 72,Puerto Rico,2188014,65.9,WHITE,White,True,White
 72,Puerto Rico,31723,1.0,WHITE_NH,White,False,White (Non-Hispanic)

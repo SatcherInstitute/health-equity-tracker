@@ -1,49 +1,62 @@
-import React, { useRef, useEffect } from "react";
-import { VariableDisparityReport } from "./VariableDisparityReport";
+import React, { useRef } from "react";
+import { OneVariableReport } from "./OneVariableReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
   MadLib,
   getMadLibWithUpdatedValue,
-  DropdownVarId,
   MadLibId,
   getMadLibPhraseText,
+  getPhraseValue,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
+import { LinkWithStickyParams } from "../utils/urlutils";
 import {
-  LinkWithStickyParams,
   DATA_CATALOG_PAGE_LINK,
   CONTACT_TAB_LINK,
   METHODOLOGY_TAB_LINK,
-} from "../utils/urlutils";
+} from "../utils/internalRoutes";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import styles from "./Report.module.scss";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
-import { VACCINATED_DEF } from "../pages/DataCatalog/MethodologyTab";
-import { METRIC_CONFIG } from "../data/config/MetricConfig";
+import {
+  DropdownVarId,
+  METRIC_CONFIG,
+  VariableConfig,
+} from "../data/config/MetricConfig";
 import { Link } from "react-router-dom";
-import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
-import { externalUrls } from "../utils/externalUrls";
+import { urlMap } from "../utils/externalUrls";
+import { Box } from "@material-ui/core";
+import DefinitionsList from "./ui/DefinitionsList";
+import LifelineAlert from "./ui/LifelineAlert";
+import LazyLoad from "react-lazyload";
 
 export const SINGLE_COLUMN_WIDTH = 12;
-
-function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
-  const segment = madLib.phrase[segmentIndex];
-  return typeof segment === "string"
-    ? segment
-    : madLib.activeSelections[segmentIndex];
-}
 
 interface ReportProviderProps {
   isSingleColumn: boolean;
   madLib: MadLib;
+  selectedConditions: VariableConfig[];
+  showLifeLineAlert: boolean;
   setMadLib: Function;
   doScrollToData?: boolean;
 }
 
 function ReportProvider(props: ReportProviderProps) {
+  // only show determinants that have definitions
+  const definedConditions = props.selectedConditions.filter(
+    (condition) => condition?.variableDefinition
+  );
+
+  // create a subset of MetricConfig (with top level string + datatype array)
+  // that matches only the selected, defined conditions
+  const metricConfigSubset = Object.entries(METRIC_CONFIG).filter(
+    (dataTypeArray) =>
+      dataTypeArray[1].some((dataType) => definedConditions.includes(dataType))
+  );
+
   const fieldRef = useRef<HTMLInputElement>(null);
   const definitionsRef = useRef<HTMLInputElement>(null);
 
@@ -63,20 +76,6 @@ function ReportProvider(props: ReportProviderProps) {
     }
   }
 
-  // handle incoming #missingDataLink link request, only on page load
-  useEffect(() => {
-    if (props.doScrollToData) {
-      jumpToData();
-      // remove hash from URL
-      // eslint-disable-next-line no-restricted-globals
-      history.pushState(
-        "",
-        document.title,
-        window.location.pathname + window.location.search
-      );
-    }
-  }, [props.doScrollToData]);
-
   function getReport() {
     // Each report has a unique key based on its props so it will create a
     // new instance and reset its state when the provided props change.
@@ -84,7 +83,7 @@ function ReportProvider(props: ReportProviderProps) {
       case "disparity":
         const dropdownOption = getPhraseValue(props.madLib, 1);
         return (
-          <VariableDisparityReport
+          <OneVariableReport
             jumpToDefinitions={jumpToDefinitions}
             jumpToData={jumpToData}
             key={dropdownOption}
@@ -159,6 +158,7 @@ function ReportProvider(props: ReportProviderProps) {
       </Helmet>
       <div className={reportWrapper}>
         <ShareButtons madLib={props.madLib} />
+        {props.showLifeLineAlert && <LifelineAlert />}
         <DisclaimerAlert jumpToData={jumpToData} />
         {getReport()}
       </div>
@@ -191,7 +191,7 @@ function ReportProvider(props: ReportProviderProps) {
           <p>
             For COVID-19 related reports, this tracker uses disaggregated,
             individual{" "}
-            <a href={externalUrls.cdcCovidDataInfo}>
+            <a href={urlMap.cdcCovidDataInfo}>
               case level data reported by states, territories, and other
               jurisdictions to the CDC
             </a>
@@ -210,12 +210,13 @@ function ReportProvider(props: ReportProviderProps) {
           </p>
           <ul>
             <li>
-              Cases, hospitalizations and deaths: <b>Louisiana</b>,{" "}
-              <b>Mississippi</b>, <b>Texas</b>, <b>West Virginia</b>
+              Cases, hospitalizations and deaths:{" "}
+              <b>Northern Mariana Islands</b>, <b>Mississippi</b>,{" "}
+              <b>West Virginia</b>
             </li>
             <li>
-              Hospitalizations and deaths: <b>Hawaii</b>, <b>Missouri</b>,{" "}
-              <b>Nebraska</b>, <b>South Dakota</b>, <b>Wyoming</b>
+              Hospitalizations and deaths: <b>Hawaii</b>, <b>Nebraska</b>,{" "}
+              <b>South Dakota</b>
             </li>
             <li>
               Hospitalizations: <b>Rhode Island</b>
@@ -242,90 +243,84 @@ function ReportProvider(props: ReportProviderProps) {
             There is no county level vaccine demographic dataset, so we show
             county totals according to the CDC to provide context.
           </p>
+
           <h4>Missing Population Data</h4>
           <p>
-            The census bureau does not release population data for the{" "}
-            <b>Northern Mariana Islands</b>, <b>Guam</b>, or the{" "}
-            <b>U.S. Virgin Islands</b> in their ACS five year estimates. The
-            last reliable population numbers we could find for these territories
-            is from the 2010 census, so we use those numbers when calculating
-            the per 100k COVID-19 rates nationally and for all territory level
-            rates.
-          </p>
-          <p>
-            Because state reported population categories do not always coincide
-            with the categories reported by the census, we rely on the Kaiser
-            Family Foundation population tabulations for state reported
-            population categories, which only include population numbers for{" "}
-            <b>Black,</b> <b>White</b>, <b>Asian</b>, and <b>Hispanic</b>.
-            Percent of vaccinated metrics for{" "}
-            <b>Native Hawaiian and Pacific Islander</b>, and{" "}
-            <b>American Indian and Alaska Native</b> are shown with a population
-            comparison metric from the American Community Survey 5-year
-            estimates, while <b>Some Other Race</b> is shown without any
-            population comparison metric.
+            We primarily incorporate the U.S. Census Bureau's American Community
+            Survey (ACS) 5-year estimates when presenting population
+            information. However, certain situations have required an alternate
+            approach due to incompatible or missing data, as outlined below:{" "}
           </p>
 
-          <p>
-            There is no county level vaccine demographic dataset, so we show
-            county totals according to the CDC to provide context.
-          </p>
-          <h4>Missing Population Data</h4>
-          <p>
-            The census bureau does not release population data for the{" "}
-            <b>Northern Mariana Islands</b>, <b>Guam</b>, or the{" "}
-            <b>U.S. Virgin Islands</b> in their ACS five year estimates. The
-            last reliable population numbers we could find for these territories
-            is from the 2010 census, so we use those numbers when calculating
-            the per 100k COVID-19 rates nationally and for all territory level
-            rates.
-          </p>
-          <p>
-            Because state reported population categories do not always coincide
-            with the categories reported by the census, we rely on the Kaiser
-            Family Foundation population tabulations for state reported
-            population categories, which only include population numbers for{" "}
-            <b>Black,</b> <b>White</b>, <b>Asian</b>, and <b>Hispanic</b>.
-            Percent of vaccinated metrics for{" "}
-            <b>Native Hawaiian and Pacific Islander</b>, and{" "}
-            <b>American Indian and Alaska Native</b> are shown with a population
-            comparison metric from the American Community Survey 5-year
-            estimates, while <b>Some Other Race</b> is shown without any
-            population comparison metric.
-          </p>
+          <ul>
+            <li>
+              <b>Territories:</b> Population data for{" "}
+              <b>Northern Mariana Islands</b>, <b>Guam</b>,{" "}
+              <b>American Samoa</b>, and the <b>U.S. Virgin Islands</b> are not
+              reported in the ACS five year estimates. The last reliable
+              population numbers we could find for these territories is from the
+              2010 census, so we use those numbers when calculating all
+              territory- and national-level COVID-19 rates.
+            </li>
+            <li>
+              <b>COVID-19 Vaccinations:</b> Because state-reported population
+              categories do not always coincide with the categories reported by
+              the census, we rely on the Kaiser Family Foundation population
+              tabulations for state-reported population categories, which only
+              include population numbers for <b>Black,</b> <b>White</b>,{" "}
+              <b>Asian</b>, and <b>Hispanic</b>. ‘Percent of vaccinated’ metrics
+              for <b>Native Hawaiian and Pacific Islander</b>, and{" "}
+              <b>American Indian and Alaska Native</b> are shown with a
+              population comparison metric from the ACS 5-year estimates, while{" "}
+              <b>Unrepresented race</b> is shown without any population
+              comparison metric.
+            </li>
+            <li>
+              <b>Women in Legislative Office:</b> The Center for American Women
+              in Politics (CAWP) dataset uses unique race/ethnicity groupings
+              that do not correspond directly with the categories used by the
+              U.S. Census. For this reason,{" "}
+              <b>Middle Eastern & North African (Women)</b>,{" "}
+              <b>Asian American & Pacific Islander (Women)</b>, and{" "}
+              <b>Native American, Alaska Native, & Native Hawaiian (Women)</b>{" "}
+              are presented without corresponding population comparison metrics.
+            </li>
+          </ul>
+
+          <p></p>
+          <p></p>
+
+          <Button
+            className={styles.SeeOurDataSourcesButton}
+            href={DATA_CATALOG_PAGE_LINK}
+            color="primary"
+            endIcon={<ArrowForward />}
+          >
+            See Our Data Sources
+          </Button>
+
+          {/* Display condition definition(s) based on the tracker madlib settings */}
+          <div ref={definitionsRef}>
+            {definedConditions.length > 0 && (
+              <Box mt={5}>
+                <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
+                <LazyLoad offset={300} height={181} once>
+                  <DefinitionsList variablesToDefine={metricConfigSubset} />
+                </LazyLoad>
+              </Box>
+            )}
+          </div>
 
           <div className={styles.MissingDataContactUs}>
             <p>
-              Do you have information on health outcomes at the state and local
-              level that belong in the Health Equity Tracker?
-              <br />
+              Do you have information that belongs on the Health Equity Tracker?{" "}
               <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
                 We would love to hear from you!
               </LinkWithStickyParams>
             </p>
           </div>
-          <a href={DATA_CATALOG_PAGE_LINK}>
-            <Button color="primary" endIcon={<ArrowForward />}>
-              See Our Data Sources
-            </Button>
-          </a>
-
-          {/* DEFINITIONS */}
-          <h3 ref={definitionsRef} className={styles.FootnoteLargeHeading}>
-            Definitions
-          </h3>
-
-          <ul>
-            <li>
-              <b>{METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}</b>
-              {": "}
-              {VACCINATED_DEF}
-            </li>
-          </ul>
         </aside>
       </div>
-
-      <FeedbackBox />
     </>
   );
 }

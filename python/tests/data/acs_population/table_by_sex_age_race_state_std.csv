@@ -1,4 +1,19 @@
 state_fips,state_name,sex,age,population,race_category_id,race,race_includes_hispanic,race_and_ethnicity
+01,Alabama,All,0-4,1106,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,All,10-14,1562,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,All,15-17,1526,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,All,18-19,640,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,All,20-24,1585,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,All,25-29,1874,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,All,30-34,1784,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,All,35-44,3322,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,All,45-54,3914,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,All,5-9,1096,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,All,55-64,3748,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,All,65-74,2331,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,All,75-84,792,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,All,85+,285,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,All,All,25565,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 01,Alabama,Female,0-4,571,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 01,Alabama,Female,10-14,742,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 01,Alabama,Female,15-17,865,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
@@ -13,7 +28,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Female,65-74,1256,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 01,Alabama,Female,75-84,362,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 01,Alabama,Female,85+,97,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Female,Total,13098,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,Female,All,13098,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 01,Alabama,Male,0-4,535,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 01,Alabama,Male,10-14,820,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 01,Alabama,Male,15-17,661,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
@@ -28,22 +43,94 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Male,65-74,1075,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 01,Alabama,Male,75-84,430,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 01,Alabama,Male,85+,188,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Male,Total,12467,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Total,0-4,1106,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Total,10-14,1562,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Total,15-17,1526,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Total,18-19,640,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Total,20-24,1585,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Total,25-29,1874,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Total,30-34,1784,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Total,35-44,3322,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Total,45-54,3914,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Total,5-9,1096,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Total,55-64,3748,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Total,65-74,2331,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Total,75-84,792,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Total,85+,285,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,Total,Total,25565,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,Male,All,12467,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,All,0-4,293187,ALL,All,,All
+01,Alabama,All,10-14,310456,ALL,All,,All
+01,Alabama,All,15-17,191669,ALL,All,,All
+01,Alabama,All,18-19,130817,ALL,All,,All
+01,Alabama,All,20-20,71297,ALL,All,,All
+01,Alabama,All,21-21,68588,ALL,All,,All
+01,Alabama,All,22-24,188295,ALL,All,,All
+01,Alabama,All,25-29,332622,ALL,All,,All
+01,Alabama,All,30-34,305325,ALL,All,,All
+01,Alabama,All,35-39,300441,ALL,All,,All
+01,Alabama,All,40-44,295947,ALL,All,,All
+01,Alabama,All,45-49,309555,ALL,All,,All
+01,Alabama,All,5-9,301064,ALL,All,,All
+01,Alabama,All,50-54,323104,ALL,All,,All
+01,Alabama,All,55-59,333209,ALL,All,,All
+01,Alabama,All,60-61,130775,ALL,All,,All
+01,Alabama,All,62-64,185018,ALL,All,,All
+01,Alabama,All,65-66,112093,ALL,All,,All
+01,Alabama,All,67-69,154944,ALL,All,,All
+01,Alabama,All,70-74,209644,ALL,All,,All
+01,Alabama,All,75-79,145096,ALL,All,,All
+01,Alabama,All,80-84,98755,ALL,All,,All
+01,Alabama,All,85+,84349,ALL,All,,All
+01,Alabama,All,All,4876250,ALL,All,,All
+01,Alabama,Female,0-4,144097,ALL,All,,All
+01,Alabama,Female,10-14,151839,ALL,All,,All
+01,Alabama,Female,15-17,93412,ALL,All,,All
+01,Alabama,Female,18-19,65837,ALL,All,,All
+01,Alabama,Female,20-20,35427,ALL,All,,All
+01,Alabama,Female,21-21,33548,ALL,All,,All
+01,Alabama,Female,22-24,93230,ALL,All,,All
+01,Alabama,Female,25-29,167570,ALL,All,,All
+01,Alabama,Female,30-34,155546,ALL,All,,All
+01,Alabama,Female,35-39,154545,ALL,All,,All
+01,Alabama,Female,40-44,153194,ALL,All,,All
+01,Alabama,Female,45-49,159501,ALL,All,,All
+01,Alabama,Female,5-9,147570,ALL,All,,All
+01,Alabama,Female,50-54,166787,ALL,All,,All
+01,Alabama,Female,55-59,174087,ALL,All,,All
+01,Alabama,Female,60-61,69293,ALL,All,,All
+01,Alabama,Female,62-64,96727,ALL,All,,All
+01,Alabama,Female,65-66,59558,ALL,All,,All
+01,Alabama,Female,67-69,83413,ALL,All,,All
+01,Alabama,Female,70-74,113624,ALL,All,,All
+01,Alabama,Female,75-79,82251,ALL,All,,All
+01,Alabama,Female,80-84,59420,ALL,All,,All
+01,Alabama,Female,85+,56419,ALL,All,,All
+01,Alabama,Female,All,2516895,ALL,All,,All
+01,Alabama,Male,0-4,149090,ALL,All,,All
+01,Alabama,Male,10-14,158617,ALL,All,,All
+01,Alabama,Male,15-17,98257,ALL,All,,All
+01,Alabama,Male,18-19,64980,ALL,All,,All
+01,Alabama,Male,20-20,35870,ALL,All,,All
+01,Alabama,Male,21-21,35040,ALL,All,,All
+01,Alabama,Male,22-24,95065,ALL,All,,All
+01,Alabama,Male,25-29,165052,ALL,All,,All
+01,Alabama,Male,30-34,149779,ALL,All,,All
+01,Alabama,Male,35-39,145896,ALL,All,,All
+01,Alabama,Male,40-44,142753,ALL,All,,All
+01,Alabama,Male,45-49,150054,ALL,All,,All
+01,Alabama,Male,5-9,153494,ALL,All,,All
+01,Alabama,Male,50-54,156317,ALL,All,,All
+01,Alabama,Male,55-59,159122,ALL,All,,All
+01,Alabama,Male,60-61,61482,ALL,All,,All
+01,Alabama,Male,62-64,88291,ALL,All,,All
+01,Alabama,Male,65-66,52535,ALL,All,,All
+01,Alabama,Male,67-69,71531,ALL,All,,All
+01,Alabama,Male,70-74,96020,ALL,All,,All
+01,Alabama,Male,75-79,62845,ALL,All,,All
+01,Alabama,Male,80-84,39335,ALL,All,,All
+01,Alabama,Male,85+,27930,ALL,All,,All
+01,Alabama,Male,All,2359355,ALL,All,,All
+01,Alabama,All,0-4,3816,ASIAN,Asian,True,Asian
+01,Alabama,All,10-14,4504,ASIAN,Asian,True,Asian
+01,Alabama,All,15-17,2444,ASIAN,Asian,True,Asian
+01,Alabama,All,18-19,1944,ASIAN,Asian,True,Asian
+01,Alabama,All,20-24,4612,ASIAN,Asian,True,Asian
+01,Alabama,All,25-29,5521,ASIAN,Asian,True,Asian
+01,Alabama,All,30-34,5224,ASIAN,Asian,True,Asian
+01,Alabama,All,35-44,11470,ASIAN,Asian,True,Asian
+01,Alabama,All,45-54,9746,ASIAN,Asian,True,Asian
+01,Alabama,All,5-9,4510,ASIAN,Asian,True,Asian
+01,Alabama,All,55-64,6511,ASIAN,Asian,True,Asian
+01,Alabama,All,65-74,4186,ASIAN,Asian,True,Asian
+01,Alabama,All,75-84,1431,ASIAN,Asian,True,Asian
+01,Alabama,All,85+,351,ASIAN,Asian,True,Asian
+01,Alabama,All,All,66270,ASIAN,Asian,True,Asian
 01,Alabama,Female,0-4,1964,ASIAN,Asian,True,Asian
 01,Alabama,Female,10-14,2219,ASIAN,Asian,True,Asian
 01,Alabama,Female,15-17,1188,ASIAN,Asian,True,Asian
@@ -58,7 +145,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Female,65-74,2425,ASIAN,Asian,True,Asian
 01,Alabama,Female,75-84,882,ASIAN,Asian,True,Asian
 01,Alabama,Female,85+,237,ASIAN,Asian,True,Asian
-01,Alabama,Female,Total,35302,ASIAN,Asian,True,Asian
+01,Alabama,Female,All,35302,ASIAN,Asian,True,Asian
 01,Alabama,Male,0-4,1852,ASIAN,Asian,True,Asian
 01,Alabama,Male,10-14,2285,ASIAN,Asian,True,Asian
 01,Alabama,Male,15-17,1256,ASIAN,Asian,True,Asian
@@ -73,22 +160,22 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Male,65-74,1761,ASIAN,Asian,True,Asian
 01,Alabama,Male,75-84,549,ASIAN,Asian,True,Asian
 01,Alabama,Male,85+,114,ASIAN,Asian,True,Asian
-01,Alabama,Male,Total,30968,ASIAN,Asian,True,Asian
-01,Alabama,Total,0-4,3816,ASIAN,Asian,True,Asian
-01,Alabama,Total,10-14,4504,ASIAN,Asian,True,Asian
-01,Alabama,Total,15-17,2444,ASIAN,Asian,True,Asian
-01,Alabama,Total,18-19,1944,ASIAN,Asian,True,Asian
-01,Alabama,Total,20-24,4612,ASIAN,Asian,True,Asian
-01,Alabama,Total,25-29,5521,ASIAN,Asian,True,Asian
-01,Alabama,Total,30-34,5224,ASIAN,Asian,True,Asian
-01,Alabama,Total,35-44,11470,ASIAN,Asian,True,Asian
-01,Alabama,Total,45-54,9746,ASIAN,Asian,True,Asian
-01,Alabama,Total,5-9,4510,ASIAN,Asian,True,Asian
-01,Alabama,Total,55-64,6511,ASIAN,Asian,True,Asian
-01,Alabama,Total,65-74,4186,ASIAN,Asian,True,Asian
-01,Alabama,Total,75-84,1431,ASIAN,Asian,True,Asian
-01,Alabama,Total,85+,351,ASIAN,Asian,True,Asian
-01,Alabama,Total,Total,66270,ASIAN,Asian,True,Asian
+01,Alabama,Male,All,30968,ASIAN,Asian,True,Asian
+01,Alabama,All,0-4,85566,BLACK,Black or African American,True,Black or African American
+01,Alabama,All,10-14,89802,BLACK,Black or African American,True,Black or African American
+01,Alabama,All,15-17,56420,BLACK,Black or African American,True,Black or African American
+01,Alabama,All,18-19,41343,BLACK,Black or African American,True,Black or African American
+01,Alabama,All,20-24,104317,BLACK,Black or African American,True,Black or African American
+01,Alabama,All,25-29,101561,BLACK,Black or African American,True,Black or African American
+01,Alabama,All,30-34,87718,BLACK,Black or African American,True,Black or African American
+01,Alabama,All,35-44,165808,BLACK,Black or African American,True,Black or African American
+01,Alabama,All,45-54,159149,BLACK,Black or African American,True,Black or African American
+01,Alabama,All,5-9,90555,BLACK,Black or African American,True,Black or African American
+01,Alabama,All,55-64,161629,BLACK,Black or African American,True,Black or African American
+01,Alabama,All,65-74,98066,BLACK,Black or African American,True,Black or African American
+01,Alabama,All,75-84,42345,BLACK,Black or African American,True,Black or African American
+01,Alabama,All,85+,14769,BLACK,Black or African American,True,Black or African American
+01,Alabama,All,All,1299048,BLACK,Black or African American,True,Black or African American
 01,Alabama,Female,0-4,42293,BLACK,Black or African American,True,Black or African American
 01,Alabama,Female,10-14,44214,BLACK,Black or African American,True,Black or African American
 01,Alabama,Female,15-17,27628,BLACK,Black or African American,True,Black or African American
@@ -103,7 +190,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Female,65-74,55230,BLACK,Black or African American,True,Black or African American
 01,Alabama,Female,75-84,26194,BLACK,Black or African American,True,Black or African American
 01,Alabama,Female,85+,10973,BLACK,Black or African American,True,Black or African American
-01,Alabama,Female,Total,694054,BLACK,Black or African American,True,Black or African American
+01,Alabama,Female,All,694054,BLACK,Black or African American,True,Black or African American
 01,Alabama,Male,0-4,43273,BLACK,Black or African American,True,Black or African American
 01,Alabama,Male,10-14,45588,BLACK,Black or African American,True,Black or African American
 01,Alabama,Male,15-17,28792,BLACK,Black or African American,True,Black or African American
@@ -118,22 +205,22 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Male,65-74,42836,BLACK,Black or African American,True,Black or African American
 01,Alabama,Male,75-84,16151,BLACK,Black or African American,True,Black or African American
 01,Alabama,Male,85+,3796,BLACK,Black or African American,True,Black or African American
-01,Alabama,Male,Total,604994,BLACK,Black or African American,True,Black or African American
-01,Alabama,Total,0-4,85566,BLACK,Black or African American,True,Black or African American
-01,Alabama,Total,10-14,89802,BLACK,Black or African American,True,Black or African American
-01,Alabama,Total,15-17,56420,BLACK,Black or African American,True,Black or African American
-01,Alabama,Total,18-19,41343,BLACK,Black or African American,True,Black or African American
-01,Alabama,Total,20-24,104317,BLACK,Black or African American,True,Black or African American
-01,Alabama,Total,25-29,101561,BLACK,Black or African American,True,Black or African American
-01,Alabama,Total,30-34,87718,BLACK,Black or African American,True,Black or African American
-01,Alabama,Total,35-44,165808,BLACK,Black or African American,True,Black or African American
-01,Alabama,Total,45-54,159149,BLACK,Black or African American,True,Black or African American
-01,Alabama,Total,5-9,90555,BLACK,Black or African American,True,Black or African American
-01,Alabama,Total,55-64,161629,BLACK,Black or African American,True,Black or African American
-01,Alabama,Total,65-74,98066,BLACK,Black or African American,True,Black or African American
-01,Alabama,Total,75-84,42345,BLACK,Black or African American,True,Black or African American
-01,Alabama,Total,85+,14769,BLACK,Black or African American,True,Black or African American
-01,Alabama,Total,Total,1299048,BLACK,Black or African American,True,Black or African American
+01,Alabama,Male,All,604994,BLACK,Black or African American,True,Black or African American
+01,Alabama,All,0-4,25140,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,10-14,22146,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,15-17,10718,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,18-19,6621,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,20-24,15881,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,25-29,15628,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,30-34,17690,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,35-44,31097,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,45-54,18932,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,5-9,25046,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,55-64,11106,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,65-74,5792,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,75-84,2145,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,85+,684,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,All,208626,HISP,Hispanic or Latino,True,Hispanic or Latino
 01,Alabama,Female,0-4,12382,HISP,Hispanic or Latino,True,Hispanic or Latino
 01,Alabama,Female,10-14,10475,HISP,Hispanic or Latino,True,Hispanic or Latino
 01,Alabama,Female,15-17,4845,HISP,Hispanic or Latino,True,Hispanic or Latino
@@ -148,7 +235,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Female,65-74,2685,HISP,Hispanic or Latino,True,Hispanic or Latino
 01,Alabama,Female,75-84,1483,HISP,Hispanic or Latino,True,Hispanic or Latino
 01,Alabama,Female,85+,404,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Female,Total,98543,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,Female,All,98543,HISP,Hispanic or Latino,True,Hispanic or Latino
 01,Alabama,Male,0-4,12758,HISP,Hispanic or Latino,True,Hispanic or Latino
 01,Alabama,Male,10-14,11671,HISP,Hispanic or Latino,True,Hispanic or Latino
 01,Alabama,Male,15-17,5873,HISP,Hispanic or Latino,True,Hispanic or Latino
@@ -163,22 +250,22 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Male,65-74,3107,HISP,Hispanic or Latino,True,Hispanic or Latino
 01,Alabama,Male,75-84,662,HISP,Hispanic or Latino,True,Hispanic or Latino
 01,Alabama,Male,85+,280,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Male,Total,110083,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Total,0-4,25140,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Total,10-14,22146,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Total,15-17,10718,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Total,18-19,6621,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Total,20-24,15881,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Total,25-29,15628,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Total,30-34,17690,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Total,35-44,31097,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Total,45-54,18932,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Total,5-9,25046,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Total,55-64,11106,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Total,65-74,5792,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Total,75-84,2145,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Total,85+,684,HISP,Hispanic or Latino,True,Hispanic or Latino
-01,Alabama,Total,Total,208626,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,Male,All,110083,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,0-4,13425,MULTI,Two or more races,True,Two or more races
+01,Alabama,All,10-14,10119,MULTI,Two or more races,True,Two or more races
+01,Alabama,All,15-17,5889,MULTI,Two or more races,True,Two or more races
+01,Alabama,All,18-19,3871,MULTI,Two or more races,True,Two or more races
+01,Alabama,All,20-24,7666,MULTI,Two or more races,True,Two or more races
+01,Alabama,All,25-29,5443,MULTI,Two or more races,True,Two or more races
+01,Alabama,All,30-34,5013,MULTI,Two or more races,True,Two or more races
+01,Alabama,All,35-44,8280,MULTI,Two or more races,True,Two or more races
+01,Alabama,All,45-54,7101,MULTI,Two or more races,True,Two or more races
+01,Alabama,All,5-9,11815,MULTI,Two or more races,True,Two or more races
+01,Alabama,All,55-64,7130,MULTI,Two or more races,True,Two or more races
+01,Alabama,All,65-74,4103,MULTI,Two or more races,True,Two or more races
+01,Alabama,All,75-84,1759,MULTI,Two or more races,True,Two or more races
+01,Alabama,All,85+,606,MULTI,Two or more races,True,Two or more races
+01,Alabama,All,All,92220,MULTI,Two or more races,True,Two or more races
 01,Alabama,Female,0-4,6643,MULTI,Two or more races,True,Two or more races
 01,Alabama,Female,10-14,5015,MULTI,Two or more races,True,Two or more races
 01,Alabama,Female,15-17,2905,MULTI,Two or more races,True,Two or more races
@@ -193,7 +280,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Female,65-74,2345,MULTI,Two or more races,True,Two or more races
 01,Alabama,Female,75-84,1156,MULTI,Two or more races,True,Two or more races
 01,Alabama,Female,85+,458,MULTI,Two or more races,True,Two or more races
-01,Alabama,Female,Total,47129,MULTI,Two or more races,True,Two or more races
+01,Alabama,Female,All,47129,MULTI,Two or more races,True,Two or more races
 01,Alabama,Male,0-4,6782,MULTI,Two or more races,True,Two or more races
 01,Alabama,Male,10-14,5104,MULTI,Two or more races,True,Two or more races
 01,Alabama,Male,15-17,2984,MULTI,Two or more races,True,Two or more races
@@ -208,22 +295,22 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Male,65-74,1758,MULTI,Two or more races,True,Two or more races
 01,Alabama,Male,75-84,603,MULTI,Two or more races,True,Two or more races
 01,Alabama,Male,85+,148,MULTI,Two or more races,True,Two or more races
-01,Alabama,Male,Total,45091,MULTI,Two or more races,True,Two or more races
-01,Alabama,Total,0-4,13425,MULTI,Two or more races,True,Two or more races
-01,Alabama,Total,10-14,10119,MULTI,Two or more races,True,Two or more races
-01,Alabama,Total,15-17,5889,MULTI,Two or more races,True,Two or more races
-01,Alabama,Total,18-19,3871,MULTI,Two or more races,True,Two or more races
-01,Alabama,Total,20-24,7666,MULTI,Two or more races,True,Two or more races
-01,Alabama,Total,25-29,5443,MULTI,Two or more races,True,Two or more races
-01,Alabama,Total,30-34,5013,MULTI,Two or more races,True,Two or more races
-01,Alabama,Total,35-44,8280,MULTI,Two or more races,True,Two or more races
-01,Alabama,Total,45-54,7101,MULTI,Two or more races,True,Two or more races
-01,Alabama,Total,5-9,11815,MULTI,Two or more races,True,Two or more races
-01,Alabama,Total,55-64,7130,MULTI,Two or more races,True,Two or more races
-01,Alabama,Total,65-74,4103,MULTI,Two or more races,True,Two or more races
-01,Alabama,Total,75-84,1759,MULTI,Two or more races,True,Two or more races
-01,Alabama,Total,85+,606,MULTI,Two or more races,True,Two or more races
-01,Alabama,Total,Total,92220,MULTI,Two or more races,True,Two or more races
+01,Alabama,Male,All,45091,MULTI,Two or more races,True,Two or more races
+01,Alabama,All,0-4,202,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,All,10-14,100,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,All,15-17,123,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,All,18-19,27,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,All,20-24,80,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,All,25-29,176,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,All,30-34,283,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,All,35-44,351,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,All,45-54,257,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,All,5-9,284,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,All,55-64,167,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,All,65-74,94,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,All,75-84,72,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,All,85+,22,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,All,All,2238,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 01,Alabama,Female,0-4,57,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 01,Alabama,Female,10-14,65,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 01,Alabama,Female,15-17,87,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
@@ -238,7 +325,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Female,65-74,57,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 01,Alabama,Female,75-84,48,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 01,Alabama,Female,85+,22,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Female,Total,1316,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,Female,All,1316,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 01,Alabama,Male,0-4,145,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 01,Alabama,Male,10-14,35,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 01,Alabama,Male,15-17,36,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
@@ -253,139 +340,67 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Male,65-74,37,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 01,Alabama,Male,75-84,24,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 01,Alabama,Male,85+,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Male,Total,922,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Total,0-4,202,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Total,10-14,100,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Total,15-17,123,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Total,18-19,27,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Total,20-24,80,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Total,25-29,176,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Total,30-34,283,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Total,35-44,351,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Total,45-54,257,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Total,5-9,284,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Total,55-64,167,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Total,65-74,94,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Total,75-84,72,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Total,85+,22,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Total,Total,2238,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,Female,0-4,4184,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Female,10-14,4054,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Female,15-17,1483,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Female,18-19,897,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Female,20-24,2560,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Female,25-29,2644,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Female,30-34,3051,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Female,35-44,4868,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Female,45-54,2681,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Female,5-9,4374,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Female,55-64,1192,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Female,65-74,909,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Female,75-84,258,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Female,85+,141,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Female,Total,33296,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Male,0-4,4068,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Male,10-14,4009,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Male,15-17,2006,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Male,18-19,1052,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Male,20-24,2937,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Male,25-29,3424,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Male,30-34,3393,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Male,35-44,6406,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Male,45-54,3222,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Male,5-9,4623,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Male,55-64,1367,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Male,65-74,559,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Male,75-84,227,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Male,85+,73,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Male,Total,37366,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Total,0-4,8252,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Total,10-14,8063,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Total,15-17,3489,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Total,18-19,1949,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Total,20-24,5497,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Total,25-29,6068,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Total,30-34,6444,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Total,35-44,11274,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Total,45-54,5903,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Total,5-9,8997,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Total,55-64,2559,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Total,65-74,1468,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Total,75-84,485,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Total,85+,214,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Total,Total,70662,OTHER_STANDARD,Some other race,True,Some other race
-01,Alabama,Female,0-4,144097,TOTAL,Total,,Total
-01,Alabama,Female,10-14,151839,TOTAL,Total,,Total
-01,Alabama,Female,15-17,93412,TOTAL,Total,,Total
-01,Alabama,Female,18-19,65837,TOTAL,Total,,Total
-01,Alabama,Female,20-20,35427,TOTAL,Total,,Total
-01,Alabama,Female,21-21,33548,TOTAL,Total,,Total
-01,Alabama,Female,22-24,93230,TOTAL,Total,,Total
-01,Alabama,Female,25-29,167570,TOTAL,Total,,Total
-01,Alabama,Female,30-34,155546,TOTAL,Total,,Total
-01,Alabama,Female,35-39,154545,TOTAL,Total,,Total
-01,Alabama,Female,40-44,153194,TOTAL,Total,,Total
-01,Alabama,Female,45-49,159501,TOTAL,Total,,Total
-01,Alabama,Female,5-9,147570,TOTAL,Total,,Total
-01,Alabama,Female,50-54,166787,TOTAL,Total,,Total
-01,Alabama,Female,55-59,174087,TOTAL,Total,,Total
-01,Alabama,Female,60-61,69293,TOTAL,Total,,Total
-01,Alabama,Female,62-64,96727,TOTAL,Total,,Total
-01,Alabama,Female,65-66,59558,TOTAL,Total,,Total
-01,Alabama,Female,67-69,83413,TOTAL,Total,,Total
-01,Alabama,Female,70-74,113624,TOTAL,Total,,Total
-01,Alabama,Female,75-79,82251,TOTAL,Total,,Total
-01,Alabama,Female,80-84,59420,TOTAL,Total,,Total
-01,Alabama,Female,85+,56419,TOTAL,Total,,Total
-01,Alabama,Female,Total,2516895,TOTAL,Total,,Total
-01,Alabama,Male,0-4,149090,TOTAL,Total,,Total
-01,Alabama,Male,10-14,158617,TOTAL,Total,,Total
-01,Alabama,Male,15-17,98257,TOTAL,Total,,Total
-01,Alabama,Male,18-19,64980,TOTAL,Total,,Total
-01,Alabama,Male,20-20,35870,TOTAL,Total,,Total
-01,Alabama,Male,21-21,35040,TOTAL,Total,,Total
-01,Alabama,Male,22-24,95065,TOTAL,Total,,Total
-01,Alabama,Male,25-29,165052,TOTAL,Total,,Total
-01,Alabama,Male,30-34,149779,TOTAL,Total,,Total
-01,Alabama,Male,35-39,145896,TOTAL,Total,,Total
-01,Alabama,Male,40-44,142753,TOTAL,Total,,Total
-01,Alabama,Male,45-49,150054,TOTAL,Total,,Total
-01,Alabama,Male,5-9,153494,TOTAL,Total,,Total
-01,Alabama,Male,50-54,156317,TOTAL,Total,,Total
-01,Alabama,Male,55-59,159122,TOTAL,Total,,Total
-01,Alabama,Male,60-61,61482,TOTAL,Total,,Total
-01,Alabama,Male,62-64,88291,TOTAL,Total,,Total
-01,Alabama,Male,65-66,52535,TOTAL,Total,,Total
-01,Alabama,Male,67-69,71531,TOTAL,Total,,Total
-01,Alabama,Male,70-74,96020,TOTAL,Total,,Total
-01,Alabama,Male,75-79,62845,TOTAL,Total,,Total
-01,Alabama,Male,80-84,39335,TOTAL,Total,,Total
-01,Alabama,Male,85+,27930,TOTAL,Total,,Total
-01,Alabama,Male,Total,2359355,TOTAL,Total,,Total
-01,Alabama,Total,0-4,293187,TOTAL,Total,,Total
-01,Alabama,Total,10-14,310456,TOTAL,Total,,Total
-01,Alabama,Total,15-17,191669,TOTAL,Total,,Total
-01,Alabama,Total,18-19,130817,TOTAL,Total,,Total
-01,Alabama,Total,20-20,71297,TOTAL,Total,,Total
-01,Alabama,Total,21-21,68588,TOTAL,Total,,Total
-01,Alabama,Total,22-24,188295,TOTAL,Total,,Total
-01,Alabama,Total,25-29,332622,TOTAL,Total,,Total
-01,Alabama,Total,30-34,305325,TOTAL,Total,,Total
-01,Alabama,Total,35-39,300441,TOTAL,Total,,Total
-01,Alabama,Total,40-44,295947,TOTAL,Total,,Total
-01,Alabama,Total,45-49,309555,TOTAL,Total,,Total
-01,Alabama,Total,5-9,301064,TOTAL,Total,,Total
-01,Alabama,Total,50-54,323104,TOTAL,Total,,Total
-01,Alabama,Total,55-59,333209,TOTAL,Total,,Total
-01,Alabama,Total,60-61,130775,TOTAL,Total,,Total
-01,Alabama,Total,62-64,185018,TOTAL,Total,,Total
-01,Alabama,Total,65-66,112093,TOTAL,Total,,Total
-01,Alabama,Total,67-69,154944,TOTAL,Total,,Total
-01,Alabama,Total,70-74,209644,TOTAL,Total,,Total
-01,Alabama,Total,75-79,145096,TOTAL,Total,,Total
-01,Alabama,Total,80-84,98755,TOTAL,Total,,Total
-01,Alabama,Total,85+,84349,TOTAL,Total,,Total
-01,Alabama,Total,Total,4876250,TOTAL,Total,,Total
+01,Alabama,Male,All,922,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,All,0-4,8252,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,All,10-14,8063,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,All,15-17,3489,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,All,18-19,1949,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,All,20-24,5497,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,All,25-29,6068,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,All,30-34,6444,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,All,35-44,11274,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,All,45-54,5903,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,All,5-9,8997,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,All,55-64,2559,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,All,65-74,1468,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,All,75-84,485,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,All,85+,214,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,All,All,70662,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Female,0-4,4184,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Female,10-14,4054,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Female,15-17,1483,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Female,18-19,897,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Female,20-24,2560,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Female,25-29,2644,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Female,30-34,3051,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Female,35-44,4868,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Female,45-54,2681,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Female,5-9,4374,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Female,55-64,1192,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Female,65-74,909,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Female,75-84,258,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Female,85+,141,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Female,All,33296,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Male,0-4,4068,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Male,10-14,4009,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Male,15-17,2006,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Male,18-19,1052,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Male,20-24,2937,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Male,25-29,3424,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Male,30-34,3393,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Male,35-44,6406,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Male,45-54,3222,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Male,5-9,4623,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Male,55-64,1367,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Male,65-74,559,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Male,75-84,227,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Male,85+,73,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,Male,All,37366,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+01,Alabama,All,0-4,180820,WHITE,White,True,White
+01,Alabama,All,10-14,196306,WHITE,White,True,White
+01,Alabama,All,15-17,121778,WHITE,White,True,White
+01,Alabama,All,18-19,81043,WHITE,White,True,White
+01,Alabama,All,20-24,204423,WHITE,White,True,White
+01,Alabama,All,25-29,211979,WHITE,White,True,White
+01,Alabama,All,30-34,198859,WHITE,White,True,White
+01,Alabama,All,35-44,395883,WHITE,White,True,White
+01,Alabama,All,45-54,446589,WHITE,White,True,White
+01,Alabama,All,5-9,183807,WHITE,White,True,White
+01,Alabama,All,55-64,467258,WHITE,White,True,White
+01,Alabama,All,65-74,366433,WHITE,White,True,White
+01,Alabama,All,75-84,196967,WHITE,White,True,White
+01,Alabama,All,85+,68102,WHITE,White,True,White
+01,Alabama,All,All,3320247,WHITE,White,True,White
 01,Alabama,Female,0-4,88385,WHITE,White,True,White
 01,Alabama,Female,10-14,95530,WHITE,White,True,White
 01,Alabama,Female,15-17,59256,WHITE,White,True,White
@@ -400,7 +415,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Female,65-74,194373,WHITE,White,True,White
 01,Alabama,Female,75-84,112771,WHITE,White,True,White
 01,Alabama,Female,85+,44491,WHITE,White,True,White
-01,Alabama,Female,Total,1692700,WHITE,White,True,White
+01,Alabama,Female,All,1692700,WHITE,White,True,White
 01,Alabama,Male,0-4,92435,WHITE,White,True,White
 01,Alabama,Male,10-14,100776,WHITE,White,True,White
 01,Alabama,Male,15-17,62522,WHITE,White,True,White
@@ -415,22 +430,22 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Male,65-74,172060,WHITE,White,True,White
 01,Alabama,Male,75-84,84196,WHITE,White,True,White
 01,Alabama,Male,85+,23611,WHITE,White,True,White
-01,Alabama,Male,Total,1627547,WHITE,White,True,White
-01,Alabama,Total,0-4,180820,WHITE,White,True,White
-01,Alabama,Total,10-14,196306,WHITE,White,True,White
-01,Alabama,Total,15-17,121778,WHITE,White,True,White
-01,Alabama,Total,18-19,81043,WHITE,White,True,White
-01,Alabama,Total,20-24,204423,WHITE,White,True,White
-01,Alabama,Total,25-29,211979,WHITE,White,True,White
-01,Alabama,Total,30-34,198859,WHITE,White,True,White
-01,Alabama,Total,35-44,395883,WHITE,White,True,White
-01,Alabama,Total,45-54,446589,WHITE,White,True,White
-01,Alabama,Total,5-9,183807,WHITE,White,True,White
-01,Alabama,Total,55-64,467258,WHITE,White,True,White
-01,Alabama,Total,65-74,366433,WHITE,White,True,White
-01,Alabama,Total,75-84,196967,WHITE,White,True,White
-01,Alabama,Total,85+,68102,WHITE,White,True,White
-01,Alabama,Total,Total,3320247,WHITE,White,True,White
+01,Alabama,Male,All,1627547,WHITE,White,True,White
+01,Alabama,All,0-4,165786,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,All,10-14,183682,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,All,15-17,115401,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,All,18-19,76754,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,All,20-24,194756,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,All,25-29,203369,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,All,30-34,188688,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,All,35-44,377843,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,All,45-54,434524,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,All,5-9,169736,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,All,55-64,459441,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,All,65-74,362064,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,All,75-84,195294,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,All,85+,67591,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,All,All,3194929,WHITE_NH,White,False,White (Non-Hispanic)
 01,Alabama,Female,0-4,80906,WHITE_NH,White,False,White (Non-Hispanic)
 01,Alabama,Female,10-14,89516,WHITE_NH,White,False,White (Non-Hispanic)
 01,Alabama,Female,15-17,56324,WHITE_NH,White,False,White (Non-Hispanic)
@@ -445,7 +460,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Female,65-74,192526,WHITE_NH,White,False,White (Non-Hispanic)
 01,Alabama,Female,75-84,111563,WHITE_NH,White,False,White (Non-Hispanic)
 01,Alabama,Female,85+,44194,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Female,Total,1633272,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,Female,All,1633272,WHITE_NH,White,False,White (Non-Hispanic)
 01,Alabama,Male,0-4,84880,WHITE_NH,White,False,White (Non-Hispanic)
 01,Alabama,Male,10-14,94166,WHITE_NH,White,False,White (Non-Hispanic)
 01,Alabama,Male,15-17,59077,WHITE_NH,White,False,White (Non-Hispanic)
@@ -460,22 +475,22 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 01,Alabama,Male,65-74,169538,WHITE_NH,White,False,White (Non-Hispanic)
 01,Alabama,Male,75-84,83731,WHITE_NH,White,False,White (Non-Hispanic)
 01,Alabama,Male,85+,23397,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Male,Total,1561657,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Total,0-4,165786,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Total,10-14,183682,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Total,15-17,115401,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Total,18-19,76754,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Total,20-24,194756,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Total,25-29,203369,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Total,30-34,188688,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Total,35-44,377843,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Total,45-54,434524,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Total,5-9,169736,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Total,55-64,459441,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Total,65-74,362064,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Total,75-84,195294,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Total,85+,67591,WHITE_NH,White,False,White (Non-Hispanic)
-01,Alabama,Total,Total,3194929,WHITE_NH,White,False,White (Non-Hispanic)
+01,Alabama,Male,All,1561657,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,All,0-4,208,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,All,10-14,302,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,All,15-17,217,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,All,18-19,134,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,All,20-24,391,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,All,25-29,513,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,All,30-34,339,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,All,35-44,1072,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,All,45-54,1078,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,All,5-9,512,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,All,55-64,968,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,All,65-74,679,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,All,75-84,289,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,All,85+,136,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,All,All,6838,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 72,Puerto Rico,Female,0-4,93,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 72,Puerto Rico,Female,10-14,142,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 72,Puerto Rico,Female,15-17,150,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
@@ -490,7 +505,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Female,65-74,376,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 72,Puerto Rico,Female,75-84,144,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 72,Puerto Rico,Female,85+,79,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Female,Total,3396,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,Female,All,3396,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 72,Puerto Rico,Male,0-4,115,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 72,Puerto Rico,Male,10-14,160,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 72,Puerto Rico,Male,15-17,67,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
@@ -505,22 +520,94 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Male,65-74,303,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 72,Puerto Rico,Male,75-84,145,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
 72,Puerto Rico,Male,85+,57,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Male,Total,3442,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Total,0-4,208,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Total,10-14,302,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Total,15-17,217,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Total,18-19,134,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Total,20-24,391,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Total,25-29,513,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Total,30-34,339,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Total,35-44,1072,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Total,45-54,1078,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Total,5-9,512,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Total,55-64,968,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Total,65-74,679,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Total,75-84,289,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Total,85+,136,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,Total,Total,6838,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,Male,All,3442,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,All,0-4,143623,ALL,All,,All
+72,Puerto Rico,All,10-14,199508,ALL,All,,All
+72,Puerto Rico,All,15-17,130008,ALL,All,,All
+72,Puerto Rico,All,18-19,91578,ALL,All,,All
+72,Puerto Rico,All,20-20,50183,ALL,All,,All
+72,Puerto Rico,All,21-21,49467,ALL,All,,All
+72,Puerto Rico,All,22-24,132914,ALL,All,,All
+72,Puerto Rico,All,25-29,221245,ALL,All,,All
+72,Puerto Rico,All,30-34,191951,ALL,All,,All
+72,Puerto Rico,All,35-39,203084,ALL,All,,All
+72,Puerto Rico,All,40-44,209447,ALL,All,,All
+72,Puerto Rico,All,45-49,213273,ALL,All,,All
+72,Puerto Rico,All,5-9,175207,ALL,All,,All
+72,Puerto Rico,All,50-54,222997,ALL,All,,All
+72,Puerto Rico,All,55-59,216952,ALL,All,,All
+72,Puerto Rico,All,60-61,88320,ALL,All,,All
+72,Puerto Rico,All,62-64,124954,ALL,All,,All
+72,Puerto Rico,All,65-66,79029,ALL,All,,All
+72,Puerto Rico,All,67-69,116386,ALL,All,,All
+72,Puerto Rico,All,70-74,167100,ALL,All,,All
+72,Puerto Rico,All,75-79,125430,ALL,All,,All
+72,Puerto Rico,All,80-84,86787,ALL,All,,All
+72,Puerto Rico,All,85+,79004,ALL,All,,All
+72,Puerto Rico,All,All,3318447,ALL,All,,All
+72,Puerto Rico,Female,0-4,70047,ALL,All,,All
+72,Puerto Rico,Female,10-14,97680,ALL,All,,All
+72,Puerto Rico,Female,15-17,63478,ALL,All,,All
+72,Puerto Rico,Female,18-19,44951,ALL,All,,All
+72,Puerto Rico,Female,20-20,24715,ALL,All,,All
+72,Puerto Rico,Female,21-21,23950,ALL,All,,All
+72,Puerto Rico,Female,22-24,65949,ALL,All,,All
+72,Puerto Rico,Female,25-29,111738,ALL,All,,All
+72,Puerto Rico,Female,30-34,99643,ALL,All,,All
+72,Puerto Rico,Female,35-39,107961,ALL,All,,All
+72,Puerto Rico,Female,40-44,109078,ALL,All,,All
+72,Puerto Rico,Female,45-49,112383,ALL,All,,All
+72,Puerto Rico,Female,5-9,86264,ALL,All,,All
+72,Puerto Rico,Female,50-54,119636,ALL,All,,All
+72,Puerto Rico,Female,55-59,115948,ALL,All,,All
+72,Puerto Rico,Female,60-61,47753,ALL,All,,All
+72,Puerto Rico,Female,62-64,69508,ALL,All,,All
+72,Puerto Rico,Female,65-66,42423,ALL,All,,All
+72,Puerto Rico,Female,67-69,64035,ALL,All,,All
+72,Puerto Rico,Female,70-74,92647,ALL,All,,All
+72,Puerto Rico,Female,75-79,70601,ALL,All,,All
+72,Puerto Rico,Female,80-84,50218,ALL,All,,All
+72,Puerto Rico,Female,85+,49523,ALL,All,,All
+72,Puerto Rico,Female,All,1740129,ALL,All,,All
+72,Puerto Rico,Male,0-4,73576,ALL,All,,All
+72,Puerto Rico,Male,10-14,101828,ALL,All,,All
+72,Puerto Rico,Male,15-17,66530,ALL,All,,All
+72,Puerto Rico,Male,18-19,46627,ALL,All,,All
+72,Puerto Rico,Male,20-20,25468,ALL,All,,All
+72,Puerto Rico,Male,21-21,25517,ALL,All,,All
+72,Puerto Rico,Male,22-24,66965,ALL,All,,All
+72,Puerto Rico,Male,25-29,109507,ALL,All,,All
+72,Puerto Rico,Male,30-34,92308,ALL,All,,All
+72,Puerto Rico,Male,35-39,95123,ALL,All,,All
+72,Puerto Rico,Male,40-44,100369,ALL,All,,All
+72,Puerto Rico,Male,45-49,100890,ALL,All,,All
+72,Puerto Rico,Male,5-9,88943,ALL,All,,All
+72,Puerto Rico,Male,50-54,103361,ALL,All,,All
+72,Puerto Rico,Male,55-59,101004,ALL,All,,All
+72,Puerto Rico,Male,60-61,40567,ALL,All,,All
+72,Puerto Rico,Male,62-64,55446,ALL,All,,All
+72,Puerto Rico,Male,65-66,36606,ALL,All,,All
+72,Puerto Rico,Male,67-69,52351,ALL,All,,All
+72,Puerto Rico,Male,70-74,74453,ALL,All,,All
+72,Puerto Rico,Male,75-79,54829,ALL,All,,All
+72,Puerto Rico,Male,80-84,36569,ALL,All,,All
+72,Puerto Rico,Male,85+,29481,ALL,All,,All
+72,Puerto Rico,Male,All,1578318,ALL,All,,All
+72,Puerto Rico,All,0-4,262,ASIAN,Asian,True,Asian
+72,Puerto Rico,All,10-14,473,ASIAN,Asian,True,Asian
+72,Puerto Rico,All,15-17,208,ASIAN,Asian,True,Asian
+72,Puerto Rico,All,18-19,195,ASIAN,Asian,True,Asian
+72,Puerto Rico,All,20-24,287,ASIAN,Asian,True,Asian
+72,Puerto Rico,All,25-29,420,ASIAN,Asian,True,Asian
+72,Puerto Rico,All,30-34,536,ASIAN,Asian,True,Asian
+72,Puerto Rico,All,35-44,1143,ASIAN,Asian,True,Asian
+72,Puerto Rico,All,45-54,990,ASIAN,Asian,True,Asian
+72,Puerto Rico,All,5-9,286,ASIAN,Asian,True,Asian
+72,Puerto Rico,All,55-64,760,ASIAN,Asian,True,Asian
+72,Puerto Rico,All,65-74,426,ASIAN,Asian,True,Asian
+72,Puerto Rico,All,75-84,188,ASIAN,Asian,True,Asian
+72,Puerto Rico,All,85+,63,ASIAN,Asian,True,Asian
+72,Puerto Rico,All,All,6237,ASIAN,Asian,True,Asian
 72,Puerto Rico,Female,0-4,173,ASIAN,Asian,True,Asian
 72,Puerto Rico,Female,10-14,407,ASIAN,Asian,True,Asian
 72,Puerto Rico,Female,15-17,175,ASIAN,Asian,True,Asian
@@ -535,7 +622,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Female,65-74,330,ASIAN,Asian,True,Asian
 72,Puerto Rico,Female,75-84,96,ASIAN,Asian,True,Asian
 72,Puerto Rico,Female,85+,41,ASIAN,Asian,True,Asian
-72,Puerto Rico,Female,Total,4417,ASIAN,Asian,True,Asian
+72,Puerto Rico,Female,All,4417,ASIAN,Asian,True,Asian
 72,Puerto Rico,Male,0-4,89,ASIAN,Asian,True,Asian
 72,Puerto Rico,Male,10-14,66,ASIAN,Asian,True,Asian
 72,Puerto Rico,Male,15-17,33,ASIAN,Asian,True,Asian
@@ -550,22 +637,22 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Male,65-74,96,ASIAN,Asian,True,Asian
 72,Puerto Rico,Male,75-84,92,ASIAN,Asian,True,Asian
 72,Puerto Rico,Male,85+,22,ASIAN,Asian,True,Asian
-72,Puerto Rico,Male,Total,1820,ASIAN,Asian,True,Asian
-72,Puerto Rico,Total,0-4,262,ASIAN,Asian,True,Asian
-72,Puerto Rico,Total,10-14,473,ASIAN,Asian,True,Asian
-72,Puerto Rico,Total,15-17,208,ASIAN,Asian,True,Asian
-72,Puerto Rico,Total,18-19,195,ASIAN,Asian,True,Asian
-72,Puerto Rico,Total,20-24,287,ASIAN,Asian,True,Asian
-72,Puerto Rico,Total,25-29,420,ASIAN,Asian,True,Asian
-72,Puerto Rico,Total,30-34,536,ASIAN,Asian,True,Asian
-72,Puerto Rico,Total,35-44,1143,ASIAN,Asian,True,Asian
-72,Puerto Rico,Total,45-54,990,ASIAN,Asian,True,Asian
-72,Puerto Rico,Total,5-9,286,ASIAN,Asian,True,Asian
-72,Puerto Rico,Total,55-64,760,ASIAN,Asian,True,Asian
-72,Puerto Rico,Total,65-74,426,ASIAN,Asian,True,Asian
-72,Puerto Rico,Total,75-84,188,ASIAN,Asian,True,Asian
-72,Puerto Rico,Total,85+,63,ASIAN,Asian,True,Asian
-72,Puerto Rico,Total,Total,6237,ASIAN,Asian,True,Asian
+72,Puerto Rico,Male,All,1820,ASIAN,Asian,True,Asian
+72,Puerto Rico,All,0-4,13717,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,All,10-14,21105,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,All,15-17,15149,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,All,18-19,10301,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,All,20-24,26179,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,All,25-29,26243,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,All,30-34,21350,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,All,35-44,50278,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,All,45-54,55320,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,All,5-9,18535,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,All,55-64,54451,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,All,65-74,42169,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,All,75-84,23416,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,All,85+,8463,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,All,All,386676,BLACK,Black or African American,True,Black or African American
 72,Puerto Rico,Female,0-4,6485,BLACK,Black or African American,True,Black or African American
 72,Puerto Rico,Female,10-14,10210,BLACK,Black or African American,True,Black or African American
 72,Puerto Rico,Female,15-17,7230,BLACK,Black or African American,True,Black or African American
@@ -580,7 +667,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Female,65-74,21888,BLACK,Black or African American,True,Black or African American
 72,Puerto Rico,Female,75-84,12959,BLACK,Black or African American,True,Black or African American
 72,Puerto Rico,Female,85+,5171,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Female,Total,196027,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,Female,All,196027,BLACK,Black or African American,True,Black or African American
 72,Puerto Rico,Male,0-4,7232,BLACK,Black or African American,True,Black or African American
 72,Puerto Rico,Male,10-14,10895,BLACK,Black or African American,True,Black or African American
 72,Puerto Rico,Male,15-17,7919,BLACK,Black or African American,True,Black or African American
@@ -595,22 +682,22 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Male,65-74,20281,BLACK,Black or African American,True,Black or African American
 72,Puerto Rico,Male,75-84,10457,BLACK,Black or African American,True,Black or African American
 72,Puerto Rico,Male,85+,3292,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Male,Total,190649,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Total,0-4,13717,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Total,10-14,21105,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Total,15-17,15149,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Total,18-19,10301,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Total,20-24,26179,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Total,25-29,26243,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Total,30-34,21350,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Total,35-44,50278,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Total,45-54,55320,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Total,5-9,18535,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Total,55-64,54451,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Total,65-74,42169,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Total,75-84,23416,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Total,85+,8463,BLACK,Black or African American,True,Black or African American
-72,Puerto Rico,Total,Total,386676,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,Male,All,190649,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,All,0-4,142015,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,All,10-14,196664,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,All,15-17,128543,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,All,18-19,90789,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,All,20-24,229906,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,All,25-29,218389,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,All,30-34,188563,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,All,35-44,406847,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,All,45-54,429354,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,All,5-9,173188,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,All,55-64,424585,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,All,65-74,358724,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,All,75-84,210220,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,All,85+,78132,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,All,All,3275919,HISP,Hispanic or Latino,True,Hispanic or Latino
 72,Puerto Rico,Female,0-4,69358,HISP,Hispanic or Latino,True,Hispanic or Latino
 72,Puerto Rico,Female,10-14,96253,HISP,Hispanic or Latino,True,Hispanic or Latino
 72,Puerto Rico,Female,15-17,62695,HISP,Hispanic or Latino,True,Hispanic or Latino
@@ -625,7 +712,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Female,65-74,197286,HISP,Hispanic or Latino,True,Hispanic or Latino
 72,Puerto Rico,Female,75-84,120073,HISP,Hispanic or Latino,True,Hispanic or Latino
 72,Puerto Rico,Female,85+,48942,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Female,Total,1720064,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,Female,All,1720064,HISP,Hispanic or Latino,True,Hispanic or Latino
 72,Puerto Rico,Male,0-4,72657,HISP,Hispanic or Latino,True,Hispanic or Latino
 72,Puerto Rico,Male,10-14,100411,HISP,Hispanic or Latino,True,Hispanic or Latino
 72,Puerto Rico,Male,15-17,65848,HISP,Hispanic or Latino,True,Hispanic or Latino
@@ -640,22 +727,22 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Male,65-74,161438,HISP,Hispanic or Latino,True,Hispanic or Latino
 72,Puerto Rico,Male,75-84,90147,HISP,Hispanic or Latino,True,Hispanic or Latino
 72,Puerto Rico,Male,85+,29190,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Male,Total,1555855,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Total,0-4,142015,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Total,10-14,196664,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Total,15-17,128543,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Total,18-19,90789,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Total,20-24,229906,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Total,25-29,218389,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Total,30-34,188563,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Total,35-44,406847,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Total,45-54,429354,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Total,5-9,173188,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Total,55-64,424585,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Total,65-74,358724,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Total,75-84,210220,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Total,85+,78132,HISP,Hispanic or Latino,True,Hispanic or Latino
-72,Puerto Rico,Total,Total,3275919,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,Male,All,1555855,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,All,0-4,7935,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,All,10-14,12010,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,All,15-17,7587,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,All,18-19,5176,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,All,20-24,11896,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,All,25-29,12845,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,All,30-34,11485,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,All,35-44,24286,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,All,45-54,22329,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,All,5-9,11168,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,All,55-64,20812,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,All,65-74,15969,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,All,75-84,8915,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,All,85+,3236,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,All,All,175649,MULTI,Two or more races,True,Two or more races
 72,Puerto Rico,Female,0-4,3712,MULTI,Two or more races,True,Two or more races
 72,Puerto Rico,Female,10-14,6058,MULTI,Two or more races,True,Two or more races
 72,Puerto Rico,Female,15-17,3287,MULTI,Two or more races,True,Two or more races
@@ -670,7 +757,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Female,65-74,8594,MULTI,Two or more races,True,Two or more races
 72,Puerto Rico,Female,75-84,5132,MULTI,Two or more races,True,Two or more races
 72,Puerto Rico,Female,85+,1968,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Female,Total,89389,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,Female,All,89389,MULTI,Two or more races,True,Two or more races
 72,Puerto Rico,Male,0-4,4223,MULTI,Two or more races,True,Two or more races
 72,Puerto Rico,Male,10-14,5952,MULTI,Two or more races,True,Two or more races
 72,Puerto Rico,Male,15-17,4300,MULTI,Two or more races,True,Two or more races
@@ -685,22 +772,22 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Male,65-74,7375,MULTI,Two or more races,True,Two or more races
 72,Puerto Rico,Male,75-84,3783,MULTI,Two or more races,True,Two or more races
 72,Puerto Rico,Male,85+,1268,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Male,Total,86260,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Total,0-4,7935,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Total,10-14,12010,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Total,15-17,7587,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Total,18-19,5176,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Total,20-24,11896,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Total,25-29,12845,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Total,30-34,11485,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Total,35-44,24286,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Total,45-54,22329,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Total,5-9,11168,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Total,55-64,20812,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Total,65-74,15969,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Total,75-84,8915,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Total,85+,3236,MULTI,Two or more races,True,Two or more races
-72,Puerto Rico,Total,Total,175649,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,Male,All,86260,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,All,0-4,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,All,10-14,21,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,All,15-17,47,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,All,18-19,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,All,20-24,89,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,All,25-29,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,All,30-34,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,All,35-44,27,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,All,45-54,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,All,5-9,22,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,All,55-64,41,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,All,65-74,22,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,All,75-84,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,All,85+,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,All,All,269,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 72,Puerto Rico,Female,0-4,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 72,Puerto Rico,Female,10-14,21,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 72,Puerto Rico,Female,15-17,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
@@ -715,7 +802,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Female,65-74,16,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 72,Puerto Rico,Female,75-84,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 72,Puerto Rico,Female,85+,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Female,Total,121,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,Female,All,121,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 72,Puerto Rico,Male,0-4,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 72,Puerto Rico,Male,10-14,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 72,Puerto Rico,Male,15-17,47,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
@@ -730,139 +817,67 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Male,65-74,6,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 72,Puerto Rico,Male,75-84,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 72,Puerto Rico,Male,85+,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Male,Total,148,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Total,0-4,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Total,10-14,21,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Total,15-17,47,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Total,18-19,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Total,20-24,89,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Total,25-29,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Total,30-34,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Total,35-44,27,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Total,45-54,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Total,5-9,22,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Total,55-64,41,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Total,65-74,22,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Total,75-84,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Total,85+,0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Total,Total,269,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-72,Puerto Rico,Female,0-4,11656,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Female,10-14,17982,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Female,15-17,11777,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Female,18-19,9100,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Female,20-24,19999,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Female,25-29,19185,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Female,30-34,17445,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Female,35-44,38203,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Female,45-54,39500,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Female,5-9,16202,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Female,55-64,34574,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Female,65-74,27829,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Female,75-84,15753,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Female,85+,5634,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Female,Total,284839,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Male,0-4,12260,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Male,10-14,18813,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Male,15-17,11878,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Male,18-19,8807,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Male,20-24,23168,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Male,25-29,17645,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Male,30-34,16490,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Male,35-44,34009,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Male,45-54,37030,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Male,5-9,16582,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Male,55-64,31842,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Male,65-74,24712,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Male,75-84,12955,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Male,85+,3734,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Male,Total,269925,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Total,0-4,23916,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Total,10-14,36795,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Total,15-17,23655,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Total,18-19,17907,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Total,20-24,43167,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Total,25-29,36830,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Total,30-34,33935,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Total,35-44,72212,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Total,45-54,76530,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Total,5-9,32784,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Total,55-64,66416,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Total,65-74,52541,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Total,75-84,28708,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Total,85+,9368,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Total,Total,554764,OTHER_STANDARD,Some other race,True,Some other race
-72,Puerto Rico,Female,0-4,70047,TOTAL,Total,,Total
-72,Puerto Rico,Female,10-14,97680,TOTAL,Total,,Total
-72,Puerto Rico,Female,15-17,63478,TOTAL,Total,,Total
-72,Puerto Rico,Female,18-19,44951,TOTAL,Total,,Total
-72,Puerto Rico,Female,20-20,24715,TOTAL,Total,,Total
-72,Puerto Rico,Female,21-21,23950,TOTAL,Total,,Total
-72,Puerto Rico,Female,22-24,65949,TOTAL,Total,,Total
-72,Puerto Rico,Female,25-29,111738,TOTAL,Total,,Total
-72,Puerto Rico,Female,30-34,99643,TOTAL,Total,,Total
-72,Puerto Rico,Female,35-39,107961,TOTAL,Total,,Total
-72,Puerto Rico,Female,40-44,109078,TOTAL,Total,,Total
-72,Puerto Rico,Female,45-49,112383,TOTAL,Total,,Total
-72,Puerto Rico,Female,5-9,86264,TOTAL,Total,,Total
-72,Puerto Rico,Female,50-54,119636,TOTAL,Total,,Total
-72,Puerto Rico,Female,55-59,115948,TOTAL,Total,,Total
-72,Puerto Rico,Female,60-61,47753,TOTAL,Total,,Total
-72,Puerto Rico,Female,62-64,69508,TOTAL,Total,,Total
-72,Puerto Rico,Female,65-66,42423,TOTAL,Total,,Total
-72,Puerto Rico,Female,67-69,64035,TOTAL,Total,,Total
-72,Puerto Rico,Female,70-74,92647,TOTAL,Total,,Total
-72,Puerto Rico,Female,75-79,70601,TOTAL,Total,,Total
-72,Puerto Rico,Female,80-84,50218,TOTAL,Total,,Total
-72,Puerto Rico,Female,85+,49523,TOTAL,Total,,Total
-72,Puerto Rico,Female,Total,1740129,TOTAL,Total,,Total
-72,Puerto Rico,Male,0-4,73576,TOTAL,Total,,Total
-72,Puerto Rico,Male,10-14,101828,TOTAL,Total,,Total
-72,Puerto Rico,Male,15-17,66530,TOTAL,Total,,Total
-72,Puerto Rico,Male,18-19,46627,TOTAL,Total,,Total
-72,Puerto Rico,Male,20-20,25468,TOTAL,Total,,Total
-72,Puerto Rico,Male,21-21,25517,TOTAL,Total,,Total
-72,Puerto Rico,Male,22-24,66965,TOTAL,Total,,Total
-72,Puerto Rico,Male,25-29,109507,TOTAL,Total,,Total
-72,Puerto Rico,Male,30-34,92308,TOTAL,Total,,Total
-72,Puerto Rico,Male,35-39,95123,TOTAL,Total,,Total
-72,Puerto Rico,Male,40-44,100369,TOTAL,Total,,Total
-72,Puerto Rico,Male,45-49,100890,TOTAL,Total,,Total
-72,Puerto Rico,Male,5-9,88943,TOTAL,Total,,Total
-72,Puerto Rico,Male,50-54,103361,TOTAL,Total,,Total
-72,Puerto Rico,Male,55-59,101004,TOTAL,Total,,Total
-72,Puerto Rico,Male,60-61,40567,TOTAL,Total,,Total
-72,Puerto Rico,Male,62-64,55446,TOTAL,Total,,Total
-72,Puerto Rico,Male,65-66,36606,TOTAL,Total,,Total
-72,Puerto Rico,Male,67-69,52351,TOTAL,Total,,Total
-72,Puerto Rico,Male,70-74,74453,TOTAL,Total,,Total
-72,Puerto Rico,Male,75-79,54829,TOTAL,Total,,Total
-72,Puerto Rico,Male,80-84,36569,TOTAL,Total,,Total
-72,Puerto Rico,Male,85+,29481,TOTAL,Total,,Total
-72,Puerto Rico,Male,Total,1578318,TOTAL,Total,,Total
-72,Puerto Rico,Total,0-4,143623,TOTAL,Total,,Total
-72,Puerto Rico,Total,10-14,199508,TOTAL,Total,,Total
-72,Puerto Rico,Total,15-17,130008,TOTAL,Total,,Total
-72,Puerto Rico,Total,18-19,91578,TOTAL,Total,,Total
-72,Puerto Rico,Total,20-20,50183,TOTAL,Total,,Total
-72,Puerto Rico,Total,21-21,49467,TOTAL,Total,,Total
-72,Puerto Rico,Total,22-24,132914,TOTAL,Total,,Total
-72,Puerto Rico,Total,25-29,221245,TOTAL,Total,,Total
-72,Puerto Rico,Total,30-34,191951,TOTAL,Total,,Total
-72,Puerto Rico,Total,35-39,203084,TOTAL,Total,,Total
-72,Puerto Rico,Total,40-44,209447,TOTAL,Total,,Total
-72,Puerto Rico,Total,45-49,213273,TOTAL,Total,,Total
-72,Puerto Rico,Total,5-9,175207,TOTAL,Total,,Total
-72,Puerto Rico,Total,50-54,222997,TOTAL,Total,,Total
-72,Puerto Rico,Total,55-59,216952,TOTAL,Total,,Total
-72,Puerto Rico,Total,60-61,88320,TOTAL,Total,,Total
-72,Puerto Rico,Total,62-64,124954,TOTAL,Total,,Total
-72,Puerto Rico,Total,65-66,79029,TOTAL,Total,,Total
-72,Puerto Rico,Total,67-69,116386,TOTAL,Total,,Total
-72,Puerto Rico,Total,70-74,167100,TOTAL,Total,,Total
-72,Puerto Rico,Total,75-79,125430,TOTAL,Total,,Total
-72,Puerto Rico,Total,80-84,86787,TOTAL,Total,,Total
-72,Puerto Rico,Total,85+,79004,TOTAL,Total,,Total
-72,Puerto Rico,Total,Total,3318447,TOTAL,Total,,Total
+72,Puerto Rico,Male,All,148,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,All,0-4,23916,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,All,10-14,36795,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,All,15-17,23655,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,All,18-19,17907,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,All,20-24,43167,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,All,25-29,36830,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,All,30-34,33935,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,All,35-44,72212,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,All,45-54,76530,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,All,5-9,32784,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,All,55-64,66416,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,All,65-74,52541,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,All,75-84,28708,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,All,85+,9368,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,All,All,554764,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Female,0-4,11656,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Female,10-14,17982,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Female,15-17,11777,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Female,18-19,9100,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Female,20-24,19999,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Female,25-29,19185,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Female,30-34,17445,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Female,35-44,38203,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Female,45-54,39500,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Female,5-9,16202,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Female,55-64,34574,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Female,65-74,27829,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Female,75-84,15753,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Female,85+,5634,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Female,All,284839,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Male,0-4,12260,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Male,10-14,18813,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Male,15-17,11878,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Male,18-19,8807,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Male,20-24,23168,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Male,25-29,17645,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Male,30-34,16490,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Male,35-44,34009,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Male,45-54,37030,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Male,5-9,16582,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Male,55-64,31842,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Male,65-74,24712,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Male,75-84,12955,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Male,85+,3734,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,Male,All,269925,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
+72,Puerto Rico,All,0-4,97585,WHITE,White,True,White
+72,Puerto Rico,All,10-14,128802,WHITE,White,True,White
+72,Puerto Rico,All,15-17,83145,WHITE,White,True,White
+72,Puerto Rico,All,18-19,57865,WHITE,White,True,White
+72,Puerto Rico,All,20-24,150555,WHITE,White,True,White
+72,Puerto Rico,All,25-29,144394,WHITE,White,True,White
+72,Puerto Rico,All,30-34,124306,WHITE,White,True,White
+72,Puerto Rico,All,35-44,263513,WHITE,White,True,White
+72,Puerto Rico,All,45-54,280023,WHITE,White,True,White
+72,Puerto Rico,All,5-9,111900,WHITE,White,True,White
+72,Puerto Rico,All,55-64,286778,WHITE,White,True,White
+72,Puerto Rico,All,65-74,250709,WHITE,White,True,White
+72,Puerto Rico,All,75-84,150701,WHITE,White,True,White
+72,Puerto Rico,All,85+,57738,WHITE,White,True,White
+72,Puerto Rico,All,All,2188014,WHITE,White,True,White
 72,Puerto Rico,Female,0-4,47928,WHITE,White,True,White
 72,Puerto Rico,Female,10-14,62860,WHITE,White,True,White
 72,Puerto Rico,Female,15-17,40859,WHITE,White,True,White
@@ -877,7 +892,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Female,65-74,140072,WHITE,White,True,White
 72,Puerto Rico,Female,75-84,86735,WHITE,White,True,White
 72,Puerto Rico,Female,85+,36630,WHITE,White,True,White
-72,Puerto Rico,Female,Total,1161940,WHITE,White,True,White
+72,Puerto Rico,Female,All,1161940,WHITE,White,True,White
 72,Puerto Rico,Male,0-4,49657,WHITE,White,True,White
 72,Puerto Rico,Male,10-14,65942,WHITE,White,True,White
 72,Puerto Rico,Male,15-17,42286,WHITE,White,True,White
@@ -892,22 +907,22 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Male,65-74,110637,WHITE,White,True,White
 72,Puerto Rico,Male,75-84,63966,WHITE,White,True,White
 72,Puerto Rico,Male,85+,21108,WHITE,White,True,White
-72,Puerto Rico,Male,Total,1026074,WHITE,White,True,White
-72,Puerto Rico,Total,0-4,97585,WHITE,White,True,White
-72,Puerto Rico,Total,10-14,128802,WHITE,White,True,White
-72,Puerto Rico,Total,15-17,83145,WHITE,White,True,White
-72,Puerto Rico,Total,18-19,57865,WHITE,White,True,White
-72,Puerto Rico,Total,20-24,150555,WHITE,White,True,White
-72,Puerto Rico,Total,25-29,144394,WHITE,White,True,White
-72,Puerto Rico,Total,30-34,124306,WHITE,White,True,White
-72,Puerto Rico,Total,35-44,263513,WHITE,White,True,White
-72,Puerto Rico,Total,45-54,280023,WHITE,White,True,White
-72,Puerto Rico,Total,5-9,111900,WHITE,White,True,White
-72,Puerto Rico,Total,55-64,286778,WHITE,White,True,White
-72,Puerto Rico,Total,65-74,250709,WHITE,White,True,White
-72,Puerto Rico,Total,75-84,150701,WHITE,White,True,White
-72,Puerto Rico,Total,85+,57738,WHITE,White,True,White
-72,Puerto Rico,Total,Total,2188014,WHITE,White,True,White
+72,Puerto Rico,Male,All,1026074,WHITE,White,True,White
+72,Puerto Rico,All,0-4,1340,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,All,10-14,2045,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,All,15-17,1194,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,All,18-19,672,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,All,20-24,1969,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,All,25-29,2025,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,All,30-34,2331,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,All,35-44,4141,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,All,45-54,5038,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,All,5-9,1458,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,All,55-64,4433,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,All,65-74,2911,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,All,75-84,1564,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,All,85+,602,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,All,All,31723,WHITE_NH,White,False,White (Non-Hispanic)
 72,Puerto Rico,Female,0-4,544,WHITE_NH,White,False,White (Non-Hispanic)
 72,Puerto Rico,Female,10-14,956,WHITE_NH,White,False,White (Non-Hispanic)
 72,Puerto Rico,Female,15-17,653,WHITE_NH,White,False,White (Non-Hispanic)
@@ -922,7 +937,7 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Female,65-74,1343,WHITE_NH,White,False,White (Non-Hispanic)
 72,Puerto Rico,Female,75-84,578,WHITE_NH,White,False,White (Non-Hispanic)
 72,Puerto Rico,Female,85+,316,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Female,Total,14952,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,Female,All,14952,WHITE_NH,White,False,White (Non-Hispanic)
 72,Puerto Rico,Male,0-4,796,WHITE_NH,White,False,White (Non-Hispanic)
 72,Puerto Rico,Male,10-14,1089,WHITE_NH,White,False,White (Non-Hispanic)
 72,Puerto Rico,Male,15-17,541,WHITE_NH,White,False,White (Non-Hispanic)
@@ -937,19 +952,4 @@ state_fips,state_name,sex,age,population,race_category_id,race,race_includes_his
 72,Puerto Rico,Male,65-74,1568,WHITE_NH,White,False,White (Non-Hispanic)
 72,Puerto Rico,Male,75-84,986,WHITE_NH,White,False,White (Non-Hispanic)
 72,Puerto Rico,Male,85+,286,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Male,Total,16771,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Total,0-4,1340,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Total,10-14,2045,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Total,15-17,1194,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Total,18-19,672,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Total,20-24,1969,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Total,25-29,2025,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Total,30-34,2331,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Total,35-44,4141,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Total,45-54,5038,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Total,5-9,1458,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Total,55-64,4433,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Total,65-74,2911,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Total,75-84,1564,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Total,85+,602,WHITE_NH,White,False,White (Non-Hispanic)
-72,Puerto Rico,Total,Total,31723,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,Male,All,16771,WHITE_NH,White,False,White (Non-Hispanic)

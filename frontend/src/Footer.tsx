@@ -7,21 +7,26 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import ArrowUpwardRoundedIcon from "@material-ui/icons/ArrowUpwardRounded";
 import { Button } from "@material-ui/core";
+import { ReactRouterLinkButton } from "./utils/urlutils";
 import {
   EXPLORE_DATA_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
   TERMS_OF_USE_PAGE_LINK,
-  ReactRouterLinkButton,
   FAQ_TAB_LINK,
   CONTACT_TAB_LINK,
-} from "./utils/urlutils";
+} from "./utils/internalRoutes";
 import AppbarLogo from "./assets/AppbarLogo.png";
 import PartnerSatcher from "./assets/PartnerSatcher.png";
+import { urlMap } from "./utils/externalUrls";
+
+export function currentYear(): number {
+  return new Date().getFullYear();
+}
 
 function Footer() {
   return (
     <div className={styles.Footer}>
-      <Grid container justify="space-around" alignItems="center">
+      <Grid container justifyContent="space-around" alignItems="center">
         <Grid item xs={12} sm={12} lg={6} xl={4} className={styles.FooterGrid}>
           <Logos />
         </Grid>
@@ -37,7 +42,7 @@ function Footer() {
         >
           <Grid
             className={styles.Links}
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="center"
             spacing={0}
             container
@@ -57,14 +62,20 @@ function Footer() {
               />
             ))}
           </Grid>
+          {/* DESKTOP */}
           <Hidden xsDown>
-            <Grid item container justify="flex-end">
-              <span className={styles.CopyrightSpan}>&copy;2021</span>
+            <Grid item container justifyContent="flex-end">
+              <span className={styles.CopyrightSpan}>
+                &copy;{currentYear()}
+              </span>
             </Grid>
           </Hidden>
+          {/* MOBILE */}
           <Hidden smUp>
-            <Grid item container justify="center">
-              <span className={styles.CopyrightSpan}>&copy;2021</span>
+            <Grid item container justifyContent="center">
+              <span className={styles.CopyrightSpan}>
+                &copy;{currentYear()}
+              </span>
             </Grid>
           </Hidden>
         </Grid>
@@ -78,9 +89,9 @@ function Footer() {
           lg={12}
           xl={1}
           alignItems="center"
-          justify="center"
+          justifyContent="center"
         >
-          <Grid item container justify="center">
+          <Grid item container justifyContent="center">
             <ReturnToTop />
           </Grid>
         </Grid>
@@ -91,36 +102,35 @@ function Footer() {
 
 function Logos() {
   return (
-    <Grid item container spacing={2} justify="center">
+    <Grid item container spacing={2} justifyContent="center">
       <Grid
         container
         item
         xs={10}
         sm={5}
         alignItems="center"
-        justify="center"
+        justifyContent="center"
         wrap="nowrap"
       >
-        <Grid item className={styles.LogosLeft}>
-          <ReactRouterLinkButton url="/" className={styles.ImageButton}>
+        <Grid item>
+          <ReactRouterLinkButton url="/">
             <img
               src={AppbarLogo}
               className={styles.FooterLogo}
               alt="Health Equity Tracker logo"
-              role="link"
             />
           </ReactRouterLinkButton>
         </Grid>
-        <Grid item className={styles.LogosRight}>
-          <Grid container justify="flex-start" alignItems="flex-start">
+        <Grid item>
+          <Grid container justifyContent="flex-start" alignItems="flex-start">
             <Grid item xs={12}>
               <span className={styles.FooterTitleSpan} aria-hidden="true">
                 Health Equity Tracker
               </span>
-              <Grid container justify="center">
+              <Grid container justifyContent="center">
                 <Grid item className={styles.SocialsIcon}>
                   <a
-                    href="https://www.linkedin.com/in/satcherhealth"
+                    href={urlMap.shliLinkedIn}
                     aria-label="Satcher Health on LinkedIn"
                   >
                     <LinkedInIcon />
@@ -128,7 +138,7 @@ function Logos() {
                 </Grid>
                 <Grid item className={styles.SocialsIcon}>
                   <a
-                    href="https://twitter.com/SatcherHealth"
+                    href={urlMap.shliTwitter}
                     aria-label="Satcher Health on Twitter"
                   >
                     <TwitterIcon />
@@ -136,7 +146,7 @@ function Logos() {
                 </Grid>
                 <Grid item className={styles.SocialsIcon}>
                   <a
-                    href="https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA"
+                    href={urlMap.shliYoutube}
                     aria-label="Satcher Health on YouTube"
                   >
                     <YouTubeIcon />
@@ -147,12 +157,18 @@ function Logos() {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={10} sm={5} container justify="center" alignItems="center">
-        <ReactRouterLinkButton url="https://satcherinstitute.org">
+      <Grid
+        item
+        xs={10}
+        sm={5}
+        container
+        justifyContent="center"
+        alignItems="center"
+      >
+        <ReactRouterLinkButton url={urlMap.shli}>
           <img
             src={PartnerSatcher}
             alt="Satcher Health Leadership Institute Logo"
-            role="link"
             height={60}
             width={216}
           />

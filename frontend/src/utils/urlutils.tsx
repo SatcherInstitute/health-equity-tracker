@@ -1,41 +1,13 @@
 import Button from "@material-ui/core/Button";
+import axios from "axios";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { VariableId } from "../data/config/MetricConfig";
 import { getLogger } from "./globals";
+import { EXPLORE_DATA_PAGE_LINK } from "./internalRoutes";
 import { MadLibId, PhraseSelections } from "./MadLibs";
 
 export const STICKY_VERSION_PARAM = "sv";
-
-// PAGE URLS
-export const HET_URL = "https://healthequitytracker.org";
-
-export const EXPLORE_DATA_PAGE_LINK = "/exploredata";
-export const DATA_CATALOG_PAGE_LINK = "/datacatalog";
-export const ABOUT_US_PAGE_LINK = "/aboutus";
-export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = "/whatishealthequity";
-export const TERMS_OF_USE_PAGE_LINK = "/termsofuse";
-
-// TAB URLS
-export const FAQ_TAB_LINK = "/faqs";
-export const RESOURCES_TAB_LINK = "/resources";
-export const METHODOLOGY_TAB_LINK = "/methodology";
-export const CONTACT_TAB_LINK = "/contact";
-export const ABOUT_TAB_LINK = "/about";
-export const OURTEAM_TAB_LINK = "/ourteam";
-
-// TRACKER SETTINGS
-export const COVID_CASES_US_SETTING = "?mls=1.covid-3.00";
-export const COVID_VAX_US_SETTING = "?mls=1.vaccinations-3.00";
-export const COPD_US_SETTING = "?mls=1.copd-3.00";
-export const DIABETES_US_SETTING = "?mls=1.diabetes-3.00";
-export const UNINSURANCE_US_SETTING = "?mls=1.health_insurance-3.00";
-export const POVERTY_US_SETTING = "?mls=1.poverty-3.00";
-
-// SECTION IDS
-export const WHAT_DATA_ARE_MISSING_ID = "missingDataInfo";
-export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
-  EXPLORE_DATA_PAGE_LINK + "#" + WHAT_DATA_ARE_MISSING_ID;
-export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
 
 // Value is a comma-separated list of dataset ids. Dataset ids cannot have
 // commas in them.
@@ -59,7 +31,53 @@ export const DEMOGRAPHIC_PARAM = "demo";
 export const DATA_TYPE_1_PARAM = "dt1";
 export const DATA_TYPE_2_PARAM = "dt2";
 
-export function useQuery() {
+// Ensures backwards compatibility for external links to old VariableIds
+export function swapOldParams(oldParam: string) {
+  const swaps: Record<string, VariableId> = {
+    deaths: "covid_deaths",
+    cases: "covid_cases",
+    hospitalizations: "covid_hospitalizations",
+    vaccinations: "covid_vaccinations",
+  };
+  return swaps[oldParam] || oldParam;
+}
+
+// WORDPRESS CONFIG
+export const NEWS_URL = "https://hetblog.dreamhosters.com/";
+export const WP_API = "wp-json/wp/v2/"; // "?rest_route=/wp/v2/"
+export const ALL_POSTS = "posts";
+export const ALL_MEDIA = "media";
+export const ALL_CATEGORIES = "categories";
+export const ALL_AUTHORS = "authors";
+export const ALL_PAGES = "pages"; // for dynamic copy
+export const WP_EMBED_PARAM = "_embed";
+export const WP_PER_PAGE_PARAM = "per_page=";
+export const MAX_FETCH = 100;
+
+// PAGE IDS FOR WORDPRESS DYNAMIC COPY
+export const WIHE_PAGE_ID = 37; // hard coded id where dynamic copy is stored
+
+// REACT QUERY
+export const ARTICLES_KEY = "cached_wp_articles";
+export const DYNAMIC_COPY_KEY = "cached_wp_dynamic_copy";
+export const REACT_QUERY_OPTIONS = {
+  cacheTime: Infinity, // never garbage collect, always default to cache
+  staleTime: 1000 * 2, // treat cache data as fresh and dont refetch
+};
+
+export async function fetchNewsData() {
+  return await axios.get(
+    `${
+      NEWS_URL + WP_API + ALL_POSTS
+    }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
+  );
+}
+
+export async function fetchCopyData() {
+  return await axios.get(`${NEWS_URL + WP_API + ALL_PAGES}/${WIHE_PAGE_ID}`);
+}
+
+export function useUrlSearchParams() {
   return new URLSearchParams(useLocation().search);
 }
 
@@ -163,7 +181,7 @@ export function setParameters(paramMap: ParamKeyValue[]) {
 }
 
 const defaultHandler = <T extends unknown>(inp: string | null): T => {
-  return (inp as unknown) as T;
+  return inp as unknown as T;
 };
 
 export function removeParamAndReturnValue<T1>(
@@ -248,3 +266,17 @@ window.onpopstate = () => {
     }
   });
 };
+
+/*
+Dumps a string of HTML into a div (or string with optional boolean)
+*/
+export function getHtml(item: any, asString?: boolean) {
+  // if div is needed
+  if (!asString)
+    return <div dangerouslySetInnerHTML={{ __html: item || "" }}></div>;
+
+  // if only string is needed, create an HTML element and then extract the text
+  const span = document.createElement("span");
+  span.innerHTML = item;
+  return span.textContent || span.innerText;
+}
