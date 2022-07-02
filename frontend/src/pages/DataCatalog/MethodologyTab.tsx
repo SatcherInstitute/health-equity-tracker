@@ -22,12 +22,6 @@ import { currentYear } from "../../Footer";
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
 function MethodologyTab() {
-  // const { enqueueSnackbar } = useSnackbar();
-
-  // function handleCopy() {
-  //   enqueueSnackbar("Citation Copied.");
-  // }
-
   return (
     <>
       <Helmet>

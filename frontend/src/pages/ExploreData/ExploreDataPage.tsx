@@ -36,6 +36,7 @@ import { useLocation } from "react-router-dom";
 import { srSpeak } from "../../utils/a11yutils";
 import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
+import { useSnackbar } from "notistack";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -285,6 +286,16 @@ function CarouselMadLib(props: {
   madLib: MadLib;
   setMadLib: (updatedMadLib: MadLib) => void;
 }) {
+  function handleCitySwap(fips: Fips) {
+    const city = fips.getDisplayName();
+    const parentCounty = fips.getParentFips().getDisplayName();
+    enqueueSnackbar(
+      `Reports only available to the county level; showing ${parentCounty} which contains ${city}.`
+    );
+    return fips.getParentFips().code;
+  }
+  const { enqueueSnackbar } = useSnackbar();
+
   // TODO - this isn't efficient, these should be stored in an ordered way
   function getOptionsFromPhraseSegement(
     phraseSegment: PhraseSegment
@@ -316,7 +327,9 @@ function CarouselMadLib(props: {
                   value={props.madLib.activeSelections[index]}
                   onOptionUpdate={(fipsCode: string) => {
                     const fips = new Fips(fipsCode);
-                    if (fips.isCity()) fipsCode = fips.getParentFips().code;
+                    if (fips.isCity()) {
+                      fipsCode = handleCitySwap(fips);
+                    }
 
                     props.setMadLib(
                       getMadLibWithUpdatedValue(props.madLib, index, fipsCode)

@@ -31,7 +31,11 @@ persistQueryClient({
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <SnackbarProvider variant="success" preventDuplicate={true}>
+      <SnackbarProvider
+        variant="success"
+        preventDuplicate={true}
+        autoHideDuration={10000}
+      >
         <App />
       </SnackbarProvider>
     </QueryClientProvider>
