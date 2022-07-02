@@ -314,11 +314,14 @@ function CarouselMadLib(props: {
                 <OptionsSelector
                   key={index}
                   value={props.madLib.activeSelections[index]}
-                  onOptionUpdate={(fipsCode: string) =>
+                  onOptionUpdate={(fipsCode: string) => {
+                    const fips = new Fips(fipsCode);
+                    if (fips.isCity()) fipsCode = fips.getParentFips().code;
+
                     props.setMadLib(
                       getMadLibWithUpdatedValue(props.madLib, index, fipsCode)
-                    )
-                  }
+                    );
+                  }}
                   options={getOptionsFromPhraseSegement(phraseSegment)}
                 />
               )}

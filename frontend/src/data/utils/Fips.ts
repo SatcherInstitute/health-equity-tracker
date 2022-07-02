@@ -30,7 +30,7 @@ class Fips {
   code: string;
 
   constructor(code: string) {
-    if (!RegExp("^[0-9]{2}|[0-9]{5}$").test(code)) {
+    if (!RegExp("^[0-9]{2}|[0-9]{5}|[0-9]{10}$").test(code)) {
       throw new Error("Invalid FIPS code");
     }
     this.code = code;
@@ -41,7 +41,7 @@ class Fips {
   }
 
   isStateOrTerritory() {
-    return !this.isCounty() && !this.isUsa();
+    return this.code.length === 2 && !this.isUsa();
   }
 
   isState() {
@@ -60,6 +60,10 @@ class Fips {
     return this.code.length === 5;
   }
 
+  isCity() {
+    return this.code.length === 10;
+  }
+
   getFipsTypeDisplayName() {
     if (this.isUsa()) {
       return "national";
@@ -69,6 +73,8 @@ class Fips {
       return "territory";
     } else if (this.isCounty()) {
       return "county";
+    } else if (this.isCity()) {
+      return "city";
     } else {
       return "";
     }
@@ -98,20 +104,29 @@ class Fips {
     }
   }
 
-  getDisplayName() {
+  getDisplayName(): string {
     // USA or STATE
-    if (!this.isCounty()) return STATE_FIPS_MAP[this.code];
+    if (this.isStateOrTerritory() || this.isUsa())
+      return STATE_FIPS_MAP[this.code];
     // COUNTY EQUIVALENTS (FROM TERRITORIES)
     if (this.getParentFips().isTerritory())
       return `${COUNTY_FIPS_MAP[this.code]}`;
     // COUNTIES (with the word COUNTY added as needed)
-    const optionalCounty =
-      COUNTY_FIPS_MAP[this.code].includes("Borough") ||
-      COUNTY_FIPS_MAP[this.code].includes("Area") ||
-      COUNTY_FIPS_MAP[this.code].includes("District")
-        ? ""
-        : " County";
-    return `${COUNTY_FIPS_MAP[this.code]}${optionalCounty}`;
+    if (this.isCounty()) {
+      const optionalCounty =
+        COUNTY_FIPS_MAP[this.code].includes("Borough") ||
+        COUNTY_FIPS_MAP[this.code].includes("Area") ||
+        COUNTY_FIPS_MAP[this.code].includes("District")
+          ? ""
+          : " County";
+      return `${COUNTY_FIPS_MAP[this.code]}${optionalCounty}`;
+    }
+    if (this.isCity()) {
+      return `${CITY_FIPS_MAP[this.code]}, ${this.getParentFips()
+        .getParentFips()
+        .getDisplayName()}`;
+    }
+    return "";
   }
 
   getFullDisplayName() {
@@ -128,14 +143,26 @@ class Fips {
     return STATE_FIPS_MAP[this.getStateFipsCode()];
   }
 
-  getParentFips() {
-    return this.isCounty()
-      ? new Fips(this.code.substring(0, 2))
-      : new Fips(USA_FIPS);
+  getCountyFipsCode() {
+    return this.code.substring(0, 5);
   }
 
-  isParentOf(countyFipsCode: string) {
-    return countyFipsCode.substring(0, 2) === this.code;
+  getCountyDisplayName() {
+    return COUNTY_FIPS_MAP[this.getCountyFipsCode()];
+  }
+
+  getParentFips() {
+    if (this.isStateOrTerritory()) return new Fips(USA_FIPS);
+    if (this.isCounty()) return new Fips(this.getStateFipsCode());
+    if (this.isCity()) return new Fips(this.getCountyFipsCode());
+    return new Fips(USA_FIPS);
+  }
+
+  isParentOf(cityOrCountyFipsCode: string) {
+    return (
+      cityOrCountyFipsCode.substring(0, 2) === this.code ||
+      cityOrCountyFipsCode.substring(0, 5) === this.code
+    );
   }
 }
 
@@ -3432,4 +3459,14 @@ export const COUNTY_FIPS_MAP: Record<string, string> = {
   "78030": "St. Thomas",
 };
 
-export const FIPS_MAP = { ...STATE_FIPS_MAP, ...COUNTY_FIPS_MAP };
+export const CITY_FIPS_MAP: Record<string, string> = {
+  "0803120000": "Denver",
+  "0811720440": "Dillon",
+  "0811708400": "Breckenridge",
+};
+
+export const FIPS_MAP = {
+  ...STATE_FIPS_MAP,
+  ...COUNTY_FIPS_MAP,
+  ...CITY_FIPS_MAP,
+};

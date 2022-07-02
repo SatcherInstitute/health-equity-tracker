@@ -34,7 +34,7 @@ function OptionsSelector(props: {
     currentDisplayName = chosenOption ? chosenOption[1] : "";
   }
 
-  const [, setTextBoxValue] = useState("");
+  const [textBoxValue, setTextBoxValue] = useState("");
   const updateTextBox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTextBoxValue(event.target.value);
   };
@@ -51,9 +51,13 @@ function OptionsSelector(props: {
     if (option.isUsa()) return "National";
     if (option.isState()) return "States";
     if (option.isTerritory()) return "Territories";
-    return `${option.getParentFips().getDisplayName()} ${
-      option.getParentFips().isTerritory() ? " County Equivalents" : " Counties"
-    }`;
+    if (option.isCounty() && option.getParentFips().isState())
+      return `${option.getParentFips().getDisplayName()} Counties`;
+    if (option.isCounty() && option.getParentFips().isTerritory())
+      return `${option.getParentFips().getDisplayName()} County Equivalents`;
+    if (option.isCity())
+      return `${option.getParentFips().getDisplayName()} Places`;
+    return "";
   }
 
   return (
