@@ -286,7 +286,7 @@ function CarouselMadLib(props: {
   madLib: MadLib;
   setMadLib: (updatedMadLib: MadLib) => void;
 }) {
-  function handleCitySwap(fips: Fips) {
+  function resolveCityToCounty(fips: Fips) {
     const city = fips.getDisplayName();
     const parentCounty = fips.getParentFips().getDisplayName();
     enqueueSnackbar(
@@ -328,7 +328,7 @@ function CarouselMadLib(props: {
                   onOptionUpdate={(fipsCode: string) => {
                     const fips = new Fips(fipsCode);
                     if (fips.isCity()) {
-                      fipsCode = handleCitySwap(fips);
+                      fipsCode = resolveCityToCounty(fips);
                     }
 
                     props.setMadLib(
