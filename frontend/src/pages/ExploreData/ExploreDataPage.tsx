@@ -286,14 +286,6 @@ function CarouselMadLib(props: {
   madLib: MadLib;
   setMadLib: (updatedMadLib: MadLib) => void;
 }) {
-  function resolveCityToCounty(fips: Fips) {
-    const city = fips.getDisplayName();
-    const parentCounty = fips.getParentFips().getDisplayName();
-    enqueueSnackbar(
-      `Reports only available to the county level; showing ${parentCounty} which contains ${city}.`
-    );
-    return fips.getParentFips().code;
-  }
   const { enqueueSnackbar } = useSnackbar();
 
   // TODO - this isn't efficient, these should be stored in an ordered way
@@ -328,6 +320,15 @@ function CarouselMadLib(props: {
                   onOptionUpdate={(fipsCode: string) => {
                     const fips = new Fips(fipsCode);
                     if (fips.isCity()) {
+                      const city = fips.getDisplayName();
+                      const parentCounty = fips
+                        .getParentFips()
+                        .getDisplayName();
+
+                      enqueueSnackbar(
+                        `Reports only available to the county level; showing ${parentCounty} which contains ${city}.`
+                      );
+
                       fipsCode = resolveCityToCounty(fips);
                     }
 
@@ -347,3 +348,14 @@ function CarouselMadLib(props: {
 }
 
 export default ExploreDataPage;
+
+export function resolveCityToCounty(cityFips: Fips): string {
+  if (!cityFips.isCity()) {
+    throw new Error(
+      "Input must but a city-level FIPS object with a 10-digit code. This objects code is: " +
+        cityFips.code
+    );
+  }
+
+  return cityFips.getParentFips().code;
+}
