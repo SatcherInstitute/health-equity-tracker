@@ -329,7 +329,7 @@ function CarouselMadLib(props: {
                         `Reports only available to the county level; showing ${parentCounty} which contains ${city}.`
                       );
 
-                      fipsCode = resolveCityToCounty(fips);
+                      fipsCode = fips.getParentFips().code;
                     }
 
                     props.setMadLib(
@@ -348,14 +348,3 @@ function CarouselMadLib(props: {
 }
 
 export default ExploreDataPage;
-
-export function resolveCityToCounty(cityFips: Fips): string {
-  if (!cityFips.isCity()) {
-    throw new Error(
-      "Input must but a city-level FIPS object with a 10-digit code. This objects code is: " +
-        cityFips.code
-    );
-  }
-
-  return cityFips.getParentFips().code;
-}
