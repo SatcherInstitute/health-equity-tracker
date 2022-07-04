@@ -16,6 +16,8 @@ export const CONTACT_TAB_LINK = "/contact";
 export const OURTEAM_TAB_LINK = "/ourteam";
 export const NEWS_TAB_LINK = "/news";
 
+test.describe.configure({ mode: 'parallel' });
+
 test('WIHE Page Loads', async ({ page }) => {
 
     await page.goto(WHAT_IS_HEALTH_EQUITY_PAGE_LINK);

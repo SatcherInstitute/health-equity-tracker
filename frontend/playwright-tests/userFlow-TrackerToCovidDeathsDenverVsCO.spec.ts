@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { EXPLORE_DATA_PAGE_LINK } from './otherInternalPageRoutes.spec';
 
 const COVID_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos"
-const DEFAULT_COMPARE_GEO_MODE = "/exploredata?mls=1.covid-3.00-5.13&mlp=comparegeos"
+const DEFAULT_COMPARE_GEO_MODE = "?mls=1.covid-3.00-5.13&mlp=comparegeos"
 
 test.describe.configure({ mode: 'parallel' });
 test.describe('Tracker to COVID Deaths Comparing Geos', () => {
@@ -10,7 +10,7 @@ test.describe('Tracker to COVID Deaths Comparing Geos', () => {
     test('Default Tracker to Compare Mode', async ({ page }) => {
 
         // Landing Page Loads
-        await page.goto(EXPLORE_DATA_PAGE_LINK + DEFAULT_COMPARE_GEO_MODE, { waitUntil: "networkidle" });
+        await page.goto(EXPLORE_DATA_PAGE_LINK);
 
         // change carousel to "Compare Geo mode"
         const advanceMadlibCarouselArrowButton = await page.locator('id=onboarding-madlib-arrow')
@@ -23,8 +23,7 @@ test.describe('Tracker to COVID Deaths Comparing Geos', () => {
 
     test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
 
-        await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO, { waitUntil: "networkidle" });
-
+        await page.goto(EXPLORE_DATA_PAGE_LINK + DEFAULT_COMPARE_GEO_MODE, { waitUntil: "networkidle" });
 
         // Changing first location via madlib buttons
         const location1MadlibButton = await page.locator('#onboarding-start-your-search button:has-text("United States")')
@@ -36,7 +35,7 @@ test.describe('Tracker to COVID Deaths Comparing Geos', () => {
         const populationCard = await page.locator('id=populationCard')
         await expect(populationCard).toContainText("Denver County, Colorado")
 
-        // Changing first location via madlib buttons
+        // Changing compare location via madlib buttons
         const location2MadlibButton = await page.locator('#onboarding-start-your-search button:has-text("Georgia")')
         await location2MadlibButton.click();
 
@@ -56,7 +55,6 @@ test.describe('Tracker to COVID Deaths Comparing Geos', () => {
     test('Switch Data Types for Both Geos', async ({ page }) => {
 
         await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO, { waitUntil: "networkidle" });
-
 
         // Change both data types to COVID deaths
         await page.locator(':nth-match(:text("Deaths"), 2)').waitFor();

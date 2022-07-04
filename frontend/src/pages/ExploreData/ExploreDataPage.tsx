@@ -317,23 +317,31 @@ function CarouselMadLib(props: {
                 <OptionsSelector
                   key={index}
                   value={props.madLib.activeSelections[index]}
-                  onOptionUpdate={(fipsCode: string) => {
-                    const fips = new Fips(fipsCode);
-                    if (fips.isCity()) {
-                      const city = fips.getDisplayName();
-                      const parentCounty = fips
-                        .getParentFips()
-                        .getDisplayName();
+                  onOptionUpdate={(option: string) => {
+                    let updatedOption = option;
 
-                      enqueueSnackbar(
-                        `Reports only available to the county level; showing ${parentCounty} which contains ${city}.`
-                      );
+                    if (!isNaN(option as any)) {
+                      const fips = new Fips(option);
+                      if (fips.isCity()) {
+                        const city = fips.getDisplayName();
+                        const parentCounty = fips
+                          .getParentFips()
+                          .getDisplayName();
 
-                      fipsCode = fips.getParentFips().code;
+                        enqueueSnackbar(
+                          `Reports only available to the county level; showing ${parentCounty} which contains ${city}.`
+                        );
+
+                        updatedOption = fips.getParentFips().code;
+                      }
                     }
 
                     props.setMadLib(
-                      getMadLibWithUpdatedValue(props.madLib, index, fipsCode)
+                      getMadLibWithUpdatedValue(
+                        props.madLib,
+                        index,
+                        updatedOption
+                      )
                     );
                   }}
                   options={getOptionsFromPhraseSegement(phraseSegment)}

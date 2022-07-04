@@ -31,7 +31,7 @@ class Fips {
 
   constructor(code: string) {
     if (!RegExp("^[0-9]{2}|[0-9]{5}|[0-9]{10}$").test(code)) {
-      throw new Error("Invalid FIPS code");
+      throw new Error(`Invalid FIPS code: ${code}`);
     }
     this.code = code;
   }
