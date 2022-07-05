@@ -8,7 +8,6 @@ const knownFlakyUrls = [
     "https://satcherinstitute.github.io/analysis/cdc_death_data",
 ]
 
-test.describe.configure({ mode: 'parallel' });
 
 
 for (const url of Object.values(urlMap)) {

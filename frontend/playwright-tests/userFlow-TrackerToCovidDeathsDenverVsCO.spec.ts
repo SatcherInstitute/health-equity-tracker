@@ -4,7 +4,6 @@ import { EXPLORE_DATA_PAGE_LINK } from './otherInternalPageRoutes.spec';
 const COVID_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos"
 const DEFAULT_COMPARE_GEO_MODE = "?mls=1.covid-3.00-5.13&mlp=comparegeos"
 
-test.describe.configure({ mode: 'parallel' });
 
 test.describe('Tracker to COVID Deaths Comparing Geos', () => {
 
