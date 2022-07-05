@@ -27,7 +27,8 @@ const config: PlaywrightTestConfig = {
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
-    headless: process.env.CI ? true : false,
+    // headless: process.env.CI ? true : false,
+    headless: true,
     launchOptions: {
       slowMo: process.env.CI ? 0 : 1000,
     },

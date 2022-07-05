@@ -16,6 +16,7 @@ export const CONTACT_TAB_LINK = "/contact";
 export const OURTEAM_TAB_LINK = "/ourteam";
 export const NEWS_TAB_LINK = "/news";
 
+test.describe.configure({ mode: 'parallel' });
 
 test('WIHE Page Loads', async ({ page }) => {
 
