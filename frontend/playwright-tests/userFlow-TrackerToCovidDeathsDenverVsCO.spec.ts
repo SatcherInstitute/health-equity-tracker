@@ -63,20 +63,20 @@ test.describe('Tracker to COVID Deaths Comparing Geos', () => {
         const deathsToggleOption2 = await page.locator(':nth-match(:text("Deaths"), 2)')
         await deathsToggleOption2.click()
 
-        const missingDataLink = await page.locator('a:has-text("Read more about missing and misidentified people")')
-        await missingDataLink.click()
+        // const missingDataLink = await page.locator('a:has-text("Read more about missing and misidentified people")')
+        // await missingDataLink.click()
 
 
-        // Age-adjusted cards render
-        const ageAdjustedCard1 = await page.locator('id=age-adjusted')
-        // await ageAdjustedCard1.scrollIntoViewIfNeeded()
-        const ageAdjustedCard2 = await page.locator('id=age-adjusted2')
-        await expect(ageAdjustedCard1).toContainText("We do not currently have Age-Adjusted Risk of COVID-19 Death Compared to White (Non-Hispanic) broken down by Race And Ethnicity for Denver County")
-        await expect(ageAdjustedCard2).toContainText("Age-Adjusted Risk of COVID-19 Death Compared to White (Non-Hispanic) in Colorado")
+        // // Age-adjusted cards render
+        // const ageAdjustedCard1 = await page.locator('id=age-adjusted')
+        // // await ageAdjustedCard1.scrollIntoViewIfNeeded()
+        // const ageAdjustedCard2 = await page.locator('id=age-adjusted2')
+        // await expect(ageAdjustedCard1).toContainText("We do not currently have Age-Adjusted Risk of COVID-19 Death Compared to White (Non-Hispanic) broken down by Race And Ethnicity for Denver County")
+        // await expect(ageAdjustedCard2).toContainText("Age-Adjusted Risk of COVID-19 Death Compared to White (Non-Hispanic) in Colorado")
 
-        // Confirm no failed Vega visualizations
-        let mainChunk = await page.locator('main')
-        await expect(mainChunk).not.toContainText("Oops")
+        // // Confirm no failed Vega visualizations
+        // let mainChunk = await page.locator('main')
+        // await expect(mainChunk).not.toContainText("Oops")
 
     });
 
