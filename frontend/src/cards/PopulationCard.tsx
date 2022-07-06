@@ -148,7 +148,11 @@ export function PopulationCard(props: PopulationCardProps) {
               )}
             </Grid>
 
-            {svi && <SviAlert svi={svi} sviQueryResponse={sviQueryResponse} />}
+            <SviAlert
+              svi={svi}
+              sviQueryResponse={sviQueryResponse}
+              fips={props.fips}
+            />
 
             {props.fips.needsACS2010() && (
               <CardContent>

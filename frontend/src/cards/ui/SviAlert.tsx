@@ -2,10 +2,12 @@ import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import variables from "../../styles/variables.module.scss";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
+import { Fips } from "../../data/utils/Fips";
 
 interface SviAlertProps {
   svi: number;
   sviQueryResponse: MetricQueryResponse;
+  fips: Fips;
 }
 
 const findRating = (svi: number) => {
@@ -31,15 +33,30 @@ function SviAlert(props: SviAlertProps) {
   const color = findColor(rating);
 
   return (
-    <Alert severity="info" style={{ margin: "10px" }}>
-      This county has a social vulnerability index of <b>{props.svi}</b>; which
-      indicates a{" "}
-      <a href="testing" style={{ textDecorationColor: color }}>
-        <span style={{ color: color, fontWeight: "bold" }}>
-          {rating} level of vulernability.
-        </span>
-      </a>
-    </Alert>
+    <>
+      {props.svi > 0 ? (
+        <Alert severity="info" style={{ margin: "10px" }}>
+          This county has a social vulnerability index of <b>{props.svi}</b>;
+          which indicates a{" "}
+          <a href="testing" style={{ textDecorationColor: color }}>
+            <span style={{ color: color, fontWeight: "bold" }}>
+              {rating} level of vulernability.
+            </span>
+          </a>
+        </Alert>
+      ) : (
+        <Alert severity="warning" style={{ margin: "10px " }}>
+          We do not currently have the{" "}
+          <span style={{ fontWeight: "bold" }}>social vulnerability index</span>{" "}
+          for{" "}
+          <span style={{ fontWeight: "bold" }}>
+            {props.fips.getDisplayName()}
+          </span>
+          . Learn more about how this lack of data impacts{" "}
+          <a href="link">health equity.</a>
+        </Alert>
+      )}
+    </>
   );
 }
 
