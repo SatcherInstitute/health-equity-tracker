@@ -4,6 +4,7 @@ import { EXPLORE_DATA_PAGE_LINK } from './otherInternalPageRoutes.spec';
 const VAX_USA_RACE = `?mls=1.covid_vaccinations-3.00`
 const BY_AGE = `&demo=age`
 
+test.describe.configure({ mode: 'parallel' });
 
 test.describe('Home to COVID Vax by Age', () => {
 
@@ -27,8 +28,8 @@ test.describe('Home to COVID Vax by Age', () => {
         await expect(page).toHaveURL(`${EXPLORE_DATA_PAGE_LINK}${VAX_USA_RACE}`);
 
         // Confirm no failed Vega visualizations
-        // let mainChunk = await page.locator('main')
-        // await expect(mainChunk).not.toContainText("Oops")
+        let mainChunk = await page.locator('main')
+        await expect(mainChunk).not.toContainText("Oops")
 
         // MAP CARD contains correct title
         const mapCard = await page.locator('#map')

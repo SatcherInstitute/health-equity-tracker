@@ -21,17 +21,13 @@ const config: PlaywrightTestConfig = {
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
   /* Retry on CI only */
-  retries: process.env.CI ? 3 : 0,
+  retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI ? "github" : 'list',
-  workers: process.env.CI ? 3 : undefined,
+  workers: process.env.CI ? 8 : undefined,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
-    // headless: process.env.CI ? true : false,
     headless: true,
-    // launchOptions: {
-    //   slowMo: process.env.CI ? 0 : 1000,
-    // },
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
     baseURL: 'http://localhost:3000',
@@ -51,6 +47,7 @@ const config: PlaywrightTestConfig = {
     {
       name: 'E2E',
       testIgnore: "externalUrls.spec.ts",
+
     },
   ],
 
