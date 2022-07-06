@@ -29,9 +29,9 @@ const config: PlaywrightTestConfig = {
     browserName: 'chromium',
     // headless: process.env.CI ? true : false,
     headless: true,
-    launchOptions: {
-      slowMo: process.env.CI ? 0 : 1000,
-    },
+    // launchOptions: {
+    //   slowMo: process.env.CI ? 0 : 1000,
+    // },
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
     baseURL: 'http://localhost:3000',
