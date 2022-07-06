@@ -5,9 +5,9 @@ import time
 import ingestion.standardized_columns as std_col
 from ingestion.standardized_columns import generate_column_name
 from ingestion.standardized_columns import Race
+import ingestion.constants as constants
 
 from datasources.data_source import DataSource
-from datasources.cdc_restricted_local import generate_national_dataset
 from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import (
     generate_per_100k_col,
@@ -107,19 +107,19 @@ class CDCRestrictedData(DataSource):
             std_col.COVID_POPULATION_PCT,
         ]
 
+        df = merge_state_fips_codes(df)
+
         if geo == 'county':
             all_columns.extend(
                 [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
             df = merge_county_names(df)
+            df = null_out_all_unknown_deaths_hosps(df)
 
         if geo == 'national':
             df = merge_pop_numbers_per_condition(df, demo,
                                                  [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
                                                   std_col.COVID_DEATH_Y])
-
-            df = generate_national_dataset(df, [demo_col])
-
-        df = merge_state_fips_codes(df)
+            df = generate_national_dataset(df, demo_col)
 
         fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
 
@@ -133,14 +133,16 @@ class CDCRestrictedData(DataSource):
         df = df.rename(
             columns={std_col.POPULATION_PCT_COL: std_col.COVID_POPULATION_PCT})
 
-        df = null_out_all_unknown_deaths_hosps(df)
-
         for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
             per_100k_col = generate_column_name(
                 prefix, std_col.PER_100K_SUFFIX)
             all_columns.append(per_100k_col)
+
+            pop_col = std_col.POPULATION_COL
+            if geo == 'national':
+                pop_col = generate_column_name(raw_count_col, 'population')
             df = generate_per_100k_col(
-                df, raw_count_col, std_col.POPULATION_COL, per_100k_col)
+                df, raw_count_col, pop_col, per_100k_col)
 
         raw_count_to_pct_share = {}
         for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
@@ -228,3 +230,33 @@ def remove_bad_fips_cols(df):
 
     df = df[df.apply(fips_code_is_good, axis=1)]
     return df.reset_index(drop=True)
+
+
+def generate_national_dataset(state_df, demo_col):
+    int_cols = [
+        std_col.COVID_CASES,
+        std_col.COVID_DEATH_Y,
+        std_col.COVID_HOSP_Y,
+        generate_column_name(std_col.COVID_CASES, 'population'),
+        generate_column_name(std_col.COVID_DEATH_Y, 'population'),
+        generate_column_name(std_col.COVID_HOSP_Y, 'population'),
+    ]
+
+    state_df[int_cols] = state_df[int_cols].fillna(0)
+    state_df[int_cols] = state_df[int_cols].replace("", 0)
+    state_df[int_cols] = state_df[int_cols].astype(int)
+
+    df = state_df.groupby([demo_col]).sum().reset_index()
+
+    df[std_col.STATE_FIPS_COL] = constants.US_FIPS
+    df[std_col.STATE_NAME_COL] = constants.US_NAME
+
+    needed_cols = [
+        std_col.STATE_FIPS_COL,
+        std_col.STATE_NAME_COL,
+    ]
+
+    needed_cols.extend(int_cols)
+    needed_cols.append(demo_col)
+
+    return df[needed_cols].reset_index(drop=True)
