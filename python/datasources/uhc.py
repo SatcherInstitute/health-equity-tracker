@@ -6,7 +6,10 @@ import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
 
 from datasources.data_source import DataSource
-from ingestion import gcs_to_bq_util, dataset_utils
+from ingestion import gcs_to_bq_util
+from ingestion.dataset_utils import (estimate_total,
+                                     generate_pct_share_col_without_unknowns)
+from ingestion.merge_utils import merge_state_fips_codes, merge_pop_numbers
 
 UHC_RACE_GROUPS = [
     'American Indian/Alaska Native',
@@ -287,10 +290,10 @@ def post_process(breakdown_df, breakdown, geo):
        breakdown: demographic breakdown (race, sex, age)
        geo: geographic level (national, state)"""
 
-    breakdown_df = dataset_utils.merge_fips_codes(breakdown_df)
+    breakdown_df = merge_state_fips_codes(breakdown_df)
 
     breakdown_name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
-    breakdown_df = dataset_utils.merge_pop_numbers(
+    breakdown_df = merge_pop_numbers(
         breakdown_df, breakdown_name, geo)
     breakdown_df = breakdown_df.rename(
         columns={std_col.POPULATION_PCT_COL: std_col.BRFSS_POPULATION_PCT})
@@ -310,7 +313,7 @@ def post_process(breakdown_df, breakdown, geo):
             determinant, std_col.PCT_SHARE_SUFFIX)
 
         total_val = Race.ALL.value if breakdown == std_col.RACE_CATEGORY_ID_COL else std_col.ALL_VALUE
-        breakdown_df = dataset_utils.generate_pct_share_col_without_unknowns(
+        breakdown_df = generate_pct_share_col_without_unknowns(
             breakdown_df, {raw_count_col: pct_share_col}, breakdown, total_val)
 
     for determinant in UHC_DETERMINANTS.values():
@@ -345,17 +348,3 @@ def get_average_determinate_value(matched_row, measure_name, df, state):
         [pres_breakdown_value, mid_breakdown_value])
 
     return average_value * 1000
-
-
-def estimate_total(row, condition_name_per_100k):
-    """Returns an estimate of the total number of people with a given condition.
-
-       condition_name_per_100k: string column name of the condition per_100k to estimate the total of"""
-
-    if pd.isna(row[condition_name_per_100k]) or \
-        pd.isna(row[std_col.POPULATION_COL]) or \
-            int(row[std_col.POPULATION_COL]) == 0:
-
-        return None
-
-    return round((float(row[condition_name_per_100k]) / 100000) * float(row[std_col.POPULATION_COL]))

@@ -5,6 +5,8 @@ import json
 import os
 import pandas as pd
 from google.cloud import bigquery, storage
+from zipfile import ZipFile
+from io import BytesIO
 
 
 DATA_DIR = os.path.join(os.sep, 'app', 'data')
@@ -24,7 +26,7 @@ def __create_bq_load_job_config(frame, column_types, col_modes, overwrite):
     """
     Creates a job to write the given data frame into BigQuery.
 
-    Paramenters:
+    Parameters:
         frame: A pd.DataFrame representing the data for the job.
         column_types: Optional dict of column name to BigQuery data type.
         col_modes: Optional dict of modes for each field.
@@ -361,3 +363,13 @@ def list_bucket_files(bucket_name: str) -> list:
     blobs = bucket.list_blobs()
 
     return list(map(lambda blob: blob.name, blobs))
+
+
+def fetch_zip_as_files(url):
+    """
+    Fetches a .zip files from the given url and returns a zip object
+    with the listed internal files
+    """
+    response = requests.get(url)
+    files = ZipFile(BytesIO(response.content))
+    return files

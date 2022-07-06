@@ -61,7 +61,9 @@ KFF_TERRITORIES = ['Guam', 'Puerto Rico', 'Northern Mariana Islands']
 def get_data_url(data_type):
     """Gets the latest url from the kff's github data repo for the given data type
 
-    data_type: string value representing which url to get from the github api; must be either 'pct_total' or 'pct_share'
+    data_type: string value representing which url to get from
+    the github api; must be either 'pct_total', 'pct_share',
+    or 'pct_population'
     """
     data_types_to_strings = {
         'pct_total': 'Percent of Total Population that has Received a COVID-19 Vaccine by RaceEthnicity',
@@ -70,7 +72,9 @@ def get_data_url(data_type):
     }
     df = gcs_to_bq_util.load_json_as_df_from_web_based_on_key(
         BASE_GITHUB_API_URL, "tree")
+
     df = df.loc[df['path'].str.contains(data_types_to_strings[data_type])]
+
     urls = df.loc[df['path'] == df['path'].max()].url
 
     if len(urls) != 1:

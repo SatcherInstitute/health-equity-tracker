@@ -1,4 +1,4 @@
-# Used in Primary Care Access URL and filenames
+# Used in BJS, Primary Care Access URL, and filenames
 STATE_NAMES = [
     "Alabama",
     "Alaska",
@@ -59,6 +59,8 @@ US_ABBR = "US"
 
 NATIONAL_LEVEL = "national"
 STATE_LEVEL = "state"
+
+UNKNOWN = "Unknown"
 
 
 class Sex:

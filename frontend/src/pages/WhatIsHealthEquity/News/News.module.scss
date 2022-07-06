@@ -17,6 +17,7 @@
       max-height: 300px;
       max-width: 400px;
       margin-top: 2rem;
+
       @media only screen and (min-width: $md) {
         max-height: 770px;
         margin-top: 0;
@@ -27,6 +28,7 @@
   .SingleArticleHeaderTextItem {
     justify-content: center;
     padding: 2rem 15%;
+
     @media (min-width: $md) {
       border-left: 1px solid $border-color;
       padding: 104px 66px 104px 66px;
@@ -125,9 +127,11 @@
   margin: 2rem;
   border-bottom: 1px solid $alt-grey;
   padding: 2rem;
+
   @media (min-width: $sm) {
     width: 75vw;
   }
+
   @media (min-width: $md) {
     width: 50vw;
   }
@@ -153,18 +157,23 @@
   h1 {
     font-size: $biggerHeader !important;
   }
+
   h2 {
     font-size: $bigHeader !important;
   }
+
   h3 {
     font-size: $header !important;
   }
+
   h4 {
     font-size: $smallestHeader !important;
   }
+
   h5 {
     font-size: $title !important;
   }
+
   h6 {
     font-size: $text !important;
   }
