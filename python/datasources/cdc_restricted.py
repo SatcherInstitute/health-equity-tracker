@@ -51,7 +51,8 @@ class CDCRestrictedData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         for geo in ['national', 'state', 'county']:
             for demo in ['sex', 'race', 'age']:
-                filename = f'cdc_restricted_by_{demo}_{geo}.csv'
+                geo_to_pull = 'state' if geo == 'national' else geo
+                filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
                 df = gcs_to_bq_util.load_csv_as_df(
                     gcs_bucket, filename, dtype={'county_fips': str})
 
