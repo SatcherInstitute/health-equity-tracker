@@ -32,8 +32,8 @@ test.describe('Tracker to COVID Deaths Comparing Geos', () => {
         await page.fill('[placeholder="County, State, Territory, or United States"]', 'denver');
         await page.keyboard.press('Enter');
 
-        const populationCard = await page.locator('id=populationCard')
-        await expect(populationCard).toContainText("Denver County, Colorado")
+        // const populationCard = await page.locator('id=populationCard')
+        // await expect(populationCard).toContainText("Denver County, Colorado")
 
         // Changing compare location via madlib buttons
         const location2MadlibButton = await page.locator('#onboarding-start-your-search button:has-text("Georgia")')
