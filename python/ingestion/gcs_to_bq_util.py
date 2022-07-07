@@ -167,6 +167,7 @@ def load_values_blob_as_df(blob):
 
        blob: google.cloud.storage.blob.Blob object"""
     json_string = blob.download_as_string()
+    json_string = json_string.decode('utf-8')
     return values_json_to_df(json_string)
 
 
