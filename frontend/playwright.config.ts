@@ -21,19 +21,16 @@ const config: PlaywrightTestConfig = {
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
   /* Retry on CI only */
-  retries: process.env.CI ? 1 : 0,
-  reporter: process.env.CI ? "github" : 'list',
-  workers: process.env.CI ? 2 : undefined,
+  retries: process.env.CI ? 2 : 0,
+  // reporter: process.env.CI ? "github" : 'list',
+  reporter: 'list',
+  workers: process.env.CI ? 8 : undefined,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
-    launchOptions: {
-      slowMo: 1000,
-    },
-    headless: process.env.CI ? true : false,
-    // headless: true,
+    headless: true,
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-    actionTimeout: 10_000,
+    actionTimeout: 0,
     baseURL: 'http://localhost:3000',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
