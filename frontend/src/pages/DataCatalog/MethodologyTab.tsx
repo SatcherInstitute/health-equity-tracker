@@ -603,6 +603,30 @@ function MethodologyTab() {
                 </p>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
+                  Social Vulnerability Index
+                </h4>
+                <p>
+                  Our ranking is based on percentiles provided by the CDC. We
+                  are using the exact percentile without any manipulation of the
+                  numbers. We will implement individual state mapping analysis,
+                  which will make use of the state-specific database. In this
+                  case, the counties are ranked only against other counties in
+                  the same state. Percentile ranking values range from 0 to 1.
+                  Inside the population card, the user will see the social
+                  vulnerability score. The scores will be given a ranking of
+                  low, medium, or high. Scores ranging from 0-0.33 are ranked
+                  low, scores ranging from 0.34-0.66 are ranked medium, and
+                  scores from 0.67-1 are ranked high.{" "}
+                </p>
+                <ul>
+                  <li>
+                    Tracts with zero estimates for total population were removed
+                    during the ranking process.
+                  </li>
+                  <li>testing</li>
+                </ul>
+
+                <h4 className={styles.MethodologySubsubheaderText}>
                   Visualizations
                 </h4>
                 <p>
