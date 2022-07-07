@@ -62,7 +62,7 @@ export default class FakeDataFetcher implements DataFetcher {
     return this.numLoadDatasetCalls;
   }
 
-  getNumGetMetdataCalls() {
+  getNumGetMetadataCalls() {
     return this.numGetMetadataCalls;
   }
 

@@ -10,27 +10,32 @@ import {
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import { RACE, AGE, SEX } from "../utils/Constants";
+import { MetricId } from "../config/MetricConfig";
 
 export async function ensureCorrectDatasetsDownloaded(
   IncarcerationDatasetId: string,
   baseBreakdown: Breakdowns,
   breakdownVar: BreakdownVar,
-  acsDatasetIds?: string[]
+  acsDatasetIds?: string[],
+  metricIds?: MetricId[]
 ) {
+  // if these aren't sent as args, default to []
+  metricIds = metricIds || [];
+  acsDatasetIds = acsDatasetIds || [];
+
   const incarcerationProvider = new IncarcerationProvider();
 
   dataFetcher.setFakeDatasetLoaded(IncarcerationDatasetId, []);
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await incarcerationProvider.getData(
-    new MetricQuery([], baseBreakdown.addBreakdown(breakdownVar))
+    new MetricQuery(metricIds, baseBreakdown.addBreakdown(breakdownVar))
   );
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
 
   const consumedDatasetIds = [IncarcerationDatasetId];
-
-  if (acsDatasetIds) consumedDatasetIds.push(...acsDatasetIds);
+  consumedDatasetIds.push(...acsDatasetIds);
 
   expect(responseIncludingAll).toEqual(
     new MetricQueryResponse([], consumedDatasetIds)
@@ -110,19 +115,23 @@ describe("IncarcerationProvider", () => {
     );
   });
 
-  test("County and Sex Breakdown", async () => {
+  test("County and Sex Breakdown for Jail", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "vera_incarceration_county-sex_county",
+      "vera_incarceration_county-jail_sex_county",
       Breakdowns.forFips(new Fips("06037")),
-      SEX
+      SEX,
+      [],
+      ["jail_per_100k"]
     );
   });
 
-  // test("County and Race Breakdown", async () => {
-  //   await ensureCorrectDatasetsDownloaded(
-  //     "vera_incarceration_county-race_and_ethnicity_county",
-  //     Breakdowns.forFips(new Fips("06037")),
-  //     RACE
-  //   );
-  // });
+  test("County and Race Breakdown for Prison", async () => {
+    await ensureCorrectDatasetsDownloaded(
+      "vera_incarceration_county-prison_race_and_ethnicity_county",
+      Breakdowns.forFips(new Fips("06037")),
+      RACE,
+      [],
+      ["prison_per_100k"]
+    );
+  });
 });
