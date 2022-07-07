@@ -482,8 +482,7 @@ def keep_only_national(df, demo_group_cols):
         raise ValueError("There is more than one U.S. Total row")
 
     # if not, remove any rows that aren't states or federal
-    df = keep_only_states(df).append(
-        df.loc[df[std_col.STATE_NAME_COL] == FED])
+    df = pd.concat([keep_only_states(df), df.loc[df[std_col.STATE_NAME_COL] == FED]])
 
     # sum, treating nan as 0, and set as United States
     df.loc[0, demo_group_cols] = df[demo_group_cols].sum(min_count=1)
