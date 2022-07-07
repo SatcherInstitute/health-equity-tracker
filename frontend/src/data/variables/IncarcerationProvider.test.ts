@@ -52,6 +52,16 @@ describe("IncarcerationProvider", () => {
     dataFetcher.setFakeMetadataLoaded(DatasetMetadataMap);
   });
 
+  test("County and Race Breakdown for Prison", async () => {
+    await ensureCorrectDatasetsDownloaded(
+      "vera_incarceration_county-prison_race_and_ethnicity_county",
+      Breakdowns.forFips(new Fips("06037")),
+      RACE,
+      [],
+      ["prison_per_100k"]
+    );
+  });
+
   test("State and Race Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
       "bjs_incarceration_data-race_and_ethnicity_state",
@@ -70,6 +80,16 @@ describe("IncarcerationProvider", () => {
         "acs_population-by_race_national",
         "acs_2010_population-by_race_and_ethnicity_territory",
       ]
+    );
+  });
+
+  test("County and Age Breakdown for Jail", async () => {
+    await ensureCorrectDatasetsDownloaded(
+      "vera_incarceration_county-jail_age_county",
+      Breakdowns.forFips(new Fips("06037")),
+      AGE,
+      [],
+      ["jail_per_100k"]
     );
   });
 
@@ -94,6 +114,16 @@ describe("IncarcerationProvider", () => {
     );
   });
 
+  test("County and Sex Breakdown for Jail", async () => {
+    await ensureCorrectDatasetsDownloaded(
+      "vera_incarceration_county-jail_sex_county",
+      Breakdowns.forFips(new Fips("06037")),
+      SEX,
+      [],
+      ["jail_per_100k"]
+    );
+  });
+
   test("State and Sex Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
       "bjs_incarceration_data-sex_state",
@@ -112,26 +142,6 @@ describe("IncarcerationProvider", () => {
         "acs_population-by_sex_national",
         "acs_2010_population-by_race_and_ethnicity_territory",
       ]
-    );
-  });
-
-  test("County and Sex Breakdown for Jail", async () => {
-    await ensureCorrectDatasetsDownloaded(
-      "vera_incarceration_county-jail_sex_county",
-      Breakdowns.forFips(new Fips("06037")),
-      SEX,
-      [],
-      ["jail_per_100k"]
-    );
-  });
-
-  test("County and Race Breakdown for Prison", async () => {
-    await ensureCorrectDatasetsDownloaded(
-      "vera_incarceration_county-prison_race_and_ethnicity_county",
-      Breakdowns.forFips(new Fips("06037")),
-      RACE,
-      [],
-      ["prison_per_100k"]
     );
   });
 });
