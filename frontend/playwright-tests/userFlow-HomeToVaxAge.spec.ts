@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { EXPLORE_DATA_PAGE_LINK } from './otherInternalPageRoutes.spec';
 
+const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 const VAX_USA_RACE = `?mls=1.covid_vaccinations-3.00`
 const BY_AGE = `&demo=age`
 

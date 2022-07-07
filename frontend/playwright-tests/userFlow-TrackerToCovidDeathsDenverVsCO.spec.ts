@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { EXPLORE_DATA_PAGE_LINK } from './otherInternalPageRoutes.spec';
 
+const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 const DEFAULT_COMPARE_GEO_MODE = "?mls=1.covid-3.00-5.13&mlp=comparegeos"
 const COVID_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos"
 

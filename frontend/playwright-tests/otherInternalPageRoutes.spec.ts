@@ -1,20 +1,17 @@
 import { test, expect } from '@playwright/test';
 
-export const EXPLORE_DATA_PAGE_LINK = "/exploredata";
-export const DATA_CATALOG_PAGE_LINK = "/datacatalog";
-export const ABOUT_US_PAGE_LINK = "/aboutus";
-export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = "/whatishealthequity";
-export const TERMS_OF_USE_PAGE_LINK = "/termsofuse";
+const ABOUT_US_PAGE_LINK = "/aboutus";
+const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = "/whatishealthequity";
+const TERMS_OF_USE_PAGE_LINK = "/termsofuse";
 
 // TAB URLS
-export const FAQ_TAB_LINK = "/faqs";
-export const RESOURCES_TAB_LINK = "/resources";
-export const METHODOLOGY_TAB_LINK = "/methodology";
-export const AGE_ADJUSTMENT_TAB_LINK = "/ageadjustment";
-export const DATA_TAB_LINK = "/datacatalog";
-export const CONTACT_TAB_LINK = "/contact";
-export const OURTEAM_TAB_LINK = "/ourteam";
-export const NEWS_TAB_LINK = "/news";
+const FAQ_TAB_LINK = "/faqs";
+const RESOURCES_TAB_LINK = "/resources";
+const METHODOLOGY_TAB_LINK = "/methodology";
+const DATA_TAB_LINK = "/datacatalog";
+const CONTACT_TAB_LINK = "/contact";
+const OURTEAM_TAB_LINK = "/ourteam";
+const NEWS_TAB_LINK = "/news";
 
 test('WIHE Page Loads', async ({ page }) => {
 

@@ -12,9 +12,9 @@ const config: PlaywrightTestConfig = {
   },
   testDir: './playwright-tests',
   /* Maximum time one test can run for. */
-  timeout: 60 * 1000,
+  timeout: 30 * 1000,
   expect: {
-    timeout: 60 * 1000
+    timeout: 30 * 1000
   },
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
@@ -27,9 +27,9 @@ const config: PlaywrightTestConfig = {
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
-    launchOptions: {
-      slowMo: 500,
-    },
+    // launchOptions: {
+    //   slowMo: 500,
+    // },
     headless: process.env.CI ? true : false,
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
@@ -45,11 +45,11 @@ const config: PlaywrightTestConfig = {
   projects: [
     {
       name: 'URL',
-      testMatch: "externalUrls.spec.ts",
+      testMatch: /.*externalUrls.spec.ts/,
     },
     {
       name: 'E2E',
-      testIgnore: "externalUrls.spec.ts",
+      testIgnore: /.*externalUrls.spec.ts/,
     },
   ],
 
