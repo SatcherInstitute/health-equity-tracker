@@ -15,23 +15,23 @@ test.describe('Home to COVID Vax by Age', () => {
         await expect(mainHeading).toContainText(['Advancing', 'Health', 'Equity']);
 
         // Clicking large CTA button takes us to the tracker
-        const exploreButton = await page.locator('a:has-text("Explore the Health Equity Tracker")')
+        const exploreButton = page.locator('a:has-text("Explore the Health Equity Tracker")')
         exploreButton.click();
         await expect(page).toHaveURL(`${EXPLORE_DATA_PAGE_LINK}`);
 
         // changes madlib to VAXX properly
-        const madLibTopic = await page.locator('button:has-text("COVID-19")')
+        const madLibTopic = page.locator('button:has-text("COVID-19")')
         madLibTopic.click();
-        const covidVaxOption = await page.locator('span:has-text("COVID-19 Vaccinations")')
+        const covidVaxOption = page.locator('span:has-text("COVID-19 Vaccinations")')
         covidVaxOption.click();
         await expect(page).toHaveURL(`${EXPLORE_DATA_PAGE_LINK}${VAX_USA_RACE}`);
 
         // Confirm no failed Vega visualizations
-        let mainChunk = await page.locator('main')
+        let mainChunk = page.locator('main')
         await expect(mainChunk).not.toContainText("Oops")
 
         // MAP CARD contains correct title
-        const mapCard = await page.locator('#map')
+        const mapCard = page.locator('#map')
         await expect(mapCard).toContainText(['COVID-19 Vaccinations']);
     })
 
@@ -41,16 +41,16 @@ test.describe('Home to COVID Vax by Age', () => {
         await page.goto(`${EXPLORE_DATA_PAGE_LINK}${VAX_USA_RACE}`, { waitUntil: "networkidle" });
 
         // Changing to AGE demographic toggle should change URL
-        const ageToggleButton = await page.locator('button:has-text("Age")')
+        const ageToggleButton = page.locator('button:has-text("Age")')
         ageToggleButton.click();
         await expect(page).toHaveURL(`${EXPLORE_DATA_PAGE_LINK}${VAX_USA_RACE}${BY_AGE}`);
 
         // Age should be reflected in card title
-        const barChartCard = await page.locator('#bar')
+        const barChartCard = page.locator('#bar')
         await expect(barChartCard).toContainText(['COVID-19', 'Vaccinations', 'By Age']);
 
         // Confirm no failed Vega visualizations
-        let mainChunk = await page.locator('main')
+        let mainChunk = page.locator('main')
         await expect(mainChunk).not.toContainText("Oops")
     });
 
