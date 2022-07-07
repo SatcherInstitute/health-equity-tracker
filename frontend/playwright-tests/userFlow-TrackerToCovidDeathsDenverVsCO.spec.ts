@@ -3,6 +3,7 @@ import { EXPLORE_DATA_PAGE_LINK } from './otherInternalPageRoutes.spec';
 
 const COVID_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos"
 const DEFAULT_COMPARE_GEO_MODE = "?mls=1.covid-3.00-5.13&mlp=comparegeos"
+const COMPARE_DEN_VS_CO_COVID_DEATHS = "?mls=1.covid-3.08031-5.08&mlp=comparegeos&dt1=covid_deaths&dt2=covid_deaths"
 
 test.describe.configure({ mode: 'parallel' });
 test.describe('Tracker to COVID Deaths Comparing Geos', () => {
@@ -10,7 +11,7 @@ test.describe('Tracker to COVID Deaths Comparing Geos', () => {
     test('Default Tracker to Compare Mode', async ({ page }) => {
 
         // Landing Page Loads
-        await page.goto(EXPLORE_DATA_PAGE_LINK , { waitUntil: "networkidle" });
+        await page.goto(EXPLORE_DATA_PAGE_LINK, { waitUntil: "networkidle" });
 
         // change carousel to "Compare Geo mode"
         const advanceMadlibCarouselArrowButton = await page.locator('id=onboarding-madlib-arrow')
@@ -63,10 +64,15 @@ test.describe('Tracker to COVID Deaths Comparing Geos', () => {
         await deathsToggleOption1.click();
         const deathsToggleOption2 = await page.locator(':nth-match(:text("Deaths"), 2)')
         await deathsToggleOption2.click()
+    })
+
+    test('Force scroll to bottom; observe Age-Adj card', async ({ page }) => {
+
+        await page.goto(EXPLORE_DATA_PAGE_LINK + COMPARE_DEN_VS_CO_COVID_DEATHS, { waitUntil: "networkidle" });
+
 
         const missingDataLink = await page.locator('a:has-text("Read more about missing and misidentified people")')
         await missingDataLink.click()
-
 
         // Age-adjusted cards render
         const ageAdjustedCard1 = await page.locator('id=age-adjusted')
