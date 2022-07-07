@@ -25,9 +25,11 @@ test.describe('Tracker to COVID Deaths Comparing Geos', () => {
 
         await page.goto(EXPLORE_DATA_PAGE_LINK + DEFAULT_COMPARE_GEO_MODE, { waitUntil: "networkidle" });
 
+        const nope = await page.locator('#onboarding-start-your-search button:has-text("United States")')
+        await nope.click();
 
         // Changing first location via madlib buttons
-        const location1MadlibButton = await page.locator('#onboarding-start-your-search button:has-text("United States")')
+        const location1MadlibButton = await page.locator('id=NOPECard')
         await location1MadlibButton.click();
 
         await page.fill('[placeholder="County, State, Territory, or United States"]', 'denver');
