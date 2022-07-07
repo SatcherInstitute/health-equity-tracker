@@ -51,7 +51,7 @@ def get_pop_numbers_as_df(*args, **kwargs):
                                   'county_fips': str,
                                   })
     else:
-        return pd.read_csv(os.path.join(TEST_DIR, f'population_by_{demo}_{loc}.csv'), 
+        return pd.read_csv(os.path.join(TEST_DIR, f'population_by_{demo}_{loc}.csv'),
                            dtype={'state_fips': str,
                                   'county_fips': str,
                                   })
