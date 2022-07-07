@@ -130,7 +130,6 @@ def testGenerateBreakdownSexNational(mock_fips: mock.MagicMock, mock_pop: mock.M
     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national')
     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_NATIONAL, dtype={
         'state_fips': str,
-        'county_fips': str,
         'covid_cases_share': float,
         'covid_hosp_share': float,
         'covid_deaths_share': float,
