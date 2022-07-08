@@ -1,7 +1,7 @@
 import { DatasetMetadata } from "../utils/DatasetTypes";
 import { DataSourceMetadataMap, GEOGRAPHIES_DATASET_ID } from "./MetadataMap";
 
-const datasetMetadataList: DatasetMetadata[] = [
+export const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "acs_population-by_race_county_std",
     name: "Population by Race and County",
