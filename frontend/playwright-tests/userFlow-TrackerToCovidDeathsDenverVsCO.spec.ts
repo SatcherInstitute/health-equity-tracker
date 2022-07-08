@@ -64,8 +64,3 @@ test('Switch Data Types for Both Geos', async ({ page }) => {
 
 });
 
-test('Should fail', async ({ page }) => {
-    await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO);
-    const mainHeading = page.locator('#main');
-    await expect(mainHeading).toContainText('FAIL');
-});
