@@ -66,28 +66,20 @@ export class Dataset {
       );
       return { ...row, state_fips: fipsCode };
     });
+
     return new DataFrame(rowsWithFakeFips);
   }
 
-  toCsvString() {
-    // Previously they had assumed that every row would have the same keys; this was not accurate though because a row that contained a null value was losing that entire key/value pair. I "fixed" by having it scan the entire array and collect a set of keys found throughout. However, as they originally noted, we could improve this by sending column names as structured data from the server.
-
-    let fields = [];
-    for (const row of this.rows) {
-      fields.push(...Object.keys(row));
-    }
-    // @ts-ignore
-    fields = [...new Set(fields)];
-
-    const df = this.toDataFrame().transformSeries(
+  toCsvString(): string {
+    let df = this.toDataFrame();
+    const columns = df.getColumnNames();
+    // apply specialChar fn to every column
+    df = df.transformSeries(
       Object.fromEntries(
-        fields.map((name) => [name, convertSpecialCharactersForCsv])
+        columns.map((colName) => [colName, convertSpecialCharactersForCsv])
       )
     );
-    return [fields]
-      .concat(df.toRows())
-      .map((row) => row.join(","))
-      .join("\n");
+    return df.toCSV();
   }
 }
 

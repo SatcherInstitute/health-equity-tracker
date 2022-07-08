@@ -152,8 +152,16 @@ export class ApiDataFetcher implements DataFetcher {
       result = result.map((row: any) => {
         return {
           ...row,
-          vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
-          population: Number(row["population"]),
+          vaccinated_first_dose:
+            row["vaccinated_first_dose"] == null
+              ? null
+              : Number(row["vaccinated_first_dose"]),
+          population:
+            row["population"] == null ? null : Number(row["population"]),
+          population_pct:
+            row["population_pct"] == null
+              ? null
+              : Number(row["population_pct"]),
         };
       });
     }
