@@ -20,6 +20,7 @@ const config: PlaywrightTestConfig = {
   // fullyParallel: true,
   retries: 2,
   reporter: 'list',
+  workers: 4,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
