@@ -121,8 +121,8 @@ _data_without_pop_numbers_multiple_rows = [
 _expected_merge_with_pop_numbers_multiple_rows = [
     ['state_fips', 'race_category_id', 'cases', 'deaths', 'cases_population', 'deaths_population'],
     ['01', 'BLACK_NH', 10, 1, 100, 100],
-    ['01', 'WHITE_NH', 100, None, 300, 0],
-    ['02', 'BLACK_NH', 20, None, 100, 0],
+    ['01', 'WHITE_NH', 100, None, 300, 300],
+    ['02', 'BLACK_NH', 20, None, 100, 100],
     ['78', 'WHITE_NH', 10, 2, 300, 300],
     ['78', 'BLACK_NH', 5, 0, 200, 200],
 ]
@@ -267,7 +267,7 @@ def testMergePopNumbersCounty(mock_bq: mock.MagicMock):
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
             side_effect=_get_pop_data_as_df)
-def testMergePopNumberPerCondition(mock_bq: mock.MagicMock):
+def testMergeMultiplePopCols(mock_bq: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_pop_numbers_multiple_rows),
         dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
@@ -276,9 +276,7 @@ def testMergePopNumberPerCondition(mock_bq: mock.MagicMock):
         json.dumps(_expected_merge_with_pop_numbers_multiple_rows),
         dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
 
-    expected_df = expected_df.astype({'cases_population': int, 'deaths_population': int})
-
-    df = merge_utils.merge_pop_numbers_per_condition(df, 'race', ['cases', 'deaths'])
+    df = merge_utils.merge_multiple_pop_cols(df, 'race', ['cases_population', 'deaths_population'])
 
     assert mock_bq.call_count == 2
 
