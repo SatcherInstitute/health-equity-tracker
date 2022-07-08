@@ -143,6 +143,29 @@ export const CDC_AGE_BUCKETS = [
   "Total",
 ];
 
+export const BJS_NATIONAL_AGE_BUCKETS = [
+  "All",
+  "18-19",
+  "20-24",
+  "25-29",
+  "30-34",
+  "35-39",
+  "40-44",
+  "45-49",
+  "50-54",
+  "55-59",
+  "60-64",
+  "65+",
+];
+
+export const BJS_JAIL_AGE_BUCKETS = [ALL, "0-17", "18+"];
+
+// buckets that have been calculated in the BigQuery table but are not used in current code
+// still need to be defined here to explicitly exclude from the TABLE
+export const UNUSED_BUCKETS = ["15-17", "65-69", "70-74", "75-79", "80-84"];
+
+export const UNDER_18_PRISON = `Children in Adult Prison`;
+
 // COMBINE ALL AGE GROUP OPTIONS INTO A SINGLE ARRAY
 export const AGE_BUCKETS = [
   "All",
@@ -150,6 +173,9 @@ export const AGE_BUCKETS = [
   ...DECADE_PLUS_5_AGE_BUCKETS,
   ...BROAD_AGE_BUCKETS,
   ...CDC_AGE_BUCKETS,
+  ...BJS_NATIONAL_AGE_BUCKETS,
+  ...BJS_JAIL_AGE_BUCKETS,
+  ...UNUSED_BUCKETS,
 ] as const;
 
 // ENUMERATE THOSE PROPERTIES TO CREATE AN AGE-GROUP TYPE

@@ -36,6 +36,7 @@ import { useLocation } from "react-router-dom";
 import { srSpeak } from "../../utils/a11yutils";
 import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
+import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -46,6 +47,8 @@ function ExploreDataPage() {
     location?.hash === `#${WHAT_DATA_ARE_MISSING_ID}`;
 
   const [showStickyLifeline, setShowStickyLifeline] = useState(false);
+  const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
+    useState(false);
 
   // Set up initial mad lib values based on defaults and query params
   const params = useSearchParams();
@@ -206,6 +209,12 @@ function ExploreDataPage() {
       )
     );
 
+    setShowIncarceratedChildrenAlert(
+      getSelectedConditions(madLib).some((condition: VariableConfig) =>
+        INCARCERATION_IDS.includes(condition?.variableId)
+      )
+    );
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [madLib]);
 
@@ -272,6 +281,7 @@ function ExploreDataPage() {
             madLib={madLib}
             selectedConditions={getSelectedConditions(madLib)}
             showLifeLineAlert={showStickyLifeline}
+            showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
             setMadLib={setMadLibWithParam}
             doScrollToData={doScrollToData}
           />
