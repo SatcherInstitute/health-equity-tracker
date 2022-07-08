@@ -17,7 +17,7 @@ const config: PlaywrightTestConfig = {
     timeout: 45 * 1000
   },
   /* run all tests, even those within a shared file, in parallel  */
-  fullyParallel: true,
+  // fullyParallel: true,
   retries: 2,
   workers: 1,
   reporter: 'list',
