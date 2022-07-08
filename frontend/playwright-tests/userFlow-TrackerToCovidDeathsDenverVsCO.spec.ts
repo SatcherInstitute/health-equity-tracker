@@ -5,6 +5,8 @@ const DEFAULT_COMPARE_GEO_MODE = "?mls=1.covid-3.00-5.13&mlp=comparegeos"
 const COVID_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos"
 const COVID_DEATHS_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos&dt1=covid_deaths&dt2=covid_deaths"
 
+test.describe.configure({ mode: 'parallel' });
+
 test('Default Tracker to Compare Mode', async ({ page }) => {
 
     // Landing Page Loads
@@ -31,9 +33,6 @@ test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
     await page.fill('[placeholder="County, State, Territory, or United States"]', 'denver');
     await page.keyboard.press('Enter');
 
-    // const populationCard = page.locator('id=populationCard')
-    // await expect(populationCard).toContainText("Denver County, Colorado")
-
     // Changing first location via madlib buttons
     const location2MadlibButton = page.locator('#onboarding-start-your-search button:has-text("Georgia")')
     await location2MadlibButton.click();
@@ -43,10 +42,6 @@ test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
 
     // Confirm correct URL
     await expect(page).toHaveURL(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO);
-
-    // Confirm no failed Vega visualizations
-    // let mainChunk = page.locator('main')
-    // await expect(mainChunk).not.toContainText("Oops")
 
 })
 

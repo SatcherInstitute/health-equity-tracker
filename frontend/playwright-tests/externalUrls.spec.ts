@@ -11,11 +11,15 @@ const knownFlakyUrls = [
     "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3222512/",
     "https://www.linkedin.com/in/satcherhealth",
     "https://twitter.com/SatcherHealth",
+    "https://twitter.com/repjohnlewis/status/758023941998776321?lang=en",
     "https://www.apha.org/topics-and-issues/communicable-disease/coronavirus/equity",
     "https://www.policylink.org/health-equity-resources",
     "https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/"
 
 ]
+
+test.describe.configure({ mode: 'parallel' });
+
 
 for (const url of Object.values(urlMap)) {
     if (!url || knownFlakyUrls.includes(url)) continue

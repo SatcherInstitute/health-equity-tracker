@@ -27,13 +27,6 @@ test.describe('Home to COVID Vax by Age', () => {
         covidVaxOption.click();
         await expect(page).toHaveURL(`${EXPLORE_DATA_PAGE_LINK}${VAX_USA_RACE}`);
 
-        // // Confirm no failed Vega visualizations
-        // let mainChunk = await page.locator('main')
-        // await expect(mainChunk).not.toContainText("Oops")
-
-        // MAP CARD contains correct title
-        // const mapCard = await page.locator('#map')
-        // await expect(mapCard).toContainText(['COVID-19 Vaccinations']);
     })
 
     test('Covid Vax Toggle Age', async ({ page }) => {
@@ -45,14 +38,6 @@ test.describe('Home to COVID Vax by Age', () => {
         const ageToggleButton = await page.locator('button:has-text("Age")')
         ageToggleButton.click();
         await expect(page).toHaveURL(`${EXPLORE_DATA_PAGE_LINK}${VAX_USA_RACE}${BY_AGE}`);
-
-        // Age should be reflected in card title
-        // const barChartCard = await page.locator('#bar')
-        // await expect(barChartCard).toContainText(['COVID-19', 'Vaccinations', 'By Age']);
-
-        // Confirm no failed Vega visualizations
-        // let mainChunk = await page.locator('main')
-        // await expect(mainChunk).not.toContainText("Oops")
     });
 
 
