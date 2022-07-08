@@ -217,7 +217,7 @@ class CdcCovidProvider extends VariableProvider {
         );
       });
 
-      const orginalUnknownRow = df.where(
+      const originalUnknownRow = df.where(
         (row) =>
           row[breakdownColumnName] === UNKNOWN ||
           row[breakdownColumnName] === UNKNOWN_RACE
@@ -256,7 +256,7 @@ class CdcCovidProvider extends VariableProvider {
         );
       });
 
-      df = df.concat(orginalUnknownRow).resetIndex();
+      df = df.concat(originalUnknownRow).resetIndex();
 
       df = df.renameSeries({
         population_pct: "covid_population_pct",
