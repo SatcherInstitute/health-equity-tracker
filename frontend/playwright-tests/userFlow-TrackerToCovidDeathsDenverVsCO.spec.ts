@@ -62,8 +62,8 @@ test('Switch Data Types for Both Geos', async ({ page }) => {
     const deathsToggleOption2 = page.locator(':nth-match(:text("Deaths"), 2)')
     await deathsToggleOption2.click()
 
-    const missingDataLink = page.locator('a:has-text("Read more about missing and misidentified people")')
-    await missingDataLink.click()
+    // const missingDataLink = page.locator('a:has-text("Read more about missing and misidentified people")')
+    // await missingDataLink.click()
 
 
     // Age-adjusted cards render
@@ -74,8 +74,8 @@ test('Switch Data Types for Both Geos', async ({ page }) => {
     await expect(ageAdjustedCard2).toContainText("Age-Adjusted Risk of COVID-19 Death Compared to White (Non-Hispanic) in Colorado")
 
     // Confirm no failed Vega visualizations
-    let mainChunk = page.locator('main')
-    await expect(mainChunk).not.toContainText("Oops")
+    // let mainChunk = page.locator('main')
+    // await expect(mainChunk).not.toContainText("Oops")
 
 });
 
