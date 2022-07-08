@@ -39,13 +39,14 @@ def merge_county_names(df):
     return df
 
 
-def merge_state_fips_codes(df):
+def merge_state_fips_codes(df, keep_postal=False):
     """Merges in the `state_fips` column into a dataframe, based on the
        `census_utility` big query public dataset. Used when the source contains
        state names or postal codes but not state FIPS codes
 
     Parameters:
        df: dataframe to merge fips codes into, with a `state_name` or`state_postal`
+       keep_postal: if True, keeps the `state_postal` column, default False
     Returns:
         the same df with a 'state_fips' column containing 2-digit string FIPS codes
     """
@@ -93,7 +94,7 @@ def merge_state_fips_codes(df):
     df = pd.merge(df, all_fips_codes_df, how='left',
                   on=merge_col).reset_index(drop=True)
 
-    if std_col.STATE_POSTAL_COL in df.columns:
+    if (not keep_postal) and (std_col.STATE_POSTAL_COL in df.columns):
         df = df.drop(columns=std_col.STATE_POSTAL_COL)
 
     return df
@@ -108,7 +109,7 @@ def merge_pop_numbers(df, demo, loc):
     return _merge_pop(df, demo, loc)
 
 
-def merge_pop_numbers_per_condition(df, demo, condition_cols):
+def merge_multiple_pop_cols(df, demo, pop_cols):
     """Merges the population of each state into a column for each condition in `condition_cols`.
        If a condition is NaN for that state the population gets counted as zero.
 
@@ -120,10 +121,8 @@ def merge_pop_numbers_per_condition(df, demo, condition_cols):
 
     df = _merge_pop(df, demo, 'state')
 
-    for col in condition_cols:
-        df[f'{col}_population'] = df.apply(
-                lambda row: row[std_col.POPULATION_COL] if not
-                pd.isna(row[col]) else 0, axis=1)
+    for col in pop_cols:
+        df[col] = df[std_col.POPULATION_COL]
 
     df = df.drop(columns=[std_col.POPULATION_COL, std_col.POPULATION_PCT_COL])
     return df

@@ -8,6 +8,10 @@ from ingestion.standardized_columns import Race
 import ingestion.constants as constants
 
 from datasources.data_source import DataSource
+from datasources.cdc_restricted_local import (
+    HOSP_DATA_SUPPRESSION_STATES,
+    DEATH_DATA_SUPPRESSION_STATES)
+
 from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import (
     generate_per_100k_col,
@@ -16,9 +20,16 @@ from ingestion.dataset_utils import (
 from ingestion.merge_utils import (
     merge_state_fips_codes,
     merge_pop_numbers,
-    merge_pop_numbers_per_condition,
+    merge_multiple_pop_cols,
     merge_county_names
 )
+
+
+# Plan:
+
+# Keep States fips
+# Change merge pop function to take in either one pop col or a list of multiple
+# Directly zero out the population rows based on the SUPPRESSION tupes from cdc_restricted_local
 
 DC_COUNTY_FIPS = '11001'
 
@@ -108,7 +119,7 @@ class CDCRestrictedData(DataSource):
             std_col.COVID_POPULATION_PCT,
         ]
 
-        df = merge_state_fips_codes(df)
+        df = merge_state_fips_codes(df, keep_postal=True)
 
         if geo == 'county':
             all_columns.extend(
@@ -117,9 +128,25 @@ class CDCRestrictedData(DataSource):
             df = null_out_all_unknown_deaths_hosps(df)
 
         if geo == 'national':
-            df = merge_pop_numbers_per_condition(df, demo,
-                                                 [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
-                                                  std_col.COVID_DEATH_Y])
+            pop_cols = [
+                generate_column_name(std_col.COVID_CASES, 'population'),
+                generate_column_name(std_col.COVID_DEATH_Y, 'population'),
+                generate_column_name(std_col.COVID_HOSP_Y, 'population'),
+            ]
+
+            df = merge_multiple_pop_cols(df, demo, pop_cols)
+
+            # Don't count the population of states that we null out data from
+            rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
+                HOSP_DATA_SUPPRESSION_STATES)
+            df.loc[rows_to_modify, generate_column_name(std_col.COVID_HOSP_Y, 'population')] = 0
+
+            rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
+                DEATH_DATA_SUPPRESSION_STATES)
+            df.loc[rows_to_modify, generate_column_name(std_col.COVID_DEATH_Y, 'population')] = 0
+
+            df = df.drop(columns=std_col.STATE_POSTAL_COL)
+
             df = generate_national_dataset(df, demo_col)
 
         fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
