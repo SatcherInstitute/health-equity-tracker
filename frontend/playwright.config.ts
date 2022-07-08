@@ -12,9 +12,9 @@ const config: PlaywrightTestConfig = {
   },
   testDir: './playwright-tests',
   /* Maximum time one test can run for. */
-  timeout: 30 * 1000,
+  timeout: 45 * 1000,
   expect: {
-    timeout: 30 * 1000
+    timeout: 45 * 1000
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
