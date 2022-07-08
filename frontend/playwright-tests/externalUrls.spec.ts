@@ -36,7 +36,6 @@ for (const url of RESOURCES.filter(resource => resource.url).map(fellow => fello
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`Resource Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
-        // console.log(url, response)
         if (response.status() !== 200) console.log(url, response.status());
     });
 }
