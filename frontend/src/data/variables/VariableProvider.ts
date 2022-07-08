@@ -117,7 +117,7 @@ abstract class VariableProvider {
 
   abstract allowsBreakdowns(breakdowns: Breakdowns): boolean;
 
-  abstract getDatasetId(breakdown: Breakdowns): string;
+  abstract getDatasetId(breakdown: Breakdowns, dataType?: string): string;
 }
 
 export default VariableProvider;

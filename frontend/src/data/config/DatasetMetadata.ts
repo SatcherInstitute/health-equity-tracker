@@ -1,7 +1,7 @@
 import { DatasetMetadata } from "../utils/DatasetTypes";
 import { DataSourceMetadataMap, GEOGRAPHIES_DATASET_ID } from "./MetadataMap";
 
-const datasetMetadataList: DatasetMetadata[] = [
+export const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "acs_population-by_race_county_std",
     name: "Population by Race and County",
@@ -233,8 +233,68 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2021",
   },
   {
+    id: "bjs_incarceration_data-age_national",
+    name: "National rates of sentenced individuals under the jurisdiction of federal or state adult prison facilities, or confined in local adult jail facilities, by Age",
+    update_time: "2019 for Jail, 2020 for Prison",
+  },
+  {
+    id: "bjs_incarceration_data-age_state",
+    name: "Rates of individuals under the jurisdiction of state or territory prison facilities, by State/Territory (totals only), or confined in local adult jail facilities by Age, by State/Territory",
+    update_time: "2019 for Jail, 2020 for Prison",
+  },
+  {
+    id: "bjs_incarceration_data-race_and_ethnicity_national",
+    name: "National rates of individuals under the jurisdiction of federal or state adult prison facilities or confined in local adult jail facilities, by Race/Ethnicity",
+    update_time: "2019 for Jail, 2020 for Prison",
+  },
+  {
+    id: "bjs_incarceration_data-race_and_ethnicity_state",
+    name: "Rates of individuals under the jurisdiction of state or territory prison facilities or confined in local adult jail facilities, by Race/Ethnicity and State/Territory",
+    update_time: "2019 for Jail, 2020 for Prison",
+  },
+  {
+    id: "bjs_incarceration_data-sex_national",
+    name: "National rates of individuals under the jurisdiction of federal or state adult prison facilities or confined in local adult jail facilities, by Sex",
+    update_time: "2019 for Jail, 2020 for Prison",
+  },
+  {
+    id: "bjs_incarceration_data-sex_state",
+    name: "Rates of individuals under the jurisdiction of state or territory prison facilities or confined in local adult jail facilities, by Sex and State/Territory",
+    update_time: "2019 for Jail, 2020 for Prison",
+  },
+  {
+    id: "vera_incarceration_county-jail_age_county",
+    name: "Rates of individuals within a county incarcerated in local jail facilities, by Age (totals only)",
+    update_time: "2018",
+  },
+  {
+    id: "vera_incarceration_county-jail_sex_county",
+    name: "Rates of individuals within a county incarcerated in local jail facilities, by Sex",
+    update_time: "2018",
+  },
+  {
+    id: "vera_incarceration_county-jail_race_and_ethnicity_county",
+    name: "Rates of individuals within a county incarcerated in local jail facilities, by Race/Ethnicity",
+    update_time: "2018",
+  },
+  {
+    id: "vera_incarceration_county-prison_age_county",
+    name: "Rates of individuals within a county incarcerated in state prison facilities, by Age (totals only)",
+    update_time: "2016",
+  },
+  {
+    id: "vera_incarceration_county-prison_sex_county",
+    name: "Rates of individuals within a county incarcerated in state prison facilities, by Sex",
+    update_time: "2016",
+  },
+  {
+    id: "vera_incarceration_county-prison_race_and_ethnicity_county",
+    name: "Rates of individuals within a county incarcerated in state prison facilities, by Race/Ethnicity",
+    update_time: "2016",
+  },
+  {
     id: "cawp_data-race_and_ethnicity_national",
-    name: "National representation of women by race/ethnicity in the US Congress and across state and territory legislatures",
+    name: "National representation of women by race/ethnicity in the US Congress and across county and territory legislatures",
     update_time: "2022",
   },
   {
