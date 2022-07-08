@@ -16,7 +16,7 @@ for (const url of Object.values(urlMap)) {
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`${url}`, async ({ page }) => {
         const response = await page.goto(url, { waitUntil: "domcontentloaded" });
-        if (response?.status() !== 200) console.log(url, response?.status());
+        if (response.status() !== 200) console.log(url, response.status());
     });
 }
 
@@ -24,7 +24,7 @@ for (const url of PARTNERS.map(partner => partner.url)) {
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`Team Page - Partner: ${url}`, async ({ page }) => {
         const response = await page.goto(url, { waitUntil: "domcontentloaded" });
-        if (response?.status() !== 200) console.log(url, response?.status());
+        if (response.status() !== 200) console.log(url, response.status());
     });
 }
 
@@ -32,7 +32,7 @@ for (const url of GOOGLE_FELLOWS.filter(fellow => fellow.link).map(fellow => fel
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`Team Page - Google Fellow: ${url}`, async ({ page }) => {
         const response = await page.goto(url, { waitUntil: "domcontentloaded" })
-        if (response?.status() !== 200) console.log(url, response?.status());
+        if (response.status() !== 200) console.log(url, response.status());
     });
 }
 
@@ -40,6 +40,6 @@ for (const url of RESOURCES.filter(resource => resource.url).map(fellow => fello
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`Resource Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
-        if (response?.status() !== 200) console.log(url, response?.status());
+        if (response.status() !== 200) console.log(url, response.status());
     });
 }
