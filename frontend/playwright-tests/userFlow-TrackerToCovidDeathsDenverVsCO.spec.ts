@@ -31,8 +31,8 @@ test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
     await page.fill('[placeholder="County, State, Territory, or United States"]', 'denver');
     await page.keyboard.press('Enter');
 
-    const populationCard = page.locator('id=populationCard')
-    await expect(populationCard).toContainText("Denver County, Colorado")
+    // const populationCard = page.locator('id=populationCard')
+    // await expect(populationCard).toContainText("Denver County, Colorado")
 
     // Changing first location via madlib buttons
     const location2MadlibButton = page.locator('#onboarding-start-your-search button:has-text("Georgia")')
