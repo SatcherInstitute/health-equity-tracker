@@ -70,11 +70,14 @@ export class Dataset {
   }
 
   toCsvString() {
-    // Assume the columns are the same as the keys of the first row. This is
-    // okay since every row has the same keys. However, we could improve this by
-    // sending column names as structured data from the server.
+    // Previously they had assumed that every row would have the same keys; this was not accurate though because a row that contained a null value was losing that entire key/value pair. I "fixed" by having it scan the entire array and collect a set of keys found throughout. However, as they originally noted, we could improve this by sending column names as structured data from the server.
 
-    const fields = Object.keys(this.rows[0]);
+    let fields = [];
+    for (const row of this.rows) {
+      fields.push(...Object.keys(row));
+    }
+    // @ts-ignore
+    fields = [...new Set(fields)];
 
     const df = this.toDataFrame().transformSeries(
       Object.fromEntries(
