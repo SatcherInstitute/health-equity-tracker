@@ -18,13 +18,20 @@ import {
   ASIAN_NH,
   NHPI_NH,
   API_NH,
+  NON_STANDARD_RACES,
+  MULTI_OR_OTHER_STANDARD,
+  MULTI_OR_OTHER_STANDARD_NH,
+  AgeBucket,
   NON_HISPANIC,
   UNKNOWN,
   UNKNOWN_ETHNICITY,
   UNKNOWN_RACE,
   AGE,
+  BJS_NATIONAL_AGE_BUCKETS,
+  BJS_JAIL_AGE_BUCKETS,
 } from "./Constants";
 import { Row } from "./DatasetTypes";
+import { Fips } from "./Fips";
 
 /**
  * Reshapes the data frame by creating a new column for each value in
@@ -230,7 +237,7 @@ export const DATA_GAPS: Partial<
     sex: [...missingSexAllGeos],
   },
   state: {
-    age: [...missingAgeAllGeos, "covid_vaccinations"],
+    age: [...missingAgeAllGeos, "covid_vaccinations", "prison"],
     sex: [...missingSexAllGeos, "covid_vaccinations"],
   },
   territory: {
@@ -238,7 +245,7 @@ export const DATA_GAPS: Partial<
     sex: [...missingSexAllGeos, "covid_vaccinations"],
   },
   county: {
-    age: [...missingAgeAllGeos, "covid_vaccinations"],
+    age: [...missingAgeAllGeos, "covid_vaccinations", "prison", "jail"],
     sex: [...missingSexAllGeos, "covid_vaccinations"],
     race_and_ethnicity: ["covid_vaccinations"],
   },
@@ -249,25 +256,74 @@ export const DATA_GAPS: Partial<
 Conditionally hide some of the extra buckets from the table card, which generally should be showing only 1 complete set of buckets that show the entire population's comparison values.
 
 */
-const showAllGroupIds: VariableId[] = [
+const includeAllsGroupsIds: VariableId[] = [
   "women_state_legislatures",
   "women_us_congress",
+  "prison",
+  "jail",
+];
+
+const NON_STANDARD_AND_MULTI = [
+  ...NON_STANDARD_RACES,
+  MULTI_OR_OTHER_STANDARD,
+  MULTI_OR_OTHER_STANDARD_NH,
 ];
 
 export function getExclusionList(
   currentVariable: VariableConfig,
-  currentBreakdown: BreakdownVar
+  currentBreakdown: BreakdownVar,
+  currentFips: Fips
 ) {
   const current100k = currentVariable.metrics.per100k.metricId;
   const currentVariableId = currentVariable.variableId;
   let exclusionList = [UNKNOWN, UNKNOWN_ETHNICITY, UNKNOWN_RACE];
 
-  if (!showAllGroupIds.includes(currentVariableId)) {
+  if (!includeAllsGroupsIds.includes(currentVariableId)) {
     exclusionList.push(ALL);
   }
 
   if (currentBreakdown === RACE) {
     exclusionList.push(NON_HISPANIC);
+  }
+
+  // Incarceration
+  if (currentVariableId === "prison") {
+    if (currentBreakdown === RACE) {
+      currentFips.isCounty()
+        ? exclusionList.push(...NON_STANDARD_AND_MULTI, ASIAN_NH, NHPI_NH)
+        : exclusionList.push(...NON_STANDARD_AND_MULTI, API_NH);
+    }
+
+    if (currentBreakdown === AGE) {
+      currentFips.isUsa() &&
+        exclusionList.push(
+          ...AGE_BUCKETS.filter(
+            (bucket: AgeBucket) =>
+              !BJS_NATIONAL_AGE_BUCKETS.includes(bucket as any)
+          )
+        );
+
+      currentFips.isState() &&
+        exclusionList.push(
+          // No demographic breakdowns so exclude ALL age buckets
+          ...AGE_BUCKETS
+        );
+    }
+  }
+  if (currentVariableId === "jail") {
+    if (currentBreakdown === RACE) {
+      currentFips.isCounty()
+        ? exclusionList.push(...NON_STANDARD_AND_MULTI, ASIAN_NH, NHPI_NH)
+        : exclusionList.push(...NON_STANDARD_AND_MULTI, API_NH);
+    }
+
+    if (currentBreakdown === AGE) {
+      exclusionList.push(
+        ...AGE_BUCKETS.filter(
+          (bucket: AgeBucket) => !BJS_JAIL_AGE_BUCKETS.includes(bucket as any)
+        )
+      );
+    }
   }
 
   // UHC/BRFSS/AHR
