@@ -12,7 +12,8 @@ const knownFlakyUrls = [
     "https://www.linkedin.com/in/satcherhealth",
     "https://twitter.com/SatcherHealth",
     "https://www.apha.org/topics-and-issues/communicable-disease/coronavirus/equity",
-    "https://www.policylink.org/health-equity-resources"
+    "https://www.policylink.org/health-equity-resources",
+    "https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/"
 
 ]
 
