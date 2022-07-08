@@ -125,9 +125,16 @@ export class ApiDataFetcher implements DataFetcher {
       result = result.map((row: any) => {
         return {
           ...row,
-          total_confined_children: Number(row["total_confined_children"]),
-          prison_per_100k: Number(row["prison_per_100k"]),
-          jail_per_100k: Number(row["jail_per_100k"]),
+          total_confined_children:
+            row["total_confined_children"] == null
+              ? null
+              : Number(row["total_confined_children"]),
+          prison_per_100k:
+            row["prison_per_100k"] == null
+              ? null
+              : Number(row["prison_per_100k"]),
+          jail_per_100k:
+            row["jail_per_100k"] == null ? null : Number(row["jail_per_100k"]),
         };
       });
     } else if (datasetId.startsWith("cdc_vaccination_national")) {
