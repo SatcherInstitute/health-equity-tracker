@@ -73,6 +73,7 @@ export class Dataset {
     // Assume the columns are the same as the keys of the first row. This is
     // okay since every row has the same keys. However, we could improve this by
     // sending column names as structured data from the server.
+
     const fields = Object.keys(this.rows[0]);
 
     const df = this.toDataFrame().transformSeries(
