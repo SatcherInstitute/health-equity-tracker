@@ -9,7 +9,11 @@ const knownFlakyUrls = [
     "https://doi.org/10.1111/j.1540-5907.2011.00512.x",
     "https://doi.org/10.1146/annurev.polisci.11.053106.123839",
     "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3222512/",
-    "https://www.linkedin.com/in/satcherhealth"
+    "https://www.linkedin.com/in/satcherhealth",
+    "https://twitter.com/SatcherHealth",
+    "https://www.apha.org/topics-and-issues/communicable-disease/coronavirus/equity",
+    "https://www.policylink.org/health-equity-resources"
+
 ]
 
 for (const url of Object.values(urlMap)) {
