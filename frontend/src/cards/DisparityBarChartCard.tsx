@@ -110,9 +110,10 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
         const isCawp = CAWP_DETERMINANTS.includes(metricConfig.metricId);
 
-        const dataAvailable = !queryResponse.shouldShowMissingDataMessage([
-          metricConfig.metricId,
-        ]);
+        const dataAvailable =
+          dataWithoutUnknowns.length > 0 &&
+          !queryResponse.shouldShowMissingDataMessage([metricConfig.metricId]);
+
         return (
           <>
             {/* Display either UnknownsAlert OR MissingDataAlert */}
@@ -138,19 +139,22 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               </CardContent>
             )}
             {dataAvailable && dataWithoutUnknowns.length !== 0 && (
-              <CardContent>
-                <DisparityBarChart
-                  data={dataWithoutUnknowns}
-                  lightMetric={metricConfig.populationComparisonMetric!}
-                  darkMetric={
-                    metricConfig.knownBreakdownComparisonMetric || metricConfig
-                  }
-                  breakdownVar={props.breakdownVar}
-                  metricDisplayName={metricConfig.shortLabel}
-                  filename={getTitleText()}
-                  showAltPopCompare={shouldShowAltPopCompare(props)}
-                />
-              </CardContent>
+              <>
+                <CardContent>
+                  <DisparityBarChart
+                    data={dataWithoutUnknowns}
+                    lightMetric={metricConfig.populationComparisonMetric!}
+                    darkMetric={
+                      metricConfig.knownBreakdownComparisonMetric ||
+                      metricConfig
+                    }
+                    breakdownVar={props.breakdownVar}
+                    metricDisplayName={metricConfig.shortLabel}
+                    filename={getTitleText()}
+                    showAltPopCompare={shouldShowAltPopCompare(props)}
+                  />
+                </CardContent>{" "}
+              </>
             )}
             {shouldShowDoesntAddUpMessage && !isCawp && (
               <Alert severity="info" role="note">

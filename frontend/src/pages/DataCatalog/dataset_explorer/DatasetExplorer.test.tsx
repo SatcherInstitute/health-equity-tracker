@@ -26,7 +26,7 @@ test("DatasetExplorer renders all data sources", async () => {
     });
   });
 
-  expect(dataFetcher.getNumGetMetdataCalls()).toBe(1);
+  expect(dataFetcher.getNumGetMetadataCalls()).toBe(1);
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);
   expect(await queryByText("View All Datasets")).not.toBeInTheDocument();
   expect(await findByTestId("acs")).toBeInTheDocument();
@@ -46,7 +46,7 @@ test("DatasetExplorer renders subset of data sources", async () => {
     });
   });
 
-  expect(dataFetcher.getNumGetMetdataCalls()).toBe(1);
+  expect(dataFetcher.getNumGetMetadataCalls()).toBe(1);
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);
   expect(await findByText("View All Datasets")).toBeInTheDocument();
   expect(await findByTestId("acs")).toBeInTheDocument();

@@ -29,9 +29,31 @@ export type LinkName =
   | "doi2"
   | "doi3"
   | "cawp"
-  | "propublica";
+  | "propublica"
+  | "repJohnLewisTweet"
+  | "deniedVoting"
+  | "aafp"
+  | "rwjf"
+  | "childrenInPrison"
+  | "bjsPrisoners"
+  | "bjsCensusOfJails"
+  | "veraGithub"
+  | "prisonPolicy";
 
 export const urlMap: Record<LinkName, string> = {
+  veraGithub: "https://github.com/vera-institute/incarceration-trends",
+  bjsPrisoners:
+    "https://bjs.ojp.gov/library/publications/prisoners-2020-statistical-tables",
+  bjsCensusOfJails:
+    "https://bjs.ojp.gov/library/publications/census-jails-2005-2019-statistical-tables",
+  prisonPolicy: "https://www.prisonpolicy.org/reports/youth2019.html",
+  childrenInPrison: "https://eji.org/issues/children-in-prison/",
+  rwjf: "https://www.rwjf.org/en/library/research/2019/01/mass-incarceration-threatens-health-equity-in-america.html",
+  aafp: "https://www.aafp.org/about/policies/all/incarceration.html",
+  deniedVoting:
+    "https://www.sentencingproject.org/publications/locked-out-2020-estimates-of-people-denied-voting-rights-due-to-a-felony-conviction/",
+  repJohnLewisTweet:
+    "https://twitter.com/repjohnlewis/status/758023941998776321?lang=en",
   newsletterSignup:
     "https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&",
   censusVoting: "https://www.census.gov/topics/public-sector/voting.html",

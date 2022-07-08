@@ -17,7 +17,7 @@ import {
   getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
-import { RACE } from "../data/utils/Constants";
+import { ALL, RACE } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
@@ -27,6 +27,9 @@ import {
   shouldShowAltPopCompare,
 } from "../data/utils/datasetutils";
 import styles from "./Card.module.scss";
+import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
+import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
+import { Row } from "../data/utils/DatasetTypes";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -52,7 +55,8 @@ export function TableCard(props: TableCardProps) {
     exclude(
       ...(getExclusionList(
         props.variableConfig,
-        props.breakdownVar
+        props.breakdownVar,
+        props.fips
       ) as string[])
     )
   );
@@ -77,7 +81,12 @@ export function TableCard(props: TableCardProps) {
         metricConfig.secondaryPopulationComparisonMetric;
     }
   });
+  const isIncarceration = INCARCERATION_IDS.includes(
+    props.variableConfig.variableId
+  );
+
   const metricIds = Object.keys(metricConfigs) as MetricId[];
+  isIncarceration && metricIds.push("total_confined_children");
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
   const displayingCovidData = metrics
@@ -96,28 +105,32 @@ export function TableCard(props: TableCardProps) {
     >
       {([queryResponse]) => {
         let data = queryResponse.data;
+        if (shouldShowAltPopCompare(props)) data = fillInAltPops(data);
+        let normalMetricIds = metricIds;
 
-        if (shouldShowAltPopCompare(props)) {
-          // This should only happen in the vaccine kff state case
-          data = data.map((item) => {
-            const {
-              vaccine_population_pct,
-              acs_vaccine_population_pct,
-              ...restOfItem
-            } = item;
-            return {
-              vaccine_population_pct:
-                vaccine_population_pct || acs_vaccine_population_pct,
-              ...restOfItem,
-            };
-          });
+        // revert metric ids to normal data structure, and revert "displayed" rows to exclude ALLs
+        if (isIncarceration) {
+          normalMetricIds = metricIds.filter(
+            (id) => id !== "total_confined_children"
+          );
+          data = data.filter((row: Row) => row[props.breakdownVar] !== ALL);
         }
+
+        const showMissingDataAlert =
+          queryResponse.shouldShowMissingDataMessage(normalMetricIds) ||
+          data.length <= 0;
 
         return (
           <>
-            {queryResponse.shouldShowMissingDataMessage(
-              metricIds as MetricId[]
-            ) && (
+            {isIncarceration && (
+              <IncarceratedChildrenShortAlert
+                fips={props.fips}
+                queryResponse={queryResponse}
+                breakdownVar={props.breakdownVar}
+              />
+            )}
+
+            {showMissingDataAlert && (
               <CardContent>
                 <MissingDataAlert
                   dataName={props.variableConfig.variableFullDisplayName + " "}
@@ -154,7 +167,7 @@ export function TableCard(props: TableCardProps) {
                 </>
               )}
 
-            {!queryResponse.dataIsMissing() && (
+            {!queryResponse.dataIsMissing() && data.length > 0 && (
               <div className={styles.TableChart}>
                 <TableChart
                   data={data}
@@ -170,4 +183,20 @@ export function TableCard(props: TableCardProps) {
       }}
     </CardWrapper>
   );
+}
+
+function fillInAltPops(data: any[]) {
+  // This should only happen in the vaccine kff state case
+  return data.map((item) => {
+    const {
+      vaccine_population_pct,
+      acs_vaccine_population_pct,
+      ...restOfItem
+    } = item;
+    return {
+      vaccine_population_pct:
+        vaccine_population_pct || acs_vaccine_population_pct,
+      ...restOfItem,
+    };
+  });
 }
