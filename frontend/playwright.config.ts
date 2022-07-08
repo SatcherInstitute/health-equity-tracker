@@ -16,15 +16,11 @@ const config: PlaywrightTestConfig = {
   expect: {
     timeout: 60 * 1000
   },
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
   /* run all tests, even those within a shared file, in parallel  */
-  fullyParallel: true,
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
-  // reporter: process.env.CI ? "github" : 'list',
+  // fullyParallel: true,
+  retries: 2,
   reporter: 'list',
-  workers: process.env.CI ? 8 : undefined,
+  workers: 8,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
@@ -43,12 +39,11 @@ const config: PlaywrightTestConfig = {
   projects: [
     {
       name: 'URL',
-      testMatch: "externalUrls.spec.ts",
+      testMatch: /.*externalUrls.spec.ts/,
     },
     {
       name: 'E2E',
-      testIgnore: "externalUrls.spec.ts",
-
+      testIgnore: /.*externalUrls.spec.ts/,
     },
   ],
 
