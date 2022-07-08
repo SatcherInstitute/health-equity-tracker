@@ -32,6 +32,7 @@ import { Box } from "@material-ui/core";
 import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
+import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -42,6 +43,7 @@ interface ReportProviderProps {
   showLifeLineAlert: boolean;
   setMadLib: Function;
   doScrollToData?: boolean;
+  showIncarceratedChildrenAlert: boolean;
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -160,6 +162,10 @@ function ReportProvider(props: ReportProviderProps) {
         <ShareButtons madLib={props.madLib} />
         {props.showLifeLineAlert && <LifelineAlert />}
         <DisclaimerAlert jumpToData={jumpToData} />
+        {props.showIncarceratedChildrenAlert && false && (
+          <IncarceratedChildrenLongAlert />
+        )}
+
         {getReport()}
       </div>
       <div className={styles.MissingDataContainer}>
@@ -168,9 +174,24 @@ function ReportProvider(props: ReportProviderProps) {
           ref={fieldRef}
           className={styles.MissingDataInfo}
         >
-          <h3 className={styles.FootnoteLargeHeading}>
-            What Data Are Missing?
-          </h3>
+          {/* Display condition definition(s) based on the tracker madlib settings */}
+          <div ref={definitionsRef}>
+            {definedConditions.length > 0 && (
+              <Box mb={5}>
+                <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
+                <LazyLoad offset={300} height={181} once>
+                  <DefinitionsList variablesToDefine={metricConfigSubset} />
+                </LazyLoad>
+              </Box>
+            )}
+          </div>
+
+          <Box mt={10}>
+            <h3 className={styles.FootnoteLargeHeading}>
+              What Data Are Missing?
+            </h3>
+          </Box>
+
           <p>Unfortunately there are crucial data missing in our sources.</p>
           <h4>Missing and Misidentified People</h4>
           <p>
@@ -298,18 +319,6 @@ function ReportProvider(props: ReportProviderProps) {
           >
             See Our Data Sources
           </Button>
-
-          {/* Display condition definition(s) based on the tracker madlib settings */}
-          <div ref={definitionsRef}>
-            {definedConditions.length > 0 && (
-              <Box mt={5}>
-                <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
-                <LazyLoad offset={300} height={181} once>
-                  <DefinitionsList variablesToDefine={metricConfigSubset} />
-                </LazyLoad>
-              </Box>
-            )}
-          </div>
 
           <div className={styles.MissingDataContactUs}>
             <p>
