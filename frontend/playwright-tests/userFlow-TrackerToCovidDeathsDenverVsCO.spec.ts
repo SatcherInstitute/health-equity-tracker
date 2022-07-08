@@ -3,6 +3,7 @@ import { test, expect } from '@playwright/test';
 const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 const DEFAULT_COMPARE_GEO_MODE = "?mls=1.covid-3.00-5.13&mlp=comparegeos"
 const COVID_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos"
+const COVID_DEATHS_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos&dt1=covid_deaths&dt2=covid_deaths"
 
 test('Default Tracker to Compare Mode', async ({ page }) => {
 
@@ -62,20 +63,9 @@ test('Switch Data Types for Both Geos', async ({ page }) => {
     const deathsToggleOption2 = page.locator(':nth-match(:text("Deaths"), 2)')
     await deathsToggleOption2.click()
 
-    // const missingDataLink = page.locator('a:has-text("Read more about missing and misidentified people")')
-    // await missingDataLink.click()
+    // Confirm correct URL
+    await expect(page).toHaveURL(EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_DEN_VS_CO);
 
-
-    // Age-adjusted cards render
-    const ageAdjustedCard1 = page.locator('id=age-adjusted')
-    // await ageAdjustedCard1.scrollIntoViewIfNeeded()
-    const ageAdjustedCard2 = page.locator('id=age-adjusted2')
-    await expect(ageAdjustedCard1).toContainText("We do not currently have Age-Adjusted Risk of COVID-19 Death Compared to White (Non-Hispanic) broken down by Race And Ethnicity for Denver County")
-    await expect(ageAdjustedCard2).toContainText("Age-Adjusted Risk of COVID-19 Death Compared to White (Non-Hispanic) in Colorado")
-
-    // Confirm no failed Vega visualizations
-    // let mainChunk = page.locator('main')
-    // await expect(mainChunk).not.toContainText("Oops")
 
 });
 

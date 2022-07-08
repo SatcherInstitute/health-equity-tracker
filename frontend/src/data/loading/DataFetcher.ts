@@ -80,6 +80,8 @@ export class ApiDataFetcher implements DataFetcher {
   async loadDataset(datasetId: string): Promise<Row[]> {
     let result = await this.fetchDataset(datasetId);
 
+    console.log(result);
+
     // Don't apply any of the below processing to the geography dataset.
     // Note that treating geographies as a normal dataset is a bit weird
     // because it doesn't fit the normal dataset model, so the dataset "rows"
@@ -132,14 +134,19 @@ export class ApiDataFetcher implements DataFetcher {
               : Number(row["vaccinated_per_100k"]),
         };
       });
-    } else if (datasetId.startsWith("kff_vaccination")) {
-      result = result.map((row: any) => {
-        return {
-          ...row,
-          vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
-          population: Number(row["population"]),
-        };
-      });
+      // } else if (datasetId.startsWith("kff_vaccination")) {
+      //   result = result.map((row: any) => {
+      //     console.log(row);
+
+      //     const fixed = {
+      //       ...row,
+      //       vaccinated_first_dose: row["vaccinated_first_dose"] == null ? null : Number(row["vaccinated_first_dose"]),
+      //       population: row["population"] == null ? null : Number(row["population"]),
+      //       population_pct: row["population_pct"] == null ? null : Number(row["population_pct"]),
+      //     };
+      //     return fixed
+
+      //   });
     }
 
     // TODO - the server should drop ingestion_ts before exporting the file. At
