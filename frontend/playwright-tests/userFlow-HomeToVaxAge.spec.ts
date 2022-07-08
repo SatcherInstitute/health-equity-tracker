@@ -47,12 +47,12 @@ test.describe('Home to COVID Vax by Age', () => {
         await expect(page).toHaveURL(`${EXPLORE_DATA_PAGE_LINK}${VAX_USA_RACE}${BY_AGE}`);
 
         // Age should be reflected in card title
-        const barChartCard = await page.locator('#bar')
-        await expect(barChartCard).toContainText(['COVID-19', 'Vaccinations', 'By Age']);
+        // const barChartCard = await page.locator('#bar')
+        // await expect(barChartCard).toContainText(['COVID-19', 'Vaccinations', 'By Age']);
 
         // Confirm no failed Vega visualizations
-        let mainChunk = await page.locator('main')
-        await expect(mainChunk).not.toContainText("Oops")
+        // let mainChunk = await page.locator('main')
+        // await expect(mainChunk).not.toContainText("Oops")
     });
 
 
