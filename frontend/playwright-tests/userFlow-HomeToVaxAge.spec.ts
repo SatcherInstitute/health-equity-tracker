@@ -32,8 +32,8 @@ test.describe('Home to COVID Vax by Age', () => {
         // await expect(mainChunk).not.toContainText("Oops")
 
         // MAP CARD contains correct title
-        const mapCard = await page.locator('#map')
-        await expect(mapCard).toContainText(['COVID-19 Vaccinations']);
+        // const mapCard = await page.locator('#map')
+        // await expect(mapCard).toContainText(['COVID-19 Vaccinations']);
     })
 
     test('Covid Vax Toggle Age', async ({ page }) => {
