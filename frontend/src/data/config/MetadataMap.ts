@@ -18,8 +18,8 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
       "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
-      "Surveillance Data Access, Summary, and Limitations (05/02/2022). The last case data included is 2 " +
-      "weeks before 05/02/2022. The CDC does not take responsibility for the scientific validity " +
+      "Surveillance Data Access, Summary, and Limitations (06/06/2022). The last case data included is 2 " +
+      "weeks before 06/06/2022. The CDC does not take responsibility for the scientific validity " +
       "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
       "dataset is not available for download; please click the link below to apply for access.",
     dataset_ids: [
@@ -193,9 +193,52 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The prevalence of multiple conditions at the state level, including chronic diseases (COPD, diabetes, chronic kidney disease, cardiovascular diseases), behavioral health indicators (suicide, depression, frequent mental distress, excessive drinking, opioid and other substance misuse), and other social determinants of health (care avoidance due to cost, preventable hospitalizations).",
     dataset_ids: [
-      "uhc_data-age",
-      "uhc_data-race_and_ethnicity",
-      "uhc_data-sex",
+      "uhc_data-age_national",
+      "uhc_data-race_and_ethnicity_national",
+      "uhc_data-sex_national",
+      "uhc_data-age_state",
+      "uhc_data-race_and_ethnicity_state",
+      "uhc_data-sex_state",
+    ],
+    downloadable: true,
+  },
+  {
+    id: "bjs",
+    data_source_name: "Bureau of Justice Statistics (BJS)",
+    data_source_pretty_site_name: "bjs.ojp.gov",
+    data_source_link: "https://bjs.ojp.gov",
+    geographic_level: "National, State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Annually",
+    description:
+      "Rates of individuals, including children, who are confined in a local adult jail facility, or under the jurisdiction of a federal, state, or territory adult prison facility.",
+    dataset_ids: [
+      "bjs_incarceration_data-race_and_ethnicity_national",
+      "bjs_incarceration_data-race_and_ethnicity_state",
+      "bjs_incarceration_data-age_national",
+      "bjs_incarceration_data-age_state",
+      "bjs_incarceration_data-sex_national",
+      "bjs_incarceration_data-sex_state",
+    ],
+    downloadable: true,
+  },
+  {
+    id: "vera",
+    data_source_name: "Vera Institute of Justice",
+    data_source_pretty_site_name: "vera.org",
+    data_source_link: "https://www.vera.org/projects/incarceration-trends",
+    geographic_level: "County",
+    demographic_granularity: "Race/ethnicity, sex",
+    update_frequency: "None",
+    description:
+      "Rates of individuals, including children, who are confined in local adult jail facilities, or under the jurisdiction of state adult prison facilities.",
+    dataset_ids: [
+      "vera_incarceration_county-jail_sex_county",
+      "vera_incarceration_county-jail_race_and_ethnicity_county",
+      "vera_incarceration_county-jail_age_county",
+      "vera_incarceration_county-prison_sex_county",
+      "vera_incarceration_county-prison_race_and_ethnicity_county",
+      "vera_incarceration_county-prison_age_county",
     ],
     downloadable: true,
   },
