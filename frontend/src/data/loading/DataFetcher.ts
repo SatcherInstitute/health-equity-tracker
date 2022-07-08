@@ -123,6 +123,15 @@ export class ApiDataFetcher implements DataFetcher {
           below_poverty_line: Number(row["below_poverty_line"]),
         };
       });
+    } else if (datasetId.startsWith("vera_incarceration_county")) {
+      result = result.map((row: any) => {
+        return {
+          ...row,
+          total_confined_children: Number(row["total_confined_children"]),
+          prison_per_100k: Number(row["prison_per_100k"]),
+          jail_per_100k: Number(row["jail_per_100k"]),
+        };
+      });
     } else if (datasetId.startsWith("cdc_vaccination_national")) {
       result = result.map((row: any) => {
         return {
