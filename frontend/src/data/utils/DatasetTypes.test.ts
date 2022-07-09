@@ -2,10 +2,10 @@ import { Dataset } from "./DatasetTypes";
 
 describe("DatasetTypes", () => {
   const fakeMetaData = {
-    id: "kff_vaccination-race_and_ethnicity",
-    name: "COVID-19 Indicators",
-    source_id: "kff_vaccination",
-    update_time: "June 2022",
+    id: "xyz_condition-race_and_ethnicity",
+    name: "Some Data Place",
+    source_id: "this_that",
+    update_time: "Jan 1983",
   };
 
   // including strings that have double-quotes and commas
