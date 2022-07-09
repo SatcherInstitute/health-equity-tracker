@@ -116,13 +116,14 @@ class Fips {
       return `${COUNTY_FIPS_MAP[this.code]}`;
     // COUNTIES (with the word COUNTY added as needed)
     if (this.isCounty()) {
-      const optionalCounty =
-        COUNTY_FIPS_MAP[this.code].includes("Borough") ||
-        COUNTY_FIPS_MAP[this.code].includes("Area") ||
-        COUNTY_FIPS_MAP[this.code].includes("District")
-          ? ""
-          : " County";
-      return `${COUNTY_FIPS_MAP[this.code]}${optionalCounty}`;
+      return `${COUNTY_FIPS_MAP[this.code]} County`;
+      // const optionalCounty =
+      //   COUNTY_FIPS_MAP[this.code].includes("Borough") ||
+      //   COUNTY_FIPS_MAP[this.code].includes("Area") ||
+      //   COUNTY_FIPS_MAP[this.code].includes("District")
+      //     ? ""
+      //     : " County";
+      // return `${COUNTY_FIPS_MAP[this.code]}${optionalCounty}`;
     }
     if (this.isCity()) {
       return `${CITY_FIPS_MAP[this.code]}, ${this.getParentFips()

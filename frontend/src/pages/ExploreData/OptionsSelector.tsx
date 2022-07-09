@@ -56,7 +56,7 @@ function OptionsSelector(props: {
     if (option.isCounty() && option.getParentFips().isTerritory())
       return `${option.getParentFips().getDisplayName()} County Equivalents`;
     if (option.isCity())
-      return `${option.getParentFips().getDisplayName()} Places`;
+      return `Cities in ${option.getParentFips().getDisplayName()}`;
     return "";
   }
 
