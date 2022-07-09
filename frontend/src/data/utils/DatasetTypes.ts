@@ -40,9 +40,8 @@ export interface FieldRange {
 // TODO: make typedef for valid data types instead of any.
 export type Row = Readonly<Record<string, any>>;
 
-// Note: we currently don't support both commas and quotes together, which
-// requires escaping the quotes with another quote.
-function convertSpecialCharactersForCsv(val: any) {
+// Note: we currently don't support both commas and quotes together, which requires escaping the quotes with another quote.
+export function convertSpecialCharactersForCsv(val: any) {
   if (typeof val === "string" && val.includes(",")) {
     return `"${val}"`;
   }
