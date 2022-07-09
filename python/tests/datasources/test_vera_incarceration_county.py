@@ -81,9 +81,6 @@ def testWriteToBq(
     assert mock_csv.call_count == 1
     assert mock_counties.call_count == 1
 
-    for call in mock_bq.call_args_list:
-        print(call.args[0])
-
 
 fake_geo_pop_dtype = {
     "county_fips": str,
