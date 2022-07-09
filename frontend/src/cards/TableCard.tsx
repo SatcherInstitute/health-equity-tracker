@@ -105,6 +105,7 @@ export function TableCard(props: TableCardProps) {
     >
       {([queryResponse]) => {
         let data = queryResponse.data;
+        console.log(data);
         if (shouldShowAltPopCompare(props)) data = fillInAltPops(data);
         let normalMetricIds = metricIds;
 
