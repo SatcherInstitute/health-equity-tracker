@@ -310,7 +310,7 @@ class VeraIncarcerationCounty(DataSource):
 
         # round 100k values
         breakdown_df[RATE_COL_MAP[data_type]
-                     ] = breakdown_df[RATE_COL_MAP[data_type]].dropna().round().astype(float)
+                     ] = breakdown_df[RATE_COL_MAP[data_type]].dropna().round()
 
         breakdown_df[std_col.STATE_FIPS_COL] = breakdown_df[std_col.COUNTY_FIPS_COL].astype(
             str).str[:2]
