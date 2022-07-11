@@ -25,12 +25,6 @@ from ingestion.merge_utils import (
 )
 
 
-# Plan:
-
-# Keep States fips
-# Change merge pop function to take in either one pop col or a list of multiple
-# Directly zero out the population rows based on the SUPPRESSION tupes from cdc_restricted_local
-
 DC_COUNTY_FIPS = '11001'
 
 ONLY_FIPS_FILES = {
@@ -146,7 +140,6 @@ class CDCRestrictedData(DataSource):
             df.loc[rows_to_modify, generate_column_name(std_col.COVID_DEATH_Y, 'population')] = 0
 
             df = df.drop(columns=std_col.STATE_POSTAL_COL)
-
             df = generate_national_dataset(df, demo_col)
 
         fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
