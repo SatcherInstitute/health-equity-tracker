@@ -11,7 +11,6 @@ from datasources.cdc_svi_county import CDCSviCounty, format_svi
 
 def test_format_svi():
     assert format_svi(0.4354) == .44
-    # assert format_svi(2) == ValueError
 
 
 # Current working directory.
@@ -55,30 +54,3 @@ def testWriteToBq(
     })
     assert_frame_equal(
         mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
-
-
-# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', return_value=get_real_svi_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-# def testWriteToBq(
-#     mock_bq: mock.MagicMock,
-#     mock_web_csv: mock.MagicMock
-# ):
-
-#     cdcSviCounty = CDCSviCounty()
-
-#     kwargs = {'filename': 'test_file.csv',
-#               'metadata_table_id': 'test_metadata',
-#               'table_name': 'output_table'}
-
-#     cdcSviCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-#     # assert mock_bq.call_count == 1
-#     # assert mock_csv.call_count == 1
-
-#     expected_df = pd.read_csv(GOLDEN_DATA, dtype={
-#         'county_fips': str})
-
-#     print(mock_bq.call_args_list[0].args[0])
-#     mock_bq.call_args_list[0].args[0].to_json("output.json", orient="records")
-
-#     assert_frame_equal(
-#         mock_bq.call_args_list[0].args[0], expected_df, check_like=True)

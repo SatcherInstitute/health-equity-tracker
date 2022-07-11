@@ -6,9 +6,6 @@ import numpy as np
 
 from ingestion.merge_utils import (merge_county_names)
 
-BASE_CDC_URL = 'https://data.cdc.gov/resource/8xkx-amqh.csv'
-FILE_SIZE_LIMIT = 5000
-
 columns_to_standard = {
     "FIPS": std_col.COUNTY_FIPS_COL,
     "LOCATION": std_col.COUNTY_NAME_COL,
