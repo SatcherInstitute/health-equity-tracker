@@ -1,12 +1,8 @@
-from multiprocessing.sharedctypes import Value
 from unittest import mock
 import os
-from numpy import float64
 
 import pandas as pd
 from pandas._testing import assert_frame_equal
-
-import numpy as np
 
 from datasources.cdc_svi_county import CDCSviCounty, format_svi
 

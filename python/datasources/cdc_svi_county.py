@@ -22,10 +22,8 @@ def format_svi(value):
     or null. If the RPL_THEMES column that is greater than 1.0, this function raises an 
     assertion error. The columns that have a value within the expected range, are then rounded
     to two decimal places. The value is then outputted on the svi column of the dataframe. 
-
     Parameters:
         svi: number
-
     Returns:
         df: return svi wih two decimal places, nan, or an assertion error. 
     """
@@ -75,8 +73,5 @@ class CDCSviCounty(DataSource):
         df[std_col.AGE_COL] = std_col.ALL_VALUE
         cols_to_keep = [*columns_to_standard.values(), std_col.AGE_COL]
         df = df[cols_to_keep]
-
-        print("\n")
-        print(df.to_string())
 
         return df
