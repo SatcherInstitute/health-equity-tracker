@@ -53,7 +53,7 @@ class CDCSviCounty(DataSource):
         df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             'cdc_svi_county', "cdc_svi_county_totals.csv", dtype={'FIPS': str})
 
-        df = self.generate_for_bq(df, 'county')
+        df = self.generate_for_bq(df)
 
         column_types = {c: 'STRING' for c in df.columns}
         column_types[std_col.SVI] = 'FLOAT'
@@ -61,12 +61,11 @@ class CDCSviCounty(DataSource):
         gcs_to_bq_util.add_df_to_bq(
             df, dataset, "age", column_types=column_types)
 
-    def generate_for_bq(self, df, geo):
+    def generate_for_bq(self, df):
 
         df = df.rename(columns=columns_to_standard)
 
-        if geo == 'county':
-            df = merge_county_names(df)
+        df = merge_county_names(df)
 
         df["svi"] = df["svi"].apply(format_svi)
 
