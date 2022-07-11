@@ -89,14 +89,10 @@ class AgeAdjustCDCRestricted(DataSource):
             only_race = f'by_race_{geo}_processed'
             table_name = f'{only_race}-with_age_adjust'
 
-            # TODO: Get rid of this when we do all national calculations on the backend
-            if geo == 'state':
-                only_race_df = gcs_to_bq_util.load_df_from_bigquery(
-                    'cdc_restricted_data', only_race)
-                table_names_to_dfs[table_name] = merge_age_adjusted(
-                    only_race_df, age_adjusted_df)
-            else:
-                table_names_to_dfs[table_name] = age_adjusted_df
+            only_race_df = gcs_to_bq_util.load_df_from_bigquery(
+                'cdc_restricted_data', only_race)
+            table_names_to_dfs[table_name] = merge_age_adjusted(
+                only_race_df, age_adjusted_df)
 
         # For each of the files, we load it as a dataframe and add it as a
         # table in the BigQuery dataset. We expect that all aggregation and
