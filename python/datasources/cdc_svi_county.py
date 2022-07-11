@@ -52,20 +52,16 @@ class CDCSviCounty(DataSource):
             'upload_to_gcs should not be called for CDCSviCounty')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        # params = {"$limit": FILE_SIZE_LIMIT}
-        # df = gcs_to_bq_util.load_csv_as_df_from_web(
-        #     BASE_CDC_URL, dtype={COUNTY_FIPS_COL: str}, params=params)
-        for geo in ['county']:
-            df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-                'cdc_svi_county', "cdc_svi_county_totals.csv")
+        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            'cdc_svi_county', "cdc_svi_county_totals.csv", dtype={'FIPS': str})
 
-            df = self.generate_for_bq(df, geo)
+        df = self.generate_for_bq(df, 'county')
 
-            column_types = {c: 'STRING' for c in df.columns}
-            column_types[std_col.SVI] = 'FLOAT'
+        column_types = {c: 'STRING' for c in df.columns}
+        column_types[std_col.SVI] = 'FLOAT'
 
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, "age", column_types=column_types)
+        gcs_to_bq_util.add_df_to_bq(
+            df, dataset, "age", column_types=column_types)
 
     def generate_for_bq(self, df, geo):
 

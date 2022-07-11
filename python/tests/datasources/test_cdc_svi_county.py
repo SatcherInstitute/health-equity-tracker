@@ -32,14 +32,16 @@ def get_svi_as_df():
     return pd.read_csv(os.path.join(TEST_DIR, 'cdc_svi_county_test.csv'), dtype={"FIPS": str})
 
 
-def get_real_svi_as_df():
-    return pd.read_csv(os.path.join(REAL_DIR, 'cdc_svi_county_totals.csv'), dtype={"FIPS": str})
+def get_county_names():
+    return pd.read_csv(os.path.join(TEST_DIR, 'county_names.csv'), dtype={"county_fips_code": str})
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', return_value=get_svi_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', return_value=get_county_names())
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBq(
     mock_bq: mock.MagicMock,
+    mock_county_names: mock.MagicMock,
     mock_csv: mock.MagicMock
 ):
     cdcSviCounty = CDCSviCounty()
@@ -54,9 +56,6 @@ def testWriteToBq(
 
     expected_df = pd.read_csv(GOLDEN_DATA, dtype={
         'county_fips': str,
-
-        # prinmock_bq.call_args_list[0].args[0]())
-
     })
     assert_frame_equal(
         mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
