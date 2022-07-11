@@ -98,13 +98,7 @@ class AgeAdjustCDCRestricted(DataSource):
         # table in the BigQuery dataset. We expect that all aggregation and
         # standardization of the data has been done by this point.
         for table_name, df in table_names_to_dfs.items():
-            # All columns are str, except outcome columns.
-            column_types = {c: 'STRING' for c in df.columns}
-            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-
-            if 'state' in table_name:
-                column_types = get_col_types(df)
+            column_types = get_col_types(df)
 
             # Clean up column names.
             self.clean_frame_column_names(df)

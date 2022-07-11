@@ -254,6 +254,7 @@ def remove_bad_fips_cols(df):
 
 
 def generate_national_dataset(state_df, demo_col):
+    """Generates a national dataset based on a state_df and demographic column"""
     int_cols = [
         std_col.COVID_CASES,
         std_col.COVID_DEATH_Y,
