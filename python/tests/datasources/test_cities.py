@@ -1,7 +1,7 @@
 from unittest import mock
 import os
 from ingestion.dataset_utils import ensure_leading_zeros
-
+import json
 import pandas as pd
 
 # Current working directory.
@@ -42,14 +42,16 @@ places_df = places_df.assign(
     COUNTY=places_df['COUNTY'].str.split(',')).explode('COUNTY')
 places_df = places_df.rename(columns={"COUNTY": "COUNTYNAME"})
 
+places_df = places_df.loc[places_df['FUNCSTAT'] == "A"]
+
 places_df = places_df[["PLACEFP", "COUNTYNAME", "STATE", "PLACENAME"]]
 places_df = ensure_leading_zeros(places_df, "PLACEFP", 5)
 places_df = places_df.drop_duplicates()
 
-print("*\n")
-print(counties_df.to_string())
-print("\n\n\n\n")
-print(places_df)
+# print("*\n")
+# print(counties_df.to_string())
+# print("\n\n\n\n")
+# print(places_df.to_string())
 
 
 df = pd.merge(places_df, counties_df, how='inner', on=["COUNTYNAME", "STATE"])
@@ -57,7 +59,15 @@ df = pd.merge(places_df, counties_df, how='inner', on=["COUNTYNAME", "STATE"])
 df["city_fips"] = df["county_fips"] + df["PLACEFP"]
 
 df = df[["city_fips", "PLACENAME"]].dropna()
-df["PLACENAME"] = df["PLACENAME"].str.replace(" CDP", "")
-print(df.to_string())
+df["PLACENAME"] = df["PLACENAME"].str.replace(" township", "")
+df["PLACENAME"] = df["PLACENAME"].str.replace(" town", "")
+df["PLACENAME"] = df["PLACENAME"].str.replace(" city", "")
+df["PLACENAME"] = df["PLACENAME"].str.replace(" village", "")
+df["PLACENAME"] = df["PLACENAME"].str.replace(" charter", "")
+df["PLACENAME"] = df["PLACENAME"].str.replace(" borough", "")
 
-df.to_json('city_fips_map.json', orient='split')
+
+data = dict(df.values)
+
+with open('city_fips_map.json', 'w') as fp:
+    json.dump(data, fp)
