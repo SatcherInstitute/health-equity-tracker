@@ -19,13 +19,13 @@ columns_to_standard = {
 def format_svi(value):
     """
     Takes the RPL_THEMES column and formats it to match an expected number between 0.0 - 1.0,
-    or null. If the RPL_THEMES column that is greater than 1.0, this function raises an 
+    or null. If the RPL_THEMES column that is greater than 1.0, this function raises an
     assertion error. The columns that have a value within the expected range, are then rounded
-    to two decimal places. The value is then outputted on the svi column of the dataframe. 
+    to two decimal places. The value is then outputted on the svi column of the dataframe.
     Parameters:
         svi: number
     Returns:
-        df: return svi wih two decimal places, nan, or an assertion error. 
+        df: return svi wih two decimal places, nan, or an assertion error.
     """
     if value == -999.0:
         return np.nan
