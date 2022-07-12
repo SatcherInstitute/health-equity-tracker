@@ -34,17 +34,7 @@ function SviAlert(props: SviAlertProps) {
 
   return (
     <>
-      {props.svi > 0 ? (
-        <Alert severity="info" style={{ margin: "10px" }}>
-          This county has a social vulnerability index of <b>{props.svi}</b>;
-          which indicates a{" "}
-          <a href="testing" style={{ textDecorationColor: color }}>
-            <span style={{ color: color, fontWeight: "bold" }}>
-              {rating} level of vulernability.
-            </span>
-          </a>
-        </Alert>
-      ) : (
+      {props.svi === undefined || props.svi === null ? (
         <Alert severity="warning" style={{ margin: "10px " }}>
           We do not currently have the{" "}
           <span style={{ fontWeight: "bold" }}>social vulnerability index</span>{" "}
@@ -54,6 +44,16 @@ function SviAlert(props: SviAlertProps) {
           </span>
           . Learn more about how this lack of data impacts{" "}
           <a href="link">health equity.</a>
+        </Alert>
+      ) : (
+        <Alert severity="info" style={{ margin: "10px" }}>
+          This county has a social vulnerability index of <b>{props.svi}</b>;
+          which indicates a{" "}
+          <a href="testing" style={{ textDecorationColor: color }}>
+            <span style={{ color: color, fontWeight: "bold" }}>
+              {rating} level of vulernability.
+            </span>
+          </a>
         </Alert>
       )}
     </>

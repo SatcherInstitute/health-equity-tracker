@@ -9,7 +9,7 @@ class CdcSviProvider extends VariableProvider {
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    return "cdc_svi_data-county";
+    return "cdc_svi_county-age";
   }
 
   async getDataInternal(
