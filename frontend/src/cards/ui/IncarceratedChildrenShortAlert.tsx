@@ -24,12 +24,9 @@ function IncarceratedChildrenShortAlert(
   if (count) count = parseInt(count);
   if (count == null) return <></>;
 
-  let children = "children";
-  let adultFacilities = "adult facilities";
-  if (count === 1) {
-    children = "child";
-    adultFacilities = "an adult facility";
-  }
+  const children = count === 1 ? "child" : "children";
+  const adultFacilities =
+    count === 1 ? "an adult facility" : "adult facilities";
 
   return (
     <CardContent>
