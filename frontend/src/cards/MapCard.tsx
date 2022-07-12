@@ -109,9 +109,9 @@ function MapCardWithKey(props: MapCardProps) {
 
   const selectedRaceSuffix = CAWP_DETERMINANTS.includes(metricConfig.metricId)
     ? ` Identifying as ${getWomenRaceLabel(activeBreakdownFilter).replace(
-      "All ",
-      ""
-    )}`
+        "All ",
+        ""
+      )}`
     : "";
 
   let qualifierMessage = "";
@@ -221,11 +221,8 @@ function MapCardWithKey(props: MapCardProps) {
                 activeBreakdownFilter !== "All" &&
                 ` ${activeBreakdownFilter} individuals`}
               {" in  "}
-              {/*} in */}
-              {/*} (the) */}
-              {props.fips.getDisplayName() === "United States" && "the "}
-              {/*} United States */}
-              {props.fips.getDisplayName()}
+              {/*} Georgia */}
+              {props.fips.getSentenceDisplayName()}
               {". "}
             </>
           ) : (
@@ -277,8 +274,9 @@ function MapCardWithKey(props: MapCardProps) {
                   >
                     <Grid item>
                       <DropDownMenu
-                        idSuffix={`-${props.fips.getStateFipsCode()}-${props.variableConfig.variableId
-                          }`}
+                        idSuffix={`-${props.fips.getStateFipsCode()}-${
+                          props.variableConfig.variableId
+                        }`}
                         value={activeBreakdownFilter}
                         options={filterOptions}
                         onOptionUpdate={(
@@ -324,17 +322,17 @@ function MapCardWithKey(props: MapCardProps) {
 
             {(mapQueryResponse.dataIsMissing() ||
               dataForActiveBreakdownFilter.length === 0) && (
-                <CardContent>
-                  <MissingDataAlert
-                    dataName={metricConfig.fullCardTitleName}
-                    breakdownString={
-                      BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-                    }
-                    isMapCard={true}
-                    fips={props.fips}
-                  />
-                </CardContent>
-              )}
+              <CardContent>
+                <MissingDataAlert
+                  dataName={metricConfig.fullCardTitleName}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+                  }
+                  isMapCard={true}
+                  fips={props.fips}
+                />
+              </CardContent>
+            )}
 
             {!mapQueryResponse.dataIsMissing() &&
               dataForActiveBreakdownFilter.length === 0 &&
@@ -377,10 +375,11 @@ function MapCardWithKey(props: MapCardProps) {
                     scaleType="quantile"
                     geoData={geoData}
                     // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
-                    filename={`${metricConfig.fullCardTitleName}${activeBreakdownFilter === "All"
+                    filename={`${metricConfig.fullCardTitleName}${
+                      activeBreakdownFilter === "All"
                         ? ""
                         : ` for ${activeBreakdownFilter}`
-                      } in ${props.fips.getSentenceDisplayName()}`}
+                    } in ${props.fips.getSentenceDisplayName()}`}
                   />
                   {/* generate additional VEGA canvases for territories on national map */}
                   {props.fips.isUsa() && (
