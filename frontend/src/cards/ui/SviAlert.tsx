@@ -3,6 +3,8 @@ import Alert from "@material-ui/lab/Alert";
 import variables from "../../styles/variables.module.scss";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { Fips } from "../../data/utils/Fips";
+import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";
+import styles from "./SviAlert.module.scss";
 
 interface SviAlertProps {
   svi: number;
@@ -16,16 +18,18 @@ const findRating = (svi: number) => {
   }
   if (svi > 0.67) {
     return "high";
-  } else return "medium";
+  }
+  return "medium";
 };
 
 const findColor = (rating: string) => {
   if (rating === "high") {
-    return "#d32f2f";
+    return styles.High;
   }
   if (rating === "low") {
-    return variables.altGreen;
-  } else return "#d85c47";
+    return styles.Low;
+  }
+  return styles.Medium;
 };
 
 function SviAlert(props: SviAlertProps) {
@@ -35,24 +39,17 @@ function SviAlert(props: SviAlertProps) {
   return (
     <>
       {props.svi === undefined || props.svi === null ? (
-        <Alert severity="warning" style={{ margin: "10px " }}>
-          We do not currently have the{" "}
-          <span style={{ fontWeight: "bold" }}>social vulnerability index</span>{" "}
-          for{" "}
-          <span style={{ fontWeight: "bold" }}>
-            {props.fips.getDisplayName()}
-          </span>
-          . Learn more about how this lack of data impacts{" "}
-          <a href="link">health equity.</a>
+        <Alert severity="warning" className={styles.Alert}>
+          We do not currently have the <b>social vulnerability index</b> for{" "}
+          <b>{props.fips.getDisplayName()}</b>. Learn more about how this lack
+          of data impacts <a href="link">health equity.</a>
         </Alert>
       ) : (
-        <Alert severity="info" style={{ margin: "10px" }}>
+        <Alert severity="info" className={styles.Alert}>
           This county has a social vulnerability index of <b>{props.svi}</b>;
           which indicates a{" "}
-          <a href="testing" style={{ textDecorationColor: color }}>
-            <span style={{ color: color, fontWeight: "bold" }}>
-              {rating} level of vulernability.
-            </span>
+          <a href={METHODOLOGY_TAB_LINK} className={color}>
+            <b>{rating} level of vulernability.</b>
           </a>
         </Alert>
       )}
