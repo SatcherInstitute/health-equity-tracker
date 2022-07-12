@@ -102,3 +102,15 @@
   padding-left: 30px;
   padding-top: 15px;
 }
+
+.ProfileButton {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.SviContainer {
+  @media only screen and (min-width: $md) {
+    display: flex;
+    align-items: center;
+  }
+}

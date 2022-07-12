@@ -103,6 +103,7 @@ export function PopulationCard(props: PopulationCardProps) {
             }
             onClick={() => setExpanded(!expanded)}
             color="primary"
+            className={styles.ProfileButton}
           >
             {expanded ? "Collapse full profile" : "See full profile"}
             {expanded ? <ArrowDropUp /> : <ArrowDropDown />}
@@ -143,18 +144,21 @@ export function PopulationCard(props: PopulationCardProps) {
                   </Grid>
                 </Grid>
               </Grid>
-              {!raceQueryResponse.dataIsMissing() && (
-                <Grid item>{CollapseButton}</Grid>
-              )}
+              <Grid className={styles.SviContainer}>
+                <Grid>
+                  {sviQueryResponse && (
+                    <SviAlert
+                      svi={svi}
+                      sviQueryResponse={sviQueryResponse}
+                      fips={props.fips}
+                    />
+                  )}
+                </Grid>
+                {!raceQueryResponse.dataIsMissing() && (
+                  <Grid item>{CollapseButton}</Grid>
+                )}
+              </Grid>
             </Grid>
-
-            {sviQueryResponse && (
-              <SviAlert
-                svi={svi}
-                sviQueryResponse={sviQueryResponse}
-                fips={props.fips}
-              />
-            )}
 
             {props.fips.needsACS2010() && (
               <CardContent>
