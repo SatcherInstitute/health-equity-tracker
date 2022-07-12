@@ -101,15 +101,10 @@ export class MetricQueryResponse {
     fieldName: BreakdownVar,
     targetMetric: MetricId
   ): { withData: DemographicGroup[]; noData: DemographicGroup[] } {
-    if (this.isFieldMissing(fieldName)) {
-      return {
-        withData: [],
-        noData: [],
-      };
-    }
-
     const withData: DemographicGroup[] = [];
     const noData: DemographicGroup[] = [];
+
+    if (this.isFieldMissing(fieldName)) return { withData, noData };
 
     const validRows = this.getValidRowsForField(fieldName);
     const groupOptions = new Set<DemographicGroup>(
@@ -117,10 +112,15 @@ export class MetricQueryResponse {
     );
 
     groupOptions.forEach((group) => {
-      const validRowsPerGroup = validRows.filter(
-        (row) => row[fieldName] === group
-      );
-      validRowsPerGroup.some((row) => row[targetMetric])
+      const validRowsPerGroup = validRows.filter((row) => {
+        return row[fieldName] === group;
+      });
+      validRowsPerGroup.some((row) => {
+        // exclude null and undefined, include any values including 0
+        return (
+          !isNaN(parseFloat(row[targetMetric])) && row[targetMetric] != null
+        );
+      })
         ? withData.push(group)
         : noData.push(group);
     });

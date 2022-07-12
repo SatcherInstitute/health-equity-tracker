@@ -4,18 +4,30 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
+from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
 from datasources.cawp import (CAWPData,
                               get_standard_code_from_cawp_phrase,
                               count_matching_rows,
                               remove_markup,
-                              NATIONAL,
-                              STATE,
-                              POSTAL_COL,
+                              pct_never_null,
                               POSITION_COL,
                               RACE_COL)
+import pytest
 
 
 # UNIT TESTS
+
+def test_pct_never_null():
+    # normal percent
+    assert pct_never_null(1, 2) == 50
+    # never null; return 0.0 instead
+    assert pct_never_null(0, 0) == 0
+    # doesn't allow numerator > denominator
+    with pytest.raises(ValueError):
+        pct_never_null(2, 1)
+    # TODO uncomment next test once util fn is fixed
+    # assert pct_never_null(1, 0) is None
+
 
 def test_get_standard_code_from_cawp_phrase():
     assert get_standard_code_from_cawp_phrase("American Samoa - AS") == "AS"
@@ -33,21 +45,21 @@ def test_remove_markup():
 
 def test_count_matching_rows():
     df_test = pd.DataFrame(
-        {POSTAL_COL: ["FL", "FL", "PR", "PR", "ME", "ME"],
+        {std_col.STATE_POSTAL_COL: ["FL", "FL", "PR", "PR", "ME", "ME"],
          RACE_COL: ["Black, White", "Black", "Black", "Black", "White", "Multiracial Alone"],
          POSITION_COL: ["U.S. Senator", "State Senator", "Territorial/D.C. Representative",
          "U.S. Delegate", "U.S. Representative", "U.S. Representative"]})
 
     assert count_matching_rows(
-        df_test, "US", NATIONAL, "Black") == 2
+        df_test, "US", NATIONAL_LEVEL, "Black") == 2
     assert count_matching_rows(
-        df_test, "FL", NATIONAL, "Black") == 1
+        df_test, "FL", NATIONAL_LEVEL, "Black") == 1
     assert count_matching_rows(
-        df_test, "FL", NATIONAL, "All") == 1
+        df_test, "FL", NATIONAL_LEVEL, "All") == 1
     assert count_matching_rows(
-        df_test, "US", STATE, "All") == 2
+        df_test, "US", STATE_LEVEL, "All") == 2
     assert count_matching_rows(
-        df_test, "US", NATIONAL, "Multiracial Alone") == 2
+        df_test, "US", NATIONAL_LEVEL, "Multiracial Alone") == 2
 
 
 # INTEGRATION TEST SETUP
@@ -127,7 +139,7 @@ def _get_test_state_names(*args, **kwargs):
         })
 
 
-# RUN INTEGRATION TESTS ON NATIONAL LEVEL
+# RUN INTEGRATION TESTS ON NATIONAL_LEVEL LEVEL
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              side_effect=_get_test_state_names)
@@ -185,9 +197,9 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
 
     mock_df_national = mock_bq.call_args_list[1].args[0]
 
-    # save NATIONAL results to file
-    mock_df_national.to_json(
-        "cawp-run-results-national.json", orient="records")
+    # save NATIONAL_LEVEL results to file
+    # mock_df_national.to_json(
+    #     "cawp-run-results-national.json", orient="records")
 
     # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
     assert set(mock_df_national) == set(
@@ -196,7 +208,7 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
         mock_df_national, expected_df_national, check_like=True)
 
 
-# RUN INTEGRATION TESTS ON STATE/TERRITORY LEVEL
+# RUN INTEGRATION TESTS ON STATE_LEVEL/TERRITORY LEVEL
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              side_effect=_get_test_state_names)
@@ -254,9 +266,9 @@ def testWriteStateLevelToBq(mock_bq: mock.MagicMock,
 
     mock_df_state = mock_bq.call_args_list[0].args[0]
 
-    # save STATE results to file
-    mock_df_state.to_json(
-        "cawp-run-results-state.json", orient="records")
+    # save STATE_LEVEL results to file
+    # mock_df_state.to_json(
+    #     "cawp-run-results-state.json", orient="records")
 
     # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
     assert set(mock_df_state) == set(

@@ -1,4 +1,5 @@
 import { DataFrame, IDataFrame } from "data-forge";
+import { STATE_FIPS_MAP } from "./Fips";
 
 // Data sources may provide multiple datasets
 export interface DataSourceMetadata {
@@ -58,13 +59,21 @@ export class Dataset {
   }
 
   toDataFrame(): IDataFrame {
-    return new DataFrame(this.rows);
+    // TODO Remove this once STATE FIPS are embedded during GCP/SQL step
+    const rowsWithFakeFips = this.rows.map((row) => {
+      const fipsCode = Object.keys(STATE_FIPS_MAP).find(
+        (key) => STATE_FIPS_MAP[key] === row.state_name
+      );
+      return { ...row, state_fips: fipsCode };
+    });
+    return new DataFrame(rowsWithFakeFips);
   }
 
   toCsvString() {
     // Assume the columns are the same as the keys of the first row. This is
     // okay since every row has the same keys. However, we could improve this by
     // sending column names as structured data from the server.
+
     const fields = Object.keys(this.rows[0]);
 
     const df = this.toDataFrame().transformSeries(

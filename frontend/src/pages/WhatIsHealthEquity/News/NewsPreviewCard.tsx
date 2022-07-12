@@ -21,6 +21,7 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
       className={styles.NewsPreviewHeaderText}
     >
       <Grid container wrap="nowrap" justifyContent="space-evenly">
+        {/* Optional "Left/Previous" Arrow */}
         <Grid
           item
           xs={1}
@@ -61,10 +62,13 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
           </LazyLoad>
 
           <Box mx={1}>
-            <h3>{getHtml(article.title.rendered, true)}</h3>
+            <h3 className={styles.NewsPreviewTitleText}>
+              {getHtml(article.title.rendered, true)}
+            </h3>
           </Box>
         </Grid>
 
+        {/* Optional "Right/Next" Arrow */}
         <Grid
           item
           xs={1}

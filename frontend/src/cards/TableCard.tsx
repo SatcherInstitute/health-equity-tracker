@@ -17,43 +17,22 @@ import {
   getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
-import {
-  NON_HISPANIC,
-  RACE,
-  UNKNOWN,
-  UNKNOWN_RACE,
-  UNKNOWN_ETHNICITY,
-  ALL,
-  BROAD_AGE_BUCKETS,
-  DECADE_PLUS_5_AGE_BUCKETS,
-  VOTER_AGE_BUCKETS,
-  AGE_BUCKETS,
-  ASIAN_NH,
-  NHPI_NH,
-  API_NH,
-} from "../data/utils/Constants";
-import { Row } from "../data/utils/DatasetTypes";
+import { ALL, RACE } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
-import {
-  UHC_API_NH_DETERMINANTS,
-  UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
-  UHC_DETERMINANTS,
-  UHC_VOTER_AGE_DETERMINANTS,
-} from "../data/variables/BrfssProvider";
 import { urlMap } from "../utils/externalUrls";
-import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
+import {
+  getExclusionList,
+  shouldShowAltPopCompare,
+} from "../data/utils/datasetutils";
 import styles from "./Card.module.scss";
+import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
+import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
+import { Row } from "../data/utils/DatasetTypes";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
-
-export interface TableCardProps {
-  fips: Fips;
-  breakdownVar: BreakdownVar;
-  variableConfig: VariableConfig;
-}
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -62,54 +41,24 @@ export const NEVER_SHOW_PROPERTIES = [
     ?.secondaryPopulationComparisonMetric,
 ];
 
+export interface TableCardProps {
+  fips: Fips;
+  breakdownVar: BreakdownVar;
+  variableConfig: VariableConfig;
+}
+
 export function TableCard(props: TableCardProps) {
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
-  const current100k = props.variableConfig.metrics.per100k.metricId;
-
-  // choose demographic groups to exclude from the table
-  let exclusionList = [ALL];
-
-  // across all variables
-  if (props.breakdownVar === "race_and_ethnicity") {
-    exclusionList.push(NON_HISPANIC);
-  }
-
-  // only for UHC variables
-  const ALL_UHC_DETERMINANTS = [
-    ...UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
-    ...UHC_VOTER_AGE_DETERMINANTS,
-    ...UHC_DETERMINANTS,
-  ];
-  if (
-    ALL_UHC_DETERMINANTS.includes(current100k) &&
-    props.breakdownVar === "race_and_ethnicity"
-  ) {
-    UHC_API_NH_DETERMINANTS.includes(current100k)
-      ? exclusionList.push(ASIAN_NH, NHPI_NH)
-      : exclusionList.push(API_NH);
-  } else if (
-    ALL_UHC_DETERMINANTS.includes(current100k) &&
-    props.breakdownVar === "age"
-  ) {
-    // get correct age buckets for this determinant
-    let determinantBuckets: any[] = [];
-    if (UHC_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k))
-      determinantBuckets.push(...DECADE_PLUS_5_AGE_BUCKETS);
-    else if (UHC_VOTER_AGE_DETERMINANTS.includes(current100k))
-      determinantBuckets.push(...VOTER_AGE_BUCKETS);
-    else if (UHC_DETERMINANTS.includes(current100k))
-      determinantBuckets.push(...BROAD_AGE_BUCKETS);
-
-    // remove all of the other age groups
-    const irrelevantAgeBuckets = AGE_BUCKETS.filter(
-      (bucket) => !determinantBuckets.includes(bucket)
-    );
-    exclusionList.push(...irrelevantAgeBuckets);
-  }
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    exclude(...exclusionList)
+    exclude(
+      ...(getExclusionList(
+        props.variableConfig,
+        props.breakdownVar,
+        props.fips
+      ) as string[])
+    )
   );
 
   let metricConfigs: Record<string, MetricConfig> = {};
@@ -132,7 +81,12 @@ export function TableCard(props: TableCardProps) {
         metricConfig.secondaryPopulationComparisonMetric;
     }
   });
+  const isIncarceration = INCARCERATION_IDS.includes(
+    props.variableConfig.variableId
+  );
+
   const metricIds = Object.keys(metricConfigs) as MetricId[];
+  isIncarceration && metricIds.push("total_confined_children");
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
   const displayingCovidData = metrics
@@ -150,34 +104,33 @@ export function TableCard(props: TableCardProps) {
       }
     >
       {([queryResponse]) => {
-        let dataWithoutUnknowns = queryResponse.data.filter(
-          (row: Row) =>
-            row[props.breakdownVar] !== UNKNOWN &&
-            row[props.breakdownVar] !== UNKNOWN_RACE &&
-            row[props.breakdownVar] !== UNKNOWN_ETHNICITY
-        );
+        let data = queryResponse.data;
+        if (shouldShowAltPopCompare(props)) data = fillInAltPops(data);
+        let normalMetricIds = metricIds;
 
-        if (shouldShowAltPopCompare(props)) {
-          // This should only happen in the vaccine kff state case
-          dataWithoutUnknowns = dataWithoutUnknowns.map((item) => {
-            const {
-              vaccine_population_pct,
-              acs_vaccine_population_pct,
-              ...restOfItem
-            } = item;
-            return {
-              vaccine_population_pct:
-                vaccine_population_pct || acs_vaccine_population_pct,
-              ...restOfItem,
-            };
-          });
+        // revert metric ids to normal data structure, and revert "displayed" rows to exclude ALLs
+        if (isIncarceration) {
+          normalMetricIds = metricIds.filter(
+            (id) => id !== "total_confined_children"
+          );
+          data = data.filter((row: Row) => row[props.breakdownVar] !== ALL);
         }
+
+        const showMissingDataAlert =
+          queryResponse.shouldShowMissingDataMessage(normalMetricIds) ||
+          data.length <= 0;
 
         return (
           <>
-            {queryResponse.shouldShowMissingDataMessage(
-              metricIds as MetricId[]
-            ) && (
+            {isIncarceration && (
+              <IncarceratedChildrenShortAlert
+                fips={props.fips}
+                queryResponse={queryResponse}
+                breakdownVar={props.breakdownVar}
+              />
+            )}
+
+            {showMissingDataAlert && (
               <CardContent>
                 <MissingDataAlert
                   dataName={props.variableConfig.variableFullDisplayName + " "}
@@ -214,10 +167,10 @@ export function TableCard(props: TableCardProps) {
                 </>
               )}
 
-            {!queryResponse.dataIsMissing() && (
+            {!queryResponse.dataIsMissing() && data.length > 0 && (
               <div className={styles.TableChart}>
                 <TableChart
-                  data={dataWithoutUnknowns}
+                  data={data}
                   breakdownVar={props.breakdownVar}
                   metrics={Object.values(metricConfigs).filter(
                     (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
@@ -230,4 +183,20 @@ export function TableCard(props: TableCardProps) {
       }}
     </CardWrapper>
   );
+}
+
+function fillInAltPops(data: any[]) {
+  // This should only happen in the vaccine kff state case
+  return data.map((item) => {
+    const {
+      vaccine_population_pct,
+      acs_vaccine_population_pct,
+      ...restOfItem
+    } = item;
+    return {
+      vaccine_population_pct:
+        vaccine_population_pct || acs_vaccine_population_pct,
+      ...restOfItem,
+    };
+  });
 }

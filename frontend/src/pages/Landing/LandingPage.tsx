@@ -2,62 +2,47 @@ import React from "react";
 import styles from "./LandingPage.module.scss";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
 import { ReactRouterLinkButton } from "../../utils/urlutils";
+import {
+  ARTICLES_KEY,
+  fetchNewsData,
+  ReactRouterLinkButton,
+  REACT_QUERY_OPTIONS,
+} from "../../utils/urlutils";
 import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
+  NEWS_TAB_LINK,
 } from "../../utils/internalRoutes";
 import FaqSection from "../ui/FaqSection";
-import { Box } from "@material-ui/core";
-import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
+import { Box, useMediaQuery, useTheme } from "@material-ui/core";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
-
-function TakeALookAroundItem(props: {
-  src: string;
-  alt: string;
-  text: string;
-}) {
-  return (
-    <Grid item xs={12} sm={4} md={4} className={styles.TakeALookAroundItem}>
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Hidden xsDown>
-          <Grid item>
-            <LazyLoad height={200} offset={300} once>
-              <img
-                height="500"
-                width="500"
-                className={styles.TakeALookAroundImg}
-                src={props.src}
-                alt={props.alt}
-              />
-            </LazyLoad>
-          </Grid>
-        </Hidden>
-        <Grid item>
-          <Typography
-            className={styles.TakeALookAroundText}
-            variant="h3"
-            component="p"
-          >
-            {props.text}
-          </Typography>
-        </Grid>
-      </Grid>
-    </Grid>
-  );
-}
+import NewsPreviewCard from "../WhatIsHealthEquity/News/NewsPreviewCard";
+import { useQuery } from "react-query";
+import { Article } from "../WhatIsHealthEquity/NewsTab";
+import { ArticlesSkeleton } from "../WhatIsHealthEquity/News/AllPosts";
 
 function LandingPage() {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const { isLoading, error, data }: any = useQuery(
+    ARTICLES_KEY,
+    fetchNewsData,
+    REACT_QUERY_OPTIONS
+  );
+
+  const theme = useTheme();
+  const pageIsSmall = useMediaQuery(theme.breakpoints.only("sm"));
+  const pageIsMedium = useMediaQuery(theme.breakpoints.only("md"));
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("lg"));
+
+  let numberOfArticlePreviews = 1;
+  if (pageIsSmall) numberOfArticlePreviews = 2;
+  if (pageIsMedium) numberOfArticlePreviews = 3;
+  if (pageIsWide) numberOfArticlePreviews = 4;
+
+  const recentArticles = data?.data.slice(0, numberOfArticlePreviews);
 
   return (
     <main>
@@ -82,11 +67,7 @@ function LandingPage() {
               paragraph={true}
               component="h3"
             >
-              Advancing
-              <br aria-hidden="true" />
-              Health
-              <br aria-hidden="true" />
-              Equity
+              One Year of Advancing Health Equity
             </Typography>
             <Typography
               className={styles.HeaderSubtext}
@@ -95,7 +76,10 @@ function LandingPage() {
             >
               We know that the data we collect can be imperfect and at times
               even worsen health inequities many people face if not reported or
-              analyzed correctly.
+              analyzed correctly. We work to change that narrative by leveraging
+              the power of data and technology to identify, understand, and
+              respond to health inequities in our communities in a way that will
+              allow every person to achieve an optimum level of health.
             </Typography>
 
             <Typography
@@ -103,10 +87,10 @@ function LandingPage() {
               variant="body1"
               paragraph={true}
             >
-              We work to change that narrative by identifying, understanding,
-              and responding to health inequities in our communities in a way
-              that will allow every person to live well and long from generation
-              to generation.
+              After one year of working on our award-winning Health Equity
+              Tracker, we are expanding on what we have learned and growing our
+              open-source framework to support the advancement of health equity
+              for all.
             </Typography>
 
             <Typography
@@ -114,8 +98,14 @@ function LandingPage() {
               variant="body1"
               paragraph={true}
             >
-              Join us in powering transformational action!
+              Please read more from our Executive Director Daniel E. Dawes, JD,
+              celebrating “
+              <a href="https://healthequitytracker.org/news/one-year-of-advancing-health-equity">
+                One Year of Advancing Health Equity
+              </a>
+              ”.
             </Typography>
+
             <Box mt={5}>
               <Button
                 variant="contained"
@@ -140,141 +130,57 @@ function LandingPage() {
 
         <Grid
           container
-          className={styles.TakeALookAroundRow}
+          className={styles.RecentNewsRow}
           justifyContent="flex-start"
           align-items="center"
         >
           <Grid item xs={12}>
             <Typography
-              className={styles.TakeALookAroundHeaderText}
+              className={styles.RecentNewsHeaderText}
               variant="h2"
               component="h3"
             >
-              Take a look around
+              Recent news
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography
-              className={styles.TakeALookAroundHeaderSubtext}
+              className={styles.RecentNewsHeaderSubtext}
               variant="subtitle1"
               component="p"
             >
+              News and stories from the Satcher Health Leadership Institute and
+              beyond, sharing insights into the Health Equity movement.{" "}
+              <a href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
+                What is health equity?
+              </a>
+              {/* 
               We’re working toward health equity, but can’t do it alone. Please
-              join our effort to move the needle forward.
+              join our effort to move the needle forward. */}
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Grid
               container
-              className={styles.TakeALookAroundItemRow}
+              className={styles.RecentNewsItem}
               direction="row"
               justifyContent="space-around"
             >
-              <TakeALookAroundItem
-                src={
-                  prefersReducedMotion
-                    ? "/img/animations/HET-fields-no-motion.gif"
-                    : "/img/animations/HET-fields.gif"
-                }
-                alt=""
-                text="(1) Learn about health equity"
-              />
-              <TakeALookAroundItem
-                src={
-                  prefersReducedMotion
-                    ? "/img/animations/HET-dots-no-motion.gif"
-                    : "/img/animations/HET-dots.gif"
-                }
-                alt=""
-                text="(2) Investigate the data"
-              />
-              <TakeALookAroundItem
-                src={
-                  prefersReducedMotion
-                    ? "/img/animations/HET-spiral-no-motion.gif"
-                    : "/img/animations/HET-spiral-sm.gif"
-                }
-                alt=""
-                text="(3) Share our site and join our movement"
-              />
-            </Grid>
-          </Grid>
-
-          <Grid container direction="row" justifyContent="center">
-            <Grid item xs={12} sm={12}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={styles.PrimaryButton}
-                href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-              >
-                What is Health Equity?
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-
-        <Grid
-          container
-          className={styles.PrioritizeHealthEquityRow}
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Hidden smDown>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={5}
-              className={styles.PrioritizeHealthEquityImgItem}
-            >
-              <LazyLoad once height="811" offset={300}>
-                <img
-                  width="557"
-                  height="811"
-                  src="/img/stock/women-baby.png"
-                  className={styles.PrioritizeHealthEquityImg}
-                  alt=""
+              {recentArticles && !isLoading ? (
+                recentArticles.map((article: Article) => {
+                  return (
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={article.id}>
+                      <NewsPreviewCard article={article} />
+                    </Grid>
+                  );
+                })
+              ) : (
+                <ArticlesSkeleton
+                  doPulse={!error}
+                  numberLoading={numberOfArticlePreviews}
                 />
-              </LazyLoad>
+              )}
             </Grid>
-          </Hidden>
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={7}
-            className={styles.PrioritizeHealthEquityTextItem}
-          >
-            <Box mb={4}>
-              <Typography
-                className={styles.PrioritizeHealthEquityHeader}
-                variant="h2"
-                paragraph={true}
-                component="h3"
-              >
-                It's time to prioritize health equity
-              </Typography>
-            </Box>
-
-            <Typography
-              className={styles.PrioritizeHealthEquityHeaderSubtext}
-              variant="body1"
-              paragraph={true}
-            >
-              We’re living through a historic moment. COVID-19 has taken a toll
-              on everyone. But the pandemic is hitting the most marginalized,
-              vulnerable communities the hardest.
-            </Typography>
-
-            <Typography
-              className={styles.PrioritizeHealthEquityHeaderSubtext}
-              variant="body1"
-              paragraph={true}
-            >
-              <b>People need help, and they need it now.</b>
-            </Typography>
 
             <Box mt={5}>
               <Typography
@@ -283,9 +189,9 @@ function LandingPage() {
                 paragraph={true}
               >
                 <ReactRouterLinkButton
-                  url={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                  url={NEWS_TAB_LINK}
                   className={styles.LearnMoreAboutHealthEquity}
-                  displayName="Learn more about health equity"
+                  displayName="View all articles"
                 />
               </Typography>
             </Box>

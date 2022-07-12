@@ -10,21 +10,17 @@ const config: PlaywrightTestConfig = {
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
   },
-  testDir: './tests',
+  testDir: './playwright-tests',
   /* Maximum time one test can run for. */
-  timeout: 30 * 1000,
+  timeout: 60 * 1000,
   expect: {
-    timeout: 5000
+    timeout: 60 * 1000
   },
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
   /* run all tests, even those within a shared file, in parallel  */
-  fullyParallel: true,
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
-  // reporter: process.env.CI ? "github" : 'html',
-  reporter: "list",
-  workers: process.env.CI ? 8 : undefined,
+  // fullyParallel: true,
+  retries: 2,
+  reporter: 'list',
+  workers: 8,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
@@ -37,9 +33,19 @@ const config: PlaywrightTestConfig = {
 
   },
 
-
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
   outputDir: 'test-results/',
+
+  projects: [
+    {
+      name: 'URL',
+      testMatch: /.*externalUrls.spec.ts/,
+    },
+    {
+      name: 'E2E',
+      testIgnore: /.*externalUrls.spec.ts/,
+    },
+  ],
 
 };
 

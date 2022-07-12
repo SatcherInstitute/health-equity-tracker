@@ -12,24 +12,41 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_pretty_site_name: "data.cdc.gov",
     data_source_link:
       "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
-    geographic_level: "State",
+    geographic_level: "State, County",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Biweekly",
     description:
       "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
       "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
-      "Surveillance Data Access, Summary, and Limitations (04/04/2022). The last case data included is 2 " +
-      "weeks before 04/04/2022. The CDC does not take responsibility for the scientific validity " +
+      "Surveillance Data Access, Summary, and Limitations (06/06/2022). The last case data included is 2 " +
+      "weeks before 06/06/2022. The CDC does not take responsibility for the scientific validity " +
       "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
       "dataset is not available for download; please click the link below to apply for access.",
     dataset_ids: [
-      "cdc_restricted_data-by_race_county",
-      "cdc_restricted_data-by_race_state-with_age_adjust",
-      "cdc_restricted_data-by_age_county",
+      "cdc_restricted_data-by_race_state",
       "cdc_restricted_data-by_age_state",
-      "cdc_restricted_data-by_sex_county",
       "cdc_restricted_data-by_sex_state",
+      "cdc_restricted_data-by_race_county_processed",
+      "cdc_restricted_data-by_race_state_processed-with_age_adjust",
+      "cdc_restricted_data-by_age_county_processed",
+      "cdc_restricted_data-by_age_state_processed",
+      "cdc_restricted_data-by_sex_county_processed",
+      "cdc_restricted_data-by_sex_state_processed",
     ],
+    downloadable: false,
+  },
+  {
+    id: "propublica_congress",
+    data_source_name: "ProPublica Congress API",
+    data_source_pretty_site_name: "propublica.org",
+    data_source_link:
+      "https://www.propublica.org/datastore/api/propublica-congress-api",
+    geographic_level: "National, State",
+    demographic_granularity: "N/A",
+    update_frequency: "At Least Daily",
+    description:
+      "Total members of the United States Congress (Senate and House of Representatives including delegates) both nationally and by state/territory.",
+    dataset_ids: ["propublica_congress"],
     downloadable: false,
   },
   {
@@ -73,13 +90,13 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_pretty_site_name: "census.gov",
     data_source_link:
       "https://www.census.gov/data/datasets/2010/dec/virgin-islands.html",
-    geographic_level: "State",
+    geographic_level: "State, County",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "None",
     description:
       "Population percentages at the territory level: " +
       "the census bureau has not included population data from " +
-      "the U.S. Virgin Islands, Guam, or the Northern Mariana Islands " +
+      "the U.S. Virgin Islands, Guam, American Samoa, or the Northern Mariana Islands " +
       "in its 5 year ACS estimates, so the most up to date population " +
       "estimates are from 2010. Interpret any metrics from " +
       "these territories with caution.",
@@ -170,15 +187,74 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_pretty_site_name: "americashealthrankings.org",
     data_source_link:
       "https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL",
-    geographic_level: "State",
+    geographic_level: "National, State",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annual",
     description:
       "The prevalence of multiple conditions at the state level, including chronic diseases (COPD, diabetes, chronic kidney disease, cardiovascular diseases), behavioral health indicators (suicide, depression, frequent mental distress, excessive drinking, opioid and other substance misuse), and other social determinants of health (care avoidance due to cost, preventable hospitalizations).",
     dataset_ids: [
-      "uhc_data-age",
-      "uhc_data-race_and_ethnicity",
-      "uhc_data-sex",
+      "uhc_data-age_national",
+      "uhc_data-race_and_ethnicity_national",
+      "uhc_data-sex_national",
+      "uhc_data-age_state",
+      "uhc_data-race_and_ethnicity_state",
+      "uhc_data-sex_state",
+    ],
+    downloadable: true,
+  },
+  {
+    id: "bjs",
+    data_source_name: "Bureau of Justice Statistics (BJS)",
+    data_source_pretty_site_name: "bjs.ojp.gov",
+    data_source_link: "https://bjs.ojp.gov",
+    geographic_level: "National, State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Annually",
+    description:
+      "Rates of individuals, including children, who are confined in a local adult jail facility, or under the jurisdiction of a federal, state, or territory adult prison facility.",
+    dataset_ids: [
+      "bjs_incarceration_data-race_and_ethnicity_national",
+      "bjs_incarceration_data-race_and_ethnicity_state",
+      "bjs_incarceration_data-age_national",
+      "bjs_incarceration_data-age_state",
+      "bjs_incarceration_data-sex_national",
+      "bjs_incarceration_data-sex_state",
+    ],
+    downloadable: true,
+  },
+  {
+    id: "vera",
+    data_source_name: "Vera Institute of Justice",
+    data_source_pretty_site_name: "vera.org",
+    data_source_link: "https://www.vera.org/projects/incarceration-trends",
+    geographic_level: "County",
+    demographic_granularity: "Race/ethnicity, sex",
+    update_frequency: "None",
+    description:
+      "Rates of individuals, including children, who are confined in local adult jail facilities, or under the jurisdiction of state adult prison facilities.",
+    dataset_ids: [
+      "vera_incarceration_county-jail_sex_county",
+      "vera_incarceration_county-jail_race_and_ethnicity_county",
+      "vera_incarceration_county-jail_age_county",
+      "vera_incarceration_county-prison_sex_county",
+      "vera_incarceration_county-prison_race_and_ethnicity_county",
+      "vera_incarceration_county-prison_age_county",
+    ],
+    downloadable: true,
+  },
+  {
+    id: "cawp",
+    data_source_name: "Center for American Women in Politics (CAWP)",
+    data_source_pretty_site_name: "cawpdata.rutgers.edu",
+    data_source_link: "https://cawpdata.rutgers.edu/",
+    geographic_level: "National, State",
+    demographic_granularity: "Race/ethnicity",
+    update_frequency: "Monthly",
+    description:
+      "Representation of women, by race/ethnicity, in the US Congress and state legislatures.",
+    dataset_ids: [
+      "cawp_data-race_and_ethnicity_national",
+      "cawp_data-race_and_ethnicity_state",
     ],
     downloadable: true,
   },
@@ -189,7 +265,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_link: "https://covidtracking.com/race",
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity",
-    update_frequency: "Final update was March 7 2021",
+    update_frequency: "Final update was March 7 2021",
     description:
       "The numbers of confirmed COVID-19 deaths, cases, hospitalizations, and tests at the state level. " +
       "Please note that Covid Tracking Project data is not used for any visualizations on the tracker, " +

@@ -29,6 +29,10 @@ export interface HighestLowestListProps {
   lowestRatesList: Row[];
   // to scroll user to bottom text box about Missing Data
   jumpToData: Function;
+  // items in highest/lowest list that should receive qualifiers
+  qualifierItems?: string[];
+  // message to display under a list with qualifiers
+  qualifierMessage?: string;
 }
 
 /*
@@ -66,7 +70,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
         <span className={styles.HideOnMobile}>
           the {props.fipsTypePluralDisplayName} with the{" "}
         </span>
-        <b>highest</b> and <b>lowest</b> rates
+        <b>highest</b> and <b>lowest</b> rates.
       </div>
 
       {/* Don't render collapsed info, so keyboard nav will skip */}
@@ -78,14 +82,23 @@ export function HighestLowestList(props: HighestLowestListProps) {
                 <h4>{props.highestRatesList.length} Highest Rates</h4>
                 <ul>
                   {props.highestRatesList.map((row) => {
+                    let placeName = row["fips_name"];
+                    if (props.qualifierItems?.includes(placeName)) {
+                      placeName = `${placeName} (${props.qualifierMessage})`;
+                    }
+
                     return (
                       <li key={row["fips_name"]}>
-                        {row["fips_name"]}:{" "}
+                        {placeName}:{" "}
                         {formatFieldValue(
                           props.metricConfig.type,
                           row[props.metricConfig.metricId]
                         )}{" "}
-                        <span className={styles.Unit}>per 100k</span>
+                        <span className={styles.Unit}>
+                          {props.metricConfig.type === "per100k"
+                            ? "per 100k"
+                            : ""}
+                        </span>
                       </li>
                     );
                   })}
@@ -95,14 +108,23 @@ export function HighestLowestList(props: HighestLowestListProps) {
                 <h4>{props.lowestRatesList.length} Lowest Rates</h4>
                 <ul>
                   {props.lowestRatesList.map((row) => {
+                    let placeName = row["fips_name"];
+                    if (props.qualifierItems?.includes(placeName)) {
+                      placeName = `${placeName} (${props.qualifierMessage})`;
+                    }
+
                     return (
                       <li key={row["fips_name"]}>
-                        {row["fips_name"]}:{" "}
+                        {placeName}:{" "}
                         {formatFieldValue(
                           props.metricConfig.type,
                           row[props.metricConfig.metricId]
                         )}{" "}
-                        <span className={styles.Unit}>per 100k</span>
+                        <span className={styles.Unit}>
+                          {props.metricConfig.type === "per100k"
+                            ? "per 100k"
+                            : ""}
+                        </span>
                       </li>
                     );
                   })}
@@ -113,7 +135,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
 
           <p>
             All rates are reported as:{" "}
-            <b>{props.metricConfig.fullCardTitleName}</b>
+            <b>{props.metricConfig.fullCardTitleName}</b>.
           </p>
           <p>
             Consider the possible impact of{" "}

@@ -16,7 +16,12 @@ export const TERRITORY_CODES = [
   VIRGIN_ISLANDS,
 ];
 
-export const ACS_2010_FIPS = [GUAM, VIRGIN_ISLANDS, NORTHERN_MARIANA_ISLANDS];
+export const ACS_2010_FIPS = [
+  GUAM,
+  VIRGIN_ISLANDS,
+  NORTHERN_MARIANA_ISLANDS,
+  AMERICAN_SAMOA,
+];
 
 // Fips code for District of Columbia (county).
 export const DC_COUNTY_FIPS = "11001";

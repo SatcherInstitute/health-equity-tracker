@@ -1,8 +1,37 @@
 import { IDataFrame } from "data-forge";
-import { MetricId, VariableId } from "../config/MetricConfig";
+import { MetricId, VariableConfig, VariableId } from "../config/MetricConfig";
 import { BreakdownVar, GeographicBreakdown } from "../query/Breakdowns";
-import { RACE } from "./Constants";
+import {
+  UHC_API_NH_DETERMINANTS,
+  UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
+  UHC_DETERMINANTS,
+  UHC_VOTER_AGE_DETERMINANTS,
+  ALL_UHC_DETERMINANTS,
+} from "../variables/BrfssProvider";
+import {
+  RACE,
+  ALL,
+  BROAD_AGE_BUCKETS,
+  DECADE_PLUS_5_AGE_BUCKETS,
+  VOTER_AGE_BUCKETS,
+  AGE_BUCKETS,
+  ASIAN_NH,
+  NHPI_NH,
+  API_NH,
+  NON_STANDARD_RACES,
+  MULTI_OR_OTHER_STANDARD,
+  MULTI_OR_OTHER_STANDARD_NH,
+  AgeBucket,
+  NON_HISPANIC,
+  UNKNOWN,
+  UNKNOWN_ETHNICITY,
+  UNKNOWN_RACE,
+  AGE,
+  BJS_NATIONAL_AGE_BUCKETS,
+  BJS_JAIL_AGE_BUCKETS,
+} from "./Constants";
 import { Row } from "./DatasetTypes";
+import { Fips } from "./Fips";
 
 /**
  * Reshapes the data frame by creating a new column for each value in
@@ -191,9 +220,14 @@ const missingAgeAllGeos: VariableId[] = [
   "non_medical_rx_opioid_use",
   "illicit_opioid_use",
   "preventable_hospitalizations",
+  "women_state_legislatures",
+  "women_us_congress",
 ];
 
-const missingSexAllGeos: VariableId[] = [];
+const missingSexAllGeos: VariableId[] = [
+  "women_state_legislatures",
+  "women_us_congress",
+];
 
 export const DATA_GAPS: Partial<
   Record<GeographicBreakdown, Partial<Record<BreakdownVar, VariableId[]>>>
@@ -203,7 +237,7 @@ export const DATA_GAPS: Partial<
     sex: [...missingSexAllGeos],
   },
   state: {
-    age: [...missingAgeAllGeos, "covid_vaccinations"],
+    age: [...missingAgeAllGeos, "covid_vaccinations", "prison"],
     sex: [...missingSexAllGeos, "covid_vaccinations"],
   },
   territory: {
@@ -211,8 +245,110 @@ export const DATA_GAPS: Partial<
     sex: [...missingSexAllGeos, "covid_vaccinations"],
   },
   county: {
-    age: [...missingAgeAllGeos, "covid_vaccinations"],
+    age: [...missingAgeAllGeos, "covid_vaccinations", "prison", "jail"],
     sex: [...missingSexAllGeos, "covid_vaccinations"],
     race_and_ethnicity: ["covid_vaccinations"],
   },
 };
+
+/* 
+
+Conditionally hide some of the extra buckets from the table card, which generally should be showing only 1 complete set of buckets that show the entire population's comparison values.
+
+*/
+const includeAllsGroupsIds: VariableId[] = [
+  "women_state_legislatures",
+  "women_us_congress",
+  "prison",
+  "jail",
+];
+
+const NON_STANDARD_AND_MULTI = [
+  ...NON_STANDARD_RACES,
+  MULTI_OR_OTHER_STANDARD,
+  MULTI_OR_OTHER_STANDARD_NH,
+];
+
+export function getExclusionList(
+  currentVariable: VariableConfig,
+  currentBreakdown: BreakdownVar,
+  currentFips: Fips
+) {
+  const current100k = currentVariable.metrics.per100k.metricId;
+  const currentVariableId = currentVariable.variableId;
+  let exclusionList = [UNKNOWN, UNKNOWN_ETHNICITY, UNKNOWN_RACE];
+
+  if (!includeAllsGroupsIds.includes(currentVariableId)) {
+    exclusionList.push(ALL);
+  }
+
+  if (currentBreakdown === RACE) {
+    exclusionList.push(NON_HISPANIC);
+  }
+
+  // Incarceration
+  if (currentVariableId === "prison") {
+    if (currentBreakdown === RACE) {
+      currentFips.isCounty()
+        ? exclusionList.push(...NON_STANDARD_AND_MULTI, ASIAN_NH, NHPI_NH)
+        : exclusionList.push(...NON_STANDARD_AND_MULTI, API_NH);
+    }
+
+    if (currentBreakdown === AGE) {
+      currentFips.isUsa() &&
+        exclusionList.push(
+          ...AGE_BUCKETS.filter(
+            (bucket: AgeBucket) =>
+              !BJS_NATIONAL_AGE_BUCKETS.includes(bucket as any)
+          )
+        );
+
+      currentFips.isState() &&
+        exclusionList.push(
+          // No demographic breakdowns so exclude ALL age buckets
+          ...AGE_BUCKETS
+        );
+    }
+  }
+  if (currentVariableId === "jail") {
+    if (currentBreakdown === RACE) {
+      currentFips.isCounty()
+        ? exclusionList.push(...NON_STANDARD_AND_MULTI, ASIAN_NH, NHPI_NH)
+        : exclusionList.push(...NON_STANDARD_AND_MULTI, API_NH);
+    }
+
+    if (currentBreakdown === AGE) {
+      exclusionList.push(
+        ...AGE_BUCKETS.filter(
+          (bucket: AgeBucket) => !BJS_JAIL_AGE_BUCKETS.includes(bucket as any)
+        )
+      );
+    }
+  }
+
+  // UHC/BRFSS/AHR
+  if (ALL_UHC_DETERMINANTS.includes(current100k) && currentBreakdown === RACE) {
+    UHC_API_NH_DETERMINANTS.includes(current100k)
+      ? exclusionList.push(ASIAN_NH, NHPI_NH)
+      : exclusionList.push(API_NH);
+  }
+
+  if (ALL_UHC_DETERMINANTS.includes(current100k) && currentBreakdown === AGE) {
+    // get correct age buckets for this determinant
+    let determinantBuckets: any[] = [];
+    if (UHC_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k))
+      determinantBuckets.push(...DECADE_PLUS_5_AGE_BUCKETS);
+    else if (UHC_VOTER_AGE_DETERMINANTS.includes(current100k))
+      determinantBuckets.push(...VOTER_AGE_BUCKETS);
+    else if (UHC_DETERMINANTS.includes(current100k))
+      determinantBuckets.push(...BROAD_AGE_BUCKETS);
+
+    // remove all of the other age groups
+    const irrelevantAgeBuckets = AGE_BUCKETS.filter(
+      (bucket) => !determinantBuckets.includes(bucket)
+    );
+    exclusionList.push(...irrelevantAgeBuckets);
+  }
+
+  return exclusionList;
+}
