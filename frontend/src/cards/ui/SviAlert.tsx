@@ -51,16 +51,6 @@ function SviAlert(props: SviAlertProps) {
             <b>{rating} level of vulernability.</b>
           </a>
         </Alert>
-      ) : (
-        <Alert severity="info" style={{ margin: "10px" }}>
-          This county has a social vulnerability index of <b>{props.svi}</b>;
-          which indicates a{" "}
-          <a href="testing" style={{ textDecorationColor: color }}>
-            <span style={{ color: color, fontWeight: "bold" }}>
-              {rating} level of vulernability.
-            </span>
-          </a>
-        </Alert>
       )}
     </>
   );
