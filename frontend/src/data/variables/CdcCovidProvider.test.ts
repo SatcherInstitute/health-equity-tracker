@@ -1,7 +1,7 @@
 import CdcCovidProvider from "./CdcCovidProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { MetricQuery } from "../query/MetricQuery";
 import { Fips } from "../utils/Fips";
 import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import {
@@ -10,19 +10,8 @@ import {
   resetCacheDebug,
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
-import { CHATAM, NC, VI, USA, AL } from "./TestUtils";
-import { WHITE_NH, RACE, ALL, FEMALE, MALE } from "../utils/Constants";
-import { MetricId } from "../config/MetricConfig";
-import { excludeAll } from "../query/BreakdownFilter";
-
-const METRIC_IDS: MetricId[] = [
-  "covid_cases",
-  "covid_cases_per_100k",
-  "covid_cases_share",
-  "covid_cases_share_of_known",
-  "covid_cases_reporting_population",
-  "covid_cases_reporting_population_pct",
-];
+import { CHATAM, NC, VI, USA } from "./TestUtils";
+import { WHITE_NH, RACE, SEX, MALE } from "../utils/Constants";
 
 export async function ensureCorrectDatasetsDownloaded(
   cdcDatasetId: string,
@@ -51,53 +40,7 @@ export async function ensureCorrectDatasetsDownloaded(
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
 
-  expect(responseIncludingAll).toEqual(
-    new MetricQueryResponse([finalCovidData], consumedDatasetIds)
-  );
-}
-
-export async function evaluateWithAndWithoutAll(
-  covidDatasetId: string,
-  rawCovidData: any[],
-  acsDatasetIds: string[],
-  rawAcsData: any[],
-  baseBreakdown: Breakdowns,
-  breakdownVar: BreakdownVar,
-  rowsExcludingAll: any[],
-  rowsIncludingAll: any[]
-) {
-  const acsProvider = new AcsPopulationProvider();
-  const cdcCovidProvider = new CdcCovidProvider(acsProvider);
-
-  // Only used if breakdown is national
-  for (var datasetId of acsDatasetIds) {
-    dataFetcher.setFakeDatasetLoaded(datasetId, rawAcsData);
-  }
-
-  dataFetcher.setFakeDatasetLoaded(covidDatasetId, rawCovidData);
-
-  // cdc dataset needs to be first
-  let allDatasets = acsDatasetIds;
-  acsDatasetIds.unshift(covidDatasetId);
-
-  // Evaluate the response with requesting "All" field
-  const responseIncludingAll = await cdcCovidProvider.getData(
-    new MetricQuery(METRIC_IDS, baseBreakdown.addBreakdown(breakdownVar))
-  );
-  expect(responseIncludingAll).toEqual(
-    new MetricQueryResponse(rowsIncludingAll, allDatasets)
-  );
-
-  // Evaluate the response without requesting "All" field
-  const responseExcludingAll = await cdcCovidProvider.getData(
-    new MetricQuery(
-      METRIC_IDS,
-      baseBreakdown.addBreakdown(breakdownVar, excludeAll())
-    )
-  );
-  expect(responseExcludingAll).toEqual(
-    new MetricQueryResponse(rowsExcludingAll, allDatasets)
-  );
+  expect(responseIncludingAll.consumedDatasetIds).toEqual(consumedDatasetIds);
 }
 
 autoInitGlobals();
@@ -111,96 +54,25 @@ describe("cdcCovidProvider", () => {
   });
 
   test("National and Sex Breakdown", async () => {
-    const NC_FEMALE_ROW = {
-      state_fips: NC.code,
-      state_name: NC.name,
-      cases: 240,
-      hosp_y: 34,
-      death_y: 80,
-      sex: FEMALE,
-      population: 50000,
-      population_pct: 50,
+    const US_MALE_ROW = {
+      county_fips: USA.code,
+      county_name: USA.name,
+      sex: MALE,
     };
 
-    const USA_ACS_FEMALE_ROW = {
-      state_fips: USA.code,
-      state_name: USA.name,
-      sex: FEMALE,
-      population: 50000,
-      population_pct: 50,
-    };
-
-    const NC_ALL_ROW = {
-      state_fips: NC.code,
-      state_name: NC.name,
-      cases: 200,
-      hosp_y: 1000,
-      death_y: 500,
-      sex: ALL,
-      population: 100000,
-      population_pct: 100,
-    };
-
-    const USA_ACS_ALL_ROW = {
-      state_fips: USA.code,
-      state_name: USA.name,
-      sex: ALL,
-      population: 100000,
-      population_pct: 100,
-    };
-
-    const AL_ALL_ROW = {
-      state_fips: AL.code,
-      state_name: AL.name,
-      cases: 100,
-      hosp_y: 1000,
-      death_y: 200,
-      sex: ALL,
-      population: 80000,
-    };
-
-    const AL_FEMALE_ROW = {
-      state_fips: AL.code,
-      state_name: AL.name,
-      cases: 730,
-      hosp_y: 45,
-      death_y: 250,
-      sex: FEMALE,
-      population: 60000,
-    };
-
-    const rawCovidData = [NC_FEMALE_ROW, NC_ALL_ROW, AL_FEMALE_ROW, AL_ALL_ROW];
-    const rawAcsData = [USA_ACS_FEMALE_ROW, USA_ACS_ALL_ROW];
-
-    const FINAL_FEMALE_ROW = {
+    const US_MALE_FINAL_ROW = {
       fips: USA.code,
       fips_name: USA.name,
-      sex: FEMALE,
-      covid_cases: 970,
-      covid_cases_per_100k: 882,
-      covid_cases_share: 100,
-    };
-    const FINAL_ALL_ROW = {
-      fips: USA.code,
-      fips_name: USA.name,
-      sex: ALL,
-      covid_cases: 300,
-      covid_cases_per_100k: 167,
-      covid_cases_share: 100,
+      sex: MALE,
     };
 
-    await evaluateWithAndWithoutAll(
-      "cdc_restricted_data-by_sex_state",
-      rawCovidData,
-      [
-        "acs_population-by_sex_national",
-        "acs_2010_population-by_sex_territory",
-      ],
-      rawAcsData,
-      Breakdowns.national(),
-      "sex",
-      [FINAL_FEMALE_ROW],
-      [FINAL_ALL_ROW, FINAL_FEMALE_ROW]
+    await ensureCorrectDatasetsDownloaded(
+      "cdc_restricted_data-by_sex_national_processed",
+      ["acs_population-by_sex_national"],
+      Breakdowns.forFips(new Fips(USA.code)),
+      SEX,
+      US_MALE_ROW,
+      US_MALE_FINAL_ROW
     );
   });
 
