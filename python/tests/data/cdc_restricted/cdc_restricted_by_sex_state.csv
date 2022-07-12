@@ -3,3 +3,11 @@ CA,Female,6,2,3,0,1,2,2
 CA,Male,6,2,1,3,1,3,2
 CA,All,18,5,6,7,5,5,8
 CA,Unknown,7,1,2,4,3,0,4
+HI,Female,6,,,,,,
+HI,Male,6,,,,,,
+HI,All,18,,,,,,
+HI,Unknown,7,,,,,,
+WV,Female,6,2,3,0,1,2,2
+WV,Male,6,2,1,3,1,3,2
+WV,All,18,5,6,7,5,5,8
+WV,Unknown,7,1,2,4,3,0,4
