@@ -16,8 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-      with:
-        ref: play-url
     - name: Run tests with Node.js 16.13.0
       uses: actions/setup-node@v1
       with:
