@@ -333,25 +333,37 @@ function MethodologyTab() {
                   Social Vulnerability Index
                 </h4>
                 <p>
-                  Our ranking is based on percentiles provided by the CDC. We
-                  are using the exact percentile without any manipulation of the
-                  numbers. We will implement individual state mapping analysis,
-                  which will make use of the state-specific database. In this
-                  case, the counties are ranked only against other counties in
-                  the same state. Percentile ranking values range from 0 to 1.
-                  Inside the population card, the user will see the social
-                  vulnerability score. The scores will be given a ranking of
-                  low, medium, or high. Scores ranging from 0-0.33 are ranked
-                  low, scores ranging from 0.34-0.66 are ranked medium, and
-                  scores from 0.67-1 are ranked high.{" "}
+                  The measurement of social vulnerability grants policymakers,
+                  public health officials, and local planners the ability to
+                  effectively decide how to best protect their most vulnerable
+                  communities in case of a natural disaster or public health
+                  crisis. This health equity advances by ensuring that the
+                  communities that need resources the most, in times of
+                  devastation, receive them.
+                </p>
+                <p>
+                  Percentile ranking values range from 0 to 1. The scores are
+                  given a ranking of low, medium, or high.
                 </p>
                 <ul>
                   <li>
-                    Tracts with zero estimates for total population were removed
-                    during the ranking process.
+                    Scores ranging from 0-0.33 are given a{" "}
+                    <b>low level of vulnerability.</b>
                   </li>
-                  <li>testing</li>
+                  <li>
+                    Scores ranging from 0.34-0.66 are given a{" "}
+                    <b>medium level of vulnerability.</b>
+                  </li>
+                  <li>
+                    Scores ranging from 0.67-1 are given a{" "}
+                    <b>high level of vulnerability.</b>
+                  </li>
                 </ul>
+                <p>
+                  Tracts in the top 10%, i.e., at the 90th percentile of values,
+                  are given a value of 1 to indicate high vulnerability. Tracts
+                  below the 90th percentile are given a value of 0.
+                </p>
                 <h4>Incarceration</h4>
 
                 <p>

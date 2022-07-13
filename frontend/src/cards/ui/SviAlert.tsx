@@ -1,6 +1,5 @@
 import React from "react";
 import Alert from "@material-ui/lab/Alert";
-import variables from "../../styles/variables.module.scss";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { Fips } from "../../data/utils/Fips";
 import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";
