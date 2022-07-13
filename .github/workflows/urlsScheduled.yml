@@ -3,9 +3,8 @@
 name: Run url tests on schedule
 on:
   schedule:
-    #- cron: "*/30 * * * *" # every 30 minutes until we confirm it works, then we'll switch
     - cron: "0 13 * * 1" # Every Monday at 1PM UTC (9AM EST)
-    # - cron: "0 0 * * *" # At the end of every day
+  workflow_dispatch:
 
 defaults:
   run:
