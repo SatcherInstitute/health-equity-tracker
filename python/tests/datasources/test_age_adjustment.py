@@ -17,29 +17,26 @@ EXPECTED_DEATHS_JSON = os.path.join(TEST_DIR, "expected_deaths.json")
 AGE_ADJUST_JSON = os.path.join(TEST_DIR, "age_adjusted.json")
 
 GOLDEN_INTEGRATION_DATA_STATE = os.path.join(
-    TEST_DIR, 'cdc_restricted-by_race_state-with_age_adjust.json')
+    TEST_DIR, 'cdc_restricted-by_race_state_processed-with_age_adjust.json')
 GOLDEN_INTEGRATION_DATA_NATIONAL = os.path.join(
-    TEST_DIR, 'cdc_restricted-by_race_national-with_age_adjust.json')
+    TEST_DIR, 'cdc_restricted-by_race_national_processed-with_age_adjust.json')
 
 
 def get_census_pop_estimates_as_df():
     return pd.read_csv(os.path.join(TEST_DIR, "census_pop_estimates.csv"), dtype={'state_fips': str})
 
 
-def get_cdc_restricted_by_race_age_state_as_df():
-    return pd.read_json(os.path.join(TEST_DIR, "cdc_restricted-race_age_state.json"), dtype={'state_fips': str})
-
-
-def get_cdc_restricted_by_race_state_as_df():
-    return pd.read_json(os.path.join(TEST_DIR, 'cdc_restricted_race_state.json'), dtype={'state_fips': str})
-
-
-def get_cdc_restricted_by_race_age_national_as_df():
-    return pd.read_json(os.path.join(TEST_DIR, "cdc_restricted-race_age_national.json"), dtype={'state_fips': str})
-
-
-def get_cdc_restricted_by_race_national_as_df():
-    return pd.read_json(os.path.join(TEST_DIR, 'cdc_restricted_race_national.json'), dtype={'state_fips': str})
+def get_mock_df_from_bq_as_df(*args, **kwargs):
+    if args[0] == 'census_pop_estimates':
+        return pd.read_csv(os.path.join(TEST_DIR, 'census_pop_estimates.csv'), dtype={'state_fips': str})
+    elif args[1] == 'by_race_state_processed':
+        return pd.read_json(
+                os.path.join(TEST_DIR, 'cdc_restricted_race_state_processed.json'), dtype={'state_fips': str})
+    elif args[1] == 'by_race_national_processed':
+        return pd.read_json(
+                os.path.join(TEST_DIR, 'cdc_restricted_race_national_processed.json'), dtype={'state_fips': str})
+    elif args[1] == 'by_race_age_state':
+        return pd.read_json(os.path.join(TEST_DIR, 'cdc_restricted-race_age_state.json'), dtype={'state_fips': str})
 
 
 # "Unit" tests
@@ -65,18 +62,11 @@ def testAgeAdjust():
 
 
 # Integration tests
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=get_mock_df_from_bq_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqState(mock_bq: mock.MagicMock, mock_df: mock.MagicMock):
-    mock_df.side_effect = [
-        get_cdc_restricted_by_race_age_state_as_df(),
-        get_census_pop_estimates_as_df(),
-        get_cdc_restricted_by_race_state_as_df(),
-        get_cdc_restricted_by_race_age_state_as_df(),
-        get_census_pop_estimates_as_df(),
-    ]
-
     age_adjust = AgeAdjustCDCRestricted()
 
     kwargs = {'filename': 'test_file.csv',
@@ -95,18 +85,11 @@ def testWriteToBqState(mock_bq: mock.MagicMock, mock_df: mock.MagicMock):
         mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=get_mock_df_from_bq_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqNational(mock_bq: mock.MagicMock, mock_df: mock.MagicMock):
-    mock_df.side_effect = [
-        get_cdc_restricted_by_race_age_state_as_df(),
-        get_census_pop_estimates_as_df(),
-        get_cdc_restricted_by_race_state_as_df(),
-        get_cdc_restricted_by_race_age_state_as_df(),
-        get_census_pop_estimates_as_df(),
-    ]
-
     age_adjust = AgeAdjustCDCRestricted()
 
     kwargs = {'filename': 'test_file.csv',
