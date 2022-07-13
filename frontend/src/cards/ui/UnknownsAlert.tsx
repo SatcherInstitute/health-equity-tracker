@@ -134,7 +134,8 @@ function UnknownsAlert(props: UnknownsAlertProps) {
             ? `, and ${secondaryAgePercentageUnknown}${props.metricConfig.shortLabel} reported an unknown age`
             : null}
           {" in "}
-          {props.fips.getDisplayName()}. {showCardHelperText && cardHelperText}
+          {props.fips.getSentenceDisplayName()}.{" "}
+          {showCardHelperText && cardHelperText}
           {props.raceEthDiffMap && raceEthDiffMapText}
           {showDataGapsRisk && (
             <>
