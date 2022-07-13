@@ -33,7 +33,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "cdc_restricted_data-by_sex_county_processed",
       "cdc_restricted_data-by_sex_state_processed",
     ],
-    downloadable: false,
+    downloadable: true,
   },
   {
     id: "propublica_congress",
