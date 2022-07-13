@@ -4,6 +4,7 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 
 > Prompted by the COVID-19 pandemic, the Health Equity Tracker was created in 2020 to aggregate up-to-date demographic data from the hardest-hit communities. The Health Equity Tracker aims to give a detailed view of health outcomes by race, ethnicity, sex, socioeconomic status, and other critical factors. Our hope is that it will help policymakers understand what resources and support affected communities need to be able to improve their outcomes.
 
+[![Check Outgoing Links](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/urlsScheduled.yml/badge.svg)](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/urlsScheduled.yml)
 [![GitHub Super-Linter](https://github.com/SatcherInstitute/health-equity-tracker/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 ## Contributing
@@ -25,7 +26,9 @@ When you're ready to make changes:
     - Note: once a PR is under review, don't rebase changes you've already pushed to the PR. This can confuse reviewers.
 6. When ready to submit, use the "Squash and merge" option (found under the submit button dropdown options). This maintains linear history and ensures your entire PR is merged as a single commit, while being simple to use in most cases. If there are conflicts, pull the latest changes from main, merge them into your PR, and try again.
 
-Note that there are a few downsides to "Squash and merge"
+
+<details>
+<summary>Note that there are a few downsides to "Squash and merge"</summary>
 
 - The official repo will not show commits from collaborators if the PR is a collaborative branch.
 - Working off the same branch or a dependent branch duplicates commits on the dependent branch and can cause repeated merge conflicts. To work around this, if you have a PR `my_branch_1` and you want to start work on a new PR that is dependent on `my_branch_1`, you can do the following:
@@ -36,6 +39,11 @@ Note that there are a few downsides to "Squash and merge"
   5. From local client, run `git rebase --onto main my_branch_1 my_branch_2`. This tells git to move all the commits between `my_branch_1` and `my_branch_2` onto main. You can now delete `my_branch_1`.
 
 Read more about the forking workflow [here](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow). For details on "Squash and merge" see [here](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-merge-methods-on-github#squashing-your-merge-commits)
+
+</details>
+
+
+
 
 # Frontend
 
@@ -95,6 +103,9 @@ You can also force specific dataset files to read from the `/public/tmp` directo
 
 ### Running the Frontend Server locally
 
+<details>
+<summary>Click to expand info on configuring and running the Frontend Server</summary>
+
 If you need to run the frontend server locally to test server-side changes, copy `frontend_server/.env.example` into `frontend_server/.env.development`, and update `DATA_SERVER_URL` to point to a specific data server url, similar to above.
 
 To run the frontend server locally, navigate to the `frontend_server/` directory and run:
@@ -121,11 +132,41 @@ Run the following commands from the root project directory:
 
 When building with Docker, changes will not automatically be applied; you will need to rebuild the Docker image.
 
-#### Running the Frontend Sever in your own GCP project
+#### Running the Frontend Server in your own GCP project
 
 Refer to [Deploying your own instance with terraform](#Deploying-your-own-instance-with-terraform) for instructions on deploying the frontend server to your own GCP project.
+</details>
+
+### Frontend Unit Tests
+
+To run unit tests, switch to the `frontend/` directory and run:
+```bash
+npm test
+```
+
+This will run tests in watch mode, so you may have the tests running while developing.
+
+### Frontend End to End Tests
+
+To run e2e tests, switch to the `frontend/` directory and run:
+```bash
+npm run e2e
+```
+
+This will use Playwright test runner to launch the React app if needed, and then confirm routing/rendering is working as expected. These tests are run on GitHub pull request commits. 
+
+### Outgoing Links Tests
+
+To run url tests, switch to the `frontend/` directory and run:
+```bash
+npm run url
+```
+
+This will use Playwright test runner to launch the React app if needed, and then confirm all outgoing links are returning successful responses. This runs weekly on GitHub.
 
 ### Running Storybook locally
+
+Storybook is currently not actively maintained and may not function properly. 
 
 To run storybook locally, switch to the `frontend/` directory and run:
 ```bash
@@ -134,14 +175,6 @@ npm run storybook:development
 
 Storybook local development also uses `frontend/.env.development` for configuration. However, storybook environment variables must start with `STORYBOOK_` instead of `REACT_APP_`. Most environment variables have an equivalent `STORYBOOK_` version.
 
-### Tests
-
-To run unit tests, switch to the `frontend/` directory and run:
-```bash
-npm test
-```
-
-This will run tests in watch mode, so you may have the tests running while developing.
 
 ### Build
 
