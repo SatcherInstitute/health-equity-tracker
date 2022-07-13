@@ -98,21 +98,6 @@ export class ApiDataFetcher implements DataFetcher {
       result = result.map((row: any) => {
         return { ...row, population: Number(row["population"]) };
       });
-    } else if (datasetId.startsWith("cdc_restricted")) {
-      result = result.map((row: any) => {
-        return {
-          ...row,
-          cases: Number(row["cases"]),
-          hosp_y: Number(row["hosp_y"]),
-          hosp_n: Number(row["hosp_n"]),
-          hosp_unknown: Number(row["hosp_unknown"]),
-          death_y: Number(row["death_y"]),
-          death_n: Number(row["death_n"]),
-          death_unknown: Number(row["death_unknown"]),
-          population:
-            row["population"] == null ? null : Number(row["population"]),
-        };
-      });
     } else if (datasetId.startsWith("acs_poverty")) {
       result = result.map((row: any) => {
         return {

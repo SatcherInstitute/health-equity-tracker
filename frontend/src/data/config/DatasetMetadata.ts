@@ -133,21 +133,6 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019",
   },
   {
-    id: "cdc_restricted_data-by_race_state",
-    name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and State",
-    update_time: "June 2022",
-  },
-  {
-    id: "cdc_restricted_data-by_age_state",
-    name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and State",
-    update_time: "June 2022",
-  },
-  {
-    id: "cdc_restricted_data-by_sex_state",
-    name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and State",
-    update_time: "June 2022",
-  },
-  {
     id: "cdc_restricted_data-by_race_county_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and County",
     update_time: "June 2022",
@@ -155,6 +140,11 @@ export const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "cdc_restricted_data-by_race_state_processed-with_age_adjust",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and State",
+    update_time: "June 2022",
+  },
+  {
+    id: "cdc_restricted_data-by_race_national_processed-with_age_adjust",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Race Nationally",
     update_time: "June 2022",
   },
   {
@@ -168,6 +158,11 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: "June 2022",
   },
   {
+    id: "cdc_restricted_data-by_age_national_processed",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Age Nationally",
+    update_time: "June 2022",
+  },
+  {
     id: "cdc_restricted_data-by_sex_county_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and County",
     update_time: "June 2022",
@@ -175,6 +170,11 @@ export const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "cdc_restricted_data-by_sex_state_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and State",
+    update_time: "June 2022",
+  },
+  {
+    id: "cdc_restricted_data-by_sex_national_processed",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex Nationally",
     update_time: "June 2022",
   },
   {
