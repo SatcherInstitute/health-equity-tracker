@@ -6,7 +6,7 @@ export interface Resource {
 export const RESOURCES: Resource[] = [
   {
     name: "Health Equity Guide",
-    url: "https://FAILFAILhealthequityguide.org/",
+    url: "https://healthequityguide.org/",
   },
   {
     name: "Health Equity - APHA",
