@@ -38,7 +38,8 @@ function IncarceratedChildrenShortAlert(
         <b>
           {count.toLocaleString()} {children}
         </b>{" "}
-        confined in {adultFacilities} in <b>{props.fips.getDisplayName()}</b>.{" "}
+        confined in {adultFacilities} in{" "}
+        <b>{props.fips.getSentenceDisplayName()}</b>.{" "}
         <a href={urlMap.childrenInPrison}>Learn more.</a>
       </Alert>
     </CardContent>
