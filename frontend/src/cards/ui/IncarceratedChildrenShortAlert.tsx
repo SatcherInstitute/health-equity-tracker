@@ -9,9 +9,6 @@ import FlagIcon from "@material-ui/icons/Flag";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
 
-let children = "children";
-let adultFacilities = "adult facilities";
-
 interface IncarceratedChildrenShortAlertProps {
   queryResponse: MetricQueryResponse;
   fips: Fips;
@@ -24,15 +21,12 @@ function IncarceratedChildrenShortAlert(
   let count = props.queryResponse.data.find(
     (row: Row) => row[props.breakdownVar] === ALL
   )?.total_confined_children;
-
   if (count) count = parseInt(count);
-
   if (count == null) return <></>;
 
-  if (count === 1) {
-    children = "child";
-    adultFacilities = "an adult facility";
-  }
+  const children = count === 1 ? "child" : "children";
+  const adultFacilities =
+    count === 1 ? "an adult facility" : "adult facilities";
 
   return (
     <CardContent>

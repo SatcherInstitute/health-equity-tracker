@@ -89,26 +89,16 @@ class AgeAdjustCDCRestricted(DataSource):
             only_race = f'by_race_{geo}_processed'
             table_name = f'{only_race}-with_age_adjust'
 
-            # TODO: Get rid of this when we do all national calculations on the backend
-            if geo == 'state':
-                only_race_df = gcs_to_bq_util.load_df_from_bigquery(
-                    'cdc_restricted_data', only_race)
-                table_names_to_dfs[table_name] = merge_age_adjusted(
-                    only_race_df, age_adjusted_df)
-            else:
-                table_names_to_dfs[table_name] = age_adjusted_df
+            only_race_df = gcs_to_bq_util.load_df_from_bigquery(
+                'cdc_restricted_data', only_race)
+            table_names_to_dfs[table_name] = merge_age_adjusted(
+                only_race_df, age_adjusted_df)
 
         # For each of the files, we load it as a dataframe and add it as a
         # table in the BigQuery dataset. We expect that all aggregation and
         # standardization of the data has been done by this point.
         for table_name, df in table_names_to_dfs.items():
-            # All columns are str, except outcome columns.
-            column_types = {c: 'STRING' for c in df.columns}
-            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-
-            if 'state' in table_name:
-                column_types = get_col_types(df)
+            column_types = get_col_types(df)
 
             # Clean up column names.
             self.clean_frame_column_names(df)

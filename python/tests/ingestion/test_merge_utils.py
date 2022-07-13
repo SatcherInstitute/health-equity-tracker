@@ -109,6 +109,24 @@ _expected_merged_with_pop_numbers_county = [
     ['01', '01234', 'BLACK_NH', 100, 50.0, 'something_cooler'],
 ]
 
+_data_without_pop_numbers_multiple_rows = [
+    ['state_fips', 'race_category_id', 'cases', 'deaths'],
+    ['01', 'BLACK_NH', 10, 1],
+    ['01', 'WHITE_NH', 100, None],
+    ['02', 'BLACK_NH', 20, None],
+    ['78', 'WHITE_NH', 10, 2],
+    ['78', 'BLACK_NH', 5, 0],
+]
+
+_expected_merge_with_pop_numbers_multiple_rows = [
+    ['state_fips', 'race_category_id', 'cases', 'deaths', 'cases_population', 'deaths_population'],
+    ['01', 'BLACK_NH', 10, 1, 100, 100],
+    ['01', 'WHITE_NH', 100, None, 300, 300],
+    ['02', 'BLACK_NH', 20, None, 100, 100],
+    ['78', 'WHITE_NH', 10, 2, 300, 300],
+    ['78', 'BLACK_NH', 5, 0, 200, 200],
+]
+
 
 def _get_fips_codes_as_df(*args, **kwargs):
     return gcs_to_bq_util.values_json_to_df(
@@ -243,5 +261,23 @@ def testMergePopNumbersCounty(mock_bq: mock.MagicMock):
     df = merge_utils.merge_pop_numbers(df, 'race', 'county')
 
     assert mock_bq.call_count == 1
+
+    assert_frame_equal(df, expected_df, check_like=True)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=_get_pop_data_as_df)
+def testMergeMultiplePopCols(mock_bq: mock.MagicMock):
+    df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_data_without_pop_numbers_multiple_rows),
+        dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_expected_merge_with_pop_numbers_multiple_rows),
+        dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
+
+    df = merge_utils.merge_multiple_pop_cols(df, 'race', ['cases_population', 'deaths_population'])
+
+    assert mock_bq.call_count == 2
 
     assert_frame_equal(df, expected_df, check_like=True)

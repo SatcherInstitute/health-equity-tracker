@@ -11,6 +11,7 @@ from datasources.kff_vaccination import KFFVaccination
 from datasources.acs_health_insurance import ACSHealthInsurance
 from datasources.acs_poverty import ACSPovertyDataSource
 from datasources.uhc import UHCData
+from datasources.cdc_svi_county import CDCSviCounty
 from datasources.cawp import CAWPData
 from datasources.bjs_incarceration import BJSIncarcerationData
 from datasources.vera_incarceration_county import VeraIncarcerationCounty
@@ -30,6 +31,7 @@ DATA_SOURCES_DICT = {
     KFFVaccination.get_id(): KFFVaccination(),
     ACSHealthInsurance.get_id(): ACSHealthInsurance(),
     ACSPovertyDataSource.get_id(): ACSPovertyDataSource(),
+    CDCSviCounty.get_id(): CDCSviCounty(),
     UHCData.get_id(): UHCData(),
     CAWPData.get_id(): CAWPData(),
     BJSIncarcerationData.get_id(): BJSIncarcerationData(),

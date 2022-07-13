@@ -273,18 +273,12 @@ class VeraIncarcerationCounty(DataSource):
                 df = self.generate_for_bq(
                     df, data_type, demo_type, df_children_partial)
 
-                # deal with nullable INT columns
-                df[[CHILDREN, RATE_COL_MAP[data_type]]] = df[[CHILDREN,
-                                                              RATE_COL_MAP[data_type]]].dropna().astype(int)
-                df[[CHILDREN, RATE_COL_MAP[data_type]]] = df[[CHILDREN,
-                                                              RATE_COL_MAP[data_type]]].convert_dtypes()
-
                 # set BigQuery types object
                 bq_column_types = {c: 'STRING' for c in df.columns}
                 if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                     bq_column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-                bq_column_types[RATE_COL_MAP[data_type]] = 'INT64'
-                bq_column_types[CHILDREN] = 'INT64'
+                bq_column_types[RATE_COL_MAP[data_type]] = 'FLOAT'
+                bq_column_types[CHILDREN] = 'FLOAT'
                 bq_column_types[PCT_SHARE_COL_MAP[data_type]] = 'FLOAT'
                 bq_column_types[PCT_SHARE_COL_MAP[POP]] = 'FLOAT'
 
@@ -316,7 +310,7 @@ class VeraIncarcerationCounty(DataSource):
 
         # round 100k values
         breakdown_df[RATE_COL_MAP[data_type]
-                     ] = breakdown_df[RATE_COL_MAP[data_type]].dropna().round().astype(int)
+                     ] = breakdown_df[RATE_COL_MAP[data_type]].dropna().round()
 
         breakdown_df[std_col.STATE_FIPS_COL] = breakdown_df[std_col.COUNTY_FIPS_COL].astype(
             str).str[:2]
@@ -430,7 +424,7 @@ def generate_partial_breakdown(df, demo_type, data_type, property_type):
                 vera_all_col = PRISON_RATE_ALL
                 het_value_column = RATE_COL_MAP[PRISON]
 
-    # only generate Alls for Age
+    # generate only the Alls for Age
     if demo_type == std_col.AGE_COL:
         all_val = std_col.ALL_VALUE
         het_group_column = demo_type
