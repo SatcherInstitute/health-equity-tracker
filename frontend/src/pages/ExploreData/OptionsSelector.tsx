@@ -12,7 +12,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { usePopover } from "../../utils/usePopover";
 import { CATEGORIES_LIST } from "../../utils/MadLibs";
-import { Box, Grid } from "@material-ui/core";
+import { Box, CircularProgress, Grid } from "@material-ui/core";
 import { DropdownVarId } from "../../data/config/MetricConfig";
 
 function OptionsSelector(props: {
@@ -20,6 +20,7 @@ function OptionsSelector(props: {
   options: Fips[] | string[][];
   onOptionUpdate: (option: string) => void;
 }) {
+  const loading = true;
   const popover = usePopover();
 
   const isFips =
@@ -92,6 +93,7 @@ function OptionsSelector(props: {
             <span className={styles.SearchForText}>Search for location</span>
 
             <Autocomplete
+              loading={loading}
               disableClearable={true}
               autoHighlight={true}
               options={props.options as Fips[]}
@@ -110,6 +112,17 @@ function OptionsSelector(props: {
                   variant="outlined"
                   onChange={updateTextBox}
                   {...params}
+                  InputProps={{
+                    ...params.InputProps,
+                    endAdornment: (
+                      <React.Fragment>
+                        {loading ? (
+                          <CircularProgress color="inherit" size={20} />
+                        ) : null}
+                        {params.InputProps.endAdornment}
+                      </React.Fragment>
+                    ),
+                  }}
                 />
               )}
               onChange={(e, fips) => {
