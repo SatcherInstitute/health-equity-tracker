@@ -74,7 +74,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   function getTitleText() {
     return `Population vs. ${
       metricConfig.fullCardTitleName
-    } in ${props.fips.getFullDisplayName()}`;
+    } in ${props.fips.getSentenceDisplayName()}`;
   }
   function CardTitle() {
     return <>{getTitleText()}</>;
@@ -161,9 +161,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 Population percentages on this graph add up to over 100% because
                 the racial categories reported for{" "}
                 {metricConfig.fullCardTitleName} in{" "}
-                {props.fips.getFullDisplayName()} include Hispanic individuals
-                in each racial category. As a result, Hispanic individuals are
-                counted twice.
+                {props.fips.getSentenceDisplayName()} include Hispanic
+                individuals in each racial category. As a result, Hispanic
+                individuals are counted twice.
               </Alert>
             )}
             {isCawp && (

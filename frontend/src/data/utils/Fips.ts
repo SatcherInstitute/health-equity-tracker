@@ -131,12 +131,23 @@ class Fips {
         .getDisplayName()}`;
     }
     return "";
+    // const optionalCounty =
+    //   COUNTY_FIPS_MAP[this.code].includes("Borough") ||
+    //     COUNTY_FIPS_MAP[this.code].includes("Area") ||
+    //     COUNTY_FIPS_MAP[this.code].includes("District")
+    //     ? ""
+    //     : " County";
+    // return `${COUNTY_FIPS_MAP[this.code]}${optionalCounty}`;
   }
 
   getFullDisplayName() {
     return `${this.getDisplayName()}${
       this.isCounty() ? ", " + this.getStateDisplayName() : ""
     }`;
+  }
+
+  getSentenceDisplayName() {
+    return `${this.isUsa() ? " the " : ""}${this.getFullDisplayName()}`;
   }
 
   getStateFipsCode() {

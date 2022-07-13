@@ -31,6 +31,7 @@ COUNTY_NAME_COL = "county_name"
 POPULATION_COL = "population"
 INCOME_COL = "income"
 POPULATION_PCT_COL = "population_pct"
+SVI = "svi"
 
 ALL_VALUE = "All"
 
@@ -287,4 +288,4 @@ def generate_column_name(prefix, suffix):
        prefix: A condition name
        suffix: a type of measurement (pct_share, per_100k)"""
 
-    return '%s_%s' % (prefix, suffix)
+    return f'{prefix}_{suffix}'

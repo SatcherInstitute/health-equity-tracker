@@ -232,7 +232,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
                   geoData={geoData}
-                  filename={`${getTitleText()} in ${props.fips.getFullDisplayName()}`}
+                  filename={`${getTitleText()} in ${props.fips.getSentenceDisplayName()}`}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <div className={styles.TerritoryCirclesContainer}>
