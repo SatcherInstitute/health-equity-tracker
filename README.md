@@ -26,9 +26,10 @@ When you're ready to make changes:
     - Note: once a PR is under review, don't rebase changes you've already pushed to the PR. This can confuse reviewers.
 6. When ready to submit, use the "Squash and merge" option (found under the submit button dropdown options). This maintains linear history and ensures your entire PR is merged as a single commit, while being simple to use in most cases. If there are conflicts, pull the latest changes from main, merge them into your PR, and try again.
 
+Read more about the forking workflow [here](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow).
 
 <details>
-<summary>Note that there are a few downsides to "Squash and merge"</summary>
+<summary>Note that there are a few downsides to "Squash and merge":</summary>
 
 - The official repo will not show commits from collaborators if the PR is a collaborative branch.
 - Working off the same branch or a dependent branch duplicates commits on the dependent branch and can cause repeated merge conflicts. To work around this, if you have a PR `my_branch_1` and you want to start work on a new PR that is dependent on `my_branch_1`, you can do the following:
@@ -38,7 +39,7 @@ When you're ready to make changes:
   4. From local client, go to main branch and pull from main to update the local main branch with the squashed change.
   5. From local client, run `git rebase --onto main my_branch_1 my_branch_2`. This tells git to move all the commits between `my_branch_1` and `my_branch_2` onto main. You can now delete `my_branch_1`.
 
-Read more about the forking workflow [here](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow). For details on "Squash and merge" see [here](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-merge-methods-on-github#squashing-your-merge-commits)
+ For details on "Squash and merge" see [here](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-merge-methods-on-github#squashing-your-merge-commits)
 
 </details>
 
@@ -104,7 +105,7 @@ You can also force specific dataset files to read from the `/public/tmp` directo
 ### Running the Frontend Server locally
 
 <details>
-<summary>If you need to run the frontend server locally to test server-side changes</summary>
+<summary>If you need to run the frontend server locally to test server-side changes:</summary>
 
 Copy `frontend_server/.env.example` into `frontend_server/.env.development`, and update `DATA_SERVER_URL` to point to a specific data server url, similar to above.
 
