@@ -104,9 +104,9 @@ You can also force specific dataset files to read from the `/public/tmp` directo
 ### Running the Frontend Server locally
 
 <details>
-<summary>Click to expand info on configuring and running the Frontend Server</summary>
+<summary>If you need to run the frontend server locally to test server-side changes</summary>
 
-If you need to run the frontend server locally to test server-side changes, copy `frontend_server/.env.example` into `frontend_server/.env.development`, and update `DATA_SERVER_URL` to point to a specific data server url, similar to above.
+Copy `frontend_server/.env.example` into `frontend_server/.env.development`, and update `DATA_SERVER_URL` to point to a specific data server url, similar to above.
 
 To run the frontend server locally, navigate to the `frontend_server/` directory and run:
 ```bash
