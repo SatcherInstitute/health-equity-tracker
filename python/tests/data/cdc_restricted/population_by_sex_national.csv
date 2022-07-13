@@ -1,0 +1,4 @@
+state_fips,state_name,sex,population,population_pct
+00,United States,Female,60,60.0
+00,United States,Male,40,40.0
+00,United States,All,100,100.0

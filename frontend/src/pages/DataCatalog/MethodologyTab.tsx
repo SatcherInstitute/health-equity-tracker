@@ -93,8 +93,9 @@ function MethodologyTab() {
                   <li>
                     When calculating national-level per100k COVID-19 rates for
                     cases, deaths, and hospitalizations, we only include the
-                    population of states that do not have a suppressed case
-                    count as part of the total population. See the 'What data
+                    population of states that do not have a suppressed case,
+                    hospitalization, or death count as part of the total
+                    population for each respective measure. See the 'What data
                     are missing' section for further details.
                   </li>
                   <li>

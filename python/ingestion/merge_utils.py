@@ -1,4 +1,5 @@
 import pandas as pd  # type: ignore
+
 from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
@@ -38,13 +39,14 @@ def merge_county_names(df):
     return df
 
 
-def merge_state_fips_codes(df):
+def merge_state_fips_codes(df, keep_postal=False):
     """Merges in the `state_fips` column into a dataframe, based on the
        `census_utility` big query public dataset. Used when the source contains
        state names or postal codes but not state FIPS codes
 
     Parameters:
        df: dataframe to merge fips codes into, with a `state_name` or`state_postal`
+       keep_postal: if True, keeps the `state_postal` column, default False
     Returns:
         the same df with a 'state_fips' column containing 2-digit string FIPS codes
     """
@@ -92,7 +94,7 @@ def merge_state_fips_codes(df):
     df = pd.merge(df, all_fips_codes_df, how='left',
                   on=merge_col).reset_index(drop=True)
 
-    if std_col.STATE_POSTAL_COL in df.columns:
+    if (not keep_postal) and (std_col.STATE_POSTAL_COL in df.columns):
         df = df.drop(columns=std_col.STATE_POSTAL_COL)
 
     return df
@@ -104,7 +106,29 @@ def merge_pop_numbers(df, demo, loc):
       df: a pandas df with demographic (race, sex, or age) and a `state_fips` column
       demo: the demographic in the df, either `age`, `race`, or `sex`
       loc: the location level for the df, either `state` or `national`"""
+    return _merge_pop(df, demo, loc)
 
+
+def merge_multiple_pop_cols(df, demo, pop_cols):
+    """Merges the population of each state into a column for each condition in `condition_cols`.
+       If a condition is NaN for that state the population gets counted as zero.
+
+       This function must be called on a state level dataset.
+
+      df: a pandas df with demographic (race, sex, or age) and a `state_fips` column
+      demo: the demographic in the df, either `age`, `race`, or `sex`
+      condition_cols: a list of condition column names to generate population cols for."""
+
+    df = _merge_pop(df, demo, 'state')
+
+    for col in pop_cols:
+        df[col] = df[std_col.POPULATION_COL]
+
+    df = df.drop(columns=[std_col.POPULATION_COL, std_col.POPULATION_PCT_COL])
+    return df
+
+
+def _merge_pop(df, demo, loc):
     on_col_map = {
         'age': std_col.AGE_COL,
         'race': std_col.RACE_CATEGORY_ID_COL,
