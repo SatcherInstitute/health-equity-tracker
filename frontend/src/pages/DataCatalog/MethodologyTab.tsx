@@ -338,7 +338,11 @@ function MethodologyTab() {
                   public health officials, and local planners the ability to
                   effectively decide how to best protect their most vulnerable
                   communities in case of a natural disaster or public health
+<<<<<<< HEAD
                   crisis. This advances health equity by ensuring that the
+=======
+                  crisis. This health equity advances by ensuring that the
+>>>>>>> 0ca650c (updated Methodology page)
                   communities that need resources the most, in times of
                   devastation, receive them.
                 </p>
@@ -365,10 +369,14 @@ function MethodologyTab() {
                   are given a value of 1 to indicate high vulnerability. Tracts
                   below the 90th percentile are given a value of 0.
                 </p>
+<<<<<<< HEAD
 
                 <h4 className={styles.MethodologySubsubheaderText}>
                   Incarceration
                 </h4>
+=======
+                <h4>Incarceration</h4>
+>>>>>>> 0ca650c (updated Methodology page)
 
                 <p>
                   Incarceration is influenced by a blend of political forces,
