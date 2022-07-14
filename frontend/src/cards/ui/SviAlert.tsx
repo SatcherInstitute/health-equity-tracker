@@ -5,13 +5,16 @@ import { Fips } from "../../data/utils/Fips";
 import { urlMap } from "../../utils/externalUrls";
 import styles from "./SviAlert.module.scss";
 
+const cdcLink =
+  "https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/pdf/SVI2018Documentation_01192022_1.pdf";
+
 interface SviAlertProps {
   svi: number;
   sviQueryResponse: MetricQueryResponse;
   fips: Fips;
 }
 
-const findRating = (svi: number) => {
+export const findRating = (svi: number) => {
   if (svi < 0.34) {
     return "low";
   }
