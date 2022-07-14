@@ -116,7 +116,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 {props.metricConfig && dataForValue.length > 0 && (
                   <ChoroplethMap
                     key={breakdownValue}
-                    signalListeners={{ click: (...args: any) => {} }}
+                    signalListeners={{ click: (...args: any) => { } }}
                     metric={props.metricConfig}
                     legendTitle={props.metricConfig.fullCardTitleName}
                     legendData={props.data}
@@ -128,22 +128,21 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     hideActions={true}
                     scaleType="quantile"
                     geoData={props.geoData}
-                    filename={`${props.metricConfig.fullCardTitleName}${
-                      breakdownValue === "All" ? "" : ` for ${breakdownValue}`
-                    } in ${props.fips.getFullDisplayName()}`}
+                    filename={`${props.metricConfig.fullCardTitleName}${breakdownValue === "All" ? "" : ` for ${breakdownValue}`
+                      } in ${props.fips.getSentenceDisplayName()}`}
                   />
                 )}
 
                 {/* TERRITORIES (IF NATIONAL VIEW) */}
                 {props.metricConfig &&
-                props.fips.isUsa() &&
-                dataForValue.length ? (
+                  props.fips.isUsa() &&
+                  dataForValue.length ? (
                   TERRITORY_CODES.map((code) => {
                     const fips = new Fips(code);
                     return (
                       <div key={code} className={styles.TerritoryMap}>
                         <ChoroplethMap
-                          signalListeners={{ click: (...args: any) => {} }}
+                          signalListeners={{ click: (...args: any) => { } }}
                           metric={props.metricConfig}
                           legendTitle={props.metricConfig.fullCardTitleName}
                           legendData={props.data}
