@@ -329,7 +329,7 @@ function MethodologyTab() {
                   identify.
                 </p>
 
-                <h4 className={styles.MethodologySubsubheaderText}>
+                <h4 className={styles.MethodologySubsubheaderText} id="svi">
                   Social Vulnerability Index
                 </h4>
                 <p>
@@ -337,7 +337,7 @@ function MethodologyTab() {
                   public health officials, and local planners the ability to
                   effectively decide how to best protect their most vulnerable
                   communities in case of a natural disaster or public health
-                  crisis. This health equity advances by ensuring that the
+                  crisis. This advances health equity by ensuring that the
                   communities that need resources the most, in times of
                   devastation, receive them.
                 </p>
@@ -364,7 +364,10 @@ function MethodologyTab() {
                   are given a value of 1 to indicate high vulnerability. Tracts
                   below the 90th percentile are given a value of 0.
                 </p>
-                <h4>Incarceration</h4>
+
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  Incarceration
+                </h4>
 
                 <p>
                   Incarceration is influenced by a blend of political forces,

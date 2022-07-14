@@ -5,13 +5,16 @@ import { Fips } from "../../data/utils/Fips";
 import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";
 import styles from "./SviAlert.module.scss";
 
+const cdcLink =
+  "https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/pdf/SVI2018Documentation_01192022_1.pdf";
+
 interface SviAlertProps {
   svi: number;
   sviQueryResponse: MetricQueryResponse;
   fips: Fips;
 }
 
-const findRating = (svi: number) => {
+export const findRating = (svi: number) => {
   if (svi < 0.34) {
     return "low";
   }
@@ -21,7 +24,7 @@ const findRating = (svi: number) => {
   return "medium";
 };
 
-const findColor = (rating: string) => {
+export const findColor = (rating: string) => {
   if (rating === "high") {
     return styles.High;
   }
@@ -41,7 +44,7 @@ function SviAlert(props: SviAlertProps) {
         <Alert severity="warning" className={styles.Alert}>
           We do not currently have the <b>social vulnerability index</b> for{" "}
           <b>{props.fips.getDisplayName()}</b>. Learn more about how this lack
-          of data impacts <a href="link">health equity.</a>
+          of data impacts <a href={cdcLink}>health equity.</a>
         </Alert>
       ) : (
         <Alert severity="info" className={styles.Alert}>

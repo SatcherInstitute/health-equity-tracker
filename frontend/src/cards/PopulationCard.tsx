@@ -155,7 +155,9 @@ export function PopulationCard(props: PopulationCardProps) {
                   )}
                 </Grid>
                 {!raceQueryResponse.dataIsMissing() && (
-                  <Grid item>{CollapseButton}</Grid>
+                  <Grid item className={styles.ProfileButtonContainer}>
+                    {CollapseButton}
+                  </Grid>
                 )}
               </Grid>
             </Grid>
