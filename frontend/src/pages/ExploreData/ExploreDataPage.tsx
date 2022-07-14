@@ -39,7 +39,6 @@ import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
 import { useSnackbar } from "notistack";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
-import { Example } from "./Example";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -223,8 +222,6 @@ function ExploreDataPage() {
 
   return (
     <>
-      <h1>Demo with Virtualized List elements</h1>
-      <Example />
       <Onboarding
         callback={onboardingCallback}
         activelyOnboarding={activelyOnboarding}

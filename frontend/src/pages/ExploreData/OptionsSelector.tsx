@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import TextField from "@material-ui/core/TextField";
@@ -12,18 +12,46 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { usePopover } from "../../utils/usePopover";
 import { CATEGORIES_LIST } from "../../utils/MadLibs";
-import { Box, CircularProgress, Grid } from "@material-ui/core";
+import {
+  Box,
+  Grid,
+  ListSubheader,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@material-ui/core";
 import { DropdownVarId } from "../../data/config/MetricConfig";
+import { ListChildComponentProps, VariableSizeList } from "react-window";
 
 function OptionsSelector(props: {
   value: string;
   options: Fips[] | string[][];
   onOptionUpdate: (option: string) => void;
 }) {
-  const popover = usePopover();
-
   const isFips =
     props.options[0] && props.options[0] instanceof Fips ? true : false;
+
+  // const Row = ({ index, style }: { index: number; style: any }) => {
+
+  //   if (!isFips) return null
+
+  //   const placeFips = props.options[index] as Fips;
+
+  //   return placeFips ? (
+  //     <div style={style}>{placeFips.getDisplayName()}</div>
+  //   ) : (
+  //     <></>
+  //   );
+  // };
+
+  // function WindowedLocationList() {
+  //   return <VariableSizeList itemCount={props.options.length} estimatedItemSize={100} height={500} width={300} itemSize={() => 50} >
+  //     {Row}
+  //   </VariableSizeList>
+  // }
+
+  const popover = usePopover();
+
   let currentDisplayName;
   if (isFips) {
     currentDisplayName = new Fips(props.value).getFullDisplayName();
@@ -47,24 +75,6 @@ function OptionsSelector(props: {
     setAutoCompleteOpen(false);
   };
 
-  const [options, setOptions] = useState([] as Fips[] | string[][]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setOptions(props.options);
-    // async function test() {
-    //   console.log("fake loading");
-    //   await new Promise(resolve => setTimeout(resolve, 10_000));
-    //   setOptions([new Fips("01")])
-    // }
-
-    // test();
-  }, [props.options]);
-
-  useEffect(() => {
-    setLoading(options.length === 0);
-  }, [options]);
-
   function getGroupName(option: Fips): string {
     if (option.isUsa()) return "National";
     if (option.isState()) return "States";
@@ -80,6 +90,7 @@ function OptionsSelector(props: {
 
   return (
     <>
+      {/* <WindowedLocationList /> */}
       <Button
         variant="text"
         aria-haspopup="true"
@@ -109,19 +120,30 @@ function OptionsSelector(props: {
           <div className={styles.OptionsSelectorPopover}>
             <span className={styles.SearchForText}>Search for location</span>
 
+            {/* <Autocomplete
+              
+              // TODO: Post React 18 update - validate this conversion, look like a hidden bug
+              
+            /> */}
+
             <Autocomplete
-              loading={loading}
               disableClearable={true}
-              autoHighlight={true}
-              options={options as Fips[]}
+              disableListWrap
+              // autoHighlight={true}
+              options={props.options as Fips[]}
               groupBy={(option) => getGroupName(option)}
               clearOnEscape={true}
               getOptionLabel={(fips) => fips.getFullDisplayName()}
               getOptionSelected={(fips) => fips.code === props.value}
-              renderOption={(fips) => <>{fips.getFullDisplayName()}</>}
+              renderOption={(props, option) =>
+                [props, option] as React.ReactNode
+              }
+              // renderOption={(fips) => <>{fips.getFullDisplayName()}</>}
+              renderGroup={(params) => params as unknown as React.ReactNode}
               open={autoCompleteOpen}
               onOpen={openAutoComplete}
               onClose={closeAutoComplete}
+              ListboxComponent={ListboxComponent}
               renderInput={(params) => (
                 <TextField
                   placeholder="County, State, Territory, or United States"
@@ -129,17 +151,6 @@ function OptionsSelector(props: {
                   variant="outlined"
                   onChange={updateTextBox}
                   {...params}
-                  InputProps={{
-                    ...params.InputProps,
-                    endAdornment: (
-                      <React.Fragment>
-                        {loading ? (
-                          <CircularProgress color="inherit" size={20} />
-                        ) : null}
-                        {params.InputProps.endAdornment}
-                      </React.Fragment>
-                    ),
-                  }}
                 />
               )}
               onChange={(e, fips) => {
@@ -208,3 +219,122 @@ function OptionsSelector(props: {
 }
 
 export default OptionsSelector;
+
+//
+//
+//
+//
+
+// const Row = ({ index, style }: { index: number; style: any }) => {
+
+//   if (!isFips) return null
+
+//   const placeFips = props.options[index] as Fips;
+
+//   return placeFips ? (
+//     <div style={style}>{placeFips.getDisplayName()}</div>
+//   ) : (
+//     <></>
+//   );
+// };
+
+function renderRow(props: ListChildComponentProps) {
+  const { data, index, style } = props;
+  const dataSet = data[index];
+  const inlineStyle = {
+    ...style,
+    top: (style.top as number) + 10,
+  };
+
+  const place = dataSet?.props?.children?.[0];
+
+  if (dataSet.hasOwnProperty("group")) {
+    return (
+      <ListSubheader key={dataSet.key} component="div" style={inlineStyle}>
+        {dataSet.group}
+      </ListSubheader>
+    );
+  }
+
+  return (
+    <Typography component="li" {...dataSet[0]} noWrap style={inlineStyle}>
+      {place?.code && new Fips(place.code).getDisplayName()}
+    </Typography>
+  );
+}
+
+const OuterElementContext = React.createContext({});
+
+const OuterElementType = React.forwardRef<HTMLDivElement>((props, ref) => {
+  const outerProps = React.useContext(OuterElementContext);
+  return <div ref={ref} {...props} {...outerProps} />;
+});
+
+function useResetCache(data: any) {
+  const ref = React.useRef<VariableSizeList>(null);
+  React.useEffect(() => {
+    if (ref.current != null) {
+      ref.current.resetAfterIndex(0, true);
+    }
+  }, [data]);
+  return ref;
+}
+
+// Adapter for react-window
+const ListboxComponent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLElement>
+>(function ListboxComponent(props, ref) {
+  const { children, ...other } = props;
+  const itemData: React.ReactChild[] = [];
+  (children as React.ReactChild[]).forEach(
+    (item: React.ReactChild & { children?: React.ReactChild[] }) => {
+      itemData.push(item);
+      itemData.push(...(item.children || []));
+    }
+  );
+
+  const theme = useTheme();
+  const smUp = useMediaQuery(theme.breakpoints.up("sm"), {
+    noSsr: true,
+  });
+  const itemCount = itemData.length;
+  const itemSize = smUp ? 36 : 48;
+
+  const getChildSize = (child: React.ReactChild) => {
+    if (child.hasOwnProperty("group")) {
+      return 48;
+    }
+
+    return itemSize;
+  };
+
+  const getHeight = () => {
+    if (itemCount > 8) {
+      return 8 * itemSize;
+    }
+    return itemData.map(getChildSize).reduce((a, b) => a + b, 0);
+  };
+
+  const gridRef = useResetCache(itemCount);
+
+  return (
+    <div ref={ref}>
+      <OuterElementContext.Provider value={other}>
+        <VariableSizeList
+          itemData={itemData}
+          height={getHeight() + 2 * 10}
+          width="100%"
+          ref={gridRef}
+          outerElementType={OuterElementType}
+          innerElementType="ul"
+          itemSize={(index) => getChildSize(itemData[index])}
+          overscanCount={5}
+          itemCount={itemCount}
+        >
+          {renderRow}
+        </VariableSizeList>
+      </OuterElementContext.Provider>
+    </div>
+  );
+});
