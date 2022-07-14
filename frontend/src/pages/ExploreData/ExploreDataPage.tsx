@@ -223,6 +223,8 @@ function ExploreDataPage() {
 
   return (
     <>
+      <h1>Demo with Virtualized List elements</h1>
+      <Example />
       <Onboarding
         callback={onboardingCallback}
         activelyOnboarding={activelyOnboarding}
@@ -290,8 +292,6 @@ function ExploreDataPage() {
           />
         </div>
       </div>
-      <h1>yes</h1>
-      <Example />
     </>
   );
 }
