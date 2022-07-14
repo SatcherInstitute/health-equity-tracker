@@ -39,6 +39,7 @@ import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
 import { useSnackbar } from "notistack";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
+import { Example } from "./Example";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -289,6 +290,8 @@ function ExploreDataPage() {
           />
         </div>
       </div>
+      <h1>yes</h1>
+      <Example />
     </>
   );
 }

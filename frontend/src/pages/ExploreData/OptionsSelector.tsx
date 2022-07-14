@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import TextField from "@material-ui/core/TextField";
@@ -20,7 +20,6 @@ function OptionsSelector(props: {
   options: Fips[] | string[][];
   onOptionUpdate: (option: string) => void;
 }) {
-  const loading = true;
   const popover = usePopover();
 
   const isFips =
@@ -47,6 +46,24 @@ function OptionsSelector(props: {
   const closeAutoComplete = () => {
     setAutoCompleteOpen(false);
   };
+
+  const [options, setOptions] = useState([] as Fips[] | string[][]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setOptions(props.options);
+    // async function test() {
+    //   console.log("fake loading");
+    //   await new Promise(resolve => setTimeout(resolve, 10_000));
+    //   setOptions([new Fips("01")])
+    // }
+
+    // test();
+  }, [props.options]);
+
+  useEffect(() => {
+    setLoading(options.length === 0);
+  }, [options]);
 
   function getGroupName(option: Fips): string {
     if (option.isUsa()) return "National";
@@ -96,7 +113,7 @@ function OptionsSelector(props: {
               loading={loading}
               disableClearable={true}
               autoHighlight={true}
-              options={props.options as Fips[]}
+              options={options as Fips[]}
               groupBy={(option) => getGroupName(option)}
               clearOnEscape={true}
               getOptionLabel={(fips) => fips.getFullDisplayName()}

@@ -43,6 +43,7 @@
     "react-share": "^4.4.0",
     "react-table": "^7.7.0",
     "react-vega": "^7.4.4",
+    "react-window": "^1.8.7",
     "sass": "^1.47.0",
     "typeface-dm-sans": "^1.1.13",
     "typeface-hind": "^1.1.13",
@@ -113,6 +114,7 @@
     "@storybook/react": "^6.2.8",
     "@types/node": "^18.0.3",
     "@types/react-lazyload": "^3.1.1",
+    "@types/react-window": "^1.8.5",
     "mini-css-extract-plugin": "2.4.6",
     "react-query": "^3.33.7"
   }
