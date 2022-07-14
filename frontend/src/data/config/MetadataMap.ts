@@ -12,7 +12,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_pretty_site_name: "data.cdc.gov",
     data_source_link:
       "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
-    geographic_level: "State, County",
+    geographic_level: "National, State, County",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Monthly",
     description:
@@ -20,8 +20,9 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
       "Surveillance Data Access, Summary, and Limitations (06/06/2022). The last case data included is 2 " +
       "weeks before 06/06/2022. The CDC does not take responsibility for the scientific validity " +
-      "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
-      "dataset is not available for download; please click the link below to apply for access.",
+      "or accuracy of methodology, results, statistical analyses, or conclusions presented. We only " +
+      "present the data as rates that are calculated with the ACS 2019 5-year estimates, to view the " +
+      "raw data you must apply for access on the CDC website linked above.",
     dataset_ids: [
       "cdc_restricted_data-by_race_national_processed-with_age_adjust",
       "cdc_restricted_data-by_race_county_processed",
