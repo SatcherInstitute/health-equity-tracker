@@ -4,7 +4,6 @@ import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { Fips } from "../../data/utils/Fips";
 import { urlMap } from "../../utils/externalUrls";
 import styles from "./SviAlert.module.scss";
-import { urlMap } from "../../utils/externalUrls";
 
 interface SviAlertProps {
   svi: number;
