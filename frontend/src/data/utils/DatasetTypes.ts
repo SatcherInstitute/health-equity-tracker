@@ -91,7 +91,7 @@ export class Dataset {
         }
         csvString += convertSpecialCharactersForCsv(value);
 
-        // comma between values or newline if end of row
+        // comma between values or newline between rows
         if (headerIndex < headers.length - 1) {
           csvString += ",";
         } else if (rowIndex < this.rows.length - 1) csvString += "\r\n";
