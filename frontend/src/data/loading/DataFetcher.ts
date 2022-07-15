@@ -116,6 +116,13 @@ export class ApiDataFetcher implements DataFetcher {
               : Number(row["below_poverty_line"]),
         };
       });
+      // } else if (datasetId.startsWith("cdc_")) {
+      //   result = result.map((row: any) => {
+      //     return {
+      //       ...row,
+      //       death_ratio_age_adjusted: row["death_ratio_age_adjusted"],
+      //     };
+      //   });
     } else if (datasetId.startsWith("vera_") || datasetId.startsWith("bjs_")) {
       result = result.map((row: any) => {
         return {

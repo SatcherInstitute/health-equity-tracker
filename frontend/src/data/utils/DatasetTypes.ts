@@ -1,5 +1,4 @@
 import { DataFrame, IDataFrame } from "data-forge";
-import { STATE_FIPS_MAP } from "./Fips";
 
 // Data sources may provide multiple datasets
 export interface DataSourceMetadata {
@@ -58,27 +57,42 @@ export class Dataset {
   }
 
   toDataFrame(): IDataFrame {
-    // TODO Remove this once STATE FIPS are embedded during GCP/SQL step
-    const rowsWithFakeFips = this.rows.map((row) => {
-      const fipsCode = Object.keys(STATE_FIPS_MAP).find(
-        (key) => STATE_FIPS_MAP[key] === row.state_name
-      );
-      return { ...row, state_fips: fipsCode };
-    });
+    return new DataFrame(this.rows);
+  }
 
-    return new DataFrame(rowsWithFakeFips);
+  getAllColumnNames(): string[] {
+    const headersSet = new Set<string>();
+    for (const row of this.rows) {
+      for (const header of Object.keys(row)) {
+        headersSet.add(header);
+      }
+    }
+    return Array.from(headersSet);
   }
 
   toCsvString(): string {
-    let df = this.toDataFrame();
-    const columns = df.getColumnNames();
-    // apply specialChar fn to every column
-    df = df.transformSeries(
-      Object.fromEntries(
-        columns.map((colName) => [colName, convertSpecialCharactersForCsv])
-      )
-    );
-    return df.toCSV();
+    // grab ALL column names throughout every row
+    const headers = this.getAllColumnNames();
+
+    // add column names first
+    let csvString = headers.join(",");
+    csvString += "\n";
+
+    // iterate through and add values as needed, ensuring missing keys are filled in as ""
+    for (const row of this.rows) {
+      for (const header of headers) {
+        let value = "";
+        if (header in row) {
+          value = row[header as string];
+          if (value === null) {
+            value = "";
+          }
+        }
+        csvString += `${convertSpecialCharactersForCsv(value)},`;
+      }
+      csvString += "\n";
+    }
+    return csvString;
   }
 }
 
