@@ -51,8 +51,8 @@ function MissingDataAlert(props: MissingDataAlertProps) {
       <b>{props.dataName}</b>
       {breakdownPhrase}
       {geoPhrase}
-      for <b>{props.fips.getDisplayName()}</b>. Learn more about how this lack
-      of data impacts{" "}
+      for <b>{props.fips.getSentenceDisplayName()}</b>. Learn more about how
+      this lack of data impacts{" "}
       <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
         health equity
       </LinkWithStickyParams>
