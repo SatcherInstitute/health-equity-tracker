@@ -130,7 +130,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     geoData={props.geoData}
                     filename={`${props.metricConfig.fullCardTitleName}${
                       breakdownValue === "All" ? "" : ` for ${breakdownValue}`
-                    } in ${props.fips.getFullDisplayName()}`}
+                    } in ${props.fips.getSentenceDisplayName()}`}
                   />
                 )}
 

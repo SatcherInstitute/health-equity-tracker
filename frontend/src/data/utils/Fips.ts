@@ -120,6 +120,10 @@ class Fips {
     }`;
   }
 
+  getSentenceDisplayName() {
+    return `${this.isUsa() ? " the " : ""}${this.getFullDisplayName()}`;
+  }
+
   getStateFipsCode() {
     return this.code.substring(0, 2);
   }

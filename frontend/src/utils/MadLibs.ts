@@ -201,4 +201,8 @@ const MADLIB_LIST: MadLib[] = [
   },
 ];
 
-export { MADLIB_LIST, getMadLibPhraseText, CATEGORIES_LIST };
+function insertOptionalThe(phraseSelections: PhraseSelections, index: number) {
+  return phraseSelections[index + 1] === "00" ? " the" : "";
+}
+
+export { MADLIB_LIST, getMadLibPhraseText, CATEGORIES_LIST, insertOptionalThe };

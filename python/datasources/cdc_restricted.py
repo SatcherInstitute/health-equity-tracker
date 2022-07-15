@@ -5,8 +5,13 @@ import time
 import ingestion.standardized_columns as std_col
 from ingestion.standardized_columns import generate_column_name
 from ingestion.standardized_columns import Race
+import ingestion.constants as constants
 
 from datasources.data_source import DataSource
+from datasources.cdc_restricted_local import (
+    HOSP_DATA_SUPPRESSION_STATES,
+    DEATH_DATA_SUPPRESSION_STATES)
+
 from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import (
     generate_per_100k_col,
@@ -15,8 +20,10 @@ from ingestion.dataset_utils import (
 from ingestion.merge_utils import (
     merge_state_fips_codes,
     merge_pop_numbers,
+    merge_multiple_pop_cols,
     merge_county_names
 )
+
 
 DC_COUNTY_FIPS = '11001'
 
@@ -24,14 +31,6 @@ ONLY_FIPS_FILES = {
     # These files only need to get their fips codes merged in
     'cdc_restricted_by_race_and_age_state.csv': 'by_race_age_state',
 }
-
-EXTRA_FILES = [
-    # TODO: Remove these files once we do national
-    # calculations on the backend.
-    'cdc_restricted_by_race_state.csv',
-    'cdc_restricted_by_age_state.csv',
-    'cdc_restricted_by_sex_state.csv',
-]
 
 COVID_CONDITION_TO_PREFIX = {
     std_col.COVID_CASES: std_col.COVID_CASES_PREFIX,
@@ -55,9 +54,10 @@ class CDCRestrictedData(DataSource):
             'upload_to_gcs should not be called for CDCRestrictedData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        for geo in ['state', 'county']:
+        for geo in ['national', 'state', 'county']:
             for demo in ['sex', 'race', 'age']:
-                filename = f'cdc_restricted_by_{demo}_{geo}.csv'
+                geo_to_pull = 'state' if geo == 'national' else geo
+                filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
                 df = gcs_to_bq_util.load_csv_as_df(
                     gcs_bucket, filename, dtype={'county_fips': str})
 
@@ -98,36 +98,6 @@ class CDCRestrictedData(DataSource):
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
-        # TODO, delete this whole section after national data
-        # is calculated here
-        for filename in EXTRA_FILES:
-            df = gcs_to_bq_util.load_csv_as_df(
-                gcs_bucket, filename, dtype={'county_fips': str})
-
-            self.clean_frame_column_names(df)
-
-            int_cols = [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
-                        std_col.COVID_HOSP_N, std_col.COVID_HOSP_UNKNOWN,
-                        std_col.COVID_DEATH_Y, std_col.COVID_DEATH_N,
-                        std_col.COVID_DEATH_UNKNOWN]
-
-            column_types = {c: 'STRING' for c in df.columns}
-            for col in int_cols:
-                if col in column_types:
-                    column_types[col] = 'FLOAT'
-
-            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-
-            print('uploading extra file')
-
-            table_name = filename.replace(
-                '.csv', '')  # Table name is file name
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=column_types)
-
-        print('uploaded extra file')
-
     def generate_breakdown(self, df, demo, geo):
         print(f'processing {demo} {geo}')
         start = time.time()
@@ -143,12 +113,35 @@ class CDCRestrictedData(DataSource):
             std_col.COVID_POPULATION_PCT,
         ]
 
+        df = merge_state_fips_codes(df, keep_postal=True)
+
         if geo == 'county':
             all_columns.extend(
                 [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
             df = merge_county_names(df)
+            df = null_out_all_unknown_deaths_hosps(df)
 
-        df = merge_state_fips_codes(df)
+        if geo == 'national':
+            pop_cols = [
+                generate_column_name(std_col.COVID_CASES, 'population'),
+                generate_column_name(std_col.COVID_DEATH_Y, 'population'),
+                generate_column_name(std_col.COVID_HOSP_Y, 'population'),
+            ]
+
+            df = merge_multiple_pop_cols(df, demo, pop_cols)
+
+            # Don't count the population of states that we null out data from
+            rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
+                HOSP_DATA_SUPPRESSION_STATES)
+            df.loc[rows_to_modify, generate_column_name(std_col.COVID_HOSP_Y, 'population')] = 0
+
+            rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
+                DEATH_DATA_SUPPRESSION_STATES)
+            df.loc[rows_to_modify, generate_column_name(std_col.COVID_DEATH_Y, 'population')] = 0
+
+            df = df.drop(columns=std_col.STATE_POSTAL_COL)
+            df = generate_national_dataset(df, demo_col)
+
         fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
 
         # Drop annoying column that doesnt match any fips code
@@ -161,14 +154,16 @@ class CDCRestrictedData(DataSource):
         df = df.rename(
             columns={std_col.POPULATION_PCT_COL: std_col.COVID_POPULATION_PCT})
 
-        df = null_out_all_unknown_deaths_hosps(df)
-
         for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
             per_100k_col = generate_column_name(
                 prefix, std_col.PER_100K_SUFFIX)
             all_columns.append(per_100k_col)
+
+            pop_col = std_col.POPULATION_COL
+            if geo == 'national':
+                pop_col = generate_column_name(raw_count_col, 'population')
             df = generate_per_100k_col(
-                df, raw_count_col, std_col.POPULATION_COL, per_100k_col)
+                df, raw_count_col, pop_col, per_100k_col)
 
         raw_count_to_pct_share = {}
         for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
@@ -256,3 +251,34 @@ def remove_bad_fips_cols(df):
 
     df = df[df.apply(fips_code_is_good, axis=1)]
     return df.reset_index(drop=True)
+
+
+def generate_national_dataset(state_df, demo_col):
+    """Generates a national dataset based on a state_df and demographic column"""
+    int_cols = [
+        std_col.COVID_CASES,
+        std_col.COVID_DEATH_Y,
+        std_col.COVID_HOSP_Y,
+        generate_column_name(std_col.COVID_CASES, 'population'),
+        generate_column_name(std_col.COVID_DEATH_Y, 'population'),
+        generate_column_name(std_col.COVID_HOSP_Y, 'population'),
+    ]
+
+    state_df[int_cols] = state_df[int_cols].fillna(0)
+    state_df[int_cols] = state_df[int_cols].replace("", 0)
+    state_df[int_cols] = state_df[int_cols].astype(int)
+
+    df = state_df.groupby([demo_col]).sum().reset_index()
+
+    df[std_col.STATE_FIPS_COL] = constants.US_FIPS
+    df[std_col.STATE_NAME_COL] = constants.US_NAME
+
+    needed_cols = [
+        std_col.STATE_FIPS_COL,
+        std_col.STATE_NAME_COL,
+    ]
+
+    needed_cols.extend(int_cols)
+    needed_cols.append(demo_col)
+
+    return df[needed_cols].reset_index(drop=True)

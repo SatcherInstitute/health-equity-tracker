@@ -61,7 +61,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   function getTitleText() {
     return `${metricConfig.fullCardTitleName} By ${
       BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-    } In ${props.fips.getFullDisplayName()}`;
+    } In ${props.fips.getSentenceDisplayName()}`;
   }
   function CardTitle() {
     return <>{getTitleText()}</>;

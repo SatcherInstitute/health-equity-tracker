@@ -10,6 +10,7 @@ import {
   getMadLibPhraseText,
   getMadLibWithUpdatedValue,
   getSelectedConditions,
+  insertOptionalThe,
   MadLib,
   MadLibId,
   MADLIB_LIST,
@@ -319,7 +320,10 @@ function CarouselMadLib(props: {
           (phraseSegment: PhraseSegment, index: number) => (
             <React.Fragment key={index}>
               {typeof phraseSegment === "string" ? (
-                <span>{phraseSegment}</span>
+                <span>
+                  {phraseSegment}
+                  {insertOptionalThe(props.madLib.activeSelections, index)}
+                </span>
               ) : (
                 <OptionsSelector
                   key={index}

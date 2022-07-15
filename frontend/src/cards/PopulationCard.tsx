@@ -213,7 +213,7 @@ export function PopulationCard(props: PopulationCardProps) {
                         breakdownVar={RACE}
                         showLegend={false}
                         usePercentSuffix={true}
-                        filename={`${POPULATION_BY_RACE} in ${props.fips.getFullDisplayName()}`}
+                        filename={`${POPULATION_BY_RACE} in ${props.fips.getSentenceDisplayName()}`}
                       />
                     </Box>
                   </Grid>
@@ -236,7 +236,7 @@ export function PopulationCard(props: PopulationCardProps) {
                           breakdownVar="age"
                           showLegend={false}
                           usePercentSuffix={true}
-                          filename={`${POPULATION_BY_AGE} in ${props.fips.getFullDisplayName()}`}
+                          filename={`${POPULATION_BY_AGE} in ${props.fips.getSentenceDisplayName()}`}
                         />
                       )}
                     </Box>
