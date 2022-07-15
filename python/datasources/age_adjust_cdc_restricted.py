@@ -99,6 +99,8 @@ class AgeAdjustCDCRestricted(DataSource):
         # standardization of the data has been done by this point.
         for table_name, df in table_names_to_dfs.items():
             column_types = get_col_types(df)
+            column_types[std_col.COVID_HOSP_RATIO_AGE_ADJUSTED] = 'FLOAT'
+            column_types[std_col.COVID_DEATH_RATIO_AGE_ADJUSTED] = 'FLOAT'
 
             # Clean up column names.
             self.clean_frame_column_names(df)
