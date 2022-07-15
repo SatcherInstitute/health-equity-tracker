@@ -78,7 +78,8 @@ export class Dataset {
     let csvString = headers.join(",");
     csvString += "\n";
 
-    // iterate through and add values as needed, ensuring missing keys are filled in as ""
+    // iterate through and add values as needed
+    // ensure missing keys and explicit nulls are filled in as ""
     for (const row of this.rows) {
       for (const header of headers) {
         let value = "";
