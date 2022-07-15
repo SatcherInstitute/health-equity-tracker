@@ -4,9 +4,7 @@ import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { Fips } from "../../data/utils/Fips";
 import { urlMap } from "../../utils/externalUrls";
 import styles from "./SviAlert.module.scss";
-
-const cdcLink =
-  "https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/pdf/SVI2018Documentation_01192022_1.pdf";
+import { urlMap } from "../../utils/externalUrls";
 
 interface SviAlertProps {
   svi: number;
