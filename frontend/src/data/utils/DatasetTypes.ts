@@ -1,11 +1,12 @@
 import { DataFrame, IDataFrame } from "data-forge";
+import { DatasetId } from "../config/DatasetMetadata";
 import { STATE_FIPS_MAP } from "./Fips";
 
 // Data sources may provide multiple datasets
 export interface DataSourceMetadata {
   readonly id: string;
   readonly description: string;
-  readonly dataset_ids: string[];
+  readonly dataset_ids: DatasetId[];
   readonly data_source_name: string;
   readonly data_source_pretty_site_name: string;
   readonly data_source_link: string;
@@ -18,7 +19,7 @@ export interface DataSourceMetadata {
 // Datasets contain data with specified breakdowns
 // For example: data by race and county or data by age and state
 export interface DatasetMetadata {
-  readonly id: string;
+  readonly dataset_id: string;
   readonly name: string;
   readonly update_time: string;
   // Source ID is added programmatically based on DataSourceMetadata config
