@@ -7,6 +7,7 @@ describe("DatasetTypes", () => {
     );
     expect(convertSpecialCharactersForCsv("Other")).toEqual("Other");
     expect(convertSpecialCharactersForCsv(1)).toEqual(1);
+    expect(convertSpecialCharactersForCsv(null)).toEqual("");
   });
 
   const fakeMetaData = {
@@ -43,7 +44,7 @@ describe("DatasetTypes", () => {
   ];
 
   const expectedCsvString =
-    'population_pct,race,race_and_ethnicity,race_category_id,race_includes_hispanic,state_fips,state_name,some_condition_per_100k,some_condition_pct_share\r\n1,All,All,ALL,,01,Alabama,,<0.01\r\n99,"""Asian, Native Hawaiian, and Pacific Islander""","""Asian, Native Hawaiian, and Pacific Islander""",API_NH,true,01,Alabama,,<0.01';
+    'population_pct,race,race_and_ethnicity,race_category_id,race_includes_hispanic,state_fips,state_name,some_condition_per_100k,some_condition_pct_share\r\n1,All,All,ALL,,01,Alabama,,<0.01\r\n99,"Asian, Native Hawaiian, and Pacific Islander","Asian, Native Hawaiian, and Pacific Islander",API_NH,true,01,Alabama,,<0.01';
 
   let dataset = new Dataset(fakeRows, fakeMetaData);
 

@@ -44,6 +44,9 @@ export function convertSpecialCharactersForCsv(val: any) {
   if (typeof val === "string" && val.includes(",")) {
     return `"${val}"`;
   }
+  if (val === null) {
+    return "";
+  }
   return val;
 }
 
@@ -76,23 +79,26 @@ export class Dataset {
 
     // add column names first
     let csvString = headers.join(",");
-    csvString += "\n";
+    csvString += "\r\n";
 
     // iterate through and add values as needed
     // ensure missing keys and explicit nulls are filled in as ""
-    for (const row of this.rows) {
-      for (const header of headers) {
+    this.rows.forEach((row, rowIndex) => {
+      // eslint-disable-next-line no-loop-func
+      headers.forEach((header, headerIndex) => {
         let value = "";
-        if (header in row) {
-          value = row[header as string];
-          if (value === null) {
-            value = "";
-          }
+        if (headers[headerIndex] in row) {
+          value = row[headers[headerIndex] as string];
         }
-        csvString += `${convertSpecialCharactersForCsv(value)},`;
-      }
-      csvString += "\n";
-    }
+        csvString += convertSpecialCharactersForCsv(value);
+
+        // comma between values or newline if end of row
+        if (headerIndex < headers.length - 1) {
+          csvString += ",";
+        } else if (rowIndex < this.rows.length - 1) csvString += "\r\n";
+      });
+    });
+
     return csvString;
   }
 }
