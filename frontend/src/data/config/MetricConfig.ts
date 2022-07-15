@@ -48,6 +48,7 @@ export type VariableId =
 
 export type MetricId =
   | "acs_vaccine_population_pct"
+  | "svi"
   | "brfss_population_pct"
   | "cawp_population_pct"
   | "bjs_population_pct"

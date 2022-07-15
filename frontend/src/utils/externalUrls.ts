@@ -2,6 +2,7 @@ export type LinkName =
   | "newsletterSignup"
   | "cdcCovidDataInfo"
   | "cdcWonder"
+  | "cdcSvi"
   | "shliTwitter"
   | "shliLinkedIn"
   | "shliYoutube"
@@ -60,6 +61,8 @@ export const urlMap: Record<LinkName, string> = {
   cdcCovidDataInfo:
     "https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/about-us-cases-deaths.html",
   cdcWonder: "https://wonder.cdc.gov/mcd.html",
+  cdcSvi:
+    "https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/pdf/SVI2018Documentation_01192022_1.pdf",
   shliLinkedIn: "https://www.linkedin.com/in/satcherhealth",
   shliTwitter: "https://twitter.com/SatcherHealth",
   shliYoutube: "https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA",
