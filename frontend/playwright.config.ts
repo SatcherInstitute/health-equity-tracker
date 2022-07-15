@@ -8,6 +8,7 @@ const config: PlaywrightTestConfig = {
     command: 'npm run start',
     port: 3000,
     timeout: 120 * 1000,
+    // @ts-ignore
     reuseExistingServer: !process.env.CI,
   },
   testDir: './playwright-tests',

@@ -221,11 +221,8 @@ function MapCardWithKey(props: MapCardProps) {
                 activeBreakdownFilter !== "All" &&
                 ` ${activeBreakdownFilter} individuals`}
               {" in  "}
-              {/*} in */}
-              {/*} (the) */}
-              {props.fips.getDisplayName() === "United States" && "the "}
-              {/*} United States */}
-              {props.fips.getDisplayName()}
+              {/*} Georgia */}
+              {props.fips.getSentenceDisplayName()}
               {". "}
             </>
           ) : (
@@ -382,12 +379,7 @@ function MapCardWithKey(props: MapCardProps) {
                       activeBreakdownFilter === "All"
                         ? ""
                         : ` for ${activeBreakdownFilter}`
-                    } in ${props.fips.getDisplayName()}${
-                      // include the state name if the location is a county
-                      props.fips.isCounty()
-                        ? `, ${props.fips.getParentFips().getFullDisplayName()}`
-                        : ""
-                    }`}
+                    } in ${props.fips.getSentenceDisplayName()}`}
                   />
                   {/* generate additional VEGA canvases for territories on national map */}
                   {props.fips.isUsa() && (
