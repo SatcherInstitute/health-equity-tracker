@@ -1,0 +1,17 @@
+@import "../../styles/variables.module";
+
+.Alert {
+  margin: 10px;
+}
+
+a.Low {
+  color: $alt-green;
+}
+
+a.Medium {
+  color: $alert-color;
+}
+
+a.High {
+  color: $alt-red;
+}
