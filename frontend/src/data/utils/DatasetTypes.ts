@@ -84,11 +84,10 @@ export class Dataset {
     // iterate through and add values as needed
     // ensure missing keys and explicit nulls are filled in as ""
     this.rows.forEach((row, rowIndex) => {
-      // eslint-disable-next-line no-loop-func
       headers.forEach((header, headerIndex) => {
         let value = "";
-        if (headers[headerIndex] in row) {
-          value = row[headers[headerIndex] as string];
+        if (header in row) {
+          value = row[header as string];
         }
         csvString += convertSpecialCharactersForCsv(value);
 
