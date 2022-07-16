@@ -30,6 +30,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "cdc_restricted_data-by_sex_national_processed",
       "cdc_restricted_data-by_sex_county_processed",
       "cdc_restricted_data-by_sex_state_processed",
+      "cdc_something_",
     ],
     downloadable: true,
   },

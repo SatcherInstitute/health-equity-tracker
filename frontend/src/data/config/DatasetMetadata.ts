@@ -320,8 +320,6 @@ export const datasetMetadataList: DatasetMetadata[] = [
   },
 ];
 
-export type DatasetId = typeof datasetMetadataList[number]["dataset_id"];
-
 export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> =
   Object.fromEntries(
     datasetMetadataList.map((m) => {

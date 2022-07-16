@@ -1,6 +1,69 @@
 import { DataFrame, IDataFrame } from "data-forge";
-import { DatasetId } from "../config/DatasetMetadata";
 import { STATE_FIPS_MAP } from "./Fips";
+
+export type DatasetId =
+  | "acs_population-by_race_county_std"
+  | "acs_population-by_race_state_std"
+  | "acs_population-by_race_national"
+  | "acs_population-by_age_county"
+  | "acs_population-by_age_state"
+  | "acs_population-by_age_national"
+  | "acs_population-by_sex_county"
+  | "acs_population-by_sex_state"
+  | "acs_population-by_sex_national"
+  | "acs_2010_population-by_race_and_ethnicity_territory"
+  | "acs_2010_population-by_sex_territory"
+  | "acs_2010_population-by_age_territory"
+  | "covid_tracking_project-cases_by_race_state"
+  | "covid_tracking_project-deaths_by_race_state"
+  | "covid_tracking_project-hospitalizations_by_race_state"
+  | "covid_tracking_project-tests_by_race_state"
+  | "acs_health_insurance-health_insurance_by_sex_age_county"
+  | "acs_health_insurance-health_insurance_by_sex_age_state"
+  | "acs_health_insurance-health_insurance_by_race_age_state"
+  | "acs_health_insurance-health_insurance_by_race_age_county"
+  | "acs_poverty_dataset-poverty_by_race_state"
+  | "acs_poverty_dataset-poverty_by_race_county"
+  | "acs_poverty_dataset-poverty_by_sex_state"
+  | "acs_poverty_dataset-poverty_by_sex_county"
+  | "acs_poverty_dataset-poverty_by_age_state"
+  | "acs_poverty_dataset-poverty_by_age_county"
+  | "cdc_restricted_data-by_race_county_processed"
+  | "cdc_restricted_data-by_race_state_processed-with_age_adjust"
+  | "cdc_restricted_data-by_age_county_processed"
+  | "cdc_restricted_data-by_age_state_processed"
+  | "cdc_restricted_data-by_age_national_processed"
+  | "cdc_restricted_data-by_sex_county_processed"
+  | "cdc_restricted_data-by_sex_state_processed"
+  | "cdc_restricted_data-by_sex_national_processed"
+  | "cdc_vaccination_county-race_and_ethnicity"
+  | "cdc_vaccination_national-age"
+  | "cdc_vaccination_national-sex"
+  | "cdc_vaccination_national-race_and_ethnicity"
+  | "kff_vaccination-race_and_ethnicity"
+  | "uhc_data-age_national"
+  | "uhc_data-race_and_ethnicity_national"
+  | "uhc_data-sex_national"
+  | "uhc_data-age_state"
+  | "uhc_data-race_and_ethnicity_state"
+  | "uhc_data-sex_state"
+  | "bjs_incarceration_data-age_national"
+  | "bjs_incarceration_data-age_state"
+  | "bjs_incarceration_data-race_and_ethnicity_national"
+  | "bjs_incarceration_data-race_and_ethnicity_state"
+  | "bjs_incarceration_data-sex_national"
+  | "bjs_incarceration_data-sex_state"
+  | "vera_incarceration_county-jail_age_county"
+  | "vera_incarceration_county-jail_sex_county"
+  | "vera_incarceration_county-jail_race_and_ethnicity_county"
+  | "vera_incarceration_county-prison_age_county"
+  | "vera_incarceration_county-prison_sex_county"
+  | "vera_incarceration_county-prison_race_and_ethnicity_county"
+  | "cawp_data-race_and_ethnicity_national"
+  | "cawp_data-race_and_ethnicity_state"
+  | "propublica_congress"
+  | "geographies"
+  | "census_pop_estimates-race_and_ethnicity";
 
 // Data sources may provide multiple datasets
 export interface DataSourceMetadata {
@@ -19,7 +82,7 @@ export interface DataSourceMetadata {
 // Datasets contain data with specified breakdowns
 // For example: data by race and county or data by age and state
 export interface DatasetMetadata {
-  readonly dataset_id: string;
+  readonly string;
   readonly name: string;
   readonly update_time: string;
   // Source ID is added programmatically based on DataSourceMetadata config
