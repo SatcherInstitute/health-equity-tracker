@@ -182,9 +182,11 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
         else:
             df = df.replace({demog_col: names_mapping})
 
+    df['cdc_case_earliest_dt'] = df['cdc_case_earliest_dt'].apply(lambda x: x[:7])
+
     # Group by the geo and demographic columns and compute the sum/counts of
     # cases/hospitalizations/deaths. Add total rows and add to overall_df.
-    groupby_cols = geo_cols + demog_cols
+    groupby_cols = geo_cols + demog_cols + ['cdc_case_earliest_dt']
     df = df.groupby(groupby_cols).sum().reset_index()
     totals = df.groupby(geo_cols).sum().reset_index()
     # Special case required due to later processing.
@@ -371,7 +373,7 @@ def process_data(dir, files):
                 demog_col, demog_names_mapping = DEMOGRAPHIC_COL_MAPPING[demo]
 
                 # Slice the data and aggregate for the given dimension.
-                sliced_df = df[geo_cols + demog_col + OUTCOME_COLS]
+                sliced_df = df[geo_cols + demog_col + OUTCOME_COLS + ['cdc_case_earliest_dt']]
 
                 if demo == 'race':
                     demog_col = [RACE_ETH_COL]
