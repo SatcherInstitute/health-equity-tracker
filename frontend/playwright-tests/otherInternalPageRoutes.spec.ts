@@ -22,6 +22,7 @@ test.describe.configure({ mode: 'parallel' });
 test('WIHE Page Loads', async ({ page }) => {
 
     await page.goto(WHAT_IS_HEALTH_EQUITY_PAGE_LINK);
+    await expect(page).toBeAccessible()
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toHaveText(['What is Health Equity?']);
 });
@@ -29,18 +30,21 @@ test('WIHE Page Loads', async ({ page }) => {
 
 test('FAQ Tab Loads', async ({ page }) => {
     await page.goto(FAQ_TAB_LINK, { waitUntil: "networkidle" });
+    await expect(page).toBeAccessible()
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toHaveText(['Data']);
 });
 
 test('News Tab Loads', async ({ page }) => {
     await page.goto(NEWS_TAB_LINK, { waitUntil: "networkidle" });
+    await expect(page).toBeAccessible()
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toHaveText(['News and Stories']);
 });
 
 test('Resources Tab Loads', async ({ page }) => {
     await page.goto(RESOURCES_TAB_LINK, { waitUntil: "networkidle" });
+    await expect(page).toBeAccessible()
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toHaveText(['Resources']);
 });
@@ -48,6 +52,7 @@ test('Resources Tab Loads', async ({ page }) => {
 
 test('Data Catalog Page Loads', async ({ page }) => {
     await page.goto(DATA_TAB_LINK, { waitUntil: "networkidle" });
+    await expect(page).toBeAccessible()
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toHaveText(['View and download Health Equity Tracker data sources']);
 });
@@ -55,6 +60,7 @@ test('Data Catalog Page Loads', async ({ page }) => {
 
 test('Methodology Tab Loads', async ({ page }) => {
     await page.goto(METHODOLOGY_TAB_LINK, { waitUntil: "networkidle" });
+    await expect(page).toBeAccessible()
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toHaveText(['Recommended Citation (APA) for the Health Equity Tracker:']);
 });
@@ -62,18 +68,21 @@ test('Methodology Tab Loads', async ({ page }) => {
 
 test('About Us Page / Project Tab Loads', async ({ page }) => {
     await page.goto(ABOUT_US_PAGE_LINK, { waitUntil: "networkidle" });
+    await expect(page).toBeAccessible()
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toHaveText([`We're focused on equitable data.`]);
 });
 
 test('Our Team Tab Loads', async ({ page }) => {
     await page.goto(OURTEAM_TAB_LINK, { waitUntil: "networkidle" });
+    await expect(page).toBeAccessible()
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toHaveText([`We're working towards a better tomorrow.`]);
 });
 
 test('Contact Tab Loads', async ({ page }) => {
     await page.goto(CONTACT_TAB_LINK, { waitUntil: "networkidle" });
+    await expect(page).toBeAccessible()
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toContainText([`Let's`, `move`, `equity`, `forward`]);
 });
@@ -81,6 +90,7 @@ test('Contact Tab Loads', async ({ page }) => {
 
 test('Terms of Use Page Loads', async ({ page }) => {
     await page.goto(TERMS_OF_USE_PAGE_LINK, { waitUntil: "networkidle" });
+    await expect(page).toBeAccessible()
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toHaveText([`Terms of Use`]);
 });

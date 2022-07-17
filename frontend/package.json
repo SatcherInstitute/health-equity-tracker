@@ -21,6 +21,7 @@
     "axios": "^0.24.0",
     "data-forge": "^1.9.2",
     "env-cmd": "^10.1.0",
+    "expect-axe-playwright": "^2.2.1",
     "html-react-parser": "^1.4.5",
     "husky": "^4.3.8",
     "jest-runtime": "^27.4.6",
