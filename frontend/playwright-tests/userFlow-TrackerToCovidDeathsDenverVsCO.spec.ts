@@ -50,6 +50,9 @@ test('Switch Data Types for Both Geos', async ({ page }) => {
 
     await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO);
 
+    // TODO React Joyride a11y issue: Modals need labels. https://github.com/gilbarbara/react-joyride/issues/706
+    // Should submit a PR to fix dependency package
+    // await expect(page).toBeAccessible()
 
     // Change both data types to COVID deaths
     page.locator(':nth-match(:text("Deaths"), 2)').waitFor();

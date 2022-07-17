@@ -10,7 +10,9 @@ test.describe('Home to COVID Vax by Age', () => {
     test('Home to Tracker to Covid Vax', async ({ page }) => {
 
         // Landing Page Loads
-        await page.goto('/', { waitUntil: "networkidle" });
+        await page.goto('/', { waitUntil: "networkidle" }); 
+        await expect(page).toBeAccessible()
+
         const mainHeading = page.locator('#main');
         await expect(mainHeading).toContainText(['Advancing', 'Health', 'Equity']);
 
