@@ -9,7 +9,7 @@ const SKIP_WELCOME = `onboard=false`
 
 test.describe('Home to COVID Vax by Age', () => {
 
-    test('Home to Tracker to Tracker', async ({ page }) => {
+    test('Home to Tracker', async ({ page }) => {
 
         // Landing Page Loads
         await page.goto('/', { waitUntil: "networkidle" }); 
@@ -24,7 +24,7 @@ test.describe('Home to COVID Vax by Age', () => {
         await expect(page).toHaveURL(EXPLORE_DATA_PAGE_LINK);
     })
 
-    test('Tracker Default (skip Warm Welcome) to Covid Vax', async ({ page }) => {
+    test('Tracker Default (skip Welcome) to Covid Vax', async ({ page }) => {
 
         // Load Tracker Default (with url param to bypass problematic warm welcome)
         await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${SKIP_WELCOME}`, { waitUntil: "networkidle" }); 
