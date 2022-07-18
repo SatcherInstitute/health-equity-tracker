@@ -23,6 +23,4 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 16.13.0
-    - run: npm install
-    - run: npm run build
-    - run: npm test
+    - run: npm run e2e
