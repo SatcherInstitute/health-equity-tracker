@@ -1,3 +1,35 @@
+import ingestion.standardized_columns as std_col
+
+
+# # dictionary
+# details = {
+#     'Ankit' : 22,
+#     'Golu' : 21,
+#     'hacker' : 23
+#     }
+
+# # creating a Dataframe object from a list
+# # of tuples of key, value pair
+# df = pd.DataFrame(list(details.items()))
+
+
+COUNTY_EQUIVALENT_FIPS_MAP = {
+    "60010": "Eastern District",
+    "60020": "Manu'a District",
+    "60030": "Rose Atoll (Rose Island)",
+    "60040": "Swain's Island",
+    "60050": "Western District",
+    "66010": "Guam",
+    "69085": "Northern Islands Municipality",
+    "69100": "Rota Municipality",
+    "69110": "Saipan Municipality",
+    "69120": "Tinian Municipality",
+    "78010": "St. Croix",
+    "78020": "St. John",
+    "78030": "St. Thomas",
+}
+
+
 # Used in BJS, Primary Care Access URL, and filenames
 STATE_NAMES = [
     "Alabama",
