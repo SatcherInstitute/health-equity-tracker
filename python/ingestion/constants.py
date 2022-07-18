@@ -1,18 +1,3 @@
-import ingestion.standardized_columns as std_col
-
-
-# # dictionary
-# details = {
-#     'Ankit' : 22,
-#     'Golu' : 21,
-#     'hacker' : 23
-#     }
-
-# # creating a Dataframe object from a list
-# # of tuples of key, value pair
-# df = pd.DataFrame(list(details.items()))
-
-
 COUNTY_EQUIVALENT_FIPS_MAP = {
     "60010": "Eastern District",
     "60020": "Manu'a District",
