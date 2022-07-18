@@ -138,67 +138,67 @@ def testGenerateBreakdownSexNational(mock_fips: mock.MagicMock, mock_pop: mock.M
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-            side_effect=get_pop_numbers_as_df)
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            side_effect=get_fips_and_county_names_as_df)
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df',
-            side_effect=get_cdc_numbers_as_df)
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-            return_value=None)
-def testWriteToBq(
-        mock_bq: mock.MagicMock,
-        mock_csv: mock.MagicMock,
-        mock_fips: mock.MagicMock,
-        mock_pop: mock.MagicMock):
+# @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+#             side_effect=get_pop_numbers_as_df)
+# @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+#             side_effect=get_fips_and_county_names_as_df)
+# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df',
+#             side_effect=get_cdc_numbers_as_df)
+# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+#             return_value=None)
+# def testWriteToBq(
+#         mock_bq: mock.MagicMock,
+#         mock_csv: mock.MagicMock,
+#         mock_fips: mock.MagicMock,
+#         mock_pop: mock.MagicMock):
 
-    cdc_restricted = CDCRestrictedData()
+#     cdc_restricted = CDCRestrictedData()
 
-    kwargs = {'filename': 'test_file.csv',
-              'metadata_table_id': 'test_metadata',
-              'table_name': 'output_table'}
-    cdc_restricted.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+#     kwargs = {'filename': 'test_file.csv',
+#               'metadata_table_id': 'test_metadata',
+#               'table_name': 'output_table'}
+#     cdc_restricted.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    assert mock_csv.call_count == 10
-    assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_sex_state.csv'
-    assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_race_state.csv'
-    assert mock_csv.call_args_list[2].args[1] == 'cdc_restricted_by_age_state.csv'
-    assert mock_csv.call_args_list[3].args[1] == 'cdc_restricted_by_sex_state.csv'
-    assert mock_csv.call_args_list[4].args[1] == 'cdc_restricted_by_race_state.csv'
-    assert mock_csv.call_args_list[5].args[1] == 'cdc_restricted_by_age_state.csv'
-    assert mock_csv.call_args_list[6].args[1] == 'cdc_restricted_by_sex_county.csv'
-    assert mock_csv.call_args_list[7].args[1] == 'cdc_restricted_by_race_county.csv'
-    assert mock_csv.call_args_list[8].args[1] == 'cdc_restricted_by_age_county.csv'
-    assert mock_csv.call_args_list[9].args[1] == 'cdc_restricted_by_race_and_age_state.csv'
+#     assert mock_csv.call_count == 10
+#     assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_sex_state.csv'
+#     assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_race_state.csv'
+#     assert mock_csv.call_args_list[2].args[1] == 'cdc_restricted_by_age_state.csv'
+#     assert mock_csv.call_args_list[3].args[1] == 'cdc_restricted_by_sex_state.csv'
+#     assert mock_csv.call_args_list[4].args[1] == 'cdc_restricted_by_race_state.csv'
+#     assert mock_csv.call_args_list[5].args[1] == 'cdc_restricted_by_age_state.csv'
+#     assert mock_csv.call_args_list[6].args[1] == 'cdc_restricted_by_sex_county.csv'
+#     assert mock_csv.call_args_list[7].args[1] == 'cdc_restricted_by_race_county.csv'
+#     assert mock_csv.call_args_list[8].args[1] == 'cdc_restricted_by_age_county.csv'
+#     assert mock_csv.call_args_list[9].args[1] == 'cdc_restricted_by_race_and_age_state.csv'
 
-    assert mock_pop.call_count == 18
-    assert mock_pop.call_args_list[0].args[1] == 'by_sex_state'
-    assert mock_pop.call_args_list[1].args[1] == 'by_sex_territory'
-    assert mock_pop.call_args_list[2].args[1] == 'by_sex_national'
-    assert mock_pop.call_args_list[3].args[1] == 'by_race_state_std'
-    assert mock_pop.call_args_list[4].args[1] == 'by_race_and_ethnicity_territory'
-    assert mock_pop.call_args_list[5].args[1] == 'by_race_national'
-    assert mock_pop.call_args_list[6].args[1] == 'by_age_state'
-    assert mock_pop.call_args_list[7].args[1] == 'by_age_territory'
-    assert mock_pop.call_args_list[8].args[1] == 'by_age_national'
-    assert mock_pop.call_args_list[9].args[1] == 'by_sex_state'
-    assert mock_pop.call_args_list[10].args[1] == 'by_sex_territory'
-    assert mock_pop.call_args_list[11].args[1] == 'by_race_state_std'
-    assert mock_pop.call_args_list[12].args[1] == 'by_race_and_ethnicity_territory'
-    assert mock_pop.call_args_list[13].args[1] == 'by_age_state'
-    assert mock_pop.call_args_list[14].args[1] == 'by_age_territory'
-    assert mock_pop.call_args_list[15].args[1] == 'by_sex_county'
-    assert mock_pop.call_args_list[16].args[1] == 'by_race_county_std'
-    assert mock_pop.call_args_list[17].args[1] == 'by_age_county'
+#     assert mock_pop.call_count == 18
+#     assert mock_pop.call_args_list[0].args[1] == 'by_sex_state'
+#     assert mock_pop.call_args_list[1].args[1] == 'by_sex_territory'
+#     assert mock_pop.call_args_list[2].args[1] == 'by_sex_national'
+#     assert mock_pop.call_args_list[3].args[1] == 'by_race_state_std'
+#     assert mock_pop.call_args_list[4].args[1] == 'by_race_and_ethnicity_territory'
+#     assert mock_pop.call_args_list[5].args[1] == 'by_race_national'
+#     assert mock_pop.call_args_list[6].args[1] == 'by_age_state'
+#     assert mock_pop.call_args_list[7].args[1] == 'by_age_territory'
+#     assert mock_pop.call_args_list[8].args[1] == 'by_age_national'
+#     assert mock_pop.call_args_list[9].args[1] == 'by_sex_state'
+#     assert mock_pop.call_args_list[10].args[1] == 'by_sex_territory'
+#     assert mock_pop.call_args_list[11].args[1] == 'by_race_state_std'
+#     assert mock_pop.call_args_list[12].args[1] == 'by_race_and_ethnicity_territory'
+#     assert mock_pop.call_args_list[13].args[1] == 'by_age_state'
+#     assert mock_pop.call_args_list[14].args[1] == 'by_age_territory'
+#     assert mock_pop.call_args_list[15].args[1] == 'by_sex_county'
+#     assert mock_pop.call_args_list[16].args[1] == 'by_race_county_std'
+#     assert mock_pop.call_args_list[17].args[1] == 'by_age_county'
 
-    assert mock_bq.call_count == 10
-    assert mock_bq.call_args_list[0].args[2] == 'by_sex_national_processed'
-    assert mock_bq.call_args_list[1].args[2] == 'by_race_national_processed'
-    assert mock_bq.call_args_list[2].args[2] == 'by_age_national_processed'
-    assert mock_bq.call_args_list[3].args[2] == 'by_sex_state_processed'
-    assert mock_bq.call_args_list[4].args[2] == 'by_race_state_processed'
-    assert mock_bq.call_args_list[5].args[2] == 'by_age_state_processed'
-    assert mock_bq.call_args_list[6].args[2] == 'by_sex_county_processed'
-    assert mock_bq.call_args_list[7].args[2] == 'by_race_county_processed'
-    assert mock_bq.call_args_list[8].args[2] == 'by_age_county_processed'
-    assert mock_bq.call_args_list[9].args[2] == 'by_race_age_state'
+#     assert mock_bq.call_count == 10
+#     assert mock_bq.call_args_list[0].args[2] == 'by_sex_national_processed'
+#     assert mock_bq.call_args_list[1].args[2] == 'by_race_national_processed'
+#     assert mock_bq.call_args_list[2].args[2] == 'by_age_national_processed'
+#     assert mock_bq.call_args_list[3].args[2] == 'by_sex_state_processed'
+#     assert mock_bq.call_args_list[4].args[2] == 'by_race_state_processed'
+#     assert mock_bq.call_args_list[5].args[2] == 'by_age_state_processed'
+#     assert mock_bq.call_args_list[6].args[2] == 'by_sex_county_processed'
+#     assert mock_bq.call_args_list[7].args[2] == 'by_race_county_processed'
+#     assert mock_bq.call_args_list[8].args[2] == 'by_age_county_processed'
+#     assert mock_bq.call_args_list[9].args[2] == 'by_race_age_state'

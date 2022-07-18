@@ -72,31 +72,31 @@ class CDCRestrictedData(DataSource):
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=column_types)
 
-        for filename, table_name in ONLY_FIPS_FILES.items():
-            df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename)
+        # for filename, table_name in ONLY_FIPS_FILES.items():
+        #     df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename)
 
-            df = df[df[std_col.STATE_POSTAL_COL] != 'Unknown']
-            df = merge_state_fips_codes(df)
-            df = df[df[std_col.STATE_FIPS_COL].notna()]
+        #     df = df[df[std_col.STATE_POSTAL_COL] != 'Unknown']
+        #     df = merge_state_fips_codes(df)
+        #     df = df[df[std_col.STATE_FIPS_COL].notna()]
 
-            self.clean_frame_column_names(df)
+        #     self.clean_frame_column_names(df)
 
-            int_cols = [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
-                        std_col.COVID_HOSP_N, std_col.COVID_HOSP_UNKNOWN,
-                        std_col.COVID_DEATH_Y, std_col.COVID_DEATH_N,
-                        std_col.COVID_DEATH_UNKNOWN]
+        #     int_cols = [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
+        #                 std_col.COVID_HOSP_N, std_col.COVID_HOSP_UNKNOWN,
+        #                 std_col.COVID_DEATH_Y, std_col.COVID_DEATH_N,
+        #                 std_col.COVID_DEATH_UNKNOWN]
 
-            column_types = {c: 'STRING' for c in df.columns}
-            for col in int_cols:
-                if col in column_types:
-                    column_types[col] = 'FLOAT'
+        #     column_types = {c: 'STRING' for c in df.columns}
+        #     for col in int_cols:
+        #         if col in column_types:
+        #             column_types[col] = 'FLOAT'
 
-            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+        #     if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+        #         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-            print(f'uploading {table_name}')
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=column_types)
+        #     print(f'uploading {table_name}')
+        #     gcs_to_bq_util.add_df_to_bq(
+        #         df, dataset, table_name, column_types=column_types)
 
     def generate_breakdown(self, df, demo, geo):
         print(f'processing {demo} {geo}')
@@ -106,11 +106,15 @@ class CDCRestrictedData(DataSource):
         unknown_val = Race.UNKNOWN.value if demo == 'race' else 'Unknown'
         all_val = Race.ALL.value if demo == 'race' else std_col.ALL_VALUE
 
+        # Just get something for now
+        df = df.loc[df[demo_col] != all_val]
+
         all_columns = [
             std_col.STATE_FIPS_COL,
             std_col.STATE_NAME_COL,
             demo_col,
             std_col.COVID_POPULATION_PCT,
+            'cdc_case_earliest_dt',
         ]
 
         df = merge_state_fips_codes(df, keep_postal=True)
@@ -268,7 +272,7 @@ def generate_national_dataset(state_df, demo_col):
     state_df[int_cols] = state_df[int_cols].replace("", 0)
     state_df[int_cols] = state_df[int_cols].astype(int)
 
-    df = state_df.groupby([demo_col]).sum().reset_index()
+    df = state_df.groupby([demo_col, 'cdc_case_earliest_dt']).sum().reset_index()
 
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME
@@ -276,6 +280,7 @@ def generate_national_dataset(state_df, demo_col):
     needed_cols = [
         std_col.STATE_FIPS_COL,
         std_col.STATE_NAME_COL,
+        'cdc_case_earliest_dt',
     ]
 
     needed_cols.extend(int_cols)
