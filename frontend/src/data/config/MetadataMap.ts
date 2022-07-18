@@ -125,6 +125,20 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
+    id: "cdc_svi_county",
+    data_source_name: "CDC SVI County Rankings",
+    data_source_pretty_site_name: "atsdr.cdc.gov",
+    data_source_link:
+      "https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/SVI_documentation_2018.html",
+    geographic_level: "County",
+    demographic_granularity: "None",
+    update_frequency: "Biannual",
+    description:
+      "Every community must prepare for and respond to hazardous events, whether a natural disaster like a tornado or a disease outbreak, or an anthropogenic event such as a harmful chemical spill. The degree to which a community exhibits certain social conditions, including high poverty, low percentage of vehicle access, or crowded households, may affect that community’s ability to prevent human suffering and financial loss in the event of disaster. These factors describe a community’s social vulnerability.",
+    dataset_ids: ["cdc_svi_county-age"],
+    downloadable: true,
+  },
+  {
     id: "cdc_vaccination_county",
     data_source_name: "CDC COVID-19 Vaccinations in the United States, County",
     data_source_pretty_site_name: "data.cdc.gov",
