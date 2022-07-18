@@ -4,12 +4,12 @@ import type { PlaywrightTestConfig } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-  webServer: {
-    command: 'npm run start',
-    port: 3000,
-    timeout: 120 * 1000,
-    reuseExistingServer: true,
-  },
+  // webServer: {
+  //   command: 'npm run start',
+  //   port: 3000,
+  //   timeout: 120 * 1000,
+  //   reuseExistingServer: true,
+  // },
   testDir: './playwright-tests',
   /* Maximum time one test can run for. */
   timeout: 60 * 1000,
