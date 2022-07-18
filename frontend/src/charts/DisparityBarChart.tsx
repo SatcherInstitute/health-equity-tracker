@@ -68,8 +68,11 @@ function getSpec(
   const SIDE_BY_SIDE_OFFSET =
     BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * (SIDE_BY_SIDE_FULL_BAR_RATIO / 2);
 
-  const MIN_TICK_STEP = pageIsTiny ? 10 : 2;
-  const MIN_TICK_BAR_STEP = pageIsTiny ? 10 : 4;
+  let MIN_TICK_STEP = 5;
+  if (width > 800) MIN_TICK_STEP = 2;
+  let MIN_TICK_BAR_STEP = 10;
+  if (width > 500 && width < 800) MIN_TICK_BAR_STEP = 5;
+  else if (width >= 800) MIN_TICK_BAR_STEP = 2;
 
   // defaults for most charts
   const LEGEND_COLORS = [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR];
