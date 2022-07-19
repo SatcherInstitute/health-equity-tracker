@@ -91,8 +91,7 @@
             "utils"
           ],
           "skipIfMatch": [
-            "http://[^s]*",
-            "^[-\\w]+\/[-\\w\\.]+$"
+            "http://[^s]*"
           ],
           "skipWordIfMatch": [
             "^foobar.*$"
