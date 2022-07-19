@@ -8,8 +8,7 @@ const config: PlaywrightTestConfig = {
     command: 'npm run start',
     port: 3000,
     timeout: 120 * 1000,
-    // @ts-ignore
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
   },
   testDir: './playwright-tests',
   /* Maximum time one test can run for. */
@@ -21,7 +20,7 @@ const config: PlaywrightTestConfig = {
   // fullyParallel: true,
   retries: 2,
   reporter: 'list',
-  workers: 8,
+  workers: 10,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
