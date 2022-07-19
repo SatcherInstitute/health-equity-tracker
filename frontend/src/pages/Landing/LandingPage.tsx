@@ -46,7 +46,7 @@ function LandingPage() {
   return (
     <main>
       <Helmet>
-        <title>Home - Health Equity Tracker</title>
+        <title>Home - HHealth Equity Tracker</title>
         <link rel="preload" as="image" href="/img/stock/family-laughing.png" />
       </Helmet>
       <h2 className={styles.ScreenreaderTitleHeader}>Home Page</h2>
