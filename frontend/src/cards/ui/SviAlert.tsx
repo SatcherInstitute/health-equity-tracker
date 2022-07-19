@@ -48,7 +48,7 @@ function SviAlert(props: SviAlertProps) {
           This county has a social vulnerability index of <b>{props.svi}</b>;
           which indicates a{" "}
           <a href={urlMap.cdcSvi} className={color}>
-            <b>{rating} level of vulernability.</b>
+            <b>{rating} level of vulnerability.</b>
           </a>
         </Alert>
       )}
