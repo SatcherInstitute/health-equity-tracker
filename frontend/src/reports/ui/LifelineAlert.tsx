@@ -14,9 +14,6 @@ function LifelineAlert() {
         icon={<PhoneIcon />}
         role="note"
       >
-        {/* 
-
- */}
         <AlertTitle>988 Suicide & Crisis Lifeline</AlertTitle>
         <p>
           For 24/7, free and confidential support, prevention and crisis
