@@ -89,7 +89,8 @@
             "aff",
             "hunspellchecker",
             "hunspell",
-            "utils"
+            "utils",
+            "shli"
           ],
           "skipIfMatch": [
             "http://[^s]*"
