@@ -81,11 +81,10 @@
         {
           "comments": true,
           "strings": true,
-          "identifiers": true,
-          "templates": true,
+          "identifiers": false,
+          "templates": false,
           "lang": "en_US",
           "skipWords": [
-            "Bg",
             "dict",
             "aff",
             "hunspellchecker",
