@@ -41,7 +41,7 @@ export function useResources<K, R>(
 }
 
 /**
- * Loads the specified MetricQuerys and returns the responses or
+ * Loads the specified MetricQuery(s) and returns the responses or
  * IncompleteLoadStatus.
  * @param queries The queries to load the responses for.
  */

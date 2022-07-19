@@ -85,9 +85,7 @@
           "templates": true,
           "lang": "en_US",
           "skipWords": [
-            "Bg1",
-            "Bg2",
-            "Bg3",
+            "Bg",
             "dict",
             "aff",
             "hunspellchecker",
