@@ -82,7 +82,7 @@
           "comments": true,
           "strings": true,
           "identifiers": false,
-          "templates": false,
+          "templates": true,
           "lang": "en_US",
           "skipWords": [
             "dict",
