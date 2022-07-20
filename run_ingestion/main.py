@@ -60,7 +60,7 @@ def ingest_data_to_gcs(event):
     workflow_id = attrs.pop('id')
     gcs_bucket = attrs.pop('gcs_bucket')
 
-    logging.info("Data ingestion recieved message: %s", workflow_id)
+    logging.info("Data ingestion received message: %s", workflow_id)
 
     if workflow_id not in DATA_SOURCES_DICT.keys():
         raise RuntimeError("ID: {}, is not a valid id".format(workflow_id))

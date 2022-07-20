@@ -1374,7 +1374,24 @@
 		"descendent",
 		"rerenders",
 		"mousedown",
-		"touchstart"
+		"touchstart",
+		"dtype",
+		"freezegun",
+		"rcase",
+		"wohi",
+		"isna",
+		"consts",
+		"expectedproject",
+		"authed",
+		"Unauthed",
+		"creds",
+		"werkzeug",
+		"ndjson",
+		"PACX",
+		"KJOD",
+		"Ezrt",
+		"Mochl",
+		"bkpfk"
 	],
 	"flagWords": [
 		"hte"
