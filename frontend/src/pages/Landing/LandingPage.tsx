@@ -73,7 +73,7 @@ function LandingPage() {
               variant="body1"
               paragraph={true}
             >
-              We know that the data we collect can be imperfect and at times
+              We knoow that the data we collect can be imperfect and at times
               even worsen health inequities many people face if not reported or
               analyzed correctly. We work to change that narrative by leveraging
               the power of data and technology to identify, understand, and
