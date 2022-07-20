@@ -21,8 +21,17 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 16.13.0
-    - run: npm install
-    - run: npm run build 
+    - name: Cache node_modules
+      id: cache-node-modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('package-lock.json') }}
+
+    - name: Install dependencies
+      run: npm install
+
+
   cspell:
     needs: build
     runs-on: ubuntu-latest
@@ -32,6 +41,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 16.13.0
+    - name: Restore node_modules
+      id: cache-node-modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('package-lock.json') }}
     - run: npm run cspell
   frontend-unit:
     needs: build
@@ -42,6 +57,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 16.13.0
+    - name: Restore node_modules
+      id: cache-node-modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('package-lock.json') }}
     - run: npm test
   e2e:
     needs: build
@@ -52,5 +73,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 16.13.0
+    - name: Restore node_modules
+      id: cache-node-modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('package-lock.json') }}
     - run: npm run e2e
     
