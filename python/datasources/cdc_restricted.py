@@ -106,15 +106,12 @@ class CDCRestrictedData(DataSource):
         unknown_val = Race.UNKNOWN.value if demo == 'race' else 'Unknown'
         all_val = Race.ALL.value if demo == 'race' else std_col.ALL_VALUE
 
-        # Just get something for now
-        df = df.loc[df[demo_col] != all_val]
-
         all_columns = [
             std_col.STATE_FIPS_COL,
             std_col.STATE_NAME_COL,
             demo_col,
             std_col.COVID_POPULATION_PCT,
-            'cdc_case_earliest_dt',
+            'time_period',
         ]
 
         df = merge_state_fips_codes(df, keep_postal=True)
@@ -272,7 +269,7 @@ def generate_national_dataset(state_df, demo_col):
     state_df[int_cols] = state_df[int_cols].replace("", 0)
     state_df[int_cols] = state_df[int_cols].astype(int)
 
-    df = state_df.groupby([demo_col, 'cdc_case_earliest_dt']).sum().reset_index()
+    df = state_df.groupby([demo_col, 'time_period']).sum().reset_index()
 
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME
@@ -280,7 +277,7 @@ def generate_national_dataset(state_df, demo_col):
     needed_cols = [
         std_col.STATE_FIPS_COL,
         std_col.STATE_NAME_COL,
-        'cdc_case_earliest_dt',
+        'time_period',
     ]
 
     needed_cols.extend(int_cols)

@@ -8,7 +8,7 @@ resource "google_cloud_run_service" "ingestion_service" {
 
   template {
     spec {
-      timeout_seconds = 600
+      timeout_seconds = 1200
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.ingestion_image_name, var.ingestion_image_digest)
 
