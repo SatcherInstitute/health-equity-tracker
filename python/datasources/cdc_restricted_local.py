@@ -56,6 +56,7 @@ COL_NAME_MAPPING = {
     RACE_ETH_COL: std_col.RACE_CATEGORY_ID_COL,
     SEX_COL: std_col.SEX_COL,
     AGE_COL: std_col.AGE_COL,
+    'cdc_case_earliest_dt': 'time_period',
 }
 
 # Mapping for county_fips, county, and state unknown values to "Unknown".
@@ -188,7 +189,8 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     # cases/hospitalizations/deaths. Add total rows and add to overall_df.
     groupby_cols = geo_cols + demog_cols + ['cdc_case_earliest_dt']
     df = df.groupby(groupby_cols).sum().reset_index()
-    totals = df.groupby(geo_cols).sum().reset_index()
+    totals = df.groupby(geo_cols + ['cdc_case_earliest_dt']).sum().reset_index()
+
     # Special case required due to later processing.
     if demog_cols[0] == RACE_ETH_COL:
         totals[demog_cols[0]] = std_col.Race.ALL.value

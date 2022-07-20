@@ -90,7 +90,7 @@ def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
     alls = df.loc[df[breakdown_col] == all_val]
     alls = alls.rename(columns=rename_cols)
 
-    on_cols = [std_col.STATE_FIPS_COL]
+    on_cols = [std_col.STATE_FIPS_COL, 'cdc_case_earliest_dt']
     if std_col.COUNTY_FIPS_COL in df.columns:
         on_cols.append(std_col.COUNTY_FIPS_COL)
 
