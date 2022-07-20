@@ -66,14 +66,14 @@ function LandingPage() {
               paragraph={true}
               component="h3"
             >
-              One Year of Advancing Health Equity
+              One Year of Advancing Heaaaaaalth Equity
             </Typography>
             <Typography
               className={styles.HeaderSubtext}
               variant="body1"
               paragraph={true}
             >
-              We knoow that the data we collect can be imperfect and at times
+              We know that the data we collect can be imperfect and at times
               even worsen health inequities many people face if not reported or
               analyzed correctly. We work to change that narrative by leveraging
               the power of data and technology to identify, understand, and
