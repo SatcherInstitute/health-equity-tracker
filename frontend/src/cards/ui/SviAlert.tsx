@@ -10,7 +10,7 @@ interface SviAlertProps {
   sviQueryResponse: MetricQueryResponse;
   fips: Fips;
 }
-
+//Add to tooltip
 export const findRating = (svi: number) => {
   if (svi < 0.34) {
     return "low";
@@ -45,8 +45,8 @@ function SviAlert(props: SviAlertProps) {
         </Alert>
       ) : (
         <Alert severity="info" className={styles.Alert}>
-          This county has a social vulnerability index of <b>{props.svi}</b>;
-          which indicates a{" "}
+          This county has a social vulnerability index (SVI) of{" "}
+          <b>{props.svi}</b>; which indicates a{" "}
           <a href={urlMap.cdcSvi} className={color}>
             <b>{rating} level of vulernability.</b>
           </a>

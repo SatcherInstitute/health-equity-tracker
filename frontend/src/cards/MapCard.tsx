@@ -4,7 +4,7 @@ import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { VariableConfig, formatFieldValue } from "../data/config/MetricConfig";
-import { exclude } from "../data/query/BreakdownFilter";
+import { exclude, onlyInclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
   BreakdownVar,
@@ -102,9 +102,15 @@ function MapCardWithKey(props: MapCardProps) {
         )
     );
 
+  const sviQuery = new MetricQuery(
+    "svi",
+    Breakdowns.byCounty().andAge(onlyInclude("All"))
+  );
+
   const queries = [
     metricQuery(Breakdowns.forChildrenFips(props.fips)),
     metricQuery(Breakdowns.forFips(props.fips)),
+    sviQuery,
   ];
 
   const selectedRaceSuffix = CAWP_DETERMINANTS.includes(metricConfig.metricId)
@@ -135,6 +141,7 @@ function MapCardWithKey(props: MapCardProps) {
         const mapQueryResponse: MetricQueryResponse = queryResponses[0];
         // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
+        const sviQueryResponse: MetricQueryResponse = queryResponses[2];
 
         const sortArgs =
           props.currentBreakdown === "age"
@@ -156,10 +163,24 @@ function MapCardWithKey(props: MapCardProps) {
           .filter(
             (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
           );
+        const dataForSvi = sviQueryResponse
+          .getValidRowsForField("svi")
+          .filter((row) =>
+            dataForActiveBreakdownFilter.find(({ fips }) => row.fips === fips)
+          );
+
+        const dataForActiveBreakdownFilterWithSvi =
+          dataForActiveBreakdownFilter.map((row) => {
+            const thisCountySviRow = dataForSvi.find(
+              (sviRow) => sviRow.fips === row.fips
+            );
+            return { ...row, svi: thisCountySviRow?.svi };
+          });
 
         const highestRatesList = getHighestN(
           dataForActiveBreakdownFilter,
           metricConfig.metricId,
+
           SIZE_OF_HIGHEST_LOWEST_RATES_LIST
         );
         const lowestRatesList = getLowestN(
@@ -362,7 +383,7 @@ function MapCardWithKey(props: MapCardProps) {
                     data={
                       listExpanded
                         ? highestRatesList.concat(lowestRatesList)
-                        : dataForActiveBreakdownFilter
+                        : dataForActiveBreakdownFilterWithSvi
                     }
                     hideMissingDataTooltip={listExpanded}
                     legendData={dataForActiveBreakdownFilter}
