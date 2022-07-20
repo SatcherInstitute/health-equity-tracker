@@ -25,6 +25,7 @@ jobs:
     - run: npm run build 
   cspell:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Run spellcheck with Node.js 16.13.0
@@ -34,6 +35,7 @@ jobs:
     - run: npm run cspell
   frontend-unit:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Run frontend unit tests with Node.js 16.13.0
@@ -43,6 +45,7 @@ jobs:
     - run: npm test
   e2e:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Run E2E tests with Node.js 16.13.0
