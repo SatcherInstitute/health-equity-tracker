@@ -272,7 +272,7 @@ function ExploreDataPage() {
           </Carousel>
           {showStickyLifeline && (
             <p className={styles.LifelineSticky}>
-              <a href={urlMap.lifeline}>suicidepreventionlifeline.org</a>
+              <a href={urlMap.lifeline}>988lifeline.org</a>
             </p>
           )}
         </div>
@@ -296,7 +296,7 @@ function CarouselMadLib(props: {
   madLib: MadLib;
   setMadLib: (updatedMadLib: MadLib) => void;
 }) {
-  // TODO - this isn't efficient, these should be stored in an ordered way 
+  // TODO - this isn't efficient, these should be stored in an ordered way
   function getOptionsFromPhraseSegement(
     phraseSegment: PhraseSegment
   ): Fips[] | string[][] {
@@ -304,13 +304,13 @@ function CarouselMadLib(props: {
     return isNaN(Object.keys(phraseSegment)[0] as any)
       ? Object.entries(phraseSegment).sort((a, b) => a[0].localeCompare(b[0]))
       : Object.keys(phraseSegment)
-        .sort((a: string, b: string) => {
-          if (a.length === b.length) {
-            return a.localeCompare(b);
-          }
-          return b.length > a.length ? -1 : 1;
-        })
-        .map((fipsCode) => new Fips(fipsCode));
+          .sort((a: string, b: string) => {
+            if (a.length === b.length) {
+              return a.localeCompare(b);
+            }
+            return b.length > a.length ? -1 : 1;
+          })
+          .map((fipsCode) => new Fips(fipsCode));
   }
 
   return (
@@ -318,8 +318,6 @@ function CarouselMadLib(props: {
       <div className={styles.CarouselItem}>
         {props.madLib.phrase.map(
           (phraseSegment: PhraseSegment, index: number) => (
-
-
             <React.Fragment key={index}>
               {typeof phraseSegment === "string" ? (
                 <span>

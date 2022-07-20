@@ -14,16 +14,14 @@ function LifelineAlert() {
         icon={<PhoneIcon />}
         role="note"
       >
-        <AlertTitle>National Suicide Prevention Lifeline</AlertTitle>
+        <AlertTitle>988 Suicide & Crisis Lifeline</AlertTitle>
         <p>
-          <b>
-            If you or a loved one is experiencing an emergency, call 911 or go
-            to your nearest emergency room.
-          </b>{" "}
           For 24/7, free and confidential support, prevention and crisis
           resources, and professional best practices, call{" "}
-          <a href="tel:1-800-273-8255">1-800-273-TALK (8255)</a> or visit{" "}
-          <a href={urlMap.lifeline}>suicidepreventionlifeline.org</a>.
+          <a href="tel:988">9-8-8</a> or visit{" "}
+          <a href={urlMap.lifeline}>988lifeline.org</a>. If you or a loved one
+          is experiencing an emergency, call 911 or go to your nearest emergency
+          room.
         </p>
       </Alert>
     </div>
