@@ -14,7 +14,7 @@ def ingest_data():
     """Main function for data ingestion. Receives Pub/Sub trigger and triages
        to the appropriate data ingestion workflow.
 
-       Returns 400 for a bad recquest and 204 for successful new file downloads
+       Returns 400 for a bad rechquest and 204 for successful new file downloads
        or 201 for successful non file download execution."""
     envelope = request.get_json()
     if not envelope:
