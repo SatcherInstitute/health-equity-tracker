@@ -17,8 +17,10 @@ const Template: Story<DataSourceListingProps> = (args) => (
   <DataSourceListing {...args} />
 );
 
+/* cSpell:disable */
 const LIPSUM =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et hendrerit lorem. Curabitur nec metus nec quam fermentum interdum. Maecenas ut neque blandit, elementum enim vel, gravida dolor. Proin mollis rutrum elit non rhoncus. Pellentesque placerat, lectus sit amet accumsan feugiat, purus sapien sagittis velit, non consectetur quam erat at dui. Etiam volutpat tempus mi non feugiat. Aenean suscipit id orci in fringilla. Praesent tincidunt aliquet diam quis dignissim. Nullam vitae pellentesque lectus. Aenean dictum, justo sed dignissim facilisis, risus enim vulputate massa, eget lacinia nibh sapien a magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer sed magna placerat, laoreet metus a, tristique elit. Nullam fringilla eget massa quis condimentum. Suspendisse eu nisl a lectus fermentum ultricies sed quis diam. Vestibulum tincidunt urna sed dolor faucibus venenatis pellentesque sit amet massa. Phasellus suscipit viverra velit non elementum. Aenean auctor, dolor non pharetra cursus, tellus lectus euismod ex, eget tristique tellus tellus a tortor. Vivamus nisi nulla, rhoncus semper hendrerit tincidunt, placerat sed massa.";
+/* cSpell:enable */
 
 const DATASET_METADATA: MapOfDatasetMetadata = {
   acs1: {
@@ -29,7 +31,7 @@ const DATASET_METADATA: MapOfDatasetMetadata = {
   acs2: {
     id: "id",
     name: "Another Dataset",
-    update_time: "Feburary",
+    update_time: "February",
   },
 };
 
