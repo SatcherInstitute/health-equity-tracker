@@ -44,18 +44,22 @@ _data_with_bad_county_names = [
     ['state_postal', 'county_fips', 'county_name'],
     ['CA', '06123', 'drop-me'],
     ['GA', '13345', 'also-drop-me'],
+    ['VI', '78010', 'bad-county-equivalent-name'],
 ]
 
 _data_with_good_county_names = [
     ['state_postal', 'county_fips', 'county_name'],
     ['CA', '06123', 'California County'],
     ['GA', '13345', 'Georgia County'],
+    ['VI', '78010', 'St. Croix'],
+
 ]
 
 _expected_merged_fips_county = [
     ['state_name', 'state_fips', 'county_fips', 'county_name'],
     ['California', '06', '06123', 'California County'],
     ['Georgia', '13', '13345', 'Georgia County'],
+    ['U.S. Virgin Islands', '78', '78010', 'St. Croix']
 ]
 
 _data_without_fips_codes = [
@@ -119,7 +123,8 @@ _data_without_pop_numbers_multiple_rows = [
 ]
 
 _expected_merge_with_pop_numbers_multiple_rows = [
-    ['state_fips', 'race_category_id', 'cases', 'deaths', 'cases_population', 'deaths_population'],
+    ['state_fips', 'race_category_id', 'cases', 'deaths',
+        'cases_population', 'deaths_population'],
     ['01', 'BLACK_NH', 10, 1, 100, 100],
     ['01', 'WHITE_NH', 100, None, 300, 300],
     ['02', 'BLACK_NH', 20, None, 100, 100],
@@ -276,7 +281,8 @@ def testMergeMultiplePopCols(mock_bq: mock.MagicMock):
         json.dumps(_expected_merge_with_pop_numbers_multiple_rows),
         dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
 
-    df = merge_utils.merge_multiple_pop_cols(df, 'race', ['cases_population', 'deaths_population'])
+    df = merge_utils.merge_multiple_pop_cols(
+        df, 'race', ['cases_population', 'deaths_population'])
 
     assert mock_bq.call_count == 2
 

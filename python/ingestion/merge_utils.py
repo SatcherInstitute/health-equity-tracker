@@ -32,7 +32,17 @@ def merge_county_names(df):
             'area_name': std_col.COUNTY_NAME_COL,
         })
 
-    df = df.drop(columns=std_col.COUNTY_NAME_COL)
+    # fill in missing territory county equivalents
+    county_equivalent_names = pd.DataFrame(
+        list(constants.COUNTY_EQUIVALENT_FIPS_MAP.items()), columns=[
+            std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL])
+
+    all_county_names = pd.concat([
+        all_county_names, county_equivalent_names
+    ]).reset_index(drop=True)
+
+    if std_col.COUNTY_NAME_COL in df.columns:
+        df = df.drop(columns=std_col.COUNTY_NAME_COL)
     df = pd.merge(df, all_county_names, how='left',
                   on=std_col.COUNTY_FIPS_COL).reset_index(drop=True)
 
