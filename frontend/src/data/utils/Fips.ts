@@ -147,6 +147,7 @@ export { Fips };
 
 export const STATE_FIPS_MAP: Record<string, string> = {
   [USA_FIPS]: USA_DISPLAY_NAME,
+  /* cSpell:disable */
   "01": "Alabama",
   "02": "Alaska",
   "04": "Arizona",
@@ -203,9 +204,11 @@ export const STATE_FIPS_MAP: Record<string, string> = {
   "69": "Northern Mariana Islands",
   "72": "Puerto Rico",
   "78": "U.S. Virgin Islands",
+  /* cSpell:enable */
 };
 
 export const COUNTY_FIPS_MAP: Record<string, string> = {
+  /* cSpell:disable */
   "01001": "Autauga",
   "01003": "Baldwin",
   "01005": "Barbour",
@@ -3434,6 +3437,7 @@ export const COUNTY_FIPS_MAP: Record<string, string> = {
   "78010": "St. Croix",
   "78020": "St. John",
   "78030": "St. Thomas",
+  /* cSpell:enable */
 };
 
 export const FIPS_MAP = { ...STATE_FIPS_MAP, ...COUNTY_FIPS_MAP };

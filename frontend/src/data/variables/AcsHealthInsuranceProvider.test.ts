@@ -212,7 +212,7 @@ describe("AcsHealthInsuranceProvider", () => {
     );
   });
 
-  test("Testing total deaggregates by hispanic and white_nh", async () => {
+  test("Testing total disaggregates by hispanic and white_nh", async () => {
     // Create raw rows with health insurance coverage
     const rawData = [
       stateRow(WA, RACE, WHITE, "100", "800", "900"),

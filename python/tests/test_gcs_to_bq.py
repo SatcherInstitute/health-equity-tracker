@@ -15,8 +15,8 @@ from ingestion import gcs_to_bq_util  # pylint: disable=no-name-in-module
 class GcsToBqTest(TestCase):
 
     _test_data = [["label1", "label2", "label3"],
-                  ["valuea", "valueb", "valuec"],
-                  ["valued", "valuee", "valuef"]]
+                  ["value_a", "value_b", "value_c"],
+                  ["value_d", "value_e", "value_f"]]
 
     def testLoadValuesBlobAsDataframe(self):
         """Tests that data in json list format is loaded into a

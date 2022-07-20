@@ -12,7 +12,7 @@ export class AgeSorterStrategy extends AbstractSortStrategy {
 
   constructor(frontValues: string[] = [], backValues: string[] = []) {
     super();
-    // We Reverse these becauase we want the human readable version of sorting.
+    // We Reverse these because we want the human readable version of sorting.
     // eg. [A, B, C] to work with the index calculation. so that A is first and B is
     // second ... ect
     this.frontValues = frontValues.reverse();
