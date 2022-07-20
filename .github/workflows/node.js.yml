@@ -13,15 +13,36 @@ defaults:
     working-directory: frontend
 
 jobs:
-  build:
+  cspell:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Run tests with Node.js 16.13.0
+    - name: Run spellcheck with Node.js 16.13.0
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16.13.0
+    - run: npm install
+    - run: npm run cspell
+  frontend-unit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run frontend unit tests with Node.js 16.13.0
       uses: actions/setup-node@v1
       with:
         node-version: 16.13.0
     - run: npm install
     - run: npm run build
     - run: npm test
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run E2E tests with Node.js 16.13.0
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16.13.0
+    - run: npm install
+    - run: npm run build
     - run: npm run e2e
+    
