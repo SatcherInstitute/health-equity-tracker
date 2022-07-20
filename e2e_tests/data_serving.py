@@ -6,7 +6,7 @@ from google.oauth2 import service_account
 from google.auth.transport.requests import AuthorizedSession
 
 
-def testUnauthorized_permissionDenied():
+def testUnauthed_permissionDenied():
     # Get the url of the service.
     service_url = os.environ.get('SERVICE_URL').strip('"')
     print('SERVICE_URL={}'.format(service_url))
