@@ -23,7 +23,7 @@ def write_to_file(file_to_write, contents):
     file_to_write.close()
 
 
-def intialize_mocks(mock_storage_client, mock_requests_get, response_data, gcs_data, blob_download_side_effect=None):
+def initialize_mocks(mock_storage_client, mock_requests_get, response_data, gcs_data, blob_download_side_effect=None):
     if blob_download_side_effect is None:
         def blob_download_side_effect(test_old_file):
             write_to_file(test_old_file, gcs_data)
@@ -42,8 +42,8 @@ class URLFileToGCSTest(unittest.TestCase):
         test_data = b'fake data'
         with patch('ingestion.url_file_to_gcs.storage.Client') as mock_storage_client, \
                 patch('requests.get') as mock_requests_get:
-            intialize_mocks(mock_storage_client,
-                            mock_requests_get, test_data, test_data)
+            initialize_mocks(mock_storage_client,
+                             mock_requests_get, test_data, test_data)
 
             result = url_file_to_gcs.download_first_url_to_gcs(
                 ['https://testurl.com'], 'test_bucket', 'test_destination')
@@ -53,8 +53,8 @@ class URLFileToGCSTest(unittest.TestCase):
     def testDownloadFirstUrlToGcs_DiffFile(self):
         with patch('ingestion.url_file_to_gcs.storage.Client') as mock_storage_client, \
                 patch('requests.get') as mock_requests_get:
-            intialize_mocks(mock_storage_client,
-                            mock_requests_get, b'data from url', b'gcs data')
+            initialize_mocks(mock_storage_client,
+                             mock_requests_get, b'data from url', b'gcs data')
 
             result = url_file_to_gcs.download_first_url_to_gcs(
                 ['https://testurl.com'], 'test_bucket', 'test_destination')
@@ -64,9 +64,9 @@ class URLFileToGCSTest(unittest.TestCase):
     def testDownloadFirstUrlToGcs_NoGCSFile(self):
         with patch('ingestion.url_file_to_gcs.storage.Client') as mock_storage_client, \
                 patch('requests.get') as mock_requests_get:
-            intialize_mocks(mock_storage_client,
-                            mock_requests_get, b'data from url', b'gcs data',
-                            blob_download_side_effect=google.cloud.exceptions.NotFound('test error'))
+            initialize_mocks(mock_storage_client,
+                             mock_requests_get, b'data from url', b'gcs data',
+                             blob_download_side_effect=google.cloud.exceptions.NotFound('test error'))
 
             result = url_file_to_gcs.download_first_url_to_gcs(
                 ['https://testurl.com'], 'test_bucket', 'test_destination')

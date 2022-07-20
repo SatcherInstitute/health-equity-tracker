@@ -39,7 +39,7 @@ BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
 
 # ACS Health Insurance By Race Prefixes.
 # Acs variables are in the form C27001A_xxx0 C27001A_xxx2 ect
-# to determine age buckets.  The metadata variables are merged with the suffixes to form the entire metadeta.
+# to determine age buckets.  The metadata variables are merged with the suffixes to form the entire metadata.
 HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = {
     "C27001A": Race.WHITE.value,
     "C27001B": Race.BLACK.value,
@@ -63,7 +63,7 @@ def get_race_from_key(key):
     return HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES[parts[0]]
 
 
-class AcsHealhInsuranceRaceIngestor:
+class AcsHealthInsuranceRaceIngester:
 
     # Initialize variables in class instance, also merge all metadata so that lookup of the
     # prefix, suffix combos can return the entire metadata
@@ -259,7 +259,7 @@ class AcsHealhInsuranceRaceIngestor:
         return self.data[(state_fip, county_fip, age, race)]
 
     # Helper method from grabbing a tuple in self.data.  If the
-    # tuple hasnt been created then it initializes an empty tuple.
+    # tuple hasn't been created then it initializes an empty tuple.
     # This is needed as each data variable will only
     # update one of the population values at a time.
 
@@ -336,7 +336,7 @@ class AcsHealhInsuranceRaceIngestor:
         }
 
 
-class AcsHealhInsuranceSexIngestor:
+class AcsHealthInsuranceSexIngester:
 
     # Initialize variables in class instance, also merge all metadata so that lookup of the
     # prefix, suffix combos can return the entire metadata
@@ -515,7 +515,7 @@ class AcsHealhInsuranceSexIngestor:
         return self.data[(state_fip, county_fip, age, sex)]
 
     # Helper method from grabbing a tuple in self.data.  If the
-    # tuple hasnt been created then it initializes an empty tuple.
+    # tuple hasn't been created then it initializes an empty tuple.
     # This is needed as each data variable will only
     # update one of the population values at a time.
 
@@ -614,22 +614,6 @@ class ACSHealthInsurance(DataSource):
 
     def _create_ingesters(self):
         return [
-            AcsHealhInsuranceRaceIngestor(BASE_ACS_URL),
-            AcsHealhInsuranceSexIngestor(BASE_ACS_URL),
+            AcsHealthInsuranceRaceIngester(BASE_ACS_URL),
+            AcsHealthInsuranceSexIngester(BASE_ACS_URL),
         ]
-
-
-# AcsHealhInsuranceSexIngestor(BASE_ACS_URL).upload_to_gcs(
-#     'kalieki-dev-landing-bucket')
-# AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_to_bq(
-#     "acs_health_insurance_manual_test", "kalieki-dev-landing-bucket"
-# )
-
-# # AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).upload_to_gcs(
-# #     'kalieki-dev-landing-bucket')
-# AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_to_bq(
-#     "acs_health_insurance_manual_test", "kalieki-dev-landing-bucket"
-# )
-
-# AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_local_files_debug()
-# AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_local_files_debug()
