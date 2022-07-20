@@ -58,7 +58,7 @@
     "e2e": "npx playwright install chromium && npx playwright test --project=E2E",
     "url": "npx playwright install chromium && npx playwright test --project=URL",
     "playwright": "npx playwright install chromium && npx playwright test",
-    "cspell": "git diff --cached --name-only | npx cspell --no-summary --no-progress --no-must-find-files --file-list stdin -r '..'",
+    "cspell": "cspell '../**/*.{ts,tsx,scss,md,py}' --cache --no-summary --no-progress --no-must-find-files",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",

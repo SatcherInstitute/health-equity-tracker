@@ -1,6 +1,7 @@
 import base64
 from http import HTTPStatus
 import json
+
 import logging
 import os
 from datasources.data_sources import DATA_SOURCES_DICT
@@ -13,7 +14,7 @@ def ingest_data():
     """Main function for data ingestion. Receives Pub/Sub trigger and triages
        to the appropriate data ingestion workflow.
 
-       Returns 400 for a bad request and 204 for successful new file downloads
+       Returns 400 for a bad recquest and 204 for successful new file downloads
        or 201 for successful non file download execution."""
     envelope = request.get_json()
     if not envelope:
