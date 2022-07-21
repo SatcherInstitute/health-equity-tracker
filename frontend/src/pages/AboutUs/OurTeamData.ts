@@ -45,6 +45,11 @@ export const LEADERSHIP_TEAM = [
     imageUrl: "/img/team/HammondBen.jpg",
   },
   {
+    name: "Eric Warren",
+    role: "Software Engineer",
+    imageUrl: "/img/team/WarrenEric.png",
+  },
+  {
     name: "Maisha Standifer, PhD, MPH",
     role: "Health Policy Analyst",
     imageUrl: "/img/team/maisha-standifer.jpg",
@@ -62,27 +67,22 @@ export const LEADERSHIP_TEAM = [
   {
     name: "Christian Amador MBA, MSc",
     role: "Director of Health Equity Initiatives",
-    imageUrl: "/img/team/DouglasMegan.png",
+    imageUrl: "/img/team/AmadorChristian.png",
   },
   {
     name: "Donrie Purcell, PhD, MPH",
     role: "Senior Health Systems Data Analyst",
-    imageUrl: "/img/team/DouglasMegan.png",
+    imageUrl: "/img/team/PurcellDonrie.png",
   },
   {
     name: "Madhuri Jha, LCSW, MPH",
     role: "Director, Kennedy-Satcher Center for Mental Health Equity",
-    imageUrl: "/img/team/DouglasMegan.png",
+    imageUrl: "/img/team/JhaMMadhuri.png",
   },
   {
     name: "Aye Joana Obe, LLM",
     role: "Legal Fellow",
-    imageUrl: "/img/team/DouglasMegan.png",
-  },
-  {
-    name: "Eric Warren",
-    role: "Software Engineer",
-    imageUrl: "/img/team/DouglasMegan.png",
+    imageUrl: "/img/team/JoanaAye.png",
   },
 ];
 
