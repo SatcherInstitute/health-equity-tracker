@@ -2,7 +2,7 @@ export const LEADERSHIP_TEAM = [
   {
     name: "Daniel Dawes, JD",
     role: "Principal Investigator",
-    imageUrl: "/img/team/Daniel-E 1.png",
+    imageUrl: "/img/team/DawesDaniel.png",
   },
   {
     name: "Nelson Dunlap, JD",
@@ -17,7 +17,7 @@ export const LEADERSHIP_TEAM = [
   {
     name: "Allyson Belton, MPH",
     role: "Coalition/Engagement",
-    imageUrl: "/img/team/Belton_Allyson.png",
+    imageUrl: "/img/team/BeltonAllyson.png",
   },
   {
     name: "Mahia Valle, MBA",
@@ -52,12 +52,12 @@ export const LEADERSHIP_TEAM = [
   {
     name: "Maisha Standifer, PhD, MPH",
     role: "Health Policy Analyst",
-    imageUrl: "/img/team/maisha-standifer.jpg",
+    imageUrl: "/img/team/StandiferMaisha.jpg",
   },
   {
     name: "Jammie Hopkins, DrPH, MS",
     role: "Coalition/Engagement",
-    imageUrl: "/img/team/jammie-hopkins.jpg",
+    imageUrl: "/img/team/HopkinsJammie.jpg",
   },
   {
     name: "Megan Douglas, JD",
