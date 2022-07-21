@@ -122,7 +122,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ? { values: props.geoData }
       : { url: `/tmp/${GEOGRAPHIES_DATASET_ID}.json` };
 
-    /* SET UP GEO DATSET */
+    /* SET UP GEO DATASET */
     // Transform geo dataset by adding varField from VAR_DATASET
     let geoTransformers: any[] = [
       {
@@ -130,7 +130,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         from: VAR_DATASET,
         key: VAR_FIPS,
         fields: [GEO_ID],
-        values: [props.metric.metricId, "svi"],
+        values: [props.metric.metricId, "svi", "rating"],
       },
     ];
     if (props.overrideShapeWithCircle) {
@@ -175,7 +175,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         ? props.metric.unknownsVegaLabel
         : props.metric.shortLabel;
 
-    const tooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum}, "SVI": datum.svi }`;
+    const tooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum}, "SVI": datum.svi, "SVI rating": datum.rating}`;
     const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}" }`;
     /* SET UP LEGEND */
     let legendList = [];

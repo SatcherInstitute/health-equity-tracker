@@ -43,6 +43,7 @@ import { HighestLowestList } from "./ui/HighestLowestList";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { MultiMapDialog } from "./ui/MultiMapDialog";
+import { findRating } from "./ui/SviAlert";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 /* minimize layout shift */
@@ -174,7 +175,11 @@ function MapCardWithKey(props: MapCardProps) {
             const thisCountySviRow = dataForSvi.find(
               (sviRow) => sviRow.fips === row.fips
             );
-            return { ...row, svi: thisCountySviRow?.svi };
+            return {
+              ...row,
+              svi: thisCountySviRow?.svi,
+              rating: findRating(thisCountySviRow?.svi),
+            };
           });
 
         const highestRatesList = getHighestN(
