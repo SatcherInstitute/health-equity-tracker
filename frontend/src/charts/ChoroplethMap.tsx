@@ -130,7 +130,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         from: VAR_DATASET,
         key: VAR_FIPS,
         fields: [GEO_ID],
-        values: [props.metric.metricId, "svi", "rating"],
+        values: [props.metric.metricId, "rating"],
       },
     ];
     if (props.overrideShapeWithCircle) {
