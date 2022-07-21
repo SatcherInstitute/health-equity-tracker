@@ -10,12 +10,22 @@ interface SviAlertProps {
   sviQueryResponse: MetricQueryResponse;
   fips: Fips;
 }
-export const findRating = (svi: number) => {
+
+export const findRating = (svi: number, map?: boolean) => {
   if (svi < 0.34) {
+    if (map) {
+      return "Low Vulnerability";
+    }
     return "low";
   }
   if (svi > 0.67) {
+    if (map) {
+      return "High Vulnerability";
+    }
     return "high";
+  }
+  if (map) {
+    return "Medium Vulnerability";
   }
   return "medium";
 };

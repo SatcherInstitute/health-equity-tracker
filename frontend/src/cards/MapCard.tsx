@@ -178,7 +178,7 @@ function MapCardWithKey(props: MapCardProps) {
             return {
               ...row,
               svi: thisCountySviRow?.svi,
-              rating: findRating(thisCountySviRow?.svi),
+              rating: findRating(thisCountySviRow?.svi, true),
             };
           });
 
