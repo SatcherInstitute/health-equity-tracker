@@ -1,5 +1,5 @@
 import unittest
-from datasources.acs_poverty import AcsPovertyIngestor
+from datasources.acs_poverty import AcsPovertyIngester
 from ingestion.constants import PovertyPopulation
 
 from ingestion.standardized_columns import (
@@ -35,14 +35,15 @@ def pov(above, below):
     return {PovertyPopulation.ABOVE: str(above), PovertyPopulation.BELOW: str(below)}
 
 
-class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
+class AcsPovertyIngesterTest(unittest.TestCase, AcsPovertyIngester):
     def key(
         self, age=None, state_fip=None, county_fip=None, race: Race = None, sex=None
     ):
         if state_fip is not None:
             self.state_fips[state_fip] = state_fip + "_state_name"
         if county_fip is not None:
-            self.county_fips[(state_fip, county_fip)] = county_fip + "_county_name"
+            self.county_fips[(state_fip, county_fip)
+                             ] = county_fip + "_county_name"
 
         return (
             state_fip,
@@ -176,17 +177,21 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
         )
 
     def testingOutputDataframes(self):
-        self.data[self.key(state_fip="01", age="1-2", sex=None, race=None)] = pov(1, 2)
-        self.data[self.key(state_fip="01", age=None, sex="male", race=None)] = pov(1, 2)
+        self.data[self.key(state_fip="01", age="1-2",
+                           sex=None, race=None)] = pov(1, 2)
+        self.data[self.key(state_fip="01", age=None,
+                           sex="male", race=None)] = pov(1, 2)
         self.data[self.key(state_fip="01", age=None, sex=None, race=Race.WHITE)] = pov(
             1, 2
         )
 
         self.data[
-            self.key(state_fip="01", county_fip="001", age="1-2", sex=None, race=None)
+            self.key(state_fip="01", county_fip="001",
+                     age="1-2", sex=None, race=None)
         ] = pov(1, 2)
         self.data[
-            self.key(state_fip="01", county_fip="001", age=None, sex="male", race=None)
+            self.key(state_fip="01", county_fip="001",
+                     age=None, sex="male", race=None)
         ] = pov(1, 2)
         self.data[
             self.key(
