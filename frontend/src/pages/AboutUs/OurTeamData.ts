@@ -77,12 +77,12 @@ export const LEADERSHIP_TEAM = [
   {
     name: "Madhuri Jha, LCSW, MPH",
     role: "Director, Kennedy-Satcher Center for Mental Health Equity",
-    imageUrl: "/img/team/JhaMMadhuri.png",
+    imageUrl: "/img/team/JhaMadhuri.png",
   },
   {
     name: "Aye Joana Obe, LLM",
     role: "Legal Fellow",
-    imageUrl: "/img/team/JoanaAye.png",
+    imageUrl: "/img/team/ObeAye.png",
   },
 ];
 
