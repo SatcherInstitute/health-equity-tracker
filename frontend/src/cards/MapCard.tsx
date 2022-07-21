@@ -388,6 +388,8 @@ function MapCardWithKey(props: MapCardProps) {
                     data={
                       listExpanded
                         ? highestRatesList.concat(lowestRatesList)
+                        : props.fips.isUsa()
+                        ? dataForActiveBreakdownFilter
                         : dataForActiveBreakdownFilterWithSvi
                     }
                     hideMissingDataTooltip={listExpanded}
