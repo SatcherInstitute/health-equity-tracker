@@ -59,6 +59,31 @@ export const LEADERSHIP_TEAM = [
     role: "Health Policy Analyst",
     imageUrl: "/img/team/DouglasMegan.png",
   },
+  {
+    name: "Christian Amador MBA, MSc",
+    role: "Director of Health Equity Initiatives",
+    imageUrl: "/img/team/DouglasMegan.png",
+  },
+  {
+    name: "Donrie Purcell, PhD, MPH",
+    role: "Senior Health Systems Data Analyst",
+    imageUrl: "/img/team/DouglasMegan.png",
+  },
+  {
+    name: "Madhuri Jha, LCSW, MPH",
+    role: "Director, Kennedy-Satcher Center for Mental Health Equity",
+    imageUrl: "/img/team/DouglasMegan.png",
+  },
+  {
+    name: "Aye Joana Obe, LLM",
+    role: "Legal Fellow",
+    imageUrl: "/img/team/DouglasMegan.png",
+  },
+  {
+    name: "Eric Warren",
+    role: "Software Engineer",
+    imageUrl: "/img/team/DouglasMegan.png",
+  },
 ];
 
 export const GOOGLE_FELLOWS = [
