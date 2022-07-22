@@ -43,7 +43,6 @@ import { HighestLowestList } from "./ui/HighestLowestList";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { MultiMapDialog } from "./ui/MultiMapDialog";
-import Geographies from "../assets/geographies.json";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 /* minimize layout shift */
@@ -186,10 +185,6 @@ function MapCardWithKey(props: MapCardProps) {
           const options = overallQueryResponse.data.find(
             (row) => row[props.currentBreakdown] === activeBreakdownFilter
           );
-
-          geoData = Geographies;
-
-          console.log(Geographies);
 
           return options ? (
             <>
