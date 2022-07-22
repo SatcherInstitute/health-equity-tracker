@@ -6,6 +6,7 @@ from datasources.data_source import DataSource
 def testCleanFrameColumnNames():
     ds = DataSource()
     df = pd.DataFrame(
+        # /* cSpell:disable */
         {'Upp3rcase': [],
          'Special!char': [],
          'this=that': [],

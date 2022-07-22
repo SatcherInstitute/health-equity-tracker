@@ -68,6 +68,12 @@ function getSpec(
   const SIDE_BY_SIDE_OFFSET =
     BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * (SIDE_BY_SIDE_FULL_BAR_RATIO / 2);
 
+  let MIN_TICK_STEP = 5;
+  if (width > 800) MIN_TICK_STEP = 2;
+  let MIN_TICK_BAR_STEP = 10;
+  if (width > 500 && width < 800) MIN_TICK_BAR_STEP = 5;
+  else if (width >= 800) MIN_TICK_BAR_STEP = 2;
+
   // defaults for most charts
   const LEGEND_COLORS = [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR];
   const LEGEND_DOMAINS = [lightMeasureDisplayName, darkMeasureDisplayName];
@@ -341,12 +347,14 @@ function getSpec(
       },
     ],
     axes: [
+      // GRAY VERTICAL TICK BARS
       {
         scale: "x",
         orient: "bottom",
         gridScale: "y",
         grid: true,
         tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
+        tickMinStep: MIN_TICK_BAR_STEP,
         domain: false,
         labels: false,
         aria: false,
@@ -355,6 +363,7 @@ function getSpec(
         ticks: false,
         zindex: 0,
       },
+      //  AXIS TICKS
       {
         scale: "x",
         orient: "bottom",
@@ -365,6 +374,7 @@ function getSpec(
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
+        tickMinStep: MIN_TICK_STEP,
         zindex: 0,
       },
       {
