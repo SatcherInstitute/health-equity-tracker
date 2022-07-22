@@ -66,7 +66,7 @@ function LandingPage() {
               paragraph={true}
               component="h3"
             >
-              One Year of Advancing Health Equity
+              One Year of Advancing Health Equity!
             </Typography>
             <Typography
               className={styles.HeaderSubtext}
