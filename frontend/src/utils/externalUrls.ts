@@ -92,7 +92,7 @@ export const urlMap: Record<LinkName, string> = {
     "https://www.americashealthrankings.org/about/methodology/data-sources-and-measures",
   cdcCovidRestricted:
     "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
-  lifeline: "https://suicidepreventionlifeline.org/",
+  lifeline: "https://988lifeline.org",
   doi1: "https://doi.org/10.1016/j.ssmph.2018.08.003",
   doi2: "https://doi.org/10.1111/j.1540-5907.2011.00512.x",
   doi3: "https://doi.org/10.1146/annurev.polisci.11.053106.123839",

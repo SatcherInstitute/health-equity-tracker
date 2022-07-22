@@ -179,6 +179,11 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: "July 2022",
   },
   {
+    dataset_id: "cdc_svi_county-age",
+    name: "National Social Vulnerability Index by County",
+    update_time: "2018",
+  },
+  {
     dataset_id: "cdc_vaccination_county-race_and_ethnicity",
     name: "COVID-19 Vaccinations by County",
     update_time: "July 2022",

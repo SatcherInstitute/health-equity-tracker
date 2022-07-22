@@ -14,7 +14,8 @@ const knownFlakyUrls = [
     "https://twitter.com/repjohnlewis/status/758023941998776321?lang=en",
     "https://www.apha.org/topics-and-issues/communicable-disease/coronavirus/equity",
     "https://www.policylink.org/health-equity-resources",
-    "https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/"
+    "https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/",
+    "https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/pdf/SVI2018Documentation_01192022_1.pdf"
 
 ]
 
