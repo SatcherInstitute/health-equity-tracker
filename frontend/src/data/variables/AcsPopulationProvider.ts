@@ -2,11 +2,12 @@ import { IDataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { DatasetId } from "../utils/DatasetTypes";
 import VariableProvider from "./VariableProvider";
 
-export function GetAcsDatasetId(breakdowns: Breakdowns): string {
+export function GetAcsDatasetId(breakdowns: Breakdowns): DatasetId {
   if (breakdowns.hasOnlySex()) {
-    return "acs_population-by_sex_" + breakdowns.geography;
+    return ("acs_population-by_sex_" + breakdowns.geography) as DatasetId;
   }
   // Note: this assumes all age buckets are included in the same dataset. If
   // we use multiple datasets for different age buckets we will need to check
@@ -14,12 +15,14 @@ export function GetAcsDatasetId(breakdowns: Breakdowns): string {
   // on which filters are applied (or select a default one). It is preferable
   // to have the dataset include all breakdowns.
   if (breakdowns.hasOnlyAge()) {
-    return "acs_population-by_age_" + breakdowns.geography;
+    return ("acs_population-by_age_" + breakdowns.geography) as DatasetId;
   }
   if (breakdowns.hasOnlyRace()) {
     return breakdowns.geography === "national"
-      ? "acs_population-by_race_national"
-      : "acs_population-by_race_" + breakdowns.geography + "_std";
+      ? ("acs_population-by_race_national" as DatasetId)
+      : (("acs_population-by_race_" +
+          breakdowns.geography +
+          "_std") as DatasetId);
   }
   throw new Error("Not implemented");
 }
@@ -30,7 +33,7 @@ class AcsPopulationProvider extends VariableProvider {
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
-  getDatasetId(breakdowns: Breakdowns): string {
+  getDatasetId(breakdowns: Breakdowns): DatasetId {
     return GetAcsDatasetId(breakdowns);
   }
 

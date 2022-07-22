@@ -1,6 +1,7 @@
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { DatasetId } from "../utils/DatasetTypes";
 import VariableProvider from "./VariableProvider";
 
 class CdcSviProvider extends VariableProvider {
@@ -8,7 +9,7 @@ class CdcSviProvider extends VariableProvider {
     super("cdc_svi_provider", ["svi"]);
   }
 
-  getDatasetId(breakdowns: Breakdowns): string {
+  getDatasetId(): DatasetId {
     return "cdc_svi_county-age";
   }
 
@@ -16,7 +17,7 @@ class CdcSviProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
-    const datasetId = this.getDatasetId(breakdowns);
+    const datasetId = this.getDatasetId();
     const cdc_svi = await getDataManager().loadDataset(datasetId);
 
     let df = cdc_svi.toDataFrame();

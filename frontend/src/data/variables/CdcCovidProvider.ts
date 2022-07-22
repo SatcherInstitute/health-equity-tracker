@@ -5,6 +5,7 @@ import { ACS_2010_FIPS } from "../utils/Fips";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
+import { DatasetId } from "../utils/DatasetTypes";
 
 class CdcCovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -32,7 +33,7 @@ class CdcCovidProvider extends VariableProvider {
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
-  getDatasetId(breakdowns: Breakdowns): string {
+  getDatasetId(breakdowns: Breakdowns): DatasetId {
     if (breakdowns.hasOnlyRace()) {
       if (breakdowns.geography === "county") {
         return "cdc_restricted_data-by_race_county_processed";
@@ -70,7 +71,7 @@ class CdcCovidProvider extends VariableProvider {
     const datasetId = this.getDatasetId(breakdowns);
 
     const covidDataset = await getDataManager().loadDataset(datasetId);
-    let consumedDatasetIds = [datasetId];
+    let consumedDatasetIds: DatasetId[] = [datasetId];
     let df = covidDataset.toDataFrame();
 
     const breakdownColumnName =
@@ -91,8 +92,9 @@ class CdcCovidProvider extends VariableProvider {
       // its for a state
       ACS_2010_FIPS.includes(stateFips)
     ) {
-      const acs2010BreakdownId =
-        "acs_2010_population-by_" + breakdownColumnName + "_territory";
+      const acs2010BreakdownId = ("acs_2010_population-by_" +
+        breakdownColumnName +
+        "_territory") as DatasetId;
       consumedDatasetIds = consumedDatasetIds.concat(acs2010BreakdownId);
     } else {
       const acsDatasetId = GetAcsDatasetId(breakdowns);

@@ -2,6 +2,7 @@ import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { DatasetId } from "../utils/DatasetTypes";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
@@ -81,13 +82,11 @@ class BrfssProvider extends VariableProvider {
     ]);
   }
 
-  getDatasetId(breakdowns: Breakdowns): string {
-    return (
-      "uhc_data-" +
+  getDatasetId(breakdowns: Breakdowns): DatasetId {
+    return ("uhc_data-" +
       breakdowns.getSoleDemographicBreakdown().columnName +
       "_" +
-      breakdowns.geography
-    );
+      breakdowns.geography) as DatasetId;
   }
 
   async getDataInternal(

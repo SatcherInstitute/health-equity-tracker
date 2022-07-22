@@ -3,6 +3,7 @@ import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { ALL, HISPANIC, RACE, WHITE_NH } from "../utils/Constants";
+import { DatasetId } from "../utils/DatasetTypes";
 import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 
@@ -20,7 +21,7 @@ class AcsPovertyProvider extends VariableProvider {
     ]);
   }
   // ALERT! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts AND  if you update dataset IDs
-  getDatasetId(breakdowns: Breakdowns): string {
+  getDatasetId(breakdowns: Breakdowns): DatasetId {
     let datasetPrefix = "acs_poverty_dataset-poverty_by_";
 
     let breakdownSelector;
@@ -28,11 +29,9 @@ class AcsPovertyProvider extends VariableProvider {
     if (breakdowns.hasOnlyRace()) breakdownSelector = "race";
     if (breakdowns.hasOnlySex()) breakdownSelector = "sex";
 
-    return (
-      datasetPrefix +
+    return (datasetPrefix +
       breakdownSelector +
-      (breakdowns.geography === "county" ? "_county" : "_state")
-    );
+      (breakdowns.geography === "county" ? "_county" : "_state")) as DatasetId;
   }
 
   async getDataInternal(

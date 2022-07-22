@@ -7,6 +7,7 @@ import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 import { ALL, RACE } from "../utils/Constants";
+import { DatasetId } from "../utils/DatasetTypes";
 
 class VaccineProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -23,12 +24,10 @@ class VaccineProvider extends VariableProvider {
     this.acsProvider = acsProvider;
   }
 
-  getDatasetId(breakdowns: Breakdowns): string {
+  getDatasetId(breakdowns: Breakdowns): DatasetId {
     if (breakdowns.geography === "national") {
-      return (
-        "cdc_vaccination_national-" +
-        breakdowns.getSoleDemographicBreakdown().columnName
-      );
+      return ("cdc_vaccination_national-" +
+        breakdowns.getSoleDemographicBreakdown().columnName) as DatasetId;
     } else if (
       breakdowns.geography === "state" &&
       breakdowns.getSoleDemographicBreakdown().columnName === RACE
@@ -37,8 +36,7 @@ class VaccineProvider extends VariableProvider {
     } else if (breakdowns.geography === "county") {
       return "cdc_vaccination_county-race_and_ethnicity";
     }
-
-    return "";
+    throw new Error("Not implemented");
   }
 
   async getDataInternal(
@@ -68,7 +66,7 @@ class VaccineProvider extends VariableProvider {
         );
 
         consumedDatasetIds = consumedDatasetIds.concat(
-          acsQueryResponse.consumedDatasetIds
+          acsQueryResponse.consumedDatasetIds as DatasetId[]
         );
 
         // We merge this in on the backend

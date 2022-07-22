@@ -10,6 +10,7 @@ import {
   MULTI,
   MULTI_OR_OTHER_STANDARD,
 } from "../utils/Constants";
+import { DatasetId } from "../utils/DatasetTypes";
 
 export const CAWP_DETERMINANTS: MetricId[] = [
   "cawp_population_pct",
@@ -45,13 +46,11 @@ class CawpProvider extends VariableProvider {
     super("cawp_provider", ["cawp_population_pct", ...CAWP_DETERMINANTS]);
   }
 
-  getDatasetId(breakdowns: Breakdowns): string {
-    return (
-      "cawp_data-" +
+  getDatasetId(breakdowns: Breakdowns): DatasetId {
+    return ("cawp_data-" +
       breakdowns.getSoleDemographicBreakdown().columnName +
       "_" +
-      breakdowns.geography
-    );
+      breakdowns.geography) as DatasetId;
   }
 
   async getDataInternal(

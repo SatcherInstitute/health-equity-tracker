@@ -30,6 +30,7 @@ export type DatasetId =
   | "acs_poverty_dataset-poverty_by_age_county"
   | "cdc_restricted_data-by_race_county_processed"
   | "cdc_restricted_data-by_race_state_processed-with_age_adjust"
+  | "cdc_restricted_data-by_race_national_processed-with_age_adjust"
   | "cdc_restricted_data-by_age_county_processed"
   | "cdc_restricted_data-by_age_state_processed"
   | "cdc_restricted_data-by_age_national_processed"
@@ -40,6 +41,7 @@ export type DatasetId =
   | "cdc_vaccination_national-age"
   | "cdc_vaccination_national-sex"
   | "cdc_vaccination_national-race_and_ethnicity"
+  | "cdc_svi_county-age"
   | "kff_vaccination-race_and_ethnicity"
   | "uhc_data-age_national"
   | "uhc_data-race_and_ethnicity_national"
@@ -82,7 +84,7 @@ export interface DataSourceMetadata {
 // Datasets contain data with specified breakdowns
 // For example: data by race and county or data by age and state
 export interface DatasetMetadata {
-  readonly string;
+  readonly dataset_id: DatasetId;
   readonly name: string;
   readonly update_time: string;
   // Source ID is added programmatically based on DataSourceMetadata config

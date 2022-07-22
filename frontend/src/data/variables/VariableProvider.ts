@@ -10,6 +10,7 @@ import {
 } from "../query/MetricQuery";
 import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
 import { DatasetCalculator } from "../utils/DatasetCalculator";
+import { DatasetId } from "../utils/DatasetTypes";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;
@@ -117,7 +118,7 @@ abstract class VariableProvider {
 
   abstract allowsBreakdowns(breakdowns: Breakdowns): boolean;
 
-  abstract getDatasetId(breakdown: Breakdowns, dataType?: string): string;
+  abstract getDatasetId(breakdown: Breakdowns, dataType?: string): DatasetId;
 }
 
 export default VariableProvider;

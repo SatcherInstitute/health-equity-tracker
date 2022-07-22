@@ -1,4 +1,4 @@
-import { DatasetMetadata } from "../utils/DatasetTypes";
+import { DatasetId, DatasetMetadata } from "../utils/DatasetTypes";
 import { DataSourceMetadataMap, GEOGRAPHIES_DATASET_ID } from "./MetadataMap";
 
 export const datasetMetadataList: DatasetMetadata[] = [
@@ -325,12 +325,12 @@ export const datasetMetadataList: DatasetMetadata[] = [
   },
 ];
 
-export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> =
+export const DatasetMetadataMap: Partial<Record<DatasetId, DatasetMetadata>> =
   Object.fromEntries(
     datasetMetadataList.map((m) => {
       let metadataWithSource = m;
       const dataSource = Object.values(DataSourceMetadataMap).find((metadata) =>
-        metadata.dataset_ids.includes(m.dataset_id)
+        metadata.dataset_ids.includes(m.dataset_id as DatasetId)
       );
       metadataWithSource.source_id = dataSource ? dataSource.id : "error";
       return [m.dataset_id, metadataWithSource];

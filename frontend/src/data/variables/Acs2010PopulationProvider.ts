@@ -2,6 +2,7 @@ import { IDataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { DatasetId } from "../utils/DatasetTypes";
 import VariableProvider from "./VariableProvider";
 
 class Acs2010PopulationProvider extends VariableProvider {
@@ -9,12 +10,13 @@ class Acs2010PopulationProvider extends VariableProvider {
     super("acs_2010_pop_provider", ["population_2010", "population_pct_2010"]);
   }
 
-  // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
-  getDatasetId(breakdowns: Breakdowns): string {
+  getDatasetId(breakdowns: Breakdowns): DatasetId {
     const breakdownColumnName =
       breakdowns.getSoleDemographicBreakdown().columnName;
 
-    return "acs_2010_population-by_" + breakdownColumnName + "_territory";
+    return ("acs_2010_population-by_" +
+      breakdownColumnName +
+      "_territory") as DatasetId;
   }
 
   async getDataInternal(
