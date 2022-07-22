@@ -43,7 +43,7 @@ import { HighestLowestList } from "./ui/HighestLowestList";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { MultiMapDialog } from "./ui/MultiMapDialog";
-import { findRating } from "./ui/SviAlert";
+import { findVerboseRating } from "./ui/SviAlert";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 /* minimize layout shift */
@@ -159,28 +159,31 @@ function MapCardWithKey(props: MapCardProps) {
           sortArgs
         );
 
-        const dataForActiveBreakdownFilter = mapQueryResponse
+        let dataForActiveBreakdownFilter = mapQueryResponse
           .getValidRowsForField(metricConfig.metricId)
           .filter(
             (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
           );
+
         const dataForSvi = sviQueryResponse
           .getValidRowsForField("svi")
           .filter((row) =>
             dataForActiveBreakdownFilter.find(({ fips }) => row.fips === fips)
           );
 
-        const dataForActiveBreakdownFilterWithSvi =
-          dataForActiveBreakdownFilter.map((row) => {
-            const thisCountySviRow = dataForSvi.find(
-              (sviRow) => sviRow.fips === row.fips
-            );
-            return {
-              ...row,
-              svi: thisCountySviRow?.svi,
-              rating: findRating(thisCountySviRow?.svi, true),
-            };
-          });
+        if (!props.fips.isUsa()) {
+          dataForActiveBreakdownFilter = dataForActiveBreakdownFilter.map(
+            (row) => {
+              const thisCountySviRow = dataForSvi.find(
+                (sviRow) => sviRow.fips === row.fips
+              );
+              return {
+                ...row,
+                rating: findVerboseRating(thisCountySviRow?.svi),
+              };
+            }
+          );
+        }
 
         const highestRatesList = getHighestN(
           dataForActiveBreakdownFilter,
@@ -388,9 +391,7 @@ function MapCardWithKey(props: MapCardProps) {
                     data={
                       listExpanded
                         ? highestRatesList.concat(lowestRatesList)
-                        : props.fips.isUsa()
-                        ? dataForActiveBreakdownFilter
-                        : dataForActiveBreakdownFilterWithSvi
+                        : dataForActiveBreakdownFilter
                     }
                     hideMissingDataTooltip={listExpanded}
                     legendData={dataForActiveBreakdownFilter}

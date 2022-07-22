@@ -11,23 +11,19 @@ interface SviAlertProps {
   fips: Fips;
 }
 
-export const findRating = (svi: number, map?: boolean) => {
+export const findRating = (svi: number) => {
   if (svi < 0.34) {
-    if (map) {
-      return "Low Vulnerability";
-    }
     return "low";
   }
   if (svi > 0.67) {
-    if (map) {
-      return "High Vulnerability";
-    }
     return "high";
   }
-  if (map) {
-    return "Medium Vulnerability";
-  }
   return "medium";
+};
+
+export const findVerboseRating = (svi: number) => {
+  const rating = findRating(svi);
+  return `${rating[0].toUpperCase() + rating.slice(1)} vulnerability`;
 };
 
 export const findColor = (rating: string) => {

@@ -176,7 +176,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         : props.metric.shortLabel;
 
     const tooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum}, "County SVI": datum.rating}`;
-    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}" }`;
+    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}", }`;
     /* SET UP LEGEND */
     let legendList = [];
 
