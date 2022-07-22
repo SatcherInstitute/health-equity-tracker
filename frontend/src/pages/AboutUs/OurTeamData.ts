@@ -1,63 +1,113 @@
+import Daniel from "../../assets/team/DawesDaniel.png";
+import Nelson from "../../assets/team/DunlapNelson.png";
+import Ebony from "../../assets/team/RespressEbony.png";
+import Allyson from "../../assets/team/BeltonAllyson.png";
+import Mahia from "../../assets/team/ValleMahia.png";
+import Shaneeta from "../../assets/team/ShaneetaJohnson.png";
+import JC from "../../assets/team/GonzalezJC.png";
+import Josh from "../../assets/team/ZarrabiJosh.png";
+import Ben from "../../assets/team/HammondBen.jpg";
+import Eric from "../../assets/team/WarrenEric.png";
+import Maisha from "../../assets/team/StandiferMaisha.jpg";
+import Jammie from "../../assets/team/HopkinsJammie.jpg";
+import Megan from "../../assets/team/DouglasMegan.png";
+import Christian from "../../assets/team/AmadorChristian.png";
+import Donrie from "../../assets/team/PurcellDonrie.png";
+import Madhuri from "../../assets/team/JhaMadhuri.png";
+import Aye from "../../assets/team/ObeAye.png";
+
+import PartnerSatcher from "../../assets/partners/PartnerSatcher.png";
+import PartnerGilead from "../../assets/partners/PartnerGilead.png";
+import PartnerCdc from "../../assets/partners/PartnerCdc.png";
+import PartnerGoogle from "../../assets/partners/PartnerGoogle.png";
+import PartnerAARP from "../../assets/partners/PartnerAARP.png";
+import PartnerAECF from "../../assets/partners/PartnerAECF.png";
+
 export const LEADERSHIP_TEAM = [
   {
     name: "Daniel Dawes, JD",
     role: "Principal Investigator",
-    imageUrl: "/img/team/Daniel-E 1.png",
+    imageUrl: Daniel,
   },
   {
     name: "Nelson Dunlap, JD",
     role: "Co-Principal Investigator",
-    imageUrl: "/img/team/DunlapNelson.png",
+    imageUrl: Nelson,
   },
   {
     name: "Ebony Respress, MPH",
     role: "Project Director",
-    imageUrl: "/img/team/RespressEbony.png",
+    imageUrl: Ebony,
   },
   {
     name: "Allyson Belton, MPH",
     role: "Coalition/Engagement",
-    imageUrl: "/img/team/Belton_Allyson.png",
+    imageUrl: Allyson,
   },
   {
     name: "Mahia Valle, MBA",
     role: "Communications",
-    imageUrl: "/img/team/ValleMahia.png",
+    imageUrl: Mahia,
   },
   {
     name: "Shaneeta M. Johnson MD, MBA, FACS, FASMBS, ABOM",
     role: "Senior Advisor",
-    imageUrl: "/img/team/ShaneetaJohnson.png",
+    imageUrl: Shaneeta,
   },
   {
     name: "JC Gonzalez, MBA, PMP",
     role: "Product Manager",
-    imageUrl: "/img/team/GonzalezJC.png",
+    imageUrl: JC,
   },
   {
     name: "Josh Zarrabi",
     role: "Senior Software Engineer",
-    imageUrl: "/img/team/ZarrabiJosh.png",
+    imageUrl: Josh,
   },
   {
     name: "Ben Hammond",
     role: "Software Engineer",
-    imageUrl: "/img/team/HammondBen.jpg",
+    imageUrl: Ben,
+  },
+  {
+    name: "Eric Warren",
+    role: "Software Engineer",
+    imageUrl: Eric,
   },
   {
     name: "Maisha Standifer, PhD, MPH",
     role: "Health Policy Analyst",
-    imageUrl: "/img/team/maisha-standifer.jpg",
+    imageUrl: Maisha,
   },
   {
     name: "Jammie Hopkins, DrPH, MS",
     role: "Coalition/Engagement",
-    imageUrl: "/img/team/jammie-hopkins.jpg",
+    imageUrl: Jammie,
   },
   {
     name: "Megan Douglas, JD",
     role: "Health Policy Analyst",
-    imageUrl: "/img/team/DouglasMegan.png",
+    imageUrl: Megan,
+  },
+  {
+    name: "Christian Amador MBA, MSc",
+    role: "Director of Health Equity Initiatives",
+    imageUrl: Christian,
+  },
+  {
+    name: "Donrie Purcell, PhD, MPH",
+    role: "Senior Health Systems Data Analyst",
+    imageUrl: Donrie,
+  },
+  {
+    name: "Madhuri Jha, LCSW, MPH",
+    role: "Director, Kennedy-Satcher Center for Mental Health Equity",
+    imageUrl: Madhuri,
+  },
+  {
+    name: "Aye Joana Obe, LLM",
+    role: "Legal Fellow",
+    imageUrl: Aye,
   },
 ];
 
@@ -218,32 +268,32 @@ export const HE_TASKFORCE = [
 
 export const PARTNERS = [
   {
-    imageUrl: "/img/partners/PartnerSatcher.png",
+    imageUrl: PartnerSatcher,
     alt: "Morehouse School of Medicine Satcher Health Leadership Institute",
     url: "https://satcherinstitute.org",
   },
   {
-    imageUrl: "/img/partners/PartnerGilead.png",
+    imageUrl: PartnerGilead,
     alt: "Gilead Sciences, Inc.",
     url: "https://www.gilead.com/",
   },
   {
-    imageUrl: "/img/partners/PartnerCdc.png",
+    imageUrl: PartnerCdc,
     alt: "United States Center for Disease Control and Prevention",
     url: "https://www.cdc.gov/",
   },
   {
-    imageUrl: "/img/partners/PartnerGoogle.png",
+    imageUrl: PartnerGoogle,
     alt: "Google.org",
     url: "https://google.org",
   },
   {
-    imageUrl: "/img/partners/PartnerAARP.png",
+    imageUrl: PartnerAARP,
     alt: "American Association of Retired Persons",
     url: "https://www.aarp.org",
   },
   {
-    imageUrl: "/img/partners/PartnerAECF.png",
+    imageUrl: PartnerAECF,
     alt: "Annie E. Casey Foundation",
     url: "https://www.aecf.org/",
   },
