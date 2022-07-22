@@ -7,6 +7,7 @@ import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import { Environment } from "../../utils/Environment";
 import { DataFrame } from "data-forge";
 import { GEOGRAPHIES_DATASET_ID } from "../config/MetadataMap";
+import Geographies from "../../assets/geographies.json";
 
 type FileFormat = "json" | "csv";
 
@@ -68,6 +69,9 @@ export class ApiDataFetcher implements DataFetcher {
    * @param format FileFormat for the request.
    */
   private async fetchDataset(datasetName: string, format: FileFormat = "json") {
+    if (datasetName === GEOGRAPHIES_DATASET_ID) {
+      return Geographies;
+    }
     const requestPath = this.getDatasetRequestPath(datasetName, format);
     const resp = await fetch(requestPath);
     if (resp.status !== 200) {

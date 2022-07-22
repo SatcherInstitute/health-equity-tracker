@@ -13,6 +13,7 @@ import { MetricQuery, MetricQueryResponse } from "../data/query/MetricQuery";
 import { WithMetadataAndMetrics } from "../data/react/WithLoadingOrErrorUI";
 import { Sources } from "./ui/Sources";
 import { MapOfDatasetMetadata } from "../data/utils/DatasetTypes";
+import Geographies from "../assets/geographies.json";
 
 function CardWrapper(props: {
   // prevent layout shift as component loads
@@ -27,7 +28,7 @@ function CardWrapper(props: {
   children: (
     queryResponses: MetricQueryResponse[],
     metadata: MapOfDatasetMetadata,
-    geoData?: Record<string, any>
+    geoData: Record<string, any>
   ) => JSX.Element;
   isAgeAdjustedTable?: boolean;
 }) {
@@ -85,6 +86,8 @@ function CardWrapper(props: {
       loadGeographies={props.loadGeographies}
     >
       {(metadata, queryResponses, geoData) => {
+        geoData = Geographies;
+
         return (
           <Card
             raised={true}
