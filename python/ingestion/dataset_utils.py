@@ -146,7 +146,7 @@ def percent_avoid_rounding_to_zero(numerator, denominator, default_decimals=1, m
 
        Avoids division by zero errors and returns `0.0` instead"""
 
-    if (float(denominator) == 0.0) or (numerator is None) or (denominator is None):
+    if (denominator == 0.0) or (denominator == "0.0") or (denominator == "0") or (numerator is None) or (denominator is None):
         return None
 
     decimals = default_decimals

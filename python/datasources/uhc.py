@@ -69,7 +69,16 @@ RACE_GROUPS_TO_STANDARD = {
     'All': Race.ALL.value,
 }
 
-BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/251"
+UHC_REPORT_URLS = {
+    "2021": "https://www.americashealthrankings.org/api/v1/downloads/251",
+    "2020": "https://www.americashealthrankings.org/api/v1/downloads/210",
+    "2019": "https://www.americashealthrankings.org/api/v1/downloads/201",
+    "2018": "https://www.americashealthrankings.org/api/v1/downloads/182",
+    "2017": "https://www.americashealthrankings.org/api/v1/downloads/144",
+    "2016": "https://www.americashealthrankings.org/api/v1/downloads/144",
+    "2015": "https://www.americashealthrankings.org/api/v1/downloads/59",
+}
+
 
 UHC_DETERMINANTS = {
     "Chronic Obstructive Pulmonary Disease": std_col.COPD_PREFIX,
@@ -142,22 +151,41 @@ class UHCData(DataSource):
             'upload_to_gcs should not be called for UHCData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        df = gcs_to_bq_util.load_csv_as_df_from_web(BASE_UHC_URL)
-        df = df.rename(columns={'State Name': std_col.STATE_NAME_COL})
 
         for geo in ['state', 'national']:
-            loc_df = df.copy()
-            if geo == 'national':
-                loc_df = loc_df.loc[loc_df[std_col.STATE_NAME_COL]
-                                    == constants.US_NAME]
-            else:
-                loc_df = loc_df.loc[loc_df[std_col.STATE_NAME_COL]
-                                    != constants.US_NAME]
+            # for geo in ['national']:
 
             for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
-                breakdown_df = loc_df.copy()
-                breakdown_df = parse_raw_data(breakdown_df, breakdown)
-                breakdown_df = post_process(breakdown_df, breakdown, geo)
+                # for breakdown in [std_col.RACE_OR_HISPANIC_COL]:
+
+                annual_df_list = []
+
+                for year in UHC_REPORT_URLS.keys():
+
+                    print("*******\n\t", year)
+
+                    df = gcs_to_bq_util.load_csv_as_df_from_web(
+                        UHC_REPORT_URLS[year])
+                    df = df.rename(
+                        columns={'State Name': std_col.STATE_NAME_COL})
+
+                    if geo == 'national':
+                        df = df.loc[df[std_col.STATE_NAME_COL]
+                                    == constants.US_NAME]
+                    else:
+                        df = df.loc[df[std_col.STATE_NAME_COL]
+                                    != constants.US_NAME]
+                    annual_breakdown_df = df.copy()
+                    annual_breakdown_df = parse_raw_data(
+                        annual_breakdown_df, breakdown)
+                    annual_breakdown_df = post_process(
+                        annual_breakdown_df, breakdown, geo)
+                    annual_breakdown_df["time_period"] = year
+
+                    annual_df_list.append(annual_breakdown_df)
+
+                # combine each yearly breakdown df into a single breakdown df
+                breakdown_df = pd.concat(annual_df_list, axis=0)
 
                 column_types = {c: 'STRING' for c in breakdown_df.columns}
 
@@ -174,6 +202,10 @@ class UHCData(DataSource):
 
                 table_name = '%s_%s' % (breakdown, geo)
 
+                print("writing ", table_name)
+                breakdown_df.to_json(
+                    f'ahr_time_sample-{table_name}.json', orient="records")
+
                 gcs_to_bq_util.add_df_to_bq(
                     breakdown_df, dataset, table_name, column_types=column_types)
 
@@ -189,7 +221,12 @@ def parse_raw_data(df, breakdown):
     states = df[std_col.STATE_NAME_COL].drop_duplicates().to_list()
 
     for state in states:
+
+        # print("\t-------", state)
+
         for breakdown_value in BREAKDOWN_MAP[breakdown]:
+
+            # print("\t\t-------", breakdown_value)
 
             output_row = {}
             output_row[std_col.STATE_NAME_COL] = state
@@ -201,6 +238,9 @@ def parse_raw_data(df, breakdown):
                 output_row[breakdown] = breakdown_value.strip()
 
             for determinant, prefix in UHC_DETERMINANTS.items():
+
+                # print("\t\t\t-------", determinant)
+
                 per_100k_col_name = std_col.generate_column_name(
                     prefix, std_col.PER_100K_SUFFIX)
 
@@ -222,7 +262,10 @@ def parse_raw_data(df, breakdown):
                         output_row[per_100k_col_name] = matched_row['Value'].values[0]
                     # converted from % to per 100k
                     else:
-                        output_row[per_100k_col_name] = matched_row['Value'].values[0] * 1000
+                        matched_100k = np.nan
+                        if len(matched_row['Value'].values) > 0:
+                            matched_100k = matched_row['Value'].values[0] * 1000
+                        output_row[per_100k_col_name] = matched_100k
 
                 else:
                     # For rows with demographic breakdown, the determinant
@@ -282,13 +325,15 @@ def parse_raw_data(df, breakdown):
     return output_df
 
 
-def post_process(breakdown_df, breakdown, geo):
+def post_process(df, breakdown, geo):
     """Merge the population data and then do all needed calculations with it.
        Returns a dataframe ready for the frontend.
 
        breakdown_df: Dataframe with all the raw UHC data.
        breakdown: demographic breakdown (race, sex, age)
        geo: geographic level (national, state)"""
+
+    breakdown_df = df.copy()
 
     breakdown_df = merge_state_fips_codes(breakdown_df)
 
