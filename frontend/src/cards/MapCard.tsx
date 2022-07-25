@@ -3,13 +3,12 @@ import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { VariableConfig, formatFieldValue } from "../data/config/MetricConfig";
-import { exclude } from "../data/query/BreakdownFilter";
+import { VariableConfig } from "../data/config/MetricConfig";
+import { exclude, onlyInclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
   BreakdownVarDisplayName,
 } from "../data/query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../data/query/MetricQuery";
@@ -43,6 +42,9 @@ import { HighestLowestList } from "./ui/HighestLowestList";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { MultiMapDialog } from "./ui/MultiMapDialog";
+import { MultiMapLink } from "./ui/MultiMapLink";
+import { RateInfoAlert } from "./ui/RateInfoAlert";
+import { findVerboseRating } from "./ui/SviAlert";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 /* minimize layout shift */
@@ -102,9 +104,15 @@ function MapCardWithKey(props: MapCardProps) {
         )
     );
 
+  const sviQuery = new MetricQuery(
+    "svi",
+    Breakdowns.byCounty().andAge(onlyInclude("All"))
+  );
+
   const queries = [
     metricQuery(Breakdowns.forChildrenFips(props.fips)),
     metricQuery(Breakdowns.forFips(props.fips)),
+    sviQuery,
   ];
 
   const selectedRaceSuffix = CAWP_DETERMINANTS.includes(metricConfig.metricId)
@@ -135,6 +143,7 @@ function MapCardWithKey(props: MapCardProps) {
         const mapQueryResponse: MetricQueryResponse = queryResponses[0];
         // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
+        const sviQueryResponse: MetricQueryResponse = queryResponses[2];
 
         const sortArgs =
           props.currentBreakdown === "age"
@@ -151,15 +160,36 @@ function MapCardWithKey(props: MapCardProps) {
           sortArgs
         );
 
-        const dataForActiveBreakdownFilter = mapQueryResponse
+        let dataForActiveBreakdownFilter = mapQueryResponse
           .getValidRowsForField(metricConfig.metricId)
           .filter(
             (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
           );
 
+        const dataForSvi = sviQueryResponse
+          .getValidRowsForField("svi")
+          .filter((row) =>
+            dataForActiveBreakdownFilter.find(({ fips }) => row.fips === fips)
+          );
+
+        if (!props.fips.isUsa()) {
+          dataForActiveBreakdownFilter = dataForActiveBreakdownFilter.map(
+            (row) => {
+              const thisCountySviRow = dataForSvi.find(
+                (sviRow) => sviRow.fips === row.fips
+              );
+              return {
+                ...row,
+                rating: findVerboseRating(thisCountySviRow?.svi),
+              };
+            }
+          );
+        }
+
         const highestRatesList = getHighestN(
           dataForActiveBreakdownFilter,
           metricConfig.metricId,
+
           SIZE_OF_HIGHEST_LOWEST_RATES_LIST
         );
         const lowestRatesList = getLowestN(
@@ -179,56 +209,6 @@ function MapCardWithKey(props: MapCardProps) {
 
         const hideGroupDropdown =
           Object.values(filterOptions).toString() === ALL;
-
-        // If possible, calculate the total for the selected demographic group and dynamically generate the rest of the phrase
-        function generateDemographicTotalPhrase() {
-          const options = overallQueryResponse.data.find(
-            (row) => row[props.currentBreakdown] === activeBreakdownFilter
-          );
-
-          return options ? (
-            <>
-              <b>
-                {formatFieldValue(
-                  /* metricType: MetricType, */ metricConfig.type,
-                  /* value: any, */ options[metricConfig.metricId],
-                  /* omitPctSymbol: boolean = false */ true
-                )}
-              </b>{" "}
-              {/*} HYPERLINKED TO BOTTOM DEFINITION {condition} cases per 100k  */}
-              <a
-                href="#definitionsList"
-                onClick={(e) => {
-                  e.preventDefault();
-                  props.jumpToDefinitions();
-                }}
-                className={styles.ConditionDefinitionLink}
-              >
-                {metricConfig.shortLabel}
-              </a>
-              {/*} for  */}
-              {activeBreakdownFilter !== "All" && " for"}
-              {/*} [ ages 30-39] */}
-              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                props.currentBreakdown
-              ] === "age" &&
-                activeBreakdownFilter !== "All" &&
-                ` ages ${activeBreakdownFilter}`}
-              {/*} [Asian (non Hispanic) individuals] */}
-              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                props.currentBreakdown
-              ] !== "age" &&
-                activeBreakdownFilter !== "All" &&
-                ` ${activeBreakdownFilter} individuals`}
-              {" in  "}
-              {/*} Georgia */}
-              {props.fips.getSentenceDisplayName()}
-              {". "}
-            </>
-          ) : (
-            ""
-          );
-        }
 
         return (
           <>
@@ -296,28 +276,18 @@ function MapCardWithKey(props: MapCardProps) {
               </>
             )}
 
-            {/* TODO: The "all" display in this info box should appear even if the only data available is the current level total */}
-            {/*  TODO: refactor this into its own component see #1620 */}
             {!mapQueryResponse.dataIsMissing() &&
               !!dataForActiveBreakdownFilter.length && (
-                <>
-                  <Divider />
-                  <CardContent>
-                    <Alert severity="info" role="note">
-                      {generateDemographicTotalPhrase()}
-                      {/* Compare across XYZ for all variables except vaccinated at county level */}
-                      <MultiMapLink
-                        setSmallMultiplesDialogOpen={
-                          setSmallMultiplesDialogOpen
-                        }
-                        currentBreakdown={props.currentBreakdown}
-                        currentVariable={
-                          props.variableConfig.variableFullDisplayName
-                        }
-                      />
-                    </Alert>
-                  </CardContent>
-                </>
+                <RateInfoAlert
+                  overallQueryResponse={overallQueryResponse}
+                  currentBreakdown={props.currentBreakdown}
+                  activeBreakdownFilter={activeBreakdownFilter}
+                  metricConfig={metricConfig}
+                  jumpToDefinitions={props.jumpToDefinitions}
+                  fips={props.fips}
+                  setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
+                  variableConfig={props.variableConfig}
+                />
               )}
 
             {(mapQueryResponse.dataIsMissing() ||
@@ -435,39 +405,5 @@ function MapCardWithKey(props: MapCardProps) {
         );
       }}
     </CardWrapper>
-  );
-}
-
-/*
-Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
-*/
-export interface MultiMapLinkProps {
-  setSmallMultiplesDialogOpen: Function;
-  currentBreakdown: BreakdownVar;
-  currentVariable: string;
-}
-
-function MultiMapLink(props: MultiMapLinkProps) {
-  const groupTerm =
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown];
-  return (
-    <>
-      <a
-        href="#multiMap"
-        onClick={() => props.setSmallMultiplesDialogOpen(true)}
-        role="button"
-        className={styles.CompareAcrossLink}
-        aria-label={
-          "Open modal to Compare " +
-          props.currentVariable +
-          " across " +
-          groupTerm +
-          " groups"
-        }
-      >
-        Compare across {groupTerm} groups
-      </a>
-      <span aria-hidden={true}>.</span>
-    </>
   );
 }

@@ -39,6 +39,7 @@
     "react-lazyload": "^3.2.0",
     "react-material-ui-carousel": "^2.3.0",
     "react-router-dom": "^5.2.0",
+    "react-router-hash-link": "^2.4.3",
     "react-scripts": "^5.0.0",
     "react-share": "^4.4.0",
     "react-table": "^7.7.0",
@@ -114,6 +115,7 @@
     "@storybook/react": "^6.2.8",
     "@types/node": "^18.0.3",
     "@types/react-lazyload": "^3.1.1",
+    "@types/react-router-hash-link": "^2.4.5",
     "mini-css-extract-plugin": "2.4.6",
     "react-query": "^3.33.7"
   }

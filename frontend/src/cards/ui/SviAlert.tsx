@@ -4,6 +4,8 @@ import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { Fips } from "../../data/utils/Fips";
 import { urlMap } from "../../utils/externalUrls";
 import styles from "./SviAlert.module.scss";
+import { HashLink } from "react-router-hash-link";
+import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";
 
 interface SviAlertProps {
   svi: number;
@@ -19,6 +21,11 @@ export const findRating = (svi: number) => {
     return "high";
   }
   return "medium";
+};
+
+export const findVerboseRating = (svi: number) => {
+  const rating = findRating(svi);
+  return `${rating[0].toUpperCase() + rating.slice(1)} vulnerability`;
 };
 
 export const findColor = (rating: string) => {
@@ -47,9 +54,9 @@ function SviAlert(props: SviAlertProps) {
         <Alert severity="info" className={styles.Alert}>
           This county has a social vulnerability index of <b>{props.svi}</b>;
           which indicates a{" "}
-          <a href={urlMap.cdcSvi} className={color}>
+          <HashLink to={`${METHODOLOGY_TAB_LINK}#svi`} className={color}>
             <b>{rating} level of vulnerability.</b>
-          </a>
+          </HashLink>
         </Alert>
       )}
     </>
