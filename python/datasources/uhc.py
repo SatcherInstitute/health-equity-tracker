@@ -195,14 +195,15 @@ def generate_multiyear_breakdown(geo, breakdown, loaded_report_dfs):
             for demographic breakdown type
         loaded_report_dfs: dict of pre-loaded pandas dataframes, indexed by year 
 
+    Returns:
+        a single pandas df for a particular combination of geographic and demographic
+        breakdowns, with data including a year encoded in the `time_period` column
 
     """
 
     annual_df_list = []
 
     for year in UHC_REPORT_URLS.keys():
-
-        print("*******\n\t", year)
 
         df = loaded_report_dfs[year]
         df = df.rename(
