@@ -141,7 +141,7 @@ def combine_race_eth(df):
     return df
 
 
-def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
+def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping, time_series):
     """Converts/adds columns for cases, hospitalizations, deaths. Does some
     basic standardization of dataframe elements. Groups by given groupby_cols
     and aggregates. Returns sum of the aggregated df & overall_df.
@@ -151,6 +151,7 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     overall_df: Pandas dataframe to add our aggregated data to.
     demog_col: Name of the demographic column to aggregate on & standardize.
     names_mapping: Mapping from demographic value to standardized form.
+    time_series: Boolean to indicate if the function should generate time series data.
     """
     # Add a columns of all ones, for counting the # of cases / records.
     df[std_col.COVID_CASES] = np.ones(df.shape[0], dtype=int)
@@ -185,13 +186,20 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
             df = df.replace({demog_col: names_mapping})
 
     # Only keep the year and the month of the date
-    df[CASE_DATE_COL] = df[CASE_DATE_COL].map(lambda x: x[:7])
+    if time_series:
+        df[CASE_DATE_COL] = df[CASE_DATE_COL].map(lambda x: x[:7])
 
     # Group by the geo and demographic columns and compute the sum/counts of
     # cases/hospitalizations/deaths. Add total rows and add to overall_df.
-    groupby_cols = geo_cols + demog_cols + [CASE_DATE_COL]
+    groupby_cols = geo_cols + demog_cols
+    total_groupby_cols = geo_cols
+
+    if time_series:
+        groupby_cols = groupby_cols + [CASE_DATE_COL]
+        total_groupby_cols = total_groupby_cols + [CASE_DATE_COL]
+
     df = df.groupby(groupby_cols).sum().reset_index()
-    totals = df.groupby(geo_cols + [CASE_DATE_COL]).sum().reset_index()
+    totals = df.groupby(total_groupby_cols).sum().reset_index()
 
     # Special case required due to later processing.
     if demog_cols[0] == RACE_ETH_COL:
@@ -387,7 +395,7 @@ def process_data(dir, files):
 
                 all_dfs[(geo, demo)] = accumulate_data(
                     sliced_df, geo_cols, all_dfs[(geo, demo)], demog_col,
-                    demog_names_mapping)
+                    demog_names_mapping, demo != 'race_and_age')
 
         end = time.time()
         print("Took", round(end - start, 2), "seconds to process file", f)
