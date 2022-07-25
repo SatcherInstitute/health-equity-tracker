@@ -19,6 +19,7 @@ GOLDEN_DATA_SEX = os.path.join(TEST_DIR, 'uhc_test_output_sex.json')
 
 
 def get_test_data_as_df():
+    print("mocking a call to AHR annual report URL")
     df = pd.read_csv(os.path.join(TEST_DIR, 'uhc_test_input.csv'),
                      dtype={"State Name": str,
                             "Measure Name": str,
@@ -30,49 +31,70 @@ def get_test_data_as_df():
     return pd.concat([df, df_national]).reset_index(drop=True)
 
 
-def get_race_pop_data_as_df_state():
-    return pd.read_csv(os.path.join(TEST_DIR, 'population_race.csv'), dtype=str)
+def get_pop_data_as_df(*args):
+
+    datasource_name, dataset_name, dtype = args
+
+    mock_table_lookup = {
+        "by_race_state_std": 'population_race.csv',
+        "by_race_national": 'population_race.csv',
+        "by_sex_state": 'population_sex.csv',
+        "by_sex_national": 'population_sex.csv',
+        "by_age_state": 'population_age.csv',
+        "by_age_national": 'population_age.csv',
+        "by_race_and_ethnicity_territory": "population_2010_race.csv",
+        "by_age_territory": "population_2010_age.csv",
+        "by_sex_territory": "population_2010_sex.csv"
+    }
+
+    print("mocking a call to our population tables")
+    print(datasource_name, dataset_name)
+    return pd.read_csv(os.path.join(TEST_DIR, mock_table_lookup[dataset_name]), dtype=str)
 
 
-def get_age_pop_data_as_df_state():
-    return pd.read_csv(os.path.join(TEST_DIR, 'population_age.csv'), dtype=str)
+# def get_race_pop_data_as_df_state():
+#     return pd.read_csv(os.path.join(TEST_DIR, 'population_race.csv'), dtype=str)
 
 
-def get_sex_pop_data_as_df_state():
-    return pd.read_csv(os.path.join(TEST_DIR, 'population_sex.csv'), dtype=str)
+# def get_age_pop_data_as_df_state():
+#     return pd.read_csv(os.path.join(TEST_DIR, 'population_age.csv'), dtype=str)
 
 
-def get_race_pop_data_as_df_territory():
-    return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_race.csv'), dtype=str)
+# def get_sex_pop_data_as_df_state():
+#     return pd.read_csv(os.path.join(TEST_DIR, 'population_sex.csv'), dtype=str)
 
 
-def get_age_pop_data_as_df_territory():
-    return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_age.csv'), dtype=str)
+# def get_race_pop_data_as_df_territory():
+#     return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_race.csv'), dtype=str)
 
 
-def get_sex_pop_data_as_df_territory():
-    return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_sex.csv'), dtype=str)
+# def get_age_pop_data_as_df_territory():
+#     return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_age.csv'), dtype=str)
 
 
-def get_race_pop_data_as_df_national():
-    df = pd.read_csv(os.path.join(TEST_DIR, 'population_race.csv'), dtype=str)
-    df[std_col.STATE_FIPS_COL] = '00'
-    df[std_col.STATE_NAME_COL] = 'United States'
-    return df
+# def get_sex_pop_data_as_df_territory():
+#     return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_sex.csv'), dtype=str)
 
 
-def get_age_pop_data_as_df_national():
-    df = pd.read_csv(os.path.join(TEST_DIR, 'population_age.csv'), dtype=str)
-    df[std_col.STATE_FIPS_COL] = '00'
-    df[std_col.STATE_NAME_COL] = 'United States'
-    return df
+# def get_race_pop_data_as_df_national():
+#     df = pd.read_csv(os.path.join(TEST_DIR, 'population_race.csv'), dtype=str)
+#     df[std_col.STATE_FIPS_COL] = '00'
+#     df[std_col.STATE_NAME_COL] = 'United States'
+#     return df
 
 
-def get_sex_pop_data_as_df_national():
-    df = pd.read_csv(os.path.join(TEST_DIR, 'population_sex.csv'), dtype=str)
-    df[std_col.STATE_FIPS_COL] = '00'
-    df[std_col.STATE_NAME_COL] = 'United States'
-    return df
+# def get_age_pop_data_as_df_national():
+#     df = pd.read_csv(os.path.join(TEST_DIR, 'population_age.csv'), dtype=str)
+#     df[std_col.STATE_FIPS_COL] = '00'
+#     df[std_col.STATE_NAME_COL] = 'United States'
+#     return df
+
+
+# def get_sex_pop_data_as_df_national():
+#     df = pd.read_csv(os.path.join(TEST_DIR, 'population_sex.csv'), dtype=str)
+#     df[std_col.STATE_FIPS_COL] = '00'
+#     df[std_col.STATE_NAME_COL] = 'United States'
+#     return df
 
 
 EXPECTED_DTYPE = {
@@ -98,45 +120,44 @@ EXPECTED_DTYPE = {
 }
 
 
-# @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-# @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#             return_value=get_state_fips_codes_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-#             return_value=get_test_data_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#             return_value=None)
-# def testWriteToBqRaceState(
-#         mock_bq: mock.MagicMock,
-#         mock_csv: mock.MagicMock,
-#         mock_fips: mock.MagicMock,
-#         mock_pop: mock.MagicMock):
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=get_pop_data_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
+            return_value=get_test_data_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+            return_value=None)
+def testWriteToBq(
+        mock_bq: mock.MagicMock,
+        mock_csv: mock.MagicMock,
+        mock_fips: mock.MagicMock,
+        mock_pop: mock.MagicMock):
 
-#     mock_pop.side_effect = [
-#         get_race_pop_data_as_df_state(),
-#         get_race_pop_data_as_df_territory(),
-#         get_age_pop_data_as_df_state(),
-#         get_age_pop_data_as_df_territory(),
-#         get_sex_pop_data_as_df_state(),
-#         get_sex_pop_data_as_df_territory(),
-#         get_race_pop_data_as_df_national(),
-#         get_age_pop_data_as_df_national(),
-#         get_sex_pop_data_as_df_national(),
-#     ]
+    # mock_pop.side_effect = [
+    #     get_race_pop_data_as_df_state(),
+    #     get_race_pop_data_as_df_territory(),
+    #     get_age_pop_data_as_df_state(),
+    #     get_age_pop_data_as_df_territory(),
+    #     get_sex_pop_data_as_df_state(),
+    #     get_sex_pop_data_as_df_territory(),
+    #     get_race_pop_data_as_df_national(),
+    #     get_age_pop_data_as_df_national(),
+    #     get_sex_pop_data_as_df_national(),
+    # ]
 
-#     uhc_data = UHCData()
+    uhc_data = UHCData()
 
-#     expected_dtype = EXPECTED_DTYPE.copy()
-#     # pretend arguments required by bigQuery
-#     kwargs = {'filename': 'test_file.csv',
-#               'metadata_table_id': 'test_metadata',
-#               'table_name': 'output_table'}
+    expected_dtype = EXPECTED_DTYPE.copy()
+    # pretend arguments required by bigQuery
+    kwargs = {'filename': 'test_file.csv',
+              'metadata_table_id': 'test_metadata',
+              'table_name': 'output_table'}
 
-#     uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-#     assert mock_bq.call_count == 6
+    assert mock_bq.call_count == 6
+    assert mock_pop.call_count == 9
 
-#     assert mock_pop.call_count == 9
-#     assert mock_pop.call_args_list[0].args[1] == 'by_race_state_std'
 
 #     # add column type for each demographic file
 #     expected_dtype['race_and_ethnicity'] = str
