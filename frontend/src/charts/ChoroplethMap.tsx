@@ -122,7 +122,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ? { values: props.geoData }
       : { url: `/tmp/${GEOGRAPHIES_DATASET_ID}.json` };
 
-    /* SET UP GEO DATSET */
+    /* SET UP GEO DATASET */
     // Transform geo dataset by adding varField from VAR_DATASET
     let geoTransformers: any[] = [
       {
@@ -130,7 +130,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         from: VAR_DATASET,
         key: VAR_FIPS,
         fields: [GEO_ID],
-        values: [props.metric.metricId],
+        values: [props.metric.metricId, "rating"],
       },
     ];
     if (props.overrideShapeWithCircle) {
@@ -174,9 +174,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       props.isUnknownsMap && props.metric.unknownsVegaLabel
         ? props.metric.unknownsVegaLabel
         : props.metric.shortLabel;
-    const tooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum} }`;
-    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}" }`;
 
+    const tooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum}, "County SVI": datum.rating}`;
+    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}", }`;
     /* SET UP LEGEND */
     let legendList = [];
 
@@ -360,6 +360,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         /*tooltipExpression=*/ tooltipValue
       ),
     ];
+
     if (props.overrideShapeWithCircle) {
       // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET));
