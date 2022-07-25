@@ -78,6 +78,7 @@ def get_sex_pop_data_as_df_national():
 EXPECTED_DTYPE = {
     'state_name': str,
     'state_fips': str,
+    'time_period': str,
     "diabetes_per_100k": float,
     "copd_per_100k": float,
     "frequent_mental_distress_per_100k": float,
@@ -373,22 +374,22 @@ EXPECTED_DTYPE = {
 #     assert mock_pop.call_args_list[8].args[1] == 'by_sex_national'
 
 
-# WRITE JSON LOCALLY
-# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-#             return_value=get_test_data_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-            return_value=None)
-def testWriteJsonLocally(
-        mock_bq: mock.MagicMock,
-        # mock_csv: mock.MagicMock,
+# # WRITE JSON LOCALLY
+# # @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
+# #             return_value=get_test_data_as_df())
+# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+#             return_value=None)
+# def testWriteJsonLocally(
+#         mock_bq: mock.MagicMock,
+#         # mock_csv: mock.MagicMock,
 
-):
+# ):
 
-    uhc_data = UHCData()
+#     uhc_data = UHCData()
 
-    # pretend arguments required by bigQuery
-    kwargs = {'filename': 'test_file.csv',
-              'metadata_table_id': 'test_metadata',
-              'table_name': 'output_table'}
+#     # pretend arguments required by bigQuery
+#     kwargs = {'filename': 'test_file.csv',
+#               'metadata_table_id': 'test_metadata',
+#               'table_name': 'output_table'}
 
-    uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+#     uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)

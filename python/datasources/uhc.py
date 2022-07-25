@@ -152,40 +152,17 @@ class UHCData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
+        # fetch each AHR report a single time
+        loaded_report_dfs = {}
+        for year, url in UHC_REPORT_URLS.items():
+            loaded_report_dfs[year] = gcs_to_bq_util.load_csv_as_df_from_web(
+                url)
+
         for geo in ['state', 'national']:
-            # for geo in ['national']:
-
             for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
-                # for breakdown in [std_col.RACE_OR_HISPANIC_COL]:
 
-                annual_df_list = []
-
-                for year in UHC_REPORT_URLS.keys():
-
-                    print("*******\n\t", year)
-
-                    df = gcs_to_bq_util.load_csv_as_df_from_web(
-                        UHC_REPORT_URLS[year])
-                    df = df.rename(
-                        columns={'State Name': std_col.STATE_NAME_COL})
-
-                    if geo == 'national':
-                        df = df.loc[df[std_col.STATE_NAME_COL]
-                                    == constants.US_NAME]
-                    else:
-                        df = df.loc[df[std_col.STATE_NAME_COL]
-                                    != constants.US_NAME]
-                    annual_breakdown_df = df.copy()
-                    annual_breakdown_df = parse_raw_data(
-                        annual_breakdown_df, breakdown)
-                    annual_breakdown_df = post_process(
-                        annual_breakdown_df, breakdown, geo)
-                    annual_breakdown_df["time_period"] = year
-
-                    annual_df_list.append(annual_breakdown_df)
-
-                # combine each yearly breakdown df into a single breakdown df
-                breakdown_df = pd.concat(annual_df_list, axis=0)
+                breakdown_df = generate_multiyear_breakdown(
+                    geo, breakdown, loaded_report_dfs)
 
                 column_types = {c: 'STRING' for c in breakdown_df.columns}
 
@@ -200,14 +177,54 @@ class UHCData(DataSource):
                 if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
                     column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-                table_name = '%s_%s' % (breakdown, geo)
-
-                print("writing ", table_name)
-                breakdown_df.to_json(
-                    f'ahr_time_sample-{table_name}.json', orient="records")
+                table_name = f'{breakdown}_{geo}'
 
                 gcs_to_bq_util.add_df_to_bq(
                     breakdown_df, dataset, table_name, column_types=column_types)
+
+
+def generate_multiyear_breakdown(geo, breakdown, loaded_report_dfs):
+    """
+    Generates a specific geographic/demographic breakdown to be loaded into BQ. 
+    This generated table will include data from multiple years based on the
+    available source annual reports
+
+    Parameters: 
+        geo: string value 'national' or 'state' for geographic breakdown level 
+        breakdown: string value 'age', 'sex', or 'race_and_ethnicity" 
+            for demographic breakdown type
+        loaded_report_dfs: dict of pre-loaded pandas dataframes, indexed by year 
+
+
+    """
+
+    annual_df_list = []
+
+    for year in UHC_REPORT_URLS.keys():
+
+        print("*******\n\t", year)
+
+        df = loaded_report_dfs[year]
+        df = df.rename(
+            columns={'State Name': std_col.STATE_NAME_COL})
+
+        if geo == 'national':
+            df = df.loc[df[std_col.STATE_NAME_COL]
+                        == constants.US_NAME]
+        else:
+            df = df.loc[df[std_col.STATE_NAME_COL]
+                        != constants.US_NAME]
+        annual_breakdown_df = df.copy()
+        annual_breakdown_df = parse_raw_data(
+            annual_breakdown_df, breakdown)
+        annual_breakdown_df = post_process(
+            annual_breakdown_df, breakdown, geo)
+        annual_breakdown_df["time_period"] = year
+
+        annual_df_list.append(annual_breakdown_df)
+
+    # combine individual yearly breakdown dfs into a single multi-year breakdown df
+    return pd.concat(annual_df_list, axis=0)
 
 
 def parse_raw_data(df, breakdown):
