@@ -43,6 +43,7 @@ AGE_COL = 'age_group'
 OUTCOME_COLS = ['hosp_yn', 'death_yn']
 RACE_COL = 'race'
 ETH_COL = 'ethnicity'
+CASE_DATE_COL = 'cdc_case_earliest_dt'
 
 
 # Convenience list for when we group the data by county.
@@ -56,7 +57,7 @@ COL_NAME_MAPPING = {
     RACE_ETH_COL: std_col.RACE_CATEGORY_ID_COL,
     SEX_COL: std_col.SEX_COL,
     AGE_COL: std_col.AGE_COL,
-    'cdc_case_earliest_dt': 'time_period',
+    CASE_DATE_COL: 'time_period',
 }
 
 # Mapping for county_fips, county, and state unknown values to "Unknown".
@@ -183,13 +184,14 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
         else:
             df = df.replace({demog_col: names_mapping})
 
-    df['cdc_case_earliest_dt'] = df['cdc_case_earliest_dt'].apply(lambda x: x[:7])
+    # Only keep the year and the month of the date
+    df[CASE_DATE_COL] = df[CASE_DATE_COL].map(lambda x: x[:7])
 
     # Group by the geo and demographic columns and compute the sum/counts of
     # cases/hospitalizations/deaths. Add total rows and add to overall_df.
-    groupby_cols = geo_cols + demog_cols + ['cdc_case_earliest_dt']
+    groupby_cols = geo_cols + demog_cols + [CASE_DATE_COL]
     df = df.groupby(groupby_cols).sum().reset_index()
-    totals = df.groupby(geo_cols + ['cdc_case_earliest_dt']).sum().reset_index()
+    totals = df.groupby(geo_cols + [CASE_DATE_COL]).sum().reset_index()
 
     # Special case required due to later processing.
     if demog_cols[0] == RACE_ETH_COL:
@@ -375,7 +377,7 @@ def process_data(dir, files):
                 demog_col, demog_names_mapping = DEMOGRAPHIC_COL_MAPPING[demo]
 
                 # Slice the data and aggregate for the given dimension.
-                sliced_df = df[geo_cols + demog_col + OUTCOME_COLS + ['cdc_case_earliest_dt']]
+                sliced_df = df[geo_cols + demog_col + OUTCOME_COLS + [CASE_DATE_COL]]
 
                 if demo == 'race':
                     demog_col = [RACE_ETH_COL]
@@ -401,12 +403,6 @@ def process_data(dir, files):
         # are added together, so we convert back to int here. We also reset the
         # index for simplicity.
         all_dfs[key] = all_dfs[key].astype(int).reset_index()
-
-        # Ensure that all geos have a row for all possible demographic values,
-        # adding the missing values in with empty data.
-        if demographic != "race_and_age":
-            all_dfs[key] = add_missing_demographic_values(
-                all_dfs[key], geo, demographic)
 
         # Standardize the column names and race/age/sex values.
         all_dfs[key] = standardize_data(all_dfs[key])
