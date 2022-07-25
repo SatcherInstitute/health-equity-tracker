@@ -107,7 +107,7 @@ def get_filename(grp_code, is_county):
     return f"ACS_POVERTY_BY_AGE_RACE_{geo}_{grp_name}"
 
     # Helper method from grabbing a tuple in data.  If the
-    # tuple hasnt been created then it initializes an empty tuple.
+    # tuple hasn't been created then it initializes an empty tuple.
     # This is needed as each data variable will only
     # update one of the population values at a time.
 
@@ -121,7 +121,7 @@ def upsert_row(data, state_fip, county_fip, age, sex, race, default_values=-1):
     return data[(state_fip, county_fip, age, sex, race)]
 
 
-class AcsPovertyIngestor:
+class AcsPovertyIngester:
 
     # Initialize the fips mappings, retrieve all concepts for groups,
     # parse metadata into dict for easy lookup.
@@ -181,7 +181,7 @@ class AcsPovertyIngestor:
 
         return file_diff
 
-    # Write all the datas to local files to debug
+    # Write all the data to local files to debug
     def write_local_files_debug(self):
 
         with open("acs_poverty_metadata.json", "w") as f:
@@ -457,13 +457,5 @@ class ACSPovertyDataSource(DataSource):
 
     def _create_ingesters(self):
         return [
-            AcsPovertyIngestor(BASE_ACS_URL),
+            AcsPovertyIngester(BASE_ACS_URL),
         ]
-
-
-# AcsPovertyIngestor(BASE_ACS_URL).upload_to_gcs(
-#     'kalieki-dev-landing-bucket')
-# AcsPovertyIngestor(BASE_ACS_URL).write_to_bq(
-#     'acs_poverty_manual_test', 'kalieki-dev-landing-bucket')
-
-# AcsPovertyIngestor(BASE_ACS_URL).write_local_files_debug()

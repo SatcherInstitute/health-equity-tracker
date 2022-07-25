@@ -149,7 +149,7 @@ describe("WithLoadingOrErrorUI", () => {
   test("WithMetrics: Dataset doesn't exist", async () => {
     const query = new MetricQuery(
       //@ts-ignore - metric ID should be invalid for this test
-      "fakemetricdoesntexist",
+      "fake_metric_doesnt_exist",
       Breakdowns.national()
     );
 
