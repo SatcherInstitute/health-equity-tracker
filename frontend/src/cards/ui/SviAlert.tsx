@@ -23,6 +23,11 @@ export const findRating = (svi: number) => {
   return "medium";
 };
 
+export const findVerboseRating = (svi: number) => {
+  const rating = findRating(svi);
+  return `${rating[0].toUpperCase() + rating.slice(1)} vulnerability`;
+};
+
 export const findColor = (rating: string) => {
   if (rating === "high") {
     return styles.High;
