@@ -4,7 +4,7 @@ import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { VariableConfig, formatFieldValue } from "../data/config/MetricConfig";
-import { exclude } from "../data/query/BreakdownFilter";
+import { exclude, onlyInclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
   BreakdownVar,
@@ -43,6 +43,7 @@ import { HighestLowestList } from "./ui/HighestLowestList";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { MultiMapDialog } from "./ui/MultiMapDialog";
+import { findVerboseRating } from "./ui/SviAlert";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 /* minimize layout shift */
@@ -102,9 +103,15 @@ function MapCardWithKey(props: MapCardProps) {
         )
     );
 
+  const sviQuery = new MetricQuery(
+    "svi",
+    Breakdowns.byCounty().andAge(onlyInclude("All"))
+  );
+
   const queries = [
     metricQuery(Breakdowns.forChildrenFips(props.fips)),
     metricQuery(Breakdowns.forFips(props.fips)),
+    sviQuery,
   ];
 
   const selectedRaceSuffix = CAWP_DETERMINANTS.includes(metricConfig.metricId)
@@ -135,6 +142,7 @@ function MapCardWithKey(props: MapCardProps) {
         const mapQueryResponse: MetricQueryResponse = queryResponses[0];
         // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
+        const sviQueryResponse: MetricQueryResponse = queryResponses[2];
 
         const sortArgs =
           props.currentBreakdown === "age"
@@ -151,15 +159,36 @@ function MapCardWithKey(props: MapCardProps) {
           sortArgs
         );
 
-        const dataForActiveBreakdownFilter = mapQueryResponse
+        let dataForActiveBreakdownFilter = mapQueryResponse
           .getValidRowsForField(metricConfig.metricId)
           .filter(
             (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
           );
 
+        const dataForSvi = sviQueryResponse
+          .getValidRowsForField("svi")
+          .filter((row) =>
+            dataForActiveBreakdownFilter.find(({ fips }) => row.fips === fips)
+          );
+
+        if (!props.fips.isUsa()) {
+          dataForActiveBreakdownFilter = dataForActiveBreakdownFilter.map(
+            (row) => {
+              const thisCountySviRow = dataForSvi.find(
+                (sviRow) => sviRow.fips === row.fips
+              );
+              return {
+                ...row,
+                rating: findVerboseRating(thisCountySviRow?.svi),
+              };
+            }
+          );
+        }
+
         const highestRatesList = getHighestN(
           dataForActiveBreakdownFilter,
           metricConfig.metricId,
+
           SIZE_OF_HIGHEST_LOWEST_RATES_LIST
         );
         const lowestRatesList = getLowestN(
