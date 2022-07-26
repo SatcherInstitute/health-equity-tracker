@@ -187,15 +187,15 @@ class UHCData(DataSource):
 
     def generate_multiyear_breakdown(self, geo, breakdown, loaded_report_dfs):
         """
-        Generates a specific geographic/demographic breakdown to be loaded into BQ. 
+        Generates a specific geographic/demographic breakdown to be loaded into BQ.
         This generated table will include data from multiple years based on the
         available source annual reports
 
-        Parameters: 
-            geo: string value 'national' or 'state' for geographic breakdown level 
-            breakdown: string value 'age', 'sex', or 'race_and_ethnicity" 
+        Parameters:
+            geo: string value 'national' or 'state' for geographic breakdown level
+            breakdown: string value 'age', 'sex', or 'race_and_ethnicity"
                 for demographic breakdown type
-            loaded_report_dfs: dict of pre-loaded pandas dataframes, indexed by year 
+            loaded_report_dfs: dict of pre-loaded pandas dataframes, indexed by year
 
         Returns:
             a single pandas df for a particular combination of geographic and demographic
@@ -241,7 +241,11 @@ def parse_raw_data(df, breakdown):
     output = []
     states = df[std_col.STATE_NAME_COL].drop_duplicates().to_list()
 
+    print("_")
+
     for state in states:
+
+        print('.', end='')
 
         # print("\t-------", state)
 
@@ -259,8 +263,6 @@ def parse_raw_data(df, breakdown):
                 output_row[breakdown] = breakdown_value.strip()
 
             for determinant, prefix in UHC_DETERMINANTS.items():
-
-                # print("\t\t\t-------", determinant)
 
                 per_100k_col_name = std_col.generate_column_name(
                     prefix, std_col.PER_100K_SUFFIX)
@@ -353,6 +355,8 @@ def post_process(df, breakdown, geo):
        breakdown_df: Dataframe with all the raw UHC data.
        breakdown: demographic breakdown (race, sex, age)
        geo: geographic level (national, state)"""
+
+    print("-")
 
     breakdown_df = df.copy()
 
