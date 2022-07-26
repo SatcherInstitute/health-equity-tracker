@@ -56,7 +56,7 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
 
     df = df.loc[~df[breakdown_col].isin({unknown_val, all_val})]
 
-    groupby_cols = [std_col.STATE_FIPS_COL, 'time_period']
+    groupby_cols = [std_col.STATE_FIPS_COL]
     if std_col.COUNTY_FIPS_COL in df.columns:
         groupby_cols.append(std_col.COUNTY_FIPS_COL)
 
@@ -90,22 +90,22 @@ def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
     alls = df.loc[df[breakdown_col] == all_val]
     alls = alls.rename(columns=rename_cols).reset_index(drop=True)
 
-    on_cols = [std_col.STATE_FIPS_COL, 'time_period']
+    on_cols = [std_col.STATE_FIPS_COL]
     if std_col.COUNTY_FIPS_COL in df.columns:
         on_cols.append(std_col.COUNTY_FIPS_COL)
 
     alls = alls[on_cols + list(rename_cols.values())]
 
-    # fips = std_col.COUNTY_FIPS_COL if std_col.COUNTY_FIPS_COL in df.columns else std_col.STATE_FIPS_COL
+    fips = std_col.COUNTY_FIPS_COL if std_col.COUNTY_FIPS_COL in df.columns else std_col.STATE_FIPS_COL
 
     # Ensure there is exactly one ALL value for each fips group.
-    # all_fips = df[fips].drop_duplicates().to_list()
-    # value_counts = alls[fips].value_counts()
-    # for f in all_fips:
-    #     count = value_counts[f]
-    #     if count != 1:
-    #         raise ValueError(
-    #             f'Fips {f} has {count} ALL rows, there should be 1')
+    all_fips = df[fips].drop_duplicates().to_list()
+    value_counts = alls[fips].value_counts()
+    for f in all_fips:
+        count = value_counts[f]
+        if count != 1:
+            raise ValueError(
+                f'Fips {f} has {count} ALL rows, there should be 1')
 
     df = pd.merge(df, alls, how='left', on=on_cols)
 
