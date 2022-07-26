@@ -17,10 +17,10 @@ export const findRating = (svi: number) => {
   if (svi < 0.34) {
     return "low";
   }
-  if (svi > 0.67) {
+  if (svi > 0.66) {
     return "high";
   }
-  if (svi > 0.34 && svi < 0.67) {
+  if (svi >= 0.34 && svi <= 0.66) {
     return "medium";
   }
   return "Insufficient data";
