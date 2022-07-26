@@ -33,7 +33,23 @@ EXPECTED_DTYPE = {
     "cardiovascular_diseases_per_100k": float,
     "asthma_per_100k": float,
     "voter_participation_per_100k": float,
+    "diabetes_pct_share": float,
+    "copd_pct_share": float,
+    "frequent_mental_distress_pct_share": float,
+    "depression_pct_share": float,
+    "suicide_pct_share": float,
+    "illicit_opioid_use_pct_share": float,
+    "non_medical_rx_opioid_use_pct_share": float,
+    "non_medical_drug_use_pct_share": float,
+    "excessive_drinking_pct_share": float,
+    "preventable_hospitalizations_pct_share": float,
+    "avoided_care_pct_share": float,
+    "chronic_kidney_disease_pct_share": float,
+    "cardiovascular_diseases_pct_share": float,
+    "asthma_pct_share": float,
+    "voter_participation_pct_share": float,
     'brfss_population_pct': float,
+    'race_includes_hispanic': object,
 }
 
 
@@ -96,74 +112,53 @@ def get_pop_data_as_df(*args):
     return pd.read_csv(os.path.join(TEST_DIR, mock_table_lookup[dataset_name]), dtype=str)
 
 
-# def get_race_pop_data_as_df_national():
-#     df = pd.read_csv(os.path.join(TEST_DIR, 'population_race.csv'), dtype=str)
-#     df[std_col.STATE_FIPS_COL] = '00'
-#     df[std_col.STATE_NAME_COL] = 'United States'
-#     return df
-
-
-# def get_age_pop_data_as_df_national():
-#     df = pd.read_csv(os.path.join(TEST_DIR, 'population_age.csv'), dtype=str)
-#     df[std_col.STATE_FIPS_COL] = '00'
-#     df[std_col.STATE_NAME_COL] = 'United States'
-#     return df
-
-
-# def get_sex_pop_data_as_df_national():
-#     df = pd.read_csv(os.path.join(TEST_DIR, 'population_sex.csv'), dtype=str)
-#     df[std_col.STATE_FIPS_COL] = '00'
-#     df[std_col.STATE_NAME_COL] = 'United States'
-#     return df
-
-
 # OVERALL TEST TO CONFIRM CORRECT TABLES WOULD BE WRITTEN TO BQ
 
-# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-#              side_effect=get_test_data_as_df)
-# @mock.patch('datasources.uhc.UHCData.generate_multiyear_breakdown',
-#             side_effect=mocked_generate_multiyear_breakdown)
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#             return_value=None)
-# def testWriteToBq(
-#         mock_bq: mock.MagicMock,
-#         mock_gen_breakdown: mock.MagicMock,
-#         mock_csv: mock.MagicMock,
-# ):
-#     print("****")
-#     print("testWriteToBq")
-#     print("****")
-#     uhc_data = UHCData()
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
+             side_effect=get_test_data_as_df)
+@mock.patch('datasources.uhc.UHCData.generate_multiyear_breakdown',
+            side_effect=mocked_generate_multiyear_breakdown)
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+            return_value=None)
+def testWriteToBq(
+        mock_bq: mock.MagicMock,
+        mock_gen_breakdown: mock.MagicMock,
+        mock_csv: mock.MagicMock,
+):
+    print("****")
+    print("testWriteToBq")
+    print("****")
+    uhc_data = UHCData()
 
-#     # pretend arguments required by bigQuery
-#     kwargs = {'filename': 'test_file.csv',
-#               'metadata_table_id': 'test_metadata',
-#               'table_name': 'output_table'}
+    # pretend arguments required by bigQuery
+    kwargs = {'filename': 'test_file.csv',
+              'metadata_table_id': 'test_metadata',
+              'table_name': 'output_table'}
 
-#     uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-#     assert mock_bq.call_count == 6
-#     assert mock_gen_breakdown.call_count == 6
+    assert mock_bq.call_count == 6
+    assert mock_gen_breakdown.call_count == 6
 
-#     assert mock_gen_breakdown.call_args_list[0].args[0] == 'state'
-#     assert mock_gen_breakdown.call_args_list[0].args[1] == 'race_and_ethnicity'
+    assert mock_gen_breakdown.call_args_list[0].args[0] == 'state'
+    assert mock_gen_breakdown.call_args_list[0].args[1] == 'race_and_ethnicity'
 
-#     assert mock_gen_breakdown.call_args_list[1].args[0] == 'state'
-#     assert mock_gen_breakdown.call_args_list[1].args[1] == 'age'
+    assert mock_gen_breakdown.call_args_list[1].args[0] == 'state'
+    assert mock_gen_breakdown.call_args_list[1].args[1] == 'age'
 
-#     assert mock_gen_breakdown.call_args_list[2].args[0] == 'state'
-#     assert mock_gen_breakdown.call_args_list[2].args[1] == 'sex'
+    assert mock_gen_breakdown.call_args_list[2].args[0] == 'state'
+    assert mock_gen_breakdown.call_args_list[2].args[1] == 'sex'
 
-#     assert mock_gen_breakdown.call_args_list[3].args[0] == 'national'
-#     assert mock_gen_breakdown.call_args_list[3].args[1] == 'race_and_ethnicity'
+    assert mock_gen_breakdown.call_args_list[3].args[0] == 'national'
+    assert mock_gen_breakdown.call_args_list[3].args[1] == 'race_and_ethnicity'
 
-#     assert mock_gen_breakdown.call_args_list[4].args[0] == 'national'
-#     assert mock_gen_breakdown.call_args_list[4].args[1] == 'age'
+    assert mock_gen_breakdown.call_args_list[4].args[0] == 'national'
+    assert mock_gen_breakdown.call_args_list[4].args[1] == 'age'
 
-#     assert mock_gen_breakdown.call_args_list[5].args[0] == 'national'
-#     assert mock_gen_breakdown.call_args_list[5].args[1] == 'sex'
+    assert mock_gen_breakdown.call_args_list[5].args[0] == 'national'
+    assert mock_gen_breakdown.call_args_list[5].args[1] == 'sex'
 
-#     assert mock_csv.call_count == 7
+    assert mock_csv.call_count == 7
 
 
 # SETUP TO TEST INDIVIDUAL MULTIYEAR BREAKDOWNS
@@ -176,6 +171,8 @@ for year, url in UHC_REPORT_URLS.items():
     _fake_loaded_report_dfs[year] = get_test_data_as_df(url)
 
 
+# INTEGRATION TESTS
+
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=get_state_fips_codes_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
@@ -185,11 +182,11 @@ def testStateRace(
         mock_fips: mock.MagicMock,
 ):
 
-    print("****")
-    print("testStateRace")
-    print("****")
+    print("\ntestStateRace\n")
     _generated_df = uhc.generate_multiyear_breakdown(
         "state", "race_and_ethnicity", _fake_loaded_report_dfs)
+
+    _generated_df.to_json('runstaterace.json', orient="records")
 
     assert mock_pop.call_count == 14
     assert mock_fips.call_count == 7
@@ -197,5 +194,30 @@ def testStateRace(
     _expected_df = pd.read_json(
         GOLDEN_DATA_RACE, dtype=EXPECTED_DTYPE.copy())
 
-    # assert_frame_equal(
-    #     _generated_df, _expected_df, check_like=True)
+    assert_frame_equal(
+        _generated_df, _expected_df, check_like=True, check_column_type=False)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=get_pop_data_as_df)
+def testStateAge(
+        mock_pop: mock.MagicMock,
+        mock_fips: mock.MagicMock,
+):
+
+    print("\ntestStateRace\n")
+    _generated_df = uhc.generate_multiyear_breakdown(
+        "state", "age", _fake_loaded_report_dfs)
+
+    _generated_df.to_json('run.json', orient="records")
+
+    assert mock_pop.call_count == 14
+    assert mock_fips.call_count == 7
+
+    _expected_df = pd.read_json(
+        GOLDEN_DATA_AGE, dtype=EXPECTED_DTYPE.copy())
+
+    assert_frame_equal(
+        _generated_df, _expected_df, check_like=True, check_column_type=False)

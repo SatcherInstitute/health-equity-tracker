@@ -228,7 +228,7 @@ class UHCData(DataSource):
             annual_df_list.append(annual_breakdown_df)
 
         # combine individual yearly breakdown dfs into a single multi-year breakdown df
-        return pd.concat(annual_df_list, axis=0)
+        return pd.concat(annual_df_list, axis=0).reset_index(drop=True)
 
 
 def parse_raw_data(df, breakdown):
@@ -387,6 +387,8 @@ def post_process(df, breakdown, geo):
             breakdown_df, {raw_count_col: pct_share_col}, breakdown, total_val)
 
     for determinant in UHC_DETERMINANTS.values():
+        breakdown_df[std_col.generate_column_name(determinant, std_col.PCT_SHARE_SUFFIX)] = breakdown_df[std_col.generate_column_name(
+            determinant, std_col.PCT_SHARE_SUFFIX)].astype(float)
         breakdown_df = breakdown_df.drop(
             columns=std_col.generate_column_name(determinant, 'estimated_total'))
 
