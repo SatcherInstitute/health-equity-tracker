@@ -20,6 +20,7 @@
     "@types/react-table": "^7.7.9",
     "axios": "^0.24.0",
     "cspell": "^6.4.0",
+    "d3": "^7.6.1",
     "data-forge": "^1.9.2",
     "env-cmd": "^10.1.0",
     "html-react-parser": "^1.4.5",
