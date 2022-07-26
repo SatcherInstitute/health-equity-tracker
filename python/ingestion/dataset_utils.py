@@ -59,6 +59,8 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
     groupby_cols = [std_col.STATE_FIPS_COL]
     if std_col.COUNTY_FIPS_COL in df.columns:
         groupby_cols.append(std_col.COUNTY_FIPS_COL)
+    if std_col.TIME_PERIOD in df.columns:
+        groupby_cols.append(std_col.TIME_PERIOD)
 
     df = df.drop(columns=list(raw_count_to_pct_share.values()))
 
@@ -93,6 +95,8 @@ def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
     on_cols = [std_col.STATE_FIPS_COL]
     if std_col.COUNTY_FIPS_COL in df.columns:
         on_cols.append(std_col.COUNTY_FIPS_COL)
+    if std_col.TIME_PERIOD in df.columns:
+        on_cols.append(std_col.TIME_PERIOD)
 
     alls = alls[on_cols + list(rename_cols.values())]
 
@@ -100,6 +104,7 @@ def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
 
     # Ensure there is exactly one ALL value for each fips group.
     all_fips = df[fips].drop_duplicates().to_list()
+
     value_counts = alls[fips].value_counts()
     for f in all_fips:
         count = value_counts[f]
