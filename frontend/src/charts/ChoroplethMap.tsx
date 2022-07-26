@@ -175,7 +175,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         ? props.metric.unknownsVegaLabel
         : props.metric.shortLabel;
 
-    const tooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum}, "County SVI": datum.rating}`;
+    const tooltipValue = () => {
+      if (props.fips.isState() || props.fips.isCounty()) {
+        return `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum}, "County SVI": datum.rating}`;
+      }
+      return `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum},}`;
+    };
     const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}", }`;
     /* SET UP LEGEND */
     let legendList = [];
@@ -357,7 +362,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         /*datasetName=*/ VALID_DATASET,
         /*fillColor=*/ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
         /*hoverColor=*/ DARK_BLUE,
-        /*tooltipExpression=*/ tooltipValue
+        /*tooltipExpression=*/ tooltipValue()
       ),
     ];
 
