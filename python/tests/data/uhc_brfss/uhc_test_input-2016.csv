@@ -1,0 +1,1011 @@
+Edition,Report Type,Measure Name,State Name,Rank,Value,Score,Lower CI,Upper CI,Source,Source Year
+2016,2016 Annual,Air Pollution,Alabama,36,9.1,0.13,,,U.S. Environmental Protection Agency,2013-2015
+2016,2016 Annual,All Determinants,Alabama,46,-0.427,-0.427,,,America's Health Rankings composite measure,2016
+2016,2016 Annual,All Outcomes,Alabama,49,-0.366,-0.366,,,America's Health Rankings composite measure,2016
+2016,2016 Annual,Arthritis,Alabama,49,33.3,2,34.6,31.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Arthritis - $25-$49,999",Alabama,46,35.9,1.47,39.1,32.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Arthritis - $50-$74,999",Alabama,44,29.7,1.23,33.6,25.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Arthritis - $75,000 or More",Alabama,50,26.4,2,29.3,23.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - Ages 18-44,Alabama,49,13.9,2,15.7,12.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - Ages 45-64,Alabama,49,44.5,2,46.7,42.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - Ages 65+,Alabama,48,57.3,1.6,59.7,54.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - American Indian/Alaska Native,Alabama,,45.8,,58.9,32.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - Black,Alabama,,29.5,,32.1,26.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - College Grad,Alabama,48,25.8,2,28,23.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - Female,Alabama,49,37.1,2,38.9,35.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - High School/GED,Alabama,48,38.8,1.44,41.4,36.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - Hispanic,Alabama,,10.6,,16.5,4.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Arthritis - Less Than $25,000",Alabama,47,48.1,1.9,51,45.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - Less Than High School,Alabama,49,53.7,2,58.3,49.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - Male,Alabama,49,29.1,2,31.1,27.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - Multiracial,Alabama,,25.7,,36.7,14.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - Other Race,Alabama,,33.5,,50.9,16,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - Some Post-High School,Alabama,46,35.1,1.62,37.7,32.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Arthritis - White,Alabama,49,36.2,2,37.9,34.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma,Alabama,33,9.9,0.59,10.8,9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Asthma - $25-$49,999",Alabama,7,7.1,-0.59,8.9,5.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Asthma - $50-$74,999",Alabama,13,6.8,-0.69,8.9,4.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Asthma - $75,000 or More",Alabama,9,5.5,-0.87,6.9,4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - Ages 18-44,Alabama,31,9.8,0.58,11.5,8.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - Ages 45-64,Alabama,36,10.4,1,11.8,9.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - Ages 65+,Alabama,40,9.2,0.88,10.7,7.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - American Indian/Alaska Native,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - Black,Alabama,,11.1,,13.2,9.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - College Grad,Alabama,20,7.2,0,8.6,5.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - Female,Alabama,36,12.9,1.04,14.3,11.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - High School/GED,Alabama,34,9.4,0.62,10.9,7.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - Hispanic,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Asthma - Less Than $25,000",Alabama,46,16.0,1.43,18.2,13.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - Less Than High School,Alabama,,14.3,,17.3,11.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - Male,Alabama,23,6.6,0.38,7.8,5.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - Multiracial,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - Other Race,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - Some Post-High School,Alabama,24,9.2,0,10.8,7.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Asthma - White,Alabama,34,9.6,0.45,10.7,8.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Avoided Care Due to Cost,Alabama,47,16.5,1.51,17.7,15.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Avoided Care Due to Cost - American Indian/Alaska Native,Alabama,,32.7,,45.7,19.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Avoided Care Due to Cost - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Avoided Care Due to Cost - Black,Alabama,,19,,21.3,16.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Avoided Care Due to Cost - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Avoided Care Due to Cost - Hispanic,Alabama,,29.8,,41.7,17.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Avoided Care Due to Cost - Multiracial,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Avoided Care Due to Cost - Other Race,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Avoided Care Due to Cost - White,Alabama,49,14.5,1.58,16,13.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Behaviors,Alabama,39,-0.091,-0.091,,,America's Health Rankings composite measure,2016
+2016,2016 Annual,Binge Drinking,Alabama,3,11.6,-1.66,12.7,10.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Binge Drinking - $25-$49,999",Alabama,5,11.9,-1.29,14.5,9.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Binge Drinking - $50-$74,999",Alabama,3,10.8,-2,13.9,7.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Binge Drinking - $75,000 or More",Alabama,2,13.4,-1.76,15.8,11.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - Ages 18-44,Alabama,3,16.6,-1.62,18.7,14.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - Ages 45-64,Alabama,6,10.2,-1.25,11.6,8.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - Ages 65+,Alabama,6,3,-1.27,3.8,2.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - American Indian/Alaska Native,Alabama,,10.9,,21.3,0.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - Black,Alabama,,12.7,,14.9,10.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - College Grad,Alabama,3,10.6,-1.9,12.4,8.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - Female,Alabama,4,7.5,-1.51,8.6,6.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - High School/GED,Alabama,8,12.7,-0.88,15,10.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - Hispanic,Alabama,,13.4,,22.2,4.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Binge Drinking - Less Than $25,000",Alabama,9,10.1,-0.71,12,8.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - Less Than High School,Alabama,18,11.2,-0.4,14.1,8.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - Male,Alabama,3,16.2,-1.64,18,14.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - Rural,Alabama,,5.3,,7.4,3.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - Some Post-High School,Alabama,1,8.8,-1.97,10.6,7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - Suburban,Alabama,5,6.6,-1.24,9.3,3.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - Urban,Alabama,6,7.7,-1.27,9.8,5.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Binge Drinking - White,Alabama,3,11.2,-1.84,12.4,9.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer,Alabama,39,7.3,0.56,7.9,6.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Cancer - $25-$49,999",Alabama,18,8.0,-0.08,9.6,6.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Cancer - $50-$74,999",Alabama,26,6.9,-0.1,8.7,5.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Cancer - $75,000 or More",Alabama,42,6.5,0.72,8,5.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - Ages 18-44,Alabama,,2.0,,2.7,1.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - Ages 45-64,Alabama,35,7.6,1,8.7,6.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - Ages 65+,Alabama,37,18.5,0.63,20.4,16.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - American Indian/Alaska Native,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - Black,Alabama,,5.1,,6.2,3.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - College Grad,Alabama,35,7.4,0.79,8.6,6.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - Female,Alabama,34,8.7,0.9,9.6,7.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - High School/GED,Alabama,17,7.7,-0.25,8.9,6.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - Hispanic,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Cancer - Less Than $25,000",Alabama,28,9.6,0.74,11.2,8.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - Less Than High School,Alabama,,9.6,,11.8,7.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - Male,Alabama,36,5.8,0.76,6.7,4.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - Multiracial,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - Other Race,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - Some Post-High School,Alabama,26,8.2,0.23,9.5,6.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer - White,Alabama,39,8.5,0.37,9.4,7.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cancer Deaths,Alabama,43,211.1,1.18,213.4,208.8,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cancer Deaths - American Indian/Alaska Native,Alabama,,76.2,,100,56.9,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cancer Deaths - Asian/Pacific Islander,Alabama,,70.4,,90.6,53.7,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cancer Deaths - Black,Alabama,,236.2,,241.7,230.7,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cancer Deaths - Crude Rate,Alabama,38,217.5,0.94,219.9,215.1,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cancer Deaths - Female,Alabama,,169.8,,172.5,167,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cancer Deaths - Hispanic/Latino,Alabama,,63.1,,75.4,50.7,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cancer Deaths - Male,Alabama,,268.9,,273,264.8,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cancer Deaths - Standard Age Adjustment,Alabama,42,185.6,1.16,187.7,183.6,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cancer Deaths - White,Alabama,,206.5,,209.1,203.9,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cardiovascular Deaths,Alabama,49,332.9,2,335.9,329.9,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cardiovascular Deaths - American Indian/Alaska Native,Alabama,,119.2,,150.3,93.1,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cardiovascular Deaths - Asian/Pacific Islander,Alabama,,86.3,,109.6,66.9,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cardiovascular Deaths - Black,Alabama,,385.3,,392.5,378.1,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cardiovascular Deaths - Crude Rate,Alabama,49,331.6,1.75,334.5,328.6,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cardiovascular Deaths - Female,Alabama,,277.6,,281.1,274,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cardiovascular Deaths - Hispanic/Latino,Alabama,,124,,141.8,106.2,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cardiovascular Deaths - Male,Alabama,,401.9,,407.1,396.7,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cardiovascular Deaths - Standard Age Adjustment,Alabama,49,294.1,2,296.8,291.5,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cardiovascular Deaths - White,Alabama,,321.1,,324.4,317.8,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Cardiovascular Diseases,Alabama,46,11.1,1.84,12,10.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Cardiovascular Diseases - $25-$49,999",Alabama,33,10.9,0.24,12.8,8.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Cardiovascular Diseases - $50-$74,999",Alabama,38,8.0,0.51,10.1,5.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Cardiovascular Diseases - $75,000 or More",Alabama,48,6.8,2,8.4,5.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - Ages 18-44,Alabama,,3.4,,4.3,2.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - Ages 45-64,Alabama,43,12.9,1.35,14.4,11.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - Ages 65+,Alabama,41,25.3,1.02,27.5,23.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - American Indian/Alaska Native,Alabama,,20.2,,31,9.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - Black,Alabama,,10.3,,11.9,8.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - College Grad,Alabama,44,7.5,1.77,8.9,6.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - Female,Alabama,48,10.4,1.89,11.5,9.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - High School/GED,Alabama,44,12.8,0.86,14.5,11.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - Hispanic,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Cardiovascular Diseases - Less Than $25,000",Alabama,41,18.5,1.21,20.5,16.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - Less Than High School,Alabama,38,19.6,1.01,22.7,16.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - Male,Alabama,41,11.9,1.23,13.2,10.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - Multiracial,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - Other Race,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - Some Post-High School,Alabama,49,12.0,1.93,13.6,10.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cardiovascular Diseases - White,Alabama,44,11.7,1.27,12.7,10.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Children in Poverty,Alabama,,27.7,,28.6,26.8,"U.S. Census Bureau, American Community Survey",2015
+2016,2016 Annual,Children in Poverty,Alabama,42,22.3,0.54,25.8,18.8,"U.S. Census Bureau, Current Population Survey, Annual Social and Economic Supplement",2015
+2016,2016 Annual,Children in Poverty - American Indian/Alaska Native,Alabama,,10.3,,20.1,0.5,"U.S. Census Bureau, American Community Survey",2015
+2016,2016 Annual,Children in Poverty - Asian,Alabama,,5.4,,10.3,0.6,"U.S. Census Bureau, American Community Survey",2015
+2016,2016 Annual,Children in Poverty - Black,Alabama,,45,,46.8,43.2,"U.S. Census Bureau, American Community Survey",2015
+2016,2016 Annual,Children in Poverty - Hawaiian/Pacific Islander,Alabama,,,,,,"U.S. Census Bureau, American Community Survey",2015
+2016,2016 Annual,Children in Poverty - Hispanic,Alabama,,47,,50.6,43.4,"U.S. Census Bureau, American Community Survey",2015
+2016,2016 Annual,Children in Poverty - Multiracial,Alabama,,35.2,,40.3,30.1,"U.S. Census Bureau, American Community Survey",2015
+2016,2016 Annual,Children in Poverty - White,Alabama,,18.5,,19.5,17.5,"U.S. Census Bureau, American Community Survey",2015
+2016,2016 Annual,Chlamydia,Alabama,47,600.2,1.41,,,"CDC, National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention Atlas",2014
+2016,2016 Annual,Chlamydia - American Indian/Alaska Native,Alabama,,150,,,,"CDC, National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention Atlas",2014
+2016,2016 Annual,Chlamydia - Asian,Alabama,,104.5,,,,"CDC, National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention Atlas",2014
+2016,2016 Annual,Chlamydia - Black,Alabama,,1156.2,,,,"CDC, National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention Atlas",2014
+2016,2016 Annual,Chlamydia - Female,Alabama,,828.6,,,,"CDC, National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention Atlas",2014
+2016,2016 Annual,Chlamydia - Hispanic/Latino,Alabama,,144.9,,,,"CDC, National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention Atlas",2014
+2016,2016 Annual,Chlamydia - Male,Alabama,,354.7,,,,"CDC, National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention Atlas",2014
+2016,2016 Annual,Chlamydia - White,Alabama,,155.1,,,,"CDC, National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention Atlas",2014
+2016,2016 Annual,Cholesterol Check,Alabama,14,79.9,0.58,81.4,78.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Cholesterol Check - $25-$49,999",Alabama,8,84.9,1.16,88,81.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Cholesterol Check - $50-$74,999",Alabama,19,85.8,0.28,89.4,82.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Cholesterol Check - $75,000 or More",Alabama,8,91.6,0.81,93.8,89.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - Ages 18-44,Alabama,14,64.3,0.4,67.1,61.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - Ages 45-64,Alabama,16,89.6,0.42,91.1,88.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - Ages 65+,Alabama,4,96.8,1.29,97.6,96,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - American Indian/Alaska Native,Alabama,0,64.4,0,78.6,50.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - Asian,Alabama,0,,0,0,0,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - Black,Alabama,0,78.5,0,81.2,75.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - College Grad,Alabama,5,90.7,1.06,92.5,89,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - Female,Alabama,13,82.5,0.54,84.2,80.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - Hawaiian/Pacific Islander,Alabama,0,,0,0,0,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - High School/GED,Alabama,13,83,0.47,85.4,80.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - Hispanic,Alabama,0,60.1,0,73.2,47.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Cholesterol Check - Less Than $25,000",Alabama,16,78.3,0.59,80.9,75.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - Less Than High School,Alabama,10,77.4,0.78,81.9,72.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - Male,Alabama,12,77.2,0.51,79.5,74.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - Rural,Alabama,0,85.6,0,89.3,81.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - Some Post-High School,Alabama,19,84.5,-0.03,86.8,82.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - Suburban,Alabama,19,87.8,0.06,92,83.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - Urban,Alabama,3,91.1,1.15,93.9,88.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Cholesterol Check - White,Alabama,16,81.9,0.24,83.5,80.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Chronic Drinking - $25-$49,999",Alabama,30,5.9,0.23,7.8,3.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Chronic Drinking - $50-$74,999",Alabama,20,5.7,-0.62,8.2,3.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Chronic Drinking - $75,000 or More",Alabama,16,6.4,-0.57,8,4.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - Ages 18-44,Alabama,16,5.9,-0.36,7.2,4.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - Ages 45-64,Alabama,7,4.8,-1.03,5.8,3.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - Ages 65+,Alabama,8,2.5,-1.04,3.3,1.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - American Indian/Alaska Native,Alabama,,0.8,,1.8,-0.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - Black,Alabama,,5.3,,6.8,3.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - College Grad,Alabama,9,4.7,-0.86,5.8,3.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - Female,Alabama,9,3.9,-0.86,4.8,3.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - High School/GED,Alabama,11,5.2,-0.44,6.6,3.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - Hispanic,Alabama,,2.2,,5.3,-0.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Chronic Drinking - Less Than $25,000",Alabama,16,4,-0.29,5.2,2.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - Less Than High School,Alabama,33,5.7,0.56,7.8,3.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - Male,Alabama,12,5.8,-0.53,7,4.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - Rural,Alabama,,3.4,,5.2,1.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - Some Post-High School,Alabama,9,4.6,-1.06,6,3.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - Suburban,Alabama,14,4.2,-0.39,6.4,2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - Urban,Alabama,14,4,-0.41,5.3,2.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Drinking - White,Alabama,5,4.8,-1.3,5.7,4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease,Alabama,28,2.8,0.21,3.2,2.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Chronic Kidney Disease - $25-$49,999",Alabama,,2.5,,3.5,1.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Chronic Kidney Disease - $50-$74,999",Alabama,,2.7,,3.9,1.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Chronic Kidney Disease - $75,000 or More",Alabama,,2.5,,3.7,1.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - Ages 18-44,Alabama,,1.5,,2.1,0.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - Ages 45-64,Alabama,32,3.1,0.17,3.9,2.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - Ages 65+,Alabama,12,4.9,-0.77,6,3.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - American Indian/Alaska Native,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - Black,Alabama,,3.6,,4.8,2.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - College Grad,Alabama,48,3.0,1.96,3.9,2.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - Female,Alabama,24,2.9,0,3.5,2.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - High School/GED,Alabama,13,2.7,-0.78,3.6,1.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - Hispanic,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Chronic Kidney Disease - Less Than $25,000",Alabama,,3.4,,4.3,2.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - Less Than High School,Alabama,,4.5,,6.1,3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - Male,Alabama,30,2.6,0.2,3.3,1.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - Multiracial,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - Other Race,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - Some Post-High School,Alabama,,2.3,,3,1.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Kidney Disease - White,Alabama,14,2.5,-0.53,3,2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease,Alabama,48,10.5,2,11.4,9.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Chronic Obstructive Pulmonary Disease - $25-$49,999",Alabama,48,11.4,2,13.6,9.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Chronic Obstructive Pulmonary Disease - $50-$74,999",Alabama,,5.6,,7.3,4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Chronic Obstructive Pulmonary Disease - $75,000 or More",Alabama,48,4.3,2,5.7,2.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - Ages 18-44,Alabama,,5.8,,7.1,4.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - Ages 45-64,Alabama,47,13.7,1.98,15.3,12.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - Ages 65+,Alabama,45,15.8,1.29,17.7,13.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - American Indian/Alaska Native,Alabama,,23.8,,35.8,11.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - Black,Alabama,,9.1,,10.8,7.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - College Grad,Alabama,46,4.6,2,5.5,3.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - Female,Alabama,48,12.0,2,13.3,10.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - High School/GED,Alabama,47,10.9,1.08,12.5,9.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - Hispanic,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Chronic Obstructive Pulmonary Disease - Less Than $25,000",Alabama,47,18.7,1.54,20.9,16.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - Less Than High School,Alabama,,21.3,,24.7,18,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - Male,Alabama,48,9.0,1.95,10.2,7.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - Multiracial,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - Other Race,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - Some Post-High School,Alabama,48,10.5,2,12.1,8.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Chronic Obstructive Pulmonary Disease - White,Alabama,48,11.3,1.85,12.4,10.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Clinical Care,Alabama,48,-0.197,-0.197,,,America's Health Rankings composite measure,2016
+2016,2016 Annual,Colorectal Cancer Screening,Alabama,31,64.6,-0.4,66.6,62.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Colorectal Cancer Screening - $25-$49,999",Alabama,20,67.4,0.27,71.5,63.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Colorectal Cancer Screening - $50-$74,999",Alabama,27,69.4,-0.19,74.8,64,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Colorectal Cancer Screening - $75,000 or More",Alabama,35,71,-0.47,75.2,66.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Colorectal Cancer Screening - American Indian/Alaska Native,Alabama,0,,0,0,0,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Colorectal Cancer Screening - Asian,Alabama,0,24.2,0,39.4,8.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Colorectal Cancer Screening - Black,Alabama,0,64.2,0,68.4,59.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Colorectal Cancer Screening - College Grad,Alabama,31,73.5,-0.22,76.8,70.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Colorectal Cancer Screening - Female,Alabama,30,66.1,-0.35,68.4,63.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Colorectal Cancer Screening - Hawaiian/Pacific Islander,Alabama,0,,0,0,0,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Colorectal Cancer Screening - High School/GED,Alabama,20,63.9,0.2,67.3,60.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Colorectal Cancer Screening - Hispanic,Alabama,0,,0,0,0,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Colorectal Cancer Screening - Less Than $25,000",Alabama,24,55.7,0.05,59.6,51.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Colorectal Cancer Screening - Less Than High School,Alabama,22,50.6,-0.04,56.4,44.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Colorectal Cancer Screening - Male,Alabama,32,63,-0.32,66.2,59.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Colorectal Cancer Screening - Rural,Alabama,0,64,0,67.9,60.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Colorectal Cancer Screening - Some Post-High School,Alabama,29,67.5,-0.3,71,64,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Colorectal Cancer Screening - Suburban,Alabama,0,68,0,72.7,63.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Colorectal Cancer Screening - Urban,Alabama,15,74.5,0.69,78.1,70.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Colorectal Cancer Screening - White,Alabama,32,65.8,-0.55,68,63.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Community and Environment,Alabama,48,-0.128,-0.128,,,America's Health Rankings composite measure,2016
+2016,2016 Annual,"Dedicated HC Provider - $25-$49,999",Alabama,24,81,0.29,84.3,77.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Dedicated HC Provider - $50-$74,999",Alabama,24,83.6,0.04,87.3,79.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Dedicated HC Provider - $75,000 or More",Alabama,17,88.7,0.31,91,86.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - 18-44,Alabama,30,65.4,-0.13,68,62.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - 45-64,Alabama,19,87.1,0.29,88.6,85.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - 65+,Alabama,7,96.1,0.64,97.1,95.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - American Indian/Alaska Native,Alabama,0,60.5,0,74.1,47,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - Asian,Alabama,0,,0,0,0,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - Black,Alabama,0,78.1,0,80.9,75.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - College Grad,Alabama,15,87.8,0.44,89.7,85.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - Female,Alabama,33,83.4,-0.08,85.1,81.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - Hawaiian/Pacific Islander,Alabama,0,,0,0,0,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - High School/GED,Alabama,20,81.7,0.23,84.1,79.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - Hispanic,Alabama,0,53,0,65.6,40.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Dedicated HC Provider - Less Than $25,000",Alabama,16,78.2,0.8,80.7,75.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - Less Than High School,Alabama,17,75.9,0.76,80.3,71.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - Male,Alabama,18,74.4,0.22,76.7,72.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - Rural,Alabama,0,88.6,0,91.7,85.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - Some Post-High School,Alabama,29,82.3,-0.12,84.8,79.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - Suburban,Alabama,25,88.3,-0.05,91.9,84.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - Urban,Alabama,38,85.7,-0.63,89.5,81.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated HC Provider - White,Alabama,26,81.8,-0.25,83.3,80.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dedicated Health Care Provider,Alabama,23,79.1,0.02,80.5,77.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit,Alabama,39,60,-1.02,61.5,58.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Dental Visit - $25-$49,999",Alabama,39,58.2,-0.72,61.7,54.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Dental Visit - $50-$74,999",Alabama,15,75.1,0.76,78.7,71.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Dental Visit - $75,000 or More",Alabama,24,82.6,0.23,85.2,79.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - Ages 18-44,Alabama,33,61.4,-0.21,64,58.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - Ages 45-64,Alabama,43,59.5,-1.11,61.7,57.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - Ages 65+,Alabama,44,57.9,-1.24,60.3,55.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - American Indian/Alaska Native,Alabama,,36,,50,22.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - Black,Alabama,,53,,56.1,49.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - College Grad,Alabama,22,81.2,0.48,83.3,79.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - Female,Alabama,43,61,-1.09,62.9,59.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - High School/GED,Alabama,43,52.3,-1.13,55.1,49.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - Hispanic,Alabama,,68.7,,80.8,56.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Dental Visit - Less Than $25,000",Alabama,43,37.5,-0.98,40.3,34.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - Less Than High School,Alabama,45,31.8,-1.31,36.1,27.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - Male,Alabama,35,58.9,-0.54,61.3,56.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - Rural,Alabama,,56,,59.6,52.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - Some Post-High School,Alabama,28,65.5,-0.06,68.1,62.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - Suburban,Alabama,,60.6,,64.6,56.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - Urban,Alabama,38,65.9,-0.41,69.2,62.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dental Visit - White,Alabama,42,62.5,-1.09,64.3,60.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Dentists,Alabama,48,43.8,-1.58,,,American Dental Association,2015
+2016,2016 Annual,Depression,Alabama,44,22.1,1.05,23.4,20.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Depression - $25-$49,999",Alabama,41,22.2,1.24,25.2,19.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Depression - $50-$74,999",Alabama,22,16.3,0.11,19.3,13.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Depression - $75,000 or More",Alabama,49,17.2,2,19.9,14.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - Ages 18-44,Alabama,35,20.9,1.1,23,18.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - Ages 45-64,Alabama,46,26.0,1.72,27.9,24.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - Ages 65+,Alabama,47,18.5,1.54,20.4,16.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - American Indian/Alaska Native,Alabama,,29.7,,41.8,17.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - Black,Alabama,,16.9,,19.1,14.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - College Grad,Alabama,42,17.4,1.35,19.4,15.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - Female,Alabama,44,27.7,1.58,29.4,25.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - High School/GED,Alabama,45,22.8,1.53,25.1,20.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - Hispanic,Alabama,,18.6,,28.4,8.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Depression - Less Than $25,000",Alabama,39,33.1,1.17,35.8,30.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - Less Than High School,Alabama,44,30.7,1.71,34.6,26.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - Male,Alabama,40,16.1,1.24,17.8,14.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - Multiracial,Alabama,,35.9,,50.3,21.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - Other Race,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - Some Post-High School,Alabama,43,24.1,1.19,26.6,21.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Depression - White,Alabama,48,24.4,1.8,26,22.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes,Alabama,48,13.5,1.91,14.4,12.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Diabetes - $25-$49,999",Alabama,45,14.8,1.23,16.9,12.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Diabetes - $50-$74,999",Alabama,39,11.0,0.39,13.4,8.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Diabetes - $75,000 or More",Alabama,47,8.9,1.2,10.7,7.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Ages 18-44,Alabama,,4.1,,5.1,3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Ages 45-64,Alabama,45,17.8,1.33,19.6,16,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Ages 65+,Alabama,48,27.0,1.43,29.2,24.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - American Indian/Alaska Native,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Black,Alabama,,16.8,,18.8,14.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - College Grad,Alabama,49,10.9,2,12.5,9.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Female,Alabama,48,14.0,1.93,15.3,12.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - High School/GED,Alabama,41,14.5,0.46,16.2,12.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Hispanic,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Diabetes - Less Than $25,000",Alabama,47,21.7,1.6,24.1,19.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Less Than High School,Alabama,49,24.5,1.66,28.1,20.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Male,Alabama,47,12.9,1.09,14.3,11.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Multiracial,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Other Race,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Rural,Alabama,,19.7,,22.8,16.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Some Post-High School,Alabama,44,13.7,1.09,15.5,12,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Suburban,Alabama,44,17.5,1.04,20.8,14.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - Urban,Alabama,47,17.3,1.25,19.9,14.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Diabetes - White,Alabama,47,12.7,1.4,13.8,11.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Disparity in Health Status,Alabama,20,26.9,-0.6,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Drug Deaths,Alabama,18,13.1,-0.18,13.7,12.5,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths,Alabama,26,15.1,0,16.2,14,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Ages 15-24,Alabama,0,8.6,0,11.2,6.6,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Ages 25-34,Alabama,0,26.5,0,30.5,22.5,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Ages 35-44,Alabama,0,27.9,0,32.1,23.7,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Ages 45-54,Alabama,0,26.2,0,30.1,22.3,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Ages 55-64,Alabama,0,19.1,0,22.5,15.7,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Ages 65-74,Alabama,0,6,0,8.7,3.9,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - American Indian/Alaska Native,Alabama,0,,0,0,0,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - American Indian/Alaska Native,Alabama,,,,,,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Asian/Pacific Islander,Alabama,0,,0,0,0,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Asian/Pacific Islander,Alabama,,,,,,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Black,Alabama,0,4.9,0,6.3,3.8,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Black,Alabama,,4.1,,4.8,3.5,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Female,Alabama,0,13.1,0,14.5,11.7,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Female,Alabama,,11,,11.7,10.2,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Hispanic,Alabama,0,,0,0,0,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Hispanic/Latino,Alabama,,,,,,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Male,Alabama,0,17,0,18.7,15.3,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - Male,Alabama,,15.3,,16.3,14.4,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - White,Alabama,0,20.5,0,22.1,18.9,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Drug Deaths - White,Alabama,,17.1,,17.9,16.3,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Excessive Drinking,Alabama,4,13,-1.6,14.1,11.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Excessive Drinking - $25-$49,999",Alabama,5,13,-1.3,15.7,10.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Excessive Drinking - $50-$74,999",Alabama,3,12.3,-2,15.5,9.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Excessive Drinking - $75,000 or More",Alabama,4,15.8,-1.63,18.3,13.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - Ages 18-44,Alabama,4,18,-1.51,20.1,15.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - Ages 45-64,Alabama,7,11.5,-1.35,12.9,10,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - Ages 65+,Alabama,8,4.5,-1.27,5.4,3.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - American Indian/Alaska Native,Alabama,,11.2,,21.6,0.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - Black,Alabama,,14,,16.3,11.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - College Grad,Alabama,3,12.4,-1.91,14.3,10.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - Female,Alabama,5,8.9,-1.47,10.2,7.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - High School/GED,Alabama,8,13.9,-0.85,16.1,11.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - Hispanic,Alabama,,15,,24.1,5.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Excessive Drinking - Less Than $25,000",Alabama,8,11,-0.73,13,9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - Less Than High School,Alabama,15,12.1,-0.45,15,9.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - Male,Alabama,4,17.5,-1.54,19.4,15.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - Rural,Alabama,,6.3,,8.5,4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - Some Post-High School,Alabama,2,10.3,-1.89,12.2,8.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - Suburban,Alabama,5,8.1,-1.29,11,5.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - Urban,Alabama,7,9.3,-1.16,11.6,7.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking - White,Alabama,4,12.5,-1.88,13.8,11.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking Rate of Change,Alabama,,-0.47,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking Rate of Change-College Graduate,Alabama,,-0.53,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking Rate of Change-High School/GED,Alabama,,0.21,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking Rate of Change-Less Than High S,Alabama,,-0.31,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Excessive Drinking Rate of Change-Some Post-High School,Alabama,,-0.79,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise,Alabama,46,16.7,-1.32,18,15.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Exercise - $25-$49,999",Alabama,34,16.4,-0.48,19.5,13.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Exercise - $50-$74,999",Alabama,25,20.2,-0.1,24,16.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Exercise - $75,000 or More",Alabama,47,21.2,-1.43,24,18.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - Ages 18-44,Alabama,44,21.7,-0.87,24.1,19.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - Ages 45-64,Alabama,46,13.1,-1.5,14.7,11.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - Ages 65+,Alabama,44,12.1,-1.43,13.8,10.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - American Indian/Alaska Native,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - Black,Alabama,,17.9,,20.7,15,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - College Grad,Alabama,45,22.1,-1.58,24.6,19.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - Female,Alabama,46,14.3,-1.28,15.8,12.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - High School/GED,Alabama,41,12.5,-0.74,14.7,10.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - Hispanic,Alabama,,22.7,,33,12.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Exercise - Less Than $25,000",Alabama,43,10.2,-1.03,11.9,8.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - Less Than High School,Alabama,,6.3,,8.6,4.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - Male,Alabama,43,19.4,-1.22,21.5,17.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - Multiracial,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - Other Race,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - Some Post-High School,Alabama,40,17.7,-0.79,20.1,15.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Exercise - White,Alabama,46,16.1,-1.45,17.6,14.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination,Alabama,29,40.7,-0.28,42.2,39.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Flu Vaccination - $25-$49,999",Alabama,9,45.9,1.21,49.7,42.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Flu Vaccination - $50-$74,999",Alabama,33,40.5,-0.3,44.9,36.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Flu Vaccination - $75,000 or More",Alabama,31,46.3,0.02,49.7,42.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - 18-44,Alabama,41,28.6,-0.53,31.1,26,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - 45-64,Alabama,19,43.7,0.54,46,41.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - 65+,Alabama,21,61.6,0.19,64.1,59.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - American Indian/Alaska Native,Alabama,,42.6,,56.9,28.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - Black,Alabama,,34.5,,37.6,31.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - College Grad,Alabama,26,49.8,0.16,52.8,46.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - Female,Alabama,29,44.2,0.07,46.2,42.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - High School/GED,Alabama,24,39.2,0.21,42.1,36.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - Hispanic,Alabama,,30.0,,41.4,18.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Flu Vaccination - Less Than $25,000",Alabama,21,41.1,0.66,44.1,38.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - Less Than HS,Alabama,22,40.1,0.59,44.6,35.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - Male,Alabama,32,36.9,0.02,39.2,34.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - Multiracial,Alabama,,32.4,,46.2,18.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - Other Race,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - Some Post-High School,Alabama,23,42.7,0.36,45.6,39.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Flu Vaccination - White,Alabama,27,43.7,0.09,45.6,41.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Food Insecurity,Alabama,43,16.8,0.93,19.2,14.4,AHR data,
+2016,2016 Annual,Frequent Mental Distress,Alabama,45,13.9,1.52,15,12.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Frequent Mental Distress - $25-$49,999",Alabama,46,12.9,1.18,15.5,10.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Frequent Mental Distress - $50-$74,999",Alabama,39,9.4,0.31,12.1,6.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Frequent Mental Distress - $75,000 or More",Alabama,35,6.2,0.25,8,4.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - Ages 18-44,Alabama,46,15.2,1.62,17.1,13.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - Ages 45-64,Alabama,42,15.2,1.03,16.8,13.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - Ages 65+,Alabama,46,8.8,1.03,10.2,7.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - American Indian/Alaska Native,Alabama,0,19.8,0,31.1,8.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - Asian,Alabama,0,,0,0,0,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - Black,Alabama,0,13.9,0,16,11.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - College Grad,Alabama,40,7.3,0.73,8.7,6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - Female,Alabama,47,16.1,1.5,17.6,14.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - Hawaiian/Pacific Islander,Alabama,0,,0,0,0,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - High School/GED,Alabama,45,14.9,1.15,17,12.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - Hispanic,Alabama,0,10.6,0,19.4,1.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Frequent Mental Distress - Less Than $25,000",Alabama,42,23.7,1.17,26.2,21.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - Less Than High School,Alabama,37,21.4,1.12,25,17.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - Male,Alabama,40,11.5,1,13,9.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - Rural,Alabama,0,14.7,0,17.8,11.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - Some Post-High School,Alabama,44,13.8,0.99,15.9,11.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - Suburban,Alabama,44,12.2,0.7,15.4,9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - Urban,Alabama,48,13.6,1.97,16.3,10.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Mental Distress - White,Alabama,45,14.1,1.54,15.4,12.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress,Alabama,46,15,1.69,16,13.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Frequent Physical Distress - $25-$49,999",Alabama,45,14.4,1.16,16.8,12,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Frequent Physical Distress - $50-$74,999",Alabama,39,10.4,0.65,13.2,7.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Frequent Physical Distress - $75,000 or More",Alabama,48,7.4,1.7,9.2,5.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - Ages 18-44,Alabama,45,9.1,1.29,10.6,7.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - Ages 45-64,Alabama,44,19.7,1.2,21.5,17.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - Ages 65+,Alabama,45,20.2,1.26,22.3,18.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - American Indian/Alaska Native,Alabama,0,22.4,0,33.2,11.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - Asian,Alabama,0,,0,0,0,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - Black,Alabama,0,15,0,17.1,12.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - College Grad,Alabama,49,9.2,2,10.8,7.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - Female,Alabama,47,16.6,1.48,18,15.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - Hawaiian/Pacific Islander,Alabama,0,,0,0,0,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - High School/GED,Alabama,41,17,0.83,19.1,15,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - Hispanic,Alabama,0,8.7,0,15.6,1.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Frequent Physical Distress - Less Than $25,000",Alabama,43,27.3,0.98,29.9,24.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - Less Than High School,Alabama,42,27.7,1.07,31.5,23.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - Male,Alabama,43,13.2,1.13,14.7,11.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - Rural,Alabama,0,19.6,0,22.8,16.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - Some Post-High School,Alabama,40,15.3,1,17.3,13.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - Suburban,Alabama,33,14.4,0.13,17.5,11.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - Urban,Alabama,49,18.9,2,21.9,15.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Frequent Physical Distress - White,Alabama,45,15.2,1.29,16.4,14,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Fruits,Alabama,5,1.11,-1.55,1.15,1.07,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack,Alabama,40,5.2,1.07,5.8,4.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Heart Attack - $25-$49,999",Alabama,14,4.9,-0.42,6.1,3.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Heart Attack - $50-$74,999",Alabama,15,3.1,-0.49,4.3,1.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Heart Attack - $75,000 or More",Alabama,37,2.7,0.91,3.6,1.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - Ages 18-44,Alabama,48,1.7,2,2.4,1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - Ages 45-64,Alabama,33,5,0.07,5.9,4.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - Ages 65+,Alabama,41,13.4,1.07,15.2,11.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - American Indian/Alaska Native,Alabama,,10.1,,18.5,1.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - Black,Alabama,,4.3,,5.4,3.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - College Grad,Alabama,40,3.2,1.17,4,2.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - Female,Alabama,43,4.1,1.38,4.9,3.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - High School/GED,Alabama,37,6.4,0.46,7.6,5.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - Hispanic,Alabama,,1.4,,2.9,-0.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Heart Attack - Less Than $25,000",Alabama,35,9,0.61,10.5,7.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - Less Than High School,Alabama,29,9.4,0.38,11.7,7.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - Male,Alabama,38,6.4,0.72,7.3,5.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - Rural,Alabama,,9.1,,11.7,6.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - Some Post-High School,Alabama,34,5,0.46,6,4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - Suburban,Alabama,31,6.4,0.33,8.4,4.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - Urban,Alabama,38,6.4,0.89,8.1,4.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Attack - White,Alabama,42,5.7,0.87,6.5,4.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease,Alabama,44,5.2,1.41,5.7,4.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Heart Disease - $25-$49,999",Alabama,36,6,0.53,7.5,4.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Heart Disease - $50-$74,999",Alabama,26,3.7,-0.09,5,2.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Heart Disease - $75,000 or More",Alabama,49,3.7,1.77,4.9,2.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - Ages 18-44,Alabama,42,1,1.37,1.5,0.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - Ages 45-64,Alabama,46,6.3,1.45,7.4,5.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - Ages 65+,Alabama,37,12.6,0.54,14.3,10.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - American Indian/Alaska Native,Alabama,,13.7,,23.4,3.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - Black,Alabama,,4.4,,5.5,3.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - College Grad,Alabama,43,4.1,1.49,5.1,3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - Female,Alabama,48,5,1.87,5.8,4.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - High School/GED,Alabama,38,5.9,0.52,6.9,4.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - Hispanic,Alabama,,2.1,,6.1,-1.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Heart Disease - Less Than $25,000",Alabama,33,7.7,0.62,9,6.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - Less Than High School,Alabama,33,8.3,0.76,10.3,6.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - Male,Alabama,34,5.3,0.44,6.2,4.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - Rural,Alabama,,7.7,,9.6,5.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - Some Post-High School,Alabama,47,6,1.42,7.2,4.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - Suburban,Alabama,46,8.2,1.34,10.3,6.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - Urban,Alabama,44,7.6,1.54,9.4,5.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heart Disease - White,Alabama,41,5.6,0.89,6.3,5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Heavy Drinking,Alabama,8,4.8,-0.98,5.5,4.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure,Alabama,48,40.4,2,41.9,39,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"High Blood Pressure - $25-$49,999",Alabama,46,43.5,1.37,47,40,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"High Blood Pressure - $50-$74,999",Alabama,46,40,1.51,44.3,35.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"High Blood Pressure - $75,000 or More",Alabama,50,37.1,2,40.3,33.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - Ages 18-44,Alabama,48,19.3,2,21.4,17.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - Ages 45-64,Alabama,48,51.6,1.96,53.9,49.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - Ages 65+,Alabama,46,68.3,1.56,70.6,66.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - American Indian/Alaska Native,Alabama,0,37.4,0,50.1,24.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - Asian,Alabama,0,,0,0,0,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - Black,Alabama,0,45.9,0,49,42.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - College Grad,Alabama,48,35.4,2,38,32.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - Female,Alabama,48,40.7,2,42.6,38.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - Hawaiian/Pacific Islander,Alabama,0,,0,0,0,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - High School/GED,Alabama,48,48.4,1.64,51.2,45.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - Hispanic,Alabama,0,12.4,0,20.2,4.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"High Blood Pressure - Less Than $25,000",Alabama,47,54.4,1.97,57.3,51.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - Less Than High School,Alabama,49,60.2,2,64.8,55.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - Male,Alabama,46,40.1,1.65,42.3,37.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - Rural,Alabama,0,56.3,0,60.6,52.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - Some Post-High School,Alabama,44,40.3,1.27,43.1,37.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - Suburban,Alabama,44,47.1,1.25,51.7,42.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - Urban,Alabama,50,51.8,2,55.8,47.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Blood Pressure - White,Alabama,46,40.1,1.64,41.8,38.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol,Alabama,50,42,2,43.6,40.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"High Cholesterol - $25-$49,999",Alabama,,44.2,,47.8,40.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"High Cholesterol - $50-$74,999",Alabama,,42.9,,47.5,38.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"High Cholesterol - $75,000 or More",Alabama,,37.4,,40.7,34.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - Ages 18-44,Alabama,,21.3,,24,18.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - Ages 45-64,Alabama,,49.3,,51.6,46.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - Ages 65+,Alabama,,60.8,,63.2,58.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - American Indian/Alaska Native,Alabama,,53.9,,68.6,39.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - Black,Alabama,,35.7,,38.8,32.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - College Grad,Alabama,,36.3,,39.1,33.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - Female,Alabama,,41.2,,43.2,39.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - High School/GED,Alabama,,47.7,,50.7,44.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - Hispanic,Alabama,,33,,47.8,18.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"High Cholesterol - Less Than $25,000",Alabama,,50,,53.2,46.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - Less Than High School,Alabama,,55.2,,59.9,50.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - Male,Alabama,,43,,45.5,40.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - Multiracial,Alabama,,32.5,,45.7,19.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - Other Race,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - Some Post-High School,Alabama,,41.9,,44.9,39,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Cholesterol - White,Alabama,,44.7,,46.6,42.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status,Alabama,44,45.3,-1.42,46.9,43.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"High Health Status - $25-$49,999",Alabama,43,42.1,-0.69,45.7,38.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"High Health Status - $50-$74,999",Alabama,33,55,-0.37,59.4,50.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"High Health Status - $75,000 or More",Alabama,49,63.1,-1.47,66.4,59.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - Ages 18-44,Alabama,35,57.1,-0.12,59.8,54.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - Ages 45-64,Alabama,47,38.3,-1.46,40.5,36.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - Ages 65+,Alabama,49,30.9,-1.97,33.1,28.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - American Indian/Alaska Native,Alabama,,31.6,,43.6,19.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - Black,Alabama,,38.7,,41.8,35.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - College Grad,Alabama,42,63.3,-1.21,65.9,60.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - Female,Alabama,45,43.8,-1.3,45.8,41.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - High School/GED,Alabama,46,36.7,-1.32,39.5,33.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - Hispanic,Alabama,,50.6,,63.2,38,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"High Health Status - Less Than $25,000",Alabama,44,24.2,-1.1,26.8,21.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - Less Than High School,Alabama,50,17.1,-1.22,21,13.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - Male,Alabama,44,46.9,-1.05,49.4,44.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - Rural,Alabama,,35.7,,39.8,31.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - Some Post-High School,Alabama,43,47.1,-0.92,50.1,44.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - Suburban,Alabama,47,40.4,-1.34,45.1,35.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - Urban,Alabama,50,38,-1.91,41.7,34.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High Health Status - White,Alabama,44,47.4,-1.59,49.2,45.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,High School Graduation,Alabama,18,86.3,0.7,,,"U.S. Department of Education, National Center for Education Statistics, Common Core of Data",2015
+2016,2016 Annual,High School Graduation - American Indian/Alaska Native,Alabama,,88,,,,"U.S. Department of Education, National Center for Education Statistics, Common Core of Data",2015
+2016,2016 Annual,High School Graduation - Asian/Pacific Islander,Alabama,,91,,,,"U.S. Department of Education, National Center for Education Statistics, Common Core of Data",2015
+2016,2016 Annual,High School Graduation - Black,Alabama,,83.8,,,,"U.S. Department of Education, National Center for Education Statistics, Common Core of Data",2015
+2016,2016 Annual,High School Graduation - Hispanic,Alabama,,85,,,,"U.S. Department of Education, National Center for Education Statistics, Common Core of Data",2015
+2016,2016 Annual,High School Graduation - White,Alabama,,87.8,,,,"U.S. Department of Education, National Center for Education Statistics, Common Core of Data",2015
+2016,2016 Annual,Immunization HPV Females,Alabama,26,40.8,-0.13,50.1,31.5,"CDC, National Immunization Survey-Teen",2015
+2016,2016 Annual,Immunization HPV Females - Above Poverty,Alabama,,38.0,,49.2,28,"CDC, National Immunization Survey-Teen",2015
+2016,2016 Annual,Immunization HPV Females - Below Poverty,Alabama,,41.2,,58.8,25.6,"CDC, National Immunization Survey-Teen",2015
+2016,2016 Annual,Immunization HPV Females - Black,Alabama,,41.1,,60.2,24.4,"CDC, National Immunization Survey-Teen",2015
+2016,2016 Annual,Immunization HPV Females - Hispanic,Alabama,,,,,,"CDC, National Immunization Survey-Teen",2015
+2016,2016 Annual,Immunization HPV Females - White,Alabama,,42.3,,53.8,31.6,"CDC, National Immunization Survey-Teen",2015
+2016,2016 Annual,Immunization HPV Males,Alabama,36,22.6,-0.6,30.5,14.7,"CDC, National Immunization Survey-Teen",2015
+2016,2016 Annual,Immunization HPV Males - Above Poverty,Alabama,,22.8,,33.6,14.7,"CDC, National Immunization Survey-Teen",2015
+2016,2016 Annual,Immunization HPV Males - Below Poverty,Alabama,,,,,,"CDC, National Immunization Survey-Teen",2015
+2016,2016 Annual,Immunization HPV Males - Black,Alabama,,,,,,"CDC, National Immunization Survey-Teen",2015
+2016,2016 Annual,Immunization HPV Males - Hispanic,Alabama,,,,,,"CDC, National Immunization Survey-Teen",2015
+2016,2016 Annual,Immunization HPV Males - White,Alabama,,21.6,,32.4,13.7,"CDC, National Immunization Survey-Teen",2015
+2016,2016 Annual,Immunizations - Adolescents,Alabama,26,-0.005,-0.005,,,America's Health Rankings composite measure,2016
+2016,2016 Annual,Immunizations - Children,Alabama,35,70.6,-0.4,77.7,63.5,AHR data,
+2016,2016 Annual,Income Inequality,Alabama,44,5.24,0.773,,,"U.S. Census Bureau, American Community Survey",2015
+2016,2016 Annual,Income Inequality - Gini Index,Alabama,41,0.481,,,,"U.S. Census Bureau, American Community Survey",2015
+2016,2016 Annual,Infant Mortality,Alabama,49,8.6,2,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Infant Mortality - American Indian/Alaska Native,Alabama,,,,,,"CDC WONDER, Linked Birth/Infant Death Files",2013-2014
+2016,2016 Annual,Infant Mortality - Asian,Alabama,,,,,,"CDC WONDER, Linked Birth/Infant Death Files",2013-2014
+2016,2016 Annual,Infant Mortality - Black,Alabama,,13,,,,"CDC WONDER, Linked Birth/Infant Death Files",2013-2014
+2016,2016 Annual,Infant Mortality - Hispanic,Alabama,,7,,,,"CDC WONDER, Linked Birth/Infant Death Files",2013-2014
+2016,2016 Annual,Infant Mortality - Mother Ages 15-19,Alabama,,12.8,,,,"CDC WONDER, Linked Birth/Infant Death Files",2013-2014
+2016,2016 Annual,Infant Mortality - Mother Ages 20-24,Alabama,,9.7,,,,"CDC WONDER, Linked Birth/Infant Death Files",2013-2014
+2016,2016 Annual,Infant Mortality - Mother Ages 25-29,Alabama,,7.3,,,,"CDC WONDER, Linked Birth/Infant Death Files",2013-2014
+2016,2016 Annual,Infant Mortality - Mother Ages 30-34,Alabama,,8.4,,,,"CDC WONDER, Linked Birth/Infant Death Files",2013-2014
+2016,2016 Annual,Infant Mortality - Mother Ages 35-39,Alabama,,5.9,,,,"CDC WONDER, Linked Birth/Infant Death Files",2013-2014
+2016,2016 Annual,Infant Mortality - Mother Ages 40-44,Alabama,,,,,,"CDC WONDER, Linked Birth/Infant Death Files",2013-2014
+2016,2016 Annual,Infant Mortality - White,Alabama,45,6.8,2,,,"CDC WONDER, Linked Birth/Infant Death Files",2013-2014
+2016,2016 Annual,Infectious Disease,Alabama,47,0.777,0.777,,,America's Health Rankings composite measure,2016
+2016,2016 Annual,Injury Deaths,Alabama,35,73.7,,75.1,72.3,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Injury Deaths - Ages 15-24,Alabama,,64.1,,67.6,60.6,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Injury Deaths - Ages 25-34,Alabama,,91,,95.4,86.7,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Injury Deaths - Ages 35-44,Alabama,,90.6,,95,86.3,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Injury Deaths - Ages 45-54,Alabama,,85.2,,89.3,81.2,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Injury Deaths - Ages 5-14,Alabama,,10.4,,11.9,9,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Injury Deaths - Ages 55-64,Alabama,,74.7,,78.7,70.8,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Injury Deaths - Ages 65-74,Alabama,,75,,79.7,70.2,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Injury Deaths - American Indian/Alaska Native,Alabama,,30.3,,43.8,20.2,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Injury Deaths - Asian/Pacific Islander,Alabama,,19.8,,30.3,12.3,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Injury Deaths - Black,Alabama,,64.1,,66.7,61.5,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Injury Deaths - Female,Alabama,,43.9,,45.4,42.4,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Injury Deaths - Hispanic,Alabama,,33.5,,39.5,27.4,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Injury Deaths - Male,Alabama,,106.6,,109.1,104.2,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Injury Deaths - White,Alabama,,78,,79.7,76.3,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Insufficient Sleep,Alabama,46,38.4,1.22,39.9,36.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Insufficient Sleep - $25-$49,999",Alabama,41,38.5,0.98,41.9,35.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Insufficient Sleep - $50-$74,999",Alabama,47,39.5,1.6,43.6,35.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Insufficient Sleep - $75,000 or More",Alabama,30,31.1,0.24,34.4,27.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Ages 18-44,Alabama,41,39.8,1.04,42.5,37.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Ages 45-64,Alabama,49,43.2,1.48,45.5,41,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Ages 65+,Alabama,36,27,0.47,29.1,24.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - American Indian/Alaska Native,Alabama,,54.6,,70.6,38.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Black,Alabama,,45.3,,48.5,42.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - College Grad,Alabama,45,31.2,0.85,33.7,28.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Female,Alabama,45,38,1.2,39.9,36.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - High School/GED,Alabama,44,40.7,0.88,43.5,37.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Hispanic,Alabama,,29.2,,40.5,17.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Insufficient Sleep - Less Than $25,000",Alabama,41,45.2,0.84,48.1,42.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Less Than High School,Alabama,35,43.5,0.5,47.9,39,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Male,Alabama,46,38.9,1.25,41.3,36.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Multiracial,Alabama,,41.4,,55.5,27.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Other Race,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Rural,Alabama,0,31.7,0,34.8,28.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Some Post-High School,Alabama,43,40.1,0.74,42.9,37.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Suburban,Alabama,0,36.8,0,40.8,32.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - Urban,Alabama,45,38.6,1.15,42.1,35.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Insufficient Sleep - White,Alabama,46,36.5,1.47,38.3,34.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Low Birthweight,Alabama,48,10.1,1.8,10.3,9.9,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Low Birthweight - American Indian/Alaska Native,Alabama,,,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Low Birthweight - Asian/Pacific Islander,Alabama,,8.7,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Low Birthweight - Black,Alabama,,15,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Low Birthweight - College Graduate,Alabama,,7.8,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Low Birthweight - High School Graduate,Alabama,,11.3,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Low Birthweight - Hispanic,Alabama,,7.3,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Low Birthweight - Less Than High School,Alabama,,12.5,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Low Birthweight - Mother Ages 15-19,Alabama,,11.2,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Low Birthweight - Mother Ages 20-24,Alabama,,10.5,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Low Birthweight - Mother Ages 25-29,Alabama,,9.2,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Low Birthweight - Mother Ages 30-34,Alabama,,9.6,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Low Birthweight - Mother Ages 35-39,Alabama,,11.4,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Low Birthweight - Mother Ages 40-44,Alabama,,11.6,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Low Birthweight - Some Post-High School,Alabama,,9.7,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Low Birthweight - White,Alabama,,7.9,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Median Household Income,Alabama,46,44509,-1.319,51210.2,37807.8,"U.S. Census Bureau, Current Population Survey, Annual Social and Economic Supplement",2015
+2016,2016 Annual,Meningococcal Immunizations,Alabama,38,72.1,-0.84,77.9,66.3,"CDC, National Immunization Survey-Teen",2015
+2016,2016 Annual,Multiple Chronic Conditions,Alabama,49,14.5,2,15.5,13.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Multiple Chronic Conditions - $25-$49,999",Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Multiple Chronic Conditions - $50-$74,999",Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Multiple Chronic Conditions - $75,000 or More",Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - Ages 18-44,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - Ages 45-64,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - Ages 65+,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - American Indian/Alaska Native,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - Black,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - College Grad,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - Female,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - High School/GED,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - Hispanic,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Multiple Chronic Conditions - Less Than $25,000",Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - Less Than High School,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - Male,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - Multiracial,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - Other Race,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - Some Post-High School,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Multiple Chronic Conditions - White,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity,Alabama,47,35.6,1.54,37.2,34.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Obesity - $25-$49,999",Alabama,48,38.5,1.49,42.1,34.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Obesity - $50-$74,999",Alabama,43,35.7,1.02,40,31.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Obesity - $75,000 or More",Alabama,46,34.3,1.96,37.6,30.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - Ages 18-44,Alabama,49,34.5,2,37.2,31.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - Ages 45-64,Alabama,45,40.4,1.53,42.8,38.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - Ages 65+,Alabama,38,30.2,0.79,32.5,27.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - American Indian/Alaska Native,Alabama,,39.4,,52.7,26.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - Black,Alabama,,46.5,,49.8,43.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - College Grad,Alabama,43,29.6,1.68,32.1,27.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - Female,Alabama,48,36.4,1.84,38.4,34.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - High School/GED,Alabama,47,39,1.25,41.9,36.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - Hispanic,Alabama,,31.4,,43.6,19.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Obesity - Less Than $25,000",Alabama,48,41.5,1.34,44.5,38.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - Less Than High School,Alabama,48,40.7,1.28,45.2,36.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - Male,Alabama,45,34.9,1.57,37.2,32.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - Rural,Alabama,,37.9,,42.2,33.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - Some Post-High School,Alabama,49,38.9,1.49,41.8,35.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - Suburban,Alabama,45,36.7,1.34,41.4,32,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - Urban,Alabama,49,37.6,1.96,41.7,33.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity - White,Alabama,43,32.3,1.12,34.1,30.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity Rate of Change,Alabama,,0.77,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity Rate of Change-College Graduate,Alabama,,0.68,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity Rate of Change-High School Graduate,Alabama,,0.94,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity Rate of Change-Less Than High School,Alabama,,0.79,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Obesity Rate of Change-Some Post-High School,Alabama,,0.45,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Occupational Fatalities,Alabama,38,5.5,0.941,6.3,4.7,"U.S. Bureau of Labor Statistics, Census of Fatal Occupational Injuries",2012-2014
+2016,2016 Annual,Overall,Alabama,47,-0.793,-0.793,,,America's Health Rankings composite measure,2016
+2016,2016 Annual,"Personal Income, Per Capita ",Alabama,45,38965,-1.23,,,U.S. Bureau of Economic Analysis,2015
+2016,2016 Annual,Pertussis,Alabama,16,5.9,-0.44,,,"CDC, National Notifiable Diseases Surveillance System",2014
+2016,2016 Annual,Physical Inactivity,Alabama,45,31.9,1.36,33.4,30.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Physical Inactivity - $25-$49,999",Alabama,47,35.9,1.44,39.5,32.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Physical Inactivity - $50-$74,999",Alabama,44,29.3,1.26,33.4,25.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Physical Inactivity - $75,000 or More",Alabama,46,21.9,1.45,24.9,18.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - Ages 18-44,Alabama,45,25.8,1.17,28.4,23.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - Ages 45-64,Alabama,45,35.8,1.44,38.1,33.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - Ages 65+,Alabama,45,38.5,1.44,41,36,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - American Indian/Alaska Native,Alabama,,31.1,,43.6,18.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - Black,Alabama,,34.9,,38.2,31.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - College Grad,Alabama,49,20.9,1.8,23.2,18.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - Female,Alabama,47,33.7,1.38,35.7,31.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - High School/GED,Alabama,47,39.7,1.33,42.7,36.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - Hispanic,Alabama,,28.5,,41,16.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Physical Inactivity - Less Than $25,000",Alabama,33,40.2,0.5,43.2,37.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - Less Than High School,Alabama,37,46.1,0.73,50.8,41.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - Male,Alabama,46,29.9,1.41,32.2,27.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - Rural,Alabama,,36,,40.1,31.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - Some Post-High School,Alabama,43,29.5,0.87,32.2,26.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - Suburban,Alabama,45,34.1,1.27,38.6,29.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - Urban,Alabama,49,35.4,1.59,39.4,31.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Physical Inactivity - White,Alabama,45,31,1.44,32.7,29.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Policy,Alabama,27,-0.011,-0.011,,,America's Health Rankings composite measure,2016
+2016,2016 Annual,Poor Mental Health Days,Alabama,42,4.3,1.24,4.6,4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Poor Mental Health Days - $25-$49,999",Alabama,46,4.1,1.3,4.7,3.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Poor Mental Health Days - $50-$74,999",Alabama,28,3,0,3.6,2.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Poor Mental Health Days - $75,000 or More",Alabama,25,2.2,0,2.7,1.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - Ages 18-44,Alabama,45,4.8,1.48,5.2,4.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - Ages 45-64,Alabama,40,4.6,0.96,5.1,4.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - Ages 65+,Alabama,45,2.8,1.08,3.2,2.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - American Indian/Alaska Native,Alabama,,5.5,,8.2,2.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - Black,Alabama,,4.2,,4.8,3.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - College Grad,Alabama,31,2.5,0.33,2.8,2.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - Female,Alabama,46,5,1.47,5.4,4.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - High School/GED,Alabama,45,4.5,1.08,5,4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - Hispanic,Alabama,,2.8,,4.5,1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Poor Mental Health Days - Less Than $25,000",Alabama,41,7,1.14,7.6,6.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - Less Than High School,Alabama,39,6.4,1.2,7.3,5.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - Male,Alabama,39,3.5,0.68,3.9,3.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - Rural,Alabama,,4.5,,5.3,3.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - Some Post-High School,Alabama,44,4.3,1.04,4.8,3.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - Suburban,Alabama,45,4.1,1.1,5,3.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - Urban,Alabama,49,4.3,2,5,3.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Mental Health Days - White,Alabama,48,4.5,1.62,4.8,4.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days,Alabama,46,4.7,1.6,4.9,4.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Poor Physical Health Days - $25-$49,999",Alabama,41,4.4,1.05,5,3.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Poor Physical Health Days - $50-$74,999",Alabama,37,3.4,0.57,4.1,2.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Poor Physical Health Days - $75,000 or More",Alabama,48,2.6,1.45,3.1,2.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - Ages 18-44,Alabama,39,3,1.07,3.4,2.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - Ages 45-64,Alabama,43,6,1.19,6.5,5.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - Ages 65+,Alabama,44,6,1.04,6.5,5.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - American Indian/Alaska Native,Alabama,,6.7,,9.6,3.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - Black,Alabama,,4.4,,4.9,3.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - College Grad,Alabama,47,3.1,2,3.5,2.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - Female,Alabama,46,5.1,1.48,5.4,4.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - High School/GED,Alabama,41,5.1,0.63,5.6,4.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - Hispanic,Alabama,,2.8,,4.7,1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Poor Physical Health Days - Less Than $25,000",Alabama,41,8,0.89,8.7,7.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - Less Than High School,Alabama,41,8.1,1.05,9.1,7.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - Male,Alabama,43,4.2,1.32,4.6,3.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - Rural,Alabama,,6.2,,7.1,5.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - Some Post-High School,Alabama,40,4.7,0.83,5.3,4.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - Suburban,Alabama,34,4.7,0.19,5.5,3.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - Urban,Alabama,49,5.7,2,6.5,5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Poor Physical Health Days - White,Alabama,45,4.8,1.29,5.1,4.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Premature Death,Alabama,48,10097,2,10221,9973,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Premature Death - American Indian/Alaska Native,Alabama,,,,,,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Premature Death - Asian/Pacific Islander,Alabama,,2068,,2606,1530,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Premature Death - Black,Alabama,,11620,,11893,11347,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Premature Death - Hispanic,Alabama,,3942,,4469,3414,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Premature Death - White,Alabama,47,10199,2,10349,10049,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Premature Death (three-year estimate),Alabama,48,10072,2,10196,9947,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Premature Death Racial Disparity,Alabama,4,1.1,-0.57,,,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Preterm Birth,Alabama,48,11.7,1.857,,,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Preventable Hospitalizations,Alabama,45,61.1,1,61.8,60.5,The Dartmouth Atlas of Health Care,2014
+2016,2016 Annual,Preventable Hospitalizations,Alabama,41,5044,0.73,,,AHR data,
+2016,2016 Annual,Preventable Hospitalizations - American Indian/Alaska Native,Alabama,,8046,,,,AHR data,
+2016,2016 Annual,Preventable Hospitalizations - Asian/Pacific Islander,Alabama,,1646,,,,AHR data,
+2016,2016 Annual,Preventable Hospitalizations - Black,Alabama,,67.2,,69,65.4,The Dartmouth Atlas of Health Care,2014
+2016,2016 Annual,Preventable Hospitalizations - Black,Alabama,,5695,,,,AHR data,
+2016,2016 Annual,Preventable Hospitalizations - Female,Alabama,41,5334,0.68,,,AHR data,
+2016,2016 Annual,Preventable Hospitalizations - Hispanic,Alabama,24,3443,-0.7,,,AHR data,
+2016,2016 Annual,Preventable Hospitalizations - Male,Alabama,43,4695,0.78,,,AHR data,
+2016,2016 Annual,Preventable Hospitalizations - Other Race,Alabama,,3439,,,,AHR data,
+2016,2016 Annual,Preventable Hospitalizations - White,Alabama,,61.9,,62.6,61.1,The Dartmouth Atlas of Health Care,2014
+2016,2016 Annual,Preventable Hospitalizations - White,Alabama,42,4906,0.76,,,AHR data,
+2016,2016 Annual,Primary Care Physicians,Alabama,42,116.4,-0.87,,,"Redi-Data, Inc.,",Oct 2016
+2016,2016 Annual,Public Health Funding,Alabama,10,111,0.61,,,AHR data,
+2016,2016 Annual,Residential Segregation - Black/White,Alabama,26,57,0,,,"U.S. Census Bureau, American Community Survey",2015
+2016,2016 Annual,Salmonella,Alabama,46,24.1,1.36,,,"CDC, National Notifiable Diseases Surveillance System",2014
+2016,2016 Annual,Seat Belt Use,Alabama,22,87.4,0.17,88.6,86.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Seat Belt Use - $25-$49,999",Alabama,18,88.2,0.1,90.9,85.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Seat Belt Use - $50-$74,999",Alabama,30,86.4,-0.37,90.1,82.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Seat Belt Use - $75,000 or More",Alabama,24,90.7,-0.08,92.8,88.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - Ages 18 to 44,Alabama,23,83.9,-0.24,86.1,81.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - Ages 45 to 64,Alabama,21,90.1,0.02,91.6,88.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - Ages 65+,Alabama,24,90.6,-0.08,92.2,89,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - American Indian/Alaska Native,Alabama,,87.7,,98.8,76.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - Black,Alabama,,86.6,,89,84.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - College Grad,Alabama,27,90.8,-0.44,92.5,89.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - Female,Alabama,22,91.7,0.09,92.9,90.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - High School/GED,Alabama,17,89.1,0.28,91.2,87,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - Hispanic,Alabama,,84,,95.2,72.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Seat Belt Use - Less Than $25,000",Alabama,19,88.3,0.12,90.4,86.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - Less Than High School,Alabama,17,87.4,0.11,90.8,83.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - Male,Alabama,24,82.7,-0.26,84.8,80.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - Rural,Alabama,,89.4,,92.1,86.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - Some Post-High School,Alabama,26,87.2,-0.23,89.4,84.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - Suburban,Alabama,20,91.2,0,94.1,88.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - Urban,Alabama,27,91.2,0.04,93.5,88.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Seat Belt Use - White,Alabama,23,87.9,0,89.2,86.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Severe Housing Problems,Alabama,16,15.4,,15.7,15.1,AHR data,
+2016,2016 Annual,Severe Housing Problems - American Indian/Alaska Native,Alabama,2,16.8,,20.9,12.8,AHR data,
+2016,2016 Annual,Severe Housing Problems - Asian/Pacific Islander,Alabama,4,17.4,,20.5,14.3,AHR data,
+2016,2016 Annual,Severe Housing Problems - Black,Alabama,13,24.6,,25.4,23.8,AHR data,
+2016,2016 Annual,Severe Housing Problems - Hispanic,Alabama,23,27.8,,31.1,24.5,AHR data,
+2016,2016 Annual,Severe Housing Problems - White,Alabama,8,11.6,,11.9,11.3,AHR data,
+2016,2016 Annual,Smoking,Alabama,41,21.4,1.11,22.8,20,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Smoking - $25-$49,999",Alabama,43,23.5,1.39,26.9,20.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Smoking - $50-$74,999",Alabama,47,21.3,1.85,25.1,17.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Smoking - $75,000 or More",Alabama,38,11.6,0.93,14,9.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Ages 18-44,Alabama,45,25.6,1.45,28.2,23.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Ages 45-64,Alabama,39,22.5,1,24.4,20.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Ages 65+,Alabama,37,10.2,0.84,11.8,8.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - American Indian/Alaska Native,Alabama,,40.6,,54.5,26.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Asian,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Black,Alabama,,20.0,,22.8,17.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - College Grad,Alabama,44,8.7,1.14,10.3,7.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Female,Alabama,40,19.2,1.16,20.9,17.5,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Hawaiian/Pacific Islander,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - High School/GED,Alabama,38,25.3,0.99,27.9,22.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Hispanic,Alabama,,20.2,,31.1,9.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Smoking - Less Than $25,000",Alabama,26,29.6,0.44,32.4,26.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Less Than High School,Alabama,32,33.0,0.87,37.4,28.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Male,Alabama,44,23.8,1.4,26.1,21.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Multiracial,Alabama,,35.3,,49.3,21.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Other Race,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Rural,Alabama,,15.2,,18.7,11.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Some Post-High School,Alabama,38,20.9,0.93,23.4,18.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Suburban,Alabama,30,14.4,0.29,17.7,11,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - Urban,Alabama,49,20.4,2,24.1,16.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking - White,Alabama,44,21.9,1.29,23.6,20.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking Rate of Change,Alabama,,-0.85,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking Rate of Change-College Graduate,Alabama,,-0.75,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking Rate of Change-High School Graduate,Alabama,,-0.11,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking Rate of Change-Less Than High School,Alabama,,-1.03,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Smoking Rate of Change-Some Post-High School,Alabama,,-0.46,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke,Alabama,49,4.7,2,5.3,4.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Stroke - $25-$49,999",Alabama,49,1.6,2,2.1,1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Stroke - $50-$74,999",Alabama,49,5.8,1.95,6.9,4.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Stroke - $75,000 or More",Alabama,46,9.9,1.61,11.5,8.4,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - Ages 18-44,Alabama,,0.3,,1,-0.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - Ages 45-64,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - Ages 65+,Alabama,,,,,,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - American Indian/Alaska Native,Alabama,46,5.2,1.27,6.3,4.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - Asian,Alabama,,7.5,,9.7,5.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - Black,Alabama,50,6.3,2,7.9,4.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - College Grad,Alabama,49,4.5,2,5.3,3.7,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - Female,Alabama,,5.5,,6.7,4.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - Hawaiian/Pacific Islander,Alabama,43,9.4,1.56,11.7,7.1,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - High School/GED,Alabama,44,3.1,1.21,4.6,1.6,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - Hispanic,Alabama,39,5,0.63,6.7,3.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,"Stroke - Less Than $25,000",Alabama,49,4.9,2,5.7,4.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - Less Than High School,Alabama,34,3.9,0.37,5.1,2.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - Male,Alabama,48,4.6,1.83,5.3,3.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - Rural,Alabama,45,8.7,1.85,10.2,7.2,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - Some Post-High School,Alabama,49,2.2,2,3.2,1.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - Suburban,Alabama,46,2.7,1.81,3.4,1.9,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - Urban,Alabama,50,4.8,2,5.9,3.8,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Stroke - White,Alabama,,8.3,,15.3,1.3,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Suicide,Alabama,25,14.7,0.34,15.8,13.6,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Suicide - Ages 15-24,Alabama,,9.5,,12.2,7.3,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Suicide - Ages 25-34,Alabama,,18.7,,22.1,15.3,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Suicide - Ages 35-44,Alabama,,23.4,,27.3,19.6,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Suicide - Ages 45-54,Alabama,18,21,0.16,24.5,17.5,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Suicide - Ages 55-64,Alabama,,19.4,,22.8,15.9,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Suicide - Ages 65-74,Alabama,,16.1,,20.3,12.5,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Suicide - Ages 75-84,Alabama,,16.4,,22.7,11.6,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Suicide - Ages 85+,Alabama,,,,29.6,10,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Suicide - American Indian/Alaska Native,Alabama,,,,,,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Suicide - Asian/Pacific Islander,Alabama,,,,,,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Suicide - Black,Alabama,,5.3,,6.7,4.1,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Suicide - Female,Alabama,,5.8,,6.8,4.9,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Suicide - Hispanic,Alabama,,,,,,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Suicide - Male,Alabama,27,24.7,,26.7,22.7,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Suicide - White,Alabama,31,19,,20.5,17.5,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Tdap Immunizations,Alabama,5,93.3,1.19,96.5,90.1,"CDC, National Immunization Survey-Teen",2015
+2016,2016 Annual,Teen Births,Alabama,41,32,0.99,,,"CDC WONDER, Multiple Cause of Death Files",2014
+2016,2016 Annual,Teen Births,Alabama,41,32,0.99,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Teen Births - American Indian/Alaska Native,Alabama,,,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Teen Births - Asian/Pacific Islander,Alabama,,,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Teen Births - Black,Alabama,,37.5,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Teen Births - Hispanic,Alabama,,54.1,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Teen Births - White,Alabama,,28.3,,,,"CDC WONDER, Natality Public Use Files",2014
+2016,2016 Annual,Underemployment Rate,Alabama,37,11.2,0.431,,,"U.S. Department of Labor, Bureau of Labor Statistics",2015
+2016,2016 Annual,"Unemployment Rate, Annual",Alabama,43,6.1,0.747,,,"U.S. Department of Labor, Bureau of Labor Statistics",2015
+2016,2016 Annual,Uninsured,Alabama,33,11.1,0.15,,,"U.S. Census Bureau, Health Insurance Coverage in the United States",2014-2015
+2016,2016 Annual,Uninsured,Alabama,32,10.1,0.22,10.4,9.8,"U.S. Census Bureau, American Community Survey",2015
+2016,2016 Annual,Vegetables,Alabama,4,1.69,-1.4,1.74,1.64,"CDC, Behavioral Risk Factor Surveillance System",2015
+2016,2016 Annual,Violent Crime,Alabama,41,472,0.65,,,"Federal Bureau of Investigation, Uniform Crime Reporting Program",2015
+2016,2016 Annual,Voter Participation (Midterm),Alabama,27,42.5,0.09,45.5,39.5,AHR data,
+2016,2016 Annual,Voter Participation (Midterm) - Ages 18-24 ,Alabama,,17.2,,23.5,10.9,AHR data,
+2016,2016 Annual,Voter Participation (Midterm) - Ages 25-34,Alabama,,29.9,,37,22.8,AHR data,
+2016,2016 Annual,Voter Participation (Midterm) - Ages 35-44,Alabama,,43.2,,50.6,35.8,AHR data,
+2016,2016 Annual,Voter Participation (Midterm) - Ages 45-64,Alabama,33,49.3,-0.04,54.3,44.3,AHR data,
+2016,2016 Annual,Voter Participation (Midterm) - Ages 65+,Alabama,,55.1,,61.8,48.4,AHR data,
+2016,2016 Annual,Voter Participation (Midterm) - Asian,Alabama,,,,,,AHR data,
+2016,2016 Annual,Voter Participation (Midterm) - Black,Alabama,,45.5,,52.6,38.4,AHR data,
+2016,2016 Annual,Voter Participation (Midterm) - Female,Alabama,27,43.7,0.1,47.8,39.6,AHR data,
+2016,2016 Annual,Voter Participation (Midterm) - Hispanic,Alabama,,,,,,AHR data,
+2016,2016 Annual,Voter Participation (Midterm) - Male,Alabama,30,41.2,0.06,45.5,36.9,AHR data,
+2016,2016 Annual,Voter Participation (Midterm) - White,Alabama,36,42.3,-0.5,45.9,38.7,AHR data,
+2016,2016 Annual,Voter Participation (Presidential),Alabama,27,61.9,0,64.8,59,AHR data,
+2016,2016 Annual,Voter Participation (Presidential) - Asian,Alabama,,,,,,AHR data,
+2016,2016 Annual,Voter Participation (Presidential) - Black,Alabama,,63.1,,70,56.2,AHR data,
+2016,2016 Annual,Voter Participation (Presidential) - Female,Alabama,35,62.6,-0.2,66.5,58.7,AHR data,
+2016,2016 Annual,Voter Participation (Presidential) - Hispanic,Alabama,,,,,,AHR data,
+2016,2016 Annual,Voter Participation (Presidential) - Male,Alabama,22,61.2,0.3,65.4,57,AHR data,
+2016,2016 Annual,Voter Participation (Presidential) - White,Alabama,35,61.2,-0.18,64.7,57.7,AHR data,
+2016,2016 Annual,Voter Registration,Alabama,19,67.2,0.51,70.1,64.3,AHR data,
+2016,2016 Annual,Voter Registration - Ages 18-24 ,Alabama,,40.2,,48.4,32,AHR data,
+2016,2016 Annual,Voter Registration - Ages 25-34,Alabama,,63.6,,71.1,56.1,AHR data,
+2016,2016 Annual,Voter Registration - Ages 35-44,Alabama,,65.9,,72.9,58.9,AHR data,
+2016,2016 Annual,Voter Registration - Ages 45-64,Alabama,,74.5,,78.8,70.2,AHR data,
+2016,2016 Annual,Voter Registration - Ages 65+,Alabama,,75.1,,80.9,69.3,AHR data,
+2016,2016 Annual,Voter Registration - Asian,Alabama,,,,,,AHR data,
+2016,2016 Annual,Voter Registration - Black,Alabama,,65.3,,72.1,58.5,AHR data,
+2016,2016 Annual,Voter Registration - Female,Alabama,,69.4,,73.2,65.6,AHR data,
+2016,2016 Annual,Voter Registration - Hispanic,Alabama,,,,,,AHR data,
+2016,2016 Annual,Voter Registration - Male,Alabama,,64.7,,68.9,60.5,AHR data,
+2016,2016 Annual,Voter Registration - White,Alabama,,67.9,,71.1,64.7,AHR data,
+2016,2016 Annual,Water Fluoridation,Alabama,23,78.6,0.18,,,"CDC, Water Fluoridation Reporting System",2014
