@@ -1,12 +1,9 @@
 from unittest import mock
 import os
-
 import pandas as pd  # type: ignore
 from pandas._testing import assert_frame_equal  # type: ignore
-
 from test_utils import get_state_fips_codes_as_df
 from datasources.uhc import UHCData  # type: ignore
-import ingestion.standardized_columns as std_col  # type: ignore
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -16,86 +13,6 @@ GOLDEN_DATA_RACE = os.path.join(
     TEST_DIR, 'uhc_test_output_race_and_ethnicity.json')
 GOLDEN_DATA_AGE = os.path.join(TEST_DIR, 'uhc_test_output_age.json')
 GOLDEN_DATA_SEX = os.path.join(TEST_DIR, 'uhc_test_output_sex.json')
-
-
-def get_test_data_as_df():
-    print("mocking a call to AHR annual report URL")
-    df = pd.read_csv(os.path.join(TEST_DIR, 'uhc_test_input.csv'),
-                     dtype={"State Name": str,
-                            "Measure Name": str,
-                            "Value": float})
-
-    df_national = df.copy().reset_index(drop=True)
-    df_national['State Name'] = 'United States'
-
-    return pd.concat([df, df_national]).reset_index(drop=True)
-
-
-def get_pop_data_as_df(*args):
-
-    datasource_name, dataset_name, dtype = args
-
-    mock_table_lookup = {
-        "by_race_state_std": 'population_race.csv',
-        "by_race_national": 'population_race.csv',
-        "by_sex_state": 'population_sex.csv',
-        "by_sex_national": 'population_sex.csv',
-        "by_age_state": 'population_age.csv',
-        "by_age_national": 'population_age.csv',
-        "by_race_and_ethnicity_territory": "population_2010_race.csv",
-        "by_age_territory": "population_2010_age.csv",
-        "by_sex_territory": "population_2010_sex.csv"
-    }
-
-    print("mocking a call to our population tables")
-    print(datasource_name, dataset_name)
-    return pd.read_csv(os.path.join(TEST_DIR, mock_table_lookup[dataset_name]), dtype=str)
-
-
-# def get_race_pop_data_as_df_state():
-#     return pd.read_csv(os.path.join(TEST_DIR, 'population_race.csv'), dtype=str)
-
-
-# def get_age_pop_data_as_df_state():
-#     return pd.read_csv(os.path.join(TEST_DIR, 'population_age.csv'), dtype=str)
-
-
-# def get_sex_pop_data_as_df_state():
-#     return pd.read_csv(os.path.join(TEST_DIR, 'population_sex.csv'), dtype=str)
-
-
-# def get_race_pop_data_as_df_territory():
-#     return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_race.csv'), dtype=str)
-
-
-# def get_age_pop_data_as_df_territory():
-#     return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_age.csv'), dtype=str)
-
-
-# def get_sex_pop_data_as_df_territory():
-#     return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_sex.csv'), dtype=str)
-
-
-# def get_race_pop_data_as_df_national():
-#     df = pd.read_csv(os.path.join(TEST_DIR, 'population_race.csv'), dtype=str)
-#     df[std_col.STATE_FIPS_COL] = '00'
-#     df[std_col.STATE_NAME_COL] = 'United States'
-#     return df
-
-
-# def get_age_pop_data_as_df_national():
-#     df = pd.read_csv(os.path.join(TEST_DIR, 'population_age.csv'), dtype=str)
-#     df[std_col.STATE_FIPS_COL] = '00'
-#     df[std_col.STATE_NAME_COL] = 'United States'
-#     return df
-
-
-# def get_sex_pop_data_as_df_national():
-#     df = pd.read_csv(os.path.join(TEST_DIR, 'population_sex.csv'), dtype=str)
-#     df[std_col.STATE_FIPS_COL] = '00'
-#     df[std_col.STATE_NAME_COL] = 'United States'
-#     return df
-
 
 EXPECTED_DTYPE = {
     'state_name': str,
@@ -120,34 +37,88 @@ EXPECTED_DTYPE = {
 }
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=get_pop_data_as_df)
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-            return_value=get_test_data_as_df())
+def get_test_data_as_df():
+    print("mocking a call to AHR annual report URL")
+    df = pd.read_csv(os.path.join(TEST_DIR, 'uhc_test_input.csv'),
+                     dtype={"State Name": str,
+                            "Measure Name": str,
+                            "Value": float})
+
+    df_national = df.copy().reset_index(drop=True)
+    df_national['State Name'] = 'United States'
+
+    return pd.concat([df, df_national]).reset_index(drop=True)
+
+
+def mocked_generate_multiyear_breakdown(*args):
+    geo, demo, ahr_tables = args
+    print(f'mocking generate multiyear breakdown for {geo}-{demo}')
+    if demo == "race_and_ethnicity":
+        return pd.read_json(GOLDEN_DATA_RACE, dtype=EXPECTED_DTYPE.copy())
+    if demo == "age":
+        return pd.read_json(GOLDEN_DATA_AGE, dtype=EXPECTED_DTYPE.copy())
+    if demo == "sex":
+        return pd.read_json(GOLDEN_DATA_SEX, dtype=EXPECTED_DTYPE.copy())
+
+
+def get_pop_data_as_df(*args):
+
+    datasource_name, dataset_name, dtype = args
+
+    mock_table_lookup = {
+        "by_race_state_std": 'population_race.csv',
+        "by_race_national": 'population_race.csv',
+        "by_sex_state": 'population_sex.csv',
+        "by_sex_national": 'population_sex.csv',
+        "by_age_state": 'population_age.csv',
+        "by_age_national": 'population_age.csv',
+        "by_race_and_ethnicity_territory": "population_2010_race.csv",
+        "by_age_territory": "population_2010_age.csv",
+        "by_sex_territory": "population_2010_sex.csv"
+    }
+
+    print("mocking a call to our population tables")
+    print(datasource_name, dataset_name)
+    return pd.read_csv(os.path.join(TEST_DIR, mock_table_lookup[dataset_name]), dtype=str)
+
+
+# def get_race_pop_data_as_df_national():
+#     df = pd.read_csv(os.path.join(TEST_DIR, 'population_race.csv'), dtype=str)
+#     df[std_col.STATE_FIPS_COL] = '00'
+#     df[std_col.STATE_NAME_COL] = 'United States'
+#     return df
+
+
+# def get_age_pop_data_as_df_national():
+#     df = pd.read_csv(os.path.join(TEST_DIR, 'population_age.csv'), dtype=str)
+#     df[std_col.STATE_FIPS_COL] = '00'
+#     df[std_col.STATE_NAME_COL] = 'United States'
+#     return df
+
+
+# def get_sex_pop_data_as_df_national():
+#     df = pd.read_csv(os.path.join(TEST_DIR, 'population_sex.csv'), dtype=str)
+#     df[std_col.STATE_FIPS_COL] = '00'
+#     df[std_col.STATE_NAME_COL] = 'United States'
+#     return df
+
+
+# OVERALL TEST TO CONFIRM CORRECT TABLES WOULD BE WRITTEN TO BQ
+
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
+             return_value=get_test_data_as_df())
+@mock.patch('datasources.uhc.UHCData.generate_multiyear_breakdown',
+            side_effect=mocked_generate_multiyear_breakdown)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBq(
         mock_bq: mock.MagicMock,
+        mock_gen_breakdown: mock.MagicMock,
         mock_csv: mock.MagicMock,
-        mock_fips: mock.MagicMock,
-        mock_pop: mock.MagicMock):
-
-    # mock_pop.side_effect = [
-    #     get_race_pop_data_as_df_state(),
-    #     get_race_pop_data_as_df_territory(),
-    #     get_age_pop_data_as_df_state(),
-    #     get_age_pop_data_as_df_territory(),
-    #     get_sex_pop_data_as_df_state(),
-    #     get_sex_pop_data_as_df_territory(),
-    #     get_race_pop_data_as_df_national(),
-    #     get_age_pop_data_as_df_national(),
-    #     get_sex_pop_data_as_df_national(),
-    # ]
+):
 
     uhc_data = UHCData()
 
-    expected_dtype = EXPECTED_DTYPE.copy()
     # pretend arguments required by bigQuery
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
@@ -156,261 +127,61 @@ def testWriteToBq(
     uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
-    assert mock_pop.call_count == 9
+    assert mock_gen_breakdown.call_count == 6
+
+    assert mock_gen_breakdown.call_args_list[0].args[0] == 'state'
+    assert mock_gen_breakdown.call_args_list[0].args[1] == 'race_and_ethnicity'
+
+    assert mock_gen_breakdown.call_args_list[1].args[0] == 'state'
+    assert mock_gen_breakdown.call_args_list[1].args[1] == 'age'
+
+    assert mock_gen_breakdown.call_args_list[2].args[0] == 'state'
+    assert mock_gen_breakdown.call_args_list[2].args[1] == 'sex'
+
+    assert mock_gen_breakdown.call_args_list[3].args[0] == 'national'
+    assert mock_gen_breakdown.call_args_list[3].args[1] == 'race_and_ethnicity'
+
+    assert mock_gen_breakdown.call_args_list[4].args[0] == 'national'
+    assert mock_gen_breakdown.call_args_list[4].args[1] == 'age'
+
+    assert mock_gen_breakdown.call_args_list[5].args[0] == 'national'
+    assert mock_gen_breakdown.call_args_list[5].args[1] == 'sex'
+
+    assert mock_csv.call_count == 7
 
 
-#     # add column type for each demographic file
-#     expected_dtype['race_and_ethnicity'] = str
-#     expected_dtype['race'] = str
-#     expected_dtype['race_includes_hispanic'] = object
-#     expected_dtype['race_category_id'] = str
+# TEST EACH MULTI YEAR BREAKDOWN FOR EXPECTED SAMPLE OUTPUT
 
-#     expected_df = pd.read_json(
-#         GOLDEN_DATA_RACE, dtype=expected_dtype)
+uhc = UHCData()
 
-#     assert_frame_equal(
-#         mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
-
-
-# @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-# @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#             return_value=get_state_fips_codes_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-#             return_value=get_test_data_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#             return_value=None)
-# def testWriteToBqAgeState(
-#         mock_bq: mock.MagicMock,
-#         mock_csv: mock.MagicMock,
-#         mock_fips: mock.MagicMock,
-#         mock_pop: mock.MagicMock):
-
-#     mock_pop.side_effect = [
-#         get_race_pop_data_as_df_state(),
-#         get_race_pop_data_as_df_territory(),
-#         get_age_pop_data_as_df_state(),
-#         get_age_pop_data_as_df_territory(),
-#         get_sex_pop_data_as_df_state(),
-#         get_sex_pop_data_as_df_territory(),
-#         get_race_pop_data_as_df_national(),
-#         get_age_pop_data_as_df_national(),
-#         get_sex_pop_data_as_df_national(),
-#     ]
-
-#     uhc_data = UHCData()
-
-#     expected_dtype = EXPECTED_DTYPE.copy()
-#     # pretend arguments required by bigQuery
-#     kwargs = {'filename': 'test_file.csv',
-#               'metadata_table_id': 'test_metadata',
-#               'table_name': 'output_table'}
-
-#     uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-
-#     assert mock_bq.call_count == 6
-
-#     assert mock_pop.call_count == 9
-#     assert mock_pop.call_args_list[2].args[1] == 'by_age_state'
-
-#     expected_dtype['age'] = str
-
-#     expected_df = pd.read_json(
-#         GOLDEN_DATA_AGE, dtype=expected_dtype)
-
-#     assert_frame_equal(
-#         mock_bq.call_args_list[1].args[0], expected_df, check_like=True)
+_fake_loaded_report_dfs = {
+    "2021": get_test_data_as_df(),
+    "2020": get_test_data_as_df(),
+    "2019": get_test_data_as_df(),
+    "2018": get_test_data_as_df(),
+    "2017": get_test_data_as_df(),
+    "2016": get_test_data_as_df(),
+    "2015": get_test_data_as_df(),
+}
 
 
-# @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-# @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#             return_value=get_state_fips_codes_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-#             return_value=get_test_data_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#             return_value=None)
-# def testWriteToBqSexState(
-#         mock_bq: mock.MagicMock,
-#         mock_csv: mock.MagicMock,
-#         mock_fips: mock.MagicMock,
-#         mock_pop: mock.MagicMock):
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=get_pop_data_as_df)
+def testStateRace(
+        mock_pop: mock.MagicMock,
+        mock_fips: mock.MagicMock,
+):
 
-#     mock_pop.side_effect = [
-#         get_race_pop_data_as_df_state(),
-#         get_race_pop_data_as_df_territory(),
-#         get_age_pop_data_as_df_state(),
-#         get_age_pop_data_as_df_territory(),
-#         get_sex_pop_data_as_df_state(),
-#         get_sex_pop_data_as_df_territory(),
-#         get_race_pop_data_as_df_national(),
-#         get_age_pop_data_as_df_national(),
-#         get_sex_pop_data_as_df_national(),
-#     ]
+    _generated_df = uhc.generate_multiyear_breakdown(
+        "state", "race_and_ethnicity", _fake_loaded_report_dfs)
 
-#     uhc_data = UHCData()
+    assert mock_pop.call_count == 14
+    assert mock_fips.call_count == 7
 
-#     expected_dtype = EXPECTED_DTYPE.copy()
-#     # pretend arguments required by bigQuery
-#     kwargs = {'filename': 'test_file.csv',
-#               'metadata_table_id': 'test_metadata',
-#               'table_name': 'output_table'}
+    _expected_df = pd.read_json(
+        GOLDEN_DATA_RACE, dtype=EXPECTED_DTYPE.copy())
 
-#     uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-
-#     assert mock_bq.call_count == 6
-
-#     assert mock_pop.call_count == 9
-#     assert mock_pop.call_args_list[4].args[1] == 'by_sex_state'
-
-#     expected_dtype['sex'] = str
-
-#     expected_df = pd.read_json(
-#         GOLDEN_DATA_SEX, dtype=expected_dtype)
-
-#     assert_frame_equal(
-#         mock_bq.call_args_list[2].args[0], expected_df, check_like=True)
-
-
-# For the national level we only need to make sure that we are making the
-# correct call to bigquery to get population data, so that is all we need to
-# test. There is no need to maintain GOLDEN files for this, as there is no
-# special parsing logic for national data.
-# @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-# @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#             return_value=get_state_fips_codes_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-#             return_value=get_test_data_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#             return_value=None)
-# def testWriteToBqRaceNational(
-# mock_bq: mock.MagicMock,
-# mock_csv: mock.MagicMock,
-# mock_fips: mock.MagicMock,
-# mock_pop: mock.MagicMock
-# ):
-
-# mock_pop.side_effect = [
-#     get_race_pop_data_as_df_state(),
-#     get_race_pop_data_as_df_territory(),
-#     get_age_pop_data_as_df_state(),
-#     get_age_pop_data_as_df_territory(),
-#     get_sex_pop_data_as_df_state(),
-#     get_sex_pop_data_as_df_territory(),
-#     get_race_pop_data_as_df_national(),
-#     get_age_pop_data_as_df_national(),
-#     get_sex_pop_data_as_df_national(),
-# ]
-
-# uhc_data = UHCData()
-
-# pretend arguments required by bigQuery
-# kwargs = {'filename': 'test_file.csv',
-#           'metadata_table_id': 'test_metadata',
-#           'table_name': 'output_table'}
-
-# uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-
-# assert mock_bq.call_count == 6
-
-# assert mock_pop.call_count == 9
-# assert mock_pop.call_args_list[6].args[1] == 'by_race_national'
-
-
-# @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-# @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#             return_value=get_state_fips_codes_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-#             return_value=get_test_data_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#             return_value=None)
-# def testWriteToBqAgeNational(
-#         mock_bq: mock.MagicMock,
-#         mock_csv: mock.MagicMock,
-#         mock_fips: mock.MagicMock,
-#         mock_pop: mock.MagicMock):
-
-#     mock_pop.side_effect = [
-#         get_race_pop_data_as_df_state(),
-#         get_race_pop_data_as_df_territory(),
-#         get_age_pop_data_as_df_state(),
-#         get_age_pop_data_as_df_territory(),
-#         get_sex_pop_data_as_df_state(),
-#         get_sex_pop_data_as_df_territory(),
-#         get_race_pop_data_as_df_national(),
-#         get_age_pop_data_as_df_national(),
-#         get_sex_pop_data_as_df_national(),
-#     ]
-
-#     uhc_data = UHCData()
-
-#     # pretend arguments required by bigQuery
-#     kwargs = {'filename': 'test_file.csv',
-#               'metadata_table_id': 'test_metadata',
-#               'table_name': 'output_table'}
-
-#     uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-
-#     assert mock_bq.call_count == 6
-
-#     assert mock_pop.call_count == 9
-#     assert mock_pop.call_args_list[7].args[1] == 'by_age_national'
-
-
-# @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-# @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#             return_value=get_state_fips_codes_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-#             return_value=get_test_data_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#             return_value=None)
-# def testWriteToBqSexNational(
-#         mock_bq: mock.MagicMock,
-#         mock_csv: mock.MagicMock,
-#         mock_fips: mock.MagicMock,
-#         mock_pop: mock.MagicMock):
-
-#     mock_pop.side_effect = [
-#         get_race_pop_data_as_df_state(),
-#         get_race_pop_data_as_df_territory(),
-#         get_age_pop_data_as_df_state(),
-#         get_age_pop_data_as_df_territory(),
-#         get_sex_pop_data_as_df_state(),
-#         get_sex_pop_data_as_df_territory(),
-#         get_race_pop_data_as_df_national(),
-#         get_age_pop_data_as_df_national(),
-#         get_sex_pop_data_as_df_national(),
-#     ]
-
-#     uhc_data = UHCData()
-
-#     # pretend arguments required by bigQuery
-#     kwargs = {'filename': 'test_file.csv',
-#               'metadata_table_id': 'test_metadata',
-#               'table_name': 'output_table'}
-
-#     uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-
-#     assert mock_bq.call_count == 6
-
-#     assert mock_pop.call_count == 9
-#     assert mock_pop.call_args_list[8].args[1] == 'by_sex_national'
-
-
-# # WRITE JSON LOCALLY
-# # @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-# #             return_value=get_test_data_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#             return_value=None)
-# def testWriteJsonLocally(
-#         mock_bq: mock.MagicMock,
-#         # mock_csv: mock.MagicMock,
-
-# ):
-
-#     uhc_data = UHCData()
-
-#     # pretend arguments required by bigQuery
-#     kwargs = {'filename': 'test_file.csv',
-#               'metadata_table_id': 'test_metadata',
-#               'table_name': 'output_table'}
-
-#     uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    # assert_frame_equal(
+    #     _generated_df, _expected_df, check_like=True)

@@ -155,13 +155,18 @@ class UHCData(DataSource):
         # fetch each AHR report a single time
         loaded_report_dfs = {}
         for year, url in UHC_REPORT_URLS.items():
+            print(f'Fetching AHR report from {year}: \n\t\t{url}')
             loaded_report_dfs[year] = gcs_to_bq_util.load_csv_as_df_from_web(
                 url)
 
         for geo in ['state', 'national']:
             for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
 
-                breakdown_df = generate_multiyear_breakdown(
+                table_name = f'{breakdown}_{geo}'
+
+                print("Generating table:", table_name)
+
+                breakdown_df = self.generate_multiyear_breakdown(
                     geo, breakdown, loaded_report_dfs)
 
                 column_types = {c: 'STRING' for c in breakdown_df.columns}
@@ -177,55 +182,53 @@ class UHCData(DataSource):
                 if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
                     column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-                table_name = f'{breakdown}_{geo}'
-
                 gcs_to_bq_util.add_df_to_bq(
                     breakdown_df, dataset, table_name, column_types=column_types)
 
+    def generate_multiyear_breakdown(self, geo, breakdown, loaded_report_dfs):
+        """
+        Generates a specific geographic/demographic breakdown to be loaded into BQ. 
+        This generated table will include data from multiple years based on the
+        available source annual reports
 
-def generate_multiyear_breakdown(geo, breakdown, loaded_report_dfs):
-    """
-    Generates a specific geographic/demographic breakdown to be loaded into BQ. 
-    This generated table will include data from multiple years based on the
-    available source annual reports
+        Parameters: 
+            geo: string value 'national' or 'state' for geographic breakdown level 
+            breakdown: string value 'age', 'sex', or 'race_and_ethnicity" 
+                for demographic breakdown type
+            loaded_report_dfs: dict of pre-loaded pandas dataframes, indexed by year 
 
-    Parameters: 
-        geo: string value 'national' or 'state' for geographic breakdown level 
-        breakdown: string value 'age', 'sex', or 'race_and_ethnicity" 
-            for demographic breakdown type
-        loaded_report_dfs: dict of pre-loaded pandas dataframes, indexed by year 
+        Returns:
+            a single pandas df for a particular combination of geographic and demographic
+            breakdowns, with data including a year encoded in the `time_period` column
 
-    Returns:
-        a single pandas df for a particular combination of geographic and demographic
-        breakdowns, with data including a year encoded in the `time_period` column
+        """
 
-    """
+        annual_df_list = []
 
-    annual_df_list = []
+        for year in UHC_REPORT_URLS.keys():
 
-    for year in UHC_REPORT_URLS.keys():
+            print("\t\t\t\t\t", year)
+            df = loaded_report_dfs[year]
+            df = df.rename(
+                columns={'State Name': std_col.STATE_NAME_COL})
 
-        df = loaded_report_dfs[year]
-        df = df.rename(
-            columns={'State Name': std_col.STATE_NAME_COL})
+            if geo == 'national':
+                df = df.loc[df[std_col.STATE_NAME_COL]
+                            == constants.US_NAME]
+            else:
+                df = df.loc[df[std_col.STATE_NAME_COL]
+                            != constants.US_NAME]
+            annual_breakdown_df = df.copy()
+            annual_breakdown_df = parse_raw_data(
+                annual_breakdown_df, breakdown)
+            annual_breakdown_df = post_process(
+                annual_breakdown_df, breakdown, geo)
+            annual_breakdown_df["time_period"] = year
 
-        if geo == 'national':
-            df = df.loc[df[std_col.STATE_NAME_COL]
-                        == constants.US_NAME]
-        else:
-            df = df.loc[df[std_col.STATE_NAME_COL]
-                        != constants.US_NAME]
-        annual_breakdown_df = df.copy()
-        annual_breakdown_df = parse_raw_data(
-            annual_breakdown_df, breakdown)
-        annual_breakdown_df = post_process(
-            annual_breakdown_df, breakdown, geo)
-        annual_breakdown_df["time_period"] = year
+            annual_df_list.append(annual_breakdown_df)
 
-        annual_df_list.append(annual_breakdown_df)
-
-    # combine individual yearly breakdown dfs into a single multi-year breakdown df
-    return pd.concat(annual_df_list, axis=0)
+        # combine individual yearly breakdown dfs into a single multi-year breakdown df
+        return pd.concat(annual_df_list, axis=0)
 
 
 def parse_raw_data(df, breakdown):

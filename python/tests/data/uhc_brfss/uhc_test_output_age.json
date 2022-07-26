@@ -1,6 +1,7 @@
 [
     {
         "age": "All",
+        "time_period": "2021",
         "asthma_pct_share": 100.0,
         "asthma_per_100k": 9000.0,
         "avoided_care_pct_share": 100.0,
@@ -37,6 +38,7 @@
     },
     {
         "age": "15-24",
+        "time_period": "2021",
         "asthma_pct_share": null,
         "asthma_per_100k": null,
         "avoided_care_pct_share": null,
@@ -73,6 +75,7 @@
     },
     {
         "age": "25-34",
+        "time_period": "2021",
         "asthma_pct_share": null,
         "asthma_per_100k": null,
         "avoided_care_pct_share": null,
@@ -109,6 +112,7 @@
     },
     {
         "age": "35-44",
+        "time_period": "2021",
         "asthma_pct_share": null,
         "asthma_per_100k": null,
         "avoided_care_pct_share": null,
@@ -145,6 +149,7 @@
     },
     {
         "age": "45-54",
+        "time_period": "2021",
         "asthma_pct_share": null,
         "asthma_per_100k": null,
         "avoided_care_pct_share": null,
@@ -181,6 +186,7 @@
     },
     {
         "age": "55-64",
+        "time_period": "2021",
         "asthma_pct_share": null,
         "asthma_per_100k": null,
         "avoided_care_pct_share": null,
@@ -217,6 +223,7 @@
     },
     {
         "age": "65-74",
+        "time_period": "2021",
         "asthma_pct_share": null,
         "asthma_per_100k": null,
         "avoided_care_pct_share": null,
@@ -253,6 +260,7 @@
     },
     {
         "age": "75-84",
+        "time_period": "2021",
         "asthma_pct_share": null,
         "asthma_per_100k": null,
         "avoided_care_pct_share": null,
@@ -289,6 +297,7 @@
     },
     {
         "age": "85+",
+        "time_period": "2021",
         "asthma_pct_share": null,
         "asthma_per_100k": null,
         "avoided_care_pct_share": null,
@@ -325,6 +334,7 @@
     },
     {
         "age": "18-24",
+        "time_period": "2021",
         "asthma_pct_share": null,
         "asthma_per_100k": null,
         "avoided_care_pct_share": null,
@@ -361,6 +371,7 @@
     },
     {
         "age": "45-64",
+        "time_period": "2021",
         "asthma_pct_share": 27.2,
         "asthma_per_100k": 9300.0,
         "avoided_care_pct_share": 25.1,
@@ -397,6 +408,7 @@
     },
     {
         "age": "18-44",
+        "time_period": "2021",
         "asthma_pct_share": 35.5,
         "asthma_per_100k": 9200.0,
         "avoided_care_pct_share": 48.2,
@@ -433,6 +445,7 @@
     },
     {
         "age": "65+",
+        "time_period": "2021",
         "asthma_pct_share": 14.9,
         "asthma_per_100k": 8100.0,
         "avoided_care_pct_share": 4.9,
