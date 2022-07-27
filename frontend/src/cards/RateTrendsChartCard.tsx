@@ -7,15 +7,12 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import {
-  // isPctType,
-  MetricId,
-  VariableConfig,
-} from "../data/config/MetricConfig";
+import { VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
+import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -30,20 +27,27 @@ export interface RateTrendsChartCardProps {
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
 export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
-  const metricConfig = props.variableConfig.metrics["per100k"];
-
-  const metricIdsToFetch: MetricId[] = [];
-  metricIdsToFetch.push(metricConfig.metricId);
+  const metricConfigRates = props.variableConfig.metrics["per100k"];
+  const metricConfigPctShares = props.variableConfig.metrics["pct_share"];
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(NON_HISPANIC)
   );
 
-  const query = new MetricQuery(metricIdsToFetch, breakdowns, "longitudinal");
+  const ratesQuery = new MetricQuery(
+    metricConfigRates.metricId,
+    breakdowns,
+    "longitudinal"
+  );
+  const pctShareQuery = new MetricQuery(
+    metricConfigPctShares.metricId,
+    breakdowns,
+    "longitudinal"
+  );
 
   function getTitleText() {
-    return `Trends in ${metricConfig.fullCardTitleName} By ${
+    return `Trends in ${metricConfigRates.fullCardTitleName} By ${
       BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
     } In ${props.fips.getSentenceDisplayName()}`;
   }
@@ -53,21 +57,34 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   return (
     <CardWrapper
-      queries={[query]}
+      queries={[ratesQuery, pctShareQuery]}
       title={<CardTitle />}
       minHeight={PRELOAD_HEIGHT}
     >
-      {([queryResponse]) => {
-        const data = queryResponse.getValidRowsForField(metricConfig.metricId);
+      {([queryResponseRates, queryResponsePctShares]) => {
+        const ratesData = queryResponseRates.getValidRowsForField(
+          metricConfigRates.metricId
+        );
+        const pctShareData = queryResponsePctShares.getValidRowsForField(
+          metricConfigPctShares.metricId
+        );
+        const [knownRatesData] = splitIntoKnownsAndUnknowns(
+          ratesData,
+          props.breakdownVar
+        );
+        const [, unknownPctShareData] = splitIntoKnownsAndUnknowns(
+          pctShareData,
+          props.breakdownVar
+        );
 
         return (
           <CardContent>
-            {queryResponse.shouldShowMissingDataMessage([
-              metricConfig.metricId,
+            {queryResponseRates.shouldShowMissingDataMessage([
+              metricConfigRates.metricId,
             ]) ? (
               <>
                 <MissingDataAlert
-                  dataName={metricConfig.fullCardTitleName}
+                  dataName={metricConfigRates.fullCardTitleName}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
@@ -77,8 +94,14 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             ) : (
               <>
                 {/* 2N INCIDENCE RATE TRENDS VIZ COMPONENT HERE */}
-                {console.log(data)}
-                {data.map((row) => (
+                {console.log(knownRatesData)}
+                <b>KNOWN RATES</b>
+                {knownRatesData.map((row) => (
+                  <pre> {JSON.stringify(row)}</pre>
+                ))}
+                {console.log(unknownPctShareData)}
+                <b>PCT_SHARE UNKNOWN OF TOTAL</b>
+                {unknownPctShareData.map((row) => (
                   <pre> {JSON.stringify(row)}</pre>
                 ))}
               </>

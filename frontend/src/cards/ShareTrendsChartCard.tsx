@@ -16,6 +16,7 @@ import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
+import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -59,6 +60,11 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
+        const [knownData, unknownData] = splitIntoKnownsAndUnknowns(
+          data,
+          props.breakdownVar
+        );
+
         return (
           <CardContent>
             {queryResponse.shouldShowMissingDataMessage([
@@ -76,8 +82,14 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             ) : (
               <>
                 {/* 2N INCIDENCE RATE TRENDS VIZ COMPONENT HERE */}
-                {console.log(data)}
-                {data.map((row) => (
+                {console.log(knownData)}
+                <b>PCT_SHARE OF KNOWN</b>
+                {knownData.map((row) => (
+                  <pre> {JSON.stringify(row)}</pre>
+                ))}
+                {console.log(unknownData)}
+                <b>PCT_SHARE UNKNOWN OF TOTAL</b>
+                {unknownData.map((row) => (
                   <pre> {JSON.stringify(row)}</pre>
                 ))}
               </>

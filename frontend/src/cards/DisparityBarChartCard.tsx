@@ -85,7 +85,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           metricConfig.metricId
         );
 
-        const [dataWithoutUnknowns] = splitIntoKnownsAndUnknowns(
+        const [knownData] = splitIntoKnownsAndUnknowns(
           validData,
           props.breakdownVar
         );
@@ -105,7 +105,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
         const isCawp = CAWP_DETERMINANTS.includes(metricConfig.metricId);
 
         const dataAvailable =
-          dataWithoutUnknowns.length > 0 &&
+          knownData.length > 0 &&
           !queryResponse.shouldShowMissingDataMessage([metricConfig.metricId]);
 
         return (
@@ -132,11 +132,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 />
               </CardContent>
             )}
-            {dataAvailable && dataWithoutUnknowns.length !== 0 && (
+            {dataAvailable && knownData.length !== 0 && (
               <>
                 <CardContent>
                   <DisparityBarChart
-                    data={dataWithoutUnknowns}
+                    data={knownData}
                     lightMetric={metricConfig.populationComparisonMetric!}
                     darkMetric={
                       metricConfig.knownBreakdownComparisonMetric ||
