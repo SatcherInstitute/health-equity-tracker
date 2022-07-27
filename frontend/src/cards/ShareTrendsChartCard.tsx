@@ -80,19 +80,18 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 />
               </>
             ) : (
-              <>
+              <div>
                 {/* 2N INCIDENCE RATE TRENDS VIZ COMPONENT HERE */}
-                {console.log(knownData)}
-                <b>PCT_SHARE OF KNOWN</b>
-                {knownData.map((row) => (
-                  <pre> {JSON.stringify(row)}</pre>
-                ))}
-                {console.log(unknownData)}
-                <b>PCT_SHARE UNKNOWN OF TOTAL</b>
-                {unknownData.map((row) => (
-                  <pre> {JSON.stringify(row)}</pre>
-                ))}
-              </>
+                {console.log("KNOWN PCT SHARES", knownData)}
+
+                {console.log("UNKNOWN PCT SHARE", unknownData)}
+
+                <img
+                  src="/tmp/shares.png"
+                  alt="shares screenshot"
+                  width="100%"
+                />
+              </div>
             )}
           </CardContent>
         );

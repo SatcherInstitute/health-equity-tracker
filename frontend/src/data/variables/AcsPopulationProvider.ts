@@ -38,7 +38,6 @@ class AcsPopulationProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
-    const timeView = metricQuery.timeView;
     let df = await this.getDataInternalWithoutPercents(breakdowns);
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);

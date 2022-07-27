@@ -1,12 +1,7 @@
 import { Breakdowns, BreakdownVar, TimeView } from "./Breakdowns";
 import { Row, FieldRange } from "../utils/DatasetTypes";
 import { MetricId } from "../config/MetricConfig";
-import {
-  DemographicGroup,
-  UNKNOWN,
-  UNKNOWN_ETHNICITY,
-  UNKNOWN_RACE,
-} from "../utils/Constants";
+import { DemographicGroup } from "../utils/Constants";
 
 export class MetricQuery {
   readonly metricIds: MetricId[];

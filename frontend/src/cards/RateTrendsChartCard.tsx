@@ -94,16 +94,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             ) : (
               <>
                 {/* 2N INCIDENCE RATE TRENDS VIZ COMPONENT HERE */}
-                {console.log(knownRatesData)}
-                <b>KNOWN RATES</b>
-                {knownRatesData.map((row) => (
-                  <pre> {JSON.stringify(row)}</pre>
-                ))}
-                {console.log(unknownPctShareData)}
-                <b>PCT_SHARE UNKNOWN OF TOTAL</b>
-                {unknownPctShareData.map((row) => (
-                  <pre> {JSON.stringify(row)}</pre>
-                ))}
+                {console.log("KNOWN RATES", knownRatesData)}
+                {console.log("UNKNOWN PCT SHARE", unknownPctShareData)}
+                <img src="/tmp/rates.png" alt="rates screenshot" />
               </>
             )}
           </CardContent>
