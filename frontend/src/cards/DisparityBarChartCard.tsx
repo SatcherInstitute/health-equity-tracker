@@ -13,18 +13,12 @@ import { VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { exclude } from "../data/query/BreakdownFilter";
-import {
-  NON_HISPANIC,
-  ALL,
-  UNKNOWN,
-  UNKNOWN_RACE,
-  UNKNOWN_ETHNICITY,
-  RACE,
-  HISPANIC,
-} from "../data/utils/Constants";
-import { Row } from "../data/utils/DatasetTypes";
+import { NON_HISPANIC, ALL, RACE, HISPANIC } from "../data/utils/Constants";
 import UnknownsAlert from "./ui/UnknownsAlert";
-import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
+import {
+  shouldShowAltPopCompare,
+  splitIntoKnownsAndUnknowns,
+} from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 
 /* minimize layout shift */
@@ -87,14 +81,14 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
     >
       {([queryResponse]) => {
-        const dataWithoutUnknowns = queryResponse
-          .getValidRowsForField(metricConfig.metricId)
-          .filter(
-            (row: Row) =>
-              row[props.breakdownVar] !== UNKNOWN &&
-              row[props.breakdownVar] !== UNKNOWN_RACE &&
-              row[props.breakdownVar] !== UNKNOWN_ETHNICITY
-          );
+        const validData = queryResponse.getValidRowsForField(
+          metricConfig.metricId
+        );
+
+        const [dataWithoutUnknowns] = splitIntoKnownsAndUnknowns(
+          validData,
+          props.breakdownVar
+        );
 
         // include a note about percents adding to over 100%
         // if race options include hispanic twice (eg "White" and "Hispanic" can both include Hispanic people)

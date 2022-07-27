@@ -352,3 +352,23 @@ export function getExclusionList(
 
   return exclusionList;
 }
+
+export function splitIntoKnownsAndUnknowns(
+  data: Row[],
+  breakdownVar: BreakdownVar
+): Row[][] {
+  const knowns: Row[] = [];
+  const unknowns: Row[] = [];
+
+  data.forEach((row: Row) => {
+    if (
+      row[breakdownVar] === UNKNOWN ||
+      row[breakdownVar] === UNKNOWN_RACE ||
+      row[breakdownVar] === UNKNOWN_ETHNICITY
+    )
+      unknowns.push(row);
+    else knowns.push(row);
+  });
+
+  return [knowns, unknowns];
+}

@@ -22,15 +22,11 @@ import { exclude } from "../data/query/BreakdownFilter";
 import {
   NON_HISPANIC,
   RACE,
-  UNKNOWN,
-  UNKNOWN_RACE,
-  UNKNOWN_ETHNICITY,
   ALL,
   WHITE_NH,
   MULTI_OR_OTHER_STANDARD_NH,
   AGE,
 } from "../data/utils/Constants";
-import { Row } from "../data/utils/DatasetTypes";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import styles from "./Card.module.scss";
@@ -42,6 +38,7 @@ import {
 } from "../utils/internalRoutes";
 import { Link } from "react-router-dom";
 import UnknownsAlert from "./ui/UnknownsAlert";
+import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 
@@ -120,14 +117,10 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       title={<>{cardTitle}</>}
     >
       {([raceQueryResponse, ageQueryResponse]) => {
-        let knownRaceData = raceQueryResponse.data.filter((row: Row) => {
-          return (
-            // remove unknowns
-            row[RACE] !== UNKNOWN &&
-            row[RACE] !== UNKNOWN_RACE &&
-            row[RACE] !== UNKNOWN_ETHNICITY
-          );
-        });
+        const [knownRaceData] = splitIntoKnownsAndUnknowns(
+          raceQueryResponse.data,
+          props.breakdownVar
+        );
 
         const isWrongBreakdownVar = props.breakdownVar === "sex";
         const noRatios = knownRaceData.every(
