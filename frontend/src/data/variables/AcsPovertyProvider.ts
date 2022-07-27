@@ -39,6 +39,7 @@ class AcsPovertyProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
+    const timeView = metricQuery.timeView;
     const breakdownCol = breakdowns.getSoleDemographicBreakdown().columnName;
     const datasetId = this.getDatasetId(breakdowns);
     const acsDataset = await getDataManager().loadDataset(datasetId);
@@ -48,6 +49,7 @@ class AcsPovertyProvider extends VariableProvider {
     // If requested, filter geography by state or county level
     // We apply the geo filter right away to reduce subsequent calculation times
     df = this.filterByGeo(df, breakdowns);
+    df = this.filterByTimeView(df, timeView);
     df = this.renameGeoColumns(df, breakdowns);
 
     df = this.aggregateByBreakdown(df, breakdownCol);

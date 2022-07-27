@@ -81,7 +81,11 @@ describe("Acs2010PopulationProvider", () => {
     const acsProvider = new Acs2010PopulationProvider();
 
     const response = await acsProvider.getData(
-      new MetricQuery(["population", "population_pct"], Breakdowns.national())
+      new MetricQuery(
+        ["population", "population_pct"],
+        Breakdowns.national(),
+        "current"
+      )
     );
     expect(response).toEqual(
       createMissingDataResponse(

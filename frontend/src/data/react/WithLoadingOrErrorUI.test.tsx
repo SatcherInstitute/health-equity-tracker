@@ -61,7 +61,8 @@ describe("WithLoadingOrErrorUI", () => {
   test("WithMetrics: Loads metrics", async () => {
     const query = new MetricQuery(
       "copd_per_100k",
-      Breakdowns.byState().andRace(excludeAll())
+      Breakdowns.byState().andRace(excludeAll()),
+      "current"
     );
 
     expect(dataFetcher.getNumGetMetadataCalls()).toBe(0);
@@ -106,7 +107,8 @@ describe("WithLoadingOrErrorUI", () => {
   test("WithMetrics: Loaded metrics have no rows", async () => {
     const query = new MetricQuery(
       "diabetes_per_100k",
-      Breakdowns.national().andRace()
+      Breakdowns.national().andRace(),
+      "current"
     );
 
     expect(dataFetcher.getNumGetMetadataCalls()).toBe(0);
@@ -129,7 +131,8 @@ describe("WithLoadingOrErrorUI", () => {
   test("WithMetrics: Unsupported breakdown", async () => {
     const query = new MetricQuery(
       "diabetes_per_100k",
-      Breakdowns.byCounty().andAge()
+      Breakdowns.byCounty().andAge(),
+      "current"
     );
 
     expect(dataFetcher.getNumGetMetadataCalls()).toBe(0);
@@ -150,7 +153,8 @@ describe("WithLoadingOrErrorUI", () => {
     const query = new MetricQuery(
       //@ts-ignore - metric ID should be invalid for this test
       "fake_metric_doesnt_exist",
-      Breakdowns.national()
+      Breakdowns.national(),
+      "current"
     );
 
     expect(dataFetcher.getNumGetMetadataCalls()).toBe(0);

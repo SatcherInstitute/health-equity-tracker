@@ -24,7 +24,7 @@ export async function ensureCorrectDatasetsDownloaded(
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await brfssProvider.getData(
-    new MetricQuery([], baseBreakdown.addBreakdown(breakdownVar))
+    new MetricQuery([], baseBreakdown.addBreakdown(breakdownVar), "current")
   );
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);

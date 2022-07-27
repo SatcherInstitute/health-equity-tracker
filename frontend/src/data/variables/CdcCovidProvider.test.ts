@@ -24,7 +24,7 @@ export async function ensureCorrectDatasetsDownloaded(
   dataFetcher.setFakeDatasetLoaded(cdcDatasetId, []);
 
   const responseIncludingAll = await cdcCovidProvider.getData(
-    new MetricQuery([], baseBreakdown.addBreakdown(breakdownVar))
+    new MetricQuery([], baseBreakdown.addBreakdown(breakdownVar), "current")
   );
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);

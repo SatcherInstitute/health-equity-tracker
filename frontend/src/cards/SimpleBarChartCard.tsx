@@ -56,11 +56,12 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     exclude(NON_HISPANIC)
   );
 
-  const query = new MetricQuery(metricIdsToFetch, breakdowns);
+  const query = new MetricQuery(metricIdsToFetch, breakdowns, "current");
 
   function getTitleText() {
-    return `${metricConfig.fullCardTitleName} By ${BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-      } In ${props.fips.getSentenceDisplayName()}`;
+    return `${metricConfig.fullCardTitleName} By ${
+      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+    } In ${props.fips.getSentenceDisplayName()}`;
   }
   function CardTitle() {
     return <>{getTitleText()}</>;

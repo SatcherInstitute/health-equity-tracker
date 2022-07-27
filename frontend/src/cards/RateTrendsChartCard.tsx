@@ -40,7 +40,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     exclude(NON_HISPANIC)
   );
 
-  const query = new MetricQuery(metricIdsToFetch, breakdowns);
+  const query = new MetricQuery(metricIdsToFetch, breakdowns, "longitudinal");
 
   function getTitleText() {
     return `Trends in ${metricConfig.fullCardTitleName} By ${
@@ -59,7 +59,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
-        console.log(data);
+
         return (
           <CardContent>
             {queryResponse.shouldShowMissingDataMessage([

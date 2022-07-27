@@ -2,7 +2,7 @@ import { IDataFrame } from "data-forge";
 import { Fips } from "../../data/utils/Fips";
 import { MetricId } from "../config/MetricConfig";
 import { ProviderId } from "../loading/VariableProviderMap";
-import { Breakdowns } from "../query/Breakdowns";
+import { Breakdowns, TimeView } from "../query/Breakdowns";
 import {
   createMissingDataResponse,
   MetricQuery,
@@ -52,6 +52,18 @@ abstract class VariableProvider {
         return df.where((row) => row[fipsColumn] === fips.code).resetIndex();
       }
     }
+    return df;
+  }
+
+  filterByTimeView(df: IDataFrame, timeView: TimeView): IDataFrame {
+    // TODO: Remove this check once ALL data sources have been refactored to include time series data
+    if (df.getColumnNames().includes("time_period")) {
+      if (timeView === "current")
+        df = df.where((row) => row.time_period === "2021");
+    }
+
+    // TODO: Figure out how to best handle COVID and any other CUMULATIVE datasets
+    // where the "CURRENT" view really includes all data rather than the most recent slice
     return df;
   }
 

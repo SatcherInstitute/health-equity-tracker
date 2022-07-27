@@ -67,6 +67,7 @@ class CdcCovidProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
+    const timeView = metricQuery.timeView;
     const datasetId = this.getDatasetId(breakdowns);
 
     const covidDataset = await getDataManager().loadDataset(datasetId);
@@ -79,6 +80,7 @@ class CdcCovidProvider extends VariableProvider {
     // If requested, filter geography by state or county level. We apply the
     // geo filter right away to reduce subsequent calculation times.
     df = this.filterByGeo(df, breakdowns);
+    df = this.filterByTimeView(df, timeView);
     if (df.toArray().length === 0) {
       return new MetricQueryResponse([], consumedDatasetIds);
     }

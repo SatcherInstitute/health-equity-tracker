@@ -62,11 +62,13 @@ export function PopulationCard(props: PopulationCardProps) {
 
   const raceQuery = new MetricQuery(
     metricIds,
-    Breakdowns.forFips(props.fips).andRace(onlyIncludeStandardRaces())
+    Breakdowns.forFips(props.fips).andRace(onlyIncludeStandardRaces()),
+    "current"
   );
   const ageQuery = new MetricQuery(
     metricIds,
-    Breakdowns.forFips(props.fips).andAge(onlyIncludeDecadeAgeBrackets())
+    Breakdowns.forFips(props.fips).andAge(onlyIncludeDecadeAgeBrackets()),
+    "current"
   );
 
   const queries = [raceQuery, ageQuery];
@@ -74,7 +76,8 @@ export function PopulationCard(props: PopulationCardProps) {
   if (props.fips.isCounty()) {
     const sviQuery = new MetricQuery(
       "svi",
-      Breakdowns.forFips(props.fips).andAge(onlyInclude("All"))
+      Breakdowns.forFips(props.fips).andAge(onlyInclude("All")),
+      "current"
     );
     queries.push(sviQuery);
   }

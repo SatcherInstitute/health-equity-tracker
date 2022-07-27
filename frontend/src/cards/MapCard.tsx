@@ -101,12 +101,14 @@ function MapCardWithKey(props: MapCardProps) {
           props.currentBreakdown === RACE
             ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
             : exclude(UNKNOWN)
-        )
+        ),
+      "current"
     );
 
   const sviQuery = new MetricQuery(
     "svi",
-    Breakdowns.byCounty().andAge(onlyInclude("All"))
+    Breakdowns.byCounty().andAge(onlyInclude("All")),
+    "current"
   );
 
   const queries = [

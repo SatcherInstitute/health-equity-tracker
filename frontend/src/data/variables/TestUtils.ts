@@ -64,7 +64,11 @@ export function createWithAndWithoutAllEvaluator(
 
     // Evaluate the response with requesting "All" field
     const responseWithAll = await variableProvider.getData(
-      new MetricQuery(metricIds, baseBreakdown.addBreakdown(breakdownVar))
+      new MetricQuery(
+        metricIds,
+        baseBreakdown.addBreakdown(breakdownVar),
+        "current"
+      )
     );
     expect(responseWithAll).toEqual(
       new MetricQueryResponse(rowsIncludingAll, [datasetId])
@@ -74,7 +78,8 @@ export function createWithAndWithoutAllEvaluator(
     const responseWithoutAll = await variableProvider.getData(
       new MetricQuery(
         metricIds,
-        baseBreakdown.addBreakdown(breakdownVar, excludeAll())
+        baseBreakdown.addBreakdown(breakdownVar, excludeAll()),
+        "current"
       )
     );
     expect(responseWithoutAll).toEqual(

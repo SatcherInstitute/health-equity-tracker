@@ -40,7 +40,11 @@ export async function evaluateWithAndWithoutAll(
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await vaccineProvider.getData(
-    new MetricQuery(METRIC_IDS, baseBreakdown.addBreakdown(breakdownVar))
+    new MetricQuery(
+      METRIC_IDS,
+      baseBreakdown.addBreakdown(breakdownVar),
+      "current"
+    )
   );
 
   let consumedDatasetIds = [vaccineDatasetId];
@@ -62,7 +66,8 @@ export async function evaluateWithAndWithoutAll(
   const responseExcludingAll = await vaccineProvider.getData(
     new MetricQuery(
       METRIC_IDS,
-      baseBreakdown.addBreakdown(breakdownVar, excludeAll())
+      baseBreakdown.addBreakdown(breakdownVar, excludeAll()),
+      "current"
     )
   );
   expect(responseExcludingAll).toEqual(

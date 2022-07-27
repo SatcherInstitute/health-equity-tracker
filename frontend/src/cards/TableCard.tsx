@@ -87,7 +87,7 @@ export function TableCard(props: TableCardProps) {
 
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   isIncarceration && metricIds.push("total_confined_children");
-  const query = new MetricQuery(metricIds as MetricId[], breakdowns);
+  const query = new MetricQuery(metricIds as MetricId[], breakdowns, "current");
 
   const displayingCovidData = metrics
     .map((config) => config.metricId)
@@ -98,8 +98,9 @@ export function TableCard(props: TableCardProps) {
       minHeight={PRELOAD_HEIGHT}
       queries={[query]}
       title={
-        <>{`${props.variableConfig.variableFullDisplayName} By ${BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-          } In ${props.fips.getSentenceDisplayName()}`}</>
+        <>{`${props.variableConfig.variableFullDisplayName} By ${
+          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+        } In ${props.fips.getSentenceDisplayName()}`}</>
       }
     >
       {([queryResponse]) => {

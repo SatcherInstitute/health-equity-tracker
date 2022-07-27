@@ -29,7 +29,11 @@ export async function ensureCorrectDatasetsDownloaded(
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await incarcerationProvider.getData(
-    new MetricQuery(metricIds, baseBreakdown.addBreakdown(breakdownVar))
+    new MetricQuery(
+      metricIds,
+      baseBreakdown.addBreakdown(breakdownVar),
+      "current"
+    )
   );
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);

@@ -275,7 +275,8 @@ describe("AcsPopulationProvider", () => {
     let response = await new AcsPopulationProvider().getData(
       new MetricQuery(
         ["population", "population_pct"],
-        Breakdowns.forFips(new Fips(NC.code)).andRace()
+        Breakdowns.forFips(new Fips(NC.code)).andRace(),
+        "current"
       )
     );
     expect(response).toEqual(
@@ -296,7 +297,8 @@ describe("AcsPopulationProvider", () => {
         ["population", "population_pct"],
         Breakdowns.forFips(new Fips(NC.code)).andRace(
           onlyIncludeStandardRaces()
-        )
+        ),
+        "current"
       )
     );
     expect(response).toEqual(
