@@ -26,4 +26,6 @@ export interface TrendsChartProps {
 }
 
 /* Render component */
-export default function TrendsChart(props: TrendsChartProps) {}
+export function TrendsChart(props: TrendsChartProps) {
+  return <div>TrendsChart</div>;
+}
