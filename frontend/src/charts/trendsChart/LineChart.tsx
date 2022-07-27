@@ -4,8 +4,8 @@
  * returns jsx of an svg group containing paths
 
 /* External Imports */
-import React from "react";
-import { ScaleTime } from "d3";
+import React, { Key } from "react";
+import { ScaleTime, ScaleLinear, ScaleOrdinal, line, curveMonotoneX } from "d3";
 
 /* Local Imports */
 
@@ -17,11 +17,33 @@ import { ScaleTime } from "d3";
 
 /* Define type interface */
 export interface LineChartProps {
-  data: {}[];
+  data: any[];
   xScale: ScaleTime<number, void, void>;
+  yScale: ScaleLinear<number, void, void>;
+  colors: ScaleOrdinal<string | Key[][], string, void>;
 }
 
 /* Render component */
-export function LineChart(props: LineChartProps) {
-  return <div>LineChartChart</div>;
+export function LineChart({ data, xScale, yScale, colors }: LineChartProps) {
+  // @ts-ignore
+  const lineGen = line()
+    .x(([date]) => xScale(new Date(date)))
+    .y(([_, delta]) => yScale(delta))
+    .curve(curveMonotoneX);
+
+  return (
+    <g>
+      {data &&
+        data.map(([group, d]) => (
+          //@ts-ignore
+          <path
+            key={`group-${group}`}
+            d={lineGen(d)}
+            fill="none"
+            strokeWidth={2}
+            stroke={colors(group)}
+          />
+        ))}
+    </g>
+  );
 }

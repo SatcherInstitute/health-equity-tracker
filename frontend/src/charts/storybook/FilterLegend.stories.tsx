@@ -6,7 +6,7 @@ import { FilterLegend, FilterLegendProps } from "../trendsChart/FilterLegend";
 import { scaleOrdinal } from "d3";
 
 // Local
-import { colorRange } from "../trendsChart/constants";
+import { COLOR_RANGE } from "../trendsChart/constants";
 import data from "../../../public/tmp/trends.json";
 
 const props: FilterLegendProps = {
@@ -17,7 +17,7 @@ const props: FilterLegendProps = {
   handleClick: action("clicked"),
   colors: scaleOrdinal(
     data.race_national.covid_cases_per_100k.map(([cat]) => cat),
-    colorRange
+    COLOR_RANGE
   ),
 };
 

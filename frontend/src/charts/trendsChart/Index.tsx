@@ -6,21 +6,19 @@
 
 /* External Imports */
 import React, { useState, useMemo } from "react";
-import { scaleOrdinal } from "d3";
+import { scaleOrdinal, scaleTime, scaleLinear, extent, ScaleTime } from "d3";
 
 /* Local Imports */
 
-/* Data */
-// temporary: todo - get from props
-import data from "../../../public/tmp/trends.json";
 /* Components */
 import { FilterLegend } from "./FilterLegend";
+import { LineChart } from "./LineChart";
 
 /* Styles */
 import styles from "./Trends.module.scss";
 
 /* Constants */
-import { colorRange } from "./constants";
+import { COLOR_RANGE } from "./constants";
 
 /* Helpers */
 import { filterDataByGroup } from "./helpers";
@@ -35,6 +33,16 @@ export interface TrendsChartProps {
 /* Render component */
 export function TrendsChart({ data, unknown, type }: TrendsChartProps) {
   /* Config */
+  const CONFIG = {
+    WIDTH: 500,
+    HEIGHT: 500,
+    MARGIN: {
+      top: 10,
+      right: 10,
+      bottom: 10,
+      left: 10,
+    },
+  };
 
   /* State Management */
   // Manages which group filters user has applied
@@ -50,8 +58,30 @@ export function TrendsChart({ data, unknown, type }: TrendsChartProps) {
   /* Scales */
   const colors = scaleOrdinal(
     data.map(([cat]) => cat),
-    colorRange
+    COLOR_RANGE
   );
+
+  // @ts-ignore
+  // TODO: filter out undefineds
+  const xExtent: [Date, Date] = extent(
+    data.flatMap(([_, d]) => d.map(([date]: [Date]) => new Date(date)))
+  );
+
+  // @ts-ignore
+  // TODO: filter out undefineds
+  const yExtent: [number, number] = extent(
+    data.flatMap(([_, d]) => d.map(([_, amount]: [Date, number]) => amount))
+  );
+
+  const xScale = scaleTime(xExtent, [
+    CONFIG.MARGIN.left,
+    CONFIG.WIDTH - CONFIG.MARGIN.right,
+  ]);
+
+  const yScale = scaleLinear(yExtent, [
+    CONFIG.HEIGHT - CONFIG.MARGIN.top,
+    CONFIG.MARGIN.bottom,
+  ]);
 
   /* Event Handlers */
   function handleClick(selectedGroup: string) {
@@ -64,13 +94,24 @@ export function TrendsChart({ data, unknown, type }: TrendsChartProps) {
   }
 
   return (
+    // Container
     <div className={styles.TrendsChart}>
+      {/* Filter */}
       <FilterLegend
         data={data}
         selectedGroups={selectedGroups}
         colors={colors}
         handleClick={handleClick}
       />
+      {/* Chart */}
+      <svg height={CONFIG.HEIGHT} width={CONFIG.WIDTH}>
+        <LineChart
+          data={filteredData}
+          xScale={xScale}
+          yScale={yScale}
+          colors={colors}
+        />
+      </svg>
     </div>
   );
 }

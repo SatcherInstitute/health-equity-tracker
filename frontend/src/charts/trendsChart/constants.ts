@@ -1,4 +1,4 @@
-const colorRange = [
+const COLOR_RANGE = [
   "#0B5240",
   "#9AC4C0",
   "#255792",
@@ -9,4 +9,4 @@ const colorRange = [
   "#FCB431",
 ];
 
-export { colorRange };
+export { COLOR_RANGE };
