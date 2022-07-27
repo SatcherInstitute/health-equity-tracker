@@ -100,13 +100,18 @@ def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
 
     alls = alls[on_cols + list(rename_cols.values())]
 
-    fips = std_col.COUNTY_FIPS_COL if std_col.COUNTY_FIPS_COL in df.columns else std_col.STATE_FIPS_COL
+    # Ensure there is exactly one ALL value for each fips or fips/time_period group.
+    split_cols = [std_col.COUNTY_FIPS_COL] if std_col.COUNTY_FIPS_COL in \
+        df.columns else [std_col.STATE_FIPS_COL]
 
-    # Ensure there is exactly one ALL value for each fips group.
-    all_fips = df[fips].drop_duplicates().to_list()
+    if std_col.TIME_PERIOD in df.columns:
+        split_cols.append(std_col.TIME_PERIOD)
 
-    value_counts = alls[fips].value_counts()
-    for f in all_fips:
+    all_splits = df[split_cols].drop_duplicates()
+    all_splits = list(all_splits.itertuples(index=False, name=None))
+
+    value_counts = alls[split_cols].value_counts()
+    for f in all_splits:
         count = value_counts[f]
         if count != 1:
             raise ValueError(
