@@ -76,7 +76,10 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             ) : (
               <>
                 {/* 2N INCIDENCE RATE TRENDS VIZ COMPONENT HERE */}
-                <img src="/img2.jpeg" alt="rick roll pie chart" height="300" />
+                {console.log(data)}
+                {data.map((row) => (
+                  <pre> {JSON.stringify(row)}</pre>
+                ))}
               </>
             )}
           </CardContent>

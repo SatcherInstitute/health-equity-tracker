@@ -90,6 +90,9 @@ abstract class VariableProvider {
     let dataFrame = df;
     let requestedColumns = ["fips", "fips_name"].concat(metricQuery.metricIds);
 
+    if (metricQuery.timeView === "longitudinal")
+      requestedColumns.push("time_period");
+
     // Add column names of enabled breakdowns
     requestedColumns = requestedColumns.concat(
       Object.entries(metricQuery.breakdowns.demographicBreakdowns)

@@ -77,7 +77,10 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             ) : (
               <>
                 {/* 2N INCIDENCE RATE TRENDS VIZ COMPONENT HERE */}
-                <img src="/img.webp" alt="rick roll flow chart" height="300" />
+                {console.log(data)}
+                {data.map((row) => (
+                  <pre> {JSON.stringify(row)}</pre>
+                ))}
               </>
             )}
           </CardContent>
