@@ -1,1 +1,53 @@
-@use "../styles/globals.scss";
+@import "../../styles/globals.scss";
+
+$spacingSmall: 6px;
+$spacingLarge: 18px;
+
+.TrendsChart {
+  // styles for trends chart container
+  @include inter400;
+}
+
+/* Filter Legend Styles */
+.FilterLegend {
+  @include inter400;
+  font-size: $small;
+
+  // Legend Title
+  .LegendTitle {
+    @include inter500;
+    margin-bottom: $spacingLarge;
+  }
+
+  // Filter legend buttons wrapper
+  .LegendItems {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  // Filter legend button
+  .LegendItem {
+    // remove default button styling
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    // distribute swatch and label
+    display: flex;
+    align-items: center;
+    // create space around button
+    margin: 0 $spacingLarge $spacingSmall 0;
+  }
+
+  // Filter legend button square color swatch
+  .swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    flex-shrink: 0; // prevent distortion
+    margin-right: $spacingSmall; // create space between swatch and label
+  }
+}

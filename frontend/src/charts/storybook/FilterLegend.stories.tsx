@@ -3,17 +3,33 @@ import { Meta, Story } from "@storybook/react/types-6-0";
 import { action } from "@storybook/addon-actions";
 
 import { FilterLegend, FilterLegendProps } from "../trendsChart/FilterLegend";
-import { scaleTime } from "d3";
+import { scaleOrdinal } from "d3";
 import data from "../../../public/tmp/trends.json";
 
 const props: FilterLegendProps = {
-  data: data.race_national.covid_cases_per_100k,
+  data: data.race_national.covid_cases_per_100k.filter(
+    ([group]) => group !== "Unknown race"
+  ),
   onClick: action("clicked"),
+  colors: scaleOrdinal(
+    data.race_national.covid_cases_per_100k.map(([cat]) => cat),
+    [
+      "#0B5240",
+      "#9AC4C0",
+      "#255792",
+      "#ADBBDE",
+      "#F2D6E7",
+      "#A93038",
+      "#ED573F",
+      "#FCB431",
+    ]
+  ),
 };
 
 export default {
   title: "Components/FilterLegend",
   component: FilterLegend,
+  argTypes: { onClick: { action: "clicked" } },
 } as Meta;
 
 // ref: https://storybook.js.org/docs/react/writing-stories/args#story-args
