@@ -102,7 +102,7 @@ class BrfssProvider extends VariableProvider {
     const consumedDatasetIds = [datasetId, GetAcsDatasetId(breakdowns)];
 
     df = this.filterByGeo(df, breakdowns);
-    df = this.filterByTimeView(df, timeView);
+    df = this.filterByTimeView(df, timeView, "2021");
     df = this.renameGeoColumns(df, breakdowns);
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);

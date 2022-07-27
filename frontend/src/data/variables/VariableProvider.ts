@@ -55,15 +55,16 @@ abstract class VariableProvider {
     return df;
   }
 
-  filterByTimeView(df: IDataFrame, timeView: TimeView): IDataFrame {
+  filterByTimeView(
+    df: IDataFrame,
+    timeView: TimeView,
+    sourceCurrentTimePeriod?: string
+  ): IDataFrame {
     // TODO: Remove this check once ALL data sources have been refactored to include time series data
 
     if (df.getColumnNames().includes("time_period")) {
       if (timeView === "current")
-        df = df.where(
-          (row) =>
-            row["time_period"] === "2021" || row["time_period"] === "2022-06"
-        );
+        df = df.where((row) => row["time_period"] === sourceCurrentTimePeriod);
     }
 
     // TODO: Figure out how to best handle COVID and any other CUMULATIVE datasets
