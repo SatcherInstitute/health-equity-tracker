@@ -40,6 +40,9 @@ $spacingLarge: 18px;
     align-items: center;
     // create space around button
     margin: 0 $spacingLarge $spacingSmall 0;
+    // transition opacity on selection
+    opacity: 1;
+    transition: opacity 250ms ease-in-out;
   }
 
   // Filter legend button square color swatch

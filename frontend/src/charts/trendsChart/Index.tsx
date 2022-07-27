@@ -5,7 +5,8 @@
  */
 
 /* External Imports */
-import React from "react";
+import React, { useState, useMemo } from "react";
+import { scaleOrdinal } from "d3";
 
 /* Local Imports */
 
@@ -13,19 +14,63 @@ import React from "react";
 // temporary: todo - get from props
 import data from "../../../public/tmp/trends.json";
 /* Components */
+import { FilterLegend } from "./FilterLegend";
+
+/* Styles */
+import styles from "./Trends.module.scss";
 
 /* Constants */
+import { colorRange } from "./constants";
 
 /* Helpers */
+import { filterDataByGroup } from "./helpers";
 
 /* Define type interface */
 export interface TrendsChartProps {
-  data: {}[];
+  data: any[]; // TODO: stricter typing
   unknown: {}[];
   type: string;
 }
 
 /* Render component */
-export function TrendsChart(props: TrendsChartProps) {
-  return <div>TrendsChart</div>;
+export function TrendsChart({ data, unknown, type }: TrendsChartProps) {
+  /* Config */
+
+  /* State Management */
+  // Manages which group filters user has applied
+  const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
+
+  // Data filtered by user selected
+  const filteredData = useMemo(
+    () =>
+      selectedGroups.length ? filterDataByGroup(data, selectedGroups) : data,
+    [selectedGroups]
+  );
+
+  /* Scales */
+  const colors = scaleOrdinal(
+    data.map(([cat]) => cat),
+    colorRange
+  );
+
+  /* Event Handlers */
+  function handleClick(selectedGroup: string) {
+    // Toggle selection
+    const newSelectedGroups = selectedGroups.includes(selectedGroup)
+      ? selectedGroups.filter((group) => group !== selectedGroup)
+      : [...selectedGroups, selectedGroup];
+    // Set new array of selected groups to state
+    setSelectedGroups(newSelectedGroups);
+  }
+
+  return (
+    <div className={styles.TrendsChart}>
+      <FilterLegend
+        data={data}
+        selectedGroups={selectedGroups}
+        colors={colors}
+        handleClick={handleClick}
+      />
+    </div>
+  );
 }

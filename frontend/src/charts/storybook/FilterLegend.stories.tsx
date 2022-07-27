@@ -4,25 +4,20 @@ import { action } from "@storybook/addon-actions";
 
 import { FilterLegend, FilterLegendProps } from "../trendsChart/FilterLegend";
 import { scaleOrdinal } from "d3";
+
+// Local
+import { colorRange } from "../trendsChart/constants";
 import data from "../../../public/tmp/trends.json";
 
 const props: FilterLegendProps = {
   data: data.race_national.covid_cases_per_100k.filter(
     ([group]) => group !== "Unknown race"
   ),
-  onClick: action("clicked"),
+  selectedGroups: [],
+  handleClick: action("clicked"),
   colors: scaleOrdinal(
     data.race_national.covid_cases_per_100k.map(([cat]) => cat),
-    [
-      "#0B5240",
-      "#9AC4C0",
-      "#255792",
-      "#ADBBDE",
-      "#F2D6E7",
-      "#A93038",
-      "#ED573F",
-      "#FCB431",
-    ]
+    colorRange
   ),
 };
 
