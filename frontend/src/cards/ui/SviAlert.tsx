@@ -17,14 +17,20 @@ export const findRating = (svi: number) => {
   if (svi < 0.34) {
     return "low";
   }
-  if (svi > 0.67) {
+  if (svi >= 0.34 && svi <= 0.66) {
+    return "medium";
+  }
+  if (svi > 0.66) {
     return "high";
   }
-  return "medium";
+  return "Insufficient data";
 };
 
 export const findVerboseRating = (svi: number) => {
   const rating = findRating(svi);
+  if (rating === "Insufficient data") {
+    return "Insufficient data";
+  }
   return `${rating[0].toUpperCase() + rating.slice(1)} vulnerability`;
 };
 
