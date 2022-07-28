@@ -9,17 +9,20 @@ const COLOR_RANGE = [
   "#FCB431",
 ];
 
+const UNKNOWN_GROUP_COLOR_EXTENT = ["rgb(211, 238, 206)", "rgb(11, 96, 161)"];
+
 /* Config */
 const CONFIG = {
   WIDTH: 1000,
   HEIGHT: 600,
   MARGIN: {
     top: 10,
-    right: 10,
+    right: 15,
     bottom: 80,
-    left: 80,
+    left: 85,
   },
   TICK_PADDING: 10,
+  RADIUS_EXTENT: [3, 15],
 };
 
 const TYPES = {
@@ -27,4 +30,4 @@ const TYPES = {
   PERCENT_SHARE: "percent_share",
 };
 
-export { COLOR_RANGE, CONFIG, TYPES };
+export { COLOR_RANGE, UNKNOWN_GROUP_COLOR_EXTENT, CONFIG, TYPES };

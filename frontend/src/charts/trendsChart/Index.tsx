@@ -14,6 +14,7 @@ import { scaleOrdinal, scaleTime, scaleLinear, extent, ScaleTime } from "d3";
 import { FilterLegend } from "./FilterLegend";
 import { LineChart } from "./LineChart";
 import { Axes } from "./Axes";
+import { CircleChart } from "./CircleChart";
 
 /* Styles */
 import styles from "./Trends.module.scss";
@@ -67,6 +68,8 @@ export function TrendsChart({ data, unknown, type }: TrendsChartProps) {
     )
   );
 
+  console.log(unknown);
+
   const xScale = scaleTime(xExtent, [MARGIN.left, WIDTH - MARGIN.right]);
 
   const yScale = scaleLinear(yExtent, [HEIGHT - MARGIN.bottom, MARGIN.top]);
@@ -110,6 +113,7 @@ export function TrendsChart({ data, unknown, type }: TrendsChartProps) {
           yScale={yScale}
           colors={colors}
         />
+        <CircleChart data={unknown} xScale={xScale} />
       </svg>
     </div>
   );

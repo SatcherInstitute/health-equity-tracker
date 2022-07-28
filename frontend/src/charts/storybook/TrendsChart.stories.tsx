@@ -9,9 +9,9 @@ const props: TrendsChartProps = {
   data: data.race_national.covid_cases_per_100k.filter(
     ([group]) => group !== "Unknown race"
   ),
-  unknown: data.race_national.covid_cases_per_100k.filter(
-    ([group]) => group == "Unknown race"
-  ),
+  unknown: data.race_national.covid_cases_per_100k
+    .filter(([group]) => group == "Unknown race")
+    .flatMap(([group, d]) => d),
   type: TYPES.HUNDRED_K,
 };
 
@@ -34,8 +34,8 @@ PercentShare.args = {
   data: data.race_national.covid_cases_share.filter(
     ([group]) => group !== "Unknown race"
   ),
-  unknown: data.race_national.covid_cases_share.filter(
-    ([group]) => group !== "Unknown race"
-  ),
+  unknown: data.race_national.covid_cases_share
+    .filter(([group]) => group == "Unknown race")
+    .flatMap(([group, d]) => d),
   type: TYPES.PERCENT_SHARE,
 };
