@@ -9,10 +9,12 @@ from datasources.uhc import UHCData, UHC_REPORT_URLS  # type: ignore
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "uhc_brfss")
 
-GOLDEN_DATA_RACE = os.path.join(
+GOLDEN_DATA_RACE_NATIONAL = os.path.join(
+    TEST_DIR, 'uhc_test_output_race_and_ethnicity_national.json')
+GOLDEN_DATA_RACE_STATE = os.path.join(
     TEST_DIR, 'uhc_test_output_race_and_ethnicity.json')
-GOLDEN_DATA_AGE = os.path.join(TEST_DIR, 'uhc_test_output_age.json')
-GOLDEN_DATA_SEX = os.path.join(TEST_DIR, 'uhc_test_output_sex.json')
+GOLDEN_DATA_AGE_STATE = os.path.join(TEST_DIR, 'uhc_test_output_age.json')
+GOLDEN_DATA_SEX_STATE = os.path.join(TEST_DIR, 'uhc_test_output_sex.json')
 
 EXPECTED_DTYPE = {
     'state_name': str,
@@ -84,11 +86,11 @@ def mocked_generate_multiyear_breakdown(*args):
     geo, demo, ahr_tables = args
     print(f'\t> mocking generate multiyear breakdown for {geo}-{demo}')
     if demo == "race_and_ethnicity":
-        return pd.read_json(GOLDEN_DATA_RACE, dtype=EXPECTED_DTYPE.copy())
+        return pd.read_json(GOLDEN_DATA_RACE_STATE, dtype=EXPECTED_DTYPE.copy())
     if demo == "age":
-        return pd.read_json(GOLDEN_DATA_AGE, dtype=EXPECTED_DTYPE.copy())
+        return pd.read_json(GOLDEN_DATA_AGE_STATE, dtype=EXPECTED_DTYPE.copy())
     if demo == "sex":
-        return pd.read_json(GOLDEN_DATA_SEX, dtype=EXPECTED_DTYPE.copy())
+        return pd.read_json(GOLDEN_DATA_SEX_STATE, dtype=EXPECTED_DTYPE.copy())
 
 
 def get_pop_data_as_df(*args):
@@ -171,7 +173,7 @@ for year, url in UHC_REPORT_URLS.items():
     _fake_loaded_report_dfs[year] = get_test_data_as_df(url)
 
 
-# INTEGRATION TESTS
+# INTEGRATION TESTS - STATE LEVEL
 
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=get_state_fips_codes_as_df())
@@ -192,7 +194,7 @@ def testStateRace(
     assert mock_fips.call_count == 7
 
     _expected_df = pd.read_json(
-        GOLDEN_DATA_RACE, dtype=EXPECTED_DTYPE.copy())
+        GOLDEN_DATA_RACE_STATE, dtype=EXPECTED_DTYPE.copy())
 
     assert_frame_equal(
         _generated_df, _expected_df, check_like=True, check_column_type=False)
@@ -207,17 +209,69 @@ def testStateAge(
         mock_fips: mock.MagicMock,
 ):
 
-    print("\ntestStateRace\n")
+    print("\ntestStateAge\n")
     _generated_df = uhc.generate_multiyear_breakdown(
         "state", "age", _fake_loaded_report_dfs)
 
-    _generated_df.to_json('run.json', orient="records")
+    _generated_df.to_json('runstateage.json', orient="records")
 
     assert mock_pop.call_count == 14
     assert mock_fips.call_count == 7
 
     _expected_df = pd.read_json(
-        GOLDEN_DATA_AGE, dtype=EXPECTED_DTYPE.copy())
+        GOLDEN_DATA_AGE_STATE, dtype=EXPECTED_DTYPE.copy())
+
+    assert_frame_equal(
+        _generated_df, _expected_df, check_like=True, check_column_type=False)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=get_pop_data_as_df)
+def testStateSex(
+        mock_pop: mock.MagicMock,
+        mock_fips: mock.MagicMock,
+):
+
+    print("\ntestStateSex\n")
+    _generated_df = uhc.generate_multiyear_breakdown(
+        "state", "sex", _fake_loaded_report_dfs)
+
+    _generated_df.to_json('runstatesex.json', orient="records")
+
+    assert mock_pop.call_count == 14
+    assert mock_fips.call_count == 7
+
+    _expected_df = pd.read_json(
+        GOLDEN_DATA_SEX_STATE, dtype=EXPECTED_DTYPE.copy())
+
+    assert_frame_equal(
+        _generated_df, _expected_df, check_like=True, check_column_type=False)
+
+
+# NATIONAL
+
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=get_pop_data_as_df)
+def testNationalRace(
+        mock_pop: mock.MagicMock,
+        mock_fips: mock.MagicMock,
+):
+
+    print("\ntestNationalRace\n")
+    _generated_df = uhc.generate_multiyear_breakdown(
+        "national", "race_and_ethnicity", _fake_loaded_report_dfs)
+
+    _generated_df.to_json('runnationalrace.json', orient="records")
+
+    assert mock_pop.call_count == 7
+    assert mock_fips.call_count == 7
+
+    _expected_df = pd.read_json(
+        GOLDEN_DATA_RACE_NATIONAL, dtype=EXPECTED_DTYPE.copy())
 
     assert_frame_equal(
         _generated_df, _expected_df, check_like=True, check_column_type=False)
