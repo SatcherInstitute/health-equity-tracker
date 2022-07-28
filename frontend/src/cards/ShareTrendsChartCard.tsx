@@ -44,9 +44,9 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const query = new MetricQuery(metricIdsToFetch, breakdowns, "longitudinal");
 
   function getTitleText() {
-    return `Trends in ${metricConfig.fullCardTitleName} By ${
+    return `${metricConfig.trendsCardTitleName} by ${
       BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-    } In ${props.fips.getSentenceDisplayName()}`;
+    } in ${props.fips.getSentenceDisplayName()}`;
   }
   function CardTitle() {
     return <>{getTitleText()}</>;
@@ -59,6 +59,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
     >
       {([queryResponse]) => {
+        console.log(queryResponse.data);
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
         const [knownData, unknownData] = splitIntoKnownsAndUnknowns(
           data,
