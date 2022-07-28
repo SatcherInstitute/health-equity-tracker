@@ -63,15 +63,15 @@ export function LineChart({ data, xScale, yScale, colors }: LineChartProps) {
     if (xAxisRef.current && yAxisRef.current) {
       // @ts-ignore
       select(xAxisRef.current).transition().call(xAxis);
-      // @ts-ignore
       select(yAxisRef.current)
         .transition()
+        // @ts-ignore
         .call(yAxis)
         .call((g) =>
           g
             .selectAll(".tick line")
             .attr("opacity", 0.2)
-            .attr("stroke-dasharray", 5, 5)
+            .attr("stroke-dasharray", 5)
         );
     }
   }, [data, xScale, yScale]);
