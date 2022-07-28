@@ -54,3 +54,11 @@ $spacingLarge: 18px;
     margin-right: $spacingSmall; // create space between swatch and label
   }
 }
+
+.Axes,
+.AxesLabels {
+  text {
+    @include inter400;
+    font-size: $smallest;
+  }
+}

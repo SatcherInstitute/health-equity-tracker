@@ -18,7 +18,7 @@ import { LineChart } from "./LineChart";
 import styles from "./Trends.module.scss";
 
 /* Constants */
-import { COLOR_RANGE } from "./constants";
+import { COLOR_RANGE, CONFIG } from "./constants";
 
 /* Helpers */
 import { filterDataByGroup } from "./helpers";
@@ -33,16 +33,7 @@ export interface TrendsChartProps {
 /* Render component */
 export function TrendsChart({ data, unknown, type }: TrendsChartProps) {
   /* Config */
-  const CONFIG = {
-    WIDTH: 500,
-    HEIGHT: 500,
-    MARGIN: {
-      top: 10,
-      right: 10,
-      bottom: 10,
-      left: 10,
-    },
-  };
+  const { WIDTH, HEIGHT, MARGIN } = CONFIG;
 
   /* State Management */
   // Manages which group filters user has applied
@@ -64,24 +55,20 @@ export function TrendsChart({ data, unknown, type }: TrendsChartProps) {
   // @ts-ignore
   // TODO: filter out undefineds
   const xExtent: [Date, Date] = extent(
-    data.flatMap(([_, d]) => d.map(([date]: [Date]) => new Date(date)))
+    filteredData.flatMap(([_, d]) => d.map(([date]: [Date]) => new Date(date)))
   );
 
   // @ts-ignore
   // TODO: filter out undefineds
   const yExtent: [number, number] = extent(
-    data.flatMap(([_, d]) => d.map(([_, amount]: [Date, number]) => amount))
+    filteredData.flatMap(([_, d]) =>
+      d.map(([_, amount]: [Date, number]) => amount)
+    )
   );
 
-  const xScale = scaleTime(xExtent, [
-    CONFIG.MARGIN.left,
-    CONFIG.WIDTH - CONFIG.MARGIN.right,
-  ]);
+  const xScale = scaleTime(xExtent, [MARGIN.left, WIDTH - MARGIN.right]);
 
-  const yScale = scaleLinear(yExtent, [
-    CONFIG.HEIGHT - CONFIG.MARGIN.top,
-    CONFIG.MARGIN.bottom,
-  ]);
+  const yScale = scaleLinear(yExtent, [HEIGHT - MARGIN.bottom, MARGIN.top]);
 
   /* Event Handlers */
   function handleClick(selectedGroup: string) {

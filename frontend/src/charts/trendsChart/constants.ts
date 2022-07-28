@@ -9,4 +9,17 @@ const COLOR_RANGE = [
   "#FCB431",
 ];
 
-export { COLOR_RANGE };
+/* Config */
+const CONFIG = {
+  WIDTH: 1000,
+  HEIGHT: 600,
+  MARGIN: {
+    top: 10,
+    right: 10,
+    bottom: 80,
+    left: 80,
+  },
+  TICK_PADDING: 10,
+};
+
+export { COLOR_RANGE, CONFIG };

@@ -4,8 +4,12 @@ import { TrendsChart, TrendsChartProps } from "../trendsChart/Index";
 import data from "../../../public/tmp/trends.json";
 
 const props: TrendsChartProps = {
-  data: data.race_national.covid_cases_per_100k,
-  unknown: [],
+  data: data.race_national.covid_cases_per_100k.filter(
+    ([group]) => group !== "Unknown race"
+  ),
+  unknown: data.race_national.covid_cases_per_100k.filter(
+    ([group]) => group == "Unknown race"
+  ),
   type: "100K",
 };
 
