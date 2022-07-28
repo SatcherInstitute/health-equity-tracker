@@ -176,15 +176,13 @@ function App() {
                 Skip to main content
               </a>
               <Router>
-                <header>
-                  <AppBar position="static" elevation={0}>
-                    {width > MOBILE_BREAKPOINT ? (
-                      <AppToolbar />
-                    ) : (
-                      <MobileAppToolbar />
-                    )}
-                  </AppBar>
-                </header>
+                <AppBar position="static" elevation={0}>
+                  {width > MOBILE_BREAKPOINT ? (
+                    <AppToolbar />
+                  ) : (
+                    <MobileAppToolbar />
+                  )}
+                </AppBar>
                 <ScrollToTop />
                 <Suspense
                   fallback={

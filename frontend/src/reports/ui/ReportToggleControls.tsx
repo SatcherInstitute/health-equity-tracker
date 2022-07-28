@@ -40,6 +40,7 @@ interface ReportToggleControlsProps {
   currentBreakdown: BreakdownVar;
   setCurrentBreakdown: (breakdown: BreakdownVar) => void;
   fips: Fips;
+  excludeId?: boolean;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -97,7 +98,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
       )}
       <Grid item className={styles.ToggleBlock}>
         <div className={styles.ToggleLabel}>{DEMOGRAPHIC_LABEL}</div>
-        <div id="onboarding-explore-trends">
+        <div id={props.excludeId ? undefined : "onboarding-explore-trends"}>
           {/* DEMOGRAPHIC TOGGLE */}
           <ToggleButtonGroup
             exclusive
