@@ -117,12 +117,12 @@ export function LineChart({ data, xScale, yScale, colors }: LineChartProps) {
         {/* X-Axis Label */}
         <g transform={`translate(${WIDTH - MARGIN.right}, ${HEIGHT})`}>
           <text textAnchor="end" dy={"-1.5px"}>
-            Time
+            Time {"->"}
           </text>
         </g>
         {/* Y-Axis Label */}
         <g transform={`translate(${TICK_PADDING + 5}, 0)rotate(-90)`}>
-          <text textAnchor="end">Cases per 100K</text>
+          <text textAnchor="end">Cases per 100K {"->"}</text>
         </g>
       </g>
     </g>
