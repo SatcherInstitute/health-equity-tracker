@@ -13,6 +13,7 @@ import { scaleOrdinal, scaleTime, scaleLinear, extent, ScaleTime } from "d3";
 /* Components */
 import { FilterLegend } from "./FilterLegend";
 import { LineChart } from "./LineChart";
+import { Axes } from "./Axes";
 
 /* Styles */
 import styles from "./Trends.module.scss";
@@ -92,11 +93,19 @@ export function TrendsChart({ data, unknown, type }: TrendsChartProps) {
       />
       {/* Chart */}
       <svg height={CONFIG.HEIGHT} width={CONFIG.WIDTH}>
+        {/* Lines */}
         <LineChart
           data={filteredData}
           xScale={xScale}
           yScale={yScale}
           colors={colors}
+        />
+        {/* Chart Axes */}
+        <Axes
+          data={filteredData}
+          xScale={xScale}
+          yScale={yScale}
+          yAxisLabel="Cases per 100K"
         />
       </svg>
     </div>
