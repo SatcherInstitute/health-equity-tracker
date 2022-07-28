@@ -22,4 +22,9 @@ const CONFIG = {
   TICK_PADDING: 10,
 };
 
-export { COLOR_RANGE, CONFIG };
+const TYPES = {
+  HUNDRED_K: "100K",
+  PERCENT_SHARE: "percent_share",
+};
+
+export { COLOR_RANGE, CONFIG, TYPES };

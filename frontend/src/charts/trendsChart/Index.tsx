@@ -105,6 +105,7 @@ export function TrendsChart({ data, unknown, type }: TrendsChartProps) {
           data={filteredData}
           xScale={xScale}
           yScale={yScale}
+          type={type}
           yAxisLabel="Cases per 100K"
         />
       </svg>

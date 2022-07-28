@@ -20,7 +20,7 @@ import {
 import styles from "./Trends.module.scss";
 
 /* Constants */
-import { CONFIG } from "./constants";
+import { CONFIG, TYPES } from "./constants";
 
 /* Helpers */
 
@@ -29,13 +29,27 @@ export interface AxesProps {
   data: any[];
   xScale: ScaleTime<number, number | undefined>;
   yScale: ScaleLinear<number, number | undefined>;
+  type: string;
   yAxisLabel: string;
 }
 
 /* Render component */
-export function Axes({ data, xScale, yScale, yAxisLabel }: AxesProps) {
+export function Axes({ data, xScale, yScale, type, yAxisLabel }: AxesProps) {
   /* Config */
   const { WIDTH, HEIGHT, MARGIN, TICK_PADDING } = CONFIG;
+  // TODO: move to constants
+  const Y_AXIS_CONFIG = {
+    [TYPES.HUNDRED_K]: {
+      topLabel: yAxisLabel + "->", // should be dynamic based on metric id - build dictionary
+      bottomLabel: "",
+      formatter: (d: string | number) => d,
+    },
+    [TYPES.PERCENT_SHARE]: {
+      topLabel: "Over-represented ->",
+      bottomLabel: "<- Under-represented",
+      formatter: (d: string | number) => `${d}%`,
+    },
+  };
 
   /* Refs */
   const xAxisRef = useRef(null);
@@ -51,6 +65,8 @@ export function Axes({ data, xScale, yScale, yAxisLabel }: AxesProps) {
   const yAxis = axisLeft(yScale)
     .tickSizeOuter(0)
     .tickSizeInner(-WIDTH + MARGIN.right + MARGIN.left)
+    // @ts-ignore
+    .tickFormat(Y_AXIS_CONFIG[type].formatter)
     .tickPadding(TICK_PADDING);
 
   /* Effects */
@@ -58,7 +74,10 @@ export function Axes({ data, xScale, yScale, yAxisLabel }: AxesProps) {
   useEffect(() => {
     if (xAxisRef.current && yAxisRef.current) {
       // @ts-ignore
-      select(xAxisRef.current).transition().call(xAxis);
+      select(xAxisRef.current)
+        .transition()
+        .call(xAxis)
+        .call((g) => g.select(".domain").remove());
       select(yAxisRef.current)
         .transition()
         // @ts-ignore
@@ -92,11 +111,17 @@ export function Axes({ data, xScale, yScale, yAxisLabel }: AxesProps) {
             Time {"->"}
           </text>
         </g>
-        {/* Y-Axis Label */}
+        {/* Top Y-Axis Label */}
         <g transform={`translate(${TICK_PADDING + 5}, 0)rotate(-90)`}>
-          <text textAnchor="end">
-            {yAxisLabel} {"->"}
-          </text>
+          <text textAnchor="end">{Y_AXIS_CONFIG[type].topLabel}</text>
+        </g>
+        {/* Bottom Y-Axis Label */}
+        <g
+          transform={`translate(${TICK_PADDING + 5}, ${
+            HEIGHT - MARGIN.bottom
+          })rotate(-90)`}
+        >
+          <text textAnchor="start">{Y_AXIS_CONFIG[type].bottomLabel}</text>
         </g>
       </g>
     </g>
