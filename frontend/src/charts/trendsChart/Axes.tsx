@@ -66,8 +66,8 @@ export function Axes({ data, xScale, yScale, type, yAxisLabel }: AxesProps) {
     .tickSizeOuter(0)
     .tickSizeInner(-WIDTH + MARGIN.right + MARGIN.left)
     // @ts-ignore
-    .tickFormat(Y_AXIS_CONFIG[type].formatter)
-    .tickPadding(TICK_PADDING);
+    .tickFormat(Y_AXIS_CONFIG[type].formatter);
+  // .tickPadding(TICK_PADDING);
 
   /* Effects */
 
@@ -100,7 +100,7 @@ export function Axes({ data, xScale, yScale, type, yAxisLabel }: AxesProps) {
         <g
           className={styles.xAxis}
           ref={xAxisRef}
-          transform={`translate(0, ${HEIGHT - MARGIN.bottom})`}
+          transform={`translate(0, ${HEIGHT - MARGIN.bottom - 70})`}
         />
         {/* Y-Axis */}
         <g ref={yAxisRef} transform={`translate(${MARGIN.left}, 0)`} />
@@ -118,7 +118,11 @@ export function Axes({ data, xScale, yScale, type, yAxisLabel }: AxesProps) {
       {/* Axis Labels */}
       <g className={styles.AxesLabels}>
         {/* X-Axis Label */}
-        <g transform={`translate(${WIDTH - MARGIN.right}, ${HEIGHT})`}>
+        <g
+          transform={`translate(${WIDTH - MARGIN.right}, ${
+            HEIGHT - MARGIN.bottom + 70
+          })`}
+        >
           <text textAnchor="end" dy={"-1.5px"}>
             Time {"->"}
           </text>

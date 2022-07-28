@@ -18,7 +18,7 @@ const CONFIG = {
   MARGIN: {
     top: 10,
     right: 15,
-    bottom: 80,
+    bottom: 140,
     left: 85,
   },
   TICK_PADDING: 10,

@@ -12,6 +12,9 @@ import { ScaleTime, scaleSqrt, scaleLinear, extent, min, max } from "d3";
 
 /* Components */
 
+/* Styles */
+import styles from "./Trends.module.scss";
+
 /* Constants */
 import { CONFIG, UNKNOWN_GROUP_COLOR_EXTENT } from "./constants";
 
@@ -48,7 +51,7 @@ export function CircleChart({ data, xScale }: CircleChartProps) {
 
   return (
     <g>
-      <g transform={`translate(0, ${HEIGHT - MARGIN.bottom / 2})`}>
+      <g transform={`translate(0, ${HEIGHT - MARGIN.bottom + 30})`}>
         {data &&
           data.map(([date, percent]: [Date, number], i: number) => (
             <circle
@@ -60,18 +63,25 @@ export function CircleChart({ data, xScale }: CircleChartProps) {
           ))}
       </g>
       <g
+        className={styles.AxesLabels}
         transform={`translate(${MARGIN.left + (WIDTH - MARGIN.right) / 2}, ${
-          HEIGHT - MARGIN.bottom / 2
+          HEIGHT - 30
         })`}
       >
-        <text>Percent Unknown Group</text>
+        <text className={styles.AxisLabel} textAnchor="end" dx="-20px" dy="2px">
+          Percent Unknown Group
+        </text>
         {getLegendValues().map((percent, i) => (
-          <circle
+          <g
             key={`legendCircle-${i}`}
-            r={rScale(percent)}
-            cx={i * RADIUS_EXTENT}
-            fill={colors(percent)}
-          />
+            transform={`translate(${i * 3 * RADIUS_EXTENT[1]}, 0)`}
+          >
+            <circle r={rScale(percent)} fill={colors(percent)} />
+            <text textAnchor="middle" dy="30px">
+              {percent?.toFixed(0)}
+              {"%"}
+            </text>
+          </g>
         ))}
       </g>
     </g>
