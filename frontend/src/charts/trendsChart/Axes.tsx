@@ -76,8 +76,9 @@ export function Axes({ data, xScale, yScale, type, yAxisLabel }: AxesProps) {
       // @ts-ignore
       select(xAxisRef.current)
         .transition()
-        .call(xAxis)
-        .call((g) => g.select(".domain").remove());
+        // @ts-ignore
+        .call(xAxis);
+
       select(yAxisRef.current)
         .transition()
         // @ts-ignore
@@ -97,11 +98,22 @@ export function Axes({ data, xScale, yScale, type, yAxisLabel }: AxesProps) {
       <g className={styles.Axes}>
         {/* X-Axis */}
         <g
+          className={styles.xAxis}
           ref={xAxisRef}
           transform={`translate(0, ${HEIGHT - MARGIN.bottom})`}
         />
         {/* Y-Axis */}
         <g ref={yAxisRef} transform={`translate(${MARGIN.left}, 0)`} />
+      </g>
+      {/* Zero Line Indicator */}
+      <g>
+        <line
+          x1={MARGIN.left}
+          y1={yScale(0)}
+          x2={WIDTH - MARGIN.right}
+          y2={yScale(0)}
+          stroke="black"
+        />
       </g>
       {/* Axis Labels */}
       <g className={styles.AxesLabels}>

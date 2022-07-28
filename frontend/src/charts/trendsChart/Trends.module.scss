@@ -1,13 +1,17 @@
 @import "../../styles/globals.scss";
 
 $spacingSmall: 6px;
-$spacingLarge: 18px;
+$spacingMedium: 18px;
+$spacingLarge: 36px;
 
 .TrendsChart {
   // styles for trends chart container
   @include inter400;
 }
 
+.FilterWrapper {
+  margin-bottom: $spacingLarge;
+}
 /* Filter Legend Styles */
 .FilterLegend {
   @include inter400;
@@ -16,7 +20,7 @@ $spacingLarge: 18px;
   // Legend Title
   .LegendTitle {
     @include inter500;
-    margin-bottom: $spacingLarge;
+    margin-bottom: $spacingMedium;
   }
 
   // Filter legend buttons wrapper
@@ -39,7 +43,7 @@ $spacingLarge: 18px;
     display: flex;
     align-items: center;
     // create space around button
-    margin: 0 $spacingLarge $spacingSmall 0;
+    margin: 0 $spacingMedium $spacingSmall 0;
     // transition opacity on selection
     opacity: 1;
     transition: opacity 250ms ease-in-out;
@@ -60,5 +64,8 @@ $spacingLarge: 18px;
   text {
     @include inter400;
     font-size: $smallest;
+  }
+  .xAxis path {
+    opacity: 0;
   }
 }

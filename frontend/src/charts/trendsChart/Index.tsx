@@ -84,22 +84,17 @@ export function TrendsChart({ data, unknown, type }: TrendsChartProps) {
   return (
     // Container
     <div className={styles.TrendsChart}>
-      {/* Filter */}
-      <FilterLegend
-        data={data}
-        selectedGroups={selectedGroups}
-        colors={colors}
-        handleClick={handleClick}
-      />
+      <div className={styles.FilterWrapper}>
+        {/* Filter */}
+        <FilterLegend
+          data={data}
+          selectedGroups={selectedGroups}
+          colors={colors}
+          handleClick={handleClick}
+        />
+      </div>
       {/* Chart */}
       <svg height={CONFIG.HEIGHT} width={CONFIG.WIDTH}>
-        {/* Lines */}
-        <LineChart
-          data={filteredData}
-          xScale={xScale}
-          yScale={yScale}
-          colors={colors}
-        />
         {/* Chart Axes */}
         <Axes
           data={filteredData}
@@ -107,6 +102,13 @@ export function TrendsChart({ data, unknown, type }: TrendsChartProps) {
           yScale={yScale}
           type={type}
           yAxisLabel="Cases per 100K"
+        />
+        {/* Lines */}
+        <LineChart
+          data={filteredData}
+          xScale={xScale}
+          yScale={yScale}
+          colors={colors}
         />
       </svg>
     </div>
