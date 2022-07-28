@@ -1,5 +1,10 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 
+// For AXE a11y
+import { expect } from '@playwright/test'
+import matchers from 'expect-axe-playwright'
+expect.extend(matchers)
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
