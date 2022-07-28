@@ -44,7 +44,7 @@ function LandingPage() {
   const recentArticles = data?.data.slice(0, numberOfArticlePreviews);
 
   return (
-    <main>
+    <>
       <Helmet>
         <title>Home - Health Equity Tracker</title>
         <link rel="preload" as="image" href="/img/stock/family-laughing.png" />
@@ -368,7 +368,7 @@ function LandingPage() {
           </Grid>{" "}
         </Grid>
       </Grid>
-    </main>
+    </>
   );
 }
 
