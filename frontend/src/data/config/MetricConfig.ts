@@ -361,19 +361,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "COVID-19 Deaths",
       variableDefinition: `The number of people who died due to COVID-19.`,
       metrics: {
-        // count: {
-        //   metricId: "covid_deaths",
-        //   fullCardTitleName: "Current rates of COVID-19 deaths",
-        //   trendsCardTitleName: "Rates of COVID-19 deaths over time",
-        //   shortLabel: "COVID-19 Deaths",
-        //   type: "count",
-        //   populationComparisonMetric: {
-        //     metricId: "covid_deaths_reporting_population",
-        //     fullCardTitleName: "Population",
-        //     shortLabel: "people",
-        //     type: "count",
-        //   },
-        // },
         pct_share: {
           metricId: "covid_deaths_share",
           fullCardTitleName: "Share of total COVID-19 deaths",
