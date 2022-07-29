@@ -1,7 +1,6 @@
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
-import time
 
 from ingestion.standardized_columns import Race
 
@@ -121,11 +120,8 @@ def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
     df = pd.merge(df, alls, how='left', on=on_cols)
 
     for raw_count_col, pct_share_col in raw_count_to_pct_share.items():
-        t1 = time.time()
         df[pct_share_col] = df.apply(
             calc_pct_share, axis=1, args=(raw_count_col,))
-        t2 = time.time()
-        print('calc_pct_share', round(t2 - t1, 2))
 
     df = df.drop(columns=list(rename_cols.values()))
     return df.reset_index(drop=True)

@@ -119,16 +119,8 @@ class CDCRestrictedData(DataSource):
         if geo == 'county':
             all_columns.extend(
                 [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
-
-            t1 = time.time()
             df = merge_county_names(df)
-            t2 = time.time()
-            print('merge county name', round(t2 - t1, 2))
-
-            t3 = time.time()
             null_out_all_unknown_deaths_hosps(df)
-            t4 = time.time()
-            print('nulling unknowns', round(t4 - t3))
 
         if geo == 'national':
             pop_cols = [
@@ -173,11 +165,8 @@ class CDCRestrictedData(DataSource):
             pop_col = std_col.POPULATION_COL
             if geo == 'national':
                 pop_col = generate_column_name(raw_count_col, 'population')
-            t5 = time.time()
             df = generate_per_100k_col(
                 df, raw_count_col, pop_col, per_100k_col)
-            t6 = time.time()
-            print('gen_per_100k', round(t6 - t5, 2))
 
         raw_count_to_pct_share = {}
         for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
