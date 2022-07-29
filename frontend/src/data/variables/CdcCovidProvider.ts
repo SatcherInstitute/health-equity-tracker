@@ -34,7 +34,6 @@ class CdcCovidProvider extends VariableProvider {
 
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns, timeView: TimeView): string {
-    console.log("get dataset id:", breakdowns.filterFips?.code);
     if (timeView === CROSS_SECTIONAL) {
       if (breakdowns.hasOnlyRace()) {
         if (breakdowns.geography === "county") {
