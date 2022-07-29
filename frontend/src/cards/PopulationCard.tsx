@@ -20,7 +20,7 @@ import {
   POPULATION_VARIABLE_CONFIG,
   POPULATION_VARIABLE_CONFIG_2010,
 } from "../data/config/MetricConfig";
-import { ALL, CROSS_SECTIONAL, RACE } from "../data/utils/Constants";
+import { ALL, RACE } from "../data/utils/Constants";
 import {
   onlyInclude,
   onlyIncludeDecadeAgeBrackets,
@@ -62,13 +62,11 @@ export function PopulationCard(props: PopulationCardProps) {
 
   const raceQuery = new MetricQuery(
     metricIds,
-    Breakdowns.forFips(props.fips).andRace(onlyIncludeStandardRaces()),
-    CROSS_SECTIONAL
+    Breakdowns.forFips(props.fips).andRace(onlyIncludeStandardRaces())
   );
   const ageQuery = new MetricQuery(
     metricIds,
-    Breakdowns.forFips(props.fips).andAge(onlyIncludeDecadeAgeBrackets()),
-    CROSS_SECTIONAL
+    Breakdowns.forFips(props.fips).andAge(onlyIncludeDecadeAgeBrackets())
   );
 
   const queries = [raceQuery, ageQuery];
@@ -76,8 +74,7 @@ export function PopulationCard(props: PopulationCardProps) {
   if (props.fips.isCounty()) {
     const sviQuery = new MetricQuery(
       "svi",
-      Breakdowns.forFips(props.fips).andAge(onlyInclude("All")),
-      CROSS_SECTIONAL
+      Breakdowns.forFips(props.fips).andAge(onlyInclude("All"))
     );
     queries.push(sviQuery);
   }

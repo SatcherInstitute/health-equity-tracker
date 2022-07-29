@@ -17,7 +17,7 @@ import {
   getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
-import { ALL, CROSS_SECTIONAL, RACE } from "../data/utils/Constants";
+import { ALL, RACE } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
@@ -87,11 +87,7 @@ export function TableCard(props: TableCardProps) {
 
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   isIncarceration && metricIds.push("total_confined_children");
-  const query = new MetricQuery(
-    metricIds as MetricId[],
-    breakdowns,
-    CROSS_SECTIONAL
-  );
+  const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
   const displayingCovidData = metrics
     .map((config) => config.metricId)

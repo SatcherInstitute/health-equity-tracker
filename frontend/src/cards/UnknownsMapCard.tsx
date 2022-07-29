@@ -19,7 +19,6 @@ import {
   UNKNOWN_ETHNICITY,
   ALL,
   RACE,
-  CROSS_SECTIONAL,
 } from "../data/utils/Constants";
 import styles from "./Card.module.scss";
 import Divider from "@material-ui/core/Divider";
@@ -71,16 +70,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     props.currentBreakdown
   );
 
-  const mapQuery = new MetricQuery(
-    [metricConfig.metricId],
-    mapGeoBreakdowns,
-    CROSS_SECTIONAL
-  );
-  const alertQuery = new MetricQuery(
-    [metricConfig.metricId],
-    alertBreakdown,
-    CROSS_SECTIONAL
-  );
+  const mapQuery = new MetricQuery([metricConfig.metricId], mapGeoBreakdowns);
+  const alertQuery = new MetricQuery([metricConfig.metricId], alertBreakdown);
 
   const RACE_OR_ETHNICITY_TITLECASE = "Race Or Ethnicity";
 

@@ -15,7 +15,7 @@ import {
 } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
-import { CROSS_SECTIONAL, NON_HISPANIC } from "../data/utils/Constants";
+import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
@@ -56,7 +56,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     exclude(NON_HISPANIC)
   );
 
-  const query = new MetricQuery(metricIdsToFetch, breakdowns, CROSS_SECTIONAL);
+  const query = new MetricQuery(metricIdsToFetch, breakdowns);
 
   function getTitleText() {
     return `${metricConfig.fullCardTitleName} By ${

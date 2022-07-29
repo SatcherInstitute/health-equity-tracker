@@ -21,7 +21,6 @@ import {
   UNKNOWN_ETHNICITY,
   DemographicGroup,
   RACE,
-  CROSS_SECTIONAL,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
@@ -102,14 +101,12 @@ function MapCardWithKey(props: MapCardProps) {
           props.currentBreakdown === RACE
             ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
             : exclude(UNKNOWN)
-        ),
-      CROSS_SECTIONAL
+        )
     );
 
   const sviQuery = new MetricQuery(
     "svi",
-    Breakdowns.byCounty().andAge(onlyInclude("All")),
-    CROSS_SECTIONAL
+    Breakdowns.byCounty().andAge(onlyInclude("All"))
   );
 
   const queries = [

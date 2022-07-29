@@ -5,7 +5,6 @@ import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { MetricId } from "../config/MetricConfig";
 import { excludeAll } from "../query/BreakdownFilter";
-import { CROSS_SECTIONAL } from "../utils/Constants";
 
 export interface FipsSpec {
   code: string;
@@ -65,11 +64,7 @@ export function createWithAndWithoutAllEvaluator(
 
     // Evaluate the response with requesting "All" field
     const responseWithAll = await variableProvider.getData(
-      new MetricQuery(
-        metricIds,
-        baseBreakdown.addBreakdown(breakdownVar),
-        CROSS_SECTIONAL
-      )
+      new MetricQuery(metricIds, baseBreakdown.addBreakdown(breakdownVar))
     );
     expect(responseWithAll).toEqual(
       new MetricQueryResponse(rowsIncludingAll, [datasetId])
@@ -79,8 +74,7 @@ export function createWithAndWithoutAllEvaluator(
     const responseWithoutAll = await variableProvider.getData(
       new MetricQuery(
         metricIds,
-        baseBreakdown.addBreakdown(breakdownVar, excludeAll()),
-        CROSS_SECTIONAL
+        baseBreakdown.addBreakdown(breakdownVar, excludeAll())
       )
     );
     expect(responseWithoutAll).toEqual(

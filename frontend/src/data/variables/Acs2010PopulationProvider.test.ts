@@ -11,7 +11,6 @@ import {
   AGE,
   ALL,
   ASIAN_NH,
-  CROSS_SECTIONAL,
   DemographicGroup,
   FEMALE,
   MALE,
@@ -82,11 +81,7 @@ describe("Acs2010PopulationProvider", () => {
     const acsProvider = new Acs2010PopulationProvider();
 
     const response = await acsProvider.getData(
-      new MetricQuery(
-        ["population", "population_pct"],
-        Breakdowns.national(),
-        CROSS_SECTIONAL
-      )
+      new MetricQuery(["population", "population_pct"], Breakdowns.national())
     );
     expect(response).toEqual(
       createMissingDataResponse(

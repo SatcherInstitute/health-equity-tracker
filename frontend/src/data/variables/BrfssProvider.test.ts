@@ -9,7 +9,7 @@ import {
   resetCacheDebug,
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
-import { RACE, AGE, SEX, CROSS_SECTIONAL } from "../utils/Constants";
+import { RACE, AGE, SEX } from "../utils/Constants";
 
 export async function ensureCorrectDatasetsDownloaded(
   brfssDatasetId: string,
@@ -24,11 +24,7 @@ export async function ensureCorrectDatasetsDownloaded(
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await brfssProvider.getData(
-    new MetricQuery(
-      [],
-      baseBreakdown.addBreakdown(breakdownVar),
-      CROSS_SECTIONAL
-    )
+    new MetricQuery([], baseBreakdown.addBreakdown(breakdownVar))
   );
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);

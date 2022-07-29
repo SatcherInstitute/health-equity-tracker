@@ -11,11 +11,11 @@ export class MetricQuery {
   constructor(
     metricIds: MetricId | MetricId[],
     breakdowns: Breakdowns,
-    timeView: TimeView
+    timeView?: TimeView
   ) {
     this.metricIds = [metricIds].flat();
     this.breakdowns = breakdowns;
-    this.timeView = timeView;
+    this.timeView = timeView || "cross_sectional";
   }
 
   getUniqueKey(): string {

@@ -6,7 +6,7 @@ import { joinOnCols } from "../utils/datasetutils";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
-import { ALL, CROSS_SECTIONAL, RACE } from "../utils/Constants";
+import { ALL, RACE } from "../utils/Constants";
 
 class VaccineProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -66,7 +66,7 @@ class VaccineProvider extends VariableProvider {
     if (breakdowns.geography === "national") {
       if (breakdownColumnName !== "age") {
         const acsQueryResponse = await this.acsProvider.getData(
-          new MetricQuery(["population_pct"], acsBreakdowns, CROSS_SECTIONAL)
+          new MetricQuery(["population_pct"], acsBreakdowns)
         );
 
         consumedDatasetIds = consumedDatasetIds.concat(

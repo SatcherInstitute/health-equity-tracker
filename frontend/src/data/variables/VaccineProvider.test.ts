@@ -12,13 +12,7 @@ import {
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import { FipsSpec, NC, USA, MARIN } from "./TestUtils";
-import {
-  ASIAN_NH,
-  ALL,
-  RACE,
-  DemographicGroup,
-  CROSS_SECTIONAL,
-} from "../utils/Constants";
+import { ASIAN_NH, ALL, RACE, DemographicGroup } from "../utils/Constants";
 import { MetricId } from "../config/MetricConfig";
 
 const METRIC_IDS: MetricId[] = [
@@ -46,11 +40,7 @@ export async function evaluateWithAndWithoutAll(
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await vaccineProvider.getData(
-    new MetricQuery(
-      METRIC_IDS,
-      baseBreakdown.addBreakdown(breakdownVar),
-      CROSS_SECTIONAL
-    )
+    new MetricQuery(METRIC_IDS, baseBreakdown.addBreakdown(breakdownVar))
   );
 
   let consumedDatasetIds = [vaccineDatasetId];
@@ -72,8 +62,7 @@ export async function evaluateWithAndWithoutAll(
   const responseExcludingAll = await vaccineProvider.getData(
     new MetricQuery(
       METRIC_IDS,
-      baseBreakdown.addBreakdown(breakdownVar, excludeAll()),
-      CROSS_SECTIONAL
+      baseBreakdown.addBreakdown(breakdownVar, excludeAll())
     )
   );
   expect(responseExcludingAll).toEqual(

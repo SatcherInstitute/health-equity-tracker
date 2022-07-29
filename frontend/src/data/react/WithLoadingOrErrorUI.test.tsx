@@ -13,7 +13,6 @@ import {
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import { excludeAll } from "../query/BreakdownFilter";
-import { CROSS_SECTIONAL } from "../utils/Constants";
 
 const STATE_NAMES_ID = "state_names";
 const ANOTHER_FAKE_DATASET_ID = "fake_dataset_2";
@@ -62,8 +61,7 @@ describe("WithLoadingOrErrorUI", () => {
   test("WithMetrics: Loads metrics", async () => {
     const query = new MetricQuery(
       "copd_per_100k",
-      Breakdowns.byState().andRace(excludeAll()),
-      CROSS_SECTIONAL
+      Breakdowns.byState().andRace(excludeAll())
     );
 
     expect(dataFetcher.getNumGetMetadataCalls()).toBe(0);
@@ -108,8 +106,7 @@ describe("WithLoadingOrErrorUI", () => {
   test("WithMetrics: Loaded metrics have no rows", async () => {
     const query = new MetricQuery(
       "diabetes_per_100k",
-      Breakdowns.national().andRace(),
-      CROSS_SECTIONAL
+      Breakdowns.national().andRace()
     );
 
     expect(dataFetcher.getNumGetMetadataCalls()).toBe(0);
@@ -132,8 +129,7 @@ describe("WithLoadingOrErrorUI", () => {
   test("WithMetrics: Unsupported breakdown", async () => {
     const query = new MetricQuery(
       "diabetes_per_100k",
-      Breakdowns.byCounty().andAge(),
-      CROSS_SECTIONAL
+      Breakdowns.byCounty().andAge()
     );
 
     expect(dataFetcher.getNumGetMetadataCalls()).toBe(0);
@@ -154,8 +150,7 @@ describe("WithLoadingOrErrorUI", () => {
     const query = new MetricQuery(
       //@ts-ignore - metric ID should be invalid for this test
       "fake_metric_doesnt_exist",
-      Breakdowns.national(),
-      CROSS_SECTIONAL
+      Breakdowns.national()
     );
 
     expect(dataFetcher.getNumGetMetadataCalls()).toBe(0);
