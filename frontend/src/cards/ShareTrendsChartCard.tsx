@@ -105,8 +105,15 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 {/* {console.log("KNOWN PCT SHARES", knownData)}
 
                 {console.log("UNKNOWN PCT SHARE", unknownData)} */}
+
                 <b>Undue Share of Condition</b>
-                <pre>{JSON.stringify(nestedData)}</pre>
+                {nestedData.map((group) => {
+                  return (
+                    <>
+                      <pre>{JSON.stringify(group)}</pre>
+                    </>
+                  );
+                })}
                 <b>Unknowns</b>
                 <pre>{JSON.stringify(nestedUnknowns)}</pre>
               </div>

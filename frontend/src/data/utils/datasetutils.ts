@@ -375,16 +375,45 @@ export function splitIntoKnownsAndUnknowns(
   return [knowns, unknowns];
 }
 
-export type TrendsData = [DemographicGroup, [Date, number][]][];
-export type UnknownData = [Date, number][];
+export type TimeSeries = [Date, number][];
+
+export type GroupTrendData = [DemographicGroup, TimeSeries][];
+export type TrendsData = GroupTrendData[];
+export type UnknownData = TimeSeries;
 
 export function getNestedRates(
   data: Row[],
+  demographicGroups: DemographicGroup[],
   currentBreakdown: BreakdownVar,
   metricId: MetricId
 ): TrendsData {
-  const nestedRates: TrendsData = data.map((row) => {
-    return [row[currentBreakdown], [row[TIME_PERIOD], row[metricId]]];
+  // iterate over all expected demographic groups ("Black, White", etc)
+  const nestedRates = demographicGroups.map((group) => {
+    // filter only data rows for that race
+
+    // console.log(data);
+    const groupRows = data.filter((row) => {
+      console.log(row);
+      console.log(currentBreakdown);
+      console.log(
+        row[currentBreakdown],
+        "=",
+        group,
+        row.currentBreakdown === group
+      );
+      return row[currentBreakdown] === group;
+    });
+
+    // console.log("group", group);
+    // console.log("groupRows", groupRows)
+
+    // nest each group's data
+    const groupTimeSeries = groupRows.map((row) => {
+      return [row[TIME_PERIOD], row[metricId]];
+    });
+
+    // add this group's data to the array
+    return [group, groupTimeSeries] as GroupTrendData;
   });
 
   return nestedRates;

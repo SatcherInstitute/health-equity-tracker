@@ -10,7 +10,11 @@ import { MetricQuery } from "../data/query/MetricQuery";
 import { VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
-import { LONGITUDINAL, NON_HISPANIC } from "../data/utils/Constants";
+import {
+  DemographicGroup,
+  LONGITUDINAL,
+  NON_HISPANIC,
+} from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import {
   getNestedRates,
@@ -74,6 +78,14 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         const pctShareData = queryResponsePctShares.getValidRowsForField(
           metricConfigPctShares.metricId
         );
+
+        // retrieve list of all present demographic groups
+        const demographicGroups: DemographicGroup[] =
+          queryResponseRates.getFieldValues(
+            props.breakdownVar,
+            metricConfigRates.metricId
+          ).withData;
+
         const [knownRatesData] = splitIntoKnownsAndUnknowns(
           ratesData,
           props.breakdownVar
@@ -85,6 +97,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
         const nestedRatesData = getNestedRates(
           knownRatesData,
+          demographicGroups,
           props.breakdownVar,
           metricConfigRates.metricId
         );
@@ -110,10 +123,16 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             ) : (
               <>
                 {/* 2N INCIDENCE RATE TRENDS VIZ COMPONENT HERE */}
-                {/* {console.log("KNOWN RATES", nestedRatesData)}
-                {console.log("UNKNOWN PCT SHARE", nestedUnknownPctShareData)} */}
+                {console.log("KNOWN RATES", nestedRatesData)}
+                {console.log("UNKNOWN PCT SHARE", nestedUnknownPctShareData)}
                 <b>Rates</b>
-                <pre>{JSON.stringify(nestedRatesData)}</pre>
+                {nestedRatesData.map((group) => {
+                  return (
+                    <>
+                      <pre>{JSON.stringify(group)}</pre>
+                    </>
+                  );
+                })}
                 <b>Unknowns</b>
                 <pre>{JSON.stringify(nestedUnknownPctShareData)}</pre>
               </>
