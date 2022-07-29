@@ -125,12 +125,15 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 {/* 2N INCIDENCE RATE TRENDS VIZ COMPONENT HERE */}
                 {console.log("KNOWN RATES", nestedRatesData)}
                 {console.log("UNKNOWN PCT SHARE", nestedUnknownPctShareData)}
-                <b>Rates</b>
-                {nestedRatesData.map((group) => {
-                  return <pre>{JSON.stringify(group)}</pre>;
-                })}
-                <b>Unknowns</b>
+
+                <b>type: MetricType</b>
+                <pre>{metricConfigRates.type}</pre>
+                <b>metricId: MetricId</b>
+                <pre>{metricConfigRates.metricId}</pre>
+                <b>unknown:</b>
                 <pre>{JSON.stringify(nestedUnknownPctShareData)}</pre>
+                <b>data:</b>
+                <pre>{JSON.stringify(nestedRatesData)}</pre>
               </>
             )}
           </CardContent>
