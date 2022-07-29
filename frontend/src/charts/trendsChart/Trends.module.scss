@@ -59,13 +59,28 @@ $spacingLarge: 36px;
   }
 }
 
-.Axes,
-.AxesLabels {
+.Axes {
   text {
     @include inter400;
     font-size: $smallest;
   }
   .xAxis path {
     opacity: 0;
+  }
+}
+
+.AxesLabels {
+  text {
+    @include inter500;
+    font-size: $smallest;
+  }
+}
+
+.CircleLegend {
+  text {
+    font-size: $smallest;
+    .title {
+      @include inter400;
+    }
   }
 }

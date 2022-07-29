@@ -61,7 +61,7 @@ export function CircleChart({ data, xScale }: CircleChartProps) {
 
   return (
     <g>
-      <g transform={`translate(0, ${HEIGHT - MARGIN.bottom + 30})`}>
+      <g transform={`translate(0, ${HEIGHT - MARGIN.bottom + 50})`}>
         {data &&
           data.map(([date, percent]: [Date, number], i: number) => (
             <circle
@@ -73,23 +73,22 @@ export function CircleChart({ data, xScale }: CircleChartProps) {
           ))}
       </g>
       <g
-        className={styles.AxesLabels}
+        className={styles.CircleLegend}
         transform={`translate(${MARGIN.left + (WIDTH - MARGIN.right) / 2}, ${
           HEIGHT - 30
         })`}
       >
-        <text className={styles.AxisLabel} textAnchor="end" dx="-20px" dy="2px">
-          Percent Unknown Group
+        <text textAnchor="middle" dy="-22px" className="title">
+          Percent Unknown Group (%)
         </text>
         {getLegendValues().map((percent = 0, i) => (
           <g
             key={`legendCircle-${i}`}
-            transform={`translate(${i * 3 * RADIUS_EXTENT[1]}, 0)`}
+            transform={`translate(${(i - 1) * 3 * RADIUS_EXTENT[1]}, 0)`}
           >
             <circle r={rScale(percent)} fill={colors(percent)} />
-            <text textAnchor="middle" dy="30px">
+            <text className="circleLabel" textAnchor="middle" dy="28px">
               {percent?.toFixed(0)}
-              {"%"}
             </text>
           </g>
         ))}

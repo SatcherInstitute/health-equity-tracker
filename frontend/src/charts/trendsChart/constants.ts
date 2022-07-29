@@ -17,12 +17,12 @@ const CONFIG = {
   HEIGHT: 600,
   MARGIN: {
     top: 10,
-    right: 15,
+    right: 55,
     bottom: 140,
     left: 85,
   },
-  TICK_PADDING: 10,
-  RADIUS_EXTENT: [3, 15],
+  TICK_PADDING: 14,
+  RADIUS_EXTENT: [4, 10],
 };
 
 const TYPES = {

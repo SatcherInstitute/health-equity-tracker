@@ -10,11 +10,13 @@ import { COLOR_RANGE } from "../trendsChart/constants";
 import data from "../../../public/tmp/trends.json";
 
 const props: FilterLegendProps = {
+  // @ts-ignore
   data: data.race_national.covid_cases_per_100k.filter(
     ([group]) => group !== "Unknown race"
   ),
   selectedGroups: [],
   handleClick: action("clicked"),
+  // @ts-ignore
   colors: scaleOrdinal(
     data.race_national.covid_cases_per_100k.map(([cat]) => cat),
     COLOR_RANGE
