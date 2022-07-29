@@ -64,9 +64,8 @@ export function CircleChart({ data, xScale }: CircleChartProps) {
       <g transform={`translate(0, ${HEIGHT - MARGIN.bottom + 5 * MAX_RADIUS})`}>
         {data &&
           data.map(([date, percent]: [Date, number], i: number) => (
-            <g>
+            <g key={`dataCircleGroup-${i}`}>
               <circle
-                key={`circle-${i}`}
                 r={rScale(percent)}
                 cx={xScale(new Date(date))}
                 fill={colors(percent)}
