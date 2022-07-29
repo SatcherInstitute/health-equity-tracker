@@ -54,23 +54,27 @@ class CDCRestrictedData(DataSource):
             'upload_to_gcs should not be called for CDCRestrictedData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        for geo in ['national', 'state', 'county']:
-            for demo in ['sex', 'race', 'age']:
-                geo_to_pull = 'state' if geo == 'national' else geo
-                filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
-                df = gcs_to_bq_util.load_csv_as_df(
-                    gcs_bucket, filename, dtype={'county_fips': str})
+        for cumulative in [True, False]:
+            for geo in ['national', 'state', 'county']:
+                for demo in ['sex', 'race', 'age']:
+                    geo_to_pull = 'state' if geo == 'national' else geo
+                    filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
+                    df = gcs_to_bq_util.load_csv_as_df(
+                        gcs_bucket, filename, dtype={'county_fips': str})
 
-                df = self.generate_breakdown(df, demo, geo)
+                    df = self.generate_breakdown(df, demo, geo, cumulative)
 
-                if demo == 'race':
-                    std_col.add_race_columns_from_category_id(df)
+                    if demo == 'race':
+                        std_col.add_race_columns_from_category_id(df)
 
-                column_types = get_col_types(df)
+                    column_types = get_col_types(df)
 
-                table_name = f'by_{demo}_{geo}_processed'
-                gcs_to_bq_util.add_df_to_bq(
-                    df, dataset, table_name, column_types=column_types)
+                    table_name = f'by_{demo}_{geo}_processed'
+                    if not cumulative:
+                        table_name += '_time_series'
+
+                    gcs_to_bq_util.add_df_to_bq(
+                        df, dataset, table_name, column_types=column_types)
 
         for filename, table_name in ONLY_FIPS_FILES.items():
             df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename)
@@ -98,7 +102,7 @@ class CDCRestrictedData(DataSource):
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
-    def generate_breakdown(self, df, demo, geo):
+    def generate_breakdown(self, df, demo, geo, cumulative):
         print(f'processing {demo} {geo}')
         start = time.time()
 
@@ -111,8 +115,23 @@ class CDCRestrictedData(DataSource):
             std_col.STATE_NAME_COL,
             demo_col,
             std_col.COVID_POPULATION_PCT,
-            std_col.TIME_PERIOD_COL,
         ]
+
+        if cumulative:
+            groupby_cols = [
+                std_col.STATE_FIPS_COL,
+                std_col.STATE_NAME_COL,
+                demo_col,
+                std_col.TIME_PERIOD_COL,
+            ]
+
+            if geo == 'county':
+                groupby_cols.extend(
+                    [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
+
+            df = df.groupby(groupby_cols).sum().reset_index()
+        else:
+            all_columns.append(std_col.TIME_PERIOD_COL)
 
         df = merge_state_fips_codes(df, keep_postal=True)
 
@@ -141,14 +160,16 @@ class CDCRestrictedData(DataSource):
             df.loc[rows_to_modify, generate_column_name(std_col.COVID_DEATH_Y, 'population')] = 0
 
             df = df.drop(columns=std_col.STATE_POSTAL_COL)
-            df = generate_national_dataset(df, demo_col)
+            df = generate_national_dataset(df, demo_col, cumulative)
 
         fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
 
         # Drop annoying column that doesnt match any fips codes or have
         # an associated time period
         df = df[df[fips].notna()]
-        df = df[df[std_col.TIME_PERIOD_COL].notna()]
+
+        if not cumulative:
+            df = df[df[std_col.TIME_PERIOD_COL].notna()]
 
         if geo == 'county':
             df = remove_bad_fips_cols(df)
@@ -253,7 +274,7 @@ def remove_bad_fips_cols(df):
     return df.reset_index(drop=True)
 
 
-def generate_national_dataset(state_df, demo_col):
+def generate_national_dataset(state_df, demo_col, cumulative):
     """Generates a national dataset based on a state_df and demographic column"""
     int_cols = [
         std_col.COVID_CASES,
@@ -268,7 +289,10 @@ def generate_national_dataset(state_df, demo_col):
     state_df[int_cols] = state_df[int_cols].replace("", 0)
     state_df[int_cols] = state_df[int_cols].astype(int)
 
-    df = state_df.groupby([demo_col, 'time_period']).sum().reset_index()
+    groupby_cols = [demo_col]
+    if not cumulative:
+        groupby_cols.append(std_col.TIME_PERIOD_COL)
+    df = state_df.groupby(groupby_cols).sum().reset_index()
 
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME
@@ -276,8 +300,10 @@ def generate_national_dataset(state_df, demo_col):
     needed_cols = [
         std_col.STATE_FIPS_COL,
         std_col.STATE_NAME_COL,
-        'time_period',
     ]
+
+    if not cumulative:
+        needed_cols.append(std_col.TIME_PERIOD_COL)
 
     needed_cols.extend(int_cols)
     needed_cols.append(demo_col)

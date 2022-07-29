@@ -90,7 +90,7 @@ def get_cdc_restricted_by_sex_county_as_df():
 def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
-    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state')
+    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', False)
     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_STATE, dtype={
         'state_fips': str,
         'covid_cases_share': float,
@@ -108,7 +108,7 @@ def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
 def testGenerateBreakdownSexCounty(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
-    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_county_as_df(), 'sex', 'county')
+    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_county_as_df(), 'sex', 'county', False)
     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_COUNTY, dtype={
         'state_fips': str,
         'county_fips': str,
@@ -127,7 +127,7 @@ def testGenerateBreakdownSexCounty(mock_fips: mock.MagicMock, mock_pop: mock.Mag
 def testGenerateBreakdownSexNational(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
-    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national')
+    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', False)
     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_NATIONAL, dtype={
         'state_fips': str,
         'covid_cases_share': float,
