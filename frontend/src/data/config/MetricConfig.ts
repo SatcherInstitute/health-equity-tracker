@@ -323,7 +323,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableId: "covid_cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COVID-19 Cases",
-      variableDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and hospitalizations. Suspect cases and deaths are excluded.`,
+      variableDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
       metrics: {
         pct_share: {
           metricId: "covid_cases_share",
