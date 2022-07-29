@@ -81,6 +81,10 @@ export function Sources(props: {
 
   return (
     <>
+      <div>
+        NH signifies that the individuals counted in this race group selected
+        "Non-Hispanic" as their ethnicity.
+      </div>
       {Object.keys(dataSourceMap).length > 0 && <>Sources: </>}
       {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
         <Fragment key={dataSourceId}>
