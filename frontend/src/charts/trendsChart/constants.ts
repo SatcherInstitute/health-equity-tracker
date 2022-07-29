@@ -15,6 +15,7 @@ const UNKNOWN_GROUP_COLOR_EXTENT = ["rgb(211, 238, 206)", "rgb(11, 96, 161)"];
 const CONFIG = {
   WIDTH: 1000,
   HEIGHT: 600,
+  STARTING_WIDTH: 980,
   MARGIN: {
     top: 10,
     right: 55,

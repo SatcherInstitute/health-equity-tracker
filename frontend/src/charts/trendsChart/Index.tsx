@@ -61,7 +61,8 @@ export function TrendsChart({ data = [], unknown, type }: TrendsChartProps) {
     filteredData && filteredData.length
       ? filteredData.flatMap(([_, d]) =>
           d
-            ? d.map(([date]: [Date]) =>
+            ? // @ts-ignore
+              d.map(([date]: [Date]) =>
                 typeof date === "string" ? new Date(date) : new Date()
               )
             : [new Date()]
