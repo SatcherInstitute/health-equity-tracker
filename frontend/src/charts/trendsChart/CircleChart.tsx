@@ -6,7 +6,7 @@
 
 /* External Imports */
 import React from "react";
-import { ScaleTime, scaleSqrt, scaleLinear, extent, min, max } from "d3";
+import { ScaleTime, scaleSqrt, scaleLinear, extent, min, max, style } from "d3";
 
 /* Local Imports */
 
@@ -32,7 +32,7 @@ export function CircleChart({ data, xScale }: CircleChartProps) {
   console.log("unknown", data);
   /* Config */
   const { WIDTH, HEIGHT, MARGIN, RADIUS_EXTENT } = CONFIG;
-
+  const [, MAX_RADIUS] = RADIUS_EXTENT;
   /* Scales */
   const percentDomain =
     data && data.map(([_, percent]: [Date, number]) => percent);
@@ -61,33 +61,51 @@ export function CircleChart({ data, xScale }: CircleChartProps) {
 
   return (
     <g>
-      <g transform={`translate(0, ${HEIGHT - MARGIN.bottom + 50})`}>
+      <g transform={`translate(0, ${HEIGHT - MARGIN.bottom + 5 * MAX_RADIUS})`}>
         {data &&
           data.map(([date, percent]: [Date, number], i: number) => (
-            <circle
-              key={`circle-${i}`}
-              r={rScale(percent)}
-              cx={xScale(new Date(date))}
-              fill={colors(percent)}
-            />
+            <g>
+              <circle
+                key={`circle-${i}`}
+                r={rScale(percent)}
+                cx={xScale(new Date(date))}
+                fill={colors(percent)}
+                role="img"
+                aria-describedby={`circleText-${i}`}
+              />
+              <text className={styles.hidden} id={`circleText-${i}`}>
+                {percent?.toFixed(0)} percent
+              </text>
+            </g>
           ))}
       </g>
+      {/* Circle Legend */}
       <g
         className={styles.CircleLegend}
+        // Translate into position (dynamic based on width & height alloted)
         transform={`translate(${MARGIN.left + (WIDTH - MARGIN.right) / 2}, ${
-          HEIGHT - 30
+          HEIGHT - 3 * MAX_RADIUS
         })`}
       >
-        <text textAnchor="middle" dy="-22px" className="title">
+        {/* Legend Title */}
+        <text textAnchor="middle" dy="-22px" className={styles.title}>
           Percent Unknown Group (%)
         </text>
+        {/* Display circle for min, mid, and max values */}
         {getLegendValues().map((percent = 0, i) => (
           <g
             key={`legendCircle-${i}`}
-            transform={`translate(${(i - 1) * 3 * RADIUS_EXTENT[1]}, 0)`}
+            transform={`translate(${(i - 1) * 3 * MAX_RADIUS}, 0)`}
           >
-            <circle r={rScale(percent)} fill={colors(percent)} />
-            <text className="circleLabel" textAnchor="middle" dy="28px">
+            {/* Legend circle */}
+            <circle
+              r={rScale(percent)}
+              fill={colors(percent)}
+              role="img"
+              aria-describedby={`circleLegendText-${i}`}
+            />
+            {/* Circle label annotation (percent represented by circle) */}
+            <text textAnchor="middle" dy="28px" id={`circleLegendText-${i}`}>
               {percent?.toFixed(0)}
             </text>
           </g>

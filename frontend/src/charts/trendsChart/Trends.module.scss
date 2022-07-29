@@ -79,8 +79,12 @@ $spacingLarge: 36px;
 .CircleLegend {
   text {
     font-size: $smallest;
-    .title {
-      @include inter400;
+    &.title {
+      @include inter500;
     }
   }
+}
+
+.hidden {
+  display: none;
 }

@@ -113,7 +113,13 @@ export function TrendsChart({ data = [], unknown, type }: TrendsChartProps) {
       </div>
       {/* Chart */}
       {filteredData && xScale && yScale && colors && (
-        <svg height={CONFIG.HEIGHT} width={CONFIG.WIDTH}>
+        <svg
+          height={CONFIG.HEIGHT}
+          width={CONFIG.WIDTH}
+          role="img"
+          // TODO link accompanying table here for accesibility
+          // aria-describedby={}
+        >
           {/* Chart Axes */}
           <Axes
             data={filteredData}
