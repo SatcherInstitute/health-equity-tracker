@@ -130,9 +130,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 <pre>{metricConfigRates.type}</pre>
                 <b>metricId: MetricId</b>
                 <pre>{metricConfigRates.metricId}</pre>
-                <b>unknown:</b>
+                <b>unknown: UnknownData</b>
                 <pre>{JSON.stringify(nestedUnknownPctShareData)}</pre>
-                <b>data:</b>
+                <b>data: TrendsData</b>
                 <pre>{JSON.stringify(nestedRatesData)}</pre>
               </>
             )}
