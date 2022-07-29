@@ -59,9 +59,115 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 className={styles.MethodologyQuestion}>{selectFaqs[4].q}</h3>
+              {/* <h3 className={styles.MethodologyQuestion}>{selectFaqs[4].q}</h3> */}
+              <h3 className={styles.MethodologyQuestion}>
+                Data acquisition and standardization
+              </h3>
               <div className={styles.MethodologyAnswer}>
-                {<>{getHtml(selectFaqs[4].a)}</>}
+                {/* {<>{getHtml(selectFaqs[4].a)}</>} */}
+                <li>
+                  All data presented in the Health Equity Tracker are retrieved
+                  from publicly sourced application programming interfaces
+                  (APIs) and manual downloads. The data extracted from these
+                  sources are continuously updated to retrieve the most relevant
+                  data.{" "}
+                </li>
+                <li>
+                  The data are subsequently converted into tables in Google
+                  BigQuery.
+                </li>
+                <li>
+                  During this process, values are standardized and normalized to
+                  facilitate reporting, comparisons, and visualizations.
+                </li>
+                <li>
+                  Graphic visualizations reflect crude rates (non-age-adjusted)
+                  at 100,000 persons per year.{" "}
+                </li>
+                <li>
+                  Where data are readily available, calculations are made to
+                  present age-adjusted rates and ratios in separate tables.
+                  These calculations are used by the Health Equity Tracker to
+                  illustrate the disproportionate impact of morbidity and
+                  mortality among different races and ethnic groups throughout
+                  the U.S. in comparison to the white (non-Hispanic) population.{" "}
+                </li>
+                <li>
+                  The Health Equity Tracker codebase is publicly available and
+                  vital contributions are welcomed via GitHub.
+                </li>
+              </div>
+            </Grid>
+
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>Visualizations</h3>
+              <div className={styles.MethodologyAnswer}>
+                <li>
+                  Please consider the impact of under-reporting and data gaps
+                  when exploring the visualizations. These issues may lead to
+                  incorrect conclusions, for example, low rates in a given
+                  location may be due to under-reporting rather than absence of
+                  impact.
+                </li>
+              </div>
+            </Grid>
+
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              {/* <h3 className={styles.MethodologyQuestion}>{selectFaqs[4].q}</h3> */}
+              <h3 className={styles.MethodologyQuestion}>Race and Ethnicity</h3>
+              <div className={styles.MethodologyAnswer}>
+                {/* {<>{getHtml(selectFaqs[4].a)}</>} */}
+
+                <li>
+                  Race is a social construct and according to the Office of
+                  Management and Budget (OMB) racial categories are as follows:
+                  <ul>
+                    <li>American Indian or Alaska Native</li>
+                    <li>Asian</li>
+                    <li>Black or African American</li>
+                    <li>Native Hawaiian or Other Pacific Islander</li>
+                    <li>White</li>
+                  </ul>
+                </li>
+                <li>
+                  Ethnic groups are generally categorized as Hispanic or Latino
+                  or not Hispanic or Latino.
+                </li>
+                <li>
+                  Please note within the data we may have the following groups:
+                  <ul>
+                    <li>
+                      Unrepresented race (Non-Hispanic): This can be a single
+                      race not tabulated by the CDC, not of Hispanic/Latino
+                      descent. In other words, individuals not identified as one
+                      of the aforementioned races listed in the source data, nor
+                      multiracial individuals grouped together as “Two or More
+                      Races”. This is a problem as it obscures racial identity
+                      for many individuals. In an effort to take transformative
+                      action towards achieving health equity, the Satcher Health
+                      Leadership Institute has decided to rename the “Some other
+                      race” category as “Unrepresented race” to highlight this
+                      health equity issue.
+                    </li>
+                    <li>
+                      Two or more races (Non-Hispanic): Multiple races, not
+                      Hispanic/Latino.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  In some cases, the source data referenced in the Health Equity
+                  Tracker does not include adequate accounts of race and
+                  ethnicity.
+                </li>
               </div>
             </Grid>
 
@@ -71,8 +177,47 @@ function MethodologyTab() {
               component="article"
             >
               <h3 className={styles.MethodologyQuestion}>
-                What are the limitations of the tracker, and why were these
-                health equity topics chosen?
+                Metric definitions used in the Health Equity Tracker
+              </h3>
+              <div className={styles.MethodologyAnswer}>
+                <li>
+                  <b>Total COVID-19 cases per 100k persons:</b> This is the
+                  total rate of COVID-19 cases expressed per 100,000 persons
+                  (i.e., 10,000 per 100k implies a 10% occurrence rate). This
+                  metric normalizes for population size, allowing for
+                  comparisons across demographic groups. This metric is rounded
+                  to the nearest integer in the tracker.
+                </li>
+                <li>
+                  <b>
+                    Share of total COVID-19 cases with unknown race and
+                    ethnicity:
+                  </b>
+                  This refers to the percentage of COVID-19 cases reported as
+                  unknown race/ethnicity. For example, a value of 20% for
+                  Georgia means that 20% of the reported cases in Georgia were
+                  of unknown race/ethnicity.
+                </li>
+                <li>
+                  <b>Share of total COVID-19 cases:</b> This refers to the
+                  percentage of all COVID-19 cases reporting a particular
+                  race/ethnicity, excluding cases with unknown race/ethnicity.
+                </li>
+                <li>
+                  <b>Population share:</b> This refers to the percentage of the
+                  total population identified as a particular race/ethnicity in
+                  the American Community Survey (ACS).
+                </li>
+              </div>
+            </Grid>
+
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
+                Limitations of the tracker
               </h3>
               <div className={styles.MethodologyAnswer}>
                 <h4 className={styles.MethodologySubsubheaderText}>COVID-19</h4>
@@ -88,38 +233,37 @@ function MethodologyTab() {
                   <li>
                     National statistics are aggregations of state-wide data. If
                     state data is not available, these aggregations may be
-                    incomplete and potentially skewed.
+                    incomplete and potentially skewed.National statistics are
+                    aggregations of state-wide data. If state data is not
+                    available, these aggregations may be incomplete and
+                    potentially skewed.
                   </li>
                   <li>
-                    When calculating national-level per100k COVID-19 rates for
-                    cases, deaths, and hospitalizations, we only include the
-                    population of states that do not have a suppressed case,
-                    hospitalization, or death count as part of the total
-                    population for each respective measure. See the 'What data
-                    are missing' section for further details.
-                  </li>
-                  <li>
-                    To protect the privacy of affected individuals, COVID-19
-                    data may be hidden in counties with low numbers of COVID-19
-                    cases, hospitalizations and deaths.
+                    When calculating the national-level of COVID-19 cases,
+                    deaths, and hospitalizations per100k, we only include the
+                    population of the states that do not have a suppressed
+                    hospitalization or death count, as part of the total
+                    population for each respective measure.
                   </li>
                   <li>
                     Decisions to suppress COVID-19 data for particular states in
                     the tracker are evaluated by comparing the aggregate case,
                     death, and hospitalization counts in the CDC surveillance
-                    dataset vs other sources, such as the New York Times. Data
-                    for a state are suppressed if the aggregate counts for that
-                    state are &lt; 5% of the source being used for comparison.
-                    These analyses are available for{" "}
+                    dataset vs other sources.
+                  </li>
+                  <li>
+                    Data for a state are suppressed if the aggregate counts for
+                    that state are less than 5% of the source being used for
+                    comparison. These analyses are available for{" "}
                     <a href={urlMap.shliGitHubSuppressCovidCases}>cases</a> and{" "}
                     <a href={urlMap.shliGitHubSuppressCovidDeaths}>deaths</a>.
                   </li>
                   <li>
-                    The underlying data is reported at the case-level, so we
-                    cannot determine whether a state/county lacking cases for a
-                    particular demographic group truly has zero cases for that
-                    group or whether that that locale fails to report
-                    demographics correctly.
+                    The underlying data is reported at the case-level;
+                    therefore, we cannot determine whether a state/county
+                    lacking cases for a particular demographic group, truly has
+                    zero cases for that group or whether that locale fails to
+                    report demographics correctly.
                   </li>
                 </ul>
 
@@ -127,13 +271,13 @@ function MethodologyTab() {
                   COVID-19 Vaccinations
                 </h4>
                 <p>
-                  Because there is currently no national vaccine demographic
-                  dataset, we combine the best datasets we could find for each
-                  geographic level.
+                  There is currently no national vaccine demographic dataset, we
+                  combine the best datasets we could find for each geographic
+                  level.
                 </p>
                 <ul>
                   <li>
-                    For the national level numbers, we use the{" "}
+                    As it relates to the national level numbers, we use the{" "}
                     <a href={urlMap.cdcVaxTrends}>
                       CDC vaccine demographic dataset,
                     </a>{" "}
@@ -141,9 +285,8 @@ function MethodologyTab() {
                     range of vaccine recipients, as well whether they have taken
                     one or two shots.{" "}
                   </li>
-
                   <li>
-                    For the state level we use{" "}
+                    As it relates to the state level, we use{" "}
                     <a href={urlMap.kffCovid}>
                       the Kaiser Family Foundation COVID-19 Indicators dataset,
                     </a>{" "}
@@ -153,64 +296,66 @@ function MethodologyTab() {
                     usable format. The dataset only provides data on the race
                     and ethnicity of vaccine recipients, and for the majority of
                     states counts individuals who have received at least one
-                    shot as vaccinated. It does not include any data for US
-                    territories.{" "}
+                    shot as vaccinated. It does not include any data for U.S.
+                    territories.
                   </li>
                   <li>
-                    For the county level, we could not identify a dataset that
-                    provides vaccine demographics, so to show some context we
-                    use the{" "}
+                    As it relates to the county level, we could not identify a
+                    dataset that provides vaccine demographics. In the absence
+                    of this data, we opted to use the{" "}
                     <a href={urlMap.cdcVaxCounty}>
                       COVID-19 Vaccinations in the United States, County dataset
                     </a>{" "}
                     which provides the total number of vaccinations per county.
                   </li>
                 </ul>
+
                 <h4 className={styles.MethodologySubsubheaderText}>
                   {" "}
                   Vaccination Population Sources{" "}
                 </h4>
                 <ul>
                   <li>
-                    For the national numbers we use the population numbers
-                    provided by the CDC, we chose to do this because they
-                    include population estimates from <b>Palau</b>,{" "}
-                    <b>Micronesia</b>, and the <b>U.S. Marshall Islands,</b>{" "}
-                    which are difficult to find estimations for. Furthermore the
-                    CDC has estimations for age ranges that the ACS numbers do
-                    not readily provide, as they use a per year population
-                    estimate from the ACS that we do not use anywhere else and
-                    have not added to our system.
+                    As it relates to national numbers, we use the population
+                    numbers provided by the CDC, as they include population
+                    estimates from <b>Palau</b>, <b>Micronesia</b>, and{" "}
+                    <b>the U.S. Marshall Islands</b>.
                   </li>
                   <li>
-                    For the state level, to calculate the total number of
-                    vaccinations we use the ACS 2019 estimates of each state’s
-                    population. The population counts for each demographic group
-                    at the state level are provided by the Kaiser Family
-                    Foundation, who researched exactly what the definition of
-                    each demographic group in every state is. They provide
-                    population estimates for <b>Asian</b>, <b>Black</b>,{" "}
-                    <b>White</b>, and <b>Hispanic</b>, so we fill in the ACS
-                    2019 estimation for <b>American Indian and Alaska Native</b>
-                    , and <b>Native Hawaiian and Pacific Islander</b>. These
-                    alternate population comparisons metrics shown with a
-                    different color on the disparities bar chart. We are unable
-                    to show a population comparison metric for “Unrepresented
-                    Race” because we are unsure of the definition in each state.
+                    As it relates to the state level, we use the ACS 2019
+                    estimates of each state’s population to calculate the total
+                    number of vaccinations. Population counts for each
+                    demographic group at the state level are provided by the
+                    Kaiser Family Foundation. They provide population estimates
+                    for <b>Asian</b>, <b>Black</b>, <b>White</b>, and{" "}
+                    <b>Hispanic</b>. Consequently, we decided to use the ACS
+                    2019 estimation for <b>American Indian</b> and{" "}
+                    <b>Alaska Native</b>, and <b>Native Hawaiian</b> and{" "}
+                    <b>Pacific Islander</b>. These alternate population
+                    comparisons metrics are displayed with a different color on
+                    the disparities bar chart. We are unable to show a
+                    population comparison metric for “Unrepresented Race”
+                    because we are unsure of the definition in each state.
                   </li>
                   <li>
-                    For the county level we use the ACS 2019 population
-                    estimations.
+                    As it relates to the county level, we use the ACS 2019
+                    population estimations.
                   </li>
                 </ul>
                 <h4 className={styles.MethodologySubsubheaderText}>
                   {" "}
-                  Vaccination Data Limitations{" "}
+                  Vaccination Data{" "}
                 </h4>
                 <ul>
                   <li>
-                    <b>Texas</b> does not report demographic-specific dose
-                    number information to CDC, so data for Texas are not
+                    There is no standardized definition for “vaccinated”.
+                    Consequently, we display vaccination data as “at least one
+                    dose” which is used by most states. However, some states
+                    like Texas do not report demographic-specific dose number
+                    information to CDC. <b>Arkansas</b>, <b>Illinois</b>,{" "}
+                    <b>Maine</b>, <b>New Jersey</b>, and <b>Tennessee</b> report
+                    “Total vaccine doses administered”, in which case those
+                    numbers are reported. Therefore, data for Texas are not
                     represented in the figures and calculations on the national
                     vaccine demographic page.
                   </li>
@@ -236,146 +381,18 @@ function MethodologyTab() {
                     metrics and what demographic breakdowns we are able to show
                     at the state level.
                   </li>
-                  <li>
-                    As there is no standardized definition for “vaccinated”, we
-                    display vaccination data as “at least one dose” which is
-                    used by most states. However, some states including{" "}
-                    <b>Arkansas</b>, <b>Illinois</b>, <b>Maine</b>,{" "}
-                    <b>New Jersey</b>, and <b>Tennessee</b> report “Total
-                    vaccine doses administered”, in which case those numbers are
-                    reported.
-                  </li>
                 </ul>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
-                  America's Health Rankings
-                </h4>
-                <p>
-                  Multiple chronic disease, behavioral health, and social
-                  determinants of health in the tracker are sourced from{" "}
-                  <a href={urlMap.amr}>America's Health Rankings</a>, who in
-                  turn source the majority of their data from the{" "}
-                  <a href={urlMap.cdcBrfss}>
-                    Behavioral Risk Factor Surveillance System (BRFSS)
-                  </a>
-                  , a survey run by the CDC, along with supplemental data from{" "}
-                  <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{" "}
-                  <a href={urlMap.censusVoting}>US Census</a>.
-                </p>
-                <ul>
-                  <li>
-                    Because BRFSS is a survey, there are not always enough
-                    respondents to provide a statistically meaningful estimate
-                    of disease prevalence, especially for smaller and typically
-                    marginalized racial groups. Please see the{" "}
-                    <a href={urlMap.amrMethodology}>methodology page</a> of
-                    America's Health Rankings for details on data suppression.
-                  </li>
-                  <li>
-                    BRFSS data broken down by race and ethnicity is not
-                    available at the county level, so the tracker does not
-                    display these conditions at the county level either.
-                  </li>
-                </ul>
-
-                <h4 className={styles.MethodologySubsubheaderText}>
-                  Women in Legislative Office
+                  Incarceration Data
                 </h4>
 
                 <p>
-                  <a href={urlMap.doi1}>A link has been established</a> between
-                  having women in government and improvements in population
-                  health. <a href={urlMap.doi2}>Women in legislative office</a>{" "}
-                  have been shown to{" "}
-                  <a href={urlMap.doi3}>advocate for policies</a> that pertain
-                  to some of the crucial social and political determinants of
-                  health that impact the overall health of our nation such as
-                  education, poverty, social welfare, reproductive and maternal
-                  health, children, and family life. These policies in turn play
-                  a significant role in the advancement of health equity for
-                  all. By combining data from the{" "}
-                  <a href={urlMap.cawp}>
-                    Center for American Women in Politics (CAWP)
-                  </a>{" "}
-                  with data from <a href={urlMap.propublica}>ProPublica</a>, we
-                  are able to present two distinct metrics on these reports:
-                </p>
-                <ul>
-                  <li>
-                    The race/ethnicity distribution or “percent share” of women
-                    (e.g. "What percent of women in the Georgia State
-                    Legislature are black?"){" "}
-                  </li>
-
-                  <li>
-                    The intersectional representation (e.g. "What percent of all
-                    Georgia state legislators are black women?").{" "}
-                  </li>
-                </ul>
-
-                <p>
-                  These metrics are calculated for two distinct data types:
-                  <b>Women in State Legislature</b>, and{" "}
-                  <b>Women in U.S. Congress</b>, and both of these data types
-                  are currently available at the state, territory, and national
-                  levels. Our percentage calculations at the national level
-                  specifically include legislators from the U.S. territories,
-                  which can result in slightly different results than those
-                  presented on the CAWP website. Additionally, our "total
-                  legislator" count for U.S. Congress only includes actively
-                  seated legislators, as opposed to the total number of seats
-                  which are not always filled. All gender and race/ethnicity
-                  categorizations are self-reported, and a legislator may be
-                  represented in multiple race groupings if that is how they
-                  identify.
-                </p>
-
-                <h4 className={styles.MethodologySubsubheaderText} id="svi">
-                  Social Vulnerability Index
-                </h4>
-                <p>
-                  The measurement of social vulnerability grants policymakers,
-                  public health officials, and local planners the ability to
-                  effectively decide how to best protect their most vulnerable
-                  communities in case of a natural disaster or public health
-                  crisis. This advances health equity by ensuring that the
-                  communities that need resources the most, in times of
-                  devastation, receive them.
-                </p>
-                <p>
-                  Percentile ranking values range from 0 to 1. The scores are
-                  given a ranking of low, medium, or high.
-                </p>
-                <ul>
-                  <li>
-                    Scores ranging from 0-0.33 are given a{" "}
-                    <b>low level of vulnerability.</b>
-                  </li>
-                  <li>
-                    Scores ranging from 0.34-0.66 are given a{" "}
-                    <b>medium level of vulnerability.</b>
-                  </li>
-                  <li>
-                    Scores ranging from 0.67-1 are given a{" "}
-                    <b>high level of vulnerability.</b>
-                  </li>
-                </ul>
-                <p>
-                  Tracts in the top 10%, i.e., at the 90th percentile of values,
-                  are given a value of 1 to indicate high vulnerability. Tracts
-                  below the 90th percentile are given a value of 0.
-                </p>
-
-                <h4 className={styles.MethodologySubsubheaderText}>
-                  Incarceration
-                </h4>
-
-                <p>
-                  Incarceration is influenced by a blend of political forces,
+                  Incarceration is influenced by a b lend of political forces,
                   laws, and public opinion. Laws that govern sentencing policies
                   and disenfranchisement of convicted felons are some of the
-                  political forces that determine voter participation in the
-                  justice-involved population.
+                  political forces that affect voter participation in the{" "}
+                  <b>justice-involved population</b>.
                 </p>
                 <p>
                   The ability to vote has been described as{" "}
@@ -412,7 +429,7 @@ function MethodologyTab() {
                 </p>
 
                 <p>
-                  <b>Data Sources</b>
+                  <b>Incarceration Data Sources</b>
                 </p>
 
                 <p>
@@ -470,52 +487,9 @@ function MethodologyTab() {
                 </ul>
 
                 <p>
-                  <b>Jail</b>
-                </p>
-
-                <p>
-                  Jail includes all individuals currently confined by a local,
-                  adult jail facility, but does not include individuals who are
-                  supervised outside of jail or who report only on weekends. In
-                  general, jail facilities incarcerate individuals who are
-                  awaiting trial or sentencing, or who are sentenced to less
-                  than 1 year.
-                </p>
-
-                <ul>
-                  <li>
-                    County reports: Vera data, which we use for our county level
-                    reports, restricts both the measured jail population and the
-                    relevant total population to individuals aged <b>15-64</b>.
-                  </li>
-                </ul>
-
-                <p>
-                  <b>Prison</b>
-                </p>
-
-                <p>
-                  In general, prisons incarcerate individuals who have been
-                  sentenced to more than 1 year, though in many cases prison can
-                  have jurisdictional control of an individual who is confined
-                  in a jail facility. Due to this overlap, we are currently
-                  unable to present accurate rates of combined incarceration.
-                </p>
-
-                <p>
-                  Jurisdiction refers to the legal authority of state or federal
-                  correctional officials over a incarcerated person, regardless
-                  of where they are held. Our ‘Sex’ and ‘Race’ reports present
-                  this jurisdictional population, while our ‘Age’ reports (due
-                  to the limitations in the data provided by BJS) only display
-                  the <b>sentenced</b> jurisdictional population.{" "}
-                </p>
-
-                <p>
                   Data presented for prison differs slightly by geographic level
                   and by data type:
                 </p>
-
                 <ul>
                   <li>
                     National report: Prison includes all individuals under the
@@ -524,36 +498,37 @@ function MethodologyTab() {
                     military, or Indian Country facilities. This data is
                     disaggregated by race/ethnicity, age, and sex.
                   </li>
-
                   <li>
                     State reports: Prison includes all individuals including
                     under the jurisdiction of that state's adult prison
                     facilities. This data is disaggregated by race/ethnicity and
-                    sex, however the BJS Prisoners report does not provide age
+                    sex; however, the BJS Prisoners report does not provide age
                     disaggregation to the state level.
                   </li>
                   <li>
                     Territory reports: All individuals under the jurisdiction of
-                    that territory's adult prison facilities. Because{" "}
-                    <b>American Samoa</b> did not report a value for
-                    jurisdictional population, we have used their value for
-                    custodial population instead. This data is not disaggregated
-                    by any demographic breakdown. All incarcerated people in the
-                    U.S. territories are counted under <b>Prison</b>.
+                    that territory's adult prison facilities.
                   </li>
                   <li>
-                    County reports: All individuals under the under the
-                    jurisdiction of a state prison system on charges arising
-                    from a criminal case in a specific county.
+                    <b>American Samoa</b> did not report a value for
+                    jurisdictional population; therefore, we used their value
+                    for custodial population instead. This data is not
+                    disaggregated by any demographic breakdown. All incarcerated
+                    people in the U.S. territories are counted under{" "}
+                    <b>Prison</b>.
+                  </li>
+                  <li>
+                    County reports: All individuals under the jurisdiction of a
+                    state prison system on charges arising from a criminal case
+                    in a specific county.
+                  </li>
+                  <li>
+                    The race/ethnicity breakdowns provided match those used in
+                    the ACS population source; however, we do combine the BJS's.
+                    The BJS did not report race values into our Unknown race
+                    group.
                   </li>
                 </ul>
-
-                <p>
-                  The race/ethnicity breakdowns provided match those used in the
-                  ACS population source, however we do combine the BJS's{" "}
-                  <b>Did not report</b> race values into our <b>Unknown</b> race
-                  group.{" "}
-                </p>
 
                 <p>
                   <b>Children in Adult Facilities</b>
@@ -565,15 +540,14 @@ function MethodologyTab() {
                   our standard “per 100k” rate. This decision was based on
                   several factors:
                 </p>
-
                 <ul>
                   <li>
                     The lack of federal law regarding the maximum age of
                     juvenile court jurisdiction and transfer to adult courts
-                    coupled with the variance in state-specific laws makes it
-                    unfeasible to derive an accurate population base for
+                    coupled with the variance in state-specific laws, makes it
+                    infeasible to derive an accurate population base for
                     individuals that may be incarcerated in an adult prison or
-                    jail facility. Because of this, any rate calculations for{" "}
+                    jail facility. Consequently, any rate calculations for{" "}
                     <b>0-17</b> are comparing the{" "}
                     <b>number of prisoners under 18</b> proportional to the
                     entire population of children down to newborns, resulting in
@@ -596,77 +570,121 @@ function MethodologyTab() {
                 <p>
                   <b>Combined Systems</b>
                 </p>
-
                 <p>
-                  {CombinedIncarcerationStateMessage()}{" "}
-                  {ALASKA_PRIVATE_JAIL_CAVEAT}
+                  Alaska, Connecticut, Delaware, Hawaii, Rhode Island, and
+                  Vermont each operate an integrated system that combines both
+                  prisons and jails; for our reports these are treated only as
+                  prison facilities. In addition, Alaska contracts with a small
+                  network of private jails, which are included here only as jail
+                  facilities.
                 </p>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
-                  Visualizations
+                  America's Health Rankings
                 </h4>
                 <p>
-                  Please consider the impact of under-reporting and data gaps
-                  when exploring the visualizations. These issues may lead to
-                  incorrect conclusions, e.g. low rates in a given location may
-                  be due to under-reporting rather than absence of impact.
+                  Multiple chronic disease, behavioral health, and social
+                  determinants of health in the tracker are sourced from
+                  America’s Health Rankings who in turn source the majority of
+                  their data from the Behavioral Risk Factor Surveillance System
+                  (BRFSS), a survey run by the CDC, along with supplemental data
+                  from CDC WONDER and the US Census.
+                </p>
+                <ul>
+                  <li>
+                    The BRFSS is a survey and as such there are not always
+                    enough respondents to provide a statistically meaningful
+                    estimate of disease prevalence, especially for smaller and
+                    typically marginalized racial groups. Please see the
+                    methodology page of America's Health Rankings for details on
+                    data suppression.
+                  </li>
+                  <li>
+                    BRFSS data broken down by race and ethnicity is not
+                    available at the county level; therefore, the tracker does
+                    not display these conditions at the county level.
+                  </li>
+                </ul>
+
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  Women in Legislative Office
+                </h4>
+                <p>
+                  A link has been established between having women in government
+                  and improvements in population health. Women in legislative
+                  office have been shown to advocate for policies that pertain
+                  to some of the crucial social and political determinants of
+                  health that impact the overall health of our nation such as
+                  education, poverty, social welfare, reproductive and maternal
+                  health, children, and family life. These policies in turn play
+                  a significant role in the advancement of health equity for
+                  all. By combining data from the Center for American Women in
+                  Politics (CAWP) with data from ProPublica, we are able to
+                  present two distinct metrics on these reports:
+                </p>
+                <ul>
+                  <li>
+                    The race/ethnicity distribution or “percent share” of women.
+                    For example, the percentage of women in the Georgia State
+                    Legislature that are black.
+                  </li>
+                </ul>
+                <p>
+                  These metrics are calculated for two distinct data types:
+                  Women in State Legislature, and Women in U.S. Congress, and
+                  both of these data types are currently available at the state,
+                  territory, and national levels. Our percentage calculations at
+                  the national level specifically include legislators from the
+                  U.S. territories, which can result in slightly different
+                  results than those presented on the CAWP website.
+                </p>
+                <p>
+                  Additionally, our "total legislator" count for U.S. Congress
+                  only includes actively seated legislators, as opposed to the
+                  total number of seats which are not always filled. All gender
+                  and race/ethnicity categorizations are self-reported, and a
+                  legislator may be represented in multiple race groupings if
+                  that is how they identify.
+                </p>
+
+                <h4 className={styles.MethodologySubsubheaderText} id="svi">
+                  Social Vulnerability Index
+                </h4>
+                <p>
+                  The measurement of social vulnerability grants policymakers,
+                  public health officials, and local planners the ability to
+                  effectively decide how to best protect their most vulnerable
+                  communities in case of a natural disaster or public health
+                  crisis. This advances health equity by ensuring that the
+                  communities that need resources the most, in times of
+                  devastation, receive them.
+                </p>
+                <p>
+                  Percentile ranking values range from 0 to 1. The scores are
+                  given a ranking of low, medium, or high.
+                </p>
+                <ul>
+                  <li>
+                    Scores ranging from 0-0.33 are given a{" "}
+                    <b>low level of vulnerability.</b>
+                  </li>
+                  <li>
+                    Scores ranging from 0.34-0.66 are given a{" "}
+                    <b>medium level of vulnerability.</b>
+                  </li>
+                  <li>
+                    Scores ranging from 0.67-1 are given a{" "}
+                    <b>high level of vulnerability.</b>
+                  </li>
+                </ul>
+                <p>
+                  Tracts in the top 10%, i.e., at the 90th percentile of values,
+                  are given a value of 1 to indicate high vulnerability. Tracts
+                  below the 90th percentile are given a value of 0.
                 </p>
               </div>
             </Grid>
 
-            <Grid
-              item
-              className={styles.MethodologyQuestionAndAnswer}
-              component="article"
-            >
-              <h3 className={styles.MethodologyQuestion}>
-                What do the metrics on the tracker mean?
-              </h3>
-              <div className={styles.MethodologyAnswer}>
-                <p>
-                  In the definitions below, we use COVID-19 Cases as the
-                  variable, and Race and Ethnicity as the demographic breakdown
-                  for simplicity; the definitions apply to all variables and
-                  demographic breakdowns.
-                </p>
-                <ul>
-                  <li>
-                    <b>Total COVID-19 cases per 100k people</b>: The total rate
-                    of occurrence of COVID-19 cases expressed per 100,000 people
-                    (i.e. 10,000 per 100k implies a 10% occurrence rate). This
-                    metric normalizes for population size, allowing for
-                    comparisons across demographic groups. This metric is
-                    rounded to the nearest integer in the tracker.
-                  </li>
-                  <li>
-                    <b>
-                      Share of total COVID-19 cases with unknown race and
-                      ethnicity
-                    </b>
-                    : Within a locale, the percentage of COVID-19 cases that
-                    reported unknown race/ethnicity. For example, a value of 20%
-                    for Georgia means that 20% of Georgia's reported cases had
-                    unknown race/ethnicity. This metric is rounded to one
-                    decimal place. In instances where this would round to 0%,
-                    two decimal places are used.
-                  </li>
-                  <li>
-                    <b>Share of total COVID-19 cases</b>: The percentage of all
-                    COVID-19 cases that reported a particular race/ethnicity,
-                    excluding cases with unknown race/ethnicity. This metric is
-                    rounded to one decimal place. In instances where this would
-                    round to 0%, two decimal places are used.
-                  </li>
-                  <li>
-                    <b>Population share</b>: The percentage of the total
-                    population that identified as a particular race/ethnicity in
-                    the ACS survey. This metric is rounded to one decimal place.
-                    In instances where this would round to 0%, two decimal
-                    places are used.
-                  </li>
-                </ul>
-              </div>
-            </Grid>
             <Grid
               item
               className={styles.MethodologyQuestionAndAnswer}
