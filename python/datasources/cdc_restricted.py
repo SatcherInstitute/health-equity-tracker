@@ -111,7 +111,7 @@ class CDCRestrictedData(DataSource):
             std_col.STATE_NAME_COL,
             demo_col,
             std_col.COVID_POPULATION_PCT,
-            'time_period',
+            std_col.TIME_PERIOD_COL,
         ]
 
         df = merge_state_fips_codes(df, keep_postal=True)
