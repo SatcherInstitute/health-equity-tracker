@@ -7,14 +7,15 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import {
-  // isPctType,
-  MetricId,
-  VariableConfig,
-} from "../data/config/MetricConfig";
+import { MetricId, VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
-import { LONGITUDINAL, NON_HISPANIC } from "../data/utils/Constants";
+import {
+  DemographicGroup,
+  LONGITUDINAL,
+  NON_HISPANIC,
+  UNKNOWN_LABELS,
+} from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import {
   getNestedUndueShares,
@@ -71,11 +72,17 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           props.breakdownVar
         );
 
-        console.log(metricConfig.populationComparisonMetric?.metricId);
+        // retrieve list of all present demographic groups
+        const demographicGroups: DemographicGroup[] = queryResponse
+          .getFieldValues(props.breakdownVar, metricConfig.metricId)
+          .withData.filter(
+            (group: DemographicGroup) => !UNKNOWN_LABELS.includes(group)
+          );
 
         // TODO - can we make populationComparisonMetric a required field?
         const nestedData = getNestedUndueShares(
           knownData,
+          demographicGroups,
           props.breakdownVar,
           metricConfig.metricId,
           metricConfig.populationComparisonMetric!.metricId
@@ -102,9 +109,9 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             ) : (
               <div>
                 {/* 2N INCIDENCE RATE TRENDS VIZ COMPONENT HERE */}
-                {/* {console.log("KNOWN PCT SHARES", knownData)}
+                {console.log("UNDUE SHARES", knownData)}
 
-                {console.log("UNKNOWN PCT SHARE", unknownData)} */}
+                {console.log("UNKNOWN PCT SHARE", unknownData)}
 
                 <b>Undue Share of Condition</b>
                 {nestedData.map((group) => {

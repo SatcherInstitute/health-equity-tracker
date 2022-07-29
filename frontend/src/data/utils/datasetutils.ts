@@ -275,7 +275,7 @@ export function getExclusionList(
   currentVariable: VariableConfig,
   currentBreakdown: BreakdownVar,
   currentFips: Fips
-) {
+): DemographicGroup[] {
   const current100k = currentVariable.metrics.per100k.metricId;
   const currentVariableId = currentVariable.variableId;
   let exclusionList = [UNKNOWN, UNKNOWN_ETHNICITY, UNKNOWN_RACE];
@@ -375,11 +375,56 @@ export function splitIntoKnownsAndUnknowns(
   return [knowns, unknowns];
 }
 
-export type TimeSeries = [Date, number][];
+/* 
 
+Nesting table data into time-series data needed by D3:
+
+Currently data is stored in json "rows" where every "column" name is present as a key to that location's value
+
+D3 requires the data in a different format, as a series of nested arrays, per demographic group, per time_period
+
+Before (Table / Vega) Example:
+
+[
+  {
+    "sex": "male",
+    "jail_per_100k": 3000,
+    "time_period": "2020"
+  },
+  {
+    "sex": "male",
+    "jail_per_100k": 2000,
+    "time_period": "2021"
+  },
+  {
+    "sex": "female",
+    "jail_per_100k": 300,
+    "time_period": "2020"
+  },
+  {
+    "sex": "female",
+    "jail_per_100k": 200,
+    "time_period": "2021"
+  }
+]
+
+After (Time-Series / D3) Example:
+
+[
+  ["male", 
+    [["2020", 3000],["2021", 2000]]
+  ],
+  ["female", 
+    [["2020", 300],["2021", 200]]
+  ]
+]
+
+*/
+
+export type TimeSeries = [Date, number][];
 export type GroupTrendData = [DemographicGroup, TimeSeries][];
 export type TrendsData = GroupTrendData[];
-export type UnknownData = TimeSeries;
+export type UnknownTrendData = TimeSeries;
 
 export function getNestedRates(
   data: Row[],
@@ -387,32 +432,12 @@ export function getNestedRates(
   currentBreakdown: BreakdownVar,
   metricId: MetricId
 ): TrendsData {
-  // iterate over all expected demographic groups ("Black, White", etc)
   const nestedRates = demographicGroups.map((group) => {
-    // filter only data rows for that race
-
-    // console.log(data);
-    const groupRows = data.filter((row) => {
-      console.log(row);
-      console.log(currentBreakdown);
-      console.log(
-        row[currentBreakdown],
-        "=",
-        group,
-        row.currentBreakdown === group
-      );
-      return row[currentBreakdown] === group;
-    });
-
-    // console.log("group", group);
-    // console.log("groupRows", groupRows)
-
-    // nest each group's data
-    const groupTimeSeries = groupRows.map((row) => {
-      return [row[TIME_PERIOD], row[metricId]];
-    });
-
-    // add this group's data to the array
+    const groupRows = data.filter((row) => row[currentBreakdown] === group);
+    const groupTimeSeries = groupRows.map((row) => [
+      row[TIME_PERIOD],
+      row[metricId],
+    ]);
     return [group, groupTimeSeries] as GroupTrendData;
   });
 
@@ -421,25 +446,26 @@ export function getNestedRates(
 
 export function getNestedUndueShares(
   data: Row[],
+  demographicGroups: DemographicGroup[],
   currentBreakdown: BreakdownVar,
   conditionPctShareId: MetricId,
   popPctShareId: MetricId
 ): TrendsData {
-  const nestedPctShares: TrendsData = data.map((row) => {
-    const undueBurdenPct = row[conditionPctShareId] - row[popPctShareId];
-    return [row[currentBreakdown], [row[TIME_PERIOD], undueBurdenPct]];
+  const nestedPctUndue = demographicGroups.map((group) => {
+    const groupRows = data.filter((row) => row[currentBreakdown] === group);
+    const groupTimeSeries = groupRows.map((row) => [
+      row[TIME_PERIOD],
+      row[conditionPctShareId] - row[popPctShareId],
+    ]);
+    return [group, groupTimeSeries] as GroupTrendData;
   });
 
-  return nestedPctShares;
+  return nestedPctUndue;
 }
 
 export function getNestedUnknowns(
   unknownsData: Row[],
   metricId: MetricId
-): UnknownData {
-  const nestedUnknowns: UnknownData = unknownsData.map((row) => {
-    return [row[TIME_PERIOD], row[metricId]];
-  });
-
-  return nestedUnknowns;
+): UnknownTrendData {
+  return unknownsData.map((row) => [row[TIME_PERIOD], row[metricId]]);
 }

@@ -127,11 +127,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 {console.log("UNKNOWN PCT SHARE", nestedUnknownPctShareData)}
                 <b>Rates</b>
                 {nestedRatesData.map((group) => {
-                  return (
-                    <>
-                      <pre>{JSON.stringify(group)}</pre>
-                    </>
-                  );
+                  return <pre>{JSON.stringify(group)}</pre>;
                 })}
                 <b>Unknowns</b>
                 <pre>{JSON.stringify(nestedUnknownPctShareData)}</pre>

@@ -23,6 +23,13 @@ export const UNKNOWN_RACE = "Unknown race";
 export const UNKNOWN_HL = "Unknown Hispanic or Latino";
 export const UNKNOWN_ETHNICITY = "Unknown ethnicity";
 
+export const UNKNOWN_LABELS = [
+  UNKNOWN,
+  UNKNOWN_RACE,
+  UNKNOWN_HL,
+  UNKNOWN_ETHNICITY,
+];
+
 // STANDARD RACE GROUPS AND ARRAY
 export const AIAN_NH = "American Indian and Alaska Native (Non-Hispanic)";
 export const ASIAN_NH = "Asian (Non-Hispanic)";
