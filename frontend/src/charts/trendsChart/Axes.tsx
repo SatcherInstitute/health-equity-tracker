@@ -5,14 +5,7 @@
 
 /* External Imports */
 import React, { useRef, useEffect } from "react";
-import {
-  ScaleTime,
-  ScaleLinear,
-  axisLeft,
-  axisBottom,
-  timeFormat,
-  select,
-} from "d3";
+import { axisLeft, axisBottom, timeFormat, select } from "d3";
 
 /* Local Imports */
 
@@ -21,14 +14,15 @@ import styles from "./Trends.module.scss";
 
 /* Constants */
 import { CONFIG, TYPES } from "./constants";
+import { TrendsData, XScale, YScale } from "./types";
 
 /* Helpers */
 
 /* Define type interface */
 export interface AxesProps {
-  data: any[];
-  xScale: ScaleTime<number, number | undefined>;
-  yScale: ScaleLinear<number, number | undefined>;
+  data: TrendsData;
+  xScale: XScale;
+  yScale: YScale;
   type: string;
   yAxisLabel: string;
 }
@@ -40,7 +34,7 @@ export function Axes({ data, xScale, yScale, type, yAxisLabel }: AxesProps) {
   // TODO: move to constants
   const Y_AXIS_CONFIG = {
     [TYPES.HUNDRED_K]: {
-      topLabel: yAxisLabel + "->", // should be dynamic based on metric id - build dictionary
+      topLabel: yAxisLabel + "->", // should be dynamic based on metric id - reference shortLabel from metricConfig
       bottomLabel: "",
       formatter: (d: string | number) => d,
     },

@@ -21,19 +21,25 @@ import styles from "./Trends.module.scss";
 
 /* Constants */
 import { COLOR_RANGE, CONFIG } from "./constants";
+import { UnknownData, TrendsData } from "./types";
 
 /* Helpers */
 import { filterDataByGroup } from "./helpers";
 
 /* Define type interface */
 export interface TrendsChartProps {
-  data: any[]; // TODO: stricter typing
-  unknown: {}[];
+  data: TrendsData;
+  unknown: UnknownData;
   type: string;
 }
 
 /* Render component */
-export function TrendsChart({ data, unknown, type }: TrendsChartProps) {
+export function TrendsChart({
+  data = [],
+  unknown = [],
+  type,
+}: TrendsChartProps) {
+  console.log(data);
   /* Config */
   const { WIDTH, HEIGHT, MARGIN } = CONFIG;
 
@@ -50,29 +56,41 @@ export function TrendsChart({ data, unknown, type }: TrendsChartProps) {
 
   /* Scales */
   const colors = scaleOrdinal(
-    data.map(([cat]) => cat),
+    data.map(([group]) => group),
     COLOR_RANGE
   );
 
-  // @ts-ignore
-  // TODO: filter out undefineds
-  const xExtent: [Date, Date] = extent(
-    filteredData.flatMap(([_, d]) => d.map(([date]: [Date]) => new Date(date)))
+  // TODO: how to handle case when extent is made of undefined values
+  // implement error boundary or error handling?
+  const xExtent: [Date, Date] | [undefined, undefined] = extent(
+    filteredData && filteredData.length
+      ? filteredData.flatMap(([_, d]) =>
+          d
+            ? d.map(([date]: [Date]) =>
+                typeof date === "string" ? new Date(date) : new Date()
+              )
+            : [new Date()]
+        )
+      : [new Date()]
   );
 
-  // @ts-ignore
-  // TODO: filter out undefineds
-  const yExtent: [number, number] = extent(
-    filteredData.flatMap(([_, d]) =>
-      d.map(([_, amount]: [Date, number]) => amount)
-    )
+  const yExtent: [number, number] | [undefined, undefined] = extent(
+    filteredData && filteredData.length
+      ? filteredData.flatMap(([_, d]) =>
+          d ? d.map(([_, amount]: [Date, number]) => amount || 0) : [0]
+        )
+      : [0]
   );
 
-  console.log(unknown);
+  const xScale = scaleTime(xExtent as [Date, Date], [
+    MARGIN.left,
+    WIDTH - MARGIN.right,
+  ]);
 
-  const xScale = scaleTime(xExtent, [MARGIN.left, WIDTH - MARGIN.right]);
-
-  const yScale = scaleLinear(yExtent, [HEIGHT - MARGIN.bottom, MARGIN.top]);
+  const yScale = scaleLinear(yExtent as [number, number], [
+    HEIGHT - MARGIN.bottom,
+    MARGIN.top,
+  ]);
 
   /* Event Handlers */
   function handleClick(selectedGroup: string) {

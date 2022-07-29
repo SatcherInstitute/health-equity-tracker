@@ -6,11 +6,13 @@ import { TYPES } from "../trendsChart/constants";
 import data from "../../../public/tmp/trends.json";
 
 const props: TrendsChartProps = {
+  // @ts-ignore - will be fixed with real data
   data: data.race_national.covid_cases_per_100k.filter(
     ([group]) => group !== "Unknown race"
   ),
   unknown: data.race_national.covid_cases_per_100k
     .filter(([group]) => group == "Unknown race")
+    // @ts-ignore - will be fixed with real data
     .flatMap(([group, d]) => d),
   type: TYPES.HUNDRED_K,
 };
@@ -31,11 +33,13 @@ Default.args = {
 export const PercentShare = Template.bind({});
 PercentShare.args = {
   ...props,
+  // @ts-ignore - will be fixed with real data
   data: data.race_national.covid_cases_share.filter(
     ([group]) => group !== "Unknown race"
   ),
   unknown: data.race_national.covid_cases_share
     .filter(([group]) => group == "Unknown race")
+    // @ts-ignore - will be fixed with real data
     .flatMap(([group, d]) => d),
   type: TYPES.PERCENT_SHARE,
 };

@@ -4,46 +4,45 @@
  * returns jsx of an svg group containing paths
 
 /* External Imports */
-import React, { Key } from "react";
-import { ScaleTime, ScaleLinear, ScaleOrdinal, line, curveMonotoneX } from "d3";
+import React from "react";
+import { line, curveMonotoneX } from "d3";
 
 /* Local Imports */
 
 /* Styles */
 
 /* Constants */
-
+import { TrendsData, XScale, YScale, ColorScale } from "./types";
 /* Helpers */
 
 /* Define type interface */
 export interface LineChartProps {
-  data: any[];
-  xScale: ScaleTime<number, number | undefined>;
-  yScale: ScaleLinear<number, number | undefined>;
-  colors: ScaleOrdinal<string | Key[][], string, void>;
+  data: TrendsData;
+  xScale: XScale;
+  yScale: YScale;
+  colors: ColorScale;
 }
 
 /* Render component */
 export function LineChart({ data, xScale, yScale, colors }: LineChartProps) {
   // Generate line path
-  // @ts-ignore
   const lineGen = line()
-    .x(([date]) => xScale(new Date(date)))
-    .y(([_, delta]) => yScale(delta))
+    //TODO: remove date creation when date is actually Date type
+    .x(([date]) => xScale(new Date(date)) || 0)
+    .y(([_, delta]) => yScale(delta) || 0)
     .curve(curveMonotoneX);
 
   return (
     <g>
       {data &&
-        data.map(([group, d]: [string, {}[]]) => (
-          //@ts-ignore
+        //@ts-ignore : TODO revisit with real data when date is actually a Date type
+        data.map(([group, d]: [string, [Date, number][]]) => (
           <path
             key={`group-${group}`}
-            //@ts-ignore
-            d={lineGen(d)}
+            //@ts-ignore : TODO revisit with real data when date is actually a Date type
+            d={lineGen(d) || ""}
             fill="none"
             strokeWidth={2}
-            //@ts-ignore
             stroke={colors(group)}
           />
         ))}

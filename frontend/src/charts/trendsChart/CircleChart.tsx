@@ -17,13 +17,14 @@ import styles from "./Trends.module.scss";
 
 /* Constants */
 import { CONFIG, UNKNOWN_GROUP_COLOR_EXTENT } from "./constants";
+import { UnknownData, XScale } from "./types";
 
 /* Helpers */
 
 /* Define type interface */
 export interface CircleChartProps {
-  data: [Date, number][];
-  xScale: ScaleTime<number, string | number | undefined>;
+  data: UnknownData;
+  xScale: XScale;
 }
 
 /* Render component */
@@ -34,18 +35,26 @@ export function CircleChart({ data, xScale }: CircleChartProps) {
   /* Scales */
   const percentDomain =
     data && data.map(([_, percent]: [Date, number]) => percent);
-  const unknownGroupExtent: [number, number] = extent(percentDomain);
+  const unknownGroupExtent: [number, number] | [undefined, undefined] =
+    extent(percentDomain);
 
   // radius scale for circles
-  const rScale = scaleSqrt(unknownGroupExtent, RADIUS_EXTENT);
+  const rScale = scaleSqrt(
+    unknownGroupExtent as [number, number],
+    RADIUS_EXTENT
+  );
   // color interpolation scale
-  const colors = scaleLinear(unknownGroupExtent, UNKNOWN_GROUP_COLOR_EXTENT);
+  const colors = scaleLinear(
+    unknownGroupExtent as [number, number],
+    UNKNOWN_GROUP_COLOR_EXTENT
+  );
 
   /* Helpers */
   function getLegendValues() {
     const maxPercent = max(percentDomain);
     const minPercent = min(percentDomain);
-    const midPercent = maxPercent - minPercent / 2;
+    const midPercent =
+      maxPercent && minPercent ? maxPercent - minPercent / 2 : 0;
     return [minPercent, midPercent, maxPercent];
   }
 
@@ -71,7 +80,7 @@ export function CircleChart({ data, xScale }: CircleChartProps) {
         <text className={styles.AxisLabel} textAnchor="end" dx="-20px" dy="2px">
           Percent Unknown Group
         </text>
-        {getLegendValues().map((percent, i) => (
+        {getLegendValues().map((percent = 0, i) => (
           <g
             key={`legendCircle-${i}`}
             transform={`translate(${i * 3 * RADIUS_EXTENT[1]}, 0)`}

@@ -8,10 +8,9 @@
  */
 
 /* External Imports */
-import React, { Key } from "react";
+import React from "react";
 
 /* Local Imports */
-import { ScaleOrdinal } from "d3";
 
 /* Styles */
 import styles from "./Trends.module.scss";
@@ -19,15 +18,15 @@ import styles from "./Trends.module.scss";
 /* Components */
 
 /* Constants */
-
+import { TrendsData, ColorScale } from "./types";
 /* Helpers */
 
 /* Define type interface */
 export interface FilterLegendProps {
-  data: any[]; // TODO: stricter typing
+  data: TrendsData; // TODO: stricter typing
   selectedGroups: string[];
   handleClick: (group: string) => void;
-  colors: ScaleOrdinal<string | Key[][], string, void>;
+  colors: ColorScale;
 }
 
 /* Render component */
