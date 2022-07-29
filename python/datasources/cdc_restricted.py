@@ -148,7 +148,7 @@ class CDCRestrictedData(DataSource):
         # Drop annoying column that doesnt match any fips codes or have
         # an associated time period
         df = df[df[fips].notna()]
-        df = df[df[std_col.TIME_PERIOD].notna()]
+        df = df[df[std_col.TIME_PERIOD_COL].notna()]
 
         if geo == 'county':
             df = remove_bad_fips_cols(df)

@@ -59,8 +59,8 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
     groupby_cols = [std_col.STATE_FIPS_COL]
     if std_col.COUNTY_FIPS_COL in df.columns:
         groupby_cols.append(std_col.COUNTY_FIPS_COL)
-    if std_col.TIME_PERIOD in df.columns:
-        groupby_cols.append(std_col.TIME_PERIOD)
+    if std_col.TIME_PERIOD_COL in df.columns:
+        groupby_cols.append(std_col.TIME_PERIOD_COL)
 
     df = df.drop(columns=list(raw_count_to_pct_share.values()))
 
@@ -95,8 +95,8 @@ def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
     on_cols = [std_col.STATE_FIPS_COL]
     if std_col.COUNTY_FIPS_COL in df.columns:
         on_cols.append(std_col.COUNTY_FIPS_COL)
-    if std_col.TIME_PERIOD in df.columns:
-        on_cols.append(std_col.TIME_PERIOD)
+    if std_col.TIME_PERIOD_COL in df.columns:
+        on_cols.append(std_col.TIME_PERIOD_COL)
 
     alls = alls[on_cols + list(rename_cols.values())]
 
@@ -104,8 +104,8 @@ def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
     split_cols = [std_col.COUNTY_FIPS_COL] if std_col.COUNTY_FIPS_COL in \
         df.columns else [std_col.STATE_FIPS_COL]
 
-    if std_col.TIME_PERIOD in df.columns:
-        split_cols.append(std_col.TIME_PERIOD)
+    if std_col.TIME_PERIOD_COL in df.columns:
+        split_cols.append(std_col.TIME_PERIOD_COL)
 
     all_splits = df[split_cols].drop_duplicates()
     all_splits = list(all_splits.itertuples(index=False, name=None))
