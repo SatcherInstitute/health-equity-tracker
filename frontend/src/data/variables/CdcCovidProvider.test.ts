@@ -11,7 +11,7 @@ import {
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import { CHATAM, NC, VI, USA } from "./TestUtils";
-import { RACE, SEX, AGE } from "../utils/Constants";
+import { RACE, SEX, AGE, CROSS_SECTIONAL } from "../utils/Constants";
 
 export async function ensureCorrectDatasetsDownloaded(
   cdcDatasetId: string,
@@ -24,7 +24,11 @@ export async function ensureCorrectDatasetsDownloaded(
   dataFetcher.setFakeDatasetLoaded(cdcDatasetId, []);
 
   const responseIncludingAll = await cdcCovidProvider.getData(
-    new MetricQuery([], baseBreakdown.addBreakdown(breakdownVar), "current")
+    new MetricQuery(
+      [],
+      baseBreakdown.addBreakdown(breakdownVar),
+      CROSS_SECTIONAL
+    )
   );
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);

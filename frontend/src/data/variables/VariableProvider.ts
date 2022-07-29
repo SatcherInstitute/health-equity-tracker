@@ -9,6 +9,7 @@ import {
   MetricQueryResponse,
 } from "../query/MetricQuery";
 import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
+import { CROSS_SECTIONAL, LONGITUDINAL, TIME_PERIOD } from "../utils/Constants";
 import { DatasetCalculator } from "../utils/DatasetCalculator";
 
 abstract class VariableProvider {
@@ -62,13 +63,11 @@ abstract class VariableProvider {
   ): IDataFrame {
     // TODO: Remove this check once ALL data sources have been refactored to include time series data
 
-    if (df.getColumnNames().includes("time_period")) {
-      if (timeView === "current")
-        df = df.where((row) => row["time_period"] === sourceCurrentTimePeriod);
+    if (df.getColumnNames().includes(TIME_PERIOD)) {
+      if (timeView === CROSS_SECTIONAL)
+        df = df.where((row) => row[TIME_PERIOD] === sourceCurrentTimePeriod);
     }
 
-    // TODO: Figure out how to best handle COVID and any other CUMULATIVE datasets
-    // where the "CURRENT" view really includes all data rather than the most recent slice
     return df;
   }
 
@@ -95,8 +94,8 @@ abstract class VariableProvider {
     let dataFrame = df;
     let requestedColumns = ["fips", "fips_name"].concat(metricQuery.metricIds);
 
-    if (metricQuery.timeView === "longitudinal")
-      requestedColumns.push("time_period");
+    if (metricQuery.timeView === LONGITUDINAL)
+      requestedColumns.push(TIME_PERIOD);
 
     // Add column names of enabled breakdowns
     requestedColumns = requestedColumns.concat(

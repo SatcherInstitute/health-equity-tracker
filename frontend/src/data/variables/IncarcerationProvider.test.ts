@@ -9,7 +9,7 @@ import {
   resetCacheDebug,
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
-import { RACE, AGE, SEX } from "../utils/Constants";
+import { RACE, AGE, SEX, CROSS_SECTIONAL } from "../utils/Constants";
 import { MetricId } from "../config/MetricConfig";
 
 export async function ensureCorrectDatasetsDownloaded(
@@ -32,7 +32,7 @@ export async function ensureCorrectDatasetsDownloaded(
     new MetricQuery(
       metricIds,
       baseBreakdown.addBreakdown(breakdownVar),
-      "current"
+      CROSS_SECTIONAL
     )
   );
 

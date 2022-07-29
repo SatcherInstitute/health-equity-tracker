@@ -12,7 +12,13 @@ import {
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import { FipsSpec, NC, USA, MARIN } from "./TestUtils";
-import { ASIAN_NH, ALL, RACE, DemographicGroup } from "../utils/Constants";
+import {
+  ASIAN_NH,
+  ALL,
+  RACE,
+  DemographicGroup,
+  CROSS_SECTIONAL,
+} from "../utils/Constants";
 import { MetricId } from "../config/MetricConfig";
 
 const METRIC_IDS: MetricId[] = [
@@ -43,7 +49,7 @@ export async function evaluateWithAndWithoutAll(
     new MetricQuery(
       METRIC_IDS,
       baseBreakdown.addBreakdown(breakdownVar),
-      "current"
+      CROSS_SECTIONAL
     )
   );
 
@@ -67,7 +73,7 @@ export async function evaluateWithAndWithoutAll(
     new MetricQuery(
       METRIC_IDS,
       baseBreakdown.addBreakdown(breakdownVar, excludeAll()),
-      "current"
+      CROSS_SECTIONAL
     )
   );
   expect(responseExcludingAll).toEqual(

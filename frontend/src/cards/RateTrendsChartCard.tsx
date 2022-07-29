@@ -10,7 +10,7 @@ import { MetricQuery } from "../data/query/MetricQuery";
 import { VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
-import { NON_HISPANIC } from "../data/utils/Constants";
+import { LONGITUDINAL, NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 
@@ -38,12 +38,12 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const ratesQuery = new MetricQuery(
     metricConfigRates.metricId,
     breakdowns,
-    "longitudinal"
+    LONGITUDINAL
   );
   const pctShareQuery = new MetricQuery(
     metricConfigPctShares.metricId,
     breakdowns,
-    "longitudinal"
+    LONGITUDINAL
   );
 
   function getTitleText() {

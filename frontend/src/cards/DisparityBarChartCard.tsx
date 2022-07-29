@@ -13,7 +13,13 @@ import { VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { exclude } from "../data/query/BreakdownFilter";
-import { NON_HISPANIC, ALL, RACE, HISPANIC } from "../data/utils/Constants";
+import {
+  NON_HISPANIC,
+  ALL,
+  RACE,
+  HISPANIC,
+  CROSS_SECTIONAL,
+} from "../data/utils/Constants";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import {
   shouldShowAltPopCompare,
@@ -63,7 +69,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     metricIds.push(metricConfig.secondaryPopulationComparisonMetric.metricId);
   }
 
-  const query = new MetricQuery(metricIds, breakdowns, "current");
+  const query = new MetricQuery(metricIds, breakdowns, CROSS_SECTIONAL);
 
   function getTitleText() {
     return `Population vs. ${

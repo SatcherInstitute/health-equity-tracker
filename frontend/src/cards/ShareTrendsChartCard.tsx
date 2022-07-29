@@ -14,7 +14,7 @@ import {
 } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
-import { NON_HISPANIC } from "../data/utils/Constants";
+import { LONGITUDINAL, NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 
@@ -41,7 +41,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     exclude(NON_HISPANIC)
   );
 
-  const query = new MetricQuery(metricIdsToFetch, breakdowns, "longitudinal");
+  const query = new MetricQuery(metricIdsToFetch, breakdowns, LONGITUDINAL);
 
   function getTitleText() {
     return `${metricConfig.trendsCardTitleName} by ${
@@ -59,7 +59,6 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
     >
       {([queryResponse]) => {
-        console.log(queryResponse.data);
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
         const [knownData, unknownData] = splitIntoKnownsAndUnknowns(
           data,

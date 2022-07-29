@@ -1,10 +1,11 @@
 import { getDataManager } from "../../utils/globals";
-import { Breakdowns } from "../query/Breakdowns";
+import { Breakdowns, TimeView } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { ACS_2010_FIPS } from "../utils/Fips";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
+import { CROSS_SECTIONAL, LONGITUDINAL } from "../utils/Constants";
 
 class CdcCovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -32,34 +33,68 @@ class CdcCovidProvider extends VariableProvider {
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
-  getDatasetId(breakdowns: Breakdowns): string {
-    if (breakdowns.hasOnlyRace()) {
-      if (breakdowns.geography === "county") {
-        return "cdc_restricted_data-by_race_county_processed";
-      } else if (breakdowns.geography === "state") {
-        return "cdc_restricted_data-by_race_state_processed-with_age_adjust";
-      } else if (breakdowns.geography === "national") {
-        return "cdc_restricted_data-by_race_national_processed-with_age_adjust";
+  getDatasetId(breakdowns: Breakdowns, timeView: TimeView): string {
+    console.log("get dataset id:", breakdowns.filterFips?.code);
+    if (timeView === CROSS_SECTIONAL) {
+      if (breakdowns.hasOnlyRace()) {
+        if (breakdowns.geography === "county") {
+          return "cdc_restricted_data-by_race_county_processed";
+        } else if (breakdowns.geography === "state") {
+          return "cdc_restricted_data-by_race_state_processed-with_age_adjust";
+        } else if (breakdowns.geography === "national") {
+          return "cdc_restricted_data-by_race_national_processed-with_age_adjust";
+        }
+      }
+      if (breakdowns.hasOnlyAge()) {
+        if (breakdowns.geography === "county") {
+          return "cdc_restricted_data-by_age_county_processed";
+        } else if (breakdowns.geography === "state") {
+          return "cdc_restricted_data-by_age_state_processed";
+        } else if (breakdowns.geography === "national") {
+          return "cdc_restricted_data-by_age_national_processed";
+        }
+      }
+      if (breakdowns.hasOnlySex()) {
+        if (breakdowns.geography === "county") {
+          return "cdc_restricted_data-by_sex_county_processed";
+        } else if (breakdowns.geography === "state") {
+          return "cdc_restricted_data-by_sex_state_processed";
+        } else if (breakdowns.geography === "national") {
+          return "cdc_restricted_data-by_sex_national_processed";
+        }
       }
     }
-    if (breakdowns.hasOnlyAge()) {
-      if (breakdowns.geography === "county") {
-        return "cdc_restricted_data-by_age_county_processed";
-      } else if (breakdowns.geography === "state") {
-        return "cdc_restricted_data-by_age_state_processed";
-      } else if (breakdowns.geography === "national") {
-        return "cdc_restricted_data-by_age_national_processed";
+
+    if (timeView === LONGITUDINAL) {
+      if (breakdowns.hasOnlyRace()) {
+        if (breakdowns.geography === "county") {
+          return "cdc_restricted_data-by_race_county_processed_time_series";
+        } else if (breakdowns.geography === "state") {
+          return "cdc_restricted_data-by_race_state_processed_time_series";
+        } else if (breakdowns.geography === "national") {
+          return "cdc_restricted_data-by_race_national_processed_time_series";
+        }
+      }
+      if (breakdowns.hasOnlyAge()) {
+        if (breakdowns.geography === "county") {
+          return "cdc_restricted_data-by_age_county_processed_time_series";
+        } else if (breakdowns.geography === "state") {
+          return "cdc_restricted_data-by_age_state_processed_time_series";
+        } else if (breakdowns.geography === "national") {
+          return "cdc_restricted_data-by_age_national_processed_time_series";
+        }
+      }
+      if (breakdowns.hasOnlySex()) {
+        if (breakdowns.geography === "county") {
+          return "cdc_restricted_data-by_sex_county_processed_time_series";
+        } else if (breakdowns.geography === "state") {
+          return "cdc_restricted_data-by_sex_state_processed_time_series";
+        } else if (breakdowns.geography === "national") {
+          return "cdc_restricted_data-by_sex_national_processed_time_series";
+        }
       }
     }
-    if (breakdowns.hasOnlySex()) {
-      if (breakdowns.geography === "county") {
-        return "cdc_restricted_data-by_sex_county_processed";
-      } else if (breakdowns.geography === "state") {
-        return "cdc_restricted_data-by_sex_state_processed";
-      } else if (breakdowns.geography === "national") {
-        return "cdc_restricted_data-by_sex_national_processed";
-      }
-    }
+
     throw new Error("Not implemented");
   }
 
@@ -68,7 +103,7 @@ class CdcCovidProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
     const timeView = metricQuery.timeView;
-    const datasetId = this.getDatasetId(breakdowns);
+    const datasetId = this.getDatasetId(breakdowns, timeView);
 
     const covidDataset = await getDataManager().loadDataset(datasetId);
     let consumedDatasetIds = [datasetId];
@@ -81,7 +116,6 @@ class CdcCovidProvider extends VariableProvider {
     // geo filter right away to reduce subsequent calculation times.
     df = this.filterByGeo(df, breakdowns);
 
-    df = this.filterByTimeView(df, timeView, "2020-06");
     if (df.toArray().length === 0) {
       return new MetricQueryResponse([], consumedDatasetIds);
     }

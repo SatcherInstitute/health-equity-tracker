@@ -4,6 +4,8 @@ Arrays to sort through distinct groupings
 Converts to types for TS checking
 */
 
+import { TimeView } from "../query/Breakdowns";
+
 // DEMOGRAPHIC BREAKDOWN CATEGORY TERMS
 export const RACE = "race_and_ethnicity";
 export const AGE = "age";
@@ -190,3 +192,10 @@ export type SexGroup = typeof SEX_GROUPS[number];
 
 // CREATE A DEMOGRAPHIC GROUP TYPE INCL ALL SEX/AGE/RACE OPTIONS
 export type DemographicGroup = AgeBucket | SexGroup | RaceAndEthnicityGroup;
+
+// TIME SERIES CONSTANTS
+
+export const TIME_PERIOD = "time_period";
+export const CUMULATIVE = "cumulative";
+export const LONGITUDINAL: TimeView = "longitudinal";
+export const CROSS_SECTIONAL: TimeView = "cross_sectional";

@@ -12,6 +12,7 @@ import {
   AGE,
   ALL,
   ASIAN_NH,
+  CROSS_SECTIONAL,
   DemographicGroup,
   FEMALE,
   MALE,
@@ -276,7 +277,7 @@ describe("AcsPopulationProvider", () => {
       new MetricQuery(
         ["population", "population_pct"],
         Breakdowns.forFips(new Fips(NC.code)).andRace(),
-        "current"
+        CROSS_SECTIONAL
       )
     );
     expect(response).toEqual(
@@ -298,7 +299,7 @@ describe("AcsPopulationProvider", () => {
         Breakdowns.forFips(new Fips(NC.code)).andRace(
           onlyIncludeStandardRaces()
         ),
-        "current"
+        CROSS_SECTIONAL
       )
     );
     expect(response).toEqual(

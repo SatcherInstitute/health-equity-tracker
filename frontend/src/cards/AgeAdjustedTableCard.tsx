@@ -26,6 +26,7 @@ import {
   WHITE_NH,
   MULTI_OR_OTHER_STANDARD_NH,
   AGE,
+  CROSS_SECTIONAL,
 } from "../data/utils/Constants";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
@@ -85,12 +86,12 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const raceQuery = new MetricQuery(
     metricIds as MetricId[],
     raceBreakdowns,
-    "current"
+    CROSS_SECTIONAL
   );
   const ageQuery = new MetricQuery(
     metricIds as MetricId[],
     ageBreakdowns,
-    "current"
+    CROSS_SECTIONAL
   );
   const ratioId = metricIds[0];
   const metricIdsForRatiosOnly = Object.values(metricConfigs).filter((config) =>

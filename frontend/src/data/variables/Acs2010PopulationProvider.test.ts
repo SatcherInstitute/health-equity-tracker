@@ -11,6 +11,7 @@ import {
   AGE,
   ALL,
   ASIAN_NH,
+  CROSS_SECTIONAL,
   DemographicGroup,
   FEMALE,
   MALE,
@@ -84,7 +85,7 @@ describe("Acs2010PopulationProvider", () => {
       new MetricQuery(
         ["population", "population_pct"],
         Breakdowns.national(),
-        "current"
+        CROSS_SECTIONAL
       )
     );
     expect(response).toEqual(
