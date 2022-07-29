@@ -196,6 +196,5 @@ export type DemographicGroup = AgeBucket | SexGroup | RaceAndEthnicityGroup;
 // TIME SERIES CONSTANTS
 
 export const TIME_PERIOD = "time_period";
-export const CUMULATIVE = "cumulative";
 export const LONGITUDINAL: TimeView = "longitudinal";
 export const CROSS_SECTIONAL: TimeView = "cross_sectional";
