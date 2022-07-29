@@ -16,7 +16,11 @@ import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
 import { LONGITUDINAL, NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
-import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
+import {
+  getNestedUndueShares,
+  getNestedUnknowns,
+  splitIntoKnownsAndUnknowns,
+} from "../data/utils/datasetutils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -33,8 +37,10 @@ export interface ShareTrendsChartCardProps {
 export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const metricConfig = props.variableConfig.metrics["pct_share"];
 
-  const metricIdsToFetch: MetricId[] = [];
-  metricIdsToFetch.push(metricConfig.metricId);
+  const metricIdsToFetch: MetricId[] = [metricConfig.metricId];
+
+  if (metricConfig.populationComparisonMetric?.metricId)
+    metricIdsToFetch.push(metricConfig.populationComparisonMetric.metricId);
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -65,6 +71,20 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           props.breakdownVar
         );
 
+        console.log(metricConfig.populationComparisonMetric?.metricId);
+
+        // TODO - can we make populationComparisonMetric a required field?
+        const nestedData = getNestedUndueShares(
+          knownData,
+          props.breakdownVar,
+          metricConfig.metricId,
+          metricConfig.populationComparisonMetric!.metricId
+        );
+        const nestedUnknowns = getNestedUnknowns(
+          unknownData,
+          metricConfig.metricId
+        );
+
         return (
           <CardContent>
             {queryResponse.shouldShowMissingDataMessage([
@@ -82,15 +102,13 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             ) : (
               <div>
                 {/* 2N INCIDENCE RATE TRENDS VIZ COMPONENT HERE */}
-                {console.log("KNOWN PCT SHARES", knownData)}
+                {/* {console.log("KNOWN PCT SHARES", knownData)}
 
-                {console.log("UNKNOWN PCT SHARE", unknownData)}
-
-                <img
-                  src="/tmp/shares.png"
-                  alt="shares screenshot"
-                  width="100%"
-                />
+                {console.log("UNKNOWN PCT SHARE", unknownData)} */}
+                <b>Undue Share of Condition</b>
+                <pre>{JSON.stringify(nestedData)}</pre>
+                <b>Unknowns</b>
+                <pre>{JSON.stringify(nestedUnknowns)}</pre>
               </div>
             )}
           </CardContent>

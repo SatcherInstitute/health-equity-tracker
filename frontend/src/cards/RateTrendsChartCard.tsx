@@ -12,7 +12,11 @@ import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
 import { LONGITUDINAL, NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
-import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
+import {
+  getNestedRates,
+  getNestedUnknowns,
+  splitIntoKnownsAndUnknowns,
+} from "../data/utils/datasetutils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -79,6 +83,16 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           props.breakdownVar
         );
 
+        const nestedRatesData = getNestedRates(
+          knownRatesData,
+          props.breakdownVar,
+          metricConfigRates.metricId
+        );
+        const nestedUnknownPctShareData = getNestedUnknowns(
+          unknownPctShareData,
+          metricConfigPctShares.metricId
+        );
+
         return (
           <CardContent>
             {queryResponseRates.shouldShowMissingDataMessage([
@@ -96,9 +110,12 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             ) : (
               <>
                 {/* 2N INCIDENCE RATE TRENDS VIZ COMPONENT HERE */}
-                {console.log("KNOWN RATES", knownRatesData)}
-                {console.log("UNKNOWN PCT SHARE", unknownPctShareData)}
-                <img src="/tmp/rates.png" alt="rates screenshot" />
+                {/* {console.log("KNOWN RATES", nestedRatesData)}
+                {console.log("UNKNOWN PCT SHARE", nestedUnknownPctShareData)} */}
+                <b>Rates</b>
+                <pre>{JSON.stringify(nestedRatesData)}</pre>
+                <b>Unknowns</b>
+                <pre>{JSON.stringify(nestedUnknownPctShareData)}</pre>
               </>
             )}
           </CardContent>

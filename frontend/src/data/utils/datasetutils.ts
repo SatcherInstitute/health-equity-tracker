@@ -29,6 +29,8 @@ import {
   AGE,
   BJS_NATIONAL_AGE_BUCKETS,
   BJS_JAIL_AGE_BUCKETS,
+  TIME_PERIOD,
+  DemographicGroup,
 } from "./Constants";
 import { Row } from "./DatasetTypes";
 import { Fips } from "./Fips";
@@ -371,4 +373,44 @@ export function splitIntoKnownsAndUnknowns(
   });
 
   return [knowns, unknowns];
+}
+
+export type TrendsData = [DemographicGroup, [Date, number][]][];
+export type UnknownData = [Date, number][];
+
+export function getNestedRates(
+  data: Row[],
+  currentBreakdown: BreakdownVar,
+  metricId: MetricId
+): TrendsData {
+  const nestedRates: TrendsData = data.map((row) => {
+    return [row[currentBreakdown], [row[TIME_PERIOD], row[metricId]]];
+  });
+
+  return nestedRates;
+}
+
+export function getNestedUndueShares(
+  data: Row[],
+  currentBreakdown: BreakdownVar,
+  conditionPctShareId: MetricId,
+  popPctShareId: MetricId
+): TrendsData {
+  const nestedPctShares: TrendsData = data.map((row) => {
+    const undueBurdenPct = row[conditionPctShareId] - row[popPctShareId];
+    return [row[currentBreakdown], [row[TIME_PERIOD], undueBurdenPct]];
+  });
+
+  return nestedPctShares;
+}
+
+export function getNestedUnknowns(
+  unknownsData: Row[],
+  metricId: MetricId
+): UnknownData {
+  const nestedUnknowns: UnknownData = unknownsData.map((row) => {
+    return [row[TIME_PERIOD], row[metricId]];
+  });
+
+  return nestedUnknowns;
 }
