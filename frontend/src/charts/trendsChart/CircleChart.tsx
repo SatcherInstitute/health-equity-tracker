@@ -29,6 +29,7 @@ export interface CircleChartProps {
 
 /* Render component */
 export function CircleChart({ data, xScale }: CircleChartProps) {
+  console.log("unknown", data);
   /* Config */
   const { WIDTH, HEIGHT, MARGIN, RADIUS_EXTENT } = CONFIG;
 

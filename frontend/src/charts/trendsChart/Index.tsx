@@ -34,12 +34,7 @@ export interface TrendsChartProps {
 }
 
 /* Render component */
-export function TrendsChart({
-  data = [],
-  unknown = [],
-  type,
-}: TrendsChartProps) {
-  console.log(data);
+export function TrendsChart({ data = [], unknown, type }: TrendsChartProps) {
   /* Config */
   const { WIDTH, HEIGHT, MARGIN } = CONFIG;
 
@@ -94,7 +89,7 @@ export function TrendsChart({
 
   /* Event Handlers */
   function handleClick(selectedGroup: string) {
-    // Toggle selection
+    // Toggle selected group
     const newSelectedGroups = selectedGroups.includes(selectedGroup)
       ? selectedGroups.filter((group) => group !== selectedGroup)
       : [...selectedGroups, selectedGroup];
@@ -107,32 +102,40 @@ export function TrendsChart({
     <div className={styles.TrendsChart}>
       <div className={styles.FilterWrapper}>
         {/* Filter */}
-        <FilterLegend
-          data={data}
-          selectedGroups={selectedGroups}
-          colors={colors}
-          handleClick={handleClick}
-        />
+        {data && colors && (
+          <FilterLegend
+            data={data}
+            selectedGroups={selectedGroups}
+            colors={colors}
+            handleClick={handleClick}
+          />
+        )}
       </div>
       {/* Chart */}
-      <svg height={CONFIG.HEIGHT} width={CONFIG.WIDTH}>
-        {/* Chart Axes */}
-        <Axes
-          data={filteredData}
-          xScale={xScale}
-          yScale={yScale}
-          type={type}
-          yAxisLabel="Cases per 100K"
-        />
-        {/* Lines */}
-        <LineChart
-          data={filteredData}
-          xScale={xScale}
-          yScale={yScale}
-          colors={colors}
-        />
-        <CircleChart data={unknown} xScale={xScale} />
-      </svg>
+      {filteredData && xScale && yScale && colors && (
+        <svg height={CONFIG.HEIGHT} width={CONFIG.WIDTH}>
+          {/* Chart Axes */}
+          <Axes
+            data={filteredData}
+            xScale={xScale}
+            yScale={yScale}
+            type={type}
+            yAxisLabel="Cases per 100K"
+          />
+          {/* Lines */}
+          <LineChart
+            data={filteredData}
+            xScale={xScale}
+            yScale={yScale}
+            colors={colors}
+          />
+          {/* // TODO: move this check up into parent component (only pass unknown if there is an unknown greater than 0) */}
+          {/* Only render unknown group circles when there is data for which the group is unknown */}
+          {unknown && unknown.find(([, percent]) => percent > 0) && (
+            <CircleChart data={unknown} xScale={xScale} />
+          )}
+        </svg>
+      )}
     </div>
   );
 }
