@@ -196,6 +196,8 @@ def null_out_all_unknown_deaths_hosps(df):
     """If a given geo x breakdown has all unknown hospitalizations or deaths,
        we treat it as if it has "no data," i.e. we clear the hosp/death fields.
 
+       Note: This is an in place function so it doesnt return anything
+
        df: DataFrame to null out rows on"""
 
     df.loc[df[std_col.COVID_DEATH_UNKNOWN] == df[std_col.COVID_CASES], std_col.COVID_DEATH_Y] = np.nan
