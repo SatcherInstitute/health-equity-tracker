@@ -203,8 +203,7 @@ function TheProjectTab() {
                     <LinkWithStickyParams to={DATA_CATALOG_PAGE_LINK}>
                       {`${numDataSources}`} key data sources
                     </LinkWithStickyParams>
-                    , including the Centers for Disease Control and Prevention
-                    (CDC) and the American Community Survey (ACS). We’ll
+                    , including the CDC and the U.S. Census Bureau. We’ll
                     continue adding to these initial sources as data access and
                     quality improves.
                   </Typography>
