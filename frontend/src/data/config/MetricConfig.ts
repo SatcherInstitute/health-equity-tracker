@@ -191,6 +191,7 @@ export type VariableConfig = {
   variableDefinition?: string;
   metrics: Record<string, MetricConfig>; // TODO - strongly type key
   surveyCollectedData?: boolean;
+  longitudinalData?: boolean;
 };
 
 const populationPctTitle = "Population Share";
@@ -324,6 +325,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Cases",
       variableFullDisplayName: "COVID-19 Cases",
       variableDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
+      longitudinalData: true,
       metrics: {
         pct_share: {
           metricId: "covid_cases_share",
@@ -360,6 +362,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Deaths",
       variableFullDisplayName: "COVID-19 Deaths",
       variableDefinition: `The number of people who died due to COVID-19.`,
+      longitudinalData: true,
+
       metrics: {
         pct_share: {
           metricId: "covid_deaths_share",
@@ -397,6 +401,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Hospitalizations",
       variableFullDisplayName: "COVID-19 Hospitalizations",
       variableDefinition: `The number of people hospitalized at any point while ill with COVID-19.`,
+      longitudinalData: true,
+
       metrics: {
         pct_share: {
           metricId: "covid_hosp_share",
@@ -493,6 +499,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Suicides",
       variableDefinition: `Deaths due to intentional self-harm.`,
       surveyCollectedData: true,
+      longitudinalData: true,
+
       metrics: {
         pct_share: {
           metricId: "suicide_pct_share",
@@ -533,6 +541,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Depression Cases",
       variableDefinition: `Adults who reported being told by a health professional that they have a depressive disorder including depression, major depression, minor depression or dysthymia.`,
       surveyCollectedData: true,
+      longitudinalData: true,
+
       metrics: {
         pct_share: {
           metricId: "depression_pct_share",
@@ -573,6 +583,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Excessive Drinking Cases",
       variableDefinition: `Adults who reported binge drinking (four or more [females] or five or more [males] drinks on one occasion in the past 30 days) or heavy drinking (eight or more [females] or 15 or more [males] drinks per week).`,
       surveyCollectedData: true,
+      longitudinalData: true,
+
       metrics: {
         pct_share: {
           metricId: "excessive_drinking_pct_share",
@@ -615,6 +627,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Non-medical Drug Use",
       variableDefinition: `Adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months. Note: This data type includes both of the other opioid-related data types: “Non-medical Use of Prescription Opioids” and “Use of Illicit Opioids”.`,
       surveyCollectedData: true,
+      longitudinalData: true,
+
       metrics: {
         pct_share: {
           metricId: "non_medical_drug_use_pct_share",
@@ -654,6 +668,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Non-medical Prescription Opioid Use",
       variableDefinition: `Adults who reported using illicit opioids. Note: This is a subset of the “Non-medical Drug Use” data type.`,
       surveyCollectedData: true,
+      longitudinalData: true,
+
       metrics: {
         pct_share: {
           metricId: "non_medical_rx_opioid_use_pct_share",
@@ -696,6 +712,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Illicit Opioid Use",
       variableDefinition: `Adults who reported using prescription opioids non-medically. Note: This is a subset of the “Non-medical Drug Use” data type.`,
       surveyCollectedData: true,
+      longitudinalData: true,
+
       metrics: {
         pct_share: {
           metricId: "illicit_opioid_use_pct_share",
@@ -738,6 +756,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Frequent Mental Distress Cases",
       variableDefinition: `Adults who reported their mental health was not good 14 or more days in the past 30 days.`,
       surveyCollectedData: true,
+      longitudinalData: true,
+
       metrics: {
         pct_share: {
           metricId: "frequent_mental_distress_pct_share",
@@ -779,6 +799,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Diabetes",
       variableDefinition: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
       surveyCollectedData: true,
+      longitudinalData: true,
+
       metrics: {
         pct_share: {
           metricId: "diabetes_pct_share",
@@ -819,6 +841,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "COPD",
       variableDefinition: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
       surveyCollectedData: true,
+      longitudinalData: true,
+
       metrics: {
         pct_share: {
           metricId: "copd_pct_share",
@@ -985,6 +1009,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Care Avoidance Due to Cost",
       variableDefinition: `Adults who reported a time in the past 12 months when they needed to see a doctor but could not because of cost.`,
       surveyCollectedData: true,
+      longitudinalData: true,
+
       metrics: {
         per100k: {
           metricId: "avoided_care_per_100k",
@@ -1025,6 +1051,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Asthma",
       variableFullDisplayName: "Asthma Cases",
       surveyCollectedData: true,
+      longitudinalData: true,
+
       variableDefinition: `Adults who reported being told by a health professional that they currently have asthma.`,
       metrics: {
         per100k: {
@@ -1065,6 +1093,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Cardiovascular Diseases",
       variableFullDisplayName: "Cases of Cardiovascular Diseases",
       surveyCollectedData: true,
+      longitudinalData: true,
+
       variableDefinition: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
       metrics: {
         per100k: {
@@ -1105,6 +1135,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableId: "chronic_kidney_disease",
       variableDisplayName: "Chronic Kidney Disease",
       surveyCollectedData: true,
+      longitudinalData: true,
+
       variableFullDisplayName: "Cases of Chronic Kidney Disease",
       variableDefinition: `Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.`,
       metrics: {
@@ -1147,6 +1179,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Voter Participation",
       variableFullDisplayName: "Voter Participation",
       surveyCollectedData: true,
+      longitudinalData: true,
+
       variableDefinition: `U.S. citizens ages 18 and older who voted in either the last presidential election, the last midterm national election, or the average of both where that data is available.`,
       metrics: {
         per100k: {

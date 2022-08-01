@@ -432,6 +432,8 @@ export function getNestedRates(
   currentBreakdown: BreakdownVar,
   metricId: MetricId
 ): TrendsData {
+  if (!data.some((row) => row[TIME_PERIOD])) return [];
+
   const nestedRates = demographicGroups.map((group) => {
     const groupRows = data.filter((row) => row[currentBreakdown] === group);
     const groupTimeSeries = groupRows.map((row) => [
@@ -451,6 +453,8 @@ export function getNestedUndueShares(
   conditionPctShareId: MetricId,
   popPctShareId: MetricId
 ): TrendsData {
+  if (!data.some((row) => row[TIME_PERIOD])) return [];
+
   const nestedPctUndue = demographicGroups.map((group) => {
     const groupRows = data.filter((row) => row[currentBreakdown] === group);
     const groupTimeSeries = groupRows.map((row) => [
@@ -467,5 +471,7 @@ export function getNestedUnknowns(
   unknownsData: Row[],
   metricId: MetricId
 ): UnknownTrendData {
+  if (!unknownsData.some((row) => row[TIME_PERIOD])) return [];
+
   return unknownsData.map((row) => [row[TIME_PERIOD], row[metricId]]);
 }

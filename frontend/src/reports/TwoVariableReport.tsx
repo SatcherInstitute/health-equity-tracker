@@ -133,6 +133,9 @@ function TwoVariableReport(props: {
   const breakdownIsShown = (breakdownVar: string) =>
     currentBreakdown === breakdownVar;
 
+  const showTrendCardRow =
+    variableConfig1?.longitudinalData || variableConfig2?.longitudinalData;
+
   return (
     <Grid container spacing={1} alignItems="flex-start">
       {/* POPULATION CARD(S) AND 2 SETS OF TOGGLE CONTROLS */}
@@ -229,30 +232,31 @@ function TwoVariableReport(props: {
       />
 
       {/* SIDE-BY-SIDE RATE TREND CARDS */}
-      {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
-        !breakdownIsShown(breakdownVar) ? null : (
-          <Fragment key={breakdownVar}>
-            <RowOfTwoOptionalMetrics
-              id="rate-trends"
-              variableConfig1={variableConfig1}
-              variableConfig2={variableConfig2}
-              fips1={props.fips1}
-              fips2={props.fips2}
-              createCard={(
-                variableConfig: VariableConfig,
-                fips: Fips,
-                unusedUpdateFips: (fips: Fips) => void
-              ) => (
-                <RateTrendsChartCard
-                  variableConfig={variableConfig}
-                  breakdownVar={breakdownVar}
-                  fips={fips}
-                />
-              )}
-            />
-          </Fragment>
-        )
-      )}
+      {showTrendCardRow &&
+        DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
+          !breakdownIsShown(breakdownVar) ? null : (
+            <Fragment key={breakdownVar}>
+              <RowOfTwoOptionalMetrics
+                id="rate-trends"
+                variableConfig1={variableConfig1}
+                variableConfig2={variableConfig2}
+                fips1={props.fips1}
+                fips2={props.fips2}
+                createCard={(
+                  variableConfig: VariableConfig,
+                  fips: Fips,
+                  unusedUpdateFips: (fips: Fips) => void
+                ) => (
+                  <RateTrendsChartCard
+                    variableConfig={variableConfig}
+                    breakdownVar={breakdownVar}
+                    fips={fips}
+                  />
+                )}
+              />
+            </Fragment>
+          )
+        )}
 
       {/* SIDE-BY-SIDE 100K BAR GRAPH CARDS */}
       {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
@@ -308,30 +312,31 @@ function TwoVariableReport(props: {
 
       {/* SIDE-BY-SIDE SHARE INEQUITY TREND CARDS */}
 
-      {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
-        !breakdownIsShown(breakdownVar) ? null : (
-          <Fragment key={breakdownVar}>
-            <RowOfTwoOptionalMetrics
-              id="share-trends"
-              variableConfig1={variableConfig1}
-              variableConfig2={variableConfig2}
-              fips1={props.fips1}
-              fips2={props.fips2}
-              createCard={(
-                variableConfig: VariableConfig,
-                fips: Fips,
-                unusedUpdateFips: (fips: Fips) => void
-              ) => (
-                <ShareTrendsChartCard
-                  variableConfig={variableConfig}
-                  breakdownVar={breakdownVar}
-                  fips={fips}
-                />
-              )}
-            />
-          </Fragment>
-        )
-      )}
+      {showTrendCardRow &&
+        DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
+          !breakdownIsShown(breakdownVar) ? null : (
+            <Fragment key={breakdownVar}>
+              <RowOfTwoOptionalMetrics
+                id="share-trends"
+                variableConfig1={variableConfig1}
+                variableConfig2={variableConfig2}
+                fips1={props.fips1}
+                fips2={props.fips2}
+                createCard={(
+                  variableConfig: VariableConfig,
+                  fips: Fips,
+                  unusedUpdateFips: (fips: Fips) => void
+                ) => (
+                  <ShareTrendsChartCard
+                    variableConfig={variableConfig}
+                    breakdownVar={breakdownVar}
+                    fips={fips}
+                  />
+                )}
+              />
+            </Fragment>
+          )
+        )}
 
       {/* SIDE-BY-SIDE DISPARITY BAR GRAPH (COMPARE TO POPULATION) CARDS */}
 

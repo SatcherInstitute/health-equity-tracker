@@ -96,7 +96,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           <CardContent>
             {queryResponse.shouldShowMissingDataMessage([
               metricConfig.metricId,
-            ]) ? (
+            ]) || nestedData.length === 0 ? (
               <>
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}

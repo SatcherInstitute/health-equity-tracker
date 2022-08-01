@@ -75,6 +75,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         const ratesData = queryResponseRates.getValidRowsForField(
           metricConfigRates.metricId
         );
+
         const pctShareData = queryResponsePctShares.getValidRowsForField(
           metricConfigPctShares.metricId
         );
@@ -110,7 +111,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           <CardContent>
             {queryResponseRates.shouldShowMissingDataMessage([
               metricConfigRates.metricId,
-            ]) ? (
+            ]) || nestedRatesData.length === 0 ? (
               <>
                 <MissingDataAlert
                   dataName={`historical data for ${metricConfigRates.fullCardTitleName}`}

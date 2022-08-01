@@ -78,10 +78,6 @@ abstract class VariableProvider {
       if (timeView === CROSS_SECTIONAL) {
         df = df.where((row) => row[TIME_PERIOD] === sourceCurrentTimePeriod);
       }
-    } else {
-      if (timeView === LONGITUDINAL) {
-        df = df.where((row) => row[TIME_PERIOD] !== undefined);
-      }
     }
 
     return df;
