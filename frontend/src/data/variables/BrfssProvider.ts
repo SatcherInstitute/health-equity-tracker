@@ -94,6 +94,7 @@ class BrfssProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
+    const timeView = metricQuery.timeView;
     const datasetId = this.getDatasetId(breakdowns);
     const brfss = await getDataManager().loadDataset(datasetId);
     let df = brfss.toDataFrame();
@@ -101,9 +102,11 @@ class BrfssProvider extends VariableProvider {
     const consumedDatasetIds = [datasetId, GetAcsDatasetId(breakdowns)];
 
     df = this.filterByGeo(df, breakdowns);
+    df = this.filterByTimeView(df, timeView, "2021");
     df = this.renameGeoColumns(df, breakdowns);
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
+
     df = this.removeUnrequestedColumns(df, metricQuery);
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);

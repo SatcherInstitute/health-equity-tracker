@@ -168,6 +168,7 @@ export type MetricType =
 export type MetricConfig = {
   metricId: MetricId;
   fullCardTitleName: string;
+  trendsCardTitleName?: string;
   shortLabel: string;
   unknownsVegaLabel?: string;
   type: MetricType;
@@ -326,7 +327,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "covid_cases_share",
-          fullCardTitleName: "Share Of Total COVID-19 Cases",
+          fullCardTitleName: "Share of total COVID-19 cases",
+          trendsCardTitleName: "Inequitable share of COVID-19 cases over time",
           unknownsVegaLabel: "% unknown",
           shortLabel: "% of COVID-19 cases",
           type: "pct_share",
@@ -339,7 +341,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         per100k: {
           metricId: "covid_cases_per_100k",
-          fullCardTitleName: "COVID-19 Cases Per 100k People",
+          fullCardTitleName: "Current rates of COVID-19 cases",
+          trendsCardTitleName: "Rates of COVID-19 cases over time",
           shortLabel: "cases per 100k",
           type: "per100k",
         },
@@ -358,21 +361,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "COVID-19 Deaths",
       variableDefinition: `The number of people who died due to COVID-19.`,
       metrics: {
-        count: {
-          metricId: "covid_deaths",
-          fullCardTitleName: "COVID-19 Deaths",
-          shortLabel: "COVID-19 Deaths",
-          type: "count",
-          populationComparisonMetric: {
-            metricId: "covid_deaths_reporting_population",
-            fullCardTitleName: "Population",
-            shortLabel: "people",
-            type: "count",
-          },
-        },
         pct_share: {
           metricId: "covid_deaths_share",
-          fullCardTitleName: "Share Of Total COVID-19 Deaths",
+          fullCardTitleName: "Share of total COVID-19 deaths",
+          trendsCardTitleName: "Inequitable share of COVID-19 cases over time",
           shortLabel: "% of COVID-19 deaths",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
@@ -385,7 +377,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         per100k: {
           metricId: "covid_deaths_per_100k",
-          fullCardTitleName: "COVID-19 Deaths Per 100k People",
+          fullCardTitleName: "Current rates of COVID-19 deaths",
+          trendsCardTitleName: "Rates of COVID-19 deaths over time",
           shortLabel: "deaths per 100k",
           type: "per100k",
         },
@@ -407,7 +400,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "covid_hosp_share",
-          fullCardTitleName: "Share Of Total COVID-19 Hospitalizations",
+          fullCardTitleName: "Share of total COVID-19 hospitalizations",
+          trendsCardTitleName:
+            "Inequitable share of COVID-19 hospitalizations over time",
           shortLabel: "% of COVID-19 hospitalizations",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
@@ -420,7 +415,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         per100k: {
           metricId: "covid_hosp_per_100k",
-          fullCardTitleName: "COVID-19 Hospitalizations Per 100k People",
+          fullCardTitleName: "Current rates of COVID-19 hospitalizations",
+          trendsCardTitleName: "Rates of COVID-19 hospitalizations over time",
           shortLabel: "hospitalizations per 100k",
           type: "per100k",
         },

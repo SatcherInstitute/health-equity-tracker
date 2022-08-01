@@ -160,6 +160,7 @@ function TwoVariableReport(props: {
                 currentBreakdown={currentBreakdown}
                 setCurrentBreakdown={setDemoWithParam}
                 fips={props.fips2}
+                excludeId={true}
               />
             </Grid>
           </Grid>
@@ -192,6 +193,7 @@ function TwoVariableReport(props: {
               currentBreakdown={currentBreakdown}
               setCurrentBreakdown={setDemoWithParam}
               fips={props.fips2}
+              excludeId={true}
             />
           </Grid>
         </>
