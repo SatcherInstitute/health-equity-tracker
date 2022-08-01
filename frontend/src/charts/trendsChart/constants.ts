@@ -1,15 +1,22 @@
+import sass from "../../styles/variables.module.scss";
+
+// get colors from css variables
+const { unknownMapLeast, unknownMapMost, altGreen, darkBlue, redOrange } = sass;
+
+// range of colors for groups
 const COLOR_RANGE = [
-  "#0B5240",
+  altGreen,
   "#9AC4C0",
-  "#255792",
+  darkBlue,
   "#ADBBDE",
   "#F2D6E7",
   "#A93038",
-  "#ED573F",
+  redOrange,
   "#FCB431",
 ];
 
-const UNKNOWN_GROUP_COLOR_EXTENT = ["rgb(211, 238, 206)", "rgb(11, 96, 161)"];
+// color range for unknowns
+const UNKNOWN_GROUP_COLOR_EXTENT = [unknownMapLeast, unknownMapMost];
 
 /* Config */
 const CONFIG = {
@@ -27,6 +34,7 @@ const CONFIG = {
   RADIUS_EXTENT: [4, 10],
 };
 
+// line chart type dictionary
 const TYPES = {
   HUNDRED_K: "per100k",
   PERCENT_SHARE: "pct_share",

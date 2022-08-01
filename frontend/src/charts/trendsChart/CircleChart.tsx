@@ -61,7 +61,11 @@ export function CircleChart({ data, xScale, width }: CircleChartProps) {
 
   return (
     <g>
-      <g transform={`translate(0, ${HEIGHT - MARGIN.bottom + 5 * MAX_RADIUS})`}>
+      <g
+        transform={`translate(0, ${
+          HEIGHT - MARGIN.bottom_with_unknowns + 5 * MAX_RADIUS
+        })`}
+      >
         {data &&
           data.map(([date, percent]: [Date, number], i: number) => (
             <g key={`dataCircleGroup-${i}`}>
