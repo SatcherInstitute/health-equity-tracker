@@ -25,7 +25,7 @@ import { TrendsData, ColorScale } from "./types";
 export interface FilterLegendProps {
   data: TrendsData; // TODO: stricter typing
   selectedGroups: string[];
-  handleClick: (group: string) => void;
+  handleClick: (group: string | null) => void;
   colors: ColorScale;
 }
 
@@ -39,8 +39,17 @@ export function FilterLegend({
   return (
     // Legend Wrapper
     <div className={styles.FilterLegend}>
-      {/* Legend Title */}
-      <div className={styles.LegendTitle}>Select Group to Filter</div>
+      {/* Legend Title & Clear Button*/}
+      <div className={styles.LegendTitle}>
+        <div>Select Group to Filter</div>
+        <button
+          aria-label={`Clear filter`}
+          className={!selectedGroups.length ? styles.disabled : undefined} // disable button unless filters are applied
+          onClick={() => handleClick(null)} // clear selected groups on click
+        >
+          Clear Filter x
+        </button>
+      </div>
       {/* Legend Items Wrapper */}
       <div className={styles.LegendItems}>
         {/* Map over groups and create Legend Item for each */}

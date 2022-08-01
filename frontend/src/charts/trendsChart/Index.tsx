@@ -128,11 +128,14 @@ export function TrendsChart({
   ]);
 
   /* Event Handlers */
-  function handleClick(selectedGroup: string) {
+  function handleClick(selectedGroup: string | null) {
     // Toggle selected group
-    const newSelectedGroups = selectedGroups.includes(selectedGroup)
-      ? selectedGroups.filter((group) => group !== selectedGroup)
-      : [...selectedGroups, selectedGroup];
+    const newSelectedGroups =
+      selectedGroup === null
+        ? [] // if selectedGroup has null value, clear selected group array to remove filter
+        : selectedGroups.includes(selectedGroup) // otherwise update the array with newly selected or removed group
+        ? selectedGroups.filter((group) => group !== selectedGroup)
+        : [...selectedGroups, selectedGroup];
     // Set new array of selected groups to state
     setSelectedGroups(newSelectedGroups);
   }

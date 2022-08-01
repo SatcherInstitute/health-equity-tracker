@@ -47,6 +47,11 @@ $spacingLarge: 36px;
   .hidden {
     display: none;
   }
+
+  .disabled {
+    opacity: 0.3;
+    cursor: not-allowed !important;
+  }
 }
 
 /* Filter Legend Styles */
@@ -54,6 +59,7 @@ $spacingLarge: 36px;
   margin: $spacingLarge;
   margin-top: 0;
 }
+
 .FilterLegend {
   @include inter400;
   font-size: $small;
@@ -62,6 +68,22 @@ $spacingLarge: 36px;
   .LegendTitle {
     @include inter500;
     margin-bottom: $spacingMedium;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    button {
+      // remove default button styling
+      background: none;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      // give space
+      margin-left: $spacingMedium;
+      // style border
+      border: solid 1px;
+      border-radius: 3px;
+      padding: 0 $spacingSmall;
+    }
   }
 
   // Filter legend buttons wrapper
