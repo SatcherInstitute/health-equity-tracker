@@ -150,7 +150,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
                   {breakdownIsShown(breakdownVar) &&
-                    variableConfig.metrics["per100k"] && (
+                    // only show longitudinal 100k chart if MetricConfig for current condition has a card title
+                    variableConfig.metrics["per100k"].trendsCardTitleName && (
                       <RateTrendsChartCard
                         variableConfig={variableConfig}
                         breakdownVar={breakdownVar}
@@ -203,7 +204,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
                   {breakdownIsShown(breakdownVar) &&
-                    variableConfig.metrics["per100k"] && (
+                    // only show longitudinal 100k chart if MetricConfig for current condition has a card title
+                    variableConfig.metrics["pct_share"].trendsCardTitleName && (
                       <ShareTrendsChartCard
                         variableConfig={variableConfig}
                         breakdownVar={breakdownVar}
