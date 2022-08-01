@@ -139,6 +139,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   <pre>{JSON.stringify(nestedRatesData)}</pre> */}
                 {/* @ts-ignore */}
                 <TrendsChart
+                  // @ts-ignore
                   data={nestedRatesData}
                   unknown={nestedUnknownPctShareData}
                   axisConfig={[
