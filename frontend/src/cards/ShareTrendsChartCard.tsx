@@ -9,6 +9,7 @@ import {
 import { MetricQuery } from "../data/query/MetricQuery";
 import { MetricId, VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
+import { TrendsChart } from "../charts/trendsChart/Index";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
   DemographicGroup,
@@ -112,17 +113,23 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 {console.log("UNDUE SHARES", nestedData)}
 
                 {console.log("UNKNOWN PCT SHARE", nestedUnknowns)}
+                {/*
+                  <b>type: MetricType</b>
+                  <pre>{metricConfig.type}</pre>
 
-                <b>type: MetricType</b>
-                <pre>{metricConfig.type}</pre>
+                  <b>metricId: MetricId</b>
+                  <pre>{metricConfig.metricId}</pre>
+                  <b>unknown: UnknownData</b>
+                  <pre>{JSON.stringify(nestedUnknowns)}</pre>
 
-                <b>metricId: MetricId</b>
-                <pre>{metricConfig.metricId}</pre>
-                <b>unknown: UnknownData</b>
-                <pre>{JSON.stringify(nestedUnknowns)}</pre>
-
-                <b>data: TrendsData</b>
-                <pre>{JSON.stringify(nestedData)}</pre>
+                  <b>data: TrendsData</b>
+                  <pre>{JSON.stringify(nestedData)}</pre> */}
+                {/* @ts-ignore */}
+                <TrendsChart
+                  data={nestedData}
+                  unknown={nestedUnknowns}
+                  axisConfig={[metricConfig.type]}
+                />
               </div>
             )}
           </CardContent>

@@ -14,7 +14,7 @@ import styles from "./Trends.module.scss";
 
 /* Constants */
 import { CONFIG, TYPES } from "./constants";
-import { TrendsData, XScale, YScale } from "./types";
+import { TrendsData, XScale, YScale, AxisConfig } from "./types";
 
 /* Helpers */
 
@@ -24,8 +24,8 @@ export interface AxesProps {
   xScale: XScale;
   yScale: YScale;
   width: number;
-  type: string;
-  yAxisLabel: string;
+  marginBottom: number;
+  axisConfig: AxisConfig;
 }
 
 /* Render component */
@@ -34,21 +34,22 @@ export function Axes({
   xScale,
   yScale,
   width,
-  type,
-  yAxisLabel,
+  marginBottom,
+  axisConfig,
 }: AxesProps) {
   /* Config */
   const { HEIGHT, MARGIN, TICK_PADDING } = CONFIG;
-  // TODO: move to constants
+  const [type, yAxisLabel = ""] = axisConfig || [];
+  // handles difference between per100k and percent_share charts
   const Y_AXIS_CONFIG = {
     [TYPES.HUNDRED_K]: {
-      topLabel: yAxisLabel + " ->", // should be dynamic based on metric id - reference shortLabel from metricConfig
+      topLabel: yAxisLabel + " →", // reference to shortLabel from metricConfig
       bottomLabel: "",
       formatter: (d: string | number) => d,
     },
     [TYPES.PERCENT_SHARE]: {
-      topLabel: "Over-represented ->",
-      bottomLabel: "<- Under-represented",
+      topLabel: "Over-represented →",
+      bottomLabel: "← Under-represented",
       formatter: (d: string | number) => `${d}%`,
     },
   };
@@ -102,7 +103,7 @@ export function Axes({
         <g
           className={styles.xAxis}
           ref={xAxisRef}
-          transform={`translate(0, ${HEIGHT - MARGIN.bottom})`}
+          transform={`translate(0, ${HEIGHT - marginBottom})`}
         />
         {/* Y-Axis */}
         <g ref={yAxisRef} transform={`translate(${MARGIN.left}, 0)`} />
@@ -122,11 +123,11 @@ export function Axes({
         {/* X-Axis Label */}
         <g
           transform={`translate(${width}, ${
-            HEIGHT - MARGIN.bottom + TICK_PADDING
+            HEIGHT - marginBottom + TICK_PADDING
           })`}
         >
           <text textAnchor="end" dy="8px">
-            Time {"->"}
+            Time {"→"}
           </text>
         </g>
         {/* Top Y-Axis Label */}
@@ -136,7 +137,7 @@ export function Axes({
         {/* Bottom Y-Axis Label */}
         <g
           transform={`translate(${TICK_PADDING}, ${
-            HEIGHT - MARGIN.bottom
+            HEIGHT - marginBottom
           })rotate(-90)`}
         >
           <text textAnchor="start">{Y_AXIS_CONFIG[type]?.bottomLabel}</text>

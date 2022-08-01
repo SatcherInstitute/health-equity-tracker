@@ -14,7 +14,7 @@ const UNKNOWN_GROUP_COLOR_EXTENT = ["rgb(211, 238, 206)", "rgb(11, 96, 161)"];
 /* Config */
 const CONFIG = {
   WIDTH: 1000,
-  HEIGHT: 600,
+  HEIGHT: 500,
   STARTING_WIDTH: 980,
   MARGIN: {
     top: 10,
@@ -27,8 +27,8 @@ const CONFIG = {
 };
 
 const TYPES = {
-  HUNDRED_K: "100K",
-  PERCENT_SHARE: "percent_share",
+  HUNDRED_K: "per100k",
+  PERCENT_SHARE: "pct_share",
 };
 
 export { COLOR_RANGE, UNKNOWN_GROUP_COLOR_EXTENT, CONFIG, TYPES };

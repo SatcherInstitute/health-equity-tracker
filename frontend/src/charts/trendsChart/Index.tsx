@@ -6,7 +6,7 @@
 
 /* External Imports */
 import React, { useState, useMemo, useRef, useEffect } from "react";
-import { scaleOrdinal, scaleTime, scaleLinear, extent, ScaleTime } from "d3";
+import { scaleOrdinal, scaleTime, scaleLinear, extent, min, max } from "d3";
 
 /* Local Imports */
 
@@ -21,20 +21,24 @@ import styles from "./Trends.module.scss";
 
 /* Constants */
 import { COLOR_RANGE, CONFIG } from "./constants";
-import { UnknownData, TrendsData } from "./types";
+import { UnknownData, TrendsData, AxisConfig } from "./types";
 
 /* Helpers */
-import { filterDataByGroup, useResponsiveSize } from "./helpers";
+import { filterDataByGroup } from "./helpers";
 
 /* Define type interface */
 export interface TrendsChartProps {
   data: TrendsData;
   unknown: UnknownData;
-  type: string;
+  axisConfig: AxisConfig;
 }
 
 /* Render component */
-export function TrendsChart({ data = [], unknown, type }: TrendsChartProps) {
+export function TrendsChart({
+  data = [],
+  unknown,
+  axisConfig,
+}: TrendsChartProps) {
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN } = CONFIG;
 
@@ -60,11 +64,25 @@ export function TrendsChart({ data = [], unknown, type }: TrendsChartProps) {
     return () => window.removeEventListener("resize", setDimensions);
   }, []);
 
+  /* Memoized constants */
+
   // Data filtered by user selected
   const filteredData = useMemo(
     () =>
       selectedGroups.length ? filterDataByGroup(data, selectedGroups) : data,
     [selectedGroups]
+  );
+
+  // Display unknowns or not - affects margin below line chart
+  const showUnknowns = useMemo(
+    () => unknown && unknown.find(([, percent]) => percent > 0),
+    [unknown]
+  );
+
+  // Margin below line chart - create space for unknown circles
+  const marginBottom = useMemo(
+    () => (showUnknowns ? MARGIN.bottom : MARGIN.top),
+    [unknown]
   );
 
   /* Scales */
@@ -87,14 +105,17 @@ export function TrendsChart({ data = [], unknown, type }: TrendsChartProps) {
         )
       : [new Date()]
   );
-
-  const yExtent: [number, number] | [undefined, undefined] = extent(
+  const yValues =
     filteredData && filteredData.length
       ? filteredData.flatMap(([_, d]) =>
           d ? d.map(([_, amount]: [Date, number]) => amount || 0) : [0]
         )
-      : [0]
-  );
+      : [0];
+
+  // @ts-ignore
+  const yMin = min(yValues) < 0 ? min(yValues) : 0; // if numbers are all positive, y domain min should be 0
+  const yMax = max(yValues) ? max(yValues) : 0;
+  const yExtent: [number, number] = [yMin as number, yMax as number];
 
   const xScale = scaleTime(xExtent as [Date, Date], [
     MARGIN.left,
@@ -102,7 +123,7 @@ export function TrendsChart({ data = [], unknown, type }: TrendsChartProps) {
   ]);
 
   const yScale = scaleLinear(yExtent as [number, number], [
-    HEIGHT - MARGIN.bottom,
+    HEIGHT - marginBottom,
     MARGIN.top,
   ]);
 
@@ -145,8 +166,8 @@ export function TrendsChart({ data = [], unknown, type }: TrendsChartProps) {
             xScale={xScale}
             yScale={yScale}
             width={width as number}
-            type={type}
-            yAxisLabel="Cases per 100K"
+            marginBottom={marginBottom}
+            axisConfig={axisConfig}
           />
           {/* Lines */}
           <LineChart
@@ -157,7 +178,7 @@ export function TrendsChart({ data = [], unknown, type }: TrendsChartProps) {
           />
           {/* // TODO: move this check up into parent component (only pass unknown if there is an unknown greater than 0) */}
           {/* Only render unknown group circles when there is data for which the group is unknown */}
-          {unknown && unknown.find(([, percent]) => percent > 0) && (
+          {showUnknowns && (
             <CircleChart data={unknown} xScale={xScale} width={width} />
           )}
         </svg>

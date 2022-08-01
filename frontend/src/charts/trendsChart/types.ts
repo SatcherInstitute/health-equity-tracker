@@ -4,5 +4,6 @@ type UnknownData = [Date, number][];
 type XScale = ScaleTime<number, number | undefined>;
 type YScale = ScaleLinear<number, number | undefined>;
 type ColorScale = ScaleOrdinal<string, string, never>;
+type AxisConfig = [string, string | undefined];
 
-export type { TrendsData, UnknownData, XScale, YScale, ColorScale };
+export type { TrendsData, UnknownData, XScale, YScale, ColorScale, AxisConfig };

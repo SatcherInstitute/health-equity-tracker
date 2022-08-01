@@ -9,6 +9,7 @@ import {
 import { MetricQuery } from "../data/query/MetricQuery";
 import { VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
+import { TrendsChart } from "../charts/trendsChart/Index";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
   DemographicGroup,
@@ -126,14 +127,25 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 {console.log("KNOWN RATES", nestedRatesData)}
                 {console.log("UNKNOWN PCT SHARE", nestedUnknownPctShareData)}
 
-                <b>type: MetricType</b>
-                <pre>{metricConfigRates.type}</pre>
-                <b>metricId: MetricId</b>
-                <pre>{metricConfigRates.metricId}</pre>
-                <b>unknown: UnknownData</b>
-                <pre>{JSON.stringify(nestedUnknownPctShareData)}</pre>
-                <b>data: TrendsData</b>
-                <pre>{JSON.stringify(nestedRatesData)}</pre>
+                {/* <b>type: MetricType</b>
+                  <pre>{metricConfigRates.type}</pre>
+                  <b>metricId: MetricId</b>
+                  <pre>{metricConfigRates.metricId}</pre>
+                  <b>metricId: MetricLabel</b>
+                  <pre>{metricConfigRates.shortLabel}</pre> */}
+                {/* <b>unknown: UnknownData</b>
+                  <pre>{JSON.stringify(nestedUnknownPctShareData)}</pre>
+                  <b>data: TrendsData</b>
+                  <pre>{JSON.stringify(nestedRatesData)}</pre> */}
+                {/* @ts-ignore */}
+                <TrendsChart
+                  data={nestedRatesData}
+                  unknown={nestedUnknownPctShareData}
+                  axisConfig={[
+                    metricConfigRates.type,
+                    metricConfigRates.shortLabel,
+                  ]}
+                />
               </>
             )}
           </CardContent>
