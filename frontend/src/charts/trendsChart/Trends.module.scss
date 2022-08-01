@@ -7,12 +7,53 @@ $spacingLarge: 36px;
 .TrendsChart {
   // styles for trends chart container
   @include inter400;
+
+  // lines styles
+  .TrendLine {
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+
+  // axes styles
+  .Axes {
+    text {
+      @include inter400;
+      font-size: $smallest;
+    }
+    .xAxis path {
+      opacity: 0; // do not display x-domain
+    }
+  }
+
+  // labels for axes
+  .AxesLabels {
+    text {
+      @include inter500; // make bolder than tick marks
+      font-size: $smallest;
+    }
+  }
+
+  // legend for unknown circles
+  .CircleLegend {
+    text {
+      font-size: $smallest;
+      &.title {
+        @include inter500; // make title bolder than number labels
+      }
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
 }
 
-.FilterWrapper {
-  margin-bottom: $spacingLarge;
-}
 /* Filter Legend Styles */
+.FilterWrapper {
+  margin: $spacingLarge;
+  margin-top: 0;
+}
 .FilterLegend {
   @include inter400;
   font-size: $small;
@@ -57,34 +98,4 @@ $spacingLarge: 36px;
     flex-shrink: 0; // prevent distortion
     margin-right: $spacingSmall; // create space between swatch and label
   }
-}
-
-.Axes {
-  text {
-    @include inter400;
-    font-size: $smallest;
-  }
-  .xAxis path {
-    opacity: 0;
-  }
-}
-
-.AxesLabels {
-  text {
-    @include inter500;
-    font-size: $smallest;
-  }
-}
-
-.CircleLegend {
-  text {
-    font-size: $smallest;
-    &.title {
-      @include inter500;
-    }
-  }
-}
-
-.hidden {
-  display: none;
 }

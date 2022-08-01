@@ -81,7 +81,7 @@ export function TrendsChart({
 
   // Margin below line chart - create space for unknown circles
   const marginBottom = useMemo(
-    () => (showUnknowns ? MARGIN.bottom : MARGIN.top),
+    () => (showUnknowns ? MARGIN.bottom_with_unknowns : MARGIN.bottom),
     [unknown]
   );
 

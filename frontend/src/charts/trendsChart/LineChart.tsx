@@ -10,6 +10,7 @@ import { line, curveMonotoneX } from "d3";
 /* Local Imports */
 
 /* Styles */
+import styles from "./Trends.module.scss";
 
 /* Constants */
 import { TrendsData, XScale, YScale, ColorScale } from "./types";
@@ -27,9 +28,19 @@ export interface LineChartProps {
 export function LineChart({ data, xScale, yScale, colors }: LineChartProps) {
   // Generate line path
   const lineGen = line()
-    //TODO: remove date creation when date is actually Date type
+    // should prevent interpolation when date or delta is undefined
+    .defined(
+      ([date, delta]) =>
+        date !== null &&
+        date !== undefined &&
+        delta !== undefined &&
+        delta !== null
+    )
+    // assigns x-value
     .x(([date]) => xScale(new Date(date)) || 0)
+    // assigns y-value
     .y(([_, delta]) => yScale(delta) || 0)
+    // applies curve generator
     .curve(curveMonotoneX);
 
   return (
@@ -38,11 +49,10 @@ export function LineChart({ data, xScale, yScale, colors }: LineChartProps) {
         //@ts-ignore : TODO revisit with real data when date is actually a Date type
         data.map(([group, d]: [string, [Date, number][]]) => (
           <path
+            className={styles.TrendLine}
             key={`group-${group}`}
             //@ts-ignore : TODO revisit with real data when date is actually a Date type
             d={lineGen(d) || ""}
-            fill="none"
-            strokeWidth={2}
             stroke={colors(group)}
           />
         ))}
