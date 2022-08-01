@@ -24,7 +24,7 @@
     "data-forge": "^1.9.6",
     "env-cmd": "^10.1.0",
     "expect-axe-playwright": "^2.2.1",
-    "html-react-parser": "^1.4.5",
+    "html-react-parser": "^3.0.1",
     "husky": "^4.3.8",
     "jest-runtime": "^27.4.6",
     "lint-staged": "^10.5.4",
