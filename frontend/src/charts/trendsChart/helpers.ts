@@ -28,6 +28,7 @@ function useResponsiveSize(
     startingWidth < MOBILE_BREAKPOINT,
   ]);
   useEffect(() => {
+    console.log("width accessor", widthAccessor);
     if (widthAccessor) {
       const setDimensions = () => {
         const isMobile = widthAccessor < MOBILE_BREAKPOINT;

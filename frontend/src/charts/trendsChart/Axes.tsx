@@ -23,14 +23,22 @@ export interface AxesProps {
   data: TrendsData;
   xScale: XScale;
   yScale: YScale;
+  width: number;
   type: string;
   yAxisLabel: string;
 }
 
 /* Render component */
-export function Axes({ data, xScale, yScale, type, yAxisLabel }: AxesProps) {
+export function Axes({
+  data,
+  xScale,
+  yScale,
+  width,
+  type,
+  yAxisLabel,
+}: AxesProps) {
   /* Config */
-  const { WIDTH, HEIGHT, MARGIN, TICK_PADDING } = CONFIG;
+  const { HEIGHT, MARGIN, TICK_PADDING } = CONFIG;
   // TODO: move to constants
   const Y_AXIS_CONFIG = {
     [TYPES.HUNDRED_K]: {
@@ -58,7 +66,7 @@ export function Axes({ data, xScale, yScale, type, yAxisLabel }: AxesProps) {
 
   const yAxis = axisLeft(yScale)
     .tickSizeOuter(0)
-    .tickSizeInner(-WIDTH + MARGIN.right + MARGIN.left)
+    .tickSizeInner(-width + MARGIN.right + MARGIN.left)
     // @ts-ignore
     .tickFormat(Y_AXIS_CONFIG[type]?.formatter)
     .tickPadding(TICK_PADDING);
@@ -104,7 +112,7 @@ export function Axes({ data, xScale, yScale, type, yAxisLabel }: AxesProps) {
         <line
           x1={MARGIN.left}
           y1={yScale(0)}
-          x2={WIDTH - MARGIN.right}
+          x2={width - MARGIN.right}
           y2={yScale(0)}
           stroke="black"
         />
@@ -113,7 +121,7 @@ export function Axes({ data, xScale, yScale, type, yAxisLabel }: AxesProps) {
       <g className={styles.AxesLabels}>
         {/* X-Axis Label */}
         <g
-          transform={`translate(${WIDTH}, ${
+          transform={`translate(${width}, ${
             HEIGHT - MARGIN.bottom + TICK_PADDING
           })`}
         >

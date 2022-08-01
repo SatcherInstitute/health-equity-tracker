@@ -5,7 +5,7 @@
  */
 
 /* External Imports */
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import { scaleOrdinal, scaleTime, scaleLinear, extent, ScaleTime } from "d3";
 
 /* Local Imports */
@@ -24,7 +24,7 @@ import { COLOR_RANGE, CONFIG } from "./constants";
 import { UnknownData, TrendsData } from "./types";
 
 /* Helpers */
-import { filterDataByGroup } from "./helpers";
+import { filterDataByGroup, useResponsiveSize } from "./helpers";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -36,11 +36,29 @@ export interface TrendsChartProps {
 /* Render component */
 export function TrendsChart({ data = [], unknown, type }: TrendsChartProps) {
   /* Config */
-  const { WIDTH, HEIGHT, MARGIN } = CONFIG;
+  const { STARTING_WIDTH, HEIGHT, MARGIN } = CONFIG;
+
+  /* Refs */
+  // parent container ref - used for setting svg width
+  const containerRef = useRef(null);
 
   /* State Management */
   // Manages which group filters user has applied
   const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
+  // svg width
+  const [width, setWidth] = useState<number>(STARTING_WIDTH);
+
+  /* Effects */
+  // resets svg width on window resize, only sets listener after first render (so ref is defined)
+  useEffect(() => {
+    function setDimensions() {
+      // @ts-ignore
+      setWidth(containerRef.current.getBoundingClientRect().width);
+    }
+    setDimensions();
+    window.addEventListener("resize", setDimensions);
+    return () => window.removeEventListener("resize", setDimensions);
+  }, []);
 
   // Data filtered by user selected
   const filteredData = useMemo(
@@ -80,7 +98,7 @@ export function TrendsChart({ data = [], unknown, type }: TrendsChartProps) {
 
   const xScale = scaleTime(xExtent as [Date, Date], [
     MARGIN.left,
-    WIDTH - MARGIN.right,
+    (width as number) - MARGIN.right,
   ]);
 
   const yScale = scaleLinear(yExtent as [number, number], [
@@ -100,7 +118,7 @@ export function TrendsChart({ data = [], unknown, type }: TrendsChartProps) {
 
   return (
     // Container
-    <div className={styles.TrendsChart}>
+    <div className={styles.TrendsChart} ref={containerRef}>
       <div className={styles.FilterWrapper}>
         {/* Filter */}
         {data && colors && (
@@ -116,7 +134,7 @@ export function TrendsChart({ data = [], unknown, type }: TrendsChartProps) {
       {filteredData && xScale && yScale && colors && (
         <svg
           height={CONFIG.HEIGHT}
-          width={CONFIG.WIDTH}
+          width={width as number}
           role="img"
           // TODO link accompanying table here for accesibility
           // aria-describedby={}
@@ -126,6 +144,7 @@ export function TrendsChart({ data = [], unknown, type }: TrendsChartProps) {
             data={filteredData}
             xScale={xScale}
             yScale={yScale}
+            width={width as number}
             type={type}
             yAxisLabel="Cases per 100K"
           />
@@ -139,7 +158,7 @@ export function TrendsChart({ data = [], unknown, type }: TrendsChartProps) {
           {/* // TODO: move this check up into parent component (only pass unknown if there is an unknown greater than 0) */}
           {/* Only render unknown group circles when there is data for which the group is unknown */}
           {unknown && unknown.find(([, percent]) => percent > 0) && (
-            <CircleChart data={unknown} xScale={xScale} />
+            <CircleChart data={unknown} xScale={xScale} width={width} />
           )}
         </svg>
       )}

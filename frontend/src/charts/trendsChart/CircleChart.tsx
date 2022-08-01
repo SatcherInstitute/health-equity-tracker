@@ -25,13 +25,13 @@ import { UnknownData, XScale } from "./types";
 export interface CircleChartProps {
   data: UnknownData;
   xScale: XScale;
+  width: number;
 }
 
 /* Render component */
-export function CircleChart({ data, xScale }: CircleChartProps) {
-  console.log("unknown", data);
+export function CircleChart({ data, xScale, width }: CircleChartProps) {
   /* Config */
-  const { WIDTH, HEIGHT, MARGIN, RADIUS_EXTENT } = CONFIG;
+  const { HEIGHT, MARGIN, RADIUS_EXTENT } = CONFIG;
   const [, MAX_RADIUS] = RADIUS_EXTENT;
   /* Scales */
   const percentDomain =
@@ -82,7 +82,7 @@ export function CircleChart({ data, xScale }: CircleChartProps) {
       <g
         className={styles.CircleLegend}
         // Translate into position (dynamic based on width & height alloted)
-        transform={`translate(${MARGIN.left + (WIDTH - MARGIN.right) / 2}, ${
+        transform={`translate(${MARGIN.left + (width - MARGIN.right) / 2}, ${
           HEIGHT - 3 * MAX_RADIUS
         })`}
       >
