@@ -203,9 +203,10 @@ function TheProjectTab() {
                     <LinkWithStickyParams to={DATA_CATALOG_PAGE_LINK}>
                       {`${numDataSources}`} key data sources
                     </LinkWithStickyParams>
-                    , including the Centers for Disease Control (CDC) and the
-                    American Community Survey (ACS). We’ll continue adding to
-                    these initial sources as data access and quality improves.
+                    , including the Centers for Disease Control and Prevention
+                    (CDC) and the American Community Survey (ACS). We’ll
+                    continue adding to these initial sources as data access and
+                    quality improves.
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={5}>
