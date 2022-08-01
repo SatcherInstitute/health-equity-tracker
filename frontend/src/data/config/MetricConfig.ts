@@ -23,7 +23,9 @@ export type DropdownVarId =
   | "asthma"
   | "voter_participation"
   | "women_in_legislative_office"
-  | "incarceration";
+  | "incarceration"
+  | "opioid"
+  | "mental_disorder";
 
 export type AgeAdjustedVariableId = "covid_deaths" | "covid_hospitalizations";
 
@@ -44,7 +46,8 @@ export type VariableId =
   | "women_state_legislatures"
   | "prison"
   | "jail"
-  | "covid_vaccinations";
+  | "covid_vaccinations"
+  | "justice";
 
 export type MetricId =
   | "acs_vaccine_population_pct"
@@ -742,7 +745,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableId: "diabetes",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Diabetes",
-      variableDefinition: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
+      variableDefinition: `Diabetes is a chronic disease that occurs either when the pancreas does not produce enough insulin or when the body cannot effectively use the insulin it produces. Insulin is a hormone that regulates blood sugar. Hyperglycemia, or raised blood sugar, is a common effect of uncontrolled diabetes and over time leads to serious damage to many of the body's systems, especially the nerves and blood vessels.`,
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -778,7 +781,79 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableId: "copd",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COPD",
-      variableDefinition: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
+      variableDefinition: `Chronic obstructive pulmonary disease (COPD) is a chronic inflammatory lung disease that causes obstructed airflow from the lungs. Symptoms include breathing difficulty, cough, mucus (sputum) production and wheezing. It's typically caused by long-term exposure to irritating gasses or particulate matter, most often from cigarette smoke. People with COPD are at increased risk of developing heart disease, lung cancer and a variety of other conditions.`,
+      surveyCollectedData: true,
+      metrics: {
+        pct_share: {
+          metricId: "copd_pct_share",
+          fullCardTitleName: "Share Of Total COPD Cases",
+          shortLabel: "% of cases",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+        per100k: {
+          metricId: "copd_per_100k",
+          fullCardTitleName: "COPD Cases Per 100k People",
+          shortLabel: "COPD cases per 100k",
+          type: "per100k",
+        },
+        age_adjusted_ratio: {
+          metricId: "copd_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of COPD Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
+      },
+    },
+  ],
+  opioid: [
+    {
+      variableId: "opioid",
+      variableDisplayName: "Cases",
+      variableFullDisplayName: "Opioid use disorder (OUD)",
+      variableDefinition: `OUD can involve misuse of prescribed opioid medications, use of diverted opioid medications, or use of illicitly obtained heroin. OUD is typically a chronic, relapsing illness, associated with significantly increased rates of morbidity and mortality.`,
+      surveyCollectedData: true,
+      metrics: {
+        pct_share: {
+          metricId: "copd_pct_share",
+          fullCardTitleName: "Share Of Total COPD Cases",
+          shortLabel: "% of cases",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+        per100k: {
+          metricId: "copd_per_100k",
+          fullCardTitleName: "COPD Cases Per 100k People",
+          shortLabel: "COPD cases per 100k",
+          type: "per100k",
+        },
+        age_adjusted_ratio: {
+          metricId: "copd_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of COPD Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
+      },
+    },
+  ],
+  mental_disorder: [
+    {
+      variableId: "mental_disorder",
+      variableDisplayName: "Cases",
+      variableFullDisplayName: "A mental disorder",
+      variableDefinition: `This is characterized by a clinically significant disturbance in an individual’s cognition, emotional regulation, or behavior.  It is usually associated with distress or impairment in important areas of functioning. There are many different types of mental disorders.`,
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -815,12 +890,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableId: "health_insurance",
       variableDisplayName: "Uninsured Individuals",
       variableFullDisplayName: "Uninsured Individuals",
-      variableDefinition: `Health insurance coverage in the ACS and other Census Bureau surveys define coverage to
-        include plans and programs that provide comprehensive health coverage. Plans that provide
-        insurance only for specific conditions or situations such as cancer and long-term care policies
-        are not considered comprehensive health coverage. Likewise, other types of insurance like
-        dental, vision, life, and disability insurance are not considered comprehensive health
-        insurance coverage.`,
+      variableDefinition: `The American Community Survey (ACS) and similar Census Bureau surveys define health insurance coverage as plans and programs that provide comprehensive health coverage. Comprehensive Health Coverage: Health benefits coverage, which includes the following categories of services at a minimum: inpatient and outpatient hospital services; physician's surgical and medical services; and laboratory and radiological services.
+      `,
       metrics: {
         per100k: {
           metricId: "health_insurance_per_100k",
@@ -891,7 +962,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableId: "preventable_hospitalizations",
       variableDisplayName: "Preventable Hospitalizations",
       variableFullDisplayName: "Preventable Hospitalizations",
-      variableDefinition: `Discharges following hospitalization for diabetes with short- or long-term complications, uncontrolled diabetes without complications, diabetes with lower-extremity amputation, chronic obstructive pulmonary disease, angina without a procedure, asthma, hypertension, heart failure, dehydration, bacterial pneumonia or urinary tract infection per 100,000 Medicare beneficiaries ages 18 and older continuously enrolled in Medicare fee-for-service Part A.`,
+      variableDefinition: `Preventable hospitalizations are admissions to a hospital for certain acute illnesses (e.g., dehydration) or worsening chronic conditions (e.g., diabetes) that might not have required hospitalization had these conditions been managed successfully by primary care providers in outpatient settings. Discharges following hospitalization for ambulatory-care sensitive conditions (PQI 90) per 100,000 Medicare beneficiaries ages 18 and older enrolled in the fee-for-service program.`,
       metrics: {
         per100k: {
           metricId: "preventable_hospitalizations_per_100k",
@@ -964,7 +1035,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Asthma",
       variableFullDisplayName: "Asthma Cases",
       surveyCollectedData: true,
-      variableDefinition: `Adults who reported being told by a health professional that they currently have asthma.`,
+      variableDefinition: `Asthma is a condition in which your airways narrow and swell and may produce extra mucus. This can make breathing difficult and trigger coughing, a whistling sound (wheezing) when you breathe out and shortness of breath. For some people, asthma is a minor nuisance. Cases include adults who reported being told by a health professional that they currently have asthma`,
       metrics: {
         per100k: {
           metricId: "asthma_per_100k",
@@ -1000,7 +1071,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Cardiovascular Diseases",
       variableFullDisplayName: "Cases of Cardiovascular Diseases",
       surveyCollectedData: true,
-      variableDefinition: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
+      variableDefinition: `Cardiovascular diseases (CVDs) are the leading cause of death globally, taking an estimated 17.9 million lives each year. CVDs are a group of disorders of the heart and blood vessels and include coronary heart disease, cerebrovascular disease, rheumatic heart disease and other conditions.`,
       metrics: {
         per100k: {
           metricId: "cardiovascular_diseases_per_100k",
@@ -1036,7 +1107,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Chronic Kidney Disease",
       surveyCollectedData: true,
       variableFullDisplayName: "Cases of Chronic Kidney Disease",
-      variableDefinition: `Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.`,
+      variableDefinition: `Chronic kidney disease (CKD) means your kidneys are damaged and can't filter blood the way they should. The main risk factors for developing kidney disease are diabetes, high blood pressure, heart disease, and a family history of kidney failure.`,
       metrics: {
         per100k: {
           metricId: "chronic_kidney_disease_per_100k",
@@ -1066,6 +1137,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
   ],
+
   voter_participation: [
     {
       variableId: "voter_participation",
@@ -1235,6 +1307,129 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Individuals in Jail",
       surveyCollectedData: true,
       variableDefinition: `Individuals of any age, including children, confined in a local, adult jail facility. AK, CT, DE, HI, RI, and VT each operate an integrated system that combines prisons and jails; in accordance with the data sources we include those facilities as adult prisons but not as local jails. Jails are locally operated short-term facilities that hold inmates awaiting trial or sentencing or both, and inmates sentenced to a term of less than one year, typically misdemeanants. Definitions may vary by state.`,
+      metrics: {
+        per100k: {
+          metricId: "jail_per_100k",
+          fullCardTitleName: "Individuals in Jail Per 100k",
+          shortLabel: "Individuals in jail per 100k",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "jail_pct_share",
+          fullCardTitleName: "Percent Share of Total Jail Population",
+          shortLabel: "% of total jail population",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "population_pct",
+            fullCardTitleName: "Total Population Share",
+            shortLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            metricId: "jail_pct_share",
+            fullCardTitleName: "Percent Share of Total Jail Population",
+            shortLabel: "% of total jail population",
+            type: "pct_share",
+          },
+        },
+        age_adjusted_ratio: {
+          metricId: "jail_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Jailed Ratio Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
+      },
+    },
+
+    {
+      variableId: "jail",
+      variableDisplayName: "Jail",
+      variableFullDisplayName: "Jail",
+      surveyCollectedData: true,
+      variableDefinition: `Jail includes all individuals currently confined by a local, adult jail facility, but does not include individuals who are supervised outside of jail or who report only on weekends. In general, jail facilities incarcerate individuals who are awaiting trial or sentencing, or who are sentenced to less than 1 year. County reports: Vera data, which we use for our county level reports, restricts both the measured jail population and the relevant total population to individuals aged 15-64.`,
+      metrics: {
+        per100k: {
+          metricId: "jail_per_100k",
+          fullCardTitleName: "Individuals in Jail Per 100k",
+          shortLabel: "Individuals in jail per 100k",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "jail_pct_share",
+          fullCardTitleName: "Percent Share of Total Jail Population",
+          shortLabel: "% of total jail population",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "population_pct",
+            fullCardTitleName: "Total Population Share",
+            shortLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            metricId: "jail_pct_share",
+            fullCardTitleName: "Percent Share of Total Jail Population",
+            shortLabel: "% of total jail population",
+            type: "pct_share",
+          },
+        },
+        age_adjusted_ratio: {
+          metricId: "jail_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Jailed Ratio Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
+      },
+    },
+
+    {
+      variableId: "prison",
+      variableDisplayName: "Prison",
+      variableFullDisplayName: "Prison",
+      surveyCollectedData: true,
+      variableDefinition: `In general, prisons incarcerate individuals who have been sentenced to more than 1 year, though in many cases prison can have jurisdictional control of an individual who is confined in a jail facility. Due to this overlap, we are currently unable to present accurate rates of combined incarceration. Jurisdiction refers to the legal authority of state or federal correctional officials over an incarcerated person, regardless of where they are held. Our ‘Sex’ and ‘Race’ reports present this jurisdictional population, while our ‘Age’ reports (due to the limitations in the data provided by BJS) only display the sentenced jurisdictional population.`,
+      metrics: {
+        per100k: {
+          metricId: "jail_per_100k",
+          fullCardTitleName: "Individuals in Jail Per 100k",
+          shortLabel: "Individuals in jail per 100k",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "jail_pct_share",
+          fullCardTitleName: "Percent Share of Total Jail Population",
+          shortLabel: "% of total jail population",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "population_pct",
+            fullCardTitleName: "Total Population Share",
+            shortLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            metricId: "jail_pct_share",
+            fullCardTitleName: "Percent Share of Total Jail Population",
+            shortLabel: "% of total jail population",
+            type: "pct_share",
+          },
+        },
+        age_adjusted_ratio: {
+          metricId: "jail_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Jailed Ratio Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
+      },
+    },
+
+    {
+      variableId: "justice",
+      variableDisplayName: "Justice",
+      variableFullDisplayName: "Justice-Involved Persons",
+      surveyCollectedData: true,
+      variableDefinition: `Persons who have had contact with the criminal justice system in 1 or more of the following capacities: arrest, booking, charging, sentencing, incarceration in jail or prison, probation, or parole.`,
       metrics: {
         per100k: {
           metricId: "jail_per_100k",

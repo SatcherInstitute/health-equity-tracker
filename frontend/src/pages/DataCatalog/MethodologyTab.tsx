@@ -130,11 +130,21 @@ function MethodologyTab() {
                   Race is a social construct and according to the Office of
                   Management and Budget (OMB) racial categories are as follows:
                   <ul>
-                    <li>American Indian or Alaska Native</li>
-                    <li>Asian</li>
-                    <li>Black or African American</li>
-                    <li>Native Hawaiian or Other Pacific Islander</li>
-                    <li>White</li>
+                    <li>
+                      <b>American Indian or Alaska Native</b>
+                    </li>
+                    <li>
+                      <b>Asian</b>
+                    </li>
+                    <li>
+                      <b>Black or African American</b>
+                    </li>
+                    <li>
+                      <b>Native Hawaiian or Other Pacific Islander</b>
+                    </li>
+                    <li>
+                      <b>White</b>
+                    </li>
                   </ul>
                 </li>
                 <li>
@@ -329,13 +339,13 @@ function MethodologyTab() {
                     Kaiser Family Foundation. They provide population estimates
                     for <b>Asian</b>, <b>Black</b>, <b>White</b>, and{" "}
                     <b>Hispanic</b>. Consequently, we decided to use the ACS
-                    2019 estimation for <b>American Indian</b> and{" "}
-                    <b>Alaska Native</b>, and <b>Native Hawaiian</b> and{" "}
-                    <b>Pacific Islander</b>. These alternate population
-                    comparisons metrics are displayed with a different color on
-                    the disparities bar chart. We are unable to show a
-                    population comparison metric for “Unrepresented Race”
-                    because we are unsure of the definition in each state.
+                    2019 estimation for <b>American Indian and Alaska Native</b>
+                    , and <b>Native Hawaiian</b> and <b>Pacific Islander</b>.
+                    These alternate population comparisons metrics are displayed
+                    with a different color on the disparities bar chart. We are
+                    unable to show a population comparison metric for
+                    “Unrepresented Race” because we are unsure of the definition
+                    in each state.
                   </li>
                   <li>
                     As it relates to the county level, we use the ACS 2019
@@ -387,14 +397,14 @@ function MethodologyTab() {
                   Incarceration Data
                 </h4>
 
-                <p>
+                <li>
                   Incarceration is influenced by a b lend of political forces,
                   laws, and public opinion. Laws that govern sentencing policies
                   and disenfranchisement of convicted felons are some of the
                   political forces that affect voter participation in the{" "}
                   <b>justice-involved population</b>.
-                </p>
-                <p>
+                </li>
+                <li>
                   The ability to vote has been described as{" "}
                   <a href={urlMap.repJohnLewisTweet}>
                     the singular most powerful, non-violent tool in American
@@ -405,8 +415,8 @@ function MethodologyTab() {
                   minority populations of voting age being disproportionately
                   represented.{" "}
                   <a href={urlMap.deniedVoting}>(Sentencing Project)</a>
-                </p>
-                <p>
+                </li>
+                <li>
                   <a href={urlMap.aafp}>Studies have also shown</a> that
                   incarceration increases the prevalence of chronic health
                   conditions, infectious diseases such as HIV/ AIDS, mental
@@ -417,8 +427,8 @@ function MethodologyTab() {
                   </a>
                   , with each year spent in prison corresponding to 2 years of
                   reduced life expectancy.
-                </p>
-                <p>
+                </li>
+                <li>
                   The impact of incarceration on the health of the justice
                   involved lingers long after the period of incarceration is
                   over. Upon reentry into society, the lack of adequate access
@@ -426,7 +436,7 @@ function MethodologyTab() {
                   health insurance coverage, housing, employment, the lack of
                   opportunities for upward advancement etc. further exacerbates
                   the health inequities experienced by this group.
-                </p>
+                </li>
 
                 <p>
                   <b>Incarceration Data Sources</b>
@@ -571,11 +581,12 @@ function MethodologyTab() {
                   <b>Combined Systems</b>
                 </p>
                 <p>
-                  Alaska, Connecticut, Delaware, Hawaii, Rhode Island, and
-                  Vermont each operate an integrated system that combines both
-                  prisons and jails; for our reports these are treated only as
-                  prison facilities. In addition, Alaska contracts with a small
-                  network of private jails, which are included here only as jail
+                  <b>Alaska</b>, <b>Connecticut</b>, <b>Delaware</b>,{" "}
+                  <b>Hawaii</b>, <b>Rhode Island</b>, and <b>Vermont</b> each
+                  operate an integrated system that combines both prisons and
+                  jails; for our reports these are treated only as prison
+                  facilities. In addition, Alaska contracts with a small network
+                  of private jails, which are included here only as jail
                   facilities.
                 </p>
 
@@ -586,18 +597,22 @@ function MethodologyTab() {
                   Multiple chronic disease, behavioral health, and social
                   determinants of health in the tracker are sourced from
                   America’s Health Rankings who in turn source the majority of
-                  their data from the Behavioral Risk Factor Surveillance System
-                  (BRFSS), a survey run by the CDC, along with supplemental data
-                  from CDC WONDER and the US Census.
+                  their data from the{" "}
+                  <a href={urlMap.cdcBrfss}>
+                    Behavioral Risk Factor Surveillance System (BRFSS)
+                  </a>
+                  , a survey run by the CDC, along with supplemental data from{" "}
+                  <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{" "}
+                  <a href={urlMap.censusVoting}>US Census</a>.
                 </p>
                 <ul>
                   <li>
                     The BRFSS is a survey and as such there are not always
                     enough respondents to provide a statistically meaningful
                     estimate of disease prevalence, especially for smaller and
-                    typically marginalized racial groups. Please see the
-                    methodology page of America's Health Rankings for details on
-                    data suppression.
+                    typically marginalized racial groups. Please see the{" "}
+                    <a href={urlMap.amrMethodology}>methodology page</a> of
+                    America's Health Rankings for details on data suppression.
                   </li>
                   <li>
                     BRFSS data broken down by race and ethnicity is not
@@ -610,17 +625,22 @@ function MethodologyTab() {
                   Women in Legislative Office
                 </h4>
                 <p>
-                  A link has been established between having women in government
-                  and improvements in population health. Women in legislative
-                  office have been shown to advocate for policies that pertain
+                  <a href={urlMap.doi1}>A link has been established</a> between
+                  having women in government and improvements in population
+                  health. <a href={urlMap.doi2}>Women in legislative office</a>{" "}
+                  have been shown to{" "}
+                  <a href={urlMap.doi3}>advocate for policies</a> that pertain
                   to some of the crucial social and political determinants of
                   health that impact the overall health of our nation such as
                   education, poverty, social welfare, reproductive and maternal
                   health, children, and family life. These policies in turn play
                   a significant role in the advancement of health equity for
-                  all. By combining data from the Center for American Women in
-                  Politics (CAWP) with data from ProPublica, we are able to
-                  present two distinct metrics on these reports:
+                  all. By combining data from the{" "}
+                  <a href={urlMap.cawp}>
+                    Center for American Women in Politics (CAWP)
+                  </a>{" "}
+                  with data from <a href={urlMap.propublica}>ProPublica</a>, we
+                  are able to present two distinct metrics on these reports:
                 </p>
                 <ul>
                   <li>
@@ -630,13 +650,14 @@ function MethodologyTab() {
                   </li>
                 </ul>
                 <p>
-                  These metrics are calculated for two distinct data types:
-                  Women in State Legislature, and Women in U.S. Congress, and
-                  both of these data types are currently available at the state,
-                  territory, and national levels. Our percentage calculations at
-                  the national level specifically include legislators from the
-                  U.S. territories, which can result in slightly different
-                  results than those presented on the CAWP website.
+                  These metrics are calculated for two distinct data types:{" "}
+                  <b>Women in State Legislature</b>, and{" "}
+                  <b>Women in U.S. Congress</b>, and both of these data types
+                  are currently available at the state, territory, and national
+                  levels. Our percentage calculations at the national level
+                  specifically include legislators from the U.S. territories,
+                  which can result in slightly different results than those
+                  presented on the CAWP website.
                 </p>
                 <p>
                   Additionally, our "total legislator" count for U.S. Congress
@@ -690,9 +711,7 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 className={styles.MethodologyQuestion}>
-                What do the condition variables on the tracker mean?
-              </h3>
+              <h3 className={styles.MethodologyQuestion}>Key Terms</h3>
               <div className={styles.MethodologyAnswer}>
                 <DefinitionsList
                   variablesToDefine={Object.entries(METRIC_CONFIG)}
