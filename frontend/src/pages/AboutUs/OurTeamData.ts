@@ -279,7 +279,7 @@ export const PARTNERS = [
   },
   {
     imageUrl: PartnerCdc,
-    alt: "United States Center for Disease Control and Prevention",
+    alt: "United States Centers for Disease Control and Prevention",
     url: "https://www.cdc.gov/",
   },
   {
