@@ -20,7 +20,6 @@ const UNKNOWN_GROUP_COLOR_EXTENT = [unknownMapLeast, unknownMapMost];
 
 /* Config */
 const CONFIG = {
-  WIDTH: 1000,
   HEIGHT: 500,
   STARTING_WIDTH: 980,
   MARGIN: {
@@ -30,8 +29,16 @@ const CONFIG = {
     bottom_with_unknowns: 140,
     left: 85,
   },
-  TICK_PADDING: 14,
+  TICK_PADDING: 18,
+  Y_AXIS_LABEL_PADDING: 18,
   RADIUS_EXTENT: [4, 10],
+  MOBILE: {
+    MARGIN: {
+      left: 60,
+    },
+    Y_AXIS_LABEL_PADDING: 8,
+    RADIUS_EXTENT: [3, 8],
+  },
 };
 
 // line chart type dictionary

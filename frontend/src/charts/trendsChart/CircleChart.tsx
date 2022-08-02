@@ -5,8 +5,8 @@
  */
 
 /* External Imports */
-import React from "react";
-import { ScaleTime, scaleSqrt, scaleLinear, extent, min, max, style } from "d3";
+import React, { useMemo } from "react";
+import { scaleSqrt, scaleLinear, extent, min, max } from "d3";
 
 /* Local Imports */
 
@@ -26,13 +26,22 @@ export interface CircleChartProps {
   data: UnknownData;
   xScale: XScale;
   width: number;
+  marginLeft: number;
+  isMobile: boolean;
 }
 
 /* Render component */
-export function CircleChart({ data, xScale, width }: CircleChartProps) {
+export function CircleChart({
+  data,
+  xScale,
+  width,
+  marginLeft,
+  isMobile,
+}: CircleChartProps) {
   /* Config */
-  const { HEIGHT, MARGIN, RADIUS_EXTENT } = CONFIG;
+  const { HEIGHT, MARGIN, RADIUS_EXTENT, MOBILE } = CONFIG;
   const [, MAX_RADIUS] = RADIUS_EXTENT;
+
   /* Scales */
   const percentDomain =
     data && data.map(([_, percent]: [Date, number]) => percent);
@@ -42,7 +51,7 @@ export function CircleChart({ data, xScale, width }: CircleChartProps) {
   // radius scale for circles
   const rScale = scaleSqrt(
     unknownGroupExtent as [number, number],
-    RADIUS_EXTENT
+    isMobile ? MOBILE.RADIUS_EXTENT : RADIUS_EXTENT
   );
   // color interpolation scale
   const colors = scaleLinear(
@@ -50,6 +59,12 @@ export function CircleChart({ data, xScale, width }: CircleChartProps) {
     UNKNOWN_GROUP_COLOR_EXTENT
   );
 
+  /* Memoized Values */
+  // Unknown Legend Placement
+  const legendXPlacement = useMemo(
+    () => (isMobile ? width / 2 : marginLeft + (width - MARGIN.right) / 2),
+    [isMobile]
+  );
   /* Helpers */
   function getLegendValues() {
     const maxPercent = max(percentDomain);
@@ -67,28 +82,31 @@ export function CircleChart({ data, xScale, width }: CircleChartProps) {
         })`}
       >
         {data &&
-          data.map(([date, percent]: [Date, number], i: number) => (
-            <g key={`dataCircleGroup-${i}`}>
-              <circle
-                r={rScale(percent)}
-                cx={xScale(new Date(date))}
-                fill={colors(percent)}
-                role="img"
-                aria-describedby={`circleText-${i}`}
-              />
-              <text className={styles.hidden} id={`circleText-${i}`}>
-                {percent?.toFixed(0)} percent
-              </text>
-            </g>
-          ))}
+          data.map(([date, percent]: [Date, number], i: number) => {
+            // return a circle for every data point on desktop, or every other data point on mobile (to create more space)
+            if (!isMobile || (isMobile && i % 2 === 0)) {
+              return (
+                <g key={`dataCircleGroup-${i}`}>
+                  <circle
+                    r={rScale(percent)}
+                    cx={xScale(new Date(date))}
+                    fill={colors(percent)}
+                    role="img"
+                    aria-describedby={`circleText-${i}`}
+                  />
+                  <text className={styles.hidden} id={`circleText-${i}`}>
+                    {percent?.toFixed(0)} percent
+                  </text>
+                </g>
+              );
+            }
+          })}
       </g>
       {/* Circle Legend */}
       <g
         className={styles.CircleLegend}
         // Translate into position (dynamic based on width & height alloted)
-        transform={`translate(${MARGIN.left + (width - MARGIN.right) / 2}, ${
-          HEIGHT - 3 * MAX_RADIUS
-        })`}
+        transform={`translate(${legendXPlacement}, ${HEIGHT - 3 * MAX_RADIUS})`}
       >
         {/* Legend Title */}
         <text textAnchor="middle" dy="-22px" className={styles.title}>

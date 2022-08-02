@@ -40,7 +40,7 @@ export function TrendsChart({
   axisConfig,
 }: TrendsChartProps) {
   /* Config */
-  const { STARTING_WIDTH, HEIGHT, MARGIN } = CONFIG;
+  const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
 
   /* Refs */
   // parent container ref - used for setting svg width
@@ -50,14 +50,18 @@ export function TrendsChart({
   // Manages which group filters user has applied
   const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
   // svg width
-  const [width, setWidth] = useState<number>(STARTING_WIDTH);
+  const [[width, isMobile], setWidth] = useState<[number, boolean]>([
+    STARTING_WIDTH,
+    false,
+  ]);
 
   /* Effects */
   // resets svg width on window resize, only sets listener after first render (so ref is defined)
   useEffect(() => {
     function setDimensions() {
+      const isMobile = window.innerWidth < 600;
       // @ts-ignore
-      setWidth(containerRef.current.getBoundingClientRect().width);
+      setWidth([containerRef.current.getBoundingClientRect().width, isMobile]);
     }
     setDimensions();
     window.addEventListener("resize", setDimensions);
@@ -83,6 +87,12 @@ export function TrendsChart({
   const marginBottom = useMemo(
     () => (showUnknowns ? MARGIN.bottom_with_unknowns : MARGIN.bottom),
     [unknown]
+  );
+
+  // Margin to left of line chart - different on mobile & desktop
+  const marginLeft = useMemo(
+    () => (isMobile ? MOBILE.MARGIN.left : MARGIN.left),
+    [isMobile]
   );
 
   /* Scales */
@@ -118,7 +128,7 @@ export function TrendsChart({
   const yExtent: [number, number] = [yMin as number, yMax as number];
 
   const xScale = scaleTime(xExtent as [Date, Date], [
-    MARGIN.left,
+    isMobile ? MOBILE.MARGIN.left : MARGIN.left,
     (width as number) - MARGIN.right,
   ]);
 
@@ -170,7 +180,9 @@ export function TrendsChart({
             yScale={yScale}
             width={width as number}
             marginBottom={marginBottom}
+            marginLeft={marginLeft}
             axisConfig={axisConfig}
+            isMobile={isMobile}
           />
           {/* Lines */}
           <LineChart
@@ -182,7 +194,13 @@ export function TrendsChart({
           {/* // TODO: move this check up into parent component (only pass unknown if there is an unknown greater than 0) */}
           {/* Only render unknown group circles when there is data for which the group is unknown */}
           {showUnknowns && (
-            <CircleChart data={unknown} xScale={xScale} width={width} />
+            <CircleChart
+              data={unknown}
+              xScale={xScale}
+              width={width}
+              isMobile={isMobile}
+              marginLeft={marginLeft}
+            />
           )}
         </svg>
       )}

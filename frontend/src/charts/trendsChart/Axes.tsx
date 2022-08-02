@@ -25,7 +25,9 @@ export interface AxesProps {
   yScale: YScale;
   width: number;
   marginBottom: number;
+  marginLeft: number;
   axisConfig: AxisConfig;
+  isMobile: boolean;
 }
 
 /* Render component */
@@ -35,11 +37,16 @@ export function Axes({
   yScale,
   width,
   marginBottom,
+  marginLeft,
   axisConfig,
+  isMobile,
 }: AxesProps) {
   /* Config */
-  const { HEIGHT, MARGIN, TICK_PADDING } = CONFIG;
+  const { HEIGHT, MARGIN, TICK_PADDING, Y_AXIS_LABEL_PADDING, MOBILE } = CONFIG;
   const [type, yAxisLabel = ""] = axisConfig || [];
+  const yAxisLabelPadding = isMobile
+    ? MOBILE.Y_AXIS_LABEL_PADDING
+    : Y_AXIS_LABEL_PADDING;
   // handles difference between per100k and percent_share charts
   const Y_AXIS_CONFIG = {
     [TYPES.HUNDRED_K]: {
@@ -61,16 +68,17 @@ export function Axes({
   /* Axes */
   const xAxis = axisBottom(xScale)
     .tickSize(0)
+    .ticks(isMobile ? 4 : null)
     // @ts-ignore
     .tickFormat(timeFormat("%m/%y"))
     .tickPadding(TICK_PADDING);
 
   const yAxis = axisLeft(yScale)
     .tickSizeOuter(0)
-    .tickSizeInner(-width + MARGIN.right + MARGIN.left)
+    .tickSizeInner(-width + MARGIN.right + marginLeft)
     // @ts-ignore
     .tickFormat(Y_AXIS_CONFIG[type]?.formatter)
-    .tickPadding(TICK_PADDING);
+    .tickPadding(TICK_PADDING / 2);
 
   /* Effects */
 
@@ -106,12 +114,16 @@ export function Axes({
           transform={`translate(0, ${HEIGHT - marginBottom})`}
         />
         {/* Y-Axis */}
-        <g ref={yAxisRef} transform={`translate(${MARGIN.left}, 0)`} />
+        <g
+          className={styles.yAxis}
+          ref={yAxisRef}
+          transform={`translate(${marginLeft}, 0)`}
+        />
       </g>
       {/* Zero Line Indicator */}
       <g>
         <line
-          x1={MARGIN.left}
+          x1={marginLeft}
           y1={yScale(0)}
           x2={width - MARGIN.right}
           y2={yScale(0)}
@@ -131,12 +143,12 @@ export function Axes({
           </text>
         </g>
         {/* Top Y-Axis Label */}
-        <g transform={`translate(${TICK_PADDING}, 0)rotate(-90)`}>
+        <g transform={`translate(${yAxisLabelPadding}, 0)rotate(-90)`}>
           <text textAnchor="end">{Y_AXIS_CONFIG[type]?.topLabel}</text>
         </g>
         {/* Bottom Y-Axis Label */}
         <g
-          transform={`translate(${TICK_PADDING}, ${
+          transform={`translate(${yAxisLabelPadding}, ${
             HEIGHT - marginBottom
           })rotate(-90)`}
         >
