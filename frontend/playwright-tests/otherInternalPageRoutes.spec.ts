@@ -88,7 +88,7 @@ test('Contact Tab Loads', async ({ page }) => {
     await page.goto(CONTACT_TAB_LINK, { waitUntil: "networkidle" });
     await expect(page).toBeAccessible()
     const mainHeading = page.locator('#main');
-    await expect(mainHeading).toContainText([`Let's`, `move`, `equity`, `forward`]);
+    await expect(mainHeading).toContainText([`Let's move`], { useInnerText: true });
 });
 
 

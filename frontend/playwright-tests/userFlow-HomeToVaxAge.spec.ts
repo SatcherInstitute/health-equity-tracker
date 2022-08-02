@@ -12,11 +12,11 @@ test.describe('Home to COVID Vax by Age', () => {
     test('Home to Tracker', async ({ page }) => {
 
         // Landing Page Loads
-        await page.goto('/', { waitUntil: "networkidle" }); 
+        await page.goto('/', { waitUntil: "networkidle" });
         await expect(page).toBeAccessible()
 
         const mainHeading = page.locator('#main');
-        await expect(mainHeading).toContainText(['Advancing', 'Health', 'Equity']);
+        await expect(mainHeading).toContainText('Advancing Health Equity');
 
         // Clicking large CTA button takes us to the tracker
         const exploreButton = page.locator('a:has-text("Explore the Health Equity Tracker")')
@@ -27,9 +27,9 @@ test.describe('Home to COVID Vax by Age', () => {
     test('Tracker Default (skip Welcome) to Covid Vax', async ({ page }) => {
 
         // Load Tracker Default (with url param to bypass problematic warm welcome)
-        await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${SKIP_WELCOME}`, { waitUntil: "networkidle" }); 
+        await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${SKIP_WELCOME}`, { waitUntil: "networkidle" });
         await expect(page).toBeAccessible()
-    
+
         // changes madlib to VAXX properly
         const madLibTopic = page.locator('button:has-text("COVID-19")')
         madLibTopic.click();
