@@ -1,4 +1,4 @@
-import { Grid, useMediaQuery, useTheme } from "@material-ui/core";
+import { Card, Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -227,6 +227,8 @@ function ExploreDataPage() {
         activelyOnboarding={activelyOnboarding}
       />
 
+      <FloatingCardNav />
+
       <h2 className={styles.ScreenreaderTitleHeader}>
         {getMadLibPhraseText(madLib)}
       </h2>
@@ -271,25 +273,12 @@ function ExploreDataPage() {
               />
             ))}
           </Carousel>
+
           {showStickyLifeline && (
             <p className={styles.LifelineSticky}>
               <a href={urlMap.lifeline}>988lifeline.org</a>
             </p>
           )}
-
-          <HashLink to={`#missingDataInfo`}>#missingDataInfo{"  "}</HashLink>
-
-          <HashLink to={`#map`}>#map{"  "}</HashLink>
-
-          <HashLink to={`#bar`}>#bar{"  "}</HashLink>
-
-          <HashLink to={`#unknowns`}>#unknowns{"  "}</HashLink>
-
-          <HashLink to={`#disparity`}>#disparity{"  "}</HashLink>
-
-          <HashLink to={`#table`}>#table{"  "}</HashLink>
-
-          <HashLink to={`#age-adjusted`}>#age-adjusted{"  "}</HashLink>
         </div>
         <div className={styles.ReportContainer}>
           <ReportProvider
@@ -360,3 +349,25 @@ function CarouselMadLib(props: {
 }
 
 export default ExploreDataPage;
+
+function FloatingCardNav() {
+  return (
+    <Card elevation={3} className={styles.FloatingCardNav}>
+      <menu>
+        <HashLink to={`#missingDataInfo`}>#missingDataInfo{"  "}</HashLink>
+
+        <HashLink to={`#map`}>#map{"  "}</HashLink>
+
+        <HashLink to={`#bar`}>#bar{"  "}</HashLink>
+
+        <HashLink to={`#unknowns`}>#unknowns{"  "}</HashLink>
+
+        <HashLink to={`#disparity`}>#disparity{"  "}</HashLink>
+
+        <HashLink to={`#table`}>#table{"  "}</HashLink>
+
+        <HashLink to={`#age-adjusted`}>#age-adjusted{"  "}</HashLink>
+      </menu>
+    </Card>
+  );
+}

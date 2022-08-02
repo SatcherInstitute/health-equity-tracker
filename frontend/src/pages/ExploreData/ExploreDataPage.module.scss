@@ -23,12 +23,15 @@
 .CarouselItem {
   line-height: $lhLoose;
   font-size: $title;
+
   @media (min-width: $sm) {
     font-size: $smallestHeader;
   }
+
   @media (min-width: $lg) {
     font-size: $smallerHeader;
   }
+
   padding: 0px 70px 0px 70px;
   margin: 20px auto 0 auto;
 }
@@ -52,14 +55,17 @@
       padding-top: 0;
       padding-bottom: 0;
     }
+
     .CarouselItem {
       padding: 0px 55px 0px 55px;
       margin-bottom: 10px;
       transition: padding 0.2s;
     }
+
     .ReportContainer {
       padding-top: 150px;
     }
+
     .LifelineSticky {
       display: flex;
       justify-content: center;
@@ -70,4 +76,14 @@
 // override the joyride component to allow different color for "back" text and "next" background
 button[data-action="back"] {
   color: $white !important;
+}
+
+.FloatingCardNav {
+  padding: 15px;
+  position: fixed;
+  top: 30%;
+  right: 10%;
+  width: 200px;
+  z-index: 1000;
+  text-align: left;
 }
