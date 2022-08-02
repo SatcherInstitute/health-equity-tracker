@@ -1,6 +1,6 @@
 /* External Imports */
 import React, { Fragment } from "react";
-import { timeFormat, descending, max, min } from "d3";
+import { timeFormat, descending, max } from "d3";
 
 /* Local Imports */
 
@@ -14,6 +14,7 @@ import { TrendsData, ColorScale, GroupData, GroupValues } from "./types";
 import { TYPES } from "./constants";
 
 /* Helpers */
+import { getDeltaByDate, sortDataDescending, getMaxNumber } from "./helpers";
 
 /* Define type interface */
 export interface TooltipProps {
@@ -32,28 +33,7 @@ export function Tooltip({
   colors,
   type,
 }: TooltipProps) {
-  function getMaxNumber() {
-    const numbers = data.flatMap(([group, d]) =>
-      d.map(([date, number]) => Math.abs(number))
-    );
-    // console.log(numbers)
-    console.log(max(numbers));
-    return max(numbers);
-  }
-
-  function getDeltaByDate(d: GroupValues) {
-    const [, delta] = d.find(([date]) => date === selectedDate) || [0, 0];
-    return delta;
-  }
-
-  function sortDataDescending(d: TrendsData) {
-    return (
-      d.sort(([, aData]: GroupData, [group, bData]: GroupData) =>
-        descending(getDeltaByDate(aData), getDeltaByDate(bData))
-      ) || d
-    );
-  }
-
+  // temp
   const codeDictionary = {
     "Native Hawaiian and Pacific Islander (Non-Hispanic)": "NHPI",
     "Hispanic or Latino": "HISP",
@@ -68,20 +48,21 @@ export function Tooltip({
   const TYPE_CONFIG = {
     [TYPES.HUNDRED_K]: {
       UNIT: " per 100k",
-      width: (d) => (getDeltaByDate(d) / (getMaxNumber() || 1)) * 100,
-      translate_x: (d) => 0,
+      width: (d: GroupValues) =>
+        (getDeltaByDate(d, selectedDate) / (getMaxNumber() || 1)) * 100,
+      translate_x: (d: GroupValues) => 0,
     },
     [TYPES.PERCENT_SHARE]: {
       UNIT: " %",
-      width: (d) => {
-        console.log(Math.abs(getDeltaByDate(d)) / (getMaxNumber() || 1));
-        console.log((Math.abs(getDeltaByDate(d)) / (getMaxNumber() || 1)) * 50);
-        return (Math.abs(getDeltaByDate(d)) / (getMaxNumber() || 1)) * 50;
-      },
-      translate_x: (d) =>
-        getDeltaByDate(d) > 0
+      width: (d: GroupValues) =>
+        (Math.abs(getDeltaByDate(d, selectedDate)) /
+          (getMaxNumber(data) || 1)) *
+        50,
+      translate_x: (d: GroupValues) =>
+        getDeltaByDate(d, selectedDate) > 0
           ? 50
-          : 50 + (getDeltaByDate(d) / (getMaxNumber() || 1)) * 50,
+          : 50 +
+            (getDeltaByDate(d, selectedDate) / (getMaxNumber(data) || 1)) * 50,
     },
   };
 
@@ -93,25 +74,29 @@ export function Tooltip({
       </div>
       <div className={styles.grid}>
         {data &&
-          sortDataDescending(data).map(([group, d]: GroupData) => (
-            <Fragment key={`tooltipRow-${group}`}>
-              <div>{codeDictionary[group]}</div>
-              <div
-                style={{
-                  backgroundColor: colors(group),
-                  width: TYPE_CONFIG[type]?.width(d),
-                  transform: `translateX(${TYPE_CONFIG[type]?.translate_x(
-                    d
-                  )}px)`,
-                }}
-                className={styles.bar}
-              />
-              <div className={styles.label}>
-                {getDeltaByDate(d)?.toFixed(2)}
-                <span>{TYPE_CONFIG[type]?.UNIT}</span>
-              </div>
-            </Fragment>
-          ))}
+          sortDataDescending(data, selectedDate).map(
+            ([group, d]: GroupData) => (
+              <Fragment key={`tooltipRow-${group}`}>
+                {/* TODO: update to use backend dictionary */}
+                {/* @ts-ignore */}
+                <div>{codeDictionary[group]}</div>
+                <div
+                  style={{
+                    backgroundColor: colors(group),
+                    width: TYPE_CONFIG[type]?.width(d),
+                    transform: `translateX(${TYPE_CONFIG[type]?.translate_x(
+                      d
+                    )}px)`,
+                  }}
+                  className={styles.bar}
+                />
+                <div className={styles.label}>
+                  {getDeltaByDate(d, selectedDate)?.toFixed(2)}
+                  <span>{TYPE_CONFIG[type]?.UNIT}</span>
+                </div>
+              </Fragment>
+            )
+          )}
       </div>
     </div>
   );
