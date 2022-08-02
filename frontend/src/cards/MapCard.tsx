@@ -76,6 +76,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   const isPrison = props.variableConfig.variableId === "prison";
   const isJail = props.variableConfig.variableId === "jail";
+  const isIncarceration = isJail || isPrison;
 
   const signalListeners: any = {
     click: (...args: any) => {
@@ -125,6 +126,9 @@ function MapCardWithKey(props: MapCardProps) {
   let qualifierMessage = "";
   if (isPrison) qualifierMessage = COMBINED_QUALIFIER;
   if (isJail) qualifierMessage = PRIVATE_JAILS_QUALIFIER;
+
+  let qualifierItems: string[] = [];
+  if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
 
   return (
     <CardWrapper
@@ -394,7 +398,7 @@ function MapCardWithKey(props: MapCardProps) {
                         lowestRatesList={lowestRatesList}
                         fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
                         jumpToData={props.jumpToData}
-                        qualifierItems={COMBINED_INCARCERATION_STATES_LIST}
+                        qualifierItems={qualifierItems}
                         qualifierMessage={qualifierMessage}
                       />
                     )}

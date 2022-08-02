@@ -84,7 +84,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
                   {props.highestRatesList.map((row) => {
                     let placeName = row["fips_name"];
                     if (props.qualifierItems?.includes(placeName)) {
-                      placeName = `${placeName} (${props.qualifierMessage})`;
+                      placeName += ` ${props.qualifierMessage}`;
                     }
 
                     return (
@@ -110,7 +110,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
                   {props.lowestRatesList.map((row) => {
                     let placeName = row["fips_name"];
                     if (props.qualifierItems?.includes(placeName)) {
-                      placeName = `${placeName} (${props.qualifierMessage})`;
+                      placeName += ` ${props.qualifierMessage}`;
                     }
 
                     return (
