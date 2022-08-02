@@ -64,6 +64,14 @@ const steps = [
     label: "Age-Adjusted Ratios",
     description: `Rates by demographic group.`,
   },
+  {
+    label: "Definitions",
+    description: `Currently selected equity topic(s).`,
+  },
+  {
+    label: "What Data Are Missing",
+    description: `Gaps and irregularities.`,
+  },
 ];
 
 export default function VerticalLinearStepper() {
