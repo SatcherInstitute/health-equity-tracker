@@ -169,11 +169,7 @@ function ReportProvider(props: ReportProviderProps) {
         {getReport()}
       </div>
       <div className={styles.MissingDataContainer}>
-        <aside
-          id="missingDataInfo"
-          ref={fieldRef}
-          className={styles.MissingDataInfo}
-        >
+        <aside ref={fieldRef} className={styles.MissingDataInfo}>
           {/* Display condition definition(s) based on the tracker madlib settings */}
           <div ref={definitionsRef}>
             {definedConditions.length > 0 && (
@@ -187,7 +183,7 @@ function ReportProvider(props: ReportProviderProps) {
           </div>
 
           <Box mt={10}>
-            <h3 className={styles.FootnoteLargeHeading}>
+            <h3 className={styles.FootnoteLargeHeading} id="missingDataInfo">
               What Data Are Missing?
             </h3>
           </Box>

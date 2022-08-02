@@ -38,6 +38,7 @@ import { srSpeak } from "../../utils/a11yutils";
 import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
+import { HashLink } from "react-router-hash-link";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -275,6 +276,20 @@ function ExploreDataPage() {
               <a href={urlMap.lifeline}>988lifeline.org</a>
             </p>
           )}
+
+          <HashLink to={`#missingDataInfo`}>#missingDataInfo{"  "}</HashLink>
+
+          <HashLink to={`#map`}>#map{"  "}</HashLink>
+
+          <HashLink to={`#bar`}>#bar{"  "}</HashLink>
+
+          <HashLink to={`#unknowns`}>#unknowns{"  "}</HashLink>
+
+          <HashLink to={`#disparity`}>#disparity{"  "}</HashLink>
+
+          <HashLink to={`#table`}>#table{"  "}</HashLink>
+
+          <HashLink to={`#age-adjusted`}>#age-adjusted{"  "}</HashLink>
         </div>
         <div className={styles.ReportContainer}>
           <ReportProvider

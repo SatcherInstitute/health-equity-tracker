@@ -1,6 +1,14 @@
 @import "../styles/variables.module";
 @import "../styles/globals.scss";
 
+.ScrollableId {
+  scroll-margin-top: 80px;
+}
+
+.ScrollableIdCompareMode {
+  scroll-margin-top: 200px;
+}
+
 .OneColumnReportWrapper {
   width: 100%;
   max-width: $explore-data-max-width;
@@ -63,6 +71,7 @@
 
 .FootnoteLargeHeading {
   font-size: $header;
+  scroll-margin-top: 200px;
 }
 
 .FootnoteLargeHeading:first-of-type {
