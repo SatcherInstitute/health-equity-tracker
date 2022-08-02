@@ -149,7 +149,7 @@ $breakpoint-mobile: 600px;
   .grid {
     padding-top: $spacingMedium;
     display: grid;
-    grid-template-columns: 1fr 200px 1fr;
+    grid-template-columns: 1fr 100px 1fr;
     grid-gap: 6px 12px;
     align-items: center;
     .bar {
