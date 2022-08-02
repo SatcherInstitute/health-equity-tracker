@@ -129,3 +129,39 @@ $breakpoint-mobile: 600px;
     margin-right: $spacingSmall; // create space between swatch and label
   }
 }
+
+/* Tooltip Styles */
+.Tooltip {
+  border: 1px solid $alt-grey;
+  border-radius: 3px;
+  background-color: white;
+  width: min-content;
+  padding: $spacingMedium;
+  @include inter500;
+  font-size: $small;
+
+  .title {
+    padding-bottom: $spacingSmall;
+    text-align: center;
+    border-bottom: 1px solid $alt-grey;
+  }
+
+  .grid {
+    padding-top: $spacingMedium;
+    display: grid;
+    grid-template-columns: 1fr 200px 1fr;
+    grid-gap: 6px 12px;
+    align-items: center;
+    .bar {
+      height: 14px;
+    }
+    .label {
+      white-space: nowrap;
+      justify-self: end;
+      span {
+        @include inter400;
+        font-size: $smallest;
+      }
+    }
+  }
+}

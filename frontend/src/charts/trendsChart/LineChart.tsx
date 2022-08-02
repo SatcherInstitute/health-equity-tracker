@@ -5,7 +5,7 @@
 
 /* External Imports */
 import React from "react";
-import { line, curveMonotoneX } from "d3";
+import { line, curveMonotoneX, curveLinear } from "d3";
 
 /* Local Imports */
 
