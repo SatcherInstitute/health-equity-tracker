@@ -523,7 +523,7 @@
         "covid_deaths_share": 0.3,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -540,7 +540,7 @@
         "covid_deaths_share": 0.0,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -557,7 +557,7 @@
         "covid_deaths_share": 0.4,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -574,7 +574,7 @@
         "covid_deaths_share": 0.7,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -591,7 +591,7 @@
         "covid_deaths_share": 1.7,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -608,7 +608,7 @@
         "covid_deaths_share": 1.9,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -625,7 +625,7 @@
         "covid_deaths_share": 1.1,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -642,7 +642,7 @@
         "covid_deaths_share": 0.9,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -659,7 +659,7 @@
         "covid_deaths_share": 1.3,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -676,7 +676,7 @@
         "covid_deaths_share": 1.4,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -693,7 +693,7 @@
         "covid_deaths_share": 1.3,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -710,7 +710,7 @@
         "covid_deaths_share": 1.2,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -727,7 +727,7 @@
         "covid_deaths_share": 1.1,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -744,7 +744,7 @@
         "covid_deaths_share": 0.8,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -761,7 +761,7 @@
         "covid_deaths_share": 0.6,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -778,7 +778,7 @@
         "covid_deaths_share": 0.6,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -795,7 +795,7 @@
         "covid_deaths_share": 0.9,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -812,7 +812,7 @@
         "covid_deaths_share": 1.1,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -829,7 +829,7 @@
         "covid_deaths_share": 1.0,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -846,7 +846,7 @@
         "covid_deaths_share": 0.9,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -863,7 +863,7 @@
         "covid_deaths_share": 1.1,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -880,7 +880,7 @@
         "covid_deaths_share": 1.5,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -897,7 +897,7 @@
         "covid_deaths_share": 1.1,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -914,7 +914,7 @@
         "covid_deaths_share": 0.6,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -931,7 +931,7 @@
         "covid_deaths_share": 0.6,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -948,7 +948,7 @@
         "covid_deaths_share": 0.9,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -965,7 +965,7 @@
         "covid_deaths_share": 0.6,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -982,7 +982,7 @@
         "covid_deaths_share": 0.6,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -999,7 +999,7 @@
         "covid_deaths_share": 0.2,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1016,7 +1016,7 @@
         "covid_deaths_share": 0.3,
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+        "race_and_ethnicity": "American Indian and Alaska Native NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1033,7 +1033,7 @@
         "covid_deaths_share": 2.0,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1050,7 +1050,7 @@
         "covid_deaths_share": 6.2,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1067,7 +1067,7 @@
         "covid_deaths_share": 5.3,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1084,7 +1084,7 @@
         "covid_deaths_share": 4.7,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1101,7 +1101,7 @@
         "covid_deaths_share": 3.9,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1118,7 +1118,7 @@
         "covid_deaths_share": 3.5,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1135,7 +1135,7 @@
         "covid_deaths_share": 2.8,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1152,7 +1152,7 @@
         "covid_deaths_share": 3.0,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1169,7 +1169,7 @@
         "covid_deaths_share": 2.5,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1186,7 +1186,7 @@
         "covid_deaths_share": 1.8,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1203,7 +1203,7 @@
         "covid_deaths_share": 2.4,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1220,7 +1220,7 @@
         "covid_deaths_share": 4.7,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1237,7 +1237,7 @@
         "covid_deaths_share": 4.9,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1254,7 +1254,7 @@
         "covid_deaths_share": 4.4,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1271,7 +1271,7 @@
         "covid_deaths_share": 4.1,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1288,7 +1288,7 @@
         "covid_deaths_share": 2.8,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1305,7 +1305,7 @@
         "covid_deaths_share": 2.2,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1322,7 +1322,7 @@
         "covid_deaths_share": 1.8,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1339,7 +1339,7 @@
         "covid_deaths_share": 1.9,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1356,7 +1356,7 @@
         "covid_deaths_share": 1.6,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1373,7 +1373,7 @@
         "covid_deaths_share": 1.5,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1390,7 +1390,7 @@
         "covid_deaths_share": 1.7,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1407,7 +1407,7 @@
         "covid_deaths_share": 1.6,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1424,7 +1424,7 @@
         "covid_deaths_share": 2.0,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1441,7 +1441,7 @@
         "covid_deaths_share": 2.9,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1458,7 +1458,7 @@
         "covid_deaths_share": 2.4,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1475,7 +1475,7 @@
         "covid_deaths_share": 2.6,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1492,7 +1492,7 @@
         "covid_deaths_share": 2.6,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1509,7 +1509,7 @@
         "covid_deaths_share": 3.9,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1526,7 +1526,7 @@
         "covid_deaths_share": 4.1,
         "race": "Asian",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
+        "race_and_ethnicity": "Asian NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1543,7 +1543,7 @@
         "covid_deaths_share": 26.4,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1560,7 +1560,7 @@
         "covid_deaths_share": 22.6,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1577,7 +1577,7 @@
         "covid_deaths_share": 26.7,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1594,7 +1594,7 @@
         "covid_deaths_share": 20.3,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1611,7 +1611,7 @@
         "covid_deaths_share": 16.5,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1628,7 +1628,7 @@
         "covid_deaths_share": 14.8,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1645,7 +1645,7 @@
         "covid_deaths_share": 16.4,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1662,7 +1662,7 @@
         "covid_deaths_share": 15.8,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1679,7 +1679,7 @@
         "covid_deaths_share": 12.2,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1696,7 +1696,7 @@
         "covid_deaths_share": 9.3,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1713,7 +1713,7 @@
         "covid_deaths_share": 8.6,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1730,7 +1730,7 @@
         "covid_deaths_share": 9.4,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1747,7 +1747,7 @@
         "covid_deaths_share": 11.7,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1764,7 +1764,7 @@
         "covid_deaths_share": 14.4,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1781,7 +1781,7 @@
         "covid_deaths_share": 17.2,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1798,7 +1798,7 @@
         "covid_deaths_share": 19.9,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1815,7 +1815,7 @@
         "covid_deaths_share": 19.7,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1832,7 +1832,7 @@
         "covid_deaths_share": 14.3,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1849,7 +1849,7 @@
         "covid_deaths_share": 15.7,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1866,7 +1866,7 @@
         "covid_deaths_share": 15.0,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1883,7 +1883,7 @@
         "covid_deaths_share": 11.7,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1900,7 +1900,7 @@
         "covid_deaths_share": 8.6,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1917,7 +1917,7 @@
         "covid_deaths_share": 7.5,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1934,7 +1934,7 @@
         "covid_deaths_share": 11.6,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1951,7 +1951,7 @@
         "covid_deaths_share": 12.8,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1968,7 +1968,7 @@
         "covid_deaths_share": 8.5,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -1985,7 +1985,7 @@
         "covid_deaths_share": 7.9,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2002,7 +2002,7 @@
         "covid_deaths_share": 8.4,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2019,7 +2019,7 @@
         "covid_deaths_share": 8.0,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2036,7 +2036,7 @@
         "covid_deaths_share": 7.7,
         "race": "Black or African American",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+        "race_and_ethnicity": "Black or African American NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2053,7 +2053,7 @@
         "covid_deaths_share": 1.9,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2070,7 +2070,7 @@
         "covid_deaths_share": 3.8,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2087,7 +2087,7 @@
         "covid_deaths_share": 2.1,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2104,7 +2104,7 @@
         "covid_deaths_share": 2.2,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2121,7 +2121,7 @@
         "covid_deaths_share": 1.5,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2138,7 +2138,7 @@
         "covid_deaths_share": 1.3,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2155,7 +2155,7 @@
         "covid_deaths_share": 1.5,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2172,7 +2172,7 @@
         "covid_deaths_share": 2.0,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2189,7 +2189,7 @@
         "covid_deaths_share": 2.8,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2206,7 +2206,7 @@
         "covid_deaths_share": 2.2,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2223,7 +2223,7 @@
         "covid_deaths_share": 1.7,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2240,7 +2240,7 @@
         "covid_deaths_share": 1.9,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2257,7 +2257,7 @@
         "covid_deaths_share": 2.2,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2274,7 +2274,7 @@
         "covid_deaths_share": 2.3,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2291,7 +2291,7 @@
         "covid_deaths_share": 2.8,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2308,7 +2308,7 @@
         "covid_deaths_share": 2.4,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2325,7 +2325,7 @@
         "covid_deaths_share": 2.3,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2342,7 +2342,7 @@
         "covid_deaths_share": 2.0,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2359,7 +2359,7 @@
         "covid_deaths_share": 2.5,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2376,7 +2376,7 @@
         "covid_deaths_share": 2.5,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2393,7 +2393,7 @@
         "covid_deaths_share": 2.0,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2410,7 +2410,7 @@
         "covid_deaths_share": 1.8,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2427,7 +2427,7 @@
         "covid_deaths_share": 1.8,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2444,7 +2444,7 @@
         "covid_deaths_share": 1.9,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2461,7 +2461,7 @@
         "covid_deaths_share": 2.3,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2478,7 +2478,7 @@
         "covid_deaths_share": 2.2,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2495,7 +2495,7 @@
         "covid_deaths_share": 2.0,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2512,7 +2512,7 @@
         "covid_deaths_share": 2.1,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2529,7 +2529,7 @@
         "covid_deaths_share": 2.3,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2546,7 +2546,7 @@
         "covid_deaths_share": 1.9,
         "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races & Unrepresented race (Non-Hispanic)",
+        "race_and_ethnicity": "Two or more races & Unrepresented race NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2563,7 +2563,7 @@
         "covid_deaths_share": 0.0,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2580,7 +2580,7 @@
         "covid_deaths_share": 0.0,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2597,7 +2597,7 @@
         "covid_deaths_share": 0.1,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2614,7 +2614,7 @@
         "covid_deaths_share": 0.1,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2631,7 +2631,7 @@
         "covid_deaths_share": 0.2,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2648,7 +2648,7 @@
         "covid_deaths_share": 0.4,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2665,7 +2665,7 @@
         "covid_deaths_share": 0.2,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2682,7 +2682,7 @@
         "covid_deaths_share": 0.3,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2699,7 +2699,7 @@
         "covid_deaths_share": 0.3,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2716,7 +2716,7 @@
         "covid_deaths_share": 0.2,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2733,7 +2733,7 @@
         "covid_deaths_share": 0.2,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2750,7 +2750,7 @@
         "covid_deaths_share": 0.2,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2767,7 +2767,7 @@
         "covid_deaths_share": 0.2,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2784,7 +2784,7 @@
         "covid_deaths_share": 0.1,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2801,7 +2801,7 @@
         "covid_deaths_share": 0.2,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2818,7 +2818,7 @@
         "covid_deaths_share": 0.2,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2835,7 +2835,7 @@
         "covid_deaths_share": 0.2,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2852,7 +2852,7 @@
         "covid_deaths_share": 0.2,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2869,7 +2869,7 @@
         "covid_deaths_share": 0.4,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2886,7 +2886,7 @@
         "covid_deaths_share": 0.3,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2903,7 +2903,7 @@
         "covid_deaths_share": 0.3,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2920,7 +2920,7 @@
         "covid_deaths_share": 0.3,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2937,7 +2937,7 @@
         "covid_deaths_share": 0.2,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2954,7 +2954,7 @@
         "covid_deaths_share": 0.2,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2971,7 +2971,7 @@
         "covid_deaths_share": 0.2,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -2988,7 +2988,7 @@
         "covid_deaths_share": 0.1,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3005,7 +3005,7 @@
         "covid_deaths_share": 0.3,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3022,7 +3022,7 @@
         "covid_deaths_share": 0.1,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3039,7 +3039,7 @@
         "covid_deaths_share": 0.2,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3056,7 +3056,7 @@
         "covid_deaths_share": 0.3,
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3073,7 +3073,7 @@
         "covid_deaths_share": 54.2,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3090,7 +3090,7 @@
         "covid_deaths_share": 46.4,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3107,7 +3107,7 @@
         "covid_deaths_share": 44.1,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3124,7 +3124,7 @@
         "covid_deaths_share": 53.8,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3141,7 +3141,7 @@
         "covid_deaths_share": 57.6,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3158,7 +3158,7 @@
         "covid_deaths_share": 47.4,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3175,7 +3175,7 @@
         "covid_deaths_share": 50.8,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3192,7 +3192,7 @@
         "covid_deaths_share": 58.2,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3209,7 +3209,7 @@
         "covid_deaths_share": 66.1,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3226,7 +3226,7 @@
         "covid_deaths_share": 72.6,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3243,7 +3243,7 @@
         "covid_deaths_share": 71.5,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3260,7 +3260,7 @@
         "covid_deaths_share": 62.7,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3277,7 +3277,7 @@
         "covid_deaths_share": 59.0,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3294,7 +3294,7 @@
         "covid_deaths_share": 59.3,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3311,7 +3311,7 @@
         "covid_deaths_share": 57.6,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3328,7 +3328,7 @@
         "covid_deaths_share": 59.6,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3345,7 +3345,7 @@
         "covid_deaths_share": 60.9,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3362,7 +3362,7 @@
         "covid_deaths_share": 66.3,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3379,7 +3379,7 @@
         "covid_deaths_share": 62.9,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3396,7 +3396,7 @@
         "covid_deaths_share": 65.6,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3413,7 +3413,7 @@
         "covid_deaths_share": 72.2,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3430,7 +3430,7 @@
         "covid_deaths_share": 74.8,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3447,7 +3447,7 @@
         "covid_deaths_share": 76.0,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3464,7 +3464,7 @@
         "covid_deaths_share": 67.3,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3481,7 +3481,7 @@
         "covid_deaths_share": 64.2,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3498,7 +3498,7 @@
         "covid_deaths_share": 76.1,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3515,7 +3515,7 @@
         "covid_deaths_share": 72.8,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3532,7 +3532,7 @@
         "covid_deaths_share": 76.0,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3549,7 +3549,7 @@
         "covid_deaths_share": 76.7,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
@@ -3566,7 +3566,7 @@
         "covid_deaths_share": 77.7,
         "race": "White",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (Non-Hispanic)",
+        "race_and_ethnicity": "White NH",
         "ingestion_ts": 1659039660248
     },
     {
