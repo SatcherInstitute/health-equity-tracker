@@ -39,6 +39,7 @@ import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
 import { HashLink } from "react-router-hash-link";
+import VerticalLinearStepper from "./VerticalLinearStepper";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -352,22 +353,8 @@ export default ExploreDataPage;
 
 function FloatingCardNav() {
   return (
-    <Card elevation={3} className={styles.FloatingCardNav}>
-      <menu>
-        <HashLink to={`#missingDataInfo`}>#missingDataInfo{"  "}</HashLink>
-
-        <HashLink to={`#map`}>#map{"  "}</HashLink>
-
-        <HashLink to={`#bar`}>#bar{"  "}</HashLink>
-
-        <HashLink to={`#unknowns`}>#unknowns{"  "}</HashLink>
-
-        <HashLink to={`#disparity`}>#disparity{"  "}</HashLink>
-
-        <HashLink to={`#table`}>#table{"  "}</HashLink>
-
-        <HashLink to={`#age-adjusted`}>#age-adjusted{"  "}</HashLink>
-      </menu>
-    </Card>
+    <div className={styles.FloatingCardNav}>
+      <VerticalLinearStepper />
+    </div>
   );
 }
