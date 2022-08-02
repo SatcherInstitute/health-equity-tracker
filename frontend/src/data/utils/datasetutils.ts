@@ -421,6 +421,10 @@ After (Time-Series / D3) Example:
 
 */
 
+export function shortenNH(group: DemographicGroup) {
+  return group.replace("(Non-Hispanic", "NH");
+}
+
 export type TimeSeries = [Date, number][];
 export type GroupTrendData = [DemographicGroup, TimeSeries][];
 export type TrendsData = GroupTrendData[];
@@ -440,7 +444,7 @@ export function getNestedRates(
       row[TIME_PERIOD],
       row[metricId],
     ]);
-    return [group, groupTimeSeries] as GroupTrendData;
+    return [shortenNH(group), groupTimeSeries] as GroupTrendData;
   });
 
   return nestedRates;
@@ -461,7 +465,7 @@ export function getNestedUndueShares(
       row[TIME_PERIOD],
       row[conditionPctShareId] - row[popPctShareId],
     ]);
-    return [group, groupTimeSeries] as GroupTrendData;
+    return [shortenNH(group), groupTimeSeries] as GroupTrendData;
   });
 
   return nestedPctUndue;
