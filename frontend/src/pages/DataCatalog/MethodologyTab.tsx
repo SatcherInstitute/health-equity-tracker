@@ -517,6 +517,235 @@ function MethodologyTab() {
                 <p>
                   <b>Incarceration Data Sources</b>
                 </p>
+                <p>
+                  The Bureau of Justice Statistic (BJS) releases a variety of
+                  reports on people under correctional control; by combining
+                  these tables from these two reports{" "}
+                  <a href={urlMap.bjsPrisoners}>“Prisoners in 2020”</a> and{" "}
+                  <a href={urlMap.bjsCensusOfJails}>
+                    “Census of Jails 2005-2019”
+                  </a>
+                  , we are able to generate reports on individuals (including
+                  children) incarcerated in Prison and Jail in the United States
+                  at a national, state, and territory level. Additionally, the
+                  Vera Institute for Justice has done extensive research and
+                  analysis of the BJS and other data sources to provide county
+                  level jail and prison incarceration rates.
+                </p>
+                <ul>
+                  <li>
+                    <b>National by Age:</b> Prisoners Table 10
+                  </li>
+                  <li>
+                    <b>State by Age:</b> Prisoners Table 2 (totals only)
+                  </li>
+                  <li>
+                    <b>National by Race:</b> Prisoners Appendix Table 2
+                  </li>
+                  <li>
+                    <b>State by Race:</b> Prisoners Appendix Table 2
+                  </li>
+                  <li>
+                    <b>National by Sex:</b> Prisoners Table 2
+                  </li>
+                  <li>
+                    <b>State by Sex:</b> Prisoners Table 2
+                  </li>
+                  <li>
+                    <b>All State and National Reports:</b> Prisoners Table 13
+                    (children in prison alert)
+                  </li>
+                  <li>
+                    <b>All Territories:</b> Prisoners Table 23 (totals only)
+                  </li>
+                  <li>
+                    <b>All County Reports:</b> Vera Incarceration Trends
+                  </li>
+                </ul>
+                <p>
+                  Data presented for prison differs slightly by geographic level
+                  and by data type:
+                </p>
+                <ul>
+                  <li>
+                    National report: Prison includes all individuals under the
+                    jurisdiction of a state or federal adult prison facility in
+                    the United States, but not inclusive of territorial,
+                    military, or Indian Country facilities. This data is
+                    disaggregated by race/ethnicity, age, and sex.
+                  </li>
+                  <li>
+                    State reports: Prison includes all individuals including
+                    under the jurisdiction of that state's adult prison
+                    facilities. This data is disaggregated by race/ethnicity and
+                    sex; however, the BJS Prisoners report does not provide age
+                    disaggregation to the state level.
+                  </li>
+                  <li>
+                    Territory reports: All individuals under the jurisdiction of
+                    that territory's adult prison facilities.{" "}
+                  </li>
+                  <li>
+                    <b>American Samoa</b> did not report a value for
+                    jurisdictional population; therefore, we used their value
+                    for custodial population instead. This data is not
+                    disaggregated by any demographic breakdown. All incarcerated
+                    people in the U.S. territories are counted under{" "}
+                    <b>Prison</b>.
+                  </li>
+                  <li>
+                    County reports: All individuals under the jurisdiction of a
+                    state prison system on charges arising from a criminal case
+                    in a specific county.
+                  </li>
+                  <li>
+                    The race/ethnicity breakdowns provided match those used in
+                    the ACS population source; however, we do combine the BJS's.
+                    The BJS did not report race values into our Unknown race
+                    group.
+                  </li>
+                </ul>
+              </Grid>
+              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
+                <h3 className={styles.FaqQuestion}>
+                  Children in Adult Facilities
+                </h3>
+                <div className={styles.FaqAnswer}>
+                  <p>
+                    When presenting incarceration reports, we have chosen to
+                    highlight the total number of confined children (in adult
+                    facilities), rather than only including this information as
+                    our standard “per 100k” rate. This decision was based on
+                    several factors:
+                  </p>
+                  <ul>
+                    <li>
+                      The lack of federal law regarding the maximum age of
+                      juvenile court jurisdiction and transfer to adult courts
+                      coupled with the variance in state-specific laws, makes it
+                      infeasible to derive an accurate population base for
+                      individuals that may be incarcerated in an adult prison or
+                      jail facility. Consequently, any rate calculations for
+                      <b>0-17</b> are comparing the{" "}
+                      <b>number of prisoners under 18</b> proportional to the
+                      entire population of children down to newborns, resulting
+                      in a diluted incidence rate. This can be seen on national
+                      and state-level jail reports, as BJS provides these
+                      figures directly. In other reports, we have chosen not to
+                      calculate the incidence rate and instead rely on the total
+                      number of confined children to highlight this health
+                      inequity.
+                    </li>
+                    <li>
+                      The prison numbers presented in the BJS Prisoners 2020
+                      report for juveniles include <b>confined</b> population
+                      (literally held within a specific facility), as opposed to
+                      the other prison reports which present the{" "}
+                      <b>jurisdictional</b> population (under the control of a
+                      facility but potentially confined elsewhere).
+                    </li>
+                  </ul>
+                </div>
+              </Grid>
+              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
+                <h3 className={styles.FaqQuestion}>Combined Systems</h3>
+                <div className={styles.FaqAnswer}>
+                  <p>
+                    <b>Alaska</b>, <b>Connecticut</b>, <b>Delaware</b>,{" "}
+                    <b>Hawaii</b>, <b>Rhode Island</b>, and <b>Vermont</b> each
+                    operate an integrated system that combines both prisons and
+                    jails; for our reports these are treated only as prison
+                    facilities. In addition, Alaska contracts with a small
+                    network of private jails, which are included here only as
+                    jail facilities.
+                  </p>
+                </div>
+              </Grid>
+              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
+                <h3 className={styles.FaqQuestion}>
+                  America's Health Rankings
+                </h3>
+                <div className={styles.FaqAnswer}>
+                  <p>
+                    Multiple chronic disease, behavioral health, and social
+                    determinants of health in the tracker are sourced from
+                    <a href={urlMap.amr}>America’s Health Rankings</a> who in
+                    turn source the majority of their data from the{" "}
+                    <a href={urlMap.cdcBrfss}>
+                      Behavioral Risk Factor Surveillance System (BRFSS)
+                    </a>
+                    , a survey run by the CDC, along with supplemental data from{" "}
+                    <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{" "}
+                    <a href={urlMap.censusVoting}>US Census</a>.
+                  </p>
+                  <ul>
+                    <li>
+                      The BRFSS is a survey and as such there are not always
+                      enough respondents to provide a statistically meaningful
+                      estimate of disease prevalence, especially for smaller and
+                      typically marginalized racial groups. Please see the{" "}
+                      <a href={urlMap.amrMethodology}>methodology page</a> of
+                      America's Health Rankings for details on data suppression.
+                    </li>
+                    <li>
+                      BRFSS data broken down by race and ethnicity is not
+                      available at the county level; therefore, the tracker does
+                      not display these conditions at the county level.
+                    </li>
+                  </ul>
+                </div>
+              </Grid>
+              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
+                <h3 className={styles.FaqQuestion}>
+                  Women in Legislative Office
+                </h3>
+                <div className={styles.FaqAnswer}>
+                  <p>
+                    <a href={urlMap.doi1}>A link has been established</a>{" "}
+                    between having women in government and improvements in
+                    population health.{" "}
+                    <a href={urlMap.doi2}>Women in legislative office</a> have
+                    been shown to{" "}
+                    <a href={urlMap.doi3}>advocate for policies</a> that pertain
+                    to some of the crucial social and political determinants of
+                    health that impact the overall health of our nation such as
+                    education, poverty, social welfare, reproductive and
+                    maternal health, children, and family life. These policies
+                    in turn play a significant role in the advancement of health
+                    equity for all. By combining data from the{" "}
+                    <a href={urlMap.cawp}>
+                      Center for American Women in Politics (CAWP)
+                    </a>{" "}
+                    with data from <a href={urlMap.propublica}>ProPublica</a>,
+                    we are able to present two distinct metrics on these
+                    reports:
+                  </p>
+                  <ul>
+                    <li>
+                      The race/ethnicity distribution or “percent share” of
+                      women. For example, the percentage of women in the Georgia
+                      State Legislature that are black.
+                    </li>
+                  </ul>
+                  <p>
+                    These metrics are calculated for two distinct data types:
+                    <b>Women in State Legislature</b>, and{" "}
+                    <b>Women in U.S. Congress</b>, and both of these data types
+                    are currently available at the state, territory, and
+                    national levels. Our percentage calculations at the national
+                    level specifically include legislators from the U.S.
+                    territories, which can result in slightly different results
+                    than those presented on the CAWP website.{" "}
+                  </p>
+                  <p>
+                    Additionally, our "total legislator" count for U.S. Congress
+                    only includes actively seated legislators, as opposed to the
+                    total number of seats which are not always filled. All
+                    gender and race/ethnicity categorizations are self-reported,
+                    and a legislator may be represented in multiple race
+                    groupings if that is how they identify.
+                  </p>
+                </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>
