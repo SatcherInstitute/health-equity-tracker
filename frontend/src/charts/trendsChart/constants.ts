@@ -32,6 +32,7 @@ const CONFIG = {
   TICK_PADDING: 18,
   Y_AXIS_LABEL_PADDING: 18,
   RADIUS_EXTENT: [4, 10],
+  // special spacing rules for mobile
   MOBILE: {
     MARGIN: {
       left: 60,

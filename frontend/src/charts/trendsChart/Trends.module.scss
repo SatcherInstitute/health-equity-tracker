@@ -12,7 +12,7 @@ $breakpoint-mobile: 600px;
   // lines styles
   .TrendLine {
     fill: none;
-    stroke-width: 2;
+    stroke-width: 2.5;
     stroke-linecap: round;
   }
 
@@ -48,6 +48,7 @@ $breakpoint-mobile: 600px;
     }
   }
 
+  // visibility classes
   .hidden {
     display: none;
   }
