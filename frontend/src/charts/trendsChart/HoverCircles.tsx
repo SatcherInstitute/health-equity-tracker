@@ -15,7 +15,7 @@ import React from "react";
 import styles from "./Trends.module.scss";
 
 /* Constants */
-import { getDeltaByDate } from "./helpers";
+import { getAmountsByDate } from "./helpers";
 
 import { TrendsData, XScale, ColorScale, YScale } from "./types";
 
@@ -50,7 +50,7 @@ export function HoverCircles({
               // use transform instead of cy to apply css transitions
               // note - x positioning is handled by parent
               transform={`translate(0,${yScale(
-                getDeltaByDate(d, selectedDate)
+                getAmountsByDate(d, selectedDate)
               )})`}
               fill={colors(group)}
             />

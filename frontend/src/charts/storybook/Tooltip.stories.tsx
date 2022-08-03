@@ -46,6 +46,7 @@ Default.args = {
 export const PercentShare = Template.bind({});
 PercentShare.args = {
   ...props,
+  // @ts-ignore
   data: data.race_national.covid_cases_share.filter(
     ([group]) => group !== "Unknown race"
   ),
