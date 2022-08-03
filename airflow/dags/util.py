@@ -42,7 +42,8 @@ def generate_gcs_payload(workflow_id: str, filename: str = None,
 
 
 def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
-                        gcs_bucket: str = None, url: str = None) -> dict:
+                        gcs_bucket: str = None, url: str = None,
+                        cumulative: bool = None) -> dict:
     """Creates the payload object required for the BQ ingestion operator.
 
     workflow_id: ID of the datasource workflow. Should match ID defined in
@@ -61,6 +62,8 @@ def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
         message['filename'] = filename
     if url is not None:
         message['url'] = url
+    if cumulative is not None:
+        message['cumulative'] = cumulative
     return {'message': message}
 
 

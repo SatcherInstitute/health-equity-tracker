@@ -54,56 +54,69 @@ class CDCRestrictedData(DataSource):
             'upload_to_gcs should not be called for CDCRestrictedData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        for cumulative in [True, False]:
-            for geo in ['national', 'state', 'county']:
-                for demo in ['sex', 'race', 'age']:
-                    geo_to_pull = 'state' if geo == 'national' else geo
-                    filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
-                    df = gcs_to_bq_util.load_csv_as_df(
-                        gcs_bucket, filename, dtype={'county_fips': str})
+        cumulative = self.get_attr(attrs, 'cumulative')
+        for geo in ['national', 'state', 'county']:
+            for demo in ['sex', 'race', 'age']:
+                geo_to_pull = 'state' if geo == 'national' else geo
+                filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
+                df = gcs_to_bq_util.load_csv_as_df(
+                    gcs_bucket, filename, dtype={'county_fips': str})
 
-                    df = self.generate_breakdown(df, demo, geo, cumulative)
+                df = self.generate_breakdown(df, demo, geo, cumulative)
 
-                    if demo == 'race':
-                        std_col.add_race_columns_from_category_id(df)
+                if demo == 'race':
+                    std_col.add_race_columns_from_category_id(df)
 
-                    column_types = get_col_types(df)
+                column_types = get_col_types(df)
 
-                    table_name = f'by_{demo}_{geo}_processed'
-                    if not cumulative:
-                        table_name += '_time_series'
+                table_name = f'by_{demo}_{geo}_processed'
+                if not cumulative:
+                    table_name += '_time_series'
 
-                    gcs_to_bq_util.add_df_to_bq(
-                        df, dataset, table_name, column_types=column_types)
+                gcs_to_bq_util.add_df_to_bq(
+                    df, dataset, table_name, column_types=column_types)
 
-        for filename, table_name in ONLY_FIPS_FILES.items():
-            df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename)
+        # Only do this once, open to a less weird way of doing this
+        if cumulative:
+            for filename, table_name in ONLY_FIPS_FILES.items():
+                df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename)
 
-            df = df[df[std_col.STATE_POSTAL_COL] != 'Unknown']
-            df = merge_state_fips_codes(df)
-            df = df[df[std_col.STATE_FIPS_COL].notna()]
+                groupby_cols = [
+                    std_col.STATE_POSTAL_COL,
+                    std_col.AGE_COL,
+                    std_col.RACE_CATEGORY_ID_COL,
+                ]
+                df = df.groupby(groupby_cols).sum().reset_index()
 
-            self.clean_frame_column_names(df)
+                df = df[df[std_col.STATE_POSTAL_COL] != 'Unknown']
+                df = merge_state_fips_codes(df)
+                df = df[df[std_col.STATE_FIPS_COL].notna()]
 
-            int_cols = [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
-                        std_col.COVID_HOSP_N, std_col.COVID_HOSP_UNKNOWN,
-                        std_col.COVID_DEATH_Y, std_col.COVID_DEATH_N,
-                        std_col.COVID_DEATH_UNKNOWN]
+                self.clean_frame_column_names(df)
 
-            column_types = {c: 'STRING' for c in df.columns}
-            for col in int_cols:
-                if col in column_types:
-                    column_types[col] = 'FLOAT'
+                int_cols = [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
+                            std_col.COVID_HOSP_N, std_col.COVID_HOSP_UNKNOWN,
+                            std_col.COVID_DEATH_Y, std_col.COVID_DEATH_N,
+                            std_col.COVID_DEATH_UNKNOWN]
 
-            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+                # Add race metadata columns.
+                if std_col.RACE_CATEGORY_ID_COL in df.columns:
+                    std_col.add_race_columns_from_category_id(df)
 
-            print(f'uploading {table_name}')
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=column_types)
+                column_types = {c: 'STRING' for c in df.columns}
+                for col in int_cols:
+                    if col in column_types:
+                        column_types[col] = 'FLOAT'
+
+                if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+                    column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
+                print(f'uploading {table_name}')
+                gcs_to_bq_util.add_df_to_bq(
+                    df, dataset, table_name, column_types=column_types)
 
     def generate_breakdown(self, df, demo, geo, cumulative):
-        print(f'processing {demo} {geo}')
+        print(f'processing {demo} {geo} cumulative = {cumulative}')
         start = time.time()
 
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo == 'race' else demo
@@ -119,17 +132,15 @@ class CDCRestrictedData(DataSource):
 
         if cumulative:
             groupby_cols = [
-                std_col.STATE_FIPS_COL,
-                std_col.STATE_NAME_COL,
+                std_col.STATE_POSTAL_COL,
                 demo_col,
-                std_col.TIME_PERIOD_COL,
             ]
 
             if geo == 'county':
                 groupby_cols.extend(
                     [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
 
-            df = df.groupby(groupby_cols).sum().reset_index()
+            df = df.groupby(groupby_cols).sum(min_count=1).reset_index()
         else:
             all_columns.append(std_col.TIME_PERIOD_COL)
 
@@ -167,7 +178,6 @@ class CDCRestrictedData(DataSource):
         # Drop annoying column that doesnt match any fips codes or have
         # an associated time period
         df = df[df[fips].notna()]
-
         if not cumulative:
             df = df[df[std_col.TIME_PERIOD_COL].notna()]
 
