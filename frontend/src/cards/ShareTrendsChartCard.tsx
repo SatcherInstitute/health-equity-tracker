@@ -128,6 +128,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 <TrendsChart
                   // @ts-ignore
                   data={nestedData}
+                  // @ts-ignore
                   unknown={nestedUnknowns}
                   axisConfig={[metricConfig.type]}
                 />

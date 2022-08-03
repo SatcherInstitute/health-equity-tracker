@@ -141,6 +141,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 <TrendsChart
                   // @ts-ignore
                   data={nestedRatesData}
+                  // @ts-ignore
                   unknown={nestedUnknownPctShareData}
                   axisConfig={[
                     metricConfigRates.type,
