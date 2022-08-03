@@ -5,8 +5,22 @@
  */
 
 /* External Imports */
-import React, { useState, useMemo, useRef, useEffect } from "react";
-import { scaleOrdinal, scaleTime, scaleLinear, extent, min, max } from "d3";
+import React, {
+  useState,
+  useMemo,
+  useRef,
+  useEffect,
+  useCallback,
+} from "react";
+import {
+  scaleOrdinal,
+  scaleTime,
+  scaleLinear,
+  extent,
+  min,
+  max,
+  bisector,
+} from "d3";
 
 /* Local Imports */
 
@@ -15,6 +29,7 @@ import { FilterLegend } from "./FilterLegend";
 import { LineChart } from "./LineChart";
 import { Axes } from "./Axes";
 import { CircleChart } from "./CircleChart";
+import { TrendsTooltip } from "./TrendsTooltip";
 
 /* Styles */
 import styles from "./Trends.module.scss";
@@ -54,6 +69,8 @@ export function TrendsChart({
     STARTING_WIDTH,
     false,
   ]);
+  // Manages tooltip
+  const [hoveredDate, setHoveredDate] = useState<string | null>(null);
 
   /* Effects */
   // resets svg width on window resize, only sets listener after first render (so ref is defined)
@@ -101,24 +118,25 @@ export function TrendsChart({
     COLOR_RANGE
   );
 
+  const dates =
+    filteredData && filteredData.length
+      ? filteredData.flatMap(
+          ([_, d]) =>
+            d && // @ts-ignore
+            d.map(([date]: [string]) => date)
+        )
+      : [];
   // TODO: how to handle case when extent is made of undefined values
   // implement error boundary or error handling?
   const xExtent: [Date, Date] | [undefined, undefined] = extent(
-    filteredData && filteredData.length
-      ? filteredData.flatMap(([_, d]) =>
-          d
-            ? // @ts-ignore
-              d.map(([date]: [Date]) =>
-                typeof date === "string" ? new Date(date) : new Date()
-              )
-            : [new Date()]
-        )
-      : [new Date()]
+    dates.map((date) => new Date(date))
   );
+
   const yValues =
     filteredData && filteredData.length
       ? filteredData.flatMap(([_, d]) =>
-          d ? d.map(([_, amount]: [Date, number]) => amount || 0) : [0]
+          // @ts-ignore
+          d ? d.map(([_, amount]: [string, number]) => amount || 0) : [0]
         )
       : [0];
 
@@ -150,6 +168,30 @@ export function TrendsChart({
     setSelectedGroups(newSelectedGroups);
   }
 
+  const handleMousemove = useCallback(
+    (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+      const { clientX } = e;
+      // need to offset by how far the element is from edge of page
+      const { x: parentX } =
+        e.currentTarget.parentElement.getBoundingClientRect();
+      const invertedDate = xScale.invert(clientX - parentX);
+      const bisect = bisector((d) => d);
+      const closestIdx = bisect.left(
+        dates.map((d) => new Date(d)),
+        invertedDate
+      );
+      console.log("closestDate", dates[closestIdx]);
+      if (hoveredDate != dates[closestIdx] && dates[closestIdx]) {
+        setHoveredDate(dates[closestIdx]);
+      }
+      // not sure why '-1' but it works?
+    },
+    [dates, xScale]
+  );
+
+  useEffect(() => {
+    console.log("hoveredDateUpdate", hoveredDate);
+  }, [hoveredDate]);
   return (
     // Container
     <div className={styles.TrendsChart} ref={containerRef}>
@@ -164,12 +206,33 @@ export function TrendsChart({
           />
         )}
       </div>
+      <div
+        className={styles.TooltipWrapper}
+        style={{
+          transform: `translate(${
+            xScale(new Date(hoveredDate)) > width / 2
+              ? xScale(new Date(hoveredDate)) - 220
+              : xScale(new Date(hoveredDate)) + 10
+          }px, ${MARGIN.top}px)`,
+          opacity: hoveredDate ? 1 : 0,
+        }}
+      >
+        <TrendsTooltip
+          data={filteredData}
+          colors={colors}
+          type={axisConfig[0]}
+          selectedGroups={selectedGroups}
+          selectedDate={hoveredDate}
+        />
+      </div>
       {/* Chart */}
       {filteredData && xScale && yScale && colors && (
         <svg
           height={CONFIG.HEIGHT}
           width={width as number}
           role="img"
+          onMouseMove={handleMousemove}
+          onMouseLeave={() => setHoveredDate(null)}
           // TODO link accompanying table here for accesibility
           // aria-describedby={}
         >
@@ -191,6 +254,18 @@ export function TrendsChart({
             yScale={yScale}
             colors={colors}
           />
+          <line
+            className={styles.IndicatorLine}
+            style={{
+              transform: `translateX(${xScale(new Date(hoveredDate))}px)`,
+            }}
+            stroke={hoveredDate ? "black" : "transparent"}
+            y1={HEIGHT - marginBottom}
+            y2={MARGIN.top}
+            x1={0}
+            x2={0}
+          />
+
           {/* // TODO: move this check up into parent component (only pass unknown if there is an unknown greater than 0) */}
           {/* Only render unknown group circles when there is data for which the group is unknown */}
           {showUnknowns && (

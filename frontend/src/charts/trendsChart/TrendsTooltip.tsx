@@ -17,22 +17,22 @@ import { TYPES } from "./constants";
 import { getDeltaByDate, sortDataDescending, getMaxNumber } from "./helpers";
 
 /* Define type interface */
-export interface TooltipProps {
+export interface TrendsTooltipProps {
   data: TrendsData;
-  selectedDate: string;
+  selectedDate: string | null;
   selectedGroups: string[];
   colors: ColorScale;
   type: string;
 }
 
 /* Render component */
-export function Tooltip({
+export function TrendsTooltip({
   data,
   selectedDate,
   selectedGroups,
   colors,
   type,
-}: TooltipProps) {
+}: TrendsTooltipProps) {
   // temp
   const codeDictionary = {
     "Native Hawaiian and Pacific Islander (Non-Hispanic)": "NHPI",
@@ -49,7 +49,7 @@ export function Tooltip({
     [TYPES.HUNDRED_K]: {
       UNIT: " per 100k",
       width: (d: GroupValues) =>
-        (getDeltaByDate(d, selectedDate) / (getMaxNumber() || 1)) * 100,
+        (getDeltaByDate(d, selectedDate) / (getMaxNumber(data) || 1)) * 50,
       translate_x: (d: GroupValues) => 0,
     },
     [TYPES.PERCENT_SHARE]: {
@@ -57,12 +57,12 @@ export function Tooltip({
       width: (d: GroupValues) =>
         (Math.abs(getDeltaByDate(d, selectedDate)) /
           (getMaxNumber(data) || 1)) *
-        50,
+        25,
       translate_x: (d: GroupValues) =>
         getDeltaByDate(d, selectedDate) > 0
-          ? 50
-          : 50 +
-            (getDeltaByDate(d, selectedDate) / (getMaxNumber(data) || 1)) * 50,
+          ? 25
+          : 25 +
+            (getDeltaByDate(d, selectedDate) / (getMaxNumber(data) || 1)) * 25,
     },
   };
 
@@ -91,7 +91,7 @@ export function Tooltip({
                   className={styles.bar}
                 />
                 <div className={styles.label}>
-                  {getDeltaByDate(d, selectedDate)?.toFixed(2)}
+                  {getDeltaByDate(d, selectedDate)?.toFixed(0)}
                   <span>{TYPE_CONFIG[type]?.UNIT}</span>
                 </div>
               </Fragment>

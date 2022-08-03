@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { descending, max } from "d3";
 import { TrendsData, GroupData, GroupValues } from "./types";
 
@@ -8,13 +7,20 @@ function filterDataByGroup(data: TrendsData, groups: string[]) {
   return filteredData;
 }
 function getDeltaByDate(d: GroupValues, selectedDate: string) {
-  const [, delta] = d.find(([date]) => date === selectedDate) || [0, 0];
+  // console.log('date', selectedDate)
+  // console.log('date', typeof selectedDate)
+
+  // // console.log(d.map(([date]) => new Date(date)))
+  // console.log('found!', d.find(([date]) => new Date(date)?.getTime() == selectedDate?.getTime()))
+  // console.log('found with date!', d.find(([date]) => new Date(date) == new Date(selectedDate)))
+
+  const [, delta] = d.find(([date]) => date == selectedDate) || [0, 0];
   return delta;
 }
 
 function sortDataDescending(d: TrendsData, selectedDate: string) {
   return (
-    d.sort(([, aData]: GroupData, [group, bData]: GroupData) =>
+    [...d].sort(([, aData]: GroupData, [group, bData]: GroupData) =>
       descending(
         getDeltaByDate(aData, selectedDate),
         getDeltaByDate(bData, selectedDate)

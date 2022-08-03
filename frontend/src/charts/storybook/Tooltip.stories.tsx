@@ -2,14 +2,17 @@ import React from "react";
 import { Meta, Story } from "@storybook/react/types-6-0";
 import { action } from "@storybook/addon-actions";
 
-import { Tooltip, TooltipProps } from "../trendsChart/Tooltip";
+import {
+  TrendsTooltip,
+  TrendsTooltipProps,
+} from "../trendsChart/TrendsTooltip";
 import { scaleOrdinal } from "d3";
 
 // Local
 import { COLOR_RANGE, TYPES } from "../trendsChart/constants";
 import data from "../../../public/tmp/trends.json";
 
-const props: TooltipProps = {
+const props: TrendsTooltipProps = {
   // @ts-ignore
   data: data.race_national.covid_cases_per_100k.filter(
     ([group]) => group !== "Unknown race"
@@ -26,12 +29,14 @@ const props: TooltipProps = {
 
 export default {
   title: "Components/TrendsTooltip",
-  component: Tooltip,
+  component: TrendsTooltip,
   argTypes: { onClick: { action: "clicked" } },
 } as Meta;
 
 // ref: https://storybook.js.org/docs/react/writing-stories/args#story-args
-const Template: Story<TooltipProps> = (args) => <Tooltip {...args} />;
+const Template: Story<TrendsTooltipProps> = (args) => (
+  <TrendsTooltip {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {

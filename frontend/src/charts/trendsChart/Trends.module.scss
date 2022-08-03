@@ -1,6 +1,7 @@
 @import "../../styles/globals.scss";
 
 $spacingSmall: 6px;
+$spacingSmaller: 12px;
 $spacingMedium: 18px;
 $spacingLarge: 36px;
 $breakpoint-mobile: 600px;
@@ -131,36 +132,50 @@ $breakpoint-mobile: 600px;
 }
 
 /* Tooltip Styles */
+
+.TooltipWrapper {
+  position: absolute;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 250ms ease-in-out, transform 200ms linear;
+}
+
+.IndicatorLine {
+  opacity: 1;
+  transition: opacity 250ms ease-in-out, transform 200ms linear;
+}
 .Tooltip {
   border: 1px solid $alt-grey;
   border-radius: 3px;
   background-color: white;
   width: min-content;
-  padding: $spacingMedium;
+  padding: $spacingSmaller;
   @include inter500;
   font-size: $small;
 
   .title {
-    padding-bottom: $spacingSmall;
+    padding-bottom: $spacingSmaller;
     text-align: center;
     border-bottom: 1px solid $alt-grey;
   }
 
   .grid {
-    padding-top: $spacingMedium;
+    padding-top: $spacingSmaller;
+    font-size: $smallest;
     display: grid;
-    grid-template-columns: 1fr 100px 1fr;
-    grid-gap: 6px 12px;
+    grid-template-columns: 1fr 50px 1fr;
+    grid-gap: 4px 8px;
     align-items: center;
+    justify-items: start;
     .bar {
-      height: 14px;
+      transition: width 200ms linear;
+      height: 10px;
     }
     .label {
       white-space: nowrap;
       justify-self: end;
       span {
         @include inter400;
-        font-size: $smallest;
       }
     }
   }
