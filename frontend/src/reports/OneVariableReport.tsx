@@ -113,7 +113,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           xs={12}
           md={SINGLE_COLUMN_WIDTH}
           className={styles.ScrollableId}
-          id="populationCard"
+          id="population"
         >
           <PopulationCard jumpToData={props.jumpToData} fips={props.fips} />
         </Grid>

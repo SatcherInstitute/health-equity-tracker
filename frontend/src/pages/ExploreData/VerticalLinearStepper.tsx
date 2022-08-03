@@ -1,16 +1,8 @@
-import {
-  Box,
-  Button,
-  Paper,
-  Step,
-  StepButton,
-  StepContent,
-  StepLabel,
-  Stepper,
-  Typography,
-} from "@material-ui/core";
+import { Card, Step, StepButton, StepLabel, Stepper } from "@material-ui/core";
 import * as React from "react";
-import { HashLink } from "react-router-hash-link";
+import { NavHashLink } from "react-router-hash-link";
+import styles from "./ExploreDataPage.module.scss";
+
 // import Box from '@mui/material/Box';
 // import Stepper from '@mui/material/Stepper';
 // import Step from '@mui/material/Step';
@@ -34,58 +26,101 @@ import { HashLink } from "react-router-hash-link";
 
 				<HashLink to={`#age-adjusted`}>#age-adjusted{"  "}</HashLink> */
 
-const steps = [
+export const steps = [
   {
     label: "Population",
-    // description: `Geographic info`,
+    hashId: "population",
   },
   {
     label: "Rate Map",
-    // description:
-    // 	"Rates by locations; click on a place to view a more detailed report",
+    hashId: "map",
   },
   {
     label: "Rate Chart",
-    description: `Rates by demographic group.`,
+    hashId: "bar",
   },
   {
     label: "Unknown Share Map",
-    description: `Rates by demographic group.`,
+    hashId: "unknowns",
   },
   {
     label: "Share Chart",
-    description: `Rates by demographic group.`,
+    hashId: "disparity",
   },
   {
     label: "Data Table",
-    description: `Rates by demographic group.`,
+    hashId: "table",
   },
   {
     label: "Age-Adjusted Ratios",
-    description: `Rates by demographic group.`,
+    hashId: "age-adjusted",
   },
   {
     label: "Definitions",
-    description: `Currently selected equity topic(s).`,
+    hashId: "definitions",
   },
   {
-    label: "What Data Are Missing",
-    description: `Gaps and irregularities.`,
+    label: "What Data Are Missing?",
+    hashId: "missingDataInfo",
   },
 ];
 
-export default function VerticalLinearStepper() {
-  const [activeStep, setActiveStep] = React.useState(1);
+export type StepData = {
+  label: string;
+  hashId: string;
+};
+
+export interface VerticalLinearStepperProps {
+  steps: StepData[];
+}
+
+export default function VerticalLinearStepper(
+  props: VerticalLinearStepperProps
+) {
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  function handleClick(e: any, index: number) {
+    e.preventDefault();
+    setActiveStep(index);
+  }
+
+  const presentIds = Array.from(document.querySelectorAll("*[id]")).map(
+    (el) => el.id
+  );
+  console.log(presentIds);
 
   return (
-    <Box sx={{ maxWidth: 400 }}>
-      <Stepper nonLinear activeStep={activeStep} orientation="vertical">
+    <Card raised={true} className={styles.StepperStickyCard}>
+      <Stepper
+        nonLinear
+        activeStep={activeStep}
+        orientation="vertical"
+        component={"menu"}
+        className={styles.Stepper}
+      >
         {steps.map((step, index) => (
           <Step key={step.label} completed={false}>
-            <StepButton>{step.label}</StepButton>
+            {presentIds.includes(steps[index].hashId) ? (
+              <StepButton
+                className={styles.Step}
+                onClick={(e) => handleClick(e, index)}
+              >
+                <NavHashLink
+                  activeClassName={styles.SelectedStep}
+                  to={`#${steps[index].hashId}`}
+                  smooth
+                >
+                  {step.label}
+                </NavHashLink>
+              </StepButton>
+            ) : (
+              <StepLabel className={styles.StepUnavailable}>
+                {step.label} (N/A)
+              </StepLabel>
+            )}
           </Step>
         ))}
       </Stepper>
-    </Box>
+    </Card>
   );
 }

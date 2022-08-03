@@ -1,4 +1,4 @@
-import { Card, Grid, useMediaQuery, useTheme } from "@material-ui/core";
+import { Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -38,8 +38,6 @@ import { srSpeak } from "../../utils/a11yutils";
 import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
-import { HashLink } from "react-router-hash-link";
-import VerticalLinearStepper from "./VerticalLinearStepper";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -228,8 +226,6 @@ function ExploreDataPage() {
         activelyOnboarding={activelyOnboarding}
       />
 
-      <FloatingCardNav />
-
       <h2 className={styles.ScreenreaderTitleHeader}>
         {getMadLibPhraseText(madLib)}
       </h2>
@@ -350,11 +346,3 @@ function CarouselMadLib(props: {
 }
 
 export default ExploreDataPage;
-
-function FloatingCardNav() {
-  return (
-    <div className={styles.FloatingCardNav}>
-      <VerticalLinearStepper />
-    </div>
-  );
-}

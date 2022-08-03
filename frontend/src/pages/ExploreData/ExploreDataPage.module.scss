@@ -1,4 +1,4 @@
-@use "../../styles/globals.scss";
+@import "../../styles/globals.scss";
 @import "../../styles/variables.module";
 
 .ExploreData {
@@ -78,12 +78,49 @@ button[data-action="back"] {
   color: $white !important;
 }
 
-.FloatingCardNav {
-  padding: 15px;
-  position: fixed;
-  top: 30%;
-  right: 10%;
-  // width: 200px;
-  z-index: 1000;
-  text-align: left;
+.StepperGridItem {
+  display: none;
+
+  @media (min-width: $md) {
+    display: block;
+  }
+}
+
+.StepperStickyCard {
+  position: sticky;
+  top: 150px;
+  // transform: translate(0, -50%);
+  margin: 1rem;
+  max-width: 250px;
+}
+
+// .Stepper {
+//   // padding: 1rem;
+//   // margin: 2rem 2rem 2rem 0rem;
+
+//   // top: 30%;
+//   // right: 10%;
+//   // width: 200px;
+//   // z-index: 1000;
+
+// }
+
+.Step span span span a {
+  text-decoration: none;
+  color: $alt-dark !important;
+  font-size: $smallest;
+  display: block;
+  text-align: left !important;
+}
+
+.SelectedStep {
+  color: $alt-green !important;
+  text-decoration: none;
+}
+
+.StepUnavailable span span {
+  font-size: $smallest !important;
+  text-decoration: none;
+  font-style: italic;
+  text-align: left !important;
 }

@@ -144,7 +144,7 @@ function TwoVariableReport(props: {
           item
           xs={12}
           className={styles.ScrollableIdCompareMode}
-          id="populationCard"
+          id="population"
         >
           {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
           <PopulationCard jumpToData={props.jumpToData} fips={props.fips1} />
@@ -182,7 +182,7 @@ function TwoVariableReport(props: {
             xs={12}
             sm={6}
             className={styles.ScrollableIdCompareMode}
-            id="populationCard"
+            id="population"
           >
             {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
             <PopulationCard jumpToData={props.jumpToData} fips={props.fips1} />

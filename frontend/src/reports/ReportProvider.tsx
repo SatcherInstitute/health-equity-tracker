@@ -28,11 +28,14 @@ import { Link } from "react-router-dom";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
-import { Box } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
+import VerticalLinearStepper, {
+  steps,
+} from "../pages/ExploreData/VerticalLinearStepper";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -165,8 +168,15 @@ function ReportProvider(props: ReportProviderProps) {
         {props.showIncarceratedChildrenAlert && false && (
           <IncarceratedChildrenLongAlert />
         )}
-
-        {getReport()}
+        <Grid container>
+          <Grid item xs={9} lg={10}>
+            {getReport()}
+          </Grid>
+          <Grid item xs={3} lg={2}>
+            {/* className={styles.FloatingCardNav}  */}
+            <VerticalLinearStepper steps={steps} />
+          </Grid>
+        </Grid>
       </div>
       <div className={styles.MissingDataContainer}>
         <aside ref={fieldRef} className={styles.MissingDataInfo}>
@@ -174,7 +184,9 @@ function ReportProvider(props: ReportProviderProps) {
           <div ref={definitionsRef}>
             {definedConditions.length > 0 && (
               <Box mb={5}>
-                <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
+                <h3 className={styles.FootnoteLargeHeading} id="definitions">
+                  Definitions:
+                </h3>
                 <LazyLoad offset={300} height={181} once>
                   <DefinitionsList variablesToDefine={metricConfigSubset} />
                 </LazyLoad>
