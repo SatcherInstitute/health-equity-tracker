@@ -57,7 +57,7 @@ COL_NAME_MAPPING = {
     RACE_ETH_COL: std_col.RACE_CATEGORY_ID_COL,
     SEX_COL: std_col.SEX_COL,
     AGE_COL: std_col.AGE_COL,
-    CASE_DATE_COL: 'time_period',
+    CASE_DATE_COL: std_col.TIME_PERIOD_COL,
 }
 
 # Mapping for county_fips, county, and state unknown values to "Unknown".
