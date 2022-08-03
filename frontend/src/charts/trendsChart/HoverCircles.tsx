@@ -24,7 +24,6 @@ import { TrendsData, XScale, ColorScale, YScale } from "./types";
 /* Define type interface */
 export interface HoverCirclesProps {
   data: TrendsData;
-  xScale: XScale;
   yScale: YScale;
   colors: ColorScale;
   selectedDate: string | null;
@@ -33,7 +32,6 @@ export interface HoverCirclesProps {
 /* Render component */
 export function HoverCircles({
   data,
-  xScale,
   yScale,
   selectedDate,
   colors,

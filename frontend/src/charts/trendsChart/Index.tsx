@@ -57,6 +57,7 @@ export function TrendsChart({
 }: TrendsChartProps) {
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
+  const { type, groupLabel, yAxisLabel = "" } = axisConfig || {};
 
   /* Refs */
   // parent container ref - used for setting svg width
@@ -204,6 +205,7 @@ export function TrendsChart({
             selectedGroups={selectedGroups}
             colors={colors}
             handleClick={handleClick}
+            groupLabel={groupLabel}
           />
         )}
       </div>
@@ -223,7 +225,7 @@ export function TrendsChart({
           <TrendsTooltip
             data={filteredData}
             colors={colors}
-            type={axisConfig[0]}
+            type={type}
             selectedGroups={selectedGroups}
             selectedDate={hoveredDate}
           />
@@ -271,7 +273,6 @@ export function TrendsChart({
             <HoverCircles
               data={filteredData}
               selectedDate={hoveredDate}
-              xScale={xScale}
               colors={colors}
               yScale={yScale}
             />
@@ -283,7 +284,7 @@ export function TrendsChart({
               xScale={xScale}
               width={width}
               isMobile={isMobile}
-              marginLeft={marginLeft}
+              groupLabel={groupLabel}
             />
           )}
         </svg>

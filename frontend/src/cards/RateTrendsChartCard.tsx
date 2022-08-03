@@ -126,6 +126,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 {/* 2N INCIDENCE RATE TRENDS VIZ COMPONENT HERE */}
                 {console.log("KNOWN RATES", nestedRatesData)}
                 {console.log("UNKNOWN PCT SHARE", nestedUnknownPctShareData)}
+                {console.log("CONFIG", BREAKDOWN_VAR_DISPLAY_NAMES)}
 
                 {/* <b>type: MetricType</b>
                   <pre>{metricConfigRates.type}</pre>
@@ -143,10 +144,11 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   data={nestedRatesData}
                   // @ts-ignore
                   unknown={nestedUnknownPctShareData}
-                  axisConfig={[
-                    metricConfigRates.type,
-                    metricConfigRates.shortLabel,
-                  ]}
+                  axisConfig={{
+                    type: metricConfigRates.type,
+                    groupLabel: BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
+                    yAxisLabel: metricConfigRates.shortLabel,
+                  }}
                 />
               </>
             )}

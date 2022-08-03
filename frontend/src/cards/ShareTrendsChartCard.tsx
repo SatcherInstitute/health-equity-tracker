@@ -130,7 +130,10 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                   data={nestedData}
                   // @ts-ignore
                   unknown={nestedUnknowns}
-                  axisConfig={[metricConfig.type]}
+                  axisConfig={{
+                    type: metricConfig.type,
+                    groupLabel: BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
+                  }}
                 />
               </div>
             )}

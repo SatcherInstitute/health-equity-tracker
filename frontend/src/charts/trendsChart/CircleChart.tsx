@@ -26,7 +26,7 @@ export interface CircleChartProps {
   data: UnknownData;
   xScale: XScale;
   width: number;
-  marginLeft: number;
+  groupLabel: string;
   isMobile: boolean;
 }
 
@@ -35,7 +35,7 @@ export function CircleChart({
   data,
   xScale,
   width,
-  marginLeft,
+  groupLabel,
   isMobile,
 }: CircleChartProps) {
   /* Config */
@@ -61,10 +61,11 @@ export function CircleChart({
 
   /* Memoized Values */
   // Unknown Legend Placement
-  const legendXPlacement = useMemo(
-    () => (isMobile ? width / 2 : marginLeft + (width - MARGIN.right) / 2),
-    [isMobile]
-  );
+  // const legendXPlacement = useMemo(
+  //   () => (isMobile ? width / 2 : marginLeft + (width - MARGIN.right) / 2),
+  //   [isMobile]
+  // );
+  const legendXPlacement = width / 2;
   /* Helpers */
   function getLegendValues() {
     const maxPercent = max(percentDomain);
@@ -110,13 +111,13 @@ export function CircleChart({
       >
         {/* Legend Title */}
         <text textAnchor="middle" dy="-22px" className={styles.title}>
-          Percent Unknown Group (%)
+          Percent Unknown {groupLabel}
         </text>
         {/* Display circle for min, mid, and max values */}
         {getLegendValues().map((percent = 0, i) => (
           <g
             key={`legendCircle-${i}`}
-            transform={`translate(${(i - 1) * 3 * MAX_RADIUS}, 0)`}
+            transform={`translate(${(i - 1) * 6 * MAX_RADIUS}, 0)`}
           >
             {/* Legend circle */}
             <circle
@@ -128,6 +129,7 @@ export function CircleChart({
             {/* Circle label annotation (percent represented by circle) */}
             <text textAnchor="middle" dy="28px" id={`circleLegendText-${i}`}>
               {percent?.toFixed(0)}
+              {"%"}
             </text>
           </g>
         ))}

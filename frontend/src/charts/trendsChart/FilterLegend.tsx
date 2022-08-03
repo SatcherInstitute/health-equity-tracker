@@ -27,6 +27,7 @@ export interface FilterLegendProps {
   selectedGroups: string[];
   handleClick: (group: string | null) => void;
   colors: ColorScale;
+  groupLabel: string;
 }
 
 /* Render component */
@@ -35,6 +36,7 @@ export function FilterLegend({
   selectedGroups,
   handleClick,
   colors,
+  groupLabel,
 }: FilterLegendProps) {
   return (
     // Legend Wrapper
@@ -47,7 +49,7 @@ export function FilterLegend({
           className={!selectedGroups.length ? styles.disabled : undefined} // disable button unless filters are applied
           onClick={() => handleClick(null)} // clear selected groups on click
         >
-          Clear Filter x
+          Clear {groupLabel} Filter x
         </button>
       </div>
       {/* Legend Items Wrapper */}

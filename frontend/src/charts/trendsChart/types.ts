@@ -6,7 +6,7 @@ type TrendsData = GroupData[];
 type XScale = ScaleTime<number, number | undefined>;
 type YScale = ScaleLinear<number, number | undefined>;
 type ColorScale = ScaleOrdinal<string, string, never>;
-type AxisConfig = [string] | [string, string];
+type AxisConfig = { type: string; groupLabel: string; yAxisLabel?: string };
 
 export type {
   TrendsData,
