@@ -1,41 +1,41 @@
-county_fips,county_name,state_postal,race_category_id,cases,hosp_y,hosp_n,hosp_unknown,death_y,death_n,death_unknown,race,race_includes_hispanic,race_and_ethnicity,time_period
-,Unknown,Unknown,ALL,2,1,0,1,1,0,1,All,,All,2021-01
-,Unknown,Unknown,BLACK_NH,2,1,0,1,1,0,1,Black or African American,False,Black or African American (Non-Hispanic),2021-01
-06035,LASSEN,CA,ALL,4,1,2,1,1,1,2,All,,All,2021-01
-06035,LASSEN,CA,BLACK_NH,1,0,1,0,0,0,1,Black or African American,False,Black or African American (Non-Hispanic),2021-01
-06035,LASSEN,CA,MULTI_OR_OTHER_STANDARD_NH,1,1,0,0,1,0,0,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic),2021-01
-06035,LASSEN,CA,UNKNOWN,1,0,0,1,0,1,0,Unknown race,True,Unknown race,2021-01
-06035,LASSEN,CA,WHITE_NH,1,0,1,0,0,0,1,White,False,White (Non-Hispanic),2021-01
-06071,SAN BERNARDINO,CA,AIAN_NH,2,1,0,1,0,2,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),2021-01
-06071,SAN BERNARDINO,CA,ALL,14,4,4,6,4,4,6,All,,All,2021-01
-06071,SAN BERNARDINO,CA,ASIAN_NH,1,0,1,0,0,1,0,Asian,False,Asian (Non-Hispanic),2021-01
-06071,SAN BERNARDINO,CA,BLACK_NH,2,2,0,0,1,0,1,Black or African American,False,Black or African American (Non-Hispanic),2021-01
-06071,SAN BERNARDINO,CA,HISP,2,1,1,0,1,1,0,Hispanic or Latino,True,Hispanic or Latino,2021-01
-06071,SAN BERNARDINO,CA,MULTI_OR_OTHER_STANDARD_NH,1,0,0,1,1,0,0,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic),2021-01
-06071,SAN BERNARDINO,CA,NHPI_NH,1,0,0,1,0,0,1,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic),2021-01
-06071,SAN BERNARDINO,CA,UNKNOWN,4,0,2,2,1,0,3,Unknown race,True,Unknown race,2021-01
-06071,SAN BERNARDINO,CA,WHITE_NH,1,0,0,1,0,0,1,White,False,White (Non-Hispanic),2021-01
-10003,NEW CASTLE,DE,ALL,1,1,0,0,,,,All,,All,2021-01
-10003,NEW CASTLE,DE,UNKNOWN,1,1,0,0,,,,Unknown race,True,Unknown race,2021-01
-15003,HONOLULU,HI,AIAN_NH,1,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),2021-01
-15003,HONOLULU,HI,ALL,1,,,,,,,All,,All,2021-01
-22097,ST. LANDRY,LA,AIAN_NH,1,1,0,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),2021-01
-22097,ST. LANDRY,LA,ALL,1,1,0,0,0,0,1,All,,All,2021-01
-29077,GREENE,MO,AIAN_NH,1,0,1,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),2021-01
-29077,GREENE,MO,ALL,1,0,1,0,0,0,1,All,,All,2021-01
-31001,ADAMS,NE,ALL,1,,,,,,,All,,All,2021-01
-31001,ADAMS,NE,BLACK_NH,1,,,,,,,Black or African American,False,Black or African American (Non-Hispanic),2021-01
-35001,BERNALILLO,NM,ALL,1,0,1,0,0,1,0,All,,All,2021-01
-35001,BERNALILLO,NM,MULTI_OR_OTHER_STANDARD_NH,1,0,1,0,0,1,0,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic),2021-01
-38015,BURLEIGH,ND,AIAN_NH,1,0,0,1,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),2021-01
-38015,BURLEIGH,ND,ALL,1,0,0,1,1,0,0,All,,All,2021-01
-44007,PROVIDENCE,RI,ALL,1,,,,1,0,0,All,,All,2021-01
-44007,PROVIDENCE,RI,NHPI_NH,1,,,,1,0,0,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic),2021-01
-46005,BEADLE,SD,ALL,1,,,,,,,All,,All,2021-01
-46005,BEADLE,SD,WHITE_NH,1,,,,,,,White,False,White (Non-Hispanic),2021-01
-47037,DAVIDSON,MD,ALL,1,0,0,1,1,0,0,All,,All,2021-01
-47037,DAVIDSON,MD,ASIAN_NH,1,0,0,1,1,0,0,Asian,False,Asian (Non-Hispanic),2021-01
-48167,GALVESTON,TX,AIAN_NH,1,1,0,0,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),2021-01
-48167,GALVESTON,TX,ALL,1,1,0,0,1,0,0,All,,All,2021-01
-56005,CAMPBELL,WY,AIAN_NH,1,0,1,0,0,1,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),2021-01
-56005,CAMPBELL,WY,ALL,1,0,1,0,0,1,0,All,,All,2021-01
+county_fips,county_name,state_postal,race_category_id,cases,hosp_y,hosp_n,hosp_unknown,death_y,death_n,death_unknown,time_period
+,Unknown,Unknown,ALL,2,1,0,1,1,0,1,2021-01
+,Unknown,Unknown,BLACK_NH,2,1,0,1,1,0,1,2021-01
+06035,LASSEN,CA,ALL,4,1,2,1,1,1,2,2021-01
+06035,LASSEN,CA,BLACK_NH,1,0,1,0,0,0,1,2021-01
+06035,LASSEN,CA,MULTI_OR_OTHER_STANDARD_NH,1,1,0,0,1,0,0,2021-01
+06035,LASSEN,CA,UNKNOWN,1,0,0,1,0,1,0,2021-01
+06035,LASSEN,CA,WHITE_NH,1,0,1,0,0,0,1,2021-01
+06071,SAN BERNARDINO,CA,AIAN_NH,2,1,0,1,0,2,0,2021-01
+06071,SAN BERNARDINO,CA,ALL,14,4,4,6,4,4,6,2021-01
+06071,SAN BERNARDINO,CA,ASIAN_NH,1,0,1,0,0,1,0,2021-01
+06071,SAN BERNARDINO,CA,BLACK_NH,2,2,0,0,1,0,1,2021-01
+06071,SAN BERNARDINO,CA,HISP,2,1,1,0,1,1,0,2021-01
+06071,SAN BERNARDINO,CA,MULTI_OR_OTHER_STANDARD_NH,1,0,0,1,1,0,0,2021-01
+06071,SAN BERNARDINO,CA,NHPI_NH,1,0,0,1,0,0,1,2021-01
+06071,SAN BERNARDINO,CA,UNKNOWN,4,0,2,2,1,0,3,2021-01
+06071,SAN BERNARDINO,CA,WHITE_NH,1,0,0,1,0,0,1,2021-01
+10003,NEW CASTLE,DE,ALL,1,1,0,0,,,,2021-01
+10003,NEW CASTLE,DE,UNKNOWN,1,1,0,0,,,,2021-01
+15003,HONOLULU,HI,AIAN_NH,1,,,,,,,2021-01
+15003,HONOLULU,HI,ALL,1,,,,,,,2021-01
+22097,ST. LANDRY,LA,AIAN_NH,1,1,0,0,0,0,1,2021-01
+22097,ST. LANDRY,LA,ALL,1,1,0,0,0,0,1,2021-01
+29077,GREENE,MO,AIAN_NH,1,0,1,0,0,0,1,2021-01
+29077,GREENE,MO,ALL,1,0,1,0,0,0,1,2021-01
+31001,ADAMS,NE,ALL,1,,,,,,,2021-01
+31001,ADAMS,NE,BLACK_NH,1,,,,,,,2021-01
+35001,BERNALILLO,NM,ALL,1,0,1,0,0,1,0,2021-01
+35001,BERNALILLO,NM,MULTI_OR_OTHER_STANDARD_NH,1,0,1,0,0,1,0,2021-01
+38015,BURLEIGH,ND,AIAN_NH,1,0,0,1,1,0,0,2021-01
+38015,BURLEIGH,ND,ALL,1,0,0,1,1,0,0,2021-01
+44007,PROVIDENCE,RI,ALL,1,,,,1,0,0,2021-01
+44007,PROVIDENCE,RI,NHPI_NH,1,,,,1,0,0,2021-01
+46005,BEADLE,SD,ALL,1,,,,,,,2021-01
+46005,BEADLE,SD,WHITE_NH,1,,,,,,,2021-01
+47037,DAVIDSON,MD,ALL,1,0,0,1,1,0,0,2021-01
+47037,DAVIDSON,MD,ASIAN_NH,1,0,0,1,1,0,0,2021-01
+48167,GALVESTON,TX,AIAN_NH,1,1,0,0,1,0,0,2021-01
+48167,GALVESTON,TX,ALL,1,1,0,0,1,0,0,2021-01
+56005,CAMPBELL,WY,AIAN_NH,1,0,1,0,0,1,0,2021-01
+56005,CAMPBELL,WY,ALL,1,0,1,0,0,1,0,2021-01

@@ -1,36 +1,36 @@
-state_postal,race_category_id,cases,hosp_y,hosp_n,hosp_unknown,death_y,death_n,death_unknown,race,race_includes_hispanic,race_and_ethnicity,time_period
-CA,AIAN_NH,2,1,0,1,0,2,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),2021-01
-CA,ALL,18,5,6,7,5,5,8,All,,All,2021-01
-CA,ASIAN_NH,1,0,1,0,0,1,0,Asian,False,Asian (Non-Hispanic),2021-01
-CA,BLACK_NH,3,2,1,0,1,0,2,Black or African American,False,Black or African American (Non-Hispanic),2021-01
-CA,HISP,2,1,1,0,1,1,0,Hispanic or Latino,True,Hispanic or Latino,2021-01
-CA,MULTI_OR_OTHER_STANDARD_NH,2,1,0,1,2,0,0,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic),2021-01
-CA,NHPI_NH,1,0,0,1,0,0,1,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic),2021-01
-CA,UNKNOWN,5,0,2,3,1,1,3,Unknown race,True,Unknown race,2021-01
-CA,WHITE_NH,2,0,1,1,0,0,2,White,False,White (Non-Hispanic),2021-01
-DE,ALL,1,1,0,0,,,,All,,All,2021-01
-DE,UNKNOWN,1,1,0,0,,,,Unknown race,True,Unknown race,2021-01
-HI,AIAN_NH,1,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),2021-01
-HI,ALL,1,,,,,,,All,,All,2021-01
-LA,AIAN_NH,1,1,0,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),2021-01
-LA,ALL,1,1,0,0,0,0,1,All,,All,2021-01
-MD,ALL,1,0,0,1,1,0,0,All,,All,2021-01
-MD,ASIAN_NH,1,0,0,1,1,0,0,Asian,False,Asian (Non-Hispanic),2021-01
-MO,AIAN_NH,1,0,1,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),2021-01
-MO,ALL,1,0,1,0,0,0,1,All,,All,2021-01
-ND,AIAN_NH,1,0,0,1,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),2021-01
-ND,ALL,1,0,0,1,1,0,0,All,,All,2021-01
-NE,ALL,1,,,,,,,All,,All,2021-01
-NE,BLACK_NH,1,,,,,,,Black or African American,False,Black or African American (Non-Hispanic),2021-01
-NM,ALL,1,0,1,0,0,1,0,All,,All,2021-01
-NM,MULTI_OR_OTHER_STANDARD_NH,1,0,1,0,0,1,0,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic),2021-01
-RI,ALL,1,,,,1,0,0,All,,All,2021-01
-RI,NHPI_NH,1,,,,1,0,0,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic),2021-01
-SD,ALL,1,,,,,,,All,,All,2021-01
-SD,WHITE_NH,1,,,,,,,White,False,White (Non-Hispanic),2021-01
-TX,AIAN_NH,1,1,0,0,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),2021-01
-TX,ALL,1,1,0,0,1,0,0,All,,All,2021-01
-Unknown,ALL,2,1,0,1,1,0,1,All,,All,2021-01
-Unknown,BLACK_NH,2,1,0,1,1,0,1,Black or African American,False,Black or African American (Non-Hispanic),2021-01
-WY,AIAN_NH,1,0,1,0,0,1,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),2021-01
-WY,ALL,1,0,1,0,0,1,0,All,,All,2021-01
+state_postal,race_category_id,cases,hosp_y,hosp_n,hosp_unknown,death_y,death_n,death_unknown,time_period
+CA,AIAN_NH,2,1,0,1,0,2,0,2021-01
+CA,ALL,18,5,6,7,5,5,8,2021-01
+CA,ASIAN_NH,1,0,1,0,0,1,0,2021-01
+CA,BLACK_NH,3,2,1,0,1,0,2,2021-01
+CA,HISP,2,1,1,0,1,1,0,2021-01
+CA,MULTI_OR_OTHER_STANDARD_NH,2,1,0,1,2,0,0,2021-01
+CA,NHPI_NH,1,0,0,1,0,0,1,2021-01
+CA,UNKNOWN,5,0,2,3,1,1,3,2021-01
+CA,WHITE_NH,2,0,1,1,0,0,2,2021-01
+DE,ALL,1,1,0,0,,,,2021-01
+DE,UNKNOWN,1,1,0,0,,,,2021-01
+HI,AIAN_NH,1,,,,,,,2021-01
+HI,ALL,1,,,,,,,2021-01
+LA,AIAN_NH,1,1,0,0,0,0,1,2021-01
+LA,ALL,1,1,0,0,0,0,1,2021-01
+MD,ALL,1,0,0,1,1,0,0,2021-01
+MD,ASIAN_NH,1,0,0,1,1,0,0,2021-01
+MO,AIAN_NH,1,0,1,0,0,0,1,2021-01
+MO,ALL,1,0,1,0,0,0,1,2021-01
+ND,AIAN_NH,1,0,0,1,1,0,0,2021-01
+ND,ALL,1,0,0,1,1,0,0,2021-01
+NE,ALL,1,,,,,,,2021-01
+NE,BLACK_NH,1,,,,,,,2021-01
+NM,ALL,1,0,1,0,0,1,0,2021-01
+NM,MULTI_OR_OTHER_STANDARD_NH,1,0,1,0,0,1,0,2021-01
+RI,ALL,1,,,,1,0,0,2021-01
+RI,NHPI_NH,1,,,,1,0,0,2021-01
+SD,ALL,1,,,,,,,2021-01
+SD,WHITE_NH,1,,,,,,,2021-01
+TX,AIAN_NH,1,1,0,0,1,0,0,2021-01
+TX,ALL,1,1,0,0,1,0,0,2021-01
+Unknown,ALL,2,1,0,1,1,0,1,2021-01
+Unknown,BLACK_NH,2,1,0,1,1,0,1,2021-01
+WY,AIAN_NH,1,0,1,0,0,1,0,2021-01
+WY,ALL,1,0,1,0,0,1,0,2021-01
