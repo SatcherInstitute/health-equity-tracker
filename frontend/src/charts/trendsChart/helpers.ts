@@ -6,7 +6,7 @@ function filterDataByGroup(data: TrendsData, groups: string[]) {
   const filteredData = data && data.filter(([group]) => groups.includes(group));
   return filteredData;
 }
-function getDeltaByDate(d: GroupValues, selectedDate: string | null) {
+function getAmountsByDate(d: GroupValues, selectedDate: string | null) {
   const [, delta] = d.find(([date]) => date == selectedDate) || [0, 0];
   return delta;
 }
@@ -15,8 +15,8 @@ function sortDataDescending(d: TrendsData, selectedDate: string) {
   return (
     [...d].sort(([, aData]: GroupData, [group, bData]: GroupData) =>
       descending(
-        getDeltaByDate(aData, selectedDate),
-        getDeltaByDate(bData, selectedDate)
+        getAmountsByDate(aData, selectedDate),
+        getAmountsByDate(bData, selectedDate)
       )
     ) || d
   );
@@ -49,7 +49,7 @@ function getAmounts(data: TrendsData) {
 
 export {
   filterDataByGroup,
-  getDeltaByDate,
+  getAmountsByDate,
   sortDataDescending,
   getMaxNumber,
   getDates,

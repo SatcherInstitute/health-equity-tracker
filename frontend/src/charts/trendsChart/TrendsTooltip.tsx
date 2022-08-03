@@ -14,7 +14,7 @@ import { TrendsData, ColorScale, GroupData, GroupValues } from "./types";
 import { TYPES } from "./constants";
 
 /* Helpers */
-import { getDeltaByDate, sortDataDescending, getMaxNumber } from "./helpers";
+import { getAmountsByDate, sortDataDescending, getMaxNumber } from "./helpers";
 
 /* Define type interface */
 export interface TrendsTooltipProps {
@@ -49,20 +49,21 @@ export function TrendsTooltip({
     [TYPES.HUNDRED_K]: {
       UNIT: " per 100k",
       width: (d: GroupValues) =>
-        (getDeltaByDate(d, selectedDate) / (getMaxNumber(data) || 1)) * 50,
+        (getAmountsByDate(d, selectedDate) / (getMaxNumber(data) || 1)) * 50,
       translate_x: (d: GroupValues) => 0,
     },
     [TYPES.PERCENT_SHARE]: {
       UNIT: " %",
       width: (d: GroupValues) =>
-        (Math.abs(getDeltaByDate(d, selectedDate)) /
+        (Math.abs(getAmountsByDate(d, selectedDate)) /
           (getMaxNumber(data) || 1)) *
         25,
       translate_x: (d: GroupValues) =>
-        getDeltaByDate(d, selectedDate) > 0
+        getAmountsByDate(d, selectedDate) > 0
           ? 25
           : 25 +
-            (getDeltaByDate(d, selectedDate) / (getMaxNumber(data) || 1)) * 25,
+            (getAmountsByDate(d, selectedDate) / (getMaxNumber(data) || 1)) *
+              25,
     },
   };
 
@@ -70,11 +71,11 @@ export function TrendsTooltip({
     <div className={styles.Tooltip}>
       {/* Date title */}
       <div className={styles.title}>
-        {timeFormat("%B %e, %Y")(new Date(selectedDate))}
+        {timeFormat("%B %e, %Y")(new Date(selectedDate || ""))}
       </div>
       <div className={styles.grid}>
         {data &&
-          sortDataDescending(data, selectedDate).map(
+          sortDataDescending(data, selectedDate || "").map(
             ([group, d]: GroupData) => (
               <Fragment key={`tooltipRow-${group}`}>
                 {/* TODO: update to use backend dictionary */}
@@ -91,7 +92,7 @@ export function TrendsTooltip({
                   className={styles.bar}
                 />
                 <div className={styles.label}>
-                  {getDeltaByDate(d, selectedDate)?.toFixed(0)}
+                  {getAmountsByDate(d, selectedDate)?.toFixed(0)}
                   <span>{TYPE_CONFIG[type]?.UNIT}</span>
                 </div>
               </Fragment>

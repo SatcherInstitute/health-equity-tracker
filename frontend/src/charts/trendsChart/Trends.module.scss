@@ -159,6 +159,7 @@ $breakpoint-mobile: 600px;
   background-color: white;
   width: min-content;
   padding: $spacingSmaller;
+  white-space: nowrap;
   @include inter500;
   font-size: $small;
 
