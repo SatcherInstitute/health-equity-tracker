@@ -30,6 +30,7 @@ import { LineChart } from "./LineChart";
 import { Axes } from "./Axes";
 import { CircleChart } from "./CircleChart";
 import { TrendsTooltip } from "./TrendsTooltip";
+import { HoverCircles } from "./HoverCircles";
 
 /* Styles */
 import styles from "./Trends.module.scss";
@@ -39,7 +40,7 @@ import { COLOR_RANGE, CONFIG } from "./constants";
 import { UnknownData, TrendsData, AxisConfig } from "./types";
 
 /* Helpers */
-import { filterDataByGroup } from "./helpers";
+import { filterDataByGroup, getAmounts, getDates } from "./helpers";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -60,17 +61,21 @@ export function TrendsChart({
   /* Refs */
   // parent container ref - used for setting svg width
   const containerRef = useRef(null);
+  // tooltip wrapper ref
+  const toolTipRef = useRef(null);
 
   /* State Management */
   // Manages which group filters user has applied
   const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
-  // svg width
+  // manages dynamic svg width
   const [[width, isMobile], setWidth] = useState<[number, boolean]>([
     STARTING_WIDTH,
     false,
   ]);
-  // Manages tooltip
+  // Stores date that user is currently hovering
   const [hoveredDate, setHoveredDate] = useState<string | null>(null);
+  // Stores width of tooltip to allow dynamic tooltip positioning
+  const [tooltipWidth, setTooltipWidth] = useState<number>(0);
 
   /* Effects */
   // resets svg width on window resize, only sets listener after first render (so ref is defined)
@@ -84,6 +89,13 @@ export function TrendsChart({
     window.addEventListener("resize", setDimensions);
     return () => window.removeEventListener("resize", setDimensions);
   }, []);
+
+  // resets tooltip parent width on data, filter, or hover change
+  // allows to dynamically position tooltip to left of hover line
+  useEffect(() => {
+    // @ts-ignore
+    setTooltipWidth(toolTipRef?.current?.getBoundingClientRect()?.width);
+  }, [data, selectedGroups, hoveredDate]);
 
   /* Memoized constants */
 
@@ -112,44 +124,36 @@ export function TrendsChart({
     [isMobile]
   );
 
+  // TODO: look into using useCallback instead
+  // Array of just dates (x values)
+  const dates = getDates(filteredData);
+  // Array of just amounts (y values)
+  const amounts = getAmounts(filteredData);
+
   /* Scales */
   const colors = scaleOrdinal(
     data.map(([group]) => group),
     COLOR_RANGE
   );
 
-  const dates =
-    filteredData && filteredData.length
-      ? filteredData.flatMap(
-          ([_, d]) =>
-            d && // @ts-ignore
-            d.map(([date]: [string]) => date)
-        )
-      : [];
   // TODO: how to handle case when extent is made of undefined values
-  // implement error boundary or error handling?
+  // define X and Y extents
   const xExtent: [Date, Date] | [undefined, undefined] = extent(
     dates.map((date) => new Date(date))
   );
 
-  const yValues =
-    filteredData && filteredData.length
-      ? filteredData.flatMap(([_, d]) =>
-          // @ts-ignore
-          d ? d.map(([_, amount]: [string, number]) => amount || 0) : [0]
-        )
-      : [0];
-
   // @ts-ignore
-  const yMin = min(yValues) < 0 ? min(yValues) : 0; // if numbers are all positive, y domain min should be 0
-  const yMax = max(yValues) ? max(yValues) : 0;
+  const yMin = min(amounts) < 0 ? min(amounts) : 0; // if numbers are all positive, y domain min should be 0
+  const yMax = max(amounts) ? max(amounts) : 0;
   const yExtent: [number, number] = [yMin as number, yMax as number];
 
+  // X-Scale
   const xScale = scaleTime(xExtent as [Date, Date], [
     isMobile ? MOBILE.MARGIN.left : MARGIN.left,
     (width as number) - MARGIN.right,
   ]);
 
+  // Y-Scale
   const yScale = scaleLinear(yExtent as [number, number], [
     HEIGHT - marginBottom,
     MARGIN.top,
@@ -173,25 +177,22 @@ export function TrendsChart({
       const { clientX } = e;
       // need to offset by how far the element is from edge of page
       const { x: parentX } =
-        e.currentTarget.parentElement.getBoundingClientRect();
-      const invertedDate = xScale.invert(clientX - parentX);
+        e.currentTarget?.parentElement?.getBoundingClientRect() || {};
+      // using position, find date (using inverted xScale)
+      const invertedDate = xScale.invert(clientX - (parentX || 0));
+      // initalize bisector
       const bisect = bisector((d) => d);
+      // get closest date index
       const closestIdx = bisect.left(
         dates.map((d) => new Date(d)),
         invertedDate
       );
-      console.log("closestDate", dates[closestIdx]);
-      if (hoveredDate != dates[closestIdx] && dates[closestIdx]) {
-        setHoveredDate(dates[closestIdx]);
-      }
-      // not sure why '-1' but it works?
+      // set state to story hovered date
+      setHoveredDate(dates[closestIdx]);
     },
     [dates, xScale]
   );
 
-  useEffect(() => {
-    console.log("hoveredDateUpdate", hoveredDate);
-  }, [hoveredDate]);
   return (
     // Container
     <div className={styles.TrendsChart} ref={containerRef}>
@@ -206,24 +207,27 @@ export function TrendsChart({
           />
         )}
       </div>
+      {/* Tooltip */}
       <div
         className={styles.TooltipWrapper}
         style={{
           transform: `translate(${
-            xScale(new Date(hoveredDate)) > width / 2
-              ? xScale(new Date(hoveredDate)) - 220
-              : xScale(new Date(hoveredDate)) + 10
+            xScale(new Date(hoveredDate || "")) > width / 2
+              ? xScale(new Date(hoveredDate || "")) - tooltipWidth - 10
+              : xScale(new Date(hoveredDate || "")) + 10
           }px, ${MARGIN.top}px)`,
           opacity: hoveredDate ? 1 : 0,
         }}
       >
-        <TrendsTooltip
-          data={filteredData}
-          colors={colors}
-          type={axisConfig[0]}
-          selectedGroups={selectedGroups}
-          selectedDate={hoveredDate}
-        />
+        <div ref={toolTipRef}>
+          <TrendsTooltip
+            data={filteredData}
+            colors={colors}
+            type={axisConfig[0]}
+            selectedGroups={selectedGroups}
+            selectedDate={hoveredDate}
+          />
+        </div>
       </div>
       {/* Chart */}
       {filteredData && xScale && yScale && colors && (
@@ -254,19 +258,24 @@ export function TrendsChart({
             yScale={yScale}
             colors={colors}
           />
-          <line
-            className={styles.IndicatorLine}
+          {/* Group for hover indicator line and circles */}
+          <g
+            className={styles.Indicators}
+            // transform group to hovered x position
             style={{
-              transform: `translateX(${xScale(new Date(hoveredDate))}px)`,
+              transform: `translateX(${xScale(new Date(hoveredDate || ""))}px)`,
+              opacity: hoveredDate ? 1 : 0,
             }}
-            stroke={hoveredDate ? "black" : "transparent"}
-            y1={HEIGHT - marginBottom}
-            y2={MARGIN.top}
-            x1={0}
-            x2={0}
-          />
-
-          {/* // TODO: move this check up into parent component (only pass unknown if there is an unknown greater than 0) */}
+          >
+            <line y1={HEIGHT - marginBottom} y2={MARGIN.top} x1={0} x2={0} />
+            <HoverCircles
+              data={filteredData}
+              selectedDate={hoveredDate}
+              xScale={xScale}
+              colors={colors}
+              yScale={yScale}
+            />
+          </g>
           {/* Only render unknown group circles when there is data for which the group is unknown */}
           {showUnknowns && (
             <CircleChart

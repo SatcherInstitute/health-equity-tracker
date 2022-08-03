@@ -44,7 +44,7 @@ export function CircleChart({
 
   /* Scales */
   const percentDomain =
-    data && data.map(([_, percent]: [Date, number]) => percent);
+    data && data.map(([_, percent]: [string, number]) => percent);
   const unknownGroupExtent: [number, number] | [undefined, undefined] =
     extent(percentDomain);
 
@@ -82,7 +82,7 @@ export function CircleChart({
         })`}
       >
         {data &&
-          data.map(([date, percent]: [Date, number], i: number) => {
+          data.map(([date, percent]: [string, number], i: number) => {
             // return a circle for every data point on desktop, or every other data point on mobile (to create more space)
             if (!isMobile || (isMobile && i % 2 === 0)) {
               return (

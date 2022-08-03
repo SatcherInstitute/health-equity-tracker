@@ -140,10 +140,19 @@ $breakpoint-mobile: 600px;
   transition: opacity 250ms ease-in-out, transform 200ms linear;
 }
 
-.IndicatorLine {
+.Indicators {
+  opacity: 1;
+  transition: opacity 250ms ease-in-out, transform 200ms linear;
+  line {
+    stroke: black;
+  }
+}
+
+.HoverCircle {
   opacity: 1;
   transition: opacity 250ms ease-in-out, transform 200ms linear;
 }
+
 .Tooltip {
   border: 1px solid $alt-grey;
   border-radius: 3px;
