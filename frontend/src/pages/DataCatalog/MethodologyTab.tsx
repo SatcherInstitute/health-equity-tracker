@@ -768,48 +768,175 @@ function MethodologyTab() {
         <Grid container className={styles.FaqSection}>
           <Grid item xs={12} sm={12} md={3}>
             <Typography className={styles.FaqHeaderText} variant="h2">
-              Take Action
+              Other Metrics
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={9}>
             <Grid container>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>How can I get involved?</h3>
+                <h3 className={styles.FaqQuestion}>
+                  Data acquisition and standardization
+                </h3>
                 <div className={styles.FaqAnswer}>
-                  <p>
-                    To advance health equity, we need smart, talented,
-                    passionate folks like you on board.
-                  </p>
                   <ul>
                     <li>
-                      Sign up for our newsletter to stay up to date with the
-                      latest news
+                      All data presented in the Health Equity Tracker are
+                      retrieved from publicly sourced application programming
+                      interfaces (APIs) and manual downloads. The data extracted
+                      from these sources are continuously updated to retrieve
+                      the most relevant data.
                     </li>
                     <li>
-                      Share our site and graphs with your community on social
-                      media
+                      The data are subsequently converted into tables in Google
+                      BigQuery.
                     </li>
                     <li>
-                      Share your health equity story.{" "}
-                      <a href={`${CONTACT_TAB_LINK}`}>
-                        Click here to contact us
-                      </a>
+                      During this process, values are standardized and
+                      normalized to facilitate reporting, comparisons, and
+                      visualizations.
+                    </li>
+                    <li>
+                      Graphic visualizations reflect crude rates
+                      (non-age-adjusted) at 100,000 persons per year.{" "}
+                    </li>
+                    <li>
+                      Where data are readily available, calculations are made to
+                      present age-adjusted rates and ratios in separate tables.
+                      These calculations are used by the Health Equity Tracker
+                      to illustrate the disproportionate impact of morbidity and
+                      mortality among different races and ethnic groups
+                      throughout the U.S. in comparison to the white
+                      (non-Hispanic) population.{" "}
+                    </li>
+                    <li>
+                      The Health Equity Tracker codebase is publicly available
+                      and vital contributions are welcomed via GitHub.
                     </li>
                   </ul>
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
+                <h3 className={styles.FaqQuestion}>Visualizations</h3>
+                <div className={styles.FaqAnswer}>
+                  <li>
+                    Please consider the impact of under-reporting and data gaps
+                    when exploring the visualizations. These issues may lead to
+                    incorrect conclusions, for example, low rates in a given
+                    location may be due to under-reporting rather than absence
+                    of impact.
+                  </li>
+                </div>
+              </Grid>
+              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
+                <h3 className={styles.FaqQuestion}>Race and Ethnicity </h3>
+                <div className={styles.FaqAnswer}>
+                  <li>
+                    Race is a social construct and according to the Office of
+                    Management and Budget (OMB) racial categories are as
+                    follows:
+                    <ul>
+                      <li>American Indian or Alaska Native</li>
+                      <li>Asian</li>
+                      <li>Black or African American</li>
+                      <li>Native Hawaiian or Other Pacific Islander</li>
+                      <li>White</li>
+                    </ul>
+                  </li>
+                  <li>
+                    Ethnic groups are generally categorized as Hispanic or
+                    Latino or not Hispanic or Latino.
+                  </li>
+                  <li>
+                    Please note within the data we may have the following
+                    groups:
+                    <ul>
+                      <li>
+                        Unrepresented race (Non-Hispanic): This can be a single
+                        race not tabulated by the CDC, not of Hispanic/Latino
+                        descent. In other words, individuals not identified as
+                        one of the aforementioned races listed in the source
+                        data, nor multiracial individuals grouped together as
+                        “Two or More Races”. This is a problem as it obscures
+                        racial identity for many individuals. In an effort to
+                        take transformative action towards achieving health
+                        equity, the Satcher Health Leadership Institute has
+                        decided to rename the “Some other race” category as
+                        “Unrepresented race” to highlight this health equity
+                        issue.
+                      </li>
+                      <li>
+                        Two or more races (Non-Hispanic): Multiple races, not
+                        Hispanic/Latino.
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    In some cases, the source data referenced in the Health
+                    Equity Tracker does not include adequate accounts of race
+                    and ethnicity.
+                  </li>
+                </div>
+              </Grid>
+              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>
-                  How do I share or save the visualizations (graphs, charts,
-                  maps)?
+                  Metric definitions used in the Health Equity Tracker
                 </h3>
                 <div className={styles.FaqAnswer}>
+                  <ul>
+                    <li>
+                      <b>Total COVID-19 cases per 100k persons:</b> This is the
+                      total rate of COVID-19 cases expressed per 100,000 persons
+                      (i.e., 10,000 per 100k implies a 10% occurrence rate).
+                      This metric normalizes for population size, allowing for
+                      comparisons across demographic groups. This metric is
+                      rounded to the nearest integer in the tracker.
+                    </li>
+                    <li>
+                      <b>
+                        Share of total COVID-19 cases with unknown race and
+                        ethnicity:
+                      </b>{" "}
+                      This refers to the percentage of COVID-19 cases reported
+                      as unknown race/ethnicity. For example, a value of 20% for
+                      Georgia means that 20% of the reported cases in Georgia
+                      were of unknown race/ethnicity.{" "}
+                    </li>
+                    <li>
+                      <b>Share of total COVID-19 cases:</b> This refers to the
+                      percentage of all COVID-19 cases reporting a particular
+                      race/ethnicity, excluding cases with unknown
+                      race/ethnicity.{" "}
+                    </li>
+                    <li>
+                      <b>Population share:</b> This refers to the percentage of
+                      the total population identified as a particular
+                      race/ethnicity in the American Community Survey (ACS).{" "}
+                    </li>
+                  </ul>
+                </div>
+              </Grid>
+              <Grid
+                item
+                className={styles.MethodologyQuestionAndAnswer}
+                component="article"
+              >
+                <h3 className={styles.MethodologyQuestion}>
+                  What data is missing?
+                </h3>
+                <div className={styles.MethodologyAnswer}>
                   <p>
-                    Next to each visualization, there is a circle-shaped button
-                    with three dots in it. Click on this button and save as PNG
-                    or SVG (SVG provides a higher-quality, scalable image). Due
-                    to technical limitations, territories are not currently
-                    exported on the national map.
+                    Our tracker will expand to include additional health
+                    variables, social and political determinants of health.
+                  </p>
+                </div>
+                <div className={styles.MethodologyInfoBar}>
+                  <p>
+                    Do you have information on health outcomes at the state and
+                    local level that belong in the Health Equity Tracker?
+                    <br />
+                    <LinkWithStickyParams to={CONTACT_TAB_LINK}>
+                      We would love to hear from you!
+                    </LinkWithStickyParams>
                   </p>
                 </div>
               </Grid>
