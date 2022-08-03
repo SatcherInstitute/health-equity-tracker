@@ -20,7 +20,6 @@ import { getAmountsByDate, sortDataDescending, getMaxNumber } from "./helpers";
 export interface TrendsTooltipProps {
   data: TrendsData;
   selectedDate: string | null;
-  selectedGroups: string[];
   colors: ColorScale;
   type: string;
 }
@@ -29,7 +28,6 @@ export interface TrendsTooltipProps {
 export function TrendsTooltip({
   data,
   selectedDate,
-  selectedGroups,
   colors,
   type,
 }: TrendsTooltipProps) {
@@ -79,8 +77,10 @@ export function TrendsTooltip({
             ([group, d]: GroupData) => (
               <Fragment key={`tooltipRow-${group}`}>
                 {/* TODO: update to use backend dictionary */}
+                {/* group label */}
                 {/* @ts-ignore */}
                 <div>{codeDictionary[group]}</div>
+                {/* rectangle indicator */}
                 <div
                   style={{
                     backgroundColor: colors(group),
@@ -91,7 +91,9 @@ export function TrendsTooltip({
                   }}
                   className={styles.bar}
                 />
+                {/* amount */}
                 <div className={styles.label}>
+                  {/* // TODO: update way rounding number */}
                   {getAmountsByDate(d, selectedDate)?.toFixed(0)}
                   <span>{TYPE_CONFIG[type]?.UNIT}</span>
                 </div>

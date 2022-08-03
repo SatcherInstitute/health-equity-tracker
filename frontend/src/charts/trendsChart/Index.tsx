@@ -226,7 +226,6 @@ export function TrendsChart({
             data={filteredData}
             colors={colors}
             type={type}
-            selectedGroups={selectedGroups}
             selectedDate={hoveredDate}
           />
         </div>

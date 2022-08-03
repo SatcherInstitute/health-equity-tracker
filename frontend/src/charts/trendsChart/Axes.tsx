@@ -52,7 +52,7 @@ export function Axes({
     [TYPES.HUNDRED_K]: {
       topLabel: yAxisLabel + " →", // reference to shortLabel from metricConfig
       bottomLabel: "",
-      formatter: (d: string | number) => d,
+      formatter: (d: string | number) => `${d}${isMobile ? "" : " per 100k"}`,
     },
     [TYPES.PERCENT_SHARE]: {
       topLabel: "Over-represented →",
