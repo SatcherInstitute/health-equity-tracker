@@ -20,6 +20,7 @@ import { getAmountsByDate } from "./helpers";
 import { TrendsData, XScale, ColorScale, YScale } from "./types";
 
 /* Helpers */
+import { COLORS as C } from "./constants";
 
 /* Define type interface */
 export interface HoverCirclesProps {
@@ -50,7 +51,7 @@ export function HoverCircles({
               transform={`translate(0,${yScale(
                 getAmountsByDate(d, selectedDate)
               )})`}
-              fill={colors(group)}
+              fill={C(group)}
             />
           </g>
         ))}

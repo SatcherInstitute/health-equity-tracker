@@ -125,9 +125,13 @@ $breakpoint-mobile: 600px;
   .swatch {
     width: 16px;
     height: 16px;
-    border-radius: 3px;
+    border-radius: 2px;
     flex-shrink: 0; // prevent distortion
     margin-right: $spacingSmall; // create space between swatch and label
+    // border only for "all" category
+    border-width: 2px;
+    border-style: dashed;
+    border-color: transparent;
   }
 }
 

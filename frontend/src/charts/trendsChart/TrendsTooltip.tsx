@@ -11,7 +11,7 @@ import styles from "./Trends.module.scss";
 
 /* Constants */
 import { TrendsData, ColorScale, GroupData, GroupValues } from "./types";
-import { TYPES, FORMATTERS as F } from "./constants";
+import { TYPES, FORMATTERS as F, COLORS as C } from "./constants";
 
 /* Helpers */
 import {
@@ -75,12 +75,18 @@ export function TrendsTooltip({
               <Fragment key={`tooltipRow-${group}`}>
                 {/* TODO: update to use backend dictionary */}
                 {/* group label */}
+                {console.log(
+                  group,
+                  d,
+                  selectedDate,
+                  getAmountsByDate(d, selectedDate)
+                )}
                 {/* @ts-ignore */}
-                <div>{codeDictionary[group]}</div>
+                <div>{codeDictionary[group] || group}</div>
                 {/* rectangle indicator */}
                 <div
                   style={{
-                    backgroundColor: colors(group),
+                    backgroundColor: C(group),
                     width: TYPE_CONFIG[type]?.width(d, selectedDate, data),
                     transform: `translateX(${TYPE_CONFIG[type]?.translate_x(
                       d,

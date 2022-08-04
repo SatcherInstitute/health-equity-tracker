@@ -14,6 +14,8 @@ import styles from "./Trends.module.scss";
 
 /* Constants */
 import { TrendsData, XScale, YScale, ColorScale } from "./types";
+import { COLORS as C } from "./constants";
+
 /* Helpers */
 
 /* Define type interface */
@@ -53,7 +55,7 @@ export function LineChart({ data, xScale, yScale, colors }: LineChartProps) {
             key={`group-${group}`}
             //@ts-ignore : TODO revisit with real data when date is actually a Date type
             d={lineGen(d) || ""}
-            stroke={colors(group)}
+            stroke={C(group)}
           />
         ))}
     </g>

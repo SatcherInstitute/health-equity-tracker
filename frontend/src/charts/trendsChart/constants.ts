@@ -2,37 +2,50 @@ import { format, utcFormat, scaleOrdinal } from "d3";
 import sass from "../../styles/variables.module.scss";
 
 // get colors from css variables
-const { unknownMapLeast, unknownMapMost, altGreen, darkBlue, redOrange } = sass;
-
+const {
+  unknownMapLeast,
+  unknownMapMost,
+  altGreen,
+  darkBlue,
+  redOrange,
+  altGrey,
+} = sass;
+// domain for color scale
 const COLOR_DOMAIN = [
-  "Native Hawaiian and Pacific Islander (Non-Hispanic)",
-  "Hispanic or Latino",
   "All",
   "American Indian and Alaska Native (Non-Hispanic)",
+  "Asian (Non-Hispanic)",
   "Black or African American (Non-Hispanic)",
+  "Hispanic or Latino",
+  "Native Hawaiian and Pacific Islander (Non-Hispanic)",
   "Two or more races & Unrepresented race (Non-Hispanic)",
   "White (Non-Hispanic)",
-  "Asian (Non-Hispanic)",
+  "Female",
+  "Male",
+  "Unknown",
 ];
 // range of colors for groups
 const COLOR_RANGE = [
-  "#FCB431",
-  altGreen,
+  altGrey,
   "#9AC4C0",
+  altGreen,
   darkBlue,
   "#ADBBDE",
   "#F2D6E7",
   "#A93038",
   redOrange,
+  "#9AC4C0",
+  "#ADBBDE",
+  "#FCB431",
 ];
-
+// color scale
 const COLORS = scaleOrdinal(COLOR_DOMAIN, COLOR_RANGE);
 // color range for unknowns
 const UNKNOWN_GROUP_COLOR_EXTENT = [unknownMapLeast, unknownMapMost];
 
 /* Config */
 const CONFIG = {
-  HEIGHT: 500,
+  HEIGHT: 450,
   STARTING_WIDTH: 980,
   MARGIN: {
     top: 10,

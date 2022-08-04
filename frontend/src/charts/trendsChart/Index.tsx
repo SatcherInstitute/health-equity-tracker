@@ -173,6 +173,7 @@ export function TrendsChart({
     setSelectedGroups(newSelectedGroups);
   }
 
+  console.log("dates", dates);
   const handleMousemove = useCallback(
     (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
       const { clientX } = e;
@@ -188,10 +189,11 @@ export function TrendsChart({
         dates.map((d) => new Date(d)),
         invertedDate
       );
+      // console.log(dates)
       // set state to story hovered date
       setHoveredDate(dates[closestIdx]);
     },
-    [dates, xScale]
+    [JSON.stringify(dates), xScale]
   );
 
   return (
