@@ -1,6 +1,5 @@
 import { test } from '@playwright/test';
 import { urlMap } from "../src/utils/externalUrls"
-import { GOOGLE_FELLOWS, PARTNERS } from "../src/pages/AboutUs/OurTeamData"
 import { RESOURCES } from "../src/pages/WhatIsHealthEquity/ResourcesData"
 
 const knownFlakyUrls = [
@@ -26,24 +25,6 @@ for (const url of Object.values(urlMap)) {
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`${url}`, async ({ page }) => {
         const response = await page.goto(url, { waitUntil: "domcontentloaded" });
-        // @ts-ignore: Object is possibly 'null'.
-        if (response.status() !== 200) console.log(url, response.status());
-    });
-}
-
-for (const url of PARTNERS.map(partner => partner.url)) {
-    if (!url || knownFlakyUrls.includes(url)) continue
-    test(`Team Page - Partner: ${url}`, async ({ page }) => {
-        const response = await page.goto(url, { waitUntil: "domcontentloaded" });
-        // @ts-ignore: Object is possibly 'null'.
-        if (response.status() !== 200) console.log(url, response.status());
-    });
-}
-
-for (const url of GOOGLE_FELLOWS.filter(fellow => fellow.link).map(fellow => fellow.link)) {
-    if (!url || knownFlakyUrls.includes(url)) continue
-    test(`Team Page - Google Fellow: ${url}`, async ({ page }) => {
-        const response = await page.goto(url, { waitUntil: "domcontentloaded" })
         // @ts-ignore: Object is possibly 'null'.
         if (response.status() !== 200) console.log(url, response.status());
     });
