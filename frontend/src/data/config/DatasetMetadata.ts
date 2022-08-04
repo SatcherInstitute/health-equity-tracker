@@ -6,16 +6,19 @@ export const datasetMetadataList: DatasetMetadata[] = [
     id: "acs_population-by_race_county_std",
     name: "Population by Race and County",
     update_time: "2019",
+    contains_nh: true,
   },
   {
     id: "acs_population-by_race_state_std",
     name: "Population by Race and State",
     update_time: "2019",
+    contains_nh: true,
   },
   {
     id: "acs_population-by_race_national",
     name: "Population by Race Nationally",
     update_time: "2019",
+    contains_nh: true,
   },
   {
     id: "acs_population-by_age_county",
@@ -136,16 +139,19 @@ export const datasetMetadataList: DatasetMetadata[] = [
     id: "cdc_restricted_data-by_race_county_processed_time_series",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and County",
     update_time: "July 2022",
+    contains_nh: true,
   },
   {
     id: "cdc_restricted_data-by_race_state_processed_time_series",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and State",
     update_time: "July 2022",
+    contains_nh: true,
   },
   {
     id: "cdc_restricted_data-by_race_national_processed_time_series",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race Nationally",
     update_time: "July 2022",
+    contains_nh: true,
   },
   {
     id: "cdc_restricted_data-by_age_county_processed_time_series",
@@ -181,16 +187,19 @@ export const datasetMetadataList: DatasetMetadata[] = [
     id: "cdc_restricted_data-by_race_county_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and County",
     update_time: "July 2022",
+    contains_nh: true,
   },
   {
     id: "cdc_restricted_data-by_race_state_processed-with_age_adjust",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and State",
     update_time: "July 2022",
+    contains_nh: true,
   },
   {
     id: "cdc_restricted_data-by_race_national_processed-with_age_adjust",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race Nationally",
     update_time: "July 2022",
+    contains_nh: true,
   },
   {
     id: "cdc_restricted_data-by_age_county_processed",
@@ -231,6 +240,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
     id: "cdc_vaccination_county-race_and_ethnicity",
     name: "COVID-19 Vaccinations by County",
     update_time: "July 2022",
+    contains_nh: true,
   },
   {
     id: "cdc_vaccination_national-age",
@@ -246,11 +256,13 @@ export const datasetMetadataList: DatasetMetadata[] = [
     id: "cdc_vaccination_national-race_and_ethnicity",
     name: "COVID-19 Vaccination Demographics by Race",
     update_time: "July 2022",
+    contains_nh: true,
   },
   {
     id: "kff_vaccination-race_and_ethnicity",
     name: "COVID-19 Indicators",
     update_time: "April 2022",
+    contains_nh: true,
   },
   {
     id: "uhc_data-age_national",
@@ -261,6 +273,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
     id: "uhc_data-race_and_ethnicity_national",
     name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by Race, National",
     update_time: "2021",
+    contains_nh: true,
   },
   {
     id: "uhc_data-sex_national",
@@ -276,6 +289,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
     id: "uhc_data-race_and_ethnicity_state",
     name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by Race and State",
     update_time: "2021",
+    contains_nh: true,
   },
   {
     id: "uhc_data-sex_state",
@@ -296,11 +310,13 @@ export const datasetMetadataList: DatasetMetadata[] = [
     id: "bjs_incarceration_data-race_and_ethnicity_national",
     name: "National rates of individuals under the jurisdiction of federal or state adult prison facilities or confined in local adult jail facilities, by Race/Ethnicity",
     update_time: "2019 for Jail, 2020 for Prison",
+    contains_nh: true,
   },
   {
     id: "bjs_incarceration_data-race_and_ethnicity_state",
     name: "Rates of individuals under the jurisdiction of state or territory prison facilities or confined in local adult jail facilities, by Race/Ethnicity and State/Territory",
     update_time: "2019 for Jail, 2020 for Prison",
+    contains_nh: true,
   },
   {
     id: "bjs_incarceration_data-sex_national",
@@ -326,6 +342,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
     id: "vera_incarceration_county-jail_race_and_ethnicity_county",
     name: "Rates of individuals within a county incarcerated in local jail facilities, by Race/Ethnicity",
     update_time: "2018",
+    contains_nh: true,
   },
   {
     id: "vera_incarceration_county-prison_age_county",
@@ -341,16 +358,19 @@ export const datasetMetadataList: DatasetMetadata[] = [
     id: "vera_incarceration_county-prison_race_and_ethnicity_county",
     name: "Rates of individuals within a county incarcerated in state prison facilities, by Race/Ethnicity",
     update_time: "2016",
+    contains_nh: true,
   },
   {
     id: "cawp_data-race_and_ethnicity_national",
     name: "National representation of women by race/ethnicity in the US Congress and across county and territory legislatures",
     update_time: "2022",
+    contains_nh: true,
   },
   {
     id: "cawp_data-race_and_ethnicity_state",
     name: "Representation of women by race/ethnicity from each state and territory to the US Congress and their respective state legislature",
     update_time: "2022",
+    contains_nh: true,
   },
   {
     id: "propublica_congress",
@@ -366,6 +386,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
     id: "census_pop_estimates-race_and_ethnicity",
     name: "Census County Population by Characteristics: 2010-2019",
     update_time: "2019",
+    contains_nh: true,
   },
 ];
 

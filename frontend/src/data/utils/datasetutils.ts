@@ -1,6 +1,7 @@
 import { IDataFrame } from "data-forge";
 import { MetricId, VariableConfig, VariableId } from "../config/MetricConfig";
 import { BreakdownVar, GeographicBreakdown } from "../query/Breakdowns";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import {
   UHC_API_NH_DETERMINANTS,
   UHC_DECADE_PLUS_5_AGE_DETERMINANTS,

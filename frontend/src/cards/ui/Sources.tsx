@@ -7,6 +7,7 @@ import {
 import { DATA_CATALOG_PAGE_LINK } from "../../utils/internalRoutes";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
+import { DatasetMetadataMap } from "../../data/config/DatasetMetadata";
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = "";
@@ -52,11 +53,13 @@ function getDataSourceMapFromDatasetIds(
   return dataSourceMap;
 }
 
-export function Sources(props: {
+interface SourcesProps {
   queryResponses: MetricQueryResponse[];
   metadata: MapOfDatasetMetadata;
   isAgeAdjustedTable?: boolean;
-}) {
+}
+
+export function Sources(props: SourcesProps) {
   // If all data is missing, no need to show sources.
   if (props.queryResponses.every((resp) => resp.dataIsMissing())) {
     return <></>;
@@ -78,6 +81,12 @@ export function Sources(props: {
     datasetIds,
     props.metadata
   );
+
+  const hasNH = datasetIds.some((set) => DatasetMetadataMap[set].contains_nh);
+
+  for (const set of datasetIds) {
+    console.log(DatasetMetadataMap[set]);
+  }
 
   return (
     <>
@@ -101,6 +110,7 @@ export function Sources(props: {
           {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
         </Fragment>
       ))}
+      {hasNH && <p>NH: Non-Hispanic. </p>}
     </>
   );
 }
