@@ -82,11 +82,9 @@ export function Sources(props: SourcesProps) {
     props.metadata
   );
 
-  const hasNH = datasetIds.some((set) => DatasetMetadataMap[set].contains_nh);
-
-  for (const set of datasetIds) {
-    console.log(DatasetMetadataMap[set]);
-  }
+  const showNhFootnote = datasetIds.some(
+    (set) => DatasetMetadataMap[set].contains_nh
+  );
 
   return (
     <>
@@ -110,7 +108,7 @@ export function Sources(props: SourcesProps) {
           {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
         </Fragment>
       ))}
-      {hasNH && <p>NH: Non-Hispanic. </p>}
+      {showNhFootnote && <p>NH: Non-Hispanic. </p>}
     </>
   );
 }
