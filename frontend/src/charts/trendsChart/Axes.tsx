@@ -5,7 +5,7 @@
 
 /* External Imports */
 import React, { useRef, useEffect } from "react";
-import { axisLeft, axisBottom, timeFormat, select } from "d3";
+import { axisLeft, axisBottom, select } from "d3";
 
 /* Local Imports */
 
@@ -17,7 +17,7 @@ import { CONFIG, TYPES, FORMATTERS as F } from "./constants";
 import { TrendsData, XScale, YScale, AxisConfig } from "./types";
 
 /* Helpers */
-
+import { getMinNumber, getMaxNumber } from "./helpers";
 /* Define type interface */
 export interface AxesProps {
   data: TrendsData;
@@ -55,8 +55,10 @@ export function Axes({
       formatter: (d: string | number) => `${d}${isMobile ? "" : " per 100k"}`,
     },
     [TYPES.PERCENT_SHARE]: {
-      topLabel: "Over-represented →",
-      bottomLabel: "← Under-represented",
+      // @ts-ignore
+      topLabel: getMaxNumber(data) <= 0 ? "" : "Over-represented →",
+      // @ts-ignore
+      bottomLabel: getMinNumber(data) >= 0 ? "" : "← Under-represented",
       formatter: (d: number) => F.pct(d),
     },
   };

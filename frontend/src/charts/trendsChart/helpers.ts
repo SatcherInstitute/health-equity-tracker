@@ -1,4 +1,4 @@
-import { descending, max } from "d3";
+import { descending, max, min } from "d3";
 import { TrendsData, GroupData, GroupValues } from "./types";
 
 const BAR_WIDTH = 100;
@@ -31,6 +31,14 @@ function getMaxNumberForDate(data: TrendsData, selectedDate: string | null) {
       .map(([date, number]) => Math.abs(number))
   );
   return max(numbers);
+}
+
+function getMinNumber(data: TrendsData) {
+  return min(getAmounts(data));
+}
+
+function getMaxNumber(data: TrendsData) {
+  return max(getAmounts(data));
 }
 
 function getDates(data: TrendsData) {
@@ -101,4 +109,6 @@ export {
   getWidthPctShare,
   getWidthHundredK,
   translateXPctShare,
+  getMinNumber,
+  getMaxNumber,
 };
