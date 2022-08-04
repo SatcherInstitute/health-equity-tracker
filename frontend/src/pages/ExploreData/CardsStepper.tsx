@@ -3,6 +3,8 @@ import * as React from "react";
 import { NavHashLink } from "react-router-hash-link";
 import styles from "./ExploreDataPage.module.scss";
 
+// https://github.com/toviszsolt/react-scrollspy
+
 export type ScrollableHashId =
   | "population"
   | "map"
