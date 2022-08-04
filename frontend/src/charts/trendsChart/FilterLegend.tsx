@@ -18,7 +18,9 @@ import styles from "./Trends.module.scss";
 /* Components */
 
 /* Constants */
-import { TrendsData, ColorScale } from "./types";
+import { TrendsData } from "./types";
+import { COLORS as C } from "./constants";
+
 /* Helpers */
 
 /* Define type interface */
@@ -26,7 +28,7 @@ export interface FilterLegendProps {
   data: TrendsData; // TODO: stricter typing
   selectedGroups: string[];
   handleClick: (group: string | null) => void;
-  colors: ColorScale;
+  // colors: ColorScale;
   groupLabel: string;
 }
 
@@ -35,7 +37,7 @@ export function FilterLegend({
   data,
   selectedGroups,
   handleClick,
-  colors,
+  // colors,
   groupLabel,
 }: FilterLegendProps) {
   return (
@@ -80,7 +82,7 @@ export function FilterLegend({
                 aria-hidden={true}
                 style={{
                   /* @ts-ignore */
-                  backgroundColor: colors(group),
+                  backgroundColor: C(group),
                 }}
               />
               {/* Legend Item Label */}

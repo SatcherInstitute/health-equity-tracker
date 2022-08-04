@@ -199,11 +199,11 @@ export function TrendsChart({
     <div className={styles.TrendsChart} ref={containerRef}>
       <div className={styles.FilterWrapper}>
         {/* Filter */}
-        {data && colors && (
+        {data && (
           <FilterLegend
             data={data}
             selectedGroups={selectedGroups}
-            colors={colors}
+            // colors={colors}
             handleClick={handleClick}
             groupLabel={groupLabel}
           />

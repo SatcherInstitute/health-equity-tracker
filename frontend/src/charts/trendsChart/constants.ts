@@ -1,11 +1,22 @@
-import { format, utcFormat } from "d3";
+import { format, utcFormat, scaleOrdinal } from "d3";
 import sass from "../../styles/variables.module.scss";
 
 // get colors from css variables
 const { unknownMapLeast, unknownMapMost, altGreen, darkBlue, redOrange } = sass;
 
+const COLOR_DOMAIN = [
+  "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+  "Hispanic or Latino",
+  "All",
+  "American Indian and Alaska Native (Non-Hispanic)",
+  "Black or African American (Non-Hispanic)",
+  "Two or more races & Unrepresented race (Non-Hispanic)",
+  "White (Non-Hispanic)",
+  "Asian (Non-Hispanic)",
+];
 // range of colors for groups
 const COLOR_RANGE = [
+  "#FCB431",
   altGreen,
   "#9AC4C0",
   darkBlue,
@@ -13,9 +24,9 @@ const COLOR_RANGE = [
   "#F2D6E7",
   "#A93038",
   redOrange,
-  "#FCB431",
 ];
 
+const COLORS = scaleOrdinal(COLOR_DOMAIN, COLOR_RANGE);
 // color range for unknowns
 const UNKNOWN_GROUP_COLOR_EXTENT = [unknownMapLeast, unknownMapMost];
 
@@ -56,4 +67,11 @@ const FORMATTERS = {
   num: format(".1~f"),
 };
 
-export { COLOR_RANGE, UNKNOWN_GROUP_COLOR_EXTENT, CONFIG, TYPES, FORMATTERS };
+export {
+  COLOR_RANGE,
+  UNKNOWN_GROUP_COLOR_EXTENT,
+  CONFIG,
+  TYPES,
+  FORMATTERS,
+  COLORS,
+};
