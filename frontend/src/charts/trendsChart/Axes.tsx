@@ -13,7 +13,7 @@ import { axisLeft, axisBottom, timeFormat, select } from "d3";
 import styles from "./Trends.module.scss";
 
 /* Constants */
-import { CONFIG, TYPES } from "./constants";
+import { CONFIG, TYPES, FORMATTERS as F } from "./constants";
 import { TrendsData, XScale, YScale, AxisConfig } from "./types";
 
 /* Helpers */
@@ -57,7 +57,7 @@ export function Axes({
     [TYPES.PERCENT_SHARE]: {
       topLabel: "Over-represented →",
       bottomLabel: "← Under-represented",
-      formatter: (d: string | number) => `${d}%`,
+      formatter: (d: number) => F.pct(d),
     },
   };
 
@@ -70,7 +70,7 @@ export function Axes({
     .tickSize(0)
     .ticks(isMobile ? 4 : null)
     // @ts-ignore
-    .tickFormat(timeFormat("%m/%y"))
+    .tickFormat(F.dateShort)
     .tickPadding(TICK_PADDING);
 
   const yAxis = axisLeft(yScale)
@@ -84,7 +84,6 @@ export function Axes({
 
   useEffect(() => {
     if (xAxisRef.current && yAxisRef.current) {
-      // @ts-ignore
       select(xAxisRef.current)
         .transition()
         // @ts-ignore

@@ -1,6 +1,8 @@
 import { descending, max } from "d3";
 import { TrendsData, GroupData, GroupValues } from "./types";
 
+const BAR_WIDTH = 100;
+
 // Filter out data for groups that are not selected
 function filterDataByGroup(data: TrendsData, groups: string[]) {
   const filteredData = data && data.filter(([group]) => groups.includes(group));
@@ -47,6 +49,43 @@ function getAmounts(data: TrendsData) {
     : [0];
 }
 
+function getWidthPctShare(
+  d: GroupValues,
+  selectedDate: string | null,
+  data: TrendsData
+) {
+  const width =
+    (Math.abs(getAmountsByDate(d, selectedDate)) / (getMaxNumber(data) || 1)) *
+    (BAR_WIDTH / 4);
+  return width;
+}
+
+function getWidthHundredK(
+  d: GroupValues,
+  selectedDate: string | null,
+  data: TrendsData
+) {
+  const width =
+    (getAmountsByDate(d, selectedDate) / (getMaxNumber(data) || 1)) *
+    (BAR_WIDTH / 2);
+  return width;
+}
+
+function translateXPctShare(
+  d: GroupValues,
+  selectedDate: string | null,
+  data: TrendsData
+) {
+  const translateX =
+    getAmountsByDate(d, selectedDate) > 0
+      ? BAR_WIDTH / 4
+      : BAR_WIDTH / 4 +
+        (getAmountsByDate(d, selectedDate) / (getMaxNumber(data) || 1)) *
+          (BAR_WIDTH / 4);
+
+  return translateX;
+}
+
 export {
   filterDataByGroup,
   getAmountsByDate,
@@ -54,4 +93,7 @@ export {
   getMaxNumber,
   getDates,
   getAmounts,
+  getWidthPctShare,
+  getWidthHundredK,
+  translateXPctShare,
 };

@@ -1,6 +1,6 @@
 /* External Imports */
 import React, { Fragment } from "react";
-import { timeFormat, descending, max } from "d3";
+import { timeFormat } from "d3";
 
 /* Local Imports */
 
@@ -11,10 +11,16 @@ import styles from "./Trends.module.scss";
 
 /* Constants */
 import { TrendsData, ColorScale, GroupData, GroupValues } from "./types";
-import { TYPES } from "./constants";
+import { TYPES, FORMATTERS as F } from "./constants";
 
 /* Helpers */
-import { getAmountsByDate, sortDataDescending, getMaxNumber } from "./helpers";
+import {
+  getAmountsByDate,
+  sortDataDescending,
+  translateXPctShare,
+  getWidthPctShare,
+  getWidthHundredK,
+} from "./helpers";
 
 /* Define type interface */
 export interface TrendsTooltipProps {
@@ -46,31 +52,22 @@ export function TrendsTooltip({
   const TYPE_CONFIG = {
     [TYPES.HUNDRED_K]: {
       UNIT: " per 100k",
-      width: (d: GroupValues) =>
-        (getAmountsByDate(d, selectedDate) / (getMaxNumber(data) || 1)) * 50,
+      width: getWidthHundredK,
       translate_x: (d: GroupValues) => 0,
+      formatter: F.num,
     },
     [TYPES.PERCENT_SHARE]: {
       UNIT: " %",
-      width: (d: GroupValues) =>
-        (Math.abs(getAmountsByDate(d, selectedDate)) /
-          (getMaxNumber(data) || 1)) *
-        25,
-      translate_x: (d: GroupValues) =>
-        getAmountsByDate(d, selectedDate) > 0
-          ? 25
-          : 25 +
-            (getAmountsByDate(d, selectedDate) / (getMaxNumber(data) || 1)) *
-              25,
+      width: getWidthPctShare,
+      translate_x: translateXPctShare,
+      formatter: F.num,
     },
   };
 
   return (
     <div className={styles.Tooltip}>
       {/* Date title */}
-      <div className={styles.title}>
-        {timeFormat("%B %e, %Y")(new Date(selectedDate || ""))}
-      </div>
+      <div className={styles.title}>{F.dateFromString(selectedDate || "")}</div>
       <div className={styles.grid}>
         {data &&
           sortDataDescending(data, selectedDate || "").map(
@@ -84,9 +81,11 @@ export function TrendsTooltip({
                 <div
                   style={{
                     backgroundColor: colors(group),
-                    width: TYPE_CONFIG[type]?.width(d),
+                    width: TYPE_CONFIG[type]?.width(d, selectedDate, data),
                     transform: `translateX(${TYPE_CONFIG[type]?.translate_x(
-                      d
+                      d,
+                      selectedDate,
+                      data
                     )}px)`,
                   }}
                   className={styles.bar}
@@ -94,7 +93,9 @@ export function TrendsTooltip({
                 {/* amount */}
                 <div className={styles.label}>
                   {/* // TODO: update way rounding number */}
-                  {getAmountsByDate(d, selectedDate)?.toFixed(0)}
+                  {TYPE_CONFIG[type]?.formatter(
+                    getAmountsByDate(d, selectedDate)
+                  )}
                   <span>{TYPE_CONFIG[type]?.UNIT}</span>
                 </div>
               </Fragment>

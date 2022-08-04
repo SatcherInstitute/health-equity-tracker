@@ -1,3 +1,4 @@
+import { format, utcFormat } from "d3";
 import sass from "../../styles/variables.module.scss";
 
 // get colors from css variables
@@ -48,4 +49,11 @@ const TYPES = {
   PERCENT_SHARE: "pct_share",
 };
 
-export { COLOR_RANGE, UNKNOWN_GROUP_COLOR_EXTENT, CONFIG, TYPES };
+const FORMATTERS = {
+  pct: (d: number) => `${format(".1~f")(d)}%`, // have to treat percent as truncated number and then interpolate % b/c they are received as integers
+  dateShort: utcFormat("%m/%y"),
+  dateFromString: (str: string) => str && utcFormat("%B %Y")(new Date(str)),
+  num: format(".1~f"),
+};
+
+export { COLOR_RANGE, UNKNOWN_GROUP_COLOR_EXTENT, CONFIG, TYPES, FORMATTERS };
