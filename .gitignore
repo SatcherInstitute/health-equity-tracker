@@ -36,4 +36,4 @@ python/data_server/build/
 python/datasources/build/
 python/ingestion/build/
 
-/frontend/public/tmp
+/frontend/public/tmp/*
