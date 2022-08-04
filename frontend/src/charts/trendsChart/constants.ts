@@ -52,7 +52,7 @@ const CONFIG = {
     right: 55,
     bottom: 30,
     bottom_with_unknowns: 140,
-    left: 120,
+    left: 80,
   },
   TICK_PADDING: 18,
   Y_AXIS_LABEL_PADDING: 18,
