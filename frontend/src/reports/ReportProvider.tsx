@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { OneVariableReport } from "./OneVariableReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
@@ -33,9 +33,7 @@ import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
-import VerticalLinearStepper, {
-  steps,
-} from "../pages/ExploreData/VerticalLinearStepper";
+import CardsStepper from "../pages/ExploreData/CardsStepper";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -50,6 +48,12 @@ interface ReportProviderProps {
 }
 
 function ReportProvider(props: ReportProviderProps) {
+  const [activeStep, setActiveStep] = useState(-1);
+
+  useEffect(() => {
+    // console.log(activeStep);
+  }, [activeStep]);
+
   // only show determinants that have definitions
   const definedConditions = props.selectedConditions.filter(
     (condition) => condition?.variableDefinition
@@ -89,6 +93,8 @@ function ReportProvider(props: ReportProviderProps) {
         const dropdownOption = getPhraseValue(props.madLib, 1);
         return (
           <OneVariableReport
+            activeStep={activeStep}
+            setActiveStep={setActiveStep}
             jumpToDefinitions={jumpToDefinitions}
             jumpToData={jumpToData}
             key={dropdownOption}
@@ -173,8 +179,10 @@ function ReportProvider(props: ReportProviderProps) {
             {getReport()}
           </Grid>
           <Grid item xs={3} lg={2}>
-            {/* className={styles.FloatingCardNav}  */}
-            <VerticalLinearStepper steps={steps} />
+            <CardsStepper
+              activeStep={activeStep}
+              setActiveStep={setActiveStep}
+            />
           </Grid>
         </Grid>
       </div>

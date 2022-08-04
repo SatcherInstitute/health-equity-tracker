@@ -3,30 +3,23 @@ import * as React from "react";
 import { NavHashLink } from "react-router-hash-link";
 import styles from "./ExploreDataPage.module.scss";
 
-// import Box from '@mui/material/Box';
-// import Stepper from '@mui/material/Stepper';
-// import Step from '@mui/material/Step';
-// import StepLabel from '@mui/material/StepLabel';
-// import StepContent from '@mui/material/StepContent';
-// import Button from '@mui/material/Button';
-// import Paper from '@mui/material/Paper';
-// import Typography from '@mui/material/Typography';
+export type ScrollableHashId =
+  | "population"
+  | "map"
+  | "bar"
+  | "unknowns"
+  | "disparity"
+  | "table"
+  | "age-adjusted"
+  | "definitions"
+  | "missingDataInfo";
 
-/* <HashLink to={`#missingDataInfo`}>#missingDataInfo{"  "}</HashLink>
+export type StepData = {
+  label: string;
+  hashId: ScrollableHashId;
+};
 
-				<HashLink to={`#map`}>#map{"  "}</HashLink>
-
-				<HashLink to={`#bar`}>#bar{"  "}</HashLink>
-
-				<HashLink to={`#unknowns`}>#unknowns{"  "}</HashLink>
-
-				<HashLink to={`#disparity`}>#disparity{"  "}</HashLink>
-
-				<HashLink to={`#table`}>#table{"  "}</HashLink>
-
-				<HashLink to={`#age-adjusted`}>#age-adjusted{"  "}</HashLink> */
-
-export const steps = [
+export const steps: StepData[] = [
   {
     label: "Population",
     hashId: "population",
@@ -65,35 +58,26 @@ export const steps = [
   },
 ];
 
-export type StepData = {
-  label: string;
-  hashId: string;
-};
-
-export interface VerticalLinearStepperProps {
-  steps: StepData[];
+interface CardsStepperProps {
+  activeStep: number;
+  setActiveStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function VerticalLinearStepper(
-  props: VerticalLinearStepperProps
-) {
-  const [activeStep, setActiveStep] = React.useState(0);
-
+export default function CardsStepper(props: CardsStepperProps) {
   function handleClick(e: any, index: number) {
     e.preventDefault();
-    setActiveStep(index);
+    props.setActiveStep(index);
   }
 
   const presentIds = Array.from(document.querySelectorAll("*[id]")).map(
     (el) => el.id
   );
-  console.log(presentIds);
 
   return (
     <Card raised={true} className={styles.StepperStickyCard}>
       <Stepper
         nonLinear
-        activeStep={activeStep}
+        activeStep={props.activeStep}
         orientation="vertical"
         component={"menu"}
         className={styles.Stepper}

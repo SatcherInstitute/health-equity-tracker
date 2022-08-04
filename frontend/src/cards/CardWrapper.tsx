@@ -30,6 +30,7 @@ function CardWrapper(props: {
     geoData?: Record<string, any>
   ) => JSX.Element;
   isAgeAdjustedTable?: boolean;
+  scrollRef?: any;
 }) {
   const popover = usePopover();
   const queries = props.queries ? props.queries : [];

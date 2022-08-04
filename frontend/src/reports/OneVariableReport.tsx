@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Grid } from "@material-ui/core";
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment, useRef, RefObject } from "react";
 import LazyLoad from "react-lazyload";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
@@ -31,6 +31,10 @@ import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import styles from "./Report.module.scss";
+import { ScrollableHashId, steps } from "../pages/ExploreData/CardsStepper";
+import useIsOnScreen from "../utils/useIsOnScreen";
+
+const hashIds = steps.map((step) => step.hashId);
 
 export interface OneVariableReportProps {
   key: string;
@@ -40,9 +44,65 @@ export interface OneVariableReportProps {
   hidePopulationCard?: boolean;
   jumpToDefinitions: Function;
   jumpToData: Function;
+  activeStep: number;
+  setActiveStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
+  const populationRef = useRef(null);
+  const populationIsOnScreen = useIsOnScreen(populationRef);
+
+  const mapRef = useRef(null);
+  const mapIsOnScreen = useIsOnScreen(mapRef);
+
+  const barRef = useRef(null);
+  const barIsOnScreen = useIsOnScreen(barRef);
+
+  const unknownsRef = useRef(null);
+  const unknownsIsOnScreen = useIsOnScreen(unknownsRef);
+
+  const disparityRef = useRef(null);
+  const disparityIsOnScreen = useIsOnScreen(disparityRef);
+
+  const tableRef = useRef(null);
+  const tableIsOnScreen = useIsOnScreen(tableRef);
+
+  const ageAdjustedRef = useRef(null);
+  // const ageAdjustedIsOnScreen = useIsOnScreen(ageAdjustedRef);
+
+  const [cardOnScreen, setCardOnScreen] = useState<ScrollableHashId | null>(
+    null
+  );
+
+  // useEffect(() => {
+
+  //   if (tableIsOnScreen) setCardOnScreen("table")
+  //   else if (disparityIsOnScreen) setCardOnScreen("disparity")
+  //   else if (unknownsIsOnScreen) setCardOnScreen("unknowns")
+  //   else if (barIsOnScreen) setCardOnScreen("bar")
+  //   else if (mapIsOnScreen) setCardOnScreen("map")
+  //   else if (populationIsOnScreen) setCardOnScreen("population")
+
+  //   // if (ageAdjustedIsOnScreen ) setCardOnScreen("age-adjusted")
+  //   // else setCardOnScreen(null)
+
+  // }, [
+  //   populationIsOnScreen,
+  //   mapIsOnScreen,
+  //   barIsOnScreen,
+  //   unknownsIsOnScreen,
+  //   disparityIsOnScreen,
+  //   tableIsOnScreen,
+  //   // ageAdjustedIsOnScreen
+  // ])
+
+  // useEffect(() => {
+  //   const stepIndex = steps.findIndex((step) => step.hashId === cardOnScreen) || props.activeStep
+  //   // console.log("found index", stepIndex);
+  //   props.setActiveStep(stepIndex)
+
+  // }, [cardOnScreen])
+
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
   );
@@ -114,6 +174,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           md={SINGLE_COLUMN_WIDTH}
           className={styles.ScrollableId}
           id="population"
+          ref={populationRef}
         >
           <PopulationCard jumpToData={props.jumpToData} fips={props.fips} />
         </Grid>
@@ -142,6 +203,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             className={styles.ScrollableId}
             id="map"
+            ref={mapRef}
           >
             <MapCard
               variableConfig={variableConfig}
@@ -163,6 +225,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             className={styles.ScrollableId}
             id="bar"
+            ref={barRef}
           >
             <LazyLoad offset={600} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -188,6 +251,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             className={styles.ScrollableId}
             id="unknowns"
+            ref={unknownsRef}
           >
             <LazyLoad offset={800} height={750} once>
               {variableConfig.metrics["pct_share"] && (
@@ -212,6 +276,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             className={styles.ScrollableId}
             id="disparity"
+            ref={disparityRef}
           >
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -230,27 +295,32 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* DATA TABLE CARD */}
-          <Grid
-            item
-            xs={12}
-            md={SINGLE_COLUMN_WIDTH}
-            className={styles.ScrollableId}
-            id="table"
-          >
-            <LazyLoad offset={800} height={750} once>
-              {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                <Fragment key={breakdownVar}>
-                  {breakdownIsShown(breakdownVar) && (
-                    <TableCard
-                      fips={props.fips}
-                      variableConfig={variableConfig}
-                      breakdownVar={breakdownVar}
-                    />
-                  )}
-                </Fragment>
-              ))}
-            </LazyLoad>
-          </Grid>
+          <div>
+            <Grid
+              item
+              xs={12}
+              md={SINGLE_COLUMN_WIDTH}
+              className={styles.ScrollableId}
+              id="table"
+              ref={tableRef}
+
+              // ref={tableRef}
+            >
+              <LazyLoad offset={800} height={750} once>
+                {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                  <Fragment key={breakdownVar}>
+                    {breakdownIsShown(breakdownVar) && (
+                      <TableCard
+                        fips={props.fips}
+                        variableConfig={variableConfig}
+                        breakdownVar={breakdownVar}
+                      />
+                    )}
+                  </Fragment>
+                ))}
+              </LazyLoad>
+            </Grid>
+          </div>
 
           {/* AGE ADJUSTED TABLE CARD */}
           {variableConfig.metrics.age_adjusted_ratio.ageAdjusted && (
@@ -260,6 +330,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
               md={SINGLE_COLUMN_WIDTH}
               className={styles.ScrollableId}
               id="age-adjusted"
+              // ref={ageAdjustedRef}
             >
               <LazyLoad offset={800} height={800} once>
                 <AgeAdjustedTableCard

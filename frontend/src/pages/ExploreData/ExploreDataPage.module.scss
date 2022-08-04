@@ -94,23 +94,17 @@ button[data-action="back"] {
   max-width: 250px;
 }
 
-// .Stepper {
-//   // padding: 1rem;
-//   // margin: 2rem 2rem 2rem 0rem;
-
-//   // top: 30%;
-//   // right: 10%;
-//   // width: 200px;
-//   // z-index: 1000;
-
-// }
-
 .Step span span span a {
   text-decoration: none;
   color: $alt-dark !important;
   font-size: $smallest;
   display: block;
   text-align: left !important;
+
+  .active-scroll-spy {
+    background-color: yellowgreen;
+    border-radius: 15px;
+  }
 }
 
 .SelectedStep {
