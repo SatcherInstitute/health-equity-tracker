@@ -173,7 +173,6 @@ export function TrendsChart({
     setSelectedGroups(newSelectedGroups);
   }
 
-  console.log("dates", dates);
   const handleMousemove = useCallback(
     (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
       const { clientX } = e;

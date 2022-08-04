@@ -24,9 +24,11 @@ function sortDataDescending(d: TrendsData, selectedDate: string) {
   );
 }
 
-function getMaxNumber(data: TrendsData) {
+function getMaxNumberForDate(data: TrendsData, selectedDate: string | null) {
   const numbers = data.flatMap(([group, d]) =>
-    d.map(([date, number]) => Math.abs(number))
+    d
+      .filter(([date]) => date == selectedDate)
+      .map(([date, number]) => Math.abs(number))
   );
   return max(numbers);
 }
@@ -55,7 +57,8 @@ function getWidthPctShare(
   data: TrendsData
 ) {
   const width =
-    (Math.abs(getAmountsByDate(d, selectedDate)) / (getMaxNumber(data) || 1)) *
+    (Math.abs(getAmountsByDate(d, selectedDate)) /
+      (getMaxNumberForDate(data, selectedDate) || 1)) *
     (BAR_WIDTH / 4);
   return width;
 }
@@ -66,7 +69,8 @@ function getWidthHundredK(
   data: TrendsData
 ) {
   const width =
-    (getAmountsByDate(d, selectedDate) / (getMaxNumber(data) || 1)) *
+    (getAmountsByDate(d, selectedDate) /
+      (getMaxNumberForDate(data, selectedDate) || 1)) *
     (BAR_WIDTH / 2);
   return width;
 }
@@ -80,7 +84,8 @@ function translateXPctShare(
     getAmountsByDate(d, selectedDate) > 0
       ? BAR_WIDTH / 4
       : BAR_WIDTH / 4 +
-        (getAmountsByDate(d, selectedDate) / (getMaxNumber(data) || 1)) *
+        (getAmountsByDate(d, selectedDate) /
+          (getMaxNumberForDate(data, selectedDate) || 1)) *
           (BAR_WIDTH / 4);
 
   return translateX;
@@ -90,7 +95,7 @@ export {
   filterDataByGroup,
   getAmountsByDate,
   sortDataDescending,
-  getMaxNumber,
+  getMaxNumberForDate,
   getDates,
   getAmounts,
   getWidthPctShare,
