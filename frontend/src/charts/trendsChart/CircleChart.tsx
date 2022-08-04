@@ -28,6 +28,7 @@ export interface CircleChartProps {
   width: number;
   groupLabel: string;
   isMobile: boolean;
+  selectedDate: string | null;
 }
 
 /* Render component */
@@ -37,6 +38,7 @@ export function CircleChart({
   width,
   groupLabel,
   isMobile,
+  selectedDate,
 }: CircleChartProps) {
   /* Config */
   const { HEIGHT, MARGIN, RADIUS_EXTENT, MOBILE } = CONFIG;
@@ -87,16 +89,25 @@ export function CircleChart({
             // return a circle for every data point on desktop, or every other data point on mobile (to create more space)
             if (!isMobile || (isMobile && i % 2 === 0)) {
               return (
-                <g key={`dataCircleGroup-${i}`}>
+                <g
+                  key={`dataCircleGroup-${i}`}
+                  transform={`translate(${xScale(new Date(date))}, 0)`}
+                  className={styles.UnknownCircles}
+                >
                   <circle
                     r={rScale(percent)}
-                    cx={xScale(new Date(date))}
+                    // cx={xScale(new Date(date))}
                     fill={colors(percent)}
                     role="img"
                     aria-describedby={`circleText-${i}`}
                   />
-                  <text className={styles.hidden} id={`circleText-${i}`}>
-                    {percent?.toFixed(0)} percent
+                  <text
+                    id={`circleText-${i}`}
+                    className={selectedDate == date ? "" : styles.invisible}
+                    textAnchor="middle"
+                    dy="22px"
+                  >
+                    {percent?.toFixed(0)}%
                   </text>
                 </g>
               );

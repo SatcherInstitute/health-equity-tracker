@@ -40,9 +40,15 @@ $breakpoint-mobile: 600px;
   }
 
   // legend for unknown circles
-  .CircleLegend {
+  .CircleLegend,
+  .UnknownCircles {
     text {
+      opacity: 1;
       font-size: $smallest;
+      transition: opacity 200ms linear;
+      &.invisible {
+        opacity: 0;
+      }
       &.title {
         @include inter500; // make title bolder than number labels
       }
@@ -52,6 +58,10 @@ $breakpoint-mobile: 600px;
   // visibility classes
   .hidden {
     display: none;
+  }
+
+  .invisible {
+    opacity: 0;
   }
 
   .disabled {

@@ -285,6 +285,7 @@ export function TrendsChart({
               width={width}
               isMobile={isMobile}
               groupLabel={groupLabel}
+              selectedDate={hoveredDate}
             />
           )}
         </svg>
