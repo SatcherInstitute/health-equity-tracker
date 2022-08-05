@@ -12,6 +12,7 @@ import CardWrapper from "./CardWrapper";
 import { TrendsChart } from "../charts/trendsChart/Index";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
+  ALL,
   DemographicGroup,
   LONGITUDINAL,
   NON_HISPANIC,
@@ -46,7 +47,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    exclude(NON_HISPANIC)
+    exclude(NON_HISPANIC, ALL)
   );
 
   const query = new MetricQuery(metricIdsToFetch, breakdowns, LONGITUDINAL);

@@ -2,7 +2,7 @@ import { MetricId } from "../config/MetricConfig";
 import { BreakdownVar } from "../query/Breakdowns";
 import { DemographicGroup, TIME_PERIOD } from "./Constants";
 import { Row } from "./DatasetTypes";
-import { shortenNH } from "./datasetutils";
+import { getExclusionList, shortenNH } from "./datasetutils";
 
 const MONTHLY_LENGTH = 7;
 const YEARLY_LENGTH = 4;
@@ -57,7 +57,7 @@ export function generateConsecutivePeriods(data: Row[]): string[] {
   // scan dataset for earliest and latest time_period
   const shippedTimePeriods = data.map((row) => row.time_period).sort();
   const minPeriod = shippedTimePeriods[0];
-  const maxPeriod = shippedTimePeriods.at(-1);
+  const maxPeriod = shippedTimePeriods[shippedTimePeriods.length - 1];
   let consecutivePeriods = [];
 
   // can only plot based on the least specific time periods.
@@ -73,7 +73,7 @@ export function generateConsecutivePeriods(data: Row[]): string[] {
       let [yyyy, mm]: string[] = currentPeriod.split("-");
       let nextMonth: number = +mm + 1;
       if (+nextMonth >= 12) yyyy = (+yyyy + 1).toString();
-      mm = (nextMonth % 12).toString().padStart(2, "0");
+      mm = ((nextMonth % 12) + 1).toString().padStart(2, "0");
       currentPeriod = `${yyyy}-${mm}`;
     }
   } else if (leastPeriodChars === YEARLY_LENGTH) {
