@@ -1,3 +1,12 @@
+/**
+ * Tooltip for the charts that track trends over time
+ * @param {object[]} data array of timeseries data objects
+ * @param {string} selectedDate the date that is currently hovered
+ * @param {object} axisConfig an object containing the configuration for axes - type and labels
+ * @param {boolean} isMobile a flag to determine whether user is viewing app below the mobile breakpoint
+ * returns jsx of a div with a grid of names, bar chart viz, and amounts
+
+
 /* External Imports */
 import React, { Fragment } from "react";
 
@@ -9,7 +18,7 @@ import styles from "./Trends.module.scss";
 /* Components */
 
 /* Constants */
-import { TrendsData, GroupData, GroupValues } from "./types";
+import { TrendsData, GroupData, GroupValues, AxisConfig } from "./types";
 import { TYPES, FORMATTERS as F, COLORS as C } from "./constants";
 
 /* Helpers */
@@ -25,15 +34,19 @@ import {
 export interface TrendsTooltipProps {
   data: TrendsData;
   selectedDate: string | null;
-  type: string;
+  axisConfig: AxisConfig;
+  isMobile: boolean;
 }
 
 /* Render component */
 export function TrendsTooltip({
   data,
   selectedDate,
-  type,
+  axisConfig,
+  isMobile,
 }: TrendsTooltipProps) {
+  const { type, yAxisLabel = "" } = axisConfig || {};
+
   // temp
   const codeDictionary = {
     "Native Hawaiian and Pacific Islander NH": "NH/PI NH",
@@ -54,7 +67,7 @@ export function TrendsTooltip({
 
   const TYPE_CONFIG = {
     [TYPES.HUNDRED_K]: {
-      UNIT: " per 100k",
+      UNIT: isMobile ? "" : " per 100k",
       width: getWidthHundredK,
       translate_x: (d: GroupValues) => 0,
       formatter: F.num,
@@ -70,7 +83,13 @@ export function TrendsTooltip({
   return (
     <div className={styles.Tooltip}>
       {/* Date title */}
-      <div className={styles.title}>{F.dateFromString(selectedDate || "")}</div>
+      <div className={styles.title}>
+        <div>{F.dateFromString(selectedDate || "")}</div>
+        {/* if per 100k chart and on mobile, add subtitle with units */}
+        {isMobile && type === TYPES.HUNDRED_K && (
+          <div className={styles.subtitle}>{F.capitalize(yAxisLabel)}</div>
+        )}
+      </div>
       <div className={styles.grid}>
         {data &&
           sortDataDescending(data, selectedDate || "").map(

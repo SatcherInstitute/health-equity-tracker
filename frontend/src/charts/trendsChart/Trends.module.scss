@@ -181,6 +181,11 @@ $breakpoint-mobile: 600px;
     padding-bottom: $spacingSmaller;
     text-align: center;
     border-bottom: 1px solid $alt-grey;
+    .subtitle {
+      margin-top: 4px;
+      @include inter400;
+      font-size: $smallest;
+    }
   }
 
   .grid {

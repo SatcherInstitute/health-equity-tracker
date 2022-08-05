@@ -226,7 +226,8 @@ export function TrendsChart({
         <div ref={toolTipRef}>
           <TrendsTooltip
             data={filteredData}
-            type={type}
+            axisConfig={axisConfig}
+            isMobile={isMobile}
             selectedDate={hoveredDate}
           />
         </div>
