@@ -73,8 +73,9 @@ const CONFIG = {
   MOBILE: {
     MARGIN: {
       left: 60,
+      right: 20,
     },
-    Y_AXIS_LABEL_PADDING: 8,
+    Y_AXIS_LABEL_PADDING: 10,
     RADIUS_EXTENT: [3, 8],
   },
 };

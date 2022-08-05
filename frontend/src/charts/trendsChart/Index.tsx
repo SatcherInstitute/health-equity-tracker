@@ -125,6 +125,12 @@ export function TrendsChart({
     [isMobile, MARGIN.left, MOBILE.MARGIN.left]
   );
 
+  // Margin to right of line chart - different on mobile & desktop
+  const marginRight = useMemo(
+    () => (isMobile ? MOBILE.MARGIN.right : MARGIN.right),
+    [isMobile, MARGIN.right, MOBILE.MARGIN.right]
+  );
+
   // TODO: look into using useCallback instead
   // Array of just dates (x values)
   const dates = getDates(filteredData);
@@ -145,8 +151,8 @@ export function TrendsChart({
 
   // X-Scale
   const xScale = scaleTime(xExtent as [Date, Date], [
-    isMobile ? MOBILE.MARGIN.left : MARGIN.left,
-    (width as number) - MARGIN.right,
+    marginLeft,
+    (width as number) - marginRight,
   ]);
 
   // Y-Scale
@@ -244,6 +250,7 @@ export function TrendsChart({
             width={width as number}
             marginBottom={marginBottom}
             marginLeft={marginLeft}
+            marginRight={marginRight}
             axisConfig={axisConfig}
             isMobile={isMobile}
           />

@@ -7,6 +7,7 @@
  * @param {number} width the width of the svg
  * @param {number} marginBottom the margin below the line chart (dynamic for mobile & desktop)
  * @param {number} marginLeft the margin to the left of the line chart
+ * @param {number} marginRight the margin to the right of the line chart
  * @param {object} axisConfig an object containing the configuration for axes - type and labels
  * @param {boolean} isMobile a flag to determine whether user is viewing app below the mobile breakpoint
  * returns jsx of an svg group containing groups of axes and axis labels
@@ -34,6 +35,7 @@ export interface AxesProps {
   width: number;
   marginBottom: number;
   marginLeft: number;
+  marginRight: number;
   axisConfig: AxisConfig;
   isMobile: boolean;
 }
@@ -46,6 +48,7 @@ export function Axes({
   width,
   marginBottom,
   marginLeft,
+  marginRight,
   axisConfig,
   isMobile,
 }: AxesProps) {
@@ -85,7 +88,7 @@ export function Axes({
 
   const yAxis = axisLeft(yScale)
     .tickSizeOuter(0)
-    .tickSizeInner(-width + MARGIN.right + marginLeft)
+    .tickSizeInner(-width + marginRight + marginLeft)
     // @ts-ignore
     .tickFormat(Y_AXIS_CONFIG[type]?.formatter)
     .tickPadding(TICK_PADDING / 2);
@@ -134,7 +137,7 @@ export function Axes({
         <line
           x1={marginLeft}
           y1={yScale(0)}
-          x2={width - MARGIN.right}
+          x2={width - marginRight}
           y2={yScale(0)}
           stroke="black"
         />
@@ -147,8 +150,9 @@ export function Axes({
             HEIGHT - marginBottom + TICK_PADDING
           })`}
         >
-          <text textAnchor="end" dy="8px">
-            Time {"→"}
+          {/* only display x-axis label on desktop */}
+          <text textAnchor="end" dy="8px" aria-hidden={isMobile}>
+            {isMobile ? "" : "Time →"}
           </text>
         </g>
         {/* Top Y-Axis Label */}
