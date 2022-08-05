@@ -81,7 +81,7 @@ export function TrendsTooltip({
   };
 
   return (
-    <div className={styles.Tooltip}>
+    <div className={styles.Tooltip} role="tooltip">
       {/* Date title */}
       <div className={styles.title}>
         <div>{F.dateFromString(selectedDate || "")}</div>

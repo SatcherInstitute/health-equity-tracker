@@ -108,7 +108,7 @@ export function CircleChart({
                       textAnchor="middle"
                       dy="26px"
                     >
-                      {F.pct(percent)}
+                      {percent && F.pct(percent)}
                     </text>
                   </>
                 )}

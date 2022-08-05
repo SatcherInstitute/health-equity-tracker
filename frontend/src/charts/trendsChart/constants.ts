@@ -83,6 +83,8 @@ const CONFIG = {
     Y_AXIS_LABEL_PADDING: 10,
     RADIUS_EXTENT: [3, 8],
   },
+  // width of tooltip bars
+  BAR_WIDTH: 100,
 };
 
 // line chart type dictionary

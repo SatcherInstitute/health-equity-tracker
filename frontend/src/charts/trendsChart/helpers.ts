@@ -1,7 +1,8 @@
 import { ascending, descending, max, min } from "d3";
 import { TrendsData, GroupData, GroupValues, UnknownData } from "./types";
+import { CONFIG } from "./constants";
 
-const BAR_WIDTH = 100;
+const { BAR_WIDTH } = CONFIG;
 
 /* Filters out data for groups that are not selected */
 function filterDataByGroup(data: TrendsData, groups: string[]) {
