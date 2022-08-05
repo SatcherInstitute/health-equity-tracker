@@ -2,6 +2,7 @@
  * A Filter component styled as a legend which allows user to filter data
  * @param {object[]} data array of timeseries data objects
  * @param {string[]} selectedGroups array of strings which correspond to groups that have been selected by user
+ * @param {boolean} isMobile a flag to determine whether user is viewing app below the mobile breakpoint
  * @param {*} handleClick function that handles user button click
  * returns jsx of a div of divs
  */
@@ -28,6 +29,7 @@ export interface FilterLegendProps {
   selectedGroups: string[];
   handleClick: (group: string | null) => void;
   groupLabel: string;
+  isMobile: boolean;
 }
 
 /* Render component */
@@ -36,6 +38,7 @@ export function FilterLegend({
   selectedGroups,
   handleClick,
   groupLabel,
+  isMobile,
 }: FilterLegendProps) {
   return (
     // Legend Wrapper
@@ -48,7 +51,8 @@ export function FilterLegend({
           className={!selectedGroups.length ? styles.disabled : undefined} // disable button unless filters are applied
           onClick={() => handleClick(null)} // clear selected groups on click
         >
-          Clear {groupLabel} Filter x
+          {/* only display group in button name on desktop */}
+          Clear {isMobile ? "" : groupLabel} Filter x
         </button>
       </div>
       {/* Legend Items Wrapper */}
@@ -56,14 +60,12 @@ export function FilterLegend({
         {/* Map over groups and create Legend Item for each */}
         {data &&
           data.map(([group]) => (
-            // TODO: possibly need to extend key to be more unique
             // Legend Item Filter Button
             <button
               key={`legendItem-${group}`}
               aria-label={`Filter by ${group}`}
               className={styles.LegendItem}
               onClick={() => handleClick(group)} // send group name to parent on click
-              // TODO: bring in CN library to handle this in CSS with toggling "selected" class
               // If there are selected groups, and the group is not selected, fade out, otherwise full opacity
               style={{
                 opacity:
@@ -73,7 +75,6 @@ export function FilterLegend({
               }}
             >
               {/* Legend Item color swatch */}
-              {/* TODO: type background-color property */}
               <div
                 className={styles.swatch}
                 aria-hidden={true}

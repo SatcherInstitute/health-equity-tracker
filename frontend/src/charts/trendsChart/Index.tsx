@@ -201,6 +201,7 @@ export function TrendsChart({
             selectedGroups={selectedGroups}
             handleClick={handleClick}
             groupLabel={groupLabel}
+            isMobile={isMobile}
           />
         )}
       </div>

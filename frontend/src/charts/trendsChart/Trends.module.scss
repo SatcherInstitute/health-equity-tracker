@@ -80,7 +80,8 @@ $breakpoint-mobile: 600px;
   @media (min-width: $breakpoint-mobile) {
     margin: 0 0 $spacingMedium 84px; // align filter with chart margin
   }
-  margin: 0 0 $spacingMedium 60px; // align filter with chart margin
+  // mobile
+  margin: 0 0 $spacingMedium 20px; // align filter with chart margin
 }
 
 .FilterLegend {
