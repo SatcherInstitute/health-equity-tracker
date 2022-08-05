@@ -2,7 +2,7 @@ import { MetricId } from "../config/MetricConfig";
 import { BreakdownVar } from "../query/Breakdowns";
 import { DemographicGroup, TIME_PERIOD } from "./Constants";
 import { Row } from "./DatasetTypes";
-import { getExclusionList, shortenNH } from "./datasetutils";
+import { shortenNH } from "./datasetutils";
 
 const MONTHLY_LENGTH = 7;
 const YEARLY_LENGTH = 4;
