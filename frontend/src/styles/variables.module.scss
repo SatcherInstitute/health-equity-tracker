@@ -63,6 +63,13 @@ $unknown-map-more: #47a8cb;
 $unknown-map-even-more: #2384b9;
 $unknown-map-most: #0b61a2;
 
+// timeseries map colors (from brand guidelines)
+$time-light-green: #9ac4c0;
+$time-light-blue: #adbbde;
+$time-pink: #f2d6e7;
+$time-dark-red: #a93038;
+$time-yellow: #fcb431;
+
 // font settings
 $logo: 20px; // pixel perfect to match logo img
 $smallest: 0.75rem;
@@ -158,6 +165,12 @@ $bottom-border-style: 1px solid $border-color;
   unknownMapMore: $unknown-map-more;
   unknownMapEven: $unknown-map-even-more;
   unknownMapMost: $unknown-map-most;
+
+  timeLightGreen: $time-light-green;
+  timeLightBlue: $time-light-blue;
+  timePink: $time-pink;
+  timeDarkRed: $time-dark-red;
+  timeYellow: $time-yellow;
 
   footerSize: $footer-size;
   maxWidth: $max-width;

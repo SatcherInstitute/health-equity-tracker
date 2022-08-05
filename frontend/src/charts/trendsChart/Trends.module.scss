@@ -6,6 +6,11 @@ $spacingMedium: 18px;
 $spacingLarge: 36px;
 $breakpoint-mobile: 600px;
 
+@mixin hoverTransition {
+  opacity: 1;
+  transition: opacity 250ms ease-in-out, transform 200ms linear;
+}
+
 .TrendsChart {
   // styles for trends chart container
   @include inter400;
@@ -40,9 +45,15 @@ $breakpoint-mobile: 600px;
   }
 
   // legend for unknown circles
-  .CircleLegend {
+  .CircleLegend,
+  .UnknownCircles {
     text {
+      opacity: 1;
       font-size: $smallest;
+      transition: opacity 200ms linear 100ms;
+      &.invisible {
+        opacity: 0;
+      }
       &.title {
         @include inter500; // make title bolder than number labels
       }
@@ -52,6 +63,10 @@ $breakpoint-mobile: 600px;
   // visibility classes
   .hidden {
     display: none;
+  }
+
+  .invisible {
+    opacity: 0;
   }
 
   .disabled {
@@ -65,7 +80,8 @@ $breakpoint-mobile: 600px;
   @media (min-width: $breakpoint-mobile) {
     margin: 0 0 $spacingMedium 84px; // align filter with chart margin
   }
-  margin: 0 0 $spacingMedium 60px; // align filter with chart margin
+  // mobile
+  margin: 0 0 $spacingMedium 20px; // align filter with chart margin
 }
 
 .FilterLegend {
@@ -140,27 +156,21 @@ $breakpoint-mobile: 600px;
 .TooltipWrapper {
   position: absolute;
   pointer-events: none;
-  opacity: 1;
-  transition: opacity 250ms ease-in-out, transform 200ms linear;
+  @include hoverTransition;
 }
 
-.Indicators {
-  opacity: 1;
-  transition: opacity 250ms ease-in-out, transform 200ms linear;
-  line {
-    stroke: black;
-  }
-}
-
+.Indicators,
 .HoverCircle {
-  opacity: 1;
-  transition: opacity 250ms ease-in-out, transform 200ms linear;
+  @include hoverTransition;
+  line {
+    stroke: $black;
+  }
 }
 
 .Tooltip {
   border: 1px solid $alt-grey;
   border-radius: 3px;
-  background-color: white;
+  background-color: $white;
   width: min-content;
   padding: $spacingSmaller;
   white-space: nowrap;
@@ -171,6 +181,11 @@ $breakpoint-mobile: 600px;
     padding-bottom: $spacingSmaller;
     text-align: center;
     border-bottom: 1px solid $alt-grey;
+    .subtitle {
+      margin-top: 4px;
+      @include inter400;
+      font-size: $smallest;
+    }
   }
 
   .grid {

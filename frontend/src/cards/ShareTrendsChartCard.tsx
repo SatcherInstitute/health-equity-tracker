@@ -110,20 +110,6 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             ) : (
               <div>
                 {/* 2N INCIDENCE RATE TRENDS VIZ COMPONENT HERE */}
-                {console.log("UNDUE SHARES", nestedData)}
-
-                {console.log("UNKNOWN PCT SHARE", nestedUnknowns)}
-                {/*
-                  <b>type: MetricType</b>
-                  <pre>{metricConfig.type}</pre>
-
-                  <b>metricId: MetricId</b>
-                  <pre>{metricConfig.metricId}</pre>
-                  <b>unknown: UnknownData</b>
-                  <pre>{JSON.stringify(nestedUnknowns)}</pre>
-
-                  <b>data: TrendsData</b>
-                  <pre>{JSON.stringify(nestedData)}</pre> */}
                 {/* @ts-ignore */}
                 <TrendsChart
                   // @ts-ignore

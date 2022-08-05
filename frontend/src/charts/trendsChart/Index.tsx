@@ -1,6 +1,9 @@
 /**
  * A parent component with a Filter, Line Chart and optional Circle Chart that visualizes data trends over time
  * Uses d3.js to apply data transformations and draw the lines and circles on an SVG
+ * @param {object[]} data array of timeseries data objects
+ * @param {[]} unknown an array of data for unknown group
+ * @param {object} axisConfig an object containing the configuration for axes - type and labels
  * returns jsx of a div encapsulating a div containing legend items which can be used to filter and and svg with data visualization
  */
 
@@ -12,15 +15,7 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import {
-  scaleOrdinal,
-  scaleTime,
-  scaleLinear,
-  extent,
-  min,
-  max,
-  bisector,
-} from "d3";
+import { scaleTime, scaleLinear, extent, min, max, bisector } from "d3";
 
 /* Local Imports */
 
@@ -36,11 +31,16 @@ import { HoverCircles } from "./HoverCircles";
 import styles from "./Trends.module.scss";
 
 /* Constants */
-import { COLOR_RANGE, CONFIG } from "./constants";
+import { CONFIG } from "./constants";
 import { UnknownData, TrendsData, AxisConfig } from "./types";
 
 /* Helpers */
-import { filterDataByGroup, getAmounts, getDates } from "./helpers";
+import {
+  filterDataByGroup,
+  getAmounts,
+  getDates,
+  filterUnknownsByTimePeriod,
+} from "./helpers";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -57,7 +57,7 @@ export function TrendsChart({
 }: TrendsChartProps) {
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
-  const { type, groupLabel, yAxisLabel = "" } = axisConfig || {};
+  const { groupLabel } = axisConfig || {};
 
   /* Refs */
   // parent container ref - used for setting svg width
@@ -104,7 +104,7 @@ export function TrendsChart({
   const filteredData = useMemo(
     () =>
       selectedGroups.length ? filterDataByGroup(data, selectedGroups) : data,
-    [selectedGroups]
+    [selectedGroups, data]
   );
 
   // Display unknowns or not - affects margin below line chart
@@ -116,13 +116,19 @@ export function TrendsChart({
   // Margin below line chart - create space for unknown circles
   const marginBottom = useMemo(
     () => (showUnknowns ? MARGIN.bottom_with_unknowns : MARGIN.bottom),
-    [unknown]
+    [MARGIN.bottom_with_unknowns, MARGIN.bottom, showUnknowns]
   );
 
   // Margin to left of line chart - different on mobile & desktop
   const marginLeft = useMemo(
     () => (isMobile ? MOBILE.MARGIN.left : MARGIN.left),
-    [isMobile]
+    [isMobile, MARGIN.left, MOBILE.MARGIN.left]
+  );
+
+  // Margin to right of line chart - different on mobile & desktop
+  const marginRight = useMemo(
+    () => (isMobile ? MOBILE.MARGIN.right : MARGIN.right),
+    [isMobile, MARGIN.right, MOBILE.MARGIN.right]
   );
 
   // TODO: look into using useCallback instead
@@ -132,12 +138,7 @@ export function TrendsChart({
   const amounts = getAmounts(filteredData);
 
   /* Scales */
-  const colors = scaleOrdinal(
-    data.map(([group]) => group),
-    COLOR_RANGE
-  );
 
-  // TODO: how to handle case when extent is made of undefined values
   // define X and Y extents
   const xExtent: [Date, Date] | [undefined, undefined] = extent(
     dates.map((date) => new Date(date))
@@ -150,8 +151,8 @@ export function TrendsChart({
 
   // X-Scale
   const xScale = scaleTime(xExtent as [Date, Date], [
-    isMobile ? MOBILE.MARGIN.left : MARGIN.left,
-    (width as number) - MARGIN.right,
+    marginLeft,
+    (width as number) - marginRight,
   ]);
 
   // Y-Scale
@@ -188,11 +189,10 @@ export function TrendsChart({
         dates.map((d) => new Date(d)),
         invertedDate
       );
-      // console.log(dates)
       // set state to story hovered date
       setHoveredDate(dates[closestIdx]);
     },
-    [JSON.stringify(dates), xScale]
+    [dates, xScale]
   );
 
   return (
@@ -204,15 +204,16 @@ export function TrendsChart({
           <FilterLegend
             data={data}
             selectedGroups={selectedGroups}
-            // colors={colors}
             handleClick={handleClick}
             groupLabel={groupLabel}
+            isMobile={isMobile}
           />
         )}
       </div>
       {/* Tooltip */}
       <div
         className={styles.TooltipWrapper}
+        // Position tooltip to the right of the cursor until until cursor is half way across chart, then to left
         style={{
           transform: `translate(${
             xScale(new Date(hoveredDate || "")) > width / 2
@@ -225,14 +226,14 @@ export function TrendsChart({
         <div ref={toolTipRef}>
           <TrendsTooltip
             data={filteredData}
-            colors={colors}
-            type={type}
+            axisConfig={axisConfig}
+            isMobile={isMobile}
             selectedDate={hoveredDate}
           />
         </div>
       </div>
       {/* Chart */}
-      {filteredData && xScale && yScale && colors && (
+      {filteredData && xScale && yScale && (
         <svg
           height={CONFIG.HEIGHT}
           width={width as number}
@@ -250,16 +251,12 @@ export function TrendsChart({
             width={width as number}
             marginBottom={marginBottom}
             marginLeft={marginLeft}
+            marginRight={marginRight}
             axisConfig={axisConfig}
             isMobile={isMobile}
           />
           {/* Lines */}
-          <LineChart
-            data={filteredData}
-            xScale={xScale}
-            yScale={yScale}
-            colors={colors}
-          />
+          <LineChart data={filteredData} xScale={xScale} yScale={yScale} />
           {/* Group for hover indicator line and circles */}
           <g
             className={styles.Indicators}
@@ -273,18 +270,18 @@ export function TrendsChart({
             <HoverCircles
               data={filteredData}
               selectedDate={hoveredDate}
-              colors={colors}
               yScale={yScale}
             />
           </g>
           {/* Only render unknown group circles when there is data for which the group is unknown */}
           {showUnknowns && (
             <CircleChart
-              data={unknown}
+              data={filterUnknownsByTimePeriod(unknown, dates)}
               xScale={xScale}
               width={width}
               isMobile={isMobile}
               groupLabel={groupLabel}
+              selectedDate={hoveredDate}
             />
           )}
         </svg>

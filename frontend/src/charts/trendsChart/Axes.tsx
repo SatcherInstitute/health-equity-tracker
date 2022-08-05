@@ -1,6 +1,15 @@
 /**
  * Axes for the charts that track trends over time
  * Uses d3.js to apply generate and draw axes on an SVG
+ * @param {object[]} data array of timeseries data objects
+ * @param {*} xScale a d3 time series scale function
+ * @param {*} yScale a d3 linear scale function
+ * @param {number} width the width of the svg
+ * @param {number} marginBottom the margin below the line chart (dynamic for mobile & desktop)
+ * @param {number} marginLeft the margin to the left of the line chart
+ * @param {number} marginRight the margin to the right of the line chart
+ * @param {object} axisConfig an object containing the configuration for axes - type and labels
+ * @param {boolean} isMobile a flag to determine whether user is viewing app below the mobile breakpoint
  * returns jsx of an svg group containing groups of axes and axis labels
 
 /* External Imports */
@@ -18,6 +27,7 @@ import { TrendsData, XScale, YScale, AxisConfig } from "./types";
 
 /* Helpers */
 import { getMinNumber, getMaxNumber } from "./helpers";
+
 /* Define type interface */
 export interface AxesProps {
   data: TrendsData;
@@ -26,6 +36,7 @@ export interface AxesProps {
   width: number;
   marginBottom: number;
   marginLeft: number;
+  marginRight: number;
   axisConfig: AxisConfig;
   isMobile: boolean;
 }
@@ -38,11 +49,12 @@ export function Axes({
   width,
   marginBottom,
   marginLeft,
+  marginRight,
   axisConfig,
   isMobile,
 }: AxesProps) {
   /* Config */
-  const { HEIGHT, MARGIN, TICK_PADDING, Y_AXIS_LABEL_PADDING, MOBILE } = CONFIG;
+  const { HEIGHT, TICK_PADDING, Y_AXIS_LABEL_PADDING, MOBILE } = CONFIG;
   const { type, yAxisLabel = "" } = axisConfig || {};
   const yAxisLabelPadding = isMobile
     ? MOBILE.Y_AXIS_LABEL_PADDING
@@ -50,16 +62,14 @@ export function Axes({
   // handles difference between per100k and percent_share charts
   const Y_AXIS_CONFIG = {
     [TYPES.HUNDRED_K]: {
-      topLabel: yAxisLabel + " →", // reference to shortLabel from metricConfig
+      topLabel: F.capitalize(yAxisLabel) + " →", // reference to shortLabel from metricConfig
       bottomLabel: "",
-      formatter: (d: string | number) => `${d}${isMobile ? "" : ""}`,
+      formatter: (d: string | number) => d, // per 100k could be interpolated here
     },
     [TYPES.PERCENT_SHARE]: {
-      // @ts-ignore
-      topLabel: getMaxNumber(data) <= 0 ? "" : "Over-represented →",
-      // @ts-ignore
-      bottomLabel: getMinNumber(data) >= 0 ? "" : "← Under-represented",
-      formatter: (d: number) => F.pct(d),
+      topLabel: (getMaxNumber(data) || 0) <= 0 ? "" : "Over-represented →", // if there are positive numbers, append positive direction label
+      bottomLabel: (getMinNumber(data) || 0) >= 0 ? "" : "← Under-represented", // if there are negative numbers, append negative direction label
+      formatter: (d: number) => (d === 0 ? "" : F.pct(d)), // if tick is 0, hide it, otherwise format as percent
     },
   };
 
@@ -70,20 +80,21 @@ export function Axes({
   /* Axes */
   const xAxis = axisBottom(xScale)
     .tickSize(0)
-    .ticks(isMobile ? 4 : null)
+    .ticks(isMobile ? 4 : null) // limits number of ticks on mobile
     // @ts-ignore
     .tickFormat(F.dateShort)
     .tickPadding(TICK_PADDING);
 
   const yAxis = axisLeft(yScale)
     .tickSizeOuter(0)
-    .tickSizeInner(-width + MARGIN.right + marginLeft)
+    .tickSizeInner(-width + marginRight + marginLeft) // creates grid lines
     // @ts-ignore
     .tickFormat(Y_AXIS_CONFIG[type]?.formatter)
     .tickPadding(TICK_PADDING / 2);
 
   /* Effects */
 
+  /* Inject axes using d3 */
   useEffect(() => {
     if (xAxisRef.current && yAxisRef.current) {
       select(xAxisRef.current)
@@ -95,6 +106,7 @@ export function Axes({
         .transition()
         // @ts-ignore
         .call(yAxis)
+        // styles the y grid lines after render (we think)
         .call((g) =>
           g
             .selectAll(".tick line")
@@ -102,7 +114,7 @@ export function Axes({
             .attr("stroke-dasharray", 5)
         );
     }
-  }, [data, xScale, yScale]);
+  }, [data, xScale, yScale, xAxis, yAxis]);
 
   return (
     <g>
@@ -126,9 +138,9 @@ export function Axes({
         <line
           x1={marginLeft}
           y1={yScale(0)}
-          x2={width - MARGIN.right}
+          x2={width - marginRight}
           y2={yScale(0)}
-          stroke="black"
+          stroke="black" // handle in CSS?
         />
       </g>
       {/* Axis Labels */}
@@ -139,8 +151,9 @@ export function Axes({
             HEIGHT - marginBottom + TICK_PADDING
           })`}
         >
-          <text textAnchor="end" dy="8px">
-            Time {"→"}
+          {/* only display x-axis label on desktop */}
+          <text textAnchor="end" dy="8px" aria-hidden={isMobile}>
+            {isMobile ? "" : "Time →"}
           </text>
         </g>
         {/* Top Y-Axis Label */}

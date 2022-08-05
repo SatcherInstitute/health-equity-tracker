@@ -1,25 +1,29 @@
 /**
  * A Circle Chart that visualizes data trends over time
  * Uses d3.js to apply data transformations and draw circles on an SVG
+ * @param {object[]} data array of timeseries data objects
+ * @param {*} xScale a d3 time series scale function
+ * @param {number} width the width of the svg
+ * @param {string} groupLabel the label to apply to the legend title (e.g. 'race and ethnicity')
+ * @param {boolean} isMobile a flag to determine whether user is viewing app below the mobile breakpoint
+ * @param {string} selectedDate the date that is currently hovered
  * returns jsx of an svg group parent of many circle children distributed along an x-axis
  */
 
 /* External Imports */
-import React, { useMemo } from "react";
+import React from "react";
 import { scaleSqrt, scaleLinear, extent, min, max } from "d3";
-
-/* Local Imports */
-
-/* Components */
 
 /* Styles */
 import styles from "./Trends.module.scss";
 
 /* Constants */
-import { CONFIG, UNKNOWN_GROUP_COLOR_EXTENT } from "./constants";
+import {
+  CONFIG,
+  UNKNOWN_GROUP_COLOR_EXTENT,
+  FORMATTERS as F,
+} from "./constants";
 import { UnknownData, XScale } from "./types";
-
-/* Helpers */
 
 /* Define type interface */
 export interface CircleChartProps {
@@ -28,6 +32,7 @@ export interface CircleChartProps {
   width: number;
   groupLabel: string;
   isMobile: boolean;
+  selectedDate: string | null;
 }
 
 /* Render component */
@@ -37,6 +42,7 @@ export function CircleChart({
   width,
   groupLabel,
   isMobile,
+  selectedDate,
 }: CircleChartProps) {
   /* Config */
   const { HEIGHT, MARGIN, RADIUS_EXTENT, MOBILE } = CONFIG;
@@ -60,18 +66,14 @@ export function CircleChart({
   );
 
   /* Memoized Values */
-  // Unknown Legend Placement
-  // const legendXPlacement = useMemo(
-  //   () => (isMobile ? width / 2 : marginLeft + (width - MARGIN.right) / 2),
-  //   [isMobile]
-  // );
   const legendXPlacement = width / 2;
+
   /* Helpers */
   function getLegendValues() {
     const maxPercent = max(percentDomain);
     const minPercent = min(percentDomain);
     const midPercent =
-      maxPercent && minPercent ? maxPercent - minPercent / 2 : 0;
+      maxPercent && minPercent ? minPercent + (maxPercent - minPercent) / 2 : 0;
     return [minPercent, midPercent, maxPercent];
   }
 
@@ -84,23 +86,34 @@ export function CircleChart({
       >
         {data &&
           data.map(([date, percent]: [string, number], i: number) => {
-            // return a circle for every data point on desktop, or every other data point on mobile (to create more space)
-            if (!isMobile || (isMobile && i % 2 === 0)) {
-              return (
-                <g key={`dataCircleGroup-${i}`}>
-                  <circle
-                    r={rScale(percent)}
-                    cx={xScale(new Date(date))}
-                    fill={colors(percent)}
-                    role="img"
-                    aria-describedby={`circleText-${i}`}
-                  />
-                  <text className={styles.hidden} id={`circleText-${i}`}>
-                    {percent?.toFixed(0)} percent
-                  </text>
-                </g>
-              );
-            }
+            return (
+              <g
+                key={`dataCircleGroup-${i}`}
+                transform={`translate(${xScale(new Date(date))}, 0)`}
+                className={styles.UnknownCircles}
+              >
+                {/* return a circle for every data point on desktop, or every other data point on mobile (to create more space) */}
+                {(!isMobile || (isMobile && i % 2 === 0)) && (
+                  <>
+                    <circle
+                      r={rScale(percent)}
+                      fill={colors(percent)}
+                      role="img"
+                      aria-describedby={`circleText-${i}`}
+                    />
+                    {/* show percent annotation on hover */}
+                    <text
+                      id={`circleText-${i}`}
+                      className={selectedDate === date ? "" : styles.invisible}
+                      textAnchor="middle"
+                      dy="26px"
+                    >
+                      {percent && F.pct(percent)}
+                    </text>
+                  </>
+                )}
+              </g>
+            );
           })}
       </g>
       {/* Circle Legend */}
@@ -110,7 +123,7 @@ export function CircleChart({
         transform={`translate(${legendXPlacement}, ${HEIGHT - 3 * MAX_RADIUS})`}
       >
         {/* Legend Title */}
-        <text textAnchor="middle" dy="-22px" className={styles.title}>
+        <text textAnchor="middle" dy="-20px" className={styles.title}>
           Percent Unknown {groupLabel}
         </text>
         {/* Display circle for min, mid, and max values */}
@@ -128,8 +141,7 @@ export function CircleChart({
             />
             {/* Circle label annotation (percent represented by circle) */}
             <text textAnchor="middle" dy="28px" id={`circleLegendText-${i}`}>
-              {percent?.toFixed(0)}
-              {"%"}
+              {F.pct(percent)}
             </text>
           </g>
         ))}

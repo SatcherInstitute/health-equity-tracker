@@ -9,17 +9,28 @@ const {
   darkBlue,
   redOrange,
   altGrey,
+  timeLightGreen,
+  timeLightBlue,
+  timePink,
+  timeDarkRed,
+  timeYellow,
 } = sass;
 // domain for color scale
 const COLOR_DOMAIN = [
   "All",
-  "American Indian and Alaska Native (Non-Hispanic)",
-  "Asian (Non-Hispanic)",
-  "Black or African American (Non-Hispanic)",
+  "American Indian and Alaska Native NH)",
+  "American Indian and Alaska Native NH",
+  "Asian NH)",
+  "Asian NH",
+  "Black or African American NH)",
+  "Black or African American NH",
   "Hispanic or Latino",
-  "Native Hawaiian and Pacific Islander (Non-Hispanic)",
-  "Two or more races & Unrepresented race (Non-Hispanic)",
-  "White (Non-Hispanic)",
+  "Native Hawaiian and Pacific Islander NH)",
+  "Native Hawaiian and Pacific Islander NH",
+  "Two or more races & Unrepresented race NH)",
+  "Two or more races & Unrepresented race NH",
+  "White NH)",
+  "White NH",
   "Female",
   "Male",
   "Unknown",
@@ -27,16 +38,22 @@ const COLOR_DOMAIN = [
 // range of colors for groups
 const COLOR_RANGE = [
   altGrey,
-  "#9AC4C0",
+  timeLightGreen,
+  timeLightGreen,
+  altGreen,
   altGreen,
   darkBlue,
-  "#ADBBDE",
-  "#F2D6E7",
-  "#A93038",
+  darkBlue,
+  timeLightBlue,
+  timePink,
+  timePink,
+  timeDarkRed,
+  timeDarkRed,
   redOrange,
-  "#9AC4C0",
-  "#ADBBDE",
-  "#FCB431",
+  redOrange,
+  timeLightGreen,
+  timeLightBlue,
+  timeYellow,
 ];
 // color scale
 const COLORS = scaleOrdinal(COLOR_DOMAIN, COLOR_RANGE);
@@ -45,13 +62,13 @@ const UNKNOWN_GROUP_COLOR_EXTENT = [unknownMapLeast, unknownMapMost];
 
 /* Config */
 const CONFIG = {
-  HEIGHT: 450,
+  HEIGHT: 500,
   STARTING_WIDTH: 980,
   MARGIN: {
     top: 10,
     right: 55,
     bottom: 30,
-    bottom_with_unknowns: 140,
+    bottom_with_unknowns: 144,
     left: 80,
   },
   TICK_PADDING: 18,
@@ -61,10 +78,13 @@ const CONFIG = {
   MOBILE: {
     MARGIN: {
       left: 60,
+      right: 20,
     },
-    Y_AXIS_LABEL_PADDING: 8,
+    Y_AXIS_LABEL_PADDING: 10,
     RADIUS_EXTENT: [3, 8],
   },
+  // width of tooltip bars
+  BAR_WIDTH: 100,
 };
 
 // line chart type dictionary
@@ -76,8 +96,10 @@ const TYPES = {
 const FORMATTERS = {
   pct: (d: number) => `${format(".1~f")(d)}%`, // have to treat percent as truncated number and then interpolate % b/c they are received as integers
   dateShort: utcFormat("%m/%y"),
+  dateYear: utcFormat("%Y"),
   dateFromString: (str: string) => str && utcFormat("%B %Y")(new Date(str)),
   num: format(".1~f"),
+  capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ""),
 };
 
 export {
