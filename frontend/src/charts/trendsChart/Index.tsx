@@ -214,6 +214,7 @@ export function TrendsChart({
       {/* Tooltip */}
       <div
         className={styles.TooltipWrapper}
+        // Position tooltip to the right of the cursor until until cursor is half way across chart, then to left
         style={{
           transform: `translate(${
             xScale(new Date(hoveredDate || "")) > width / 2

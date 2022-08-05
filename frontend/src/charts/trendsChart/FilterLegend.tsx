@@ -10,18 +10,12 @@
 /* External Imports */
 import React from "react";
 
-/* Local Imports */
-
 /* Styles */
 import styles from "./Trends.module.scss";
-
-/* Components */
 
 /* Constants */
 import { TrendsData } from "./types";
 import { COLORS as C } from "./constants";
-
-/* Helpers */
 
 /* Define type interface */
 export interface FilterLegendProps {

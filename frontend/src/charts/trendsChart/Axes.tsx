@@ -27,6 +27,7 @@ import { TrendsData, XScale, YScale, AxisConfig } from "./types";
 
 /* Helpers */
 import { getMinNumber, getMaxNumber } from "./helpers";
+
 /* Define type interface */
 export interface AxesProps {
   data: TrendsData;

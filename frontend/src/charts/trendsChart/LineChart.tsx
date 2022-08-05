@@ -19,8 +19,6 @@ import styles from "./Trends.module.scss";
 import { TrendsData, XScale, YScale } from "./types";
 import { COLORS as C } from "./constants";
 
-/* Helpers */
-
 /* Define type interface */
 export interface LineChartProps {
   data: TrendsData;
@@ -50,12 +48,11 @@ export function LineChart({ data, xScale, yScale }: LineChartProps) {
   return (
     <g>
       {data &&
-        //@ts-ignore : TODO revisit with real data when date is actually a Date type
-        data.map(([group, d]: [string, [Date, number][]]) => (
+        data.map(([group, d]: [string, [string, number][]]) => (
           <path
             className={styles.TrendLine}
             key={`group-${group}`}
-            //@ts-ignore : TODO revisit with real data when date is actually a Date type
+            // @ts-ignore
             d={lineGen(d) || ""}
             stroke={C(group)}
           />

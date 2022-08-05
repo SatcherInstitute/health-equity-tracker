@@ -10,16 +10,11 @@
 /* External Imports */
 import React from "react";
 
-/* Local Imports */
-
-/* Components */
-
 /* Styles */
 import styles from "./Trends.module.scss";
 
 /* Constants */
 import { getAmountsByDate } from "./helpers";
-
 import { TrendsData, YScale } from "./types";
 
 /* Helpers */

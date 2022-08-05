@@ -14,10 +14,6 @@
 import React from "react";
 import { scaleSqrt, scaleLinear, extent, min, max } from "d3";
 
-/* Local Imports */
-
-/* Components */
-
 /* Styles */
 import styles from "./Trends.module.scss";
 
@@ -28,8 +24,6 @@ import {
   FORMATTERS as F,
 } from "./constants";
 import { UnknownData, XScale } from "./types";
-
-/* Helpers */
 
 /* Define type interface */
 export interface CircleChartProps {
