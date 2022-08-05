@@ -1,6 +1,14 @@
 /**
  * Axes for the charts that track trends over time
  * Uses d3.js to apply generate and draw axes on an SVG
+ * @param {object[]} data array of timeseries data objects
+ * @param {*} xScale a d3 time series scale function
+ * @param {*} yScale a d3 linear scale function
+ * @param {number} width the width of the svg
+ * @param {number} marginBottom the margin below the line chart (dynamic for mobile & desktop)
+ * @param {number} marginLeft the margin to the left of the line chart
+ * @param {object} axisConfig an object containing the configuration for axes - type and labels
+ * @param {boolean} isMobile a flag to determine whether user is viewing app below the mobile breakpoint
  * returns jsx of an svg group containing groups of axes and axis labels
 
 /* External Imports */

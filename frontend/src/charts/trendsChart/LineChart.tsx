@@ -1,6 +1,9 @@
 /**
  * A Line Chart that visualizes data trends over time
  * Uses d3.js to apply data transformations and draw the lines on an SVG
+ * @param {object[]} data array of timeseries data objects
+ * @param {*} xScale a d3 time series scale function
+ * @param {*} yScale a d3 linear scale function
  * returns jsx of an svg group containing paths
 
 /* External Imports */

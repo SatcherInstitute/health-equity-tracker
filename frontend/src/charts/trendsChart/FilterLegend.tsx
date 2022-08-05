@@ -1,9 +1,8 @@
 /**
  * A Filter component styled as a legend which allows user to filter data
- * @param {object[]} data array of data objects whose group should be displayed in legend
+ * @param {object[]} data array of timeseries data objects
  * @param {string[]} selectedGroups array of strings which correspond to groups that have been selected by user
  * @param {*} handleClick function that handles user button click
- * @param {*} colors function that uses d3 scales to interpolate color values for each group
  * returns jsx of a div of divs
  */
 

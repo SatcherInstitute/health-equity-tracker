@@ -1,6 +1,9 @@
 /**
  * A parent component with a Filter, Line Chart and optional Circle Chart that visualizes data trends over time
  * Uses d3.js to apply data transformations and draw the lines and circles on an SVG
+ * @param {object[]} data array of timeseries data objects
+ * @param {[]} unknown an array of data for unknown group
+ * @param {object} axisConfig an object containing the configuration for axes - type and labels
  * returns jsx of a div encapsulating a div containing legend items which can be used to filter and and svg with data visualization
  */
 

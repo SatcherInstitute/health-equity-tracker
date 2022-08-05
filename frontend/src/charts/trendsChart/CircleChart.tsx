@@ -1,6 +1,12 @@
 /**
  * A Circle Chart that visualizes data trends over time
  * Uses d3.js to apply data transformations and draw circles on an SVG
+ * @param {object[]} data array of timeseries data objects
+ * @param {*} xScale a d3 time series scale function
+ * @param {number} width the width of the svg
+ * @param {string} groupLabel the label to apply to the legend title (e.g. 'race and ethnicity')
+ * @param {boolean} isMobile a flag to determine whether user is viewing app below the mobile breakpoint
+ * @param {string} selectedDate the date that is currently hovered
  * returns jsx of an svg group parent of many circle children distributed along an x-axis
  */
 

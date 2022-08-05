@@ -1,6 +1,9 @@
 /**
  * A group of circles that appear on hover
  * Uses d3.js to apply data transformations and draw circles on an SVG
+ * @param {object[]} data array of timeseries data objects
+ * @param {*} yScale a d3 linear scale function
+ * @param {string[]} selectedGroups array of strings which correspond to groups that have been selected by user
  * returns jsx of an svg group parent of many circle children distributed along an y-axis
  */
 
