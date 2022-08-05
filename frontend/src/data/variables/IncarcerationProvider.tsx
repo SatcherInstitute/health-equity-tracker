@@ -88,7 +88,6 @@ class IncarcerationProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
-    const timeView = metricQuery.timeView;
 
     let dataType = "";
     // determine JAIL vs PRISON based on the incoming requested metric ids
@@ -105,7 +104,6 @@ class IncarcerationProvider extends VariableProvider {
     let df = dataSource.toDataFrame();
 
     df = this.filterByGeo(df, breakdowns);
-    df = this.filterByTimeView(df, timeView);
 
     df = this.renameGeoColumns(df, breakdowns);
 

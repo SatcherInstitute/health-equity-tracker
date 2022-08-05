@@ -53,9 +53,9 @@ class VaccineProvider extends VariableProvider {
 
     const breakdownColumnName =
       breakdowns.getSoleDemographicBreakdown().columnName;
+    df = this.filterByTimeView(df, timeView);
 
     df = this.filterByGeo(df, breakdowns);
-    df = this.filterByTimeView(df, timeView);
     df = this.renameGeoColumns(df, breakdowns);
 
     let acsBreakdowns = breakdowns.copy();

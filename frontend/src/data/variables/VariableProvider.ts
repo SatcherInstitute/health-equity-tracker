@@ -61,11 +61,23 @@ abstract class VariableProvider {
     timeView: TimeView,
     sourceCurrentTimePeriod?: string
   ): IDataFrame {
-    // TODO: Remove this check once ALL data sources have been refactored to include time series data
+    // This method should only be used when the CROSS_SECTIONAL VEGA dataset is a recent subset of the LONGITUDINAL D3 dataset
+    // For other sources like COVID, the LONGITUDINAL set is in a distinct table that doesn't need the added filtering
+
+    // for updated datasets
+    // - return recent slice for CROSS
+    // - return full df for LONG
+
+    // for older datasets
+    // - return full set for CROSS
+    // - return empty df for LONG to trigger missing data on compare view
+
+    // const currentTimePeriod = sourceCurrentTimePeriod || "current"
 
     if (df.getColumnNames().includes(TIME_PERIOD)) {
-      if (timeView === CROSS_SECTIONAL)
+      if (timeView === CROSS_SECTIONAL) {
         df = df.where((row) => row[TIME_PERIOD] === sourceCurrentTimePeriod);
+      }
     }
 
     return df;

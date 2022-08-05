@@ -17,11 +17,11 @@ import {
   NON_HISPANIC,
 } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
+import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 import {
   getNestedRates,
   getNestedUnknowns,
-  splitIntoKnownsAndUnknowns,
-} from "../data/utils/datasetutils";
+} from "../data/utils/DatasetTimeUtils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -76,6 +76,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         const ratesData = queryResponseRates.getValidRowsForField(
           metricConfigRates.metricId
         );
+
         const pctShareData = queryResponsePctShares.getValidRowsForField(
           metricConfigPctShares.metricId
         );
@@ -111,10 +112,10 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           <CardContent>
             {queryResponseRates.shouldShowMissingDataMessage([
               metricConfigRates.metricId,
-            ]) ? (
+            ]) || nestedRatesData.length === 0 ? (
               <>
                 <MissingDataAlert
-                  dataName={metricConfigRates.fullCardTitleName}
+                  dataName={`historical data for ${metricConfigRates.fullCardTitleName}`}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
