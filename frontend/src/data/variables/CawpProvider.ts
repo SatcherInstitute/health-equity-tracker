@@ -58,13 +58,11 @@ class CawpProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
-    const timeView = metricQuery.timeView;
     const datasetId = this.getDatasetId(breakdowns);
     const cawp = await getDataManager().loadDataset(datasetId);
     let df = cawp.toDataFrame();
 
     df = this.filterByGeo(df, breakdowns);
-    df = this.filterByTimeView(df, timeView);
     df = this.renameGeoColumns(df, breakdowns);
 
     let consumedDatasetIds = [datasetId];

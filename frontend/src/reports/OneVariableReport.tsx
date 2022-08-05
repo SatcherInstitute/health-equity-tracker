@@ -150,7 +150,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
                   {breakdownIsShown(breakdownVar) &&
-                    variableConfig.metrics["per100k"] && (
+                    // only show longitudinal 100k chart if MetricConfig for current condition has a card title
+                    variableConfig.longitudinalData && (
                       <RateTrendsChartCard
                         variableConfig={variableConfig}
                         breakdownVar={breakdownVar}
@@ -203,7 +204,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
                   {breakdownIsShown(breakdownVar) &&
-                    variableConfig.metrics["per100k"] && (
+                    // only show longitudinal 100k chart if MetricConfig for current condition has a card title
+                    variableConfig.longitudinalData && (
                       <ShareTrendsChartCard
                         variableConfig={variableConfig}
                         breakdownVar={breakdownVar}
@@ -251,18 +253,20 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* AGE ADJUSTED TABLE CARD */}
-          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="age-adjusted">
-            <LazyLoad offset={800} height={800} once>
-              <AgeAdjustedTableCard
-                fips={props.fips}
-                variableConfig={variableConfig}
-                dropdownVarId={props.dropdownVarId}
-                breakdownVar={currentBreakdown}
-                setVariableConfigWithParam={setVariableConfigWithParam}
-                jumpToData={props.jumpToData}
-              />
-            </LazyLoad>
-          </Grid>
+          {variableConfig.metrics.age_adjusted_ratio.ageAdjusted && (
+            <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="age-adjusted">
+              <LazyLoad offset={800} height={800} once>
+                <AgeAdjustedTableCard
+                  fips={props.fips}
+                  variableConfig={variableConfig}
+                  dropdownVarId={props.dropdownVarId}
+                  breakdownVar={currentBreakdown}
+                  setVariableConfigWithParam={setVariableConfigWithParam}
+                  jumpToData={props.jumpToData}
+                />
+              </LazyLoad>
+            </Grid>
+          )}
         </Grid>
       )}
     </Grid>

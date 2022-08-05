@@ -27,8 +27,8 @@ export const COMBINED_INCARCERATION_STATES_LIST = [
   "Vermont",
 ];
 
-export const COMBINED_QUALIFIER = "combined prison and jail";
-export const PRIVATE_JAILS_QUALIFIER = "private jail system only";
+export const COMBINED_QUALIFIER = "(combined prison and jail)";
+export const PRIVATE_JAILS_QUALIFIER = "(private jail system only)";
 export const ALASKA_PRIVATE_JAIL_CAVEAT =
   "In addition, Alaska contracts with a small network of private jails, which are included here only as jail facilities.";
 
@@ -88,7 +88,6 @@ class IncarcerationProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
-    const timeView = metricQuery.timeView;
 
     let dataType = "";
     // determine JAIL vs PRISON based on the incoming requested metric ids
@@ -105,7 +104,6 @@ class IncarcerationProvider extends VariableProvider {
     let df = dataSource.toDataFrame();
 
     df = this.filterByGeo(df, breakdowns);
-    df = this.filterByTimeView(df, timeView);
 
     df = this.renameGeoColumns(df, breakdowns);
 
