@@ -21,7 +21,6 @@
     "axios": "^0.24.0",
     "cspell": "^6.4.0",
     "data-forge": "^1.9.2",
-    "date-fns": "^2.29.1",
     "env-cmd": "^10.1.0",
     "expect-axe-playwright": "^2.2.1",
     "html-react-parser": "^1.4.5",

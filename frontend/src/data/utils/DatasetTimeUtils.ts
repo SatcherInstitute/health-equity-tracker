@@ -1,9 +1,11 @@
-import { eachMonthOfInterval, eachYearOfInterval } from "date-fns";
 import { MetricId } from "../config/MetricConfig";
 import { BreakdownVar } from "../query/Breakdowns";
 import { DemographicGroup, TIME_PERIOD } from "./Constants";
 import { Row } from "./DatasetTypes";
 import { shortenNH } from "./datasetutils";
+
+const MONTHLY_LENGTH = 7;
+const YEARLY_LENGTH = 4;
 
 /*
 
@@ -16,95 +18,98 @@ D3 requires the data in a different format, as a series of nested arrays, per de
 Before (Table / Vega) Example:
 
 [
-	{
-		"sex": "male",
-		"jail_per_100k": 3000,
-		"time_period": "2020"
-	},
-	{
-		"sex": "male",
-		"jail_per_100k": 2000,
-		"time_period": "2021"
-	},
-	{
-		"sex": "female",
-		"jail_per_100k": 300,
-		"time_period": "2020"
-	},
-	{
-		"sex": "female",
-		"jail_per_100k": 200,
-		"time_period": "2021"
-	}
+  {
+    "sex": "male",
+    "jail_per_100k": 3000,
+    "time_period": "2020"
+  },
+  {
+    "sex": "male",
+    "jail_per_100k": 2000,
+    "time_period": "2021"
+  },
+  {
+    "sex": "female",
+    "jail_per_100k": 300,
+    "time_period": "2020"
+  },
+  {
+    "sex": "female",
+    "jail_per_100k": 200,
+    "time_period": "2021"
+  }
 ]
 
 After (Time-Series / D3) Example:
 
 [
-	["male", 
-		[["2020", 3000],["2021", 2000]]
-	],
-	["female", 
-		[["2020", 300],["2021", 200]]
-	]
+  ["male", 
+    [["2020", 3000],["2021", 2000]]
+  ],
+  ["female", 
+    [["2020", 300],["2021", 200]]
+  ]
 ]
 
 */
 
-type TimeUnit = "monthly" | "yearly";
+function generateConsecutivePeriods(data: Row[]): string[] {
+  // scan dataset for earliest and latest time_period
+  const shippedTimePeriods = data.map((row) => row.time_period).sort();
+  const minPeriod = shippedTimePeriods[0];
+  const maxPeriod = shippedTimePeriods.at(-1);
+  let consecutivePeriods = [];
+
+  // can only plot based on the least specific time periods.
+  // However, all "time_periods" should already be same TimeUnit from backend
+  const leastPeriodChars = Math.min(
+    ...(shippedTimePeriods.map((period) => period.length) as number[])
+  );
+
+  if (leastPeriodChars === MONTHLY_LENGTH) {
+    let currentPeriod = minPeriod;
+    while (currentPeriod <= maxPeriod) {
+      consecutivePeriods.push(currentPeriod);
+      let [yyyy, mm]: string[] = currentPeriod.split("-");
+      let nextMonth: number = +mm + 1;
+      if (+nextMonth >= 12) yyyy = (+yyyy + 1).toString();
+      mm = (nextMonth % 12).toString().padStart(2, "0");
+      currentPeriod = `${yyyy}-${mm}`;
+    }
+  } else if (leastPeriodChars === YEARLY_LENGTH) {
+    let currentPeriod = minPeriod;
+    while (currentPeriod <= maxPeriod) {
+      consecutivePeriods.push(currentPeriod);
+      currentPeriod = (+currentPeriod + 1).toString();
+    }
+  }
+
+  return consecutivePeriods;
+}
+
 export type TimeSeries = [Date, number][];
 export type GroupTrendData = [DemographicGroup, TimeSeries][];
 export type TrendsData = GroupTrendData[];
 export type UnknownTrendData = TimeSeries;
 
-function getCorrectedDate(timePeriod: string): Date {
-  const wrongDate = new Date(timePeriod);
-  return new Date(
-    wrongDate.valueOf() + wrongDate.getTimezoneOffset() * 60 * 1000
-  );
-}
-
-const SLICE_SIZE: Record<TimeUnit, number> = {
-  monthly: 7,
-  yearly: 4,
-};
+// function getCorrectedDate(timePeriod: string): Date {
+//   const wrongDate = new Date(timePeriod);
+//   return new Date(
+//     wrongDate.valueOf() + wrongDate.getTimezoneOffset() * 60 * 1000
+//   );
+// }
 
 // Some datasets are missing data points at certain time periods
 // This function rebuilds the dataset ensuring a row for every time period
-// between the earliest and latest date
-function interpolateTimePeriods(
-  data: Row[]
-  // timeUnit: TimeUnit
-) {
-  const shippedTimePeriods = data.map((row) => row.time_period).sort();
-  const minPeriod = shippedTimePeriods[0];
-  const maxPeriod = shippedTimePeriods.at(-1);
-
-  let timeUnit: TimeUnit = "monthly";
-  if (minPeriod.length === 4) timeUnit = "yearly";
-
-  let allDates: any[] = [];
-
-  const timePeriodInterval = {
-    start: getCorrectedDate(minPeriod),
-    end: getCorrectedDate(maxPeriod),
-  };
-
-  if (timeUnit === "monthly") {
-    allDates = eachMonthOfInterval(timePeriodInterval);
-  }
-  if (timeUnit === "yearly") {
-    allDates = eachYearOfInterval(timePeriodInterval);
-  }
-
-  const allTimePeriods = allDates.map((period) =>
-    period.toISOString().slice(0, SLICE_SIZE[timeUnit])
-  );
-
+// between the earliest and latest date, interpolating nulls as needed
+// At this point, data has already been filtered to a single demographic group in a single Fips location and those fields are irrelevant
+function interpolateTimePeriods(data: Row[]) {
+  const consecutivePeriods = generateConsecutivePeriods(data);
   const interpolatedData = [];
 
-  for (const timePeriod of allTimePeriods) {
+  for (const timePeriod of consecutivePeriods) {
     const shippedRow = data.find((row) => row.time_period === timePeriod);
+
     if (shippedRow) interpolatedData.push(shippedRow);
     else interpolatedData.push({ time_period: timePeriod });
   }
