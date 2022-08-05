@@ -16,7 +16,11 @@ import { scaleSqrt, scaleLinear, extent, min, max } from "d3";
 import styles from "./Trends.module.scss";
 
 /* Constants */
-import { CONFIG, UNKNOWN_GROUP_COLOR_EXTENT } from "./constants";
+import {
+  CONFIG,
+  UNKNOWN_GROUP_COLOR_EXTENT,
+  FORMATTERS as F,
+} from "./constants";
 import { UnknownData, XScale } from "./types";
 
 /* Helpers */
@@ -62,18 +66,14 @@ export function CircleChart({
   );
 
   /* Memoized Values */
-  // Unknown Legend Placement
-  // const legendXPlacement = useMemo(
-  //   () => (isMobile ? width / 2 : marginLeft + (width - MARGIN.right) / 2),
-  //   [isMobile]
-  // );
   const legendXPlacement = width / 2;
+
   /* Helpers */
   function getLegendValues() {
     const maxPercent = max(percentDomain);
     const minPercent = min(percentDomain);
     const midPercent =
-      maxPercent && minPercent ? maxPercent - minPercent / 2 : 0;
+      maxPercent && minPercent ? (maxPercent - minPercent) / 2 : 0;
     return [minPercent, midPercent, maxPercent];
   }
 
@@ -96,18 +96,18 @@ export function CircleChart({
                 >
                   <circle
                     r={rScale(percent)}
-                    // cx={xScale(new Date(date))}
                     fill={colors(percent)}
                     role="img"
                     aria-describedby={`circleText-${i}`}
                   />
+                  {/* show percent annotation on hover */}
                   <text
                     id={`circleText-${i}`}
                     className={selectedDate == date ? "" : styles.invisible}
                     textAnchor="middle"
-                    dy="22px"
+                    dy="26px"
                   >
-                    {percent?.toFixed(0)}%
+                    {F.pct(percent)}
                   </text>
                 </g>
               );
@@ -121,7 +121,7 @@ export function CircleChart({
         transform={`translate(${legendXPlacement}, ${HEIGHT - 3 * MAX_RADIUS})`}
       >
         {/* Legend Title */}
-        <text textAnchor="middle" dy="-22px" className={styles.title}>
+        <text textAnchor="middle" dy="-20px" className={styles.title}>
           Percent Unknown {groupLabel}
         </text>
         {/* Display circle for min, mid, and max values */}
@@ -139,8 +139,7 @@ export function CircleChart({
             />
             {/* Circle label annotation (percent represented by circle) */}
             <text textAnchor="middle" dy="28px" id={`circleLegendText-${i}`}>
-              {percent?.toFixed(0)}
-              {"%"}
+              {F.pct(percent)}
             </text>
           </g>
         ))}

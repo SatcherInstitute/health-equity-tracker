@@ -43,16 +43,19 @@ export function HoverCircles({
       {data &&
         data.map(([group, d]: [string, [string, number][]], i) => (
           <g key={`hoverCircleGroup-${i}`}>
-            <circle
-              className={styles.HoverCircle}
-              r={4}
-              // use transform instead of cy to apply css transitions
-              // note - x positioning is handled by parent
-              transform={`translate(0,${yScale(
-                getAmountsByDate(d, selectedDate)
-              )})`}
-              fill={C(group)}
-            />
+            {/* only append circle if data exists for this group & date */}
+            {getAmountsByDate(d, selectedDate) && (
+              <circle
+                className={styles.HoverCircle}
+                r={4}
+                // use transform instead of cy to apply css transitions
+                // note - x positioning is handled by parent
+                transform={`translate(0,${yScale(
+                  getAmountsByDate(d, selectedDate)
+                )})`}
+                fill={C(group)}
+              />
+            )}
           </g>
         ))}
     </g>

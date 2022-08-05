@@ -39,14 +39,14 @@ export function TrendsTooltip({
 }: TrendsTooltipProps) {
   // temp
   const codeDictionary = {
-    "Native Hawaiian and Pacific Islander (Non-Hispanic)": "NHPI",
+    "Native Hawaiian and Pacific Islander NH)": "NHPI",
     "Hispanic or Latino": "HISP",
     All: "ALL",
-    "American Indian and Alaska Native (Non-Hispanic)": "AIAN",
-    "Black or African American (Non-Hispanic)": "BLACK",
-    "Two or more races & Unrepresented race (Non-Hispanic)": "MORE",
-    "White (Non-Hispanic)": "WHITE",
-    "Asian (Non-Hispanic)": "ASIAN",
+    "American Indian and Alaska Native NH)": "AIAN",
+    "Black or African American NH)": "BLACK",
+    "Two or more races & Unrepresented race NH)": "MORE",
+    "White NH)": "WHITE",
+    "Asian NH)": "ASIAN",
   };
 
   const TYPE_CONFIG = {
@@ -75,12 +75,6 @@ export function TrendsTooltip({
               <Fragment key={`tooltipRow-${group}`}>
                 {/* TODO: update to use backend dictionary */}
                 {/* group label */}
-                {console.log(
-                  group,
-                  d,
-                  selectedDate,
-                  getAmountsByDate(d, selectedDate)
-                )}
                 {/* @ts-ignore */}
                 <div>{codeDictionary[group] || group}</div>
                 {/* rectangle indicator */}

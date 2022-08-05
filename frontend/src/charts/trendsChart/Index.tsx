@@ -40,7 +40,12 @@ import { COLOR_RANGE, CONFIG } from "./constants";
 import { UnknownData, TrendsData, AxisConfig } from "./types";
 
 /* Helpers */
-import { filterDataByGroup, getAmounts, getDates } from "./helpers";
+import {
+  filterDataByGroup,
+  getAmounts,
+  getDates,
+  filterUnknownsByTimePeriod,
+} from "./helpers";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -57,7 +62,7 @@ export function TrendsChart({
 }: TrendsChartProps) {
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
-  const { type, groupLabel, yAxisLabel = "" } = axisConfig || {};
+  const { type, groupLabel } = axisConfig || {};
 
   /* Refs */
   // parent container ref - used for setting svg width
@@ -280,7 +285,7 @@ export function TrendsChart({
           {/* Only render unknown group circles when there is data for which the group is unknown */}
           {showUnknowns && (
             <CircleChart
-              data={unknown}
+              data={filterUnknownsByTimePeriod(unknown, dates)}
               xScale={xScale}
               width={width}
               isMobile={isMobile}

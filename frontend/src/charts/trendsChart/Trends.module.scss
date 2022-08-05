@@ -6,6 +6,11 @@ $spacingMedium: 18px;
 $spacingLarge: 36px;
 $breakpoint-mobile: 600px;
 
+@mixin hoverTransition {
+  opacity: 1;
+  transition: opacity 250ms ease-in-out, transform 200ms linear;
+}
+
 .TrendsChart {
   // styles for trends chart container
   @include inter400;
@@ -45,7 +50,7 @@ $breakpoint-mobile: 600px;
     text {
       opacity: 1;
       font-size: $smallest;
-      transition: opacity 200ms linear;
+      transition: opacity 200ms linear 100ms;
       &.invisible {
         opacity: 0;
       }
@@ -150,27 +155,21 @@ $breakpoint-mobile: 600px;
 .TooltipWrapper {
   position: absolute;
   pointer-events: none;
-  opacity: 1;
-  transition: opacity 250ms ease-in-out, transform 200ms linear;
+  @include hoverTransition;
 }
 
-.Indicators {
-  opacity: 1;
-  transition: opacity 250ms ease-in-out, transform 200ms linear;
-  line {
-    stroke: black;
-  }
-}
-
+.Indicators,
 .HoverCircle {
-  opacity: 1;
-  transition: opacity 250ms ease-in-out, transform 200ms linear;
+  @include hoverTransition;
+  line {
+    stroke: $black;
+  }
 }
 
 .Tooltip {
   border: 1px solid $alt-grey;
   border-radius: 3px;
-  background-color: white;
+  background-color: $white;
   width: min-content;
   padding: $spacingSmaller;
   white-space: nowrap;
