@@ -29,7 +29,6 @@ import {
   AGE,
   BJS_NATIONAL_AGE_BUCKETS,
   BJS_JAIL_AGE_BUCKETS,
-  TIME_PERIOD,
   DemographicGroup,
 } from "./Constants";
 import { Row } from "./DatasetTypes";
@@ -375,107 +374,6 @@ export function splitIntoKnownsAndUnknowns(
   return [knowns, unknowns];
 }
 
-/* 
-
-Nesting table data into time-series data needed by D3:
-
-Currently data is stored in json "rows" where every "column" name is present as a key to that location's value
-
-D3 requires the data in a different format, as a series of nested arrays, per demographic group, per time_period
-
-Before (Table / Vega) Example:
-
-[
-  {
-    "sex": "male",
-    "jail_per_100k": 3000,
-    "time_period": "2020"
-  },
-  {
-    "sex": "male",
-    "jail_per_100k": 2000,
-    "time_period": "2021"
-  },
-  {
-    "sex": "female",
-    "jail_per_100k": 300,
-    "time_period": "2020"
-  },
-  {
-    "sex": "female",
-    "jail_per_100k": 200,
-    "time_period": "2021"
-  }
-]
-
-After (Time-Series / D3) Example:
-
-[
-  ["male", 
-    [["2020", 3000],["2021", 2000]]
-  ],
-  ["female", 
-    [["2020", 300],["2021", 200]]
-  ]
-]
-
-*/
-
 export function shortenNH(group: DemographicGroup) {
   return group.replace("(Non-Hispanic", "NH");
-}
-
-export type TimeSeries = [Date, number][];
-export type GroupTrendData = [DemographicGroup, TimeSeries][];
-export type TrendsData = GroupTrendData[];
-export type UnknownTrendData = TimeSeries;
-
-export function getNestedRates(
-  data: Row[],
-  demographicGroups: DemographicGroup[],
-  currentBreakdown: BreakdownVar,
-  metricId: MetricId
-): TrendsData {
-  if (!data.some((row) => row[TIME_PERIOD])) return [];
-
-  const nestedRates = demographicGroups.map((group) => {
-    const groupRows = data.filter((row) => row[currentBreakdown] === group);
-    const groupTimeSeries = groupRows.map((row) => [
-      row[TIME_PERIOD],
-      row[metricId],
-    ]);
-    return [shortenNH(group), groupTimeSeries] as GroupTrendData;
-  });
-
-  return nestedRates;
-}
-
-export function getNestedUndueShares(
-  data: Row[],
-  demographicGroups: DemographicGroup[],
-  currentBreakdown: BreakdownVar,
-  conditionPctShareId: MetricId,
-  popPctShareId: MetricId
-): TrendsData {
-  if (!data.some((row) => row[TIME_PERIOD])) return [];
-
-  const nestedPctUndue = demographicGroups.map((group) => {
-    const groupRows = data.filter((row) => row[currentBreakdown] === group);
-    const groupTimeSeries = groupRows.map((row) => [
-      row[TIME_PERIOD],
-      row[conditionPctShareId] - row[popPctShareId],
-    ]);
-    return [shortenNH(group), groupTimeSeries] as GroupTrendData;
-  });
-
-  return nestedPctUndue;
-}
-
-export function getNestedUnknowns(
-  unknownsData: Row[],
-  metricId: MetricId
-): UnknownTrendData {
-  if (!unknownsData.some((row) => row[TIME_PERIOD])) return [];
-
-  return unknownsData.map((row) => [row[TIME_PERIOD], row[metricId]]);
 }

@@ -1,0 +1,173 @@
+import { eachMonthOfInterval, eachYearOfInterval } from "date-fns";
+import { MetricId } from "../config/MetricConfig";
+import { BreakdownVar } from "../query/Breakdowns";
+import { DemographicGroup, TIME_PERIOD } from "./Constants";
+import { Row } from "./DatasetTypes";
+import { shortenNH } from "./datasetutils";
+
+/*
+
+Nesting table data into time-series data needed by D3:
+
+Currently BigQuery data is stored in json "rows" where every "column" name is present as a key to that location's value
+
+D3 requires the data in a different format, as a series of nested arrays, per demographic group, per time_period
+
+Before (Table / Vega) Example:
+
+[
+	{
+		"sex": "male",
+		"jail_per_100k": 3000,
+		"time_period": "2020"
+	},
+	{
+		"sex": "male",
+		"jail_per_100k": 2000,
+		"time_period": "2021"
+	},
+	{
+		"sex": "female",
+		"jail_per_100k": 300,
+		"time_period": "2020"
+	},
+	{
+		"sex": "female",
+		"jail_per_100k": 200,
+		"time_period": "2021"
+	}
+]
+
+After (Time-Series / D3) Example:
+
+[
+	["male", 
+		[["2020", 3000],["2021", 2000]]
+	],
+	["female", 
+		[["2020", 300],["2021", 200]]
+	]
+]
+
+*/
+
+type TimeUnit = "monthly" | "yearly";
+export type TimeSeries = [Date, number][];
+export type GroupTrendData = [DemographicGroup, TimeSeries][];
+export type TrendsData = GroupTrendData[];
+export type UnknownTrendData = TimeSeries;
+
+function getCorrectedDate(timePeriod: string): Date {
+  const wrongDate = new Date(timePeriod);
+  return new Date(
+    wrongDate.valueOf() + wrongDate.getTimezoneOffset() * 60 * 1000
+  );
+}
+
+const SLICE_SIZE: Record<TimeUnit, number> = {
+  monthly: 7,
+  yearly: 4,
+};
+
+// Some datasets are missing data points at certain time periods
+// This function rebuilds the dataset ensuring a row for every time period
+// between the earliest and latest date
+function interpolateTimePeriods(
+  data: Row[]
+  // timeUnit: TimeUnit
+) {
+  const shippedTimePeriods = data.map((row) => row.time_period).sort();
+  const minPeriod = shippedTimePeriods[0];
+  const maxPeriod = shippedTimePeriods.at(-1);
+
+  let timeUnit: TimeUnit = "monthly";
+  if (minPeriod.length === 4) timeUnit = "yearly";
+
+  let allDates: any[] = [];
+
+  const timePeriodInterval = {
+    start: getCorrectedDate(minPeriod),
+    end: getCorrectedDate(maxPeriod),
+  };
+
+  if (timeUnit === "monthly") {
+    allDates = eachMonthOfInterval(timePeriodInterval);
+  }
+  if (timeUnit === "yearly") {
+    allDates = eachYearOfInterval(timePeriodInterval);
+  }
+
+  const allTimePeriods = allDates.map((period) =>
+    period.toISOString().slice(0, SLICE_SIZE[timeUnit])
+  );
+
+  const interpolatedData = [];
+
+  for (const timePeriod of allTimePeriods) {
+    const shippedRow = data.find((row) => row.time_period === timePeriod);
+    if (shippedRow) interpolatedData.push(shippedRow);
+    else interpolatedData.push({ time_period: timePeriod });
+  }
+
+  return interpolatedData;
+}
+
+export function getNestedRates(
+  data: Row[],
+  demographicGroups: DemographicGroup[],
+  currentBreakdown: BreakdownVar,
+  metricId: MetricId
+): TrendsData {
+  if (!data.some((row) => row[TIME_PERIOD])) return [];
+
+  const nestedRates = demographicGroups.map((group) => {
+    let groupRows = data.filter((row) => row[currentBreakdown] === group);
+    groupRows = interpolateTimePeriods(groupRows);
+
+    const groupTimeSeries = groupRows.map((row) => [
+      row[TIME_PERIOD],
+      row[metricId] != null ? row[metricId] : null,
+    ]);
+
+    // TODO: switch "(Non-Hispanic)" to "NH" on backend and remove this fn
+    return [shortenNH(group), groupTimeSeries] as GroupTrendData;
+  });
+
+  return nestedRates;
+}
+
+export function getNestedUndueShares(
+  data: Row[],
+  demographicGroups: DemographicGroup[],
+  currentBreakdown: BreakdownVar,
+  conditionPctShareId: MetricId,
+  popPctShareId: MetricId
+): TrendsData {
+  if (!data.some((row) => row[TIME_PERIOD])) return [];
+
+  const nestedPctUndue = demographicGroups.map((group) => {
+    let groupRows = data.filter((row) => row[currentBreakdown] === group);
+    groupRows = interpolateTimePeriods(groupRows);
+
+    const groupTimeSeries = groupRows.map((row) => {
+      let diff = null;
+      if (row[conditionPctShareId] != null && row[popPctShareId] != null) {
+        diff =
+          Math.round((row[conditionPctShareId] - row[popPctShareId]) * 10) / 10;
+      }
+      return [row[TIME_PERIOD], diff];
+    });
+    return [shortenNH(group), groupTimeSeries] as GroupTrendData;
+  });
+
+  return nestedPctUndue;
+}
+
+export function getNestedUnknowns(
+  unknownsData: Row[],
+  metricId: MetricId
+): UnknownTrendData {
+  if (!unknownsData.some((row) => row[TIME_PERIOD])) return [];
+  unknownsData = interpolateTimePeriods(unknownsData);
+  return unknownsData.map((row) => [row[TIME_PERIOD], row[metricId]]);
+}

@@ -16,11 +16,11 @@ import {
   NON_HISPANIC,
 } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
+import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 import {
   getNestedRates,
   getNestedUnknowns,
-  splitIntoKnownsAndUnknowns,
-} from "../data/utils/datasetutils";
+} from "../data/utils/DatasetTimeUtils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
