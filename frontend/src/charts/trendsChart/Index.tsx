@@ -215,15 +215,22 @@ export function TrendsChart({
         className={styles.TooltipWrapper}
         // Position tooltip to the right of the cursor until until cursor is half way across chart, then to left
         style={{
-          transform: `translate(${
-            xScale(new Date(hoveredDate || "")) > width / 2
-              ? xScale(new Date(hoveredDate || "")) - tooltipWidth - 10
-              : xScale(new Date(hoveredDate || "")) + 10
-          }px, ${MARGIN.top}px)`,
+          transform: `translate(${xScale(new Date(hoveredDate || ""))}px, ${
+            MARGIN.top
+          }px)`,
           opacity: hoveredDate ? 1 : 0,
         }}
       >
-        <div ref={toolTipRef}>
+        <div
+          ref={toolTipRef}
+          style={{
+            transform: `translateX(${
+              xScale(new Date(hoveredDate || "")) > width / 2
+                ? -tooltipWidth - 10
+                : 10
+            }px)`,
+          }}
+        >
           <TrendsTooltip
             data={filteredData}
             axisConfig={axisConfig}

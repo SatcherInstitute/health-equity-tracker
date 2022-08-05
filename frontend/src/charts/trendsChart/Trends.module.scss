@@ -156,18 +156,22 @@ $breakpoint-mobile: 600px;
 .TooltipWrapper {
   position: absolute;
   pointer-events: none;
-  @include hoverTransition;
+  @include hoverTransition();
+  div {
+    transition: transform 300ms linear;
+  }
 }
 
 .Indicators,
 .HoverCircle {
-  @include hoverTransition;
+  @include hoverTransition();
   line {
     stroke: $black;
   }
 }
 
 .Tooltip {
+  height: 100%;
   border: 1px solid $alt-grey;
   border-radius: 3px;
   background-color: $white;
