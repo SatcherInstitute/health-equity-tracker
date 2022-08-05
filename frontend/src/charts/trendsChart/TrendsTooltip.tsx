@@ -96,7 +96,7 @@ export function TrendsTooltip({
             ([group, d]: GroupData) => (
               <Fragment key={`tooltipRow-${group}`}>
                 {/* TODO: update to use backend dictionary */}
-                {/* group label */}
+                {/* group label - get from dictionary, if it doesn't exist, append group as label */}
                 {/* @ts-ignore */}
                 <div>{codeDictionary[group] || group}</div>
                 {/* rectangle indicator */}

@@ -5,6 +5,7 @@
  * @param {*} xScale a d3 time series scale function
  * @param {*} yScale a d3 linear scale function
  * returns jsx of an svg group containing paths
+ **/
 
 /* External Imports */
 import React from "react";
@@ -32,16 +33,16 @@ export function LineChart({ data, xScale, yScale }: LineChartProps) {
   const lineGen = line()
     // should prevent interpolation when date or delta is undefined
     .defined(
-      ([date, delta]) =>
+      ([date, amount]) =>
         date !== null &&
         date !== undefined &&
-        delta !== undefined &&
-        delta !== null
+        amount !== undefined &&
+        amount !== null
     )
     // assigns x-value
     .x(([date]) => xScale(new Date(date)) || 0)
     // assigns y-value
-    .y(([_, delta]) => yScale(delta) || 0)
+    .y(([_, amount]) => yScale(amount) || 0)
     // applies curve generator
     .curve(curveMonotoneX);
 

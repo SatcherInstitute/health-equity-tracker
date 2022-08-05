@@ -189,7 +189,6 @@ export function TrendsChart({
         dates.map((d) => new Date(d)),
         invertedDate
       );
-      // console.log(dates)
       // set state to story hovered date
       setHoveredDate(dates[closestIdx]);
     },

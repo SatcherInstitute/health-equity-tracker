@@ -64,7 +64,7 @@ export function Axes({
     [TYPES.HUNDRED_K]: {
       topLabel: F.capitalize(yAxisLabel) + " →", // reference to shortLabel from metricConfig
       bottomLabel: "",
-      formatter: (d: string | number) => d,
+      formatter: (d: string | number) => d, // per 100k could be interpolated here
     },
     [TYPES.PERCENT_SHARE]: {
       topLabel: (getMaxNumber(data) || 0) <= 0 ? "" : "Over-represented →", // if there are positive numbers, append positive direction label
@@ -80,20 +80,21 @@ export function Axes({
   /* Axes */
   const xAxis = axisBottom(xScale)
     .tickSize(0)
-    .ticks(isMobile ? 4 : null)
+    .ticks(isMobile ? 4 : null) // limits number of ticks on mobile
     // @ts-ignore
     .tickFormat(F.dateShort)
     .tickPadding(TICK_PADDING);
 
   const yAxis = axisLeft(yScale)
     .tickSizeOuter(0)
-    .tickSizeInner(-width + marginRight + marginLeft)
+    .tickSizeInner(-width + marginRight + marginLeft) // creates grid lines
     // @ts-ignore
     .tickFormat(Y_AXIS_CONFIG[type]?.formatter)
     .tickPadding(TICK_PADDING / 2);
 
   /* Effects */
 
+  /* Inject axes using d3 */
   useEffect(() => {
     if (xAxisRef.current && yAxisRef.current) {
       select(xAxisRef.current)
@@ -105,6 +106,7 @@ export function Axes({
         .transition()
         // @ts-ignore
         .call(yAxis)
+        // styles the y grid lines after render (we think)
         .call((g) =>
           g
             .selectAll(".tick line")
@@ -138,7 +140,7 @@ export function Axes({
           y1={yScale(0)}
           x2={width - marginRight}
           y2={yScale(0)}
-          stroke="black"
+          stroke="black" // handle in CSS?
         />
       </g>
       {/* Axis Labels */}
