@@ -44,6 +44,12 @@ export function TrendsTooltip({
     "Two or more races & Unrepresented race NH": "Two+ NH",
     "White NH": "White NH",
     "Asian NH": "Asian NH",
+    "Native Hawaiian and Pacific Islander NH)": "NH/PI NH",
+    "American Indian and Alaska Native NH)": "AI/AN NH",
+    "Black or African American NH)": "Black NH",
+    "Two or more races & Unrepresented race NH)": "Two+ NH",
+    "White NH)": "White NH",
+    "Asian NH)": "Asian NH",
   };
 
   const TYPE_CONFIG = {
