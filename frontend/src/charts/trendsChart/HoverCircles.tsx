@@ -40,7 +40,8 @@ export function HoverCircles({
         data.map(([group, d]: [string, [string, number][]], i) => (
           <g key={`hoverCircleGroup-${i}`}>
             {/* only append circle if data exists for this group & date */}
-            {getAmountsByDate(d, selectedDate) && (
+            {(getAmountsByDate(d, selectedDate) ||
+              getAmountsByDate(d, selectedDate) === 0) && (
               <circle
                 className={styles.HoverCircle}
                 r={4}

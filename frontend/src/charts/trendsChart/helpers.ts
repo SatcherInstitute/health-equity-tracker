@@ -28,8 +28,12 @@ function sortDataDescending(d: TrendsData, selectedDate: string) {
   return (
     // copy array because sort is destructive
     [...d]
-      // filter out nulls for this date
-      .filter(([, data]) => getAmountsByDate(data, selectedDate))
+      // filter out falsey values other than 0 for this date
+      .filter(
+        ([, data]) =>
+          getAmountsByDate(data, selectedDate) ||
+          getAmountsByDate(data, selectedDate) === 0
+      )
       // sort remaining data by number for this date, highest number first
       .sort(([, aData]: GroupData, [group, bData]: GroupData) =>
         descending(
