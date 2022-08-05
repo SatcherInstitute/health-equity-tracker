@@ -5,7 +5,7 @@
  */
 
 /* External Imports */
-import React, { useMemo } from "react";
+import React from "react";
 import { scaleSqrt, scaleLinear, extent, min, max } from "d3";
 
 /* Local Imports */
@@ -86,32 +86,34 @@ export function CircleChart({
       >
         {data &&
           data.map(([date, percent]: [string, number], i: number) => {
-            // return a circle for every data point on desktop, or every other data point on mobile (to create more space)
-            if (!isMobile || (isMobile && i % 2 === 0)) {
-              return (
-                <g
-                  key={`dataCircleGroup-${i}`}
-                  transform={`translate(${xScale(new Date(date))}, 0)`}
-                  className={styles.UnknownCircles}
-                >
-                  <circle
-                    r={rScale(percent)}
-                    fill={colors(percent)}
-                    role="img"
-                    aria-describedby={`circleText-${i}`}
-                  />
-                  {/* show percent annotation on hover */}
-                  <text
-                    id={`circleText-${i}`}
-                    className={selectedDate == date ? "" : styles.invisible}
-                    textAnchor="middle"
-                    dy="26px"
-                  >
-                    {F.pct(percent)}
-                  </text>
-                </g>
-              );
-            }
+            return (
+              <g
+                key={`dataCircleGroup-${i}`}
+                transform={`translate(${xScale(new Date(date))}, 0)`}
+                className={styles.UnknownCircles}
+              >
+                {/* return a circle for every data point on desktop, or every other data point on mobile (to create more space) */}
+                {(!isMobile || (isMobile && i % 2 === 0)) && (
+                  <>
+                    <circle
+                      r={rScale(percent)}
+                      fill={colors(percent)}
+                      role="img"
+                      aria-describedby={`circleText-${i}`}
+                    />
+                    {/* show percent annotation on hover */}
+                    <text
+                      id={`circleText-${i}`}
+                      className={selectedDate === date ? "" : styles.invisible}
+                      textAnchor="middle"
+                      dy="26px"
+                    >
+                      {F.pct(percent)}
+                    </text>
+                  </>
+                )}
+              </g>
+            );
           })}
       </g>
       {/* Circle Legend */}

@@ -5,7 +5,7 @@
 
 /* External Imports */
 import React from "react";
-import { line, curveMonotoneX, curveLinear } from "d3";
+import { line, curveMonotoneX } from "d3";
 
 /* Local Imports */
 
@@ -13,7 +13,7 @@ import { line, curveMonotoneX, curveLinear } from "d3";
 import styles from "./Trends.module.scss";
 
 /* Constants */
-import { TrendsData, XScale, YScale, ColorScale } from "./types";
+import { TrendsData, XScale, YScale } from "./types";
 import { COLORS as C } from "./constants";
 
 /* Helpers */
@@ -23,11 +23,10 @@ export interface LineChartProps {
   data: TrendsData;
   xScale: XScale;
   yScale: YScale;
-  colors: ColorScale;
 }
 
 /* Render component */
-export function LineChart({ data, xScale, yScale, colors }: LineChartProps) {
+export function LineChart({ data, xScale, yScale }: LineChartProps) {
   // Generate line path
   const lineGen = line()
     // should prevent interpolation when date or delta is undefined

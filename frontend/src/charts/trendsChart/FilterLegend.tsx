@@ -28,7 +28,6 @@ export interface FilterLegendProps {
   data: TrendsData; // TODO: stricter typing
   selectedGroups: string[];
   handleClick: (group: string | null) => void;
-  // colors: ColorScale;
   groupLabel: string;
 }
 
@@ -37,7 +36,6 @@ export function FilterLegend({
   data,
   selectedGroups,
   handleClick,
-  // colors,
   groupLabel,
 }: FilterLegendProps) {
   return (

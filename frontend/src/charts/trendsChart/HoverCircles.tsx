@@ -17,7 +17,7 @@ import styles from "./Trends.module.scss";
 /* Constants */
 import { getAmountsByDate } from "./helpers";
 
-import { TrendsData, XScale, ColorScale, YScale } from "./types";
+import { TrendsData, YScale } from "./types";
 
 /* Helpers */
 import { COLORS as C } from "./constants";
@@ -26,7 +26,6 @@ import { COLORS as C } from "./constants";
 export interface HoverCirclesProps {
   data: TrendsData;
   yScale: YScale;
-  colors: ColorScale;
   selectedDate: string | null;
 }
 
@@ -35,7 +34,6 @@ export function HoverCircles({
   data,
   yScale,
   selectedDate,
-  colors,
 }: HoverCirclesProps) {
   return (
     <g>

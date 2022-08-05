@@ -12,15 +12,7 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import {
-  scaleOrdinal,
-  scaleTime,
-  scaleLinear,
-  extent,
-  min,
-  max,
-  bisector,
-} from "d3";
+import { scaleTime, scaleLinear, extent, min, max, bisector } from "d3";
 
 /* Local Imports */
 
@@ -36,7 +28,7 @@ import { HoverCircles } from "./HoverCircles";
 import styles from "./Trends.module.scss";
 
 /* Constants */
-import { COLOR_RANGE, CONFIG } from "./constants";
+import { CONFIG } from "./constants";
 import { UnknownData, TrendsData, AxisConfig } from "./types";
 
 /* Helpers */
@@ -109,7 +101,7 @@ export function TrendsChart({
   const filteredData = useMemo(
     () =>
       selectedGroups.length ? filterDataByGroup(data, selectedGroups) : data,
-    [selectedGroups]
+    [selectedGroups, data]
   );
 
   // Display unknowns or not - affects margin below line chart
@@ -121,13 +113,13 @@ export function TrendsChart({
   // Margin below line chart - create space for unknown circles
   const marginBottom = useMemo(
     () => (showUnknowns ? MARGIN.bottom_with_unknowns : MARGIN.bottom),
-    [unknown]
+    [MARGIN.bottom_with_unknowns, MARGIN.bottom, showUnknowns]
   );
 
   // Margin to left of line chart - different on mobile & desktop
   const marginLeft = useMemo(
     () => (isMobile ? MOBILE.MARGIN.left : MARGIN.left),
-    [isMobile]
+    [isMobile, MARGIN.left, MOBILE.MARGIN.left]
   );
 
   // TODO: look into using useCallback instead
@@ -137,12 +129,7 @@ export function TrendsChart({
   const amounts = getAmounts(filteredData);
 
   /* Scales */
-  const colors = scaleOrdinal(
-    data.map(([group]) => group),
-    COLOR_RANGE
-  );
 
-  // TODO: how to handle case when extent is made of undefined values
   // define X and Y extents
   const xExtent: [Date, Date] | [undefined, undefined] = extent(
     dates.map((date) => new Date(date))
@@ -197,7 +184,7 @@ export function TrendsChart({
       // set state to story hovered date
       setHoveredDate(dates[closestIdx]);
     },
-    [JSON.stringify(dates), xScale]
+    [dates, xScale]
   );
 
   return (
@@ -209,7 +196,6 @@ export function TrendsChart({
           <FilterLegend
             data={data}
             selectedGroups={selectedGroups}
-            // colors={colors}
             handleClick={handleClick}
             groupLabel={groupLabel}
           />
@@ -230,14 +216,13 @@ export function TrendsChart({
         <div ref={toolTipRef}>
           <TrendsTooltip
             data={filteredData}
-            colors={colors}
             type={type}
             selectedDate={hoveredDate}
           />
         </div>
       </div>
       {/* Chart */}
-      {filteredData && xScale && yScale && colors && (
+      {filteredData && xScale && yScale && (
         <svg
           height={CONFIG.HEIGHT}
           width={width as number}
@@ -259,12 +244,7 @@ export function TrendsChart({
             isMobile={isMobile}
           />
           {/* Lines */}
-          <LineChart
-            data={filteredData}
-            xScale={xScale}
-            yScale={yScale}
-            colors={colors}
-          />
+          <LineChart data={filteredData} xScale={xScale} yScale={yScale} />
           {/* Group for hover indicator line and circles */}
           <g
             className={styles.Indicators}
@@ -278,7 +258,6 @@ export function TrendsChart({
             <HoverCircles
               data={filteredData}
               selectedDate={hoveredDate}
-              colors={colors}
               yScale={yScale}
             />
           </g>

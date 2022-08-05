@@ -102,7 +102,7 @@ export function Axes({
             .attr("stroke-dasharray", 5)
         );
     }
-  }, [data, xScale, yScale]);
+  }, [data, xScale, yScale, xAxis, yAxis]);
 
   return (
     <g>

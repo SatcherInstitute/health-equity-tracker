@@ -18,7 +18,7 @@ function filterUnknownsByTimePeriod(data: UnknownData, dates: string[]) {
 
 /* Returns the amount (y value) for a specific date (x value) & group */
 function getAmountsByDate(d: GroupValues, selectedDate: string | null) {
-  const [, amount] = d.find(([date]) => date == selectedDate) || [0, 0];
+  const [, amount] = d.find(([date]) => date === selectedDate) || [0, 0];
   return amount;
 }
 
@@ -44,7 +44,7 @@ function getMaxNumberForDate(data: TrendsData, selectedDate: string | null) {
   const numbers = data.flatMap(([group, d]) =>
     // filter out data points for selected date
     d
-      .filter(([date]) => date == selectedDate)
+      .filter(([date]) => date === selectedDate)
       // return the absolute value of the numbers for this date
       .map(([, number]) => Math.abs(number))
   );

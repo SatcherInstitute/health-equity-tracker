@@ -1,6 +1,5 @@
 /* External Imports */
 import React, { Fragment } from "react";
-import { timeFormat } from "d3";
 
 /* Local Imports */
 
@@ -10,7 +9,7 @@ import styles from "./Trends.module.scss";
 /* Components */
 
 /* Constants */
-import { TrendsData, ColorScale, GroupData, GroupValues } from "./types";
+import { TrendsData, GroupData, GroupValues } from "./types";
 import { TYPES, FORMATTERS as F, COLORS as C } from "./constants";
 
 /* Helpers */
@@ -26,7 +25,6 @@ import {
 export interface TrendsTooltipProps {
   data: TrendsData;
   selectedDate: string | null;
-  colors: ColorScale;
   type: string;
 }
 
@@ -34,19 +32,18 @@ export interface TrendsTooltipProps {
 export function TrendsTooltip({
   data,
   selectedDate,
-  colors,
   type,
 }: TrendsTooltipProps) {
   // temp
   const codeDictionary = {
-    "Native Hawaiian and Pacific Islander NH)": "NHPI",
-    "Hispanic or Latino": "HISP",
-    All: "ALL",
-    "American Indian and Alaska Native NH)": "AIAN",
-    "Black or African American NH)": "BLACK",
-    "Two or more races & Unrepresented race NH)": "MORE",
-    "White NH)": "WHITE",
-    "Asian NH)": "ASIAN",
+    "Native Hawaiian and Pacific Islander NH)": "NH/PI NH",
+    "Hispanic or Latino": "Hisp",
+    All: "All",
+    "American Indian and Alaska Native NH)": "AI/AN NH",
+    "Black or African American NH)": "Black NH",
+    "Two or more races & Unrepresented race NH)": "Two+ NH",
+    "White NH)": "White NH",
+    "Asian NH)": "Asian NH",
   };
 
   const TYPE_CONFIG = {
