@@ -87,7 +87,7 @@ def get_cdc_restricted_by_sex_county_as_df():
             side_effect=get_pop_numbers_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=get_state_fips_codes_as_df())
-def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+def testGenerateBreakdownSexStateTimeSeries(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', False)
@@ -98,14 +98,19 @@ def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
         'covid_deaths_share': float,
     })
 
-    assert_frame_equal(df, expected_df, check_like=True)
+    sortby_cols = list(df.columns)
+    assert_frame_equal(
+        df.sort_values(by=sortby_cols).reset_index(drop=True),
+        expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
+        check_like=True,
+    )
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
             side_effect=get_pop_numbers_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             side_effect=get_fips_and_county_names_as_df)
-def testGenerateBreakdownSexCounty(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+def testGenerateBreakdownSexCountyTimeSeries(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_county_as_df(), 'sex', 'county', False)
@@ -117,14 +122,19 @@ def testGenerateBreakdownSexCounty(mock_fips: mock.MagicMock, mock_pop: mock.Mag
         'covid_deaths_share': float,
     })
 
-    assert_frame_equal(df, expected_df, check_like=True)
+    sortby_cols = list(df.columns)
+    assert_frame_equal(
+        df.sort_values(by=sortby_cols).reset_index(drop=True),
+        expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
+        check_like=True,
+    )
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
             side_effect=get_pop_numbers_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             side_effect=get_fips_and_county_names_as_df)
-def testGenerateBreakdownSexNational(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+def testGenerateBreakdownSexNationalTimeSeries(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', False)
@@ -135,7 +145,12 @@ def testGenerateBreakdownSexNational(mock_fips: mock.MagicMock, mock_pop: mock.M
         'covid_deaths_share': float,
     })
 
-    assert_frame_equal(df, expected_df, check_like=True)
+    sortby_cols = list(df.columns)
+    assert_frame_equal(
+        df.sort_values(by=sortby_cols).reset_index(drop=True),
+        expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
+        check_like=True,
+    )
 
 
 # @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
