@@ -9,6 +9,11 @@ const {
   darkBlue,
   redOrange,
   altGrey,
+  timeLightGreen,
+  timeLightBlue,
+  timePink,
+  timeDarkRed,
+  timeYellow,
 } = sass;
 // domain for color scale
 const COLOR_DOMAIN = [
@@ -33,22 +38,22 @@ const COLOR_DOMAIN = [
 // range of colors for groups
 const COLOR_RANGE = [
   altGrey,
-  "#9AC4C0",
-  "#9AC4C0",
+  timeLightGreen,
+  timeLightGreen,
   altGreen,
   altGreen,
   darkBlue,
   darkBlue,
-  "#ADBBDE",
-  "#F2D6E7",
-  "#F2D6E7",
-  "#A93038",
-  "#A93038",
+  timeLightBlue,
+  timePink,
+  timePink,
+  timeDarkRed,
+  timeDarkRed,
   redOrange,
   redOrange,
-  "#9AC4C0",
-  "#ADBBDE",
-  "#FCB431",
+  timeLightGreen,
+  timeLightBlue,
+  timeYellow,
 ];
 // color scale
 const COLORS = scaleOrdinal(COLOR_DOMAIN, COLOR_RANGE);

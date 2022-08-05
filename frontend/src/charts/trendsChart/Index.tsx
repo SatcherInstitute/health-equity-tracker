@@ -57,7 +57,7 @@ export function TrendsChart({
 }: TrendsChartProps) {
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
-  const { type, groupLabel } = axisConfig || {};
+  const { groupLabel } = axisConfig || {};
 
   /* Refs */
   // parent container ref - used for setting svg width
