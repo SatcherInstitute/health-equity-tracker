@@ -74,6 +74,14 @@ export function CircleChart({
     const minPercent = min(percentDomain);
     const midPercent =
       maxPercent && minPercent ? (maxPercent - minPercent) / 2 : 0;
+    console.log(
+      "maxPercent",
+      maxPercent,
+      "minPercent",
+      minPercent,
+      "midPercent",
+      midPercent
+    );
     return [minPercent, midPercent, maxPercent];
   }
 
