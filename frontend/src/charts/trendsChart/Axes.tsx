@@ -59,7 +59,7 @@ export function Axes({
       topLabel: getMaxNumber(data) <= 0 ? "" : "Over-represented →",
       // @ts-ignore
       bottomLabel: getMinNumber(data) >= 0 ? "" : "← Under-represented",
-      formatter: (d: number) => F.pct(d),
+      formatter: (d: number) => (d === 0 ? "" : F.pct(d)), // if tick is 0, hide it, otherwise format as percent
     },
   };
 
