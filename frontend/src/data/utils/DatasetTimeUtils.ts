@@ -53,7 +53,7 @@ After (Time-Series / D3) Example:
 
 */
 
-function generateConsecutivePeriods(data: Row[]): string[] {
+export function generateConsecutivePeriods(data: Row[]): string[] {
   // scan dataset for earliest and latest time_period
   const shippedTimePeriods = data.map((row) => row.time_period).sort();
   const minPeriod = shippedTimePeriods[0];
@@ -92,18 +92,11 @@ export type GroupTrendData = [DemographicGroup, TimeSeries][];
 export type TrendsData = GroupTrendData[];
 export type UnknownTrendData = TimeSeries;
 
-// function getCorrectedDate(timePeriod: string): Date {
-//   const wrongDate = new Date(timePeriod);
-//   return new Date(
-//     wrongDate.valueOf() + wrongDate.getTimezoneOffset() * 60 * 1000
-//   );
-// }
-
 // Some datasets are missing data points at certain time periods
 // This function rebuilds the dataset ensuring a row for every time period
 // between the earliest and latest date, interpolating nulls as needed
 // At this point, data has already been filtered to a single demographic group in a single Fips location and those fields are irrelevant
-function interpolateTimePeriods(data: Row[]) {
+export function interpolateTimePeriods(data: Row[]) {
   const consecutivePeriods = generateConsecutivePeriods(data);
   const interpolatedData = [];
 
