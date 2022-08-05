@@ -50,9 +50,9 @@ export function Axes({
   // handles difference between per100k and percent_share charts
   const Y_AXIS_CONFIG = {
     [TYPES.HUNDRED_K]: {
-      topLabel: yAxisLabel + " →", // reference to shortLabel from metricConfig
+      topLabel: F.capitalize(yAxisLabel) + " →", // reference to shortLabel from metricConfig
       bottomLabel: "",
-      formatter: (d: string | number) => `${d}${isMobile ? "" : ""}`,
+      formatter: (d: string | number) => d,
     },
     [TYPES.PERCENT_SHARE]: {
       // @ts-ignore

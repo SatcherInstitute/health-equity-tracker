@@ -78,6 +78,7 @@ const FORMATTERS = {
   dateShort: utcFormat("%m/%y"),
   dateFromString: (str: string) => str && utcFormat("%B %Y")(new Date(str)),
   num: format(".1~f"),
+  capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ""),
 };
 
 export {
