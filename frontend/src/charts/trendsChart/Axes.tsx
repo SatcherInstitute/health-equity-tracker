@@ -53,7 +53,7 @@ export function Axes({
   isMobile,
 }: AxesProps) {
   /* Config */
-  const { HEIGHT, MARGIN, TICK_PADDING, Y_AXIS_LABEL_PADDING, MOBILE } = CONFIG;
+  const { HEIGHT, TICK_PADDING, Y_AXIS_LABEL_PADDING, MOBILE } = CONFIG;
   const { type, yAxisLabel = "" } = axisConfig || {};
   const yAxisLabelPadding = isMobile
     ? MOBILE.Y_AXIS_LABEL_PADDING
