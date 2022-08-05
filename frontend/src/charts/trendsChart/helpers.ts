@@ -28,7 +28,7 @@ function sortDataDescending(d: TrendsData, selectedDate: string) {
   return (
     // copy array because sort is destructive
     [...d]
-      // filter out falsey values other than 0 for this date
+      // filter out falsy values other than 0 for this date
       .filter(
         ([, data]) =>
           getAmountsByDate(data, selectedDate) ||

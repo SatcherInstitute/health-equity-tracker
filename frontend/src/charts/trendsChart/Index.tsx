@@ -182,7 +182,7 @@ export function TrendsChart({
         e.currentTarget?.parentElement?.getBoundingClientRect() || {};
       // using position, find date (using inverted xScale)
       const invertedDate = xScale.invert(clientX - (parentX || 0));
-      // initalize bisector
+      // initialize bisector
       const bisect = bisector((d) => d);
       // get closest date index
       const closestIdx = bisect.left(
@@ -247,7 +247,7 @@ export function TrendsChart({
           role="img"
           onMouseMove={handleMousemove}
           onMouseLeave={() => setHoveredDate(null)}
-          // TODO link accompanying table here for accesibility
+          // TODO link accompanying table here for a11y
           // aria-describedby={}
         >
           {/* Chart Axes */}
