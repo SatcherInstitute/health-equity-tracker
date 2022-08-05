@@ -13,18 +13,12 @@ import { VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { exclude } from "../data/query/BreakdownFilter";
-import {
-  NON_HISPANIC,
-  ALL,
-  UNKNOWN,
-  UNKNOWN_RACE,
-  UNKNOWN_ETHNICITY,
-  RACE,
-  HISPANIC,
-} from "../data/utils/Constants";
-import { Row } from "../data/utils/DatasetTypes";
+import { NON_HISPANIC, ALL, RACE, HISPANIC } from "../data/utils/Constants";
 import UnknownsAlert from "./ui/UnknownsAlert";
-import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
+import {
+  shouldShowAltPopCompare,
+  splitIntoKnownsAndUnknowns,
+} from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 
 /* minimize layout shift */
@@ -72,8 +66,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const query = new MetricQuery(metricIds, breakdowns);
 
   function getTitleText() {
-    return `Population vs. ${metricConfig.fullCardTitleName
-      } in ${props.fips.getSentenceDisplayName()}`;
+    return `Population vs. ${
+      metricConfig.fullCardTitleName
+    } in ${props.fips.getSentenceDisplayName()}`;
   }
   function CardTitle() {
     return <>{getTitleText()}</>;
@@ -86,14 +81,14 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
     >
       {([queryResponse]) => {
-        const dataWithoutUnknowns = queryResponse
-          .getValidRowsForField(metricConfig.metricId)
-          .filter(
-            (row: Row) =>
-              row[props.breakdownVar] !== UNKNOWN &&
-              row[props.breakdownVar] !== UNKNOWN_RACE &&
-              row[props.breakdownVar] !== UNKNOWN_ETHNICITY
-          );
+        const validData = queryResponse.getValidRowsForField(
+          metricConfig.metricId
+        );
+
+        const [knownData] = splitIntoKnownsAndUnknowns(
+          validData,
+          props.breakdownVar
+        );
 
         // include a note about percents adding to over 100%
         // if race options include hispanic twice (eg "White" and "Hispanic" can both include Hispanic people)
@@ -110,7 +105,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
         const isCawp = CAWP_DETERMINANTS.includes(metricConfig.metricId);
 
         const dataAvailable =
-          dataWithoutUnknowns.length > 0 &&
+          knownData.length > 0 &&
           !queryResponse.shouldShowMissingDataMessage([metricConfig.metricId]);
 
         return (
@@ -137,11 +132,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 />
               </CardContent>
             )}
-            {dataAvailable && dataWithoutUnknowns.length !== 0 && (
+            {dataAvailable && knownData.length !== 0 && (
               <>
                 <CardContent>
                   <DisparityBarChart
-                    data={dataWithoutUnknowns}
+                    data={knownData}
                     lightMetric={metricConfig.populationComparisonMetric!}
                     darkMetric={
                       metricConfig.knownBreakdownComparisonMetric ||
@@ -160,9 +155,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 Population percentages on this graph add up to over 100% because
                 the racial categories reported for{" "}
                 {metricConfig.fullCardTitleName} in{" "}
-                {props.fips.getSentenceDisplayName()} include Hispanic individuals
-                in each racial category. As a result, Hispanic individuals are
-                counted twice.
+                {props.fips.getSentenceDisplayName()} include Hispanic
+                individuals in each racial category. As a result, Hispanic
+                individuals are counted twice.
               </Alert>
             )}
             {isCawp && (

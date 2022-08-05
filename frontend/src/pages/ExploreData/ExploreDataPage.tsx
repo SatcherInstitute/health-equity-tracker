@@ -163,7 +163,7 @@ function ExploreDataPage() {
   const isSingleColumn = (madLib.id as MadLibId) === "disparity";
 
   const handleCarouselChange = (carouselMode: number) => {
-    // Extract values from the CURRENT madlib
+    // Extract values from the current madlib
     const var1 = madLib.activeSelections[1];
     const geo1 =
       madLib.id === "comparevars"

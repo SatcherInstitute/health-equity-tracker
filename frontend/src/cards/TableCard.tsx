@@ -98,8 +98,9 @@ export function TableCard(props: TableCardProps) {
       minHeight={PRELOAD_HEIGHT}
       queries={[query]}
       title={
-        <>{`${props.variableConfig.variableFullDisplayName} By ${BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-          } In ${props.fips.getSentenceDisplayName()}`}</>
+        <>{`${props.variableConfig.variableFullDisplayName} By ${
+          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+        } In ${props.fips.getSentenceDisplayName()}`}</>
       }
     >
       {([queryResponse]) => {

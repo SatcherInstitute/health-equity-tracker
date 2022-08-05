@@ -2,13 +2,14 @@ import { IDataFrame } from "data-forge";
 import { Fips } from "../../data/utils/Fips";
 import { MetricId } from "../config/MetricConfig";
 import { ProviderId } from "../loading/VariableProviderMap";
-import { Breakdowns } from "../query/Breakdowns";
+import { Breakdowns, TimeView } from "../query/Breakdowns";
 import {
   createMissingDataResponse,
   MetricQuery,
   MetricQueryResponse,
 } from "../query/MetricQuery";
 import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
+import { CROSS_SECTIONAL, LONGITUDINAL, TIME_PERIOD } from "../utils/Constants";
 import { DatasetCalculator } from "../utils/DatasetCalculator";
 
 abstract class VariableProvider {
@@ -55,6 +56,21 @@ abstract class VariableProvider {
     return df;
   }
 
+  filterByTimeView(
+    df: IDataFrame,
+    timeView: TimeView,
+    sourceCurrentTimePeriod?: string
+  ): IDataFrame {
+    // TODO: Remove this check once ALL data sources have been refactored to include time series data
+
+    if (df.getColumnNames().includes(TIME_PERIOD)) {
+      if (timeView === CROSS_SECTIONAL)
+        df = df.where((row) => row[TIME_PERIOD] === sourceCurrentTimePeriod);
+    }
+
+    return df;
+  }
+
   renameGeoColumns(df: IDataFrame, breakdowns: Breakdowns): IDataFrame {
     let newDataframe = df;
     const [fipsColumn, geoNameColumn] =
@@ -77,6 +93,9 @@ abstract class VariableProvider {
   removeUnrequestedColumns(df: IDataFrame, metricQuery: MetricQuery) {
     let dataFrame = df;
     let requestedColumns = ["fips", "fips_name"].concat(metricQuery.metricIds);
+
+    if (metricQuery.timeView === LONGITUDINAL)
+      requestedColumns.push(TIME_PERIOD);
 
     // Add column names of enabled breakdowns
     requestedColumns = requestedColumns.concat(

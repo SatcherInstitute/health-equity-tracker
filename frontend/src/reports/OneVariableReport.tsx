@@ -30,6 +30,8 @@ import {
 import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
+import { RateTrendsChartCard } from "../cards/RateTrendsChartCard";
+import { ShareTrendsChartCard } from "../cards/ShareTrendsChartCard";
 
 export interface OneVariableReportProps {
   key: string;
@@ -142,6 +144,24 @@ export function OneVariableReport(props: OneVariableReportProps) {
             />
           </Grid>
 
+          {/* RATE TRENDS LINE CHART CARD */}
+          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH} id="rate-trends">
+            <LazyLoad offset={600} height={750} once>
+              {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                <Fragment key={breakdownVar}>
+                  {breakdownIsShown(breakdownVar) &&
+                    variableConfig.metrics["per100k"] && (
+                      <RateTrendsChartCard
+                        variableConfig={variableConfig}
+                        breakdownVar={breakdownVar}
+                        fips={props.fips}
+                      />
+                    )}
+                </Fragment>
+              ))}
+            </LazyLoad>
+          </Grid>
+
           {/* 100K BAR CHART CARD */}
           <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH} id="bar">
             <LazyLoad offset={600} height={750} once>
@@ -174,6 +194,24 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   currentBreakdown={currentBreakdown}
                 />
               )}
+            </LazyLoad>
+          </Grid>
+
+          {/* SHARE TRENDS LINE CHART CARD */}
+          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH} id="share-trends">
+            <LazyLoad offset={600} height={750} once>
+              {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                <Fragment key={breakdownVar}>
+                  {breakdownIsShown(breakdownVar) &&
+                    variableConfig.metrics["per100k"] && (
+                      <ShareTrendsChartCard
+                        variableConfig={variableConfig}
+                        breakdownVar={breakdownVar}
+                        fips={props.fips}
+                      />
+                    )}
+                </Fragment>
+              ))}
             </LazyLoad>
           </Grid>
 

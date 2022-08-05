@@ -1,0 +1,196 @@
+@import "../../styles/globals.scss";
+
+$spacingSmall: 6px;
+$spacingSmaller: 12px;
+$spacingMedium: 18px;
+$spacingLarge: 36px;
+$breakpoint-mobile: 600px;
+
+.TrendsChart {
+  // styles for trends chart container
+  @include inter400;
+
+  // lines styles
+  .TrendLine {
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+  }
+
+  // axes styles
+  .Axes {
+    text {
+      @include inter400;
+      font-size: $smallest;
+    }
+    .xAxis path {
+      opacity: 0; // do not display x-domain
+    }
+    .yAxis path {
+      opacity: 0.3; // fade y-domain
+    }
+  }
+
+  // labels for axes
+  .AxesLabels {
+    text {
+      @include inter500; // make bolder than tick marks
+      font-size: $smallest;
+    }
+  }
+
+  // legend for unknown circles
+  .CircleLegend {
+    text {
+      font-size: $smallest;
+      &.title {
+        @include inter500; // make title bolder than number labels
+      }
+    }
+  }
+
+  // visibility classes
+  .hidden {
+    display: none;
+  }
+
+  .disabled {
+    opacity: 0.3;
+    cursor: not-allowed !important;
+  }
+}
+
+/* Filter Legend Styles */
+.FilterWrapper {
+  @media (min-width: $breakpoint-mobile) {
+    margin: 0 0 $spacingMedium 84px; // align filter with chart margin
+  }
+  margin: 0 0 $spacingMedium 60px; // align filter with chart margin
+}
+
+.FilterLegend {
+  @include inter400;
+  font-size: $small;
+
+  // Legend Title
+  .LegendTitle {
+    @include inter500;
+    margin-bottom: $spacingMedium;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    button {
+      // remove default button styling
+      background: none;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      // give space
+      margin-left: $spacingMedium;
+      // style border
+      border: solid 1px;
+      border-radius: 3px;
+      padding: 0 $spacingSmall;
+    }
+  }
+
+  // Filter legend buttons wrapper
+  .LegendItems {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  // Filter legend button
+  .LegendItem {
+    // remove default button styling
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    // distribute swatch and label
+    display: flex;
+    align-items: center;
+    text-align: start;
+    // create space around button
+    margin: 0 $spacingMedium $spacingSmall 0;
+    // transition opacity on selection
+    opacity: 1;
+    transition: opacity 250ms ease-in-out;
+  }
+
+  // Filter legend button square color swatch
+  .swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+    flex-shrink: 0; // prevent distortion
+    margin-right: $spacingSmall; // create space between swatch and label
+    // border only for "all" category
+    border-width: 2px;
+    border-style: dashed;
+    border-color: transparent;
+  }
+}
+
+/* Tooltip Styles */
+
+.TooltipWrapper {
+  position: absolute;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 250ms ease-in-out, transform 200ms linear;
+}
+
+.Indicators {
+  opacity: 1;
+  transition: opacity 250ms ease-in-out, transform 200ms linear;
+  line {
+    stroke: black;
+  }
+}
+
+.HoverCircle {
+  opacity: 1;
+  transition: opacity 250ms ease-in-out, transform 200ms linear;
+}
+
+.Tooltip {
+  border: 1px solid $alt-grey;
+  border-radius: 3px;
+  background-color: white;
+  width: min-content;
+  padding: $spacingSmaller;
+  white-space: nowrap;
+  @include inter500;
+  font-size: $small;
+
+  .title {
+    padding-bottom: $spacingSmaller;
+    text-align: center;
+    border-bottom: 1px solid $alt-grey;
+  }
+
+  .grid {
+    padding-top: $spacingSmaller;
+    font-size: $smallest;
+    display: grid;
+    grid-template-columns: 1fr 50px 1fr;
+    grid-gap: 4px 8px;
+    align-items: center;
+    justify-items: start;
+    .bar {
+      transition: width 200ms linear;
+      height: 10px;
+    }
+    .label {
+      white-space: nowrap;
+      justify-self: end;
+      span {
+        @include inter400;
+      }
+    }
+  }
+}

@@ -78,9 +78,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   function getTitleTextArray() {
     return [
       `${metricConfig.fullCardTitleName}`,
-      `With Unknown ${props.overrideAndWithOr
-        ? RACE_OR_ETHNICITY_TITLECASE
-        : BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+      `With Unknown ${
+        props.overrideAndWithOr
+          ? RACE_OR_ETHNICITY_TITLECASE
+          : BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
       }`,
     ];
   }
@@ -117,12 +118,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
           unknownEthnicities.length === 0
             ? unknownRaces
             : unknownRaces.map((unknownRaceRow, index) => {
-              return unknownRaceRow[metricConfig.metricId] >
-                unknownEthnicities[index][metricConfig.metricId] ||
-                unknownEthnicities[index][metricConfig.metricId] == null
-                ? unknownRaceRow
-                : unknownEthnicities[index];
-            });
+                return unknownRaceRow[metricConfig.metricId] >
+                  unknownEthnicities[index][metricConfig.metricId] ||
+                  unknownEthnicities[index][metricConfig.metricId] == null
+                  ? unknownRaceRow
+                  : unknownEthnicities[index];
+              });
 
         const dataIsMissing = mapQueryResponse.dataIsMissing();
         const unknownsArrayEmpty = unknowns.length === 0;
@@ -136,7 +137,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
           mapQueryResponse
             .getValidRowsForField(props.currentBreakdown)
             .filter((row: Row) => row[props.currentBreakdown] === ALL).length >
-          0;
+            0;
 
         // when suppressing states with too low COVID numbers
         const unknownsUndefined =
