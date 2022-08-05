@@ -150,8 +150,7 @@ export function getNestedUndueShares(
     const groupTimeSeries = groupRows.map((row) => {
       let diff = null;
       if (row[conditionPctShareId] != null && row[popPctShareId] != null) {
-        diff =
-          Math.round((row[conditionPctShareId] - row[popPctShareId]) * 10) / 10;
+        diff = row[conditionPctShareId] - row[popPctShareId];
       }
       return [row[TIME_PERIOD], diff];
     });
