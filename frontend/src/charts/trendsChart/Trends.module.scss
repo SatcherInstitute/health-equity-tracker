@@ -28,9 +28,11 @@ $breakpoint-mobile: 600px;
       @include inter400;
       font-size: $smallest;
     }
+
     .xAxis path {
       opacity: 0; // do not display x-domain
     }
+
     .yAxis path {
       opacity: 0.3; // fade y-domain
     }
@@ -51,9 +53,11 @@ $breakpoint-mobile: 600px;
       opacity: 1;
       font-size: $smallest;
       transition: opacity 200ms linear 100ms;
+
       &.invisible {
         opacity: 0;
       }
+
       &.title {
         @include inter500; // make title bolder than number labels
       }
@@ -70,7 +74,7 @@ $breakpoint-mobile: 600px;
   }
 
   .disabled {
-    opacity: 0.3;
+    opacity: 0.3; // failing a11y; need minimum opacity .55
     cursor: not-allowed !important;
   }
 }
@@ -80,6 +84,7 @@ $breakpoint-mobile: 600px;
   @media (min-width: $breakpoint-mobile) {
     margin: 0 0 $spacingMedium 84px; // align filter with chart margin
   }
+
   // mobile
   margin: 0 0 $spacingMedium 20px; // align filter with chart margin
 }
@@ -95,6 +100,7 @@ $breakpoint-mobile: 600px;
     text-align: left;
     display: flex;
     align-items: center;
+
     button {
       // remove default button styling
       background: none;
@@ -157,6 +163,7 @@ $breakpoint-mobile: 600px;
   position: absolute;
   pointer-events: none;
   @include hoverTransition();
+
   div {
     transition: transform 300ms linear;
   }
@@ -165,6 +172,7 @@ $breakpoint-mobile: 600px;
 .Indicators,
 .HoverCircle {
   @include hoverTransition();
+
   line {
     stroke: $black;
   }
@@ -185,6 +193,7 @@ $breakpoint-mobile: 600px;
     padding-bottom: $spacingSmaller;
     text-align: center;
     border-bottom: 1px solid $alt-grey;
+
     .subtitle {
       margin-top: 4px;
       @include inter400;
@@ -200,13 +209,16 @@ $breakpoint-mobile: 600px;
     grid-gap: 4px 8px;
     align-items: center;
     justify-items: start;
+
     .bar {
       transition: width 200ms linear;
       height: 10px;
     }
+
     .label {
       white-space: nowrap;
       justify-self: end;
+
       span {
         @include inter400;
       }

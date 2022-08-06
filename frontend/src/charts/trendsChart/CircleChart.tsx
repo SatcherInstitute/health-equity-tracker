@@ -99,7 +99,7 @@ export function CircleChart({
                       r={rScale(percent)}
                       fill={colors(percent)}
                       role="img"
-                      aria-describedby={`circleText-${i}`}
+                      aria-labelledby={`circleText-${i}`}
                     />
                     {/* show percent annotation on hover */}
                     <text
@@ -137,7 +137,7 @@ export function CircleChart({
               r={rScale(percent)}
               fill={colors(percent)}
               role="img"
-              aria-describedby={`circleLegendText-${i}`}
+              aria-labelledby={`circleLegendText-${i}`}
             />
             {/* Circle label annotation (percent represented by circle) */}
             <text textAnchor="middle" dy="28px" id={`circleLegendText-${i}`}>

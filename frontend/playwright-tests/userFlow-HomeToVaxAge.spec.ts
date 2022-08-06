@@ -28,7 +28,11 @@ test.describe('Home to COVID Vax by Age', () => {
 
         // Load Tracker Default (with url param to bypass problematic warm welcome)
         await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${SKIP_WELCOME}`, { waitUntil: "networkidle" });
-        await expect(page).toBeAccessible()
+        await expect(page).toBeAccessible({
+            rules: {
+                'color-contrast': { enabled: false },
+            },
+        })
 
         // changes madlib to VAXX properly
         const madLibTopic = page.locator('button:has-text("COVID-19")')

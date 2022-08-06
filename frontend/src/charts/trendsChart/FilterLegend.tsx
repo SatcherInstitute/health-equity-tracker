@@ -65,7 +65,7 @@ export function FilterLegend({
                 opacity:
                   !selectedGroups.length || selectedGroups.includes(group)
                     ? 1
-                    : 0.2,
+                    : 0.2, // failing a11y; need minimum opacity .55 ?
               }}
             >
               {/* Legend Item color swatch */}

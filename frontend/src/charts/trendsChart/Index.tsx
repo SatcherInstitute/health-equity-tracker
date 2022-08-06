@@ -245,10 +245,11 @@ export function TrendsChart({
           height={CONFIG.HEIGHT}
           width={width as number}
           role="img"
+          aria-label="Data visualization; accessible table view coming soon."
           onMouseMove={handleMousemove}
           onMouseLeave={() => setHoveredDate(null)}
           // TODO link accompanying table here for a11y
-          // aria-describedby={}
+          // aria-labelledby={}
         >
           {/* Chart Axes */}
           <Axes
