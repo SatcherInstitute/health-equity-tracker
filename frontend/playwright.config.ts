@@ -24,7 +24,7 @@ const config: PlaywrightTestConfig = {
   /* run all tests, even those within a shared file, in parallel  */
   // fullyParallel: true,
   retries: 1,
-  reporter: "dot",
+  reporter: "line",
   workers: 10,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
