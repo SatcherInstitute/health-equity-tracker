@@ -43,12 +43,8 @@ Before (Table / Vega) Example:
 After (Time-Series / D3) Example:
 
 [
-  ["male", 
-    [["2020", 3000],["2021", 2000]]
-  ],
-  ["female", 
-    [["2020", 300],["2021", 200]]
-  ]
+  ["male", [["2020", 3000],["2021", 2000]]],
+  ["female", [["2020", 300],["2021", 200]]1]
 ]
 
 */
@@ -72,8 +68,10 @@ export function generateConsecutivePeriods(data: Row[]): string[] {
       consecutivePeriods.push(currentPeriod);
       let [yyyy, mm]: string[] = currentPeriod.split("-");
       let nextMonth: number = +mm + 1;
-      if (+nextMonth >= 12) yyyy = (+yyyy + 1).toString();
-      mm = ((nextMonth % 12) + 1).toString().padStart(2, "0");
+      if (+nextMonth === 13) {
+        yyyy = (+yyyy + 1).toString();
+        mm = "01";
+      } else mm = nextMonth.toString().padStart(2, "0");
       currentPeriod = `${yyyy}-${mm}`;
     }
   } else if (leastPeriodChars === YEARLY_LENGTH) {
