@@ -10,7 +10,7 @@ import { scaleOrdinal } from "d3";
 
 // Local
 import { COLOR_RANGE, TYPES } from "../trendsChart/constants";
-import data from "../../../public/tmp/trends.json";
+import data from "../../.././.storybook/TrendsData/trends.json";
 
 const props: TrendsTooltipProps = {
   // @ts-ignore
