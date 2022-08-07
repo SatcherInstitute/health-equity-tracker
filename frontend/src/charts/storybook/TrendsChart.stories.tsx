@@ -3,8 +3,8 @@ import { Meta, Story } from "@storybook/react/types-6-0";
 import { TrendsChart, TrendsChartProps } from "../trendsChart/Index";
 import { TYPES } from "../trendsChart/constants";
 
-import data from "../../../public/tmp/trends.json";
-import with_nulls from "../../../public/tmp/trends_with_nulls.json";
+import data from "../../../.storybook/TrendsData/trends.json";
+import with_nulls from "../../../.storybook/TrendsData/trends_with_nulls.json";
 
 const props: TrendsChartProps = {
   // @ts-ignore - will be fixed with real data
