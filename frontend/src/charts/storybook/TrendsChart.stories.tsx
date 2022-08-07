@@ -12,7 +12,7 @@ const props: TrendsChartProps = {
     ([group]) => group !== "Unknown race"
   ),
   unknown: data.race_national.covid_cases_per_100k
-    .filter(([group]) => group == "Unknown race")
+    .filter(([group]) => group === "Unknown race")
     // @ts-ignore - will be fixed with real data
     .flatMap(([group, d]) => d),
   type: TYPES.HUNDRED_K,
@@ -39,7 +39,7 @@ PercentShare.args = {
     ([group]) => group !== "Unknown race"
   ),
   unknown: data.race_national.covid_cases_share
-    .filter(([group]) => group == "Unknown race")
+    .filter(([group]) => group === "Unknown race")
     // @ts-ignore - will be fixed with real data
     .flatMap(([group, d]) => d),
   type: TYPES.PERCENT_SHARE,
@@ -53,7 +53,7 @@ WithNulls.args = {
     ([group]) => group !== "Unknown race"
   ),
   unknown: with_nulls.race_national.covid_cases_per_100k
-    .filter(([group]) => group == "Unknown race")
+    .filter(([group]) => group === "Unknown race")
     // @ts-ignore - will be fixed with real data
     .flatMap(([group, d]) => d),
 };
