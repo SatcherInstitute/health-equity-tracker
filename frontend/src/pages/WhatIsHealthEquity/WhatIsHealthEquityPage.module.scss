@@ -215,6 +215,10 @@
 
 /** ------------- FAQ SECTION ------------- **/
 
+.Testing {
+  padding-left: 10px;
+}
+
 .FaqRow {
   padding: 50px 0;
   border-bottom: $bottom-border-style;
@@ -228,6 +232,7 @@
 .FaqQuestionAndAnswer {
   padding-bottom: 20px;
   text-align: left;
+  padding-right: 200px;
 }
 
 .FaqHeaderText {

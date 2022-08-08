@@ -1,7 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-// import styles from "./DataCatalogPage.module.scss";
-import styles from "../WhatIsHealthEquity/WhatIsHealthEquityPage.module.scss";
+import styles from "./DataCatalogPage.module.scss";
 import { LinkWithStickyParams } from "../../utils/urlutils";
 import {
   CONTACT_TAB_LINK,
@@ -14,27 +13,91 @@ import { getHtml } from "../../utils/urlutils";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import { Link } from "react-router-dom";
-import { AccordionDetails, Card, Typography } from "@material-ui/core";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Card,
+  Typography,
+} from "@material-ui/core";
 import { urlMap } from "../../utils/externalUrls";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import DefinitionsList from "../../reports/ui/DefinitionsList";
-import { Accordion, AccordionSummary } from "@material-ui/core";
 import { currentYear } from "../../Footer";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
   ALASKA_PRIVATE_JAIL_CAVEAT,
   CombinedIncarcerationStateMessage,
 } from "../../data/variables/IncarcerationProvider";
-import FeedbackBox from "../ui/FeedbackBox";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
-function TestingMethodologyTab() {
+const MethodologyHeader = () => {
+  return (
+    <Grid
+      item
+      className={styles.MethodologyQuestionAndAnswer}
+      component="article"
+    >
+      <h3 id="main" className={styles.MethodologyQuestion}>
+        Recommended Citation (APA) for the Health Equity Tracker:
+      </h3>
+
+      <div className={styles.MethodologyAnswer}>
+        <Card elevation={3}>
+          <p className={styles.CitationAPA}>{CITATION_APA}</p>
+        </Card>
+      </div>
+    </Grid>
+  );
+};
+
+const MethodologyFooter = () => {
+  return (
+    <Grid
+      item
+      className={styles.MethodologyQuestionAndAnswer}
+      component="article"
+    >
+      <h3 className={styles.MethodologyQuestion}>What data is missing?</h3>
+      <div className={styles.MethodologyAnswer}>
+        <p>
+          Our tracker will expand to include additional health variables, social
+          and political determinants of health.
+        </p>
+      </div>
+      <div className={styles.MethodologyInfoBar}>
+        <p>
+          Do you have information on health outcomes at the state and local
+          level that belong in the Health Equity Tracker?
+          <br />
+          <LinkWithStickyParams to={CONTACT_TAB_LINK}>
+            We would love to hear from you!
+          </LinkWithStickyParams>
+        </p>
+      </div>
+    </Grid>
+  );
+};
+
+function MethodologyTab() {
   return (
     <>
       <Helmet>
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
       <h2 className={styles.ScreenreaderTitleHeader}>Methodology</h2>
+      <Grid
+        container
+        direction="column"
+        justifyContent="space-around"
+        alignItems="center"
+      >
+        <Grid item>
+          <Grid container className={styles.MethodologySection}>
+            <MethodologyHeader />
+          </Grid>
+        </Grid>
+      </Grid>
       <Grid item xs={12} className={styles.FaqQAItem} component="ul">
         <Accordion className={styles.FaqListItem}>
           <AccordionSummary
@@ -669,9 +732,8 @@ function TestingMethodologyTab() {
           </AccordionDetails>
         </Accordion>
       </Grid>
-      <FeedbackBox />
     </>
   );
 }
 
-export default TestingMethodologyTab;
+export default MethodologyTab;
