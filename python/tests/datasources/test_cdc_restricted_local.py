@@ -1,7 +1,6 @@
 import os
 import json
 import pandas as pd  # type: ignore
-import numpy as np  # type: ignore
 from pandas._testing import assert_frame_equal  # type: ignore
 
 import ingestion.standardized_columns as std_col  # type: ignore
