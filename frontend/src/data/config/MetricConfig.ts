@@ -368,7 +368,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_deaths_share",
           fullCardTitleName: "Share of total COVID-19 deaths",
-          trendsCardTitleName: "Inequitable share of COVID-19 cases over time",
+          trendsCardTitleName: "Inequitable share of COVID-19 deaths over time",
           shortLabel: "% of COVID-19 deaths",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
