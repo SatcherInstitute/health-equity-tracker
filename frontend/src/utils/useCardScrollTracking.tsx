@@ -31,7 +31,7 @@ export default function useCardScrollTracking(
         _cardsInView = _cardsInView.filter((id) => id !== activeHashId);
       setCardsInView(_cardsInView);
 
-      // if more than one card is visible, set active to card the middle
+      // if more than one card is visible, choose middle card as active
       const middle = Math.floor(_cardsInView.length / 2);
       _cardsInView.length > 0 &&
         setActiveStep?.(
