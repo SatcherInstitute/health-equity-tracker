@@ -40,7 +40,7 @@ function FaqSection() {
     <Grid container component="article">
       <Grid item>
         <Typography className={styles.FaqHeader} variant="h1" component="h3">
-          Frequently asked questions testing
+          Frequently asked questions
         </Typography>
       </Grid>
       <Grid item xs={12} className={styles.FaqQAItem} component="ul">
