@@ -44,14 +44,16 @@ export interface UnknownsMapCardProps {
   setActiveStep?: React.Dispatch<React.SetStateAction<number>>;
   cardsInView?: string[];
   setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
+  skipScrollTracking?: boolean;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
 // the props change and the state needs to be reset) rather than relying on the card caller.
 export function UnknownsMapCard(props: UnknownsMapCardProps) {
-  const { ref, inView } = useInView({ threshold: 0.66 });
-
-  // console.log("map", { ref }, { inView }, { entry });
+  const { ref, inView } = useInView({
+    threshold: 0.66,
+    skip: props.skipScrollTracking,
+  });
 
   useEffect(() => {
     if (props.cardsInView !== undefined && props.setCardsInView !== undefined) {
@@ -63,7 +65,6 @@ export function UnknownsMapCard(props: UnknownsMapCardProps) {
         _cardsInView = _cardsInView.filter((id) => id !== "unknowns");
 
       const middle = Math.floor(_cardsInView.length / 2);
-      console.log({ middle });
       props.setCardsInView(_cardsInView);
       props.setActiveStep?.(
         steps.findIndex((step) => step.hashId === _cardsInView[middle])

@@ -33,7 +33,7 @@ import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
-import CardsStepper from "../pages/ExploreData/CardsStepper";
+import CardsStepper, { steps } from "../pages/ExploreData/CardsStepper";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -51,12 +51,15 @@ function ReportProvider(props: ReportProviderProps) {
   const [activeStep, setActiveStep] = useState(-1);
 
   useEffect(() => {
-    // console.log(activeStep);
+    const urlWithoutHash = window.location.href.split("#")[0];
+    const activeHash = steps[activeStep]?.hashId || "";
+    const newUrl = `${urlWithoutHash}${activeHash ? "#" + activeHash : ""}`;
+    window.history.replaceState(null, "", newUrl);
   }, [activeStep]);
 
   const [cardsInView, setCardsInView] = useState<string[]>([]);
 
-  console.log(cardsInView);
+  const [skipScrollTracking, setskipScrollTracking] = useState<boolean>(false);
 
   // only show determinants that have definitions
   const definedConditions = props.selectedConditions.filter(
@@ -101,6 +104,7 @@ function ReportProvider(props: ReportProviderProps) {
             setActiveStep={setActiveStep}
             cardsInView={cardsInView}
             setCardsInView={setCardsInView}
+            skipScrollTracking={skipScrollTracking}
             jumpToDefinitions={jumpToDefinitions}
             jumpToData={jumpToData}
             key={dropdownOption}
@@ -190,6 +194,7 @@ function ReportProvider(props: ReportProviderProps) {
               setActiveStep={setActiveStep}
               cardsInView={cardsInView}
               setCardsInView={setCardsInView}
+              setskipScrollTracking={setskipScrollTracking}
             />
           </Grid>
         </Grid>

@@ -40,14 +40,16 @@ export interface DisparityBarChartCardProps {
   setActiveStep?: React.Dispatch<React.SetStateAction<number>>;
   cardsInView?: string[];
   setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
+  skipScrollTracking?: boolean;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
 export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
-  const { ref, inView } = useInView({ threshold: 0.66 });
-
-  // console.log("map", { ref }, { inView }, { entry });
+  const { ref, inView } = useInView({
+    threshold: 0.66,
+    skip: props.skipScrollTracking,
+  });
 
   useEffect(() => {
     if (props.cardsInView !== undefined && props.setCardsInView !== undefined) {

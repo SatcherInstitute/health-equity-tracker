@@ -106,6 +106,8 @@ button[data-action="back"] {
   color: $alt-green !important;
   text-decoration: none;
   font-size: $smallest;
+  text-align: left !important;
+  float: left !important;
 }
 
 .StepUnavailable span span {

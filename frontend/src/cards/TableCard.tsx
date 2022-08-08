@@ -51,12 +51,14 @@ export interface TableCardProps {
   setActiveStep?: React.Dispatch<React.SetStateAction<number>>;
   cardsInView?: string[];
   setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
+  skipScrollTracking?: boolean;
 }
 
 export function TableCard(props: TableCardProps) {
-  const { ref, inView } = useInView({ threshold: 0.66 });
-
-  // console.log("map", { ref }, { inView }, { entry });
+  const { ref, inView } = useInView({
+    threshold: 0.66,
+    skip: props.skipScrollTracking,
+  });
 
   useEffect(() => {
     if (props.cardsInView !== undefined && props.setCardsInView !== undefined) {
@@ -67,7 +69,6 @@ export function TableCard(props: TableCardProps) {
         _cardsInView = _cardsInView.filter((id) => id !== "table");
 
       const middle = Math.floor(_cardsInView.length / 2);
-      console.log({ middle });
       props.setCardsInView(_cardsInView);
       props.setActiveStep?.(
         steps.findIndex((step) => step.hashId === _cardsInView[middle])

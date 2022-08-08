@@ -44,12 +44,14 @@ export interface PopulationCardProps {
   setActiveStep?: React.Dispatch<React.SetStateAction<number>>;
   cardsInView?: string[];
   setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
+  skipScrollTracking?: boolean;
 }
 
 export function PopulationCard(props: PopulationCardProps) {
-  const { ref, inView } = useInView({ threshold: 0.66 });
-
-  // console.log("map", { ref }, { inView }, { entry });
+  const { ref, inView } = useInView({
+    threshold: 0.66,
+    skip: props.skipScrollTracking,
+  });
 
   useEffect(() => {
     if (props.cardsInView !== undefined && props.setCardsInView !== undefined) {

@@ -49,63 +49,10 @@ export interface OneVariableReportProps {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
   cardsInView?: string[];
   setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
+  skipScrollTracking: boolean;
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
-  // const populationRef = useRef(null);
-  // const populationIsOnScreen = useIsOnScreen(populationRef);
-
-  // const mapRef = useRef(null);
-  // const mapIsOnScreen = useIsOnScreen(mapRef);
-
-  // const barRef = useRef(null);
-  // const barIsOnScreen = useIsOnScreen(barRef);
-
-  // const unknownsRef = useRef(null);
-  // const unknownsIsOnScreen = useIsOnScreen(unknownsRef);
-
-  // const disparityRef = useRef(null);
-  // const disparityIsOnScreen = useIsOnScreen(disparityRef);
-
-  // const tableRef = useRef(null);
-  // const tableIsOnScreen = useIsOnScreen(tableRef);
-
-  // const ageAdjustedRef = useRef(null);
-  // // const ageAdjustedIsOnScreen = useIsOnScreen(ageAdjustedRef);
-
-  // const [cardOnScreen, setCardOnScreen] = useState<ScrollableHashId | null>(
-  //   null
-  // );
-
-  // useEffect(() => {
-
-  //   if (tableIsOnScreen) setCardOnScreen("table")
-  //   else if (disparityIsOnScreen) setCardOnScreen("disparity")
-  //   else if (unknownsIsOnScreen) setCardOnScreen("unknowns")
-  //   else if (barIsOnScreen) setCardOnScreen("bar")
-  //   else if (mapIsOnScreen) setCardOnScreen("map")
-  //   else if (populationIsOnScreen) setCardOnScreen("population")
-
-  //   // if (ageAdjustedIsOnScreen ) setCardOnScreen("age-adjusted")
-  //   // else setCardOnScreen(null)
-
-  // }, [
-  //   populationIsOnScreen,
-  //   mapIsOnScreen,
-  //   barIsOnScreen,
-  //   unknownsIsOnScreen,
-  //   disparityIsOnScreen,
-  //   tableIsOnScreen,
-  //   // ageAdjustedIsOnScreen
-  // ])
-
-  // useEffect(() => {
-  //   const stepIndex = steps.findIndex((step) => step.hashId === cardOnScreen) || props.activeStep
-  //   // console.log("found index", stepIndex);
-  //   props.setActiveStep(stepIndex)
-
-  // }, [cardOnScreen])
-
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
   );
@@ -185,6 +132,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             setActiveStep={props.setActiveStep}
             cardsInView={props.cardsInView}
             setCardsInView={props.setCardsInView}
+            skipScrollTracking={props.skipScrollTracking}
           />
         </Grid>
       )}
@@ -226,6 +174,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
               setActiveStep={props.setActiveStep}
               cardsInView={props.cardsInView}
               setCardsInView={props.setCardsInView}
+              skipScrollTracking={props.skipScrollTracking}
             />
           </Grid>
 
@@ -251,6 +200,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                         setActiveStep={props.setActiveStep}
                         cardsInView={props.cardsInView}
                         setCardsInView={props.setCardsInView}
+                        skipScrollTracking={props.skipScrollTracking}
                       />
                     )}
                 </Fragment>
@@ -281,6 +231,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   setActiveStep={props.setActiveStep}
                   cardsInView={props.cardsInView}
                   setCardsInView={props.setCardsInView}
+                  skipScrollTracking={props.skipScrollTracking}
                 />
               )}
             </LazyLoad>
@@ -308,6 +259,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                         setActiveStep={props.setActiveStep}
                         cardsInView={props.cardsInView}
                         setCardsInView={props.setCardsInView}
+                        skipScrollTracking={props.skipScrollTracking}
                       />
                     )}
                 </Fragment>
@@ -338,6 +290,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                         setActiveStep={props.setActiveStep}
                         cardsInView={props.cardsInView}
                         setCardsInView={props.setCardsInView}
+                        skipScrollTracking={props.skipScrollTracking}
                       />
                     )}
                   </Fragment>
