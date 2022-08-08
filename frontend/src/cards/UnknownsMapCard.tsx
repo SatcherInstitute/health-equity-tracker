@@ -11,7 +11,7 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import {
   Breakdowns,
   BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import {
   UNKNOWN,
@@ -73,15 +73,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const mapQuery = new MetricQuery([metricConfig.metricId], mapGeoBreakdowns);
   const alertQuery = new MetricQuery([metricConfig.metricId], alertBreakdown);
 
-  const RACE_OR_ETHNICITY_TITLECASE = "Race Or Ethnicity";
-
   function getTitleTextArray() {
     return [
       `${metricConfig.fullCardTitleName}`,
-      `With Unknown ${
-        props.overrideAndWithOr
-          ? RACE_OR_ETHNICITY_TITLECASE
-          : BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+      `with unknown ${
+        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown]
       }`,
     ];
   }
@@ -200,7 +196,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}
                   breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                      props.currentBreakdown
+                    ]
                   }
                   isMapCard={true}
                   fips={props.fips}
@@ -211,8 +209,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {showNoUnknownsInfo && (
                 <Alert severity="info" role="note">
                   No unknown values for{" "}
-                  {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]} reported
-                  in this dataset.
+                  {
+                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                      props.currentBreakdown
+                    ]
+                  }{" "}
+                  reported in this dataset.
                 </Alert>
               )}
             </CardContent>

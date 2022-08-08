@@ -4,7 +4,7 @@ import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
   BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { VariableConfig } from "../data/config/MetricConfig";
@@ -58,7 +58,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   function getTitleText() {
     return `${
       metricConfigRates.trendsCardTitleName
-    } by ${BREAKDOWN_VAR_DISPLAY_NAMES[
+    } by ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
       props.breakdownVar
     ].toLowerCase()} in ${props.fips.getSentenceDisplayName()}`;
   }
@@ -117,7 +117,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 <MissingDataAlert
                   dataName={`historical data for ${metricConfigRates.fullCardTitleName}`}
                   breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }
                   fips={props.fips}
                 />
@@ -132,7 +132,10 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   unknown={nestedUnknownPctShareData}
                   axisConfig={{
                     type: metricConfigRates.type,
-                    groupLabel: BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
+                    groupLabel:
+                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                        props.breakdownVar
+                      ],
                     yAxisLabel: metricConfigRates.shortLabel,
                   }}
                 />

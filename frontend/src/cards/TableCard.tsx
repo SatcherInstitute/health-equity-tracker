@@ -6,7 +6,7 @@ import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
   BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
 import {
@@ -98,9 +98,9 @@ export function TableCard(props: TableCardProps) {
       minHeight={PRELOAD_HEIGHT}
       queries={[query]}
       title={
-        <>{`${props.variableConfig.variableFullDisplayName} By ${
-          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-        } In ${props.fips.getSentenceDisplayName()}`}</>
+        <>{`${props.variableConfig.variableFullDisplayName} by ${
+          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+        } in ${props.fips.getSentenceDisplayName()}`}</>
       }
     >
       {([queryResponse]) => {
@@ -135,7 +135,7 @@ export function TableCard(props: TableCardProps) {
                 <MissingDataAlert
                   dataName={props.variableConfig.variableFullDisplayName + " "}
                   breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }
                   fips={props.fips}
                 />
