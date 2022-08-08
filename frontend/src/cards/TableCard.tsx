@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+
 import { TableChart } from "../charts/TableChart";
 import CardWrapper from "./CardWrapper";
 import { MetricQuery } from "../data/query/MetricQuery";
@@ -30,6 +31,8 @@ import styles from "./Card.module.scss";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { Row } from "../data/utils/DatasetTypes";
+import { useInView } from "react-intersection-observer";
+import { steps } from "../pages/ExploreData/CardsStepper";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -45,9 +48,33 @@ export interface TableCardProps {
   fips: Fips;
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
+  setActiveStep?: React.Dispatch<React.SetStateAction<number>>;
+  cardsInView?: string[];
+  setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export function TableCard(props: TableCardProps) {
+  const { ref, inView } = useInView({ threshold: 0.66 });
+
+  // console.log("map", { ref }, { inView }, { entry });
+
+  useEffect(() => {
+    if (props.cardsInView !== undefined && props.setCardsInView !== undefined) {
+      let _cardsInView = [...props.cardsInView];
+
+      if (inView && !_cardsInView.includes("table")) _cardsInView.push("table");
+      else if (!inView && _cardsInView.includes("table"))
+        _cardsInView = _cardsInView.filter((id) => id !== "table");
+
+      const middle = Math.floor(_cardsInView.length / 2);
+      console.log({ middle });
+      props.setCardsInView(_cardsInView);
+      props.setActiveStep?.(
+        steps.findIndex((step) => step.hashId === _cardsInView[middle])
+      );
+    }
+  }, [inView]);
+
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
@@ -94,93 +121,98 @@ export function TableCard(props: TableCardProps) {
     .some((metricId) => metricId.includes("covid"));
 
   return (
-    <CardWrapper
-      minHeight={PRELOAD_HEIGHT}
-      queries={[query]}
-      title={
-        <>{`${props.variableConfig.variableFullDisplayName} By ${BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+    <div ref={ref}>
+      <CardWrapper
+        minHeight={PRELOAD_HEIGHT}
+        queries={[query]}
+        title={
+          <>{`${props.variableConfig.variableFullDisplayName} By ${
+            BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
           } In ${props.fips.getSentenceDisplayName()}`}</>
-      }
-    >
-      {([queryResponse]) => {
-        let data = queryResponse.data;
-        if (shouldShowAltPopCompare(props)) data = fillInAltPops(data);
-        let normalMetricIds = metricIds;
-
-        // revert metric ids to normal data structure, and revert "displayed" rows to exclude ALLs
-        if (isIncarceration) {
-          normalMetricIds = metricIds.filter(
-            (id) => id !== "total_confined_children"
-          );
-          data = data.filter((row: Row) => row[props.breakdownVar] !== ALL);
         }
+      >
+        {([queryResponse]) => {
+          let data = queryResponse.data;
+          if (shouldShowAltPopCompare(props)) data = fillInAltPops(data);
+          let normalMetricIds = metricIds;
 
-        const showMissingDataAlert =
-          queryResponse.shouldShowMissingDataMessage(normalMetricIds) ||
-          data.length <= 0;
+          // revert metric ids to normal data structure, and revert "displayed" rows to exclude ALLs
+          if (isIncarceration) {
+            normalMetricIds = metricIds.filter(
+              (id) => id !== "total_confined_children"
+            );
+            data = data.filter((row: Row) => row[props.breakdownVar] !== ALL);
+          }
 
-        return (
-          <>
-            {isIncarceration && (
-              <IncarceratedChildrenShortAlert
-                fips={props.fips}
-                queryResponse={queryResponse}
-                breakdownVar={props.breakdownVar}
-              />
-            )}
+          const showMissingDataAlert =
+            queryResponse.shouldShowMissingDataMessage(normalMetricIds) ||
+            data.length <= 0;
 
-            {showMissingDataAlert && (
-              <CardContent>
-                <MissingDataAlert
-                  dataName={props.variableConfig.variableFullDisplayName + " "}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-                  }
+          return (
+            <>
+              {isIncarceration && (
+                <IncarceratedChildrenShortAlert
                   fips={props.fips}
+                  queryResponse={queryResponse}
+                  breakdownVar={props.breakdownVar}
                 />
-              </CardContent>
-            )}
-            {!queryResponse.dataIsMissing() &&
-              displayingCovidData &&
-              props.breakdownVar === RACE && (
-                <>
-                  <CardContent>
-                    <Alert severity="warning" role="note">
-                      Share of COVID-19 cases reported for American Indian,
-                      Alaska Native, Native Hawaiian and Pacific Islander are
-                      underrepresented at the national level and in many states
-                      because these racial categories are often not recorded.
-                      The Urban Indian Health Institute publishes{" "}
-                      <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={urlMap.uihiBestPractice}
-                      >
-                        guidelines for American Indian and Alaska Native Data
-                        Collection
-                      </a>
-                      .
-                    </Alert>
-                  </CardContent>
-                  <Divider />
-                </>
               )}
 
-            {!queryResponse.dataIsMissing() && data.length > 0 && (
-              <div className={styles.TableChart}>
-                <TableChart
-                  data={data}
-                  breakdownVar={props.breakdownVar}
-                  metrics={Object.values(metricConfigs).filter(
-                    (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
-                  )}
-                />
-              </div>
-            )}
-          </>
-        );
-      }}
-    </CardWrapper>
+              {showMissingDataAlert && (
+                <CardContent>
+                  <MissingDataAlert
+                    dataName={
+                      props.variableConfig.variableFullDisplayName + " "
+                    }
+                    breakdownString={
+                      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                    }
+                    fips={props.fips}
+                  />
+                </CardContent>
+              )}
+              {!queryResponse.dataIsMissing() &&
+                displayingCovidData &&
+                props.breakdownVar === RACE && (
+                  <>
+                    <CardContent>
+                      <Alert severity="warning" role="note">
+                        Share of COVID-19 cases reported for American Indian,
+                        Alaska Native, Native Hawaiian and Pacific Islander are
+                        underrepresented at the national level and in many
+                        states because these racial categories are often not
+                        recorded. The Urban Indian Health Institute publishes{" "}
+                        <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href={urlMap.uihiBestPractice}
+                        >
+                          guidelines for American Indian and Alaska Native Data
+                          Collection
+                        </a>
+                        .
+                      </Alert>
+                    </CardContent>
+                    <Divider />
+                  </>
+                )}
+
+              {!queryResponse.dataIsMissing() && data.length > 0 && (
+                <div className={styles.TableChart}>
+                  <TableChart
+                    data={data}
+                    breakdownVar={props.breakdownVar}
+                    metrics={Object.values(metricConfigs).filter(
+                      (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
+                    )}
+                  />
+                </div>
+              )}
+            </>
+          );
+        }}
+      </CardWrapper>
+    </div>
   );
 }
 

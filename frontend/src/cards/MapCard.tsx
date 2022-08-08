@@ -69,7 +69,7 @@ export interface MapCardProps {
 // This wrapper ensures the proper key is set to create a new instance when required (when
 // the props change and the state needs to be reset) rather than relying on the card caller.
 export function MapCard(props: MapCardProps) {
-  const { ref, inView } = useInView();
+  const { ref, inView } = useInView({ threshold: 0.66 });
 
   // console.log("map", { ref }, { inView }, { entry });
 
@@ -81,9 +81,10 @@ export function MapCard(props: MapCardProps) {
       else if (!inView && _cardsInView.includes("map"))
         _cardsInView = _cardsInView.filter((id) => id !== "map");
 
+      const middle = Math.floor(_cardsInView.length / 2);
       props.setCardsInView(_cardsInView);
       props.setActiveStep?.(
-        steps.findIndex((step) => step.hashId === _cardsInView[0])
+        steps.findIndex((step) => step.hashId === _cardsInView[middle])
       );
     }
   }, [inView]);

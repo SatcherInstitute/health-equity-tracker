@@ -38,7 +38,7 @@ export interface SimpleBarChartCardProps {
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
 export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
-  const { ref, inView } = useInView();
+  const { ref, inView } = useInView({ threshold: 0.66 });
 
   // console.log("map", { ref }, { inView }, { entry });
 
@@ -50,9 +50,10 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
       else if (!inView && _cardsInView.includes("bar"))
         _cardsInView = _cardsInView.filter((id) => id !== "bar");
 
+      const middle = Math.floor(_cardsInView.length / 2);
       props.setCardsInView(_cardsInView);
       props.setActiveStep?.(
-        steps.findIndex((step) => step.hashId === _cardsInView[0])
+        steps.findIndex((step) => step.hashId === _cardsInView[middle])
       );
     }
   }, [inView]);

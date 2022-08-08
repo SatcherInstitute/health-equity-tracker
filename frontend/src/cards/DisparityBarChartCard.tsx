@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Alert from "@material-ui/lab/Alert";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
 import { CardContent } from "@material-ui/core";
@@ -26,6 +26,8 @@ import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
+import { useInView } from "react-intersection-observer";
+import { steps } from "../pages/ExploreData/CardsStepper";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 719;
@@ -35,16 +37,42 @@ export interface DisparityBarChartCardProps {
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
   fips: Fips;
+  setActiveStep?: React.Dispatch<React.SetStateAction<number>>;
+  cardsInView?: string[];
+  setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
 export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
+  const { ref, inView } = useInView({ threshold: 0.66 });
+
+  // console.log("map", { ref }, { inView }, { entry });
+
+  useEffect(() => {
+    if (props.cardsInView !== undefined && props.setCardsInView !== undefined) {
+      let _cardsInView = [...props.cardsInView];
+
+      if (inView && !_cardsInView.includes("disparity"))
+        _cardsInView.push("disparity");
+      else if (!inView && _cardsInView.includes("disparity"))
+        _cardsInView = _cardsInView.filter((id) => id !== "disparity");
+
+      const middle = Math.floor(_cardsInView.length / 2);
+      props.setCardsInView(_cardsInView);
+      props.setActiveStep?.(
+        steps.findIndex((step) => step.hashId === _cardsInView[middle])
+      );
+    }
+  }, [inView]);
+
   return (
-    <DisparityBarChartCardWithKey
-      key={props.variableConfig.variableId + props.breakdownVar}
-      {...props}
-    />
+    <div ref={ref}>
+      <DisparityBarChartCardWithKey
+        key={props.variableConfig.variableId + props.breakdownVar}
+        {...props}
+      />
+    </div>
   );
 }
 
@@ -72,8 +100,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const query = new MetricQuery(metricIds, breakdowns);
 
   function getTitleText() {
-    return `Population vs. ${metricConfig.fullCardTitleName
-      } in ${props.fips.getSentenceDisplayName()}`;
+    return `Population vs. ${
+      metricConfig.fullCardTitleName
+    } in ${props.fips.getSentenceDisplayName()}`;
   }
   function CardTitle() {
     return <>{getTitleText()}</>;
@@ -160,9 +189,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 Population percentages on this graph add up to over 100% because
                 the racial categories reported for{" "}
                 {metricConfig.fullCardTitleName} in{" "}
-                {props.fips.getSentenceDisplayName()} include Hispanic individuals
-                in each racial category. As a result, Hispanic individuals are
-                counted twice.
+                {props.fips.getSentenceDisplayName()} include Hispanic
+                individuals in each racial category. As a result, Hispanic
+                individuals are counted twice.
               </Alert>
             )}
             {isCawp && (

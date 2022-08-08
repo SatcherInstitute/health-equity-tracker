@@ -278,6 +278,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     props.updateFipsCallback(fips);
                   }}
                   currentBreakdown={currentBreakdown}
+                  setActiveStep={props.setActiveStep}
+                  cardsInView={props.cardsInView}
+                  setCardsInView={props.setCardsInView}
                 />
               )}
             </LazyLoad>
@@ -302,6 +305,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
                         variableConfig={variableConfig}
                         breakdownVar={breakdownVar}
                         fips={props.fips}
+                        setActiveStep={props.setActiveStep}
+                        cardsInView={props.cardsInView}
+                        setCardsInView={props.setCardsInView}
                       />
                     )}
                 </Fragment>
@@ -329,6 +335,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
                         fips={props.fips}
                         variableConfig={variableConfig}
                         breakdownVar={breakdownVar}
+                        setActiveStep={props.setActiveStep}
+                        cardsInView={props.cardsInView}
+                        setCardsInView={props.setCardsInView}
                       />
                     )}
                   </Fragment>

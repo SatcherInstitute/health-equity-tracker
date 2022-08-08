@@ -47,7 +47,7 @@ export interface PopulationCardProps {
 }
 
 export function PopulationCard(props: PopulationCardProps) {
-  const { ref, inView } = useInView({ rootMargin: "20% 0% 20% 0%" });
+  const { ref, inView } = useInView({ threshold: 0.66 });
 
   // console.log("map", { ref }, { inView }, { entry });
 
@@ -60,11 +60,10 @@ export function PopulationCard(props: PopulationCardProps) {
       else if (!inView && _cardsInView.includes("population"))
         _cardsInView = _cardsInView.filter((id) => id !== "population");
 
+      const middle = Math.floor(_cardsInView.length / 2);
       props.setCardsInView(_cardsInView);
       props.setActiveStep?.(
-        steps.findIndex(
-          (step) => step.hashId === _cardsInView?.[_cardsInView.length - 1]
-        )
+        steps.findIndex((step) => step.hashId === _cardsInView?.[middle])
       );
     }
   }, [inView]);

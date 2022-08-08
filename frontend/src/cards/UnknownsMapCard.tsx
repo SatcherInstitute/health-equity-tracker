@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CardContent } from "@material-ui/core";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
@@ -24,6 +24,8 @@ import styles from "./Card.module.scss";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
+import { useInView } from "react-intersection-observer";
+import { steps } from "../pages/ExploreData/CardsStepper";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 748;
@@ -39,16 +41,43 @@ export interface UnknownsMapCardProps {
   updateFipsCallback: (fips: Fips) => void;
   // replaces race AND ethnicity with race OR ethnicity on unknowns map title and alerts
   overrideAndWithOr?: Boolean;
+  setActiveStep?: React.Dispatch<React.SetStateAction<number>>;
+  cardsInView?: string[];
+  setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
 // the props change and the state needs to be reset) rather than relying on the card caller.
 export function UnknownsMapCard(props: UnknownsMapCardProps) {
+  const { ref, inView } = useInView({ threshold: 0.66 });
+
+  // console.log("map", { ref }, { inView }, { entry });
+
+  useEffect(() => {
+    if (props.cardsInView !== undefined && props.setCardsInView !== undefined) {
+      let _cardsInView = [...props.cardsInView];
+
+      if (inView && !_cardsInView.includes("unknowns"))
+        _cardsInView.push("unknowns");
+      else if (!inView && _cardsInView.includes("unknowns"))
+        _cardsInView = _cardsInView.filter((id) => id !== "unknowns");
+
+      const middle = Math.floor(_cardsInView.length / 2);
+      console.log({ middle });
+      props.setCardsInView(_cardsInView);
+      props.setActiveStep?.(
+        steps.findIndex((step) => step.hashId === _cardsInView[middle])
+      );
+    }
+  }, [inView]);
+
   return (
-    <UnknownsMapCardWithKey
-      key={props.currentBreakdown + props.variableConfig.variableId}
-      {...props}
-    />
+    <div ref={ref}>
+      <UnknownsMapCardWithKey
+        key={props.currentBreakdown + props.variableConfig.variableId}
+        {...props}
+      />
+    </div>
   );
 }
 
@@ -78,9 +107,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   function getTitleTextArray() {
     return [
       `${metricConfig.fullCardTitleName}`,
-      `With Unknown ${props.overrideAndWithOr
-        ? RACE_OR_ETHNICITY_TITLECASE
-        : BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+      `With Unknown ${
+        props.overrideAndWithOr
+          ? RACE_OR_ETHNICITY_TITLECASE
+          : BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
       }`,
     ];
   }
@@ -117,12 +147,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
           unknownEthnicities.length === 0
             ? unknownRaces
             : unknownRaces.map((unknownRaceRow, index) => {
-              return unknownRaceRow[metricConfig.metricId] >
-                unknownEthnicities[index][metricConfig.metricId] ||
-                unknownEthnicities[index][metricConfig.metricId] == null
-                ? unknownRaceRow
-                : unknownEthnicities[index];
-            });
+                return unknownRaceRow[metricConfig.metricId] >
+                  unknownEthnicities[index][metricConfig.metricId] ||
+                  unknownEthnicities[index][metricConfig.metricId] == null
+                  ? unknownRaceRow
+                  : unknownEthnicities[index];
+              });
 
         const dataIsMissing = mapQueryResponse.dataIsMissing();
         const unknownsArrayEmpty = unknowns.length === 0;
@@ -136,7 +166,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
           mapQueryResponse
             .getValidRowsForField(props.currentBreakdown)
             .filter((row: Row) => row[props.currentBreakdown] === ALL).length >
-          0;
+            0;
 
         // when suppressing states with too low COVID numbers
         const unknownsUndefined =
