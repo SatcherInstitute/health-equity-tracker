@@ -6,7 +6,8 @@ import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 const options = {
-  threshold: 0.66,
+  // how much of the card needs to be showing to be "on screen"
+  threshold: 0.5,
 };
 
 export default function useCardScrollTracking(
@@ -18,15 +19,19 @@ export default function useCardScrollTracking(
 ) {
   const { ref, inView } = useInView(options);
 
+  // when each card changes visibility, update the cards in view / active step
   useEffect(() => {
     if (cardsInView !== undefined && setCardsInView !== undefined) {
       let _cardsInView = [...cardsInView];
 
+      // add/remove visible cards
       if (inView && !_cardsInView.includes(activeHashId))
         _cardsInView.push(activeHashId);
       else if (!inView && _cardsInView.includes(activeHashId))
         _cardsInView = _cardsInView.filter((id) => id !== activeHashId);
       setCardsInView(_cardsInView);
+
+      // if more than one card is visible, set active to card the middle
       const middle = Math.floor(_cardsInView.length / 2);
       _cardsInView.length > 0 &&
         setActiveStep?.(
