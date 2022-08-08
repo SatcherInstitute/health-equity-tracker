@@ -31,7 +31,7 @@ import Hidden from "@material-ui/core/Hidden";
 import Alert from "@material-ui/lab/Alert";
 import SviAlert from "./ui/SviAlert";
 import { steps } from "../reports/ReportProvider";
-import useCardScrollTracking from "../utils/useCardScrollTracking";
+import useCardScrollTracking from "../utils/useScrollTracking";
 
 export const POPULATION_BY_RACE = "Population by race and ethnicity";
 export const POPULATION_BY_AGE = "Population by age";

@@ -27,7 +27,7 @@ import UnknownsAlert from "./ui/UnknownsAlert";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 import { steps } from "../reports/ReportProvider";
-import useCardScrollTracking from "../utils/useCardScrollTracking";
+import useCardScrollTracking from "../utils/useScrollTracking";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 719;

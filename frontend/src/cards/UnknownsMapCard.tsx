@@ -25,7 +25,7 @@ import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { steps } from "../reports/ReportProvider";
-import useCardScrollTracking from "../utils/useCardScrollTracking";
+import useCardScrollTracking from "../utils/useScrollTracking";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 748;

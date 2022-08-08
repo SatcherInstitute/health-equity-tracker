@@ -20,7 +20,7 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { steps } from "../reports/ReportProvider";
-import useCardScrollTracking from "../utils/useCardScrollTracking";
+import useCardScrollTracking from "../utils/useScrollTracking";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;

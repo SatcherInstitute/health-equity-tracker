@@ -1,4 +1,4 @@
-import { Card, Step, StepButton, StepLabel, Stepper } from "@material-ui/core";
+import { Card, Step, StepLabel, Stepper } from "@material-ui/core";
 import * as React from "react";
 import { NavHashLink } from "react-router-hash-link";
 import { steps } from "../../reports/ReportProvider";
@@ -49,7 +49,7 @@ export default function CardsStepper(props: CardsStepperProps) {
         {steps.map((step, index) => (
           <Step key={step.label} completed={false}>
             {presentIds.includes(steps[index].hashId) ? (
-              <StepButton onClick={(e) => handleClick(e, index)}>
+              <StepLabel onClick={(e) => handleClick(e, index)}>
                 <NavHashLink
                   activeClassName={styles.SelectedStep}
                   className={styles.Step}
@@ -58,7 +58,7 @@ export default function CardsStepper(props: CardsStepperProps) {
                 >
                   {step.label}
                 </NavHashLink>
-              </StepButton>
+              </StepLabel>
             ) : (
               <StepLabel className={styles.StepUnavailable}>
                 {step.label} (N/A)

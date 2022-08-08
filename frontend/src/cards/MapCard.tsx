@@ -46,7 +46,7 @@ import { MultiMapLink } from "./ui/MultiMapLink";
 import { RateInfoAlert } from "./ui/RateInfoAlert";
 import { findVerboseRating } from "./ui/SviAlert";
 import { steps } from "../reports/ReportProvider";
-import useCardScrollTracking from "../utils/useCardScrollTracking";
+import useCardScrollTracking from "../utils/useScrollTracking";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 /* minimize layout shift */
