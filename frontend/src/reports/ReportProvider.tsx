@@ -24,7 +24,7 @@ import {
   METRIC_CONFIG,
   VariableConfig,
 } from "../data/config/MetricConfig";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";

@@ -71,9 +71,9 @@ interface CardsStepperProps {
 export default function CardsStepper(props: CardsStepperProps) {
   function handleClick(e: any, index: number) {
     e.preventDefault();
-    props.setskipScrollTracking(true);
+    // props.setskipScrollTracking(true);
     props.setActiveStep(index);
-    props.setskipScrollTracking(false);
+    // props.setskipScrollTracking(false);
   }
 
   const presentIds = Array.from(document.querySelectorAll("*[id]")).map(
@@ -101,7 +101,7 @@ export default function CardsStepper(props: CardsStepperProps) {
                       : styles.Step
                   }
                   to={`#${steps[index].hashId}`}
-                  // smooth
+                  smooth
                 >
                   {step.label}
                 </NavHashLink>

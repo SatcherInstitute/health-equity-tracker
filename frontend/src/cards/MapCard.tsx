@@ -84,12 +84,12 @@ export function MapCard(props: MapCardProps) {
       if (inView && !_cardsInView.includes("map")) _cardsInView.push("map");
       else if (!inView && _cardsInView.includes("map"))
         _cardsInView = _cardsInView.filter((id) => id !== "map");
-
-      const middle = Math.floor(_cardsInView.length / 2);
       props.setCardsInView(_cardsInView);
-      props.setActiveStep?.(
-        steps.findIndex((step) => step.hashId === _cardsInView[middle])
-      );
+      const middle = Math.floor(_cardsInView.length / 2);
+      _cardsInView.length > 0 &&
+        props.setActiveStep?.(
+          steps.findIndex((step) => step.hashId === _cardsInView[middle])
+        );
     }
   }, [inView]);
 
