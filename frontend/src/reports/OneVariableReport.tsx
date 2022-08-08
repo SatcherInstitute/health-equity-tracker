@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Grid } from "@material-ui/core";
-import React, { useEffect, useState, Fragment, useRef, RefObject } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import LazyLoad from "react-lazyload";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
@@ -31,11 +31,6 @@ import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import styles from "./Report.module.scss";
-import { ScrollableHashId, steps } from "../pages/ExploreData/CardsStepper";
-// import useIsOnScreen from "../utils/useIsOnScreen";
-import { useInView } from "react-intersection-observer";
-
-const hashIds = steps.map((step) => step.hashId);
 
 export interface OneVariableReportProps {
   key: string;

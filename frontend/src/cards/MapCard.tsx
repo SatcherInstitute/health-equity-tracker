@@ -1,7 +1,7 @@
 import { CardContent, Grid } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { VariableConfig } from "../data/config/MetricConfig";
 import { exclude, onlyInclude } from "../data/query/BreakdownFilter";
@@ -45,8 +45,8 @@ import { MultiMapDialog } from "./ui/MultiMapDialog";
 import { MultiMapLink } from "./ui/MultiMapLink";
 import { RateInfoAlert } from "./ui/RateInfoAlert";
 import { findVerboseRating } from "./ui/SviAlert";
-import { useInView } from "react-intersection-observer";
-import { steps } from "../pages/ExploreData/CardsStepper";
+import { steps } from "../reports/ReportProvider";
+import useCardScrollTracking from "../utils/useCardScrollTracking";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 /* minimize layout shift */
@@ -70,28 +70,13 @@ export interface MapCardProps {
 // This wrapper ensures the proper key is set to create a new instance when required (when
 // the props change and the state needs to be reset) rather than relying on the card caller.
 export function MapCard(props: MapCardProps) {
-  const { ref, inView } = useInView({
-    threshold: 0.66,
-    skip: props.skipScrollTracking,
-  });
-
-  // console.log("map", { ref }, { inView }, { entry });
-
-  useEffect(() => {
-    if (props.cardsInView !== undefined && props.setCardsInView !== undefined) {
-      let _cardsInView = [...props.cardsInView];
-
-      if (inView && !_cardsInView.includes("map")) _cardsInView.push("map");
-      else if (!inView && _cardsInView.includes("map"))
-        _cardsInView = _cardsInView.filter((id) => id !== "map");
-      props.setCardsInView(_cardsInView);
-      const middle = Math.floor(_cardsInView.length / 2);
-      _cardsInView.length > 0 &&
-        props.setActiveStep?.(
-          steps.findIndex((step) => step.hashId === _cardsInView[middle])
-        );
-    }
-  }, [inView]);
+  const ref = useCardScrollTracking(
+    "map",
+    steps,
+    props.cardsInView,
+    props.setCardsInView,
+    props.setActiveStep
+  );
 
   return (
     <div ref={ref}>

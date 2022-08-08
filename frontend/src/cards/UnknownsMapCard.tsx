@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { CardContent } from "@material-ui/core";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
@@ -24,8 +24,8 @@ import styles from "./Card.module.scss";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
-import { useInView } from "react-intersection-observer";
-import { steps } from "../pages/ExploreData/CardsStepper";
+import { steps } from "../reports/ReportProvider";
+import useCardScrollTracking from "../utils/useCardScrollTracking";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 748;
@@ -50,27 +50,13 @@ export interface UnknownsMapCardProps {
 // This wrapper ensures the proper key is set to create a new instance when required (when
 // the props change and the state needs to be reset) rather than relying on the card caller.
 export function UnknownsMapCard(props: UnknownsMapCardProps) {
-  const { ref, inView } = useInView({
-    threshold: 0.66,
-    skip: props.skipScrollTracking,
-  });
-
-  useEffect(() => {
-    if (props.cardsInView !== undefined && props.setCardsInView !== undefined) {
-      let _cardsInView = [...props.cardsInView];
-
-      if (inView && !_cardsInView.includes("unknowns"))
-        _cardsInView.push("unknowns");
-      else if (!inView && _cardsInView.includes("unknowns"))
-        _cardsInView = _cardsInView.filter((id) => id !== "unknowns");
-
-      const middle = Math.floor(_cardsInView.length / 2);
-      props.setCardsInView(_cardsInView);
-      props.setActiveStep?.(
-        steps.findIndex((step) => step.hashId === _cardsInView[middle])
-      );
-    }
-  }, [inView]);
+  const ref = useCardScrollTracking(
+    "unknowns",
+    steps,
+    props.cardsInView,
+    props.setCardsInView,
+    props.setActiveStep
+  );
 
   return (
     <div ref={ref}>

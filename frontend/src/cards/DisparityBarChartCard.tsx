@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
 import { CardContent } from "@material-ui/core";
@@ -26,8 +26,8 @@ import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
-import { useInView } from "react-intersection-observer";
-import { steps } from "../pages/ExploreData/CardsStepper";
+import { steps } from "../reports/ReportProvider";
+import useCardScrollTracking from "../utils/useCardScrollTracking";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 719;
@@ -46,27 +46,13 @@ export interface DisparityBarChartCardProps {
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
 export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
-  const { ref, inView } = useInView({
-    threshold: 0.66,
-    skip: props.skipScrollTracking,
-  });
-
-  useEffect(() => {
-    if (props.cardsInView !== undefined && props.setCardsInView !== undefined) {
-      let _cardsInView = [...props.cardsInView];
-
-      if (inView && !_cardsInView.includes("disparity"))
-        _cardsInView.push("disparity");
-      else if (!inView && _cardsInView.includes("disparity"))
-        _cardsInView = _cardsInView.filter((id) => id !== "disparity");
-
-      const middle = Math.floor(_cardsInView.length / 2);
-      props.setCardsInView(_cardsInView);
-      props.setActiveStep?.(
-        steps.findIndex((step) => step.hashId === _cardsInView[middle])
-      );
-    }
-  }, [inView]);
+  const ref = useCardScrollTracking(
+    "disparity",
+    steps,
+    props.cardsInView,
+    props.setCardsInView,
+    props.setActiveStep
+  );
 
   return (
     <div ref={ref}>

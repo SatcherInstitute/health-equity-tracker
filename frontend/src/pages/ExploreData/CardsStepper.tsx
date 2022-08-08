@@ -1,6 +1,7 @@
 import { Card, Step, StepButton, StepLabel, Stepper } from "@material-ui/core";
 import * as React from "react";
 import { NavHashLink } from "react-router-hash-link";
+import { steps } from "../../reports/ReportProvider";
 import styles from "./ExploreDataPage.module.scss";
 
 // https://github.com/toviszsolt/react-scrollspy
@@ -15,50 +16,6 @@ export type ScrollableHashId =
   | "age-adjusted"
   | "definitions"
   | "missingDataInfo";
-
-export type StepData = {
-  label: string;
-  hashId: ScrollableHashId;
-};
-
-export const steps: StepData[] = [
-  {
-    label: "Population",
-    hashId: "population",
-  },
-  {
-    label: "Rate Map",
-    hashId: "map",
-  },
-  {
-    label: "Rate Chart",
-    hashId: "bar",
-  },
-  {
-    label: "Unknown Share Map",
-    hashId: "unknowns",
-  },
-  {
-    label: "Share Chart",
-    hashId: "disparity",
-  },
-  {
-    label: "Data Table",
-    hashId: "table",
-  },
-  {
-    label: "Age-Adjusted Ratios",
-    hashId: "age-adjusted",
-  },
-  {
-    label: "Definitions",
-    hashId: "definitions",
-  },
-  {
-    label: "What Data Are Missing?",
-    hashId: "missingDataInfo",
-  },
-];
 
 interface CardsStepperProps {
   activeStep: number;
@@ -95,13 +52,9 @@ export default function CardsStepper(props: CardsStepperProps) {
               <StepButton onClick={(e) => handleClick(e, index)}>
                 <NavHashLink
                   activeClassName={styles.SelectedStep}
-                  className={
-                    props.cardsInView.includes(steps[index].hashId)
-                      ? styles.SelectedStep
-                      : styles.Step
-                  }
+                  className={styles.Step}
                   to={`#${steps[index].hashId}`}
-                  smooth
+                  // smooth
                 >
                   {step.label}
                 </NavHashLink>

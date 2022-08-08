@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import { CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
@@ -19,8 +19,8 @@ import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
-import { useInView } from "react-intersection-observer";
-import { steps } from "../pages/ExploreData/CardsStepper";
+import { steps } from "../reports/ReportProvider";
+import useCardScrollTracking from "../utils/useCardScrollTracking";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -39,26 +39,13 @@ export interface SimpleBarChartCardProps {
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
 export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
-  const { ref, inView } = useInView({
-    threshold: 0.66,
-    skip: props.skipScrollTracking,
-  });
-
-  useEffect(() => {
-    if (props.cardsInView !== undefined && props.setCardsInView !== undefined) {
-      let _cardsInView = [...props.cardsInView];
-
-      if (inView && !_cardsInView.includes("bar")) _cardsInView.push("bar");
-      else if (!inView && _cardsInView.includes("bar"))
-        _cardsInView = _cardsInView.filter((id) => id !== "bar");
-
-      const middle = Math.floor(_cardsInView.length / 2);
-      props.setCardsInView(_cardsInView);
-      props.setActiveStep?.(
-        steps.findIndex((step) => step.hashId === _cardsInView[middle])
-      );
-    }
-  }, [inView]);
+  const ref = useCardScrollTracking(
+    "bar",
+    steps,
+    props.cardsInView,
+    props.setCardsInView,
+    props.setActiveStep
+  );
 
   return (
     <div ref={ref}>

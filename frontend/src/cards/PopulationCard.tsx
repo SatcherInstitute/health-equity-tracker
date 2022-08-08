@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CardWrapper from "./CardWrapper";
 import {
   Breakdowns,
@@ -30,8 +30,8 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import Hidden from "@material-ui/core/Hidden";
 import Alert from "@material-ui/lab/Alert";
 import SviAlert from "./ui/SviAlert";
-import { useInView } from "react-intersection-observer";
-import { steps } from "../pages/ExploreData/CardsStepper";
+import { steps } from "../reports/ReportProvider";
+import useCardScrollTracking from "../utils/useCardScrollTracking";
 
 export const POPULATION_BY_RACE = "Population by race and ethnicity";
 export const POPULATION_BY_AGE = "Population by age";
@@ -48,27 +48,13 @@ export interface PopulationCardProps {
 }
 
 export function PopulationCard(props: PopulationCardProps) {
-  const { ref, inView } = useInView({
-    threshold: 0.66,
-    skip: props.skipScrollTracking,
-  });
-
-  useEffect(() => {
-    if (props.cardsInView !== undefined && props.setCardsInView !== undefined) {
-      let _cardsInView = [...props.cardsInView];
-
-      if (inView && !_cardsInView.includes("population"))
-        _cardsInView.push("population");
-      else if (!inView && _cardsInView.includes("population"))
-        _cardsInView = _cardsInView.filter((id) => id !== "population");
-
-      const middle = Math.floor(_cardsInView.length / 2);
-      props.setCardsInView(_cardsInView);
-      props.setActiveStep?.(
-        steps.findIndex((step) => step.hashId === _cardsInView?.[middle])
-      );
-    }
-  }, [inView]);
+  const ref = useCardScrollTracking(
+    "population",
+    steps,
+    props.cardsInView,
+    props.setCardsInView,
+    props.setActiveStep
+  );
 
   const [expanded, setExpanded] = useState(false);
 

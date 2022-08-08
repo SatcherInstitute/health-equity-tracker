@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { TableChart } from "../charts/TableChart";
 import CardWrapper from "./CardWrapper";
@@ -31,8 +31,8 @@ import styles from "./Card.module.scss";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { Row } from "../data/utils/DatasetTypes";
-import { useInView } from "react-intersection-observer";
-import { steps } from "../pages/ExploreData/CardsStepper";
+import { steps } from "../reports/ReportProvider";
+import useCardScrollTracking from "../utils/useCardScrollTracking";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -55,26 +55,13 @@ export interface TableCardProps {
 }
 
 export function TableCard(props: TableCardProps) {
-  const { ref, inView } = useInView({
-    threshold: 0.66,
-    skip: props.skipScrollTracking,
-  });
-
-  useEffect(() => {
-    if (props.cardsInView !== undefined && props.setCardsInView !== undefined) {
-      let _cardsInView = [...props.cardsInView];
-
-      if (inView && !_cardsInView.includes("table")) _cardsInView.push("table");
-      else if (!inView && _cardsInView.includes("table"))
-        _cardsInView = _cardsInView.filter((id) => id !== "table");
-
-      const middle = Math.floor(_cardsInView.length / 2);
-      props.setCardsInView(_cardsInView);
-      props.setActiveStep?.(
-        steps.findIndex((step) => step.hashId === _cardsInView[middle])
-      );
-    }
-  }, [inView]);
+  const ref = useCardScrollTracking(
+    "table",
+    steps,
+    props.cardsInView,
+    props.setCardsInView,
+    props.setActiveStep
+  );
 
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
 

@@ -24,7 +24,7 @@ import {
   METRIC_CONFIG,
   VariableConfig,
 } from "../data/config/MetricConfig";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
@@ -33,7 +33,9 @@ import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
-import CardsStepper, { steps } from "../pages/ExploreData/CardsStepper";
+import CardsStepper, {
+  ScrollableHashId,
+} from "../pages/ExploreData/CardsStepper";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -364,3 +366,47 @@ function ReportProvider(props: ReportProviderProps) {
 }
 
 export default ReportProvider;
+
+export type StepData = {
+  label: string;
+  hashId: ScrollableHashId;
+};
+
+export const steps: StepData[] = [
+  {
+    label: "Population",
+    hashId: "population",
+  },
+  {
+    label: "Rate Map",
+    hashId: "map",
+  },
+  {
+    label: "Rate Chart",
+    hashId: "bar",
+  },
+  {
+    label: "Unknown Share Map",
+    hashId: "unknowns",
+  },
+  {
+    label: "Share Chart",
+    hashId: "disparity",
+  },
+  {
+    label: "Data Table",
+    hashId: "table",
+  },
+  {
+    label: "Age-Adjusted Ratios",
+    hashId: "age-adjusted",
+  },
+  {
+    label: "Definitions",
+    hashId: "definitions",
+  },
+  {
+    label: "What Data Are Missing?",
+    hashId: "missingDataInfo",
+  },
+];
