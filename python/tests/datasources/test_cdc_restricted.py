@@ -11,14 +11,23 @@ from datasources.cdc_restricted import CDCRestrictedData  # type: ignore
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cdc_restricted")
 
-GOLDEN_DATA_BY_SEX_STATE = os.path.join(
-    TEST_DIR, 'golden_data', 'by_state_sex.json')
+GOLDEN_DATA_BY_SEX_STATE_TIME_SERIES = os.path.join(
+    TEST_DIR, 'golden_data', 'by_sex_state_time_series.json')
 
-GOLDEN_DATA_BY_SEX_COUNTY = os.path.join(
-    TEST_DIR, 'golden_data', 'by_sex_county.json')
+GOLDEN_DATA_BY_SEX_COUNTY_TIME_SERIES = os.path.join(
+    TEST_DIR, 'golden_data', 'by_sex_county_time_series.json')
 
-GOLDEN_DATA_BY_SEX_NATIONAL = os.path.join(
-    TEST_DIR, 'golden_data', 'by_sex_national.json')
+GOLDEN_DATA_BY_SEX_NATIONAL_TIME_SERIES = os.path.join(
+    TEST_DIR, 'golden_data', 'by_sex_national_time_series.json')
+
+GOLDEN_DATA_BY_SEX_STATE_CUMULATIVE = os.path.join(
+    TEST_DIR, 'golden_data', 'by_sex_state_cumulative.json')
+
+GOLDEN_DATA_BY_SEX_COUNTY_CUMULATIVE = os.path.join(
+    TEST_DIR, 'golden_data', 'by_sex_county_cumulative.json')
+
+GOLDEN_DATA_BY_SEX_NATIONAL_CUMULATIVE = os.path.join(
+    TEST_DIR, 'golden_data', 'by_sex_national_cumulative.json')
 
 
 def get_fips_and_county_names_as_df(*args, **kwargs):
@@ -91,7 +100,7 @@ def testGenerateBreakdownSexStateTimeSeries(mock_fips: mock.MagicMock, mock_pop:
     cdc_restricted = CDCRestrictedData()
 
     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', False)
-    expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_STATE, dtype={
+    expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_STATE_TIME_SERIES, dtype={
         'state_fips': str,
         'covid_cases_share': float,
         'covid_hosp_share': float,
@@ -114,7 +123,7 @@ def testGenerateBreakdownSexCountyTimeSeries(mock_fips: mock.MagicMock, mock_pop
     cdc_restricted = CDCRestrictedData()
 
     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_county_as_df(), 'sex', 'county', False)
-    expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_COUNTY, dtype={
+    expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_COUNTY_TIME_SERIES, dtype={
         'state_fips': str,
         'county_fips': str,
         'covid_cases_share': float,
@@ -138,8 +147,78 @@ def testGenerateBreakdownSexNationalTimeSeries(mock_fips: mock.MagicMock, mock_p
     cdc_restricted = CDCRestrictedData()
 
     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', False)
-    expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_NATIONAL, dtype={
+    expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_NATIONAL_TIME_SERIES, dtype={
         'state_fips': str,
+        'covid_cases_share': float,
+        'covid_hosp_share': float,
+        'covid_deaths_share': float,
+    })
+
+    sortby_cols = list(df.columns)
+    assert_frame_equal(
+        df.sort_values(by=sortby_cols).reset_index(drop=True),
+        expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
+        check_like=True,
+    )
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=get_pop_numbers_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
+def testGenerateBreakdownSexStateCumulative(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+    cdc_restricted = CDCRestrictedData()
+
+    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', True)
+    expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_STATE_CUMULATIVE, dtype={
+        'state_fips': str,
+        'covid_cases_share': float,
+        'covid_hosp_share': float,
+        'covid_deaths_share': float,
+    })
+
+    sortby_cols = list(df.columns)
+    assert_frame_equal(
+        df.sort_values(by=sortby_cols).reset_index(drop=True),
+        expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
+        check_like=True,
+    )
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=get_pop_numbers_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            side_effect=get_fips_and_county_names_as_df)
+def testGenerateBreakdownSexNationalCumulative(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+    cdc_restricted = CDCRestrictedData()
+
+    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', True)
+    expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_NATIONAL_CUMULATIVE, dtype={
+        'state_fips': str,
+        'covid_cases_share': float,
+        'covid_hosp_share': float,
+        'covid_deaths_share': float,
+    })
+
+    sortby_cols = list(df.columns)
+    assert_frame_equal(
+        df.sort_values(by=sortby_cols).reset_index(drop=True),
+        expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
+        check_like=True,
+    )
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=get_pop_numbers_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            side_effect=get_fips_and_county_names_as_df)
+def testGenerateBreakdownSexCountyCumulative(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+    cdc_restricted = CDCRestrictedData()
+
+    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_county_as_df(), 'sex', 'county', True)
+    expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_COUNTY_CUMULATIVE, dtype={
+        'state_fips': str,
+        'county_fips': str,
         'covid_cases_share': float,
         'covid_hosp_share': float,
         'covid_deaths_share': float,
