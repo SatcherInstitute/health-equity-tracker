@@ -716,6 +716,12 @@ function MethodologyTab() {
                     race/ethnicity.
                   </li>
                   <li>
+                    <b>American Indian and Alaska Native (Non-Hispanic)</b>: A
+                    person having origins in any of the original peoples of
+                    North and South America (including Central America) and who
+                    maintains tribal affiliation or community attachment.
+                  </li>
+                  <li>
                     <b>Asian (Non-Hispanic)</b>: A single race (Asian), not
                     Hispanic/Latino.
                   </li>
@@ -726,6 +732,13 @@ function MethodologyTab() {
                     <b>Black or African American</b>: A single race (African
                     American), including those who identify as African American
                     and Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>
+                      Native Hawaiian or Other Pacific Islander (Non-Hispanic)
+                    </b>
+                    : A person having origins in any of the original peoples of
+                    Hawaii, Guam, Samoa, or other Pacific Islands.
                   </li>
                   <li>
                     <b>Unrepresented race (Non-Hispanic)</b>: A single race not
