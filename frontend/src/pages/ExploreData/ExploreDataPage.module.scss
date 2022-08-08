@@ -94,22 +94,18 @@ button[data-action="back"] {
   max-width: 250px;
 }
 
-.Step span span span a {
+.Step {
   text-decoration: none;
   color: $alt-dark !important;
   font-size: $smallest;
   display: block;
   text-align: left !important;
-
-  .active-scroll-spy {
-    background-color: yellowgreen;
-    border-radius: 15px;
-  }
 }
 
 .SelectedStep {
   color: $alt-green !important;
   text-decoration: none;
+  font-size: $smallest;
 }
 
 .StepUnavailable span span {

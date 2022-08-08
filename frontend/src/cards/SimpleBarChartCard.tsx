@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import { CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
@@ -19,6 +19,8 @@ import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
+import { useInView } from "react-intersection-observer";
+import { steps } from "../pages/ExploreData/CardsStepper";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -28,16 +30,40 @@ export interface SimpleBarChartCardProps {
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
   fips: Fips;
+  setActiveStep?: React.Dispatch<React.SetStateAction<number>>;
+  cardsInView?: string[];
+  setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
 export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
+  const { ref, inView } = useInView();
+
+  // console.log("map", { ref }, { inView }, { entry });
+
+  useEffect(() => {
+    if (props.cardsInView !== undefined && props.setCardsInView !== undefined) {
+      let _cardsInView = [...props.cardsInView];
+
+      if (inView && !_cardsInView.includes("bar")) _cardsInView.push("bar");
+      else if (!inView && _cardsInView.includes("bar"))
+        _cardsInView = _cardsInView.filter((id) => id !== "bar");
+
+      props.setCardsInView(_cardsInView);
+      props.setActiveStep?.(
+        steps.findIndex((step) => step.hashId === _cardsInView[0])
+      );
+    }
+  }, [inView]);
+
   return (
-    <SimpleBarChartCardWithKey
-      key={props.variableConfig.variableId + props.breakdownVar}
-      {...props}
-    />
+    <div ref={ref}>
+      <SimpleBarChartCardWithKey
+        key={props.variableConfig.variableId + props.breakdownVar}
+        {...props}
+      />
+    </div>
   );
 }
 
@@ -59,8 +85,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const query = new MetricQuery(metricIdsToFetch, breakdowns);
 
   function getTitleText() {
-    return `${metricConfig.fullCardTitleName} By ${BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-      } In ${props.fips.getSentenceDisplayName()}`;
+    return `${metricConfig.fullCardTitleName} By ${
+      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+    } In ${props.fips.getSentenceDisplayName()}`;
   }
   function CardTitle() {
     return <>{getTitleText()}</>;

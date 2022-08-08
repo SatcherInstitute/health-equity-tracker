@@ -54,6 +54,10 @@ function ReportProvider(props: ReportProviderProps) {
     // console.log(activeStep);
   }, [activeStep]);
 
+  const [cardsInView, setCardsInView] = useState<string[]>([]);
+
+  console.log(cardsInView);
+
   // only show determinants that have definitions
   const definedConditions = props.selectedConditions.filter(
     (condition) => condition?.variableDefinition
@@ -95,6 +99,8 @@ function ReportProvider(props: ReportProviderProps) {
           <OneVariableReport
             activeStep={activeStep}
             setActiveStep={setActiveStep}
+            cardsInView={cardsInView}
+            setCardsInView={setCardsInView}
             jumpToDefinitions={jumpToDefinitions}
             jumpToData={jumpToData}
             key={dropdownOption}
@@ -182,6 +188,8 @@ function ReportProvider(props: ReportProviderProps) {
             <CardsStepper
               activeStep={activeStep}
               setActiveStep={setActiveStep}
+              cardsInView={cardsInView}
+              setCardsInView={setCardsInView}
             />
           </Grid>
         </Grid>

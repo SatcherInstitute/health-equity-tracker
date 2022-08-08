@@ -32,7 +32,8 @@ import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import styles from "./Report.module.scss";
 import { ScrollableHashId, steps } from "../pages/ExploreData/CardsStepper";
-import useIsOnScreen from "../utils/useIsOnScreen";
+// import useIsOnScreen from "../utils/useIsOnScreen";
+import { useInView } from "react-intersection-observer";
 
 const hashIds = steps.map((step) => step.hashId);
 
@@ -46,33 +47,35 @@ export interface OneVariableReportProps {
   jumpToData: Function;
   activeStep: number;
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
+  cardsInView?: string[];
+  setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
-  const populationRef = useRef(null);
-  const populationIsOnScreen = useIsOnScreen(populationRef);
+  // const populationRef = useRef(null);
+  // const populationIsOnScreen = useIsOnScreen(populationRef);
 
-  const mapRef = useRef(null);
-  const mapIsOnScreen = useIsOnScreen(mapRef);
+  // const mapRef = useRef(null);
+  // const mapIsOnScreen = useIsOnScreen(mapRef);
 
-  const barRef = useRef(null);
-  const barIsOnScreen = useIsOnScreen(barRef);
+  // const barRef = useRef(null);
+  // const barIsOnScreen = useIsOnScreen(barRef);
 
-  const unknownsRef = useRef(null);
-  const unknownsIsOnScreen = useIsOnScreen(unknownsRef);
+  // const unknownsRef = useRef(null);
+  // const unknownsIsOnScreen = useIsOnScreen(unknownsRef);
 
-  const disparityRef = useRef(null);
-  const disparityIsOnScreen = useIsOnScreen(disparityRef);
+  // const disparityRef = useRef(null);
+  // const disparityIsOnScreen = useIsOnScreen(disparityRef);
 
-  const tableRef = useRef(null);
-  const tableIsOnScreen = useIsOnScreen(tableRef);
+  // const tableRef = useRef(null);
+  // const tableIsOnScreen = useIsOnScreen(tableRef);
 
-  const ageAdjustedRef = useRef(null);
-  // const ageAdjustedIsOnScreen = useIsOnScreen(ageAdjustedRef);
+  // const ageAdjustedRef = useRef(null);
+  // // const ageAdjustedIsOnScreen = useIsOnScreen(ageAdjustedRef);
 
-  const [cardOnScreen, setCardOnScreen] = useState<ScrollableHashId | null>(
-    null
-  );
+  // const [cardOnScreen, setCardOnScreen] = useState<ScrollableHashId | null>(
+  //   null
+  // );
 
   // useEffect(() => {
 
@@ -174,9 +177,15 @@ export function OneVariableReport(props: OneVariableReportProps) {
           md={SINGLE_COLUMN_WIDTH}
           className={styles.ScrollableId}
           id="population"
-          ref={populationRef}
+          // ref={populationRef}
         >
-          <PopulationCard jumpToData={props.jumpToData} fips={props.fips} />
+          <PopulationCard
+            jumpToData={props.jumpToData}
+            fips={props.fips}
+            setActiveStep={props.setActiveStep}
+            cardsInView={props.cardsInView}
+            setCardsInView={props.setCardsInView}
+          />
         </Grid>
       )}
 
@@ -203,7 +212,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             className={styles.ScrollableId}
             id="map"
-            ref={mapRef}
+            // ref={mapRef}
           >
             <MapCard
               variableConfig={variableConfig}
@@ -214,6 +223,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
               currentBreakdown={currentBreakdown}
               jumpToDefinitions={props.jumpToDefinitions}
               jumpToData={props.jumpToData}
+              setActiveStep={props.setActiveStep}
+              cardsInView={props.cardsInView}
+              setCardsInView={props.setCardsInView}
             />
           </Grid>
 
@@ -225,7 +237,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             className={styles.ScrollableId}
             id="bar"
-            ref={barRef}
+            // ref={barRef}
           >
             <LazyLoad offset={600} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -236,6 +248,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
                         variableConfig={variableConfig}
                         breakdownVar={breakdownVar}
                         fips={props.fips}
+                        setActiveStep={props.setActiveStep}
+                        cardsInView={props.cardsInView}
+                        setCardsInView={props.setCardsInView}
                       />
                     )}
                 </Fragment>
@@ -251,7 +266,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             className={styles.ScrollableId}
             id="unknowns"
-            ref={unknownsRef}
+            // ref={unknownsRef}
           >
             <LazyLoad offset={800} height={750} once>
               {variableConfig.metrics["pct_share"] && (
@@ -276,7 +291,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             className={styles.ScrollableId}
             id="disparity"
-            ref={disparityRef}
+            // ref={disparityRef}
           >
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -302,7 +317,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
               md={SINGLE_COLUMN_WIDTH}
               className={styles.ScrollableId}
               id="table"
-              ref={tableRef}
+              // ref={tableRef}
 
               // ref={tableRef}
             >

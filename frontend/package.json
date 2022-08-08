@@ -36,6 +36,7 @@
     "react-cookie": "^4.1.1",
     "react-dom": "^16.14.0",
     "react-helmet-async": "^1.2.2",
+    "react-intersection-observer": "^9.4.0",
     "react-joyride": "^2.3.2",
     "react-lazyload": "^3.2.0",
     "react-material-ui-carousel": "^2.3.0",

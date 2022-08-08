@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardWrapper from "./CardWrapper";
 import {
   Breakdowns,
@@ -30,6 +30,8 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import Hidden from "@material-ui/core/Hidden";
 import Alert from "@material-ui/lab/Alert";
 import SviAlert from "./ui/SviAlert";
+import { useInView } from "react-intersection-observer";
+import { steps } from "../pages/ExploreData/CardsStepper";
 
 export const POPULATION_BY_RACE = "Population by race and ethnicity";
 export const POPULATION_BY_AGE = "Population by age";
@@ -39,9 +41,34 @@ const PRELOAD_HEIGHT = 139;
 export interface PopulationCardProps {
   fips: Fips;
   jumpToData: Function;
+  setActiveStep?: React.Dispatch<React.SetStateAction<number>>;
+  cardsInView?: string[];
+  setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export function PopulationCard(props: PopulationCardProps) {
+  const { ref, inView } = useInView({ rootMargin: "20% 0% 20% 0%" });
+
+  // console.log("map", { ref }, { inView }, { entry });
+
+  useEffect(() => {
+    if (props.cardsInView !== undefined && props.setCardsInView !== undefined) {
+      let _cardsInView = [...props.cardsInView];
+
+      if (inView && !_cardsInView.includes("population"))
+        _cardsInView.push("population");
+      else if (!inView && _cardsInView.includes("population"))
+        _cardsInView = _cardsInView.filter((id) => id !== "population");
+
+      props.setCardsInView(_cardsInView);
+      props.setActiveStep?.(
+        steps.findIndex(
+          (step) => step.hashId === _cardsInView?.[_cardsInView.length - 1]
+        )
+      );
+    }
+  }, [inView]);
+
   const [expanded, setExpanded] = useState(false);
 
   const metricIds: MetricId[] = ACS_2010_FIPS.includes(props.fips.code)
@@ -111,171 +138,180 @@ export function PopulationCard(props: PopulationCardProps) {
         );
 
         return (
-          <CardContent className={styles.PopulationCardContent}>
-            <Grid
-              container
-              className={styles.PopulationCard}
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Grid item>
-                <Grid container justifyContent="flex-start" alignItems="center">
-                  <Grid item>
-                    <div className={styles.PopulationCardTitle}>
-                      {props.fips.getFullDisplayName()}
-                      <Hidden smDown>
-                        <div className={styles.VerticalDivider} />
-                      </Hidden>
-                    </div>
-                  </Grid>
-                  <Grid item>
-                    <Grid container>
-                      <Grid item>
-                        <span className={styles.TotalPopulationKey}>
-                          Total Population:
-                        </span>
-                      </Grid>
-                      <Grid item>
-                        <span className={styles.TotalPopulationValue}>
-                          {totalPopulationSize}
-                        </span>
+          <div ref={ref}>
+            <CardContent className={styles.PopulationCardContent}>
+              <Grid
+                container
+                className={styles.PopulationCard}
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Grid item>
+                  <Grid
+                    container
+                    justifyContent="flex-start"
+                    alignItems="center"
+                  >
+                    <Grid item>
+                      <div className={styles.PopulationCardTitle}>
+                        {props.fips.getFullDisplayName()}
+                        <Hidden smDown>
+                          <div className={styles.VerticalDivider} />
+                        </Hidden>
+                      </div>
+                    </Grid>
+                    <Grid item>
+                      <Grid container>
+                        <Grid item>
+                          <span className={styles.TotalPopulationKey}>
+                            Total Population:
+                          </span>
+                        </Grid>
+                        <Grid item>
+                          <span className={styles.TotalPopulationValue}>
+                            {totalPopulationSize}
+                          </span>
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-              <Grid className={styles.SviContainer}>
-                <Grid>
-                  {sviQueryResponse && (
-                    <SviAlert
-                      svi={svi}
-                      sviQueryResponse={sviQueryResponse}
-                      fips={props.fips}
-                    />
+                <Grid className={styles.SviContainer}>
+                  <Grid>
+                    {sviQueryResponse && (
+                      <SviAlert
+                        svi={svi}
+                        sviQueryResponse={sviQueryResponse}
+                        fips={props.fips}
+                      />
+                    )}
+                  </Grid>
+                  {!raceQueryResponse.dataIsMissing() && (
+                    <Grid item className={styles.ProfileButtonContainer}>
+                      {CollapseButton}
+                    </Grid>
                   )}
                 </Grid>
-                {!raceQueryResponse.dataIsMissing() && (
-                  <Grid item className={styles.ProfileButtonContainer}>
-                    {CollapseButton}
-                  </Grid>
-                )}
               </Grid>
-            </Grid>
 
-            {props.fips.needsACS2010() && (
-              <CardContent>
-                <Alert severity="warning" role="note">
-                  Population data for U.S. Virgin Islands, Guam, and the
-                  Northern Mariana Islands is from 2010; interpret metrics with
-                  caution.
-                </Alert>
-              </CardContent>
-            )}
+              {props.fips.needsACS2010() && (
+                <CardContent>
+                  <Alert severity="warning" role="note">
+                    Population data for U.S. Virgin Islands, Guam, and the
+                    Northern Mariana Islands is from 2010; interpret metrics
+                    with caution.
+                  </Alert>
+                </CardContent>
+              )}
 
-            {/* Because the Vega charts are using responsive width based on the window resizing,
+              {/* Because the Vega charts are using responsive width based on the window resizing,
                 we manually trigger a resize when the div size changes so vega chart will
                 render with the right size. This means the vega chart won't appear until the
                 AnimateHeight is finished expanding */}
-            {!raceQueryResponse.dataIsMissing() && (
-              <AnimateHeight
-                duration={500}
-                height={expanded ? "auto" : 0}
-                onAnimationEnd={() => window.dispatchEvent(new Event("resize"))}
-              >
-                <Grid container>
-                  <Grid item xs={12}>
-                    <Alert
-                      severity="info"
-                      role="note"
-                      className={styles.PopulationAlert}
-                    >
-                      These racial categories are defined by the ACS and US
-                      Census Bureau. While it is the standard for CDC reporting,
-                      the definition of these categories often results in not
-                      counting or miscounting people in underrepresented groups.{" "}
-                      <a
-                        href="#missingDataInfo"
-                        onClick={() => props.jumpToData()}
+              {!raceQueryResponse.dataIsMissing() && (
+                <AnimateHeight
+                  duration={500}
+                  height={expanded ? "auto" : 0}
+                  onAnimationEnd={() =>
+                    window.dispatchEvent(new Event("resize"))
+                  }
+                >
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <Alert
+                        severity="info"
+                        role="note"
+                        className={styles.PopulationAlert}
                       >
-                        Read about missing data
-                      </a>
-                      .
-                    </Alert>
-                    <Grid container justifyContent="space-between">
-                      {raceQueryResponse
-                        .getValidRowsForField(RACE)
-                        .filter((r) => r.race_and_ethnicity !== ALL)
-                        .sort((a, b) => {
-                          return b.race_and_ethnicity - a.race_and_ethnicity;
-                        })
-                        .map((row) => (
-                          <Grid
-                            item
-                            xs={6}
-                            sm={3}
-                            lg={1}
-                            key={row.race_and_ethnicity}
-                            className={styles.PopulationMetric}
-                          >
-                            <div>{row.race_and_ethnicity}</div>
+                        These racial categories are defined by the ACS and US
+                        Census Bureau. While it is the standard for CDC
+                        reporting, the definition of these categories often
+                        results in not counting or miscounting people in
+                        underrepresented groups.{" "}
+                        <a
+                          href="#missingDataInfo"
+                          onClick={() => props.jumpToData()}
+                        >
+                          Read about missing data
+                        </a>
+                        .
+                      </Alert>
+                      <Grid container justifyContent="space-between">
+                        {raceQueryResponse
+                          .getValidRowsForField(RACE)
+                          .filter((r) => r.race_and_ethnicity !== ALL)
+                          .sort((a, b) => {
+                            return b.race_and_ethnicity - a.race_and_ethnicity;
+                          })
+                          .map((row) => (
+                            <Grid
+                              item
+                              xs={6}
+                              sm={3}
+                              lg={1}
+                              key={row.race_and_ethnicity}
+                              className={styles.PopulationMetric}
+                            >
+                              <div>{row.race_and_ethnicity}</div>
 
-                            <div className={styles.PopulationMetricValue}>
-                              {formatFieldValue(
-                                "pct_share",
-                                row[POPULATION_PCT]
-                              )}
-                            </div>
-                          </Grid>
-                        ))}
+                              <div className={styles.PopulationMetricValue}>
+                                {formatFieldValue(
+                                  "pct_share",
+                                  row[POPULATION_PCT]
+                                )}
+                              </div>
+                            </Grid>
+                          ))}
+                      </Grid>
                     </Grid>
-                  </Grid>
 
-                  <Grid item xs={12} md={6}>
-                    <Box mt={3}>
-                      <span className={styles.PopulationChartTitle}>
-                        {POPULATION_BY_RACE}
-                      </span>
-                      <SimpleHorizontalBarChart
-                        data={raceQueryResponse.data.filter(
-                          (r) => r.race_and_ethnicity !== ALL
-                        )}
-                        metric={POP_CONFIG.metrics.pct_share}
-                        breakdownVar={RACE}
-                        showLegend={false}
-                        usePercentSuffix={true}
-                        filename={`${POPULATION_BY_RACE} in ${props.fips.getSentenceDisplayName()}`}
-                      />
-                    </Box>
-                  </Grid>
-
-                  <Grid item xs={12} md={6}>
-                    <Box m={3}>
-                      <span className={styles.PopulationChartTitle}>
-                        Population by age
-                      </span>
-                      {ageQueryResponse.dataIsMissing() ? (
-                        <MissingDataAlert
-                          dataName={POP_CONFIG.variableDisplayName}
-                          breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES["age"]}
-                          fips={props.fips}
-                        />
-                      ) : (
+                    <Grid item xs={12} md={6}>
+                      <Box mt={3}>
+                        <span className={styles.PopulationChartTitle}>
+                          {POPULATION_BY_RACE}
+                        </span>
                         <SimpleHorizontalBarChart
-                          data={ageQueryResponse.data}
+                          data={raceQueryResponse.data.filter(
+                            (r) => r.race_and_ethnicity !== ALL
+                          )}
                           metric={POP_CONFIG.metrics.pct_share}
-                          breakdownVar="age"
+                          breakdownVar={RACE}
                           showLegend={false}
                           usePercentSuffix={true}
-                          filename={`${POPULATION_BY_AGE} in ${props.fips.getSentenceDisplayName()}`}
+                          filename={`${POPULATION_BY_RACE} in ${props.fips.getSentenceDisplayName()}`}
                         />
-                      )}
-                    </Box>
+                      </Box>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <Box m={3}>
+                        <span className={styles.PopulationChartTitle}>
+                          Population by age
+                        </span>
+                        {ageQueryResponse.dataIsMissing() ? (
+                          <MissingDataAlert
+                            dataName={POP_CONFIG.variableDisplayName}
+                            breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES["age"]}
+                            fips={props.fips}
+                          />
+                        ) : (
+                          <SimpleHorizontalBarChart
+                            data={ageQueryResponse.data}
+                            metric={POP_CONFIG.metrics.pct_share}
+                            breakdownVar="age"
+                            showLegend={false}
+                            usePercentSuffix={true}
+                            filename={`${POPULATION_BY_AGE} in ${props.fips.getSentenceDisplayName()}`}
+                          />
+                        )}
+                      </Box>
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Hidden smUp>{CollapseButton}</Hidden>
-              </AnimateHeight>
-            )}
-          </CardContent>
+                  <Hidden smUp>{CollapseButton}</Hidden>
+                </AnimateHeight>
+              )}
+            </CardContent>
+          </div>
         );
       }}
     </CardWrapper>

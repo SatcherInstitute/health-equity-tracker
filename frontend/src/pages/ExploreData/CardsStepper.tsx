@@ -63,11 +63,14 @@ export const steps: StepData[] = [
 interface CardsStepperProps {
   activeStep: number;
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
+  cardsInView: string[];
+  setCardsInView: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export default function CardsStepper(props: CardsStepperProps) {
   function handleClick(e: any, index: number) {
     e.preventDefault();
+    steps.findIndex((step) => step.hashId === props.cardsInView[0]);
     props.setActiveStep(index);
   }
 
@@ -87,12 +90,14 @@ export default function CardsStepper(props: CardsStepperProps) {
         {steps.map((step, index) => (
           <Step key={step.label} completed={false}>
             {presentIds.includes(steps[index].hashId) ? (
-              <StepButton
-                className={styles.Step}
-                onClick={(e) => handleClick(e, index)}
-              >
+              <StepButton onClick={(e) => handleClick(e, index)}>
                 <NavHashLink
                   activeClassName={styles.SelectedStep}
+                  className={
+                    props.cardsInView.includes(steps[index].hashId)
+                      ? styles.SelectedStep
+                      : styles.Step
+                  }
                   to={`#${steps[index].hashId}`}
                   smooth
                 >
