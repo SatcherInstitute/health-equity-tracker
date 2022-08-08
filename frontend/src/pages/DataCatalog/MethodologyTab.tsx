@@ -42,7 +42,7 @@ function MethodologyTab() {
               className={styles.FaqHeaderText}
               variant="h2"
             >
-              Condition Variables
+              Definitions
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={9}>
@@ -280,6 +280,55 @@ function MethodologyTab() {
                       county level reports, restricts both the measured jail
                       population and the relevant total population to
                       individuals aged 15-64.
+                    </li>
+                  </ul>
+                </div>
+              </Grid>
+              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
+                <h3 className={styles.FaqQuestion}>
+                  <u>Race and Ethnicity</u>
+                </h3>
+                <div className={styles.FaqAnswer}>
+                  <ul>
+                    <li>
+                      <b>All:</b> Any race or ethnicity, including unknown
+                      race/ethnicity.onal self-harm.
+                    </li>
+                    <li>
+                      <b>Asian (Non-Hispanic):</b> A single race (Asian), not
+                      Hispanic/Latino.
+                    </li>
+                    <li>
+                      <b>Hispanic/Latino:</b> Any race(s), Hispanic/Latino.
+                    </li>
+                    <li>
+                      <b>Black or African American:</b> A single race (African
+                      American), including those who identify as African
+                      American and Hispanic/Latino.
+                    </li>
+                    <li>
+                      <b>Unrepresented race (Non-Hispanic):</b> A single race
+                      not tabulated by the CDC, not of Hispanic/Latino
+                      ethnicity. Individuals not identifying as one of the
+                      distinct races listed in the source data, or multiracial
+                      individuals, are grouped together as “Some other race”.
+                      This is a problem as it obscures racial identity for many
+                      individuals. In our effort to take transformative action
+                      towards achieving health equity the Satcher Health
+                      Leadership Institute has decided to rename this category
+                      to highlight it as a health equity issue.
+                    </li>
+                    <li>
+                      <b>Two or more races (Non-Hispanic):</b> Multiple races,
+                      not Hispanic/Latino.
+                    </li>
+                    <li>
+                      <b>
+                        Two or more races & Unrepresented race (Non-Hispanic):
+                      </b>{" "}
+                      People who are either multiple races or a single race not
+                      represented by the data source's categorization, and who
+                      are not Hispanic/Latino.
                     </li>
                   </ul>
                 </div>
