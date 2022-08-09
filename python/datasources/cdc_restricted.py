@@ -141,6 +141,7 @@ class CDCRestrictedData(DataSource):
                     [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
 
             df = df.groupby(groupby_cols).sum(min_count=1).reset_index()
+            df.to_csv('/tmp/poop.csv', index=False)
         else:
             all_columns.append(std_col.TIME_PERIOD_COL)
 
