@@ -49,7 +49,7 @@ function DataCatalogTab() {
           />
           <Tab
             value={AGE_ADJUSTMENT_TAB_LINK}
-            label="Definitions"
+            label="Key Terms"
             component={Link}
             to={AGE_ADJUSTMENT_TAB_LINK}
           />
@@ -63,9 +63,9 @@ function DataCatalogTab() {
         <Route path={`${DATA_CATALOG_PAGE_LINK}/`}>
           <DatasetExplorer preFilterDataSourceIds={datasets} />
         </Route>
-        {/* <Route path={`${AGE_ADJUSTMENT_TAB_LINK}/`}>
+        <Route path={`${AGE_ADJUSTMENT_TAB_LINK}/`}>
           <AgeAdjustmentTab />
-        </Route> */}
+        </Route>
         <Route path={`${AGE_ADJUSTMENT_TAB_LINK}/`}>
           <TestingMethodologyTab />
         </Route>

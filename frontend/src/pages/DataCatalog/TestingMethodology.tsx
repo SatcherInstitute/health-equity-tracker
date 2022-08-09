@@ -87,11 +87,11 @@ function MethodologyTab() {
       </Helmet>
       <h2 className={styles.ScreenreaderTitleHeader}>Methodology</h2>
       <Grid container component="article">
-        <Grid item>
+        {/* <Grid item>
           <Typography className={styles.FaqHeader} variant="h1" component="h3">
             Frequently asked questions
           </Typography>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} className={styles.TestingFaqQAItem} component="ul">
           <Accordion component="li" className={styles.FaqListItem}>
             <AccordionSummary
