@@ -21,6 +21,7 @@ import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { steps } from "../reports/ReportProvider";
 import useCardScrollTracking from "../utils/useScrollTracking";
+import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -31,9 +32,8 @@ export interface SimpleBarChartCardProps {
   variableConfig: VariableConfig;
   fips: Fips;
   setActiveStep?: React.Dispatch<React.SetStateAction<number>>;
-  cardsInView?: string[];
-  setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
-  skipScrollTracking?: boolean;
+  cardsInView?: ScrollableHashId[];
+  setCardsInView?: React.Dispatch<React.SetStateAction<ScrollableHashId[]>>;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when

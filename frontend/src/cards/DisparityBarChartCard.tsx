@@ -28,6 +28,7 @@ import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 import { steps } from "../reports/ReportProvider";
 import useCardScrollTracking from "../utils/useScrollTracking";
+import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 719;
@@ -38,9 +39,8 @@ export interface DisparityBarChartCardProps {
   variableConfig: VariableConfig;
   fips: Fips;
   setActiveStep?: React.Dispatch<React.SetStateAction<number>>;
-  cardsInView?: string[];
-  setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
-  skipScrollTracking?: boolean;
+  cardsInView?: ScrollableHashId[];
+  setCardsInView?: React.Dispatch<React.SetStateAction<ScrollableHashId[]>>;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when

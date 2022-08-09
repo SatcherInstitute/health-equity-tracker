@@ -33,9 +33,10 @@ import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
-import CardsStepper, {
+import TableOfContentsStepper, {
   ScrollableHashId,
-} from "../pages/ExploreData/CardsStepper";
+  StepData,
+} from "../pages/ExploreData/TableOfContentsStepper";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -59,7 +60,7 @@ function ReportProvider(props: ReportProviderProps) {
     window.history.replaceState(null, "", newUrl);
   }, [activeStep]);
 
-  const [cardsInView, setCardsInView] = useState<string[]>([]);
+  const [cardsInView, setCardsInView] = useState<ScrollableHashId[]>([]);
 
   const [skipScrollTracking, setskipScrollTracking] = useState<boolean>(false);
 
@@ -191,7 +192,7 @@ function ReportProvider(props: ReportProviderProps) {
             {getReport()}
           </Grid>
           <Grid item xs={3} lg={2}>
-            <CardsStepper
+            <TableOfContentsStepper
               activeStep={activeStep}
               setActiveStep={setActiveStep}
               cardsInView={cardsInView}
@@ -366,11 +367,6 @@ function ReportProvider(props: ReportProviderProps) {
 }
 
 export default ReportProvider;
-
-export type StepData = {
-  label: string;
-  hashId: ScrollableHashId;
-};
 
 export const steps: StepData[] = [
   {

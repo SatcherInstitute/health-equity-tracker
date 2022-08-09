@@ -33,6 +33,7 @@ import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert"
 import { Row } from "../data/utils/DatasetTypes";
 import { steps } from "../reports/ReportProvider";
 import useCardScrollTracking from "../utils/useScrollTracking";
+import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -49,9 +50,8 @@ export interface TableCardProps {
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
   setActiveStep?: React.Dispatch<React.SetStateAction<number>>;
-  cardsInView?: string[];
-  setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
-  skipScrollTracking?: boolean;
+  cardsInView?: ScrollableHashId[];
+  setCardsInView?: React.Dispatch<React.SetStateAction<ScrollableHashId[]>>;
 }
 
 export function TableCard(props: TableCardProps) {

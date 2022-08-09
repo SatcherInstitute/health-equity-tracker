@@ -26,6 +26,7 @@ import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { steps } from "../reports/ReportProvider";
 import useCardScrollTracking from "../utils/useScrollTracking";
+import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 748;
@@ -42,9 +43,8 @@ export interface UnknownsMapCardProps {
   // replaces race AND ethnicity with race OR ethnicity on unknowns map title and alerts
   overrideAndWithOr?: Boolean;
   setActiveStep?: React.Dispatch<React.SetStateAction<number>>;
-  cardsInView?: string[];
-  setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
-  skipScrollTracking?: boolean;
+  cardsInView?: ScrollableHashId[];
+  setCardsInView?: React.Dispatch<React.SetStateAction<ScrollableHashId[]>>;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when

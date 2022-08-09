@@ -32,6 +32,7 @@ import Alert from "@material-ui/lab/Alert";
 import SviAlert from "./ui/SviAlert";
 import { steps } from "../reports/ReportProvider";
 import useCardScrollTracking from "../utils/useScrollTracking";
+import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
 
 export const POPULATION_BY_RACE = "Population by race and ethnicity";
 export const POPULATION_BY_AGE = "Population by age";
@@ -42,9 +43,8 @@ export interface PopulationCardProps {
   fips: Fips;
   jumpToData: Function;
   setActiveStep?: React.Dispatch<React.SetStateAction<number>>;
-  cardsInView?: string[];
-  setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
-  skipScrollTracking?: boolean;
+  cardsInView?: ScrollableHashId[];
+  setCardsInView?: React.Dispatch<React.SetStateAction<ScrollableHashId[]>>;
 }
 
 export function PopulationCard(props: PopulationCardProps) {

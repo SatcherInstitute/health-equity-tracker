@@ -42,6 +42,9 @@ import {
 } from "../utils/internalRoutes";
 import { Link } from "react-router-dom";
 import UnknownsAlert from "./ui/UnknownsAlert";
+import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
+import useCardScrollTracking from "../utils/useScrollTracking";
+import { steps } from "../reports/ReportProvider";
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 
@@ -63,9 +66,20 @@ export interface AgeAdjustedTableCardProps {
   dropdownVarId?: DropdownVarId;
   setVariableConfigWithParam?: Function;
   jumpToData?: Function;
+  setActiveStep?: React.Dispatch<React.SetStateAction<number>>;
+  cardsInView?: ScrollableHashId[];
+  setCardsInView?: React.Dispatch<React.SetStateAction<ScrollableHashId[]>>;
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
+  const ref = useCardScrollTracking(
+    "age-adjusted",
+    steps,
+    props.cardsInView,
+    props.setCardsInView,
+    props.setActiveStep
+  );
+
   const metrics = getAgeAdjustedRatioMetric(props.variableConfig);
   const metricConfigPctShare = props.variableConfig.metrics["pct_share"];
 
@@ -92,8 +106,9 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     config.metricId.includes("ratio")
   );
 
-  const cardTitle = `${metrics[0]?.fullCardTitleName
-    } in ${props.fips.getSentenceDisplayName()}`;
+  const cardTitle = `${
+    metrics[0]?.fullCardTitleName
+  } in ${props.fips.getSentenceDisplayName()}`;
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const ageAdjustedDataTypes: VariableConfig[] = METRIC_CONFIG[
@@ -126,7 +141,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
         );
 
         return (
-          <>
+          <div ref={ref}>
             <CardContent>
               {/* Always show info on what age-adj is */}
               <Alert severity="info" role="note">
@@ -168,18 +183,18 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               raceQueryResponse.shouldShowMissingDataMessage(
                 metricIds as MetricId[]
               )) && (
-                <CardContent>
-                  <MissingDataAlert
-                    dataName={metrics[0].fullCardTitleName}
-                    breakdownString={
-                      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-                    }
-                    dropdownVarId={props.dropdownVarId}
-                    ageAdjustedDataTypes={ageAdjustedDataTypes}
-                    fips={props.fips}
-                  />
-                </CardContent>
-              )}
+              <CardContent>
+                <MissingDataAlert
+                  dataName={metrics[0].fullCardTitleName}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                  }
+                  dropdownVarId={props.dropdownVarId}
+                  ageAdjustedDataTypes={ageAdjustedDataTypes}
+                  fips={props.fips}
+                />
+              </CardContent>
+            )}
 
             {/* values are present or partially null, implying we have at least some age-adjustments */}
             {!raceQueryResponse.dataIsMissing() &&
@@ -192,7 +207,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                   />
                 </div>
               )}
-          </>
+          </div>
         );
       }}
     </CardWrapper>

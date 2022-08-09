@@ -31,6 +31,7 @@ import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import styles from "./Report.module.scss";
+import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
 
 export interface OneVariableReportProps {
   key: string;
@@ -42,8 +43,8 @@ export interface OneVariableReportProps {
   jumpToData: Function;
   activeStep: number;
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
-  cardsInView?: string[];
-  setCardsInView?: React.Dispatch<React.SetStateAction<string[]>>;
+  cardsInView?: ScrollableHashId[];
+  setCardsInView?: React.Dispatch<React.SetStateAction<ScrollableHashId[]>>;
   skipScrollTracking: boolean;
 }
 
@@ -127,7 +128,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
             setActiveStep={props.setActiveStep}
             cardsInView={props.cardsInView}
             setCardsInView={props.setCardsInView}
-            skipScrollTracking={props.skipScrollTracking}
           />
         </Grid>
       )}
@@ -169,7 +169,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
               setActiveStep={props.setActiveStep}
               cardsInView={props.cardsInView}
               setCardsInView={props.setCardsInView}
-              skipScrollTracking={props.skipScrollTracking}
             />
           </Grid>
 
@@ -195,7 +194,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
                         setActiveStep={props.setActiveStep}
                         cardsInView={props.cardsInView}
                         setCardsInView={props.setCardsInView}
-                        skipScrollTracking={props.skipScrollTracking}
                       />
                     )}
                 </Fragment>
@@ -226,7 +224,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   setActiveStep={props.setActiveStep}
                   cardsInView={props.cardsInView}
                   setCardsInView={props.setCardsInView}
-                  skipScrollTracking={props.skipScrollTracking}
                 />
               )}
             </LazyLoad>
@@ -254,7 +251,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
                         setActiveStep={props.setActiveStep}
                         cardsInView={props.cardsInView}
                         setCardsInView={props.setCardsInView}
-                        skipScrollTracking={props.skipScrollTracking}
                       />
                     )}
                 </Fragment>
@@ -285,7 +281,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
                         setActiveStep={props.setActiveStep}
                         cardsInView={props.cardsInView}
                         setCardsInView={props.setCardsInView}
-                        skipScrollTracking={props.skipScrollTracking}
                       />
                     )}
                   </Fragment>
@@ -312,6 +307,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   breakdownVar={currentBreakdown}
                   setVariableConfigWithParam={setVariableConfigWithParam}
                   jumpToData={props.jumpToData}
+                  setActiveStep={props.setActiveStep}
+                  cardsInView={props.cardsInView}
+                  setCardsInView={props.setCardsInView}
                 />
               </LazyLoad>
             </Grid>
