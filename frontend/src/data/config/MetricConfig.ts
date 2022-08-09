@@ -1,6 +1,5 @@
 //  IDs for the selectable conditions in the madlib
-// NOTE: these strings are displayed to the user if the data type toggle is enabled.
-// Underscores become spaces, and all letters are capitalized
+// NOTE: these strings are displayed to the user if the data type toggle is enabled. Underscores become spaces, and all letters are capitalized
 // TODO: integrate strings from Category / Madlib into the Metric Config
 // so ALL related topic data is contained in a single object
 

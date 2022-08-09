@@ -69,7 +69,7 @@ export function Axes({
     [TYPES.PERCENT_SHARE]: {
       topLabel: (getMaxNumber(data) || 0) <= 0 ? "" : "Over-represented →", // if there are positive numbers, append positive direction label
       bottomLabel: (getMinNumber(data) || 0) >= 0 ? "" : "← Under-represented", // if there are negative numbers, append negative direction label
-      formatter: (d: number) => (d === 0 ? "" : F.pct(d)), // if tick is 0, hide it, otherwise format as percent
+      formatter: (d: number) => (d === 1 ? "" : F.pct(d)), // if tick is 1, hide it, otherwise format as percent
     },
   };
 
