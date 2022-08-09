@@ -3,6 +3,7 @@ import * as React from "react";
 import { NavHashLink } from "react-router-hash-link";
 import { reportProviderSteps as steps } from "../../reports/ReportProviderSteps";
 import styles from "./ExploreDataPage.module.scss";
+import { useLocation } from "react-router-dom";
 
 // https://github.com/toviszsolt/react-scrollspy
 
@@ -34,6 +35,7 @@ export default function TableOfContentsStepper(
     e.preventDefault();
     props.setActiveStep(index);
   }
+  const location = useLocation();
 
   const presentIds = Array.from(document.querySelectorAll("*[id]")).map(
     (el) => el.id
@@ -48,26 +50,31 @@ export default function TableOfContentsStepper(
         component={"menu"}
         className={styles.Stepper}
       >
-        {steps.map((step, index) => (
-          <Step key={step.label} completed={false}>
-            {presentIds.includes(steps[index].hashId) ? (
-              <StepLabel onClick={(e) => handleClick(e, index)}>
-                <NavHashLink
-                  activeClassName={styles.SelectedStep}
-                  className={styles.Step}
-                  to={`#${steps[index].hashId}`}
-                  // smooth
-                >
-                  {step.label}
-                </NavHashLink>
-              </StepLabel>
-            ) : (
-              <StepLabel className={styles.StepUnavailable}>
-                {step.label} (N/A)
-              </StepLabel>
-            )}
-          </Step>
-        ))}
+        {steps.map((step, index) => {
+          const toUrl = `#${steps[index].hashId}`;
+
+          return (
+            <Step key={step.label} completed={false}>
+              {presentIds.includes(steps[index].hashId) ? (
+                <StepLabel onClick={(e) => handleClick(e, index)}>
+                  <NavHashLink
+                    activeClassName={styles.SelectedStep}
+                    isActive={() => toUrl === location.pathname + location.hash}
+                    className={styles.Step}
+                    to={toUrl}
+                    // smooth
+                  >
+                    {step.label}
+                  </NavHashLink>
+                </StepLabel>
+              ) : (
+                <StepLabel className={styles.StepUnavailable}>
+                  {step.label} (N/A)
+                </StepLabel>
+              )}
+            </Step>
+          );
+        })}
       </Stepper>
     </Card>
   );
