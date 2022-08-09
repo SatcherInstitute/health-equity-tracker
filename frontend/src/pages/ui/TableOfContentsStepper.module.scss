@@ -1,13 +1,13 @@
 @import "../../styles/globals.scss";
 @import "../../styles/variables.module";
 
-// .StepperGridItem {
-// 	display: none;
+.StepperGridItem {
+  display: none;
 
-// 	@media (min-width: $md) {
-// 		display: block;
-// 	}
-// }
+  @media (min-width: $sm) {
+    display: block;
+  }
+}
 
 .StepperStickyCard {
   position: sticky;

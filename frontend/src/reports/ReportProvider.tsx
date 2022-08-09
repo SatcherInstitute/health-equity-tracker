@@ -179,10 +179,10 @@ function ReportProvider(props: ReportProviderProps) {
           <IncarceratedChildrenLongAlert />
         )}
         <Grid container>
-          <Grid item xs={9} lg={10}>
+          <Grid item xs={12} sm={9} lg={10}>
             {getReport()}
           </Grid>
-          <Grid item xs={3} lg={2}>
+          <Grid item sm={3} lg={2} className={styles.StepperGridItem}>
             <TableOfContentsStepper
               activeStep={activeStep}
               setActiveStep={setActiveStep}
