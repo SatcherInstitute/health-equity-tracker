@@ -31,8 +31,10 @@ export default function useCardScrollTracking(
     const stepIndexInView = steps.findIndex(
       (step) => step.hashId === activeHashId
     );
-    if (setActiveStep && inView && stepIndexInView >= 0)
+    if (setActiveStep && inView && stepIndexInView >= 0) {
+      console.log("*");
       setActiveStep(stepIndexInView);
+    }
   }, [activeHashId, inView, setActiveStep, steps]);
 
   return ref;
