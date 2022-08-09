@@ -153,6 +153,9 @@ function LandingPage() {
               <a href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
                 What is health equity?
               </a>
+              {/* 
+              We’re working toward health equity, but can’t do it alone. Please
+              join our effort to move the needle forward. */}
             </Typography>
           </Grid>
           <Grid item xs={12}>
