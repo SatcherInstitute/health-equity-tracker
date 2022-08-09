@@ -1,7 +1,7 @@
 import { Card, Step, StepLabel, Stepper } from "@material-ui/core";
 import * as React from "react";
 import { NavHashLink } from "react-router-hash-link";
-import { steps } from "../../reports/ReportProvider";
+import { reportProviderSteps as steps } from "../../reports/ReportProviderSteps";
 import styles from "./ExploreDataPage.module.scss";
 
 // https://github.com/toviszsolt/react-scrollspy

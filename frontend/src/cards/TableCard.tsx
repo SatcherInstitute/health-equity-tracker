@@ -31,7 +31,7 @@ import styles from "./Card.module.scss";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { Row } from "../data/utils/DatasetTypes";
-import { steps } from "../reports/ReportProvider";
+import { reportProviderSteps as steps } from "../reports/ReportProviderSteps";
 import useCardScrollTracking from "../utils/useScrollTracking";
 import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
 

@@ -19,7 +19,7 @@ import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
-import { steps } from "../reports/ReportProvider";
+import { reportProviderSteps as steps } from "../reports/ReportProviderSteps";
 import useCardScrollTracking from "../utils/useScrollTracking";
 import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
 

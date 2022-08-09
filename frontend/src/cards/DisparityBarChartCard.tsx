@@ -26,7 +26,7 @@ import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
-import { steps } from "../reports/ReportProvider";
+import { reportProviderSteps as steps } from "../reports/ReportProviderSteps";
 import useCardScrollTracking from "../utils/useScrollTracking";
 import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
 

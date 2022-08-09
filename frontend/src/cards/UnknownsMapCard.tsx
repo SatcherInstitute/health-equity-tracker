@@ -24,7 +24,7 @@ import styles from "./Card.module.scss";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
-import { steps } from "../reports/ReportProvider";
+import { reportProviderSteps as steps } from "../reports/ReportProviderSteps";
 import useCardScrollTracking from "../utils/useScrollTracking";
 import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
 

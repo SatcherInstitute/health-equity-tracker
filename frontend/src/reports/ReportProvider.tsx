@@ -35,8 +35,8 @@ import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
 import TableOfContentsStepper, {
   ScrollableHashId,
-  StepData,
 } from "../pages/ExploreData/TableOfContentsStepper";
+import { reportProviderSteps as steps } from "./ReportProviderSteps";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -367,42 +367,3 @@ function ReportProvider(props: ReportProviderProps) {
 }
 
 export default ReportProvider;
-
-export const steps: StepData[] = [
-  {
-    label: "Population",
-    hashId: "population",
-  },
-  {
-    label: "Rate Map",
-    hashId: "map",
-  },
-  {
-    label: "Rate Chart",
-    hashId: "bar",
-  },
-  {
-    label: "Unknown Share Map",
-    hashId: "unknowns",
-  },
-  {
-    label: "Share Chart",
-    hashId: "disparity",
-  },
-  {
-    label: "Data Table",
-    hashId: "table",
-  },
-  {
-    label: "Age-Adjusted Ratios",
-    hashId: "age-adjusted",
-  },
-  {
-    label: "Definitions",
-    hashId: "definitions",
-  },
-  {
-    label: "What Data Are Missing?",
-    hashId: "missingDataInfo",
-  },
-];

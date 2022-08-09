@@ -45,7 +45,7 @@ import { MultiMapDialog } from "./ui/MultiMapDialog";
 import { MultiMapLink } from "./ui/MultiMapLink";
 import { RateInfoAlert } from "./ui/RateInfoAlert";
 import { findVerboseRating } from "./ui/SviAlert";
-import { steps } from "../reports/ReportProvider";
+import { reportProviderSteps as steps } from "../reports/ReportProviderSteps";
 import useCardScrollTracking from "../utils/useScrollTracking";
 import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
 

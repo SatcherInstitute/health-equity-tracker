@@ -120,7 +120,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
           md={SINGLE_COLUMN_WIDTH}
           className={styles.ScrollableId}
           id="population"
-          // ref={populationRef}
         >
           <PopulationCard
             jumpToData={props.jumpToData}
@@ -155,7 +154,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             className={styles.ScrollableId}
             id="map"
-            // ref={mapRef}
           >
             <MapCard
               variableConfig={variableConfig}
@@ -180,7 +178,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             className={styles.ScrollableId}
             id="bar"
-            // ref={barRef}
           >
             <LazyLoad offset={600} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -209,7 +206,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             className={styles.ScrollableId}
             id="unknowns"
-            // ref={unknownsRef}
           >
             <LazyLoad offset={800} height={750} once>
               {variableConfig.metrics["pct_share"] && (
@@ -237,7 +233,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             className={styles.ScrollableId}
             id="disparity"
-            // ref={disparityRef}
           >
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -266,9 +261,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
               md={SINGLE_COLUMN_WIDTH}
               className={styles.ScrollableId}
               id="table"
-              // ref={tableRef}
-
-              // ref={tableRef}
             >
               <LazyLoad offset={800} height={750} once>
                 {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -297,7 +289,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
               md={SINGLE_COLUMN_WIDTH}
               className={styles.ScrollableId}
               id="age-adjusted"
-              // ref={ageAdjustedRef}
             >
               <LazyLoad offset={800} height={800} once>
                 <AgeAdjustedTableCard

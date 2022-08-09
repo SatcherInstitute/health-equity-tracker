@@ -30,7 +30,7 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import Hidden from "@material-ui/core/Hidden";
 import Alert from "@material-ui/lab/Alert";
 import SviAlert from "./ui/SviAlert";
-import { steps } from "../reports/ReportProvider";
+import { reportProviderSteps as steps } from "../reports/ReportProviderSteps";
 import useCardScrollTracking from "../utils/useScrollTracking";
 import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
 

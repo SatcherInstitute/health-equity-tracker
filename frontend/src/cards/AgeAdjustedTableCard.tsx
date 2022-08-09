@@ -44,7 +44,7 @@ import { Link } from "react-router-dom";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
 import useCardScrollTracking from "../utils/useScrollTracking";
-import { steps } from "../reports/ReportProvider";
+import { reportProviderSteps as steps } from "../reports/ReportProviderSteps";
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 
