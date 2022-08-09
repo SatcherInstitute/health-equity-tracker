@@ -72,13 +72,7 @@ export interface AgeAdjustedTableCardProps {
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
-  const ref = useCardScrollTracking(
-    "age-adjusted",
-    steps,
-    props.cardsInView,
-    props.setCardsInView,
-    props.setActiveStep
-  );
+  const ref = useCardScrollTracking("age-adjusted", steps, props.setActiveStep);
 
   const metrics = getAgeAdjustedRatioMetric(props.variableConfig);
   const metricConfigPctShare = props.variableConfig.metrics["pct_share"];

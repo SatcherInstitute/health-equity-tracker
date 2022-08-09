@@ -25,9 +25,6 @@ export type ScrollableHashId =
 interface TableOfContentsStepperProps {
   activeStep: number;
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
-  cardsInView: ScrollableHashId[];
-  setCardsInView: React.Dispatch<React.SetStateAction<ScrollableHashId[]>>;
-  setskipScrollTracking: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function TableOfContentsStepper(
@@ -35,9 +32,7 @@ export default function TableOfContentsStepper(
 ) {
   function handleClick(e: any, index: number) {
     e.preventDefault();
-    // props.setskipScrollTracking(true);
     props.setActiveStep(index);
-    // props.setskipScrollTracking(false);
   }
 
   const presentIds = Array.from(document.querySelectorAll("*[id]")).map(

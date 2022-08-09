@@ -70,13 +70,7 @@ export interface MapCardProps {
 // This wrapper ensures the proper key is set to create a new instance when required (when
 // the props change and the state needs to be reset) rather than relying on the card caller.
 export function MapCard(props: MapCardProps) {
-  const ref = useCardScrollTracking(
-    "map",
-    steps,
-    props.cardsInView,
-    props.setCardsInView,
-    props.setActiveStep
-  );
+  const ref = useCardScrollTracking("map", steps, props.setActiveStep);
 
   return (
     <div ref={ref}>

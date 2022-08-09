@@ -45,7 +45,6 @@ export interface OneVariableReportProps {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
   cardsInView?: ScrollableHashId[];
   setCardsInView?: React.Dispatch<React.SetStateAction<ScrollableHashId[]>>;
-  skipScrollTracking: boolean;
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {

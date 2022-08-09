@@ -55,13 +55,7 @@ export interface TableCardProps {
 }
 
 export function TableCard(props: TableCardProps) {
-  const ref = useCardScrollTracking(
-    "table",
-    steps,
-    props.cardsInView,
-    props.setCardsInView,
-    props.setActiveStep
-  );
+  const ref = useCardScrollTracking("table", steps, props.setActiveStep);
 
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
 

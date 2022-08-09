@@ -33,9 +33,7 @@ import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
-import TableOfContentsStepper, {
-  ScrollableHashId,
-} from "../pages/ExploreData/TableOfContentsStepper";
+import TableOfContentsStepper from "../pages/ExploreData/TableOfContentsStepper";
 import { reportProviderSteps as steps } from "./ReportProviderSteps";
 
 export const SINGLE_COLUMN_WIDTH = 12;
@@ -59,10 +57,6 @@ function ReportProvider(props: ReportProviderProps) {
     const newUrl = `${urlWithoutHash}${activeHash ? "#" + activeHash : ""}`;
     window.history.replaceState(null, "", newUrl);
   }, [activeStep]);
-
-  const [cardsInView, setCardsInView] = useState<ScrollableHashId[]>([]);
-
-  const [skipScrollTracking, setskipScrollTracking] = useState<boolean>(false);
 
   // only show determinants that have definitions
   const definedConditions = props.selectedConditions.filter(
@@ -105,9 +99,6 @@ function ReportProvider(props: ReportProviderProps) {
           <OneVariableReport
             activeStep={activeStep}
             setActiveStep={setActiveStep}
-            cardsInView={cardsInView}
-            setCardsInView={setCardsInView}
-            skipScrollTracking={skipScrollTracking}
             jumpToDefinitions={jumpToDefinitions}
             jumpToData={jumpToData}
             key={dropdownOption}
@@ -195,9 +186,6 @@ function ReportProvider(props: ReportProviderProps) {
             <TableOfContentsStepper
               activeStep={activeStep}
               setActiveStep={setActiveStep}
-              cardsInView={cardsInView}
-              setCardsInView={setCardsInView}
-              setskipScrollTracking={setskipScrollTracking}
             />
           </Grid>
         </Grid>

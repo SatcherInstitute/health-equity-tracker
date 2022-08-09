@@ -39,13 +39,7 @@ export interface SimpleBarChartCardProps {
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
 export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
-  const ref = useCardScrollTracking(
-    "bar",
-    steps,
-    props.cardsInView,
-    props.setCardsInView,
-    props.setActiveStep
-  );
+  const ref = useCardScrollTracking("bar", steps, props.setActiveStep);
 
   return (
     <div ref={ref}>

@@ -48,13 +48,7 @@ export interface PopulationCardProps {
 }
 
 export function PopulationCard(props: PopulationCardProps) {
-  const ref = useCardScrollTracking(
-    "population",
-    steps,
-    props.cardsInView,
-    props.setCardsInView,
-    props.setActiveStep
-  );
+  const ref = useCardScrollTracking("population", steps, props.setActiveStep);
 
   const [expanded, setExpanded] = useState(false);
 

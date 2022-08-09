@@ -46,13 +46,7 @@ export interface DisparityBarChartCardProps {
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
 export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
-  const ref = useCardScrollTracking(
-    "disparity",
-    steps,
-    props.cardsInView,
-    props.setCardsInView,
-    props.setActiveStep
-  );
+  const ref = useCardScrollTracking("disparity", steps, props.setActiveStep);
 
   return (
     <div ref={ref}>

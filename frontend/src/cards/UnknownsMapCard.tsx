@@ -50,13 +50,7 @@ export interface UnknownsMapCardProps {
 // This wrapper ensures the proper key is set to create a new instance when required (when
 // the props change and the state needs to be reset) rather than relying on the card caller.
 export function UnknownsMapCard(props: UnknownsMapCardProps) {
-  const ref = useCardScrollTracking(
-    "unknowns",
-    steps,
-    props.cardsInView,
-    props.setCardsInView,
-    props.setActiveStep
-  );
+  const ref = useCardScrollTracking("unknowns", steps, props.setActiveStep);
 
   return (
     <div ref={ref}>
