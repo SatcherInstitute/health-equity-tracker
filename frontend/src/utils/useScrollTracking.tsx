@@ -10,7 +10,6 @@ Returns:
   ref: to be placed on a parent element of the tracked element
 */
 
-import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { ScrollableHashId, StepData } from "../pages/ui/TableOfContentsStepper";
 
