@@ -14,20 +14,12 @@ import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { ScrollableHashId, StepData } from "../pages/ui/TableOfContentsStepper";
 
-const options = {
-  // how much of the card needs to be showing to be "on screen"
-  threshold: 0.7,
-};
-
 export default function useCardScrollTracking(
   activeHashId: ScrollableHashId,
   steps: StepData[],
   setActiveStep?: React.Dispatch<React.SetStateAction<number>>
 ) {
-  const { ref, inView } = useInView(options);
-
-  // when each card appears, set as active step
-  useEffect(() => {
+  function handleInViewChange() {
     const stepIndexInView = steps.findIndex(
       (step) => step.hashId === activeHashId
     );
@@ -35,7 +27,16 @@ export default function useCardScrollTracking(
       console.log("*");
       setActiveStep(stepIndexInView);
     }
-  }, [activeHashId, inView, setActiveStep, steps]);
+  }
+
+  const options = {
+    // how much of the card needs to be showing to be "on screen"
+    threshold: 0.5,
+    // delay: 50,
+    onChange: () => handleInViewChange(),
+  };
+
+  const { ref, inView } = useInView(options);
 
   return ref;
 }
