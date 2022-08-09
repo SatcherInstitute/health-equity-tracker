@@ -28,7 +28,7 @@ import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 import { reportProviderSteps as steps } from "../reports/ReportProviderSteps";
 import useCardScrollTracking from "../utils/useScrollTracking";
-import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
+import { ScrollableHashId } from "../pages/ui/TableOfContentsStepper";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 719;

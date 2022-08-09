@@ -1,0 +1,41 @@
+@import "../../styles/globals.scss";
+@import "../../styles/variables.module";
+
+// .StepperGridItem {
+// 	display: none;
+
+// 	@media (min-width: $md) {
+// 		display: block;
+// 	}
+// }
+
+.StepperStickyCard {
+  position: sticky;
+  top: 150px;
+  // transform: translate(0, -50%);
+  margin: 1rem;
+  max-width: 250px;
+}
+
+.Step {
+  text-decoration: none;
+  color: $alt-dark !important;
+  font-size: $smallest;
+  display: block;
+  text-align: left !important;
+}
+
+.SelectedStep {
+  color: $alt-green !important;
+  text-decoration: none;
+  font-size: $smallest;
+  text-align: left !important;
+  float: left !important;
+}
+
+.StepUnavailable span span {
+  font-size: $smallest !important;
+  text-decoration: none;
+  font-style: italic;
+  text-align: left !important;
+}

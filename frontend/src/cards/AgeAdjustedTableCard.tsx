@@ -42,7 +42,7 @@ import {
 } from "../utils/internalRoutes";
 import { Link } from "react-router-dom";
 import UnknownsAlert from "./ui/UnknownsAlert";
-import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
+import { ScrollableHashId } from "../pages/ui/TableOfContentsStepper";
 import useCardScrollTracking from "../utils/useScrollTracking";
 import { reportProviderSteps as steps } from "../reports/ReportProviderSteps";
 

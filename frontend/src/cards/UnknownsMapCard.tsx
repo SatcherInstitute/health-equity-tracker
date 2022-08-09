@@ -26,7 +26,7 @@ import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { reportProviderSteps as steps } from "../reports/ReportProviderSteps";
 import useCardScrollTracking from "../utils/useScrollTracking";
-import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
+import { ScrollableHashId } from "../pages/ui/TableOfContentsStepper";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 748;

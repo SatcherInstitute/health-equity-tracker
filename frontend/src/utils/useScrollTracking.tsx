@@ -1,13 +1,18 @@
 /* 
-Hook that 
+Hook that goes inside each card you want to track scrolling for
+
+Parameters:
+  activeHashId: the id of the card
+  steps: dictionary for the Table of Contents; mapping text labels to their hashIds
+  setActiveStep: state setter from parent component tracking the "active" card in view
+
+Returns:
+  ref: to be placed on a parent element of the tracked element
 */
 
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import {
-  ScrollableHashId,
-  StepData,
-} from "../pages/ExploreData/TableOfContentsStepper";
+import { ScrollableHashId, StepData } from "../pages/ui/TableOfContentsStepper";
 
 const options = {
   // how much of the card needs to be showing to be "on screen"

@@ -33,7 +33,7 @@ import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
-import TableOfContentsStepper from "../pages/ExploreData/TableOfContentsStepper";
+import TableOfContentsStepper from "../pages/ui/TableOfContentsStepper";
 import { reportProviderSteps as steps } from "./ReportProviderSteps";
 
 export const SINGLE_COLUMN_WIDTH = 12;

@@ -32,7 +32,7 @@ import Alert from "@material-ui/lab/Alert";
 import SviAlert from "./ui/SviAlert";
 import { reportProviderSteps as steps } from "../reports/ReportProviderSteps";
 import useCardScrollTracking from "../utils/useScrollTracking";
-import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
+import { ScrollableHashId } from "../pages/ui/TableOfContentsStepper";
 
 export const POPULATION_BY_RACE = "Population by race and ethnicity";
 export const POPULATION_BY_AGE = "Population by age";

@@ -31,7 +31,7 @@ import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import styles from "./Report.module.scss";
-import { ScrollableHashId } from "../pages/ExploreData/TableOfContentsStepper";
+import { ScrollableHashId } from "../pages/ui/TableOfContentsStepper";
 
 export interface OneVariableReportProps {
   key: string;

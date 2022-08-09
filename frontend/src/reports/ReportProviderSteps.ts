@@ -1,4 +1,4 @@
-import { StepData } from "../pages/ExploreData/TableOfContentsStepper";
+import { StepData } from "../pages/ui/TableOfContentsStepper";
 
 export const reportProviderSteps: StepData[] = [
   {
