@@ -302,7 +302,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="/img/screenshots/het-map.png"
-                    alt="Map Example Screenshot, Data Tracker map of option Covid-19 rates of all racial groups"
+                    alt="Map Example Screenshot, Data Tracker map of Covid-19 rates of all racial groups"
                   />
                 </LazyLoad>
               </Grid>
