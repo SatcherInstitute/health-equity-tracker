@@ -37,8 +37,12 @@ export default function TableOfContentsStepper(
   }
   const location = useLocation();
 
-  const presentIds = Array.from(document.querySelectorAll("*[id]")).map(
+  const availableIds = Array.from(document.querySelectorAll("*[id]")).map(
     (el) => el.id
+  );
+
+  const availableSteps = steps.filter((step) =>
+    availableIds.includes(step.hashId)
   );
 
   return (
@@ -50,28 +54,28 @@ export default function TableOfContentsStepper(
         component={"menu"}
         className={styles.Stepper}
       >
-        {steps.map((step, index) => {
+        {availableSteps.map((step, index) => {
           const toUrl = `#${steps[index].hashId}`;
 
           return (
             <Step key={step.label} completed={false}>
-              {presentIds.includes(steps[index].hashId) ? (
-                <StepLabel onClick={(e) => handleClick(e, index)}>
-                  <NavHashLink
-                    activeClassName={styles.SelectedStep}
-                    isActive={() => toUrl === location.pathname + location.hash}
-                    className={styles.Step}
-                    to={toUrl}
-                    // smooth
-                  >
-                    {step.label}
-                  </NavHashLink>
-                </StepLabel>
-              ) : (
-                <StepLabel className={styles.StepUnavailable}>
-                  {step.label} (N/A)
-                </StepLabel>
-              )}
+              <StepLabel onClick={(e) => handleClick(e, index)}>
+                <NavHashLink
+                  activeClassName={styles.SelectedStep}
+                  isActive={() => toUrl === location.pathname + location.hash}
+                  className={styles.Step}
+                  to={toUrl}
+                  // smooth
+                >
+                  {step.label}
+                </NavHashLink>
+              </StepLabel>
+
+              {/* // (
+                //   <StepLabel className={styles.StepUnavailable}>
+                //     {step.label} (N/A)
+                //   </StepLabel>
+                // ) */}
             </Step>
           );
         })}
