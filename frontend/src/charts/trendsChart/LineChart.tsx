@@ -42,7 +42,7 @@ export function LineChart({ data, xScale, yScale }: LineChartProps) {
     // assigns x-value
     .x(([date]) => xScale(new Date(date)) || 0)
     // assigns y-value
-    .y(([_, amount]) => yScale(amount) || 0)
+    .y(([_, amount]) => yScale(amount) || 100)
     // applies curve generator
     .curve(curveMonotoneX);
 

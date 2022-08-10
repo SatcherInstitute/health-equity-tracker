@@ -73,7 +73,7 @@ export function TrendsTooltip({
       formatter: F.num,
     },
     [TYPES.PERCENT_SHARE]: {
-      UNIT: " %",
+      UNIT: " ×",
       width: getWidthPctShare,
       translate_x: translateXPctShare,
       formatter: F.num,

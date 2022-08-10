@@ -15,7 +15,16 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import { scaleTime, scaleLinear, extent, min, max, bisector } from "d3";
+import {
+  scaleTime,
+  scaleLinear,
+  extent,
+  min,
+  max,
+  bisector,
+  scaleLog,
+  scalePow,
+} from "d3";
 
 /* Local Imports */
 
@@ -145,8 +154,8 @@ export function TrendsChart({
   );
 
   // @ts-ignore
-  const yMin = min(amounts) < 0 ? min(amounts) : 0; // if numbers are all positive, y domain min should be 0
-  const yMax = max(amounts) ? max(amounts) : 0;
+  const yMin = min(amounts) < 1 ? min(amounts) : 1; // if numbers are all positive, y domain min should be 0
+  const yMax = max(amounts) ? max(amounts) : 1;
   const yExtent: [number, number] = [yMin as number, yMax as number];
 
   // X-Scale
@@ -156,7 +165,7 @@ export function TrendsChart({
   ]);
 
   // Y-Scale
-  const yScale = scaleLinear(yExtent as [number, number], [
+  const yScale = scaleLog(yExtent as [number, number], [
     HEIGHT - marginBottom,
     MARGIN.top,
   ]);

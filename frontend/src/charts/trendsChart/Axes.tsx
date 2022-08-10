@@ -67,9 +67,9 @@ export function Axes({
       formatter: (d: string | number) => d, // per 100k could be interpolated here
     },
     [TYPES.PERCENT_SHARE]: {
-      topLabel: (getMaxNumber(data) || 0) <= 0 ? "" : "Over-represented →", // if there are positive numbers, append positive direction label
-      bottomLabel: (getMinNumber(data) || 0) >= 0 ? "" : "← Under-represented", // if there are negative numbers, append negative direction label
-      formatter: (d: number) => (d === 1 ? "" : F.pct(d)), // if tick is 1, hide it, otherwise format as percent
+      topLabel: (getMaxNumber(data) || 1) <= 1 ? "" : "Over-represented →", // if there are + numbers, append positive direction label
+      bottomLabel: (getMinNumber(data) || 1) >= 1 ? "" : "← Under-represented", // if there are - numbers, append negative direction label
+      formatter: (d: number) => (d === 1 ? "" : F.ratio(d)), // if tick is 1, hide it, otherwise format as percent
     },
   };
 
@@ -137,9 +137,9 @@ export function Axes({
       <g>
         <line
           x1={marginLeft}
-          y1={yScale(0)}
+          y1={yScale(1)}
           x2={width - marginRight}
-          y2={yScale(0)}
+          y2={yScale(1)}
           stroke="black" // handle in CSS?
         />
       </g>

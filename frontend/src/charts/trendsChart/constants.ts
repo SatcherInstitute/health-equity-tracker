@@ -91,10 +91,12 @@ const CONFIG = {
 const TYPES = {
   HUNDRED_K: "per100k",
   PERCENT_SHARE: "pct_share",
+  RATIO: "ratio",
 };
 
 const FORMATTERS = {
-  pct: (d: number) => `${format(".1~f")(d)}x`, // have to treat percent as truncated number and then interpolate % b/c they are received as integers
+  pct: (d: number) => `${format(".1~f")(d)}%`, // have to treat percent as truncated number and then interpolate % b/c they are received as integers
+  ratio: (d: number) => `${format(".1~f")(d)}×`,
   dateShort: utcFormat("%m/%y"),
   dateYear: utcFormat("%Y"),
   dateFromString: (str: string) => str && utcFormat("%B %Y")(new Date(str)),
