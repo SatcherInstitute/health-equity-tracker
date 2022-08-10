@@ -43,9 +43,7 @@ function MethodologyTab() {
           <Grid item xs={12} sm={12} md={9}>
             <Grid container>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
-                  <u>COVID-19</u>
-                </h3>
+                <h3 className={styles.FaqQuestion}>COVID-19</h3>
                 <div className={styles.FaqAnswer}>
                   <p>
                     For a description of some of the gaps in COVID-19 data,
@@ -96,9 +94,7 @@ function MethodologyTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
-                  <u>COVID-19 Vaccinations</u>
-                </h3>
+                <h3 className={styles.FaqQuestion}>COVID-19 Vaccinations</h3>
                 <div className={styles.FaqAnswer}>
                   <p>
                     There is currently no national vaccine demographic dataset,
@@ -146,7 +142,7 @@ function MethodologyTab() {
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>
-                  <u>Vaccination Population Sources</u>
+                  Vaccination Population Sources
                 </h3>
                 <div className={styles.FaqAnswer}>
                   <ul>
@@ -181,9 +177,7 @@ function MethodologyTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
-                  <u>Vaccination Da</u>ta
-                </h3>
+                <h3 className={styles.FaqQuestion}>Vaccination Data</h3>
                 <div className={styles.FaqAnswer}>
                   <ul>
                     <li>
@@ -224,9 +218,7 @@ function MethodologyTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
-                  <u>Incarceration Data</u>
-                </h3>
+                <h3 className={styles.FaqQuestion}>Incarceration Data</h3>
                 <div className={styles.FaqAnswer}>
                   <ul>
                     <li>
@@ -366,7 +358,7 @@ function MethodologyTab() {
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>
-                  <u>Children in Adult Facilities</u>
+                  Children in Adult Facilities
                 </h3>
                 <div className={styles.FaqAnswer}>
                   <p>
@@ -421,7 +413,7 @@ function MethodologyTab() {
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>
-                  <u>America's Health Rankings</u>
+                  America's Health Rankings
                 </h3>
                 <div className={styles.FaqAnswer}>
                   <p>
@@ -455,7 +447,7 @@ function MethodologyTab() {
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>
-                  <u>Women in Legislative Office</u>
+                  Women in Legislative Office
                 </h3>
                 <div className={styles.FaqAnswer}>
                   <p>
@@ -530,15 +522,13 @@ function MethodologyTab() {
               className={styles.FaqHeaderText}
               variant="h2"
             >
-              Definitions
+              Key Terms
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={9}>
             <Grid container>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
-                  <u>Chronic Disease</u>
-                </h3>
+                <h3 className={styles.FaqQuestion}>Chronic Disease</h3>
                 <ul>
                   <li>
                     <b>Diabetes:</b> Diabetes is a chronic disease that occurs
@@ -601,9 +591,7 @@ function MethodologyTab() {
                 </ul>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
-                  <u>Behavioral Health</u>
-                </h3>
+                <h3 className={styles.FaqQuestion}>Behavioral Health</h3>
                 <div className={styles.FaqAnswer}>
                   <ul>
                     <li>
@@ -641,7 +629,7 @@ function MethodologyTab() {
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>
-                  <u>Social Determinants of Health</u>
+                  Social Determinants of Health
                 </h3>
                 <div className={styles.FaqAnswer}>
                   <ul>
@@ -683,7 +671,7 @@ function MethodologyTab() {
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>
-                  <u>Political Determinants of Health</u>
+                  Political Determinants of Health
                 </h3>
                 <div className={styles.FaqAnswer}>
                   <ul>
@@ -773,9 +761,7 @@ function MethodologyTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
-                  <u>Race and Ethnicity</u>
-                </h3>
+                <h3 className={styles.FaqQuestion}>Race and Ethnicity</h3>
                 <div className={styles.FaqAnswer}>
                   <ul>
                     <li>

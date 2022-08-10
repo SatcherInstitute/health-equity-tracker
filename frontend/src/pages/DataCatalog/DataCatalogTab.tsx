@@ -8,12 +8,13 @@ import {
   DATA_CATALOG_PAGE_LINK,
   METHODOLOGY_TAB_LINK,
   AGE_ADJUSTMENT_TAB_LINK,
+  KEY_TERMS_LINK,
 } from "../../utils/internalRoutes";
 import styles from "../AboutUs/AboutUsPage.module.scss";
 import { Link, Route, Switch } from "react-router-dom";
 import FeedbackBox from "../ui/FeedbackBox";
 import AgeAdjustmentTab from "./AgeAdjustmentTab";
-import TestingMethodologyTab from "./TestingMethodology";
+import KeyTerms from "./KeyTerms";
 
 function DataCatalogTab() {
   const params = useSearchParams();
@@ -48,10 +49,10 @@ function DataCatalogTab() {
             to={AGE_ADJUSTMENT_TAB_LINK}
           />
           <Tab
-            value={AGE_ADJUSTMENT_TAB_LINK}
+            value={KEY_TERMS_LINK}
             label="Key Terms"
             component={Link}
-            to={AGE_ADJUSTMENT_TAB_LINK}
+            to={KEY_TERMS_LINK}
           />
         </Tabs>
       </Route>
@@ -66,8 +67,8 @@ function DataCatalogTab() {
         <Route path={`${AGE_ADJUSTMENT_TAB_LINK}/`}>
           <AgeAdjustmentTab />
         </Route>
-        <Route path={`${AGE_ADJUSTMENT_TAB_LINK}/`}>
-          <TestingMethodologyTab />
+        <Route path={KEY_TERMS_LINK}>
+          <KeyTerms />
         </Route>
       </Switch>
       <FeedbackBox />
