@@ -63,7 +63,7 @@ function ContactUsTab() {
           </Grid>
           <Grid item xs={12} sm={12} md={7}>
             <p className={styles.ContactUsP}>
-              <b>For general requests:</b>
+              <b>For General Requests:</b>
               <br />
               Please contact the{" "}
               <a href={urlMap.shli}>
@@ -71,7 +71,7 @@ function ContactUsTab() {
               </a> at <a href="mailto:shli@msm.edu">shli@msm.edu</a>
             </p>
             <p className={styles.ContactUsP}>
-              <b>For media inquiries:</b>
+              <b>For Media Inquiries:</b>
               <br />
               Please contact Mahia Valle, Senior Communications Specialist, at{" "}
               <a href="mailto:mvalle@msm.edu">mvalle@msm.edu</a>
@@ -83,7 +83,7 @@ function ContactUsTab() {
             </p>
 
             <p className={styles.ContactUsP}>
-              <b>Mailing address:</b>
+              <b>Mailing Address:</b>
               <br />
               Morehouse School of Medicine
               <br />

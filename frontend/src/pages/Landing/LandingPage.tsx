@@ -153,6 +153,9 @@ function LandingPage() {
               <a href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
                 What is health equity?
               </a>
+              {/* 
+              We’re working toward health equity, but can’t do it alone. Please
+              join our effort to move the needle forward. */}
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -302,7 +305,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="/img/screenshots/het-map.png"
-                    alt="Map Example Screenshot, Data Tracker map of Covid-19 rates of all racial groups"
+                    alt="Map Example Screenshot, Data Tracker map of option Covid-19 rates of all racial groups"
                   />
                 </LazyLoad>
               </Grid>
