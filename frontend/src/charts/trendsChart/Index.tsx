@@ -15,16 +15,7 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import {
-  scaleTime,
-  scaleLinear,
-  extent,
-  min,
-  max,
-  bisector,
-  scaleLog,
-  scalePow,
-} from "d3";
+import { scaleTime, extent, min, max, bisector, scaleLog } from "d3";
 
 /* Local Imports */
 
