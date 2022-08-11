@@ -9,9 +9,10 @@ import styles from "./TableOfContents.module.scss";
 export function TableOfContents() {
   const [headings, setHeadings] = useState<any[]>([]);
 
-  const [recentlyClicked, setRecentlyClicked] = useState<ScrollableHashId>();
+  const [recentlyClicked, setRecentlyClicked] =
+    useState<ScrollableHashId | null>(null);
 
-  const { activeId } = useHeadsObserver(recentlyClicked);
+  const { activeId } = useHeadsObserver(recentlyClicked, setRecentlyClicked);
 
   // useEffect(() => {
 
