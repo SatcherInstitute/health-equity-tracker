@@ -250,10 +250,6 @@ def parse_raw_data(df, breakdown):
                                 f"{breakdown_value}"
                             )
 
-                        # or get midterm for 65+ (different format)
-                        elif breakdown_value == "65+":
-                            measure_name = "Voter Participation - Ages 65+ (Midterm)"
-
                         # skip midterm calc for all other age groups
                         else:
                             continue
