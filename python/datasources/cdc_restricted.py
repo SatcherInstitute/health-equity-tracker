@@ -85,13 +85,6 @@ class CDCRestrictedData(DataSource):
             for filename, table_name in ONLY_FIPS_FILES.items():
                 df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename)
 
-                groupby_cols = [
-                    std_col.STATE_POSTAL_COL,
-                    std_col.AGE_COL,
-                    std_col.RACE_CATEGORY_ID_COL,
-                ]
-                df = df.groupby(groupby_cols).sum().reset_index()
-
                 df = df[df[std_col.STATE_POSTAL_COL] != 'Unknown']
                 df = merge_state_fips_codes(df)
                 df = df[df[std_col.STATE_FIPS_COL].notna()]
