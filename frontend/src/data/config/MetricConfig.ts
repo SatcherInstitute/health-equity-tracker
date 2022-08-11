@@ -429,8 +429,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "hosp_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-adjusted risk of COVID-19 Hospitalization compared to White (Non-Hispanic)",
-          shortLabel: "Risk of COVID-19 Hospitalization", // Table header-row label
+            "Age-adjusted risk of COVID-19 hospitalization compared to White (Non-Hispanic)",
+          shortLabel: "Risk of COVID-19 hospitalization", // Table header-row label
           type: "ratio",
           ageAdjusted: true,
         },
