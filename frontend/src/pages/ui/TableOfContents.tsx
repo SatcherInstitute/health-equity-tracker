@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { reportProviderSteps } from "../../reports/ReportProviderSteps";
 import { useHeadsObserver } from "../../utils/useHeadsObserver";
 import styles from "./TableOfContents.module.scss";
 
@@ -21,17 +22,17 @@ export function TableOfContents() {
   const [headings, setHeadings] = useState<any[]>([]);
 
   useEffect(() => {
-    const rawElements = [
-      document.getElementById("population"),
-      document.getElementById("map"),
-      document.getElementById("bar"),
-      document.getElementById("table"),
-    ];
-    const elements = rawElements.map((elem) => ({
-      id: elem?.id,
-      text: elem?.innerText || elem?.textContent || "*",
-      level: Number(elem?.nodeName.charAt(1)),
-    }));
+    const elements = reportProviderSteps
+      .map((step) => {
+        const stepElement = document.getElementById(step.hashId);
+
+        return {
+          id: stepElement?.id,
+          text: step.label,
+        };
+      })
+      .filter((el) => !!el.id);
+
     elements && setHeadings(elements);
   }, []);
 

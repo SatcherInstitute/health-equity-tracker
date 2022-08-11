@@ -107,7 +107,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
     >
       {!props.hidePopulationCard && (
         // POPULATION CARD
-        <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="populationCard">
+        <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="population">
           <PopulationCard jumpToData={props.jumpToData} fips={props.fips} />
         </Grid>
       )}

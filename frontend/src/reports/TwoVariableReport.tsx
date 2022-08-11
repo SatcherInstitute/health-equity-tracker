@@ -139,7 +139,7 @@ function TwoVariableReport(props: {
     <Grid container spacing={1} alignItems="flex-start">
       {/* POPULATION CARD(S) AND 2 SETS OF TOGGLE CONTROLS */}
       {props.fips1.code === props.fips2.code ? (
-        <Grid item xs={12} id="populationCard">
+        <Grid item xs={12} id="population">
           {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
           <PopulationCard jumpToData={props.jumpToData} fips={props.fips1} />
 
@@ -171,7 +171,7 @@ function TwoVariableReport(props: {
         </Grid>
       ) : (
         <>
-          <Grid item xs={12} sm={6} id="populationCard">
+          <Grid item xs={12} sm={6} id="population">
             {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
             <PopulationCard jumpToData={props.jumpToData} fips={props.fips1} />
 

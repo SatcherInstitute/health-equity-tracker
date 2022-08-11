@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { reportProviderSteps } from "../reports/ReportProviderSteps";
 
 export function useHeadsObserver() {
   const observer = useRef<IntersectionObserver | null>(null);
@@ -18,11 +19,13 @@ export function useHeadsObserver() {
       rootMargin: "-20% 0% -35% 0px",
     });
 
-    const elements = [
-      document.getElementById("map"),
-      document.getElementById("bar"),
-      document.getElementById("table"),
-    ];
+    const elements = reportProviderSteps
+      .map((step) => {
+        const stepElem = document.getElementById(step.hashId);
+        return stepElem;
+      })
+      .filter((el) => !!el);
+
     elements.forEach((elem) => observer.current?.observe(elem!));
     return () => observer.current?.disconnect();
   }, []);
