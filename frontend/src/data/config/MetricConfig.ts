@@ -398,7 +398,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     },
     {
       variableId: "covid_hospitalizations",
-      variableDisplayName: "hospitalizations",
+      variableDisplayName: "Hospitalizations",
       variableFullDisplayName: "COVID-19 hospitalizations",
       variableDefinition: `The number of people hospitalized at any point while ill with COVID-19.`,
       longitudinalData: true,
