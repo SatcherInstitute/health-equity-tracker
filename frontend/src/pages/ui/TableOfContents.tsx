@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { reportProviderSteps } from "../../reports/ReportProviderSteps";
+import {
+  reportProviderSteps,
+  ScrollableHashId,
+} from "../../reports/ReportProviderSteps";
 import { useHeadsObserver } from "../../utils/useHeadsObserver";
 import styles from "./TableOfContents.module.scss";
 
-const getClassName = (level: number) => {
-  switch (level) {
-    case 2:
-      return "head2";
-    case 3:
-      return "head3";
-    case 4:
-      return "head4";
-    default:
-      return null;
-  }
-};
-
 export function TableOfContents() {
-  const { activeId } = useHeadsObserver();
-
   const [headings, setHeadings] = useState<any[]>([]);
+
+  const [recentlyClicked, setRecentlyClicked] = useState<ScrollableHashId>();
+
+  const { activeId } = useHeadsObserver(recentlyClicked);
+
+  // useEffect(() => {
+
+  //   console.log(recentlyClicked);
+  // }, [recentlyClicked])
 
   useEffect(() => {
     const elements = reportProviderSteps
@@ -40,17 +37,16 @@ export function TableOfContents() {
     <nav className={styles.TOC}>
       <ul>
         {headings.map((heading) => (
-          <li
-            key={heading.id}
-            className={getClassName(heading.level) as string}
-          >
+          <li key={heading.id}>
             <a
               href={`#${heading.id}`}
               onClick={(e) => {
                 e.preventDefault();
                 document.querySelector(`#${heading.id}`)!.scrollIntoView({
                   behavior: "smooth",
+                  block: "center",
                 });
+                setRecentlyClicked(heading.id);
               }}
               style={{
                 fontWeight: activeId === heading.id ? "bold" : "normal",

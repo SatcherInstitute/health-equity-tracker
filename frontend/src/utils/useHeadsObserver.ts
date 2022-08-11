@@ -1,7 +1,10 @@
 import { useEffect, useState, useRef } from "react";
-import { reportProviderSteps } from "../reports/ReportProviderSteps";
+import {
+  reportProviderSteps,
+  ScrollableHashId,
+} from "../reports/ReportProviderSteps";
 
-export function useHeadsObserver() {
+export function useHeadsObserver(recentlyClicked?: ScrollableHashId) {
   const observer = useRef<IntersectionObserver | null>(null);
   const [activeId, setActiveId] = useState("");
 
@@ -10,7 +13,7 @@ export function useHeadsObserver() {
     const handleObsever = (entries: any) => {
       entries.forEach((entry: any) => {
         if (entry?.isIntersecting) {
-          setActiveId(entry.target.id);
+          setActiveId(recentlyClicked || entry.target.id);
         }
       });
     };
@@ -28,7 +31,7 @@ export function useHeadsObserver() {
 
     elements.forEach((elem) => observer.current?.observe(elem!));
     return () => observer.current?.disconnect();
-  }, []);
+  }, [recentlyClicked]);
 
   return { activeId };
 }
