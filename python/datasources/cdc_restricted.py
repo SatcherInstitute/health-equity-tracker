@@ -1,4 +1,5 @@
 import numpy as np  # type: ignore
+import pandas as pd  # type: ignore
 
 import time
 
@@ -10,7 +11,10 @@ import ingestion.constants as constants
 from datasources.data_source import DataSource
 from datasources.cdc_restricted_local import (
     HOSP_DATA_SUPPRESSION_STATES,
-    DEATH_DATA_SUPPRESSION_STATES)
+    DEATH_DATA_SUPPRESSION_STATES,
+    RACE_NAMES_MAPPING,
+    SEX_NAMES_MAPPING,
+    AGE_NAMES_MAPPING)
 
 from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import (
@@ -141,7 +145,8 @@ class CDCRestrictedData(DataSource):
                     [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
 
             df = df.groupby(groupby_cols).sum(min_count=1).reset_index()
-            df.to_csv('/tmp/poop.csv', index=False)
+            if geo != 'national':
+                df = add_missing_demographic_values(df, geo, demo)
         else:
             all_columns.append(std_col.TIME_PERIOD_COL)
 
@@ -320,3 +325,66 @@ def generate_national_dataset(state_df, demo_col, cumulative):
     needed_cols.append(demo_col)
 
     return df[needed_cols].reset_index(drop=True)
+
+
+def add_missing_demographic_values(df, geo, demographic):
+    """Adds in missing demographic values for each geo in the df. For example,
+    if a given county only has WHITE, adds in empty data rows for all other
+    race/ethnicity groups.
+    See https://github.com/SatcherInstitute/health-equity-tracker/issues/841.
+
+    df: Pandas dataframe to append onto.
+    geo: Geographic level. Must be "state" or "county".
+    demographic: Demographic breakdown. Must be "race", "age", or "sex".
+    """
+    geo_col_mapping = {
+        'state': [std_col.STATE_POSTAL_COL],
+        'county': [
+            std_col.STATE_POSTAL_COL,
+            std_col.COUNTY_FIPS_COL,
+            std_col.COUNTY_NAME_COL,
+        ],
+    }
+
+    demo_col_mapping = {
+        'race': (std_col.RACE_CATEGORY_ID_COL, list(RACE_NAMES_MAPPING.values())),
+        'age': (std_col.AGE_COL, list(AGE_NAMES_MAPPING.values())),
+        'sex': (std_col.SEX_COL, list(SEX_NAMES_MAPPING.values())),
+    }
+
+    geo_cols = geo_col_mapping[geo]
+    demog_col = demo_col_mapping[demographic][0]
+    all_demos = demo_col_mapping[demographic][1]
+    unknown_values = ["Unknown", std_col.Race.UNKNOWN.value]
+    all_demos = set([v for v in all_demos if v not in unknown_values])
+
+    # Map from each geo to the demographic values present. Note that multiple
+    # values/columns may define each geo.
+    geo_demo_map = df.loc[:, geo_cols + [demog_col]].groupby(geo_cols)
+    geo_demo_map = geo_demo_map.agg({demog_col: list}).to_dict()[demog_col]
+
+    # List where each entry is a geo and demographic value pair that need to be
+    # added to the df. Example entry: ["06035", "LASSEN", "CA", "ASIAN_NH"].
+    geo_demo_to_add = []
+    for geo_key, demo_values in geo_demo_map.items():
+        geo_lst = [geo_key] if isinstance(geo_key, str) else list(geo_key)
+        values_to_add = sorted(list(all_demos.difference(set(demo_values))))
+        for val in values_to_add:
+            geo_demo_to_add.append(geo_lst + [val])
+
+    # Build the dataframe (as a dict) that we want to append to the original.
+    df_to_append = []
+    columns = list(df.columns)
+    for geo_demo in geo_demo_to_add:
+        row = []
+        for col in columns:
+            if col in geo_cols:
+                row.append(geo_demo[geo_cols.index(col)])
+            elif col == demog_col:
+                row.append(geo_demo[-1])
+            else:
+                row.append(np.NaN)
+        df_to_append.append(row)
+
+    return pd.concat([df, pd.DataFrame(df_to_append, columns=columns)],
+                     ignore_index=True)

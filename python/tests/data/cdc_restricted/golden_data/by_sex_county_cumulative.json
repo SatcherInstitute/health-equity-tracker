@@ -56,6 +56,20 @@
     "covid_population_pct": null
   },
   {
+    "county_fips": "06123",
+    "county_name": "San Mateo County",
+    "state_fips": "06",
+    "state_name": "California",
+    "sex": "Other",
+    "covid_cases_per_100k": null,
+    "covid_deaths_per_100k": null,
+    "covid_hosp_per_100k": null,
+    "covid_cases_share": null,
+    "covid_hosp_share": null,
+    "covid_deaths_share": null,
+    "covid_population_pct": null
+  },
+  {
     "county_fips": "11001",
     "county_name": "District of Columbia",
     "state_fips": "11",
@@ -84,6 +98,34 @@
     "covid_population_pct": null
   },
   {
+    "county_fips": "11001",
+    "county_name": "District of Columbia",
+    "state_fips": "11",
+    "state_name": "District of Columbia",
+    "sex": "Male",
+    "covid_cases_per_100k": null,
+    "covid_deaths_per_100k": null,
+    "covid_hosp_per_100k": null,
+    "covid_cases_share": null,
+    "covid_hosp_share": null,
+    "covid_deaths_share": null,
+    "covid_population_pct": null
+  },
+  {
+    "county_fips": "11001",
+    "county_name": "District of Columbia",
+    "state_fips": "11",
+    "state_name": "District of Columbia",
+    "sex": "Other",
+    "covid_cases_per_100k": null,
+    "covid_deaths_per_100k": null,
+    "covid_hosp_per_100k": null,
+    "covid_cases_share": null,
+    "covid_hosp_share": null,
+    "covid_deaths_share": null,
+    "covid_population_pct": null
+  },
+  {
     "county_fips": "12345",
     "county_name": "All null county",
     "state_fips": "12",
@@ -96,5 +138,47 @@
     "covid_hosp_share": 100.0,
     "covid_deaths_share": 100.0,
     "covid_population_pct": 100.0
+  },
+  {
+    "county_fips": "12345",
+    "county_name": "All null county",
+    "state_fips": "12",
+    "state_name": "Florida",
+    "sex": "Male",
+    "covid_cases_per_100k": null,
+    "covid_deaths_per_100k": null,
+    "covid_hosp_per_100k": null,
+    "covid_cases_share": null,
+    "covid_hosp_share": null,
+    "covid_deaths_share": null,
+    "covid_population_pct": null
+  },
+  {
+    "county_fips": "12345",
+    "county_name": "All null county",
+    "state_fips": "12",
+    "state_name": "Florida",
+    "sex": "Female",
+    "covid_cases_per_100k": null,
+    "covid_deaths_per_100k": null,
+    "covid_hosp_per_100k": null,
+    "covid_cases_share": null,
+    "covid_hosp_share": null,
+    "covid_deaths_share": null,
+    "covid_population_pct": null
+  },
+  {
+    "county_fips": "12345",
+    "county_name": "All null county",
+    "state_fips": "12",
+    "state_name": "Florida",
+    "sex": "Other",
+    "covid_cases_per_100k": null,
+    "covid_deaths_per_100k": null,
+    "covid_hosp_per_100k": null,
+    "covid_cases_share": null,
+    "covid_hosp_share": null,
+    "covid_deaths_share": null,
+    "covid_population_pct": null
   }
 ]

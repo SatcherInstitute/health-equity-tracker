@@ -48,6 +48,18 @@
     "covid_population_pct": null
   },
   {
+    "state_fips": "06",
+    "state_name": "California",
+    "sex": "Other",
+    "covid_cases_per_100k": null,
+    "covid_deaths_per_100k": null,
+    "covid_hosp_per_100k": null,
+    "covid_cases_share": null,
+    "covid_hosp_share": null,
+    "covid_deaths_share": null,
+    "covid_population_pct": null
+  },
+  {
     "state_fips": "15",
     "state_name": "Hawaii",
     "sex": "All",
@@ -91,6 +103,18 @@
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
     "covid_cases_share": 38.9,
+    "covid_hosp_share": null,
+    "covid_deaths_share": null,
+    "covid_population_pct": null
+  },
+  {
+    "state_fips": "15",
+    "state_name": "Hawaii",
+    "sex": "Other",
+    "covid_cases_per_100k": null,
+    "covid_deaths_per_100k": null,
+    "covid_hosp_per_100k": null,
+    "covid_cases_share": null,
     "covid_hosp_share": null,
     "covid_deaths_share": null,
     "covid_population_pct": null
@@ -141,6 +165,18 @@
     "covid_cases_share": 38.9,
     "covid_hosp_share": 20.0,
     "covid_deaths_share": 60.0,
+    "covid_population_pct": null
+  },
+  {
+    "state_fips": "54",
+    "state_name": "West Virginia",
+    "sex": "Other",
+    "covid_cases_per_100k": null,
+    "covid_deaths_per_100k": null,
+    "covid_hosp_per_100k": null,
+    "covid_cases_share": null,
+    "covid_hosp_share": null,
+    "covid_deaths_share": null,
     "covid_population_pct": null
   }
 ]
