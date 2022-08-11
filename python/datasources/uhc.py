@@ -249,21 +249,17 @@ def parse_raw_data(df, breakdown):
                                 f"Voter Participation (Midterm) - Ages "
                                 f"{breakdown_value}"
                             )
-                            output_row[per_100k_col_name] = get_average_determinate_value(
-                                matched_row, measure_name, df, state)
 
                         # or get midterm for 65+ (different format)
                         elif breakdown_value == "65+":
                             measure_name = "Voter Participation (Presidential) - Ages 65+"
 
-                            output_row[per_100k_col_name] = 20
-
                         # skip midterm calc for all other age groups
                         else:
                             continue
 
-                        # output_row[per_100k_col_name] = get_average_determinate_value(
-                        #     matched_row, measure_name, df, state)
+                        output_row[per_100k_col_name] = get_average_determinate_value(
+                            matched_row, measure_name, df, state)
 
                     # for other determinants besides VOTER
                     elif len(matched_row) > 0:
@@ -282,7 +278,7 @@ def parse_raw_data(df, breakdown):
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         std_col.add_race_columns_from_category_id(output_df)
-    print(output_df)
+
     return output_df
 
 
@@ -347,7 +343,7 @@ def get_average_determinate_value(matched_row, measure_name, df, state):
 
     if len(matched_row_midterm) > 0:
         mid_breakdown_value = matched_row_midterm['Value'].values[0]
-    print(pres_breakdown_value, mid_breakdown_value)
+
     average_value = np.nanmean(
         [pres_breakdown_value, mid_breakdown_value])
 
