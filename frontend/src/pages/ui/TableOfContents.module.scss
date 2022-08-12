@@ -1,27 +1,38 @@
-menu.TOC {
-  width: 220px;
-  min-width: 220px;
-  padding: 16px;
+@import "../../styles/variables.module";
+@import "../../styles/globals.scss";
+
+.TOC {
+  // padding: 1rem !important;
+  margin: 10px;
+  width: 70%;
   align-self: flex-start !important;
   position: -webkit-sticky;
   position: sticky;
-  top: 48px;
-  max-height: calc(100vh - 70px);
+  top: 88px;
+  // top: $sticky-madlib-height;
+  // max-height: calc(100vh - 70px);
   overflow: auto;
-  margin-top: 150px;
+  scroll-margin-top: 100px;
+  // margin-top: 250px;
 }
 
-menu.TOC ul li {
-  margin-bottom: 15px;
+// .TOC ul li {
+//   margin-bottom: 15px;
+//   text-align: left !important;
+// }
+
+.Step {
+  text-decoration: none;
+  color: $alt-dark !important;
+  font-size: $smallest;
+  display: block;
   text-align: left !important;
 }
 
-.head3 {
-  margin-left: 10px;
-  list-style-type: circle;
-}
-
-.head4 {
-  margin-left: 20px;
-  list-style-type: square;
+.SelectedStep {
+  color: $alt-green !important;
+  text-decoration: none;
+  font-size: $smallest;
+  text-align: left !important;
+  float: left !important;
 }
