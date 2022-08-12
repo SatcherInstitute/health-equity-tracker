@@ -35,7 +35,7 @@ export function TableOfContents() {
   }, []);
 
   return (
-    <nav className={styles.TOC}>
+    <menu aria-label="Available data visualizations" className={styles.TOC}>
       <ul>
         {headings.map((heading) => (
           <li key={heading.id}>
@@ -58,6 +58,6 @@ export function TableOfContents() {
           </li>
         ))}
       </ul>
-    </nav>
+    </menu>
   );
 }
