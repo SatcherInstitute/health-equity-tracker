@@ -212,10 +212,9 @@ def parse_raw_data(df, breakdown):
                          ALT_ROWS_ALL.get(determinant, determinant))
                     ]
 
-                    # TOTAL voter_participation is avg of pres and midterm data
+                    # TOTAL voter_participation is taken from pres value
                     if determinant in AVERAGED_DETERMINANTS:
-                        output_row[per_100k_col_name] = get_average_determinate_value(
-                            matched_row, 'Voter Participation (Midterm)', df, state)
+                        output_row[per_100k_col_name] = matched_row['Value'].values[0] * 1000
 
                     # already per 100k
                     elif determinant in PER100K_DETERMINANTS:
@@ -244,22 +243,8 @@ def parse_raw_data(df, breakdown):
 
                     # BY AGE voter participation is avg of pres and midterm
                     if determinant in AVERAGED_DETERMINANTS and breakdown == std_col.AGE_COL:
-                        if breakdown_value in VOTER_AGE_GROUPS:
-                            measure_name = (
-                                f"Voter Participation (Midterm) - Ages "
-                                f"{breakdown_value}"
-                            )
-
-                        # or get midterm for 65+ (different format)
-                        elif breakdown_value == "65+":
-                            measure_name = "Voter Participation (Presidential) - Ages 65+"
-
-                        # skip midterm calc for all other age groups
-                        else:
-                            continue
-
-                        output_row[per_100k_col_name] = get_average_determinate_value(
-                            matched_row, measure_name, df, state)
+                        if len(matched_row) > 0:
+                            output_row[per_100k_col_name] = matched_row['Value'].values[0] * 1000
 
                     # for other determinants besides VOTER
                     elif len(matched_row) > 0:
@@ -322,29 +307,3 @@ def post_process(breakdown_df, breakdown, geo):
 
     breakdown_df = breakdown_df.drop(columns=std_col.POPULATION_COL)
     return breakdown_df
-
-
-def get_average_determinate_value(matched_row, measure_name, df, state):
-    """Gets the average value of two determinants, ignores null values.
-
-       matched_row: row in the dataset that matches the measure and demographic we are looking for
-       measure_name: measure name that we want to average with
-       df: the dataframe containing all information
-       state: string state name"""
-
-    pres_breakdown_value, mid_breakdown_value = np.nan, np.nan
-
-    if len(matched_row) > 0:
-        pres_breakdown_value = matched_row['Value'].values[0]
-
-    matched_row_midterm = df.loc[
-        (df[std_col.STATE_NAME_COL] == state) &
-        (df['Measure Name'] == measure_name)]
-
-    if len(matched_row_midterm) > 0:
-        mid_breakdown_value = matched_row_midterm['Value'].values[0]
-
-    average_value = np.nanmean(
-        [pres_breakdown_value, mid_breakdown_value])
-
-    return average_value * 1000
