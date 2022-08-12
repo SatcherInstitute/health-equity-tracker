@@ -45,6 +45,7 @@ interface ReportProviderProps {
   setMadLib: Function;
   doScrollToData?: boolean;
   showIncarceratedChildrenAlert: boolean;
+  sticking: boolean;
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -172,7 +173,7 @@ function ReportProvider(props: ReportProviderProps) {
             {getReport()}
           </Grid>
           <Grid item xs={3}>
-            <TableOfContents />
+            <TableOfContents sticking={props.sticking} />
           </Grid>
         </Grid>
       </div>

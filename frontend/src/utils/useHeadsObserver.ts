@@ -6,7 +6,8 @@ import {
 
 export function useHeadsObserver(
   recentlyClicked: ScrollableHashId | null,
-  setRecentlyClicked: Function
+  setRecentlyClicked: Function,
+  sticking: boolean
 ) {
   const observer = useRef<IntersectionObserver | null>(null);
   const [activeId, setActiveId] = useState("");
@@ -32,7 +33,9 @@ export function useHeadsObserver(
   useEffect(() => {
     const handleObsever = (entries: any) => {
       entries.forEach((entry: any) => {
-        if (entry?.isIntersecting) {
+        // when page is scrolled to the top, don't track scroll position
+        if (!sticking) setActiveId("");
+        else if (entry?.isIntersecting) {
           // prefer a recently clicked id, otherwise set to the observed "in view" id
           setActiveId(recentlyClicked || entry.target.id);
         }
@@ -52,7 +55,7 @@ export function useHeadsObserver(
 
     elements.forEach((elem) => observer.current?.observe(elem!));
     return () => observer.current?.disconnect();
-  }, [recentlyClicked]);
+  }, [recentlyClicked, sticking]);
 
   return { activeId };
 }

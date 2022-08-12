@@ -30,6 +30,7 @@ import {
 import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
+import styles from "./Report.module.scss";
 
 export interface OneVariableReportProps {
   key: string;
@@ -107,7 +108,13 @@ export function OneVariableReport(props: OneVariableReportProps) {
     >
       {!props.hidePopulationCard && (
         // POPULATION CARD
-        <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="population">
+        <Grid
+          item
+          xs={12}
+          md={SINGLE_COLUMN_WIDTH}
+          id="population"
+          className={styles.ScrollPastHeader}
+        >
           <PopulationCard jumpToData={props.jumpToData} fips={props.fips} />
         </Grid>
       )}
@@ -129,7 +136,13 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* 100k MAP CARD */}
-          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="map">
+          <Grid
+            item
+            xs={12}
+            md={SINGLE_COLUMN_WIDTH}
+            id="map"
+            className={styles.ScrollPastHeader}
+          >
             <MapCard
               variableConfig={variableConfig}
               fips={props.fips}
@@ -143,7 +156,14 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* 100K BAR CHART CARD */}
-          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH} id="bar">
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={SINGLE_COLUMN_WIDTH}
+            id="bar"
+            className={styles.ScrollPastHeader}
+          >
             <LazyLoad offset={600} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
@@ -161,7 +181,14 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* UNKNOWNS MAP CARD */}
-          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH} id="unknowns">
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={SINGLE_COLUMN_WIDTH}
+            id="unknowns"
+            className={styles.ScrollPastHeader}
+          >
             <LazyLoad offset={800} height={750} once>
               {variableConfig.metrics["pct_share"] && (
                 <UnknownsMapCard
@@ -178,7 +205,14 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
-          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH} id="disparity">
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={SINGLE_COLUMN_WIDTH}
+            id="disparity"
+            className={styles.ScrollPastHeader}
+          >
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
@@ -196,7 +230,13 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* DATA TABLE CARD */}
-          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="table">
+          <Grid
+            item
+            xs={12}
+            md={SINGLE_COLUMN_WIDTH}
+            id="table"
+            className={styles.ScrollPastHeader}
+          >
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
@@ -214,7 +254,13 @@ export function OneVariableReport(props: OneVariableReportProps) {
 
           {/* AGE ADJUSTED TABLE CARD */}
           {variableConfig.metrics.age_adjusted_ratio.ageAdjusted && (
-            <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="age-adjusted">
+            <Grid
+              item
+              xs={12}
+              md={SINGLE_COLUMN_WIDTH}
+              id="age-adjusted"
+              className={styles.ScrollPastHeader}
+            >
               <LazyLoad offset={800} height={800} once>
                 <AgeAdjustedTableCard
                   fips={props.fips}

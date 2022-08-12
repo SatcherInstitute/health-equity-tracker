@@ -6,13 +6,21 @@ import {
 import { useHeadsObserver } from "../../utils/useHeadsObserver";
 import styles from "./TableOfContents.module.scss";
 
-export function TableOfContents() {
+interface TableOfContentsProps {
+  sticking: boolean;
+}
+
+export function TableOfContents(props: TableOfContentsProps) {
   const [headings, setHeadings] = useState<any[]>([]);
 
   const [recentlyClicked, setRecentlyClicked] =
     useState<ScrollableHashId | null>(null);
 
-  const { activeId } = useHeadsObserver(recentlyClicked, setRecentlyClicked);
+  const { activeId } = useHeadsObserver(
+    recentlyClicked,
+    setRecentlyClicked,
+    props.sticking
+  );
 
   // useEffect(() => {
 
@@ -45,7 +53,7 @@ export function TableOfContents() {
                 e.preventDefault();
                 document.querySelector(`#${heading.id}`)!.scrollIntoView({
                   behavior: "smooth",
-                  block: "center",
+                  // block: "center",
                 });
                 setRecentlyClicked(heading.id);
               }}
