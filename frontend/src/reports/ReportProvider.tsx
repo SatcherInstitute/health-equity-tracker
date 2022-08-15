@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { OneVariableReport } from "./OneVariableReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
@@ -34,6 +34,7 @@ import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
 import { TableOfContents } from "../pages/ui/TableOfContents";
+import { reportProviderSteps } from "./ReportProviderSteps";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -49,6 +50,8 @@ interface ReportProviderProps {
 }
 
 function ReportProvider(props: ReportProviderProps) {
+  const [headings, setHeadings] = useState<any[]>([]);
+
   // only show determinants that have definitions
   const definedConditions = props.selectedConditions.filter(
     (condition) => condition?.variableDefinition
@@ -98,6 +101,9 @@ function ReportProvider(props: ReportProviderProps) {
                 getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
               )
             }
+            sticking={props.sticking}
+            headings={headings}
+            setHeadings={setHeadings}
           />
         );
       case "comparegeos":
@@ -168,23 +174,7 @@ function ReportProvider(props: ReportProviderProps) {
           <IncarceratedChildrenLongAlert />
         )}
 
-        <Grid container>
-          <Grid item xs={12} md={9} lg={10}>
-            {getReport()}
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            md={3}
-            lg={2}
-            container
-            spacing={0}
-            direction="column"
-            alignItems="center"
-          >
-            <TableOfContents sticking={props.sticking} />
-          </Grid>
-        </Grid>
+        {getReport()}
       </div>
       <div className={styles.MissingDataContainer}>
         <aside
