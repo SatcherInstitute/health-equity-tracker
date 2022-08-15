@@ -62,9 +62,6 @@ def main():
         expected_df = expected_df.sort_values(
             by=sort_values).reset_index(drop=True)
 
-        test_df.to_csv(f'/tmp/{test_table_name}.csv', index=False)
-        expected_df.to_csv(f'/tmp/{expected_table_name}.csv', index=False)
-
         assert_frame_equal(test_df, expected_df, check_like=True)
 
     print("%%%%%%%%%%%%%%%%%%%%%% SUCCESS %%%%%%%%%%%%%%%%%%%%%%%%")
