@@ -127,8 +127,12 @@ class CDCRestrictedData(DataSource):
             std_col.COVID_POPULATION_PCT,
         ]
 
-        geo_to_pull = 'state' if geo == 'national' else geo
-        df = add_missing_demographic_values(df, geo_to_pull, demo)
+        if geo == 'national' or cumulative:
+            # We don't want the missing values for the time series data
+            # but we do need them to correctly calculate the national
+            # ALL per_100k rates
+            geo_to_pull = 'state' if geo == 'national' else geo
+            df = add_missing_demographic_values(df, geo_to_pull, demo)
 
         if cumulative:
             groupby_cols = [
@@ -355,7 +359,9 @@ def add_missing_demographic_values(df, geo, demographic):
 
     # Map from each geo to the demographic values present. Note that multiple
     # values/columns may define each geo.
-    geo_demo_map = df.loc[:, geo_cols + [demog_col]].groupby(geo_cols)
+    geo_demo_map = df.loc[:, geo_cols + [
+        demog_col, std_col.TIME_PERIOD_COL]].groupby(geo_cols + [std_col.TIME_PERIOD_COL])
+
     geo_demo_map = geo_demo_map.agg({demog_col: list}).to_dict()[demog_col]
 
     # List where each entry is a geo and demographic value pair that need to be
@@ -377,6 +383,8 @@ def add_missing_demographic_values(df, geo, demographic):
                 row.append(geo_demo[geo_cols.index(col)])
             elif col == demog_col:
                 row.append(geo_demo[-1])
+            elif col == std_col.TIME_PERIOD_COL:
+                row.append(geo_demo[-2])
             else:
                 row.append(np.NaN)
         df_to_append.append(row)
