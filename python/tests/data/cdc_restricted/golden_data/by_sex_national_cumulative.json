@@ -46,5 +46,17 @@
     "covid_hosp_share": 20.0,
     "covid_deaths_share": 60.0,
     "covid_population_pct": null
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "sex": "Other",
+    "covid_cases_per_100k": null,
+    "covid_deaths_per_100k": null,
+    "covid_hosp_per_100k": null,
+    "covid_cases_share": 0.0,
+    "covid_hosp_share": 0.0,
+    "covid_deaths_share": 0.0,
+    "covid_population_pct": null
   }
 ]

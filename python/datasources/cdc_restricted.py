@@ -127,6 +127,9 @@ class CDCRestrictedData(DataSource):
             std_col.COVID_POPULATION_PCT,
         ]
 
+        geo_to_pull = 'state' if geo == 'national' else geo
+        df = add_missing_demographic_values(df, geo_to_pull, demo)
+
         if cumulative:
             groupby_cols = [
                 std_col.STATE_POSTAL_COL,
@@ -138,8 +141,7 @@ class CDCRestrictedData(DataSource):
                     [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
 
             df = df.groupby(groupby_cols).sum(min_count=1).reset_index()
-            if geo != 'national':
-                df = add_missing_demographic_values(df, geo, demo)
+
         else:
             all_columns.append(std_col.TIME_PERIOD_COL)
 
