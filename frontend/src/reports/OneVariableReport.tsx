@@ -105,6 +105,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
       alignItems="center"
       spacing={1}
       justifyContent="center"
+      className={styles.SnapContainer}
     >
       {!props.hidePopulationCard && (
         // POPULATION CARD

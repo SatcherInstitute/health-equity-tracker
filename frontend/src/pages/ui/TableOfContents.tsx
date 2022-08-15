@@ -51,7 +51,7 @@ export function TableOfContents(props: TableOfContentsProps) {
         orientation="vertical"
         component={"menu"}
         aria-label="Available data visualizations"
-        // className={styles.Stepper}
+        className={styles.Stepper}
       >
         {headings.map((heading) => {
           return (

@@ -2,23 +2,29 @@
 @import "../../styles/globals.scss";
 
 .TOC {
-  // padding: 1rem !important;
   margin: 10px;
   width: 70%;
-  align-self: flex-start !important;
   position: -webkit-sticky;
   position: sticky;
   top: 88px;
-  // top: $sticky-madlib-height;
-  // max-height: calc(100vh - 70px);
   overflow: auto;
   scroll-margin-top: 100px;
-  // margin-top: 250px;
 }
 
-// .TOC ul li {
-//   margin-bottom: 15px;
-//   text-align: left !important;
+.Stepper {
+  display: none;
+
+  @media only screen and (min-width: $md) {
+    display: flex;
+  }
+}
+
+// .Stepper {
+//   align-items: center;
+
+//   circle {
+//     display: none;
+//   }
 // }
 
 .Step {

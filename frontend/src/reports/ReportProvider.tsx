@@ -169,10 +169,19 @@ function ReportProvider(props: ReportProviderProps) {
         )}
 
         <Grid container>
-          <Grid item xs={9}>
+          <Grid item xs={12} md={9} lg={10}>
             {getReport()}
           </Grid>
-          <Grid item xs={3}>
+          <Grid
+            item
+            xs={12}
+            md={3}
+            lg={2}
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+          >
             <TableOfContents sticking={props.sticking} />
           </Grid>
         </Grid>
