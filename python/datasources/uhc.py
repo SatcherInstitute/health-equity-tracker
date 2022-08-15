@@ -92,7 +92,6 @@ UHC_DETERMINANTS = {
     # VOTER PARTICIPATION
     # pres: state total ALL + by age (missing 65+) + by sex + by race
     # midterm: state total ALL + by age (missing 65+)
-    # 65+ midterm: only 65+ age tracker
     # average: not using, state totals from AHR match our state totals
 }
 
@@ -204,8 +203,13 @@ def parse_raw_data(df, breakdown):
                 per_100k_col_name = std_col.generate_column_name(
                     prefix, std_col.PER_100K_SUFFIX)
 
+                # replace extra space to match column correctly
+                df.replace('Voter Participation (Presidential) - Ages 65+ ',
+                           'Voter Participation (Presidential) - Ages 65+', inplace=True)
+
                 if breakdown_value in {'All', 'Total'}:
                     # find row that matches current nested iterations
+
                     matched_row = df.loc[
                         (df[std_col.STATE_NAME_COL] == state) &
                         (df['Measure Name'] ==
