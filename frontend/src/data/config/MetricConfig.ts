@@ -321,12 +321,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     {
       variableId: "covid_cases",
       variableDisplayName: "Cases",
-      variableFullDisplayName: "COVID-19 Cases",
+      variableFullDisplayName: "Cumulative COVID-19 Cases",
       variableDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
       metrics: {
         pct_share: {
           metricId: "covid_cases_share",
-          fullCardTitleName: "Share Of Total COVID-19 Cases",
+          fullCardTitleName: "Share Of Cumulative COVID-19 Cases",
           unknownsVegaLabel: "% unknown",
           shortLabel: "% of COVID-19 cases",
           type: "pct_share",
@@ -339,14 +339,14 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         per100k: {
           metricId: "covid_cases_per_100k",
-          fullCardTitleName: "COVID-19 Cases Per 100k People",
+          fullCardTitleName: "Cumulative COVID-19 Cases Per 100k People",
           shortLabel: "cases per 100k",
           type: "per100k",
         },
         age_adjusted_ratio: {
           metricId: "cases_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of COVID-19 Compared to White (Non-Hispanic)",
+            "Cumulative Age-Adjusted Risk of COVID-19 Compared to White (Non-Hispanic)",
           shortLabel: "Risk of COVID-19",
           type: "ratio",
         },
@@ -355,12 +355,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     {
       variableId: "covid_deaths",
       variableDisplayName: "Deaths",
-      variableFullDisplayName: "COVID-19 Deaths",
+      variableFullDisplayName: "Cumulative COVID-19 Deaths",
       variableDefinition: `The number of people who died due to COVID-19.`,
       metrics: {
         count: {
           metricId: "covid_deaths",
-          fullCardTitleName: "COVID-19 Deaths",
+          fullCardTitleName: "Cumulative COVID-19 Deaths",
           shortLabel: "COVID-19 Deaths",
           type: "count",
           populationComparisonMetric: {
@@ -372,7 +372,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "covid_deaths_share",
-          fullCardTitleName: "Share Of Total COVID-19 Deaths",
+          fullCardTitleName: "Share Of Cumulative COVID-19 Deaths",
           shortLabel: "% of COVID-19 deaths",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
@@ -385,14 +385,14 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         per100k: {
           metricId: "covid_deaths_per_100k",
-          fullCardTitleName: "COVID-19 Deaths Per 100k People",
+          fullCardTitleName: "Cumulative COVID-19 Deaths Per 100k People",
           shortLabel: "deaths per 100k",
           type: "per100k",
         },
         age_adjusted_ratio: {
           metricId: "death_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of COVID-19 Death Compared to White (Non-Hispanic)",
+            "Cumulative Age-Adjusted Risk of COVID-19 Death Compared to White (Non-Hispanic)",
           shortLabel: "Risk of COVID-19 Death", // table header-row label
           type: "ratio",
           ageAdjusted: true,
@@ -402,12 +402,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     {
       variableId: "covid_hospitalizations",
       variableDisplayName: "Hospitalizations",
-      variableFullDisplayName: "COVID-19 Hospitalizations",
+      variableFullDisplayName: "Cumulative COVID-19 Hospitalizations",
       variableDefinition: `The number of people hospitalized at any point while ill with COVID-19.`,
       metrics: {
         pct_share: {
           metricId: "covid_hosp_share",
-          fullCardTitleName: "Share Of Total COVID-19 Hospitalizations",
+          fullCardTitleName: "Share Of Cumulative COVID-19 Hospitalizations",
           shortLabel: "% of COVID-19 hospitalizations",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
@@ -420,14 +420,15 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         per100k: {
           metricId: "covid_hosp_per_100k",
-          fullCardTitleName: "COVID-19 Hospitalizations Per 100k People",
+          fullCardTitleName:
+            "Cumulative COVID-19 Hospitalizations Per 100k People",
           shortLabel: "hospitalizations per 100k",
           type: "per100k",
         },
         age_adjusted_ratio: {
           metricId: "hosp_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of COVID-19 Hospitalization Compared to White (Non-Hispanic)",
+            "Cumulative Age-Adjusted Risk of COVID-19 Hospitalization Compared to White (Non-Hispanic)",
           shortLabel: "Risk of COVID-19 Hospitalization", // Table header-row label
           type: "ratio",
           ageAdjusted: true,
