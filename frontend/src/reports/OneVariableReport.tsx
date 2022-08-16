@@ -113,13 +113,13 @@ export function OneVariableReport(props: OneVariableReportProps) {
 
   return (
     <Grid container>
-      <Grid item xs={12} md={9} lg={10}>
+      <Grid item xs={12} sm={11} md={9} lg={10}>
         <Grid
           item
           container
           xs={12}
           alignItems="center"
-          spacing={1}
+          spacing={0}
           justifyContent="center"
         >
           {!props.hidePopulationCard && (
@@ -295,14 +295,19 @@ export function OneVariableReport(props: OneVariableReportProps) {
           )}
         </Grid>
       </Grid>
+      {/* table of contents */}
       {props.reportSteps && (
         <Grid
           item
+          // invisible
           xs={12}
+          // icons only
+          sm={1}
+          // icons + text
           md={3}
           lg={2}
           container
-          spacing={0}
+          spacing={1}
           direction="column"
           alignItems="center"
         >

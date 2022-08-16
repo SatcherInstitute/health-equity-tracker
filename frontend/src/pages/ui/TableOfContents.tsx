@@ -1,4 +1,11 @@
-import { Card, Step, StepLabel, Stepper } from "@material-ui/core";
+import {
+  Card,
+  Step,
+  StepButton,
+  Stepper,
+  useMediaQuery,
+  useTheme,
+} from "@material-ui/core";
 import React from "react";
 import { StepData } from "../../reports/ReportProviderSteps";
 import { useStepObserver } from "../../utils/useStepObserver";
@@ -11,6 +18,11 @@ interface TableOfContentsProps {
 }
 
 export function TableOfContents(props: TableOfContentsProps) {
+  const theme = useTheme();
+  const pageIsWide = useMediaQuery(
+    theme.breakpoints.up(props.twoCol ? "lg" : "md")
+  );
+
   const [activeId, setRecentlyClicked] = useStepObserver(
     props.reportSteps,
     props.sticking
@@ -19,34 +31,51 @@ export function TableOfContents(props: TableOfContentsProps) {
   return (
     <Card raised={true} className={props.twoCol ? styles.TOC2 : styles.TOC}>
       <Stepper
+        component={"menu"}
         nonLinear
         activeStep={props.reportSteps?.findIndex(
           (step) => step.hashId === activeId
         )}
         orientation="vertical"
-        component={"menu"}
         aria-label="Available data visualizations"
         className={styles.Stepper}
       >
         {props.reportSteps?.map((step) => {
           return (
-            <Step key={step.label} completed={false}>
-              <StepLabel>
-                <a
-                  href={`#${step.hashId}`}
-                  className={styles.Step}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.querySelector(`#${step.hashId}`)!.scrollIntoView({
-                      behavior: "smooth",
-                    });
-                    setRecentlyClicked(step.hashId);
-                  }}
+            <Step
+              key={step.label}
+              completed={false}
+              title={`Scroll to ${step.label}`}
+            >
+              <StepButton
+                className={styles.StepButton}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector(`#${step.hashId}`)!.scrollIntoView({
+                    behavior: "smooth",
+                  });
+                  setRecentlyClicked(step.hashId);
+                }}
+              >
+                <span
+                  className={
+                    pageIsWide
+                      ? styles.StepButtonLabel
+                      : styles.ScreenreaderTitleHeader
+                  }
                 >
                   {step.label}
                   {!step.label.endsWith("Info") && props.twoCol ? "s" : ""}
-                </a>
-              </StepLabel>
+                </span>
+                {/* <a
+                  href={`#${step.hashId}`}
+                  className={styles.Step}
+                >
+                  {""}
+                  {pageIsWide ? step.label : ""}
+                  {!step.label.endsWith("Info") && props.twoCol && pageIsWide ? "s" : ""}
+                </a> */}
+              </StepButton>
             </Step>
           );
         })}

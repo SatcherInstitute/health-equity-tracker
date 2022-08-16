@@ -3,12 +3,14 @@
 
 .TOC,
 .TOC2 {
-  margin: 10px;
+  margin: 14px 0 0 0;
   width: 80%;
   position: -webkit-sticky;
   position: sticky;
   top: 88px;
-  overflow: auto;
+  // overflow: auto;
+  display: flex;
+  justify-content: center;
 }
 
 // compare view, sticking header can be much taller
@@ -19,9 +21,25 @@
 .Stepper {
   display: none;
 
+  @media only screen and (min-width: $sm) {
+    display: flex;
+    padding: 0 0 0 6px !important;
+  }
+
   @media only screen and (min-width: $md) {
     display: flex;
+    padding: 24px !important;
   }
+}
+
+.StepButton {
+  // cursor: pointer;
+  text-align: left;
+  font-size: $smallest !important;
+}
+
+.StepButtonLabel {
+  font-size: $smallest;
 }
 
 .Step {
