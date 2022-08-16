@@ -1,9 +1,14 @@
 import { METRIC_CONFIG, VariableConfig } from "../config/MetricConfig";
 import { BreakdownVar } from "../query/Breakdowns";
-import { getExclusionList } from "./datasetutils";
+import { getExclusionList, shortenNH } from "./datasetutils";
 import { Fips } from "./Fips";
 
 describe("DatasetUtils Unit Tests", () => {
+  test("Test shortenNH()", async () => {
+    expect(shortenNH("Any Race (Non-Hispanic)")).toEqual("Any Race NH");
+    expect(shortenNH("Hispanic or Latino")).toEqual("Hispanic or Latino");
+  });
+
   test("Test getExclusionList()", async () => {
     const sampleVariableConfigPrisonRaceUSA: VariableConfig =
       METRIC_CONFIG.incarceration[0];
