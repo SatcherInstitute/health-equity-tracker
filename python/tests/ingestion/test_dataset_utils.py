@@ -1,5 +1,6 @@
 import json
 import pytest
+import re
 import pandas as pd
 
 from pandas.testing import assert_frame_equal
@@ -208,7 +209,7 @@ def testGeneratePctShareColExtraTotalError():
     df = df.loc[df['race'] != 'UNKNOWN']
     df['population'] = df['population'].astype(float)
 
-    expected_error = r"Fips 01 has 2 ALL rows, there should be 1"
+    expected_error = re.escape("Fips ('01',) has 2 ALL rows, there should be 1")
     with pytest.raises(ValueError, match=expected_error):
         df = dataset_utils.generate_pct_share_col_without_unknowns(
             df, {'population': 'pct_share'}, 'race', 'ALL')

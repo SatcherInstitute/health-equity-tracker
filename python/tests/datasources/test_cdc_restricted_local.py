@@ -58,8 +58,14 @@ def run_test(key):
     expected_df = pd.read_csv(
         GOLDEN_DATA[key], dtype=str, keep_default_na=False)
 
+    expected_df = expected_df.replace({'nan': ''})
+
     assert set(dfs[key].columns) == set(expected_df.columns)
-    assert_frame_equal(dfs[key], expected_df, check_like=True)
+    sortby_cols = list(dfs[key].columns)
+    assert_frame_equal(
+        dfs[key].sort_values(by=sortby_cols).reset_index(drop=True),
+        expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
+        check_like=True)
 
 
 def testStateRace():
@@ -101,13 +107,15 @@ def testGenerateNationalDataset():
     race_age_state = GOLDEN_DATA[('state', 'race_and_age')]
     race_age_state_df = pd.read_csv(race_age_state, keep_default_na=False)
 
-    groupby_cols = list(std_col.RACE_COLUMNS) + [std_col.AGE_COL]
+    groupby_cols = [std_col.RACE_CATEGORY_ID_COL, std_col.AGE_COL]
     national_df = cdc.generate_national_dataset(
         race_age_state_df, groupby_cols)
     expected_df = pd.read_csv(GOLDEN_DATA_NATIONAL, dtype={
         std_col.STATE_FIPS_COL: str,
         std_col.COVID_CASES: int,
     }, keep_default_na=False)
+
+    national_df = national_df.replace({'nan': ''})
 
     assert_frame_equal(expected_df, national_df, check_like=True)
 

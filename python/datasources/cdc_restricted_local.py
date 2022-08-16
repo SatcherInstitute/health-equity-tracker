@@ -43,6 +43,7 @@ AGE_COL = 'age_group'
 OUTCOME_COLS = ['hosp_yn', 'death_yn']
 RACE_COL = 'race'
 ETH_COL = 'ethnicity'
+CASE_DATE_COL = 'cdc_case_earliest_dt'
 
 
 # Convenience list for when we group the data by county.
@@ -56,6 +57,7 @@ COL_NAME_MAPPING = {
     RACE_ETH_COL: std_col.RACE_CATEGORY_ID_COL,
     SEX_COL: std_col.SEX_COL,
     AGE_COL: std_col.AGE_COL,
+    CASE_DATE_COL: std_col.TIME_PERIOD_COL,
 }
 
 # Mapping for county_fips, county, and state unknown values to "Unknown".
@@ -139,7 +141,7 @@ def combine_race_eth(df):
     return df
 
 
-def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
+def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping, time_series):
     """Converts/adds columns for cases, hospitalizations, deaths. Does some
     basic standardization of dataframe elements. Groups by given groupby_cols
     and aggregates. Returns sum of the aggregated df & overall_df.
@@ -149,6 +151,7 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     overall_df: Pandas dataframe to add our aggregated data to.
     demog_col: Name of the demographic column to aggregate on & standardize.
     names_mapping: Mapping from demographic value to standardized form.
+    time_series: Boolean to indicate if the function should generate time series data.
     """
     # Add a columns of all ones, for counting the # of cases / records.
     df[std_col.COVID_CASES] = np.ones(df.shape[0], dtype=int)
@@ -182,11 +185,22 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
         else:
             df = df.replace({demog_col: names_mapping})
 
+    # Only keep the year and the month of the date
+    if time_series:
+        df[CASE_DATE_COL] = df[CASE_DATE_COL].map(lambda x: x[:7])
+
     # Group by the geo and demographic columns and compute the sum/counts of
     # cases/hospitalizations/deaths. Add total rows and add to overall_df.
     groupby_cols = geo_cols + demog_cols
+    total_groupby_cols = geo_cols
+
+    if time_series:
+        groupby_cols = groupby_cols + [CASE_DATE_COL]
+        total_groupby_cols = total_groupby_cols + [CASE_DATE_COL]
+
     df = df.groupby(groupby_cols).sum().reset_index()
-    totals = df.groupby(geo_cols).sum().reset_index()
+    totals = df.groupby(total_groupby_cols).sum().reset_index()
+
     # Special case required due to later processing.
     if demog_cols[0] == RACE_ETH_COL:
         totals[demog_cols[0]] = std_col.Race.ALL.value
@@ -223,62 +237,7 @@ def standardize_data(df):
     # Standardize column names.
     df = df.rename(columns=COL_NAME_MAPPING)
 
-    # Add race metadata columns.
-    if std_col.RACE_CATEGORY_ID_COL in df.columns:
-        std_col.add_race_columns_from_category_id(df)
-
     return df
-
-
-def add_missing_demographic_values(df, geo, demographic):
-    """Adds in missing demographic values for each geo in the df. For example,
-    if a given county only has WHITE, adds in empty data rows for all other
-    race/ethnicity groups.
-    See https://github.com/SatcherInstitute/health-equity-tracker/issues/841.
-
-    df: Pandas dataframe to append onto.
-    geo: Geographic level. Must be "state" or "county".
-    demographic: Demographic breakdown. Must be "race", "age", or "sex".
-    """
-    geo_cols = GEO_COL_MAPPING[geo]
-    demog_col = DEMOGRAPHIC_COL_MAPPING[demographic][0][0]
-    all_demos = DEMOGRAPHIC_COL_MAPPING[demographic][1].values()
-    unknown_values = ["Unknown", std_col.Race.UNKNOWN.value]
-    all_demos = set([v for v in all_demos if v not in unknown_values])
-
-    # Map from each geo to the demographic values present. Note that multiple
-    # values/columns may define each geo.
-    if demographic == 'race':
-        demog_col = RACE_ETH_COL
-
-    geo_demo_map = df.loc[:, geo_cols + [demog_col]].groupby(geo_cols)
-    geo_demo_map = geo_demo_map.agg({demog_col: list}).to_dict()[demog_col]
-
-    # List where each entry is a geo and demographic value pair that need to be
-    # added to the df. Example entry: ["06035", "LASSEN", "CA", "ASIAN_NH"].
-    geo_demo_to_add = []
-    for geo_key, demo_values in geo_demo_map.items():
-        geo_lst = [geo_key] if isinstance(geo_key, str) else list(geo_key)
-        values_to_add = sorted(list(all_demos.difference(set(demo_values))))
-        for val in values_to_add:
-            geo_demo_to_add.append(geo_lst + [val])
-
-    # Build the dataframe (as a dict) that we want to append to the original.
-    df_to_append = []
-    columns = list(df.columns)
-    for geo_demo in geo_demo_to_add:
-        row = []
-        for col in columns:
-            if col in geo_cols:
-                row.append(geo_demo[geo_cols.index(col)])
-            elif col == demog_col:
-                row.append(geo_demo[-1])
-            else:
-                row.append("")
-        df_to_append.append(row)
-
-    return pd.concat([df, pd.DataFrame(df_to_append, columns=columns)],
-                     ignore_index=True)
 
 
 def generate_national_dataset(state_df, groupby_cols):
@@ -371,7 +330,7 @@ def process_data(dir, files):
                 demog_col, demog_names_mapping = DEMOGRAPHIC_COL_MAPPING[demo]
 
                 # Slice the data and aggregate for the given dimension.
-                sliced_df = df[geo_cols + demog_col + OUTCOME_COLS]
+                sliced_df = df[geo_cols + demog_col + OUTCOME_COLS + [CASE_DATE_COL]]
 
                 if demo == 'race':
                     demog_col = [RACE_ETH_COL]
@@ -381,7 +340,7 @@ def process_data(dir, files):
 
                 all_dfs[(geo, demo)] = accumulate_data(
                     sliced_df, geo_cols, all_dfs[(geo, demo)], demog_col,
-                    demog_names_mapping)
+                    demog_names_mapping, demo != 'race_and_age')
 
         end = time.time()
         print("Took", round(end - start, 2), "seconds to process file", f)
@@ -397,12 +356,6 @@ def process_data(dir, files):
         # are added together, so we convert back to int here. We also reset the
         # index for simplicity.
         all_dfs[key] = all_dfs[key].astype(int).reset_index()
-
-        # Ensure that all geos have a row for all possible demographic values,
-        # adding the missing values in with empty data.
-        if demographic != "race_and_age":
-            all_dfs[key] = add_missing_demographic_values(
-                all_dfs[key], geo, demographic)
 
         # Standardize the column names and race/age/sex values.
         all_dfs[key] = standardize_data(all_dfs[key])
