@@ -31,7 +31,7 @@ import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import styles from "./Report.module.scss";
 import { TableOfContents } from "../pages/ui/TableOfContents";
-import { reportProviderSteps } from "./ReportProviderSteps";
+import { reportProviderSteps, StepData } from "./ReportProviderSteps";
 
 export interface OneVariableReportProps {
   key: string;
@@ -42,8 +42,8 @@ export interface OneVariableReportProps {
   jumpToDefinitions: Function;
   jumpToData: Function;
   sticking: boolean;
-  headings?: any[];
-  setHeadings?: any;
+  reportSteps?: StepData[];
+  setReportSteps?: Function;
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
@@ -98,20 +98,13 @@ export function OneVariableReport(props: OneVariableReportProps) {
     };
   }, [props.dropdownVarId]);
 
-  // when variable config changes (in particular switching to a new data type of the same dropdown variable which doesn't affect the madlib), re-calculate the cards that need to be tracked in the TableOfContents
+  // // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
-    const stepsOnScreen = reportProviderSteps
-      .map((step) => {
-        const stepElement = document.getElementById(step.hashId);
+    const stepsOnScreen: StepData[] = reportProviderSteps.filter(
+      (step) => document.getElementById(step.hashId)?.id !== undefined
+    );
 
-        return {
-          id: stepElement?.id,
-          text: step.label,
-        };
-      })
-      .filter((el) => !!el.id);
-
-    stepsOnScreen && props.setHeadings(stepsOnScreen);
+    stepsOnScreen && props.setReportSteps?.(stepsOnScreen);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variableConfig]);
 
@@ -303,18 +296,23 @@ export function OneVariableReport(props: OneVariableReportProps) {
           )}
         </Grid>
       </Grid>
-      <Grid
-        item
-        xs={12}
-        md={3}
-        lg={2}
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-      >
-        <TableOfContents sticking={props.sticking} headings={props.headings} />
-      </Grid>
+      {props.reportSteps && (
+        <Grid
+          item
+          xs={12}
+          md={3}
+          lg={2}
+          container
+          spacing={0}
+          direction="column"
+          alignItems="center"
+        >
+          <TableOfContents
+            sticking={props.sticking}
+            reportSteps={props.reportSteps}
+          />
+        </Grid>
+      )}
     </Grid>
   );
 }

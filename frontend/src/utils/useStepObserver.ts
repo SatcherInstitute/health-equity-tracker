@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { ScrollableHashId } from "../reports/ReportProviderSteps";
+import { ScrollableHashId, StepData } from "../reports/ReportProviderSteps";
 
-export function useStepObserver(steps: any[], sticking: boolean) {
+export function useStepObserver(steps: StepData[], sticking: boolean) {
   const observer = useRef<IntersectionObserver | null>(null);
   const [activeId, setActiveId] = useState("");
   const [recentlyClicked, setRecentlyClicked] =
@@ -20,7 +20,6 @@ export function useStepObserver(steps: any[], sticking: boolean) {
     };
   });
 
-  // src/hooks.js
   useEffect(() => {
     const handleObserver = (entries: any) => {
       entries.forEach((entry: any) => {
@@ -42,7 +41,7 @@ export function useStepObserver(steps: any[], sticking: boolean) {
         const stepElem = document.getElementById(step.hashId);
         return stepElem;
       })
-      .filter((el) => !!el);
+      .filter((el) => el !== undefined);
 
     elements.forEach((elem) => observer.current?.observe(elem!));
     return () => observer.current?.disconnect();

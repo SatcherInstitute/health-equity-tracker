@@ -33,6 +33,7 @@ import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
+import { StepData } from "./ReportProviderSteps";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -48,7 +49,7 @@ interface ReportProviderProps {
 }
 
 function ReportProvider(props: ReportProviderProps) {
-  const [headings, setHeadings] = useState<any[]>([]);
+  const [reportSteps, setReportSteps] = useState<StepData[]>([]);
 
   // only show determinants that have definitions
   const definedConditions = props.selectedConditions.filter(
@@ -100,8 +101,8 @@ function ReportProvider(props: ReportProviderProps) {
               )
             }
             sticking={props.sticking}
-            headings={headings}
-            setHeadings={setHeadings}
+            reportSteps={reportSteps}
+            setReportSteps={setReportSteps}
           />
         );
       case "comparegeos":

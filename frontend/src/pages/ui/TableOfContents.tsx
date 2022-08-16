@@ -1,17 +1,17 @@
 import { Card, Step, StepLabel, Stepper } from "@material-ui/core";
 import React from "react";
-import { reportProviderSteps } from "../../reports/ReportProviderSteps";
+import { StepData } from "../../reports/ReportProviderSteps";
 import { useStepObserver } from "../../utils/useStepObserver";
 import styles from "./TableOfContents.module.scss";
 
 interface TableOfContentsProps {
-  headings?: any[];
+  reportSteps: StepData[];
   sticking: boolean;
 }
 
 export function TableOfContents(props: TableOfContentsProps) {
   const [activeId, setRecentlyClicked] = useStepObserver(
-    reportProviderSteps,
+    props.reportSteps,
     props.sticking
   );
 
@@ -19,30 +19,30 @@ export function TableOfContents(props: TableOfContentsProps) {
     <Card raised={true} className={styles.TOC}>
       <Stepper
         nonLinear
-        activeStep={props.headings?.findIndex(
-          (heading) => heading.id === activeId
+        activeStep={props.reportSteps?.findIndex(
+          (step) => step.hashId === activeId
         )}
         orientation="vertical"
         component={"menu"}
         aria-label="Available data visualizations"
         className={styles.Stepper}
       >
-        {props.headings?.map((heading) => {
+        {props.reportSteps?.map((step) => {
           return (
-            <Step key={heading.text} completed={false}>
+            <Step key={step.label} completed={false}>
               <StepLabel>
                 <a
-                  href={`#${heading.id}`}
+                  href={`#${step.hashId}`}
                   className={styles.Step}
                   onClick={(e) => {
                     e.preventDefault();
-                    document.querySelector(`#${heading.id}`)!.scrollIntoView({
+                    document.querySelector(`#${step.hashId}`)!.scrollIntoView({
                       behavior: "smooth",
                     });
-                    setRecentlyClicked(heading.id);
+                    setRecentlyClicked(step.hashId);
                   }}
                 >
-                  {heading.text}
+                  {step.label}
                 </a>
               </StepLabel>
             </Step>
