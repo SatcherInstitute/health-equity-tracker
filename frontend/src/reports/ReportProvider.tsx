@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { OneVariableReport } from "./OneVariableReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
@@ -28,13 +28,11 @@ import { Link } from "react-router-dom";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
-import { Box, Grid } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
-import { TableOfContents } from "../pages/ui/TableOfContents";
-import { reportProviderSteps } from "./ReportProviderSteps";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 

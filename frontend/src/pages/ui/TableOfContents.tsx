@@ -1,7 +1,7 @@
 import { Card, Step, StepLabel, Stepper } from "@material-ui/core";
-import React, { useState } from "react";
-import { ScrollableHashId } from "../../reports/ReportProviderSteps";
-import { useHeadsObserver } from "../../utils/useHeadsObserver";
+import React from "react";
+import { reportProviderSteps } from "../../reports/ReportProviderSteps";
+import { useStepObserver } from "../../utils/useStepObserver";
 import styles from "./TableOfContents.module.scss";
 
 interface TableOfContentsProps {
@@ -10,12 +10,8 @@ interface TableOfContentsProps {
 }
 
 export function TableOfContents(props: TableOfContentsProps) {
-  const [recentlyClicked, setRecentlyClicked] =
-    useState<ScrollableHashId | null>(null);
-
-  const { activeId } = useHeadsObserver(
-    recentlyClicked,
-    setRecentlyClicked,
+  const [activeId, setRecentlyClicked] = useStepObserver(
+    reportProviderSteps,
     props.sticking
   );
 

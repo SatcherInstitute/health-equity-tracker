@@ -1,20 +1,11 @@
 import { useEffect, useState, useRef } from "react";
-import {
-  reportProviderSteps,
-  ScrollableHashId,
-} from "../reports/ReportProviderSteps";
+import { ScrollableHashId } from "../reports/ReportProviderSteps";
 
-export function useHeadsObserver(
-  recentlyClicked: ScrollableHashId | null,
-  setRecentlyClicked: Function,
-  sticking: boolean
-) {
+export function useStepObserver(steps: any[], sticking: boolean) {
   const observer = useRef<IntersectionObserver | null>(null);
   const [activeId, setActiveId] = useState("");
-
-  // useEffect(() => {
-  //   console.log(recentlyClicked);
-  // }, [recentlyClicked])
+  const [recentlyClicked, setRecentlyClicked] =
+    useState<ScrollableHashId | null>(null);
 
   useEffect(() => {
     // if user scrolls or clicks, go back to tracking scroll position in the table of contents
@@ -31,7 +22,7 @@ export function useHeadsObserver(
 
   // src/hooks.js
   useEffect(() => {
-    const handleObsever = (entries: any) => {
+    const handleObserver = (entries: any) => {
       entries.forEach((entry: any) => {
         // when page is scrolled to the top, don't track scroll position
         if (!sticking) setActiveId("");
@@ -42,11 +33,11 @@ export function useHeadsObserver(
       });
     };
 
-    observer.current = new IntersectionObserver(handleObsever, {
+    observer.current = new IntersectionObserver(handleObserver, {
       rootMargin: "-20% 0% -35% 0px",
     });
 
-    const elements = reportProviderSteps
+    const elements = steps
       .map((step) => {
         const stepElem = document.getElementById(step.hashId);
         return stepElem;
@@ -55,7 +46,7 @@ export function useHeadsObserver(
 
     elements.forEach((elem) => observer.current?.observe(elem!));
     return () => observer.current?.disconnect();
-  }, [recentlyClicked, sticking]);
+  }, [steps, recentlyClicked, sticking]);
 
-  return { activeId };
+  return [activeId, setRecentlyClicked] as const;
 }

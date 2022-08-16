@@ -114,6 +114,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
       .filter((el) => !!el.id);
 
     elements && props.setHeadings(elements);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variableConfig]);
 
   return (
