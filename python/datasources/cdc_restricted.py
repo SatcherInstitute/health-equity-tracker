@@ -1,4 +1,5 @@
 import numpy as np  # type: ignore
+import pandas as pd  # type: ignore
 
 import time
 
@@ -10,7 +11,10 @@ import ingestion.constants as constants
 from datasources.data_source import DataSource
 from datasources.cdc_restricted_local import (
     HOSP_DATA_SUPPRESSION_STATES,
-    DEATH_DATA_SUPPRESSION_STATES)
+    DEATH_DATA_SUPPRESSION_STATES,
+    RACE_NAMES_MAPPING,
+    SEX_NAMES_MAPPING,
+    AGE_NAMES_MAPPING)
 
 from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import (
@@ -54,6 +58,7 @@ class CDCRestrictedData(DataSource):
             'upload_to_gcs should not be called for CDCRestrictedData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
+        cumulative = self.get_attr(attrs, 'cumulative')
         for geo in ['national', 'state', 'county']:
             for demo in ['sex', 'race', 'age']:
                 geo_to_pull = 'state' if geo == 'national' else geo
@@ -61,7 +66,7 @@ class CDCRestrictedData(DataSource):
                 df = gcs_to_bq_util.load_csv_as_df(
                     gcs_bucket, filename, dtype={'county_fips': str})
 
-                df = self.generate_breakdown(df, demo, geo)
+                df = self.generate_breakdown(df, demo, geo, cumulative)
 
                 if demo == 'race':
                     std_col.add_race_columns_from_category_id(df)
@@ -69,37 +74,46 @@ class CDCRestrictedData(DataSource):
                 column_types = get_col_types(df)
 
                 table_name = f'by_{demo}_{geo}_processed'
+                if not cumulative:
+                    table_name += '_time_series'
+
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=column_types)
 
-        for filename, table_name in ONLY_FIPS_FILES.items():
-            df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename)
+        # Only do this once, open to a less weird way of doing this
+        if cumulative:
+            for filename, table_name in ONLY_FIPS_FILES.items():
+                df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename)
 
-            df = df[df[std_col.STATE_POSTAL_COL] != 'Unknown']
-            df = merge_state_fips_codes(df)
-            df = df[df[std_col.STATE_FIPS_COL].notna()]
+                df = df[df[std_col.STATE_POSTAL_COL] != 'Unknown']
+                df = merge_state_fips_codes(df)
+                df = df[df[std_col.STATE_FIPS_COL].notna()]
 
-            self.clean_frame_column_names(df)
+                self.clean_frame_column_names(df)
 
-            int_cols = [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
-                        std_col.COVID_HOSP_N, std_col.COVID_HOSP_UNKNOWN,
-                        std_col.COVID_DEATH_Y, std_col.COVID_DEATH_N,
-                        std_col.COVID_DEATH_UNKNOWN]
+                int_cols = [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
+                            std_col.COVID_HOSP_N, std_col.COVID_HOSP_UNKNOWN,
+                            std_col.COVID_DEATH_Y, std_col.COVID_DEATH_N,
+                            std_col.COVID_DEATH_UNKNOWN]
 
-            column_types = {c: 'STRING' for c in df.columns}
-            for col in int_cols:
-                if col in column_types:
-                    column_types[col] = 'FLOAT'
+                # Add race metadata columns.
+                if std_col.RACE_CATEGORY_ID_COL in df.columns:
+                    std_col.add_race_columns_from_category_id(df)
 
-            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+                column_types = {c: 'STRING' for c in df.columns}
+                for col in int_cols:
+                    if col in column_types:
+                        column_types[col] = 'FLOAT'
 
-            print(f'uploading {table_name}')
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=column_types)
+                if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+                    column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-    def generate_breakdown(self, df, demo, geo):
-        print(f'processing {demo} {geo}')
+                print(f'uploading {table_name}')
+                gcs_to_bq_util.add_df_to_bq(
+                    df, dataset, table_name, column_types=column_types)
+
+    def generate_breakdown(self, df, demo, geo, cumulative):
+        print(f'processing {demo} {geo} cumulative = {cumulative}')
         start = time.time()
 
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo == 'race' else demo
@@ -113,13 +127,37 @@ class CDCRestrictedData(DataSource):
             std_col.COVID_POPULATION_PCT,
         ]
 
+        if geo == 'national' or cumulative:
+            # We need to always find the missing demographic values on the 'national'
+            # level because of the way we calculate the national population numbers, as
+            # we sum the population for each state that reports sufficient data. So every
+            # population group needs to be in the df, otherwise they won't get counted in
+            # national population.
+            geo_to_pull = 'state' if geo == 'national' else geo
+            df = add_missing_demographic_values(df, geo_to_pull, demo)
+
+        if cumulative:
+            groupby_cols = [
+                std_col.STATE_POSTAL_COL,
+                demo_col,
+            ]
+
+            if geo == 'county':
+                groupby_cols.extend(
+                    [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
+
+            df = df.groupby(groupby_cols).sum(min_count=1).reset_index()
+
+        else:
+            all_columns.append(std_col.TIME_PERIOD_COL)
+
         df = merge_state_fips_codes(df, keep_postal=True)
 
         if geo == 'county':
             all_columns.extend(
                 [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
             df = merge_county_names(df)
-            df = null_out_all_unknown_deaths_hosps(df)
+            null_out_all_unknown_deaths_hosps(df)
 
         if geo == 'national':
             pop_cols = [
@@ -140,12 +178,15 @@ class CDCRestrictedData(DataSource):
             df.loc[rows_to_modify, generate_column_name(std_col.COVID_DEATH_Y, 'population')] = 0
 
             df = df.drop(columns=std_col.STATE_POSTAL_COL)
-            df = generate_national_dataset(df, demo_col)
+            df = generate_national_dataset(df, demo_col, cumulative)
 
         fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
 
-        # Drop annoying column that doesnt match any fips code
+        # Drop annoying column that doesnt match any fips codes or have
+        # an associated time period
         df = df[df[fips].notna()]
+        if not cumulative:
+            df = df[df[std_col.TIME_PERIOD_COL].notna()]
 
         if geo == 'county':
             df = remove_bad_fips_cols(df)
@@ -193,15 +234,12 @@ def null_out_all_unknown_deaths_hosps(df):
     """If a given geo x breakdown has all unknown hospitalizations or deaths,
        we treat it as if it has "no data," i.e. we clear the hosp/death fields.
 
-       df: DataFrame to null out rows on"""
-    def null_out_row(row):
-        if row[std_col.COVID_DEATH_UNKNOWN] == row[std_col.COVID_CASES]:
-            row[std_col.COVID_DEATH_Y] = np.nan
-        if row[std_col.COVID_HOSP_UNKNOWN] == row[std_col.COVID_CASES]:
-            row[std_col.COVID_HOSP_Y] = np.nan
-        return row
+       Note: This is an in place function so it doesnt return anything
 
-    return df.apply(null_out_row, axis=1)
+       df: DataFrame to null out rows on"""
+
+    df.loc[df[std_col.COVID_DEATH_UNKNOWN] == df[std_col.COVID_CASES], std_col.COVID_DEATH_Y] = np.nan
+    df.loc[df[std_col.COVID_HOSP_UNKNOWN] == df[std_col.COVID_CASES], std_col.COVID_HOSP_Y] = np.nan
 
 
 def null_out_dc_county_rows(df):
@@ -253,7 +291,7 @@ def remove_bad_fips_cols(df):
     return df.reset_index(drop=True)
 
 
-def generate_national_dataset(state_df, demo_col):
+def generate_national_dataset(state_df, demo_col, cumulative):
     """Generates a national dataset based on a state_df and demographic column"""
     int_cols = [
         std_col.COVID_CASES,
@@ -268,7 +306,10 @@ def generate_national_dataset(state_df, demo_col):
     state_df[int_cols] = state_df[int_cols].replace("", 0)
     state_df[int_cols] = state_df[int_cols].astype(int)
 
-    df = state_df.groupby([demo_col]).sum().reset_index()
+    groupby_cols = [demo_col]
+    if not cumulative:
+        groupby_cols.append(std_col.TIME_PERIOD_COL)
+    df = state_df.groupby(groupby_cols).sum().reset_index()
 
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME
@@ -278,7 +319,77 @@ def generate_national_dataset(state_df, demo_col):
         std_col.STATE_NAME_COL,
     ]
 
+    if not cumulative:
+        needed_cols.append(std_col.TIME_PERIOD_COL)
+
     needed_cols.extend(int_cols)
     needed_cols.append(demo_col)
 
     return df[needed_cols].reset_index(drop=True)
+
+
+def add_missing_demographic_values(df, geo, demographic):
+    """Adds in missing demographic values for each geo in the df. For example,
+    if a given county only has WHITE, adds in empty data rows for all other
+    race/ethnicity groups.
+    See https://github.com/SatcherInstitute/health-equity-tracker/issues/841.
+
+    df: Pandas dataframe to append onto.
+    geo: Geographic level. Must be "state" or "county".
+    demographic: Demographic breakdown. Must be "race", "age", or "sex".
+    """
+    geo_col_mapping = {
+        'state': [std_col.STATE_POSTAL_COL],
+        'county': [
+            std_col.STATE_POSTAL_COL,
+            std_col.COUNTY_FIPS_COL,
+            std_col.COUNTY_NAME_COL,
+        ],
+    }
+
+    demo_col_mapping = {
+        'race': (std_col.RACE_CATEGORY_ID_COL, list(RACE_NAMES_MAPPING.values())),
+        'age': (std_col.AGE_COL, list(AGE_NAMES_MAPPING.values())),
+        'sex': (std_col.SEX_COL, list(SEX_NAMES_MAPPING.values())),
+    }
+
+    geo_cols = geo_col_mapping[geo]
+    demog_col = demo_col_mapping[demographic][0]
+    all_demos = demo_col_mapping[demographic][1]
+    unknown_values = ["Unknown", std_col.Race.UNKNOWN.value]
+    all_demos = set([v for v in all_demos if v not in unknown_values])
+
+    # Map from each geo to the demographic values present. Note that multiple
+    # values/columns may define each geo.
+    geo_demo_map = df.loc[:, geo_cols + [
+        demog_col, std_col.TIME_PERIOD_COL]].groupby(geo_cols + [std_col.TIME_PERIOD_COL])
+
+    geo_demo_map = geo_demo_map.agg({demog_col: list}).to_dict()[demog_col]
+
+    # List where each entry is a geo and demographic value pair that need to be
+    # added to the df. Example entry: ["06035", "LASSEN", "CA", "ASIAN_NH"].
+    geo_demo_to_add = []
+    for geo_key, demo_values in geo_demo_map.items():
+        geo_lst = [geo_key] if isinstance(geo_key, str) else list(geo_key)
+        values_to_add = sorted(list(all_demos.difference(set(demo_values))))
+        for val in values_to_add:
+            geo_demo_to_add.append(geo_lst + [val])
+
+    # Build the dataframe (as a dict) that we want to append to the original.
+    df_to_append = []
+    columns = list(df.columns)
+    for geo_demo in geo_demo_to_add:
+        row = []
+        for col in columns:
+            if col in geo_cols:
+                row.append(geo_demo[geo_cols.index(col)])
+            elif col == demog_col:
+                row.append(geo_demo[-1])
+            elif col == std_col.TIME_PERIOD_COL:
+                row.append(geo_demo[-2])
+            else:
+                row.append(np.NaN)
+        df_to_append.append(row)
+
+    return pd.concat([df, pd.DataFrame(df_to_append, columns=columns)],
+                     ignore_index=True)
