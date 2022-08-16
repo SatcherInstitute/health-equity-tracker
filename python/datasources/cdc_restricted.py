@@ -128,9 +128,11 @@ class CDCRestrictedData(DataSource):
         ]
 
         if geo == 'national' or cumulative:
-            # We don't want the missing values for the time series data
-            # but we do need them to correctly calculate the national
-            # ALL per_100k rates
+            # We need to always find the missing demographic values on the 'national'
+            # level because of the way we calculate the national population numbers, as
+            # we sum the population for each state that reports sufficient data. So every
+            # population group needs to be in the df, otherwise they won't get counted in
+            # national population.
             geo_to_pull = 'state' if geo == 'national' else geo
             df = add_missing_demographic_values(df, geo_to_pull, demo)
 
