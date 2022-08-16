@@ -59,6 +59,8 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
     groupby_cols = [std_col.STATE_FIPS_COL]
     if std_col.COUNTY_FIPS_COL in df.columns:
         groupby_cols.append(std_col.COUNTY_FIPS_COL)
+    if std_col.TIME_PERIOD_COL in df.columns:
+        groupby_cols.append(std_col.TIME_PERIOD_COL)
 
     df = df.drop(columns=list(raw_count_to_pct_share.values()))
 
@@ -88,20 +90,28 @@ def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
         rename_cols[raw_count_col] = f'{raw_count_col}_all'
 
     alls = df.loc[df[breakdown_col] == all_val]
-    alls = alls.rename(columns=rename_cols)
+    alls = alls.rename(columns=rename_cols).reset_index(drop=True)
 
     on_cols = [std_col.STATE_FIPS_COL]
     if std_col.COUNTY_FIPS_COL in df.columns:
         on_cols.append(std_col.COUNTY_FIPS_COL)
+    if std_col.TIME_PERIOD_COL in df.columns:
+        on_cols.append(std_col.TIME_PERIOD_COL)
 
     alls = alls[on_cols + list(rename_cols.values())]
 
-    fips = std_col.COUNTY_FIPS_COL if std_col.COUNTY_FIPS_COL in df.columns else std_col.STATE_FIPS_COL
+    # Ensure there is exactly one ALL value for each fips or fips/time_period group.
+    split_cols = [std_col.COUNTY_FIPS_COL] if std_col.COUNTY_FIPS_COL in \
+        df.columns else [std_col.STATE_FIPS_COL]
 
-    # Ensure there is exactly one ALL value for each fips group.
-    all_fips = df[fips].drop_duplicates().to_list()
-    value_counts = alls[fips].value_counts()
-    for f in all_fips:
+    if std_col.TIME_PERIOD_COL in df.columns:
+        split_cols.append(std_col.TIME_PERIOD_COL)
+
+    all_splits = df[split_cols].drop_duplicates()
+    all_splits = list(all_splits.itertuples(index=False, name=None))
+
+    value_counts = alls[split_cols].value_counts()
+    for f in all_splits:
         count = value_counts[f]
         if count != 1:
             raise ValueError(
