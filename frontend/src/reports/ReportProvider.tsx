@@ -128,6 +128,9 @@ function ReportProvider(props: ReportProviderProps) {
                 getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
               )
             }
+            sticking={props.sticking}
+            reportSteps={reportSteps}
+            setReportSteps={setReportSteps}
           />
         );
       case "comparevars":
@@ -151,6 +154,9 @@ function ReportProvider(props: ReportProviderProps) {
             fips2={new Fips(fipsCode)}
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
+            sticking={props.sticking}
+            reportSteps={reportSteps}
+            setReportSteps={setReportSteps}
           />
         );
       default:
