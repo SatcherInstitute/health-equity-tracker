@@ -441,25 +441,25 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     {
       variableId: "covid_vaccinations",
       variableDisplayName: "Vaccinations",
-      variableFullDisplayName: "COVID-19 Vaccinations",
+      variableFullDisplayName: "Cumulative COVID-19 Vaccinations",
       variableDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
       metrics: {
         per100k: {
           metricId: "vaccinated_per_100k",
-          fullCardTitleName: "COVID-19 Vaccinations Per 100k People",
+          fullCardTitleName: "Cumulative COVID-19 Vaccinations Per 100k People",
           shortLabel: "COVID-19 vaccinations per 100k",
           type: "per100k",
         },
         age_adjusted_ratio: {
           metricId: "vaccinated_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Ratio of COVID-19 Vaccination Compared to White (Non-Hispanic)",
+            "Cumulative Age-Adjusted Ratio of COVID-19 Vaccination Compared to White (Non-Hispanic)",
           shortLabel: "",
           type: "ratio",
         },
         pct_share: {
           metricId: "vaccinated_pct_share",
-          fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
+          fullCardTitleName: "Share Of Cumulative COVID-19 Vaccinations",
           unknownsVegaLabel: "% unknown",
           shortLabel: "% of vaccinations",
           type: "pct_share",
@@ -471,7 +471,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           },
           knownBreakdownComparisonMetric: {
             metricId: "vaccinated_share_of_known",
-            fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
+            fullCardTitleName: "Share Of Cumulative COVID-19 Vaccinations",
             shortLabel: "% of vaccinations",
             type: "pct_share",
           },
