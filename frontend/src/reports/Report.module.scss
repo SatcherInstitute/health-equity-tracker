@@ -77,3 +77,8 @@
   scroll-margin: $sticky-madlib-height 0px 0px 0px;
   scroll-snap-align: start;
 }
+
+.ScrollPastHeaderCompareMode {
+  scroll-margin: $sticky-madlib-height-compare 0px 0px 0px;
+  scroll-snap-align: start;
+}

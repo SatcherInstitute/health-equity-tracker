@@ -7,6 +7,7 @@ import styles from "./TableOfContents.module.scss";
 interface TableOfContentsProps {
   reportSteps: StepData[];
   sticking: boolean;
+  twoCol?: boolean;
 }
 
 export function TableOfContents(props: TableOfContentsProps) {
@@ -16,7 +17,7 @@ export function TableOfContents(props: TableOfContentsProps) {
   );
 
   return (
-    <Card raised={true} className={styles.TOC}>
+    <Card raised={true} className={props.twoCol ? styles.TOC2 : styles.TOC}>
       <Stepper
         nonLinear
         activeStep={props.reportSteps?.findIndex(

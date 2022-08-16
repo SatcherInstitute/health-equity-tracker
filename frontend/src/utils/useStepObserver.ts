@@ -43,7 +43,7 @@ export function useStepObserver(steps: StepData[], sticking: boolean) {
       })
       .filter((el) => el !== undefined);
 
-    elements.forEach((elem) => observer.current?.observe(elem!));
+    elements.forEach((elem) => elem && observer.current?.observe(elem));
     return () => observer.current?.disconnect();
   }, [steps, recentlyClicked, sticking]);
 

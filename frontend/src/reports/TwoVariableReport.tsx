@@ -161,7 +161,7 @@ function TwoVariableReport(props: {
               item
               xs={12}
               id="population"
-              className={styles.ScrollPastHeader}
+              className={styles.ScrollPastHeaderCompareMode}
             >
               {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
               <PopulationCard
@@ -202,7 +202,7 @@ function TwoVariableReport(props: {
                 xs={12}
                 sm={6}
                 id="population"
-                className={styles.ScrollPastHeader}
+                className={styles.ScrollPastHeaderCompareMode}
               >
                 {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
                 <PopulationCard
@@ -423,6 +423,7 @@ function TwoVariableReport(props: {
           <TableOfContents
             sticking={props.sticking}
             reportSteps={props.reportSteps}
+            twoCol={true}
           />
         </Grid>
       )}
@@ -463,7 +464,7 @@ function RowOfTwoOptionalMetrics(props: {
         xs={12}
         sm={6}
         id={props.id}
-        className={styles.ScrollPastHeader}
+        className={styles.ScrollPastHeaderCompareMode}
       >
         <LazyLoad offset={800} height={750} once>
           {props.variableConfig1 && (
@@ -484,7 +485,7 @@ function RowOfTwoOptionalMetrics(props: {
         xs={12}
         sm={6}
         id={`${props.id}2`}
-        className={styles.ScrollPastHeader}
+        className={styles.ScrollPastHeaderCompareMode}
       >
         <LazyLoad offset={800} height={600} once>
           {props.variableConfig2 && (

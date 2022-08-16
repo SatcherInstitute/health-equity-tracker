@@ -1,14 +1,19 @@
 @import "../../styles/variables.module";
 @import "../../styles/globals.scss";
 
-.TOC {
+.TOC,
+.TOC2 {
   margin: 10px;
-  width: 70%;
+  width: 80%;
   position: -webkit-sticky;
   position: sticky;
   top: 88px;
   overflow: auto;
-  scroll-margin-top: 100px;
+}
+
+// compare view, sticking header can be much taller
+.TOC2 {
+  top: 188px;
 }
 
 .Stepper {
@@ -18,14 +23,6 @@
     display: flex;
   }
 }
-
-// .Stepper {
-//   align-items: center;
-
-//   circle {
-//     display: none;
-//   }
-// }
 
 .Step {
   text-decoration: none;
