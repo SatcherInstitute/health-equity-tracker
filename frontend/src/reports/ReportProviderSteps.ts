@@ -16,7 +16,7 @@ export type ScrollableHashId =
 
 export const reportProviderSteps: StepData[] = [
   {
-    label: "Population",
+    label: "Location Info",
     hashId: "population",
   },
   {
@@ -40,7 +40,7 @@ export const reportProviderSteps: StepData[] = [
     hashId: "table",
   },
   {
-    label: "Age-Adjusted Ratios",
+    label: "Risk Ratio Table",
     hashId: "age-adjusted",
   },
   // {

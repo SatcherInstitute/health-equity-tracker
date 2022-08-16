@@ -44,6 +44,7 @@ export function TableOfContents(props: TableOfContentsProps) {
                   }}
                 >
                   {step.label}
+                  {!step.label.endsWith("Info") && props.twoCol ? "s" : ""}
                 </a>
               </StepLabel>
             </Step>
