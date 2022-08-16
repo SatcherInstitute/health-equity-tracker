@@ -98,11 +98,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
     };
   }, [props.dropdownVarId]);
 
-  const breakdownIsShown = (breakdownVar: BreakdownVar) =>
-    currentBreakdown === breakdownVar;
-
+  // when variable config changes (in particular switching to a new data type of the same dropdown variable which doesn't affect the madlib), re-calculate the cards that need to be tracked in the TableOfContents
   useEffect(() => {
-    const elements = reportProviderSteps
+    const stepsOnScreen = reportProviderSteps
       .map((step) => {
         const stepElement = document.getElementById(step.hashId);
 
@@ -113,9 +111,12 @@ export function OneVariableReport(props: OneVariableReportProps) {
       })
       .filter((el) => !!el.id);
 
-    elements && props.setHeadings(elements);
+    stepsOnScreen && props.setHeadings(stepsOnScreen);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variableConfig]);
+
+  const breakdownIsShown = (breakdownVar: BreakdownVar) =>
+    currentBreakdown === breakdownVar;
 
   return (
     <Grid container>
