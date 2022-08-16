@@ -103,8 +103,17 @@
 .TerritoryCircle {
   float: left;
   width: 50px;
-  padding-left: 30px;
-  padding-top: 15px;
+  padding: 15px 0 0 30px;
+
+  @media only screen and (min-width: $sm) {
+    width: 20px;
+    padding: 20px 20px 0 20px;
+  }
+
+  @media only screen and (min-width: $md) {
+    width: 50px;
+    padding: 15px 0 0 30px;
+  }
 }
 
 .ProfileButton {
