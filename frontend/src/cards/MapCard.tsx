@@ -73,6 +73,7 @@ export function MapCard(props: MapCardProps) {
 
 function MapCardWithKey(props: MapCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
+
   const isPrison = props.variableConfig.variableId === "prison";
   const isJail = props.variableConfig.variableId === "jail";
   const isIncarceration = isJail || isPrison;
