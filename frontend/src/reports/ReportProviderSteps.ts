@@ -2,7 +2,7 @@ import { StepData } from "../utils/useStepObserver";
 
 export const reportProviderSteps: StepData[] = [
   {
-    label: "Location Info",
+    label: "Location Info and Filters",
     pluralOnCompare: false,
     hashId: "population",
   },
