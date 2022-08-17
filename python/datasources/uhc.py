@@ -87,11 +87,6 @@ UHC_DETERMINANTS = {
     "Suicide": std_col.SUICIDE_PREFIX,
     "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PREFIX,
     "Voter Participation": std_col.VOTER_PARTICIPATION_PREFIX,
-
-    # VOTER PARTICIPATION
-    # pres: state total ALL + by age (missing 65+) + by sex + by race
-    # midterm: state total ALL + by age (missing 65+)
-    # average: not using, state totals from AHR match our state totals
 }
 
 # When parsing Measure Names from rows with a demographic breakdown
@@ -114,9 +109,6 @@ PER100K_DETERMINANTS = {
 PLUS_5_AGE_DETERMINANTS = {
     "Suicide": std_col.SUICIDE_PREFIX,
 }
-
-AVERAGED_DETERMINANTS = ["Voter Participation"]
-
 
 BREAKDOWN_MAP = {
     "race_and_ethnicity": UHC_RACE_GROUPS,
@@ -202,7 +194,7 @@ def parse_raw_data(df, breakdown):
                 per_100k_col_name = std_col.generate_column_name(
                     prefix, std_col.PER_100K_SUFFIX)
 
-                # replace extra space to match column correctly
+                # replace extra space to match 65+ column correctly
                 df.replace('Voter Participation (Presidential) - Ages 65+ ',
                            'Voter Participation (Presidential) - Ages 65+', inplace=True)
 
@@ -215,12 +207,8 @@ def parse_raw_data(df, breakdown):
                          ALT_ROWS_ALL.get(determinant, determinant))
                     ]
 
-                    # TOTAL voter_participation is taken from pres value
-                    if determinant in AVERAGED_DETERMINANTS:
-                        output_row[per_100k_col_name] = matched_row['Value'].values[0] * 1000
-
                     # already per 100k
-                    elif determinant in PER100K_DETERMINANTS:
+                    if determinant in PER100K_DETERMINANTS:
                         output_row[per_100k_col_name] = matched_row['Value'].values[0]
                     # converted from % to per 100k
                     else:
@@ -244,19 +232,11 @@ def parse_raw_data(df, breakdown):
                         (df[std_col.STATE_NAME_COL] == state) &
                         (df['Measure Name'] == measure_name)]
 
-                    # BY AGE voter participation is avg of pres and midterm
-                    if determinant in AVERAGED_DETERMINANTS and breakdown == std_col.AGE_COL:
-                        if len(matched_row) > 0:
-                            output_row[per_100k_col_name] = matched_row['Value'].values[0] * 1000
-
-                    # for other determinants besides VOTER
-                    elif len(matched_row) > 0:
+                    if len(matched_row) > 0:
                         pct = matched_row['Value'].values[0]
                         if pct:
                             if determinant in PER100K_DETERMINANTS:
                                 output_row[per_100k_col_name] = matched_row['Value'].values[0]
-
-                            # convert from % to per 100k
                             else:
                                 output_row[per_100k_col_name] = matched_row['Value'].values[0] * 1000
 
