@@ -1,19 +1,4 @@
-export type StepData = {
-  label: string;
-  hashId: ScrollableHashId;
-  pluralOnCompare: boolean;
-};
-
-export type ScrollableHashId =
-  | "population"
-  | "map"
-  | "bar"
-  | "unknowns"
-  | "disparity"
-  | "table"
-  | "age-adjusted"
-  | "def"
-  | "what";
+import { StepData } from "../utils/useStepObserver";
 
 export const reportProviderSteps: StepData[] = [
   {

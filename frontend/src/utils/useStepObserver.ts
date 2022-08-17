@@ -1,7 +1,23 @@
 import { useEffect, useState, useRef } from "react";
-import { ScrollableHashId, StepData } from "../reports/ReportProviderSteps";
 
-export function useStepObserver(steps: StepData[], sticking: boolean) {
+export type StepData = {
+  label: string;
+  hashId: ScrollableHashId;
+  pluralOnCompare: boolean;
+};
+
+export type ScrollableHashId =
+  | "population"
+  | "map"
+  | "bar"
+  | "unknowns"
+  | "disparity"
+  | "table"
+  | "age-adjusted"
+  | "def"
+  | "what";
+
+export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
   const observer = useRef<IntersectionObserver | null>(null);
   const [activeId, setActiveId] = useState("");
   const [recentlyClicked, setRecentlyClicked] =
@@ -24,7 +40,7 @@ export function useStepObserver(steps: StepData[], sticking: boolean) {
     const handleObserver = (entries: any) => {
       entries.forEach((entry: any) => {
         // when page is scrolled to the top, don't track scroll position
-        if (!sticking) setActiveId("");
+        if (isScrolledToTop) setActiveId("");
         else if (entry?.isIntersecting) {
           // prefer a recently clicked id, otherwise set to the observed "in view" id
           setActiveId(recentlyClicked || entry.target.id);
@@ -45,7 +61,16 @@ export function useStepObserver(steps: StepData[], sticking: boolean) {
 
     elements.forEach((elem) => elem && observer.current?.observe(elem));
     return () => observer.current?.disconnect();
-  }, [steps, recentlyClicked, sticking]);
+  }, [steps, recentlyClicked, isScrolledToTop]);
 
   return [activeId, setRecentlyClicked] as const;
+}
+
+export function pluralizeStepLabels(steps: StepData[]) {
+  return steps.map((step) => {
+    return {
+      ...step,
+      label: step.pluralOnCompare ? `${step.label}s` : step.label,
+    };
+  });
 }

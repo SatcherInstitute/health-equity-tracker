@@ -7,29 +7,39 @@ import {
   useTheme,
 } from "@material-ui/core";
 import React from "react";
-import { StepData } from "../../reports/ReportProviderSteps";
-import { useStepObserver } from "../../utils/useStepObserver";
+import { StepData, useStepObserver } from "../../utils/useStepObserver";
 import styles from "./TableOfContents.module.scss";
+
+/* 
+  reportSteps: StepData[]; Array of TOC "steps" mapping the card hashId to the step display name
+  isScrolledToTop?: boolean; Optionally send in top scroll status; when true none of the steps will be highlighted
+  skinnyMode?: boolean; Optionally set the TOC to prefer icons-only to higher breakpoints, 
+    and take up as little horizontal space as possible. Used on Report Compare / Two Var mode, but not on One Var mode.
+
+*/
 
 interface TableOfContentsProps {
   reportSteps: StepData[];
-  sticking: boolean;
-  twoCol?: boolean;
+  isScrolledToTop?: boolean;
+  skinnyMode?: boolean;
 }
 
 export function TableOfContents(props: TableOfContentsProps) {
   const theme = useTheme();
   const pageIsWide = useMediaQuery(
-    theme.breakpoints.up(props.twoCol ? "lg" : "md")
+    theme.breakpoints.up(props.skinnyMode ? "lg" : "md")
   );
 
   const [activeId, setRecentlyClicked] = useStepObserver(
     props.reportSteps,
-    props.sticking
+    props.isScrolledToTop || false
   );
 
   return (
-    <Card raised={true} className={props.twoCol ? styles.TOC2 : styles.TOC}>
+    <Card
+      raised={true}
+      className={props.skinnyMode ? styles.TocTwoVar : styles.TocOneVar}
+    >
       <Stepper
         component={"menu"}
         nonLinear
@@ -37,7 +47,7 @@ export function TableOfContents(props: TableOfContentsProps) {
           (step) => step.hashId === activeId
         )}
         orientation="vertical"
-        aria-label="Available data visualizations"
+        aria-label="Table of Contents"
         className={styles.Stepper}
       >
         {props.reportSteps?.map((step) => {
@@ -65,16 +75,7 @@ export function TableOfContents(props: TableOfContentsProps) {
                   }
                 >
                   {step.label}
-                  {props.twoCol && step.pluralOnCompare ? "s" : ""}
                 </span>
-                {/* <a
-                  href={`#${step.hashId}`}
-                  className={styles.Step}
-                >
-                  {""}
-                  {pageIsWide ? step.label : ""}
-                  {!step.label.endsWith("Info") && props.twoCol && pageIsWide ? "s" : ""}
-                </a> */}
               </StepButton>
             </Step>
           );

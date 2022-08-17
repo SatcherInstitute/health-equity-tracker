@@ -27,10 +27,11 @@ import {
   setParameter,
   swapOldParams,
 } from "../utils/urlutils";
-import { reportProviderSteps, StepData } from "./ReportProviderSteps";
+import { reportProviderSteps } from "./ReportProviderSteps";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import styles from "./Report.module.scss";
+import { pluralizeStepLabels, StepData } from "../utils/useStepObserver";
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -44,7 +45,7 @@ function TwoVariableReport(props: {
   updateFips2Callback: (fips: Fips) => void;
   jumpToDefinitions: Function;
   jumpToData: Function;
-  sticking: boolean;
+  isScrolledToTop: boolean;
   reportSteps?: StepData[];
   setReportSteps?: Function;
 }) {
@@ -422,9 +423,9 @@ function TwoVariableReport(props: {
           alignItems="center"
         >
           <TableOfContents
-            sticking={props.sticking}
-            reportSteps={props.reportSteps}
-            twoCol={true}
+            isScrolledToTop={props.isScrolledToTop}
+            reportSteps={pluralizeStepLabels(props.reportSteps)}
+            skinnyMode={true}
           />
         </Grid>
       )}

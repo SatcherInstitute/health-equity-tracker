@@ -31,7 +31,8 @@ import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import styles from "./Report.module.scss";
 import { TableOfContents } from "../pages/ui/TableOfContents";
-import { reportProviderSteps, StepData } from "./ReportProviderSteps";
+import { reportProviderSteps } from "./ReportProviderSteps";
+import { StepData } from "../utils/useStepObserver";
 
 export interface OneVariableReportProps {
   key: string;
@@ -41,7 +42,7 @@ export interface OneVariableReportProps {
   hidePopulationCard?: boolean;
   jumpToDefinitions: Function;
   jumpToData: Function;
-  sticking: boolean;
+  isScrolledToTop: boolean;
   reportSteps?: StepData[];
   setReportSteps?: Function;
 }
@@ -312,7 +313,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           alignItems="center"
         >
           <TableOfContents
-            sticking={props.sticking}
+            isScrolledToTop={props.isScrolledToTop}
             reportSteps={props.reportSteps}
           />
         </Grid>

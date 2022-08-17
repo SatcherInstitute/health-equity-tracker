@@ -33,7 +33,7 @@ import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
-import { StepData } from "./ReportProviderSteps";
+import { StepData } from "../utils/useStepObserver";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -45,7 +45,7 @@ interface ReportProviderProps {
   setMadLib: Function;
   doScrollToData?: boolean;
   showIncarceratedChildrenAlert: boolean;
-  sticking: boolean;
+  isScrolledToTop: boolean;
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -100,7 +100,7 @@ function ReportProvider(props: ReportProviderProps) {
                 getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
               )
             }
-            sticking={props.sticking}
+            isScrolledToTop={props.isScrolledToTop}
             reportSteps={reportSteps}
             setReportSteps={setReportSteps}
           />
@@ -128,7 +128,7 @@ function ReportProvider(props: ReportProviderProps) {
                 getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
               )
             }
-            sticking={props.sticking}
+            isScrolledToTop={props.isScrolledToTop}
             reportSteps={reportSteps}
             setReportSteps={setReportSteps}
           />
@@ -154,7 +154,7 @@ function ReportProvider(props: ReportProviderProps) {
             fips2={new Fips(fipsCode)}
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
-            sticking={props.sticking}
+            isScrolledToTop={props.isScrolledToTop}
             reportSteps={reportSteps}
             setReportSteps={setReportSteps}
           />

@@ -1,8 +1,8 @@
 @import "../../styles/variables.module";
 @import "../../styles/globals.scss";
 
-.TOC,
-.TOC2 {
+.TocOneVar,
+.TocTwoVar {
   margin: 14px 0 0 0;
   width: 80%;
   position: -webkit-sticky;
@@ -12,8 +12,8 @@
   justify-content: center;
 }
 
-// compare view, sticking header can be much taller
-.TOC2 {
+// compare view sticking header can be much taller
+.TocTwoVar {
   top: 188px;
 }
 
