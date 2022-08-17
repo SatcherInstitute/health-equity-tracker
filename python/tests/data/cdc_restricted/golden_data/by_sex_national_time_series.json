@@ -1,8 +1,9 @@
 [
   {
-    "state_fips": "06",
-    "state_name": "California",
+    "state_fips": "00",
+    "state_name": "United States",
     "sex": "All",
+    "time_period": "2021-01",
     "covid_cases_per_100k": 18000,
     "covid_deaths_per_100k": 5000,
     "covid_hosp_per_100k": 5000,
@@ -12,9 +13,10 @@
     "covid_population_pct": 100.0
   },
   {
-    "state_fips": "06",
-    "state_name": "California",
+    "state_fips": "00",
+    "state_name": "United States",
     "sex": "Female",
+    "time_period": "2021-01",
     "covid_cases_per_100k": 10000,
     "covid_deaths_per_100k": 1667,
     "covid_hosp_per_100k": 3333,
@@ -24,9 +26,10 @@
     "covid_population_pct": 60.0
   },
   {
-    "state_fips": "06",
-    "state_name": "California",
+    "state_fips": "00",
+    "state_name": "United States",
     "sex": "Male",
+    "time_period": "2021-01",
     "covid_cases_per_100k": 15000,
     "covid_deaths_per_100k": 2500,
     "covid_hosp_per_100k": 5000,
@@ -36,9 +39,10 @@
     "covid_population_pct": 40.0
   },
   {
-    "state_fips": "06",
-    "state_name": "California",
+    "state_fips": "00",
+    "state_name": "United States",
     "sex": "Unknown",
+    "time_period": "2021-01",
     "covid_cases_per_100k": null,
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
@@ -48,57 +52,23 @@
     "covid_population_pct": null
   },
   {
-    "state_fips": "15",
-    "state_name": "Hawaii",
-    "sex": "All",
-    "covid_cases_per_100k": 18000,
-    "covid_deaths_per_100k": null,
-    "covid_hosp_per_100k": null,
-    "covid_cases_share": 100.0,
-    "covid_hosp_share": 100.0,
-    "covid_deaths_share": 100.0,
-    "covid_population_pct": 100.0
-  },
-  {
-    "state_fips": "15",
-    "state_name": "Hawaii",
-    "sex": "Female",
-    "covid_cases_per_100k": 10000,
-    "covid_deaths_per_100k": null,
-    "covid_hosp_per_100k": null,
-    "covid_cases_share": 50.0,
-    "covid_hosp_share": null,
-    "covid_deaths_share": null,
-    "covid_population_pct": 60.0
-  },
-  {
-    "state_fips": "15",
-    "state_name": "Hawaii",
-    "sex": "Male",
-    "covid_cases_per_100k": 15000,
-    "covid_deaths_per_100k": null,
-    "covid_hosp_per_100k": null,
-    "covid_cases_share": 50.0,
-    "covid_hosp_share": null,
-    "covid_deaths_share": null,
-    "covid_population_pct": 40.0
-  },
-  {
-    "state_fips": "15",
-    "state_name": "Hawaii",
-    "sex": "Unknown",
+    "state_fips": "00",
+    "state_name": "United States",
+    "sex": "Other",
+    "time_period": "2021-01",
     "covid_cases_per_100k": null,
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
-    "covid_cases_share": 38.9,
-    "covid_hosp_share": null,
-    "covid_deaths_share": null,
+    "covid_cases_share": 0,
+    "covid_hosp_share": 0,
+    "covid_deaths_share": 0,
     "covid_population_pct": null
   },
   {
-    "state_fips": "54",
-    "state_name": "West Virginia",
+    "state_fips": "00",
+    "state_name": "United States",
     "sex": "All",
+    "time_period": "2022-01",
     "covid_cases_per_100k": 18000,
     "covid_deaths_per_100k": 5000,
     "covid_hosp_per_100k": 5000,
@@ -108,9 +78,10 @@
     "covid_population_pct": 100.0
   },
   {
-    "state_fips": "54",
-    "state_name": "West Virginia",
+    "state_fips": "00",
+    "state_name": "United States",
     "sex": "Female",
+    "time_period": "2022-01",
     "covid_cases_per_100k": 10000,
     "covid_deaths_per_100k": 1667,
     "covid_hosp_per_100k": 3333,
@@ -120,9 +91,10 @@
     "covid_population_pct": 60.0
   },
   {
-    "state_fips": "54",
-    "state_name": "West Virginia",
+    "state_fips": "00",
+    "state_name": "United States",
     "sex": "Male",
+    "time_period": "2022-01",
     "covid_cases_per_100k": 15000,
     "covid_deaths_per_100k": 2500,
     "covid_hosp_per_100k": 5000,
@@ -132,15 +104,29 @@
     "covid_population_pct": 40.0
   },
   {
-    "state_fips": "54",
-    "state_name": "West Virginia",
+    "state_fips": "00",
+    "state_name": "United States",
     "sex": "Unknown",
+    "time_period": "2022-01",
     "covid_cases_per_100k": null,
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
     "covid_cases_share": 38.9,
     "covid_hosp_share": 20.0,
     "covid_deaths_share": 60.0,
+    "covid_population_pct": null
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "sex": "Other",
+    "time_period": "2022-01",
+    "covid_cases_per_100k": null,
+    "covid_deaths_per_100k": null,
+    "covid_hosp_per_100k": null,
+    "covid_cases_share": 0,
+    "covid_hosp_share": 0,
+    "covid_deaths_share": 0,
     "covid_population_pct": null
   }
 ]
