@@ -34,6 +34,8 @@ import { TableOfContents } from "../pages/ui/TableOfContents";
 import { reportProviderSteps } from "./ReportProviderSteps";
 import { StepData } from "../utils/useStepObserver";
 
+const HEADER_OFFSET_ONE_VAR = 88;
+
 export interface OneVariableReportProps {
   key: string;
   dropdownVarId: DropdownVarId;
@@ -114,6 +116,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
 
   return (
     <Grid container>
+      {/* CARDS COLUMN */}
       <Grid item xs={12} sm={11} md={9} lg={10}>
         <Grid
           item
@@ -296,7 +299,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           )}
         </Grid>
       </Grid>
-      {/* table of contents */}
+      {/* TABLE OF CONTENTS COLUMN */}
       {props.reportSteps && (
         <Grid
           item
@@ -313,6 +316,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           alignItems="center"
         >
           <TableOfContents
+            floatTopOffset={HEADER_OFFSET_ONE_VAR}
             isScrolledToTop={props.isScrolledToTop}
             reportSteps={props.reportSteps}
           />

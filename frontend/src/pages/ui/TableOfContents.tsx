@@ -20,6 +20,7 @@ import styles from "./TableOfContents.module.scss";
 
 interface TableOfContentsProps {
   reportSteps: StepData[];
+  floatTopOffset?: number;
   isScrolledToTop?: boolean;
   skinnyMode?: boolean;
 }
@@ -39,6 +40,7 @@ export function TableOfContents(props: TableOfContentsProps) {
     <Card
       raised={true}
       className={props.skinnyMode ? styles.TocTwoVar : styles.TocOneVar}
+      style={{ top: props.floatTopOffset }}
     >
       <Stepper
         component={"menu"}
@@ -68,6 +70,7 @@ export function TableOfContents(props: TableOfContentsProps) {
                 }}
               >
                 <span
+                  // hide labels visually but not from screen readers on small screens
                   className={
                     pageIsWide
                       ? styles.StepButtonLabel

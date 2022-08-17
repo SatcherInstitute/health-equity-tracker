@@ -7,24 +7,21 @@
   width: 80%;
   position: -webkit-sticky;
   position: sticky;
-  top: 88px;
   display: flex;
   justify-content: center;
 }
 
-// compare view sticking header can be much taller
-.TocTwoVar {
-  top: 188px;
-}
-
 .Stepper {
+  // hide on xs
   display: none;
 
+  // skinny icons on sm
   @media only screen and (min-width: $sm) {
     display: flex;
     padding: 0 0 0 6px !important;
   }
 
+  // icons+labels md and up
   @media only screen and (min-width: $md) {
     display: flex;
     padding: 24px !important;
@@ -37,25 +34,8 @@
 
 .StepButton {
   text-align: left;
-  font-size: $smallest !important;
 }
 
 .StepButtonLabel {
   font-size: $smallest;
-}
-
-.Step {
-  text-decoration: none;
-  color: $alt-dark !important;
-  font-size: $smallest;
-  display: block;
-  text-align: left !important;
-}
-
-.SelectedStep {
-  color: $alt-green !important;
-  text-decoration: none;
-  font-size: $smallest;
-  text-align: left !important;
-  float: left !important;
 }
