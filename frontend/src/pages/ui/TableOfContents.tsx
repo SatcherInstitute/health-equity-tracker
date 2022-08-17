@@ -65,7 +65,7 @@ export function TableOfContents(props: TableOfContentsProps) {
                   }
                 >
                   {step.label}
-                  {!step.label.endsWith("Info") && props.twoCol ? "s" : ""}
+                  {props.twoCol && step.pluralOnCompare ? "s" : ""}
                 </span>
                 {/* <a
                   href={`#${step.hashId}`}

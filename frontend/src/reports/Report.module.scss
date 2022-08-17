@@ -78,7 +78,8 @@
   scroll-snap-align: start;
 }
 
-.ScrollPastHeaderCompareMode {
+.ScrollPastHeaderCompareMode,
+.FootnoteLargeHeading {
   scroll-margin: $sticky-madlib-height-compare 0px 0px 0px;
   scroll-snap-align: start;
 }

@@ -8,7 +8,6 @@
   position: -webkit-sticky;
   position: sticky;
   top: 88px;
-  // overflow: auto;
   display: flex;
   justify-content: center;
 }
@@ -30,10 +29,13 @@
     display: flex;
     padding: 24px !important;
   }
+
+  :global(.MuiStepConnector-vertical) {
+    padding: 0;
+  }
 }
 
 .StepButton {
-  // cursor: pointer;
   text-align: left;
   font-size: $smallest !important;
 }
