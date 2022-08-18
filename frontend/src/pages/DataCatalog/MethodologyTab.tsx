@@ -619,7 +619,7 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 className={styles.MethodologyQuestion}>
+              <h3 className={styles.MethodologyQuestion} id="metrics">
                 What do the metrics on the tracker mean?
               </h3>
               <div className={styles.MethodologyAnswer}>
@@ -663,6 +663,30 @@ function MethodologyTab() {
                     the ACS survey. This metric is rounded to one decimal place.
                     In instances where this would round to 0%, two decimal
                     places are used.
+                  </li>
+                  <li>
+                    <b>Inequitable burden of COVID-19 cases over time</b>: To
+                    demonstrate the often inequitable distribution of a
+                    condition or disease, we calculate each demographic group's
+                    disproportionate percent share of that condition and present
+                    it as a proportion to that demographic group's share of the
+                    entire population. This calculation is done for every point
+                    in time for which we have data, and displayed over time to
+                    show trends in inequity.
+                    <p>
+                      {" "}
+                      As an example, if in a certain month White (Non-Hispanic)
+                      people in Georgia had 65.7% share of COVID-19 deaths but
+                      only 52.7% share of the population, their disproportionate
+                      percent share would be <b>+13%</b>:{" "}
+                      <code>65.7% - 52.7% = +13%</code>. This value is then
+                      divided by the population percent share to give a
+                      proportional inequitable burden of <b>+24.7%</b>:{" "}
+                      <code>+13% / 52.7% = +24.7%</code>. In plain language,
+                      this would be interpretted as “White deaths in Georgia
+                      from COVID-19 were almost 25% higher than expected, based
+                      on their share of Georgia's overall population.”
+                    </p>
                   </li>
                 </ul>
               </div>

@@ -58,9 +58,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   function getTitleText() {
     return `${
       metricConfigRates.trendsCardTitleName
-    } by ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-      props.breakdownVar
-    ].toLowerCase()} in ${props.fips.getSentenceDisplayName()}`;
+    } in ${props.fips.getSentenceDisplayName()}`;
   }
   function CardTitle() {
     return <>{getTitleText()}</>;
@@ -124,7 +122,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
               </>
             ) : (
               <>
-                {/* 2N INCIDENCE RATE TRENDS VIZ COMPONENT HERE */}
                 <TrendsChart
                   // @ts-ignore
                   data={nestedRatesData}

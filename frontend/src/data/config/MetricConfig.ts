@@ -330,7 +330,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_cases_share",
           fullCardTitleName: "Share of total COVID-19 cases",
-          trendsCardTitleName: "Inequitable share of COVID-19 cases over time",
+          trendsCardTitleName: "Inequitable burden of COVID-19 cases over time",
           unknownsVegaLabel: "% unknown",
           shortLabel: "% of COVID-19 cases",
           type: "pct_share",
@@ -368,7 +368,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_deaths_share",
           fullCardTitleName: "Share of total COVID-19 deaths",
-          trendsCardTitleName: "Inequitable share of COVID-19 deaths over time",
+          trendsCardTitleName:
+            "Inequitable burden of COVID-19 deaths over time",
           shortLabel: "% of COVID-19 deaths",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
@@ -408,7 +409,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "covid_hosp_share",
           fullCardTitleName: "Share of total COVID-19 hospitalizations",
           trendsCardTitleName:
-            "Inequitable share of COVID-19 hospitalizations over time",
+            "Inequitable burden of COVID-19 hospitalizations over time",
           shortLabel: "% of COVID-19 hospitalizations",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",

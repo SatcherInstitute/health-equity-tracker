@@ -24,6 +24,9 @@ import {
   getNestedUndueShares,
   getNestedUnknowns,
 } from "../data/utils/DatasetTimeUtils";
+import { Alert } from "@material-ui/lab";
+import { HashLink } from "react-router-hash-link";
+import { METHODOLOGY_TAB_LINK } from "../utils/internalRoutes";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -53,8 +56,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const query = new MetricQuery(metricIdsToFetch, breakdowns, LONGITUDINAL);
 
   function getTitleText() {
-    return `${metricConfig.trendsCardTitleName} by ${
-      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+    return `${
+      metricConfig.trendsCardTitleName
     } in ${props.fips.getSentenceDisplayName()}`;
   }
   function CardTitle() {
@@ -95,39 +98,53 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
         );
 
         return (
-          <CardContent>
-            {queryResponse.shouldShowMissingDataMessage([
-              metricConfig.metricId,
-            ]) || nestedData.length === 0 ? (
-              <>
-                <MissingDataAlert
-                  dataName={metricConfig.fullCardTitleName}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
-                  }
-                  fips={props.fips}
-                />
-              </>
-            ) : (
-              <div>
-                {/* 2N INCIDENCE RATE TRENDS VIZ COMPONENT HERE */}
-                {/* @ts-ignore */}
-                <TrendsChart
-                  // @ts-ignore
-                  data={nestedData}
-                  // @ts-ignore
-                  unknown={nestedUnknowns}
-                  axisConfig={{
-                    type: metricConfig.type,
-                    groupLabel:
-                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                        props.breakdownVar
-                      ],
-                  }}
-                />
-              </div>
-            )}
-          </CardContent>
+          <>
+            <CardContent>
+              <Alert severity="info" role="note">
+                This chart visualizes the disproportionate percent share of a
+                condition that is borne by a certain demographic, compared with
+                that demographic's share of the entire population. Read more
+                about this calculation in our{" "}
+                <HashLink to={`${METHODOLOGY_TAB_LINK}#metrics`}>
+                  methodology
+                </HashLink>
+                .
+              </Alert>
+            </CardContent>
+
+            <CardContent>
+              {queryResponse.shouldShowMissingDataMessage([
+                metricConfig.metricId,
+              ]) || nestedData.length === 0 ? (
+                <>
+                  <MissingDataAlert
+                    dataName={metricConfig.fullCardTitleName}
+                    breakdownString={
+                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                    }
+                    fips={props.fips}
+                  />
+                </>
+              ) : (
+                <div>
+                  {/* @ts-ignore */}
+                  <TrendsChart
+                    // @ts-ignore
+                    data={nestedData}
+                    // @ts-ignore
+                    unknown={nestedUnknowns}
+                    axisConfig={{
+                      type: metricConfig.type,
+                      groupLabel:
+                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                          props.breakdownVar
+                        ],
+                    }}
+                  />
+                </div>
+              )}
+            </CardContent>
+          </>
         );
       }}
     </CardWrapper>

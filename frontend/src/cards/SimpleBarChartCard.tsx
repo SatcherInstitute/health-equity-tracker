@@ -59,8 +59,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const query = new MetricQuery(metricIdsToFetch, breakdowns);
 
   function getTitleText() {
-    return `${metricConfig.fullCardTitleName} by ${
-      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+    return `${
+      metricConfig.fullCardTitleName
     } in ${props.fips.getSentenceDisplayName()}`;
   }
   function CardTitle() {
