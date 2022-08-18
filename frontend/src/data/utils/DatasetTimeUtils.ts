@@ -152,9 +152,11 @@ export function getNestedUndueShares(
         row[popPctShareId] != null &&
         row[popPctShareId] !== 0
       ) {
-        // pct_off = (observed - expected) / expected
+        // pct_off = (observed - expected) / expected * 100
         diff =
-          (row[conditionPctShareId] - row[popPctShareId]) / row[popPctShareId];
+          ((row[conditionPctShareId] - row[popPctShareId]) /
+            row[popPctShareId]) *
+          100;
       }
       return [row[TIME_PERIOD], diff];
     });
