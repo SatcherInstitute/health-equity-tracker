@@ -17,12 +17,12 @@ export const reportProviderSteps: StepData[] = [
     hashId: "bar",
   },
   {
-    label: "Unknown Share Map",
+    label: "Unknown Map",
     pluralOnCompare: true,
     hashId: "unknowns",
   },
   {
-    label: "Share Chart",
+    label: "Share vs. Population",
     pluralOnCompare: true,
     hashId: "disparity",
   },
