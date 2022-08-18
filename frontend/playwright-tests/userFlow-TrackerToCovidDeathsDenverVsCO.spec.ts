@@ -4,7 +4,6 @@ const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 const EXPLICIT_DEFAULT_SETTINGS = "?dt1=covid_cases&demo=race_and_ethnicity"
 const DEFAULT_COMPARE_GEO_MODE = "?mls=1.covid-3.00-5.13&mlp=comparegeos"
 const COVID_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos"
-const COVID_DEATHS_DEN_VS_CO_SKIP_WELCOME = "?mls=1.covid-3.08031-5.08&mlp=comparegeos&onboard=false&dt1=covid_deaths&dt2=covid_deaths"
 const SKIP_WELCOME = `&onboard=false`
 
 test.describe.configure({ mode: 'parallel' });
@@ -12,7 +11,7 @@ test.describe.configure({ mode: 'parallel' });
 test('Default Tracker to Compare Mode', async ({ page }) => {
 
     // Landing Page Loads
-    await page.goto(EXPLORE_DATA_PAGE_LINK+EXPLICIT_DEFAULT_SETTINGS+SKIP_WELCOME);
+    await page.goto(EXPLORE_DATA_PAGE_LINK + EXPLICIT_DEFAULT_SETTINGS + SKIP_WELCOME);
 
     // change carousel to "Compare Geo mode"
     const advanceMadlibCarouselArrowButton = page.locator('id=onboarding-madlib-arrow')
@@ -25,7 +24,7 @@ test('Default Tracker to Compare Mode', async ({ page }) => {
 
 test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
 
-    await page.goto(EXPLORE_DATA_PAGE_LINK + DEFAULT_COMPARE_GEO_MODE+SKIP_WELCOME);
+    await page.goto(EXPLORE_DATA_PAGE_LINK + DEFAULT_COMPARE_GEO_MODE + SKIP_WELCOME);
 
 
     // Changing first location via madlib buttons
@@ -42,15 +41,15 @@ test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
     await page.fill('[placeholder="County, State, Territory, or United States"]', 'Colorado');
     await page.keyboard.press('Enter');
 
-    // Confirm correct URL
-    await expect(page).toHaveURL(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO+SKIP_WELCOME);
+    // Confirm correct URL params
+    await expect(page).toHaveURL(/.*mls=1.covid-3.08031-5.08&mlp=comparegeos/);
 
 })
 
 
 test('Switch Data Types for Both Geos', async ({ page }) => {
 
-    await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO+SKIP_WELCOME);
+    await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO + SKIP_WELCOME);
 
     // TODO React Joyride a11y issue: Modals need labels. https://github.com/gilbarbara/react-joyride/issues/706
     // Should submit a PR to fix dependency package
@@ -64,8 +63,10 @@ test('Switch Data Types for Both Geos', async ({ page }) => {
     const deathsToggleOption2 = page.locator(':nth-match(:text("Deaths"), 2)')
     await deathsToggleOption2.click()
 
-    // Confirm correct URL
-    await expect(page).toHaveURL(EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_DEN_VS_CO_SKIP_WELCOME);
+    // Confirm correct URL params
+    await expect(page).toHaveURL(/.*dt1=covid_deaths/);
+    await expect(page).toHaveURL(/.*dt2=covid_deaths/);
+
 
 
 });
