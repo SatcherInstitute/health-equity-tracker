@@ -4,7 +4,6 @@ const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 const EXPLICIT_DEFAULT_SETTINGS = "?dt1=covid_cases&demo=race_and_ethnicity"
 const DEFAULT_COMPARE_GEO_MODE = "?mls=1.covid-3.00-5.13&mlp=comparegeos"
 const COVID_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos"
-const COVID_DEATHS_DEN_VS_CO_SKIP_WELCOME = "?mls=1.covid-3.08031-5.08&mlp=comparegeos&onboard=false&dt1=covid_deaths&dt2=covid_deaths"
 const SKIP_WELCOME = `&onboard=false`
 
 test.describe.configure({ mode: 'parallel' });
@@ -42,8 +41,8 @@ test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
     await page.fill('[placeholder="County, State, Territory, or United States"]', 'Colorado');
     await page.keyboard.press('Enter');
 
-    // Confirm correct URL
-    await expect(page).toHaveURL(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO + SKIP_WELCOME);
+    // Confirm correct URL params
+    await expect(page).toHaveURL(/.*mls=1.covid-3.08031-5.08&mlp=comparegeos/);
 
 })
 
@@ -69,8 +68,10 @@ test('Switch Data Types for Both Geos', async ({ page }) => {
     const deathsToggleOption2 = page.locator(':nth-match(:text("Deaths"), 2)')
     await deathsToggleOption2.click()
 
-    // Confirm correct URL
-    await expect(page).toHaveURL(EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_DEN_VS_CO_SKIP_WELCOME);
+    // Confirm correct URL params
+    await expect(page).toHaveURL(/.*dt1=covid_deaths/);
+    await expect(page).toHaveURL(/.*dt2=covid_deaths/);
+
 
 
 });
