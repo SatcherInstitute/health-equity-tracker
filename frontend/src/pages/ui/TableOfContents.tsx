@@ -13,9 +13,6 @@ import styles from "./TableOfContents.module.scss";
 /* 
   reportSteps: StepData[]; Array of TOC "steps" mapping the card hashId to the step display name
   isScrolledToTop?: boolean; Optionally send in top scroll status; when true none of the steps will be highlighted
-  skinnyMode?: boolean; Optionally set the TOC to prefer icons-only to higher breakpoints, 
-    and take up as little horizontal space as possible. Used on Report Compare / Two Var mode, but not on One Var mode.
-
 */
 
 interface TableOfContentsProps {
