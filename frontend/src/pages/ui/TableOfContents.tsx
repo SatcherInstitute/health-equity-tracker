@@ -22,14 +22,11 @@ interface TableOfContentsProps {
   reportSteps: StepData[];
   floatTopOffset?: number;
   isScrolledToTop?: boolean;
-  skinnyMode?: boolean;
 }
 
 export function TableOfContents(props: TableOfContentsProps) {
   const theme = useTheme();
-  const pageIsWide = useMediaQuery(
-    theme.breakpoints.up(props.skinnyMode ? "lg" : "md")
-  );
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("md"));
 
   const [activeId, setRecentlyClicked] = useStepObserver(
     props.reportSteps,
@@ -39,7 +36,7 @@ export function TableOfContents(props: TableOfContentsProps) {
   return (
     <Card
       raised={true}
-      className={props.skinnyMode ? styles.TocTwoVar : styles.TocOneVar}
+      className={styles.Toc}
       style={{ top: props.floatTopOffset }}
     >
       <Stepper

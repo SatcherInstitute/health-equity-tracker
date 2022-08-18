@@ -117,7 +117,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
   return (
     <Grid container>
       {/* CARDS COLUMN */}
-      <Grid item xs={12} sm={11} md={9} lg={10}>
+      <Grid item xs={12} sm={11} md={10} xl={11}>
         <Grid
           item
           container
@@ -308,10 +308,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
           // icons only
           sm={1}
           // icons + text
-          md={3}
-          lg={2}
+          md={2}
+          xl={1}
           container
-          spacing={1}
           direction="column"
           alignItems="center"
         >

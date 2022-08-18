@@ -1,10 +1,11 @@
 @import "../../styles/variables.module";
 @import "../../styles/globals.scss";
 
-.TocOneVar,
-.TocTwoVar {
-  margin: 14px 0 0 0;
-  width: 80%;
+.Toc {
+  margin: 10px 10px 0 0;
+  // margin-top: 14px;
+  // margin: 14px !important;
+  width: 90%;
   position: -webkit-sticky;
   position: sticky;
   display: flex;
@@ -28,7 +29,11 @@
   }
 
   :global(.MuiStepConnector-vertical) {
-    padding: 0;
+    padding-block: 5px;
+  }
+
+  :global(.MuiStepLabel-label) {
+    line-height: $lhNormal !important;
   }
 }
 

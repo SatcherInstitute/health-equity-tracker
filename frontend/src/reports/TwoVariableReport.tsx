@@ -157,7 +157,7 @@ function TwoVariableReport(props: {
   return (
     <Grid container>
       {/* CARDS COLUMN */}
-      <Grid item xs={12} sm={11} lg={10} xl={11}>
+      <Grid item xs={12} sm={11} md={10} xl={11}>
         <Grid container spacing={1} alignItems="flex-start">
           {/* POPULATION CARD(S)  AND 2 SETS OF TOGGLE CONTROLS */}
           {props.fips1.code === props.fips2.code ? (
@@ -417,9 +417,12 @@ function TwoVariableReport(props: {
       {props.reportSteps && (
         <Grid
           item
+          // invisible
           xs={12}
+          // icons only
           sm={1}
-          lg={2}
+          // icons + text
+          md={2}
           xl={1}
           container
           spacing={0}
@@ -430,7 +433,6 @@ function TwoVariableReport(props: {
             isScrolledToTop={props.isScrolledToTop}
             reportSteps={pluralizeStepLabels(props.reportSteps)}
             floatTopOffset={HEADER_OFFSET_TWO_VAR}
-            skinnyMode={true}
           />
         </Grid>
       )}
