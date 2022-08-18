@@ -204,6 +204,13 @@ function getSpec(
       style: ["text"],
       from: { data: DATASET },
       encode: {
+        enter: {
+          tooltip: {
+            signal: `${oneLineLabel(
+              breakdownVar
+            )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
+          },
+        },
         update: {
           align: {
             signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, "right", "left")`,
