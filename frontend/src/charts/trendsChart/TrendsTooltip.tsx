@@ -3,7 +3,7 @@
  * @param {object[]} data array of timeseries data objects
  * @param {string} selectedDate the date that is currently hovered
  * @param {object} axisConfig an object containing the configuration for axes - type and labels
- * @param {boolean} isMobile a flag to determine whether user is viewing app below the mobile breakpoint
+ * @param {boolean} isSkinny a flag to determine whether user is viewing app below the mobile breakpoint or with resulting card column in compare mode below mobile breakpoint
  * returns jsx of a div with a grid of names, bar chart viz, and amounts
 
 
@@ -35,7 +35,7 @@ export interface TrendsTooltipProps {
   data: TrendsData;
   selectedDate: string | null;
   axisConfig: AxisConfig;
-  isMobile: boolean;
+  isSkinny: boolean;
 }
 
 /* Render component */
@@ -43,7 +43,7 @@ export function TrendsTooltip({
   data,
   selectedDate,
   axisConfig,
-  isMobile,
+  isSkinny,
 }: TrendsTooltipProps) {
   const { type, yAxisLabel = "" } = axisConfig || {};
 
@@ -61,7 +61,7 @@ export function TrendsTooltip({
 
   const TYPE_CONFIG = {
     [TYPES.HUNDRED_K]: {
-      UNIT: isMobile ? "" : " per 100k",
+      UNIT: isSkinny ? "" : " per 100k",
       width: getWidthHundredK,
       translate_x: (d: GroupValues) => 0,
       formatter: F.num,
@@ -80,7 +80,7 @@ export function TrendsTooltip({
       <div className={styles.title}>
         <div>{F.dateFromString(selectedDate || "")}</div>
         {/* if per 100k chart and on mobile, add subtitle with units */}
-        {isMobile && type === TYPES.HUNDRED_K && (
+        {isSkinny && type === TYPES.HUNDRED_K && (
           <div className={styles.subtitle}>{F.capitalize(yAxisLabel)}</div>
         )}
       </div>

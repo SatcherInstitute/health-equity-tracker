@@ -93,6 +93,11 @@ $breakpoint-mobile: 600px;
   @include inter400;
   font-size: $small;
 
+  // Clear Filter X
+  .CloseX {
+    margin-left: 5px;
+  }
+
   // Legend Title
   .LegendTitle {
     @include inter500;

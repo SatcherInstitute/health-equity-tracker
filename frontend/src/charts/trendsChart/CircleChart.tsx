@@ -1,11 +1,11 @@
 /**
  * A Circle Chart that visualizes data trends over time
  * Uses d3.js to apply data transformations and draw circles on an SVG
- * @param {{props.width}[]} data array of timeseries data objects
+ * @param {object[]} data array of timeseries data objects
  * @param {*} xScale a d3 time series scale function
  * @param {number} width the width of the svg
  * @param {string} groupLabel the label to apply to the legend title (e.g. 'race and ethnicity')
- * @param {boolean} isMobile a flag to determine whether user is viewing app below the mobile breakpoint
+ * @param {boolean} isSkinny a flag to determine whether user is viewing app below the mobile breakpoint or with resulting card column in compare mode below mobile breakpoint
  * @param {string} selectedDate the date that is currently hovered
  * returns jsx of an svg group parent of many circle children distributed along an x-axis
  */
@@ -31,7 +31,7 @@ export interface CircleChartProps {
   xScale: XScale;
   width: number;
   groupLabel: string;
-  isMobile: boolean;
+  isSkinny: boolean;
   selectedDate: string | null;
 }
 
@@ -41,7 +41,7 @@ export function CircleChart({
   xScale,
   width,
   groupLabel,
-  isMobile,
+  isSkinny,
   selectedDate,
 }: CircleChartProps) {
   /* Config */
@@ -57,7 +57,7 @@ export function CircleChart({
   // radius scale for circles
   const rScale = scaleSqrt(
     unknownGroupExtent as [number, number],
-    isMobile ? MOBILE.RADIUS_EXTENT : RADIUS_EXTENT
+    isSkinny ? MOBILE.RADIUS_EXTENT : RADIUS_EXTENT
   );
   // color interpolation scale
   const colors = scaleLinear(
@@ -86,8 +86,6 @@ export function CircleChart({
       >
         {data &&
           data.map(([date, percent]: [string, number], i: number) => {
-            // todo: logic that handles mobile and compare mode
-            const dontSkip = width > 600 || (width <= 600 && i % 2 === 0);
             return (
               <g
                 key={`dataCircleGroup-${i}`}
@@ -95,7 +93,7 @@ export function CircleChart({
                 className={styles.UnknownCircles}
               >
                 {/* return a circle for every data point on desktop, or every other data point on mobile (to create more space) */}
-                {dontSkip && (
+                {(!isSkinny || (isSkinny && i % 2 === 0)) && (
                   <>
                     <circle
                       r={rScale(percent)}

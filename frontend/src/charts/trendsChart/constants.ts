@@ -71,6 +71,7 @@ const CONFIG = {
     Y_AXIS_LABEL_PADDING: 10,
     RADIUS_EXTENT: [3, 8],
   },
+  SKINNY_COMPARE_BREAKPOINT: 700,
   // width of tooltip bars
   BAR_WIDTH: 100,
 };

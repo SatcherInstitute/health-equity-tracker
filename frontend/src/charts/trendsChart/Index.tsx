@@ -73,6 +73,10 @@ export function TrendsChart({
     STARTING_WIDTH,
     false,
   ]);
+
+  // treat medium screen compare mode like mobile
+  const isSkinny = isMobile || width < CONFIG.SKINNY_COMPARE_BREAKPOINT;
+
   // Stores date that user is currently hovering
   const [hoveredDate, setHoveredDate] = useState<string | null>(null);
   // Stores width of tooltip to allow dynamic tooltip positioning
@@ -121,14 +125,14 @@ export function TrendsChart({
 
   // Margin to left of line chart - different on mobile & desktop
   const marginLeft = useMemo(
-    () => (isMobile ? MOBILE.MARGIN.left : MARGIN.left),
-    [isMobile, MARGIN.left, MOBILE.MARGIN.left]
+    () => (isSkinny ? MOBILE.MARGIN.left : MARGIN.left),
+    [isSkinny, MARGIN.left, MOBILE.MARGIN.left]
   );
 
   // Margin to right of line chart - different on mobile & desktop
   const marginRight = useMemo(
-    () => (isMobile ? MOBILE.MARGIN.right : MARGIN.right),
-    [isMobile, MARGIN.right, MOBILE.MARGIN.right]
+    () => (isSkinny ? MOBILE.MARGIN.right : MARGIN.right),
+    [isSkinny, MARGIN.right, MOBILE.MARGIN.right]
   );
 
   // TODO: look into using useCallback instead
@@ -206,7 +210,7 @@ export function TrendsChart({
             selectedGroups={selectedGroups}
             handleClick={handleClick}
             groupLabel={groupLabel}
-            isMobile={isMobile}
+            isSkinny={isSkinny}
           />
         )}
       </div>
@@ -234,7 +238,7 @@ export function TrendsChart({
           <TrendsTooltip
             data={filteredData}
             axisConfig={axisConfig}
-            isMobile={isMobile}
+            isSkinny={isSkinny}
             selectedDate={hoveredDate}
           />
         </div>
@@ -261,7 +265,7 @@ export function TrendsChart({
             marginLeft={marginLeft}
             marginRight={marginRight}
             axisConfig={axisConfig}
-            isMobile={isMobile}
+            isSkinny={isSkinny}
           />
           {/* Lines */}
           <LineChart data={filteredData} xScale={xScale} yScale={yScale} />
@@ -287,7 +291,7 @@ export function TrendsChart({
               data={filterUnknownsByTimePeriod(unknown, dates)}
               xScale={xScale}
               width={width}
-              isMobile={isMobile}
+              isSkinny={isSkinny}
               groupLabel={groupLabel}
               selectedDate={hoveredDate}
             />

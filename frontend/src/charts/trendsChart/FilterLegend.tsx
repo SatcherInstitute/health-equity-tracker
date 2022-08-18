@@ -2,7 +2,7 @@
  * A Filter component styled as a legend which allows user to filter data
  * @param {object[]} data array of timeseries data objects
  * @param {string[]} selectedGroups array of strings which correspond to groups that have been selected by user
- * @param {boolean} isMobile a flag to determine whether user is viewing app below the mobile breakpoint
+ * @param {boolean} isSkinny a flag to determine whether user is viewing app below the mobile breakpoint or with resulting card column in compare mode below mobile breakpoint
  * @param {*} handleClick function that handles user button click
  * returns jsx of a div of divs
  */
@@ -23,7 +23,7 @@ export interface FilterLegendProps {
   selectedGroups: string[];
   handleClick: (group: string | null) => void;
   groupLabel: string;
-  isMobile: boolean;
+  isSkinny: boolean;
 }
 
 /* Render component */
@@ -32,7 +32,7 @@ export function FilterLegend({
   selectedGroups,
   handleClick,
   groupLabel,
-  isMobile,
+  isSkinny,
 }: FilterLegendProps) {
   return (
     // Legend Wrapper
@@ -46,8 +46,10 @@ export function FilterLegend({
           onClick={() => handleClick(null)} // clear selected groups on click
         >
           {/* only display group in button name on desktop */}
-          Clear {isMobile ? "" : groupLabel} Filter x
+          Clear {isSkinny ? "" : groupLabel} filter{" "}
+          <span className={styles.CloseX}>✕</span>
         </button>
+        {/* ✕×⨯✖  × */}
       </div>
       {/* Legend Items Wrapper */}
       <div className={styles.LegendItems}>

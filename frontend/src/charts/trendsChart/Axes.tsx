@@ -9,7 +9,7 @@
  * @param {number} marginLeft the margin to the left of the line chart
  * @param {number} marginRight the margin to the right of the line chart
  * @param {object} axisConfig an object containing the configuration for axes - type and labels
- * @param {boolean} isMobile a flag to determine whether user is viewing app below the mobile breakpoint
+ * @param {boolean} isSkinny a flag to determine whether user is viewing app below the mobile breakpoint or with resulting card column in compare mode below mobile breakpoint
  * returns jsx of an svg group containing groups of axes and axis labels
  **/
 
@@ -39,7 +39,7 @@ export interface AxesProps {
   marginLeft: number;
   marginRight: number;
   axisConfig: AxisConfig;
-  isMobile: boolean;
+  isSkinny: boolean;
 }
 
 /* Render component */
@@ -52,12 +52,12 @@ export function Axes({
   marginLeft,
   marginRight,
   axisConfig,
-  isMobile,
+  isSkinny,
 }: AxesProps) {
   /* Config */
   const { HEIGHT, TICK_PADDING, Y_AXIS_LABEL_PADDING, MOBILE } = CONFIG;
   const { type, yAxisLabel = "" } = axisConfig || {};
-  const yAxisLabelPadding = isMobile
+  const yAxisLabelPadding = isSkinny
     ? MOBILE.Y_AXIS_LABEL_PADDING
     : Y_AXIS_LABEL_PADDING;
   // handles difference between per100k and percent_share charts
@@ -83,7 +83,7 @@ export function Axes({
   /* Axes */
   const xAxis = axisBottom(xScale)
     .tickSize(0)
-    .ticks(isMobile ? 4 : null) // limits number of ticks on mobile
+    .ticks(isSkinny ? 4 : null) // limits number of ticks on mobile
     // @ts-ignore
     .tickFormat(F.dateShort)
     .tickPadding(TICK_PADDING);
@@ -155,8 +155,8 @@ export function Axes({
           })`}
         >
           {/* only display x-axis label on desktop */}
-          <text textAnchor="end" dy="8px" aria-hidden={isMobile}>
-            {isMobile ? "" : "Time →"}
+          <text textAnchor="end" dy="8px" aria-hidden={isSkinny}>
+            {isSkinny ? "" : "Time →"}
           </text>
         </g>
         {/* Top Y-Axis Label */}
