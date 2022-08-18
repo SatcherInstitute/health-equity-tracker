@@ -1,5 +1,5 @@
 import React from "react";
-import { CardContent } from "@material-ui/core";
+import { Box, CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -22,6 +22,7 @@ import {
   getNestedRates,
   getNestedUnknowns,
 } from "../data/utils/DatasetTimeUtils";
+import { Alert } from "@material-ui/lab";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -31,6 +32,7 @@ export interface RateTrendsChartCardProps {
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
   fips: Fips;
+  isComparisonCard?: boolean;
 }
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
@@ -122,6 +124,15 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
               </>
             ) : (
               <>
+                {props.isComparisonCard && (
+                  <Box mb={2}>
+                    <Alert severity="warning" role="note">
+                      Please note that the y-axis scales to fit the largest
+                      value, requiring extra attention when making visual
+                      side-by-side comparisons.
+                    </Alert>
+                  </Box>
+                )}
                 <TrendsChart
                   // @ts-ignore
                   data={nestedRatesData}

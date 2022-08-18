@@ -41,6 +41,7 @@ import {
   getDates,
   filterUnknownsByTimePeriod,
 } from "./helpers";
+import { MOBILE_BREAKPOINT } from "../../App";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -75,7 +76,7 @@ export function TrendsChart({
   ]);
 
   // treat medium screen compare mode like mobile
-  const isSkinny = isMobile || width < CONFIG.SKINNY_COMPARE_BREAKPOINT;
+  const isSkinny = isMobile || width < MOBILE_BREAKPOINT;
 
   // Stores date that user is currently hovering
   const [hoveredDate, setHoveredDate] = useState<string | null>(null);
@@ -86,7 +87,7 @@ export function TrendsChart({
   // resets svg width on window resize, only sets listener after first render (so ref is defined)
   useEffect(() => {
     function setDimensions() {
-      const isMobile = window.innerWidth < 600;
+      const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
       // @ts-ignore
       setWidth([containerRef.current.getBoundingClientRect().width, isMobile]);
     }

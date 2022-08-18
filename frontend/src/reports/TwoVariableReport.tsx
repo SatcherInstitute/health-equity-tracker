@@ -254,6 +254,7 @@ function TwoVariableReport(props: {
                     variableConfig={variableConfig}
                     breakdownVar={breakdownVar}
                     fips={fips}
+                    isComparisonCard={true}
                   />
                 )}
               />

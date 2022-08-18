@@ -61,7 +61,7 @@ const DataCatalogTab = React.lazy(
   () => import("./pages/DataCatalog/DataCatalogTab")
 );
 
-const MOBILE_BREAKPOINT = 600;
+export const MOBILE_BREAKPOINT = 600;
 
 const PAGE_URL_TO_NAMES: Record<string, string> = {
   "/": "Home",
