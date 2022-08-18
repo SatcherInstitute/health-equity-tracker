@@ -133,7 +133,7 @@
     "sex": "All",
     "covid_cases_per_100k": 12000,
     "covid_deaths_per_100k": 4000,
-    "covid_hosp_per_100k": null,
+    "covid_hosp_per_100k": 0,
     "covid_cases_share": 100.0,
     "covid_hosp_share": 100.0,
     "covid_deaths_share": 100.0,

@@ -157,7 +157,6 @@ class CDCRestrictedData(DataSource):
             all_columns.extend(
                 [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
             df = merge_county_names(df)
-            null_out_all_unknown_deaths_hosps(df)
 
         if geo == 'national':
             pop_cols = [
@@ -229,17 +228,6 @@ class CDCRestrictedData(DataSource):
               f"seconds to process {demo} {geo}")
         return df
 
-
-def null_out_all_unknown_deaths_hosps(df):
-    """If a given geo x breakdown has all unknown hospitalizations or deaths,
-       we treat it as if it has "no data," i.e. we clear the hosp/death fields.
-
-       Note: This is an in place function so it doesnt return anything
-
-       df: DataFrame to null out rows on"""
-
-    df.loc[df[std_col.COVID_DEATH_UNKNOWN] == df[std_col.COVID_CASES], std_col.COVID_DEATH_Y] = np.nan
-    df.loc[df[std_col.COVID_HOSP_UNKNOWN] == df[std_col.COVID_CASES], std_col.COVID_HOSP_Y] = np.nan
 
 
 def null_out_dc_county_rows(df):
