@@ -1,7 +1,7 @@
 /**
  * A Circle Chart that visualizes data trends over time
  * Uses d3.js to apply data transformations and draw circles on an SVG
- * @param {object[]} data array of timeseries data objects
+ * @param {{props.width}[]} data array of timeseries data objects
  * @param {*} xScale a d3 time series scale function
  * @param {number} width the width of the svg
  * @param {string} groupLabel the label to apply to the legend title (e.g. 'race and ethnicity')
@@ -86,6 +86,8 @@ export function CircleChart({
       >
         {data &&
           data.map(([date, percent]: [string, number], i: number) => {
+            // todo: logic that handles mobile and compare mode
+            const dontSkip = width > 600 || (width <= 600 && i % 2 === 0);
             return (
               <g
                 key={`dataCircleGroup-${i}`}
@@ -93,7 +95,7 @@ export function CircleChart({
                 className={styles.UnknownCircles}
               >
                 {/* return a circle for every data point on desktop, or every other data point on mobile (to create more space) */}
-                {(!isMobile || (isMobile && i % 2 === 0)) && (
+                {dontSkip && (
                   <>
                     <circle
                       r={rScale(percent)}

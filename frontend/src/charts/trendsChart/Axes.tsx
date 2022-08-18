@@ -11,6 +11,7 @@
  * @param {object} axisConfig an object containing the configuration for axes - type and labels
  * @param {boolean} isMobile a flag to determine whether user is viewing app below the mobile breakpoint
  * returns jsx of an svg group containing groups of axes and axis labels
+ **/
 
 /* External Imports */
 import React, { useRef, useEffect } from "react";
@@ -67,9 +68,11 @@ export function Axes({
       formatter: (d: string | number) => d, // per 100k could be interpolated here
     },
     [TYPES.PERCENT_SHARE]: {
-      topLabel: (getMaxNumber(data) || 0) <= 0 ? "" : "Over-represented →", // if there are positive numbers, append positive direction label
-      bottomLabel: (getMinNumber(data) || 0) >= 0 ? "" : "← Under-represented", // if there are negative numbers, append negative direction label
-      formatter: (d: number) => (d === 0 ? "" : F.pct(d)), // if tick is 0, hide it, otherwise format as percent
+      topLabel:
+        (getMaxNumber(data) || 0) <= 0 ? "" : "Disproportionately High  →", // if there are positive numbers, append positive direction label
+      bottomLabel:
+        (getMinNumber(data) || 0) >= 0 ? "" : "← Disproportionately Low", // if there are negative numbers, append negative direction label
+      formatter: (d: number) => (d === 0 ? "↔" : F.pct(d)), // if tick is 0, hide it, otherwise format as percent
     },
   };
 
