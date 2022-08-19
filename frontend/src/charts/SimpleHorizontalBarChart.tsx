@@ -18,6 +18,10 @@ import {
 } from "./utils";
 import sass from "../styles/variables.module.scss";
 import { useMediaQuery } from "@material-ui/core";
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from "../data/variables/CawpProvider";
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66;
@@ -65,6 +69,11 @@ function getSpec(
         },
       ]
     : [];
+
+  const onlyZeros = data.every((row) => {
+    return !row[measure];
+  });
+
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: altText,
@@ -89,7 +98,6 @@ function getSpec(
       {
         // chart bars
         name: "measure_bars",
-        interactive: false,
         type: "rect",
         style: ["bar"],
         description: data.length + " items",
@@ -173,7 +181,12 @@ function getSpec(
       {
         name: "x",
         type: "linear",
-        domain: { data: DATASET, field: measure },
+        // if all rows contain 0 or null, set full x range to 100%
+        domainMax: onlyZeros ? 100 : undefined,
+        domain: {
+          data: DATASET,
+          field: measure,
+        },
         range: [0, { signal: "width" }],
         nice: !pageIsTiny, //on desktop, extend x-axis to a "nice" value
         zero: true,
@@ -262,8 +275,17 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
 
+  // swap race labels if applicable
+  const dataLabelled = CAWP_DETERMINANTS.includes(props.metric.metricId)
+    ? props.data.map((row: Row) => {
+        const altRow = { ...row };
+        altRow.race_and_ethnicity = getWomenRaceLabel(row.race_and_ethnicity);
+        return altRow;
+      })
+    : props.data;
+
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
-    props.data,
+    dataLabelled,
     props.breakdownVar
   );
   const [dataWithDisplayCol, barMetricDisplayColumnName] =

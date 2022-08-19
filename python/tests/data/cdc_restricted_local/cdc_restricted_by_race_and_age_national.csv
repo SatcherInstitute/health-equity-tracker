@@ -1,21 +1,21 @@
-state_fips,state_name,cases,death_y,hosp_y,race_category_id,race,race_includes_hispanic,race_and_ethnicity,age
-00,United States,6,1,3,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),0-9
-00,United States,1,1,0,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),10-19
-00,United States,1,0,0,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic),UNKNOWN
-00,United States,32,10,9,ALL,All,,All,
-00,United States,2,1,0,ASIAN_NH,Asian,False,Asian (Non-Hispanic),10-19
-00,United States,3,1,1,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic),20-29
-00,United States,1,0,0,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic),30-39
-00,United States,1,1,1,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic),40-49
-00,United States,1,0,1,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic),70-79
-00,United States,1,0,1,HISP,Hispanic or Latino,True,Hispanic or Latino,60-69
-00,United States,1,1,0,HISP,Hispanic or Latino,True,Hispanic or Latino,80+
-00,United States,2,1,0,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic),30-39
-00,United States,1,1,1,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic),40-49
-00,United States,2,1,0,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic),40-49
-00,United States,1,0,0,UNKNOWN,Unknown race,True,Unknown race,30-39
-00,United States,2,0,1,UNKNOWN,Unknown race,True,Unknown race,70-79
-00,United States,1,0,0,UNKNOWN,Unknown race,True,Unknown race,80+
-00,United States,2,1,0,UNKNOWN,Unknown race,True,Unknown race,UNKNOWN
-00,United States,1,0,0,WHITE_NH,White,False,White (Non-Hispanic),20-29
-00,United States,2,0,0,WHITE_NH,White,False,White (Non-Hispanic),50-59
+state_fips,state_name,cases,death_y,hosp_y,race_category_id,age
+00,United States,12,2,6,AIAN_NH,0-9
+00,United States,2,2,0,AIAN_NH,10-19
+00,United States,2,0,0,AIAN_NH,Unknown
+00,United States,64,20,18,ALL,
+00,United States,4,2,0,ASIAN_NH,10-19
+00,United States,6,2,2,BLACK_NH,20-29
+00,United States,2,0,0,BLACK_NH,30-39
+00,United States,2,2,2,BLACK_NH,40-49
+00,United States,2,0,2,BLACK_NH,70-79
+00,United States,2,0,2,HISP,60-69
+00,United States,2,2,0,HISP,80+
+00,United States,4,2,0,MULTI_OR_OTHER_STANDARD_NH,30-39
+00,United States,2,2,2,MULTI_OR_OTHER_STANDARD_NH,40-49
+00,United States,4,2,0,NHPI_NH,40-49
+00,United States,2,0,0,UNKNOWN,30-39
+00,United States,4,0,2,UNKNOWN,70-79
+00,United States,2,0,0,UNKNOWN,80+
+00,United States,4,2,0,UNKNOWN,Unknown
+00,United States,2,0,0,WHITE_NH,20-29
+00,United States,4,0,0,WHITE_NH,50-59

@@ -1,0 +1,10 @@
+state_fips,state_name,sex,population,population_pct
+06,California,Female,60,60.0
+06,California,Male,40,40.0
+06,California,All,100,100.0
+15,Hawaii,Female,60,60.0
+15,Hawaii,Male,40,40.0
+15,Hawaii,All,100,100.0
+54,West Virginia,Female,60,60.0
+54,West Virginia,Male,40,40.0
+54,West Virginia,All,100,100.0

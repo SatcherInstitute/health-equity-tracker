@@ -3,16 +3,15 @@ import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { VariableConfig, formatFieldValue } from "../data/config/MetricConfig";
-import { exclude } from "../data/query/BreakdownFilter";
+import { VariableConfig } from "../data/config/MetricConfig";
+import { exclude, onlyInclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
   BreakdownVarDisplayName,
 } from "../data/query/Breakdowns";
-import { MetricQuery } from "../data/query/MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../data/query/MetricQuery";
 import { AgeSorterStrategy } from "../data/sorting/AgeSorterStrategy";
 import {
   ALL,
@@ -26,6 +25,15 @@ import {
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
+import {
+  COMBINED_INCARCERATION_STATES_LIST,
+  COMBINED_QUALIFIER,
+  PRIVATE_JAILS_QUALIFIER,
+} from "../data/variables/IncarcerationProvider";
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from "../data/variables/CawpProvider";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
@@ -34,6 +42,9 @@ import { HighestLowestList } from "./ui/HighestLowestList";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { MultiMapDialog } from "./ui/MultiMapDialog";
+import { MultiMapLink } from "./ui/MultiMapLink";
+import { RateInfoAlert } from "./ui/RateInfoAlert";
+import { findVerboseRating } from "./ui/SviAlert";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 /* minimize layout shift */
@@ -63,10 +74,14 @@ export function MapCard(props: MapCardProps) {
 function MapCardWithKey(props: MapCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
 
+  const isPrison = props.variableConfig.variableId === "prison";
+  const isJail = props.variableConfig.variableId === "jail";
+  const isIncarceration = isJail || isPrison;
+
   const signalListeners: any = {
     click: (...args: any) => {
       const clickedData = args[1];
-      props.updateFipsCallback(new Fips(clickedData.id));
+      clickedData?.id && props.updateFipsCallback(new Fips(clickedData.id));
     },
   };
 
@@ -90,23 +105,49 @@ function MapCardWithKey(props: MapCardProps) {
         )
     );
 
+  const sviQuery = new MetricQuery(
+    "svi",
+    Breakdowns.byCounty().andAge(onlyInclude("All"))
+  );
+
   const queries = [
     metricQuery(Breakdowns.forChildrenFips(props.fips)),
     metricQuery(Breakdowns.forFips(props.fips)),
+    sviQuery,
   ];
+
+  const selectedRaceSuffix = CAWP_DETERMINANTS.includes(metricConfig.metricId)
+    ? ` Identifying as ${getWomenRaceLabel(activeBreakdownFilter).replace(
+        "All ",
+        ""
+      )}`
+    : "";
+
+  let qualifierMessage = "";
+  if (isPrison) qualifierMessage = COMBINED_QUALIFIER;
+  if (isJail) qualifierMessage = PRIVATE_JAILS_QUALIFIER;
+
+  let qualifierItems: string[] = [];
+  if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
 
   return (
     <CardWrapper
       queries={queries}
-      title={<>{metricConfig.fullCardTitleName}</>}
+      title={
+        <>
+          {metricConfig.fullCardTitleName}
+          {selectedRaceSuffix}
+        </>
+      }
       loadGeographies={true}
       minHeight={PRELOAD_HEIGHT}
     >
       {(queryResponses, metadata, geoData) => {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
-        const mapQueryResponse = queryResponses[0];
+        const mapQueryResponse: MetricQueryResponse = queryResponses[0];
         // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
+        const sviQueryResponse: MetricQueryResponse = queryResponses[2];
 
         const sortArgs =
           props.currentBreakdown === "age"
@@ -123,15 +164,36 @@ function MapCardWithKey(props: MapCardProps) {
           sortArgs
         );
 
-        const dataForActiveBreakdownFilter = mapQueryResponse
+        let dataForActiveBreakdownFilter = mapQueryResponse
           .getValidRowsForField(metricConfig.metricId)
           .filter(
             (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
           );
 
+        const dataForSvi = sviQueryResponse
+          .getValidRowsForField("svi")
+          .filter((row) =>
+            dataForActiveBreakdownFilter.find(({ fips }) => row.fips === fips)
+          );
+
+        if (!props.fips.isUsa()) {
+          dataForActiveBreakdownFilter = dataForActiveBreakdownFilter.map(
+            (row) => {
+              const thisCountySviRow = dataForSvi.find(
+                (sviRow) => sviRow.fips === row.fips
+              );
+              return {
+                ...row,
+                rating: findVerboseRating(thisCountySviRow?.svi),
+              };
+            }
+          );
+        }
+
         const highestRatesList = getHighestN(
           dataForActiveBreakdownFilter,
           metricConfig.metricId,
+
           SIZE_OF_HIGHEST_LOWEST_RATES_LIST
         );
         const lowestRatesList = getLowestN(
@@ -151,58 +213,6 @@ function MapCardWithKey(props: MapCardProps) {
 
         const hideGroupDropdown =
           Object.values(filterOptions).toString() === ALL;
-
-        // If possible, calculate the total for the selected demographic group and dynamically generate the rest of the phrase
-        function generateDemographicTotalPhrase() {
-          const options = overallQueryResponse.data.find(
-            (row) => row[props.currentBreakdown] === activeBreakdownFilter
-          );
-
-          return options ? (
-            <>
-              <b>
-                {formatFieldValue(
-                  metricConfig.type,
-                  options[metricConfig.metricId]
-                )}
-              </b>{" "}
-              {/*} HYPERLINKED TO BOTTOM DEFINITION {condition} cases per 100k  */}
-              <a
-                href="#definitionsList"
-                onClick={(e) => {
-                  e.preventDefault();
-                  props.jumpToDefinitions();
-                }}
-                className={styles.ConditionDefinitionLink}
-              >
-                {metricConfig?.fullCardTitleName}
-              </a>
-              {/*} for  */}
-              {activeBreakdownFilter !== "All" && " for"}
-              {/*} [ ages 30-39] */}
-              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                props.currentBreakdown
-              ] === "age" &&
-                activeBreakdownFilter !== "All" &&
-                ` ages ${activeBreakdownFilter}`}
-              {/*} [Asian (non Hispanic) individuals] */}
-              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                props.currentBreakdown
-              ] !== "age" &&
-                activeBreakdownFilter !== "All" &&
-                ` ${activeBreakdownFilter} individuals`}
-              {" in  "}
-              {/*} in */}
-              {/*} (the) */}
-              {props.fips.getDisplayName() === "United States" && "the "}
-              {/*} United States */}
-              {props.fips.getDisplayName()}
-              {". "}
-            </>
-          ) : (
-            ""
-          );
-        }
 
         return (
           <>
@@ -272,25 +282,18 @@ function MapCardWithKey(props: MapCardProps) {
 
             {!mapQueryResponse.dataIsMissing() &&
               !!dataForActiveBreakdownFilter.length && (
-                <>
-                  <Divider />
-                  <CardContent>
-                    <Alert severity="info" role="note">
-                      {generateDemographicTotalPhrase()}
-                      {/* Compare across XYZ for all variables except vaccinated at county level */}
-                      <MultiMapLink
-                        setSmallMultiplesDialogOpen={
-                          setSmallMultiplesDialogOpen
-                        }
-                        currentBreakdown={props.currentBreakdown}
-                        currentVariable={
-                          props.variableConfig.variableFullDisplayName
-                        }
-                      />
-                    </Alert>
-                  </CardContent>
-                </>
+                <RateInfoAlert
+                  overallQueryResponse={overallQueryResponse}
+                  currentBreakdown={props.currentBreakdown}
+                  activeBreakdownFilter={activeBreakdownFilter}
+                  metricConfig={metricConfig}
+                  jumpToDefinitions={props.jumpToDefinitions}
+                  fips={props.fips}
+                  setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
+                  variableConfig={props.variableConfig}
+                />
               )}
+
             {(mapQueryResponse.dataIsMissing() ||
               dataForActiveBreakdownFilter.length === 0) && (
               <CardContent>
@@ -322,125 +325,90 @@ function MapCardWithKey(props: MapCardProps) {
                   </Alert>
                 </CardContent>
               )}
-            {metricConfig && dataForActiveBreakdownFilter.length ? (
-              <CardContent>
-                <ChoroplethMap
-                  signalListeners={signalListeners}
-                  metric={metricConfig}
-                  legendTitle={metricConfig.shortLabel}
-                  data={
-                    listExpanded
-                      ? highestRatesList.concat(lowestRatesList)
-                      : dataForActiveBreakdownFilter
-                  }
-                  hideMissingDataTooltip={listExpanded}
-                  legendData={dataForActiveBreakdownFilter}
-                  hideLegend={
-                    mapQueryResponse.dataIsMissing() ||
-                    dataForActiveBreakdownFilter.length <= 1
-                  }
-                  showCounties={props.fips.isUsa() ? false : true}
-                  fips={props.fips}
-                  scaleType="quantile"
-                  geoData={geoData}
-                  // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
-                  filename={`${metricConfig.fullCardTitleName}${
-                    activeBreakdownFilter === "All"
-                      ? ""
-                      : ` for ${activeBreakdownFilter}`
-                  } in ${props.fips.getDisplayName()}${
-                    // include the state name if the location is a county
-                    props.fips.isCounty()
-                      ? `, ${props.fips.getParentFips().getFullDisplayName()}`
-                      : ""
-                  }`}
-                />
-                {/* generate additional VEGA canvases for territories on national map */}
-                {props.fips.isUsa() && (
-                  <div className={styles.TerritoryCirclesContainer}>
-                    {TERRITORY_CODES.map((code) => {
-                      const fips = new Fips(code);
-                      return (
-                        <div className={styles.TerritoryCircle} key={code}>
-                          <ChoroplethMap
-                            signalListeners={signalListeners}
-                            metric={metricConfig}
-                            legendTitle={metricConfig.fullCardTitleName}
-                            data={
-                              listExpanded
-                                ? highestRatesList.concat(lowestRatesList)
-                                : dataForActiveBreakdownFilter
-                            }
-                            hideMissingDataTooltip={listExpanded}
-                            legendData={dataForActiveBreakdownFilter}
-                            hideLegend={true}
-                            hideActions={true}
-                            showCounties={props.fips.isUsa() ? false : true}
-                            fips={fips}
-                            scaleType="quantile"
-                            geoData={geoData}
-                            overrideShapeWithCircle={true}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
 
-                {!mapQueryResponse.dataIsMissing() &&
-                  dataForActiveBreakdownFilter.length > 1 && (
-                    <HighestLowestList
-                      variableConfig={props.variableConfig}
-                      metricConfig={metricConfig}
-                      listExpanded={listExpanded}
-                      setListExpanded={setListExpanded}
-                      highestRatesList={highestRatesList}
-                      lowestRatesList={lowestRatesList}
-                      fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
-                      jumpToData={props.jumpToData}
-                    />
+            {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
+              <>
+                <CardContent>
+                  <ChoroplethMap
+                    signalListeners={signalListeners}
+                    metric={metricConfig}
+                    legendTitle={metricConfig.shortLabel}
+                    data={
+                      listExpanded
+                        ? highestRatesList.concat(lowestRatesList)
+                        : dataForActiveBreakdownFilter
+                    }
+                    hideMissingDataTooltip={listExpanded}
+                    legendData={dataForActiveBreakdownFilter}
+                    hideLegend={
+                      mapQueryResponse.dataIsMissing() ||
+                      dataForActiveBreakdownFilter.length <= 1
+                    }
+                    showCounties={props.fips.isUsa() ? false : true}
+                    fips={props.fips}
+                    scaleType="quantile"
+                    geoData={geoData}
+                    // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
+                    filename={`${metricConfig.fullCardTitleName}${
+                      activeBreakdownFilter === "All"
+                        ? ""
+                        : ` for ${activeBreakdownFilter}`
+                    } in ${props.fips.getSentenceDisplayName()}`}
+                  />
+                  {/* generate additional VEGA canvases for territories on national map */}
+                  {props.fips.isUsa() && (
+                    <div className={styles.TerritoryCirclesContainer}>
+                      {TERRITORY_CODES.map((code) => {
+                        const fips = new Fips(code);
+                        return (
+                          <div className={styles.TerritoryCircle} key={code}>
+                            <ChoroplethMap
+                              signalListeners={signalListeners}
+                              metric={metricConfig}
+                              legendTitle={metricConfig.fullCardTitleName}
+                              data={
+                                listExpanded
+                                  ? highestRatesList.concat(lowestRatesList)
+                                  : dataForActiveBreakdownFilter
+                              }
+                              hideMissingDataTooltip={listExpanded}
+                              legendData={dataForActiveBreakdownFilter}
+                              hideLegend={true}
+                              hideActions={true}
+                              showCounties={props.fips.isUsa() ? false : true}
+                              fips={fips}
+                              scaleType="quantile"
+                              geoData={geoData}
+                              overrideShapeWithCircle={true}
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
                   )}
-              </CardContent>
-            ) : (
-              <></>
+
+                  {!mapQueryResponse.dataIsMissing() &&
+                    dataForActiveBreakdownFilter.length > 1 && (
+                      <HighestLowestList
+                        variableConfig={props.variableConfig}
+                        selectedRaceSuffix={selectedRaceSuffix}
+                        metricConfig={metricConfig}
+                        listExpanded={listExpanded}
+                        setListExpanded={setListExpanded}
+                        highestRatesList={highestRatesList}
+                        lowestRatesList={lowestRatesList}
+                        fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
+                        jumpToData={props.jumpToData}
+                        qualifierItems={qualifierItems}
+                        qualifierMessage={qualifierMessage}
+                      />
+                    )}
+                </CardContent>
+              </>
             )}
           </>
         );
       }}
     </CardWrapper>
-  );
-}
-
-/*
-Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
-*/
-export interface MultiMapLinkProps {
-  setSmallMultiplesDialogOpen: Function;
-  currentBreakdown: BreakdownVar;
-  currentVariable: string;
-}
-
-function MultiMapLink(props: MultiMapLinkProps) {
-  const groupTerm =
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown];
-  return (
-    <>
-      <a
-        href="#multiMap"
-        onClick={() => props.setSmallMultiplesDialogOpen(true)}
-        role="button"
-        className={styles.CompareAcrossLink}
-        aria-label={
-          "Open modal to Compare " +
-          props.currentVariable +
-          " across " +
-          groupTerm +
-          " groups"
-        }
-      >
-        Compare across {groupTerm} groups
-      </a>
-      <span aria-hidden={true}>.</span>
-    </>
   );
 }

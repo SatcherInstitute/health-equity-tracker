@@ -10,6 +10,7 @@ import {
   getMadLibPhraseText,
   getMadLibWithUpdatedValue,
   getSelectedConditions,
+  insertOptionalThe,
   MadLib,
   MadLibId,
   MADLIB_LIST,
@@ -27,8 +28,8 @@ import {
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
   useSearchParams,
-  WHAT_DATA_ARE_MISSING_ID,
 } from "../../utils/urlutils";
+import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 import styles from "./ExploreDataPage.module.scss";
 import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
@@ -36,6 +37,7 @@ import { useLocation } from "react-router-dom";
 import { srSpeak } from "../../utils/a11yutils";
 import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
+import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -46,6 +48,8 @@ function ExploreDataPage() {
     location?.hash === `#${WHAT_DATA_ARE_MISSING_ID}`;
 
   const [showStickyLifeline, setShowStickyLifeline] = useState(false);
+  const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
+    useState(false);
 
   // Set up initial mad lib values based on defaults and query params
   const params = useSearchParams();
@@ -206,6 +210,12 @@ function ExploreDataPage() {
       )
     );
 
+    setShowIncarceratedChildrenAlert(
+      getSelectedConditions(madLib).some((condition: VariableConfig) =>
+        INCARCERATION_IDS.includes(condition?.variableId)
+      )
+    );
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [madLib]);
 
@@ -262,7 +272,7 @@ function ExploreDataPage() {
           </Carousel>
           {showStickyLifeline && (
             <p className={styles.LifelineSticky}>
-              <a href={urlMap.lifeline}>suicidepreventionlifeline.org</a>
+              <a href={urlMap.lifeline}>988lifeline.org</a>
             </p>
           )}
         </div>
@@ -272,6 +282,7 @@ function ExploreDataPage() {
             madLib={madLib}
             selectedConditions={getSelectedConditions(madLib)}
             showLifeLineAlert={showStickyLifeline}
+            showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
             setMadLib={setMadLibWithParam}
             doScrollToData={doScrollToData}
           />
@@ -309,7 +320,10 @@ function CarouselMadLib(props: {
           (phraseSegment: PhraseSegment, index: number) => (
             <React.Fragment key={index}>
               {typeof phraseSegment === "string" ? (
-                <span>{phraseSegment}</span>
+                <span>
+                  {phraseSegment}
+                  {insertOptionalThe(props.madLib.activeSelections, index)}
+                </span>
               ) : (
                 <OptionsSelector
                   key={index}

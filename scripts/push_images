@@ -11,6 +11,7 @@ source "${PROGDIR}/.util/print.sh"
 
 function main() {
   local build_frontend
+  local build_m1
   local project_id
 
   while [[ "${#}" != 0 ]]; do
@@ -23,6 +24,11 @@ function main() {
 
         --build-frontned|-b)
           build_frontend="true"
+          shift 1
+          ;;
+
+        --build-m1|-m)
+          build_m1="true"
           shift 1
           ;;
 
@@ -39,8 +45,12 @@ function main() {
 
   project_id=$(gcloud config get-value project)
 
-  images::build "${project_id}" "${build_frontend}"
-  images::push "${project_id}" "${build_frontend}"
+  if [[ -n "${build_m1}" ]]; then
+    images::build_m1 "${project_id}" "${build_frontend}"
+  else 
+    images::build "${project_id}" "${build_frontend}"
+    images::push "${project_id}" "${build_frontend}"
+  fi
   digest::write "${project_id}"
 
   util::print::success "Success !!"
@@ -54,6 +64,7 @@ Builds and pushes images to google container storage. For testing puroposes.
 OPTIONS
   --help            -h  prints the command usage
   --build_frontend  -b  builds the frontend image, slows down the script a bit and is prone to failure
+  --build_m1        -m  builds docker images on m1 machine.
 USAGE
 }
 
@@ -71,6 +82,23 @@ function images::build() {
 
   if [[ -n "${build_frontend}" ]]; then
     docker build -t "gcr.io/${project_id}/frontend-service" -f "${TRACKERDIR}/frontend_server/Dockerfile" . --build-arg="DEPLOY_CONTEXT=development"
+  fi
+}
+
+function images::build_m1() {
+  local project_id build_frontend
+  project_id="${1}"
+  build_frontend="${2}"
+
+   util::print::info "Building Images Locally"
+  docker buildx build --platform linux/amd64 -t "gcr.io/${project_id}/ingestion-service" -f "${TRACKERDIR}/run_ingestion/Dockerfile" --push .
+  docker buildx build --platform linux/amd64 -t "gcr.io/${project_id}/gcs-to-bq-service" -f "${TRACKERDIR}/run_gcs_to_bq/Dockerfile" --push .
+  docker buildx build --platform linux/amd64 -t "gcr.io/${project_id}/data-server-service" -f "${TRACKERDIR}/data_server/Dockerfile" --push .
+  docker buildx build --platform linux/amd64 -t "gcr.io/${project_id}/exporter-service" -f "${TRACKERDIR}/exporter/Dockerfile" --push .
+  docker buildx build --platform linux/amd64 -t "gcr.io/${project_id}/aggregator-service" -f "${TRACKERDIR}/aggregator/Dockerfile" --push .
+
+  if [[ -n "${build_frontend}" ]]; then
+    docker buildx build --platform linux/amd64 -t "gcr.io/${project_id}/frontend-service" -f "${TRACKERDIR}/frontend_server/Dockerfile" . --build-arg="DEPLOY_CONTEXT=development" --push
   fi
 }
 

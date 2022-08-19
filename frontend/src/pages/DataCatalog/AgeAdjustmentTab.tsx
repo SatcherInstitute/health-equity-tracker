@@ -6,7 +6,7 @@ import {
   COVID_DEATHS_US_SETTING,
   COVID_HOSP_US_SETTING,
   EXPLORE_DATA_PAGE_LINK,
-} from "../../utils/urlutils";
+} from "../../utils/internalRoutes";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 
@@ -30,7 +30,7 @@ function AgeAdjustmentTab() {
             className={styles.MethodologyQuestionAndAnswer}
             component="article"
           >
-            <h3 className={styles.AgeAdjustmentHeader}>
+            <h3 className={styles.AgeAdjustmentHeader} id="main">
               Calculating Age-Adjusted Ratios
             </h3>
 

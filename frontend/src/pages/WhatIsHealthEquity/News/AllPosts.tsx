@@ -6,10 +6,9 @@ import {
   useUrlSearchParams,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
-  NEWS_TAB_LINK,
-  CONTACT_TAB_LINK,
   LinkWithStickyParams,
 } from "../../../utils/urlutils";
+import { NEWS_TAB_LINK, CONTACT_TAB_LINK } from "../../../utils/internalRoutes";
 import { Helmet } from "react-helmet-async";
 import ArticleFilters from "./ArticleFilters";
 import NewsPreviewCard from "./NewsPreviewCard";
@@ -25,15 +24,23 @@ const NUM_OF_LOADING_SKELETONS = 6;
 /*
 displays several loading indicator elements while blog content is fetched
 */
-function ArticlesSkeleton(props: { doPulse: boolean }) {
+
+export function ArticlesSkeleton(props: {
+  doPulse: boolean;
+  numberLoading?: number;
+}) {
+  const numberLoadingSkeletons =
+    props.numberLoading || NUM_OF_LOADING_SKELETONS;
+
   return (
     <Grid spacing={1} justifyContent="space-between" container>
-      {[...Array(NUM_OF_LOADING_SKELETONS)].map((_, i) => {
+      {[...Array(numberLoadingSkeletons)].map((_, i) => {
         return (
           <Grid
             item
             xs={12}
             sm={5}
+            md={3}
             container
             direction="column"
             alignItems="center"
@@ -49,7 +56,7 @@ function ArticlesSkeleton(props: { doPulse: boolean }) {
               animation={false}
               variant="text"
               height={36}
-              width={250}
+              width={200}
             ></Skeleton>
             <Box mb={5}>
               <Skeleton

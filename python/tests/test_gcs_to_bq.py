@@ -15,14 +15,14 @@ from ingestion import gcs_to_bq_util  # pylint: disable=no-name-in-module
 class GcsToBqTest(TestCase):
 
     _test_data = [["label1", "label2", "label3"],
-                  ["valuea", "valueb", "valuec"],
-                  ["valued", "valuee", "valuef"]]
+                  ["value_a", "value_b", "value_c"],
+                  ["value_d", "value_e", "value_f"]]
 
     def testLoadValuesBlobAsDataframe(self):
         """Tests that data in json list format is loaded into a
            pandas.DataFrame object using the first row as a header."""
         mock_attrs = {
-            'download_as_string.return_value': json.dumps(self._test_data)}
+            'download_as_string.return_value': json.dumps(self._test_data).encode('utf-8')}
         mock_blob = Mock(**mock_attrs)
         frame = gcs_to_bq_util.load_values_blob_as_df(mock_blob)
 

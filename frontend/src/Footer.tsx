@@ -7,14 +7,14 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import ArrowUpwardRoundedIcon from "@material-ui/icons/ArrowUpwardRounded";
 import { Button } from "@material-ui/core";
+import { ReactRouterLinkButton } from "./utils/urlutils";
 import {
   EXPLORE_DATA_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
   TERMS_OF_USE_PAGE_LINK,
-  ReactRouterLinkButton,
   FAQ_TAB_LINK,
   CONTACT_TAB_LINK,
-} from "./utils/urlutils";
+} from "./utils/internalRoutes";
 import AppbarLogo from "./assets/AppbarLogo.png";
 import PartnerSatcher from "./assets/PartnerSatcher.png";
 import { urlMap } from "./utils/externalUrls";

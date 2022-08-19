@@ -8,6 +8,7 @@ resource "google_cloud_run_service" "ingestion_service" {
 
   template {
     spec {
+      timeout_seconds = 1200
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.ingestion_image_name, var.ingestion_image_digest)
 
@@ -36,7 +37,7 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
 
   template {
     spec {
-      timeout_seconds = 600
+      timeout_seconds = 1200
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.gcs_to_bq_image_name, var.gcs_to_bq_image_digest)
         env {
@@ -45,7 +46,7 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
           value = var.bq_dataset_name
         }
         env {
-          # Name of the BQ dataset that will contain manunally uploaded data tables.
+          # Name of the BQ dataset that will contain manually uploaded data tables.
           name  = "MANUAL_UPLOADS_DATASET"
           value = var.bq_manual_dataset_name
         }

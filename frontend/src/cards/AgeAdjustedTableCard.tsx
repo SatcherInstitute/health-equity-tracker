@@ -39,7 +39,7 @@ import {
   AGE_ADJUSTMENT_TAB_LINK,
   COVID_DEATHS_US_SETTING,
   COVID_HOSP_US_SETTING,
-} from "../utils/urlutils";
+} from "../utils/internalRoutes";
 import { Link } from "react-router-dom";
 import UnknownsAlert from "./ui/UnknownsAlert";
 
@@ -88,14 +88,12 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const raceQuery = new MetricQuery(metricIds as MetricId[], raceBreakdowns);
   const ageQuery = new MetricQuery(metricIds as MetricId[], ageBreakdowns);
   const ratioId = metricIds[0];
-
   const metricIdsForRatiosOnly = Object.values(metricConfigs).filter((config) =>
     config.metricId.includes("ratio")
   );
 
-  const cardTitle = `${
-    metrics[0].fullCardTitleName
-  } in ${props.fips.getFullDisplayName()}`;
+  const cardTitle = `${metrics[0]?.fullCardTitleName
+    } in ${props.fips.getSentenceDisplayName()}`;
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const ageAdjustedDataTypes: VariableConfig[] = METRIC_CONFIG[
@@ -170,18 +168,18 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               raceQueryResponse.shouldShowMissingDataMessage(
                 metricIds as MetricId[]
               )) && (
-              <CardContent>
-                <MissingDataAlert
-                  dataName={metrics[0].fullCardTitleName}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-                  }
-                  dropdownVarId={props.dropdownVarId}
-                  ageAdjustedDataTypes={ageAdjustedDataTypes}
-                  fips={props.fips}
-                />
-              </CardContent>
-            )}
+                <CardContent>
+                  <MissingDataAlert
+                    dataName={metrics[0].fullCardTitleName}
+                    breakdownString={
+                      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                    }
+                    dropdownVarId={props.dropdownVarId}
+                    ageAdjustedDataTypes={ageAdjustedDataTypes}
+                    fips={props.fips}
+                  />
+                </CardContent>
+              )}
 
             {/* values are present or partially null, implying we have at least some age-adjustments */}
             {!raceQueryResponse.dataIsMissing() &&

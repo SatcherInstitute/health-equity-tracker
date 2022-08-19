@@ -1,0 +1,4 @@
+county_fips_code,area_name,summary_level_name
+06123,San Mateo County,state-county
+11001,District of Columbia,state-county
+12345,All null county,state-county

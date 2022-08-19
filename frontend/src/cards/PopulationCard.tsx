@@ -22,12 +22,14 @@ import {
 } from "../data/config/MetricConfig";
 import { ALL, RACE } from "../data/utils/Constants";
 import {
+  onlyInclude,
   onlyIncludeDecadeAgeBrackets,
   onlyIncludeStandardRaces,
 } from "../data/query/BreakdownFilter";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Hidden from "@material-ui/core/Hidden";
 import Alert from "@material-ui/lab/Alert";
+import SviAlert from "./ui/SviAlert";
 
 export const POPULATION_BY_RACE = "Population by race and ethnicity";
 export const POPULATION_BY_AGE = "Population by age";
@@ -67,9 +69,23 @@ export function PopulationCard(props: PopulationCardProps) {
     Breakdowns.forFips(props.fips).andAge(onlyIncludeDecadeAgeBrackets())
   );
 
+  const queries = [raceQuery, ageQuery];
+
+  if (props.fips.isCounty()) {
+    const sviQuery = new MetricQuery(
+      "svi",
+      Breakdowns.forFips(props.fips).andAge(onlyInclude("All"))
+    );
+    queries.push(sviQuery);
+  }
+
   return (
-    <CardWrapper minHeight={PRELOAD_HEIGHT} queries={[raceQuery, ageQuery]}>
-      {([raceQueryResponse, ageQueryResponse]) => {
+    <CardWrapper minHeight={PRELOAD_HEIGHT} queries={queries}>
+      {([raceQueryResponse, ageQueryResponse, sviQueryResponse]) => {
+        const svi =
+          props.fips.isCounty() &&
+          sviQueryResponse.data.find((a) => a.age === ALL)?.svi;
+
         const totalPopulation = raceQueryResponse.data.find(
           (r) => r.race_and_ethnicity === ALL
         );
@@ -87,6 +103,7 @@ export function PopulationCard(props: PopulationCardProps) {
             }
             onClick={() => setExpanded(!expanded)}
             color="primary"
+            className={styles.ProfileButton}
           >
             {expanded ? "Collapse full profile" : "See full profile"}
             {expanded ? <ArrowDropUp /> : <ArrowDropDown />}
@@ -127,9 +144,22 @@ export function PopulationCard(props: PopulationCardProps) {
                   </Grid>
                 </Grid>
               </Grid>
-              {!raceQueryResponse.dataIsMissing() && (
-                <Grid item>{CollapseButton}</Grid>
-              )}
+              <Grid className={styles.SviContainer}>
+                <Grid>
+                  {sviQueryResponse && (
+                    <SviAlert
+                      svi={svi}
+                      sviQueryResponse={sviQueryResponse}
+                      fips={props.fips}
+                    />
+                  )}
+                </Grid>
+                {!raceQueryResponse.dataIsMissing() && (
+                  <Grid item className={styles.ProfileButtonContainer}>
+                    {CollapseButton}
+                  </Grid>
+                )}
+              </Grid>
             </Grid>
 
             {props.fips.needsACS2010() && (
@@ -213,7 +243,7 @@ export function PopulationCard(props: PopulationCardProps) {
                         breakdownVar={RACE}
                         showLegend={false}
                         usePercentSuffix={true}
-                        filename={`${POPULATION_BY_RACE} in ${props.fips.getFullDisplayName()}`}
+                        filename={`${POPULATION_BY_RACE} in ${props.fips.getSentenceDisplayName()}`}
                       />
                     </Box>
                   </Grid>
@@ -236,7 +266,7 @@ export function PopulationCard(props: PopulationCardProps) {
                           breakdownVar="age"
                           showLegend={false}
                           usePercentSuffix={true}
-                          filename={`${POPULATION_BY_AGE} in ${props.fips.getFullDisplayName()}`}
+                          filename={`${POPULATION_BY_AGE} in ${props.fips.getSentenceDisplayName()}`}
                         />
                       )}
                     </Box>

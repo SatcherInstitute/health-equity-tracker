@@ -64,7 +64,7 @@ describe("WithLoadingOrErrorUI", () => {
       Breakdowns.byState().andRace(excludeAll())
     );
 
-    expect(dataFetcher.getNumGetMetdataCalls()).toBe(0);
+    expect(dataFetcher.getNumGetMetadataCalls()).toBe(0);
     const { findByTestId } = render(
       <WithMetricsWrapperApp
         query={query}
@@ -109,7 +109,7 @@ describe("WithLoadingOrErrorUI", () => {
       Breakdowns.national().andRace()
     );
 
-    expect(dataFetcher.getNumGetMetdataCalls()).toBe(0);
+    expect(dataFetcher.getNumGetMetadataCalls()).toBe(0);
     const { findByTestId } = render(<WithMetricsWrapperApp query={query} />);
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
@@ -132,7 +132,7 @@ describe("WithLoadingOrErrorUI", () => {
       Breakdowns.byCounty().andAge()
     );
 
-    expect(dataFetcher.getNumGetMetdataCalls()).toBe(0);
+    expect(dataFetcher.getNumGetMetadataCalls()).toBe(0);
     const { findByTestId } = render(<WithMetricsWrapperApp query={query} />);
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
@@ -149,11 +149,11 @@ describe("WithLoadingOrErrorUI", () => {
   test("WithMetrics: Dataset doesn't exist", async () => {
     const query = new MetricQuery(
       //@ts-ignore - metric ID should be invalid for this test
-      "fakemetricdoesntexist",
+      "fake_metric_doesnt_exist",
       Breakdowns.national()
     );
 
-    expect(dataFetcher.getNumGetMetdataCalls()).toBe(0);
+    expect(dataFetcher.getNumGetMetadataCalls()).toBe(0);
     const { findByTestId } = render(<WithMetricsWrapperApp query={query} />);
 
     expect(await findByTestId("WithLoadingOrErrorUI-error")).toHaveTextContent(

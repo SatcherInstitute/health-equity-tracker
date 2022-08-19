@@ -1,4 +1,21 @@
-# Used in Primary Care Access URL and filenames
+COUNTY_EQUIVALENT_FIPS_MAP = {
+    "60010": "Eastern District",
+    "60020": "Manu'a District",
+    "60030": "Rose Atoll (Rose Island)",
+    "60040": "Swain's Island",
+    "60050": "Western District",
+    "66010": "Guam",
+    "69085": "Northern Islands Municipality",
+    "69100": "Rota Municipality",
+    "69110": "Saipan Municipality",
+    "69120": "Tinian Municipality",
+    "78010": "St. Croix",
+    "78020": "St. John",
+    "78030": "St. Thomas",
+}
+
+
+# Used in BJS, Primary Care Access URL, and filenames
 STATE_NAMES = [
     "Alabama",
     "Alaska",
@@ -55,6 +72,12 @@ STATE_NAMES = [
 US_FIPS = '00'
 US_NAME = 'United States'
 US_ABBR = "US"
+
+
+NATIONAL_LEVEL = "national"
+STATE_LEVEL = "state"
+
+UNKNOWN = "Unknown"
 
 
 class Sex:

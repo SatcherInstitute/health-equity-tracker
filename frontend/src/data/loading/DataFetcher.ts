@@ -96,19 +96,8 @@ export class ApiDataFetcher implements DataFetcher {
       datasetId.startsWith("acs_2010_population")
     ) {
       result = result.map((row: any) => {
-        return { ...row, population: Number(row["population"]) };
-      });
-    } else if (datasetId.startsWith("cdc_restricted")) {
-      result = result.map((row: any) => {
         return {
           ...row,
-          cases: Number(row["cases"]),
-          hosp_y: Number(row["hosp_y"]),
-          hosp_n: Number(row["hosp_n"]),
-          hosp_unknown: Number(row["hosp_unknown"]),
-          death_y: Number(row["death_y"]),
-          death_n: Number(row["death_n"]),
-          death_unknown: Number(row["death_unknown"]),
           population:
             row["population"] == null ? null : Number(row["population"]),
         };
@@ -117,15 +106,48 @@ export class ApiDataFetcher implements DataFetcher {
       result = result.map((row: any) => {
         return {
           ...row,
-          above_poverty_line: Number(row["above_poverty_line"]),
-          below_poverty_line: Number(row["below_poverty_line"]),
+          above_poverty_line:
+            row["above_poverty_line"] == null
+              ? null
+              : Number(row["above_poverty_line"]),
+          below_poverty_line:
+            row["below_poverty_line"] == null
+              ? null
+              : Number(row["below_poverty_line"]),
+        };
+      });
+    } else if (datasetId.startsWith("vera_") || datasetId.startsWith("bjs_")) {
+      result = result.map((row: any) => {
+        return {
+          ...row,
+          total_confined_children:
+            row["total_confined_children"] == null
+              ? null
+              : Number(row["total_confined_children"]),
+          prison_per_100k:
+            row["prison_per_100k"] == null
+              ? null
+              : Number(row["prison_per_100k"]),
+          jail_per_100k:
+            row["jail_per_100k"] == null ? null : Number(row["jail_per_100k"]),
+          prison_pct_share:
+            row["prison_pct_share"] == null
+              ? null
+              : Number(row["prison_pct_share"]),
+          jail_pct_share:
+            row["jail_pct_share"] == null
+              ? null
+              : Number(row["jail_pct_share"]),
         };
       });
     } else if (datasetId.startsWith("cdc_vaccination_national")) {
       result = result.map((row: any) => {
         return {
           ...row,
-          vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
+          vaccinated_first_dose:
+            row["vaccinated_first_dose"] == null
+              ? null
+              : Number(row["vaccinated_first_dose"]),
           vaccinated_per_100k:
             row["vaccinated_per_100k"] == null
               ? null
@@ -136,8 +158,16 @@ export class ApiDataFetcher implements DataFetcher {
       result = result.map((row: any) => {
         return {
           ...row,
-          vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
-          population: Number(row["population"]),
+          vaccinated_first_dose:
+            row["vaccinated_first_dose"] == null
+              ? null
+              : Number(row["vaccinated_first_dose"]),
+          population:
+            row["population"] == null ? null : Number(row["population"]),
+          population_pct:
+            row["population_pct"] == null
+              ? null
+              : Number(row["population_pct"]),
         };
       });
     }

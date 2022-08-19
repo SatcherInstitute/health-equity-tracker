@@ -103,6 +103,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // Dataset to use for computing the legend
   const legendData = props.legendData || props.data;
 
+  const legendLowerBound = Math.min(
+    ...legendData.map((row) => row[props.metric.metricId])
+  );
+  const legendUpperBound = Math.max(
+    ...legendData.map((row) => row[props.metric.metricId])
+  );
+
   // Generate meaningful alt text
   const altText = `Map showing ${props.filename}${
     !props.fips.isCounty()
@@ -115,7 +122,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ? { values: props.geoData }
       : { url: `/tmp/${GEOGRAPHIES_DATASET_ID}.json` };
 
-    /* SET UP GEO DATSET */
+    /* SET UP GEO DATASET */
     // Transform geo dataset by adding varField from VAR_DATASET
     let geoTransformers: any[] = [
       {
@@ -123,7 +130,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         from: VAR_DATASET,
         key: VAR_FIPS,
         fields: [GEO_ID],
-        values: [props.metric.metricId],
+        values: [props.metric.metricId, "rating"],
       },
     ];
     if (props.overrideShapeWithCircle) {
@@ -167,9 +174,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       props.isUnknownsMap && props.metric.unknownsVegaLabel
         ? props.metric.unknownsVegaLabel
         : props.metric.shortLabel;
-    const tooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum} }`;
-    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}" }`;
 
+    const tooltipValue = () => {
+      if (props.fips.isState() || props.fips.isCounty()) {
+        return `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum}, "County SVI": datum.rating}`;
+      }
+      return `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum},}`;
+    };
+    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}", }`;
     /* SET UP LEGEND */
     let legendList = [];
 
@@ -243,6 +255,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.scaleType === "symlog") {
       // Controls the slope of the linear behavior of symlog around 0.
       colorScale["constant"] = 0.01;
+    }
+
+    // if there is no range, use a dot instead of a gradient bar for legend to prevent weirdness
+    if (legendLowerBound === legendUpperBound) {
+      colorScale["type"] = "ordinal";
     }
 
     /* SET UP PROJECTION USED TO CREATE MARKS ON THE UI */
@@ -345,9 +362,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         /*datasetName=*/ VALID_DATASET,
         /*fillColor=*/ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
         /*hoverColor=*/ DARK_BLUE,
-        /*tooltipExpression=*/ tooltipValue
+        /*tooltipExpression=*/ tooltipValue()
       ),
     ];
+
     if (props.overrideShapeWithCircle) {
       // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET));
@@ -490,6 +508,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props,
     heightWidthRatio,
     altText,
+    legendLowerBound,
+    legendUpperBound,
   ]);
 
   const mapStyle = pageIsTiny

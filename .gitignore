@@ -24,6 +24,8 @@ node_modules/
 /frontend/.env.test.local
 /frontend/.env.production.local
 /frontend/npm-debug.log*
+/frontend/playwright-report/
+/frontend/test-results/
 
 config/.terraform.lock.hcl
 config/.terraform/

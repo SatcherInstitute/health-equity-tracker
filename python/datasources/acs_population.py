@@ -8,7 +8,7 @@ from ingestion import url_file_to_gcs, gcs_to_bq_util, census
 from datasources.data_source import DataSource
 from ingestion.census import (get_census_params, parse_acs_metadata,
                               get_vars_for_group, standardize_frame)
-from ingestion.dataset_utils import add_sum_of_rows, generate_pct_share_col
+from ingestion.dataset_utils import add_sum_of_rows, generate_pct_share_col_without_unknowns
 
 # TODO pass this in from message data.
 BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
@@ -99,8 +99,6 @@ def get_decade_age_bucket(age_range):
         return '80+'
     elif age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
-    else:
-        return 'Unknown'
 
 
 def get_uhc_standard_age_bucket(age_range):
@@ -152,6 +150,64 @@ def get_uhc_voter_age_bucket(age_range):
         return '45-54'
     elif age_range in {'55-59', '60-61', '62-64'}:
         return '55-64'
+
+
+# buckets for BJS prisoners 2020
+def get_prison_age_bucket(age_range):
+    if age_range in {'18-19'}:
+        return age_range
+    elif age_range in {'20-20',
+                       '21-21',
+                       '22-24'}:
+        return '20-24'
+    elif age_range in {'25-29',
+                       '30-34',
+                       '35-39',
+                       '40-44',
+                       '45-49',
+                       '50-54',
+                       '55-59', }:
+        return age_range
+    elif age_range in {'60-61', '62-64'}:
+        return '60-64'
+    elif age_range in {'65-66',
+                       '67-69',
+                       '70-74',
+                       '75-79',
+                       '80-84',
+                       '85+'}:
+        return '65+'
+    elif age_range == std_col.ALL_VALUE:
+        return std_col.ALL_VALUE
+
+# buckets for BJS Census of Jail
+
+
+def get_jail_age_bucket(age_range):
+    if age_range in {'0-4', '5-9', '10-14', '15-17', }:
+        return '0-17'
+    elif age_range in {'18-19',
+                       '20-20',
+                       '21-21',
+                       '22-24',
+                       '25-29',
+                       '30-34',
+                       '35-39',
+                       '40-44',
+                       '45-49',
+                       '50-54',
+                       '55-59',
+                       '60-61',
+                       '62-64',
+                       '65-66',
+                       '67-69',
+                       '70-74',
+                       '75-79',
+                       '80-84',
+                       '85+'}:
+        return '18+'
+    elif age_range == std_col.ALL_VALUE:
+        return std_col.ALL_VALUE
 
 
 def rename_age_bracket(bracket):
@@ -272,6 +328,9 @@ class ACSPopulationIngester():
         by_sex_standard_age_uhc = None
         by_sex_decade_plus_5_age_uhc = None
         by_sex_voter_age_uhc = None
+        by_sex_bjs_prison_age = None
+        by_sex_bjs_jail_age = None
+
         if not self.county_level:
             by_sex_standard_age_uhc = self.get_by_sex_age(
                 frames[self.get_table_name_by_sex_age_race()], get_uhc_standard_age_bucket)
@@ -279,10 +338,15 @@ class ACSPopulationIngester():
                 frames[self.get_table_name_by_sex_age_race()], get_uhc_decade_plus_5_age_bucket)
             by_sex_voter_age_uhc = self.get_by_sex_age(
                 frames[self.get_table_name_by_sex_age_race()], get_uhc_voter_age_bucket)
+            by_sex_bjs_prison_age = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_prison_age_bucket)
+            by_sex_bjs_jail_age = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_jail_age_bucket)
 
         frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
             frames['by_sex_age_%s' % self.get_geo_name()],
-            by_sex_standard_age_uhc, by_sex_decade_plus_5_age_uhc, by_sex_voter_age_uhc)
+            by_sex_standard_age_uhc, by_sex_decade_plus_5_age_uhc,
+            by_sex_voter_age_uhc, by_sex_bjs_prison_age, by_sex_bjs_jail_age)
 
         frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
             frames[self.get_table_name_by_sex_age_race()])
@@ -433,8 +497,8 @@ class ACSPopulationIngester():
             Race.API_NH.value,
             [Race.ASIAN_NH.value, Race.NHPI_NH.value])
 
-        all_races = generate_pct_share_col(
-            all_races, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL,
+        all_races = generate_pct_share_col_without_unknowns(
+            all_races, {std_col.POPULATION_COL: std_col.POPULATION_PCT_COL},
             std_col.RACE_CATEGORY_ID_COL, Race.ALL.value)
 
         std_col.add_race_columns_from_category_id(all_races)
@@ -496,7 +560,10 @@ class ACSPopulationIngester():
                    by_sex_age,
                    by_sex_standard_age_uhc=None,
                    by_sex_decade_plus_5_age_uhc=None,
-                   by_sex_voter_age_uhc=None):
+                   by_sex_voter_age_uhc=None,
+                   by_sex_bjs_prison_age=None,
+                   by_sex_bjs_jail_age=None
+                   ):
         by_age = by_sex_age.loc[by_sex_age[std_col.SEX_COL]
                                 == std_col.ALL_VALUE]
 
@@ -520,15 +587,23 @@ class ACSPopulationIngester():
             by_voter_age_uhc = by_sex_voter_age_uhc.loc[
                 by_sex_voter_age_uhc[std_col.SEX_COL] == std_col.ALL_VALUE]
             by_voter_age_uhc = by_voter_age_uhc[cols[1:]]
+            by_bjs_prison_age = by_sex_bjs_prison_age.loc[
+                by_sex_bjs_prison_age[std_col.SEX_COL] == std_col.ALL_VALUE]
+            by_bjs_prison_age = by_bjs_prison_age[cols[1:]]
+            by_bjs_jail_age = by_sex_bjs_jail_age.loc[
+                by_sex_bjs_jail_age[std_col.SEX_COL] == std_col.ALL_VALUE]
+            by_bjs_jail_age = by_bjs_jail_age[cols[1:]]
 
             by_age = pd.concat([by_age,
                                 by_standard_age_uhc,
                                 by_decade_plus_5_age_uhc,
-                                by_voter_age_uhc]
-                               ).drop_duplicates().reset_index(drop=True)
+                                by_voter_age_uhc,
+                                by_bjs_prison_age,
+                                by_bjs_jail_age
+                                ]).drop_duplicates().reset_index(drop=True)
 
-        by_age = generate_pct_share_col(
-            by_age, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL, std_col.AGE_COL, std_col.ALL_VALUE)
+        by_age = generate_pct_share_col_without_unknowns(
+            by_age, {std_col.POPULATION_COL: std_col.POPULATION_PCT_COL}, std_col.AGE_COL, std_col.ALL_VALUE)
 
         by_age = by_age.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_age
@@ -548,8 +623,8 @@ class ACSPopulationIngester():
 
         by_sex = by_sex[cols] if self.county_level else by_sex[cols[1:]]
 
-        by_sex = generate_pct_share_col(
-            by_sex, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL, std_col.SEX_COL, std_col.ALL_VALUE)
+        by_sex = generate_pct_share_col_without_unknowns(
+            by_sex, {std_col.POPULATION_COL: std_col.POPULATION_PCT_COL}, std_col.SEX_COL, std_col.ALL_VALUE)
 
         by_sex = by_sex.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_sex
@@ -617,8 +692,8 @@ def GENERATE_NATIONAL_DATASET(state_df, states_to_include, demographic_breakdown
     if demographic_breakdown_category == 'race':
         total_val = Race.ALL.value
 
-    df = generate_pct_share_col(
-        df, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL,
+    df = generate_pct_share_col_without_unknowns(
+        df, {std_col.POPULATION_COL: std_col.POPULATION_PCT_COL},
         breakdown_map[demographic_breakdown_category], total_val)
 
     if demographic_breakdown_category == 'race':

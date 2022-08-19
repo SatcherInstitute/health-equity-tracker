@@ -8,17 +8,24 @@ import { ChoroplethMap } from "../../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
 import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
-import { MetricConfig } from "../../data/config/MetricConfig";
+import {
+  MetricConfig,
+  SYMBOL_TYPE_LOOKUP,
+} from "../../data/config/MetricConfig";
 import { Row, FieldRange } from "../../data/utils/DatasetTypes";
 import { Sources } from "./Sources";
 import styles from "./MultiMapDialog.module.scss";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import {
   BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../../data/query/Breakdowns";
 import { Alert } from "@material-ui/lab";
 import { DemographicGroup } from "../../data/utils/Constants";
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from "../../data/variables/CawpProvider";
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -78,15 +85,22 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           >
             <Typography id="modalTitle" variant="h6" component="h2">
               {props.metricConfig.fullCardTitleName} Across All{" "}
-              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
+              {BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdown]} Groups
             </Typography>
           </Grid>
 
           {/* Multiples Maps */}
           {props.breakdownValues.map((breakdownValue) => {
+            const mapLabel = CAWP_DETERMINANTS.includes(
+              props.metricConfig.metricId
+            )
+              ? getWomenRaceLabel(breakdownValue)
+              : breakdownValue;
+
             const dataForValue = props.data.filter(
               (row: Row) => row[props.breakdown] === breakdownValue
             );
+
             return (
               <Grid
                 xs={12}
@@ -98,11 +112,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 className={styles.SmallMultipleMap}
                 component="li"
               >
-                <b>{breakdownValue}</b>
-                {props.metricConfig && dataForValue.length ? (
+                <b>{mapLabel}</b>
+                {props.metricConfig && dataForValue.length > 0 && (
                   <ChoroplethMap
                     key={breakdownValue}
-                    signalListeners={{ click: (...args: any) => {} }}
+                    signalListeners={{ click: (...args: any) => { } }}
                     metric={props.metricConfig}
                     legendTitle={props.metricConfig.fullCardTitleName}
                     legendData={props.data}
@@ -114,24 +128,21 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     hideActions={true}
                     scaleType="quantile"
                     geoData={props.geoData}
-                    filename={`${props.metricConfig.fullCardTitleName}${
-                      breakdownValue === "All" ? "" : ` for ${breakdownValue}`
-                    } in ${props.fips.getFullDisplayName()}`}
+                    filename={`${props.metricConfig.fullCardTitleName}${breakdownValue === "All" ? "" : ` for ${breakdownValue}`
+                      } in ${props.fips.getSentenceDisplayName()}`}
                   />
-                ) : (
-                  <></>
                 )}
 
                 {/* TERRITORIES (IF NATIONAL VIEW) */}
                 {props.metricConfig &&
-                props.fips.isUsa() &&
-                dataForValue.length ? (
+                  props.fips.isUsa() &&
+                  dataForValue.length ? (
                   TERRITORY_CODES.map((code) => {
                     const fips = new Fips(code);
                     return (
                       <div key={code} className={styles.TerritoryMap}>
                         <ChoroplethMap
-                          signalListeners={{ click: (...args: any) => {} }}
+                          signalListeners={{ click: (...args: any) => { } }}
                           metric={props.metricConfig}
                           legendTitle={props.metricConfig.fullCardTitleName}
                           legendData={props.data}
@@ -169,7 +180,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             <Box mt={pageIsWide ? 10 : 0}>
               <Grid container item>
                 <Grid container justifyContent="center">
-                  <b>Legend</b>
+                  <b>Legend ({SYMBOL_TYPE_LOOKUP[props.metricConfig.type]})</b>
                 </Grid>
                 <Grid container justifyContent="center">
                   <Legend

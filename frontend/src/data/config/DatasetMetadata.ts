@@ -1,7 +1,7 @@
 import { DatasetMetadata } from "../utils/DatasetTypes";
 import { DataSourceMetadataMap, GEOGRAPHIES_DATASET_ID } from "./MetadataMap";
 
-const datasetMetadataList: DatasetMetadata[] = [
+export const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "acs_population-by_race_county_std",
     name: "Population by Race and County",
@@ -59,7 +59,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "acs_2010_population-by_age_territory",
-    name: "Population by Sex and Territory",
+    name: "Population by Age and Territory",
     update_time: "2010",
   },
   {
@@ -133,54 +133,74 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019",
   },
   {
-    id: "cdc_restricted_data-by_race_county",
+    id: "cdc_restricted_data-by_race_county_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and County",
-    update_time: "April 2022",
+    update_time: "August 2022",
   },
   {
-    id: "cdc_restricted_data-by_race_state-with_age_adjust",
+    id: "cdc_restricted_data-by_race_state_processed-with_age_adjust",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and State",
-    update_time: "April 2022",
+    update_time: "August 2022",
   },
   {
-    id: "cdc_restricted_data-by_age_county",
+    id: "cdc_restricted_data-by_race_national_processed-with_age_adjust",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Race Nationally",
+    update_time: "August 2022",
+  },
+  {
+    id: "cdc_restricted_data-by_age_county_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and County",
-    update_time: "April 2022",
+    update_time: "August 2022",
   },
   {
-    id: "cdc_restricted_data-by_age_state",
+    id: "cdc_restricted_data-by_age_state_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and State",
-    update_time: "April 2022",
+    update_time: "August 2022",
   },
   {
-    id: "cdc_restricted_data-by_sex_county",
+    id: "cdc_restricted_data-by_age_national_processed",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Age Nationally",
+    update_time: "August 2022",
+  },
+  {
+    id: "cdc_restricted_data-by_sex_county_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and County",
-    update_time: "April 2022",
+    update_time: "August 2022",
   },
   {
-    id: "cdc_restricted_data-by_sex_state",
+    id: "cdc_restricted_data-by_sex_state_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and State",
-    update_time: "April 2022",
+    update_time: "August 2022",
+  },
+  {
+    id: "cdc_restricted_data-by_sex_national_processed",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex Nationally",
+    update_time: "August 2022",
+  },
+  {
+    id: "cdc_svi_county-age",
+    name: "National Social Vulnerability Index by County",
+    update_time: "2018",
   },
   {
     id: "cdc_vaccination_county-race_and_ethnicity",
     name: "COVID-19 Vaccinations by County",
-    update_time: "April 2022",
+    update_time: "July 2022",
   },
   {
     id: "cdc_vaccination_national-age",
     name: "COVID-19 Vaccination Demographics by Age",
-    update_time: "April 2022",
+    update_time: "July 2022",
   },
   {
     id: "cdc_vaccination_national-sex",
     name: "COVID-19 Vaccination Demographics by Sex",
-    update_time: "April 2022",
+    update_time: "July 2022",
   },
   {
     id: "cdc_vaccination_national-race_and_ethnicity",
     name: "COVID-19 Vaccination Demographics by Race",
-    update_time: "April 2022",
+    update_time: "July 2022",
   },
   {
     id: "kff_vaccination-race_and_ethnicity",
@@ -188,19 +208,109 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "April 2022",
   },
   {
-    id: "uhc_data-age",
+    id: "uhc_data-age_national",
+    name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by Age, National",
+    update_time: "2021",
+  },
+  {
+    id: "uhc_data-race_and_ethnicity_national",
+    name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by Race, National",
+    update_time: "2021",
+  },
+  {
+    id: "uhc_data-sex_national",
+    name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by Sex, National",
+    update_time: "2021",
+  },
+  {
+    id: "uhc_data-age_state",
     name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by Age and State",
     update_time: "2021",
   },
   {
-    id: "uhc_data-race_and_ethnicity",
+    id: "uhc_data-race_and_ethnicity_state",
     name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by Race and State",
     update_time: "2021",
   },
   {
-    id: "uhc_data-sex",
+    id: "uhc_data-sex_state",
     name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by Sex and State",
     update_time: "2021",
+  },
+  {
+    id: "bjs_incarceration_data-age_national",
+    name: "National rates of sentenced individuals under the jurisdiction of federal or state adult prison facilities, or confined in local adult jail facilities, by Age",
+    update_time: "2019 for Jail, 2020 for Prison",
+  },
+  {
+    id: "bjs_incarceration_data-age_state",
+    name: "Rates of individuals under the jurisdiction of state or territory prison facilities, by State/Territory (totals only), or confined in local adult jail facilities by Age, by State/Territory",
+    update_time: "2019 for Jail, 2020 for Prison",
+  },
+  {
+    id: "bjs_incarceration_data-race_and_ethnicity_national",
+    name: "National rates of individuals under the jurisdiction of federal or state adult prison facilities or confined in local adult jail facilities, by Race/Ethnicity",
+    update_time: "2019 for Jail, 2020 for Prison",
+  },
+  {
+    id: "bjs_incarceration_data-race_and_ethnicity_state",
+    name: "Rates of individuals under the jurisdiction of state or territory prison facilities or confined in local adult jail facilities, by Race/Ethnicity and State/Territory",
+    update_time: "2019 for Jail, 2020 for Prison",
+  },
+  {
+    id: "bjs_incarceration_data-sex_national",
+    name: "National rates of individuals under the jurisdiction of federal or state adult prison facilities or confined in local adult jail facilities, by Sex",
+    update_time: "2019 for Jail, 2020 for Prison",
+  },
+  {
+    id: "bjs_incarceration_data-sex_state",
+    name: "Rates of individuals under the jurisdiction of state or territory prison facilities or confined in local adult jail facilities, by Sex and State/Territory",
+    update_time: "2019 for Jail, 2020 for Prison",
+  },
+  {
+    id: "vera_incarceration_county-jail_age_county",
+    name: "Rates of individuals within a county incarcerated in local jail facilities, by Age (totals only)",
+    update_time: "2018",
+  },
+  {
+    id: "vera_incarceration_county-jail_sex_county",
+    name: "Rates of individuals within a county incarcerated in local jail facilities, by Sex",
+    update_time: "2018",
+  },
+  {
+    id: "vera_incarceration_county-jail_race_and_ethnicity_county",
+    name: "Rates of individuals within a county incarcerated in local jail facilities, by Race/Ethnicity",
+    update_time: "2018",
+  },
+  {
+    id: "vera_incarceration_county-prison_age_county",
+    name: "Rates of individuals within a county incarcerated in state prison facilities, by Age (totals only)",
+    update_time: "2016",
+  },
+  {
+    id: "vera_incarceration_county-prison_sex_county",
+    name: "Rates of individuals within a county incarcerated in state prison facilities, by Sex",
+    update_time: "2016",
+  },
+  {
+    id: "vera_incarceration_county-prison_race_and_ethnicity_county",
+    name: "Rates of individuals within a county incarcerated in state prison facilities, by Race/Ethnicity",
+    update_time: "2016",
+  },
+  {
+    id: "cawp_data-race_and_ethnicity_national",
+    name: "National representation of women by race/ethnicity in the US Congress and across county and territory legislatures",
+    update_time: "2022",
+  },
+  {
+    id: "cawp_data-race_and_ethnicity_state",
+    name: "Representation of women by race/ethnicity from each state and territory to the US Congress and their respective state legislature",
+    update_time: "2022",
+  },
+  {
+    id: "propublica_congress",
+    name: "The ProPublica Congress API provides near real-time access to legislative data from the House of Representatives, the Senate and the Library of Congress. It includes details about members, votes, bills and other aspects of congressional activity.",
+    update_time: "2022",
   },
   {
     id: GEOGRAPHIES_DATASET_ID,

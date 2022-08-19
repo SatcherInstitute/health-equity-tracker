@@ -124,18 +124,18 @@ function UnknownsAlert(props: UnknownsAlertProps) {
       <CardContent className={styles.SmallMarginContent}>
         <Alert severity="warning" role="note">
           {percentageUnknown}
-          {props.metricConfig.knownBreakdownComparisonMetric!.shortLabel}
+          {props.metricConfig.shortLabel}
           {" reported an unknown "}
           {props.overrideAndWithOr
             ? RACE_OR_ETHNICITY
             : breakdownVarDisplayName}
           {/* Age Adjusted Card reports both unknown RACE + AGE */}
-          {secondaryAgePercentageUnknown &&
-            `, and ${secondaryAgePercentageUnknown}${
-              props.metricConfig.knownBreakdownComparisonMetric!.shortLabel
-            } reported an unknown age`}
+          {secondaryAgePercentageUnknown
+            ? `, and ${secondaryAgePercentageUnknown}${props.metricConfig.shortLabel} reported an unknown age`
+            : null}
           {" in "}
-          {props.fips.getDisplayName()}. {showCardHelperText && cardHelperText}
+          {props.fips.getSentenceDisplayName()}.{" "}
+          {showCardHelperText && cardHelperText}
           {props.raceEthDiffMap && raceEthDiffMapText}
           {showDataGapsRisk && (
             <>

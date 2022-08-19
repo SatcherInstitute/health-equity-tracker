@@ -9,12 +9,12 @@ import {
   getPhraseValue,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
+import { LinkWithStickyParams } from "../utils/urlutils";
 import {
-  LinkWithStickyParams,
   DATA_CATALOG_PAGE_LINK,
   CONTACT_TAB_LINK,
   METHODOLOGY_TAB_LINK,
-} from "../utils/urlutils";
+} from "../utils/internalRoutes";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import styles from "./Report.module.scss";
@@ -32,6 +32,7 @@ import { Box } from "@material-ui/core";
 import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
+import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -42,6 +43,7 @@ interface ReportProviderProps {
   showLifeLineAlert: boolean;
   setMadLib: Function;
   doScrollToData?: boolean;
+  showIncarceratedChildrenAlert: boolean;
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -160,6 +162,10 @@ function ReportProvider(props: ReportProviderProps) {
         <ShareButtons madLib={props.madLib} />
         {props.showLifeLineAlert && <LifelineAlert />}
         <DisclaimerAlert jumpToData={jumpToData} />
+        {props.showIncarceratedChildrenAlert && false && (
+          <IncarceratedChildrenLongAlert />
+        )}
+
         {getReport()}
       </div>
       <div className={styles.MissingDataContainer}>
@@ -168,9 +174,24 @@ function ReportProvider(props: ReportProviderProps) {
           ref={fieldRef}
           className={styles.MissingDataInfo}
         >
-          <h3 className={styles.FootnoteLargeHeading}>
-            What Data Are Missing?
-          </h3>
+          {/* Display condition definition(s) based on the tracker madlib settings */}
+          <div ref={definitionsRef}>
+            {definedConditions.length > 0 && (
+              <Box mb={5}>
+                <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
+                <LazyLoad offset={300} height={181} once>
+                  <DefinitionsList variablesToDefine={metricConfigSubset} />
+                </LazyLoad>
+              </Box>
+            )}
+          </div>
+
+          <Box mt={10}>
+            <h3 className={styles.FootnoteLargeHeading}>
+              What Data Are Missing?
+            </h3>
+          </Box>
+
           <p>Unfortunately there are crucial data missing in our sources.</p>
           <h4>Missing and Misidentified People</h4>
           <p>
@@ -246,27 +267,49 @@ function ReportProvider(props: ReportProviderProps) {
 
           <h4>Missing Population Data</h4>
           <p>
-            The census bureau does not release population data for the{" "}
-            <b>Northern Mariana Islands</b>, <b>Guam</b>, or the{" "}
-            <b>U.S. Virgin Islands</b> in their ACS five year estimates. The
-            last reliable population numbers we could find for these territories
-            is from the 2010 census, so we use those numbers when calculating
-            the per 100k COVID-19 rates nationally and for all territory level
-            rates.
+            We primarily incorporate the U.S. Census Bureau's American Community
+            Survey (ACS) 5-year estimates when presenting population
+            information. However, certain situations have required an alternate
+            approach due to incompatible or missing data, as outlined below:{" "}
           </p>
-          <p>
-            Because state reported population categories do not always coincide
-            with the categories reported by the census, we rely on the Kaiser
-            Family Foundation population tabulations for state reported
-            population categories, which only include population numbers for{" "}
-            <b>Black,</b> <b>White</b>, <b>Asian</b>, and <b>Hispanic</b>.
-            Percent of vaccinated metrics for{" "}
-            <b>Native Hawaiian and Pacific Islander</b>, and{" "}
-            <b>American Indian and Alaska Native</b> are shown with a population
-            comparison metric from the American Community Survey 5-year
-            estimates, while <b>Unrepresented race</b> is shown without any
-            population comparison metric.
-          </p>
+
+          <ul>
+            <li>
+              <b>Territories:</b> Population data for{" "}
+              <b>Northern Mariana Islands</b>, <b>Guam</b>,{" "}
+              <b>American Samoa</b>, and the <b>U.S. Virgin Islands</b> are not
+              reported in the ACS five year estimates. The last reliable
+              population numbers we could find for these territories is from the
+              2010 census, so we use those numbers when calculating all
+              territory- and national-level COVID-19 rates.
+            </li>
+            <li>
+              <b>COVID-19 Vaccinations:</b> Because state-reported population
+              categories do not always coincide with the categories reported by
+              the census, we rely on the Kaiser Family Foundation population
+              tabulations for state-reported population categories, which only
+              include population numbers for <b>Black,</b> <b>White</b>,{" "}
+              <b>Asian</b>, and <b>Hispanic</b>. ‘Percent of vaccinated’ metrics
+              for <b>Native Hawaiian and Pacific Islander</b>, and{" "}
+              <b>American Indian and Alaska Native</b> are shown with a
+              population comparison metric from the ACS 5-year estimates, while{" "}
+              <b>Unrepresented race</b> is shown without any population
+              comparison metric.
+            </li>
+            <li>
+              <b>Women in Legislative Office:</b> The Center for American Women
+              in Politics (CAWP) dataset uses unique race/ethnicity groupings
+              that do not correspond directly with the categories used by the
+              U.S. Census. For this reason,{" "}
+              <b>Middle Eastern & North African (Women)</b>,{" "}
+              <b>Asian American & Pacific Islander (Women)</b>, and{" "}
+              <b>Native American, Alaska Native, & Native Hawaiian (Women)</b>{" "}
+              are presented without corresponding population comparison metrics.
+            </li>
+          </ul>
+
+          <p></p>
+          <p></p>
 
           <Button
             className={styles.SeeOurDataSourcesButton}
@@ -276,18 +319,6 @@ function ReportProvider(props: ReportProviderProps) {
           >
             See Our Data Sources
           </Button>
-
-          {/* Display condition definition(s) based on the tracker madlib settings */}
-          <div ref={definitionsRef}>
-            {definedConditions.length > 0 && (
-              <Box mt={5}>
-                <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
-                <LazyLoad offset={300} height={181} once>
-                  <DefinitionsList variablesToDefine={metricConfigSubset} />
-                </LazyLoad>
-              </Box>
-            )}
-          </div>
 
           <div className={styles.MissingDataContactUs}>
             <p>

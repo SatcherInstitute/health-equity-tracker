@@ -39,11 +39,13 @@ export interface FieldRange {
 // TODO: make typedef for valid data types instead of any.
 export type Row = Readonly<Record<string, any>>;
 
-// Note: we currently don't support both commas and quotes together, which
-// requires escaping the quotes with another quote.
-function convertSpecialCharactersForCsv(val: any) {
+// Note: we currently don't support both commas and quotes together, which requires escaping the quotes with another quote.
+export function convertSpecialCharactersForCsv(val: any) {
   if (typeof val === "string" && val.includes(",")) {
     return `"${val}"`;
+  }
+  if (val === null) {
+    return "";
   }
   return val;
 }
@@ -61,21 +63,42 @@ export class Dataset {
     return new DataFrame(this.rows);
   }
 
-  toCsvString() {
-    // Assume the columns are the same as the keys of the first row. This is
-    // okay since every row has the same keys. However, we could improve this by
-    // sending column names as structured data from the server.
-    const fields = Object.keys(this.rows[0]);
+  getAllColumnNames(): string[] {
+    const headersSet = new Set<string>();
+    for (const row of this.rows) {
+      for (const header of Object.keys(row)) {
+        headersSet.add(header);
+      }
+    }
+    return Array.from(headersSet);
+  }
 
-    const df = this.toDataFrame().transformSeries(
-      Object.fromEntries(
-        fields.map((name) => [name, convertSpecialCharactersForCsv])
-      )
-    );
-    return [fields]
-      .concat(df.toRows())
-      .map((row) => row.join(","))
-      .join("\n");
+  toCsvString(): string {
+    // grab ALL column names throughout every row
+    const headers = this.getAllColumnNames();
+
+    // add column names first
+    let csvString = headers.join(",");
+    csvString += "\r\n";
+
+    // iterate through and add values as needed
+    // ensure missing keys and explicit nulls are filled in as ""
+    this.rows.forEach((row, rowIndex) => {
+      headers.forEach((header, headerIndex) => {
+        let value = "";
+        if (header in row) {
+          value = row[header as string];
+        }
+        csvString += convertSpecialCharactersForCsv(value);
+
+        // comma between values or newline between rows
+        if (headerIndex < headers.length - 1) {
+          csvString += ",";
+        } else if (rowIndex < this.rows.length - 1) csvString += "\r\n";
+      });
+    });
+
+    return csvString;
   }
 }
 

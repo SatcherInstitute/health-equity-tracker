@@ -1,8 +1,8 @@
 import React from "react";
-import { NEWS_TAB_LINK, ReactRouterLinkButton } from "../../../utils/urlutils";
+import { NEWS_TAB_LINK } from "../../../utils/internalRoutes";
 import styles from "./News.module.scss";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
-import { getHtml } from "../../../utils/urlutils";
+import { getHtml, ReactRouterLinkButton } from "../../../utils/urlutils";
 import { Article } from "../NewsTab";
 import { Box, Grid } from "@material-ui/core";
 import LazyLoad from "react-lazyload";
@@ -21,6 +21,7 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
       className={styles.NewsPreviewHeaderText}
     >
       <Grid container wrap="nowrap" justifyContent="space-evenly">
+        {/* Optional "Left/Previous" Arrow */}
         <Grid
           item
           xs={1}
@@ -57,15 +58,17 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
                   : styles.LogoThumbnail
               }
               alt=""
-              role="link"
             />
           </LazyLoad>
 
           <Box mx={1}>
-            <h3>{getHtml(article.title.rendered, true)}</h3>
+            <h3 className={styles.NewsPreviewTitleText}>
+              {getHtml(article.title.rendered, true)}
+            </h3>
           </Box>
         </Grid>
 
+        {/* Optional "Right/Next" Arrow */}
         <Grid
           item
           xs={1}

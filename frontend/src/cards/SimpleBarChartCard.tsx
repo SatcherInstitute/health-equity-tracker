@@ -8,11 +8,17 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { VariableConfig } from "../data/config/MetricConfig";
+import {
+  isPctType,
+  MetricId,
+  VariableConfig,
+} from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
+import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
+import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -38,17 +44,23 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
 
+  const isIncarceration = INCARCERATION_IDS.includes(
+    props.variableConfig.variableId
+  );
+  const metricIdsToFetch: MetricId[] = [];
+  metricIdsToFetch.push(metricConfig.metricId);
+  isIncarceration && metricIdsToFetch.push("total_confined_children");
+
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(NON_HISPANIC)
   );
 
-  const query = new MetricQuery([metricConfig.metricId], breakdowns);
+  const query = new MetricQuery(metricIdsToFetch, breakdowns);
 
   function getTitleText() {
-    return `${metricConfig.fullCardTitleName} By ${
-      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-    } In ${props.fips.getFullDisplayName()}`;
+    return `${metricConfig.fullCardTitleName} By ${BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+      } In ${props.fips.getSentenceDisplayName()}`;
   }
   function CardTitle() {
     return <>{getTitleText()}</>;
@@ -61,26 +73,41 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
     >
       {([queryResponse]) => {
+        const data = queryResponse.getValidRowsForField(metricConfig.metricId);
+
         return (
           <CardContent>
             {queryResponse.shouldShowMissingDataMessage([
               metricConfig.metricId,
             ]) ? (
-              <MissingDataAlert
-                dataName={metricConfig.fullCardTitleName}
-                breakdownString={
-                  BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-                }
-                fips={props.fips}
-              />
+              <>
+                <MissingDataAlert
+                  dataName={metricConfig.fullCardTitleName}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                  }
+                  fips={props.fips}
+                />
+              </>
             ) : (
-              <SimpleHorizontalBarChart
-                data={queryResponse.getValidRowsForField(metricConfig.metricId)}
-                breakdownVar={props.breakdownVar}
-                metric={metricConfig}
-                showLegend={false}
-                filename={getTitleText()}
-              />
+              <>
+                {isIncarceration && (
+                  <IncarceratedChildrenShortAlert
+                    fips={props.fips}
+                    queryResponse={queryResponse}
+                    breakdownVar={props.breakdownVar}
+                  />
+                )}
+
+                <SimpleHorizontalBarChart
+                  data={data}
+                  breakdownVar={props.breakdownVar}
+                  metric={metricConfig}
+                  showLegend={false}
+                  filename={getTitleText()}
+                  usePercentSuffix={isPctType(metricConfig.type)}
+                />
+              </>
             )}
           </CardContent>
         );

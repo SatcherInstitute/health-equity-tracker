@@ -1,12 +1,14 @@
 import pandas as pd  # type: ignore
-import numpy as np  # type: ignore
 
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
 
 from datasources.data_source import DataSource
-from ingestion import gcs_to_bq_util, dataset_utils
+from ingestion import gcs_to_bq_util
+from ingestion.dataset_utils import (estimate_total,
+                                     generate_pct_share_col_without_unknowns)
+from ingestion.merge_utils import merge_state_fips_codes, merge_pop_numbers
 
 UHC_RACE_GROUPS = [
     'American Indian/Alaska Native',
@@ -85,12 +87,6 @@ UHC_DETERMINANTS = {
     "Suicide": std_col.SUICIDE_PREFIX,
     "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PREFIX,
     "Voter Participation": std_col.VOTER_PARTICIPATION_PREFIX,
-
-    # VOTER PARTICIPATION
-    # pres: state total ALL + by age (missing 65+) + by sex + by race
-    # midterm: state total ALL + by age (missing 65+)
-    # 65+ midterm: only 65+ age tracker
-    # average: not using, state totals from AHR match our state totals
 }
 
 # When parsing Measure Names from rows with a demographic breakdown
@@ -113,9 +109,6 @@ PER100K_DETERMINANTS = {
 PLUS_5_AGE_DETERMINANTS = {
     "Suicide": std_col.SUICIDE_PREFIX,
 }
-
-AVERAGED_DETERMINANTS = ["Voter Participation"]
-
 
 BREAKDOWN_MAP = {
     "race_and_ethnicity": UHC_RACE_GROUPS,
@@ -201,21 +194,21 @@ def parse_raw_data(df, breakdown):
                 per_100k_col_name = std_col.generate_column_name(
                     prefix, std_col.PER_100K_SUFFIX)
 
+                # replace extra space to match 65+ column correctly
+                df.replace('Voter Participation (Presidential) - Ages 65+ ',
+                           'Voter Participation (Presidential) - Ages 65+', inplace=True)
+
                 if breakdown_value in {'All', 'Total'}:
                     # find row that matches current nested iterations
+
                     matched_row = df.loc[
                         (df[std_col.STATE_NAME_COL] == state) &
                         (df['Measure Name'] ==
                          ALT_ROWS_ALL.get(determinant, determinant))
                     ]
 
-                    # TOTAL voter_participation is avg of pres and midterm data
-                    if determinant in AVERAGED_DETERMINANTS:
-                        output_row[per_100k_col_name] = get_average_determinate_value(
-                            matched_row, 'Voter Participation (Midterm)', df, state)
-
                     # already per 100k
-                    elif determinant in PER100K_DETERMINANTS:
+                    if determinant in PER100K_DETERMINANTS:
                         output_row[per_100k_col_name] = matched_row['Value'].values[0]
                     # converted from % to per 100k
                     else:
@@ -239,33 +232,11 @@ def parse_raw_data(df, breakdown):
                         (df[std_col.STATE_NAME_COL] == state) &
                         (df['Measure Name'] == measure_name)]
 
-                    # BY AGE voter participation is avg of pres and midterm
-                    if determinant in AVERAGED_DETERMINANTS and breakdown == std_col.AGE_COL:
-                        if breakdown_value in VOTER_AGE_GROUPS:
-                            measure_name = (
-                                f"Voter Participation (Midterm) - Ages "
-                                f"{breakdown_value}"
-                            )
-
-                        # or get midterm for 65+ (different format)
-                        elif breakdown_value == "65+":
-                            measure_name = "Voter Participation - Ages 65+ (Midterm)"
-
-                        # skip midterm calc for all other age groups
-                        else:
-                            continue
-
-                        output_row[per_100k_col_name] = get_average_determinate_value(
-                            matched_row, measure_name, df, state)
-
-                    # for other determinants besides VOTER
-                    elif len(matched_row) > 0:
+                    if len(matched_row) > 0:
                         pct = matched_row['Value'].values[0]
                         if pct:
                             if determinant in PER100K_DETERMINANTS:
                                 output_row[per_100k_col_name] = matched_row['Value'].values[0]
-
-                            # convert from % to per 100k
                             else:
                                 output_row[per_100k_col_name] = matched_row['Value'].values[0] * 1000
 
@@ -287,10 +258,10 @@ def post_process(breakdown_df, breakdown, geo):
        breakdown: demographic breakdown (race, sex, age)
        geo: geographic level (national, state)"""
 
-    breakdown_df = dataset_utils.merge_fips_codes(breakdown_df)
+    breakdown_df = merge_state_fips_codes(breakdown_df)
 
     breakdown_name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
-    breakdown_df = dataset_utils.merge_pop_numbers(
+    breakdown_df = merge_pop_numbers(
         breakdown_df, breakdown_name, geo)
     breakdown_df = breakdown_df.rename(
         columns={std_col.POPULATION_PCT_COL: std_col.BRFSS_POPULATION_PCT})
@@ -310,8 +281,8 @@ def post_process(breakdown_df, breakdown, geo):
             determinant, std_col.PCT_SHARE_SUFFIX)
 
         total_val = Race.ALL.value if breakdown == std_col.RACE_CATEGORY_ID_COL else std_col.ALL_VALUE
-        breakdown_df = dataset_utils.generate_pct_share_col(
-            breakdown_df, raw_count_col, pct_share_col, breakdown, total_val)
+        breakdown_df = generate_pct_share_col_without_unknowns(
+            breakdown_df, {raw_count_col: pct_share_col}, breakdown, total_val)
 
     for determinant in UHC_DETERMINANTS.values():
         breakdown_df = breakdown_df.drop(
@@ -319,43 +290,3 @@ def post_process(breakdown_df, breakdown, geo):
 
     breakdown_df = breakdown_df.drop(columns=std_col.POPULATION_COL)
     return breakdown_df
-
-
-def get_average_determinate_value(matched_row, measure_name, df, state):
-    """Gets the average value of two determinants, ignores null values.
-
-       matched_row: row in the dataset that matches the measure and demographic we are looking for
-       measure_name: measure name that we want to average with
-       df: the dataframe containing all information
-       state: string state name"""
-
-    pres_breakdown_value, mid_breakdown_value = np.nan, np.nan
-
-    if len(matched_row) > 0:
-        pres_breakdown_value = matched_row['Value'].values[0]
-
-    matched_row_midterm = df.loc[
-        (df[std_col.STATE_NAME_COL] == state) &
-        (df['Measure Name'] == measure_name)]
-
-    if len(matched_row_midterm) > 0:
-        mid_breakdown_value = matched_row_midterm['Value'].values[0]
-
-    average_value = np.nanmean(
-        [pres_breakdown_value, mid_breakdown_value])
-
-    return average_value * 1000
-
-
-def estimate_total(row, condition_name_per_100k):
-    """Returns an estimate of the total number of people with a given condition.
-
-       condition_name_per_100k: string column name of the condition per_100k to estimate the total of"""
-
-    if pd.isna(row[condition_name_per_100k]) or \
-        pd.isna(row[std_col.POPULATION_COL]) or \
-            int(row[std_col.POPULATION_COL]) == 0:
-
-        return None
-
-    return round((float(row[condition_name_per_100k]) / 100000) * float(row[std_col.POPULATION_COL]))
