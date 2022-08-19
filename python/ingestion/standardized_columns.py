@@ -33,6 +33,8 @@ INCOME_COL = "income"
 POPULATION_PCT_COL = "population_pct"
 SVI = "svi"
 
+TIME_PERIOD_COL = 'time_period'
+
 ALL_VALUE = "All"
 
 # Covid cases, hospitalizations, and deaths columns

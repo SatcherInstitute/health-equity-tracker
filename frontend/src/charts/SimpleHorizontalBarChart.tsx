@@ -98,7 +98,6 @@ function getSpec(
       {
         // chart bars
         name: "measure_bars",
-        interactive: false,
         type: "rect",
         style: ["bar"],
         description: data.length + " items",
