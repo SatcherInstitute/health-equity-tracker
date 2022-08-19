@@ -391,6 +391,7 @@ function MapCardWithKey(props: MapCardProps) {
                     dataForActiveBreakdownFilter.length > 1 && (
                       <HighestLowestList
                         variableConfig={props.variableConfig}
+                        selectedRaceSuffix={selectedRaceSuffix}
                         metricConfig={metricConfig}
                         listExpanded={listExpanded}
                         setListExpanded={setListExpanded}
