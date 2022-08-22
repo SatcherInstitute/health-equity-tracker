@@ -718,19 +718,22 @@ function MethodologyTab() {
                   <li>
                     <b>American Indian and Alaska Native (Non-Hispanic)</b>: A
                     person having origins in any of the original peoples of
-                    North and South America (including Central America) and who
-                    maintains tribal affiliation or community attachment.
+                    North and South America (including Central America), who
+                    maintains tribal affiliation or community attachment, and
+                    who is not Hispanic/Latino.
                   </li>
                   <li>
                     <b>Asian (Non-Hispanic)</b>: A person having origins in any
                     of the original peoples of the Far East, Southeast Asia, or
                     the Indian subcontinent including, for example, Cambodia,
                     China, India, Japan, Korea, Malaysia, Pakistan, the
-                    Philippine Islands, Thailand, and Vietnam.
+                    Philippine Islands, Thailand, and Vietnam, and who is not
+                    Hispanic/Latino.
                   </li>
                   <li>
                     <b>Black or African American (Non-Hispanic)</b>: A person
-                    having origins in any of the Black racial groups of Africa.
+                    having origins in any of the Black racial groups of Africa,
+                    and who is not Hispanic/Latino.
                   </li>
                   <li>
                     <b>Hispanic/Latino</b>: Any race(s), Hispanic/Latino.
@@ -740,20 +743,8 @@ function MethodologyTab() {
                       Native Hawaiian or Other Pacific Islander (Non-Hispanic)
                     </b>
                     : A person having origins in any of the original peoples of
-                    Hawaii, Guam, Samoa, or other Pacific Islands.
-                  </li>
-                  <li>
-                    <b>Two or more races (Non-Hispanic)</b>: Combinations of two
-                    or more of the following race categories: "White," "Black or
-                    African American," American Indian or Alaska Native,"
-                    "Asian," Native Hawaiian or Other Pacific Islander," or
-                    "Some Other Race"
-                  </li>
-                  <li>
-                    <b>Two or more races & Unrepresented race (Non-Hispanic)</b>
-                    : People who are either multiple races or a single race not
-                    represented by the data source's categorization, and who are
-                    not Hispanic/Latino.
+                    Hawaii, Guam, Samoa, or other Pacific Islands and who is not
+                    Hispanic/Latino.
                   </li>
                   <li>
                     <b>Unrepresented race (Non-Hispanic)</b>: A single race not
@@ -768,9 +759,22 @@ function MethodologyTab() {
                     equity issue.
                   </li>
                   <li>
+                    <b>Two or more races (Non-Hispanic)</b>: Combinations of two
+                    or more of the following race categories: "White," "Black or
+                    African American," American Indian or Alaska Native,"
+                    "Asian," Native Hawaiian or Other Pacific Islander," or
+                    "Some Other Race", and who are not Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>Two or more races & Unrepresented race (Non-Hispanic)</b>
+                    : People who are either multiple races or a single race not
+                    represented by the data source's categorization, and who are
+                    not Hispanic/Latino.
+                  </li>
+                  <li>
                     <b>White (Non-Hispanic)</b>: A person having origins in any
                     of the original peoples of Europe, the Middle East, or North
-                    Africa.
+                    Africa, and who is not Hispanic/Latino.
                   </li>
                 </ul>
               </div>
