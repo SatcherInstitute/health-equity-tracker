@@ -33,6 +33,8 @@ export interface HighestLowestListProps {
   qualifierItems?: string[];
   // message to display under a list with qualifiers
   qualifierMessage?: string;
+  // optional suffix to alter the selected metric (used for CAWP "identifying as Black women")
+  selectedRaceSuffix?: string;
 }
 
 /*
@@ -135,7 +137,11 @@ export function HighestLowestList(props: HighestLowestListProps) {
 
           <p>
             All rates are reported as:{" "}
-            <b>{props.metricConfig.fullCardTitleName}</b>.
+            <b>
+              {props.metricConfig.fullCardTitleName}
+              {props.selectedRaceSuffix}
+            </b>
+            .
           </p>
           <p>
             Consider the possible impact of{" "}
