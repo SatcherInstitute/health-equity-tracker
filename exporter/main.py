@@ -57,7 +57,7 @@ def export_table(bq_client, table_ref, dest_uri, dest_fmt):
     """ Run the extract job to export the give table to the given destination and wait for completion"""
 
     state_fips = "01"
-    state_fips_matcher = f'{state_fips}%'
+    # state_fips_matcher = f'{state_fips}%'
 
     query = f"""
             SELECT *
