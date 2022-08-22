@@ -18,12 +18,13 @@ import {
   PhraseSelections,
 } from "../../utils/MadLibs";
 import {
+  DATA_TYPE_1_PARAM,
+  DEMOGRAPHIC_PARAM,
   getParameter,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   parseMls,
   psSubscribe,
-  setParameter,
   setParameters,
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
@@ -106,7 +107,14 @@ function ExploreDataPage() {
   }, []);
 
   const setMadLibWithParam = (ml: MadLib) => {
-    setParameter(MADLIB_SELECTIONS_PARAM, stringifyMls(ml.activeSelections));
+    setParameters([
+      {
+        name: MADLIB_SELECTIONS_PARAM,
+        value: stringifyMls(ml.activeSelections),
+      },
+      { name: DATA_TYPE_1_PARAM, value: null },
+      { name: DEMOGRAPHIC_PARAM, value: null },
+    ]);
     setMadLib(ml);
   };
 
