@@ -55,6 +55,23 @@ def export_dataset_tables():
 
 def export_table(bq_client, table_ref, dest_uri, dest_fmt):
     """ Run the extract job to export the give table to the given destination and wait for completion"""
+
+    state_fips = "01"
+    state_fips_matcher = f'{state_fips}%'
+
+    query = f"""
+            SELECT *
+            FROM {table_ref}
+            WHERE county_fips LIKE '01___'
+            LIMIT 5
+        """
+    query_job = bq_client.query(query)  # Make an API request.
+
+    print("The query data:")
+    for row in query_job:
+        # Row values can be accessed by field name or index.
+        print(row)
+
     job_config = bigquery.ExtractJobConfig(destination_format=dest_fmt)
     extract_job = bq_client.extract_table(
         table_ref, dest_uri, location='US', job_config=job_config)
