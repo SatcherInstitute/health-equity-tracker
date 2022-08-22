@@ -389,24 +389,26 @@ def remove_or_set_to_zero(df, geo, demographic):
     fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
     fips_codes = df[fips].drop_duplicates().to_list()
     all_demos = set(DEMO_COL_MAPPING[demographic][1])
-    all_demos.remove('Unknown')
 
-    print(df.to_string())
-    print(grouped_df.to_string())
+    all_demos.remove('Unknown')
 
     for fips_code in fips_codes:
         for demo in all_demos:
             gdf = grouped_df.loc[(grouped_df[fips] == fips_code) &
                                  (grouped_df[demog_col] == demo)].reset_index()
 
-            if gdf[std_col.COVID_CASES].values[0] == np.nan:
+            if pd.isna(gdf[std_col.COVID_CASES].values[0]):
                 # remove all instances of this race and geo
                 df = df.loc[~((df[fips] == fips_code) &
-                              (df[demog_col] == demo))].reset_index()
+                              (df[demog_col] == demo))].reset_index(drop=True)
 
             else:
                 for prefix in [std_col.COVID_CASES_PREFIX, std_col.COVID_HOSP_PREFIX, std_col.COVID_DEATH_PREFIX]:
                     for suffix in [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX]:
-                        df.loc[(df[fips] == fips_code) & (df[demog_col] == demo), generate_column_name(prefix, suffix)] = 0
+                        col_name = generate_column_name(prefix, suffix)
+                        df.loc[(df[fips] == fips_code) &
+                               (df[demog_col] == demo) &
+                               (pd.isna(df[col_name])),
+                               col_name] = 0
 
     return df.copy().reset_index()
