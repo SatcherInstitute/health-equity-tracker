@@ -23,7 +23,6 @@ def export_dataset_tables():
     dataset_id = "{}.{}".format(project_id, dataset_name)
 
     bq_client = bigquery.Client()
-
     dataset = bq_client.get_dataset(dataset_id)
     tables = list(bq_client.list_tables(dataset))
 
@@ -36,7 +35,6 @@ def export_dataset_tables():
         dest_uri = "gs://{}/{}-{}.json".format(
             export_bucket, dataset_name, table.table_id)
         table_ref = dataset.table(table.table_id)
-
         try:
             export_table(bq_client, table_ref, dest_uri,
                          'NEWLINE_DELIMITED_JSON')
@@ -58,19 +56,28 @@ def export_dataset_tables():
 def export_table(bq_client, table_ref, dest_uri, dest_fmt):
     """ Run the extract job to export the give table to the given destination and wait for completion"""
     job_config = bigquery.ExtractJobConfig(destination_format=dest_fmt)
-
-    state_fips = "01"
-    state_fips_matcher = f'{state_fips}%'
-
-    query_job = bq_client.query(
-        f'SELECT * FROM {table_ref} WHERE county_fips LIKE {state_fips_matcher};',
-        job_config=job_config,
-    )
-
     extract_job = bq_client.extract_table(
-        table_ref, dest_uri, location='US', job_config=job_config, query_job=query_job)
+        table_ref, dest_uri, location='US', job_config=job_config)
     extract_job.result()
     logging.info("Exported %s to %s", table_ref.table_id, dest_uri)
+
+
+# def export_table(bq_client, table_ref, dest_uri, dest_fmt):
+#     """ Run the extract job to export the give table to the given destination and wait for completion"""
+#     job_config = bigquery.ExtractJobConfig(destination_format=dest_fmt)
+
+#     state_fips = "01"
+#     state_fips_matcher = f'{state_fips}%'
+
+#     query_job = bq_client.query(
+#         f'SELECT * FROM {table_ref} WHERE county_fips LIKE {state_fips_matcher};',
+#         job_config=job_config,
+#     )
+
+#     extract_job = bq_client.extract_table(
+#         table_ref, dest_uri, location='US', job_config=job_config, query_job=query_job)
+#     extract_job.result()
+#     logging.info("Exported %s to %s", table_ref.table_id, dest_uri)
 
 
 if __name__ == "__main__":
