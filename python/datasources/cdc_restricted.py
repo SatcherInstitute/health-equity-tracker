@@ -25,8 +25,7 @@ from ingestion.merge_utils import (
     merge_state_fips_codes,
     merge_pop_numbers,
     merge_multiple_pop_cols,
-    merge_county_names
-)
+    merge_county_names)
 
 
 DC_COUNTY_FIPS = '11001'
@@ -40,6 +39,21 @@ COVID_CONDITION_TO_PREFIX = {
     std_col.COVID_CASES: std_col.COVID_CASES_PREFIX,
     std_col.COVID_HOSP_Y: std_col.COVID_HOSP_PREFIX,
     std_col.COVID_DEATH_Y: std_col.COVID_DEATH_PREFIX,
+}
+
+GEO_COL_MAPPING = {
+    'state': [std_col.STATE_POSTAL_COL],
+    'county': [
+        std_col.STATE_POSTAL_COL,
+        std_col.COUNTY_FIPS_COL,
+        std_col.COUNTY_NAME_COL,
+    ],
+}
+
+DEMO_COL_MAPPING = {
+    'race': (std_col.RACE_CATEGORY_ID_COL, list(RACE_NAMES_MAPPING.values())),
+    'age': (std_col.AGE_COL, list(AGE_NAMES_MAPPING.values())),
+    'sex': (std_col.SEX_COL, list(SEX_NAMES_MAPPING.values())),
 }
 
 
@@ -127,14 +141,8 @@ class CDCRestrictedData(DataSource):
             std_col.COVID_POPULATION_PCT,
         ]
 
-        if geo == 'national' or cumulative:
-            # We need to always find the missing demographic values on the 'national'
-            # level because of the way we calculate the national population numbers, as
-            # we sum the population for each state that reports sufficient data. So every
-            # population group needs to be in the df, otherwise they won't get counted in
-            # national population.
-            geo_to_pull = 'state' if geo == 'national' else geo
-            df = add_missing_demographic_values(df, geo_to_pull, demo)
+        geo_to_pull = 'state' if geo == 'national' else geo
+        df = add_missing_demographic_values(df, geo_to_pull, demo)
 
         if cumulative:
             groupby_cols = [
@@ -214,6 +222,9 @@ class CDCRestrictedData(DataSource):
         df = generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
                                                   demo_col, all_val, unknown_val)
 
+        if not cumulative and geo != 'national':
+            df = remove_or_set_to_zero(df, geo, demo)
+
         df = df[all_columns]
         self.clean_frame_column_names(df)
 
@@ -227,7 +238,6 @@ class CDCRestrictedData(DataSource):
         print("took", round(end - start, 2),
               f"seconds to process {demo} {geo}")
         return df
-
 
 
 def null_out_dc_county_rows(df):
@@ -326,24 +336,9 @@ def add_missing_demographic_values(df, geo, demographic):
     geo: Geographic level. Must be "state" or "county".
     demographic: Demographic breakdown. Must be "race", "age", or "sex".
     """
-    geo_col_mapping = {
-        'state': [std_col.STATE_POSTAL_COL],
-        'county': [
-            std_col.STATE_POSTAL_COL,
-            std_col.COUNTY_FIPS_COL,
-            std_col.COUNTY_NAME_COL,
-        ],
-    }
-
-    demo_col_mapping = {
-        'race': (std_col.RACE_CATEGORY_ID_COL, list(RACE_NAMES_MAPPING.values())),
-        'age': (std_col.AGE_COL, list(AGE_NAMES_MAPPING.values())),
-        'sex': (std_col.SEX_COL, list(SEX_NAMES_MAPPING.values())),
-    }
-
-    geo_cols = geo_col_mapping[geo]
-    demog_col = demo_col_mapping[demographic][0]
-    all_demos = demo_col_mapping[demographic][1]
+    geo_cols = GEO_COL_MAPPING[geo]
+    demog_col = DEMO_COL_MAPPING[demographic][0]
+    all_demos = DEMO_COL_MAPPING[demographic][1]
     unknown_values = ["Unknown", std_col.Race.UNKNOWN.value]
     all_demos = set([v for v in all_demos if v not in unknown_values])
 
@@ -381,3 +376,37 @@ def add_missing_demographic_values(df, geo, demographic):
 
     return pd.concat([df, pd.DataFrame(df_to_append, columns=columns)],
                      ignore_index=True)
+
+
+def remove_or_set_to_zero(df, geo, demographic):
+    """Cleans a dataframe by either removing uneeded rows
+       or changing rows to zero"""
+
+    geo_cols = GEO_COL_MAPPING[geo]
+    demog_col = DEMO_COL_MAPPING[demographic][0]
+    grouped_df = df.groupby(geo_cols + [demog_col]).sum(min_count=1).reset_index()
+
+    fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
+    fips_codes = df[fips].drop_duplicates().to_list()
+    all_demos = set(DEMO_COL_MAPPING[demographic][1])
+    all_demos.remove('Unknown')
+
+    print(df.to_string())
+    print(grouped_df.to_string())
+
+    for fips_code in fips_codes:
+        for demo in all_demos:
+            gdf = grouped_df.loc[(grouped_df[fips] == fips_code) &
+                                 (grouped_df[demog_col] == demo)].reset_index()
+
+            if gdf[std_col.COVID_CASES].values[0] == np.nan:
+                # remove all instances of this race and geo
+                df = df.loc[~((df[fips] == fips_code) &
+                              (df[demog_col] == demo))].reset_index()
+
+            else:
+                for prefix in [std_col.COVID_CASES_PREFIX, std_col.COVID_HOSP_PREFIX, std_col.COVID_DEATH_PREFIX]:
+                    for suffix in [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX]:
+                        df.loc[(df[fips] == fips_code) & (df[demog_col] == demo), generate_column_name(prefix, suffix)] = 0
+
+    return df.copy().reset_index()
