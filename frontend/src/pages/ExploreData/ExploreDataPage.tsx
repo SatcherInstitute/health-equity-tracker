@@ -293,6 +293,7 @@ function ExploreDataPage() {
             showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
             setMadLib={setMadLibWithParam}
             doScrollToData={doScrollToData}
+            isScrolledToTop={!sticking}
           />
         </div>
       </div>
