@@ -61,7 +61,7 @@ def export_table(bq_client, table_ref, dest_uri, dest_fmt):
 
     query = f"""
             SELECT *
-            FROM {table_ref}
+            FROM bhammond-het-infra-test-ef.cdc_restricted_data.by_age_county_processed
             WHERE county_fips LIKE '01___'
             LIMIT 5
         """
