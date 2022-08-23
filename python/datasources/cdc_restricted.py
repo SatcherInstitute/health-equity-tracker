@@ -1,12 +1,20 @@
 import numpy as np  # type: ignore
 import pandas as pd  # type: ignore
-
 import time
 
 import ingestion.standardized_columns as std_col
 from ingestion.standardized_columns import generate_column_name
 from ingestion.standardized_columns import Race
-import ingestion.constants as constants
+from ingestion.constants import (
+    US_FIPS,
+    US_NAME,
+    NATIONAL_LEVEL,
+    STATE_LEVEL,
+    COUNTY_LEVEL,
+    RACE,
+    AGE,
+    SEX,
+    UNKNOWN)
 
 from datasources.data_source import DataSource
 from datasources.cdc_restricted_local import (
@@ -27,7 +35,6 @@ from ingestion.merge_utils import (
     merge_multiple_pop_cols,
     merge_county_names)
 
-
 DC_COUNTY_FIPS = '11001'
 
 ONLY_FIPS_FILES = {
@@ -42,8 +49,8 @@ COVID_CONDITION_TO_PREFIX = {
 }
 
 GEO_COL_MAPPING = {
-    'state': [std_col.STATE_POSTAL_COL],
-    'county': [
+    STATE_LEVEL: [std_col.STATE_POSTAL_COL],
+    COUNTY_LEVEL: [
         std_col.STATE_POSTAL_COL,
         std_col.COUNTY_FIPS_COL,
         std_col.COUNTY_NAME_COL,
@@ -51,10 +58,12 @@ GEO_COL_MAPPING = {
 }
 
 DEMO_COL_MAPPING = {
-    'race': (std_col.RACE_CATEGORY_ID_COL, list(RACE_NAMES_MAPPING.values())),
-    'age': (std_col.AGE_COL, list(AGE_NAMES_MAPPING.values())),
-    'sex': (std_col.SEX_COL, list(SEX_NAMES_MAPPING.values())),
+    RACE: (std_col.RACE_CATEGORY_ID_COL, list(RACE_NAMES_MAPPING.values())),
+    AGE: (std_col.AGE_COL, list(AGE_NAMES_MAPPING.values())),
+    SEX: (std_col.SEX_COL, list(SEX_NAMES_MAPPING.values())),
 }
+
+POPULATION_SUFFIX = 'population'
 
 
 class CDCRestrictedData(DataSource):
@@ -73,16 +82,16 @@ class CDCRestrictedData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         cumulative = self.get_attr(attrs, 'cumulative')
-        for geo in ['national', 'state', 'county']:
-            for demo in ['sex', 'race', 'age']:
-                geo_to_pull = 'state' if geo == 'national' else geo
+        for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
+            for demo in [SEX, RACE, AGE]:
+                geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
                 filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
                 df = gcs_to_bq_util.load_csv_as_df(
                     gcs_bucket, filename, dtype={'county_fips': str})
 
                 df = self.generate_breakdown(df, demo, geo, cumulative)
 
-                if demo == 'race':
+                if demo == RACE:
                     std_col.add_race_columns_from_category_id(df)
 
                 column_types = get_col_types(df)
@@ -99,7 +108,7 @@ class CDCRestrictedData(DataSource):
             for filename, table_name in ONLY_FIPS_FILES.items():
                 df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename)
 
-                df = df[df[std_col.STATE_POSTAL_COL] != 'Unknown']
+                df = df[df[std_col.STATE_POSTAL_COL] != UNKNOWN]
                 df = merge_state_fips_codes(df)
                 df = df[df[std_col.STATE_FIPS_COL].notna()]
 
@@ -130,9 +139,9 @@ class CDCRestrictedData(DataSource):
         print(f'processing {demo} {geo} cumulative = {cumulative}')
         start = time.time()
 
-        demo_col = std_col.RACE_CATEGORY_ID_COL if demo == 'race' else demo
-        unknown_val = Race.UNKNOWN.value if demo == 'race' else 'Unknown'
-        all_val = Race.ALL.value if demo == 'race' else std_col.ALL_VALUE
+        demo_col = std_col.RACE_CATEGORY_ID_COL if demo == RACE else demo
+        unknown_val = Race.UNKNOWN.value if demo == RACE else UNKNOWN
+        all_val = Race.ALL.value if demo == RACE else std_col.ALL_VALUE
 
         all_columns = [
             std_col.STATE_FIPS_COL,
@@ -141,7 +150,7 @@ class CDCRestrictedData(DataSource):
             std_col.COVID_POPULATION_PCT,
         ]
 
-        geo_to_pull = 'state' if geo == 'national' else geo
+        geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
         df = add_missing_demographic_values(df, geo_to_pull, demo)
 
         if cumulative:
@@ -150,7 +159,7 @@ class CDCRestrictedData(DataSource):
                 demo_col,
             ]
 
-            if geo == 'county':
+            if geo == COUNTY_LEVEL:
                 groupby_cols.extend(
                     [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
 
@@ -161,16 +170,16 @@ class CDCRestrictedData(DataSource):
 
         df = merge_state_fips_codes(df, keep_postal=True)
 
-        if geo == 'county':
+        if geo == COUNTY_LEVEL:
             all_columns.extend(
                 [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
             df = merge_county_names(df)
 
-        if geo == 'national':
+        if geo == NATIONAL_LEVEL:
             pop_cols = [
-                generate_column_name(std_col.COVID_CASES, 'population'),
-                generate_column_name(std_col.COVID_DEATH_Y, 'population'),
-                generate_column_name(std_col.COVID_HOSP_Y, 'population'),
+                generate_column_name(std_col.COVID_CASES, POPULATION_SUFFIX),
+                generate_column_name(std_col.COVID_DEATH_Y, POPULATION_SUFFIX),
+                generate_column_name(std_col.COVID_HOSP_Y, POPULATION_SUFFIX),
             ]
 
             df = merge_multiple_pop_cols(df, demo, pop_cols)
@@ -178,16 +187,16 @@ class CDCRestrictedData(DataSource):
             # Don't count the population of states that we null out data from
             rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
                 HOSP_DATA_SUPPRESSION_STATES)
-            df.loc[rows_to_modify, generate_column_name(std_col.COVID_HOSP_Y, 'population')] = 0
+            df.loc[rows_to_modify, generate_column_name(std_col.COVID_HOSP_Y, POPULATION_SUFFIX)] = 0
 
             rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
                 DEATH_DATA_SUPPRESSION_STATES)
-            df.loc[rows_to_modify, generate_column_name(std_col.COVID_DEATH_Y, 'population')] = 0
+            df.loc[rows_to_modify, generate_column_name(std_col.COVID_DEATH_Y, POPULATION_SUFFIX)] = 0
 
             df = df.drop(columns=std_col.STATE_POSTAL_COL)
             df = generate_national_dataset(df, demo_col, cumulative)
 
-        fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
+        fips = std_col.COUNTY_FIPS_COL if geo == COUNTY_LEVEL else std_col.STATE_FIPS_COL
 
         # Drop annoying column that doesnt match any fips codes or have
         # an associated time period
@@ -195,7 +204,7 @@ class CDCRestrictedData(DataSource):
         if not cumulative:
             df = df[df[std_col.TIME_PERIOD_COL].notna()]
 
-        if geo == 'county':
+        if geo == COUNTY_LEVEL:
             df = remove_bad_fips_cols(df)
 
         df = merge_pop_numbers(df, demo, geo)
@@ -208,8 +217,8 @@ class CDCRestrictedData(DataSource):
             all_columns.append(per_100k_col)
 
             pop_col = std_col.POPULATION_COL
-            if geo == 'national':
-                pop_col = generate_column_name(raw_count_col, 'population')
+            if geo == NATIONAL_LEVEL:
+                pop_col = generate_column_name(raw_count_col, POPULATION_SUFFIX)
             df = generate_per_100k_col(
                 df, raw_count_col, pop_col, per_100k_col)
 
@@ -222,7 +231,7 @@ class CDCRestrictedData(DataSource):
         df = generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
                                                   demo_col, all_val, unknown_val)
 
-        if not cumulative and geo != 'national':
+        if not cumulative and geo != NATIONAL_LEVEL:
             df = remove_or_set_to_zero(df, geo, demo)
 
         df = df[all_columns]
@@ -231,7 +240,7 @@ class CDCRestrictedData(DataSource):
         sortby_cols = [fips, demo_col]
         df = df.sort_values(by=sortby_cols).reset_index(drop=True)
 
-        if geo == 'county':
+        if geo == COUNTY_LEVEL:
             null_out_dc_county_rows(df)
 
         end = time.time()
@@ -295,9 +304,9 @@ def generate_national_dataset(state_df, demo_col, cumulative):
         std_col.COVID_CASES,
         std_col.COVID_DEATH_Y,
         std_col.COVID_HOSP_Y,
-        generate_column_name(std_col.COVID_CASES, 'population'),
-        generate_column_name(std_col.COVID_DEATH_Y, 'population'),
-        generate_column_name(std_col.COVID_HOSP_Y, 'population'),
+        generate_column_name(std_col.COVID_CASES, POPULATION_SUFFIX),
+        generate_column_name(std_col.COVID_DEATH_Y, POPULATION_SUFFIX),
+        generate_column_name(std_col.COVID_HOSP_Y, POPULATION_SUFFIX),
     ]
 
     state_df[int_cols] = state_df[int_cols].fillna(0)
@@ -309,8 +318,8 @@ def generate_national_dataset(state_df, demo_col, cumulative):
         groupby_cols.append(std_col.TIME_PERIOD_COL)
     df = state_df.groupby(groupby_cols).sum().reset_index()
 
-    df[std_col.STATE_FIPS_COL] = constants.US_FIPS
-    df[std_col.STATE_NAME_COL] = constants.US_NAME
+    df[std_col.STATE_FIPS_COL] = US_FIPS
+    df[std_col.STATE_NAME_COL] = US_NAME
 
     needed_cols = [
         std_col.STATE_FIPS_COL,
@@ -386,11 +395,13 @@ def remove_or_set_to_zero(df, geo, demographic):
     demog_col = DEMO_COL_MAPPING[demographic][0]
     grouped_df = df.groupby(geo_cols + [demog_col]).sum(min_count=1).reset_index()
 
-    fips = std_col.COUNTY_FIPS_COL if geo == 'county' else std_col.STATE_FIPS_COL
+    unknown = Race.UNKNOWN.value if demographic == RACE else UNKNOWN
+
+    fips = std_col.COUNTY_FIPS_COL if geo == COUNTY_LEVEL else std_col.STATE_FIPS_COL
     fips_codes = df[fips].drop_duplicates().to_list()
     all_demos = set(DEMO_COL_MAPPING[demographic][1])
 
-    all_demos.remove('Unknown')
+    all_demos.remove(unknown)
 
     for fips_code in fips_codes:
         for demo in all_demos:
@@ -406,9 +417,9 @@ def remove_or_set_to_zero(df, geo, demographic):
                 for prefix in [std_col.COVID_CASES_PREFIX, std_col.COVID_HOSP_PREFIX, std_col.COVID_DEATH_PREFIX]:
                     for suffix in [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX]:
                         col_name = generate_column_name(prefix, suffix)
-                        df.loc[(df[fips] == fips_code) &
-                               (df[demog_col] == demo) &
-                               (pd.isna(df[col_name])),
-                               col_name] = 0
+                        rows_to_modify = ((df[fips] == fips_code) &
+                                          (df[demog_col] == demo) &
+                                          (pd.isna(df[col_name])))
+                        df.loc[rows_to_modify, col_name] = 0
 
     return df.copy().reset_index()
