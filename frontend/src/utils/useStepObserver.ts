@@ -73,14 +73,13 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
   recentlyClickedRef.current = recentlyClicked;
 
   useEffect(() => {
+    const urlNoHash = window.location.href.split("#")[0];
+    window.history.replaceState(undefined, "", `${urlNoHash}#${activeId}`);
+  }, [activeId]);
+
+  useEffect(() => {
     const hashLink = location?.hash;
     const hashId = hashLink.substring(1) || "";
-
-    const urlNoHash = window.location.href.split("#")[0];
-    console.log(urlNoHash);
-    // window.location.hash = preferredId;
-    window.history.replaceState(undefined, "", `${urlNoHash}${hashLink}`);
-    setRecentlyClicked(null);
 
     if (
       hashLink &&
@@ -111,17 +110,6 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
       return () => {
         clearInterval(pulse_id);
       };
-
-      // for (let poll = 0; poll < 20_000; poll += 500) {
-      //   setTimeout(() => {
-      //     if (recentlyClickedRef.current === hashId) {
-
-      //       document.querySelector(`#${hashId}`)?.scrollIntoView({
-      //         behavior: "smooth",
-      //       });
-      //     }
-      //   }, poll)
-      // }
     }
   }, [steps, location.hash]);
 
