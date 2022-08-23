@@ -30,13 +30,13 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
     // if user scrolls or clicks, go back to tracking scroll position in the table of contents
     function watchScroll() {
       window.addEventListener("wheel", () => setRecentlyClicked(null));
-      window.addEventListener("mouseup", () => setRecentlyClicked(null));
+      window.addEventListener("pointerdown", () => setRecentlyClicked(null));
       window.addEventListener("keydown", () => setRecentlyClicked(null));
     }
     watchScroll();
     return () => {
       window.removeEventListener("wheel", () => setRecentlyClicked(null));
-      window.removeEventListener("mouseup", () => setRecentlyClicked(null));
+      window.removeEventListener("pointerdown", () => setRecentlyClicked(null));
       window.removeEventListener("keydown", () => setRecentlyClicked(null));
     };
   });
@@ -75,6 +75,7 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
   useEffect(() => {
     const urlNoHash = window.location.href.split("#")[0];
     window.history.replaceState(undefined, "", `${urlNoHash}#${activeId}`);
+    recentlyClickedRef.current = null;
   }, [activeId]);
 
   useEffect(() => {
@@ -87,7 +88,9 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
     ) {
       setActiveId(hashId);
       setRecentlyClicked(hashId);
+      recentlyClickedRef.current = recentlyClicked;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location?.hash, steps]);
 
   useEffect(() => {
