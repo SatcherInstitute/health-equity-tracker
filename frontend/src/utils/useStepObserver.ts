@@ -19,6 +19,8 @@ export type ScrollableHashId =
   | "what";
 
 export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
+  const location: any = useLocation();
+
   const observer = useRef<IntersectionObserver | null>(null);
   const [activeId, setActiveId] = useState("");
   const [recentlyClicked, setRecentlyClicked] =
@@ -29,11 +31,13 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
     function watchScroll() {
       window.addEventListener("wheel", () => setRecentlyClicked(null));
       window.addEventListener("mouseup", () => setRecentlyClicked(null));
+      window.addEventListener("keydown", () => setRecentlyClicked(null));
     }
     watchScroll();
     return () => {
       window.removeEventListener("wheel", () => setRecentlyClicked(null));
       window.removeEventListener("mouseup", () => setRecentlyClicked(null));
+      window.removeEventListener("keydown", () => setRecentlyClicked(null));
     };
   });
 
@@ -44,7 +48,8 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
         if (isScrolledToTop) setActiveId("");
         else if (entry?.isIntersecting) {
           // prefer a recently clicked id, otherwise set to the observed "in view" id
-          setActiveId(recentlyClicked || entry.target.id);
+          const preferredId = recentlyClicked || entry.target.id;
+          setActiveId(preferredId);
         }
       });
     };
@@ -64,7 +69,27 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
     return () => observer.current?.disconnect();
   }, [steps, recentlyClicked, isScrolledToTop]);
 
-  const location: any = useLocation();
+  const recentlyClickedRef = useRef(recentlyClicked);
+  recentlyClickedRef.current = recentlyClicked;
+
+  useEffect(() => {
+    const hashLink = location?.hash;
+    const hashId = hashLink.substring(1) || "";
+
+    const urlNoHash = window.location.href.split("#")[0];
+    console.log(urlNoHash);
+    // window.location.hash = preferredId;
+    window.history.replaceState(undefined, "", `${urlNoHash}${hashLink}`);
+    setRecentlyClicked(null);
+
+    if (
+      hashLink &&
+      steps.map((step: StepData) => step.hashId.includes(hashId))
+    ) {
+      setActiveId(hashId);
+      setRecentlyClicked(hashId);
+    }
+  }, [location?.hash, steps]);
 
   useEffect(() => {
     const hashLink = location?.hash;
@@ -74,18 +99,29 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
       hashLink &&
       steps.map((step: StepData) => step.hashId.includes(hashId))
     ) {
-      setActiveId(hashId);
-      setRecentlyClicked(hashId);
+      const pulse_id = setInterval(() => {
+        if (recentlyClickedRef.current === hashId) {
+          console.log("scrolling", hashId, "into view until user interaction");
+          document.querySelector(`#${hashId}`)?.scrollIntoView({
+            behavior: "smooth",
+          });
+        } else clearInterval(pulse_id);
+      }, 500);
 
-      document.querySelector(`#${hashId}`)?.scrollIntoView({
-        // behavior: "smooth",
-      });
+      return () => {
+        clearInterval(pulse_id);
+      };
 
-      setTimeout(() => {
-        document.querySelector(`#${hashId}`)?.scrollIntoView({
-          behavior: "smooth",
-        });
-      }, 2000);
+      // for (let poll = 0; poll < 20_000; poll += 500) {
+      //   setTimeout(() => {
+      //     if (recentlyClickedRef.current === hashId) {
+
+      //       document.querySelector(`#${hashId}`)?.scrollIntoView({
+      //         behavior: "smooth",
+      //       });
+      //     }
+      //   }, poll)
+      // }
     }
   }, [steps, location.hash]);
 
