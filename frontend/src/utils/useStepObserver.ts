@@ -70,13 +70,13 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
   }, [steps, recentlyClicked, isScrolledToTop]);
 
   const recentlyClickedRef = useRef(recentlyClicked);
-  recentlyClickedRef.current = recentlyClicked;
+  // recentlyClickedRef.current = recentlyClicked;
 
   useEffect(() => {
     const urlNoHash = window.location.href.split("#")[0];
     window.history.replaceState(undefined, "", `${urlNoHash}#${activeId}`);
-    recentlyClickedRef.current = null;
-  }, [activeId]);
+    recentlyClickedRef.current = recentlyClicked;
+  }, [activeId, recentlyClicked]);
 
   useEffect(() => {
     const hashLink = location?.hash;
