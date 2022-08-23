@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { useLocation } from "react-router-dom";
 
 export type StepData = {
   label: string;
@@ -62,6 +63,31 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
     elements.forEach((elem) => elem && observer.current?.observe(elem));
     return () => observer.current?.disconnect();
   }, [steps, recentlyClicked, isScrolledToTop]);
+
+  const location: any = useLocation();
+
+  useEffect(() => {
+    const hashLink = location?.hash;
+    const hashId = hashLink.substring(1) || "";
+
+    if (
+      hashLink &&
+      steps.map((step: StepData) => step.hashId.includes(hashId))
+    ) {
+      setActiveId(hashId);
+      setRecentlyClicked(hashId);
+
+      document.querySelector(`#${hashId}`)?.scrollIntoView({
+        // behavior: "smooth",
+      });
+
+      setTimeout(() => {
+        document.querySelector(`#${hashId}`)?.scrollIntoView({
+          behavior: "smooth",
+        });
+      }, 2000);
+    }
+  }, [steps, location.hash]);
 
   return [activeId, setRecentlyClicked] as const;
 }
