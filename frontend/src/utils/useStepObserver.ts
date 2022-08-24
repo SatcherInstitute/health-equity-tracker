@@ -26,18 +26,24 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
   const [recentlyClicked, setRecentlyClicked] =
     useState<ScrollableHashId | null>(null);
 
+  function handleInteraction() {
+    // any time the user interacts, cancel pending automated scrolling and erase any incoming #hash from the URL
+    setRecentlyClicked(null);
+    location.hash = "";
+  }
+
   useEffect(() => {
     // if user scrolls or clicks, go back to tracking scroll position in the table of contents
     function watchScroll() {
-      window.addEventListener("wheel", () => setRecentlyClicked(null));
-      window.addEventListener("pointerdown", () => setRecentlyClicked(null));
-      window.addEventListener("keydown", () => setRecentlyClicked(null));
+      window.addEventListener("wheel", () => handleInteraction());
+      window.addEventListener("pointerdown", () => handleInteraction());
+      window.addEventListener("keydown", () => handleInteraction());
     }
     watchScroll();
     return () => {
-      window.removeEventListener("wheel", () => setRecentlyClicked(null));
-      window.removeEventListener("pointerdown", () => setRecentlyClicked(null));
-      window.removeEventListener("keydown", () => setRecentlyClicked(null));
+      window.removeEventListener("wheel", () => handleInteraction());
+      window.removeEventListener("pointerdown", () => handleInteraction());
+      window.removeEventListener("keydown", () => handleInteraction());
     };
   });
 
@@ -69,40 +75,41 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
     return () => observer.current?.disconnect();
   }, [steps, recentlyClicked, isScrolledToTop]);
 
-  const recentlyClickedRef = useRef(recentlyClicked);
-  // recentlyClickedRef.current = recentlyClicked;
+  const urlHashOverrideRef = useRef(recentlyClicked);
 
   useEffect(() => {
+    // any updates to the id that should be focused results in a new URL hash
     const urlNoHash = window.location.href.split("#")[0];
-    window.history.replaceState(undefined, "", `${urlNoHash}#${activeId}`);
-    recentlyClickedRef.current = recentlyClicked;
+    const newHash = activeId ? `#${activeId}` : "";
+    window.history.replaceState(undefined, "", urlNoHash + newHash);
+    urlHashOverrideRef.current = recentlyClicked;
   }, [activeId, recentlyClicked]);
 
+  const hashLink = location?.hash;
+  const hashId = hashLink.substring(1) || "";
+
   useEffect(() => {
-    const hashLink = location?.hash;
-    const hashId = hashLink.substring(1) || "";
+    // updates to the URL or available steps results in recalculated focus for the Table of Contents
 
     if (
       hashLink &&
-      steps.map((step: StepData) => step.hashId.includes(hashId))
+      steps.map((step: StepData) => step.hashId).includes(hashId)
     ) {
       setActiveId(hashId);
       setRecentlyClicked(hashId);
-      recentlyClickedRef.current = recentlyClicked;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location?.hash, steps]);
 
   useEffect(() => {
-    const hashLink = location?.hash;
-    const hashId = hashLink.substring(1) || "";
-
+    //  on render, set up a timer to auto scroll user to the focused card (counteracting layout shift from loading/resizing cards)
+    // timer is stopped when the urlHashOverrideRef is reset, which is caused by a user interaction like scrolling, swiping, or key presses
     if (
       hashLink &&
-      steps.map((step: StepData) => step.hashId.includes(hashId))
+      steps.map((step: StepData) => step.hashId).includes(hashId)
     ) {
       const pulse_id = setInterval(() => {
-        if (recentlyClickedRef.current === hashId) {
+        if (urlHashOverrideRef.current === hashId) {
           console.log("scrolling", hashId, "into view until user interaction");
           document.querySelector(`#${hashId}`)?.scrollIntoView({
             behavior: "smooth",
@@ -114,7 +121,7 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
         clearInterval(pulse_id);
       };
     }
-  }, [steps, location.hash]);
+  }, [hashId, hashLink, steps]);
 
   return [activeId, setRecentlyClicked] as const;
 }
