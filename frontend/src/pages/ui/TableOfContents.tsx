@@ -57,7 +57,7 @@ export function TableOfContents(props: TableOfContentsProps) {
                 className={styles.StepButton}
                 onClick={(e) => {
                   e.preventDefault();
-                  document.querySelector(`#${step.hashId}`)!.scrollIntoView({
+                  document.querySelector(`#${step.hashId}`)?.scrollIntoView({
                     behavior: "smooth",
                   });
                   setRecentlyClicked(step.hashId);

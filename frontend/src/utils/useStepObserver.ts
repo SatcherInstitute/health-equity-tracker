@@ -35,15 +35,15 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
   useEffect(() => {
     // if user scrolls or clicks, go back to tracking scroll position in the table of contents
     function watchScroll() {
-      window.addEventListener("wheel", () => handleInteraction());
-      window.addEventListener("pointerdown", () => handleInteraction());
-      window.addEventListener("keydown", () => handleInteraction());
+      window.addEventListener("wheel", handleInteraction);
+      window.addEventListener("pointerdown", handleInteraction);
+      window.addEventListener("keydown", handleInteraction);
     }
     watchScroll();
     return () => {
-      window.removeEventListener("wheel", () => handleInteraction());
-      window.removeEventListener("pointerdown", () => handleInteraction());
-      window.removeEventListener("keydown", () => handleInteraction());
+      window.removeEventListener("wheel", handleInteraction);
+      window.removeEventListener("pointerdown", handleInteraction);
+      window.removeEventListener("keydown", handleInteraction);
     };
   });
 
@@ -108,13 +108,18 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
       hashLink &&
       steps.map((step: StepData) => step.hashId).includes(hashId)
     ) {
+      let pulseIdCounter = 0;
+
       const pulse_id = setInterval(() => {
+        // clear the auto-scroll regardless of user interaction after 1 minute
+        pulseIdCounter += 500;
+        if (pulseIdCounter > 120_000) clearInterval(pulse_id);
         if (urlHashOverrideRef.current === hashId) {
           console.log("scrolling", hashId, "into view until user interaction");
           document.querySelector(`#${hashId}`)?.scrollIntoView({
             behavior: "smooth",
           });
-        } else clearInterval(pulse_id);
+        }
       }, 500);
 
       return () => {
