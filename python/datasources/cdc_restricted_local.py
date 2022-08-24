@@ -360,6 +360,20 @@ def process_data(dir, files):
         # Standardize the column names and race/age/sex values.
         all_dfs[key] = standardize_data(all_dfs[key])
 
+        # Set hospitalization and death data for states we want to suppress to
+        # an empty string, indicating missing data.
+        rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
+            HOSP_DATA_SUPPRESSION_STATES)
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_Y] = ""
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_N] = ""
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_UNKNOWN] = ""
+
+        rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
+            DEATH_DATA_SUPPRESSION_STATES)
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_Y] = ""
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_N] = ""
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_UNKNOWN] = ""
+
         # Standardize all None/NaNs in the data to an empty string, and convert
         # everything to string before returning & writing to CSV.
         all_dfs[key] = all_dfs[key].fillna("").astype(str)
