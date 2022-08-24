@@ -74,12 +74,22 @@
 }
 
 .ScrollPastHeader {
-  scroll-margin: $sticky-madlib-height 0px 0px 0px;
+  scroll-margin: 0 0 0 0;
   scroll-snap-align: start;
+
+  // scroll a little short of the card when the sticky header is present
+  @media only screen and (min-width: $md) {
+    scroll-margin: $sticky-madlib-height 0px 0px 0px;
+  }
 }
 
 .ScrollPastHeaderCompareMode,
 .FootnoteLargeHeading {
-  scroll-margin: $sticky-madlib-height-compare 0px 0px 0px;
+  scroll-margin: 0 0 0 0;
   scroll-snap-align: start;
+
+  // scroll a even more short of the card when the sticky header is present on compare view (with taller sticky header)
+  @media only screen and (min-width: $md) {
+    scroll-margin: $sticky-madlib-height-compare 0px 0px 0px;
+  }
 }
