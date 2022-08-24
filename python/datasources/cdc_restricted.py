@@ -48,15 +48,6 @@ COVID_CONDITION_TO_PREFIX = {
     std_col.COVID_DEATH_Y: std_col.COVID_DEATH_PREFIX,
 }
 
-GEO_COL_MAPPING = {
-    STATE_LEVEL: [std_col.STATE_POSTAL_COL],
-    COUNTY_LEVEL: [
-        std_col.STATE_POSTAL_COL,
-        std_col.COUNTY_FIPS_COL,
-        std_col.COUNTY_NAME_COL,
-    ],
-}
-
 DEMO_COL_MAPPING = {
     RACE: (std_col.RACE_CATEGORY_ID_COL, list(RACE_NAMES_MAPPING.values())),
     AGE: (std_col.AGE_COL, list(AGE_NAMES_MAPPING.values())),
@@ -174,6 +165,7 @@ class CDCRestrictedData(DataSource):
             all_columns.extend(
                 [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
             df = merge_county_names(df)
+            df = remove_bad_fips_cols(df)
 
         if geo == NATIONAL_LEVEL:
             pop_cols = [
@@ -183,15 +175,7 @@ class CDCRestrictedData(DataSource):
             ]
 
             df = merge_multiple_pop_cols(df, demo, pop_cols)
-
-            # Don't count the population of states that we null out data from
-            rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
-                HOSP_DATA_SUPPRESSION_STATES)
-            df.loc[rows_to_modify, generate_column_name(std_col.COVID_HOSP_Y, POPULATION_SUFFIX)] = 0
-
-            rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
-                DEATH_DATA_SUPPRESSION_STATES)
-            df.loc[rows_to_modify, generate_column_name(std_col.COVID_DEATH_Y, POPULATION_SUFFIX)] = 0
+            null_out_suppressed_deaths_hosps(df, True)
 
             df = df.drop(columns=std_col.STATE_POSTAL_COL)
             df = generate_national_dataset(df, demo_col, cumulative)
@@ -203,9 +187,6 @@ class CDCRestrictedData(DataSource):
         df = df[df[fips].notna()]
         if not cumulative:
             df = df[df[std_col.TIME_PERIOD_COL].notna()]
-
-        if geo == COUNTY_LEVEL:
-            df = remove_bad_fips_cols(df)
 
         df = merge_pop_numbers(df, demo, geo)
         df = df.rename(
@@ -233,6 +214,8 @@ class CDCRestrictedData(DataSource):
 
         if not cumulative and geo != NATIONAL_LEVEL:
             df = remove_or_set_to_zero(df, geo, demo)
+
+        null_out_suppressed_deaths_hosps(df, False)
 
         df = df[all_columns]
         self.clean_frame_column_names(df)
@@ -345,7 +328,16 @@ def add_missing_demographic_values(df, geo, demographic):
     geo: Geographic level. Must be "state" or "county".
     demographic: Demographic breakdown. Must be "race", "age", or "sex".
     """
-    geo_cols = GEO_COL_MAPPING[geo]
+    geo_col_mapping = {
+        STATE_LEVEL: [std_col.STATE_POSTAL_COL],
+        COUNTY_LEVEL: [
+            std_col.STATE_POSTAL_COL,
+            std_col.COUNTY_FIPS_COL,
+            std_col.COUNTY_NAME_COL,
+        ],
+    }
+
+    geo_cols = geo_col_mapping[geo]
     demog_col = DEMO_COL_MAPPING[demographic][0]
     all_demos = DEMO_COL_MAPPING[demographic][1]
     unknown_values = ["Unknown", std_col.Race.UNKNOWN.value]
@@ -391,7 +383,20 @@ def remove_or_set_to_zero(df, geo, demographic):
     """Cleans a dataframe by either removing uneeded rows
        or changing rows to zero"""
 
-    geo_cols = GEO_COL_MAPPING[geo]
+    geo_col_mapping = {
+        STATE_LEVEL: [
+            std_col.STATE_POSTAL_COL,
+            std_col.STATE_FIPS_COL,
+            std_col.STATE_NAME_COL,
+        ],
+        COUNTY_LEVEL: [
+            std_col.STATE_POSTAL_COL,
+            std_col.COUNTY_FIPS_COL,
+            std_col.COUNTY_NAME_COL,
+        ],
+    }
+
+    geo_cols = geo_col_mapping[geo]
     demog_col = DEMO_COL_MAPPING[demographic][0]
     grouped_df = df.groupby(geo_cols + [demog_col]).sum(min_count=1).reset_index()
 
@@ -399,8 +404,8 @@ def remove_or_set_to_zero(df, geo, demographic):
 
     fips = std_col.COUNTY_FIPS_COL if geo == COUNTY_LEVEL else std_col.STATE_FIPS_COL
     fips_codes = df[fips].drop_duplicates().to_list()
-    all_demos = set(DEMO_COL_MAPPING[demographic][1])
 
+    all_demos = set(DEMO_COL_MAPPING[demographic][1])
     all_demos.remove(unknown)
 
     for fips_code in fips_codes:
@@ -414,7 +419,7 @@ def remove_or_set_to_zero(df, geo, demographic):
                               (df[demog_col] == demo))].reset_index(drop=True)
 
             else:
-                for prefix in [std_col.COVID_CASES_PREFIX, std_col.COVID_HOSP_PREFIX, std_col.COVID_DEATH_PREFIX]:
+                for prefix in COVID_CONDITION_TO_PREFIX.values():
                     for suffix in [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX]:
                         col_name = generate_column_name(prefix, suffix)
                         rows_to_modify = ((df[fips] == fips_code) &
@@ -423,3 +428,32 @@ def remove_or_set_to_zero(df, geo, demographic):
                         df.loc[rows_to_modify, col_name] = 0
 
     return df.copy().reset_index()
+
+
+def null_out_suppressed_deaths_hosps(df, modify_pop_rows):
+    """Sets suppressed states deaths and hospitalizations to null based on the
+       tuples defined in `cdc_restricted_local.py`.
+       Note: This is an in place function and doesn't return anything.
+
+       df: Pandas df to modify
+       modify_pop_rows: Boolean, weather or not to set corresponding population
+                        rows to np.nan. Note, these population rows must have been
+                        created using the `merge_multiple_pop_cols` function."""
+
+    hosp_rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
+        HOSP_DATA_SUPPRESSION_STATES)
+    for suffix in [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX]:
+        df.loc[hosp_rows_to_modify,
+               generate_column_name(std_col.COVID_HOSP_PREFIX, suffix)] = np.nan
+
+    death_rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
+        DEATH_DATA_SUPPRESSION_STATES)
+    for suffix in [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX]:
+        df.loc[death_rows_to_modify,
+               generate_column_name(std_col.COVID_DEATH_PREFIX, suffix)] = np.nan
+
+    if modify_pop_rows:
+        df.loc[hosp_rows_to_modify,
+               generate_column_name(std_col.COVID_HOSP_Y, POPULATION_SUFFIX)] = np.nan
+        df.loc[death_rows_to_modify,
+               generate_column_name(std_col.COVID_DEATH_Y, POPULATION_SUFFIX)] = np.nan
