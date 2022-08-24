@@ -399,13 +399,12 @@ def remove_or_set_to_zero(df, geo, demographic):
     demog_col = DEMO_COL_MAPPING[demographic][0]
     grouped_df = df.groupby(geo_cols + [demog_col]).sum(min_count=1).reset_index()
 
-    unknown = Race.UNKNOWN.value if demographic == RACE else UNKNOWN
-
     fips = std_col.COUNTY_FIPS_COL if geo == COUNTY_LEVEL else std_col.STATE_FIPS_COL
     fips_codes = df[fips].drop_duplicates().to_list()
 
     all_demos = set(DEMO_COL_MAPPING[demographic][1])
-    all_demos.remove(unknown)
+    if UNKNOWN in all_demos:
+        all_demos.remove(UNKNOWN)
 
     for fips_code in fips_codes:
         for demo in all_demos:
