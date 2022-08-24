@@ -176,8 +176,6 @@ class CDCRestrictedData(DataSource):
 
             df = merge_multiple_pop_cols(df, demo, pop_cols)
             null_out_suppressed_deaths_hosps(df, True)
-
-            df = df.drop(columns=std_col.STATE_POSTAL_COL)
             df = generate_national_dataset(df, demo_col, cumulative)
 
         fips = std_col.COUNTY_FIPS_COL if geo == COUNTY_LEVEL else std_col.STATE_FIPS_COL
@@ -215,7 +213,8 @@ class CDCRestrictedData(DataSource):
         if not cumulative and geo != NATIONAL_LEVEL:
             df = remove_or_set_to_zero(df, geo, demo)
 
-        null_out_suppressed_deaths_hosps(df, False)
+        if geo != NATIONAL_LEVEL:
+            null_out_suppressed_deaths_hosps(df, False)
 
         df = df[all_columns]
         self.clean_frame_column_names(df)
