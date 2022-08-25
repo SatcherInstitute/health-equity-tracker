@@ -165,7 +165,6 @@ class CDCRestrictedData(DataSource):
             all_columns.extend(
                 [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
             df = merge_county_names(df)
-            df = remove_bad_fips_cols(df)
 
         if geo == NATIONAL_LEVEL:
             pop_cols = [
@@ -185,6 +184,9 @@ class CDCRestrictedData(DataSource):
         df = df[df[fips].notna()]
         if not cumulative:
             df = df[df[std_col.TIME_PERIOD_COL].notna()]
+
+        if geo == COUNTY_LEVEL:
+            df = remove_bad_fips_cols(df)
 
         df = merge_pop_numbers(df, demo, geo)
         df = df.rename(
@@ -410,6 +412,9 @@ def remove_or_set_to_zero(df, geo, demographic):
         for demo in all_demos:
             gdf = grouped_df.loc[(grouped_df[fips] == fips_code) &
                                  (grouped_df[demog_col] == demo)].reset_index()
+
+            if len(gdf) == 0:
+                continue
 
             if pd.isna(gdf[std_col.COVID_CASES].values[0]):
                 # remove all instances of this race and geo
