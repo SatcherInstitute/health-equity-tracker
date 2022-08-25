@@ -1,0 +1,46 @@
+@import "../../styles/variables.module";
+@import "../../styles/globals.scss";
+
+.Toc {
+  margin: 10px 10px 0 0;
+  // margin-top: 14px;
+  // margin: 14px !important;
+  width: 90%;
+  position: -webkit-sticky;
+  position: sticky;
+  display: flex;
+  justify-content: center;
+}
+
+.Stepper {
+  // hide on xs
+  display: none;
+
+  // skinny icons on sm
+  @media only screen and (min-width: $sm) {
+    display: flex;
+    padding: 0 0 0 6px !important;
+  }
+
+  // icons+labels md and up
+  @media only screen and (min-width: $md) {
+    display: flex;
+    padding: 24px !important;
+  }
+
+  :global(.MuiStepConnector-vertical) {
+    padding-block: 5px;
+  }
+
+  :global(.MuiStepLabel-label) {
+    line-height: $lhNormal !important;
+  }
+}
+
+.StepButton {
+  text-align: left;
+}
+
+.StepButtonLabel {
+  font-size: $smallest;
+}
