@@ -71,10 +71,7 @@ export function MapCard(props: MapCardProps) {
 }
 
 function MapCardWithKey(props: MapCardProps) {
-  const preloadHeight = useGuessPreloadHeight(
-    [750, 1050],
-    props.currentBreakdown === "sex"
-  );
+  const preloadHeight = useGuessPreloadHeight([750, 1050]);
 
   const metricConfig = props.variableConfig.metrics["per100k"];
 
