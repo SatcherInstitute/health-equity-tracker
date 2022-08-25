@@ -124,7 +124,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     fips={props.fips}
                     fieldRange={props.fieldRange}
                     hideActions={true}
-                    scaleType="quantize"
+                    scaleType="quantile"
                     geoData={props.geoData}
                     filename={`${props.metricConfig.fullCardTitleName}${
                       breakdownValue === "All" ? "" : ` for ${breakdownValue}`
@@ -151,7 +151,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                           showCounties={props.fips.isUsa() ? false : true}
                           fips={fips}
                           fieldRange={props.fieldRange}
-                          scaleType="quantize"
+                          scaleType="quantile"
                           geoData={props.geoData}
                           overrideShapeWithCircle={true}
                         />
@@ -186,7 +186,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     metric={props.metricConfig}
                     legendTitle={props.metricConfig.fullCardTitleName}
                     legendData={props.data}
-                    scaleType="quantize"
+                    scaleType="quantile"
                     sameDotSize={true}
                     direction={props.pageIsWide ? "horizontal" : "vertical"}
                     description={"Consistent legend for all displayed maps"}

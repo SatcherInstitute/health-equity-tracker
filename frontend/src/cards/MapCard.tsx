@@ -350,7 +350,7 @@ function MapCardWithKey(props: MapCardProps) {
                     }
                     showCounties={props.fips.isUsa() ? false : true}
                     fips={props.fips}
-                    scaleType="quantize"
+                    scaleType="quantile"
                     geoData={geoData}
                     // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
                     filename={`${metricConfig.fullCardTitleName}${
@@ -381,7 +381,7 @@ function MapCardWithKey(props: MapCardProps) {
                               hideActions={true}
                               showCounties={props.fips.isUsa() ? false : true}
                               fips={fips}
-                              scaleType="quantize"
+                              scaleType="quantile"
                               geoData={geoData}
                               overrideShapeWithCircle={true}
                             />
