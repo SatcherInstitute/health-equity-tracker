@@ -152,7 +152,6 @@ function ExploreDataPage() {
         if (header) {
           header.classList.add(styles.Sticky);
         }
-        setSticking(true);
       } else {
         if (header) {
           header.classList.remove(styles.Sticky);
