@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import Typography from "@material-ui/core/Typography";
-import { Box, Grid, useMediaQuery, useTheme } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import { ChoroplethMap } from "../../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
@@ -54,6 +54,8 @@ export interface MultiMapDialogProps {
   // Geography data, in topojson format. Must include both states and counties.
   // If not provided, defaults to directly loading /tmp/geographies.json
   geoData?: Record<string, any>;
+  // responsive layout
+  pageIsWide: boolean;
 }
 
 /*
@@ -61,10 +63,6 @@ export interface MultiMapDialogProps {
     value in a given breakdown for a particular metric.
 */
 export function MultiMapDialog(props: MultiMapDialogProps) {
-  // calculate page size for responsive layout
-  const theme = useTheme();
-  const pageIsWide = useMediaQuery(theme.breakpoints.up("xl"));
-
   return (
     <Dialog
       className={styles.MultiMapBox}
@@ -81,7 +79,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             item
             xs={12}
             container
-            justifyContent={pageIsWide ? "flex-start" : "center"}
+            justifyContent={props.pageIsWide ? "flex-start" : "center"}
           >
             <Typography id="modalTitle" variant="h6" component="h2">
               {props.metricConfig.fullCardTitleName} Across All{" "}
@@ -126,7 +124,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     fips={props.fips}
                     fieldRange={props.fieldRange}
                     hideActions={true}
-                    scaleType="quantile"
+                    scaleType="quantize"
                     geoData={props.geoData}
                     filename={`${props.metricConfig.fullCardTitleName}${
                       breakdownValue === "All" ? "" : ` for ${breakdownValue}`
@@ -153,7 +151,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                           showCounties={props.fips.isUsa() ? false : true}
                           fips={fips}
                           fieldRange={props.fieldRange}
-                          scaleType="quantile"
+                          scaleType="quantize"
                           geoData={props.geoData}
                           overrideShapeWithCircle={true}
                         />
@@ -178,7 +176,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             xl={12}
             className={styles.SmallMultipleLegendMap}
           >
-            <Box mt={pageIsWide ? 10 : 0}>
+            <Box mt={props.pageIsWide ? 10 : 0}>
               <Grid container item>
                 <Grid container justifyContent="center">
                   <b>Legend ({SYMBOL_TYPE_LOOKUP[props.metricConfig.type]})</b>
@@ -190,7 +188,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     legendData={props.data}
                     scaleType="quantize"
                     sameDotSize={true}
-                    direction={pageIsWide ? "horizontal" : "vertical"}
+                    direction={props.pageIsWide ? "horizontal" : "vertical"}
                     description={"Consistent legend for all displayed maps"}
                   />
                 </Grid>

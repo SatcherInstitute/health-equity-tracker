@@ -8,7 +8,7 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
-import { CardContent } from "@material-ui/core";
+import { CardContent, useMediaQuery, useTheme } from "@material-ui/core";
 import {
   METRIC_CONFIG,
   MetricConfig,
@@ -31,9 +31,6 @@ import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { Row } from "../data/utils/DatasetTypes";
 
-/* minimize layout shift */
-const PRELOAD_HEIGHT = 698;
-
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
 export const NEVER_SHOW_PROPERTIES = [
@@ -48,6 +45,12 @@ export interface TableCardProps {
 }
 
 export function TableCard(props: TableCardProps) {
+  // calculate page size for responsive layout and minimized CLS
+  const theme = useTheme();
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("xl"));
+  let preload_height = pageIsWide ? 1500 : 700;
+  if (props.breakdownVar === "sex") preload_height /= 2;
+
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
@@ -95,11 +98,12 @@ export function TableCard(props: TableCardProps) {
 
   return (
     <CardWrapper
-      minHeight={PRELOAD_HEIGHT}
+      minHeight={preload_height}
       queries={[query]}
       title={
-        <>{`${props.variableConfig.variableFullDisplayName} By ${BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-          } In ${props.fips.getSentenceDisplayName()}`}</>
+        <>{`${props.variableConfig.variableFullDisplayName} By ${
+          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+        } In ${props.fips.getSentenceDisplayName()}`}</>
       }
     >
       {([queryResponse]) => {
