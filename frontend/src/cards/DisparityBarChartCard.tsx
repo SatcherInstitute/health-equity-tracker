@@ -1,7 +1,7 @@
 import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
-import { CardContent } from "@material-ui/core";
+import { CardContent, useMediaQuery, useTheme } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -27,9 +27,6 @@ import UnknownsAlert from "./ui/UnknownsAlert";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 
-/* minimize layout shift */
-const PRELOAD_HEIGHT = 719;
-
 export interface DisparityBarChartCardProps {
   key?: string;
   breakdownVar: BreakdownVar;
@@ -49,6 +46,12 @@ export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
 }
 
 function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
+  // calculate page size for responsive layout and minimized CLS
+  const theme = useTheme();
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("xl"));
+  let preload_height = pageIsWide ? 1000 : 700;
+  if (props.breakdownVar === "sex") preload_height /= 2;
+
   const metricConfig = props.variableConfig.metrics["pct_share"];
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
@@ -72,8 +75,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const query = new MetricQuery(metricIds, breakdowns);
 
   function getTitleText() {
-    return `Population vs. ${metricConfig.fullCardTitleName
-      } in ${props.fips.getSentenceDisplayName()}`;
+    return `Population vs. ${
+      metricConfig.fullCardTitleName
+    } in ${props.fips.getSentenceDisplayName()}`;
   }
   function CardTitle() {
     return <>{getTitleText()}</>;
@@ -83,7 +87,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     <CardWrapper
       queries={[query]}
       title={<CardTitle />}
-      minHeight={PRELOAD_HEIGHT}
+      minHeight={preload_height}
     >
       {([queryResponse]) => {
         const dataWithoutUnknowns = queryResponse
@@ -160,9 +164,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 Population percentages on this graph add up to over 100% because
                 the racial categories reported for{" "}
                 {metricConfig.fullCardTitleName} in{" "}
-                {props.fips.getSentenceDisplayName()} include Hispanic individuals
-                in each racial category. As a result, Hispanic individuals are
-                counted twice.
+                {props.fips.getSentenceDisplayName()} include Hispanic
+                individuals in each racial category. As a result, Hispanic
+                individuals are counted twice.
               </Alert>
             )}
             {isCawp && (

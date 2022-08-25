@@ -1,4 +1,4 @@
-import { CardContent, Grid } from "@material-ui/core";
+import { CardContent, Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
@@ -47,8 +47,6 @@ import { RateInfoAlert } from "./ui/RateInfoAlert";
 import { findVerboseRating } from "./ui/SviAlert";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
-/* minimize layout shift */
-const PRELOAD_HEIGHT = 250;
 
 export interface MapCardProps {
   key?: string;
@@ -72,6 +70,11 @@ export function MapCard(props: MapCardProps) {
 }
 
 function MapCardWithKey(props: MapCardProps) {
+  // calculate page size for responsive layout and minimized CLS
+  const theme = useTheme();
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("xl"));
+  const preload_height = pageIsWide ? 1050 : 750;
+
   const metricConfig = props.variableConfig.metrics["per100k"];
 
   const isPrison = props.variableConfig.variableId === "prison";
@@ -140,7 +143,7 @@ function MapCardWithKey(props: MapCardProps) {
         </>
       }
       loadGeographies={true}
-      minHeight={PRELOAD_HEIGHT}
+      minHeight={preload_height}
     >
       {(queryResponses, metadata, geoData) => {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
@@ -235,6 +238,7 @@ function MapCardWithKey(props: MapCardProps) {
               metadata={metadata}
               geoData={geoData}
               breakdownValuesNoData={fieldValues.noData}
+              pageIsWide={pageIsWide}
             />
 
             <CardContent className={styles.SmallMarginContent}>
@@ -346,7 +350,7 @@ function MapCardWithKey(props: MapCardProps) {
                     }
                     showCounties={props.fips.isUsa() ? false : true}
                     fips={props.fips}
-                    scaleType="quantile"
+                    scaleType="quantize"
                     geoData={geoData}
                     // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
                     filename={`${metricConfig.fullCardTitleName}${
@@ -377,7 +381,7 @@ function MapCardWithKey(props: MapCardProps) {
                               hideActions={true}
                               showCounties={props.fips.isUsa() ? false : true}
                               fips={fips}
-                              scaleType="quantile"
+                              scaleType="quantize"
                               geoData={geoData}
                               overrideShapeWithCircle={true}
                             />
