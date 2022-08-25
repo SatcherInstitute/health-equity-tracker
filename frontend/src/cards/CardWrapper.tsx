@@ -8,7 +8,7 @@ import Divider from "@material-ui/core/Divider";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import InfoIcon from "@material-ui/icons/Info";
 import Popover from "@material-ui/core/Popover";
-import { usePopover } from "../utils/usePopover";
+import { usePopover } from "../utils/hooks/usePopover";
 import { MetricQuery, MetricQueryResponse } from "../data/query/MetricQuery";
 import { WithMetadataAndMetrics } from "../data/react/WithLoadingOrErrorUI";
 import { Sources } from "./ui/Sources";

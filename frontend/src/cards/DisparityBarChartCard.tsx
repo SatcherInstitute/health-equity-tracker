@@ -1,7 +1,7 @@
 import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
-import { CardContent, useMediaQuery, useTheme } from "@material-ui/core";
+import { CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -26,6 +26,7 @@ import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
+import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -46,11 +47,10 @@ export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
 }
 
 function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
-  // calculate page size for responsive layout and minimized CLS
-  const theme = useTheme();
-  const pageIsWide = useMediaQuery(theme.breakpoints.up("xl"));
-  let preload_height = pageIsWide ? 1000 : 700;
-  if (props.breakdownVar === "sex") preload_height /= 2;
+  const preloadHeight = useGuessPreloadHeight(
+    [700, 1000],
+    props.breakdownVar === "sex"
+  );
 
   const metricConfig = props.variableConfig.metrics["pct_share"];
 
@@ -87,7 +87,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     <CardWrapper
       queries={[query]}
       title={<CardTitle />}
-      minHeight={preload_height}
+      minHeight={preloadHeight}
     >
       {([queryResponse]) => {
         const dataWithoutUnknowns = queryResponse
