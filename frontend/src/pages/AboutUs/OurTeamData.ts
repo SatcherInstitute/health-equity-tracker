@@ -21,7 +21,7 @@ import PartnerGilead from "../../assets/partners/PartnerGilead.png";
 import PartnerCdc from "../../assets/partners/PartnerCdc.png";
 import PartnerGoogle from "../../assets/partners/PartnerGoogle.png";
 import PartnerAARP from "../../assets/partners/PartnerAARP.png";
-import PartnerAECF from "../../assets/partners/PartnerAECF.png";
+import PartnerAECF from "../../assets/partners/PartnerAECF.jpg";
 
 export const LEADERSHIP_TEAM = [
   {
