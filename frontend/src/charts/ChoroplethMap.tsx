@@ -512,15 +512,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     legendUpperBound,
   ]);
 
-  const mapStyle = pageIsTiny
-    ? {
-        width: "90%",
-        marginRight: PADDING_FOR_ACTIONS_MENU,
-      }
-    : {
-        width: "75%",
-        margin: "auto",
-      };
+  const mapStyle = {
+    width: "90%",
+    marginRight: PADDING_FOR_ACTIONS_MENU,
+  };
 
   return (
     <div ref={ref} style={mapStyle}>
