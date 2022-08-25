@@ -78,7 +78,7 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
   const urlHashOverrideRef = useRef(recentlyClicked);
 
   useEffect(() => {
-    // any updates to the id that should be focused results in a new URL hash
+    // any updates to the focused id results in a new URL hash
     const urlNoHash = window.location.href.split("#")[0];
     const newHash = activeId ? `#${activeId}` : "";
     window.history.replaceState(undefined, "", urlNoHash + newHash);
