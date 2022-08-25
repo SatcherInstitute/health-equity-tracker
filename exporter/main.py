@@ -32,19 +32,16 @@ def export_dataset_tables():
         return ('Dataset has no tables.', 500)
 
     for table in tables:
-        dest_uri = "gs://{}/{}-{}.json".format(
-            export_bucket, dataset_name, table.table_id)
+        dest_uri = "gs://{}/{}-{}.json".format(export_bucket, dataset_name, table.table_id)
         table_ref = dataset.table(table.table_id)
         try:
-            export_table(bq_client, table_ref, dest_uri,
-                         'NEWLINE_DELIMITED_JSON')
+            export_table(bq_client, table_ref, dest_uri, 'NEWLINE_DELIMITED_JSON')
 
             std_table_suffix = "_std"
             if not table.table_id.endswith(std_table_suffix):
                 continue
 
-            dest_uri = "gs://{}/{}-{}.csv".format(
-                export_bucket, dataset_name, table.table_id)
+            dest_uri = "gs://{}/{}-{}.csv".format(export_bucket, dataset_name, table.table_id)
             export_table(bq_client, table_ref, dest_uri, 'CSV')
         except Exception as err:
             logging.error(err)
@@ -55,46 +52,10 @@ def export_dataset_tables():
 
 def export_table(bq_client, table_ref, dest_uri, dest_fmt):
     """ Run the extract job to export the give table to the given destination and wait for completion"""
-
-    state_fips = "01"
-    # state_fips_matcher = f'{state_fips}%'
-
-    query = f"""
-            SELECT *
-            FROM bhammond-het-infra-test-ef.cdc_restricted_data.by_age_county_processed
-            WHERE county_fips LIKE '01___'
-            LIMIT 5
-        """
-    query_job = bq_client.query(query)  # Make an API request.
-
-    print("The query data:")
-    for row in query_job:
-        # Row values can be accessed by field name or index.
-        print(row)
-
     job_config = bigquery.ExtractJobConfig(destination_format=dest_fmt)
-    extract_job = bq_client.extract_table(
-        table_ref, dest_uri, location='US', job_config=job_config)
+    extract_job = bq_client.extract_table(table_ref, dest_uri, location='US', job_config=job_config)
     extract_job.result()
     logging.info("Exported %s to %s", table_ref.table_id, dest_uri)
-
-
-# def export_table(bq_client, table_ref, dest_uri, dest_fmt):
-#     """ Run the extract job to export the give table to the given destination and wait for completion"""
-#     job_config = bigquery.ExtractJobConfig(destination_format=dest_fmt)
-
-#     state_fips = "01"
-#     state_fips_matcher = f'{state_fips}%'
-
-#     query_job = bq_client.query(
-#         f'SELECT * FROM {table_ref} WHERE county_fips LIKE {state_fips_matcher};',
-#         job_config=job_config,
-#     )
-
-#     extract_job = bq_client.extract_table(
-#         table_ref, dest_uri, location='US', job_config=job_config, query_job=query_job)
-#     extract_job.result()
-#     logging.info("Exported %s to %s", table_ref.table_id, dest_uri)
 
 
 if __name__ == "__main__":
