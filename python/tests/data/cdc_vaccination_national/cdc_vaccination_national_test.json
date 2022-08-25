@@ -1,6 +1,30 @@
 [
   {
     "date": "2021-12-02T00:00:00.000",
+    "demographic_category": "Ages_<2yrs",
+    "administered_dose1": "259174",
+    "administered_dose1_pct_known": "0.1",
+    "administered_dose1_pct_us": "0.1",
+    "series_complete_yes": "44736",
+    "administered_dose1_pct": "3.4",
+    "series_complete_pop_pct": "0.6",
+    "series_complete_pop_pct_known": "0.0",
+    "series_complete_pop_pct_us": "0.0"
+},
+  {
+    "date": "2021-12-02T00:00:00.000",
+    "demographic_category": "Ages_2-4_yrs",
+    "administered_dose1": "682581",
+    "administered_dose1_pct_known": "0.3",
+    "administered_dose1_pct_us": "0.3",
+    "series_complete_yes": "137964",
+    "administered_dose1_pct": "5.7",
+    "series_complete_pop_pct": "1.1",
+    "series_complete_pop_pct_known": "0.1",
+    "series_complete_pop_pct_us": "0.1"
+},
+  {
+    "date": "2021-12-02T00:00:00.000",
     "demographic_category": "Ages_5-11_yrs",
     "administered_dose1": "4461075",
     "administered_dose1_pct_known": "1.9",
@@ -127,7 +151,7 @@
   },
   {
     "date": "2021-12-02T00:00:00.000",
-    "demographic_category": "Ages_25-39_yrs",
+    "demographic_category": "Ages_25-49_yrs",
     "administered_dose1": "49452236",
     "administered_dose1_pct_known": "21.1",
     "administered_dose1_pct_us": "21.1",
@@ -139,7 +163,7 @@
   },
   {
     "date": "2021-12-02T00:00:00.000",
-    "demographic_category": "Ages_65-74_yrs",
+    "demographic_category": "Ages_65+_yrs",
     "administered_dose1": "32893412",
     "administered_dose1_pct_known": "14",
     "administered_dose1_pct_us": "14",
