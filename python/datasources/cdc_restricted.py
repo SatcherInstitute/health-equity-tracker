@@ -407,6 +407,7 @@ def remove_or_set_to_zero(df, geo, demographic):
     # Remove all rows that have zero cases throughout the pandemic
     df = pd.merge(df, grouped_df, how='left', on=geo_cols + [demog_col])
     df = df[~pd.isna(df['grouped_cases'])]
+    df = df.drop(columns='grouped_cases')
 
     # Unknowns are a special case, we want to keep the per_100k values
     # as NULL no matter what
@@ -422,8 +423,6 @@ def remove_or_set_to_zero(df, geo, demographic):
     df = df.loc[df[demog_col] != unknown]
     df[condition_cols] = df[condition_cols].fillna(0)
     df = pd.concat([df, unknown_df])
-
-    df = df.drop(columns='grouped_cases')
 
     return df.reset_index()
 
