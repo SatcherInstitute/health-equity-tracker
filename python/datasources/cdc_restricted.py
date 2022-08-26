@@ -381,7 +381,7 @@ def add_missing_demographic_values(df, geo, demographic):
 
 
 def remove_or_set_to_zero(df, geo, demographic):
-    """Cleans a dataframe by either removing uneeded rows
+    """Cleans a dataframe by either removing unneeded rows
        or changing rows to zero"""
 
     geo_col_mapping = {
