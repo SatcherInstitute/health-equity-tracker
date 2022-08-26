@@ -139,34 +139,34 @@ function ExploreDataPage() {
     }
   };
 
-  // Set up sticky madlib behavior
   const [sticking, setSticking] = useState<boolean>(false);
+
   useEffect(() => {
     if (activelyOnboarding) {
       return;
     }
-    const header = document.getElementById(EXPLORE_DATA_ID);
-    const stickyBarOffsetFromTop: number = header ? header.offsetTop : 1;
-    const scrollCallBack: any = window.addEventListener("scroll", () => {
-      if (window.pageYOffset > stickyBarOffsetFromTop) {
-        if (header) {
-          header.classList.add(styles.Sticky);
-        }
+
+    const scrollCallBack = () => {
+      const header = document.getElementById(EXPLORE_DATA_ID);
+      const carousel = document.getElementsByClassName("Carousel")[0];
+      const stickyBarOffsetFromTop = header?.offsetTop || 1;
+      const topOfCarousel = window.pageYOffset > stickyBarOffsetFromTop;
+      if (topOfCarousel) {
+        header?.classList.add(styles.Sticky);
+        carousel?.classList.add(styles.StickyCarousel);
       } else {
-        if (header) {
-          header.classList.remove(styles.Sticky);
-        }
-        setSticking(false);
+        header?.classList.remove(styles.Sticky);
+        carousel?.classList.remove(styles.StickyCarousel);
       }
-    });
+    };
+
+    window.addEventListener("scroll", scrollCallBack);
     return () => {
       window.removeEventListener("scroll", scrollCallBack);
     };
   }, [activelyOnboarding]);
 
   // calculate page size to determine if mobile or not
-  const theme = useTheme();
-  const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
   const isSingleColumn = (madLib.id as MadLibId) === "disparity";
 
   const handleCarouselChange = (carouselMode: number) => {
@@ -232,7 +232,6 @@ function ExploreDataPage() {
         callback={onboardingCallback}
         activelyOnboarding={activelyOnboarding}
       />
-
       <h2 className={styles.ScreenreaderTitleHeader}>
         {getMadLibPhraseText(madLib)}
       </h2>
@@ -242,7 +241,7 @@ function ExploreDataPage() {
           id="onboarding-start-your-search"
         >
           <Carousel
-            className={styles.Carousel}
+            className={`Carousel ${styles.Carousel}`}
             NextIcon={
               <NavigateNextIcon
                 aria-hidden="true"
@@ -251,7 +250,7 @@ function ExploreDataPage() {
             }
             timeout={200}
             autoPlay={false}
-            indicators={!sticking || !pageIsWide}
+            indicators={true}
             indicatorIconButtonProps={{
               "aria-label": "Report Type",
               style: { padding: "4px" },
@@ -292,7 +291,7 @@ function ExploreDataPage() {
             showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
             setMadLib={setMadLibWithParam}
             doScrollToData={doScrollToData}
-            isScrolledToTop={!sticking}
+            isScrolledToTop={false}
           />
         </div>
       </div>

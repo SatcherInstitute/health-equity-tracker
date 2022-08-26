@@ -19,6 +19,12 @@
   width: 98%;
 }
 
+.StickyCarousel {
+  margin: auto;
+  width: 98%;
+  max-height: 76.594px;
+}
+
 // when scrolled to top of page
 .CarouselItem {
   line-height: $lhLoose;
