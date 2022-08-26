@@ -132,7 +132,6 @@ def testGenerateBreakdownSexCountyTimeSeries(mock_fips: mock.MagicMock, mock_pop
     })
 
     sortby_cols = list(df.columns)
-
     assert_frame_equal(
         df.sort_values(by=sortby_cols).reset_index(drop=True),
         expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
