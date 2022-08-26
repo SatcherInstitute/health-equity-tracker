@@ -13,9 +13,13 @@ def export_dataset_tables():
     """Exports the tables in the given dataset to GCS.
 
        Request form must include the dataset name."""
+
+    print("*&*&*&*&* start of export_dataset_tables()")
+
     data = request.get_json()
 
     if data.get('dataset_name') is None:
+        print("NO DATASET NAME XXXXX")
         return ('Request must include dataset name.', 400)
 
     dataset_name = data['dataset_name']
@@ -30,9 +34,16 @@ def export_dataset_tables():
     # If there are no tables in the dataset, return an error so the pipeline will alert
     # and a human can look into any potential issues.
     if not tables:
+        print("no tables XXXXXXX")
         return ('Dataset has no tables.', 500)
 
+    print("right before table loop")
+
     for table in tables:
+
+        # also split up county-level tables by state and export those individually
+        print("-----> table id", table.table_id)
+        export_split_county_tables(bq_client, table, export_bucket)
 
         # export the full table
         dest_uri = "gs://{}/{}-{}.json".format(
@@ -53,15 +64,12 @@ def export_dataset_tables():
             logging.error(err)
             return ('Error exporting table, {}, to {}: {}'.format(table.table_id, dest_uri, err), 500)
 
-        # also split up county-level tables by state and export those individually
-        if "county" in table.table_id:
-            export_split_county_tables(bq_client, table, export_bucket)
-
     return ('', 204)
 
 
 def export_table(bq_client, table_ref, dest_uri, dest_fmt):
     """ Run the extract job to export the given table to the given destination and wait for completion"""
+    print("made it inside export table")
     job_config = bigquery.ExtractJobConfig(destination_format=dest_fmt)
     extract_job = bq_client.extract_table(
         table_ref, dest_uri, location='US', job_config=job_config)
@@ -71,10 +79,13 @@ def export_table(bq_client, table_ref, dest_uri, dest_fmt):
 
 def export_split_county_tables(bq_client, table, export_bucket):
     """ Split county-level table by parent state FIPS, and export as individual blobs to the given destination and wait for completion"""
-    try:
-        table_name = "{}.{}.{}".format(
-            table.project, table.dataset_id, table.table_id)
+    print("made it inside export_split_county_tables() ")
+    table_name = "{}.{}.{}".format(
+        table.project, table.dataset_id, table.table_id)
+    if "county" not in table_name:
+        return
 
+    try:
         for fips in STATE_LEVEL_FIPS_TO_NAME_MAP.keys():
             state_file_name = f'{table.dataset_id}-{table.table_id}-{fips}.json'
             query = f"""

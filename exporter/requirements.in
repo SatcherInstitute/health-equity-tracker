@@ -1,4 +1,10 @@
 google-cloud-bigquery
 flask
 gunicorn
+google-cloud
+google-cloud-core
+google-cloud-pubsub
 google-cloud-storage
+requests
+pandas
+db-dtypes
