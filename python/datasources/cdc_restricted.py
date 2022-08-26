@@ -399,38 +399,33 @@ def remove_or_set_to_zero(df, geo, demographic):
 
     geo_cols = geo_col_mapping[geo]
     demog_col = DEMO_COL_MAPPING[demographic][0]
+
     grouped_df = df.groupby(geo_cols + [demog_col]).sum(min_count=1).reset_index()
+    grouped_df = grouped_df.rename(columns={std_col.COVID_CASES: 'grouped_cases'})
+    grouped_df = grouped_df[geo_cols + [demog_col, 'grouped_cases']]
 
-    fips = std_col.COUNTY_FIPS_COL if geo == COUNTY_LEVEL else std_col.STATE_FIPS_COL
-    fips_codes = df[fips].drop_duplicates().to_list()
+    # Remove all rows that have zero cases throughout the pandemic
+    df = pd.merge(df, grouped_df, how='left', on=geo_cols + [demog_col])
+    df = df[~pd.isna(df['grouped_cases'])]
 
-    all_demos = set(DEMO_COL_MAPPING[demographic][1])
-    if UNKNOWN in all_demos:
-        all_demos.remove(UNKNOWN)
+    # Unknowns are a special case, we want to keep the per_100k values
+    # as NULL no matter what
+    unknown = Race.UNKNOWN.value if demographic == 'race' else UNKNOWN
+    unknown_df = df.loc[df[demog_col] == unknown]
 
-    for fips_code in fips_codes:
-        for demo in all_demos:
-            gdf = grouped_df.loc[(grouped_df[fips] == fips_code) &
-                                 (grouped_df[demog_col] == demo)].reset_index()
+    # Set all other null conditions to zero
+    condition_cols = []
+    for prefix in COVID_CONDITION_TO_PREFIX.values():
+        for suffix in [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX]:
+            condition_cols.append(generate_column_name(prefix, suffix))
 
-            if len(gdf) == 0:
-                continue
+    df = df.loc[df[demog_col] != unknown]
+    df[condition_cols] = df[condition_cols].fillna(0)
+    df = pd.concat([df, unknown_df])
 
-            if pd.isna(gdf[std_col.COVID_CASES].values[0]):
-                # remove all instances of this race and geo
-                df = df.loc[~((df[fips] == fips_code) &
-                              (df[demog_col] == demo))].reset_index(drop=True)
+    df = df.drop(columns='grouped_cases')
 
-            else:
-                for prefix in COVID_CONDITION_TO_PREFIX.values():
-                    for suffix in [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX]:
-                        col_name = generate_column_name(prefix, suffix)
-                        rows_to_modify = ((df[fips] == fips_code) &
-                                          (df[demog_col] == demo) &
-                                          (pd.isna(df[col_name])))
-                        df.loc[rows_to_modify, col_name] = 0
-
-    return df.copy().reset_index()
+    return df.reset_index()
 
 
 def null_out_suppressed_deaths_hosps(df, modify_pop_rows):
