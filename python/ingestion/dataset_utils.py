@@ -29,7 +29,7 @@ def generate_pct_share_col_without_unknowns(df, raw_count_to_pct_share, breakdow
 def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
                                          breakdown_col, all_val, unknown_val):
     """Returns a DataFrame with a percent share column based on the raw_count_cols.
-       The resulting `pct_share` value for the 'unknown' row will the the raw
+       The resulting `pct_share` value for the 'unknown' row will be the raw
        percent share, whereas the resulting `pct_share` values for all other
        rows will be the percent share disregarding unknowns.
 
