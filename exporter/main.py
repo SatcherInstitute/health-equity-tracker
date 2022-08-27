@@ -33,7 +33,7 @@ def export_dataset_tables():
         return ('Dataset has no tables.', 500)
 
     for table in tables:
-        # also split up county-level tables by state and export those individually
+        # split up county-level tables by state and export those individually
         export_split_county_tables(bq_client, table, export_bucket)
 
         # export the full table
@@ -83,15 +83,12 @@ def export_split_county_tables(bq_client, table, export_bucket):
                 WHERE county_fips LIKE '{fips}___'
                 """
 
-            print("extracting", table_name, "to", state_file_name)
+            print("querying and extracting", table_name, "to", state_file_name)
 
             query_job = bq_client.query(query)
             rows_df = query_job.to_dataframe()
             storage_client = storage.Client()  # Storage API request
-
             bucket = storage_client.get_bucket(export_bucket)
-            print(bucket)
-
             blob = bucket.blob(state_file_name)
             blob.upload_from_string(
                 # newline delimited json
