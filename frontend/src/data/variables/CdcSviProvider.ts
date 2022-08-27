@@ -9,7 +9,9 @@ class CdcSviProvider extends VariableProvider {
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    return "cdc_svi_county-age";
+    const parentFips = breakdowns?.filterFips?.getParentFips().code;
+
+    return `cdc_svi_county-age-${parentFips}`;
   }
 
   async getDataInternal(
