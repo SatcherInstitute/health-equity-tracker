@@ -38,9 +38,7 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
 
   useEffect(() => {
     const handleObserver = (entries: any) => {
-      console.log(entries);
       entries.forEach((entry: any) => {
-        console.log(recentlyClicked, entry.target.id);
         // when page is scrolled to the top, don't track scroll position
         if (isScrolledToTop) setActiveId("");
         else if (entry?.isIntersecting) {
