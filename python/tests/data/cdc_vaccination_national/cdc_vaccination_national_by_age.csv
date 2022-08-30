@@ -1,11 +1,11 @@
 state_name,state_fips,vaccinated_first_dose,age,vaccinated_share_of_known,vaccinated_per_100k,population_pct
+United States,00,259174,0-1,0.1,3400,2.3
+United States,00,682581,2-4,0.3,5700,3.6
 United States,00,4461075,5-11,1.9,15500,8.7
 United States,00,15514175,12-17,6.6,61300,7.6
 United States,00,20955927,18-24,8.9,68500,9.2
-United States,00,49452236,25-39,21.1,72300,20.5
-United States,00,32801657,40-49,14,80400,12.2
-United States,00,55833589,50-64,23.8,87700,19.4
-United States,00,32893412,65-74,14,99900,9.8
-United States,00,22319540,75+,9.5,97400,7.0
+United States,00,49452236,25-49,21.1,72300,32.9
+United States,00,55833589,50-64,23.8,87700,19.2
+United States,00,32893412,65+,14,99900,16.5
 United States,00,24085,Unknown,0,
 United States,00,234269050,All,100,70600,100

@@ -28,14 +28,14 @@ CDC_RACE_GROUPS_TO_STANDARD = {
 }
 
 CDC_AGE_GROUPS_TO_STANDARD = {
+    'Ages_<2yrs': '0-1',
+    'Ages_2-4_yrs': '2-4',
     'Ages_5-11_yrs': '5-11',
     'Ages_12-17_yrs': '12-17',
     'Ages_18-24_yrs': '18-24',
-    'Ages_25-39_yrs': '25-39',
-    'Ages_40-49_yrs': '40-49',
+    'Ages_25-49_yrs': '25-49',
     'Ages_50-64_yrs': '50-64',
-    'Ages_65-74_yrs': '65-74',
-    'Ages_75+_yrs': '75+',
+    'Ages_65+_yrs': '65+',
     'Age_unknown': 'Unknown',
     'US': std_col.ALL_VALUE,
 }
@@ -46,14 +46,14 @@ CDC_AGE_GROUPS_TO_STANDARD = {
 # taking the population percentages directly off of the chart here:
 # https://covid.cdc.gov/covid-data-tracker/#vaccination-demographic
 CDC_AGE_GROUPS_TO_POP_PCT = {
+    'Ages_<2yrs': '2.3',
+    'Ages_2-4_yrs': '3.6',
     'Ages_5-11_yrs': '8.7',
     'Ages_12-17_yrs': '7.6',
     'Ages_18-24_yrs': '9.2',
-    'Ages_25-39_yrs': '20.5',
-    'Ages_40-49_yrs': '12.2',
-    'Ages_50-64_yrs': '19.4',
-    'Ages_65-74_yrs': '9.8',
-    'Ages_75+_yrs': '7.0',
+    'Ages_25-49_yrs': '32.9',
+    'Ages_50-64_yrs': '19.2',
+    'Ages_65+_yrs': '16.5',
     'US': '100',
 }
 
