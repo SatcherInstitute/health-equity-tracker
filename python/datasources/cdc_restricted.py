@@ -165,7 +165,6 @@ class CDCRestrictedData(DataSource):
             all_columns.extend(
                 [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
             df = merge_county_names(df)
-            null_out_all_unknown_deaths_hosps(df)
 
         if geo == NATIONAL_LEVEL:
             pop_cols = [
@@ -219,14 +218,15 @@ class CDCRestrictedData(DataSource):
         if geo != NATIONAL_LEVEL:
             null_out_suppressed_deaths_hosps(df, False)
 
+        if geo == COUNTY_LEVEL:
+            null_out_all_unknown_deaths_hosps(df)
+            null_out_dc_county_rows(df)
+
         df = df[all_columns]
         self.clean_frame_column_names(df)
 
         sortby_cols = [fips, demo_col]
         df = df.sort_values(by=sortby_cols).reset_index(drop=True)
-
-        if geo == COUNTY_LEVEL:
-            null_out_dc_county_rows(df)
 
         end = time.time()
         print("took", round(end - start, 2),
@@ -463,5 +463,5 @@ def null_out_all_unknown_deaths_hosps(df):
        Note: This is an in place function so it doesnt return anything
        df: DataFrame to null out rows on"""
 
-    df.loc[df[std_col.COVID_DEATH_UNKNOWN] == df[std_col.COVID_CASES], std_col.COVID_DEATH_Y] = np.nan
-    df.loc[df[std_col.COVID_HOSP_UNKNOWN] == df[std_col.COVID_CASES], std_col.COVID_HOSP_Y] = np.nan
+    df.loc[df[std_col.COVID_DEATH_UNKNOWN] == df[std_col.COVID_CASES], generate_column_name(std_col.COVID_DEATH_PREFIX, std_col.PER_100K_SUFFIX)] = np.nan
+    df.loc[df[std_col.COVID_HOSP_UNKNOWN] == df[std_col.COVID_CASES], generate_column_name(std_col.COVID_HOSP_PREFIX, std_col.PER_100K_SUFFIX)] = np.nan
