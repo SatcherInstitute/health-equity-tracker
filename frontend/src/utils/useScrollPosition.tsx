@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect, DependencyList } from "react";
+import { useRef, useLayoutEffect } from "react";
 import styles from "../pages/ExploreData/ExploreDataPage.module.scss";
 
 const EXPLORE_DATA_ID = "main";
@@ -8,22 +8,19 @@ export function useScrollPosition(
     pageYOffset: number;
     stickyBarOffsetFromTop: number;
   }) => void,
-  deps: boolean[],
+  sticking: boolean[],
   wait: number | undefined
 ) {
-  let throttleTimeout: NodeJS.Timeout | null = null;
-
+  const throttleTimeout = useRef<NodeJS.Timeout | null>(null);
   const position = useRef<number>();
 
-  const callBack = () => {
-    const header = document.getElementById(EXPLORE_DATA_ID);
-    const stickyBarOffsetFromTop = header?.offsetTop || 1;
-    effect({ pageYOffset: window.pageYOffset, stickyBarOffsetFromTop });
-    position.current = stickyBarOffsetFromTop;
-    throttleTimeout = null;
-  };
-
   useLayoutEffect(() => {
+    const scrollCallBack = (stickyBarOffsetFromTop: number) => {
+      effect({ pageYOffset: window.pageYOffset, stickyBarOffsetFromTop });
+      position.current = stickyBarOffsetFromTop;
+      throttleTimeout.current = null;
+    };
+
     const handleScroll = () => {
       const header = document.getElementById(EXPLORE_DATA_ID);
       const carousel = document.getElementsByClassName("Carousel")[0];
@@ -39,16 +36,18 @@ export function useScrollPosition(
       }
 
       if (wait) {
-        if (throttleTimeout === null) {
-          throttleTimeout = setTimeout(callBack, wait);
+        if (throttleTimeout.current === null) {
+          throttleTimeout.current = setTimeout(function () {
+            scrollCallBack(stickyBarOffsetFromTop);
+          }, wait);
         }
       } else {
-        callBack();
+        scrollCallBack(stickyBarOffsetFromTop);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, deps);
+  }, [sticking, effect, wait]);
 }

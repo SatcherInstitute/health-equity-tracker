@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { STATUS } from "react-joyride";
 import Carousel from "react-material-ui-carousel";
@@ -39,7 +39,7 @@ import { srSpeak } from "../../utils/a11yutils";
 import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
-import { useScrollPosition } from "../../utils/useOnScreen";
+import { useScrollPosition } from "../../utils/useScrollPosition";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -141,15 +141,15 @@ function ExploreDataPage() {
   };
 
   // Set up sticky madlib behavior
-  const [scrolledFromTop, setScrolledFromTop] = useState<boolean>(false);
+  const [sticking, setSticking] = useState<boolean>(false);
   useScrollPosition(
     ({ pageYOffset, stickyBarOffsetFromTop }) => {
-      const isShow = pageYOffset > stickyBarOffsetFromTop;
-      if (isShow) setScrolledFromTop(true);
-      else setScrolledFromTop(false);
+      const topOfCarousel = pageYOffset > stickyBarOffsetFromTop;
+      if (topOfCarousel) setSticking(true);
+      else setSticking(false);
     },
-    [scrolledFromTop],
-    100
+    [sticking],
+    300
   );
 
   useEffect(() => {
@@ -218,79 +218,76 @@ function ExploreDataPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [madLib]);
 
-  return useMemo(
-    () => (
-      <>
-        <Onboarding
-          callback={onboardingCallback}
-          activelyOnboarding={activelyOnboarding}
-        />
-        <h2 className={styles.ScreenreaderTitleHeader}>
-          {getMadLibPhraseText(madLib)}
-        </h2>
-        <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
-          <div
-            className={styles.CarouselContainer}
-            id="onboarding-start-your-search"
+  return (
+    <>
+      <Onboarding
+        callback={onboardingCallback}
+        activelyOnboarding={activelyOnboarding}
+      />
+      <h2 className={styles.ScreenreaderTitleHeader}>
+        {getMadLibPhraseText(madLib)}
+      </h2>
+      <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
+        <div
+          className={styles.CarouselContainer}
+          id="onboarding-start-your-search"
+        >
+          <Carousel
+            className={`Carousel ${styles.Carousel}`}
+            NextIcon={
+              <NavigateNextIcon
+                aria-hidden="true"
+                id="onboarding-madlib-arrow"
+              />
+            }
+            timeout={200}
+            autoPlay={false}
+            indicators={true}
+            indicatorIconButtonProps={{
+              "aria-label": "Report Type",
+              style: { padding: "4px" },
+            }}
+            activeIndicatorIconButtonProps={{
+              "aria-label": "Current Selection: Report Type",
+            }}
+            // ! TODO We really should be able to indicate Forward/Backward vs just "Switch"
+            navButtonsProps={{
+              "aria-label": "Change Report Type",
+            }}
+            animation="slide"
+            navButtonsAlwaysVisible={true}
+            index={initialIndex}
+            onChange={handleCarouselChange}
           >
-            <Carousel
-              className={`Carousel ${styles.Carousel}`}
-              NextIcon={
-                <NavigateNextIcon
-                  aria-hidden="true"
-                  id="onboarding-madlib-arrow"
-                />
-              }
-              timeout={200}
-              autoPlay={false}
-              indicators={true}
-              indicatorIconButtonProps={{
-                "aria-label": "Report Type",
-                style: { padding: "4px" },
-              }}
-              activeIndicatorIconButtonProps={{
-                "aria-label": "Current Selection: Report Type",
-              }}
-              // ! TODO We really should be able to indicate Forward/Backward vs just "Switch"
-              navButtonsProps={{
-                "aria-label": "Change Report Type",
-              }}
-              animation="slide"
-              navButtonsAlwaysVisible={true}
-              index={initialIndex}
-              onChange={handleCarouselChange}
-            >
-              {/* carousel settings same length as MADLIB_LIST, but fill each with madlib constructed earlier */}
-              {MADLIB_LIST.map((madLibShape) => (
-                <CarouselMadLib
-                  madLib={madLib}
-                  setMadLib={setMadLibWithParam}
-                  key={madLibShape.id}
-                />
-              ))}
-            </Carousel>
-            {showStickyLifeline && (
-              <p className={styles.LifelineSticky}>
-                <a href={urlMap.lifeline}>988lifeline.org</a>
-              </p>
-            )}
-          </div>
-          <div className={styles.ReportContainer}>
-            <ReportProvider
-              isSingleColumn={isSingleColumn}
-              madLib={madLib}
-              selectedConditions={getSelectedConditions(madLib)}
-              showLifeLineAlert={showStickyLifeline}
-              showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
-              setMadLib={setMadLibWithParam}
-              doScrollToData={doScrollToData}
-              isScrolledToTop={!scrolledFromTop}
-            />
-          </div>
+            {/* carousel settings same length as MADLIB_LIST, but fill each with madlib constructed earlier */}
+            {MADLIB_LIST.map((madLibShape) => (
+              <CarouselMadLib
+                madLib={madLib}
+                setMadLib={setMadLibWithParam}
+                key={madLibShape.id}
+              />
+            ))}
+          </Carousel>
+          {showStickyLifeline && (
+            <p className={styles.LifelineSticky}>
+              <a href={urlMap.lifeline}>988lifeline.org</a>
+            </p>
+          )}
         </div>
-      </>
-    ),
-    [scrolledFromTop]
+        <div className={styles.ReportContainer}>
+          <ReportProvider
+            isSingleColumn={isSingleColumn}
+            madLib={madLib}
+            selectedConditions={getSelectedConditions(madLib)}
+            showLifeLineAlert={showStickyLifeline}
+            showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
+            setMadLib={setMadLibWithParam}
+            doScrollToData={doScrollToData}
+            isScrolledToTop={!sticking}
+          />
+        </div>
+      </div>
+    </>
   );
 }
 
