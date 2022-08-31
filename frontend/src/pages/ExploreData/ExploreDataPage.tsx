@@ -224,6 +224,7 @@ function ExploreDataPage() {
         callback={onboardingCallback}
         activelyOnboarding={activelyOnboarding}
       />
+
       <h2 className={styles.ScreenreaderTitleHeader}>
         {getMadLibPhraseText(madLib)}
       </h2>
