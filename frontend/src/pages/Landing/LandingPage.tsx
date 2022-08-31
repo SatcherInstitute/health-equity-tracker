@@ -330,7 +330,6 @@ function LandingPage() {
                   </p>
                 </div>
               </Grid>
-
               <Grid item xs={12} sm={12} md={8}>
                 <LazyLoad offset={300} once>
                   <img
