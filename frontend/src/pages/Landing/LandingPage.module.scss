@@ -108,14 +108,16 @@
     box-sizing: border-box;
     padding: 10px;
     margin: 10px;
-    height: 420px;
-    max-height: 420px;
   }
 
   .HowToStepImg {
     padding: 10px;
     width: 100%;
     height: 100%;
+  }
+
+  .ResourceVideoEmbed {
+    border-radius: 30px;
   }
 
   .HowToStepTextHeader {

@@ -237,11 +237,11 @@ function LandingPage() {
               <Grid item xs={12} sm={12} md={8}>
                 <LazyLoad offset={300} once>
                   <iframe
-                    width="560"
-                    height="315"
+                    className={styles.ResourceVideoEmbed}
+                    width="100%"
+                    height="420px"
                     src="https://www.youtube.com/embed/XBoqT9Jjc8w"
-                    title="YouTube video
-                  player"
+                    title="YouTube video player"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write;
                   encrypted-media; gyroscope; picture-in-picture"
