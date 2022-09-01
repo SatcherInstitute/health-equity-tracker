@@ -2,7 +2,7 @@ import { useRef, useLayoutEffect } from "react";
 import styles from "../pages/ExploreData/ExploreDataPage.module.scss";
 
 const EXPLORE_DATA_ID = "main";
-const INDICATORS = "Carousel-indicators-4";
+const INDICATORS = ".MuiIconButton-sizeSmall";
 
 const useScrollPosition = (
   effect: (arg0: {
@@ -22,18 +22,16 @@ const useScrollPosition = (
 
     const handleScroll = () => {
       const header = document.getElementById(EXPLORE_DATA_ID);
-      const indicators = document.getElementsByClassName(
-        INDICATORS
-      )[0] as HTMLElement;
+      const indicators = document.querySelectorAll(INDICATORS)[0].parentElement;
       const stickyBarOffsetFromTop = header?.offsetTop || 1;
       const topOfCarousel = window.pageYOffset > stickyBarOffsetFromTop;
 
       if (topOfCarousel) {
         header?.classList.add(styles.Sticky);
-        indicators.style.cssText = "visibility: hidden; display: none";
+        indicators?.classList.add(styles.RemoveIndicators);
       } else {
         header?.classList.remove(styles.Sticky);
-        indicators.style.cssText = "visibility: visible; display: block";
+        indicators?.classList.remove(styles.RemoveIndicators);
       }
 
       if (wait) {

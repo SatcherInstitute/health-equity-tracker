@@ -41,6 +41,10 @@
   display: none;
 }
 
+.RemoveIndicators {
+  display: none;
+}
+
 // when sticky header appears after scrolling down page (not on small screens)
 @media (min-width: $md) {
   .Sticky {
