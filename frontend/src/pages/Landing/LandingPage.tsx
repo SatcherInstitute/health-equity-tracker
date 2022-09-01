@@ -304,7 +304,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="/img/screenshots/het-use-filters.png"
-                    alt="Search Example Screenshot: Compare Rates of option Covid-19 between two locations"
+                    alt="Example Screenshot: Select demographic variables by interacting with the dropdown menu and other filters."
                   />
                 </LazyLoad>
               </Grid>
@@ -335,7 +335,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="/img/screenshots/het-map.png"
-                    alt="Map Example Screenshot, Data Tracker map of Covid-19 rates of all racial groups"
+                    alt="Example Screenshot: Map of individuals in prison per 100k in the state of Georgia."
                   />
                 </LazyLoad>
               </Grid>
