@@ -15,6 +15,7 @@
   padding-bottom: 6px !important;
   padding-top: 6px !important;
 }
+
 .PopulationCardContent {
   padding: 16px 16px 0 16px !important;
 }
@@ -45,6 +46,7 @@
     font-size: $header;
     line-height: $populationTitleHeight;
   }
+
   .VerticalDivider {
     height: $populationTitleHeight;
     border-right: 1px solid grey;
@@ -52,6 +54,7 @@
     float: right;
   }
 }
+
 .PopulationChartTitle {
   @include inter700();
   text-align: left;
@@ -69,6 +72,7 @@
   // Smallest width at which current standardized strings all fit on 3 lines
   width: 131px;
 }
+
 .PopulationMetricValue {
   color: $alt-green;
   font-size: $title;
@@ -99,8 +103,17 @@
 .TerritoryCircle {
   float: left;
   width: 50px;
-  padding-left: 30px;
-  padding-top: 15px;
+  padding: 15px 0 0 30px;
+
+  @media only screen and (min-width: $sm) {
+    width: 20px;
+    padding: 20px 20px 0 20px;
+  }
+
+  @media only screen and (min-width: $md) {
+    width: 50px;
+    padding: 15px 0 0 30px;
+  }
 }
 
 .ProfileButton {
