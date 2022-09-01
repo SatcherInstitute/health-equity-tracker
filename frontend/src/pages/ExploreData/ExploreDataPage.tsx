@@ -39,7 +39,7 @@ import { srSpeak } from "../../utils/a11yutils";
 import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
-import { useScrollPosition } from "../../utils/useScrollPosition";
+import useScrollPosition from "../../utils/useScrollPosition";
 
 const EXPLORE_DATA_ID = "main";
 

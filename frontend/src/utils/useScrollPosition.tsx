@@ -2,37 +2,38 @@ import { useRef, useLayoutEffect } from "react";
 import styles from "../pages/ExploreData/ExploreDataPage.module.scss";
 
 const EXPLORE_DATA_ID = "main";
+const INDICATORS = "Carousel-indicators-4";
 
-export function useScrollPosition(
+const useScrollPosition = (
   effect: (arg0: {
     pageYOffset: number;
     stickyBarOffsetFromTop: number;
   }) => void,
   sticking: boolean[],
   wait: number | undefined
-) {
+) => {
   const throttleTimeout = useRef<NodeJS.Timeout | null>(null);
-  const position = useRef<number>();
 
   useLayoutEffect(() => {
     const scrollCallBack = (stickyBarOffsetFromTop: number) => {
       effect({ pageYOffset: window.pageYOffset, stickyBarOffsetFromTop });
-      position.current = stickyBarOffsetFromTop;
       throttleTimeout.current = null;
     };
 
     const handleScroll = () => {
       const header = document.getElementById(EXPLORE_DATA_ID);
-      const carousel = document.getElementsByClassName("Carousel")[0];
+      const indicators = document.getElementsByClassName(
+        INDICATORS
+      )[0] as HTMLElement;
       const stickyBarOffsetFromTop = header?.offsetTop || 1;
       const topOfCarousel = window.pageYOffset > stickyBarOffsetFromTop;
 
       if (topOfCarousel) {
         header?.classList.add(styles.Sticky);
-        carousel?.classList.add(styles.StickyCarousel);
+        indicators.style.cssText = "visibility: hidden; display: none";
       } else {
         header?.classList.remove(styles.Sticky);
-        carousel?.classList.remove(styles.StickyCarousel);
+        indicators.style.cssText = "visibility: visible; display: block";
       }
 
       if (wait) {
@@ -50,4 +51,6 @@ export function useScrollPosition(
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [sticking, effect, wait]);
-}
+};
+
+export default useScrollPosition;
