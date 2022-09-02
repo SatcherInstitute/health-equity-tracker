@@ -21,7 +21,7 @@ def export_dataset_tables():
     dataset_name = data['dataset_name']
     project_id = os.environ.get('PROJECT_ID')
     export_bucket = os.environ.get('EXPORT_BUCKET')
-    dataset_id = "{}.{}".format(project_id, dataset_name)
+    dataset_id = f'{project_id}.{dataset_name}'
 
     bq_client = bigquery.Client()
     dataset = bq_client.get_dataset(dataset_id)
@@ -37,8 +37,7 @@ def export_dataset_tables():
         export_split_county_tables(bq_client, table, export_bucket)
 
         # export the full table
-        dest_uri = "gs://{}/{}-{}.json".format(
-            export_bucket, dataset_name, table.table_id)
+        dest_uri = f'gs://{export_bucket}/{dataset_name}-{table.table_id}.json'
         table_ref = dataset.table(table.table_id)
         try:
             export_table(bq_client, table_ref, dest_uri,
@@ -48,12 +47,11 @@ def export_dataset_tables():
             if not table.table_id.endswith(std_table_suffix):
                 continue
 
-            dest_uri = "gs://{}/{}-{}.csv".format(
-                export_bucket, dataset_name, table.table_id)
+            dest_uri = f'gs://{export_bucket}/{dataset_name}-{table.table_id}.csv'
             export_table(bq_client, table_ref, dest_uri, 'CSV')
         except Exception as err:
             logging.error(err)
-            return ('Error exporting table, {}, to {}: {}'.format(table.table_id, dest_uri, err), 500)
+            return (f'Error exporting table {table.table_id} to {dest_uri}:\n{err}', 500)
 
     return ('', 204)
 
@@ -64,7 +62,7 @@ def export_table(bq_client, table_ref, dest_uri, dest_fmt):
     extract_job = bq_client.extract_table(
         table_ref, dest_uri, location='US', job_config=job_config)
     extract_job.result()
-    logging.info("Exported %s to %s", table_ref.table_id, dest_uri)
+    logging.info(f'Exported {table_ref.table_id} to {dest_uri}')
 
 
 def export_split_county_tables(bq_client, table, export_bucket):
@@ -102,8 +100,7 @@ def export_split_county_tables(bq_client, table, export_bucket):
 
 
 def get_table_name(table):
-    return "{}.{}.{}".format(
-        table.project, table.dataset_id, table.table_id)
+    return f'{table.project}.{table.dataset_id}.{table.table_id}'
 
 
 def get_query_results_as_df(bq_client, query):
