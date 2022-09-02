@@ -115,23 +115,9 @@ _test_query_results_df = pd.DataFrame({
 })
 
 
-def _get_query_results_as_df(*args):
-
-    # ensure only county level test filename is in query
-    _mocked_bq, query_string = args
-    table_names = [get_table_name(x) for x in test_tables]
-    assert table_names[0] not in query_string
-    assert table_names[1] not in query_string
-    assert table_names[2] not in query_string
-    assert table_names[3] in query_string
-
-    # return fake_df for subsequent tests
-    return _test_query_results_df
-
-
 @mock.patch('main.export_nd_json_to_blob')
 @mock.patch('main.prepare_blob')
-@mock.patch('main.get_query_results_as_df', side_effect=_get_query_results_as_df)
+@mock.patch('main.get_query_results_as_df', return_value=_test_query_results_df)
 @mock.patch('google.cloud.bigquery.Client')
 def testExportSplitCountyTables(
         mock_bq_client: mock.MagicMock,
@@ -161,6 +147,18 @@ def testExportSplitCountyTables(
 
     # for each state/terr
     for i, fips in enumerate(STATE_LEVEL_FIPS_LIST):
+
+        generated_query_string = mock_query_df.call_args_list[i][0][1]
+
+        table_names = [get_table_name(x) for x in test_tables]
+        expected_query_string = f"""
+            SELECT *
+            FROM {table_names[3]}
+            WHERE county_fips LIKE '{fips}___'
+            """
+
+        # ensure query string is generated correctly only for county dataset
+        assert generated_query_string == expected_query_string
 
         # ensure blob prepared only for county level file
         bucket_name, state_file_name = mock_prepare_blob.call_args_list[i][0]
