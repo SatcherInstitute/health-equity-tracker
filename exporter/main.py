@@ -68,7 +68,8 @@ def export_table(bq_client, table_ref, dest_uri, dest_fmt):
 
 
 def export_split_county_tables(bq_client, table, export_bucket):
-    """ Split county-level table by parent state FIPS, and export as individual blobs to the given destination and wait for completion"""
+    """ Split county-level table by parent state FIPS,
+    and export as individual blobs to the given destination and wait for completion"""
 
     table_name = get_table_name(table)
     if "county" not in table_name:
@@ -94,7 +95,10 @@ def export_split_county_tables(bq_client, table, export_bucket):
         except Exception as err:
             print("ERR!", err)
             logging.error(err)
-            return ('Error splitting county-level table, {}, into state-specific file: {}: {}'.format(table_name, state_file_name, err), 500)
+            return (
+                f'Error splitting county-level table {table_name} into {state_file_name}:\n {err}',
+                500
+            )
 
 
 def get_table_name(table):
@@ -122,5 +126,11 @@ if __name__ == "__main__":
 
 
 STATE_LEVEL_FIPS_LIST = [
-    "01", "02", "04", "05", "06", "08", "09", "10", "11", "12", "13", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "44", "45", "46", "47", "48", "49", "50", "51", "53", "54", "55", "56", "60", "66", "69", "72", "78"
+    "01", "02", "04", "05", "06", "08", "09", "10",
+    "11", "12", "13", "15", "16", "17", "18", "19", "20",
+    "21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
+    "31", "32", "33", "34", "35", "36", "37", "38", "39", "40",
+    "41", "42", "44", "45", "46", "47", "48", "49", "50",
+    "51", "53", "54", "55", "56", "60",
+    "66", "69", "72", "78"
 ]
