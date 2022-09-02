@@ -10,8 +10,8 @@
   background: $white;
   box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3),
     0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-  transition: padding-top 0.2s, padding-bottom 0.2s;
-  padding-block: 1rem;
+  transition: padding 0.2s;
+  padding: 0.5rem 0 1rem 0;
 }
 
 .Carousel {
@@ -23,12 +23,15 @@
 .CarouselItem {
   line-height: $lhLoose;
   font-size: $title;
+
   @media (min-width: $sm) {
     font-size: $smallestHeader;
   }
+
   @media (min-width: $lg) {
     font-size: $smallerHeader;
   }
+
   padding: 0px 70px 0px 70px;
   margin: 20px auto 0 auto;
 }
@@ -56,14 +59,17 @@
       padding-top: 0;
       padding-bottom: 0;
     }
+
     .CarouselItem {
       padding: 0px 55px 0px 55px;
-      margin-bottom: 10px;
-      transition: padding 0.2s;
+      margin: 0.5rem 0 0.5rem 0;
+      transition: padding 0.2s margin 0.2s;
     }
+
     .ReportContainer {
       padding-top: 150px;
     }
+
     .LifelineSticky {
       display: flex;
       justify-content: center;
