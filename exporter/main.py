@@ -75,7 +75,7 @@ def export_split_county_tables(bq_client, table, export_bucket):
         return
 
     for fips in STATE_LEVEL_FIPS_TO_NAME_MAP.keys():
-        state_file_name = get_state_file_name(table, fips)
+        state_file_name = f'{table.dataset_id}-{table.table_id}-{fips}.json'
         query = f"""
             SELECT *
             FROM {table_name}
@@ -83,10 +83,12 @@ def export_split_county_tables(bq_client, table, export_bucket):
             """
 
         try:
-            state_df = get_query_results_as_df(bq_client, query)
             blob = prepare_blob(export_bucket, state_file_name)
+
+            state_df = get_query_results_as_df(bq_client, query)
             nd_json = state_df.to_json(orient="records",
                                        lines=True)
+
             export_nd_json_to_blob(blob, nd_json)
 
         except Exception as err:
@@ -100,12 +102,7 @@ def get_table_name(table):
         table.project, table.dataset_id, table.table_id)
 
 
-def get_state_file_name(table, fips):
-    return f'{table.dataset_id}-{table.table_id}-{fips}.json'
-
-
 def get_query_results_as_df(bq_client, query):
-    print("SHOULD BE MOCKED OUT - getting query results")
     bq_client.query(query)
 
 
