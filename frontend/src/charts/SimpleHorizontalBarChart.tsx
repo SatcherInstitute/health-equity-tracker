@@ -1,7 +1,7 @@
 import React from "react";
 import { Vega } from "react-vega";
 import { Row } from "../data/utils/DatasetTypes";
-import { useResponsiveWidth } from "../utils/useResponsiveWidth";
+import { useResponsiveWidth } from "../utils/hooks/useResponsiveWidth";
 import {
   BreakdownVar,
   BreakdownVarDisplayName,
