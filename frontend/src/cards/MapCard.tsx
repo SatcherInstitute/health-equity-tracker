@@ -34,7 +34,7 @@ import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
 } from "../data/variables/CawpProvider";
-import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
+import { useAutoFocusDialog } from "../utils/hooks/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
 import DropDownMenu from "./ui/DropDownMenu";
@@ -45,10 +45,9 @@ import { MultiMapDialog } from "./ui/MultiMapDialog";
 import { MultiMapLink } from "./ui/MultiMapLink";
 import { RateInfoAlert } from "./ui/RateInfoAlert";
 import { findVerboseRating } from "./ui/SviAlert";
+import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
-/* minimize layout shift */
-const PRELOAD_HEIGHT = 250;
 
 export interface MapCardProps {
   key?: string;
@@ -72,6 +71,8 @@ export function MapCard(props: MapCardProps) {
 }
 
 function MapCardWithKey(props: MapCardProps) {
+  const preloadHeight = useGuessPreloadHeight([750, 1050]);
+
   const metricConfig = props.variableConfig.metrics["per100k"];
 
   const isPrison = props.variableConfig.variableId === "prison";
@@ -140,7 +141,7 @@ function MapCardWithKey(props: MapCardProps) {
         </>
       }
       loadGeographies={true}
-      minHeight={PRELOAD_HEIGHT}
+      minHeight={preloadHeight}
     >
       {(queryResponses, metadata, geoData) => {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
