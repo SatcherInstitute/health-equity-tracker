@@ -118,7 +118,7 @@ _test_query_results_df = pd.DataFrame({
 def _get_query_results_as_df(*args):
 
     # ensure only county level test filename is in query
-    mocked_bq, query_string = args
+    _mocked_bq, query_string = args
     table_names = [get_table_name(x) for x in test_tables]
     assert table_names[0] not in query_string
     assert table_names[1] not in query_string
