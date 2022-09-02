@@ -7,9 +7,9 @@ from flask.testing import FlaskClient
 from google.cloud import bigquery  # type: ignore
 import pandas as pd
 
-from main import app, STATE_LEVEL_FIPS_TO_NAME_MAP, get_table_name
+from main import app, STATE_LEVEL_FIPS_LIST, get_table_name
 
-NUM_STATES_AND_TERRITORIES = len(STATE_LEVEL_FIPS_TO_NAME_MAP.keys())
+NUM_STATES_AND_TERRITORIES = len(STATE_LEVEL_FIPS_LIST)
 
 test_tables = [bigquery.Table("my-project.my-dataset.t1"),
                bigquery.Table("my-project.my-dataset.t2_std"),
