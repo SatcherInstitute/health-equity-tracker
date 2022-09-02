@@ -129,24 +129,8 @@ def _get_query_results_as_df(*args):
     return _test_query_results_df
 
 
-def _prepare_blob(*args):
-    # ensure blob prepared only for county level file
-    bucket_name, state_file_name = args
-    assert bucket_name == os.environ['EXPORT_BUCKET']
-    assert "county" in state_file_name
-    return None
-
-
-def _export_nd_json_to_blob(*args):
-    _blob, nd_json = args
-    # ensure string for bq.storage matches expected ndjson
-    assert nd_json == _test_query_results_df.to_json(orient="records",
-                                                     lines=True)
-    return None
-
-
-@mock.patch('main.export_nd_json_to_blob', side_effect=_export_nd_json_to_blob)
-@mock.patch('main.prepare_blob', side_effect=_prepare_blob)
+@mock.patch('main.export_nd_json_to_blob')
+@mock.patch('main.prepare_blob')
 @mock.patch('main.get_query_results_as_df', side_effect=_get_query_results_as_df)
 @mock.patch('google.cloud.bigquery.Client')
 def testExportSplitCountyTables(
@@ -163,7 +147,22 @@ def testExportSplitCountyTables(
     dataset_name = {'dataset_name': 'my-dataset'}
     client.post('/', json=dataset_name)
 
+    # ensure initial call to bq client and county-level calls per state/terr
     assert mock_bq_client.call_count == 1
     assert mock_query_df.call_count == NUM_STATES_AND_TERRITORIES
     assert mock_prepare_blob.call_count == NUM_STATES_AND_TERRITORIES
     assert mock_export.call_count == NUM_STATES_AND_TERRITORIES
+
+    # ensure generated ndjson for bq.storage matches expected ndjson
+    generated_nd_json = mock_export.call_args[0][1]
+    assert (generated_nd_json ==
+            _test_query_results_df.to_json(orient="records",
+                                           lines=True))
+
+    # for each state/terr
+    for i, fips in enumerate(STATE_LEVEL_FIPS_LIST):
+
+        # ensure blob prepared only for county level file
+        bucket_name, state_file_name = mock_prepare_blob.call_args_list[i][0]
+        assert bucket_name == os.environ['EXPORT_BUCKET']
+        assert "county" in state_file_name
