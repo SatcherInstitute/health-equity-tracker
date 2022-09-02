@@ -69,34 +69,56 @@ def export_table(bq_client, table_ref, dest_uri, dest_fmt):
 
 def export_split_county_tables(bq_client, table, export_bucket):
     """ Split county-level table by parent state FIPS, and export as individual blobs to the given destination and wait for completion"""
-    table_name = "{}.{}.{}".format(
-        table.project, table.dataset_id, table.table_id)
+
+    table_name = get_table_name(table)
     if "county" not in table_name:
         return
 
-    try:
-        for fips in STATE_LEVEL_FIPS_TO_NAME_MAP.keys():
-            state_file_name = f'{table.dataset_id}-{table.table_id}-{fips}.json'
-            query = f"""
-                SELECT *
-                FROM {table_name}
-                WHERE county_fips LIKE '{fips}___'
-                """
+    for fips in STATE_LEVEL_FIPS_TO_NAME_MAP.keys():
+        state_file_name = get_state_file_name(table, fips)
+        query = f"""
+            SELECT *
+            FROM {table_name}
+            WHERE county_fips LIKE '{fips}___'
+            """
 
-            print("querying and extracting", table_name, "to", state_file_name)
+        try:
+            state_df = get_query_results_as_df(bq_client, query)
+            blob = prepare_blob(export_bucket, state_file_name)
+            # newline delimited json
+            df_string = state_df.to_json(orient="records",
+                                         lines=True)
+            export_string_to_blob(blob, df_string)
 
-            query_job = bq_client.query(query)
-            rows_df = query_job.to_dataframe()
-            storage_client = storage.Client()  # Storage API request
-            bucket = storage_client.get_bucket(export_bucket)
-            blob = bucket.blob(state_file_name)
-            blob.upload_from_string(
-                # newline delimited json
-                rows_df.to_json(orient="records",
-                                lines=True), content_type='application/octet-stream')
-    except Exception as err:
-        logging.error(err)
-        return ('Error splitting county-level table, {}, into state-specific file: {}: {}'.format(table_name, state_file_name, err), 500)
+        except Exception as err:
+            print("ERR!", err)
+            logging.error(err)
+            return ('Error splitting county-level table, {}, into state-specific file: {}: {}'.format(table_name, state_file_name, err), 500)
+
+
+def get_table_name(table):
+    return "{}.{}.{}".format(
+        table.project, table.dataset_id, table.table_id)
+
+
+def get_state_file_name(table, fips):
+    return f'{table.dataset_id}-{table.table_id}-{fips}.json'
+
+
+def get_query_results_as_df(bq_client, query):
+    print("SHOULD BE MOCKED OUT - getting query results")
+    bq_client.query(query)
+
+
+def prepare_blob(export_bucket, state_file_name):
+    storage_client = storage.Client()  # Storage API request
+    bucket = storage_client.get_bucket(export_bucket)
+    return bucket.blob(state_file_name)
+
+
+def export_string_to_blob(blob, df_string):
+    blob.upload_from_string(
+        df_string, content_type='application/octet-stream')
 
 
 if __name__ == "__main__":
