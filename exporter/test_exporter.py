@@ -137,15 +137,15 @@ def _prepare_blob(*args):
     return None
 
 
-def _export_string_to_blob(*args):
-    _blob, df_string = args
+def _export_nd_json_to_blob(*args):
+    _blob, nd_json = args
     # ensure string for bq.storage matches expected ndjson
-    assert df_string == _test_query_results_df.to_json(orient="records",
-                                                       lines=True)
+    assert nd_json == _test_query_results_df.to_json(orient="records",
+                                                     lines=True)
     return None
 
 
-@mock.patch('main.export_string_to_blob', side_effect=_export_string_to_blob)
+@mock.patch('main.export_nd_json_to_blob', side_effect=_export_nd_json_to_blob)
 @mock.patch('main.prepare_blob', side_effect=_prepare_blob)
 @mock.patch('main.get_query_results_as_df', side_effect=_get_query_results_as_df)
 @mock.patch('google.cloud.bigquery.Client')
