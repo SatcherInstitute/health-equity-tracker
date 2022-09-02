@@ -1,5 +1,5 @@
 import { useRef, useLayoutEffect } from "react";
-import styles from "../pages/ExploreData/ExploreDataPage.module.scss";
+import styles from "../../pages/ExploreData/ExploreDataPage.module.scss";
 
 const EXPLORE_DATA_ID = "main";
 const INDICATORS = ".MuiIconButton-sizeSmall";
