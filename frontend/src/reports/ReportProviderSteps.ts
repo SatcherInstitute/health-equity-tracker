@@ -1,4 +1,4 @@
-import { StepData } from "../utils/useStepObserver";
+import { StepData } from "../utils/hooks/useStepObserver";
 
 export const reportProviderSteps: StepData[] = [
   {

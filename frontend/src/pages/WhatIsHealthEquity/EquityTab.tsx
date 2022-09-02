@@ -13,7 +13,7 @@ import {
 } from "../../utils/urlutils";
 import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "../../utils/internalRoutes";
 import { Box } from "@material-ui/core";
-import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
+import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 import { useQuery } from "react-query";

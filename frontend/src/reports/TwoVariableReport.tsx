@@ -31,7 +31,7 @@ import { reportProviderSteps } from "./ReportProviderSteps";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import styles from "./Report.module.scss";
-import { pluralizeStepLabels, StepData } from "../utils/useStepObserver";
+import { pluralizeStepLabels, StepData } from "../utils/hooks/useStepObserver";
 
 const HEADER_OFFSET_TWO_VAR = 188;
 
