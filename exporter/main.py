@@ -34,12 +34,14 @@ def export_dataset_tables():
 
     for table in tables:
         # split up county-level tables by state and export those individually
+        print("export split county")
         export_split_county_tables(bq_client, table, export_bucket)
 
         # export the full table
         dest_uri = f'gs://{export_bucket}/{dataset_name}-{table.table_id}.json'
         table_ref = dataset.table(table.table_id)
         try:
+            print("about to export table")
             export_table(bq_client, table_ref, dest_uri,
                          'NEWLINE_DELIMITED_JSON')
 
@@ -69,6 +71,8 @@ def export_split_county_tables(bq_client, table, export_bucket):
     """ Split county-level table by parent state FIPS,
     and export as individual blobs to the given destination and wait for completion"""
 
+    print("export_split_county_tables()")
+
     table_name = get_table_name(table)
     if "county" not in table_name:
         return
@@ -77,6 +81,9 @@ def export_split_county_tables(bq_client, table, export_bucket):
 
     for fips in STATE_LEVEL_FIPS_LIST:
         state_file_name = f'{table.dataset_id}-{table.table_id}-{fips}.json'
+
+        print(state_file_name)
+
         query = f"""
             SELECT *
             FROM {table_name}
@@ -102,23 +109,28 @@ def export_split_county_tables(bq_client, table, export_bucket):
 
 
 def get_table_name(table):
+    print("get_table_name()")
     return f'{table.project}.{table.dataset_id}.{table.table_id}'
 
 
 def get_query_results_as_df(bq_client, query):
+    print("get_query_results_as_df()")
     bq_client.query(query)
 
 
 def prepare_bucket(export_bucket):
+    print("prepare_bucket()")
     storage_client = storage.Client()  # Storage API request
     return storage_client.get_bucket(export_bucket)
 
 
 def prepare_blob(bucket, state_file_name):
+    print("prepare_blob()")
     return bucket.blob(state_file_name)
 
 
 def export_nd_json_to_blob(blob, nd_json):
+    print("export_nd_json_to_blob()")
     blob.upload_from_string(
         nd_json, content_type='application/octet-stream')
 
