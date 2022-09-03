@@ -73,6 +73,8 @@ def export_split_county_tables(bq_client, table, export_bucket):
     if "county" not in table_name:
         return
 
+    bucket = prepare_bucket(export_bucket)
+
     for fips in STATE_LEVEL_FIPS_LIST:
         state_file_name = f'{table.dataset_id}-{table.table_id}-{fips}.json'
         query = f"""
@@ -82,7 +84,7 @@ def export_split_county_tables(bq_client, table, export_bucket):
             """
 
         try:
-            blob = prepare_blob(export_bucket, state_file_name)
+            blob = prepare_blob(bucket, state_file_name)
 
             state_df = get_query_results_as_df(bq_client, query)
             nd_json = state_df.to_json(orient="records",
@@ -107,9 +109,12 @@ def get_query_results_as_df(bq_client, query):
     bq_client.query(query)
 
 
-def prepare_blob(export_bucket, state_file_name):
+def prepare_bucket(export_bucket):
     storage_client = storage.Client()  # Storage API request
-    bucket = storage_client.get_bucket(export_bucket)
+    return storage_client.get_bucket(export_bucket)
+
+
+def prepare_blob(bucket, state_file_name):
     return bucket.blob(state_file_name)
 
 
