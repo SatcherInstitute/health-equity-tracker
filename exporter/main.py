@@ -117,7 +117,7 @@ def get_table_name(table):
 
 def get_query_results_as_df(bq_client, query):
     # print("get_query_results_as_df()")
-    bq_client.query(query)
+    return bq_client.query(query)
 
 
 def prepare_bucket(export_bucket):

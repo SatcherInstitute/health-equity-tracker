@@ -31,77 +31,77 @@ def client():
 
 # TEST FULL FILE EXTRACT CALLS
 
-# @mock.patch('main.export_split_county_tables')
-# @mock.patch('google.cloud.bigquery.Client')
-# def testExportDatasetTables(
-#     mock_bq_client: mock.MagicMock,
-#     mock_split_county: mock.MagicMock,
-#     client: FlaskClient
-# ):
-#     # Set up mocks
-#     mock_bq_instance = mock_bq_client.return_value
-#     mock_bq_instance.list_tables.return_value = test_tables
+@mock.patch('main.export_split_county_tables')
+@mock.patch('google.cloud.bigquery.Client')
+def testExportDatasetTables(
+    mock_bq_client: mock.MagicMock,
+    mock_split_county: mock.MagicMock,
+    client: FlaskClient
+):
+    # Set up mocks
+    mock_bq_instance = mock_bq_client.return_value
+    mock_bq_instance.list_tables.return_value = test_tables
 
-#     dataset_name = {'dataset_name': 'my-dataset'}
-#     response = client.post('/', json=dataset_name)
+    dataset_name = {'dataset_name': 'my-dataset'}
+    response = client.post('/', json=dataset_name)
 
-#     assert response.status_code == 204
-#     # called once per table plus additional time for _std files
-#     assert mock_bq_instance.extract_table.call_count == 5
-#     # called once per table, only continues for county level files
-#     assert mock_split_county.call_count == 4
-
-
-# @mock.patch('main.export_split_county_tables')
-# @mock.patch('google.cloud.bigquery.Client')
-# def testExportDatasetTables_InvalidInput(
-#     mock_bq_client: mock.MagicMock,
-#     mock_split_county: mock.MagicMock,
-#     client: FlaskClient
-# ):
-#     response = client.post('/', json={})
-#     assert response.status_code == 400
-#     assert mock_split_county.call_count == 0
+    assert response.status_code == 204
+    # called once per table plus additional time for _std files
+    assert mock_bq_instance.extract_table.call_count == 5
+    # called once per table, only continues for county level files
+    assert mock_split_county.call_count == 4
 
 
-# @mock.patch('main.export_split_county_tables')
-# @mock.patch('google.cloud.bigquery.Client')
-# def testExportDatasetTables_NoTables(
-#     mock_bq_client: mock.MagicMock,
-#     mock_split_county: mock.MagicMock,
-#     client: FlaskClient
-# ):
-#     # Set up mocks
-#     mock_bq_instance = mock_bq_client.return_value
-#     mock_bq_instance.list_tables.return_value = iter(())
-
-#     dataset_name = {'dataset_name': 'my-dataset'}
-#     response = client.post('/', json=dataset_name)
-
-#     assert response.status_code == 500
-#     assert mock_split_county.call_count == 0
+@mock.patch('main.export_split_county_tables')
+@mock.patch('google.cloud.bigquery.Client')
+def testExportDatasetTables_InvalidInput(
+    mock_bq_client: mock.MagicMock,
+    mock_split_county: mock.MagicMock,
+    client: FlaskClient
+):
+    response = client.post('/', json={})
+    assert response.status_code == 400
+    assert mock_split_county.call_count == 0
 
 
-# @mock.patch('main.export_split_county_tables')
-# @mock.patch('google.cloud.bigquery.Client')
-# def testExportDatasetTables_ExtractJobFailure(
-#     mock_bq_client: mock.MagicMock,
-#     mock_split_county: mock.MagicMock,
-#     client: FlaskClient
-# ):
-#     # Set up mocks
-#     mock_bq_instance = mock_bq_client.return_value
-#     mock_bq_instance.list_tables.return_value = test_tables
-#     mock_extract_job = Mock()
-#     mock_bq_instance.extract_table.return_value = mock_extract_job
-#     mock_extract_job.result.side_effect = google.cloud.exceptions.InternalServerError(
-#         'Internal')
+@mock.patch('main.export_split_county_tables')
+@mock.patch('google.cloud.bigquery.Client')
+def testExportDatasetTables_NoTables(
+    mock_bq_client: mock.MagicMock,
+    mock_split_county: mock.MagicMock,
+    client: FlaskClient
+):
+    # Set up mocks
+    mock_bq_instance = mock_bq_client.return_value
+    mock_bq_instance.list_tables.return_value = iter(())
 
-#     dataset_name = {'dataset_name': 'my-dataset'}
-#     response = client.post('/', json=dataset_name)
+    dataset_name = {'dataset_name': 'my-dataset'}
+    response = client.post('/', json=dataset_name)
 
-#     assert response.status_code == 500
-#     assert mock_split_county.call_count == 1
+    assert response.status_code == 500
+    assert mock_split_county.call_count == 0
+
+
+@mock.patch('main.export_split_county_tables')
+@mock.patch('google.cloud.bigquery.Client')
+def testExportDatasetTables_ExtractJobFailure(
+    mock_bq_client: mock.MagicMock,
+    mock_split_county: mock.MagicMock,
+    client: FlaskClient
+):
+    # Set up mocks
+    mock_bq_instance = mock_bq_client.return_value
+    mock_bq_instance.list_tables.return_value = test_tables
+    mock_extract_job = Mock()
+    mock_bq_instance.extract_table.return_value = mock_extract_job
+    mock_extract_job.result.side_effect = google.cloud.exceptions.InternalServerError(
+        'Internal')
+
+    dataset_name = {'dataset_name': 'my-dataset'}
+    response = client.post('/', json=dataset_name)
+
+    assert response.status_code == 500
+    assert mock_split_county.call_count == 1
 
 #
 #
