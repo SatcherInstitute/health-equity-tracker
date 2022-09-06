@@ -1,6 +1,8 @@
 import React from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import Card from "@material-ui/core/Card";
+import Typography from "@material-ui/core/Typography";
 import DatasetExplorer from "./dataset_explorer/DatasetExplorer";
 import MethodologyTab from "./MethodologyTab";
 import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from "../../utils/urlutils";
