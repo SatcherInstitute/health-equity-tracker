@@ -8,15 +8,14 @@ export type StepData = {
 };
 
 export type ScrollableHashId =
-  | "population"
-  | "map"
-  | "bar"
-  | "unknowns"
-  | "disparity"
-  | "table"
-  | "age-adjusted"
-  | "def"
-  | "what";
+  | "location-info"
+  | "rate-map"
+  | "rate-chart"
+  | "unknowns-map"
+  | "share-vs-population"
+  | "data-table"
+  | "age-adjusted-risk"
+  | "definitions-missing-data";
 
 export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
   const location: any = useLocation();

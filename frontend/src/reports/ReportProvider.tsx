@@ -191,7 +191,10 @@ function ReportProvider(props: ReportProviderProps) {
           <div ref={definitionsRef}>
             {definedConditions.length > 0 && (
               <Box mb={5}>
-                <h3 id="def" className={styles.FootnoteLargeHeading}>
+                <h3
+                  id="definitions-missing-data"
+                  className={styles.FootnoteLargeHeading}
+                >
                   Definitions:
                 </h3>
                 <LazyLoad offset={300} height={181} once>

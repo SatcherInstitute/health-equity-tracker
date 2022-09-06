@@ -86,8 +86,9 @@ $lhTight: 0.95;
 
 // default settings
 $header-height: 600px;
-$sticky-madlib-height: 72px;
-$sticky-madlib-height-compare: 110px;
+$sticky-madlib-height: 62px;
+// TODO: madlibs can be 1, 2, or 3 lines wrapped, so need to dynamically measure the height of the madlib sticky and adjust scroll amount accordingly
+$sticky-madlib-height-compare: 100px;
 $footer-size: 10rem;
 $max-width: 800px;
 $preload-article-height: 750px;
