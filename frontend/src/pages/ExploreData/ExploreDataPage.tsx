@@ -196,10 +196,8 @@ function ExploreDataPage() {
 
   /* on any changes to the madlib settings */
   useEffect(() => {
-    if (location?.hash !== "#table") {
-      // scroll browser screen to top
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    // scroll browser screen to top
+    window.scrollTo({ top: 0, behavior: "smooth" });
 
     // A11y - create then delete an invisible alert that the report mode has changed
     srSpeak(`Now viewing report: ${getMadLibPhraseText(madLib)}`);
