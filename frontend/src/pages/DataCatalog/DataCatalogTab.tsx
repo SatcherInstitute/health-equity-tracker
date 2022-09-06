@@ -1,8 +1,4 @@
 import React from "react";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Card from "@material-ui/core/Card";
-import Typography from "@material-ui/core/Typography";
 import DatasetExplorer from "./dataset_explorer/DatasetExplorer";
 import MethodologyTab from "./MethodologyTab";
 import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from "../../utils/urlutils";
@@ -10,13 +6,12 @@ import {
   DATA_CATALOG_PAGE_LINK,
   METHODOLOGY_TAB_LINK,
   AGE_ADJUSTMENT_TAB_LINK,
-  KEY_TERMS_LINK,
 } from "../../utils/internalRoutes";
 import styles from "../AboutUs/AboutUsPage.module.scss";
-import { Link, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import FeedbackBox from "../ui/FeedbackBox";
 import AgeAdjustmentTab from "./AgeAdjustmentTab";
-import KeyTerms from "./KeyTerms";
+import MethodologyBanner from "./MethodologyBanner";
 
 function DataCatalogTab() {
   const params = useSearchParams();
@@ -25,39 +20,7 @@ function DataCatalogTab() {
     : [];
   return (
     <div className={styles.AboutUsPage}>
-      <Route path="/">
-        <Tabs
-          centered
-          indicatorColor="primary"
-          textColor="primary"
-          value={window.location.pathname}
-        >
-          <Tab
-            value={DATA_CATALOG_PAGE_LINK}
-            label="Data Downloads"
-            component={Link}
-            to={DATA_CATALOG_PAGE_LINK}
-          />
-          <Tab
-            value={METHODOLOGY_TAB_LINK}
-            label="Methodology"
-            component={Link}
-            to={METHODOLOGY_TAB_LINK}
-          />
-          <Tab
-            value={AGE_ADJUSTMENT_TAB_LINK}
-            label="Age-Adjustment"
-            component={Link}
-            to={AGE_ADJUSTMENT_TAB_LINK}
-          />
-          <Tab
-            value={KEY_TERMS_LINK}
-            label="Key Terms"
-            component={Link}
-            to={KEY_TERMS_LINK}
-          />
-        </Tabs>
-      </Route>
+      <MethodologyBanner />
 
       <Switch>
         <Route path={`${METHODOLOGY_TAB_LINK}/`}>
@@ -68,9 +31,6 @@ function DataCatalogTab() {
         </Route>
         <Route path={`${AGE_ADJUSTMENT_TAB_LINK}/`}>
           <AgeAdjustmentTab />
-        </Route>
-        <Route path={KEY_TERMS_LINK}>
-          <KeyTerms />
         </Route>
       </Switch>
       <FeedbackBox />
