@@ -1,4 +1,4 @@
-import { CardContent, Grid, useMediaQuery, useTheme } from "@material-ui/core";
+import { CardContent, Grid } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
@@ -236,7 +236,6 @@ function MapCardWithKey(props: MapCardProps) {
               metadata={metadata}
               geoData={geoData}
               breakdownValuesNoData={fieldValues.noData}
-              pageIsWide={pageIsWide}
             />
 
             <CardContent className={styles.SmallMarginContent}>
