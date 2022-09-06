@@ -18,6 +18,11 @@ def export_dataset_tables():
     if data.get('dataset_name') is None:
         return ('Request must include dataset name.', 400)
 
+    demo_breakdown = None
+    if data.get('demo_breakdown') is not None:
+        print("demo_breakdown: ", demo_breakdown)
+        demo_breakdown = data.get('demo_breakdown')
+
     dataset_name = data['dataset_name']
     project_id = os.environ.get('PROJECT_ID')
     export_bucket = os.environ.get('EXPORT_BUCKET')
@@ -26,6 +31,15 @@ def export_dataset_tables():
     bq_client = bigquery.Client()
     dataset = bq_client.get_dataset(dataset_id)
     tables = list(bq_client.list_tables(dataset))
+
+    # filter only tables for current breakdown (if present)
+    if demo_breakdown is not None:
+        tables = [
+            table for table in tables if (
+                demo_breakdown in table.dataset_id or
+                demo_breakdown in table.table_id
+            )
+        ]
 
     # If there are no tables in the dataset, return an error so the pipeline will alert
     # and a human can look into any potential issues.
