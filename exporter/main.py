@@ -41,7 +41,7 @@ def export_dataset_tables():
         dest_uri = f'gs://{export_bucket}/{dataset_name}-{table.table_id}.json'
         table_ref = dataset.table(table.table_id)
         try:
-            # print("about to export table")
+            print("Also exporting full table")
             export_table(bq_client, table_ref, dest_uri,
                          'NEWLINE_DELIMITED_JSON')
 
@@ -71,18 +71,19 @@ def export_split_county_tables(bq_client, table, export_bucket):
     """ Split county-level table by parent state FIPS,
     and export as individual blobs to the given destination and wait for completion"""
 
-    # print("export_split_county_tables()")
-
     table_name = get_table_name(table)
     if "county" not in table_name:
         return
 
     bucket = prepare_bucket(export_bucket)
 
+    print("Splitting county-level table by state-level fips")
+
     for fips in STATE_LEVEL_FIPS_LIST:
+
         state_file_name = f'{table.dataset_id}-{table.table_id}-{fips}.json'
 
-        # print(state_file_name)
+        print(state_file_name)
 
         query = f"""
             SELECT *
