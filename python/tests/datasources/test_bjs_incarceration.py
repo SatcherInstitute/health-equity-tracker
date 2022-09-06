@@ -329,7 +329,7 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
     kwargs["demo_breakdown"] = "sex"
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    assert mock_bq.call_count == 6
+    assert mock_bq.call_count == 18
 
     # Un-comment to log output and save to file
     # (can copy/paste into frontend /tmp )
@@ -340,13 +340,13 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
     #     df.to_json(
     #         f'bjs_incarceration_data-{table_name}.json', orient="records")
 
-    assert mock_zip.call_count == 2
+    assert mock_zip.call_count == 6
 
-    assert mock_fips.call_count == 7
+    assert mock_fips.call_count == 21
     for call_arg in mock_fips.call_args_list:
         assert call_arg.args[1] == "fips_codes_states"
 
-    assert mock_pop.call_count == 10
+    assert mock_pop.call_count == 30
     assert mock_pop.call_args_list[0].args[1] == 'by_age_national'
     assert mock_pop.call_args_list[1].args[1] == 'by_age_national'
     assert mock_pop.call_args_list[2].args[1] == 'by_race_national'
@@ -357,3 +357,25 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
     assert mock_pop.call_args_list[7].args[1] == 'by_race_and_ethnicity_territory'
     assert mock_pop.call_args_list[8].args[1] == 'by_sex_state'
     assert mock_pop.call_args_list[9].args[1] == 'by_sex_territory'
+
+    assert mock_pop.call_args_list[10].args[1] == 'by_age_national'
+    assert mock_pop.call_args_list[11].args[1] == 'by_age_national'
+    assert mock_pop.call_args_list[12].args[1] == 'by_race_national'
+    assert mock_pop.call_args_list[13].args[1] == 'by_sex_national'
+    assert mock_pop.call_args_list[14].args[1] == 'by_age_state'
+    assert mock_pop.call_args_list[15].args[1] == 'by_age_territory'
+    assert mock_pop.call_args_list[16].args[1] == 'by_race_state_std'
+    assert mock_pop.call_args_list[17].args[1] == 'by_race_and_ethnicity_territory'
+    assert mock_pop.call_args_list[18].args[1] == 'by_sex_state'
+    assert mock_pop.call_args_list[19].args[1] == 'by_sex_territory'
+
+    assert mock_pop.call_args_list[20].args[1] == 'by_age_national'
+    assert mock_pop.call_args_list[21].args[1] == 'by_age_national'
+    assert mock_pop.call_args_list[22].args[1] == 'by_race_national'
+    assert mock_pop.call_args_list[23].args[1] == 'by_sex_national'
+    assert mock_pop.call_args_list[24].args[1] == 'by_age_state'
+    assert mock_pop.call_args_list[25].args[1] == 'by_age_territory'
+    assert mock_pop.call_args_list[26].args[1] == 'by_race_state_std'
+    assert mock_pop.call_args_list[27].args[1] == 'by_race_and_ethnicity_territory'
+    assert mock_pop.call_args_list[28].args[1] == 'by_sex_state'
+    assert mock_pop.call_args_list[29].args[1] == 'by_sex_territory'
