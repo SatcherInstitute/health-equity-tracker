@@ -94,12 +94,8 @@ def export_split_county_tables(bq_client, table, export_bucket):
             blob = prepare_blob(bucket, state_file_name)
 
             state_df = get_query_results_as_df(bq_client, query)
-            if state_df is not None:
-                nd_json = state_df.to_json(orient="records",
-                                           lines=True)
-            else:
-                nd_json = "{}"
-
+            nd_json = state_df.to_json(orient="records",
+                                       lines=True)
             export_nd_json_to_blob(blob, nd_json)
 
         except Exception as err:
@@ -117,7 +113,8 @@ def get_table_name(table):
 
 def get_query_results_as_df(bq_client, query):
     # print("get_query_results_as_df()")
-    return bq_client.query(query)
+    query_job = bq_client.query(query)
+    return query_job.to_dataframe()
 
 
 def prepare_bucket(export_bucket):
