@@ -319,8 +319,14 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
     # required by bigQuery
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
-              'table_name': 'output_table'}
+              'table_name': 'output_table',
+              }
 
+    kwargs["demo_breakdown"] = "race_and_ethnicity"
+    datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    kwargs["demo_breakdown"] = "age"
+    datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    kwargs["demo_breakdown"] = "sex"
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
