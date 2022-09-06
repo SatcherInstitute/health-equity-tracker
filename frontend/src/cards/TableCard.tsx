@@ -8,7 +8,7 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
-import { CardContent, useMediaQuery, useTheme } from "@material-ui/core";
+import { CardContent } from "@material-ui/core";
 import {
   METRIC_CONFIG,
   MetricConfig,
