@@ -32,6 +32,8 @@ def export_dataset_tables():
     dataset = bq_client.get_dataset(dataset_id)
     tables = list(bq_client.list_tables(dataset))
 
+    print("tables:", tables)
+
     # filter only tables for current breakdown (if present)
     if demo_breakdown is not None:
         tables = [
@@ -40,6 +42,8 @@ def export_dataset_tables():
                 demo_breakdown in table.table_id
             )
         ]
+
+    print("filtered tables", tables)
 
     # If there are no tables in the dataset, return an error so the pipeline will alert
     # and a human can look into any potential issues.

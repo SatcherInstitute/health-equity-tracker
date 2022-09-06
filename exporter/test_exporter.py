@@ -11,10 +11,10 @@ from main import app, STATE_LEVEL_FIPS_LIST, get_table_name
 
 NUM_STATES_AND_TERRITORIES = len(STATE_LEVEL_FIPS_LIST)
 
-test_tables = [bigquery.Table("my-project.my-dataset.t1"),
-               bigquery.Table("my-project.my-dataset.t2_std"),
-               bigquery.Table("my-project.my-dataset.t3"),
-               bigquery.Table("my-project.my-county-dataset.t4"),
+test_tables = [bigquery.Table("my-project.my-dataset.t1-sex"),
+               bigquery.Table("my-project.my-dataset.t2-age_std"),
+               bigquery.Table("my-project.my-dataset-age.t3"),
+               bigquery.Table("my-project.my-county-dataset.t4-age"),
                ]
 
 os.environ['PROJECT_ID'] = 'my-project'
@@ -42,14 +42,17 @@ def testExportDatasetTables(
     mock_bq_instance = mock_bq_client.return_value
     mock_bq_instance.list_tables.return_value = test_tables
 
-    dataset_name = {'dataset_name': 'my-dataset'}
-    response = client.post('/', json=dataset_name)
+    payload = {
+        'dataset_name': 'my-dataset',
+        'demo_breakdown': 'age'
+    }
+    response = client.post('/', json=payload)
 
     assert response.status_code == 204
-    # called once per table plus additional time for _std files
-    assert mock_bq_instance.extract_table.call_count == 5
-    # called once per table, only continues for county level files
-    assert mock_split_county.call_count == 4
+    # called once per "age" table plus additional time for _std files
+    assert mock_bq_instance.extract_table.call_count == 4
+    # called once per "age" table, only continues for county level files
+    assert mock_split_county.call_count == 3
 
 
 @mock.patch('main.export_split_county_tables')
@@ -75,8 +78,11 @@ def testExportDatasetTables_NoTables(
     mock_bq_instance = mock_bq_client.return_value
     mock_bq_instance.list_tables.return_value = iter(())
 
-    dataset_name = {'dataset_name': 'my-dataset'}
-    response = client.post('/', json=dataset_name)
+    payload = {
+        'dataset_name': 'my-dataset',
+        'demo_breakdown': 'age'
+    }
+    response = client.post('/', json=payload)
 
     assert response.status_code == 500
     assert mock_split_county.call_count == 0
@@ -97,8 +103,11 @@ def testExportDatasetTables_ExtractJobFailure(
     mock_extract_job.result.side_effect = google.cloud.exceptions.InternalServerError(
         'Internal')
 
-    dataset_name = {'dataset_name': 'my-dataset'}
-    response = client.post('/', json=dataset_name)
+    payload = {
+        'dataset_name': 'my-dataset',
+        'demo_breakdown': 'age'
+    }
+    response = client.post('/', json=payload)
 
     assert response.status_code == 500
     assert mock_split_county.call_count == 1
@@ -132,8 +141,11 @@ def testExportSplitCountyTables(
     mock_bq_instance = mock_bq_client.return_value
     mock_bq_instance.list_tables.return_value = test_tables
 
-    dataset_name = {'dataset_name': 'my-dataset'}
-    client.post('/', json=dataset_name)
+    payload = {
+        'dataset_name': 'my-dataset',
+        'demo_breakdown': 'age'
+    }
+    client.post('/', json=payload)
 
     # ensure initial call to bq client and county-level calls per state/terr
     assert mock_bq_client.call_count == 1
