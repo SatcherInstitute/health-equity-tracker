@@ -83,7 +83,7 @@ def export_split_county_tables(bq_client, table, export_bucket):
 
         state_file_name = f'{table.dataset_id}-{table.table_id}-{fips}.json'
 
-        print(state_file_name)
+        # print(state_file_name)
 
         query = f"""
             SELECT *
