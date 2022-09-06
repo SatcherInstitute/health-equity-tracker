@@ -6,7 +6,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Popover, { PopoverOrigin } from "@material-ui/core/Popover";
-import { usePopover, PopoverElements } from "../../utils/usePopover";
+import { usePopover, PopoverElements } from "../../utils/hooks/usePopover";
 import styles from "./DropDownMenu.module.scss";
 import { useMediaQuery, useTheme } from "@material-ui/core";
 import { DemographicGroup } from "../../data/utils/Constants";

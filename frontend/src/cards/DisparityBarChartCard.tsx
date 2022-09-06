@@ -26,9 +26,7 @@ import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
-
-/* minimize layout shift */
-const PRELOAD_HEIGHT = 719;
+import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -49,6 +47,11 @@ export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
 }
 
 function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
+  const preloadHeight = useGuessPreloadHeight(
+    [700, 1000],
+    props.breakdownVar === "sex"
+  );
+
   const metricConfig = props.variableConfig.metrics["pct_share"];
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
@@ -72,8 +75,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const query = new MetricQuery(metricIds, breakdowns);
 
   function getTitleText() {
-    return `Population vs. ${metricConfig.fullCardTitleName
-      } in ${props.fips.getSentenceDisplayName()}`;
+    return `Population vs. ${
+      metricConfig.fullCardTitleName
+    } in ${props.fips.getSentenceDisplayName()}`;
   }
   function CardTitle() {
     return <>{getTitleText()}</>;
@@ -83,7 +87,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     <CardWrapper
       queries={[query]}
       title={<CardTitle />}
-      minHeight={PRELOAD_HEIGHT}
+      minHeight={preloadHeight}
     >
       {([queryResponse]) => {
         const dataWithoutUnknowns = queryResponse
@@ -160,9 +164,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 Population percentages on this graph add up to over 100% because
                 the racial categories reported for{" "}
                 {metricConfig.fullCardTitleName} in{" "}
-                {props.fips.getSentenceDisplayName()} include Hispanic individuals
-                in each racial category. As a result, Hispanic individuals are
-                counted twice.
+                {props.fips.getSentenceDisplayName()} include Hispanic
+                individuals in each racial category. As a result, Hispanic
+                individuals are counted twice.
               </Alert>
             )}
             {isCawp && (

@@ -32,7 +32,7 @@ import ReportToggleControls from "./ui/ReportToggleControls";
 import styles from "./Report.module.scss";
 import { TableOfContents } from "../pages/ui/TableOfContents";
 import { reportProviderSteps } from "./ReportProviderSteps";
-import { StepData } from "../utils/useStepObserver";
+import { StepData } from "../utils/hooks/useStepObserver";
 
 const HEADER_OFFSET_ONE_VAR = 88;
 
