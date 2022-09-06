@@ -7,7 +7,7 @@ import {
   useTheme,
 } from "@material-ui/core";
 import React from "react";
-import { StepData, useStepObserver } from "../../utils/useStepObserver";
+import { StepData, useStepObserver } from "../../utils/hooks/useStepObserver";
 import styles from "./TableOfContents.module.scss";
 
 /* 

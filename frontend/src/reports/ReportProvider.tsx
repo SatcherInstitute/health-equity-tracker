@@ -33,7 +33,7 @@ import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
-import { StepData } from "../utils/useStepObserver";
+import { StepData } from "../utils/hooks/useStepObserver";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 

@@ -4,7 +4,7 @@ import Feedback from "@benhammondmusic/feeder-react-feedback";
 import "@benhammondmusic/feeder-react-feedback/dist/feeder-react-feedback.css"; // import stylesheet
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import { useCookies } from "react-cookie";
-import useClickAway from "../../utils/useClickAway";
+import useClickAway from "../../utils/hooks/useClickAway";
 import sass from "../../styles/variables.module.scss";
 import { useMediaQuery, useTheme } from "@material-ui/core";
 

@@ -30,6 +30,7 @@ import styles from "./Card.module.scss";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { Row } from "../data/utils/DatasetTypes";
+import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -45,11 +46,10 @@ export interface TableCardProps {
 }
 
 export function TableCard(props: TableCardProps) {
-  // calculate page size for responsive layout and minimized CLS
-  const theme = useTheme();
-  const pageIsWide = useMediaQuery(theme.breakpoints.up("xl"));
-  let preload_height = pageIsWide ? 1500 : 700;
-  if (props.breakdownVar === "sex") preload_height /= 2;
+  const preloadHeight = useGuessPreloadHeight(
+    [700, 1500],
+    props.breakdownVar === "sex"
+  );
 
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
 
@@ -98,7 +98,7 @@ export function TableCard(props: TableCardProps) {
 
   return (
     <CardWrapper
-      minHeight={preload_height}
+      minHeight={preloadHeight}
       queries={[query]}
       title={
         <>{`${props.variableConfig.variableFullDisplayName} By ${

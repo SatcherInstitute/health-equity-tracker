@@ -16,7 +16,7 @@ import {
   UNINSURANCE_US_SETTING,
 } from "../../utils/internalRoutes";
 import Hidden from "@material-ui/core/Hidden";
-import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
+import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
