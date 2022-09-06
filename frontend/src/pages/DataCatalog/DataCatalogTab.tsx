@@ -21,7 +21,6 @@ function DataCatalogTab() {
   return (
     <div className={styles.AboutUsPage}>
       <MethodologyBanner />
-
       <Switch>
         <Route path={`${METHODOLOGY_TAB_LINK}/`}>
           <MethodologyTab />
