@@ -32,7 +32,7 @@ import { Box } from "@material-ui/core";
 import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
-import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
+// import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
 import { StepData } from "../utils/hooks/useStepObserver";
 
 export const SINGLE_COLUMN_WIDTH = 12;
@@ -46,6 +46,7 @@ interface ReportProviderProps {
   doScrollToData?: boolean;
   showIncarceratedChildrenAlert: boolean;
   isScrolledToTop: boolean;
+  headerScrollMargin: number;
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -103,6 +104,7 @@ function ReportProvider(props: ReportProviderProps) {
             isScrolledToTop={props.isScrolledToTop}
             reportSteps={reportSteps}
             setReportSteps={setReportSteps}
+            headerScrollMargin={props.headerScrollMargin}
           />
         );
       case "comparegeos":
@@ -131,6 +133,7 @@ function ReportProvider(props: ReportProviderProps) {
             isScrolledToTop={props.isScrolledToTop}
             reportSteps={reportSteps}
             setReportSteps={setReportSteps}
+            headerScrollMargin={props.headerScrollMargin}
           />
         );
       case "comparevars":
@@ -157,6 +160,7 @@ function ReportProvider(props: ReportProviderProps) {
             isScrolledToTop={props.isScrolledToTop}
             reportSteps={reportSteps}
             setReportSteps={setReportSteps}
+            headerScrollMargin={props.headerScrollMargin}
           />
         );
       default:

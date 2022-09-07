@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { STATUS } from "react-joyride";
 import Carousel from "react-material-ui-carousel";
@@ -40,6 +40,7 @@ import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
 import useScrollPosition from "../../utils/hooks/useScrollPosition";
+import { useResponsiveWidth } from "../../utils/hooks/useResponsiveWidth";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -52,8 +53,6 @@ function ExploreDataPage() {
   const [showStickyLifeline, setShowStickyLifeline] = useState(false);
   const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
     useState(false);
-
-  const madLibHeaderRef = useRef<HTMLInputElement>(null);
 
   // Set up initial mad lib values based on defaults and query params
   const params = useSearchParams();
@@ -196,6 +195,10 @@ function ExploreDataPage() {
     ]);
   };
 
+  const [madLibHeaderRef, pageWidth] = useResponsiveWidth(
+    window.innerWidth || 1000
+  );
+
   /* on any changes to the madlib settings */
   useEffect(() => {
     // scroll browser screen to top
@@ -220,10 +223,25 @@ function ExploreDataPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [madLib]);
 
+  const [headerScrollMargin, setHeaderScrollMargin] = useState(0);
+
   /* on changes that affect the height of the sticky madlib header */
+  useLayoutEffect(() => {
+    const isSticky = pageWidth > 960;
+    const stickyHeaderHeight =
+      (isSticky && madLibHeaderRef.current?.clientHeight) || 0;
+    setHeaderScrollMargin(stickyHeaderHeight);
+  }, [
+    madLib,
+    showIncarceratedChildrenAlert,
+    showStickyLifeline,
+    pageWidth,
+    madLibHeaderRef,
+  ]);
+
   useEffect(() => {
-    console.log(madLibHeaderRef.current?.clientHeight);
-  }, [madLib, showIncarceratedChildrenAlert, showStickyLifeline]);
+    console.log(headerScrollMargin);
+  }, [headerScrollMargin]);
 
   return (
     <>
@@ -293,6 +311,7 @@ function ExploreDataPage() {
             setMadLib={setMadLibWithParam}
             doScrollToData={doScrollToData}
             isScrolledToTop={!sticking}
+            headerScrollMargin={headerScrollMargin}
           />
         </div>
       </div>
