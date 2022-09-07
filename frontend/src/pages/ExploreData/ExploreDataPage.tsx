@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 import { STATUS } from "react-joyride";
 import Carousel from "react-material-ui-carousel";
@@ -52,6 +52,8 @@ function ExploreDataPage() {
   const [showStickyLifeline, setShowStickyLifeline] = useState(false);
   const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
     useState(false);
+
+  const madLibHeaderRef = useRef<HTMLInputElement>(null);
 
   // Set up initial mad lib values based on defaults and query params
   const params = useSearchParams();
@@ -218,6 +220,11 @@ function ExploreDataPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [madLib]);
 
+  /* on changes that affect the height of the sticky madlib header */
+  useEffect(() => {
+    console.log(madLibHeaderRef.current?.clientHeight);
+  }, [madLib, showIncarceratedChildrenAlert, showStickyLifeline]);
+
   return (
     <>
       <Onboarding
@@ -232,6 +239,7 @@ function ExploreDataPage() {
         <div
           className={styles.CarouselContainer}
           id="onboarding-start-your-search"
+          ref={madLibHeaderRef}
         >
           <Carousel
             className={`Carousel ${styles.Carousel}`}
