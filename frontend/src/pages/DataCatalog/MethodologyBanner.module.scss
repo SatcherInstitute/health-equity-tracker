@@ -1,46 +1,56 @@
 @import "../../styles/globals.scss";
 @import "../../styles/variables.module";
 
-.Menu {
+.MenuContainer {
+  align-items: center;
   background-color: #0b5240;
   display: flex;
   height: 135px;
+  justify-content: center;
   margin: 0px;
   position: relative;
 }
 
+.CategoryContainer {
+  margin: 0px 20px;
+  border: 0px;
+}
+
 .Category {
-  background-color: inherit;
-  box-shadow: none;
-  color: #f7faf9;
-  display: flex;
-  flex-direction: column;
-  height: 135px;
+  color: #f7faf9 !important;
+  font-family: "Taviraj", serif !important;
+  font-weight: 300;
+  font-size: 1.125rem;
   line-height: 25px;
-  margin-right: 20px;
-  padding-top: 10px;
-  position: relative;
-  text-align: left;
-  width: 220px;
-}
-
-.Tab {
   min-height: auto;
-  padding: 0px;
   opacity: 1;
+  padding: 0px;
 }
 
-.Tab > span {
-  color: #f7faf9;
+.Category:hover {
+  font-weight: bold;
+}
+
+.Category > span {
   flex-direction: row;
   justify-content: left;
-  font-size: 1.125rem;
-  font-weight: 300;
-  font-family: "Taviraj", serif;
 }
 
-.Tab > span:hover {
+.Topic {
+  color: #e0e9e6 !important;
+  font-weight: 200;
+  min-height: auto;
+  opacity: 1;
+  padding: 0px;
+}
+
+.Topic:hover {
   font-weight: bold;
+}
+
+.Topic > span {
+  display: block;
+  text-align: left;
 }
 
 .Divider {
@@ -74,18 +84,4 @@
 
 .testing {
   padding-left: 5px;
-}
-
-.Topic {
-  align-items: center;
-  text-decoration: none;
-  display: flex;
-}
-
-.Topic:visited {
-  color: #f7faf9;
-}
-
-.Topic:hover {
-  font-weight: bold;
 }
