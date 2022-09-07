@@ -278,7 +278,7 @@ function MethodologyTab() {
                   </li>
                   <li>
                     All metrics sourced from America's Health Rankings are
-                    calculated based on rates provided from their data API.
+                    calculated based on rates provided from their data API:
                     <ul>
                       <li>
                         To calculate the <b>per 100k</b> metrics seen on the
@@ -288,7 +288,7 @@ function MethodologyTab() {
                       </li>
                       <li>
                         To calculate the <b>percent share</b> metrics seen on
-                        the tracker , we must estimate the total number of
+                        the tracker, we must first estimate the total number of
                         people with each condition. Because AHR only presents
                         data as percentages, we do this by multiplying the
                         percentage by the population as sourced from the ACS
