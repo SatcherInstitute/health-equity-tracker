@@ -75,6 +75,8 @@ export function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
 If a condition contains multiple data types, they are
 treated as individual items  */
 export function getSelectedConditions(madLib: MadLib) {
+  if (madLib.activeSelections[1] === "default") return [];
+
   const condition1array: VariableConfig[] =
     METRIC_CONFIG[getPhraseValue(madLib, 1) as DropdownVarId];
   // get 2nd condition if in compare var mode
@@ -89,7 +91,8 @@ export function getSelectedConditions(madLib: MadLib) {
     : condition1array;
 }
 
-const DROPDOWN_VAR: Record<DropdownVarId, string> = {
+const DROPDOWN_VAR: Record<DropdownVarId | string, string> = {
+  default: "<Choose a Topic>",
   covid: "COVID-19",
   diabetes: "Diabetes",
   copd: "COPD",
@@ -170,8 +173,8 @@ const MADLIB_LIST: MadLib[] = [
   {
     id: "disparity",
     phrase: ["Investigate rates of", DROPDOWN_VAR, "in", FIPS_MAP],
-    defaultSelections: { 1: "covid", 3: USA_FIPS },
-    activeSelections: { 1: "covid", 3: USA_FIPS },
+    defaultSelections: { 1: "default", 3: USA_FIPS },
+    activeSelections: { 1: "default", 3: USA_FIPS },
   },
   {
     id: "comparegeos",
@@ -201,10 +204,8 @@ const MADLIB_LIST: MadLib[] = [
   },
 ];
 
-
 function insertOptionalThe(phraseSelections: PhraseSelections, index: number) {
-  return phraseSelections[index + 1] === "00" ? " the" : ""
-
+  return phraseSelections[index + 1] === "00" ? " the" : "";
 }
 
 export { MADLIB_LIST, getMadLibPhraseText, CATEGORIES_LIST, insertOptionalThe };

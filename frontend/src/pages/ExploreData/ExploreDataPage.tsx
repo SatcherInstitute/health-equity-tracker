@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -40,6 +40,7 @@ import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
 import useScrollPosition from "../../utils/hooks/useScrollPosition";
+import { Alert } from "@material-ui/lab";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -218,6 +219,8 @@ function ExploreDataPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [madLib]);
 
+  const noTopicChosen = getSelectedConditions(madLib).length === 0;
+
   return (
     <>
       <Onboarding
@@ -276,16 +279,20 @@ function ExploreDataPage() {
           )}
         </div>
         <div className={styles.ReportContainer}>
-          <ReportProvider
-            isSingleColumn={isSingleColumn}
-            madLib={madLib}
-            selectedConditions={getSelectedConditions(madLib)}
-            showLifeLineAlert={showStickyLifeline}
-            showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
-            setMadLib={setMadLibWithParam}
-            doScrollToData={doScrollToData}
-            isScrolledToTop={!sticking}
-          />
+          {noTopicChosen ? (
+            <Box m={40}></Box>
+          ) : (
+            <ReportProvider
+              isSingleColumn={isSingleColumn}
+              madLib={madLib}
+              selectedConditions={getSelectedConditions(madLib)}
+              showLifeLineAlert={showStickyLifeline}
+              showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
+              setMadLib={setMadLibWithParam}
+              doScrollToData={doScrollToData}
+              isScrolledToTop={!sticking}
+            />
+          )}
         </div>
       </div>
     </>
