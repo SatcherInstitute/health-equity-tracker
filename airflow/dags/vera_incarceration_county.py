@@ -45,15 +45,15 @@ vera_exporter_payload = {
 
 vera_exporter_payload["demo_breakdown"] = "race_and_ethnicity"
 vera_exporter_operator_race = util.create_exporter_operator(
-    'vera_incarceration_county_exporter', vera_exporter_payload, data_ingestion_dag)
+    'vera_incarceration_county_exporter_race', vera_exporter_payload, data_ingestion_dag)
 
 vera_exporter_payload["demo_breakdown"] = "age"
 vera_exporter_operator_age = util.create_exporter_operator(
-    'vera_incarceration_county_exporter', vera_exporter_payload, data_ingestion_dag)
+    'vera_incarceration_county_exporter_age', vera_exporter_payload, data_ingestion_dag)
 
 vera_exporter_payload["demo_breakdown"] = "sex"
 vera_exporter_operator_sex = util.create_exporter_operator(
-    'vera_incarceration_county_exporter', vera_exporter_payload, data_ingestion_dag)
+    'vera_incarceration_county_exporter_sex', vera_exporter_payload, data_ingestion_dag)
 
 
 # Ingestion DAG

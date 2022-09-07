@@ -20,8 +20,8 @@ def export_dataset_tables():
 
     demo_breakdown = None
     if data.get('demo_breakdown') is not None:
-        print("demo_breakdown: ", demo_breakdown)
         demo_breakdown = data.get('demo_breakdown')
+        print("demo_breakdown: ", demo_breakdown)
 
     dataset_name = data['dataset_name']
     project_id = os.environ.get('PROJECT_ID')
@@ -32,18 +32,17 @@ def export_dataset_tables():
     dataset = bq_client.get_dataset(dataset_id)
     tables = list(bq_client.list_tables(dataset))
 
-    print("tables:", tables)
+    print("number of tables:", len(tables))
 
     # filter only tables for current breakdown (if present)
     if demo_breakdown is not None:
         tables = [
             table for table in tables if (
-                demo_breakdown in table.dataset_id or
                 demo_breakdown in table.table_id
             )
         ]
 
-    print("filtered tables", tables)
+    print("number of", demo_breakdown, "tables:", len(tables))
 
     # If there are no tables in the dataset, return an error so the pipeline will alert
     # and a human can look into any potential issues.
@@ -54,14 +53,14 @@ def export_dataset_tables():
 
         print(">>>", f'{table.dataset_id}-{table.table_id}')
         # split up county-level tables by state and export those individually
-        # print("export split county")
+        print("export split county")
         export_split_county_tables(bq_client, table, export_bucket)
 
         # export the full table
         dest_uri = f'gs://{export_bucket}/{dataset_name}-{table.table_id}.json'
         table_ref = dataset.table(table.table_id)
         try:
-            # print("Also exporting full table")
+            print("Also exporting full table")
             export_table(bq_client, table_ref, dest_uri,
                          'NEWLINE_DELIMITED_JSON')
 
@@ -97,13 +96,13 @@ def export_split_county_tables(bq_client, table, export_bucket):
 
     bucket = prepare_bucket(export_bucket)
 
-    # print("Splitting county-level table by state-level fips")
+    print("Splitting county-level table by state-level fips")
 
     for fips in STATE_LEVEL_FIPS_LIST:
 
         state_file_name = f'{table.dataset_id}-{table.table_id}-{fips}.json'
 
-        # print(state_file_name)
+        print(state_file_name)
 
         query = f"""
             SELECT *
