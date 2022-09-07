@@ -32,7 +32,6 @@ export default function DefinitionsList(
         const variablesForThisCategory = props.variablesToDefine.filter(
           (variable: any) => category.options.includes(variable[0])
         );
-        console.log(category);
         return (
           <div key={category.title}>
             {/* display category name and optional category definition */}
