@@ -277,7 +277,7 @@ function MethodologyTab() {
                     display these conditions at the county level either.
                   </li>
                   <li>
-                    All metrics sourced from Americas Health Rankings are
+                    All metrics sourced from America's Health Rankings are
                     calculated based on rates provided from their data API.
                     <ul>
                       <li>
