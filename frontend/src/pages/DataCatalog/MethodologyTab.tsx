@@ -276,6 +276,22 @@ function MethodologyTab() {
                     available at the county level, so the tracker does not
                     display these conditions at the county level either.
                   </li>
+                  <li>
+                    All <b>per 100k</b> metrics sourced from America's Health
+                    Rankings are taken directly from the datasource. If the
+                    metrics are presented as percentages rather than{" "}
+                    <b>per 100k</b> metrics, we simply multiply the percentage
+                    by 1000 to get a <b>per 100k</b> metric.
+                  </li>
+                  <li>
+                    To calculate the <b>percent share</b> number for each
+                    metric, we must estimate the total number of people with
+                    each condition. Because AHR only presents data as
+                    percentages, we do this by multiplying the percentage by the
+                    population as sourced from the ACS survey, and then
+                    calculate the <b>percent share</b> based on the total of all
+                    the estimated counts.
+                  </li>
                 </ul>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
