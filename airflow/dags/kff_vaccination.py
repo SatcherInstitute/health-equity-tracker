@@ -36,4 +36,8 @@ kff_vaccination_exporter_operator_race = util.create_exporter_operator(
 
 
 # Ingestion DAG
-kff_vaccination_bq_operator >> kff_vaccination_aggregator_operator >> kff_vaccination_exporter_operator_race
+(
+    kff_vaccination_bq_operator >>
+    kff_vaccination_aggregator_operator >>
+    kff_vaccination_exporter_operator_race
+)

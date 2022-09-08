@@ -57,5 +57,11 @@ vera_exporter_operator_sex = util.create_exporter_operator(
 
 
 # Ingestion DAG
-(vera_bq_operator_race >> vera_bq_operator_age >> vera_bq_operator_sex >>
- vera_exporter_operator_race >> vera_exporter_operator_age >> vera_exporter_operator_sex)
+(
+    vera_bq_operator_race >>
+    vera_bq_operator_age >>
+    vera_bq_operator_sex >>
+    vera_exporter_operator_race >>
+    vera_exporter_operator_age >>
+    vera_exporter_operator_sex
+)

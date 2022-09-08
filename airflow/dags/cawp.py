@@ -30,4 +30,7 @@ cawp_exporter_operator_race = util.create_exporter_operator(
     'cawp_exporter_race', cawp_exporter_payload_race, data_ingestion_dag)
 
 # Ingestion DAG
-(cawp_pop_bq_operator >> cawp_exporter_operator_race)
+(
+    cawp_pop_bq_operator >>
+    cawp_exporter_operator_race
+)

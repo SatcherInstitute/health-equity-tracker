@@ -35,5 +35,8 @@ cdc_vaccination_county_exporter_operator_race = util.create_exporter_operator(
     'cdc_vaccination_county_exporter_race', cdc_vaccination_county_exporter_payload_race, data_ingestion_dag)
 
 # Ingestion DAG
-(cdc_vaccination_county_bq_operator >> cdc_vaccination_county_aggregator_operator >>
-    cdc_vaccination_county_exporter_operator_race)
+(
+    cdc_vaccination_county_bq_operator >>
+    cdc_vaccination_county_aggregator_operator >>
+    cdc_vaccination_county_exporter_operator_race
+)
