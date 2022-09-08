@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
+import SearchIcon from "@material-ui/icons/Search";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import { Card } from "@material-ui/core";
+import { InsertDriveFile, OndemandVideo } from "@material-ui/icons/";
+import { Link, Route } from "react-router-dom";
+import styles from "./MethodologyBanner.module.scss";
 import {
+  AGE_ADJUSTMENT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
   METHODOLOGY_TAB_LINK,
 } from "../../utils/internalRoutes";
-import { Link, Route } from "react-router-dom";
-import SearchIcon from "@material-ui/icons/Search";
-import { InsertDriveFile, OndemandVideo } from "@material-ui/icons/";
-import styles from "./MethodologyBanner.module.scss";
 
 const categories = [
   {
@@ -40,7 +41,7 @@ const categories = [
       },
       {
         label: "Age Adjustment",
-        link: "/",
+        link: AGE_ADJUSTMENT_TAB_LINK,
       },
       {
         label: "Disclaimers & Alerts",
@@ -90,24 +91,40 @@ const siteResources = [
   {
     topic: "Key Insights",
     icon: <SearchIcon />,
+    link: "/",
   },
   {
     topic: "Academic Paper",
     icon: <InsertDriveFile />,
+    link: "/",
   },
   {
     topic: "Video Demo",
     icon: <OndemandVideo />,
+    link: "/",
   },
 ];
 
+type Category = {
+  name: string;
+  link: string;
+  topics: { label: string; link: string }[];
+};
+
 const MethodologyBanner = () => {
   const urlPath = window.location.pathname;
-  const arrayLength = categories.length - 1;
+  const categoriesLength = categories.length - 1;
+  const [isActive, setIsActive] = useState(false);
 
-  const selectedTab = (link: string) => {
-    if (urlPath === link) {
-      return link;
+  const selectedTab = (category: Category) => {
+    const topics = category.topics;
+    const topic = topics.find((topic) => topic.link === urlPath);
+
+    if (urlPath === category.link) {
+      return category.link;
+    }
+    if (topic) {
+      return topic.link;
     }
     return false;
   };
@@ -117,7 +134,7 @@ const MethodologyBanner = () => {
       <Route path="/">
         <div className={styles.MenuContainer}>
           {categories.map((category, index) => (
-            <>
+            <Fragment key={category.name}>
               <Tabs
                 className={styles.CategoryContainer}
                 TabIndicatorProps={{
@@ -126,9 +143,8 @@ const MethodologyBanner = () => {
                     opacity: 0.2,
                   },
                 }}
-                key={category.name}
                 orientation="vertical"
-                value={selectedTab(category.link)}
+                value={selectedTab(category)}
               >
                 <Tab
                   className={styles.Category}
@@ -148,16 +164,18 @@ const MethodologyBanner = () => {
                   />
                 ))}
               </Tabs>
-              {index < arrayLength && (
-                <div className={styles.Divider} key={index} />
-              )}
-            </>
+              {index < categoriesLength && <div className={styles.Divider} />}
+            </Fragment>
           ))}
           <Card className={styles.Resources}>
             {siteResources.map((resource, index) => (
-              <a href="/" className={styles.ResourceLink} key={resource.topic}>
+              <a
+                href={resource.link}
+                className={styles.ResourceLink}
+                key={`${resource.link} + ${index}`}
+              >
                 {resource.icon}
-                <span className={styles.ResourceTopic} key={index}>
+                <span className={styles.ResourceTopic} key={resource.topic}>
                   {resource.topic}
                 </span>
               </a>
