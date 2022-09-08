@@ -52,9 +52,8 @@ function main() {
   if [[ -n "${all_files}" ]]; then
     all_files::download "${bucket_name}" "${tmp_dir}"
 
-    for f in "${tmp_dir}"/*.json
+    for file_path in "${tmp_dir}"/*.json
     do
-      file_path=$(ls "${f}")
       file::convert "${file_path}"
     done
 
@@ -62,6 +61,8 @@ function main() {
     file::download "${bucket_name}" "${data_file}" "${tmp_dir}"
     file::convert "${tmp_dir}/${data_file}.json"
   fi
+
+  dev_file::edit
 
   trap "rm -rf ${tmp_dir}" EXIT
 
@@ -109,6 +110,18 @@ function file::convert() {
   sed '1 s/^/[/ ; 2,$ s/^/,/; $ s/$/]/' "${file_path}" > "${TRACKERDIR}/frontend/public/tmp/${file_name}"
 }
 
+
+function dev_file::edit() {
+  local file_path file_name dev_string
+  dev_string=""
+  for file_path in "${TRACKERDIR}"/frontend/public/tmp/*.json
+    do
+      file_name=${file_path##*/}
+      dev_string="${file_name},${dev_string}"
+    done
+
+  echo "REACT_APP_FORCE_STATIC=${dev_string}" >> "${TRACKERDIR}/frontend/.env.development"
+}
 
 
 main "${@:-}"
