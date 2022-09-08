@@ -53,7 +53,6 @@ def export_dataset_tables():
 
         print(">>>", f'{table.dataset_id}-{table.table_id}')
         # split up county-level tables by state and export those individually
-        print("export split county")
         export_split_county_tables(bq_client, table, export_bucket)
 
         # export the full table
