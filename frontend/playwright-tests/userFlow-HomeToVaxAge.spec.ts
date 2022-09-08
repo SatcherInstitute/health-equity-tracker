@@ -29,11 +29,11 @@ test.describe('Home to COVID Vax by Age', () => {
         await expect(page).toBeAccessible()
 
         // changes madlib to VAXX properly
-        // const madLibTopic = page.locator('button:has-text("COVID-19")')
-        // madLibTopic.click();
-        // const covidVaxOption = page.locator('span:has-text("COVID-19 Vaccinations")')
-        // covidVaxOption.click();
-        // await expect(page).toHaveURL(/.*mls=1.covid_vaccinations-3.00/);
+        const madLibTopic = page.locator('button:has-text("COVID-19")')
+        madLibTopic.click();
+        const covidVaxOption = page.locator('span:has-text("COVID-19 Vaccinations")')
+        covidVaxOption.click();
+        await expect(page).toHaveURL(/.*mls=1.covid_vaccinations-3.00/);
 
     })
 
