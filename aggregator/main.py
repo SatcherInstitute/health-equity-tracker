@@ -21,7 +21,7 @@ def run_aggregation_queries():
 
     if data.get('dataset_name') is None:
         logging.error('Request must include dataset name.')
-        return('', 400)
+        return ('', 400)
 
     dataset_name = data['dataset_name']
     project_id = os.environ.get('PROJECT_ID')
