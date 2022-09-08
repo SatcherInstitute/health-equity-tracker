@@ -49,7 +49,7 @@ cdc_restricted_age_adjust_op = util.create_bq_ingest_operator(
 
 cdc_restricted_exporter_payload_race = {
     'dataset_name': _CDC_RESTRICTED_DATASET,
-    'demo_breakdown': "race"
+    'demo_breakdown': "by_race"
 }
 cdc_restricted_exporter_operator_race = util.create_exporter_operator(
     'cdc_restricted_exporter_race', cdc_restricted_exporter_payload_race,
@@ -58,7 +58,7 @@ cdc_restricted_exporter_operator_race = util.create_exporter_operator(
 
 cdc_restricted_exporter_payload_age = {
     'dataset_name': _CDC_RESTRICTED_DATASET,
-    'demo_breakdown': "age"
+    'demo_breakdown': "by_age"
 }
 cdc_restricted_exporter_operator_age = util.create_exporter_operator(
     'cdc_restricted_exporter_age', cdc_restricted_exporter_payload_age,
@@ -67,7 +67,7 @@ cdc_restricted_exporter_operator_age = util.create_exporter_operator(
 
 cdc_restricted_exporter_payload_sex = {
     'dataset_name': _CDC_RESTRICTED_DATASET,
-    'demo_breakdown': "sex"
+    'demo_breakdown': "by_sex"
 }
 cdc_restricted_exporter_operator_sex = util.create_exporter_operator(
     'cdc_restricted_exporter_sex', cdc_restricted_exporter_payload_sex,
