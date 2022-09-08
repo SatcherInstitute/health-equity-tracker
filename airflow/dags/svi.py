@@ -22,13 +22,9 @@ svi_bq_payload = util.generate_bq_payload(
 svi_pop_bq_operator = util.create_bq_ingest_operator(
     'svi_to_bq', svi_bq_payload, data_ingestion_dag)
 
-svi_aggregator_payload = {'dataset_name': _SVI_DATASET_NAME}
-svi_aggregator_operator = util.create_aggregator_operator(
-    'svi_aggregator', svi_aggregator_payload, data_ingestion_dag)
-
 svi_exporter_payload = {'dataset_name': _SVI_DATASET_NAME}
 svi_exporter_operator = util.create_exporter_operator(
     'svi_exporter', svi_exporter_payload, data_ingestion_dag)
 
 # Ingestion DAG
-svi_pop_bq_operator >> svi_aggregator_operator >> svi_exporter_operator
+svi_pop_bq_operator >> svi_exporter_operator
