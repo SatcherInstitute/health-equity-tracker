@@ -20,7 +20,8 @@ data_ingestion_dag = DAG(
 )
 
 acs_hi_gcs_task_id = "acs_health_insurance_to_gcs"
-acs_hi_gcs_payload = util.generate_gcs_payload(_ACS_WORKFLOW_ID, url=_ACS_BASE_URL)
+acs_hi_gcs_payload = util.generate_gcs_payload(
+    _ACS_WORKFLOW_ID, url=_ACS_BASE_URL)
 acs_hi_gcs_operator = util.create_gcs_ingest_operator(
     acs_hi_gcs_task_id, acs_hi_gcs_payload, data_ingestion_dag
 )
