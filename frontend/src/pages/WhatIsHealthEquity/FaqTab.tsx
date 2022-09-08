@@ -107,23 +107,19 @@ Specific information on update frequencies by source can be found on our <a href
     a: `
   <ul>
     <li>
-    In an effort to be fully transparent, all data is retrieved from publicly sourced APIs and manual downloads
+      All data presented in the Health Equity Tracker are retrieved from publicly sourced application programming interfaces (APIs) and manual downloads. The data extracted from these sources are continuously updated to retrieve the most relevant data.
     </li>
     <li>
-      Once acquired, this data is converted to tables in Google BigQuery
+      Graphic visualizations reflect crude rates (non-age-adjusted) at 100,000 cases per year.
     </li>
     <li>
-      During this process, values are standardized and normalized to
-      facilitate reporting, comparison and visualization
+      Where data are readily available, calculations are made to present age-adjusted rates and ratios in separate tables. These calculations are used by the Health Equity Tracker to illustrate the disproportionate impact of morbidity and mortality among different races and ethnic groups throughout the U.S. in comparison to the white (non-Hispanic) population. To learn more, please view our <a href=${AGE_ADJUSTMENT_TAB_LINK}>age-adjustment methodology</a>.
     </li>
-    <li>
-    All of our map and graph visualizations present crude (non-age-adjusted) percentages and per 100k rates. When possible, we additionally calculate and present age-adjusted ratios in a separate table in an effort to reveal disproportionate impact to certain race/ethnicity groups, as compared to the white (non-Hispanic) population. To learn more, please view our <a href=${AGE_ADJUSTMENT_TAB_LINK}>age-adjustment methodology</a>
-  </li>
     <li>
       Sources are refreshed when update notifications are received
     </li>
     <li>
-    The entire Health Equity Tracker codebase is publicly available and open-source; contributions are welcome via <a href=${urlMap.hetGitHub}>GitHub</a>.
+      The entire Health Equity Tracker codebase is publicly available and open-source; contributions are welcome via <a href=${urlMap.hetGitHub}>GitHub</a>.
     </li>
   </ul>
   `,
