@@ -28,11 +28,6 @@ acs_2010_bq_payload = util.generate_bq_payload(
 acs_2010_bq_op = util.create_bq_ingest_operator(
     'acs_2010_gcs_to_bq', acs_2010_bq_payload, data_ingestion_dag)
 
-acs_2010_aggregator_payload = {'dataset_name': _ACS_2010_POPULATION_DATASET}
-acs_2010_aggregator_operator = util.create_aggregator_operator(
-    'acs_2010_aggregator', acs_2010_aggregator_payload,
-    data_ingestion_dag)
-
 acs_2010_exporter_payload_race = {
     'dataset_name': _ACS_2010_POPULATION_DATASET,
     'demo_breakdown': "race"
@@ -61,7 +56,6 @@ acs_2010_exporter_operator_sex = util.create_exporter_operator(
 # Data Ingestion DAG
 (
     acs_2010_bq_op >>
-    acs_2010_aggregator_operator >>
     acs_2010_exporter_operator_race >>
     acs_2010_exporter_operator_age >>
     acs_2010_exporter_operator_sex
