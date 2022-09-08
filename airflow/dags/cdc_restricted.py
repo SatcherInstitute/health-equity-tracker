@@ -47,12 +47,34 @@ cdc_age_adjust_payload = util.generate_bq_payload(
 cdc_restricted_age_adjust_op = util.create_bq_ingest_operator(
     'cdc_restricted_age_adjust', cdc_age_adjust_payload, data_ingestion_dag)
 
-cdc_restricted_exporter_payload = {'dataset_name': _CDC_RESTRICTED_DATASET}
-cdc_restricted_exporter_operator = util.create_exporter_operator(
-    'cdc_restricted_exporter', cdc_restricted_exporter_payload,
+cdc_restricted_exporter_payload_race = {
+    'dataset_name': _CDC_RESTRICTED_DATASET,
+    'demo_breakdown': "race"
+}
+cdc_restricted_exporter_operator_race = util.create_exporter_operator(
+    'cdc_restricted_exporter_race', cdc_restricted_exporter_payload_race,
     data_ingestion_dag)
 
+
+cdc_restricted_exporter_payload_age = {
+    'dataset_name': _CDC_RESTRICTED_DATASET,
+    'demo_breakdown': "age"
+}
+cdc_restricted_exporter_operator_age = util.create_exporter_operator(
+    'cdc_restricted_exporter_age', cdc_restricted_exporter_payload_age,
+    data_ingestion_dag)
+
+
+cdc_restricted_exporter_payload_sex = {
+    'dataset_name': _CDC_RESTRICTED_DATASET,
+    'demo_breakdown': "sex"
+}
+cdc_restricted_exporter_operator_sex = util.create_exporter_operator(
+    'cdc_restricted_exporter_sex', cdc_restricted_exporter_payload_sex,
+    data_ingestion_dag)
 # CDC Restricted Data Ingestion DAG
 (cdc_restricted_bq_op_cumulative >> cdc_restricted_bq_op_non_cumulative >>
     cdc_restricted_aggregator_operator >> cdc_restricted_age_adjust_op >>
-    cdc_restricted_exporter_operator)
+    cdc_restricted_exporter_operator_race >>
+    cdc_restricted_exporter_operator_age >>
+    cdc_restricted_exporter_operator_sex)
