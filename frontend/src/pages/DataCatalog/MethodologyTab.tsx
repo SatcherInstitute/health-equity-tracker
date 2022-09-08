@@ -291,10 +291,10 @@ function MethodologyTab() {
                         To calculate the <b>percent share</b> metrics seen on
                         the tracker, we must first estimate the total number of
                         people with each condition. Because AHR only presents
-                        data as rates, we do this by multiplying the percentage
-                        by the population as sourced from the ACS survey, and
-                        then calculate the <b>percent share</b> based on the
-                        total of all the estimated counts.
+                        data as rates, we do this by multiplying each rate by
+                        the corresponding population as sourced from the ACS
+                        survey, and then calculate the <b>percent share</b>{" "}
+                        based on the total of all the estimated counts.
                       </li>
                     </ul>
                   </li>
