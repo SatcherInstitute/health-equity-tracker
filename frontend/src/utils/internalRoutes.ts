@@ -16,7 +16,6 @@ export const DATA_TAB_LINK = "/datacatalog";
 export const CONTACT_TAB_LINK = "/contact";
 export const OURTEAM_TAB_LINK = "/ourteam";
 export const NEWS_TAB_LINK = "/news";
-export const KEY_TERMS_LINK = "/keyterms";
 
 // TRACKER SETTINGS
 export const COVID_DEATHS_US_SETTING =
