@@ -17,15 +17,6 @@
   padding: 20px 0px;
 }
 
-.TestingFaqQAItem {
-  padding-left: 50px;
-  padding-right: 50px;
-}
-
-.TestingDiv {
-  padding-bottom: 10px;
-}
-
 .FaqQuestion {
   @include tav300();
   font-size: $title !important;

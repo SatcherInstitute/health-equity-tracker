@@ -59,7 +59,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
       ? METRIC_CONFIG[props.dropdownVarId][0]
       : null
   );
-  console.log(variableConfig);
 
   const setVariableConfigWithParam = (v: VariableConfig) => {
     setParameters([
@@ -114,7 +113,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
 
   const breakdownIsShown = (breakdownVar: BreakdownVar) =>
     currentBreakdown === breakdownVar;
-  console.log(DEMOGRAPHIC_BREAKDOWNS);
 
   return (
     <Grid container>
