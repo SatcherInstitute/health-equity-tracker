@@ -1,4 +1,4 @@
-import { Grid, useMediaQuery, useTheme } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -39,6 +39,7 @@ import { srSpeak } from "../../utils/a11yutils";
 import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
+import useScrollPosition from "../../utils/hooks/useScrollPosition";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -141,33 +142,23 @@ function ExploreDataPage() {
 
   // Set up sticky madlib behavior
   const [sticking, setSticking] = useState<boolean>(false);
+  useScrollPosition(
+    ({ pageYOffset, stickyBarOffsetFromTop }) => {
+      const topOfCarousel = pageYOffset > stickyBarOffsetFromTop;
+      if (topOfCarousel) setSticking(true);
+      else setSticking(false);
+    },
+    [sticking],
+    300
+  );
+
   useEffect(() => {
     if (activelyOnboarding) {
       return;
     }
-    const header = document.getElementById(EXPLORE_DATA_ID);
-    const stickyBarOffsetFromTop: number = header ? header.offsetTop : 1;
-    const scrollCallBack: any = window.addEventListener("scroll", () => {
-      if (window.pageYOffset > stickyBarOffsetFromTop) {
-        if (header) {
-          header.classList.add(styles.Sticky);
-        }
-        setSticking(true);
-      } else {
-        if (header) {
-          header.classList.remove(styles.Sticky);
-        }
-        setSticking(false);
-      }
-    });
-    return () => {
-      window.removeEventListener("scroll", scrollCallBack);
-    };
   }, [activelyOnboarding]);
 
   // calculate page size to determine if mobile or not
-  const theme = useTheme();
-  const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
   const isSingleColumn = (madLib.id as MadLibId) === "disparity";
 
   const handleCarouselChange = (carouselMode: number) => {
@@ -243,7 +234,7 @@ function ExploreDataPage() {
           id="onboarding-start-your-search"
         >
           <Carousel
-            className={styles.Carousel}
+            className={`Carousel ${styles.Carousel}`}
             NextIcon={
               <NavigateNextIcon
                 aria-hidden="true"
@@ -252,7 +243,7 @@ function ExploreDataPage() {
             }
             timeout={200}
             autoPlay={false}
-            indicators={!sticking || !pageIsWide}
+            indicators={true}
             indicatorIconButtonProps={{
               "aria-label": "Report Type",
               style: { padding: "4px" },

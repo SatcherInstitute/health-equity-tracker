@@ -206,7 +206,7 @@ function LandingPage() {
               variant="h2"
               component="h3"
             >
-              How do I use the Data Tracker?
+              How do I use the Health Equity Tracker?
             </Typography>
           </Grid>
 
@@ -227,11 +227,45 @@ function LandingPage() {
             >
               <Grid item xs={12} sm={12} md={3}>
                 <h4 className={styles.HowToStepTextHeader}>
+                  Take a Tour of the Data
+                </h4>
+                <p className={styles.HowToStepTextSubheader}>
+                  New to the Health Equity Tracker? Watch a short video demo
+                  that highlights major features of the platform.
+                </p>
+              </Grid>
+              <Grid item xs={12} sm={12} md={8}>
+                <LazyLoad offset={300} once>
+                  <iframe
+                    className={styles.ResourceVideoEmbed}
+                    width="100%"
+                    height="420px"
+                    src="https://www.youtube.com/embed/XBoqT9Jjc8w"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write;
+                  encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </LazyLoad>
+              </Grid>
+            </Grid>
+
+            <Grid
+              container
+              className={styles.HowToStepContainer}
+              direction="row"
+              justifyContent="space-around"
+              alignItems="center"
+              component="li"
+            >
+              <Grid item xs={12} sm={12} md={3}>
+                <h4 className={styles.HowToStepTextHeader}>
                   Search by completing the sentence
                 </h4>
                 <p className={styles.HowToStepTextSubheader}>
                   Select variables you’re interested in to complete the sentence
-                  and explore the data
+                  and explore the data.
                 </p>
               </Grid>
               <Grid item xs={12} sm={12} md={8}>
@@ -239,7 +273,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="/img/screenshots/het-investigate-rates.png"
-                    alt="Search Example Screenshot: Investigate Rates of option Covid-19 in location United States"
+                    alt="Search Example Screenshot: View all condition options on the Health Equity Tracker."
                   />
                 </LazyLoad>
               </Grid>
@@ -269,8 +303,8 @@ function LandingPage() {
                 <LazyLoad offset={300} once>
                   <img
                     className={styles.HowToStepImg}
-                    src="/img/screenshots/het-compare-rates.png"
-                    alt="Search Example Screenshot: Compare Rates of option Covid-19 between two locations"
+                    src="/img/screenshots/het-use-filters.png"
+                    alt="Example Screenshot: Select demographic variables by interacting with the dropdown menu and other filters."
                   />
                 </LazyLoad>
               </Grid>
@@ -291,18 +325,17 @@ function LandingPage() {
                   </h4>
                   <p className={styles.HowToStepTextSubheader}>
                     The interactive maps and graphs are a great way to
-                    investigate the data more closely, currently reporting
-                    COVID-19 cases by race at the state and county level.
+                    investigate the data more closely. If a state or county is
+                    gray, that means there’s no data currently available.
                   </p>
                 </div>
               </Grid>
-
               <Grid item xs={12} sm={12} md={8}>
                 <LazyLoad offset={300} once>
                   <img
                     className={styles.HowToStepImg}
                     src="/img/screenshots/het-map.png"
-                    alt="Map Example Screenshot, Data Tracker map of Covid-19 rates of all racial groups"
+                    alt="Example Screenshot: Map of individuals in prison per 100k in the state of Georgia."
                   />
                 </LazyLoad>
               </Grid>
