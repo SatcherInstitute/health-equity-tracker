@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
@@ -90,17 +90,17 @@ const categories = [
 const siteResources = [
   {
     topic: "Key Insights",
-    icon: <SearchIcon />,
+    icon: <SearchIcon fontSize="small" />,
     link: "/",
   },
   {
     topic: "Academic Paper",
-    icon: <InsertDriveFile />,
+    icon: <InsertDriveFile fontSize="small" />,
     link: "/",
   },
   {
-    topic: "Video Demo",
-    icon: <OndemandVideo />,
+    topic: "Watch the Demo",
+    icon: <OndemandVideo fontSize="small" />,
     link: "/",
   },
 ];
@@ -114,7 +114,6 @@ type Category = {
 const MethodologyBanner = () => {
   const urlPath = window.location.pathname;
   const categoriesLength = categories.length - 1;
-  const [isActive, setIsActive] = useState(false);
 
   const selectedTab = (category: Category) => {
     const topics = category.topics;
