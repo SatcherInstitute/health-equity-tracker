@@ -13,7 +13,7 @@ NUM_STATES_AND_TERRITORIES = len(STATE_LEVEL_FIPS_LIST)
 
 test_tables = [bigquery.Table("my-project.my-dataset.t1-sex"),
                bigquery.Table("my-project.my-dataset.t2-age_std"),
-               bigquery.Table("my-project.my-dataset-age.t3"),
+               bigquery.Table("my-project.my-dataset.t3-age"),
                bigquery.Table("my-project.my-county-dataset.t4-age"),
                ]
 
