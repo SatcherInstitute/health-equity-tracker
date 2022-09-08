@@ -29,10 +29,6 @@ acs_poverty_bq_payload = util.generate_bq_payload(
 acs_poverty_bq_operator = util.create_bq_ingest_operator(
     'acs_poverty_to_bq', acs_poverty_bq_payload, data_ingestion_dag)
 
-acs_poverty_aggregator_payload = {'dataset_name': _ACS_DATASET_NAME}
-acs_poverty_aggregator_operator = util.create_aggregator_operator(
-    'acs_poverty_aggregator', acs_poverty_aggregator_payload, data_ingestion_dag)
-
 acs_poverty_exporter_payload_race = {
     'dataset_name': _ACS_DATASET_NAME,
     'demo_breakdown': "race"
@@ -57,7 +53,6 @@ acs_poverty_exporter_operator_sex = util.create_exporter_operator(
 (
     acs_poverty_gcs_operator >>
     acs_poverty_bq_operator >>
-    acs_poverty_aggregator_operator >>
     acs_poverty_exporter_operator_race >>
     acs_poverty_exporter_operator_age >>
     acs_poverty_exporter_operator_sex

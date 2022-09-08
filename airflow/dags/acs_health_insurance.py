@@ -33,11 +33,6 @@ acs_hi_bq_operator = util.create_bq_ingest_operator(
     "acs_health_insurance_to_bq", acs_hi_bq_payload, data_ingestion_dag
 )
 
-acs_hi_aggregator_payload = {"dataset_name": _ACS_DATASET_NAME}
-acs_hi_aggregator_operator = util.create_aggregator_operator(
-    "acs_health_insurance_aggregator", acs_hi_aggregator_payload, data_ingestion_dag
-)
-
 acs_hi_exporter_payload_race = {
     "dataset_name": _ACS_DATASET_NAME,
     'demo_breakdown': "race"
@@ -66,7 +61,6 @@ acs_hi_exporter_operator_sex = util.create_exporter_operator(
 (
     acs_hi_gcs_operator >>
     acs_hi_bq_operator >>
-    acs_hi_aggregator_operator >>
     acs_hi_exporter_operator_race >>
     acs_hi_exporter_operator_age >>
     acs_hi_exporter_operator_sex

@@ -35,11 +35,6 @@ cdc_bq_payload_non_cumulative = util.generate_bq_payload(
 cdc_restricted_bq_op_non_cumulative = util.create_bq_ingest_operator(
     'cdc_restricted_non_cumulative_gcs_to_bq', cdc_bq_payload_non_cumulative, data_ingestion_dag)
 
-cdc_restricted_aggregator_payload = {'dataset_name': _CDC_RESTRICTED_DATASET}
-cdc_restricted_aggregator_operator = util.create_aggregator_operator(
-    'cdc_restricted_aggregator', cdc_restricted_aggregator_payload,
-    data_ingestion_dag)
-
 cdc_age_adjust_payload = util.generate_bq_payload(
     _AGE_ADJUST_WORKFLOW_ID,
     _CDC_RESTRICTED_DATASET,
@@ -77,7 +72,6 @@ cdc_restricted_exporter_operator_sex = util.create_exporter_operator(
 (
     cdc_restricted_bq_op_cumulative >>
     cdc_restricted_bq_op_non_cumulative >>
-    cdc_restricted_aggregator_operator >>
     cdc_restricted_age_adjust_op >>
     cdc_restricted_exporter_operator_race >>
     cdc_restricted_exporter_operator_age >>
