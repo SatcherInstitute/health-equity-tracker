@@ -6,6 +6,7 @@ import Hidden from "@material-ui/core/Hidden";
 import FeedbackBox from "../ui/FeedbackBox";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../../utils/externalUrls";
+import { Button, TextField } from "@material-ui/core";
 
 function ContactUsTab() {
   return (
@@ -62,6 +63,41 @@ function ContactUsTab() {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={7}>
+            <p className={styles.ContactUsP}>
+              <b>Join our mailing list:</b>
+            </p>
+
+            <form
+              action={urlMap.newsletterSignup}
+              method="post"
+              target="_blank"
+            >
+              <Grid container justifyContent="center" alignContent="center">
+                <Grid item>
+                  <TextField
+                    id="Enter email address to sign up" // Accessibility label
+                    name="MERGE0"
+                    variant="outlined"
+                    className={styles.EmailTextField}
+                    type="email"
+                    aria-label="Enter Email Address for Newsletter signup"
+                    placeholder="Enter email address"
+                  />
+                </Grid>
+                <Grid item>
+                  <Button
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                    className={styles.EmailAddressFormSubmit}
+                    aria-label="Sign Up for Newsletter in a new window"
+                  >
+                    Sign up
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+
             <p className={styles.ContactUsP}>
               <b>For general requests:</b>
               <br />

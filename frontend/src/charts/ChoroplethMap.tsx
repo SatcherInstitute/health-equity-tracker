@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Vega } from "react-vega";
-import { useResponsiveWidth } from "../utils/useResponsiveWidth";
+import { useResponsiveWidth } from "../utils/hooks/useResponsiveWidth";
 import { Fips } from "../data/utils/Fips";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
@@ -512,15 +512,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     legendUpperBound,
   ]);
 
-  const mapStyle = pageIsTiny
-    ? {
-        width: "90%",
-        marginRight: PADDING_FOR_ACTIONS_MENU,
-      }
-    : {
-        width: "75%",
-        margin: "auto",
-      };
+  const mapStyle = {
+    width: "90%",
+    marginRight: PADDING_FOR_ACTIONS_MENU,
+  };
 
   return (
     <div ref={ref} style={mapStyle}>
