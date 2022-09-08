@@ -79,9 +79,11 @@ class IncarcerationProvider extends VariableProvider {
       detail = "county";
     }
 
-    return `${source}_incarceration_${detail}-${dataType_}${
+    const baseId = `${source}_incarceration_${detail}-${dataType_}${
       breakdowns.getSoleDemographicBreakdown().columnName
     }_${breakdowns.geography}`;
+
+    return this.appendFips(baseId, breakdowns);
   }
 
   async getDataInternal(
