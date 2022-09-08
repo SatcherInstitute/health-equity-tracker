@@ -35,7 +35,10 @@ class VaccineProvider extends VariableProvider {
     ) {
       return "kff_vaccination-race_and_ethnicity";
     } else if (breakdowns.geography === "county") {
-      return "cdc_vaccination_county-race_and_ethnicity";
+      return this.appendFipsIfNeeded(
+        "cdc_vaccination_county-race_and_ethnicity",
+        breakdowns
+      );
     }
 
     return "";

@@ -83,7 +83,7 @@ class IncarcerationProvider extends VariableProvider {
       breakdowns.getSoleDemographicBreakdown().columnName
     }_${breakdowns.geography}`;
 
-    return this.appendFips(baseId, breakdowns);
+    return this.appendFipsIfNeeded(baseId, breakdowns);
   }
 
   async getDataInternal(

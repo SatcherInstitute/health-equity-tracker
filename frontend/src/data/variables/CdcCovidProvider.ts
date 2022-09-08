@@ -35,7 +35,7 @@ class CdcCovidProvider extends VariableProvider {
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.hasOnlyRace()) {
       if (breakdowns.geography === "county") {
-        return this.appendFips(
+        return this.appendFipsIfNeeded(
           "cdc_restricted_data-by_race_county_processed",
           breakdowns
         );
@@ -47,7 +47,7 @@ class CdcCovidProvider extends VariableProvider {
     }
     if (breakdowns.hasOnlyAge()) {
       if (breakdowns.geography === "county") {
-        return this.appendFips(
+        return this.appendFipsIfNeeded(
           "cdc_restricted_data-by_age_county_processed",
           breakdowns
         );
@@ -59,7 +59,7 @@ class CdcCovidProvider extends VariableProvider {
     }
     if (breakdowns.hasOnlySex()) {
       if (breakdowns.geography === "county") {
-        return this.appendFips(
+        return this.appendFipsIfNeeded(
           "cdc_restricted_data-by_sex_county_processed",
           breakdowns
         );

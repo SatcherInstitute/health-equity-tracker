@@ -10,7 +10,7 @@ class CdcSviProvider extends VariableProvider {
 
   getDatasetId(breakdowns: Breakdowns): string {
     // get the state-specific county-level SVI file, or default to full file
-    return this.appendFips("cdc_svi_county-age", breakdowns);
+    return this.appendFipsIfNeeded("cdc_svi_county-age", breakdowns);
   }
 
   async getDataInternal(

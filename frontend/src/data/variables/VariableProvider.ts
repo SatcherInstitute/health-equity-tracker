@@ -111,12 +111,12 @@ abstract class VariableProvider {
     return dataFrame;
   }
 
-  appendFips(baseId: string, breakdowns: Breakdowns): string {
+  appendFipsIfNeeded(baseId: string, breakdowns: Breakdowns): string {
     // if there is a parent fips, append it as needed (for county-level files)
 
-    if (!breakdowns.filterFips?.isCounty) return baseId;
+    if (!breakdowns?.filterFips?.isCounty()) return baseId;
 
-    const parentFips = breakdowns.filterFips.getParentFips().code || "";
+    const parentFips = breakdowns?.filterFips?.getParentFips().code || "";
     const fipsTag = parentFips ? `-${parentFips}` : "";
     return `${baseId}${fipsTag}`;
   }

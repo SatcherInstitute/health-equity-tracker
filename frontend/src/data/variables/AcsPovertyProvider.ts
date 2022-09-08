@@ -28,11 +28,11 @@ class AcsPovertyProvider extends VariableProvider {
     if (breakdowns.hasOnlyRace()) breakdownSelector = "race";
     if (breakdowns.hasOnlySex()) breakdownSelector = "sex";
 
-    return (
-      datasetPrefix +
-      breakdownSelector +
-      (breakdowns.geography === "county" ? "_county" : "_state")
-    );
+    const isCounty = breakdowns.geography === "county";
+    const baseId = `${datasetPrefix}${breakdownSelector}${
+      isCounty ? "_county" : "_state"
+    }`;
+    return this.appendFipsIfNeeded(baseId, breakdowns);
   }
 
   async getDataInternal(
