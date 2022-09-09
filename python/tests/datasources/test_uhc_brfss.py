@@ -43,7 +43,7 @@ print("")
 
 def testPctSharesSumTo100():
 
-    print("Sum of each race groups pct_share value; should be 100")
+    print("Sum of each race groups pct_share value from the GOLDEN RACE file; should be 100")
 
     dtype = EXPECTED_DTYPE.copy()
     dtype['race_and_ethnicity'] = str
