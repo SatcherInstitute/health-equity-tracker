@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Vega } from "react-vega";
-import { useResponsiveWidth } from "../utils/useResponsiveWidth";
+import { useResponsiveWidth } from "../utils/hooks/useResponsiveWidth";
 import { Fips } from "../data/utils/Fips";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";

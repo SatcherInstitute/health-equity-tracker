@@ -10,7 +10,7 @@ import styles from "./OptionsSelector.module.scss";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import { usePopover } from "../../utils/usePopover";
+import { usePopover } from "../../utils/hooks/usePopover";
 import { CATEGORIES_LIST } from "../../utils/MadLibs";
 import { Box, Grid } from "@material-ui/core";
 import { DropdownVarId } from "../../data/config/MetricConfig";
