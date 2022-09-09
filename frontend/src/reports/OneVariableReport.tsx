@@ -135,7 +135,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
               id="population"
               className={styles.ScrollPastHeader}
             >
-              <PopulationCard jumpToData={props.jumpToData} fips={props.fips} />
+              *
+              {/* <PopulationCard jumpToData={props.jumpToData} fips={props.fips} /> */}
             </Grid>
           )}
 
@@ -165,6 +166,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 id="map"
                 className={styles.ScrollPastHeader}
               >
+                *
                 <MapCard
                   variableConfig={variableConfig}
                   fips={props.fips}
@@ -186,20 +188,21 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 id="bar"
                 className={styles.ScrollPastHeader}
               >
-                <LazyLoad offset={600} height={750} once>
+                *
+                {/* <LazyLoad offset={600} height={750} once>
                   {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                     <Fragment key={breakdownVar}>
                       {breakdownIsShown(breakdownVar) &&
-                        variableConfig.metrics["per100k"] && (
-                          <SimpleBarChartCard
-                            variableConfig={variableConfig}
-                            breakdownVar={breakdownVar}
-                            fips={props.fips}
-                          />
-                        )}
+                        variableConfig.metrics["per100k"] &&
+                        <SimpleBarChartCard
+                          variableConfig={variableConfig}
+                          breakdownVar={breakdownVar}
+                          fips={props.fips}
+                        />
+                      }
                     </Fragment>
                   ))}
-                </LazyLoad>
+                </LazyLoad> */}
               </Grid>
 
               {/* UNKNOWNS MAP CARD */}
@@ -211,7 +214,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 id="unknowns"
                 className={styles.ScrollPastHeader}
               >
-                <LazyLoad offset={800} height={750} once>
+                *
+                {/* <LazyLoad offset={800} height={750} once>
                   {variableConfig.metrics["pct_share"] && (
                     <UnknownsMapCard
                       overrideAndWithOr={currentBreakdown === RACE}
@@ -223,7 +227,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                       currentBreakdown={currentBreakdown}
                     />
                   )}
-                </LazyLoad>
+                </LazyLoad> */}
               </Grid>
 
               {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
@@ -235,7 +239,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 id="disparity"
                 className={styles.ScrollPastHeader}
               >
-                <LazyLoad offset={800} height={750} once>
+                *
+                {/* <LazyLoad offset={800} height={750} once>
                   {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                     <Fragment key={breakdownVar}>
                       {breakdownIsShown(breakdownVar) &&
@@ -248,7 +253,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                         )}
                     </Fragment>
                   ))}
-                </LazyLoad>
+                </LazyLoad> */}
               </Grid>
 
               {/* DATA TABLE CARD */}
@@ -259,7 +264,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 id="table"
                 className={styles.ScrollPastHeader}
               >
-                <LazyLoad offset={800} height={750} once>
+                *
+                {/* <LazyLoad offset={800} height={750} once>
                   {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                     <Fragment key={breakdownVar}>
                       {breakdownIsShown(breakdownVar) && (
@@ -271,7 +277,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                       )}
                     </Fragment>
                   ))}
-                </LazyLoad>
+                </LazyLoad> */}
               </Grid>
 
               {/* AGE ADJUSTED TABLE CARD */}

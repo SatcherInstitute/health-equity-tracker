@@ -111,13 +111,33 @@ abstract class VariableProvider {
     return dataFrame;
   }
 
-  appendFipsIfNeeded(baseId: string, breakdowns: Breakdowns): string {
+  appendFipsIfNeeded(
+    baseId: string,
+    breakdowns: Breakdowns,
+    callSource?: any
+  ): string {
     // if there is a parent fips, append it as needed (for county-level files)
 
-    if (!breakdowns?.filterFips?.isCounty()) return baseId;
+    if (breakdowns.geography !== "county") {
+      // console.log("geo not set to county; not appending anything to dataset id");
+      return baseId;
+    }
 
-    const parentFips = breakdowns?.filterFips?.getParentFips().code || "";
-    const fipsTag = parentFips ? `-${parentFips}` : "";
+    // console.log(callSource, breakdowns.geography, breakdowns.filterFips);
+
+    const isCountyQueryFromStateLevelMap =
+      breakdowns.geography === "county" &&
+      breakdowns.filterFips?.isStateOrTerritory();
+
+    // console.log({ isCountyQueryFromStateLevelMap });
+
+    const fipsToAppend = isCountyQueryFromStateLevelMap
+      ? breakdowns.filterFips?.code
+      : breakdowns?.filterFips?.getParentFips()?.code;
+
+    // console.log(fipsToAppend, { breakdowns });
+    const fipsTag = fipsToAppend ? `-${fipsToAppend}` : "";
+    // console.log(fipsTag, { breakdowns });
     return `${baseId}${fipsTag}`;
   }
 

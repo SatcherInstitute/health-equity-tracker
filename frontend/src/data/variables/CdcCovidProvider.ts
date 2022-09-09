@@ -37,7 +37,8 @@ class CdcCovidProvider extends VariableProvider {
       if (breakdowns.geography === "county") {
         return this.appendFipsIfNeeded(
           "cdc_restricted_data-by_race_county_processed",
-          breakdowns
+          breakdowns,
+          "covid"
         );
       } else if (breakdowns.geography === "state") {
         return "cdc_restricted_data-by_race_state_processed-with_age_adjust";
@@ -49,7 +50,8 @@ class CdcCovidProvider extends VariableProvider {
       if (breakdowns.geography === "county") {
         return this.appendFipsIfNeeded(
           "cdc_restricted_data-by_age_county_processed",
-          breakdowns
+          breakdowns,
+          "covid"
         );
       } else if (breakdowns.geography === "state") {
         return "cdc_restricted_data-by_age_state_processed";
@@ -61,7 +63,8 @@ class CdcCovidProvider extends VariableProvider {
       if (breakdowns.geography === "county") {
         return this.appendFipsIfNeeded(
           "cdc_restricted_data-by_sex_county_processed",
-          breakdowns
+          breakdowns,
+          "covid"
         );
       } else if (breakdowns.geography === "state") {
         return "cdc_restricted_data-by_sex_state_processed";

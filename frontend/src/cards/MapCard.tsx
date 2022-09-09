@@ -106,10 +106,10 @@ function MapCardWithKey(props: MapCardProps) {
         )
     );
 
-  const sviQuery = new MetricQuery(
-    "svi",
-    Breakdowns.byCounty().andAge(onlyInclude("All"))
-  );
+  const sviBreakdowns = Breakdowns.byCounty().andAge(onlyInclude("All"));
+  sviBreakdowns.filterFips = props.fips;
+
+  const sviQuery = new MetricQuery("svi", sviBreakdowns);
 
   const queries = [
     metricQuery(Breakdowns.forChildrenFips(props.fips)),
@@ -130,6 +130,8 @@ function MapCardWithKey(props: MapCardProps) {
 
   let qualifierItems: string[] = [];
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
+
+  // console.log(queries.map((q) => q.breakdowns.geography));
 
   return (
     <CardWrapper

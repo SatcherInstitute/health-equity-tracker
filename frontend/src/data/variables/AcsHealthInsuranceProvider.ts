@@ -33,8 +33,8 @@ class AcsHealthInsuranceProvider extends VariableProvider {
           : "acs_health_insurance-health_insurance_by_race_age_state";
     }
 
-    console.log(baseId);
-    console.log(this.appendFipsIfNeeded(baseId, breakdowns));
+    // console.log(baseId);
+    // console.log(this.appendFipsIfNeeded(baseId, breakdowns));
     return this.appendFipsIfNeeded(baseId, breakdowns);
   }
 
