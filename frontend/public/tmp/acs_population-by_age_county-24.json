@@ -1,0 +1,240 @@
+[{"state_fips":"24","county_fips":"24001","county_name":"Allegany County, Maryland","age":"0-9","population":6589,"population_pct":9.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24001","county_name":"Allegany County, Maryland","age":"10-19","population":8973,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24001","county_name":"Allegany County, Maryland","age":"20-29","population":10316,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24001","county_name":"Allegany County, Maryland","age":"30-39","population":8406,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24001","county_name":"Allegany County, Maryland","age":"40-49","population":8784,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24001","county_name":"Allegany County, Maryland","age":"50-59","population":9695,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24001","county_name":"Allegany County, Maryland","age":"60-69","population":8683,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24001","county_name":"Allegany County, Maryland","age":"70-79","population":6124,"population_pct":8.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24001","county_name":"Allegany County, Maryland","age":"80+","population":3875,"population_pct":5.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24001","county_name":"Allegany County, Maryland","age":"All","population":71445,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24003","county_name":"Anne Arundel County, Maryland","age":"0-9","population":70189,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24003","county_name":"Anne Arundel County, Maryland","age":"10-19","population":70559,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24003","county_name":"Anne Arundel County, Maryland","age":"20-29","population":76614,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24003","county_name":"Anne Arundel County, Maryland","age":"30-39","population":80490,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24003","county_name":"Anne Arundel County, Maryland","age":"40-49","population":74228,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24003","county_name":"Anne Arundel County, Maryland","age":"50-59","population":82257,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24003","county_name":"Anne Arundel County, Maryland","age":"60-69","population":62090,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24003","county_name":"Anne Arundel County, Maryland","age":"70-79","population":36863,"population_pct":6.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24003","county_name":"Anne Arundel County, Maryland","age":"80+","population":17985,"population_pct":3.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24003","county_name":"Anne Arundel County, Maryland","age":"All","population":571275,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24005","county_name":"Baltimore County, Maryland","age":"0-9","population":99336,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24005","county_name":"Baltimore County, Maryland","age":"10-19","population":101977,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24005","county_name":"Baltimore County, Maryland","age":"20-29","population":109062,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24005","county_name":"Baltimore County, Maryland","age":"30-39","population":109717,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24005","county_name":"Baltimore County, Maryland","age":"40-49","population":99573,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24005","county_name":"Baltimore County, Maryland","age":"50-59","population":112549,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24005","county_name":"Baltimore County, Maryland","age":"60-69","population":102059,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24005","county_name":"Baltimore County, Maryland","age":"70-79","population":56190,"population_pct":6.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24005","county_name":"Baltimore County, Maryland","age":"80+","population":37555,"population_pct":4.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24005","county_name":"Baltimore County, Maryland","age":"All","population":828018,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24009","county_name":"Calvert County, Maryland","age":"0-9","population":10122,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24009","county_name":"Calvert County, Maryland","age":"10-19","population":13451,"population_pct":14.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24009","county_name":"Calvert County, Maryland","age":"20-29","population":10537,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24009","county_name":"Calvert County, Maryland","age":"30-39","population":10690,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24009","county_name":"Calvert County, Maryland","age":"40-49","population":11938,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24009","county_name":"Calvert County, Maryland","age":"50-59","population":15427,"population_pct":16.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24009","county_name":"Calvert County, Maryland","age":"60-69","population":10791,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24009","county_name":"Calvert County, Maryland","age":"70-79","population":5706,"population_pct":6.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24009","county_name":"Calvert County, Maryland","age":"80+","population":2849,"population_pct":3.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24009","county_name":"Calvert County, Maryland","age":"All","population":91511,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24011","county_name":"Caroline County, Maryland","age":"0-9","population":4249,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24011","county_name":"Caroline County, Maryland","age":"10-19","population":4421,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24011","county_name":"Caroline County, Maryland","age":"20-29","population":3802,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24011","county_name":"Caroline County, Maryland","age":"30-39","population":4225,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24011","county_name":"Caroline County, Maryland","age":"40-49","population":3928,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24011","county_name":"Caroline County, Maryland","age":"50-59","population":5163,"population_pct":15.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24011","county_name":"Caroline County, Maryland","age":"60-69","population":3670,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24011","county_name":"Caroline County, Maryland","age":"70-79","population":2278,"population_pct":6.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24011","county_name":"Caroline County, Maryland","age":"80+","population":1313,"population_pct":4.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24011","county_name":"Caroline County, Maryland","age":"All","population":33049,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24013","county_name":"Carroll County, Maryland","age":"0-9","population":18938,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24013","county_name":"Carroll County, Maryland","age":"10-19","population":22104,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24013","county_name":"Carroll County, Maryland","age":"20-29","population":19307,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24013","county_name":"Carroll County, Maryland","age":"30-39","population":19055,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24013","county_name":"Carroll County, Maryland","age":"40-49","population":21682,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24013","county_name":"Carroll County, Maryland","age":"50-59","population":27422,"population_pct":16.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24013","county_name":"Carroll County, Maryland","age":"60-69","population":20992,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24013","county_name":"Carroll County, Maryland","age":"70-79","population":11299,"population_pct":6.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24013","county_name":"Carroll County, Maryland","age":"80+","population":6900,"population_pct":4.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24013","county_name":"Carroll County, Maryland","age":"All","population":167699,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24015","county_name":"Cecil County, Maryland","age":"0-9","population":12392,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24015","county_name":"Cecil County, Maryland","age":"10-19","population":13290,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24015","county_name":"Cecil County, Maryland","age":"20-29","population":12529,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24015","county_name":"Cecil County, Maryland","age":"30-39","population":11942,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24015","county_name":"Cecil County, Maryland","age":"40-49","population":13628,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24015","county_name":"Cecil County, Maryland","age":"50-59","population":15774,"population_pct":15.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24015","county_name":"Cecil County, Maryland","age":"60-69","population":13034,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24015","county_name":"Cecil County, Maryland","age":"70-79","population":6859,"population_pct":6.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24015","county_name":"Cecil County, Maryland","age":"80+","population":3104,"population_pct":3.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24015","county_name":"Cecil County, Maryland","age":"All","population":102552,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24017","county_name":"Charles County, Maryland","age":"0-9","population":20055,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24017","county_name":"Charles County, Maryland","age":"10-19","population":22377,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24017","county_name":"Charles County, Maryland","age":"20-29","population":20426,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24017","county_name":"Charles County, Maryland","age":"30-39","population":20296,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24017","county_name":"Charles County, Maryland","age":"40-49","population":22988,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24017","county_name":"Charles County, Maryland","age":"50-59","population":24234,"population_pct":15.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24017","county_name":"Charles County, Maryland","age":"60-69","population":16851,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24017","county_name":"Charles County, Maryland","age":"70-79","population":8203,"population_pct":5.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24017","county_name":"Charles County, Maryland","age":"80+","population":3998,"population_pct":2.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24017","county_name":"Charles County, Maryland","age":"All","population":159428,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24019","county_name":"Dorchester County, Maryland","age":"0-9","population":3495,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24019","county_name":"Dorchester County, Maryland","age":"10-19","population":3901,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24019","county_name":"Dorchester County, Maryland","age":"20-29","population":3697,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24019","county_name":"Dorchester County, Maryland","age":"30-39","population":3323,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24019","county_name":"Dorchester County, Maryland","age":"40-49","population":3726,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24019","county_name":"Dorchester County, Maryland","age":"50-59","population":4948,"population_pct":15.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24019","county_name":"Dorchester County, Maryland","age":"60-69","population":4333,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24019","county_name":"Dorchester County, Maryland","age":"70-79","population":3187,"population_pct":9.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24019","county_name":"Dorchester County, Maryland","age":"80+","population":1528,"population_pct":4.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24019","county_name":"Dorchester County, Maryland","age":"All","population":32138,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24021","county_name":"Frederick County, Maryland","age":"0-9","population":30384,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24021","county_name":"Frederick County, Maryland","age":"10-19","population":34868,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24021","county_name":"Frederick County, Maryland","age":"20-29","population":30316,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24021","county_name":"Frederick County, Maryland","age":"30-39","population":33266,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24021","county_name":"Frederick County, Maryland","age":"40-49","population":33952,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24021","county_name":"Frederick County, Maryland","age":"50-59","population":38050,"population_pct":15.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24021","county_name":"Frederick County, Maryland","age":"60-69","population":27056,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24021","county_name":"Frederick County, Maryland","age":"70-79","population":15341,"population_pct":6.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24021","county_name":"Frederick County, Maryland","age":"80+","population":8189,"population_pct":3.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24021","county_name":"Frederick County, Maryland","age":"All","population":251422,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24023","county_name":"Garrett County, Maryland","age":"0-9","population":3024,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24023","county_name":"Garrett County, Maryland","age":"10-19","population":3141,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24023","county_name":"Garrett County, Maryland","age":"20-29","population":3285,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24023","county_name":"Garrett County, Maryland","age":"30-39","population":2979,"population_pct":10.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24023","county_name":"Garrett County, Maryland","age":"40-49","population":3615,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24023","county_name":"Garrett County, Maryland","age":"50-59","population":4428,"population_pct":15.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24023","county_name":"Garrett County, Maryland","age":"60-69","population":4433,"population_pct":15.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24023","county_name":"Garrett County, Maryland","age":"70-79","population":2730,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24023","county_name":"Garrett County, Maryland","age":"80+","population":1600,"population_pct":5.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24023","county_name":"Garrett County, Maryland","age":"All","population":29235,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24025","county_name":"Harford County, Maryland","age":"0-9","population":29635,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24025","county_name":"Harford County, Maryland","age":"10-19","population":32647,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24025","county_name":"Harford County, Maryland","age":"20-29","population":30459,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24025","county_name":"Harford County, Maryland","age":"30-39","population":30812,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24025","county_name":"Harford County, Maryland","age":"40-49","population":33445,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24025","county_name":"Harford County, Maryland","age":"50-59","population":38276,"population_pct":15.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24025","county_name":"Harford County, Maryland","age":"60-69","population":30466,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24025","county_name":"Harford County, Maryland","age":"70-79","population":17520,"population_pct":6.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24025","county_name":"Harford County, Maryland","age":"80+","population":8962,"population_pct":3.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24025","county_name":"Harford County, Maryland","age":"All","population":252222,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24027","county_name":"Howard County, Maryland","age":"0-9","population":40684,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24027","county_name":"Howard County, Maryland","age":"10-19","population":44568,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24027","county_name":"Howard County, Maryland","age":"20-29","population":36878,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24027","county_name":"Howard County, Maryland","age":"30-39","population":42556,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24027","county_name":"Howard County, Maryland","age":"40-49","population":45758,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24027","county_name":"Howard County, Maryland","age":"50-59","population":46839,"population_pct":14.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24027","county_name":"Howard County, Maryland","age":"60-69","population":33392,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24027","county_name":"Howard County, Maryland","age":"70-79","population":18826,"population_pct":5.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24027","county_name":"Howard County, Maryland","age":"80+","population":9354,"population_pct":2.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24027","county_name":"Howard County, Maryland","age":"All","population":318855,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24029","county_name":"Kent County, Maryland","age":"0-9","population":1702,"population_pct":8.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24029","county_name":"Kent County, Maryland","age":"10-19","population":2403,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24029","county_name":"Kent County, Maryland","age":"20-29","population":2431,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24029","county_name":"Kent County, Maryland","age":"30-39","population":1810,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24029","county_name":"Kent County, Maryland","age":"40-49","population":1812,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24029","county_name":"Kent County, Maryland","age":"50-59","population":2839,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24029","county_name":"Kent County, Maryland","age":"60-69","population":2834,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24029","county_name":"Kent County, Maryland","age":"70-79","population":2256,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24029","county_name":"Kent County, Maryland","age":"80+","population":1449,"population_pct":7.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24029","county_name":"Kent County, Maryland","age":"All","population":19536,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24031","county_name":"Montgomery County, Maryland","age":"0-9","population":133779,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24031","county_name":"Montgomery County, Maryland","age":"10-19","population":132209,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24031","county_name":"Montgomery County, Maryland","age":"20-29","population":122910,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24031","county_name":"Montgomery County, Maryland","age":"30-39","population":144194,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24031","county_name":"Montgomery County, Maryland","age":"40-49","population":142983,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24031","county_name":"Montgomery County, Maryland","age":"50-59","population":146680,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24031","county_name":"Montgomery County, Maryland","age":"60-69","population":115759,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24031","county_name":"Montgomery County, Maryland","age":"70-79","population":65437,"population_pct":6.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24031","county_name":"Montgomery County, Maryland","age":"80+","population":39579,"population_pct":3.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24031","county_name":"Montgomery County, Maryland","age":"All","population":1043530,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24033","county_name":"Prince George's County, Maryland","age":"0-9","population":116969,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24033","county_name":"Prince George's County, Maryland","age":"10-19","population":112970,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24033","county_name":"Prince George's County, Maryland","age":"20-29","population":131057,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24033","county_name":"Prince George's County, Maryland","age":"30-39","population":129830,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24033","county_name":"Prince George's County, Maryland","age":"40-49","population":119910,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24033","county_name":"Prince George's County, Maryland","age":"50-59","population":126705,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24033","county_name":"Prince George's County, Maryland","age":"60-69","population":98108,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24033","county_name":"Prince George's County, Maryland","age":"70-79","population":49097,"population_pct":5.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24033","county_name":"Prince George's County, Maryland","age":"80+","population":24024,"population_pct":2.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24033","county_name":"Prince George's County, Maryland","age":"All","population":908670,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24035","county_name":"Queen Anne's County, Maryland","age":"0-9","population":5427,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24035","county_name":"Queen Anne's County, Maryland","age":"10-19","population":6402,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24035","county_name":"Queen Anne's County, Maryland","age":"20-29","population":5137,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24035","county_name":"Queen Anne's County, Maryland","age":"30-39","population":5435,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24035","county_name":"Queen Anne's County, Maryland","age":"40-49","population":6232,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24035","county_name":"Queen Anne's County, Maryland","age":"50-59","population":8352,"population_pct":16.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24035","county_name":"Queen Anne's County, Maryland","age":"60-69","population":6645,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24035","county_name":"Queen Anne's County, Maryland","age":"70-79","population":3982,"population_pct":8.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24035","county_name":"Queen Anne's County, Maryland","age":"80+","population":2020,"population_pct":4.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24035","county_name":"Queen Anne's County, Maryland","age":"All","population":49632,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24037","county_name":"St. Mary's County, Maryland","age":"0-9","population":13957,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24037","county_name":"St. Mary's County, Maryland","age":"10-19","population":16484,"population_pct":14.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24037","county_name":"St. Mary's County, Maryland","age":"20-29","population":15388,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24037","county_name":"St. Mary's County, Maryland","age":"30-39","population":15279,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24037","county_name":"St. Mary's County, Maryland","age":"40-49","population":14096,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24037","county_name":"St. Mary's County, Maryland","age":"50-59","population":16159,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24037","county_name":"St. Mary's County, Maryland","age":"60-69","population":11423,"population_pct":10.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24037","county_name":"St. Mary's County, Maryland","age":"70-79","population":6430,"population_pct":5.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24037","county_name":"St. Mary's County, Maryland","age":"80+","population":3074,"population_pct":2.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24037","county_name":"St. Mary's County, Maryland","age":"All","population":112290,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24039","county_name":"Somerset County, Maryland","age":"0-9","population":2555,"population_pct":9.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24039","county_name":"Somerset County, Maryland","age":"10-19","population":3096,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24039","county_name":"Somerset County, Maryland","age":"20-29","population":5070,"population_pct":19.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24039","county_name":"Somerset County, Maryland","age":"30-39","population":3298,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24039","county_name":"Somerset County, Maryland","age":"40-49","population":2729,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24039","county_name":"Somerset County, Maryland","age":"50-59","population":3100,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24039","county_name":"Somerset County, Maryland","age":"60-69","population":3090,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24039","county_name":"Somerset County, Maryland","age":"70-79","population":1788,"population_pct":6.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24039","county_name":"Somerset County, Maryland","age":"80+","population":1003,"population_pct":3.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24039","county_name":"Somerset County, Maryland","age":"All","population":25729,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24041","county_name":"Talbot County, Maryland","age":"0-9","population":3599,"population_pct":9.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24041","county_name":"Talbot County, Maryland","age":"10-19","population":4098,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24041","county_name":"Talbot County, Maryland","age":"20-29","population":3243,"population_pct":8.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24041","county_name":"Talbot County, Maryland","age":"30-39","population":3649,"population_pct":9.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24041","county_name":"Talbot County, Maryland","age":"40-49","population":3744,"population_pct":10.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24041","county_name":"Talbot County, Maryland","age":"50-59","population":5127,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24041","county_name":"Talbot County, Maryland","age":"60-69","population":5946,"population_pct":16.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24041","county_name":"Talbot County, Maryland","age":"70-79","population":4697,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24041","county_name":"Talbot County, Maryland","age":"80+","population":3064,"population_pct":8.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24041","county_name":"Talbot County, Maryland","age":"All","population":37167,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24043","county_name":"Washington County, Maryland","age":"0-9","population":17729,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24043","county_name":"Washington County, Maryland","age":"10-19","population":18382,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24043","county_name":"Washington County, Maryland","age":"20-29","population":19079,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24043","county_name":"Washington County, Maryland","age":"30-39","population":19095,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24043","county_name":"Washington County, Maryland","age":"40-49","population":19462,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24043","county_name":"Washington County, Maryland","age":"50-59","population":21156,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24043","county_name":"Washington County, Maryland","age":"60-69","population":18068,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24043","county_name":"Washington County, Maryland","age":"70-79","population":10658,"population_pct":7.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24043","county_name":"Washington County, Maryland","age":"80+","population":6480,"population_pct":4.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24043","county_name":"Washington County, Maryland","age":"All","population":150109,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24045","county_name":"Wicomico County, Maryland","age":"0-9","population":12243,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24045","county_name":"Wicomico County, Maryland","age":"10-19","population":15552,"population_pct":15.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24045","county_name":"Wicomico County, Maryland","age":"20-29","population":16618,"population_pct":16.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24045","county_name":"Wicomico County, Maryland","age":"30-39","population":11526,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24045","county_name":"Wicomico County, Maryland","age":"40-49","population":11232,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24045","county_name":"Wicomico County, Maryland","age":"50-59","population":13428,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24045","county_name":"Wicomico County, Maryland","age":"60-69","population":11449,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24045","county_name":"Wicomico County, Maryland","age":"70-79","population":6779,"population_pct":6.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24045","county_name":"Wicomico County, Maryland","age":"80+","population":3712,"population_pct":3.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24045","county_name":"Wicomico County, Maryland","age":"All","population":102539,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24047","county_name":"Worcester County, Maryland","age":"0-9","population":4453,"population_pct":8.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24047","county_name":"Worcester County, Maryland","age":"10-19","population":5422,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24047","county_name":"Worcester County, Maryland","age":"20-29","population":5240,"population_pct":10.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24047","county_name":"Worcester County, Maryland","age":"30-39","population":4739,"population_pct":9.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24047","county_name":"Worcester County, Maryland","age":"40-49","population":5804,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24047","county_name":"Worcester County, Maryland","age":"50-59","population":7482,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24047","county_name":"Worcester County, Maryland","age":"60-69","population":8866,"population_pct":17.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24047","county_name":"Worcester County, Maryland","age":"70-79","population":6106,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24047","county_name":"Worcester County, Maryland","age":"80+","population":3653,"population_pct":7.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24047","county_name":"Worcester County, Maryland","age":"All","population":51765,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24510","county_name":"Baltimore city, Maryland","age":"0-9","population":74050,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24510","county_name":"Baltimore city, Maryland","age":"10-19","population":68410,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24510","county_name":"Baltimore city, Maryland","age":"20-29","population":104079,"population_pct":17.1,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24510","county_name":"Baltimore city, Maryland","age":"30-39","population":97460,"population_pct":16.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24510","county_name":"Baltimore city, Maryland","age":"40-49","population":66953,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24510","county_name":"Baltimore city, Maryland","age":"50-59","population":77232,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24510","county_name":"Baltimore city, Maryland","age":"60-69","population":66965,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24510","county_name":"Baltimore city, Maryland","age":"70-79","population":33868,"population_pct":5.6,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24510","county_name":"Baltimore city, Maryland","age":"80+","population":20015,"population_pct":3.3,"ingestion_ts":1662663908369}
+,{"state_fips":"24","county_fips":"24510","county_name":"Baltimore city, Maryland","age":"All","population":609032,"population_pct":100.0,"ingestion_ts":1662663908369}]

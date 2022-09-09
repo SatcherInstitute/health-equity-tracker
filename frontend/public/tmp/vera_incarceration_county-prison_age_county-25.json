@@ -1,0 +1,14 @@
+[{"county_fips":"25007","county_name":"Dukes County","age":"All","prison_per_100k":92.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"25027","county_name":"Worcester County","age":"All","prison_per_100k":160.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"25009","county_name":"Essex County","age":"All","prison_per_100k":209.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"25019","county_name":"Nantucket County","age":"All","prison_per_100k":93.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"25003","county_name":"Berkshire County","age":"All","prison_per_100k":292.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"25001","county_name":"Barnstable County","age":"All","prison_per_100k":219.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"25015","county_name":"Hampshire County","age":"All","prison_per_100k":98.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"25023","county_name":"Plymouth County","age":"All","prison_per_100k":197.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"25005","county_name":"Bristol County","age":"All","prison_per_100k":253.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"25021","county_name":"Norfolk County","age":"All","prison_per_100k":87.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"25017","county_name":"Middlesex County","age":"All","prison_per_100k":111.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"25025","county_name":"Suffolk County","age":"All","prison_per_100k":268.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"25013","county_name":"Hampden County","age":"All","prison_per_100k":381.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"25011","county_name":"Franklin County","age":"All","prison_per_100k":232.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":4.0,"ingestion_ts":1662607198533}]

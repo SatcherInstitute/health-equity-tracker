@@ -1,0 +1,42 @@
+[{"county_fips":"50001","county_name":"Addison County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.8,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50003","county_name":"Bennington County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":51.2,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50005","county_name":"Caledonia County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.5,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50007","county_name":"Chittenden County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.2,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50009","county_name":"Essex County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.4,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50011","county_name":"Franklin County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.1,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50013","county_name":"Grand Isle County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.2,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50015","county_name":"Lamoille County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.6,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50017","county_name":"Orange County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.4,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50019","county_name":"Orleans County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":48.7,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50021","county_name":"Rutland County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.0,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50023","county_name":"Washington County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.8,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50025","county_name":"Windham County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.7,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50027","county_name":"Windsor County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":51.0,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50001","county_name":"Addison County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.2,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50003","county_name":"Bennington County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":48.8,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50005","county_name":"Caledonia County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.5,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50007","county_name":"Chittenden County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.8,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50009","county_name":"Essex County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.6,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50011","county_name":"Franklin County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.9,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50013","county_name":"Grand Isle County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.8,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50015","county_name":"Lamoille County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.4,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50017","county_name":"Orange County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.6,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50019","county_name":"Orleans County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":51.3,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50021","county_name":"Rutland County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.0,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50023","county_name":"Washington County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.2,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50025","county_name":"Windham County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.3,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50027","county_name":"Windsor County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.0,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"50001","county_name":"Addison County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"50003","county_name":"Bennington County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"50005","county_name":"Caledonia County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"50007","county_name":"Chittenden County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"50009","county_name":"Essex County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"50011","county_name":"Franklin County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"50013","county_name":"Grand Isle County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"50015","county_name":"Lamoille County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"50017","county_name":"Orange County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"50019","county_name":"Orleans County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"50021","county_name":"Rutland County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"50023","county_name":"Washington County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"50025","county_name":"Windham County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"50027","county_name":"Windsor County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}]

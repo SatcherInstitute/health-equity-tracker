@@ -1,0 +1,870 @@
+[{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"All","age":"0-9","population":1096,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"All","age":"10-19","population":1234,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"All","age":"20-29","population":684,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"All","age":"30-39","population":786,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"All","age":"40-49","population":723,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"All","age":"50-59","population":680,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"All","age":"60-69","population":702,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"All","age":"70-79","population":386,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"All","age":"80+","population":226,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"All","age":"All","population":6517,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Female","age":"0-9","population":566,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Female","age":"10-19","population":571,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Female","age":"20-29","population":301,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Female","age":"30-39","population":379,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Female","age":"40-49","population":364,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Female","age":"50-59","population":300,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Female","age":"60-69","population":376,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Female","age":"70-79","population":205,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Female","age":"80+","population":93,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Female","age":"All","population":3155,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Male","age":"0-9","population":530,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Male","age":"10-19","population":663,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Male","age":"20-29","population":383,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Male","age":"30-39","population":407,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Male","age":"40-49","population":359,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Male","age":"50-59","population":380,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Male","age":"60-69","population":326,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Male","age":"70-79","population":181,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Male","age":"80+","population":133,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49001","county_name":"Beaver County, Utah","sex":"Male","age":"All","population":3362,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"All","age":"0-9","population":9456,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"All","age":"10-19","population":9198,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"All","age":"20-29","population":6592,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"All","age":"30-39","population":7082,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"All","age":"40-49","population":6105,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"All","age":"50-59","population":5652,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"All","age":"60-69","population":5315,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"All","age":"70-79","population":2932,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"All","age":"80+","population":1614,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"All","age":"All","population":53946,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Female","age":"0-9","population":4648,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Female","age":"10-19","population":4189,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Female","age":"20-29","population":3161,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Female","age":"30-39","population":3441,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Female","age":"40-49","population":3030,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Female","age":"50-59","population":2806,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Female","age":"60-69","population":2672,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Female","age":"70-79","population":1500,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Female","age":"80+","population":949,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Female","age":"All","population":26396,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Male","age":"0-9","population":4808,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Male","age":"10-19","population":5009,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Male","age":"20-29","population":3431,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Male","age":"30-39","population":3641,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Male","age":"40-49","population":3075,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Male","age":"50-59","population":2846,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Male","age":"60-69","population":2643,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Male","age":"70-79","population":1432,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Male","age":"80+","population":665,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49003","county_name":"Box Elder County, Utah","sex":"Male","age":"All","population":27550,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"All","age":"0-9","population":21355,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"All","age":"10-19","population":22030,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"All","age":"20-29","population":27963,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"All","age":"30-39","population":15210,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"All","age":"40-49","population":11849,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"All","age":"50-59","population":9354,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"All","age":"60-69","population":8961,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"All","age":"70-79","population":4553,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"All","age":"80+","population":2890,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"All","age":"All","population":124165,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Female","age":"0-9","population":10534,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Female","age":"10-19","population":11194,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Female","age":"20-29","population":13586,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Female","age":"30-39","population":7466,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Female","age":"40-49","population":5865,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Female","age":"50-59","population":4754,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Female","age":"60-69","population":4623,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Female","age":"70-79","population":2276,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Female","age":"80+","population":1685,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Female","age":"All","population":61983,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Male","age":"0-9","population":10821,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Male","age":"10-19","population":10836,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Male","age":"20-29","population":14377,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Male","age":"30-39","population":7744,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Male","age":"40-49","population":5984,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Male","age":"50-59","population":4600,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Male","age":"60-69","population":4338,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Male","age":"70-79","population":2277,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Male","age":"80+","population":1205,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49005","county_name":"Cache County, Utah","sex":"Male","age":"All","population":62182,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"All","age":"0-9","population":2776,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"All","age":"10-19","population":3222,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"All","age":"20-29","population":2412,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"All","age":"30-39","population":2410,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"All","age":"40-49","population":2374,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"All","age":"50-59","population":2362,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"All","age":"60-69","population":2485,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"All","age":"70-79","population":1460,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"All","age":"80+","population":807,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"All","age":"All","population":20308,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Female","age":"0-9","population":1253,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Female","age":"10-19","population":1634,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Female","age":"20-29","population":1163,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Female","age":"30-39","population":1229,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Female","age":"40-49","population":1173,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Female","age":"50-59","population":1221,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Female","age":"60-69","population":1186,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Female","age":"70-79","population":812,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Female","age":"80+","population":467,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Female","age":"All","population":10138,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Male","age":"0-9","population":1523,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Male","age":"10-19","population":1588,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Male","age":"20-29","population":1249,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Male","age":"30-39","population":1181,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Male","age":"40-49","population":1201,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Male","age":"50-59","population":1141,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Male","age":"60-69","population":1299,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Male","age":"70-79","population":648,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Male","age":"80+","population":340,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49007","county_name":"Carbon County, Utah","sex":"Male","age":"All","population":10170,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"All","age":"0-9","population":64,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"All","age":"10-19","population":106,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"All","age":"20-29","population":63,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"All","age":"30-39","population":64,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"All","age":"40-49","population":61,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"All","age":"50-59","population":143,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"All","age":"60-69","population":64,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"All","age":"70-79","population":35,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"All","age":"80+","population":13,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"All","age":"All","population":613,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Female","age":"0-9","population":46,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Female","age":"10-19","population":59,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Female","age":"20-29","population":26,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Female","age":"30-39","population":21,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Female","age":"40-49","population":29,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Female","age":"50-59","population":45,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Female","age":"60-69","population":22,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Female","age":"70-79","population":12,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Female","age":"80+","population":5,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Female","age":"All","population":265,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Male","age":"0-9","population":18,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Male","age":"10-19","population":47,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Male","age":"20-29","population":37,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Male","age":"30-39","population":43,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Male","age":"40-49","population":32,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Male","age":"50-59","population":98,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Male","age":"60-69","population":42,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Male","age":"70-79","population":23,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Male","age":"80+","population":8,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49009","county_name":"Daggett County, Utah","sex":"Male","age":"All","population":348,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"All","age":"0-9","population":62109,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"All","age":"10-19","population":59408,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"All","age":"20-29","population":46545,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"All","age":"30-39","population":51958,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"All","age":"40-49","population":42807,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"All","age":"50-59","population":33391,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"All","age":"60-69","population":27480,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"All","age":"70-79","population":14165,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"All","age":"80+","population":7904,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"All","age":"All","population":345767,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Female","age":"0-9","population":29766,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Female","age":"10-19","population":28527,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Female","age":"20-29","population":22712,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Female","age":"30-39","population":26304,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Female","age":"40-49","population":21045,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Female","age":"50-59","population":16638,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Female","age":"60-69","population":14200,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Female","age":"70-79","population":7389,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Female","age":"80+","population":4808,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Female","age":"All","population":171389,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Male","age":"0-9","population":32343,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Male","age":"10-19","population":30881,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Male","age":"20-29","population":23833,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Male","age":"30-39","population":25654,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Male","age":"40-49","population":21762,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Male","age":"50-59","population":16753,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Male","age":"60-69","population":13280,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Male","age":"70-79","population":6776,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Male","age":"80+","population":3096,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49011","county_name":"Davis County, Utah","sex":"Male","age":"All","population":174378,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"All","age":"0-9","population":3861,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"All","age":"10-19","population":3418,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"All","age":"20-29","population":2411,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"All","age":"30-39","population":2831,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"All","age":"40-49","population":2284,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"All","age":"50-59","population":2067,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"All","age":"60-69","population":1741,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"All","age":"70-79","population":954,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"All","age":"80+","population":581,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"All","age":"All","population":20148,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Female","age":"0-9","population":1886,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Female","age":"10-19","population":1662,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Female","age":"20-29","population":1192,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Female","age":"30-39","population":1376,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Female","age":"40-49","population":1114,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Female","age":"50-59","population":1006,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Female","age":"60-69","population":824,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Female","age":"70-79","population":469,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Female","age":"80+","population":339,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Female","age":"All","population":9868,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Male","age":"0-9","population":1975,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Male","age":"10-19","population":1756,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Male","age":"20-29","population":1219,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Male","age":"30-39","population":1455,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Male","age":"40-49","population":1170,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Male","age":"50-59","population":1061,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Male","age":"60-69","population":917,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Male","age":"70-79","population":485,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Male","age":"80+","population":242,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49013","county_name":"Duchesne County, Utah","sex":"Male","age":"All","population":10280,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"All","age":"0-9","population":1591,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"All","age":"10-19","population":1687,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"All","age":"20-29","population":1003,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"All","age":"30-39","population":1242,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"All","age":"40-49","population":1100,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"All","age":"50-59","population":1120,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"All","age":"60-69","population":1345,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"All","age":"70-79","population":695,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"All","age":"80+","population":334,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"All","age":"All","population":10117,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Female","age":"0-9","population":706,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Female","age":"10-19","population":794,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Female","age":"20-29","population":504,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Female","age":"30-39","population":655,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Female","age":"40-49","population":545,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Female","age":"50-59","population":584,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Female","age":"60-69","population":614,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Female","age":"70-79","population":350,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Female","age":"80+","population":197,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Female","age":"All","population":4949,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Male","age":"0-9","population":885,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Male","age":"10-19","population":893,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Male","age":"20-29","population":499,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Male","age":"30-39","population":587,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Male","age":"40-49","population":555,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Male","age":"50-59","population":536,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Male","age":"60-69","population":731,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Male","age":"70-79","population":345,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Male","age":"80+","population":137,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49015","county_name":"Emery County, Utah","sex":"Male","age":"All","population":5168,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"All","age":"0-9","population":631,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"All","age":"10-19","population":774,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"All","age":"20-29","population":450,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"All","age":"30-39","population":529,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"All","age":"40-49","population":516,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"All","age":"50-59","population":702,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"All","age":"60-69","population":679,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"All","age":"70-79","population":435,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"All","age":"80+","population":282,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"All","age":"All","population":4998,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Female","age":"0-9","population":341,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Female","age":"10-19","population":398,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Female","age":"20-29","population":225,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Female","age":"30-39","population":234,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Female","age":"40-49","population":238,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Female","age":"50-59","population":330,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Female","age":"60-69","population":329,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Female","age":"70-79","population":195,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Female","age":"80+","population":184,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Female","age":"All","population":2474,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Male","age":"0-9","population":290,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Male","age":"10-19","population":376,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Male","age":"20-29","population":225,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Male","age":"30-39","population":295,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Male","age":"40-49","population":278,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Male","age":"50-59","population":372,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Male","age":"60-69","population":350,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Male","age":"70-79","population":240,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Male","age":"80+","population":98,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49017","county_name":"Garfield County, Utah","sex":"Male","age":"All","population":2524,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"All","age":"0-9","population":1159,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"All","age":"10-19","population":1036,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"All","age":"20-29","population":1220,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"All","age":"30-39","population":1345,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"All","age":"40-49","population":1285,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"All","age":"50-59","population":1141,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"All","age":"60-69","population":1502,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"All","age":"70-79","population":632,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"All","age":"80+","population":320,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"All","age":"All","population":9640,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Female","age":"0-9","population":520,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Female","age":"10-19","population":494,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Female","age":"20-29","population":588,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Female","age":"30-39","population":634,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Female","age":"40-49","population":684,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Female","age":"50-59","population":564,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Female","age":"60-69","population":682,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Female","age":"70-79","population":316,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Female","age":"80+","population":224,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Female","age":"All","population":4706,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Male","age":"0-9","population":639,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Male","age":"10-19","population":542,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Male","age":"20-29","population":632,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Male","age":"30-39","population":711,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Male","age":"40-49","population":601,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Male","age":"50-59","population":577,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Male","age":"60-69","population":820,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Male","age":"70-79","population":316,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Male","age":"80+","population":96,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49019","county_name":"Grand County, Utah","sex":"Male","age":"All","population":4934,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"All","age":"0-9","population":8510,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"All","age":"10-19","population":8380,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"All","age":"20-29","population":9386,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"All","age":"30-39","population":6257,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"All","age":"40-49","population":5226,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"All","age":"50-59","population":4712,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"All","age":"60-69","population":4409,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"All","age":"70-79","population":3204,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"All","age":"80+","population":1129,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"All","age":"All","population":51213,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Female","age":"0-9","population":4328,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Female","age":"10-19","population":4486,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Female","age":"20-29","population":4433,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Female","age":"30-39","population":3025,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Female","age":"40-49","population":2665,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Female","age":"50-59","population":2325,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Female","age":"60-69","population":2309,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Female","age":"70-79","population":1650,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Female","age":"80+","population":619,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Female","age":"All","population":25840,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Male","age":"0-9","population":4182,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Male","age":"10-19","population":3894,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Male","age":"20-29","population":4953,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Male","age":"30-39","population":3232,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Male","age":"40-49","population":2561,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Male","age":"50-59","population":2387,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Male","age":"60-69","population":2100,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Male","age":"70-79","population":1554,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Male","age":"80+","population":510,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49021","county_name":"Iron County, Utah","sex":"Male","age":"All","population":25373,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"All","age":"0-9","population":2176,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"All","age":"10-19","population":2059,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"All","age":"20-29","population":1403,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"All","age":"30-39","population":1439,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"All","age":"40-49","population":1368,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"All","age":"50-59","population":1005,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"All","age":"60-69","population":982,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"All","age":"70-79","population":547,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"All","age":"80+","population":322,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"All","age":"All","population":11301,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Female","age":"0-9","population":987,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Female","age":"10-19","population":1034,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Female","age":"20-29","population":715,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Female","age":"30-39","population":797,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Female","age":"40-49","population":617,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Female","age":"50-59","population":567,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Female","age":"60-69","population":411,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Female","age":"70-79","population":296,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Female","age":"80+","population":172,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Female","age":"All","population":5596,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Male","age":"0-9","population":1189,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Male","age":"10-19","population":1025,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Male","age":"20-29","population":688,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Male","age":"30-39","population":642,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Male","age":"40-49","population":751,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Male","age":"50-59","population":438,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Male","age":"60-69","population":571,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Male","age":"70-79","population":251,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Male","age":"80+","population":150,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49023","county_name":"Juab County, Utah","sex":"Male","age":"All","population":5705,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"All","age":"0-9","population":872,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"All","age":"10-19","population":1072,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"All","age":"20-29","population":717,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"All","age":"30-39","population":970,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"All","age":"40-49","population":656,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"All","age":"50-59","population":916,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"All","age":"60-69","population":1228,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"All","age":"70-79","population":709,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"All","age":"80+","population":344,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"All","age":"All","population":7484,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Female","age":"0-9","population":388,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Female","age":"10-19","population":506,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Female","age":"20-29","population":350,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Female","age":"30-39","population":459,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Female","age":"40-49","population":339,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Female","age":"50-59","population":500,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Female","age":"60-69","population":657,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Female","age":"70-79","population":355,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Female","age":"80+","population":165,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Female","age":"All","population":3719,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Male","age":"0-9","population":484,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Male","age":"10-19","population":566,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Male","age":"20-29","population":367,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Male","age":"30-39","population":511,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Male","age":"40-49","population":317,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Male","age":"50-59","population":416,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Male","age":"60-69","population":571,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Male","age":"70-79","population":354,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Male","age":"80+","population":179,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49025","county_name":"Kane County, Utah","sex":"Male","age":"All","population":3765,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"All","age":"0-9","population":2040,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"All","age":"10-19","population":2267,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"All","age":"20-29","population":1367,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"All","age":"30-39","population":1560,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"All","age":"40-49","population":1324,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"All","age":"50-59","population":1506,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"All","age":"60-69","population":1324,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"All","age":"70-79","population":874,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"All","age":"80+","population":592,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"All","age":"All","population":12854,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Female","age":"0-9","population":995,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Female","age":"10-19","population":1093,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Female","age":"20-29","population":642,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Female","age":"30-39","population":771,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Female","age":"40-49","population":592,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Female","age":"50-59","population":731,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Female","age":"60-69","population":726,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Female","age":"70-79","population":404,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Female","age":"80+","population":298,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Female","age":"All","population":6252,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Male","age":"0-9","population":1045,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Male","age":"10-19","population":1174,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Male","age":"20-29","population":725,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Male","age":"30-39","population":789,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Male","age":"40-49","population":732,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Male","age":"50-59","population":775,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Male","age":"60-69","population":598,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Male","age":"70-79","population":470,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Male","age":"80+","population":294,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49027","county_name":"Millard County, Utah","sex":"Male","age":"All","population":6602,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"All","age":"0-9","population":2076,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"All","age":"10-19","population":2410,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"All","age":"20-29","population":1197,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"All","age":"30-39","population":1443,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"All","age":"40-49","population":1411,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"All","age":"50-59","population":1191,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"All","age":"60-69","population":1061,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"All","age":"70-79","population":571,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"All","age":"80+","population":304,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"All","age":"All","population":11664,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Female","age":"0-9","population":946,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Female","age":"10-19","population":1114,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Female","age":"20-29","population":654,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Female","age":"30-39","population":746,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Female","age":"40-49","population":679,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Female","age":"50-59","population":578,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Female","age":"60-69","population":545,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Female","age":"70-79","population":281,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Female","age":"80+","population":138,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Female","age":"All","population":5681,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Male","age":"0-9","population":1130,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Male","age":"10-19","population":1296,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Male","age":"20-29","population":543,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Male","age":"30-39","population":697,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Male","age":"40-49","population":732,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Male","age":"50-59","population":613,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Male","age":"60-69","population":516,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Male","age":"70-79","population":290,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Male","age":"80+","population":166,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49029","county_name":"Morgan County, Utah","sex":"Male","age":"All","population":5983,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"All","age":"0-9","population":195,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"All","age":"10-19","population":336,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"All","age":"20-29","population":117,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"All","age":"30-39","population":208,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"All","age":"40-49","population":153,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"All","age":"50-59","population":208,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"All","age":"60-69","population":294,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"All","age":"70-79","population":226,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"All","age":"80+","population":129,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"All","age":"All","population":1866,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Female","age":"0-9","population":104,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Female","age":"10-19","population":113,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Female","age":"20-29","population":65,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Female","age":"30-39","population":85,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Female","age":"40-49","population":66,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Female","age":"50-59","population":122,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Female","age":"60-69","population":109,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Female","age":"70-79","population":111,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Female","age":"80+","population":75,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Female","age":"All","population":850,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Male","age":"0-9","population":91,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Male","age":"10-19","population":223,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Male","age":"20-29","population":52,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Male","age":"30-39","population":123,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Male","age":"40-49","population":87,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Male","age":"50-59","population":86,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Male","age":"60-69","population":185,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Male","age":"70-79","population":115,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Male","age":"80+","population":54,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49031","county_name":"Piute County, Utah","sex":"Male","age":"All","population":1016,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"All","age":"0-9","population":349,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"All","age":"10-19","population":422,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"All","age":"20-29","population":269,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"All","age":"30-39","population":271,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"All","age":"40-49","population":223,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"All","age":"50-59","population":212,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"All","age":"60-69","population":255,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"All","age":"70-79","population":323,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"All","age":"80+","population":65,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"All","age":"All","population":2389,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Female","age":"0-9","population":161,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Female","age":"10-19","population":228,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Female","age":"20-29","population":152,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Female","age":"30-39","population":160,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Female","age":"40-49","population":132,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Female","age":"50-59","population":135,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Female","age":"60-69","population":112,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Female","age":"70-79","population":153,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Female","age":"80+","population":30,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Female","age":"All","population":1263,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Male","age":"0-9","population":188,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Male","age":"10-19","population":194,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Male","age":"20-29","population":117,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Male","age":"30-39","population":111,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Male","age":"40-49","population":91,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Male","age":"50-59","population":77,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Male","age":"60-69","population":143,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Male","age":"70-79","population":170,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Male","age":"80+","population":35,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49033","county_name":"Rich County, Utah","sex":"Male","age":"All","population":1126,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"All","age":"0-9","population":174682,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"All","age":"10-19","population":165068,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"All","age":"20-29","population":176516,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"All","age":"30-39","population":180222,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"All","age":"40-49","population":142344,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"All","age":"50-59","population":118575,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"All","age":"60-69","population":99079,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"All","age":"70-79","population":50750,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"All","age":"80+","population":26410,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"All","age":"All","population":1133646,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Female","age":"0-9","population":86118,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Female","age":"10-19","population":79837,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Female","age":"20-29","population":86918,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Female","age":"30-39","population":87353,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Female","age":"40-49","population":70125,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Female","age":"50-59","population":59772,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Female","age":"60-69","population":51452,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Female","age":"70-79","population":27178,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Female","age":"80+","population":15840,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Female","age":"All","population":564593,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Male","age":"0-9","population":88564,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Male","age":"10-19","population":85231,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Male","age":"20-29","population":89598,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Male","age":"30-39","population":92869,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Male","age":"40-49","population":72219,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Male","age":"50-59","population":58803,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Male","age":"60-69","population":47627,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Male","age":"70-79","population":23572,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Male","age":"80+","population":10570,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49035","county_name":"Salt Lake County, Utah","sex":"Male","age":"All","population":569053,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"All","age":"0-9","population":2558,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"All","age":"10-19","population":2715,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"All","age":"20-29","population":1985,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"All","age":"30-39","population":1614,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"All","age":"40-49","population":1737,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"All","age":"50-59","population":1709,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"All","age":"60-69","population":1663,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"All","age":"70-79","population":830,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"All","age":"80+","population":491,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"All","age":"All","population":15302,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Female","age":"0-9","population":1306,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Female","age":"10-19","population":1272,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Female","age":"20-29","population":908,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Female","age":"30-39","population":823,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Female","age":"40-49","population":866,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Female","age":"50-59","population":848,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Female","age":"60-69","population":963,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Female","age":"70-79","population":427,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Female","age":"80+","population":264,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Female","age":"All","population":7677,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Male","age":"0-9","population":1252,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Male","age":"10-19","population":1443,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Male","age":"20-29","population":1077,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Male","age":"30-39","population":791,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Male","age":"40-49","population":871,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Male","age":"50-59","population":861,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Male","age":"60-69","population":700,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Male","age":"70-79","population":403,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Male","age":"80+","population":227,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49037","county_name":"San Juan County, Utah","sex":"Male","age":"All","population":7625,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"All","age":"0-9","population":3664,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"All","age":"10-19","population":5707,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"All","age":"20-29","population":4568,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"All","age":"30-39","population":3668,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"All","age":"40-49","population":3636,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"All","age":"50-59","population":3034,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"All","age":"60-69","population":2930,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"All","age":"70-79","population":1766,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"All","age":"80+","population":877,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"All","age":"All","population":29850,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Female","age":"0-9","population":1784,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Female","age":"10-19","population":2824,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Female","age":"20-29","population":2094,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Female","age":"30-39","population":1550,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Female","age":"40-49","population":1605,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Female","age":"50-59","population":1392,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Female","age":"60-69","population":1500,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Female","age":"70-79","population":859,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Female","age":"80+","population":520,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Female","age":"All","population":14128,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Male","age":"0-9","population":1880,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Male","age":"10-19","population":2883,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Male","age":"20-29","population":2474,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Male","age":"30-39","population":2118,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Male","age":"40-49","population":2031,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Male","age":"50-59","population":1642,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Male","age":"60-69","population":1430,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Male","age":"70-79","population":907,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Male","age":"80+","population":357,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49039","county_name":"Sanpete County, Utah","sex":"Male","age":"All","population":15722,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"All","age":"0-9","population":3437,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"All","age":"10-19","population":3445,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"All","age":"20-29","population":2414,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"All","age":"30-39","population":2736,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"All","age":"40-49","population":2279,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"All","age":"50-59","population":2192,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"All","age":"60-69","population":2567,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"All","age":"70-79","population":1462,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"All","age":"80+","population":748,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"All","age":"All","population":21280,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Female","age":"0-9","population":1779,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Female","age":"10-19","population":1475,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Female","age":"20-29","population":1146,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Female","age":"30-39","population":1297,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Female","age":"40-49","population":1179,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Female","age":"50-59","population":1093,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Female","age":"60-69","population":1275,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Female","age":"70-79","population":793,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Female","age":"80+","population":362,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Female","age":"All","population":10399,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Male","age":"0-9","population":1658,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Male","age":"10-19","population":1970,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Male","age":"20-29","population":1268,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Male","age":"30-39","population":1439,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Male","age":"40-49","population":1100,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Male","age":"50-59","population":1099,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Male","age":"60-69","population":1292,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Male","age":"70-79","population":669,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Male","age":"80+","population":386,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49041","county_name":"Sevier County, Utah","sex":"Male","age":"All","population":10881,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"All","age":"0-9","population":4774,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"All","age":"10-19","population":6503,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"All","age":"20-29","population":4726,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"All","age":"30-39","population":4734,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"All","age":"40-49","population":6277,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"All","age":"50-59","population":6475,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"All","age":"60-69","population":4944,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"All","age":"70-79","population":1893,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"All","age":"80+","population":777,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"All","age":"All","population":41103,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Female","age":"0-9","population":2483,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Female","age":"10-19","population":2900,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Female","age":"20-29","population":2194,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Female","age":"30-39","population":2371,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Female","age":"40-49","population":3145,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Female","age":"50-59","population":3287,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Female","age":"60-69","population":2424,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Female","age":"70-79","population":1023,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Female","age":"80+","population":312,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Female","age":"All","population":20139,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Male","age":"0-9","population":2291,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Male","age":"10-19","population":3603,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Male","age":"20-29","population":2532,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Male","age":"30-39","population":2363,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Male","age":"40-49","population":3132,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Male","age":"50-59","population":3188,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Male","age":"60-69","population":2520,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Male","age":"70-79","population":870,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Male","age":"80+","population":465,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49043","county_name":"Summit County, Utah","sex":"Male","age":"All","population":20964,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"All","age":"0-9","population":11777,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"All","age":"10-19","population":12360,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"All","age":"20-29","population":8195,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"All","age":"30-39","population":10297,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"All","age":"40-49","population":9005,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"All","age":"50-59","population":6660,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"All","age":"60-69","population":5460,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"All","age":"70-79","population":2565,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"All","age":"80+","population":1078,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"All","age":"All","population":67397,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Female","age":"0-9","population":5814,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Female","age":"10-19","population":5938,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Female","age":"20-29","population":4033,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Female","age":"30-39","population":5324,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Female","age":"40-49","population":4353,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Female","age":"50-59","population":3181,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Female","age":"60-69","population":2781,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Female","age":"70-79","population":1422,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Female","age":"80+","population":570,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Female","age":"All","population":33416,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Male","age":"0-9","population":5963,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Male","age":"10-19","population":6422,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Male","age":"20-29","population":4162,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Male","age":"30-39","population":4973,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Male","age":"40-49","population":4652,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Male","age":"50-59","population":3479,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Male","age":"60-69","population":2679,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Male","age":"70-79","population":1143,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Male","age":"80+","population":508,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49045","county_name":"Tooele County, Utah","sex":"Male","age":"All","population":33981,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"All","age":"0-9","population":7073,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"All","age":"10-19","population":5815,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"All","age":"20-29","population":4698,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"All","age":"30-39","population":5498,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"All","age":"40-49","population":4204,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"All","age":"50-59","population":3459,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"All","age":"60-69","population":3003,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"All","age":"70-79","population":1382,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"All","age":"80+","population":952,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"All","age":"All","population":36084,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Female","age":"0-9","population":3549,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Female","age":"10-19","population":2692,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Female","age":"20-29","population":2280,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Female","age":"30-39","population":2805,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Female","age":"40-49","population":1888,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Female","age":"50-59","population":1775,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Female","age":"60-69","population":1550,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Female","age":"70-79","population":705,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Female","age":"80+","population":538,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Female","age":"All","population":17782,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Male","age":"0-9","population":3524,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Male","age":"10-19","population":3123,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Male","age":"20-29","population":2418,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Male","age":"30-39","population":2693,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Male","age":"40-49","population":2316,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Male","age":"50-59","population":1684,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Male","age":"60-69","population":1453,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Male","age":"70-79","population":677,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Male","age":"80+","population":414,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49047","county_name":"Uintah County, Utah","sex":"Male","age":"All","population":18302,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"All","age":"0-9","population":115447,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"All","age":"10-19","population":113809,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"All","age":"20-29","population":124720,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"All","age":"30-39","population":79041,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"All","age":"40-49","population":63357,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"All","age":"50-59","population":43964,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"All","age":"60-69","population":34641,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"All","age":"70-79","population":19955,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"All","age":"80+","population":10556,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"All","age":"All","population":605490,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Female","age":"0-9","population":55872,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Female","age":"10-19","population":56285,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Female","age":"20-29","population":60086,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Female","age":"30-39","population":39108,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Female","age":"40-49","population":31410,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Female","age":"50-59","population":21787,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Female","age":"60-69","population":18198,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Female","age":"70-79","population":10726,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Female","age":"80+","population":6064,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Female","age":"All","population":299536,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Male","age":"0-9","population":59575,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Male","age":"10-19","population":57524,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Male","age":"20-29","population":64634,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Male","age":"30-39","population":39933,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Male","age":"40-49","population":31947,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Male","age":"50-59","population":22177,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Male","age":"60-69","population":16443,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Male","age":"70-79","population":9229,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Male","age":"80+","population":4492,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49049","county_name":"Utah County, Utah","sex":"Male","age":"All","population":305954,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"All","age":"0-9","population":5487,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"All","age":"10-19","population":5327,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"All","age":"20-29","population":3589,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"All","age":"30-39","population":4921,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"All","age":"40-49","population":3688,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"All","age":"50-59","population":3617,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"All","age":"60-69","population":2873,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"All","age":"70-79","population":1449,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"All","age":"80+","population":757,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"All","age":"All","population":31708,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Female","age":"0-9","population":2685,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Female","age":"10-19","population":2406,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Female","age":"20-29","population":1774,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Female","age":"30-39","population":2382,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Female","age":"40-49","population":1823,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Female","age":"50-59","population":1854,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Female","age":"60-69","population":1421,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Female","age":"70-79","population":766,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Female","age":"80+","population":364,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Female","age":"All","population":15475,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Male","age":"0-9","population":2802,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Male","age":"10-19","population":2921,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Male","age":"20-29","population":1815,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Male","age":"30-39","population":2539,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Male","age":"40-49","population":1865,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Male","age":"50-59","population":1763,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Male","age":"60-69","population":1452,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Male","age":"70-79","population":683,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Male","age":"80+","population":393,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49051","county_name":"Wasatch County, Utah","sex":"Male","age":"All","population":16233,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"All","age":"0-9","population":23970,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"All","age":"10-19","population":24570,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"All","age":"20-29","population":20228,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"All","age":"30-39","population":19899,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"All","age":"40-49","population":16691,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"All","age":"50-59","population":16014,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"All","age":"60-69","population":19962,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"All","age":"70-79","population":15599,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"All","age":"80+","population":8878,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"All","age":"All","population":165811,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Female","age":"0-9","population":11844,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Female","age":"10-19","population":11658,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Female","age":"20-29","population":10006,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Female","age":"30-39","population":9932,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Female","age":"40-49","population":8475,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Female","age":"50-59","population":8542,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Female","age":"60-69","population":10468,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Female","age":"70-79","population":8140,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Female","age":"80+","population":4799,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Female","age":"All","population":83864,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Male","age":"0-9","population":12126,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Male","age":"10-19","population":12912,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Male","age":"20-29","population":10222,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Male","age":"30-39","population":9967,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Male","age":"40-49","population":8216,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Male","age":"50-59","population":7472,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Male","age":"60-69","population":9494,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Male","age":"70-79","population":7459,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Male","age":"80+","population":4079,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49053","county_name":"Washington County, Utah","sex":"Male","age":"All","population":81947,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"All","age":"0-9","population":326,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"All","age":"10-19","population":503,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"All","age":"20-29","population":214,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"All","age":"30-39","population":283,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"All","age":"40-49","population":285,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"All","age":"50-59","population":323,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"All","age":"60-69","population":370,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"All","age":"70-79","population":280,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"All","age":"80+","population":105,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"All","age":"All","population":2689,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Female","age":"0-9","population":140,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Female","age":"10-19","population":267,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Female","age":"20-29","population":89,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Female","age":"30-39","population":159,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Female","age":"40-49","population":102,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Female","age":"50-59","population":174,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Female","age":"60-69","population":166,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Female","age":"70-79","population":156,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Female","age":"80+","population":50,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Female","age":"All","population":1303,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Male","age":"0-9","population":186,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Male","age":"10-19","population":236,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Male","age":"20-29","population":125,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Male","age":"30-39","population":124,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Male","age":"40-49","population":183,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Male","age":"50-59","population":149,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Male","age":"60-69","population":204,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Male","age":"70-79","population":124,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Male","age":"80+","population":55,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49055","county_name":"Wayne County, Utah","sex":"Male","age":"All","population":1386,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"All","age":"0-9","population":39219,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"All","age":"10-19","population":38777,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"All","age":"20-29","population":37750,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"All","age":"30-39","population":37531,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"All","age":"40-49","population":29404,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"All","age":"50-59","population":27590,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"All","age":"60-69","population":22480,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"All","age":"70-79","population":12044,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"All","age":"80+","population":6703,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"All","age":"All","population":251498,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Female","age":"0-9","population":19004,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Female","age":"10-19","population":19247,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Female","age":"20-29","population":18454,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Female","age":"30-39","population":18169,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Female","age":"40-49","population":14735,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Female","age":"50-59","population":13890,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Female","age":"60-69","population":11169,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Female","age":"70-79","population":6613,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Female","age":"80+","population":3863,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Female","age":"All","population":125144,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Male","age":"0-9","population":20215,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Male","age":"10-19","population":19530,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Male","age":"20-29","population":19296,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Male","age":"30-39","population":19362,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Male","age":"40-49","population":14669,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Male","age":"50-59","population":13700,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Male","age":"60-69","population":11311,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Male","age":"70-79","population":5431,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Male","age":"80+","population":2840,"ingestion_ts":1662663899712}
+,{"state_fips":"49","county_fips":"49057","county_name":"Weber County, Utah","sex":"Male","age":"All","population":126354,"ingestion_ts":1662663899712}]

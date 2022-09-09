@@ -1,0 +1,58 @@
+[{"state_fips":"49","state_name":"Utah","county_fips":"49049","county_name":"Utah County, Utah","below_poverty_line":55267,"above_poverty_line":524178,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49049","county_name":"Utah County, Utah","below_poverty_line":64466,"above_poverty_line":502734,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49013","county_name":"Duchesne County, Utah","below_poverty_line":2260,"above_poverty_line":17080,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49013","county_name":"Duchesne County, Utah","below_poverty_line":2720,"above_poverty_line":16112,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49047","county_name":"Uintah County, Utah","below_poverty_line":4042,"above_poverty_line":30183,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49047","county_name":"Uintah County, Utah","below_poverty_line":4092,"above_poverty_line":29492,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49011","county_name":"Davis County, Utah","below_poverty_line":14108,"above_poverty_line":320050,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49011","county_name":"Davis County, Utah","below_poverty_line":20712,"above_poverty_line":309462,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49015","county_name":"Emery County, Utah","below_poverty_line":1070,"above_poverty_line":9105,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49015","county_name":"Emery County, Utah","below_poverty_line":1268,"above_poverty_line":8396,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49017","county_name":"Garfield County, Utah","below_poverty_line":677,"above_poverty_line":3973,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49017","county_name":"Garfield County, Utah","below_poverty_line":833,"above_poverty_line":3856,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49027","county_name":"Millard County, Utah","below_poverty_line":1378,"above_poverty_line":11442,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49027","county_name":"Millard County, Utah","below_poverty_line":1686,"above_poverty_line":10411,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49045","county_name":"Tooele County, Utah","below_poverty_line":3549,"above_poverty_line":62324,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49045","county_name":"Tooele County, Utah","below_poverty_line":4427,"above_poverty_line":60432,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49053","county_name":"Washington County, Utah","below_poverty_line":16435,"above_poverty_line":140681,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49053","county_name":"Washington County, Utah","below_poverty_line":19991,"above_poverty_line":141812,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49025","county_name":"Kane County, Utah","below_poverty_line":790,"above_poverty_line":6403,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49025","county_name":"Kane County, Utah","below_poverty_line":992,"above_poverty_line":6255,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49043","county_name":"Summit County, Utah","below_poverty_line":1918,"above_poverty_line":39124,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49043","county_name":"Summit County, Utah","below_poverty_line":2482,"above_poverty_line":36579,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49019","county_name":"Grand County, Utah","below_poverty_line":893,"above_poverty_line":8569,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49019","county_name":"Grand County, Utah","below_poverty_line":703,"above_poverty_line":8098,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49031","county_name":"Piute County, Utah","below_poverty_line":384,"above_poverty_line":1574,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49031","county_name":"Piute County, Utah","below_poverty_line":234,"above_poverty_line":1460,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49033","county_name":"Rich County, Utah","below_poverty_line":138,"above_poverty_line":2104,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49033","county_name":"Rich County, Utah","below_poverty_line":454,"above_poverty_line":2072,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49051","county_name":"Wasatch County, Utah","below_poverty_line":1902,"above_poverty_line":29648,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49051","county_name":"Wasatch County, Utah","below_poverty_line":1779,"above_poverty_line":28613,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49001","county_name":"Beaver County, Utah","below_poverty_line":578,"above_poverty_line":5866,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49001","county_name":"Beaver County, Utah","below_poverty_line":590,"above_poverty_line":5626,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49003","county_name":"Box Elder County, Utah","below_poverty_line":3934,"above_poverty_line":49531,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49003","county_name":"Box Elder County, Utah","below_poverty_line":4400,"above_poverty_line":47340,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49021","county_name":"Iron County, Utah","below_poverty_line":8079,"above_poverty_line":40779,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49021","county_name":"Iron County, Utah","below_poverty_line":8452,"above_poverty_line":41262,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49039","county_name":"Sanpete County, Utah","below_poverty_line":3085,"above_poverty_line":22687,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49039","county_name":"Sanpete County, Utah","below_poverty_line":4886,"above_poverty_line":22377,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49041","county_name":"Sevier County, Utah","below_poverty_line":2673,"above_poverty_line":18320,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49041","county_name":"Sevier County, Utah","below_poverty_line":3436,"above_poverty_line":16701,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49057","county_name":"Weber County, Utah","below_poverty_line":22434,"above_poverty_line":219302,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49057","county_name":"Weber County, Utah","below_poverty_line":26268,"above_poverty_line":215230,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49037","county_name":"San Juan County, Utah","below_poverty_line":2098,"above_poverty_line":8809,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49037","county_name":"San Juan County, Utah","below_poverty_line":2595,"above_poverty_line":8674,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49035","county_name":"Salt Lake County, Utah","below_poverty_line":87849,"above_poverty_line":974540,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49035","county_name":"Salt Lake County, Utah","below_poverty_line":100797,"above_poverty_line":957118,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49009","county_name":"Daggett County, Utah","below_poverty_line":22,"above_poverty_line":484,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49009","county_name":"Daggett County, Utah","below_poverty_line":14,"above_poverty_line":512,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49055","county_name":"Wayne County, Utah","below_poverty_line":216,"above_poverty_line":2486,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49055","county_name":"Wayne County, Utah","below_poverty_line":292,"above_poverty_line":2232,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49007","county_name":"Carbon County, Utah","below_poverty_line":2746,"above_poverty_line":17096,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49007","county_name":"Carbon County, Utah","below_poverty_line":3911,"above_poverty_line":15934,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49029","county_name":"Morgan County, Utah","below_poverty_line":246,"above_poverty_line":11512,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49029","county_name":"Morgan County, Utah","below_poverty_line":380,"above_poverty_line":10886,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49005","county_name":"Cache County, Utah","below_poverty_line":16795,"above_poverty_line":101218,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49005","county_name":"Cache County, Utah","below_poverty_line":18461,"above_poverty_line":99353,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49023","county_name":"Juab County, Utah","below_poverty_line":932,"above_poverty_line":10096,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"49","state_name":"Utah","county_fips":"49023","county_name":"Juab County, Utah","below_poverty_line":1754,"above_poverty_line":9155,"sex":"Female","ingestion_ts":1662650349256}]

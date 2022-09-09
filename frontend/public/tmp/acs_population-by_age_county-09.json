@@ -1,0 +1,80 @@
+[{"state_fips":"09","county_fips":"09001","county_name":"Fairfield County, Connecticut","age":"0-9","population":110327,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09001","county_name":"Fairfield County, Connecticut","age":"10-19","population":130523,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09001","county_name":"Fairfield County, Connecticut","age":"20-29","population":112275,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09001","county_name":"Fairfield County, Connecticut","age":"30-39","population":112055,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09001","county_name":"Fairfield County, Connecticut","age":"40-49","population":129123,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09001","county_name":"Fairfield County, Connecticut","age":"50-59","population":142751,"population_pct":15.1,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09001","county_name":"Fairfield County, Connecticut","age":"60-69","population":104409,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09001","county_name":"Fairfield County, Connecticut","age":"70-79","population":61996,"population_pct":6.6,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09001","county_name":"Fairfield County, Connecticut","age":"80+","population":40467,"population_pct":4.3,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09001","county_name":"Fairfield County, Connecticut","age":"All","population":943926,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09003","county_name":"Hartford County, Connecticut","age":"0-9","population":97695,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09003","county_name":"Hartford County, Connecticut","age":"10-19","population":114829,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09003","county_name":"Hartford County, Connecticut","age":"20-29","population":116525,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09003","county_name":"Hartford County, Connecticut","age":"30-39","population":112794,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09003","county_name":"Hartford County, Connecticut","age":"40-49","population":114329,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09003","county_name":"Hartford County, Connecticut","age":"50-59","population":128330,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09003","county_name":"Hartford County, Connecticut","age":"60-69","population":106369,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09003","county_name":"Hartford County, Connecticut","age":"70-79","population":60182,"population_pct":6.7,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09003","county_name":"Hartford County, Connecticut","age":"80+","population":42508,"population_pct":4.8,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09003","county_name":"Hartford County, Connecticut","age":"All","population":893561,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09005","county_name":"Litchfield County, Connecticut","age":"0-9","population":16630,"population_pct":9.1,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09005","county_name":"Litchfield County, Connecticut","age":"10-19","population":20795,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09005","county_name":"Litchfield County, Connecticut","age":"20-29","population":19235,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09005","county_name":"Litchfield County, Connecticut","age":"30-39","population":18889,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09005","county_name":"Litchfield County, Connecticut","age":"40-49","population":22555,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09005","county_name":"Litchfield County, Connecticut","age":"50-59","population":30856,"population_pct":17.0,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09005","county_name":"Litchfield County, Connecticut","age":"60-69","population":27868,"population_pct":15.3,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09005","county_name":"Litchfield County, Connecticut","age":"70-79","population":15769,"population_pct":8.7,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09005","county_name":"Litchfield County, Connecticut","age":"80+","population":9405,"population_pct":5.2,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09005","county_name":"Litchfield County, Connecticut","age":"All","population":182002,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09007","county_name":"Middlesex County, Connecticut","age":"0-9","population":14269,"population_pct":8.8,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09007","county_name":"Middlesex County, Connecticut","age":"10-19","population":19223,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09007","county_name":"Middlesex County, Connecticut","age":"20-29","population":19265,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09007","county_name":"Middlesex County, Connecticut","age":"30-39","population":17977,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09007","county_name":"Middlesex County, Connecticut","age":"40-49","population":20827,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09007","county_name":"Middlesex County, Connecticut","age":"50-59","population":27287,"population_pct":16.7,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09007","county_name":"Middlesex County, Connecticut","age":"60-69","population":22460,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09007","county_name":"Middlesex County, Connecticut","age":"70-79","population":13247,"population_pct":8.1,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09007","county_name":"Middlesex County, Connecticut","age":"80+","population":8498,"population_pct":5.2,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09007","county_name":"Middlesex County, Connecticut","age":"All","population":163053,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09009","county_name":"New Haven County, Connecticut","age":"0-9","population":91028,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09009","county_name":"New Haven County, Connecticut","age":"10-19","population":109727,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09009","county_name":"New Haven County, Connecticut","age":"20-29","population":117692,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09009","county_name":"New Haven County, Connecticut","age":"30-39","population":107302,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09009","county_name":"New Haven County, Connecticut","age":"40-49","population":105973,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09009","county_name":"New Haven County, Connecticut","age":"50-59","population":122552,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09009","county_name":"New Haven County, Connecticut","age":"60-69","population":104223,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09009","county_name":"New Haven County, Connecticut","age":"70-79","population":59037,"population_pct":6.9,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09009","county_name":"New Haven County, Connecticut","age":"80+","population":39979,"population_pct":4.7,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09009","county_name":"New Haven County, Connecticut","age":"All","population":857513,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09011","county_name":"New London County, Connecticut","age":"0-9","population":26571,"population_pct":9.9,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09011","county_name":"New London County, Connecticut","age":"10-19","population":32713,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09011","county_name":"New London County, Connecticut","age":"20-29","population":38117,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09011","county_name":"New London County, Connecticut","age":"30-39","population":32329,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09011","county_name":"New London County, Connecticut","age":"40-49","population":31181,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09011","county_name":"New London County, Connecticut","age":"50-59","population":40032,"population_pct":15.0,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09011","county_name":"New London County, Connecticut","age":"60-69","population":34238,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09011","county_name":"New London County, Connecticut","age":"70-79","population":20848,"population_pct":7.8,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09011","county_name":"New London County, Connecticut","age":"80+","population":11361,"population_pct":4.2,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09011","county_name":"New London County, Connecticut","age":"All","population":267390,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09013","county_name":"Tolland County, Connecticut","age":"0-9","population":13048,"population_pct":8.6,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09013","county_name":"Tolland County, Connecticut","age":"10-19","population":22858,"population_pct":15.1,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09013","county_name":"Tolland County, Connecticut","age":"20-29","population":27322,"population_pct":18.1,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09013","county_name":"Tolland County, Connecticut","age":"30-39","population":15776,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09013","county_name":"Tolland County, Connecticut","age":"40-49","population":17298,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09013","county_name":"Tolland County, Connecticut","age":"50-59","population":21567,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09013","county_name":"Tolland County, Connecticut","age":"60-69","population":17606,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09013","county_name":"Tolland County, Connecticut","age":"70-79","population":10156,"population_pct":6.7,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09013","county_name":"Tolland County, Connecticut","age":"80+","population":5432,"population_pct":3.6,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09013","county_name":"Tolland County, Connecticut","age":"All","population":151063,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09015","county_name":"Windham County, Connecticut","age":"0-9","population":12240,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09015","county_name":"Windham County, Connecticut","age":"10-19","population":14906,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09015","county_name":"Windham County, Connecticut","age":"20-29","population":15269,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09015","county_name":"Windham County, Connecticut","age":"30-39","population":14175,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09015","county_name":"Windham County, Connecticut","age":"40-49","population":14938,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09015","county_name":"Windham County, Connecticut","age":"50-59","population":17714,"population_pct":15.2,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09015","county_name":"Windham County, Connecticut","age":"60-69","population":14848,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09015","county_name":"Windham County, Connecticut","age":"70-79","population":7730,"population_pct":6.6,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09015","county_name":"Windham County, Connecticut","age":"80+","population":4746,"population_pct":4.1,"ingestion_ts":1662663908369}
+,{"state_fips":"09","county_fips":"09015","county_name":"Windham County, Connecticut","age":"All","population":116566,"population_pct":100.0,"ingestion_ts":1662663908369}]

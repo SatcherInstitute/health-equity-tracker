@@ -1,0 +1,34 @@
+[{"state_fips":"32","state_name":"Nevada","county_fips":"32015","county_name":"Lander County, Nevada","below_poverty_line":429,"above_poverty_line":5575,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32015","county_name":"Lander County, Nevada","below_poverty_line":599,"above_poverty_line":4321,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32009","county_name":"Esmeralda County, Nevada","below_poverty_line":42,"above_poverty_line":781,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32009","county_name":"Esmeralda County, Nevada","below_poverty_line":130,"above_poverty_line":933,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32021","county_name":"Mineral County, Nevada","below_poverty_line":646,"above_poverty_line":3055,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32021","county_name":"Mineral County, Nevada","below_poverty_line":608,"above_poverty_line":3237,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32017","county_name":"Lincoln County, Nevada","below_poverty_line":96,"above_poverty_line":4347,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32017","county_name":"Lincoln County, Nevada","below_poverty_line":391,"above_poverty_line":4265,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32031","county_name":"Washoe County, Nevada","below_poverty_line":45206,"above_poverty_line":381729,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32031","county_name":"Washoe County, Nevada","below_poverty_line":49207,"above_poverty_line":370599,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32510","county_name":"Carson City, Nevada","below_poverty_line":5054,"above_poverty_line":45254,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32510","county_name":"Carson City, Nevada","below_poverty_line":6235,"above_poverty_line":44175,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32001","county_name":"Churchill County, Nevada","below_poverty_line":2697,"above_poverty_line":19725,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32001","county_name":"Churchill County, Nevada","below_poverty_line":2984,"above_poverty_line":19054,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32005","county_name":"Douglas County, Nevada","below_poverty_line":3784,"above_poverty_line":42684,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32005","county_name":"Douglas County, Nevada","below_poverty_line":4109,"above_poverty_line":41967,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32027","county_name":"Pershing County, Nevada","below_poverty_line":543,"above_poverty_line":4118,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32027","county_name":"Pershing County, Nevada","below_poverty_line":552,"above_poverty_line":3935,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32011","county_name":"Eureka County, Nevada","below_poverty_line":166,"above_poverty_line":1678,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32011","county_name":"Eureka County, Nevada","below_poverty_line":130,"above_poverty_line":1628,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32013","county_name":"Humboldt County, Nevada","below_poverty_line":1352,"above_poverty_line":15150,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32013","county_name":"Humboldt County, Nevada","below_poverty_line":2546,"above_poverty_line":12979,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32033","county_name":"White Pine County, Nevada","below_poverty_line":1085,"above_poverty_line":7098,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32033","county_name":"White Pine County, Nevada","below_poverty_line":962,"above_poverty_line":6514,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32007","county_name":"Elko County, Nevada","below_poverty_line":5137,"above_poverty_line":45852,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32007","county_name":"Elko County, Nevada","below_poverty_line":5940,"above_poverty_line":41525,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32023","county_name":"Nye County, Nevada","below_poverty_line":6123,"above_poverty_line":36152,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32023","county_name":"Nye County, Nevada","below_poverty_line":7687,"above_poverty_line":33572,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32029","county_name":"Storey County, Nevada","below_poverty_line":413,"above_poverty_line":3488,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32029","county_name":"Storey County, Nevada","below_poverty_line":174,"above_poverty_line":3387,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32003","county_name":"Clark County, Nevada","below_poverty_line":229284,"above_poverty_line":1649022,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32003","county_name":"Clark County, Nevada","below_poverty_line":268686,"above_poverty_line":1601768,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32019","county_name":"Lyon County, Nevada","below_poverty_line":5460,"above_poverty_line":47400,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"32","state_name":"Nevada","county_fips":"32019","county_name":"Lyon County, Nevada","below_poverty_line":6116,"above_poverty_line":44953,"sex":"Female","ingestion_ts":1662650349256}]

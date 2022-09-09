@@ -1,0 +1,5 @@
+[{"county_fips":"15003","county_name":"Honolulu County","svi":0.47,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"15005","county_name":"Kalawao County","svi":0.32,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"15001","county_name":"Hawaii County","svi":0.58,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"15007","county_name":"Kauai County","svi":0.31,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"15009","county_name":"Maui County","svi":0.39,"age":"All","ingestion_ts":1662477615221}]

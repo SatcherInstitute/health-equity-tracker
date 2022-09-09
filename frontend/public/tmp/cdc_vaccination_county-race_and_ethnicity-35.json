@@ -1,0 +1,33 @@
+[{"county_fips":"35001","county_name":"Bernalillo County","race_category_id":"ALL","vaccinated_first_dose":594049.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":677858}
+,{"county_fips":"35003","county_name":"Catron County","race_category_id":"ALL","vaccinated_first_dose":1972.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":3526}
+,{"county_fips":"35005","county_name":"Chaves County","race_category_id":"ALL","vaccinated_first_dose":35786.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":65144}
+,{"county_fips":"35006","county_name":"Cibola County","race_category_id":"ALL","vaccinated_first_dose":25309.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":26891}
+,{"county_fips":"35007","county_name":"Colfax County","race_category_id":"ALL","vaccinated_first_dose":8734.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":12168}
+,{"county_fips":"35009","county_name":"Curry County","race_category_id":"ALL","vaccinated_first_dose":32999.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":49732}
+,{"county_fips":"35011","county_name":"De Baca County","race_category_id":"ALL","vaccinated_first_dose":1039.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":2040}
+,{"county_fips":"35013","county_name":"Do\u00f1a Ana County","race_category_id":"ALL","vaccinated_first_dose":212133.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":216069}
+,{"county_fips":"35015","county_name":"Eddy County","race_category_id":"ALL","vaccinated_first_dose":33316.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":57732}
+,{"county_fips":"35017","county_name":"Grant County","race_category_id":"ALL","vaccinated_first_dose":22320.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":27669}
+,{"county_fips":"35019","county_name":"Guadalupe County","race_category_id":"ALL","vaccinated_first_dose":3379.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":4353}
+,{"county_fips":"35021","county_name":"Harding County","race_category_id":"ALL","vaccinated_first_dose":423.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":441}
+,{"county_fips":"35023","county_name":"Hidalgo County","race_category_id":"ALL","vaccinated_first_dose":2959.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":4297}
+,{"county_fips":"35025","county_name":"Lea County","race_category_id":"ALL","vaccinated_first_dose":40361.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":70277}
+,{"county_fips":"35027","county_name":"Lincoln County","race_category_id":"ALL","vaccinated_first_dose":14469.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":19461}
+,{"county_fips":"35028","county_name":"Los Alamos County","race_category_id":"ALL","vaccinated_first_dose":19235.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":18625}
+,{"county_fips":"35029","county_name":"Luna County","race_category_id":"ALL","vaccinated_first_dose":22389.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":24083}
+,{"county_fips":"35031","county_name":"McKinley County","race_category_id":"ALL","vaccinated_first_dose":93416.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":72438}
+,{"county_fips":"35033","county_name":"Mora County","race_category_id":"ALL","vaccinated_first_dose":3536.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":4536}
+,{"county_fips":"35035","county_name":"Otero County","race_category_id":"ALL","vaccinated_first_dose":50696.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":66137}
+,{"county_fips":"35037","county_name":"Quay County","race_category_id":"ALL","vaccinated_first_dose":5117.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":8326}
+,{"county_fips":"35039","county_name":"Rio Arriba County","race_category_id":"ALL","vaccinated_first_dose":38313.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":39159}
+,{"county_fips":"35041","county_name":"Roosevelt County","race_category_id":"ALL","vaccinated_first_dose":9122.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":18888}
+,{"county_fips":"35043","county_name":"Sandoval County","race_category_id":"ALL","vaccinated_first_dose":132968.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":142704}
+,{"county_fips":"35045","county_name":"San Juan County","race_category_id":"ALL","vaccinated_first_dose":117461.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":126515}
+,{"county_fips":"35047","county_name":"San Miguel County","race_category_id":"ALL","vaccinated_first_dose":21792.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":27738}
+,{"county_fips":"35049","county_name":"Santa Fe County","race_category_id":"ALL","vaccinated_first_dose":156095.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":149293}
+,{"county_fips":"35051","county_name":"Sierra County","race_category_id":"ALL","vaccinated_first_dose":8593.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":11031}
+,{"county_fips":"35053","county_name":"Socorro County","race_category_id":"ALL","vaccinated_first_dose":13753.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":16858}
+,{"county_fips":"35055","county_name":"Taos County","race_category_id":"ALL","vaccinated_first_dose":33048.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":32786}
+,{"county_fips":"35057","county_name":"Torrance County","race_category_id":"ALL","vaccinated_first_dose":8898.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":15519}
+,{"county_fips":"35059","county_name":"Union County","race_category_id":"ALL","vaccinated_first_dose":2141.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":4133}
+,{"county_fips":"35061","county_name":"Valencia County","race_category_id":"ALL","vaccinated_first_dose":55588.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":76027}]

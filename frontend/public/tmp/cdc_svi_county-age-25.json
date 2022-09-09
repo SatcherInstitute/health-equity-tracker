@@ -1,0 +1,14 @@
+[{"county_fips":"25003","county_name":"Berkshire County","svi":0.41,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"25027","county_name":"Worcester County","svi":0.41,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"25013","county_name":"Hampden County","svi":0.82,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"25009","county_name":"Essex County","svi":0.51,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"25023","county_name":"Plymouth County","svi":0.23,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"25015","county_name":"Hampshire County","svi":0.23,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"25017","county_name":"Middlesex County","svi":0.23,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"25007","county_name":"Dukes County","svi":0.01,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"25005","county_name":"Bristol County","svi":0.52,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"25025","county_name":"Suffolk County","svi":0.74,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"25019","county_name":"Nantucket County","svi":0.03,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"25001","county_name":"Barnstable County","svi":0.06,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"25021","county_name":"Norfolk County","svi":0.21,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"25011","county_name":"Franklin County","svi":0.21,"age":"All","ingestion_ts":1662477615221}]

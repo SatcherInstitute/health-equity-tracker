@@ -1,0 +1,9 @@
+[{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"All","population":176699,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"All","population":556165,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"All","population":224384,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Male","population":269189,"population_pct":48.4,"ingestion_ts":1662663914333}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Male","population":108502,"population_pct":48.4,"ingestion_ts":1662663914333}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Male","population":85199,"population_pct":48.2,"ingestion_ts":1662663914333}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Female","population":91500,"population_pct":51.8,"ingestion_ts":1662663914333}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Female","population":286976,"population_pct":51.6,"ingestion_ts":1662663914333}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Female","population":115882,"population_pct":51.6,"ingestion_ts":1662663914333}]

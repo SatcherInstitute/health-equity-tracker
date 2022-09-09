@@ -1,0 +1,29 @@
+[{"county_fips":"49001","county_name":"Beaver County","race_category_id":"ALL","vaccinated_first_dose":3831.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":6517}
+,{"county_fips":"49003","county_name":"Box Elder County","race_category_id":"ALL","vaccinated_first_dose":33347.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":53946}
+,{"county_fips":"49005","county_name":"Cache County","race_category_id":"ALL","vaccinated_first_dose":88121.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":124165}
+,{"county_fips":"49007","county_name":"Carbon County","race_category_id":"ALL","vaccinated_first_dose":11637.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":20308}
+,{"county_fips":"49009","county_name":"Daggett County","race_category_id":"ALL","vaccinated_first_dose":848.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":613}
+,{"county_fips":"49011","county_name":"Davis County","race_category_id":"ALL","vaccinated_first_dose":265543.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":345767}
+,{"county_fips":"49013","county_name":"Duchesne County","race_category_id":"ALL","vaccinated_first_dose":10788.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":20148}
+,{"county_fips":"49015","county_name":"Emery County","race_category_id":"ALL","vaccinated_first_dose":5128.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":10117}
+,{"county_fips":"49017","county_name":"Garfield County","race_category_id":"ALL","vaccinated_first_dose":3283.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":4998}
+,{"county_fips":"49019","county_name":"Grand County","race_category_id":"ALL","vaccinated_first_dose":7818.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":9640}
+,{"county_fips":"49021","county_name":"Iron County","race_category_id":"ALL","vaccinated_first_dose":29333.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":51213}
+,{"county_fips":"49023","county_name":"Juab County","race_category_id":"ALL","vaccinated_first_dose":5280.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":11301}
+,{"county_fips":"49025","county_name":"Kane County","race_category_id":"ALL","vaccinated_first_dose":4603.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":7484}
+,{"county_fips":"49027","county_name":"Millard County","race_category_id":"ALL","vaccinated_first_dose":7042.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":12854}
+,{"county_fips":"49029","county_name":"Morgan County","race_category_id":"ALL","vaccinated_first_dose":7692.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":11664}
+,{"county_fips":"49031","county_name":"Piute County","race_category_id":"ALL","vaccinated_first_dose":692.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":1866}
+,{"county_fips":"49033","county_name":"Rich County","race_category_id":"ALL","vaccinated_first_dose":1657.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":2389}
+,{"county_fips":"49035","county_name":"Salt Lake County","race_category_id":"ALL","vaccinated_first_dose":929197.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":1133646}
+,{"county_fips":"49037","county_name":"San Juan County","race_category_id":"ALL","vaccinated_first_dose":11719.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":15302}
+,{"county_fips":"49039","county_name":"Sanpete County","race_category_id":"ALL","vaccinated_first_dose":14924.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":29850}
+,{"county_fips":"49041","county_name":"Sevier County","race_category_id":"ALL","vaccinated_first_dose":11195.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":21280}
+,{"county_fips":"49043","county_name":"Summit County","race_category_id":"ALL","vaccinated_first_dose":45140.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":41103}
+,{"county_fips":"49045","county_name":"Tooele County","race_category_id":"ALL","vaccinated_first_dose":48795.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":67397}
+,{"county_fips":"49047","county_name":"Uintah County","race_category_id":"ALL","vaccinated_first_dose":18824.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":36084}
+,{"county_fips":"49049","county_name":"Utah County","race_category_id":"ALL","vaccinated_first_dose":430313.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":605490}
+,{"county_fips":"49051","county_name":"Wasatch County","race_category_id":"ALL","vaccinated_first_dose":23417.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":31708}
+,{"county_fips":"49053","county_name":"Washington County","race_category_id":"ALL","vaccinated_first_dose":105765.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":165811}
+,{"county_fips":"49055","county_name":"Wayne County","race_category_id":"ALL","vaccinated_first_dose":1674.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":2689}
+,{"county_fips":"49057","county_name":"Weber County","race_category_id":"ALL","vaccinated_first_dose":180047.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":251498}]

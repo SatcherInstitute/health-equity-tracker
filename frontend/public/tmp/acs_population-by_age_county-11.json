@@ -1,0 +1,10 @@
+[{"state_fips":"11","county_fips":"11001","county_name":"District of Columbia, District of Columbia","age":"0-9","population":79301,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"11","county_fips":"11001","county_name":"District of Columbia, District of Columbia","age":"10-19","population":66385,"population_pct":9.6,"ingestion_ts":1662663908369}
+,{"state_fips":"11","county_fips":"11001","county_name":"District of Columbia, District of Columbia","age":"20-29","population":135674,"population_pct":19.6,"ingestion_ts":1662663908369}
+,{"state_fips":"11","county_fips":"11001","county_name":"District of Columbia, District of Columbia","age":"30-39","population":138265,"population_pct":20.0,"ingestion_ts":1662663908369}
+,{"state_fips":"11","county_fips":"11001","county_name":"District of Columbia, District of Columbia","age":"40-49","population":81597,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"11","county_fips":"11001","county_name":"District of Columbia, District of Columbia","age":"50-59","population":74380,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"11","county_fips":"11001","county_name":"District of Columbia, District of Columbia","age":"60-69","population":60891,"population_pct":8.8,"ingestion_ts":1662663908369}
+,{"state_fips":"11","county_fips":"11001","county_name":"District of Columbia, District of Columbia","age":"70-79","population":35469,"population_pct":5.1,"ingestion_ts":1662663908369}
+,{"state_fips":"11","county_fips":"11001","county_name":"District of Columbia, District of Columbia","age":"80+","population":20721,"population_pct":3.0,"ingestion_ts":1662663908369}
+,{"state_fips":"11","county_fips":"11001","county_name":"District of Columbia, District of Columbia","age":"All","population":692683,"population_pct":100.0,"ingestion_ts":1662663908369}]

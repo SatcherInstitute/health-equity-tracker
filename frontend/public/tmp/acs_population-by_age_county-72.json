@@ -1,0 +1,780 @@
+[{"state_fips":"72","county_fips":"72001","county_name":"Adjuntas Municipio, Puerto Rico","age":"0-9","population":1669,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72001","county_name":"Adjuntas Municipio, Puerto Rico","age":"10-19","population":2504,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72001","county_name":"Adjuntas Municipio, Puerto Rico","age":"20-29","population":2317,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72001","county_name":"Adjuntas Municipio, Puerto Rico","age":"30-39","population":1958,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72001","county_name":"Adjuntas Municipio, Puerto Rico","age":"40-49","population":2340,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72001","county_name":"Adjuntas Municipio, Puerto Rico","age":"50-59","population":2458,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72001","county_name":"Adjuntas Municipio, Puerto Rico","age":"60-69","population":2534,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72001","county_name":"Adjuntas Municipio, Puerto Rico","age":"70-79","population":1304,"population_pct":7.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72001","county_name":"Adjuntas Municipio, Puerto Rico","age":"80+","population":807,"population_pct":4.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72001","county_name":"Adjuntas Municipio, Puerto Rico","age":"All","population":17891,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72003","county_name":"Aguada Municipio, Puerto Rico","age":"0-9","population":3611,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72003","county_name":"Aguada Municipio, Puerto Rico","age":"10-19","population":4342,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72003","county_name":"Aguada Municipio, Puerto Rico","age":"20-29","population":5088,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72003","county_name":"Aguada Municipio, Puerto Rico","age":"30-39","population":4515,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72003","county_name":"Aguada Municipio, Puerto Rico","age":"40-49","population":4848,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72003","county_name":"Aguada Municipio, Puerto Rico","age":"50-59","population":5551,"population_pct":14.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72003","county_name":"Aguada Municipio, Puerto Rico","age":"60-69","population":5285,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72003","county_name":"Aguada Municipio, Puerto Rico","age":"70-79","population":3449,"population_pct":9.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72003","county_name":"Aguada Municipio, Puerto Rico","age":"80+","population":1265,"population_pct":3.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72003","county_name":"Aguada Municipio, Puerto Rico","age":"All","population":37954,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72005","county_name":"Aguadilla Municipio, Puerto Rico","age":"0-9","population":4711,"population_pct":8.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72005","county_name":"Aguadilla Municipio, Puerto Rico","age":"10-19","population":7128,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72005","county_name":"Aguadilla Municipio, Puerto Rico","age":"20-29","population":6804,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72005","county_name":"Aguadilla Municipio, Puerto Rico","age":"30-39","population":6224,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72005","county_name":"Aguadilla Municipio, Puerto Rico","age":"40-49","population":6603,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72005","county_name":"Aguadilla Municipio, Puerto Rico","age":"50-59","population":6732,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72005","county_name":"Aguadilla Municipio, Puerto Rico","age":"60-69","population":6909,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72005","county_name":"Aguadilla Municipio, Puerto Rico","age":"70-79","population":5273,"population_pct":10.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72005","county_name":"Aguadilla Municipio, Puerto Rico","age":"80+","population":2419,"population_pct":4.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72005","county_name":"Aguadilla Municipio, Puerto Rico","age":"All","population":52803,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72007","county_name":"Aguas Buenas Municipio, Puerto Rico","age":"0-9","population":2287,"population_pct":8.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72007","county_name":"Aguas Buenas Municipio, Puerto Rico","age":"10-19","population":3514,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72007","county_name":"Aguas Buenas Municipio, Puerto Rico","age":"20-29","population":3432,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72007","county_name":"Aguas Buenas Municipio, Puerto Rico","age":"30-39","population":2988,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72007","county_name":"Aguas Buenas Municipio, Puerto Rico","age":"40-49","population":3414,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72007","county_name":"Aguas Buenas Municipio, Puerto Rico","age":"50-59","population":3727,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72007","county_name":"Aguas Buenas Municipio, Puerto Rico","age":"60-69","population":3069,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72007","county_name":"Aguas Buenas Municipio, Puerto Rico","age":"70-79","population":2136,"population_pct":8.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72007","county_name":"Aguas Buenas Municipio, Puerto Rico","age":"80+","population":1181,"population_pct":4.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72007","county_name":"Aguas Buenas Municipio, Puerto Rico","age":"All","population":25748,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72009","county_name":"Aibonito Municipio, Puerto Rico","age":"0-9","population":2304,"population_pct":10.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72009","county_name":"Aibonito Municipio, Puerto Rico","age":"10-19","population":2685,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72009","county_name":"Aibonito Municipio, Puerto Rico","age":"20-29","population":3033,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72009","county_name":"Aibonito Municipio, Puerto Rico","age":"30-39","population":2773,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72009","county_name":"Aibonito Municipio, Puerto Rico","age":"40-49","population":2528,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72009","county_name":"Aibonito Municipio, Puerto Rico","age":"50-59","population":3300,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72009","county_name":"Aibonito Municipio, Puerto Rico","age":"60-69","population":3220,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72009","county_name":"Aibonito Municipio, Puerto Rico","age":"70-79","population":2012,"population_pct":8.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72009","county_name":"Aibonito Municipio, Puerto Rico","age":"80+","population":1133,"population_pct":4.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72009","county_name":"Aibonito Municipio, Puerto Rico","age":"All","population":22988,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72011","county_name":"A\u00f1asco Municipio, Puerto Rico","age":"0-9","population":2371,"population_pct":8.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72011","county_name":"A\u00f1asco Municipio, Puerto Rico","age":"10-19","population":3352,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72011","county_name":"A\u00f1asco Municipio, Puerto Rico","age":"20-29","population":3562,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72011","county_name":"A\u00f1asco Municipio, Puerto Rico","age":"30-39","population":3132,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72011","county_name":"A\u00f1asco Municipio, Puerto Rico","age":"40-49","population":3674,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72011","county_name":"A\u00f1asco Municipio, Puerto Rico","age":"50-59","population":3792,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72011","county_name":"A\u00f1asco Municipio, Puerto Rico","age":"60-69","population":3495,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72011","county_name":"A\u00f1asco Municipio, Puerto Rico","age":"70-79","population":2541,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72011","county_name":"A\u00f1asco Municipio, Puerto Rico","age":"80+","population":1015,"population_pct":3.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72011","county_name":"A\u00f1asco Municipio, Puerto Rico","age":"All","population":26934,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72013","county_name":"Arecibo Municipio, Puerto Rico","age":"0-9","population":7536,"population_pct":8.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72013","county_name":"Arecibo Municipio, Puerto Rico","age":"10-19","population":10861,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72013","county_name":"Arecibo Municipio, Puerto Rico","age":"20-29","population":11619,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72013","county_name":"Arecibo Municipio, Puerto Rico","age":"30-39","population":9830,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72013","county_name":"Arecibo Municipio, Puerto Rico","age":"40-49","population":11004,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72013","county_name":"Arecibo Municipio, Puerto Rico","age":"50-59","population":11430,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72013","county_name":"Arecibo Municipio, Puerto Rico","age":"60-69","population":10238,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72013","county_name":"Arecibo Municipio, Puerto Rico","age":"70-79","population":8547,"population_pct":10.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72013","county_name":"Arecibo Municipio, Puerto Rico","age":"80+","population":4325,"population_pct":5.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72013","county_name":"Arecibo Municipio, Puerto Rico","age":"All","population":85390,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72015","county_name":"Arroyo Municipio, Puerto Rico","age":"0-9","population":1683,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72015","county_name":"Arroyo Municipio, Puerto Rico","age":"10-19","population":2696,"population_pct":15.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72015","county_name":"Arroyo Municipio, Puerto Rico","age":"20-29","population":2283,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72015","county_name":"Arroyo Municipio, Puerto Rico","age":"30-39","population":2110,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72015","county_name":"Arroyo Municipio, Puerto Rico","age":"40-49","population":2441,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72015","county_name":"Arroyo Municipio, Puerto Rico","age":"50-59","population":2063,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72015","county_name":"Arroyo Municipio, Puerto Rico","age":"60-69","population":2223,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72015","county_name":"Arroyo Municipio, Puerto Rico","age":"70-79","population":1474,"population_pct":8.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72015","county_name":"Arroyo Municipio, Puerto Rico","age":"80+","population":832,"population_pct":4.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72015","county_name":"Arroyo Municipio, Puerto Rico","age":"All","population":17805,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72017","county_name":"Barceloneta Municipio, Puerto Rico","age":"0-9","population":2243,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72017","county_name":"Barceloneta Municipio, Puerto Rico","age":"10-19","population":3392,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72017","county_name":"Barceloneta Municipio, Puerto Rico","age":"20-29","population":3329,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72017","county_name":"Barceloneta Municipio, Puerto Rico","age":"30-39","population":2827,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72017","county_name":"Barceloneta Municipio, Puerto Rico","age":"40-49","population":3566,"population_pct":14.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72017","county_name":"Barceloneta Municipio, Puerto Rico","age":"50-59","population":2651,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72017","county_name":"Barceloneta Municipio, Puerto Rico","age":"60-69","population":2819,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72017","county_name":"Barceloneta Municipio, Puerto Rico","age":"70-79","population":2275,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72017","county_name":"Barceloneta Municipio, Puerto Rico","age":"80+","population":977,"population_pct":4.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72017","county_name":"Barceloneta Municipio, Puerto Rico","age":"All","population":24079,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72019","county_name":"Barranquitas Municipio, Puerto Rico","age":"0-9","population":3391,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72019","county_name":"Barranquitas Municipio, Puerto Rico","age":"10-19","population":3907,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72019","county_name":"Barranquitas Municipio, Puerto Rico","age":"20-29","population":4323,"population_pct":15.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72019","county_name":"Barranquitas Municipio, Puerto Rico","age":"30-39","population":3836,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72019","county_name":"Barranquitas Municipio, Puerto Rico","age":"40-49","population":2962,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72019","county_name":"Barranquitas Municipio, Puerto Rico","age":"50-59","population":3938,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72019","county_name":"Barranquitas Municipio, Puerto Rico","age":"60-69","population":3070,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72019","county_name":"Barranquitas Municipio, Puerto Rico","age":"70-79","population":1981,"population_pct":7.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72019","county_name":"Barranquitas Municipio, Puerto Rico","age":"80+","population":985,"population_pct":3.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72019","county_name":"Barranquitas Municipio, Puerto Rico","age":"All","population":28393,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72021","county_name":"Bayam\u00f3n Municipio, Puerto Rico","age":"0-9","population":16658,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72021","county_name":"Bayam\u00f3n Municipio, Puerto Rico","age":"10-19","population":20560,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72021","county_name":"Bayam\u00f3n Municipio, Puerto Rico","age":"20-29","population":25735,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72021","county_name":"Bayam\u00f3n Municipio, Puerto Rico","age":"30-39","population":22161,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72021","county_name":"Bayam\u00f3n Municipio, Puerto Rico","age":"40-49","population":20857,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72021","county_name":"Bayam\u00f3n Municipio, Puerto Rico","age":"50-59","population":23828,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72021","county_name":"Bayam\u00f3n Municipio, Puerto Rico","age":"60-69","population":20670,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72021","county_name":"Bayam\u00f3n Municipio, Puerto Rico","age":"70-79","population":16669,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72021","county_name":"Bayam\u00f3n Municipio, Puerto Rico","age":"80+","population":11054,"population_pct":6.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72021","county_name":"Bayam\u00f3n Municipio, Puerto Rico","age":"All","population":178192,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72023","county_name":"Cabo Rojo Municipio, Puerto Rico","age":"0-9","population":4248,"population_pct":8.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72023","county_name":"Cabo Rojo Municipio, Puerto Rico","age":"10-19","population":5992,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72023","county_name":"Cabo Rojo Municipio, Puerto Rico","age":"20-29","population":6067,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72023","county_name":"Cabo Rojo Municipio, Puerto Rico","age":"30-39","population":5130,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72023","county_name":"Cabo Rojo Municipio, Puerto Rico","age":"40-49","population":7022,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72023","county_name":"Cabo Rojo Municipio, Puerto Rico","age":"50-59","population":6306,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72023","county_name":"Cabo Rojo Municipio, Puerto Rico","age":"60-69","population":5797,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72023","county_name":"Cabo Rojo Municipio, Puerto Rico","age":"70-79","population":5213,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72023","county_name":"Cabo Rojo Municipio, Puerto Rico","age":"80+","population":2712,"population_pct":5.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72023","county_name":"Cabo Rojo Municipio, Puerto Rico","age":"All","population":48487,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72025","county_name":"Caguas Municipio, Puerto Rico","age":"0-9","population":12020,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72025","county_name":"Caguas Municipio, Puerto Rico","age":"10-19","population":16433,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72025","county_name":"Caguas Municipio, Puerto Rico","age":"20-29","population":17431,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72025","county_name":"Caguas Municipio, Puerto Rico","age":"30-39","population":16504,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72025","county_name":"Caguas Municipio, Puerto Rico","age":"40-49","population":16342,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72025","county_name":"Caguas Municipio, Puerto Rico","age":"50-59","population":17555,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72025","county_name":"Caguas Municipio, Puerto Rico","age":"60-69","population":14918,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72025","county_name":"Caguas Municipio, Puerto Rico","age":"70-79","population":11026,"population_pct":8.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72025","county_name":"Caguas Municipio, Puerto Rico","age":"80+","population":6708,"population_pct":5.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72025","county_name":"Caguas Municipio, Puerto Rico","age":"All","population":128937,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72027","county_name":"Camuy Municipio, Puerto Rico","age":"0-9","population":2869,"population_pct":9.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72027","county_name":"Camuy Municipio, Puerto Rico","age":"10-19","population":3999,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72027","county_name":"Camuy Municipio, Puerto Rico","age":"20-29","population":4322,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72027","county_name":"Camuy Municipio, Puerto Rico","age":"30-39","population":3950,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72027","county_name":"Camuy Municipio, Puerto Rico","age":"40-49","population":3976,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72027","county_name":"Camuy Municipio, Puerto Rico","age":"50-59","population":4230,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72027","county_name":"Camuy Municipio, Puerto Rico","age":"60-69","population":4227,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72027","county_name":"Camuy Municipio, Puerto Rico","age":"70-79","population":2725,"population_pct":8.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72027","county_name":"Camuy Municipio, Puerto Rico","age":"80+","population":1300,"population_pct":4.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72027","county_name":"Camuy Municipio, Puerto Rico","age":"All","population":31598,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72029","county_name":"Can\u00f3vanas Municipio, Puerto Rico","age":"0-9","population":4833,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72029","county_name":"Can\u00f3vanas Municipio, Puerto Rico","age":"10-19","population":6026,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72029","county_name":"Can\u00f3vanas Municipio, Puerto Rico","age":"20-29","population":6279,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72029","county_name":"Can\u00f3vanas Municipio, Puerto Rico","age":"30-39","population":5554,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72029","county_name":"Can\u00f3vanas Municipio, Puerto Rico","age":"40-49","population":6566,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72029","county_name":"Can\u00f3vanas Municipio, Puerto Rico","age":"50-59","population":5845,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72029","county_name":"Can\u00f3vanas Municipio, Puerto Rico","age":"60-69","population":5454,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72029","county_name":"Can\u00f3vanas Municipio, Puerto Rico","age":"70-79","population":3430,"population_pct":7.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72029","county_name":"Can\u00f3vanas Municipio, Puerto Rico","age":"80+","population":1601,"population_pct":3.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72029","county_name":"Can\u00f3vanas Municipio, Puerto Rico","age":"All","population":45588,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72031","county_name":"Carolina Municipio, Puerto Rico","age":"0-9","population":13849,"population_pct":9.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72031","county_name":"Carolina Municipio, Puerto Rico","age":"10-19","population":18819,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72031","county_name":"Carolina Municipio, Puerto Rico","age":"20-29","population":21237,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72031","county_name":"Carolina Municipio, Puerto Rico","age":"30-39","population":17286,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72031","county_name":"Carolina Municipio, Puerto Rico","age":"40-49","population":20522,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72031","county_name":"Carolina Municipio, Puerto Rico","age":"50-59","population":19751,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72031","county_name":"Carolina Municipio, Puerto Rico","age":"60-69","population":17929,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72031","county_name":"Carolina Municipio, Puerto Rico","age":"70-79","population":15918,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72031","county_name":"Carolina Municipio, Puerto Rico","age":"80+","population":8468,"population_pct":5.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72031","county_name":"Carolina Municipio, Puerto Rico","age":"All","population":153779,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72033","county_name":"Cata\u00f1o Municipio, Puerto Rico","age":"0-9","population":2692,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72033","county_name":"Cata\u00f1o Municipio, Puerto Rico","age":"10-19","population":2937,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72033","county_name":"Cata\u00f1o Municipio, Puerto Rico","age":"20-29","population":3383,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72033","county_name":"Cata\u00f1o Municipio, Puerto Rico","age":"30-39","population":3047,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72033","county_name":"Cata\u00f1o Municipio, Puerto Rico","age":"40-49","population":2675,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72033","county_name":"Cata\u00f1o Municipio, Puerto Rico","age":"50-59","population":3326,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72033","county_name":"Cata\u00f1o Municipio, Puerto Rico","age":"60-69","population":3124,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72033","county_name":"Cata\u00f1o Municipio, Puerto Rico","age":"70-79","population":1875,"population_pct":7.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72033","county_name":"Cata\u00f1o Municipio, Puerto Rico","age":"80+","population":1212,"population_pct":5.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72033","county_name":"Cata\u00f1o Municipio, Puerto Rico","age":"All","population":24271,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72035","county_name":"Cayey Municipio, Puerto Rico","age":"0-9","population":4330,"population_pct":9.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72035","county_name":"Cayey Municipio, Puerto Rico","age":"10-19","population":5178,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72035","county_name":"Cayey Municipio, Puerto Rico","age":"20-29","population":5916,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72035","county_name":"Cayey Municipio, Puerto Rico","age":"30-39","population":4836,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72035","county_name":"Cayey Municipio, Puerto Rico","age":"40-49","population":5867,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72035","county_name":"Cayey Municipio, Puerto Rico","age":"50-59","population":6123,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72035","county_name":"Cayey Municipio, Puerto Rico","age":"60-69","population":5685,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72035","county_name":"Cayey Municipio, Puerto Rico","age":"70-79","population":3654,"population_pct":8.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72035","county_name":"Cayey Municipio, Puerto Rico","age":"80+","population":2196,"population_pct":5.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72035","county_name":"Cayey Municipio, Puerto Rico","age":"All","population":43785,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72037","county_name":"Ceiba Municipio, Puerto Rico","age":"0-9","population":979,"population_pct":8.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72037","county_name":"Ceiba Municipio, Puerto Rico","age":"10-19","population":1440,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72037","county_name":"Ceiba Municipio, Puerto Rico","age":"20-29","population":1655,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72037","county_name":"Ceiba Municipio, Puerto Rico","age":"30-39","population":1298,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72037","county_name":"Ceiba Municipio, Puerto Rico","age":"40-49","population":1429,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72037","county_name":"Ceiba Municipio, Puerto Rico","age":"50-59","population":1402,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72037","county_name":"Ceiba Municipio, Puerto Rico","age":"60-69","population":1428,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72037","county_name":"Ceiba Municipio, Puerto Rico","age":"70-79","population":1281,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72037","county_name":"Ceiba Municipio, Puerto Rico","age":"80+","population":603,"population_pct":5.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72037","county_name":"Ceiba Municipio, Puerto Rico","age":"All","population":11515,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72039","county_name":"Ciales Municipio, Puerto Rico","age":"0-9","population":1745,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72039","county_name":"Ciales Municipio, Puerto Rico","age":"10-19","population":1993,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72039","county_name":"Ciales Municipio, Puerto Rico","age":"20-29","population":2182,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72039","county_name":"Ciales Municipio, Puerto Rico","age":"30-39","population":1788,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72039","county_name":"Ciales Municipio, Puerto Rico","age":"40-49","population":2005,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72039","county_name":"Ciales Municipio, Puerto Rico","age":"50-59","population":2256,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72039","county_name":"Ciales Municipio, Puerto Rico","age":"60-69","population":2316,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72039","county_name":"Ciales Municipio, Puerto Rico","age":"70-79","population":1447,"population_pct":8.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72039","county_name":"Ciales Municipio, Puerto Rico","age":"80+","population":781,"population_pct":4.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72039","county_name":"Ciales Municipio, Puerto Rico","age":"All","population":16513,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72041","county_name":"Cidra Municipio, Puerto Rico","age":"0-9","population":4067,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72041","county_name":"Cidra Municipio, Puerto Rico","age":"10-19","population":5044,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72041","county_name":"Cidra Municipio, Puerto Rico","age":"20-29","population":5388,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72041","county_name":"Cidra Municipio, Puerto Rico","age":"30-39","population":4806,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72041","county_name":"Cidra Municipio, Puerto Rico","age":"40-49","population":5289,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72041","county_name":"Cidra Municipio, Puerto Rico","age":"50-59","population":5613,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72041","county_name":"Cidra Municipio, Puerto Rico","age":"60-69","population":4691,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72041","county_name":"Cidra Municipio, Puerto Rico","age":"70-79","population":3231,"population_pct":8.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72041","county_name":"Cidra Municipio, Puerto Rico","age":"80+","population":1478,"population_pct":3.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72041","county_name":"Cidra Municipio, Puerto Rico","age":"All","population":39607,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72043","county_name":"Coamo Municipio, Puerto Rico","age":"0-9","population":3710,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72043","county_name":"Coamo Municipio, Puerto Rico","age":"10-19","population":5160,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72043","county_name":"Coamo Municipio, Puerto Rico","age":"20-29","population":4658,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72043","county_name":"Coamo Municipio, Puerto Rico","age":"30-39","population":5007,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72043","county_name":"Coamo Municipio, Puerto Rico","age":"40-49","population":5473,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72043","county_name":"Coamo Municipio, Puerto Rico","age":"50-59","population":5503,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72043","county_name":"Coamo Municipio, Puerto Rico","age":"60-69","population":5099,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72043","county_name":"Coamo Municipio, Puerto Rico","age":"70-79","population":2881,"population_pct":7.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72043","county_name":"Coamo Municipio, Puerto Rico","age":"80+","population":1415,"population_pct":3.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72043","county_name":"Coamo Municipio, Puerto Rico","age":"All","population":38906,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72045","county_name":"Comer\u00edo Municipio, Puerto Rico","age":"0-9","population":1669,"population_pct":8.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72045","county_name":"Comer\u00edo Municipio, Puerto Rico","age":"10-19","population":2778,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72045","county_name":"Comer\u00edo Municipio, Puerto Rico","age":"20-29","population":2792,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72045","county_name":"Comer\u00edo Municipio, Puerto Rico","age":"30-39","population":2439,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72045","county_name":"Comer\u00edo Municipio, Puerto Rico","age":"40-49","population":2276,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72045","county_name":"Comer\u00edo Municipio, Puerto Rico","age":"50-59","population":2798,"population_pct":14.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72045","county_name":"Comer\u00edo Municipio, Puerto Rico","age":"60-69","population":2194,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72045","county_name":"Comer\u00edo Municipio, Puerto Rico","age":"70-79","population":1517,"population_pct":7.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72045","county_name":"Comer\u00edo Municipio, Puerto Rico","age":"80+","population":761,"population_pct":4.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72045","county_name":"Comer\u00edo Municipio, Puerto Rico","age":"All","population":19224,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72047","county_name":"Corozal Municipio, Puerto Rico","age":"0-9","population":3600,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72047","county_name":"Corozal Municipio, Puerto Rico","age":"10-19","population":4422,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72047","county_name":"Corozal Municipio, Puerto Rico","age":"20-29","population":4689,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72047","county_name":"Corozal Municipio, Puerto Rico","age":"30-39","population":4198,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72047","county_name":"Corozal Municipio, Puerto Rico","age":"40-49","population":3985,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72047","county_name":"Corozal Municipio, Puerto Rico","age":"50-59","population":4367,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72047","county_name":"Corozal Municipio, Puerto Rico","age":"60-69","population":4302,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72047","county_name":"Corozal Municipio, Puerto Rico","age":"70-79","population":2562,"population_pct":7.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72047","county_name":"Corozal Municipio, Puerto Rico","age":"80+","population":1375,"population_pct":4.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72047","county_name":"Corozal Municipio, Puerto Rico","age":"All","population":33500,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72049","county_name":"Culebra Municipio, Puerto Rico","age":"0-9","population":141,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72049","county_name":"Culebra Municipio, Puerto Rico","age":"10-19","population":128,"population_pct":9.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72049","county_name":"Culebra Municipio, Puerto Rico","age":"20-29","population":196,"population_pct":15.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72049","county_name":"Culebra Municipio, Puerto Rico","age":"30-39","population":153,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72049","county_name":"Culebra Municipio, Puerto Rico","age":"40-49","population":146,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72049","county_name":"Culebra Municipio, Puerto Rico","age":"50-59","population":153,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72049","county_name":"Culebra Municipio, Puerto Rico","age":"60-69","population":148,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72049","county_name":"Culebra Municipio, Puerto Rico","age":"70-79","population":143,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72049","county_name":"Culebra Municipio, Puerto Rico","age":"80+","population":103,"population_pct":7.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72049","county_name":"Culebra Municipio, Puerto Rico","age":"All","population":1311,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72051","county_name":"Dorado Municipio, Puerto Rico","age":"0-9","population":3875,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72051","county_name":"Dorado Municipio, Puerto Rico","age":"10-19","population":5173,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72051","county_name":"Dorado Municipio, Puerto Rico","age":"20-29","population":4467,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72051","county_name":"Dorado Municipio, Puerto Rico","age":"30-39","population":4366,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72051","county_name":"Dorado Municipio, Puerto Rico","age":"40-49","population":5868,"population_pct":15.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72051","county_name":"Dorado Municipio, Puerto Rico","age":"50-59","population":4561,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72051","county_name":"Dorado Municipio, Puerto Rico","age":"60-69","population":4506,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72051","county_name":"Dorado Municipio, Puerto Rico","age":"70-79","population":2550,"population_pct":6.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72051","county_name":"Dorado Municipio, Puerto Rico","age":"80+","population":1437,"population_pct":3.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72051","county_name":"Dorado Municipio, Puerto Rico","age":"All","population":36803,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72053","county_name":"Fajardo Municipio, Puerto Rico","age":"0-9","population":3132,"population_pct":10.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72053","county_name":"Fajardo Municipio, Puerto Rico","age":"10-19","population":3953,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72053","county_name":"Fajardo Municipio, Puerto Rico","age":"20-29","population":4418,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72053","county_name":"Fajardo Municipio, Puerto Rico","age":"30-39","population":3315,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72053","county_name":"Fajardo Municipio, Puerto Rico","age":"40-49","population":4113,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72053","county_name":"Fajardo Municipio, Puerto Rico","age":"50-59","population":3902,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72053","county_name":"Fajardo Municipio, Puerto Rico","age":"60-69","population":3217,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72053","county_name":"Fajardo Municipio, Puerto Rico","age":"70-79","population":3183,"population_pct":10.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72053","county_name":"Fajardo Municipio, Puerto Rico","age":"80+","population":1878,"population_pct":6.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72053","county_name":"Fajardo Municipio, Puerto Rico","age":"All","population":31111,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72054","county_name":"Florida Municipio, Puerto Rico","age":"0-9","population":1140,"population_pct":9.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72054","county_name":"Florida Municipio, Puerto Rico","age":"10-19","population":1664,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72054","county_name":"Florida Municipio, Puerto Rico","age":"20-29","population":1683,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72054","county_name":"Florida Municipio, Puerto Rico","age":"30-39","population":1384,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72054","county_name":"Florida Municipio, Puerto Rico","age":"40-49","population":1552,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72054","county_name":"Florida Municipio, Puerto Rico","age":"50-59","population":1341,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72054","county_name":"Florida Municipio, Puerto Rico","age":"60-69","population":1595,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72054","county_name":"Florida Municipio, Puerto Rico","age":"70-79","population":844,"population_pct":7.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72054","county_name":"Florida Municipio, Puerto Rico","age":"80+","population":494,"population_pct":4.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72054","county_name":"Florida Municipio, Puerto Rico","age":"All","population":11697,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72055","county_name":"Gu\u00e1nica Municipio, Puerto Rico","age":"0-9","population":1447,"population_pct":8.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72055","county_name":"Gu\u00e1nica Municipio, Puerto Rico","age":"10-19","population":2276,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72055","county_name":"Gu\u00e1nica Municipio, Puerto Rico","age":"20-29","population":2063,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72055","county_name":"Gu\u00e1nica Municipio, Puerto Rico","age":"30-39","population":1855,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72055","county_name":"Gu\u00e1nica Municipio, Puerto Rico","age":"40-49","population":1950,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72055","county_name":"Gu\u00e1nica Municipio, Puerto Rico","age":"50-59","population":1823,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72055","county_name":"Gu\u00e1nica Municipio, Puerto Rico","age":"60-69","population":2106,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72055","county_name":"Gu\u00e1nica Municipio, Puerto Rico","age":"70-79","population":1890,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72055","county_name":"Gu\u00e1nica Municipio, Puerto Rico","age":"80+","population":883,"population_pct":5.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72055","county_name":"Gu\u00e1nica Municipio, Puerto Rico","age":"All","population":16293,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72057","county_name":"Guayama Municipio, Puerto Rico","age":"0-9","population":4187,"population_pct":10.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72057","county_name":"Guayama Municipio, Puerto Rico","age":"10-19","population":5382,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72057","county_name":"Guayama Municipio, Puerto Rico","age":"20-29","population":6211,"population_pct":15.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72057","county_name":"Guayama Municipio, Puerto Rico","age":"30-39","population":5020,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72057","county_name":"Guayama Municipio, Puerto Rico","age":"40-49","population":5363,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72057","county_name":"Guayama Municipio, Puerto Rico","age":"50-59","population":5325,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72057","county_name":"Guayama Municipio, Puerto Rico","age":"60-69","population":4501,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72057","county_name":"Guayama Municipio, Puerto Rico","age":"70-79","population":3095,"population_pct":7.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72057","county_name":"Guayama Municipio, Puerto Rico","age":"80+","population":1805,"population_pct":4.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72057","county_name":"Guayama Municipio, Puerto Rico","age":"All","population":40889,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72059","county_name":"Guayanilla Municipio, Puerto Rico","age":"0-9","population":1842,"population_pct":9.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72059","county_name":"Guayanilla Municipio, Puerto Rico","age":"10-19","population":2529,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72059","county_name":"Guayanilla Municipio, Puerto Rico","age":"20-29","population":2372,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72059","county_name":"Guayanilla Municipio, Puerto Rico","age":"30-39","population":2108,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72059","county_name":"Guayanilla Municipio, Puerto Rico","age":"40-49","population":2393,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72059","county_name":"Guayanilla Municipio, Puerto Rico","age":"50-59","population":2161,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72059","county_name":"Guayanilla Municipio, Puerto Rico","age":"60-69","population":2468,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72059","county_name":"Guayanilla Municipio, Puerto Rico","age":"70-79","population":1745,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72059","county_name":"Guayanilla Municipio, Puerto Rico","age":"80+","population":896,"population_pct":4.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72059","county_name":"Guayanilla Municipio, Puerto Rico","age":"All","population":18514,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72061","county_name":"Guaynabo Municipio, Puerto Rico","age":"0-9","population":7402,"population_pct":8.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72061","county_name":"Guaynabo Municipio, Puerto Rico","age":"10-19","population":9271,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72061","county_name":"Guaynabo Municipio, Puerto Rico","age":"20-29","population":11524,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72061","county_name":"Guaynabo Municipio, Puerto Rico","age":"30-39","population":10767,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72061","county_name":"Guaynabo Municipio, Puerto Rico","age":"40-49","population":10857,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72061","county_name":"Guaynabo Municipio, Puerto Rico","age":"50-59","population":12080,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72061","county_name":"Guaynabo Municipio, Puerto Rico","age":"60-69","population":11562,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72061","county_name":"Guaynabo Municipio, Puerto Rico","age":"70-79","population":7937,"population_pct":9.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72061","county_name":"Guaynabo Municipio, Puerto Rico","age":"80+","population":5537,"population_pct":6.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72061","county_name":"Guaynabo Municipio, Puerto Rico","age":"All","population":86937,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72063","county_name":"Gurabo Municipio, Puerto Rico","age":"0-9","population":4355,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72063","county_name":"Gurabo Municipio, Puerto Rico","age":"10-19","population":6606,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72063","county_name":"Gurabo Municipio, Puerto Rico","age":"20-29","population":6427,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72063","county_name":"Gurabo Municipio, Puerto Rico","age":"30-39","population":6712,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72063","county_name":"Gurabo Municipio, Puerto Rico","age":"40-49","population":6714,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72063","county_name":"Gurabo Municipio, Puerto Rico","age":"50-59","population":5840,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72063","county_name":"Gurabo Municipio, Puerto Rico","age":"60-69","population":5578,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72063","county_name":"Gurabo Municipio, Puerto Rico","age":"70-79","population":2887,"population_pct":6.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72063","county_name":"Gurabo Municipio, Puerto Rico","age":"80+","population":1791,"population_pct":3.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72063","county_name":"Gurabo Municipio, Puerto Rico","age":"All","population":46910,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72065","county_name":"Hatillo Municipio, Puerto Rico","age":"0-9","population":3447,"population_pct":8.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72065","county_name":"Hatillo Municipio, Puerto Rico","age":"10-19","population":5124,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72065","county_name":"Hatillo Municipio, Puerto Rico","age":"20-29","population":5217,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72065","county_name":"Hatillo Municipio, Puerto Rico","age":"30-39","population":5007,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72065","county_name":"Hatillo Municipio, Puerto Rico","age":"40-49","population":5404,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72065","county_name":"Hatillo Municipio, Puerto Rico","age":"50-59","population":5290,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72065","county_name":"Hatillo Municipio, Puerto Rico","age":"60-69","population":4972,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72065","county_name":"Hatillo Municipio, Puerto Rico","age":"70-79","population":3762,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72065","county_name":"Hatillo Municipio, Puerto Rico","age":"80+","population":1727,"population_pct":4.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72065","county_name":"Hatillo Municipio, Puerto Rico","age":"All","population":39950,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72067","county_name":"Hormigueros Municipio, Puerto Rico","age":"0-9","population":1280,"population_pct":8.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72067","county_name":"Hormigueros Municipio, Puerto Rico","age":"10-19","population":1843,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72067","county_name":"Hormigueros Municipio, Puerto Rico","age":"20-29","population":1788,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72067","county_name":"Hormigueros Municipio, Puerto Rico","age":"30-39","population":1680,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72067","county_name":"Hormigueros Municipio, Puerto Rico","age":"40-49","population":2071,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72067","county_name":"Hormigueros Municipio, Puerto Rico","age":"50-59","population":2001,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72067","county_name":"Hormigueros Municipio, Puerto Rico","age":"60-69","population":2061,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72067","county_name":"Hormigueros Municipio, Puerto Rico","age":"70-79","population":2041,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72067","county_name":"Hormigueros Municipio, Puerto Rico","age":"80+","population":1178,"population_pct":7.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72067","county_name":"Hormigueros Municipio, Puerto Rico","age":"All","population":15943,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72069","county_name":"Humacao Municipio, Puerto Rico","age":"0-9","population":4881,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72069","county_name":"Humacao Municipio, Puerto Rico","age":"10-19","population":6593,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72069","county_name":"Humacao Municipio, Puerto Rico","age":"20-29","population":6568,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72069","county_name":"Humacao Municipio, Puerto Rico","age":"30-39","population":6358,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72069","county_name":"Humacao Municipio, Puerto Rico","age":"40-49","population":6451,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72069","county_name":"Humacao Municipio, Puerto Rico","age":"50-59","population":7258,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72069","county_name":"Humacao Municipio, Puerto Rico","age":"60-69","population":6871,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72069","county_name":"Humacao Municipio, Puerto Rico","age":"70-79","population":4754,"population_pct":9.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72069","county_name":"Humacao Municipio, Puerto Rico","age":"80+","population":2773,"population_pct":5.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72069","county_name":"Humacao Municipio, Puerto Rico","age":"All","population":52507,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72071","county_name":"Isabela Municipio, Puerto Rico","age":"0-9","population":3860,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72071","county_name":"Isabela Municipio, Puerto Rico","age":"10-19","population":5106,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72071","county_name":"Isabela Municipio, Puerto Rico","age":"20-29","population":5495,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72071","county_name":"Isabela Municipio, Puerto Rico","age":"30-39","population":5082,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72071","county_name":"Isabela Municipio, Puerto Rico","age":"40-49","population":5717,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72071","county_name":"Isabela Municipio, Puerto Rico","age":"50-59","population":5654,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72071","county_name":"Isabela Municipio, Puerto Rico","age":"60-69","population":4940,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72071","county_name":"Isabela Municipio, Puerto Rico","age":"70-79","population":3777,"population_pct":9.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72071","county_name":"Isabela Municipio, Puerto Rico","age":"80+","population":2076,"population_pct":5.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72071","county_name":"Isabela Municipio, Puerto Rico","age":"All","population":41707,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72073","county_name":"Jayuya Municipio, Puerto Rico","age":"0-9","population":1601,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72073","county_name":"Jayuya Municipio, Puerto Rico","age":"10-19","population":1967,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72073","county_name":"Jayuya Municipio, Puerto Rico","age":"20-29","population":2186,"population_pct":15.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72073","county_name":"Jayuya Municipio, Puerto Rico","age":"30-39","population":1650,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72073","county_name":"Jayuya Municipio, Puerto Rico","age":"40-49","population":1985,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72073","county_name":"Jayuya Municipio, Puerto Rico","age":"50-59","population":1851,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72073","county_name":"Jayuya Municipio, Puerto Rico","age":"60-69","population":1681,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72073","county_name":"Jayuya Municipio, Puerto Rico","age":"70-79","population":1125,"population_pct":7.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72073","county_name":"Jayuya Municipio, Puerto Rico","age":"80+","population":493,"population_pct":3.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72073","county_name":"Jayuya Municipio, Puerto Rico","age":"All","population":14539,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72075","county_name":"Juana D\u00edaz Municipio, Puerto Rico","age":"0-9","population":5174,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72075","county_name":"Juana D\u00edaz Municipio, Puerto Rico","age":"10-19","population":6198,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72075","county_name":"Juana D\u00edaz Municipio, Puerto Rico","age":"20-29","population":6509,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72075","county_name":"Juana D\u00edaz Municipio, Puerto Rico","age":"30-39","population":5754,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72075","county_name":"Juana D\u00edaz Municipio, Puerto Rico","age":"40-49","population":5775,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72075","county_name":"Juana D\u00edaz Municipio, Puerto Rico","age":"50-59","population":5930,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72075","county_name":"Juana D\u00edaz Municipio, Puerto Rico","age":"60-69","population":5467,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72075","county_name":"Juana D\u00edaz Municipio, Puerto Rico","age":"70-79","population":3554,"population_pct":7.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72075","county_name":"Juana D\u00edaz Municipio, Puerto Rico","age":"80+","population":1791,"population_pct":3.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72075","county_name":"Juana D\u00edaz Municipio, Puerto Rico","age":"All","population":46152,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72077","county_name":"Juncos Municipio, Puerto Rico","age":"0-9","population":4146,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72077","county_name":"Juncos Municipio, Puerto Rico","age":"10-19","population":5266,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72077","county_name":"Juncos Municipio, Puerto Rico","age":"20-29","population":5568,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72077","county_name":"Juncos Municipio, Puerto Rico","age":"30-39","population":5318,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72077","county_name":"Juncos Municipio, Puerto Rico","age":"40-49","population":5594,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72077","county_name":"Juncos Municipio, Puerto Rico","age":"50-59","population":4769,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72077","county_name":"Juncos Municipio, Puerto Rico","age":"60-69","population":4210,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72077","county_name":"Juncos Municipio, Puerto Rico","age":"70-79","population":2439,"population_pct":6.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72077","county_name":"Juncos Municipio, Puerto Rico","age":"80+","population":1470,"population_pct":3.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72077","county_name":"Juncos Municipio, Puerto Rico","age":"All","population":38780,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72079","county_name":"Lajas Municipio, Puerto Rico","age":"0-9","population":2173,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72079","county_name":"Lajas Municipio, Puerto Rico","age":"10-19","population":2628,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72079","county_name":"Lajas Municipio, Puerto Rico","age":"20-29","population":2874,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72079","county_name":"Lajas Municipio, Puerto Rico","age":"30-39","population":2571,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72079","county_name":"Lajas Municipio, Puerto Rico","age":"40-49","population":2659,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72079","county_name":"Lajas Municipio, Puerto Rico","age":"50-59","population":3011,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72079","county_name":"Lajas Municipio, Puerto Rico","age":"60-69","population":3221,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72079","county_name":"Lajas Municipio, Puerto Rico","age":"70-79","population":2417,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72079","county_name":"Lajas Municipio, Puerto Rico","age":"80+","population":1281,"population_pct":5.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72079","county_name":"Lajas Municipio, Puerto Rico","age":"All","population":22835,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72081","county_name":"Lares Municipio, Puerto Rico","age":"0-9","population":2390,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72081","county_name":"Lares Municipio, Puerto Rico","age":"10-19","population":3192,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72081","county_name":"Lares Municipio, Puerto Rico","age":"20-29","population":3372,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72081","county_name":"Lares Municipio, Puerto Rico","age":"30-39","population":2701,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72081","county_name":"Lares Municipio, Puerto Rico","age":"40-49","population":3617,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72081","county_name":"Lares Municipio, Puerto Rico","age":"50-59","population":3621,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72081","county_name":"Lares Municipio, Puerto Rico","age":"60-69","population":3445,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72081","county_name":"Lares Municipio, Puerto Rico","age":"70-79","population":2225,"population_pct":8.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72081","county_name":"Lares Municipio, Puerto Rico","age":"80+","population":1133,"population_pct":4.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72081","county_name":"Lares Municipio, Puerto Rico","age":"All","population":25696,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72083","county_name":"Las Mar\u00edas Municipio, Puerto Rico","age":"0-9","population":749,"population_pct":8.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72083","county_name":"Las Mar\u00edas Municipio, Puerto Rico","age":"10-19","population":1287,"population_pct":15.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72083","county_name":"Las Mar\u00edas Municipio, Puerto Rico","age":"20-29","population":1045,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72083","county_name":"Las Mar\u00edas Municipio, Puerto Rico","age":"30-39","population":835,"population_pct":10.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72083","county_name":"Las Mar\u00edas Municipio, Puerto Rico","age":"40-49","population":1081,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72083","county_name":"Las Mar\u00edas Municipio, Puerto Rico","age":"50-59","population":1129,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72083","county_name":"Las Mar\u00edas Municipio, Puerto Rico","age":"60-69","population":1091,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72083","county_name":"Las Mar\u00edas Municipio, Puerto Rico","age":"70-79","population":762,"population_pct":9.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72083","county_name":"Las Mar\u00edas Municipio, Puerto Rico","age":"80+","population":391,"population_pct":4.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72083","county_name":"Las Mar\u00edas Municipio, Puerto Rico","age":"All","population":8370,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72085","county_name":"Las Piedras Municipio, Puerto Rico","age":"0-9","population":3464,"population_pct":9.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72085","county_name":"Las Piedras Municipio, Puerto Rico","age":"10-19","population":5169,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72085","county_name":"Las Piedras Municipio, Puerto Rico","age":"20-29","population":4934,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72085","county_name":"Las Piedras Municipio, Puerto Rico","age":"30-39","population":5193,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72085","county_name":"Las Piedras Municipio, Puerto Rico","age":"40-49","population":5147,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72085","county_name":"Las Piedras Municipio, Puerto Rico","age":"50-59","population":4552,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72085","county_name":"Las Piedras Municipio, Puerto Rico","age":"60-69","population":4719,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72085","county_name":"Las Piedras Municipio, Puerto Rico","age":"70-79","population":2892,"population_pct":7.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72085","county_name":"Las Piedras Municipio, Puerto Rico","age":"80+","population":1429,"population_pct":3.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72085","county_name":"Las Piedras Municipio, Puerto Rico","age":"All","population":37499,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72087","county_name":"Lo\u00edza Municipio, Puerto Rico","age":"0-9","population":2825,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72087","county_name":"Lo\u00edza Municipio, Puerto Rico","age":"10-19","population":3277,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72087","county_name":"Lo\u00edza Municipio, Puerto Rico","age":"20-29","population":3781,"population_pct":14.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72087","county_name":"Lo\u00edza Municipio, Puerto Rico","age":"30-39","population":2921,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72087","county_name":"Lo\u00edza Municipio, Puerto Rico","age":"40-49","population":3288,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72087","county_name":"Lo\u00edza Municipio, Puerto Rico","age":"50-59","population":3777,"population_pct":14.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72087","county_name":"Lo\u00edza Municipio, Puerto Rico","age":"60-69","population":3101,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72087","county_name":"Lo\u00edza Municipio, Puerto Rico","age":"70-79","population":1785,"population_pct":6.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72087","county_name":"Lo\u00edza Municipio, Puerto Rico","age":"80+","population":1023,"population_pct":4.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72087","county_name":"Lo\u00edza Municipio, Puerto Rico","age":"All","population":25778,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72089","county_name":"Luquillo Municipio, Puerto Rico","age":"0-9","population":1771,"population_pct":9.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72089","county_name":"Luquillo Municipio, Puerto Rico","age":"10-19","population":2330,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72089","county_name":"Luquillo Municipio, Puerto Rico","age":"20-29","population":2478,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72089","county_name":"Luquillo Municipio, Puerto Rico","age":"30-39","population":2173,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72089","county_name":"Luquillo Municipio, Puerto Rico","age":"40-49","population":2221,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72089","county_name":"Luquillo Municipio, Puerto Rico","age":"50-59","population":2143,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72089","county_name":"Luquillo Municipio, Puerto Rico","age":"60-69","population":2457,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72089","county_name":"Luquillo Municipio, Puerto Rico","age":"70-79","population":1735,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72089","county_name":"Luquillo Municipio, Puerto Rico","age":"80+","population":916,"population_pct":5.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72089","county_name":"Luquillo Municipio, Puerto Rico","age":"All","population":18224,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72091","county_name":"Manat\u00ed Municipio, Puerto Rico","age":"0-9","population":3803,"population_pct":9.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72091","county_name":"Manat\u00ed Municipio, Puerto Rico","age":"10-19","population":5060,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72091","county_name":"Manat\u00ed Municipio, Puerto Rico","age":"20-29","population":5106,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72091","county_name":"Manat\u00ed Municipio, Puerto Rico","age":"30-39","population":4443,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72091","county_name":"Manat\u00ed Municipio, Puerto Rico","age":"40-49","population":4687,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72091","county_name":"Manat\u00ed Municipio, Puerto Rico","age":"50-59","population":4791,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72091","county_name":"Manat\u00ed Municipio, Puerto Rico","age":"60-69","population":5315,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72091","county_name":"Manat\u00ed Municipio, Puerto Rico","age":"70-79","population":3650,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72091","county_name":"Manat\u00ed Municipio, Puerto Rico","age":"80+","population":1981,"population_pct":5.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72091","county_name":"Manat\u00ed Municipio, Puerto Rico","age":"All","population":38836,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72093","county_name":"Maricao Municipio, Puerto Rico","age":"0-9","population":574,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72093","county_name":"Maricao Municipio, Puerto Rico","age":"10-19","population":754,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72093","county_name":"Maricao Municipio, Puerto Rico","age":"20-29","population":735,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72093","county_name":"Maricao Municipio, Puerto Rico","age":"30-39","population":589,"population_pct":9.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72093","county_name":"Maricao Municipio, Puerto Rico","age":"40-49","population":916,"population_pct":15.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72093","county_name":"Maricao Municipio, Puerto Rico","age":"50-59","population":784,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72093","county_name":"Maricao Municipio, Puerto Rico","age":"60-69","population":912,"population_pct":15.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72093","county_name":"Maricao Municipio, Puerto Rico","age":"70-79","population":482,"population_pct":7.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72093","county_name":"Maricao Municipio, Puerto Rico","age":"80+","population":329,"population_pct":5.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72093","county_name":"Maricao Municipio, Puerto Rico","age":"All","population":6075,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72095","county_name":"Maunabo Municipio, Puerto Rico","age":"0-9","population":974,"population_pct":9.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72095","county_name":"Maunabo Municipio, Puerto Rico","age":"10-19","population":1424,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72095","county_name":"Maunabo Municipio, Puerto Rico","age":"20-29","population":1265,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72095","county_name":"Maunabo Municipio, Puerto Rico","age":"30-39","population":979,"population_pct":9.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72095","county_name":"Maunabo Municipio, Puerto Rico","age":"40-49","population":1508,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72095","county_name":"Maunabo Municipio, Puerto Rico","age":"50-59","population":1598,"population_pct":14.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72095","county_name":"Maunabo Municipio, Puerto Rico","age":"60-69","population":1420,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72095","county_name":"Maunabo Municipio, Puerto Rico","age":"70-79","population":1190,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72095","county_name":"Maunabo Municipio, Puerto Rico","age":"80+","population":418,"population_pct":3.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72095","county_name":"Maunabo Municipio, Puerto Rico","age":"All","population":10776,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72097","county_name":"Mayag\u00fcez Municipio, Puerto Rico","age":"0-9","population":6715,"population_pct":8.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72097","county_name":"Mayag\u00fcez Municipio, Puerto Rico","age":"10-19","population":9759,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72097","county_name":"Mayag\u00fcez Municipio, Puerto Rico","age":"20-29","population":12859,"population_pct":17.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72097","county_name":"Mayag\u00fcez Municipio, Puerto Rico","age":"30-39","population":7361,"population_pct":9.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72097","county_name":"Mayag\u00fcez Municipio, Puerto Rico","age":"40-49","population":7599,"population_pct":10.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72097","county_name":"Mayag\u00fcez Municipio, Puerto Rico","age":"50-59","population":8536,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72097","county_name":"Mayag\u00fcez Municipio, Puerto Rico","age":"60-69","population":9540,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72097","county_name":"Mayag\u00fcez Municipio, Puerto Rico","age":"70-79","population":7979,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72097","county_name":"Mayag\u00fcez Municipio, Puerto Rico","age":"80+","population":4884,"population_pct":6.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72097","county_name":"Mayag\u00fcez Municipio, Puerto Rico","age":"All","population":75232,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72099","county_name":"Moca Municipio, Puerto Rico","age":"0-9","population":3484,"population_pct":9.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72099","county_name":"Moca Municipio, Puerto Rico","age":"10-19","population":5061,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72099","county_name":"Moca Municipio, Puerto Rico","age":"20-29","population":4969,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72099","county_name":"Moca Municipio, Puerto Rico","age":"30-39","population":4571,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72099","county_name":"Moca Municipio, Puerto Rico","age":"40-49","population":4651,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72099","county_name":"Moca Municipio, Puerto Rico","age":"50-59","population":4685,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72099","county_name":"Moca Municipio, Puerto Rico","age":"60-69","population":4439,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72099","county_name":"Moca Municipio, Puerto Rico","age":"70-79","population":3231,"population_pct":8.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72099","county_name":"Moca Municipio, Puerto Rico","age":"80+","population":1070,"population_pct":3.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72099","county_name":"Moca Municipio, Puerto Rico","age":"All","population":36161,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72101","county_name":"Morovis Municipio, Puerto Rico","age":"0-9","population":2799,"population_pct":9.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72101","county_name":"Morovis Municipio, Puerto Rico","age":"10-19","population":4682,"population_pct":15.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72101","county_name":"Morovis Municipio, Puerto Rico","age":"20-29","population":4566,"population_pct":14.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72101","county_name":"Morovis Municipio, Puerto Rico","age":"30-39","population":4000,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72101","county_name":"Morovis Municipio, Puerto Rico","age":"40-49","population":3889,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72101","county_name":"Morovis Municipio, Puerto Rico","age":"50-59","population":4424,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72101","county_name":"Morovis Municipio, Puerto Rico","age":"60-69","population":3426,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72101","county_name":"Morovis Municipio, Puerto Rico","age":"70-79","population":2082,"population_pct":6.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72101","county_name":"Morovis Municipio, Puerto Rico","age":"80+","population":1094,"population_pct":3.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72101","county_name":"Morovis Municipio, Puerto Rico","age":"All","population":30962,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72103","county_name":"Naguabo Municipio, Puerto Rico","age":"0-9","population":3082,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72103","county_name":"Naguabo Municipio, Puerto Rico","age":"10-19","population":3441,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72103","county_name":"Naguabo Municipio, Puerto Rico","age":"20-29","population":3655,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72103","county_name":"Naguabo Municipio, Puerto Rico","age":"30-39","population":3410,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72103","county_name":"Naguabo Municipio, Puerto Rico","age":"40-49","population":3564,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72103","county_name":"Naguabo Municipio, Puerto Rico","age":"50-59","population":2978,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72103","county_name":"Naguabo Municipio, Puerto Rico","age":"60-69","population":2981,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72103","county_name":"Naguabo Municipio, Puerto Rico","age":"70-79","population":1748,"population_pct":6.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72103","county_name":"Naguabo Municipio, Puerto Rico","age":"80+","population":1216,"population_pct":4.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72103","county_name":"Naguabo Municipio, Puerto Rico","age":"All","population":26075,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72105","county_name":"Naranjito Municipio, Puerto Rico","age":"0-9","population":2829,"population_pct":10.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72105","county_name":"Naranjito Municipio, Puerto Rico","age":"10-19","population":3617,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72105","county_name":"Naranjito Municipio, Puerto Rico","age":"20-29","population":3972,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72105","county_name":"Naranjito Municipio, Puerto Rico","age":"30-39","population":3297,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72105","county_name":"Naranjito Municipio, Puerto Rico","age":"40-49","population":3371,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72105","county_name":"Naranjito Municipio, Puerto Rico","age":"50-59","population":3923,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72105","county_name":"Naranjito Municipio, Puerto Rico","age":"60-69","population":3371,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72105","county_name":"Naranjito Municipio, Puerto Rico","age":"70-79","population":2393,"population_pct":8.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72105","county_name":"Naranjito Municipio, Puerto Rico","age":"80+","population":1339,"population_pct":4.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72105","county_name":"Naranjito Municipio, Puerto Rico","age":"All","population":28112,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72107","county_name":"Orocovis Municipio, Puerto Rico","age":"0-9","population":2150,"population_pct":10.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72107","county_name":"Orocovis Municipio, Puerto Rico","age":"10-19","population":2918,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72107","county_name":"Orocovis Municipio, Puerto Rico","age":"20-29","population":3091,"population_pct":14.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72107","county_name":"Orocovis Municipio, Puerto Rico","age":"30-39","population":2303,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72107","county_name":"Orocovis Municipio, Puerto Rico","age":"40-49","population":2707,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72107","county_name":"Orocovis Municipio, Puerto Rico","age":"50-59","population":3179,"population_pct":15.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72107","county_name":"Orocovis Municipio, Puerto Rico","age":"60-69","population":2320,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72107","county_name":"Orocovis Municipio, Puerto Rico","age":"70-79","population":1383,"population_pct":6.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72107","county_name":"Orocovis Municipio, Puerto Rico","age":"80+","population":931,"population_pct":4.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72107","county_name":"Orocovis Municipio, Puerto Rico","age":"All","population":20982,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72109","county_name":"Patillas Municipio, Puerto Rico","age":"0-9","population":1509,"population_pct":8.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72109","county_name":"Patillas Municipio, Puerto Rico","age":"10-19","population":2067,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72109","county_name":"Patillas Municipio, Puerto Rico","age":"20-29","population":2180,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72109","county_name":"Patillas Municipio, Puerto Rico","age":"30-39","population":1759,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72109","county_name":"Patillas Municipio, Puerto Rico","age":"40-49","population":2055,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72109","county_name":"Patillas Municipio, Puerto Rico","age":"50-59","population":2621,"population_pct":15.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72109","county_name":"Patillas Municipio, Puerto Rico","age":"60-69","population":2406,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72109","county_name":"Patillas Municipio, Puerto Rico","age":"70-79","population":1408,"population_pct":8.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72109","county_name":"Patillas Municipio, Puerto Rico","age":"80+","population":924,"population_pct":5.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72109","county_name":"Patillas Municipio, Puerto Rico","age":"All","population":16929,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72111","county_name":"Pe\u00f1uelas Municipio, Puerto Rico","age":"0-9","population":2497,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72111","county_name":"Pe\u00f1uelas Municipio, Puerto Rico","age":"10-19","population":2742,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72111","county_name":"Pe\u00f1uelas Municipio, Puerto Rico","age":"20-29","population":2875,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72111","county_name":"Pe\u00f1uelas Municipio, Puerto Rico","age":"30-39","population":2452,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72111","county_name":"Pe\u00f1uelas Municipio, Puerto Rico","age":"40-49","population":2488,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72111","county_name":"Pe\u00f1uelas Municipio, Puerto Rico","age":"50-59","population":2726,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72111","county_name":"Pe\u00f1uelas Municipio, Puerto Rico","age":"60-69","population":2488,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72111","county_name":"Pe\u00f1uelas Municipio, Puerto Rico","age":"70-79","population":1550,"population_pct":7.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72111","county_name":"Pe\u00f1uelas Municipio, Puerto Rico","age":"80+","population":565,"population_pct":2.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72111","county_name":"Pe\u00f1uelas Municipio, Puerto Rico","age":"All","population":20383,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72113","county_name":"Ponce Municipio, Puerto Rico","age":"0-9","population":14326,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72113","county_name":"Ponce Municipio, Puerto Rico","age":"10-19","population":17782,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72113","county_name":"Ponce Municipio, Puerto Rico","age":"20-29","population":19852,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72113","county_name":"Ponce Municipio, Puerto Rico","age":"30-39","population":16360,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72113","county_name":"Ponce Municipio, Puerto Rico","age":"40-49","population":15510,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72113","county_name":"Ponce Municipio, Puerto Rico","age":"50-59","population":17257,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72113","county_name":"Ponce Municipio, Puerto Rico","age":"60-69","population":18409,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72113","county_name":"Ponce Municipio, Puerto Rico","age":"70-79","population":12749,"population_pct":9.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72113","county_name":"Ponce Municipio, Puerto Rico","age":"80+","population":7426,"population_pct":5.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72113","county_name":"Ponce Municipio, Puerto Rico","age":"All","population":139671,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72115","county_name":"Quebradillas Municipio, Puerto Rico","age":"0-9","population":2003,"population_pct":8.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72115","county_name":"Quebradillas Municipio, Puerto Rico","age":"10-19","population":3319,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72115","county_name":"Quebradillas Municipio, Puerto Rico","age":"20-29","population":3127,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72115","county_name":"Quebradillas Municipio, Puerto Rico","age":"30-39","population":2968,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72115","county_name":"Quebradillas Municipio, Puerto Rico","age":"40-49","population":2890,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72115","county_name":"Quebradillas Municipio, Puerto Rico","age":"50-59","population":3235,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72115","county_name":"Quebradillas Municipio, Puerto Rico","age":"60-69","population":2992,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72115","county_name":"Quebradillas Municipio, Puerto Rico","age":"70-79","population":2103,"population_pct":8.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72115","county_name":"Quebradillas Municipio, Puerto Rico","age":"80+","population":992,"population_pct":4.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72115","county_name":"Quebradillas Municipio, Puerto Rico","age":"All","population":23629,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72117","county_name":"Rinc\u00f3n Municipio, Puerto Rico","age":"0-9","population":1251,"population_pct":8.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72117","county_name":"Rinc\u00f3n Municipio, Puerto Rico","age":"10-19","population":1547,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72117","county_name":"Rinc\u00f3n Municipio, Puerto Rico","age":"20-29","population":1480,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72117","county_name":"Rinc\u00f3n Municipio, Puerto Rico","age":"30-39","population":1766,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72117","county_name":"Rinc\u00f3n Municipio, Puerto Rico","age":"40-49","population":1693,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72117","county_name":"Rinc\u00f3n Municipio, Puerto Rico","age":"50-59","population":1951,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72117","county_name":"Rinc\u00f3n Municipio, Puerto Rico","age":"60-69","population":2023,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72117","county_name":"Rinc\u00f3n Municipio, Puerto Rico","age":"70-79","population":1584,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72117","county_name":"Rinc\u00f3n Municipio, Puerto Rico","age":"80+","population":761,"population_pct":5.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72117","county_name":"Rinc\u00f3n Municipio, Puerto Rico","age":"All","population":14056,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72119","county_name":"R\u00edo Grande Municipio, Puerto Rico","age":"0-9","population":4705,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72119","county_name":"R\u00edo Grande Municipio, Puerto Rico","age":"10-19","population":6230,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72119","county_name":"R\u00edo Grande Municipio, Puerto Rico","age":"20-29","population":7044,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72119","county_name":"R\u00edo Grande Municipio, Puerto Rico","age":"30-39","population":6102,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72119","county_name":"R\u00edo Grande Municipio, Puerto Rico","age":"40-49","population":6419,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72119","county_name":"R\u00edo Grande Municipio, Puerto Rico","age":"50-59","population":7123,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72119","county_name":"R\u00edo Grande Municipio, Puerto Rico","age":"60-69","population":5523,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72119","county_name":"R\u00edo Grande Municipio, Puerto Rico","age":"70-79","population":4431,"population_pct":8.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72119","county_name":"R\u00edo Grande Municipio, Puerto Rico","age":"80+","population":2036,"population_pct":4.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72119","county_name":"R\u00edo Grande Municipio, Puerto Rico","age":"All","population":49613,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72121","county_name":"Sabana Grande Municipio, Puerto Rico","age":"0-9","population":2126,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72121","county_name":"Sabana Grande Municipio, Puerto Rico","age":"10-19","population":3126,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72121","county_name":"Sabana Grande Municipio, Puerto Rico","age":"20-29","population":2743,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72121","county_name":"Sabana Grande Municipio, Puerto Rico","age":"30-39","population":2484,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72121","county_name":"Sabana Grande Municipio, Puerto Rico","age":"40-49","population":2874,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72121","county_name":"Sabana Grande Municipio, Puerto Rico","age":"50-59","population":2716,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72121","county_name":"Sabana Grande Municipio, Puerto Rico","age":"60-69","population":2716,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72121","county_name":"Sabana Grande Municipio, Puerto Rico","age":"70-79","population":2605,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72121","county_name":"Sabana Grande Municipio, Puerto Rico","age":"80+","population":1170,"population_pct":5.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72121","county_name":"Sabana Grande Municipio, Puerto Rico","age":"All","population":22560,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72123","county_name":"Salinas Municipio, Puerto Rico","age":"0-9","population":3014,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72123","county_name":"Salinas Municipio, Puerto Rico","age":"10-19","population":3956,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72123","county_name":"Salinas Municipio, Puerto Rico","age":"20-29","population":3744,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72123","county_name":"Salinas Municipio, Puerto Rico","age":"30-39","population":3111,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72123","county_name":"Salinas Municipio, Puerto Rico","age":"40-49","population":3806,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72123","county_name":"Salinas Municipio, Puerto Rico","age":"50-59","population":3472,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72123","county_name":"Salinas Municipio, Puerto Rico","age":"60-69","population":3178,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72123","county_name":"Salinas Municipio, Puerto Rico","age":"70-79","population":2636,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72123","county_name":"Salinas Municipio, Puerto Rico","age":"80+","population":1192,"population_pct":4.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72123","county_name":"Salinas Municipio, Puerto Rico","age":"All","population":28109,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72125","county_name":"San Germ\u00e1n Municipio, Puerto Rico","age":"0-9","population":3269,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72125","county_name":"San Germ\u00e1n Municipio, Puerto Rico","age":"10-19","population":3679,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72125","county_name":"San Germ\u00e1n Municipio, Puerto Rico","age":"20-29","population":4199,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72125","county_name":"San Germ\u00e1n Municipio, Puerto Rico","age":"30-39","population":2993,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72125","county_name":"San Germ\u00e1n Municipio, Puerto Rico","age":"40-49","population":3848,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72125","county_name":"San Germ\u00e1n Municipio, Puerto Rico","age":"50-59","population":4078,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72125","county_name":"San Germ\u00e1n Municipio, Puerto Rico","age":"60-69","population":3969,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72125","county_name":"San Germ\u00e1n Municipio, Puerto Rico","age":"70-79","population":3606,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72125","county_name":"San Germ\u00e1n Municipio, Puerto Rico","age":"80+","population":1801,"population_pct":5.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72125","county_name":"San Germ\u00e1n Municipio, Puerto Rico","age":"All","population":31442,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72127","county_name":"San Juan Municipio, Puerto Rico","age":"0-9","population":31466,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72127","county_name":"San Juan Municipio, Puerto Rico","age":"10-19","population":38403,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72127","county_name":"San Juan Municipio, Puerto Rico","age":"20-29","population":45698,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72127","county_name":"San Juan Municipio, Puerto Rico","age":"30-39","population":38911,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72127","county_name":"San Juan Municipio, Puerto Rico","age":"40-49","population":41063,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72127","county_name":"San Juan Municipio, Puerto Rico","age":"50-59","population":44613,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72127","county_name":"San Juan Municipio, Puerto Rico","age":"60-69","population":42219,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72127","county_name":"San Juan Municipio, Puerto Rico","age":"70-79","population":30596,"population_pct":9.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72127","county_name":"San Juan Municipio, Puerto Rico","age":"80+","population":22499,"population_pct":6.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72127","county_name":"San Juan Municipio, Puerto Rico","age":"All","population":335468,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72129","county_name":"San Lorenzo Municipio, Puerto Rico","age":"0-9","population":3825,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72129","county_name":"San Lorenzo Municipio, Puerto Rico","age":"10-19","population":4287,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72129","county_name":"San Lorenzo Municipio, Puerto Rico","age":"20-29","population":5004,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72129","county_name":"San Lorenzo Municipio, Puerto Rico","age":"30-39","population":4508,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72129","county_name":"San Lorenzo Municipio, Puerto Rico","age":"40-49","population":4908,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72129","county_name":"San Lorenzo Municipio, Puerto Rico","age":"50-59","population":5080,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72129","county_name":"San Lorenzo Municipio, Puerto Rico","age":"60-69","population":5009,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72129","county_name":"San Lorenzo Municipio, Puerto Rico","age":"70-79","population":3048,"population_pct":8.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72129","county_name":"San Lorenzo Municipio, Puerto Rico","age":"80+","population":1540,"population_pct":4.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72129","county_name":"San Lorenzo Municipio, Puerto Rico","age":"All","population":37209,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72131","county_name":"San Sebasti\u00e1n Municipio, Puerto Rico","age":"0-9","population":3476,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72131","county_name":"San Sebasti\u00e1n Municipio, Puerto Rico","age":"10-19","population":4652,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72131","county_name":"San Sebasti\u00e1n Municipio, Puerto Rico","age":"20-29","population":4393,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72131","county_name":"San Sebasti\u00e1n Municipio, Puerto Rico","age":"30-39","population":4294,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72131","county_name":"San Sebasti\u00e1n Municipio, Puerto Rico","age":"40-49","population":4410,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72131","county_name":"San Sebasti\u00e1n Municipio, Puerto Rico","age":"50-59","population":5012,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72131","county_name":"San Sebasti\u00e1n Municipio, Puerto Rico","age":"60-69","population":5051,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72131","county_name":"San Sebasti\u00e1n Municipio, Puerto Rico","age":"70-79","population":3707,"population_pct":10.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72131","county_name":"San Sebasti\u00e1n Municipio, Puerto Rico","age":"80+","population":2125,"population_pct":5.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72131","county_name":"San Sebasti\u00e1n Municipio, Puerto Rico","age":"All","population":37120,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72133","county_name":"Santa Isabel Municipio, Puerto Rico","age":"0-9","population":2110,"population_pct":9.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72133","county_name":"Santa Isabel Municipio, Puerto Rico","age":"10-19","population":3382,"population_pct":15.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72133","county_name":"Santa Isabel Municipio, Puerto Rico","age":"20-29","population":3049,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72133","county_name":"Santa Isabel Municipio, Puerto Rico","age":"30-39","population":2623,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72133","county_name":"Santa Isabel Municipio, Puerto Rico","age":"40-49","population":3457,"population_pct":15.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72133","county_name":"Santa Isabel Municipio, Puerto Rico","age":"50-59","population":2373,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72133","county_name":"Santa Isabel Municipio, Puerto Rico","age":"60-69","population":2648,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72133","county_name":"Santa Isabel Municipio, Puerto Rico","age":"70-79","population":1318,"population_pct":6.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72133","county_name":"Santa Isabel Municipio, Puerto Rico","age":"80+","population":797,"population_pct":3.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72133","county_name":"Santa Isabel Municipio, Puerto Rico","age":"All","population":21757,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72135","county_name":"Toa Alta Municipio, Puerto Rico","age":"0-9","population":7053,"population_pct":9.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72135","county_name":"Toa Alta Municipio, Puerto Rico","age":"10-19","population":10446,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72135","county_name":"Toa Alta Municipio, Puerto Rico","age":"20-29","population":10793,"population_pct":14.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72135","county_name":"Toa Alta Municipio, Puerto Rico","age":"30-39","population":9385,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72135","county_name":"Toa Alta Municipio, Puerto Rico","age":"40-49","population":10650,"population_pct":14.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72135","county_name":"Toa Alta Municipio, Puerto Rico","age":"50-59","population":10338,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72135","county_name":"Toa Alta Municipio, Puerto Rico","age":"60-69","population":7712,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72135","county_name":"Toa Alta Municipio, Puerto Rico","age":"70-79","population":4097,"population_pct":5.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72135","county_name":"Toa Alta Municipio, Puerto Rico","age":"80+","population":2390,"population_pct":3.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72135","county_name":"Toa Alta Municipio, Puerto Rico","age":"All","population":72864,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72137","county_name":"Toa Baja Municipio, Puerto Rico","age":"0-9","population":7639,"population_pct":9.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72137","county_name":"Toa Baja Municipio, Puerto Rico","age":"10-19","population":9911,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72137","county_name":"Toa Baja Municipio, Puerto Rico","age":"20-29","population":10823,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72137","county_name":"Toa Baja Municipio, Puerto Rico","age":"30-39","population":9767,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72137","county_name":"Toa Baja Municipio, Puerto Rico","age":"40-49","population":10170,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72137","county_name":"Toa Baja Municipio, Puerto Rico","age":"50-59","population":10266,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72137","county_name":"Toa Baja Municipio, Puerto Rico","age":"60-69","population":8884,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72137","county_name":"Toa Baja Municipio, Puerto Rico","age":"70-79","population":6735,"population_pct":8.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72137","county_name":"Toa Baja Municipio, Puerto Rico","age":"80+","population":3615,"population_pct":4.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72137","county_name":"Toa Baja Municipio, Puerto Rico","age":"All","population":77810,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72139","county_name":"Trujillo Alto Municipio, Puerto Rico","age":"0-9","population":6036,"population_pct":9.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72139","county_name":"Trujillo Alto Municipio, Puerto Rico","age":"10-19","population":8942,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72139","county_name":"Trujillo Alto Municipio, Puerto Rico","age":"20-29","population":9065,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72139","county_name":"Trujillo Alto Municipio, Puerto Rico","age":"30-39","population":8666,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72139","county_name":"Trujillo Alto Municipio, Puerto Rico","age":"40-49","population":8470,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72139","county_name":"Trujillo Alto Municipio, Puerto Rico","age":"50-59","population":8619,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72139","county_name":"Trujillo Alto Municipio, Puerto Rico","age":"60-69","population":8496,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72139","county_name":"Trujillo Alto Municipio, Puerto Rico","age":"70-79","population":4895,"population_pct":7.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72139","county_name":"Trujillo Alto Municipio, Puerto Rico","age":"80+","population":3149,"population_pct":4.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72139","county_name":"Trujillo Alto Municipio, Puerto Rico","age":"All","population":66338,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72141","county_name":"Utuado Municipio, Puerto Rico","age":"0-9","population":2733,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72141","county_name":"Utuado Municipio, Puerto Rico","age":"10-19","population":3683,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72141","county_name":"Utuado Municipio, Puerto Rico","age":"20-29","population":3688,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72141","county_name":"Utuado Municipio, Puerto Rico","age":"30-39","population":3070,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72141","county_name":"Utuado Municipio, Puerto Rico","age":"40-49","population":3459,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72141","county_name":"Utuado Municipio, Puerto Rico","age":"50-59","population":4067,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72141","county_name":"Utuado Municipio, Puerto Rico","age":"60-69","population":3764,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72141","county_name":"Utuado Municipio, Puerto Rico","age":"70-79","population":2775,"population_pct":9.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72141","county_name":"Utuado Municipio, Puerto Rico","age":"80+","population":1437,"population_pct":5.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72141","county_name":"Utuado Municipio, Puerto Rico","age":"All","population":28676,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72143","county_name":"Vega Alta Municipio, Puerto Rico","age":"0-9","population":3753,"population_pct":10.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72143","county_name":"Vega Alta Municipio, Puerto Rico","age":"10-19","population":5200,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72143","county_name":"Vega Alta Municipio, Puerto Rico","age":"20-29","population":5195,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72143","county_name":"Vega Alta Municipio, Puerto Rico","age":"30-39","population":4567,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72143","county_name":"Vega Alta Municipio, Puerto Rico","age":"40-49","population":4792,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72143","county_name":"Vega Alta Municipio, Puerto Rico","age":"50-59","population":4771,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72143","county_name":"Vega Alta Municipio, Puerto Rico","age":"60-69","population":4069,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72143","county_name":"Vega Alta Municipio, Puerto Rico","age":"70-79","population":3121,"population_pct":8.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72143","county_name":"Vega Alta Municipio, Puerto Rico","age":"80+","population":1638,"population_pct":4.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72143","county_name":"Vega Alta Municipio, Puerto Rico","age":"All","population":37106,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72145","county_name":"Vega Baja Municipio, Puerto Rico","age":"0-9","population":5012,"population_pct":9.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72145","county_name":"Vega Baja Municipio, Puerto Rico","age":"10-19","population":6720,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72145","county_name":"Vega Baja Municipio, Puerto Rico","age":"20-29","population":7029,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72145","county_name":"Vega Baja Municipio, Puerto Rico","age":"30-39","population":6332,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72145","county_name":"Vega Baja Municipio, Puerto Rico","age":"40-49","population":6547,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72145","county_name":"Vega Baja Municipio, Puerto Rico","age":"50-59","population":7074,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72145","county_name":"Vega Baja Municipio, Puerto Rico","age":"60-69","population":6170,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72145","county_name":"Vega Baja Municipio, Puerto Rico","age":"70-79","population":4648,"population_pct":8.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72145","county_name":"Vega Baja Municipio, Puerto Rico","age":"80+","population":2660,"population_pct":5.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72145","county_name":"Vega Baja Municipio, Puerto Rico","age":"All","population":52192,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72147","county_name":"Vieques Municipio, Puerto Rico","age":"0-9","population":1013,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72147","county_name":"Vieques Municipio, Puerto Rico","age":"10-19","population":821,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72147","county_name":"Vieques Municipio, Puerto Rico","age":"20-29","population":1038,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72147","county_name":"Vieques Municipio, Puerto Rico","age":"30-39","population":829,"population_pct":9.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72147","county_name":"Vieques Municipio, Puerto Rico","age":"40-49","population":1127,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72147","county_name":"Vieques Municipio, Puerto Rico","age":"50-59","population":1379,"population_pct":16.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72147","county_name":"Vieques Municipio, Puerto Rico","age":"60-69","population":1103,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72147","county_name":"Vieques Municipio, Puerto Rico","age":"70-79","population":828,"population_pct":9.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72147","county_name":"Vieques Municipio, Puerto Rico","age":"80+","population":504,"population_pct":5.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72147","county_name":"Vieques Municipio, Puerto Rico","age":"All","population":8642,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72149","county_name":"Villalba Municipio, Puerto Rico","age":"0-9","population":2565,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72149","county_name":"Villalba Municipio, Puerto Rico","age":"10-19","population":3017,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72149","county_name":"Villalba Municipio, Puerto Rico","age":"20-29","population":3185,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72149","county_name":"Villalba Municipio, Puerto Rico","age":"30-39","population":2393,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72149","county_name":"Villalba Municipio, Puerto Rico","age":"40-49","population":2806,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72149","county_name":"Villalba Municipio, Puerto Rico","age":"50-59","population":3337,"population_pct":14.9,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72149","county_name":"Villalba Municipio, Puerto Rico","age":"60-69","population":2562,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72149","county_name":"Villalba Municipio, Puerto Rico","age":"70-79","population":1750,"population_pct":7.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72149","county_name":"Villalba Municipio, Puerto Rico","age":"80+","population":788,"population_pct":3.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72149","county_name":"Villalba Municipio, Puerto Rico","age":"All","population":22403,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72151","county_name":"Yabucoa Municipio, Puerto Rico","age":"0-9","population":3288,"population_pct":9.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72151","county_name":"Yabucoa Municipio, Puerto Rico","age":"10-19","population":4086,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72151","county_name":"Yabucoa Municipio, Puerto Rico","age":"20-29","population":4390,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72151","county_name":"Yabucoa Municipio, Puerto Rico","age":"30-39","population":3689,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72151","county_name":"Yabucoa Municipio, Puerto Rico","age":"40-49","population":4234,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72151","county_name":"Yabucoa Municipio, Puerto Rico","age":"50-59","population":4850,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72151","county_name":"Yabucoa Municipio, Puerto Rico","age":"60-69","population":4453,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72151","county_name":"Yabucoa Municipio, Puerto Rico","age":"70-79","population":2923,"population_pct":8.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72151","county_name":"Yabucoa Municipio, Puerto Rico","age":"80+","population":1586,"population_pct":4.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72151","county_name":"Yabucoa Municipio, Puerto Rico","age":"All","population":33499,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72153","county_name":"Yauco Municipio, Puerto Rico","age":"0-9","population":3394,"population_pct":9.6,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72153","county_name":"Yauco Municipio, Puerto Rico","age":"10-19","population":4256,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72153","county_name":"Yauco Municipio, Puerto Rico","age":"20-29","population":4297,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72153","county_name":"Yauco Municipio, Puerto Rico","age":"30-39","population":3933,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72153","county_name":"Yauco Municipio, Puerto Rico","age":"40-49","population":4522,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72153","county_name":"Yauco Municipio, Puerto Rico","age":"50-59","population":5376,"population_pct":15.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72153","county_name":"Yauco Municipio, Puerto Rico","age":"60-69","population":4508,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72153","county_name":"Yauco Municipio, Puerto Rico","age":"70-79","population":3316,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72153","county_name":"Yauco Municipio, Puerto Rico","age":"80+","population":1826,"population_pct":5.2,"ingestion_ts":1662663908369}
+,{"state_fips":"72","county_fips":"72153","county_name":"Yauco Municipio, Puerto Rico","age":"All","population":35428,"population_pct":100.0,"ingestion_ts":1662663908369}]

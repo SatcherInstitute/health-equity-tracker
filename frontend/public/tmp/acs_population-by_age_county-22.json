@@ -1,0 +1,640 @@
+[{"state_fips":"22","county_fips":"22001","county_name":"Acadia Parish, Louisiana","age":"0-9","population":9069,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22001","county_name":"Acadia Parish, Louisiana","age":"10-19","population":8729,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22001","county_name":"Acadia Parish, Louisiana","age":"20-29","population":7881,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22001","county_name":"Acadia Parish, Louisiana","age":"30-39","population":8047,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22001","county_name":"Acadia Parish, Louisiana","age":"40-49","population":7227,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22001","county_name":"Acadia Parish, Louisiana","age":"50-59","population":8518,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22001","county_name":"Acadia Parish, Louisiana","age":"60-69","population":6914,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22001","county_name":"Acadia Parish, Louisiana","age":"70-79","population":3957,"population_pct":6.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22001","county_name":"Acadia Parish, Louisiana","age":"80+","population":2115,"population_pct":3.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22001","county_name":"Acadia Parish, Louisiana","age":"All","population":62457,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22003","county_name":"Allen Parish, Louisiana","age":"0-9","population":3172,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22003","county_name":"Allen Parish, Louisiana","age":"10-19","population":3031,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22003","county_name":"Allen Parish, Louisiana","age":"20-29","population":3337,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22003","county_name":"Allen Parish, Louisiana","age":"30-39","population":3867,"population_pct":15.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22003","county_name":"Allen Parish, Louisiana","age":"40-49","population":3624,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22003","county_name":"Allen Parish, Louisiana","age":"50-59","population":3430,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22003","county_name":"Allen Parish, Louisiana","age":"60-69","population":2796,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22003","county_name":"Allen Parish, Louisiana","age":"70-79","population":1575,"population_pct":6.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22003","county_name":"Allen Parish, Louisiana","age":"80+","population":786,"population_pct":3.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22003","county_name":"Allen Parish, Louisiana","age":"All","population":25618,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22005","county_name":"Ascension Parish, Louisiana","age":"0-9","population":18694,"population_pct":15.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22005","county_name":"Ascension Parish, Louisiana","age":"10-19","population":17650,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22005","county_name":"Ascension Parish, Louisiana","age":"20-29","population":15122,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22005","county_name":"Ascension Parish, Louisiana","age":"30-39","population":18364,"population_pct":14.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22005","county_name":"Ascension Parish, Louisiana","age":"40-49","population":16781,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22005","county_name":"Ascension Parish, Louisiana","age":"50-59","population":15569,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22005","county_name":"Ascension Parish, Louisiana","age":"60-69","population":12025,"population_pct":9.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22005","county_name":"Ascension Parish, Louisiana","age":"70-79","population":6026,"population_pct":4.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22005","county_name":"Ascension Parish, Louisiana","age":"80+","population":2883,"population_pct":2.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22005","county_name":"Ascension Parish, Louisiana","age":"All","population":123114,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22007","county_name":"Assumption Parish, Louisiana","age":"0-9","population":2328,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22007","county_name":"Assumption Parish, Louisiana","age":"10-19","population":3193,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22007","county_name":"Assumption Parish, Louisiana","age":"20-29","population":2821,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22007","county_name":"Assumption Parish, Louisiana","age":"30-39","population":2653,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22007","county_name":"Assumption Parish, Louisiana","age":"40-49","population":2687,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22007","county_name":"Assumption Parish, Louisiana","age":"50-59","population":3437,"population_pct":15.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22007","county_name":"Assumption Parish, Louisiana","age":"60-69","population":2764,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22007","county_name":"Assumption Parish, Louisiana","age":"70-79","population":1827,"population_pct":8.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22007","county_name":"Assumption Parish, Louisiana","age":"80+","population":768,"population_pct":3.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22007","county_name":"Assumption Parish, Louisiana","age":"All","population":22478,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22009","county_name":"Avoyelles Parish, Louisiana","age":"0-9","population":4777,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22009","county_name":"Avoyelles Parish, Louisiana","age":"10-19","population":5663,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22009","county_name":"Avoyelles Parish, Louisiana","age":"20-29","population":5380,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22009","county_name":"Avoyelles Parish, Louisiana","age":"30-39","population":5472,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22009","county_name":"Avoyelles Parish, Louisiana","age":"40-49","population":4597,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22009","county_name":"Avoyelles Parish, Louisiana","age":"50-59","population":5481,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22009","county_name":"Avoyelles Parish, Louisiana","age":"60-69","population":4774,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22009","county_name":"Avoyelles Parish, Louisiana","age":"70-79","population":2912,"population_pct":7.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22009","county_name":"Avoyelles Parish, Louisiana","age":"80+","population":1613,"population_pct":4.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22009","county_name":"Avoyelles Parish, Louisiana","age":"All","population":40669,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22011","county_name":"Beauregard Parish, Louisiana","age":"0-9","population":4476,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22011","county_name":"Beauregard Parish, Louisiana","age":"10-19","population":5545,"population_pct":15.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22011","county_name":"Beauregard Parish, Louisiana","age":"20-29","population":4818,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22011","county_name":"Beauregard Parish, Louisiana","age":"30-39","population":4753,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22011","county_name":"Beauregard Parish, Louisiana","age":"40-49","population":4787,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22011","county_name":"Beauregard Parish, Louisiana","age":"50-59","population":4734,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22011","county_name":"Beauregard Parish, Louisiana","age":"60-69","population":3943,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22011","county_name":"Beauregard Parish, Louisiana","age":"70-79","population":2586,"population_pct":7.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22011","county_name":"Beauregard Parish, Louisiana","age":"80+","population":1401,"population_pct":3.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22011","county_name":"Beauregard Parish, Louisiana","age":"All","population":37043,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22013","county_name":"Bienville Parish, Louisiana","age":"0-9","population":1559,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22013","county_name":"Bienville Parish, Louisiana","age":"10-19","population":1689,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22013","county_name":"Bienville Parish, Louisiana","age":"20-29","population":1697,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22013","county_name":"Bienville Parish, Louisiana","age":"30-39","population":1519,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22013","county_name":"Bienville Parish, Louisiana","age":"40-49","population":1479,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22013","county_name":"Bienville Parish, Louisiana","age":"50-59","population":1940,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22013","county_name":"Bienville Parish, Louisiana","age":"60-69","population":1775,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22013","county_name":"Bienville Parish, Louisiana","age":"70-79","population":1215,"population_pct":9.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22013","county_name":"Bienville Parish, Louisiana","age":"80+","population":691,"population_pct":5.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22013","county_name":"Bienville Parish, Louisiana","age":"All","population":13564,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22015","county_name":"Bossier Parish, Louisiana","age":"0-9","population":17779,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22015","county_name":"Bossier Parish, Louisiana","age":"10-19","population":16634,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22015","county_name":"Bossier Parish, Louisiana","age":"20-29","population":18129,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22015","county_name":"Bossier Parish, Louisiana","age":"30-39","population":19015,"population_pct":15.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22015","county_name":"Bossier Parish, Louisiana","age":"40-49","population":15040,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22015","county_name":"Bossier Parish, Louisiana","age":"50-59","population":15278,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22015","county_name":"Bossier Parish, Louisiana","age":"60-69","population":12484,"population_pct":9.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22015","county_name":"Bossier Parish, Louisiana","age":"70-79","population":8166,"population_pct":6.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22015","county_name":"Bossier Parish, Louisiana","age":"80+","population":3974,"population_pct":3.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22015","county_name":"Bossier Parish, Louisiana","age":"All","population":126499,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22017","county_name":"Caddo Parish, Louisiana","age":"0-9","population":32398,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22017","county_name":"Caddo Parish, Louisiana","age":"10-19","population":32038,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22017","county_name":"Caddo Parish, Louisiana","age":"20-29","population":33206,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22017","county_name":"Caddo Parish, Louisiana","age":"30-39","population":32415,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22017","county_name":"Caddo Parish, Louisiana","age":"40-49","population":27836,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22017","county_name":"Caddo Parish, Louisiana","age":"50-59","population":30925,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22017","county_name":"Caddo Parish, Louisiana","age":"60-69","population":30064,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22017","county_name":"Caddo Parish, Louisiana","age":"70-79","population":16480,"population_pct":6.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22017","county_name":"Caddo Parish, Louisiana","age":"80+","population":10469,"population_pct":4.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22017","county_name":"Caddo Parish, Louisiana","age":"All","population":245831,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22019","county_name":"Calcasieu Parish, Louisiana","age":"0-9","population":28808,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22019","county_name":"Calcasieu Parish, Louisiana","age":"10-19","population":26087,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22019","county_name":"Calcasieu Parish, Louisiana","age":"20-29","population":28957,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22019","county_name":"Calcasieu Parish, Louisiana","age":"30-39","population":27478,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22019","county_name":"Calcasieu Parish, Louisiana","age":"40-49","population":22869,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22019","county_name":"Calcasieu Parish, Louisiana","age":"50-59","population":26356,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22019","county_name":"Calcasieu Parish, Louisiana","age":"60-69","population":21816,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22019","county_name":"Calcasieu Parish, Louisiana","age":"70-79","population":12375,"population_pct":6.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22019","county_name":"Calcasieu Parish, Louisiana","age":"80+","population":6873,"population_pct":3.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22019","county_name":"Calcasieu Parish, Louisiana","age":"All","population":201619,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22021","county_name":"Caldwell Parish, Louisiana","age":"0-9","population":1410,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22021","county_name":"Caldwell Parish, Louisiana","age":"10-19","population":1088,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22021","county_name":"Caldwell Parish, Louisiana","age":"20-29","population":1442,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22021","county_name":"Caldwell Parish, Louisiana","age":"30-39","population":1090,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22021","county_name":"Caldwell Parish, Louisiana","age":"40-49","population":1200,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22021","county_name":"Caldwell Parish, Louisiana","age":"50-59","population":1368,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22021","county_name":"Caldwell Parish, Louisiana","age":"60-69","population":1151,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22021","county_name":"Caldwell Parish, Louisiana","age":"70-79","population":868,"population_pct":8.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22021","county_name":"Caldwell Parish, Louisiana","age":"80+","population":375,"population_pct":3.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22021","county_name":"Caldwell Parish, Louisiana","age":"All","population":9992,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22023","county_name":"Cameron Parish, Louisiana","age":"0-9","population":679,"population_pct":9.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22023","county_name":"Cameron Parish, Louisiana","age":"10-19","population":1116,"population_pct":16.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22023","county_name":"Cameron Parish, Louisiana","age":"20-29","population":714,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22023","county_name":"Cameron Parish, Louisiana","age":"30-39","population":399,"population_pct":5.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22023","county_name":"Cameron Parish, Louisiana","age":"40-49","population":1138,"population_pct":16.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22023","county_name":"Cameron Parish, Louisiana","age":"50-59","population":1155,"population_pct":16.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22023","county_name":"Cameron Parish, Louisiana","age":"60-69","population":986,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22023","county_name":"Cameron Parish, Louisiana","age":"70-79","population":448,"population_pct":6.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22023","county_name":"Cameron Parish, Louisiana","age":"80+","population":295,"population_pct":4.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22023","county_name":"Cameron Parish, Louisiana","age":"All","population":6930,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22025","county_name":"Catahoula Parish, Louisiana","age":"0-9","population":1170,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22025","county_name":"Catahoula Parish, Louisiana","age":"10-19","population":1114,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22025","county_name":"Catahoula Parish, Louisiana","age":"20-29","population":1428,"population_pct":14.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22025","county_name":"Catahoula Parish, Louisiana","age":"30-39","population":1461,"population_pct":15.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22025","county_name":"Catahoula Parish, Louisiana","age":"40-49","population":1036,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22025","county_name":"Catahoula Parish, Louisiana","age":"50-59","population":1168,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22025","county_name":"Catahoula Parish, Louisiana","age":"60-69","population":1255,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22025","county_name":"Catahoula Parish, Louisiana","age":"70-79","population":746,"population_pct":7.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22025","county_name":"Catahoula Parish, Louisiana","age":"80+","population":388,"population_pct":4.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22025","county_name":"Catahoula Parish, Louisiana","age":"All","population":9766,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22027","county_name":"Claiborne Parish, Louisiana","age":"0-9","population":1703,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22027","county_name":"Claiborne Parish, Louisiana","age":"10-19","population":1472,"population_pct":9.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22027","county_name":"Claiborne Parish, Louisiana","age":"20-29","population":2354,"population_pct":14.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22027","county_name":"Claiborne Parish, Louisiana","age":"30-39","population":1940,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22027","county_name":"Claiborne Parish, Louisiana","age":"40-49","population":2263,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22027","county_name":"Claiborne Parish, Louisiana","age":"50-59","population":2211,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22027","county_name":"Claiborne Parish, Louisiana","age":"60-69","population":1844,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22027","county_name":"Claiborne Parish, Louisiana","age":"70-79","population":1486,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22027","county_name":"Claiborne Parish, Louisiana","age":"80+","population":712,"population_pct":4.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22027","county_name":"Claiborne Parish, Louisiana","age":"All","population":15985,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22029","county_name":"Concordia Parish, Louisiana","age":"0-9","population":2575,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22029","county_name":"Concordia Parish, Louisiana","age":"10-19","population":2431,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22029","county_name":"Concordia Parish, Louisiana","age":"20-29","population":2879,"population_pct":14.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22029","county_name":"Concordia Parish, Louisiana","age":"30-39","population":2473,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22029","county_name":"Concordia Parish, Louisiana","age":"40-49","population":2243,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22029","county_name":"Concordia Parish, Louisiana","age":"50-59","population":2599,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22029","county_name":"Concordia Parish, Louisiana","age":"60-69","population":2229,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22029","county_name":"Concordia Parish, Louisiana","age":"70-79","population":1602,"population_pct":8.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22029","county_name":"Concordia Parish, Louisiana","age":"80+","population":747,"population_pct":3.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22029","county_name":"Concordia Parish, Louisiana","age":"All","population":19778,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22031","county_name":"De Soto Parish, Louisiana","age":"0-9","population":3741,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22031","county_name":"De Soto Parish, Louisiana","age":"10-19","population":3481,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22031","county_name":"De Soto Parish, Louisiana","age":"20-29","population":3148,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22031","county_name":"De Soto Parish, Louisiana","age":"30-39","population":3462,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22031","county_name":"De Soto Parish, Louisiana","age":"40-49","population":3307,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22031","county_name":"De Soto Parish, Louisiana","age":"50-59","population":3837,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22031","county_name":"De Soto Parish, Louisiana","age":"60-69","population":3202,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22031","county_name":"De Soto Parish, Louisiana","age":"70-79","population":2029,"population_pct":7.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22031","county_name":"De Soto Parish, Louisiana","age":"80+","population":1082,"population_pct":4.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22031","county_name":"De Soto Parish, Louisiana","age":"All","population":27289,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22033","county_name":"East Baton Rouge Parish, Louisiana","age":"0-9","population":57006,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22033","county_name":"East Baton Rouge Parish, Louisiana","age":"10-19","population":59222,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22033","county_name":"East Baton Rouge Parish, Louisiana","age":"20-29","population":81221,"population_pct":18.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22033","county_name":"East Baton Rouge Parish, Louisiana","age":"30-39","population":58858,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22033","county_name":"East Baton Rouge Parish, Louisiana","age":"40-49","population":48295,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22033","county_name":"East Baton Rouge Parish, Louisiana","age":"50-59","population":52782,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22033","county_name":"East Baton Rouge Parish, Louisiana","age":"60-69","population":46991,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22033","county_name":"East Baton Rouge Parish, Louisiana","age":"70-79","population":25863,"population_pct":5.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22033","county_name":"East Baton Rouge Parish, Louisiana","age":"80+","population":13525,"population_pct":3.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22033","county_name":"East Baton Rouge Parish, Louisiana","age":"All","population":443763,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22035","county_name":"East Carroll Parish, Louisiana","age":"0-9","population":820,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22035","county_name":"East Carroll Parish, Louisiana","age":"10-19","population":614,"population_pct":8.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22035","county_name":"East Carroll Parish, Louisiana","age":"20-29","population":1629,"population_pct":23.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22035","county_name":"East Carroll Parish, Louisiana","age":"30-39","population":1025,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22035","county_name":"East Carroll Parish, Louisiana","age":"40-49","population":797,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22035","county_name":"East Carroll Parish, Louisiana","age":"50-59","population":870,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22035","county_name":"East Carroll Parish, Louisiana","age":"60-69","population":668,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22035","county_name":"East Carroll Parish, Louisiana","age":"70-79","population":438,"population_pct":6.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22035","county_name":"East Carroll Parish, Louisiana","age":"80+","population":235,"population_pct":3.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22035","county_name":"East Carroll Parish, Louisiana","age":"All","population":7096,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22037","county_name":"East Feliciana Parish, Louisiana","age":"0-9","population":1861,"population_pct":9.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22037","county_name":"East Feliciana Parish, Louisiana","age":"10-19","population":2117,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22037","county_name":"East Feliciana Parish, Louisiana","age":"20-29","population":2408,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22037","county_name":"East Feliciana Parish, Louisiana","age":"30-39","population":2666,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22037","county_name":"East Feliciana Parish, Louisiana","age":"40-49","population":2397,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22037","county_name":"East Feliciana Parish, Louisiana","age":"50-59","population":3148,"population_pct":16.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22037","county_name":"East Feliciana Parish, Louisiana","age":"60-69","population":2762,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22037","county_name":"East Feliciana Parish, Louisiana","age":"70-79","population":1402,"population_pct":7.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22037","county_name":"East Feliciana Parish, Louisiana","age":"80+","population":610,"population_pct":3.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22037","county_name":"East Feliciana Parish, Louisiana","age":"All","population":19371,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22039","county_name":"Evangeline Parish, Louisiana","age":"0-9","population":4682,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22039","county_name":"Evangeline Parish, Louisiana","age":"10-19","population":4842,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22039","county_name":"Evangeline Parish, Louisiana","age":"20-29","population":4650,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22039","county_name":"Evangeline Parish, Louisiana","age":"30-39","population":4272,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22039","county_name":"Evangeline Parish, Louisiana","age":"40-49","population":3749,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22039","county_name":"Evangeline Parish, Louisiana","age":"50-59","population":4109,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22039","county_name":"Evangeline Parish, Louisiana","age":"60-69","population":4106,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22039","county_name":"Evangeline Parish, Louisiana","age":"70-79","population":2075,"population_pct":6.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22039","county_name":"Evangeline Parish, Louisiana","age":"80+","population":1104,"population_pct":3.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22039","county_name":"Evangeline Parish, Louisiana","age":"All","population":33589,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22041","county_name":"Franklin Parish, Louisiana","age":"0-9","population":3002,"population_pct":14.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22041","county_name":"Franklin Parish, Louisiana","age":"10-19","population":2568,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22041","county_name":"Franklin Parish, Louisiana","age":"20-29","population":2499,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22041","county_name":"Franklin Parish, Louisiana","age":"30-39","population":2554,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22041","county_name":"Franklin Parish, Louisiana","age":"40-49","population":2069,"population_pct":10.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22041","county_name":"Franklin Parish, Louisiana","age":"50-59","population":2565,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22041","county_name":"Franklin Parish, Louisiana","age":"60-69","population":2529,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22041","county_name":"Franklin Parish, Louisiana","age":"70-79","population":1655,"population_pct":8.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22041","county_name":"Franklin Parish, Louisiana","age":"80+","population":797,"population_pct":3.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22041","county_name":"Franklin Parish, Louisiana","age":"All","population":20238,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22043","county_name":"Grant Parish, Louisiana","age":"0-9","population":2608,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22043","county_name":"Grant Parish, Louisiana","age":"10-19","population":2481,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22043","county_name":"Grant Parish, Louisiana","age":"20-29","population":3104,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22043","county_name":"Grant Parish, Louisiana","age":"30-39","population":3758,"population_pct":16.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22043","county_name":"Grant Parish, Louisiana","age":"40-49","population":2916,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22043","county_name":"Grant Parish, Louisiana","age":"50-59","population":3032,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22043","county_name":"Grant Parish, Louisiana","age":"60-69","population":2176,"population_pct":9.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22043","county_name":"Grant Parish, Louisiana","age":"70-79","population":1634,"population_pct":7.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22043","county_name":"Grant Parish, Louisiana","age":"80+","population":631,"population_pct":2.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22043","county_name":"Grant Parish, Louisiana","age":"All","population":22340,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22045","county_name":"Iberia Parish, Louisiana","age":"0-9","population":10380,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22045","county_name":"Iberia Parish, Louisiana","age":"10-19","population":10339,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22045","county_name":"Iberia Parish, Louisiana","age":"20-29","population":9356,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22045","county_name":"Iberia Parish, Louisiana","age":"30-39","population":9206,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22045","county_name":"Iberia Parish, Louisiana","age":"40-49","population":7752,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22045","county_name":"Iberia Parish, Louisiana","age":"50-59","population":9515,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22045","county_name":"Iberia Parish, Louisiana","age":"60-69","population":8537,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22045","county_name":"Iberia Parish, Louisiana","age":"70-79","population":4381,"population_pct":6.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22045","county_name":"Iberia Parish, Louisiana","age":"80+","population":2421,"population_pct":3.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22045","county_name":"Iberia Parish, Louisiana","age":"All","population":71887,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22047","county_name":"Iberville Parish, Louisiana","age":"0-9","population":3596,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22047","county_name":"Iberville Parish, Louisiana","age":"10-19","population":3952,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22047","county_name":"Iberville Parish, Louisiana","age":"20-29","population":4727,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22047","county_name":"Iberville Parish, Louisiana","age":"30-39","population":4780,"population_pct":14.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22047","county_name":"Iberville Parish, Louisiana","age":"40-49","population":4042,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22047","county_name":"Iberville Parish, Louisiana","age":"50-59","population":4719,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22047","county_name":"Iberville Parish, Louisiana","age":"60-69","population":3642,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22047","county_name":"Iberville Parish, Louisiana","age":"70-79","population":2150,"population_pct":6.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22047","county_name":"Iberville Parish, Louisiana","age":"80+","population":1214,"population_pct":3.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22047","county_name":"Iberville Parish, Louisiana","age":"All","population":32822,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22049","county_name":"Jackson Parish, Louisiana","age":"0-9","population":1799,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22049","county_name":"Jackson Parish, Louisiana","age":"10-19","population":1896,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22049","county_name":"Jackson Parish, Louisiana","age":"20-29","population":1968,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22049","county_name":"Jackson Parish, Louisiana","age":"30-39","population":2058,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22049","county_name":"Jackson Parish, Louisiana","age":"40-49","population":1810,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22049","county_name":"Jackson Parish, Louisiana","age":"50-59","population":2155,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22049","county_name":"Jackson Parish, Louisiana","age":"60-69","population":2050,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22049","county_name":"Jackson Parish, Louisiana","age":"70-79","population":1347,"population_pct":8.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22049","county_name":"Jackson Parish, Louisiana","age":"80+","population":796,"population_pct":5.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22049","county_name":"Jackson Parish, Louisiana","age":"All","population":15879,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22051","county_name":"Jefferson Parish, Louisiana","age":"0-9","population":54594,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22051","county_name":"Jefferson Parish, Louisiana","age":"10-19","population":49664,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22051","county_name":"Jefferson Parish, Louisiana","age":"20-29","population":57016,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22051","county_name":"Jefferson Parish, Louisiana","age":"30-39","population":59404,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22051","county_name":"Jefferson Parish, Louisiana","age":"40-49","population":52331,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22051","county_name":"Jefferson Parish, Louisiana","age":"50-59","population":60101,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22051","county_name":"Jefferson Parish, Louisiana","age":"60-69","population":54579,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22051","county_name":"Jefferson Parish, Louisiana","age":"70-79","population":29926,"population_pct":6.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22051","county_name":"Jefferson Parish, Louisiana","age":"80+","population":17235,"population_pct":4.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22051","county_name":"Jefferson Parish, Louisiana","age":"All","population":434850,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22053","county_name":"Jefferson Davis Parish, Louisiana","age":"0-9","population":4255,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22053","county_name":"Jefferson Davis Parish, Louisiana","age":"10-19","population":4529,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22053","county_name":"Jefferson Davis Parish, Louisiana","age":"20-29","population":3872,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22053","county_name":"Jefferson Davis Parish, Louisiana","age":"30-39","population":4120,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22053","county_name":"Jefferson Davis Parish, Louisiana","age":"40-49","population":3234,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22053","county_name":"Jefferson Davis Parish, Louisiana","age":"50-59","population":3976,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22053","county_name":"Jefferson Davis Parish, Louisiana","age":"60-69","population":3930,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22053","county_name":"Jefferson Davis Parish, Louisiana","age":"70-79","population":2288,"population_pct":7.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22053","county_name":"Jefferson Davis Parish, Louisiana","age":"80+","population":1237,"population_pct":3.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22053","county_name":"Jefferson Davis Parish, Louisiana","age":"All","population":31441,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22055","county_name":"Lafayette Parish, Louisiana","age":"0-9","population":33091,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22055","county_name":"Lafayette Parish, Louisiana","age":"10-19","population":30498,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22055","county_name":"Lafayette Parish, Louisiana","age":"20-29","population":37262,"population_pct":15.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22055","county_name":"Lafayette Parish, Louisiana","age":"30-39","population":37473,"population_pct":15.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22055","county_name":"Lafayette Parish, Louisiana","age":"40-49","population":28021,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22055","county_name":"Lafayette Parish, Louisiana","age":"50-59","population":29922,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22055","county_name":"Lafayette Parish, Louisiana","age":"60-69","population":26496,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22055","county_name":"Lafayette Parish, Louisiana","age":"70-79","population":12091,"population_pct":5.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22055","county_name":"Lafayette Parish, Louisiana","age":"80+","population":7119,"population_pct":2.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22055","county_name":"Lafayette Parish, Louisiana","age":"All","population":241973,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22057","county_name":"Lafourche Parish, Louisiana","age":"0-9","population":12534,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22057","county_name":"Lafourche Parish, Louisiana","age":"10-19","population":13191,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22057","county_name":"Lafourche Parish, Louisiana","age":"20-29","population":13035,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22057","county_name":"Lafourche Parish, Louisiana","age":"30-39","population":13324,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22057","county_name":"Lafourche Parish, Louisiana","age":"40-49","population":11475,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22057","county_name":"Lafourche Parish, Louisiana","age":"50-59","population":13489,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22057","county_name":"Lafourche Parish, Louisiana","age":"60-69","population":11216,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22057","county_name":"Lafourche Parish, Louisiana","age":"70-79","population":6469,"population_pct":6.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22057","county_name":"Lafourche Parish, Louisiana","age":"80+","population":3375,"population_pct":3.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22057","county_name":"Lafourche Parish, Louisiana","age":"All","population":98108,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22059","county_name":"LaSalle Parish, Louisiana","age":"0-9","population":1740,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22059","county_name":"LaSalle Parish, Louisiana","age":"10-19","population":2124,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22059","county_name":"LaSalle Parish, Louisiana","age":"20-29","population":2074,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22059","county_name":"LaSalle Parish, Louisiana","age":"30-39","population":1825,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22059","county_name":"LaSalle Parish, Louisiana","age":"40-49","population":1959,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22059","county_name":"LaSalle Parish, Louisiana","age":"50-59","population":1662,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22059","county_name":"LaSalle Parish, Louisiana","age":"60-69","population":1968,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22059","county_name":"LaSalle Parish, Louisiana","age":"70-79","population":1053,"population_pct":7.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22059","county_name":"LaSalle Parish, Louisiana","age":"80+","population":531,"population_pct":3.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22059","county_name":"LaSalle Parish, Louisiana","age":"All","population":14936,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22061","county_name":"Lincoln Parish, Louisiana","age":"0-9","population":5190,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22061","county_name":"Lincoln Parish, Louisiana","age":"10-19","population":7409,"population_pct":15.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22061","county_name":"Lincoln Parish, Louisiana","age":"20-29","population":11961,"population_pct":25.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22061","county_name":"Lincoln Parish, Louisiana","age":"30-39","population":5603,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22061","county_name":"Lincoln Parish, Louisiana","age":"40-49","population":3866,"population_pct":8.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22061","county_name":"Lincoln Parish, Louisiana","age":"50-59","population":4720,"population_pct":10.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22061","county_name":"Lincoln Parish, Louisiana","age":"60-69","population":4216,"population_pct":8.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22061","county_name":"Lincoln Parish, Louisiana","age":"70-79","population":2701,"population_pct":5.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22061","county_name":"Lincoln Parish, Louisiana","age":"80+","population":1580,"population_pct":3.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22061","county_name":"Lincoln Parish, Louisiana","age":"All","population":47246,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22063","county_name":"Livingston Parish, Louisiana","age":"0-9","population":19144,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22063","county_name":"Livingston Parish, Louisiana","age":"10-19","population":20342,"population_pct":14.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22063","county_name":"Livingston Parish, Louisiana","age":"20-29","population":17552,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22063","county_name":"Livingston Parish, Louisiana","age":"30-39","population":19739,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22063","county_name":"Livingston Parish, Louisiana","age":"40-49","population":19092,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22063","county_name":"Livingston Parish, Louisiana","age":"50-59","population":16677,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22063","county_name":"Livingston Parish, Louisiana","age":"60-69","population":15113,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22063","county_name":"Livingston Parish, Louisiana","age":"70-79","population":7908,"population_pct":5.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22063","county_name":"Livingston Parish, Louisiana","age":"80+","population":3361,"population_pct":2.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22063","county_name":"Livingston Parish, Louisiana","age":"All","population":138928,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22065","county_name":"Madison Parish, Louisiana","age":"0-9","population":1562,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22065","county_name":"Madison Parish, Louisiana","age":"10-19","population":1528,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22065","county_name":"Madison Parish, Louisiana","age":"20-29","population":1637,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22065","county_name":"Madison Parish, Louisiana","age":"30-39","population":1655,"population_pct":14.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22065","county_name":"Madison Parish, Louisiana","age":"40-49","population":1361,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22065","county_name":"Madison Parish, Louisiana","age":"50-59","population":1269,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22065","county_name":"Madison Parish, Louisiana","age":"60-69","population":1217,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22065","county_name":"Madison Parish, Louisiana","age":"70-79","population":658,"population_pct":5.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22065","county_name":"Madison Parish, Louisiana","age":"80+","population":419,"population_pct":3.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22065","county_name":"Madison Parish, Louisiana","age":"All","population":11306,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22067","county_name":"Morehouse Parish, Louisiana","age":"0-9","population":3760,"population_pct":14.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22067","county_name":"Morehouse Parish, Louisiana","age":"10-19","population":3107,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22067","county_name":"Morehouse Parish, Louisiana","age":"20-29","population":3074,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22067","county_name":"Morehouse Parish, Louisiana","age":"30-39","population":2901,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22067","county_name":"Morehouse Parish, Louisiana","age":"40-49","population":2946,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22067","county_name":"Morehouse Parish, Louisiana","age":"50-59","population":3469,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22067","county_name":"Morehouse Parish, Louisiana","age":"60-69","population":3266,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22067","county_name":"Morehouse Parish, Louisiana","age":"70-79","population":1955,"population_pct":7.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22067","county_name":"Morehouse Parish, Louisiana","age":"80+","population":1132,"population_pct":4.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22067","county_name":"Morehouse Parish, Louisiana","age":"All","population":25610,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22069","county_name":"Natchitoches Parish, Louisiana","age":"0-9","population":4926,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22069","county_name":"Natchitoches Parish, Louisiana","age":"10-19","population":6229,"population_pct":16.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22069","county_name":"Natchitoches Parish, Louisiana","age":"20-29","population":6969,"population_pct":18.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22069","county_name":"Natchitoches Parish, Louisiana","age":"30-39","population":3859,"population_pct":10.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22069","county_name":"Natchitoches Parish, Louisiana","age":"40-49","population":4055,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22069","county_name":"Natchitoches Parish, Louisiana","age":"50-59","population":4217,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22069","county_name":"Natchitoches Parish, Louisiana","age":"60-69","population":4404,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22069","county_name":"Natchitoches Parish, Louisiana","age":"70-79","population":2684,"population_pct":6.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22069","county_name":"Natchitoches Parish, Louisiana","age":"80+","population":1426,"population_pct":3.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22069","county_name":"Natchitoches Parish, Louisiana","age":"All","population":38769,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22071","county_name":"Orleans Parish, Louisiana","age":"0-9","population":45643,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22071","county_name":"Orleans Parish, Louisiana","age":"10-19","population":42329,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22071","county_name":"Orleans Parish, Louisiana","age":"20-29","population":60707,"population_pct":15.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22071","county_name":"Orleans Parish, Louisiana","age":"30-39","population":64766,"population_pct":16.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22071","county_name":"Orleans Parish, Louisiana","age":"40-49","population":45989,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22071","county_name":"Orleans Parish, Louisiana","age":"50-59","population":50431,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22071","county_name":"Orleans Parish, Louisiana","age":"60-69","population":45746,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22071","county_name":"Orleans Parish, Louisiana","age":"70-79","population":23188,"population_pct":5.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22071","county_name":"Orleans Parish, Louisiana","age":"80+","population":12046,"population_pct":3.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22071","county_name":"Orleans Parish, Louisiana","age":"All","population":390845,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22073","county_name":"Ouachita Parish, Louisiana","age":"0-9","population":22300,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22073","county_name":"Ouachita Parish, Louisiana","age":"10-19","population":21179,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22073","county_name":"Ouachita Parish, Louisiana","age":"20-29","population":22518,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22073","county_name":"Ouachita Parish, Louisiana","age":"30-39","population":19936,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22073","county_name":"Ouachita Parish, Louisiana","age":"40-49","population":18993,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22073","county_name":"Ouachita Parish, Louisiana","age":"50-59","population":18549,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22073","county_name":"Ouachita Parish, Louisiana","age":"60-69","population":16606,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22073","county_name":"Ouachita Parish, Louisiana","age":"70-79","population":9947,"population_pct":6.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22073","county_name":"Ouachita Parish, Louisiana","age":"80+","population":5466,"population_pct":3.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22073","county_name":"Ouachita Parish, Louisiana","age":"All","population":155494,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22075","county_name":"Plaquemines Parish, Louisiana","age":"0-9","population":3205,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22075","county_name":"Plaquemines Parish, Louisiana","age":"10-19","population":3510,"population_pct":15.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22075","county_name":"Plaquemines Parish, Louisiana","age":"20-29","population":2877,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22075","county_name":"Plaquemines Parish, Louisiana","age":"30-39","population":3029,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22075","county_name":"Plaquemines Parish, Louisiana","age":"40-49","population":3150,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22075","county_name":"Plaquemines Parish, Louisiana","age":"50-59","population":3079,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22075","county_name":"Plaquemines Parish, Louisiana","age":"60-69","population":2581,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22075","county_name":"Plaquemines Parish, Louisiana","age":"70-79","population":1241,"population_pct":5.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22075","county_name":"Plaquemines Parish, Louisiana","age":"80+","population":666,"population_pct":2.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22075","county_name":"Plaquemines Parish, Louisiana","age":"All","population":23338,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22077","county_name":"Pointe Coupee Parish, Louisiana","age":"0-9","population":2707,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22077","county_name":"Pointe Coupee Parish, Louisiana","age":"10-19","population":2606,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22077","county_name":"Pointe Coupee Parish, Louisiana","age":"20-29","population":2577,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22077","county_name":"Pointe Coupee Parish, Louisiana","age":"30-39","population":2296,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22077","county_name":"Pointe Coupee Parish, Louisiana","age":"40-49","population":2485,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22077","county_name":"Pointe Coupee Parish, Louisiana","age":"50-59","population":3106,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22077","county_name":"Pointe Coupee Parish, Louisiana","age":"60-69","population":3492,"population_pct":15.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22077","county_name":"Pointe Coupee Parish, Louisiana","age":"70-79","population":1661,"population_pct":7.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22077","county_name":"Pointe Coupee Parish, Louisiana","age":"80+","population":1086,"population_pct":4.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22077","county_name":"Pointe Coupee Parish, Louisiana","age":"All","population":22016,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22079","county_name":"Rapides Parish, Louisiana","age":"0-9","population":17817,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22079","county_name":"Rapides Parish, Louisiana","age":"10-19","population":17882,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22079","county_name":"Rapides Parish, Louisiana","age":"20-29","population":17223,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22079","county_name":"Rapides Parish, Louisiana","age":"30-39","population":16310,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22079","county_name":"Rapides Parish, Louisiana","age":"40-49","population":15342,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22079","county_name":"Rapides Parish, Louisiana","age":"50-59","population":17595,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22079","county_name":"Rapides Parish, Louisiana","age":"60-69","population":14673,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22079","county_name":"Rapides Parish, Louisiana","age":"70-79","population":9118,"population_pct":7.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22079","county_name":"Rapides Parish, Louisiana","age":"80+","population":5010,"population_pct":3.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22079","county_name":"Rapides Parish, Louisiana","age":"All","population":130970,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22081","county_name":"Red River Parish, Louisiana","age":"0-9","population":1207,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22081","county_name":"Red River Parish, Louisiana","age":"10-19","population":1140,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22081","county_name":"Red River Parish, Louisiana","age":"20-29","population":920,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22081","county_name":"Red River Parish, Louisiana","age":"30-39","population":1054,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22081","county_name":"Red River Parish, Louisiana","age":"40-49","population":828,"population_pct":9.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22081","county_name":"Red River Parish, Louisiana","age":"50-59","population":1313,"population_pct":15.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22081","county_name":"Red River Parish, Louisiana","age":"60-69","population":1089,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22081","county_name":"Red River Parish, Louisiana","age":"70-79","population":495,"population_pct":5.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22081","county_name":"Red River Parish, Louisiana","age":"80+","population":519,"population_pct":6.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22081","county_name":"Red River Parish, Louisiana","age":"All","population":8565,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22083","county_name":"Richland Parish, Louisiana","age":"0-9","population":2629,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22083","county_name":"Richland Parish, Louisiana","age":"10-19","population":2657,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22083","county_name":"Richland Parish, Louisiana","age":"20-29","population":2655,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22083","county_name":"Richland Parish, Louisiana","age":"30-39","population":2604,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22083","county_name":"Richland Parish, Louisiana","age":"40-49","population":2231,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22083","county_name":"Richland Parish, Louisiana","age":"50-59","population":2862,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22083","county_name":"Richland Parish, Louisiana","age":"60-69","population":2308,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22083","county_name":"Richland Parish, Louisiana","age":"70-79","population":1524,"population_pct":7.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22083","county_name":"Richland Parish, Louisiana","age":"80+","population":880,"population_pct":4.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22083","county_name":"Richland Parish, Louisiana","age":"All","population":20350,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22085","county_name":"Sabine Parish, Louisiana","age":"0-9","population":3132,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22085","county_name":"Sabine Parish, Louisiana","age":"10-19","population":3167,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22085","county_name":"Sabine Parish, Louisiana","age":"20-29","population":2620,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22085","county_name":"Sabine Parish, Louisiana","age":"30-39","population":2814,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22085","county_name":"Sabine Parish, Louisiana","age":"40-49","population":2605,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22085","county_name":"Sabine Parish, Louisiana","age":"50-59","population":3147,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22085","county_name":"Sabine Parish, Louisiana","age":"60-69","population":3286,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22085","county_name":"Sabine Parish, Louisiana","age":"70-79","population":2258,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22085","county_name":"Sabine Parish, Louisiana","age":"80+","population":962,"population_pct":4.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22085","county_name":"Sabine Parish, Louisiana","age":"All","population":23991,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22087","county_name":"St. Bernard Parish, Louisiana","age":"0-9","population":7045,"population_pct":15.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22087","county_name":"St. Bernard Parish, Louisiana","age":"10-19","population":6382,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22087","county_name":"St. Bernard Parish, Louisiana","age":"20-29","population":6442,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22087","county_name":"St. Bernard Parish, Louisiana","age":"30-39","population":7232,"population_pct":15.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22087","county_name":"St. Bernard Parish, Louisiana","age":"40-49","population":5490,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22087","county_name":"St. Bernard Parish, Louisiana","age":"50-59","population":6066,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22087","county_name":"St. Bernard Parish, Louisiana","age":"60-69","population":4417,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22087","county_name":"St. Bernard Parish, Louisiana","age":"70-79","population":2194,"population_pct":4.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22087","county_name":"St. Bernard Parish, Louisiana","age":"80+","population":998,"population_pct":2.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22087","county_name":"St. Bernard Parish, Louisiana","age":"All","population":46266,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22089","county_name":"St. Charles Parish, Louisiana","age":"0-9","population":6989,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22089","county_name":"St. Charles Parish, Louisiana","age":"10-19","population":7107,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22089","county_name":"St. Charles Parish, Louisiana","age":"20-29","population":6823,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22089","county_name":"St. Charles Parish, Louisiana","age":"30-39","population":7106,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22089","county_name":"St. Charles Parish, Louisiana","age":"40-49","population":6365,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22089","county_name":"St. Charles Parish, Louisiana","age":"50-59","population":8148,"population_pct":15.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22089","county_name":"St. Charles Parish, Louisiana","age":"60-69","population":5820,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22089","county_name":"St. Charles Parish, Louisiana","age":"70-79","population":3040,"population_pct":5.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22089","county_name":"St. Charles Parish, Louisiana","age":"80+","population":1375,"population_pct":2.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22089","county_name":"St. Charles Parish, Louisiana","age":"All","population":52773,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22091","county_name":"St. Helena Parish, Louisiana","age":"0-9","population":1227,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22091","county_name":"St. Helena Parish, Louisiana","age":"10-19","population":1304,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22091","county_name":"St. Helena Parish, Louisiana","age":"20-29","population":1341,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22091","county_name":"St. Helena Parish, Louisiana","age":"30-39","population":1307,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22091","county_name":"St. Helena Parish, Louisiana","age":"40-49","population":1423,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22091","county_name":"St. Helena Parish, Louisiana","age":"50-59","population":876,"population_pct":8.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22091","county_name":"St. Helena Parish, Louisiana","age":"60-69","population":1732,"population_pct":16.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22091","county_name":"St. Helena Parish, Louisiana","age":"70-79","population":693,"population_pct":6.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22091","county_name":"St. Helena Parish, Louisiana","age":"80+","population":394,"population_pct":3.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22091","county_name":"St. Helena Parish, Louisiana","age":"All","population":10297,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22093","county_name":"St. James Parish, Louisiana","age":"0-9","population":2585,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22093","county_name":"St. James Parish, Louisiana","age":"10-19","population":2748,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22093","county_name":"St. James Parish, Louisiana","age":"20-29","population":2793,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22093","county_name":"St. James Parish, Louisiana","age":"30-39","population":2720,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22093","county_name":"St. James Parish, Louisiana","age":"40-49","population":2295,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22093","county_name":"St. James Parish, Louisiana","age":"50-59","population":2995,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22093","county_name":"St. James Parish, Louisiana","age":"60-69","population":2648,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22093","county_name":"St. James Parish, Louisiana","age":"70-79","population":1808,"population_pct":8.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22093","county_name":"St. James Parish, Louisiana","age":"80+","population":716,"population_pct":3.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22093","county_name":"St. James Parish, Louisiana","age":"All","population":21308,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22095","county_name":"St. John the Baptist Parish, Louisiana","age":"0-9","population":5977,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22095","county_name":"St. John the Baptist Parish, Louisiana","age":"10-19","population":5694,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22095","county_name":"St. John the Baptist Parish, Louisiana","age":"20-29","population":5928,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22095","county_name":"St. John the Baptist Parish, Louisiana","age":"30-39","population":5965,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22095","county_name":"St. John the Baptist Parish, Louisiana","age":"40-49","population":4730,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22095","county_name":"St. John the Baptist Parish, Louisiana","age":"50-59","population":6155,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22095","county_name":"St. John the Baptist Parish, Louisiana","age":"60-69","population":5181,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22095","county_name":"St. John the Baptist Parish, Louisiana","age":"70-79","population":2317,"population_pct":5.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22095","county_name":"St. John the Baptist Parish, Louisiana","age":"80+","population":1295,"population_pct":3.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22095","county_name":"St. John the Baptist Parish, Louisiana","age":"All","population":43242,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22097","county_name":"St. Landry Parish, Louisiana","age":"0-9","population":11960,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22097","county_name":"St. Landry Parish, Louisiana","age":"10-19","population":12348,"population_pct":14.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22097","county_name":"St. Landry Parish, Louisiana","age":"20-29","population":10490,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22097","county_name":"St. Landry Parish, Louisiana","age":"30-39","population":9802,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22097","county_name":"St. Landry Parish, Louisiana","age":"40-49","population":9196,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22097","county_name":"St. Landry Parish, Louisiana","age":"50-59","population":10828,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22097","county_name":"St. Landry Parish, Louisiana","age":"60-69","population":9979,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22097","county_name":"St. Landry Parish, Louisiana","age":"70-79","population":5714,"population_pct":6.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22097","county_name":"St. Landry Parish, Louisiana","age":"80+","population":2855,"population_pct":3.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22097","county_name":"St. Landry Parish, Louisiana","age":"All","population":83172,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22099","county_name":"St. Martin Parish, Louisiana","age":"0-9","population":7351,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22099","county_name":"St. Martin Parish, Louisiana","age":"10-19","population":6895,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22099","county_name":"St. Martin Parish, Louisiana","age":"20-29","population":7463,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22099","county_name":"St. Martin Parish, Louisiana","age":"30-39","population":6781,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22099","county_name":"St. Martin Parish, Louisiana","age":"40-49","population":6303,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22099","county_name":"St. Martin Parish, Louisiana","age":"50-59","population":7567,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22099","county_name":"St. Martin Parish, Louisiana","age":"60-69","population":6158,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22099","county_name":"St. Martin Parish, Louisiana","age":"70-79","population":3466,"population_pct":6.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22099","county_name":"St. Martin Parish, Louisiana","age":"80+","population":1748,"population_pct":3.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22099","county_name":"St. Martin Parish, Louisiana","age":"All","population":53732,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22101","county_name":"St. Mary Parish, Louisiana","age":"0-9","population":6573,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22101","county_name":"St. Mary Parish, Louisiana","age":"10-19","population":6984,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22101","county_name":"St. Mary Parish, Louisiana","age":"20-29","population":6553,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22101","county_name":"St. Mary Parish, Louisiana","age":"30-39","population":6011,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22101","county_name":"St. Mary Parish, Louisiana","age":"40-49","population":6156,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22101","county_name":"St. Mary Parish, Louisiana","age":"50-59","population":7050,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22101","county_name":"St. Mary Parish, Louisiana","age":"60-69","population":5975,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22101","county_name":"St. Mary Parish, Louisiana","age":"70-79","population":3794,"population_pct":7.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22101","county_name":"St. Mary Parish, Louisiana","age":"80+","population":1872,"population_pct":3.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22101","county_name":"St. Mary Parish, Louisiana","age":"All","population":50968,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22103","county_name":"St. Tammany Parish, Louisiana","age":"0-9","population":31129,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22103","county_name":"St. Tammany Parish, Louisiana","age":"10-19","population":36135,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22103","county_name":"St. Tammany Parish, Louisiana","age":"20-29","population":27742,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22103","county_name":"St. Tammany Parish, Louisiana","age":"30-39","population":31953,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22103","county_name":"St. Tammany Parish, Louisiana","age":"40-49","population":32782,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22103","county_name":"St. Tammany Parish, Louisiana","age":"50-59","population":35726,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22103","county_name":"St. Tammany Parish, Louisiana","age":"60-69","population":32273,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22103","county_name":"St. Tammany Parish, Louisiana","age":"70-79","population":19009,"population_pct":7.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22103","county_name":"St. Tammany Parish, Louisiana","age":"80+","population":8406,"population_pct":3.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22103","county_name":"St. Tammany Parish, Louisiana","age":"All","population":255155,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22105","county_name":"Tangipahoa Parish, Louisiana","age":"0-9","population":18154,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22105","county_name":"Tangipahoa Parish, Louisiana","age":"10-19","population":18626,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22105","county_name":"Tangipahoa Parish, Louisiana","age":"20-29","population":19498,"population_pct":14.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22105","county_name":"Tangipahoa Parish, Louisiana","age":"30-39","population":17507,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22105","county_name":"Tangipahoa Parish, Louisiana","age":"40-49","population":15373,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22105","county_name":"Tangipahoa Parish, Louisiana","age":"50-59","population":16419,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22105","county_name":"Tangipahoa Parish, Louisiana","age":"60-69","population":14759,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22105","county_name":"Tangipahoa Parish, Louisiana","age":"70-79","population":8062,"population_pct":6.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22105","county_name":"Tangipahoa Parish, Louisiana","age":"80+","population":3659,"population_pct":2.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22105","county_name":"Tangipahoa Parish, Louisiana","age":"All","population":132057,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22107","county_name":"Tensas Parish, Louisiana","age":"0-9","population":533,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22107","county_name":"Tensas Parish, Louisiana","age":"10-19","population":637,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22107","county_name":"Tensas Parish, Louisiana","age":"20-29","population":431,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22107","county_name":"Tensas Parish, Louisiana","age":"30-39","population":506,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22107","county_name":"Tensas Parish, Louisiana","age":"40-49","population":419,"population_pct":9.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22107","county_name":"Tensas Parish, Louisiana","age":"50-59","population":609,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22107","county_name":"Tensas Parish, Louisiana","age":"60-69","population":750,"population_pct":16.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22107","county_name":"Tensas Parish, Louisiana","age":"70-79","population":394,"population_pct":8.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22107","county_name":"Tensas Parish, Louisiana","age":"80+","population":282,"population_pct":6.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22107","county_name":"Tensas Parish, Louisiana","age":"All","population":4561,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22109","county_name":"Terrebonne Parish, Louisiana","age":"0-9","population":15435,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22109","county_name":"Terrebonne Parish, Louisiana","age":"10-19","population":15482,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22109","county_name":"Terrebonne Parish, Louisiana","age":"20-29","population":15383,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22109","county_name":"Terrebonne Parish, Louisiana","age":"30-39","population":15918,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22109","county_name":"Terrebonne Parish, Louisiana","age":"40-49","population":12763,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22109","county_name":"Terrebonne Parish, Louisiana","age":"50-59","population":14792,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22109","county_name":"Terrebonne Parish, Louisiana","age":"60-69","population":11917,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22109","county_name":"Terrebonne Parish, Louisiana","age":"70-79","population":7035,"population_pct":6.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22109","county_name":"Terrebonne Parish, Louisiana","age":"80+","population":3329,"population_pct":3.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22109","county_name":"Terrebonne Parish, Louisiana","age":"All","population":112054,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22111","county_name":"Union Parish, Louisiana","age":"0-9","population":2654,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22111","county_name":"Union Parish, Louisiana","age":"10-19","population":3085,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22111","county_name":"Union Parish, Louisiana","age":"20-29","population":2154,"population_pct":9.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22111","county_name":"Union Parish, Louisiana","age":"30-39","population":2754,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22111","county_name":"Union Parish, Louisiana","age":"40-49","population":2265,"population_pct":10.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22111","county_name":"Union Parish, Louisiana","age":"50-59","population":3081,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22111","county_name":"Union Parish, Louisiana","age":"60-69","population":3252,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22111","county_name":"Union Parish, Louisiana","age":"70-79","population":1956,"population_pct":8.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22111","county_name":"Union Parish, Louisiana","age":"80+","population":1152,"population_pct":5.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22111","county_name":"Union Parish, Louisiana","age":"All","population":22353,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22113","county_name":"Vermilion Parish, Louisiana","age":"0-9","population":8284,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22113","county_name":"Vermilion Parish, Louisiana","age":"10-19","population":8411,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22113","county_name":"Vermilion Parish, Louisiana","age":"20-29","population":7279,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22113","county_name":"Vermilion Parish, Louisiana","age":"30-39","population":7536,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22113","county_name":"Vermilion Parish, Louisiana","age":"40-49","population":7258,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22113","county_name":"Vermilion Parish, Louisiana","age":"50-59","population":8445,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22113","county_name":"Vermilion Parish, Louisiana","age":"60-69","population":6526,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22113","county_name":"Vermilion Parish, Louisiana","age":"70-79","population":3667,"population_pct":6.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22113","county_name":"Vermilion Parish, Louisiana","age":"80+","population":2459,"population_pct":4.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22113","county_name":"Vermilion Parish, Louisiana","age":"All","population":59865,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22115","county_name":"Vernon Parish, Louisiana","age":"0-9","population":7753,"population_pct":15.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22115","county_name":"Vernon Parish, Louisiana","age":"10-19","population":6173,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22115","county_name":"Vernon Parish, Louisiana","age":"20-29","population":10491,"population_pct":21.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22115","county_name":"Vernon Parish, Louisiana","age":"30-39","population":7151,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22115","county_name":"Vernon Parish, Louisiana","age":"40-49","population":5377,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22115","county_name":"Vernon Parish, Louisiana","age":"50-59","population":4528,"population_pct":9.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22115","county_name":"Vernon Parish, Louisiana","age":"60-69","population":4331,"population_pct":8.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22115","county_name":"Vernon Parish, Louisiana","age":"70-79","population":2657,"population_pct":5.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22115","county_name":"Vernon Parish, Louisiana","age":"80+","population":1185,"population_pct":2.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22115","county_name":"Vernon Parish, Louisiana","age":"All","population":49646,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22117","county_name":"Washington Parish, Louisiana","age":"0-9","population":6360,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22117","county_name":"Washington Parish, Louisiana","age":"10-19","population":5871,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22117","county_name":"Washington Parish, Louisiana","age":"20-29","population":5562,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22117","county_name":"Washington Parish, Louisiana","age":"30-39","population":5933,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22117","county_name":"Washington Parish, Louisiana","age":"40-49","population":5213,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22117","county_name":"Washington Parish, Louisiana","age":"50-59","population":5980,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22117","county_name":"Washington Parish, Louisiana","age":"60-69","population":6167,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22117","county_name":"Washington Parish, Louisiana","age":"70-79","population":3712,"population_pct":8.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22117","county_name":"Washington Parish, Louisiana","age":"80+","population":1637,"population_pct":3.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22117","county_name":"Washington Parish, Louisiana","age":"All","population":46435,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22119","county_name":"Webster Parish, Louisiana","age":"0-9","population":4603,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22119","county_name":"Webster Parish, Louisiana","age":"10-19","population":5111,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22119","county_name":"Webster Parish, Louisiana","age":"20-29","population":4819,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22119","county_name":"Webster Parish, Louisiana","age":"30-39","population":4677,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22119","county_name":"Webster Parish, Louisiana","age":"40-49","population":4367,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22119","county_name":"Webster Parish, Louisiana","age":"50-59","population":5199,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22119","county_name":"Webster Parish, Louisiana","age":"60-69","population":5116,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22119","county_name":"Webster Parish, Louisiana","age":"70-79","population":3713,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22119","county_name":"Webster Parish, Louisiana","age":"80+","population":1637,"population_pct":4.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22119","county_name":"Webster Parish, Louisiana","age":"All","population":39242,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22121","county_name":"West Baton Rouge Parish, Louisiana","age":"0-9","population":3719,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22121","county_name":"West Baton Rouge Parish, Louisiana","age":"10-19","population":3135,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22121","county_name":"West Baton Rouge Parish, Louisiana","age":"20-29","population":3595,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22121","county_name":"West Baton Rouge Parish, Louisiana","age":"30-39","population":3999,"population_pct":15.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22121","county_name":"West Baton Rouge Parish, Louisiana","age":"40-49","population":2941,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22121","county_name":"West Baton Rouge Parish, Louisiana","age":"50-59","population":3447,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22121","county_name":"West Baton Rouge Parish, Louisiana","age":"60-69","population":3125,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22121","county_name":"West Baton Rouge Parish, Louisiana","age":"70-79","population":1532,"population_pct":5.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22121","county_name":"West Baton Rouge Parish, Louisiana","age":"80+","population":608,"population_pct":2.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22121","county_name":"West Baton Rouge Parish, Louisiana","age":"All","population":26101,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22123","county_name":"West Carroll Parish, Louisiana","age":"0-9","population":1309,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22123","county_name":"West Carroll Parish, Louisiana","age":"10-19","population":1491,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22123","county_name":"West Carroll Parish, Louisiana","age":"20-29","population":1157,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22123","county_name":"West Carroll Parish, Louisiana","age":"30-39","population":1532,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22123","county_name":"West Carroll Parish, Louisiana","age":"40-49","population":1247,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22123","county_name":"West Carroll Parish, Louisiana","age":"50-59","population":1585,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22123","county_name":"West Carroll Parish, Louisiana","age":"60-69","population":1189,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22123","county_name":"West Carroll Parish, Louisiana","age":"70-79","population":923,"population_pct":8.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22123","county_name":"West Carroll Parish, Louisiana","age":"80+","population":608,"population_pct":5.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22123","county_name":"West Carroll Parish, Louisiana","age":"All","population":11041,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22125","county_name":"West Feliciana Parish, Louisiana","age":"0-9","population":1304,"population_pct":8.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22125","county_name":"West Feliciana Parish, Louisiana","age":"10-19","population":1720,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22125","county_name":"West Feliciana Parish, Louisiana","age":"20-29","population":1828,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22125","county_name":"West Feliciana Parish, Louisiana","age":"30-39","population":2623,"population_pct":17.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22125","county_name":"West Feliciana Parish, Louisiana","age":"40-49","population":2292,"population_pct":14.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22125","county_name":"West Feliciana Parish, Louisiana","age":"50-59","population":2542,"population_pct":16.5,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22125","county_name":"West Feliciana Parish, Louisiana","age":"60-69","population":1678,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22125","county_name":"West Feliciana Parish, Louisiana","age":"70-79","population":1042,"population_pct":6.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22125","county_name":"West Feliciana Parish, Louisiana","age":"80+","population":399,"population_pct":2.6,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22125","county_name":"West Feliciana Parish, Louisiana","age":"All","population":15428,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22127","county_name":"Winn Parish, Louisiana","age":"0-9","population":1468,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22127","county_name":"Winn Parish, Louisiana","age":"10-19","population":1757,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22127","county_name":"Winn Parish, Louisiana","age":"20-29","population":1845,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22127","county_name":"Winn Parish, Louisiana","age":"30-39","population":1847,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22127","county_name":"Winn Parish, Louisiana","age":"40-49","population":1974,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22127","county_name":"Winn Parish, Louisiana","age":"50-59","population":1866,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22127","county_name":"Winn Parish, Louisiana","age":"60-69","population":1817,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22127","county_name":"Winn Parish, Louisiana","age":"70-79","population":1208,"population_pct":8.4,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22127","county_name":"Winn Parish, Louisiana","age":"80+","population":531,"population_pct":3.7,"ingestion_ts":1662663908369}
+,{"state_fips":"22","county_fips":"22127","county_name":"Winn Parish, Louisiana","age":"All","population":14313,"population_pct":100.0,"ingestion_ts":1662663908369}]

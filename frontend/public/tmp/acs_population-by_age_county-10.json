@@ -1,0 +1,30 @@
+[{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","age":"0-9","population":21973,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","age":"10-19","population":23905,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","age":"20-29","population":25408,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","age":"30-39","population":21396,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","age":"40-49","population":20844,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","age":"50-59","population":23519,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","age":"60-69","population":19709,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","age":"70-79","population":13562,"population_pct":7.7,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","age":"80+","population":6383,"population_pct":3.6,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","age":"All","population":176699,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","age":"0-9","population":64045,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","age":"10-19","population":72805,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","age":"20-29","population":78092,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","age":"30-39","population":74489,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","age":"40-49","population":69004,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","age":"50-59","population":77774,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","age":"60-69","population":63805,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","age":"70-79","population":36739,"population_pct":6.6,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","age":"80+","population":19412,"population_pct":3.5,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","age":"All","population":556165,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","age":"0-9","population":22586,"population_pct":10.1,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","age":"10-19","population":23390,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","age":"20-29","population":22141,"population_pct":9.9,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","age":"30-39","population":22103,"population_pct":9.9,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","age":"40-49","population":23063,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","age":"50-59","population":31627,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","age":"60-69","population":40047,"population_pct":17.8,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","age":"70-79","population":27558,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","age":"80+","population":11869,"population_pct":5.3,"ingestion_ts":1662663908369}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","age":"All","population":224384,"population_pct":100.0,"ingestion_ts":1662663908369}]

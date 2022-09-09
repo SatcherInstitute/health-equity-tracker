@@ -1,0 +1,117 @@
+[{"state_fips":"53","county_fips":"53001","county_name":"Adams County, Washington","sex":"All","population":19594,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53003","county_name":"Asotin County, Washington","sex":"All","population":22421,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53005","county_name":"Benton County, Washington","sex":"All","population":197518,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53007","county_name":"Chelan County, Washington","sex":"All","population":76229,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53009","county_name":"Clallam County, Washington","sex":"All","population":75392,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53011","county_name":"Clark County, Washington","sex":"All","population":473252,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53013","county_name":"Columbia County, Washington","sex":"All","population":3992,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53015","county_name":"Cowlitz County, Washington","sex":"All","population":106778,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53017","county_name":"Douglas County, Washington","sex":"All","population":42023,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53019","county_name":"Ferry County, Washington","sex":"All","population":7578,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53021","county_name":"Franklin County, Washington","sex":"All","population":92009,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53023","county_name":"Garfield County, Washington","sex":"All","population":2230,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53025","county_name":"Grant County, Washington","sex":"All","population":95502,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53027","county_name":"Grays Harbor County, Washington","sex":"All","population":72779,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53029","county_name":"Island County, Washington","sex":"All","population":82866,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53031","county_name":"Jefferson County, Washington","sex":"All","population":31285,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53033","county_name":"King County, Washington","sex":"All","population":2195502,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53035","county_name":"Kitsap County, Washington","sex":"All","population":265882,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53037","county_name":"Kittitas County, Washington","sex":"All","population":45897,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53039","county_name":"Klickitat County, Washington","sex":"All","population":21721,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53041","county_name":"Lewis County, Washington","sex":"All","population":78145,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53043","county_name":"Lincoln County, Washington","sex":"All","population":10574,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53045","county_name":"Mason County, Washington","sex":"All","population":63804,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53047","county_name":"Okanogan County, Washington","sex":"All","population":41842,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53049","county_name":"Pacific County, Washington","sex":"All","population":21688,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53051","county_name":"Pend Oreille County, Washington","sex":"All","population":13377,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53053","county_name":"Pierce County, Washington","sex":"All","population":877013,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53055","county_name":"San Juan County, Washington","sex":"All","population":16788,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53057","county_name":"Skagit County, Washington","sex":"All","population":125612,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53059","county_name":"Skamania County, Washington","sex":"All","population":11753,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53061","county_name":"Snohomish County, Washington","sex":"All","population":798808,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53063","county_name":"Spokane County, Washington","sex":"All","population":505505,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53065","county_name":"Stevens County, Washington","sex":"All","population":44655,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53067","county_name":"Thurston County, Washington","sex":"All","population":279711,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53069","county_name":"Wahkiakum County, Washington","sex":"All","population":4268,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53071","county_name":"Walla Walla County, Washington","sex":"All","population":60365,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53073","county_name":"Whatcom County, Washington","sex":"All","population":220821,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53075","county_name":"Whitman County, Washington","sex":"All","population":49231,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53077","county_name":"Yakima County, Washington","sex":"All","population":249697,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53069","county_name":"Wahkiakum County, Washington","sex":"Male","population":2017,"population_pct":47.3,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53005","county_name":"Benton County, Washington","sex":"Male","population":98762,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53029","county_name":"Island County, Washington","sex":"Male","population":41393,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53041","county_name":"Lewis County, Washington","sex":"Male","population":39083,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53003","county_name":"Asotin County, Washington","sex":"Male","population":10868,"population_pct":48.5,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53037","county_name":"Kittitas County, Washington","sex":"Male","population":23167,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53043","county_name":"Lincoln County, Washington","sex":"Male","population":5345,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53015","county_name":"Cowlitz County, Washington","sex":"Male","population":52844,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53019","county_name":"Ferry County, Washington","sex":"Male","population":3821,"population_pct":50.4,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53051","county_name":"Pend Oreille County, Washington","sex":"Male","population":6742,"population_pct":50.4,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53067","county_name":"Thurston County, Washington","sex":"Male","population":136855,"population_pct":48.9,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53001","county_name":"Adams County, Washington","sex":"Male","population":9980,"population_pct":50.9,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53011","county_name":"Clark County, Washington","sex":"Male","population":233959,"population_pct":49.4,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53057","county_name":"Skagit County, Washington","sex":"Male","population":62106,"population_pct":49.4,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53073","county_name":"Whatcom County, Washington","sex":"Male","population":109070,"population_pct":49.4,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53053","county_name":"Pierce County, Washington","sex":"Male","population":437477,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53039","county_name":"Klickitat County, Washington","sex":"Male","population":10928,"population_pct":50.3,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53049","county_name":"Pacific County, Washington","sex":"Male","population":10911,"population_pct":50.3,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53031","county_name":"Jefferson County, Washington","sex":"Male","population":15276,"population_pct":48.8,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53025","county_name":"Grant County, Washington","sex":"Male","population":48538,"population_pct":50.8,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53047","county_name":"Okanogan County, Washington","sex":"Male","population":21253,"population_pct":50.8,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53027","county_name":"Grays Harbor County, Washington","sex":"Male","population":37317,"population_pct":51.3,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53065","county_name":"Stevens County, Washington","sex":"Male","population":22242,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53021","county_name":"Franklin County, Washington","sex":"Male","population":47702,"population_pct":51.8,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53045","county_name":"Mason County, Washington","sex":"Male","population":33063,"population_pct":51.8,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53013","county_name":"Columbia County, Washington","sex":"Male","population":1926,"population_pct":48.2,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53055","county_name":"San Juan County, Washington","sex":"Male","population":8089,"population_pct":48.2,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53017","county_name":"Douglas County, Washington","sex":"Male","population":21107,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53059","county_name":"Skamania County, Washington","sex":"Male","population":5900,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53009","county_name":"Clallam County, Washington","sex":"Male","population":37128,"population_pct":49.2,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53071","county_name":"Walla Walla County, Washington","sex":"Male","population":30904,"population_pct":51.2,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53007","county_name":"Chelan County, Washington","sex":"Male","population":38219,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53033","county_name":"King County, Washington","sex":"Male","population":1100652,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53061","county_name":"Snohomish County, Washington","sex":"Male","population":400594,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53077","county_name":"Yakima County, Washington","sex":"Male","population":125044,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53023","county_name":"Garfield County, Washington","sex":"Male","population":1139,"population_pct":51.1,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53035","county_name":"Kitsap County, Washington","sex":"Male","population":135983,"population_pct":51.1,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53075","county_name":"Whitman County, Washington","sex":"Male","population":25175,"population_pct":51.1,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53063","county_name":"Spokane County, Washington","sex":"Male","population":250722,"population_pct":49.6,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53069","county_name":"Wahkiakum County, Washington","sex":"Female","population":2251,"population_pct":52.7,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53005","county_name":"Benton County, Washington","sex":"Female","population":98756,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53029","county_name":"Island County, Washington","sex":"Female","population":41473,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53041","county_name":"Lewis County, Washington","sex":"Female","population":39062,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53015","county_name":"Cowlitz County, Washington","sex":"Female","population":53934,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53037","county_name":"Kittitas County, Washington","sex":"Female","population":22730,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53043","county_name":"Lincoln County, Washington","sex":"Female","population":5229,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53003","county_name":"Asotin County, Washington","sex":"Female","population":11553,"population_pct":51.5,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53063","county_name":"Spokane County, Washington","sex":"Female","population":254783,"population_pct":50.4,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53023","county_name":"Garfield County, Washington","sex":"Female","population":1091,"population_pct":48.9,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53035","county_name":"Kitsap County, Washington","sex":"Female","population":129899,"population_pct":48.9,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53075","county_name":"Whitman County, Washington","sex":"Female","population":24056,"population_pct":48.9,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53007","county_name":"Chelan County, Washington","sex":"Female","population":38010,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53033","county_name":"King County, Washington","sex":"Female","population":1094850,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53061","county_name":"Snohomish County, Washington","sex":"Female","population":398214,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53077","county_name":"Yakima County, Washington","sex":"Female","population":124653,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53071","county_name":"Walla Walla County, Washington","sex":"Female","population":29461,"population_pct":48.8,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53009","county_name":"Clallam County, Washington","sex":"Female","population":38264,"population_pct":50.8,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53017","county_name":"Douglas County, Washington","sex":"Female","population":20916,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53059","county_name":"Skamania County, Washington","sex":"Female","population":5853,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53013","county_name":"Columbia County, Washington","sex":"Female","population":2066,"population_pct":51.8,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53055","county_name":"San Juan County, Washington","sex":"Female","population":8699,"population_pct":51.8,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53021","county_name":"Franklin County, Washington","sex":"Female","population":44307,"population_pct":48.2,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53045","county_name":"Mason County, Washington","sex":"Female","population":30741,"population_pct":48.2,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53065","county_name":"Stevens County, Washington","sex":"Female","population":22413,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53027","county_name":"Grays Harbor County, Washington","sex":"Female","population":35462,"population_pct":48.7,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53025","county_name":"Grant County, Washington","sex":"Female","population":46964,"population_pct":49.2,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53047","county_name":"Okanogan County, Washington","sex":"Female","population":20589,"population_pct":49.2,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53031","county_name":"Jefferson County, Washington","sex":"Female","population":16009,"population_pct":51.2,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53039","county_name":"Klickitat County, Washington","sex":"Female","population":10793,"population_pct":49.7,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53049","county_name":"Pacific County, Washington","sex":"Female","population":10777,"population_pct":49.7,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53053","county_name":"Pierce County, Washington","sex":"Female","population":439536,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53011","county_name":"Clark County, Washington","sex":"Female","population":239293,"population_pct":50.6,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53057","county_name":"Skagit County, Washington","sex":"Female","population":63506,"population_pct":50.6,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53073","county_name":"Whatcom County, Washington","sex":"Female","population":111751,"population_pct":50.6,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53001","county_name":"Adams County, Washington","sex":"Female","population":9614,"population_pct":49.1,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53067","county_name":"Thurston County, Washington","sex":"Female","population":142856,"population_pct":51.1,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53019","county_name":"Ferry County, Washington","sex":"Female","population":3757,"population_pct":49.6,"ingestion_ts":1662663914333}
+,{"state_fips":"53","county_fips":"53051","county_name":"Pend Oreille County, Washington","sex":"Female","population":6635,"population_pct":49.6,"ingestion_ts":1662663914333}]

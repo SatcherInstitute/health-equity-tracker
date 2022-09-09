@@ -1,0 +1,15 @@
+[{"county_fips":"15001","county_name":"Hawaii County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.6,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"15003","county_name":"Honolulu County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":48.3,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"15005","county_name":"Kalawao County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":41.2,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"15007","county_name":"Kauai County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.1,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"15009","county_name":"Maui County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.0,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"15001","county_name":"Hawaii County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.4,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"15003","county_name":"Honolulu County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":51.7,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"15005","county_name":"Kalawao County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":58.8,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"15007","county_name":"Kauai County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.9,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"15009","county_name":"Maui County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.0,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"15001","county_name":"Hawaii County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"15003","county_name":"Honolulu County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"15005","county_name":"Kalawao County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"15007","county_name":"Kauai County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"15009","county_name":"Maui County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}]

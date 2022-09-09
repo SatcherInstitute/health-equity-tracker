@@ -1,0 +1,5 @@
+[{"county_fips":"44005","county_name":"Newport County","svi":0.18,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"44003","county_name":"Kent County","svi":0.15,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"44007","county_name":"Providence County","svi":0.76,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"44001","county_name":"Bristol County","svi":0.12,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"44009","county_name":"Washington County","svi":0.09,"age":"All","ingestion_ts":1662477615221}]

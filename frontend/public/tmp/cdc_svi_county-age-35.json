@@ -1,0 +1,33 @@
+[{"county_fips":"35039","county_name":"Rio Arriba County","svi":null,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35057","county_name":"Torrance County","svi":0.75,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35006","county_name":"Cibola County","svi":1.0,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35029","county_name":"Luna County","svi":1.0,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35021","county_name":"Harding County","svi":0.36,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35053","county_name":"Socorro County","svi":0.97,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35011","county_name":"De Baca County","svi":0.69,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35041","county_name":"Roosevelt County","svi":0.94,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35035","county_name":"Otero County","svi":0.91,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35051","county_name":"Sierra County","svi":0.91,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35009","county_name":"Curry County","svi":0.88,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35013","county_name":"Do\u00f1a Ana County","svi":0.98,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35015","county_name":"Eddy County","svi":0.7,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35019","county_name":"Guadalupe County","svi":0.95,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35045","county_name":"San Juan County","svi":0.92,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35025","county_name":"Lea County","svi":0.92,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35028","county_name":"Los Alamos County","svi":0.02,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35055","county_name":"Taos County","svi":0.86,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35033","county_name":"Mora County","svi":0.8,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35047","county_name":"San Miguel County","svi":0.99,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35031","county_name":"McKinley County","svi":0.99,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35043","county_name":"Sandoval County","svi":0.48,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35007","county_name":"Colfax County","svi":0.96,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35005","county_name":"Chaves County","svi":0.96,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35023","county_name":"Hidalgo County","svi":0.96,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35003","county_name":"Catron County","svi":0.34,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35001","county_name":"Bernalillo County","svi":0.68,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35017","county_name":"Grant County","svi":0.93,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35061","county_name":"Valencia County","svi":0.9,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35037","county_name":"Quay County","svi":0.81,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35049","county_name":"Santa Fe County","svi":0.53,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35059","county_name":"Union County","svi":0.68,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"35027","county_name":"Lincoln County","svi":0.48,"age":"All","ingestion_ts":1662477615221}]

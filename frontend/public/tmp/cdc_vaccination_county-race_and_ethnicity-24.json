@@ -1,0 +1,24 @@
+[{"county_fips":"24001","county_name":"Allegany County","race_category_id":"ALL","vaccinated_first_dose":44587.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":71445}
+,{"county_fips":"24003","county_name":"Anne Arundel County","race_category_id":"ALL","vaccinated_first_dose":513962.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":571275}
+,{"county_fips":"24005","county_name":"Baltimore County","race_category_id":"ALL","vaccinated_first_dose":678736.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":828018}
+,{"county_fips":"24009","county_name":"Calvert County","race_category_id":"ALL","vaccinated_first_dose":74840.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":91511}
+,{"county_fips":"24011","county_name":"Caroline County","race_category_id":"ALL","vaccinated_first_dose":21139.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":33049}
+,{"county_fips":"24013","county_name":"Carroll County","race_category_id":"ALL","vaccinated_first_dose":135871.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":167699}
+,{"county_fips":"24015","county_name":"Cecil County","race_category_id":"ALL","vaccinated_first_dose":74136.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":102552}
+,{"county_fips":"24017","county_name":"Charles County","race_category_id":"ALL","vaccinated_first_dose":135184.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":159428}
+,{"county_fips":"24019","county_name":"Dorchester County","race_category_id":"ALL","vaccinated_first_dose":21404.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":32138}
+,{"county_fips":"24021","county_name":"Frederick County","race_category_id":"ALL","vaccinated_first_dose":233259.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":251422}
+,{"county_fips":"24023","county_name":"Garrett County","race_category_id":"ALL","vaccinated_first_dose":17170.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":29235}
+,{"county_fips":"24025","county_name":"Harford County","race_category_id":"ALL","vaccinated_first_dose":202656.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":252222}
+,{"county_fips":"24027","county_name":"Howard County","race_category_id":"ALL","vaccinated_first_dose":319844.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":318855}
+,{"county_fips":"24029","county_name":"Kent County","race_category_id":"ALL","vaccinated_first_dose":14774.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":19536}
+,{"county_fips":"24031","county_name":"Montgomery County","race_category_id":"ALL","vaccinated_first_dose":1111542.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":1043530}
+,{"county_fips":"24033","county_name":"Prince George's County","race_category_id":"ALL","vaccinated_first_dose":829823.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":908670}
+,{"county_fips":"24035","county_name":"Queen Anne's County","race_category_id":"ALL","vaccinated_first_dose":38446.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":49632}
+,{"county_fips":"24037","county_name":"St. Mary's County","race_category_id":"ALL","vaccinated_first_dose":86567.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":112290}
+,{"county_fips":"24039","county_name":"Somerset County","race_category_id":"ALL","vaccinated_first_dose":14815.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":25729}
+,{"county_fips":"24041","county_name":"Talbot County","race_category_id":"ALL","vaccinated_first_dose":31243.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":37167}
+,{"county_fips":"24043","county_name":"Washington County","race_category_id":"ALL","vaccinated_first_dose":102505.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":150109}
+,{"county_fips":"24045","county_name":"Wicomico County","race_category_id":"ALL","vaccinated_first_dose":66307.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":102539}
+,{"county_fips":"24047","county_name":"Worcester County","race_category_id":"ALL","vaccinated_first_dose":43907.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":51765}
+,{"county_fips":"24510","county_name":"Baltimore city","race_category_id":"ALL","vaccinated_first_dose":444807.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":609032}]

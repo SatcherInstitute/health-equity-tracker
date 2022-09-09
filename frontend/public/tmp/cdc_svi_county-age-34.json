@@ -1,0 +1,21 @@
+[{"county_fips":"34023","county_name":"Middlesex County","svi":0.47,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34041","county_name":"Warren County","svi":0.22,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34001","county_name":"Atlantic County","svi":0.79,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34037","county_name":"Sussex County","svi":0.02,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34025","county_name":"Monmouth County","svi":0.16,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34017","county_name":"Hudson County","svi":0.64,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34007","county_name":"Camden County","svi":0.61,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34035","county_name":"Somerset County","svi":0.1,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34019","county_name":"Hunterdon County","svi":0.03,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34027","county_name":"Morris County","svi":0.12,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34003","county_name":"Bergen County","svi":0.24,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34011","county_name":"Cumberland County","svi":0.96,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34015","county_name":"Gloucester County","svi":0.17,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34029","county_name":"Ocean County","svi":0.34,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34009","county_name":"Cape May County","svi":0.34,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34005","county_name":"Burlington County","svi":0.21,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34033","county_name":"Salem County","svi":0.59,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34013","county_name":"Essex County","svi":0.84,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34021","county_name":"Mercer County","svi":0.56,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34031","county_name":"Passaic County","svi":0.78,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"34039","county_name":"Union County","svi":0.62,"age":"All","ingestion_ts":1662477615221}]

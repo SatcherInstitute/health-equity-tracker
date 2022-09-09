@@ -1,0 +1,14 @@
+[{"county_fips":"50001","county_name":"Addison County","race_category_id":"ALL","vaccinated_first_dose":30081.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":36882}
+,{"county_fips":"50003","county_name":"Bennington County","race_category_id":"ALL","vaccinated_first_dose":18258.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":35746}
+,{"county_fips":"50005","county_name":"Caledonia County","race_category_id":"ALL","vaccinated_first_dose":12934.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":30234}
+,{"county_fips":"50007","county_name":"Chittenden County","race_category_id":"ALL","vaccinated_first_dose":141205.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":162646}
+,{"county_fips":"50009","county_name":"Essex County","race_category_id":"ALL","vaccinated_first_dose":3525.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":6200}
+,{"county_fips":"50011","county_name":"Franklin County","race_category_id":"ALL","vaccinated_first_dose":21010.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":49116}
+,{"county_fips":"50013","county_name":"Grand Isle County","race_category_id":"ALL","vaccinated_first_dose":6880.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":7022}
+,{"county_fips":"50015","county_name":"Lamoille County","race_category_id":"ALL","vaccinated_first_dose":19379.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":25318}
+,{"county_fips":"50017","county_name":"Orange County","race_category_id":"ALL","vaccinated_first_dose":19270.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":28908}
+,{"county_fips":"50019","county_name":"Orleans County","race_category_id":"ALL","vaccinated_first_dose":18212.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":26901}
+,{"county_fips":"50021","county_name":"Rutland County","race_category_id":"ALL","vaccinated_first_dose":46946.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":58892}
+,{"county_fips":"50023","county_name":"Washington County","race_category_id":"ALL","vaccinated_first_dose":31771.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":58350}
+,{"county_fips":"50025","county_name":"Windham County","race_category_id":"ALL","vaccinated_first_dose":35675.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":42823}
+,{"county_fips":"50027","county_name":"Windsor County","race_category_id":"ALL","vaccinated_first_dose":36786.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":55275}]

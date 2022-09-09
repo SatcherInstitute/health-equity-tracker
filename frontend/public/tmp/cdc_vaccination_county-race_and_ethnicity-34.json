@@ -1,0 +1,21 @@
+[{"county_fips":"34001","county_name":"Atlantic County","race_category_id":"ALL","vaccinated_first_dose":217958.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":266105}
+,{"county_fips":"34003","county_name":"Bergen County","race_category_id":"ALL","vaccinated_first_dose":893856.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":930390}
+,{"county_fips":"34005","county_name":"Burlington County","race_category_id":"ALL","vaccinated_first_dose":398009.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":445702}
+,{"county_fips":"34007","county_name":"Camden County","race_category_id":"ALL","vaccinated_first_dose":430049.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":506738}
+,{"county_fips":"34009","county_name":"Cape May County","race_category_id":"ALL","vaccinated_first_dose":82105.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":93086}
+,{"county_fips":"34011","county_name":"Cumberland County","race_category_id":"ALL","vaccinated_first_dose":102587.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":151906}
+,{"county_fips":"34013","county_name":"Essex County","race_category_id":"ALL","vaccinated_first_dose":738520.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":795404}
+,{"county_fips":"34015","county_name":"Gloucester County","race_category_id":"ALL","vaccinated_first_dose":224372.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":291165}
+,{"county_fips":"34017","county_name":"Hudson County","race_category_id":"ALL","vaccinated_first_dose":671321.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":670046}
+,{"county_fips":"34019","county_name":"Hunterdon County","race_category_id":"ALL","vaccinated_first_dose":111575.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":124823}
+,{"county_fips":"34021","county_name":"Mercer County","race_category_id":"ALL","vaccinated_first_dose":340021.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":367922}
+,{"county_fips":"34023","county_name":"Middlesex County","race_category_id":"ALL","vaccinated_first_dose":756284.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":825920}
+,{"county_fips":"34025","county_name":"Monmouth County","race_category_id":"ALL","vaccinated_first_dose":516230.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":621659}
+,{"county_fips":"34027","county_name":"Morris County","race_category_id":"ALL","vaccinated_first_dose":458590.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":493379}
+,{"county_fips":"34029","county_name":"Ocean County","race_category_id":"ALL","vaccinated_first_dose":399956.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":596415}
+,{"county_fips":"34031","county_name":"Passaic County","race_category_id":"ALL","vaccinated_first_dose":433781.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":503637}
+,{"county_fips":"34033","county_name":"Salem County","race_category_id":"ALL","vaccinated_first_dose":44348.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":62990}
+,{"county_fips":"34035","county_name":"Somerset County","race_category_id":"ALL","vaccinated_first_dose":311418.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":329838}
+,{"county_fips":"34037","county_name":"Sussex County","race_category_id":"ALL","vaccinated_first_dose":107091.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":141483}
+,{"county_fips":"34039","county_name":"Union County","race_category_id":"ALL","vaccinated_first_dose":500697.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":554033}
+,{"county_fips":"34041","county_name":"Warren County","race_category_id":"ALL","vaccinated_first_dose":90086.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":105862}]

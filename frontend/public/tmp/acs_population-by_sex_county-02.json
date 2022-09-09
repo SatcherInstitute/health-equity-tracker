@@ -1,0 +1,87 @@
+[{"state_fips":"02","county_fips":"02013","county_name":"Aleutians East Borough, Alaska","sex":"All","population":3385,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02016","county_name":"Aleutians West Census Area, Alaska","sex":"All","population":5698,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02020","county_name":"Anchorage Municipality, Alaska","sex":"All","population":293531,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02050","county_name":"Bethel Census Area, Alaska","sex":"All","population":18134,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02060","county_name":"Bristol Bay Borough, Alaska","sex":"All","population":875,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02068","county_name":"Denali Borough, Alaska","sex":"All","population":2246,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02070","county_name":"Dillingham Census Area, Alaska","sex":"All","population":4961,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02090","county_name":"Fairbanks North Star Borough, Alaska","sex":"All","population":99072,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02100","county_name":"Haines Borough, Alaska","sex":"All","population":2518,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02105","county_name":"Hoonah-Angoon Census Area, Alaska","sex":"All","population":2139,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02110","county_name":"Juneau City and Borough, Alaska","sex":"All","population":32227,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02122","county_name":"Kenai Peninsula Borough, Alaska","sex":"All","population":58464,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02130","county_name":"Ketchikan Gateway Borough, Alaska","sex":"All","population":13800,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02150","county_name":"Kodiak Island Borough, Alaska","sex":"All","population":13451,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02158","county_name":"Kusilvak Census Area, Alaska","sex":"All","population":8250,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02164","county_name":"Lake and Peninsula Borough, Alaska","sex":"All","population":1393,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02170","county_name":"Matanuska-Susitna Borough, Alaska","sex":"All","population":105369,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02180","county_name":"Nome Census Area, Alaska","sex":"All","population":9988,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02185","county_name":"North Slope Borough, Alaska","sex":"All","population":9792,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02188","county_name":"Northwest Arctic Borough, Alaska","sex":"All","population":7715,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02195","county_name":"Petersburg Borough, Alaska","sex":"All","population":3257,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02198","county_name":"Prince of Wales-Hyder Census Area, Alaska","sex":"All","population":6407,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02220","county_name":"Sitka City and Borough, Alaska","sex":"All","population":8640,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02230","county_name":"Skagway Municipality, Alaska","sex":"All","population":1107,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02240","county_name":"Southeast Fairbanks Census Area, Alaska","sex":"All","population":6878,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02261","county_name":"Valdez-Cordova Census Area, Alaska","sex":"All","population":9243,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02275","county_name":"Wrangell City and Borough, Alaska","sex":"All","population":2502,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02282","county_name":"Yakutat City and Borough, Alaska","sex":"All","population":649,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02290","county_name":"Yukon-Koyukuk Census Area, Alaska","sex":"All","population":5377,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02013","county_name":"Aleutians East Borough, Alaska","sex":"Male","population":2033,"population_pct":60.1,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02016","county_name":"Aleutians West Census Area, Alaska","sex":"Male","population":3380,"population_pct":59.3,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02050","county_name":"Bethel Census Area, Alaska","sex":"Male","population":9477,"population_pct":52.3,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02060","county_name":"Bristol Bay Borough, Alaska","sex":"Male","population":524,"population_pct":59.9,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02068","county_name":"Denali Borough, Alaska","sex":"Male","population":1201,"population_pct":53.5,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02090","county_name":"Fairbanks North Star Borough, Alaska","sex":"Male","population":53417,"population_pct":53.9,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02105","county_name":"Hoonah-Angoon Census Area, Alaska","sex":"Male","population":1142,"population_pct":53.4,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02122","county_name":"Kenai Peninsula Borough, Alaska","sex":"Male","population":30480,"population_pct":52.1,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02150","county_name":"Kodiak Island Borough, Alaska","sex":"Male","population":7221,"population_pct":53.7,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02158","county_name":"Kusilvak Census Area, Alaska","sex":"Male","population":4463,"population_pct":54.1,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02164","county_name":"Lake and Peninsula Borough, Alaska","sex":"Male","population":749,"population_pct":53.8,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02170","county_name":"Matanuska-Susitna Borough, Alaska","sex":"Male","population":54838,"population_pct":52.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02180","county_name":"Nome Census Area, Alaska","sex":"Male","population":5262,"population_pct":52.7,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02185","county_name":"North Slope Borough, Alaska","sex":"Male","population":5985,"population_pct":61.1,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02188","county_name":"Northwest Arctic Borough, Alaska","sex":"Male","population":4189,"population_pct":54.3,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02195","county_name":"Petersburg Borough, Alaska","sex":"Male","population":1723,"population_pct":52.9,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02198","county_name":"Prince of Wales-Hyder Census Area, Alaska","sex":"Male","population":3478,"population_pct":54.3,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02230","county_name":"Skagway Municipality, Alaska","sex":"Male","population":606,"population_pct":54.7,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02240","county_name":"Southeast Fairbanks Census Area, Alaska","sex":"Male","population":3770,"population_pct":54.8,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02261","county_name":"Valdez-Cordova Census Area, Alaska","sex":"Male","population":4845,"population_pct":52.4,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02275","county_name":"Wrangell City and Borough, Alaska","sex":"Male","population":1357,"population_pct":54.2,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02282","county_name":"Yakutat City and Borough, Alaska","sex":"Male","population":356,"population_pct":54.9,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02290","county_name":"Yukon-Koyukuk Census Area, Alaska","sex":"Male","population":2879,"population_pct":53.5,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02020","county_name":"Anchorage Municipality, Alaska","sex":"Male","population":149670,"population_pct":51.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02100","county_name":"Haines Borough, Alaska","sex":"Male","population":1297,"population_pct":51.5,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02220","county_name":"Sitka City and Borough, Alaska","sex":"Male","population":4444,"population_pct":51.4,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02130","county_name":"Ketchikan Gateway Borough, Alaska","sex":"Male","population":7083,"population_pct":51.3,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02070","county_name":"Dillingham Census Area, Alaska","sex":"Male","population":2542,"population_pct":51.2,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02110","county_name":"Juneau City and Borough, Alaska","sex":"Male","population":16504,"population_pct":51.2,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02013","county_name":"Aleutians East Borough, Alaska","sex":"Female","population":1352,"population_pct":39.9,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02016","county_name":"Aleutians West Census Area, Alaska","sex":"Female","population":2318,"population_pct":40.7,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02050","county_name":"Bethel Census Area, Alaska","sex":"Female","population":8657,"population_pct":47.7,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02060","county_name":"Bristol Bay Borough, Alaska","sex":"Female","population":351,"population_pct":40.1,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02068","county_name":"Denali Borough, Alaska","sex":"Female","population":1045,"population_pct":46.5,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02090","county_name":"Fairbanks North Star Borough, Alaska","sex":"Female","population":45655,"population_pct":46.1,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02105","county_name":"Hoonah-Angoon Census Area, Alaska","sex":"Female","population":997,"population_pct":46.6,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02122","county_name":"Kenai Peninsula Borough, Alaska","sex":"Female","population":27984,"population_pct":47.9,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02150","county_name":"Kodiak Island Borough, Alaska","sex":"Female","population":6230,"population_pct":46.3,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02158","county_name":"Kusilvak Census Area, Alaska","sex":"Female","population":3787,"population_pct":45.9,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02164","county_name":"Lake and Peninsula Borough, Alaska","sex":"Female","population":644,"population_pct":46.2,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02170","county_name":"Matanuska-Susitna Borough, Alaska","sex":"Female","population":50531,"population_pct":48.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02180","county_name":"Nome Census Area, Alaska","sex":"Female","population":4726,"population_pct":47.3,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02185","county_name":"North Slope Borough, Alaska","sex":"Female","population":3807,"population_pct":38.9,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02188","county_name":"Northwest Arctic Borough, Alaska","sex":"Female","population":3526,"population_pct":45.7,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02195","county_name":"Petersburg Borough, Alaska","sex":"Female","population":1534,"population_pct":47.1,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02198","county_name":"Prince of Wales-Hyder Census Area, Alaska","sex":"Female","population":2929,"population_pct":45.7,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02230","county_name":"Skagway Municipality, Alaska","sex":"Female","population":501,"population_pct":45.3,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02240","county_name":"Southeast Fairbanks Census Area, Alaska","sex":"Female","population":3108,"population_pct":45.2,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02261","county_name":"Valdez-Cordova Census Area, Alaska","sex":"Female","population":4398,"population_pct":47.6,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02275","county_name":"Wrangell City and Borough, Alaska","sex":"Female","population":1145,"population_pct":45.8,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02282","county_name":"Yakutat City and Borough, Alaska","sex":"Female","population":293,"population_pct":45.1,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02290","county_name":"Yukon-Koyukuk Census Area, Alaska","sex":"Female","population":2498,"population_pct":46.5,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02100","county_name":"Haines Borough, Alaska","sex":"Female","population":1221,"population_pct":48.5,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02020","county_name":"Anchorage Municipality, Alaska","sex":"Female","population":143861,"population_pct":49.0,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02070","county_name":"Dillingham Census Area, Alaska","sex":"Female","population":2419,"population_pct":48.8,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02110","county_name":"Juneau City and Borough, Alaska","sex":"Female","population":15723,"population_pct":48.8,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02130","county_name":"Ketchikan Gateway Borough, Alaska","sex":"Female","population":6717,"population_pct":48.7,"ingestion_ts":1662663914333}
+,{"state_fips":"02","county_fips":"02220","county_name":"Sitka City and Borough, Alaska","sex":"Female","population":4196,"population_pct":48.6,"ingestion_ts":1662663914333}]

@@ -1,0 +1,450 @@
+[{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"All","age":"0-9","population":10182,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"All","age":"10-19","population":11691,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"All","age":"20-29","population":9546,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"All","age":"30-39","population":8274,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"All","age":"40-49","population":7707,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"All","age":"50-59","population":8943,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"All","age":"60-69","population":8305,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"All","age":"70-79","population":4739,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"All","age":"80+","population":2124,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"All","age":"All","population":71511,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Female","age":"0-9","population":5095,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Female","age":"10-19","population":6021,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Female","age":"20-29","population":4663,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Female","age":"30-39","population":3991,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Female","age":"40-49","population":3845,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Female","age":"50-59","population":4699,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Female","age":"60-69","population":4259,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Female","age":"70-79","population":2548,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Female","age":"80+","population":1235,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Female","age":"All","population":36356,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Male","age":"0-9","population":5087,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Male","age":"10-19","population":5670,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Male","age":"20-29","population":4883,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Male","age":"30-39","population":4283,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Male","age":"40-49","population":3862,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Male","age":"50-59","population":4244,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Male","age":"60-69","population":4046,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Male","age":"70-79","population":2191,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Male","age":"80+","population":889,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04001","county_name":"Apache County, Arizona","sex":"Male","age":"All","population":35155,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"All","age":"0-9","population":15639,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"All","age":"10-19","population":15027,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"All","age":"20-29","population":15645,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"All","age":"30-39","population":14947,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"All","age":"40-49","population":13153,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"All","age":"50-59","population":14495,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"All","age":"60-69","population":18566,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"All","age":"70-79","population":12220,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"All","age":"80+","population":6175,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"All","age":"All","population":125867,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Female","age":"0-9","population":7415,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Female","age":"10-19","population":7532,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Female","age":"20-29","population":6892,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Female","age":"30-39","population":6803,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Female","age":"40-49","population":6424,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Female","age":"50-59","population":7625,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Female","age":"60-69","population":9524,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Female","age":"70-79","population":6426,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Female","age":"80+","population":3259,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Female","age":"All","population":61900,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Male","age":"0-9","population":8224,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Male","age":"10-19","population":7495,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Male","age":"20-29","population":8753,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Male","age":"30-39","population":8144,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Male","age":"40-49","population":6729,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Male","age":"50-59","population":6870,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Male","age":"60-69","population":9042,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Male","age":"70-79","population":5794,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Male","age":"80+","population":2916,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04003","county_name":"Cochise County, Arizona","sex":"Male","age":"All","population":63967,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"All","age":"0-9","population":15231,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"All","age":"10-19","population":25578,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"All","age":"20-29","population":28302,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"All","age":"30-39","population":16972,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"All","age":"40-49","population":14068,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"All","age":"50-59","population":16408,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"All","age":"60-69","population":13950,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"All","age":"70-79","population":7721,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"All","age":"80+","population":3044,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"All","age":"All","population":141274,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Female","age":"0-9","population":7424,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Female","age":"10-19","population":13852,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Female","age":"20-29","population":13627,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Female","age":"30-39","population":8229,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Female","age":"40-49","population":6963,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Female","age":"50-59","population":8468,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Female","age":"60-69","population":7192,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Female","age":"70-79","population":4048,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Female","age":"80+","population":1682,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Female","age":"All","population":71485,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Male","age":"0-9","population":7807,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Male","age":"10-19","population":11726,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Male","age":"20-29","population":14675,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Male","age":"30-39","population":8743,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Male","age":"40-49","population":7105,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Male","age":"50-59","population":7940,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Male","age":"60-69","population":6758,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Male","age":"70-79","population":3673,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Male","age":"80+","population":1362,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04005","county_name":"Coconino County, Arizona","sex":"Male","age":"All","population":69789,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"All","age":"0-9","population":5996,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"All","age":"10-19","population":5443,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"All","age":"20-29","population":5524,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"All","age":"30-39","population":4616,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"All","age":"40-49","population":5099,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"All","age":"50-59","population":6974,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"All","age":"60-69","population":9766,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"All","age":"70-79","population":6573,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"All","age":"80+","population":3555,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"All","age":"All","population":53546,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Female","age":"0-9","population":2774,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Female","age":"10-19","population":2792,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Female","age":"20-29","population":2763,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Female","age":"30-39","population":2228,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Female","age":"40-49","population":2544,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Female","age":"50-59","population":3709,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Female","age":"60-69","population":4948,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Female","age":"70-79","population":3444,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Female","age":"80+","population":1837,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Female","age":"All","population":27039,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Male","age":"0-9","population":3222,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Male","age":"10-19","population":2651,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Male","age":"20-29","population":2761,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Male","age":"30-39","population":2388,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Male","age":"40-49","population":2555,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Male","age":"50-59","population":3265,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Male","age":"60-69","population":4818,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Male","age":"70-79","population":3129,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Male","age":"80+","population":1718,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04007","county_name":"Gila County, Arizona","sex":"Male","age":"All","population":26507,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"All","age":"0-9","population":5377,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"All","age":"10-19","population":6105,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"All","age":"20-29","population":5797,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"All","age":"30-39","population":5013,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"All","age":"40-49","population":4713,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"All","age":"50-59","population":3679,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"All","age":"60-69","population":3711,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"All","age":"70-79","population":2377,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"All","age":"80+","population":1224,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"All","age":"All","population":37996,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Female","age":"0-9","population":2661,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Female","age":"10-19","population":2945,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Female","age":"20-29","population":2445,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Female","age":"30-39","population":2021,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Female","age":"40-49","population":2018,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Female","age":"50-59","population":1759,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Female","age":"60-69","population":1913,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Female","age":"70-79","population":1156,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Female","age":"80+","population":753,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Female","age":"All","population":17671,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Male","age":"0-9","population":2716,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Male","age":"10-19","population":3160,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Male","age":"20-29","population":3352,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Male","age":"30-39","population":2992,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Male","age":"40-49","population":2695,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Male","age":"50-59","population":1920,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Male","age":"60-69","population":1798,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Male","age":"70-79","population":1221,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Male","age":"80+","population":471,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04009","county_name":"Graham County, Arizona","sex":"Male","age":"All","population":20325,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"All","age":"0-9","population":1424,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"All","age":"10-19","population":1603,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"All","age":"20-29","population":1214,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"All","age":"30-39","population":1352,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"All","age":"40-49","population":1122,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"All","age":"50-59","population":1152,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"All","age":"60-69","population":716,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"All","age":"70-79","population":603,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"All","age":"80+","population":336,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"All","age":"All","population":9522,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Female","age":"0-9","population":759,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Female","age":"10-19","population":608,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Female","age":"20-29","population":585,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Female","age":"30-39","population":660,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Female","age":"40-49","population":493,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Female","age":"50-59","population":607,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Female","age":"60-69","population":326,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Female","age":"70-79","population":329,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Female","age":"80+","population":171,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Female","age":"All","population":4538,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Male","age":"0-9","population":665,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Male","age":"10-19","population":995,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Male","age":"20-29","population":629,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Male","age":"30-39","population":692,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Male","age":"40-49","population":629,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Male","age":"50-59","population":545,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Male","age":"60-69","population":390,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Male","age":"70-79","population":274,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Male","age":"80+","population":165,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04011","county_name":"Greenlee County, Arizona","sex":"Male","age":"All","population":4984,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"All","age":"0-9","population":1963,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"All","age":"10-19","population":1821,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"All","age":"20-29","population":1872,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"All","age":"30-39","population":1662,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"All","age":"40-49","population":1818,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"All","age":"50-59","population":2111,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"All","age":"60-69","population":3262,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"All","age":"70-79","population":4317,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"All","age":"80+","population":1967,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"All","age":"All","population":20793,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Female","age":"0-9","population":853,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Female","age":"10-19","population":863,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Female","age":"20-29","population":900,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Female","age":"30-39","population":848,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Female","age":"40-49","population":883,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Female","age":"50-59","population":985,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Female","age":"60-69","population":1853,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Female","age":"70-79","population":1987,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Female","age":"80+","population":913,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Female","age":"All","population":10085,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Male","age":"0-9","population":1110,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Male","age":"10-19","population":958,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Male","age":"20-29","population":972,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Male","age":"30-39","population":814,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Male","age":"40-49","population":935,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Male","age":"50-59","population":1126,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Male","age":"60-69","population":1409,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Male","age":"70-79","population":2330,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Male","age":"80+","population":1054,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04012","county_name":"La Paz County, Arizona","sex":"Male","age":"All","population":10708,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"All","age":"0-9","population":565337,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"All","age":"10-19","population":594823,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"All","age":"20-29","population":616512,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"All","age":"30-39","population":590116,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"All","age":"40-49","population":557157,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"All","age":"50-59","population":526399,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"All","age":"60-69","population":443697,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"All","age":"70-79","population":284792,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"All","age":"80+","population":149977,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"All","age":"All","population":4328810,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Female","age":"0-9","population":277610,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Female","age":"10-19","population":289913,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Female","age":"20-29","population":301589,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Female","age":"30-39","population":293499,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Female","age":"40-49","population":279081,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Female","age":"50-59","population":269670,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Female","age":"60-69","population":235772,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Female","age":"70-79","population":153270,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Female","age":"80+","population":87843,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Female","age":"All","population":2188247,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Male","age":"0-9","population":287727,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Male","age":"10-19","population":304910,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Male","age":"20-29","population":314923,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Male","age":"30-39","population":296617,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Male","age":"40-49","population":278076,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Male","age":"50-59","population":256729,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Male","age":"60-69","population":207925,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Male","age":"70-79","population":131522,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Male","age":"80+","population":62134,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04013","county_name":"Maricopa County, Arizona","sex":"Male","age":"All","population":2140563,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"All","age":"0-9","population":18777,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"All","age":"10-19","population":21230,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"All","age":"20-29","population":20256,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"All","age":"30-39","population":20092,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"All","age":"40-49","population":19598,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"All","age":"50-59","population":28518,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"All","age":"60-69","population":37568,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"All","age":"70-79","population":27881,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"All","age":"80+","population":13775,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"All","age":"All","population":207695,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Female","age":"0-9","population":8963,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Female","age":"10-19","population":10526,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Female","age":"20-29","population":9399,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Female","age":"30-39","population":9270,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Female","age":"40-49","population":9753,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Female","age":"50-59","population":14956,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Female","age":"60-69","population":19332,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Female","age":"70-79","population":13716,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Female","age":"80+","population":6836,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Female","age":"All","population":102751,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Male","age":"0-9","population":9814,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Male","age":"10-19","population":10704,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Male","age":"20-29","population":10857,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Male","age":"30-39","population":10822,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Male","age":"40-49","population":9845,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Male","age":"50-59","population":13562,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Male","age":"60-69","population":18236,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Male","age":"70-79","population":14165,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Male","age":"80+","population":6939,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04015","county_name":"Mohave County, Arizona","sex":"Male","age":"All","population":104944,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"All","age":"0-9","population":15842,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"All","age":"10-19","population":16449,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"All","age":"20-29","population":13426,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"All","age":"30-39","population":12391,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"All","age":"40-49","population":11459,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"All","age":"50-59","population":13658,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"All","age":"60-69","population":13279,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"All","age":"70-79","population":8768,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"All","age":"80+","population":3998,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"All","age":"All","population":109270,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Female","age":"0-9","population":7782,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Female","age":"10-19","population":8025,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Female","age":"20-29","population":6225,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Female","age":"30-39","population":6049,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Female","age":"40-49","population":5628,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Female","age":"50-59","population":7167,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Female","age":"60-69","population":6991,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Female","age":"70-79","population":4472,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Female","age":"80+","population":2210,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Female","age":"All","population":54549,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Male","age":"0-9","population":8060,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Male","age":"10-19","population":8424,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Male","age":"20-29","population":7201,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Male","age":"30-39","population":6342,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Male","age":"40-49","population":5831,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Male","age":"50-59","population":6491,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Male","age":"60-69","population":6288,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Male","age":"70-79","population":4296,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Male","age":"80+","population":1788,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04017","county_name":"Navajo County, Arizona","sex":"Male","age":"All","population":54721,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"All","age":"0-9","population":118470,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"All","age":"10-19","population":130143,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"All","age":"20-29","population":159853,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"All","age":"30-39","population":122368,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"All","age":"40-49","population":112103,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"All","age":"50-59","population":121589,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"All","age":"60-69","population":127601,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"All","age":"70-79","population":87564,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"All","age":"80+","population":47516,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"All","age":"All","population":1027207,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Female","age":"0-9","population":58506,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Female","age":"10-19","population":63581,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Female","age":"20-29","population":77109,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Female","age":"30-39","population":59240,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Female","age":"40-49","population":57400,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Female","age":"50-59","population":62663,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Female","age":"60-69","population":68481,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Female","age":"70-79","population":47136,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Female","age":"80+","population":27425,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Female","age":"All","population":521541,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Male","age":"0-9","population":59964,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Male","age":"10-19","population":66562,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Male","age":"20-29","population":82744,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Male","age":"30-39","population":63128,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Male","age":"40-49","population":54703,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Male","age":"50-59","population":58926,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Male","age":"60-69","population":59120,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Male","age":"70-79","population":40428,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Male","age":"80+","population":20091,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04019","county_name":"Pima County, Arizona","sex":"Male","age":"All","population":505666,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"All","age":"0-9","population":53427,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"All","age":"10-19","population":55941,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"All","age":"20-29","population":52031,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"All","age":"30-39","population":59406,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"All","age":"40-49","population":51479,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"All","age":"50-59","population":48462,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"All","age":"60-69","population":54347,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"All","age":"70-79","population":41878,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"All","age":"80+","population":15822,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"All","age":"All","population":432793,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Female","age":"0-9","population":26843,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Female","age":"10-19","population":26287,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Female","age":"20-29","population":21878,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Female","age":"30-39","population":26687,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Female","age":"40-49","population":22853,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Female","age":"50-59","population":24025,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Female","age":"60-69","population":29148,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Female","age":"70-79","population":21108,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Female","age":"80+","population":8346,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Female","age":"All","population":207175,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Male","age":"0-9","population":26584,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Male","age":"10-19","population":29654,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Male","age":"20-29","population":30153,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Male","age":"30-39","population":32719,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Male","age":"40-49","population":28626,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Male","age":"50-59","population":24437,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Male","age":"60-69","population":25199,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Male","age":"70-79","population":20770,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Male","age":"80+","population":7476,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04021","county_name":"Pinal County, Arizona","sex":"Male","age":"All","population":225618,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"All","age":"0-9","population":6975,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"All","age":"10-19","population":7194,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"All","age":"20-29","population":5608,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"All","age":"30-39","population":5360,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"All","age":"40-49","population":4861,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"All","age":"50-59","population":5455,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"All","age":"60-69","population":5538,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"All","age":"70-79","population":3663,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"All","age":"80+","population":1826,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"All","age":"All","population":46480,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Female","age":"0-9","population":3533,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Female","age":"10-19","population":3620,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Female","age":"20-29","population":2713,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Female","age":"30-39","population":2819,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Female","age":"40-49","population":2650,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Female","age":"50-59","population":3035,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Female","age":"60-69","population":2707,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Female","age":"70-79","population":2151,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Female","age":"80+","population":981,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Female","age":"All","population":24209,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Male","age":"0-9","population":3442,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Male","age":"10-19","population":3574,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Male","age":"20-29","population":2895,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Male","age":"30-39","population":2541,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Male","age":"40-49","population":2211,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Male","age":"50-59","population":2420,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Male","age":"60-69","population":2831,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Male","age":"70-79","population":1512,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Male","age":"80+","population":845,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04023","county_name":"Santa Cruz County, Arizona","sex":"Male","age":"All","population":22271,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"All","age":"0-9","population":20134,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"All","age":"10-19","population":22450,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"All","age":"20-29","population":20925,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"All","age":"30-39","population":19757,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"All","age":"40-49","population":21607,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"All","age":"50-59","population":31281,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"All","age":"60-69","population":44420,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"All","age":"70-79","population":32664,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"All","age":"80+","population":14829,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"All","age":"All","population":228067,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Female","age":"0-9","population":9680,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Female","age":"10-19","population":10866,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Female","age":"20-29","population":9904,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Female","age":"30-39","population":9858,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Female","age":"40-49","population":10952,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Female","age":"50-59","population":16814,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Female","age":"60-69","population":24119,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Female","age":"70-79","population":16331,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Female","age":"80+","population":8093,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Female","age":"All","population":116617,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Male","age":"0-9","population":10454,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Male","age":"10-19","population":11584,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Male","age":"20-29","population":11021,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Male","age":"30-39","population":9899,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Male","age":"40-49","population":10655,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Male","age":"50-59","population":14467,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Male","age":"60-69","population":20301,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Male","age":"70-79","population":16333,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Male","age":"80+","population":6736,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04025","county_name":"Yavapai County, Arizona","sex":"Male","age":"All","population":111450,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"All","age":"0-9","population":29764,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"All","age":"10-19","population":29586,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"All","age":"20-29","population":32995,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"All","age":"30-39","population":24901,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"All","age":"40-49","population":22187,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"All","age":"50-59","population":20762,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"All","age":"60-69","population":20650,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"All","age":"70-79","population":18370,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"All","age":"80+","population":10253,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"All","age":"All","population":209468,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Female","age":"0-9","population":14599,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Female","age":"10-19","population":14353,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Female","age":"20-29","population":13870,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Female","age":"30-39","population":11040,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Female","age":"40-49","population":11411,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Female","age":"50-59","population":10712,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Female","age":"60-69","population":10971,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Female","age":"70-79","population":9474,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Female","age":"80+","population":5197,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Female","age":"All","population":101627,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Male","age":"0-9","population":15165,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Male","age":"10-19","population":15233,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Male","age":"20-29","population":19125,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Male","age":"30-39","population":13861,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Male","age":"40-49","population":10776,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Male","age":"50-59","population":10050,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Male","age":"60-69","population":9679,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Male","age":"70-79","population":8896,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Male","age":"80+","population":5056,"ingestion_ts":1662663899712}
+,{"state_fips":"04","county_fips":"04027","county_name":"Yuma County, Arizona","sex":"Male","age":"All","population":107841,"ingestion_ts":1662663899712}]

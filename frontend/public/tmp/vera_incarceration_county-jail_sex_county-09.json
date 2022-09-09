@@ -1,0 +1,24 @@
+[{"county_fips":"09001","county_name":"Fairfield County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.6,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09003","county_name":"Hartford County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.4,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09005","county_name":"Litchfield County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.8,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09007","county_name":"Middlesex County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.4,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09009","county_name":"New Haven County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":51.1,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09011","county_name":"New London County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":48.8,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09013","county_name":"Tolland County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.3,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09015","county_name":"Windham County","sex":"Female","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.7,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09001","county_name":"Fairfield County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.4,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09003","county_name":"Hartford County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.6,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09005","county_name":"Litchfield County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.2,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09007","county_name":"Middlesex County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":49.6,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09009","county_name":"New Haven County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":48.9,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09011","county_name":"New London County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":51.2,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09013","county_name":"Tolland County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.7,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09015","county_name":"Windham County","sex":"Male","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":50.3,"total_confined_children":null,"ingestion_ts":1662607265498}
+,{"county_fips":"09001","county_name":"Fairfield County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"09003","county_name":"Hartford County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"09005","county_name":"Litchfield County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"09007","county_name":"Middlesex County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"09009","county_name":"New Haven County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"09011","county_name":"New London County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"09013","county_name":"Tolland County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}
+,{"county_fips":"09015","county_name":"Windham County","sex":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607265498}]

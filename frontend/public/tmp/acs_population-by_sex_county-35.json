@@ -1,0 +1,99 @@
+[{"state_fips":"35","county_fips":"35001","county_name":"Bernalillo County, New Mexico","sex":"All","population":677858,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35003","county_name":"Catron County, New Mexico","sex":"All","population":3526,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35005","county_name":"Chaves County, New Mexico","sex":"All","population":65144,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35006","county_name":"Cibola County, New Mexico","sex":"All","population":26891,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35007","county_name":"Colfax County, New Mexico","sex":"All","population":12168,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35009","county_name":"Curry County, New Mexico","sex":"All","population":49732,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35011","county_name":"De Baca County, New Mexico","sex":"All","population":2040,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35013","county_name":"Do\u00f1a Ana County, New Mexico","sex":"All","population":216069,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35015","county_name":"Eddy County, New Mexico","sex":"All","population":57732,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35017","county_name":"Grant County, New Mexico","sex":"All","population":27669,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35019","county_name":"Guadalupe County, New Mexico","sex":"All","population":4353,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35021","county_name":"Harding County, New Mexico","sex":"All","population":441,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35023","county_name":"Hidalgo County, New Mexico","sex":"All","population":4297,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35025","county_name":"Lea County, New Mexico","sex":"All","population":70277,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35027","county_name":"Lincoln County, New Mexico","sex":"All","population":19461,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35028","county_name":"Los Alamos County, New Mexico","sex":"All","population":18625,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35029","county_name":"Luna County, New Mexico","sex":"All","population":24083,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35031","county_name":"McKinley County, New Mexico","sex":"All","population":72438,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35033","county_name":"Mora County, New Mexico","sex":"All","population":4536,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35035","county_name":"Otero County, New Mexico","sex":"All","population":66137,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35037","county_name":"Quay County, New Mexico","sex":"All","population":8326,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35039","county_name":"Rio Arriba County, New Mexico","sex":"All","population":39159,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35041","county_name":"Roosevelt County, New Mexico","sex":"All","population":18888,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35043","county_name":"Sandoval County, New Mexico","sex":"All","population":142704,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35045","county_name":"San Juan County, New Mexico","sex":"All","population":126515,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35047","county_name":"San Miguel County, New Mexico","sex":"All","population":27738,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35049","county_name":"Santa Fe County, New Mexico","sex":"All","population":149293,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35051","county_name":"Sierra County, New Mexico","sex":"All","population":11031,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35053","county_name":"Socorro County, New Mexico","sex":"All","population":16858,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35055","county_name":"Taos County, New Mexico","sex":"All","population":32786,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35057","county_name":"Torrance County, New Mexico","sex":"All","population":15519,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35059","county_name":"Union County, New Mexico","sex":"All","population":4133,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35061","county_name":"Valencia County, New Mexico","sex":"All","population":76027,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35003","county_name":"Catron County, New Mexico","sex":"Male","population":1944,"population_pct":55.1,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35009","county_name":"Curry County, New Mexico","sex":"Male","population":25956,"population_pct":52.2,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35019","county_name":"Guadalupe County, New Mexico","sex":"Male","population":2556,"population_pct":58.7,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35021","county_name":"Harding County, New Mexico","sex":"Male","population":242,"population_pct":54.9,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35037","county_name":"Quay County, New Mexico","sex":"Male","population":3976,"population_pct":47.8,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35053","county_name":"Socorro County, New Mexico","sex":"Male","population":8815,"population_pct":52.3,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35057","county_name":"Torrance County, New Mexico","sex":"Male","population":8251,"population_pct":53.2,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35059","county_name":"Union County, New Mexico","sex":"Male","population":2221,"population_pct":53.7,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35033","county_name":"Mora County, New Mexico","sex":"Male","population":2201,"population_pct":48.5,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35049","county_name":"Santa Fe County, New Mexico","sex":"Male","population":72380,"population_pct":48.5,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35015","county_name":"Eddy County, New Mexico","sex":"Male","population":29137,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35001","county_name":"Bernalillo County, New Mexico","sex":"Male","population":332204,"population_pct":49.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35043","county_name":"Sandoval County, New Mexico","sex":"Male","population":69943,"population_pct":49.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35045","county_name":"San Juan County, New Mexico","sex":"Male","population":62677,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35051","county_name":"Sierra County, New Mexico","sex":"Male","population":5463,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35007","county_name":"Colfax County, New Mexico","sex":"Male","population":6256,"population_pct":51.4,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35005","county_name":"Chaves County, New Mexico","sex":"Male","population":32537,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35029","county_name":"Luna County, New Mexico","sex":"Male","population":12026,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35031","county_name":"McKinley County, New Mexico","sex":"Male","population":34986,"population_pct":48.3,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35061","county_name":"Valencia County, New Mexico","sex":"Male","population":38244,"population_pct":50.3,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35028","county_name":"Los Alamos County, New Mexico","sex":"Male","population":9463,"population_pct":50.8,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35017","county_name":"Grant County, New Mexico","sex":"Male","population":13652,"population_pct":49.3,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35041","county_name":"Roosevelt County, New Mexico","sex":"Male","population":9401,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35047","county_name":"San Miguel County, New Mexico","sex":"Male","population":13825,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35055","county_name":"Taos County, New Mexico","sex":"Male","population":16137,"population_pct":49.2,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35035","county_name":"Otero County, New Mexico","sex":"Male","population":34214,"population_pct":51.7,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35039","county_name":"Rio Arriba County, New Mexico","sex":"Male","population":18819,"population_pct":48.1,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35006","county_name":"Cibola County, New Mexico","sex":"Male","population":13612,"population_pct":50.6,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35013","county_name":"Do\u00f1a Ana County, New Mexico","sex":"Male","population":106056,"population_pct":49.1,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35027","county_name":"Lincoln County, New Mexico","sex":"Male","population":9554,"population_pct":49.1,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35011","county_name":"De Baca County, New Mexico","sex":"Male","population":1043,"population_pct":51.1,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35023","county_name":"Hidalgo County, New Mexico","sex":"Male","population":2130,"population_pct":49.6,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35025","county_name":"Lea County, New Mexico","sex":"Male","population":36269,"population_pct":51.6,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35003","county_name":"Catron County, New Mexico","sex":"Female","population":1582,"population_pct":44.9,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35009","county_name":"Curry County, New Mexico","sex":"Female","population":23776,"population_pct":47.8,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35019","county_name":"Guadalupe County, New Mexico","sex":"Female","population":1797,"population_pct":41.3,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35021","county_name":"Harding County, New Mexico","sex":"Female","population":199,"population_pct":45.1,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35037","county_name":"Quay County, New Mexico","sex":"Female","population":4350,"population_pct":52.2,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35053","county_name":"Socorro County, New Mexico","sex":"Female","population":8043,"population_pct":47.7,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35057","county_name":"Torrance County, New Mexico","sex":"Female","population":7268,"population_pct":46.8,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35059","county_name":"Union County, New Mexico","sex":"Female","population":1912,"population_pct":46.3,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35045","county_name":"San Juan County, New Mexico","sex":"Female","population":63838,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35051","county_name":"Sierra County, New Mexico","sex":"Female","population":5568,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35001","county_name":"Bernalillo County, New Mexico","sex":"Female","population":345654,"population_pct":51.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35043","county_name":"Sandoval County, New Mexico","sex":"Female","population":72761,"population_pct":51.0,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35015","county_name":"Eddy County, New Mexico","sex":"Female","population":28595,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35033","county_name":"Mora County, New Mexico","sex":"Female","population":2335,"population_pct":51.5,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35049","county_name":"Santa Fe County, New Mexico","sex":"Female","population":76913,"population_pct":51.5,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35025","county_name":"Lea County, New Mexico","sex":"Female","population":34008,"population_pct":48.4,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35023","county_name":"Hidalgo County, New Mexico","sex":"Female","population":2167,"population_pct":50.4,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35011","county_name":"De Baca County, New Mexico","sex":"Female","population":997,"population_pct":48.9,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35013","county_name":"Do\u00f1a Ana County, New Mexico","sex":"Female","population":110013,"population_pct":50.9,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35027","county_name":"Lincoln County, New Mexico","sex":"Female","population":9907,"population_pct":50.9,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35006","county_name":"Cibola County, New Mexico","sex":"Female","population":13279,"population_pct":49.4,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35039","county_name":"Rio Arriba County, New Mexico","sex":"Female","population":20340,"population_pct":51.9,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35035","county_name":"Otero County, New Mexico","sex":"Female","population":31923,"population_pct":48.3,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35055","county_name":"Taos County, New Mexico","sex":"Female","population":16649,"population_pct":50.8,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35041","county_name":"Roosevelt County, New Mexico","sex":"Female","population":9487,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35047","county_name":"San Miguel County, New Mexico","sex":"Female","population":13913,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35017","county_name":"Grant County, New Mexico","sex":"Female","population":14017,"population_pct":50.7,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35028","county_name":"Los Alamos County, New Mexico","sex":"Female","population":9162,"population_pct":49.2,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35061","county_name":"Valencia County, New Mexico","sex":"Female","population":37783,"population_pct":49.7,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35031","county_name":"McKinley County, New Mexico","sex":"Female","population":37452,"population_pct":51.7,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35005","county_name":"Chaves County, New Mexico","sex":"Female","population":32607,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35029","county_name":"Luna County, New Mexico","sex":"Female","population":12057,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"35","county_fips":"35007","county_name":"Colfax County, New Mexico","sex":"Female","population":5912,"population_pct":48.6,"ingestion_ts":1662663914333}]

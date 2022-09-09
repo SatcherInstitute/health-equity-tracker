@@ -1,0 +1,23 @@
+[{"county_fips":"56039","county_name":"Teton County","age":"All","prison_per_100k":136.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56001","county_name":"Albany County","age":"All","prison_per_100k":432.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56017","county_name":"Hot Springs County","age":"All","prison_per_100k":930.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56045","county_name":"Weston County","age":"All","prison_per_100k":306.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56043","county_name":"Washakie County","age":"All","prison_per_100k":612.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56021","county_name":"Laramie County","age":"All","prison_per_100k":522.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56011","county_name":"Crook County","age":"All","prison_per_100k":486.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56015","county_name":"Goshen County","age":"All","prison_per_100k":748.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56003","county_name":"Big Horn County","age":"All","prison_per_100k":327.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56037","county_name":"Sweetwater County","age":"All","prison_per_100k":847.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56031","county_name":"Platte County","age":"All","prison_per_100k":528.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56025","county_name":"Natrona County","age":"All","prison_per_100k":913.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56007","county_name":"Carbon County","age":"All","prison_per_100k":1060.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56023","county_name":"Lincoln County","age":"All","prison_per_100k":205.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56027","county_name":"Niobrara County","age":"All","prison_per_100k":253.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56041","county_name":"Uinta County","age":"All","prison_per_100k":346.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56033","county_name":"Sheridan County","age":"All","prison_per_100k":532.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56009","county_name":"Converse County","age":"All","prison_per_100k":565.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56019","county_name":"Johnson County","age":"All","prison_per_100k":825.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56035","county_name":"Sublette County","age":"All","prison_per_100k":666.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56029","county_name":"Park County","age":"All","prison_per_100k":415.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56005","county_name":"Campbell County","age":"All","prison_per_100k":794.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":5.0,"ingestion_ts":1662607198533}
+,{"county_fips":"56013","county_name":"Fremont County","age":"All","prison_per_100k":617.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":8.0,"ingestion_ts":1662607198533}]

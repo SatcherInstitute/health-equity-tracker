@@ -1,0 +1,3 @@
+[{"county_fips":"10001","county_name":"Kent County","race_category_id":"ALL","vaccinated_first_dose":121340.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":176699}
+,{"county_fips":"10003","county_name":"New Castle County","race_category_id":"ALL","vaccinated_first_dose":480796.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":556165}
+,{"county_fips":"10005","county_name":"Sussex County","race_category_id":"ALL","vaccinated_first_dose":194902.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":224384}]

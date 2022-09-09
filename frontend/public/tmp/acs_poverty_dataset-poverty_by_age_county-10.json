@@ -1,0 +1,30 @@
+[{"state_fips":"10","state_name":"Delaware","county_fips":"10001","county_name":"Kent County, Delaware","below_poverty_line":4286,"above_poverty_line":16950,"age":"0-5","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10001","county_name":"Kent County, Delaware","below_poverty_line":4163,"above_poverty_line":16846,"age":"6-11","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10001","county_name":"Kent County, Delaware","below_poverty_line":3522,"above_poverty_line":19423,"age":"12-17","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10001","county_name":"Kent County, Delaware","below_poverty_line":3332,"above_poverty_line":20196,"age":"18-24","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10001","county_name":"Kent County, Delaware","below_poverty_line":5486,"above_poverty_line":34956,"age":"25-34","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10001","county_name":"Kent County, Delaware","below_poverty_line":3451,"above_poverty_line":31287,"age":"35-44","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10001","county_name":"Kent County, Delaware","below_poverty_line":3912,"above_poverty_line":33358,"age":"45-54","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10001","county_name":"Kent County, Delaware","below_poverty_line":3957,"above_poverty_line":34276,"age":"55-64","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10001","county_name":"Kent County, Delaware","below_poverty_line":1992,"above_poverty_line":28127,"age":"65-74","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10001","county_name":"Kent County, Delaware","below_poverty_line":1851,"above_poverty_line":18905,"age":"75+","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10003","county_name":"New Castle County, Delaware","below_poverty_line":8875,"above_poverty_line":50419,"age":"0-5","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10003","county_name":"New Castle County, Delaware","below_poverty_line":9272,"above_poverty_line":54343,"age":"6-11","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10003","county_name":"New Castle County, Delaware","below_poverty_line":8482,"above_poverty_line":59321,"age":"12-17","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10003","county_name":"New Castle County, Delaware","below_poverty_line":15402,"above_poverty_line":56345,"age":"18-24","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10003","county_name":"New Castle County, Delaware","below_poverty_line":12437,"above_poverty_line":118293,"age":"25-34","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10003","county_name":"New Castle County, Delaware","below_poverty_line":9913,"above_poverty_line":101574,"age":"35-44","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10003","county_name":"New Castle County, Delaware","below_poverty_line":10081,"above_poverty_line":115468,"age":"45-54","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10003","county_name":"New Castle County, Delaware","below_poverty_line":10447,"above_poverty_line":116508,"age":"55-64","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10003","county_name":"New Castle County, Delaware","below_poverty_line":5109,"above_poverty_line":79992,"age":"65-74","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10003","county_name":"New Castle County, Delaware","below_poverty_line":4031,"above_poverty_line":56206,"age":"75+","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10005","county_name":"Sussex County, Delaware","below_poverty_line":4980,"above_poverty_line":17946,"age":"0-5","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10005","county_name":"Sussex County, Delaware","below_poverty_line":4847,"above_poverty_line":18513,"age":"6-11","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10005","county_name":"Sussex County, Delaware","below_poverty_line":4388,"above_poverty_line":22035,"age":"12-17","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10005","county_name":"Sussex County, Delaware","below_poverty_line":3467,"above_poverty_line":21065,"age":"18-24","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10005","county_name":"Sussex County, Delaware","below_poverty_line":4733,"above_poverty_line":36036,"age":"25-34","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10005","county_name":"Sussex County, Delaware","below_poverty_line":4560,"above_poverty_line":33964,"age":"35-44","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10005","county_name":"Sussex County, Delaware","below_poverty_line":4157,"above_poverty_line":44385,"age":"45-54","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10005","county_name":"Sussex County, Delaware","below_poverty_line":5615,"above_poverty_line":61856,"age":"55-64","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10005","county_name":"Sussex County, Delaware","below_poverty_line":3499,"above_poverty_line":68386,"age":"65-74","ingestion_ts":1662650341083}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10005","county_name":"Sussex County, Delaware","below_poverty_line":2765,"above_poverty_line":39643,"age":"75+","ingestion_ts":1662650341083}]

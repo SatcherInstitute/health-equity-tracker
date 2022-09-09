@@ -1,0 +1,17 @@
+[{"county_fips":"32005","county_name":"Douglas County","svi":0.18,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32021","county_name":"Mineral County","svi":0.88,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32001","county_name":"Churchill County","svi":0.6,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32023","county_name":"Nye County","svi":0.73,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32009","county_name":"Esmeralda County","svi":0.64,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32019","county_name":"Lyon County","svi":0.58,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32015","county_name":"Lander County","svi":0.83,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32007","county_name":"Elko County","svi":0.52,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32033","county_name":"White Pine County","svi":0.37,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32003","county_name":"Clark County","svi":0.74,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32027","county_name":"Pershing County","svi":0.9,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32013","county_name":"Humboldt County","svi":0.59,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32510","county_name":"Carson City","svi":0.84,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32011","county_name":"Eureka County","svi":0.07,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32029","county_name":"Storey County","svi":0.07,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32031","county_name":"Washoe County","svi":0.53,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"32017","county_name":"Lincoln County","svi":0.42,"age":"All","ingestion_ts":1662477615221}]

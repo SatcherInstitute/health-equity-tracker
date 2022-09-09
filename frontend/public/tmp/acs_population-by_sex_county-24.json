@@ -1,0 +1,72 @@
+[{"state_fips":"24","county_fips":"24001","county_name":"Allegany County, Maryland","sex":"All","population":71445,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24003","county_name":"Anne Arundel County, Maryland","sex":"All","population":571275,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24005","county_name":"Baltimore County, Maryland","sex":"All","population":828018,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24009","county_name":"Calvert County, Maryland","sex":"All","population":91511,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24011","county_name":"Caroline County, Maryland","sex":"All","population":33049,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24013","county_name":"Carroll County, Maryland","sex":"All","population":167699,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24015","county_name":"Cecil County, Maryland","sex":"All","population":102552,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24017","county_name":"Charles County, Maryland","sex":"All","population":159428,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24019","county_name":"Dorchester County, Maryland","sex":"All","population":32138,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24021","county_name":"Frederick County, Maryland","sex":"All","population":251422,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24023","county_name":"Garrett County, Maryland","sex":"All","population":29235,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24025","county_name":"Harford County, Maryland","sex":"All","population":252222,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24027","county_name":"Howard County, Maryland","sex":"All","population":318855,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24029","county_name":"Kent County, Maryland","sex":"All","population":19536,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24031","county_name":"Montgomery County, Maryland","sex":"All","population":1043530,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24033","county_name":"Prince George's County, Maryland","sex":"All","population":908670,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24035","county_name":"Queen Anne's County, Maryland","sex":"All","population":49632,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24037","county_name":"St. Mary's County, Maryland","sex":"All","population":112290,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24039","county_name":"Somerset County, Maryland","sex":"All","population":25729,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24041","county_name":"Talbot County, Maryland","sex":"All","population":37167,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24043","county_name":"Washington County, Maryland","sex":"All","population":150109,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24045","county_name":"Wicomico County, Maryland","sex":"All","population":102539,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24047","county_name":"Worcester County, Maryland","sex":"All","population":51765,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24510","county_name":"Baltimore city, Maryland","sex":"All","population":609032,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24001","county_name":"Allegany County, Maryland","sex":"Male","population":37335,"population_pct":52.3,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24005","county_name":"Baltimore County, Maryland","sex":"Male","population":392496,"population_pct":47.4,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24019","county_name":"Dorchester County, Maryland","sex":"Male","population":15177,"population_pct":47.2,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24029","county_name":"Kent County, Maryland","sex":"Male","population":9294,"population_pct":47.6,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24039","county_name":"Somerset County, Maryland","sex":"Male","population":13926,"population_pct":54.1,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24041","county_name":"Talbot County, Maryland","sex":"Male","population":17627,"population_pct":47.4,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24045","county_name":"Wicomico County, Maryland","sex":"Male","population":48681,"population_pct":47.5,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24510","county_name":"Baltimore city, Maryland","sex":"Male","population":286048,"population_pct":47.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24037","county_name":"St. Mary's County, Maryland","sex":"Male","population":56147,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24025","county_name":"Harford County, Maryland","sex":"Male","population":123549,"population_pct":49.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24047","county_name":"Worcester County, Maryland","sex":"Male","population":25357,"population_pct":49.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24003","county_name":"Anne Arundel County, Maryland","sex":"Male","population":282621,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24013","county_name":"Carroll County, Maryland","sex":"Male","population":82963,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24023","county_name":"Garrett County, Maryland","sex":"Male","population":14478,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24011","county_name":"Caroline County, Maryland","sex":"Male","population":16170,"population_pct":48.9,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24027","county_name":"Howard County, Maryland","sex":"Male","population":155961,"population_pct":48.9,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24031","county_name":"Montgomery County, Maryland","sex":"Male","population":504128,"population_pct":48.3,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24043","county_name":"Washington County, Maryland","sex":"Male","population":76330,"population_pct":50.8,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24021","county_name":"Frederick County, Maryland","sex":"Male","population":123912,"population_pct":49.3,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24009","county_name":"Calvert County, Maryland","sex":"Male","population":45538,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24015","county_name":"Cecil County, Maryland","sex":"Male","population":51022,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24017","county_name":"Charles County, Maryland","sex":"Male","population":76779,"population_pct":48.2,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24033","county_name":"Prince George's County, Maryland","sex":"Male","population":437440,"population_pct":48.1,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24035","county_name":"Queen Anne's County, Maryland","sex":"Male","population":24634,"population_pct":49.6,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24001","county_name":"Allegany County, Maryland","sex":"Female","population":34110,"population_pct":47.7,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24005","county_name":"Baltimore County, Maryland","sex":"Female","population":435522,"population_pct":52.6,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24019","county_name":"Dorchester County, Maryland","sex":"Female","population":16961,"population_pct":52.8,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24029","county_name":"Kent County, Maryland","sex":"Female","population":10242,"population_pct":52.4,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24039","county_name":"Somerset County, Maryland","sex":"Female","population":11803,"population_pct":45.9,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24041","county_name":"Talbot County, Maryland","sex":"Female","population":19540,"population_pct":52.6,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24045","county_name":"Wicomico County, Maryland","sex":"Female","population":53858,"population_pct":52.5,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24510","county_name":"Baltimore city, Maryland","sex":"Female","population":322984,"population_pct":53.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24037","county_name":"St. Mary's County, Maryland","sex":"Female","population":56143,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24003","county_name":"Anne Arundel County, Maryland","sex":"Female","population":288654,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24013","county_name":"Carroll County, Maryland","sex":"Female","population":84736,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24023","county_name":"Garrett County, Maryland","sex":"Female","population":14757,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24025","county_name":"Harford County, Maryland","sex":"Female","population":128673,"population_pct":51.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24047","county_name":"Worcester County, Maryland","sex":"Female","population":26408,"population_pct":51.0,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24035","county_name":"Queen Anne's County, Maryland","sex":"Female","population":24998,"population_pct":50.4,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24033","county_name":"Prince George's County, Maryland","sex":"Female","population":471230,"population_pct":51.9,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24017","county_name":"Charles County, Maryland","sex":"Female","population":82649,"population_pct":51.8,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24009","county_name":"Calvert County, Maryland","sex":"Female","population":45973,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24015","county_name":"Cecil County, Maryland","sex":"Female","population":51530,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24021","county_name":"Frederick County, Maryland","sex":"Female","population":127510,"population_pct":50.7,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24043","county_name":"Washington County, Maryland","sex":"Female","population":73779,"population_pct":49.2,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24031","county_name":"Montgomery County, Maryland","sex":"Female","population":539402,"population_pct":51.7,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24011","county_name":"Caroline County, Maryland","sex":"Female","population":16879,"population_pct":51.1,"ingestion_ts":1662663914333}
+,{"state_fips":"24","county_fips":"24027","county_name":"Howard County, Maryland","sex":"Female","population":162894,"population_pct":51.1,"ingestion_ts":1662663914333}]

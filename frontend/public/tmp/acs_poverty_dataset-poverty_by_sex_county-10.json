@@ -1,0 +1,6 @@
+[{"state_fips":"10","state_name":"Delaware","county_fips":"10005","county_name":"Sussex County, Delaware","below_poverty_line":18262,"above_poverty_line":178043,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10005","county_name":"Sussex County, Delaware","below_poverty_line":24749,"above_poverty_line":185786,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10003","county_name":"New Castle County, Delaware","below_poverty_line":40876,"above_poverty_line":395893,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10003","county_name":"New Castle County, Delaware","below_poverty_line":53173,"above_poverty_line":412576,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10001","county_name":"Kent County, Delaware","below_poverty_line":15437,"above_poverty_line":125406,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"10","state_name":"Delaware","county_fips":"10001","county_name":"Kent County, Delaware","below_poverty_line":20515,"above_poverty_line":128918,"sex":"Female","ingestion_ts":1662650349256}]

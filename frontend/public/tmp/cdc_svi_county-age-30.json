@@ -1,0 +1,56 @@
+[{"county_fips":"30069","county_name":"Petroleum County","svi":0.0,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30001","county_name":"Beaverhead County","svi":0.25,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30111","county_name":"Yellowstone County","svi":0.25,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30077","county_name":"Powell County","svi":0.25,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30029","county_name":"Flathead County","svi":0.09,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30091","county_name":"Sheridan County","svi":0.09,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30063","county_name":"Missoula County","svi":0.18,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30065","county_name":"Musselshell County","svi":0.36,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30023","county_name":"Deer Lodge County","svi":0.47,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30099","county_name":"Teton County","svi":0.3,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30013","county_name":"Cascade County","svi":0.41,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30071","county_name":"Phillips County","svi":0.41,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30051","county_name":"Liberty County","svi":0.41,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30107","county_name":"Wheatland County","svi":0.54,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30081","county_name":"Ravalli County","svi":0.19,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30089","county_name":"Sanders County","svi":0.35,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30041","county_name":"Hill County","svi":0.7,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30005","county_name":"Blaine County","svi":0.92,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30033","county_name":"Garfield County","svi":0.01,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30097","county_name":"Sweet Grass County","svi":0.01,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30025","county_name":"Fallon County","svi":0.02,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30045","county_name":"Judith Basin County","svi":0.02,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30019","county_name":"Daniels County","svi":0.02,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30007","county_name":"Broadwater County","svi":0.04,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30009","county_name":"Carbon County","svi":0.04,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30031","county_name":"Gallatin County","svi":0.04,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30075","county_name":"Powder River County","svi":0.04,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30095","county_name":"Stillwater County","svi":0.04,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30021","county_name":"Dawson County","svi":0.08,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30039","county_name":"Granite County","svi":0.08,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30055","county_name":"McCone County","svi":0.08,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30079","county_name":"Prairie County","svi":0.08,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30085","county_name":"Roosevelt County","svi":0.89,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30087","county_name":"Rosebud County","svi":0.61,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30035","county_name":"Glacier County","svi":0.86,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30017","county_name":"Custer County","svi":0.29,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30073","county_name":"Pondera County","svi":0.83,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30003","county_name":"Big Horn County","svi":0.83,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30059","county_name":"Meagher County","svi":0.05,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30011","county_name":"Carter County","svi":0.05,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30037","county_name":"Golden Valley County","svi":0.05,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30049","county_name":"Lewis and Clark County","svi":0.13,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30103","county_name":"Treasure County","svi":0.06,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30105","county_name":"Valley County","svi":0.12,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30027","county_name":"Fergus County","svi":0.24,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30015","county_name":"Chouteau County","svi":0.48,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30101","county_name":"Toole County","svi":0.48,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30047","county_name":"Lake County","svi":0.65,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30083","county_name":"Richland County","svi":0.21,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30067","county_name":"Park County","svi":0.07,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30061","county_name":"Mineral County","svi":0.56,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30109","county_name":"Wibaux County","svi":0.39,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30093","county_name":"Silver Bow County","svi":0.53,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30053","county_name":"Lincoln County","svi":0.42,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30057","county_name":"Madison County","svi":0.17,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"30043","county_name":"Jefferson County","svi":0.05,"age":"All","ingestion_ts":1662477615221}]

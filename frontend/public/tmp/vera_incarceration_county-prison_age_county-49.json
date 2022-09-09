@@ -1,0 +1,29 @@
+[{"county_fips":"49031","county_name":"Piute County","age":"All","prison_per_100k":null,"prison_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49055","county_name":"Wayne County","age":"All","prison_per_100k":null,"prison_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49049","county_name":"Utah County","age":"All","prison_per_100k":200.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49003","county_name":"Box Elder County","age":"All","prison_per_100k":224.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49037","county_name":"San Juan County","age":"All","prison_per_100k":256.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49007","county_name":"Carbon County","age":"All","prison_per_100k":900.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49019","county_name":"Grand County","age":"All","prison_per_100k":499.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49053","county_name":"Washington County","age":"All","prison_per_100k":242.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49041","county_name":"Sevier County","age":"All","prison_per_100k":484.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49001","county_name":"Beaver County","age":"All","prison_per_100k":1003.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49011","county_name":"Davis County","age":"All","prison_per_100k":219.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49051","county_name":"Wasatch County","age":"All","prison_per_100k":310.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49039","county_name":"Sanpete County","age":"All","prison_per_100k":229.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49015","county_name":"Emery County","age":"All","prison_per_100k":532.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49023","county_name":"Juab County","age":"All","prison_per_100k":597.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49017","county_name":"Garfield County","age":"All","prison_per_100k":507.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49047","county_name":"Uintah County","age":"All","prison_per_100k":727.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49005","county_name":"Cache County","age":"All","prison_per_100k":230.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49045","county_name":"Tooele County","age":"All","prison_per_100k":301.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49025","county_name":"Kane County","age":"All","prison_per_100k":445.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49027","county_name":"Millard County","age":"All","prison_per_100k":602.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49043","county_name":"Summit County","age":"All","prison_per_100k":167.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49033","county_name":"Rich County","age":"All","prison_per_100k":447.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49013","county_name":"Duchesne County","age":"All","prison_per_100k":926.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49021","county_name":"Iron County","age":"All","prison_per_100k":428.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":2.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49035","county_name":"Salt Lake County","age":"All","prison_per_100k":305.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":5.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49009","county_name":"Daggett County","age":"All","prison_per_100k":null,"prison_pct_share":null,"population_pct_share":100.0,"total_confined_children":1.0,"ingestion_ts":1662607198533}
+,{"county_fips":"49029","county_name":"Morgan County","age":"All","prison_per_100k":74.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.04,"ingestion_ts":1662607198533}
+,{"county_fips":"49057","county_name":"Weber County","age":"All","prison_per_100k":571.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.96,"ingestion_ts":1662607198533}]

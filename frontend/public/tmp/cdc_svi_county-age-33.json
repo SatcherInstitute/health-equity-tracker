@@ -1,0 +1,10 @@
+[{"county_fips":"33013","county_name":"Merrimack County","svi":0.15,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"33019","county_name":"Sullivan County","svi":0.15,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"33009","county_name":"Grafton County","svi":0.19,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"33011","county_name":"Hillsborough County","svi":0.19,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"33015","county_name":"Rockingham County","svi":0.01,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"33001","county_name":"Belknap County","svi":0.08,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"33003","county_name":"Carroll County","svi":0.06,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"33017","county_name":"Strafford County","svi":0.17,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"33005","county_name":"Cheshire County","svi":0.14,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"33007","county_name":"Coos County","svi":0.53,"age":"All","ingestion_ts":1662477615221}]

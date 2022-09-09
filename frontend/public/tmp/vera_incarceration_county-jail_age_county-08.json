@@ -1,0 +1,64 @@
+[{"county_fips":"08033","county_name":"Dolores County","age":"All","jail_per_100k":null,"jail_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08025","county_name":"Crowley County","age":"All","jail_per_100k":112.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08039","county_name":"Elbert County","age":"All","jail_per_100k":120.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08115","county_name":"Sedgwick County","age":"All","jail_per_100k":152.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08041","county_name":"El Paso County","age":"All","jail_per_100k":416.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08083","county_name":"Montezuma County","age":"All","jail_per_100k":576.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08057","county_name":"Jackson County","age":"All","jail_per_100k":449.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08073","county_name":"Lincoln County","age":"All","jail_per_100k":867.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08035","county_name":"Douglas County","age":"All","jail_per_100k":145.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08027","county_name":"Custer County","age":"All","jail_per_100k":177.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08059","county_name":"Jefferson County","age":"All","jail_per_100k":338.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08081","county_name":"Moffat County","age":"All","jail_per_100k":518.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08065","county_name":"Lake County","age":"All","jail_per_100k":93.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08107","county_name":"Routt County","age":"All","jail_per_100k":117.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08097","county_name":"Pitkin County","age":"All","jail_per_100k":130.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08051","county_name":"Gunnison County","age":"All","jail_per_100k":138.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08053","county_name":"Hinsdale County","age":"All","jail_per_100k":138.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08049","county_name":"Grand County","age":"All","jail_per_100k":234.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08077","county_name":"Mesa County","age":"All","jail_per_100k":553.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08015","county_name":"Chaffee County","age":"All","jail_per_100k":585.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08047","county_name":"Gilpin County","age":"All","jail_per_100k":1042.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08123","county_name":"Weld County","age":"All","jail_per_100k":325.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08071","county_name":"Las Animas County","age":"All","jail_per_100k":389.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08023","county_name":"Costilla County","age":"All","jail_per_100k":682.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08014","county_name":"Broomfield County","age":"All","jail_per_100k":131.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08113","county_name":"San Miguel County","age":"All","jail_per_100k":155.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08013","county_name":"Boulder County","age":"All","jail_per_100k":187.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08005","county_name":"Arapahoe County","age":"All","jail_per_100k":235.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08017","county_name":"Cheyenne County","age":"All","jail_per_100k":278.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08085","county_name":"Montrose County","age":"All","jail_per_100k":374.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08091","county_name":"Ouray County","age":"All","jail_per_100k":374.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08003","county_name":"Alamosa County","age":"All","jail_per_100k":815.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08117","county_name":"Summit County","age":"All","jail_per_100k":164.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08009","county_name":"Baca County","age":"All","jail_per_100k":296.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08119","county_name":"Teller County","age":"All","jail_per_100k":528.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08061","county_name":"Kiowa County","age":"All","jail_per_100k":560.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08075","county_name":"Logan County","age":"All","jail_per_100k":624.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08095","county_name":"Phillips County","age":"All","jail_per_100k":624.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08099","county_name":"Prowers County","age":"All","jail_per_100k":561.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08089","county_name":"Otero County","age":"All","jail_per_100k":425.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08125","county_name":"Yuma County","age":"All","jail_per_100k":425.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08011","county_name":"Bent County","age":"All","jail_per_100k":754.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08055","county_name":"Huerfano County","age":"All","jail_per_100k":754.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08093","county_name":"Park County","age":"All","jail_per_100k":882.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08021","county_name":"Conejos County","age":"All","jail_per_100k":947.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08001","county_name":"Adams County","age":"All","jail_per_100k":298.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08067","county_name":"La Plata County","age":"All","jail_per_100k":298.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08111","county_name":"San Juan County","age":"All","jail_per_100k":298.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08109","county_name":"Saguache County","age":"All","jail_per_100k":394.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08037","county_name":"Eagle County","age":"All","jail_per_100k":206.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08069","county_name":"Larimer County","age":"All","jail_per_100k":238.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08029","county_name":"Delta County","age":"All","jail_per_100k":246.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08007","county_name":"Archuleta County","age":"All","jail_per_100k":284.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08079","county_name":"Mineral County","age":"All","jail_per_100k":396.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08105","county_name":"Rio Grande County","age":"All","jail_per_100k":396.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08019","county_name":"Clear Creek County","age":"All","jail_per_100k":729.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08031","county_name":"Denver County","age":"All","jail_per_100k":413.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08101","county_name":"Pueblo County","age":"All","jail_per_100k":571.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08063","county_name":"Kit Carson County","age":"All","jail_per_100k":635.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08045","county_name":"Garfield County","age":"All","jail_per_100k":287.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08103","county_name":"Rio Blanco County","age":"All","jail_per_100k":319.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08087","county_name":"Morgan County","age":"All","jail_per_100k":431.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08121","county_name":"Washington County","age":"All","jail_per_100k":6130.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607203525}
+,{"county_fips":"08043","county_name":"Fremont County","age":"All","jail_per_100k":615.0,"jail_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":1.0,"ingestion_ts":1662607203525}]

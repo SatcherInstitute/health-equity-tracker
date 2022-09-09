@@ -1,0 +1,390 @@
+[{"state_fips":"53","county_fips":"53001","county_name":"Adams County, Washington","age":"0-9","population":3890,"population_pct":19.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53001","county_name":"Adams County, Washington","age":"10-19","population":3528,"population_pct":18.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53001","county_name":"Adams County, Washington","age":"20-29","population":2733,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53001","county_name":"Adams County, Washington","age":"30-39","population":2409,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53001","county_name":"Adams County, Washington","age":"40-49","population":2030,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53001","county_name":"Adams County, Washington","age":"50-59","population":1916,"population_pct":9.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53001","county_name":"Adams County, Washington","age":"60-69","population":1671,"population_pct":8.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53001","county_name":"Adams County, Washington","age":"70-79","population":964,"population_pct":4.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53001","county_name":"Adams County, Washington","age":"80+","population":453,"population_pct":2.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53001","county_name":"Adams County, Washington","age":"All","population":19594,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53003","county_name":"Asotin County, Washington","age":"0-9","population":2197,"population_pct":9.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53003","county_name":"Asotin County, Washington","age":"10-19","population":2830,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53003","county_name":"Asotin County, Washington","age":"20-29","population":2360,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53003","county_name":"Asotin County, Washington","age":"30-39","population":2462,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53003","county_name":"Asotin County, Washington","age":"40-49","population":2594,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53003","county_name":"Asotin County, Washington","age":"50-59","population":2974,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53003","county_name":"Asotin County, Washington","age":"60-69","population":3434,"population_pct":15.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53003","county_name":"Asotin County, Washington","age":"70-79","population":2317,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53003","county_name":"Asotin County, Washington","age":"80+","population":1253,"population_pct":5.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53003","county_name":"Asotin County, Washington","age":"All","population":22421,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53005","county_name":"Benton County, Washington","age":"0-9","population":29791,"population_pct":15.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53005","county_name":"Benton County, Washington","age":"10-19","population":27721,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53005","county_name":"Benton County, Washington","age":"20-29","population":25292,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53005","county_name":"Benton County, Washington","age":"30-39","population":26516,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53005","county_name":"Benton County, Washington","age":"40-49","population":23162,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53005","county_name":"Benton County, Washington","age":"50-59","population":24389,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53005","county_name":"Benton County, Washington","age":"60-69","population":21945,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53005","county_name":"Benton County, Washington","age":"70-79","population":12486,"population_pct":6.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53005","county_name":"Benton County, Washington","age":"80+","population":6216,"population_pct":3.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53005","county_name":"Benton County, Washington","age":"All","population":197518,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53007","county_name":"Chelan County, Washington","age":"0-9","population":10313,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53007","county_name":"Chelan County, Washington","age":"10-19","population":9416,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53007","county_name":"Chelan County, Washington","age":"20-29","population":9330,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53007","county_name":"Chelan County, Washington","age":"30-39","population":8953,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53007","county_name":"Chelan County, Washington","age":"40-49","population":8562,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53007","county_name":"Chelan County, Washington","age":"50-59","population":10168,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53007","county_name":"Chelan County, Washington","age":"60-69","population":9907,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53007","county_name":"Chelan County, Washington","age":"70-79","population":5945,"population_pct":7.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53007","county_name":"Chelan County, Washington","age":"80+","population":3635,"population_pct":4.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53007","county_name":"Chelan County, Washington","age":"All","population":76229,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53009","county_name":"Clallam County, Washington","age":"0-9","population":7131,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53009","county_name":"Clallam County, Washington","age":"10-19","population":7092,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53009","county_name":"Clallam County, Washington","age":"20-29","population":7515,"population_pct":10.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53009","county_name":"Clallam County, Washington","age":"30-39","population":7695,"population_pct":10.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53009","county_name":"Clallam County, Washington","age":"40-49","population":7474,"population_pct":9.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53009","county_name":"Clallam County, Washington","age":"50-59","population":10001,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53009","county_name":"Clallam County, Washington","age":"60-69","population":13770,"population_pct":18.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53009","county_name":"Clallam County, Washington","age":"70-79","population":9620,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53009","county_name":"Clallam County, Washington","age":"80+","population":5094,"population_pct":6.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53009","county_name":"Clallam County, Washington","age":"All","population":75392,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53011","county_name":"Clark County, Washington","age":"0-9","population":61888,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53011","county_name":"Clark County, Washington","age":"10-19","population":63725,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53011","county_name":"Clark County, Washington","age":"20-29","population":59081,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53011","county_name":"Clark County, Washington","age":"30-39","population":62636,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53011","county_name":"Clark County, Washington","age":"40-49","population":63204,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53011","county_name":"Clark County, Washington","age":"50-59","population":62320,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53011","county_name":"Clark County, Washington","age":"60-69","population":54826,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53011","county_name":"Clark County, Washington","age":"70-79","population":30326,"population_pct":6.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53011","county_name":"Clark County, Washington","age":"80+","population":15246,"population_pct":3.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53011","county_name":"Clark County, Washington","age":"All","population":473252,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53013","county_name":"Columbia County, Washington","age":"0-9","population":404,"population_pct":10.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53013","county_name":"Columbia County, Washington","age":"10-19","population":401,"population_pct":10.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53013","county_name":"Columbia County, Washington","age":"20-29","population":311,"population_pct":7.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53013","county_name":"Columbia County, Washington","age":"30-39","population":443,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53013","county_name":"Columbia County, Washington","age":"40-49","population":428,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53013","county_name":"Columbia County, Washington","age":"50-59","population":551,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53013","county_name":"Columbia County, Washington","age":"60-69","population":666,"population_pct":16.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53013","county_name":"Columbia County, Washington","age":"70-79","population":527,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53013","county_name":"Columbia County, Washington","age":"80+","population":261,"population_pct":6.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53013","county_name":"Columbia County, Washington","age":"All","population":3992,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53015","county_name":"Cowlitz County, Washington","age":"0-9","population":12893,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53015","county_name":"Cowlitz County, Washington","age":"10-19","population":13836,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53015","county_name":"Cowlitz County, Washington","age":"20-29","population":12564,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53015","county_name":"Cowlitz County, Washington","age":"30-39","population":12470,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53015","county_name":"Cowlitz County, Washington","age":"40-49","population":12857,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53015","county_name":"Cowlitz County, Washington","age":"50-59","population":14406,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53015","county_name":"Cowlitz County, Washington","age":"60-69","population":14468,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53015","county_name":"Cowlitz County, Washington","age":"70-79","population":8268,"population_pct":7.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53015","county_name":"Cowlitz County, Washington","age":"80+","population":5016,"population_pct":4.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53015","county_name":"Cowlitz County, Washington","age":"All","population":106778,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53017","county_name":"Douglas County, Washington","age":"0-9","population":6333,"population_pct":15.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53017","county_name":"Douglas County, Washington","age":"10-19","population":5635,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53017","county_name":"Douglas County, Washington","age":"20-29","population":4924,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53017","county_name":"Douglas County, Washington","age":"30-39","population":5597,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53017","county_name":"Douglas County, Washington","age":"40-49","population":4497,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53017","county_name":"Douglas County, Washington","age":"50-59","population":5142,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53017","county_name":"Douglas County, Washington","age":"60-69","population":5154,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53017","county_name":"Douglas County, Washington","age":"70-79","population":2987,"population_pct":7.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53017","county_name":"Douglas County, Washington","age":"80+","population":1754,"population_pct":4.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53017","county_name":"Douglas County, Washington","age":"All","population":42023,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53019","county_name":"Ferry County, Washington","age":"0-9","population":658,"population_pct":8.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53019","county_name":"Ferry County, Washington","age":"10-19","population":794,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53019","county_name":"Ferry County, Washington","age":"20-29","population":701,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53019","county_name":"Ferry County, Washington","age":"30-39","population":733,"population_pct":9.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53019","county_name":"Ferry County, Washington","age":"40-49","population":886,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53019","county_name":"Ferry County, Washington","age":"50-59","population":1119,"population_pct":14.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53019","county_name":"Ferry County, Washington","age":"60-69","population":1505,"population_pct":19.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53019","county_name":"Ferry County, Washington","age":"70-79","population":810,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53019","county_name":"Ferry County, Washington","age":"80+","population":372,"population_pct":4.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53019","county_name":"Ferry County, Washington","age":"All","population":7578,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53021","county_name":"Franklin County, Washington","age":"0-9","population":16974,"population_pct":18.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53021","county_name":"Franklin County, Washington","age":"10-19","population":15751,"population_pct":17.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53021","county_name":"Franklin County, Washington","age":"20-29","population":12924,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53021","county_name":"Franklin County, Washington","age":"30-39","population":14264,"population_pct":15.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53021","county_name":"Franklin County, Washington","age":"40-49","population":10993,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53021","county_name":"Franklin County, Washington","age":"50-59","population":8848,"population_pct":9.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53021","county_name":"Franklin County, Washington","age":"60-69","population":6874,"population_pct":7.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53021","county_name":"Franklin County, Washington","age":"70-79","population":3530,"population_pct":3.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53021","county_name":"Franklin County, Washington","age":"80+","population":1851,"population_pct":2.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53021","county_name":"Franklin County, Washington","age":"All","population":92009,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53023","county_name":"Garfield County, Washington","age":"0-9","population":237,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53023","county_name":"Garfield County, Washington","age":"10-19","population":360,"population_pct":16.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53023","county_name":"Garfield County, Washington","age":"20-29","population":129,"population_pct":5.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53023","county_name":"Garfield County, Washington","age":"30-39","population":221,"population_pct":9.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53023","county_name":"Garfield County, Washington","age":"40-49","population":224,"population_pct":10.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53023","county_name":"Garfield County, Washington","age":"50-59","population":305,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53023","county_name":"Garfield County, Washington","age":"60-69","population":373,"population_pct":16.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53023","county_name":"Garfield County, Washington","age":"70-79","population":229,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53023","county_name":"Garfield County, Washington","age":"80+","population":152,"population_pct":6.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53023","county_name":"Garfield County, Washington","age":"All","population":2230,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53025","county_name":"Grant County, Washington","age":"0-9","population":15795,"population_pct":16.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53025","county_name":"Grant County, Washington","age":"10-19","population":15047,"population_pct":15.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53025","county_name":"Grant County, Washington","age":"20-29","population":13393,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53025","county_name":"Grant County, Washington","age":"30-39","population":12227,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53025","county_name":"Grant County, Washington","age":"40-49","population":10445,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53025","county_name":"Grant County, Washington","age":"50-59","population":10530,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53025","county_name":"Grant County, Washington","age":"60-69","population":9409,"population_pct":9.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53025","county_name":"Grant County, Washington","age":"70-79","population":6098,"population_pct":6.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53025","county_name":"Grant County, Washington","age":"80+","population":2558,"population_pct":2.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53025","county_name":"Grant County, Washington","age":"All","population":95502,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53027","county_name":"Grays Harbor County, Washington","age":"0-9","population":8045,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53027","county_name":"Grays Harbor County, Washington","age":"10-19","population":8422,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53027","county_name":"Grays Harbor County, Washington","age":"20-29","population":7830,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53027","county_name":"Grays Harbor County, Washington","age":"30-39","population":8802,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53027","county_name":"Grays Harbor County, Washington","age":"40-49","population":8316,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53027","county_name":"Grays Harbor County, Washington","age":"50-59","population":10176,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53027","county_name":"Grays Harbor County, Washington","age":"60-69","population":11377,"population_pct":15.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53027","county_name":"Grays Harbor County, Washington","age":"70-79","population":6396,"population_pct":8.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53027","county_name":"Grays Harbor County, Washington","age":"80+","population":3415,"population_pct":4.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53027","county_name":"Grays Harbor County, Washington","age":"All","population":72779,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53029","county_name":"Island County, Washington","age":"0-9","population":8524,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53029","county_name":"Island County, Washington","age":"10-19","population":8108,"population_pct":9.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53029","county_name":"Island County, Washington","age":"20-29","population":12037,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53029","county_name":"Island County, Washington","age":"30-39","population":9537,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53029","county_name":"Island County, Washington","age":"40-49","population":8025,"population_pct":9.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53029","county_name":"Island County, Washington","age":"50-59","population":10245,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53029","county_name":"Island County, Washington","age":"60-69","population":13018,"population_pct":15.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53029","county_name":"Island County, Washington","age":"70-79","population":9557,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53029","county_name":"Island County, Washington","age":"80+","population":3815,"population_pct":4.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53029","county_name":"Island County, Washington","age":"All","population":82866,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53031","county_name":"Jefferson County, Washington","age":"0-9","population":2230,"population_pct":7.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53031","county_name":"Jefferson County, Washington","age":"10-19","population":2064,"population_pct":6.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53031","county_name":"Jefferson County, Washington","age":"20-29","population":2487,"population_pct":7.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53031","county_name":"Jefferson County, Washington","age":"30-39","population":2631,"population_pct":8.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53031","county_name":"Jefferson County, Washington","age":"40-49","population":2700,"population_pct":8.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53031","county_name":"Jefferson County, Washington","age":"50-59","population":4448,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53031","county_name":"Jefferson County, Washington","age":"60-69","population":7540,"population_pct":24.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53031","county_name":"Jefferson County, Washington","age":"70-79","population":5198,"population_pct":16.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53031","county_name":"Jefferson County, Washington","age":"80+","population":1987,"population_pct":6.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53031","county_name":"Jefferson County, Washington","age":"All","population":31285,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53033","county_name":"King County, Washington","age":"0-9","population":258203,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53033","county_name":"King County, Washington","age":"10-19","population":237249,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53033","county_name":"King County, Washington","age":"20-29","population":331601,"population_pct":15.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53033","county_name":"King County, Washington","age":"30-39","population":370063,"population_pct":16.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53033","county_name":"King County, Washington","age":"40-49","population":307857,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53033","county_name":"King County, Washington","age":"50-59","population":279882,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53033","county_name":"King County, Washington","age":"60-69","population":225682,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53033","county_name":"King County, Washington","age":"70-79","population":116250,"population_pct":5.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53033","county_name":"King County, Washington","age":"80+","population":68715,"population_pct":3.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53033","county_name":"King County, Washington","age":"All","population":2195502,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53035","county_name":"Kitsap County, Washington","age":"0-9","population":30467,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53035","county_name":"Kitsap County, Washington","age":"10-19","population":29821,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53035","county_name":"Kitsap County, Washington","age":"20-29","population":41013,"population_pct":15.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53035","county_name":"Kitsap County, Washington","age":"30-39","population":35101,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53035","county_name":"Kitsap County, Washington","age":"40-49","population":29383,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53035","county_name":"Kitsap County, Washington","age":"50-59","population":36162,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53035","county_name":"Kitsap County, Washington","age":"60-69","population":34027,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53035","county_name":"Kitsap County, Washington","age":"70-79","population":21210,"population_pct":8.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53035","county_name":"Kitsap County, Washington","age":"80+","population":8698,"population_pct":3.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53035","county_name":"Kitsap County, Washington","age":"All","population":265882,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53037","county_name":"Kittitas County, Washington","age":"0-9","population":4507,"population_pct":9.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53037","county_name":"Kittitas County, Washington","age":"10-19","population":6263,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53037","county_name":"Kittitas County, Washington","age":"20-29","population":10220,"population_pct":22.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53037","county_name":"Kittitas County, Washington","age":"30-39","population":5105,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53037","county_name":"Kittitas County, Washington","age":"40-49","population":4289,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53037","county_name":"Kittitas County, Washington","age":"50-59","population":5357,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53037","county_name":"Kittitas County, Washington","age":"60-69","population":5465,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53037","county_name":"Kittitas County, Washington","age":"70-79","population":3206,"population_pct":7.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53037","county_name":"Kittitas County, Washington","age":"80+","population":1485,"population_pct":3.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53037","county_name":"Kittitas County, Washington","age":"All","population":45897,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53039","county_name":"Klickitat County, Washington","age":"0-9","population":2145,"population_pct":9.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53039","county_name":"Klickitat County, Washington","age":"10-19","population":2449,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53039","county_name":"Klickitat County, Washington","age":"20-29","population":2056,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53039","county_name":"Klickitat County, Washington","age":"30-39","population":2225,"population_pct":10.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53039","county_name":"Klickitat County, Washington","age":"40-49","population":2817,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53039","county_name":"Klickitat County, Washington","age":"50-59","population":3019,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53039","county_name":"Klickitat County, Washington","age":"60-69","population":3770,"population_pct":17.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53039","county_name":"Klickitat County, Washington","age":"70-79","population":2425,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53039","county_name":"Klickitat County, Washington","age":"80+","population":815,"population_pct":3.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53039","county_name":"Klickitat County, Washington","age":"All","population":21721,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53041","county_name":"Lewis County, Washington","age":"0-9","population":8903,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53041","county_name":"Lewis County, Washington","age":"10-19","population":9636,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53041","county_name":"Lewis County, Washington","age":"20-29","population":8784,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53041","county_name":"Lewis County, Washington","age":"30-39","population":9241,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53041","county_name":"Lewis County, Washington","age":"40-49","population":9057,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53041","county_name":"Lewis County, Washington","age":"50-59","population":10463,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53041","county_name":"Lewis County, Washington","age":"60-69","population":11578,"population_pct":14.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53041","county_name":"Lewis County, Washington","age":"70-79","population":7037,"population_pct":9.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53041","county_name":"Lewis County, Washington","age":"80+","population":3446,"population_pct":4.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53041","county_name":"Lewis County, Washington","age":"All","population":78145,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53043","county_name":"Lincoln County, Washington","age":"0-9","population":1088,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53043","county_name":"Lincoln County, Washington","age":"10-19","population":1371,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53043","county_name":"Lincoln County, Washington","age":"20-29","population":886,"population_pct":8.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53043","county_name":"Lincoln County, Washington","age":"30-39","population":931,"population_pct":8.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53043","county_name":"Lincoln County, Washington","age":"40-49","population":1182,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53043","county_name":"Lincoln County, Washington","age":"50-59","population":1563,"population_pct":14.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53043","county_name":"Lincoln County, Washington","age":"60-69","population":1730,"population_pct":16.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53043","county_name":"Lincoln County, Washington","age":"70-79","population":1183,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53043","county_name":"Lincoln County, Washington","age":"80+","population":640,"population_pct":6.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53043","county_name":"Lincoln County, Washington","age":"All","population":10574,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53045","county_name":"Mason County, Washington","age":"0-9","population":6944,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53045","county_name":"Mason County, Washington","age":"10-19","population":6709,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53045","county_name":"Mason County, Washington","age":"20-29","population":6986,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53045","county_name":"Mason County, Washington","age":"30-39","population":7751,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53045","county_name":"Mason County, Washington","age":"40-49","population":6611,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53045","county_name":"Mason County, Washington","age":"50-59","population":9008,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53045","county_name":"Mason County, Washington","age":"60-69","population":10508,"population_pct":16.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53045","county_name":"Mason County, Washington","age":"70-79","population":6640,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53045","county_name":"Mason County, Washington","age":"80+","population":2647,"population_pct":4.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53045","county_name":"Mason County, Washington","age":"All","population":63804,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53047","county_name":"Okanogan County, Washington","age":"0-9","population":5388,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53047","county_name":"Okanogan County, Washington","age":"10-19","population":5033,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53047","county_name":"Okanogan County, Washington","age":"20-29","population":4500,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53047","county_name":"Okanogan County, Washington","age":"30-39","population":4808,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53047","county_name":"Okanogan County, Washington","age":"40-49","population":4409,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53047","county_name":"Okanogan County, Washington","age":"50-59","population":5543,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53047","county_name":"Okanogan County, Washington","age":"60-69","population":6530,"population_pct":15.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53047","county_name":"Okanogan County, Washington","age":"70-79","population":3854,"population_pct":9.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53047","county_name":"Okanogan County, Washington","age":"80+","population":1777,"population_pct":4.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53047","county_name":"Okanogan County, Washington","age":"All","population":41842,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53049","county_name":"Pacific County, Washington","age":"0-9","population":1940,"population_pct":8.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53049","county_name":"Pacific County, Washington","age":"10-19","population":1986,"population_pct":9.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53049","county_name":"Pacific County, Washington","age":"20-29","population":1923,"population_pct":8.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53049","county_name":"Pacific County, Washington","age":"30-39","population":1999,"population_pct":9.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53049","county_name":"Pacific County, Washington","age":"40-49","population":2102,"population_pct":9.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53049","county_name":"Pacific County, Washington","age":"50-59","population":3123,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53049","county_name":"Pacific County, Washington","age":"60-69","population":4278,"population_pct":19.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53049","county_name":"Pacific County, Washington","age":"70-79","population":2980,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53049","county_name":"Pacific County, Washington","age":"80+","population":1357,"population_pct":6.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53049","county_name":"Pacific County, Washington","age":"All","population":21688,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53051","county_name":"Pend Oreille County, Washington","age":"0-9","population":1207,"population_pct":9.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53051","county_name":"Pend Oreille County, Washington","age":"10-19","population":1666,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53051","county_name":"Pend Oreille County, Washington","age":"20-29","population":1063,"population_pct":7.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53051","county_name":"Pend Oreille County, Washington","age":"30-39","population":1175,"population_pct":8.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53051","county_name":"Pend Oreille County, Washington","age":"40-49","population":1410,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53051","county_name":"Pend Oreille County, Washington","age":"50-59","population":2113,"population_pct":15.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53051","county_name":"Pend Oreille County, Washington","age":"60-69","population":2462,"population_pct":18.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53051","county_name":"Pend Oreille County, Washington","age":"70-79","population":1672,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53051","county_name":"Pend Oreille County, Washington","age":"80+","population":609,"population_pct":4.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53051","county_name":"Pend Oreille County, Washington","age":"All","population":13377,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53053","county_name":"Pierce County, Washington","age":"0-9","population":118064,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53053","county_name":"Pierce County, Washington","age":"10-19","population":108286,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53053","county_name":"Pierce County, Washington","age":"20-29","population":131950,"population_pct":15.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53053","county_name":"Pierce County, Washington","age":"30-39","population":126895,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53053","county_name":"Pierce County, Washington","age":"40-49","population":108174,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53053","county_name":"Pierce County, Washington","age":"50-59","population":112727,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53053","county_name":"Pierce County, Washington","age":"60-69","population":93507,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53053","county_name":"Pierce County, Washington","age":"70-79","population":50477,"population_pct":5.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53053","county_name":"Pierce County, Washington","age":"80+","population":26933,"population_pct":3.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53053","county_name":"Pierce County, Washington","age":"All","population":877013,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53055","county_name":"San Juan County, Washington","age":"0-9","population":1089,"population_pct":6.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53055","county_name":"San Juan County, Washington","age":"10-19","population":1412,"population_pct":8.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53055","county_name":"San Juan County, Washington","age":"20-29","population":1189,"population_pct":7.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53055","county_name":"San Juan County, Washington","age":"30-39","population":1469,"population_pct":8.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53055","county_name":"San Juan County, Washington","age":"40-49","population":1798,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53055","county_name":"San Juan County, Washington","age":"50-59","population":2602,"population_pct":15.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53055","county_name":"San Juan County, Washington","age":"60-69","population":3547,"population_pct":21.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53055","county_name":"San Juan County, Washington","age":"70-79","population":2738,"population_pct":16.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53055","county_name":"San Juan County, Washington","age":"80+","population":944,"population_pct":5.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53055","county_name":"San Juan County, Washington","age":"All","population":16788,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53057","county_name":"Skagit County, Washington","age":"0-9","population":14979,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53057","county_name":"Skagit County, Washington","age":"10-19","population":15298,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53057","county_name":"Skagit County, Washington","age":"20-29","population":15155,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53057","county_name":"Skagit County, Washington","age":"30-39","population":15150,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53057","county_name":"Skagit County, Washington","age":"40-49","population":14329,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53057","county_name":"Skagit County, Washington","age":"50-59","population":16305,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53057","county_name":"Skagit County, Washington","age":"60-69","population":17518,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53057","county_name":"Skagit County, Washington","age":"70-79","population":10960,"population_pct":8.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53057","county_name":"Skagit County, Washington","age":"80+","population":5918,"population_pct":4.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53057","county_name":"Skagit County, Washington","age":"All","population":125612,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53059","county_name":"Skamania County, Washington","age":"0-9","population":1116,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53059","county_name":"Skamania County, Washington","age":"10-19","population":1331,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53059","county_name":"Skamania County, Washington","age":"20-29","population":1012,"population_pct":8.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53059","county_name":"Skamania County, Washington","age":"30-39","population":1349,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53059","county_name":"Skamania County, Washington","age":"40-49","population":1501,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53059","county_name":"Skamania County, Washington","age":"50-59","population":1929,"population_pct":16.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53059","county_name":"Skamania County, Washington","age":"60-69","population":2050,"population_pct":17.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53059","county_name":"Skamania County, Washington","age":"70-79","population":959,"population_pct":8.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53059","county_name":"Skamania County, Washington","age":"80+","population":506,"population_pct":4.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53059","county_name":"Skamania County, Washington","age":"All","population":11753,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53061","county_name":"Snohomish County, Washington","age":"0-9","population":99912,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53061","county_name":"Snohomish County, Washington","age":"10-19","population":98033,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53061","county_name":"Snohomish County, Washington","age":"20-29","population":104015,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53061","county_name":"Snohomish County, Washington","age":"30-39","population":120061,"population_pct":15.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53061","county_name":"Snohomish County, Washington","age":"40-49","population":108599,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53061","county_name":"Snohomish County, Washington","age":"50-59","population":112854,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53061","county_name":"Snohomish County, Washington","age":"60-69","population":88805,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53061","county_name":"Snohomish County, Washington","age":"70-79","population":43813,"population_pct":5.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53061","county_name":"Snohomish County, Washington","age":"80+","population":22716,"population_pct":2.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53061","county_name":"Snohomish County, Washington","age":"All","population":798808,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53063","county_name":"Spokane County, Washington","age":"0-9","population":60658,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53063","county_name":"Spokane County, Washington","age":"10-19","population":65177,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53063","county_name":"Spokane County, Washington","age":"20-29","population":74283,"population_pct":14.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53063","county_name":"Spokane County, Washington","age":"30-39","population":68378,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53063","county_name":"Spokane County, Washington","age":"40-49","population":59165,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53063","county_name":"Spokane County, Washington","age":"50-59","population":65097,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53063","county_name":"Spokane County, Washington","age":"60-69","population":59346,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53063","county_name":"Spokane County, Washington","age":"70-79","population":35084,"population_pct":6.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53063","county_name":"Spokane County, Washington","age":"80+","population":18317,"population_pct":3.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53063","county_name":"Spokane County, Washington","age":"All","population":505505,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53065","county_name":"Stevens County, Washington","age":"0-9","population":5178,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53065","county_name":"Stevens County, Washington","age":"10-19","population":5296,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53065","county_name":"Stevens County, Washington","age":"20-29","population":4243,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53065","county_name":"Stevens County, Washington","age":"30-39","population":4198,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53065","county_name":"Stevens County, Washington","age":"40-49","population":4892,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53065","county_name":"Stevens County, Washington","age":"50-59","population":6716,"population_pct":15.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53065","county_name":"Stevens County, Washington","age":"60-69","population":7686,"population_pct":17.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53065","county_name":"Stevens County, Washington","age":"70-79","population":4469,"population_pct":10.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53065","county_name":"Stevens County, Washington","age":"80+","population":1977,"population_pct":4.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53065","county_name":"Stevens County, Washington","age":"All","population":44655,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53067","county_name":"Thurston County, Washington","age":"0-9","population":33621,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53067","county_name":"Thurston County, Washington","age":"10-19","population":32897,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53067","county_name":"Thurston County, Washington","age":"20-29","population":36990,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53067","county_name":"Thurston County, Washington","age":"30-39","population":40260,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53067","county_name":"Thurston County, Washington","age":"40-49","population":34728,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53067","county_name":"Thurston County, Washington","age":"50-59","population":35647,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53067","county_name":"Thurston County, Washington","age":"60-69","population":35651,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53067","county_name":"Thurston County, Washington","age":"70-79","population":19987,"population_pct":7.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53067","county_name":"Thurston County, Washington","age":"80+","population":9930,"population_pct":3.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53067","county_name":"Thurston County, Washington","age":"All","population":279711,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53069","county_name":"Wahkiakum County, Washington","age":"0-9","population":383,"population_pct":9.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53069","county_name":"Wahkiakum County, Washington","age":"10-19","population":390,"population_pct":9.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53069","county_name":"Wahkiakum County, Washington","age":"20-29","population":314,"population_pct":7.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53069","county_name":"Wahkiakum County, Washington","age":"30-39","population":352,"population_pct":8.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53069","county_name":"Wahkiakum County, Washington","age":"40-49","population":413,"population_pct":9.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53069","county_name":"Wahkiakum County, Washington","age":"50-59","population":548,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53069","county_name":"Wahkiakum County, Washington","age":"60-69","population":923,"population_pct":21.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53069","county_name":"Wahkiakum County, Washington","age":"70-79","population":719,"population_pct":16.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53069","county_name":"Wahkiakum County, Washington","age":"80+","population":226,"population_pct":5.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53069","county_name":"Wahkiakum County, Washington","age":"All","population":4268,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53071","county_name":"Walla Walla County, Washington","age":"0-9","population":6690,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53071","county_name":"Walla Walla County, Washington","age":"10-19","population":8587,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53071","county_name":"Walla Walla County, Washington","age":"20-29","population":9324,"population_pct":15.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53071","county_name":"Walla Walla County, Washington","age":"30-39","population":7214,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53071","county_name":"Walla Walla County, Washington","age":"40-49","population":6606,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53071","county_name":"Walla Walla County, Washington","age":"50-59","population":7660,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53071","county_name":"Walla Walla County, Washington","age":"60-69","population":7115,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53071","county_name":"Walla Walla County, Washington","age":"70-79","population":4166,"population_pct":6.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53071","county_name":"Walla Walla County, Washington","age":"80+","population":3003,"population_pct":5.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53071","county_name":"Walla Walla County, Washington","age":"All","population":60365,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53073","county_name":"Whatcom County, Washington","age":"0-9","population":23970,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53073","county_name":"Whatcom County, Washington","age":"10-19","population":27025,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53073","county_name":"Whatcom County, Washington","age":"20-29","population":39294,"population_pct":17.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53073","county_name":"Whatcom County, Washington","age":"30-39","population":27097,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53073","county_name":"Whatcom County, Washington","age":"40-49","population":25652,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53073","county_name":"Whatcom County, Washington","age":"50-59","population":26173,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53073","county_name":"Whatcom County, Washington","age":"60-69","population":27608,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53073","county_name":"Whatcom County, Washington","age":"70-79","population":15770,"population_pct":7.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53073","county_name":"Whatcom County, Washington","age":"80+","population":8232,"population_pct":3.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53073","county_name":"Whatcom County, Washington","age":"All","population":220821,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53075","county_name":"Whitman County, Washington","age":"0-9","population":4169,"population_pct":8.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53075","county_name":"Whitman County, Washington","age":"10-19","population":9710,"population_pct":19.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53075","county_name":"Whitman County, Washington","age":"20-29","population":15295,"population_pct":31.1,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53075","county_name":"Whitman County, Washington","age":"30-39","population":5049,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53075","county_name":"Whitman County, Washington","age":"40-49","population":3751,"population_pct":7.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53075","county_name":"Whitman County, Washington","age":"50-59","population":4088,"population_pct":8.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53075","county_name":"Whitman County, Washington","age":"60-69","population":3698,"population_pct":7.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53075","county_name":"Whitman County, Washington","age":"70-79","population":2312,"population_pct":4.7,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53075","county_name":"Whitman County, Washington","age":"80+","population":1159,"population_pct":2.4,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53075","county_name":"Whitman County, Washington","age":"All","population":49231,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53077","county_name":"Yakima County, Washington","age":"0-9","population":41478,"population_pct":16.6,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53077","county_name":"Yakima County, Washington","age":"10-19","population":39722,"population_pct":15.9,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53077","county_name":"Yakima County, Washington","age":"20-29","population":34563,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53077","county_name":"Yakima County, Washington","age":"30-39","population":31288,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53077","county_name":"Yakima County, Washington","age":"40-49","population":28085,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53077","county_name":"Yakima County, Washington","age":"50-59","population":27979,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53077","county_name":"Yakima County, Washington","age":"60-69","population":24594,"population_pct":9.8,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53077","county_name":"Yakima County, Washington","age":"70-79","population":13713,"population_pct":5.5,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53077","county_name":"Yakima County, Washington","age":"80+","population":8275,"population_pct":3.3,"ingestion_ts":1662663908369}
+,{"state_fips":"53","county_fips":"53077","county_name":"Yakima County, Washington","age":"All","population":249697,"population_pct":100.0,"ingestion_ts":1662663908369}]

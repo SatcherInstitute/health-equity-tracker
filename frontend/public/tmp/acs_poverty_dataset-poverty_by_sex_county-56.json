@@ -1,0 +1,46 @@
+[{"state_fips":"56","state_name":"Wyoming","county_fips":"56021","county_name":"Laramie County, Wyoming","below_poverty_line":8255,"above_poverty_line":85325,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56021","county_name":"Laramie County, Wyoming","below_poverty_line":10430,"above_poverty_line":82085,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56039","county_name":"Teton County, Wyoming","below_poverty_line":980,"above_poverty_line":23114,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56039","county_name":"Teton County, Wyoming","below_poverty_line":1803,"above_poverty_line":19635,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56019","county_name":"Johnson County, Wyoming","below_poverty_line":1330,"above_poverty_line":7045,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56019","county_name":"Johnson County, Wyoming","below_poverty_line":658,"above_poverty_line":7218,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56031","county_name":"Platte County, Wyoming","below_poverty_line":1222,"above_poverty_line":7530,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56031","county_name":"Platte County, Wyoming","below_poverty_line":1115,"above_poverty_line":6781,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56033","county_name":"Sheridan County, Wyoming","below_poverty_line":1510,"above_poverty_line":27054,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56033","county_name":"Sheridan County, Wyoming","below_poverty_line":1860,"above_poverty_line":26976,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56003","county_name":"Big Horn County, Wyoming","below_poverty_line":1124,"above_poverty_line":10467,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56003","county_name":"Big Horn County, Wyoming","below_poverty_line":1768,"above_poverty_line":9482,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56011","county_name":"Crook County, Wyoming","below_poverty_line":510,"above_poverty_line":6814,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56011","county_name":"Crook County, Wyoming","below_poverty_line":838,"above_poverty_line":6265,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56029","county_name":"Park County, Wyoming","below_poverty_line":1788,"above_poverty_line":26049,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56029","county_name":"Park County, Wyoming","below_poverty_line":2764,"above_poverty_line":25497,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56001","county_name":"Albany County, Wyoming","below_poverty_line":7157,"above_poverty_line":28567,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56001","county_name":"Albany County, Wyoming","below_poverty_line":7028,"above_poverty_line":26273,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56007","county_name":"Carbon County, Wyoming","below_poverty_line":1534,"above_poverty_line":13061,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56007","county_name":"Carbon County, Wyoming","below_poverty_line":1988,"above_poverty_line":11727,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56015","county_name":"Goshen County, Wyoming","below_poverty_line":1285,"above_poverty_line":11045,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56015","county_name":"Goshen County, Wyoming","below_poverty_line":1594,"above_poverty_line":10876,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56041","county_name":"Uinta County, Wyoming","below_poverty_line":2039,"above_poverty_line":18189,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56041","county_name":"Uinta County, Wyoming","below_poverty_line":2341,"above_poverty_line":17274,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56043","county_name":"Washakie County, Wyoming","below_poverty_line":832,"above_poverty_line":6952,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56043","county_name":"Washakie County, Wyoming","below_poverty_line":818,"above_poverty_line":6818,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56017","county_name":"Hot Springs County, Wyoming","below_poverty_line":557,"above_poverty_line":3896,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56017","county_name":"Hot Springs County, Wyoming","below_poverty_line":773,"above_poverty_line":3611,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56013","county_name":"Fremont County, Wyoming","below_poverty_line":3482,"above_poverty_line":30974,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56013","county_name":"Fremont County, Wyoming","below_poverty_line":4471,"above_poverty_line":29738,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56035","county_name":"Sublette County, Wyoming","below_poverty_line":992,"above_poverty_line":9685,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56035","county_name":"Sublette County, Wyoming","below_poverty_line":1005,"above_poverty_line":7661,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56045","county_name":"Weston County, Wyoming","below_poverty_line":834,"above_poverty_line":5920,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56045","county_name":"Weston County, Wyoming","below_poverty_line":1049,"above_poverty_line":5461,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56005","county_name":"Campbell County, Wyoming","below_poverty_line":5135,"above_poverty_line":41409,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56005","county_name":"Campbell County, Wyoming","below_poverty_line":5908,"above_poverty_line":39023,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56023","county_name":"Lincoln County, Wyoming","below_poverty_line":1276,"above_poverty_line":17866,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56023","county_name":"Lincoln County, Wyoming","below_poverty_line":1755,"above_poverty_line":16722,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56025","county_name":"Natrona County, Wyoming","below_poverty_line":6454,"above_poverty_line":70346,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56025","county_name":"Natrona County, Wyoming","below_poverty_line":7697,"above_poverty_line":68318,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56009","county_name":"Converse County, Wyoming","below_poverty_line":882,"above_poverty_line":13110,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56009","county_name":"Converse County, Wyoming","below_poverty_line":1681,"above_poverty_line":11610,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56027","county_name":"Niobrara County, Wyoming","below_poverty_line":364,"above_poverty_line":1784,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56027","county_name":"Niobrara County, Wyoming","below_poverty_line":473,"above_poverty_line":1575,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56037","county_name":"Sweetwater County, Wyoming","below_poverty_line":4225,"above_poverty_line":39196,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"56","state_name":"Wyoming","county_fips":"56037","county_name":"Sweetwater County, Wyoming","below_poverty_line":5414,"above_poverty_line":35145,"sex":"Female","ingestion_ts":1662650349256}]

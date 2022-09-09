@@ -1,0 +1,330 @@
+[{"state_fips":"35","county_fips":"35001","county_name":"Bernalillo County, New Mexico","age":"0-9","population":79228,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35001","county_name":"Bernalillo County, New Mexico","age":"10-19","population":87129,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35001","county_name":"Bernalillo County, New Mexico","age":"20-29","population":96765,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35001","county_name":"Bernalillo County, New Mexico","age":"30-39","population":97539,"population_pct":14.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35001","county_name":"Bernalillo County, New Mexico","age":"40-49","population":80007,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35001","county_name":"Bernalillo County, New Mexico","age":"50-59","population":87471,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35001","county_name":"Bernalillo County, New Mexico","age":"60-69","population":78956,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35001","county_name":"Bernalillo County, New Mexico","age":"70-79","population":45852,"population_pct":6.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35001","county_name":"Bernalillo County, New Mexico","age":"80+","population":24911,"population_pct":3.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35001","county_name":"Bernalillo County, New Mexico","age":"All","population":677858,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35003","county_name":"Catron County, New Mexico","age":"0-9","population":208,"population_pct":5.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35003","county_name":"Catron County, New Mexico","age":"10-19","population":395,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35003","county_name":"Catron County, New Mexico","age":"20-29","population":170,"population_pct":4.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35003","county_name":"Catron County, New Mexico","age":"30-39","population":378,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35003","county_name":"Catron County, New Mexico","age":"40-49","population":165,"population_pct":4.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35003","county_name":"Catron County, New Mexico","age":"50-59","population":635,"population_pct":18.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35003","county_name":"Catron County, New Mexico","age":"60-69","population":695,"population_pct":19.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35003","county_name":"Catron County, New Mexico","age":"70-79","population":484,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35003","county_name":"Catron County, New Mexico","age":"80+","population":396,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35003","county_name":"Catron County, New Mexico","age":"All","population":3526,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35005","county_name":"Chaves County, New Mexico","age":"0-9","population":9541,"population_pct":14.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35005","county_name":"Chaves County, New Mexico","age":"10-19","population":9946,"population_pct":15.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35005","county_name":"Chaves County, New Mexico","age":"20-29","population":8456,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35005","county_name":"Chaves County, New Mexico","age":"30-39","population":8146,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35005","county_name":"Chaves County, New Mexico","age":"40-49","population":7007,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35005","county_name":"Chaves County, New Mexico","age":"50-59","population":7881,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35005","county_name":"Chaves County, New Mexico","age":"60-69","population":7247,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35005","county_name":"Chaves County, New Mexico","age":"70-79","population":4100,"population_pct":6.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35005","county_name":"Chaves County, New Mexico","age":"80+","population":2820,"population_pct":4.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35005","county_name":"Chaves County, New Mexico","age":"All","population":65144,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35006","county_name":"Cibola County, New Mexico","age":"0-9","population":3569,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35006","county_name":"Cibola County, New Mexico","age":"10-19","population":3488,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35006","county_name":"Cibola County, New Mexico","age":"20-29","population":3691,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35006","county_name":"Cibola County, New Mexico","age":"30-39","population":3575,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35006","county_name":"Cibola County, New Mexico","age":"40-49","population":3202,"population_pct":11.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35006","county_name":"Cibola County, New Mexico","age":"50-59","population":3119,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35006","county_name":"Cibola County, New Mexico","age":"60-69","population":3345,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35006","county_name":"Cibola County, New Mexico","age":"70-79","population":1996,"population_pct":7.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35006","county_name":"Cibola County, New Mexico","age":"80+","population":906,"population_pct":3.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35006","county_name":"Cibola County, New Mexico","age":"All","population":26891,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35007","county_name":"Colfax County, New Mexico","age":"0-9","population":1332,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35007","county_name":"Colfax County, New Mexico","age":"10-19","population":1147,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35007","county_name":"Colfax County, New Mexico","age":"20-29","population":1235,"population_pct":10.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35007","county_name":"Colfax County, New Mexico","age":"30-39","population":1242,"population_pct":10.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35007","county_name":"Colfax County, New Mexico","age":"40-49","population":1111,"population_pct":9.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35007","county_name":"Colfax County, New Mexico","age":"50-59","population":1631,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35007","county_name":"Colfax County, New Mexico","age":"60-69","population":2134,"population_pct":17.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35007","county_name":"Colfax County, New Mexico","age":"70-79","population":1704,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35007","county_name":"Colfax County, New Mexico","age":"80+","population":632,"population_pct":5.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35007","county_name":"Colfax County, New Mexico","age":"All","population":12168,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35009","county_name":"Curry County, New Mexico","age":"0-9","population":7703,"population_pct":15.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35009","county_name":"Curry County, New Mexico","age":"10-19","population":6890,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35009","county_name":"Curry County, New Mexico","age":"20-29","population":9161,"population_pct":18.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35009","county_name":"Curry County, New Mexico","age":"30-39","population":7194,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35009","county_name":"Curry County, New Mexico","age":"40-49","population":5092,"population_pct":10.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35009","county_name":"Curry County, New Mexico","age":"50-59","population":5167,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35009","county_name":"Curry County, New Mexico","age":"60-69","population":4235,"population_pct":8.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35009","county_name":"Curry County, New Mexico","age":"70-79","population":2756,"population_pct":5.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35009","county_name":"Curry County, New Mexico","age":"80+","population":1534,"population_pct":3.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35009","county_name":"Curry County, New Mexico","age":"All","population":49732,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35011","county_name":"De Baca County, New Mexico","age":"0-9","population":266,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35011","county_name":"De Baca County, New Mexico","age":"10-19","population":519,"population_pct":25.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35011","county_name":"De Baca County, New Mexico","age":"20-29","population":142,"population_pct":7.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35011","county_name":"De Baca County, New Mexico","age":"30-39","population":260,"population_pct":12.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35011","county_name":"De Baca County, New Mexico","age":"40-49","population":141,"population_pct":6.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35011","county_name":"De Baca County, New Mexico","age":"50-59","population":233,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35011","county_name":"De Baca County, New Mexico","age":"60-69","population":216,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35011","county_name":"De Baca County, New Mexico","age":"70-79","population":189,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35011","county_name":"De Baca County, New Mexico","age":"80+","population":74,"population_pct":3.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35011","county_name":"De Baca County, New Mexico","age":"All","population":2040,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35013","county_name":"Do\u00f1a Ana County, New Mexico","age":"0-9","population":29232,"population_pct":13.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35013","county_name":"Do\u00f1a Ana County, New Mexico","age":"10-19","population":32568,"population_pct":15.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35013","county_name":"Do\u00f1a Ana County, New Mexico","age":"20-29","population":38235,"population_pct":17.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35013","county_name":"Do\u00f1a Ana County, New Mexico","age":"30-39","population":24616,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35013","county_name":"Do\u00f1a Ana County, New Mexico","age":"40-49","population":23144,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35013","county_name":"Do\u00f1a Ana County, New Mexico","age":"50-59","population":23501,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35013","county_name":"Do\u00f1a Ana County, New Mexico","age":"60-69","population":22409,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35013","county_name":"Do\u00f1a Ana County, New Mexico","age":"70-79","population":14524,"population_pct":6.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35013","county_name":"Do\u00f1a Ana County, New Mexico","age":"80+","population":7840,"population_pct":3.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35013","county_name":"Do\u00f1a Ana County, New Mexico","age":"All","population":216069,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35015","county_name":"Eddy County, New Mexico","age":"0-9","population":8226,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35015","county_name":"Eddy County, New Mexico","age":"10-19","population":8516,"population_pct":14.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35015","county_name":"Eddy County, New Mexico","age":"20-29","population":7823,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35015","county_name":"Eddy County, New Mexico","age":"30-39","population":8009,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35015","county_name":"Eddy County, New Mexico","age":"40-49","population":6363,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35015","county_name":"Eddy County, New Mexico","age":"50-59","population":7123,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35015","county_name":"Eddy County, New Mexico","age":"60-69","population":6039,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35015","county_name":"Eddy County, New Mexico","age":"70-79","population":3446,"population_pct":6.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35015","county_name":"Eddy County, New Mexico","age":"80+","population":2187,"population_pct":3.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35015","county_name":"Eddy County, New Mexico","age":"All","population":57732,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35017","county_name":"Grant County, New Mexico","age":"0-9","population":2946,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35017","county_name":"Grant County, New Mexico","age":"10-19","population":3274,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35017","county_name":"Grant County, New Mexico","age":"20-29","population":2866,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35017","county_name":"Grant County, New Mexico","age":"30-39","population":2909,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35017","county_name":"Grant County, New Mexico","age":"40-49","population":2764,"population_pct":10.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35017","county_name":"Grant County, New Mexico","age":"50-59","population":3406,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35017","county_name":"Grant County, New Mexico","age":"60-69","population":4421,"population_pct":16.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35017","county_name":"Grant County, New Mexico","age":"70-79","population":3548,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35017","county_name":"Grant County, New Mexico","age":"80+","population":1535,"population_pct":5.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35017","county_name":"Grant County, New Mexico","age":"All","population":27669,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35019","county_name":"Guadalupe County, New Mexico","age":"0-9","population":522,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35019","county_name":"Guadalupe County, New Mexico","age":"10-19","population":313,"population_pct":7.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35019","county_name":"Guadalupe County, New Mexico","age":"20-29","population":488,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35019","county_name":"Guadalupe County, New Mexico","age":"30-39","population":753,"population_pct":17.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35019","county_name":"Guadalupe County, New Mexico","age":"40-49","population":434,"population_pct":10.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35019","county_name":"Guadalupe County, New Mexico","age":"50-59","population":594,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35019","county_name":"Guadalupe County, New Mexico","age":"60-69","population":568,"population_pct":13.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35019","county_name":"Guadalupe County, New Mexico","age":"70-79","population":445,"population_pct":10.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35019","county_name":"Guadalupe County, New Mexico","age":"80+","population":236,"population_pct":5.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35019","county_name":"Guadalupe County, New Mexico","age":"All","population":4353,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35021","county_name":"Harding County, New Mexico","age":"0-9","population":35,"population_pct":7.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35021","county_name":"Harding County, New Mexico","age":"10-19","population":29,"population_pct":6.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35021","county_name":"Harding County, New Mexico","age":"20-29","population":46,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35021","county_name":"Harding County, New Mexico","age":"30-39","population":29,"population_pct":6.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35021","county_name":"Harding County, New Mexico","age":"40-49","population":31,"population_pct":7.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35021","county_name":"Harding County, New Mexico","age":"50-59","population":61,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35021","county_name":"Harding County, New Mexico","age":"60-69","population":87,"population_pct":19.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35021","county_name":"Harding County, New Mexico","age":"70-79","population":85,"population_pct":19.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35021","county_name":"Harding County, New Mexico","age":"80+","population":38,"population_pct":8.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35021","county_name":"Harding County, New Mexico","age":"All","population":441,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35023","county_name":"Hidalgo County, New Mexico","age":"0-9","population":551,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35023","county_name":"Hidalgo County, New Mexico","age":"10-19","population":532,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35023","county_name":"Hidalgo County, New Mexico","age":"20-29","population":468,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35023","county_name":"Hidalgo County, New Mexico","age":"30-39","population":463,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35023","county_name":"Hidalgo County, New Mexico","age":"40-49","population":366,"population_pct":8.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35023","county_name":"Hidalgo County, New Mexico","age":"50-59","population":663,"population_pct":15.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35023","county_name":"Hidalgo County, New Mexico","age":"60-69","population":640,"population_pct":14.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35023","county_name":"Hidalgo County, New Mexico","age":"70-79","population":416,"population_pct":9.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35023","county_name":"Hidalgo County, New Mexico","age":"80+","population":198,"population_pct":4.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35023","county_name":"Hidalgo County, New Mexico","age":"All","population":4297,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35025","county_name":"Lea County, New Mexico","age":"0-9","population":11603,"population_pct":16.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35025","county_name":"Lea County, New Mexico","age":"10-19","population":11663,"population_pct":16.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35025","county_name":"Lea County, New Mexico","age":"20-29","population":9833,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35025","county_name":"Lea County, New Mexico","age":"30-39","population":10404,"population_pct":14.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35025","county_name":"Lea County, New Mexico","age":"40-49","population":7735,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35025","county_name":"Lea County, New Mexico","age":"50-59","population":7836,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35025","county_name":"Lea County, New Mexico","age":"60-69","population":6059,"population_pct":8.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35025","county_name":"Lea County, New Mexico","age":"70-79","population":3150,"population_pct":4.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35025","county_name":"Lea County, New Mexico","age":"80+","population":1994,"population_pct":2.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35025","county_name":"Lea County, New Mexico","age":"All","population":70277,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35027","county_name":"Lincoln County, New Mexico","age":"0-9","population":1851,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35027","county_name":"Lincoln County, New Mexico","age":"10-19","population":1935,"population_pct":9.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35027","county_name":"Lincoln County, New Mexico","age":"20-29","population":1866,"population_pct":9.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35027","county_name":"Lincoln County, New Mexico","age":"30-39","population":1872,"population_pct":9.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35027","county_name":"Lincoln County, New Mexico","age":"40-49","population":1854,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35027","county_name":"Lincoln County, New Mexico","age":"50-59","population":2774,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35027","county_name":"Lincoln County, New Mexico","age":"60-69","population":3656,"population_pct":18.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35027","county_name":"Lincoln County, New Mexico","age":"70-79","population":2508,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35027","county_name":"Lincoln County, New Mexico","age":"80+","population":1145,"population_pct":5.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35027","county_name":"Lincoln County, New Mexico","age":"All","population":19461,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35028","county_name":"Los Alamos County, New Mexico","age":"0-9","population":2138,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35028","county_name":"Los Alamos County, New Mexico","age":"10-19","population":2585,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35028","county_name":"Los Alamos County, New Mexico","age":"20-29","population":1481,"population_pct":8.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35028","county_name":"Los Alamos County, New Mexico","age":"30-39","population":2610,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35028","county_name":"Los Alamos County, New Mexico","age":"40-49","population":2293,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35028","county_name":"Los Alamos County, New Mexico","age":"50-59","population":2962,"population_pct":15.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35028","county_name":"Los Alamos County, New Mexico","age":"60-69","population":2290,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35028","county_name":"Los Alamos County, New Mexico","age":"70-79","population":1438,"population_pct":7.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35028","county_name":"Los Alamos County, New Mexico","age":"80+","population":828,"population_pct":4.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35028","county_name":"Los Alamos County, New Mexico","age":"All","population":18625,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35029","county_name":"Luna County, New Mexico","age":"0-9","population":3389,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35029","county_name":"Luna County, New Mexico","age":"10-19","population":3550,"population_pct":14.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35029","county_name":"Luna County, New Mexico","age":"20-29","population":3082,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35029","county_name":"Luna County, New Mexico","age":"30-39","population":2526,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35029","county_name":"Luna County, New Mexico","age":"40-49","population":2475,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35029","county_name":"Luna County, New Mexico","age":"50-59","population":2803,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35029","county_name":"Luna County, New Mexico","age":"60-69","population":2813,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35029","county_name":"Luna County, New Mexico","age":"70-79","population":2230,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35029","county_name":"Luna County, New Mexico","age":"80+","population":1215,"population_pct":5.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35029","county_name":"Luna County, New Mexico","age":"All","population":24083,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35031","county_name":"McKinley County, New Mexico","age":"0-9","population":11154,"population_pct":15.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35031","county_name":"McKinley County, New Mexico","age":"10-19","population":11906,"population_pct":16.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35031","county_name":"McKinley County, New Mexico","age":"20-29","population":10843,"population_pct":15.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35031","county_name":"McKinley County, New Mexico","age":"30-39","population":8845,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35031","county_name":"McKinley County, New Mexico","age":"40-49","population":8516,"population_pct":11.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35031","county_name":"McKinley County, New Mexico","age":"50-59","population":8354,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35031","county_name":"McKinley County, New Mexico","age":"60-69","population":7060,"population_pct":9.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35031","county_name":"McKinley County, New Mexico","age":"70-79","population":3658,"population_pct":5.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35031","county_name":"McKinley County, New Mexico","age":"80+","population":2102,"population_pct":2.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35031","county_name":"McKinley County, New Mexico","age":"All","population":72438,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35033","county_name":"Mora County, New Mexico","age":"0-9","population":298,"population_pct":6.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35033","county_name":"Mora County, New Mexico","age":"10-19","population":431,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35033","county_name":"Mora County, New Mexico","age":"20-29","population":549,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35033","county_name":"Mora County, New Mexico","age":"30-39","population":299,"population_pct":6.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35033","county_name":"Mora County, New Mexico","age":"40-49","population":401,"population_pct":8.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35033","county_name":"Mora County, New Mexico","age":"50-59","population":732,"population_pct":16.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35033","county_name":"Mora County, New Mexico","age":"60-69","population":913,"population_pct":20.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35033","county_name":"Mora County, New Mexico","age":"70-79","population":604,"population_pct":13.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35033","county_name":"Mora County, New Mexico","age":"80+","population":309,"population_pct":6.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35033","county_name":"Mora County, New Mexico","age":"All","population":4536,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35035","county_name":"Otero County, New Mexico","age":"0-9","population":9013,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35035","county_name":"Otero County, New Mexico","age":"10-19","population":8035,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35035","county_name":"Otero County, New Mexico","age":"20-29","population":10624,"population_pct":16.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35035","county_name":"Otero County, New Mexico","age":"30-39","population":8205,"population_pct":12.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35035","county_name":"Otero County, New Mexico","age":"40-49","population":7107,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35035","county_name":"Otero County, New Mexico","age":"50-59","population":7995,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35035","county_name":"Otero County, New Mexico","age":"60-69","population":7539,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35035","county_name":"Otero County, New Mexico","age":"70-79","population":5319,"population_pct":8.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35035","county_name":"Otero County, New Mexico","age":"80+","population":2300,"population_pct":3.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35035","county_name":"Otero County, New Mexico","age":"All","population":66137,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35037","county_name":"Quay County, New Mexico","age":"0-9","population":1141,"population_pct":13.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35037","county_name":"Quay County, New Mexico","age":"10-19","population":922,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35037","county_name":"Quay County, New Mexico","age":"20-29","population":694,"population_pct":8.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35037","county_name":"Quay County, New Mexico","age":"30-39","population":1134,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35037","county_name":"Quay County, New Mexico","age":"40-49","population":727,"population_pct":8.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35037","county_name":"Quay County, New Mexico","age":"50-59","population":1130,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35037","county_name":"Quay County, New Mexico","age":"60-69","population":1213,"population_pct":14.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35037","county_name":"Quay County, New Mexico","age":"70-79","population":934,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35037","county_name":"Quay County, New Mexico","age":"80+","population":431,"population_pct":5.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35037","county_name":"Quay County, New Mexico","age":"All","population":8326,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35039","county_name":"Rio Arriba County, New Mexico","age":"0-9","population":5060,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35039","county_name":"Rio Arriba County, New Mexico","age":"10-19","population":5124,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35039","county_name":"Rio Arriba County, New Mexico","age":"20-29","population":4522,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35039","county_name":"Rio Arriba County, New Mexico","age":"30-39","population":4383,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35039","county_name":"Rio Arriba County, New Mexico","age":"40-49","population":4540,"population_pct":11.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35039","county_name":"Rio Arriba County, New Mexico","age":"50-59","population":5264,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35039","county_name":"Rio Arriba County, New Mexico","age":"60-69","population":5524,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35039","county_name":"Rio Arriba County, New Mexico","age":"70-79","population":2967,"population_pct":7.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35039","county_name":"Rio Arriba County, New Mexico","age":"80+","population":1775,"population_pct":4.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35039","county_name":"Rio Arriba County, New Mexico","age":"All","population":39159,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35041","county_name":"Roosevelt County, New Mexico","age":"0-9","population":2688,"population_pct":14.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35041","county_name":"Roosevelt County, New Mexico","age":"10-19","population":2888,"population_pct":15.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35041","county_name":"Roosevelt County, New Mexico","age":"20-29","population":3865,"population_pct":20.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35041","county_name":"Roosevelt County, New Mexico","age":"30-39","population":2425,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35041","county_name":"Roosevelt County, New Mexico","age":"40-49","population":1478,"population_pct":7.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35041","county_name":"Roosevelt County, New Mexico","age":"50-59","population":1971,"population_pct":10.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35041","county_name":"Roosevelt County, New Mexico","age":"60-69","population":1748,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35041","county_name":"Roosevelt County, New Mexico","age":"70-79","population":1125,"population_pct":6.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35041","county_name":"Roosevelt County, New Mexico","age":"80+","population":700,"population_pct":3.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35041","county_name":"Roosevelt County, New Mexico","age":"All","population":18888,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35043","county_name":"Sandoval County, New Mexico","age":"0-9","population":17221,"population_pct":12.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35043","county_name":"Sandoval County, New Mexico","age":"10-19","population":19905,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35043","county_name":"Sandoval County, New Mexico","age":"20-29","population":16217,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35043","county_name":"Sandoval County, New Mexico","age":"30-39","population":17802,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35043","county_name":"Sandoval County, New Mexico","age":"40-49","population":18451,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35043","county_name":"Sandoval County, New Mexico","age":"50-59","population":18877,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35043","county_name":"Sandoval County, New Mexico","age":"60-69","population":18775,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35043","county_name":"Sandoval County, New Mexico","age":"70-79","population":10731,"population_pct":7.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35043","county_name":"Sandoval County, New Mexico","age":"80+","population":4725,"population_pct":3.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35043","county_name":"Sandoval County, New Mexico","age":"All","population":142704,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35045","county_name":"San Juan County, New Mexico","age":"0-9","population":18096,"population_pct":14.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35045","county_name":"San Juan County, New Mexico","age":"10-19","population":19078,"population_pct":15.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35045","county_name":"San Juan County, New Mexico","age":"20-29","population":16668,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35045","county_name":"San Juan County, New Mexico","age":"30-39","population":16670,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35045","county_name":"San Juan County, New Mexico","age":"40-49","population":14436,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35045","county_name":"San Juan County, New Mexico","age":"50-59","population":16003,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35045","county_name":"San Juan County, New Mexico","age":"60-69","population":13832,"population_pct":10.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35045","county_name":"San Juan County, New Mexico","age":"70-79","population":7288,"population_pct":5.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35045","county_name":"San Juan County, New Mexico","age":"80+","population":4444,"population_pct":3.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35045","county_name":"San Juan County, New Mexico","age":"All","population":126515,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35047","county_name":"San Miguel County, New Mexico","age":"0-9","population":2667,"population_pct":9.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35047","county_name":"San Miguel County, New Mexico","age":"10-19","population":3578,"population_pct":12.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35047","county_name":"San Miguel County, New Mexico","age":"20-29","population":3559,"population_pct":12.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35047","county_name":"San Miguel County, New Mexico","age":"30-39","population":2924,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35047","county_name":"San Miguel County, New Mexico","age":"40-49","population":3168,"population_pct":11.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35047","county_name":"San Miguel County, New Mexico","age":"50-59","population":3776,"population_pct":13.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35047","county_name":"San Miguel County, New Mexico","age":"60-69","population":4314,"population_pct":15.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35047","county_name":"San Miguel County, New Mexico","age":"70-79","population":2539,"population_pct":9.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35047","county_name":"San Miguel County, New Mexico","age":"80+","population":1213,"population_pct":4.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35047","county_name":"San Miguel County, New Mexico","age":"All","population":27738,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35049","county_name":"Santa Fe County, New Mexico","age":"0-9","population":14092,"population_pct":9.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35049","county_name":"Santa Fe County, New Mexico","age":"10-19","population":16543,"population_pct":11.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35049","county_name":"Santa Fe County, New Mexico","age":"20-29","population":16042,"population_pct":10.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35049","county_name":"Santa Fe County, New Mexico","age":"30-39","population":17239,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35049","county_name":"Santa Fe County, New Mexico","age":"40-49","population":17212,"population_pct":11.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35049","county_name":"Santa Fe County, New Mexico","age":"50-59","population":21660,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35049","county_name":"Santa Fe County, New Mexico","age":"60-69","population":24696,"population_pct":16.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35049","county_name":"Santa Fe County, New Mexico","age":"70-79","population":15223,"population_pct":10.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35049","county_name":"Santa Fe County, New Mexico","age":"80+","population":6586,"population_pct":4.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35049","county_name":"Santa Fe County, New Mexico","age":"All","population":149293,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35051","county_name":"Sierra County, New Mexico","age":"0-9","population":916,"population_pct":8.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35051","county_name":"Sierra County, New Mexico","age":"10-19","population":1051,"population_pct":9.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35051","county_name":"Sierra County, New Mexico","age":"20-29","population":836,"population_pct":7.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35051","county_name":"Sierra County, New Mexico","age":"30-39","population":783,"population_pct":7.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35051","county_name":"Sierra County, New Mexico","age":"40-49","population":982,"population_pct":8.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35051","county_name":"Sierra County, New Mexico","age":"50-59","population":1598,"population_pct":14.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35051","county_name":"Sierra County, New Mexico","age":"60-69","population":1923,"population_pct":17.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35051","county_name":"Sierra County, New Mexico","age":"70-79","population":2010,"population_pct":18.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35051","county_name":"Sierra County, New Mexico","age":"80+","population":932,"population_pct":8.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35051","county_name":"Sierra County, New Mexico","age":"All","population":11031,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35053","county_name":"Socorro County, New Mexico","age":"0-9","population":2028,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35053","county_name":"Socorro County, New Mexico","age":"10-19","population":2508,"population_pct":14.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35053","county_name":"Socorro County, New Mexico","age":"20-29","population":2212,"population_pct":13.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35053","county_name":"Socorro County, New Mexico","age":"30-39","population":1852,"population_pct":11.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35053","county_name":"Socorro County, New Mexico","age":"40-49","population":1773,"population_pct":10.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35053","county_name":"Socorro County, New Mexico","age":"50-59","population":2031,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35053","county_name":"Socorro County, New Mexico","age":"60-69","population":2348,"population_pct":13.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35053","county_name":"Socorro County, New Mexico","age":"70-79","population":1346,"population_pct":8.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35053","county_name":"Socorro County, New Mexico","age":"80+","population":760,"population_pct":4.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35053","county_name":"Socorro County, New Mexico","age":"All","population":16858,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35055","county_name":"Taos County, New Mexico","age":"0-9","population":3240,"population_pct":9.9,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35055","county_name":"Taos County, New Mexico","age":"10-19","population":3460,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35055","county_name":"Taos County, New Mexico","age":"20-29","population":3057,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35055","county_name":"Taos County, New Mexico","age":"30-39","population":3469,"population_pct":10.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35055","county_name":"Taos County, New Mexico","age":"40-49","population":3693,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35055","county_name":"Taos County, New Mexico","age":"50-59","population":4537,"population_pct":13.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35055","county_name":"Taos County, New Mexico","age":"60-69","population":6060,"population_pct":18.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35055","county_name":"Taos County, New Mexico","age":"70-79","population":3381,"population_pct":10.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35055","county_name":"Taos County, New Mexico","age":"80+","population":1889,"population_pct":5.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35055","county_name":"Taos County, New Mexico","age":"All","population":32786,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35057","county_name":"Torrance County, New Mexico","age":"0-9","population":1670,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35057","county_name":"Torrance County, New Mexico","age":"10-19","population":2048,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35057","county_name":"Torrance County, New Mexico","age":"20-29","population":1739,"population_pct":11.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35057","county_name":"Torrance County, New Mexico","age":"30-39","population":1671,"population_pct":10.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35057","county_name":"Torrance County, New Mexico","age":"40-49","population":1911,"population_pct":12.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35057","county_name":"Torrance County, New Mexico","age":"50-59","population":2186,"population_pct":14.1,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35057","county_name":"Torrance County, New Mexico","age":"60-69","population":2326,"population_pct":15.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35057","county_name":"Torrance County, New Mexico","age":"70-79","population":1443,"population_pct":9.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35057","county_name":"Torrance County, New Mexico","age":"80+","population":525,"population_pct":3.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35057","county_name":"Torrance County, New Mexico","age":"All","population":15519,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35059","county_name":"Union County, New Mexico","age":"0-9","population":610,"population_pct":14.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35059","county_name":"Union County, New Mexico","age":"10-19","population":226,"population_pct":5.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35059","county_name":"Union County, New Mexico","age":"20-29","population":497,"population_pct":12.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35059","county_name":"Union County, New Mexico","age":"30-39","population":744,"population_pct":18.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35059","county_name":"Union County, New Mexico","age":"40-49","population":485,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35059","county_name":"Union County, New Mexico","age":"50-59","population":482,"population_pct":11.7,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35059","county_name":"Union County, New Mexico","age":"60-69","population":522,"population_pct":12.6,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35059","county_name":"Union County, New Mexico","age":"70-79","population":288,"population_pct":7.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35059","county_name":"Union County, New Mexico","age":"80+","population":279,"population_pct":6.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35059","county_name":"Union County, New Mexico","age":"All","population":4133,"population_pct":100.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35061","county_name":"Valencia County, New Mexico","age":"0-9","population":9303,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35061","county_name":"Valencia County, New Mexico","age":"10-19","population":10663,"population_pct":14.0,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35061","county_name":"Valencia County, New Mexico","age":"20-29","population":9539,"population_pct":12.5,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35061","county_name":"Valencia County, New Mexico","age":"30-39","population":9272,"population_pct":12.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35061","county_name":"Valencia County, New Mexico","age":"40-49","population":8607,"population_pct":11.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35061","county_name":"Valencia County, New Mexico","age":"50-59","population":10185,"population_pct":13.4,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35061","county_name":"Valencia County, New Mexico","age":"60-69","population":10048,"population_pct":13.2,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35061","county_name":"Valencia County, New Mexico","age":"70-79","population":5550,"population_pct":7.3,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35061","county_name":"Valencia County, New Mexico","age":"80+","population":2860,"population_pct":3.8,"ingestion_ts":1662663908369}
+,{"state_fips":"35","county_fips":"35061","county_name":"Valencia County, New Mexico","age":"All","population":76027,"population_pct":100.0,"ingestion_ts":1662663908369}]

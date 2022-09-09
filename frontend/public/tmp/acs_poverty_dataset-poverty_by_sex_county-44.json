@@ -1,0 +1,10 @@
+[{"state_fips":"44","state_name":"Rhode Island","county_fips":"44003","county_name":"Kent County, Rhode Island","below_poverty_line":10664,"above_poverty_line":141432,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"44","state_name":"Rhode Island","county_fips":"44003","county_name":"Kent County, Rhode Island","below_poverty_line":13087,"above_poverty_line":148623,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"44","state_name":"Rhode Island","county_fips":"44009","county_name":"Washington County, Rhode Island","below_poverty_line":8816,"above_poverty_line":104365,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"44","state_name":"Rhode Island","county_fips":"44009","county_name":"Washington County, Rhode Island","below_poverty_line":10489,"above_poverty_line":109683,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"44","state_name":"Rhode Island","county_fips":"44005","county_name":"Newport County, Rhode Island","below_poverty_line":5147,"above_poverty_line":69071,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"44","state_name":"Rhode Island","county_fips":"44005","county_name":"Newport County, Rhode Island","below_poverty_line":7618,"above_poverty_line":69658,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"44","state_name":"Rhode Island","county_fips":"44007","county_name":"Providence County, Rhode Island","below_poverty_line":74117,"above_poverty_line":472102,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"44","state_name":"Rhode Island","county_fips":"44007","county_name":"Providence County, Rhode Island","below_poverty_line":91136,"above_poverty_line":483984,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"44","state_name":"Rhode Island","county_fips":"44001","county_name":"Bristol County, Rhode Island","below_poverty_line":2731,"above_poverty_line":39683,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"44","state_name":"Rhode Island","county_fips":"44001","county_name":"Bristol County, Rhode Island","below_poverty_line":3382,"above_poverty_line":41696,"sex":"Female","ingestion_ts":1662650349256}]

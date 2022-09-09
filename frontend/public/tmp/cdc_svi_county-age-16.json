@@ -1,0 +1,44 @@
+[{"county_fips":"16023","county_name":"Butte County","svi":0.25,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16057","county_name":"Latah County","svi":0.25,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16083","county_name":"Twin Falls County","svi":0.5,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16085","county_name":"Valley County","svi":0.09,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16019","county_name":"Bonneville County","svi":0.36,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16045","county_name":"Gem County","svi":0.66,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16035","county_name":"Clearwater County","svi":0.44,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16037","county_name":"Custer County","svi":0.44,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16059","county_name":"Lemhi County","svi":0.3,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16075","county_name":"Payette County","svi":0.6,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16061","county_name":"Lewis County","svi":0.57,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16073","county_name":"Owyhee County","svi":0.82,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16049","county_name":"Idaho County","svi":0.54,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16029","county_name":"Caribou County","svi":0.19,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16069","county_name":"Nez Perce County","svi":0.51,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16011","county_name":"Bingham County","svi":0.51,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16043","county_name":"Fremont County","svi":0.51,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16079","county_name":"Shoshone County","svi":0.76,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16009","county_name":"Benewah County","svi":0.73,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16055","county_name":"Kootenai County","svi":0.23,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16031","county_name":"Cassia County","svi":0.67,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16053","county_name":"Jerome County","svi":0.67,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16013","county_name":"Blaine County","svi":0.32,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16033","county_name":"Clark County","svi":0.89,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16003","county_name":"Adams County","svi":0.29,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16005","county_name":"Bannock County","svi":0.58,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16025","county_name":"Camas County","svi":0.13,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16081","county_name":"Teton County","svi":0.13,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16077","county_name":"Power County","svi":0.52,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16027","county_name":"Canyon County","svi":0.74,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16017","county_name":"Bonner County","svi":0.24,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16047","county_name":"Gooding County","svi":0.71,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16071","county_name":"Oneida County","svi":0.34,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16067","county_name":"Minidoka County","svi":0.68,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16021","county_name":"Boundary County","svi":0.31,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16007","county_name":"Bear Lake County","svi":0.21,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16039","county_name":"Elmore County","svi":0.59,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16015","county_name":"Boise County","svi":0.07,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16001","county_name":"Ada County","svi":0.14,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16063","county_name":"Lincoln County","svi":0.56,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16065","county_name":"Madison County","svi":0.4,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16041","county_name":"Franklin County","svi":0.14,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16051","county_name":"Jefferson County","svi":0.25,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"16087","county_name":"Washington County","svi":0.85,"age":"All","ingestion_ts":1662477615221}]

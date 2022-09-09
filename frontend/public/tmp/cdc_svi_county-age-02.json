@@ -1,0 +1,29 @@
+[{"county_fips":"02050","county_name":"Bethel Census Area","svi":0.97,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02188","county_name":"Northwest Arctic Borough","svi":0.94,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02290","county_name":"Yukon-Koyukuk Census Area","svi":0.88,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02110","county_name":"Juneau City and Borough","svi":0.3,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02122","county_name":"Kenai Peninsula Borough","svi":0.41,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02261","county_name":"Valdez-Cordova Census Area","svi":0.27,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02016","county_name":"Aleutians West Census Area","svi":0.49,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02185","county_name":"North Slope Borough","svi":0.73,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02060","county_name":"Bristol Bay Borough","svi":0.35,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02150","county_name":"Kodiak Island Borough","svi":0.7,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02020","county_name":"Anchorage Municipality","svi":0.46,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02195","county_name":"Petersburg Borough","svi":0.67,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02170","county_name":"Matanuska-Susitna Borough","svi":0.32,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02240","county_name":"Southeast Fairbanks Census Area","svi":0.58,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02013","county_name":"Aleutians East Borough","svi":0.58,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02068","county_name":"Denali Borough","svi":0.1,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02220","county_name":"Sitka City and Borough","svi":0.4,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02130","county_name":"Ketchikan Gateway Borough","svi":0.55,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02164","county_name":"Lake and Peninsula Borough","svi":0.8,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02198","county_name":"Prince of Wales-Hyder Census Area","svi":0.77,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02230","county_name":"Skagway Municipality","svi":0.17,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02090","county_name":"Fairbanks North Star Borough","svi":0.34,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02180","county_name":"Nome Census Area","svi":0.93,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02158","county_name":"Kusilvak Census Area","svi":0.93,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02070","county_name":"Dillingham Census Area","svi":0.87,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02100","county_name":"Haines Borough","svi":0.21,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02105","county_name":"Hoonah-Angoon Census Area","svi":0.42,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02282","county_name":"Yakutat City and Borough","svi":0.59,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"02275","county_name":"Wrangell City and Borough","svi":0.56,"age":"All","ingestion_ts":1662477615221}]

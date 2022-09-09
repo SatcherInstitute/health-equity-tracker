@@ -1,0 +1,15 @@
+[{"county_fips":"44001","county_name":"Bristol County","sex":"All","prison_per_100k":null,"prison_pct_share":null,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607261920}
+,{"county_fips":"44003","county_name":"Kent County","sex":"All","prison_per_100k":308.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607261920}
+,{"county_fips":"44005","county_name":"Newport County","sex":"All","prison_per_100k":211.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607261920}
+,{"county_fips":"44007","county_name":"Providence County","sex":"All","prison_per_100k":434.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607261920}
+,{"county_fips":"44009","county_name":"Washington County","sex":"All","prison_per_100k":115.0,"prison_pct_share":100.0,"population_pct_share":100.0,"total_confined_children":0.0,"ingestion_ts":1662607261920}
+,{"county_fips":"44001","county_name":"Bristol County","sex":"Male","prison_per_100k":null,"prison_pct_share":null,"population_pct_share":49.0,"total_confined_children":null,"ingestion_ts":1662607261920}
+,{"county_fips":"44001","county_name":"Bristol County","sex":"Female","prison_per_100k":null,"prison_pct_share":null,"population_pct_share":51.0,"total_confined_children":null,"ingestion_ts":1662607261920}
+,{"county_fips":"44009","county_name":"Washington County","sex":"Male","prison_per_100k":215.0,"prison_pct_share":91.8,"population_pct_share":48.9,"total_confined_children":null,"ingestion_ts":1662607261920}
+,{"county_fips":"44003","county_name":"Kent County","sex":"Female","prison_per_100k":63.0,"prison_pct_share":10.4,"population_pct_share":50.9,"total_confined_children":null,"ingestion_ts":1662607261920}
+,{"county_fips":"44007","county_name":"Providence County","sex":"Male","prison_per_100k":849.0,"prison_pct_share":96.4,"population_pct_share":49.4,"total_confined_children":null,"ingestion_ts":1662607261920}
+,{"county_fips":"44005","county_name":"Newport County","sex":"Female","prison_per_100k":34.0,"prison_pct_share":7.9,"population_pct_share":49.4,"total_confined_children":null,"ingestion_ts":1662607261920}
+,{"county_fips":"44005","county_name":"Newport County","sex":"Male","prison_per_100k":385.0,"prison_pct_share":92.1,"population_pct_share":50.6,"total_confined_children":null,"ingestion_ts":1662607261920}
+,{"county_fips":"44007","county_name":"Providence County","sex":"Female","prison_per_100k":31.0,"prison_pct_share":3.6,"population_pct_share":50.6,"total_confined_children":null,"ingestion_ts":1662607261920}
+,{"county_fips":"44003","county_name":"Kent County","sex":"Male","prison_per_100k":560.0,"prison_pct_share":89.6,"population_pct_share":49.1,"total_confined_children":null,"ingestion_ts":1662607261920}
+,{"county_fips":"44009","county_name":"Washington County","sex":"Female","prison_per_100k":19.0,"prison_pct_share":8.2,"population_pct_share":51.1,"total_confined_children":null,"ingestion_ts":1662607261920}]

@@ -1,0 +1,39 @@
+[{"county_fips":"53001","county_name":"Adams County","race_category_id":"ALL","vaccinated_first_dose":13592.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":19594}
+,{"county_fips":"53003","county_name":"Asotin County","race_category_id":"ALL","vaccinated_first_dose":11051.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":22421}
+,{"county_fips":"53005","county_name":"Benton County","race_category_id":"ALL","vaccinated_first_dose":129921.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":197518}
+,{"county_fips":"53007","county_name":"Chelan County","race_category_id":"ALL","vaccinated_first_dose":60558.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":76229}
+,{"county_fips":"53009","county_name":"Clallam County","race_category_id":"ALL","vaccinated_first_dose":58586.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":75392}
+,{"county_fips":"53011","county_name":"Clark County","race_category_id":"ALL","vaccinated_first_dose":361311.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":473252}
+,{"county_fips":"53013","county_name":"Columbia County","race_category_id":"ALL","vaccinated_first_dose":2095.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":3992}
+,{"county_fips":"53015","county_name":"Cowlitz County","race_category_id":"ALL","vaccinated_first_dose":72760.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":106778}
+,{"county_fips":"53017","county_name":"Douglas County","race_category_id":"ALL","vaccinated_first_dose":29461.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":42023}
+,{"county_fips":"53019","county_name":"Ferry County","race_category_id":"ALL","vaccinated_first_dose":4836.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":7578}
+,{"county_fips":"53021","county_name":"Franklin County","race_category_id":"ALL","vaccinated_first_dose":57288.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":92009}
+,{"county_fips":"53023","county_name":"Garfield County","race_category_id":"ALL","vaccinated_first_dose":1151.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":2230}
+,{"county_fips":"53025","county_name":"Grant County","race_category_id":"ALL","vaccinated_first_dose":61928.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":95502}
+,{"county_fips":"53027","county_name":"Grays Harbor County","race_category_id":"ALL","vaccinated_first_dose":50987.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":72779}
+,{"county_fips":"53029","county_name":"Island County","race_category_id":"ALL","vaccinated_first_dose":75354.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":82866}
+,{"county_fips":"53031","county_name":"Jefferson County","race_category_id":"ALL","vaccinated_first_dose":27246.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":31285}
+,{"county_fips":"53033","county_name":"King County","race_category_id":"ALL","vaccinated_first_dose":2066821.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":2195502}
+,{"county_fips":"53035","county_name":"Kitsap County","race_category_id":"ALL","vaccinated_first_dose":221141.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":265882}
+,{"county_fips":"53037","county_name":"Kittitas County","race_category_id":"ALL","vaccinated_first_dose":29620.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":45897}
+,{"county_fips":"53039","county_name":"Klickitat County","race_category_id":"ALL","vaccinated_first_dose":11921.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":21721}
+,{"county_fips":"53041","county_name":"Lewis County","race_category_id":"ALL","vaccinated_first_dose":46889.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":78145}
+,{"county_fips":"53043","county_name":"Lincoln County","race_category_id":"ALL","vaccinated_first_dose":6945.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":10574}
+,{"county_fips":"53045","county_name":"Mason County","race_category_id":"ALL","vaccinated_first_dose":46478.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":63804}
+,{"county_fips":"53047","county_name":"Okanogan County","race_category_id":"ALL","vaccinated_first_dose":31602.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":41842}
+,{"county_fips":"53049","county_name":"Pacific County","race_category_id":"ALL","vaccinated_first_dose":15370.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":21688}
+,{"county_fips":"53051","county_name":"Pend Oreille County","race_category_id":"ALL","vaccinated_first_dose":6598.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":13377}
+,{"county_fips":"53053","county_name":"Pierce County","race_category_id":"ALL","vaccinated_first_dose":675139.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":877013}
+,{"county_fips":"53055","county_name":"San Juan County","race_category_id":"ALL","vaccinated_first_dose":16363.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":16788}
+,{"county_fips":"53057","county_name":"Skagit County","race_category_id":"ALL","vaccinated_first_dose":97375.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":125612}
+,{"county_fips":"53059","county_name":"Skamania County","race_category_id":"ALL","vaccinated_first_dose":5204.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":11753}
+,{"county_fips":"53061","county_name":"Snohomish County","race_category_id":"ALL","vaccinated_first_dose":646253.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":798808}
+,{"county_fips":"53063","county_name":"Spokane County","race_category_id":"ALL","vaccinated_first_dose":364011.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":505505}
+,{"county_fips":"53065","county_name":"Stevens County","race_category_id":"ALL","vaccinated_first_dose":20513.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":44655}
+,{"county_fips":"53067","county_name":"Thurston County","race_category_id":"ALL","vaccinated_first_dose":230508.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":279711}
+,{"county_fips":"53069","county_name":"Wahkiakum County","race_category_id":"ALL","vaccinated_first_dose":2413.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":4268}
+,{"county_fips":"53071","county_name":"Walla Walla County","race_category_id":"ALL","vaccinated_first_dose":43750.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":60365}
+,{"county_fips":"53073","county_name":"Whatcom County","race_category_id":"ALL","vaccinated_first_dose":187343.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":220821}
+,{"county_fips":"53075","county_name":"Whitman County","race_category_id":"ALL","vaccinated_first_dose":29589.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":49231}
+,{"county_fips":"53077","county_name":"Yakima County","race_category_id":"ALL","vaccinated_first_dose":179760.0,"race":"All","race_includes_hispanic":null,"race_and_ethnicity":"All","population":249697}]

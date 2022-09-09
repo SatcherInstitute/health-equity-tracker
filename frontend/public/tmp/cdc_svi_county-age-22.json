@@ -1,0 +1,64 @@
+[{"county_fips":"22095","county_name":"St. John the Baptist Parish","svi":0.75,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22117","county_name":"Washington Parish","svi":1.0,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22039","county_name":"Evangeline Parish","svi":1.0,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22065","county_name":"Madison Parish","svi":0.97,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22125","county_name":"West Feliciana Parish","svi":0.69,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22013","county_name":"Bienville Parish","svi":0.94,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22049","county_name":"Jackson Parish","svi":0.94,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22035","county_name":"East Carroll Parish","svi":0.94,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22079","county_name":"Rapides Parish","svi":0.91,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22029","county_name":"Concordia Parish","svi":0.91,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22093","county_name":"St. James Parish","svi":0.63,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22043","county_name":"Grant Parish","svi":0.63,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22119","county_name":"Webster Parish","svi":0.88,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22067","county_name":"Morehouse Parish","svi":0.88,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22073","county_name":"Ouachita Parish","svi":0.85,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22077","county_name":"Pointe Coupee Parish","svi":0.85,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22061","county_name":"Lincoln Parish","svi":0.85,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22113","county_name":"Vermilion Parish","svi":0.82,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22037","county_name":"East Feliciana Parish","svi":0.82,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22121","county_name":"West Baton Rouge Parish","svi":0.76,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22059","county_name":"LaSalle Parish","svi":0.76,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22089","county_name":"St. Charles Parish","svi":0.35,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22041","county_name":"Franklin Parish","svi":0.95,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22027","county_name":"Claiborne Parish","svi":0.95,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22123","county_name":"West Carroll Parish","svi":0.67,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22033","county_name":"East Baton Rouge Parish","svi":0.67,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22101","county_name":"St. Mary Parish","svi":0.92,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22001","county_name":"Acadia Parish","svi":0.92,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22097","county_name":"St. Landry Parish","svi":0.92,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22105","county_name":"Tangipahoa Parish","svi":0.89,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22047","county_name":"Iberville Parish","svi":0.89,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22031","county_name":"De Soto Parish","svi":0.89,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22063","county_name":"Livingston Parish","svi":0.43,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22051","county_name":"Jefferson Parish","svi":0.61,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22083","county_name":"Richland Parish","svi":0.86,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22069","county_name":"Natchitoches Parish","svi":0.86,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22085","county_name":"Sabine Parish","svi":0.83,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22005","county_name":"Ascension Parish","svi":0.4,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22023","county_name":"Cameron Parish","svi":0.26,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22057","county_name":"Lafourche Parish","svi":0.77,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22087","county_name":"St. Bernard Parish","svi":0.77,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22019","county_name":"Calcasieu Parish","svi":0.74,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22115","county_name":"Vernon Parish","svi":0.74,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22071","county_name":"Orleans Parish","svi":0.74,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22075","county_name":"Plaquemines Parish","svi":0.71,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22009","county_name":"Avoyelles Parish","svi":0.96,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22045","county_name":"Iberia Parish","svi":0.96,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22003","county_name":"Allen Parish","svi":0.93,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22021","county_name":"Caldwell Parish","svi":0.93,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22011","county_name":"Beauregard Parish","svi":0.65,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22109","county_name":"Terrebonne Parish","svi":0.9,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22091","county_name":"St. Helena Parish","svi":0.9,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22103","county_name":"St. Tammany Parish","svi":0.31,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22055","county_name":"Lafayette Parish","svi":0.62,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22015","county_name":"Bossier Parish","svi":0.59,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22017","county_name":"Caddo Parish","svi":0.84,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22107","county_name":"Tensas Parish","svi":0.84,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22053","county_name":"Jefferson Davis Parish","svi":0.81,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22081","county_name":"Red River Parish","svi":0.81,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22111","county_name":"Union Parish","svi":0.81,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22099","county_name":"St. Martin Parish","svi":0.78,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22007","county_name":"Assumption Parish","svi":0.78,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22127","county_name":"Winn Parish","svi":0.78,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"22025","county_name":"Catahoula Parish","svi":0.78,"age":"All","ingestion_ts":1662477615221}]

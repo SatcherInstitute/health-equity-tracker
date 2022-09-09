@@ -1,0 +1,234 @@
+[{"state_fips":"72","county_fips":"72001","county_name":"Adjuntas Municipio, Puerto Rico","sex":"All","population":17891,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72003","county_name":"Aguada Municipio, Puerto Rico","sex":"All","population":37954,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72005","county_name":"Aguadilla Municipio, Puerto Rico","sex":"All","population":52803,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72007","county_name":"Aguas Buenas Municipio, Puerto Rico","sex":"All","population":25748,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72009","county_name":"Aibonito Municipio, Puerto Rico","sex":"All","population":22988,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72011","county_name":"A\u00f1asco Municipio, Puerto Rico","sex":"All","population":26934,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72013","county_name":"Arecibo Municipio, Puerto Rico","sex":"All","population":85390,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72015","county_name":"Arroyo Municipio, Puerto Rico","sex":"All","population":17805,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72017","county_name":"Barceloneta Municipio, Puerto Rico","sex":"All","population":24079,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72019","county_name":"Barranquitas Municipio, Puerto Rico","sex":"All","population":28393,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72021","county_name":"Bayam\u00f3n Municipio, Puerto Rico","sex":"All","population":178192,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72023","county_name":"Cabo Rojo Municipio, Puerto Rico","sex":"All","population":48487,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72025","county_name":"Caguas Municipio, Puerto Rico","sex":"All","population":128937,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72027","county_name":"Camuy Municipio, Puerto Rico","sex":"All","population":31598,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72029","county_name":"Can\u00f3vanas Municipio, Puerto Rico","sex":"All","population":45588,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72031","county_name":"Carolina Municipio, Puerto Rico","sex":"All","population":153779,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72033","county_name":"Cata\u00f1o Municipio, Puerto Rico","sex":"All","population":24271,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72035","county_name":"Cayey Municipio, Puerto Rico","sex":"All","population":43785,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72037","county_name":"Ceiba Municipio, Puerto Rico","sex":"All","population":11515,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72039","county_name":"Ciales Municipio, Puerto Rico","sex":"All","population":16513,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72041","county_name":"Cidra Municipio, Puerto Rico","sex":"All","population":39607,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72043","county_name":"Coamo Municipio, Puerto Rico","sex":"All","population":38906,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72045","county_name":"Comer\u00edo Municipio, Puerto Rico","sex":"All","population":19224,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72047","county_name":"Corozal Municipio, Puerto Rico","sex":"All","population":33500,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72049","county_name":"Culebra Municipio, Puerto Rico","sex":"All","population":1311,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72051","county_name":"Dorado Municipio, Puerto Rico","sex":"All","population":36803,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72053","county_name":"Fajardo Municipio, Puerto Rico","sex":"All","population":31111,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72054","county_name":"Florida Municipio, Puerto Rico","sex":"All","population":11697,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72055","county_name":"Gu\u00e1nica Municipio, Puerto Rico","sex":"All","population":16293,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72057","county_name":"Guayama Municipio, Puerto Rico","sex":"All","population":40889,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72059","county_name":"Guayanilla Municipio, Puerto Rico","sex":"All","population":18514,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72061","county_name":"Guaynabo Municipio, Puerto Rico","sex":"All","population":86937,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72063","county_name":"Gurabo Municipio, Puerto Rico","sex":"All","population":46910,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72065","county_name":"Hatillo Municipio, Puerto Rico","sex":"All","population":39950,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72067","county_name":"Hormigueros Municipio, Puerto Rico","sex":"All","population":15943,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72069","county_name":"Humacao Municipio, Puerto Rico","sex":"All","population":52507,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72071","county_name":"Isabela Municipio, Puerto Rico","sex":"All","population":41707,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72073","county_name":"Jayuya Municipio, Puerto Rico","sex":"All","population":14539,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72075","county_name":"Juana D\u00edaz Municipio, Puerto Rico","sex":"All","population":46152,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72077","county_name":"Juncos Municipio, Puerto Rico","sex":"All","population":38780,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72079","county_name":"Lajas Municipio, Puerto Rico","sex":"All","population":22835,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72081","county_name":"Lares Municipio, Puerto Rico","sex":"All","population":25696,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72083","county_name":"Las Mar\u00edas Municipio, Puerto Rico","sex":"All","population":8370,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72085","county_name":"Las Piedras Municipio, Puerto Rico","sex":"All","population":37499,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72087","county_name":"Lo\u00edza Municipio, Puerto Rico","sex":"All","population":25778,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72089","county_name":"Luquillo Municipio, Puerto Rico","sex":"All","population":18224,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72091","county_name":"Manat\u00ed Municipio, Puerto Rico","sex":"All","population":38836,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72093","county_name":"Maricao Municipio, Puerto Rico","sex":"All","population":6075,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72095","county_name":"Maunabo Municipio, Puerto Rico","sex":"All","population":10776,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72097","county_name":"Mayag\u00fcez Municipio, Puerto Rico","sex":"All","population":75232,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72099","county_name":"Moca Municipio, Puerto Rico","sex":"All","population":36161,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72101","county_name":"Morovis Municipio, Puerto Rico","sex":"All","population":30962,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72103","county_name":"Naguabo Municipio, Puerto Rico","sex":"All","population":26075,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72105","county_name":"Naranjito Municipio, Puerto Rico","sex":"All","population":28112,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72107","county_name":"Orocovis Municipio, Puerto Rico","sex":"All","population":20982,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72109","county_name":"Patillas Municipio, Puerto Rico","sex":"All","population":16929,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72111","county_name":"Pe\u00f1uelas Municipio, Puerto Rico","sex":"All","population":20383,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72113","county_name":"Ponce Municipio, Puerto Rico","sex":"All","population":139671,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72115","county_name":"Quebradillas Municipio, Puerto Rico","sex":"All","population":23629,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72117","county_name":"Rinc\u00f3n Municipio, Puerto Rico","sex":"All","population":14056,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72119","county_name":"R\u00edo Grande Municipio, Puerto Rico","sex":"All","population":49613,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72121","county_name":"Sabana Grande Municipio, Puerto Rico","sex":"All","population":22560,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72123","county_name":"Salinas Municipio, Puerto Rico","sex":"All","population":28109,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72125","county_name":"San Germ\u00e1n Municipio, Puerto Rico","sex":"All","population":31442,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72127","county_name":"San Juan Municipio, Puerto Rico","sex":"All","population":335468,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72129","county_name":"San Lorenzo Municipio, Puerto Rico","sex":"All","population":37209,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72131","county_name":"San Sebasti\u00e1n Municipio, Puerto Rico","sex":"All","population":37120,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72133","county_name":"Santa Isabel Municipio, Puerto Rico","sex":"All","population":21757,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72135","county_name":"Toa Alta Municipio, Puerto Rico","sex":"All","population":72864,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72137","county_name":"Toa Baja Municipio, Puerto Rico","sex":"All","population":77810,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72139","county_name":"Trujillo Alto Municipio, Puerto Rico","sex":"All","population":66338,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72141","county_name":"Utuado Municipio, Puerto Rico","sex":"All","population":28676,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72143","county_name":"Vega Alta Municipio, Puerto Rico","sex":"All","population":37106,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72145","county_name":"Vega Baja Municipio, Puerto Rico","sex":"All","population":52192,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72147","county_name":"Vieques Municipio, Puerto Rico","sex":"All","population":8642,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72149","county_name":"Villalba Municipio, Puerto Rico","sex":"All","population":22403,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72151","county_name":"Yabucoa Municipio, Puerto Rico","sex":"All","population":33499,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72153","county_name":"Yauco Municipio, Puerto Rico","sex":"All","population":35428,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72009","county_name":"Aibonito Municipio, Puerto Rico","sex":"Male","population":11030,"population_pct":48.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72013","county_name":"Arecibo Municipio, Puerto Rico","sex":"Male","population":40820,"population_pct":47.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72015","county_name":"Arroyo Municipio, Puerto Rico","sex":"Male","population":8324,"population_pct":46.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72017","county_name":"Barceloneta Municipio, Puerto Rico","sex":"Male","population":11413,"population_pct":47.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72021","county_name":"Bayam\u00f3n Municipio, Puerto Rico","sex":"Male","population":83978,"population_pct":47.1,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72023","county_name":"Cabo Rojo Municipio, Puerto Rico","sex":"Male","population":22960,"population_pct":47.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72025","county_name":"Caguas Municipio, Puerto Rico","sex":"Male","population":59932,"population_pct":46.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72027","county_name":"Camuy Municipio, Puerto Rico","sex":"Male","population":15109,"population_pct":47.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72031","county_name":"Carolina Municipio, Puerto Rico","sex":"Male","population":70331,"population_pct":45.7,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72033","county_name":"Cata\u00f1o Municipio, Puerto Rico","sex":"Male","population":11461,"population_pct":47.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72035","county_name":"Cayey Municipio, Puerto Rico","sex":"Male","population":21008,"population_pct":48.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72037","county_name":"Ceiba Municipio, Puerto Rico","sex":"Male","population":5454,"population_pct":47.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72051","county_name":"Dorado Municipio, Puerto Rico","sex":"Male","population":17500,"population_pct":47.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72053","county_name":"Fajardo Municipio, Puerto Rico","sex":"Male","population":14504,"population_pct":46.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72059","county_name":"Guayanilla Municipio, Puerto Rico","sex":"Male","population":8817,"population_pct":47.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72061","county_name":"Guaynabo Municipio, Puerto Rico","sex":"Male","population":40939,"population_pct":47.1,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72063","county_name":"Gurabo Municipio, Puerto Rico","sex":"Male","population":22145,"population_pct":47.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72065","county_name":"Hatillo Municipio, Puerto Rico","sex":"Male","population":19174,"population_pct":48.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72067","county_name":"Hormigueros Municipio, Puerto Rico","sex":"Male","population":7340,"population_pct":46.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72069","county_name":"Humacao Municipio, Puerto Rico","sex":"Male","population":24767,"population_pct":47.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72075","county_name":"Juana D\u00edaz Municipio, Puerto Rico","sex":"Male","population":21942,"population_pct":47.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72077","county_name":"Juncos Municipio, Puerto Rico","sex":"Male","population":18449,"population_pct":47.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72087","county_name":"Lo\u00edza Municipio, Puerto Rico","sex":"Male","population":12001,"population_pct":46.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72089","county_name":"Luquillo Municipio, Puerto Rico","sex":"Male","population":8544,"population_pct":46.9,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72091","county_name":"Manat\u00ed Municipio, Puerto Rico","sex":"Male","population":18281,"population_pct":47.1,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72097","county_name":"Mayag\u00fcez Municipio, Puerto Rico","sex":"Male","population":35879,"population_pct":47.7,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72103","county_name":"Naguabo Municipio, Puerto Rico","sex":"Male","population":12199,"population_pct":46.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72113","county_name":"Ponce Municipio, Puerto Rico","sex":"Male","population":67111,"population_pct":48.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72121","county_name":"Sabana Grande Municipio, Puerto Rico","sex":"Male","population":10614,"population_pct":47.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72127","county_name":"San Juan Municipio, Puerto Rico","sex":"Male","population":153454,"population_pct":45.7,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72135","county_name":"Toa Alta Municipio, Puerto Rico","sex":"Male","population":34973,"population_pct":48.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72137","county_name":"Toa Baja Municipio, Puerto Rico","sex":"Male","population":36401,"population_pct":46.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72139","county_name":"Trujillo Alto Municipio, Puerto Rico","sex":"Male","population":31164,"population_pct":47.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72143","county_name":"Vega Alta Municipio, Puerto Rico","sex":"Male","population":17781,"population_pct":47.9,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72145","county_name":"Vega Baja Municipio, Puerto Rico","sex":"Male","population":24963,"population_pct":47.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72153","county_name":"Yauco Municipio, Puerto Rico","sex":"Male","population":16959,"population_pct":47.9,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72107","county_name":"Orocovis Municipio, Puerto Rico","sex":"Male","population":10500,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72007","county_name":"Aguas Buenas Municipio, Puerto Rico","sex":"Male","population":12480,"population_pct":48.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72043","county_name":"Coamo Municipio, Puerto Rico","sex":"Male","population":18878,"population_pct":48.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72111","county_name":"Pe\u00f1uelas Municipio, Puerto Rico","sex":"Male","population":9881,"population_pct":48.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72141","county_name":"Utuado Municipio, Puerto Rico","sex":"Male","population":13910,"population_pct":48.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72149","county_name":"Villalba Municipio, Puerto Rico","sex":"Male","population":10856,"population_pct":48.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72049","county_name":"Culebra Municipio, Puerto Rico","sex":"Male","population":668,"population_pct":51.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72045","county_name":"Comer\u00edo Municipio, Puerto Rico","sex":"Male","population":9517,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72147","county_name":"Vieques Municipio, Puerto Rico","sex":"Male","population":4277,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72005","county_name":"Aguadilla Municipio, Puerto Rico","sex":"Male","population":25582,"population_pct":48.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72041","county_name":"Cidra Municipio, Puerto Rico","sex":"Male","population":19180,"population_pct":48.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72047","county_name":"Corozal Municipio, Puerto Rico","sex":"Male","population":16227,"population_pct":48.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72151","county_name":"Yabucoa Municipio, Puerto Rico","sex":"Male","population":16202,"population_pct":48.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72003","county_name":"Aguada Municipio, Puerto Rico","sex":"Male","population":18564,"population_pct":48.9,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72073","county_name":"Jayuya Municipio, Puerto Rico","sex":"Male","population":7186,"population_pct":49.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72083","county_name":"Las Mar\u00edas Municipio, Puerto Rico","sex":"Male","population":4179,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72011","county_name":"A\u00f1asco Municipio, Puerto Rico","sex":"Male","population":13016,"population_pct":48.3,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72117","county_name":"Rinc\u00f3n Municipio, Puerto Rico","sex":"Male","population":6783,"population_pct":48.3,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72123","county_name":"Salinas Municipio, Puerto Rico","sex":"Male","population":13584,"population_pct":48.3,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72099","county_name":"Moca Municipio, Puerto Rico","sex":"Male","population":17635,"population_pct":48.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72001","county_name":"Adjuntas Municipio, Puerto Rico","sex":"Male","population":8912,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72029","county_name":"Can\u00f3vanas Municipio, Puerto Rico","sex":"Male","population":21958,"population_pct":48.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72055","county_name":"Gu\u00e1nica Municipio, Puerto Rico","sex":"Male","population":7853,"population_pct":48.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72115","county_name":"Quebradillas Municipio, Puerto Rico","sex":"Male","population":11383,"population_pct":48.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72133","county_name":"Santa Isabel Municipio, Puerto Rico","sex":"Male","population":10496,"population_pct":48.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72109","county_name":"Patillas Municipio, Puerto Rico","sex":"Male","population":8245,"population_pct":48.7,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72019","county_name":"Barranquitas Municipio, Puerto Rico","sex":"Male","population":13978,"population_pct":49.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72081","county_name":"Lares Municipio, Puerto Rico","sex":"Male","population":12636,"population_pct":49.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72054","county_name":"Florida Municipio, Puerto Rico","sex":"Male","population":5624,"population_pct":48.1,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72085","county_name":"Las Piedras Municipio, Puerto Rico","sex":"Male","population":18022,"population_pct":48.1,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72119","county_name":"R\u00edo Grande Municipio, Puerto Rico","sex":"Male","population":23868,"population_pct":48.1,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72039","county_name":"Ciales Municipio, Puerto Rico","sex":"Male","population":8025,"population_pct":48.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72071","county_name":"Isabela Municipio, Puerto Rico","sex":"Male","population":20282,"population_pct":48.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72079","county_name":"Lajas Municipio, Puerto Rico","sex":"Male","population":11106,"population_pct":48.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72095","county_name":"Maunabo Municipio, Puerto Rico","sex":"Male","population":5240,"population_pct":48.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72125","county_name":"San Germ\u00e1n Municipio, Puerto Rico","sex":"Male","population":15281,"population_pct":48.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72129","county_name":"San Lorenzo Municipio, Puerto Rico","sex":"Male","population":18100,"population_pct":48.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72131","county_name":"San Sebasti\u00e1n Municipio, Puerto Rico","sex":"Male","population":18024,"population_pct":48.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72105","county_name":"Naranjito Municipio, Puerto Rico","sex":"Male","population":13801,"population_pct":49.1,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72057","county_name":"Guayama Municipio, Puerto Rico","sex":"Male","population":20284,"population_pct":49.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72093","county_name":"Maricao Municipio, Puerto Rico","sex":"Male","population":3014,"population_pct":49.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72101","county_name":"Morovis Municipio, Puerto Rico","sex":"Male","population":15360,"population_pct":49.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72009","county_name":"Aibonito Municipio, Puerto Rico","sex":"Female","population":11958,"population_pct":52.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72013","county_name":"Arecibo Municipio, Puerto Rico","sex":"Female","population":44570,"population_pct":52.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72015","county_name":"Arroyo Municipio, Puerto Rico","sex":"Female","population":9481,"population_pct":53.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72017","county_name":"Barceloneta Municipio, Puerto Rico","sex":"Female","population":12666,"population_pct":52.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72021","county_name":"Bayam\u00f3n Municipio, Puerto Rico","sex":"Female","population":94214,"population_pct":52.9,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72023","county_name":"Cabo Rojo Municipio, Puerto Rico","sex":"Female","population":25527,"population_pct":52.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72025","county_name":"Caguas Municipio, Puerto Rico","sex":"Female","population":69005,"population_pct":53.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72027","county_name":"Camuy Municipio, Puerto Rico","sex":"Female","population":16489,"population_pct":52.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72031","county_name":"Carolina Municipio, Puerto Rico","sex":"Female","population":83448,"population_pct":54.3,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72033","county_name":"Cata\u00f1o Municipio, Puerto Rico","sex":"Female","population":12810,"population_pct":52.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72035","county_name":"Cayey Municipio, Puerto Rico","sex":"Female","population":22777,"population_pct":52.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72037","county_name":"Ceiba Municipio, Puerto Rico","sex":"Female","population":6061,"population_pct":52.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72051","county_name":"Dorado Municipio, Puerto Rico","sex":"Female","population":19303,"population_pct":52.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72053","county_name":"Fajardo Municipio, Puerto Rico","sex":"Female","population":16607,"population_pct":53.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72059","county_name":"Guayanilla Municipio, Puerto Rico","sex":"Female","population":9697,"population_pct":52.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72061","county_name":"Guaynabo Municipio, Puerto Rico","sex":"Female","population":45998,"population_pct":52.9,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72063","county_name":"Gurabo Municipio, Puerto Rico","sex":"Female","population":24765,"population_pct":52.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72065","county_name":"Hatillo Municipio, Puerto Rico","sex":"Female","population":20776,"population_pct":52.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72067","county_name":"Hormigueros Municipio, Puerto Rico","sex":"Female","population":8603,"population_pct":54.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72069","county_name":"Humacao Municipio, Puerto Rico","sex":"Female","population":27740,"population_pct":52.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72075","county_name":"Juana D\u00edaz Municipio, Puerto Rico","sex":"Female","population":24210,"population_pct":52.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72077","county_name":"Juncos Municipio, Puerto Rico","sex":"Female","population":20331,"population_pct":52.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72087","county_name":"Lo\u00edza Municipio, Puerto Rico","sex":"Female","population":13777,"population_pct":53.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72089","county_name":"Luquillo Municipio, Puerto Rico","sex":"Female","population":9680,"population_pct":53.1,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72091","county_name":"Manat\u00ed Municipio, Puerto Rico","sex":"Female","population":20555,"population_pct":52.9,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72097","county_name":"Mayag\u00fcez Municipio, Puerto Rico","sex":"Female","population":39353,"population_pct":52.3,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72103","county_name":"Naguabo Municipio, Puerto Rico","sex":"Female","population":13876,"population_pct":53.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72113","county_name":"Ponce Municipio, Puerto Rico","sex":"Female","population":72560,"population_pct":52.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72121","county_name":"Sabana Grande Municipio, Puerto Rico","sex":"Female","population":11946,"population_pct":53.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72127","county_name":"San Juan Municipio, Puerto Rico","sex":"Female","population":182014,"population_pct":54.3,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72135","county_name":"Toa Alta Municipio, Puerto Rico","sex":"Female","population":37891,"population_pct":52.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72137","county_name":"Toa Baja Municipio, Puerto Rico","sex":"Female","population":41409,"population_pct":53.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72139","county_name":"Trujillo Alto Municipio, Puerto Rico","sex":"Female","population":35174,"population_pct":53.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72143","county_name":"Vega Alta Municipio, Puerto Rico","sex":"Female","population":19325,"population_pct":52.1,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72145","county_name":"Vega Baja Municipio, Puerto Rico","sex":"Female","population":27229,"population_pct":52.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72153","county_name":"Yauco Municipio, Puerto Rico","sex":"Female","population":18469,"population_pct":52.1,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72107","county_name":"Orocovis Municipio, Puerto Rico","sex":"Female","population":10482,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72045","county_name":"Comer\u00edo Municipio, Puerto Rico","sex":"Female","population":9707,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72147","county_name":"Vieques Municipio, Puerto Rico","sex":"Female","population":4365,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72049","county_name":"Culebra Municipio, Puerto Rico","sex":"Female","population":643,"population_pct":49.0,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72007","county_name":"Aguas Buenas Municipio, Puerto Rico","sex":"Female","population":13268,"population_pct":51.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72043","county_name":"Coamo Municipio, Puerto Rico","sex":"Female","population":20028,"population_pct":51.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72111","county_name":"Pe\u00f1uelas Municipio, Puerto Rico","sex":"Female","population":10502,"population_pct":51.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72141","county_name":"Utuado Municipio, Puerto Rico","sex":"Female","population":14766,"population_pct":51.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72149","county_name":"Villalba Municipio, Puerto Rico","sex":"Female","population":11547,"population_pct":51.5,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72057","county_name":"Guayama Municipio, Puerto Rico","sex":"Female","population":20605,"population_pct":50.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72093","county_name":"Maricao Municipio, Puerto Rico","sex":"Female","population":3061,"population_pct":50.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72101","county_name":"Morovis Municipio, Puerto Rico","sex":"Female","population":15602,"population_pct":50.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72105","county_name":"Naranjito Municipio, Puerto Rico","sex":"Female","population":14311,"population_pct":50.9,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72039","county_name":"Ciales Municipio, Puerto Rico","sex":"Female","population":8488,"population_pct":51.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72071","county_name":"Isabela Municipio, Puerto Rico","sex":"Female","population":21425,"population_pct":51.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72079","county_name":"Lajas Municipio, Puerto Rico","sex":"Female","population":11729,"population_pct":51.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72095","county_name":"Maunabo Municipio, Puerto Rico","sex":"Female","population":5536,"population_pct":51.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72125","county_name":"San Germ\u00e1n Municipio, Puerto Rico","sex":"Female","population":16161,"population_pct":51.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72129","county_name":"San Lorenzo Municipio, Puerto Rico","sex":"Female","population":19109,"population_pct":51.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72131","county_name":"San Sebasti\u00e1n Municipio, Puerto Rico","sex":"Female","population":19096,"population_pct":51.4,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72054","county_name":"Florida Municipio, Puerto Rico","sex":"Female","population":6073,"population_pct":51.9,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72085","county_name":"Las Piedras Municipio, Puerto Rico","sex":"Female","population":19477,"population_pct":51.9,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72119","county_name":"R\u00edo Grande Municipio, Puerto Rico","sex":"Female","population":25745,"population_pct":51.9,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72019","county_name":"Barranquitas Municipio, Puerto Rico","sex":"Female","population":14415,"population_pct":50.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72081","county_name":"Lares Municipio, Puerto Rico","sex":"Female","population":13060,"population_pct":50.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72109","county_name":"Patillas Municipio, Puerto Rico","sex":"Female","population":8684,"population_pct":51.3,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72029","county_name":"Can\u00f3vanas Municipio, Puerto Rico","sex":"Female","population":23630,"population_pct":51.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72055","county_name":"Gu\u00e1nica Municipio, Puerto Rico","sex":"Female","population":8440,"population_pct":51.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72115","county_name":"Quebradillas Municipio, Puerto Rico","sex":"Female","population":12246,"population_pct":51.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72133","county_name":"Santa Isabel Municipio, Puerto Rico","sex":"Female","population":11261,"population_pct":51.8,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72001","county_name":"Adjuntas Municipio, Puerto Rico","sex":"Female","population":8979,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72099","county_name":"Moca Municipio, Puerto Rico","sex":"Female","population":18526,"population_pct":51.2,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72011","county_name":"A\u00f1asco Municipio, Puerto Rico","sex":"Female","population":13918,"population_pct":51.7,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72117","county_name":"Rinc\u00f3n Municipio, Puerto Rico","sex":"Female","population":7273,"population_pct":51.7,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72123","county_name":"Salinas Municipio, Puerto Rico","sex":"Female","population":14525,"population_pct":51.7,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72083","county_name":"Las Mar\u00edas Municipio, Puerto Rico","sex":"Female","population":4191,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72073","county_name":"Jayuya Municipio, Puerto Rico","sex":"Female","population":7353,"population_pct":50.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72003","county_name":"Aguada Municipio, Puerto Rico","sex":"Female","population":19390,"population_pct":51.1,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72005","county_name":"Aguadilla Municipio, Puerto Rico","sex":"Female","population":27221,"population_pct":51.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72041","county_name":"Cidra Municipio, Puerto Rico","sex":"Female","population":20427,"population_pct":51.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72047","county_name":"Corozal Municipio, Puerto Rico","sex":"Female","population":17273,"population_pct":51.6,"ingestion_ts":1662663914333}
+,{"state_fips":"72","county_fips":"72151","county_name":"Yabucoa Municipio, Puerto Rico","sex":"Female","population":17297,"population_pct":51.6,"ingestion_ts":1662663914333}]

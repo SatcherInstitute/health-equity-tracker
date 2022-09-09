@@ -1,0 +1,90 @@
+[{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"All","age":"0-9","population":21973,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"All","age":"10-19","population":23905,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"All","age":"20-29","population":25408,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"All","age":"30-39","population":21396,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"All","age":"40-49","population":20844,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"All","age":"50-59","population":23519,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"All","age":"60-69","population":19709,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"All","age":"70-79","population":13562,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"All","age":"80+","population":6383,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"All","age":"All","population":176699,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Female","age":"0-9","population":11089,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Female","age":"10-19","population":11591,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Female","age":"20-29","population":12478,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Female","age":"30-39","population":10843,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Female","age":"40-49","population":11201,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Female","age":"50-59","population":12396,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Female","age":"60-69","population":10364,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Female","age":"70-79","population":7804,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Female","age":"80+","population":3734,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Female","age":"All","population":91500,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Male","age":"0-9","population":10884,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Male","age":"10-19","population":12314,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Male","age":"20-29","population":12930,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Male","age":"30-39","population":10553,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Male","age":"40-49","population":9643,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Male","age":"50-59","population":11123,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Male","age":"60-69","population":9345,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Male","age":"70-79","population":5758,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Male","age":"80+","population":2649,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10001","county_name":"Kent County, Delaware","sex":"Male","age":"All","population":85199,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"All","age":"0-9","population":64045,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"All","age":"10-19","population":72805,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"All","age":"20-29","population":78092,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"All","age":"30-39","population":74489,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"All","age":"40-49","population":69004,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"All","age":"50-59","population":77774,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"All","age":"60-69","population":63805,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"All","age":"70-79","population":36739,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"All","age":"80+","population":19412,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"All","age":"All","population":556165,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Female","age":"0-9","population":31366,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Female","age":"10-19","population":36444,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Female","age":"20-29","population":38864,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Female","age":"30-39","population":37233,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Female","age":"40-49","population":35856,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Female","age":"50-59","population":40547,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Female","age":"60-69","population":34620,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Female","age":"70-79","population":20035,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Female","age":"80+","population":12011,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Female","age":"All","population":286976,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Male","age":"0-9","population":32679,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Male","age":"10-19","population":36361,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Male","age":"20-29","population":39228,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Male","age":"30-39","population":37256,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Male","age":"40-49","population":33148,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Male","age":"50-59","population":37227,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Male","age":"60-69","population":29185,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Male","age":"70-79","population":16704,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Male","age":"80+","population":7401,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10003","county_name":"New Castle County, Delaware","sex":"Male","age":"All","population":269189,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"All","age":"0-9","population":22586,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"All","age":"10-19","population":23390,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"All","age":"20-29","population":22141,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"All","age":"30-39","population":22103,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"All","age":"40-49","population":23063,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"All","age":"50-59","population":31627,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"All","age":"60-69","population":40047,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"All","age":"70-79","population":27558,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"All","age":"80+","population":11869,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"All","age":"All","population":224384,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Female","age":"0-9","population":11330,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Female","age":"10-19","population":11403,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Female","age":"20-29","population":10834,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Female","age":"30-39","population":11259,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Female","age":"40-49","population":11655,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Female","age":"50-59","population":16246,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Female","age":"60-69","population":21948,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Female","age":"70-79","population":14413,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Female","age":"80+","population":6794,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Female","age":"All","population":115882,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Male","age":"0-9","population":11256,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Male","age":"10-19","population":11987,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Male","age":"20-29","population":11307,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Male","age":"30-39","population":10844,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Male","age":"40-49","population":11408,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Male","age":"50-59","population":15381,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Male","age":"60-69","population":18099,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Male","age":"70-79","population":13145,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Male","age":"80+","population":5075,"ingestion_ts":1662663899712}
+,{"state_fips":"10","county_fips":"10005","county_name":"Sussex County, Delaware","sex":"Male","age":"All","population":108502,"ingestion_ts":1662663899712}]

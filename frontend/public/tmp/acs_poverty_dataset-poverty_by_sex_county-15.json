@@ -1,0 +1,10 @@
+[{"state_fips":"15","state_name":"Hawaii","county_fips":"15001","county_name":"Hawaii County, Hawaii","below_poverty_line":22294,"above_poverty_line":118005,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"15","state_name":"Hawaii","county_fips":"15001","county_name":"Hawaii County, Hawaii","below_poverty_line":22534,"above_poverty_line":118140,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"15","state_name":"Hawaii","county_fips":"15003","county_name":"Honolulu County, Hawaii","below_poverty_line":44671,"above_poverty_line":569474,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"15","state_name":"Hawaii","county_fips":"15003","county_name":"Honolulu County, Hawaii","below_poverty_line":56685,"above_poverty_line":544065,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"15","state_name":"Hawaii","county_fips":"15007","county_name":"Kauai County, Hawaii","below_poverty_line":4236,"above_poverty_line":45106,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"15","state_name":"Hawaii","county_fips":"15007","county_name":"Kauai County, Hawaii","below_poverty_line":4078,"above_poverty_line":46332,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"15","state_name":"Hawaii","county_fips":"15005","county_name":"Kalawao County, Hawaii","below_poverty_line":5,"above_poverty_line":35,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"15","state_name":"Hawaii","county_fips":"15005","county_name":"Kalawao County, Hawaii","below_poverty_line":2,"above_poverty_line":34,"sex":"Female","ingestion_ts":1662650349256}
+,{"state_fips":"15","state_name":"Hawaii","county_fips":"15009","county_name":"Maui County, Hawaii","below_poverty_line":11342,"above_poverty_line":104715,"sex":"Male","ingestion_ts":1662650349256}
+,{"state_fips":"15","state_name":"Hawaii","county_fips":"15009","county_name":"Maui County, Hawaii","below_poverty_line":11315,"above_poverty_line":104273,"sex":"Female","ingestion_ts":1662650349256}]

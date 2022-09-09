@@ -1,0 +1,261 @@
+[{"state_fips":"27","county_fips":"27001","county_name":"Aitkin County, Minnesota","sex":"All","population":15834,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27003","county_name":"Anoka County, Minnesota","sex":"All","population":350253,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27005","county_name":"Becker County, Minnesota","sex":"All","population":34011,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27007","county_name":"Beltrami County, Minnesota","sex":"All","population":46403,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27009","county_name":"Benton County, Minnesota","sex":"All","population":40129,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27011","county_name":"Big Stone County, Minnesota","sex":"All","population":4996,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27013","county_name":"Blue Earth County, Minnesota","sex":"All","population":66795,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27015","county_name":"Brown County, Minnesota","sex":"All","population":25163,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27017","county_name":"Carlton County, Minnesota","sex":"All","population":35633,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27019","county_name":"Carver County, Minnesota","sex":"All","population":101949,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27021","county_name":"Cass County, Minnesota","sex":"All","population":29268,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27023","county_name":"Chippewa County, Minnesota","sex":"All","population":11953,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27025","county_name":"Chisago County, Minnesota","sex":"All","population":55315,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27027","county_name":"Clay County, Minnesota","sex":"All","population":63446,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27029","county_name":"Clearwater County, Minnesota","sex":"All","population":8821,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27031","county_name":"Cook County, Minnesota","sex":"All","population":5376,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27033","county_name":"Cottonwood County, Minnesota","sex":"All","population":11299,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27035","county_name":"Crow Wing County, Minnesota","sex":"All","population":64217,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27037","county_name":"Dakota County, Minnesota","sex":"All","population":421453,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27039","county_name":"Dodge County, Minnesota","sex":"All","population":20669,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27041","county_name":"Douglas County, Minnesota","sex":"All","population":37513,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27043","county_name":"Faribault County, Minnesota","sex":"All","population":13801,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27045","county_name":"Fillmore County, Minnesota","sex":"All","population":20949,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27047","county_name":"Freeborn County, Minnesota","sex":"All","population":30463,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27049","county_name":"Goodhue County, Minnesota","sex":"All","population":46246,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27051","county_name":"Grant County, Minnesota","sex":"All","population":5935,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27053","county_name":"Hennepin County, Minnesota","sex":"All","population":1245837,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27055","county_name":"Houston County, Minnesota","sex":"All","population":18648,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27057","county_name":"Hubbard County, Minnesota","sex":"All","population":21019,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27059","county_name":"Isanti County, Minnesota","sex":"All","population":39430,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27061","county_name":"Itasca County, Minnesota","sex":"All","population":45141,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27063","county_name":"Jackson County, Minnesota","sex":"All","population":9954,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27065","county_name":"Kanabec County, Minnesota","sex":"All","population":16089,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27067","county_name":"Kandiyohi County, Minnesota","sex":"All","population":42841,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27069","county_name":"Kittson County, Minnesota","sex":"All","population":4311,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27071","county_name":"Koochiching County, Minnesota","sex":"All","population":12515,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27073","county_name":"Lac qui Parle County, Minnesota","sex":"All","population":6719,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27075","county_name":"Lake County, Minnesota","sex":"All","population":10560,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27077","county_name":"Lake of the Woods County, Minnesota","sex":"All","population":3771,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27079","county_name":"Le Sueur County, Minnesota","sex":"All","population":28242,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27081","county_name":"Lincoln County, Minnesota","sex":"All","population":5677,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27083","county_name":"Lyon County, Minnesota","sex":"All","population":25758,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27085","county_name":"McLeod County, Minnesota","sex":"All","population":35832,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27087","county_name":"Mahnomen County, Minnesota","sex":"All","population":5501,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27089","county_name":"Marshall County, Minnesota","sex":"All","population":9372,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27091","county_name":"Martin County, Minnesota","sex":"All","population":19852,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27093","county_name":"Meeker County, Minnesota","sex":"All","population":23105,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27095","county_name":"Mille Lacs County, Minnesota","sex":"All","population":25865,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27097","county_name":"Morrison County, Minnesota","sex":"All","population":33064,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27099","county_name":"Mower County, Minnesota","sex":"All","population":39807,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27101","county_name":"Murray County, Minnesota","sex":"All","population":8296,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27103","county_name":"Nicollet County, Minnesota","sex":"All","population":33954,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27105","county_name":"Nobles County, Minnesota","sex":"All","population":21734,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27107","county_name":"Norman County, Minnesota","sex":"All","population":6520,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27109","county_name":"Olmsted County, Minnesota","sex":"All","population":154809,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27111","county_name":"Otter Tail County, Minnesota","sex":"All","population":58195,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27113","county_name":"Pennington County, Minnesota","sex":"All","population":14183,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27115","county_name":"Pine County, Minnesota","sex":"All","population":29223,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27117","county_name":"Pipestone County, Minnesota","sex":"All","population":9191,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27119","county_name":"Polk County, Minnesota","sex":"All","population":31521,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27121","county_name":"Pope County, Minnesota","sex":"All","population":11048,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27123","county_name":"Ramsey County, Minnesota","sex":"All","population":544442,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27125","county_name":"Red Lake County, Minnesota","sex":"All","population":4015,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27127","county_name":"Redwood County, Minnesota","sex":"All","population":15261,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27129","county_name":"Renville County, Minnesota","sex":"All","population":14652,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27131","county_name":"Rice County, Minnesota","sex":"All","population":66185,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27133","county_name":"Rock County, Minnesota","sex":"All","population":9402,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27135","county_name":"Roseau County, Minnesota","sex":"All","population":15361,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27137","county_name":"St. Louis County, Minnesota","sex":"All","population":199759,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27139","county_name":"Scott County, Minnesota","sex":"All","population":145275,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27141","county_name":"Sherburne County, Minnesota","sex":"All","population":94463,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27143","county_name":"Sibley County, Minnesota","sex":"All","population":14892,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27145","county_name":"Stearns County, Minnesota","sex":"All","population":158452,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27147","county_name":"Steele County, Minnesota","sex":"All","population":36683,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27149","county_name":"Stevens County, Minnesota","sex":"All","population":9789,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27151","county_name":"Swift County, Minnesota","sex":"All","population":9359,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27153","county_name":"Todd County, Minnesota","sex":"All","population":24494,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27155","county_name":"Traverse County, Minnesota","sex":"All","population":3311,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27157","county_name":"Wabasha County, Minnesota","sex":"All","population":21537,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27159","county_name":"Wadena County, Minnesota","sex":"All","population":13654,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27161","county_name":"Waseca County, Minnesota","sex":"All","population":18740,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27163","county_name":"Washington County, Minnesota","sex":"All","population":255938,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27165","county_name":"Watonwan County, Minnesota","sex":"All","population":10972,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27167","county_name":"Wilkin County, Minnesota","sex":"All","population":6291,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27169","county_name":"Winona County, Minnesota","sex":"All","population":50725,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27171","county_name":"Wright County, Minnesota","sex":"All","population":134438,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27173","county_name":"Yellow Medicine County, Minnesota","sex":"All","population":9814,"population_pct":100.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27017","county_name":"Carlton County, Minnesota","sex":"Male","population":18634,"population_pct":52.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27025","county_name":"Chisago County, Minnesota","sex":"Male","population":28780,"population_pct":52.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27077","county_name":"Lake of the Woods County, Minnesota","sex":"Male","population":2009,"population_pct":53.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27115","county_name":"Pine County, Minnesota","sex":"Male","population":15601,"population_pct":53.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27003","county_name":"Anoka County, Minnesota","sex":"Male","population":175259,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27033","county_name":"Cottonwood County, Minnesota","sex":"Male","population":5650,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27041","county_name":"Douglas County, Minnesota","sex":"Male","population":18768,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27101","county_name":"Murray County, Minnesota","sex":"Male","population":4149,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27089","county_name":"Marshall County, Minnesota","sex":"Male","population":4735,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27127","county_name":"Redwood County, Minnesota","sex":"Male","population":7706,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27171","county_name":"Wright County, Minnesota","sex":"Male","population":67939,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27131","county_name":"Rice County, Minnesota","sex":"Male","population":33765,"population_pct":51.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27023","county_name":"Chippewa County, Minnesota","sex":"Male","population":5912,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27031","county_name":"Cook County, Minnesota","sex":"Male","population":2661,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27163","county_name":"Washington County, Minnesota","sex":"Male","population":126626,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27169","county_name":"Winona County, Minnesota","sex":"Male","population":25126,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27135","county_name":"Roseau County, Minnesota","sex":"Male","population":7910,"population_pct":51.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27081","county_name":"Lincoln County, Minnesota","sex":"Male","population":2860,"population_pct":50.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27097","county_name":"Morrison County, Minnesota","sex":"Male","population":16679,"population_pct":50.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27099","county_name":"Mower County, Minnesota","sex":"Male","population":20058,"population_pct":50.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27111","county_name":"Otter Tail County, Minnesota","sex":"Male","population":29326,"population_pct":50.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27157","county_name":"Wabasha County, Minnesota","sex":"Male","population":10849,"population_pct":50.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27109","county_name":"Olmsted County, Minnesota","sex":"Male","population":75648,"population_pct":48.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27133","county_name":"Rock County, Minnesota","sex":"Male","population":4601,"population_pct":48.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27107","county_name":"Norman County, Minnesota","sex":"Male","population":3320,"population_pct":50.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27119","county_name":"Polk County, Minnesota","sex":"Male","population":16038,"population_pct":50.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27129","county_name":"Renville County, Minnesota","sex":"Male","population":7456,"population_pct":50.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27143","county_name":"Sibley County, Minnesota","sex":"Male","population":7581,"population_pct":50.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27027","county_name":"Clay County, Minnesota","sex":"Male","population":31334,"population_pct":49.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27053","county_name":"Hennepin County, Minnesota","sex":"Male","population":616042,"population_pct":49.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27159","county_name":"Wadena County, Minnesota","sex":"Male","population":6739,"population_pct":49.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27075","county_name":"Lake County, Minnesota","sex":"Male","population":5424,"population_pct":51.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27153","county_name":"Todd County, Minnesota","sex":"Male","population":12591,"population_pct":51.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27007","county_name":"Beltrami County, Minnesota","sex":"Male","population":23137,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27039","county_name":"Dodge County, Minnesota","sex":"Male","population":10393,"population_pct":50.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27045","county_name":"Fillmore County, Minnesota","sex":"Male","population":10542,"population_pct":50.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27067","county_name":"Kandiyohi County, Minnesota","sex":"Male","population":21565,"population_pct":50.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27069","county_name":"Kittson County, Minnesota","sex":"Male","population":2169,"population_pct":50.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27095","county_name":"Mille Lacs County, Minnesota","sex":"Male","population":13001,"population_pct":50.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27145","county_name":"Stearns County, Minnesota","sex":"Male","population":79704,"population_pct":50.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27117","county_name":"Pipestone County, Minnesota","sex":"Male","population":4484,"population_pct":48.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27123","county_name":"Ramsey County, Minnesota","sex":"Male","population":265450,"population_pct":48.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27001","county_name":"Aitkin County, Minnesota","sex":"Male","population":8047,"population_pct":50.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27125","county_name":"Red Lake County, Minnesota","sex":"Male","population":2041,"population_pct":50.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27173","county_name":"Yellow Medicine County, Minnesota","sex":"Male","population":4984,"population_pct":50.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27037","county_name":"Dakota County, Minnesota","sex":"Male","population":207870,"population_pct":49.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27005","county_name":"Becker County, Minnesota","sex":"Male","population":16928,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27011","county_name":"Big Stone County, Minnesota","sex":"Male","population":2488,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27035","county_name":"Crow Wing County, Minnesota","sex":"Male","population":31961,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27071","county_name":"Koochiching County, Minnesota","sex":"Male","population":6238,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27083","county_name":"Lyon County, Minnesota","sex":"Male","population":12830,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27139","county_name":"Scott County, Minnesota","sex":"Male","population":72365,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27105","county_name":"Nobles County, Minnesota","sex":"Male","population":11256,"population_pct":51.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27009","county_name":"Benton County, Minnesota","sex":"Male","population":20130,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27055","county_name":"Houston County, Minnesota","sex":"Male","population":9368,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27165","county_name":"Watonwan County, Minnesota","sex":"Male","population":5511,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27059","county_name":"Isanti County, Minnesota","sex":"Male","population":19973,"population_pct":50.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27087","county_name":"Mahnomen County, Minnesota","sex":"Male","population":2788,"population_pct":50.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27029","county_name":"Clearwater County, Minnesota","sex":"Male","population":4514,"population_pct":51.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27019","county_name":"Carver County, Minnesota","sex":"Male","population":50618,"population_pct":49.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27047","county_name":"Freeborn County, Minnesota","sex":"Male","population":15155,"population_pct":49.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27049","county_name":"Goodhue County, Minnesota","sex":"Male","population":22975,"population_pct":49.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27113","county_name":"Pennington County, Minnesota","sex":"Male","population":7055,"population_pct":49.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27155","county_name":"Traverse County, Minnesota","sex":"Male","population":1644,"population_pct":49.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27161","county_name":"Waseca County, Minnesota","sex":"Male","population":9005,"population_pct":48.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27013","county_name":"Blue Earth County, Minnesota","sex":"Male","population":33456,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27015","county_name":"Brown County, Minnesota","sex":"Male","population":12610,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27043","county_name":"Faribault County, Minnesota","sex":"Male","population":6920,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27073","county_name":"Lac qui Parle County, Minnesota","sex":"Male","population":3368,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27079","county_name":"Le Sueur County, Minnesota","sex":"Male","population":14153,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27085","county_name":"McLeod County, Minnesota","sex":"Male","population":17955,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27091","county_name":"Martin County, Minnesota","sex":"Male","population":9952,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27103","county_name":"Nicollet County, Minnesota","sex":"Male","population":17018,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27137","county_name":"St. Louis County, Minnesota","sex":"Male","population":100118,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27149","county_name":"Stevens County, Minnesota","sex":"Male","population":4908,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27151","county_name":"Swift County, Minnesota","sex":"Male","population":4686,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27051","county_name":"Grant County, Minnesota","sex":"Male","population":3001,"population_pct":50.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27057","county_name":"Hubbard County, Minnesota","sex":"Male","population":10627,"population_pct":50.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27061","county_name":"Itasca County, Minnesota","sex":"Male","population":22863,"population_pct":50.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27065","county_name":"Kanabec County, Minnesota","sex":"Male","population":8136,"population_pct":50.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27121","county_name":"Pope County, Minnesota","sex":"Male","population":5587,"population_pct":50.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27021","county_name":"Cass County, Minnesota","sex":"Male","population":14967,"population_pct":51.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27063","county_name":"Jackson County, Minnesota","sex":"Male","population":5089,"population_pct":51.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27093","county_name":"Meeker County, Minnesota","sex":"Male","population":11800,"population_pct":51.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27141","county_name":"Sherburne County, Minnesota","sex":"Male","population":48249,"population_pct":51.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27147","county_name":"Steele County, Minnesota","sex":"Male","population":18200,"population_pct":49.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27167","county_name":"Wilkin County, Minnesota","sex":"Male","population":3245,"population_pct":51.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27017","county_name":"Carlton County, Minnesota","sex":"Female","population":16999,"population_pct":47.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27025","county_name":"Chisago County, Minnesota","sex":"Female","population":26535,"population_pct":48.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27077","county_name":"Lake of the Woods County, Minnesota","sex":"Female","population":1762,"population_pct":46.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27115","county_name":"Pine County, Minnesota","sex":"Female","population":13622,"population_pct":46.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27003","county_name":"Anoka County, Minnesota","sex":"Female","population":174994,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27033","county_name":"Cottonwood County, Minnesota","sex":"Female","population":5649,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27041","county_name":"Douglas County, Minnesota","sex":"Female","population":18745,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27101","county_name":"Murray County, Minnesota","sex":"Female","population":4147,"population_pct":50.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27135","county_name":"Roseau County, Minnesota","sex":"Female","population":7451,"population_pct":48.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27023","county_name":"Chippewa County, Minnesota","sex":"Female","population":6041,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27031","county_name":"Cook County, Minnesota","sex":"Female","population":2715,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27163","county_name":"Washington County, Minnesota","sex":"Female","population":129312,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27169","county_name":"Winona County, Minnesota","sex":"Female","population":25599,"population_pct":50.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27131","county_name":"Rice County, Minnesota","sex":"Female","population":32420,"population_pct":49.0,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27089","county_name":"Marshall County, Minnesota","sex":"Female","population":4637,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27127","county_name":"Redwood County, Minnesota","sex":"Female","population":7555,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27171","county_name":"Wright County, Minnesota","sex":"Female","population":66499,"population_pct":49.5,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27167","county_name":"Wilkin County, Minnesota","sex":"Female","population":3046,"population_pct":48.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27147","county_name":"Steele County, Minnesota","sex":"Female","population":18483,"population_pct":50.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27021","county_name":"Cass County, Minnesota","sex":"Female","population":14301,"population_pct":48.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27063","county_name":"Jackson County, Minnesota","sex":"Female","population":4865,"population_pct":48.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27093","county_name":"Meeker County, Minnesota","sex":"Female","population":11305,"population_pct":48.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27141","county_name":"Sherburne County, Minnesota","sex":"Female","population":46214,"population_pct":48.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27051","county_name":"Grant County, Minnesota","sex":"Female","population":2934,"population_pct":49.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27057","county_name":"Hubbard County, Minnesota","sex":"Female","population":10392,"population_pct":49.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27061","county_name":"Itasca County, Minnesota","sex":"Female","population":22278,"population_pct":49.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27065","county_name":"Kanabec County, Minnesota","sex":"Female","population":7953,"population_pct":49.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27121","county_name":"Pope County, Minnesota","sex":"Female","population":5461,"population_pct":49.4,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27013","county_name":"Blue Earth County, Minnesota","sex":"Female","population":33339,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27015","county_name":"Brown County, Minnesota","sex":"Female","population":12553,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27043","county_name":"Faribault County, Minnesota","sex":"Female","population":6881,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27073","county_name":"Lac qui Parle County, Minnesota","sex":"Female","population":3351,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27079","county_name":"Le Sueur County, Minnesota","sex":"Female","population":14089,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27085","county_name":"McLeod County, Minnesota","sex":"Female","population":17877,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27091","county_name":"Martin County, Minnesota","sex":"Female","population":9900,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27103","county_name":"Nicollet County, Minnesota","sex":"Female","population":16936,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27137","county_name":"St. Louis County, Minnesota","sex":"Female","population":99641,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27149","county_name":"Stevens County, Minnesota","sex":"Female","population":4881,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27151","county_name":"Swift County, Minnesota","sex":"Female","population":4673,"population_pct":49.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27161","county_name":"Waseca County, Minnesota","sex":"Female","population":9735,"population_pct":51.9,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27019","county_name":"Carver County, Minnesota","sex":"Female","population":51331,"population_pct":50.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27047","county_name":"Freeborn County, Minnesota","sex":"Female","population":15308,"population_pct":50.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27049","county_name":"Goodhue County, Minnesota","sex":"Female","population":23271,"population_pct":50.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27113","county_name":"Pennington County, Minnesota","sex":"Female","population":7128,"population_pct":50.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27155","county_name":"Traverse County, Minnesota","sex":"Female","population":1667,"population_pct":50.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27029","county_name":"Clearwater County, Minnesota","sex":"Female","population":4307,"population_pct":48.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27059","county_name":"Isanti County, Minnesota","sex":"Female","population":19457,"population_pct":49.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27087","county_name":"Mahnomen County, Minnesota","sex":"Female","population":2713,"population_pct":49.3,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27009","county_name":"Benton County, Minnesota","sex":"Female","population":19999,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27055","county_name":"Houston County, Minnesota","sex":"Female","population":9280,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27165","county_name":"Watonwan County, Minnesota","sex":"Female","population":5461,"population_pct":49.8,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27105","county_name":"Nobles County, Minnesota","sex":"Female","population":10478,"population_pct":48.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27005","county_name":"Becker County, Minnesota","sex":"Female","population":17083,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27011","county_name":"Big Stone County, Minnesota","sex":"Female","population":2508,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27035","county_name":"Crow Wing County, Minnesota","sex":"Female","population":32256,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27071","county_name":"Koochiching County, Minnesota","sex":"Female","population":6277,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27083","county_name":"Lyon County, Minnesota","sex":"Female","population":12928,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27139","county_name":"Scott County, Minnesota","sex":"Female","population":72910,"population_pct":50.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27037","county_name":"Dakota County, Minnesota","sex":"Female","population":213583,"population_pct":50.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27001","county_name":"Aitkin County, Minnesota","sex":"Female","population":7787,"population_pct":49.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27125","county_name":"Red Lake County, Minnesota","sex":"Female","population":1974,"population_pct":49.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27173","county_name":"Yellow Medicine County, Minnesota","sex":"Female","population":4830,"population_pct":49.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27117","county_name":"Pipestone County, Minnesota","sex":"Female","population":4707,"population_pct":51.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27123","county_name":"Ramsey County, Minnesota","sex":"Female","population":278992,"population_pct":51.2,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27039","county_name":"Dodge County, Minnesota","sex":"Female","population":10276,"population_pct":49.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27045","county_name":"Fillmore County, Minnesota","sex":"Female","population":10407,"population_pct":49.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27067","county_name":"Kandiyohi County, Minnesota","sex":"Female","population":21276,"population_pct":49.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27069","county_name":"Kittson County, Minnesota","sex":"Female","population":2142,"population_pct":49.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27095","county_name":"Mille Lacs County, Minnesota","sex":"Female","population":12864,"population_pct":49.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27145","county_name":"Stearns County, Minnesota","sex":"Female","population":78748,"population_pct":49.7,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27007","county_name":"Beltrami County, Minnesota","sex":"Female","population":23266,"population_pct":50.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27075","county_name":"Lake County, Minnesota","sex":"Female","population":5136,"population_pct":48.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27153","county_name":"Todd County, Minnesota","sex":"Female","population":11903,"population_pct":48.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27027","county_name":"Clay County, Minnesota","sex":"Female","population":32112,"population_pct":50.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27053","county_name":"Hennepin County, Minnesota","sex":"Female","population":629795,"population_pct":50.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27159","county_name":"Wadena County, Minnesota","sex":"Female","population":6915,"population_pct":50.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27107","county_name":"Norman County, Minnesota","sex":"Female","population":3200,"population_pct":49.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27119","county_name":"Polk County, Minnesota","sex":"Female","population":15483,"population_pct":49.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27129","county_name":"Renville County, Minnesota","sex":"Female","population":7196,"population_pct":49.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27143","county_name":"Sibley County, Minnesota","sex":"Female","population":7311,"population_pct":49.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27109","county_name":"Olmsted County, Minnesota","sex":"Female","population":79161,"population_pct":51.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27133","county_name":"Rock County, Minnesota","sex":"Female","population":4801,"population_pct":51.1,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27081","county_name":"Lincoln County, Minnesota","sex":"Female","population":2817,"population_pct":49.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27097","county_name":"Morrison County, Minnesota","sex":"Female","population":16385,"population_pct":49.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27099","county_name":"Mower County, Minnesota","sex":"Female","population":19749,"population_pct":49.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27111","county_name":"Otter Tail County, Minnesota","sex":"Female","population":28869,"population_pct":49.6,"ingestion_ts":1662663914333}
+,{"state_fips":"27","county_fips":"27157","county_name":"Wabasha County, Minnesota","sex":"Female","population":10688,"population_pct":49.6,"ingestion_ts":1662663914333}]

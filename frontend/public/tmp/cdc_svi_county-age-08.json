@@ -1,0 +1,64 @@
+[{"county_fips":"08039","county_name":"Elbert County","svi":0.0,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08047","county_name":"Gilpin County","svi":0.0,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08093","county_name":"Park County","svi":0.0,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08085","county_name":"Montrose County","svi":0.72,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08029","county_name":"Delta County","svi":0.69,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08115","county_name":"Sedgwick County","svi":0.69,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08099","county_name":"Prowers County","svi":0.94,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08023","county_name":"Costilla County","svi":0.94,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08067","county_name":"La Plata County","svi":0.11,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08075","county_name":"Logan County","svi":0.63,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08033","county_name":"Dolores County","svi":0.15,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08095","county_name":"Phillips County","svi":0.3,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08055","county_name":"Huerfano County","svi":0.6,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08005","county_name":"Arapahoe County","svi":0.27,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08083","county_name":"Montezuma County","svi":0.49,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08045","county_name":"Garfield County","svi":0.35,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08003","county_name":"Alamosa County","svi":0.95,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08035","county_name":"Douglas County","svi":0.01,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08019","county_name":"Clear Creek County","svi":0.02,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08091","county_name":"Ouray County","svi":0.02,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08061","county_name":"Kiowa County","svi":0.32,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08025","county_name":"Crowley County","svi":0.89,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08009","county_name":"Baca County","svi":0.61,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08077","county_name":"Mesa County","svi":0.58,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08014","county_name":"Broomfield County","svi":0.05,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08049","county_name":"Grand County","svi":0.1,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08123","county_name":"Weld County","svi":0.4,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08081","county_name":"Moffat County","svi":0.55,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08111","county_name":"San Juan County","svi":0.13,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08007","county_name":"Archuleta County","svi":0.26,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08017","county_name":"Cheyenne County","svi":0.26,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08063","county_name":"Kit Carson County","svi":0.52,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08087","county_name":"Morgan County","svi":0.74,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08079","county_name":"Mineral County","svi":0.03,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08113","county_name":"San Miguel County","svi":0.03,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08107","county_name":"Routt County","svi":0.06,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08053","county_name":"Hinsdale County","svi":0.06,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08069","county_name":"Larimer County","svi":0.12,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08015","county_name":"Chaffee County","svi":0.24,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08027","county_name":"Custer County","svi":0.24,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08089","county_name":"Otero County","svi":0.96,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08105","county_name":"Rio Grande County","svi":0.96,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08013","county_name":"Boulder County","svi":0.17,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08103","county_name":"Rio Blanco County","svi":0.34,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08021","county_name":"Conejos County","svi":0.93,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08065","county_name":"Lake County","svi":0.45,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08043","county_name":"Fremont County","svi":0.65,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08011","county_name":"Bent County","svi":0.9,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08101","county_name":"Pueblo County","svi":0.87,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08031","county_name":"Denver County","svi":0.42,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08001","county_name":"Adams County","svi":0.59,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08071","county_name":"Las Animas County","svi":0.84,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08119","county_name":"Teller County","svi":0.07,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08097","county_name":"Pitkin County","svi":0.07,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08117","county_name":"Summit County","svi":0.07,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08051","county_name":"Gunnison County","svi":0.14,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08037","county_name":"Eagle County","svi":0.14,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08125","county_name":"Yuma County","svi":0.56,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08109","county_name":"Saguache County","svi":0.81,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08041","county_name":"El Paso County","svi":0.39,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08057","county_name":"Jackson County","svi":0.11,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08073","county_name":"Lincoln County","svi":0.49,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08059","county_name":"Jefferson County","svi":0.06,"age":"All","ingestion_ts":1662477615221}
+,{"county_fips":"08121","county_name":"Washington County","svi":0.28,"age":"All","ingestion_ts":1662477615221}]

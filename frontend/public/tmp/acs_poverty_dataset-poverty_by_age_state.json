@@ -1,0 +1,520 @@
+[{"state_fips":"01","state_name":"Alabama","below_poverty_line":"134798","above_poverty_line":"434045","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"01","state_name":"Alabama","below_poverty_line":"130155","above_poverty_line":"471980","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"01","state_name":"Alabama","below_poverty_line":"112709","above_poverty_line":"504324","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"01","state_name":"Alabama","below_poverty_line":"167355","above_poverty_line":"513684","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"01","state_name":"Alabama","below_poverty_line":"163569","above_poverty_line":"879302","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"01","state_name":"Alabama","below_poverty_line":"127769","above_poverty_line":"860011","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"01","state_name":"Alabama","below_poverty_line":"123280","above_poverty_line":"949842","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"01","state_name":"Alabama","below_poverty_line":"134836","above_poverty_line":"975177","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"01","state_name":"Alabama","below_poverty_line":"73582","above_poverty_line":"762028","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"01","state_name":"Alabama","below_poverty_line":"56455","above_poverty_line":"512439","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"02","state_name":"Alaska","below_poverty_line":"13430","above_poverty_line":"86684","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"02","state_name":"Alaska","below_poverty_line":"12668","above_poverty_line":"83547","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"02","state_name":"Alaska","below_poverty_line":"10677","above_poverty_line":"79734","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"02","state_name":"Alaska","below_poverty_line":"15108","above_poverty_line":"90291","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"02","state_name":"Alaska","below_poverty_line":"17439","above_poverty_line":"177520","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"02","state_name":"Alaska","below_poverty_line":"11692","above_poverty_line":"145202","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"02","state_name":"Alaska","below_poverty_line":"11373","above_poverty_line":"142878","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"02","state_name":"Alaska","below_poverty_line":"12804","above_poverty_line":"152482","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"02","state_name":"Alaska","below_poverty_line":"5007","above_poverty_line":"94343","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"02","state_name":"Alaska","below_poverty_line":"2933","above_poverty_line":"41762","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"04","state_name":"Arizona","below_poverty_line":"212039","above_poverty_line":"718275","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"04","state_name":"Arizona","below_poverty_line":"219888","above_poverty_line":"781971","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"04","state_name":"Arizona","below_poverty_line":"189157","above_poverty_line":"827280","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"04","state_name":"Arizona","below_poverty_line":"254194","above_poverty_line":"902996","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"04","state_name":"Arizona","below_poverty_line":"251613","above_poverty_line":"1464491","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"04","state_name":"Arizona","below_poverty_line":"206966","above_poverty_line":"1354690","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"04","state_name":"Arizona","below_poverty_line":"166989","above_poverty_line":"1392260","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"04","state_name":"Arizona","below_poverty_line":"184610","above_poverty_line":"1401367","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"04","state_name":"Arizona","below_poverty_line":"109439","above_poverty_line":"1225889","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"04","state_name":"Arizona","below_poverty_line":"90749","above_poverty_line":"875776","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"05","state_name":"Arkansas","below_poverty_line":"96895","above_poverty_line":"291235","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"05","state_name":"Arkansas","below_poverty_line":"89822","above_poverty_line":"322568","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"05","state_name":"Arkansas","below_poverty_line":"79047","above_poverty_line":"333393","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"05","state_name":"Arkansas","below_poverty_line":"113010","above_poverty_line":"330232","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"05","state_name":"Arkansas","below_poverty_line":"113061","above_poverty_line":"568564","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"05","state_name":"Arkansas","below_poverty_line":"85195","above_poverty_line":"561297","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"05","state_name":"Arkansas","below_poverty_line":"82643","above_poverty_line":"584172","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"05","state_name":"Arkansas","below_poverty_line":"91268","above_poverty_line":"596174","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"05","state_name":"Arkansas","below_poverty_line":"47744","above_poverty_line":"486073","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"05","state_name":"Arkansas","below_poverty_line":"39774","above_poverty_line":"332079","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"06","state_name":"California","below_poverty_line":"976185","above_poverty_line":"4133403","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"06","state_name":"California","below_poverty_line":"1008513","above_poverty_line":"4290408","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"06","state_name":"California","below_poverty_line":"947869","above_poverty_line":"4431474","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"06","state_name":"California","below_poverty_line":"1204172","above_poverty_line":"5034007","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"06","state_name":"California","below_poverty_line":"1236738","above_poverty_line":"9026942","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"06","state_name":"California","below_poverty_line":"1073576","above_poverty_line":"7914925","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"06","state_name":"California","below_poverty_line":"877185","above_poverty_line":"7997039","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"06","state_name":"California","below_poverty_line":"849457","above_poverty_line":"7381260","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"06","state_name":"California","below_poverty_line":"504249","above_poverty_line":"5057373","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"06","state_name":"California","below_poverty_line":"436891","above_poverty_line":"3556301","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"08","state_name":"Colorado","below_poverty_line":"96247","above_poverty_line":"645536","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"08","state_name":"Colorado","below_poverty_line":"100038","above_poverty_line":"693856","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"08","state_name":"Colorado","below_poverty_line":"90883","above_poverty_line":"704693","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"08","state_name":"Colorado","below_poverty_line":"188494","above_poverty_line":"703548","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"08","state_name":"Colorado","below_poverty_line":"157729","above_poverty_line":"1455600","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"08","state_name":"Colorado","below_poverty_line":"104330","above_poverty_line":"1319966","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"08","state_name":"Colorado","below_poverty_line":"93405","above_poverty_line":"1250447","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"08","state_name":"Colorado","below_poverty_line":"113119","above_poverty_line":"1227085","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"08","state_name":"Colorado","below_poverty_line":"60837","above_poverty_line":"856637","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"08","state_name":"Colorado","below_poverty_line":"45976","above_poverty_line":"505286","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"10","state_name":"Delaware","below_poverty_line":"18141","above_poverty_line":"85315","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"10","state_name":"Delaware","below_poverty_line":"18282","above_poverty_line":"89702","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"10","state_name":"Delaware","below_poverty_line":"16392","above_poverty_line":"100779","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"10","state_name":"Delaware","below_poverty_line":"22201","above_poverty_line":"97606","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"10","state_name":"Delaware","below_poverty_line":"22656","above_poverty_line":"189285","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"10","state_name":"Delaware","below_poverty_line":"17924","above_poverty_line":"166825","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"10","state_name":"Delaware","below_poverty_line":"18150","above_poverty_line":"193211","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"10","state_name":"Delaware","below_poverty_line":"20019","above_poverty_line":"212640","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"10","state_name":"Delaware","below_poverty_line":"10600","above_poverty_line":"176505","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"10","state_name":"Delaware","below_poverty_line":"8647","above_poverty_line":"114754","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"11","state_name":"District of Columbia","below_poverty_line":"12440","above_poverty_line":"62460","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"11","state_name":"District of Columbia","below_poverty_line":"10747","above_poverty_line":"40926","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"11","state_name":"District of Columbia","below_poverty_line":"9394","above_poverty_line":"32919","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"11","state_name":"District of Columbia","below_poverty_line":"23238","above_poverty_line":"46568","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"11","state_name":"District of Columbia","below_poverty_line":"22297","above_poverty_line":"235001","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"11","state_name":"District of Columbia","below_poverty_line":"12014","above_poverty_line":"145391","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"11","state_name":"District of Columbia","below_poverty_line":"11862","above_poverty_line":"97150","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"11","state_name":"District of Columbia","below_poverty_line":"13951","above_poverty_line":"81270","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"11","state_name":"District of Columbia","below_poverty_line":"8006","above_poverty_line":"58967","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"11","state_name":"District of Columbia","below_poverty_line":"6018","above_poverty_line":"40716","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"09","state_name":"Connecticut","below_poverty_line":"55041","above_poverty_line":"333821","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"09","state_name":"Connecticut","below_poverty_line":"58259","above_poverty_line":"379451","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"09","state_name":"Connecticut","below_poverty_line":"56068","above_poverty_line":"433074","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"09","state_name":"Connecticut","below_poverty_line":"76186","above_poverty_line":"450042","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"09","state_name":"Connecticut","below_poverty_line":"80516","above_poverty_line":"696008","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"09","state_name":"Connecticut","below_poverty_line":"62196","above_poverty_line":"696076","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"09","state_name":"Connecticut","below_poverty_line":"67380","above_poverty_line":"861998","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"09","state_name":"Connecticut","below_poverty_line":"71270","above_poverty_line":"873490","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"09","state_name":"Connecticut","below_poverty_line":"40322","above_poverty_line":"589191","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"09","state_name":"Connecticut","below_poverty_line":"37462","above_poverty_line":"437570","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"12","state_name":"Florida","below_poverty_line":"481360","above_poverty_line":"1804185","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"12","state_name":"Florida","below_poverty_line":"455368","above_poverty_line":"1911247","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"12","state_name":"Florida","below_poverty_line":"415475","above_poverty_line":"2051267","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"12","state_name":"Florida","below_poverty_line":"541399","above_poverty_line":"2281563","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"12","state_name":"Florida","below_poverty_line":"615880","above_poverty_line":"4076438","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"12","state_name":"Florida","below_poverty_line":"522401","above_poverty_line":"3893636","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"12","state_name":"Florida","below_poverty_line":"513995","above_poverty_line":"4387426","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"12","state_name":"Florida","below_poverty_line":"585968","above_poverty_line":"4456843","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"12","state_name":"Florida","below_poverty_line":"412819","above_poverty_line":"3903809","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"12","state_name":"Florida","below_poverty_line":"369217","above_poverty_line":"3127726","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"13","state_name":"Georgia","below_poverty_line":"264165","above_poverty_line":"963537","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"13","state_name":"Georgia","below_poverty_line":"273801","above_poverty_line":"1047097","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"13","state_name":"Georgia","below_poverty_line":"232389","above_poverty_line":"1130788","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"13","state_name":"Georgia","below_poverty_line":"300846","above_poverty_line":"1119686","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"13","state_name":"Georgia","below_poverty_line":"307942","above_poverty_line":"1926023","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"13","state_name":"Georgia","below_poverty_line":"255337","above_poverty_line":"1910954","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"13","state_name":"Georgia","below_poverty_line":"215928","above_poverty_line":"2057803","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"13","state_name":"Georgia","below_poverty_line":"222598","above_poverty_line":"1851176","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"13","state_name":"Georgia","below_poverty_line":"127860","above_poverty_line":"1342359","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"13","state_name":"Georgia","below_poverty_line":"92772","above_poverty_line":"823117","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"16","state_name":"Idaho","below_poverty_line":"48352","above_poverty_line":"215075","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"16","state_name":"Idaho","below_poverty_line":"45718","above_poverty_line":"241917","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"16","state_name":"Idaho","below_poverty_line":"37039","above_poverty_line":"251942","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"16","state_name":"Idaho","below_poverty_line":"74147","above_poverty_line":"216621","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"16","state_name":"Idaho","below_poverty_line":"58808","above_poverty_line":"369195","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"16","state_name":"Idaho","below_poverty_line":"42479","above_poverty_line":"368231","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"16","state_name":"Idaho","below_poverty_line":"35940","above_poverty_line":"350255","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"16","state_name":"Idaho","below_poverty_line":"38491","above_poverty_line":"373756","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"16","state_name":"Idaho","below_poverty_line":"24130","above_poverty_line":"288372","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"16","state_name":"Idaho","below_poverty_line":"19219","above_poverty_line":"181294","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"15","state_name":"Hawaii","below_poverty_line":"19738","above_poverty_line":"124414","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"15","state_name":"Hawaii","below_poverty_line":"15018","above_poverty_line":"115852","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"15","state_name":"Hawaii","below_poverty_line":"13453","above_poverty_line":"107501","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"15","state_name":"Hawaii","below_poverty_line":"19196","above_poverty_line":"120508","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"15","state_name":"Hawaii","below_poverty_line":"25421","above_poverty_line":"245231","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"15","state_name":"Hawaii","below_poverty_line":"17785","above_poverty_line":"216937","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"15","state_name":"Hawaii","below_poverty_line":"17501","above_poverty_line":"205309","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"15","state_name":"Hawaii","below_poverty_line":"22916","above_poverty_line":"216173","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"15","state_name":"Hawaii","below_poverty_line":"14472","above_poverty_line":"177508","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"15","state_name":"Hawaii","below_poverty_line":"11662","above_poverty_line":"120746","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"17","state_name":"Illinois","below_poverty_line":"270619","above_poverty_line":"1315713","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"17","state_name":"Illinois","below_poverty_line":"271065","above_poverty_line":"1408716","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"17","state_name":"Illinois","below_poverty_line":"243277","above_poverty_line":"1510042","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"17","state_name":"Illinois","below_poverty_line":"365334","above_poverty_line":"1538404","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"17","state_name":"Illinois","below_poverty_line":"344284","above_poverty_line":"2728982","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"17","state_name":"Illinois","below_poverty_line":"280561","above_poverty_line":"2613866","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"17","state_name":"Illinois","below_poverty_line":"238618","above_poverty_line":"2741090","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"17","state_name":"Illinois","below_poverty_line":"259180","above_poverty_line":"2719216","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"17","state_name":"Illinois","below_poverty_line":"145623","above_poverty_line":"1856937","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"17","state_name":"Illinois","below_poverty_line":"132142","above_poverty_line":"1307745","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"18","state_name":"Indiana","below_poverty_line":"170686","above_poverty_line":"718777","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"18","state_name":"Indiana","below_poverty_line":"161721","above_poverty_line":"770398","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"18","state_name":"Indiana","below_poverty_line":"144951","above_poverty_line":"832075","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"18","state_name":"Indiana","below_poverty_line":"242835","above_poverty_line":"817431","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"18","state_name":"Indiana","below_poverty_line":"204023","above_poverty_line":"1354920","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"18","state_name":"Indiana","below_poverty_line":"159713","above_poverty_line":"1338258","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"18","state_name":"Indiana","below_poverty_line":"145493","above_poverty_line":"1441718","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"18","state_name":"Indiana","below_poverty_line":"147213","above_poverty_line":"1485318","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"18","state_name":"Indiana","below_poverty_line":"75525","above_poverty_line":"1052564","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"18","state_name":"Indiana","below_poverty_line":"64595","above_poverty_line":"705046","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"19","state_name":"Iowa","below_poverty_line":"64821","above_poverty_line":"371407","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"19","state_name":"Iowa","below_poverty_line":"58119","above_poverty_line":"396155","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"19","state_name":"Iowa","below_poverty_line":"49564","above_poverty_line":"404578","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"19","state_name":"Iowa","below_poverty_line":"132488","above_poverty_line":"374639","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"19","state_name":"Iowa","below_poverty_line":"81837","above_poverty_line":"654092","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"19","state_name":"Iowa","below_poverty_line":"59894","above_poverty_line":"650892","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"19","state_name":"Iowa","below_poverty_line":"57140","above_poverty_line":"674480","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"19","state_name":"Iowa","below_poverty_line":"60994","above_poverty_line":"748963","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"19","state_name":"Iowa","below_poverty_line":"32731","above_poverty_line":"530834","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"19","state_name":"Iowa","below_poverty_line":"37344","above_poverty_line":"391057","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"20","state_name":"Kansas","below_poverty_line":"66682","above_poverty_line":"351553","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"20","state_name":"Kansas","below_poverty_line":"62726","above_poverty_line":"371465","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"20","state_name":"Kansas","below_poverty_line":"53582","above_poverty_line":"388129","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"20","state_name":"Kansas","below_poverty_line":"119219","above_poverty_line":"365480","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"20","state_name":"Kansas","below_poverty_line":"76989","above_poverty_line":"620402","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"20","state_name":"Kansas","below_poverty_line":"58997","above_poverty_line":"594009","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"20","state_name":"Kansas","below_poverty_line":"48770","above_poverty_line":"598055","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"20","state_name":"Kansas","below_poverty_line":"57660","above_poverty_line":"646062","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"20","state_name":"Kansas","below_poverty_line":"29682","above_poverty_line":"453386","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"20","state_name":"Kansas","below_poverty_line":"31793","above_poverty_line":"318655","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"21","state_name":"Kentucky","below_poverty_line":"147355","above_poverty_line":"439988","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"21","state_name":"Kentucky","below_poverty_line":"142092","above_poverty_line":"466438","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"21","state_name":"Kentucky","below_poverty_line":"121579","above_poverty_line":"501799","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"21","state_name":"Kentucky","below_poverty_line":"171616","above_poverty_line":"512942","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"21","state_name":"Kentucky","below_poverty_line":"184860","above_poverty_line":"868847","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"21","state_name":"Kentucky","below_poverty_line":"153468","above_poverty_line":"864147","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"21","state_name":"Kentucky","below_poverty_line":"150549","above_poverty_line":"946319","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"21","state_name":"Kentucky","below_poverty_line":"152161","above_poverty_line":"969440","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"21","state_name":"Kentucky","below_poverty_line":"79241","above_poverty_line":"726301","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"21","state_name":"Kentucky","below_poverty_line":"63863","above_poverty_line":"458104","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"22","state_name":"Louisiana","below_poverty_line":"143267","above_poverty_line":"426360","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"22","state_name":"Louisiana","below_poverty_line":"137194","above_poverty_line":"434578","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"22","state_name":"Louisiana","below_poverty_line":"117078","above_poverty_line":"457431","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"22","state_name":"Louisiana","below_poverty_line":"160143","above_poverty_line":"467673","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"22","state_name":"Louisiana","below_poverty_line":"183179","above_poverty_line":"870368","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"22","state_name":"Louisiana","below_poverty_line":"129113","above_poverty_line":"803176","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"22","state_name":"Louisiana","below_poverty_line":"120554","above_poverty_line":"819817","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"22","state_name":"Louisiana","below_poverty_line":"132447","above_poverty_line":"866043","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"22","state_name":"Louisiana","below_poverty_line":"74600","above_poverty_line":"629089","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"22","state_name":"Louisiana","below_poverty_line":"56870","above_poverty_line":"413008","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"23","state_name":"Maine","below_poverty_line":"23861","above_poverty_line":"120321","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"23","state_name":"Maine","below_poverty_line":"23840","above_poverty_line":"131377","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"23","state_name":"Maine","below_poverty_line":"20275","above_poverty_line":"149021","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"23","state_name":"Maine","below_poverty_line":"34133","above_poverty_line":"143960","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"23","state_name":"Maine","below_poverty_line":"41029","above_poverty_line":"261646","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"23","state_name":"Maine","below_poverty_line":"30367","above_poverty_line":"264177","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"23","state_name":"Maine","below_poverty_line":"31912","above_poverty_line":"329816","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"23","state_name":"Maine","below_poverty_line":"41039","above_poverty_line":"372449","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"23","state_name":"Maine","below_poverty_line":"23283","above_poverty_line":"286666","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"23","state_name":"Maine","below_poverty_line":"21048","above_poverty_line":"182872","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"24","state_name":"Maryland","below_poverty_line":"78533","above_poverty_line":"599894","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"24","state_name":"Maryland","below_poverty_line":"77788","above_poverty_line":"616124","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"24","state_name":"Maryland","below_poverty_line":"69651","above_poverty_line":"636703","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"24","state_name":"Maryland","below_poverty_line":"106754","above_poverty_line":"645855","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"24","state_name":"Maryland","below_poverty_line":"111388","above_poverty_line":"1179441","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"24","state_name":"Maryland","below_poverty_line":"80884","above_poverty_line":"1130634","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"24","state_name":"Maryland","below_poverty_line":"81639","above_poverty_line":"1250446","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"24","state_name":"Maryland","below_poverty_line":"91072","above_poverty_line":"1221253","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"24","state_name":"Maryland","below_poverty_line":"53800","above_poverty_line":"823727","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"24","state_name":"Maryland","below_poverty_line":"50646","above_poverty_line":"561720","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"25","state_name":"Massachusetts","below_poverty_line":"103886","above_poverty_line":"650938","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"25","state_name":"Massachusetts","below_poverty_line":"103704","above_poverty_line":"692175","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"25","state_name":"Massachusetts","below_poverty_line":"99692","above_poverty_line":"771897","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"25","state_name":"Massachusetts","below_poverty_line":"164746","above_poverty_line":"831324","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"25","state_name":"Massachusetts","below_poverty_line":"169878","above_poverty_line":"1556919","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"25","state_name":"Massachusetts","below_poverty_line":"120212","above_poverty_line":"1376659","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"25","state_name":"Massachusetts","below_poverty_line":"123680","above_poverty_line":"1601554","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"25","state_name":"Massachusetts","below_poverty_line":"138482","above_poverty_line":"1594911","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"25","state_name":"Massachusetts","below_poverty_line":"87632","above_poverty_line":"1103609","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"25","state_name":"Massachusetts","below_poverty_line":"86624","above_poverty_line":"765533","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"26","state_name":"Michigan","below_poverty_line":"236261","above_poverty_line":"934351","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"26","state_name":"Michigan","below_poverty_line":"228677","above_poverty_line":"1013985","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"26","state_name":"Michigan","below_poverty_line":"207739","above_poverty_line":"1126531","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"26","state_name":"Michigan","below_poverty_line":"366867","above_poverty_line":"1195180","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"26","state_name":"Michigan","below_poverty_line":"306770","above_poverty_line":"1904950","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"26","state_name":"Michigan","below_poverty_line":"238188","above_poverty_line":"1826559","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"26","state_name":"Michigan","below_poverty_line":"234621","above_poverty_line":"2139965","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"26","state_name":"Michigan","below_poverty_line":"253092","above_poverty_line":"2311633","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"26","state_name":"Michigan","below_poverty_line":"131805","above_poverty_line":"1666768","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"26","state_name":"Michigan","below_poverty_line":"107860","above_poverty_line":"1139594","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"27","state_name":"Minnesota","below_poverty_line":"80697","above_poverty_line":"654615","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"27","state_name":"Minnesota","below_poverty_line":"85342","above_poverty_line":"677407","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"27","state_name":"Minnesota","below_poverty_line":"71223","above_poverty_line":"698159","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"27","state_name":"Minnesota","below_poverty_line":"155487","above_poverty_line":"660690","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"27","state_name":"Minnesota","below_poverty_line":"117710","above_poverty_line":"1236307","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"27","state_name":"Minnesota","below_poverty_line":"82528","above_poverty_line":"1191526","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"27","state_name":"Minnesota","below_poverty_line":"79739","above_poverty_line":"1250082","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"27","state_name":"Minnesota","below_poverty_line":"96671","above_poverty_line":"1331307","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"27","state_name":"Minnesota","below_poverty_line":"54630","above_poverty_line":"889124","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"27","state_name":"Minnesota","below_poverty_line":"56847","above_poverty_line":"614862","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"28","state_name":"Mississippi","below_poverty_line":"87652","above_poverty_line":"251786","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"28","state_name":"Mississippi","below_poverty_line":"93849","above_poverty_line":"273441","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"28","state_name":"Mississippi","below_poverty_line":"81024","above_poverty_line":"291485","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"28","state_name":"Mississippi","below_poverty_line":"106210","above_poverty_line":"292552","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"28","state_name":"Mississippi","below_poverty_line":"107630","above_poverty_line":"480224","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"28","state_name":"Mississippi","below_poverty_line":"86635","above_poverty_line":"484546","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"28","state_name":"Mississippi","below_poverty_line":"77327","above_poverty_line":"515819","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"28","state_name":"Mississippi","below_poverty_line":"86197","above_poverty_line":"530706","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"28","state_name":"Mississippi","below_poverty_line":"45899","above_poverty_line":"412995","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"28","state_name":"Mississippi","below_poverty_line":"39719","above_poverty_line":"271616","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"29","state_name":"Missouri","below_poverty_line":"148360","above_poverty_line":"628379","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"29","state_name":"Missouri","below_poverty_line":"145648","above_poverty_line":"667260","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"29","state_name":"Missouri","below_poverty_line":"124763","above_poverty_line":"709515","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"29","state_name":"Missouri","below_poverty_line":"211719","above_poverty_line":"699654","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"29","state_name":"Missouri","below_poverty_line":"189110","above_poverty_line":"1258864","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"29","state_name":"Missouri","below_poverty_line":"141241","above_poverty_line":"1191868","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"29","state_name":"Missouri","below_poverty_line":"135166","above_poverty_line":"1273155","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"29","state_name":"Missouri","below_poverty_line":"153528","above_poverty_line":"1366984","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"29","state_name":"Missouri","below_poverty_line":"82027","above_poverty_line":"994975","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"29","state_name":"Missouri","below_poverty_line":"69934","above_poverty_line":"695340","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"30","state_name":"Montana","below_poverty_line":"21699","above_poverty_line":"110183","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"30","state_name":"Montana","below_poverty_line":"20497","above_poverty_line":"119827","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"30","state_name":"Montana","below_poverty_line":"17873","above_poverty_line":"121181","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"30","state_name":"Montana","below_poverty_line":"46538","above_poverty_line":"121191","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"30","state_name":"Montana","below_poverty_line":"31515","above_poverty_line":"216134","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"30","state_name":"Montana","below_poverty_line":"22860","above_poverty_line":"210644","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"30","state_name":"Montana","below_poverty_line":"21866","above_poverty_line":"211646","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"30","state_name":"Montana","below_poverty_line":"29667","above_poverty_line":"261994","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"30","state_name":"Montana","below_poverty_line":"16735","above_poverty_line":"204884","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"30","state_name":"Montana","below_poverty_line":"13503","above_poverty_line":"128791","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"31","state_name":"Nebraska","below_poverty_line":"43209","above_poverty_line":"245087","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"31","state_name":"Nebraska","below_poverty_line":"37898","above_poverty_line":"252985","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"31","state_name":"Nebraska","below_poverty_line":"31491","above_poverty_line":"255151","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"31","state_name":"Nebraska","below_poverty_line":"70645","above_poverty_line":"239288","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"31","state_name":"Nebraska","below_poverty_line":"49457","above_poverty_line":"421373","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"31","state_name":"Nebraska","below_poverty_line":"35376","above_poverty_line":"408319","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"31","state_name":"Nebraska","below_poverty_line":"30549","above_poverty_line":"395048","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"31","state_name":"Nebraska","below_poverty_line":"31803","above_poverty_line":"433684","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"31","state_name":"Nebraska","below_poverty_line":"18344","above_poverty_line":"301316","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"31","state_name":"Nebraska","below_poverty_line":"23264","above_poverty_line":"209473","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"32","state_name":"Nevada","below_poverty_line":"73329","above_poverty_line":"306214","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"32","state_name":"Nevada","below_poverty_line":"71631","above_poverty_line":"330072","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"32","state_name":"Nevada","below_poverty_line":"63676","above_poverty_line":"335029","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"32","state_name":"Nevada","below_poverty_line":"71428","above_poverty_line":"351088","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"32","state_name":"Nevada","below_poverty_line":"92788","above_poverty_line":"657090","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"32","state_name":"Nevada","below_poverty_line":"77906","above_poverty_line":"612206","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"32","state_name":"Nevada","below_poverty_line":"68895","above_poverty_line":"622430","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"32","state_name":"Nevada","below_poverty_line":"73203","above_poverty_line":"584260","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"32","state_name":"Nevada","below_poverty_line":"43492","above_poverty_line":"468755","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"32","state_name":"Nevada","below_poverty_line":"28225","above_poverty_line":"284776","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"33","state_name":"New Hampshire","below_poverty_line":"14802","above_poverty_line":"130531","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"33","state_name":"New Hampshire","below_poverty_line":"15206","above_poverty_line":"146283","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"33","state_name":"New Hampshire","below_poverty_line":"14399","above_poverty_line":"165068","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"33","state_name":"New Hampshire","below_poverty_line":"27621","above_poverty_line":"173701","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"33","state_name":"New Hampshire","below_poverty_line":"26476","above_poverty_line":"285274","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"33","state_name":"New Hampshire","below_poverty_line":"18447","above_poverty_line":"276281","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"33","state_name":"New Hampshire","below_poverty_line":"20571","above_poverty_line":"358422","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"33","state_name":"New Hampshire","below_poverty_line":"25443","above_poverty_line":"384077","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"33","state_name":"New Hampshire","below_poverty_line":"12502","above_poverty_line":"263268","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"33","state_name":"New Hampshire","below_poverty_line":"12812","above_poverty_line":"161299","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"34","state_name":"New Jersey","below_poverty_line":"161067","above_poverty_line":"905274","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"34","state_name":"New Jersey","below_poverty_line":"154556","above_poverty_line":"965285","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"34","state_name":"New Jersey","below_poverty_line":"144260","above_poverty_line":"1029380","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"34","state_name":"New Jersey","below_poverty_line":"153520","above_poverty_line":"1079119","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"34","state_name":"New Jersey","below_poverty_line":"185435","above_poverty_line":"1749326","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"34","state_name":"New Jersey","below_poverty_line":"169116","above_poverty_line":"1769937","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"34","state_name":"New Jersey","below_poverty_line":"153185","above_poverty_line":"2049210","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"34","state_name":"New Jersey","below_poverty_line":"151713","above_poverty_line":"1985770","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"34","state_name":"New Jersey","below_poverty_line":"98758","above_poverty_line":"1323626","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"34","state_name":"New Jersey","below_poverty_line":"99059","above_poverty_line":"980269","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"35","state_name":"New Mexico","below_poverty_line":"81027","above_poverty_line":"194168","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"35","state_name":"New Mexico","below_poverty_line":"80048","above_poverty_line":"224968","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"35","state_name":"New Mexico","below_poverty_line":"70276","above_poverty_line":"234981","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"35","state_name":"New Mexico","below_poverty_line":"87986","above_poverty_line":"259532","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"35","state_name":"New Mexico","below_poverty_line":"94196","above_poverty_line":"409518","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"35","state_name":"New Mexico","below_poverty_line":"75917","above_poverty_line":"375737","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"35","state_name":"New Mexico","below_poverty_line":"65955","above_poverty_line":"387076","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"35","state_name":"New Mexico","below_poverty_line":"74705","above_poverty_line":"437162","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"35","state_name":"New Mexico","below_poverty_line":"44866","above_poverty_line":"353295","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"35","state_name":"New Mexico","below_poverty_line":"32537","above_poverty_line":"234598","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"36","state_name":"New York","below_poverty_line":"469300","above_poverty_line":"1845862","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"36","state_name":"New York","below_poverty_line":"441103","above_poverty_line":"1841510","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"36","state_name":"New York","below_poverty_line":"411843","above_poverty_line":"1956672","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"36","state_name":"New York","below_poverty_line":"533441","above_poverty_line":"2221027","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"36","state_name":"New York","below_poverty_line":"609037","above_poverty_line":"4259961","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"36","state_name":"New York","below_poverty_line":"485810","above_poverty_line":"3684034","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"36","state_name":"New York","below_poverty_line":"455881","above_poverty_line":"4074019","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"36","state_name":"New York","below_poverty_line":"471700","above_poverty_line":"4045423","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"36","state_name":"New York","below_poverty_line":"306217","above_poverty_line":"2831158","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"36","state_name":"New York","below_poverty_line":"293816","above_poverty_line":"2076404","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"37","state_name":"North Carolina","below_poverty_line":"263114","above_poverty_line":"939281","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"37","state_name":"North Carolina","below_poverty_line":"259178","above_poverty_line":"1022426","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"37","state_name":"North Carolina","below_poverty_line":"226914","above_poverty_line":"1098895","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"37","state_name":"North Carolina","below_poverty_line":"324268","above_poverty_line":"1099444","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"37","state_name":"North Carolina","below_poverty_line":"322346","above_poverty_line":"1952651","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"37","state_name":"North Carolina","below_poverty_line":"253586","above_poverty_line":"1947993","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"37","state_name":"North Carolina","below_poverty_line":"230375","above_poverty_line":"2141191","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"37","state_name":"North Carolina","below_poverty_line":"241026","above_poverty_line":"2056200","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"37","state_name":"North Carolina","below_poverty_line":"133368","above_poverty_line":"1599870","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"37","state_name":"North Carolina","below_poverty_line":"106330","above_poverty_line":"1027067","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"38","state_name":"North Dakota","below_poverty_line":"12385","above_poverty_line":"101143","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"38","state_name":"North Dakota","below_poverty_line":"10009","above_poverty_line":"95347","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"38","state_name":"North Dakota","below_poverty_line":"7275","above_poverty_line":"89164","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"38","state_name":"North Dakota","below_poverty_line":"34877","above_poverty_line":"102722","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"38","state_name":"North Dakota","below_poverty_line":"17761","above_poverty_line":"193621","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"38","state_name":"North Dakota","below_poverty_line":"10068","above_poverty_line":"154062","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"38","state_name":"North Dakota","below_poverty_line":"10497","above_poverty_line":"146885","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"38","state_name":"North Dakota","below_poverty_line":"12390","above_poverty_line":"170521","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"38","state_name":"North Dakota","below_poverty_line":"7768","above_poverty_line":"110878","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"38","state_name":"North Dakota","below_poverty_line":"10917","above_poverty_line":"80486","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"39","state_name":"Ohio","below_poverty_line":"294994","above_poverty_line":"1139653","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"39","state_name":"Ohio","below_poverty_line":"276716","above_poverty_line":"1227441","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"39","state_name":"Ohio","below_poverty_line":"238785","above_poverty_line":"1365400","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"39","state_name":"Ohio","below_poverty_line":"366227","above_poverty_line":"1331713","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"39","state_name":"Ohio","below_poverty_line":"374279","above_poverty_line":"2320315","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"39","state_name":"Ohio","below_poverty_line":"275367","above_poverty_line":"2228130","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"39","state_name":"Ohio","below_poverty_line":"268195","above_poverty_line":"2504950","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"39","state_name":"Ohio","below_poverty_line":"291692","above_poverty_line":"2680327","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"39","state_name":"Ohio","below_poverty_line":"146248","above_poverty_line":"1928957","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"39","state_name":"Ohio","below_poverty_line":"125692","above_poverty_line":"1342855","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"40","state_name":"Oklahoma","below_poverty_line":"119415","above_poverty_line":"406335","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"40","state_name":"Oklahoma","below_poverty_line":"113961","above_poverty_line":"424533","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"40","state_name":"Oklahoma","below_poverty_line":"93780","above_poverty_line":"443590","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"40","state_name":"Oklahoma","below_poverty_line":"144423","above_poverty_line":"441561","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"40","state_name":"Oklahoma","below_poverty_line":"138270","above_poverty_line":"783908","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"40","state_name":"Oklahoma","below_poverty_line":"106839","above_poverty_line":"731770","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"40","state_name":"Oklahoma","below_poverty_line":"92085","above_poverty_line":"733558","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"40","state_name":"Oklahoma","below_poverty_line":"100748","above_poverty_line":"775968","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"40","state_name":"Oklahoma","below_poverty_line":"49691","above_poverty_line":"586007","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"40","state_name":"Oklahoma","below_poverty_line":"41978","above_poverty_line":"408698","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"41","state_name":"Oregon","below_poverty_line":"87788","above_poverty_line":"412210","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"41","state_name":"Oregon","below_poverty_line":"91241","above_poverty_line":"454985","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"41","state_name":"Oregon","below_poverty_line":"79428","above_poverty_line":"454448","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"41","state_name":"Oregon","below_poverty_line":"151333","above_poverty_line":"470797","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"41","state_name":"Oregon","below_poverty_line":"150349","above_poverty_line":"924919","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"41","state_name":"Oregon","below_poverty_line":"113027","above_poverty_line":"904404","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"41","state_name":"Oregon","below_poverty_line":"96509","above_poverty_line":"866727","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"41","state_name":"Oregon","below_poverty_line":"112381","above_poverty_line":"924311","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"41","state_name":"Oregon","below_poverty_line":"59279","above_poverty_line":"767685","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"41","state_name":"Oregon","below_poverty_line":"44871","above_poverty_line":"484339","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"42","state_name":"Pennsylvania","below_poverty_line":"263553","above_poverty_line":"1220266","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"42","state_name":"Pennsylvania","below_poverty_line":"263308","above_poverty_line":"1294421","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"42","state_name":"Pennsylvania","below_poverty_line":"234185","above_poverty_line":"1403630","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"42","state_name":"Pennsylvania","below_poverty_line":"373134","above_poverty_line":"1410466","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"42","state_name":"Pennsylvania","below_poverty_line":"358293","above_poverty_line":"2617040","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"42","state_name":"Pennsylvania","below_poverty_line":"267861","above_poverty_line":"2416371","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"42","state_name":"Pennsylvania","below_poverty_line":"261047","above_poverty_line":"2843193","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"42","state_name":"Pennsylvania","below_poverty_line":"290031","above_poverty_line":"3074214","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"42","state_name":"Pennsylvania","below_poverty_line":"162120","above_poverty_line":"2229260","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"42","state_name":"Pennsylvania","below_poverty_line":"162009","above_poverty_line":"1642293","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"44","state_name":"Rhode Island","below_poverty_line":"20497","above_poverty_line":"97805","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"44","state_name":"Rhode Island","below_poverty_line":"22446","above_poverty_line":"100315","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"44","state_name":"Rhode Island","below_poverty_line":"18655","above_poverty_line":"114039","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"44","state_name":"Rhode Island","below_poverty_line":"30751","above_poverty_line":"129486","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"44","state_name":"Rhode Island","below_poverty_line":"32131","above_poverty_line":"231680","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"44","state_name":"Rhode Island","below_poverty_line":"21435","above_poverty_line":"206921","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"44","state_name":"Rhode Island","below_poverty_line":"24308","above_poverty_line":"245239","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"44","state_name":"Rhode Island","below_poverty_line":"25566","above_poverty_line":"254878","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"44","state_name":"Rhode Island","below_poverty_line":"15458","above_poverty_line":"175124","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"44","state_name":"Rhode Island","below_poverty_line":"15940","above_poverty_line":"124810","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"45","state_name":"South Carolina","below_poverty_line":"119486","above_poverty_line":"442637","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"45","state_name":"South Carolina","below_poverty_line":"123399","above_poverty_line":"481474","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"45","state_name":"South Carolina","below_poverty_line":"106255","above_poverty_line":"503120","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"45","state_name":"South Carolina","below_poverty_line":"152910","above_poverty_line":"505816","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"45","state_name":"South Carolina","below_poverty_line":"147746","above_poverty_line":"932084","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"45","state_name":"South Carolina","below_poverty_line":"117547","above_poverty_line":"897293","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"45","state_name":"South Carolina","below_poverty_line":"110994","above_poverty_line":"983336","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"45","state_name":"South Carolina","below_poverty_line":"129200","above_poverty_line":"1013478","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"45","state_name":"South Carolina","below_poverty_line":"70448","above_poverty_line":"860490","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"45","state_name":"South Carolina","below_poverty_line":"54925","above_poverty_line":"521083","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"46","state_name":"South Dakota","below_poverty_line":"20848","above_poverty_line":"105675","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"46","state_name":"South Dakota","below_poverty_line":"16739","above_poverty_line":"108451","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"46","state_name":"South Dakota","below_poverty_line":"14567","above_poverty_line":"106306","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"46","state_name":"South Dakota","below_poverty_line":"32602","above_poverty_line":"98011","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"46","state_name":"South Dakota","below_poverty_line":"22809","above_poverty_line":"182054","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"46","state_name":"South Dakota","below_poverty_line":"15324","above_poverty_line":"170488","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"46","state_name":"South Dakota","below_poverty_line":"14695","above_poverty_line":"170682","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"46","state_name":"South Dakota","below_poverty_line":"16947","above_poverty_line":"204691","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"46","state_name":"South Dakota","below_poverty_line":"9610","above_poverty_line":"145258","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"46","state_name":"South Dakota","below_poverty_line":"12195","above_poverty_line":"96782","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"47","state_name":"Tennessee","below_poverty_line":"192766","above_poverty_line":"634969","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"47","state_name":"Tennessee","below_poverty_line":"177284","above_poverty_line":"682934","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"47","state_name":"Tennessee","below_poverty_line":"152611","above_poverty_line":"742922","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"47","state_name":"Tennessee","below_poverty_line":"212154","above_poverty_line":"760027","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"47","state_name":"Tennessee","below_poverty_line":"231592","above_poverty_line":"1347261","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"47","state_name":"Tennessee","below_poverty_line":"177520","above_poverty_line":"1297445","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"47","state_name":"Tennessee","below_poverty_line":"178092","above_poverty_line":"1410814","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"47","state_name":"Tennessee","below_poverty_line":"185956","above_poverty_line":"1397921","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"47","state_name":"Tennessee","below_poverty_line":"94424","above_poverty_line":"1090165","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"47","state_name":"Tennessee","below_poverty_line":"80423","above_poverty_line":"694455","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"48","state_name":"Texas","below_poverty_line":"966070","above_poverty_line":"3303482","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"48","state_name":"Texas","below_poverty_line":"951765","above_poverty_line":"3482049","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"48","state_name":"Texas","below_poverty_line":"828607","above_poverty_line":"3603013","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"48","state_name":"Texas","below_poverty_line":"970713","above_poverty_line":"3717732","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"48","state_name":"Texas","below_poverty_line":"963123","above_poverty_line":"6331246","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"48","state_name":"Texas","below_poverty_line":"797092","above_poverty_line":"5946428","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"48","state_name":"Texas","below_poverty_line":"597784","above_poverty_line":"5697331","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"48","state_name":"Texas","below_poverty_line":"590669","above_poverty_line":"5129197","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"48","state_name":"Texas","below_poverty_line":"362706","above_poverty_line":"3440963","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"48","state_name":"Texas","below_poverty_line":"286241","above_poverty_line":"2193468","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"50","state_name":"Vermont","below_poverty_line":"9374","above_poverty_line":"57287","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"50","state_name":"Vermont","below_poverty_line":"9029","above_poverty_line":"64466","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"50","state_name":"Vermont","below_poverty_line":"9575","above_poverty_line":"69453","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"50","state_name":"Vermont","below_poverty_line":"22768","above_poverty_line":"74243","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"50","state_name":"Vermont","below_poverty_line":"15611","above_poverty_line":"123939","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"50","state_name":"Vermont","below_poverty_line":"12781","above_poverty_line":"122937","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"50","state_name":"Vermont","below_poverty_line":"12929","above_poverty_line":"150519","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"50","state_name":"Vermont","below_poverty_line":"16711","above_poverty_line":"172141","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"50","state_name":"Vermont","below_poverty_line":"9028","above_poverty_line":"129483","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"50","state_name":"Vermont","below_poverty_line":"7854","above_poverty_line":"78674","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"49","state_name":"Utah","below_poverty_line":"69895","above_poverty_line":"500208","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"49","state_name":"Utah","below_poverty_line":"65264","above_poverty_line":"536253","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"49","state_name":"Utah","below_poverty_line":"49885","above_poverty_line":"526026","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"49","state_name":"Utah","below_poverty_line":"123234","above_poverty_line":"508550","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"49","state_name":"Utah","below_poverty_line":"81699","above_poverty_line":"776569","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"49","state_name":"Utah","below_poverty_line":"57541","above_poverty_line":"748412","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"49","state_name":"Utah","below_poverty_line":"36098","above_poverty_line":"571311","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"49","state_name":"Utah","below_poverty_line":"35370","above_poverty_line":"533383","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"49","state_name":"Utah","below_poverty_line":"21277","above_poverty_line":"367422","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"49","state_name":"Utah","below_poverty_line":"19310","above_poverty_line":"239214","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"51","state_name":"Virginia","below_poverty_line":"137897","above_poverty_line":"868447","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"51","state_name":"Virginia","below_poverty_line":"132267","above_poverty_line":"893054","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"51","state_name":"Virginia","below_poverty_line":"119458","above_poverty_line":"921402","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"51","state_name":"Virginia","below_poverty_line":"227290","above_poverty_line":"925231","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"51","state_name":"Virginia","below_poverty_line":"193531","above_poverty_line":"1748662","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"51","state_name":"Virginia","below_poverty_line":"140529","above_poverty_line":"1698101","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"51","state_name":"Virginia","below_poverty_line":"134388","above_poverty_line":"1805327","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"51","state_name":"Virginia","below_poverty_line":"148979","above_poverty_line":"1737723","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"51","state_name":"Virginia","below_poverty_line":"81135","above_poverty_line":"1253597","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"51","state_name":"Virginia","below_poverty_line":"72570","above_poverty_line":"820159","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"53","state_name":"Washington","below_poverty_line":"134304","above_poverty_line":"818092","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"53","state_name":"Washington","below_poverty_line":"132916","above_poverty_line":"837801","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"53","state_name":"Washington","below_poverty_line":"117174","above_poverty_line":"834820","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"53","state_name":"Washington","below_poverty_line":"208106","above_poverty_line":"866693","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"53","state_name":"Washington","below_poverty_line":"206643","above_poverty_line":"1748972","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"53","state_name":"Washington","below_poverty_line":"147829","above_poverty_line":"1589105","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"53","state_name":"Washington","below_poverty_line":"139682","above_poverty_line":"1562104","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"53","state_name":"Washington","below_poverty_line":"154899","above_poverty_line":"1603818","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"53","state_name":"Washington","below_poverty_line":"83416","above_poverty_line":"1186969","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"53","state_name":"Washington","below_poverty_line":"65913","above_poverty_line":"736535","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"54","state_name":"West Virginia","below_poverty_line":"59048","above_poverty_line":"157569","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"54","state_name":"West Virginia","below_poverty_line":"54647","above_poverty_line":"178126","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"54","state_name":"West Virginia","below_poverty_line":"46329","above_poverty_line":"192459","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"54","state_name":"West Virginia","below_poverty_line":"81712","above_poverty_line":"191657","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"54","state_name":"West Virginia","below_poverty_line":"80694","above_poverty_line":"323090","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"54","state_name":"West Virginia","below_poverty_line":"68995","above_poverty_line":"348788","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"54","state_name":"West Virginia","below_poverty_line":"65191","above_poverty_line":"393788","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"54","state_name":"West Virginia","below_poverty_line":"71297","above_poverty_line":"436540","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"54","state_name":"West Virginia","below_poverty_line":"36108","above_poverty_line":"367619","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"54","state_name":"West Virginia","below_poverty_line":"27301","above_poverty_line":"242642","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"55","state_name":"Wisconsin","below_poverty_line":"107974","above_poverty_line":"609148","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"55","state_name":"Wisconsin","below_poverty_line":"105567","above_poverty_line":"668298","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"55","state_name":"Wisconsin","below_poverty_line":"92027","above_poverty_line":"711681","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"55","state_name":"Wisconsin","below_poverty_line":"213671","above_poverty_line":"690709","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"55","state_name":"Wisconsin","below_poverty_line":"140575","above_poverty_line":"1188437","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"55","state_name":"Wisconsin","below_poverty_line":"105341","above_poverty_line":"1192043","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"55","state_name":"Wisconsin","below_poverty_line":"97340","above_poverty_line":"1334959","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"55","state_name":"Wisconsin","below_poverty_line":"117030","above_poverty_line":"1442283","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"55","state_name":"Wisconsin","below_poverty_line":"66736","above_poverty_line":"992585","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"55","state_name":"Wisconsin","below_poverty_line":"66208","above_poverty_line":"682008","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"56","state_name":"Wyoming","below_poverty_line":"12997","above_poverty_line":"70043","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"56","state_name":"Wyoming","below_poverty_line":"10002","above_poverty_line":"78469","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"56","state_name":"Wyoming","below_poverty_line":"8765","above_poverty_line":"76126","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"56","state_name":"Wyoming","below_poverty_line":"23632","above_poverty_line":"70185","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"56","state_name":"Wyoming","below_poverty_line":"16490","above_poverty_line":"134085","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"56","state_name":"Wyoming","below_poverty_line":"10574","above_poverty_line":"127248","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"56","state_name":"Wyoming","below_poverty_line":"9898","above_poverty_line":"120187","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"56","state_name":"Wyoming","below_poverty_line":"12692","above_poverty_line":"143100","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"56","state_name":"Wyoming","below_poverty_line":"7850","above_poverty_line":"100408","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"56","state_name":"Wyoming","below_poverty_line":"6098","above_poverty_line":"61318","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"72","state_name":"Puerto Rico","below_poverty_line":"222500","above_poverty_line":"127441","age":"0-5","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"72","state_name":"Puerto Rico","below_poverty_line":"251792","above_poverty_line":"182795","age":"6-11","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"72","state_name":"Puerto Rico","below_poverty_line":"260164","above_poverty_line":"242001","age":"12-17","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"72","state_name":"Puerto Rico","below_poverty_line":"312734","above_poverty_line":"325320","age":"18-24","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"72","state_name":"Puerto Rico","below_poverty_line":"355292","above_poverty_line":"459320","age":"25-34","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"72","state_name":"Puerto Rico","below_poverty_line":"317877","above_poverty_line":"497724","age":"35-44","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"72","state_name":"Puerto Rico","below_poverty_line":"326754","above_poverty_line":"539240","age":"45-54","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"72","state_name":"Puerto Rico","below_poverty_line":"339843","above_poverty_line":"516299","age":"55-64","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"72","state_name":"Puerto Rico","below_poverty_line":"269228","above_poverty_line":"452188","age":"65-74","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}
+,{"state_fips":"72","state_name":"Puerto Rico","below_poverty_line":"237805","above_poverty_line":"332227","age":"75+","ingestion_ts":"2022-09-08 15:18:58.420498 UTC"}]
