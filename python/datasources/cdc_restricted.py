@@ -219,8 +219,10 @@ class CDCRestrictedData(DataSource):
             null_out_suppressed_deaths_hosps(df, False)
 
         if geo == COUNTY_LEVEL:
-            null_out_all_unknown_deaths_hosps(df)
             null_out_dc_county_rows(df)
+
+        if geo == COUNTY_LEVEL and cumulative:
+            null_out_all_unknown_deaths_hosps(df)
 
         df = df[all_columns]
         self.clean_frame_column_names(df)
@@ -461,7 +463,15 @@ def null_out_all_unknown_deaths_hosps(df):
     """If a given geo x breakdown has all unknown hospitalizations or deaths,
        we treat it as if it has "no data," i.e. we clear the hosp/death fields.
        Note: This is an in place function so it doesnt return anything
+
        df: DataFrame to null out rows on"""
 
-    df.loc[df[std_col.COVID_DEATH_UNKNOWN] == df[std_col.COVID_CASES], generate_column_name(std_col.COVID_DEATH_PREFIX, std_col.PER_100K_SUFFIX)] = np.nan
-    df.loc[df[std_col.COVID_HOSP_UNKNOWN] == df[std_col.COVID_CASES], generate_column_name(std_col.COVID_HOSP_PREFIX, std_col.PER_100K_SUFFIX)] = np.nan
+    df.loc[df[std_col.COVID_DEATH_UNKNOWN] ==
+           df[std_col.COVID_CASES], generate_column_name(std_col.COVID_DEATH_PREFIX, std_col.PER_100K_SUFFIX)] = np.nan
+    df.loc[df[std_col.COVID_DEATH_UNKNOWN] ==
+           df[std_col.COVID_CASES], generate_column_name(std_col.COVID_DEATH_PREFIX, std_col.SHARE_SUFFIX)] = np.nan
+
+    df.loc[df[std_col.COVID_HOSP_UNKNOWN] ==
+           df[std_col.COVID_CASES], generate_column_name(std_col.COVID_HOSP_PREFIX, std_col.PER_100K_SUFFIX)] = np.nan
+    df.loc[df[std_col.COVID_HOSP_UNKNOWN] ==
+           df[std_col.COVID_CASES], generate_column_name(std_col.COVID_HOSP_PREFIX, std_col.SHARE_SUFFIX)] = np.nan
