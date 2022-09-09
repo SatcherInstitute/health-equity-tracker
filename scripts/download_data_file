@@ -44,7 +44,7 @@ function main() {
       esac
     done
 
-  bucket_name=$(gcloud config get-value project | cut -d - -f1)-dev-export
+  bucket_name=$(gcloud config get-value project | cut -d - -f1)1-dev-export
   util::print::info "Setting bucket name to ${bucket_name}"
 
   tmp_dir=$(mktemp -d)
@@ -120,7 +120,7 @@ function dev_file::edit() {
       dev_string="${file_name},${dev_string}"
     done
 
-  echo "REACT_APP_FORCE_STATIC=${dev_string}" >> "${TRACKERDIR}/frontend/.env.development"
+  echo "REACT_APP_FORCE_STATIC=geographies.json,${dev_string}" >> "${TRACKERDIR}/frontend/.env.development"
 }
 
 
