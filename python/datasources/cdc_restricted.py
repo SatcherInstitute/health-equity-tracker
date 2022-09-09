@@ -72,9 +72,9 @@ class CDCRestrictedData(DataSource):
             'upload_to_gcs should not be called for CDCRestrictedData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        cumulative = self.get_attr(attrs, 'cumulative')
+        demo = self.get_attr(attrs, 'demographic')
         for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
-            for demo in [SEX, RACE, AGE]:
+            for cumulative in [True, False]:
                 geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
                 filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
                 df = gcs_to_bq_util.load_csv_as_df(
