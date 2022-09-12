@@ -4,7 +4,8 @@ import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { ACS_2010_FIPS } from "../utils/Fips";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import VariableProvider, { appendFipsIfNeeded } from "./VariableProvider";
+import VariableProvider from "./VariableProvider";
+import { appendFipsIfNeeded } from "../utils/datasetutils";
 
 class CdcCovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;

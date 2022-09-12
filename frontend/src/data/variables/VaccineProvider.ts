@@ -2,10 +2,10 @@ import { DataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { joinOnCols } from "../utils/datasetutils";
+import { appendFipsIfNeeded, joinOnCols } from "../utils/datasetutils";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import VariableProvider, { appendFipsIfNeeded } from "./VariableProvider";
+import VariableProvider from "./VariableProvider";
 import { ALL, RACE } from "../utils/Constants";
 
 class VaccineProvider extends VariableProvider {

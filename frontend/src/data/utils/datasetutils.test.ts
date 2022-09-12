@@ -1,9 +1,35 @@
 import { METRIC_CONFIG, VariableConfig } from "../config/MetricConfig";
-import { BreakdownVar } from "../query/Breakdowns";
-import { getExclusionList } from "./datasetutils";
+import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
+import { appendFipsIfNeeded, getExclusionList } from "./datasetutils";
 import { Fips } from "./Fips";
 
 describe("DatasetUtils Unit Tests", () => {
+  test("Test appendFipsIfNeeded()", async () => {
+    // Only county-level breakdowns should get the appends parent fips
+    const base_id = "base_dataset_id";
+
+    const breakdowns_for_county = Breakdowns.forFips(new Fips("06037"));
+    const generated_county_set_id = appendFipsIfNeeded(
+      base_id,
+      breakdowns_for_county
+    );
+    expect(generated_county_set_id).toEqual(base_id + "-06");
+
+    const breakdowns_for_state = Breakdowns.forFips(new Fips("06"));
+    const generated_state_set_id = appendFipsIfNeeded(
+      base_id,
+      breakdowns_for_state
+    );
+    expect(generated_state_set_id).toEqual(base_id);
+
+    const breakdowns_for_USA = Breakdowns.forFips(new Fips("00"));
+    const generated_USA_set_id = appendFipsIfNeeded(
+      base_id,
+      breakdowns_for_USA
+    );
+    expect(generated_USA_set_id).toEqual(base_id);
+  });
+
   test("Test getExclusionList()", async () => {
     const sampleVariableConfigPrisonRaceUSA: VariableConfig =
       METRIC_CONFIG.incarceration[0];

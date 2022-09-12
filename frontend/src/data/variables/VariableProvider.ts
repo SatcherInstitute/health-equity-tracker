@@ -121,22 +121,3 @@ abstract class VariableProvider {
 }
 
 export default VariableProvider;
-
-export function appendFipsIfNeeded(
-  baseId: string,
-  breakdowns: Breakdowns
-): string {
-  // if there is a parent fips, append it as needed (for county-level files)
-  if (breakdowns.geography !== "county") return baseId;
-
-  const isCountyQueryFromStateLevelMap =
-    breakdowns.geography === "county" &&
-    breakdowns.filterFips?.isStateOrTerritory();
-
-  const fipsToAppend = isCountyQueryFromStateLevelMap
-    ? breakdowns.filterFips?.code
-    : breakdowns?.filterFips?.getParentFips()?.code;
-
-  const fipsTag = fipsToAppend ? `-${fipsToAppend}` : "";
-  return `${baseId}${fipsTag}`;
-}

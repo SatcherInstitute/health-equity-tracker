@@ -3,8 +3,9 @@ import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { MetricId, VariableId } from "../config/MetricConfig";
-import VariableProvider, { appendFipsIfNeeded } from "./VariableProvider";
+import VariableProvider from "./VariableProvider";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
+import { appendFipsIfNeeded } from "../utils/datasetutils";
 
 export function CombinedIncarcerationStateMessage() {
   return (

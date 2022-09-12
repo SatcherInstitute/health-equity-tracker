@@ -2,7 +2,8 @@ import { IDataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import VariableProvider, { appendFipsIfNeeded } from "./VariableProvider";
+import { appendFipsIfNeeded } from "../utils/datasetutils";
+import VariableProvider from "./VariableProvider";
 
 export function GetAcsDatasetId(breakdowns: Breakdowns): string {
   let id = "";
