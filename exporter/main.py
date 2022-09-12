@@ -32,8 +32,6 @@ def export_dataset_tables():
     dataset = bq_client.get_dataset(dataset_id)
     tables = list(bq_client.list_tables(dataset))
 
-    print("number of tables:", len(tables))
-
     # filter only tables for current breakdown (if present)
     if demo_breakdown is not None:
         tables = [
@@ -41,8 +39,6 @@ def export_dataset_tables():
                 demo_breakdown in table.table_id
             )
         ]
-
-    print("number of", demo_breakdown, "tables:", len(tables))
 
     # If there are no tables in the dataset, return an error so the pipeline will alert
     # and a human can look into any potential issues.
@@ -100,7 +96,6 @@ def export_split_county_tables(bq_client, table, export_bucket):
     for fips in STATE_LEVEL_FIPS_LIST:
 
         state_file_name = f'{table.dataset_id}-{table.table_id}-{fips}.json'
-
         print(state_file_name)
 
         query = f"""
@@ -126,29 +121,24 @@ def export_split_county_tables(bq_client, table, export_bucket):
 
 
 def get_table_name(table):
-    # print("get_table_name()")
     return f'{table.project}.{table.dataset_id}.{table.table_id}'
 
 
 def get_query_results_as_df(bq_client, query):
-    # print("get_query_results_as_df()")
     query_job = bq_client.query(query)
     return query_job.to_dataframe()
 
 
 def prepare_bucket(export_bucket):
-    # print("prepare_bucket()")
     storage_client = storage.Client()  # Storage API request
     return storage_client.get_bucket(export_bucket)
 
 
 def prepare_blob(bucket, state_file_name):
-    # print("prepare_blob()")
     return bucket.blob(state_file_name)
 
 
 def export_nd_json_to_blob(blob, nd_json):
-    # print("export_nd_json_to_blob()")
     blob.upload_from_string(
         nd_json, content_type='application/octet-stream')
 
