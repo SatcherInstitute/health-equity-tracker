@@ -3,7 +3,7 @@ import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { MetricId, VariableId } from "../config/MetricConfig";
-import VariableProvider from "./VariableProvider";
+import VariableProvider, { appendFipsIfNeeded } from "./VariableProvider";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 
 export function CombinedIncarcerationStateMessage() {
@@ -83,7 +83,7 @@ class IncarcerationProvider extends VariableProvider {
       breakdowns.getSoleDemographicBreakdown().columnName
     }_${breakdowns.geography}`;
 
-    return this.appendFipsIfNeeded(baseId, breakdowns);
+    return appendFipsIfNeeded(baseId, breakdowns);
   }
 
   async getDataInternal(

@@ -4,7 +4,7 @@ import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { ALL, HISPANIC, RACE, WHITE_NH } from "../utils/Constants";
 import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
-import VariableProvider from "./VariableProvider";
+import VariableProvider, { appendFipsIfNeeded } from "./VariableProvider";
 
 export const ABOVE_POVERTY_COL = "above_poverty_line";
 export const BELOW_POVERTY_COL = "below_poverty_line";
@@ -32,7 +32,7 @@ class AcsPovertyProvider extends VariableProvider {
     const baseId = `${datasetPrefix}${breakdownSelector}${
       isCounty ? "_county" : "_state"
     }`;
-    return this.appendFipsIfNeeded(baseId, breakdowns);
+    return appendFipsIfNeeded(baseId, breakdowns);
   }
 
   async getDataInternal(

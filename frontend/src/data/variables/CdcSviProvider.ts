@@ -1,7 +1,7 @@
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import VariableProvider from "./VariableProvider";
+import VariableProvider, { appendFipsIfNeeded } from "./VariableProvider";
 
 class CdcSviProvider extends VariableProvider {
   constructor() {
@@ -10,7 +10,7 @@ class CdcSviProvider extends VariableProvider {
 
   getDatasetId(breakdowns: Breakdowns): string {
     // get the state-specific county-level SVI file, or default to full file
-    return this.appendFipsIfNeeded("cdc_svi_county-age", breakdowns, "svi");
+    return appendFipsIfNeeded("cdc_svi_county-age", breakdowns);
   }
 
   async getDataInternal(

@@ -111,36 +111,6 @@ abstract class VariableProvider {
     return dataFrame;
   }
 
-  appendFipsIfNeeded(
-    baseId: string,
-    breakdowns: Breakdowns,
-    callSource?: any
-  ): string {
-    // if there is a parent fips, append it as needed (for county-level files)
-
-    if (breakdowns.geography !== "county") {
-      // console.log("geo not set to county; not appending anything to dataset id");
-      return baseId;
-    }
-
-    // console.log(callSource, breakdowns.geography, breakdowns.filterFips);
-
-    const isCountyQueryFromStateLevelMap =
-      breakdowns.geography === "county" &&
-      breakdowns.filterFips?.isStateOrTerritory();
-
-    // console.log({ isCountyQueryFromStateLevelMap });
-
-    const fipsToAppend = isCountyQueryFromStateLevelMap
-      ? breakdowns.filterFips?.code
-      : breakdowns?.filterFips?.getParentFips()?.code;
-
-    // console.log(fipsToAppend, { breakdowns });
-    const fipsTag = fipsToAppend ? `-${fipsToAppend}` : "";
-    // console.log(fipsTag, { breakdowns });
-    return `${baseId}${fipsTag}`;
-  }
-
   abstract getDataInternal(
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse>;
@@ -151,3 +121,22 @@ abstract class VariableProvider {
 }
 
 export default VariableProvider;
+
+export function appendFipsIfNeeded(
+  baseId: string,
+  breakdowns: Breakdowns
+): string {
+  // if there is a parent fips, append it as needed (for county-level files)
+  if (breakdowns.geography !== "county") return baseId;
+
+  const isCountyQueryFromStateLevelMap =
+    breakdowns.geography === "county" &&
+    breakdowns.filterFips?.isStateOrTerritory();
+
+  const fipsToAppend = isCountyQueryFromStateLevelMap
+    ? breakdowns.filterFips?.code
+    : breakdowns?.filterFips?.getParentFips()?.code;
+
+  const fipsTag = fipsToAppend ? `-${fipsToAppend}` : "";
+  return `${baseId}${fipsTag}`;
+}

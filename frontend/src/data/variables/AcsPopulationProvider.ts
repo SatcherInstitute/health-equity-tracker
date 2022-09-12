@@ -2,7 +2,7 @@ import { IDataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import VariableProvider from "./VariableProvider";
+import VariableProvider, { appendFipsIfNeeded } from "./VariableProvider";
 
 export function GetAcsDatasetId(breakdowns: Breakdowns): string {
   let id = "";
@@ -24,15 +24,7 @@ export function GetAcsDatasetId(breakdowns: Breakdowns): string {
         : "acs_population-by_race_" + breakdowns.geography + "_std";
   }
 
-  const parentFips = breakdowns?.filterFips?.getParentFips().code || "";
-  const fipsTag = parentFips ? `-${parentFips}` : "";
-
-  if (breakdowns.geography === "county" || breakdowns.filterFips?.isCounty())
-    id += fipsTag;
-
-  // console.log("**", id);
-
-  return id;
+  return appendFipsIfNeeded(id, breakdowns);
 }
 
 class AcsPopulationProvider extends VariableProvider {

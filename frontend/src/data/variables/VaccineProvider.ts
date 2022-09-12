@@ -5,7 +5,7 @@ import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { joinOnCols } from "../utils/datasetutils";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import VariableProvider from "./VariableProvider";
+import VariableProvider, { appendFipsIfNeeded } from "./VariableProvider";
 import { ALL, RACE } from "../utils/Constants";
 
 class VaccineProvider extends VariableProvider {
@@ -35,7 +35,7 @@ class VaccineProvider extends VariableProvider {
     ) {
       return "kff_vaccination-race_and_ethnicity";
     } else if (breakdowns.geography === "county") {
-      return this.appendFipsIfNeeded(
+      return appendFipsIfNeeded(
         "cdc_vaccination_county-race_and_ethnicity",
         breakdowns
       );
