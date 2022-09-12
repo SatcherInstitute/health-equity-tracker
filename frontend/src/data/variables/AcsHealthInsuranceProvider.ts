@@ -19,20 +19,22 @@ class AcsHealthInsuranceProvider extends VariableProvider {
 
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
+    let baseId: string = "";
+
     if (breakdowns.hasOnlySex() || breakdowns.hasOnlyAge()) {
-      return breakdowns.geography === "county"
-        ? "acs_health_insurance-health_insurance_by_sex_age_county"
-        : "acs_health_insurance-health_insurance_by_sex_age_state";
+      baseId =
+        breakdowns.geography === "county"
+          ? "acs_health_insurance-health_insurance_by_sex_age_county"
+          : "acs_health_insurance-health_insurance_by_sex_age_state";
+    } else if (breakdowns.hasOnlyRace()) {
+      baseId =
+        breakdowns.geography === "county"
+          ? "acs_health_insurance-health_insurance_by_race_age_county"
+          : "acs_health_insurance-health_insurance_by_race_age_state";
     }
 
-    if (breakdowns.hasOnlyRace()) {
-      return breakdowns.geography === "county"
-        ? "acs_health_insurance-health_insurance_by_race_age_county"
-        : "acs_health_insurance-health_insurance_by_race_age_state";
-    }
-
-    // Fallback for future breakdowns
-    throw new Error("Not implemented");
+    // console.log(this.appendFipsIfNeeded(baseId, breakdowns));
+    return this.appendFipsIfNeeded(baseId, breakdowns);
   }
 
   async getDataInternal(
