@@ -80,7 +80,11 @@ export function PopulationCard(props: PopulationCardProps) {
   }
 
   return (
-    <CardWrapper minHeight={PRELOAD_HEIGHT} queries={queries}>
+    <CardWrapper
+      minHeight={PRELOAD_HEIGHT}
+      queries={queries}
+      scrollToHash="location-info"
+    >
       {([raceQueryResponse, ageQueryResponse, sviQueryResponse]) => {
         const svi =
           props.fips.isCounty() &&

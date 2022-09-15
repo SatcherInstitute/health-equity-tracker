@@ -101,6 +101,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       title={<>{getTitleText()}</>}
       loadGeographies={true}
       minHeight={preloadHeight}
+      scrollToHash="unknowns-map"
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         const unknownRaces = mapQueryResponse

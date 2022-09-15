@@ -27,21 +27,22 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
   return (
     <IconButton
       className={styles.CopyLinkButton}
-      aria-label="copy card link"
+      aria-label="copy link to card to clipboard"
       onClick={handleClick}
     >
       <LinkIcon />
+
       <Snackbar
         open={open}
         autoHideDuration={4000}
         onClose={() => setOpen(false)}
       >
         <Alert>
-          <p>Card link copied to clipboard.</p>
-          <p>{cardHashLink}</p>
-          <a href={cardHashLink} target="_blank" rel="noreferrer">
-            Open in new tab
-          </a>
+          <b>Card link copied to clipboard.</b>
+          {/* <p>{cardHashLink}</p>
+					<a href={cardHashLink} target="_blank" rel="noreferrer">
+						Open in new tab
+					</a> */}
         </Alert>
       </Snackbar>
     </IconButton>

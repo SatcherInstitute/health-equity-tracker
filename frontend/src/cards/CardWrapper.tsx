@@ -14,6 +14,7 @@ import { WithMetadataAndMetrics } from "../data/react/WithLoadingOrErrorUI";
 import { Sources } from "./ui/Sources";
 import { MapOfDatasetMetadata } from "../data/utils/DatasetTypes";
 import CopyLinkButton from "./ui/CopyLinkButton";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 function CardWrapper(props: {
   // prevent layout shift as component loads
@@ -31,6 +32,7 @@ function CardWrapper(props: {
     geoData?: Record<string, any>
   ) => JSX.Element;
   isAgeAdjustedTable?: boolean;
+  scrollToHash: ScrollableHashId;
 }) {
   const popover = usePopover();
   const queries = props.queries ? props.queries : [];
@@ -68,7 +70,7 @@ function CardWrapper(props: {
             </Popover>
           </Grid>
           <Grid item>
-            <CopyLinkButton scrollToHash="data-table" />
+            <CopyLinkButton scrollToHash={props.scrollToHash} />
           </Grid>
         </Grid>
       </CardContent>

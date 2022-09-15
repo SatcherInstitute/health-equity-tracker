@@ -92,8 +92,9 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     config.metricId.includes("ratio")
   );
 
-  const cardTitle = `${metrics[0]?.fullCardTitleName
-    } in ${props.fips.getSentenceDisplayName()}`;
+  const cardTitle = `${
+    metrics[0]?.fullCardTitleName
+  } in ${props.fips.getSentenceDisplayName()}`;
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const ageAdjustedDataTypes: VariableConfig[] = METRIC_CONFIG[
@@ -109,6 +110,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       minHeight={PRELOAD_HEIGHT}
       queries={[raceQuery, ageQuery]}
       title={<>{cardTitle}</>}
+      scrollToHash="age-adjusted-risk"
     >
       {([raceQueryResponse, ageQueryResponse]) => {
         let knownRaceData = raceQueryResponse.data.filter((row: Row) => {
@@ -168,18 +170,18 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               raceQueryResponse.shouldShowMissingDataMessage(
                 metricIds as MetricId[]
               )) && (
-                <CardContent>
-                  <MissingDataAlert
-                    dataName={metrics[0].fullCardTitleName}
-                    breakdownString={
-                      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-                    }
-                    dropdownVarId={props.dropdownVarId}
-                    ageAdjustedDataTypes={ageAdjustedDataTypes}
-                    fips={props.fips}
-                  />
-                </CardContent>
-              )}
+              <CardContent>
+                <MissingDataAlert
+                  dataName={metrics[0].fullCardTitleName}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                  }
+                  dropdownVarId={props.dropdownVarId}
+                  ageAdjustedDataTypes={ageAdjustedDataTypes}
+                  fips={props.fips}
+                />
+              </CardContent>
+            )}
 
             {/* values are present or partially null, implying we have at least some age-adjustments */}
             {!raceQueryResponse.dataIsMissing() &&

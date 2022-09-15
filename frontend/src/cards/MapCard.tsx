@@ -148,6 +148,7 @@ function MapCardWithKey(props: MapCardProps) {
       }
       loadGeographies={true}
       minHeight={preloadHeight}
+      scrollToHash="rate-map"
     >
       {(queryResponses, metadata, geoData) => {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
