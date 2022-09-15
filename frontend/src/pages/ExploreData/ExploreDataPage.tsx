@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { STATUS } from "react-joyride";
 import Carousel from "react-material-ui-carousel";
@@ -40,7 +40,6 @@ import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
 import useScrollPosition from "../../utils/hooks/useScrollPosition";
-import { useResponsiveWidth } from "../../utils/hooks/useResponsiveWidth";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -195,10 +194,6 @@ function ExploreDataPage() {
     ]);
   };
 
-  const [madLibHeaderRef, pageWidth] = useResponsiveWidth(
-    window.innerWidth || 1000
-  );
-
   /* on any changes to the madlib settings */
   useEffect(() => {
     // scroll browser screen to top
@@ -223,25 +218,42 @@ function ExploreDataPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [madLib]);
 
+  const [pageWidth, setPageWidth] = useState(window.innerWidth);
+
+  function handlePageWidthChange() {
+    setPageWidth(window.innerWidth);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handlePageWidthChange);
+    return () => window.removeEventListener("resize", handlePageWidthChange);
+  }, []);
+
   const [headerScrollMargin, setHeaderScrollMargin] = useState(0);
 
   /* on changes that affect the height of the sticky madlib header */
-  useLayoutEffect(() => {
-    const isSticky = pageWidth > 960;
-    const stickyHeaderHeight =
-      (isSticky && madLibHeaderRef.current?.clientHeight) || 0;
-    setHeaderScrollMargin(stickyHeaderHeight);
-  }, [
-    madLib,
-    showIncarceratedChildrenAlert,
-    showStickyLifeline,
-    pageWidth,
-    madLibHeaderRef,
-  ]);
+  useEffect(() => {
+    const isWideEnoughForStickyHeader = window.innerWidth > 960;
+
+    const stickyHeaderEl = document.querySelector(
+      "#onboarding-start-your-search"
+    );
+
+    const headerHeight = stickyHeaderEl?.clientHeight || 0;
+    console.log({ headerHeight });
+
+    setHeaderScrollMargin(isWideEnoughForStickyHeader ? headerHeight : 0);
+  }, [madLib, showIncarceratedChildrenAlert, showStickyLifeline, pageWidth]);
 
   useEffect(() => {
-    console.log(headerScrollMargin);
+    console.log({ headerScrollMargin });
   }, [headerScrollMargin]);
+
+  // const headerRef = useRef<HTMLDivElement>(null)
+
+  // useLayoutEffect(() => {
+  //   setHeaderScrollMargin(headerRef?.current?.clientHeight || 0)
+  // })
 
   return (
     <>
@@ -257,7 +269,7 @@ function ExploreDataPage() {
         <div
           className={styles.CarouselContainer}
           id="onboarding-start-your-search"
-          ref={madLibHeaderRef}
+          // ref={headerRef}
         >
           <Carousel
             className={`Carousel ${styles.Carousel}`}
