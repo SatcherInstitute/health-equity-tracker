@@ -77,6 +77,7 @@ class CDCRestrictedData(DataSource):
             for cumulative in [True, False]:
                 geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
                 filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
+
                 df = gcs_to_bq_util.load_csv_as_df(
                     gcs_bucket, filename, dtype={'county_fips': str})
 
@@ -95,7 +96,7 @@ class CDCRestrictedData(DataSource):
                     df, dataset, table_name, column_types=column_types)
 
         # Only do this once, open to a less weird way of doing this
-        if cumulative:
+        if demo == 'race':
             for filename, table_name in ONLY_FIPS_FILES.items():
                 df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename)
 
