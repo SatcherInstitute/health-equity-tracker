@@ -245,6 +245,7 @@ function MapCardWithKey(props: MapCardProps) {
                 ariaLabel={
                   props.variableConfig.variableFullDisplayName as string
                 }
+                scrollToHashId="rate-map"
               />
             </CardContent>
 

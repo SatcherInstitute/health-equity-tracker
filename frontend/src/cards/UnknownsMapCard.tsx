@@ -169,6 +169,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               <MapBreadcrumbs
                 fips={props.fips}
                 updateFipsCallback={props.updateFipsCallback}
+                scrollToHashId="unknowns-map"
               />
             </CardContent>
             <Divider />
