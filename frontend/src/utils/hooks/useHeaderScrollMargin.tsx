@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 Hook that targets an element (madlib header) and measures the height to adjust the scroll-margin offset needed by the cards. this allows all of our "scroll to id" functionality to accurately target the element compensating for the dynamic height of the madlib header (which can have 1, 2 or 3 lines of text). Also compensates for scanrios where the header has a height but is not sticking and obstructing the scroll
 
 elemId: string id (without the "#") that will be measured
-stcking: boolean set in ExploreData as to whether the header is in sticky mode or not
+sticking: boolean set in ExploreData as to whether the header is in sticky mode or not
 otherDependencies: any[] changes to and of the items in this array will trigger  re-measure and adjustment to the scroll-margin offset
 
 */
