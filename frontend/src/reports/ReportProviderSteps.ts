@@ -17,7 +17,7 @@ export const reportProviderSteps: StepData[] = [
     hashId: "rate-chart",
   },
   {
-    label: "Unknown Map",
+    label: "Unknown Demographic Map",
     pluralOnCompare: true,
     hashId: "unknowns-map",
   },

@@ -46,6 +46,7 @@ import { MultiMapLink } from "./ui/MultiMapLink";
 import { RateInfoAlert } from "./ui/RateInfoAlert";
 import { findVerboseRating } from "./ui/SviAlert";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
+import { useLocation } from "react-router-dom";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 
@@ -79,10 +80,15 @@ function MapCardWithKey(props: MapCardProps) {
   const isJail = props.variableConfig.variableId === "jail";
   const isIncarceration = isJail || isPrison;
 
+  const location = useLocation();
+
   const signalListeners: any = {
     click: (...args: any) => {
       const clickedData = args[1];
-      clickedData?.id && props.updateFipsCallback(new Fips(clickedData.id));
+      if (clickedData?.id) {
+        props.updateFipsCallback(new Fips(clickedData.id));
+        location.hash = `#rate-map`;
+      }
     },
   };
 

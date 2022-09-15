@@ -438,9 +438,13 @@ function AgeAdjustmentTab() {
             variant="contained"
             color="primary"
             className={styles.PrimaryButton}
-            href={EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_US_SETTING}
+            href={
+              EXPLORE_DATA_PAGE_LINK +
+              COVID_DEATHS_US_SETTING +
+              "#age-adjusted-risk"
+            }
           >
-            Explore the data
+            Explore Age-Adjusted Ratios
           </Button>
         </Grid>
       </Grid>
