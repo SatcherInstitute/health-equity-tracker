@@ -30,7 +30,7 @@ import {
 import { reportProviderSteps } from "./ReportProviderSteps";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
-import styles from "./Report.module.scss";
+// import styles from "./Report.module.scss";
 import { pluralizeStepLabels, StepData } from "../utils/hooks/useStepObserver";
 
 const HEADER_OFFSET_TWO_VAR = 188;
@@ -50,6 +50,7 @@ function TwoVariableReport(props: {
   isScrolledToTop: boolean;
   reportSteps?: StepData[];
   setReportSteps?: Function;
+  headerScrollMargin: number;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
@@ -165,7 +166,7 @@ function TwoVariableReport(props: {
               item
               xs={12}
               id="location-info"
-              className={styles.ScrollPastHeaderCompareMode}
+              style={{ scrollMarginTop: props.headerScrollMargin }}
             >
               {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
               <PopulationCard
@@ -206,7 +207,7 @@ function TwoVariableReport(props: {
                 xs={12}
                 sm={6}
                 id="location-info"
-                className={styles.ScrollPastHeaderCompareMode}
+                style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
                 <PopulationCard
@@ -254,6 +255,7 @@ function TwoVariableReport(props: {
             fips2={props.fips2}
             updateFips1={props.updateFips1Callback}
             updateFips2={props.updateFips2Callback}
+            headerScrollMargin={props.headerScrollMargin}
             createCard={(
               variableConfig: VariableConfig,
               fips: Fips,
@@ -282,6 +284,7 @@ function TwoVariableReport(props: {
                   variableConfig2={variableConfig2}
                   fips1={props.fips1}
                   fips2={props.fips2}
+                  headerScrollMargin={props.headerScrollMargin}
                   createCard={(
                     variableConfig: VariableConfig,
                     fips: Fips,
@@ -305,6 +308,7 @@ function TwoVariableReport(props: {
             variableConfig2={variableConfig2}
             fips1={props.fips1}
             fips2={props.fips2}
+            headerScrollMargin={props.headerScrollMargin}
             updateFips1={props.updateFips1Callback}
             updateFips2={props.updateFips2Callback}
             createCard={(
@@ -335,6 +339,7 @@ function TwoVariableReport(props: {
                   variableConfig2={variableConfig2}
                   fips1={props.fips1}
                   fips2={props.fips2}
+                  headerScrollMargin={props.headerScrollMargin}
                   createCard={(
                     variableConfig: VariableConfig,
                     fips: Fips,
@@ -363,6 +368,7 @@ function TwoVariableReport(props: {
                 fips2={props.fips2}
                 updateFips1={props.updateFips1Callback}
                 updateFips2={props.updateFips2Callback}
+                headerScrollMargin={props.headerScrollMargin}
                 createCard={(
                   variableConfig: VariableConfig,
                   fips: Fips,
@@ -394,6 +400,7 @@ function TwoVariableReport(props: {
               updateFips1={props.updateFips1Callback}
               updateFips2={props.updateFips2Callback}
               jumpToData={props.jumpToData}
+              headerScrollMargin={props.headerScrollMargin}
               createCard={(
                 variableConfig: VariableConfig,
                 fips: Fips,
@@ -458,6 +465,7 @@ function RowOfTwoOptionalMetrics(props: {
   dropdownVarId1?: DropdownVarId;
   dropdownVarId2?: DropdownVarId;
   jumpToData?: Function;
+  headerScrollMargin: number;
 }) {
   if (!props.variableConfig1 && !props.variableConfig2) {
     return <></>;
@@ -473,7 +481,7 @@ function RowOfTwoOptionalMetrics(props: {
         xs={12}
         sm={6}
         id={props.id}
-        className={styles.ScrollPastHeaderCompareMode}
+        style={{ scrollMarginTop: props.headerScrollMargin }}
       >
         <LazyLoad offset={800} height={750} once>
           {props.variableConfig1 && (
@@ -494,7 +502,7 @@ function RowOfTwoOptionalMetrics(props: {
         xs={12}
         sm={6}
         id={`${props.id}2`}
-        className={styles.ScrollPastHeaderCompareMode}
+        style={{ scrollMarginTop: props.headerScrollMargin }}
       >
         <LazyLoad offset={800} height={600} once>
           {props.variableConfig2 && (

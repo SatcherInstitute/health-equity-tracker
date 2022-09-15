@@ -40,6 +40,7 @@ import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
 import useScrollPosition from "../../utils/hooks/useScrollPosition";
+import { useHeaderScrollMargin } from "../../utils/hooks/useHeaderScrollMargin";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -197,7 +198,7 @@ function ExploreDataPage() {
   /* on any changes to the madlib settings */
   useEffect(() => {
     // scroll browser screen to top
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // window.scrollTo({ top: 0, behavior: "smooth" });
 
     // A11y - create then delete an invisible alert that the report mode has changed
     srSpeak(`Now viewing report: ${getMadLibPhraseText(madLib)}`);
@@ -217,6 +218,12 @@ function ExploreDataPage() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [madLib]);
+
+  const headerScrollMargin = useHeaderScrollMargin(
+    "onboarding-start-your-search",
+    sticking,
+    [madLib, showIncarceratedChildrenAlert, showStickyLifeline]
+  );
 
   return (
     <>
@@ -285,6 +292,7 @@ function ExploreDataPage() {
             setMadLib={setMadLibWithParam}
             doScrollToData={doScrollToData}
             isScrolledToTop={!sticking}
+            headerScrollMargin={headerScrollMargin}
           />
         </div>
       </div>

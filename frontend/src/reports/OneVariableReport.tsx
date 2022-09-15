@@ -47,6 +47,7 @@ export interface OneVariableReportProps {
   isScrolledToTop: boolean;
   reportSteps?: StepData[];
   setReportSteps?: Function;
+  headerScrollMargin: number;
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
@@ -163,7 +164,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 xs={12}
                 md={SINGLE_COLUMN_WIDTH}
                 id="rate-map"
-                className={styles.ScrollPastHeader}
+                // className={styles.ScrollPastHeader}
+                style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 <MapCard
                   variableConfig={variableConfig}
@@ -184,7 +186,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
                 id="rate-chart"
-                className={styles.ScrollPastHeader}
+                // className={styles.ScrollPastHeader}
+                style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 <LazyLoad offset={600} height={750} once>
                   {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -209,7 +212,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
                 id="unknowns-map"
-                className={styles.ScrollPastHeader}
+                // className={styles.ScrollPastHeader}
+                style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 <LazyLoad offset={800} height={750} once>
                   {variableConfig.metrics["pct_share"] && (
@@ -233,7 +237,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
                 id="share-vs-population"
-                className={styles.ScrollPastHeader}
+                // className={styles.ScrollPastHeader}
+                style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 <LazyLoad offset={800} height={750} once>
                   {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -257,7 +262,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 xs={12}
                 md={SINGLE_COLUMN_WIDTH}
                 id="data-table"
-                className={styles.ScrollPastHeader}
+                // className={styles.ScrollPastHeader}
+                style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 <LazyLoad offset={800} height={750} once>
                   {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -281,7 +287,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   xs={12}
                   md={SINGLE_COLUMN_WIDTH}
                   id="age-adjusted-risk"
-                  className={styles.ScrollPastHeader}
+                  // className={styles.ScrollPastHeader}
+                  style={{ scrollMarginTop: props.headerScrollMargin }}
                 >
                   <LazyLoad offset={800} height={800} once>
                     <AgeAdjustedTableCard

@@ -46,6 +46,7 @@ interface ReportProviderProps {
   doScrollToData?: boolean;
   showIncarceratedChildrenAlert: boolean;
   isScrolledToTop: boolean;
+  headerScrollMargin: number;
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -103,6 +104,7 @@ function ReportProvider(props: ReportProviderProps) {
             isScrolledToTop={props.isScrolledToTop}
             reportSteps={reportSteps}
             setReportSteps={setReportSteps}
+            headerScrollMargin={props.headerScrollMargin}
           />
         );
       case "comparegeos":
@@ -131,6 +133,7 @@ function ReportProvider(props: ReportProviderProps) {
             isScrolledToTop={props.isScrolledToTop}
             reportSteps={reportSteps}
             setReportSteps={setReportSteps}
+            headerScrollMargin={props.headerScrollMargin}
           />
         );
       case "comparevars":
@@ -157,6 +160,7 @@ function ReportProvider(props: ReportProviderProps) {
             isScrolledToTop={props.isScrolledToTop}
             reportSteps={reportSteps}
             setReportSteps={setReportSteps}
+            headerScrollMargin={props.headerScrollMargin}
           />
         );
       default:

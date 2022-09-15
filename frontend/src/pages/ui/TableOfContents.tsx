@@ -30,6 +30,18 @@ export function TableOfContents(props: TableOfContentsProps) {
     props.isScrolledToTop || false
   );
 
+  function handleStepClick(step: StepData) {
+    // when clicking a step item from the top of the page, the size of the header is larger due to the 3 dot indicators on the carousel. To correct for this, actually change the hash which trigger the full correction feature used for incoming #hash links, rather than just simply navigating the card into view
+    // window.location.hash = step.hashId
+    if (props.isScrolledToTop) window.location.hash = step.hashId;
+
+    document.querySelector(`#${step.hashId}`)?.scrollIntoView({
+      behavior: "smooth",
+    });
+
+    setRecentlyClicked(step.hashId);
+  }
+
   return (
     <Card
       raised={true}
@@ -57,10 +69,7 @@ export function TableOfContents(props: TableOfContentsProps) {
                 className={styles.StepButton}
                 onClick={(e) => {
                   e.preventDefault();
-                  document.querySelector(`#${step.hashId}`)?.scrollIntoView({
-                    behavior: "smooth",
-                  });
-                  setRecentlyClicked(step.hashId);
+                  handleStepClick(step);
                 }}
               >
                 <span
