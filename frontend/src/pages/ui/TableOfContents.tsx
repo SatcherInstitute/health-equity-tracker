@@ -10,6 +10,8 @@ import React from "react";
 import { StepData, useStepObserver } from "../../utils/hooks/useStepObserver";
 import styles from "./TableOfContents.module.scss";
 
+const TABLE_OF_CONTENT_PADDING = 15;
+
 /* 
   reportSteps: StepData[]; Array of TOC "steps" mapping the card hashId to the step display name
   isScrolledToTop?: boolean; Optionally send in top scroll status; when true none of the steps will be highlighted
@@ -42,12 +44,10 @@ export function TableOfContents(props: TableOfContentsProps) {
     setRecentlyClicked(step.hashId);
   }
 
+  const tocOffset = (props.floatTopOffset || 0) + TABLE_OF_CONTENT_PADDING;
+
   return (
-    <Card
-      raised={true}
-      className={styles.Toc}
-      style={{ top: props.floatTopOffset }}
-    >
+    <Card raised={true} className={styles.Toc} style={{ top: tocOffset }}>
       <Stepper
         component={"menu"}
         nonLinear

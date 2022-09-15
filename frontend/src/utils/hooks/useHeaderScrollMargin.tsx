@@ -19,8 +19,20 @@ export function useHeaderScrollMargin(
   sticking: boolean,
   otherDependencies: any[]
 ) {
-  const [headerScrollMargin, setHeaderScrollMargin] = useState(0);
+  // ensure header height is remeasured on changes to page width
+  useEffect(() => {
+    window.addEventListener("resize", handlePageResize);
+    return () => {
+      window.removeEventListener("resize", handlePageResize);
+    };
+  }, []);
+  const [pageWidth, setPageWidth] = useState(window.innerWidth);
+  function handlePageResize() {
+    setPageWidth(window.innerWidth);
+  }
 
+  // track and return the adjusted height of the element
+  const [headerScrollMargin, setHeaderScrollMargin] = useState(0);
   const theme = useTheme();
   const isWideEnoughForSticky = useMediaQuery(theme.breakpoints.up("md"));
 
@@ -38,7 +50,7 @@ export function useHeaderScrollMargin(
       setHeaderScrollMargin(isWideEnoughForSticky ? headerHeight : 0);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [elemId, sticking, ...otherDependencies]);
+  }, [elemId, pageWidth, sticking, ...otherDependencies]);
 
   return headerScrollMargin;
 }

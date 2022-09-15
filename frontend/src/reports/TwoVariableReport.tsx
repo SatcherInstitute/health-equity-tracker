@@ -33,8 +33,6 @@ import ReportToggleControls from "./ui/ReportToggleControls";
 // import styles from "./Report.module.scss";
 import { pluralizeStepLabels, StepData } from "../utils/hooks/useStepObserver";
 
-const HEADER_OFFSET_TWO_VAR = 188;
-
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
 function TwoVariableReport(props: {
@@ -439,7 +437,7 @@ function TwoVariableReport(props: {
           <TableOfContents
             isScrolledToTop={props.isScrolledToTop}
             reportSteps={pluralizeStepLabels(props.reportSteps)}
-            floatTopOffset={HEADER_OFFSET_TWO_VAR}
+            floatTopOffset={props.headerScrollMargin}
           />
         </Grid>
       )}

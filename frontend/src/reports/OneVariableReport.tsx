@@ -34,8 +34,6 @@ import { TableOfContents } from "../pages/ui/TableOfContents";
 import { reportProviderSteps } from "./ReportProviderSteps";
 import { StepData } from "../utils/hooks/useStepObserver";
 
-const HEADER_OFFSET_ONE_VAR = 88;
-
 export interface OneVariableReportProps {
   key: string;
   dropdownVarId: DropdownVarId;
@@ -322,7 +320,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           alignItems="center"
         >
           <TableOfContents
-            floatTopOffset={HEADER_OFFSET_ONE_VAR}
+            floatTopOffset={props.headerScrollMargin}
             isScrolledToTop={props.isScrolledToTop}
             reportSteps={props.reportSteps}
           />
