@@ -339,11 +339,12 @@ function CarouselMadLib(props: {
                 <OptionsSelector
                   key={index}
                   value={props.madLib.activeSelections[index]}
-                  onOptionUpdate={(fipsCode: string) =>
+                  onOptionUpdate={(fipsCode: string) => {
                     props.setMadLib(
                       getMadLibWithUpdatedValue(props.madLib, index, fipsCode)
-                    )
-                  }
+                    );
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
                   options={getOptionsFromPhraseSegement(phraseSegment)}
                 />
               )}
