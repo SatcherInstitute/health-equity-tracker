@@ -31,24 +31,30 @@ export function useHeaderScrollMargin(
     setPageWidth(window.innerWidth);
   }
 
+  function measureHeight() {
+    const headerEl = document.querySelector(`#${elemId}`);
+
+    let headerHeight = 0;
+
+    if (headerEl) {
+      headerHeight = headerEl.clientHeight;
+
+      if (!sticking) {
+        headerHeight -= EXTRA_HEIGHT_NON_STICKY_HEADER;
+      }
+    }
+
+    return headerHeight;
+  }
+
   // track and return the adjusted height of the element
-  const [headerScrollMargin, setHeaderScrollMargin] = useState(0);
+  const [headerScrollMargin, setHeaderScrollMargin] = useState(measureHeight());
   const theme = useTheme();
   const isWideEnoughForSticky = useMediaQuery(theme.breakpoints.up("md"));
 
   useEffect(() => {
-    const headerEl = document.querySelector(`#${elemId}`);
-    if (headerEl) {
-      let headerHeight = headerEl.clientHeight;
-      console.log("measured header height", headerHeight);
+    setHeaderScrollMargin(isWideEnoughForSticky ? measureHeight() : 0);
 
-      if (!sticking) {
-        headerHeight -= EXTRA_HEIGHT_NON_STICKY_HEADER;
-        console.log("> adjusted header height (", headerHeight);
-      }
-
-      setHeaderScrollMargin(isWideEnoughForSticky ? headerHeight : 0);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [elemId, pageWidth, sticking, ...otherDependencies]);
 

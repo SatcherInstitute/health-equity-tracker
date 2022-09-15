@@ -111,15 +111,14 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
 
       const pulse_id = setInterval(() => {
         // clear the auto-scroll regardless of user interaction after set time
-        pulseIdCounter += 100;
-        if (pulseIdCounter > 1000 * 30) clearInterval(pulse_id);
+        pulseIdCounter += 500;
+        if (pulseIdCounter > 500 * 2 * 30) clearInterval(pulse_id);
         if (urlHashOverrideRef.current === hashId) {
-          console.log("scrolling", hashId, "into view until user interaction");
           document.querySelector(`#${hashId}`)?.scrollIntoView({
             behavior: "smooth",
           });
         }
-      }, 100);
+      }, 500);
 
       return () => {
         clearInterval(pulse_id);
