@@ -285,7 +285,7 @@ def post_process(breakdown_df, breakdown, geo):
         breakdown_df = generate_pct_share_col_without_unknowns(
             breakdown_df, {raw_count_col: pct_share_col}, breakdown, total_val)
 
-    # Supress all pct share data for now
+    # Suppress all pct share data for now
     for determinant in UHC_DETERMINANTS.values():
         breakdown_df[std_col.generate_column_name(determinant, std_col.PCT_SHARE_SUFFIX)] = np.nan
 
