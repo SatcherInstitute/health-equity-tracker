@@ -129,6 +129,10 @@ function ExploreDataPage() {
   if (params[SHOW_ONBOARDING_PARAM] === "false") {
     showOnboarding = false;
   }
+
+  // if there is an incoming #hash; bypass the warm welcome entirely
+  if (location.hash !== "") showOnboarding = false;
+
   const [activelyOnboarding, setActivelyOnboarding] =
     useState<boolean>(showOnboarding);
   const onboardingCallback = (data: any) => {
