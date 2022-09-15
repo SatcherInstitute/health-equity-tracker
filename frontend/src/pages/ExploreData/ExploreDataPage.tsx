@@ -220,14 +220,28 @@ function ExploreDataPage() {
 
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
 
-  function handlePageWidthChange() {
-    setPageWidth(window.innerWidth);
+  // function handlePageWidthChange() {
+  //   setPageWidth(window.innerWidth);
+  // }
+
+  function handleHeaderHeightChange() {
+    const stickyHeaderEl = document.querySelector(
+      "#onboarding-start-your-search"
+    );
+
+    const headerHeight = stickyHeaderEl?.clientHeight || 0;
+    setHeaderScrollMargin(headerHeight);
   }
 
   useEffect(() => {
-    window.addEventListener("resize", handlePageWidthChange);
-    return () => window.removeEventListener("resize", handlePageWidthChange);
+    window.addEventListener("resize", handleHeaderHeightChange);
+    return () => window.removeEventListener("resize", handleHeaderHeightChange);
   }, []);
+
+  // useEffect(() => {
+  //   window.addEventListener("resize", handlePageWidthChange);
+  //   return () => window.removeEventListener("resize", handlePageWidthChange);
+  // }, []);
 
   const [headerScrollMargin, setHeaderScrollMargin] = useState(0);
 
@@ -243,7 +257,13 @@ function ExploreDataPage() {
     console.log({ headerHeight });
 
     setHeaderScrollMargin(isWideEnoughForStickyHeader ? headerHeight : 0);
-  }, [madLib, showIncarceratedChildrenAlert, showStickyLifeline, pageWidth]);
+  }, [
+    sticking,
+    madLib,
+    showIncarceratedChildrenAlert,
+    showStickyLifeline,
+    pageWidth,
+  ]);
 
   useEffect(() => {
     console.log({ headerScrollMargin });
