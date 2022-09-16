@@ -12,6 +12,8 @@ source "${PROGDIR}/.util/print.sh"
 function main() {
   local bucket_name
   local data_file
+  local all_files
+  local tmp_dir
 
   while [[ "${#}" != 0 ]]; do
       case "${1}" in
@@ -26,8 +28,13 @@ function main() {
           shift 2
           ;;
 
+        --all|-a)
+          all_files="true"
+          shift 1
+          ;;
+
         "")
-          util::print::error "you must pass in an argument for --data-file"
+          util::print::error "you must pass in an argument for --data-file or --all flag"
           ;;
 
         *)
@@ -38,10 +45,26 @@ function main() {
     done
 
   bucket_name=$(gcloud config get-value project | cut -d - -f1)-dev-export
-
   util::print::info "Setting bucket name to ${bucket_name}"
-  file::download "${bucket_name}" "${data_file}"
-  file::convert "${data_file}"
+
+  tmp_dir=$(mktemp -d)
+
+  if [[ -n "${all_files}" ]]; then
+    all_files::download "${bucket_name}" "${tmp_dir}"
+
+    for file_path in "${tmp_dir}"/*.json
+    do
+      file::convert "${file_path}"
+    done
+
+  else
+    file::download "${bucket_name}" "${data_file}" "${tmp_dir}"
+    file::convert "${tmp_dir}/${data_file}.json"
+  fi
+
+  dev_file::edit
+
+  trap "rm -rf ${tmp_dir}" EXIT
 
   util::print::success "Success !!"
 }
@@ -54,26 +77,51 @@ Downloads a data file from the export bucket and places it in the tmp directory 
 OPTIONS
   --help            -h  prints the command usage
   --data-file       -f  name of the data file you want to download, without the .json
+  --all             -a  downloads every file in the export bucket
 USAGE
 }
 
 function file::download() {
-  local bucket_name file
+  local bucket_name file tmp_dir
   bucket_name="${1}"
   file="${2}"
+  tmp_dir="${3}"
 
   util::print::info "Downloading file from s3"
-  gsutil -m cp "gs://${bucket_name}/${file}.json" "/tmp/${file}.json"
+  gsutil cp "gs://${bucket_name}/${file}.json" "${tmp_dir}/${file}.json"
+}
+
+function all_files::download() {
+  local bucket_name tmp_dir
+  bucket_name="${1}"
+  tmp_dir="${2}"
+
+  util::print::info "Downloading file from s3"
+  gsutil cp "gs://${bucket_name}/*.json" "${tmp_dir}"
 }
 
 function file::convert() {
-  local file
-  file="${1}"
+  local file_path
+  file_path="${1}"
 
-  util::print::info "Converting from ndjson to normal json"
-  sed '1 s/^/[/ ; 2,$ s/^/,/; $ s/$/]/' "/tmp/${file}.json" | jq -r . > "${TRACKERDIR}/frontend/public/tmp/${file}.json"
+  file_name=${file_path##*/}
+
+  util::print::info "Converting ${file_name} from ndjson to normal json"
+  sed '1 s/^/[/ ; 2,$ s/^/,/; $ s/$/]/' "${file_path}" > "${TRACKERDIR}/frontend/public/tmp/${file_name}"
 }
 
+
+function dev_file::edit() {
+  local file_path file_name dev_string
+  dev_string=""
+  for file_path in "${TRACKERDIR}"/frontend/public/tmp/*.json
+    do
+      file_name=${file_path##*/}
+      dev_string="${file_name},${dev_string}"
+    done
+
+  echo "REACT_APP_FORCE_STATIC=${dev_string}" >> "${TRACKERDIR}/frontend/.env.development"
+}
 
 
 main "${@:-}"

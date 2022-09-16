@@ -2,6 +2,9 @@ state_fips,county_fips,county_name,sex,population,population_pct
 06,06123,San Mateo County,Female,60,60.0
 06,06123,San Mateo County,Male,40,40.0
 06,06123,San Mateo County,All,100,100.0
+06,06456,Sonoma County,Female,60,60.0
+06,06456,Sonoma County,Male,40,40.0
+06,06456,Sonoma County,All,100,100.0
 11,11002,District of Columbia,Female,60,60.0
 11,11002,District of Columbia,All,100,100.0
 12,12345,All null county,All,100,100.0

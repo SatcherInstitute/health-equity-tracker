@@ -276,6 +276,24 @@ function MethodologyTab() {
                     available at the county level, so the tracker does not
                     display these conditions at the county level either.
                   </li>
+                  <li>
+                    All metrics sourced from America's Health Rankings are
+                    calculated based on prevalance rates provided from their
+                    data API:
+                    <ul>
+                      <li>
+                        To calculate the <b>per 100k</b> metrics seen on the
+                        tracker, we either multiply the rate by 1000 if it is
+                        presented as a percentage, or simply display the exact
+                        metric if it is presented as a per 100k in the data API.
+                      </li>
+                      <li>
+                        We have chosen to not show any <b>percent share</b>{" "}
+                        metrics for these conditions because the source only
+                        provides the metrics as rates.
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
