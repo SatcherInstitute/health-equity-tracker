@@ -19,8 +19,6 @@ class CdcSviProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
 
-    // console.log("svi incoming breakdown", { breakdowns });
-
     const datasetId = this.getDatasetId(breakdowns);
     const cdc_svi = await getDataManager().loadDataset(datasetId);
 
