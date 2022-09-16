@@ -45,23 +45,20 @@ export function TableOfContents(props: TableOfContentsProps) {
   return (
     <Card raised={true} className={styles.Toc} style={{ top: tocOffset }}>
       <Stepper
-        component={"menu"}
+        component={"nav"}
         nonLinear
         activeStep={props.reportSteps?.findIndex(
           (step) => step.hashId === activeId
         )}
         orientation="vertical"
-        aria-label="Table of Contents"
+        aria-label="Available cards on this report"
         className={styles.Stepper}
       >
         {props.reportSteps?.map((step) => {
           return (
-            <Step
-              key={step.label}
-              completed={false}
-              title={`Scroll to ${step.label}`}
-            >
+            <Step completed={false}>
               <StepButton
+                title={`Scroll to ${step.label}`}
                 className={styles.StepButton}
                 onClick={(e) => {
                   e.preventDefault();

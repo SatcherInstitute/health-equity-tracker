@@ -18,31 +18,34 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
   const urlWithoutHash = window.location.href.split("#")[0];
   const cardHashLink = `${urlWithoutHash}#${props.scrollToHash}`;
 
-  const handleClick = () => {
+  function handleClose() {
+    setOpen(false);
+  }
+
+  function handleClick() {
     navigator.clipboard.writeText(cardHashLink);
     setOpen(true);
     location.hash = `${props.scrollToHash}`;
-  };
+  }
+
+  let cardName = props.scrollToHash.replaceAll("-", " ");
+  cardName = cardName[0].toUpperCase() + cardName.slice(1);
 
   return (
     <IconButton
       className={styles.CopyLinkButton}
-      aria-label="copy link to card to clipboard"
-      onClick={handleClick}
+      aria-label={`copy direct link to: ${cardName}`}
     >
-      <LinkIcon />
+      <LinkIcon onClick={handleClick} />
 
       <Snackbar
         open={open}
-        autoHideDuration={4000}
-        onClose={() => setOpen(false)}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        onClick={handleClose}
       >
-        <Alert>
-          <b>Card link copied to clipboard.</b>
-          {/* <p>{cardHashLink}</p>
-					<a href={cardHashLink} target="_blank" rel="noreferrer">
-						Open in new tab
-					</a> */}
+        <Alert onClose={handleClose}>
+          <p>{cardName} link copied to clipboard!</p>
         </Alert>
       </Snackbar>
     </IconButton>
