@@ -55,7 +55,9 @@ def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
                 var.
     url: The URL used for ingestion. This should be deprecated in favor of
          writing any metadata to GCS during the GCS step. It's temporarily
-         necessary since ACS directly requests metadata during BQ upload."""
+         necessary since ACS directly requests metadata during BQ upload.
+    demographic: The demographic group to generate the bq pipeline for.
+                 Either `race`, `sex` or `age`."""
     message = get_required_attrs(workflow_id, gcs_bucket=gcs_bucket)
     message['dataset'] = dataset
     if filename is not None:

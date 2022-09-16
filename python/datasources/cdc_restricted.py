@@ -96,7 +96,7 @@ class CDCRestrictedData(DataSource):
                     df, dataset, table_name, column_types=column_types)
 
         # Only do this once, open to a less weird way of doing this
-        if demo == 'race':
+        if demo == RACE:
             for filename, table_name in ONLY_FIPS_FILES.items():
                 df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename)
 
@@ -386,7 +386,11 @@ def add_missing_demographic_values(df, geo, demographic):
 
 def remove_or_set_to_zero(df, geo, demographic):
     """Cleans a dataframe by either removing unneeded rows
-       or changing rows to zero"""
+    or changing rows to zero
+
+    df: Pandas dataframe to append onto.
+    geo: Geographic level. Must be `state` or `county`.
+    demographic: Demographic breakdown. Must be `race`, `age`, or `sex`."""
 
     geo_col_mapping = {
         STATE_LEVEL: [
@@ -437,7 +441,7 @@ def null_out_suppressed_deaths_hosps(df, modify_pop_rows):
        Note: This is an in place function and doesn't return anything.
 
        df: Pandas df to modify
-       modify_pop_rows: Boolean, weather or not to set corresponding population
+       modify_pop_rows: Boolean, whether or not to set corresponding population
                         rows to np.nan. Note, these population rows must have been
                         created using the `merge_multiple_pop_cols` function."""
 
