@@ -205,7 +205,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "kff_vaccination-race_and_ethnicity",
     name: "COVID-19 Indicators",
-    update_time: "April 2022",
+    update_time: "July 2022",
   },
   {
     id: "uhc_data-age_national",
