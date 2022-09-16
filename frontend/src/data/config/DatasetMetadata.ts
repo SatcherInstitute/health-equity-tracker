@@ -310,7 +310,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "propublica_congress",
     name: "The ProPublica Congress API provides near real-time access to legislative data from the House of Representatives, the Senate and the Library of Congress. It includes details about members, votes, bills and other aspects of congressional activity.",
-    update_time: "2022",
+    update_time: "September 2022",
   },
   {
     id: GEOGRAPHIES_DATASET_ID,
