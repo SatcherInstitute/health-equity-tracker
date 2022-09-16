@@ -225,34 +225,6 @@
     },
     {
         "state_name": "Alabama",
-        "race_category_id": "ALL",
-        "race": "All",
-        "race_includes_hispanic": null,
-        "race_and_ethnicity": "All",
-        "state_fips": "01",
-        "population_pct": 100.0,
-        "prison_per_100k": 519.0,
-        "jail_per_100k": 337.0,
-        "prison_pct_share": 100.0,
-        "jail_pct_share": 100.0,
-        "total_confined_children": 35.0
-    },
-    {
-        "state_name": "American Samoa",
-        "race_category_id": "ALL",
-        "race": "All",
-        "race_includes_hispanic": null,
-        "race_and_ethnicity": "All",
-        "state_fips": "60",
-        "population_pct": 100.0,
-        "prison_per_100k": 353.0,
-        "jail_per_100k": null,
-        "prison_pct_share": 100.0,
-        "jail_pct_share": 100.0,
-        "total_confined_children": null
-    },
-    {
-        "state_name": "Alabama",
         "race_category_id": "UNKNOWN",
         "race": "Unknown race",
         "race_includes_hispanic": true,
@@ -277,6 +249,34 @@
         "jail_per_100k": null,
         "prison_pct_share": null,
         "jail_pct_share": null,
+        "total_confined_children": null
+    },
+    {
+        "state_name": "Alabama",
+        "race_category_id": "ALL",
+        "race": "All",
+        "race_includes_hispanic": null,
+        "race_and_ethnicity": "All",
+        "state_fips": "01",
+        "population_pct": 100.0,
+        "prison_per_100k": 519.0,
+        "jail_per_100k": 337.0,
+        "prison_pct_share": 100.0,
+        "jail_pct_share": 100.0,
+        "total_confined_children": 35.0
+    },
+    {
+        "state_name": "American Samoa",
+        "race_category_id": "ALL",
+        "race": "All",
+        "race_includes_hispanic": null,
+        "race_and_ethnicity": "All",
+        "state_fips": "60",
+        "population_pct": 100.0,
+        "prison_per_100k": 353.0,
+        "jail_per_100k": null,
+        "prison_pct_share": 100.0,
+        "jail_pct_share": 100.0,
         "total_confined_children": null
     }
 ]
