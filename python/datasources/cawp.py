@@ -142,9 +142,18 @@ def count_matching_rows(df, place_code: str, gov_level: str, race_to_match: str)
 
 def get_cawp_line_items_as_df():
     """
-    Load in line-item table from CAWP (needs to be manually saved in /data)
+    Load in line-item table from CAWP
     with all women, all positions, by state/territory, by race
-    https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity/export-roles/csv?page&_format=csv
+
+    Manual Update Required:
+    1. Visit https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity
+    2. Click "Download" to launch Authentication modal and log in (make a free account if needed)
+    3. Visit csv file directly to download:
+        https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity/export-roles/csv?page&_format=csv
+    4. Save over existing /healthequitytracker/data/cawp/cawp-by_race_and_ethnicity.csv
+    5. Rebuild docker image and push
+    6. Rerun CAWP pipeline and it will process new /data
+
 
     Returns a dataframe with columns STATE_POSTAL_COL, POSITION_COL, RACE_COL,
     and each row as an individual woman in gov
@@ -190,6 +199,13 @@ def get_congress_totals_as_df():
     """
     Fetch ProPublica Congress tables (Senate and House)
     and combine to create a US Congress totals (all genders) table
+
+    Manual Update Required:
+    1. Run download script and replace /data/propublica-us-house.json and /data/propublica-us-senate.json
+    2. Rebuild docker images and push
+    3. Rerun pipelines to process new /data
+
+
     https://www.propublica.org/datastore/api/propublica-congress-api
 
     Returns a dataframe with columns STATE_POSTAL_COL, COUNT_ALL, and each row as a state/territory
