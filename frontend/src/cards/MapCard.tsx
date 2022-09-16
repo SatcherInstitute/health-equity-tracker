@@ -46,6 +46,7 @@ import { MultiMapLink } from "./ui/MultiMapLink";
 import { RateInfoAlert } from "./ui/RateInfoAlert";
 import { findVerboseRating } from "./ui/SviAlert";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
+import { createTitles } from "../charts/utils";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 
@@ -130,6 +131,14 @@ function MapCardWithKey(props: MapCardProps) {
 
   let qualifierItems: string[] = [];
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
+
+  const { chartTitle, subTitle } = createTitles(
+    props.variableConfig.variableFullDisplayName,
+    props.fips.isUsa(),
+    props.fips.getDisplayName(),
+    activeBreakdownFilter,
+    props.currentBreakdown
+  );
 
   return (
     <CardWrapper
@@ -355,6 +364,7 @@ function MapCardWithKey(props: MapCardProps) {
                         ? ""
                         : ` for ${activeBreakdownFilter}`
                     } in ${props.fips.getSentenceDisplayName()}`}
+                    titles={{ chartTitle, subTitle }}
                   />
                   {/* generate additional VEGA canvases for territories on national map */}
                   {props.fips.isUsa() && (

@@ -77,3 +77,29 @@ export function addMetricDisplayColumn(
 
   return [newData, displayColName];
 }
+
+export function createTitles(
+  description: string,
+  isUsa: boolean,
+  displayName: string,
+  demographic: string,
+  breakdown: string
+) {
+  const location = isUsa ? `the ${displayName}` : `${displayName}`;
+
+  let chartTitle = `Rates of ${description} in ${location}`;
+  let subTitle = "";
+
+  console.log(breakdown);
+  console.log(demographic);
+
+  if (demographic === "All") {
+    return { chartTitle, subTitle };
+  }
+  if (breakdown === "age") {
+    subTitle = `Ages ${demographic}`;
+    return { chartTitle, subTitle };
+  }
+  subTitle = `${demographic}`;
+  return { chartTitle, subTitle };
+}
