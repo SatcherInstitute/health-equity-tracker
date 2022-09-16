@@ -13,14 +13,12 @@ import { RACE, AGE, SEX } from "../utils/Constants";
 
 export async function ensureCorrectDatasetsDownloaded(
   brfssDatasetId: string,
-  acsDatasetId: string,
   baseBreakdown: Breakdowns,
   breakdownVar: BreakdownVar
 ) {
   const brfssProvider = new BrfssProvider();
 
   dataFetcher.setFakeDatasetLoaded(brfssDatasetId, []);
-  dataFetcher.setFakeDatasetLoaded(acsDatasetId, []);
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await brfssProvider.getData(
@@ -29,7 +27,7 @@ export async function ensureCorrectDatasetsDownloaded(
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
 
-  const consumedDatasetIds = [brfssDatasetId, acsDatasetId];
+  const consumedDatasetIds = [brfssDatasetId];
   expect(responseIncludingAll).toEqual(
     new MetricQueryResponse([], consumedDatasetIds)
   );
@@ -48,7 +46,6 @@ describe("BrfssProvider", () => {
   test("State and Race Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
       "uhc_data-race_and_ethnicity_state",
-      "acs_population-by_race_state_std",
       Breakdowns.forFips(new Fips("37")),
       RACE
     );
@@ -57,7 +54,6 @@ describe("BrfssProvider", () => {
   test("National and Race Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
       "uhc_data-race_and_ethnicity_national",
-      "acs_population-by_race_national",
       Breakdowns.forFips(new Fips("00")),
       RACE
     );
@@ -66,7 +62,6 @@ describe("BrfssProvider", () => {
   test("State and Age Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
       "uhc_data-age_state",
-      "acs_population-by_age_state",
       Breakdowns.forFips(new Fips("37")),
       AGE
     );
@@ -75,7 +70,6 @@ describe("BrfssProvider", () => {
   test("National and Age Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
       "uhc_data-age_national",
-      "acs_population-by_age_national",
       Breakdowns.forFips(new Fips("00")),
       AGE
     );
@@ -84,7 +78,6 @@ describe("BrfssProvider", () => {
   test("State and Sex Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
       "uhc_data-sex_state",
-      "acs_population-by_sex_state",
       Breakdowns.forFips(new Fips("37")),
       SEX
     );
@@ -93,7 +86,6 @@ describe("BrfssProvider", () => {
   test("National and Sex Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
       "uhc_data-sex_national",
-      "acs_population-by_sex_national",
       Breakdowns.forFips(new Fips("00")),
       SEX
     );
