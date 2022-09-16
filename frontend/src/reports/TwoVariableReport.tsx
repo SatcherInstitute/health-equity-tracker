@@ -156,7 +156,7 @@ function TwoVariableReport(props: {
   return (
     <Grid container>
       {/* CARDS COLUMN */}
-      <Grid item xs={12} sm={11} md={10} xl={11}>
+      <Grid item xs={12} sm={11} md={10}>
         <Grid container spacing={1} alignItems="flex-start">
           {/* POPULATION CARD(S)  AND 2 SETS OF TOGGLE CONTROLS */}
           {props.fips1.code === props.fips2.code ? (
@@ -428,7 +428,6 @@ function TwoVariableReport(props: {
           sm={1}
           // icons + text
           md={2}
-          xl={1}
           container
           spacing={0}
           direction="column"

@@ -116,7 +116,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
   return (
     <Grid container>
       {/* CARDS COLUMN */}
-      <Grid item xs={12} sm={11} md={10} xl={11}>
+      <Grid item xs={12} sm={11} md={10}>
         <Grid
           item
           container
@@ -162,7 +162,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 xs={12}
                 md={SINGLE_COLUMN_WIDTH}
                 id="rate-map"
-                // className={styles.ScrollPastHeader}
                 style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 <MapCard
@@ -184,7 +183,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
                 id="rate-chart"
-                // className={styles.ScrollPastHeader}
                 style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 <LazyLoad offset={600} height={750} once>
@@ -210,7 +208,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
                 id="unknowns-map"
-                // className={styles.ScrollPastHeader}
                 style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 <LazyLoad offset={800} height={750} once>
@@ -235,7 +232,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
                 id="share-vs-population"
-                // className={styles.ScrollPastHeader}
                 style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 <LazyLoad offset={800} height={750} once>
@@ -260,7 +256,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 xs={12}
                 md={SINGLE_COLUMN_WIDTH}
                 id="data-table"
-                // className={styles.ScrollPastHeader}
                 style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 <LazyLoad offset={800} height={750} once>
@@ -285,7 +280,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   xs={12}
                   md={SINGLE_COLUMN_WIDTH}
                   id="age-adjusted-risk"
-                  // className={styles.ScrollPastHeader}
                   style={{ scrollMarginTop: props.headerScrollMargin }}
                 >
                   <LazyLoad offset={800} height={800} once>
@@ -314,7 +308,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
           sm={1}
           // icons + text
           md={2}
-          xl={1}
           container
           direction="column"
           alignItems="center"

@@ -77,7 +77,7 @@
   scroll-margin: 0 0 0 0;
   scroll-snap-align: start;
 
-  // scroll a little short of the card when the sticky header is present
+  // default before measuring actual height of sticky header and offsetting the scroll
   @media only screen and (min-width: $md) {
     scroll-margin: $sticky-madlib-height 0px 0px 0px;
   }
@@ -88,7 +88,7 @@
   scroll-margin: 0 0 0 0;
   scroll-snap-align: start;
 
-  // scroll a even more short of the card when the sticky header is present on compare view (with taller sticky header)
+  // default before measuring actual height of sticky header and offsetting the scroll
   @media only screen and (min-width: $md) {
     scroll-margin: $sticky-madlib-height-compare 0px 0px 0px;
   }
