@@ -1,4 +1,0 @@
-[{"state_name":"United States","state_fips":"00","vaccinated_first_dose":"135934491","vaccinated_share_of_known":52.2,"vaccinated_per_100k":80700,"sex":"Female","ingestion_ts":"2022-09-08 14:58:47.713239 UTC"}
-,{"state_name":"United States","state_fips":"00","vaccinated_first_dose":"124702180","vaccinated_share_of_known":47.8,"vaccinated_per_100k":76300,"sex":"Male","ingestion_ts":"2022-09-08 14:58:47.713239 UTC"}
-,{"state_name":"United States","state_fips":"00","vaccinated_first_dose":"2271545","vaccinated_share_of_known":0.9,"sex":"Unknown","ingestion_ts":"2022-09-08 14:58:47.713239 UTC"}
-,{"state_name":"United States","state_fips":"00","vaccinated_first_dose":"262908216","vaccinated_share_of_known":100,"vaccinated_per_100k":79200,"sex":"All","ingestion_ts":"2022-09-08 14:58:47.713239 UTC"}]

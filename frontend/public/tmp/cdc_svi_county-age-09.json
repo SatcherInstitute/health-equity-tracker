@@ -1,8 +1,0 @@
-[{"county_fips":"09011","county_name":"New London County","svi":0.36,"age":"All","ingestion_ts":1662477615221}
-,{"county_fips":"09005","county_name":"Litchfield County","svi":0.08,"age":"All","ingestion_ts":1662477615221}
-,{"county_fips":"09009","county_name":"New Haven County","svi":0.52,"age":"All","ingestion_ts":1662477615221}
-,{"county_fips":"09003","county_name":"Hartford County","svi":0.52,"age":"All","ingestion_ts":1662477615221}
-,{"county_fips":"09007","county_name":"Middlesex County","svi":0.12,"age":"All","ingestion_ts":1662477615221}
-,{"county_fips":"09001","county_name":"Fairfield County","svi":0.45,"age":"All","ingestion_ts":1662477615221}
-,{"county_fips":"09015","county_name":"Windham County","svi":0.42,"age":"All","ingestion_ts":1662477615221}
-,{"county_fips":"09013","county_name":"Tolland County","svi":0.07,"age":"All","ingestion_ts":1662477615221}]
