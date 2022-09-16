@@ -300,17 +300,17 @@ export const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "cawp_data-race_and_ethnicity_national",
     name: "National representation of women by race/ethnicity in the US Congress and across county and territory legislatures",
-    update_time: "2022",
+    update_time: "September 2022",
   },
   {
     id: "cawp_data-race_and_ethnicity_state",
     name: "Representation of women by race/ethnicity from each state and territory to the US Congress and their respective state legislature",
-    update_time: "2022",
+    update_time: "September 2022",
   },
   {
     id: "propublica_congress",
     name: "The ProPublica Congress API provides near real-time access to legislative data from the House of Representatives, the Senate and the Library of Congress. It includes details about members, votes, bills and other aspects of congressional activity.",
-    update_time: "2022",
+    update_time: "September 2022",
   },
   {
     id: GEOGRAPHIES_DATASET_ID,
