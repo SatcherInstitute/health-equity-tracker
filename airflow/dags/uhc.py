@@ -22,13 +22,33 @@ uhc_bq_payload = util.generate_bq_payload(
 uhc_pop_bq_operator = util.create_bq_ingest_operator(
     'uhc_to_bq', uhc_bq_payload, data_ingestion_dag)
 
-uhc_aggregator_payload = {'dataset_name': _UHC_DATASET_NAME}
-uhc_aggregator_operator = util.create_aggregator_operator(
-    'uhc_aggregator', uhc_aggregator_payload, data_ingestion_dag)
+uhc_exporter_payload_race = {
+    'dataset_name': _UHC_DATASET_NAME,
+    'demographic': "race_and_ethnicity"
+}
+uhc_exporter_operator_race = util.create_exporter_operator(
+    'uhc_exporter_race', uhc_exporter_payload_race, data_ingestion_dag)
 
-uhc_exporter_payload = {'dataset_name': _UHC_DATASET_NAME}
-uhc_exporter_operator = util.create_exporter_operator(
-    'uhc_exporter', uhc_exporter_payload, data_ingestion_dag)
+
+uhc_exporter_payload_age = {
+    'dataset_name': _UHC_DATASET_NAME,
+    'demographic': "age"
+}
+uhc_exporter_operator_age = util.create_exporter_operator(
+    'uhc_exporter_age', uhc_exporter_payload_age, data_ingestion_dag)
+
+
+uhc_exporter_payload_sex = {
+    'dataset_name': _UHC_DATASET_NAME,
+    'demographic': "sex"
+}
+uhc_exporter_operator_sex = util.create_exporter_operator(
+    'uhc_exporter_sex', uhc_exporter_payload_sex, data_ingestion_dag)
 
 # Ingestion DAG
-uhc_pop_bq_operator >> uhc_aggregator_operator >> uhc_exporter_operator
+(
+    uhc_pop_bq_operator >>
+    uhc_exporter_operator_race >>
+    uhc_exporter_operator_age >>
+    uhc_exporter_operator_sex
+)

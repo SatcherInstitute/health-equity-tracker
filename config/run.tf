@@ -115,8 +115,15 @@ resource "google_cloud_run_service" "exporter_service" {
 
   template {
     spec {
+      timeout_seconds = 60 * 10
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.exporter_image_name, var.exporter_image_digest)
+
+        resources {
+          limits = {
+            memory = "4G"
+          }
+        }
         env {
           # GCP project that contains the dataset we are exporting from.
           name  = "PROJECT_ID"

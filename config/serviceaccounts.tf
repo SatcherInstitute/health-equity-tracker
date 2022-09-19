@@ -83,7 +83,7 @@ resource "google_project_iam_custom_role" "exporter_runner_role" {
   description = "Allows reading from BQ and writing to GCS buckets."
   permissions = ["storage.objects.create", "storage.objects.delete", "storage.objects.get", "storage.objects.list",
     "storage.objects.update", "storage.buckets.get", "bigquery.jobs.create", "bigquery.tables.export",
-  "bigquery.datasets.get", "bigquery.tables.list"]
+  "bigquery.datasets.get", "bigquery.tables.list", "bigquery.tables.getData", "bigquery.tables.get", "bigquery.readsessions.create", "bigquery.readsessions.getData"]
 }
 
 resource "google_project_iam_member" "exporter_runner_binding" {
