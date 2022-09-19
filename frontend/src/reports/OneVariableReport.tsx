@@ -132,7 +132,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
               item
               xs={12}
               md={SINGLE_COLUMN_WIDTH}
-              id="locations-info"
+              id="location-info"
               className={styles.ScrollPastHeader}
             >
               <PopulationCard jumpToData={props.jumpToData} fips={props.fips} />
