@@ -90,9 +90,6 @@ export function createTitles(
   let chartTitle = `Rates of ${description} in ${location}`;
   let subTitle = "";
 
-  console.log(breakdown);
-  console.log(demographic);
-
   if (demographic === "All") {
     return { chartTitle, subTitle };
   }

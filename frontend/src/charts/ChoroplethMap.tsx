@@ -478,11 +478,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       marks: marks,
       title: !props.overrideShapeWithCircle && {
         text: props.titles?.chartTitle,
-        subtitle: props?.titles?.subTitle,
+        subtitle: props.titles?.subTitle,
         encode: {
           title: {
             enter: {
-              fill: { value: "green" },
+              fill: { value: sass.mapDarkest },
             },
           },
           subtitle: {
