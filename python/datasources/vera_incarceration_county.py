@@ -247,7 +247,7 @@ class VeraIncarcerationCounty(DataSource):
             'upload_to_gcs should not be called for VeraIncarcerationCounty')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demo_type = self.get_attr(attrs, 'demo_breakdown')
+        demo_type = self.get_attr(attrs, 'demographic')
         print("demo_type in data source:", demo_type)
 
         df = gcs_to_bq_util.load_csv_as_df_from_web(

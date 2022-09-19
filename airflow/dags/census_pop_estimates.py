@@ -24,7 +24,7 @@ census_pop_estimates_bq_operator = util.create_bq_ingest_operator(
 
 census_pop_estimates_exporter_payload_race = {
     'dataset_name': _CENSUS_POP_ESTIMATES_DATASET_NAME,
-    'demo_breakdown': "race"
+    'demographic': "race"
 }
 census_pop_estimates_exporter_operator_race = util.create_exporter_operator(
     'census_pop_estimates_exporter_race', census_pop_estimates_exporter_payload_race, data_ingestion_dag)

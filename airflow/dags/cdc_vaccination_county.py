@@ -29,7 +29,7 @@ cdc_vaccination_county_aggregator_operator = util.create_aggregator_operator(
 
 cdc_vaccination_county_exporter_payload_race = {
     'dataset_name': _CDC_VACCINATION_COUNTY_DATASET_NAME,
-    'demo_breakdown': "race"
+    'demographic': "race"
 }
 cdc_vaccination_county_exporter_operator_race = util.create_exporter_operator(
     'cdc_vaccination_county_exporter_race', cdc_vaccination_county_exporter_payload_race, data_ingestion_dag)

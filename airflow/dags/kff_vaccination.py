@@ -29,7 +29,7 @@ kff_vaccination_aggregator_operator = util.create_aggregator_operator(
 
 kff_vaccination_exporter_payload_race = {
     'dataset_name': _KFF_VACCINATION_DATASET_NAME,
-    'demo_breakdown': "race"
+    'demographic': "race"
 }
 kff_vaccination_exporter_operator_race = util.create_exporter_operator(
     'kff_vaccination_exporter_race', kff_vaccination_exporter_payload_race, data_ingestion_dag)

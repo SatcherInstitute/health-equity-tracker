@@ -24,7 +24,7 @@ cawp_pop_bq_operator = util.create_bq_ingest_operator(
 
 cawp_exporter_payload_race = {
     'dataset_name': _CAWP_DATASET_NAME,
-    'demo_breakdown': "race_and_ethnicity"
+    'demographic': "race_and_ethnicity"
 }
 cawp_exporter_operator_race = util.create_exporter_operator(
     'cawp_exporter_race', cawp_exporter_payload_race, data_ingestion_dag)

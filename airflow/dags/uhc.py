@@ -24,7 +24,7 @@ uhc_pop_bq_operator = util.create_bq_ingest_operator(
 
 uhc_exporter_payload_race = {
     'dataset_name': _UHC_DATASET_NAME,
-    'demo_breakdown': "race_and_ethnicity"
+    'demographic': "race_and_ethnicity"
 }
 uhc_exporter_operator_race = util.create_exporter_operator(
     'uhc_exporter_race', uhc_exporter_payload_race, data_ingestion_dag)
@@ -32,7 +32,7 @@ uhc_exporter_operator_race = util.create_exporter_operator(
 
 uhc_exporter_payload_age = {
     'dataset_name': _UHC_DATASET_NAME,
-    'demo_breakdown': "age"
+    'demographic': "age"
 }
 uhc_exporter_operator_age = util.create_exporter_operator(
     'uhc_exporter_age', uhc_exporter_payload_age, data_ingestion_dag)
@@ -40,7 +40,7 @@ uhc_exporter_operator_age = util.create_exporter_operator(
 
 uhc_exporter_payload_sex = {
     'dataset_name': _UHC_DATASET_NAME,
-    'demo_breakdown': "sex"
+    'demographic': "sex"
 }
 uhc_exporter_operator_sex = util.create_exporter_operator(
     'uhc_exporter_sex', uhc_exporter_payload_sex, data_ingestion_dag)

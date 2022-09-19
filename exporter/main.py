@@ -18,10 +18,10 @@ def export_dataset_tables():
     if data.get('dataset_name') is None:
         return ('Request must include dataset name.', 400)
 
-    demo_breakdown = None
-    if data.get('demo_breakdown') is not None:
-        demo_breakdown = data.get('demo_breakdown')
-        print("demo_breakdown: ", demo_breakdown)
+    demographic = None
+    if data.get('demographic') is not None:
+        demographic = data.get('demographic')
+        print("demographic: ", demographic)
 
     dataset_name = data['dataset_name']
     project_id = os.environ.get('PROJECT_ID')
@@ -33,17 +33,17 @@ def export_dataset_tables():
     tables = list(bq_client.list_tables(dataset))
 
     # filter only tables for current breakdown (if present)
-    if demo_breakdown is not None:
+    if demographic is not None:
         tables = [
             table for table in tables if (
-                demo_breakdown in table.table_id
+                demographic in table.table_id
             )
         ]
 
     # If there are no tables in the dataset, return an error so the pipeline will alert
     # and a human can look into any potential issues.
     if not tables:
-        return ('Dataset has no tables.', 500)
+        return (f'Dataset has no tables with "{demographic}" in the table_id.', 500)
 
     for table in tables:
 
@@ -96,7 +96,7 @@ def export_split_county_tables(bq_client, table, export_bucket):
     for fips in STATE_LEVEL_FIPS_LIST:
 
         state_file_name = f'{table.dataset_id}-{table.table_id}-{fips}.json'
-        print(state_file_name)
+        print("Writing to GCP bucket: ", state_file_name)
 
         query = f"""
             SELECT *

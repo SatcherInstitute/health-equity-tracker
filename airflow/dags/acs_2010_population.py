@@ -30,7 +30,7 @@ acs_2010_bq_op = util.create_bq_ingest_operator(
 
 acs_2010_exporter_payload_race = {
     'dataset_name': _ACS_2010_POPULATION_DATASET,
-    'demo_breakdown': "race"
+    'demographic': "race"
 }
 acs_2010_exporter_operator_race = util.create_exporter_operator(
     'acs_2010_exporter_race', acs_2010_exporter_payload_race,
@@ -38,7 +38,7 @@ acs_2010_exporter_operator_race = util.create_exporter_operator(
 
 acs_2010_exporter_payload_age = {
     'dataset_name': _ACS_2010_POPULATION_DATASET,
-    'demo_breakdown': "age"
+    'demographic': "age"
 }
 acs_2010_exporter_operator_age = util.create_exporter_operator(
     'acs_2010_exporter_age', acs_2010_exporter_payload_age,
@@ -47,7 +47,7 @@ acs_2010_exporter_operator_age = util.create_exporter_operator(
 
 acs_2010_exporter_payload_sex = {
     'dataset_name': _ACS_2010_POPULATION_DATASET,
-    'demo_breakdown': "sex"
+    'demographic': "sex"
 }
 acs_2010_exporter_operator_sex = util.create_exporter_operator(
     'acs_2010_exporter_sex', acs_2010_exporter_payload_sex,

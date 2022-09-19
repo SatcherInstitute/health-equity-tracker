@@ -69,13 +69,13 @@ def testWriteToBq(
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
 
-    kwargs["demo_breakdown"] = "race_and_ethnicity"
+    kwargs["demographic"] = "race_and_ethnicity"
     veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    kwargs["demo_breakdown"] = "sex"
+    kwargs["demographic"] = "sex"
     veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    kwargs["demo_breakdown"] = "age"
+    kwargs["demographic"] = "age"
     veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6

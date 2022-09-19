@@ -11,7 +11,7 @@ from main import app, STATE_LEVEL_FIPS_LIST, get_table_name
 
 NUM_STATES_AND_TERRITORIES = len(STATE_LEVEL_FIPS_LIST)
 
-test_tables = [bigquery.Table("my-project.my-dataset.t1-sex"),
+TEST_TABLES = [bigquery.Table("my-project.my-dataset.t1-sex"),
                bigquery.Table("my-project.my-dataset.t2-age_std"),
                bigquery.Table("my-project.my-dataset.t3-age"),
                bigquery.Table("my-project.my-county-dataset.t4-age"),
@@ -40,11 +40,11 @@ def testExportDatasetTables(
 ):
     # Set up mocks
     mock_bq_instance = mock_bq_client.return_value
-    mock_bq_instance.list_tables.return_value = test_tables
+    mock_bq_instance.list_tables.return_value = TEST_TABLES
 
     payload = {
         'dataset_name': 'my-dataset',
-        'demo_breakdown': 'age'
+        'demographic': 'age'
     }
     response = client.post('/', json=payload)
 
@@ -80,7 +80,7 @@ def testExportDatasetTables_NoTables(
 
     payload = {
         'dataset_name': 'my-dataset',
-        'demo_breakdown': 'age'
+        'demographic': 'age'
     }
     response = client.post('/', json=payload)
 
@@ -97,7 +97,7 @@ def testExportDatasetTables_ExtractJobFailure(
 ):
     # Set up mocks
     mock_bq_instance = mock_bq_client.return_value
-    mock_bq_instance.list_tables.return_value = test_tables
+    mock_bq_instance.list_tables.return_value = TEST_TABLES
     mock_extract_job = Mock()
     mock_bq_instance.extract_table.return_value = mock_extract_job
     mock_extract_job.result.side_effect = google.cloud.exceptions.InternalServerError(
@@ -105,19 +105,16 @@ def testExportDatasetTables_ExtractJobFailure(
 
     payload = {
         'dataset_name': 'my-dataset',
-        'demo_breakdown': 'age'
+        'demographic': 'age'
     }
     response = client.post('/', json=payload)
 
     assert response.status_code == 500
     assert mock_split_county.call_count == 1
 
-#
-#
-#
-
 
 # TEST ADDITIONAL COUNTY-LEVEL DATASET SPLIT FUNCTIONS
+
 _test_query_results_df = pd.DataFrame({
     'county_fips': ["01001", "01002", "01003"],
     'some_condition_per_100k': [None, 1, 2],
@@ -139,11 +136,11 @@ def testExportSplitCountyTables(
 ):
 
     mock_bq_instance = mock_bq_client.return_value
-    mock_bq_instance.list_tables.return_value = test_tables
+    mock_bq_instance.list_tables.return_value = TEST_TABLES
 
     payload = {
         'dataset_name': 'my-dataset',
-        'demo_breakdown': 'age'
+        'demographic': 'age'
     }
     client.post('/', json=payload)
 
@@ -155,9 +152,9 @@ def testExportSplitCountyTables(
 
     # ensure generated ndjson for bq.storage matches expected ndjson
     generated_nd_json = mock_export.call_args[0][1]
-    assert (generated_nd_json ==
-            _test_query_results_df.to_json(orient="records",
-                                           lines=True))
+    assert (sorted(generated_nd_json) ==
+            sorted(_test_query_results_df.to_json(orient="records",
+                                                  lines=True)))
 
     bucket_name = mock_prepare_bucket.call_args[0][0]
     assert bucket_name == os.environ['EXPORT_BUCKET']
@@ -167,7 +164,7 @@ def testExportSplitCountyTables(
 
         generated_query_string = mock_query_df.call_args_list[i][0][1]
 
-        table_names = [get_table_name(x) for x in test_tables]
+        table_names = [get_table_name(x) for x in TEST_TABLES]
         expected_query_string = f"""
             SELECT *
             FROM {table_names[3]}
@@ -179,6 +176,6 @@ def testExportSplitCountyTables(
 
         # ensure county level files are named as expected
         state_file_name = mock_prepare_blob.call_args_list[i][0][1]
-        table = test_tables[3]
+        table = TEST_TABLES[3]
         expected_file_name = f'{table.dataset_id}-{table.table_id}-{fips}.json'
         assert state_file_name == expected_file_name

@@ -24,14 +24,14 @@ bjs_incarceration_bq_operator = util.create_bq_ingest_operator(
 
 payload_race = {
     'dataset_name': _BJS_INCARCERATION_DATASET_NAME,
-    'demo_breakdown': "race_and_ethnicity"
+    'demographic': "race_and_ethnicity"
 }
 bjs_incarceration_exporter_operator_race = util.create_exporter_operator(
     'bjs_incarceration_exporter_race', payload_race, data_ingestion_dag)
 
 payload_age = {
     'dataset_name': _BJS_INCARCERATION_DATASET_NAME,
-    'demo_breakdown': "age"
+    'demographic': "age"
 }
 bjs_incarceration_exporter_operator_age = util.create_exporter_operator(
     'bjs_incarceration_exporter_age', payload_race, data_ingestion_dag)
@@ -39,7 +39,7 @@ bjs_incarceration_exporter_operator_age = util.create_exporter_operator(
 
 payload_sex = {
     'dataset_name': _BJS_INCARCERATION_DATASET_NAME,
-    'demo_breakdown': "sex"
+    'demographic': "sex"
 }
 bjs_incarceration_exporter_operator_sex = util.create_exporter_operator(
     'bjs_incarceration_exporter_sex', payload_sex, data_ingestion_dag)
