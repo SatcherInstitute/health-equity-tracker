@@ -164,7 +164,7 @@ function TwoVariableReport(props: {
             <Grid
               item
               xs={12}
-              id="population"
+              id="location-info"
               className={styles.ScrollPastHeaderCompareMode}
             >
               {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
@@ -205,7 +205,7 @@ function TwoVariableReport(props: {
                 item
                 xs={12}
                 sm={6}
-                id="population"
+                id="location-info"
                 className={styles.ScrollPastHeaderCompareMode}
               >
                 {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
@@ -277,7 +277,7 @@ function TwoVariableReport(props: {
             !breakdownIsShown(breakdownVar) ? null : (
               <Fragment key={breakdownVar}>
                 <RowOfTwoOptionalMetrics
-                  id="bar"
+                  id="rate-chart"
                   variableConfig1={variableConfig1}
                   variableConfig2={variableConfig2}
                   fips1={props.fips1}
@@ -300,7 +300,7 @@ function TwoVariableReport(props: {
 
           {/* SIDE-BY-SIDE UNKNOWNS MAP CARDS */}
           <RowOfTwoOptionalMetrics
-            id="unknowns"
+            id="unknowns-map"
             variableConfig1={variableConfig1}
             variableConfig2={variableConfig2}
             fips1={props.fips1}
@@ -330,7 +330,7 @@ function TwoVariableReport(props: {
             !breakdownIsShown(breakdownVar) ? null : (
               <Fragment key={breakdownVar}>
                 <RowOfTwoOptionalMetrics
-                  id="disparity"
+                  id="population-vs-share"
                   variableConfig1={variableConfig1}
                   variableConfig2={variableConfig2}
                   fips1={props.fips1}
@@ -355,7 +355,7 @@ function TwoVariableReport(props: {
           {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
             !breakdownIsShown(breakdownVar) ? null : (
               <RowOfTwoOptionalMetrics
-                id="table"
+                id="data-table"
                 key={breakdownVar}
                 variableConfig1={variableConfig1}
                 variableConfig2={variableConfig2}
@@ -382,7 +382,7 @@ function TwoVariableReport(props: {
 
           {showAgeAdjustCardRow && (
             <RowOfTwoOptionalMetrics
-              id="age-adjusted"
+              id="age-adjusted-risk"
               // specific data type
               variableConfig1={variableConfig1}
               variableConfig2={variableConfig2}
