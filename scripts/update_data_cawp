@@ -1,0 +1,37 @@
+#!/bin/bash
+
+source .env.secrets
+
+if [[ -z "$PROPUBLICA_API_KEY" ]]; then
+    echo "Error. Must ensure /scripts/.env.secrets file exists and contains your PROPUBLICA_API_KEY. See /scripts/.env.secrets.example for more details." 1>&2
+    exit 1
+fi
+
+if [[ -z "$CAWP_USERNAME" ]]; then
+    echo "Error. Must ensure /scripts/.env.secrets file exists and contains your CAWP_USERNAME. See /scripts/.env.secrets.example for more details." 1>&2
+    exit 1
+fi
+
+if [[ -z "$CAWP_PASSWORD" ]]; then
+    echo "Error. Must ensure /scripts/.env.secrets file exists and contains your CAWP_PASSWORD. See /scripts/.env.secrets.example for more details." 1>&2
+    exit 1
+fi
+
+echo "ProPublica API key found. Updating Congress (House + Senate) data...."
+
+
+curl -H "X-API-Key: ${PROPUBLICA_API_KEY}" "https://api.propublica.org/congress/v1/117/senate/members.json" > ../data/cawp/propublica-us-senate.json
+
+curl -H "X-API-Key: ${PROPUBLICA_API_KEY}" "https://api.propublica.org/congress/v1/117/house/members.json" > ../data/cawp/propublica-us-house.json
+
+
+echo "CAWP credentials found. Logging in...."
+
+curl -u "${$CAWP_USERNAME}":"${CAWP_PASSWORD}" https://cawpdata.rutgers.edu/user/login?destination=%2Fwomen-elected-officials%2Frace-ethnicity
+
+echo "Updating CAWP data...."
+
+
+
+
+echo "Updated House and Senate files in /data/cawp"
