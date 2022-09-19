@@ -486,12 +486,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             },
           },
           subtitle: {
-            interactive: true,
-            update: {
+            enter: {
               fontStyle: { value: "italic" },
-            },
-            hover: {
-              fontStyle: { value: "normal" },
             },
           },
         },
