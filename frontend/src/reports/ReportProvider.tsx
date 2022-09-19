@@ -183,7 +183,7 @@ function ReportProvider(props: ReportProviderProps) {
       </div>
       <div className={styles.MissingDataContainer}>
         <aside
-          id="missingDataInfo"
+          id="definitions-missing-data"
           ref={fieldRef}
           className={styles.MissingDataInfo}
         >
@@ -191,9 +191,7 @@ function ReportProvider(props: ReportProviderProps) {
           <div ref={definitionsRef}>
             {definedConditions.length > 0 && (
               <Box mb={5}>
-                <h3 id="def" className={styles.FootnoteLargeHeading}>
-                  Definitions:
-                </h3>
+                <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
                 <LazyLoad offset={300} height={181} once>
                   <DefinitionsList variablesToDefine={metricConfigSubset} />
                 </LazyLoad>
@@ -202,7 +200,7 @@ function ReportProvider(props: ReportProviderProps) {
           </div>
 
           <Box mt={10}>
-            <h3 id="what" className={styles.FootnoteLargeHeading}>
+            <h3 className={styles.FootnoteLargeHeading}>
               What Data Are Missing?
             </h3>
           </Box>

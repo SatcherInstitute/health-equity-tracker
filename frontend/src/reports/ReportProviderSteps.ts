@@ -4,41 +4,41 @@ export const reportProviderSteps: StepData[] = [
   {
     label: "Location Info and Filters",
     pluralOnCompare: false,
-    hashId: "population",
+    hashId: "location-info",
   },
   {
     label: "Rate Map",
     pluralOnCompare: true,
-    hashId: "map",
+    hashId: "rate-map",
   },
   {
     label: "Rate Chart",
     pluralOnCompare: true,
-    hashId: "bar",
+    hashId: "rate-chart",
   },
   {
     label: "Unknown Map",
     pluralOnCompare: true,
-    hashId: "unknowns",
+    hashId: "unknowns-map",
   },
   {
-    label: "Share vs. Population",
+    label: "Population vs. Share",
     pluralOnCompare: true,
-    hashId: "disparity",
+    hashId: "population-vs-share",
   },
   {
     label: "Data Table",
     pluralOnCompare: true,
-    hashId: "table",
+    hashId: "data-table",
   },
   {
     label: "Risk Ratio Table",
     pluralOnCompare: true,
-    hashId: "age-adjusted",
+    hashId: "age-adjusted-risk",
   },
   {
     label: "Missing Data and Definitions",
     pluralOnCompare: false,
-    hashId: "def",
+    hashId: "definitions-missing-data",
   },
 ];
