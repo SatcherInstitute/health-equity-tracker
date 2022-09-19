@@ -41,12 +41,9 @@ def generate_gcs_payload(workflow_id: str, filename: str = None,
     return {'message': message}
 
 
-def generate_bq_payload(workflow_id: str, dataset: str,
-                        filename: str = None,
-                        gcs_bucket: str = None,
-                        url: str = None,
-                        cumulative: bool = None,
-                        demo_breakdown: str = None) -> dict:
+def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
+                        gcs_bucket: str = None, url: str = None,
+                        demographic: str = None) -> dict:
     """Creates the payload object required for the BQ ingestion operator.
 
     workflow_id: ID of the datasource workflow. Should match ID defined in
@@ -59,24 +56,16 @@ def generate_bq_payload(workflow_id: str, dataset: str,
     url: The URL used for ingestion. This should be deprecated in favor of
          writing any metadata to GCS during the GCS step. It's temporarily
          necessary since ACS directly requests metadata during BQ upload.
-    cumulative: boolean flag used to direct the creation of either
-        the cumulative or the time-based dataset
-    demo_breakdown: string "race_and_ethnicity" | "age" | "sex".
-        Creates the payload only for the specified demographic breakdown type.
-
-
-         """
+    demographic: The demographic group to generate the bq pipeline for.
+                 Either `race`, `sex` or `age`."""
     message = get_required_attrs(workflow_id, gcs_bucket=gcs_bucket)
     message['dataset'] = dataset
     if filename is not None:
         message['filename'] = filename
     if url is not None:
         message['url'] = url
-    if cumulative is not None:
-        message['cumulative'] = cumulative
-    if demo_breakdown is not None:
-        message['demo_breakdown'] = demo_breakdown
-
+    if demographic is not None:
+        message['demographic'] = demographic
     return {'message': message}
 
 
