@@ -1103,7 +1103,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName: "Cases of cardiovascular diseases per 100k people",
           trendsCardTitleName: "Rates of cardiovascular diseases over time",
 
-          shortLabel: "cases of cardiovascular diseases",
+          shortLabel: "cases of cardiovascular diseases per 100k",
           type: "per100k",
         },
         pct_share: {

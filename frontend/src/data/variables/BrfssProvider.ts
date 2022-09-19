@@ -2,7 +2,6 @@ import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
 export const UHC_DETERMINANTS: MetricId[] = [
@@ -99,7 +98,7 @@ class BrfssProvider extends VariableProvider {
     const brfss = await getDataManager().loadDataset(datasetId);
     let df = brfss.toDataFrame();
 
-    const consumedDatasetIds = [datasetId, GetAcsDatasetId(breakdowns)];
+    const consumedDatasetIds = [datasetId];
 
     df = this.filterByGeo(df, breakdowns);
     df = this.filterByTimeView(df, timeView, "2021");

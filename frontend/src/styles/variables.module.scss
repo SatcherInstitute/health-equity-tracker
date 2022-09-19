@@ -72,6 +72,7 @@ $time-yellow: #fcb431;
 
 // font settings
 $logo: 20px; // pixel perfect to match logo img
+
 $smallest: 0.75rem;
 $small: 0.875rem;
 $text: 1rem;
@@ -84,6 +85,7 @@ $bigHeader: 3rem;
 $biggerHeader: 3.125rem;
 $biggestHeader: 5rem;
 
+// line heights
 $lhSuperLoose: 2.45;
 $lhLoose: 1.6;
 $lhNormal: 1;
@@ -91,10 +93,12 @@ $lhTight: 0.95;
 
 // default settings
 $header-height: 600px;
+$sticky-madlib-height: 72px;
+$sticky-madlib-height-compare: 110px;
 $footer-size: 10rem;
 $max-width: 800px;
 $preload-article-height: 750px;
-$explore-data-max-width: 1000px;
+$explore-data-max-width: 1500px;
 
 // default material breakpoints
 $sm: 600px;

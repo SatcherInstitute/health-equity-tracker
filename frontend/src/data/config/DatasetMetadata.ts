@@ -186,50 +186,50 @@ export const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "cdc_restricted_data-by_race_county_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and County",
-    update_time: "August 2022",
+    update_time: "September 2022",
     contains_nh: true,
   },
   {
     id: "cdc_restricted_data-by_race_state_processed-with_age_adjust",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and State",
-    update_time: "August 2022",
+    update_time: "September 2022",
     contains_nh: true,
   },
   {
     id: "cdc_restricted_data-by_race_national_processed-with_age_adjust",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race Nationally",
-    update_time: "August 2022",
+    update_time: "September 2022",
     contains_nh: true,
   },
   {
     id: "cdc_restricted_data-by_age_county_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and County",
-    update_time: "August 2022",
+    update_time: "September 2022",
   },
   {
     id: "cdc_restricted_data-by_age_state_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and State",
-    update_time: "August 2022",
+    update_time: "September 2022",
   },
   {
     id: "cdc_restricted_data-by_age_national_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Age Nationally",
-    update_time: "August 2022",
+    update_time: "September 2022",
   },
   {
     id: "cdc_restricted_data-by_sex_county_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and County",
-    update_time: "August 2022",
+    update_time: "September 2022",
   },
   {
     id: "cdc_restricted_data-by_sex_state_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and State",
-    update_time: "August 2022",
+    update_time: "September 2022",
   },
   {
     id: "cdc_restricted_data-by_sex_national_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex Nationally",
-    update_time: "August 2022",
+    update_time: "September 2022",
   },
   {
     id: "cdc_svi_county-age",
@@ -239,29 +239,29 @@ export const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "cdc_vaccination_county-race_and_ethnicity",
     name: "COVID-19 Vaccinations by County",
-    update_time: "July 2022",
+    update_time: "September 2022",
     contains_nh: true,
   },
   {
     id: "cdc_vaccination_national-age",
     name: "COVID-19 Vaccination Demographics by Age",
-    update_time: "July 2022",
+    update_time: "September 2022",
   },
   {
     id: "cdc_vaccination_national-sex",
     name: "COVID-19 Vaccination Demographics by Sex",
-    update_time: "July 2022",
+    update_time: "September 2022",
   },
   {
     id: "cdc_vaccination_national-race_and_ethnicity",
     name: "COVID-19 Vaccination Demographics by Race",
-    update_time: "July 2022",
+    update_time: "September 2022",
     contains_nh: true,
   },
   {
     id: "kff_vaccination-race_and_ethnicity",
     name: "COVID-19 Indicators",
-    update_time: "April 2022",
+    update_time: "July 2022",
     contains_nh: true,
   },
   {
@@ -363,19 +363,19 @@ export const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "cawp_data-race_and_ethnicity_national",
     name: "National representation of women by race/ethnicity in the US Congress and across county and territory legislatures",
-    update_time: "2022",
+    update_time: "September 2022",
     contains_nh: true,
   },
   {
     id: "cawp_data-race_and_ethnicity_state",
     name: "Representation of women by race/ethnicity from each state and territory to the US Congress and their respective state legislature",
-    update_time: "2022",
+    update_time: "September 2022",
     contains_nh: true,
   },
   {
     id: "propublica_congress",
     name: "The ProPublica Congress API provides near real-time access to legislative data from the House of Representatives, the Senate and the Library of Congress. It includes details about members, votes, bills and other aspects of congressional activity.",
-    update_time: "2022",
+    update_time: "September 2022",
   },
   {
     id: GEOGRAPHIES_DATASET_ID,

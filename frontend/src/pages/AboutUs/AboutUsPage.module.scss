@@ -105,6 +105,7 @@
   @media (max-width: $sm) {
     padding: 40px;
   }
+
   .GridVerticallyAlignedItem {
     justify-content: center;
   }
@@ -298,4 +299,19 @@
 
 .ContactUsP {
   margin-top: 2rem;
+}
+
+.EmailTextField {
+  line-height: $lhSuperLoose;
+  height: $lhSuperLoose;
+
+  input,
+  button {
+    padding: 10px 1rem 10px 1rem !important;
+  }
+}
+
+.EmailAddressFormSubmit {
+  line-height: $lhSuperLoose;
+  min-height: $lhSuperLoose;
 }

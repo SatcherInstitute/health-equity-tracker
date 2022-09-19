@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { OneVariableReport } from "./OneVariableReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
@@ -33,6 +33,7 @@ import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
+import { StepData } from "../utils/hooks/useStepObserver";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -44,9 +45,12 @@ interface ReportProviderProps {
   setMadLib: Function;
   doScrollToData?: boolean;
   showIncarceratedChildrenAlert: boolean;
+  isScrolledToTop: boolean;
 }
 
 function ReportProvider(props: ReportProviderProps) {
+  const [reportSteps, setReportSteps] = useState<StepData[]>([]);
+
   // only show determinants that have definitions
   const definedConditions = props.selectedConditions.filter(
     (condition) => condition?.variableDefinition
@@ -96,6 +100,9 @@ function ReportProvider(props: ReportProviderProps) {
                 getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
               )
             }
+            isScrolledToTop={props.isScrolledToTop}
+            reportSteps={reportSteps}
+            setReportSteps={setReportSteps}
           />
         );
       case "comparegeos":
@@ -121,6 +128,9 @@ function ReportProvider(props: ReportProviderProps) {
                 getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
               )
             }
+            isScrolledToTop={props.isScrolledToTop}
+            reportSteps={reportSteps}
+            setReportSteps={setReportSteps}
           />
         );
       case "comparevars":
@@ -144,6 +154,9 @@ function ReportProvider(props: ReportProviderProps) {
             fips2={new Fips(fipsCode)}
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
+            isScrolledToTop={props.isScrolledToTop}
+            reportSteps={reportSteps}
+            setReportSteps={setReportSteps}
           />
         );
       default:
@@ -178,7 +191,9 @@ function ReportProvider(props: ReportProviderProps) {
           <div ref={definitionsRef}>
             {definedConditions.length > 0 && (
               <Box mb={5}>
-                <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
+                <h3 id="def" className={styles.FootnoteLargeHeading}>
+                  Definitions:
+                </h3>
                 <LazyLoad offset={300} height={181} once>
                   <DefinitionsList variablesToDefine={metricConfigSubset} />
                 </LazyLoad>
@@ -187,7 +202,7 @@ function ReportProvider(props: ReportProviderProps) {
           </div>
 
           <Box mt={10}>
-            <h3 className={styles.FootnoteLargeHeading}>
+            <h3 id="what" className={styles.FootnoteLargeHeading}>
               What Data Are Missing?
             </h3>
           </Box>

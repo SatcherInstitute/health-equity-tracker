@@ -24,9 +24,7 @@ import styles from "./Card.module.scss";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
-
-/* minimize layout shift */
-const PRELOAD_HEIGHT = 748;
+import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -53,6 +51,8 @@ export function UnknownsMapCard(props: UnknownsMapCardProps) {
 }
 
 function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
+  const preloadHeight = useGuessPreloadHeight([700, 1000]);
+
   const metricConfig = props.variableConfig.metrics["pct_share"];
 
   const signalListeners: any = {
@@ -91,7 +91,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       queries={[mapQuery, alertQuery]}
       title={<>{getTitleText()}</>}
       loadGeographies={true}
-      minHeight={PRELOAD_HEIGHT}
+      minHeight={preloadHeight}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         const unknownRaces = mapQueryResponse

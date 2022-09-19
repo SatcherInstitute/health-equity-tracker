@@ -30,9 +30,7 @@ import styles from "./Card.module.scss";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { Row } from "../data/utils/DatasetTypes";
-
-/* minimize layout shift */
-const PRELOAD_HEIGHT = 698;
+import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -48,6 +46,11 @@ export interface TableCardProps {
 }
 
 export function TableCard(props: TableCardProps) {
+  const preloadHeight = useGuessPreloadHeight(
+    [700, 1500],
+    props.breakdownVar === "sex"
+  );
+
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
@@ -95,7 +98,7 @@ export function TableCard(props: TableCardProps) {
 
   return (
     <CardWrapper
-      minHeight={PRELOAD_HEIGHT}
+      minHeight={preloadHeight}
       queries={[query]}
       title={
         <>{`${props.variableConfig.variableFullDisplayName} by ${

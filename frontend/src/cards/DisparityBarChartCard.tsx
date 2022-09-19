@@ -20,9 +20,7 @@ import {
   splitIntoKnownsAndUnknowns,
 } from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
-
-/* minimize layout shift */
-const PRELOAD_HEIGHT = 719;
+import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -43,6 +41,11 @@ export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
 }
 
 function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
+  const preloadHeight = useGuessPreloadHeight(
+    [700, 1000],
+    props.breakdownVar === "sex"
+  );
+
   const metricConfig = props.variableConfig.metrics["pct_share"];
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
@@ -78,7 +81,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     <CardWrapper
       queries={[query]}
       title={<CardTitle />}
-      minHeight={PRELOAD_HEIGHT}
+      minHeight={preloadHeight}
     >
       {([queryResponse]) => {
         const validData = queryResponse.getValidRowsForField(

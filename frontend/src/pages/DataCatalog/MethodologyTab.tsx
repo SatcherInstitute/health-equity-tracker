@@ -276,6 +276,24 @@ function MethodologyTab() {
                     available at the county level, so the tracker does not
                     display these conditions at the county level either.
                   </li>
+                  <li>
+                    All metrics sourced from America's Health Rankings are
+                    calculated based on prevalance rates provided from their
+                    data API:
+                    <ul>
+                      <li>
+                        To calculate the <b>per 100k</b> metrics seen on the
+                        tracker, we either multiply the rate by 1000 if it is
+                        presented as a percentage, or simply display the exact
+                        metric if it is presented as a per 100k in the data API.
+                      </li>
+                      <li>
+                        We have chosen to not show any <b>percent share</b>{" "}
+                        metrics for these conditions because the source only
+                        provides the metrics as rates.
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
@@ -740,16 +758,35 @@ function MethodologyTab() {
                     race/ethnicity.
                   </li>
                   <li>
-                    <b>Asian (Non-Hispanic)</b>: A single race (Asian), not
+                    <b>American Indian and Alaska Native (Non-Hispanic)</b>: A
+                    person having origins in any of the original peoples of
+                    North and South America (including Central America), who
+                    maintains tribal affiliation or community attachment, and
+                    who is not Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>Asian (Non-Hispanic)</b>: A person having origins in any
+                    of the original peoples of the Far East, Southeast Asia, or
+                    the Indian subcontinent including, for example, Cambodia,
+                    China, India, Japan, Korea, Malaysia, Pakistan, the
+                    Philippine Islands, Thailand, and Vietnam, and who is not
                     Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>Black or African American (Non-Hispanic)</b>: A person
+                    having origins in any of the Black racial groups of Africa,
+                    and who is not Hispanic/Latino.
                   </li>
                   <li>
                     <b>Hispanic/Latino</b>: Any race(s), Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Black or African American</b>: A single race (African
-                    American), including those who identify as African American
-                    and Hispanic/Latino.
+                    <b>
+                      Native Hawaiian or Other Pacific Islander (Non-Hispanic)
+                    </b>
+                    : A person having origins in any of the original peoples of
+                    Hawaii, Guam, Samoa, or other Pacific Islands and who is not
+                    Hispanic/Latino.
                   </li>
                   <li>
                     <b>Unrepresented race (Non-Hispanic)</b>: A single race not
@@ -764,14 +801,22 @@ function MethodologyTab() {
                     equity issue.
                   </li>
                   <li>
-                    <b>Two or more races (Non-Hispanic)</b>: Multiple races, not
-                    Hispanic/Latino.
+                    <b>Two or more races (Non-Hispanic)</b>: Combinations of two
+                    or more of the following race categories: "White," "Black or
+                    African American," American Indian or Alaska Native,"
+                    "Asian," Native Hawaiian or Other Pacific Islander," or
+                    "Some Other Race", and who are not Hispanic/Latino.
                   </li>
                   <li>
                     <b>Two or more races & Unrepresented race (Non-Hispanic)</b>
                     : People who are either multiple races or a single race not
                     represented by the data source's categorization, and who are
                     not Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>White (Non-Hispanic)</b>: A person having origins in any
+                    of the original peoples of Europe, the Middle East, or North
+                    Africa, and who is not Hispanic/Latino.
                   </li>
                 </ul>
               </div>
