@@ -21,7 +21,6 @@ def export_dataset_tables():
     demographic = None
     if data.get('demographic') is not None:
         demographic = data.get('demographic')
-        print("demographic: ", demographic)
 
     dataset_name = data['dataset_name']
     project_id = os.environ.get('PROJECT_ID')
@@ -46,8 +45,6 @@ def export_dataset_tables():
         return (f'Dataset has no tables with "{demographic}" in the table_id.', 500)
 
     for table in tables:
-
-        print(">>>", f'{table.dataset_id}-{table.table_id}')
         # split up county-level tables by state and export those individually
         export_split_county_tables(bq_client, table, export_bucket)
 
@@ -55,7 +52,6 @@ def export_dataset_tables():
         dest_uri = f'gs://{export_bucket}/{dataset_name}-{table.table_id}.json'
         table_ref = dataset.table(table.table_id)
         try:
-            print("Also exporting full table")
             export_table(bq_client, table_ref, dest_uri,
                          'NEWLINE_DELIMITED_JSON')
 
@@ -89,15 +85,12 @@ def export_split_county_tables(bq_client, table, export_bucket):
     if "county" not in table_name:
         return
 
+    logging.info(
+        f'Exporting county-level data from {table_name} into additional files, split by state/territory.')
     bucket = prepare_bucket(export_bucket)
 
-    print("Splitting county-level table by state-level fips")
-
     for fips in STATE_LEVEL_FIPS_LIST:
-
         state_file_name = f'{table.dataset_id}-{table.table_id}-{fips}.json'
-        print("Writing to GCP bucket: ", state_file_name)
-
         query = f"""
             SELECT *
             FROM {table_name}
@@ -106,7 +99,6 @@ def export_split_county_tables(bq_client, table, export_bucket):
 
         try:
             blob = prepare_blob(bucket, state_file_name)
-
             state_df = get_query_results_as_df(bq_client, query)
             nd_json = state_df.to_json(orient="records",
                                        lines=True)

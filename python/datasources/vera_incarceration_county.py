@@ -248,7 +248,6 @@ class VeraIncarcerationCounty(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demo_type = self.get_attr(attrs, 'demographic')
-        print("demo_type in data source:", demo_type)
 
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_VERA_URL, dtype=VERA_COL_TYPES)
