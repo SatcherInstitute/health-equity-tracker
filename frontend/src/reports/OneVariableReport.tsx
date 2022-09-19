@@ -134,7 +134,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
               item
               xs={12}
               md={SINGLE_COLUMN_WIDTH}
-              id="population"
+              id="location-info"
               className={styles.ScrollPastHeader}
             >
               <PopulationCard jumpToData={props.jumpToData} fips={props.fips} />
@@ -164,7 +164,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 item
                 xs={12}
                 md={SINGLE_COLUMN_WIDTH}
-                id="map"
+                id="rate-map"
                 className={styles.ScrollPastHeader}
               >
                 <MapCard
@@ -186,6 +186,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
                 id="rate-trends"
+                className={styles.ScrollPastHeader}
               >
                 <LazyLoad offset={600} height={750} once>
                   {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -210,7 +211,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 xs={12}
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
-                id="bar"
+                id="rate-chart"
                 className={styles.ScrollPastHeader}
               >
                 <LazyLoad offset={600} height={750} once>
@@ -235,7 +236,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 xs={12}
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
-                id="unknowns"
+                id="unknowns-map"
                 className={styles.ScrollPastHeader}
               >
                 <LazyLoad offset={800} height={750} once>
@@ -253,13 +254,39 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 </LazyLoad>
               </Grid>
 
+              {/* SHARE TRENDS LINE CHART CARD */}
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={SINGLE_COLUMN_WIDTH}
+                id="share-trends"
+                className={styles.ScrollPastHeader}
+              >
+                <LazyLoad offset={600} height={750} once>
+                  {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                    <Fragment key={breakdownVar}>
+                      {breakdownIsShown(breakdownVar) &&
+                        // only show longitudinal 100k chart if MetricConfig for current condition has a card title
+                        variableConfig.longitudinalData && (
+                          <ShareTrendsChartCard
+                            variableConfig={variableConfig}
+                            breakdownVar={breakdownVar}
+                            fips={props.fips}
+                          />
+                        )}
+                    </Fragment>
+                  ))}
+                </LazyLoad>
+              </Grid>
+
               {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
               <Grid
                 item
                 xs={12}
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
-                id="disparity"
+                id="share-vs-population"
                 className={styles.ScrollPastHeader}
               >
                 <LazyLoad offset={800} height={750} once>
@@ -283,7 +310,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 item
                 xs={12}
                 md={SINGLE_COLUMN_WIDTH}
-                id="table"
+                id="data-table"
                 className={styles.ScrollPastHeader}
               >
                 <LazyLoad offset={800} height={750} once>
@@ -307,7 +334,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   item
                   xs={12}
                   md={SINGLE_COLUMN_WIDTH}
-                  id="age-adjusted"
+                  id="age-adjusted-risk"
                   className={styles.ScrollPastHeader}
                 >
                   <LazyLoad offset={800} height={800} once>
