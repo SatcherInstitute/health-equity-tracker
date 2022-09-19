@@ -32,8 +32,8 @@ export const reportProviderSteps: StepData[] = [
     hashId: "data-table",
   },
   {
-    label: "Risk Ratio Table",
-    pluralOnCompare: true,
+    label: "Age-Adjusted Risk Ratios",
+    pluralOnCompare: false,
     hashId: "age-adjusted-risk",
   },
   {
