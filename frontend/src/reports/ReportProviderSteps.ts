@@ -23,7 +23,7 @@ export const reportProviderSteps: StepData[] = [
   },
   {
     label: "Population vs. Share",
-    pluralOnCompare: true,
+    pluralOnCompare: false,
     hashId: "population-vs-share",
   },
   {
