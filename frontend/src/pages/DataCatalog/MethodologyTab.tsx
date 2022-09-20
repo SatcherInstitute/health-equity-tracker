@@ -107,19 +107,21 @@ function MethodologyTab() {
                     Decisions to suppress COVID-19 data for particular states in
                     the tracker are evaluated by comparing the aggregate case,
                     death, and hospitalization counts in the CDC surveillance
-                    dataset vs other sources, such as the New York Times. Data
-                    for a state are suppressed if the aggregate counts for that
-                    state are &lt; 5% of the source being used for comparison.
-                    These analyses are available for{" "}
+                    dataset vs other sources, such as the New York Times COVID
+                    Dataset, which in turn sources their data directly from
+                    state and territory health departments. Data for a state are
+                    suppressed if the aggregate counts for that state are &lt;
+                    5% of the source being used for comparison. These analyses
+                    are available for{" "}
                     <a href={urlMap.shliGitHubSuppressCovidCases}>cases</a> and{" "}
                     <a href={urlMap.shliGitHubSuppressCovidDeaths}>deaths</a>.
                   </li>
                   <li>
-                    The underlying data is reported at the case-level, so we
-                    cannot determine whether a state/county lacking cases for a
-                    particular demographic group truly has zero cases for that
-                    group or whether that that locale fails to report
-                    demographics correctly.
+                    The underlying data is reported by the CDC at the
+                    case-level, so we cannot determine whether a state/county
+                    lacking cases for a particular demographic group truly has
+                    zero cases for that group or whether that that locale fails
+                    to report demographics correctly.
                   </li>
                 </ul>
 
@@ -209,18 +211,12 @@ function MethodologyTab() {
                 </h4>
                 <ul>
                   <li>
-                    <b>Texas</b> does not report demographic-specific dose
-                    number information to CDC, so data for Texas are not
-                    represented in the figures and calculations on the national
-                    vaccine demographic page.
-                  </li>
-                  <li>
-                    <b>Idaho</b> provides vaccine data only for vaccine
-                    recipients who are 18 years and older in line with state
-                    laws. COVID vaccination administration data is unavailable
-                    for the Vaccinations in the US, and Vaccinations by County
-                    pages for the population aged less than 18 years. This only
-                    affects the national numbers.
+                    <b>New Hampshire</b> lifted its national COVID-19 emergency
+                    response declaration in May 2021, which allows vaccine
+                    recipients to opt out of having their COVID-19 vaccinations
+                    included in the state’s IIS. As such, data submitted by New
+                    Hampshire since May 2021 may not be representative of all
+                    COVID-19 vaccinations occurring in the state.
                   </li>
                   <li>
                     Some states report race and ethnicity separately, in which
