@@ -88,7 +88,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
       queries={[query]}
       title={<CardTitle />}
       minHeight={preloadHeight}
-      scrollToHash={"share-vs-population"}
+      scrollToHash={"population-vs-share"}
     >
       {([queryResponse]) => {
         const dataWithoutUnknowns = queryResponse
