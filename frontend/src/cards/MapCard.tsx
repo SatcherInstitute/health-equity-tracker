@@ -132,13 +132,7 @@ function MapCardWithKey(props: MapCardProps) {
   let qualifierItems: string[] = [];
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
 
-  const { chartTitle, subTitle } = createTitles(
-    props.variableConfig.variableFullDisplayName,
-    props.fips.isUsa(),
-    props.fips.getDisplayName(),
-    activeBreakdownFilter,
-    props.currentBreakdown
-  );
+  const { chartTitle, subTitle } = createTitles(activeBreakdownFilter, props);
 
   return (
     <CardWrapper

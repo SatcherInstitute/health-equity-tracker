@@ -76,6 +76,7 @@ function getSpec(
 
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
+    title: "Testing",
     description: altText,
     background: sass.white,
     autosize: { resize: true, type: "fit-x" },

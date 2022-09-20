@@ -1,3 +1,4 @@
+import { MapCardProps } from "../cards/MapCard";
 import { formatFieldValue, MetricConfig } from "../data/config/MetricConfig";
 import { BreakdownVar } from "../data/query/Breakdowns";
 import { Row } from "../data/utils/DatasetTypes";
@@ -78,22 +79,14 @@ export function addMetricDisplayColumn(
   return [newData, displayColName];
 }
 
-export function createTitles(
-  description: string,
-  isUsa: boolean,
-  displayName: string,
-  demographic: string,
-  breakdown: string
-) {
-  const location = isUsa ? `the ${displayName}` : `${displayName}`;
-
-  let chartTitle = `Rates of ${description} in ${location}`;
+export function createTitles(demographic: string, props: MapCardProps) {
+  let chartTitle = `Cumulative ${props.variableConfig.variableFullDisplayName} Per 100k People`;
   let subTitle = "";
 
   if (demographic === "All") {
     return { chartTitle, subTitle };
   }
-  if (breakdown === "age") {
+  if (props.currentBreakdown === "age") {
     subTitle = `Ages ${demographic}`;
     return { chartTitle, subTitle };
   }
