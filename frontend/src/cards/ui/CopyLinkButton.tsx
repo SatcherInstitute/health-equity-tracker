@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LinkIcon from "@material-ui/icons/Link";
-import styles from "../Card.module.scss";
+import styles from "./CopyLinkButton.module.scss";
 import { IconButton, Snackbar } from "@material-ui/core";
 import { ScrollableHashId } from "../../utils/hooks/useStepObserver";
 import { useLocation } from "react-router-dom";
@@ -44,8 +44,8 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
         onClose={handleClose}
         onClick={handleClose}
       >
-        <Alert onClose={handleClose}>
-          <p>{cardName} link copied to clipboard!</p>
+        <Alert onClose={handleClose} className={styles.SnackBarAlert}>
+          {cardName} link copied to clipboard!
         </Alert>
       </Snackbar>
     </IconButton>
