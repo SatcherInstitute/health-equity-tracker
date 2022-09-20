@@ -1,6 +1,10 @@
 import { IDataFrame } from "data-forge";
 import { MetricId, VariableConfig, VariableId } from "../config/MetricConfig";
-import { BreakdownVar, GeographicBreakdown } from "../query/Breakdowns";
+import {
+  Breakdowns,
+  BreakdownVar,
+  GeographicBreakdown,
+} from "../query/Breakdowns";
 import {
   UHC_API_NH_DETERMINANTS,
   UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
@@ -351,4 +355,23 @@ export function getExclusionList(
   }
 
   return exclusionList;
+}
+
+export function appendFipsIfNeeded(
+  baseId: string,
+  breakdowns: Breakdowns
+): string {
+  // if there is a parent fips, append it as needed (for county-level files)
+  if (breakdowns.geography !== "county") return baseId;
+
+  const isCountyQueryFromStateLevelMap =
+    breakdowns.geography === "county" &&
+    breakdowns.filterFips?.isStateOrTerritory();
+
+  const fipsToAppend = isCountyQueryFromStateLevelMap
+    ? breakdowns.filterFips?.code
+    : breakdowns?.filterFips?.getParentFips()?.code;
+
+  const fipsTag = fipsToAppend ? `-${fipsToAppend}` : "";
+  return `${baseId}${fipsTag}`;
 }
