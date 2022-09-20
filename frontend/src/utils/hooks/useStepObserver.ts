@@ -12,7 +12,7 @@ export type ScrollableHashId =
   | "rate-map"
   | "rate-chart"
   | "unknowns-map"
-  | "share-vs-population"
+  | "population-vs-share"
   | "data-table"
   | "age-adjusted-risk"
   | "definitions-missing-data";

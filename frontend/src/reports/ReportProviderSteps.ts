@@ -22,9 +22,9 @@ export const reportProviderSteps: StepData[] = [
     hashId: "unknowns-map",
   },
   {
-    label: "Share vs. Population",
-    pluralOnCompare: true,
-    hashId: "share-vs-population",
+    label: "Population vs. Share",
+    pluralOnCompare: false,
+    hashId: "population-vs-share",
   },
   {
     label: "Data Table",
@@ -32,12 +32,12 @@ export const reportProviderSteps: StepData[] = [
     hashId: "data-table",
   },
   {
-    label: "Risk Ratio Table",
-    pluralOnCompare: true,
+    label: "Age-Adjusted Risk Ratios",
+    pluralOnCompare: false,
     hashId: "age-adjusted-risk",
   },
   {
-    label: "Definitions & Missing Data",
+    label: "Missing Data & Definitions",
     pluralOnCompare: false,
     hashId: "definitions-missing-data",
   },

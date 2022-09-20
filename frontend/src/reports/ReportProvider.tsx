@@ -209,7 +209,7 @@ function ReportProvider(props: ReportProviderProps) {
           </div>
 
           <Box mt={10}>
-            <h3 id="what" className={styles.FootnoteLargeHeading}>
+            <h3 className={styles.FootnoteLargeHeading}>
               What Data Are Missing?
             </h3>
           </Box>

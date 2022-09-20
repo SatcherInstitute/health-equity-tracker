@@ -22,13 +22,22 @@ kff_vaccination_bq_payload = util.generate_bq_payload(
 kff_vaccination_bq_operator = util.create_bq_ingest_operator(
     'kff_vaccination_to_bq', kff_vaccination_bq_payload, data_ingestion_dag)
 
-kff_vaccination_aggregator_payload = {'dataset_name': _KFF_VACCINATION_DATASET_NAME}
+kff_vaccination_aggregator_payload = {
+    'dataset_name': _KFF_VACCINATION_DATASET_NAME}
 kff_vaccination_aggregator_operator = util.create_aggregator_operator(
     'kff_vaccination_aggregator', kff_vaccination_aggregator_payload, data_ingestion_dag)
 
-kff_vaccination_exporter_payload = {'dataset_name': _KFF_VACCINATION_DATASET_NAME}
-kff_vaccination_exporter_operator = util.create_exporter_operator(
-    'kff_vaccination_exporter', kff_vaccination_exporter_payload, data_ingestion_dag)
+kff_vaccination_exporter_payload_race = {
+    'dataset_name': _KFF_VACCINATION_DATASET_NAME,
+    'demographic': "race"
+}
+kff_vaccination_exporter_operator_race = util.create_exporter_operator(
+    'kff_vaccination_exporter_race', kff_vaccination_exporter_payload_race, data_ingestion_dag)
+
 
 # Ingestion DAG
-kff_vaccination_bq_operator >> kff_vaccination_aggregator_operator >> kff_vaccination_exporter_operator
+(
+    kff_vaccination_bq_operator >>
+    kff_vaccination_aggregator_operator >>
+    kff_vaccination_exporter_operator_race
+)

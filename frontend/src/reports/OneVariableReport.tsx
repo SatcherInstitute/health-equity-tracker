@@ -231,7 +231,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 xs={12}
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
-                id="share-vs-population"
+                id="population-vs-share"
                 style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 <LazyLoad offset={800} height={750} once>

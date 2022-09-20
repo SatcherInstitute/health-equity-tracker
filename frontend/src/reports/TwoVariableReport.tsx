@@ -332,7 +332,7 @@ function TwoVariableReport(props: {
             !breakdownIsShown(breakdownVar) ? null : (
               <Fragment key={breakdownVar}>
                 <RowOfTwoOptionalMetrics
-                  id="share-vs-population"
+                  id="population-vs-share"
                   variableConfig1={variableConfig1}
                   variableConfig2={variableConfig2}
                   fips1={props.fips1}
