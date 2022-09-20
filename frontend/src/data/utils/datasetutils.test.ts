@@ -5,7 +5,7 @@ import { Fips } from "./Fips";
 
 describe("DatasetUtils Unit Tests", () => {
   test("Test appendFipsIfNeeded()", async () => {
-    // Only county-level breakdowns should get the appends parent fips
+    // Only county-level breakdowns should get the appended parent fips
     const base_id = "base_dataset_id";
 
     const breakdowns_for_county = Breakdowns.forFips(new Fips("06037"));
