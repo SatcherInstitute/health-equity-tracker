@@ -7,15 +7,14 @@ export type StepData = {
 };
 
 export type ScrollableHashId =
-  | "population"
-  | "map"
-  | "bar"
-  | "unknowns"
-  | "disparity"
-  | "table"
-  | "age-adjusted"
-  | "def"
-  | "what";
+  | "location-info"
+  | "rate-map"
+  | "rate-chart"
+  | "unknowns-map"
+  | "population-vs-share"
+  | "data-table"
+  | "age-adjusted-risk"
+  | "definitions-missing-data";
 
 export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
   const observer = useRef<IntersectionObserver | null>(null);

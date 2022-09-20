@@ -247,6 +247,7 @@ class VeraIncarcerationCounty(DataSource):
             'upload_to_gcs should not be called for VeraIncarcerationCounty')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
+        demo_type = self.get_attr(attrs, 'demographic')
 
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_VERA_URL, dtype=VERA_COL_TYPES)
@@ -256,34 +257,30 @@ class VeraIncarcerationCounty(DataSource):
 
         datatypes_to_df_map = split_df_by_data_type(df)
 
+        df_children = datatypes_to_df_map[CHILDREN].copy()
+        df_children_partial = generate_partial_breakdown(
+            df_children, demo_type, JAIL, CHILDREN)
+
         # need to place PRISON and JAIL into distinct tables, as the most recent
         # data comes from different years and will have different population comparison
         # metrics
-        for demo_type in [std_col.RACE_OR_HISPANIC_COL,
-                          std_col.SEX_COL,
-                          std_col.AGE_COL]:
+        for data_type in [PRISON, JAIL]:
+            table_name = f'{data_type}_{demo_type}_county'
+            df = datatypes_to_df_map[data_type].copy()
+            df = self.generate_for_bq(
+                df, data_type, demo_type, df_children_partial)
 
-            df_children = datatypes_to_df_map[CHILDREN].copy()
-            df_children_partial = generate_partial_breakdown(
-                df_children, demo_type, JAIL, CHILDREN)
+            # set BigQuery types object
+            bq_column_types = {c: 'STRING' for c in df.columns}
+            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+                bq_column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+            bq_column_types[RATE_COL_MAP[data_type]] = 'FLOAT'
+            bq_column_types[CHILDREN] = 'FLOAT'
+            bq_column_types[PCT_SHARE_COL_MAP[data_type]] = 'FLOAT'
+            bq_column_types[PCT_SHARE_COL_MAP[POP]] = 'FLOAT'
 
-            for data_type in [PRISON, JAIL]:
-                table_name = f'{data_type}_{demo_type}_county'
-                df = datatypes_to_df_map[data_type].copy()
-                df = self.generate_for_bq(
-                    df, data_type, demo_type, df_children_partial)
-
-                # set BigQuery types object
-                bq_column_types = {c: 'STRING' for c in df.columns}
-                if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                    bq_column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-                bq_column_types[RATE_COL_MAP[data_type]] = 'FLOAT'
-                bq_column_types[CHILDREN] = 'FLOAT'
-                bq_column_types[PCT_SHARE_COL_MAP[data_type]] = 'FLOAT'
-                bq_column_types[PCT_SHARE_COL_MAP[POP]] = 'FLOAT'
-
-                gcs_to_bq_util.add_df_to_bq(
-                    df, dataset, table_name, column_types=bq_column_types)
+            gcs_to_bq_util.add_df_to_bq(
+                df, dataset, table_name, column_types=bq_column_types)
 
     def generate_for_bq(self, df, data_type, demo_type, df_children):
 

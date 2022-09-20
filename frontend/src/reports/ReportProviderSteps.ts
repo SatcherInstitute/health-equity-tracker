@@ -2,43 +2,43 @@ import { StepData } from "../utils/hooks/useStepObserver";
 
 export const reportProviderSteps: StepData[] = [
   {
-    label: "Location Info and Filters",
+    label: "Location Info & Filters",
     pluralOnCompare: false,
-    hashId: "population",
+    hashId: "location-info",
   },
   {
     label: "Rate Map",
     pluralOnCompare: true,
-    hashId: "map",
+    hashId: "rate-map",
   },
   {
     label: "Rate Chart",
     pluralOnCompare: true,
-    hashId: "bar",
+    hashId: "rate-chart",
   },
   {
-    label: "Unknown Map",
+    label: "Unknown Demographic Map",
     pluralOnCompare: true,
-    hashId: "unknowns",
+    hashId: "unknowns-map",
   },
   {
-    label: "Share vs. Population",
-    pluralOnCompare: true,
-    hashId: "disparity",
+    label: "Population vs. Share",
+    pluralOnCompare: false,
+    hashId: "population-vs-share",
   },
   {
     label: "Data Table",
     pluralOnCompare: true,
-    hashId: "table",
+    hashId: "data-table",
   },
   {
-    label: "Risk Ratio Table",
-    pluralOnCompare: true,
-    hashId: "age-adjusted",
-  },
-  {
-    label: "Missing Data and Definitions",
+    label: "Age-Adjusted Risk Ratios",
     pluralOnCompare: false,
-    hashId: "def",
+    hashId: "age-adjusted-risk",
+  },
+  {
+    label: "Missing Data & Definitions",
+    pluralOnCompare: false,
+    hashId: "definitions-missing-data",
   },
 ];

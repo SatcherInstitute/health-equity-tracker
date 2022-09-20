@@ -284,13 +284,9 @@ function MethodologyTab() {
                         metric if it is presented as a per 100k in the data API.
                       </li>
                       <li>
-                        To calculate the <b>percent share</b> metrics seen on
-                        the tracker, we must first estimate the total number of
-                        people with each condition. Because AHR only presents
-                        data as rates, we do this by multiplying each rate by
-                        the corresponding population as sourced from the ACS
-                        survey, and then calculate the <b>percent share</b>{" "}
-                        based on the total of all the estimated counts.
+                        We have chosen to not show any <b>percent share</b>{" "}
+                        metrics for these conditions because the source only
+                        provides the metrics as rates.
                       </li>
                     </ul>
                   </li>

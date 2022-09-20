@@ -76,8 +76,13 @@ US_ABBR = "US"
 
 NATIONAL_LEVEL = "national"
 STATE_LEVEL = "state"
+COUNTY_LEVEL = "county"
 
 UNKNOWN = "Unknown"
+
+RACE = 'race'
+SEX = 'sex'
+AGE = 'age'
 
 
 class Sex:
