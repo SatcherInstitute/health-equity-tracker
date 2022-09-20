@@ -83,7 +83,7 @@ export function Sources(props: SourcesProps) {
   );
 
   const showNhFootnote = datasetIds.some(
-    (set) => DatasetMetadataMap[set].contains_nh
+    (set) => DatasetMetadataMap[set]?.contains_nh
   );
 
   return (
