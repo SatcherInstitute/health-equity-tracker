@@ -344,8 +344,6 @@ class BJSIncarcerationData(DataSource):
         for geo_level in [NATIONAL_LEVEL, STATE_LEVEL]:
             for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
                 table_name = f'{breakdown}_{geo_level}'
-                # print("\n\n")
-                # print("_________", table_name, "_________")
 
                 df = self.generate_breakdown_df(
                     breakdown, geo_level, table_lookup[table_name], children_tables)

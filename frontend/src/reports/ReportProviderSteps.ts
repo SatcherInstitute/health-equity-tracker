@@ -18,7 +18,7 @@ export const reportProviderSteps: StepData[] = [
   },
   {
     label: "Current Rates",
-    pluralOnCompare: true,
+    pluralOnCompare: false,
     hashId: "rate-chart",
   },
   {
@@ -33,7 +33,7 @@ export const reportProviderSteps: StepData[] = [
   },
   {
     label: "Population vs. Share",
-    pluralOnCompare: true,
+    pluralOnCompare: false,
     hashId: "population-vs-share",
   },
   {

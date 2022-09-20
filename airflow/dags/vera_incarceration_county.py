@@ -17,20 +17,51 @@ data_ingestion_dag = DAG(
     schedule_interval=None,
     description='Ingestion configuration for VERA')
 
-vera_bq_payload = util.generate_bq_payload(
-    _VERA_WORKFLOW_ID, _VERA_DATASET_NAME)
-vera_bq_operator = util.create_bq_ingest_operator(
-    'vera_incarceration_county_to_bq', vera_bq_payload, data_ingestion_dag)
 
-vera_aggregator_payload = {
-    'dataset_name': _VERA_DATASET_NAME}
-vera_aggregator_operator = util.create_aggregator_operator(
-    'vera_incarceration_county_aggregator', vera_aggregator_payload, data_ingestion_dag)
+vera_bq_payload_race = util.generate_bq_payload(
+    _VERA_WORKFLOW_ID, _VERA_DATASET_NAME, demographic="race_and_ethnicity")
+vera_bq_operator_race = util.create_bq_ingest_operator(
+    'vera_incarceration_race_county_to_bq', vera_bq_payload_race, data_ingestion_dag)
 
-vera_exporter_payload = {
-    'dataset_name': _VERA_DATASET_NAME}
-vera_exporter_operator = util.create_exporter_operator(
-    'vera_incarceration_county_exporter', vera_exporter_payload, data_ingestion_dag)
+vera_bq_payload_age = util.generate_bq_payload(
+    _VERA_WORKFLOW_ID, _VERA_DATASET_NAME, demographic="age")
+vera_bq_operator_age = util.create_bq_ingest_operator(
+    'vera_incarceration_age_county_to_bq', vera_bq_payload_age, data_ingestion_dag)
+
+vera_bq_payload_sex = util.generate_bq_payload(
+    _VERA_WORKFLOW_ID, _VERA_DATASET_NAME, demographic="sex")
+vera_bq_operator_sex = util.create_bq_ingest_operator(
+    'vera_incarceration_sex_county_to_bq', vera_bq_payload_sex, data_ingestion_dag)
+
+
+vera_exporter_payload_race = {
+    'dataset_name': _VERA_DATASET_NAME,
+    'demographic': "race_and_ethnicity"
+}
+vera_exporter_operator_race = util.create_exporter_operator(
+    'vera_incarceration_county_exporter_race', vera_exporter_payload_race, data_ingestion_dag)
+
+vera_exporter_payload_age = {
+    'dataset_name': _VERA_DATASET_NAME,
+    'demographic': "age"
+}
+vera_exporter_operator_age = util.create_exporter_operator(
+    'vera_incarceration_county_exporter_age', vera_exporter_payload_age, data_ingestion_dag)
+
+vera_exporter_payload_sex = {
+    'dataset_name': _VERA_DATASET_NAME,
+    'demographic': "sex"
+}
+vera_exporter_operator_sex = util.create_exporter_operator(
+    'vera_incarceration_county_exporter_sex', vera_exporter_payload_sex, data_ingestion_dag)
+
 
 # Ingestion DAG
-vera_bq_operator >> vera_aggregator_operator >> vera_exporter_operator
+(
+    vera_bq_operator_race >>
+    vera_bq_operator_age >>
+    vera_bq_operator_sex >>
+    vera_exporter_operator_race >>
+    vera_exporter_operator_age >>
+    vera_exporter_operator_sex
+)
