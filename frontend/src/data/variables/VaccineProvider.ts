@@ -2,7 +2,7 @@ import { DataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { joinOnCols } from "../utils/datasetutils";
+import { appendFipsIfNeeded, joinOnCols } from "../utils/datasetutils";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
@@ -35,7 +35,10 @@ class VaccineProvider extends VariableProvider {
     ) {
       return "kff_vaccination-race_and_ethnicity";
     } else if (breakdowns.geography === "county") {
-      return "cdc_vaccination_county-race_and_ethnicity";
+      return appendFipsIfNeeded(
+        "cdc_vaccination_county-race_and_ethnicity",
+        breakdowns
+      );
     }
 
     return "";
