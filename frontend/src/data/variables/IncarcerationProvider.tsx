@@ -5,6 +5,7 @@ import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { MetricId, VariableId } from "../config/MetricConfig";
 import VariableProvider from "./VariableProvider";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
+import { appendFipsIfNeeded } from "../utils/datasetutils";
 
 export function CombinedIncarcerationStateMessage() {
   return (
@@ -79,9 +80,11 @@ class IncarcerationProvider extends VariableProvider {
       detail = "county";
     }
 
-    return `${source}_incarceration_${detail}-${dataType_}${
+    const baseId = `${source}_incarceration_${detail}-${dataType_}${
       breakdowns.getSoleDemographicBreakdown().columnName
     }_${breakdowns.geography}`;
+
+    return appendFipsIfNeeded(baseId, breakdowns);
   }
 
   async getDataInternal(
