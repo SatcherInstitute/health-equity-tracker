@@ -101,7 +101,7 @@ export function CircleChart({
                       role="img"
                       aria-labelledby={`circleText-${i}`}
                     />
-                    {/* show percent annotation on hover */}
+                    {/* show percent % annotation on hover */}
                     <text
                       id={`circleText-${i}`}
                       className={selectedDate === date ? "" : styles.invisible}
