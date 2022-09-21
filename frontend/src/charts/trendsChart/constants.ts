@@ -5,12 +5,12 @@ import sass from "../../styles/variables.module.scss";
 const {
   unknownMapLeast,
   unknownMapMost,
-  altGreen,
+  timePastelGreen,
   darkBlue,
   redOrange,
-  altGrey,
-  timeLightGreen,
-  timeLightBlue,
+  black,
+  timeCyanBlue,
+  timePurple,
   timePink,
   timeDarkRed,
   timeYellow,
@@ -31,16 +31,16 @@ const COLOR_DOMAIN = [
 ];
 // range of colors for groups
 const COLOR_RANGE = [
-  altGrey,
-  timeLightGreen,
-  altGreen,
+  black,
+  timeCyanBlue,
+  timePastelGreen,
   darkBlue,
-  timeLightBlue,
+  timePurple,
   timePink,
   timeDarkRed,
   redOrange,
-  timeLightGreen,
-  timeLightBlue,
+  timeCyanBlue,
+  timePurple,
   timeYellow,
 ];
 // color scale
