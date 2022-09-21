@@ -30,6 +30,7 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import Hidden from "@material-ui/core/Hidden";
 import Alert from "@material-ui/lab/Alert";
 import SviAlert from "./ui/SviAlert";
+import { WHAT_DATA_ARE_MISSING_ID } from "../utils/internalRoutes";
 
 export const POPULATION_BY_RACE = "Population by race and ethnicity";
 export const POPULATION_BY_AGE = "Population by age";
@@ -197,10 +198,7 @@ export function PopulationCard(props: PopulationCardProps) {
                       Census Bureau. While it is the standard for CDC reporting,
                       the definition of these categories often results in not
                       counting or miscounting people in underrepresented groups.{" "}
-                      <a
-                        href="#definitions-missing-data"
-                        // onClick={() => props.jumpToData()}
-                      >
+                      <a href={`#${WHAT_DATA_ARE_MISSING_ID}`}>
                         Read about missing data
                       </a>
                       .

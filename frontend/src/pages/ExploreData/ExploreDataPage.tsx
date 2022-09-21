@@ -45,11 +45,7 @@ import { useHeaderScrollMargin } from "../../utils/hooks/useHeaderScrollMargin";
 const EXPLORE_DATA_ID = "main";
 
 function ExploreDataPage() {
-  // handle incoming link to MISSING DATA sections
   const location: any = useLocation();
-  // const doScrollToData: boolean =
-  //   location?.hash === `#${WHAT_DATA_ARE_MISSING_ID}`;
-
   const [showStickyLifeline, setShowStickyLifeline] = useState(false);
   const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
     useState(false);
@@ -293,7 +289,6 @@ function ExploreDataPage() {
             showLifeLineAlert={showStickyLifeline}
             showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
             setMadLib={setMadLibWithParam}
-            // doScrollToData={doScrollToData}
             isScrolledToTop={!sticking}
             headerScrollMargin={headerScrollMargin}
           />

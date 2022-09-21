@@ -40,7 +40,6 @@ import {
   COVID_DEATHS_US_SETTING,
   COVID_HOSP_US_SETTING,
 } from "../utils/internalRoutes";
-import { Link } from "react-router-dom";
 import UnknownsAlert from "./ui/UnknownsAlert";
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
@@ -139,9 +138,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 risk factor. By computing rates that are normalized for age, we
                 can paint a more accurate picture of undue burden of disease and
                 death between populations. More details can be found in our{" "}
-                <Link to={AGE_ADJUSTMENT_TAB_LINK}>
-                  age-adjustment methodology
-                </Link>
+                <a href={AGE_ADJUSTMENT_TAB_LINK}>age-adjustment methodology</a>
                 .
               </Alert>
             </CardContent>

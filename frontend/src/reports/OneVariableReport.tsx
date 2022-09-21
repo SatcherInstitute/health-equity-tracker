@@ -40,8 +40,6 @@ export interface OneVariableReportProps {
   fips: Fips;
   updateFipsCallback: Function;
   hidePopulationCard?: boolean;
-  // jumpToDefinitions: Function;
-  // jumpToData: Function;
   isScrolledToTop: boolean;
   reportSteps?: StepData[];
   setReportSteps?: Function;
@@ -135,10 +133,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
               id="location-info"
               className={styles.ScrollPastHeader}
             >
-              <PopulationCard
-                // jumpToData={props.jumpToData}
-                fips={props.fips}
-              />
+              <PopulationCard fips={props.fips} />
             </Grid>
           )}
 
@@ -176,8 +171,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     props.updateFipsCallback(fips);
                   }}
                   currentBreakdown={currentBreakdown}
-                  // jumpToDefinitions={props.jumpToDefinitions}
-                  // jumpToData={props.jumpToData}
                 />
               </Grid>
 
@@ -299,7 +292,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
                       dropdownVarId={props.dropdownVarId}
                       breakdownVar={currentBreakdown}
                       setVariableConfigWithParam={setVariableConfigWithParam}
-                      // jumpToData={props.jumpToData}
                     />
                   </LazyLoad>
                 </Grid>

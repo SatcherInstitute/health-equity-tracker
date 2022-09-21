@@ -15,6 +15,7 @@ import { DemographicGroup } from "../../data/utils/Constants";
 import { Fips } from "../../data/utils/Fips";
 import { MultiMapLink } from "./MultiMapLink";
 import styles from "../Card.module.scss";
+import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 
 interface RateInfoAlertProps {
   overallQueryResponse: MetricQueryResponse;
@@ -47,11 +48,7 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
         </b>{" "}
         {/*} HYPERLINKED TO BOTTOM DEFINITION {condition} cases per 100k  */}
         <a
-          href="#definitions-missing-data"
-          // onClick={(e) => {
-          //   e.preventDefault();
-          //   props.jumpToDefinitions();
-          // }}
+          href={`#${WHAT_DATA_ARE_MISSING_ID}`}
           className={styles.ConditionDefinitionLink}
         >
           {props.metricConfig.shortLabel}
