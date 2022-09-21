@@ -114,16 +114,18 @@ function MapCardWithKey(props: MapCardProps) {
         )
     );
 
-  const sviQuery = new MetricQuery(
-    "svi",
-    Breakdowns.byCounty().andAge(onlyInclude("All"))
-  );
-
   const queries = [
     metricQuery(Breakdowns.forChildrenFips(props.fips)),
     metricQuery(Breakdowns.forFips(props.fips)),
-    sviQuery,
   ];
+
+  if (!props.fips.isUsa()) {
+    const sviBreakdowns = Breakdowns.byCounty().andAge(onlyInclude("All"));
+    sviBreakdowns.filterFips = props.fips;
+
+    const sviQuery = new MetricQuery("svi", sviBreakdowns);
+    queries.push(sviQuery);
+  }
 
   const selectedRaceSuffix = CAWP_DETERMINANTS.includes(metricConfig.metricId)
     ? ` Identifying as ${getWomenRaceLabel(activeBreakdownFilter).replace(
@@ -157,7 +159,7 @@ function MapCardWithKey(props: MapCardProps) {
         const mapQueryResponse: MetricQueryResponse = queryResponses[0];
         // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
-        const sviQueryResponse: MetricQueryResponse = queryResponses[2];
+        const sviQueryResponse: MetricQueryResponse = queryResponses[2] || null;
 
         const sortArgs =
           props.currentBreakdown === "age"
@@ -180,11 +182,15 @@ function MapCardWithKey(props: MapCardProps) {
             (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
           );
 
-        const dataForSvi = sviQueryResponse
-          .getValidRowsForField("svi")
-          .filter((row) =>
-            dataForActiveBreakdownFilter.find(({ fips }) => row.fips === fips)
-          );
+        const dataForSvi: Row[] = sviQueryResponse
+          ? sviQueryResponse
+              .getValidRowsForField("svi")
+              .filter((row) =>
+                dataForActiveBreakdownFilter.find(
+                  ({ fips }) => row.fips === fips
+                )
+              )
+          : [];
 
         if (!props.fips.isUsa()) {
           dataForActiveBreakdownFilter = dataForActiveBreakdownFilter.map(
@@ -269,9 +275,7 @@ function MapCardWithKey(props: MapCardProps) {
                   >
                     <Grid item>
                       <DropDownMenu
-                        idSuffix={`-${props.fips.getStateFipsCode()}-${
-                          props.variableConfig.variableId
-                        }`}
+                        idSuffix={`-${props.fips.code}-${props.variableConfig.variableId}`}
                         value={activeBreakdownFilter}
                         options={filterOptions}
                         onOptionUpdate={(
