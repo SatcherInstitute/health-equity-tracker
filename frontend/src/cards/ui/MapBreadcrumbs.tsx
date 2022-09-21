@@ -10,12 +10,7 @@ function MapBreadcrumbs(props: {
   ariaLabel?: string;
 }) {
   return (
-    <Breadcrumbs
-      separator="›"
-      aria-label={`Breadcrumb navigation for ${
-        props.ariaLabel
-      } in ${props.fips.getDisplayName()} report`}
-    >
+    <Breadcrumbs separator="›" aria-label={props.ariaLabel + " breadcrumb"}>
       <Crumb
         text={USA_DISPLAY_NAME}
         isClickable={!props.fips.isUsa()}
