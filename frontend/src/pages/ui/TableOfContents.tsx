@@ -33,9 +33,15 @@ export function TableOfContents(props: TableOfContentsProps) {
   );
 
   function handleStepClick(step: StepData) {
-    document.querySelector(`#${step.hashId}`)?.scrollIntoView({
-      behavior: "smooth",
-    });
+    const clickedElem: HTMLElement | null = document.querySelector(
+      `#${step.hashId}`
+    );
+
+    if (clickedElem) {
+      clickedElem.scrollIntoView({ behavior: "smooth" });
+      // for a11y focus should shift to subsequent tab goes to next interactive element after the targeted card
+      clickedElem.focus({ preventScroll: true });
+    }
 
     setRecentlyClicked(step.hashId);
   }

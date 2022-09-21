@@ -163,6 +163,7 @@ function TwoVariableReport(props: {
             <Grid
               item
               xs={12}
+              tabIndex={-1}
               id="location-info"
               style={{ scrollMarginTop: props.headerScrollMargin }}
             >
@@ -204,6 +205,7 @@ function TwoVariableReport(props: {
                 item
                 xs={12}
                 sm={6}
+                tabIndex={-1}
                 id="location-info"
                 style={{ scrollMarginTop: props.headerScrollMargin }}
               >
@@ -478,6 +480,7 @@ function RowOfTwoOptionalMetrics(props: {
         xs={12}
         sm={6}
         id={props.id}
+        tabIndex={-1}
         style={{ scrollMarginTop: props.headerScrollMargin }}
       >
         <LazyLoad offset={800} height={750} once>
@@ -498,6 +501,7 @@ function RowOfTwoOptionalMetrics(props: {
         item
         xs={12}
         sm={6}
+        tabIndex={-1}
         id={`${props.id}2`}
         style={{ scrollMarginTop: props.headerScrollMargin }}
       >

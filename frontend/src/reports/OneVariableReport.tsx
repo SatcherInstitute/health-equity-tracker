@@ -131,6 +131,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
               item
               xs={12}
               md={SINGLE_COLUMN_WIDTH}
+              tabIndex={-1}
               id="location-info"
               className={styles.ScrollPastHeader}
             >
@@ -161,6 +162,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 item
                 xs={12}
                 md={SINGLE_COLUMN_WIDTH}
+                tabIndex={-1}
                 id="rate-map"
                 style={{ scrollMarginTop: props.headerScrollMargin }}
               >
@@ -182,6 +184,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 xs={12}
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
+                tabIndex={-1}
                 id="rate-chart"
                 style={{ scrollMarginTop: props.headerScrollMargin }}
               >
@@ -207,6 +210,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 xs={12}
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
+                tabIndex={-1}
                 id="unknowns-map"
                 style={{ scrollMarginTop: props.headerScrollMargin }}
               >
@@ -231,6 +235,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 xs={12}
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
+                tabIndex={-1}
                 id="population-vs-share"
                 style={{ scrollMarginTop: props.headerScrollMargin }}
               >
@@ -255,6 +260,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 item
                 xs={12}
                 md={SINGLE_COLUMN_WIDTH}
+                tabIndex={-1}
                 id="data-table"
                 style={{ scrollMarginTop: props.headerScrollMargin }}
               >
@@ -279,6 +285,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   item
                   xs={12}
                   md={SINGLE_COLUMN_WIDTH}
+                  tabIndex={-1}
                   id="age-adjusted-risk"
                   style={{ scrollMarginTop: props.headerScrollMargin }}
                 >
