@@ -43,13 +43,8 @@ function main() {
 
       esac
     done
-    
+
   bucket_name=$(gcloud config get-value project | cut -d - -f1)-dev-export
-
-  if [[ "${bucket_name}" == "bhammond-dev-export" ]]; then
-    bucket_name="bhammond1-dev-export"
-  fi
-
   util::print::info "Setting bucket name to ${bucket_name}"
 
   tmp_dir=$(mktemp -d)
