@@ -4,7 +4,7 @@ import AlertTitle from "@material-ui/lab/AlertTitle";
 import styles from "./DisclaimerAlert.module.scss";
 import FlagIcon from "@material-ui/icons/Flag";
 
-function DisclaimerAlert(props: { jumpToData: () => void }) {
+function DisclaimerAlert() {
   return (
     <div>
       <Alert
@@ -22,11 +22,11 @@ function DisclaimerAlert(props: { jumpToData: () => void }) {
         gaps which, in turn, will help us create more effective health policies
         in the United States.{" "}
         <a
-          href="#missingDataInfo"
-          onClick={(e) => {
-            e.preventDefault();
-            props.jumpToData();
-          }}
+          href="#definitions-missing-data"
+          // onClick={(e) => {
+          //   e.preventDefault();
+          //   props.jumpToData();
+          // }}
         >
           Read more about missing and misidentified people
         </a>

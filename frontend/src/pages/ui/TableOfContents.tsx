@@ -62,7 +62,7 @@ export function TableOfContents(props: TableOfContentsProps) {
       >
         {props.reportSteps?.map((step) => {
           return (
-            <Step completed={false}>
+            <Step completed={false} key={step.hashId}>
               <StepButton
                 title={`Scroll to ${step.label}`}
                 className={styles.StepButton}

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { OneVariableReport } from "./OneVariableReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
@@ -43,7 +43,7 @@ interface ReportProviderProps {
   selectedConditions: VariableConfig[];
   showLifeLineAlert: boolean;
   setMadLib: Function;
-  doScrollToData?: boolean;
+  // doScrollToData?: boolean;
   showIncarceratedChildrenAlert: boolean;
   isScrolledToTop: boolean;
   headerScrollMargin: number;
@@ -64,24 +64,24 @@ function ReportProvider(props: ReportProviderProps) {
       dataTypeArray[1].some((dataType) => definedConditions.includes(dataType))
   );
 
-  const fieldRef = useRef<HTMLInputElement>(null);
-  const definitionsRef = useRef<HTMLInputElement>(null);
+  // const fieldRef = useRef<HTMLInputElement>(null);
+  // const definitionsRef = useRef<HTMLInputElement>(null);
 
   const reportWrapper = props.isSingleColumn
     ? styles.OneColumnReportWrapper
     : styles.TwoColumnReportWrapper;
 
-  // internal page links
-  function jumpToDefinitions() {
-    if (definitionsRef.current) {
-      definitionsRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }
-  function jumpToData() {
-    if (fieldRef.current) {
-      fieldRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }
+  // // internal page links
+  // function jumpToDefinitions() {
+  //   if (definitionsRef.current) {
+  //     definitionsRef.current.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // }
+  // function jumpToData() {
+  //   if (fieldRef.current) {
+  //     fieldRef.current.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // }
 
   function getReport() {
     // Each report has a unique key based on its props so it will create a
@@ -91,8 +91,8 @@ function ReportProvider(props: ReportProviderProps) {
         const dropdownOption = getPhraseValue(props.madLib, 1);
         return (
           <OneVariableReport
-            jumpToDefinitions={jumpToDefinitions}
-            jumpToData={jumpToData}
+            // jumpToDefinitions={jumpToDefinitions}
+            // jumpToData={jumpToData}
             key={dropdownOption}
             dropdownVarId={dropdownOption as DropdownVarId}
             fips={new Fips(getPhraseValue(props.madLib, 3))}
@@ -113,8 +113,8 @@ function ReportProvider(props: ReportProviderProps) {
         const fipsCode2 = getPhraseValue(props.madLib, 5);
         return (
           <TwoVariableReport
-            jumpToDefinitions={jumpToDefinitions}
-            jumpToData={jumpToData}
+            // jumpToDefinitions={jumpToDefinitions}
+            // jumpToData={jumpToData}
             key={compareDisparityVariable + fipsCode1 + fipsCode2}
             dropdownVarId1={compareDisparityVariable as DropdownVarId}
             dropdownVarId2={compareDisparityVariable as DropdownVarId}
@@ -146,8 +146,8 @@ function ReportProvider(props: ReportProviderProps) {
           );
         return (
           <TwoVariableReport
-            jumpToDefinitions={jumpToDefinitions}
-            jumpToData={jumpToData}
+            // jumpToDefinitions={jumpToDefinitions}
+            // jumpToData={jumpToData}
             key={
               compareDisparityVariable1 + compareDisparityVariable2 + fipsCode
             }
@@ -178,7 +178,7 @@ function ReportProvider(props: ReportProviderProps) {
       <div className={reportWrapper}>
         <ShareButtons madLib={props.madLib} />
         {props.showLifeLineAlert && <LifelineAlert />}
-        <DisclaimerAlert jumpToData={jumpToData} />
+        <DisclaimerAlert />
         {props.showIncarceratedChildrenAlert && false && (
           <IncarceratedChildrenLongAlert />
         )}
@@ -187,12 +187,12 @@ function ReportProvider(props: ReportProviderProps) {
       </div>
       <div className={styles.MissingDataContainer}>
         <aside
-          id="missingDataInfo"
-          ref={fieldRef}
+          // id="missingDataInfo"
+          // ref={fieldRef}
           className={styles.MissingDataInfo}
         >
           {/* Display condition definition(s) based on the tracker madlib settings */}
-          <div ref={definitionsRef}>
+          <div>
             {definedConditions.length > 0 && (
               <Box mb={5}>
                 <h3

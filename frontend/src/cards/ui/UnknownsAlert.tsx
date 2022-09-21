@@ -141,11 +141,11 @@ function UnknownsAlert(props: UnknownsAlertProps) {
             <>
               Consider the possible impact of{" "}
               <a
-                href="#missingDataInfo"
-                onClick={(e) => {
-                  e.preventDefault();
-                  props.jumpToData && props.jumpToData();
-                }}
+                href="#definitions-missing-data"
+                // onClick={(e) => {
+                //   e.preventDefault();
+                //   props.jumpToData && props.jumpToData();
+                // }}
               >
                 data reporting gaps
               </a>{" "}

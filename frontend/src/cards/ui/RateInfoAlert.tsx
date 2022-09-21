@@ -21,7 +21,7 @@ interface RateInfoAlertProps {
   currentBreakdown: BreakdownVar;
   activeBreakdownFilter: DemographicGroup;
   metricConfig: MetricConfig;
-  jumpToDefinitions: Function;
+  // jumpToDefinitions: Function;
   fips: Fips;
   setSmallMultiplesDialogOpen: Function;
   variableConfig: VariableConfig;
@@ -47,11 +47,11 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
         </b>{" "}
         {/*} HYPERLINKED TO BOTTOM DEFINITION {condition} cases per 100k  */}
         <a
-          href="#definitionsList"
-          onClick={(e) => {
-            e.preventDefault();
-            props.jumpToDefinitions();
-          }}
+          href="#definitions-missing-data"
+          // onClick={(e) => {
+          //   e.preventDefault();
+          //   props.jumpToDefinitions();
+          // }}
           className={styles.ConditionDefinitionLink}
         >
           {props.metricConfig.shortLabel}

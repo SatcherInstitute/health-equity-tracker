@@ -58,8 +58,8 @@ export interface MapCardProps {
   variableConfig: VariableConfig;
   updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar;
-  jumpToDefinitions: Function;
-  jumpToData: Function;
+  // jumpToDefinitions: Function;
+  // jumpToData: Function;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -302,7 +302,7 @@ function MapCardWithKey(props: MapCardProps) {
                   currentBreakdown={props.currentBreakdown}
                   activeBreakdownFilter={activeBreakdownFilter}
                   metricConfig={metricConfig}
-                  jumpToDefinitions={props.jumpToDefinitions}
+                  // jumpToDefinitions={props.jumpToDefinitions}
                   fips={props.fips}
                   setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
                   variableConfig={props.variableConfig}
@@ -413,7 +413,7 @@ function MapCardWithKey(props: MapCardProps) {
                         highestRatesList={highestRatesList}
                         lowestRatesList={lowestRatesList}
                         fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
-                        jumpToData={props.jumpToData}
+                        // jumpToData={props.jumpToData}
                         qualifierItems={qualifierItems}
                         qualifierMessage={qualifierMessage}
                       />

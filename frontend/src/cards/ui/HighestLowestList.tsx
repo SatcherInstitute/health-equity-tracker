@@ -27,8 +27,8 @@ export interface HighestLowestListProps {
   highestRatesList: Row[];
   // List of rows with lowest rates
   lowestRatesList: Row[];
-  // to scroll user to bottom text box about Missing Data
-  jumpToData: Function;
+  // // to scroll user to bottom text box about Missing Data
+  // jumpToData: Function;
   // items in highest/lowest list that should receive qualifiers
   qualifierItems?: string[];
   // message to display under a list with qualifiers
@@ -146,11 +146,11 @@ export function HighestLowestList(props: HighestLowestListProps) {
           <p>
             Consider the possible impact of{" "}
             <a
-              href="#missingDataInfo"
-              onClick={(e) => {
-                e.preventDefault();
-                props.jumpToData();
-              }}
+              href="#definitions-missing-data"
+              // onClick={(e) => {
+              //   e.preventDefault();
+              //   props.jumpToData();
+              // }}
             >
               data reporting gaps
             </a>{" "}

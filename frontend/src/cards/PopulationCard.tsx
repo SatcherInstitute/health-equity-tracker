@@ -38,7 +38,7 @@ const PRELOAD_HEIGHT = 139;
 
 export interface PopulationCardProps {
   fips: Fips;
-  jumpToData: Function;
+  // jumpToData: Function;
 }
 
 export function PopulationCard(props: PopulationCardProps) {
@@ -198,8 +198,8 @@ export function PopulationCard(props: PopulationCardProps) {
                       the definition of these categories often results in not
                       counting or miscounting people in underrepresented groups.{" "}
                       <a
-                        href="#missingDataInfo"
-                        onClick={() => props.jumpToData()}
+                        href="#definitions-missing-data"
+                        // onClick={() => props.jumpToData()}
                       >
                         Read about missing data
                       </a>

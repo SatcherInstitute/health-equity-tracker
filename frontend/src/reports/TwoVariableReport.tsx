@@ -43,8 +43,8 @@ function TwoVariableReport(props: {
   fips2: Fips;
   updateFips1Callback: (fips: Fips) => void;
   updateFips2Callback: (fips: Fips) => void;
-  jumpToDefinitions: Function;
-  jumpToData: Function;
+  // jumpToDefinitions: Function;
+  // jumpToData: Function;
   isScrolledToTop: boolean;
   reportSteps?: StepData[];
   setReportSteps?: Function;
@@ -169,7 +169,7 @@ function TwoVariableReport(props: {
             >
               {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
               <PopulationCard
-                jumpToData={props.jumpToData}
+                // jumpToData={props.jumpToData}
                 fips={props.fips1}
               />
 
@@ -211,7 +211,7 @@ function TwoVariableReport(props: {
               >
                 {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
                 <PopulationCard
-                  jumpToData={props.jumpToData}
+                  // jumpToData={props.jumpToData}
                   fips={props.fips1}
                 />
 
@@ -228,7 +228,7 @@ function TwoVariableReport(props: {
               <Grid item xs={12} sm={6}>
                 {/* SECOND POPULATION CARD FOR COMPARE RATES REPORT */}
                 <PopulationCard
-                  jumpToData={props.jumpToData}
+                  // jumpToData={props.jumpToData}
                   fips={props.fips2}
                 />
 
@@ -268,8 +268,8 @@ function TwoVariableReport(props: {
                   updateFips(fips);
                 }}
                 currentBreakdown={currentBreakdown}
-                jumpToDefinitions={props.jumpToDefinitions}
-                jumpToData={props.jumpToData}
+                // jumpToDefinitions={props.jumpToDefinitions}
+                // jumpToData={props.jumpToData}
               />
             )}
           />
@@ -399,7 +399,7 @@ function TwoVariableReport(props: {
               fips2={props.fips2}
               updateFips1={props.updateFips1Callback}
               updateFips2={props.updateFips2Callback}
-              jumpToData={props.jumpToData}
+              // jumpToData={props.jumpToData}
               headerScrollMargin={props.headerScrollMargin}
               createCard={(
                 variableConfig: VariableConfig,
@@ -413,7 +413,7 @@ function TwoVariableReport(props: {
                   variableConfig={variableConfig}
                   breakdownVar={currentBreakdown}
                   dropdownVarId={dropdownVarId}
-                  jumpToData={jumpToData}
+                  // jumpToData={jumpToData}
                 />
               )}
             />
