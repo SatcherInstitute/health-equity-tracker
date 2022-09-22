@@ -6,7 +6,7 @@ import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
   BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { VariableConfig } from "../data/config/MetricConfig";
@@ -129,7 +129,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}
                   breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }
                   fips={props.fips}
                 />

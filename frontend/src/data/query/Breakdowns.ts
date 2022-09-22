@@ -27,7 +27,7 @@ export const DEMOGRAPHIC_BREAKDOWNS = [
 export type DemographicBreakdownKey = typeof DEMOGRAPHIC_BREAKDOWNS[number];
 
 export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
-  race_and_ethnicity: "Race And Ethnicity",
+  race_and_ethnicity: "Race and Ethnicity",
   age: "Age",
   sex: "Sex",
   date: "Date",

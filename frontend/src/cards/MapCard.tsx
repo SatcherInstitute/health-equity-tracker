@@ -337,7 +337,7 @@ function MapCardWithKey(props: MapCardProps) {
                   <ChoroplethMap
                     signalListeners={signalListeners}
                     metric={metricConfig}
-                    legendTitle={metricConfig.shortLabel}
+                    legendTitle={metricConfig.shortLabel.toLowerCase()}
                     data={
                       listExpanded
                         ? highestRatesList.concat(lowestRatesList)
@@ -370,7 +370,6 @@ function MapCardWithKey(props: MapCardProps) {
                             <ChoroplethMap
                               signalListeners={signalListeners}
                               metric={metricConfig}
-                              legendTitle={metricConfig.fullCardTitleName}
                               data={
                                 listExpanded
                                   ? highestRatesList.concat(lowestRatesList)

@@ -63,15 +63,15 @@ export function Axes({
   // handles difference between per100k and percent_share charts
   const Y_AXIS_CONFIG = {
     [TYPES.HUNDRED_K]: {
-      topLabel: F.capitalize(yAxisLabel) + " →", // reference to shortLabel from metricConfig
+      topLabel: yAxisLabel + " →", // reference to shortLabel from metricConfig
       bottomLabel: "",
       formatter: (d: string | number) => d, // per 100k could be interpolated here
     },
     [TYPES.PERCENT_SHARE]: {
       topLabel:
-        (getMaxNumber(data) || 0) <= 0 ? "" : "Disproportionately High  →", // if there are positive numbers, append positive direction label
+        (getMaxNumber(data) || 0) <= 0 ? "" : "disproportionately high  →", // if there are positive numbers, append positive direction label
       bottomLabel:
-        (getMinNumber(data) || 0) >= 0 ? "" : "← Disproportionately Low", // if there are negative numbers, append negative direction label
+        (getMinNumber(data) || 0) >= 0 ? "" : "← disproportionately how", // if there are negative numbers, append negative direction label
       formatter: (d: number) => (d === 0 ? "↔" : F.pct(d)), // if tick is 0, hide it, otherwise format as percent
     },
   };
@@ -156,7 +156,7 @@ export function Axes({
         >
           {/* only display x-axis label on desktop */}
           <text textAnchor="end" dy="8px" aria-hidden={isSkinny}>
-            {isSkinny ? "" : "Time →"}
+            {isSkinny ? "" : "time →"}
           </text>
         </g>
         {/* Top Y-Axis Label */}

@@ -59,7 +59,7 @@ export interface ChoroplethMapProps {
   // Whether or not the legend is present
   hideLegend?: boolean;
   // If legend is present, what is the title
-  legendTitle: string | string[];
+  legendTitle?: string | string[];
   // Max/min of the data range- if present it will set the color scale at these boundaries
   fieldRange?: FieldRange;
   // Hide the action bar in the corner of a vega chart

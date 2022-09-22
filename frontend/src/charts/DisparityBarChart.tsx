@@ -5,7 +5,7 @@ import { useResponsiveWidth } from "../utils/hooks/useResponsiveWidth";
 import {
   BreakdownVar,
   BreakdownVarDisplayName,
-  BREAKDOWN_VAR_DISPLAY_NAMES,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricConfig, MetricId } from "../data/config/MetricConfig";
 import {
@@ -522,7 +522,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           /* data  */ data,
           /* width */ width,
           /* breakdownVar */ props.breakdownVar,
-          /* breakdownVarDisplayName */ BREAKDOWN_VAR_DISPLAY_NAMES[
+          /* breakdownVarDisplayName */ BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
             props.breakdownVar
           ],
           /* lightMeasure */ props.lightMetric.metricId,
