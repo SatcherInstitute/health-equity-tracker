@@ -3,6 +3,7 @@ import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { ALL, HISPANIC, RACE, WHITE_NH } from "../utils/Constants";
+import { appendFipsIfNeeded } from "../utils/datasetutils";
 import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 
@@ -28,11 +29,11 @@ class AcsPovertyProvider extends VariableProvider {
     if (breakdowns.hasOnlyRace()) breakdownSelector = "race";
     if (breakdowns.hasOnlySex()) breakdownSelector = "sex";
 
-    return (
-      datasetPrefix +
-      breakdownSelector +
-      (breakdowns.geography === "county" ? "_county" : "_state")
-    );
+    const isCounty = breakdowns.geography === "county";
+    const baseId = `${datasetPrefix}${breakdownSelector}${
+      isCounty ? "_county" : "_state"
+    }`;
+    return appendFipsIfNeeded(baseId, breakdowns);
   }
 
   async getDataInternal(

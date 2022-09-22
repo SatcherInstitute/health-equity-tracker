@@ -5,6 +5,7 @@ import { ACS_2010_FIPS } from "../utils/Fips";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
+import { appendFipsIfNeeded } from "../utils/datasetutils";
 
 class CdcCovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -35,7 +36,10 @@ class CdcCovidProvider extends VariableProvider {
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.hasOnlyRace()) {
       if (breakdowns.geography === "county") {
-        return "cdc_restricted_data-by_race_county_processed";
+        return appendFipsIfNeeded(
+          "cdc_restricted_data-by_race_county_processed",
+          breakdowns
+        );
       } else if (breakdowns.geography === "state") {
         return "cdc_restricted_data-by_race_state_processed-with_age_adjust";
       } else if (breakdowns.geography === "national") {
@@ -44,7 +48,10 @@ class CdcCovidProvider extends VariableProvider {
     }
     if (breakdowns.hasOnlyAge()) {
       if (breakdowns.geography === "county") {
-        return "cdc_restricted_data-by_age_county_processed";
+        return appendFipsIfNeeded(
+          "cdc_restricted_data-by_age_county_processed",
+          breakdowns
+        );
       } else if (breakdowns.geography === "state") {
         return "cdc_restricted_data-by_age_state_processed";
       } else if (breakdowns.geography === "national") {
@@ -53,7 +60,10 @@ class CdcCovidProvider extends VariableProvider {
     }
     if (breakdowns.hasOnlySex()) {
       if (breakdowns.geography === "county") {
-        return "cdc_restricted_data-by_sex_county_processed";
+        return appendFipsIfNeeded(
+          "cdc_restricted_data-by_sex_county_processed",
+          breakdowns
+        );
       } else if (breakdowns.geography === "state") {
         return "cdc_restricted_data-by_sex_state_processed";
       } else if (breakdowns.geography === "national") {

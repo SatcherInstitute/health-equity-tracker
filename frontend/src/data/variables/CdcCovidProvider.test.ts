@@ -91,7 +91,7 @@ describe("cdcCovidProvider", () => {
 
   test("County and Age Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "cdc_restricted_data-by_age_county_processed",
+      "cdc_restricted_data-by_age_county_processed-37",
       Breakdowns.forFips(new Fips(CHATAM.code)),
       AGE
     );
@@ -99,7 +99,7 @@ describe("cdcCovidProvider", () => {
 
   test("County and Sex Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "cdc_restricted_data-by_sex_county_processed",
+      "cdc_restricted_data-by_sex_county_processed-37",
       Breakdowns.forFips(new Fips(CHATAM.code)),
       SEX
     );
@@ -107,7 +107,7 @@ describe("cdcCovidProvider", () => {
 
   test("County and Race Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "cdc_restricted_data-by_race_county_processed",
+      "cdc_restricted_data-by_race_county_processed-37",
       Breakdowns.forFips(new Fips(CHATAM.code)),
       RACE
     );
