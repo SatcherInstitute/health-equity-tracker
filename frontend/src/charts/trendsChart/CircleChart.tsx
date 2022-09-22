@@ -86,16 +86,22 @@ export function CircleChart({
       >
         {data &&
           data.map(([date, percent]: [string, number], i: number) => {
+            const isEveryOtherBubble = i % 2 === 0;
+            const thisBubbleIsHovered = selectedDate === date;
+            const nothingIsHovered = !selectedDate;
+
             return (
               <g
                 key={`dataCircleGroup-${i}`}
                 transform={`translate(${xScale(new Date(date))}, 0)`}
                 className={styles.UnknownCircles}
               >
-                {/* return a circle for every data point on desktop, or every other data point on mobile (to create more space) */}
-                {(!isSkinny || (isSkinny && i % 2 === 0)) && (
+                {/* return a circle for every data point on desktop, limited to every other on mobile (to create more space) and showing only the currently hovered bubble when hover state is active */}
+                {(!isSkinny ||
+                  (isSkinny && isEveryOtherBubble) ||
+                  thisBubbleIsHovered) && (
                   <>
-                    {(selectedDate === date || !selectedDate) && (
+                    {(thisBubbleIsHovered || nothingIsHovered) && (
                       <circle
                         r={rScale(percent)}
                         fill={colors(percent)}
