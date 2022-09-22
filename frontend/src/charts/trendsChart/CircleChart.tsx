@@ -130,12 +130,10 @@ export function CircleChart({
       <g
         className={styles.CircleLegend}
         // Translate into position (dynamic based on width & height alloted)
-        transform={`translate(${legendXPlacement}, ${HEIGHT - 3 * MAX_RADIUS})`}
+        transform={`translate(${legendXPlacement}, ${
+          HEIGHT - 5.25 * MAX_RADIUS
+        })`}
       >
-        {/* Legend Title */}
-        <text textAnchor="middle" dy="-20px" className={styles.title}>
-          {unknownCircleLegendText}
-        </text>
         {/* Display circle for min, mid, and max values */}
         {getLegendValues().map((percent = 0, i) => (
           <g
@@ -155,6 +153,11 @@ export function CircleChart({
             </text>
           </g>
         ))}
+
+        {/* Legend Title */}
+        <text textAnchor="middle" dy="50px" className={styles.title}>
+          {unknownCircleLegendText}
+        </text>
       </g>
     </g>
   );
