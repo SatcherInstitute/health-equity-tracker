@@ -48,6 +48,7 @@ export interface TrendsChartProps {
   data: TrendsData;
   unknown: UnknownData;
   axisConfig: AxisConfig;
+  title: string;
 }
 
 /* Render component */
@@ -55,6 +56,7 @@ export function TrendsChart({
   data = [],
   unknown,
   axisConfig,
+  title,
 }: TrendsChartProps) {
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
@@ -214,6 +216,10 @@ export function TrendsChart({
             isSkinny={isSkinny}
           />
         )}
+      </div>
+      {/* Title */}
+      <div>
+        <b>{title}</b>
       </div>
       {/* Tooltip */}
       <div

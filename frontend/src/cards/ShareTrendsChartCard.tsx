@@ -140,6 +140,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                           props.breakdownVar
                         ],
                     }}
+                    title={getTitleText()}
                   />
                 </div>
               )}
