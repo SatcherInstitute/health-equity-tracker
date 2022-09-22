@@ -95,20 +95,22 @@ export function CircleChart({
                 {/* return a circle for every data point on desktop, or every other data point on mobile (to create more space) */}
                 {(!isSkinny || (isSkinny && i % 2 === 0)) && (
                   <>
-                    <circle
-                      r={rScale(percent)}
-                      fill={colors(percent)}
-                      role="img"
-                      aria-labelledby={`circleText-${i}`}
-                    />
+                    {(selectedDate === date || !selectedDate) && (
+                      <circle
+                        r={rScale(percent)}
+                        fill={colors(percent)}
+                        role="img"
+                        aria-labelledby={`circleText-${i}`}
+                      />
+                    )}
                     {/* show percent % annotation on hover */}
                     <text
                       id={`circleText-${i}`}
                       className={selectedDate === date ? "" : styles.invisible}
-                      textAnchor="middle"
+                      textAnchor={"middle"}
                       dy="26px"
                     >
-                      {percent && F.pct(percent)}
+                      {percent && F.pct(percent)} unknown
                     </text>
                   </>
                 )}
