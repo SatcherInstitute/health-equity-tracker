@@ -9,7 +9,7 @@ import { Fips } from "./Fips";
 
 describe("DatasetUtils.shortenNH() Unit Tests", () => {
   test("Test shortenNH() Shortens", async () => {
-    expect(shortenNH("Any Race (Non-Hispanic)")).toEqual("Any Race NH");
+    expect(shortenNH("Any Race (Non-Hispanic)")).toEqual("Any Race (NH)");
   });
 
   test("Test shortenNH() Doesn't Shorten", async () => {

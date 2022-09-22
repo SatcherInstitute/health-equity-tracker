@@ -77,6 +77,8 @@ export function CircleChart({
     return [minPercent, midPercent, maxPercent];
   }
 
+  const unknownCircleLegendText = `percent unknown ${groupLabel.toLowerCase()}`;
+
   return (
     <g>
       <g
@@ -132,7 +134,7 @@ export function CircleChart({
       >
         {/* Legend Title */}
         <text textAnchor="middle" dy="-20px" className={styles.title}>
-          Percent Unknown {groupLabel}
+          {unknownCircleLegendText}
         </text>
         {/* Display circle for min, mid, and max values */}
         {getLegendValues().map((percent = 0, i) => (
