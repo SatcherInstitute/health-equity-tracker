@@ -7,7 +7,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { MetricConfig, VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { TrendsChart } from "../charts/trendsChart/Index";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -23,6 +23,8 @@ import {
   getNestedUnknowns,
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
+import { Row } from "../data/utils/DatasetTypes";
+import AccessibleTable from "./ui/AccessibleTable";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -75,6 +77,12 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       {([queryResponseRates, queryResponsePctShares]) => {
         const ratesData = queryResponseRates.getValidRowsForField(
           metricConfigRates.metricId
+        );
+
+        const a11yData = makeA11yTableData(
+          ratesData,
+          props.breakdownVar,
+          metricConfigRates
         );
 
         const pctShareData = queryResponsePctShares.getValidRowsForField(
@@ -150,9 +158,61 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 />
               </>
             )}
+
+            <AccessibleTable
+              tableCaption={`${getTitleText()} by ${
+                BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+              }`}
+              accessibleData={a11yData}
+              breakdownVar={props.breakdownVar}
+              metricConfig={metricConfigRates}
+            />
           </CardContent>
         );
       }}
     </CardWrapper>
   );
+}
+
+function makeA11yTableData(
+  data: Row[],
+  breakdownVar: BreakdownVar,
+  metric: MetricConfig
+): Row[] {
+  const allTimePeriods = Array.from(
+    new Set(data.map((row) => row["time_period"]))
+  );
+  const allDemographicGroups = Array.from(
+    new Set(data.map((row) => row[breakdownVar]))
+  );
+  const a11yData = allTimePeriods.map((timePeriod) => {
+    const [year, monthNum] = timePeriod.split("-");
+    const monthsByNum: Record<string, string> = {
+      "01": "January",
+      "02": "February",
+      "03": "March",
+      "04": "April",
+      "05": "May",
+      "06": "June",
+      "07": "July",
+      "08": "August",
+      "09": "September",
+      "10": "October",
+      "11": "November",
+      "12": "December",
+    };
+
+    const a11yRow: any = { "Time Period": `${monthsByNum[monthNum]} ${year}` };
+
+    for (let group of allDemographicGroups) {
+      const rowForGroupTimePeriod = data.find(
+        (row) =>
+          row[breakdownVar] === group && row["time_period"] === timePeriod
+      );
+      a11yRow[group] = rowForGroupTimePeriod?.[metric.metricId];
+    }
+    return a11yRow;
+  });
+
+  return a11yData;
 }
