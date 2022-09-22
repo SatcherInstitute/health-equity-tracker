@@ -379,7 +379,7 @@ export function splitIntoKnownsAndUnknowns(
 }
 
 export function shortenNH(group: DemographicGroup) {
-  return group.replace("(Non-Hispanic)", "NH");
+  return group.replace("(Non-Hispanic)", "(NH)");
 }
 
 export function appendFipsIfNeeded(

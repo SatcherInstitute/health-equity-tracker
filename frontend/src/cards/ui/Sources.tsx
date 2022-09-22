@@ -108,7 +108,7 @@ export function Sources(props: SourcesProps) {
           {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
         </Fragment>
       ))}
-      {showNhFootnote && <p>NH: Non-Hispanic. </p>}
+      {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
     </>
   );
 }

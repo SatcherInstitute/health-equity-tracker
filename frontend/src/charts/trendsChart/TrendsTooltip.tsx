@@ -49,14 +49,14 @@ export function TrendsTooltip({
 
   // temp
   const codeDictionary = {
-    "Native Hawaiian and Pacific Islander NH": "NHPI NH",
+    "Native Hawaiian and Pacific Islander (NH)": "NHPI (NH)",
     "Hispanic or Latino": "Hisp/Lat",
     All: "All",
-    "American Indian and Alaska Native NH": "AI/AN NH",
-    "Black or African American NH": "Black NH",
-    "Two or more races & Unrepresented race NH": "2/Unr NH",
-    "White NH": "White NH",
-    "Asian NH": "Asian NH",
+    "American Indian and Alaska Native (NH)": "AI/AN (NH)",
+    "Black or African American (NH)": "Black (NH)",
+    "Two or more races & Unrepresented race (NH)": "2/Unr (NH)",
+    "White (NH)": "White (NH)",
+    "Asian (NH)": "Asian (NH)",
   };
 
   const TYPE_CONFIG = {
