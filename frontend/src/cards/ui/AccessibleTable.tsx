@@ -1,5 +1,5 @@
 import {
-  Paper,
+  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -7,13 +7,17 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
+import { ArrowDropDown, ArrowDropUp } from "@material-ui/icons";
 import React from "react";
+import AnimateHeight from "react-animate-height";
 import { MetricConfig } from "../../data/config/MetricConfig";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 import { Row } from "../../data/utils/DatasetTypes";
 import styles from "./AccessibleTable.module.scss";
 
 interface AccessibleTableProps {
+  expanded: boolean;
+  setExpanded: Function;
   tableCaption: string;
   accessibleData: Row[];
   breakdownVar: BreakdownVar;
@@ -24,91 +28,93 @@ export default function AccessibleTable(props: AccessibleTableProps) {
   const optionalAgesPrefix = props.breakdownVar === "age" ? "Ages " : "";
 
   return (
-    <TableContainer component={Paper} tabIndex={0}>
-      <Table className={styles.A11yTable} size="small">
-        <caption>{props.tableCaption}</caption>
-        <TableHead>
-          <TableRow>
-            {Object.keys(props.accessibleData[0]).map((key, i) => {
-              if (i === 0)
-                return (
-                  <TableCell
-                    style={{
-                      whiteSpace: "normal",
-                      wordWrap: "break-word",
-                    }}
-                  >
-                    {key}
-                  </TableCell>
-                );
+    <AnimateHeight
+      duration={500}
+      height={props.expanded ? "auto" : 47}
+      onAnimationEnd={() => window.dispatchEvent(new Event("resize"))}
+      className={styles.ListBox}
+    >
+      <div className={styles.CollapseButton}>
+        <IconButton
+          aria-label={props.expanded ? `hide ` : `show `}
+          onClick={() => props.setExpanded(!props.expanded)}
+          color="primary"
+        >
+          {props.expanded ? <ArrowDropUp /> : <ArrowDropDown />}
+        </IconButton>
+      </div>
+      <div
+        onClick={() => props.setExpanded(!props.expanded)}
+        aria-hidden={true}
+        className={
+          props.expanded ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
+        }
+      >
+        {!props.expanded ? "Expand" : "Collapse"} <b>rates over time</b> data
+        table
+      </div>
 
-              // don't show "Ages " for the All group
-              const prefix = key === "All" ? "" : optionalAgesPrefix;
-              return (
-                <TableCell
-                  style={{
-                    whiteSpace: "normal",
-                    wordWrap: "break-word",
-                  }}
-                >
-                  {prefix}
-                  {key}
-                  {` ${props.metricConfig.shortLabel}`}
-                </TableCell>
-              );
-            })}
-          </TableRow>
-        </TableHead>
+      {/* Don't render collapsed info, so keyboard nav will skip */}
+      {props.expanded && (
+        <>
+          <TableContainer tabIndex={0}>
+            <Table className={styles.A11yTable} size="small" stickyHeader>
+              <caption>{props.tableCaption}</caption>
+              <TableHead>
+                <TableRow>
+                  {Object.keys(props.accessibleData[0]).map((key, i) => {
+                    const isTimeCol = key === "Time Period";
+                    const isUnknownPctCol = key.includes(
+                      "Percent with unknown "
+                    );
 
-        <TableBody>
-          {props.accessibleData.map((row) => {
-            return (
-              <TableRow>
-                {Object.keys(row).map((key) => {
+                    return (
+                      <TableCell
+                        style={{
+                          whiteSpace: "normal",
+                          wordWrap: "break-word",
+                        }}
+                      >
+                        <b>
+                          {!isTimeCol &&
+                            key !== "All" &&
+                            !isUnknownPctCol &&
+                            optionalAgesPrefix}
+                          {key}
+                          {!isTimeCol &&
+                            !isUnknownPctCol &&
+                            ` ${props.metricConfig.shortLabel}`}
+                        </b>
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+                {props.accessibleData.map((row, i) => {
                   return (
-                    <TableCell
-                      style={{
-                        whiteSpace: "normal",
-                        wordWrap: "break-word",
-                      }}
-                    >
-                      {row[key]}
-                    </TableCell>
+                    <TableRow>
+                      {Object.keys(row).map((key) => {
+                        return (
+                          <TableCell
+                            style={{
+                              whiteSpace: "normal",
+                              wordWrap: "break-word",
+                            }}
+                          >
+                            {row[key]}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
                   );
                 })}
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      )}
+    </AnimateHeight>
   );
-
-  // return <table className={styles.A11yTable} tabIndex={0}>
-  // 	<caption>{props.tableCaption}</caption>
-  // 	{/* header row with keys */}
-  // 	<thead>
-  // 		<tr>
-  // 			{Object.keys(props.accessibleData[0]).map((key, i) => {
-
-  // 				if (i === 0) return <th>{key}</th>
-
-  // 				// don't show "Ages " for the All group
-  // 				const prefix = key === "All" ? "" : optionalAgesPrefix
-  // 				return <th>{prefix}{key}{` ${props.metricConfig.shortLabel}`}</th>
-  // 			})}
-  // 		</tr>
-  // 	</thead>
-
-  // 	{/* row with values */}
-  // 	<tbody>
-  // 		{props.accessibleData.map((row) => {
-  // 			return <tr>
-  // 				{Object.keys(row).map((key) => {
-  // 					return <td>{row[key]}</td>
-  // 				})}
-  // 			</tr>
-  // 		})}
-  // 	</tbody>
-  // </table>
 }

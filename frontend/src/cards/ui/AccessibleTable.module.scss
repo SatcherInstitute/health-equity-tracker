@@ -2,22 +2,68 @@
 @import "../../styles/globals.scss";
 
 .A11yTable {
-  width: 100%;
-
+  width: 98%;
+  margin: 10px;
   display: block;
   overflow-x: auto;
   white-space: nowrap;
 
+  max-height: 500px;
+
   tbody tr:nth-child(odd) {
-    background-color: $listbox-color;
+    background-color: $white;
+  }
+}
+
+.ListBox {
+  margin-top: 15px;
+  background: $listbox-color;
+  border-radius: 8px;
+  text-align: left;
+
+  p {
+    padding: 1rem;
+    margin: 0;
   }
 
-  // Screen reader only
-  // left: -999px;
-  // position: absolute;
-  // top: auto;
-  // width: 1px;
-  // height: 1px;
-  // overflow: hidden;
-  // z-index: -999;
+  h4 {
+    margin: 0;
+  }
+}
+
+.ListBoxTitle,
+.ListBoxTitleExpanded {
+  padding-left: 16px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ListBoxTitle {
+  line-height: 47px; // specific height to vertically center text on collapse/expand arrow
+
+  @media (min-width: $sm) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (max-width: $sm) {
+    font-size: $smallest;
+
+    .HideOnMobile {
+      display: none;
+    }
+  }
+}
+
+.ListBoxTitleExpanded {
+  padding: 14px 0 14px 16px;
+}
+
+.ListBoxLists {
+  margin: 0 16px;
+}
+
+.CollapseButton {
+  float: right;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -40,6 +40,8 @@ export interface RateTrendsChartCardProps {
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
 export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
+  const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
+
   const metricConfigRates = props.variableConfig.metrics["per100k"];
   const metricConfigPctShares = props.variableConfig.metrics["pct_share"];
 
@@ -79,12 +81,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           metricConfigRates.metricId
         );
 
-        const a11yData = makeA11yTableData(
-          ratesData,
-          props.breakdownVar,
-          metricConfigRates
-        );
-
         const pctShareData = queryResponsePctShares.getValidRowsForField(
           metricConfigPctShares.metricId
         );
@@ -100,9 +96,18 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           ratesData,
           props.breakdownVar
         );
+
         const [, unknownPctShareData] = splitIntoKnownsAndUnknowns(
           pctShareData,
           props.breakdownVar
+        );
+
+        const a11yData = makeA11yTableData(
+          knownRatesData,
+          unknownPctShareData,
+          props.breakdownVar,
+          metricConfigRates,
+          metricConfigPctShares
         );
 
         const nestedRatesData = getNestedRates(
@@ -160,6 +165,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             )}
 
             <AccessibleTable
+              expanded={a11yTableExpanded}
+              setExpanded={setA11yTableExpanded}
               tableCaption={`${getTitleText()} by ${
                 BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
               }`}
@@ -175,15 +182,17 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 }
 
 function makeA11yTableData(
-  data: Row[],
+  knownsData: Row[],
+  unknownsData: Row[],
   breakdownVar: BreakdownVar,
-  metric: MetricConfig
+  knownMetric: MetricConfig,
+  unknownMetric: MetricConfig
 ): Row[] {
   const allTimePeriods = Array.from(
-    new Set(data.map((row) => row["time_period"]))
+    new Set(knownsData.map((row) => row["time_period"]))
   );
   const allDemographicGroups = Array.from(
-    new Set(data.map((row) => row[breakdownVar]))
+    new Set(knownsData.map((row) => row[breakdownVar]))
   );
   const a11yData = allTimePeriods.map((timePeriod) => {
     const [year, monthNum] = timePeriod.split("-");
@@ -202,15 +211,23 @@ function makeA11yTableData(
       "12": "December",
     };
 
+    // each a11y table row is by time_period
     const a11yRow: any = { "Time Period": `${monthsByNum[monthNum]} ${year}` };
 
+    // and shows value per demographic group
     for (let group of allDemographicGroups) {
-      const rowForGroupTimePeriod = data.find(
+      const rowForGroupTimePeriod = knownsData.find(
         (row) =>
           row[breakdownVar] === group && row["time_period"] === timePeriod
       );
-      a11yRow[group] = rowForGroupTimePeriod?.[metric.metricId];
+      a11yRow[group] = rowForGroupTimePeriod?.[knownMetric.metricId];
     }
+
+    // along with the unknown pct_share
+    a11yRow[`Percent with unknown ${breakdownVar}`] = unknownsData.find(
+      (row) => row["time_period"] === timePeriod
+    )?.[unknownMetric.metricId];
+
     return a11yRow;
   });
 
