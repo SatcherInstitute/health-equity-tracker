@@ -12,7 +12,7 @@ import React from "react";
 import AnimateHeight from "react-animate-height";
 import { MetricConfig } from "../../data/config/MetricConfig";
 import { BreakdownVar } from "../../data/query/Breakdowns";
-import { TIME_PERIOD_LABEL } from "../../data/utils/Constants";
+import { TIME_PERIOD, TIME_PERIOD_LABEL } from "../../data/utils/Constants";
 import { makeA11yTableData } from "../../data/utils/DatasetTimeUtils";
 import { Row } from "../../data/utils/DatasetTypes";
 import { DATA_TAB_LINK } from "../../utils/internalRoutes";
@@ -40,6 +40,10 @@ export default function AccessibleTable(props: AccessibleTableProps) {
     props.knownMetricConfig,
     props.unknownMetricConfig
   );
+
+  const firstTimePeriod = accessibleData[0][TIME_PERIOD_LABEL];
+  const lastTimePeriod =
+    accessibleData[accessibleData.length - 1][TIME_PERIOD_LABEL];
 
   return (
     <AnimateHeight
@@ -107,6 +111,8 @@ export default function AccessibleTable(props: AccessibleTableProps) {
                         {!isTimeCol &&
                           !isUnknownPctCol &&
                           ` ${props.knownMetricConfig.shortLabel}`}
+                        {isTimeCol &&
+                          ` (${firstTimePeriod} - ${lastTimePeriod})`}
                       </TableCell>
                     );
                   })}
