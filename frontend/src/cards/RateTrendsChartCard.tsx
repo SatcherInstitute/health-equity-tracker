@@ -21,7 +21,6 @@ import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 import {
   getNestedRates,
   getNestedUnknowns,
-  makeA11yTableData,
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
 import AccessibleTable from "./ui/AccessibleTable";
@@ -102,14 +101,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           props.breakdownVar
         );
 
-        const a11yData = makeA11yTableData(
-          knownRatesData,
-          unknownPctShareData,
-          props.breakdownVar,
-          metricConfigRates,
-          metricConfigPctShares
-        );
-
         const nestedRatesData = getNestedRates(
           knownRatesData,
           demographicGroups,
@@ -161,20 +152,22 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   }}
                   title={getTitleText()}
                 />
+
+                <AccessibleTable
+                  expanded={a11yTableExpanded}
+                  setExpanded={setA11yTableExpanded}
+                  expandBoxLabel={"rates over time"}
+                  tableCaption={`${getTitleText()} by ${
+                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                  }`}
+                  knownsData={knownRatesData}
+                  unknownsData={unknownPctShareData}
+                  breakdownVar={props.breakdownVar}
+                  knownMetricConfig={metricConfigRates}
+                  unknownMetricConfig={metricConfigPctShares}
+                />
               </>
             )}
-
-            <AccessibleTable
-              expanded={a11yTableExpanded}
-              setExpanded={setA11yTableExpanded}
-              expandBoxLabel={"rates over time"}
-              tableCaption={`${getTitleText()} by ${
-                BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
-              }`}
-              accessibleData={a11yData}
-              breakdownVar={props.breakdownVar}
-              metricConfig={metricConfigRates}
-            />
           </CardContent>
         );
       }}

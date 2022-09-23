@@ -81,9 +81,9 @@ $breakpoint-mobile: 600px;
 
 /* Filter Legend Styles */
 .FilterWrapper {
-  @media (min-width: $breakpoint-mobile) {
-    margin: 0 0 $spacingMedium 84px; // align filter with chart margin
-  }
+  // @media (min-width: $breakpoint-mobile) {
+  //   margin: 0 0 $spacingMedium 84px; // align filter with chart margin
+  // }
 
   // mobile
   margin: 0 0 $spacingMedium 20px; // align filter with chart margin

@@ -1,17 +1,35 @@
 @import "../../styles/variables.module";
 @import "../../styles/globals.scss";
 
+figure {
+  margin: 0 0 0 0px;
+}
+
+.A11yTableContainer {
+  overflow-x: auto;
+  overflow-y: scroll;
+
+  display: flex;
+  align-self: center;
+
+  max-height: 500px;
+}
+
 .A11yTable {
   width: 98%;
   margin: 10px;
-  display: block;
-  overflow-x: auto;
   white-space: nowrap;
-
-  max-height: 500px;
+  thead tr th {
+    background-color: $join-effort-bg1; //  !important;
+    word-wrap: break-word !important;
+  }
 
   tbody tr:nth-child(odd) {
     background-color: $white;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: $grey-grid-color;
   }
 }
 

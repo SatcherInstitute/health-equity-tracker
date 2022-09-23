@@ -25,7 +25,17 @@ type DataSourceInfo = {
   updateTimes: Set<string>;
 };
 
-function getDataSourceMapFromDatasetIds(
+export function getDatasetIdsFromResponses(
+  queryResponses: MetricQueryResponse[]
+): string[] {
+  return queryResponses.reduce(
+    (accumulator: string[], response) =>
+      accumulator.concat(response.consumedDatasetIds),
+    []
+  );
+}
+
+export function getDataSourceMapFromDatasetIds(
   datasetIds: string[],
   metadata: MapOfDatasetMetadata
 ): Record<string, DataSourceInfo> {
@@ -65,11 +75,7 @@ export function Sources(props: SourcesProps) {
     return <></>;
   }
 
-  let datasetIds = props.queryResponses.reduce(
-    (accumulator: string[], response) =>
-      accumulator.concat(response.consumedDatasetIds),
-    []
-  );
+  let datasetIds = getDatasetIdsFromResponses(props.queryResponses);
 
   // for Age Adj only, swap ACS source(s) for Census Pop Estimate
   if (props.isAgeAdjustedTable) {

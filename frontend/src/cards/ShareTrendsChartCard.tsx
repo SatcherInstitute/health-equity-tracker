@@ -23,7 +23,6 @@ import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 import {
   getNestedUndueShares,
   getNestedUnknowns,
-  makeA11yTableData,
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
 import { HashLink } from "react-router-hash-link";
@@ -81,14 +80,6 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           props.breakdownVar
         );
 
-        const a11yData = makeA11yTableData(
-          knownData,
-          unknownData,
-          props.breakdownVar,
-          metricConfig,
-          metricConfig
-        );
-
         // retrieve list of all present demographic groups
         const demographicGroups: DemographicGroup[] = queryResponse
           .getFieldValues(props.breakdownVar, metricConfig.metricId)
@@ -138,7 +129,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                   />
                 </>
               ) : (
-                <div>
+                <>
                   {/* @ts-ignore */}
                   <TrendsChart
                     // @ts-ignore
@@ -154,20 +145,22 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     }}
                     title={getTitleText()}
                   />
-                </div>
-              )}
 
-              <AccessibleTable
-                expanded={a11yTableExpanded}
-                setExpanded={setA11yTableExpanded}
-                expandBoxLabel={"share disparities over time"}
-                tableCaption={`${getTitleText()} by ${
-                  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
-                }`}
-                accessibleData={a11yData}
-                breakdownVar={props.breakdownVar}
-                metricConfig={metricConfig}
-              />
+                  <AccessibleTable
+                    expanded={a11yTableExpanded}
+                    setExpanded={setA11yTableExpanded}
+                    expandBoxLabel={"share disparities over time"}
+                    tableCaption={`${getTitleText()} by ${
+                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                    }`}
+                    knownsData={knownData}
+                    unknownsData={unknownData}
+                    breakdownVar={props.breakdownVar}
+                    knownMetricConfig={metricConfig}
+                    unknownMetricConfig={metricConfig}
+                  />
+                </>
+              )}
             </CardContent>
           </>
         );

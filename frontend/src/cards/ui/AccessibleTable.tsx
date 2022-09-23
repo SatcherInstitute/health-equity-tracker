@@ -13,7 +13,9 @@ import AnimateHeight from "react-animate-height";
 import { MetricConfig } from "../../data/config/MetricConfig";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 import { TIME_PERIOD_LABEL } from "../../data/utils/Constants";
+import { makeA11yTableData } from "../../data/utils/DatasetTimeUtils";
 import { Row } from "../../data/utils/DatasetTypes";
+import { DATA_TAB_LINK } from "../../utils/internalRoutes";
 import styles from "./AccessibleTable.module.scss";
 
 interface AccessibleTableProps {
@@ -21,13 +23,23 @@ interface AccessibleTableProps {
   setExpanded: Function;
   expandBoxLabel: string;
   tableCaption: string;
-  accessibleData: Row[];
+  knownsData: Row[];
+  unknownsData: Row[];
   breakdownVar: BreakdownVar;
-  metricConfig: MetricConfig;
+  knownMetricConfig: MetricConfig;
+  unknownMetricConfig: MetricConfig;
 }
 
 export default function AccessibleTable(props: AccessibleTableProps) {
   const optionalAgesPrefix = props.breakdownVar === "age" ? "Ages " : "";
+
+  const accessibleData = makeA11yTableData(
+    props.knownsData,
+    props.unknownsData,
+    props.breakdownVar,
+    props.knownMetricConfig,
+    props.unknownMetricConfig
+  );
 
   return (
     <AnimateHeight
@@ -38,7 +50,10 @@ export default function AccessibleTable(props: AccessibleTableProps) {
     >
       <div className={styles.CollapseButton}>
         <IconButton
-          aria-label={props.expanded ? `hide ` : `show `}
+          aria-label={`${
+            !props.expanded ? "Expand" : "Collapse"
+          } accessible table view of ${props.expandBoxLabel} data`}
+          aria-expanded={props.expanded}
           onClick={() => props.setExpanded(!props.expanded)}
           color="primary"
         >
@@ -52,19 +67,26 @@ export default function AccessibleTable(props: AccessibleTableProps) {
           props.expanded ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
         }
       >
-        {!props.expanded ? "Expand" : "Collapse"} <b>{props.expandBoxLabel}</b>{" "}
-        data table
+        {!props.expanded ? "Expand" : "Collapse"} table view of{" "}
+        <b>{props.expandBoxLabel}</b> data
       </div>
 
       {/* Don't render collapsed info, so keyboard nav will skip */}
       {props.expanded && (
         <>
-          <TableContainer tabIndex={0}>
-            <Table className={styles.A11yTable} size="small" stickyHeader>
-              <caption>{props.tableCaption}</caption>
+          <TableContainer className={styles.A11yTableContainer}>
+            <Table
+              tabIndex={0}
+              className={styles.A11yTable}
+              size="small"
+              stickyHeader
+            >
+              <caption>
+                <b>{props.tableCaption}</b>
+              </caption>
               <TableHead>
                 <TableRow>
-                  {Object.keys(props.accessibleData[0]).map((key, i) => {
+                  {Object.keys(accessibleData[0]).map((key, i) => {
                     const isTimeCol = key === TIME_PERIOD_LABEL;
                     const isUnknownPctCol = key.includes(
                       "Percent with unknown "
@@ -82,10 +104,10 @@ export default function AccessibleTable(props: AccessibleTableProps) {
                             key !== "All" &&
                             !isUnknownPctCol &&
                             optionalAgesPrefix}
-                          {key}
+                          {key.replaceAll("_", " ")}
                           {!isTimeCol &&
                             !isUnknownPctCol &&
-                            ` ${props.metricConfig.shortLabel}`}
+                            ` ${props.knownMetricConfig.shortLabel}`}
                         </b>
                       </TableCell>
                     );
@@ -94,10 +116,16 @@ export default function AccessibleTable(props: AccessibleTableProps) {
               </TableHead>
 
               <TableBody>
-                {props.accessibleData.map((row, i) => {
+                {accessibleData.map((row, i) => {
+                  const keys = Object.keys(row);
                   return (
                     <TableRow>
-                      {Object.keys(row).map((key) => {
+                      {keys.map((key, j) => {
+                        const isTimePeriod = key === TIME_PERIOD_LABEL;
+                        const isLastCol = j === keys.length - 1;
+                        const appendPct =
+                          isLastCol ||
+                          props.knownMetricConfig.type === "pct_share";
                         return (
                           <TableCell
                             style={{
@@ -106,6 +134,7 @@ export default function AccessibleTable(props: AccessibleTableProps) {
                             }}
                           >
                             {row[key]}
+                            {!isTimePeriod && appendPct && "%"}
                           </TableCell>
                         );
                       })}
@@ -115,6 +144,10 @@ export default function AccessibleTable(props: AccessibleTableProps) {
               </TableBody>
             </Table>
           </TableContainer>
+          <p>
+            View and download full .csv files on the{" "}
+            <a href={DATA_TAB_LINK}>Downloads page.</a>
+          </p>
         </>
       )}
     </AnimateHeight>

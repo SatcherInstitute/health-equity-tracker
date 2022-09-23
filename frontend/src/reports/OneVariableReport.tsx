@@ -193,7 +193,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     <Fragment key={breakdownVar}>
                       {breakdownIsShown(breakdownVar) &&
                         // only show longitudinal 100k chart if MetricConfig for current condition has a card title
-                        variableConfig.longitudinalData && (
+                        variableConfig.timeSeriesData && (
                           <RateTrendsChartCard
                             variableConfig={variableConfig}
                             breakdownVar={breakdownVar}
@@ -268,7 +268,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     <Fragment key={breakdownVar}>
                       {breakdownIsShown(breakdownVar) &&
                         // only show longitudinal 100k chart if MetricConfig for current condition has a card title
-                        variableConfig.longitudinalData && (
+                        variableConfig.timeSeriesData && (
                           <ShareTrendsChartCard
                             variableConfig={variableConfig}
                             breakdownVar={breakdownVar}
