@@ -27,7 +27,7 @@
         "population_pct": "92.6",
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)"
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)"
     },
     {
         "state_fips": "60",
@@ -47,7 +47,7 @@
         "population_pct": "3.6",
         "race": "Asian",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Asian (Non-Hispanic)"
+        "race_and_ethnicity": "Asian (NH)"
     },
     {
         "state_fips": "60",
@@ -67,7 +67,7 @@
         "population_pct": "0.02",
         "race": "Black or African American",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)"
+        "race_and_ethnicity": "Black or African American (NH)"
     },
     {
         "state_fips": "60",
@@ -97,7 +97,7 @@
         "population_pct": "0.9",
         "race": "White",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "White (Non-Hispanic)"
+        "race_and_ethnicity": "White (NH)"
     },
     {
         "state_fips": "60",
@@ -117,7 +117,7 @@
         "population_pct": "0.1",
         "race": "Unrepresented race",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Unrepresented race (Non-Hispanic)"
+        "race_and_ethnicity": "Unrepresented race (NH)"
     },
     {
         "state_fips": "60",
@@ -137,6 +137,6 @@
         "population_pct": "2.7",
         "race": "Two or more races",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Two or more races (Non-Hispanic)"
+        "race_and_ethnicity": "Two or more races (NH)"
     }
 ]

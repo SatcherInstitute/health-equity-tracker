@@ -1,21 +1,21 @@
 state_fips,state_name,population,population_pct,race_category_id,race,race_includes_hispanic,race_and_ethnicity
 00,United States,32403,0.4,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-00,United States,22858,0.3,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+00,United States,22858,0.3,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
 00,United States,8194697,100.0,ALL,All,,All
-00,United States,69385,0.8,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+00,United States,69385,0.8,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 00,United States,72507,0.9,ASIAN,Asian,True,Asian
-00,United States,67761,0.8,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+00,United States,67761,0.8,ASIAN_NH,Asian,False,Asian (NH)
 00,United States,1685724,20.6,BLACK,Black or African American,True,Black or African American
-00,United States,1294703,15.8,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+00,United States,1294703,15.8,BLACK_NH,Black or African American,False,Black or African American (NH)
 00,United States,3484545,42.5,HISP,Hispanic or Latino,True,Hispanic or Latino
 00,United States,267869,3.3,MULTI,Two or more races,True,Two or more races
-00,United States,85328,1.0,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+00,United States,85328,1.0,MULTI_NH,Two or more races,False,Two or more races (NH)
 00,United States,893295,10.9,MULTI_OR_OTHER_STANDARD,Two or more races & Unrepresented race,True,Two or more races & Unrepresented race
-00,United States,96554,1.2,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+00,United States,96554,1.2,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (NH)
 00,United States,4710152,57.5,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
 00,United States,2507,0.03,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-00,United States,1624,0.02,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+00,United States,1624,0.02,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
 00,United States,625426,7.6,OTHER_STANDARD,Unrepresented race,True,Unrepresented race
-00,United States,11226,0.1,OTHER_STANDARD_NH,Unrepresented race,False,Unrepresented race (Non-Hispanic)
+00,United States,11226,0.1,OTHER_STANDARD_NH,Unrepresented race,False,Unrepresented race (NH)
 00,United States,5508261,67.2,WHITE,White,True,White
-00,United States,3226652,39.4,WHITE_NH,White,False,White (Non-Hispanic)
+00,United States,3226652,39.4,WHITE_NH,White,False,White (NH)
