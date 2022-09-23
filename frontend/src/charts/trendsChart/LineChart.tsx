@@ -51,6 +51,8 @@ export function LineChart({ data, xScale, yScale }: LineChartProps) {
       {data &&
         data.map(([group, d]: [string, [string, number][]]) => (
           <path
+            tabIndex={0}
+            aria-label={`${group}: ${d}`}
             className={styles.TrendLine}
             key={`group-${group}`}
             // @ts-ignore

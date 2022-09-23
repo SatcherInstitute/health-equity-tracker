@@ -204,7 +204,7 @@ export function TrendsChart({
 
   return (
     // Container
-    <div className={styles.TrendsChart} ref={containerRef}>
+    <figure className={styles.TrendsChart} ref={containerRef}>
       <div className={styles.FilterWrapper}>
         {/* Filter */}
         {data && (
@@ -218,10 +218,10 @@ export function TrendsChart({
           />
         )}
       </div>
-      {/* Title */}
-      <div>
+      {/* Chart Title */}
+      <figcaption>
         <b>{title}</b>
-      </div>
+      </figcaption>
       {/* Tooltip */}
       <div
         className={styles.TooltipWrapper}
@@ -257,11 +257,9 @@ export function TrendsChart({
           height={CONFIG.HEIGHT}
           width={width as number}
           role="img"
-          aria-label="Data visualization; accessible table view coming soon."
+          aria-label="Data visualization; accessible table view of data available below"
           onMouseMove={handleMousemove}
           onMouseLeave={() => setHoveredDate(null)}
-          // TODO link accompanying table here for a11y
-          // aria-labelledby={}
         >
           {/* Chart Axes */}
           <Axes
@@ -306,6 +304,6 @@ export function TrendsChart({
           )}
         </svg>
       )}
-    </div>
+    </figure>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -23,6 +23,7 @@ import {
   getNestedUnknowns,
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
+import AccessibleTable from "./ui/AccessibleTable";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -38,6 +39,8 @@ export interface RateTrendsChartCardProps {
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
 export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
+  const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
+
   const metricConfigRates = props.variableConfig.metrics["per100k"];
   const metricConfigPctShares = props.variableConfig.metrics["pct_share"];
 
@@ -92,6 +95,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           ratesData,
           props.breakdownVar
         );
+
         const [, unknownPctShareData] = splitIntoKnownsAndUnknowns(
           pctShareData,
           props.breakdownVar
@@ -147,6 +151,20 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     yAxisLabel: metricConfigRates.shortLabel,
                   }}
                   title={getTitleText()}
+                />
+
+                <AccessibleTable
+                  expanded={a11yTableExpanded}
+                  setExpanded={setA11yTableExpanded}
+                  expandBoxLabel={"rates over time"}
+                  tableCaption={`${getTitleText()} by ${
+                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                  }`}
+                  knownsData={knownRatesData}
+                  unknownsData={unknownPctShareData}
+                  breakdownVar={props.breakdownVar}
+                  knownMetricConfig={metricConfigRates}
+                  unknownMetricConfig={metricConfigPctShares}
                 />
               </>
             )}

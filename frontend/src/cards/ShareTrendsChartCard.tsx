@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -27,6 +27,7 @@ import {
 import { Alert } from "@material-ui/lab";
 import { HashLink } from "react-router-hash-link";
 import { METHODOLOGY_TAB_LINK } from "../utils/internalRoutes";
+import AccessibleTable from "./ui/AccessibleTable";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -41,6 +42,8 @@ export interface ShareTrendsChartCardProps {
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
 export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
+  const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
+
   const metricConfig = props.variableConfig.metrics["pct_share"];
 
   const metricIdsToFetch: MetricId[] = [metricConfig.metricId];
@@ -126,7 +129,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                   />
                 </>
               ) : (
-                <div>
+                <>
                   {/* @ts-ignore */}
                   <TrendsChart
                     // @ts-ignore
@@ -142,7 +145,21 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     }}
                     title={getTitleText()}
                   />
-                </div>
+
+                  <AccessibleTable
+                    expanded={a11yTableExpanded}
+                    setExpanded={setA11yTableExpanded}
+                    expandBoxLabel={"share disparities over time"}
+                    tableCaption={`${getTitleText()} by ${
+                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                    }`}
+                    knownsData={knownData}
+                    unknownsData={unknownData}
+                    breakdownVar={props.breakdownVar}
+                    knownMetricConfig={metricConfig}
+                    unknownMetricConfig={metricConfig}
+                  />
+                </>
               )}
             </CardContent>
           </>

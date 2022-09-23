@@ -153,7 +153,7 @@ function TwoVariableReport(props: {
     currentBreakdown === breakdownVar;
 
   const showTrendCardRow =
-    variableConfig1?.longitudinalData || variableConfig2?.longitudinalData;
+    variableConfig1?.timeSeriesData || variableConfig2?.timeSeriesData;
   const showAgeAdjustCardRow =
     variableConfig1?.metrics?.age_adjusted_ratio?.ageAdjusted ||
     variableConfig2?.metrics?.age_adjusted_ratio?.ageAdjusted;

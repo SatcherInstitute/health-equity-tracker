@@ -1,0 +1,87 @@
+@import "../../styles/variables.module";
+@import "../../styles/globals.scss";
+
+figure {
+  margin: 0 0 0 0px;
+}
+
+.A11yTableContainer {
+  overflow-x: auto;
+  overflow-y: scroll;
+
+  display: flex;
+  align-self: center;
+
+  max-height: 500px;
+}
+
+.A11yTable {
+  width: 98%;
+  margin: 10px;
+  white-space: nowrap;
+  thead tr th {
+    background-color: $join-effort-bg1; //  !important;
+    word-wrap: break-word !important;
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: $white;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: $grey-grid-color;
+  }
+}
+
+.ListBox {
+  margin-top: 15px;
+  background: $listbox-color;
+  border-radius: 8px;
+  text-align: left;
+
+  p {
+    padding: 1rem;
+    margin: 0;
+  }
+
+  h4 {
+    margin: 0;
+  }
+}
+
+.ListBoxTitle,
+.ListBoxTitleExpanded {
+  padding-left: 16px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ListBoxTitle {
+  line-height: 47px; // specific height to vertically center text on collapse/expand arrow
+
+  @media (min-width: $sm) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (max-width: $sm) {
+    font-size: $smallest;
+
+    .HideOnMobile {
+      display: none;
+    }
+  }
+}
+
+.ListBoxTitleExpanded {
+  padding: 14px 0 14px 16px;
+}
+
+.ListBoxLists {
+  margin: 0 16px;
+}
+
+.CollapseButton {
+  float: right;
+}

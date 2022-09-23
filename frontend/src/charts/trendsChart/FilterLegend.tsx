@@ -52,7 +52,8 @@ export function FilterLegend({
       <div className={styles.LegendTitle}>
         <div>Select Group to Filter</div>
         <button
-          aria-label={`Clear filter`}
+          aria-label={`Clear demographic filters on visualization`}
+          aria-disabled={!selectedGroups.length}
           className={!selectedGroups.length ? styles.disabled : undefined} // disable button unless filters are applied
           onClick={() => handleClick(null)} // clear selected groups on click
         >
@@ -70,7 +71,8 @@ export function FilterLegend({
             // Legend Item Filter Button
             <button
               key={`legendItem-${group}`}
-              aria-label={`Filter by ${group}`}
+              aria-label={`Show ${group} on visualization`}
+              aria-pressed={selectedGroups.includes(group)}
               className={styles.LegendItem}
               onClick={() => handleClick(group)} // send group name to parent on click
               // If there are selected groups, and the group is not selected, fade out, otherwise full opacity
