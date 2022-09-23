@@ -12,7 +12,7 @@ import React from "react";
 import AnimateHeight from "react-animate-height";
 import { MetricConfig } from "../../data/config/MetricConfig";
 import { BreakdownVar } from "../../data/query/Breakdowns";
-import { TIME_PERIOD, TIME_PERIOD_LABEL } from "../../data/utils/Constants";
+import { TIME_PERIOD_LABEL } from "../../data/utils/Constants";
 import { makeA11yTableData } from "../../data/utils/DatasetTimeUtils";
 import { Row } from "../../data/utils/DatasetTypes";
 import { DATA_TAB_LINK } from "../../utils/internalRoutes";
