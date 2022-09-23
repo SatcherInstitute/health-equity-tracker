@@ -1,17 +1,11 @@
 @import "../../styles/variables.module";
 @import "../../styles/globals.scss";
 
-figure {
-  margin: 0 0 0 0px;
-}
-
 .A11yTableContainer {
   overflow-x: auto;
   overflow-y: scroll;
-
   display: flex;
   align-self: center;
-
   max-height: 500px;
 }
 
@@ -19,9 +13,11 @@ figure {
   width: 98%;
   margin: 10px;
   white-space: nowrap;
+
   thead tr th {
     background-color: $join-effort-bg1; //  !important;
     word-wrap: break-word !important;
+    line-height: $lhSomeSpace;
   }
 
   tbody tr:nth-child(odd) {

@@ -99,16 +99,14 @@ export default function AccessibleTable(props: AccessibleTableProps) {
                           wordWrap: "break-word",
                         }}
                       >
-                        <b>
-                          {!isTimeCol &&
-                            key !== "All" &&
-                            !isUnknownPctCol &&
-                            optionalAgesPrefix}
-                          {key.replaceAll("_", " ")}
-                          {!isTimeCol &&
-                            !isUnknownPctCol &&
-                            ` ${props.knownMetricConfig.shortLabel}`}
-                        </b>
+                        {!isTimeCol &&
+                          key !== "All" &&
+                          !isUnknownPctCol &&
+                          optionalAgesPrefix}
+                        {key.replaceAll("_", " ")}
+                        {!isTimeCol &&
+                          !isUnknownPctCol &&
+                          ` ${props.knownMetricConfig.shortLabel}`}
                       </TableCell>
                     );
                   })}
