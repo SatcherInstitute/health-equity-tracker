@@ -123,11 +123,24 @@ $breakpoint-mobile: 600px;
 
   // Filter legend buttons wrapper
   .LegendItems {
-    @media screen and (min-width: $breakpoint-mobile) {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto;
+    @media screen and (max-width: 1400px) {
+      grid-template-columns: repeat(2, 1fr);
     }
+    @media screen and (max-width: 600px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  //Apply grid style for compare view
+  div[id="compare-view"] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  div[id="compare-view-small"] {
+    grid-template-columns: repeat(1, 1fr);
   }
 
   // Filter legend button
@@ -148,14 +161,6 @@ $breakpoint-mobile: 600px;
     // transition opacity on selection
     opacity: 1;
     transition: opacity 250ms ease-in-out;
-    @media screen and (min-width: $breakpoint-mobile) and (max-width: 1000px) {
-      flex: 50%;
-      margin-right: 0px;
-    }
-    @media screen and (min-width: 1000px) {
-      flex: 25%;
-      margin: 0;
-    }
   }
 
   // Filter legend button square color swatch

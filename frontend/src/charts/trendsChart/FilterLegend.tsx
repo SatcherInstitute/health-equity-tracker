@@ -24,6 +24,7 @@ export interface FilterLegendProps {
   handleClick: (group: string | null) => void;
   groupLabel: string;
   isSkinny: boolean;
+  chartWidth: number;
 }
 
 /* Render component */
@@ -33,7 +34,17 @@ export function FilterLegend({
   handleClick,
   groupLabel,
   isSkinny,
+  chartWidth,
 }: FilterLegendProps) {
+  const isComparing = window.location.href.includes("compare");
+  const compareView = () => {
+    if (isComparing) {
+      if (chartWidth > 472 && chartWidth < 818) return "compare-view";
+      if (chartWidth < 472) return "compare-view-small";
+    }
+    return "";
+  };
+
   return (
     // Legend Wrapper
     <div className={styles.FilterLegend}>
@@ -52,7 +63,7 @@ export function FilterLegend({
         {/* ✕×⨯✖  × */}
       </div>
       {/* Legend Items Wrapper */}
-      <div className={styles.LegendItems}>
+      <div className={styles.LegendItems} id={isComparing ? compareView() : ""}>
         {/* Map over groups and create Legend Item for each */}
         {data &&
           data.map(([group]) => (
@@ -69,6 +80,7 @@ export function FilterLegend({
                     ? 1
                     : 0.2, // failing a11y; need minimum opacity .55 ?
               }}
+              name={isComparing ? compareView() : ""}
             >
               {/* Legend Item color swatch */}
               <div

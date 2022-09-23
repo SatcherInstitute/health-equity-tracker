@@ -214,6 +214,7 @@ export function TrendsChart({
             handleClick={handleClick}
             groupLabel={groupLabel}
             isSkinny={isSkinny}
+            chartWidth={width}
           />
         )}
       </div>
