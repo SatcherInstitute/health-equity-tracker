@@ -42,6 +42,7 @@ import {
   filterUnknownsByTimePeriod,
 } from "./helpers";
 import { MOBILE_BREAKPOINT } from "../../App";
+import { BreakdownVar } from "../../data/query/Breakdowns";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -49,6 +50,7 @@ export interface TrendsChartProps {
   unknown: UnknownData;
   axisConfig: AxisConfig;
   title: string;
+  breakdownVar: BreakdownVar;
 }
 
 /* Render component */
@@ -57,6 +59,7 @@ export function TrendsChart({
   unknown,
   axisConfig,
   title,
+  breakdownVar,
 }: TrendsChartProps) {
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
@@ -215,6 +218,7 @@ export function TrendsChart({
             groupLabel={groupLabel}
             isSkinny={isSkinny}
             chartWidth={width}
+            breakdownVar={breakdownVar}
           />
         )}
       </div>

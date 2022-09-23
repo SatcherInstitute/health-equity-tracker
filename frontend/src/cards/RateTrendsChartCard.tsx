@@ -151,6 +151,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     yAxisLabel: metricConfigRates.shortLabel,
                   }}
                   title={getTitleText()}
+                  breakdownVar={props.breakdownVar}
                 />
 
                 <AccessibleTable

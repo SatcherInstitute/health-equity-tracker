@@ -144,6 +144,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                         ],
                     }}
                     title={getTitleText()}
+                    breakdownVar={props.breakdownVar}
                   />
 
                   <AccessibleTable

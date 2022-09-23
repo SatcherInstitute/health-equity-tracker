@@ -16,6 +16,7 @@ import styles from "./Trends.module.scss";
 /* Constants */
 import { TrendsData } from "./types";
 import { COLORS as C } from "./constants";
+import { BreakdownVar } from "../../data/query/Breakdowns";
 
 /* Define type interface */
 export interface FilterLegendProps {
@@ -25,6 +26,7 @@ export interface FilterLegendProps {
   groupLabel: string;
   isSkinny: boolean;
   chartWidth: number;
+  breakdownVar: BreakdownVar;
 }
 
 /* Render component */
@@ -35,6 +37,7 @@ export function FilterLegend({
   groupLabel,
   isSkinny,
   chartWidth,
+  breakdownVar,
 }: FilterLegendProps) {
   const isComparing = window.location.href.includes("compare");
   const compareView = () => {
@@ -61,7 +64,7 @@ export function FilterLegend({
           Clear {isSkinny ? "" : groupLabel} filter{" "}
           <span className={styles.CloseX}>✕</span>
         </button>
-        {/* ✕×⨯✖  × */}
+        {/* ✕×⨯✖× */}
       </div>
       {/* Legend Items Wrapper */}
       <div className={styles.LegendItems} id={isComparing ? compareView() : ""}>
@@ -94,7 +97,10 @@ export function FilterLegend({
                 }}
               />
               {/* Legend Item Label */}
-              <div>{group}</div>
+              <div>
+                {breakdownVar === "age" && group !== "All" && "Ages "}
+                {group}
+              </div>
             </button>
           ))}
       </div>
