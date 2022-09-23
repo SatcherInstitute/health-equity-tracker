@@ -1,11 +1,26 @@
-import { MetricId } from "../config/MetricConfig";
+import { MetricConfig, MetricId } from "../config/MetricConfig";
 import { BreakdownVar } from "../query/Breakdowns";
-import { DemographicGroup, TIME_PERIOD } from "./Constants";
+import { DemographicGroup, TIME_PERIOD, TIME_PERIOD_LABEL } from "./Constants";
 import { Row } from "./DatasetTypes";
 import { shortenNH } from "./datasetutils";
 
 const MONTHLY_LENGTH = 7;
 const YEARLY_LENGTH = 4;
+
+const MONTHS: Record<string, string> = {
+  "01": "January",
+  "02": "February",
+  "03": "March",
+  "04": "April",
+  "05": "May",
+  "06": "June",
+  "07": "July",
+  "08": "August",
+  "09": "September",
+  "10": "October",
+  "11": "November",
+  "12": "December",
+};
 
 /*
 
@@ -173,4 +188,42 @@ export function getNestedUnknowns(
   if (!unknownsData.some((row) => row[TIME_PERIOD])) return [];
   unknownsData = interpolateTimePeriods(unknownsData);
   return unknownsData.map((row) => [row[TIME_PERIOD], row[metricId]]);
+}
+
+export function makeA11yTableData(
+  knownsData: Row[],
+  unknownsData: Row[],
+  breakdownVar: BreakdownVar,
+  knownMetric: MetricConfig,
+  unknownMetric: MetricConfig
+): Row[] {
+  const allTimePeriods = Array.from(
+    new Set(knownsData.map((row) => row[TIME_PERIOD]))
+  );
+  const allDemographicGroups = Array.from(
+    new Set(knownsData.map((row) => row[breakdownVar]))
+  );
+  const a11yData = allTimePeriods.map((timePeriod) => {
+    const [year, monthNum] = timePeriod.split("-");
+
+    // each a11y table row is by time_period
+    const a11yRow: any = { [TIME_PERIOD_LABEL]: `${MONTHS[monthNum]} ${year}` };
+
+    // and shows value per demographic group
+    for (let group of allDemographicGroups) {
+      const rowForGroupTimePeriod = knownsData.find(
+        (row) => row[breakdownVar] === group && row[TIME_PERIOD] === timePeriod
+      );
+      a11yRow[group] = rowForGroupTimePeriod?.[knownMetric.metricId];
+    }
+
+    // along with the unknown pct_share
+    a11yRow[`Percent with unknown ${breakdownVar}`] = unknownsData.find(
+      (row) => row[TIME_PERIOD] === timePeriod
+    )?.[unknownMetric.metricId];
+
+    return a11yRow;
+  });
+
+  return a11yData;
 }

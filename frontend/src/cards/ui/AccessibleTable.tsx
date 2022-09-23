@@ -12,12 +12,14 @@ import React from "react";
 import AnimateHeight from "react-animate-height";
 import { MetricConfig } from "../../data/config/MetricConfig";
 import { BreakdownVar } from "../../data/query/Breakdowns";
+import { TIME_PERIOD_LABEL } from "../../data/utils/Constants";
 import { Row } from "../../data/utils/DatasetTypes";
 import styles from "./AccessibleTable.module.scss";
 
 interface AccessibleTableProps {
   expanded: boolean;
   setExpanded: Function;
+  expandBoxLabel: string;
   tableCaption: string;
   accessibleData: Row[];
   breakdownVar: BreakdownVar;
@@ -50,8 +52,8 @@ export default function AccessibleTable(props: AccessibleTableProps) {
           props.expanded ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
         }
       >
-        {!props.expanded ? "Expand" : "Collapse"} <b>rates over time</b> data
-        table
+        {!props.expanded ? "Expand" : "Collapse"} <b>{props.expandBoxLabel}</b>{" "}
+        data table
       </div>
 
       {/* Don't render collapsed info, so keyboard nav will skip */}
@@ -63,7 +65,7 @@ export default function AccessibleTable(props: AccessibleTableProps) {
               <TableHead>
                 <TableRow>
                   {Object.keys(props.accessibleData[0]).map((key, i) => {
-                    const isTimeCol = key === "Time Period";
+                    const isTimeCol = key === TIME_PERIOD_LABEL;
                     const isUnknownPctCol = key.includes(
                       "Percent with unknown "
                     );

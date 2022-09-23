@@ -7,7 +7,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { MetricConfig, VariableConfig } from "../data/config/MetricConfig";
+import { VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { TrendsChart } from "../charts/trendsChart/Index";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -21,9 +21,9 @@ import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 import {
   getNestedRates,
   getNestedUnknowns,
+  makeA11yTableData,
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
-import { Row } from "../data/utils/DatasetTypes";
 import AccessibleTable from "./ui/AccessibleTable";
 
 /* minimize layout shift */
@@ -167,6 +167,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             <AccessibleTable
               expanded={a11yTableExpanded}
               setExpanded={setA11yTableExpanded}
+              expandBoxLabel={"rates over time"}
               tableCaption={`${getTitleText()} by ${
                 BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
               }`}
@@ -179,57 +180,4 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       }}
     </CardWrapper>
   );
-}
-
-function makeA11yTableData(
-  knownsData: Row[],
-  unknownsData: Row[],
-  breakdownVar: BreakdownVar,
-  knownMetric: MetricConfig,
-  unknownMetric: MetricConfig
-): Row[] {
-  const allTimePeriods = Array.from(
-    new Set(knownsData.map((row) => row["time_period"]))
-  );
-  const allDemographicGroups = Array.from(
-    new Set(knownsData.map((row) => row[breakdownVar]))
-  );
-  const a11yData = allTimePeriods.map((timePeriod) => {
-    const [year, monthNum] = timePeriod.split("-");
-    const monthsByNum: Record<string, string> = {
-      "01": "January",
-      "02": "February",
-      "03": "March",
-      "04": "April",
-      "05": "May",
-      "06": "June",
-      "07": "July",
-      "08": "August",
-      "09": "September",
-      "10": "October",
-      "11": "November",
-      "12": "December",
-    };
-
-    // each a11y table row is by time_period
-    const a11yRow: any = { "Time Period": `${monthsByNum[monthNum]} ${year}` };
-
-    // and shows value per demographic group
-    for (let group of allDemographicGroups) {
-      const rowForGroupTimePeriod = knownsData.find(
-        (row) =>
-          row[breakdownVar] === group && row["time_period"] === timePeriod
-      );
-      a11yRow[group] = rowForGroupTimePeriod?.[knownMetric.metricId];
-    }
-
-    // along with the unknown pct_share
-    a11yRow[`Percent with unknown ${breakdownVar}`] = unknownsData.find(
-      (row) => row["time_period"] === timePeriod
-    )?.[unknownMetric.metricId];
-
-    return a11yRow;
-  });
-
-  return a11yData;
 }
