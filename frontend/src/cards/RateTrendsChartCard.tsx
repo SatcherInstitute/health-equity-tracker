@@ -39,7 +39,7 @@ export interface RateTrendsChartCardProps {
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
 export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
-  const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
+  const [a11yTableExpanded, setA11yTableExpanded] = useState(true);
 
   const metricConfigRates = props.variableConfig.metrics["per100k"];
   const metricConfigPctShares = props.variableConfig.metrics["pct_share"];

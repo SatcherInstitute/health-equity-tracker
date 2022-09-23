@@ -98,6 +98,7 @@ export default function AccessibleTable(props: AccessibleTableProps) {
 
                     return (
                       <TableCell
+                        key={key}
                         style={{
                           whiteSpace: "normal",
                           wordWrap: "break-word",
@@ -123,7 +124,7 @@ export default function AccessibleTable(props: AccessibleTableProps) {
                 {accessibleData.map((row, i) => {
                   const keys = Object.keys(row);
                   return (
-                    <TableRow>
+                    <TableRow key={row[TIME_PERIOD_LABEL]}>
                       {keys.map((key, j) => {
                         const isTimePeriod = key === TIME_PERIOD_LABEL;
                         const isLastCol = j === keys.length - 1;
@@ -132,6 +133,7 @@ export default function AccessibleTable(props: AccessibleTableProps) {
                           props.knownMetricConfig.type === "pct_share";
                         return (
                           <TableCell
+                            key={key}
                             style={{
                               whiteSpace: "normal",
                               wordWrap: "break-word",
