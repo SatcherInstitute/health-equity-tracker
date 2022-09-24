@@ -208,7 +208,11 @@ export function TrendsChart({
   return (
     // Container
     <figure className={styles.TrendsChart} ref={containerRef}>
-      <div className={styles.FilterWrapper}>
+      <div
+        className={
+          isSkinny ? styles.FilterWrapperSkinny : styles.FilterWrapperWide
+        }
+      >
         {/* Filter */}
         {data && (
           <FilterLegend

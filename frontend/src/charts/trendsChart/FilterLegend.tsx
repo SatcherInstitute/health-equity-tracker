@@ -53,7 +53,7 @@ export function FilterLegend({
     <div className={styles.FilterLegend}>
       {/* Legend Title & Clear Button*/}
       <div className={styles.LegendTitle}>
-        <div>Select Group to Filter</div>
+        <div>Select groups to filter</div>
         <button
           aria-label={`Clear demographic filters on visualization`}
           aria-disabled={!selectedGroups.length}
@@ -70,39 +70,40 @@ export function FilterLegend({
       <div className={styles.LegendItems} id={isComparing ? compareView() : ""}>
         {/* Map over groups and create Legend Item for each */}
         {data &&
-          data.map(([group]) => (
+          data.map(([group]) => {
+            const groupEnabled = selectedGroups.includes(group);
+
             // Legend Item Filter Button
-            <button
-              key={`legendItem-${group}`}
-              aria-label={`Show ${group} on visualization`}
-              aria-pressed={selectedGroups.includes(group)}
-              className={styles.LegendItem}
-              onClick={() => handleClick(group)} // send group name to parent on click
-              // If there are selected groups, and the group is not selected, fade out, otherwise full opacity
-              style={{
-                opacity:
-                  !selectedGroups.length || selectedGroups.includes(group)
-                    ? 1
-                    : 0.2, // failing a11y; need minimum opacity .55 ?
-              }}
-              name={isComparing ? compareView() : ""}
-            >
-              {/* Legend Item color swatch */}
-              <div
-                className={styles.swatch}
-                aria-hidden={true}
+            return (
+              <button
+                key={`legendItem-${group}`}
+                aria-label={`Show ${group} on visualization`}
+                aria-pressed={groupEnabled}
+                className={styles.LegendItem}
+                onClick={() => handleClick(group)} // send group name to parent on click
+                // If there are selected groups, and the group is not selected, fade out, otherwise full opacity
                 style={{
-                  /* @ts-ignore */
-                  backgroundColor: C(group),
+                  opacity: !selectedGroups.length || groupEnabled ? 1 : 0.2, // failing a11y; need minimum opacity .55 ?
                 }}
-              />
-              {/* Legend Item Label */}
-              <div>
-                {breakdownVar === "age" && group !== "All" && "Ages "}
-                {group}
-              </div>
-            </button>
-          ))}
+                name={isComparing ? compareView() : ""}
+              >
+                {/* Legend Item color swatch */}
+                <div
+                  className={styles.swatch}
+                  aria-hidden={true}
+                  style={{
+                    /* @ts-ignore */
+                    backgroundColor: C(group),
+                  }}
+                />
+                {/* Legend Item Label */}
+                <div>
+                  {breakdownVar === "age" && group !== "All" && "Ages "}
+                  {group}
+                </div>
+              </button>
+            );
+          })}
       </div>
     </div>
   );

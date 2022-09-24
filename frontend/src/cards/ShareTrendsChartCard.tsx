@@ -27,7 +27,7 @@ import {
 import { Alert } from "@material-ui/lab";
 import { HashLink } from "react-router-hash-link";
 import { METHODOLOGY_TAB_LINK } from "../utils/internalRoutes";
-import AccessibleTable from "./ui/AccessibleTable";
+import AltTableView from "./ui/AltTableView";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -147,7 +147,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     breakdownVar={props.breakdownVar}
                   />
 
-                  <AccessibleTable
+                  <AltTableView
                     expanded={a11yTableExpanded}
                     setExpanded={setA11yTableExpanded}
                     expandBoxLabel={"share disparities over time"}

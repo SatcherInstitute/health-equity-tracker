@@ -23,7 +23,7 @@ import {
   getNestedUnknowns,
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
-import AccessibleTable from "./ui/AccessibleTable";
+import AltTableView from "./ui/AltTableView";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -39,7 +39,7 @@ export interface RateTrendsChartCardProps {
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
 export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
-  const [a11yTableExpanded, setA11yTableExpanded] = useState(true);
+  const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
 
   const metricConfigRates = props.variableConfig.metrics["per100k"];
   const metricConfigPctShares = props.variableConfig.metrics["pct_share"];
@@ -154,7 +154,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   breakdownVar={props.breakdownVar}
                 />
 
-                <AccessibleTable
+                <AltTableView
                   expanded={a11yTableExpanded}
                   setExpanded={setA11yTableExpanded}
                   expandBoxLabel={"rates over time"}
