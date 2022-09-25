@@ -7,7 +7,7 @@
   }
 }
 
-.A11yTableContainer {
+.AltTableContainer {
   overflow-x: auto;
   overflow-y: scroll;
   display: flex;
@@ -17,7 +17,7 @@
   caption-side: top;
 }
 
-.A11yTable {
+.AltTable {
   width: 98%;
   margin: 10px;
   white-space: nowrap;
@@ -37,7 +37,7 @@
   }
 }
 
-.AltTable {
+.AltTableExpanderBox {
   margin-top: 15px;
   background: $listbox-color;
   border-radius: 8px;

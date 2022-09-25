@@ -53,7 +53,7 @@ export default function AltTableView(props: AltTableViewProps) {
       duration={500}
       height={props.expanded ? "auto" : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event("resize"))}
-      className={styles.AltTable}
+      className={styles.AltTableExpanderBox}
     >
       <div className={styles.CollapseButton}>
         <IconButton
@@ -82,11 +82,11 @@ export default function AltTableView(props: AltTableViewProps) {
 
       {props.expanded && (
         <>
-          <TableContainer className={styles.A11yTableContainer}>
+          <TableContainer className={styles.AltTableContainer}>
             <Table
               tabIndex={0}
               ref={tableRef}
-              className={styles.A11yTable}
+              className={styles.AltTable}
               size="small"
               stickyHeader
             >
