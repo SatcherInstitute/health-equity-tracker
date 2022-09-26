@@ -5,7 +5,7 @@ import { ACS_2010_FIPS } from "../utils/Fips";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
-import { CROSS_SECTIONAL, LONGITUDINAL } from "../utils/Constants";
+import { CROSS_SECTIONAL, TIME_SERIES } from "../utils/Constants";
 import { appendFipsIfNeeded } from "../utils/datasetutils";
 
 class CdcCovidProvider extends VariableProvider {
@@ -74,7 +74,7 @@ class CdcCovidProvider extends VariableProvider {
       }
     }
 
-    if (timeView === LONGITUDINAL) {
+    if (timeView === TIME_SERIES) {
       if (breakdowns.hasOnlyRace()) {
         if (breakdowns.geography === "county") {
           return appendFipsIfNeeded(

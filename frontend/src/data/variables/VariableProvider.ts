@@ -9,7 +9,7 @@ import {
   MetricQueryResponse,
 } from "../query/MetricQuery";
 import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
-import { CROSS_SECTIONAL, LONGITUDINAL, TIME_PERIOD } from "../utils/Constants";
+import { CROSS_SECTIONAL, TIME_SERIES, TIME_PERIOD } from "../utils/Constants";
 import { DatasetCalculator } from "../utils/DatasetCalculator";
 
 abstract class VariableProvider {
@@ -61,8 +61,8 @@ abstract class VariableProvider {
     timeView: TimeView,
     sourceCurrentTimePeriod?: string
   ): IDataFrame {
-    // This method should only be used when the CROSS_SECTIONAL VEGA dataset is a recent subset of the LONGITUDINAL D3 dataset
-    // For other sources like COVID, the LONGITUDINAL set is in a distinct table that doesn't need the added filtering
+    // This method should only be used when the CROSS_SECTIONAL VEGA dataset is a recent subset of the TIME_SERIES D3 dataset
+    // For other sources like COVID, the TIME_SERIES set is in a distinct table that doesn't need the added filtering
 
     // for updated datasets
     // - return recent slice for CROSS
@@ -106,7 +106,7 @@ abstract class VariableProvider {
     let dataFrame = df;
     let requestedColumns = ["fips", "fips_name"].concat(metricQuery.metricIds);
 
-    if (metricQuery.timeView === LONGITUDINAL)
+    if (metricQuery.timeView === TIME_SERIES)
       requestedColumns.push(TIME_PERIOD);
 
     // Add column names of enabled breakdowns

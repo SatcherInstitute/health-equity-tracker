@@ -204,5 +204,5 @@ export type DemographicGroup = AgeBucket | SexGroup | RaceAndEthnicityGroup;
 
 export const TIME_PERIOD = "time_period";
 export const TIME_PERIOD_LABEL = "Time period";
-export const LONGITUDINAL: TimeView = "longitudinal";
 export const CROSS_SECTIONAL: TimeView = "cross_sectional";
+export const TIME_SERIES: TimeView = "time_series";

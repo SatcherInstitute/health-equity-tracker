@@ -13,7 +13,7 @@ import { TrendsChart } from "../charts/trendsChart/Index";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
   DemographicGroup,
-  LONGITUDINAL,
+  TIME_SERIES,
   NON_HISPANIC,
 } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
@@ -52,12 +52,12 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const ratesQuery = new MetricQuery(
     metricConfigRates.metricId,
     breakdowns,
-    LONGITUDINAL
+    TIME_SERIES
   );
   const pctShareQuery = new MetricQuery(
     metricConfigPctShares.metricId,
     breakdowns,
-    LONGITUDINAL
+    TIME_SERIES
   );
 
   function getTitleText() {

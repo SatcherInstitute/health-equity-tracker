@@ -1,7 +1,7 @@
 import { Fips } from "../utils/Fips";
 import BreakdownFilter from "./BreakdownFilter";
 
-export type TimeView = "cross_sectional" | "longitudinal";
+export type TimeView = "cross_sectional" | "time_series";
 
 export type GeographicBreakdown =
   | "national"

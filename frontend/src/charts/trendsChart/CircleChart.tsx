@@ -82,6 +82,7 @@ export function CircleChart({
   return (
     <g>
       <g
+        role="list"
         transform={`translate(0, ${
           HEIGHT - MARGIN.bottom_with_unknowns + 5 * MAX_RADIUS
         })`}
@@ -94,6 +95,7 @@ export function CircleChart({
 
             return (
               <g
+                role="listitem"
                 key={`dataCircleGroup-${i}`}
                 transform={`translate(${xScale(new Date(date))}, 0)`}
                 className={styles.UnknownCircles}
@@ -107,8 +109,7 @@ export function CircleChart({
                       <circle
                         r={rScale(percent)}
                         fill={colors(percent)}
-                        role="img"
-                        aria-labelledby={`circleText-${i}`}
+                        role="presentational"
                       />
                     )}
                     {/* show percent % annotation on hover */}
@@ -134,25 +135,40 @@ export function CircleChart({
           HEIGHT - 5.25 * MAX_RADIUS
         })`}
       >
-        {/* Display circle for min, mid, and max values */}
-        {getLegendValues().map((percent = 0, i) => (
-          <g
-            key={`legendCircle-${i}`}
-            transform={`translate(${(i - 1) * 6 * MAX_RADIUS}, 0)`}
-          >
-            {/* Legend circle */}
-            <circle
-              r={rScale(percent)}
-              fill={colors(percent)}
-              role="img"
-              aria-labelledby={`circleLegendText-${i}`}
-            />
-            {/* Circle label annotation (percent represented by circle) */}
-            <text textAnchor="middle" dy="28px" id={`circleLegendText-${i}`}>
-              {F.pct(percent)}
-            </text>
-          </g>
-        ))}
+        <g role="list" aria-label="Legend for Unknown Demographic Bubbles">
+          {/* Display circle for min, mid, and max values */}
+          {getLegendValues().map((percent = 0, i) => {
+            let legendHelper = "";
+
+            if (i === 0) legendHelper = "lowest ";
+            if (i === 1) legendHelper = "mean ";
+            if (i === 2) legendHelper = "highest ";
+
+            return (
+              <g
+                key={`legendCircle-${i}`}
+                transform={`translate(${(i - 1) * 6 * MAX_RADIUS}, 0)`}
+                role="listitem"
+              >
+                {/* Legend circle */}
+                <circle
+                  r={rScale(percent)}
+                  fill={colors(percent)}
+                  role="presentational"
+                />
+                {/* Circle label annotation (percent represented by circle) */}
+                <text
+                  textAnchor="middle"
+                  dy="28px"
+                  id={`circleLegendText-${i}`}
+                  aria-label={`${legendHelper} reported unknown value`}
+                >
+                  {F.pct(percent)}
+                </text>
+              </g>
+            );
+          })}
+        </g>
 
         {/* Legend Title */}
         <text textAnchor="middle" dy="50px" className={styles.title}>

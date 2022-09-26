@@ -14,7 +14,7 @@ import { exclude } from "../data/query/BreakdownFilter";
 import {
   ALL,
   DemographicGroup,
-  LONGITUDINAL,
+  TIME_SERIES,
   NON_HISPANIC,
   UNKNOWN_LABELS,
 } from "../data/utils/Constants";
@@ -56,7 +56,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     exclude(NON_HISPANIC, ALL)
   );
 
-  const query = new MetricQuery(metricIdsToFetch, breakdowns, LONGITUDINAL);
+  const query = new MetricQuery(metricIdsToFetch, breakdowns, TIME_SERIES);
 
   function getTitleText() {
     return `${

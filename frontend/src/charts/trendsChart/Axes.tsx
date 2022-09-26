@@ -71,7 +71,7 @@ export function Axes({
       topLabel:
         (getMaxNumber(data) || 0) <= 0 ? "" : "disproportionately high  →", // if there are positive numbers, append positive direction label
       bottomLabel:
-        (getMinNumber(data) || 0) >= 0 ? "" : "← disproportionately how", // if there are negative numbers, append negative direction label
+        (getMinNumber(data) || 0) >= 0 ? "" : "← disproportionately low", // if there are negative numbers, append negative direction label
       formatter: (d: number) => (d === 0 ? "↔" : F.pct(d)), // if tick is 0, hide it, otherwise format as percent
     },
   };
@@ -155,7 +155,7 @@ export function Axes({
           })`}
         >
           {/* only display x-axis label on desktop */}
-          <text textAnchor="end" dy="8px" aria-hidden={isSkinny}>
+          <text textAnchor="end" dy="8px">
             {isSkinny ? "" : "time →"}
           </text>
         </g>

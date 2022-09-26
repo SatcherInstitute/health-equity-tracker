@@ -192,7 +192,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                     <Fragment key={breakdownVar}>
                       {breakdownIsShown(breakdownVar) &&
-                        // only show longitudinal 100k chart if MetricConfig for current condition has a card title
+                        // only show time series 100k chart if MetricConfig for current condition has a card title
                         variableConfig.timeSeriesData && (
                           <RateTrendsChartCard
                             variableConfig={variableConfig}
@@ -267,7 +267,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                     <Fragment key={breakdownVar}>
                       {breakdownIsShown(breakdownVar) &&
-                        // only show longitudinal 100k chart if MetricConfig for current condition has a card title
+                        // only show time series 100k chart if MetricConfig for current condition has a card title
                         variableConfig.timeSeriesData && (
                           <ShareTrendsChartCard
                             variableConfig={variableConfig}

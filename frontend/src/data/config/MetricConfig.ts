@@ -330,7 +330,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_cases_share",
           fullCardTitleName: "Share of total COVID-19 cases",
-          trendsCardTitleName: "Inequitable burden of COVID-19 cases over time",
+          trendsCardTitleName: "Inequitable burden of COVID-19 cases",
           unknownsVegaLabel: "% unknown",
           shortLabel: "% of COVID-19 cases",
           type: "pct_share",
@@ -344,7 +344,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         per100k: {
           metricId: "covid_cases_per_100k",
           fullCardTitleName: "Current rates of COVID-19 cases",
-          trendsCardTitleName: "Rates of COVID-19 cases over time",
+          trendsCardTitleName: "Monthly rates of COVID-19 cases",
           shortLabel: "cases per 100k",
           type: "per100k",
         },
@@ -368,8 +368,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_deaths_share",
           fullCardTitleName: "Share of total COVID-19 deaths",
-          trendsCardTitleName:
-            "Inequitable burden of COVID-19 deaths over time",
+          trendsCardTitleName: "Inequitable burden of COVID-19 deaths",
           shortLabel: "% of COVID-19 deaths",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
@@ -383,7 +382,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         per100k: {
           metricId: "covid_deaths_per_100k",
           fullCardTitleName: "Current rates of COVID-19 deaths",
-          trendsCardTitleName: "Rates of COVID-19 deaths over time",
+          trendsCardTitleName: "Monthly rates of COVID-19 deaths",
           shortLabel: "deaths per 100k",
           type: "per100k",
         },
@@ -409,7 +408,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "covid_hosp_share",
           fullCardTitleName: "Share of total COVID-19 hospitalizations",
           trendsCardTitleName:
-            "Inequitable burden of COVID-19 hospitalizations over time",
+            "Inequitable burden of COVID-19 hospitalizations",
           shortLabel: "% of COVID-19 hospitalizations",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
@@ -423,7 +422,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         per100k: {
           metricId: "covid_hosp_per_100k",
           fullCardTitleName: "Current rates of COVID-19 hospitalizations",
-          trendsCardTitleName: "Rates of COVID-19 hospitalizations over time",
+          trendsCardTitleName: "Monthly rates of COVID-19 hospitalizations",
           shortLabel: "hospitalizations per 100k",
           type: "per100k",
         },

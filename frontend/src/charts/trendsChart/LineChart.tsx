@@ -49,17 +49,19 @@ export function LineChart({ data, xScale, yScale }: LineChartProps) {
   return (
     <g>
       {data &&
-        data.map(([group, d]: [string, [string, number][]]) => (
-          <path
-            tabIndex={0}
-            aria-label={`${group}: ${d}`}
-            className={styles.TrendLine}
-            key={`group-${group}`}
-            // @ts-ignore
-            d={lineGen(d) || ""}
-            stroke={C(group)}
-          />
-        ))}
+        data.map(([group, d]: [string, [string, number][]]) => {
+          return (
+            <path
+              // tabIndex={0}
+              aria-label={`${group} trend line displaying ${d.length} monthly values: ${d}`}
+              className={styles.TrendLine}
+              key={`group-${group}`}
+              // @ts-ignore
+              d={lineGen(d) || ""}
+              stroke={C(group)}
+            />
+          );
+        })}
     </g>
   );
 }

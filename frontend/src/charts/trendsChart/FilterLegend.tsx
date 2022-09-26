@@ -53,9 +53,9 @@ export function FilterLegend({
     <div className={styles.FilterLegend}>
       {/* Legend Title & Clear Button*/}
       <div className={styles.LegendTitle}>
-        <div>Select groups to filter</div>
+        <label id="select-groups-label">Select groups to filter</label>
         <button
-          aria-label={`Clear demographic filters on visualization`}
+          aria-label={`Clear demographic filters`}
           aria-disabled={!selectedGroups.length}
           className={!selectedGroups.length ? styles.disabled : undefined} // disable button unless filters are applied
           onClick={() => handleClick(null)} // clear selected groups on click
@@ -67,7 +67,11 @@ export function FilterLegend({
         {/* ✕×⨯✖× */}
       </div>
       {/* Legend Items Wrapper */}
-      <div className={styles.LegendItems} id={isComparing ? compareView() : ""}>
+      <menu
+        aria-labelledby="select-groups-label"
+        className={styles.LegendItems}
+        id={isComparing ? compareView() : ""}
+      >
         {/* Map over groups and create Legend Item for each */}
         {data &&
           data.map(([group]) => {
@@ -77,7 +81,7 @@ export function FilterLegend({
             return (
               <button
                 key={`legendItem-${group}`}
-                aria-label={`Show ${group} on visualization`}
+                aria-label={`Include ${group}`}
                 aria-pressed={groupEnabled}
                 className={styles.LegendItem}
                 onClick={() => handleClick(group)} // send group name to parent on click
@@ -104,7 +108,7 @@ export function FilterLegend({
               </button>
             );
           })}
-      </div>
+      </menu>
     </div>
   );
 }
