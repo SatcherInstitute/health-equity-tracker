@@ -1,16 +1,16 @@
 state_fips,state_name,population,population_pct,race_category_id,race,race_includes_hispanic,race_and_ethnicity
 01,Alabama,100,10.0,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-01,Alabama,200,20.0,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-01,Alabama,300,30.0,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+01,Alabama,200,20.0,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+01,Alabama,300,30.0,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 01,Alabama,400,40.0,ASIAN,Asian,True,Asian
 01,Alabama,1000,100.0,ALL,All,,All
 06,California,200,10.0,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-06,California,400,20.0,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-06,California,600,30.0,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+06,California,400,20.0,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+06,California,600,30.0,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 06,California,800,40.0,ASIAN,Asian,True,Asian
 06,California,2000,100.0,ALL,All,,All
 72,Puerto Rico,6838,0.2,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
-72,Puerto Rico,118,0.0,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-72,Puerto Rico,2372,0.1,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+72,Puerto Rico,118,0.0,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+72,Puerto Rico,2372,0.1,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 72,Puerto Rico,6237,0.2,ASIAN,Asian,True,Asian
 72,Puerto Rico,3318447,100.0,ALL,All,,All
