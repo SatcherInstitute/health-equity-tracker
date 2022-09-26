@@ -346,7 +346,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "cases_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of COVID-19 Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of COVID-19 Compared to White (NH)",
           shortLabel: "Risk of COVID-19",
           type: "ratio",
         },
@@ -392,7 +392,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "death_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of COVID-19 Death Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of COVID-19 Death Compared to White (NH)",
           shortLabel: "Risk of COVID-19 Death", // table header-row label
           type: "ratio",
           ageAdjusted: true,
@@ -427,7 +427,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "hosp_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of COVID-19 Hospitalization Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of COVID-19 Hospitalization Compared to White (NH)",
           shortLabel: "Risk of COVID-19 Hospitalization", // Table header-row label
           type: "ratio",
           ageAdjusted: true,
@@ -452,7 +452,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "vaccinated_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Ratio of COVID-19 Vaccination Compared to White (Non-Hispanic)",
+            "Age-Adjusted Ratio of COVID-19 Vaccination Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -514,7 +514,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "suicide_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of Suicide Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of Suicide Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -550,7 +550,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "depression_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of Depression Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of Depression Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -586,7 +586,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "excessive_drinking_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of Excessive Drinking Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of Excessive Drinking Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -623,7 +623,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "non_medical_drug_use_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of Non-medical Drug Use Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of Non-medical Drug Use Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -659,7 +659,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "non_medical_rx_opioid_use_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of Non-medical Prescription Opioid Use Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of Non-medical Prescription Opioid Use Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -693,7 +693,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "illicit_opioid_use_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of Illicit Opioid Use Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of Illicit Opioid Use Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -730,7 +730,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "frequent_mental_distress_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of Frequent Mental Distress Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of Frequent Mental Distress Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -766,7 +766,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "diabetes_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of Diabetes Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of Diabetes Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -801,8 +801,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "copd_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-Adjusted Risk of COPD Compared to White (Non-Hispanic)",
+          fullCardTitleName: "Age-Adjusted Risk of COPD Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -843,7 +842,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "health_insurance_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of Being Uninsured Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of Being Uninsured Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -879,7 +878,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "poverty_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of Poverty Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of Poverty Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -914,7 +913,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "preventable_hospitalizations_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of Preventable Hospitalization Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of Preventable Hospitalization Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -951,7 +950,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "avoided_care_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of Care Avoidance Due to Cost Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of Care Avoidance Due to Cost Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -987,7 +986,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "asthma_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of Asthma Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of Asthma Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -1023,7 +1022,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "cardiovascular_diseases_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of Cardiovascular Diseases Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of Cardiovascular Diseases Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -1059,7 +1058,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "chronic_kidney_disease_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Risk of Chronic Kidney Disease Compared to White (Non-Hispanic)",
+            "Age-Adjusted Risk of Chronic Kidney Disease Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -1095,7 +1094,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "voter_participation_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Voter Participation Ratio Compared to White (Non-Hispanic)",
+            "Age-Adjusted Voter Participation Ratio Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -1137,7 +1136,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "women_us_congress_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Representation Ratio of Women in U.S. Congress Compared to White (Non-Hispanic)",
+            "Age-Adjusted Representation Ratio of Women in U.S. Congress Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -1178,7 +1177,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "women_state_leg_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Representation Ratio of Women in State Legislatures Compared to White (Non-Hispanic)",
+            "Age-Adjusted Representation Ratio of Women in State Legislatures Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -1222,7 +1221,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "prison_ratio_age_adjusted",
           fullCardTitleName:
-            "Age-Adjusted Imprisonment Ratio Compared to White (Non-Hispanic)",
+            "Age-Adjusted Imprisonment Ratio Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -1262,8 +1261,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "jail_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-Adjusted Jailed Ratio Compared to White (Non-Hispanic)",
+          fullCardTitleName: "Age-Adjusted Jailed Ratio Compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
