@@ -34,6 +34,7 @@ const SINGLE_LINE_PERCENT = "+'%'";
 function getSpec(
   altText: string,
   data: Row[],
+  filename: string,
   width: number,
   breakdownVar: BreakdownVar,
   breakdownVarDisplayName: BreakdownVarDisplayName,
@@ -76,6 +77,18 @@ function getSpec(
 
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
+    title: {
+      text: filename,
+      subtitle: " ",
+      encode: {
+        title: {
+          enter: {
+            fontSize: { value: 14 },
+            font: { value: "Inter, sans-serif" },
+          },
+        },
+      },
+    },
     description: altText,
     background: sass.white,
     autosize: { resize: true, type: "fit-x" },
@@ -309,6 +322,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
         spec={getSpec(
           /* altText  */ `Bar Chart showing ${props.filename}`,
           /* data  */ data,
+          props.filename || "",
           /* width  */ width,
           /* breakdownVar  */ props.breakdownVar,
           /* breakdownVarDisplayName  */ BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[

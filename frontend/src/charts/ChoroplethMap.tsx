@@ -76,6 +76,7 @@ export interface ChoroplethMapProps {
   signalListeners: any;
   // use the constructed string from the Card Wrapper Title in the export as PNG filename
   filename?: string;
+  subTitle?: string;
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -472,6 +473,23 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       scales: [colorScale, greyDotScale, unknownScale],
       legends: legendList,
       marks: marks,
+      title: !props.overrideShapeWithCircle && {
+        text: props.metric.fullCardTitleName,
+        subtitle: props.subTitle,
+        encode: {
+          title: {
+            enter: {
+              fontSize: { value: 14 },
+              font: { value: "Inter, sans-serif" },
+            },
+          },
+          subtitle: {
+            enter: {
+              fontStyle: { value: "italic" },
+            },
+          },
+        },
+      },
       signals: [
         {
           name: "click",
