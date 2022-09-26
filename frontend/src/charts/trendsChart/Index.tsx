@@ -43,6 +43,7 @@ import {
 } from "./helpers";
 import { MOBILE_BREAKPOINT } from "../../App";
 import { BreakdownVar } from "../../data/query/Breakdowns";
+import useEscape from "../../utils/hooks/useEscape";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -85,6 +86,13 @@ export function TrendsChart({
 
   // Stores date that user is currently hovering
   const [hoveredDate, setHoveredDate] = useState<string | null>(null);
+
+  function handleEscapeKey() {
+    setHoveredDate(null);
+  }
+
+  useEscape(handleEscapeKey);
+
   // Stores width of tooltip to allow dynamic tooltip positioning
   const [tooltipWidth, setTooltipWidth] = useState<number>(0);
 

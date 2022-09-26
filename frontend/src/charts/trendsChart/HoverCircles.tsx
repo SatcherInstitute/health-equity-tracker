@@ -37,24 +37,30 @@ export function HoverCircles({
     <g>
       {/* iterate over data and draw circle for each group */}
       {data &&
-        data.map(([group, d]: [string, [string, number][]], i) => (
-          <g key={`hoverCircleGroup-${i}`}>
-            {/* only append circle if data exists for this group & date */}
-            {(getAmountsByDate(d, selectedDate) ||
-              getAmountsByDate(d, selectedDate) === 0) && (
-              <circle
-                className={styles.HoverCircle}
-                r={4}
-                // use transform instead of cy to apply css transitions
-                // note - x positioning is handled by parent
-                transform={`translate(0,${yScale(
-                  getAmountsByDate(d, selectedDate)
-                )})`}
-                fill={C(group)}
-              />
-            )}
-          </g>
-        ))}
+        data.map(([group, d]: [string, [string, number][]], i) => {
+          console.log({ group }, { d });
+
+          return (
+            <g key={`hoverCircleGroup-${i}`}>
+              {/* only append circle if data exists for this group & date */}
+              {(getAmountsByDate(d, selectedDate) ||
+                getAmountsByDate(d, selectedDate) === 0) && (
+                <>
+                  <circle
+                    className={styles.HoverCircle}
+                    r={4}
+                    // use transform instead of cy to apply css transitions
+                    // note - x positioning is handled by parent
+                    transform={`translate(0,${yScale(
+                      getAmountsByDate(d, selectedDate)
+                    )})`}
+                    fill={C(group)}
+                  />
+                </>
+              )}
+            </g>
+          );
+        })}
     </g>
   );
 }

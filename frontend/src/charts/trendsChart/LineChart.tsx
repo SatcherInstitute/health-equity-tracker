@@ -53,7 +53,8 @@ export function LineChart({ data, xScale, yScale }: LineChartProps) {
           return (
             <path
               // tabIndex={0}
-              aria-label={`${group} trend line displaying ${d.length} monthly values: ${d}`}
+              // aria-label={`${group} trend line displaying ${d.length} monthly values: ${d}`}
+              aria-label={`${group} trend line displaying ${d.length} monthly values`}
               className={styles.TrendLine}
               key={`group-${group}`}
               // @ts-ignore

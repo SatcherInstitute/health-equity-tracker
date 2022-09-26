@@ -83,6 +83,7 @@ export function CircleChart({
     <g>
       <g
         role="list"
+        aria-label={unknownCircleLegendText + " per month"}
         transform={`translate(0, ${
           HEIGHT - MARGIN.bottom_with_unknowns + 5 * MAX_RADIUS
         })`}
@@ -109,7 +110,8 @@ export function CircleChart({
                       <circle
                         r={rScale(percent)}
                         fill={colors(percent)}
-                        role="presentational"
+                        role="img"
+                        aria-label={date}
                       />
                     )}
                     {/* show percent % annotation on hover */}
@@ -141,7 +143,7 @@ export function CircleChart({
             let legendHelper = "";
 
             if (i === 0) legendHelper = "lowest ";
-            if (i === 1) legendHelper = "mean ";
+            if (i === 1) legendHelper = "middle ";
             if (i === 2) legendHelper = "highest ";
 
             return (
@@ -171,7 +173,12 @@ export function CircleChart({
         </g>
 
         {/* Legend Title */}
-        <text textAnchor="middle" dy="50px" className={styles.title}>
+        <text
+          textAnchor="middle"
+          dy="50px"
+          className={styles.title}
+          id="unknown-circle-legend-title"
+        >
           {unknownCircleLegendText}
         </text>
       </g>
