@@ -443,7 +443,7 @@ function AgeAdjustmentTab() {
               "#age-adjusted-risk"
             }
           >
-            Explore Age-Adjusted Ratios
+            Explore age-adjusted ratios
           </Button>
         </Grid>
       </Grid>

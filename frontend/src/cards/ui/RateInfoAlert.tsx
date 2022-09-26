@@ -22,7 +22,6 @@ interface RateInfoAlertProps {
   currentBreakdown: BreakdownVar;
   activeBreakdownFilter: DemographicGroup;
   metricConfig: MetricConfig;
-  // jumpToDefinitions: Function;
   fips: Fips;
   setSmallMultiplesDialogOpen: Function;
   variableConfig: VariableConfig;

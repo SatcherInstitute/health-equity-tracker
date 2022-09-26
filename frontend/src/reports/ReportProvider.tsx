@@ -41,7 +41,6 @@ interface ReportProviderProps {
   selectedConditions: VariableConfig[];
   showLifeLineAlert: boolean;
   setMadLib: Function;
-  // doScrollToData?: boolean;
   showIncarceratedChildrenAlert: boolean;
   isScrolledToTop: boolean;
   headerScrollMargin: number;

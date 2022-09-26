@@ -11,8 +11,6 @@ interface CopyLinkButtonProps {
 }
 
 export default function CopyLinkButton(props: CopyLinkButtonProps) {
-  // const location = useLocation();
-
   const [open, setOpen] = useState(false);
 
   const urlWithoutHash = window.location.href.split("#")[0];
@@ -25,7 +23,6 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
   function handleClick() {
     navigator.clipboard.writeText(cardHashLink);
     setOpen(true);
-    // window.location.hash = `#${props.scrollToHash}`;
   }
 
   let cardName = props.scrollToHash.replaceAll("-", " ");

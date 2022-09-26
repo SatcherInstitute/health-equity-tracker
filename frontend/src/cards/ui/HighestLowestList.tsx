@@ -28,8 +28,6 @@ export interface HighestLowestListProps {
   highestRatesList: Row[];
   // List of rows with lowest rates
   lowestRatesList: Row[];
-  // // to scroll user to bottom text box about Missing Data
-  // jumpToData: Function;
   // items in highest/lowest list that should receive qualifiers
   qualifierItems?: string[];
   // message to display under a list with qualifiers

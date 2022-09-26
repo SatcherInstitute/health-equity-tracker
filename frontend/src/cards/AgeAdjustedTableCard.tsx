@@ -61,7 +61,6 @@ export interface AgeAdjustedTableCardProps {
   breakdownVar: BreakdownVar;
   dropdownVarId?: DropdownVarId;
   setVariableConfigWithParam?: Function;
-  // jumpToData?: Function;
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
@@ -157,7 +156,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               known={true}
               overrideAndWithOr={props.breakdownVar === RACE}
               fips={props.fips}
-              // jumpToData={props.jumpToData}
             />
 
             {/* If TABLE can't display for any of these various reasons, show the missing data alert */}

@@ -39,7 +39,6 @@ const PRELOAD_HEIGHT = 139;
 
 export interface PopulationCardProps {
   fips: Fips;
-  // jumpToData: Function;
 }
 
 export function PopulationCard(props: PopulationCardProps) {
