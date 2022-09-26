@@ -213,6 +213,8 @@ export function TrendsChart({
     [dates, xScale]
   );
 
+  console.log(axisConfig.type);
+
   return (
     // Container
     <figure className={styles.TrendsChart} ref={containerRef}>
@@ -292,10 +294,14 @@ export function TrendsChart({
             isSkinny={isSkinny}
           />
           {/* Lines */}
-          <LineChart data={filteredData} xScale={xScale} yScale={yScale} />
+          <LineChart
+            data={filteredData}
+            xScale={xScale}
+            yScale={yScale}
+            valuesArePct={axisConfig.type === "pct_share"}
+          />
           {/* Group for hover indicator line and circles */}
           <g
-            tabIndex={0}
             className={styles.Indicators}
             // transform group to hovered x position
             style={{

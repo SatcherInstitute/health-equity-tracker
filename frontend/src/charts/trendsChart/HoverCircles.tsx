@@ -34,7 +34,7 @@ export function HoverCircles({
   selectedDate,
 }: HoverCirclesProps) {
   return (
-    <g role="list" tabIndex={0}>
+    <g>
       {/* iterate over data and draw circle for each group */}
       {data &&
         data.map(([group, d]: [string, [string, number][]], i) => {
@@ -45,9 +45,7 @@ export function HoverCircles({
                 getAmountsByDate(d, selectedDate) === 0) && (
                 <>
                   <circle
-                    role="listitem"
-                    aria-label={group + getAmountsByDate(d, selectedDate)}
-                    tabIndex={0}
+                    // tabIndex={0}
                     className={styles.HoverCircle}
                     r={4}
                     // use transform instead of cy to apply css transitions

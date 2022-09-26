@@ -17,18 +17,25 @@ import { line, curveMonotoneX } from "d3";
 import styles from "./Trends.module.scss";
 
 /* Constants */
-import { TrendsData, XScale, YScale } from "./types";
+import { GroupData, TrendsData, XScale, YScale } from "./types";
 import { COLORS as C } from "./constants";
+import { getPrettyDate } from "../../data/utils/DatasetTimeUtils";
 
 /* Define type interface */
 export interface LineChartProps {
   data: TrendsData;
   xScale: XScale;
   yScale: YScale;
+  valuesArePct: boolean;
 }
 
 /* Render component */
-export function LineChart({ data, xScale, yScale }: LineChartProps) {
+export function LineChart({
+  data,
+  xScale,
+  yScale,
+  valuesArePct,
+}: LineChartProps) {
   // Generate line path
   const lineGen = line()
     // should prevent interpolation when date or delta is undefined
@@ -47,14 +54,33 @@ export function LineChart({ data, xScale, yScale }: LineChartProps) {
     .curve(curveMonotoneX);
 
   return (
-    <g>
+    <g role="list" tabIndex={0} aria-label="Demographic group trendlines">
       {data &&
-        data.map(([group, d]: [string, [string, number][]]) => {
+        data.map(([group, d]: GroupData) => {
+          const dCopy = [...d];
+
+          const sortedDataForGroup = dCopy.sort((a, b) => a[1] - b[1]);
+
+          const minValueForGroup = sortedDataForGroup[0][1];
+          const maxValueForGroup =
+            sortedDataForGroup[sortedDataForGroup.length - 1][1];
+
+          const lowestDatesForGroup = sortedDataForGroup
+            .filter((row) => row[1] === minValueForGroup)
+            .map((row) => getPrettyDate(row[0]));
+          const highestDatesForGroup = sortedDataForGroup
+            .filter((row) => row[1] === maxValueForGroup)
+            .map((row) => getPrettyDate(row[0]));
+
+          const optionalPct = valuesArePct ? "%" : "";
+
+          const groupA11yDescription = `${group}: lowest value ${minValueForGroup}${optionalPct} in ${lowestDatesForGroup} and highest value ${maxValueForGroup}${optionalPct} in ${highestDatesForGroup}`;
+
           return (
             <path
               // tabIndex={0}
-              // aria-label={`${group} trend line displaying ${d.length} monthly values: ${d}`}
-              aria-label={`${group} trend line displaying ${d.length} monthly values`}
+              role="listitem"
+              aria-label={groupA11yDescription}
               className={styles.TrendLine}
               key={`group-${group}`}
               // @ts-ignore
