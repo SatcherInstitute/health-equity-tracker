@@ -38,8 +38,6 @@ export function HoverCircles({
       {/* iterate over data and draw circle for each group */}
       {data &&
         data.map(([group, d]: [string, [string, number][]], i) => {
-          console.log({ group }, { d });
-
           return (
             <g key={`hoverCircleGroup-${i}`}>
               {/* only append circle if data exists for this group & date */}

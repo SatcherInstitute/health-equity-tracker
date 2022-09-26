@@ -1,5 +1,6 @@
 import {
   generateConsecutivePeriods,
+  getPrettyDate,
   // interpolateTimePeriods,
 } from "./DatasetTimeUtils";
 
@@ -26,5 +27,11 @@ describe("DatasetTypes", () => {
     expect(generateConsecutivePeriods(testDataYearly)).toEqual(
       expectedConsecutivePeriodsYearly
     );
+  });
+});
+
+describe("Tests getPrettyDate() function", () => {
+  test("Simple conversion", () => {
+    expect(getPrettyDate("2020-01")).toEqual("January 2020");
   });
 });

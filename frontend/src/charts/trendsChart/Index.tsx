@@ -272,7 +272,6 @@ export function TrendsChart({
         <svg
           height={CONFIG.HEIGHT}
           width={width as number}
-          aria-label="Data visualization; accessible table view of data available below"
           onMouseMove={handleMousemove}
           onMouseLeave={() => setHoveredDate(null)}
           role="group"

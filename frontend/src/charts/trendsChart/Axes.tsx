@@ -27,7 +27,8 @@ import { CONFIG, TYPES, FORMATTERS as F } from "./constants";
 import { TrendsData, XScale, YScale, AxisConfig } from "./types";
 
 /* Helpers */
-import { getMinNumber, getMaxNumber } from "./helpers";
+import { getMinNumber, getMaxNumber, getDates } from "./helpers";
+import { getPrettyDate } from "../../data/utils/DatasetTimeUtils";
 
 /* Define type interface */
 export interface AxesProps {
@@ -115,9 +116,16 @@ export function Axes({
             .selectAll(".tick line")
             .attr("opacity", 0.2)
             .attr("stroke-dasharray", 5)
+            .attr("role", "listitem")
         );
     }
   }, [data, xScale, yScale, xAxis, yAxis]);
+
+  const dates = getDates(data);
+  const startDate = getPrettyDate(dates[0]);
+  const endDate = getPrettyDate(dates[dates.length - 1]);
+
+  const optionalPct = !yAxisLabel ? "%" : "";
 
   return (
     <g>
@@ -128,12 +136,22 @@ export function Axes({
           className={styles.xAxis}
           ref={xAxisRef}
           transform={`translate(0, ${HEIGHT - marginBottom})`}
+          aria-label={`x axis as months ranging from ${startDate} through ${endDate}`}
+          role="list"
+          tabIndex={0}
         />
         {/* Y-Axis */}
         <g
           className={styles.yAxis}
           ref={yAxisRef}
           transform={`translate(${marginLeft}, 0)`}
+          aria-label={`y axis as ${
+            yAxisLabel || " percent disproportionately high or low"
+          } ranging from ${getMinNumber(data)}${optionalPct} to ${getMaxNumber(
+            data
+          )}${optionalPct}`}
+          role="list"
+          tabIndex={0}
         />
       </g>
       {/* Zero Line Indicator */}
@@ -155,16 +173,20 @@ export function Axes({
           })`}
         >
           {/* only display x-axis label on desktop */}
-          <text textAnchor="end" dy="8px">
+          <text textAnchor="end" dy="8px" aria-hidden={true}>
             {isSkinny ? "" : "time →"}
           </text>
         </g>
         {/* Top Y-Axis Label */}
-        <g transform={`translate(${yAxisLabelPadding}, 0)rotate(-90)`}>
+        <g
+          aria-hidden={true}
+          transform={`translate(${yAxisLabelPadding}, 0)rotate(-90)`}
+        >
           <text textAnchor="end">{Y_AXIS_CONFIG[type]?.topLabel}</text>
         </g>
         {/* Bottom Y-Axis Label */}
         <g
+          aria-hidden={true}
           transform={`translate(${yAxisLabelPadding}, ${
             HEIGHT - marginBottom
           })rotate(-90)`}

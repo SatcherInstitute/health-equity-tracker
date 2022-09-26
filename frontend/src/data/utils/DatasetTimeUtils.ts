@@ -173,7 +173,11 @@ export function getNestedUndueShares(
             row[popPctShareId]) *
           100;
       }
-      return [row[TIME_PERIOD], diff];
+
+      return [
+        row[TIME_PERIOD],
+        diff != null ? Math.round(diff * 10) / 10 : null,
+      ];
     });
     return [shortenNH(group), groupTimeSeries] as GroupTrendData;
   });
@@ -204,10 +208,8 @@ export function makeA11yTableData(
     new Set(knownsData.map((row) => row[breakdownVar]))
   );
   const a11yData = allTimePeriods.map((timePeriod) => {
-    const [year, monthNum] = timePeriod.split("-");
-
     // each a11y table row is by time_period
-    const a11yRow: any = { [TIME_PERIOD_LABEL]: `${MONTHS[monthNum]} ${year}` };
+    const a11yRow: any = { [TIME_PERIOD_LABEL]: getPrettyDate(timePeriod) };
 
     // and shows value per demographic group
     for (let group of allDemographicGroups) {
@@ -226,4 +228,12 @@ export function makeA11yTableData(
   });
 
   return a11yData;
+}
+
+/*  
+Convert time_period style date YYYY-MM (e.g. "2020-01") to human readable Month Year (e.g. "January 2020")
+*/
+export function getPrettyDate(timePeriod: string) {
+  const [year, monthNum] = timePeriod.split("-");
+  return `${MONTHS[monthNum]} ${year}`;
 }

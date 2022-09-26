@@ -82,6 +82,7 @@ export function CircleChart({
   return (
     <g>
       <g
+        tabIndex={0}
         role="list"
         aria-label={unknownCircleLegendText + " per month"}
         transform={`translate(0, ${
@@ -137,7 +138,11 @@ export function CircleChart({
           HEIGHT - 5.25 * MAX_RADIUS
         })`}
       >
-        <g role="list" aria-label="Legend for Unknown Demographic Bubbles">
+        <g
+          role="list"
+          aria-label="Legend for Unknown Demographic Bubbles"
+          tabIndex={0}
+        >
           {/* Display circle for min, mid, and max values */}
           {getLegendValues().map((percent = 0, i) => {
             let legendHelper = "";
