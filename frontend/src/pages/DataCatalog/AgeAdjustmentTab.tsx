@@ -154,7 +154,7 @@ function AgeAdjustmentTab() {
                   </p>
                   <p>
                     Divide the total expected deaths of each race by the
-                    expected White (Non-Hispanic) deaths.
+                    expected White (NH) deaths.
                   </p>
                 </li>
               </ol>
