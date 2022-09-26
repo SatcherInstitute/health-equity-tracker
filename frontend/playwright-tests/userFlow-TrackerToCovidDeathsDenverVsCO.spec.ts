@@ -72,7 +72,7 @@ test('Switch Data Types for Both Geos', async ({ page }) => {
 
 
 
-test('Use Table of Contents to Scroll Age Adjust Card Into View', async ({ page }) => {
+test('Use Table of Contents to Scroll Age Adjust Card Into View and Be Focused', async ({ page }) => {
 
     await page.goto(EXPLORE_DATA_PAGE_LINK + DEATHS_DEN_VS_CO + SKIP_WELCOME);
 
@@ -85,6 +85,13 @@ test('Use Table of Contents to Scroll Age Adjust Card Into View', async ({ page 
 
     // Ensure URL Hash updates
     await expect(page).toHaveURL(/.*#age-adjusted-risk/);
+
+    // Find Age-Adjust Card
+    const ageAdjustCard = page.locator('#age-adjusted-risk')
+
+    // Ensure focus and visibility
+    await expect(ageAdjustCard).toBeFocused();
+    await expect(ageAdjustCard).toBeVisible();
 
 
 });
