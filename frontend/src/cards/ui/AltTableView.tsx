@@ -12,7 +12,10 @@ import React, { useRef } from "react";
 import AnimateHeight from "react-animate-height";
 import { MetricConfig } from "../../data/config/MetricConfig";
 import { BreakdownVar } from "../../data/query/Breakdowns";
-import { TIME_PERIOD_LABEL } from "../../data/utils/Constants";
+import {
+  DemographicGroup,
+  TIME_PERIOD_LABEL,
+} from "../../data/utils/Constants";
 import { makeA11yTableData } from "../../data/utils/DatasetTimeUtils";
 import { Row } from "../../data/utils/DatasetTypes";
 import { DATA_TAB_LINK } from "../../utils/internalRoutes";
@@ -28,6 +31,7 @@ interface AltTableViewProps {
   breakdownVar: BreakdownVar;
   knownMetricConfig: MetricConfig;
   unknownMetricConfig: MetricConfig;
+  selectedGroups: DemographicGroup[];
 }
 
 export default function AltTableView(props: AltTableViewProps) {
@@ -41,7 +45,8 @@ export default function AltTableView(props: AltTableViewProps) {
     props.unknownsData,
     props.breakdownVar,
     props.knownMetricConfig,
-    props.unknownMetricConfig
+    props.unknownMetricConfig,
+    props.selectedGroups
   );
 
   const firstTimePeriod = accessibleData[0][TIME_PERIOD_LABEL];

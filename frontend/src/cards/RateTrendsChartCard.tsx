@@ -39,6 +39,9 @@ export interface RateTrendsChartCardProps {
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
 export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
+  // Manages which group filters user has applied
+  const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
+
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
 
   const metricConfigRates = props.variableConfig.metrics["per100k"];
@@ -152,6 +155,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   }}
                   title={getTitleText()}
                   breakdownVar={props.breakdownVar}
+                  selectedGroups={selectedGroups}
+                  setSelectedGroups={setSelectedGroups}
                 />
 
                 <AltTableView
@@ -166,6 +171,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   breakdownVar={props.breakdownVar}
                   knownMetricConfig={metricConfigRates}
                   unknownMetricConfig={metricConfigPctShares}
+                  selectedGroups={selectedGroups}
                 />
               </>
             )}

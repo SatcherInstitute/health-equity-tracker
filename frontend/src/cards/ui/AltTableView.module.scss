@@ -26,6 +26,7 @@
     background-color: $white; // #fdfff9; // $grey-grid-color; // #f5faee;
     word-wrap: break-word !important;
     line-height: $lhSomeSpace;
+    border-bottom: 1px solid $alt-dark;
   }
 
   tbody tr:nth-child(odd) {

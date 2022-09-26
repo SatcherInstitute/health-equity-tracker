@@ -44,6 +44,7 @@ import {
 import { MOBILE_BREAKPOINT } from "../../App";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 import useEscape from "../../utils/hooks/useEscape";
+import { DemographicGroup } from "../../data/utils/Constants";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -52,6 +53,8 @@ export interface TrendsChartProps {
   axisConfig: AxisConfig;
   title: string;
   breakdownVar: BreakdownVar;
+  selectedGroups: DemographicGroup[];
+  setSelectedGroups: Function;
 }
 
 /* Render component */
@@ -61,6 +64,8 @@ export function TrendsChart({
   axisConfig,
   title,
   breakdownVar,
+  selectedGroups,
+  setSelectedGroups,
 }: TrendsChartProps) {
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
@@ -73,8 +78,7 @@ export function TrendsChart({
   const toolTipRef = useRef(null);
 
   /* State Management */
-  // Manages which group filters user has applied
-  const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
+
   // manages dynamic svg width
   const [[width, isMobile], setWidth] = useState<[number, boolean]>([
     STARTING_WIDTH,
@@ -121,7 +125,7 @@ export function TrendsChart({
   // Data filtered by user selected
   const filteredData = useMemo(
     () =>
-      selectedGroups.length ? filterDataByGroup(data, selectedGroups) : data,
+      selectedGroups?.length ? filterDataByGroup(data, selectedGroups) : data,
     [selectedGroups, data]
   );
 
@@ -212,8 +216,6 @@ export function TrendsChart({
     },
     [dates, xScale]
   );
-
-  console.log(axisConfig.type);
 
   return (
     // Container

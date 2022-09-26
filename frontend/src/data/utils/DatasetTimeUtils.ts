@@ -199,7 +199,8 @@ export function makeA11yTableData(
   unknownsData: Row[],
   breakdownVar: BreakdownVar,
   knownMetric: MetricConfig,
-  unknownMetric: MetricConfig
+  unknownMetric: MetricConfig,
+  selectedGroups: DemographicGroup[]
 ): Row[] {
   const allTimePeriods = Array.from(
     new Set(knownsData.map((row) => row[TIME_PERIOD]))
@@ -207,12 +208,23 @@ export function makeA11yTableData(
   const allDemographicGroups = Array.from(
     new Set(knownsData.map((row) => row[breakdownVar]))
   );
+
+  console.log({ allDemographicGroups });
+  console.log({ selectedGroups });
+
+  const filteredDemographicGroups =
+    selectedGroups.length > 0
+      ? allDemographicGroups.filter((group) =>
+          selectedGroups.includes(shortenNH(group))
+        )
+      : allDemographicGroups;
+
   const a11yData = allTimePeriods.map((timePeriod) => {
     // each a11y table row is by time_period
     const a11yRow: any = { [TIME_PERIOD_LABEL]: getPrettyDate(timePeriod) };
 
     // and shows value per demographic group
-    for (let group of allDemographicGroups) {
+    for (let group of filteredDemographicGroups) {
       const rowForGroupTimePeriod = knownsData.find(
         (row) => row[breakdownVar] === group && row[TIME_PERIOD] === timePeriod
       );

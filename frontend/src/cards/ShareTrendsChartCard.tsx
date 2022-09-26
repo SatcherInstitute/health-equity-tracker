@@ -42,6 +42,9 @@ export interface ShareTrendsChartCardProps {
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
 export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
+  // Manages which group filters user has applied
+  const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
+
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
 
   const metricConfig = props.variableConfig.metrics["pct_share"];
@@ -145,6 +148,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     }}
                     title={getTitleText()}
                     breakdownVar={props.breakdownVar}
+                    selectedGroups={selectedGroups}
+                    setSelectedGroups={setSelectedGroups}
                   />
 
                   <AltTableView
@@ -159,6 +164,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     breakdownVar={props.breakdownVar}
                     knownMetricConfig={metricConfig}
                     unknownMetricConfig={metricConfig}
+                    selectedGroups={selectedGroups}
                   />
                 </>
               )}

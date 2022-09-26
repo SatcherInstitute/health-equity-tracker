@@ -56,8 +56,8 @@ export function FilterLegend({
         <label id="select-groups-label">Select groups to filter</label>
         <button
           aria-label={`Clear demographic filters`}
-          aria-disabled={!selectedGroups.length}
-          className={!selectedGroups.length ? styles.disabled : undefined} // disable button unless filters are applied
+          aria-disabled={!selectedGroups?.length}
+          className={!selectedGroups?.length ? styles.disabled : undefined} // disable button unless filters are applied
           onClick={() => handleClick(null)} // clear selected groups on click
         >
           {/* only display group in button name on desktop */}
@@ -87,7 +87,7 @@ export function FilterLegend({
                 onClick={() => handleClick(group)} // send group name to parent on click
                 // If there are selected groups, and the group is not selected, fade out, otherwise full opacity
                 style={{
-                  opacity: !selectedGroups.length || groupEnabled ? 1 : 0.2, // failing a11y; need minimum opacity .55 ?
+                  opacity: !selectedGroups?.length || groupEnabled ? 1 : 0.2, // failing a11y; need minimum opacity .55 ?
                 }}
                 name={isComparing ? compareView() : ""}
               >
