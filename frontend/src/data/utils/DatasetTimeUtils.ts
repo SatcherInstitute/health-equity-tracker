@@ -209,9 +209,6 @@ export function makeA11yTableData(
     new Set(knownsData.map((row) => row[breakdownVar]))
   );
 
-  console.log({ allDemographicGroups });
-  console.log({ selectedGroups });
-
   const filteredDemographicGroups =
     selectedGroups.length > 0
       ? allDemographicGroups.filter((group) =>

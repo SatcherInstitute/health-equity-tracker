@@ -7,6 +7,22 @@
   }
 }
 
+.AltTableExpanderBox {
+  margin-top: 15px;
+  background: $listbox-color;
+  border-radius: 8px;
+  text-align: left;
+
+  p {
+    padding: 1rem;
+    margin: 0;
+  }
+
+  h4 {
+    margin: 0;
+  }
+}
+
 .AltTableContainer {
   overflow-x: auto;
   overflow-y: auto;
@@ -35,22 +51,6 @@
 
   tbody tr:nth-child(even) {
     background-color: $white; // #fdfff9; // $grey-grid-color;
-  }
-}
-
-.AltTableExpanderBox {
-  margin-top: 15px;
-  background: $listbox-color;
-  border-radius: 8px;
-  text-align: left;
-
-  p {
-    padding: 1rem;
-    margin: 0;
-  }
-
-  h4 {
-    margin: 0;
   }
 }
 
