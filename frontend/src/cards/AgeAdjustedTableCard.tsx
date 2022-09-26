@@ -89,9 +89,8 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     config.metricId.includes("ratio")
   );
 
-  const cardTitle = `${
-    metrics[0]?.fullCardTitleName
-  } in ${props.fips.getSentenceDisplayName()}`;
+  // const cardTitle = `${metrics[0]?.fullCardTitleName
+  //   } in ${props.fips.getSentenceDisplayName()}`;
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const ageAdjustedDataTypes: VariableConfig[] = METRIC_CONFIG[
@@ -106,7 +105,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       isAgeAdjustedTable={true}
       minHeight={PRELOAD_HEIGHT}
       queries={[raceQuery, ageQuery]}
-      title={<>{cardTitle}</>}
+      // title={<>{cardTitle}</>}
     >
       {([raceQueryResponse, ageQueryResponse]) => {
         const [knownRaceData] = splitIntoKnownsAndUnknowns(

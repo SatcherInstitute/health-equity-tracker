@@ -68,9 +68,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       metricConfigRates.trendsCardTitleName
     } in ${props.fips.getSentenceDisplayName()}`;
   }
-  function CardTitle() {
-    return <>{getTitleText()}</>;
-  }
+  // function CardTitle() {
+  //   return <>{getTitleText()}</>;
+  // }
 
   return (
     <CardWrapper

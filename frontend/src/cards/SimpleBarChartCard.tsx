@@ -63,9 +63,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       metricConfig.fullCardTitleName
     } in ${props.fips.getSentenceDisplayName()}`;
   }
-  function CardTitle() {
-    return <>{getTitleText()}</>;
-  }
+  // function CardTitle() {
+  //   return <>{getTitleText()}</>;
+  // }
 
   return (
     <CardWrapper queries={[query]} title={undefined} minHeight={PRELOAD_HEIGHT}>
