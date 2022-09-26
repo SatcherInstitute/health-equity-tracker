@@ -343,7 +343,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         per100k: {
           metricId: "covid_cases_per_100k",
-          fullCardTitleName: "Current rates of COVID-19 cases",
+          fullCardTitleName: "Rates of COVID-19 cases",
           trendsCardTitleName: "Monthly rates of COVID-19 cases",
           shortLabel: "cases per 100k",
           type: "per100k",
@@ -381,7 +381,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         per100k: {
           metricId: "covid_deaths_per_100k",
-          fullCardTitleName: "Current rates of COVID-19 deaths",
+          fullCardTitleName: "Rates of COVID-19 deaths",
           trendsCardTitleName: "Monthly rates of COVID-19 deaths",
           shortLabel: "deaths per 100k",
           type: "per100k",
@@ -421,7 +421,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         per100k: {
           metricId: "covid_hosp_per_100k",
-          fullCardTitleName: "Current rates of COVID-19 hospitalizations",
+          fullCardTitleName: "Rates of COVID-19 hospitalizations",
           trendsCardTitleName: "Monthly rates of COVID-19 hospitalizations",
           shortLabel: "hospitalizations per 100k",
           type: "per100k",
