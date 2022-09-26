@@ -295,6 +295,7 @@ export function TrendsChart({
           <LineChart data={filteredData} xScale={xScale} yScale={yScale} />
           {/* Group for hover indicator line and circles */}
           <g
+            tabIndex={0}
             className={styles.Indicators}
             // transform group to hovered x position
             style={{
