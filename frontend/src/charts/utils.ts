@@ -1,3 +1,4 @@
+import { MapCardProps } from "../cards/MapCard";
 import { formatFieldValue, MetricConfig } from "../data/config/MetricConfig";
 import { BreakdownVar } from "../data/query/Breakdowns";
 import { Row } from "../data/utils/DatasetTypes";
@@ -76,4 +77,15 @@ export function addMetricDisplayColumn(
   });
 
   return [newData, displayColName];
+}
+
+export function createSubTitle(demographic: string, props: MapCardProps) {
+  if (demographic === "All") {
+    return "";
+  }
+
+  if (props.currentBreakdown === "age") {
+    return `Ages ${demographic}`;
+  }
+  return `${demographic}`;
 }
