@@ -1,4 +1,4 @@
 state_fips,state_name,race_category_id,population,population_pct,race,race_includes_hispanic,race_and_ethnicity
-06,California,BLACK_NH,60,60.0,Black,False,Black (Non-Hispanic)
-06,California,WHITE_NH,40,40.0,White,False,White (Non-Hispanic)
+06,California,BLACK_NH,60,60.0,Black,False,Black (NH)
+06,California,WHITE_NH,40,40.0,White,False,White (NH)
 06,California,All,100,100.0,All,,All

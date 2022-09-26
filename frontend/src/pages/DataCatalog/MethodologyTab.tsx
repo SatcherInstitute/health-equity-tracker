@@ -734,64 +734,62 @@ function MethodologyTab() {
                     race/ethnicity.
                   </li>
                   <li>
-                    <b>American Indian and Alaska Native (Non-Hispanic)</b>: A
-                    person having origins in any of the original peoples of
-                    North and South America (including Central America), who
-                    maintains tribal affiliation or community attachment, and
-                    who is not Hispanic/Latino.
-                  </li>
-                  <li>
-                    <b>Asian (Non-Hispanic)</b>: A person having origins in any
-                    of the original peoples of the Far East, Southeast Asia, or
-                    the Indian subcontinent including, for example, Cambodia,
-                    China, India, Japan, Korea, Malaysia, Pakistan, the
-                    Philippine Islands, Thailand, and Vietnam, and who is not
+                    <b>American Indian and Alaska Native (NH)</b>: A person
+                    having origins in any of the original peoples of North and
+                    South America (including Central America), who maintains
+                    tribal affiliation or community attachment, and who is not
                     Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Black or African American (Non-Hispanic)</b>: A person
-                    having origins in any of the Black racial groups of Africa,
-                    and who is not Hispanic/Latino.
+                    <b>Asian (NH)</b>: A person having origins in any of the
+                    original peoples of the Far East, Southeast Asia, or the
+                    Indian subcontinent including, for example, Cambodia, China,
+                    India, Japan, Korea, Malaysia, Pakistan, the Philippine
+                    Islands, Thailand, and Vietnam, and who is not
+                    Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>Black or African American (NH)</b>: A person having
+                    origins in any of the Black racial groups of Africa, and who
+                    is not Hispanic/Latino.
                   </li>
                   <li>
                     <b>Hispanic/Latino</b>: Any race(s), Hispanic/Latino.
                   </li>
                   <li>
-                    <b>
-                      Native Hawaiian or Other Pacific Islander (Non-Hispanic)
-                    </b>
-                    : A person having origins in any of the original peoples of
+                    <b>Native Hawaiian or Other Pacific Islander (NH)</b>: A
+                    person having origins in any of the original peoples of
                     Hawaii, Guam, Samoa, or other Pacific Islands and who is not
                     Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Unrepresented race (Non-Hispanic)</b>: A single race not
-                    tabulated by the CDC, not of Hispanic/Latino ethnicity.
-                    Individuals not identifying as one of the distinct races
-                    listed in the source data, or multiracial individuals, are
-                    grouped together as “Some other race”. This is a problem as
-                    it obscures racial identity for many individuals. In our
-                    effort to take transformative action towards achieving
-                    health equity the Satcher Health Leadership Institute has
-                    decided to rename this category to highlight it as a health
-                    equity issue.
+                    <b>Unrepresented race (NH)</b>: A single race not tabulated
+                    by the CDC, not of Hispanic/Latino ethnicity. Individuals
+                    not identifying as one of the distinct races listed in the
+                    source data, or multiracial individuals, are grouped
+                    together as “Some other race”. This is a problem as it
+                    obscures racial identity for many individuals. In our effort
+                    to take transformative action towards achieving health
+                    equity the Satcher Health Leadership Institute has decided
+                    to rename this category to highlight it as a health equity
+                    issue.
                   </li>
                   <li>
-                    <b>Two or more races (Non-Hispanic)</b>: Combinations of two
-                    or more of the following race categories: "White," "Black or
-                    African American," American Indian or Alaska Native,"
-                    "Asian," Native Hawaiian or Other Pacific Islander," or
-                    "Some Other Race", and who are not Hispanic/Latino.
+                    <b>Two or more races (NH)</b>: Combinations of two or more
+                    of the following race categories: "White," "Black or African
+                    American," American Indian or Alaska Native," "Asian,"
+                    Native Hawaiian or Other Pacific Islander," or "Some Other
+                    Race", and who are not Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Two or more races & Unrepresented race (Non-Hispanic)</b>
-                    : People who are either multiple races or a single race not
+                    <b>Two or more races & Unrepresented race (NH)</b>: People
+                    who are either multiple races or a single race not
                     represented by the data source's categorization, and who are
                     not Hispanic/Latino.
                   </li>
                   <li>
-                    <b>White (Non-Hispanic)</b>: A person having origins in any
-                    of the original peoples of Europe, the Middle East, or North
+                    <b>White (NH)</b>: A person having origins in any of the
+                    original peoples of Europe, the Middle East, or North
                     Africa, and who is not Hispanic/Latino.
                   </li>
                 </ul>

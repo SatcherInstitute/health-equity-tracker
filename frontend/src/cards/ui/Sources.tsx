@@ -7,6 +7,7 @@ import {
 import { DATA_CATALOG_PAGE_LINK } from "../../utils/internalRoutes";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
+import { DatasetMetadataMap } from "../../data/config/DatasetMetadata";
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = "";
@@ -46,7 +47,7 @@ export const stripCountyFips = (datasetIds: string[]) => {
   return datasetIds;
 };
 
-export function getDataSourceMapFromDatasetIds(
+function getDataSourceMapFromDatasetIds(
   datasetIds: string[],
   metadata: MapOfDatasetMetadata
 ): Record<string, DataSourceInfo> {
@@ -84,11 +85,7 @@ export function Sources(props: {
     return <></>;
   }
 
-  let datasetIds = props.queryResponses.reduce(
-    (accumulator: string[], response) =>
-      accumulator.concat(response.consumedDatasetIds),
-    []
-  );
+  let datasetIds = getDatasetIdsFromResponses(props.queryResponses);
 
   datasetIds = getDatasetIdsFromResponses(props.queryResponses);
   datasetIds = stripCountyFips(datasetIds);
@@ -102,6 +99,10 @@ export function Sources(props: {
   const dataSourceMap = getDataSourceMapFromDatasetIds(
     datasetIds,
     props.metadata
+  );
+
+  const showNhFootnote = datasetIds.some(
+    (set) => DatasetMetadataMap[set]?.contains_nh
   );
 
   return (
@@ -126,6 +127,7 @@ export function Sources(props: {
           {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
         </Fragment>
       ))}
+      {showNhFootnote && <p>(NH): Non-Hispanic. </p>}
     </>
   );
 }

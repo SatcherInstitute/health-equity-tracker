@@ -8,7 +8,7 @@
     "death_y": "20.0",
     "race": "Black or African American",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+    "race_and_ethnicity": "Black or African American (NH)",
     "age": "0-29"
   },
   {
@@ -20,7 +20,7 @@
     "death_y": "200.0",
     "race": "Black or African American",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+    "race_and_ethnicity": "Black or African American (NH)",
     "age": "30-59"
   },
   {
@@ -32,7 +32,7 @@
     "death_y": "800.0",
     "race": "Black or African American",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+    "race_and_ethnicity": "Black or African American (NH)",
     "age": "60+"
   },
   {
@@ -80,7 +80,7 @@
     "death_y": "50.0",
     "race": "White",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "White (Non-Hispanic)",
+    "race_and_ethnicity": "White (NH)",
     "age": "0-29"
   },
   {
@@ -92,7 +92,7 @@
     "death_y": "500.0",
     "race": "White",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "White (Non-Hispanic)",
+    "race_and_ethnicity": "White (NH)",
     "age": "30-59"
   },
   {
@@ -104,7 +104,7 @@
     "death_y": "5000.0",
     "race": "White",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "White (Non-Hispanic)",
+    "race_and_ethnicity": "White (NH)",
     "age": "60+"
   },
   {
@@ -116,7 +116,7 @@
     "death_y": null,
     "race": "Black or African American",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+    "race_and_ethnicity": "Black or African American (NH)",
     "age": "0-29"
   },
   {
@@ -128,7 +128,7 @@
     "death_y": null,
     "race": "Black or African American",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+    "race_and_ethnicity": "Black or African American (NH)",
     "age": "30-59"
   },
   {
@@ -140,7 +140,7 @@
     "death_y": null,
     "race": "Black or African American",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+    "race_and_ethnicity": "Black or African American (NH)",
     "age": "60+"
   },
   {
@@ -188,7 +188,7 @@
     "death_y": null,
     "race": "White",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "White (Non-Hispanic)",
+    "race_and_ethnicity": "White (NH)",
     "age": "0-29"
   },
   {
@@ -200,7 +200,7 @@
     "death_y": null,
     "race": "White",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "White (Non-Hispanic)",
+    "race_and_ethnicity": "White (NH)",
     "age": "30-59"
   },
   {
@@ -212,7 +212,7 @@
     "death_y": null,
     "race": "White",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "White (Non-Hispanic)",
+    "race_and_ethnicity": "White (NH)",
     "age": "60+"
   },
   {
@@ -224,7 +224,7 @@
     "death_y": null,
     "race": "Black or African American",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+    "race_and_ethnicity": "Black or African American (NH)",
     "age": "0-29"
   },
   {
@@ -236,7 +236,7 @@
     "death_y": null,
     "race": "Black or African American",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+    "race_and_ethnicity": "Black or African American (NH)",
     "age": "30-59"
   },
   {
@@ -248,7 +248,7 @@
     "death_y": null,
     "race": "Black or African American",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+    "race_and_ethnicity": "Black or African American (NH)",
     "age": "60+"
   },
   {
@@ -296,7 +296,7 @@
     "death_y": null,
     "race": "White",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "White (Non-Hispanic)",
+    "race_and_ethnicity": "White (NH)",
     "age": "0-29"
   },
   {
@@ -308,7 +308,7 @@
     "death_y": null,
     "race": "White",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "White (Non-Hispanic)",
+    "race_and_ethnicity": "White (NH)",
     "age": "30-59"
   },
   {
@@ -320,7 +320,7 @@
     "death_y": null,
     "race": "White",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "White (Non-Hispanic)",
+    "race_and_ethnicity": "White (NH)",
     "age": "60+"
   }
 ]
