@@ -348,6 +348,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
     id: "vera_incarceration_county-prison_age_county",
     name: "Rates of individuals within a county incarcerated in state prison facilities, by Age (totals only)",
     update_time: "2016",
+    contains_nh: true,
   },
   {
     id: "vera_incarceration_county-prison_sex_county",

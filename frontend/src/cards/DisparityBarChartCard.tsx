@@ -100,7 +100,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           props.breakdownVar === RACE &&
           queryResponse.data.every(
             (row) =>
-              !row[props.breakdownVar].includes("(Non-Hispanic)") ||
+              !row[props.breakdownVar].includes("(NH)") ||
               row[props.breakdownVar] === HISPANIC
           ) &&
           queryResponse.data.some((row) => row[metricConfig.metricId]);
