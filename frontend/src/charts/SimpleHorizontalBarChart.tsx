@@ -322,7 +322,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
         spec={getSpec(
           /* altText  */ `Bar Chart showing ${props.filename}`,
           /* data  */ data,
-          props.filename || "",
+          /* filename  */ props.filename || "",
           /* width  */ width,
           /* breakdownVar  */ props.breakdownVar,
           /* breakdownVarDisplayName  */ BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[

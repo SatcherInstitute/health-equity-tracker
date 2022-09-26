@@ -89,7 +89,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   return (
     <CardWrapper
       queries={[mapQuery, alertQuery]}
-      title={<>{getTitleText()}</>}
+      title={undefined}
       loadGeographies={true}
       minHeight={preloadHeight}
     >
@@ -221,6 +221,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             {showingVisualization && (
               <CardContent>
                 <ChoroplethMap
+                  titles={{ chartTitle: getTitleText(), subTitle: " " }}
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}

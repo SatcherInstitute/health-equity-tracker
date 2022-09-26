@@ -308,6 +308,7 @@ function getSpec(
     $schema: "https://vega.github.io/schema/vega/v5.json",
     title: {
       text: filename,
+      subtitle: " ",
       encode: {
         title: {
           enter: {
@@ -532,7 +533,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         spec={getSpec(
           /* altText  */ `Comparison bar chart showing ${props.filename}`,
           /* data  */ data,
-          props.filename,
+          /* filename */ props.filename,
           /* width */ width,
           /* breakdownVar */ props.breakdownVar,
           /* breakdownVarDisplayName */ BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
