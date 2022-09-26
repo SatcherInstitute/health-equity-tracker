@@ -138,12 +138,7 @@ function MapCardWithKey(props: MapCardProps) {
   return (
     <CardWrapper
       queries={queries}
-      title={
-        <>
-          {metricConfig.fullCardTitleName}
-          {selectedRaceSuffix}
-        </>
-      }
+      title={undefined}
       loadGeographies={true}
       minHeight={preloadHeight}
     >
@@ -328,7 +323,7 @@ function MapCardWithKey(props: MapCardProps) {
                       currentVariable={
                         props.variableConfig.variableFullDisplayName
                       }
-                    />{" "}
+                    />
                   </Alert>
                 </CardContent>
               )}
@@ -338,7 +333,10 @@ function MapCardWithKey(props: MapCardProps) {
                 <CardContent>
                   <ChoroplethMap
                     signalListeners={signalListeners}
-                    subTitle={subTitle}
+                    titles={{
+                      chartTitle: metricConfig.fullCardTitleName,
+                      subTitle,
+                    }}
                     metric={metricConfig}
                     legendTitle={metricConfig.shortLabel.toLowerCase()}
                     data={

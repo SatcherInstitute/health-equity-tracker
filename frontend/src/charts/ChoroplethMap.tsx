@@ -76,7 +76,10 @@ export interface ChoroplethMapProps {
   signalListeners: any;
   // use the constructed string from the Card Wrapper Title in the export as PNG filename
   filename?: string;
-  subTitle?: string;
+  titles?: {
+    chartTitle: string;
+    subTitle: string;
+  };
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -474,8 +477,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       legends: legendList,
       marks: marks,
       title: !props.overrideShapeWithCircle && {
-        text: props.metric.fullCardTitleName,
-        subtitle: props.subTitle,
+        text: props.titles?.chartTitle,
+        subtitle: props.titles?.subTitle,
         encode: {
           title: {
             enter: {
