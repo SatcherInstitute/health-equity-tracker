@@ -75,6 +75,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     share: true,
   });
 
+  const HASH_ID = "population-vs-share";
+
   return (
     <CardWrapper
       queries={[query]}
