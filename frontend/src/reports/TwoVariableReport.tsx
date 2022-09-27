@@ -278,6 +278,7 @@ function TwoVariableReport(props: {
                     variableConfig2={variableConfig2}
                     fips1={props.fips1}
                     fips2={props.fips2}
+                    headerScrollMargin={props.headerScrollMargin}
                     createCard={(
                       variableConfig: VariableConfig,
                       fips: Fips,
@@ -361,6 +362,7 @@ function TwoVariableReport(props: {
                     variableConfig2={variableConfig2}
                     fips1={props.fips1}
                     fips2={props.fips2}
+                    headerScrollMargin={props.headerScrollMargin}
                     createCard={(
                       variableConfig: VariableConfig,
                       fips: Fips,

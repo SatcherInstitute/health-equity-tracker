@@ -75,6 +75,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       queries={[query]}
       title={<>Share Disparities Over Time</>}
       minHeight={PRELOAD_HEIGHT}
+      scrollToHash={"share-trends"}
     >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);

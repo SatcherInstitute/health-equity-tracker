@@ -68,7 +68,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   return (
     <CardWrapper
       queries={[query]}
-      title={<>Current Rates</>}
+      title={<>Rate chart</>}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash="rate-chart"
     >

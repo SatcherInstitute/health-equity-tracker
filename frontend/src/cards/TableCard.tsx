@@ -100,7 +100,11 @@ export function TableCard(props: TableCardProps) {
     <CardWrapper
       minHeight={preloadHeight}
       queries={[query]}
-      title={<>Data Table</>}
+      title={
+        <>{`${props.variableConfig.variableFullDisplayName} by ${
+          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+        } in ${props.fips.getSentenceDisplayName()}`}</>
+      }
       scrollToHash="data-table"
     >
       {([queryResponse]) => {

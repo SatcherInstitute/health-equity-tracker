@@ -94,7 +94,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   return (
     <CardWrapper
       queries={[mapQuery, alertQuery]}
-      title={<>Unknown Demographic Map</>}
+      title={<>Unknown demographic map</>}
       loadGeographies={true}
       minHeight={preloadHeight}
       scrollToHash="unknowns-map"

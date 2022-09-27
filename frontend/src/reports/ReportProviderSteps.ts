@@ -17,7 +17,7 @@ export const reportProviderSteps: StepData[] = [
     hashId: "rate-trends",
   },
   {
-    label: "Current rates",
+    label: "Rate chart",
     pluralOnCompare: false,
     hashId: "rate-chart",
   },

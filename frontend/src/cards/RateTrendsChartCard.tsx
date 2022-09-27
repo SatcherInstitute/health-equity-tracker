@@ -86,6 +86,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       queries={[ratesQuery, pctShareQuery]}
       title={<>Rates Over Time</>}
       minHeight={PRELOAD_HEIGHT}
+      scrollToHash={"rate-trends"}
     >
       {([queryResponseRates, queryResponsePctShares]) => {
         const ratesData = queryResponseRates.getValidRowsForField(
