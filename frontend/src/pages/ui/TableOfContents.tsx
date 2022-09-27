@@ -10,6 +10,8 @@ import React from "react";
 import { StepData, useStepObserver } from "../../utils/hooks/useStepObserver";
 import styles from "./TableOfContents.module.scss";
 
+const TABLE_OF_CONTENT_PADDING = 15;
+
 /* 
   reportSteps: StepData[]; Array of TOC "steps" mapping the card hashId to the step display name
   isScrolledToTop?: boolean; Optionally send in top scroll status; when true none of the steps will be highlighted
@@ -30,37 +32,43 @@ export function TableOfContents(props: TableOfContentsProps) {
     props.isScrolledToTop || false
   );
 
+  function handleStepClick(step: StepData) {
+    const clickedElem: HTMLElement | null = document.querySelector(
+      `#${step.hashId}`
+    );
+
+    if (clickedElem) {
+      clickedElem.scrollIntoView({ behavior: "smooth" });
+      // for a11y focus should shift to subsequent tab goes to next interactive element after the targeted card
+      clickedElem.focus({ preventScroll: true });
+    }
+
+    setRecentlyClicked(step.hashId);
+  }
+
+  const tocOffset = (props.floatTopOffset || 0) + TABLE_OF_CONTENT_PADDING;
+
   return (
-    <Card
-      raised={true}
-      className={styles.Toc}
-      style={{ top: props.floatTopOffset }}
-    >
+    <Card raised={true} className={styles.Toc} style={{ top: tocOffset }}>
       <Stepper
-        component={"menu"}
+        component={"nav"}
         nonLinear
         activeStep={props.reportSteps?.findIndex(
           (step) => step.hashId === activeId
         )}
         orientation="vertical"
-        aria-label="Table of Contents"
+        aria-label="Available cards on this report"
         className={styles.Stepper}
       >
         {props.reportSteps?.map((step) => {
           return (
-            <Step
-              key={step.label}
-              completed={false}
-              title={`Scroll to ${step.label}`}
-            >
+            <Step completed={false} key={step.hashId}>
               <StepButton
+                title={`Scroll to ${step.label}`}
                 className={styles.StepButton}
                 onClick={(e) => {
                   e.preventDefault();
-                  document.querySelector(`#${step.hashId}`)!.scrollIntoView({
-                    behavior: "smooth",
-                  });
-                  setRecentlyClicked(step.hashId);
+                  handleStepClick(step);
                 }}
               >
                 <span

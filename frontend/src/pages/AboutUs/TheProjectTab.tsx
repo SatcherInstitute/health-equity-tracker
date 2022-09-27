@@ -3,7 +3,6 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
-import { LinkWithStickyParams } from "../../utils/urlutils";
 import {
   COPD_US_SETTING,
   COVID_HOSP_NY_COUNTY_SETTING,
@@ -200,9 +199,9 @@ function TheProjectTab() {
                     paragraph={true}
                   >
                     HET currently aggregates data from{" "}
-                    <LinkWithStickyParams to={DATA_CATALOG_PAGE_LINK}>
+                    <a href={DATA_CATALOG_PAGE_LINK}>
                       {`${numDataSources}`} key data sources
-                    </LinkWithStickyParams>
+                    </a>
                     , including the CDC and the U.S. Census Bureau. We’ll
                     continue adding to these initial sources as data access and
                     quality improves.
@@ -223,47 +222,35 @@ function TheProjectTab() {
                     paragraph={true}
                   >
                     In addition to COVID-19{" "}
-                    <LinkWithStickyParams
-                      to={EXPLORE_DATA_PAGE_LINK + COVID_VAX_US_SETTING}
-                    >
+                    <a href={EXPLORE_DATA_PAGE_LINK + COVID_VAX_US_SETTING}>
                       vaccinations,
-                    </LinkWithStickyParams>{" "}
+                    </a>{" "}
                     cases, deaths, and{" "}
-                    <LinkWithStickyParams
-                      to={EXPLORE_DATA_PAGE_LINK + COVID_HOSP_NY_COUNTY_SETTING}
+                    <a
+                      href={
+                        EXPLORE_DATA_PAGE_LINK + COVID_HOSP_NY_COUNTY_SETTING
+                      }
                     >
                       hospitalizations by race to the county level
-                    </LinkWithStickyParams>
+                    </a>
                     , the tracker also covers chronic disease conditions like{" "}
-                    <LinkWithStickyParams
-                      to={EXPLORE_DATA_PAGE_LINK + COPD_US_SETTING}
-                    >
-                      COPD
-                    </LinkWithStickyParams>{" "}
+                    <a href={EXPLORE_DATA_PAGE_LINK + COPD_US_SETTING}>COPD</a>{" "}
                     and{" "}
-                    <LinkWithStickyParams
-                      to={EXPLORE_DATA_PAGE_LINK + DIABETES_US_SETTING}
-                    >
+                    <a href={EXPLORE_DATA_PAGE_LINK + DIABETES_US_SETTING}>
                       diabetes
-                    </LinkWithStickyParams>
+                    </a>
                     , behavioral health indicators such as{" "}
-                    <LinkWithStickyParams
-                      to={EXPLORE_DATA_PAGE_LINK + OPIOID_US_SETTING}
-                    >
+                    <a href={EXPLORE_DATA_PAGE_LINK + OPIOID_US_SETTING}>
                       opioid and other substance misuse
-                    </LinkWithStickyParams>
+                    </a>
                     , and social and political determinants of health including{" "}
-                    <LinkWithStickyParams
-                      to={EXPLORE_DATA_PAGE_LINK + UNINSURANCE_US_SETTING}
-                    >
+                    <a href={EXPLORE_DATA_PAGE_LINK + UNINSURANCE_US_SETTING}>
                       uninsurance
-                    </LinkWithStickyParams>{" "}
+                    </a>{" "}
                     and{" "}
-                    <LinkWithStickyParams
-                      to={EXPLORE_DATA_PAGE_LINK + POVERTY_US_SETTING}
-                    >
+                    <a href={EXPLORE_DATA_PAGE_LINK + POVERTY_US_SETTING}>
                       poverty
-                    </LinkWithStickyParams>
+                    </a>
                     <span aria-hidden={true}>.</span>
                   </Typography>
                 </Grid>
