@@ -9,7 +9,6 @@ import { ReactRouterLinkButton } from "../../../utils/urlutils";
 import styles from "./DataSourceListing.module.scss";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import downloadDataset from "./downloadDataset";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -107,13 +106,13 @@ export function DataSourceListing(props: DataSourceListingProps) {
       data-testid={props.source_metadata.id}
     >
       <Typography variant="h4" className={styles.DatasetTitle} align="left">
-        <Link
+        <a
           href={props.source_metadata.data_source_link}
           target="_blank"
           rel="noopener noreferrer"
         >
           {props.source_metadata.data_source_name}
-        </Link>
+        </a>
       </Typography>
       <table className={styles.MetadataTable}>
         <tbody>
@@ -140,13 +139,13 @@ export function DataSourceListing(props: DataSourceListingProps) {
               <b>Source Website</b>
             </td>
             <td>
-              <Link
+              <a
                 href={props.source_metadata.data_source_link}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 {props.source_metadata.data_source_pretty_site_name}
-              </Link>
+              </a>
             </td>
           </tr>
         </tbody>
