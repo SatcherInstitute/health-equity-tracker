@@ -28,6 +28,7 @@ import { Alert } from "@material-ui/lab";
 import { HashLink } from "react-router-hash-link";
 import { METHODOLOGY_TAB_LINK } from "../utils/internalRoutes";
 import AltTableView from "./ui/AltTableView";
+import { createTitles } from "../charts/utils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -66,14 +67,17 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       metricConfig.trendsCardTitleName
     } in ${props.fips.getSentenceDisplayName()}`;
   }
-  // function CardTitle() {
-  //   return <>{getTitleText()}</>;
-  // }
+
+  const { chartTitle } = createTitles({
+    fips: props.fips,
+    variableConfig: props.variableConfig,
+    share: true,
+  });
 
   return (
     <CardWrapper
       queries={[query]}
-      title={<>Share Disparities Over Time</>}
+      title={<>Inequities Over Time</>}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={"share-trends"}
     >
@@ -138,6 +142,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                   <TrendsChart
                     // @ts-ignore
                     data={nestedData}
+                    chartTitle={chartTitle}
                     // @ts-ignore
                     unknown={nestedUnknowns}
                     axisConfig={{

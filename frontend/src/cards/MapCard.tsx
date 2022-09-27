@@ -46,7 +46,7 @@ import { MultiMapLink } from "./ui/MultiMapLink";
 import { RateInfoAlert } from "./ui/RateInfoAlert";
 import { findVerboseRating } from "./ui/SviAlert";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
-import { createSubTitle } from "../charts/utils";
+import { createTitles } from "../charts/utils";
 import { useLocation } from "react-router-dom";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
@@ -140,7 +140,7 @@ function MapCardWithKey(props: MapCardProps) {
   let qualifierItems: string[] = [];
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
 
-  const { chartTitle, subtitle } = createSubTitle({
+  const { chartTitle, subtitle } = createTitles({
     variableConfig: props.variableConfig,
     fips: props.fips,
     breakdown: props.currentBreakdown,

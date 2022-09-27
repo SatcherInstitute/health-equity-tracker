@@ -20,6 +20,7 @@ import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
+import { createTitles } from "../charts/utils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -65,10 +66,15 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     } In ${props.fips.getSentenceDisplayName()}`;
   }
 
+  const { chartTitle } = createTitles({
+    variableConfig: props.variableConfig,
+    fips: props.fips,
+  });
+
   return (
     <CardWrapper
       queries={[query]}
-      title={<>Rate chart</>}
+      title={<>Rate Chart</>}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash="rate-chart"
     >
@@ -100,6 +106,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 )}
 
                 <SimpleHorizontalBarChart
+                  chartTitle={chartTitle}
                   data={data}
                   breakdownVar={props.breakdownVar}
                   metric={metricConfig}
