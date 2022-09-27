@@ -26,7 +26,7 @@ const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below thi
 function getSpec(
   altText: string,
   data: Record<string, any>[],
-  filename: string,
+  chartTitle: string | string[],
   width: number,
   breakdownVar: BreakdownVar,
   breakdownVarDisplayName: BreakdownVarDisplayName,
@@ -304,13 +304,10 @@ function getSpec(
         : altLightMeasure!;
   }
 
-  let testing: any = filename.split("Population vs. Share");
-  testing = testing[testing.length - 1];
-
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     title: {
-      text: ["Population vs. Share", testing],
+      text: chartTitle,
       subtitle: " ",
       encode: {
         title: {
@@ -436,6 +433,7 @@ function getSpec(
 }
 export interface DisparityBarChartProps {
   data: Row[];
+  chartTitle?: string | string[];
   lightMetric: MetricConfig;
   darkMetric: MetricConfig;
   breakdownVar: BreakdownVar;
@@ -536,7 +534,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         spec={getSpec(
           /* altText  */ `Comparison bar chart showing ${props.filename}`,
           /* data  */ data,
-          /* filename */ props.filename,
+          /* filename */ props.chartTitle || "",
           /* width */ width,
           /* breakdownVar */ props.breakdownVar,
           /* breakdownVarDisplayName */ BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[

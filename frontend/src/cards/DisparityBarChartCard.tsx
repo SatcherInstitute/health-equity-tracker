@@ -22,6 +22,7 @@ import {
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
+import { createTitles } from "../charts/utils";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -76,6 +77,14 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   }
 
   const HASH_ID = "population-vs-share";
+
+  const { chartTitle } = createTitles({
+    variableConfig: props.variableConfig,
+    fips: props.fips,
+    population: true,
+  });
+
+  console.log(chartTitle);
 
   return (
     <CardWrapper
@@ -140,6 +149,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               <>
                 <CardContent>
                   <DisparityBarChart
+                    chartTitle={chartTitle}
                     data={knownData}
                     lightMetric={metricConfig.populationComparisonMetric!}
                     darkMetric={

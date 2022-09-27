@@ -24,7 +24,7 @@ import {
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
 import AltTableView from "./ui/AltTableView";
-import { createSubTitle } from "../charts/utils";
+import { createTitles } from "../charts/utils";
 import { EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK } from "../utils/internalRoutes";
 import { HashLink } from "react-router-hash-link";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
@@ -73,7 +73,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     } in ${props.fips.getSentenceDisplayName()}`;
   }
 
-  const { chartTitle } = createSubTitle({
+  const { chartTitle } = createTitles({
     fips: props.fips,
     variableConfig: props.variableConfig,
     trend: true,

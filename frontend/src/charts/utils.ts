@@ -1,5 +1,3 @@
-import React from "react";
-import { MapCardProps } from "../cards/MapCard";
 import {
   formatFieldValue,
   MetricConfig,
@@ -91,14 +89,18 @@ type SubTitleProps = {
   demographic?: string;
   breakdown?: string;
   trend?: boolean;
+  share?: boolean;
+  population?: boolean;
 };
 
-export function createSubTitle({
+export function createTitles({
   variableConfig,
   fips,
   demographic,
   breakdown,
   trend,
+  share,
+  population,
 }: SubTitleProps) {
   const location = fips.isUsa()
     ? `the ${fips.getDisplayName()}`
@@ -112,11 +114,24 @@ export function createSubTitle({
     return { chartTitle, subtitle };
   }
 
+  if (share) {
+    chartTitle = `Inequitable Distribution of COVID-19 cases by month in ${location}`;
+    return { chartTitle, subtitle };
+  }
+
+  if (population) {
+    chartTitle = [
+      `Population vs distribution of total ${metric}`,
+      `since Jan 2020 in ${location}`,
+    ];
+    return { chartTitle, subtitle };
+  }
+
   if (metric.includes("COVID-19")) {
-    chartTitle = `${metric} since Jan 2020 per 100k individuals in ${location}`;
+    chartTitle = `${metric} since Jan 2020 per 100k people in ${location}`;
     chartTitle =
       chartTitle.length > 55
-        ? [`${metric} since Jan 2020`, `per 100k individuals in ${location}`]
+        ? [`${metric} since Jan 2020`, `per 100k people in ${location}`]
         : chartTitle;
   } else {
     chartTitle = `${metric} per 100k people in ${location}`;

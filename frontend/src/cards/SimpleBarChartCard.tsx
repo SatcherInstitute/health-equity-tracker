@@ -21,6 +21,7 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
+import { createTitles } from "../charts/utils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -68,6 +69,11 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   const HASH_ID = "rate-chart";
 
+  const { chartTitle } = createTitles({
+    variableConfig: props.variableConfig,
+    fips: props.fips,
+  });
+
   return (
     <CardWrapper
       queries={[query]}
@@ -103,6 +109,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 )}
 
                 <SimpleHorizontalBarChart
+                  chartTitle={chartTitle}
                   data={data}
                   breakdownVar={props.breakdownVar}
                   metric={metricConfig}

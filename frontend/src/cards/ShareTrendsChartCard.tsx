@@ -29,6 +29,7 @@ import { HashLink } from "react-router-hash-link";
 import { METHODOLOGY_TAB_LINK } from "../utils/internalRoutes";
 import AltTableView from "./ui/AltTableView";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
+import { createTitles } from "../charts/utils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -67,7 +68,12 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       metricConfig.trendsCardTitleName
     } in ${props.fips.getSentenceDisplayName()}`;
   }
-  const HASH_ID = "share-trends";
+
+  const { chartTitle } = createTitles({
+    fips: props.fips,
+    variableConfig: props.variableConfig,
+    share: true,
+  });
 
   return (
     <CardWrapper
@@ -137,6 +143,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                   <TrendsChart
                     // @ts-ignore
                     data={nestedData}
+                    chartTitle={chartTitle}
                     // @ts-ignore
                     unknown={nestedUnknowns}
                     axisConfig={{
