@@ -3,7 +3,6 @@ import LinkIcon from "@material-ui/icons/Link";
 import styles from "./CopyLinkButton.module.scss";
 import { IconButton, Snackbar } from "@material-ui/core";
 import { ScrollableHashId } from "../../utils/hooks/useStepObserver";
-// import { useLocation } from "react-router-dom";
 import { Alert } from "@material-ui/lab";
 
 interface CopyLinkButtonProps {
@@ -37,12 +36,7 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
       >
         <LinkIcon />
       </IconButton>
-      <Snackbar
-        open={open}
-        autoHideDuration={5000}
-        onClose={handleClose}
-        // onClick={handleClose}
-      >
+      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
         <Alert onClose={handleClose} className={styles.SnackBarAlert}>
           Direct link to <b>{cardName}</b> copied to clipboard!
         </Alert>
