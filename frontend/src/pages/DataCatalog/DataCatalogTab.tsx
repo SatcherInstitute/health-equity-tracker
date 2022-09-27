@@ -11,8 +11,10 @@ import {
 } from "../../utils/internalRoutes";
 import styles from "../AboutUs/AboutUsPage.module.scss";
 import { Link, Route, Switch } from "react-router-dom";
-import FeedbackBox from "../ui/FeedbackBox";
+// import FeedbackBox from "../ui/FeedbackBox";
 import AgeAdjustmentTab from "./AgeAdjustmentTab";
+
+const FeedbackBox = React.lazy(() => import("../ui/FeedbackBox"));
 
 function DataCatalogTab() {
   const params = useSearchParams();

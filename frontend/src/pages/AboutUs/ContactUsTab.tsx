@@ -3,10 +3,12 @@ import Grid from "@material-ui/core/Grid";
 import styles from "./AboutUsPage.module.scss";
 import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
-import FeedbackBox from "../ui/FeedbackBox";
+// import FeedbackBox from "../ui/FeedbackBox";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../../utils/externalUrls";
 import { Button, TextField } from "@material-ui/core";
+
+const FeedbackBox = React.lazy(() => import("../ui/FeedbackBox"));
 
 function ContactUsTab() {
   return (

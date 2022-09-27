@@ -32,7 +32,7 @@ import {
 } from "../../utils/urlutils";
 import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 import styles from "./ExploreDataPage.module.scss";
-import { Onboarding } from "./Onboarding";
+// import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
 import { useLocation } from "react-router-dom";
 import { srSpeak } from "../../utils/a11yutils";
@@ -40,6 +40,8 @@ import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
 import useScrollPosition from "../../utils/hooks/useScrollPosition";
+
+const Onboarding = React.lazy(() => import("./Onboarding"));
 
 const EXPLORE_DATA_ID = "main";
 
