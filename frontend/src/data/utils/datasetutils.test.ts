@@ -1,21 +1,7 @@
 import { METRIC_CONFIG, VariableConfig } from "../config/MetricConfig";
 import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
-import {
-  appendFipsIfNeeded,
-  getExclusionList,
-  shortenNH,
-} from "./datasetutils";
+import { appendFipsIfNeeded, getExclusionList } from "./datasetutils";
 import { Fips } from "./Fips";
-
-describe("DatasetUtils.shortenNH() Unit Tests", () => {
-  test("Test shortenNH() Shortens", async () => {
-    expect(shortenNH("Any Race (Non-Hispanic)")).toEqual("Any Race (NH)");
-  });
-
-  test("Test shortenNH() Doesn't Shorten", async () => {
-    expect(shortenNH("Hispanic or Latino")).toEqual("Hispanic or Latino");
-  });
-});
 
 describe("DatasetUtils.appendFipsIfNeeded() Unit Tests", () => {
   // Only county-level breakdowns should get the appended parent fips
