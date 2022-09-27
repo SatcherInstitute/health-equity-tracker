@@ -6,7 +6,6 @@ import {
   useUrlSearchParams,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
-  LinkWithStickyParams,
 } from "../../../utils/urlutils";
 import { NEWS_TAB_LINK, CONTACT_TAB_LINK } from "../../../utils/internalRoutes";
 import { Helmet } from "react-helmet-async";
@@ -16,7 +15,6 @@ import { useQuery } from "react-query";
 import { Article } from "../NewsTab";
 import { Skeleton } from "@material-ui/lab";
 import SignupSection from "../../ui/SignupSection";
-import { Link } from "react-router-dom";
 
 export const ARTICLES_TERM = "Articles";
 const NUM_OF_LOADING_SKELETONS = 6;
@@ -256,10 +254,7 @@ function AllPosts() {
                   Health Equity is fundamentally about empowering voices to be
                   heard, and experiences to be seen and shared. To share your
                   Health Equity news and stories, please{" "}
-                  <LinkWithStickyParams to={CONTACT_TAB_LINK}>
-                    contact us
-                  </LinkWithStickyParams>
-                  .
+                  <a href={CONTACT_TAB_LINK}>contact us</a>.
                 </p>
               </Grid>
             </div>
@@ -276,12 +271,12 @@ function AllPosts() {
               {/* if there is a filter in place, show breadcrumbs type menu */}
               {(selectedAuthor || selectedCategory) && (
                 <>
-                  <Link
+                  <a
                     className={styles.AllArticlesBreadCrumbs}
-                    to={NEWS_TAB_LINK}
+                    href={NEWS_TAB_LINK}
                   >
                     {ARTICLES_TERM}
-                  </Link>
+                  </a>
                   <span className={styles.AllArticlesBreadCrumbs}> › </span>
                 </>
               )}

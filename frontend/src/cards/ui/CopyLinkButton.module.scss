@@ -1,0 +1,12 @@
+@import "../../styles/variables.module";
+@import "../../styles/globals.scss";
+
+// negative margin to allow hover size of button without expanding the container height
+.CopyLinkButton {
+  padding: 8px;
+  margin: -8px;
+}
+
+.SnackBarAlert {
+  border: 1px solid $bar-chart-light;
+}

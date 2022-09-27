@@ -1,7 +1,6 @@
 import { Button, Grid, TextField } from "@material-ui/core";
 import React from "react";
 import { urlMap } from "../../utils/externalUrls";
-import { LinkWithStickyParams } from "../../utils/urlutils";
 import { CONTACT_TAB_LINK } from "../../utils/internalRoutes";
 
 import styles from "./SignupSection.module.scss";
@@ -16,11 +15,8 @@ export default function SignupSection() {
     >
       <Grid item>
         <p>
-          Please{" "}
-          <LinkWithStickyParams to={CONTACT_TAB_LINK}>
-            contact us
-          </LinkWithStickyParams>{" "}
-          with any questions or concerns.
+          Please <a href={CONTACT_TAB_LINK}>contact us</a> with any questions or
+          concerns.
         </p>
         <p>
           For more information about health equity, please sign up for our

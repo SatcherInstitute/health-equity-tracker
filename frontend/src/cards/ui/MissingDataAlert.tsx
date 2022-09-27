@@ -1,6 +1,5 @@
 import React from "react";
 import { Alert } from "@material-ui/lab";
-import { LinkWithStickyParams } from "../../utils/urlutils";
 import {
   EXPLORE_DATA_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
@@ -53,10 +52,7 @@ function MissingDataAlert(props: MissingDataAlertProps) {
       {geoPhrase}
       for <b>{props.fips.getSentenceDisplayName()}</b>. Learn more about how
       this lack of data impacts{" "}
-      <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-        health equity
-      </LinkWithStickyParams>
-      {". "}
+      <a href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>health equity.</a>
       {props.ageAdjustedDataTypes && props.ageAdjustedDataTypes.length > 0 && (
         <AltDataTypesMessage
           ageAdjustedDataTypes={props.ageAdjustedDataTypes}
