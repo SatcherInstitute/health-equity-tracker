@@ -12,6 +12,7 @@ import {
 import { Fips } from "../../data/utils/Fips";
 import { VisualizationType } from "../../charts/utils";
 import { splitIntoKnownsAndUnknowns } from "../../data/utils/datasetutils";
+import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 
 export const RACE_OR_ETHNICITY = "race or ethnicity";
 
@@ -139,15 +140,7 @@ function UnknownsAlert(props: UnknownsAlertProps) {
           {showDataGapsRisk && (
             <>
               Consider the possible impact of{" "}
-              <a
-                href="#missingDataInfo"
-                onClick={(e) => {
-                  e.preventDefault();
-                  props.jumpToData && props.jumpToData();
-                }}
-              >
-                data reporting gaps
-              </a>{" "}
+              <a href={`#${WHAT_DATA_ARE_MISSING_ID}`}>data reporting gaps</a>{" "}
               when interpreting age-adjusted risk.
             </>
           )}

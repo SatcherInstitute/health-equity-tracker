@@ -36,7 +36,6 @@ import {
   COVID_DEATHS_US_SETTING,
   COVID_HOSP_US_SETTING,
 } from "../utils/internalRoutes";
-import { Link } from "react-router-dom";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 
@@ -59,7 +58,6 @@ export interface AgeAdjustedTableCardProps {
   breakdownVar: BreakdownVar;
   dropdownVarId?: DropdownVarId;
   setVariableConfigWithParam?: Function;
-  jumpToData?: Function;
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
@@ -89,8 +87,9 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     config.metricId.includes("ratio")
   );
 
-  // const cardTitle = `${metrics[0]?.fullCardTitleName
-  //   } in ${props.fips.getSentenceDisplayName()}`;
+  const cardTitle = `${
+    metrics[0]?.fullCardTitleName
+  } in ${props.fips.getSentenceDisplayName()}`;
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const ageAdjustedDataTypes: VariableConfig[] = METRIC_CONFIG[
@@ -105,7 +104,8 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       isAgeAdjustedTable={true}
       minHeight={PRELOAD_HEIGHT}
       queries={[raceQuery, ageQuery]}
-      // title={<>{cardTitle}</>}
+      title={<>{cardTitle}</>}
+      scrollToHash="age-adjusted-risk"
     >
       {([raceQueryResponse, ageQueryResponse]) => {
         const [knownRaceData] = splitIntoKnownsAndUnknowns(
@@ -130,9 +130,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 risk factor. By computing rates that are normalized for age, we
                 can paint a more accurate picture of undue burden of disease and
                 death between populations. More details can be found in our{" "}
-                <Link to={AGE_ADJUSTMENT_TAB_LINK}>
-                  age-adjustment methodology
-                </Link>
+                <a href={AGE_ADJUSTMENT_TAB_LINK}>age-adjustment methodology</a>
                 .
               </Alert>
             </CardContent>
@@ -151,7 +149,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               known={true}
               overrideAndWithOr={props.breakdownVar === RACE}
               fips={props.fips}
-              jumpToData={props.jumpToData}
             />
 
             {/* If TABLE can't display for any of these various reasons, show the missing data alert */}

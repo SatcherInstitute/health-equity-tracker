@@ -4,6 +4,7 @@ const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 const EXPLICIT_DEFAULT_SETTINGS = "?dt1=covid_cases&demo=race_and_ethnicity"
 const DEFAULT_COMPARE_GEO_MODE = "?mls=1.covid-3.00-5.13&mlp=comparegeos"
 const COVID_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos"
+const DEATHS_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos&dt1=covid_deaths&dt2=covid_deaths"
 const SKIP_WELCOME = `&onboard=false`
 
 test.describe.configure({ mode: 'parallel' });
@@ -72,7 +73,30 @@ test('Switch Data Types for Both Geos', async ({ page }) => {
     await expect(page).toHaveURL(/.*dt1=covid_deaths/);
     await expect(page).toHaveURL(/.*dt2=covid_deaths/);
 
+});
+
+
+
+test('Use Table of Contents to Scroll Age Adjust Card Into View and Be Focused', async ({ page }) => {
+
+    await page.goto(EXPLORE_DATA_PAGE_LINK + DEATHS_DEN_VS_CO + SKIP_WELCOME);
+
+    await expect(page).toBeAccessible()
+
+
+    // find Table of Contents link to Age-Adjustment Card
+    const ageAdjustStepLink = page.locator('button:has-text("Age-Adjusted Risk Ratios")')
+    await ageAdjustStepLink.click()
+
+    // // Ensure URL Hash updates
+    // await expect(page).toHaveURL(/.*#age-adjusted-risk/);
+
+    // Find Age-Adjust Card
+    const ageAdjustCard = page.locator('#age-adjusted-risk')
+
+    // Ensure focus and visibility
+    await expect(ageAdjustCard).toBeFocused();
+    await expect(ageAdjustCard).toBeVisible();
 
 
 });
-

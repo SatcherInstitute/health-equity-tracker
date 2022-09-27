@@ -25,6 +25,7 @@ import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
+import { useLocation } from "react-router-dom";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -54,11 +55,15 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const preloadHeight = useGuessPreloadHeight([700, 1000]);
 
   const metricConfig = props.variableConfig.metrics["pct_share"];
+  const location = useLocation();
 
   const signalListeners: any = {
     click: (...args: any) => {
       const clickedData = args[1];
-      props.updateFipsCallback(new Fips(clickedData.id));
+      if (clickedData?.id) {
+        props.updateFipsCallback(new Fips(clickedData.id));
+        location.hash = `#unknowns-map`;
+      }
     },
   };
 
@@ -92,6 +97,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       title={undefined}
       loadGeographies={true}
       minHeight={preloadHeight}
+      scrollToHash="unknowns-map"
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         const unknownRaces = mapQueryResponse
@@ -165,6 +171,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               <MapBreadcrumbs
                 fips={props.fips}
                 updateFipsCallback={props.updateFipsCallback}
+                scrollToHashId="unknowns-map"
               />
             </CardContent>
             <Divider />

@@ -47,8 +47,11 @@ import { RateInfoAlert } from "./ui/RateInfoAlert";
 import { findVerboseRating } from "./ui/SviAlert";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { createSubTitle } from "../charts/utils";
+import { useLocation } from "react-router-dom";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
+
+const HASH_ID = "rate-map";
 
 export interface MapCardProps {
   key?: string;
@@ -56,8 +59,6 @@ export interface MapCardProps {
   variableConfig: VariableConfig;
   updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar;
-  jumpToDefinitions: Function;
-  jumpToData: Function;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -80,10 +81,15 @@ function MapCardWithKey(props: MapCardProps) {
   const isJail = props.variableConfig.variableId === "jail";
   const isIncarceration = isJail || isPrison;
 
+  const location = useLocation();
+
   const signalListeners: any = {
     click: (...args: any) => {
       const clickedData = args[1];
-      clickedData?.id && props.updateFipsCallback(new Fips(clickedData.id));
+      if (clickedData?.id) {
+        props.updateFipsCallback(new Fips(clickedData.id));
+        location.hash = `#${HASH_ID}`;
+      }
     },
   };
 
@@ -138,9 +144,15 @@ function MapCardWithKey(props: MapCardProps) {
   return (
     <CardWrapper
       queries={queries}
-      title={undefined}
+      title={
+        <>
+          {metricConfig.fullCardTitleName}
+          {selectedRaceSuffix}
+        </>
+      }
       loadGeographies={true}
       minHeight={preloadHeight}
+      scrollToHash={HASH_ID}
     >
       {(queryResponses, metadata, geoData) => {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
@@ -248,6 +260,7 @@ function MapCardWithKey(props: MapCardProps) {
                 ariaLabel={
                   props.variableConfig.variableFullDisplayName as string
                 }
+                scrollToHashId={HASH_ID}
               />
             </CardContent>
 
@@ -289,7 +302,6 @@ function MapCardWithKey(props: MapCardProps) {
                   currentBreakdown={props.currentBreakdown}
                   activeBreakdownFilter={activeBreakdownFilter}
                   metricConfig={metricConfig}
-                  jumpToDefinitions={props.jumpToDefinitions}
                   fips={props.fips}
                   setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
                   variableConfig={props.variableConfig}
@@ -403,7 +415,6 @@ function MapCardWithKey(props: MapCardProps) {
                         highestRatesList={highestRatesList}
                         lowestRatesList={lowestRatesList}
                         fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
-                        jumpToData={props.jumpToData}
                         qualifierItems={qualifierItems}
                         qualifierMessage={qualifierMessage}
                       />

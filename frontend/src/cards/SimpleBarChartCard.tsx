@@ -5,6 +5,7 @@ import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
   BreakdownVar,
+  BREAKDOWN_VAR_DISPLAY_NAMES,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
@@ -59,16 +60,21 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const query = new MetricQuery(metricIdsToFetch, breakdowns);
 
   function getTitleText() {
-    return `${
-      metricConfig.fullCardTitleName
-    } in ${props.fips.getSentenceDisplayName()}`;
+    return `${metricConfig.fullCardTitleName} By ${
+      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+    } In ${props.fips.getSentenceDisplayName()}`;
   }
-  // function CardTitle() {
-  //   return <>{getTitleText()}</>;
-  // }
+  function CardTitle() {
+    return <>{getTitleText()}</>;
+  }
 
   return (
-    <CardWrapper queries={[query]} title={undefined} minHeight={PRELOAD_HEIGHT}>
+    <CardWrapper
+      queries={[query]}
+      title={<CardTitle />}
+      minHeight={PRELOAD_HEIGHT}
+      scrollToHash="rate-chart"
+    >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
 

@@ -23,7 +23,7 @@ import { CookiesProvider } from "react-cookie";
 import styles from "./App.module.scss";
 import MaterialTheme from "./styles/MaterialTheme";
 import { autoInitGlobals } from "./utils/globals";
-import { LinkWithStickyParams, ReactRouterLinkButton } from "./utils/urlutils";
+import { ReactRouterLinkButton } from "./utils/urlutils";
 import {
   ABOUT_US_PAGE_LINK,
   NEWS_TAB_LINK,
@@ -120,9 +120,7 @@ function AppToolbar() {
         />
       </ReactRouterLinkButton>
       <Typography variant="h1" className={styles.HomeLogo}>
-        <LinkWithStickyParams to="/">
-          Health Equity Tracker
-        </LinkWithStickyParams>
+        <a href="/">Health Equity Tracker</a>
       </Typography>
       <nav>
         {[

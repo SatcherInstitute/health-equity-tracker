@@ -73,12 +73,17 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
       metricConfig.fullCardTitleName
     } in ${props.fips.getSentenceDisplayName()}`;
   }
-  // function CardTitle() {
-  //   return <>{getTitleText()}</>;
-  // }
+  function CardTitle() {
+    return <>{getTitleText()}</>;
+  }
 
   return (
-    <CardWrapper queries={[query]} title={undefined} minHeight={preloadHeight}>
+    <CardWrapper
+      queries={[query]}
+      title={<CardTitle />}
+      minHeight={preloadHeight}
+      scrollToHash={"population-vs-share"}
+    >
       {([queryResponse]) => {
         const validData = queryResponse.getValidRowsForField(
           metricConfig.metricId

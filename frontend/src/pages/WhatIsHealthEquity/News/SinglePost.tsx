@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography, Link } from "@material-ui/core";
+import { Box, Button, Grid, Typography } from "@material-ui/core";
 
 import React from "react";
 import { useState } from "react";
@@ -158,12 +158,12 @@ export default function SinglePost() {
               {fullArticle?.acf?.contributing_author ? (
                 <>
                   Authored by{" "}
-                  <Link
+                  <a
                     className={styles.FilterLink}
                     href={`${NEWS_TAB_LINK}?author=${fullArticle.acf.contributing_author}`}
                   >
                     {fullArticle.acf.contributing_author}
-                  </Link>
+                  </a>
                 </>
               ) : isLoading ? (
                 <Skeleton></Skeleton>
@@ -198,12 +198,12 @@ export default function SinglePost() {
                 Categorized under:{" "}
                 {articleCategories.map((categoryChunk, i) => (
                   <span key={categoryChunk.id}>
-                    <Link
+                    <a
                       className={styles.CategoryTag}
                       href={`${NEWS_TAB_LINK}?category=${categoryChunk.name}`}
                     >
                       {categoryChunk.name}
-                    </Link>
+                    </a>
                     {i < articleCategories.length - 1 ? ", " : ""}
                   </span>
                 ))}

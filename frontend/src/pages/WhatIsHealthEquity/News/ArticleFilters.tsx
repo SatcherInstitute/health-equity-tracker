@@ -1,6 +1,5 @@
 import { Typography } from "@material-ui/core";
 import React from "react";
-import { Link } from "react-router-dom";
 import { NEWS_TAB_LINK } from "../../../utils/internalRoutes";
 import styles from "./News.module.scss";
 
@@ -31,20 +30,20 @@ export default function ArticleFilters(props: ArticleFiltersProps) {
           props.filterOptions.map((filter) => {
             return (
               <li key={filter}>
-                <Link
-                  to={`${NEWS_TAB_LINK}?${props.filterType}=${filter}`}
+                <a
+                  href={`${NEWS_TAB_LINK}?${props.filterType}=${filter}`}
                   className={styles.FilterListLink}
                 >
                   {filter}
-                </Link>
+                </a>
               </li>
             );
           })}
         {/* ALWAYS DISPLAY ALL POSTS LINK */}
         <li>
-          <Link to={NEWS_TAB_LINK} className={styles.FilterListLink}>
+          <a href={NEWS_TAB_LINK} className={styles.FilterListLink}>
             All Posts
-          </Link>
+          </a>
         </li>
       </ul>
     </div>
