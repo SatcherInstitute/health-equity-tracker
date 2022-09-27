@@ -75,7 +75,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   return (
     <CardWrapper
       queries={[ratesQuery, pctShareQuery]}
-      title={undefined}
+      title={<>Rates Over Time</>}
       minHeight={PRELOAD_HEIGHT}
     >
       {([queryResponseRates, queryResponsePctShares]) => {

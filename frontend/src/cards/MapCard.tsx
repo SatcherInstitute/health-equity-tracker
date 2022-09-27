@@ -133,12 +133,13 @@ function MapCardWithKey(props: MapCardProps) {
 
   let qualifierItems: string[] = [];
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
-  const subTitle = createSubTitle(activeBreakdownFilter, props);
+
+  const { chartTitle, subtitle } = createSubTitle(activeBreakdownFilter, props);
 
   return (
     <CardWrapper
       queries={queries}
-      title={undefined}
+      title={<>Rate Map</>}
       loadGeographies={true}
       minHeight={preloadHeight}
     >
@@ -334,8 +335,8 @@ function MapCardWithKey(props: MapCardProps) {
                   <ChoroplethMap
                     signalListeners={signalListeners}
                     titles={{
-                      chartTitle: metricConfig.fullCardTitleName,
-                      subTitle,
+                      chartTitle: chartTitle,
+                      subTitle: subtitle,
                     }}
                     metric={metricConfig}
                     legendTitle={metricConfig.shortLabel.toLowerCase()}

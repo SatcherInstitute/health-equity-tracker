@@ -71,7 +71,11 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   // }
 
   return (
-    <CardWrapper queries={[query]} title={undefined} minHeight={PRELOAD_HEIGHT}>
+    <CardWrapper
+      queries={[query]}
+      title={<>Share Disparities Over Time</>}
+      minHeight={PRELOAD_HEIGHT}
+    >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
         const [knownData, unknownData] = splitIntoKnownsAndUnknowns(

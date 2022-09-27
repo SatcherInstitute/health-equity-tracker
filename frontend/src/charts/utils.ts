@@ -80,12 +80,36 @@ export function addMetricDisplayColumn(
 }
 
 export function createSubTitle(demographic: string, props: MapCardProps) {
+  const location = props.fips.isUsa()
+    ? `the ${props.fips.getDisplayName()}`
+    : props.fips.getDisplayName();
+  const metric = props.variableConfig.variableFullDisplayName;
+  let chartTitle: string | string[];
+  let subtitle = "";
+
+  if (metric.includes("COVID-19")) {
+    chartTitle = `${metric} since Jan 2020 per 100k individuals in ${location}`;
+    chartTitle =
+      chartTitle.length > 55
+        ? [`${metric} since Jan 2020`, `per 100k individuals in ${location}`]
+        : chartTitle;
+  } else {
+    chartTitle = `${metric} per 100k people in ${location}`;
+    chartTitle =
+      chartTitle.length > 55
+        ? [`${metric}`, `per 100k people in ${location}`]
+        : chartTitle;
+  }
+
   if (demographic === "All") {
-    return "";
+    return { chartTitle, subtitle };
   }
 
   if (props.currentBreakdown === "age") {
-    return `Ages ${demographic}`;
+    subtitle = `Ages ${subtitle}`;
+    return { chartTitle, subtitle };
   }
-  return `${demographic}`;
+
+  subtitle = `${demographic}`;
+  return { chartTitle, subtitle };
 }

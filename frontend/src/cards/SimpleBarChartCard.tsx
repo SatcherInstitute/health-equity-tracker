@@ -68,7 +68,11 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   // }
 
   return (
-    <CardWrapper queries={[query]} title={undefined} minHeight={PRELOAD_HEIGHT}>
+    <CardWrapper
+      queries={[query]}
+      title={<>Current Rates</>}
+      minHeight={PRELOAD_HEIGHT}
+    >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
 

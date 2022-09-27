@@ -304,10 +304,13 @@ function getSpec(
         : altLightMeasure!;
   }
 
+  let testing: any = filename.split("Population vs. Share");
+  testing = testing[testing.length - 1];
+
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     title: {
-      text: filename,
+      text: ["Population vs. Share", testing],
       subtitle: " ",
       encode: {
         title: {

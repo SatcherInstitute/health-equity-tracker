@@ -100,11 +100,7 @@ export function TableCard(props: TableCardProps) {
     <CardWrapper
       minHeight={preloadHeight}
       queries={[query]}
-      title={
-        <>{`${props.variableConfig.variableFullDisplayName} by ${
-          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
-        } in ${props.fips.getSentenceDisplayName()}`}</>
-      }
+      title={<>Data Table</>}
     >
       {([queryResponse]) => {
         let data = queryResponse.data;
