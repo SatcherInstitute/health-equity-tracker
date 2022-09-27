@@ -1,9 +1,6 @@
 import React, { Fragment } from "react";
 import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
-import {
-  LinkWithStickyParams,
-  DATA_SOURCE_PRE_FILTERS,
-} from "../../utils/urlutils";
+import { DATA_SOURCE_PRE_FILTERS } from "../../utils/urlutils";
 import { DATA_CATALOG_PAGE_LINK } from "../../utils/internalRoutes";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
@@ -110,12 +107,11 @@ export function Sources(props: {
       {Object.keys(dataSourceMap).length > 0 && <>Sources: </>}
       {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
         <Fragment key={dataSourceId}>
-          <LinkWithStickyParams
-            target="_blank"
-            to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
+          <a
+            href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
           >
             {dataSourceMap[dataSourceId].name}
-          </LinkWithStickyParams>{" "}
+          </a>{" "}
           {dataSourceMap[dataSourceId].updateTimes.size === 0 ? (
             <>(last update unknown) </>
           ) : (

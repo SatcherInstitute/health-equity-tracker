@@ -59,8 +59,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const query = new MetricQuery(metricIdsToFetch, breakdowns);
 
   function getTitleText() {
-    return `${metricConfig.fullCardTitleName} By ${BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-      } In ${props.fips.getSentenceDisplayName()}`;
+    return `${metricConfig.fullCardTitleName} By ${
+      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+    } In ${props.fips.getSentenceDisplayName()}`;
   }
   function CardTitle() {
     return <>{getTitleText()}</>;
@@ -71,6 +72,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       queries={[query]}
       title={<CardTitle />}
       minHeight={PRELOAD_HEIGHT}
+      scrollToHash="rate-chart"
     >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
