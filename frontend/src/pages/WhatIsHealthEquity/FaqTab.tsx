@@ -10,7 +10,6 @@ import {
 import { Helmet } from "react-helmet-async";
 import { CITATION_APA } from "../DataCatalog/MethodologyTab";
 import { getHtml } from "../../utils/urlutils";
-// import FeedbackBox from "../ui/FeedbackBox";
 import { urlMap } from "../../utils/externalUrls";
 
 const FeedbackBox = React.lazy(() => import("../ui/FeedbackBox"));

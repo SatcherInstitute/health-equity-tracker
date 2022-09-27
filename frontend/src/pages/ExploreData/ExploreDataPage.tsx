@@ -32,7 +32,6 @@ import {
 } from "../../utils/urlutils";
 import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 import styles from "./ExploreDataPage.module.scss";
-// import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
 import { useLocation } from "react-router-dom";
 import { srSpeak } from "../../utils/a11yutils";
