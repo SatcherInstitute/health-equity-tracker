@@ -20,6 +20,7 @@ import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
+import { reportProviderSteps } from "../reports/ReportProviderSteps";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -65,12 +66,14 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     } In ${props.fips.getSentenceDisplayName()}`;
   }
 
+  const HASH_ID = "rate-chart";
+
   return (
     <CardWrapper
       queries={[query]}
-      title={<>Rate chart</>}
+      title={<>{reportProviderSteps[HASH_ID].label}</>}
       minHeight={PRELOAD_HEIGHT}
-      scrollToHash="rate-chart"
+      scrollToHash={HASH_ID}
     >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);

@@ -27,6 +27,7 @@ import AltTableView from "./ui/AltTableView";
 import { createSubTitle } from "../charts/utils";
 import { EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK } from "../utils/internalRoutes";
 import { HashLink } from "react-router-hash-link";
+import { reportProviderSteps } from "../reports/ReportProviderSteps";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -71,9 +72,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       metricConfigRates.trendsCardTitleName
     } in ${props.fips.getSentenceDisplayName()}`;
   }
-  // function CardTitle() {
-  //   return <>{getTitleText()}</>;
-  // }
 
   const { chartTitle } = createSubTitle({
     fips: props.fips,
@@ -81,12 +79,13 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     trend: true,
   });
 
+  const HASH_ID = "rate-trends";
   return (
     <CardWrapper
       queries={[ratesQuery, pctShareQuery]}
-      title={<>Rates Over Time</>}
+      title={<>{reportProviderSteps[HASH_ID].label}</>}
       minHeight={PRELOAD_HEIGHT}
-      scrollToHash={"rate-trends"}
+      scrollToHash={HASH_ID}
     >
       {([queryResponseRates, queryResponsePctShares]) => {
         const ratesData = queryResponseRates.getValidRowsForField(

@@ -28,6 +28,7 @@ import { Alert } from "@material-ui/lab";
 import { HashLink } from "react-router-hash-link";
 import { METHODOLOGY_TAB_LINK } from "../utils/internalRoutes";
 import AltTableView from "./ui/AltTableView";
+import { reportProviderSteps } from "../reports/ReportProviderSteps";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -66,16 +67,14 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       metricConfig.trendsCardTitleName
     } in ${props.fips.getSentenceDisplayName()}`;
   }
-  // function CardTitle() {
-  //   return <>{getTitleText()}</>;
-  // }
+  const HASH_ID = "share-trends";
 
   return (
     <CardWrapper
       queries={[query]}
-      title={<>Share Disparities Over Time</>}
+      title={<>{reportProviderSteps[HASH_ID].label}</>}
       minHeight={PRELOAD_HEIGHT}
-      scrollToHash={"share-trends"}
+      scrollToHash={HASH_ID}
     >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);

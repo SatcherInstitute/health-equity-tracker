@@ -48,6 +48,7 @@ import { findVerboseRating } from "./ui/SviAlert";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { createSubTitle } from "../charts/utils";
 import { useLocation } from "react-router-dom";
+import { reportProviderSteps } from "../reports/ReportProviderSteps";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 
@@ -150,7 +151,7 @@ function MapCardWithKey(props: MapCardProps) {
   return (
     <CardWrapper
       queries={queries}
-      title={<>Rate Map</>}
+      title={<>{reportProviderSteps[HASH_ID].label}</>}
       loadGeographies={true}
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}

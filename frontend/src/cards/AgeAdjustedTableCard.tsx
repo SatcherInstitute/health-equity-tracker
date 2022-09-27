@@ -38,6 +38,7 @@ import {
 } from "../utils/internalRoutes";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
+import { reportProviderSteps } from "../reports/ReportProviderSteps";
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 
@@ -87,10 +88,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     config.metricId.includes("ratio")
   );
 
-  const cardTitle = `${
-    metrics[0]?.fullCardTitleName
-  } in ${props.fips.getSentenceDisplayName()}`;
-
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const ageAdjustedDataTypes: VariableConfig[] = METRIC_CONFIG[
     props.dropdownVarId!
@@ -99,13 +96,15 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     return dataType?.metrics["age_adjusted_ratio"]?.ageAdjusted;
   });
 
+  const HASH_ID = "age-adjusted-risk";
+
   return (
     <CardWrapper
       isAgeAdjustedTable={true}
       minHeight={PRELOAD_HEIGHT}
       queries={[raceQuery, ageQuery]}
-      title={<>{cardTitle}</>}
-      scrollToHash="age-adjusted-risk"
+      title={<>{reportProviderSteps[HASH_ID].label}</>}
+      scrollToHash={HASH_ID}
     >
       {([raceQueryResponse, ageQueryResponse]) => {
         const [knownRaceData] = splitIntoKnownsAndUnknowns(

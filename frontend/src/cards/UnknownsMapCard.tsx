@@ -26,6 +26,7 @@ import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { useLocation } from "react-router-dom";
+import { reportProviderSteps } from "../reports/ReportProviderSteps";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -91,13 +92,15 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     return getTitleTextArray().join(" ");
   }
 
+  const HASH_ID = "unknowns-map";
+
   return (
     <CardWrapper
       queries={[mapQuery, alertQuery]}
-      title={<>Unknown demographic map</>}
+      title={<>{reportProviderSteps[HASH_ID].label}</>}
       loadGeographies={true}
       minHeight={preloadHeight}
-      scrollToHash="unknowns-map"
+      scrollToHash={HASH_ID}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         const unknownRaces = mapQueryResponse

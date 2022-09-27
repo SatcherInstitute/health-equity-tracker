@@ -32,7 +32,7 @@ import {
 import { reportProviderSteps } from "./ReportProviderSteps";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
-import { pluralizeStepLabels, StepData } from "../utils/hooks/useStepObserver";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -45,8 +45,8 @@ function TwoVariableReport(props: {
   updateFips1Callback: (fips: Fips) => void;
   updateFips2Callback: (fips: Fips) => void;
   isScrolledToTop: boolean;
-  reportSteps?: StepData[];
-  setReportSteps?: Function;
+  reportStepHashIds?: ScrollableHashId[];
+  setReportStepHashIds?: Function;
   headerScrollMargin: number;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
@@ -122,11 +122,11 @@ function TwoVariableReport(props: {
 
   // // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
-    const stepsOnScreen: StepData[] = reportProviderSteps.filter(
-      (step) => document.getElementById(step.hashId)?.id !== undefined
+    const hashIdsOnScreen: any[] = Object.keys(reportProviderSteps).filter(
+      (key) => document.getElementById(key)?.id !== undefined
     );
 
-    stepsOnScreen && props.setReportSteps?.(stepsOnScreen);
+    hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variableConfig1, variableConfig2]);
 
@@ -470,7 +470,7 @@ function TwoVariableReport(props: {
         </Grid>
       </Grid>
       {/* TABLE OF CONTENTS COLUMN */}
-      {props.reportSteps && (
+      {props.reportStepHashIds && (
         <Grid
           item
           // invisible
@@ -486,7 +486,7 @@ function TwoVariableReport(props: {
         >
           <TableOfContents
             isScrolledToTop={props.isScrolledToTop}
-            reportSteps={pluralizeStepLabels(props.reportSteps)}
+            reportStepHashIds={props.reportStepHashIds}
             floatTopOffset={props.headerScrollMargin}
           />
         </Grid>

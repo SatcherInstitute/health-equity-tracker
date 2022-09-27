@@ -21,6 +21,7 @@ import {
 } from "../data/utils/datasetutils";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
+import { reportProviderSteps } from "../reports/ReportProviderSteps";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -74,12 +75,14 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     } in ${props.fips.getSentenceDisplayName()}`;
   }
 
+  const HASH_ID = "population-vs-share";
+
   return (
     <CardWrapper
       queries={[query]}
-      title={<>Population vs. Share</>}
+      title={<>{reportProviderSteps[HASH_ID].label}</>}
+      scrollToHash={HASH_ID}
       minHeight={preloadHeight}
-      scrollToHash={"population-vs-share"}
     >
       {([queryResponse]) => {
         const validData = queryResponse.getValidRowsForField(

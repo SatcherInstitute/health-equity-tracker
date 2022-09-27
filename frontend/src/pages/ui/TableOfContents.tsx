@@ -7,18 +7,22 @@ import {
   useTheme,
 } from "@material-ui/core";
 import React from "react";
-import { StepData, useStepObserver } from "../../utils/hooks/useStepObserver";
+import { reportProviderSteps } from "../../reports/ReportProviderSteps";
+import {
+  ScrollableHashId,
+  useStepObserver,
+} from "../../utils/hooks/useStepObserver";
 import styles from "./TableOfContents.module.scss";
 
 const TABLE_OF_CONTENT_PADDING = 15;
 
 /* 
-  reportSteps: StepData[]; Array of TOC "steps" mapping the card hashId to the step display name
+  reportStepHashIds: ScrollableHashId[]; Array of TOC "hashIds" used to map the hashId to the step display name
   isScrolledToTop?: boolean; Optionally send in top scroll status; when true none of the steps will be highlighted
 */
 
 interface TableOfContentsProps {
-  reportSteps: StepData[];
+  reportStepHashIds: ScrollableHashId[];
   floatTopOffset?: number;
   isScrolledToTop?: boolean;
 }
@@ -28,13 +32,13 @@ export function TableOfContents(props: TableOfContentsProps) {
   const pageIsWide = useMediaQuery(theme.breakpoints.up("md"));
 
   const [activeId, setRecentlyClicked] = useStepObserver(
-    props.reportSteps,
+    props.reportStepHashIds,
     props.isScrolledToTop || false
   );
 
-  function handleStepClick(step: StepData) {
+  function handleStepClick(stepId: ScrollableHashId) {
     const clickedElem: HTMLElement | null = document.querySelector(
-      `#${step.hashId}`
+      `#${stepId}`
     );
 
     if (clickedElem) {
@@ -43,7 +47,7 @@ export function TableOfContents(props: TableOfContentsProps) {
       clickedElem.focus({ preventScroll: true });
     }
 
-    setRecentlyClicked(step.hashId);
+    setRecentlyClicked(stepId);
   }
 
   const tocOffset = (props.floatTopOffset || 0) + TABLE_OF_CONTENT_PADDING;
@@ -53,22 +57,22 @@ export function TableOfContents(props: TableOfContentsProps) {
       <Stepper
         component={"nav"}
         nonLinear
-        activeStep={props.reportSteps?.findIndex(
-          (step) => step.hashId === activeId
+        activeStep={props.reportStepHashIds?.findIndex(
+          (stepId) => stepId === activeId
         )}
         orientation="vertical"
         aria-label="Available cards on this report"
         className={styles.Stepper}
       >
-        {props.reportSteps?.map((step) => {
+        {props.reportStepHashIds?.map((stepId) => {
           return (
-            <Step completed={false} key={step.hashId}>
+            <Step completed={false} key={stepId}>
               <StepButton
-                title={`Scroll to ${step.label}`}
+                title={`Scroll to ${reportProviderSteps[stepId].label}`}
                 className={styles.StepButton}
                 onClick={(e) => {
                   e.preventDefault();
-                  handleStepClick(step);
+                  handleStepClick(stepId);
                 }}
               >
                 <span
@@ -79,7 +83,7 @@ export function TableOfContents(props: TableOfContentsProps) {
                       : styles.ScreenreaderTitleHeader
                   }
                 >
-                  {step.label}
+                  {reportProviderSteps[stepId].label}
                 </span>
               </StepButton>
             </Step>

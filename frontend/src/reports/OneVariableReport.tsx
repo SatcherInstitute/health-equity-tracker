@@ -34,7 +34,7 @@ import { ShareTrendsChartCard } from "../cards/ShareTrendsChartCard";
 import styles from "./Report.module.scss";
 import { TableOfContents } from "../pages/ui/TableOfContents";
 import { reportProviderSteps } from "./ReportProviderSteps";
-import { StepData } from "../utils/hooks/useStepObserver";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 export interface OneVariableReportProps {
   key: string;
@@ -43,8 +43,8 @@ export interface OneVariableReportProps {
   updateFipsCallback: Function;
   hidePopulationCard?: boolean;
   isScrolledToTop: boolean;
-  reportSteps?: StepData[];
-  setReportSteps?: Function;
+  reportStepHashIds?: ScrollableHashId[];
+  setReportStepHashIds?: Function;
   headerScrollMargin: number;
 }
 
@@ -102,11 +102,11 @@ export function OneVariableReport(props: OneVariableReportProps) {
 
   // // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
-    const stepsOnScreen: StepData[] = reportProviderSteps.filter(
-      (step) => document.getElementById(step.hashId)?.id !== undefined
+    const hashIdsOnScreen: any[] = Object.keys(reportProviderSteps).filter(
+      (key) => document.getElementById(key)?.id !== undefined
     );
 
-    stepsOnScreen && props.setReportSteps?.(stepsOnScreen);
+    hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variableConfig]);
 
@@ -355,7 +355,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
         </Grid>
       </Grid>
       {/* TABLE OF CONTENTS COLUMN */}
-      {props.reportSteps && (
+      {props.reportStepHashIds && (
         <Grid
           item
           // invisible
@@ -371,7 +371,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           <TableOfContents
             floatTopOffset={props.headerScrollMargin}
             isScrolledToTop={props.isScrolledToTop}
-            reportSteps={props.reportSteps}
+            reportStepHashIds={props.reportStepHashIds}
           />
         </Grid>
       )}

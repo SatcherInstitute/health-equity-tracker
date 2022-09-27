@@ -19,7 +19,10 @@ export type ScrollableHashId =
   | "age-adjusted-risk"
   | "definitions-missing-data";
 
-export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
+export function useStepObserver(
+  stepIds: ScrollableHashId[],
+  isScrolledToTop: boolean
+) {
   const location: any = useLocation();
 
   const observer = useRef<IntersectionObserver | null>(null);
@@ -65,16 +68,16 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
       rootMargin: "-20% 0% -35% 0px",
     });
 
-    const elements = steps
-      .map((step) => {
-        const stepElem = document.getElementById(step.hashId);
+    const elements = stepIds
+      .map((stepId) => {
+        const stepElem = document.getElementById(stepId);
         return stepElem;
       })
       .filter((el) => el !== undefined);
 
     elements.forEach((elem) => elem && observer.current?.observe(elem));
     return () => observer.current?.disconnect();
-  }, [steps, recentlyClicked, isScrolledToTop]);
+  }, [stepIds, recentlyClicked, isScrolledToTop]);
 
   const urlHashOverrideRef = useRef(recentlyClicked);
 
@@ -90,25 +93,19 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
   const hashId = hashLink.substring(1) || "";
 
   useEffect(() => {
-    // updates to the URL or available steps results in recalculated focus for the Table of Contents
+    // updates to the URL or available stepIds results in recalculated focus for the Table of Contents
 
-    if (
-      hashLink &&
-      steps.map((step: StepData) => step.hashId).includes(hashId)
-    ) {
+    if (hashLink && stepIds.includes(hashId)) {
       setActiveId(hashId);
       setRecentlyClicked(hashId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location?.hash, steps]);
+  }, [location?.hash, stepIds]);
 
   useEffect(() => {
     //  on render, set up a timer to auto scroll user to the focused card (counteracting layout shift from loading/resizing cards)
     // timer is stopped when the urlHashOverrideRef is reset, which is caused by a user interaction like scrolling, swiping, or key presses
-    if (
-      hashLink &&
-      steps.map((step: StepData) => step.hashId).includes(hashId)
-    ) {
+    if (hashLink && stepIds.includes(hashId)) {
       let pulseIdCounter = 0;
 
       const pulse_id = setInterval(() => {
@@ -126,16 +123,7 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
         clearInterval(pulse_id);
       };
     }
-  }, [hashId, hashLink, steps]);
+  }, [hashId, hashLink, stepIds]);
 
   return [activeId, setRecentlyClicked] as const;
-}
-
-export function pluralizeStepLabels(steps: StepData[]) {
-  return steps.map((step) => {
-    return {
-      ...step,
-      label: step.pluralOnCompare ? `${step.label}s` : step.label,
-    };
-  });
 }
