@@ -1,5 +1,3 @@
-import React from "react";
-import { MapCardProps } from "../cards/MapCard";
 import {
   formatFieldValue,
   MetricConfig,
