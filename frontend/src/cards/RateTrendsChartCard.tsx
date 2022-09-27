@@ -25,6 +25,8 @@ import {
 import { Alert } from "@material-ui/lab";
 import AltTableView from "./ui/AltTableView";
 import { createSubTitle } from "../charts/utils";
+import { EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK } from "../utils/internalRoutes";
+import { HashLink } from "react-router-hash-link";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -165,6 +167,18 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   selectedGroups={selectedGroups}
                   setSelectedGroups={setSelectedGroups}
                 />
+
+                <CardContent>
+                  <Alert severity="info" role="note">
+                    Missing and unknown data impacts Health Equity. The percent
+                    unknown race and ethnicity bubble we show along the bottom
+                    of this chart is our best attempt to demonstrate prevalence
+                    of unknown data. Learn more about{" "}
+                    <HashLink to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
+                      what data are missing.
+                    </HashLink>{" "}
+                  </Alert>
+                </CardContent>
 
                 <AltTableView
                   expanded={a11yTableExpanded}
