@@ -30,6 +30,7 @@ import { METHODOLOGY_TAB_LINK } from "../utils/internalRoutes";
 import AltTableView from "./ui/AltTableView";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { createTitles } from "../charts/utils";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -75,7 +76,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     share: true,
   });
 
-  const HASH_ID = "population-vs-share";
+  const HASH_ID: ScrollableHashId = "population-vs-share";
 
   return (
     <CardWrapper

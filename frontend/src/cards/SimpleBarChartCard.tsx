@@ -22,6 +22,7 @@ import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { createTitles } from "../charts/utils";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -67,7 +68,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     } In ${props.fips.getSentenceDisplayName()}`;
   }
 
-  const HASH_ID = "rate-chart";
+  const HASH_ID: ScrollableHashId = "rate-chart";
 
   const { chartTitle } = createTitles({
     variableConfig: props.variableConfig,

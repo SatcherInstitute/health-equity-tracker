@@ -28,6 +28,7 @@ import { createTitles } from "../charts/utils";
 import { EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK } from "../utils/internalRoutes";
 import { HashLink } from "react-router-hash-link";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -79,7 +80,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     trend: true,
   });
 
-  const HASH_ID = "rate-trends";
+  const HASH_ID: ScrollableHashId = "rate-trends";
+
   return (
     <CardWrapper
       queries={[ratesQuery, pctShareQuery]}

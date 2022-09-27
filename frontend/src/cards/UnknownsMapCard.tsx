@@ -27,6 +27,7 @@ import UnknownsAlert from "./ui/UnknownsAlert";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { useLocation } from "react-router-dom";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -92,7 +93,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     return getTitleTextArray().join(" ");
   }
 
-  const HASH_ID = "unknowns-map";
+  const HASH_ID: ScrollableHashId = "unknowns-map";
 
   return (
     <CardWrapper

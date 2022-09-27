@@ -23,6 +23,7 @@ import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { createTitles } from "../charts/utils";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -76,7 +77,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     } in ${props.fips.getSentenceDisplayName()}`;
   }
 
-  const HASH_ID = "population-vs-share";
+  const HASH_ID: ScrollableHashId = "population-vs-share";
 
   const { chartTitle } = createTitles({
     variableConfig: props.variableConfig,

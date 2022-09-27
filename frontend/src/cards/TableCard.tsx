@@ -32,6 +32,7 @@ import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert"
 import { Row } from "../data/utils/DatasetTypes";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -97,7 +98,7 @@ export function TableCard(props: TableCardProps) {
     .map((config) => config.metricId)
     .some((metricId) => metricId.includes("covid"));
 
-  const HASH_ID = "data-table";
+  const HASH_ID: ScrollableHashId = "data-table";
 
   return (
     <CardWrapper

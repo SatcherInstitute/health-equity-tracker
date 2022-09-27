@@ -39,6 +39,7 @@ import {
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 
@@ -96,7 +97,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     return dataType?.metrics["age_adjusted_ratio"]?.ageAdjusted;
   });
 
-  const HASH_ID = "age-adjusted-risk";
+  const HASH_ID: ScrollableHashId = "age-adjusted-risk";
 
   return (
     <CardWrapper

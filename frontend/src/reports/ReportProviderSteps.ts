@@ -27,11 +27,11 @@ export const reportProviderSteps: Record<ScrollableHashId, StepLabelInfo> = {
     pluralOnCompare: true,
   },
   "share-trends": {
-    label: "Share disparities over time",
+    label: "Inequities over time",
     pluralOnCompare: false,
   },
   "population-vs-share": {
-    label: "Population vs. share",
+    label: "Population vs. distribution",
     pluralOnCompare: false,
   },
   "data-table": {

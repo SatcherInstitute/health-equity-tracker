@@ -49,10 +49,9 @@ import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { createTitles } from "../charts/utils";
 import { useLocation } from "react-router-dom";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
-
-const HASH_ID = "rate-map";
 
 export interface MapCardProps {
   key?: string;
@@ -147,6 +146,8 @@ function MapCardWithKey(props: MapCardProps) {
     breakdown: props.currentBreakdown,
     demographic: activeBreakdownFilter,
   });
+
+  const HASH_ID: ScrollableHashId = "rate-map";
 
   return (
     <CardWrapper
