@@ -24,6 +24,7 @@ import {
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
 import AltTableView from "./ui/AltTableView";
+import { createSubTitle } from "../charts/utils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -71,6 +72,12 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   // function CardTitle() {
   //   return <>{getTitleText()}</>;
   // }
+
+  const { chartTitle } = createSubTitle({
+    fips: props.fips,
+    variableConfig: props.variableConfig,
+    trend: true,
+  });
 
   return (
     <CardWrapper
@@ -153,7 +160,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                       ],
                     yAxisLabel: metricConfigRates.shortLabel,
                   }}
-                  title={getTitleText()}
+                  chartTitle={chartTitle}
                   breakdownVar={props.breakdownVar}
                   selectedGroups={selectedGroups}
                   setSelectedGroups={setSelectedGroups}
