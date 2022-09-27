@@ -7,6 +7,7 @@ import {
 import { DATA_CATALOG_PAGE_LINK } from "../../utils/internalRoutes";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
+import { DatasetMetadataMap } from "../../data/config/DatasetMetadata";
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = "";
@@ -23,6 +24,16 @@ type DataSourceInfo = {
   name: string;
   updateTimes: Set<string>;
 };
+
+export function getDatasetIdsFromResponses(
+  queryResponses: MetricQueryResponse[]
+): string[] {
+  return queryResponses.reduce(
+    (accumulator: string[], response) =>
+      accumulator.concat(response.consumedDatasetIds),
+    []
+  );
+}
 
 function getDataSourceMapFromDatasetIds(
   datasetIds: string[],
@@ -62,11 +73,7 @@ export function Sources(props: {
     return <></>;
   }
 
-  let datasetIds = props.queryResponses.reduce(
-    (accumulator: string[], response) =>
-      accumulator.concat(response.consumedDatasetIds),
-    []
-  );
+  let datasetIds = getDatasetIdsFromResponses(props.queryResponses);
 
   // for Age Adj only, swap ACS source(s) for Census Pop Estimate
   if (props.isAgeAdjustedTable) {
@@ -77,6 +84,10 @@ export function Sources(props: {
   const dataSourceMap = getDataSourceMapFromDatasetIds(
     datasetIds,
     props.metadata
+  );
+
+  const showNhFootnote = datasetIds.some(
+    (set) => DatasetMetadataMap[set]?.contains_nh
   );
 
   return (
@@ -101,6 +112,7 @@ export function Sources(props: {
           {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
         </Fragment>
       ))}
+      {showNhFootnote && <p>(NH): Non-Hispanic. </p>}
     </>
   );
 }

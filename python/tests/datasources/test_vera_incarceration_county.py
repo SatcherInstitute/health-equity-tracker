@@ -69,6 +69,13 @@ def testWriteToBq(
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
 
+    kwargs["demographic"] = "race_and_ethnicity"
+    veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+
+    kwargs["demographic"] = "sex"
+    veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+
+    kwargs["demographic"] = "age"
     veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
@@ -78,8 +85,8 @@ def testWriteToBq(
     assert mock_bq.call_args_list[3].args[2] == 'jail_sex_county'
     assert mock_bq.call_args_list[4].args[2] == 'prison_age_county'
     assert mock_bq.call_args_list[5].args[2] == 'jail_age_county'
-    assert mock_csv.call_count == 1
-    assert mock_counties.call_count == 1
+    assert mock_csv.call_count == 3
+    assert mock_counties.call_count == 3
 
 
 fake_geo_pop_dtype = {

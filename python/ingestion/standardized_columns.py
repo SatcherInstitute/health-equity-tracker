@@ -250,7 +250,7 @@ class Race(Enum):
                 self.race in ["Hispanic or Latino", "Not Hispanic or Latino"]):
             return self.race
         else:
-            return self.race + " (Non-Hispanic)"
+            return self.race + " (NH)"
 
     @staticmethod
     def get_col_names() -> list:

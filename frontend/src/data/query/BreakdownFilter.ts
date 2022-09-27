@@ -11,14 +11,14 @@ export default interface BreakdownFilter {
 }
 
 const STANDARD_RACES = [
-  "American Indian and Alaska Native (Non-Hispanic)",
-  "Asian (Non-Hispanic)",
-  "Black or African American (Non-Hispanic)",
+  "American Indian and Alaska Native (NH)",
+  "Asian (NH)",
+  "Black or African American (NH)",
   "Hispanic or Latino",
-  "Native Hawaiian and Pacific Islander (Non-Hispanic)",
-  "Unrepresented race (Non-Hispanic)",
-  "Two or more races (Non-Hispanic)",
-  "White (Non-Hispanic)",
+  "Native Hawaiian and Pacific Islander (NH)",
+  "Unrepresented race (NH)",
+  "Two or more races (NH)",
+  "White (NH)",
   ALL,
 ];
 

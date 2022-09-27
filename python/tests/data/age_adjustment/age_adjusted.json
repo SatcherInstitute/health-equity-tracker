@@ -5,7 +5,7 @@
     "race_category_id": "BLACK_NH",
     "race": "Black or African American",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+    "race_and_ethnicity": "Black or African American (NH)",
     "death_ratio_age_adjusted": 0.6,
     "hosp_ratio_age_adjusted": 0.6
   },
@@ -25,7 +25,7 @@
     "race_category_id": "WHITE_NH",
     "race": "White",
     "race_includes_hispanic": false,
-    "race_and_ethnicity": "White (Non-Hispanic)",
+    "race_and_ethnicity": "White (NH)",
     "death_ratio_age_adjusted": 1,
     "hosp_ratio_age_adjusted": 1
   }
