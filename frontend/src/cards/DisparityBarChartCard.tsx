@@ -73,14 +73,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
       metricConfig.fullCardTitleName
     } in ${props.fips.getSentenceDisplayName()}`;
   }
-  function CardTitle() {
-    return <>{getTitleText()}</>;
-  }
 
   return (
     <CardWrapper
       queries={[query]}
-      title={<CardTitle />}
+      title={<>Population vs. Share</>}
       minHeight={preloadHeight}
       scrollToHash={"population-vs-share"}
     >

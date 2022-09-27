@@ -94,7 +94,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   return (
     <CardWrapper
       queries={[mapQuery, alertQuery]}
-      title={undefined}
+      title={<>Unknown Demographic Map</>}
       loadGeographies={true}
       minHeight={preloadHeight}
       scrollToHash="unknowns-map"
@@ -228,7 +228,17 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             {showingVisualization && (
               <CardContent>
                 <ChoroplethMap
-                  titles={{ chartTitle: getTitleText(), subTitle: " " }}
+                  titles={{
+                    chartTitle: [
+                      metricConfig.fullCardTitleName,
+                      `with unknown ${
+                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                          props.currentBreakdown
+                        ]
+                      }`,
+                    ],
+                    subTitle: " ",
+                  }}
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}

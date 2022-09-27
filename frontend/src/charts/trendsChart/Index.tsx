@@ -51,7 +51,7 @@ export interface TrendsChartProps {
   data: TrendsData;
   unknown: UnknownData;
   axisConfig: AxisConfig;
-  title: string;
+  chartTitle: string | string[];
   breakdownVar: BreakdownVar;
   selectedGroups: DemographicGroup[];
   setSelectedGroups: Function;
@@ -62,7 +62,7 @@ export function TrendsChart({
   data = [],
   unknown,
   axisConfig,
-  title,
+  chartTitle,
   breakdownVar,
   selectedGroups,
   setSelectedGroups,
@@ -240,7 +240,7 @@ export function TrendsChart({
       </div>
       {/* Chart Title */}
       <figcaption>
-        <b>{title}</b>
+        <b>{chartTitle}</b>
       </figcaption>
       {/* Tooltip */}
       <div
@@ -281,7 +281,7 @@ export function TrendsChart({
           role="group"
         >
           {/* Accessible SVG  */}
-          <title>{title}</title>
+          <title>{chartTitle}</title>
           <desc>something here</desc>
           {/* Chart Axes */}
           <Axes

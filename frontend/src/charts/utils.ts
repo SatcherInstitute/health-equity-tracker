@@ -1,7 +1,13 @@
+import React from "react";
 import { MapCardProps } from "../cards/MapCard";
-import { formatFieldValue, MetricConfig } from "../data/config/MetricConfig";
+import {
+  formatFieldValue,
+  MetricConfig,
+  VariableConfig,
+} from "../data/config/MetricConfig";
 import { BreakdownVar } from "../data/query/Breakdowns";
 import { Row } from "../data/utils/DatasetTypes";
+import { Fips } from "../data/utils/Fips";
 
 export type VisualizationType = "chart" | "map" | "table";
 
@@ -79,13 +85,56 @@ export function addMetricDisplayColumn(
   return [newData, displayColName];
 }
 
-export function createSubTitle(demographic: string, props: MapCardProps) {
-  if (demographic === "All") {
-    return "";
+type SubTitleProps = {
+  variableConfig: VariableConfig;
+  fips: Fips;
+  demographic?: string;
+  breakdown?: string;
+  trend?: boolean;
+};
+
+export function createSubTitle({
+  variableConfig,
+  fips,
+  demographic,
+  breakdown,
+  trend,
+}: SubTitleProps) {
+  const location = fips.isUsa()
+    ? `the ${fips.getDisplayName()}`
+    : fips.getDisplayName();
+  const metric = variableConfig.variableFullDisplayName;
+  let chartTitle: string | string[];
+  let subtitle = "";
+
+  if (trend) {
+    chartTitle = `Monthly COVID-19 cases per 100k people in ${location}`;
+    return { chartTitle, subtitle };
   }
 
-  if (props.currentBreakdown === "age") {
-    return `Ages ${demographic}`;
+  if (metric.includes("COVID-19")) {
+    chartTitle = `${metric} since Jan 2020 per 100k individuals in ${location}`;
+    chartTitle =
+      chartTitle.length > 55
+        ? [`${metric} since Jan 2020`, `per 100k individuals in ${location}`]
+        : chartTitle;
+  } else {
+    chartTitle = `${metric} per 100k people in ${location}`;
+    chartTitle =
+      chartTitle.length > 55
+        ? [`${metric}`, `per 100k people in ${location}`]
+        : chartTitle;
   }
-  return `${demographic}`;
+
+  if (demographic === "All") {
+    return { chartTitle, subtitle };
+  }
+
+  if (breakdown === "age") {
+    subtitle = `Ages ${subtitle}`;
+    return { chartTitle, subtitle };
+  }
+
+  subtitle = `${demographic}`;
+  return { chartTitle, subtitle };
 }

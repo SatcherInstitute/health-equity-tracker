@@ -77,7 +77,7 @@ export interface ChoroplethMapProps {
   // use the constructed string from the Card Wrapper Title in the export as PNG filename
   filename?: string;
   titles?: {
-    chartTitle: string;
+    chartTitle: string | string[];
     subTitle: string;
   };
 }

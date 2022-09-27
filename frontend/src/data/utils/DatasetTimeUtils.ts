@@ -2,7 +2,6 @@ import { MetricConfig, MetricId } from "../config/MetricConfig";
 import { BreakdownVar } from "../query/Breakdowns";
 import { DemographicGroup, TIME_PERIOD, TIME_PERIOD_LABEL } from "./Constants";
 import { Row } from "./DatasetTypes";
-import { shortenNH } from "./datasetutils";
 
 const MONTHLY_LENGTH = 7;
 const YEARLY_LENGTH = 4;
@@ -140,8 +139,7 @@ export function getNestedRates(
       row[metricId] != null ? row[metricId] : null,
     ]);
 
-    // TODO: switch "(Non-Hispanic)" to "NH" on backend and remove this fn
-    return [shortenNH(group), groupTimeSeries] as GroupTrendData;
+    return [group, groupTimeSeries] as GroupTrendData;
   });
 
   return nestedRates;
@@ -179,7 +177,7 @@ export function getNestedUndueShares(
         diff != null ? Math.round(diff * 10) / 10 : null,
       ];
     });
-    return [shortenNH(group), groupTimeSeries] as GroupTrendData;
+    return [group, groupTimeSeries] as GroupTrendData;
   });
 
   return nestedPctUndue;
@@ -211,9 +209,7 @@ export function makeA11yTableData(
 
   const filteredDemographicGroups =
     selectedGroups.length > 0
-      ? allDemographicGroups.filter((group) =>
-          selectedGroups.includes(shortenNH(group))
-        )
+      ? allDemographicGroups.filter((group) => selectedGroups.includes(group))
       : allDemographicGroups;
 
   const a11yData = allTimePeriods.map((timePeriod) => {

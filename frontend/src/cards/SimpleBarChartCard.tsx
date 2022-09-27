@@ -64,14 +64,11 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
     } In ${props.fips.getSentenceDisplayName()}`;
   }
-  function CardTitle() {
-    return <>{getTitleText()}</>;
-  }
 
   return (
     <CardWrapper
       queries={[query]}
-      title={<CardTitle />}
+      title={<>Current Rates</>}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash="rate-chart"
     >
