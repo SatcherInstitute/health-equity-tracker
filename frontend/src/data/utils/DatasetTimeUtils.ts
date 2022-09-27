@@ -139,7 +139,6 @@ export function getNestedRates(
       row[metricId] != null ? row[metricId] : null,
     ]);
 
-    // TODO: switch "(Non-Hispanic)" to "NH" on backend and remove this fn
     return [group, groupTimeSeries] as GroupTrendData;
   });
 
