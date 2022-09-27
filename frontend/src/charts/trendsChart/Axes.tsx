@@ -116,7 +116,6 @@ export function Axes({
             .selectAll(".tick line")
             .attr("opacity", 0.2)
             .attr("stroke-dasharray", 5)
-            .attr("role", "listitem")
         );
     }
   }, [data, xScale, yScale, xAxis, yAxis]);
@@ -137,7 +136,7 @@ export function Axes({
           ref={xAxisRef}
           transform={`translate(0, ${HEIGHT - marginBottom})`}
           aria-label={`x axis as months ranging from ${startDate} through ${endDate}`}
-          role="list"
+          role="group"
           tabIndex={0}
         />
         {/* Y-Axis */}
@@ -150,7 +149,7 @@ export function Axes({
           } ranging from ${getMinNumber(data)}${optionalPct} to ${getMaxNumber(
             data
           )}${optionalPct}`}
-          role="list"
+          role="group"
           tabIndex={0}
         />
       </g>

@@ -138,11 +138,7 @@ export function CircleChart({
           HEIGHT - 5.25 * MAX_RADIUS
         })`}
       >
-        <g
-          role="list"
-          aria-label="Legend for Unknown Demographic Bubbles"
-          tabIndex={0}
-        >
+        <g role="list" aria-label="Unknown Demographic Legend" tabIndex={0}>
           {/* Display circle for min, mid, and max values */}
           {getLegendValues().map((percent = 0, i) => {
             let legendHelper = "";
@@ -161,14 +157,14 @@ export function CircleChart({
                 <circle
                   r={rScale(percent)}
                   fill={colors(percent)}
-                  role="presentational"
+                  role="presentation"
                 />
                 {/* Circle label annotation (percent represented by circle) */}
                 <text
                   textAnchor="middle"
                   dy="28px"
                   id={`circleLegendText-${i}`}
-                  aria-label={`${legendHelper} reported unknown value`}
+                  aria-label={`${legendHelper} unknown value indicator`}
                 >
                   {F.pct(percent)}
                 </text>
