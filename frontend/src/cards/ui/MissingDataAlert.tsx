@@ -72,6 +72,7 @@ function AltDataTypesMessage(props: AltDataTypesMessageProps) {
   if (!props.ageAdjustedDataTypes) return <></>;
   return (
     <>
+      {" "}
       Age-adjusted ratios by race and ethnicity at the national and state levels
       are available for these alternate data types:{" "}
       {props.ageAdjustedDataTypes.map((dataType, i) => {
@@ -80,7 +81,7 @@ function AltDataTypesMessage(props: AltDataTypesMessageProps) {
             <a
               href={`${EXPLORE_DATA_PAGE_LINK}${
                 dataTypeLinkMap[dataType.variableId as AgeAdjustedVariableId]
-              }`}
+              }#age-adjusted-risk`}
             >
               {dataType.variableFullDisplayName}
             </a>
