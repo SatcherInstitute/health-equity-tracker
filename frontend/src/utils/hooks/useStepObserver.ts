@@ -83,6 +83,7 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
     // const newHash = activeId ? `#${activeId}` : "";
     // window.history.replaceState(undefined, "", urlNoHash + newHash);
     urlHashOverrideRef.current = recentlyClicked;
+    window.history.pushState(null, "", activeId ? `#${activeId}` : " ");
   }, [activeId, recentlyClicked]);
 
   const hashLink = location?.hash;
