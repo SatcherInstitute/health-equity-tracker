@@ -122,6 +122,48 @@ function MethodologyTab() {
                 </ul>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
+                  COVID-19 Time Series Data
+                </h4>
+                <ul>
+                  <li>
+                    The CDC Restricted dataset includes a field called{" "}
+                    <b>cdc_case_earliest_dt</b>, which represents the earliest
+                    of either the date of first symptoms onset, a positive COVID
+                    test, or the date the case was first reported to the CDC. We
+                    use the month and year of this field to categorize the month
+                    and year that each COVID case, death, and hospitalization
+                    occurred. It is important to note here, that, for deaths and
+                    hospitalizations, we plot the month the case was first
+                    reported, and not when the death or hospitalization itself
+                    occurred.
+                  </li>
+                  <li>
+                    We chose to use this field because it is filled out for the
+                    vast majority of cases, and because it provides the best
+                    estimate we can get on when the COVID case in question
+                    occurred.
+                  </li>
+                  <li>
+                    We only count confirmed deaths and hospitalizations in the{" "}
+                    <b>per100k</b> and <b>inequitable distribution</b> metrics,
+                    so when we show “zero” deaths or hospitalizations for a
+                    demographic group in any month, it is possible that there
+                    are unconfirmed deaths or hospitalizations for that group in
+                    that month, but they have not been reported to the CDC.
+                  </li>
+                  <li>
+                    If a geographic jurisdiction reports zero cases, deaths, or
+                    hospitalizations for a demographic for the entire pandemic,
+                    we leave that demographic off of our charts all together, as
+                    we assume they are not collecting data on that population.
+                  </li>
+                  <li>
+                    Each chart represents the “incidence rate” – the amount of
+                    new cases that were reported in each month.
+                  </li>
+                </ul>
+
+                <h4 className={styles.MethodologySubsubheaderText}>
                   COVID-19 Vaccinations
                 </h4>
                 <p>
@@ -681,14 +723,14 @@ function MethodologyTab() {
                     places are used.
                   </li>
                   <li>
-                    <b>Inequitable burden of COVID-19 cases over time</b>: To
-                    demonstrate the often inequitable distribution of a
+                    <b>Inequitable distribution of COVID-19 cases by month</b>:
+                    To demonstrate the often inequitable distribution of a
                     condition or disease, we calculate each demographic group's
-                    disproportionate percent share of that condition and present
-                    it as a proportion to that demographic group's share of the
-                    entire population. This calculation is done for every point
-                    in time for which we have data, and displayed over time to
-                    show trends in inequity.
+                    percent share of that condition and present it as a
+                    proportion to that group's share of the entire population.
+                    This calculation is done for every point in time for which
+                    we have data, and displayed over time to show trends in
+                    inequity.
                     <p>
                       {" "}
                       As an example, if in a certain month White (Non-Hispanic)
@@ -699,9 +741,10 @@ function MethodologyTab() {
                       divided by the population percent share to give a
                       proportional inequitable burden of <b>+24.7%</b>:{" "}
                       <code>+13% / 52.7% = +24.7%</code>. In plain language,
-                      this would be interpretted as “White deaths in Georgia
-                      from COVID-19 were almost 25% higher than expected, based
-                      on their share of Georgia's overall population.”
+                      this would be interpreted as “Deaths of individuals
+                      identifying as White, Non Hispanic in Georgia from
+                      COVID-19 were almost 25% higher than expected, based on
+                      their share of Georgia's overall population.”
                     </p>
                   </li>
                 </ul>
