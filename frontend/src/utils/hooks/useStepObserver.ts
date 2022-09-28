@@ -51,8 +51,14 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
     const handleObserver = (entries: any) => {
       entries.forEach((entry: any) => {
         // when page is scrolled to the top, don't track scroll position
-        if (isScrolledToTop) setActiveId("");
-        else if (entry?.isIntersecting) {
+        if (isScrolledToTop) {
+          setActiveId("");
+          window.history.pushState(
+            "",
+            document.title,
+            window.location.pathname + window.location.search
+          );
+        } else if (entry?.isIntersecting) {
           // prefer a recently clicked id, otherwise set to the observed "in view" id
           const preferredId = recentlyClicked || entry.target.id;
           setActiveId(preferredId);

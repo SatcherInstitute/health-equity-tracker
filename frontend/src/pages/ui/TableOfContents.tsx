@@ -44,6 +44,7 @@ export function TableOfContents(props: TableOfContentsProps) {
       scrollIntoView(clickedElem, { behavior: "smooth" });
       // for a11y focus should shift to subsequent tab goes to next interactive element after the targeted card
       clickedElem.focus({ preventScroll: true });
+      window.history.replaceState(undefined, "", `#${step.hashId}`);
     }
 
     setRecentlyClicked(step.hashId);
