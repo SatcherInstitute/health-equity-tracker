@@ -62,7 +62,7 @@ export const ARTICLES_KEY = "cached_wp_articles";
 export const DYNAMIC_COPY_KEY = "cached_wp_dynamic_copy";
 export const REACT_QUERY_OPTIONS = {
   cacheTime: Infinity, // never garbage collect, always default to cache
-  staleTime: 1000 * 2, // treat cache data as fresh and don't refetch
+  staleTime: 1000 * 30, // treat cache data as fresh and don't refetch
 };
 
 export async function fetchNewsData() {
