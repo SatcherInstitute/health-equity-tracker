@@ -93,3 +93,11 @@
     scroll-margin: $sticky-madlib-height-compare 0px 0px 0px;
   }
 }
+
+.FloatingTableOfContentsWrapper {
+  display: none;
+
+  @media only screen and (min-width: $sm) {
+    display: block;
+  }
+}
