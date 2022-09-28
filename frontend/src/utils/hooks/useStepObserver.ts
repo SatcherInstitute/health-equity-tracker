@@ -50,7 +50,7 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
   useEffect(() => {
     const handleObserver = (entries: any) => {
       entries.forEach((entry: any) => {
-        // when page is scrolled to the top, don't track scroll position
+        // when page is scrolled to the top, don't track scroll position and remove any hash
         if (isScrolledToTop) {
           setActiveId("");
           window.history.pushState(
@@ -84,15 +84,8 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
   const urlHashOverrideRef = useRef(recentlyClicked);
 
   useEffect(() => {
-    // any updates to the focused id results in a new URL hash
-    // const urlNoHash = window.location.href.split("#")[0];
-    // const newHash = activeId ? `#${activeId}` : "";
-    // window.history.replaceState(undefined, "", urlNoHash + newHash);
+    // any updates to the focused id updates the ref
     urlHashOverrideRef.current = recentlyClicked;
-
-    // window.location.hash = `#${urlHashOverrideRef?.current || activeId}`
-
-    // window.history.replaceState({}, "", `#${activeId}`);
   }, [activeId, recentlyClicked]);
 
   const hashLink = location?.hash;
@@ -100,7 +93,6 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
 
   useEffect(() => {
     // updates to the URL or available steps results in recalculated focus for the Table of Contents
-
     if (
       hashLink &&
       steps.map((step: StepData) => step.hashId).includes(hashId)
@@ -125,7 +117,6 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
         pulseIdCounter += 500;
         if (pulseIdCounter > 500 * 2 * 30) clearInterval(pulse_id);
         if (urlHashOverrideRef.current === hashId) {
-          // console.log("would be scroll correcting");
           const targetElem = document.querySelector(`#${hashId}`);
           if (targetElem) {
             scrollIntoView(targetElem, {
