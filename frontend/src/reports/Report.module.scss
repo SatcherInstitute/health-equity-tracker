@@ -75,7 +75,6 @@
 
 .ScrollPastHeader {
   scroll-margin: 0 0 0 0;
-  scroll-snap-align: start;
 
   // default before measuring actual height of sticky header and offsetting the scroll
   @media only screen and (min-width: $md) {
@@ -86,7 +85,6 @@
 .ScrollPastHeaderCompareMode,
 .FootnoteLargeHeading {
   scroll-margin: 0 0 0 0;
-  scroll-snap-align: start;
 
   // default before measuring actual height of sticky header and offsetting the scroll
   @media only screen and (min-width: $md) {
