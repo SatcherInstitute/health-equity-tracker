@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { StepData, useStepObserver } from "../../utils/hooks/useStepObserver";
 import styles from "./TableOfContents.module.scss";
-import { scrollIntoView } from "seamless-scroll-polyfill";
+// import { scrollIntoView } from "seamless-scroll-polyfill";
 
 const TABLE_OF_CONTENT_PADDING = 15;
 
