@@ -84,7 +84,6 @@ export default function AltTableView(props: AltTableViewProps) {
       </div>
 
       {/* Don't render collapsed info, so keyboard nav will skip */}
-
       {props.expanded && (
         <>
           <TableContainer className={styles.AltTableContainer}>
