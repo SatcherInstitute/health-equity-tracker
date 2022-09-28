@@ -29,7 +29,7 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
   function handleInteraction() {
     // any time the user interacts, cancel pending automated scrolling and erase any incoming #hash from the URL
     setRecentlyClicked(null);
-    // location.hash = "";
+    location.hash = "";
   }
 
   useEffect(() => {
@@ -84,9 +84,9 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
     // window.history.replaceState(undefined, "", urlNoHash + newHash);
     urlHashOverrideRef.current = recentlyClicked;
 
-    // location.hash = urlHashOverrideRef.current || activeId
+    // window.location.hash = `#${urlHashOverrideRef?.current || activeId}`
 
-    window.history.replaceState({}, "", `#${activeId}`);
+    // window.history.replaceState({}, "", `#${activeId}`);
   }, [activeId, recentlyClicked]);
 
   const hashLink = location?.hash;
@@ -121,10 +121,11 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
         if (urlHashOverrideRef.current === hashId) {
           // console.log("would be scroll correcting");
           const targetElem = document.querySelector(`#${hashId}`);
-          targetElem &&
+          if (targetElem) {
             scrollIntoView(targetElem, {
               behavior: "smooth",
             });
+          }
         }
       }, 500);
 
