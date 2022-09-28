@@ -33,13 +33,14 @@ export function getDatasetIdsFromResponses(
 }
 
 export const stripCountyFips = (datasetIds: string[]) => {
-  datasetIds.map((x) => {
-    if (/\d/.test(x)) {
+  datasetIds.map((id) => {
+    if (/\d/.test(id)) {
       const datasetId = datasetIds.map((x) =>
         x.split("-").slice(0, 2).join("-")
       );
       datasetIds = datasetId;
     }
+    return datasetIds;
   });
   return datasetIds;
 };

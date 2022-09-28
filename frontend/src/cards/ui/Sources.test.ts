@@ -1,14 +1,14 @@
 import { stripCountyFips } from "./Sources";
 
 describe("stripCountyFips", () => {
-  it("Should return string with fips code", () => {
+  it("Should return string without fips code", () => {
     const output = ["cdc_restricted_data-by_race_county_processed_time_series"];
     const input = [
       "cdc_restricted_data-by_race_county_processed_time_series-48",
     ];
     expect(stripCountyFips(input)).toEqual(output);
   });
-  it("Should return input if not on county level", () => {
+  it("Should return input when county level data isn't being displayed", () => {
     const output = [
       "cdc_restricted_data-by_race_county_processed_time_series-with_age_adjust",
     ];
