@@ -29,7 +29,7 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
   function handleInteraction() {
     // any time the user interacts, cancel pending automated scrolling and erase any incoming #hash from the URL
     setRecentlyClicked(null);
-    location.hash = "";
+    // location.hash = "";
   }
 
   useEffect(() => {
@@ -79,9 +79,9 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
 
   useEffect(() => {
     // any updates to the focused id results in a new URL hash
-    const urlNoHash = window.location.href.split("#")[0];
-    const newHash = activeId ? `#${activeId}` : "";
-    window.history.replaceState(undefined, "", urlNoHash + newHash);
+    // const urlNoHash = window.location.href.split("#")[0];
+    // const newHash = activeId ? `#${activeId}` : "";
+    // window.history.replaceState(undefined, "", urlNoHash + newHash);
     urlHashOverrideRef.current = recentlyClicked;
   }, [activeId, recentlyClicked]);
 
