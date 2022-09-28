@@ -85,7 +85,7 @@ test('Use Table of Contents to Scroll Age Adjust Card Into View and Be Focused',
 
 
     // find Table of Contents link to Age-Adjustment Card
-    const ageAdjustStepLink = page.locator('button:has-text("Age-Adjusted Risk Ratios")')
+    const ageAdjustStepLink = page.locator('button:has-text("Age-adjusted risk")')
     await ageAdjustStepLink.click()
 
     // // Ensure URL Hash updates

@@ -38,7 +38,7 @@ export interface RateTrendsChartCardProps {
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
   fips: Fips;
-  isComparisonCard?: boolean;
+  isCompareCard?: boolean;
 }
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
@@ -142,7 +142,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
               </>
             ) : (
               <>
-                {props.isComparisonCard && (
+                {props.isCompareCard && (
                   <Box mb={2}>
                     <Alert severity="warning" role="note">
                       Please note that the y-axis scales to fit the largest
@@ -168,6 +168,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   breakdownVar={props.breakdownVar}
                   selectedGroups={selectedGroups}
                   setSelectedGroups={setSelectedGroups}
+                  isCompareCard={props.isCompareCard || false}
                 />
 
                 <CardContent>

@@ -40,6 +40,7 @@ export interface ShareTrendsChartCardProps {
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
   fips: Fips;
+  isCompareCard?: boolean;
 }
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
@@ -160,6 +161,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     breakdownVar={props.breakdownVar}
                     selectedGroups={selectedGroups}
                     setSelectedGroups={setSelectedGroups}
+                    isCompareCard={props.isCompareCard || false}
                   />
 
                   <AltTableView

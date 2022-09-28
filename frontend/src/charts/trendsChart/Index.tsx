@@ -55,6 +55,7 @@ export interface TrendsChartProps {
   breakdownVar: BreakdownVar;
   selectedGroups: DemographicGroup[];
   setSelectedGroups: Function;
+  isCompareCard: boolean;
 }
 
 /* Render component */
@@ -66,7 +67,10 @@ export function TrendsChart({
   breakdownVar,
   selectedGroups,
   setSelectedGroups,
+  isCompareCard,
 }: TrendsChartProps) {
+  console.log(axisConfig.type, isCompareCard);
+
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
   const { groupLabel } = axisConfig || {};
@@ -235,6 +239,9 @@ export function TrendsChart({
             isSkinny={isSkinny}
             chartWidth={width}
             breakdownVar={breakdownVar}
+            legendId={`legend-filter-label-${axisConfig.type}-${
+              isCompareCard ? "2" : "1"
+            }`}
           />
         )}
       </div>

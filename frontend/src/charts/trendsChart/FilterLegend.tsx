@@ -27,6 +27,7 @@ export interface FilterLegendProps {
   isSkinny: boolean;
   chartWidth: number;
   breakdownVar: BreakdownVar;
+  legendId: string;
 }
 
 /* Render component */
@@ -38,14 +39,15 @@ export function FilterLegend({
   isSkinny,
   chartWidth,
   breakdownVar,
+  legendId,
 }: FilterLegendProps) {
   const isComparing = window.location.href.includes("compare");
-  const compareView = () => {
+  const getDataView = () => {
     if (isComparing) {
       if (chartWidth > 472 && chartWidth < 818) return "compare-view";
       if (chartWidth < 472) return "compare-view-small";
     }
-    return "";
+    return "normal";
   };
 
   return (
@@ -53,7 +55,7 @@ export function FilterLegend({
     <div className={styles.FilterLegend}>
       {/* Legend Title & Clear Button*/}
       <div className={styles.LegendTitle}>
-        <label id="select-groups-label">Select groups to filter</label>
+        <label id={legendId}>Select groups to filter</label>
         <button
           aria-label={`Clear demographic filters`}
           aria-disabled={!selectedGroups?.length}
@@ -68,9 +70,9 @@ export function FilterLegend({
       </div>
       {/* Legend Items Wrapper */}
       <menu
-        aria-labelledby="select-groups-label"
+        aria-labelledby={legendId}
         className={styles.LegendItems}
-        id={isComparing ? compareView() : ""}
+        data-view={getDataView()}
       >
         {/* Map over groups and create Legend Item for each */}
         {data &&
@@ -89,7 +91,7 @@ export function FilterLegend({
                 style={{
                   opacity: !selectedGroups?.length || groupEnabled ? 1 : 0.2, // failing a11y; need minimum opacity .55 ?
                 }}
-                name={isComparing ? compareView() : ""}
+                name={getDataView()}
               >
                 {/* Legend Item color swatch */}
                 <div

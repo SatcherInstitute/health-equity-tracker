@@ -170,10 +170,7 @@ function TwoVariableReport(props: {
               style={{ scrollMarginTop: props.headerScrollMargin }}
             >
               {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
-              <PopulationCard
-                // jumpToData={props.jumpToData}
-                fips={props.fips1}
-              />
+              <PopulationCard fips={props.fips1} />
 
               {/* 2 SETS OF DEMOGRAPHIC AND DATA TYPE TOGGLES */}
               <Grid container>
@@ -283,13 +280,15 @@ function TwoVariableReport(props: {
                     createCard={(
                       variableConfig: VariableConfig,
                       fips: Fips,
-                      unusedUpdateFips: (fips: Fips) => void
+                      unusedUpdateFips: (fips: Fips) => void,
+                      unusedDropdown: any,
+                      isCompareCard: boolean | undefined
                     ) => (
                       <RateTrendsChartCard
                         variableConfig={variableConfig}
                         breakdownVar={breakdownVar}
                         fips={fips}
-                        isComparisonCard={true}
+                        isCompareCard={isCompareCard}
                       />
                     )}
                   />
@@ -367,12 +366,15 @@ function TwoVariableReport(props: {
                     createCard={(
                       variableConfig: VariableConfig,
                       fips: Fips,
-                      unusedUpdateFips: (fips: Fips) => void
+                      unusedUpdateFips: (fips: Fips) => void,
+                      unusedDropdown: any,
+                      isCompareCard: boolean | undefined
                     ) => (
                       <ShareTrendsChartCard
                         variableConfig={variableConfig}
                         breakdownVar={breakdownVar}
                         fips={fips}
+                        isCompareCard={isCompareCard}
                       />
                     )}
                   />
@@ -457,7 +459,7 @@ function TwoVariableReport(props: {
                 fips: Fips,
                 updateFips: (fips: Fips) => void,
                 dropdownVarId?: DropdownVarId,
-                jumpToData?: Function
+                isCompareCard?: boolean
               ) => (
                 <AgeAdjustedTableCard
                   fips={fips}
@@ -510,11 +512,10 @@ function RowOfTwoOptionalMetrics(props: {
     fips: Fips,
     updateFips: (fips: Fips) => void,
     dropdownVarId?: DropdownVarId,
-    jumpToData?: Function
+    isCompareCard?: boolean
   ) => JSX.Element;
   dropdownVarId1?: DropdownVarId;
   dropdownVarId2?: DropdownVarId;
-  jumpToData?: Function;
   headerScrollMargin: number;
 }) {
   if (!props.variableConfig1 && !props.variableConfig2) {
@@ -542,7 +543,7 @@ function RowOfTwoOptionalMetrics(props: {
                 props.fips1,
                 props.updateFips1 || unusedFipsCallback,
                 props.dropdownVarId1,
-                props.jumpToData
+                /* isCompareCard */ false
               )}
             </>
           )}
@@ -564,7 +565,7 @@ function RowOfTwoOptionalMetrics(props: {
                 props.fips2,
                 props.updateFips2 || unusedFipsCallback,
                 props.dropdownVarId2,
-                props.jumpToData
+                /* isCompareCard */ true
               )}
             </>
           )}
