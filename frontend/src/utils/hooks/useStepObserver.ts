@@ -79,15 +79,14 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
 
   useEffect(() => {
     // any updates to the focused id results in a new URL hash
-    const urlNoHash = window.location.href.split("#")[0];
+    // const urlNoHash = window.location.href.split("#")[0];
     // const newHash = activeId ? `#${activeId}` : "";
     // window.history.replaceState(undefined, "", urlNoHash + newHash);
     urlHashOverrideRef.current = recentlyClicked;
-    window.history.pushState(
-      null,
-      "",
-      activeId ? `${urlNoHash}#${activeId}` : " "
-    );
+
+    // location.hash = urlHashOverrideRef.current || activeId
+
+    window.history.replaceState({}, "", `#${activeId}`);
   }, [activeId, recentlyClicked]);
 
   const hashLink = location?.hash;
