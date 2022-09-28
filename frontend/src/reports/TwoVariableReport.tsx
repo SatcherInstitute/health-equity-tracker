@@ -274,7 +274,7 @@ function TwoVariableReport(props: {
               !breakdownIsShown(breakdownVar) ? null : (
                 <Fragment key={breakdownVar}>
                   <RowOfTwoOptionalMetrics
-                    id="rate-trends"
+                    id="rates-over-time"
                     variableConfig1={variableConfig1}
                     variableConfig2={variableConfig2}
                     fips1={props.fips1}
@@ -326,7 +326,7 @@ function TwoVariableReport(props: {
 
           {/* SIDE-BY-SIDE UNKNOWNS MAP CARDS */}
           <RowOfTwoOptionalMetrics
-            id="unknowns-map"
+            id="unknown-demographic-map"
             variableConfig1={variableConfig1}
             variableConfig2={variableConfig2}
             fips1={props.fips1}
@@ -358,7 +358,7 @@ function TwoVariableReport(props: {
               !breakdownIsShown(breakdownVar) ? null : (
                 <Fragment key={breakdownVar}>
                   <RowOfTwoOptionalMetrics
-                    id="share-trends"
+                    id="inequities-over-time"
                     variableConfig1={variableConfig1}
                     variableConfig2={variableConfig2}
                     fips1={props.fips1}
@@ -386,7 +386,7 @@ function TwoVariableReport(props: {
             !breakdownIsShown(breakdownVar) ? null : (
               <Fragment key={breakdownVar}>
                 <RowOfTwoOptionalMetrics
-                  id="population-vs-share"
+                  id="population-vs-distribution"
                   variableConfig1={variableConfig1}
                   variableConfig2={variableConfig2}
                   fips1={props.fips1}

@@ -14,7 +14,7 @@ export const reportProviderSteps: Record<ScrollableHashId, StepLabelInfo> = {
     label: "Rate map",
     pluralOnCompare: true,
   },
-  "rate-trends": {
+  "rates-over-time": {
     label: "Rates over time",
     pluralOnCompare: false,
   },
@@ -22,15 +22,15 @@ export const reportProviderSteps: Record<ScrollableHashId, StepLabelInfo> = {
     label: "Rate chart",
     pluralOnCompare: false,
   },
-  "unknowns-map": {
+  "unknown-demographic-map": {
     label: "Unknown demographic map",
     pluralOnCompare: true,
   },
-  "share-trends": {
+  "inequities-over-time": {
     label: "Inequities over time",
     pluralOnCompare: false,
   },
-  "population-vs-share": {
+  "population-vs-distribution": {
     label: "Population vs. distribution",
     pluralOnCompare: false,
   },
@@ -39,115 +39,11 @@ export const reportProviderSteps: Record<ScrollableHashId, StepLabelInfo> = {
     pluralOnCompare: true,
   },
   "age-adjusted-risk": {
-    label: "Age-adjusted risk ratio",
+    label: "Age-adjusted risk",
     pluralOnCompare: true,
   },
   "definitions-missing-data": {
-    label: "Missing data & definitions",
+    label: "Definitions & missing data",
     pluralOnCompare: false,
   },
 };
-
-// {
-//   label: "Location info & filters",
-//   pluralOnCompare: false,
-//   hashId: "location-info",
-// },
-// {
-//   label: "Rate map",
-//   pluralOnCompare: true,
-//   hashId: "rate-map",
-// },
-// {
-//   label: "Rates over time",
-//   pluralOnCompare: false,
-//   hashId: "rate-trends",
-// },
-// {
-//   label: "Rate chart",
-//   pluralOnCompare: false,
-//   hashId: "rate-chart",
-// },
-// {
-//   label: "Unknown demographic map",
-//   pluralOnCompare: true,
-//   hashId: "unknowns-map",
-// },
-// {
-//   label: "Share disparities over time",
-//   pluralOnCompare: false,
-//   hashId: "share-trends",
-// },
-// {
-//   label: "Population vs. share",
-//   pluralOnCompare: false,
-//   hashId: "population-vs-share",
-// },
-// {
-//   label: "Data table",
-//   pluralOnCompare: true,
-//   hashId: "data-table",
-// },
-// {
-//   label: "Age-adjusted risk ratio",
-//   pluralOnCompare: true,
-//   hashId: "age-adjusted-risk",
-// },
-// {
-//   label: "Missing data & definitions",
-//   pluralOnCompare: false,
-//   hashId: "definitions-missing-data",
-// },
-
-// export const reportProviderSteps: StepData[] = [
-//   {
-//     label: "Location info & filters",
-//     pluralOnCompare: false,
-//     hashId: "location-info",
-//   },
-//   {
-//     label: "Rate map",
-//     pluralOnCompare: true,
-//     hashId: "rate-map",
-//   },
-//   {
-//     label: "Rates over time",
-//     pluralOnCompare: false,
-//     hashId: "rate-trends",
-//   },
-//   {
-//     label: "Rate chart",
-//     pluralOnCompare: false,
-//     hashId: "rate-chart",
-//   },
-//   {
-//     label: "Unknown demographic map",
-//     pluralOnCompare: true,
-//     hashId: "unknowns-map",
-//   },
-//   {
-//     label: "Share disparities over time",
-//     pluralOnCompare: false,
-//     hashId: "share-trends",
-//   },
-//   {
-//     label: "Population vs. share",
-//     pluralOnCompare: false,
-//     hashId: "population-vs-share",
-//   },
-//   {
-//     label: "Data table",
-//     pluralOnCompare: true,
-//     hashId: "data-table",
-//   },
-//   {
-//     label: "Age-adjusted risk ratio",
-//     pluralOnCompare: true,
-//     hashId: "age-adjusted-risk",
-//   },
-//   {
-//     label: "Missing data & definitions",
-//     pluralOnCompare: false,
-//     hashId: "definitions-missing-data",
-//   },
-// ];

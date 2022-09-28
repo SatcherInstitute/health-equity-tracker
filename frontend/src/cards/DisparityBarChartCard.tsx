@@ -77,7 +77,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     } in ${props.fips.getSentenceDisplayName()}`;
   }
 
-  const HASH_ID: ScrollableHashId = "population-vs-share";
+  const HASH_ID: ScrollableHashId = "population-vs-distribution";
 
   const { chartTitle } = createTitles({
     variableConfig: props.variableConfig,

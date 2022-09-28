@@ -11,11 +11,11 @@ export type StepData = {
 export type ScrollableHashId =
   | "location-info"
   | "rate-map"
-  | "rate-trends"
+  | "rates-over-time"
   | "rate-chart"
-  | "unknowns-map"
-  | "share-trends"
-  | "population-vs-share"
+  | "unknown-demographic-map"
+  | "inequities-over-time"
+  | "population-vs-distribution"
   | "data-table"
   | "age-adjusted-risk"
   | "definitions-missing-data";

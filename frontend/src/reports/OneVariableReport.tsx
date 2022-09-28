@@ -182,7 +182,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 xs={12}
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
-                id="rate-trends"
+                id="rates-over-time"
                 className={styles.ScrollPastHeader}
               >
                 <LazyLoad offset={600} height={750} once>
@@ -235,7 +235,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
                 tabIndex={-1}
-                id="unknowns-map"
+                id="unknown-demographic-map"
                 style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 <LazyLoad offset={800} height={750} once>
@@ -259,7 +259,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 xs={12}
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
-                id="share-trends"
+                id="inequities-over-time"
                 className={styles.ScrollPastHeader}
               >
                 <LazyLoad offset={600} height={750} once>
@@ -286,7 +286,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 sm={12}
                 md={SINGLE_COLUMN_WIDTH}
                 tabIndex={-1}
-                id="population-vs-share"
+                id="population-vs-distribution"
                 style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 <LazyLoad offset={800} height={750} once>

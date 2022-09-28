@@ -64,7 +64,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       const clickedData = args[1];
       if (clickedData?.id) {
         props.updateFipsCallback(new Fips(clickedData.id));
-        location.hash = `#unknowns-map`;
+        location.hash = `#unknown-demographic-map`;
       }
     },
   };
@@ -93,7 +93,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     return getTitleTextArray().join(" ");
   }
 
-  const HASH_ID: ScrollableHashId = "unknowns-map";
+  const HASH_ID: ScrollableHashId = "unknown-demographic-map";
 
   return (
     <CardWrapper
@@ -175,7 +175,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               <MapBreadcrumbs
                 fips={props.fips}
                 updateFipsCallback={props.updateFipsCallback}
-                scrollToHashId="unknowns-map"
+                scrollToHashId="unknown-demographic-map"
               />
             </CardContent>
             <Divider />

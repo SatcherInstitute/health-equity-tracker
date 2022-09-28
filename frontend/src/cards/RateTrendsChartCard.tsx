@@ -80,7 +80,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     trend: true,
   });
 
-  const HASH_ID: ScrollableHashId = "rate-trends";
+  const HASH_ID: ScrollableHashId = "rates-over-time";
 
   return (
     <CardWrapper

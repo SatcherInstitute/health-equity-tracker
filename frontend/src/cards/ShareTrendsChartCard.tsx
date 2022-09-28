@@ -76,7 +76,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     share: true,
   });
 
-  const HASH_ID: ScrollableHashId = "share-trends";
+  const HASH_ID: ScrollableHashId = "inequities-over-time";
 
   return (
     <CardWrapper
