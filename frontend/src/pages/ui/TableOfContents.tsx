@@ -9,6 +9,7 @@ import {
 import React from "react";
 import { StepData, useStepObserver } from "../../utils/hooks/useStepObserver";
 import styles from "./TableOfContents.module.scss";
+import { scrollIntoView } from "seamless-scroll-polyfill";
 
 const TABLE_OF_CONTENT_PADDING = 15;
 
@@ -38,9 +39,10 @@ export function TableOfContents(props: TableOfContentsProps) {
     );
 
     if (clickedElem) {
-      clickedElem.scrollIntoView({ behavior: "smooth" });
+      // clickedElem.scrollIntoView({ behavior: "smooth" });
+      scrollIntoView(clickedElem, { behavior: "smooth" });
       // for a11y focus should shift to subsequent tab goes to next interactive element after the targeted card
-      // clickedElem.focus({ preventScroll: true, focusVisible: false });
+      clickedElem.focus({ preventScroll: true });
     }
 
     setRecentlyClicked(step.hashId);

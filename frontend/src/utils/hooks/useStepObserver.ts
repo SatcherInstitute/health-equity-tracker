@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import { scrollIntoView } from "seamless-scroll-polyfill";
 
 export type StepData = {
   label: string;
@@ -114,9 +115,11 @@ export function useStepObserver(steps: StepData[], isScrolledToTop: boolean) {
         pulseIdCounter += 500;
         if (pulseIdCounter > 500 * 2 * 30) clearInterval(pulse_id);
         if (urlHashOverrideRef.current === hashId) {
-          document.querySelector(`#${hashId}`)?.scrollIntoView({
-            behavior: "smooth",
-          });
+          const targetElem = document.querySelector(`#${hashId}`);
+          targetElem &&
+            scrollIntoView(targetElem, {
+              behavior: "smooth",
+            });
         }
       }, 500);
 
