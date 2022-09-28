@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { OneVariableReport } from "./OneVariableReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
@@ -9,7 +9,6 @@ import {
   getPhraseValue,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
-import { LinkWithStickyParams } from "../utils/urlutils";
 import {
   DATA_CATALOG_PAGE_LINK,
   CONTACT_TAB_LINK,
@@ -24,7 +23,6 @@ import {
   METRIC_CONFIG,
   VariableConfig,
 } from "../data/config/MetricConfig";
-import { Link } from "react-router-dom";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
@@ -43,9 +41,9 @@ interface ReportProviderProps {
   selectedConditions: VariableConfig[];
   showLifeLineAlert: boolean;
   setMadLib: Function;
-  doScrollToData?: boolean;
   showIncarceratedChildrenAlert: boolean;
   isScrolledToTop: boolean;
+  headerScrollMargin: number;
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -63,24 +61,9 @@ function ReportProvider(props: ReportProviderProps) {
       dataTypeArray[1].some((dataType) => definedConditions.includes(dataType))
   );
 
-  const fieldRef = useRef<HTMLInputElement>(null);
-  const definitionsRef = useRef<HTMLInputElement>(null);
-
   const reportWrapper = props.isSingleColumn
     ? styles.OneColumnReportWrapper
     : styles.TwoColumnReportWrapper;
-
-  // internal page links
-  function jumpToDefinitions() {
-    if (definitionsRef.current) {
-      definitionsRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }
-  function jumpToData() {
-    if (fieldRef.current) {
-      fieldRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }
 
   function getReport() {
     // Each report has a unique key based on its props so it will create a
@@ -90,8 +73,6 @@ function ReportProvider(props: ReportProviderProps) {
         const dropdownOption = getPhraseValue(props.madLib, 1);
         return (
           <OneVariableReport
-            jumpToDefinitions={jumpToDefinitions}
-            jumpToData={jumpToData}
             key={dropdownOption}
             dropdownVarId={dropdownOption as DropdownVarId}
             fips={new Fips(getPhraseValue(props.madLib, 3))}
@@ -103,6 +84,7 @@ function ReportProvider(props: ReportProviderProps) {
             isScrolledToTop={props.isScrolledToTop}
             reportSteps={reportSteps}
             setReportSteps={setReportSteps}
+            headerScrollMargin={props.headerScrollMargin}
           />
         );
       case "comparegeos":
@@ -111,8 +93,6 @@ function ReportProvider(props: ReportProviderProps) {
         const fipsCode2 = getPhraseValue(props.madLib, 5);
         return (
           <TwoVariableReport
-            jumpToDefinitions={jumpToDefinitions}
-            jumpToData={jumpToData}
             key={compareDisparityVariable + fipsCode1 + fipsCode2}
             dropdownVarId1={compareDisparityVariable as DropdownVarId}
             dropdownVarId2={compareDisparityVariable as DropdownVarId}
@@ -131,6 +111,7 @@ function ReportProvider(props: ReportProviderProps) {
             isScrolledToTop={props.isScrolledToTop}
             reportSteps={reportSteps}
             setReportSteps={setReportSteps}
+            headerScrollMargin={props.headerScrollMargin}
           />
         );
       case "comparevars":
@@ -143,8 +124,6 @@ function ReportProvider(props: ReportProviderProps) {
           );
         return (
           <TwoVariableReport
-            jumpToDefinitions={jumpToDefinitions}
-            jumpToData={jumpToData}
             key={
               compareDisparityVariable1 + compareDisparityVariable2 + fipsCode
             }
@@ -157,6 +136,7 @@ function ReportProvider(props: ReportProviderProps) {
             isScrolledToTop={props.isScrolledToTop}
             reportSteps={reportSteps}
             setReportSteps={setReportSteps}
+            headerScrollMargin={props.headerScrollMargin}
           />
         );
       default:
@@ -174,7 +154,7 @@ function ReportProvider(props: ReportProviderProps) {
       <div className={reportWrapper}>
         <ShareButtons madLib={props.madLib} />
         {props.showLifeLineAlert && <LifelineAlert />}
-        <DisclaimerAlert jumpToData={jumpToData} />
+        <DisclaimerAlert />
         {props.showIncarceratedChildrenAlert && false && (
           <IncarceratedChildrenLongAlert />
         )}
@@ -182,13 +162,9 @@ function ReportProvider(props: ReportProviderProps) {
         {getReport()}
       </div>
       <div className={styles.MissingDataContainer}>
-        <aside
-          id="missingDataInfo"
-          ref={fieldRef}
-          className={styles.MissingDataInfo}
-        >
+        <aside className={styles.MissingDataInfo}>
           {/* Display condition definition(s) based on the tracker madlib settings */}
-          <div ref={definitionsRef}>
+          <div>
             {definedConditions.length > 0 && (
               <Box mb={5}>
                 <h3
@@ -243,7 +219,7 @@ function ReportProvider(props: ReportProviderProps) {
           </p>
           <p>
             In accordance with our{" "}
-            <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>, we suppress this
+            <a href={METHODOLOGY_TAB_LINK}>methodology</a>, we suppress this
             incomplete data and render some states grey for certain COVID-19
             data types, as outlined below:
           </p>
@@ -341,9 +317,9 @@ function ReportProvider(props: ReportProviderProps) {
           <div className={styles.MissingDataContactUs}>
             <p>
               Do you have information that belongs on the Health Equity Tracker?{" "}
-              <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
+              <a href={`${CONTACT_TAB_LINK}`}>
                 We would love to hear from you!
-              </LinkWithStickyParams>
+              </a>
             </p>
           </div>
         </aside>

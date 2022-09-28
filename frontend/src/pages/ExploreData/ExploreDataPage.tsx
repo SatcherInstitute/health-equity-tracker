@@ -30,7 +30,6 @@ import {
   stringifyMls,
   useSearchParams,
 } from "../../utils/urlutils";
-import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 import styles from "./ExploreDataPage.module.scss";
 import OptionsSelector from "./OptionsSelector";
 import { useLocation } from "react-router-dom";
@@ -39,17 +38,14 @@ import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
 import useScrollPosition from "../../utils/hooks/useScrollPosition";
+import { useHeaderScrollMargin } from "../../utils/hooks/useHeaderScrollMargin";
 
 const Onboarding = React.lazy(() => import("./Onboarding"));
 
 const EXPLORE_DATA_ID = "main";
 
 function ExploreDataPage() {
-  // handle incoming link to MISSING DATA sections
   const location: any = useLocation();
-  const doScrollToData: boolean =
-    location?.hash === `#${WHAT_DATA_ARE_MISSING_ID}`;
-
   const [showStickyLifeline, setShowStickyLifeline] = useState(false);
   const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
     useState(false);
@@ -129,6 +125,10 @@ function ExploreDataPage() {
   if (params[SHOW_ONBOARDING_PARAM] === "false") {
     showOnboarding = false;
   }
+
+  // if there is an incoming #hash; bypass the warm welcome entirely
+  if (location.hash !== "") showOnboarding = false;
+
   const [activelyOnboarding, setActivelyOnboarding] =
     useState<boolean>(showOnboarding);
   const onboardingCallback = (data: any) => {
@@ -193,13 +193,12 @@ function ExploreDataPage() {
         value: MADLIB_LIST[carouselMode].id,
       },
     ]);
+    location.hash = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   /* on any changes to the madlib settings */
   useEffect(() => {
-    // scroll browser screen to top
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
     // A11y - create then delete an invisible alert that the report mode has changed
     srSpeak(`Now viewing report: ${getMadLibPhraseText(madLib)}`);
 
@@ -218,6 +217,12 @@ function ExploreDataPage() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [madLib]);
+
+  const headerScrollMargin = useHeaderScrollMargin(
+    "onboarding-start-your-search",
+    sticking,
+    [madLib, showIncarceratedChildrenAlert, showStickyLifeline]
+  );
 
   return (
     <>
@@ -252,7 +257,7 @@ function ExploreDataPage() {
             activeIndicatorIconButtonProps={{
               "aria-label": "Current Selection: Report Type",
             }}
-            // ! TODO We really should be able to indicate Forward/Backward vs just "Switch"
+            // ! TODO We really should be able to indicate Forward/Backward vs just "Change"
             navButtonsProps={{
               "aria-label": "Change Report Type",
             }}
@@ -284,8 +289,8 @@ function ExploreDataPage() {
             showLifeLineAlert={showStickyLifeline}
             showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
             setMadLib={setMadLibWithParam}
-            doScrollToData={doScrollToData}
             isScrolledToTop={!sticking}
+            headerScrollMargin={headerScrollMargin}
           />
         </div>
       </div>
@@ -314,6 +319,8 @@ function CarouselMadLib(props: {
           .map((fipsCode) => new Fips(fipsCode));
   }
 
+  const location = useLocation();
+
   return (
     <Grid container justifyContent="center" alignItems="center">
       <div className={styles.CarouselItem}>
@@ -329,11 +336,13 @@ function CarouselMadLib(props: {
                 <OptionsSelector
                   key={index}
                   value={props.madLib.activeSelections[index]}
-                  onOptionUpdate={(fipsCode: string) =>
+                  onOptionUpdate={(fipsCode: string) => {
                     props.setMadLib(
                       getMadLibWithUpdatedValue(props.madLib, index, fipsCode)
-                    )
-                  }
+                    );
+                    location.hash = "";
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
                   options={getOptionsFromPhraseSegement(phraseSegment)}
                 />
               )}

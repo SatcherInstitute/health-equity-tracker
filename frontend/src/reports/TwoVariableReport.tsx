@@ -30,10 +30,8 @@ import {
 import { reportProviderSteps } from "./ReportProviderSteps";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
-import styles from "./Report.module.scss";
 import { pluralizeStepLabels, StepData } from "../utils/hooks/useStepObserver";
-
-const HEADER_OFFSET_TWO_VAR = 188;
+import styles from "./Report.module.scss";
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -45,11 +43,10 @@ function TwoVariableReport(props: {
   fips2: Fips;
   updateFips1Callback: (fips: Fips) => void;
   updateFips2Callback: (fips: Fips) => void;
-  jumpToDefinitions: Function;
-  jumpToData: Function;
   isScrolledToTop: boolean;
   reportSteps?: StepData[];
   setReportSteps?: Function;
+  headerScrollMargin: number;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
@@ -157,19 +154,20 @@ function TwoVariableReport(props: {
   return (
     <Grid container>
       {/* CARDS COLUMN */}
-      <Grid item xs={12} sm={11} md={10} xl={11}>
+      <Grid item xs={12} sm={11} md={10}>
         <Grid container spacing={1} alignItems="flex-start">
           {/* POPULATION CARD(S)  AND 2 SETS OF TOGGLE CONTROLS */}
           {props.fips1.code === props.fips2.code ? (
             <Grid
               item
               xs={12}
+              tabIndex={-1}
               id="location-info"
-              className={styles.ScrollPastHeaderCompareMode}
+              style={{ scrollMarginTop: props.headerScrollMargin }}
             >
               {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
               <PopulationCard
-                jumpToData={props.jumpToData}
+                // jumpToData={props.jumpToData}
                 fips={props.fips1}
               />
 
@@ -205,14 +203,12 @@ function TwoVariableReport(props: {
                 item
                 xs={12}
                 sm={6}
+                tabIndex={-1}
                 id="location-info"
-                className={styles.ScrollPastHeaderCompareMode}
+                style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
-                <PopulationCard
-                  jumpToData={props.jumpToData}
-                  fips={props.fips1}
-                />
+                <PopulationCard fips={props.fips1} />
 
                 {/*  FIRST TOGGLE(S) FOR COMPARE RATES REPORT */}
                 <ReportToggleControls
@@ -226,10 +222,7 @@ function TwoVariableReport(props: {
               </Grid>
               <Grid item xs={12} sm={6}>
                 {/* SECOND POPULATION CARD FOR COMPARE RATES REPORT */}
-                <PopulationCard
-                  jumpToData={props.jumpToData}
-                  fips={props.fips2}
-                />
+                <PopulationCard fips={props.fips2} />
 
                 {/*  SECOND TOGGLE(S) FOR COMPARE RATES REPORT */}
                 <ReportToggleControls
@@ -247,13 +240,14 @@ function TwoVariableReport(props: {
 
           {/* SIDE-BY-SIDE 100K MAP CARDS */}
           <RowOfTwoOptionalMetrics
-            id="map"
+            id="rate-map"
             variableConfig1={variableConfig1}
             variableConfig2={variableConfig2}
             fips1={props.fips1}
             fips2={props.fips2}
             updateFips1={props.updateFips1Callback}
             updateFips2={props.updateFips2Callback}
+            headerScrollMargin={props.headerScrollMargin}
             createCard={(
               variableConfig: VariableConfig,
               fips: Fips,
@@ -266,8 +260,6 @@ function TwoVariableReport(props: {
                   updateFips(fips);
                 }}
                 currentBreakdown={currentBreakdown}
-                jumpToDefinitions={props.jumpToDefinitions}
-                jumpToData={props.jumpToData}
               />
             )}
           />
@@ -282,6 +274,7 @@ function TwoVariableReport(props: {
                   variableConfig2={variableConfig2}
                   fips1={props.fips1}
                   fips2={props.fips2}
+                  headerScrollMargin={props.headerScrollMargin}
                   createCard={(
                     variableConfig: VariableConfig,
                     fips: Fips,
@@ -305,6 +298,7 @@ function TwoVariableReport(props: {
             variableConfig2={variableConfig2}
             fips1={props.fips1}
             fips2={props.fips2}
+            headerScrollMargin={props.headerScrollMargin}
             updateFips1={props.updateFips1Callback}
             updateFips2={props.updateFips2Callback}
             createCard={(
@@ -335,6 +329,7 @@ function TwoVariableReport(props: {
                   variableConfig2={variableConfig2}
                   fips1={props.fips1}
                   fips2={props.fips2}
+                  headerScrollMargin={props.headerScrollMargin}
                   createCard={(
                     variableConfig: VariableConfig,
                     fips: Fips,
@@ -363,6 +358,7 @@ function TwoVariableReport(props: {
                 fips2={props.fips2}
                 updateFips1={props.updateFips1Callback}
                 updateFips2={props.updateFips2Callback}
+                headerScrollMargin={props.headerScrollMargin}
                 createCard={(
                   variableConfig: VariableConfig,
                   fips: Fips,
@@ -393,7 +389,7 @@ function TwoVariableReport(props: {
               fips2={props.fips2}
               updateFips1={props.updateFips1Callback}
               updateFips2={props.updateFips2Callback}
-              jumpToData={props.jumpToData}
+              headerScrollMargin={props.headerScrollMargin}
               createCard={(
                 variableConfig: VariableConfig,
                 fips: Fips,
@@ -406,7 +402,6 @@ function TwoVariableReport(props: {
                   variableConfig={variableConfig}
                   breakdownVar={currentBreakdown}
                   dropdownVarId={dropdownVarId}
-                  jumpToData={jumpToData}
                 />
               )}
             />
@@ -423,16 +418,16 @@ function TwoVariableReport(props: {
           sm={1}
           // icons + text
           md={2}
-          xl={1}
           container
           spacing={0}
           direction="column"
           alignItems="center"
+          className={styles.FloatingTableOfContentsWrapper}
         >
           <TableOfContents
             isScrolledToTop={props.isScrolledToTop}
             reportSteps={pluralizeStepLabels(props.reportSteps)}
-            floatTopOffset={HEADER_OFFSET_TWO_VAR}
+            floatTopOffset={props.headerScrollMargin}
           />
         </Grid>
       )}
@@ -458,6 +453,7 @@ function RowOfTwoOptionalMetrics(props: {
   dropdownVarId1?: DropdownVarId;
   dropdownVarId2?: DropdownVarId;
   jumpToData?: Function;
+  headerScrollMargin: number;
 }) {
   if (!props.variableConfig1 && !props.variableConfig2) {
     return <></>;
@@ -473,7 +469,8 @@ function RowOfTwoOptionalMetrics(props: {
         xs={12}
         sm={6}
         id={props.id}
-        className={styles.ScrollPastHeaderCompareMode}
+        tabIndex={-1}
+        style={{ scrollMarginTop: props.headerScrollMargin }}
       >
         <LazyLoad offset={800} height={750} once>
           {props.variableConfig1 && (
@@ -493,8 +490,9 @@ function RowOfTwoOptionalMetrics(props: {
         item
         xs={12}
         sm={6}
+        tabIndex={-1}
         id={`${props.id}2`}
-        className={styles.ScrollPastHeaderCompareMode}
+        style={{ scrollMarginTop: props.headerScrollMargin }}
       >
         <LazyLoad offset={800} height={600} once>
           {props.variableConfig2 && (

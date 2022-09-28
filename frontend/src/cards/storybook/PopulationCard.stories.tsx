@@ -10,7 +10,6 @@ interface PopulationCardProps {
   fips: Fips;
   breakdownVar: BreakdownVar;
   metrics: MetricConfig[];
-  jumpToData: Function;
 }
 export default {
   title: "Cards/PopulationCard",
@@ -19,10 +18,7 @@ export default {
 } as Meta;
 
 const Template: Story<PopulationCardProps> = (args) => (
-  <PopulationCard
-    {...args}
-    jumpToData={() => console.log("Jump to Missing Data")}
-  />
+  <PopulationCard {...args} />
 );
 
 export const Usa = Template.bind({});
