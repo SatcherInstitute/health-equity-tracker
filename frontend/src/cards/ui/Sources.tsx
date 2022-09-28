@@ -32,7 +32,19 @@ export function getDatasetIdsFromResponses(
   );
 }
 
-function getDataSourceMapFromDatasetIds(
+export const stripCountyFips = (datasetIds: string[]) => {
+  datasetIds.map((x) => {
+    if (/\d/.test(x)) {
+      const datasetId = datasetIds.map((x: any) =>
+        x.split("-").slice(0, 2).join("-")
+      );
+      datasetIds = [datasetId[0]];
+    }
+  });
+  return datasetIds;
+};
+
+export function getDataSourceMapFromDatasetIds(
   datasetIds: string[],
   metadata: MapOfDatasetMetadata
 ): Record<string, DataSourceInfo> {
@@ -71,6 +83,9 @@ export function Sources(props: {
   }
 
   let datasetIds = getDatasetIdsFromResponses(props.queryResponses);
+
+  datasetIds = getDatasetIdsFromResponses(props.queryResponses);
+  datasetIds = stripCountyFips(datasetIds);
 
   // for Age Adj only, swap ACS source(s) for Census Pop Estimate
   if (props.isAgeAdjustedTable) {
