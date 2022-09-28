@@ -53,8 +53,9 @@ cdc_vaccination_national_exporter_operator_sex = util.create_exporter_operator(
 # Ingestion DAG
 (
     cdc_vaccination_national_bq_operator >>
-    cdc_vaccination_national_aggregator_operator >>
-    cdc_vaccination_national_exporter_operator_race >>
-    cdc_vaccination_national_exporter_operator_age >>
-    cdc_vaccination_national_exporter_operator_sex
+    cdc_vaccination_national_aggregator_operator >> [
+        cdc_vaccination_national_exporter_operator_race,
+        cdc_vaccination_national_exporter_operator_age,
+        cdc_vaccination_national_exporter_operator_sex,
+    ]
 )

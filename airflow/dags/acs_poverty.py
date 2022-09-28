@@ -52,8 +52,9 @@ acs_poverty_exporter_operator_sex = util.create_exporter_operator(
 # Ingestion DAG
 (
     acs_poverty_gcs_operator >>
-    acs_poverty_bq_operator >>
-    acs_poverty_exporter_operator_race >>
-    acs_poverty_exporter_operator_age >>
-    acs_poverty_exporter_operator_sex
+    acs_poverty_bq_operator >> [
+        acs_poverty_exporter_operator_race,
+        acs_poverty_exporter_operator_age,
+        acs_poverty_exporter_operator_sex,
+    ]
 )
