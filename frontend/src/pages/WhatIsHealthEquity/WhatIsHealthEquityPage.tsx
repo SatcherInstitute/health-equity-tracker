@@ -12,11 +12,7 @@ import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
 
-// const EquityTab = React.lazy(() => import("./EquityTab"));
-// const FaqTab = React.lazy(() => import("./FaqTab"));
-// const NewsTab = React.lazy(() => import("./NewsTab"));
-// const ResourcesTab = React.lazy(() => import("./ResourcesTab"));
-
+// can't lazy load (yet) due to scss loading issues
 import EquityTab from "./EquityTab";
 import FaqTab from "./FaqTab";
 import ResourcesTab from "./ResourcesTab";

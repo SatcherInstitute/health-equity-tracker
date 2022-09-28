@@ -10,12 +10,7 @@ import {
 import styles from "../AboutUs/AboutUsPage.module.scss";
 import { Link, Route, Switch } from "react-router-dom";
 
-// const DatasetExplorer = React.lazy(
-//   () => import("./dataset_explorer/DatasetExplorer")
-// );
-// const MethodologyTab = React.lazy(() => import("./MethodologyTab"));
-// const AgeAdjustmentTab = React.lazy(() => import("./AgeAdjustmentTab"));
-
+// can't lazy load (yet) due to scss loading issues
 import DatasetExplorer from "./dataset_explorer/DatasetExplorer";
 import MethodologyTab from "./MethodologyTab";
 import AgeAdjustmentTab from "./AgeAdjustmentTab";
