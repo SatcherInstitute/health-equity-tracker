@@ -32,11 +32,7 @@ import {
 import { reportProviderSteps } from "./ReportProviderSteps";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
-import {
-  ScrollableHashId,
-  pluralizeStepLabels,
-  StepData,
-} from "../utils/hooks/useStepObserver";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import styles from "./Report.module.scss";
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
