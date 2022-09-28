@@ -367,6 +367,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           container
           direction="column"
           alignItems="center"
+          className={styles.FloatingTableOfContentsWrapper}
         >
           <TableOfContents
             floatTopOffset={props.headerScrollMargin}

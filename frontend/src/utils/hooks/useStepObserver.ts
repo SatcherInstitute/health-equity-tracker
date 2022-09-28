@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import { scrollIntoView } from "seamless-scroll-polyfill";
 
 export type StepData = {
   label: string;
@@ -54,9 +55,15 @@ export function useStepObserver(
   useEffect(() => {
     const handleObserver = (entries: any) => {
       entries.forEach((entry: any) => {
-        // when page is scrolled to the top, don't track scroll position
-        if (isScrolledToTop) setActiveId("");
-        else if (entry?.isIntersecting) {
+        // when page is scrolled to the top, don't track scroll position and remove any hash
+        if (isScrolledToTop) {
+          setActiveId("");
+          window.history.pushState(
+            "",
+            document.title,
+            window.location.pathname + window.location.search
+          );
+        } else if (entry?.isIntersecting) {
           // prefer a recently clicked id, otherwise set to the observed "in view" id
           const preferredId = recentlyClicked || entry.target.id;
           setActiveId(preferredId);
@@ -82,10 +89,7 @@ export function useStepObserver(
   const urlHashOverrideRef = useRef(recentlyClicked);
 
   useEffect(() => {
-    // any updates to the focused id results in a new URL hash
-    const urlNoHash = window.location.href.split("#")[0];
-    const newHash = activeId ? `#${activeId}` : "";
-    window.history.replaceState(undefined, "", urlNoHash + newHash);
+    // any updates to the focused id updates the ref
     urlHashOverrideRef.current = recentlyClicked;
   }, [activeId, recentlyClicked]);
 
@@ -113,9 +117,12 @@ export function useStepObserver(
         pulseIdCounter += 500;
         if (pulseIdCounter > 500 * 2 * 30) clearInterval(pulse_id);
         if (urlHashOverrideRef.current === hashId) {
-          document.querySelector(`#${hashId}`)?.scrollIntoView({
-            behavior: "smooth",
-          });
+          const targetElem = document.querySelector(`#${hashId}`);
+          if (targetElem) {
+            scrollIntoView(targetElem, {
+              behavior: "smooth",
+            });
+          }
         }
       }, 500);
 

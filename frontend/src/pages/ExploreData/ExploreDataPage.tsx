@@ -192,7 +192,7 @@ function ExploreDataPage() {
         value: MADLIB_LIST[carouselMode].id,
       },
     ]);
-
+    location.hash = "";
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -318,6 +318,8 @@ function CarouselMadLib(props: {
           .map((fipsCode) => new Fips(fipsCode));
   }
 
+  const location = useLocation();
+
   return (
     <Grid container justifyContent="center" alignItems="center">
       <div className={styles.CarouselItem}>
@@ -337,6 +339,7 @@ function CarouselMadLib(props: {
                     props.setMadLib(
                       getMadLibWithUpdatedValue(props.madLib, index, fipsCode)
                     );
+                    location.hash = "";
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
                   options={getOptionsFromPhraseSegement(phraseSegment)}

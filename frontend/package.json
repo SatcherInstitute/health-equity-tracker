@@ -51,6 +51,7 @@
     "react-vega": "^7.6.0",
     "sass": "^1.54.0",
     "storybook": "^6.5.9",
+    "seamless-scroll-polyfill": "^2.2.0",
     "typeface-dm-sans": "^1.1.13",
     "typeface-hind": "^1.1.13",
     "typeface-montserrat": "^1.1.13",

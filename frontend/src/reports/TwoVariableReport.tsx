@@ -32,7 +32,12 @@ import {
 import { reportProviderSteps } from "./ReportProviderSteps";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
-import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import {
+  ScrollableHashId,
+  pluralizeStepLabels,
+  StepData,
+} from "../utils/hooks/useStepObserver";
+import styles from "./Report.module.scss";
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -483,6 +488,7 @@ function TwoVariableReport(props: {
           spacing={0}
           direction="column"
           alignItems="center"
+          className={styles.FloatingTableOfContentsWrapper}
         >
           <TableOfContents
             isScrolledToTop={props.isScrolledToTop}
