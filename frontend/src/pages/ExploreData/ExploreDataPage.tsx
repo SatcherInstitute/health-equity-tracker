@@ -31,7 +31,6 @@ import {
   useSearchParams,
 } from "../../utils/urlutils";
 import styles from "./ExploreDataPage.module.scss";
-import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
 import { useLocation } from "react-router-dom";
 import { srSpeak } from "../../utils/a11yutils";
@@ -40,6 +39,8 @@ import { VariableConfig } from "../../data/config/MetricConfig";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
 import useScrollPosition from "../../utils/hooks/useScrollPosition";
 import { useHeaderScrollMargin } from "../../utils/hooks/useHeaderScrollMargin";
+
+const Onboarding = React.lazy(() => import("./Onboarding"));
 
 const EXPLORE_DATA_ID = "main";
 

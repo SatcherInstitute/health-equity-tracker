@@ -47,8 +47,9 @@ uhc_exporter_operator_sex = util.create_exporter_operator(
 
 # Ingestion DAG
 (
-    uhc_pop_bq_operator >>
-    uhc_exporter_operator_race >>
-    uhc_exporter_operator_age >>
-    uhc_exporter_operator_sex
+    uhc_pop_bq_operator >> [
+        uhc_exporter_operator_race,
+        uhc_exporter_operator_age,
+        uhc_exporter_operator_sex,
+    ]
 )
