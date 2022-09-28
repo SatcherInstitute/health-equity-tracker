@@ -34,7 +34,7 @@ export function getDatasetIdsFromResponses(
 
 export const stripCountyFips = (datasetIds: string[]) => {
   const strippedData = datasetIds.map((id) => {
-    //Remove number from county datasetId
+    //uses RegEx to check if datasetId string contains a number
     if (/\d/.test(id)) {
       return id.split("-").slice(0, 2).join("-");
     } else return id;

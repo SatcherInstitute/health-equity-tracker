@@ -17,4 +17,17 @@ describe("stripCountyFips", () => {
     ];
     expect(stripCountyFips(input)).toEqual(output);
   });
+  it("Should return string without fips code", () => {
+    const output = [
+      "cdc_restricted_data-by_race_county_processed_time_series",
+      "cdc_restricted_data-by_age_county_processed_time_series",
+      "cdc_restricted_data-by_race_county_processed_time_series-with_age_adjust",
+    ];
+    const input = [
+      "cdc_restricted_data-by_race_county_processed_time_series-48",
+      "cdc_restricted_data-by_age_county_processed_time_series-48",
+      "cdc_restricted_data-by_race_county_processed_time_series-with_age_adjust",
+    ];
+    expect(stripCountyFips(input)).toEqual(output);
+  });
 });
