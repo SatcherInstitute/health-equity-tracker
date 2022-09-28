@@ -39,8 +39,9 @@ export function TableOfContents(props: TableOfContentsProps) {
     );
 
     if (clickedElem) {
+      console.log("would be scrolling CLICKED into view");
       // clickedElem.scrollIntoView({ behavior: "smooth" });
-      scrollIntoView(clickedElem, { behavior: "smooth" });
+      // scrollIntoView(clickedElem, { behavior: "smooth" });
       // for a11y focus should shift to subsequent tab goes to next interactive element after the targeted card
       // clickedElem.focus({ preventScroll: true });
     }
