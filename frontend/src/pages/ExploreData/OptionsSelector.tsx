@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import Autocomplete from "@material-ui/lab/Autocomplete"; // can't lazy load due to typing issue
 import { Fips } from "../../data/utils/Fips";
 import Popover from "@material-ui/core/Popover";
 import Button from "@material-ui/core/Button";

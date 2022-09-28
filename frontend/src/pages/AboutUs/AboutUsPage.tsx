@@ -9,9 +9,10 @@ import {
 } from "../../utils/internalRoutes";
 import styles from "./AboutUsPage.module.scss";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
-import OurTeamTab from "./OurTeamTab";
-import ContactUsTab from "./ContactUsTab";
-import TheProjectTab from "./TheProjectTab";
+
+const OurTeamTab = React.lazy(() => import("./OurTeamTab"));
+const ContactUsTab = React.lazy(() => import("./ContactUsTab"));
+const TheProjectTab = React.lazy(() => import("./TheProjectTab"));
 
 export default function AboutUsPage() {
   return (
