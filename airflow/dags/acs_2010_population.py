@@ -55,8 +55,9 @@ acs_2010_exporter_operator_sex = util.create_exporter_operator(
 
 # Data Ingestion DAG
 (
-    acs_2010_bq_op >>
-    acs_2010_exporter_operator_race >>
-    acs_2010_exporter_operator_age >>
-    acs_2010_exporter_operator_sex
+    acs_2010_bq_op >> [
+        acs_2010_exporter_operator_race,
+        acs_2010_exporter_operator_age,
+        acs_2010_exporter_operator_sex,
+    ]
 )
