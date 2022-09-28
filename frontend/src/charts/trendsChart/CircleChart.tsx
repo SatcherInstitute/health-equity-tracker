@@ -33,6 +33,7 @@ export interface CircleChartProps {
   groupLabel: string;
   isSkinny: boolean;
   selectedDate: string | null;
+  circleId: string;
 }
 
 /* Render component */
@@ -43,6 +44,7 @@ export function CircleChart({
   groupLabel,
   isSkinny,
   selectedDate,
+  circleId,
 }: CircleChartProps) {
   /* Config */
   const { HEIGHT, MARGIN, RADIUS_EXTENT, MOBILE } = CONFIG;
@@ -117,7 +119,7 @@ export function CircleChart({
                     )}
                     {/* show percent % annotation on hover */}
                     <text
-                      id={`circleText-${i}`}
+                      id={`circleText-${i}-${circleId}`}
                       className={selectedDate === date ? "" : styles.invisible}
                       textAnchor={"middle"}
                       dy="26px"
@@ -163,7 +165,7 @@ export function CircleChart({
                 <text
                   textAnchor="middle"
                   dy="28px"
-                  id={`circleLegendText-${i}`}
+                  id={`circleLegendText-${i}-${circleId}`}
                   aria-label={`${legendHelper} unknown value indicator`}
                 >
                   {F.pct(percent)}
@@ -178,7 +180,7 @@ export function CircleChart({
           textAnchor="middle"
           dy="50px"
           className={styles.title}
-          id="unknown-circle-legend-title"
+          id={`unknown-circle-legend-title-${circleId}`}
         >
           {unknownCircleLegendText}
         </text>

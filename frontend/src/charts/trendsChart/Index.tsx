@@ -334,6 +334,7 @@ export function TrendsChart({
               isSkinny={isSkinny}
               groupLabel={groupLabel}
               selectedDate={hoveredDate}
+              circleId={`${axisConfig.type}-${isCompareCard ? "b" : "a"}`}
             />
           )}
         </svg>
