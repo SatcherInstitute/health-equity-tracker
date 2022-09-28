@@ -34,8 +34,9 @@ export function getDatasetIdsFromResponses(
 
 export const stripCountyFips = (datasetIds: string[]) => {
   const strippedData = datasetIds.map((id) => {
-    //uses RegEx to check if datasetId string contains a number
-    if (/\d/.test(id)) {
+    //uses RegEx to check if datasetId string contains a hyphen followed by any two digits
+    const regex = /-[0-9]/g;
+    if (regex.test(id)) {
       return id.split("-").slice(0, 2).join("-");
     } else return id;
   });
