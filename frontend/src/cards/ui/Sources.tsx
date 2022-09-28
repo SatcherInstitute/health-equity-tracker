@@ -32,7 +32,18 @@ export function getDatasetIdsFromResponses(
   );
 }
 
-function getDataSourceMapFromDatasetIds(
+export const stripCountyFips = (datasetIds: string[]) => {
+  const strippedData = datasetIds.map((id) => {
+    //uses RegEx to check if datasetId string contains a hyphen followed by any two digits
+    const regex = /-[0-9]/g;
+    if (regex.test(id)) {
+      return id.split("-").slice(0, 2).join("-");
+    } else return id;
+  });
+  return strippedData;
+};
+
+export function getDataSourceMapFromDatasetIds(
   datasetIds: string[],
   metadata: MapOfDatasetMetadata
 ): Record<string, DataSourceInfo> {
@@ -70,7 +81,8 @@ export function Sources(props: {
     return <></>;
   }
 
-  let datasetIds = getDatasetIdsFromResponses(props.queryResponses);
+  const unstrippedDatasetIds = getDatasetIdsFromResponses(props.queryResponses);
+  let datasetIds = stripCountyFips(unstrippedDatasetIds);
 
   // for Age Adj only, swap ACS source(s) for Census Pop Estimate
   if (props.isAgeAdjustedTable) {
