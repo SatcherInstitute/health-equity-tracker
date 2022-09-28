@@ -44,7 +44,7 @@ export const stripCountyFips = (datasetIds: string[]) => {
   return datasetIds;
 };
 
-function getDataSourceMapFromDatasetIds(
+export function getDataSourceMapFromDatasetIds(
   datasetIds: string[],
   metadata: MapOfDatasetMetadata
 ): Record<string, DataSourceInfo> {
