@@ -109,7 +109,6 @@ export function createTitles({
   let chartTitle: string | string[];
   let subtitle = "";
   const containerWidth = window.innerWidth;
-  const isComparing = window.location.href.includes("compare");
 
   const isMobile = containerWidth < 700;
 
