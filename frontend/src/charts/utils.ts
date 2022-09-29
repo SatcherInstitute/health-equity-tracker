@@ -108,6 +108,10 @@ export function createTitles({
   const metric = variableConfig.variableFullDisplayName;
   let chartTitle: string | string[];
   let subtitle = "";
+  const containerWidth = window.innerWidth;
+  const isComparing = window.location.href.includes("compare");
+
+  const isMobile = containerWidth < 700;
 
   if (trend) {
     chartTitle = `Monthly COVID-19 cases per 100k people in ${location}`;
@@ -128,17 +132,18 @@ export function createTitles({
   }
 
   if (metric.includes("COVID-19")) {
-    chartTitle = `${metric} since Jan 2020 per 100k people in ${location}`;
-    chartTitle =
-      chartTitle.length > 55
-        ? [`${metric} since Jan 2020`, `per 100k people in ${location}`]
-        : chartTitle;
+    if (isMobile) {
+      chartTitle = [
+        `${metric} since Jan 2020 per 100k people`,
+        `in ${location}`,
+      ];
+    } else
+      chartTitle = `${metric} since Jan 2020 per 100k people in ${location}`;
   } else {
+    if (isMobile) {
+      chartTitle = [`${metric}`, `per 100k people in ${location}`];
+    }
     chartTitle = `${metric} per 100k people in ${location}`;
-    chartTitle =
-      chartTitle.length > 55
-        ? [`${metric}`, `per 100k people in ${location}`]
-        : chartTitle;
   }
 
   if (demographic === "All") {

@@ -234,8 +234,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 <ChoroplethMap
                   titles={{
                     chartTitle: [
-                      metricConfig.fullCardTitleName,
-                      `with unknown ${
+                      `${metricConfig.fullCardTitleName} with unknown`,
+                      `${
                         BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
                           props.currentBreakdown
                         ]

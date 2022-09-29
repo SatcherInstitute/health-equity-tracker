@@ -69,8 +69,6 @@ export function TrendsChart({
   setSelectedGroups,
   isCompareCard,
 }: TrendsChartProps) {
-  console.log(axisConfig.type, isCompareCard);
-
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
   const { groupLabel } = axisConfig || {};
