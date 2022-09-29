@@ -330,7 +330,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_cases_share",
           fullCardTitleName: "Share of total COVID-19 cases",
-          trendsCardTitleName: "Inequitable burden of COVID-19 cases",
+          trendsCardTitleName: "Inequitable distribution of COVID-19 cases",
           unknownsVegaLabel: "% unknown",
           shortLabel: "% of COVID-19 cases",
           type: "pct_share",
@@ -360,7 +360,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     {
       variableId: "covid_deaths",
       variableDisplayName: "Deaths",
-      variableFullDisplayName: "COVID-19 Deaths",
+      variableFullDisplayName: "COVID-19 deaths",
       variableDefinition: `The number of people who died due to COVID-19.`,
       timeSeriesData: true,
 
@@ -368,7 +368,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_deaths_share",
           fullCardTitleName: "Share of total COVID-19 deaths",
-          trendsCardTitleName: "Inequitable burden of COVID-19 deaths",
+          trendsCardTitleName: "Inequitable distribution of COVID-19 deaths",
           shortLabel: "% of COVID-19 deaths",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
@@ -408,7 +408,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "covid_hosp_share",
           fullCardTitleName: "Share of total COVID-19 hospitalizations",
           trendsCardTitleName:
-            "Inequitable burden of COVID-19 hospitalizations",
+            "Inequitable distribution of COVID-19 hospitalizations",
           shortLabel: "% of COVID-19 hospitalizations",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",

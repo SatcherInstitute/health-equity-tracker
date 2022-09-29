@@ -85,8 +85,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     population: true,
   });
 
-  console.log(chartTitle);
-
   return (
     <CardWrapper
       queries={[query]}

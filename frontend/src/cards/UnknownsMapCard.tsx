@@ -28,6 +28,7 @@ import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { useLocation } from "react-router-dom";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { createTitles } from "../charts/utils";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -94,6 +95,13 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   }
 
   const HASH_ID: ScrollableHashId = "unknown-demographic-map";
+
+  const { chartTitle } = createTitles({
+    variableConfig: props.variableConfig,
+    fips: props.fips,
+    unknown: true,
+    breakdown: props.currentBreakdown,
+  });
 
   return (
     <CardWrapper
@@ -232,17 +240,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             {showingVisualization && (
               <CardContent>
                 <ChoroplethMap
-                  titles={{
-                    chartTitle: [
-                      `${metricConfig.fullCardTitleName} with unknown`,
-                      `${
-                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                          props.currentBreakdown
-                        ]
-                      }`,
-                    ],
-                    subTitle: " ",
-                  }}
+                  titles={{ chartTitle, subTitle: "" }}
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}
