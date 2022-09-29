@@ -1,10 +1,17 @@
-import pandas as pd
+import pandas as pd  # type: ignore
 
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
+from ingestion.merge_utils import merge_county_names, merge_pop_numbers
+
+from ingestion.constants import (
+    COUNTY_LEVEL,
+    RACE)
+
+from ingestion.dataset_utils import generate_per_100k_col
 
 
 BASE_CDC_URL = 'https://data.cdc.gov/resource/8xkx-amqh.csv'
@@ -12,6 +19,8 @@ FILE_SIZE_LIMIT = 5000
 
 COUNTY_FIPS_COL = 'fips'
 COUNTY_COL = 'recip_county'
+DOSE_ONE_COL = 'administered_dose1_recip'
+DATE_COL = 'date'
 
 
 class CDCVaccinationCounty(DataSource):
@@ -33,15 +42,15 @@ class CDCVaccinationCounty(DataSource):
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_CDC_URL, dtype={COUNTY_FIPS_COL: str}, params=params)
 
-        latest_date = df['date'].max()
-        df = df.loc[df['date'] == latest_date]
+        latest_date = df[DATE_COL].max()
+        df = df.loc[df[DATE_COL] == latest_date]
 
         # Get rid of counties that don't provide this data
-        df = df.loc[df['administered_dose1_recip'] != 0]
-        df = df.loc[df['administered_dose1_recip'] != "0"]
-        df = df.loc[~df['administered_dose1_recip'].isnull()]
+        df = df.loc[df[DOSE_ONE_COL] != 0]
+        df = df.loc[df[DOSE_ONE_COL] != "0"]
+        df = df.loc[~df[DOSE_ONE_COL].isnull()]
 
-        df = self.generate_for_bq(df)
+        df = generate_breakdown(df)
 
         column_types = {c: 'STRING' for c in df.columns}
         column_types[std_col.VACCINATED_FIRST_DOSE] = 'FLOAT'
@@ -50,28 +59,39 @@ class CDCVaccinationCounty(DataSource):
             column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
         gcs_to_bq_util.add_df_to_bq(
-            df, dataset, "race_and_ethnicity", column_types=column_types)
+            df, dataset, 'race_and_ethnicity_processed', column_types=column_types)
 
-    def generate_for_bq(self, df):
-        output = []
 
-        columns = [
-            std_col.COUNTY_FIPS_COL,
-            std_col.COUNTY_NAME_COL,
-            std_col.RACE_CATEGORY_ID_COL,
-            std_col.VACCINATED_FIRST_DOSE,
-        ]
+def generate_breakdown(df):
+    output = []
 
-        for _, row in df.iterrows():
-            output_row = {}
-            output_row[std_col.COUNTY_FIPS_COL] = row[COUNTY_FIPS_COL]
-            output_row[std_col.COUNTY_NAME_COL] = row[COUNTY_COL]
-            output_row[std_col.RACE_CATEGORY_ID_COL] = Race.ALL.value
-            output_row[std_col.VACCINATED_FIRST_DOSE] = row['administered_dose1_recip']
+    columns = [
+        std_col.COUNTY_FIPS_COL,
+        std_col.COUNTY_NAME_COL,
+        std_col.RACE_CATEGORY_ID_COL,
+        std_col.VACCINATED_FIRST_DOSE,
+    ]
 
-            output.append(output_row)
+    for _, row in df.iterrows():
+        output_row = {}
+        output_row[std_col.COUNTY_FIPS_COL] = row[COUNTY_FIPS_COL]
+        output_row[std_col.COUNTY_NAME_COL] = row[COUNTY_COL]
+        output_row[std_col.RACE_CATEGORY_ID_COL] = Race.ALL.value
+        output_row[std_col.VACCINATED_FIRST_DOSE] = row[DOSE_ONE_COL]
 
-        output_df = pd.DataFrame(output, columns=columns)
-        std_col.add_race_columns_from_category_id(output_df)
+        output.append(output_row)
 
-        return output_df
+    df = pd.DataFrame(output, columns=columns)
+
+    df = merge_county_names(df)
+    df = merge_pop_numbers(df, RACE, COUNTY_LEVEL)
+
+    df = generate_per_100k_col(df, std_col.VACCINATED_FIRST_DOSE,
+                               std_col.POPULATION_COL, std_col.VACCINATED_PER_100K)
+
+    df = df[[std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL,
+             std_col.RACE_CATEGORY_ID_COL, std_col.VACCINATED_PER_100K]]
+
+    std_col.add_race_columns_from_category_id(df)
+
+    return df
