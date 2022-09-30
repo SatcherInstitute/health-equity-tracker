@@ -15,23 +15,24 @@ GOLDEN_DATA = os.path.join(
 
 
 def get_total_vaccinations_as_df():
-    return pd.read_csv(os.path.join(TEST_DIR, 'cdc_vaccination_county_test.csv'), dtype=str)
+    return pd.read_csv(os.path.join(TEST_DIR, 'cdc_vaccination_county_test.csv'),
+                       dtype={'county_fips': str, 'county_name': str})
 
 
 def get_pop_data_as_df():
-    return pd.read_csv(os.path.join(TEST_DIR, 'population_race_county.csv'))
+    return pd.read_csv(os.path.join(TEST_DIR, 'population_race_county.csv'), dtype={'county_fips': str})
 
 
 def get_county_names_as_df():
-    return pd.read_csv(os.path.join(TEST_DIR, 'county_names.csv'))
+    return pd.read_csv(os.path.join(TEST_DIR, 'county_names.csv'), dtype=str)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
             return_value=get_total_vaccinations_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-            return_value=get_pop_data_as_df)
+            return_value=get_pop_data_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_county_names_as_df)
+            return_value=get_county_names_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBq(
@@ -51,7 +52,7 @@ def testWriteToBq(
 
     expected_df = pd.read_csv(GOLDEN_DATA, dtype={
         'county_fips': str,
-        'vaccinated_first_dose': str,
+        'vaccinated_per_100k': float,
         'race_includes_hispanic': str,
     })
     assert_frame_equal(
