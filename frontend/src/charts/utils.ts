@@ -122,11 +122,12 @@ export function createTitles({
   const isMobile = containerWidth < 700;
   const isComparing = window.location.href.includes("compare");
 
-  if (trend)
+  if (trend) {
     return {
       chartTitle: `${trendPer100K} per 100k people in ${location}`,
       subtitle,
     };
+  }
 
   if (share) {
     return {
@@ -147,7 +148,7 @@ export function createTitles({
     return { chartTitle, subtitle };
   }
 
-  //Determine string based on if time series data
+  //If time series data add time metric
   if (variableConfig.timeSeriesData) {
     chartTitle = population
       ? `Population vs distribution of total ${metric} ${time} in ${location}`
