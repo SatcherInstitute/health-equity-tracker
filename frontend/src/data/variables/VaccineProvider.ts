@@ -36,7 +36,7 @@ class VaccineProvider extends VariableProvider {
       return "kff_vaccination-race_and_ethnicity";
     } else if (breakdowns.geography === "county") {
       return appendFipsIfNeeded(
-        "cdc_vaccination_county-race_and_ethnicity",
+        "cdc_vaccination_county-race_and_ethnicity_processed",
         breakdowns
       );
     }
@@ -169,11 +169,6 @@ class VaccineProvider extends VariableProvider {
       consumedDatasetIds = consumedDatasetIds.concat(
         "acs_population-by_race_county_std"
       );
-
-      df = df.generateSeries({
-        vaccinated_per_100k: (row) =>
-          this.calculations.per100k(row.vaccinated_first_dose, row.population),
-      });
     }
 
     df = df.dropSeries(["population"]).resetIndex();
