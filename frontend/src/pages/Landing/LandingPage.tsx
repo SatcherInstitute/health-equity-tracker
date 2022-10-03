@@ -244,7 +244,7 @@ function LandingPage() {
                     title="YouTube video player"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write;
-                  encrypted-media; gyroscope; picture-in-picture"
+                encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   ></iframe>
                 </LazyLoad>
@@ -270,11 +270,15 @@ function LandingPage() {
               </Grid>
               <Grid item xs={12} sm={12} md={8}>
                 <LazyLoad offset={300} once>
-                  <img
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                     className={styles.HowToStepImg}
-                    src="/img/screenshots/het-investigate-rates.png"
-                    alt="Search Example Screenshot: View all condition options on the Health Equity Tracker."
-                  />
+                  >
+                    <source src="videos/search-by.mp4" type="video/mp4" />
+                  </video>
                 </LazyLoad>
               </Grid>
             </Grid>
@@ -301,11 +305,15 @@ function LandingPage() {
 
               <Grid item xs={12} sm={12} md={8}>
                 <LazyLoad offset={300} once>
-                  <img
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                     className={styles.HowToStepImg}
-                    src="/img/screenshots/het-use-filters.png"
-                    alt="Example Screenshot: Select demographic variables by interacting with the dropdown menu and other filters."
-                  />
+                  >
+                    <source src="videos/filters.mp4" />
+                  </video>
                 </LazyLoad>
               </Grid>
             </Grid>
@@ -332,11 +340,15 @@ function LandingPage() {
               </Grid>
               <Grid item xs={12} sm={12} md={8}>
                 <LazyLoad offset={300} once>
-                  <img
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                     className={styles.HowToStepImg}
-                    src="/img/screenshots/het-map.png"
-                    alt="Example Screenshot: Map of individuals in prison per 100k in the state of Georgia."
-                  />
+                  >
+                    <source src="videos/explore-map.mp4" />
+                  </video>
                 </LazyLoad>
               </Grid>
             </Grid>
