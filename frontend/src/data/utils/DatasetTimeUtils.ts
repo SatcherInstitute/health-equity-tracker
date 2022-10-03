@@ -239,6 +239,6 @@ export function makeA11yTableData(
 Convert time_period style date YYYY-MM (e.g. "2020-01") to human readable Month Year (e.g. "January 2020")
 */
 export function getPrettyDate(timePeriod: string) {
-  const [year, monthNum] = timePeriod.split("-");
+  const [year, monthNum] = timePeriod?.split("-");
   return `${MONTHS[monthNum]} ${year}`;
 }
