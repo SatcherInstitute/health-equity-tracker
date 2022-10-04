@@ -233,7 +233,7 @@ export function makeA11yTableData(
 }
 
 /* calculate shareDisparity% as (observed-expected)/expected */
-function calculateShareDisparityPct(
+export function calculateShareDisparityPct(
   observed: number | null | undefined,
   expected: number | null | undefined
 ) {
