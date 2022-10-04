@@ -85,6 +85,8 @@ export function TrendsChart({
   const [selectedTrendGroups, setSelectedTrendGroups] =
     useState<string[]>(defaultGroups);
 
+  const allPossibleGroups = data.map(([group]) => group);
+
   // manages dynamic svg width
   const [[width, isMobile], setWidth] = useState<[number, boolean]>([
     STARTING_WIDTH,
@@ -201,7 +203,12 @@ export function TrendsChart({
         ? selectedTrendGroups.filter((group) => group !== selectedGroup)
         : [...selectedTrendGroups, selectedGroup];
     // Set new array of selected groups to state
-    setSelectedTrendGroups(newSelectedGroups);
+
+    setSelectedTrendGroups(
+      allPossibleGroups.length === newSelectedGroups.length
+        ? []
+        : newSelectedGroups
+    );
   }
 
   function handleMinMaxClick() {

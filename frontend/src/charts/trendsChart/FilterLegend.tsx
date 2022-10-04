@@ -22,7 +22,7 @@ import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
 
 /* Define type interface */
 export interface FilterLegendProps {
-  data: TrendsData; // TODO: stricter typing
+  data: TrendsData;
   selectedGroups: string[];
   handleClick: (group: string | null) => void;
   handleMinMaxClick: Function;
@@ -62,7 +62,7 @@ export function FilterLegend({
     <div className={styles.FilterLegend}>
       {/* Legend Title & Clear Button*/}
       <div className={styles.LegendTitle}>
-        <label id={legendId}>Select groups</label>
+        <label id={legendId}>Select groups:</label>
 
         {/* Reset to Highest Lowest Averages */}
         <button
