@@ -202,7 +202,6 @@ export function TrendsChart({
         : [...selectedTrendGroups, selectedGroup];
     // Set new array of selected groups to state
     setSelectedTrendGroups(newSelectedGroups);
-    setSelectedTableGroups(newSelectedGroups);
   }
 
   function handleMinMaxClick() {
@@ -210,8 +209,11 @@ export function TrendsChart({
 
     // Set new array of selected groups to state
     setSelectedTrendGroups(minMaxGroups);
-    setSelectedTableGroups(minMaxGroups);
   }
+
+  useEffect(() => {
+    setSelectedTableGroups(selectedTrendGroups);
+  }, [selectedTrendGroups, setSelectedTableGroups]);
 
   const handleMousemove = useCallback(
     (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {

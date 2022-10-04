@@ -62,7 +62,7 @@ export function FilterLegend({
     <div className={styles.FilterLegend}>
       {/* Legend Title & Clear Button*/}
       <div className={styles.LegendTitle}>
-        <label id={legendId}>Select groups to filter</label>
+        <label id={legendId}>Select groups</label>
 
         {/* Reset to Highest Lowest Averages */}
         <button
@@ -71,8 +71,7 @@ export function FilterLegend({
           aria-label={`Highlight groups with lowest and highest average values over time`}
           onClick={() => handleMinMaxClick(null)} // clear selected groups on click
         >
-          Only highest/lowest averages
-          {/* <span className={styles.CloseX}>✕</span> */}
+          Show highest / lowest averages
         </button>
 
         {/* Remove Filters / Show All Button */}
@@ -82,9 +81,7 @@ export function FilterLegend({
           className={!selectedGroups?.length ? styles.disabled : undefined} // disable button unless filters are applied
           onClick={() => handleClick(null)} // clear selected groups on click
         >
-          {/* only display group in button name on desktop */}
-          Clear {isSkinny ? "" : groupLabel} filter{" "}
-          <span className={styles.CloseX}>✕</span>
+          Show all groups
         </button>
 
         {/* Options for the "Close" x-character:  ✕×⨯✖× */}
