@@ -170,6 +170,7 @@ export type MetricConfig = {
   fullCardTitleName: string;
   trendsCardTitleName?: string;
   shortLabel: string;
+  shareDisparityLabel?: string;
   unknownsVegaLabel?: string;
   type: MetricType;
   populationComparisonMetric?: MetricConfig;
@@ -333,6 +334,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           trendsCardTitleName: "Inequitable distribution of COVID-19 cases",
           unknownsVegaLabel: "% unknown",
           shortLabel: "% of COVID-19 cases",
+          shareDisparityLabel: "% unexpected share of COVID-19 cases",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "covid_population_pct",
@@ -370,6 +372,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName: "Share of total COVID-19 deaths",
           trendsCardTitleName: "Inequitable distribution of COVID-19 deaths",
           shortLabel: "% of COVID-19 deaths",
+          shareDisparityLabel: "% unexpected share of COVID-19 deaths",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
           populationComparisonMetric: {
@@ -410,6 +413,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           trendsCardTitleName:
             "Inequitable distribution of COVID-19 hospitalizations",
           shortLabel: "% of COVID-19 hospitalizations",
+          shareDisparityLabel:
+            "% unexpected share of COVID-19 hospitalizations",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
           populationComparisonMetric: {

@@ -108,6 +108,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           metricConfig.metricId,
           metricConfig.populationComparisonMetric!.metricId
         );
+
         const nestedUnknowns = getNestedUnknowns(
           unknownData,
           metricConfig.metricId

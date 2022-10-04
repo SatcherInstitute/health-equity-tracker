@@ -155,25 +155,15 @@ export function getNestedUndueShares(
     groupRows = interpolateTimePeriods(groupRows);
 
     const groupTimeSeries = groupRows.map((row) => {
-      let diff = null;
-      if (
-        row[conditionPctShareId] != null &&
-        row[popPctShareId] != null &&
-        row[popPctShareId] !== 0
-      ) {
-        // pct_off = (observed - expected) / expected * 100
-
-        diff =
-          ((row[conditionPctShareId] - row[popPctShareId]) /
-            row[popPctShareId]) *
-          100;
-      }
-
       return [
         row[TIME_PERIOD],
-        diff != null ? Math.round(diff * 10) / 10 : null,
+        calculateShareDisparityPct(
+          row[conditionPctShareId],
+          row[popPctShareId]
+        ),
       ];
     });
+
     return [group, groupTimeSeries];
   });
 
@@ -219,7 +209,16 @@ export function makeA11yTableData(
       const rowForGroupTimePeriod = knownsData.find(
         (row) => row[breakdownVar] === group && row[TIME_PERIOD] === timePeriod
       );
-      a11yRow[group] = rowForGroupTimePeriod?.[knownMetric.metricId];
+      const value = rowForGroupTimePeriod?.[knownMetric.metricId];
+
+      if (knownMetric.type !== "pct_share") a11yRow[group] = value;
+      else {
+        const popMetricId = knownMetric.populationComparisonMetric?.metricId;
+        const populationPctShare = popMetricId
+          ? rowForGroupTimePeriod?.[popMetricId]
+          : null;
+        a11yRow[group] = calculateShareDisparityPct(value, populationPctShare);
+      }
     }
 
     // along with the unknown pct_share
@@ -231,6 +230,24 @@ export function makeA11yTableData(
   });
 
   return a11yData;
+}
+
+/* calculate shareDisparity% as (observed-expected)/expected */
+function calculateShareDisparityPct(
+  observed: number | null | undefined,
+  expected: number | null | undefined
+) {
+  // numerator and denominator can't be null or undefined; denominator also can't be 0
+  if (observed == null || expected == null || expected === 0) return null;
+
+  const shareDisparityPct = (observed - expected) / expected;
+  const roundToSingleDecimal = 10;
+  const asPercent = 100;
+
+  return (
+    Math.round(shareDisparityPct * asPercent * roundToSingleDecimal) /
+    roundToSingleDecimal
+  );
 }
 
 /*  
