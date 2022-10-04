@@ -236,6 +236,10 @@ export function TrendsChart({
     [dates, xScale]
   );
 
+  const chartTitleId = `chart-title-label-${axisConfig.type}-${
+    isCompareCard ? "2" : "1"
+  }`;
+
   return (
     // Container
     <figure className={styles.TrendsChart} ref={containerRef}>
@@ -263,7 +267,7 @@ export function TrendsChart({
       </div>
       {/* Chart Title */}
       <figcaption>
-        <b>{chartTitle}</b>
+        <b id={chartTitleId}>{chartTitle}</b>
       </figcaption>
       {/* Tooltip */}
       <div
@@ -302,10 +306,8 @@ export function TrendsChart({
           onMouseMove={handleMousemove}
           onMouseLeave={() => setHoveredDate(null)}
           role="group"
+          aria-labelledby={chartTitleId}
         >
-          {/* Accessible SVG  */}
-          <title>{chartTitle}</title>
-          <desc>something here</desc>
           {/* Chart Axes */}
           <Axes
             data={filteredData}

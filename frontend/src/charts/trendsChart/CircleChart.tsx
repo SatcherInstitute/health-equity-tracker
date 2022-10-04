@@ -185,6 +185,7 @@ export function CircleChart({
           id={`unknown-circle-legend-title-${circleId}`}
         >
           {unknownCircleLegendText}
+          {/* (min / mid / max) */}
         </text>
       </g>
     </g>
