@@ -14,10 +14,12 @@ const {
   timePink,
   timeDarkRed,
   timeYellow,
+  mapLight,
 } = sass;
 // domain for color scale
 const COLOR_DOMAIN = [
   "All",
+  // race and ethnicity (NH)
   "American Indian and Alaska Native (NH)",
   "Asian (NH)",
   "Black or African American (NH)",
@@ -25,13 +27,26 @@ const COLOR_DOMAIN = [
   "Native Hawaiian and Pacific Islander (NH)",
   "Two or more races & Unrepresented race (NH)",
   "White (NH)",
+  // sex
   "Female",
   "Male",
-  "Unknown",
+  "Other",
+  // age
+  "0-9",
+  "10-19",
+  "20-29",
+  "30-39",
+  "40-49",
+  "50-59",
+  "60-69",
+  "70-79",
+  "80+",
 ];
 // range of colors for groups
 const COLOR_RANGE = [
+  // "All"
   black,
+  // race and ethnicity
   timeCyanBlue,
   timePastelGreen,
   darkBlue,
@@ -39,9 +54,20 @@ const COLOR_RANGE = [
   timePink,
   timeDarkRed,
   redOrange,
+  // sex
   timeCyanBlue,
   timePurple,
   timeYellow,
+  // age
+  timeCyanBlue,
+  timePastelGreen,
+  darkBlue,
+  timePurple,
+  timePink,
+  timeDarkRed,
+  redOrange,
+  timeYellow,
+  mapLight,
 ];
 // color scale
 const COLORS = scaleOrdinal(COLOR_DOMAIN, COLOR_RANGE);

@@ -199,7 +199,8 @@ export function makeA11yTableData(
 ): Row[] {
   const allTimePeriods = Array.from(
     new Set(knownsData.map((row) => row[TIME_PERIOD]))
-  );
+  ).sort();
+
   const allDemographicGroups = Array.from(
     new Set(knownsData.map((row) => row[breakdownVar]))
   );
