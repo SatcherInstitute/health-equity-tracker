@@ -23,6 +23,7 @@ import NewsPreviewCard from "../WhatIsHealthEquity/News/NewsPreviewCard";
 import { useQuery } from "react-query";
 import { Article } from "../WhatIsHealthEquity/NewsTab";
 import { ArticlesSkeleton } from "../WhatIsHealthEquity/News/AllPosts";
+import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -42,6 +43,7 @@ function LandingPage() {
   if (pageIsWide) numberOfArticlePreviews = 4;
 
   const recentArticles = data?.data.slice(0, numberOfArticlePreviews);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   return (
     <>
@@ -271,7 +273,7 @@ function LandingPage() {
               <Grid item xs={12} sm={12} md={8}>
                 <LazyLoad offset={300} once>
                   <video
-                    autoPlay
+                    autoPlay={!prefersReducedMotion}
                     loop
                     muted
                     playsInline
@@ -306,7 +308,7 @@ function LandingPage() {
               <Grid item xs={12} sm={12} md={8}>
                 <LazyLoad offset={300} once>
                   <video
-                    autoPlay
+                    autoPlay={!prefersReducedMotion}
                     loop
                     muted
                     playsInline
@@ -341,7 +343,7 @@ function LandingPage() {
               <Grid item xs={12} sm={12} md={8}>
                 <LazyLoad offset={300} once>
                   <video
-                    autoPlay
+                    autoPlay={!prefersReducedMotion}
                     loop
                     muted
                     playsInline
