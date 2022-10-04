@@ -22,6 +22,12 @@ CDC_COUNTY_COL = 'recip_county'
 CDC_DOSE_ONE_COL = 'administered_dose1_recip'
 CDC_DATE_COL = 'date'
 
+COL_NAME_MAPPING = {
+    CDC_COUNTY_FIPS_COL: std_col.COUNTY_FIPS_COL,
+    CDC_COUNTY_COL: std_col.COUNTY_NAME_COL,
+    CDC_DOSE_ONE_COL: std_col.VACCINATED_FIRST_DOSE,
+}
+
 
 class CDCVaccinationCounty(DataSource):
 
@@ -63,26 +69,11 @@ class CDCVaccinationCounty(DataSource):
 
 
 def generate_breakdown(df):
-    output = []
+    df = df.rename(columns=COL_NAME_MAPPING)
+    df[std_col.RACE_CATEGORY_ID_COL] = Race.ALL.value
 
-    columns = [
-        std_col.COUNTY_FIPS_COL,
-        std_col.COUNTY_NAME_COL,
-        std_col.RACE_CATEGORY_ID_COL,
-        std_col.VACCINATED_FIRST_DOSE,
-    ]
-
-    for _, row in df.iterrows():
-        output_row = {}
-        output_row[std_col.COUNTY_FIPS_COL] = row[CDC_COUNTY_FIPS_COL]
-        output_row[std_col.COUNTY_NAME_COL] = row[CDC_COUNTY_COL]
-        output_row[std_col.RACE_CATEGORY_ID_COL] = Race.ALL.value
-        output_row[std_col.VACCINATED_FIRST_DOSE] = row[CDC_DOSE_ONE_COL]
-
-        output.append(output_row)
-
-    df = pd.DataFrame(output, columns=columns, dtype=str)
     df[std_col.VACCINATED_FIRST_DOSE] = df[std_col.VACCINATED_FIRST_DOSE].astype(float)
+    df = df[list(COL_NAME_MAPPING.values()) + [std_col.RACE_CATEGORY_ID_COL]]
 
     df = merge_county_names(df)
     df = merge_pop_numbers(df, RACE, COUNTY_LEVEL)

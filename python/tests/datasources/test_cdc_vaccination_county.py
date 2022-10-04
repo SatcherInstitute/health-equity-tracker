@@ -16,7 +16,7 @@ GOLDEN_DATA = os.path.join(
 
 def get_total_vaccinations_as_df():
     return pd.read_csv(os.path.join(TEST_DIR, 'cdc_vaccination_county_test.csv'),
-                       dtype={'county_fips': str, 'county_name': str})
+                       dtype={'fips': str, 'recip_county': str})
 
 
 def get_pop_data_as_df():
