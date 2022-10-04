@@ -44,7 +44,7 @@ import {
 import { MOBILE_BREAKPOINT } from "../../App";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 import useEscape from "../../utils/hooks/useEscape";
-import { DemographicGroup } from "../../data/utils/Constants";
+import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -53,8 +53,7 @@ export interface TrendsChartProps {
   axisConfig: AxisConfig;
   chartTitle: string | string[];
   breakdownVar: BreakdownVar;
-  selectedGroups: DemographicGroup[];
-  setSelectedGroups: Function;
+  setSelectedTableGroups: Function;
   isCompareCard: boolean;
 }
 
@@ -65,8 +64,7 @@ export function TrendsChart({
   axisConfig,
   chartTitle,
   breakdownVar,
-  selectedGroups,
-  setSelectedGroups,
+  setSelectedTableGroups,
   isCompareCard,
 }: TrendsChartProps) {
   /* Config */
@@ -80,6 +78,12 @@ export function TrendsChart({
   const toolTipRef = useRef(null);
 
   /* State Management */
+
+  // Manages which group filters user has applied
+  const defaultGroups =
+    axisConfig.type === "pct_share" ? getMinMaxGroups(data) : [];
+  const [selectedTrendGroups, setSelectedTrendGroups] =
+    useState<string[]>(defaultGroups);
 
   // manages dynamic svg width
   const [[width, isMobile], setWidth] = useState<[number, boolean]>([
@@ -120,15 +124,17 @@ export function TrendsChart({
   useEffect(() => {
     // @ts-ignore
     setTooltipWidth(toolTipRef?.current?.getBoundingClientRect()?.width);
-  }, [data, selectedGroups, hoveredDate]);
+  }, [data, selectedTrendGroups, hoveredDate]);
 
   /* Memoized constants */
 
   // Data filtered by user selected
   const filteredData = useMemo(
     () =>
-      selectedGroups?.length ? filterDataByGroup(data, selectedGroups) : data,
-    [selectedGroups, data]
+      selectedTrendGroups?.length
+        ? filterDataByGroup(data, selectedTrendGroups)
+        : data,
+    [selectedTrendGroups, data]
   );
 
   // Display unknowns or not - affects margin below line chart
@@ -191,11 +197,20 @@ export function TrendsChart({
     const newSelectedGroups =
       selectedGroup === null
         ? [] // if selectedGroup has null value, clear selected group array to remove filter
-        : selectedGroups.includes(selectedGroup) // otherwise update the array with newly selected or removed group
-        ? selectedGroups.filter((group) => group !== selectedGroup)
-        : [...selectedGroups, selectedGroup];
+        : selectedTrendGroups.includes(selectedGroup) // otherwise update the array with newly selected or removed group
+        ? selectedTrendGroups.filter((group) => group !== selectedGroup)
+        : [...selectedTrendGroups, selectedGroup];
     // Set new array of selected groups to state
-    setSelectedGroups(newSelectedGroups);
+    setSelectedTrendGroups(newSelectedGroups);
+    setSelectedTableGroups(newSelectedGroups);
+  }
+
+  function handleMinMaxClick() {
+    const minMaxGroups = getMinMaxGroups(data);
+
+    // Set new array of selected groups to state
+    setSelectedTrendGroups(minMaxGroups);
+    setSelectedTableGroups(minMaxGroups);
   }
 
   const handleMousemove = useCallback(
@@ -231,8 +246,9 @@ export function TrendsChart({
         {data && (
           <FilterLegend
             data={data}
-            selectedGroups={selectedGroups}
+            selectedGroups={selectedTrendGroups}
             handleClick={handleClick}
+            handleMinMaxClick={handleMinMaxClick}
             groupLabel={groupLabel}
             isSkinny={isSkinny}
             chartWidth={width}

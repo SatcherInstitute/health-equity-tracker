@@ -1,3 +1,4 @@
+import { GroupValues, TrendsData } from "../../charts/trendsChart/types";
 import { MetricConfig, MetricId } from "../config/MetricConfig";
 import { BreakdownVar } from "../query/Breakdowns";
 import { DemographicGroup, TIME_PERIOD, TIME_PERIOD_LABEL } from "./Constants";
@@ -99,11 +100,6 @@ export function generateConsecutivePeriods(data: Row[]): string[] {
   return consecutivePeriods;
 }
 
-export type TimeSeries = [Date, number][];
-export type GroupTrendData = [DemographicGroup, TimeSeries][];
-export type TrendsData = GroupTrendData[];
-export type UnknownTrendData = TimeSeries;
-
 // Some datasets are missing data points at certain time periods
 // This function rebuilds the dataset ensuring a row for every time period
 // between the earliest and latest date, interpolating nulls as needed
@@ -139,10 +135,10 @@ export function getNestedRates(
       row[metricId] != null ? row[metricId] : null,
     ]);
 
-    return [group, groupTimeSeries] as GroupTrendData;
+    return [group, groupTimeSeries];
   });
 
-  return nestedRates;
+  return nestedRates as TrendsData;
 }
 
 export function getNestedUndueShares(
@@ -177,16 +173,16 @@ export function getNestedUndueShares(
         diff != null ? Math.round(diff * 10) / 10 : null,
       ];
     });
-    return [group, groupTimeSeries] as GroupTrendData;
+    return [group, groupTimeSeries];
   });
 
-  return nestedPctUndue;
+  return nestedPctUndue as TrendsData;
 }
 
 export function getNestedUnknowns(
   unknownsData: Row[],
   metricId: MetricId
-): UnknownTrendData {
+): GroupValues {
   if (!unknownsData.some((row) => row[TIME_PERIOD])) return [];
   unknownsData = interpolateTimePeriods(unknownsData);
   return unknownsData.map((row) => [row[TIME_PERIOD], row[metricId]]);
@@ -241,4 +237,43 @@ Convert time_period style date YYYY-MM (e.g. "2020-01") to human readable Month 
 export function getPrettyDate(timePeriod: string) {
   const [year, monthNum] = timePeriod?.split("-");
   return `${MONTHS[monthNum]} ${year}`;
+}
+
+/* Calculate the race groups with the highest and lowest average values over time */
+export function getMinMaxGroups(data: TrendsData): string[] {
+  const groupAveragesOverTime = data.map((groupData) => {
+    const nonNullGroupData = groupData[1].filter(
+      (dataPoint) => dataPoint[1] != null
+    );
+    const nonNullGroupValues = nonNullGroupData.map(
+      (dataPoint) => dataPoint[1]
+    );
+    // @ts-ignore
+    const sumOfGroupValues = nonNullGroupValues.reduce((a, b) => a + b, 0);
+    const numberOfGroupValues = nonNullGroupValues.length;
+    const groupAverage =
+      Math.round((sumOfGroupValues / numberOfGroupValues) * 10) / 10;
+    return [groupData[0], groupAverage];
+  });
+
+  const values: number[] = groupAveragesOverTime.map(
+    (row: any) => row[1] as number
+  );
+
+  const minValue = Math.min(...values);
+  const maxValue = Math.max(...values);
+
+  const groupsWithHighestAverage = groupAveragesOverTime
+    .filter((groupItem: any) => groupItem[1] === maxValue)
+    .map((groupItem: any) => groupItem[0]);
+  const groupsWithLowestAverage = groupAveragesOverTime
+    .filter((groupItem: any) => groupItem[1] === minValue)
+    .map((groupItem: any) => groupItem[0]);
+
+  const lowestAndHighestGroups = [
+    ...groupsWithLowestAverage,
+    ...groupsWithHighestAverage,
+  ];
+
+  return lowestAndHighestGroups as string[];
 }

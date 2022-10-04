@@ -47,7 +47,7 @@ export interface ShareTrendsChartCardProps {
 // and instead D3 will handle updates to the data
 export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   // Manages which group filters user has applied
-  const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
+  const [selectedTableGroups, setSelectedTableGroups] = useState<string[]>([]);
 
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
 
@@ -145,10 +145,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 <>
                   {/* @ts-ignore */}
                   <TrendsChart
-                    // @ts-ignore
                     data={nestedData}
                     chartTitle={chartTitle}
-                    // @ts-ignore
                     unknown={nestedUnknowns}
                     axisConfig={{
                       type: metricConfig.type,
@@ -157,10 +155,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                           props.breakdownVar
                         ],
                     }}
-                    title={getTitleText()}
                     breakdownVar={props.breakdownVar}
-                    selectedGroups={selectedGroups}
-                    setSelectedGroups={setSelectedGroups}
+                    setSelectedTableGroups={setSelectedTableGroups}
                     isCompareCard={props.isCompareCard || false}
                   />
 
@@ -176,7 +172,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     breakdownVar={props.breakdownVar}
                     knownMetricConfig={metricConfig}
                     unknownMetricConfig={metricConfig}
-                    selectedGroups={selectedGroups}
+                    selectedGroups={selectedTableGroups}
                   />
                 </>
               )}

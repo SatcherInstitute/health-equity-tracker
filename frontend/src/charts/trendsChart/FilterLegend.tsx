@@ -4,6 +4,7 @@
  * @param {string[]} selectedGroups array of strings which correspond to groups that have been selected by user
  * @param {boolean} isSkinny a flag to determine whether user is viewing app below the mobile breakpoint or with resulting card column in compare mode below mobile breakpoint
  * @param {*} handleClick function that handles user button click
+ * @param {*} handleMinMaxClick function that handles user click of MinMax button
  * returns jsx of a div of divs
  */
 
@@ -17,12 +18,14 @@ import styles from "./Trends.module.scss";
 import { TrendsData } from "./types";
 import { COLORS as C } from "./constants";
 import { BreakdownVar } from "../../data/query/Breakdowns";
+import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
 
 /* Define type interface */
 export interface FilterLegendProps {
   data: TrendsData; // TODO: stricter typing
   selectedGroups: string[];
   handleClick: (group: string | null) => void;
+  handleMinMaxClick: Function;
   groupLabel: string;
   isSkinny: boolean;
   chartWidth: number;
@@ -35,6 +38,7 @@ export function FilterLegend({
   data,
   selectedGroups,
   handleClick,
+  handleMinMaxClick,
   groupLabel,
   isSkinny,
   chartWidth,
@@ -50,12 +54,28 @@ export function FilterLegend({
     return "normal";
   };
 
+  const groupsAreMinMax =
+    JSON.stringify(selectedGroups) === JSON.stringify(getMinMaxGroups(data));
+
   return (
     // Legend Wrapper
     <div className={styles.FilterLegend}>
       {/* Legend Title & Clear Button*/}
       <div className={styles.LegendTitle}>
         <label id={legendId}>Select groups to filter</label>
+
+        {/* Reset to Highest Lowest Averages */}
+        <button
+          aria-disabled={!selectedGroups?.length}
+          className={groupsAreMinMax ? styles.disabled : undefined} // disable button when min/max is showing
+          aria-label={`Highlight groups with lowest and highest average values over time`}
+          onClick={() => handleMinMaxClick(null)} // clear selected groups on click
+        >
+          Only highest/lowest averages
+          {/* <span className={styles.CloseX}>✕</span> */}
+        </button>
+
+        {/* Remove Filters / Show All Button */}
         <button
           aria-label={`Clear demographic filters`}
           aria-disabled={!selectedGroups?.length}
@@ -66,7 +86,8 @@ export function FilterLegend({
           Clear {isSkinny ? "" : groupLabel} filter{" "}
           <span className={styles.CloseX}>✕</span>
         </button>
-        {/* ✕×⨯✖× */}
+
+        {/* Options for the "Close" x-character:  ✕×⨯✖× */}
       </div>
       {/* Legend Items Wrapper */}
       <menu
