@@ -66,7 +66,7 @@ export default function AltTableView(props: AltTableViewProps) {
         <IconButton
           aria-label={`${
             !props.expanded ? "Expand" : "Collapse"
-          } table view of ${props.expandBoxLabel} data`}
+          } data table view of ${props.expandBoxLabel}`}
           aria-expanded={props.expanded}
           onClick={() => props.setExpanded(!props.expanded)}
           color="primary"
@@ -88,6 +88,10 @@ export default function AltTableView(props: AltTableViewProps) {
       {/* Don't render collapsed info, so keyboard nav will skip */}
       {props.expanded && (
         <>
+          <p>
+            Select demographic group columns using filter buttons found above
+            the chart.
+          </p>
           <TableContainer className={styles.AltTableContainer}>
             <Table
               tabIndex={0}
