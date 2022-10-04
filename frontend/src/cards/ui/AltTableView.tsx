@@ -89,8 +89,8 @@ export default function AltTableView(props: AltTableViewProps) {
       {props.expanded && (
         <>
           <p>
-            Select demographic group columns using filter buttons found above
-            the chart.
+            Add or remove columns by selecting demographic group above. the
+            chart.
           </p>
           <TableContainer className={styles.AltTableContainer}>
             <Table
