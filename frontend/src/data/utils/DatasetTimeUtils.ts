@@ -1,4 +1,4 @@
-import { GroupValues, TrendsData } from "../../charts/trendsChart/types";
+import { TimeSeries, TrendsData } from "../../charts/trendsChart/types";
 import { MetricConfig, MetricId } from "../config/MetricConfig";
 import { BreakdownVar } from "../query/Breakdowns";
 import { DemographicGroup, TIME_PERIOD, TIME_PERIOD_LABEL } from "./Constants";
@@ -162,6 +162,7 @@ export function getNestedUndueShares(
         row[popPctShareId] !== 0
       ) {
         // pct_off = (observed - expected) / expected * 100
+
         diff =
           ((row[conditionPctShareId] - row[popPctShareId]) /
             row[popPctShareId]) *
@@ -182,7 +183,7 @@ export function getNestedUndueShares(
 export function getNestedUnknowns(
   unknownsData: Row[],
   metricId: MetricId
-): GroupValues {
+): TimeSeries {
   if (!unknownsData.some((row) => row[TIME_PERIOD])) return [];
   unknownsData = interpolateTimePeriods(unknownsData);
   return unknownsData.map((row) => [row[TIME_PERIOD], row[metricId]]);

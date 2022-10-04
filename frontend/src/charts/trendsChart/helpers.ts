@@ -1,5 +1,5 @@
 import { ascending, descending, max, min } from "d3";
-import { TrendsData, GroupData, GroupValues, UnknownData } from "./types";
+import { TrendsData, GroupData, TimeSeries, UnknownData } from "./types";
 import { CONFIG } from "./constants";
 
 const { BAR_WIDTH } = CONFIG;
@@ -18,7 +18,7 @@ function filterUnknownsByTimePeriod(data: UnknownData, dates: string[]) {
 }
 
 /* Returns the amount (y value) for a specific date (x value) & group */
-function getAmountsByDate(d: GroupValues, selectedDate: string | null) {
+function getAmountsByDate(d: TimeSeries, selectedDate: string | null) {
   const [, amount] = d.find(([date]) => date === selectedDate) || [0, 0];
   return amount;
 }
@@ -93,7 +93,7 @@ function getAmounts(data: TrendsData) {
 
 /* Returns the width of the tooltip bar for the percent share chart for a specific group and date */
 function getWidthPctShare(
-  d: GroupValues,
+  d: TimeSeries,
   selectedDate: string | null,
   data: TrendsData
 ) {
@@ -106,7 +106,7 @@ function getWidthPctShare(
 
 /* Returns the width of the tooltip bar for the hundred k chart for a specific group and date */
 function getWidthHundredK(
-  d: GroupValues,
+  d: TimeSeries,
   selectedDate: string | null,
   data: TrendsData
 ) {
@@ -119,7 +119,7 @@ function getWidthHundredK(
 
 /* Returns the number of pixels to translate tooltip bar for the percent share chart for a specific group and date */
 function translateXPctShare(
-  d: GroupValues,
+  d: TimeSeries,
   selectedDate: string | null,
   data: TrendsData
 ) {

@@ -18,7 +18,7 @@ import styles from "./Trends.module.scss";
 /* Components */
 
 /* Constants */
-import { TrendsData, GroupData, GroupValues, AxisConfig } from "./types";
+import { TrendsData, GroupData, TimeSeries, AxisConfig } from "./types";
 import { TYPES, FORMATTERS as F, COLORS as C } from "./constants";
 
 /* Helpers */
@@ -63,7 +63,7 @@ export function TrendsTooltip({
     [TYPES.HUNDRED_K]: {
       UNIT: isSkinny ? "" : " per 100k",
       width: getWidthHundredK,
-      translate_x: (d: GroupValues) => 0,
+      translate_x: (d: TimeSeries) => 0,
       formatter: F.num,
     },
     [TYPES.PERCENT_SHARE]: {

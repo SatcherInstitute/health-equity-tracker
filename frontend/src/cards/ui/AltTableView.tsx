@@ -6,7 +6,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
 } from "@material-ui/core";
+import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import { ArrowDropDown, ArrowDropUp } from "@material-ui/icons";
 import React, { useRef } from "react";
 import AnimateHeight from "react-animate-height";
@@ -148,8 +150,23 @@ export default function AltTableView(props: AltTableViewProps) {
                               wordWrap: "break-word",
                             }}
                           >
-                            {row[key]}
-                            {!isTimePeriod && appendPct && "%"}
+                            {row[key] == null ? (
+                              <>
+                                <Tooltip title="Insufficient data">
+                                  <WarningRoundedIcon />
+                                </Tooltip>
+                                <span
+                                  className={styles.ScreenreaderTitleHeader}
+                                >
+                                  Insufficient data
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                {row[key]}
+                                {!isTimePeriod && appendPct && "%"}
+                              </>
+                            )}
                           </TableCell>
                         );
                       })}
