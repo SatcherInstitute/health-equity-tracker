@@ -1,7 +1,7 @@
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { VariableId } from "../data/config/MetricConfig";
 import { getLogger } from "./globals";
 import { EXPLORE_DATA_PAGE_LINK } from "./internalRoutes";
@@ -62,7 +62,7 @@ export const ARTICLES_KEY = "cached_wp_articles";
 export const DYNAMIC_COPY_KEY = "cached_wp_dynamic_copy";
 export const REACT_QUERY_OPTIONS = {
   cacheTime: Infinity, // never garbage collect, always default to cache
-  staleTime: 1000 * 2, // treat cache data as fresh and don't refetch
+  staleTime: 1000 * 30, // treat cache data as fresh and don't refetch
 };
 
 export async function fetchNewsData() {
@@ -79,25 +79,6 @@ export async function fetchCopyData() {
 
 export function useUrlSearchParams() {
   return new URLSearchParams(useLocation().search);
-}
-
-export function LinkWithStickyParams(props: {
-  to: string;
-  target?: string;
-  className?: string;
-  children: React.ReactNode;
-}) {
-  let linkProps = { ...props };
-  let params = useSearchParams();
-  let newUrl = props.to;
-  if (params[STICKY_VERSION_PARAM]) {
-    // Note: doesn't handle urls that already have params on them.
-    newUrl =
-      newUrl + `?${STICKY_VERSION_PARAM}=${params[STICKY_VERSION_PARAM]}`;
-  }
-  linkProps.to = newUrl;
-
-  return <Link {...linkProps}>{props.children}</Link>;
 }
 
 export function ReactRouterLinkButton(props: {

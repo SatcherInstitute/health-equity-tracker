@@ -46,8 +46,9 @@ bjs_incarceration_exporter_operator_sex = util.create_exporter_operator(
 
 # Ingestion DAG
 (
-    bjs_incarceration_bq_operator >>
-    bjs_incarceration_exporter_operator_race >>
-    bjs_incarceration_exporter_operator_age >>
-    bjs_incarceration_exporter_operator_sex
+    bjs_incarceration_bq_operator >> [
+        bjs_incarceration_exporter_operator_race,
+        bjs_incarceration_exporter_operator_age,
+        bjs_incarceration_exporter_operator_sex,
+    ]
 )

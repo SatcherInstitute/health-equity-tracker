@@ -82,8 +82,9 @@ cdc_restricted_exporter_operator_sex = util.create_exporter_operator(
     cdc_restricted_bq_op_race >>
     cdc_restricted_bq_op_sex >>
     cdc_restricted_bq_op_age >>
-    cdc_restricted_age_adjust_op >>
-    cdc_restricted_exporter_operator_race >>
-    cdc_restricted_exporter_operator_age >>
-    cdc_restricted_exporter_operator_sex
+    cdc_restricted_age_adjust_op >> [
+        cdc_restricted_exporter_operator_race,
+        cdc_restricted_exporter_operator_age,
+        cdc_restricted_exporter_operator_sex,
+    ]
 )

@@ -105,6 +105,7 @@ export function TableCard(props: TableCardProps) {
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
         } In ${props.fips.getSentenceDisplayName()}`}</>
       }
+      scrollToHash="data-table"
     >
       {([queryResponse]) => {
         let data = queryResponse.data;

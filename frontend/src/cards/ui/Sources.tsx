@@ -1,9 +1,6 @@
 import React, { Fragment } from "react";
 import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
-import {
-  LinkWithStickyParams,
-  DATA_SOURCE_PRE_FILTERS,
-} from "../../utils/urlutils";
+import { DATA_SOURCE_PRE_FILTERS } from "../../utils/urlutils";
 import { DATA_CATALOG_PAGE_LINK } from "../../utils/internalRoutes";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
@@ -35,7 +32,18 @@ export function getDatasetIdsFromResponses(
   );
 }
 
-function getDataSourceMapFromDatasetIds(
+export const stripCountyFips = (datasetIds: string[]) => {
+  const strippedData = datasetIds.map((id) => {
+    //uses RegEx to check if datasetId string contains a hyphen followed by any two digits
+    const regex = /-[0-9]/g;
+    if (regex.test(id)) {
+      return id.split("-").slice(0, 2).join("-");
+    } else return id;
+  });
+  return strippedData;
+};
+
+export function getDataSourceMapFromDatasetIds(
   datasetIds: string[],
   metadata: MapOfDatasetMetadata
 ): Record<string, DataSourceInfo> {
@@ -73,7 +81,8 @@ export function Sources(props: {
     return <></>;
   }
 
-  let datasetIds = getDatasetIdsFromResponses(props.queryResponses);
+  const unstrippedDatasetIds = getDatasetIdsFromResponses(props.queryResponses);
+  let datasetIds = stripCountyFips(unstrippedDatasetIds);
 
   // for Age Adj only, swap ACS source(s) for Census Pop Estimate
   if (props.isAgeAdjustedTable) {
@@ -95,12 +104,11 @@ export function Sources(props: {
       {Object.keys(dataSourceMap).length > 0 && <>Sources: </>}
       {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
         <Fragment key={dataSourceId}>
-          <LinkWithStickyParams
-            target="_blank"
-            to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
+          <a
+            href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
           >
             {dataSourceMap[dataSourceId].name}
-          </LinkWithStickyParams>{" "}
+          </a>{" "}
           {dataSourceMap[dataSourceId].updateTimes.size === 0 ? (
             <>(last update unknown) </>
           ) : (

@@ -11,6 +11,7 @@ import {
   formatFieldValue,
 } from "../../data/config/MetricConfig";
 import { Row } from "../../data/utils/DatasetTypes";
+import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 
 export interface HighestLowestListProps {
   // MetricConfig for data
@@ -27,8 +28,6 @@ export interface HighestLowestListProps {
   highestRatesList: Row[];
   // List of rows with lowest rates
   lowestRatesList: Row[];
-  // to scroll user to bottom text box about Missing Data
-  jumpToData: Function;
   // items in highest/lowest list that should receive qualifiers
   qualifierItems?: string[];
   // message to display under a list with qualifiers
@@ -145,15 +144,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
           </p>
           <p>
             Consider the possible impact of{" "}
-            <a
-              href="#missingDataInfo"
-              onClick={(e) => {
-                e.preventDefault();
-                props.jumpToData();
-              }}
-            >
-              data reporting gaps
-            </a>{" "}
+            <a href={`#${WHAT_DATA_ARE_MISSING_ID}`}>data reporting gaps</a>{" "}
             when interpreting the highest and lowest rates.
           </p>
         </>

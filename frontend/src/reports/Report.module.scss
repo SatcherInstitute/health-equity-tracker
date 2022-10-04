@@ -74,12 +74,28 @@
 }
 
 .ScrollPastHeader {
-  scroll-margin: $sticky-madlib-height 0px 0px 0px;
-  scroll-snap-align: start;
+  scroll-margin: 0 0 0 0;
+
+  // default before measuring actual height of sticky header and offsetting the scroll
+  @media only screen and (min-width: $md) {
+    scroll-margin: $sticky-madlib-height 0px 0px 0px;
+  }
 }
 
 .ScrollPastHeaderCompareMode,
 .FootnoteLargeHeading {
-  scroll-margin: $sticky-madlib-height-compare 0px 0px 0px;
-  scroll-snap-align: start;
+  scroll-margin: 0 0 0 0;
+
+  // default before measuring actual height of sticky header and offsetting the scroll
+  @media only screen and (min-width: $md) {
+    scroll-margin: $sticky-madlib-height-compare 0px 0px 0px;
+  }
+}
+
+.FloatingTableOfContentsWrapper {
+  display: none;
+
+  @media only screen and (min-width: $sm) {
+    display: block;
+  }
 }
