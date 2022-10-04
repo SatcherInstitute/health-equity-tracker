@@ -22,11 +22,6 @@ cdc_vaccination_county_bq_payload = util.generate_bq_payload(
 cdc_vaccination_county_bq_operator = util.create_bq_ingest_operator(
     'cdc_vaccination_county_to_bq', cdc_vaccination_county_bq_payload, data_ingestion_dag)
 
-cdc_vaccination_county_aggregator_payload = {
-    'dataset_name': _CDC_VACCINATION_COUNTY_DATASET_NAME}
-cdc_vaccination_county_aggregator_operator = util.create_aggregator_operator(
-    'cdc_vaccination_county_aggregator', cdc_vaccination_county_aggregator_payload, data_ingestion_dag)
-
 cdc_vaccination_county_exporter_payload_race = {
     'dataset_name': _CDC_VACCINATION_COUNTY_DATASET_NAME,
     'demographic': "race"
@@ -37,6 +32,5 @@ cdc_vaccination_county_exporter_operator_race = util.create_exporter_operator(
 # Ingestion DAG
 (
     cdc_vaccination_county_bq_operator >>
-    cdc_vaccination_county_aggregator_operator >>
     cdc_vaccination_county_exporter_operator_race
 )
