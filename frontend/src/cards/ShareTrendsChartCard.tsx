@@ -121,7 +121,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 This chart visualizes the disproportionate percent share of a
                 condition that is borne by a certain demographic, compared with
                 that demographic's share of the entire population (defaulting to
-                highest and lowest). Read more about this calculation in our{" "}
+                groups with the highest / lowest averages). Read more about this
+                calculation in our{" "}
                 <HashLink to={`${METHODOLOGY_TAB_LINK}#metrics`}>
                   methodology
                 </HashLink>
