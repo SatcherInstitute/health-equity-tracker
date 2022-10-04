@@ -204,11 +204,9 @@ export function TrendsChart({
         : [...selectedTrendGroups, selectedGroup];
     // Set new array of selected groups to state
 
-    setSelectedTrendGroups(
-      allPossibleGroups.length === newSelectedGroups.length
-        ? []
-        : newSelectedGroups
-    );
+    const allGroupsAreSelected =
+      allPossibleGroups.length === newSelectedGroups.length;
+    setSelectedTrendGroups(allGroupsAreSelected ? [] : newSelectedGroups);
   }
 
   function handleMinMaxClick() {
