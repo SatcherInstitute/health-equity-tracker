@@ -162,7 +162,10 @@ export function CircleChart({
                   r={rScale(percent)}
                   fill={colors(percent)}
                   role="presentation"
-                />
+                >
+                  <title>{`${legendHelper} unknown value`}</title>
+                </circle>
+
                 {/* Circle label annotation (percent represented by circle) */}
                 <text
                   textAnchor="middle"
