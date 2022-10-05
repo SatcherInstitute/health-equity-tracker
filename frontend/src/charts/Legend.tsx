@@ -16,7 +16,7 @@ const DATASET_VALUES = "dataset_values";
 export const MISSING_PLACEHOLDER_VALUES = "missing_data";
 export const LEGEND_SYMBOL_TYPE = "square";
 export const LEGEND_TEXT_FONT = "inter";
-export const NO_DATA_MESSAGE = "Insufficient data";
+export const NO_DATA_MESSAGE = "insufficient data";
 
 export const EQUAL_DOT_SIZE = 200;
 export const LEGEND_COLOR_COUNT = 7;

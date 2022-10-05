@@ -48,6 +48,7 @@ class VaccineProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
+    const timeView = metricQuery.timeView;
 
     const datasetId = this.getDatasetId(breakdowns);
     const vaxData = await getDataManager().loadDataset(datasetId);
@@ -55,6 +56,7 @@ class VaccineProvider extends VariableProvider {
 
     const breakdownColumnName =
       breakdowns.getSoleDemographicBreakdown().columnName;
+    df = this.filterByTimeView(df, timeView);
 
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);

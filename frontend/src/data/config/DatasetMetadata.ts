@@ -136,6 +136,54 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019",
   },
   {
+    id: "cdc_restricted_data-by_race_county_processed_time_series",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and County",
+    update_time: "July 2022",
+    contains_nh: true,
+  },
+  {
+    id: "cdc_restricted_data-by_race_state_processed_time_series",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and State",
+    update_time: "July 2022",
+    contains_nh: true,
+  },
+  {
+    id: "cdc_restricted_data-by_race_national_processed_time_series",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Race Nationally",
+    update_time: "July 2022",
+    contains_nh: true,
+  },
+  {
+    id: "cdc_restricted_data-by_age_county_processed_time_series",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and County",
+    update_time: "July 2022",
+  },
+  {
+    id: "cdc_restricted_data-by_age_state_processed_time_series",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and State",
+    update_time: "July 2022",
+  },
+  {
+    id: "cdc_restricted_data-by_age_national_processed_time_series",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Age Nationally",
+    update_time: "July 2022",
+  },
+  {
+    id: "cdc_restricted_data-by_sex_county_processed_time_series",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and County",
+    update_time: "July 2022",
+  },
+  {
+    id: "cdc_restricted_data-by_sex_state_processed_time_series",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and State",
+    update_time: "July 2022",
+  },
+  {
+    id: "cdc_restricted_data-by_sex_national_processed_time_series",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex Nationally",
+    update_time: "July 2022",
+  },
+  {
     id: "cdc_restricted_data-by_race_county_processed",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and County",
     update_time: "September 2022",
@@ -192,6 +240,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
     id: "cdc_vaccination_county-race_and_ethnicity",
     name: "COVID-19 Vaccinations by County",
     update_time: "September 2022",
+    contains_nh: true,
   },
   {
     id: "cdc_vaccination_national-age",
