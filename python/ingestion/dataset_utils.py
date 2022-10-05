@@ -261,6 +261,9 @@ def generate_inequitable_share_column(df, pct_share_col, pct_pop_col, inequitabl
                               inequitable shares in.
        """
     def calc_inequitable_share(row):
+        if row[pct_share_col] is None or row[pct_pop_col] is None:
+            return None
+
         inequitable_share_ratio = (row[pct_share_col] - row[pct_pop_col]) / row[pct_pop_col]
         return round(inequitable_share_ratio * 100, 1)
 

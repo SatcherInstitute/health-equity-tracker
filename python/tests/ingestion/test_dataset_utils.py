@@ -68,6 +68,8 @@ _fake_data_without_inequitable_share_col = [
     ['01', 'Alabama', 'Race 1', 0, 10.0],
     ['01', 'Alabama', 'Race 2', 10.001, 10.0],
     ['01', 'Alabama', 'Race 3', 60.0, 10.0],
+    ['01', 'Alabama', 'Race 4', 60.0, None],
+    ['01', 'Alabama', 'Race 5', None, 10.0],
 ]
 
 _expected_data_with_inequitable_share_col = [
@@ -75,6 +77,8 @@ _expected_data_with_inequitable_share_col = [
     ['01', 'Alabama', 'Race 1', 0, 10.0, -100.0],
     ['01', 'Alabama', 'Race 2', 10.001, 10.0, 0.0],
     ['01', 'Alabama', 'Race 3', 60.0, 10.0, 500.0],
+    ['01', 'Alabama', 'Race 4', 60.0, None, None],
+    ['01', 'Alabama', 'Race 5', None, 10.0, None],
 ]
 
 _fake_condition_data = [

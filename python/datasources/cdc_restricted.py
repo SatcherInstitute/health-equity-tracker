@@ -27,7 +27,8 @@ from datasources.cdc_restricted_local import (
 from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import (
     generate_per_100k_col,
-    generate_pct_share_col_with_unknowns)
+    generate_pct_share_col_with_unknowns,
+    generate_inequitable_share_column)
 
 from ingestion.merge_utils import (
     merge_state_fips_codes,
@@ -212,6 +213,15 @@ class CDCRestrictedData(DataSource):
         all_columns.extend(list(raw_count_to_pct_share.values()))
         df = generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
                                                   demo_col, all_val, unknown_val)
+
+        if not cumulative:
+            for prefix in COVID_CONDITION_TO_PREFIX.values():
+                df = generate_inequitable_share_column(
+                   df, generate_column_name(prefix, std_col.SHARE_SUFFIX),
+                   std_col.COVID_POPULATION_PCT,
+                   generate_column_name(prefix, std_col.INEQUITABLE_SHARE_SUFFIX))
+
+                all_columns.append(generate_column_name(prefix, std_col.INEQUITABLE_SHARE_SUFFIX))
 
         if not cumulative and geo != NATIONAL_LEVEL:
             df = remove_or_set_to_zero(df, geo, demo)
