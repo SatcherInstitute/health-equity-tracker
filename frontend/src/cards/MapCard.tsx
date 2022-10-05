@@ -46,11 +46,12 @@ import { MultiMapLink } from "./ui/MultiMapLink";
 import { RateInfoAlert } from "./ui/RateInfoAlert";
 import { findVerboseRating } from "./ui/SviAlert";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
+import { createTitles } from "../charts/utils";
 import { useLocation } from "react-router-dom";
+import { reportProviderSteps } from "../reports/ReportProviderSteps";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
-
-const HASH_ID = "rate-map";
 
 export interface MapCardProps {
   key?: string;
@@ -139,15 +140,19 @@ function MapCardWithKey(props: MapCardProps) {
   let qualifierItems: string[] = [];
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
 
+  const { chartTitle, subtitle } = createTitles({
+    variableConfig: props.variableConfig,
+    fips: props.fips,
+    breakdown: props.currentBreakdown,
+    demographic: activeBreakdownFilter,
+  });
+
+  const HASH_ID: ScrollableHashId = "rate-map";
+
   return (
     <CardWrapper
       queries={queries}
-      title={
-        <>
-          {metricConfig.fullCardTitleName}
-          {selectedRaceSuffix}
-        </>
-      }
+      title={<>{reportProviderSteps[HASH_ID].label}</>}
       loadGeographies={true}
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
@@ -333,7 +338,7 @@ function MapCardWithKey(props: MapCardProps) {
                       currentVariable={
                         props.variableConfig.variableFullDisplayName
                       }
-                    />{" "}
+                    />
                   </Alert>
                 </CardContent>
               )}
@@ -343,8 +348,12 @@ function MapCardWithKey(props: MapCardProps) {
                 <CardContent>
                   <ChoroplethMap
                     signalListeners={signalListeners}
+                    titles={{
+                      chartTitle: chartTitle,
+                      subTitle: subtitle,
+                    }}
                     metric={metricConfig}
-                    legendTitle={metricConfig.shortLabel}
+                    legendTitle={metricConfig.shortLabel.toLowerCase()}
                     data={
                       listExpanded
                         ? highestRatesList.concat(lowestRatesList)
@@ -358,7 +367,7 @@ function MapCardWithKey(props: MapCardProps) {
                     }
                     showCounties={props.fips.isUsa() ? false : true}
                     fips={props.fips}
-                    scaleType="quantile"
+                    scaleType="quantize"
                     geoData={geoData}
                     // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
                     filename={`${metricConfig.fullCardTitleName}${
@@ -377,7 +386,6 @@ function MapCardWithKey(props: MapCardProps) {
                             <ChoroplethMap
                               signalListeners={signalListeners}
                               metric={metricConfig}
-                              legendTitle={metricConfig.fullCardTitleName}
                               data={
                                 listExpanded
                                   ? highestRatesList.concat(lowestRatesList)
@@ -389,7 +397,7 @@ function MapCardWithKey(props: MapCardProps) {
                               hideActions={true}
                               showCounties={props.fips.isUsa() ? false : true}
                               fips={fips}
-                              scaleType="quantile"
+                              scaleType="quantize"
                               geoData={geoData}
                               overrideShapeWithCircle={true}
                             />

@@ -6,6 +6,7 @@ import {
   Breakdowns,
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import {
@@ -19,6 +20,9 @@ import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
+import { reportProviderSteps } from "../reports/ReportProviderSteps";
+import { createTitles } from "../charts/utils";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -63,16 +67,20 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
     } In ${props.fips.getSentenceDisplayName()}`;
   }
-  function CardTitle() {
-    return <>{getTitleText()}</>;
-  }
+
+  const HASH_ID: ScrollableHashId = "rate-chart";
+
+  const { chartTitle } = createTitles({
+    variableConfig: props.variableConfig,
+    fips: props.fips,
+  });
 
   return (
     <CardWrapper
       queries={[query]}
-      title={<CardTitle />}
+      title={<>{reportProviderSteps[HASH_ID].label}</>}
       minHeight={PRELOAD_HEIGHT}
-      scrollToHash="rate-chart"
+      scrollToHash={HASH_ID}
     >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
@@ -86,7 +94,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}
                   breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }
                   fips={props.fips}
                 />
@@ -102,6 +110,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 )}
 
                 <SimpleHorizontalBarChart
+                  chartTitle={chartTitle}
                   data={data}
                   breakdownVar={props.breakdownVar}
                   metric={metricConfig}

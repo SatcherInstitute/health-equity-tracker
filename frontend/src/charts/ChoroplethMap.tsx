@@ -59,7 +59,7 @@ export interface ChoroplethMapProps {
   // Whether or not the legend is present
   hideLegend?: boolean;
   // If legend is present, what is the title
-  legendTitle: string | string[];
+  legendTitle?: string | string[];
   // Max/min of the data range- if present it will set the color scale at these boundaries
   fieldRange?: FieldRange;
   // Hide the action bar in the corner of a vega chart
@@ -76,6 +76,10 @@ export interface ChoroplethMapProps {
   signalListeners: any;
   // use the constructed string from the Card Wrapper Title in the export as PNG filename
   filename?: string;
+  titles?: {
+    chartTitle: string | string[];
+    subTitle: string;
+  };
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -472,6 +476,23 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       scales: [colorScale, greyDotScale, unknownScale],
       legends: legendList,
       marks: marks,
+      title: !props.overrideShapeWithCircle && {
+        text: props.titles?.chartTitle,
+        subtitle: props.titles?.subTitle,
+        encode: {
+          title: {
+            enter: {
+              fontSize: { value: 14 },
+              font: { value: "Inter, sans-serif" },
+            },
+          },
+          subtitle: {
+            enter: {
+              fontStyle: { value: "italic" },
+            },
+          },
+        },
+      },
       signals: [
         {
           name: "click",

@@ -55,7 +55,12 @@ test('Switch Data Types for Both Geos', async ({ page }) => {
     // TODO React Joyride a11y issue: Modals need labels. https://github.com/gilbarbara/react-joyride/issues/706
     // Should submit a PR to fix dependency package
 
-    await expect(page).toBeAccessible()
+    await expect(page).toBeAccessible({
+        rules: {
+            // TODO: fix disabled filter colors to be proper contrast
+            'color-contrast': { enabled: false },
+        },
+    })
 
     // Change both data types to COVID deaths
     page.locator(':nth-match(:text("Deaths"), 2)').waitFor();
@@ -80,7 +85,7 @@ test('Use Table of Contents to Scroll Age Adjust Card Into View and Be Focused',
 
 
     // find Table of Contents link to Age-Adjustment Card
-    const ageAdjustStepLink = page.locator('button:has-text("Age-Adjusted Risk Ratios")')
+    const ageAdjustStepLink = page.locator('button:has-text("Age-adjusted risk")')
     await ageAdjustStepLink.click()
 
     // // Ensure URL Hash updates

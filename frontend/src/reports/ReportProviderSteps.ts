@@ -1,44 +1,49 @@
-import { StepData } from "../utils/hooks/useStepObserver";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
-export const reportProviderSteps: StepData[] = [
-  {
-    label: "Location Info & Filters",
+export interface StepLabelInfo {
+  pluralOnCompare: boolean;
+  label: string;
+}
+
+export const reportProviderSteps: Record<ScrollableHashId, StepLabelInfo> = {
+  "location-info": {
+    label: "Location info & filters",
     pluralOnCompare: false,
-    hashId: "location-info",
   },
-  {
-    label: "Rate Map",
+  "rate-map": {
+    label: "Rate map",
     pluralOnCompare: true,
-    hashId: "rate-map",
   },
-  {
-    label: "Rate Chart",
-    pluralOnCompare: true,
-    hashId: "rate-chart",
-  },
-  {
-    label: "Unknown Demographic Map",
-    pluralOnCompare: true,
-    hashId: "unknowns-map",
-  },
-  {
-    label: "Population vs. Share",
+  "rates-over-time": {
+    label: "Rates over time",
     pluralOnCompare: false,
-    hashId: "population-vs-share",
   },
-  {
-    label: "Data Table",
+  "rate-chart": {
+    label: "Rate chart",
+    pluralOnCompare: false,
+  },
+  "unknown-demographic-map": {
+    label: "Unknown demographic map",
     pluralOnCompare: true,
-    hashId: "data-table",
   },
-  {
-    label: "Age-Adjusted Risk Ratios",
+  "inequities-over-time": {
+    label: "Inequities over time",
     pluralOnCompare: false,
-    hashId: "age-adjusted-risk",
   },
-  {
-    label: "Missing Data & Definitions",
+  "population-vs-distribution": {
+    label: "Population vs. distribution",
     pluralOnCompare: false,
-    hashId: "definitions-missing-data",
   },
-];
+  "data-table": {
+    label: "Data table",
+    pluralOnCompare: true,
+  },
+  "age-adjusted-risk": {
+    label: "Age-adjusted risk",
+    pluralOnCompare: true,
+  },
+  "definitions-missing-data": {
+    label: "Definitions & missing data",
+    pluralOnCompare: false,
+  },
+};
