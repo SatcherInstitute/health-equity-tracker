@@ -92,27 +92,27 @@ def get_cdc_restricted_by_sex_county_as_df():
     })
 
 
-# @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-#             side_effect=get_pop_numbers_as_df)
-# @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#             return_value=get_state_fips_codes_as_df())
-# def testGenerateBreakdownSexStateTimeSeries(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
-#     cdc_restricted = CDCRestrictedData()
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=get_pop_numbers_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
+def testGenerateBreakdownSexStateTimeSeries(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
+    cdc_restricted = CDCRestrictedData()
 
-#     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', False)
-#     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_STATE_TIME_SERIES, dtype={
-#         'state_fips': str,
-#         'covid_cases_share': float,
-#         'covid_hosp_share': float,
-#         'covid_deaths_share': float,
-#     })
+    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', False)
+    expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_STATE_TIME_SERIES, dtype={
+        'state_fips': str,
+        'covid_cases_share': float,
+        'covid_hosp_share': float,
+        'covid_deaths_share': float,
+    })
 
-#     sortby_cols = list(df.columns)
-#     assert_frame_equal(
-#         df.sort_values(by=sortby_cols).reset_index(drop=True),
-#         expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
-#         check_like=True,
-#     )
+    sortby_cols = list(df.columns)
+    assert_frame_equal(
+        df.sort_values(by=sortby_cols).reset_index(drop=True),
+        expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
+        check_like=True,
+    )
 
 
 # @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
