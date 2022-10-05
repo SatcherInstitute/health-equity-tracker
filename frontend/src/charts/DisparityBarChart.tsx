@@ -312,7 +312,7 @@ function getSpec(
       encode: {
         title: {
           enter: {
-            fontSize: { value: 14 },
+            fontSize: { value: pageIsTiny ? 11 : 14 },
             font: { value: "Inter, sans-serif" },
           },
         },
@@ -452,7 +452,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   );
 
   // calculate page size to determine if tiny mobile or not
-  const pageIsTiny = useMediaQuery("(max-width:500px)");
+  const pageIsTiny = useMediaQuery("(max-width:400px)");
 
   // move AIAN and NHPI into their own properties for STATE/RACE/VACCINE (since KFF doesnt provide pop compare metrics)
   let dataFromProps = props.data;

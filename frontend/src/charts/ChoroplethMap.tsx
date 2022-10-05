@@ -207,6 +207,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       fill: COLOR_SCALE,
       direction: "horizontal",
       title: props.legendTitle,
+      titleFontSize: pageIsTiny ? 9 : 11,
       titleLimit: 0,
       font: LEGEND_TEXT_FONT,
       labelFont: LEGEND_TEXT_FONT,
@@ -482,7 +483,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         encode: {
           title: {
             enter: {
-              fontSize: { value: 14 },
+              fontSize: { value: pageIsTiny ? 11 : 14 },
               font: { value: "Inter, sans-serif" },
             },
           },
@@ -531,6 +532,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     altText,
     legendLowerBound,
     legendUpperBound,
+    pageIsTiny,
   ]);
 
   const mapStyle = {
