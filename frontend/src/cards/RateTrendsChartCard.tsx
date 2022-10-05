@@ -171,10 +171,13 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
                 <CardContent>
                   <Alert severity="info" role="note">
-                    Missing and unknown data impact Health Equity. The{" "}
-                    <b>percent unknown</b> bubbles we show along the bottom of
-                    this chart are our best attempt to demonstrate prevalence of
-                    unknown demographic data. Learn more about{" "}
+                    Missing and unknown data impacts Health Equity. The{" "}
+                    <b>percent unknown</b>{" "}
+                    {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]}{" "}
+                    bubbles we show along the bottom of the time series charts
+                    demonstrate prevalence of unknown demographic data at the
+                    time reported. Learn more about what data are missing. Learn
+                    more about{" "}
                     <HashLink to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
                       what data are missing.
                     </HashLink>{" "}
