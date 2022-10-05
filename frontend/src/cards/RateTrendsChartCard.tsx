@@ -81,11 +81,12 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   });
 
   const HASH_ID: ScrollableHashId = "rates-over-time";
+  const cardHeaderTitle = reportProviderSteps[HASH_ID].label;
 
   return (
     <CardWrapper
       queries={[ratesQuery, pctShareQuery]}
-      title={<>{reportProviderSteps[HASH_ID].label}</>}
+      title={<>{cardHeaderTitle}</>}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
     >
@@ -183,7 +184,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 <AltTableView
                   expanded={a11yTableExpanded}
                   setExpanded={setA11yTableExpanded}
-                  expandBoxLabel={"rates over time"}
+                  expandBoxLabel={cardHeaderTitle.toLowerCase()}
                   tableCaption={`${getTitleText()} by ${
                     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }`}

@@ -81,15 +81,15 @@ export default function AltTableView(props: AltTableViewProps) {
           props.expanded ? styles.AltTableTitleExpanded : styles.AltTableTitle
         }
       >
-        {!props.expanded ? "Expand" : "Collapse"} table view of{" "}
-        <b>{props.expandBoxLabel}</b> data
+        {!props.expanded ? "Expand" : "Collapse"} <b>{props.expandBoxLabel}</b>{" "}
+        table
       </div>
 
       {/* Don't render collapsed info, so keyboard nav will skip */}
       {props.expanded && (
         <>
           <p>
-            Add or remove columns by selecting demographic group above. the
+            Add or remove columns by toggling demographic groups above the
             chart.
           </p>
           <TableContainer className={styles.AltTableContainer}>

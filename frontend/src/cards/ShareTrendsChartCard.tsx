@@ -78,11 +78,12 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   });
 
   const HASH_ID: ScrollableHashId = "inequities-over-time";
+  const cardHeaderTitle = reportProviderSteps[HASH_ID].label;
 
   return (
     <CardWrapper
       queries={[query]}
-      title={<>{reportProviderSteps[HASH_ID].label}</>}
+      title={<>{cardHeaderTitle}</>}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
     >
@@ -165,9 +166,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                   <AltTableView
                     expanded={a11yTableExpanded}
                     setExpanded={setA11yTableExpanded}
-                    expandBoxLabel={
-                      metricConfig.trendsCardTitleName || "Expand data table"
-                    }
+                    expandBoxLabel={cardHeaderTitle.toLowerCase()}
                     tableCaption={`${getTitleText()} by ${
                       BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                     }`}
