@@ -43,7 +43,7 @@ export function TableOfContents(props: TableOfContentsProps) {
       // for a11y focus should shift to subsequent tab goes to next interactive element after the targeted card
       clickedElem.focus({ preventScroll: true });
       // manually set the browser url#hash for actual clicks
-      window.history.replaceState(undefined, "", `#${step.hashId}`);
+      window.history.pushState(undefined, "", `#${step.hashId}`);
     }
 
     setRecentlyClicked(step.hashId);
