@@ -176,8 +176,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]}{" "}
                     bubbles we show along the bottom of the time series charts
                     demonstrate prevalence of unknown demographic data at the
-                    time reported. Learn more about what data are missing. Learn
-                    more about{" "}
+                    time reported. Learn more about{" "}
                     <HashLink to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
                       what data are missing.
                     </HashLink>{" "}
