@@ -5,6 +5,8 @@ import { AgeAdjustedTableCard } from "../cards/AgeAdjustedTableCard";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
+import { RateTrendsChartCard } from "../cards/RateTrendsChartCard";
+import { ShareTrendsChartCard } from "../cards/ShareTrendsChartCard";
 import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
 import { TableCard } from "../cards/TableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
@@ -30,7 +32,7 @@ import {
 import { reportProviderSteps } from "./ReportProviderSteps";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
-import { pluralizeStepLabels, StepData } from "../utils/hooks/useStepObserver";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import styles from "./Report.module.scss";
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
@@ -44,8 +46,8 @@ function TwoVariableReport(props: {
   updateFips1Callback: (fips: Fips) => void;
   updateFips2Callback: (fips: Fips) => void;
   isScrolledToTop: boolean;
-  reportSteps?: StepData[];
-  setReportSteps?: Function;
+  reportStepHashIds?: ScrollableHashId[];
+  setReportStepHashIds?: Function;
   headerScrollMargin: number;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
@@ -121,11 +123,11 @@ function TwoVariableReport(props: {
 
   // // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
-    const stepsOnScreen: StepData[] = reportProviderSteps.filter(
-      (step) => document.getElementById(step.hashId)?.id !== undefined
+    const hashIdsOnScreen: any[] = Object.keys(reportProviderSteps).filter(
+      (key) => document.getElementById(key)?.id !== undefined
     );
 
-    stepsOnScreen && props.setReportSteps?.(stepsOnScreen);
+    hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variableConfig1, variableConfig2]);
 
@@ -147,6 +149,8 @@ function TwoVariableReport(props: {
   const breakdownIsShown = (breakdownVar: string) =>
     currentBreakdown === breakdownVar;
 
+  const showTrendCardRow =
+    variableConfig1?.timeSeriesData || variableConfig2?.timeSeriesData;
   const showAgeAdjustCardRow =
     variableConfig1?.metrics?.age_adjusted_ratio?.ageAdjusted ||
     variableConfig2?.metrics?.age_adjusted_ratio?.ageAdjusted;
@@ -166,10 +170,7 @@ function TwoVariableReport(props: {
               style={{ scrollMarginTop: props.headerScrollMargin }}
             >
               {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
-              <PopulationCard
-                // jumpToData={props.jumpToData}
-                fips={props.fips1}
-              />
+              <PopulationCard fips={props.fips1} />
 
               {/* 2 SETS OF DEMOGRAPHIC AND DATA TYPE TOGGLES */}
               <Grid container>
@@ -264,6 +265,37 @@ function TwoVariableReport(props: {
             )}
           />
 
+          {/* SIDE-BY-SIDE RATE TREND CARDS */}
+          {showTrendCardRow &&
+            DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
+              !breakdownIsShown(breakdownVar) ? null : (
+                <Fragment key={breakdownVar}>
+                  <RowOfTwoOptionalMetrics
+                    id="rates-over-time"
+                    variableConfig1={variableConfig1}
+                    variableConfig2={variableConfig2}
+                    fips1={props.fips1}
+                    fips2={props.fips2}
+                    headerScrollMargin={props.headerScrollMargin}
+                    createCard={(
+                      variableConfig: VariableConfig,
+                      fips: Fips,
+                      unusedUpdateFips: (fips: Fips) => void,
+                      unusedDropdown: any,
+                      isCompareCard: boolean | undefined
+                    ) => (
+                      <RateTrendsChartCard
+                        variableConfig={variableConfig}
+                        breakdownVar={breakdownVar}
+                        fips={fips}
+                        isCompareCard={isCompareCard}
+                      />
+                    )}
+                  />
+                </Fragment>
+              )
+            )}
+
           {/* SIDE-BY-SIDE 100K BAR GRAPH CARDS */}
           {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
             !breakdownIsShown(breakdownVar) ? null : (
@@ -293,7 +325,7 @@ function TwoVariableReport(props: {
 
           {/* SIDE-BY-SIDE UNKNOWNS MAP CARDS */}
           <RowOfTwoOptionalMetrics
-            id="unknowns-map"
+            id="unknown-demographic-map"
             variableConfig1={variableConfig1}
             variableConfig2={variableConfig2}
             fips1={props.fips1}
@@ -318,13 +350,45 @@ function TwoVariableReport(props: {
             )}
           />
 
+          {/* SIDE-BY-SIDE SHARE INEQUITY TREND CARDS */}
+
+          {showTrendCardRow &&
+            DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
+              !breakdownIsShown(breakdownVar) ? null : (
+                <Fragment key={breakdownVar}>
+                  <RowOfTwoOptionalMetrics
+                    id="inequities-over-time"
+                    variableConfig1={variableConfig1}
+                    variableConfig2={variableConfig2}
+                    fips1={props.fips1}
+                    fips2={props.fips2}
+                    headerScrollMargin={props.headerScrollMargin}
+                    createCard={(
+                      variableConfig: VariableConfig,
+                      fips: Fips,
+                      unusedUpdateFips: (fips: Fips) => void,
+                      unusedDropdown: any,
+                      isCompareCard: boolean | undefined
+                    ) => (
+                      <ShareTrendsChartCard
+                        variableConfig={variableConfig}
+                        breakdownVar={breakdownVar}
+                        fips={fips}
+                        isCompareCard={isCompareCard}
+                      />
+                    )}
+                  />
+                </Fragment>
+              )
+            )}
+
           {/* SIDE-BY-SIDE DISPARITY BAR GRAPH (COMPARE TO POPULATION) CARDS */}
 
           {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
             !breakdownIsShown(breakdownVar) ? null : (
               <Fragment key={breakdownVar}>
                 <RowOfTwoOptionalMetrics
-                  id="population-vs-share"
+                  id="population-vs-distribution"
                   variableConfig1={variableConfig1}
                   variableConfig2={variableConfig2}
                   fips1={props.fips1}
@@ -395,7 +459,7 @@ function TwoVariableReport(props: {
                 fips: Fips,
                 updateFips: (fips: Fips) => void,
                 dropdownVarId?: DropdownVarId,
-                jumpToData?: Function
+                isCompareCard?: boolean
               ) => (
                 <AgeAdjustedTableCard
                   fips={fips}
@@ -409,7 +473,7 @@ function TwoVariableReport(props: {
         </Grid>
       </Grid>
       {/* TABLE OF CONTENTS COLUMN */}
-      {props.reportSteps && (
+      {props.reportStepHashIds && (
         <Grid
           item
           // invisible
@@ -426,7 +490,7 @@ function TwoVariableReport(props: {
         >
           <TableOfContents
             isScrolledToTop={props.isScrolledToTop}
-            reportSteps={pluralizeStepLabels(props.reportSteps)}
+            reportStepHashIds={props.reportStepHashIds}
             floatTopOffset={props.headerScrollMargin}
           />
         </Grid>
@@ -448,11 +512,10 @@ function RowOfTwoOptionalMetrics(props: {
     fips: Fips,
     updateFips: (fips: Fips) => void,
     dropdownVarId?: DropdownVarId,
-    jumpToData?: Function
+    isCompareCard?: boolean
   ) => JSX.Element;
   dropdownVarId1?: DropdownVarId;
   dropdownVarId2?: DropdownVarId;
-  jumpToData?: Function;
   headerScrollMargin: number;
 }) {
   if (!props.variableConfig1 && !props.variableConfig2) {
@@ -480,7 +543,7 @@ function RowOfTwoOptionalMetrics(props: {
                 props.fips1,
                 props.updateFips1 || unusedFipsCallback,
                 props.dropdownVarId1,
-                props.jumpToData
+                /* isCompareCard */ false
               )}
             </>
           )}
@@ -502,7 +565,7 @@ function RowOfTwoOptionalMetrics(props: {
                 props.fips2,
                 props.updateFips2 || unusedFipsCallback,
                 props.dropdownVarId2,
-                props.jumpToData
+                /* isCompareCard */ true
               )}
             </>
           )}

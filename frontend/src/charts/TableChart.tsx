@@ -33,16 +33,16 @@ import sass from "../styles/variables.module.scss";
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20;
 
-const headerCellStyle = {
+export const headerCellStyle = {
   width: "200px",
   backgroundColor: sass.exploreBgColor,
 };
 
-const cellStyle = {
+export const cellStyle = {
   width: "200px",
 };
 
-const altCellStyle = {
+export const altCellStyle = {
   backgroundColor: sass.standardInfo,
   width: "200px",
 };

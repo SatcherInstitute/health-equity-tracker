@@ -4,6 +4,8 @@ Arrays to sort through distinct groupings
 Converts to types for TS checking
 */
 
+import { TimeView } from "../query/Breakdowns";
+
 // DEMOGRAPHIC BREAKDOWN CATEGORY TERMS
 export const RACE = "race_and_ethnicity";
 export const AGE = "age";
@@ -20,6 +22,13 @@ export const NON_HISPANIC = "Not Hispanic or Latino";
 export const UNKNOWN_RACE = "Unknown race";
 export const UNKNOWN_HL = "Unknown Hispanic or Latino";
 export const UNKNOWN_ETHNICITY = "Unknown ethnicity";
+
+export const UNKNOWN_LABELS = [
+  UNKNOWN,
+  UNKNOWN_RACE,
+  UNKNOWN_HL,
+  UNKNOWN_ETHNICITY,
+];
 
 // STANDARD RACE GROUPS AND ARRAY
 export const AIAN_NH = "American Indian and Alaska Native (NH)";
@@ -189,3 +198,10 @@ export type SexGroup = typeof SEX_GROUPS[number];
 
 // CREATE A DEMOGRAPHIC GROUP TYPE INCL ALL SEX/AGE/RACE OPTIONS
 export type DemographicGroup = AgeBucket | SexGroup | RaceAndEthnicityGroup;
+
+// TIME SERIES CONSTANTS
+
+export const TIME_PERIOD = "time_period";
+export const TIME_PERIOD_LABEL = "Time period";
+export const CROSS_SECTIONAL: TimeView = "cross_sectional";
+export const TIME_SERIES: TimeView = "time_series";

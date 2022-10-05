@@ -6,7 +6,7 @@ import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
   BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
 import {
@@ -31,6 +31,8 @@ import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { Row } from "../data/utils/DatasetTypes";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
+import { reportProviderSteps } from "../reports/ReportProviderSteps";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -96,16 +98,14 @@ export function TableCard(props: TableCardProps) {
     .map((config) => config.metricId)
     .some((metricId) => metricId.includes("covid"));
 
+  const HASH_ID: ScrollableHashId = "data-table";
+
   return (
     <CardWrapper
       minHeight={preloadHeight}
       queries={[query]}
-      title={
-        <>{`${props.variableConfig.variableFullDisplayName} By ${
-          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-        } In ${props.fips.getSentenceDisplayName()}`}</>
-      }
-      scrollToHash="data-table"
+      title={<>{reportProviderSteps[HASH_ID].label}</>}
+      scrollToHash={HASH_ID}
     >
       {([queryResponse]) => {
         let data = queryResponse.data;
@@ -139,7 +139,7 @@ export function TableCard(props: TableCardProps) {
                 <MissingDataAlert
                   dataName={props.variableConfig.variableFullDisplayName + " "}
                   breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }
                   fips={props.fips}
                 />

@@ -33,6 +33,7 @@ import {
   AGE,
   BJS_NATIONAL_AGE_BUCKETS,
   BJS_JAIL_AGE_BUCKETS,
+  DemographicGroup,
 } from "./Constants";
 import { Row } from "./DatasetTypes";
 import { Fips } from "./Fips";
@@ -277,7 +278,7 @@ export function getExclusionList(
   currentVariable: VariableConfig,
   currentBreakdown: BreakdownVar,
   currentFips: Fips
-) {
+): DemographicGroup[] {
   const current100k = currentVariable.metrics.per100k.metricId;
   const currentVariableId = currentVariable.variableId;
   let exclusionList = [UNKNOWN, UNKNOWN_ETHNICITY, UNKNOWN_RACE];
@@ -355,6 +356,26 @@ export function getExclusionList(
   }
 
   return exclusionList;
+}
+
+export function splitIntoKnownsAndUnknowns(
+  data: Row[],
+  breakdownVar: BreakdownVar
+): Row[][] {
+  const knowns: Row[] = [];
+  const unknowns: Row[] = [];
+
+  data.forEach((row: Row) => {
+    if (
+      row[breakdownVar] === UNKNOWN ||
+      row[breakdownVar] === UNKNOWN_RACE ||
+      row[breakdownVar] === UNKNOWN_ETHNICITY
+    )
+      unknowns.push(row);
+    else knowns.push(row);
+  });
+
+  return [knowns, unknowns];
 }
 
 export function appendFipsIfNeeded(

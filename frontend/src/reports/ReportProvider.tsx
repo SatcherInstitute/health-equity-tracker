@@ -31,7 +31,7 @@ import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
-import { StepData } from "../utils/hooks/useStepObserver";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -47,7 +47,9 @@ interface ReportProviderProps {
 }
 
 function ReportProvider(props: ReportProviderProps) {
-  const [reportSteps, setReportSteps] = useState<StepData[]>([]);
+  const [reportStepHashIds, setReportStepHashIds] = useState<
+    ScrollableHashId[]
+  >([]);
 
   // only show determinants that have definitions
   const definedConditions = props.selectedConditions.filter(
@@ -82,8 +84,8 @@ function ReportProvider(props: ReportProviderProps) {
               )
             }
             isScrolledToTop={props.isScrolledToTop}
-            reportSteps={reportSteps}
-            setReportSteps={setReportSteps}
+            reportStepHashIds={reportStepHashIds}
+            setReportStepHashIds={setReportStepHashIds}
             headerScrollMargin={props.headerScrollMargin}
           />
         );
@@ -109,8 +111,8 @@ function ReportProvider(props: ReportProviderProps) {
               )
             }
             isScrolledToTop={props.isScrolledToTop}
-            reportSteps={reportSteps}
-            setReportSteps={setReportSteps}
+            reportStepHashIds={reportStepHashIds}
+            setReportStepHashIds={setReportStepHashIds}
             headerScrollMargin={props.headerScrollMargin}
           />
         );
@@ -134,8 +136,8 @@ function ReportProvider(props: ReportProviderProps) {
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
             isScrolledToTop={props.isScrolledToTop}
-            reportSteps={reportSteps}
-            setReportSteps={setReportSteps}
+            reportStepHashIds={reportStepHashIds}
+            setReportStepHashIds={setReportStepHashIds}
             headerScrollMargin={props.headerScrollMargin}
           />
         );
