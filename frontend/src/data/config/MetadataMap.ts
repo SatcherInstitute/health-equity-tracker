@@ -162,7 +162,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "retail pharmacies, long-term care facilities, dialysis centers, " +
       "Federal Emergency Management Agency and Health Resources and Services " +
       "Administration partner sites, and federal entity facilities.",
-    dataset_ids: ["cdc_vaccination_county-race_and_ethnicity"],
+    dataset_ids: ["cdc_vaccination_county-race_and_ethnicity_processed"],
     downloadable: true,
   },
   {

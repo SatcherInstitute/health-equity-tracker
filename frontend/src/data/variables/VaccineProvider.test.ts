@@ -22,6 +22,27 @@ const METRIC_IDS: MetricId[] = [
   "vaccine_population_pct",
 ];
 
+export async function ensureCorrectDatasetsDownloaded(
+  vaccinationDatasetId: string,
+  baseBreakdown: Breakdowns,
+  breakdownVar: BreakdownVar
+) {
+  const acsProvider = new AcsPopulationProvider();
+  const vaccineProvider = new VaccineProvider(acsProvider);
+
+  dataFetcher.setFakeDatasetLoaded(vaccinationDatasetId, []);
+
+  // Evaluate the response with requesting "All" field
+  const responseIncludingAll = await vaccineProvider.getData(
+    new MetricQuery([], baseBreakdown.addBreakdown(breakdownVar))
+  );
+
+  expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
+  expect(responseIncludingAll.consumedDatasetIds).toContain(
+    vaccinationDatasetId
+  );
+}
+
 export async function evaluateWithAndWithoutAll(
   vaccineDatasetId: string,
   rawCovidData: any[],
@@ -272,30 +293,10 @@ describe("VaccineProvider", () => {
   });
 
   test("County and Race Breakdown", async () => {
-    const MARIN_COUNTY_ALL_ROW = {
-      [RACE]: ALL,
-      county_fips: MARIN.code,
-      county_name: MARIN.name,
-      vaccinated_first_dose: 10,
-      population: 50,
-    };
-
-    const MARIN_FINAL_ROW = {
-      [RACE]: ALL,
-      fips: MARIN.code,
-      fips_name: MARIN.name,
-      vaccinated_per_100k: 20000,
-    };
-
-    await evaluateWithAndWithoutAll(
-      "cdc_vaccination_county-race_and_ethnicity",
-      [MARIN_COUNTY_ALL_ROW],
-      "acs_population-by_race_county_std",
-      [],
-      Breakdowns.byCounty(),
-      RACE,
-      [],
-      [MARIN_FINAL_ROW]
+    await ensureCorrectDatasetsDownloaded(
+      "cdc_vaccination_county-race_and_ethnicity_processed-06",
+      Breakdowns.forFips(new Fips(MARIN.code)),
+      RACE
     );
   });
 });
