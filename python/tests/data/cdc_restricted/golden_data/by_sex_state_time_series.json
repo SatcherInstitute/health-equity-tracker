@@ -75,7 +75,7 @@
     "covid_hosp_share": null,
     "covid_deaths_share": null,
     "covid_population_pct": 100.0,
-    "covid_cases_inequitable_share": null,
+    "covid_cases_inequitable_share": 0,
     "covid_hosp_inequitable_share": null,
     "covid_deaths_inequitable_share": null
   },

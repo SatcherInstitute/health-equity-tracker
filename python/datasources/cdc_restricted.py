@@ -455,15 +455,16 @@ def null_out_suppressed_deaths_hosps(df, modify_pop_rows):
                         rows to np.nan. Note, these population rows must have been
                         created using the `merge_multiple_pop_cols` function."""
 
+    suffixes = [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX, std_col.INEQUITABLE_SHARE_SUFFIX]
     hosp_rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
         HOSP_DATA_SUPPRESSION_STATES)
-    for suffix in [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX]:
+    for suffix in suffixes:
         df.loc[hosp_rows_to_modify,
                generate_column_name(std_col.COVID_HOSP_PREFIX, suffix)] = np.nan
 
     death_rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
         DEATH_DATA_SUPPRESSION_STATES)
-    for suffix in [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX]:
+    for suffix in suffixes:
         df.loc[death_rows_to_modify,
                generate_column_name(std_col.COVID_DEATH_PREFIX, suffix)] = np.nan
 
