@@ -121,6 +121,11 @@ export function createTitles({
   const time = "since Jan 2020";
   const isMobile = containerWidth < 700;
   const isComparing = window.location.href.includes("compare");
+  const timeTrackingData = [
+    "covid_cases",
+    "covid_deaths",
+    "covid_hospitalizations",
+  ].includes(variableConfig.variableId);
 
   if (trend) {
     return {
@@ -148,39 +153,40 @@ export function createTitles({
     return { chartTitle, subtitle };
   }
 
-  //If time series data add time metric
-  if (variableConfig.timeSeriesData) {
+  //If time tracking data add time metric
+  if (timeTrackingData) {
     chartTitle = population
-      ? `Population vs distribution of total ${metric} ${time} in ${location}`
+      ? `Population vs distribution of total ${metric.toLocaleLowerCase()} ${time} in ${location}`
       : `${metric} ${time} per 100k people in ${location}`;
   } else {
     chartTitle = population
-      ? `Population vs distribution of total ${metric} in ${location}`
+      ? `Population vs distribution of total ${metric.toLocaleLowerCase()} in ${location}`
       : `${metric} per 100k people in ${location}`;
   }
 
-  if (isMobile && variableConfig.timeSeriesData) {
+  if (isMobile && timeTrackingData) {
     chartTitle = population
       ? [
-          `Population vs distribution of total ${metric}`,
+          `Population vs distribution of`,
+          `total ${metric.toLocaleLowerCase()}`,
           `${time} in ${location}`,
         ]
       : [`${metric} ${time} per 100k`, `people in ${location}`];
   }
-  if (isMobile && !variableConfig.timeSeriesData) {
+  if (isMobile && !timeTrackingData) {
     chartTitle = population
       ? (chartTitle = [
-          `Population vs distribution of ${metric} in`,
+          `Population vs distribution of ${metric.toLocaleLowerCase()} in`,
           `${location}`,
         ])
       : [`${metric} per 100k people in the`, `${location}`];
   }
 
-  if (isComparing && variableConfig.timeSeriesData) {
+  if (isComparing && timeTrackingData) {
     if (containerWidth < 1400 && containerWidth > 1000) {
       chartTitle = population
         ? [
-            `Population vs distribution of total ${metric}`,
+            `Population vs distribution of total ${metric.toLocaleLowerCase()}`,
             `${time} in ${location}`,
           ]
         : [`${metric} ${time} per 100k people`, `in ${location}`];
@@ -189,24 +195,28 @@ export function createTitles({
       chartTitle = population
         ? [
             `Population vs distrbution of`,
-            `total ${metric}`,
+            `total ${metric.toLocaleLowerCase()}`,
             `${time} in ${location}`,
           ]
         : [`${metric}`, `${time} per 100k people`, `in ${location}`];
     }
   }
-  if (isComparing && !variableConfig.timeSeriesData) {
+  if (isComparing && !timeTrackingData) {
     if (containerWidth < 1400 && containerWidth > 1000) {
       chartTitle = population
         ? (chartTitle = [
-            `Population vs distribution of ${metric}`,
+            `Population vs distribution of ${metric.toLocaleLowerCase()}`,
             `in ${location}`,
           ])
         : [`${metric} per 100k people in`, `${location}`];
     }
     if (containerWidth < 1000 && containerWidth > 600) {
       chartTitle = population
-        ? [`Population vs distribution of`, `total ${metric}`, `in ${location}`]
+        ? [
+            `Population vs distribution of`,
+            `total ${metric.toLocaleLowerCase()}`,
+            `in ${location}`,
+          ]
         : [`${metric}`, `per 100k people`, `in ${location}`];
     }
   }
