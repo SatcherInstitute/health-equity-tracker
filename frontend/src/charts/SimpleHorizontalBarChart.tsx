@@ -83,7 +83,7 @@ function getSpec(
       encode: {
         title: {
           enter: {
-            fontSize: { value: 14 },
+            fontSize: { value: pageIsTiny ? 11 : 14 },
             font: { value: "Inter, sans-serif" },
           },
         },

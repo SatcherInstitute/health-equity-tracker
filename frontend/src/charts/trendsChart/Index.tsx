@@ -45,6 +45,7 @@ import { MOBILE_BREAKPOINT } from "../../App";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 import useEscape from "../../utils/hooks/useEscape";
 import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
+import { useMediaQuery } from "@material-ui/core";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -70,6 +71,7 @@ export function TrendsChart({
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
   const { groupLabel } = axisConfig || {};
+  const pageIsTiny = useMediaQuery("(max-width:400px)");
 
   /* Refs */
   // parent container ref - used for setting svg width
@@ -271,7 +273,7 @@ export function TrendsChart({
         )}
       </div>
       {/* Chart Title */}
-      <figcaption>
+      <figcaption style={{ fontSize: pageIsTiny ? 11 : 14 }}>
         <b id={chartTitleId}>{chartTitle}</b>
       </figcaption>
       {/* Tooltip */}
