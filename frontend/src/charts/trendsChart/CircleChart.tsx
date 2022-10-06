@@ -146,10 +146,13 @@ export function CircleChart({
           {/* Display circle for min, mid, and max values */}
           {getLegendValues().map((percent = 0, i) => {
             let legendHelper = "";
-
+            let labelText = "";
             if (i === 0) legendHelper = "lowest ";
             if (i === 1) legendHelper = "middle ";
             if (i === 2) legendHelper = "highest ";
+            if (i === 0) labelText = "min ";
+            if (i === 1) labelText = "mid ";
+            if (i === 2) labelText = "max ";
 
             return (
               <g
@@ -165,15 +168,17 @@ export function CircleChart({
                 >
                   <title>{`${legendHelper} unknown value`}</title>
                 </circle>
-
                 {/* Circle label annotation (percent represented by circle) */}
                 <text
                   textAnchor="middle"
-                  dy="28px"
+                  dy="25px"
                   id={`circleLegendText-${i}-${circleId}`}
                   aria-label={`${legendHelper} unknown value indicator`}
                 >
                   {F.pct(percent)}
+                </text>
+                <text textAnchor="middle" dy="36px">
+                  <tspan>{labelText}</tspan>
                 </text>
               </g>
             );
@@ -183,7 +188,7 @@ export function CircleChart({
         {/* Legend Title */}
         <text
           textAnchor="middle"
-          dy="50px"
+          dy="55px"
           className={styles.title}
           id={`unknown-circle-legend-title-${circleId}`}
         >

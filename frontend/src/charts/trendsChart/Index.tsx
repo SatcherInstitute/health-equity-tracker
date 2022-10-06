@@ -46,6 +46,8 @@ import { BreakdownVar } from "../../data/query/Breakdowns";
 import useEscape from "../../utils/hooks/useEscape";
 import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
 import { useMediaQuery } from "@material-ui/core";
+import Dialog from "@material-ui/core/Dialog";
+import { SettingsOverscan } from "@material-ui/icons";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -246,6 +248,7 @@ export function TrendsChart({
   const chartTitleId = `chart-title-label-${axisConfig.type}-${
     isCompareCard ? "2" : "1"
   }`;
+  const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
   return (
     // Container
@@ -255,6 +258,9 @@ export function TrendsChart({
           isSkinny ? styles.FilterWrapperSkinny : styles.FilterWrapperWide
         }
       >
+        <button onClick={() => setDialogIsOpen(true)}>
+          <SettingsOverscan />
+        </button>
         {/* Filter */}
         {data && (
           <FilterLegend
@@ -308,7 +314,7 @@ export function TrendsChart({
       {/* Chart */}
       {filteredData && xScale && yScale && (
         <svg
-          height={CONFIG.HEIGHT}
+          height={505}
           width={width as number}
           onMouseMove={handleMousemove}
           onMouseLeave={() => setHoveredDate(null)}
@@ -364,6 +370,9 @@ export function TrendsChart({
           )}
         </svg>
       )}
+      <Dialog onClose={() => null} open={dialogIsOpen} fullWidth maxWidth="lg">
+        <button onClick={() => setDialogIsOpen(false)}>close</button>
+      </Dialog>
     </figure>
   );
 }
