@@ -4,6 +4,7 @@ import {
 } from "../../data/query/Breakdowns";
 import styles from "./MultiMapLink.module.scss";
 import React from "react";
+import { Link } from "react-router-dom";
 
 /*
 Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
@@ -19,8 +20,8 @@ export function MultiMapLink(props: MultiMapLinkProps) {
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown];
   return (
     <>
-      <a
-        href="#rate-map"
+      <Link
+        to="#rate-map"
         onClick={() => props.setSmallMultiplesDialogOpen(true)}
         className={styles.CompareAcrossLink}
         aria-label={
@@ -32,7 +33,7 @@ export function MultiMapLink(props: MultiMapLinkProps) {
         }
       >
         Launch small multiples view
-      </a>{" "}
+      </Link>{" "}
       to compare across {groupTerm} groups.
     </>
   );
