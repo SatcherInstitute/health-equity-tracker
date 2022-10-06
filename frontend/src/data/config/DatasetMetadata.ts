@@ -237,25 +237,25 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2018",
   },
   {
-    id: "cdc_vaccination_county-race_and_ethnicity",
+    id: "cdc_vaccination_county-race_and_ethnicity_processed",
     name: "COVID-19 Vaccinations by County",
-    update_time: "September 2022",
     contains_nh: true,
+    update_time: "October 2022",
   },
   {
     id: "cdc_vaccination_national-age",
     name: "COVID-19 Vaccination Demographics by Age",
-    update_time: "September 2022",
+    update_time: "October 2022",
   },
   {
     id: "cdc_vaccination_national-sex",
     name: "COVID-19 Vaccination Demographics by Sex",
-    update_time: "September 2022",
+    update_time: "October 2022",
   },
   {
     id: "cdc_vaccination_national-race_and_ethnicity",
     name: "COVID-19 Vaccination Demographics by Race",
-    update_time: "September 2022",
+    update_time: "October 2022",
     contains_nh: true,
   },
   {
