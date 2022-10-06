@@ -3,8 +3,10 @@ import pandas as pd  # type: ignore
 import time
 
 import ingestion.standardized_columns as std_col
-from ingestion.standardized_columns import generate_column_name
-from ingestion.standardized_columns import Race
+from ingestion.standardized_columns import (
+    generate_column_name,
+    Race)
+
 from ingestion.constants import (
     US_FIPS,
     US_NAME,
