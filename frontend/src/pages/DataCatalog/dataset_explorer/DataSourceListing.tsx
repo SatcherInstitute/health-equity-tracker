@@ -24,7 +24,8 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import { Grid, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 
 type LoadStatus = "loading" | "unloaded" | "error" | "loaded";
 
@@ -108,7 +109,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
     >
       <Typography variant="h4" className={styles.DatasetTitle} align="left">
         <Link
-          to={props.source_metadata.data_source_link}
+          href={props.source_metadata.data_source_link}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -141,7 +142,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
             </td>
             <td>
               <Link
-                to={props.source_metadata.data_source_link}
+                href={props.source_metadata.data_source_link}
                 target="_blank"
                 rel="noopener noreferrer"
               >
