@@ -1,0 +1,90 @@
+@import "../../styles/variables.module";
+@import "../../styles/globals.scss";
+
+.Collapsed {
+  :not(:focus-within) {
+    @include srOnly();
+  }
+}
+
+.AltTableExpanderBox {
+  margin-top: 15px;
+  background: $listbox-color;
+  border-radius: 8px;
+  text-align: left;
+
+  p {
+    padding: 1rem;
+    margin: 0;
+  }
+
+  h4 {
+    margin: 0;
+  }
+}
+
+.AltTableContainer {
+  overflow-x: auto;
+  overflow-y: auto;
+  display: flex;
+  align-self: center;
+  max-height: 500px;
+
+  caption-side: top;
+}
+
+.AltTable {
+  width: 98%;
+  margin: 10px;
+  white-space: nowrap;
+  border: 1px solid $alt-dark;
+  border-radius: 2px;
+
+  thead tr th {
+    background-color: $white; // #fdfff9; // $grey-grid-color; // #f5faee;
+    word-wrap: break-word !important;
+    line-height: $lhSomeSpace;
+    border-bottom: 1px solid $alt-dark;
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: #fdfff9; // $white;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: $white; // #fdfff9; // $grey-grid-color;
+  }
+}
+
+.AltTableTitle,
+.AltTableTitleExpanded {
+  padding-left: 16px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.AltTableTitle {
+  line-height: 47px; // specific height to vertically center text on collapse/expand arrow
+
+  @media (min-width: $sm) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (max-width: $sm) {
+    font-size: $smallest;
+
+    .HideOnMobile {
+      display: none;
+    }
+  }
+}
+
+.AltTableTitleExpanded {
+  padding: 14px 0 14px 16px;
+}
+
+.CollapseButton {
+  float: right;
+}

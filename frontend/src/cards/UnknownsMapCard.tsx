@@ -11,7 +11,7 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import {
   Breakdowns,
   BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import {
   UNKNOWN,
@@ -26,6 +26,9 @@ import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { useLocation } from "react-router-dom";
+import { reportProviderSteps } from "../reports/ReportProviderSteps";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { createTitles } from "../charts/utils";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -62,7 +65,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       const clickedData = args[1];
       if (clickedData?.id) {
         props.updateFipsCallback(new Fips(clickedData.id));
-        location.hash = `#unknowns-map`;
+        location.hash = `#unknown-demographic-map`;
       }
     },
   };
@@ -78,15 +81,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const mapQuery = new MetricQuery([metricConfig.metricId], mapGeoBreakdowns);
   const alertQuery = new MetricQuery([metricConfig.metricId], alertBreakdown);
 
-  const RACE_OR_ETHNICITY_TITLECASE = "Race Or Ethnicity";
-
   function getTitleTextArray() {
     return [
       `${metricConfig.fullCardTitleName}`,
-      `With Unknown ${
-        props.overrideAndWithOr
-          ? RACE_OR_ETHNICITY_TITLECASE
-          : BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+      `with unknown ${
+        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown]
       }`,
     ];
   }
@@ -95,13 +94,22 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     return getTitleTextArray().join(" ");
   }
 
+  const HASH_ID: ScrollableHashId = "unknown-demographic-map";
+
+  const { chartTitle } = createTitles({
+    variableConfig: props.variableConfig,
+    fips: props.fips,
+    unknown: true,
+    breakdown: props.currentBreakdown,
+  });
+
   return (
     <CardWrapper
       queries={[mapQuery, alertQuery]}
-      title={<>{getTitleText()}</>}
+      title={<>{reportProviderSteps[HASH_ID].label}</>}
       loadGeographies={true}
       minHeight={preloadHeight}
-      scrollToHash="unknowns-map"
+      scrollToHash={HASH_ID}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         const unknownRaces = mapQueryResponse
@@ -175,7 +183,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               <MapBreadcrumbs
                 fips={props.fips}
                 updateFipsCallback={props.updateFipsCallback}
-                scrollToHashId="unknowns-map"
+                scrollToHashId="unknown-demographic-map"
               />
             </CardContent>
             <Divider />
@@ -207,7 +215,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}
                   breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                      props.currentBreakdown
+                    ]
                   }
                   isMapCard={true}
                   fips={props.fips}
@@ -218,14 +228,19 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {showNoUnknownsInfo && (
                 <Alert severity="info" role="note">
                   No unknown values for{" "}
-                  {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]} reported
-                  in this dataset.
+                  {
+                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                      props.currentBreakdown
+                    ]
+                  }{" "}
+                  reported in this dataset.
                 </Alert>
               )}
             </CardContent>
             {showingVisualization && (
               <CardContent>
                 <ChoroplethMap
+                  titles={{ chartTitle, subTitle: "" }}
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}

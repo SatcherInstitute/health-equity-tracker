@@ -136,7 +136,7 @@ export function PopulationCard(props: PopulationCardProps) {
                     <Grid container>
                       <Grid item>
                         <span className={styles.TotalPopulationKey}>
-                          Total Population:
+                          Total population:
                         </span>
                       </Grid>
                       <Grid item>

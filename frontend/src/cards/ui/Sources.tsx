@@ -74,11 +74,13 @@ export function getDataSourceMapFromDatasetIds(
   return dataSourceMap;
 }
 
-export function Sources(props: {
+interface SourcesProps {
   queryResponses: MetricQueryResponse[];
   metadata: MapOfDatasetMetadata;
   isAgeAdjustedTable?: boolean;
-}) {
+}
+
+export function Sources(props: SourcesProps) {
   // If all data is missing, no need to show sources.
   if (props.queryResponses.every((resp) => resp.dataIsMissing())) {
     return <></>;
@@ -124,7 +126,7 @@ export function Sources(props: {
           {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
         </Fragment>
       ))}
-      {showNhFootnote && <p>(NH): Non-Hispanic. </p>}
+      {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
     </>
   );
 }
