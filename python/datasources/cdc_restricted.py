@@ -218,12 +218,13 @@ class CDCRestrictedData(DataSource):
 
         if not cumulative:
             for prefix in COVID_CONDITION_TO_PREFIX.values():
+                inequitable_share_col = generate_column_name(prefix, std_col.INEQUITABLE_SHARE_SUFFIX)
                 df = generate_inequitable_share_column(
                    df, generate_column_name(prefix, std_col.SHARE_SUFFIX),
                    std_col.COVID_POPULATION_PCT,
-                   generate_column_name(prefix, std_col.INEQUITABLE_SHARE_SUFFIX))
+                   inequitable_share_col)
 
-                all_columns.append(generate_column_name(prefix, std_col.INEQUITABLE_SHARE_SUFFIX))
+                all_columns.append(inequitable_share_col)
 
         if not cumulative and geo != NATIONAL_LEVEL:
             df = remove_or_set_to_zero(df, geo, demo)
@@ -236,6 +237,9 @@ class CDCRestrictedData(DataSource):
 
         if geo == COUNTY_LEVEL and cumulative:
             null_out_all_unknown_deaths_hosps(df)
+
+        if not cumulative:
+            zero_out_inequitable_share(df, geo, demo)
 
         df = df[all_columns]
         self.clean_frame_column_names(df)
@@ -493,3 +497,48 @@ def null_out_all_unknown_deaths_hosps(df):
            df[std_col.COVID_CASES], generate_column_name(std_col.COVID_HOSP_PREFIX, std_col.PER_100K_SUFFIX)] = np.nan
     df.loc[df[std_col.COVID_HOSP_UNKNOWN] ==
            df[std_col.COVID_CASES], generate_column_name(std_col.COVID_HOSP_PREFIX, std_col.SHARE_SUFFIX)] = np.nan
+
+
+def zero_out_inequitable_share(df, geo, demographic):
+    """Sets inequitable share of cases/deaths/hosps to zero if there
+       are zero cases/deaths/hosps with a known dempgrahic.
+
+       df: Dataframe to zero rows out on.
+       geo: Geographic level. Must be `national`, `state` or`county`.
+       demographic: Demographic breakdown. Must be `race`, `age`, or `sex`."""
+
+    geo_col_mapping = {
+        NATIONAL_LEVEL: [
+            std_col.STATE_FIPS_COL,
+            std_col.STATE_NAME_COL,
+        ],
+        STATE_LEVEL: [
+            std_col.STATE_FIPS_COL,
+            std_col.STATE_NAME_COL,
+        ],
+        COUNTY_LEVEL: [
+            std_col.COUNTY_FIPS_COL,
+            std_col.COUNTY_NAME_COL,
+        ],
+    }
+    geo_cols = geo_col_mapping[geo]
+
+    per_100k_col_names = {}
+    for prefix in COVID_CONDITION_TO_PREFIX.values():
+        per_100k_col_name = generate_column_name(prefix, std_col.PER_100K_SUFFIX)
+        per_100k_col_names[per_100k_col_name] = f'{per_100k_col_name}_grouped'
+
+    grouped_df = df.groupby(geo_cols + [std_col.TIME_PERIOD_COL]).sum().reset_index()
+    grouped_df = grouped_df.rename(columns=per_100k_col_names)
+    grouped_df = grouped_df[geo_cols + list(per_100k_col_names.values()) + [std_col.TIME_PERIOD_COL]]
+
+    print(grouped_df.to_string())
+
+    df = pd.merge(df, grouped_df, on=geo_cols + [std_col.TIME_PERIOD_COL])
+    for prefix in COVID_CONDITION_TO_PREFIX.values():
+        grouped_col = f'{generate_column_name(prefix, std_col.PER_100K_SUFFIX)}_grouped'
+        df.loc[df[grouped_col] == 0, generate_column_name(prefix, std_col.INEQUITABLE_SHARE_SUFFIX)] = 0
+
+    df = df.drop(columns=list(per_100k_col_names.values()))
+
+    return df
