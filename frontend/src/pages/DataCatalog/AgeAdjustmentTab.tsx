@@ -8,6 +8,7 @@ import {
   EXPLORE_DATA_PAGE_LINK,
 } from "../../utils/internalRoutes";
 import { Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 function AgeAdjustmentTab() {
   return (
@@ -39,13 +40,13 @@ function AgeAdjustmentTab() {
                 order to show a more accurate and equitable view of the impact
                 on non-white communities in the United States. Currently, we are
                 able to calculate these age-adjusted ratios for{" "}
-                <a href={EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_US_SETTING}>
+                <Link to={EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_US_SETTING}>
                   COVID-19 deaths
-                </a>
-                href {" and "}
-                <a href={EXPLORE_DATA_PAGE_LINK + COVID_HOSP_US_SETTING}>
+                </Link>
+                {" and "}
+                <Link to={EXPLORE_DATA_PAGE_LINK + COVID_HOSP_US_SETTING}>
                   hospitalizations
-                </a>
+                </Link>
                 , and we present the findings in a distinct, age-adjusted table.
                 All of the other data shown on the tracker, including
                 visualizations across all topics, are not age-adjusted. Showing

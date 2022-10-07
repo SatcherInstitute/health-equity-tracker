@@ -21,6 +21,10 @@ test('Default Tracker to Compare Mode', async ({ page }) => {
     const madlibBox = page.locator('id=onboarding-start-your-search')
     await expect(madlibBox).toContainText('Compare rates of');
 
+    // back button works properly for carousel mode changes
+    await page.goBack()
+    await expect(madlibBox).toContainText('Investigate');
+
 })
 
 test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
@@ -42,8 +46,18 @@ test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
     await page.fill('[placeholder="County, State, Territory, or United States"]', 'Colorado');
     await page.keyboard.press('Enter');
 
-    // Confirm correct URL params
+    // Confirm correct URL params (Denver County vs Colorado)
     await expect(page).toHaveURL(/.*mls=1.covid-3.08031-5.08&mlp=comparegeos/);
+
+    // back button works properly for madlib location changes
+
+    //  back one step to denver county vs Georgia (default compare location)
+    await page.goBack()
+    await expect(page).toHaveURL(/.*?mls=1.covid-3.08031-5.13&mlp=comparegeos/);
+
+    //  back another step to USA vs Georgia (default 1st and 2nd compare locations)
+    await page.goBack()
+    await expect(page).toHaveURL(/.*?mls=1.covid-3.00-5.13&mlp=comparegeos/);
 
 })
 
@@ -73,6 +87,11 @@ test('Switch Data Types for Both Geos', async ({ page }) => {
     await expect(page).toHaveURL(/.*dt1=covid_deaths/);
     await expect(page).toHaveURL(/.*dt2=covid_deaths/);
 
+    // back button works properly for data type toggle changes
+    await page.goBack()
+    await expect(page).toHaveURL(/.*dt1=covid_deaths/);
+    await expect(page).not.toHaveURL(/.*dt2=covid_deaths/);
+
 });
 
 
@@ -88,15 +107,11 @@ test('Use Table of Contents to Scroll Age Adjust Card Into View and Be Focused',
     const ageAdjustStepLink = page.locator('button:has-text("Age-adjusted risk")')
     await ageAdjustStepLink.click()
 
-    // // Ensure URL Hash updates
-    // await expect(page).toHaveURL(/.*#age-adjusted-risk/);
-
     // Find Age-Adjust Card
     const ageAdjustCard = page.locator('#age-adjusted-risk')
 
     // Ensure focus and visibility
     await expect(ageAdjustCard).toBeFocused();
     await expect(ageAdjustCard).toBeVisible();
-
 
 });
