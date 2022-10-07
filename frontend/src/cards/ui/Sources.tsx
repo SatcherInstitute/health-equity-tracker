@@ -75,6 +75,7 @@ interface SourcesProps {
   queryResponses: MetricQueryResponse[];
   metadata: MapOfDatasetMetadata;
   isAgeAdjustedTable?: boolean;
+  hideNH?: boolean;
 }
 
 export function Sources(props: SourcesProps) {
@@ -97,9 +98,9 @@ export function Sources(props: SourcesProps) {
     props.metadata
   );
 
-  const showNhFootnote = datasetIds.some(
-    (set) => DatasetMetadataMap[set]?.contains_nh
-  );
+  const showNhFootnote =
+    !props.hideNH &&
+    datasetIds.some((set) => DatasetMetadataMap[set]?.contains_nh);
 
   return (
     <>
