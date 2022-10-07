@@ -188,7 +188,7 @@ export function CircleChart({
         {/* Legend Title */}
         <text
           textAnchor="middle"
-          dy="55px"
+          dy="50px"
           className={styles.title}
           id={`unknown-circle-legend-title-${circleId}`}
         >

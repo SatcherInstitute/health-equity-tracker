@@ -47,7 +47,6 @@ import useEscape from "../../utils/hooks/useEscape";
 import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
 import { useMediaQuery } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
-import { SettingsOverscan } from "@material-ui/icons";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -258,9 +257,6 @@ export function TrendsChart({
           isSkinny ? styles.FilterWrapperSkinny : styles.FilterWrapperWide
         }
       >
-        <button onClick={() => setDialogIsOpen(true)}>
-          <SettingsOverscan />
-        </button>
         {/* Filter */}
         {data && (
           <FilterLegend
@@ -314,7 +310,7 @@ export function TrendsChart({
       {/* Chart */}
       {filteredData && xScale && yScale && (
         <svg
-          height={505}
+          height={CONFIG.HEIGHT}
           width={width as number}
           onMouseMove={handleMousemove}
           onMouseLeave={() => setHoveredDate(null)}
