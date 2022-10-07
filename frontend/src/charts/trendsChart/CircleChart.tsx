@@ -188,12 +188,11 @@ export function CircleChart({
         {/* Legend Title */}
         <text
           textAnchor="middle"
-          dy="50px"
+          dy="55px"
           className={styles.title}
           id={`unknown-circle-legend-title-${circleId}`}
         >
           {unknownCircleLegendText}
-          {/* (min / mid / max) */}
         </text>
       </g>
     </g>

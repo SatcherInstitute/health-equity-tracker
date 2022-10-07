@@ -308,7 +308,7 @@ export function TrendsChart({
       {/* Chart */}
       {filteredData && xScale && yScale && (
         <svg
-          height={CONFIG.HEIGHT}
+          height={505}
           width={width as number}
           onMouseMove={handleMousemove}
           onMouseLeave={() => setHoveredDate(null)}
