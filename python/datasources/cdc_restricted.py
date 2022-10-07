@@ -505,7 +505,7 @@ def null_out_all_unknown_deaths_hosps(df):
 
 def zero_out_inequitable_share(df, geo, demographic):
     """Sets inequitable share of cases/deaths/hosps to zero if there
-       are zero cases/deaths/hosps with a known dempgrahic.
+       are zero cases/deaths/hosps with a known demographic.
 
        df: Dataframe to zero rows out on.
        geo: Geographic level. Must be `national`, `state` or`county`.
