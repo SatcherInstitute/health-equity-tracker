@@ -21,6 +21,10 @@ test('Default Tracker to Compare Mode', async ({ page }) => {
     const madlibBox = page.locator('id=onboarding-start-your-search')
     await expect(madlibBox).toContainText('Compare rates of');
 
+    // back button works properly for carousel mode changes
+    await page.goBack()
+    await expect(madlibBox).toContainText('Investigate');
+
 })
 
 test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
@@ -44,6 +48,10 @@ test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
 
     // Confirm correct URL params
     await expect(page).toHaveURL(/.*mls=1.covid-3.08031-5.08&mlp=comparegeos/);
+
+    // back button works properly for madlib location changes
+    await page.goBack()
+    await expect(page).toHaveURL(/.*mls=1.covid-3.00-5.13&mlp=comparegeos/);
 
 })
 
@@ -73,6 +81,11 @@ test('Switch Data Types for Both Geos', async ({ page }) => {
     await expect(page).toHaveURL(/.*dt1=covid_deaths/);
     await expect(page).toHaveURL(/.*dt2=covid_deaths/);
 
+    // back button works properly for data type toggle changes
+    await page.goBack()
+    await expect(page).toHaveURL(/.*dt1=covid_deaths/);
+    await expect(page).not.toHaveURL(/.*dt2=covid_deaths/);
+
 });
 
 
@@ -97,6 +110,5 @@ test('Use Table of Contents to Scroll Age Adjust Card Into View and Be Focused',
     // Ensure focus and visibility
     await expect(ageAdjustCard).toBeFocused();
     await expect(ageAdjustCard).toBeVisible();
-
 
 });
