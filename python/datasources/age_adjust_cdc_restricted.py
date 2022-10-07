@@ -98,7 +98,7 @@ class AgeAdjustCDCRestricted(DataSource):
         # table in the BigQuery dataset. We expect that all aggregation and
         # standardization of the data has been done by this point.
         for table_name, df in table_names_to_dfs.items():
-            column_types = get_col_types(df)
+            column_types = get_col_types(df, True)
             column_types[std_col.COVID_HOSP_RATIO_AGE_ADJUSTED] = 'FLOAT'
             column_types[std_col.COVID_DEATH_RATIO_AGE_ADJUSTED] = 'FLOAT'
 
