@@ -157,7 +157,7 @@ def get_expected_hosps(race_and_age_df, population_df):
 
         if not ref_pop_size:
             raise ValueError(
-                'Population size for %s demographic is 0 or nil' % REFERENCE_POPULATION)
+                f'Population size for {REFERENCE_POPULATION} demographic is 0 or nil')
 
         if not row[std_col.COVID_HOSP_Y]:
             return None
@@ -203,7 +203,7 @@ def get_expected_deaths(race_and_age_df, population_df):
 
         if not ref_pop_size:
             raise ValueError(
-                'Population size for %s demographic is 0 or nil' % REFERENCE_POPULATION)
+                f'Population size for {REFERENCE_POPULATION} demographic is 0 or nil')
 
         if not row[std_col.COVID_DEATH_Y]:
             return None
