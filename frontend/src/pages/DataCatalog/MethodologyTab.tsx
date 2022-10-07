@@ -8,7 +8,7 @@ import {
   DATA_TAB_LINK,
 } from "../../utils/internalRoutes";
 import { Helmet } from "react-helmet-async";
-import { getHtml } from "../../utils/urlutils";
+import { getHtml, LinkWithStickyParams } from "../../utils/urlutils";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import { Card } from "@material-ui/core";
@@ -19,6 +19,7 @@ import {
   ALASKA_PRIVATE_JAIL_CAVEAT,
   CombinedIncarcerationStateMessage,
 } from "../../data/variables/IncarcerationProvider";
+import { Link } from "react-router-dom";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
@@ -77,9 +78,9 @@ function MethodologyTab() {
                 <p>
                   For a description of some of the gaps in COVID-19 data, please
                   see the{" "}
-                  <a href={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
+                  <Link to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
                     What Data Are Missing
-                  </a>{" "}
+                  </Link>{" "}
                   section. Here, we provide further details:
                 </p>
                 <ul>
@@ -764,8 +765,8 @@ function MethodologyTab() {
                 />
                 <p>
                   Links to the original sources of data and their definitions
-                  can be found on our <a href={DATA_TAB_LINK}>Data Downloads</a>{" "}
-                  page.
+                  can be found on our{" "}
+                  <Link to={DATA_TAB_LINK}>Data Downloads</Link> page.
                 </p>
               </div>
             </Grid>
@@ -880,7 +881,9 @@ function MethodologyTab() {
                   Do you have information on health outcomes at the state and
                   local level that belong in the Health Equity Tracker?
                   <br />
-                  <a href={CONTACT_TAB_LINK}>We would love to hear from you!</a>
+                  <LinkWithStickyParams to={CONTACT_TAB_LINK}>
+                    We would love to hear from you!
+                  </LinkWithStickyParams>
                 </p>
               </div>
             </Grid>

@@ -24,6 +24,8 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import { Grid, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+// import { Link } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 
 type LoadStatus = "loading" | "unloaded" | "error" | "loaded";
 
@@ -106,13 +108,13 @@ export function DataSourceListing(props: DataSourceListingProps) {
       data-testid={props.source_metadata.id}
     >
       <Typography variant="h4" className={styles.DatasetTitle} align="left">
-        <a
+        <Link
           href={props.source_metadata.data_source_link}
           target="_blank"
           rel="noopener noreferrer"
         >
           {props.source_metadata.data_source_name}
-        </a>
+        </Link>
       </Typography>
       <table className={styles.MetadataTable}>
         <tbody>
@@ -139,13 +141,13 @@ export function DataSourceListing(props: DataSourceListingProps) {
               <b>Source Website</b>
             </td>
             <td>
-              <a
+              <Link
                 href={props.source_metadata.data_source_link}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 {props.source_metadata.data_source_pretty_site_name}
-              </a>
+              </Link>
             </td>
           </tr>
         </tbody>

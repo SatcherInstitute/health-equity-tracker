@@ -19,8 +19,7 @@ export function MultiMapLink(props: MultiMapLinkProps) {
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown];
   return (
     <>
-      <a
-        href="#rate-map"
+      <button
         onClick={() => props.setSmallMultiplesDialogOpen(true)}
         className={styles.CompareAcrossLink}
         aria-label={
@@ -32,7 +31,7 @@ export function MultiMapLink(props: MultiMapLinkProps) {
         }
       >
         Launch small multiples view
-      </a>{" "}
+      </button>{" "}
       to compare across {groupTerm} groups.
     </>
   );

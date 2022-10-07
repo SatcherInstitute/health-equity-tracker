@@ -18,7 +18,7 @@ import styles from "./MultiMapDialog.module.scss";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import {
   BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
 import { Alert } from "@material-ui/lab";
 import { DemographicGroup } from "../../data/utils/Constants";
@@ -84,8 +84,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             justifyContent={pageIsWide ? "flex-start" : "center"}
           >
             <Typography id="modalTitle" variant="h6" component="h2">
-              {props.metricConfig.fullCardTitleName} Across All{" "}
-              {BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdown]} Groups
+              {props.metricConfig.fullCardTitleName} across all{" "}
+              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
             </Typography>
           </Grid>
 

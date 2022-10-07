@@ -58,7 +58,7 @@ export function useStepObserver(
         // when page is scrolled to the top, don't track scroll position and remove any hash
         if (isScrolledToTop) {
           setActiveId("");
-          window.history.pushState(
+          window.history.replaceState(
             "",
             document.title,
             window.location.pathname + window.location.search
