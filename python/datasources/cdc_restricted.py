@@ -216,6 +216,9 @@ class CDCRestrictedData(DataSource):
         df = generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
                                                   demo_col, all_val, unknown_val)
 
+        if not cumulative and geo != NATIONAL_LEVEL:
+            df = remove_or_set_to_zero(df, geo, demo)
+
         if not cumulative:
             for prefix in COVID_CONDITION_TO_PREFIX.values():
                 inequitable_share_col = generate_column_name(prefix, std_col.INEQUITABLE_SHARE_SUFFIX)
@@ -225,9 +228,6 @@ class CDCRestrictedData(DataSource):
                    inequitable_share_col)
 
                 all_columns.append(inequitable_share_col)
-
-        if not cumulative and geo != NATIONAL_LEVEL:
-            df = remove_or_set_to_zero(df, geo, demo)
 
         if geo != NATIONAL_LEVEL:
             null_out_suppressed_deaths_hosps(df, False)
