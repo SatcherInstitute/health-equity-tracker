@@ -46,12 +46,18 @@ test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
     await page.fill('[placeholder="County, State, Territory, or United States"]', 'Colorado');
     await page.keyboard.press('Enter');
 
-    // Confirm correct URL params
+    // Confirm correct URL params (Denver County vs Colorado)
     await expect(page).toHaveURL(/.*mls=1.covid-3.08031-5.08&mlp=comparegeos/);
 
     // back button works properly for madlib location changes
+
+    //  back one step to denver county vs Georgia (default compare location)
     await page.goBack()
-    await expect(page).toHaveURL(/.*mls=1.covid-3.00-5.13&mlp=comparegeos/);
+    await expect(page).toHaveURL(/.*?mls=1.covid-3.08031-5.13&mlp=comparegeos/);
+
+    //  back another step to USA vs Georgia (default 1st and 2nd compare locations)
+    await page.goBack()
+    await expect(page).toHaveURL(/.*?mls=1.covid-3.00-5.13&mlp=comparegeos/);
 
 })
 
@@ -100,9 +106,6 @@ test('Use Table of Contents to Scroll Age Adjust Card Into View and Be Focused',
     // find Table of Contents link to Age-Adjustment Card
     const ageAdjustStepLink = page.locator('button:has-text("Age-adjusted risk")')
     await ageAdjustStepLink.click()
-
-    // // Ensure URL Hash updates
-    // await expect(page).toHaveURL(/.*#age-adjusted-risk/);
 
     // Find Age-Adjust Card
     const ageAdjustCard = page.locator('#age-adjusted-risk')
