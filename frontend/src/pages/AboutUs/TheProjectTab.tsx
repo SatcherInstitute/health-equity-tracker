@@ -21,6 +21,7 @@ import LazyLoad from "react-lazyload";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { DropdownVarId, METRIC_CONFIG } from "../../data/config/MetricConfig";
 import { DEMOGRAPHIC_BREAKDOWNS } from "../../data/query/Breakdowns";
+import { LinkWithStickyParams } from "../../utils/urlutils";
 
 const FeedbackBox = React.lazy(() => import("../ui/FeedbackBox"));
 
@@ -200,9 +201,9 @@ function TheProjectTab() {
                     paragraph={true}
                   >
                     HET currently aggregates data from{" "}
-                    <a href={DATA_CATALOG_PAGE_LINK}>
+                    <LinkWithStickyParams to={DATA_CATALOG_PAGE_LINK}>
                       {`${numDataSources}`} key data sources
-                    </a>
+                    </LinkWithStickyParams>
                     , including the CDC and the U.S. Census Bureau. We’ll
                     continue adding to these initial sources as data access and
                     quality improves.
@@ -223,35 +224,47 @@ function TheProjectTab() {
                     paragraph={true}
                   >
                     In addition to COVID-19{" "}
-                    <a href={EXPLORE_DATA_PAGE_LINK + COVID_VAX_US_SETTING}>
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + COVID_VAX_US_SETTING}
+                    >
                       vaccinations,
-                    </a>{" "}
+                    </LinkWithStickyParams>{" "}
                     cases, deaths, and{" "}
-                    <a
-                      href={
-                        EXPLORE_DATA_PAGE_LINK + COVID_HOSP_NY_COUNTY_SETTING
-                      }
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + COVID_HOSP_NY_COUNTY_SETTING}
                     >
                       hospitalizations by race to the county level
-                    </a>
+                    </LinkWithStickyParams>
                     , the tracker also covers chronic disease conditions like{" "}
-                    <a href={EXPLORE_DATA_PAGE_LINK + COPD_US_SETTING}>COPD</a>{" "}
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + COPD_US_SETTING}
+                    >
+                      COPD
+                    </LinkWithStickyParams>{" "}
                     and{" "}
-                    <a href={EXPLORE_DATA_PAGE_LINK + DIABETES_US_SETTING}>
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + DIABETES_US_SETTING}
+                    >
                       diabetes
-                    </a>
+                    </LinkWithStickyParams>
                     , behavioral health indicators such as{" "}
-                    <a href={EXPLORE_DATA_PAGE_LINK + OPIOID_US_SETTING}>
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + OPIOID_US_SETTING}
+                    >
                       opioid and other substance misuse
-                    </a>
+                    </LinkWithStickyParams>
                     , and social and political determinants of health including{" "}
-                    <a href={EXPLORE_DATA_PAGE_LINK + UNINSURANCE_US_SETTING}>
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + UNINSURANCE_US_SETTING}
+                    >
                       uninsurance
-                    </a>{" "}
+                    </LinkWithStickyParams>{" "}
                     and{" "}
-                    <a href={EXPLORE_DATA_PAGE_LINK + POVERTY_US_SETTING}>
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + POVERTY_US_SETTING}
+                    >
                       poverty
-                    </a>
+                    </LinkWithStickyParams>
                     <span aria-hidden={true}>.</span>
                   </Typography>
                 </Grid>
