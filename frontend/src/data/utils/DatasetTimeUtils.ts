@@ -155,6 +155,7 @@ export function getNestedUndueShares(
     groupRows = interpolateTimePeriods(groupRows);
 
     const groupTimeSeries = groupRows.map((row) => {
+      console.log(row);
       return [row[TIME_PERIOD], row["covid_deaths_inequitable_share"]];
     });
 
