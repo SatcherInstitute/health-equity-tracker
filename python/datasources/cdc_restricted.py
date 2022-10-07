@@ -89,7 +89,7 @@ class CDCRestrictedData(DataSource):
                 if demo == RACE:
                     std_col.add_race_columns_from_category_id(df)
 
-                column_types = get_col_types(df)
+                column_types = get_col_types(df, cumulative)
 
                 table_name = f'by_{demo}_{geo}_processed'
                 if not cumulative:
@@ -270,7 +270,7 @@ def null_out_dc_county_rows(df):
            std_col.COVID_POPULATION_PCT] = np.nan
 
 
-def get_col_types(df):
+def get_col_types(df, cumulative):
     """Returns a dict of column types to send to bigquery
 
       df: DataFrame to generate column types dict for"""
@@ -280,6 +280,10 @@ def get_col_types(df):
             prefix, std_col.PER_100K_SUFFIX)] = 'FLOAT'
         column_types[generate_column_name(
             prefix, std_col.SHARE_SUFFIX)] = 'FLOAT'
+
+        if not cumulative:
+            column_types[generate_column_name(
+                prefix, std_col.INEQUITABLE_SHARE_SUFFIX)] = 'FLOAT'
 
     column_types[std_col.COVID_POPULATION_PCT] = 'FLOAT'
 
