@@ -46,7 +46,6 @@ import { BreakdownVar } from "../../data/query/Breakdowns";
 import useEscape from "../../utils/hooks/useEscape";
 import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
 import { useMediaQuery } from "@material-ui/core";
-import Dialog from "@material-ui/core/Dialog";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -247,7 +246,6 @@ export function TrendsChart({
   const chartTitleId = `chart-title-label-${axisConfig.type}-${
     isCompareCard ? "2" : "1"
   }`;
-  const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
   return (
     // Container
@@ -366,9 +364,6 @@ export function TrendsChart({
           )}
         </svg>
       )}
-      <Dialog onClose={() => null} open={dialogIsOpen} fullWidth maxWidth="lg">
-        <button onClick={() => setDialogIsOpen(false)}>close</button>
-      </Dialog>
     </figure>
   );
 }
