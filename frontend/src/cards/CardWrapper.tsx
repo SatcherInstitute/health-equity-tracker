@@ -23,6 +23,7 @@ function CardWrapper(props: {
   // To have an info icon that opens additional info, pass a Popover such as <RaceInfoPopoverContent />
   infoPopover?: JSX.Element;
   hideFooter?: boolean;
+  hideNH?: boolean;
   queries?: MetricQuery[];
   // Whether to load the geographies dataset for this card.
   loadGeographies?: boolean;
@@ -112,6 +113,7 @@ function CardWrapper(props: {
                   isAgeAdjustedTable={props.isAgeAdjustedTable}
                   queryResponses={queryResponses}
                   metadata={metadata}
+                  hideNH={props.hideNH}
                 />
               </CardContent>
             )}

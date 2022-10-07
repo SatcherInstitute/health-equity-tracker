@@ -84,6 +84,7 @@ export function PopulationCard(props: PopulationCardProps) {
       minHeight={PRELOAD_HEIGHT}
       queries={queries}
       scrollToHash="location-info"
+      hideNH={!expanded}
     >
       {([raceQueryResponse, ageQueryResponse, sviQueryResponse]) => {
         const svi =
