@@ -12,6 +12,7 @@ import {
   VariableConfig,
 } from "../../data/config/MetricConfig";
 import { dataTypeLinkMap } from "../AgeAdjustedTableCard";
+import { LinkWithStickyParams } from "../../utils/urlutils";
 
 interface MissingDataAlertProps {
   dataName: string;
@@ -52,7 +53,10 @@ function MissingDataAlert(props: MissingDataAlertProps) {
       {geoPhrase}
       for <b>{props.fips.getSentenceDisplayName()}</b>. Learn more about how
       this lack of data impacts{" "}
-      <a href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>health equity.</a>
+      <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
+        health equity
+      </LinkWithStickyParams>
+      {". "}
       {props.ageAdjustedDataTypes && props.ageAdjustedDataTypes.length > 0 && (
         <AltDataTypesMessage
           ageAdjustedDataTypes={props.ageAdjustedDataTypes}

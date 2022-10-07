@@ -4,7 +4,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import styles from "./News.module.scss";
-import { Redirect, useParams } from "react-router-dom";
+import { Link, Redirect, useParams } from "react-router-dom";
 import {
   fetchNewsData,
   ReactRouterLinkButton,
@@ -158,12 +158,12 @@ export default function SinglePost() {
               {fullArticle?.acf?.contributing_author ? (
                 <>
                   Authored by{" "}
-                  <a
+                  <Link
                     className={styles.FilterLink}
-                    href={`${NEWS_TAB_LINK}?author=${fullArticle.acf.contributing_author}`}
+                    to={`${NEWS_TAB_LINK}?author=${fullArticle.acf.contributing_author}`}
                   >
                     {fullArticle.acf.contributing_author}
-                  </a>
+                  </Link>
                 </>
               ) : isLoading ? (
                 <Skeleton></Skeleton>
@@ -198,12 +198,12 @@ export default function SinglePost() {
                 Categorized under:{" "}
                 {articleCategories.map((categoryChunk, i) => (
                   <span key={categoryChunk.id}>
-                    <a
+                    <Link
                       className={styles.CategoryTag}
-                      href={`${NEWS_TAB_LINK}?category=${categoryChunk.name}`}
+                      to={`${NEWS_TAB_LINK}?category=${categoryChunk.name}`}
                     >
                       {categoryChunk.name}
-                    </a>
+                    </Link>
                     {i < articleCategories.length - 1 ? ", " : ""}
                   </span>
                 ))}

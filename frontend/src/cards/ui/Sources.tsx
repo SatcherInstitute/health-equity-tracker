@@ -1,6 +1,9 @@
 import React, { Fragment } from "react";
 import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
-import { DATA_SOURCE_PRE_FILTERS } from "../../utils/urlutils";
+import {
+  DATA_SOURCE_PRE_FILTERS,
+  LinkWithStickyParams,
+} from "../../utils/urlutils";
 import { DATA_CATALOG_PAGE_LINK } from "../../utils/internalRoutes";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
@@ -75,6 +78,7 @@ interface SourcesProps {
   queryResponses: MetricQueryResponse[];
   metadata: MapOfDatasetMetadata;
   isAgeAdjustedTable?: boolean;
+  hideNH?: boolean;
 }
 
 export function Sources(props: SourcesProps) {
@@ -97,20 +101,21 @@ export function Sources(props: SourcesProps) {
     props.metadata
   );
 
-  const showNhFootnote = datasetIds.some(
-    (set) => DatasetMetadataMap[set]?.contains_nh
-  );
+  const showNhFootnote =
+    !props.hideNH &&
+    datasetIds.some((set) => DatasetMetadataMap[set]?.contains_nh);
 
   return (
     <>
       {Object.keys(dataSourceMap).length > 0 && <>Sources: </>}
       {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
         <Fragment key={dataSourceId}>
-          <a
-            href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
+          <LinkWithStickyParams
+            target="_blank"
+            to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
           >
             {dataSourceMap[dataSourceId].name}
-          </a>{" "}
+          </LinkWithStickyParams>{" "}
           {dataSourceMap[dataSourceId].updateTimes.size === 0 ? (
             <>(last update unknown) </>
           ) : (

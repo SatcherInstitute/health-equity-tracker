@@ -5,7 +5,6 @@ import {
   MadLib,
   getMadLibWithUpdatedValue,
   MadLibId,
-  getMadLibPhraseText,
   getPhraseValue,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
@@ -24,7 +23,6 @@ import {
   VariableConfig,
 } from "../data/config/MetricConfig";
 import ShareButtons from "./ui/ShareButtons";
-import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
 import { Box } from "@material-ui/core";
 import DefinitionsList from "./ui/DefinitionsList";
@@ -32,6 +30,8 @@ import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { Link } from "react-router-dom";
+import { LinkWithStickyParams } from "../utils/urlutils";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -148,11 +148,6 @@ function ReportProvider(props: ReportProviderProps) {
 
   return (
     <>
-      <Helmet>
-        <title>
-          {getMadLibPhraseText(props.madLib)} - Health Equity Tracker
-        </title>
-      </Helmet>
       <div className={reportWrapper}>
         <ShareButtons madLib={props.madLib} />
         {props.showLifeLineAlert && <LifelineAlert />}
@@ -221,7 +216,7 @@ function ReportProvider(props: ReportProviderProps) {
           </p>
           <p>
             In accordance with our{" "}
-            <a href={METHODOLOGY_TAB_LINK}>methodology</a>, we suppress this
+            <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>, we suppress this
             incomplete data and render some states grey for certain COVID-19
             data types, as outlined below:
           </p>
@@ -319,9 +314,9 @@ function ReportProvider(props: ReportProviderProps) {
           <div className={styles.MissingDataContactUs}>
             <p>
               Do you have information that belongs on the Health Equity Tracker?{" "}
-              <a href={`${CONTACT_TAB_LINK}`}>
+              <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
                 We would love to hear from you!
-              </a>
+              </LinkWithStickyParams>
             </p>
           </div>
         </aside>
