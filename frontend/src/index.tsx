@@ -11,7 +11,7 @@ import { createWebStoragePersistor } from "react-query/createWebStoragePersistor
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      cacheTime: Infinity,
+      cacheTime: 1000 * 60 * 5,
     },
   },
 });
