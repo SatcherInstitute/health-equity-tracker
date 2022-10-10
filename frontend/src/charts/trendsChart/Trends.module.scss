@@ -141,11 +141,11 @@ figure {
   }
 
   //Apply grid style for compare view
-  div[data-view="compare-view"] {
+  menu[data-view="compare-view"] {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  div[data-view="compare-view-small"] {
+  menu[data-view="compare-view-small"] {
     grid-template-columns: repeat(1, 1fr);
   }
 

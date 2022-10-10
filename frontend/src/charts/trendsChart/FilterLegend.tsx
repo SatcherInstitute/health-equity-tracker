@@ -109,7 +109,6 @@ export function FilterLegend({
                 style={{
                   opacity: !selectedGroups?.length || groupEnabled ? 1 : 0.2, // failing a11y; need minimum opacity .55 ?
                 }}
-                name={getDataView()}
               >
                 {/* Legend Item color swatch */}
                 <div
