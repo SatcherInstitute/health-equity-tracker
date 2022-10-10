@@ -137,6 +137,7 @@ figure {
 
     @media screen and (max-width: 600px) {
       grid-template-columns: repeat(1, 1fr);
+      padding: 0;
     }
   }
 
@@ -147,6 +148,7 @@ figure {
 
   menu[data-view="compare-view-small"] {
     grid-template-columns: repeat(1, 1fr);
+    padding: 0;
   }
 
   // Filter legend button
