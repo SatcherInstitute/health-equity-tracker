@@ -91,7 +91,6 @@ type TitleProps = {
   fips: Fips;
   demographic?: string;
   breakdown?: string;
-  trend?: boolean;
   share?: boolean;
   population?: boolean;
   unknown?: boolean;
@@ -102,7 +101,6 @@ export function createTitles({
   fips,
   demographic,
   breakdown,
-  trend,
   share,
   population,
   unknown,
@@ -112,8 +110,6 @@ export function createTitles({
   const location = fips.isUsa()
     ? `the ${fips.getDisplayName()}`
     : fips.getDisplayName();
-  const trendPer100K = variableConfig.metrics.per100k.trendsCardTitleName;
-  const trendShare = variableConfig.metrics.pct_share.trendsCardTitleName;
   const metric = variableConfig.variableFullDisplayName;
   const breakdownVar =
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[breakdown as BreakdownVar];
@@ -127,21 +123,14 @@ export function createTitles({
     "covid_hospitalizations",
   ].includes(variableConfig.variableId);
 
-  if (trend) {
-    return {
-      chartTitle: `${trendPer100K} per 100k people in ${location}`,
-      subtitle,
-    };
-  }
-
   if (share) {
     return {
-      chartTitle: `${trendShare} by month in ${location}`,
+      chartTitle: `${variableConfig.metrics.pct_share.trendsCardTitleName} ${location}`,
       subtitle,
     };
   }
 
-  if (unknown && containerWidth > 1800) {
+  if (unknown) {
     if (containerWidth > 1800) {
       chartTitle = `${variableConfig.metrics.pct_share.fullCardTitleName} with unknown ${breakdownVar} in ${location}`;
     } else {
@@ -156,12 +145,12 @@ export function createTitles({
   //If time tracking data add time metric
   if (timeTrackingData) {
     chartTitle = population
-      ? `Population vs distribution of total ${metric.toLocaleLowerCase()} ${time} in ${location}`
-      : `${variableConfig.metrics.per100k.fullCardTitleName} ${location}`;
+      ? `${variableConfig.metrics.pct_share.populationComparisonMetric?.chartTitle} ${location}`
+      : `${variableConfig.metrics.per100k.chartTitle} ${location}`;
   } else {
     chartTitle = population
-      ? `Population vs distribution of total ${metric.toLocaleLowerCase()} in ${location}`
-      : `${variableConfig.metrics.per100k.fullCardTitleName} ${location}`;
+      ? `${variableConfig.metrics.pct_share.populationComparisonMetric?.chartTitle} ${location}`
+      : `${variableConfig.metrics.per100k.chartTitle} ${location}`;
   }
 
   if (isMobile && timeTrackingData) {

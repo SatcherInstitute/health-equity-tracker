@@ -29,7 +29,6 @@ import { HashLink } from "react-router-hash-link";
 import { METHODOLOGY_TAB_LINK } from "../utils/internalRoutes";
 import AltTableView from "./ui/AltTableView";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
-import { createTitles } from "../charts/utils";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 /* minimize layout shift */
@@ -70,12 +69,6 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       metricConfig.trendsCardTitleName
     } in ${props.fips.getSentenceDisplayName()}`;
   }
-
-  const { chartTitle } = createTitles({
-    fips: props.fips,
-    variableConfig: props.variableConfig,
-    share: true,
-  });
 
   const HASH_ID: ScrollableHashId = "inequities-over-time";
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label;
@@ -149,7 +142,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                   {/* @ts-ignore */}
                   <TrendsChart
                     data={nestedData}
-                    chartTitle={chartTitle}
+                    chartTitle={getTitleText()}
                     unknown={nestedUnknowns}
                     axisConfig={{
                       type: metricConfig.type,
