@@ -157,11 +157,11 @@ export function createTitles({
   if (timeTrackingData) {
     chartTitle = population
       ? `Population vs distribution of total ${metric.toLocaleLowerCase()} ${time} in ${location}`
-      : `${metric} ${time} per 100k people in ${location}`;
+      : `${variableConfig.metrics.per100k.fullCardTitleName} ${location}`;
   } else {
     chartTitle = population
       ? `Population vs distribution of total ${metric.toLocaleLowerCase()} in ${location}`
-      : `${metric} per 100k people in ${location}`;
+      : `${variableConfig.metrics.per100k.fullCardTitleName} ${location}`;
   }
 
   if (isMobile && timeTrackingData) {
