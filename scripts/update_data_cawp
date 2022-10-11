@@ -2,10 +2,12 @@
 
 source .env.secrets
 
-if [[ -z "$PROPUBLICA_API_KEY" ]]; then
-    echo "Error. Must ensure /scripts/.env.secrets file exists and contains your PROPUBLICA_API_KEY. See /scripts/.env.secrets.example for more details." 1>&2
-    exit 1
-fi
+
+
+# if [[ -z "$PROPUBLICA_API_KEY" ]]; then
+#     echo "Error. Must ensure /scripts/.env.secrets file exists and contains your PROPUBLICA_API_KEY. See /scripts/.env.secrets.example for more details." 1>&2
+#     exit 1
+# fi
 
 if [[ -z "$CAWP_USERNAME" ]]; then
     echo "Error. Must ensure /scripts/.env.secrets file exists and contains your CAWP_USERNAME. See /scripts/.env.secrets.example for more details." 1>&2
@@ -17,21 +19,31 @@ if [[ -z "$CAWP_PASSWORD" ]]; then
     exit 1
 fi
 
-echo "ProPublica API key found. Updating Congress (House + Senate) data...."
+# echo "ProPublica API key found. Updating Congress (House + Senate) data...."
 
 
-curl -H "X-API-Key: ${PROPUBLICA_API_KEY}" "https://api.propublica.org/congress/v1/117/senate/members.json" > ../data/cawp/propublica-us-senate.json
+# curl -H "X-API-Key: ${PROPUBLICA_API_KEY}" "https://api.propublica.org/congress/v1/117/senate/members.json" > ../data/cawp/propublica-us-senate.json
 
-curl -H "X-API-Key: ${PROPUBLICA_API_KEY}" "https://api.propublica.org/congress/v1/117/house/members.json" > ../data/cawp/propublica-us-house.json
+# curl -H "X-API-Key: ${PROPUBLICA_API_KEY}" "https://api.propublica.org/congress/v1/117/house/members.json" > ../data/cawp/propublica-us-house.json
 
 
 echo "CAWP credentials found. Logging in...."
 
-curl -u "${$CAWP_USERNAME}":"${CAWP_PASSWORD}" https://cawpdata.rutgers.edu/user/login?destination=%2Fwomen-elected-officials%2Frace-ethnicity
-
-echo "Updating CAWP data...."
 
 
+curl -j --cookie-jar cookiefile https://cawpdata.rutgers.edu/user/login?destination=%2Fwomen-elected-officials%2Frace-ethnicity -d "user=${CAWP_USERNAME}&pass=${CAWP_PASSWORD}"
+
+# AUTHENTICATE
+# curl -o /dev/null -c ./somefile -u "$CAWP_USERNAME":"$CAWP_PASSWORD" https://cawpdata.rutgers.edu/user/login?destination=%2Fwomen-elected-officials%2Frace-ethnicity 
+
+# curl -b ./somefile https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity/export-roles/csv?page&_format=csv
+
+# CREATE CSV
 
 
-echo "Updated House and Senate files in /data/cawp"
+# npx playwright install-deps chromium ; npx playwright open https://cawpdata.rutgers.edu/user/login?destination=%2Fwomen-elected-officials%2Frace-ethnicity ; npx playwright.locator('#edit-name')
+
+
+
+
+# echo "Updated House and Senate files in /data/cawp"
