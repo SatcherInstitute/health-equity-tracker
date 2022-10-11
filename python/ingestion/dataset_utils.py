@@ -249,3 +249,23 @@ def ensure_leading_zeros(df, fips_col_name: str, num_digits: int):
     df[fips_col_name] = df[fips_col_name].apply(
         lambda code: (str(code).rjust(num_digits, '0')))
     return df
+
+
+def generate_inequitable_share_column(df, pct_share_col, pct_pop_col, inequitable_share_col):
+    """Returns a new DataFrame with an inequitable share column.
+
+       df: Pandas DataFrame to generate the column for.
+       pct_share_col: String column name for the pct share of condition.
+       pct_pop_col: String column name for the pct of population.
+       inequitable_share_col: String column name to place the calculated
+                              inequitable shares in.
+       """
+    def calc_inequitable_share(row):
+        if pd.isna(row[pct_share_col]) or pd.isna(row[pct_pop_col]) or (row[pct_pop_col] == 0):
+            return np.NaN
+
+        inequitable_share_ratio = (row[pct_share_col] - row[pct_pop_col]) / row[pct_pop_col]
+        return round(inequitable_share_ratio * 100, 1)
+
+    df[inequitable_share_col] = df.apply(calc_inequitable_share, axis=1)
+    return df

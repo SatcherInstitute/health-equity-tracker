@@ -3,8 +3,10 @@ import pandas as pd  # type: ignore
 import time
 
 import ingestion.standardized_columns as std_col
-from ingestion.standardized_columns import generate_column_name
-from ingestion.standardized_columns import Race
+from ingestion.standardized_columns import (
+    generate_column_name,
+    Race)
+
 from ingestion.constants import (
     US_FIPS,
     US_NAME,
@@ -27,7 +29,8 @@ from datasources.cdc_restricted_local import (
 from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import (
     generate_per_100k_col,
-    generate_pct_share_col_with_unknowns)
+    generate_pct_share_col_with_unknowns,
+    generate_inequitable_share_column)
 
 from ingestion.merge_utils import (
     merge_state_fips_codes,
@@ -86,7 +89,7 @@ class CDCRestrictedData(DataSource):
                 if demo == RACE:
                     std_col.add_race_columns_from_category_id(df)
 
-                column_types = get_col_types(df)
+                column_types = get_col_types(df, cumulative)
 
                 table_name = f'by_{demo}_{geo}_processed'
                 if not cumulative:
@@ -216,6 +219,16 @@ class CDCRestrictedData(DataSource):
         if not cumulative and geo != NATIONAL_LEVEL:
             df = remove_or_set_to_zero(df, geo, demo)
 
+        if not cumulative:
+            for prefix in COVID_CONDITION_TO_PREFIX.values():
+                inequitable_share_col = generate_column_name(prefix, std_col.INEQUITABLE_SHARE_SUFFIX)
+                df = generate_inequitable_share_column(
+                   df, generate_column_name(prefix, std_col.SHARE_SUFFIX),
+                   std_col.COVID_POPULATION_PCT,
+                   inequitable_share_col)
+
+                all_columns.append(inequitable_share_col)
+
         if geo != NATIONAL_LEVEL:
             null_out_suppressed_deaths_hosps(df, False)
 
@@ -224,6 +237,9 @@ class CDCRestrictedData(DataSource):
 
         if geo == COUNTY_LEVEL and cumulative:
             null_out_all_unknown_deaths_hosps(df)
+
+        if not cumulative:
+            df = zero_out_inequitable_share(df, geo, demo)
 
         df = df[all_columns]
         self.clean_frame_column_names(df)
@@ -254,7 +270,7 @@ def null_out_dc_county_rows(df):
            std_col.COVID_POPULATION_PCT] = np.nan
 
 
-def get_col_types(df):
+def get_col_types(df, cumulative):
     """Returns a dict of column types to send to bigquery
 
       df: DataFrame to generate column types dict for"""
@@ -264,6 +280,10 @@ def get_col_types(df):
             prefix, std_col.PER_100K_SUFFIX)] = 'FLOAT'
         column_types[generate_column_name(
             prefix, std_col.SHARE_SUFFIX)] = 'FLOAT'
+
+        if not cumulative:
+            column_types[generate_column_name(
+                prefix, std_col.INEQUITABLE_SHARE_SUFFIX)] = 'FLOAT'
 
     column_types[std_col.COVID_POPULATION_PCT] = 'FLOAT'
 
@@ -445,15 +465,16 @@ def null_out_suppressed_deaths_hosps(df, modify_pop_rows):
                         rows to np.nan. Note, these population rows must have been
                         created using the `merge_multiple_pop_cols` function."""
 
+    suffixes = [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX, std_col.INEQUITABLE_SHARE_SUFFIX]
     hosp_rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
         HOSP_DATA_SUPPRESSION_STATES)
-    for suffix in [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX]:
+    for suffix in suffixes:
         df.loc[hosp_rows_to_modify,
                generate_column_name(std_col.COVID_HOSP_PREFIX, suffix)] = np.nan
 
     death_rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
         DEATH_DATA_SUPPRESSION_STATES)
-    for suffix in [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX]:
+    for suffix in suffixes:
         df.loc[death_rows_to_modify,
                generate_column_name(std_col.COVID_DEATH_PREFIX, suffix)] = np.nan
 
@@ -480,3 +501,54 @@ def null_out_all_unknown_deaths_hosps(df):
            df[std_col.COVID_CASES], generate_column_name(std_col.COVID_HOSP_PREFIX, std_col.PER_100K_SUFFIX)] = np.nan
     df.loc[df[std_col.COVID_HOSP_UNKNOWN] ==
            df[std_col.COVID_CASES], generate_column_name(std_col.COVID_HOSP_PREFIX, std_col.SHARE_SUFFIX)] = np.nan
+
+
+def zero_out_inequitable_share(df, geo, demographic):
+    """Sets inequitable share of cases/deaths/hosps to zero if there
+       are zero cases/deaths/hosps with a known demographic.
+
+       df: Dataframe to zero rows out on.
+       geo: Geographic level. Must be `national`, `state` or`county`.
+       demographic: Demographic breakdown. Must be `race`, `age`, or `sex`."""
+
+    geo_col_mapping = {
+        NATIONAL_LEVEL: [
+            std_col.STATE_FIPS_COL,
+            std_col.STATE_NAME_COL,
+        ],
+        STATE_LEVEL: [
+            std_col.STATE_FIPS_COL,
+            std_col.STATE_NAME_COL,
+        ],
+        COUNTY_LEVEL: [
+            std_col.COUNTY_FIPS_COL,
+            std_col.COUNTY_NAME_COL,
+        ],
+    }
+    geo_cols = geo_col_mapping[geo]
+
+    per_100k_col_names = {}
+    for prefix in COVID_CONDITION_TO_PREFIX.values():
+        per_100k_col_name = generate_column_name(prefix, std_col.PER_100K_SUFFIX)
+        per_100k_col_names[per_100k_col_name] = f'{per_100k_col_name}_grouped'
+
+    demo_col = std_col.RACE_CATEGORY_ID_COL if demographic == RACE else demographic
+    unknown_val = Race.UNKNOWN.value if demographic == RACE else UNKNOWN
+    all_val = Race.ALL.value if demographic == RACE else std_col.ALL_VALUE
+
+    df_without_all_unknown = df.loc[~df[demo_col].isin({unknown_val, all_val})]
+    df_all_unknown = df.loc[df[demo_col].isin({unknown_val, all_val})]
+
+    grouped_df = df_without_all_unknown.groupby(geo_cols + [std_col.TIME_PERIOD_COL]).sum(min_count=1).reset_index()
+    grouped_df = grouped_df.rename(columns=per_100k_col_names)
+    grouped_df = grouped_df[geo_cols + list(per_100k_col_names.values()) + [std_col.TIME_PERIOD_COL]]
+
+    df = pd.merge(df_without_all_unknown, grouped_df, on=geo_cols + [std_col.TIME_PERIOD_COL])
+    for prefix in COVID_CONDITION_TO_PREFIX.values():
+        grouped_col = f'{generate_column_name(prefix, std_col.PER_100K_SUFFIX)}_grouped'
+        df.loc[df[grouped_col] == 0, generate_column_name(prefix, std_col.INEQUITABLE_SHARE_SUFFIX)] = 0
+
+    df = df.drop(columns=list(per_100k_col_names.values()))
+    df = pd.concat([df, df_all_unknown])
+
+    return df
