@@ -487,6 +487,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of vaccinations",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total COVID-19 vaccinations in",
             metricId: "vaccine_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -526,6 +528,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of suicides",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle: "Population vs distribution of total suicide cases in",
             metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -568,6 +571,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total depression cases in",
             metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -611,6 +616,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of all cases",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total excessive drinking cases in",
             metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -655,6 +662,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total non-medical drug use in",
             metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -697,6 +706,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total non-medical prescription opioid use in",
             metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -740,6 +751,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total illicit opioid use in",
             metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -784,6 +797,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total frequent mental distress cases in",
             metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -826,6 +841,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle: "Population vs distribution of total diabetes cases in",
             metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -868,6 +884,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle: "Population vs distribution of total COPD cases in",
             metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -920,6 +937,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of uninsured",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total uninsured individuals in",
             metricId: "health_insurance_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -960,6 +979,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of impoverished",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total individuals below the poverty line in",
             metricId: "poverty_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -1001,6 +1022,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of hospitalizations",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total preventable hospitalizations in",
             metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -1044,6 +1067,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of avoidance",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total care avoidance due to cost in",
             metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -1086,6 +1111,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle: "Population vs distribution of total asthma cases in",
             metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -1129,6 +1155,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total cases of cardiovascular diseases in",
             metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -1172,6 +1200,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total cases of chronic kidney disease in",
             metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -1215,6 +1245,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of voters",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total voter participation in",
             metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -1256,6 +1288,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of women members",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total women in US Congress in",
             metricId: "cawp_population_pct",
             fullCardTitleName: "Total population share (all genders)",
             shortLabel: `${populationPctShortLabel} (all genders)`,
@@ -1302,6 +1336,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of women legislators", // DISPARITY BAR LEGEND
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total women in state legislatures in",
             metricId: "cawp_population_pct",
             fullCardTitleName: "Total population share (gll Genders)", // TABLE COLUMN HEADER
             shortLabel: `${populationPctShortLabel} (all genders)`, // DISPARITY BAR LEGEND/AXIS
@@ -1351,6 +1387,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of prison pop.",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total individuals in prison in",
             metricId: "population_pct",
             fullCardTitleName: "Total population share",
             shortLabel: populationPctShortLabel,
@@ -1397,6 +1435,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of total jail population",
           type: "pct_share",
           populationComparisonMetric: {
+            chartTitle:
+              "Population vs distribution of total individuals in jail in",
             metricId: "population_pct",
             fullCardTitleName: "Total population share",
             shortLabel: populationPctShortLabel,
