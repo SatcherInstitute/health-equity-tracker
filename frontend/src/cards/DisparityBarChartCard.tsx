@@ -77,6 +77,19 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     } in ${props.fips.getSentenceDisplayName()}`;
   }
 
+  function getChartTitle() {
+    if (window.innerWidth < 800) {
+      return [
+        ...(metricConfig.populationComparisonMetric?.mobileChartTitle ?? []),
+        `${props.fips.getSentenceDisplayName()}`,
+      ];
+    } else {
+      return `${
+        metricConfig.populationComparisonMetric?.chartTitle
+      } in ${props.fips.getSentenceDisplayName()}`;
+    }
+  }
+
   const HASH_ID: ScrollableHashId = "population-vs-distribution";
 
   const { chartTitle } = createTitles({
@@ -148,7 +161,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               <>
                 <CardContent>
                   <DisparityBarChart
-                    chartTitle={chartTitle}
+                    chartTitle={getChartTitle()}
                     data={knownData}
                     lightMetric={metricConfig.populationComparisonMetric!}
                     darkMetric={

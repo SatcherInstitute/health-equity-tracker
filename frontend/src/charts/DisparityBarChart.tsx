@@ -451,6 +451,8 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     /* default width during initialization */ 100
   );
 
+  console.log(typeof props.chartTitle);
+
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
 

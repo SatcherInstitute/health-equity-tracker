@@ -143,15 +143,10 @@ export function createTitles({
   }
 
   //If time tracking data add time metric
-  if (timeTrackingData) {
-    chartTitle = population
-      ? `${variableConfig.metrics.pct_share.populationComparisonMetric?.chartTitle} ${location}`
-      : `${variableConfig.metrics.per100k.chartTitle} ${location}`;
-  } else {
-    chartTitle = population
-      ? `${variableConfig.metrics.pct_share.populationComparisonMetric?.chartTitle} ${location}`
-      : `${variableConfig.metrics.per100k.chartTitle} ${location}`;
-  }
+
+  chartTitle = population
+    ? `${variableConfig.metrics.pct_share.populationComparisonMetric?.chartTitle} ${location}`
+    : `${variableConfig.metrics.per100k.chartTitle} ${location}`;
 
   if (isMobile && timeTrackingData) {
     chartTitle = population
