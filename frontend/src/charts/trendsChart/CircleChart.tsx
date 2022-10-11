@@ -139,20 +139,16 @@ export function CircleChart({
         className={styles.CircleLegend}
         // Translate into position (dynamic based on width & height alloted)
         transform={`translate(${legendXPlacement}, ${
-          HEIGHT - 5.25 * MAX_RADIUS
+          HEIGHT - 6.25 * MAX_RADIUS
         })`}
       >
         <g role="list" aria-label="Unknown Demographic Legend" tabIndex={0}>
           {/* Display circle for min, mid, and max values */}
           {getLegendValues().map((percent = 0, i) => {
             let legendHelper = "";
-            let labelText = "";
-            if (i === 0) legendHelper = "lowest ";
-            if (i === 1) legendHelper = "middle ";
-            if (i === 2) legendHelper = "highest ";
-            if (i === 0) labelText = "min ";
-            if (i === 1) labelText = "mid ";
-            if (i === 2) labelText = "max ";
+            if (i === 0) legendHelper = "min ";
+            if (i === 1) legendHelper = "mid ";
+            if (i === 2) legendHelper = "max ";
 
             return (
               <g
@@ -178,7 +174,7 @@ export function CircleChart({
                   {F.pct(percent)}
                 </text>
                 <text textAnchor="middle" dy="36px">
-                  <tspan>{labelText}</tspan>
+                  <tspan>{legendHelper}</tspan>
                 </text>
               </g>
             );
