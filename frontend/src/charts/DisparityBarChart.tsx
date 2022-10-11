@@ -5,7 +5,7 @@ import { useResponsiveWidth } from "../utils/hooks/useResponsiveWidth";
 import {
   BreakdownVar,
   BreakdownVarDisplayName,
-  BREAKDOWN_VAR_DISPLAY_NAMES,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricConfig, MetricId } from "../data/config/MetricConfig";
 import {
@@ -26,6 +26,7 @@ const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below thi
 function getSpec(
   altText: string,
   data: Record<string, any>[],
+  chartTitle: string | string[],
   width: number,
   breakdownVar: BreakdownVar,
   breakdownVarDisplayName: BreakdownVarDisplayName,
@@ -305,6 +306,18 @@ function getSpec(
 
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
+    title: {
+      text: chartTitle,
+      subtitle: " ",
+      encode: {
+        title: {
+          enter: {
+            fontSize: { value: pageIsTiny ? 11 : 14 },
+            font: { value: "Inter, sans-serif" },
+          },
+        },
+      },
+    },
     description: altText,
     background: sass.white,
     autosize: { resize: true, type: "fit-x" },
@@ -420,6 +433,7 @@ function getSpec(
 }
 export interface DisparityBarChartProps {
   data: Row[];
+  chartTitle?: string | string[];
   lightMetric: MetricConfig;
   darkMetric: MetricConfig;
   breakdownVar: BreakdownVar;
@@ -438,7 +452,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   );
 
   // calculate page size to determine if tiny mobile or not
-  const pageIsTiny = useMediaQuery("(max-width:500px)");
+  const pageIsTiny = useMediaQuery("(max-width:400px)");
 
   // move AIAN and NHPI into their own properties for STATE/RACE/VACCINE (since KFF doesnt provide pop compare metrics)
   let dataFromProps = props.data;
@@ -520,9 +534,10 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         spec={getSpec(
           /* altText  */ `Comparison bar chart showing ${props.filename}`,
           /* data  */ data,
+          /* filename */ props.chartTitle || "",
           /* width */ width,
           /* breakdownVar */ props.breakdownVar,
-          /* breakdownVarDisplayName */ BREAKDOWN_VAR_DISPLAY_NAMES[
+          /* breakdownVarDisplayName */ BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
             props.breakdownVar
           ],
           /* lightMeasure */ props.lightMetric.metricId,

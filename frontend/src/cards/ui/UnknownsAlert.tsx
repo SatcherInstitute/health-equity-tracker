@@ -3,12 +3,6 @@ import { Alert } from "@material-ui/lab";
 import { Row } from "../../data/utils/DatasetTypes";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { MetricConfig } from "../../data/config/MetricConfig";
-import {
-  UNKNOWN,
-  UNKNOWN_RACE,
-  UNKNOWN_ETHNICITY,
-  AGE,
-} from "../../data/utils/Constants";
 import styles from "../Card.module.scss";
 import { CardContent, Divider } from "@material-ui/core";
 import {
@@ -17,6 +11,8 @@ import {
 } from "../../data/query/Breakdowns";
 import { Fips } from "../../data/utils/Fips";
 import { VisualizationType } from "../../charts/utils";
+import { splitIntoKnownsAndUnknowns } from "../../data/utils/datasetutils";
+import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 
 export const RACE_OR_ETHNICITY = "race or ethnicity";
 
@@ -36,25 +32,29 @@ interface UnknownsAlertProps {
 }
 
 function UnknownsAlert(props: UnknownsAlertProps) {
-  const unknowns = props.queryResponse
-    .getValidRowsForField(props.metricConfig.metricId)
-    .filter(
-      (row: Row) =>
-        row[props.breakdownVar] === UNKNOWN_RACE ||
-        row[props.breakdownVar] === UNKNOWN ||
-        row[props.breakdownVar] === UNKNOWN_ETHNICITY
+  const validData = props.queryResponse.getValidRowsForField(
+    props.metricConfig.metricId
+  );
+
+  const [, unknowns] = splitIntoKnownsAndUnknowns(
+    validData,
+    props.breakdownVar
+  );
+
+  let additionalAgeUnknowns = null;
+
+  if (props.ageQueryResponse) {
+    const validAgeData: Row[] = props.ageQueryResponse.getValidRowsForField(
+      props.metricConfig.metricId
     );
 
-  const additionalAgeUnknowns = props.ageQueryResponse
-    ? props.ageQueryResponse
-        .getValidRowsForField(props.metricConfig.metricId)
-        .filter(
-          (row: Row) =>
-            row[AGE] === UNKNOWN_RACE ||
-            row[AGE] === UNKNOWN ||
-            row[AGE] === UNKNOWN_ETHNICITY
-        )
-    : null;
+    const [, ageUnknowns] = splitIntoKnownsAndUnknowns(
+      validAgeData,
+      props.breakdownVar
+    );
+
+    additionalAgeUnknowns = ageUnknowns;
+  }
 
   const breakdownVarDisplayName =
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar];
@@ -140,15 +140,7 @@ function UnknownsAlert(props: UnknownsAlertProps) {
           {showDataGapsRisk && (
             <>
               Consider the possible impact of{" "}
-              <a
-                href="#missingDataInfo"
-                onClick={(e) => {
-                  e.preventDefault();
-                  props.jumpToData && props.jumpToData();
-                }}
-              >
-                data reporting gaps
-              </a>{" "}
+              <a href={`#${WHAT_DATA_ARE_MISSING_ID}`}>data reporting gaps</a>{" "}
               when interpreting age-adjusted risk.
             </>
           )}

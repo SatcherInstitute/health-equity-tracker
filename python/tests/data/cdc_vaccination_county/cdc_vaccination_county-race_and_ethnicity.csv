@@ -1,3 +1,3 @@
-county_fips,county_name,race_category_id,vaccinated_first_dose,race,race_includes_hispanic,race_and_ethnicity
-20143,Ottawa County,ALL,2071,All,,All
-42023,Cameron County,ALL,2816,All,,All
+county_fips,county_name,race_category_id,vaccinated_per_100k,race,race_includes_hispanic,race_and_ethnicity
+20143,Ottawa County,ALL,20710,All,,All
+42023,Cameron County,ALL,28160,All,,All

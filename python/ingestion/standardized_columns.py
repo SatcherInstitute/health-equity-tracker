@@ -51,6 +51,7 @@ PER_100K_SUFFIX = "per_100k"
 PCT_SHARE_SUFFIX = "pct_share"
 SHARE_SUFFIX = "share"
 SHARE_OF_KNOWN_SUFFIX = "share_of_known"
+INEQUITABLE_SHARE_SUFFIX = "inequitable_share"
 
 COVID_CASES_PREFIX = "covid_cases"
 COVID_HOSP_PREFIX = "covid_hosp"
@@ -250,7 +251,7 @@ class Race(Enum):
                 self.race in ["Hispanic or Latino", "Not Hispanic or Latino"]):
             return self.race
         else:
-            return self.race + " (Non-Hispanic)"
+            return self.race + " (NH)"
 
     @staticmethod
     def get_col_names() -> list:

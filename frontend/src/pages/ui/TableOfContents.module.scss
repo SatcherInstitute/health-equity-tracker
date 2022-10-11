@@ -3,6 +3,7 @@
 
 .Toc {
   margin: 10px 10px 0 0;
+  padding: 10px 0 10px 0;
   // margin-top: 14px;
   // margin: 14px !important;
   width: 90%;
@@ -29,7 +30,7 @@
   }
 
   :global(.MuiStepConnector-vertical) {
-    padding-block: 5px;
+    padding-block: 2px;
   }
 
   :global(.MuiStepLabel-label) {

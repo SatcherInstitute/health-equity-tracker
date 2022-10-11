@@ -1,6 +1,10 @@
 import { IDataFrame } from "data-forge";
 import { MetricId, VariableConfig, VariableId } from "../config/MetricConfig";
-import { BreakdownVar, GeographicBreakdown } from "../query/Breakdowns";
+import {
+  Breakdowns,
+  BreakdownVar,
+  GeographicBreakdown,
+} from "../query/Breakdowns";
 import {
   UHC_API_NH_DETERMINANTS,
   UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
@@ -29,6 +33,7 @@ import {
   AGE,
   BJS_NATIONAL_AGE_BUCKETS,
   BJS_JAIL_AGE_BUCKETS,
+  DemographicGroup,
 } from "./Constants";
 import { Row } from "./DatasetTypes";
 import { Fips } from "./Fips";
@@ -273,7 +278,7 @@ export function getExclusionList(
   currentVariable: VariableConfig,
   currentBreakdown: BreakdownVar,
   currentFips: Fips
-) {
+): DemographicGroup[] {
   const current100k = currentVariable.metrics.per100k.metricId;
   const currentVariableId = currentVariable.variableId;
   let exclusionList = [UNKNOWN, UNKNOWN_ETHNICITY, UNKNOWN_RACE];
@@ -351,4 +356,43 @@ export function getExclusionList(
   }
 
   return exclusionList;
+}
+
+export function splitIntoKnownsAndUnknowns(
+  data: Row[],
+  breakdownVar: BreakdownVar
+): Row[][] {
+  const knowns: Row[] = [];
+  const unknowns: Row[] = [];
+
+  data.forEach((row: Row) => {
+    if (
+      row[breakdownVar] === UNKNOWN ||
+      row[breakdownVar] === UNKNOWN_RACE ||
+      row[breakdownVar] === UNKNOWN_ETHNICITY
+    )
+      unknowns.push(row);
+    else knowns.push(row);
+  });
+
+  return [knowns, unknowns];
+}
+
+export function appendFipsIfNeeded(
+  baseId: string,
+  breakdowns: Breakdowns
+): string {
+  // if there is a parent fips, append it as needed (for county-level files)
+  if (breakdowns.geography !== "county") return baseId;
+
+  const isCountyQueryFromStateLevelMap =
+    breakdowns.geography === "county" &&
+    breakdowns.filterFips?.isStateOrTerritory();
+
+  const fipsToAppend = isCountyQueryFromStateLevelMap
+    ? breakdowns.filterFips?.code
+    : breakdowns?.filterFips?.getParentFips()?.code;
+
+  const fipsTag = fipsToAppend ? `-${fipsToAppend}` : "";
+  return `${baseId}${fipsTag}`;
 }

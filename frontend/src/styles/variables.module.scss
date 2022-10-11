@@ -63,6 +63,14 @@ $unknown-map-more: #47a8cb;
 $unknown-map-even-more: #2384b9;
 $unknown-map-most: #0b61a2;
 
+// timeseries map colors (from brand guidelines)
+$time-cyan-blue: #79b4b7;
+$time-pastel-green: #547d6b;
+$time-purple: #816d98;
+$time-pink: #ff85b3;
+$time-dark-red: #8c0000;
+$time-yellow: #fcb431;
+
 // font settings
 $logo: 20px; // pixel perfect to match logo img
 
@@ -81,13 +89,14 @@ $biggestHeader: 5rem;
 // line heights
 $lhSuperLoose: 2.45;
 $lhLoose: 1.6;
+$lhSomeSpace: 1.15;
 $lhNormal: 1;
 $lhTight: 0.95;
 
 // default settings
 $header-height: 600px;
-$sticky-madlib-height: 72px;
-$sticky-madlib-height-compare: 110px;
+$sticky-madlib-height: 62px;
+$sticky-madlib-height-compare: 100px;
 $footer-size: 10rem;
 $max-width: 800px;
 $preload-article-height: 750px;
@@ -162,6 +171,13 @@ $bottom-border-style: 1px solid $border-color;
   unknownMapMore: $unknown-map-more;
   unknownMapEven: $unknown-map-even-more;
   unknownMapMost: $unknown-map-most;
+
+  timeCyanBlue: $time-cyan-blue;
+  timePastelGreen: $time-pastel-green;
+  timePurple: $time-purple;
+  timePink: $time-pink;
+  timeDarkRed: $time-dark-red;
+  timeYellow: $time-yellow;
 
   footerSize: $footer-size;
   maxWidth: $max-width;

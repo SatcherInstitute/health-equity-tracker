@@ -26,7 +26,12 @@ test.describe('Home to COVID Vax by Age', () => {
 
         // Load Tracker Default (with url param to bypass problematic warm welcome)
         await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${SKIP_WELCOME}`, { waitUntil: "networkidle" });
-        await expect(page).toBeAccessible()
+        await expect(page).toBeAccessible({
+            rules: {
+                // TODO: fix disabled filter colors to be proper contrast
+                'color-contrast': { enabled: false },
+            },
+        })
 
         // changes madlib to VAXX properly
         const madLibTopic = page.locator('button:has-text("COVID-19")')
@@ -34,6 +39,10 @@ test.describe('Home to COVID Vax by Age', () => {
         const covidVaxOption = page.locator('span:has-text("COVID-19 Vaccinations")')
         covidVaxOption.click();
         await expect(page).toHaveURL(/.*mls=1.covid_vaccinations-3.00/);
+
+        // back button works properly for madlib condition changes
+        await page.goBack()
+        await expect(page).not.toHaveURL(/.*mls=1.covid_vaccinations-3.00/);
 
     })
 
@@ -46,6 +55,11 @@ test.describe('Home to COVID Vax by Age', () => {
         const ageToggleButton = page.locator('button:has-text("Age")')
         await ageToggleButton.click();
         await expect(page).toHaveURL(/.*demo=age/);
+
+        // back button works properly for demographic toggle changes
+        await page.goBack()
+        await expect(page).not.toHaveURL(/.*demo=age/);
+
     });
 
 

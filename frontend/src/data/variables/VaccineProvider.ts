@@ -2,7 +2,7 @@ import { DataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { joinOnCols } from "../utils/datasetutils";
+import { appendFipsIfNeeded, joinOnCols } from "../utils/datasetutils";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
@@ -35,7 +35,10 @@ class VaccineProvider extends VariableProvider {
     ) {
       return "kff_vaccination-race_and_ethnicity";
     } else if (breakdowns.geography === "county") {
-      return "cdc_vaccination_county-race_and_ethnicity";
+      return appendFipsIfNeeded(
+        "cdc_vaccination_county-race_and_ethnicity_processed",
+        breakdowns
+      );
     }
 
     return "";
@@ -45,6 +48,7 @@ class VaccineProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
+    const timeView = metricQuery.timeView;
 
     const datasetId = this.getDatasetId(breakdowns);
     const vaxData = await getDataManager().loadDataset(datasetId);
@@ -52,6 +56,7 @@ class VaccineProvider extends VariableProvider {
 
     const breakdownColumnName =
       breakdowns.getSoleDemographicBreakdown().columnName;
+    df = this.filterByTimeView(df, timeView);
 
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
@@ -166,11 +171,6 @@ class VaccineProvider extends VariableProvider {
       consumedDatasetIds = consumedDatasetIds.concat(
         "acs_population-by_race_county_std"
       );
-
-      df = df.generateSeries({
-        vaccinated_per_100k: (row) =>
-          this.calculations.per100k(row.vaccinated_first_dose, row.population),
-      });
     }
 
     df = df.dropSeries(["population"]).resetIndex();

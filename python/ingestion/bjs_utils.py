@@ -505,7 +505,7 @@ def cols_to_rows(df, demographic_groups, demographic_col, value_col):
         df: "Wide" BJS style df with a column "state_name" and columns for
           each demographic group
         demographic_groups: list of strings containing the column names for
-            demographic groups (e.g. [`All`, `White (Non-Hispanic)`])
+            demographic groups (e.g. [`All`, `White (NH)`])
         demographic_col: string column name for new column that will store the
             previous "demographic_groups" column headers as values per row
         value_col: string column name to contain the values per place/group row,
