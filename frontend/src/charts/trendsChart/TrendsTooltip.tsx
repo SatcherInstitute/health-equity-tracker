@@ -88,11 +88,11 @@ export function TrendsTooltip({
         {data &&
           sortDataDescending(data, selectedDate || "").map(
             ([group, d]: GroupData) => {
-              // get value or "<1" to prevent potentially misleading "0 per 100k"
+              // get value or "<1" to prevent potentially misleading "0 per 100k" on rates
               let value = TYPE_CONFIG[type]?.formatter(
                 getAmountsByDate(d, selectedDate)
               );
-              if (value === "0") value = "<1";
+              if (value === "0" && axisConfig.type === "per100k") value = "<1";
 
               return (
                 <Fragment key={`tooltipRow-${group}`}>

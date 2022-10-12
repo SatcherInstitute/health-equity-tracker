@@ -11,6 +11,7 @@ type Date = string;
 type XScale = ScaleTime<number, number | undefined>;
 type YScale = ScaleLinear<number, number | undefined>;
 type ColorScale = ScaleOrdinal<string, string, never>;
+// todo replace type: string with types from our code. maybe groupLabel with Demographic Group??
 type AxisConfig = { type: string; groupLabel: string; yAxisLabel?: string };
 
 export type {
