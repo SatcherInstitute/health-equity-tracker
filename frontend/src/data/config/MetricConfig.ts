@@ -356,6 +356,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "covid_cases_per_100k",
           fullCardTitleName: "Rates of COVID-19 cases",
           chartTitle: "COVID-19 cases since Jan 2020 per 100k people in",
+          mobileChartTitle: [
+            "COVID-19 cases since Jan 2020",
+            "per 100k people in",
+          ],
           trendsCardTitleName: "Monthly COVID-19 cases per 100k people in",
           shortLabel: "cases per 100k",
           type: "per100k",
@@ -403,6 +407,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "covid_deaths_per_100k",
           fullCardTitleName: "Rates of COVID-19 deaths",
           chartTitle: "COVID-19 deaths since Jan 2020 per 100k people in",
+          mobileChartTitle: [
+            "COVID-19 deaths since Jan 2020",
+            "per 100k people in",
+          ],
           trendsCardTitleName: "Monthly COVID-19 deaths per 100k people in",
           shortLabel: "deaths per 100k",
           type: "per100k",
@@ -454,6 +462,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName: "Rates of COVID-19 hospitalizations",
           chartTitle:
             "COVID-19 hospitalizations since Jan 2020 per 100k people in",
+          mobileChartTitle: [
+            "COVID-19 hospitalizations since Jan 2020",
+            "per 100k people in",
+          ],
           trendsCardTitleName:
             "Monthly COVID-19 hospitalizations per 100k people in",
           shortLabel: "hospitalizations per 100k",
@@ -482,6 +494,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "vaccinated_per_100k",
           fullCardTitleName: "COVID-19 vaccinations per 100k people",
           chartTitle: "COVID-19 vaccinations per 100k people in",
+          mobileChartTitle: ["COVID-19 vaccinations", "per 100k people in"],
           trendsCardTitleName: "Rates of COVID-19 vaccinations over time",
           shortLabel: "COVID-19 vaccinations per 100k",
           type: "per100k",

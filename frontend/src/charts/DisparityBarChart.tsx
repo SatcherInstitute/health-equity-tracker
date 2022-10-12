@@ -20,6 +20,7 @@ import sass from "../styles/variables.module.scss";
 import { LEGEND_TEXT_FONT } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
 import { AIAN, NHPI, RACE } from "../data/utils/Constants";
+import useCreateTextWrap from "../utils/hooks/useCreateTextWrap";
 
 const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
@@ -42,6 +43,7 @@ function getSpec(
   darkMetricDisplayColumnName: string,
   barLabelBreakpoint: number,
   pageIsTiny: boolean,
+  isComparing: boolean,
   stacked?: boolean,
   // place AIAL NHPI pop compare in different color columns due to ACS not KFF
   altLightMeasure?: MetricId,
@@ -312,7 +314,7 @@ function getSpec(
       encode: {
         title: {
           enter: {
-            fontSize: { value: pageIsTiny ? 11 : 14 },
+            fontSize: { value: pageIsTiny || isComparing ? 11 : 14 },
             font: { value: "Inter, sans-serif" },
           },
         },
@@ -451,10 +453,9 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     /* default width during initialization */ 100
   );
 
-  console.log(typeof props.chartTitle);
-
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
+  const isComparing = window.location.href.includes("compare");
 
   // move AIAN and NHPI into their own properties for STATE/RACE/VACCINE (since KFF doesnt provide pop compare metrics)
   let dataFromProps = props.data;
@@ -551,6 +552,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           /* darkMetricDisplayColumnName, */ darkMetricDisplayColumnName,
           /* barLabelBreakpoint, */ barLabelBreakpoint,
           /* pageIsTiny, */ pageIsTiny,
+          isComparing,
           /* stacked?, */ props.stacked,
           /* altLightMeasure?, */ hasAltPop
             ? altLightMetric.metricId

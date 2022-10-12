@@ -1,7 +1,7 @@
 import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
-import { CardContent } from "@material-ui/core";
+import { CardContent, useMediaQuery } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -22,8 +22,8 @@ import {
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
-import { createTitles } from "../charts/utils";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import useCreateTextWrap from "../utils/hooks/useCreateTextWrap";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -50,6 +50,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   );
 
   const metricConfig = props.variableConfig.metrics["pct_share"];
+  const isMobile = useMediaQuery("(max-width:800px)");
+  const isComparing = window.location.href.includes("compare");
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -78,7 +80,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   }
 
   function getChartTitle() {
-    if (window.innerWidth < 800) {
+    if (isMobile || isComparing) {
       return [
         ...(metricConfig.populationComparisonMetric?.mobileChartTitle ?? []),
         `${props.fips.getSentenceDisplayName()}`,
@@ -90,13 +92,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     }
   }
 
-  const HASH_ID: ScrollableHashId = "population-vs-distribution";
+  useCreateTextWrap(metricConfig.populationComparisonMetric?.mobileChartTitle);
 
-  const { chartTitle } = createTitles({
-    variableConfig: props.variableConfig,
-    fips: props.fips,
-    population: true,
-  });
+  const HASH_ID: ScrollableHashId = "population-vs-distribution";
 
   return (
     <CardWrapper

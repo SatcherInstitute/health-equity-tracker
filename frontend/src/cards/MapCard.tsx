@@ -1,4 +1,4 @@
-import { CardContent, Grid } from "@material-ui/core";
+import { CardContent, Grid, useMediaQuery } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
@@ -76,6 +76,7 @@ function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050]);
 
   const metricConfig = props.variableConfig.metrics["per100k"];
+  const isMobile = useMediaQuery("(max-width:800px)");
 
   const isPrison = props.variableConfig.variableId === "prison";
   const isJail = props.variableConfig.variableId === "jail";
@@ -146,6 +147,19 @@ function MapCardWithKey(props: MapCardProps) {
     breakdown: props.currentBreakdown,
     demographic: activeBreakdownFilter,
   });
+
+  function getTitleTextArray() {
+    return [
+      metricConfig.chartTitle || "",
+      `${props.fips.getSentenceDisplayName()}`,
+    ];
+  }
+
+  function getChartTitle() {
+    if (isMobile) {
+      return getTitleTextArray();
+    } else return getTitleTextArray().join("");
+  }
 
   const HASH_ID: ScrollableHashId = "rate-map";
 
@@ -349,7 +363,7 @@ function MapCardWithKey(props: MapCardProps) {
                   <ChoroplethMap
                     signalListeners={signalListeners}
                     titles={{
-                      chartTitle: chartTitle,
+                      chartTitle: getChartTitle() || "",
                       subTitle: subtitle,
                     }}
                     metric={metricConfig}

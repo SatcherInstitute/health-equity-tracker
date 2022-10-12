@@ -1,6 +1,6 @@
 import React from "react";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
-import { CardContent } from "@material-ui/core";
+import { CardContent, useMediaQuery } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -21,7 +21,6 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
-import { createTitles } from "../charts/utils";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 /* minimize layout shift */
@@ -47,6 +46,7 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
+  const isMobile = useMediaQuery("(max-width:800px)");
 
   const isIncarceration = INCARCERATION_IDS.includes(
     props.variableConfig.variableId
@@ -68,12 +68,23 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     } In ${props.fips.getSentenceDisplayName()}`;
   }
 
-  const HASH_ID: ScrollableHashId = "rate-chart";
+  function getTitleTextArray() {
+    return [
+      metricConfig.chartTitle || "",
+      `${props.fips.getSentenceDisplayName()}`,
+    ];
+  }
 
-  const { chartTitle } = createTitles({
-    variableConfig: props.variableConfig,
-    fips: props.fips,
-  });
+  function getChartTitle() {
+    if (isMobile) {
+      return [
+        ...(metricConfig.mobileChartTitle ?? []),
+        `${props.fips.getSentenceDisplayName()}`,
+      ];
+    } else getTitleTextArray().join();
+  }
+
+  const HASH_ID: ScrollableHashId = "rate-chart";
 
   return (
     <CardWrapper
@@ -110,7 +121,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 )}
 
                 <SimpleHorizontalBarChart
-                  chartTitle={chartTitle}
+                  chartTitle={getChartTitle()}
                   data={data}
                   breakdownVar={props.breakdownVar}
                   metric={metricConfig}

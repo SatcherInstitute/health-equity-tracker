@@ -1,5 +1,5 @@
 import React from "react";
-import { CardContent } from "@material-ui/core";
+import { CardContent, useMediaQuery } from "@material-ui/core";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import { VariableConfig } from "../data/config/MetricConfig";
@@ -56,7 +56,8 @@ export function UnknownsMapCard(props: UnknownsMapCardProps) {
 
 function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const preloadHeight = useGuessPreloadHeight([700, 1000]);
-
+  const isMobile = useMediaQuery("(max-width:800px)");
+  const isComparing = window.location.href.includes("compare");
   const metricConfig = props.variableConfig.metrics["pct_share"];
   const location = useLocation();
 
@@ -96,12 +97,13 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   const HASH_ID: ScrollableHashId = "unknown-demographic-map";
 
-  const { chartTitle } = createTitles({
-    variableConfig: props.variableConfig,
-    fips: props.fips,
-    unknown: true,
-    breakdown: props.currentBreakdown,
-  });
+  const getChartTitle = () => {
+    if (isMobile || isComparing) {
+      return getTitleTextArray();
+    } else {
+      return getTitleText();
+    }
+  };
 
   return (
     <CardWrapper
@@ -240,7 +242,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             {showingVisualization && (
               <CardContent>
                 <ChoroplethMap
-                  titles={{ chartTitle, subTitle: "" }}
+                  titles={{ chartTitle: getChartTitle(), subTitle: "" }}
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}

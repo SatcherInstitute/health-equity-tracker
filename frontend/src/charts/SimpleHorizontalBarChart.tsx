@@ -47,6 +47,7 @@ function getSpec(
   showLegend: boolean,
   barLabelBreakpoint: number,
   pageIsTiny: boolean,
+  isComparing: boolean,
   usePercentSuffix: boolean
 ): any {
   const MEASURE_COLOR = sass.altGreen;
@@ -83,7 +84,7 @@ function getSpec(
       encode: {
         title: {
           enter: {
-            fontSize: { value: pageIsTiny ? 11 : 14 },
+            fontSize: { value: pageIsTiny || isComparing ? 11 : 14 },
             font: { value: "Inter, sans-serif" },
           },
         },
@@ -288,6 +289,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
+  const isComparing = window.location.href.includes("compare");
 
   // swap race labels if applicable
   const dataLabelled = CAWP_DETERMINANTS.includes(props.metric.metricId)
@@ -336,6 +338,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           /* showLegend  */ props.showLegend,
           /* barLabelBreakpoint  */ barLabelBreakpoint,
           /* pageIsTiny  */ pageIsTiny,
+          /* pageIsTiny  */ isComparing,
           /* usePercentSuffix  */ props.usePercentSuffix || false
         )}
         // custom 3-dot options menu

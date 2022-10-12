@@ -94,6 +94,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
+  const isComparing = window.location.href.includes("compare");
 
   const yOffsetNoDataLegend = pageIsTiny ? -15 : -43;
   const xOffsetNoDataLegend = pageIsTiny ? 15 : 230;
@@ -483,7 +484,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         encode: {
           title: {
             enter: {
-              fontSize: { value: pageIsTiny ? 11 : 14 },
+              fontSize: { value: pageIsTiny || isComparing ? 11 : 14 },
               font: { value: "Inter, sans-serif" },
             },
           },

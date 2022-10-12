@@ -9,6 +9,7 @@ import {
 } from "../data/query/Breakdowns";
 import { Row } from "../data/utils/DatasetTypes";
 import { Fips } from "../data/utils/Fips";
+import { useMediaQuery } from "@material-ui/core";
 
 export type VisualizationType = "chart" | "map" | "table";
 
@@ -130,78 +131,31 @@ export function createTitles({
     };
   }
 
-  if (unknown) {
-    if (containerWidth > 1800) {
-      chartTitle = `${variableConfig.metrics.pct_share.fullCardTitleName} with unknown ${breakdownVar} in ${location}`;
-    } else {
-      chartTitle = [
-        `${variableConfig.metrics.pct_share.fullCardTitleName} with`,
-        `unknown ${breakdownVar} in ${location}`,
-      ];
-    }
-    return { chartTitle, subtitle };
-  }
-
   //If time tracking data add time metric
 
-  chartTitle = population
-    ? `${variableConfig.metrics.pct_share.populationComparisonMetric?.chartTitle} ${location}`
-    : `${variableConfig.metrics.per100k.chartTitle} ${location}`;
+  chartTitle = `${variableConfig.metrics.per100k.chartTitle} ${location}`;
 
   if (isMobile && timeTrackingData) {
-    chartTitle = population
-      ? [
-          `Population vs distribution of`,
-          `total ${metric.toLocaleLowerCase()}`,
-          `${time} in ${location}`,
-        ]
-      : [`${metric} ${time} per 100k`, `people in ${location}`];
+    chartTitle = [`${metric} ${time} per 100k`, `people in ${location}`];
   }
   if (isMobile && !timeTrackingData) {
-    chartTitle = population
-      ? (chartTitle = [
-          `Population vs distribution of ${metric.toLocaleLowerCase()} in`,
-          `${location}`,
-        ])
-      : [`${metric} per 100k people in the`, `${location}`];
+    chartTitle = [`${metric} per 100k people in the`, `${location}`];
   }
 
   if (isComparing && timeTrackingData) {
     if (containerWidth < 1400 && containerWidth > 1000) {
-      chartTitle = population
-        ? [
-            `Population vs distribution of total ${metric.toLocaleLowerCase()}`,
-            `${time} in ${location}`,
-          ]
-        : [`${metric} ${time} per 100k people`, `in ${location}`];
+      chartTitle = [`${metric} ${time} per 100k people`, `in ${location}`];
     }
     if (containerWidth < 1000 && containerWidth > 600) {
-      chartTitle = population
-        ? [
-            `Population vs distrbution of`,
-            `total ${metric.toLocaleLowerCase()}`,
-            `${time} in ${location}`,
-          ]
-        : [`${metric}`, `${time} per 100k people`, `in ${location}`];
+      chartTitle = [`${metric}`, `${time} per 100k people`, `in ${location}`];
     }
   }
   if (isComparing && !timeTrackingData) {
     if (containerWidth < 1400 && containerWidth > 1000) {
-      chartTitle = population
-        ? (chartTitle = [
-            `Population vs distribution of ${metric.toLocaleLowerCase()}`,
-            `in ${location}`,
-          ])
-        : [`${metric} per 100k people in`, `${location}`];
+      chartTitle = [`${metric} per 100k people in`, `${location}`];
     }
     if (containerWidth < 1000 && containerWidth > 600) {
-      chartTitle = population
-        ? [
-            `Population vs distribution of`,
-            `total ${metric.toLocaleLowerCase()}`,
-            `in ${location}`,
-          ]
-        : [`${metric}`, `per 100k people`, `in ${location}`];
+      chartTitle = [`${metric}`, `per 100k people`, `in ${location}`];
     }
   }
 
