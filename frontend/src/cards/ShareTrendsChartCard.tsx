@@ -58,6 +58,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   if (metricConfig.populationComparisonMetric?.metricId)
     metricIdsToFetch.push(metricConfig.populationComparisonMetric.metricId);
 
+  metricIdsToFetch.push("covid_deaths_inequitable_share");
+
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(NON_HISPANIC, ALL)
@@ -89,6 +91,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
+        console.log(data);
         const [knownData, unknownData] = splitIntoKnownsAndUnknowns(
           data,
           props.breakdownVar

@@ -70,6 +70,7 @@ export type MetricId =
   | "covid_deaths_reporting_population_pct"
   | "covid_deaths_share"
   | "covid_deaths_share_of_known"
+  | "covid_deaths_inequitable_share"
   | "death_ratio_age_adjusted"
   | "covid_hosp"
   | "covid_hosp_per_100k"

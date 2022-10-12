@@ -29,6 +29,7 @@ class CdcCovidProvider extends VariableProvider {
       "hosp_ratio_age_adjusted",
       "cases_ratio_age_adjusted",
       "covid_population_pct",
+      "covid_deaths_inequitable_share",
     ]);
     this.acsProvider = acsProvider;
   }
