@@ -16,7 +16,7 @@ describe("MetricQueryResponse", () => {
         },
         {
           fips: "01",
-          race_and_ethnicity: "White (Non-Hispanic)",
+          race_and_ethnicity: "White (NH)",
           covid_cases: "abc",
           invalid: undefined,
         },
@@ -28,14 +28,13 @@ describe("MetricQueryResponse", () => {
         },
         {
           fips: "01",
-          race_and_ethnicity: "Asian (Non-Hispanic)",
+          race_and_ethnicity: "Asian (NH)",
           covid_cases: undefined,
           invalid: undefined,
         },
         {
           fips: "01",
-          race_and_ethnicity:
-            "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+          race_and_ethnicity: "Native Hawaiian and Pacific Islander (NH)",
           covid_cases: 0,
           invalid: undefined,
         },
@@ -70,12 +69,8 @@ describe("MetricQueryResponse", () => {
     const targetMetric = "covid_cases";
 
     expect(metricQueryResponse.getFieldValues(RACE, targetMetric)).toEqual({
-      noData: ["White (Non-Hispanic)", "Asian (Non-Hispanic)"],
-      withData: [
-        "White",
-        "Asian",
-        "Native Hawaiian and Pacific Islander (Non-Hispanic)",
-      ],
+      noData: ["White (NH)", "Asian (NH)"],
+      withData: ["White", "Asian", "Native Hawaiian and Pacific Islander (NH)"],
     });
 
     expect(metricQueryResponse.getFieldValues("fips", targetMetric)).toEqual({

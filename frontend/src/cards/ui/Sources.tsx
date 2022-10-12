@@ -1,12 +1,13 @@
 import React, { Fragment } from "react";
 import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
 import {
-  LinkWithStickyParams,
   DATA_SOURCE_PRE_FILTERS,
+  LinkWithStickyParams,
 } from "../../utils/urlutils";
 import { DATA_CATALOG_PAGE_LINK } from "../../utils/internalRoutes";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
+import { DatasetMetadataMap } from "../../data/config/DatasetMetadata";
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = "";
@@ -24,7 +25,28 @@ type DataSourceInfo = {
   updateTimes: Set<string>;
 };
 
-function getDataSourceMapFromDatasetIds(
+export function getDatasetIdsFromResponses(
+  queryResponses: MetricQueryResponse[]
+): string[] {
+  return queryResponses.reduce(
+    (accumulator: string[], response) =>
+      accumulator.concat(response.consumedDatasetIds),
+    []
+  );
+}
+
+export const stripCountyFips = (datasetIds: string[]) => {
+  const strippedData = datasetIds.map((id) => {
+    //uses RegEx to check if datasetId string contains a hyphen followed by any two digits
+    const regex = /-[0-9]/g;
+    if (regex.test(id)) {
+      return id.split("-").slice(0, 2).join("-");
+    } else return id;
+  });
+  return strippedData;
+};
+
+export function getDataSourceMapFromDatasetIds(
   datasetIds: string[],
   metadata: MapOfDatasetMetadata
 ): Record<string, DataSourceInfo> {
@@ -52,21 +74,21 @@ function getDataSourceMapFromDatasetIds(
   return dataSourceMap;
 }
 
-export function Sources(props: {
+interface SourcesProps {
   queryResponses: MetricQueryResponse[];
   metadata: MapOfDatasetMetadata;
   isAgeAdjustedTable?: boolean;
-}) {
+  hideNH?: boolean;
+}
+
+export function Sources(props: SourcesProps) {
   // If all data is missing, no need to show sources.
   if (props.queryResponses.every((resp) => resp.dataIsMissing())) {
     return <></>;
   }
 
-  let datasetIds = props.queryResponses.reduce(
-    (accumulator: string[], response) =>
-      accumulator.concat(response.consumedDatasetIds),
-    []
-  );
+  const unstrippedDatasetIds = getDatasetIdsFromResponses(props.queryResponses);
+  let datasetIds = stripCountyFips(unstrippedDatasetIds);
 
   // for Age Adj only, swap ACS source(s) for Census Pop Estimate
   if (props.isAgeAdjustedTable) {
@@ -78,6 +100,10 @@ export function Sources(props: {
     datasetIds,
     props.metadata
   );
+
+  const showNhFootnote =
+    !props.hideNH &&
+    datasetIds.some((set) => DatasetMetadataMap[set]?.contains_nh);
 
   return (
     <>
@@ -101,6 +127,7 @@ export function Sources(props: {
           {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
         </Fragment>
       ))}
+      {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
     </>
   );
 }

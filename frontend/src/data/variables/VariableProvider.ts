@@ -2,13 +2,14 @@ import { IDataFrame } from "data-forge";
 import { Fips } from "../../data/utils/Fips";
 import { MetricId } from "../config/MetricConfig";
 import { ProviderId } from "../loading/VariableProviderMap";
-import { Breakdowns } from "../query/Breakdowns";
+import { Breakdowns, TimeView } from "../query/Breakdowns";
 import {
   createMissingDataResponse,
   MetricQuery,
   MetricQueryResponse,
 } from "../query/MetricQuery";
 import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
+import { CROSS_SECTIONAL, TIME_SERIES, TIME_PERIOD } from "../utils/Constants";
 import { DatasetCalculator } from "../utils/DatasetCalculator";
 
 abstract class VariableProvider {
@@ -55,6 +56,33 @@ abstract class VariableProvider {
     return df;
   }
 
+  filterByTimeView(
+    df: IDataFrame,
+    timeView: TimeView,
+    sourceCurrentTimePeriod?: string
+  ): IDataFrame {
+    // This method should only be used when the CROSS_SECTIONAL VEGA dataset is a recent subset of the TIME_SERIES D3 dataset
+    // For other sources like COVID, the TIME_SERIES set is in a distinct table that doesn't need the added filtering
+
+    // for updated datasets
+    // - return recent slice for CROSS
+    // - return full df for LONG
+
+    // for older datasets
+    // - return full set for CROSS
+    // - return empty df for LONG to trigger missing data on compare view
+
+    // const currentTimePeriod = sourceCurrentTimePeriod || "current"
+
+    if (df.getColumnNames().includes(TIME_PERIOD)) {
+      if (timeView === CROSS_SECTIONAL) {
+        df = df.where((row) => row[TIME_PERIOD] === sourceCurrentTimePeriod);
+      }
+    }
+
+    return df;
+  }
+
   renameGeoColumns(df: IDataFrame, breakdowns: Breakdowns): IDataFrame {
     let newDataframe = df;
     const [fipsColumn, geoNameColumn] =
@@ -77,6 +105,9 @@ abstract class VariableProvider {
   removeUnrequestedColumns(df: IDataFrame, metricQuery: MetricQuery) {
     let dataFrame = df;
     let requestedColumns = ["fips", "fips_name"].concat(metricQuery.metricIds);
+
+    if (metricQuery.timeView === TIME_SERIES)
+      requestedColumns.push(TIME_PERIOD);
 
     // Add column names of enabled breakdowns
     requestedColumns = requestedColumns.concat(

@@ -11,7 +11,7 @@ import { createWebStoragePersistor } from "react-query/createWebStoragePersistor
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      cacheTime: Infinity,
+      cacheTime: 1000 * 60 * 5,
     },
   },
 });
@@ -19,12 +19,12 @@ const queryClient = new QueryClient({
 /* 
 VERY IMPORTANT: This utility is currently in an experimental stage. This means that breaking changes will happen in minor AND patch releases. Use at your own risk. If you choose to rely on this in production in an experimental stage, please lock your version to a patch-level version to avoid unexpected breakages.
  */
-const sessionStoragePersistor = createWebStoragePersistor({
-  storage: window.sessionStorage,
+const localStoragePersistor = createWebStoragePersistor({
+  storage: window.localStorage,
 });
 persistQueryClient({
   queryClient,
-  persistor: sessionStoragePersistor,
+  persistor: localStoragePersistor,
 });
 
 ReactDOM.render(
