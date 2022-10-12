@@ -5,6 +5,7 @@ import styles from "./IncarceratedChildrenLongAlert.module.scss";
 import FlagIcon from "@material-ui/icons/Flag";
 import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";
 import { urlMap } from "../../utils/externalUrls";
+import { Link } from "react-router-dom";
 
 function IncarceratedChildrenLongAlert() {
   return (
@@ -29,7 +30,7 @@ function IncarceratedChildrenLongAlert() {
           age-appropriate services, and worse health outcomes. When reporting on
           incarceration, we highlight the{" "}
           <b>total number of confined children</b> in adult facilities. Read
-          more in <a href={METHODOLOGY_TAB_LINK}>our methodology.</a>
+          more in <Link to={METHODOLOGY_TAB_LINK}>our methodology</Link>.
         </p>
       </Alert>
     </div>

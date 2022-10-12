@@ -13,7 +13,6 @@ import {
   METRIC_CONFIG,
   VariableConfig,
 } from "../data/config/MetricConfig";
-import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { RACE } from "../data/utils/Constants";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -35,6 +34,12 @@ import styles from "./Report.module.scss";
 import { TableOfContents } from "../pages/ui/TableOfContents";
 import { reportProviderSteps } from "./ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { Helmet } from "react-helmet-async";
+import {
+  BreakdownVar,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  DEMOGRAPHIC_BREAKDOWNS,
+} from "../data/query/Breakdowns";
 
 export interface OneVariableReportProps {
   key: string;
@@ -113,269 +118,278 @@ export function OneVariableReport(props: OneVariableReportProps) {
   const breakdownIsShown = (breakdownVar: BreakdownVar) =>
     currentBreakdown === breakdownVar;
 
+  const browserTitle = `${variableConfig?.variableFullDisplayName} by ${
+    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
+  } in ${props.fips.getFullDisplayName()}`;
+
   return (
-    <Grid container>
-      {/* CARDS COLUMN */}
-      <Grid item xs={12} sm={11} md={10}>
-        <Grid
-          item
-          container
-          xs={12}
-          alignItems="center"
-          spacing={0}
-          justifyContent="center"
-        >
-          {!props.hidePopulationCard && (
-            // POPULATION CARD
-            <Grid
-              item
-              xs={12}
-              md={SINGLE_COLUMN_WIDTH}
-              tabIndex={-1}
-              id="location-info"
-              className={styles.ScrollPastHeader}
-            >
-              <PopulationCard fips={props.fips} />
-            </Grid>
-          )}
-
-          {!variableConfig && (
-            <NoDataAlert dropdownVarId={props.dropdownVarId} />
-          )}
-
-          {variableConfig && (
-            <Grid container spacing={1} justifyContent="center">
-              {/* DEMOGRAPHIC / DATA TYPE TOGGLE(S) */}
-              <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
-                <ReportToggleControls
-                  dropdownVarId={props.dropdownVarId}
-                  variableConfig={variableConfig}
-                  setVariableConfig={setVariableConfigWithParam}
-                  currentBreakdown={currentBreakdown}
-                  setCurrentBreakdown={setDemoWithParam}
-                  fips={props.fips}
-                />
-              </Grid>
-
-              {/* 100k MAP CARD */}
+    <>
+      <Helmet>
+        <title>{browserTitle} - Health Equity Tracker</title>
+      </Helmet>
+      <Grid container>
+        {/* CARDS COLUMN */}
+        <Grid item xs={12} sm={11} md={10}>
+          <Grid
+            item
+            container
+            xs={12}
+            alignItems="center"
+            spacing={0}
+            justifyContent="center"
+          >
+            {!props.hidePopulationCard && (
+              // POPULATION CARD
               <Grid
                 item
                 xs={12}
                 md={SINGLE_COLUMN_WIDTH}
                 tabIndex={-1}
-                id="rate-map"
-                style={{ scrollMarginTop: props.headerScrollMargin }}
-              >
-                <MapCard
-                  variableConfig={variableConfig}
-                  fips={props.fips}
-                  updateFipsCallback={(fips: Fips) => {
-                    props.updateFipsCallback(fips);
-                  }}
-                  currentBreakdown={currentBreakdown}
-                />
-              </Grid>
-
-              {/* RATE TRENDS LINE CHART CARD */}
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={SINGLE_COLUMN_WIDTH}
-                id="rates-over-time"
+                id="location-info"
                 className={styles.ScrollPastHeader}
               >
-                <LazyLoad offset={600} height={750} once>
-                  {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                    <Fragment key={breakdownVar}>
-                      {breakdownIsShown(breakdownVar) &&
-                        // only show time series 100k chart if MetricConfig for current condition has a card title
-                        variableConfig.timeSeriesData && (
-                          <RateTrendsChartCard
-                            variableConfig={variableConfig}
-                            breakdownVar={breakdownVar}
-                            fips={props.fips}
-                          />
-                        )}
-                    </Fragment>
-                  ))}
-                </LazyLoad>
+                <PopulationCard fips={props.fips} />
               </Grid>
+            )}
 
-              {/* 100K BAR CHART CARD */}
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={SINGLE_COLUMN_WIDTH}
-                tabIndex={-1}
-                id="rate-chart"
-                style={{ scrollMarginTop: props.headerScrollMargin }}
-              >
-                <LazyLoad offset={600} height={750} once>
-                  {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                    <Fragment key={breakdownVar}>
-                      {breakdownIsShown(breakdownVar) &&
-                        variableConfig.metrics["per100k"] && (
-                          <SimpleBarChartCard
-                            variableConfig={variableConfig}
-                            breakdownVar={breakdownVar}
-                            fips={props.fips}
-                          />
-                        )}
-                    </Fragment>
-                  ))}
-                </LazyLoad>
-              </Grid>
+            {!variableConfig && (
+              <NoDataAlert dropdownVarId={props.dropdownVarId} />
+            )}
 
-              {/* UNKNOWNS MAP CARD */}
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={SINGLE_COLUMN_WIDTH}
-                tabIndex={-1}
-                id="unknown-demographic-map"
-                style={{ scrollMarginTop: props.headerScrollMargin }}
-              >
-                <LazyLoad offset={800} height={750} once>
-                  {variableConfig.metrics["pct_share"] && (
-                    <UnknownsMapCard
-                      overrideAndWithOr={currentBreakdown === RACE}
-                      variableConfig={variableConfig}
-                      fips={props.fips}
-                      updateFipsCallback={(fips: Fips) => {
-                        props.updateFipsCallback(fips);
-                      }}
-                      currentBreakdown={currentBreakdown}
-                    />
-                  )}
-                </LazyLoad>
-              </Grid>
+            {variableConfig && (
+              <Grid container spacing={1} justifyContent="center">
+                {/* DEMOGRAPHIC / DATA TYPE TOGGLE(S) */}
+                <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
+                  <ReportToggleControls
+                    dropdownVarId={props.dropdownVarId}
+                    variableConfig={variableConfig}
+                    setVariableConfig={setVariableConfigWithParam}
+                    currentBreakdown={currentBreakdown}
+                    setCurrentBreakdown={setDemoWithParam}
+                    fips={props.fips}
+                  />
+                </Grid>
 
-              {/* SHARE TRENDS LINE CHART CARD */}
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={SINGLE_COLUMN_WIDTH}
-                id="inequities-over-time"
-                className={styles.ScrollPastHeader}
-              >
-                <LazyLoad offset={600} height={750} once>
-                  {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                    <Fragment key={breakdownVar}>
-                      {breakdownIsShown(breakdownVar) &&
-                        // only show time series 100k chart if MetricConfig for current condition has a card title
-                        variableConfig.timeSeriesData && (
-                          <ShareTrendsChartCard
-                            variableConfig={variableConfig}
-                            breakdownVar={breakdownVar}
-                            fips={props.fips}
-                          />
-                        )}
-                    </Fragment>
-                  ))}
-                </LazyLoad>
-              </Grid>
-
-              {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={SINGLE_COLUMN_WIDTH}
-                tabIndex={-1}
-                id="population-vs-distribution"
-                style={{ scrollMarginTop: props.headerScrollMargin }}
-              >
-                <LazyLoad offset={800} height={750} once>
-                  {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                    <Fragment key={breakdownVar}>
-                      {breakdownIsShown(breakdownVar) &&
-                        variableConfig.metrics["pct_share"] && (
-                          <DisparityBarChartCard
-                            variableConfig={variableConfig}
-                            breakdownVar={breakdownVar}
-                            fips={props.fips}
-                          />
-                        )}
-                    </Fragment>
-                  ))}
-                </LazyLoad>
-              </Grid>
-
-              {/* DATA TABLE CARD */}
-              <Grid
-                item
-                xs={12}
-                md={SINGLE_COLUMN_WIDTH}
-                tabIndex={-1}
-                id="data-table"
-                style={{ scrollMarginTop: props.headerScrollMargin }}
-              >
-                <LazyLoad offset={800} height={750} once>
-                  {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                    <Fragment key={breakdownVar}>
-                      {breakdownIsShown(breakdownVar) && (
-                        <TableCard
-                          fips={props.fips}
-                          variableConfig={variableConfig}
-                          breakdownVar={breakdownVar}
-                        />
-                      )}
-                    </Fragment>
-                  ))}
-                </LazyLoad>
-              </Grid>
-
-              {/* AGE ADJUSTED TABLE CARD */}
-              {variableConfig.metrics.age_adjusted_ratio.ageAdjusted && (
+                {/* 100k MAP CARD */}
                 <Grid
                   item
                   xs={12}
                   md={SINGLE_COLUMN_WIDTH}
                   tabIndex={-1}
-                  id="age-adjusted-risk"
+                  id="rate-map"
                   style={{ scrollMarginTop: props.headerScrollMargin }}
                 >
-                  <LazyLoad offset={800} height={800} once>
-                    <AgeAdjustedTableCard
-                      fips={props.fips}
-                      variableConfig={variableConfig}
-                      dropdownVarId={props.dropdownVarId}
-                      breakdownVar={currentBreakdown}
-                      setVariableConfigWithParam={setVariableConfigWithParam}
-                    />
+                  <MapCard
+                    variableConfig={variableConfig}
+                    fips={props.fips}
+                    updateFipsCallback={(fips: Fips) => {
+                      props.updateFipsCallback(fips);
+                    }}
+                    currentBreakdown={currentBreakdown}
+                  />
+                </Grid>
+
+                {/* RATE TRENDS LINE CHART CARD */}
+                <Grid
+                  item
+                  xs={12}
+                  sm={12}
+                  md={SINGLE_COLUMN_WIDTH}
+                  id="rates-over-time"
+                  className={styles.ScrollPastHeader}
+                >
+                  <LazyLoad offset={600} height={750} once>
+                    {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                      <Fragment key={breakdownVar}>
+                        {breakdownIsShown(breakdownVar) &&
+                          // only show time series 100k chart if MetricConfig for current condition has a card title
+                          variableConfig.timeSeriesData && (
+                            <RateTrendsChartCard
+                              variableConfig={variableConfig}
+                              breakdownVar={breakdownVar}
+                              fips={props.fips}
+                            />
+                          )}
+                      </Fragment>
+                    ))}
                   </LazyLoad>
                 </Grid>
-              )}
-            </Grid>
-          )}
+
+                {/* 100K BAR CHART CARD */}
+                <Grid
+                  item
+                  xs={12}
+                  sm={12}
+                  md={SINGLE_COLUMN_WIDTH}
+                  tabIndex={-1}
+                  id="rate-chart"
+                  style={{ scrollMarginTop: props.headerScrollMargin }}
+                >
+                  <LazyLoad offset={600} height={750} once>
+                    {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                      <Fragment key={breakdownVar}>
+                        {breakdownIsShown(breakdownVar) &&
+                          variableConfig.metrics["per100k"] && (
+                            <SimpleBarChartCard
+                              variableConfig={variableConfig}
+                              breakdownVar={breakdownVar}
+                              fips={props.fips}
+                            />
+                          )}
+                      </Fragment>
+                    ))}
+                  </LazyLoad>
+                </Grid>
+
+                {/* UNKNOWNS MAP CARD */}
+                <Grid
+                  item
+                  xs={12}
+                  sm={12}
+                  md={SINGLE_COLUMN_WIDTH}
+                  tabIndex={-1}
+                  id="unknown-demographic-map"
+                  style={{ scrollMarginTop: props.headerScrollMargin }}
+                >
+                  <LazyLoad offset={800} height={750} once>
+                    {variableConfig.metrics["pct_share"] && (
+                      <UnknownsMapCard
+                        overrideAndWithOr={currentBreakdown === RACE}
+                        variableConfig={variableConfig}
+                        fips={props.fips}
+                        updateFipsCallback={(fips: Fips) => {
+                          props.updateFipsCallback(fips);
+                        }}
+                        currentBreakdown={currentBreakdown}
+                      />
+                    )}
+                  </LazyLoad>
+                </Grid>
+
+                {/* SHARE TRENDS LINE CHART CARD */}
+                <Grid
+                  item
+                  xs={12}
+                  sm={12}
+                  md={SINGLE_COLUMN_WIDTH}
+                  id="inequities-over-time"
+                  className={styles.ScrollPastHeader}
+                >
+                  <LazyLoad offset={600} height={750} once>
+                    {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                      <Fragment key={breakdownVar}>
+                        {breakdownIsShown(breakdownVar) &&
+                          // only show time series 100k chart if MetricConfig for current condition has a card title
+                          variableConfig.timeSeriesData && (
+                            <ShareTrendsChartCard
+                              variableConfig={variableConfig}
+                              breakdownVar={breakdownVar}
+                              fips={props.fips}
+                            />
+                          )}
+                      </Fragment>
+                    ))}
+                  </LazyLoad>
+                </Grid>
+
+                {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
+                <Grid
+                  item
+                  xs={12}
+                  sm={12}
+                  md={SINGLE_COLUMN_WIDTH}
+                  tabIndex={-1}
+                  id="population-vs-distribution"
+                  style={{ scrollMarginTop: props.headerScrollMargin }}
+                >
+                  <LazyLoad offset={800} height={750} once>
+                    {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                      <Fragment key={breakdownVar}>
+                        {breakdownIsShown(breakdownVar) &&
+                          variableConfig.metrics["pct_share"] && (
+                            <DisparityBarChartCard
+                              variableConfig={variableConfig}
+                              breakdownVar={breakdownVar}
+                              fips={props.fips}
+                            />
+                          )}
+                      </Fragment>
+                    ))}
+                  </LazyLoad>
+                </Grid>
+
+                {/* DATA TABLE CARD */}
+                <Grid
+                  item
+                  xs={12}
+                  md={SINGLE_COLUMN_WIDTH}
+                  tabIndex={-1}
+                  id="data-table"
+                  style={{ scrollMarginTop: props.headerScrollMargin }}
+                >
+                  <LazyLoad offset={800} height={750} once>
+                    {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                      <Fragment key={breakdownVar}>
+                        {breakdownIsShown(breakdownVar) && (
+                          <TableCard
+                            fips={props.fips}
+                            variableConfig={variableConfig}
+                            breakdownVar={breakdownVar}
+                          />
+                        )}
+                      </Fragment>
+                    ))}
+                  </LazyLoad>
+                </Grid>
+
+                {/* AGE ADJUSTED TABLE CARD */}
+                {variableConfig.metrics.age_adjusted_ratio.ageAdjusted && (
+                  <Grid
+                    item
+                    xs={12}
+                    md={SINGLE_COLUMN_WIDTH}
+                    tabIndex={-1}
+                    id="age-adjusted-risk"
+                    style={{ scrollMarginTop: props.headerScrollMargin }}
+                  >
+                    <LazyLoad offset={800} height={800} once>
+                      <AgeAdjustedTableCard
+                        fips={props.fips}
+                        variableConfig={variableConfig}
+                        dropdownVarId={props.dropdownVarId}
+                        breakdownVar={currentBreakdown}
+                        setVariableConfigWithParam={setVariableConfigWithParam}
+                      />
+                    </LazyLoad>
+                  </Grid>
+                )}
+              </Grid>
+            )}
+          </Grid>
         </Grid>
+        {/* TABLE OF CONTENTS COLUMN */}
+        {props.reportStepHashIds && (
+          <Grid
+            item
+            // invisible
+            xs={12}
+            // icons only
+            sm={1}
+            // icons + text
+            md={2}
+            container
+            direction="column"
+            alignItems="center"
+            className={styles.FloatingTableOfContentsWrapper}
+          >
+            <TableOfContents
+              floatTopOffset={props.headerScrollMargin}
+              isScrolledToTop={props.isScrolledToTop}
+              reportStepHashIds={props.reportStepHashIds}
+            />
+          </Grid>
+        )}
       </Grid>
-      {/* TABLE OF CONTENTS COLUMN */}
-      {props.reportStepHashIds && (
-        <Grid
-          item
-          // invisible
-          xs={12}
-          // icons only
-          sm={1}
-          // icons + text
-          md={2}
-          container
-          direction="column"
-          alignItems="center"
-          className={styles.FloatingTableOfContentsWrapper}
-        >
-          <TableOfContents
-            floatTopOffset={props.headerScrollMargin}
-            isScrolledToTop={props.isScrolledToTop}
-            reportStepHashIds={props.reportStepHashIds}
-          />
-        </Grid>
-      )}
-    </Grid>
+    </>
   );
 }
