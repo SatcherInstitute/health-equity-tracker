@@ -260,6 +260,7 @@ class CAWPData(DataSource):
         column_types[std_col.RACE_COL] = "STRING"
         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
         column_types[std_col.RACE_OR_HISPANIC_COL] = "STRING"
+        column_types[std_col.TIME_PERIOD_COL] = "STRING"
 
         # make two tables
         for geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
