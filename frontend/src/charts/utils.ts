@@ -88,76 +88,13 @@ export function addMetricDisplayColumn(
 }
 
 type TitleProps = {
-  variableConfig: VariableConfig;
-  fips: Fips;
   demographic?: string;
   breakdown?: string;
-  share?: boolean;
-  population?: boolean;
-  unknown?: boolean;
 };
 
-export function createTitles({
-  variableConfig,
-  fips,
-  demographic,
-  breakdown,
-  share,
-  population,
-  unknown,
-}: TitleProps) {
+export function createTitles({ demographic, breakdown }: TitleProps) {
   let chartTitle: string | string[] = "";
   let subtitle = "";
-  const location = fips.isUsa()
-    ? `the ${fips.getDisplayName()}`
-    : fips.getDisplayName();
-  const metric = variableConfig.variableFullDisplayName;
-  const breakdownVar =
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[breakdown as BreakdownVar];
-  const containerWidth = window.innerWidth;
-  const time = "since Jan 2020";
-  const isMobile = containerWidth < 700;
-  const isComparing = window.location.href.includes("compare");
-  const timeTrackingData = [
-    "covid_cases",
-    "covid_deaths",
-    "covid_hospitalizations",
-  ].includes(variableConfig.variableId);
-
-  if (share) {
-    return {
-      chartTitle: `${variableConfig.metrics.pct_share.trendsCardTitleName} ${location}`,
-      subtitle,
-    };
-  }
-
-  //If time tracking data add time metric
-
-  chartTitle = `${variableConfig.metrics.per100k.chartTitle} ${location}`;
-
-  if (isMobile && timeTrackingData) {
-    chartTitle = [`${metric} ${time} per 100k`, `people in ${location}`];
-  }
-  if (isMobile && !timeTrackingData) {
-    chartTitle = [`${metric} per 100k people in the`, `${location}`];
-  }
-
-  if (isComparing && timeTrackingData) {
-    if (containerWidth < 1400 && containerWidth > 1000) {
-      chartTitle = [`${metric} ${time} per 100k people`, `in ${location}`];
-    }
-    if (containerWidth < 1000 && containerWidth > 600) {
-      chartTitle = [`${metric}`, `${time} per 100k people`, `in ${location}`];
-    }
-  }
-  if (isComparing && !timeTrackingData) {
-    if (containerWidth < 1400 && containerWidth > 1000) {
-      chartTitle = [`${metric} per 100k people in`, `${location}`];
-    }
-    if (containerWidth < 1000 && containerWidth > 600) {
-      chartTitle = [`${metric}`, `per 100k people`, `in ${location}`];
-    }
-  }
 
   if (demographic === "All") {
     return { chartTitle, subtitle };

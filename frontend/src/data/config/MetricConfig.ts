@@ -171,6 +171,7 @@ export type MetricConfig = {
   trendsCardTitleName?: string;
   chartTitle?: string;
   mobileChartTitle?: string[];
+  compareViewTitle?: string[];
   shortLabel: string;
   shareDisparityLabel?: string;
   unknownsVegaLabel?: string;
@@ -356,7 +357,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "covid_cases_per_100k",
           fullCardTitleName: "Rates of COVID-19 cases",
           chartTitle: "COVID-19 cases since Jan 2020 per 100k people in",
-          mobileChartTitle: [
+          compareViewTitle: [
             "COVID-19 cases since Jan 2020",
             "per 100k people in",
           ],
@@ -407,7 +408,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "covid_deaths_per_100k",
           fullCardTitleName: "Rates of COVID-19 deaths",
           chartTitle: "COVID-19 deaths since Jan 2020 per 100k people in",
-          mobileChartTitle: [
+          compareViewTitle: [
             "COVID-19 deaths since Jan 2020",
             "per 100k people in",
           ],
@@ -462,7 +463,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName: "Rates of COVID-19 hospitalizations",
           chartTitle:
             "COVID-19 hospitalizations since Jan 2020 per 100k people in",
-          mobileChartTitle: [
+          compareViewTitle: [
             "COVID-19 hospitalizations since Jan 2020",
             "per 100k people in",
           ],
@@ -494,7 +495,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "vaccinated_per_100k",
           fullCardTitleName: "COVID-19 vaccinations per 100k people",
           chartTitle: "COVID-19 vaccinations per 100k people in",
-          mobileChartTitle: ["COVID-19 vaccinations", "per 100k people in"],
+          compareViewTitle: ["COVID-19 vaccinations", "per 100k people in"],
           trendsCardTitleName: "Rates of COVID-19 vaccinations over time",
           shortLabel: "COVID-19 vaccinations per 100k",
           type: "per100k",
@@ -557,7 +558,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "suicide_pct_share",
           fullCardTitleName: "Share of total suicides",
           trendsCardTitleName: "Inequitable share of suicide over time",
-
           shortLabel: "% of suicides",
           type: "pct_share",
           populationComparisonMetric: {
@@ -576,6 +576,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "suicide_per_100k",
           fullCardTitleName: "Suicides per 100k people",
           chartTitle: "Suicides per 100k people in",
+          compareViewTitle: ["Suicides", "per 100k people in"],
           trendsCardTitleName: "Rates of suicide over time",
           shortLabel: "suicides per 100k",
           type: "per100k",
@@ -624,6 +625,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "depression_per_100k",
           fullCardTitleName: "Cases of depression per 100k people",
           chartTitle: "Cases of depression per 100k people in",
+          compareViewTitle: ["Cases of depression", "per 100k people in"],
           trendsCardTitleName: "Rates of depression over time",
           shortLabel: "cases of depression per 100k",
           type: "per100k",
@@ -673,6 +675,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "excessive_drinking_per_100k",
           fullCardTitleName: "Cases of excessive drinking per 100k people",
           chartTitle: "Excessive drinking cases per 100k people in",
+          compareViewTitle: ["Excessive drinking cases", "per 100k people in"],
           trendsCardTitleName: "Rates of excessive drinking over time",
           shortLabel: "cases of excessive drinking per 100k",
           type: "per100k",
@@ -723,6 +726,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "non_medical_drug_use_per_100k",
           fullCardTitleName: "Cases of non-medical drug use per 100k people",
           chartTitle: "Non-medical drug use per 100k people in",
+          compareViewTitle: ["Non-medical drug use", "per 100k people in"],
           trendsCardTitleName: "Rates of non-medical drug use over time",
           shortLabel: "cases of non-medical drug use per 100k",
           type: "per100k",
@@ -772,6 +776,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName:
             "Cases of Non-medical prescription opioid use per 100k people",
           chartTitle: "Non-medical prescription opioid use per 100k people in",
+          compareViewTitle: [
+            "Non-medical prescription opioid use",
+            "per 100k people in",
+          ],
           trendsCardTitleName:
             "Rates of non-medical prescription opioid use over time",
           shortLabel: "cases of non-medical rx opioid use per 100k",
@@ -820,6 +828,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "illicit_opioid_use_per_100k",
           fullCardTitleName: "Cases of illicit opioid use per 100k people",
           chartTitle: "Illicit opioid use per 100k people in",
+          compareViewTitle: ["Illicit opioid use", "per 100k people in"],
           trendsCardTitleName: "Rates of illicit opioid use over time",
           shortLabel: "cases of illicit opioid use per 100k",
           type: "per100k",
@@ -870,6 +879,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "frequent_mental_distress_per_100k",
           fullCardTitleName: "Frequent mental distress cases per 100k people",
           chartTitle: "Frequent mental distress cases per 100k people",
+          compareViewTitle: [
+            "Frequent mental distress cases",
+            "per 100k people",
+          ],
           trendsCardTitleName: "Rates of frequent mental distress over time",
           shortLabel: "frequent mental distress cases per 100k",
           type: "per100k",
@@ -917,6 +930,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "diabetes_per_100k",
           fullCardTitleName: "Diabetes cases per 100k people",
           chartTitle: "Diabetes cases per 100k people",
+          compareViewTitle: ["Diabetes", "per 100k people"],
           trendsCardTitleName: "Rates of diabetes over time",
           shortLabel: "diabetes cases per 100k",
           type: "per100k",
@@ -964,6 +978,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "copd_per_100k",
           fullCardTitleName: "COPD cases per 100k people",
           chartTitle: "COPD cases per 100k people in",
+          compareViewTitle: ["COPD cases", "per 100k people in"],
           trendsCardTitleName: "Rates of COPD over time",
           shortLabel: "COPD cases per 100k",
           type: "per100k",
@@ -994,6 +1009,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "health_insurance_per_100k",
           fullCardTitleName: "Uninsured individuals per 100k people",
           chartTitle: "Uninsured individuals per 100k people in",
+          compareViewTitle: ["Uninsured individuals", "per 100k people in"],
           trendsCardTitleName: "Rates of uninsurance over time",
           shortLabel: "uninsured individuals per 100k",
           type: "per100k",
@@ -1040,6 +1056,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName:
             "Individuals below the poverty line per 100k people",
           chartTitle: "Individuals below the poverty line per 100k people in",
+          compareViewTitle: [
+            "Individuals below the poverty line",
+            "per 100k people in",
+          ],
           trendsCardTitleName: "Rates of poverty over time",
           shortLabel: "individuals below the poverty line per 100k",
           type: "per100k",
@@ -1085,6 +1105,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "preventable_hospitalizations_per_100k",
           fullCardTitleName: "Preventable hospitalizations per 100k people",
           chartTitle: "Preventable hospitalizations per 100k people in",
+          compareViewTitle: [
+            "Preventable hospitalizations",
+            "per 100k people in",
+          ],
           trendsCardTitleName:
             "Rates of preventable hospitalizations over time",
           shortLabel: "preventable hospitalizations per 100k",
@@ -1136,6 +1160,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName:
             "Individuals Who Avoided Care Due to Cost per 100k people",
           chartTitle: "Care avoidance due to cost per 100k people in",
+          compareViewTitle: [
+            "Care avoidance due to cost",
+            "per 100k people in",
+          ],
           trendsCardTitleName: "Rates of care avoidance over time",
           shortLabel: "individuals who avoided care per 100k",
           type: "per100k",
@@ -1184,6 +1212,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "asthma_per_100k",
           fullCardTitleName: "Individuals with asthma per 100k people",
           chartTitle: "Asthma cases per 100k people in",
+          compareViewTitle: ["Asthma cases", "per 100k people in"],
           trendsCardTitleName: "Rates of asthma over time",
           shortLabel: "asthma per 100k",
           type: "per100k",
@@ -1231,6 +1260,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "cardiovascular_diseases_per_100k",
           fullCardTitleName: "Cases of cardiovascular diseases per 100k people",
           chartTitle: "Cases of cardiovascular diseases per 100k people in",
+          compareViewTitle: [
+            "Cases of cardiovascular diseases",
+            "per 100k people in",
+          ],
           trendsCardTitleName: "Rates of cardiovascular diseases over time",
           shortLabel: "cases of cardiovascular diseases per 100k",
           type: "per100k",
@@ -1280,6 +1313,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "chronic_kidney_disease_per_100k",
           fullCardTitleName: "Cases of chronic kidney disease per 100k people",
           chartTitle: "Chronic kidney disease per 100k people in",
+          compareViewTitle: ["Chronic kidney disease", "per 100k people in"],
           trendsCardTitleName: "Rates of chronic kidney disease over time",
           shortLabel: "cases of chronic kidney disease per 100k",
           type: "per100k",
@@ -1329,6 +1363,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "voter_participation_per_100k",
           fullCardTitleName: "Participating Voters per 100k people",
           chartTitle: "Voter participation per 100k people in",
+          compareViewTitle: ["Voter participation", "per 1005 people in"],
           trendsCardTitleName: "Rates of voter participation over time",
           shortLabel: "voters per 100k",
           type: "per100k",
@@ -1376,7 +1411,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "women_us_congress_pct",
           fullCardTitleName: "Percentage of US Congress members",
           trendsCardTitleName: "Rates of women in U.S. Congress over time",
-          chartTitle: "Percentage of Women in US Congress members in",
+          chartTitle: "Percentage of women in US Congress members in",
+          compareViewTitle: [
+            "Percentage of women in US",
+            "Congress members in",
+          ],
           shortLabel: "% women in US congress",
           type: "pct",
         },
@@ -1428,6 +1467,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "women_state_leg_pct",
           fullCardTitleName: "Percentage of state Legislators", // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER, HI/LOW DROPDOWN FOOTNOTE
           chartTitle: "Percentage of women in state Legislators in",
+          compareViewTitle: ["Percentage of women in state", "Legislators in"],
           trendsCardTitleName: "Rates of women in state legislatures over time",
           shortLabel: "% of state legislators identifying as women", // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
           type: "pct",
@@ -1483,6 +1523,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "prison_per_100k",
           fullCardTitleName: "Individuals in prison per 100k people",
           chartTitle: "Individuals in prison per 100k people in",
+          compareViewTitle: ["Individuals in prison", "per 100k people in"],
           trendsCardTitleName: "Rates of prison incarceration over time",
           shortLabel: "individuals in prison per 100k",
           type: "per100k",
@@ -1535,6 +1576,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "jail_per_100k",
           fullCardTitleName: "Individuals in jail per 100k people",
           chartTitle: "Individuals in jail per 100k people in",
+          compareViewTitle: ["Individuals in jail", "per 100k people in"],
           trendsCardTitleName: "Rates of jail incarceration over time",
           shortLabel: "Individuals in jail per 100k",
           type: "per100k",

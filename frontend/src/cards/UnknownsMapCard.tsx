@@ -28,7 +28,6 @@ import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { useLocation } from "react-router-dom";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
-import { createTitles } from "../charts/utils";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -57,6 +56,7 @@ export function UnknownsMapCard(props: UnknownsMapCardProps) {
 function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const preloadHeight = useGuessPreloadHeight([700, 1000]);
   const isMobile = useMediaQuery("(max-width:800px)");
+  const isLarge = useMediaQuery("(max-width:1500px)");
   const isComparing = window.location.href.includes("compare");
   const metricConfig = props.variableConfig.metrics["pct_share"];
   const location = useLocation();
@@ -82,28 +82,23 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const mapQuery = new MetricQuery([metricConfig.metricId], mapGeoBreakdowns);
   const alertQuery = new MetricQuery([metricConfig.metricId], alertBreakdown);
 
-  function getTitleTextArray() {
-    return [
-      `${metricConfig.fullCardTitleName}`,
-      `with unknown ${
-        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown]
-      }`,
-    ];
-  }
+  const titleTextArray = [
+    `${metricConfig.fullCardTitleName}`,
+    `with unknown ${
+      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown]
+    }`,
+  ];
 
-  function getTitleText() {
-    return getTitleTextArray().join(" ");
+  function getChartTitle() {
+    if (isComparing && isLarge) {
+      return titleTextArray;
+    }
+    if (isMobile) {
+      return titleTextArray;
+    } else return titleTextArray.join(" ");
   }
 
   const HASH_ID: ScrollableHashId = "unknown-demographic-map";
-
-  const getChartTitle = () => {
-    if (isMobile || isComparing) {
-      return getTitleTextArray();
-    } else {
-      return getTitleText();
-    }
-  };
 
   return (
     <CardWrapper
@@ -246,7 +241,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}
-                  legendTitle={getTitleTextArray()}
+                  legendTitle={titleTextArray}
                   data={unknowns}
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
@@ -256,7 +251,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
                   geoData={geoData}
-                  filename={`${getTitleText()} in ${props.fips.getSentenceDisplayName()}`}
+                  filename={`${titleTextArray.join(
+                    " "
+                  )} in ${props.fips.getSentenceDisplayName()}`}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <div className={styles.TerritoryCirclesContainer}>

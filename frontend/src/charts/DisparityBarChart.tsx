@@ -20,7 +20,6 @@ import sass from "../styles/variables.module.scss";
 import { LEGEND_TEXT_FONT } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
 import { AIAN, NHPI, RACE } from "../data/utils/Constants";
-import useCreateTextWrap from "../utils/hooks/useCreateTextWrap";
 
 const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
@@ -49,7 +48,9 @@ function getSpec(
   altLightMeasure?: MetricId,
   altLightMeasureDisplayName?: string,
   altLightMetricDisplayColumnName?: string,
-  hasAltPop?: boolean
+  hasAltPop?: boolean,
+  isLarge?: boolean,
+  isMobile?: boolean
 ): any {
   const BAR_HEIGHT = stacked ? 40 : 12;
   const BAR_PADDING = 0.1;
@@ -314,7 +315,7 @@ function getSpec(
       encode: {
         title: {
           enter: {
-            fontSize: { value: pageIsTiny || isComparing ? 11 : 14 },
+            fontSize: { value: (isComparing && isLarge) || isMobile ? 11 : 14 },
             font: { value: "Inter, sans-serif" },
           },
         },
@@ -455,6 +456,8 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
+  const isMobile = useMediaQuery("(max-width:800px)");
+  const isLarge = useMediaQuery("(max-width:1400px)");
   const isComparing = window.location.href.includes("compare");
 
   // move AIAN and NHPI into their own properties for STATE/RACE/VACCINE (since KFF doesnt provide pop compare metrics)
@@ -563,7 +566,9 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           /* altLightMetricDisplayColumnName?: string, */ hasAltPop
             ? altLightMetricDisplayColumnName
             : "",
-          /* hasAltPop?: boolean */ hasAltPop
+          /* hasAltPop?: boolean */ hasAltPop,
+          isLarge,
+          isMobile
         )}
       />
     </div>

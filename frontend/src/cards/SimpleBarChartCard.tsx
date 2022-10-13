@@ -46,7 +46,10 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
+
   const isMobile = useMediaQuery("(max-width:800px)");
+  const isLarge = useMediaQuery("(max-width:1500px)");
+  const isComparing = window.location.href.includes("compare");
 
   const isIncarceration = INCARCERATION_IDS.includes(
     props.variableConfig.variableId
@@ -62,27 +65,26 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   const query = new MetricQuery(metricIdsToFetch, breakdowns);
 
-  function getTitleText() {
-    return `${metricConfig.fullCardTitleName} By ${
-      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-    } In ${props.fips.getSentenceDisplayName()}`;
-  }
-
-  function getTitleTextArray() {
-    return [
-      metricConfig.chartTitle || "",
-      `${props.fips.getSentenceDisplayName()}`,
-    ];
-  }
+  const titleTextArray = [
+    metricConfig.chartTitle || "",
+    `${props.fips.getSentenceDisplayName()}`,
+  ];
 
   function getChartTitle() {
-    if (isMobile) {
+    if (isComparing && isLarge) {
       return [
-        ...(metricConfig.mobileChartTitle ?? []),
+        ...(metricConfig.compareViewTitle ?? []),
         `${props.fips.getSentenceDisplayName()}`,
       ];
-    } else getTitleTextArray().join();
+    }
+    if (isMobile) {
+      return titleTextArray;
+    } else return titleTextArray.join(" ");
   }
+
+  const titleText = `${titleTextArray.join(" ")}, by ${
+    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+  }`;
 
   const HASH_ID: ScrollableHashId = "rate-chart";
 
@@ -126,7 +128,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                   breakdownVar={props.breakdownVar}
                   metric={metricConfig}
                   showLegend={false}
-                  filename={getTitleText()}
+                  filename={titleText}
                   usePercentSuffix={isPctType(metricConfig.type)}
                 />
               </>

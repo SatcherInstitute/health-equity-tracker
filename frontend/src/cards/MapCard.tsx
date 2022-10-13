@@ -76,7 +76,10 @@ function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050]);
 
   const metricConfig = props.variableConfig.metrics["per100k"];
+
   const isMobile = useMediaQuery("(max-width:800px)");
+  const isLarge = useMediaQuery("(max-width:1500px)");
+  const isComparing = window.location.href.includes("compare");
 
   const isPrison = props.variableConfig.variableId === "prison";
   const isJail = props.variableConfig.variableId === "jail";
@@ -141,24 +144,26 @@ function MapCardWithKey(props: MapCardProps) {
   let qualifierItems: string[] = [];
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
 
-  const { chartTitle, subtitle } = createTitles({
-    variableConfig: props.variableConfig,
-    fips: props.fips,
+  const { subtitle } = createTitles({
     breakdown: props.currentBreakdown,
     demographic: activeBreakdownFilter,
   });
 
-  function getTitleTextArray() {
-    return [
-      metricConfig.chartTitle || "",
-      `${props.fips.getSentenceDisplayName()}`,
-    ];
-  }
+  const titleTextArray = [
+    metricConfig.chartTitle || "",
+    `${props.fips.getSentenceDisplayName()}`,
+  ];
 
   function getChartTitle() {
+    if (isComparing && isLarge) {
+      return [
+        ...(metricConfig.compareViewTitle ?? []),
+        `${props.fips.getSentenceDisplayName()}`,
+      ];
+    }
     if (isMobile) {
-      return getTitleTextArray();
-    } else return getTitleTextArray().join("");
+      return titleTextArray;
+    } else return titleTextArray.join(" ");
   }
 
   const HASH_ID: ScrollableHashId = "rate-map";

@@ -23,7 +23,6 @@ import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
-import useCreateTextWrap from "../utils/hooks/useCreateTextWrap";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -91,8 +90,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
       } in ${props.fips.getSentenceDisplayName()}`;
     }
   }
-
-  useCreateTextWrap(metricConfig.populationComparisonMetric?.mobileChartTitle);
 
   const HASH_ID: ScrollableHashId = "population-vs-distribution";
 
