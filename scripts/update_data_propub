@@ -9,6 +9,13 @@ fi
 
 echo "ProPublica API key found. Updating Congress (House + Senate) data...."
 
+#HTTP Request
+# GET https://api.propublica.org/congress/v1/{congress}/{chamber}/members.json
+
+# Query Parameters
+# Parameter	Description
+# congress	102-117 for House, 80-117 for Senate
+# chamber	house or senate
 
 curl -H "X-API-Key: ${PROPUBLICA_API_KEY}" "https://api.propublica.org/congress/v1/117/senate/members.json" > ../data/cawp/propublica-us-senate.json
 
