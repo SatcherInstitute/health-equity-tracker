@@ -40,6 +40,11 @@ import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import styles from "./Report.module.scss";
 import { Helmet } from "react-helmet-async";
 
+const NON_LAZYLOADED_CARDS: ScrollableHashId[] = [
+  "rate-map",
+  "rates-over-time",
+];
+
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
 function TwoVariableReport(props: {
@@ -521,7 +526,7 @@ function TwoVariableReport(props: {
 }
 
 function RowOfTwoOptionalMetrics(props: {
-  id: string;
+  id: ScrollableHashId;
   variableConfig1: VariableConfig | undefined;
   variableConfig2: VariableConfig | undefined;
   fips1: Fips;
@@ -546,6 +551,7 @@ function RowOfTwoOptionalMetrics(props: {
   // Needed for type safety, used when the card does not need to use the fips update callback
   const unusedFipsCallback = () => {};
 
+  const dontLazyLoadCard = NON_LAZYLOADED_CARDS.includes(props.id);
   return (
     <>
       <Grid
@@ -556,8 +562,21 @@ function RowOfTwoOptionalMetrics(props: {
         tabIndex={-1}
         style={{ scrollMarginTop: props.headerScrollMargin }}
       >
-        <LazyLoad offset={800} height={750} once>
-          {props.variableConfig1 && (
+        {/* render with or without LazyLoad wrapped based on card id */}
+        {props.variableConfig1 && dontLazyLoadCard && (
+          <>
+            {props.createCard(
+              props.variableConfig1,
+              props.fips1,
+              props.updateFips1 || unusedFipsCallback,
+              props.dropdownVarId1,
+              /* isCompareCard */ false
+            )}
+          </>
+        )}
+
+        <LazyLoad offset={800} height={750}>
+          {props.variableConfig1 && !dontLazyLoadCard && (
             <>
               {props.createCard(
                 props.variableConfig1,
@@ -578,8 +597,20 @@ function RowOfTwoOptionalMetrics(props: {
         id={`${props.id}2`}
         style={{ scrollMarginTop: props.headerScrollMargin }}
       >
+        {props.variableConfig2 && dontLazyLoadCard && (
+          <>
+            {props.createCard(
+              props.variableConfig2,
+              props.fips2,
+              props.updateFips2 || unusedFipsCallback,
+              props.dropdownVarId2,
+              /* isCompareCard */ true
+            )}
+          </>
+        )}
+
         <LazyLoad offset={800} height={600} once>
-          {props.variableConfig2 && (
+          {props.variableConfig2 && !dontLazyLoadCard && (
             <>
               {props.createCard(
                 props.variableConfig2,
