@@ -90,7 +90,7 @@ export function CircleChart({
         role="list"
         aria-label={unknownCircleLegendText + " per month"}
         transform={`translate(0, ${
-          HEIGHT - MARGIN.bottom_with_unknowns + 5 * MAX_RADIUS
+          HEIGHT - MARGIN.bottom_with_unknowns + 4 * MAX_RADIUS
         })`}
       >
         {data &&
