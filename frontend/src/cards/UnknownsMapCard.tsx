@@ -2,7 +2,7 @@ import React from "react";
 import { CardContent, useMediaQuery } from "@material-ui/core";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { MetricConfig, VariableConfig } from "../data/config/MetricConfig";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import { Row } from "../data/utils/DatasetTypes";
 import CardWrapper from "./CardWrapper";
@@ -28,6 +28,7 @@ import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { useLocation } from "react-router-dom";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { useCreateChartTitle } from "../utils/hooks/useCreateTitle";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -59,6 +60,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const isLarge = useMediaQuery("(max-width:1500px)");
   const isComparing = window.location.href.includes("compare");
   const metricConfig = props.variableConfig.metrics["pct_share"];
+  const locationName = props.fips.getSentenceDisplayName();
   const location = useLocation();
 
   const signalListeners: any = {
@@ -82,21 +84,17 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const mapQuery = new MetricQuery([metricConfig.metricId], mapGeoBreakdowns);
   const alertQuery = new MetricQuery([metricConfig.metricId], alertBreakdown);
 
-  const titleTextArray = [
+  const chartTitle = useCreateChartTitle(
+    metricConfig.populationComparisonMetric as MetricConfig,
+    locationName
+  );
+
+  const filename = [
     `${metricConfig.fullCardTitleName}`,
     `with unknown ${
       BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown]
     }`,
   ];
-
-  function getChartTitle() {
-    if (isComparing && isLarge) {
-      return titleTextArray;
-    }
-    if (isMobile) {
-      return titleTextArray;
-    } else return titleTextArray.join(" ");
-  }
 
   const HASH_ID: ScrollableHashId = "unknown-demographic-map";
 
@@ -237,11 +235,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             {showingVisualization && (
               <CardContent>
                 <ChoroplethMap
-                  titles={{ chartTitle: getChartTitle(), subTitle: "" }}
+                  titles={{ chartTitle, subTitle: "" }}
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}
-                  legendTitle={titleTextArray}
+                  legendTitle={filename}
                   data={unknowns}
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
@@ -251,9 +249,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
                   geoData={geoData}
-                  filename={`${titleTextArray.join(
-                    " "
-                  )} in ${props.fips.getSentenceDisplayName()}`}
+                  filename={`${filename.join(" ")} in ${locationName}`}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <div className={styles.TerritoryCirclesContainer}>

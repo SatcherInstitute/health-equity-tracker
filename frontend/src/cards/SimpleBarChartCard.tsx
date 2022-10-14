@@ -1,6 +1,6 @@
 import React from "react";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
-import { CardContent, useMediaQuery } from "@material-ui/core";
+import { CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -22,6 +22,7 @@ import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { useCreateChartTitle } from "../utils/hooks/useCreateTitle";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -46,10 +47,7 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
-
-  const isMobile = useMediaQuery("(max-width:800px)");
-  const isLarge = useMediaQuery("(max-width:1500px)");
-  const isComparing = window.location.href.includes("compare");
+  const locationName = props.fips.getSentenceDisplayName();
 
   const isIncarceration = INCARCERATION_IDS.includes(
     props.variableConfig.variableId
@@ -65,24 +63,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   const query = new MetricQuery(metricIdsToFetch, breakdowns);
 
-  const titleTextArray = [
-    metricConfig.chartTitle || "",
-    `${props.fips.getSentenceDisplayName()}`,
-  ];
+  const chartTitle = useCreateChartTitle(metricConfig, locationName);
 
-  function getChartTitle() {
-    if (isComparing && isLarge) {
-      return [
-        ...(metricConfig.compareViewTitle ?? []),
-        `${props.fips.getSentenceDisplayName()}`,
-      ];
-    }
-    if (isMobile) {
-      return titleTextArray;
-    } else return titleTextArray.join(" ");
-  }
-
-  const titleText = `${titleTextArray.join(" ")}, by ${
+  const filename = `${metricConfig.chartTitle} ${locationName}, by ${
     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
   }`;
 
@@ -123,12 +106,12 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 )}
 
                 <SimpleHorizontalBarChart
-                  chartTitle={getChartTitle()}
+                  chartTitle={chartTitle}
                   data={data}
                   breakdownVar={props.breakdownVar}
                   metric={metricConfig}
                   showLegend={false}
-                  filename={titleText}
+                  filename={filename}
                   usePercentSuffix={isPctType(metricConfig.type)}
                 />
               </>

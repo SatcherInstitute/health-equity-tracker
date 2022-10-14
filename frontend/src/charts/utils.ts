@@ -87,25 +87,18 @@ export function addMetricDisplayColumn(
   return [newData, displayColName];
 }
 
-type TitleProps = {
-  demographic?: string;
-  breakdown?: string;
+type subtitleProps = {
+  demographic: string;
+  breakdown: string;
 };
 
-export function createTitles({ demographic, breakdown }: TitleProps) {
-  let chartTitle: string | string[] = "";
-  let subtitle = "";
-
+export function createSubtitle({ demographic, breakdown }: subtitleProps) {
   if (demographic === "All") {
-    return { chartTitle, subtitle };
+    return "";
   }
-
   if (breakdown === "age") {
-    subtitle = `Ages ${demographic}`;
-    return { chartTitle, subtitle };
+    return `Ages ${demographic}`;
   } else {
-    subtitle = `${demographic}`;
+    return `${demographic}`;
   }
-
-  return { chartTitle, subtitle };
 }

@@ -46,10 +46,11 @@ import { MultiMapLink } from "./ui/MultiMapLink";
 import { RateInfoAlert } from "./ui/RateInfoAlert";
 import { findVerboseRating } from "./ui/SviAlert";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
-import { createTitles } from "../charts/utils";
+import { createSubtitle } from "../charts/utils";
 import { useLocation } from "react-router-dom";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { useCreateChartTitle } from "../utils/hooks/useCreateTitle";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 
@@ -76,10 +77,7 @@ function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050]);
 
   const metricConfig = props.variableConfig.metrics["per100k"];
-
-  const isMobile = useMediaQuery("(max-width:800px)");
-  const isLarge = useMediaQuery("(max-width:1500px)");
-  const isComparing = window.location.href.includes("compare");
+  const locationName = props.fips.getSentenceDisplayName();
 
   const isPrison = props.variableConfig.variableId === "prison";
   const isJail = props.variableConfig.variableId === "jail";
@@ -144,27 +142,16 @@ function MapCardWithKey(props: MapCardProps) {
   let qualifierItems: string[] = [];
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
 
-  const { subtitle } = createTitles({
+  const chartTitle = useCreateChartTitle(metricConfig, locationName);
+
+  const subtitle = createSubtitle({
     breakdown: props.currentBreakdown,
     demographic: activeBreakdownFilter,
   });
 
-  const titleTextArray = [
-    metricConfig.chartTitle || "",
-    `${props.fips.getSentenceDisplayName()}`,
-  ];
-
-  function getChartTitle() {
-    if (isComparing && isLarge) {
-      return [
-        ...(metricConfig.compareViewTitle ?? []),
-        `${props.fips.getSentenceDisplayName()}`,
-      ];
-    }
-    if (isMobile) {
-      return titleTextArray;
-    } else return titleTextArray.join(" ");
-  }
+  const filename = `${metricConfig.fullCardTitleName}${
+    activeBreakdownFilter === "All" ? "" : ` for ${activeBreakdownFilter}`
+  } in ${props.fips.getSentenceDisplayName()}`;
 
   const HASH_ID: ScrollableHashId = "rate-map";
 
@@ -368,7 +355,7 @@ function MapCardWithKey(props: MapCardProps) {
                   <ChoroplethMap
                     signalListeners={signalListeners}
                     titles={{
-                      chartTitle: getChartTitle() || "",
+                      chartTitle: chartTitle,
                       subTitle: subtitle,
                     }}
                     metric={metricConfig}
@@ -389,11 +376,7 @@ function MapCardWithKey(props: MapCardProps) {
                     scaleType="quantize"
                     geoData={geoData}
                     // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
-                    filename={`${metricConfig.fullCardTitleName}${
-                      activeBreakdownFilter === "All"
-                        ? ""
-                        : ` for ${activeBreakdownFilter}`
-                    } in ${props.fips.getSentenceDisplayName()}`}
+                    filename={filename}
                   />
                   {/* generate additional VEGA canvases for territories on national map */}
                   {props.fips.isUsa() && (

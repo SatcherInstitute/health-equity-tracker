@@ -71,7 +71,9 @@ export function TrendsChart({
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
   const { groupLabel } = axisConfig || {};
-  const pageIsTiny = useMediaQuery("(max-width:400px)");
+  const mobile = useMediaQuery("(max-width:800px)");
+  const isLarge = useMediaQuery("(max-width:1400px)");
+  const isComparing = window.location.href.includes("compare");
 
   /* Refs */
   // parent container ref - used for setting svg width
@@ -273,7 +275,9 @@ export function TrendsChart({
         )}
       </div>
       {/* Chart Title */}
-      <figcaption style={{ fontSize: pageIsTiny ? 11 : 14 }}>
+      <figcaption
+        style={{ fontSize: (isComparing && isLarge) || mobile ? 11 : 14 }}
+      >
         <b id={chartTitleId}>{chartTitle}</b>
       </figcaption>
       {/* Tooltip */}

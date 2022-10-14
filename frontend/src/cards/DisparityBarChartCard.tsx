@@ -1,7 +1,7 @@
 import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
-import { CardContent, useMediaQuery } from "@material-ui/core";
+import { CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -9,7 +9,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { MetricConfig, VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -23,6 +23,7 @@ import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { useCreateChartTitle } from "../utils/hooks/useCreateTitle";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -49,8 +50,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   );
 
   const metricConfig = props.variableConfig.metrics["pct_share"];
-  const isMobile = useMediaQuery("(max-width:800px)");
-  const isComparing = window.location.href.includes("compare");
+  const locationName = props.fips.getSentenceDisplayName();
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -72,24 +72,12 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
   const query = new MetricQuery(metricIds, breakdowns);
 
-  function getTitleText() {
-    return `Population vs. ${
-      metricConfig.fullCardTitleName
-    } in ${props.fips.getSentenceDisplayName()}`;
-  }
+  const chartTitle = useCreateChartTitle(
+    metricConfig.populationComparisonMetric as MetricConfig,
+    locationName
+  );
 
-  function getChartTitle() {
-    if (isMobile || isComparing) {
-      return [
-        ...(metricConfig.populationComparisonMetric?.mobileChartTitle ?? []),
-        `${props.fips.getSentenceDisplayName()}`,
-      ];
-    } else {
-      return `${
-        metricConfig.populationComparisonMetric?.chartTitle
-      } in ${props.fips.getSentenceDisplayName()}`;
-    }
-  }
+  const filename = `${metricConfig.populationComparisonMetric?.chartTitle}${locationName}`;
 
   const HASH_ID: ScrollableHashId = "population-vs-distribution";
 
@@ -156,7 +144,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               <>
                 <CardContent>
                   <DisparityBarChart
-                    chartTitle={getChartTitle()}
+                    chartTitle={chartTitle}
                     data={knownData}
                     lightMetric={metricConfig.populationComparisonMetric!}
                     darkMetric={
@@ -165,7 +153,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                     }
                     breakdownVar={props.breakdownVar}
                     metricDisplayName={metricConfig.shortLabel}
-                    filename={getTitleText()}
+                    filename={filename}
                     showAltPopCompare={shouldShowAltPopCompare(props)}
                   />
                 </CardContent>{" "}
