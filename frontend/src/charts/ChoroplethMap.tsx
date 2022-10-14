@@ -543,6 +543,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     pageIsTiny,
     isComparing,
     isLarge,
+    isMobile,
   ]);
 
   const mapStyle = {
