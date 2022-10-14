@@ -1,5 +1,5 @@
 from datasources.data_source import DataSource
-from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, STATE_LEVEL_FIPS_LIST
+from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, STATE_LEVEL_FIPS_LIST, US_ABBR
 import ingestion.standardized_columns as std_col
 from ingestion import gcs_to_bq_util, merge_utils
 import pandas as pd
@@ -29,7 +29,7 @@ class CAWPTimeData(DataSource):
             # start with single column of all state-level fips
             df = pd.DataFrame(
                 {
-                    std_col.STATE_FIPS_COL: STATE_LEVEL_FIPS_LIST,
+                    std_col.STATE_FIPS_COL: [*STATE_LEVEL_FIPS_LIST],
                 })
 
             # explode to every combo of state/year
@@ -55,10 +55,16 @@ class CAWPTimeData(DataSource):
                     for year in years:
                         year = str(year)
                         if year in time_periods:
+                            # add entry for each state's count
                             us_congress_totals_list_of_dict.append({
                                 std_col.STATE_POSTAL_COL: term["state"],
                                 std_col.TIME_PERIOD_COL: year
                             })
+                            # and to the national count
+                            # us_congress_totals_list_of_dict.append({
+                            #     std_col.STATE_POSTAL_COL: US_ABBR,
+                            #     std_col.TIME_PERIOD_COL: year
+                            # })
 
             us_congress_total_count_df = pd.DataFrame.from_dict(
                 us_congress_totals_list_of_dict)
