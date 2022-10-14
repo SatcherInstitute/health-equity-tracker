@@ -1,5 +1,6 @@
 import { formatFieldValue, MetricConfig } from "../data/config/MetricConfig";
 import { BreakdownVar } from "../data/query/Breakdowns";
+import { Row } from "../data/utils/DatasetTypes";
 
 export type VisualizationType = "chart" | "map" | "table";
 
