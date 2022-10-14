@@ -23,10 +23,14 @@ class CAWPTimeData(DataSource):
 
         # for geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
         for geo_level in [STATE_LEVEL]:
+
+            # restrict index years to this list
             time_periods = ["2009", "2021", "2022"]
+
+            # for BQ
             table_name = f'race_and_ethnicity_{geo_level}'
 
-            # start with single column of all state-level fips
+            # start with single column of all state-level fips as our df template
             df = pd.DataFrame(
                 {
                     std_col.STATE_FIPS_COL: [*STATE_LEVEL_FIPS_LIST],
@@ -36,9 +40,9 @@ class CAWPTimeData(DataSource):
             df[std_col.TIME_PERIOD_COL] = [time_periods] * len(df)
             df = df.explode(std_col.TIME_PERIOD_COL).reset_index(drop=True)
 
+            # load US congress data for total_counts
             raw_historical_congress_json = gcs_to_bq_util.fetch_json_from_web(
                 "https://theunitedstates.io/congress-legislators/legislators-historical.json")
-
             raw_current_congress_json = gcs_to_bq_util.fetch_json_from_web(
                 "https://theunitedstates.io/congress-legislators/legislators-current.json")
 
@@ -48,14 +52,17 @@ class CAWPTimeData(DataSource):
 
             us_congress_totals_list_of_dict = []
 
-            for term_list in raw_terms_json:
-                for term in term_list:
+            # iterate through each legislator
+            for legislator_term_list in raw_terms_json:
+                # and each term they served
+                for term in legislator_term_list:
                     years = list(
                         range(int(term["start"][:4]), int(term["end"][:4])+1))
+                    # and each year of each term
                     for year in years:
                         year = str(year)
                         if year in time_periods:
-                            # add entry for each state's count
+                            # add entry of service for each state's count
                             us_congress_totals_list_of_dict.append({
                                 std_col.STATE_POSTAL_COL: term["state"],
                                 std_col.TIME_PERIOD_COL: year
@@ -66,16 +73,20 @@ class CAWPTimeData(DataSource):
                             #     std_col.TIME_PERIOD_COL: year
                             # })
 
+                        # convert to df
             us_congress_total_count_df = pd.DataFrame.from_dict(
                 us_congress_totals_list_of_dict)
 
+            # convert giant list of duplicate state/year entries into a new column with the counts for each state/year combo
             us_congress_total_count_df = us_congress_total_count_df.groupby(
                 [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL]).size().reset_index().rename(
                 columns={0: 'total_us_congress_count'})
 
+            # merge in FIPS codes
             us_congress_total_count_df = merge_utils.merge_state_fips_codes(
                 us_congress_total_count_df, keep_postal=True)
 
+            # merge in calculated counts by state/year
             merge_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]
             df = pd.merge(df, us_congress_total_count_df, on=merge_cols)
 
