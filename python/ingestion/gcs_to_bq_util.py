@@ -298,7 +298,7 @@ def load_json_as_df_from_web(url, dtype=None, params=None):
     """Loads json data from the web underneath a given key into a dataframe
 
     url: url to download the json from
-    key: key in the json in which all data underneath will be loaded into the dataframe"""
+    """
     url = requests.Request('GET', url, params=params).prepare().url
     return pd.read_json(url, dtype=dtype)
 
@@ -374,3 +374,11 @@ def fetch_zip_as_files(url):
     response = requests.get(url)
     files = ZipFile(BytesIO(response.content))
     return files
+
+
+def fetch_json_from_web(url):
+    """
+    fetches json from a URL
+    """
+    r = requests.get(url)
+    return json.loads(r.text)
