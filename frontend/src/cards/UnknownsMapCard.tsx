@@ -1,5 +1,5 @@
 import React from "react";
-import { CardContent, useMediaQuery } from "@material-ui/core";
+import { CardContent } from "@material-ui/core";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import { MetricConfig, VariableConfig } from "../data/config/MetricConfig";
@@ -56,9 +56,6 @@ export function UnknownsMapCard(props: UnknownsMapCardProps) {
 
 function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const preloadHeight = useGuessPreloadHeight([700, 1000]);
-  const isMobile = useMediaQuery("(max-width:800px)");
-  const isLarge = useMediaQuery("(max-width:1500px)");
-  const isComparing = window.location.href.includes("compare");
   const metricConfig = props.variableConfig.metrics["pct_share"];
   const locationName = props.fips.getSentenceDisplayName();
   const location = useLocation();
