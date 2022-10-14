@@ -5,6 +5,12 @@ from ingestion import gcs_to_bq_util, merge_utils
 import pandas as pd
 
 
+US_CONGRESS_CURRENT_URL = "https://theunitedstates.io/congress-legislators/legislators-current.json"
+US_CONGRESS_HISTORICAL_URL = "https://theunitedstates.io/congress-legislators/legislators-historical.json"
+
+CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity_time_series.csv"
+
+
 class CAWPTimeData(DataSource):
 
     @ staticmethod
@@ -42,9 +48,9 @@ class CAWPTimeData(DataSource):
 
             # load US congress data for total_counts
             raw_historical_congress_json = gcs_to_bq_util.fetch_json_from_web(
-                "https://theunitedstates.io/congress-legislators/legislators-historical.json")
+                US_CONGRESS_HISTORICAL_URL)
             raw_current_congress_json = gcs_to_bq_util.fetch_json_from_web(
-                "https://theunitedstates.io/congress-legislators/legislators-current.json")
+                US_CONGRESS_CURRENT_URL)
 
             raw_terms_json = list(
                 map((lambda x: x["terms"]), raw_historical_congress_json)) + list(
@@ -89,6 +95,11 @@ class CAWPTimeData(DataSource):
             # merge in calculated counts by state/year
             merge_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]
             df = pd.merge(df, us_congress_total_count_df, on=merge_cols)
+
+            line_items_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+                'cawp', CAWP_LINE_ITEMS_FILE)
+
+            print(line_items_df)
 
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name)

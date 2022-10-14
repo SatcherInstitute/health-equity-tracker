@@ -1,14 +1,73 @@
 
 from unittest import mock
-from datasources.cawp_time import (CAWPTimeData)
+from datasources.cawp_time import (
+    CAWPTimeData, US_CONGRESS_HISTORICAL_URL, US_CONGRESS_CURRENT_URL)
+import os
+import pandas as pd
+import json
+from test_utils import get_state_fips_codes_as_df
+
+
+print("\n\n...\n\n")
+
+# INTEGRATION TEST SETUP
+
+# Current working directory.
+THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cawp_women_legislators")
+
+
+def _fetch_json_from_web(*args):
+    print("reading mock US CONGRESS totals")
+    [url] = args
+
+    if url == US_CONGRESS_HISTORICAL_URL:
+        file_name = "test_legislators-historical.json"
+
+    elif url == US_CONGRESS_CURRENT_URL:
+        file_name = "test_legislators-current.json"
+
+    with open(os.path.join(TEST_DIR, file_name)) as file:
+        return json.load(file)
+
+
+def _get_test_line_items_csv_as_df(*args):
+    print("reading mock CAWP line items")
+    [_folder, filename] = args
+    test_input_data_types = {
+        "id": str,
+        "year": str,
+        "first_name": str,
+        "middle_name": str,
+        "last_name": str,
+        "party": str,
+        "level": str,
+        "position": str,
+        "state": str,
+        "district": str,
+        "race_ethnicity": str
+    }
+
+    test_input_filename = f'test_input_{filename}'
+    return pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
+                       dtype=test_input_data_types)
+
 
 # RUN INTEGRATION TESTS ON STATE_LEVEL/TERRITORY LEVEL
 
-
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+             side_effect=_get_test_line_items_csv_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=get_state_fips_codes_as_df())
+@ mock.patch('ingestion.gcs_to_bq_util.fetch_json_from_web',
+             side_effect=_fetch_json_from_web)
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
 def testWriteStateLevelToBq(
     mock_bq: mock.MagicMock,
+    mock_web_json: mock.MagicMock,
+    mock_fips: mock.MagicMock,
+    mock_data_dir_csv: mock.MagicMock,
 ):
 
     cawp_data = CAWPTimeData()
