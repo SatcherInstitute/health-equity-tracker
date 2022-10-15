@@ -82,3 +82,4 @@ def testWriteStateLevelToBq(
 
     print("state df sent to BQ")
     print(mock_df_state.to_string())
+    # print(mock_df_state)

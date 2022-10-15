@@ -31,7 +31,7 @@ class CAWPTimeData(DataSource):
         for geo_level in [STATE_LEVEL]:
 
             # restrict index years to this list
-            time_periods = ["2009", "2021", "2022"]
+            time_periods = ["2022"]
 
             # for BQ
             table_name = f'race_and_ethnicity_{geo_level}'
@@ -96,10 +96,52 @@ class CAWPTimeData(DataSource):
             merge_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]
             df = pd.merge(df, us_congress_total_count_df, on=merge_cols)
 
+            # load in CAWP counts of women by race by year by state
             line_items_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
                 'cawp', CAWP_LINE_ITEMS_FILE)
 
-            print(line_items_df)
+            # drop unneeded cols
+            line_items_df = line_items_df[[
+                'year', 'state', 'race_ethnicity']]
+
+            # standardize CAWP state names as postal
+            line_items_df[std_col.STATE_POSTAL_COL] = line_items_df["state"].apply(
+                lambda x: x[-2:])
+
+            # merge in FIPS codes
+            line_items_df = merge_utils.merge_state_fips_codes(
+                line_items_df, keep_postal=True)
+
+            line_items_df = line_items_df.drop(columns=["state", "state_name"])
+
+            # rename year
+            line_items_df = line_items_df.rename(
+                columns={"year": std_col.TIME_PERIOD_COL})
+
+            # make all race comma-delimited strings into lists
+            line_items_df["race_ethnicity"] = [x.split(", ")
+                                               for x in line_items_df["race_ethnicity"]]
+
+            # explode those race lists with one row per race
+            line_items_df = line_items_df.explode(
+                "race_ethnicity").reset_index(drop=True)
+
+            print(line_items_df.to_string())
+
+            # # TODO make this counting rows concept a util fn
+            line_items_df = line_items_df.groupby(
+                [std_col.STATE_POSTAL_COL, std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL, "race_ethnicity"]).size().reset_index().rename(
+                columns={0: 'women_us_congress_count'})
+
+            merge_cols = [std_col.TIME_PERIOD_COL,
+                          std_col.STATE_FIPS_COL,
+                          std_col.STATE_POSTAL_COL]
+            df = pd.merge(df, line_items_df, on=merge_cols)
+
+            # calculate rates of representation
+            df[std_col.WOMEN_US_CONGRESS_PCT] = round(df["women_us_congress_count"] /
+                                                      df["total_us_congress_count"] * 100, 1)
+            # df[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = df["women_us_congress_count"] / need to get "ALL"
 
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name)
