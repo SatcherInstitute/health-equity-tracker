@@ -31,7 +31,7 @@ class CAWPTimeData(DataSource):
         for geo_level in [STATE_LEVEL]:
 
             # restrict index years to this list
-            time_periods = ["2022"]
+            time_periods = ["2021", "2022"]
 
             # for BQ
             table_name = f'race_and_ethnicity_{geo_level}'
@@ -84,9 +84,13 @@ class CAWPTimeData(DataSource):
                 us_congress_totals_list_of_dict)
 
             # convert giant list of duplicate state/year entries into a new column with the counts for each state/year combo
+            # us_congress_total_count_df = us_congress_total_count_df.groupby(
+            #     [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL]).size().reset_index().rename(
+            #     columns={0: 'total_us_congress_count'})
+
+            us_congress_total_count_df["total_us_congress_count"] = 1
             us_congress_total_count_df = us_congress_total_count_df.groupby(
-                [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL]).size().reset_index().rename(
-                columns={0: 'total_us_congress_count'})
+                [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])["total_us_congress_count"].count().reset_index()
 
             # merge in FIPS codes
             us_congress_total_count_df = merge_utils.merge_state_fips_codes(
@@ -100,9 +104,9 @@ class CAWPTimeData(DataSource):
             line_items_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
                 'cawp', CAWP_LINE_ITEMS_FILE)
 
-            # drop unneeded cols
+            # keep only needed cols
             line_items_df = line_items_df[[
-                'year', 'state', 'race_ethnicity']]
+                'year', 'level', 'state', 'race_ethnicity']]
 
             # standardize CAWP state names as postal
             line_items_df[std_col.STATE_POSTAL_COL] = line_items_df["state"].apply(
@@ -126,17 +130,22 @@ class CAWPTimeData(DataSource):
             line_items_df = line_items_df.explode(
                 "race_ethnicity").reset_index(drop=True)
 
-            print(line_items_df.to_string())
+            line_items_df_us_congress = line_items_df.loc[line_items_df['level']
+                                                          == 'Congress']
 
             # # TODO make this counting rows concept a util fn
-            line_items_df = line_items_df.groupby(
-                [std_col.STATE_POSTAL_COL, std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL, "race_ethnicity"]).size().reset_index().rename(
-                columns={0: 'women_us_congress_count'})
+            line_items_df_us_congress['women_us_congress_count'] = 1
+
+            line_items_df_us_congress = line_items_df_us_congress.groupby([std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, "race_ethnicity", 'level', std_col.TIME_PERIOD_COL])[
+                "women_us_congress_count"].count().reset_index()
+
+            line_items_df_us_congress = line_items_df_us_congress.drop(
+                'level', axis="columns")
 
             merge_cols = [std_col.TIME_PERIOD_COL,
                           std_col.STATE_FIPS_COL,
                           std_col.STATE_POSTAL_COL]
-            df = pd.merge(df, line_items_df, on=merge_cols)
+            df = pd.merge(df, line_items_df_us_congress, on=merge_cols)
 
             # calculate rates of representation
             df[std_col.WOMEN_US_CONGRESS_PCT] = round(df["women_us_congress_count"] /
