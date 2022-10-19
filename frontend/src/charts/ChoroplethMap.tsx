@@ -188,6 +188,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       }
       return `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum},}`;
     };
+
     const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}", }`;
     /* SET UP LEGEND */
     let legendList = [];

@@ -384,7 +384,7 @@ function getSpec(
         maxExtent: 0,
         minExtent: 0,
         ticks: false,
-        zindex: 0,
+        zindex: sass.zMiddle,
       },
       //  AXIS TICKS
       {
@@ -398,14 +398,14 @@ function getSpec(
         labelOverlap: true,
         tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
         tickMinStep: MIN_TICK_STEP,
-        zindex: 0,
+        zindex: sass.zMiddle,
       },
       {
         scale: "y",
         orient: "left",
         grid: false,
         title: breakdownVarDisplayName,
-        zindex: 0,
+        zindex: sass.zMiddle,
         tickSize: 5,
         encode: {
           labels: {

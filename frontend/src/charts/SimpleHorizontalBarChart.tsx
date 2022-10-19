@@ -237,7 +237,7 @@ function getSpec(
         maxExtent: 0,
         minExtent: 0,
         ticks: false,
-        zindex: 0,
+        zindex: sass.zMiddle,
       },
       {
         scale: "x",
@@ -248,14 +248,14 @@ function getSpec(
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: "ceil(width/40)" },
-        zindex: 0,
+        zindex: sass.zMiddle,
       },
       {
         scale: "y",
         orient: "left",
         grid: false,
         title: breakdownVarDisplayName,
-        zindex: 0,
+        zindex: sass.zMiddle,
         encode: {
           labels: {
             update: {
