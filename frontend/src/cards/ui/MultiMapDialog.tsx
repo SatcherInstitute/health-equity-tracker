@@ -117,6 +117,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                   <ChoroplethMap
                     key={breakdownValue}
                     signalListeners={{ click: (...args: any) => {} }}
+                    // signalListeners={signalListeners}
                     metric={props.metricConfig}
                     legendTitle={props.metricConfig.fullCardTitleName}
                     legendData={props.data}
