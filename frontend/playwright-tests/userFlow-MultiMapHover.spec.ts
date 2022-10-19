@@ -6,16 +6,23 @@ const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 const SKIP_WELCOME = `onboard=false`
 
 
-test.describe('Tracker Small Multiples with Hover Tooltip', () => {
+test.describe('Launch Small Multiples Modal; Hover Tooltip', () => {
 
 	test('Tracker Default (skip Welcome) to Small Multiple Modal', async ({ page }) => {
 
 		// Load Tracker Default (with url param to bypass problematic warm welcome)	
 		await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${SKIP_WELCOME}`, { waitUntil: "networkidle" });
 
+		await page.waitForNavigation()
+
 		// click "small multiples" in infobox	
 		const launchButton = page.locator('text=Launch small multiples view')
+
+
 		await launchButton.click()
+
+		await page.waitForNavigation()
+
 
 		// modal title with specific text should now be visible and pass a11y check	
 		await expect(page.locator('#modalTitle')).toContainText("across all")
