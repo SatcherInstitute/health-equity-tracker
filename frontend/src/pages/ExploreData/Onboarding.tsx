@@ -25,7 +25,7 @@ export default function Onboarding(props: {
           primaryColor: sass.altGreen,
           textColor: sass.white,
           width: 900,
-          zIndex: 1000,
+          zIndex: parseInt(sass.zAlmostTop),
         },
       }}
     />
