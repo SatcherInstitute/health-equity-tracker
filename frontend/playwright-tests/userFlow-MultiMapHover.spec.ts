@@ -11,8 +11,7 @@ test.describe('Tracker Small Multiples with Hover Tooltip', () => {
         await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${SKIP_WELCOME}`, { waitUntil: "networkidle" });
 
         // click "small multiples" in infobox
-        const smallMultiplesLinkButton = page.locator('button:has-text("Launch small multiples view")')
-        await smallMultiplesLinkButton.click();
+        await page.locator('button:has-text("Launch small multiples view")').click()
 
         // modal title with specific text should now be visible and pass a11y check
         await expect(page.locator('#modalTitle')).toContainText("across all")
@@ -22,8 +21,7 @@ test.describe('Tracker Small Multiples with Hover Tooltip', () => {
         await expect(page.locator("#vg-tooltip-element")).not.toBeVisible()
 
         // hover over VI bubble for "ALL" small multiples map
-        const allMapViBubble = page.locator('.MuiDialog-root [aria-label="Territory: U.S. Virgin Islands"] path').nth(1)
-        await allMapViBubble.hover()
+        await page.locator('.MuiDialog-root [aria-label="Territory: U.S. Virgin Islands"] path').nth(1).hover()
 
         // tooltip should now be visible since "VI" bubble is hovered
         await expect(page.locator("#vg-tooltip-element")).toBeVisible()
