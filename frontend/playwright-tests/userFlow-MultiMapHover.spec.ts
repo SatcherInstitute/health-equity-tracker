@@ -14,7 +14,8 @@ test.describe('Tracker Small Multiples with Hover Tooltip', () => {
         await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${SKIP_WELCOME}`, { waitUntil: "networkidle" });
 
         // click "small multiples" in infobox
-        await page.locator('text=Launch small multiples view').click()
+        const launchButton = page.locator('text=Launch small multiples view')
+        await launchButton.click()
 
         // // modal title with specific text should now be visible and pass a11y check
         // await expect(page.locator('#modalTitle')).toContainText("across all")
