@@ -33,7 +33,7 @@ export const OPIOID_US_SETTING =
   "?dt1=non_medical_drug_use&mls=1.substance-3.00";
 
 // SECTION IDS
-export const WHAT_DATA_ARE_MISSING_ID = "missingDataInfo";
+export const WHAT_DATA_ARE_MISSING_ID = "definitions-missing-data";
 export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
   EXPLORE_DATA_PAGE_LINK + "#" + WHAT_DATA_ARE_MISSING_ID;
 export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";

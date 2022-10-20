@@ -1,6 +1,5 @@
 import React from "react";
 import { Alert } from "@material-ui/lab";
-import { LinkWithStickyParams } from "../../utils/urlutils";
 import {
   EXPLORE_DATA_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
@@ -13,6 +12,7 @@ import {
   VariableConfig,
 } from "../../data/config/MetricConfig";
 import { dataTypeLinkMap } from "../AgeAdjustedTableCard";
+import { LinkWithStickyParams } from "../../utils/urlutils";
 
 interface MissingDataAlertProps {
   dataName: string;
@@ -76,6 +76,7 @@ function AltDataTypesMessage(props: AltDataTypesMessageProps) {
   if (!props.ageAdjustedDataTypes) return <></>;
   return (
     <>
+      {" "}
       Age-adjusted ratios by race and ethnicity at the national and state levels
       are available for these alternate data types:{" "}
       {props.ageAdjustedDataTypes.map((dataType, i) => {
@@ -84,7 +85,7 @@ function AltDataTypesMessage(props: AltDataTypesMessageProps) {
             <a
               href={`${EXPLORE_DATA_PAGE_LINK}${
                 dataTypeLinkMap[dataType.variableId as AgeAdjustedVariableId]
-              }`}
+              }#age-adjusted-risk`}
             >
               {dataType.variableFullDisplayName}
             </a>

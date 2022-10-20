@@ -3,7 +3,6 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
-import { LinkWithStickyParams } from "../../utils/urlutils";
 import {
   COPD_US_SETTING,
   COVID_HOSP_NY_COUNTY_SETTING,
@@ -21,8 +20,10 @@ import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { DropdownVarId, METRIC_CONFIG } from "../../data/config/MetricConfig";
-import FeedbackBox from "../ui/FeedbackBox";
 import { DEMOGRAPHIC_BREAKDOWNS } from "../../data/query/Breakdowns";
+import { LinkWithStickyParams } from "../../utils/urlutils";
+
+const FeedbackBox = React.lazy(() => import("../ui/FeedbackBox"));
 
 function GoalListItem(props: {
   src?: string;

@@ -54,8 +54,8 @@ describe("DatasetUtils.getExclusionList() Tests", () => {
       "White",
       "Unrepresented race",
       "Two or more races & Unrepresented race",
-      "Two or more races & Unrepresented race (Non-Hispanic)",
-      "Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)",
+      "Two or more races & Unrepresented race (NH)",
+      "Asian, Native Hawaiian, and Pacific Islander (NH)",
     ];
     const sampleExclusionListPrisonRaceUSA = getExclusionList(
       sampleVariableConfigPrisonRaceUSA,

@@ -22,15 +22,11 @@ import { exclude } from "../data/query/BreakdownFilter";
 import {
   NON_HISPANIC,
   RACE,
-  UNKNOWN,
-  UNKNOWN_RACE,
-  UNKNOWN_ETHNICITY,
   ALL,
   WHITE_NH,
   MULTI_OR_OTHER_STANDARD_NH,
   AGE,
 } from "../data/utils/Constants";
-import { Row } from "../data/utils/DatasetTypes";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import styles from "./Card.module.scss";
@@ -40,8 +36,11 @@ import {
   COVID_DEATHS_US_SETTING,
   COVID_HOSP_US_SETTING,
 } from "../utils/internalRoutes";
-import { Link } from "react-router-dom";
 import UnknownsAlert from "./ui/UnknownsAlert";
+import { Link } from "react-router-dom";
+import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
+import { reportProviderSteps } from "../reports/ReportProviderSteps";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 
@@ -62,7 +61,6 @@ export interface AgeAdjustedTableCardProps {
   breakdownVar: BreakdownVar;
   dropdownVarId?: DropdownVarId;
   setVariableConfigWithParam?: Function;
-  jumpToData?: Function;
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
@@ -92,9 +90,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     config.metricId.includes("ratio")
   );
 
-  const cardTitle = `${metrics[0]?.fullCardTitleName
-    } in ${props.fips.getSentenceDisplayName()}`;
-
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const ageAdjustedDataTypes: VariableConfig[] = METRIC_CONFIG[
     props.dropdownVarId!
@@ -103,22 +98,21 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     return dataType?.metrics["age_adjusted_ratio"]?.ageAdjusted;
   });
 
+  const HASH_ID: ScrollableHashId = "age-adjusted-risk";
+
   return (
     <CardWrapper
       isAgeAdjustedTable={true}
       minHeight={PRELOAD_HEIGHT}
       queries={[raceQuery, ageQuery]}
-      title={<>{cardTitle}</>}
+      title={<>{reportProviderSteps[HASH_ID].label}</>}
+      scrollToHash={HASH_ID}
     >
       {([raceQueryResponse, ageQueryResponse]) => {
-        let knownRaceData = raceQueryResponse.data.filter((row: Row) => {
-          return (
-            // remove unknowns
-            row[RACE] !== UNKNOWN &&
-            row[RACE] !== UNKNOWN_RACE &&
-            row[RACE] !== UNKNOWN_ETHNICITY
-          );
-        });
+        const [knownRaceData] = splitIntoKnownsAndUnknowns(
+          raceQueryResponse.data,
+          props.breakdownVar
+        );
 
         const isWrongBreakdownVar = props.breakdownVar === "sex";
         const noRatios = knownRaceData.every(
@@ -158,7 +152,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               known={true}
               overrideAndWithOr={props.breakdownVar === RACE}
               fips={props.fips}
-              jumpToData={props.jumpToData}
             />
 
             {/* If TABLE can't display for any of these various reasons, show the missing data alert */}
@@ -168,18 +161,18 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               raceQueryResponse.shouldShowMissingDataMessage(
                 metricIds as MetricId[]
               )) && (
-                <CardContent>
-                  <MissingDataAlert
-                    dataName={metrics[0].fullCardTitleName}
-                    breakdownString={
-                      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-                    }
-                    dropdownVarId={props.dropdownVarId}
-                    ageAdjustedDataTypes={ageAdjustedDataTypes}
-                    fips={props.fips}
-                  />
-                </CardContent>
-              )}
+              <CardContent>
+                <MissingDataAlert
+                  dataName={metrics[0].fullCardTitleName}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                  }
+                  dropdownVarId={props.dropdownVarId}
+                  ageAdjustedDataTypes={ageAdjustedDataTypes}
+                  fips={props.fips}
+                />
+              </CardContent>
+            )}
 
             {/* values are present or partially null, implying we have at least some age-adjustments */}
             {!raceQueryResponse.dataIsMissing() &&

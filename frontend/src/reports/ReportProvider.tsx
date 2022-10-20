@@ -1,15 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { OneVariableReport } from "./OneVariableReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
   MadLib,
   getMadLibWithUpdatedValue,
   MadLibId,
-  getMadLibPhraseText,
   getPhraseValue,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
-import { LinkWithStickyParams } from "../utils/urlutils";
 import {
   DATA_CATALOG_PAGE_LINK,
   CONTACT_TAB_LINK,
@@ -24,16 +22,16 @@ import {
   METRIC_CONFIG,
   VariableConfig,
 } from "../data/config/MetricConfig";
-import { Link } from "react-router-dom";
 import ShareButtons from "./ui/ShareButtons";
-import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
 import { Box } from "@material-ui/core";
 import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
-import { StepData } from "../utils/hooks/useStepObserver";
+import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { Link } from "react-router-dom";
+import { LinkWithStickyParams } from "../utils/urlutils";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -43,13 +41,15 @@ interface ReportProviderProps {
   selectedConditions: VariableConfig[];
   showLifeLineAlert: boolean;
   setMadLib: Function;
-  doScrollToData?: boolean;
   showIncarceratedChildrenAlert: boolean;
   isScrolledToTop: boolean;
+  headerScrollMargin: number;
 }
 
 function ReportProvider(props: ReportProviderProps) {
-  const [reportSteps, setReportSteps] = useState<StepData[]>([]);
+  const [reportStepHashIds, setReportStepHashIds] = useState<
+    ScrollableHashId[]
+  >([]);
 
   // only show determinants that have definitions
   const definedConditions = props.selectedConditions.filter(
@@ -63,24 +63,9 @@ function ReportProvider(props: ReportProviderProps) {
       dataTypeArray[1].some((dataType) => definedConditions.includes(dataType))
   );
 
-  const fieldRef = useRef<HTMLInputElement>(null);
-  const definitionsRef = useRef<HTMLInputElement>(null);
-
   const reportWrapper = props.isSingleColumn
     ? styles.OneColumnReportWrapper
     : styles.TwoColumnReportWrapper;
-
-  // internal page links
-  function jumpToDefinitions() {
-    if (definitionsRef.current) {
-      definitionsRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }
-  function jumpToData() {
-    if (fieldRef.current) {
-      fieldRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }
 
   function getReport() {
     // Each report has a unique key based on its props so it will create a
@@ -90,8 +75,6 @@ function ReportProvider(props: ReportProviderProps) {
         const dropdownOption = getPhraseValue(props.madLib, 1);
         return (
           <OneVariableReport
-            jumpToDefinitions={jumpToDefinitions}
-            jumpToData={jumpToData}
             key={dropdownOption}
             dropdownVarId={dropdownOption as DropdownVarId}
             fips={new Fips(getPhraseValue(props.madLib, 3))}
@@ -101,8 +84,9 @@ function ReportProvider(props: ReportProviderProps) {
               )
             }
             isScrolledToTop={props.isScrolledToTop}
-            reportSteps={reportSteps}
-            setReportSteps={setReportSteps}
+            reportStepHashIds={reportStepHashIds}
+            setReportStepHashIds={setReportStepHashIds}
+            headerScrollMargin={props.headerScrollMargin}
           />
         );
       case "comparegeos":
@@ -111,8 +95,6 @@ function ReportProvider(props: ReportProviderProps) {
         const fipsCode2 = getPhraseValue(props.madLib, 5);
         return (
           <TwoVariableReport
-            jumpToDefinitions={jumpToDefinitions}
-            jumpToData={jumpToData}
             key={compareDisparityVariable + fipsCode1 + fipsCode2}
             dropdownVarId1={compareDisparityVariable as DropdownVarId}
             dropdownVarId2={compareDisparityVariable as DropdownVarId}
@@ -129,8 +111,9 @@ function ReportProvider(props: ReportProviderProps) {
               )
             }
             isScrolledToTop={props.isScrolledToTop}
-            reportSteps={reportSteps}
-            setReportSteps={setReportSteps}
+            reportStepHashIds={reportStepHashIds}
+            setReportStepHashIds={setReportStepHashIds}
+            headerScrollMargin={props.headerScrollMargin}
           />
         );
       case "comparevars":
@@ -143,8 +126,6 @@ function ReportProvider(props: ReportProviderProps) {
           );
         return (
           <TwoVariableReport
-            jumpToDefinitions={jumpToDefinitions}
-            jumpToData={jumpToData}
             key={
               compareDisparityVariable1 + compareDisparityVariable2 + fipsCode
             }
@@ -155,8 +136,9 @@ function ReportProvider(props: ReportProviderProps) {
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
             isScrolledToTop={props.isScrolledToTop}
-            reportSteps={reportSteps}
-            setReportSteps={setReportSteps}
+            reportStepHashIds={reportStepHashIds}
+            setReportStepHashIds={setReportStepHashIds}
+            headerScrollMargin={props.headerScrollMargin}
           />
         );
       default:
@@ -166,15 +148,10 @@ function ReportProvider(props: ReportProviderProps) {
 
   return (
     <>
-      <Helmet>
-        <title>
-          {getMadLibPhraseText(props.madLib)} - Health Equity Tracker
-        </title>
-      </Helmet>
       <div className={reportWrapper}>
         <ShareButtons madLib={props.madLib} />
         {props.showLifeLineAlert && <LifelineAlert />}
-        <DisclaimerAlert jumpToData={jumpToData} />
+        <DisclaimerAlert />
         {props.showIncarceratedChildrenAlert && false && (
           <IncarceratedChildrenLongAlert />
         )}
@@ -182,13 +159,9 @@ function ReportProvider(props: ReportProviderProps) {
         {getReport()}
       </div>
       <div className={styles.MissingDataContainer}>
-        <aside
-          id="missingDataInfo"
-          ref={fieldRef}
-          className={styles.MissingDataInfo}
-        >
+        <aside className={styles.MissingDataInfo}>
           {/* Display condition definition(s) based on the tracker madlib settings */}
-          <div ref={definitionsRef}>
+          <div>
             {definedConditions.length > 0 && (
               <Box mb={5}>
                 <h3

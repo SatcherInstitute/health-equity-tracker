@@ -4,6 +4,8 @@ Arrays to sort through distinct groupings
 Converts to types for TS checking
 */
 
+import { TimeView } from "../query/Breakdowns";
+
 // DEMOGRAPHIC BREAKDOWN CATEGORY TERMS
 export const RACE = "race_and_ethnicity";
 export const AGE = "age";
@@ -21,15 +23,22 @@ export const UNKNOWN_RACE = "Unknown race";
 export const UNKNOWN_HL = "Unknown Hispanic or Latino";
 export const UNKNOWN_ETHNICITY = "Unknown ethnicity";
 
+export const UNKNOWN_LABELS = [
+  UNKNOWN,
+  UNKNOWN_RACE,
+  UNKNOWN_HL,
+  UNKNOWN_ETHNICITY,
+];
+
 // STANDARD RACE GROUPS AND ARRAY
-export const AIAN_NH = "American Indian and Alaska Native (Non-Hispanic)";
-export const ASIAN_NH = "Asian (Non-Hispanic)";
-export const BLACK_NH = "Black or African American (Non-Hispanic)";
+export const AIAN_NH = "American Indian and Alaska Native (NH)";
+export const ASIAN_NH = "Asian (NH)";
+export const BLACK_NH = "Black or African American (NH)";
 export const HISPANIC = "Hispanic or Latino";
-export const NHPI_NH = "Native Hawaiian and Pacific Islander (Non-Hispanic)";
-export const OTHER_STANDARD_NH = "Unrepresented race (Non-Hispanic)";
-export const MULTI_NH = "Two or more races (Non-Hispanic)";
-export const WHITE_NH = "White (Non-Hispanic)";
+export const NHPI_NH = "Native Hawaiian and Pacific Islander (NH)";
+export const OTHER_STANDARD_NH = "Unrepresented race (NH)";
+export const MULTI_NH = "Two or more races (NH)";
+export const WHITE_NH = "White (NH)";
 
 export const STANDARD_RACES = [
   AIAN_NH,
@@ -64,13 +73,12 @@ export const NON_STANDARD_RACES = [
 
 // COMBINATION RACE GROUPS AND (UNUSED) ARRAY
 export const API = "Asian, Native Hawaiian, and Pacific Islander";
-export const API_NH =
-  "Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)";
+export const API_NH = "Asian, Native Hawaiian, and Pacific Islander (NH)";
 export const INDIGENOUS = "Indigenous"; // Combines AIAN and NHPI
-export const INDIGENOUS_NH = "Indigenous (Non-Hispanic)";
+export const INDIGENOUS_NH = "Indigenous (NH)";
 export const MULTI_OR_OTHER_STANDARD = "Two or more races & Unrepresented race";
 export const MULTI_OR_OTHER_STANDARD_NH =
-  "Two or more races & Unrepresented race (Non-Hispanic)";
+  "Two or more races & Unrepresented race (NH)";
 
 export const COMBINATION_RACES = [
   API,
@@ -190,3 +198,10 @@ export type SexGroup = typeof SEX_GROUPS[number];
 
 // CREATE A DEMOGRAPHIC GROUP TYPE INCL ALL SEX/AGE/RACE OPTIONS
 export type DemographicGroup = AgeBucket | SexGroup | RaceAndEthnicityGroup;
+
+// TIME SERIES CONSTANTS
+
+export const TIME_PERIOD = "time_period";
+export const TIME_PERIOD_LABEL = "Time period";
+export const CROSS_SECTIONAL: TimeView = "cross_sectional";
+export const TIME_SERIES: TimeView = "time_series";

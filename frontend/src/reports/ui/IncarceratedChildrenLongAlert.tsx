@@ -2,10 +2,10 @@ import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import AlertTitle from "@material-ui/lab/AlertTitle";
 import styles from "./IncarceratedChildrenLongAlert.module.scss";
-import { Link } from "react-router-dom";
 import FlagIcon from "@material-ui/icons/Flag";
 import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";
 import { urlMap } from "../../utils/externalUrls";
+import { Link } from "react-router-dom";
 
 function IncarceratedChildrenLongAlert() {
   return (

@@ -7,8 +7,8 @@ import {
   COVID_HOSP_US_SETTING,
   EXPLORE_DATA_PAGE_LINK,
 } from "../../utils/internalRoutes";
-import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 function AgeAdjustmentTab() {
   return (
@@ -155,7 +155,7 @@ function AgeAdjustmentTab() {
                   </p>
                   <p>
                     Divide the total expected deaths of each race by the
-                    expected White (Non-Hispanic) deaths.
+                    expected White (NH) deaths.
                   </p>
                 </li>
               </ol>
@@ -438,9 +438,13 @@ function AgeAdjustmentTab() {
             variant="contained"
             color="primary"
             className={styles.PrimaryButton}
-            href={EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_US_SETTING}
+            href={
+              EXPLORE_DATA_PAGE_LINK +
+              COVID_DEATHS_US_SETTING +
+              "#age-adjusted-risk"
+            }
           >
-            Explore the data
+            Explore age-adjusted ratios
           </Button>
         </Grid>
       </Grid>

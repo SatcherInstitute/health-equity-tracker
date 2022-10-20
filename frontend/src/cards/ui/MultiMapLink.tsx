@@ -19,10 +19,8 @@ export function MultiMapLink(props: MultiMapLinkProps) {
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown];
   return (
     <>
-      <a
-        href="#multiMap"
+      <button
         onClick={() => props.setSmallMultiplesDialogOpen(true)}
-        role="button"
         className={styles.CompareAcrossLink}
         aria-label={
           "Open modal to Compare " +
@@ -32,9 +30,9 @@ export function MultiMapLink(props: MultiMapLinkProps) {
           " groups"
         }
       >
-        Compare across {groupTerm} groups
-      </a>
-      <span aria-hidden={true}>.</span>
+        Launch small multiples view
+      </button>{" "}
+      to compare across {groupTerm} groups.
     </>
   );
 }

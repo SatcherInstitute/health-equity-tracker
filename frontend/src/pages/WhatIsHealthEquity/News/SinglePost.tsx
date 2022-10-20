@@ -1,10 +1,10 @@
-import { Box, Button, Grid, Typography, Link } from "@material-ui/core";
+import { Box, Button, Grid, Typography } from "@material-ui/core";
 
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import styles from "./News.module.scss";
-import { Redirect, useParams } from "react-router-dom";
+import { Link, Redirect, useParams } from "react-router-dom";
 import {
   fetchNewsData,
   ReactRouterLinkButton,
@@ -160,7 +160,7 @@ export default function SinglePost() {
                   Authored by{" "}
                   <Link
                     className={styles.FilterLink}
-                    href={`${NEWS_TAB_LINK}?author=${fullArticle.acf.contributing_author}`}
+                    to={`${NEWS_TAB_LINK}?author=${fullArticle.acf.contributing_author}`}
                   >
                     {fullArticle.acf.contributing_author}
                   </Link>
@@ -200,7 +200,7 @@ export default function SinglePost() {
                   <span key={categoryChunk.id}>
                     <Link
                       className={styles.CategoryTag}
-                      href={`${NEWS_TAB_LINK}?category=${categoryChunk.name}`}
+                      to={`${NEWS_TAB_LINK}?category=${categoryChunk.name}`}
                     >
                       {categoryChunk.name}
                     </Link>
