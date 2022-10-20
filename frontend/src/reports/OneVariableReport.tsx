@@ -198,21 +198,19 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   id="rates-over-time"
                   className={styles.ScrollPastHeader}
                 >
-                  <LazyLoad offset={600} height={750} once>
-                    {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                      <Fragment key={breakdownVar}>
-                        {breakdownIsShown(breakdownVar) &&
-                          // only show time series 100k chart if MetricConfig for current condition has a card title
-                          variableConfig.timeSeriesData && (
-                            <RateTrendsChartCard
-                              variableConfig={variableConfig}
-                              breakdownVar={breakdownVar}
-                              fips={props.fips}
-                            />
-                          )}
-                      </Fragment>
-                    ))}
-                  </LazyLoad>
+                  {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                    <Fragment key={breakdownVar}>
+                      {breakdownIsShown(breakdownVar) &&
+                        // only show time series 100k chart if MetricConfig for current condition has a card title
+                        variableConfig.timeSeriesData && (
+                          <RateTrendsChartCard
+                            variableConfig={variableConfig}
+                            breakdownVar={breakdownVar}
+                            fips={props.fips}
+                          />
+                        )}
+                    </Fragment>
+                  ))}
                 </Grid>
 
                 {/* 100K BAR CHART CARD */}

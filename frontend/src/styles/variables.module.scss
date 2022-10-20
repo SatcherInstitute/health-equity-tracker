@@ -111,6 +111,14 @@ $xl: 1920px;
 // styles
 $bottom-border-style: 1px solid $border-color;
 
+// z-index layers
+$z-bottom: -999;
+// multimap modal blur backdrop -1
+$z-middle: 0;
+$z-almost-top: 1;
+// joyride warm welcome auto-assigned 101
+$z-top: 999;
+
 /*  */
 
 // EXPORT FOR USE OUTSIDE OF CSS/SCSS (like REACT / VEGA)
@@ -186,4 +194,9 @@ $bottom-border-style: 1px solid $border-color;
   md: $md;
   lg: $lg;
   xl: $xl;
+
+  zBottom: $z-bottom;
+  zMiddle: $z-middle;
+  zAlmostTop: $z-almost-top;
+  zTop: $z-top;
 }
