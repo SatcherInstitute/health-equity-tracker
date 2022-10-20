@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import TextField from "@material-ui/core/TextField";
@@ -20,8 +20,6 @@ function OptionsSelector(props: {
   options: Fips[] | string[][];
   onOptionUpdate: (option: string) => void;
 }) {
-  const popover = usePopover();
-
   const isFips =
     props.options[0] && props.options[0] instanceof Fips ? true : false;
   let currentDisplayName;
@@ -34,6 +32,12 @@ function OptionsSelector(props: {
     currentDisplayName = chosenOption ? chosenOption[1] : "";
   }
 
+  const popoverRef = useRef(null);
+
+  const noTopicChosen = props.value === "default";
+
+  const popover = usePopover(!isFips && noTopicChosen && popoverRef);
+
   const [, setTextBoxValue] = useState("");
   const updateTextBox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTextBoxValue(event.target.value);
@@ -43,6 +47,7 @@ function OptionsSelector(props: {
   const openAutoComplete = () => {
     setAutoCompleteOpen(true);
   };
+
   const closeAutoComplete = () => {
     setAutoCompleteOpen(false);
   };
@@ -56,8 +61,11 @@ function OptionsSelector(props: {
     }`;
   }
 
+  const anchorO = noTopicChosen ? "center" : "bottom";
+  const transformO = noTopicChosen ? "center" : "top";
+
   return (
-    <>
+    <span ref={popoverRef}>
       <Button
         variant="text"
         aria-haspopup="true"
@@ -69,17 +77,18 @@ function OptionsSelector(props: {
       </Button>
 
       <Popover
+        id="popoverBox"
         className={styles.PopoverOverride}
         aria-expanded="true"
         open={popover.isOpen}
         anchorEl={popover.anchor}
         onClose={popover.close}
         anchorOrigin={{
-          vertical: "bottom",
+          vertical: anchorO,
           horizontal: "center",
         }}
         transformOrigin={{
-          vertical: "top",
+          vertical: transformO,
           horizontal: "center",
         }}
       >
@@ -169,7 +178,7 @@ function OptionsSelector(props: {
           </Box>
         )}
       </Popover>
-    </>
+    </span>
   );
 }
 

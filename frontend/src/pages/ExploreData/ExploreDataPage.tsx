@@ -285,7 +285,7 @@ function ExploreDataPage() {
         </div>
         <div className={styles.ReportContainer}>
           {noTopicChosen ? (
-            <Box m={40}></Box>
+            <Box m={5} style={{ height: "100vh" }}></Box>
           ) : (
             <ReportProvider
               isSingleColumn={isSingleColumn}
@@ -334,7 +334,7 @@ function CarouselMadLib(props: {
           (phraseSegment: PhraseSegment, index: number) => (
             <React.Fragment key={index}>
               {typeof phraseSegment === "string" ? (
-                <span>
+                <span style={{ color: "#666" }}>
                   {phraseSegment}
                   {insertOptionalThe(props.madLib.activeSelections, index)}
                 </span>

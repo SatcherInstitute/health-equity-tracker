@@ -36,11 +36,14 @@
   text-underline-offset: 3px !important;
   text-decoration: underline !important;
   padding: 0 0.25rem 5px 0.6rem !important;
+  color: $alt-green;
   line-height: $lhLoose;
   font-size: $title;
+
   @media (min-width: $sm) {
     font-size: $smallestHeader;
   }
+
   @media (min-width: $lg) {
     font-size: $smallerHeader;
   }
