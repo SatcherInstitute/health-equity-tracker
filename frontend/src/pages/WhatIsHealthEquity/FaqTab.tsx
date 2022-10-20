@@ -108,7 +108,7 @@ Specific information on update frequencies by source can be found on our <a href
     a: `
   <ul>
     <li>
-      All data presented in the Health Equity Tracker are retrieved from publicly sourced application programming interfaces (APIs) and manual downloads. The data extracted from these sources are continuously updated to retrieve the most relevant data.
+      All data presented in the Health Equity Tracker are retrieved from publicly sourced application programming interfaces (APIs) and manual downloads. These sources are continuously updated to extract the most relevant data.
     </li>
     <li>
       Graphic visualizations reflect crude rates (non-age-adjusted) at 100,000 cases per year.
