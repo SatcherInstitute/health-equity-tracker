@@ -28,15 +28,36 @@ acs_2010_bq_payload = util.generate_bq_payload(
 acs_2010_bq_op = util.create_bq_ingest_operator(
     'acs_2010_gcs_to_bq', acs_2010_bq_payload, data_ingestion_dag)
 
-acs_2010_aggregator_payload = {'dataset_name': _ACS_2010_POPULATION_DATASET}
-acs_2010_aggregator_operator = util.create_aggregator_operator(
-    'acs_2010_aggregator', acs_2010_aggregator_payload,
+acs_2010_exporter_payload_race = {
+    'dataset_name': _ACS_2010_POPULATION_DATASET,
+    'demographic': "race"
+}
+acs_2010_exporter_operator_race = util.create_exporter_operator(
+    'acs_2010_exporter_race', acs_2010_exporter_payload_race,
     data_ingestion_dag)
 
-acs_2010_exporter_payload = {'dataset_name': _ACS_2010_POPULATION_DATASET}
-acs_2010_exporter_operator = util.create_exporter_operator(
-    'acs_2010_exporter', acs_2010_exporter_payload,
+acs_2010_exporter_payload_age = {
+    'dataset_name': _ACS_2010_POPULATION_DATASET,
+    'demographic': "age"
+}
+acs_2010_exporter_operator_age = util.create_exporter_operator(
+    'acs_2010_exporter_age', acs_2010_exporter_payload_age,
     data_ingestion_dag)
 
-# CDC Restricted Data Ingestion DAG
-acs_2010_bq_op >> acs_2010_aggregator_operator >> acs_2010_exporter_operator
+
+acs_2010_exporter_payload_sex = {
+    'dataset_name': _ACS_2010_POPULATION_DATASET,
+    'demographic': "sex"
+}
+acs_2010_exporter_operator_sex = util.create_exporter_operator(
+    'acs_2010_exporter_sex', acs_2010_exporter_payload_sex,
+    data_ingestion_dag)
+
+# Data Ingestion DAG
+(
+    acs_2010_bq_op >> [
+        acs_2010_exporter_operator_race,
+        acs_2010_exporter_operator_age,
+        acs_2010_exporter_operator_sex,
+    ]
+)

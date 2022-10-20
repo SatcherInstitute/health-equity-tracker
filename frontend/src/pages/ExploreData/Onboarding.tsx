@@ -1,9 +1,8 @@
 import React from "react";
 import Joyride from "react-joyride";
-// import { isSpreadAssignment } from "typescript";
 import sass from "../../styles/variables.module.scss";
 
-export function Onboarding(props: {
+export default function Onboarding(props: {
   callback: (data: any) => void;
   activelyOnboarding: boolean;
 }) {
@@ -26,7 +25,7 @@ export function Onboarding(props: {
           primaryColor: sass.altGreen,
           textColor: sass.white,
           width: 900,
-          zIndex: 1000,
+          zIndex: parseInt(sass.zAlmostTop),
         },
       }}
     />

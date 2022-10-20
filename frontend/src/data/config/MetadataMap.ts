@@ -18,8 +18,8 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
       "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
-      "Surveillance Data Access, Summary, and Limitations (08/01/2022). The last case data included is 2 " +
-      "weeks before 08/01/2022. The CDC does not take responsibility for the scientific validity " +
+      "Surveillance Data Access, Summary, and Limitations (10/06/2022). The last case data included is 2 " +
+      "weeks before 10/06/2022. The CDC does not take responsibility for the scientific validity " +
       "or accuracy of methodology, results, statistical analyses, or conclusions presented. We only " +
       "present the data as rates that are calculated with the ACS 2019 5-year estimates, to view the " +
       "raw data you must apply for access on the CDC website linked above.",
@@ -33,6 +33,15 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "cdc_restricted_data-by_sex_national_processed",
       "cdc_restricted_data-by_sex_county_processed",
       "cdc_restricted_data-by_sex_state_processed",
+      "cdc_restricted_data-by_race_national_processed_time_series",
+      "cdc_restricted_data-by_race_county_processed_time_series",
+      "cdc_restricted_data-by_race_state_processed_time_series",
+      "cdc_restricted_data-by_age_national_processed_time_series",
+      "cdc_restricted_data-by_age_county_processed_time_series",
+      "cdc_restricted_data-by_age_state_processed_time_series",
+      "cdc_restricted_data-by_sex_national_processed_time_series",
+      "cdc_restricted_data-by_sex_county_processed_time_series",
+      "cdc_restricted_data-by_sex_state_processed_time_series",
     ],
     downloadable: true,
   },
@@ -153,7 +162,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "retail pharmacies, long-term care facilities, dialysis centers, " +
       "Federal Emergency Management Agency and Health Resources and Services " +
       "Administration partner sites, and federal entity facilities.",
-    dataset_ids: ["cdc_vaccination_county-race_and_ethnicity"],
+    dataset_ids: ["cdc_vaccination_county-race_and_ethnicity_processed"],
     downloadable: true,
   },
   {

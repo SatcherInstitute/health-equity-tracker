@@ -10,7 +10,10 @@
     "covid_cases_share": 100.0,
     "covid_hosp_share": 100.0,
     "covid_deaths_share": 100.0,
-    "covid_population_pct": 100.0
+    "covid_population_pct": 100.0,
+    "covid_cases_inequitable_share": 0,
+    "covid_hosp_inequitable_share": 0,
+    "covid_deaths_inequitable_share": 0
   },
   {
     "state_fips": "06",
@@ -23,7 +26,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": 50.0,
     "covid_deaths_share": 50.0,
-    "covid_population_pct": 60.0
+    "covid_population_pct": 60.0,
+    "covid_cases_inequitable_share": -16.7,
+    "covid_hosp_inequitable_share": -16.7,
+    "covid_deaths_inequitable_share": -16.7
   },
   {
     "state_fips": "06",
@@ -36,7 +42,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": 50.0,
     "covid_deaths_share": 50.0,
-    "covid_population_pct": 40.0
+    "covid_population_pct": 40.0,
+    "covid_cases_inequitable_share": 25.0,
+    "covid_hosp_inequitable_share": 25.0,
+    "covid_deaths_inequitable_share": 25.0
   },
   {
     "state_fips": "06",
@@ -49,7 +58,10 @@
     "covid_cases_share": 38.9,
     "covid_hosp_share": 20.0,
     "covid_deaths_share": 60.0,
-    "covid_population_pct": null
+    "covid_population_pct": null,
+    "covid_cases_inequitable_share": null,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "state_fips": "15",
@@ -60,9 +72,12 @@
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
     "covid_cases_share": 100.0,
-    "covid_hosp_share": 100.0,
-    "covid_deaths_share": 100.0,
-    "covid_population_pct": 100.0
+    "covid_hosp_share": null,
+    "covid_deaths_share": null,
+    "covid_population_pct": 100.0,
+    "covid_cases_inequitable_share": 0,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "state_fips": "15",
@@ -75,7 +90,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": null,
     "covid_deaths_share": null,
-    "covid_population_pct": 60.0
+    "covid_population_pct": 60.0,
+    "covid_cases_inequitable_share": -16.7,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "state_fips": "15",
@@ -88,7 +106,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": null,
     "covid_deaths_share": null,
-    "covid_population_pct": 40.0
+    "covid_population_pct": 40.0,
+    "covid_cases_inequitable_share": 25.0,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "state_fips": "15",
@@ -101,7 +122,10 @@
     "covid_cases_share": 38.9,
     "covid_hosp_share": null,
     "covid_deaths_share": null,
-    "covid_population_pct": null
+    "covid_population_pct": null,
+    "covid_cases_inequitable_share": null,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "state_fips": "54",
@@ -114,7 +138,10 @@
     "covid_cases_share": 100.0,
     "covid_hosp_share": 100.0,
     "covid_deaths_share": 100.0,
-    "covid_population_pct": 100.0
+    "covid_population_pct": 100.0,
+    "covid_cases_inequitable_share": 0,
+    "covid_hosp_inequitable_share": 0,
+    "covid_deaths_inequitable_share": 0
   },
   {
     "state_fips": "54",
@@ -127,7 +154,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": 50.0,
     "covid_deaths_share": 50.0,
-    "covid_population_pct": 60.0
+    "covid_population_pct": 60.0,
+    "covid_cases_inequitable_share": -16.7,
+    "covid_hosp_inequitable_share": -16.7,
+    "covid_deaths_inequitable_share": -16.7
   },
   {
     "state_fips": "54",
@@ -140,7 +170,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": 50.0,
     "covid_deaths_share": 50.0,
-    "covid_population_pct": 40.0
+    "covid_population_pct": 40.0,
+    "covid_cases_inequitable_share": 25.0,
+    "covid_hosp_inequitable_share": 25.0,
+    "covid_deaths_inequitable_share": 25.0
   },
   {
     "state_fips": "54",
@@ -153,7 +186,10 @@
     "covid_cases_share": 38.9,
     "covid_hosp_share": 20.0,
     "covid_deaths_share": 60.0,
-    "covid_population_pct": null
+    "covid_population_pct": null,
+    "covid_cases_inequitable_share": null,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "state_fips": "06",
@@ -166,7 +202,10 @@
     "covid_cases_share": 100.0,
     "covid_hosp_share": 100.0,
     "covid_deaths_share": 100.0,
-    "covid_population_pct": 100.0
+    "covid_population_pct": 100.0,
+    "covid_cases_inequitable_share": 0,
+    "covid_hosp_inequitable_share": 0,
+    "covid_deaths_inequitable_share": 0
   },
   {
     "state_fips": "06",
@@ -179,7 +218,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": 50.0,
     "covid_deaths_share": 50.0,
-    "covid_population_pct": 60.0
+    "covid_population_pct": 60.0,
+    "covid_cases_inequitable_share": -16.7,
+    "covid_hosp_inequitable_share": -16.7,
+    "covid_deaths_inequitable_share": -16.7
   },
   {
     "state_fips": "06",
@@ -192,7 +234,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": 50.0,
     "covid_deaths_share": 50.0,
-    "covid_population_pct": 40.0
+    "covid_population_pct": 40.0,
+    "covid_cases_inequitable_share": 25.0,
+    "covid_hosp_inequitable_share": 25.0,
+    "covid_deaths_inequitable_share": 25.0
   },
   {
     "state_fips": "06",
@@ -205,7 +250,10 @@
     "covid_cases_share": 38.9,
     "covid_hosp_share": 20.0,
     "covid_deaths_share": 60.0,
-    "covid_population_pct": null
+    "covid_population_pct": null,
+    "covid_cases_inequitable_share": null,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "state_fips": "15",
@@ -216,9 +264,12 @@
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
     "covid_cases_share": 100.0,
-    "covid_hosp_share": 100.0,
-    "covid_deaths_share": 100.0,
-    "covid_population_pct": 100.0
+    "covid_hosp_share": null,
+    "covid_deaths_share": null,
+    "covid_population_pct": 100.0,
+    "covid_cases_inequitable_share": 0,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "state_fips": "15",
@@ -231,7 +282,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": null,
     "covid_deaths_share": null,
-    "covid_population_pct": 60.0
+    "covid_population_pct": 60.0,
+    "covid_cases_inequitable_share": -16.7,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "state_fips": "15",
@@ -244,7 +298,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": null,
     "covid_deaths_share": null,
-    "covid_population_pct": 40.0
+    "covid_population_pct": 40.0,
+    "covid_cases_inequitable_share": 25.0,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "state_fips": "15",
@@ -257,7 +314,10 @@
     "covid_cases_share": 38.9,
     "covid_hosp_share": null,
     "covid_deaths_share": null,
-    "covid_population_pct": null
+    "covid_population_pct": null,
+    "covid_cases_inequitable_share": null,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "state_fips": "54",
@@ -270,7 +330,10 @@
     "covid_cases_share": 100.0,
     "covid_hosp_share": 100.0,
     "covid_deaths_share": 100.0,
-    "covid_population_pct": 100.0
+    "covid_population_pct": 100.0,
+    "covid_cases_inequitable_share": 0,
+    "covid_hosp_inequitable_share": 0,
+    "covid_deaths_inequitable_share": 0
   },
   {
     "state_fips": "54",
@@ -283,7 +346,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": 50.0,
     "covid_deaths_share": 50.0,
-    "covid_population_pct": 60.0
+    "covid_population_pct": 60.0,
+    "covid_cases_inequitable_share": -16.7,
+    "covid_hosp_inequitable_share": -16.7,
+    "covid_deaths_inequitable_share": -16.7
   },
   {
     "state_fips": "54",
@@ -296,7 +362,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": 50.0,
     "covid_deaths_share": 50.0,
-    "covid_population_pct": 40.0
+    "covid_population_pct": 40.0,
+    "covid_cases_inequitable_share": 25.0,
+    "covid_hosp_inequitable_share": 25.0,
+    "covid_deaths_inequitable_share": 25.0
   },
   {
     "state_fips": "54",
@@ -309,6 +378,9 @@
     "covid_cases_share": 38.9,
     "covid_hosp_share": 20.0,
     "covid_deaths_share": 60.0,
-    "covid_population_pct": null
+    "covid_population_pct": null,
+    "covid_cases_inequitable_share": null,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   }
 ]

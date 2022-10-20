@@ -1,7 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./DataCatalogPage.module.scss";
-import { LinkWithStickyParams } from "../../utils/urlutils";
 import {
   CONTACT_TAB_LINK,
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
@@ -9,10 +8,9 @@ import {
   DATA_TAB_LINK,
 } from "../../utils/internalRoutes";
 import { Helmet } from "react-helmet-async";
-import { getHtml } from "../../utils/urlutils";
+import { getHtml, LinkWithStickyParams } from "../../utils/urlutils";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
-import { Link } from "react-router-dom";
 import { Card } from "@material-ui/core";
 import { urlMap } from "../../utils/externalUrls";
 import DefinitionsList from "../../reports/ui/DefinitionsList";
@@ -21,6 +19,7 @@ import {
   ALASKA_PRIVATE_JAIL_CAVEAT,
   CombinedIncarcerationStateMessage,
 } from "../../data/variables/IncarcerationProvider";
+import { Link } from "react-router-dom";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
@@ -120,6 +119,48 @@ function MethodologyTab() {
                     particular demographic group truly has zero cases for that
                     group or whether that that locale fails to report
                     demographics correctly.
+                  </li>
+                </ul>
+
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  COVID-19 Time Series Data
+                </h4>
+                <ul>
+                  <li>
+                    The CDC Restricted dataset includes a field called{" "}
+                    <b>cdc_case_earliest_dt</b>, which represents the earliest
+                    of either the date of first symptoms onset, a positive COVID
+                    test, or the date the case was first reported to the CDC. We
+                    use the month and year of this field to categorize the month
+                    and year that each COVID case, death, and hospitalization
+                    occurred. It is important to note here, that, for deaths and
+                    hospitalizations, we plot the month the case was first
+                    reported, and not when the death or hospitalization itself
+                    occurred.
+                  </li>
+                  <li>
+                    We chose to use this field because it is filled out for the
+                    vast majority of cases, and because it provides the best
+                    estimate we can get on when the COVID case in question
+                    occurred.
+                  </li>
+                  <li>
+                    We only count confirmed deaths and hospitalizations in the{" "}
+                    <b>per100k</b> and <b>inequitable distribution</b> metrics,
+                    so when we show “zero” deaths or hospitalizations for a
+                    demographic group in any month, it is possible that there
+                    are unconfirmed deaths or hospitalizations for that group in
+                    that month, but they have not been reported to the CDC.
+                  </li>
+                  <li>
+                    If a geographic jurisdiction reports zero cases, deaths, or
+                    hospitalizations for a demographic for the entire pandemic,
+                    we leave that demographic off of our charts all together, as
+                    we assume they are not collecting data on that population.
+                  </li>
+                  <li>
+                    Each chart represents the “incidence rate” – the amount of
+                    new cases that were reported in each month.
                   </li>
                 </ul>
 
@@ -278,7 +319,8 @@ function MethodologyTab() {
                   </li>
                   <li>
                     All metrics sourced from America's Health Rankings are
-                    calculated based on rates provided from their data API.
+                    calculated based on prevalance rates provided from their
+                    data API:
                     <ul>
                       <li>
                         To calculate the <b>per 100k</b> metrics seen on the
@@ -287,13 +329,9 @@ function MethodologyTab() {
                         metric if it is presented as a per 100k in the data API.
                       </li>
                       <li>
-                        To calculate the <b>percent share</b> metrics seen on
-                        the tracker , we must estimate the total number of
-                        people with each condition. Because AHR only presents
-                        data as percentages, we do this by multiplying the
-                        percentage by the population as sourced from the ACS
-                        survey, and then calculate the <b>percent share</b>{" "}
-                        based on the total of all the estimated counts.
+                        We have chosen to not show any <b>percent share</b>{" "}
+                        metrics for these conditions because the source only
+                        provides the metrics as rates.
                       </li>
                     </ul>
                   </li>
@@ -640,7 +678,7 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 className={styles.MethodologyQuestion}>
+              <h3 className={styles.MethodologyQuestion} id="metrics">
                 What do the metrics on the tracker mean?
               </h3>
               <div className={styles.MethodologyAnswer}>
@@ -684,6 +722,31 @@ function MethodologyTab() {
                     the ACS survey. This metric is rounded to one decimal place.
                     In instances where this would round to 0%, two decimal
                     places are used.
+                  </li>
+                  <li>
+                    <b>Inequitable distribution of COVID-19 cases by month</b>:
+                    To demonstrate the often inequitable distribution of a
+                    condition or disease, we calculate each demographic group's
+                    percent share of that condition and present it as a
+                    proportion to that group's share of the entire population.
+                    This calculation is done for every point in time for which
+                    we have data, and displayed over time to show trends in
+                    inequity.
+                    <p>
+                      {" "}
+                      As an example, if in a certain month White (Non-Hispanic)
+                      people in Georgia had 65.7% share of COVID-19 deaths but
+                      only 52.7% share of the population, their disproportionate
+                      percent share would be <b>+13%</b>:{" "}
+                      <code>65.7% - 52.7% = +13%</code>. This value is then
+                      divided by the population percent share to give a
+                      proportional inequitable burden of <b>+24.7%</b>:{" "}
+                      <code>+13% / 52.7% = +24.7%</code>. In plain language,
+                      this would be interpreted as “Deaths of individuals
+                      identifying as White, Non Hispanic in Georgia from
+                      COVID-19 were almost 25% higher than expected, based on
+                      their share of Georgia's overall population.”
+                    </p>
                   </li>
                 </ul>
               </div>
@@ -737,64 +800,62 @@ function MethodologyTab() {
                     race/ethnicity.
                   </li>
                   <li>
-                    <b>American Indian and Alaska Native (Non-Hispanic)</b>: A
-                    person having origins in any of the original peoples of
-                    North and South America (including Central America), who
-                    maintains tribal affiliation or community attachment, and
-                    who is not Hispanic/Latino.
-                  </li>
-                  <li>
-                    <b>Asian (Non-Hispanic)</b>: A person having origins in any
-                    of the original peoples of the Far East, Southeast Asia, or
-                    the Indian subcontinent including, for example, Cambodia,
-                    China, India, Japan, Korea, Malaysia, Pakistan, the
-                    Philippine Islands, Thailand, and Vietnam, and who is not
+                    <b>American Indian and Alaska Native (NH)</b>: A person
+                    having origins in any of the original peoples of North and
+                    South America (including Central America), who maintains
+                    tribal affiliation or community attachment, and who is not
                     Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Black or African American (Non-Hispanic)</b>: A person
-                    having origins in any of the Black racial groups of Africa,
-                    and who is not Hispanic/Latino.
+                    <b>Asian (NH)</b>: A person having origins in any of the
+                    original peoples of the Far East, Southeast Asia, or the
+                    Indian subcontinent including, for example, Cambodia, China,
+                    India, Japan, Korea, Malaysia, Pakistan, the Philippine
+                    Islands, Thailand, and Vietnam, and who is not
+                    Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>Black or African American (NH)</b>: A person having
+                    origins in any of the Black racial groups of Africa, and who
+                    is not Hispanic/Latino.
                   </li>
                   <li>
                     <b>Hispanic/Latino</b>: Any race(s), Hispanic/Latino.
                   </li>
                   <li>
-                    <b>
-                      Native Hawaiian or Other Pacific Islander (Non-Hispanic)
-                    </b>
-                    : A person having origins in any of the original peoples of
+                    <b>Native Hawaiian or Other Pacific Islander (NH)</b>: A
+                    person having origins in any of the original peoples of
                     Hawaii, Guam, Samoa, or other Pacific Islands and who is not
                     Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Unrepresented race (Non-Hispanic)</b>: A single race not
-                    tabulated by the CDC, not of Hispanic/Latino ethnicity.
-                    Individuals not identifying as one of the distinct races
-                    listed in the source data, or multiracial individuals, are
-                    grouped together as “Some other race”. This is a problem as
-                    it obscures racial identity for many individuals. In our
-                    effort to take transformative action towards achieving
-                    health equity the Satcher Health Leadership Institute has
-                    decided to rename this category to highlight it as a health
-                    equity issue.
+                    <b>Unrepresented race (NH)</b>: A single race not tabulated
+                    by the CDC, not of Hispanic/Latino ethnicity. Individuals
+                    not identifying as one of the distinct races listed in the
+                    source data, or multiracial individuals, are grouped
+                    together as “Some other race”. This is a problem as it
+                    obscures racial identity for many individuals. In our effort
+                    to take transformative action towards achieving health
+                    equity the Satcher Health Leadership Institute has decided
+                    to rename this category to highlight it as a health equity
+                    issue.
                   </li>
                   <li>
-                    <b>Two or more races (Non-Hispanic)</b>: Combinations of two
-                    or more of the following race categories: "White," "Black or
-                    African American," American Indian or Alaska Native,"
-                    "Asian," Native Hawaiian or Other Pacific Islander," or
-                    "Some Other Race", and who are not Hispanic/Latino.
+                    <b>Two or more races (NH)</b>: Combinations of two or more
+                    of the following race categories: "White," "Black or African
+                    American," American Indian or Alaska Native," "Asian,"
+                    Native Hawaiian or Other Pacific Islander," or "Some Other
+                    Race", and who are not Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Two or more races & Unrepresented race (Non-Hispanic)</b>
-                    : People who are either multiple races or a single race not
+                    <b>Two or more races & Unrepresented race (NH)</b>: People
+                    who are either multiple races or a single race not
                     represented by the data source's categorization, and who are
                     not Hispanic/Latino.
                   </li>
                   <li>
-                    <b>White (Non-Hispanic)</b>: A person having origins in any
-                    of the original peoples of Europe, the Middle East, or North
+                    <b>White (NH)</b>: A person having origins in any of the
+                    original peoples of Europe, the Middle East, or North
                     Africa, and who is not Hispanic/Latino.
                   </li>
                 </ul>

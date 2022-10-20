@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import EquityTab from "./EquityTab";
-import FaqTab from "./FaqTab";
 import { useUrlSearchParams } from "../../utils/urlutils";
 import {
   NEWS_TAB_LINK,
@@ -10,12 +8,15 @@ import {
   RESOURCES_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "../../utils/internalRoutes";
-import ResourcesTab from "./ResourcesTab";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useEffect } from "react";
-import NewsTab from "./NewsTab";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
+
+// can't lazy load (yet) due to scss loading issues
+import EquityTab from "./EquityTab";
+import FaqTab from "./FaqTab";
+import ResourcesTab from "./ResourcesTab";
+import NewsTab from "./NewsTab";
 
 export default function WhatIsHealthEquityPage() {
   const theme = useTheme();

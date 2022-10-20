@@ -2,7 +2,6 @@ import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
 export const UHC_DETERMINANTS: MetricId[] = [
@@ -94,16 +93,19 @@ class BrfssProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
+    const timeView = metricQuery.timeView;
     const datasetId = this.getDatasetId(breakdowns);
     const brfss = await getDataManager().loadDataset(datasetId);
     let df = brfss.toDataFrame();
 
-    const consumedDatasetIds = [datasetId, GetAcsDatasetId(breakdowns)];
+    const consumedDatasetIds = [datasetId];
 
     df = this.filterByGeo(df, breakdowns);
+    df = this.filterByTimeView(df, timeView, "2021");
     df = this.renameGeoColumns(df, breakdowns);
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
+
     df = this.removeUnrequestedColumns(df, metricQuery);
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);

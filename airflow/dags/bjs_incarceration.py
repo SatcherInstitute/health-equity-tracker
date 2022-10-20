@@ -22,15 +22,33 @@ bjs_incarceration_bq_payload = util.generate_bq_payload(
 bjs_incarceration_bq_operator = util.create_bq_ingest_operator(
     'bjs_incarceration_to_bq', bjs_incarceration_bq_payload, data_ingestion_dag)
 
-bjs_incarceration_aggregator_payload = {
-    'dataset_name': _BJS_INCARCERATION_DATASET_NAME}
-bjs_incarceration_aggregator_operator = util.create_aggregator_operator(
-    'bjs_incarceration_aggregator', bjs_incarceration_aggregator_payload, data_ingestion_dag)
+payload_race = {
+    'dataset_name': _BJS_INCARCERATION_DATASET_NAME,
+    'demographic': "race_and_ethnicity"
+}
+bjs_incarceration_exporter_operator_race = util.create_exporter_operator(
+    'bjs_incarceration_exporter_race', payload_race, data_ingestion_dag)
 
-bjs_incarceration_exporter_payload = {
-    'dataset_name': _BJS_INCARCERATION_DATASET_NAME}
-bjs_incarceration_exporter_operator = util.create_exporter_operator(
-    'bjs_incarceration_exporter', bjs_incarceration_exporter_payload, data_ingestion_dag)
+payload_age = {
+    'dataset_name': _BJS_INCARCERATION_DATASET_NAME,
+    'demographic': "age"
+}
+bjs_incarceration_exporter_operator_age = util.create_exporter_operator(
+    'bjs_incarceration_exporter_age', payload_race, data_ingestion_dag)
+
+
+payload_sex = {
+    'dataset_name': _BJS_INCARCERATION_DATASET_NAME,
+    'demographic': "sex"
+}
+bjs_incarceration_exporter_operator_sex = util.create_exporter_operator(
+    'bjs_incarceration_exporter_sex', payload_sex, data_ingestion_dag)
 
 # Ingestion DAG
-bjs_incarceration_bq_operator >> bjs_incarceration_aggregator_operator >> bjs_incarceration_exporter_operator
+(
+    bjs_incarceration_bq_operator >> [
+        bjs_incarceration_exporter_operator_race,
+        bjs_incarceration_exporter_operator_age,
+        bjs_incarceration_exporter_operator_sex,
+    ]
+)

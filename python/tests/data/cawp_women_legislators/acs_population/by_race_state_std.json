@@ -27,7 +27,7 @@
         "population_pct": "2.4",
         "race": "Asian, Native Hawaiian, and Pacific Islander",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+        "race_and_ethnicity": "Asian, Native Hawaiian, and Pacific Islander (NH)"
     },
     {
         "state_fips": "31",
@@ -37,7 +37,7 @@
         "population_pct": "0.8",
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)"
+        "race_and_ethnicity": "American Indian and Alaska Native (NH)"
     },
     {
         "state_fips": "31",
@@ -47,7 +47,7 @@
         "population_pct": "0.1",
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)"
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)"
     },
     {
         "state_fips": "31",
@@ -57,7 +57,7 @@
         "population_pct": "2.4",
         "race": "Asian",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Asian (Non-Hispanic)"
+        "race_and_ethnicity": "Asian (NH)"
     },
     {
         "state_fips": "31",
@@ -67,7 +67,7 @@
         "population_pct": "4.7",
         "race": "Black or African American",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)"
+        "race_and_ethnicity": "Black or African American (NH)"
     },
     {
         "state_fips": "31",
@@ -77,7 +77,7 @@
         "population_pct": "2.2",
         "race": "Two or more races",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Two or more races (Non-Hispanic)"
+        "race_and_ethnicity": "Two or more races (NH)"
     },
     {
         "state_fips": "31",
@@ -87,7 +87,7 @@
         "population_pct": "79.0",
         "race": "White",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "White (Non-Hispanic)"
+        "race_and_ethnicity": "White (NH)"
     },
     {
         "state_fips": "31",
@@ -97,7 +97,7 @@
         "population_pct": "0.1",
         "race": "Unrepresented race",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Unrepresented race (Non-Hispanic)"
+        "race_and_ethnicity": "Unrepresented race (NH)"
     },
     {
         "state_fips": "31",
@@ -107,7 +107,7 @@
         "population_pct": "2.3",
         "race": "Two or more races \u0026 Unrepresented race",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Two or more races \u0026 Unrepresented race (Non-Hispanic)"
+        "race_and_ethnicity": "Two or more races \u0026 Unrepresented race (NH)"
     },
     {
         "state_fips": "31",
@@ -217,7 +217,7 @@
         "population_pct": "7.3",
         "race": "Asian, Native Hawaiian, and Pacific Islander",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
+        "race_and_ethnicity": "Asian, Native Hawaiian, and Pacific Islander (NH)"
     },
     {
         "state_fips": "02",
@@ -227,7 +227,7 @@
         "population_pct": "14.4",
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)"
+        "race_and_ethnicity": "American Indian and Alaska Native (NH)"
     },
     {
         "state_fips": "02",
@@ -237,7 +237,7 @@
         "population_pct": "1.2",
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)"
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)"
     },
     {
         "state_fips": "02",
@@ -247,7 +247,7 @@
         "population_pct": "6.1",
         "race": "Asian",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Asian (Non-Hispanic)"
+        "race_and_ethnicity": "Asian (NH)"
     },
     {
         "state_fips": "02",
@@ -257,7 +257,7 @@
         "population_pct": "3.1",
         "race": "Black or African American",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)"
+        "race_and_ethnicity": "Black or African American (NH)"
     },
     {
         "state_fips": "02",
@@ -267,7 +267,7 @@
         "population_pct": "7.3",
         "race": "Two or more races",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Two or more races (Non-Hispanic)"
+        "race_and_ethnicity": "Two or more races (NH)"
     },
     {
         "state_fips": "02",
@@ -277,7 +277,7 @@
         "population_pct": "60.6",
         "race": "White",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "White (Non-Hispanic)"
+        "race_and_ethnicity": "White (NH)"
     },
     {
         "state_fips": "02",
@@ -287,7 +287,7 @@
         "population_pct": "0.2",
         "race": "Unrepresented race",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Unrepresented race (Non-Hispanic)"
+        "race_and_ethnicity": "Unrepresented race (NH)"
     },
     {
         "state_fips": "02",
@@ -297,7 +297,7 @@
         "population_pct": "7.5",
         "race": "Two or more races \u0026 Unrepresented race",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Two or more races \u0026 Unrepresented race (Non-Hispanic)"
+        "race_and_ethnicity": "Two or more races \u0026 Unrepresented race (NH)"
     },
     {
         "state_fips": "02",

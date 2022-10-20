@@ -12,7 +12,10 @@
     "covid_cases_share": 100.0,
     "covid_hosp_share": 100.0,
     "covid_deaths_share": 100.0,
-    "covid_population_pct": 100.0
+    "covid_population_pct": 100.0,
+    "covid_cases_inequitable_share": 0,
+    "covid_hosp_inequitable_share": 0,
+    "covid_deaths_inequitable_share": 0
   },
   {
     "county_fips": "06123",
@@ -27,7 +30,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": 50.0,
     "covid_deaths_share": 50.0,
-    "covid_population_pct": 60.0
+    "covid_population_pct": 60.0,
+    "covid_cases_inequitable_share": -16.7,
+    "covid_hosp_inequitable_share": -16.7,
+    "covid_deaths_inequitable_share": -16.7
   },
   {
     "county_fips": "06123",
@@ -42,7 +48,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": 50.0,
     "covid_deaths_share": 50.0,
-    "covid_population_pct": 40.0
+    "covid_population_pct": 40.0,
+    "covid_cases_inequitable_share": 25.0,
+    "covid_hosp_inequitable_share": 25.0,
+    "covid_deaths_inequitable_share": 25.0
   },
   {
     "county_fips": "06123",
@@ -57,7 +66,10 @@
     "covid_cases_share": 38.9,
     "covid_hosp_share": 20.0,
     "covid_deaths_share": 60.0,
-    "covid_population_pct": null
+    "covid_population_pct": null,
+    "covid_cases_inequitable_share": null,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "county_fips": "11001",
@@ -72,7 +84,10 @@
     "covid_cases_share": null,
     "covid_hosp_share": null,
     "covid_deaths_share": null,
-    "covid_population_pct": null
+    "covid_population_pct": null,
+    "covid_cases_inequitable_share": null,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "county_fips": "11001",
@@ -87,7 +102,10 @@
     "covid_cases_share": null,
     "covid_hosp_share": null,
     "covid_deaths_share": null,
-    "covid_population_pct": null
+    "covid_population_pct": null,
+    "covid_cases_inequitable_share": null,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "county_fips": "12345",
@@ -98,11 +116,86 @@
     "time_period": "2021-01",
     "covid_cases_per_100k": 6000,
     "covid_deaths_per_100k": 2000,
-    "covid_hosp_per_100k": null,
+    "covid_hosp_per_100k": 0,
     "covid_cases_share": 100.0,
     "covid_hosp_share": 100.0,
     "covid_deaths_share": 100.0,
-    "covid_population_pct": 100.0
+    "covid_population_pct": 100.0,
+    "covid_cases_inequitable_share": 0,
+    "covid_hosp_inequitable_share": 0,
+    "covid_deaths_inequitable_share": 0
+  },
+  {
+    "county_fips": "06456",
+    "county_name": "Sonoma County",
+    "state_fips": "06",
+    "state_name": "California",
+    "sex": "All",
+    "time_period": "2021-01",
+    "covid_cases_per_100k": 18000,
+    "covid_deaths_per_100k": 5000,
+    "covid_hosp_per_100k": 5000,
+    "covid_cases_share": 100.0,
+    "covid_hosp_share": 100.0,
+    "covid_deaths_share": 100.0,
+    "covid_population_pct": 100.0,
+    "covid_cases_inequitable_share": 0,
+    "covid_hosp_inequitable_share": 0,
+    "covid_deaths_inequitable_share": 0
+  },
+  {
+    "county_fips": "06456",
+    "county_name": "Sonoma County",
+    "state_fips": "06",
+    "state_name": "California",
+    "sex": "Female",
+    "time_period": "2021-01",
+    "covid_cases_per_100k": 10000,
+    "covid_deaths_per_100k": 1667,
+    "covid_hosp_per_100k": 3333,
+    "covid_cases_share": 50.0,
+    "covid_hosp_share": 50.0,
+    "covid_deaths_share": 50.0,
+    "covid_population_pct": 60.0,
+    "covid_cases_inequitable_share": -16.7,
+    "covid_hosp_inequitable_share": -16.7,
+    "covid_deaths_inequitable_share": -16.7
+  },
+  {
+    "county_fips": "06456",
+    "county_name": "Sonoma County",
+    "state_fips": "06",
+    "state_name": "California",
+    "sex": "Male",
+    "time_period": "2021-01",
+    "covid_cases_per_100k": 15000,
+    "covid_deaths_per_100k": 2500,
+    "covid_hosp_per_100k": 5000,
+    "covid_cases_share": 50.0,
+    "covid_hosp_share": 50.0,
+    "covid_deaths_share": 50.0,
+    "covid_population_pct": 40.0,
+    "covid_cases_inequitable_share": 25.0,
+    "covid_hosp_inequitable_share": 25.0,
+    "covid_deaths_inequitable_share": 25.0
+  },
+  {
+    "county_fips": "06456",
+    "county_name": "Sonoma County",
+    "state_fips": "06",
+    "state_name": "California",
+    "sex": "Unknown",
+    "time_period": "2021-01",
+    "covid_cases_per_100k": null,
+    "covid_deaths_per_100k": null,
+    "covid_hosp_per_100k": null,
+    "covid_cases_share": 38.9,
+    "covid_hosp_share": 20.0,
+    "covid_deaths_share": 60.0,
+    "covid_population_pct": null,
+    "covid_cases_inequitable_share": null,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "county_fips": "06123",
@@ -117,7 +210,10 @@
     "covid_cases_share": 100.0,
     "covid_hosp_share": 100.0,
     "covid_deaths_share": 100.0,
-    "covid_population_pct": 100.0
+    "covid_population_pct": 100.0,
+    "covid_cases_inequitable_share": 0,
+    "covid_hosp_inequitable_share": 0,
+    "covid_deaths_inequitable_share": 0
   },
   {
     "county_fips": "06123",
@@ -132,7 +228,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": 50.0,
     "covid_deaths_share": 50.0,
-    "covid_population_pct": 60.0
+    "covid_population_pct": 60.0,
+    "covid_cases_inequitable_share": -16.7,
+    "covid_hosp_inequitable_share": -16.7,
+    "covid_deaths_inequitable_share": -16.7
   },
   {
     "county_fips": "06123",
@@ -147,7 +246,10 @@
     "covid_cases_share": 50.0,
     "covid_hosp_share": 50.0,
     "covid_deaths_share": 50.0,
-    "covid_population_pct": 40.0
+    "covid_population_pct": 40.0,
+    "covid_cases_inequitable_share": 25.0,
+    "covid_hosp_inequitable_share": 25.0,
+    "covid_deaths_inequitable_share": 25.0
   },
   {
     "county_fips": "06123",
@@ -162,7 +264,10 @@
     "covid_cases_share": 38.9,
     "covid_hosp_share": 20.0,
     "covid_deaths_share": 60.0,
-    "covid_population_pct": null
+    "covid_population_pct": null,
+    "covid_cases_inequitable_share": null,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "county_fips": "11001",
@@ -177,7 +282,10 @@
     "covid_cases_share": null,
     "covid_hosp_share": null,
     "covid_deaths_share": null,
-    "covid_population_pct": null
+    "covid_population_pct": null,
+    "covid_cases_inequitable_share": null,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "county_fips": "11001",
@@ -192,7 +300,10 @@
     "covid_cases_share": null,
     "covid_hosp_share": null,
     "covid_deaths_share": null,
-    "covid_population_pct": null
+    "covid_population_pct": null,
+    "covid_cases_inequitable_share": null,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   },
   {
     "county_fips": "12345",
@@ -203,10 +314,85 @@
     "time_period": "2022-01",
     "covid_cases_per_100k": 6000,
     "covid_deaths_per_100k": 2000,
+    "covid_hosp_per_100k": 0,
+    "covid_cases_share": 100.0,
+    "covid_hosp_share": 100.0,
+    "covid_deaths_share": 100.0,
+    "covid_population_pct": 100.0,
+    "covid_cases_inequitable_share": 0,
+    "covid_hosp_inequitable_share": 0,
+    "covid_deaths_inequitable_share": 0
+  },
+  {
+    "county_fips": "06456",
+    "county_name": "Sonoma County",
+    "state_fips": "06",
+    "state_name": "California",
+    "sex": "All",
+    "time_period": "2022-01",
+    "covid_cases_per_100k": 18000,
+    "covid_deaths_per_100k": 5000,
+    "covid_hosp_per_100k": 5000,
+    "covid_cases_share": 100.0,
+    "covid_hosp_share": 100.0,
+    "covid_deaths_share": 100.0,
+    "covid_population_pct": 100.0,
+    "covid_cases_inequitable_share": 0,
+    "covid_hosp_inequitable_share": 0,
+    "covid_deaths_inequitable_share": 0
+  },
+  {
+    "county_fips": "06456",
+    "county_name": "Sonoma County",
+    "state_fips": "06",
+    "state_name": "California",
+    "sex": "Female",
+    "time_period": "2022-01",
+    "covid_cases_per_100k": 0,
+    "covid_deaths_per_100k": 0,
+    "covid_hosp_per_100k": 0,
+    "covid_cases_share": 0,
+    "covid_hosp_share": 0,
+    "covid_deaths_share": 0,
+    "covid_population_pct": 60.0,
+    "covid_cases_inequitable_share": 0,
+    "covid_hosp_inequitable_share": 0,
+    "covid_deaths_inequitable_share": 0
+  },
+  {
+    "county_fips": "06456",
+    "county_name": "Sonoma County",
+    "state_fips": "06",
+    "state_name": "California",
+    "sex": "Male",
+    "time_period": "2022-01",
+    "covid_cases_per_100k": 0,
+    "covid_deaths_per_100k": 0,
+    "covid_hosp_per_100k": 0,
+    "covid_cases_share": 0,
+    "covid_hosp_share": 0,
+    "covid_deaths_share": 0,
+    "covid_population_pct": 40.0,
+    "covid_cases_inequitable_share": 0,
+    "covid_hosp_inequitable_share": 0,
+    "covid_deaths_inequitable_share": 0
+  },
+  {
+    "county_fips": "06456",
+    "county_name": "Sonoma County",
+    "state_fips": "06",
+    "state_name": "California",
+    "sex": "Unknown",
+    "time_period": "2022-01",
+    "covid_cases_per_100k": null,
+    "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
     "covid_cases_share": 100.0,
     "covid_hosp_share": 100.0,
     "covid_deaths_share": 100.0,
-    "covid_population_pct": 100.0
+    "covid_population_pct": null,
+    "covid_cases_inequitable_share": null,
+    "covid_hosp_inequitable_share": null,
+    "covid_deaths_inequitable_share": null
   }
 ]

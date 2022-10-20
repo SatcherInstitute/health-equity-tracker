@@ -3,8 +3,9 @@ import styles from "./WhatIsHealthEquityPage.module.scss";
 import Grid from "@material-ui/core/Grid";
 import { NEWS_TAB_LINK } from "../../utils/internalRoutes";
 import { Route, Switch } from "react-router-dom";
-import AllPosts from "./News/AllPosts";
-import SinglePost from "./News/SinglePost";
+
+const AllPosts = React.lazy(() => import("./News/AllPosts"));
+const SinglePost = React.lazy(() => import("./News/SinglePost"));
 
 export interface Article {
   id: number;

@@ -1,0 +1,11 @@
+@import "../../styles/variables.module";
+@import "../../styles/globals.scss";
+
+.CompareAcrossLink {
+  text-decoration: underline;
+  background: none !important;
+  border: none !important;
+  padding: 0px;
+  color: $alt-green;
+  cursor: pointer;
+}

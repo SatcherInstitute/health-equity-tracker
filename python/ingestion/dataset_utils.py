@@ -29,7 +29,7 @@ def generate_pct_share_col_without_unknowns(df, raw_count_to_pct_share, breakdow
 def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
                                          breakdown_col, all_val, unknown_val):
     """Returns a DataFrame with a percent share column based on the raw_count_cols.
-       The resulting `pct_share` value for the 'unknown' row will the the raw
+       The resulting `pct_share` value for the 'unknown' row will be the raw
        percent share, whereas the resulting `pct_share` values for all other
        rows will be the percent share disregarding unknowns.
 
@@ -43,16 +43,18 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
        all_val: String representing an ALL demographic value in the dataframe.
        unknown_val: String representing an UNKNOWN value in the dataframe."""
 
-    df = _generate_pct_share_col(
-        df, raw_count_to_pct_share, breakdown_col, all_val)
+    # First, only run the _generate_pct_share_col function on the UNKNOWNS
+    # in the dataframe, so we only need the ALL and UNKNOWN rows
+    unknown_all_df = df.loc[df[breakdown_col].isin({unknown_val, all_val})]
+    unknown_all_df = _generate_pct_share_col(
+        unknown_all_df, raw_count_to_pct_share, breakdown_col, all_val)
 
+    # Make sure this dataframe contains unknowns
     unknown_df = df.loc[df[breakdown_col] ==
                         unknown_val].reset_index(drop=True)
     if len(unknown_df) == 0:
         raise ValueError(('This dataset does not contains unknowns, use the'
                           'generate_pct_share_col_without_unknowns function instead'))
-
-    all_df = df.loc[df[breakdown_col] == all_val].reset_index(drop=True)
 
     df = df.loc[~df[breakdown_col].isin({unknown_val, all_val})]
 
@@ -62,8 +64,7 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
     if std_col.TIME_PERIOD_COL in df.columns:
         groupby_cols.append(std_col.TIME_PERIOD_COL)
 
-    df = df.drop(columns=list(raw_count_to_pct_share.values()))
-
+    # Calculate an all demographic based on the known cases.
     alls = df.groupby(groupby_cols).sum().reset_index()
     alls[breakdown_col] = all_val
     df = pd.concat([df, alls]).reset_index(drop=True)
@@ -74,9 +75,9 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
     df = df.loc[df[breakdown_col] != all_val]
 
     for share_of_known_col in raw_count_to_pct_share.values():
-        all_df[share_of_known_col] = 100.0
+        unknown_all_df.loc[unknown_all_df[breakdown_col] == all_val, share_of_known_col] = 100.0
 
-    df = pd.concat([df, all_df, unknown_df]).reset_index(drop=True)
+    df = pd.concat([df, unknown_all_df]).reset_index(drop=True)
     return df
 
 
@@ -247,4 +248,24 @@ def ensure_leading_zeros(df, fips_col_name: str, num_digits: int):
     """
     df[fips_col_name] = df[fips_col_name].apply(
         lambda code: (str(code).rjust(num_digits, '0')))
+    return df
+
+
+def generate_inequitable_share_column(df, pct_share_col, pct_pop_col, inequitable_share_col):
+    """Returns a new DataFrame with an inequitable share column.
+
+       df: Pandas DataFrame to generate the column for.
+       pct_share_col: String column name for the pct share of condition.
+       pct_pop_col: String column name for the pct of population.
+       inequitable_share_col: String column name to place the calculated
+                              inequitable shares in.
+       """
+    def calc_inequitable_share(row):
+        if pd.isna(row[pct_share_col]) or pd.isna(row[pct_pop_col]) or (row[pct_pop_col] == 0):
+            return np.NaN
+
+        inequitable_share_ratio = (row[pct_share_col] - row[pct_pop_col]) / row[pct_pop_col]
+        return round(inequitable_share_ratio * 100, 1)
+
+    df[inequitable_share_col] = df.apply(calc_inequitable_share, axis=1)
     return df
