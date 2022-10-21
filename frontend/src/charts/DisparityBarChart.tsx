@@ -16,6 +16,7 @@ import {
   addMetricDisplayColumn,
   PADDING_FOR_ACTIONS_MENU,
 } from "./utils";
+import { useFontSize } from "../utils/hooks/useFontSize";
 import sass from "../styles/variables.module.scss";
 import { LEGEND_TEXT_FONT } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
@@ -42,15 +43,13 @@ function getSpec(
   darkMetricDisplayColumnName: string,
   barLabelBreakpoint: number,
   pageIsTiny: boolean,
-  isComparing: boolean,
+  fontSize: number,
   stacked?: boolean,
   // place AIAL NHPI pop compare in different color columns due to ACS not KFF
   altLightMeasure?: MetricId,
   altLightMeasureDisplayName?: string,
   altLightMetricDisplayColumnName?: string,
-  hasAltPop?: boolean,
-  isLarge?: boolean,
-  isMobile?: boolean
+  hasAltPop?: boolean
 ): any {
   const BAR_HEIGHT = stacked ? 40 : 12;
   const BAR_PADDING = 0.1;
@@ -315,7 +314,7 @@ function getSpec(
       encode: {
         title: {
           enter: {
-            fontSize: { value: (isComparing && isLarge) || isMobile ? 11 : 14 },
+            fontSize: { value: fontSize },
             font: { value: "Inter, sans-serif" },
           },
         },
@@ -456,9 +455,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
-  const isMobile = useMediaQuery("(max-width:800px)");
-  const isLarge = useMediaQuery("(max-width:1400px)");
-  const isComparing = window.location.href.includes("compare");
+  const fontSize = useFontSize();
 
   // move AIAN and NHPI into their own properties for STATE/RACE/VACCINE (since KFF doesnt provide pop compare metrics)
   let dataFromProps = props.data;
@@ -555,7 +552,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           /* darkMetricDisplayColumnName, */ darkMetricDisplayColumnName,
           /* barLabelBreakpoint, */ barLabelBreakpoint,
           /* pageIsTiny, */ pageIsTiny,
-          isComparing,
+          /* determine font size */ fontSize,
           /* stacked?, */ props.stacked,
           /* altLightMeasure?, */ hasAltPop
             ? altLightMetric.metricId
@@ -566,9 +563,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           /* altLightMetricDisplayColumnName?: string, */ hasAltPop
             ? altLightMetricDisplayColumnName
             : "",
-          /* hasAltPop?: boolean */ hasAltPop,
-          isLarge,
-          isMobile
+          /* hasAltPop?: boolean */ hasAltPop
         )}
       />
     </div>

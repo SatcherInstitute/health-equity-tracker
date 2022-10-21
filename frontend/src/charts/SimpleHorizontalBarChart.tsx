@@ -16,6 +16,7 @@ import {
   addMetricDisplayColumn,
   PADDING_FOR_ACTIONS_MENU,
 } from "./utils";
+import { useFontSize } from "../utils/hooks/useFontSize";
 import sass from "../styles/variables.module.scss";
 import { useMediaQuery } from "@material-ui/core";
 import {
@@ -48,9 +49,7 @@ function getSpec(
   barLabelBreakpoint: number,
   pageIsTiny: boolean,
   usePercentSuffix: boolean,
-  isComparing: boolean,
-  isLarge?: boolean,
-  isMobile?: boolean
+  fontSize: number
 ): any {
   const MEASURE_COLOR = sass.altGreen;
   const BAR_HEIGHT = 60;
@@ -86,7 +85,7 @@ function getSpec(
       encode: {
         title: {
           enter: {
-            fontSize: { value: (isComparing && isLarge) || isMobile ? 11 : 14 },
+            fontSize: { value: fontSize },
             font: { value: "Inter, sans-serif" },
           },
         },
@@ -291,9 +290,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
-  const isMobile = useMediaQuery("(max-width:800px)");
-  const isLarge = useMediaQuery("(max-width:1400px)");
-  const isComparing = window.location.href.includes("compare");
+  const fontSize = useFontSize();
 
   // swap race labels if applicable
   const dataLabelled = CAWP_DETERMINANTS.includes(props.metric.metricId)
@@ -343,9 +340,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           /* barLabelBreakpoint  */ barLabelBreakpoint,
           /* pageIsTiny  */ pageIsTiny,
           /* usePercentSuffix  */ props.usePercentSuffix || false,
-          isComparing,
-          isLarge,
-          isMobile
+          fontSize
         )}
         // custom 3-dot options menu
         actions={

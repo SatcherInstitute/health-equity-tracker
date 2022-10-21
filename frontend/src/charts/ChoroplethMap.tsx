@@ -5,6 +5,7 @@ import { Fips } from "../data/utils/Fips";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
+import { useFontSize } from "../utils/hooks/useFontSize";
 import sass from "../styles/variables.module.scss";
 import {
   EQUAL_DOT_SIZE,
@@ -94,9 +95,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
-  const isMobile = useMediaQuery("(max-width:800px)");
-  const isLarge = useMediaQuery("(max-width:1400px)");
-  const isComparing = window.location.href.includes("compare");
+  const fontSize = useFontSize();
 
   const yOffsetNoDataLegend = pageIsTiny ? -15 : -43;
   const xOffsetNoDataLegend = pageIsTiny ? 15 : 230;
@@ -488,7 +487,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           title: {
             enter: {
               fontSize: {
-                value: (isComparing && isLarge) || isMobile ? 11 : 14,
+                value: fontSize,
               },
               font: { value: "Inter, sans-serif" },
             },
@@ -497,7 +496,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             enter: {
               fontStyle: { value: "italic" },
               fontSize: {
-                value: isComparing && isLarge ? 10 : 13,
+                value: fontSize - 2,
               },
             },
           },
@@ -542,9 +541,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     legendLowerBound,
     legendUpperBound,
     pageIsTiny,
-    isComparing,
-    isLarge,
-    isMobile,
+    fontSize,
   ]);
 
   const mapStyle = {

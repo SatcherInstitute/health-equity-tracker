@@ -46,6 +46,7 @@ import { BreakdownVar } from "../../data/query/Breakdowns";
 import useEscape from "../../utils/hooks/useEscape";
 import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
 import { useMediaQuery } from "@material-ui/core";
+import { useFontSize } from "../../utils/hooks/useFontSize";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -71,9 +72,8 @@ export function TrendsChart({
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
   const { groupLabel } = axisConfig || {};
-  const mobile = useMediaQuery("(max-width:800px)");
-  const isLarge = useMediaQuery("(max-width:1400px)");
-  const isComparing = window.location.href.includes("compare");
+
+  const fontSize = useFontSize();
 
   /* Refs */
   // parent container ref - used for setting svg width
@@ -275,9 +275,7 @@ export function TrendsChart({
         )}
       </div>
       {/* Chart Title */}
-      <figcaption
-        style={{ fontSize: (isComparing && isLarge) || mobile ? 11 : 14 }}
-      >
+      <figcaption style={{ fontSize }}>
         <b id={chartTitleId}>{chartTitle}</b>
       </figcaption>
       {/* Tooltip */}
