@@ -143,7 +143,7 @@ export function getNestedData(
 }
 
 /* 
-Accepts fetched, unknown pct_share dataand a target metric, and restructures the data into the nested array format required by d3 for the time-series "unknown bubbles" at the bottom of the charts
+Accepts fetched, prefiltered data that only contains rows with unknown pct_share data, and a target metric, and restructures the data into the nested array format required by d3 for the time-series "unknown bubbles" at the bottom of the charts
 */
 export function getNestedUnknowns(
   unknownsData: Row[],

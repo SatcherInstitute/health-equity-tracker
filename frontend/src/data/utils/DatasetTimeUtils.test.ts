@@ -3,6 +3,7 @@ import {
   getPrettyDate,
   interpolateTimePeriods,
   getNestedData,
+  getNestedUnknowns,
 } from "./DatasetTimeUtils";
 
 describe("Tests for time_period functions", () => {
@@ -52,31 +53,47 @@ describe("Tests for time_period functions", () => {
 });
 
 describe("Tests for nesting functions", () => {
-  test("test getNestedData()", () => {
-    const twoYearsOfNormalData = [
-      {
-        sex: "Male",
-        jail_per_100k: 3000,
-        time_period: "2020",
-      },
-      {
-        sex: "Male",
-        jail_per_100k: 2000,
-        time_period: "2021",
-      },
-      {
-        sex: "Female",
-        jail_per_100k: 300,
-        time_period: "2020",
-      },
-      {
-        sex: "Female",
-        jail_per_100k: 200,
-        time_period: "2021",
-      },
-    ];
+  const twoYearsOfNormalData = [
+    {
+      sex: "Male",
+      jail_per_100k: 3000,
+      jail_pct_share: 30.0,
+      time_period: "2020",
+    },
+    {
+      sex: "Male",
+      jail_per_100k: 2000,
+      jail_pct_share: 30.0,
+      time_period: "2021",
+    },
+    {
+      sex: "Female",
+      jail_per_100k: 300,
+      jail_pct_share: 30.0,
+      time_period: "2020",
+    },
+    {
+      sex: "Female",
+      jail_per_100k: 200,
+      jail_pct_share: 30.0,
+      time_period: "2021",
+    },
+    {
+      sex: "Unknown",
+      jail_per_100k: null,
+      jail_pct_share: 40.0,
+      time_period: "2020",
+    },
+    {
+      sex: "Unknown",
+      jail_per_100k: null,
+      jail_pct_share: 40.0,
+      time_period: "2021",
+    },
+  ];
 
-    const twoYearsOfNestedData = [
+  test("test getNestedData()", () => {
+    const expectedNestedData = [
       [
         "Male",
         [
@@ -100,7 +117,21 @@ describe("Tests for nesting functions", () => {
         "sex",
         "jail_per_100k"
       )
-    ).toEqual(twoYearsOfNestedData);
+    ).toEqual(expectedNestedData);
+  });
+
+  test("test getNestedUnknowns()", () => {
+    const twoYearsOfUnknownsFromNormalData = twoYearsOfNormalData.filter(
+      (row) => row.sex === "Unknown"
+    );
+    const expectedNestedUnknowns = [
+      ["2020", 40],
+      ["2021", 40],
+    ];
+
+    expect(
+      getNestedUnknowns(twoYearsOfUnknownsFromNormalData, "jail_pct_share")
+    ).toEqual(expectedNestedUnknowns);
   });
 });
 
