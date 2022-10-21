@@ -351,7 +351,6 @@ export function TrendsChart({
             />
           </g>
           {/* Only render unknown group circles when there is data for which the group is unknown */}
-          {console.log(showUnknowns)}
           {showUnknowns && (
             <CircleChart
               data={filterUnknownsByTimePeriod(unknown, dates)}

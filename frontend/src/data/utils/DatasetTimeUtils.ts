@@ -118,7 +118,10 @@ export function interpolateTimePeriods(data: Row[]) {
   return interpolatedData;
 }
 
-export function getNestedRates(
+/* 
+Accepts fetched, "known" data, along with all expected groups, the current demographic breakdown type, and a target metric, and restructures the data into the nested array format required by d3 for the time-series charts
+*/
+export function getNestedData(
   data: Row[],
   demographicGroups: DemographicGroup[],
   currentBreakdown: BreakdownVar,
@@ -134,36 +137,14 @@ export function getNestedRates(
       row[TIME_PERIOD],
       row[metricId] != null ? row[metricId] : null,
     ]);
-
     return [group, groupTimeSeries];
   });
-
   return nestedRates as TrendsData;
 }
 
-export function getNestedUndueShares(
-  data: Row[],
-  demographicGroups: DemographicGroup[],
-  currentBreakdown: BreakdownVar,
-  conditionPctShareId: MetricId
-  // popPctShareId: MetricId
-): TrendsData {
-  if (!data.some((row) => row[TIME_PERIOD])) return [];
-
-  const nestedPctUndue = demographicGroups.map((group) => {
-    let groupRows = data.filter((row) => row[currentBreakdown] === group);
-    groupRows = interpolateTimePeriods(groupRows);
-
-    const groupTimeSeries = groupRows.map((row) => {
-      return [row[TIME_PERIOD], row[conditionPctShareId]];
-    });
-
-    return [group, groupTimeSeries];
-  });
-
-  return nestedPctUndue as TrendsData;
-}
-
+/* 
+Accepts fetched, unknown pct_share dataand a target metric, and restructures the data into the nested array format required by d3 for the time-series "unknown bubbles" at the bottom of the charts
+*/
 export function getNestedUnknowns(
   unknownsData: Row[],
   metricId: MetricId

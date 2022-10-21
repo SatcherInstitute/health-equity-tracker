@@ -24,7 +24,7 @@ import {
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 import {
-  getNestedUndueShares,
+  getNestedData,
   getNestedUnknowns,
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
@@ -102,10 +102,10 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
         const inequityData = queryResponseInequity.getValidRowsForField(
           metricConfigInequitable.metricId
         );
-        // const [knownInequityData] = splitIntoKnownsAndUnknowns(
-        //   inequityData,
-        //   props.breakdownVar
-        // );
+        const [knownInequityData] = splitIntoKnownsAndUnknowns(
+          inequityData,
+          props.breakdownVar
+        );
 
         const pctShareData = queryResponsePctShares.getValidRowsForField(
           metricConfigPctShares.metricId
@@ -123,8 +123,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             (group: DemographicGroup) => !UNKNOWN_LABELS.includes(group)
           );
 
-        const nestedInequityData = getNestedUndueShares(
-          inequityData,
+        const nestedInequityData = getNestedData(
+          knownInequityData,
           demographicGroups,
           props.breakdownVar,
           metricConfigInequitable.metricId
