@@ -351,10 +351,7 @@ function MapCardWithKey(props: MapCardProps) {
                 <CardContent>
                   <ChoroplethMap
                     signalListeners={signalListeners}
-                    titles={{
-                      chartTitle: chartTitle,
-                      subTitle: subtitle,
-                    }}
+                    titles={{ chartTitle, subtitle }}
                     metric={metricConfig}
                     legendTitle={metricConfig.shortLabel.toLowerCase()}
                     data={
@@ -384,6 +381,7 @@ function MapCardWithKey(props: MapCardProps) {
                           <div className={styles.TerritoryCircle} key={code}>
                             <ChoroplethMap
                               signalListeners={signalListeners}
+                              titles={{ chartTitle, subtitle }}
                               metric={metricConfig}
                               data={
                                 listExpanded

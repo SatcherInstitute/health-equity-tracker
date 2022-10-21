@@ -78,7 +78,7 @@ export interface ChoroplethMapProps {
   filename?: string;
   titles?: {
     chartTitle: string | string[];
-    subTitle: string;
+    subtitle?: string;
   };
 }
 
@@ -483,7 +483,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       marks: marks,
       title: !props.overrideShapeWithCircle && {
         text: props.titles?.chartTitle,
-        subtitle: props.titles?.subTitle,
+        subtitle: props.titles?.subtitle,
         encode: {
           title: {
             enter: {

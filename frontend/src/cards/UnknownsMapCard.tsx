@@ -232,7 +232,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             {showingVisualization && (
               <CardContent>
                 <ChoroplethMap
-                  titles={{ chartTitle, subTitle: "" }}
+                  titles={{ chartTitle }}
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}
@@ -255,6 +255,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                       return (
                         <div key={code} className={styles.TerritoryCircle}>
                           <ChoroplethMap
+                            titles={{ chartTitle }}
                             isUnknownsMap={true}
                             signalListeners={signalListeners}
                             metric={metricConfig}
