@@ -107,9 +107,7 @@ export default function AltTableView(props: AltTableViewProps) {
                 <TableRow>
                   {Object.keys(accessibleData[0]).map((key, i) => {
                     const isTimeCol = key === TIME_PERIOD_LABEL;
-                    const isUnknownPctCol = key.includes(
-                      "Percent with unknown "
-                    );
+                    const isUnknownPctCol = key.includes("with unknown ");
 
                     const dataColumnLabel = props.knownMetricConfig.shortLabel;
 

@@ -184,45 +184,19 @@ export function makeA11yTableData(
       const rowForGroupTimePeriod = knownsData.find(
         (row) => row[breakdownVar] === group && row[TIME_PERIOD] === timePeriod
       );
-      const value = rowForGroupTimePeriod?.[knownMetric.metricId];
-
-      if (knownMetric.type !== "pct_share") a11yRow[group] = value;
-      else {
-        const popMetricId = knownMetric.populationComparisonMetric?.metricId;
-        const populationPctShare = popMetricId
-          ? rowForGroupTimePeriod?.[popMetricId]
-          : null;
-        a11yRow[group] = calculateShareDisparityPct(value, populationPctShare);
-      }
+      a11yRow[group] = rowForGroupTimePeriod?.[knownMetric.metricId];
     }
 
     // along with the unknown pct_share
-    a11yRow[`Percent with unknown ${breakdownVar}`] = unknownsData.find(
-      (row) => row[TIME_PERIOD] === timePeriod
-    )?.[unknownMetric.metricId];
+    a11yRow[`${unknownMetric.shortLabel} with unknown ${breakdownVar}`] =
+      unknownsData.find((row) => row[TIME_PERIOD] === timePeriod)?.[
+        unknownMetric.metricId
+      ];
 
     return a11yRow;
   });
 
   return a11yData;
-}
-
-/* calculate shareDisparity% as (observed-expected)/expected */
-export function calculateShareDisparityPct(
-  observed: number | null | undefined,
-  expected: number | null | undefined
-) {
-  // numerator and denominator can't be null or undefined; denominator also can't be 0
-  if (observed == null || expected == null || expected === 0) return null;
-
-  const shareDisparityPct = (observed - expected) / expected;
-  const roundToSingleDecimal = 10;
-  const asPercent = 100;
-
-  return (
-    Math.round(shareDisparityPct * asPercent * roundToSingleDecimal) /
-    roundToSingleDecimal
-  );
 }
 
 /*  
