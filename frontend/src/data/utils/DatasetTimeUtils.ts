@@ -145,8 +145,8 @@ export function getNestedUndueShares(
   data: Row[],
   demographicGroups: DemographicGroup[],
   currentBreakdown: BreakdownVar,
-  conditionPctShareId: MetricId,
-  popPctShareId: MetricId
+  conditionPctShareId: MetricId
+  // popPctShareId: MetricId
 ): TrendsData {
   if (!data.some((row) => row[TIME_PERIOD])) return [];
 
@@ -155,7 +155,7 @@ export function getNestedUndueShares(
     groupRows = interpolateTimePeriods(groupRows);
 
     const groupTimeSeries = groupRows.map((row) => {
-      return [row[TIME_PERIOD], row["covid_deaths_inequitable_share"]];
+      return [row[TIME_PERIOD], row[conditionPctShareId]];
     });
 
     return [group, groupTimeSeries];

@@ -70,7 +70,9 @@ export type MetricId =
   | "covid_deaths_reporting_population_pct"
   | "covid_deaths_share"
   | "covid_deaths_share_of_known"
+  | "covid_cases_inequitable_share"
   | "covid_deaths_inequitable_share"
+  | "covid_hosp_inequitable_share"
   | "death_ratio_age_adjusted"
   | "covid_hosp"
   | "covid_hosp_per_100k"
@@ -171,7 +173,6 @@ export type MetricConfig = {
   fullCardTitleName: string;
   trendsCardTitleName?: string;
   shortLabel: string;
-  shareDisparityLabel?: string;
   unknownsVegaLabel?: string;
   type: MetricType;
   populationComparisonMetric?: MetricConfig;
@@ -332,10 +333,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_cases_share",
           fullCardTitleName: "Share of total COVID-19 cases",
-          trendsCardTitleName: "Inequitable distribution of COVID-19 cases",
           unknownsVegaLabel: "% unknown",
           shortLabel: "% of COVID-19 cases",
-          shareDisparityLabel: "% inequitable share of COVID-19 cases",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "covid_population_pct",
@@ -343,6 +342,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
+        },
+        inequitable_share: {
+          metricId: "covid_cases_inequitable_share",
+          fullCardTitleName: "Inequitable distribution of COVID-19 cases",
+          shortLabel: "% inequitable share of COVID-19 cases",
+          type: "pct",
         },
         per100k: {
           metricId: "covid_cases_per_100k",
@@ -371,9 +376,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_deaths_share",
           fullCardTitleName: "Share of total COVID-19 deaths",
-          trendsCardTitleName: "Inequitable distribution of COVID-19 deaths",
           shortLabel: "% of COVID-19 deaths",
-          shareDisparityLabel: "% inequitable share of COVID-19 deaths",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
           populationComparisonMetric: {
@@ -382,6 +385,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
+        },
+        inequitable_share: {
+          metricId: "covid_deaths_inequitable_share",
+          fullCardTitleName: "Inequitable distribution of COVID-19 deaths",
+          shortLabel: "% inequitable share of COVID-19 deaths",
+          type: "pct",
         },
         per100k: {
           metricId: "covid_deaths_per_100k",
@@ -411,11 +420,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_hosp_share",
           fullCardTitleName: "Share of total COVID-19 hospitalizations",
-          trendsCardTitleName:
-            "Inequitable distribution of COVID-19 hospitalizations",
           shortLabel: "% of COVID-19 hospitalizations",
-          shareDisparityLabel:
-            "% inequitable share of COVID-19 hospitalizations",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
           populationComparisonMetric: {
@@ -424,6 +429,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
+        },
+        inequitable_share: {
+          metricId: "covid_hosp_inequitable_share",
+          fullCardTitleName:
+            "Inequitable distribution of COVID-19 hospitalizations",
+          shortLabel: "% inequitable share of COVID-19 hospitalizations",
+          type: "pct",
         },
         per100k: {
           metricId: "covid_hosp_per_100k",

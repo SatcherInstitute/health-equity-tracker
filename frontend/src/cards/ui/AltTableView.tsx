@@ -110,11 +110,8 @@ export default function AltTableView(props: AltTableViewProps) {
                     const isUnknownPctCol = key.includes(
                       "Percent with unknown "
                     );
-                    const isShareTrends =
-                      props.knownMetricConfig.type === "pct_share";
-                    const dataColumnLabel = isShareTrends
-                      ? props.knownMetricConfig.shareDisparityLabel
-                      : props.knownMetricConfig.shortLabel;
+
+                    const dataColumnLabel = props.knownMetricConfig.shortLabel;
 
                     return (
                       <TableCell
@@ -149,8 +146,7 @@ export default function AltTableView(props: AltTableViewProps) {
                         const isTimePeriod = key === TIME_PERIOD_LABEL;
                         const isLastCol = j === keys.length - 1;
                         const appendPct =
-                          isLastCol ||
-                          props.knownMetricConfig.type === "pct_share";
+                          isLastCol || props.knownMetricConfig.type === "pct";
                         return (
                           <TableCell
                             key={key}

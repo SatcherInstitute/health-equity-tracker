@@ -51,14 +51,14 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
 
-  const metricConfig = props.variableConfig.metrics["pct_share"];
+  const metricConfig = props.variableConfig.metrics["inequitable_share"];
 
   const metricIdsToFetch: MetricId[] = [metricConfig.metricId];
 
-  if (metricConfig.populationComparisonMetric?.metricId)
-    metricIdsToFetch.push(metricConfig.populationComparisonMetric.metricId);
+  // if (metricConfig.populationComparisonMetric?.metricId)
+  //   metricIdsToFetch.push(metricConfig.populationComparisonMetric.metricId);
 
-  metricIdsToFetch.push("covid_deaths_inequitable_share");
+  // metricIdsToFetch.push("covid_deaths_inequitable_share");
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -69,7 +69,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   function getTitleText() {
     return `${
-      metricConfig.trendsCardTitleName
+      metricConfig.fullCardTitleName
     } in ${props.fips.getSentenceDisplayName()}`;
   }
 
@@ -91,7 +91,6 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
-        console.log(data);
         const [knownData, unknownData] = splitIntoKnownsAndUnknowns(
           data,
           props.breakdownVar
@@ -109,8 +108,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           knownData,
           demographicGroups,
           props.breakdownVar,
-          metricConfig.metricId,
-          metricConfig.populationComparisonMetric!.metricId
+          metricConfig.metricId
+          // metricConfig.populationComparisonMetric!.metricId
         );
 
         const nestedUnknowns = getNestedUnknowns(
