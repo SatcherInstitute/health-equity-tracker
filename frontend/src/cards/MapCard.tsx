@@ -78,6 +78,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   const metricConfig = props.variableConfig.metrics["per100k"];
   const locationName = props.fips.getSentenceDisplayName();
+  const currentBreakdown = props.currentBreakdown;
 
   const isPrison = props.variableConfig.variableId === "prison";
   const isJail = props.variableConfig.variableId === "jail";
@@ -108,8 +109,8 @@ function MapCardWithKey(props: MapCardProps) {
       geographyBreakdown
         .copy()
         .addBreakdown(
-          props.currentBreakdown,
-          props.currentBreakdown === RACE
+          currentBreakdown,
+          currentBreakdown === RACE
             ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
             : exclude(UNKNOWN)
         )
@@ -143,11 +144,7 @@ function MapCardWithKey(props: MapCardProps) {
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
 
   const chartTitle = useCreateChartTitle(metricConfig, locationName);
-
-  const subtitle = createSubtitle({
-    breakdown: props.currentBreakdown,
-    demographic: activeBreakdownFilter,
-  });
+  const subtitle = createSubtitle({ currentBreakdown, activeBreakdownFilter });
 
   const filename = `${metricConfig.fullCardTitleName}${
     activeBreakdownFilter === "All" ? "" : ` for ${activeBreakdownFilter}`

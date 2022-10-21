@@ -79,17 +79,20 @@ export function addMetricDisplayColumn(
 }
 
 type subtitleProps = {
-  demographic: string;
-  breakdown: string;
+  activeBreakdownFilter: string;
+  currentBreakdown: string;
 };
 
-export function createSubtitle({ demographic, breakdown }: subtitleProps) {
-  if (demographic === "All") {
+export function createSubtitle({
+  activeBreakdownFilter,
+  currentBreakdown,
+}: subtitleProps) {
+  if (activeBreakdownFilter === "All") {
     return "";
   }
-  if (breakdown === "age") {
-    return `Ages ${demographic}`;
+  if (currentBreakdown === "age") {
+    return `Ages ${activeBreakdownFilter}`;
   } else {
-    return `${demographic}`;
+    return `${activeBreakdownFilter}`;
   }
 }
