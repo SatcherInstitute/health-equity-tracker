@@ -164,7 +164,8 @@ export type MetricType =
   | "pct_share"
   | "pct_share_to_pop_ratio"
   | "per100k"
-  | "pct"
+  | "pct_relative_inequity"
+  | "pct_incidence"
   | "index"
   | "ratio";
 
@@ -247,11 +248,12 @@ export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {
   index: "",
   pct_share_to_pop_ratio: "",
   ratio: "×",
-  pct: "%",
+  pct_relative_inequity: "%",
+  pct_incidence: "%",
 };
 
 export function isPctType(metricType: MetricType) {
-  return metricType === "pct_share" || metricType === "pct";
+  return metricType === "pct_share" || metricType === "pct_relative_inequity";
 }
 
 /**
@@ -346,8 +348,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         inequitable_share: {
           metricId: "covid_cases_inequitable_share",
           fullCardTitleName: "Inequitable distribution of COVID-19 cases",
-          shortLabel: "% inequitable share of COVID-19 cases",
-          type: "pct",
+          shortLabel: "% relative inequity",
+          type: "pct_relative_inequity",
         },
         per100k: {
           metricId: "covid_cases_per_100k",
@@ -389,8 +391,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         inequitable_share: {
           metricId: "covid_deaths_inequitable_share",
           fullCardTitleName: "Inequitable distribution of COVID-19 deaths",
-          shortLabel: "% inequitable share of COVID-19 deaths",
-          type: "pct",
+          shortLabel: "% relative inequity",
+          type: "pct_relative_inequity",
         },
         per100k: {
           metricId: "covid_deaths_per_100k",
@@ -434,8 +436,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "covid_hosp_inequitable_share",
           fullCardTitleName:
             "Inequitable distribution of COVID-19 hospitalizations",
-          shortLabel: "% inequitable share of COVID-19 hospitalizations",
-          type: "pct",
+          shortLabel: "% relative inequity",
+          type: "pct_relative_inequity",
         },
         per100k: {
           metricId: "covid_hosp_per_100k",
@@ -1247,7 +1249,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           trendsCardTitleName: "Rates of women in U.S. Congress over time",
 
           shortLabel: "% women in US congress",
-          type: "pct",
+          type: "pct_incidence",
         },
         pct_share: {
           metricId: "women_us_congress_pct_share",
@@ -1293,7 +1295,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           trendsCardTitleName: "Rates of women in state legislatures over time",
 
           shortLabel: "% of state legislators identifying as women", // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
-          type: "pct",
+          type: "pct_incidence",
         },
         pct_share: {
           metricId: "women_state_leg_pct_share",

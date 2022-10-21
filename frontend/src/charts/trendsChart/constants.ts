@@ -1,4 +1,5 @@
 import { format, utcFormat, scaleOrdinal } from "d3";
+import { MetricType } from "../../data/config/MetricConfig";
 import sass from "../../styles/variables.module.scss";
 
 // get colors from css variables
@@ -102,9 +103,10 @@ const CONFIG = {
 };
 
 // line chart type dictionary
-const TYPES = {
+const TYPES: { [key: string]: MetricType } = {
   HUNDRED_K: "per100k",
   PERCENT_SHARE: "pct_share",
+  PERCENT_RELATIVE_INEQUITY: "pct_relative_inequity",
 };
 
 const FORMATTERS = {

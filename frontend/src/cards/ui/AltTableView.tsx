@@ -146,7 +146,9 @@ export default function AltTableView(props: AltTableViewProps) {
                         const isTimePeriod = key === TIME_PERIOD_LABEL;
                         const isLastCol = j === keys.length - 1;
                         const appendPct =
-                          isLastCol || props.knownMetricConfig.type === "pct";
+                          isLastCol ||
+                          props.knownMetricConfig.type ===
+                            "pct_relative_inequity";
                         return (
                           <TableCell
                             key={key}
