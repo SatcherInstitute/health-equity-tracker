@@ -2,6 +2,7 @@ import {
   generateConsecutivePeriods,
   getPrettyDate,
   interpolateTimePeriods,
+  getNestedData,
 } from "./DatasetTimeUtils";
 
 describe("Tests for time_period functions", () => {
@@ -9,6 +10,7 @@ describe("Tests for time_period functions", () => {
     const dataMissingMonths = [
       { time_period: "2020-01", some_metric: 1 },
       { time_period: "2020-02", some_metric: 2 },
+      // one missing month of data
       { time_period: "2020-04", some_metric: 4 },
       { time_period: "2020-05", some_metric: 5 },
     ];
@@ -46,6 +48,59 @@ describe("Tests for time_period functions", () => {
     expect(generateConsecutivePeriods(testDataYearly)).toEqual(
       expectedConsecutivePeriodsYearly
     );
+  });
+});
+
+describe("Tests for nesting functions", () => {
+  test("test getNestedData()", () => {
+    const twoYearsOfNormalData = [
+      {
+        sex: "Male",
+        jail_per_100k: 3000,
+        time_period: "2020",
+      },
+      {
+        sex: "Male",
+        jail_per_100k: 2000,
+        time_period: "2021",
+      },
+      {
+        sex: "Female",
+        jail_per_100k: 300,
+        time_period: "2020",
+      },
+      {
+        sex: "Female",
+        jail_per_100k: 200,
+        time_period: "2021",
+      },
+    ];
+
+    const twoYearsOfNestedData = [
+      [
+        "Male",
+        [
+          ["2020", 3000],
+          ["2021", 2000],
+        ],
+      ],
+      [
+        "Female",
+        [
+          ["2020", 300],
+          ["2021", 200],
+        ],
+      ],
+    ];
+
+    expect(
+      getNestedData(
+        twoYearsOfNormalData,
+        ["Male", "Female"],
+        "sex",
+        "jail_per_100k"
+      )
+    ).toEqual(twoYearsOfNestedData);
   });
 });
 
