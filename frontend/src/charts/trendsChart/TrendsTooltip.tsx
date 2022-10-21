@@ -66,11 +66,11 @@ export function TrendsTooltip({
       translate_x: (d: TimeSeries) => 0,
       formatter: F.num,
     },
-    [TYPES.PERCENT_SHARE]: {
+    [TYPES.PERCENT_RELATIVE_INEQUITY]: {
       UNIT: " %",
       width: getWidthPctShare,
       translate_x: translateXPctShare,
-      formatter: F.num,
+      formatter: F.plusNum,
     },
   };
 
