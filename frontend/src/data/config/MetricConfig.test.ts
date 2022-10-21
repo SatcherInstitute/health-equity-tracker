@@ -5,7 +5,6 @@ describe("Test Metric Config Functions", () => {
     expect(isPctType("pct_incidence")).toBe(true);
     expect(isPctType("pct_relative_inequity")).toBe(true);
     expect(isPctType("pct_share")).toBe(true);
-    expect(isPctType("pct_share_to_pop_ratio")).toBe(true);
 
     expect(isPctType("per100k")).toBe(false);
     expect(isPctType("something broken" as MetricType)).toBe(false);

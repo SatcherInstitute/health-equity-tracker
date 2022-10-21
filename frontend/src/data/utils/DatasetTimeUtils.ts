@@ -154,6 +154,9 @@ export function getNestedUnknowns(
   return unknownsData.map((row) => [row[TIME_PERIOD], row[metricId]]);
 }
 
+/* 
+To present the data from the visual charts in a more accessible manner (including but not restricted to screen reader users) we need to once again recstructure the data so that each rows represents a time_period, and the columns can present the available demographic groups, along with the "unknown_pct_share" context we present visually in the blue bubbles
+*/
 export function makeA11yTableData(
   knownsData: Row[],
   unknownsData: Row[],

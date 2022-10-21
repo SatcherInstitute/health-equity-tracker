@@ -162,7 +162,6 @@ export type MetricId =
 export type MetricType =
   | "count"
   | "pct_share"
-  | "pct_share_to_pop_ratio"
   | "per100k"
   | "pct_relative_inequity"
   | "pct_incidence"
@@ -246,14 +245,15 @@ export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {
   pct_share: "% share",
   count: "people",
   index: "",
-  pct_share_to_pop_ratio: "",
   ratio: "×",
   pct_relative_inequity: "%",
   pct_incidence: "%",
 };
 
 export function isPctType(metricType: MetricType) {
-  return metricType === "pct_share" || metricType === "pct_relative_inequity";
+  return ["pct_share", "pct_relative_inequity", "pct_incidence"].includes(
+    metricType
+  );
 }
 
 /**
