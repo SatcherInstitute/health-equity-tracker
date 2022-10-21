@@ -1,4 +1,5 @@
 import { ScaleTime, ScaleLinear, ScaleOrdinal } from "d3";
+import { MetricType } from "../../data/config/MetricConfig";
 import { DemographicGroup } from "../../data/utils/Constants";
 
 type TrendsData = GroupData[];
@@ -11,8 +12,11 @@ type Date = string;
 type XScale = ScaleTime<number, number | undefined>;
 type YScale = ScaleLinear<number, number | undefined>;
 type ColorScale = ScaleOrdinal<string, string, never>;
-// todo replace type: string with types from our code. maybe groupLabel with Demographic Group??
-type AxisConfig = { type: string; groupLabel: string; yAxisLabel?: string };
+type AxisConfig = {
+  type: MetricType;
+  groupLabel: DemographicGroup;
+  yAxisLabel?: string;
+};
 
 export type {
   Date,
