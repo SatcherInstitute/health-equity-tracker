@@ -56,7 +56,7 @@
   width: 1px;
   height: 1px;
   overflow: hidden;
-  z-index: -999;
+  z-index: $z-bottom;
 }
 
 // For the title of the page read off by screenreaders in an h1

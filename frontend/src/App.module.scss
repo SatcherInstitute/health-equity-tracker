@@ -20,7 +20,7 @@
   width: 1px;
   height: 1px;
   overflow: hidden;
-  z-index: -999;
+  z-index: $z-bottom;
 
   &:focus,
   &:active {
@@ -37,7 +37,7 @@
     border: 4px solid $yellow;
     text-align: center;
     font-size: $smallestHeader;
-    z-index: 999;
+    z-index: $z-top;
   }
 }
 
@@ -69,6 +69,7 @@
   text-align: left;
   color: $alt-green;
   padding-left: 17px;
+
   a:link,
   a:visited {
     color: $alt-green;

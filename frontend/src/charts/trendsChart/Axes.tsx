@@ -73,7 +73,7 @@ export function Axes({
         (getMaxNumber(data) || 0) <= 0 ? "" : "disproportionately high  →", // if there are positive numbers, append positive direction label
       bottomLabel:
         (getMinNumber(data) || 0) >= 0 ? "" : "← disproportionately low", // if there are negative numbers, append negative direction label
-      formatter: (d: number) => (d === 0 ? "↔" : F.pct(d)), // if tick is 0, hide it, otherwise format as percent
+      formatter: (d: number) => (d === 0 ? "" : F.pct(d)), // if tick is 0, hide it, otherwise format as percent
     },
   };
 
