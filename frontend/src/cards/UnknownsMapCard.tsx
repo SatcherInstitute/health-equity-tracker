@@ -28,7 +28,7 @@ import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { useLocation } from "react-router-dom";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
-import { useCreateChartTitle } from "../utils/hooks/useCreateTitle";
+import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
