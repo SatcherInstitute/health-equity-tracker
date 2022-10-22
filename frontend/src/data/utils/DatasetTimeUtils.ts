@@ -210,6 +210,7 @@ export function getPrettyDate(timePeriod: string) {
   if (timePeriod.length === MONTHLY_LENGTH && timePeriod[4] === "-") {
     const [year, monthNum] = timePeriod?.split("-") || ["", ""];
 
+    // skip if non-numerical input
     if (isNaN(parseInt(year)) || isNaN(parseInt(monthNum))) return timePeriod;
 
     return `${MONTHS[monthNum]} ${year}`;
