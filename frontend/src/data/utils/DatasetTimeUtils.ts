@@ -207,15 +207,18 @@ Convert time_period style date YYYY-MM (e.g. "2020-01") to human readable Month 
 */
 export function getPrettyDate(timePeriod: string) {
   // if it's YYYY-MM
-  if (timePeriod.length !== 7 && timePeriod[4] !== "-") return timePeriod;
+  if (timePeriod.length === MONTHLY_LENGTH && timePeriod[4] === "-") {
+    const [year, monthNum] = timePeriod?.split("-") || ["", ""];
 
-  // otherwise use month name in front
-  const [year, monthNum] = timePeriod?.split("-") || [undefined, undefined];
+    if (isNaN(parseInt(year)) || isNaN(parseInt(monthNum))) return timePeriod;
 
-  return `${MONTHS[monthNum]} ${year}`;
+    return `${MONTHS[monthNum]} ${year}`;
+  }
+
+  return timePeriod;
 }
 
-/* Calculate an array of demographic groups who have either the highest or lowest historical averages. The groups are returned in a single array as we don't need to differentiate between which extreme they are; only to default to them on the ShareTrends */
+/* Calculate an array of demographic groups who have either the highest or lowest historical averages.  */
 export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
   const groupAveragesOverTime = data.map((groupData) => {
     const nonNullGroupData = groupData[1].filter(
@@ -246,6 +249,7 @@ export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
     .filter((groupItem: any) => groupItem[1] === minValue)
     .map((groupItem: any) => groupItem[0]);
 
+  // The groups are returned in a single array as we don't need to differentiate between which extreme they are to default them on ShareTrends
   const lowestAndHighestGroups = [
     ...groupsWithLowestAverage,
     ...groupsWithHighestAverage,

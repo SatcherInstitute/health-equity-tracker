@@ -192,7 +192,13 @@ describe("Tests getPrettyDate() function", () => {
   test("YYYY-MM conversion", () => {
     expect(getPrettyDate("2020-01")).toEqual("January 2020");
   });
-  test("don't convert, just pass through", () => {
+  test("don't convert, just pass through malformed YY-M", () => {
     expect(getPrettyDate("20-1")).toEqual("20-1");
+  });
+  test("don't convert, just pass through random string", () => {
+    expect(getPrettyDate("abc")).toEqual("abc");
+  });
+  test("don't convert, just pass through sneaky almost matching string", () => {
+    expect(getPrettyDate("ABCD-YZ")).toEqual("ABCD-YZ");
   });
 });
