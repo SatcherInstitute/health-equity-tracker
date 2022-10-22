@@ -1,10 +1,14 @@
+import { METRIC_CONFIG } from "../config/MetricConfig";
 import {
   generateConsecutivePeriods,
   getPrettyDate,
   interpolateTimePeriods,
   getNestedData,
   getNestedUnknowns,
+  makeA11yTableData,
 } from "./DatasetTimeUtils";
+import { Row } from "./DatasetTypes";
+import { splitIntoKnownsAndUnknowns } from "./datasetutils";
 
 describe("Tests for time_period functions", () => {
   test("test interpolateTimePeriods()", () => {
@@ -52,46 +56,46 @@ describe("Tests for time_period functions", () => {
   });
 });
 
-describe("Tests for nesting functions", () => {
-  const twoYearsOfNormalData = [
-    {
-      sex: "Male",
-      jail_per_100k: 3000,
-      jail_pct_share: 30.0,
-      time_period: "2020",
-    },
-    {
-      sex: "Male",
-      jail_per_100k: 2000,
-      jail_pct_share: 30.0,
-      time_period: "2021",
-    },
-    {
-      sex: "Female",
-      jail_per_100k: 300,
-      jail_pct_share: 30.0,
-      time_period: "2020",
-    },
-    {
-      sex: "Female",
-      jail_per_100k: 200,
-      jail_pct_share: 30.0,
-      time_period: "2021",
-    },
-    {
-      sex: "Unknown",
-      jail_per_100k: null,
-      jail_pct_share: 40.0,
-      time_period: "2020",
-    },
-    {
-      sex: "Unknown",
-      jail_per_100k: null,
-      jail_pct_share: 40.0,
-      time_period: "2021",
-    },
-  ];
+const twoYearsOfNormalData = [
+  {
+    sex: "Male",
+    jail_per_100k: 3000,
+    jail_pct_share: 30.0,
+    time_period: "2020",
+  },
+  {
+    sex: "Male",
+    jail_per_100k: 2000,
+    jail_pct_share: 30.0,
+    time_period: "2021",
+  },
+  {
+    sex: "Female",
+    jail_per_100k: 300,
+    jail_pct_share: 30.0,
+    time_period: "2020",
+  },
+  {
+    sex: "Female",
+    jail_per_100k: 200,
+    jail_pct_share: 30.0,
+    time_period: "2021",
+  },
+  {
+    sex: "Unknown",
+    jail_per_100k: null,
+    jail_pct_share: 40.0,
+    time_period: "2020",
+  },
+  {
+    sex: "Unknown",
+    jail_per_100k: null,
+    jail_pct_share: 40.0,
+    time_period: "2021",
+  },
+];
 
+describe("Tests for nesting functions", () => {
   test("test getNestedData()", () => {
     const expectedNestedData = [
       [
@@ -135,8 +139,49 @@ describe("Tests for nesting functions", () => {
   });
 });
 
+describe("Tests for A11y Table Data functions", () => {
+  test("test makeA11yTableData()", () => {
+    const [known, unknown] = splitIntoKnownsAndUnknowns(
+      twoYearsOfNormalData,
+      "sex"
+    );
+
+    const expectedA11yTableDataOnlyMale: Row[] = [
+      {
+        "% of total jail population with unknown sex": 40,
+        Male: 3000,
+        "Time period": "2020",
+      },
+      {
+        "% of total jail population with unknown sex": 40,
+        Male: 2000,
+        "Time period": "2021",
+      },
+    ];
+
+    const jail = METRIC_CONFIG.incarceration.find(
+      (datatype) => datatype.variableId === "jail"
+    );
+
+    const knownMetric = jail?.metrics.per100k;
+    const unknownMetric = jail?.metrics.pct_share;
+
+    expect(
+      makeA11yTableData(known, unknown, "sex", knownMetric!, unknownMetric!, [
+        "Male",
+      ])
+    ).toEqual(expectedA11yTableDataOnlyMale);
+  });
+});
+
 describe("Tests getPrettyDate() function", () => {
-  test("Simple conversion", () => {
+  test("YYYY conversion", () => {
+    expect(getPrettyDate("2020")).toEqual("2020");
+  });
+  test("YYYY-MM conversion", () => {
     expect(getPrettyDate("2020-01")).toEqual("January 2020");
+  });
+  test("don't convert, just pass through", () => {
+    expect(getPrettyDate("20-1")).toEqual("20-1");
   });
 });
