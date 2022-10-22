@@ -215,8 +215,8 @@ export function getPrettyDate(timePeriod: string) {
   return `${MONTHS[monthNum]} ${year}`;
 }
 
-/* Calculate the race groups with the highest and lowest average values over time */
-export function getMinMaxGroups(data: TrendsData): string[] {
+/* Calculate an array of demographic groups who have either the highest or lowest historical averages. The groups are returned in a single array as we don't need to differentiate between which extreme they are; only to default to them on the ShareTrends */
+export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
   const groupAveragesOverTime = data.map((groupData) => {
     const nonNullGroupData = groupData[1].filter(
       (dataPoint) => dataPoint[1] != null
@@ -251,5 +251,5 @@ export function getMinMaxGroups(data: TrendsData): string[] {
     ...groupsWithHighestAverage,
   ];
 
-  return lowestAndHighestGroups as string[];
+  return lowestAndHighestGroups;
 }

@@ -1,3 +1,4 @@
+import { TrendsData } from "../../charts/trendsChart/types";
 import { METRIC_CONFIG } from "../config/MetricConfig";
 import {
   generateConsecutivePeriods,
@@ -6,6 +7,7 @@ import {
   getNestedData,
   getNestedUnknowns,
   makeA11yTableData,
+  getMinMaxGroups,
 } from "./DatasetTimeUtils";
 import { Row } from "./DatasetTypes";
 import { splitIntoKnownsAndUnknowns } from "./datasetutils";
@@ -95,25 +97,25 @@ const twoYearsOfNormalData = [
   },
 ];
 
+const twoYearsOfNestedData = [
+  [
+    "Male",
+    [
+      ["2020", 3000],
+      ["2021", 2000],
+    ],
+  ],
+  [
+    "Female",
+    [
+      ["2020", 300],
+      ["2021", 200],
+    ],
+  ],
+];
+
 describe("Tests for nesting functions", () => {
   test("test getNestedData()", () => {
-    const expectedNestedData = [
-      [
-        "Male",
-        [
-          ["2020", 3000],
-          ["2021", 2000],
-        ],
-      ],
-      [
-        "Female",
-        [
-          ["2020", 300],
-          ["2021", 200],
-        ],
-      ],
-    ];
-
     expect(
       getNestedData(
         twoYearsOfNormalData,
@@ -121,7 +123,7 @@ describe("Tests for nesting functions", () => {
         "sex",
         "jail_per_100k"
       )
-    ).toEqual(expectedNestedData);
+    ).toEqual(twoYearsOfNestedData);
   });
 
   test("test getNestedUnknowns()", () => {
@@ -171,6 +173,15 @@ describe("Tests for A11y Table Data functions", () => {
         "Male",
       ])
     ).toEqual(expectedA11yTableDataOnlyMale);
+  });
+});
+
+describe("Tests min max functions", () => {
+  test("test getMinMaxGroups()", () => {
+    expect(getMinMaxGroups(twoYearsOfNestedData as TrendsData)).toEqual([
+      "Female",
+      "Male",
+    ]);
   });
 });
 
