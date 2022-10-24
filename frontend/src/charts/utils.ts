@@ -1,5 +1,6 @@
 import { formatFieldValue, MetricConfig } from "../data/config/MetricConfig";
 import { BreakdownVar } from "../data/query/Breakdowns";
+import { DemographicGroup } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 
 export type VisualizationType = "chart" | "map" | "table";
@@ -79,8 +80,8 @@ export function addMetricDisplayColumn(
 }
 
 type subtitleProps = {
-  activeBreakdownFilter: string;
-  currentBreakdown: string;
+  activeBreakdownFilter: DemographicGroup;
+  currentBreakdown: BreakdownVar;
 };
 
 export function createSubtitle({
