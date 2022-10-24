@@ -359,6 +359,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_cases_share",
           fullCardTitleName: "Share of total COVID-19 cases",
+          chartTitle: "Share of total COVID-19 cases with unknown",
           unknownsVegaLabel: "% unknown",
           shortLabel: "% of COVID-19 cases",
           type: "pct_share",
@@ -414,6 +415,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_deaths_share",
           fullCardTitleName: "Share of total COVID-19 deaths",
+          chartTitle: "Share of total COVID-19 deaths with unknown",
           shortLabel: "% of COVID-19 deaths",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
@@ -470,6 +472,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_hosp_share",
           fullCardTitleName: "Share of total COVID-19 hospitalizations",
+          chartTitle: "Share of total COVID-19 hospitalizations with unknown",
+
           shortLabel: "% of COVID-19 hospitalizations",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",

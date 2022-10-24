@@ -115,7 +115,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               row[currentBreakdown] === UNKNOWN
           );
 
-        const unknownEthnicities = mapQueryResponse
+        const unknownEthnicities: Row[] = mapQueryResponse
           .getValidRowsForField(currentBreakdown)
           .filter((row: Row) => row[currentBreakdown] === UNKNOWN_ETHNICITY);
 
@@ -225,7 +225,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}
-                  legendTitle={chartTitleLines}
+                  legendTitle={metricConfig?.unknownsVegaLabel || ""}
                   data={unknowns}
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
