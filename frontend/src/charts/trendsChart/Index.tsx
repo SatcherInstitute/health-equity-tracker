@@ -45,7 +45,6 @@ import { MOBILE_BREAKPOINT } from "../../App";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 import useEscape from "../../utils/hooks/useEscape";
 import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
-import { useMediaQuery } from "@material-ui/core";
 import { useFontSize } from "../../utils/hooks/useFontSize";
 
 /* Define type interface */
