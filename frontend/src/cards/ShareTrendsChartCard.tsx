@@ -51,7 +51,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
 
   const metricConfigInequitable =
-    props.variableConfig.metrics["inequitable_share"];
+    props.variableConfig.metrics["pct_relative_inequity"];
   const metricConfigPctShares = props.variableConfig.metrics["pct_share"];
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
