@@ -30,7 +30,7 @@ from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import (
     generate_per_100k_col,
     generate_pct_share_col_with_unknowns,
-    generate_inequitable_share_column)
+    generate_pct_relative_inequity_column)
 
 from ingestion.merge_utils import (
     merge_state_fips_codes,
@@ -221,13 +221,13 @@ class CDCRestrictedData(DataSource):
 
         if not cumulative:
             for prefix in COVID_CONDITION_TO_PREFIX.values():
-                inequitable_share_col = generate_column_name(prefix, std_col.INEQUITABLE_SHARE_SUFFIX)
-                df = generate_inequitable_share_column(
+                pct_relative_inequity_col = generate_column_name(prefix, std_col.PCT_REL_INEQUITY_SUFFIX)
+                df = generate_pct_relative_inequity_column(
                    df, generate_column_name(prefix, std_col.SHARE_SUFFIX),
                    std_col.COVID_POPULATION_PCT,
-                   inequitable_share_col)
+                   pct_relative_inequity_col)
 
-                all_columns.append(inequitable_share_col)
+                all_columns.append(pct_relative_inequity_col)
 
         if geo != NATIONAL_LEVEL:
             null_out_suppressed_deaths_hosps(df, False)
@@ -239,7 +239,7 @@ class CDCRestrictedData(DataSource):
             null_out_all_unknown_deaths_hosps(df)
 
         if not cumulative:
-            df = zero_out_inequitable_share(df, geo, demo)
+            df = zero_out_pct_relative_inequity(df, geo, demo)
 
         df = df[all_columns]
         self.clean_frame_column_names(df)
@@ -283,7 +283,7 @@ def get_col_types(df, cumulative):
 
         if not cumulative:
             column_types[generate_column_name(
-                prefix, std_col.INEQUITABLE_SHARE_SUFFIX)] = 'FLOAT'
+                prefix, std_col.PCT_REL_INEQUITY_SUFFIX)] = 'FLOAT'
 
     column_types[std_col.COVID_POPULATION_PCT] = 'FLOAT'
 
@@ -465,7 +465,7 @@ def null_out_suppressed_deaths_hosps(df, modify_pop_rows):
                         rows to np.nan. Note, these population rows must have been
                         created using the `merge_multiple_pop_cols` function."""
 
-    suffixes = [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX, std_col.INEQUITABLE_SHARE_SUFFIX]
+    suffixes = [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX, std_col.PCT_REL_INEQUITY_SUFFIX]
     hosp_rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
         HOSP_DATA_SUPPRESSION_STATES)
     for suffix in suffixes:
@@ -503,7 +503,7 @@ def null_out_all_unknown_deaths_hosps(df):
            df[std_col.COVID_CASES], generate_column_name(std_col.COVID_HOSP_PREFIX, std_col.SHARE_SUFFIX)] = np.nan
 
 
-def zero_out_inequitable_share(df, geo, demographic):
+def zero_out_pct_relative_inequity(df, geo, demographic):
     """Sets inequitable share of cases/deaths/hosps to zero if there
        are zero cases/deaths/hosps with a known demographic.
 
@@ -546,7 +546,7 @@ def zero_out_inequitable_share(df, geo, demographic):
     df = pd.merge(df_without_all_unknown, grouped_df, on=geo_cols + [std_col.TIME_PERIOD_COL])
     for prefix in COVID_CONDITION_TO_PREFIX.values():
         grouped_col = f'{generate_column_name(prefix, std_col.PER_100K_SUFFIX)}_grouped'
-        df.loc[df[grouped_col] == 0, generate_column_name(prefix, std_col.INEQUITABLE_SHARE_SUFFIX)] = 0
+        df.loc[df[grouped_col] == 0, generate_column_name(prefix, std_col.PCT_REL_INEQUITY_SUFFIX)] = 0
 
     df = df.drop(columns=list(per_100k_col_names.values()))
     df = pd.concat([df, df_all_unknown])
