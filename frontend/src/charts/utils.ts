@@ -1,14 +1,7 @@
-import {
-  formatFieldValue,
-  MetricConfig,
-  VariableConfig,
-} from "../data/config/MetricConfig";
-import {
-  BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
-} from "../data/query/Breakdowns";
+import { formatFieldValue, MetricConfig } from "../data/config/MetricConfig";
+import { BreakdownVar } from "../data/query/Breakdowns";
+import { DemographicGroup } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
-import { Fips } from "../data/utils/Fips";
 
 export type VisualizationType = "chart" | "map" | "table";
 
@@ -86,152 +79,21 @@ export function addMetricDisplayColumn(
   return [newData, displayColName];
 }
 
-type TitleProps = {
-  variableConfig: VariableConfig;
-  fips: Fips;
-  demographic?: string;
-  breakdown?: string;
-  trend?: boolean;
-  share?: boolean;
-  population?: boolean;
-  unknown?: boolean;
+type subtitleProps = {
+  activeBreakdownFilter: DemographicGroup;
+  currentBreakdown: BreakdownVar;
 };
 
-export function createTitles({
-  variableConfig,
-  fips,
-  demographic,
-  breakdown,
-  trend,
-  share,
-  population,
-  unknown,
-}: TitleProps) {
-  let chartTitle: string | string[] = "";
-  let subtitle = "";
-  const location = fips.isUsa()
-    ? `the ${fips.getDisplayName()}`
-    : fips.getDisplayName();
-  const trendPer100K = variableConfig.metrics.per100k.trendsCardTitleName;
-  const trendShare =
-    variableConfig.metrics.inequitable_share?.fullCardTitleName;
-  const metric = variableConfig.variableFullDisplayName;
-  const breakdownVar =
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[breakdown as BreakdownVar];
-  const containerWidth = window.innerWidth;
-  const time = "since Jan 2020";
-  const isMobile = containerWidth < 700;
-  const isComparing = window.location.href.includes("compare");
-  const timeTrackingData = [
-    "covid_cases",
-    "covid_deaths",
-    "covid_hospitalizations",
-  ].includes(variableConfig.variableId);
-
-  if (trend) {
-    return {
-      chartTitle: `${trendPer100K} per 100k people in ${location}`,
-      subtitle,
-    };
+export function createSubtitle({
+  activeBreakdownFilter,
+  currentBreakdown,
+}: subtitleProps) {
+  if (activeBreakdownFilter === "All") {
+    return "";
   }
-
-  if (share) {
-    return {
-      chartTitle: `${trendShare} by month in ${location}`,
-      subtitle,
-    };
-  }
-
-  if (unknown && containerWidth > 1800) {
-    if (containerWidth > 1800) {
-      chartTitle = `${variableConfig.metrics.pct_share.fullCardTitleName} with unknown ${breakdownVar} in ${location}`;
-    } else {
-      chartTitle = [
-        `${variableConfig.metrics.pct_share.fullCardTitleName} with`,
-        `unknown ${breakdownVar} in ${location}`,
-      ];
-    }
-    return { chartTitle, subtitle };
-  }
-
-  //If time tracking data add time metric
-  if (timeTrackingData) {
-    chartTitle = population
-      ? `Population vs distribution of total ${metric.toLocaleLowerCase()} ${time} in ${location}`
-      : `${metric} ${time} per 100k people in ${location}`;
+  if (currentBreakdown === "age") {
+    return `Ages ${activeBreakdownFilter}`;
   } else {
-    chartTitle = population
-      ? `Population vs distribution of total ${metric.toLocaleLowerCase()} in ${location}`
-      : `${metric} per 100k people in ${location}`;
+    return `${activeBreakdownFilter}`;
   }
-
-  if (isMobile && timeTrackingData) {
-    chartTitle = population
-      ? [
-          `Population vs distribution of`,
-          `total ${metric.toLocaleLowerCase()}`,
-          `${time} in ${location}`,
-        ]
-      : [`${metric} ${time} per 100k`, `people in ${location}`];
-  }
-  if (isMobile && !timeTrackingData) {
-    chartTitle = population
-      ? (chartTitle = [
-          `Population vs distribution of ${metric.toLocaleLowerCase()} in`,
-          `${location}`,
-        ])
-      : [`${metric} per 100k people in the`, `${location}`];
-  }
-
-  if (isComparing && timeTrackingData) {
-    if (containerWidth < 1400 && containerWidth > 1000) {
-      chartTitle = population
-        ? [
-            `Population vs distribution of total ${metric.toLocaleLowerCase()}`,
-            `${time} in ${location}`,
-          ]
-        : [`${metric} ${time} per 100k people`, `in ${location}`];
-    }
-    if (containerWidth < 1000 && containerWidth > 600) {
-      chartTitle = population
-        ? [
-            `Population vs distrbution of`,
-            `total ${metric.toLocaleLowerCase()}`,
-            `${time} in ${location}`,
-          ]
-        : [`${metric}`, `${time} per 100k people`, `in ${location}`];
-    }
-  }
-  if (isComparing && !timeTrackingData) {
-    if (containerWidth < 1400 && containerWidth > 1000) {
-      chartTitle = population
-        ? (chartTitle = [
-            `Population vs distribution of ${metric.toLocaleLowerCase()}`,
-            `in ${location}`,
-          ])
-        : [`${metric} per 100k people in`, `${location}`];
-    }
-    if (containerWidth < 1000 && containerWidth > 600) {
-      chartTitle = population
-        ? [
-            `Population vs distribution of`,
-            `total ${metric.toLocaleLowerCase()}`,
-            `in ${location}`,
-          ]
-        : [`${metric}`, `per 100k people`, `in ${location}`];
-    }
-  }
-
-  if (demographic === "All") {
-    return { chartTitle, subtitle };
-  }
-
-  if (breakdown === "age") {
-    subtitle = `Ages ${demographic}`;
-    return { chartTitle, subtitle };
-  } else {
-    subtitle = `${demographic}`;
-  }
-
-  return { chartTitle, subtitle };
 }
