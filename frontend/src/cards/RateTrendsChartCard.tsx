@@ -19,7 +19,7 @@ import {
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 import {
-  getNestedData,
+  getNestedRates,
   getNestedUnknowns,
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
@@ -109,7 +109,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           props.breakdownVar
         );
 
-        const nestedRatesData = getNestedData(
+        const nestedRatesData = getNestedRates(
           knownRatesData,
           demographicGroups,
           props.breakdownVar,

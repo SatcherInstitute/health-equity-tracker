@@ -68,7 +68,7 @@ export function Axes({
       bottomLabel: "",
       formatter: (d: string | number) => d, // per 100k could be interpolated here
     },
-    [TYPES.PERCENT_RELATIVE_INEQUITY]: {
+    [TYPES.PERCENT_SHARE]: {
       topLabel:
         (getMaxNumber(data) || 0) <= 0 ? "" : "disproportionately high  →", // if there are positive numbers, append positive direction label
       bottomLabel:

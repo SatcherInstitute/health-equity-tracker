@@ -7,7 +7,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { MetricId, VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { TrendsChart } from "../charts/trendsChart/Index";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -21,7 +21,7 @@ import {
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 import {
-  getNestedData,
+  getNestedUndueShares,
   getNestedUnknowns,
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
@@ -50,29 +50,23 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
 
-  const metricConfigInequitable =
-    props.variableConfig.metrics["pct_relative_inequity"];
-  const metricConfigPctShares = props.variableConfig.metrics["pct_share"];
+  const metricConfig = props.variableConfig.metrics["pct_share"];
+
+  const metricIdsToFetch: MetricId[] = [metricConfig.metricId];
+
+  if (metricConfig.populationComparisonMetric?.metricId)
+    metricIdsToFetch.push(metricConfig.populationComparisonMetric.metricId);
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(NON_HISPANIC, ALL)
   );
 
-  const inequityQuery = new MetricQuery(
-    metricConfigInequitable.metricId,
-    breakdowns,
-    TIME_SERIES
-  );
-  const pctShareQuery = new MetricQuery(
-    metricConfigPctShares.metricId,
-    breakdowns,
-    TIME_SERIES
-  );
+  const query = new MetricQuery(metricIdsToFetch, breakdowns, TIME_SERIES);
 
   function getTitleText() {
     return `${
-      metricConfigInequitable.fullCardTitleName
+      metricConfig.trendsCardTitleName
     } in ${props.fips.getSentenceDisplayName()}`;
   }
 
@@ -81,46 +75,37 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   return (
     <CardWrapper
-      queries={[inequityQuery, pctShareQuery]}
+      queries={[query]}
       title={<>{cardHeaderTitle}</>}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
     >
-      {([queryResponseInequity, queryResponsePctShares]) => {
-        const inequityData = queryResponseInequity.getValidRowsForField(
-          metricConfigInequitable.metricId
-        );
-        const [knownInequityData] = splitIntoKnownsAndUnknowns(
-          inequityData,
-          props.breakdownVar
-        );
-
-        const pctShareData = queryResponsePctShares.getValidRowsForField(
-          metricConfigPctShares.metricId
-        );
-
-        const [, unknownPctShareData] = splitIntoKnownsAndUnknowns(
-          pctShareData,
+      {([queryResponse]) => {
+        const data = queryResponse.getValidRowsForField(metricConfig.metricId);
+        const [knownData, unknownData] = splitIntoKnownsAndUnknowns(
+          data,
           props.breakdownVar
         );
 
         // retrieve list of all present demographic groups
-        const demographicGroups: DemographicGroup[] = queryResponseInequity
-          .getFieldValues(props.breakdownVar, metricConfigInequitable.metricId)
+        const demographicGroups: DemographicGroup[] = queryResponse
+          .getFieldValues(props.breakdownVar, metricConfig.metricId)
           .withData.filter(
             (group: DemographicGroup) => !UNKNOWN_LABELS.includes(group)
           );
 
-        const nestedInequityData = getNestedData(
-          knownInequityData,
+        // TODO - can we make populationComparisonMetric a required field?
+        const nestedData = getNestedUndueShares(
+          knownData,
           demographicGroups,
           props.breakdownVar,
-          metricConfigInequitable.metricId
+          metricConfig.metricId,
+          metricConfig.populationComparisonMetric!.metricId
         );
 
         const nestedUnknowns = getNestedUnknowns(
-          unknownPctShareData,
-          metricConfigPctShares.metricId
+          unknownData,
+          metricConfig.metricId
         );
 
         return (
@@ -130,8 +115,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 This chart visualizes the disproportionate percent share of a
                 condition that is borne by a certain demographic, compared with
                 that demographic's share of the entire population (defaulting to
-                groups with the highest / lowest historical averages). Read more
-                about this calculation in our{" "}
+                groups with the highest / lowest averages). Read more about this
+                calculation in our{" "}
                 <HashLink to={`${METHODOLOGY_TAB_LINK}#metrics`}>
                   methodology
                 </HashLink>
@@ -140,12 +125,12 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             </CardContent>
 
             <CardContent>
-              {queryResponseInequity.shouldShowMissingDataMessage([
-                metricConfigInequitable.metricId,
-              ]) || nestedInequityData.length === 0 ? (
+              {queryResponse.shouldShowMissingDataMessage([
+                metricConfig.metricId,
+              ]) || nestedData.length === 0 ? (
                 <>
                   <MissingDataAlert
-                    dataName={metricConfigInequitable.fullCardTitleName}
+                    dataName={metricConfig.fullCardTitleName}
                     breakdownString={
                       BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                     }
@@ -156,11 +141,11 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 <>
                   {/* @ts-ignore */}
                   <TrendsChart
-                    data={nestedInequityData}
+                    data={nestedData}
                     chartTitle={getTitleText()}
                     unknown={nestedUnknowns}
                     axisConfig={{
-                      type: metricConfigInequitable.type,
+                      type: metricConfig.type,
                       groupLabel:
                         BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
                           props.breakdownVar
@@ -178,11 +163,11 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     tableCaption={`${getTitleText()} by ${
                       BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                     }`}
-                    knownsData={inequityData}
-                    unknownsData={unknownPctShareData}
+                    knownsData={knownData}
+                    unknownsData={unknownData}
                     breakdownVar={props.breakdownVar}
-                    knownMetricConfig={metricConfigInequitable}
-                    unknownMetricConfig={metricConfigPctShares}
+                    knownMetricConfig={metricConfig}
+                    unknownMetricConfig={metricConfig}
                     selectedGroups={selectedTableGroups}
                   />
                 </>

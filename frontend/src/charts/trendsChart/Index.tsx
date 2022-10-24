@@ -84,7 +84,7 @@ export function TrendsChart({
 
   // Manages which group filters user has applied
   const defaultGroups =
-    axisConfig.type === "pct_relative_inequity" ? getMinMaxGroups(data) : [];
+    axisConfig.type === "pct_share" ? getMinMaxGroups(data) : [];
   const [selectedTrendGroups, setSelectedTrendGroups] =
     useState<string[]>(defaultGroups);
 

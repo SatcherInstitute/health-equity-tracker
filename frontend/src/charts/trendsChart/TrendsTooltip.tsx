@@ -66,11 +66,11 @@ export function TrendsTooltip({
       translate_x: (d: TimeSeries) => 0,
       formatter: F.num,
     },
-    [TYPES.PERCENT_RELATIVE_INEQUITY]: {
+    [TYPES.PERCENT_SHARE]: {
       UNIT: " %",
       width: getWidthPctShare,
       translate_x: translateXPctShare,
-      formatter: F.plusNum,
+      formatter: F.num,
     },
   };
 
@@ -87,40 +87,35 @@ export function TrendsTooltip({
       <div className={styles.grid}>
         {data &&
           sortDataDescending(data, selectedDate || "").map(
-            ([group, d]: GroupData) => {
-              // get value or "<1" to prevent potentially misleading "0 per 100k" on rates
-              let value = TYPE_CONFIG[type]?.formatter(
-                getAmountsByDate(d, selectedDate)
-              );
-              if (value === "0" && axisConfig.type === "per100k") value = "<1";
-
-              return (
-                <Fragment key={`tooltipRow-${group}`}>
-                  {/* group label - get from dictionary, if it doesn't exist, append group as label */}
-                  {/* @ts-ignore */}
-                  <div>{codeDictionary[group] || group}</div>
-                  {/* rectangle indicator */}
-                  <div
-                    style={{
-                      backgroundColor: C(group),
-                      width: TYPE_CONFIG[type]?.width(d, selectedDate, data),
-                      transform: `translateX(${TYPE_CONFIG[type]?.translate_x(
-                        d,
-                        selectedDate,
-                        data
-                      )}px)`,
-                    }}
-                    className={styles.bar}
-                  />
-                  {/* amount */}
-                  <div className={styles.label}>
-                    {/* // TODO: update way rounding number */}
-                    <span>{value}</span>
-                    <span>{TYPE_CONFIG[type]?.UNIT}</span>
-                  </div>
-                </Fragment>
-              );
-            }
+            ([group, d]: GroupData) => (
+              <Fragment key={`tooltipRow-${group}`}>
+                {/* TODO: update to use backend dictionary */}
+                {/* group label - get from dictionary, if it doesn't exist, append group as label */}
+                {/* @ts-ignore */}
+                <div>{codeDictionary[group] || group}</div>
+                {/* rectangle indicator */}
+                <div
+                  style={{
+                    backgroundColor: C(group),
+                    width: TYPE_CONFIG[type]?.width(d, selectedDate, data),
+                    transform: `translateX(${TYPE_CONFIG[type]?.translate_x(
+                      d,
+                      selectedDate,
+                      data
+                    )}px)`,
+                  }}
+                  className={styles.bar}
+                />
+                {/* amount */}
+                <div className={styles.label}>
+                  {/* // TODO: update way rounding number */}
+                  {TYPE_CONFIG[type]?.formatter(
+                    getAmountsByDate(d, selectedDate)
+                  )}
+                  <span>{TYPE_CONFIG[type]?.UNIT}</span>
+                </div>
+              </Fragment>
+            )
           )}
       </div>
     </div>

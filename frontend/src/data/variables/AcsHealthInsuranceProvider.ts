@@ -14,7 +14,6 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       "health_insurance_pct_share",
       "health_insurance_population_pct",
       "health_insurance_ratio_age_adjusted",
-      "health_insurance_pct_relative_inequity",
     ]);
   }
 

@@ -39,14 +39,12 @@ export const JAIL_METRICS: MetricId[] = [
   "jail_pct_share",
   "jail_per_100k",
   "jail_ratio_age_adjusted",
-  "jail_pct_relative_inequity",
 ];
 
 export const PRISON_METRICS: MetricId[] = [
   "prison_pct_share",
   "prison_per_100k",
   "prison_ratio_age_adjusted",
-  "prison_pct_relative_inequity",
 ];
 
 export const INCARCERATION_METRICS: MetricId[] = [
