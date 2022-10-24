@@ -58,8 +58,6 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     props.variableConfig.metrics["inequitable_share"];
   const metricConfigPctShares = props.variableConfig.metrics["pct_share"];
 
-  // const metricIdsToFetch: MetricId[] = [metricConfigInequitable.metricId, metricConfigPctShares.metricId];
-
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(NON_HISPANIC, ALL)

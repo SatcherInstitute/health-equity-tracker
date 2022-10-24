@@ -113,7 +113,8 @@ export function createTitles({
     ? `the ${fips.getDisplayName()}`
     : fips.getDisplayName();
   const trendPer100K = variableConfig.metrics.per100k.trendsCardTitleName;
-  const trendShare = variableConfig.metrics.inequitable_share.fullCardTitleName;
+  const trendShare =
+    variableConfig.metrics.inequitable_share?.fullCardTitleName;
   const metric = variableConfig.variableFullDisplayName;
   const breakdownVar =
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[breakdown as BreakdownVar];
