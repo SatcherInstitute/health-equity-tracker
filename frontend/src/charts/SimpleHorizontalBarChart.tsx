@@ -16,6 +16,7 @@ import {
   addMetricDisplayColumn,
   PADDING_FOR_ACTIONS_MENU,
 } from "./utils";
+import { useFontSize } from "../utils/hooks/useFontSize";
 import sass from "../styles/variables.module.scss";
 import { useMediaQuery } from "@material-ui/core";
 import {
@@ -47,7 +48,8 @@ function getSpec(
   showLegend: boolean,
   barLabelBreakpoint: number,
   pageIsTiny: boolean,
-  usePercentSuffix: boolean
+  usePercentSuffix: boolean,
+  fontSize: number
 ): any {
   const MEASURE_COLOR = sass.altGreen;
   const BAR_HEIGHT = 60;
@@ -83,7 +85,7 @@ function getSpec(
       encode: {
         title: {
           enter: {
-            fontSize: { value: pageIsTiny ? 11 : 14 },
+            fontSize: { value: fontSize },
             font: { value: "Inter, sans-serif" },
           },
         },
@@ -288,6 +290,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
+  const fontSize = useFontSize();
 
   // swap race labels if applicable
   const dataLabelled = CAWP_DETERMINANTS.includes(props.metric.metricId)
@@ -336,7 +339,8 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           /* showLegend  */ props.showLegend,
           /* barLabelBreakpoint  */ barLabelBreakpoint,
           /* pageIsTiny  */ pageIsTiny,
-          /* usePercentSuffix  */ props.usePercentSuffix || false
+          /* usePercentSuffix  */ props.usePercentSuffix || false,
+          fontSize
         )}
         // custom 3-dot options menu
         actions={
