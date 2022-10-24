@@ -63,7 +63,7 @@ _expected_pct_share_data_with_unknowns = [
     ['04', 'Arizona', 'UNKNOWN', '10', '10.5'],
 ]
 
-_fake_data_without_inequitable_share_col = [
+_fake_data_without_pct_relative_inequity_col = [
     ['state_fips', 'state_name', 'race', 'pct_share', 'pct_pop'],
     ['01', 'Alabama', 'Race 1', 0, 10.0],
     ['01', 'Alabama', 'Race 2', 10.001, 10.0],
@@ -73,8 +73,8 @@ _fake_data_without_inequitable_share_col = [
     ['01', 'Alabama', 'Race 6', 100.0, 0],
 ]
 
-_expected_data_with_inequitable_share_col = [
-    ['state_fips', 'state_name', 'race', 'pct_share', 'pct_pop', 'inequitable_share'],
+_expected_data_with_pct_relative_inequity_col = [
+    ['state_fips', 'state_name', 'race', 'pct_share', 'pct_pop', 'pct_relative_inequity'],
     ['01', 'Alabama', 'Race 1', 0, 10.0, -100.0],
     ['01', 'Alabama', 'Race 2', 10.001, 10.0, 0.0],
     ['01', 'Alabama', 'Race 3', 60.0, 10.0, 500.0],
@@ -261,13 +261,13 @@ def test_ensure_leading_zeros():
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-def testGenerateInequitableShareCol():
+def testGeneratePctRelInequityCol():
     df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_data_without_inequitable_share_col)).reset_index(drop=True)
-    df = dataset_utils.generate_inequitable_share_column(df, 'pct_share', 'pct_pop', 'inequitable_share')
+        json.dumps(_fake_data_without_pct_relative_inequity_col)).reset_index(drop=True)
+    df = dataset_utils.generate_pct_relative_inequity_column(df, 'pct_share', 'pct_pop', 'pct_relative_inequity')
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-            json.dumps(_expected_data_with_inequitable_share_col)).reset_index(drop=True)
-    expected_df['inequitable_share'] = expected_df['inequitable_share'].astype(float)
+            json.dumps(_expected_data_with_pct_relative_inequity_col)).reset_index(drop=True)
+    expected_df['pct_relative_inequity'] = expected_df['pct_relative_inequity'].astype(float)
 
     assert_frame_equal(df, expected_df, check_like=True)
