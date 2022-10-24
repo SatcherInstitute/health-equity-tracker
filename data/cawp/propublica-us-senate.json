@@ -42,10 +42,10 @@
                  "ideal_point": null,
                  "seniority": "9",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 1,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:19 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:wi",
                  "office": "709 Hart Senate Office Building",
                  "phone": "202-224-5653",
@@ -90,10 +90,10 @@
                  "ideal_point": null,
                  "seniority": "15",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 58,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:09 -0400",
+                 "last_updated": "2022-10-01 01:45:43 -0400",
                  "ocd_id": "ocd-division/country:us/state:wy",
                  "office": "307 Dirksen Senate Office Building",
                  "phone": "202-224-6441",
@@ -102,9 +102,9 @@
                  "senate_class": "1",
                  "state_rank": "senior",
                  "lis_id": "S317"
-                 ,"missed_votes_pct": 6.71,
-                 "votes_with_party_pct": 95.32,
-                 "votes_against_party_pct": 4.68
+                 ,"missed_votes_pct": 6.70,
+                 "votes_with_party_pct": 95.33,
+                 "votes_against_party_pct": 4.67
                },
                            {
                  "id": "B001267",
@@ -138,10 +138,10 @@
                  "ideal_point": null,
                  "seniority": "13",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 19,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:16 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:co",
                  "office": "261 Russell Senate Office Building",
                  "phone": "202-224-5852",
@@ -150,9 +150,9 @@
                  "senate_class": "3",
                  "state_rank": "senior",
                  "lis_id": "S330"
-                 ,"missed_votes_pct": 2.20,
-                 "votes_with_party_pct": 99.05,
-                 "votes_against_party_pct": 0.95
+                 ,"missed_votes_pct": 2.19,
+                 "votes_with_party_pct": 99.06,
+                 "votes_against_party_pct": 0.94
                },
                            {
                  "id": "B001243",
@@ -186,10 +186,10 @@
                  "ideal_point": null,
                  "seniority": "3",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 53,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:29 -0400",
+                 "last_updated": "2022-10-01 01:45:45 -0400",
                  "ocd_id": "ocd-division/country:us/state:tn",
                  "office": "357 Dirksen Senate Office Building",
                  "phone": "202-224-3344",
@@ -198,9 +198,9 @@
                  "senate_class": "1",
                  "state_rank": "senior",
                  "lis_id": "S396"
-                 ,"missed_votes_pct": 6.13,
-                 "votes_with_party_pct": 92.34,
-                 "votes_against_party_pct": 7.66
+                 ,"missed_votes_pct": 6.12,
+                 "votes_with_party_pct": 92.23,
+                 "votes_against_party_pct": 7.77
                },
                            {
                  "id": "B001277",
@@ -234,10 +234,10 @@
                  "ideal_point": null,
                  "seniority": "11",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 14,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:22 -0400",
+                 "last_updated": "2022-10-13 12:46:01 -0400",
                  "ocd_id": "ocd-division/country:us/state:ct",
                  "office": "706 Hart Senate Office Building",
                  "phone": "202-224-2823",
@@ -282,10 +282,10 @@
                  "ideal_point": null,
                  "seniority": "11",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 74,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:53 -0400",
+                 "last_updated": "2022-09-30 12:46:12 -0400",
                  "ocd_id": "ocd-division/country:us/state:mo",
                  "office": "260 Russell Senate Office Building",
                  "phone": "202-224-5721",
@@ -294,9 +294,9 @@
                  "senate_class": "3",
                  "state_rank": "senior",
                  "lis_id": "S342"
-                 ,"missed_votes_pct": 8.56,
-                 "votes_with_party_pct": 80.21,
-                 "votes_against_party_pct": 19.79
+                 ,"missed_votes_pct": 8.55,
+                 "votes_with_party_pct": 80.26,
+                 "votes_against_party_pct": 19.74
                },
                            {
                  "id": "B001288",
@@ -330,10 +330,10 @@
                  "ideal_point": null,
                  "seniority": "9",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 23,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:23 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:nj",
                  "office": "717 Hart Senate Office Building",
                  "phone": "202-224-3224",
@@ -378,10 +378,10 @@
                  "ideal_point": null,
                  "seniority": "11",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 6,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:56 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:ar",
                  "office": "141 Hart Senate Office Building",
                  "phone": "202-224-4843",
@@ -391,8 +391,8 @@
                  "state_rank": "senior",
                  "lis_id": "S343"
                  ,"missed_votes_pct": 0.69,
-                 "votes_with_party_pct": 95.01,
-                 "votes_against_party_pct": 4.99
+                 "votes_with_party_pct": 94.90,
+                 "votes_against_party_pct": 5.10
                },
                            {
                  "id": "B001310",
@@ -426,10 +426,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 24,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:33 -0400",
+                 "last_updated": "2022-10-13 12:46:01 -0400",
                  "ocd_id": "ocd-division/country:us/state:in",
                  "office": "374 Russell Senate Office Building",
                  "phone": "202-224-4814",
@@ -438,9 +438,9 @@
                  "senate_class": "1",
                  "state_rank": "junior",
                  "lis_id": "S397"
-                 ,"missed_votes_pct": 2.78,
-                 "votes_with_party_pct": 91.07,
-                 "votes_against_party_pct": 8.93
+                 ,"missed_votes_pct": 2.77,
+                 "votes_with_party_pct": 90.97,
+                 "votes_against_party_pct": 9.03
                },
                            {
                  "id": "B000944",
@@ -474,10 +474,10 @@
                  "ideal_point": null,
                  "seniority": "15",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 9,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:08 -0400",
+                 "last_updated": "2022-10-01 01:45:43 -0400",
                  "ocd_id": "ocd-division/country:us/state:oh",
                  "office": "503 Hart Senate Office Building",
                  "phone": "202-224-2315",
@@ -502,7 +502,7 @@
                  "date_of_birth": "1955-11-30",
                  "gender": "M",
                  "party": "R",
-                 "leadership_role": null,
+                 "leadership_role": "",
                  "twitter_account": "SenatorBurr",
                  "facebook_account": "SenatorRichardBurr",
                  "youtube_account": "SenatorRichardBurr",
@@ -522,10 +522,10 @@
                  "ideal_point": null,
                  "seniority": "17",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 93,
                  "total_present": 2,
-                 "last_updated": "2022-09-14 17:58:53 -0400",
+                 "last_updated": "2022-10-01 21:20:41 -0400",
                  "ocd_id": "ocd-division/country:us/state:nc",
                  "office": "217 Russell Senate Office Building",
                  "phone": "202-224-3154",
@@ -534,9 +534,9 @@
                  "senate_class": "3",
                  "state_rank": "senior",
                  "lis_id": "S300"
-                 ,"missed_votes_pct": 10.76,
-                 "votes_with_party_pct": 81.66,
-                 "votes_against_party_pct": 18.34
+                 ,"missed_votes_pct": 10.74,
+                 "votes_with_party_pct": 81.71,
+                 "votes_against_party_pct": 18.29
                },
                            {
                  "id": "C000127",
@@ -570,10 +570,10 @@
                  "ideal_point": null,
                  "seniority": "21",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 10,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:59:00 -0400",
+                 "last_updated": "2022-10-13 12:46:00 -0400",
                  "ocd_id": "ocd-division/country:us/state:wa",
                  "office": "511 Hart Senate Office Building",
                  "phone": "202-224-3441",
@@ -582,7 +582,7 @@
                  "senate_class": "1",
                  "state_rank": "junior",
                  "lis_id": "S275"
-                 ,"missed_votes_pct": 1.16,
+                 ,"missed_votes_pct": 1.15,
                  "votes_with_party_pct": 99.88,
                  "votes_against_party_pct": 0.12
                },
@@ -618,10 +618,10 @@
                  "ideal_point": null,
                  "seniority": "7",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 29,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:09 -0400",
+                 "last_updated": "2022-09-30 12:46:12 -0400",
                  "ocd_id": "ocd-division/country:us/state:wv",
                  "office": "172 Russell Senate Office Building",
                  "phone": "202-224-6472",
@@ -630,9 +630,9 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S372"
-                 ,"missed_votes_pct": 3.36,
-                 "votes_with_party_pct": 79.58,
-                 "votes_against_party_pct": 20.42
+                 ,"missed_votes_pct": 3.35,
+                 "votes_with_party_pct": 79.63,
+                 "votes_against_party_pct": 20.37
                },
                            {
                  "id": "C000141",
@@ -666,10 +666,10 @@
                  "ideal_point": null,
                  "seniority": "15",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 7,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:09 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:md",
                  "office": "509 Hart Senate Office Building",
                  "phone": "202-224-4524",
@@ -714,10 +714,10 @@
                  "ideal_point": null,
                  "seniority": "21",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 1,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:58 -0400",
+                 "last_updated": "2022-10-01 01:45:43 -0400",
                  "ocd_id": "ocd-division/country:us/state:de",
                  "office": "513 Hart Senate Office Building",
                  "phone": "202-224-2441",
@@ -762,10 +762,10 @@
                  "ideal_point": null,
                  "seniority": "15",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 13,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:59 -0400",
+                 "last_updated": "2022-10-12 09:45:11 -0400",
                  "ocd_id": "ocd-division/country:us/state:pa",
                  "office": "393 Russell Senate Office Building",
                  "phone": "202-224-6324",
@@ -810,10 +810,10 @@
                  "ideal_point": null,
                  "seniority": "7",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 25,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:08 -0400",
+                 "last_updated": "2022-10-13 12:45:59 -0400",
                  "ocd_id": "ocd-division/country:us/state:la",
                  "office": "520 Hart Senate Office Building",
                  "phone": "202-224-5824",
@@ -823,8 +823,8 @@
                  "state_rank": "senior",
                  "lis_id": "S373"
                  ,"missed_votes_pct": 2.89,
-                 "votes_with_party_pct": 88.24,
-                 "votes_against_party_pct": 11.76
+                 "votes_with_party_pct": 88.27,
+                 "votes_against_party_pct": 11.73
                },
                            {
                  "id": "C001035",
@@ -858,10 +858,10 @@
                  "ideal_point": null,
                  "seniority": "25",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 0,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:09 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:me",
                  "office": "413 Dirksen Senate Office Building",
                  "phone": "202-224-2523",
@@ -906,10 +906,10 @@
                  "ideal_point": null,
                  "seniority": "13",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 6,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:59 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:de",
                  "office": "218 Russell Senate Office Building",
                  "phone": "202-224-5042",
@@ -954,10 +954,10 @@
                  "ideal_point": null,
                  "seniority": "19",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 59,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:19:38 -0400",
+                 "last_updated": "2022-10-13 12:46:00 -0400",
                  "ocd_id": "ocd-division/country:us/state:tx",
                  "office": "517 Hart Senate Office Building",
                  "phone": "202-224-2934",
@@ -966,9 +966,9 @@
                  "senate_class": "2",
                  "state_rank": "senior",
                  "lis_id": "S287"
-                 ,"missed_votes_pct": 6.83,
-                 "votes_with_party_pct": 85.66,
-                 "votes_against_party_pct": 14.34
+                 ,"missed_votes_pct": 6.81,
+                 "votes_with_party_pct": 85.70,
+                 "votes_against_party_pct": 14.30
                },
                            {
                  "id": "C001113",
@@ -1002,10 +1002,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 5,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:26 -0400",
+                 "last_updated": "2022-10-12 09:45:24 -0400",
                  "ocd_id": "ocd-division/country:us/state:nv",
                  "office": "516 Hart Senate Office Building",
                  "phone": "202-224-3542",
@@ -1015,8 +1015,8 @@
                  "state_rank": "senior",
                  "lis_id": "S385"
                  ,"missed_votes_pct": 0.58,
-                 "votes_with_party_pct": 98.25,
-                 "votes_against_party_pct": 1.75
+                 "votes_with_party_pct": 98.26,
+                 "votes_against_party_pct": 1.74
                },
                            {
                  "id": "C001095",
@@ -1050,10 +1050,10 @@
                  "ideal_point": null,
                  "seniority": "7",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 15,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:14 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:ar",
                  "office": "326 Russell Senate Office Building",
                  "phone": "202-224-2353",
@@ -1062,9 +1062,9 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S374"
-                 ,"missed_votes_pct": 1.74,
-                 "votes_with_party_pct": 92.01,
-                 "votes_against_party_pct": 7.99
+                 ,"missed_votes_pct": 1.73,
+                 "votes_with_party_pct": 91.91,
+                 "votes_against_party_pct": 8.09
                },
                            {
                  "id": "C001096",
@@ -1098,10 +1098,10 @@
                  "ideal_point": null,
                  "seniority": "3",
                  "next_election": "2024",
-                 "total_votes": 864,
-                 "missed_votes": 97,
+                 "total_votes": 866,
+                 "missed_votes": 99,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:29 -0400",
+                 "last_updated": "2022-10-13 12:46:01 -0400",
                  "ocd_id": "ocd-division/country:us/state:nd",
                  "office": "400 Russell Senate Office Building",
                  "phone": "202-224-2043",
@@ -1110,7 +1110,7 @@
                  "senate_class": "1",
                  "state_rank": "junior",
                  "lis_id": "S398"
-                 ,"missed_votes_pct": 11.23,
+                 ,"missed_votes_pct": 11.43,
                  "votes_with_party_pct": 91.51,
                  "votes_against_party_pct": 8.49
                },
@@ -1146,10 +1146,10 @@
                  "ideal_point": null,
                  "seniority": "23",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 10,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:09 -0400",
+                 "last_updated": "2022-09-30 12:46:12 -0400",
                  "ocd_id": "ocd-division/country:us/state:id",
                  "office": "239 Dirksen Senate Office Building",
                  "phone": "202-224-6142",
@@ -1158,9 +1158,9 @@
                  "senate_class": "3",
                  "state_rank": "senior",
                  "lis_id": "S266"
-                 ,"missed_votes_pct": 1.16,
-                 "votes_with_party_pct": 90.59,
-                 "votes_against_party_pct": 9.41
+                 ,"missed_votes_pct": 1.15,
+                 "votes_with_party_pct": 90.61,
+                 "votes_against_party_pct": 9.39
                },
                            {
                  "id": "C001098",
@@ -1194,10 +1194,10 @@
                  "ideal_point": null,
                  "seniority": "9",
                  "next_election": "2024",
-                 "total_votes": 864,
-                 "missed_votes": 29,
+                 "total_votes": 866,
+                 "missed_votes": 31,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:19:50 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:tx",
                  "office": "127a Russell Senate Office Building",
                  "phone": "202-224-5922",
@@ -1206,7 +1206,7 @@
                  "senate_class": "1",
                  "state_rank": "junior",
                  "lis_id": "S355"
-                 ,"missed_votes_pct": 3.36,
+                 ,"missed_votes_pct": 3.58,
                  "votes_with_party_pct": 90.99,
                  "votes_against_party_pct": 9.01
                },
@@ -1242,10 +1242,10 @@
                  "ideal_point": null,
                  "seniority": "7",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 52,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:25 -0400",
+                 "last_updated": "2022-10-12 09:45:24 -0400",
                  "ocd_id": "ocd-division/country:us/state:mt",
                  "office": "320 Hart Senate Office Building",
                  "phone": "202-224-2651",
@@ -1254,9 +1254,9 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S375"
-                 ,"missed_votes_pct": 6.02,
-                 "votes_with_party_pct": 94.38,
-                 "votes_against_party_pct": 5.63
+                 ,"missed_votes_pct": 6.00,
+                 "votes_with_party_pct": 94.26,
+                 "votes_against_party_pct": 5.74
                },
                            {
                  "id": "D000622",
@@ -1290,10 +1290,10 @@
                  "ideal_point": null,
                  "seniority": "5",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 11,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:25 -0400",
+                 "last_updated": "2022-10-12 09:45:24 -0400",
                  "ocd_id": "ocd-division/country:us/state:il",
                  "office": "524 Hart Senate Office Building",
                  "phone": "202-224-2854",
@@ -1338,10 +1338,10 @@
                  "ideal_point": null,
                  "seniority": "25",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 3,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:10 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:il",
                  "office": "711 Hart Senate Office Building",
                  "phone": "202-224-2152",
@@ -1386,10 +1386,10 @@
                  "ideal_point": null,
                  "seniority": "7",
                  "next_election": "2026",
-                 "total_votes": 864,
-                 "missed_votes": 30,
+                 "total_votes": 866,
+                 "missed_votes": 31,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:25 -0400",
+                 "last_updated": "2022-10-12 09:45:24 -0400",
                  "ocd_id": "ocd-division/country:us/state:ia",
                  "office": "730 Hart Senate Office Building",
                  "phone": "202-224-3254",
@@ -1398,9 +1398,9 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S376"
-                 ,"missed_votes_pct": 3.47,
-                 "votes_with_party_pct": 92.91,
-                 "votes_against_party_pct": 7.09
+                 ,"missed_votes_pct": 3.58,
+                 "votes_with_party_pct": 92.92,
+                 "votes_against_party_pct": 7.08
                },
                            {
                  "id": "F000062",
@@ -1434,10 +1434,10 @@
                  "ideal_point": null,
                  "seniority": "29",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 113,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:11 -0400",
+                 "last_updated": "2022-10-13 12:46:00 -0400",
                  "ocd_id": "ocd-division/country:us/state:ca",
                  "office": "331 Hart Senate Office Building",
                  "phone": "202-224-3841",
@@ -1446,7 +1446,7 @@
                  "senate_class": "1",
                  "state_rank": "senior",
                  "lis_id": "S221"
-                 ,"missed_votes_pct": 13.08,
+                 ,"missed_votes_pct": 13.05,
                  "votes_with_party_pct": 99.60,
                  "votes_against_party_pct": 0.40
                },
@@ -1482,10 +1482,10 @@
                  "ideal_point": null,
                  "seniority": "9",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 31,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:56 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:ne",
                  "office": "454 Russell Senate Office Building",
                  "phone": "202-224-6551",
@@ -1494,9 +1494,9 @@
                  "senate_class": "1",
                  "state_rank": "senior",
                  "lis_id": "S357"
-                 ,"missed_votes_pct": 3.59,
-                 "votes_with_party_pct": 94.49,
-                 "votes_against_party_pct": 5.51
+                 ,"missed_votes_pct": 3.58,
+                 "votes_with_party_pct": 94.51,
+                 "votes_against_party_pct": 5.49
                },
                            {
                  "id": "G000555",
@@ -1530,10 +1530,10 @@
                  "ideal_point": null,
                  "seniority": "13",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 8,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:16 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:ny",
                  "office": "478 Russell Senate Office Building",
                  "phone": "202-224-4451",
@@ -1542,7 +1542,7 @@
                  "senate_class": "1",
                  "state_rank": "junior",
                  "lis_id": "S331"
-                 ,"missed_votes_pct": 0.93,
+                 ,"missed_votes_pct": 0.92,
                  "votes_with_party_pct": 99.18,
                  "votes_against_party_pct": 0.82
                },
@@ -1578,10 +1578,10 @@
                  "ideal_point": null,
                  "seniority": "19",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 78,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:19:39 -0400",
+                 "last_updated": "2022-10-13 12:46:00 -0400",
                  "ocd_id": "ocd-division/country:us/state:sc",
                  "office": "290 Russell Senate Office Building",
                  "phone": "202-224-5972",
@@ -1590,9 +1590,9 @@
                  "senate_class": "2",
                  "state_rank": "senior",
                  "lis_id": "S293"
-                 ,"missed_votes_pct": 9.03,
-                 "votes_with_party_pct": 65.58,
-                 "votes_against_party_pct": 34.42
+                 ,"missed_votes_pct": 9.01,
+                 "votes_with_party_pct": 65.54,
+                 "votes_against_party_pct": 34.46
                },
                            {
                  "id": "G000386",
@@ -1626,10 +1626,10 @@
                  "ideal_point": null,
                  "seniority": "41",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 0,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:11 -0400",
+                 "last_updated": "2022-10-13 12:46:00 -0400",
                  "ocd_id": "ocd-division/country:us/state:ia",
                  "office": "135 Hart Senate Office Building",
                  "phone": "202-224-3744",
@@ -1639,8 +1639,8 @@
                  "state_rank": "senior",
                  "lis_id": "S153"
                  ,"missed_votes_pct": 0.00,
-                 "votes_with_party_pct": 83.57,
-                 "votes_against_party_pct": 16.43
+                 "votes_with_party_pct": 83.61,
+                 "votes_against_party_pct": 16.39
                },
                            {
                  "id": "H000601",
@@ -1674,10 +1674,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 16,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:35 -0400",
+                 "last_updated": "2022-10-12 09:45:24 -0400",
                  "ocd_id": "ocd-division/country:us/state:tn",
                  "office": "B11 Russell Senate Office Building",
                  "phone": "202-224-4944",
@@ -1687,8 +1687,8 @@
                  "state_rank": "junior",
                  "lis_id": "S407"
                  ,"missed_votes_pct": 1.85,
-                 "votes_with_party_pct": 92.00,
-                 "votes_against_party_pct": 8.00
+                 "votes_with_party_pct": 91.90,
+                 "votes_against_party_pct": 8.10
                },
                            {
                  "id": "H001075",
@@ -1725,7 +1725,7 @@
                  "total_votes": 2,
                  "missed_votes": 0,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:37 -0400",
+                 "last_updated": "2022-09-16 12:02:48 -0400",
                  "ocd_id": "ocd-division/country:us/state:ca",
                  "office": "112 Hart Senate Office Building",
                  "phone": "202-224-3553",
@@ -1770,10 +1770,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 9,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:57 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:nh",
                  "office": "324 Hart Senate Office Building",
                  "phone": "202-224-3324",
@@ -1818,10 +1818,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 15,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:33 -0400",
+                 "last_updated": "2022-09-30 12:46:14 -0400",
                  "ocd_id": "ocd-division/country:us/state:mo",
                  "office": "212 Russell Senate Office Building",
                  "phone": "202-224-6154",
@@ -1830,9 +1830,9 @@
                  "senate_class": "1",
                  "state_rank": "junior",
                  "lis_id": "S399"
-                 ,"missed_votes_pct": 1.74,
-                 "votes_with_party_pct": 87.61,
-                 "votes_against_party_pct": 12.39
+                 ,"missed_votes_pct": 1.73,
+                 "votes_with_party_pct": 87.52,
+                 "votes_against_party_pct": 12.48
                },
                            {
                  "id": "H001046",
@@ -1866,10 +1866,10 @@
                  "ideal_point": null,
                  "seniority": "9",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 21,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:59 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:nm",
                  "office": "303 Hart Senate Office Building",
                  "phone": "202-224-5521",
@@ -1878,7 +1878,7 @@
                  "senate_class": "1",
                  "state_rank": "senior",
                  "lis_id": "S359"
-                 ,"missed_votes_pct": 2.43,
+                 ,"missed_votes_pct": 2.42,
                  "votes_with_party_pct": 99.29,
                  "votes_against_party_pct": 0.71
                },
@@ -1914,10 +1914,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 1,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:59 -0400",
+                 "last_updated": "2022-10-01 01:45:45 -0400",
                  "ocd_id": "ocd-division/country:us/state:co",
                  "office": "B85 Russell Senate Office Building",
                  "phone": "202-224-5941",
@@ -1927,8 +1927,8 @@
                  "state_rank": "junior",
                  "lis_id": "S408"
                  ,"missed_votes_pct": 0.12,
-                 "votes_with_party_pct": 99.30,
-                 "votes_against_party_pct": 0.70
+                 "votes_with_party_pct": 99.31,
+                 "votes_against_party_pct": 0.69
                },
                            {
                  "id": "H001042",
@@ -1962,10 +1962,10 @@
                  "ideal_point": null,
                  "seniority": "9",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 8,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:19 -0400",
+                 "last_updated": "2022-10-12 09:45:15 -0400",
                  "ocd_id": "ocd-division/country:us/state:hi",
                  "office": "713 Hart Senate Office Building",
                  "phone": "202-224-6361",
@@ -1974,7 +1974,7 @@
                  "senate_class": "1",
                  "state_rank": "junior",
                  "lis_id": "S361"
-                 ,"missed_votes_pct": 0.93,
+                 ,"missed_votes_pct": 0.92,
                  "votes_with_party_pct": 99.18,
                  "votes_against_party_pct": 0.82
                },
@@ -2010,10 +2010,10 @@
                  "ideal_point": null,
                  "seniority": "11",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 27,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:55 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:nd",
                  "office": "338 Russell Senate Office Building",
                  "phone": "202-224-2551",
@@ -2022,9 +2022,9 @@
                  "senate_class": "3",
                  "state_rank": "senior",
                  "lis_id": "S344"
-                 ,"missed_votes_pct": 3.13,
-                 "votes_with_party_pct": 93.90,
-                 "votes_against_party_pct": 6.10
+                 ,"missed_votes_pct": 3.12,
+                 "votes_with_party_pct": 93.79,
+                 "votes_against_party_pct": 6.21
                },
                            {
                  "id": "H001079",
@@ -2058,10 +2058,10 @@
                  "ideal_point": null,
                  "seniority": "4",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 31,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:56 -0400",
+                 "last_updated": "2022-09-30 12:46:13 -0400",
                  "ocd_id": "ocd-division/country:us/state:ms",
                  "office": "702 Hart Senate Office Building",
                  "phone": "202-224-5054",
@@ -2070,9 +2070,9 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S395"
-                 ,"missed_votes_pct": 3.59,
-                 "votes_with_party_pct": 93.14,
-                 "votes_against_party_pct": 6.86
+                 ,"missed_votes_pct": 3.58,
+                 "votes_with_party_pct": 93.03,
+                 "votes_against_party_pct": 6.97
                },
                            {
                  "id": "I000024",
@@ -2106,10 +2106,10 @@
                  "ideal_point": null,
                  "seniority": "29",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 96,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:11 -0400",
+                 "last_updated": "2022-10-13 12:46:00 -0400",
                  "ocd_id": "ocd-division/country:us/state:ok",
                  "office": "205 Russell Senate Office Building",
                  "phone": "202-224-4721",
@@ -2118,9 +2118,9 @@
                  "senate_class": "2",
                  "state_rank": "senior",
                  "lis_id": "S236"
-                 ,"missed_votes_pct": 11.11,
-                 "votes_with_party_pct": 96.05,
-                 "votes_against_party_pct": 3.95
+                 ,"missed_votes_pct": 11.09,
+                 "votes_with_party_pct": 95.93,
+                 "votes_against_party_pct": 4.07
                },
                            {
                  "id": "J000293",
@@ -2154,10 +2154,10 @@
                  "ideal_point": null,
                  "seniority": "11",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 49,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:56 -0400",
+                 "last_updated": "2022-10-12 09:45:16 -0400",
                  "ocd_id": "ocd-division/country:us/state:wi",
                  "office": "328 Hart Senate Office Building",
                  "phone": "202-224-5323",
@@ -2166,9 +2166,9 @@
                  "senate_class": "3",
                  "state_rank": "senior",
                  "lis_id": "S345"
-                 ,"missed_votes_pct": 5.67,
-                 "votes_with_party_pct": 93.28,
-                 "votes_against_party_pct": 6.72
+                 ,"missed_votes_pct": 5.66,
+                 "votes_with_party_pct": 93.17,
+                 "votes_against_party_pct": 6.83
                },
                            {
                  "id": "K000384",
@@ -2198,14 +2198,14 @@
                  "contact_form": "https://www.kaine.senate.gov/contact",
                  "in_office": true,
                  "cook_pvi": null,
-                 "dw_nominate": -0.244,
+                 "dw_nominate": -0.245,
                  "ideal_point": null,
                  "seniority": "9",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 27,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:19:51 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:va",
                  "office": "231 Russell Senate Office Building",
                  "phone": "202-224-4024",
@@ -2214,7 +2214,7 @@
                  "senate_class": "1",
                  "state_rank": "junior",
                  "lis_id": "S362"
-                 ,"missed_votes_pct": 3.13,
+                 ,"missed_votes_pct": 3.12,
                  "votes_with_party_pct": 99.64,
                  "votes_against_party_pct": 0.36
                },
@@ -2250,10 +2250,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 12,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:57 -0400",
+                 "last_updated": "2022-10-13 12:46:01 -0400",
                  "ocd_id": "ocd-division/country:us/state:az",
                  "office": "B40b Dirksen Senate Office Building",
                  "phone": "202-224-2235",
@@ -2298,10 +2298,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 51,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:26 -0400",
+                 "last_updated": "2022-09-30 12:46:13 -0400",
                  "ocd_id": "ocd-division/country:us/state:la",
                  "office": "416 Russell Senate Office Building",
                  "phone": "202-224-4623",
@@ -2310,9 +2310,9 @@
                  "senate_class": "3",
                  "state_rank": "junior",
                  "lis_id": "S389"
-                 ,"missed_votes_pct": 5.90,
-                 "votes_with_party_pct": 91.60,
-                 "votes_against_party_pct": 8.40
+                 ,"missed_votes_pct": 5.89,
+                 "votes_with_party_pct": 91.62,
+                 "votes_against_party_pct": 8.38
                },
                            {
                  "id": "K000383",
@@ -2346,10 +2346,10 @@
                  "ideal_point": null,
                  "seniority": "9",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 6,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:22 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:me",
                  "office": "133 Hart Senate Office Building",
                  "phone": "202-224-5344",
@@ -2359,8 +2359,8 @@
                  "state_rank": "junior",
                  "lis_id": "S363"
                  ,"missed_votes_pct": 0.69,
-                 "votes_with_party_pct": 98.83,
-                 "votes_against_party_pct": 1.17
+                 "votes_with_party_pct": 98.84,
+                 "votes_against_party_pct": 1.16
                },
                            {
                  "id": "K000367",
@@ -2394,10 +2394,10 @@
                  "ideal_point": null,
                  "seniority": "15",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 12,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:59 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:mn",
                  "office": "425 Dirksen Senate Office Building",
                  "phone": "202-224-3244",
@@ -2442,10 +2442,10 @@
                  "ideal_point": null,
                  "seniority": "7",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 6,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:22 -0400",
+                 "last_updated": "2022-10-12 09:45:16 -0400",
                  "ocd_id": "ocd-division/country:us/state:ok",
                  "office": "316 Hart Senate Office Building",
                  "phone": "202-224-5754",
@@ -2455,8 +2455,8 @@
                  "state_rank": "junior",
                  "lis_id": "S378"
                  ,"missed_votes_pct": 0.69,
-                 "votes_with_party_pct": 93.45,
-                 "votes_against_party_pct": 6.55
+                 "votes_with_party_pct": 93.35,
+                 "votes_against_party_pct": 6.65
                },
                            {
                  "id": "L000174",
@@ -2470,7 +2470,7 @@
                  "date_of_birth": "1940-03-31",
                  "gender": "M",
                  "party": "D",
-                 "leadership_role": null,
+                 "leadership_role": "",
                  "twitter_account": "SenatorLeahy",
                  "facebook_account": "SenatorPatrickLeahy",
                  "youtube_account": "SenatorPatrickLeahy",
@@ -2490,10 +2490,10 @@
                  "ideal_point": null,
                  "seniority": "47",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 58,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:12 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:vt",
                  "office": "437 Russell Senate Office Building",
                  "phone": "202-224-4242",
@@ -2502,7 +2502,7 @@
                  "senate_class": "3",
                  "state_rank": "senior",
                  "lis_id": "S057"
-                 ,"missed_votes_pct": 6.71,
+                 ,"missed_votes_pct": 6.70,
                  "votes_with_party_pct": 99.63,
                  "votes_against_party_pct": 0.37
                },
@@ -2538,10 +2538,10 @@
                  "ideal_point": null,
                  "seniority": "11",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 5,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:54 -0400",
+                 "last_updated": "2022-09-30 12:46:13 -0400",
                  "ocd_id": "ocd-division/country:us/state:ut",
                  "office": "361a Russell Senate Office Building",
                  "phone": "202-224-5444",
@@ -2551,8 +2551,8 @@
                  "state_rank": "senior",
                  "lis_id": "S346"
                  ,"missed_votes_pct": 0.58,
-                 "votes_with_party_pct": 88.82,
-                 "votes_against_party_pct": 11.18
+                 "votes_with_party_pct": 88.73,
+                 "votes_against_party_pct": 11.27
                },
                            {
                  "id": "L000594",
@@ -2589,7 +2589,7 @@
                  "total_votes": 2,
                  "missed_votes": 0,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:37 -0400",
+                 "last_updated": "2022-09-16 12:02:48 -0400",
                  "ocd_id": "ocd-division/country:us/state:ga",
                  "office": "131 Russell Senate Office Building",
                  "phone": "202-224-3643",
@@ -2634,10 +2634,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 75,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:34 -0400",
+                 "last_updated": "2022-10-12 09:45:21 -0400",
                  "ocd_id": "ocd-division/country:us/state:nm",
                  "office": "B40c Dirksen Senate Office Building",
                  "phone": "202-224-6621",
@@ -2646,7 +2646,7 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S409"
-                 ,"missed_votes_pct": 8.68,
+                 ,"missed_votes_pct": 8.66,
                  "votes_with_party_pct": 99.24,
                  "votes_against_party_pct": 0.76
                },
@@ -2682,10 +2682,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 46,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:34 -0400",
+                 "last_updated": "2022-10-01 01:45:45 -0400",
                  "ocd_id": "ocd-division/country:us/state:wy",
                  "office": "G12 Dirksen Senate Office Building",
                  "phone": "202-224-3424",
@@ -2694,9 +2694,9 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S410"
-                 ,"missed_votes_pct": 5.32,
-                 "votes_with_party_pct": 92.65,
-                 "votes_against_party_pct": 7.35
+                 ,"missed_votes_pct": 5.31,
+                 "votes_with_party_pct": 92.67,
+                 "votes_against_party_pct": 7.33
                },
                            {
                  "id": "M001183",
@@ -2730,10 +2730,10 @@
                  "ideal_point": null,
                  "seniority": "13",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 44,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:56 -0400",
+                 "last_updated": "2022-10-13 12:46:01 -0400",
                  "ocd_id": "ocd-division/country:us/state:wv",
                  "office": "306 Hart Senate Office Building",
                  "phone": "202-224-3954",
@@ -2742,9 +2742,9 @@
                  "senate_class": "1",
                  "state_rank": "senior",
                  "lis_id": "S338"
-                 ,"missed_votes_pct": 5.09,
-                 "votes_with_party_pct": 93.04,
-                 "votes_against_party_pct": 6.96
+                 ,"missed_votes_pct": 5.08,
+                 "votes_with_party_pct": 93.06,
+                 "votes_against_party_pct": 6.94
                },
                            {
                  "id": "M000133",
@@ -2778,10 +2778,10 @@
                  "ideal_point": null,
                  "seniority": "9",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 12,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:19:51 -0400",
+                 "last_updated": "2022-09-30 12:46:13 -0400",
                  "ocd_id": "ocd-division/country:us/state:ma",
                  "office": "255 Dirksen Senate Office Building",
                  "phone": "202-224-2742",
@@ -2791,8 +2791,8 @@
                  "state_rank": "junior",
                  "lis_id": "S369"
                  ,"missed_votes_pct": 1.39,
-                 "votes_with_party_pct": 97.53,
-                 "votes_against_party_pct": 2.47
+                 "votes_with_party_pct": 97.54,
+                 "votes_against_party_pct": 2.46
                },
                            {
                  "id": "M001198",
@@ -2826,10 +2826,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 21,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:34 -0400",
+                 "last_updated": "2022-10-01 01:45:45 -0400",
                  "ocd_id": "ocd-division/country:us/state:ks",
                  "office": "B33 Russell Senate Office Building",
                  "phone": "202-224-4774",
@@ -2838,9 +2838,9 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S411"
-                 ,"missed_votes_pct": 2.43,
-                 "votes_with_party_pct": 93.31,
-                 "votes_against_party_pct": 6.69
+                 ,"missed_votes_pct": 2.42,
+                 "votes_with_party_pct": 93.20,
+                 "votes_against_party_pct": 6.80
                },
                            {
                  "id": "M000355",
@@ -2874,10 +2874,10 @@
                  "ideal_point": null,
                  "seniority": "37",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 23,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:54 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:ky",
                  "office": "317 Russell Senate Office Building",
                  "phone": "202-224-2541",
@@ -2887,8 +2887,8 @@
                  "state_rank": "senior",
                  "lis_id": "S174"
                  ,"missed_votes_pct": 2.66,
-                 "votes_with_party_pct": 85.56,
-                 "votes_against_party_pct": 14.44
+                 "votes_with_party_pct": 85.59,
+                 "votes_against_party_pct": 14.41
                },
                            {
                  "id": "M000639",
@@ -2922,10 +2922,10 @@
                  "ideal_point": null,
                  "seniority": "16",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 30,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:12 -0400",
+                 "last_updated": "2022-10-13 12:46:00 -0400",
                  "ocd_id": "ocd-division/country:us/state:nj",
                  "office": "528 Hart Senate Office Building",
                  "phone": "202-224-4744",
@@ -2934,7 +2934,7 @@
                  "senate_class": "1",
                  "state_rank": "senior",
                  "lis_id": "S306"
-                 ,"missed_votes_pct": 3.47,
+                 ,"missed_votes_pct": 3.46,
                  "votes_with_party_pct": 99.04,
                  "votes_against_party_pct": 0.96
                },
@@ -2970,10 +2970,10 @@
                  "ideal_point": null,
                  "seniority": "13",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 37,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:19:45 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:or",
                  "office": "313 Hart Senate Office Building",
                  "phone": "202-224-3753",
@@ -2982,7 +2982,7 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S322"
-                 ,"missed_votes_pct": 4.28,
+                 ,"missed_votes_pct": 4.27,
                  "votes_with_party_pct": 98.31,
                  "votes_against_party_pct": 1.69
                },
@@ -3018,10 +3018,10 @@
                  "ideal_point": null,
                  "seniority": "11",
                  "next_election": "2022",
-                 "total_votes": 864,
-                 "missed_votes": 84,
+                 "total_votes": 866,
+                 "missed_votes": 86,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:56 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:ks",
                  "office": "521 Dirksen Senate Office Building",
                  "phone": "202-224-6521",
@@ -3030,7 +3030,7 @@
                  "senate_class": "3",
                  "state_rank": "senior",
                  "lis_id": "S347"
-                 ,"missed_votes_pct": 9.72,
+                 ,"missed_votes_pct": 9.93,
                  "votes_with_party_pct": 92.18,
                  "votes_against_party_pct": 7.82
                },
@@ -3066,10 +3066,10 @@
                  "ideal_point": null,
                  "seniority": "21",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 59,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:53 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:ak",
                  "office": "522 Hart Senate Office Building",
                  "phone": "202-224-6665",
@@ -3078,9 +3078,9 @@
                  "senate_class": "3",
                  "state_rank": "senior",
                  "lis_id": "S288"
-                 ,"missed_votes_pct": 6.83,
-                 "votes_with_party_pct": 57.35,
-                 "votes_against_party_pct": 42.65
+                 ,"missed_votes_pct": 6.81,
+                 "votes_with_party_pct": 57.33,
+                 "votes_against_party_pct": 42.67
                },
                            {
                  "id": "M001169",
@@ -3114,10 +3114,10 @@
                  "ideal_point": null,
                  "seniority": "9",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 9,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:22 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:ct",
                  "office": "136 Hart Senate Office Building",
                  "phone": "202-224-4041",
@@ -3162,10 +3162,10 @@
                  "ideal_point": null,
                  "seniority": "29",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 25,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:59:00 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:wa",
                  "office": "154 Russell Senate Office Building",
                  "phone": "202-224-2621",
@@ -3210,10 +3210,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2026",
-                 "total_votes": 862,
+                 "total_votes": 864,
                  "missed_votes": 39,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:38 -0400",
+                 "last_updated": "2022-10-13 12:46:02 -0400",
                  "ocd_id": "ocd-division/country:us/state:ga",
                  "office": null,
                  "phone": null,
@@ -3222,7 +3222,7 @@
                  "senate_class": "2",
                  "state_rank": "",
                  "lis_id": "S414"
-                 ,"missed_votes_pct": 4.52,
+                 ,"missed_votes_pct": 4.51,
                  "votes_with_party_pct": 98.42,
                  "votes_against_party_pct": 1.58
                },
@@ -3258,10 +3258,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2022",
-                 "total_votes": 862,
+                 "total_votes": 864,
                  "missed_votes": 11,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:59 -0400",
+                 "last_updated": "2022-10-12 09:45:24 -0400",
                  "ocd_id": "ocd-division/country:us/state:ca",
                  "office": null,
                  "phone": null,
@@ -3270,7 +3270,7 @@
                  "senate_class": "3",
                  "state_rank": "",
                  "lis_id": "S413"
-                 ,"missed_votes_pct": 1.28,
+                 ,"missed_votes_pct": 1.27,
                  "votes_with_party_pct": 99.41,
                  "votes_against_party_pct": 0.59
                },
@@ -3306,10 +3306,10 @@
                  "ideal_point": null,
                  "seniority": "11",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 61,
                  "total_present": 1,
-                 "last_updated": "2022-09-15 04:20:22 -0400",
+                 "last_updated": "2022-09-30 12:46:13 -0400",
                  "ocd_id": "ocd-division/country:us/state:ky",
                  "office": "167 Russell Senate Office Building",
                  "phone": "202-224-4343",
@@ -3318,9 +3318,9 @@
                  "senate_class": "3",
                  "state_rank": "junior",
                  "lis_id": "S348"
-                 ,"missed_votes_pct": 7.06,
-                 "votes_with_party_pct": 86.53,
-                 "votes_against_party_pct": 13.47
+                 ,"missed_votes_pct": 7.04,
+                 "votes_with_party_pct": 86.44,
+                 "votes_against_party_pct": 13.56
                },
                            {
                  "id": "P000595",
@@ -3354,10 +3354,10 @@
                  "ideal_point": null,
                  "seniority": "7",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 17,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:59 -0400",
+                 "last_updated": "2022-10-13 12:46:01 -0400",
                  "ocd_id": "ocd-division/country:us/state:mi",
                  "office": "724 Hart Senate Office Building",
                  "phone": "202-224-6221",
@@ -3366,7 +3366,7 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S380"
-                 ,"missed_votes_pct": 1.97,
+                 ,"missed_votes_pct": 1.96,
                  "votes_with_party_pct": 99.41,
                  "votes_against_party_pct": 0.59
                },
@@ -3402,10 +3402,10 @@
                  "ideal_point": null,
                  "seniority": "11",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 35,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:17 -0400",
+                 "last_updated": "2022-10-13 12:46:01 -0400",
                  "ocd_id": "ocd-division/country:us/state:oh",
                  "office": "448 Russell Senate Office Building",
                  "phone": "202-224-3353",
@@ -3414,9 +3414,9 @@
                  "senate_class": "3",
                  "state_rank": "junior",
                  "lis_id": "S349"
-                 ,"missed_votes_pct": 4.05,
-                 "votes_with_party_pct": 76.14,
-                 "votes_against_party_pct": 23.86
+                 ,"missed_votes_pct": 4.04,
+                 "votes_with_party_pct": 76.20,
+                 "votes_against_party_pct": 23.80
                },
                            {
                  "id": "R000122",
@@ -3450,10 +3450,10 @@
                  "ideal_point": null,
                  "seniority": "25",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 3,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:59 -0400",
+                 "last_updated": "2022-10-13 12:46:00 -0400",
                  "ocd_id": "ocd-division/country:us/state:ri",
                  "office": "728 Hart Senate Office Building",
                  "phone": "202-224-4642",
@@ -3498,10 +3498,10 @@
                  "ideal_point": null,
                  "seniority": "13",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 56,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:56 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:id",
                  "office": "483 Russell Senate Office Building",
                  "phone": "202-224-2752",
@@ -3510,9 +3510,9 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S323"
-                 ,"missed_votes_pct": 6.48,
-                 "votes_with_party_pct": 91.84,
-                 "votes_against_party_pct": 8.16
+                 ,"missed_votes_pct": 6.47,
+                 "votes_with_party_pct": 91.86,
+                 "votes_against_party_pct": 8.14
                },
                            {
                  "id": "R000615",
@@ -3546,10 +3546,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 46,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:33 -0400",
+                 "last_updated": "2022-10-01 01:45:45 -0400",
                  "ocd_id": "ocd-division/country:us/state:ut",
                  "office": "124 Russell Senate Office Building",
                  "phone": "202-224-5251",
@@ -3558,9 +3558,9 @@
                  "senate_class": "1",
                  "state_rank": "junior",
                  "lis_id": "S401"
-                 ,"missed_votes_pct": 5.32,
-                 "votes_with_party_pct": 77.53,
-                 "votes_against_party_pct": 22.47
+                 ,"missed_votes_pct": 5.31,
+                 "votes_with_party_pct": 77.58,
+                 "votes_against_party_pct": 22.42
                },
                            {
                  "id": "R000608",
@@ -3594,10 +3594,10 @@
                  "ideal_point": null,
                  "seniority": "3",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 22,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:29 -0400",
+                 "last_updated": "2022-10-01 01:45:45 -0400",
                  "ocd_id": "ocd-division/country:us/state:nv",
                  "office": "144 Russell Senate Office Building",
                  "phone": "202-224-6244",
@@ -3606,9 +3606,9 @@
                  "senate_class": "1",
                  "state_rank": "junior",
                  "lis_id": "S402"
-                 ,"missed_votes_pct": 2.55,
-                 "votes_with_party_pct": 98.57,
-                 "votes_against_party_pct": 1.43
+                 ,"missed_votes_pct": 2.54,
+                 "votes_with_party_pct": 98.58,
+                 "votes_against_party_pct": 1.42
                },
                            {
                  "id": "R000605",
@@ -3642,10 +3642,10 @@
                  "ideal_point": null,
                  "seniority": "7",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 206,
                  "total_present": 1,
-                 "last_updated": "2022-09-14 17:58:53 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:sd",
                  "office": "502 Hart Senate Office Building",
                  "phone": "202-224-5842",
@@ -3654,9 +3654,9 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S381"
-                 ,"missed_votes_pct": 23.84,
-                 "votes_with_party_pct": 80.53,
-                 "votes_against_party_pct": 19.47
+                 ,"missed_votes_pct": 23.79,
+                 "votes_with_party_pct": 80.59,
+                 "votes_against_party_pct": 19.41
                },
                            {
                  "id": "R000595",
@@ -3690,10 +3690,10 @@
                  "ideal_point": null,
                  "seniority": "11",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 43,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:22 -0400",
+                 "last_updated": "2022-10-13 12:46:01 -0400",
                  "ocd_id": "ocd-division/country:us/state:fl",
                  "office": "284 Russell Senate Office Building",
                  "phone": "202-224-3041",
@@ -3702,9 +3702,9 @@
                  "senate_class": "3",
                  "state_rank": "senior",
                  "lis_id": "S350"
-                 ,"missed_votes_pct": 4.98,
-                 "votes_with_party_pct": 92.03,
-                 "votes_against_party_pct": 7.97
+                 ,"missed_votes_pct": 4.97,
+                 "votes_with_party_pct": 91.92,
+                 "votes_against_party_pct": 8.08
                },
                            {
                  "id": "S000033",
@@ -3738,10 +3738,10 @@
                  "ideal_point": null,
                  "seniority": "15",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 82,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:57 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:vt",
                  "office": "332 Dirksen Senate Office Building",
                  "phone": "202-224-5141",
@@ -3750,9 +3750,9 @@
                  "senate_class": "1",
                  "state_rank": "junior",
                  "lis_id": "S313"
-                 ,"missed_votes_pct": 9.49,
-                 "votes_with_party_pct": 94.24,
-                 "votes_against_party_pct": 5.76
+                 ,"missed_votes_pct": 9.47,
+                 "votes_with_party_pct": 94.25,
+                 "votes_against_party_pct": 5.75
                },
                            {
                  "id": "S001197",
@@ -3782,14 +3782,14 @@
                  "contact_form": "http://www.sasse.senate.gov/public/index.cfm/email-ben",
                  "in_office": true,
                  "cook_pvi": null,
-                 "dw_nominate": 0.673,
+                 "dw_nominate": 0.672,
                  "ideal_point": null,
                  "seniority": "7",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 35,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:55 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:ne",
                  "office": "107 Russell Senate Office Building",
                  "phone": "202-224-4224",
@@ -3798,9 +3798,9 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S382"
-                 ,"missed_votes_pct": 4.05,
-                 "votes_with_party_pct": 92.83,
-                 "votes_against_party_pct": 7.17
+                 ,"missed_votes_pct": 4.04,
+                 "votes_with_party_pct": 92.85,
+                 "votes_against_party_pct": 7.15
                },
                            {
                  "id": "S001194",
@@ -3834,10 +3834,10 @@
                  "ideal_point": null,
                  "seniority": "9",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 12,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:19 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:hi",
                  "office": "722 Hart Senate Office Building",
                  "phone": "202-224-3934",
@@ -3847,8 +3847,8 @@
                  "state_rank": "senior",
                  "lis_id": "S353"
                  ,"missed_votes_pct": 1.39,
-                 "votes_with_party_pct": 99.29,
-                 "votes_against_party_pct": 0.71
+                 "votes_with_party_pct": 99.30,
+                 "votes_against_party_pct": 0.70
                },
                            {
                  "id": "S000148",
@@ -3882,10 +3882,10 @@
                  "ideal_point": null,
                  "seniority": "23",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 14,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:57 -0400",
+                 "last_updated": "2022-10-13 12:46:00 -0400",
                  "ocd_id": "ocd-division/country:us/state:ny",
                  "office": "322 Hart Senate Office Building",
                  "phone": "202-224-6542",
@@ -3930,10 +3930,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 17,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:33 -0400",
+                 "last_updated": "2022-10-13 12:46:01 -0400",
                  "ocd_id": "ocd-division/country:us/state:fl",
                  "office": "716 Hart Senate Office Building",
                  "phone": "202-224-5274",
@@ -3942,9 +3942,9 @@
                  "senate_class": "1",
                  "state_rank": "junior",
                  "lis_id": "S404"
-                 ,"missed_votes_pct": 1.97,
-                 "votes_with_party_pct": 90.80,
-                 "votes_against_party_pct": 9.20
+                 ,"missed_votes_pct": 1.96,
+                 "votes_with_party_pct": 90.70,
+                 "votes_against_party_pct": 9.30
                },
                            {
                  "id": "S001184",
@@ -3978,10 +3978,10 @@
                  "ideal_point": null,
                  "seniority": "9",
                  "next_election": "2022",
-                 "total_votes": 864,
-                 "missed_votes": 16,
+                 "total_votes": 866,
+                 "missed_votes": 17,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:55 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:sc",
                  "office": "104 Hart Senate Office Building",
                  "phone": "202-224-6121",
@@ -3990,9 +3990,9 @@
                  "senate_class": "3",
                  "state_rank": "junior",
                  "lis_id": "S365"
-                 ,"missed_votes_pct": 1.85,
-                 "votes_with_party_pct": 92.26,
-                 "votes_against_party_pct": 7.74
+                 ,"missed_votes_pct": 1.96,
+                 "votes_with_party_pct": 92.27,
+                 "votes_against_party_pct": 7.73
                },
                            {
                  "id": "S001181",
@@ -4026,10 +4026,10 @@
                  "ideal_point": null,
                  "seniority": "13",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 43,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:19:45 -0400",
+                 "last_updated": "2022-10-13 12:46:01 -0400",
                  "ocd_id": "ocd-division/country:us/state:nh",
                  "office": "506 Hart Senate Office Building",
                  "phone": "202-224-2841",
@@ -4038,7 +4038,7 @@
                  "senate_class": "2",
                  "state_rank": "senior",
                  "lis_id": "S324"
-                 ,"missed_votes_pct": 4.98,
+                 ,"missed_votes_pct": 4.97,
                  "votes_with_party_pct": 99.39,
                  "votes_against_party_pct": 0.61
                },
@@ -4074,10 +4074,10 @@
                  "ideal_point": null,
                  "seniority": "35",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 68,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:55 -0400",
+                 "last_updated": "2022-10-13 12:46:00 -0400",
                  "ocd_id": "ocd-division/country:us/state:al",
                  "office": "304 Russell Senate Office Building",
                  "phone": "202-224-5744",
@@ -4086,9 +4086,9 @@
                  "senate_class": "3",
                  "state_rank": "senior",
                  "lis_id": "S184"
-                 ,"missed_votes_pct": 7.87,
-                 "votes_with_party_pct": 91.28,
-                 "votes_against_party_pct": 8.72
+                 ,"missed_votes_pct": 7.85,
+                 "votes_with_party_pct": 91.30,
+                 "votes_against_party_pct": 8.70
                },
                            {
                  "id": "S001191",
@@ -4118,14 +4118,14 @@
                  "contact_form": "https://www.sinema.senate.gov/contact-kyrsten",
                  "in_office": true,
                  "cook_pvi": null,
-                 "dw_nominate": -0.104,
+                 "dw_nominate": -0.105,
                  "ideal_point": null,
                  "seniority": "3",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 36,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:57 -0400",
+                 "last_updated": "2022-10-01 01:45:45 -0400",
                  "ocd_id": "ocd-division/country:us/state:az",
                  "office": "317 Hart Senate Office Building",
                  "phone": "202-224-4521",
@@ -4134,7 +4134,7 @@
                  "senate_class": "1",
                  "state_rank": "senior",
                  "lis_id": "S403"
-                 ,"missed_votes_pct": 4.17,
+                 ,"missed_votes_pct": 4.16,
                  "votes_with_party_pct": 96.98,
                  "votes_against_party_pct": 3.02
                },
@@ -4170,10 +4170,10 @@
                  "ideal_point": null,
                  "seniority": "4",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 10,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:29 -0400",
+                 "last_updated": "2022-10-12 09:45:24 -0400",
                  "ocd_id": "ocd-division/country:us/state:mn",
                  "office": "720 Hart Senate Office Building",
                  "phone": "202-224-5641",
@@ -4182,7 +4182,7 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S394"
-                 ,"missed_votes_pct": 1.16,
+                 ,"missed_votes_pct": 1.15,
                  "votes_with_party_pct": 99.18,
                  "votes_against_party_pct": 0.82
                },
@@ -4218,10 +4218,10 @@
                  "ideal_point": null,
                  "seniority": "21",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 8,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:14 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:mi",
                  "office": "731 Hart Senate Office Building",
                  "phone": "202-224-4822",
@@ -4230,7 +4230,7 @@
                  "senate_class": "1",
                  "state_rank": "senior",
                  "lis_id": "S284"
-                 ,"missed_votes_pct": 0.93,
+                 ,"missed_votes_pct": 0.92,
                  "votes_with_party_pct": 99.53,
                  "votes_against_party_pct": 0.47
                },
@@ -4266,10 +4266,10 @@
                  "ideal_point": null,
                  "seniority": "7",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 51,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:54 -0400",
+                 "last_updated": "2022-10-12 09:45:17 -0400",
                  "ocd_id": "ocd-division/country:us/state:ak",
                  "office": "302 Hart Senate Office Building",
                  "phone": "202-224-3004",
@@ -4278,9 +4278,9 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S383"
-                 ,"missed_votes_pct": 5.90,
-                 "votes_with_party_pct": 87.93,
-                 "votes_against_party_pct": 12.07
+                 ,"missed_votes_pct": 5.89,
+                 "votes_with_party_pct": 87.96,
+                 "votes_against_party_pct": 12.04
                },
                            {
                  "id": "T000464",
@@ -4314,10 +4314,10 @@
                  "ideal_point": null,
                  "seniority": "15",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 2,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:15 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:mt",
                  "office": "311 Hart Senate Office Building",
                  "phone": "202-224-2644",
@@ -4362,10 +4362,10 @@
                  "ideal_point": null,
                  "seniority": "17",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 8,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:19:43 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:sd",
                  "office": "511 Dirksen Senate Office Building",
                  "phone": "202-224-2321",
@@ -4374,9 +4374,9 @@
                  "senate_class": "3",
                  "state_rank": "senior",
                  "lis_id": "S303"
-                 ,"missed_votes_pct": 0.93,
-                 "votes_with_party_pct": 95.61,
-                 "votes_against_party_pct": 4.39
+                 ,"missed_votes_pct": 0.92,
+                 "votes_with_party_pct": 95.62,
+                 "votes_against_party_pct": 4.38
                },
                            {
                  "id": "T000476",
@@ -4410,10 +4410,10 @@
                  "ideal_point": null,
                  "seniority": "7",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 50,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:25 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:nc",
                  "office": "113 Dirksen Senate Office Building",
                  "phone": "202-224-6342",
@@ -4422,9 +4422,9 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S384"
-                 ,"missed_votes_pct": 5.79,
-                 "votes_with_party_pct": 80.23,
-                 "votes_against_party_pct": 19.77
+                 ,"missed_votes_pct": 5.77,
+                 "votes_with_party_pct": 80.28,
+                 "votes_against_party_pct": 19.72
                },
                            {
                  "id": "T000461",
@@ -4438,7 +4438,7 @@
                  "date_of_birth": "1961-11-17",
                  "gender": "M",
                  "party": "R",
-                 "leadership_role": null,
+                 "leadership_role": "",
                  "twitter_account": "SenToomey",
                  "facebook_account": "senatortoomey",
                  "youtube_account": "sentoomey",
@@ -4458,10 +4458,10 @@
                  "ideal_point": null,
                  "seniority": "11",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 96,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:55 -0400",
+                 "last_updated": "2022-10-01 21:23:09 -0400",
                  "ocd_id": "ocd-division/country:us/state:pa",
                  "office": "248 Russell Senate Office Building",
                  "phone": "202-224-4254",
@@ -4470,9 +4470,9 @@
                  "senate_class": "3",
                  "state_rank": "junior",
                  "lis_id": "S351"
-                 ,"missed_votes_pct": 11.11,
-                 "votes_with_party_pct": 88.52,
-                 "votes_against_party_pct": 11.48
+                 ,"missed_votes_pct": 11.09,
+                 "votes_with_party_pct": 88.55,
+                 "votes_against_party_pct": 11.45
                },
                            {
                  "id": "T000278",
@@ -4506,10 +4506,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 19,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:54 -0400",
+                 "last_updated": "2022-10-01 01:45:45 -0400",
                  "ocd_id": "ocd-division/country:us/state:al",
                  "office": "B40a Dirksen Senate Office Building",
                  "phone": "202-224-4124",
@@ -4518,9 +4518,9 @@
                  "senate_class": "2",
                  "state_rank": "junior",
                  "lis_id": "S412"
-                 ,"missed_votes_pct": 2.20,
-                 "votes_with_party_pct": 89.86,
-                 "votes_against_party_pct": 10.14
+                 ,"missed_votes_pct": 2.19,
+                 "votes_with_party_pct": 89.77,
+                 "votes_against_party_pct": 10.23
                },
                            {
                  "id": "V000128",
@@ -4554,10 +4554,10 @@
                  "ideal_point": null,
                  "seniority": "5",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 48,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:28 -0400",
+                 "last_updated": "2022-10-13 12:46:01 -0400",
                  "ocd_id": "ocd-division/country:us/state:md",
                  "office": "110 Hart Senate Office Building",
                  "phone": "202-224-4654",
@@ -4566,9 +4566,9 @@
                  "senate_class": "3",
                  "state_rank": "junior",
                  "lis_id": "S390"
-                 ,"missed_votes_pct": 5.56,
-                 "votes_with_party_pct": 99.75,
-                 "votes_against_party_pct": 0.25
+                 ,"missed_votes_pct": 5.54,
+                 "votes_with_party_pct": 99.76,
+                 "votes_against_party_pct": 0.24
                },
                            {
                  "id": "W000805",
@@ -4602,10 +4602,10 @@
                  "ideal_point": null,
                  "seniority": "13",
                  "next_election": "2026",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 11,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:59:00 -0400",
+                 "last_updated": "2022-10-13 12:46:01 -0400",
                  "ocd_id": "ocd-division/country:us/state:va",
                  "office": "703 Hart Senate Office Building",
                  "phone": "202-224-2023",
@@ -4650,10 +4650,10 @@
                  "ideal_point": null,
                  "seniority": "1",
                  "next_election": "2022",
-                 "total_votes": 862,
+                 "total_votes": 864,
                  "missed_votes": 18,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:58 -0400",
+                 "last_updated": "2022-10-12 09:45:24 -0400",
                  "ocd_id": "ocd-division/country:us/state:ga",
                  "office": null,
                  "phone": null,
@@ -4662,7 +4662,7 @@
                  "senate_class": "3",
                  "state_rank": "",
                  "lis_id": "S415"
-                 ,"missed_votes_pct": 2.09,
+                 ,"missed_votes_pct": 2.08,
                  "votes_with_party_pct": 98.58,
                  "votes_against_party_pct": 1.42
                },
@@ -4698,10 +4698,10 @@
                  "ideal_point": null,
                  "seniority": "9",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 6,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:22 -0400",
+                 "last_updated": "2022-10-12 09:45:23 -0400",
                  "ocd_id": "ocd-division/country:us/state:ma",
                  "office": "309 Hart Senate Office Building",
                  "phone": "202-224-4543",
@@ -4711,8 +4711,8 @@
                  "state_rank": "senior",
                  "lis_id": "S366"
                  ,"missed_votes_pct": 0.69,
-                 "votes_with_party_pct": 97.78,
-                 "votes_against_party_pct": 2.22
+                 "votes_with_party_pct": 97.79,
+                 "votes_against_party_pct": 2.21
                },
                            {
                  "id": "W000802",
@@ -4746,10 +4746,10 @@
                  "ideal_point": null,
                  "seniority": "15",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 12,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:20:15 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:ri",
                  "office": "530 Hart Senate Office Building",
                  "phone": "202-224-2921",
@@ -4759,8 +4759,8 @@
                  "state_rank": "junior",
                  "lis_id": "S316"
                  ,"missed_votes_pct": 1.39,
-                 "votes_with_party_pct": 99.29,
-                 "votes_against_party_pct": 0.71
+                 "votes_with_party_pct": 99.30,
+                 "votes_against_party_pct": 0.70
                },
                            {
                  "id": "W000437",
@@ -4794,10 +4794,10 @@
                  "ideal_point": null,
                  "seniority": "15",
                  "next_election": "2024",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 12,
                  "total_present": 0,
-                 "last_updated": "2022-09-15 04:19:44 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:ms",
                  "office": "555 Dirksen Senate Office Building",
                  "phone": "202-224-6253",
@@ -4807,8 +4807,8 @@
                  "state_rank": "senior",
                  "lis_id": "S318"
                  ,"missed_votes_pct": 1.39,
-                 "votes_with_party_pct": 89.71,
-                 "votes_against_party_pct": 10.29
+                 "votes_with_party_pct": 89.73,
+                 "votes_against_party_pct": 10.27
                },
                            {
                  "id": "W000779",
@@ -4842,10 +4842,10 @@
                  "ideal_point": null,
                  "seniority": "26",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 8,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:58 -0400",
+                 "last_updated": "2022-10-01 01:45:44 -0400",
                  "ocd_id": "ocd-division/country:us/state:or",
                  "office": "221 Dirksen Senate Office Building",
                  "phone": "202-224-5244",
@@ -4854,9 +4854,9 @@
                  "senate_class": "3",
                  "state_rank": "senior",
                  "lis_id": "S247"
-                 ,"missed_votes_pct": 0.93,
-                 "votes_with_party_pct": 99.06,
-                 "votes_against_party_pct": 0.94
+                 ,"missed_votes_pct": 0.92,
+                 "votes_with_party_pct": 99.07,
+                 "votes_against_party_pct": 0.93
                },
                            {
                  "id": "Y000064",
@@ -4890,10 +4890,10 @@
                  "ideal_point": null,
                  "seniority": "5",
                  "next_election": "2022",
-                 "total_votes": 864,
+                 "total_votes": 866,
                  "missed_votes": 23,
                  "total_present": 0,
-                 "last_updated": "2022-09-14 17:58:53 -0400",
+                 "last_updated": "2022-10-12 09:45:24 -0400",
                  "ocd_id": "ocd-division/country:us/state:in",
                  "office": "185 Dirksen Senate Office Building",
                  "phone": "202-224-5623",
@@ -4903,8 +4903,8 @@
                  "state_rank": "senior",
                  "lis_id": "S391"
                  ,"missed_votes_pct": 2.66,
-                 "votes_with_party_pct": 87.24,
-                 "votes_against_party_pct": 12.76
+                 "votes_with_party_pct": 87.27,
+                 "votes_against_party_pct": 12.73
                }
              ]
       }
