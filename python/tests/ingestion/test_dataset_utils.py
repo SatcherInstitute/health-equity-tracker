@@ -261,7 +261,7 @@ def test_ensure_leading_zeros():
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-def testGenerateInequitableShareCol():
+def testGeneratePctRelInequityCol():
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_fake_data_without_pct_relative_inequity_col)).reset_index(drop=True)
     df = dataset_utils.generate_pct_relative_inequity_column(df, 'pct_share', 'pct_pop', 'pct_relative_inequity')
