@@ -115,7 +115,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               row[currentBreakdown] === UNKNOWN
           );
 
-        const unknownEthnicities: Row[] = mapQueryResponse
+        const unknownEthnicities = mapQueryResponse
           .getValidRowsForField(currentBreakdown)
           .filter((row: Row) => row[currentBreakdown] === UNKNOWN_ETHNICITY);
 
@@ -225,7 +225,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}
-                  legendTitle={metricConfig?.unknownsVegaLabel || ""}
+                  legendTitle={chartTitleLines}
                   data={unknowns}
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
@@ -244,9 +244,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                       return (
                         <div key={code} className={styles.TerritoryCircle}>
                           <ChoroplethMap
+                            titles={{ chartTitle }}
                             isUnknownsMap={true}
                             signalListeners={signalListeners}
                             metric={metricConfig}
+                            legendTitle={metricConfig.fullCardTitleName}
                             data={unknowns}
                             showCounties={props.fips.isUsa() ? false : true}
                             fips={fips}

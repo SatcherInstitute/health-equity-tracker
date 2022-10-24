@@ -118,6 +118,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     key={breakdownValue}
                     signalListeners={{ click: (...args: any) => {} }}
                     metric={props.metricConfig}
+                    legendTitle={props.metricConfig.fullCardTitleName}
                     legendData={props.data}
                     data={dataForValue}
                     hideLegend={true}
@@ -144,6 +145,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                         <ChoroplethMap
                           signalListeners={{ click: (...args: any) => {} }}
                           metric={props.metricConfig}
+                          legendTitle={props.metricConfig.fullCardTitleName}
                           legendData={props.data}
                           data={dataForValue}
                           hideLegend={true}

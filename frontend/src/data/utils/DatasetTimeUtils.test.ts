@@ -1,38 +1,11 @@
-import { TrendsData } from "../../charts/trendsChart/types";
-import { METRIC_CONFIG } from "../config/MetricConfig";
 import {
   generateConsecutivePeriods,
   getPrettyDate,
-  interpolateTimePeriods,
-  getNestedData,
-  getNestedUnknowns,
-  makeA11yTableData,
-  getMinMaxGroups,
+  calculateShareDisparityPct,
+  // interpolateTimePeriods,
 } from "./DatasetTimeUtils";
-import { Row } from "./DatasetTypes";
-import { splitIntoKnownsAndUnknowns } from "./datasetutils";
 
-describe("Tests for time_period functions", () => {
-  test("test interpolateTimePeriods()", () => {
-    const dataMissingMonths = [
-      { time_period: "2020-01", some_metric: 1 },
-      { time_period: "2020-02", some_metric: 2 },
-      // one missing month of data
-      { time_period: "2020-04", some_metric: 4 },
-      { time_period: "2020-05", some_metric: 5 },
-    ];
-
-    const dataAllMonths = [
-      { time_period: "2020-01", some_metric: 1 },
-      { time_period: "2020-02", some_metric: 2 },
-      { time_period: "2020-03", some_metric: undefined },
-      { time_period: "2020-04", some_metric: 4 },
-      { time_period: "2020-05", some_metric: 5 },
-    ];
-
-    expect(interpolateTimePeriods(dataMissingMonths)).toEqual(dataAllMonths);
-  });
-
+describe("DatasetTypes", () => {
   test("Testing generateConsecutivePeriods()", async () => {
     const testDataMonthly = [
       { time_period: "2000-01", anything_per_100k: 1234 },
@@ -58,147 +31,26 @@ describe("Tests for time_period functions", () => {
   });
 });
 
-const twoYearsOfNormalData = [
-  {
-    sex: "Male",
-    jail_per_100k: 3000,
-    jail_pct_share: 30.0,
-    time_period: "2020",
-  },
-  {
-    sex: "Male",
-    jail_per_100k: 2000,
-    jail_pct_share: 30.0,
-    time_period: "2021",
-  },
-  {
-    sex: "Female",
-    jail_per_100k: 300,
-    jail_pct_share: 30.0,
-    time_period: "2020",
-  },
-  {
-    sex: "Female",
-    jail_per_100k: 200,
-    jail_pct_share: 30.0,
-    time_period: "2021",
-  },
-  {
-    sex: "Unknown",
-    jail_per_100k: null,
-    jail_pct_share: 40.0,
-    time_period: "2020",
-  },
-  {
-    sex: "Unknown",
-    jail_per_100k: null,
-    jail_pct_share: 40.0,
-    time_period: "2021",
-  },
-];
-
-const twoYearsOfNestedData = [
-  [
-    "Male",
-    [
-      ["2020", 3000],
-      ["2021", 2000],
-    ],
-  ],
-  [
-    "Female",
-    [
-      ["2020", 300],
-      ["2021", 200],
-    ],
-  ],
-];
-
-describe("Tests for nesting functions", () => {
-  test("test getNestedData()", () => {
-    expect(
-      getNestedData(
-        twoYearsOfNormalData,
-        ["Male", "Female"],
-        "sex",
-        "jail_per_100k"
-      )
-    ).toEqual(twoYearsOfNestedData);
-  });
-
-  test("test getNestedUnknowns()", () => {
-    const twoYearsOfUnknownsFromNormalData = twoYearsOfNormalData.filter(
-      (row) => row.sex === "Unknown"
-    );
-    const expectedNestedUnknowns = [
-      ["2020", 40],
-      ["2021", 40],
-    ];
-
-    expect(
-      getNestedUnknowns(twoYearsOfUnknownsFromNormalData, "jail_pct_share")
-    ).toEqual(expectedNestedUnknowns);
-  });
-});
-
-describe("Tests for A11y Table Data functions", () => {
-  test("test makeA11yTableData()", () => {
-    const [known, unknown] = splitIntoKnownsAndUnknowns(
-      twoYearsOfNormalData,
-      "sex"
-    );
-
-    const expectedA11yTableDataOnlyMale: Row[] = [
-      {
-        "% of total jail population with unknown sex": 40,
-        Male: 3000,
-        "Time period": "2020",
-      },
-      {
-        "% of total jail population with unknown sex": 40,
-        Male: 2000,
-        "Time period": "2021",
-      },
-    ];
-
-    const jail = METRIC_CONFIG.incarceration.find(
-      (datatype) => datatype.variableId === "jail"
-    );
-
-    const knownMetric = jail?.metrics.per100k;
-    const unknownMetric = jail?.metrics.pct_share;
-
-    expect(
-      makeA11yTableData(known, unknown, "sex", knownMetric!, unknownMetric!, [
-        "Male",
-      ])
-    ).toEqual(expectedA11yTableDataOnlyMale);
-  });
-});
-
-describe("Tests min max functions", () => {
-  test("test getMinMaxGroups()", () => {
-    expect(getMinMaxGroups(twoYearsOfNestedData as TrendsData)).toEqual([
-      "Female",
-      "Male",
-    ]);
-  });
-});
-
 describe("Tests getPrettyDate() function", () => {
-  test("YYYY gets passed through", () => {
-    expect(getPrettyDate("2020")).toEqual("2020");
-  });
-  test("YYYY-MM conversion", () => {
+  test("Simple conversion", () => {
     expect(getPrettyDate("2020-01")).toEqual("January 2020");
   });
-  test("don't convert, just pass through malformed YY-M", () => {
-    expect(getPrettyDate("20-1")).toEqual("20-1");
+});
+
+describe("Tests calculateShareDisparityPct() function", () => {
+  test("Should be -100%", () => {
+    expect(calculateShareDisparityPct(0, 10_000)).toEqual(-100);
   });
-  test("don't convert, just pass through random string", () => {
-    expect(getPrettyDate("abc")).toEqual("abc");
+  test("Should be 0% with rounding", () => {
+    expect(calculateShareDisparityPct(10_002, 10_000)).toEqual(0);
   });
-  test("don't convert, just pass through sneaky almost matching string", () => {
-    expect(getPrettyDate("ABCD-YZ")).toEqual("ABCD-YZ");
+  test("Should be 500%", () => {
+    expect(calculateShareDisparityPct(60_000, 10_000)).toEqual(500);
+  });
+  test("Anything with 0 population share should be null", () => {
+    expect(calculateShareDisparityPct(undefined, 0)).toEqual(null);
+  });
+  test("Anything with null values should be null", () => {
+    expect(calculateShareDisparityPct(null, 10_000)).toEqual(null);
   });
 });

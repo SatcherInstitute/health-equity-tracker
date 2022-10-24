@@ -59,7 +59,7 @@ After (Time-Series / D3) Example:
 
 [
   ["male", [["2020", 3000],["2021", 2000]]],
-  ["female", [["2020", 300],["2021", 200]]]
+  ["female", [["2020", 300],["2021", 200]]1]
 ]
 
 */
@@ -118,10 +118,7 @@ export function interpolateTimePeriods(data: Row[]) {
   return interpolatedData;
 }
 
-/* 
-Accepts fetched, "known" data, along with all expected groups, the current demographic breakdown type, and a target metric, and restructures the data into the nested array format required by d3 for the time-series charts
-*/
-export function getNestedData(
+export function getNestedRates(
   data: Row[],
   demographicGroups: DemographicGroup[],
   currentBreakdown: BreakdownVar,
@@ -137,14 +134,42 @@ export function getNestedData(
       row[TIME_PERIOD],
       row[metricId] != null ? row[metricId] : null,
     ]);
+
     return [group, groupTimeSeries];
   });
+
   return nestedRates as TrendsData;
 }
 
-/* 
-Accepts fetched, prefiltered data that only contains rows with unknown pct_share data, and a target metric, and restructures the data into the nested array format required by d3 for the time-series "unknown bubbles" at the bottom of the charts
-*/
+export function getNestedUndueShares(
+  data: Row[],
+  demographicGroups: DemographicGroup[],
+  currentBreakdown: BreakdownVar,
+  conditionPctShareId: MetricId,
+  popPctShareId: MetricId
+): TrendsData {
+  if (!data.some((row) => row[TIME_PERIOD])) return [];
+
+  const nestedPctUndue = demographicGroups.map((group) => {
+    let groupRows = data.filter((row) => row[currentBreakdown] === group);
+    groupRows = interpolateTimePeriods(groupRows);
+
+    const groupTimeSeries = groupRows.map((row) => {
+      return [
+        row[TIME_PERIOD],
+        calculateShareDisparityPct(
+          row[conditionPctShareId],
+          row[popPctShareId]
+        ),
+      ];
+    });
+
+    return [group, groupTimeSeries];
+  });
+
+  return nestedPctUndue as TrendsData;
+}
+
 export function getNestedUnknowns(
   unknownsData: Row[],
   metricId: MetricId
@@ -154,9 +179,6 @@ export function getNestedUnknowns(
   return unknownsData.map((row) => [row[TIME_PERIOD], row[metricId]]);
 }
 
-/* 
-To present the data from the visual charts in a more accessible manner (including but not restricted to screen reader users) we need to once again recstructure the data so that each rows represents a time_period, and the columns can present the available demographic groups, along with the "unknown_pct_share" context we present visually in the blue bubbles
-*/
 export function makeA11yTableData(
   knownsData: Row[],
   unknownsData: Row[],
@@ -187,14 +209,22 @@ export function makeA11yTableData(
       const rowForGroupTimePeriod = knownsData.find(
         (row) => row[breakdownVar] === group && row[TIME_PERIOD] === timePeriod
       );
-      a11yRow[group] = rowForGroupTimePeriod?.[knownMetric.metricId];
+      const value = rowForGroupTimePeriod?.[knownMetric.metricId];
+
+      if (knownMetric.type !== "pct_share") a11yRow[group] = value;
+      else {
+        const popMetricId = knownMetric.populationComparisonMetric?.metricId;
+        const populationPctShare = popMetricId
+          ? rowForGroupTimePeriod?.[popMetricId]
+          : null;
+        a11yRow[group] = calculateShareDisparityPct(value, populationPctShare);
+      }
     }
 
     // along with the unknown pct_share
-    a11yRow[`${unknownMetric.shortLabel} with unknown ${breakdownVar}`] =
-      unknownsData.find((row) => row[TIME_PERIOD] === timePeriod)?.[
-        unknownMetric.metricId
-      ];
+    a11yRow[`Percent with unknown ${breakdownVar}`] = unknownsData.find(
+      (row) => row[TIME_PERIOD] === timePeriod
+    )?.[unknownMetric.metricId];
 
     return a11yRow;
   });
@@ -202,25 +232,34 @@ export function makeA11yTableData(
   return a11yData;
 }
 
-/*  
-Convert time_period style date YYYY-MM (e.g. "2020-01") to human readable Month Year (e.g. "January 2020"). Strings not matching this format are simply passed through.
-*/
-export function getPrettyDate(timePeriod: string) {
-  // if it's YYYY-MM
-  if (timePeriod.length === MONTHLY_LENGTH && timePeriod[4] === "-") {
-    const [year, monthNum] = timePeriod?.split("-") || ["", ""];
+/* calculate shareDisparity% as (observed-expected)/expected */
+export function calculateShareDisparityPct(
+  observed: number | null | undefined,
+  expected: number | null | undefined
+) {
+  // numerator and denominator can't be null or undefined; denominator also can't be 0
+  if (observed == null || expected == null || expected === 0) return null;
 
-    // skip if non-numerical input
-    if (isNaN(parseInt(year)) || isNaN(parseInt(monthNum))) return timePeriod;
+  const shareDisparityPct = (observed - expected) / expected;
+  const roundToSingleDecimal = 10;
+  const asPercent = 100;
 
-    return `${MONTHS[monthNum]} ${year}`;
-  }
-
-  return timePeriod;
+  return (
+    Math.round(shareDisparityPct * asPercent * roundToSingleDecimal) /
+    roundToSingleDecimal
+  );
 }
 
-/* Calculate an array of demographic groups who have either the highest or lowest historical averages.  */
-export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
+/*  
+Convert time_period style date YYYY-MM (e.g. "2020-01") to human readable Month Year (e.g. "January 2020")
+*/
+export function getPrettyDate(timePeriod: string) {
+  const [year, monthNum] = timePeriod?.split("-") || [undefined, undefined];
+  return `${MONTHS[monthNum]} ${year}`;
+}
+
+/* Calculate the race groups with the highest and lowest average values over time */
+export function getMinMaxGroups(data: TrendsData): string[] {
   const groupAveragesOverTime = data.map((groupData) => {
     const nonNullGroupData = groupData[1].filter(
       (dataPoint) => dataPoint[1] != null
@@ -250,11 +289,10 @@ export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
     .filter((groupItem: any) => groupItem[1] === minValue)
     .map((groupItem: any) => groupItem[0]);
 
-  // The groups are returned in a single array as we don't need to differentiate between which extreme they are to default them on ShareTrends
   const lowestAndHighestGroups = [
     ...groupsWithLowestAverage,
     ...groupsWithHighestAverage,
   ];
 
-  return lowestAndHighestGroups;
+  return lowestAndHighestGroups as string[];
 }
