@@ -10,6 +10,12 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion import dataset_utils
 
+from ingestion.constants import (
+    NATIONAL_LEVEL,
+    STATE_LEVEL,
+    UNKNOWN,
+)
+
 REFERENCE_POPULATION = std_col.Race.ALL.value
 BASE_POPULATION = std_col.Race.WHITE_NH.value
 
@@ -34,7 +40,7 @@ class AgeAdjustCDCRestricted(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         table_names_to_dfs = {}
 
-        for geo in ['state', 'national']:
+        for geo in [STATE_LEVEL, NATIONAL_LEVEL]:
             with_race_age = 'by_race_age_state'
             with_race_age_df = gcs_to_bq_util.load_df_from_bigquery(
                 'cdc_restricted_data', with_race_age, dtype={'state_fips': str})
@@ -51,7 +57,7 @@ class AgeAdjustCDCRestricted(DataSource):
 
             pop_df_death, pop_df_hosp = pop_df, pop_df
 
-            if geo == 'national':
+            if geo == NATIONAL_LEVEL:
                 with_race_age_df_death = with_race_age_df.loc[~with_race_age_df[std_col.COVID_DEATH_Y].isna(
                 )]
                 states_to_include_death = set(
@@ -74,7 +80,7 @@ class AgeAdjustCDCRestricted(DataSource):
 
             # Clean with race age df
             with_race_age_df = with_race_age_df.loc[
-                with_race_age_df[std_col.AGE_COL] != "Unknown"
+                with_race_age_df[std_col.AGE_COL] != UNKNOWN
             ].reset_index(drop=True)
 
             with_race_age_df = with_race_age_df.loc[
