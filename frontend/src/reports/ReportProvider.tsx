@@ -250,10 +250,11 @@ function ReportProvider(props: ReportProviderProps) {
             </li>
           </ul>
 
-          <h4>Missing Vaccination Data</h4>
+          <h4>Missing COVID-19 Vaccination Demographics</h4>
           <p>
-            There is no county level vaccine demographic dataset, so we show
-            county totals according to the CDC to provide context.
+            The CDC's county-level vaccine dataset only provides vaccination
+            figures for the <b>All</b> group, but does not include any
+            demographic disaggregation.
           </p>
 
           <h4>Missing Population Data</h4>
