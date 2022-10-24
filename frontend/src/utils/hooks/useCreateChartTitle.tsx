@@ -15,11 +15,20 @@ const theme = createTheme({
 
 export function useCreateChartTitle(
   metricConfig: MetricConfig,
-  location: string
+  location: string,
+  breakdown?: string
 ) {
   const isComparing = window.location.href.includes("compare");
 
-  const titleTextArray = [metricConfig.chartTitle || "", location];
+  const chartTitle = `${
+    metricConfig.chartTitle ? metricConfig.chartTitle : ""
+  } ${breakdown ? `${breakdown} in` : ""}`;
+
+  const mobileChartTitle = metricConfig.mobileChartTitle || [
+    metricConfig.chartTitle || "",
+  ];
+
+  const titleTextArray = [chartTitle, location];
 
   const isExtraSmall = useMediaQuery(theme.breakpoints.down("xs"));
   const isSmall = useMediaQuery(theme.breakpoints.only("sm"));
@@ -27,7 +36,7 @@ export function useCreateChartTitle(
   const isLarge = useMediaQuery(theme.breakpoints.only("lg"));
 
   if (isExtraSmall || (isComparing && isNotLarge)) {
-    return [...(metricConfig.mobileChartTitle ?? []), location];
+    return [...mobileChartTitle, breakdown || "", location];
   }
   if (isSmall || (isComparing && isLarge)) {
     return titleTextArray;
