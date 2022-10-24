@@ -1458,11 +1458,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "women_us_congress_pct",
           fullCardTitleName: "Percentage of US Congress members",
           trendsCardTitleName: "Rates of women in U.S. Congress over time",
-          chartTitle: "Percentage of women in US Congress members in",
-          mobileChartTitle: [
-            "Percentage of women in US",
-            "Congress members in",
-          ],
+          chartTitle: "Percentage of women US Congress members in",
+          mobileChartTitle: ["Percentage of women US", "Congress members in"],
           shortLabel: "% women in US congress",
           type: "pct_incidence",
         },
@@ -1512,9 +1509,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "women_state_leg_pct",
-          fullCardTitleName: "Percentage of state Legislators", // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER, HI/LOW DROPDOWN FOOTNOTE
-          chartTitle: "Percentage of women in state Legislators in",
-          mobileChartTitle: ["Percentage of women in state", "Legislators in"],
+          fullCardTitleName: "Percentage of state legislators", // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER, HI/LOW DROPDOWN FOOTNOTE
+          chartTitle: "Percentage of women state legislators in",
+          mobileChartTitle: ["Percentage of women in state", "legislators in"],
           trendsCardTitleName: "Rates of women in state legislatures over time",
           shortLabel: "% of state legislators identifying as women", // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
           type: "pct_incidence",
@@ -1535,7 +1532,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total women in state legislatures in",
             ],
             metricId: "cawp_population_pct",
-            fullCardTitleName: "Total population share (gll Genders)", // TABLE COLUMN HEADER
+            fullCardTitleName: "Total population share (all genders)", // TABLE COLUMN HEADER
             shortLabel: `${populationPctShortLabel} (all genders)`, // DISPARITY BAR LEGEND/AXIS
             type: "pct_share",
           },
