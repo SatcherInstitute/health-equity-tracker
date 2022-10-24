@@ -21,8 +21,8 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
-import { createTitles } from "../charts/utils";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -47,6 +47,7 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
+  const locationName = props.fips.getSentenceDisplayName();
 
   const isIncarceration = INCARCERATION_IDS.includes(
     props.variableConfig.variableId
@@ -62,18 +63,13 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   const query = new MetricQuery(metricIdsToFetch, breakdowns);
 
-  function getTitleText() {
-    return `${metricConfig.fullCardTitleName} By ${
-      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-    } In ${props.fips.getSentenceDisplayName()}`;
-  }
+  const chartTitle = useCreateChartTitle(metricConfig, locationName);
+
+  const filename = `${metricConfig.chartTitle} ${locationName}, by ${
+    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+  }`;
 
   const HASH_ID: ScrollableHashId = "rate-chart";
-
-  const { chartTitle } = createTitles({
-    variableConfig: props.variableConfig,
-    fips: props.fips,
-  });
 
   return (
     <CardWrapper
@@ -115,7 +111,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                   breakdownVar={props.breakdownVar}
                   metric={metricConfig}
                   showLegend={false}
-                  filename={getTitleText()}
+                  filename={filename}
                   usePercentSuffix={isPctType(metricConfig.type)}
                 />
               </>

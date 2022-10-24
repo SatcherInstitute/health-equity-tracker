@@ -46,10 +46,11 @@ import { MultiMapLink } from "./ui/MultiMapLink";
 import { RateInfoAlert } from "./ui/RateInfoAlert";
 import { findVerboseRating } from "./ui/SviAlert";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
-import { createTitles } from "../charts/utils";
+import { createSubtitle } from "../charts/utils";
 import { useLocation } from "react-router-dom";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 
@@ -76,6 +77,8 @@ function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050]);
 
   const metricConfig = props.variableConfig.metrics["per100k"];
+  const locationName = props.fips.getSentenceDisplayName();
+  const currentBreakdown = props.currentBreakdown;
 
   const isPrison = props.variableConfig.variableId === "prison";
   const isJail = props.variableConfig.variableId === "jail";
@@ -106,8 +109,8 @@ function MapCardWithKey(props: MapCardProps) {
       geographyBreakdown
         .copy()
         .addBreakdown(
-          props.currentBreakdown,
-          props.currentBreakdown === RACE
+          currentBreakdown,
+          currentBreakdown === RACE
             ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
             : exclude(UNKNOWN)
         )
@@ -140,12 +143,12 @@ function MapCardWithKey(props: MapCardProps) {
   let qualifierItems: string[] = [];
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
 
-  const { chartTitle, subtitle } = createTitles({
-    variableConfig: props.variableConfig,
-    fips: props.fips,
-    breakdown: props.currentBreakdown,
-    demographic: activeBreakdownFilter,
-  });
+  const chartTitle = useCreateChartTitle(metricConfig, locationName);
+  const subtitle = createSubtitle({ currentBreakdown, activeBreakdownFilter });
+
+  const filename = `${metricConfig.fullCardTitleName}${
+    activeBreakdownFilter === "All" ? "" : ` for ${activeBreakdownFilter}`
+  } in ${props.fips.getSentenceDisplayName()}`;
 
   const HASH_ID: ScrollableHashId = "rate-map";
 
@@ -348,10 +351,7 @@ function MapCardWithKey(props: MapCardProps) {
                 <CardContent>
                   <ChoroplethMap
                     signalListeners={signalListeners}
-                    titles={{
-                      chartTitle: chartTitle,
-                      subTitle: subtitle,
-                    }}
+                    titles={{ chartTitle, subtitle }}
                     metric={metricConfig}
                     legendTitle={metricConfig.shortLabel.toLowerCase()}
                     data={
@@ -370,11 +370,7 @@ function MapCardWithKey(props: MapCardProps) {
                     scaleType="quantize"
                     geoData={geoData}
                     // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
-                    filename={`${metricConfig.fullCardTitleName}${
-                      activeBreakdownFilter === "All"
-                        ? ""
-                        : ` for ${activeBreakdownFilter}`
-                    } in ${props.fips.getSentenceDisplayName()}`}
+                    filename={filename}
                   />
                   {/* generate additional VEGA canvases for territories on national map */}
                   {props.fips.isUsa() && (
@@ -385,6 +381,7 @@ function MapCardWithKey(props: MapCardProps) {
                           <div className={styles.TerritoryCircle} key={code}>
                             <ChoroplethMap
                               signalListeners={signalListeners}
+                              titles={{ chartTitle, subtitle }}
                               metric={metricConfig}
                               data={
                                 listExpanded
