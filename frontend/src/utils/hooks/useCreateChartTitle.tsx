@@ -1,6 +1,8 @@
 import { useMediaQuery, createTheme } from "@material-ui/core";
 import { MetricConfig } from "../../data/config/MetricConfig";
 
+// These are custom breakpoints used for the text wrapping of
+// titles in chart. The default breakpoints don't work well for the titles.
 const theme = createTheme({
   breakpoints: {
     values: {
