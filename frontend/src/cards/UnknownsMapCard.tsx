@@ -91,7 +91,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     breakdownString
   );
 
-  const filename = [
+  const chartTitleLines = [
     `${metricConfig.fullCardTitleName}`,
     `with unknown ${breakdownString}`,
   ];
@@ -225,7 +225,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}
-                  legendTitle={filename}
+                  legendTitle={chartTitleLines}
                   data={unknowns}
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
@@ -235,7 +235,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
                   geoData={geoData}
-                  filename={`${filename.join(" ")} in ${locationName}`}
+                  filename={`${chartTitleLines.join(" ")} in ${locationName}`}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <div className={styles.TerritoryCirclesContainer}>
