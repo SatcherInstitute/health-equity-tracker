@@ -473,7 +473,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "covid_hosp_share",
           fullCardTitleName: "Share of total COVID-19 hospitalizations",
           chartTitle: "Share of total COVID-19 hospitalizations with unknown",
-
           shortLabel: "% of COVID-19 hospitalizations",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",

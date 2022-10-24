@@ -244,11 +244,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                       return (
                         <div key={code} className={styles.TerritoryCircle}>
                           <ChoroplethMap
-                            titles={{ chartTitle }}
                             isUnknownsMap={true}
                             signalListeners={signalListeners}
                             metric={metricConfig}
-                            legendTitle={metricConfig.fullCardTitleName}
                             data={unknowns}
                             showCounties={props.fips.isUsa() ? false : true}
                             fips={fips}
