@@ -186,7 +186,7 @@ describe("Tests min max functions", () => {
 });
 
 describe("Tests getPrettyDate() function", () => {
-  test("YYYY conversion", () => {
+  test("YYYY gets passed through", () => {
     expect(getPrettyDate("2020")).toEqual("2020");
   });
   test("YYYY-MM conversion", () => {
