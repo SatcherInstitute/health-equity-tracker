@@ -34,6 +34,7 @@ import useScrollPosition from "../../utils/hooks/useScrollPosition";
 import { useHeaderScrollMargin } from "../../utils/hooks/useHeaderScrollMargin";
 import { useLocation } from "react-router-dom";
 import CarouselMadLib from "./CarouselMadlib";
+import sass from "../../styles/variables.module.scss";
 
 const Onboarding = React.lazy(() => import("./Onboarding"));
 
@@ -248,14 +249,26 @@ function ExploreDataPage() {
             indicators={true}
             indicatorIconButtonProps={{
               "aria-label": "Report Type",
-              style: { padding: "4px" },
+              style: {
+                padding: "4px",
+                color: sass.altGrey,
+              },
             }}
             activeIndicatorIconButtonProps={{
               "aria-label": "Current Selection: Report Type",
+              style: {
+                padding: "4px",
+                color: sass.altGreen,
+              },
             }}
             // ! TODO We really should be able to indicate Forward/Backward vs just "Change"
             navButtonsProps={{
               "aria-label": "Change Report Type",
+
+              style: {
+                backgroundColor: sass.altGreen,
+                borderRadius: 100,
+              },
             }}
             animation="slide"
             navButtonsAlwaysVisible={true}
