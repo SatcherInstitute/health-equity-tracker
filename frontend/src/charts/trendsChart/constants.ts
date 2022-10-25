@@ -1,4 +1,5 @@
 import { format, utcFormat, scaleOrdinal } from "d3";
+import { MetricType } from "../../data/config/MetricConfig";
 import sass from "../../styles/variables.module.scss";
 
 // get colors from css variables
@@ -102,9 +103,10 @@ const CONFIG = {
 };
 
 // line chart type dictionary
-const TYPES = {
+const TYPES: { [key: string]: MetricType } = {
   HUNDRED_K: "per100k",
   PERCENT_SHARE: "pct_share",
+  PERCENT_RELATIVE_INEQUITY: "pct_relative_inequity",
 };
 
 const FORMATTERS = {
@@ -113,6 +115,7 @@ const FORMATTERS = {
   dateYear: utcFormat("%Y"),
   dateFromString: (str: string) => str && utcFormat("%B %Y")(new Date(str)),
   num: format(".1~f"),
+  plusNum: (d: number) => `${d > 0 ? "+" : ""}${format(".1~f")(d)}`, // add "+" only to positive numbers (not 0)
   capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ""),
 };
 
