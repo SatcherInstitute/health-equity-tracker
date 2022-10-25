@@ -1,4 +1,3 @@
-import { Box } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import React, { useEffect, useState } from "react";
 import { STATUS } from "react-joyride";
@@ -35,6 +34,7 @@ import { useHeaderScrollMargin } from "../../utils/hooks/useHeaderScrollMargin";
 import { useLocation } from "react-router-dom";
 import CarouselMadLib from "./CarouselMadlib";
 import sass from "../../styles/variables.module.scss";
+import NoTopicInfoBox from "./NoTopicInfoBox";
 
 const Onboarding = React.lazy(() => import("./Onboarding"));
 
@@ -292,7 +292,7 @@ function ExploreDataPage() {
         </div>
         <div className={styles.ReportContainer}>
           {noTopicChosen ? (
-            <Box m={5} style={{ height: "100vh" }}></Box>
+            <NoTopicInfoBox />
           ) : (
             <ReportProvider
               isSingleColumn={isSingleColumn}

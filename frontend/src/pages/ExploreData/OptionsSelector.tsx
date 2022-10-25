@@ -14,8 +14,6 @@ import { usePopover } from "../../utils/hooks/usePopover";
 import { CATEGORIES_LIST } from "../../utils/MadLibs";
 import { Box, Grid } from "@material-ui/core";
 import { DropdownVarId } from "../../data/config/MetricConfig";
-import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";
-import { Link } from "react-router-dom";
 
 function OptionsSelector(props: {
   value: string;
@@ -36,9 +34,9 @@ function OptionsSelector(props: {
 
   const popoverRef = useRef(null);
 
-  const noTopicChosen = props.value === "default";
+  // const noTopicChosen = props.value === "default";
 
-  const popover = usePopover(!isFips && noTopicChosen && popoverRef);
+  const popover = usePopover();
 
   const [, setTextBoxValue] = useState("");
   const updateTextBox = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,8 +61,8 @@ function OptionsSelector(props: {
     }`;
   }
 
-  const anchorO = noTopicChosen ? "center" : "bottom";
-  const transformO = noTopicChosen ? "center" : "top";
+  const anchorO = "bottom"; // noTopicChosen ? "center" : "bottom";
+  const transformO = "top"; // noTopicChosen ? "center" : "top";
 
   return (
     <>
@@ -193,36 +191,6 @@ function OptionsSelector(props: {
                 </Grid>
               </Box>
             </>
-          )}
-
-          {!isFips && (
-            <Grid container className={styles.PopoverHelperBox}>
-              <Grid item xs={12} md={6} container alignItems="center">
-                <p>
-                  To learn more about these topics, and why they were chosen,
-                  visit our <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>.
-                </p>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                md={6}
-                className={styles.PopoverHelperVideoBox}
-              >
-                <div>
-                  <p>New to the tracker? Watch a video demo:</p>
-                  <iframe
-                    className={styles.ResourceVideoEmbed}
-                    src="https://www.youtube.com/embed/XBoqT9Jjc8w"
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write;
-                encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              </Grid>
-            </Grid>
           )}
         </Popover>
       </span>

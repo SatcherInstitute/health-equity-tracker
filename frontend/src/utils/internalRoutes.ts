@@ -32,6 +32,13 @@ export const POVERTY_US_SETTING = "?mls=1.poverty-3.00";
 export const OPIOID_US_SETTING =
   "?dt1=non_medical_drug_use&mls=1.substance-3.00";
 
+export const COVID_DEATHS_AGE_USA_SETTING =
+  "?mls=1.covid-3.00&mlp=disparity&demo=age";
+export const PRISON_VS_POVERTY_RACE_GA_SETTING =
+  "?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison";
+export const UNINSURANCE_SEX_FL_VS_CA_SETTING =
+  "?mls=1.health_insurance-3.12-5.06&mlp=comparegeos&demo=sex";
+
 // SECTION IDS
 export const WHAT_DATA_ARE_MISSING_ID = "definitions-missing-data";
 export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =

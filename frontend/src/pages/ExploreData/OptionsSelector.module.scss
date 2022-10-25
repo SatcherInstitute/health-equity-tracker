@@ -28,10 +28,8 @@
 .PopoverOverride {
   margin: 16px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  justify-items: center;
+
+  max-height: 55vh;
 }
 
 .PopoverTitle {
@@ -43,35 +41,34 @@
   }
 }
 
-.PopoverHelperBox {
+.NoTopicInfoBox {
   margin: 1rem;
-  border-radius: 10px;
-  padding: 1rem;
-  background-color: $standard-info;
-  width: 80%;
+  // border-radius: 10px;
+  padding: 5rem 10rem 0 10rem;
+  // background-color: $standard-info;
+  // width: 80%;
+  // height: 500px;
+  height: 100vh;
+  // align-items: center;
 
-  @media only screen and (min-width: $sm) {
-    width: 93%;
-  }
+  // @media only screen and (min-width: $sm) {
+  //   width: 93%;
+  // }
 
-  @media only screen and (min-width: $md) {
-    width: 97%;
-  }
+  // @media only screen and (min-width: $md) {
+  //   width: 97%;
+  // }
 }
 
-// .PopoverHelperTitle {
-//   font-size: $smallerHeader;
-// }
-
-.PopoverHelperVideoBox {
+.NoTopicHelperVideoBox {
   padding-inline: 3rem;
   display: flex;
 
-  justify-content: center;
+  // justify-content: center;
 
-  @media only screen and (min-width: $md) {
-    justify-content: flex-end;
-  }
+  // @media only screen and (min-width: $md) {
+  //   justify-content: flex-end;
+  // }
 
   width: 100%;
 }
@@ -92,12 +89,10 @@
 
 .MadLibButton {
   @include inter500();
-  // text-underline-offset: 3px !important;
-  // text-decoration: underline !important;
-  // padding: 0 0.25rem 5px 0.6rem !important;
-  padding: 0 0 0 5px !important;
+  margin: 0.25rem;
+  padding: 0 5px 0 15px !important;
   color: $alt-green;
-  line-height: $lhLoose;
+  // line-height: $lhLoose;
   font-size: $title;
 
   @media (min-width: $sm) {
@@ -115,4 +110,12 @@
 
 .ResourceVideoEmbed {
   border-radius: 30px;
+  max-width: 50%;
+}
+
+.SuggestedReportsList {
+  list-style: none;
+  text-align: left;
+  font-size: $text;
+  line-height: $lhSuperLoose;
 }
