@@ -4,7 +4,11 @@
 .SearchForText,
 .CategoryTitleText {
   @include inter700();
-  font-size: $text;
+  font-size: $smallest;
+
+  @media only screen and (min-width: $md) {
+    font-size: $text;
+  }
 }
 
 .CategoryTitleText {
@@ -31,8 +35,12 @@
 }
 
 .PopoverTitle {
-  font-size: $smallestHeader;
+  font-size: $text;
   padding-inline: 1rem;
+
+  @media only screen and (min-width: $sm) {
+    font-size: $smallestHeader;
+  }
 }
 
 .PopoverHelperBox {
@@ -51,9 +59,9 @@
   }
 }
 
-.PopoverHelperTitle {
-  font-size: $smallerHeader;
-}
+// .PopoverHelperTitle {
+//   font-size: $smallerHeader;
+// }
 
 .PopoverHelperVideoBox {
   padding-inline: 3rem;
@@ -69,8 +77,16 @@
 }
 
 .CategoryList {
-  ul span {
+  ul span,
+  ul h2 {
     display: flex;
+    font-size: $smallest !important;
+    line-height: $lhTight;
+
+    @media only screen and (min-width: $md) {
+      font-size: $text !important;
+      line-height: $lhLoose;
+    }
   }
 }
 

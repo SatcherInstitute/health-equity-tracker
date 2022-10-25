@@ -97,10 +97,10 @@ function OptionsSelector(props: {
           }}
         >
           {!isFips && (
-            <h3 className={styles.PopoverTitle}>
+            <h2 className={styles.PopoverTitle}>
               {" "}
               Select a topic to get started
-            </h3>
+            </h2>
           )}
 
           {/* Location Dropdown */}
@@ -143,15 +143,15 @@ function OptionsSelector(props: {
           {/* Condition Dropdown */}
           {!isFips && (
             <>
-              <Box my={3} mx={6}>
+              <Box my={3} mx={3}>
                 <Grid container>
                   {CATEGORIES_LIST.map((category) => {
                     return (
                       <Grid
                         item
-                        xs={12}
-                        sm={6}
-                        md={4}
+                        xs={6}
+                        sm={4}
+                        // md={4}
                         key={category.title}
                         className={styles.CategoryList}
                       >
