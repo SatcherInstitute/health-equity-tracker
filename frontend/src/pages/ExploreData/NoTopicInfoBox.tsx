@@ -1,4 +1,5 @@
 import { Grid } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import React from "react";
 import { Link } from "react-router-dom";
 import {
@@ -19,31 +20,39 @@ export default function NoTopicInfoBox() {
         // md={6}
         container
       >
-        <h3>
-          Select a topic (and change locations) by clicking the menu buttons
-          above, or choose some pre-selected reports:
-        </h3>
+        <Alert severity="info">
+          <h3>
+            Select a topic and location by clicking the menu buttons above, or
+            choose some pre-selected reports:
+          </h3>
 
-        <ul className={styles.SuggestedReportsList}>
-          <li className={styles.SuggestedReportsListItem}>
-            <a href={EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_AGE_USA_SETTING}>
-              Investigate rates of COVID-19 deaths by age in the United States
-            </a>
-          </li>
-          <li className={styles.SuggestedReportsListItem}>
-            <a
-              href={EXPLORE_DATA_PAGE_LINK + PRISON_VS_POVERTY_RACE_GA_SETTING}
-            >
-              Explore relationships between prison and poverty by race and
-              ethnicity in Georgia
-            </a>
-          </li>
-          <li className={styles.SuggestedReportsListItem}>
-            <a href={EXPLORE_DATA_PAGE_LINK + UNINSURANCE_SEX_FL_VS_CA_SETTING}>
-              Compare rates of uninsurance by sex between Florida and California
-            </a>
-          </li>
-        </ul>
+          <ul className={styles.SuggestedReportsList}>
+            <li className={styles.SuggestedReportsListItem}>
+              <a href={EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_AGE_USA_SETTING}>
+                Investigate rates of COVID-19 deaths by age in the United States
+              </a>
+            </li>
+            <li className={styles.SuggestedReportsListItem}>
+              <a
+                href={
+                  EXPLORE_DATA_PAGE_LINK + PRISON_VS_POVERTY_RACE_GA_SETTING
+                }
+              >
+                Explore relationships between prison and poverty by race and
+                ethnicity in Georgia
+              </a>
+            </li>
+            <li className={styles.SuggestedReportsListItem}>
+              <a
+                href={EXPLORE_DATA_PAGE_LINK + UNINSURANCE_SEX_FL_VS_CA_SETTING}
+              >
+                Compare rates of uninsurance by sex between Florida and
+                California
+              </a>
+            </li>
+          </ul>
+        </Alert>
+
         <p>
           To learn more about these topics, and why they were chosen, visit our{" "}
           <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>.
