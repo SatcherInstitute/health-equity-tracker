@@ -8,7 +8,7 @@
 }
 
 .CategoryTitleText {
-  margin: 8px 16px 8px 16px;
+  margin: 0px 16px 0px 16px;
 }
 
 .NoteText {
@@ -23,6 +23,49 @@
 
 .PopoverOverride {
   margin: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+}
+
+.PopoverTitle {
+  font-size: $smallestHeader;
+  padding-inline: 1rem;
+}
+
+.PopoverHelperBox {
+  margin: 1rem;
+  border-radius: 10px;
+  padding: 1rem;
+  background-color: $standard-info;
+  width: 80%;
+
+  @media only screen and (min-width: $sm) {
+    width: 93%;
+  }
+
+  @media only screen and (min-width: $md) {
+    width: 97%;
+  }
+}
+
+.PopoverHelperTitle {
+  font-size: $smallerHeader;
+}
+
+.PopoverHelperVideoBox {
+  padding-inline: 3rem;
+  display: flex;
+
+  justify-content: center;
+
+  @media only screen and (min-width: $md) {
+    justify-content: flex-end;
+  }
+
+  width: 100%;
 }
 
 .CategoryList {
@@ -47,4 +90,8 @@
   @media (min-width: $lg) {
     font-size: $smallerHeader;
   }
+}
+
+.ResourceVideoEmbed {
+  border-radius: 30px;
 }

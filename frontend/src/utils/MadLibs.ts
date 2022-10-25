@@ -92,7 +92,7 @@ export function getSelectedConditions(madLib: MadLib) {
 }
 
 const DROPDOWN_VAR: Record<DropdownVarId | string, string> = {
-  default: "<Choose a Topic>",
+  default: "click to select a topic",
   covid: "COVID-19",
   diabetes: "Diabetes",
   copd: "COPD",

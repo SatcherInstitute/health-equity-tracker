@@ -1,7 +1,6 @@
 import { Box } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import React, { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { STATUS } from "react-joyride";
 import Carousel from "react-material-ui-carousel";
 import ReportProvider from "../../reports/ReportProvider";
@@ -23,7 +22,6 @@ import {
   parseMls,
   psSubscribe,
   setParameters,
-  SHOW_ONBOARDING_PARAM,
   stringifyMls,
   useSearchParams,
 } from "../../utils/urlutils";
@@ -114,27 +112,26 @@ function ExploreDataPage() {
   };
 
   // Set up warm welcome onboarding behaviors
-  const [cookies, setCookie] = useCookies();
-  let showOnboarding = cookies.skipOnboarding !== "true";
-  if (params[SHOW_ONBOARDING_PARAM] === "true") {
-    showOnboarding = true;
-  }
-  if (params[SHOW_ONBOARDING_PARAM] === "false") {
-    showOnboarding = false;
-  }
+  // const [cookies, setCookie] = useCookies();
+  // let showOnboarding = cookies.skipOnboarding !== "true";
+  // if (params[SHOW_ONBOARDING_PARAM] === "true") {
+  //   showOnboarding = true;
+  // }
+  // if (params[SHOW_ONBOARDING_PARAM] === "false") {
+  //   showOnboarding = false;
+  // }
 
   // if there is an incoming #hash; bypass the warm welcome entirely
-  if (location.hash !== "") showOnboarding = false;
+  // if (location.hash !== "") showOnboarding = false;
 
-  const [activelyOnboarding, setActivelyOnboarding] =
-    useState<boolean>(showOnboarding);
+  const [activelyOnboarding, setActivelyOnboarding] = useState<boolean>(false);
   const onboardingCallback = (data: any) => {
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
       setActivelyOnboarding(false);
-      const expirationDate = new Date();
+      // const expirationDate = new Date();
       // Expiration date set for a year from now
-      expirationDate.setFullYear(expirationDate.getFullYear() + 1);
-      setCookie("skipOnboarding", true, { path: "/", expires: expirationDate });
+      // expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+      // setCookie("skipOnboarding", true, { path: "/", expires: expirationDate });
     }
   };
 
@@ -150,11 +147,11 @@ function ExploreDataPage() {
     300
   );
 
-  useEffect(() => {
-    if (activelyOnboarding) {
-      return;
-    }
-  }, [activelyOnboarding]);
+  // useEffect(() => {
+  //   if (activelyOnboarding) {
+  //     return;
+  //   }
+  // }, [activelyOnboarding]);
 
   // calculate page size to determine if mobile or not
   const isSingleColumn = (madLib.id as MadLibId) === "disparity";
