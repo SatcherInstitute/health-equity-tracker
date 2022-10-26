@@ -142,11 +142,6 @@ button[data-action="back"] {
 
   @media (min-width: $sm) {
     display: block;
-
-    // iframe {
-    //   height: 315px;
-    //   width: 500px;
-    // }
   }
 
   @media (min-width: $lg) {
@@ -184,10 +179,6 @@ button[data-action="back"] {
 
 .ResourceVideoEmbed {
   border-radius: 30px;
-  // max-height: 315px;
-  // max-width: 560px;
-  // max-width: 400px;
-  // margin-top: 5rem;
 }
 
 .SuggestedReportsList {

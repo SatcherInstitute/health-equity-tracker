@@ -28,8 +28,6 @@
 .PopoverOverride {
   margin: 16px;
   display: flex;
-
-  // max-height: 55vh;
 }
 
 .PopoverTitle {
@@ -47,7 +45,6 @@
   margin: 0.25rem;
   padding: 0 5px 0 15px !important;
   color: $alt-green;
-  // line-height: $lhLoose;
   font-size: $title;
 
   @media (min-width: $sm) {
@@ -64,7 +61,6 @@
 }
 
 .MadLibButtonPulse {
-  // pulsing animation
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
   transform: scale(1);
   animation: pulse 2s infinite;
