@@ -117,6 +117,7 @@ button[data-action="back"] {
 
 .BigHeadline {
   font-size: $title;
+  padding-right: 1rem;
 
   @media (min-width: $md) {
     font-size: $bigHeader;
@@ -125,6 +126,7 @@ button[data-action="back"] {
 
 .LittleHeadline {
   font-size: $small;
+  padding-right: 1rem;
 
   @media (min-width: $md) {
     font-size: $smallestHeader;
@@ -151,8 +153,17 @@ button[data-action="back"] {
     display: block;
 
     iframe {
-      height: 315px;
-      width: 500px;
+      height: 252px;
+      width: 400px;
+    }
+  }
+
+  @media (min-width: $xl) {
+    display: block;
+
+    iframe {
+      height: 378px;
+      width: 600px;
     }
   }
 }

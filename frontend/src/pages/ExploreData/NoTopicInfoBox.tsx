@@ -25,7 +25,7 @@ export default function NoTopicInfoBox() {
             <h3 className={styles.BigHeadline}>Select a topic above</h3>
 
             <h3 className={styles.LittleHeadline}>
-              ...or quickly view a selected report:
+              ...or explore one of the following reports:
             </h3>
 
             <ul className={styles.SuggestedReportsList}>
