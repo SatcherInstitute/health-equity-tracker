@@ -246,7 +246,7 @@ function ExploreDataPage() {
             }
             timeout={200}
             autoPlay={false}
-            indicators={true}
+            indicators={noTopicChosen ? false : true}
             indicatorIconButtonProps={{
               "aria-label": "Report Type",
               style: {
@@ -272,6 +272,7 @@ function ExploreDataPage() {
             }}
             animation="slide"
             navButtonsAlwaysVisible={true}
+            navButtonsAlwaysInvisible={noTopicChosen}
             index={initialIndex}
             onChange={handleCarouselChange}
           >
