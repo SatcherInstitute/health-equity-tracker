@@ -41,7 +41,8 @@
   }
 }
 
-.MadLibButton {
+.MadLibButton,
+.MadLibButtonPulse {
   @include inter500();
   margin: 0.25rem;
   padding: 0 5px 0 15px !important;
@@ -60,4 +61,28 @@
   min-width: 100px;
   border: 1px solid $alt-green;
   margin-inline: 1rem;
+}
+
+.MadLibButtonPulse {
+  // pulsing animation
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+  transform: scale(1);
+  animation: pulse 4s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.97);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 5px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    transform: scale(0.97);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
 }

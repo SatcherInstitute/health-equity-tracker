@@ -13,10 +13,10 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { usePopover } from "../../utils/hooks/usePopover";
 import { CATEGORIES_LIST } from "../../utils/MadLibs";
 import { Box, Grid } from "@material-ui/core";
-import { DropdownVarId } from "../../data/config/MetricConfig";
+import { DropdownVarId, VariableId } from "../../data/config/MetricConfig";
 
 function OptionsSelector(props: {
-  value: string;
+  value: VariableId | string | "default"; // condition data type OR fips code as string OR default setting with no topic selected
   options: Fips[] | string[][];
   onOptionUpdate: (option: string) => void;
 }) {
@@ -33,9 +33,6 @@ function OptionsSelector(props: {
   }
 
   const popoverRef = useRef(null);
-
-  // const noTopicChosen = props.value === "default";
-
   const popover = usePopover();
 
   const [, setTextBoxValue] = useState("");
@@ -64,6 +61,9 @@ function OptionsSelector(props: {
   const anchorO = "bottom"; // noTopicChosen ? "center" : "bottom";
   const transformO = "top"; // noTopicChosen ? "center" : "top";
 
+  // only pulse the condition button when no topic is selected and dropdown menu is closed
+  const doPulse = !isFips && props.value === "default" && !popover.isOpen;
+
   return (
     <>
       <span ref={popoverRef}>
@@ -71,7 +71,7 @@ function OptionsSelector(props: {
         <Button
           variant="text"
           aria-haspopup="true"
-          className={styles.MadLibButton}
+          className={doPulse ? styles.MadLibButtonPulse : styles.MadLibButton}
           onClick={popover.open}
         >
           {currentDisplayName}{" "}
