@@ -46,6 +46,7 @@
 
 .ReportContainer {
   width: 100%;
+  // height: 120vh;
 }
 
 .LifelineSticky {
@@ -88,4 +89,71 @@
 // override the joyride component to allow different color for "back" text and "next" background
 button[data-action="back"] {
   color: $white !important;
+}
+
+.NoTopicContent {
+  margin: 1rem;
+  // border-radius: 10px;
+  padding: 5rem 10rem 0 10rem;
+  // background-color: $standard-info;
+  // width: 80%;
+  // height: 500px;
+  height: 110vh;
+  // align-items: center;
+
+  // @media only screen and (min-width: $sm) {
+  //   width: 93%;
+  // }
+
+  // @media only screen and (min-width: $md) {
+  //   width: 97%;
+  // }
+}
+
+.BigHeadline {
+  font-size: $bigHeader;
+}
+
+.LittleHeadline {
+  font-size: $smallestHeader;
+}
+
+.NoTopicHelperVideoBox {
+  padding-inline: 3rem;
+  display: flex;
+
+  // justify-content: center;
+
+  // @media only screen and (min-width: $md) {
+  //   justify-content: flex-end;
+  // }
+
+  width: 100%;
+}
+
+.CategoryList {
+  ul span,
+  ul h2 {
+    display: flex;
+    font-size: $smallest !important;
+    line-height: $lhTight;
+
+    @media only screen and (min-width: $md) {
+      font-size: $text !important;
+      line-height: $lhLoose;
+    }
+  }
+}
+
+.ResourceVideoEmbed {
+  border-radius: 30px;
+  max-width: 400px;
+  // margin-top: 5rem;
+}
+
+.SuggestedReportsList {
+  list-style: none;
+  text-align: left;
+  font-size: $text;
+  line-height: $lhSuperLoose;
 }
