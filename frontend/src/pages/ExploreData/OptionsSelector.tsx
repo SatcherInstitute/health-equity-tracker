@@ -14,6 +14,7 @@ import { usePopover } from "../../utils/hooks/usePopover";
 import { CATEGORIES_LIST } from "../../utils/MadLibs";
 import { Box, Grid } from "@material-ui/core";
 import { DropdownVarId, VariableId } from "../../data/config/MetricConfig";
+import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
 
 function OptionsSelector(props: {
   value: VariableId | string | "default"; // condition data type OR fips code as string OR default setting with no topic selected
@@ -61,8 +62,13 @@ function OptionsSelector(props: {
   const anchorO = "bottom"; // noTopicChosen ? "center" : "bottom";
   const transformO = "top"; // noTopicChosen ? "center" : "top";
 
-  // only pulse the condition button when no topic is selected and dropdown menu is closed
-  const doPulse = !isFips && props.value === "default" && !popover.isOpen;
+  // only pulse the condition button when no topic is selected and dropdown menu is closed (and user hasn't set their machine to prefer reduced motion)
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const doPulse =
+    !prefersReducedMotion &&
+    !isFips &&
+    props.value === "default" &&
+    !popover.isOpen;
 
   return (
     <>
