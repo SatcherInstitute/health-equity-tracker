@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -13,14 +13,19 @@ import styles from "./ExploreDataPage.module.scss";
 
 export default function NoTopicInfoBox() {
   return (
-    <div className={styles.NoTopicContent}>
-      <Alert severity="info">
-        <Grid container className={styles.NoTopicBox}>
+    <Grid
+      container
+      alignContent="flex-start"
+      justifyContent="center"
+      className={styles.NoTopicContent}
+    >
+      <Alert severity="info" icon={<></>} className={styles.NoTopicAlert}>
+        <Grid item xs={12} container className={styles.NoTopicBox}>
           <Grid item xs={12} md={7}>
             <h3 className={styles.BigHeadline}>Select a topic above</h3>
 
             <h3 className={styles.LittleHeadline}>
-              ...or take a look at some interesting reports:
+              ...or quickly view a selected report:
             </h3>
 
             <ul className={styles.SuggestedReportsList}>
@@ -48,11 +53,12 @@ export default function NoTopicInfoBox() {
                 </a>
               </li>
             </ul>
-
-            <p>
-              To learn more about these topics, and why they were chosen, visit
-              our <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>.
-            </p>
+            <Box mt={5}>
+              <p>
+                To learn more about these topics, and why they were chosen,
+                visit our <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>.
+              </p>
+            </Box>
           </Grid>
 
           <Grid
@@ -60,26 +66,33 @@ export default function NoTopicInfoBox() {
             item
             xs={12}
             md={5}
+            className={styles.NoTopicHelperVideoBoxWithCaption}
             direction="column"
-            className={styles.NoTopicHelperVideoBox}
             alignItems="center"
             justifyContent="center"
           >
-            <iframe
-              className={styles.ResourceVideoEmbed}
-              src="https://www.youtube.com/embed/XBoqT9Jjc8w"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write;
+            <div className={styles.NoTopicHelperVideoBox}>
+              <iframe
+                className={styles.ResourceVideoEmbed}
+                src="https://www.youtube.com/embed/XBoqT9Jjc8w"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write;
 	encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+                allowFullScreen
+              ></iframe>
+            </div>
             <p>
-              <i>New to the tracker? Watch a video demo</i>
+              <i>
+                New to the tracker? Watch a{" "}
+                <a href="https://www.youtube.com/embed/XBoqT9Jjc8w">
+                  video demo
+                </a>
+              </i>
             </p>
           </Grid>
         </Grid>
       </Alert>
-    </div>
+    </Grid>
   );
 }

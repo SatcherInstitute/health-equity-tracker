@@ -93,42 +93,68 @@ button[data-action="back"] {
 
 .NoTopicContent {
   margin: 1rem;
-  // border-radius: 10px;
-  padding: 5rem 10rem 0 10rem;
-  // background-color: $standard-info;
-  // width: 80%;
-  // height: 500px;
-  height: 110vh;
-  // align-items: center;
+  width: 100%;
 
-  // @media only screen and (min-width: $sm) {
-  //   width: 93%;
-  // }
+  padding: 1rem 3rem 0 3rem;
 
-  // @media only screen and (min-width: $md) {
-  //   width: 97%;
-  // }
+  @media (min-width: $sm) {
+    padding: 2rem 10rem 0 10rem;
+  }
+}
+
+.NoTopicAlert {
+  justify-content: center !important;
+  align-items: center !important;
+  align-content: center !important;
+  justify-items: center !important;
+  margin: 0 0 20rem 0;
+}
+
+.NoTopicBox {
+  margin: 0 3rem;
+  width: 70vw;
 }
 
 .BigHeadline {
-  font-size: $bigHeader;
+  font-size: $title;
+
+  @media (min-width: $md) {
+    font-size: $bigHeader;
+  }
 }
 
 .LittleHeadline {
-  font-size: $smallestHeader;
+  font-size: $small;
+
+  @media (min-width: $md) {
+    font-size: $smallestHeader;
+  }
+}
+
+.NoTopicHelperVideoBoxWithCaption {
+  margin-top: 1rem;
 }
 
 .NoTopicHelperVideoBox {
-  padding-inline: 3rem;
-  display: flex;
+  display: none;
 
-  // justify-content: center;
+  @media (min-width: $sm) {
+    display: block;
 
-  // @media only screen and (min-width: $md) {
-  //   justify-content: flex-end;
-  // }
+    // iframe {
+    //   height: 315px;
+    //   width: 500px;
+    // }
+  }
 
-  width: 100%;
+  @media (min-width: $lg) {
+    display: block;
+
+    iframe {
+      height: 315px;
+      width: 500px;
+    }
+  }
 }
 
 .CategoryList {
@@ -147,7 +173,9 @@ button[data-action="back"] {
 
 .ResourceVideoEmbed {
   border-radius: 30px;
-  max-width: 400px;
+  // max-height: 315px;
+  // max-width: 560px;
+  // max-width: 400px;
   // margin-top: 5rem;
 }
 
