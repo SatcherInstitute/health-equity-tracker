@@ -19,12 +19,11 @@ import {
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 import {
-  getNestedRates,
+  getNestedData,
   getNestedUnknowns,
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
 import AltTableView from "./ui/AltTableView";
-import { createTitles } from "../charts/utils";
 import { EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK } from "../utils/internalRoutes";
 import { HashLink } from "react-router-hash-link";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
@@ -74,12 +73,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     } in ${props.fips.getSentenceDisplayName()}`;
   }
 
-  const { chartTitle } = createTitles({
-    fips: props.fips,
-    variableConfig: props.variableConfig,
-    trend: true,
-  });
-
   const HASH_ID: ScrollableHashId = "rates-over-time";
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label;
 
@@ -116,7 +109,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           props.breakdownVar
         );
 
-        const nestedRatesData = getNestedRates(
+        const nestedRatesData = getNestedData(
           knownRatesData,
           demographicGroups,
           props.breakdownVar,
@@ -154,7 +147,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 )}
                 <TrendsChart
                   data={nestedRatesData}
-                  chartTitle={chartTitle}
+                  chartTitle={getTitleText()}
                   unknown={nestedUnknownPctShareData}
                   axisConfig={{
                     type: metricConfigRates.type,

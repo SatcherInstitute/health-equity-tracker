@@ -45,7 +45,7 @@ import { MOBILE_BREAKPOINT } from "../../App";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 import useEscape from "../../utils/hooks/useEscape";
 import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
-import { useMediaQuery } from "@material-ui/core";
+import { useFontSize } from "../../utils/hooks/useFontSize";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -71,7 +71,8 @@ export function TrendsChart({
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
   const { groupLabel } = axisConfig || {};
-  const pageIsTiny = useMediaQuery("(max-width:400px)");
+
+  const fontSize = useFontSize();
 
   /* Refs */
   // parent container ref - used for setting svg width
@@ -83,7 +84,7 @@ export function TrendsChart({
 
   // Manages which group filters user has applied
   const defaultGroups =
-    axisConfig.type === "pct_share" ? getMinMaxGroups(data) : [];
+    axisConfig.type === "pct_relative_inequity" ? getMinMaxGroups(data) : [];
   const [selectedTrendGroups, setSelectedTrendGroups] =
     useState<string[]>(defaultGroups);
 
@@ -273,7 +274,7 @@ export function TrendsChart({
         )}
       </div>
       {/* Chart Title */}
-      <figcaption style={{ fontSize: pageIsTiny ? 11 : 14 }}>
+      <figcaption style={{ fontSize }}>
         <b id={chartTitleId}>{chartTitle}</b>
       </figcaption>
       {/* Tooltip */}

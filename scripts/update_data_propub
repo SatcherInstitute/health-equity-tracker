@@ -1,0 +1,65 @@
+#!/bin/bash
+
+set -eu
+set -o pipefail
+
+readonly PROGDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=SCRIPTDIR/.util/print.sh
+source "${PROGDIR}/.util/print.sh"
+source .env.secrets
+
+function main() {
+  while [[ "${#}" != 0 ]]; do
+    case "${1}" in
+        --help|-h)
+          shift 1
+          usage
+          exit 0
+          ;;
+
+
+        "")
+          shift 1
+          ;;
+
+        *)
+          util::print::error "unknown argument \"${1}\""
+          exit 1
+
+      esac
+    done
+
+    if [[ -z "$PROPUBLICA_API_KEY" ]]; then
+        util::print::error "Error. Must ensure /scripts/.env.secrets file exists and contains your PROPUBLICA_API_KEY. See /scripts/.env.secrets.example for more details."
+        exit 1
+    fi
+
+    util::print::info "ProPublica API key found..."
+
+    util::print::info "Requesting 117th Senate data..."
+
+    curl -H "X-API-Key: ${PROPUBLICA_API_KEY}" "https://api.propublica.org/congress/v1/117/senate/members.json" > ../data/cawp/propublica-us-senate.json
+
+
+    util::print::info "Requesting 117th House of Representatives data..."
+
+    curl -H "X-API-Key: ${PROPUBLICA_API_KEY}" "https://api.propublica.org/congress/v1/117/house/members.json" > ../data/cawp/propublica-us-house.json
+
+    util::print::success "Go Gov!! 🏛  Updated House and Senate files in /data/cawp "
+}
+
+
+function usage() {
+  cat <<-USAGE
+update_data_propub
+Makes authenticated API calls to ProPublica to get the current members of the 117th US Congress, and saves the fetched json into senate and house files in the /data folder for further use by CAWP. Requires the presence of a /scripts/.env.secrets file that contains ProPublica Congress API credentials.
+
+Currently does not indicate if API requests failed or were rejected, only if API credentials are missing; please confirm results manually.
+
+OPTIONS
+  --help            -h  prints the command usage
+USAGE
+}
+
+
+main "${@:-}"

@@ -28,7 +28,7 @@ import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { useLocation } from "react-router-dom";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
-import { createTitles } from "../charts/utils";
+import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -56,9 +56,13 @@ export function UnknownsMapCard(props: UnknownsMapCardProps) {
 
 function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const preloadHeight = useGuessPreloadHeight([700, 1000]);
-
   const metricConfig = props.variableConfig.metrics["pct_share"];
+  const currentBreakdown = props.currentBreakdown;
+  const breakdownString =
+    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown];
+
   const location = useLocation();
+  const locationName = props.fips.getSentenceDisplayName();
 
   const signalListeners: any = {
     click: (...args: any) => {
@@ -72,36 +76,27 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   // TODO Debug why onlyInclude(UNKNOWN, UNKNOWN_RACE) isn't working
   const mapGeoBreakdowns = Breakdowns.forParentFips(props.fips).addBreakdown(
-    props.currentBreakdown
+    currentBreakdown
   );
   const alertBreakdown = Breakdowns.forFips(props.fips).addBreakdown(
-    props.currentBreakdown
+    currentBreakdown
   );
 
   const mapQuery = new MetricQuery([metricConfig.metricId], mapGeoBreakdowns);
   const alertQuery = new MetricQuery([metricConfig.metricId], alertBreakdown);
 
-  function getTitleTextArray() {
-    return [
-      `${metricConfig.fullCardTitleName}`,
-      `with unknown ${
-        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown]
-      }`,
-    ];
-  }
+  const chartTitle = useCreateChartTitle(
+    metricConfig,
+    locationName,
+    breakdownString
+  );
 
-  function getTitleText() {
-    return getTitleTextArray().join(" ");
-  }
+  const chartTitleLines = [
+    `${metricConfig.fullCardTitleName}`,
+    `with unknown ${breakdownString}`,
+  ];
 
   const HASH_ID: ScrollableHashId = "unknown-demographic-map";
-
-  const { chartTitle } = createTitles({
-    variableConfig: props.variableConfig,
-    fips: props.fips,
-    unknown: true,
-    breakdown: props.currentBreakdown,
-  });
 
   return (
     <CardWrapper
@@ -113,18 +108,16 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         const unknownRaces = mapQueryResponse
-          .getValidRowsForField(props.currentBreakdown)
+          .getValidRowsForField(currentBreakdown)
           .filter(
             (row: Row) =>
-              row[props.currentBreakdown] === UNKNOWN_RACE ||
-              row[props.currentBreakdown] === UNKNOWN
+              row[currentBreakdown] === UNKNOWN_RACE ||
+              row[currentBreakdown] === UNKNOWN
           );
 
-        const unknownEthnicities = mapQueryResponse
-          .getValidRowsForField(props.currentBreakdown)
-          .filter(
-            (row: Row) => row[props.currentBreakdown] === UNKNOWN_ETHNICITY
-          );
+        const unknownEthnicities: Row[] = mapQueryResponse
+          .getValidRowsForField(currentBreakdown)
+          .filter((row: Row) => row[currentBreakdown] === UNKNOWN_ETHNICITY);
 
         // If a state provides both unknown race and ethnicity numbers
         // use the higher one
@@ -145,13 +138,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         // there is some data but only for ALL but not by demographic groups
         const noDemographicInfo =
           mapQueryResponse
-            .getValidRowsForField(props.currentBreakdown)
-            .filter((row: Row) => row[props.currentBreakdown] !== ALL)
-            .length === 0 &&
+            .getValidRowsForField(currentBreakdown)
+            .filter((row: Row) => row[currentBreakdown] !== ALL).length === 0 &&
           mapQueryResponse
-            .getValidRowsForField(props.currentBreakdown)
-            .filter((row: Row) => row[props.currentBreakdown] === ALL).length >
-            0;
+            .getValidRowsForField(currentBreakdown)
+            .filter((row: Row) => row[currentBreakdown] === ALL).length > 0;
 
         // when suppressing states with too low COVID numbers
         const unknownsUndefined =
@@ -192,16 +183,15 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             <UnknownsAlert
               queryResponse={alertQueryResponse}
               metricConfig={metricConfig}
-              breakdownVar={props.currentBreakdown}
+              breakdownVar={currentBreakdown}
               displayType="map"
               known={false}
-              overrideAndWithOr={props.currentBreakdown === RACE}
+              overrideAndWithOr={currentBreakdown === RACE}
               raceEthDiffMap={
                 mapQueryResponse
-                  .getValidRowsForField(props.currentBreakdown)
+                  .getValidRowsForField(currentBreakdown)
                   .filter(
-                    (row: Row) =>
-                      row[props.currentBreakdown] === UNKNOWN_ETHNICITY
+                    (row: Row) => row[currentBreakdown] === UNKNOWN_ETHNICITY
                   ).length !== 0
               }
               noDemographicInfoMap={noDemographicInfo}
@@ -214,11 +204,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {showMissingDataAlert && (
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                      props.currentBreakdown
-                    ]
-                  }
+                  breakdownString={breakdownString}
                   isMapCard={true}
                   fips={props.fips}
                 />
@@ -227,24 +213,19 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {/* NO UNKNOWNS INFO BOX */}
               {showNoUnknownsInfo && (
                 <Alert severity="info" role="note">
-                  No unknown values for{" "}
-                  {
-                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                      props.currentBreakdown
-                    ]
-                  }{" "}
-                  reported in this dataset.
+                  No unknown values for {breakdownString} reported in this
+                  dataset.
                 </Alert>
               )}
             </CardContent>
             {showingVisualization && (
               <CardContent>
                 <ChoroplethMap
-                  titles={{ chartTitle, subTitle: "" }}
+                  titles={{ chartTitle }}
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}
-                  legendTitle={getTitleTextArray()}
+                  legendTitle={metricConfig?.unknownsVegaLabel || ""}
                   data={unknowns}
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
@@ -254,7 +235,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
                   geoData={geoData}
-                  filename={`${getTitleText()} in ${props.fips.getSentenceDisplayName()}`}
+                  filename={`${chartTitleLines.join(" ")} in ${locationName}`}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <div className={styles.TerritoryCirclesContainer}>
@@ -266,7 +247,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                             isUnknownsMap={true}
                             signalListeners={signalListeners}
                             metric={metricConfig}
-                            legendTitle={metricConfig.fullCardTitleName}
                             data={unknowns}
                             showCounties={props.fips.isUsa() ? false : true}
                             fips={fips}
