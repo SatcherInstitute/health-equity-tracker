@@ -298,7 +298,7 @@ export function formatFieldValue(
   }
 
   // if values are numeric but rounded down to 0, instead replace with "less than 1"
-  if (value === 0 && metricType === "per100k") return "< 1";
+  if (value === 0 && metricType === "per100k") return "<1";
 
   const isRatio = metricType.includes("ratio");
   let formatOptions = isPctType(metricType) ? { minimumFractionDigits: 1 } : {};
