@@ -22,7 +22,7 @@ from datasources.data_source import DataSource
 from datasources.cdc_restricted_local import (
     HOSP_DATA_SUPPRESSION_STATES,
     DEATH_DATA_SUPPRESSION_STATES,
-    RACE_NAMES_MAPPING,
+    NH_RACE_NAMES_MAPPING,
     SEX_NAMES_MAPPING,
     AGE_NAMES_MAPPING)
 
@@ -52,7 +52,7 @@ COVID_CONDITION_TO_PREFIX = {
 }
 
 DEMO_COL_MAPPING = {
-    RACE: (std_col.RACE_CATEGORY_ID_COL, list(RACE_NAMES_MAPPING.values())),
+    RACE: (std_col.RACE_CATEGORY_ID_COL, list(NH_RACE_NAMES_MAPPING.values())),
     AGE: (std_col.AGE_COL, list(AGE_NAMES_MAPPING.values())),
     SEX: (std_col.SEX_COL, list(SEX_NAMES_MAPPING.values())),
 }

@@ -153,6 +153,14 @@ class Race(Enum):
     HISP = ("HISP", "Hispanic or Latino", True)
     OTHER_STANDARD_NH = ("OTHER_STANDARD_NH", "Unrepresented race", False)
 
+    AIAN_HISP = ("AIAN_HISP", "American Indian and Alaska Native", False)
+    ASIAN_HISP = ("ASIAN_HISP", "Asian", False)
+    BLACK_HISP = ("BLACK_HISP", "Black or African American", False)
+    NHPI_HISP = ("NHPI_HISP", "Native Hawaiian and Pacific Islander", False)
+    MULTI_HISP = ("MULTI_HISP", "Two or more races", False)
+    WHITE_HISP = ("WHITE_HISP", "White", False)
+    OTHER_STANDARD_HISP = ("OTHER_STANDARD_HISP", "Unrepresented race", False)
+
     # Below are special values that have slightly different characteristics.
 
     # Hispanic vs Non-Hispanic can be defined differently across datasets.
@@ -203,6 +211,11 @@ class Race(Enum):
         True)
     MULTI_OR_OTHER_STANDARD_NH = (
         "MULTI_OR_OTHER_STANDARD_NH",
+        "Two or more races & Unrepresented race",
+        False)
+
+    MULTI_OR_OTHER_STANDARD_HISP = (
+        "MULTI_OR_OTHER_STANDARD_HISP",
         "Two or more races & Unrepresented race",
         False)
 

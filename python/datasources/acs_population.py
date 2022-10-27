@@ -64,6 +64,18 @@ RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP = {
 }
 
 
+RACE_STRING_TO_CATEGORY_ID_ONLY_HISP = {
+    "American Indian and Alaska Native alone": Race.AIAN_HISP.value,
+    "Asian alone": Race.ASIAN_HISP.value,
+    "Black or African American alone": Race.BLACK_HISP.value,
+    "Native Hawaiian and Other Pacific Islander alone": Race.NHPI_HISP.value,
+    "Some other race alone": Race.OTHER_STANDARD_HISP.value,
+    "Two or more races": Race.MULTI_HISP.value,
+    "White alone": Race.WHITE_HISP.value
+}
+
+
+
 RACE_STRING_TO_CATEGORY_ID_EXCLUDE_HISP = {
     "American Indian and Alaska Native alone": Race.AIAN_NH.value,
     "Asian alone": Race.ASIAN_NH.value,
@@ -462,6 +474,23 @@ class ACSPopulationIngester():
 
         return pd.concat([by_hispanic, by_race])
 
+    def standardize_race_only_hispanic(self, df):
+        """Alternative format where race categories include Hispanic/Latino.
+           Totals are also included because summing over the column will give a
+           larger number than the actual total."""
+        by_race = df.copy()
+        by_race = by_race.loc[by_race[std_col.HISPANIC_COL] == 'Hispanic or Latino']
+
+        group_by_cols = self.base_group_by_cols.copy()
+        group_by_cols.append(std_col.RACE_COL)
+        by_race = by_race.groupby(group_by_cols).sum().reset_index()
+
+        by_race[std_col.RACE_CATEGORY_ID_COL] = by_race.apply(
+            lambda r: RACE_STRING_TO_CATEGORY_ID_ONLY_HISP[r[std_col.RACE_COL]],
+            axis=1)
+
+        return by_race
+
     def get_all_races_frame(self, race_and_hispanic_frame):
         """Includes all race categories, both including and not including
            Hispanic/Latino."""
@@ -469,12 +498,13 @@ class ACSPopulationIngester():
             race_and_hispanic_frame)
         standardized_race = self.standardize_race_exclude_hispanic(
             race_and_hispanic_frame)
+        hisps = self.standardize_race_only_hispanic(race_and_hispanic_frame)
         standardized_race = standardized_race.copy()
         # both variants of standardized race include a "Hispanic or Latino"
         # group, so remove from one before concatenating.
         standardized_race = standardized_race[
             standardized_race[std_col.RACE_CATEGORY_ID_COL] != Race.HISP.value]
-        all_races = pd.concat([all_races, standardized_race])
+        all_races = pd.concat([all_races, standardized_race, hisps])
 
         # Drop extra columns before adding derived rows so they don't interfere
         # with grouping.

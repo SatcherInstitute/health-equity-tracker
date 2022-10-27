@@ -68,13 +68,33 @@ STATE_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 # Mappings for race, sex, and age values in the data to a standardized forms.
 # Note that these mappings exhaustively cover the possible values in the data
 # as of the latest dataset. New data should be checked for schema changes.
-RACE_NAMES_MAPPING = {
+NH_RACE_NAMES_MAPPING = {
     "American Indian/Alaska Native": std_col.Race.AIAN_NH.value,
     "Asian": std_col.Race.ASIAN_NH.value,
     "Black": std_col.Race.BLACK_NH.value,
     "Multiple/Other": std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
     "Native Hawaiian/Other Pacific Islander": std_col.Race.NHPI_NH.value,
     "White": std_col.Race.WHITE_NH.value,
+    'Hispanic/Latino': std_col.Race.HISP.value,
+}
+
+WITH_HISP_RACE_NAMES_MAPPING = {
+    "American Indian/Alaska Native": std_col.Race.AIAN.value,
+    "Asian": std_col.Race.ASIAN.value,
+    "Black": std_col.Race.BLACK.value,
+    "Multiple/Other": std_col.Race.MULTI_OR_OTHER_STANDARD.value,
+    "Native Hawaiian/Other Pacific Islander": std_col.Race.NHPI.value,
+    "White": std_col.Race.WHITE.value,
+    'Hispanic/Latino': std_col.Race.HISP.value,
+}
+
+HISP_RACE_NAMES_MAPPING = {
+    "American Indian/Alaska Native": std_col.Race.AIAN_HISP.value,
+    "Asian": std_col.Race.ASIAN_HISP.value,
+    "Black": std_col.Race.BLACK_HISP.value,
+    "Multiple/Other": std_col.Race.MULTI_OR_OTHER_STANDARD_HISP.value,
+    "Native Hawaiian/Other Pacific Islander": std_col.Race.NHPI_HISP.value,
+    "White": std_col.Race.WHITE_HISP.value,
     'Hispanic/Latino': std_col.Race.HISP.value,
 }
 
@@ -106,10 +126,10 @@ AGE_NAMES_MAPPING = {
 # to their standardized form.
 GEO_COL_MAPPING = {'state': [STATE_COL], 'county': COUNTY_COLS}
 DEMOGRAPHIC_COL_MAPPING = {
-    'race': ([RACE_COL, ETH_COL], RACE_NAMES_MAPPING),
+    'race': ([RACE_COL, ETH_COL], NH_RACE_NAMES_MAPPING),
     'sex': ([SEX_COL], SEX_NAMES_MAPPING),
     'age': ([AGE_COL], AGE_NAMES_MAPPING),
-    'race_and_age': ([RACE_COL, ETH_COL, AGE_COL], {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING}),
+    'race_and_age': ([RACE_COL, ETH_COL, AGE_COL], {**AGE_NAMES_MAPPING, **NH_RACE_NAMES_MAPPING}),
 }
 
 # States that we have decided to suppress different kinds of data for, due to
@@ -119,6 +139,21 @@ DEMOGRAPHIC_COL_MAPPING = {
 ALL_DATA_SUPPRESSION_STATES = ("MP", "MS", "WV")
 HOSP_DATA_SUPPRESSION_STATES = ("HI", "NE", "RI", "SD")
 DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD", "DE")
+
+
+def get_total_race_df(df):
+    df = df.replace({RACE_COL: WITH_HISP_RACE_NAMES_MAPPING})
+    df = df.rename(columns={RACE_COL: RACE_ETH_COL})
+    df = df.drop(columns=[ETH_COL])
+    return df.reset_index(drop=True)
+
+
+def get_hisp_split_out_df(df):
+    df = df.loc[df[ETH_COL] == 'Hispanic/Latino']
+    df = df.replace({RACE_COL: HISP_RACE_NAMES_MAPPING})
+    df = df.rename(columns={RACE_COL: RACE_ETH_COL})
+    df = df.drop(columns=[ETH_COL])
+    return df.reset_index(drop=True)
 
 
 def combine_race_eth(df):
@@ -134,11 +169,12 @@ def combine_race_eth(df):
             return std_col.Race.UNKNOWN.value
 
         else:
-            return RACE_NAMES_MAPPING[row[RACE_COL]]
+            return NH_RACE_NAMES_MAPPING[row[RACE_COL]]
 
+    df = df.copy()
     df[RACE_ETH_COL] = df.apply(get_combined_value, axis=1)
     df = df.drop(columns=[RACE_COL, ETH_COL])
-    return df
+    return df.reset_index(drop=True)
 
 
 def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping, time_series):
@@ -181,7 +217,10 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping, time_se
     # Standardize the values in demog_col using names_mapping.
     for demog_col in demog_cols:
         if demog_col == RACE_ETH_COL:
-            df = combine_race_eth(df)
+            df_combined = combine_race_eth(df)
+            df_total = get_total_race_df(df)
+            df_hisp = get_hisp_split_out_df(df)
+            df = pd.concat([df_combined, df_total, df_hisp])
         else:
             df = df.replace({demog_col: names_mapping})
 
