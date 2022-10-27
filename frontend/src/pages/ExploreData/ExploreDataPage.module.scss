@@ -91,13 +91,9 @@ button[data-action="back"] {
   color: $white !important;
 }
 
-// override to hide close button, was getting weird errors when trying to manually accept close behavior or use built in hideClose prop
-button[data-action="close"] {
-  display: none;
-}
-
 //  custom focus styles for warm welcome buttons
 button[data-action="primary"]:focus,
+button[data-action="close"]:focus,
 button[data-action="skip"]:focus,
 button[data-action="back"]:focus {
   outline: 1px solid white;

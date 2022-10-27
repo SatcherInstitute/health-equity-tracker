@@ -3,6 +3,8 @@ import Joyride from "react-joyride";
 import LazyLoad from "react-lazyload";
 import sass from "../../styles/variables.module.scss";
 import styles from "./ExploreDataPage.module.scss";
+import covidClick from "../../assets/screengrabs/covidClick.mp4";
+import changeModes from "../../assets/screengrabs/changeModes.mp4";
 
 export default function Onboarding(props: {
   callback: (data: any) => void;
@@ -17,7 +19,6 @@ export default function Onboarding(props: {
       showProgress={true}
       showSkipButton={true}
       hideBackButton={false}
-      hideCloseButton={true}
       disableCloseOnEsc={true}
       continuous={true}
       disableOverlayClose={false}
@@ -56,30 +57,45 @@ const ONBOARDING_STEPS = [
           playsInline
           className={styles.HowToStepImg}
         >
-          <source src="videos/search-by.mp4" type="video/mp4" />
+          <source src={covidClick} type="video/mp4" />
         </video>
       </LazyLoad>
     </>,
-    /*hideCloseButton=*/ false,
+    /*hideCloseButton=*/ true,
     /*placement=*/ "auto"
   ),
   onboardingStep(
     "#onboarding-madlib-arrow",
     "Compare Locations and Topics",
     <>
-      Click the arrows to scroll left or right for more ways to search, such as{" "}
-      <i>
-        ‘Compare rates of <b>COVID-19</b> between <b>Georgia</b> and{" "}
-        <b>Alabama</b>’
-      </i>{" "}
-      or{" "}
-      <i>
-        ‘Explore relationships between <b>Diabetes</b> and{" "}
-        <b>Health Insurance</b> in <b>New York</b>’
-      </i>
-      .
+      <p>
+        Click the arrows to scroll left or right for more ways to search, such
+        as{" "}
+        <i>
+          ‘Compare rates of <b>COVID-19</b> between <b>Georgia</b> and{" "}
+          <b>Alabama</b>’
+        </i>{" "}
+        or{" "}
+        <i>
+          ‘Explore relationships between <b>Diabetes</b> and{" "}
+          <b>Health Insurance</b> in <b>New York</b>’
+        </i>
+        .
+      </p>
+
+      <LazyLoad offset={300} once>
+        <video
+          autoPlay={true}
+          loop
+          muted
+          playsInline
+          className={styles.HowToStepImg}
+        >
+          <source src={changeModes} type="video/mp4" />
+        </video>
+      </LazyLoad>
     </>,
-    /*hideCloseButton=*/ false,
+    /*hideCloseButton=*/ true,
     /*placement=*/ "auto"
   ),
   onboardingStep(
@@ -93,7 +109,7 @@ const ONBOARDING_STEPS = [
         to collect and share data. We are committed to helping fix this.
       </i>
     </>,
-    /*hideCloseButton=*/ false,
+    /*hideCloseButton=*/ true,
     /*placement=*/ "auto"
   ),
   onboardingStep(

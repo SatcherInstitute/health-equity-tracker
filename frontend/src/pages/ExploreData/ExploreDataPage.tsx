@@ -36,7 +36,7 @@ import { useHeaderScrollMargin } from "../../utils/hooks/useHeaderScrollMargin";
 import { useLocation } from "react-router-dom";
 import CarouselMadLib from "./CarouselMadlib";
 import sass from "../../styles/variables.module.scss";
-import NoTopicInfoBox from "./DefaultHelperBox";
+import DefaultHelperBox from "./DefaultHelperBox";
 
 const Onboarding = React.lazy(() => import("./Onboarding"));
 
@@ -297,8 +297,9 @@ function ExploreDataPage() {
         </div>
         <div className={styles.ReportContainer}>
           {noTopicChosen ? (
-            <NoTopicInfoBox />
+            <DefaultHelperBox />
           ) : (
+            // <div style={{ height: "900px" }}></div>
             <ReportProvider
               isSingleColumn={isSingleColumn}
               madLib={madLib}
