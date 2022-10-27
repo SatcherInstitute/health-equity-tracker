@@ -1,6 +1,8 @@
 import React from "react";
 import Joyride from "react-joyride";
+import LazyLoad from "react-lazyload";
 import sass from "../../styles/variables.module.scss";
+import styles from "./ExploreDataPage.module.scss";
 
 export default function Onboarding(props: {
   callback: (data: any) => void;
@@ -10,10 +12,12 @@ export default function Onboarding(props: {
     <Joyride
       steps={ONBOARDING_STEPS}
       callback={props.callback}
-      disableScrolling={true}
+      disableScrolling={false}
+      scrollOffset={200}
       showProgress={true}
-      showSkipButton={true}
-      disableCloseOnEsc={true}
+      showSkipButton={false}
+      hideBackButton={false}
+      disableCloseOnEsc={false}
       continuous={true}
       disableOverlayClose={true}
       disableOverlay={true}
@@ -33,29 +37,48 @@ export default function Onboarding(props: {
 }
 const ONBOARDING_STEPS = [
   onboardingStep(
-    "#onboarding-start-your-search",
+    "#covid-dropdown-topic",
     "Start Your Search",
     <>
-      Select the variable or location of interest to start your search, such as{" "}
-      <i>'Investigate rates of COPD in California</i>. We'll be adding
-      additional variables in the coming months!
+      <p>
+        Select a topic (and location) to start your search, such as{" "}
+        <i>
+          ‘Investigate rates of <b>Incarceration</b> in <b>Alabama</b>’
+        </i>
+        .
+      </p>
+      <LazyLoad offset={300} once>
+        <video
+          autoPlay={true}
+          loop
+          muted
+          playsInline
+          className={styles.HowToStepImg}
+        >
+          <source src="videos/search-by.mp4" type="video/mp4" />
+        </video>
+      </LazyLoad>
     </>,
-    /*hideCloseButton=*/ true,
+    /*hideCloseButton=*/ false,
     /*placement=*/ "auto"
   ),
   onboardingStep(
     "#onboarding-madlib-arrow",
-    "Compare Locations and Variables",
+    "Compare Locations and Topics",
     <>
       Click the arrows to scroll left or right for more ways to search, such as{" "}
-      <i>‘Compare rates of COVID-19 between Georgia and Alabama’</i> or{" "}
       <i>
-        ‘Explore relationships between Diabetes and Health Insurance in the
-        United States’
+        ‘Compare rates of <b>COVID-19</b> between <b>Georgia</b> and{" "}
+        <b>Alabama</b>’
+      </i>{" "}
+      or{" "}
+      <i>
+        ‘Explore relationships between <b>Diabetes</b> and{" "}
+        <b>Health Insurance</b> in <b>New York</b>’
       </i>
       .
     </>,
-    /*hideCloseButton=*/ true,
+    /*hideCloseButton=*/ false,
     /*placement=*/ "auto"
   ),
   onboardingStep(
@@ -69,18 +92,18 @@ const ONBOARDING_STEPS = [
         to collect and share data. We are committed to helping fix this.
       </i>
     </>,
-    /*hideCloseButton=*/ true,
-    /*placement=*/ "top-start"
+    /*hideCloseButton=*/ false,
+    /*placement=*/ "auto"
   ),
   onboardingStep(
     "#onboarding-explore-trends",
-    "Explore further to see trends",
+    "Explore further to see demographic trends",
     <>
       Where available, the tracker offers breakdowns by race and ethnicity, sex,
       and age.
     </>,
     /*hideCloseButton=*/ false,
-    /*placement=*/ "top-start"
+    /*placement=*/ "auto"
   ),
 ];
 

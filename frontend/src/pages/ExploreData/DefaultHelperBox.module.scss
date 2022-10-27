@@ -8,7 +8,7 @@
   padding: 1rem 3rem 0 3rem;
 
   @media (min-width: $sm) {
-    padding: 2rem 10rem 0 10rem;
+    padding: 2rem 5rem 0 5rem;
   }
 }
 
@@ -51,6 +51,10 @@
 
 .NoTopicHelperVideoBoxWithCaption {
   margin-top: 1rem;
+
+  p {
+    margin-inline: 3rem;
+  }
 }
 
 .NoTopicHelperVideoBox {

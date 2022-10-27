@@ -91,6 +91,13 @@ button[data-action="back"] {
   color: $white !important;
 }
 
+//  custom focus styles for warm welcome buttons
+button[data-action="primary"]:focus,
+button[data-action="back"]:focus,
+button[data-action="close"]:focus {
+  outline: 1px solid white;
+}
+
 .CategoryList {
   ul span,
   ul h2 {
@@ -103,4 +110,10 @@ button[data-action="back"] {
       line-height: $lhLoose;
     }
   }
+}
+
+.HowToStepImg {
+  padding: 10px;
+  width: 100%;
+  height: 100%;
 }

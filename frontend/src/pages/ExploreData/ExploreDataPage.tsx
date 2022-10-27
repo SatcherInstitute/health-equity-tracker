@@ -20,6 +20,7 @@ import {
   MADLIB_SELECTIONS_PARAM,
   parseMls,
   psSubscribe,
+  setParameter,
   setParameters,
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
@@ -49,6 +50,8 @@ function ExploreDataPage() {
 
   // Set up initial mad lib values based on defaults and query params
   const params = useSearchParams();
+
+  console.log(params);
 
   // swap out old variable ids for backwards compatibility of outside links
   const foundIndex = MADLIB_LIST.findIndex(
@@ -137,6 +140,11 @@ function ExploreDataPage() {
   const onboardingCallback = (data: any) => {
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
       setActivelyOnboarding(false);
+
+      console.log(window.location.href);
+
+      setParameter(SHOW_ONBOARDING_PARAM, "false");
+
       // const expirationDate = new Date();
       // Expiration date set for a year from now
       // expirationDate.setFullYear(expirationDate.getFullYear() + 1);
@@ -222,7 +230,7 @@ function ExploreDataPage() {
   }, [madLib]);
 
   const headerScrollMargin = useHeaderScrollMargin(
-    "onboarding-start-your-search",
+    "madlib-carousel-container",
     sticking,
     [madLib, showIncarceratedChildrenAlert, showStickyLifeline]
   );
@@ -240,7 +248,7 @@ function ExploreDataPage() {
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
         <div
           className={styles.CarouselContainer}
-          id="onboarding-start-your-search"
+          id="madlib-carousel-container"
         >
           <Carousel
             className={`Carousel ${styles.Carousel}`}

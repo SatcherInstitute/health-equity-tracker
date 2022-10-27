@@ -18,7 +18,7 @@ test('Default Tracker to Compare Mode', async ({ page }) => {
     const advanceMadlibCarouselArrowButton = page.locator('id=onboarding-madlib-arrow')
     await advanceMadlibCarouselArrowButton.click();
 
-    const madlibBox = page.locator('id=onboarding-start-your-search')
+    const madlibBox = page.locator('id=madlib-carousel-container')
     await expect(madlibBox).toContainText('Compare rates of');
 
     // back button works properly for carousel mode changes
@@ -33,14 +33,14 @@ test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
 
 
     // Changing first location via madlib buttons
-    const location1MadlibButton = page.locator('#onboarding-start-your-search button:has-text("United States")')
+    const location1MadlibButton = page.locator('#madlib-carousel-container button:has-text("United States")')
     await location1MadlibButton.click();
 
     await page.fill('[placeholder="County, State, Territory, or United States"]', 'denver');
     await page.keyboard.press('Enter');
 
     // Changing first location via madlib buttons
-    const location2MadlibButton = page.locator('#onboarding-start-your-search button:has-text("Georgia")')
+    const location2MadlibButton = page.locator('#madlib-carousel-container button:has-text("Georgia")')
     await location2MadlibButton.click();
 
     await page.fill('[placeholder="County, State, Territory, or United States"]', 'Colorado');

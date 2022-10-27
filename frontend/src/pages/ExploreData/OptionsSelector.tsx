@@ -70,6 +70,8 @@ function OptionsSelector(props: {
     props.value === "default" &&
     !popover.isOpen;
 
+  const arrowId = `${props.value}-dropdown-${isFips ? "fips" : "topic"}`;
+
   return (
     <>
       <span ref={popoverRef}>
@@ -81,7 +83,7 @@ function OptionsSelector(props: {
           onClick={popover.open}
         >
           {currentDisplayName}{" "}
-          {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
+          {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown id={arrowId} />}
         </Button>
 
         <Popover
