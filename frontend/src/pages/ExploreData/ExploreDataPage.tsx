@@ -21,6 +21,7 @@ import {
   parseMls,
   psSubscribe,
   setParameters,
+  SHOW_ONBOARDING_PARAM,
   stringifyMls,
   useSearchParams,
 } from "../../utils/urlutils";
@@ -73,6 +74,8 @@ function ExploreDataPage() {
     activeSelections: defaultValuesWithOverrides,
   });
 
+  const noTopicChosen = getSelectedConditions(madLib).length === 0;
+
   useEffect(() => {
     const readParams = () => {
       let index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
@@ -114,18 +117,23 @@ function ExploreDataPage() {
 
   // Set up warm welcome onboarding behaviors
   // const [cookies, setCookie] = useCookies();
+  let showOnboarding = false;
   // let showOnboarding = cookies.skipOnboarding !== "true";
-  // if (params[SHOW_ONBOARDING_PARAM] === "true") {
-  //   showOnboarding = true;
-  // }
-  // if (params[SHOW_ONBOARDING_PARAM] === "false") {
-  //   showOnboarding = false;
-  // }
+
+  if (noTopicChosen) {
+    if (params[SHOW_ONBOARDING_PARAM] === "true") {
+      showOnboarding = true;
+    }
+    if (params[SHOW_ONBOARDING_PARAM] === "false") {
+      showOnboarding = false;
+    }
+  }
 
   // if there is an incoming #hash; bypass the warm welcome entirely
   // if (location.hash !== "") showOnboarding = false;
 
-  const [activelyOnboarding, setActivelyOnboarding] = useState<boolean>(false);
+  const [activelyOnboarding, setActivelyOnboarding] =
+    useState<boolean>(showOnboarding);
   const onboardingCallback = (data: any) => {
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
       setActivelyOnboarding(false);
@@ -148,11 +156,11 @@ function ExploreDataPage() {
     300
   );
 
-  // useEffect(() => {
-  //   if (activelyOnboarding) {
-  //     return;
-  //   }
-  // }, [activelyOnboarding]);
+  useEffect(() => {
+    if (activelyOnboarding) {
+      return;
+    }
+  }, [activelyOnboarding]);
 
   // calculate page size to determine if mobile or not
   const isSingleColumn = (madLib.id as MadLibId) === "disparity";
@@ -212,8 +220,6 @@ function ExploreDataPage() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [madLib]);
-
-  const noTopicChosen = getSelectedConditions(madLib).length === 0;
 
   const headerScrollMargin = useHeaderScrollMargin(
     "onboarding-start-your-search",

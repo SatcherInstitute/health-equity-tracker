@@ -39,6 +39,10 @@ export const PRISON_VS_POVERTY_RACE_GA_SETTING =
 export const UNINSURANCE_SEX_FL_VS_CA_SETTING =
   "?mls=1.health_insurance-3.12-5.06&mlp=comparegeos&demo=sex";
 
+// warm welcome demo setting
+export const WARM_WELCOME_DEMO_SETTING =
+  "?mls=1.covid-3.00&dt1=covid_cases&mlp=disparity&onboard=true";
+
 // SECTION IDS
 export const WHAT_DATA_ARE_MISSING_ID = "definitions-missing-data";
 export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =

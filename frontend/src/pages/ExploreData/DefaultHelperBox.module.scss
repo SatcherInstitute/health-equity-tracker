@@ -2,7 +2,7 @@
 @import "../../styles/variables.module";
 
 .NoTopicContent {
-  margin: 1rem;
+  // margin: 1rem;
   width: 100%;
 
   padding: 1rem 3rem 0 3rem;
@@ -57,6 +57,7 @@
   iframe {
     height: 157px;
     width: 250px;
+    max-width: 80vw;
   }
 
   @media (min-width: $lg) {

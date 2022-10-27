@@ -8,6 +8,7 @@ import {
   METHODOLOGY_TAB_LINK,
   PRISON_VS_POVERTY_RACE_GA_SETTING,
   UNINSURANCE_SEX_FL_VS_CA_SETTING,
+  WARM_WELCOME_DEMO_SETTING,
 } from "../../utils/internalRoutes";
 import styles from "./DefaultHelperBox.module.scss";
 
@@ -83,10 +84,16 @@ export default function DefaultHelperBox() {
               ></iframe>
             </div>
             <p>
-              <i>
-                New to the tracker? Watch a{" "}
+              {/* 
+              Watch a{" "}
                 <a href="https://www.youtube.com/embed/XBoqT9Jjc8w">
                   video demo
+                </a> or 
+              */}
+              <i>
+                New to the tracker? Take a{" "}
+                <a href={EXPLORE_DATA_PAGE_LINK + WARM_WELCOME_DEMO_SETTING}>
+                  guided tour of a COVID-19 report.
                 </a>
               </i>
             </p>
