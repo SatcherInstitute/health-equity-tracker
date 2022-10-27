@@ -15,6 +15,7 @@ import { CATEGORIES_LIST } from "../../utils/MadLibs";
 import { Box, Grid } from "@material-ui/core";
 import { DropdownVarId, VariableId } from "../../data/config/MetricConfig";
 import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 
 function OptionsSelector(props: {
   value: VariableId | string | "default"; // condition data type OR fips code as string OR default setting with no topic selected
@@ -62,28 +63,28 @@ function OptionsSelector(props: {
   const anchorO = "bottom"; // noTopicChosen ? "center" : "bottom";
   const transformO = "top"; // noTopicChosen ? "center" : "top";
 
+  const noTopic = props.value === "default";
+
   // only pulse the condition button when no topic is selected and dropdown menu is closed (and user hasn't set their machine to prefer reduced motion)
   const prefersReducedMotion = usePrefersReducedMotion();
   const doPulse =
-    !prefersReducedMotion &&
-    !isFips &&
-    props.value === "default" &&
-    !popover.isOpen;
+    !prefersReducedMotion && !isFips && noTopic && !popover.isOpen;
 
-  const arrowId = `${props.value}-dropdown-${isFips ? "fips" : "topic"}`;
+  const dropdownId = `${props.value}-dropdown-${isFips ? "fips" : "topic"}`;
 
   return (
     <>
       <span ref={popoverRef}>
         {/* Clickable Madlib Button with Dropdown Arrow */}
         <Button
+          id={dropdownId}
           variant="text"
           aria-haspopup="true"
           className={doPulse ? styles.MadLibButtonPulse : styles.MadLibButton}
           onClick={popover.open}
         >
           {currentDisplayName}{" "}
-          {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown id={arrowId} />}
+          {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
         </Button>
 
         <Popover
@@ -103,10 +104,22 @@ function OptionsSelector(props: {
           }}
         >
           {!isFips && (
-            <h2 className={styles.PopoverTitle}>
-              {" "}
-              Select a topic to get started
-            </h2>
+            <Grid container justifyContent="space-between">
+              <h2 className={styles.PopoverTitle}>
+                {" "}
+                Select a topic to get started
+              </h2>
+              {!noTopic && (
+                <Button
+                  onClick={() => {
+                    popover.close();
+                    props.onOptionUpdate("default");
+                  }}
+                >
+                  <HelpOutlineIcon />
+                </Button>
+              )}
+            </Grid>
           )}
 
           {/* Location Dropdown */}

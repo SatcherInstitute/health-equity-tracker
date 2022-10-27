@@ -17,10 +17,10 @@ export default function Onboarding(props: {
       showProgress={true}
       showSkipButton={false}
       hideBackButton={false}
-      disableCloseOnEsc={false}
+      disableCloseOnEsc={true}
       continuous={true}
-      disableOverlayClose={true}
-      disableOverlay={true}
+      disableOverlayClose={false}
+      disableOverlay={false}
       run={props.activelyOnboarding}
       styles={{
         options: {

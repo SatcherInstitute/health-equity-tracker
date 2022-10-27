@@ -133,22 +133,14 @@ function ExploreDataPage() {
   }
 
   // if there is an incoming #hash; bypass the warm welcome entirely
-  // if (location.hash !== "") showOnboarding = false;
+  if (location.hash !== "") showOnboarding = false;
 
   const [activelyOnboarding, setActivelyOnboarding] =
     useState<boolean>(showOnboarding);
   const onboardingCallback = (data: any) => {
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
       setActivelyOnboarding(false);
-
-      console.log(window.location.href);
-
       setParameter(SHOW_ONBOARDING_PARAM, "false");
-
-      // const expirationDate = new Date();
-      // Expiration date set for a year from now
-      // expirationDate.setFullYear(expirationDate.getFullYear() + 1);
-      // setCookie("skipOnboarding", true, { path: "/", expires: expirationDate });
     }
   };
 
