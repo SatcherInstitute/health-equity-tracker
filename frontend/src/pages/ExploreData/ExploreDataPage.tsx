@@ -34,7 +34,7 @@ import { useHeaderScrollMargin } from "../../utils/hooks/useHeaderScrollMargin";
 import { useLocation } from "react-router-dom";
 import CarouselMadLib from "./CarouselMadlib";
 import sass from "../../styles/variables.module.scss";
-import NoTopicInfoBox from "./NoTopicInfoBox";
+import NoTopicInfoBox from "./DefaultHelperBox";
 
 const Onboarding = React.lazy(() => import("./Onboarding"));
 

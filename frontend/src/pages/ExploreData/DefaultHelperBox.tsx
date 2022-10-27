@@ -9,9 +9,9 @@ import {
   PRISON_VS_POVERTY_RACE_GA_SETTING,
   UNINSURANCE_SEX_FL_VS_CA_SETTING,
 } from "../../utils/internalRoutes";
-import styles from "./ExploreDataPage.module.scss";
+import styles from "./DefaultHelperBox.module.scss";
 
-export default function NoTopicInfoBox() {
+export default function DefaultHelperBox() {
   return (
     <Grid
       container
