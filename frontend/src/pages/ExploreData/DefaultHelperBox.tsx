@@ -21,7 +21,7 @@ export default function DefaultHelperBox() {
     >
       <Alert severity="info" icon={<></>} className={styles.NoTopicAlert}>
         <Grid item xs={12} container className={styles.NoTopicBox}>
-          <Grid item xs={12} md={7}>
+          <Grid item xs={12} md={6}>
             <h3 className={styles.BigHeadline}>Select a topic above</h3>
 
             <h3 className={styles.LittleHeadline}>
@@ -65,7 +65,7 @@ export default function DefaultHelperBox() {
             container
             item
             xs={12}
-            md={5}
+            md={6}
             className={styles.NoTopicHelperVideoBoxWithCaption}
             direction="column"
             alignItems="center"

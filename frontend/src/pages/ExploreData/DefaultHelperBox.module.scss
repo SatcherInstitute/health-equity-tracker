@@ -32,10 +32,10 @@
     display: block;
   }
 
-  font-size: $text;
+  font-size: $smallerHeader;
   padding-right: 1rem;
 
-  @media (min-width: $md) {
+  @media (min-width: $lg) {
     font-size: $bigHeader;
   }
 }
@@ -44,7 +44,7 @@
   font-size: $small;
   padding-right: 1rem;
 
-  @media (min-width: $md) {
+  @media (min-width: $lg) {
     font-size: $smallestHeader;
   }
 }
