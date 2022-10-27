@@ -28,9 +28,9 @@ import {
 const LABEL_SWAP_CUTOFF_PERCENT = 66;
 
 // nested quotation mark format needed for Vega
-const SINGLE_LINE_100K = ",' per 100k'";
-const MULTI_LINE_100K = "+' per 100k'";
-const SINGLE_LINE_PERCENT = "+'%'";
+const SINGLE_LINE_100K = ", per 100k";
+const MULTI_LINE_100K = " per 100k";
+const SINGLE_LINE_PERCENT = "+ %";
 
 function getSpec(
   altText: string,
@@ -55,13 +55,18 @@ function getSpec(
   const BAR_HEIGHT = 60;
   const BAR_PADDING = 0.2;
   const DATASET = "DATASET";
+  const chartIsSmall = width < 400;
 
-  // create proper datum suffix, either % or single/multi line 100k
-  const barLabelSuffix = usePercentSuffix
-    ? SINGLE_LINE_PERCENT
-    : pageIsTiny
-    ? SINGLE_LINE_100K
-    : MULTI_LINE_100K;
+  //create bar label as array or string
+  const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} + "${
+    usePercentSuffix ? SINGLE_LINE_PERCENT : SINGLE_LINE_100K
+  }"`;
+  const multiLineLabel = `[datum.${tooltipMetricDisplayColumnName}, "${MULTI_LINE_100K}"]`;
+  const createBarLabel = () => {
+    if (chartIsSmall) {
+      return multiLineLabel;
+    } else return singleLineLabel;
+  };
 
   const legends = showLegend
     ? [
@@ -103,7 +108,10 @@ function getSpec(
       },
     ],
     signals: [
-      { name: "y_step", value: BAR_HEIGHT },
+      {
+        name: "y_step",
+        value: BAR_HEIGHT,
+      },
       {
         name: "height",
         update: "bandspace(domain('y').length, 0.1, 0.05) * y_step",
@@ -177,7 +185,7 @@ function getSpec(
               signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5, 5)`,
             },
             dy: {
-              signal: pageIsTiny ? -20 : 0,
+              signal: chartIsSmall ? -15 : 0,
             },
             fill: {
               signal: `if(datum.${measure} > ${barLabelBreakpoint}, "white", "black")`,
@@ -185,8 +193,7 @@ function getSpec(
             x: { scale: "x", field: measure },
             y: { scale: "y", field: breakdownVar, band: 0.8 },
             text: {
-              // on smallest screens send an array of strings to place on multiple lines
-              signal: `[datum.${tooltipMetricDisplayColumnName}${barLabelSuffix}]`,
+              signal: createBarLabel(),
             },
           },
         },
