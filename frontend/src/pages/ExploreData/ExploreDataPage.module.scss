@@ -86,15 +86,20 @@
   }
 }
 
-// override the joyride component to allow different color for "back" text and "next" background
+// override the joyride component to show back button
 button[data-action="back"] {
   color: $white !important;
 }
 
+// override to hide close button
+button[data-action="close"] {
+  display: none;
+}
+
 //  custom focus styles for warm welcome buttons
 button[data-action="primary"]:focus,
-button[data-action="back"]:focus,
-button[data-action="close"]:focus {
+button[data-action="skip"]:focus,
+button[data-action="back"]:focus {
   outline: 1px solid white;
 }
 

@@ -15,8 +15,9 @@ export default function Onboarding(props: {
       disableScrolling={false}
       scrollOffset={200}
       showProgress={true}
-      showSkipButton={false}
+      showSkipButton={true}
       hideBackButton={false}
+      hideCloseButton={true}
       disableCloseOnEsc={true}
       continuous={true}
       disableOverlayClose={false}
