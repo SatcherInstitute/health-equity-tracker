@@ -5,7 +5,6 @@ describe("Test Metric Config Functions", () => {
     expect(isPctType("pct_incidence")).toBe(true);
     expect(isPctType("pct_relative_inequity")).toBe(true);
     expect(isPctType("pct_share")).toBe(true);
-
     expect(isPctType("per100k")).toBe(false);
     expect(isPctType("something broken" as MetricType)).toBe(false);
   });
@@ -15,5 +14,6 @@ describe("Test Metric Config Functions", () => {
     expect(formatFieldValue("pct_incidence", 33, true)).toBe("33.0");
     expect(formatFieldValue("pct_share", 3, false)).toBe("3.0%");
     expect(formatFieldValue("per100k", 30_000, false)).toBe("30,000");
+    expect(formatFieldValue("per100k", 0, false)).toBe("<1");
   });
 });
