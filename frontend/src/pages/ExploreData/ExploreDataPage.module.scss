@@ -111,12 +111,18 @@ button[data-action="back"] {
 }
 
 .NoTopicBox {
-  margin: 0 3rem;
+  // margin: 0 3rem;
   width: 70vw;
 }
 
 .BigHeadline {
-  font-size: $title;
+  display: none;
+
+  @media (min-width: $sm) {
+    display: block;
+  }
+
+  font-size: $text;
   padding-right: 1rem;
 
   @media (min-width: $md) {
@@ -177,9 +183,10 @@ button[data-action="back"] {
 }
 
 .SuggestedReportsList {
+  margin-block: 5px;
+
   text-align: left;
   font-size: $text;
-  line-height: $lhSuperLoose;
 
   list-style: none;
 
@@ -195,8 +202,16 @@ button[data-action="back"] {
   }
 }
 
+SuggestedReportsListItem {
+  line-height: $lhNormal;
+}
+
 .SuggestedReportsListItem a {
   text-decoration: none;
+
+  @media only screen and (min-width: $sm) {
+    line-height: $lhSuperLoose;
+  }
 }
 
 .Thumbnail {
