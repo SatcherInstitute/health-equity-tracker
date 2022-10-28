@@ -195,13 +195,17 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   xs={12}
                   sm={12}
                   md={SINGLE_COLUMN_WIDTH}
-                  id="rates-over-time"
+                  id={
+                    variableConfig.timeSeriesData
+                      ? "rates-over-time"
+                      : undefined
+                  }
                   className={styles.ScrollPastHeader}
                 >
                   {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                     <Fragment key={breakdownVar}>
                       {breakdownIsShown(breakdownVar) &&
-                        // only show time series 100k chart if MetricConfig for current condition has a card title
+                        // only show time series 100k chart if MetricConfig has flag turned on
                         variableConfig.timeSeriesData && (
                           <RateTrendsChartCard
                             variableConfig={variableConfig}
@@ -270,14 +274,18 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   xs={12}
                   sm={12}
                   md={SINGLE_COLUMN_WIDTH}
-                  id="inequities-over-time"
+                  id={
+                    variableConfig.timeSeriesData
+                      ? "inequities-over-time"
+                      : undefined
+                  }
                   className={styles.ScrollPastHeader}
                 >
                   <LazyLoad offset={600} height={750} once>
                     {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                       <Fragment key={breakdownVar}>
                         {breakdownIsShown(breakdownVar) &&
-                          // only show time series 100k chart if MetricConfig for current condition has a card title
+                          // only show time series relative inequity chart if MetricConfig contains flag
                           variableConfig.timeSeriesData && (
                             <ShareTrendsChartCard
                               variableConfig={variableConfig}
