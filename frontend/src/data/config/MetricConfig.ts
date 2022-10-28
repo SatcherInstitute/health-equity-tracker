@@ -296,6 +296,10 @@ export function formatFieldValue(
   if (value === null || value === undefined) {
     return "";
   }
+
+  // if values are numeric but rounded down to 0, instead replace with "less than 1"
+  if (value === 0 && metricType === "per100k") return "<1";
+
   const isRatio = metricType.includes("ratio");
   let formatOptions = isPctType(metricType) ? { minimumFractionDigits: 1 } : {};
   const formattedValue =
@@ -1519,7 +1523,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "voter_participation_per_100k",
           fullCardTitleName: "Participating Voters per 100k people",
           chartTitle: "Voter participation per 100k people in",
-          mobileChartTitle: ["Voter participation", "per 1005 people in"],
+          mobileChartTitle: ["Voter participation", "per 100k people in"],
           trendsCardTitleName: "Rates of voter participation over time",
           shortLabel: "voters per 100k",
           type: "per100k",
