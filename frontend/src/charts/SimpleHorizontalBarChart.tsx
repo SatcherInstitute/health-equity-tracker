@@ -183,7 +183,9 @@ function getSpec(
             },
             baseline: { value: "middle" },
             dx: {
-              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5, 5)`,
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${
+                width > 250 ? "5" : "1"
+              })`,
             },
             dy: {
               signal: chartIsSmall ? -15 : 0,
@@ -193,6 +195,7 @@ function getSpec(
             },
             x: { scale: "x", field: measure },
             y: { scale: "y", field: breakdownVar, band: 0.8 },
+            limit: { signal: "width / 3" },
             text: {
               signal: createBarLabel(),
             },

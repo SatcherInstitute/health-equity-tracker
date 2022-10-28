@@ -94,8 +94,7 @@ function getSpec(
       `vs.`,
       `${darkMeasureDisplayName}`,
     ];
-
-    if (width < 350) {
+    if (chartIsSmall) {
       return multiLineTitle;
     } else return singleLineTitle;
   };
@@ -107,8 +106,6 @@ function getSpec(
       return multiLineLabel;
     } else return singleLineLabel;
   };
-
-  // const multiLineLabel = `[datum.${darkMetricDisplayColumnName}, "${metricDisplayName}"]`;
 
   const ALL_MARKS = [
     {
