@@ -269,7 +269,6 @@ function ExploreDataPage() {
             // ! TODO We really should be able to indicate Forward/Backward vs just "Change"
             navButtonsProps={{
               "aria-label": "Change Report Type",
-
               style: {
                 // backgroundColor: sass.altGreen,
                 border: `1px solid ${sass.altGreen}`,
