@@ -11,14 +11,18 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { usePopover } from "../../utils/hooks/usePopover";
-import { CATEGORIES_LIST } from "../../utils/MadLibs";
+import {
+  CATEGORIES_LIST,
+  DEFAULT,
+  DefaultDropdownVarId,
+} from "../../utils/MadLibs";
 import { Box, Grid } from "@material-ui/core";
 import { DropdownVarId, VariableId } from "../../data/config/MetricConfig";
 import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 
 function OptionsSelector(props: {
-  value: VariableId | string | "default"; // condition data type OR fips code as string OR default setting with no topic selected
+  value: VariableId | string | DefaultDropdownVarId; // condition data type OR fips code as string OR default setting with no topic selected
   options: Fips[] | string[][];
   onOptionUpdate: (option: string) => void;
 }) {
@@ -63,7 +67,7 @@ function OptionsSelector(props: {
   const anchorO = "bottom"; // noTopicChosen ? "center" : "bottom";
   const transformO = "top"; // noTopicChosen ? "center" : "top";
 
-  const noTopic = props.value === "default";
+  const noTopic = props.value === DEFAULT;
 
   // only pulse the condition button when no topic is selected and dropdown menu is closed (and user hasn't set their machine to prefer reduced motion)
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -211,7 +215,7 @@ function OptionsSelector(props: {
                         className={styles.GoBackButton}
                         onClick={() => {
                           popover.close();
-                          props.onOptionUpdate("default");
+                          props.onOptionUpdate(DEFAULT);
                         }}
                       >
                         <KeyboardBackspaceIcon style={{ fontSize: "small" }} />{" "}
