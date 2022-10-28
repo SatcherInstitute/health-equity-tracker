@@ -15,7 +15,7 @@ import { CATEGORIES_LIST } from "../../utils/MadLibs";
 import { Box, Grid } from "@material-ui/core";
 import { DropdownVarId, VariableId } from "../../data/config/MetricConfig";
 import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
-import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 
 function OptionsSelector(props: {
   value: VariableId | string | "default"; // condition data type OR fips code as string OR default setting with no topic selected
@@ -109,16 +109,6 @@ function OptionsSelector(props: {
                 {" "}
                 Select a topic to get started
               </h2>
-              {!noTopic && (
-                <Button
-                  onClick={() => {
-                    popover.close();
-                    props.onOptionUpdate("default");
-                  }}
-                >
-                  <HelpOutlineIcon />
-                </Button>
-              )}
             </Grid>
           )}
 
@@ -209,6 +199,26 @@ function OptionsSelector(props: {
                       </Grid>
                     );
                   })}
+                  <Grid
+                    item
+                    xs={12}
+                    container
+                    alignItems="flex-end"
+                    justifyContent="flex-end"
+                  >
+                    {!noTopic && (
+                      <Button
+                        className={styles.GoBackButton}
+                        onClick={() => {
+                          popover.close();
+                          props.onOptionUpdate("default");
+                        }}
+                      >
+                        <KeyboardBackspaceIcon style={{ fontSize: "small" }} />{" "}
+                        <span className={styles.GoBackButtonText}>Go back</span>
+                      </Button>
+                    )}
+                  </Grid>
                 </Grid>
               </Box>
             </>
