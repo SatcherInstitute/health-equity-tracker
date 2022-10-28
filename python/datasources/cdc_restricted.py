@@ -148,6 +148,8 @@ class CDCRestrictedData(DataSource):
         geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
         df = add_missing_demographic_values(df, geo_to_pull, demo)
 
+        df = df.replace({'Missing': unknown_val})
+
         if cumulative:
             groupby_cols = [
                 std_col.STATE_POSTAL_COL,
