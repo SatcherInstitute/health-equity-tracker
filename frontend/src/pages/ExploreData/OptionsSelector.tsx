@@ -64,8 +64,8 @@ function OptionsSelector(props: {
     }`;
   }
 
-  const anchorO = "bottom"; // noTopicChosen ? "center" : "bottom";
-  const transformO = "top"; // noTopicChosen ? "center" : "top";
+  const anchorO = "bottom";
+  const transformO = "top";
 
   const noTopic = props.value === DEFAULT;
 
@@ -164,7 +164,6 @@ function OptionsSelector(props: {
                         item
                         xs={6}
                         sm={4}
-                        // md={4}
                         key={category.title}
                         className={styles.CategoryList}
                       >
