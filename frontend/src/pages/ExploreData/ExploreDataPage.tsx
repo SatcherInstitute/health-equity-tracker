@@ -242,6 +242,7 @@ function ExploreDataPage() {
         >
           <Carousel
             className={`Carousel ${styles.Carousel}`}
+            swipe={false}
             NextIcon={
               <NavigateNextIcon
                 aria-hidden="true"
@@ -279,6 +280,7 @@ function ExploreDataPage() {
             }}
             animation="slide"
             navButtonsAlwaysVisible={true}
+            cycleNavigation={false}
             navButtonsAlwaysInvisible={noTopicChosen}
             index={initialIndex}
             onChange={handleCarouselChange}
