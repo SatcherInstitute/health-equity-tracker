@@ -1523,7 +1523,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "voter_participation_per_100k",
           fullCardTitleName: "Participating Voters per 100k people",
           chartTitle: "Voter participation per 100k people in",
-          mobileChartTitle: ["Voter participation", "per 1005 people in"],
+          mobileChartTitle: ["Voter participation", "per 100k people in"],
           trendsCardTitleName: "Rates of voter participation over time",
           shortLabel: "voters per 100k",
           type: "per100k",
