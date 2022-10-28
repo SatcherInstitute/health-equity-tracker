@@ -103,7 +103,7 @@ function OptionsSelector(props: {
             horizontal: "center",
           }}
         >
-          {!isFips && (
+          {!isFips && noTopic && (
             <Grid container justifyContent="space-between">
               <h2 className={styles.PopoverTitle}>
                 {" "}
