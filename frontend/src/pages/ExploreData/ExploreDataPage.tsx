@@ -270,7 +270,10 @@ function ExploreDataPage() {
               "aria-label": "Change Report Type",
 
               style: {
-                backgroundColor: sass.altGreen,
+                // backgroundColor: sass.altGreen,
+                border: `1px solid ${sass.altGreen}`,
+                backgroundColor: sass.white,
+                color: sass.altGreen,
                 borderRadius: 100,
               },
             }}

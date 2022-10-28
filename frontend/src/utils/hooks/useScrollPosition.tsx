@@ -22,7 +22,8 @@ const useScrollPosition = (
 
     const handleScroll = () => {
       const header = document.getElementById(EXPLORE_DATA_ID);
-      const indicators = document.querySelectorAll(INDICATORS)[0].parentElement;
+      const indicators =
+        document.querySelectorAll(INDICATORS)?.[0]?.parentElement;
       const stickyBarOffsetFromTop = header?.offsetTop || 1;
       const topOfCarousel = window.pageYOffset > stickyBarOffsetFromTop;
 
