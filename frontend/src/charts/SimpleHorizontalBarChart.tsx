@@ -177,6 +177,7 @@ function getSpec(
             },
           },
           update: {
+            fontSize: { value: width > 250 ? 11 : 7.5 },
             align: {
               signal: `if(datum.${measure} > ${barLabelBreakpoint}, "right", "left")`,
             },
