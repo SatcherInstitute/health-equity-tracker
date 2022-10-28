@@ -57,6 +57,12 @@ function getSpec(
   const DATASET = "DATASET";
   const chartIsSmall = width < 400;
 
+  const createAxisTitle = () => {
+    if (chartIsSmall) {
+      return measureDisplayName.split(" ");
+    } else return measureDisplayName;
+  };
+
   //create bar label as array or string
   const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} + "${
     usePercentSuffix ? SINGLE_LINE_PERCENT : SINGLE_LINE_100K
@@ -253,12 +259,15 @@ function getSpec(
         scale: "x",
         orient: "bottom",
         grid: false,
-        title: measureDisplayName,
-        titleAnchor: pageIsTiny ? "end" : "null",
+        title: createAxisTitle(),
+        titleX: chartIsSmall ? 0 : undefined,
+        titleAnchor: chartIsSmall ? "end" : "null",
+        titleAlign: chartIsSmall ? "left" : "center",
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: "ceil(width/40)" },
         zindex: sass.zMiddle,
+        titleLimit: { signal: "width - 10 " },
       },
       {
         scale: "y",
