@@ -174,7 +174,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const geographyName = props.showCounties
       ? countyOrEquivalent
       : stateOrTerritory;
-    const tooltipDatum = `format(datum.${props.metric.metricId}, ',')`;
+
+    const tooltipDatum =
+      props.metric.type === "per100k"
+        ? // formatted tooltip hover 100k values above zero should display as less than 1
+          `if (datum.${props.metric.metricId} > 0, format(datum.${props.metric.metricId}, ','), '<1')`
+        : `format(datum.${props.metric.metricId}, ',')`;
+
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
     const tooltipLabel =
       props.isUnknownsMap && props.metric.unknownsVegaLabel
