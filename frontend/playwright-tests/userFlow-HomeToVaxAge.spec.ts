@@ -1,8 +1,6 @@
 import { test, expect } from '@playwright/test';
 const EXPLORE_DATA_PAGE_LINK = "/exploredata";
-
 const VAX_USA_RACE = `mls=1.covid_vaccinations-3.00`
-const SKIP_WELCOME = `onboard=false`
 
 
 test.describe('Home to COVID Vax by Age', () => {
@@ -22,10 +20,10 @@ test.describe('Home to COVID Vax by Age', () => {
         await expect(page).toHaveURL(/.*exploredata/);
     })
 
-    test('Tracker Default (skip Welcome) to Covid Vax', async ({ page }) => {
+    test('Tracker Default to Covid Vax', async ({ page }) => {
 
         // Load Tracker Default (with url param to bypass problematic warm welcome)
-        await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${SKIP_WELCOME}`, { waitUntil: "networkidle" });
+        await page.goto(`${EXPLORE_DATA_PAGE_LINK}`, { waitUntil: "networkidle" });
         await expect(page).toBeAccessible({
             rules: {
                 // TODO: fix disabled filter colors to be proper contrast
@@ -33,12 +31,15 @@ test.describe('Home to COVID Vax by Age', () => {
             },
         })
 
+        // stop the pulsing button
+        await page.emulateMedia({ reducedMotion: "reduce" });
+
         // changes madlib to VAXX properly
-        // const madLibTopic = page.locator('button:has-text("COVID-19")')
-        // madLibTopic.click();
-        // const covidVaxOption = page.locator('span:has-text("COVID-19 Vaccinations")')
-        // covidVaxOption.click();
-        // await expect(page).toHaveURL(/.*mls=1.covid_vaccinations-3.00/);
+        const madLibTopic = page.locator('button:has-text("select a topic")')
+        madLibTopic.click();
+        const covidVaxOption = page.locator('span:has-text("COVID-19 Vaccinations")')
+        covidVaxOption.click();
+        await expect(page).toHaveURL(/.*mls=1.covid_vaccinations-3.00/);
 
         // back button works properly for madlib condition changes
         await page.goBack()
@@ -49,7 +50,7 @@ test.describe('Home to COVID Vax by Age', () => {
     test('Covid Vax Toggle Age', async ({ page }) => {
 
         // Starting with COVID VAX
-        await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${VAX_USA_RACE}&${SKIP_WELCOME}`, { waitUntil: "networkidle" });
+        await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${VAX_USA_RACE}`, { waitUntil: "networkidle" });
 
         // Changing to AGE demographic toggle should change URL
         const ageToggleButton = page.locator('button:has-text("Age")')
