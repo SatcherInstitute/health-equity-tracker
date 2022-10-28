@@ -18,11 +18,13 @@ test.describe('Home to COVID Vax by Age', () => {
         const exploreButton = page.locator('a:has-text("Explore the Health Equity Tracker")')
         exploreButton.click();
         await expect(page).toHaveURL(/.*exploredata/);
+
+
     })
 
     test('Tracker Default to Covid Vax', async ({ page }) => {
 
-        // Load Tracker Default (with url param to bypass problematic warm welcome)
+        // Load Tracker Default helper view
         await page.goto(`${EXPLORE_DATA_PAGE_LINK}`, { waitUntil: "networkidle" });
         await expect(page).toBeAccessible({
             rules: {
@@ -31,10 +33,10 @@ test.describe('Home to COVID Vax by Age', () => {
             },
         })
 
-        // stop the pulsing button
+        // stop the pulsing button so we can target it
         await page.emulateMedia({ reducedMotion: "reduce" });
 
-        // changes madlib to VAXX properly
+        // choose VAXX from the no topic screen
         const madLibTopic = page.locator('button:has-text("select a topic")')
         madLibTopic.click();
         const covidVaxOption = page.locator('span:has-text("COVID-19 Vaccinations")')
