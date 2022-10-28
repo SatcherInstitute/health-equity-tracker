@@ -117,10 +117,7 @@ function ExploreDataPage() {
   };
 
   // Set up warm welcome onboarding behaviors
-  // const [cookies, setCookie] = useCookies();
   let showOnboarding = false;
-  // let showOnboarding = cookies.skipOnboarding !== "true";
-
   if (noTopicChosen) {
     if (params[SHOW_ONBOARDING_PARAM] === "true") {
       showOnboarding = true;
@@ -270,7 +267,6 @@ function ExploreDataPage() {
             navButtonsProps={{
               "aria-label": "Change Report Type",
               style: {
-                // backgroundColor: sass.altGreen,
                 border: `1px solid ${sass.altGreen}`,
                 backgroundColor: sass.white,
                 color: sass.altGreen,
@@ -303,7 +299,6 @@ function ExploreDataPage() {
           {noTopicChosen ? (
             <DefaultHelperBox />
           ) : (
-            // <div style={{ height: "900px" }}></div>
             <ReportProvider
               isSingleColumn={isSingleColumn}
               madLib={madLib}

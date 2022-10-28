@@ -89,15 +89,6 @@ export const ONBOARDING_STEPS = [
     /*hideCloseButton=*/ true,
     /*placement=*/ "auto"
   ),
-  // onboardingStep(
-  // 	"#onboarding-explore-datatypes",
-  // 	"Multiple data types",
-  // 	<>
-  // 		Some topics includes multiple data types, like COVID-19 <b>cases</b>, <b>deaths</b>, and <b>hospitalizations</b>.
-  // 	</>,
-  //   /*hideCloseButton=*/ false,
-  //   /*placement=*/ "auto"
-  // ),
 ];
 
 function onboardingStep(
