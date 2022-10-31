@@ -1,19 +1,26 @@
 import { Row } from "react-table";
+import { MetricConfig } from "../../data/config/MetricConfig";
+import { BreakdownVar } from "../../data/query/Breakdowns";
 
 export interface DisparityBarChartCardProps {
-  data: Row[];
-  chartTitle?: string;
+  breakdownVar: BreakdownVar;
+  chartTitle?: string | string[];
+  data: Readonly<Record<string, any>>[];
+  darkMetric: MetricConfig;
   filename: string;
-  stacked: boolean;
+  lightMetric: MetricConfig;
+  metricDisplayName: string;
+  stacked?: boolean;
+  showAltPopCompare?: boolean;
 }
 
 export interface Spec {
-  data: Row[];
-  chartTitle?: string;
+  data: Record<string, any>[];
+  chartTitle?: string | string[];
   filename: string;
   fontSize: number;
   title: {
-    text: string;
+    text: string | string[];
     subTitle?: string;
     encode: {
       title: {
@@ -28,6 +35,6 @@ export interface Spec {
 }
 
 export interface getTitleProps {
-  chartTitle?: string;
+  chartTitle?: string | string[];
   fontSize: number;
 }

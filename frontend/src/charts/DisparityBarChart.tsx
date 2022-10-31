@@ -21,6 +21,8 @@ import sass from "../styles/variables.module.scss";
 import { LEGEND_TEXT_FONT } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
 import { AIAN, NHPI, RACE } from "../data/utils/Constants";
+import { Axes } from "./DisparityBarChart/Axes";
+import { legends } from "./DisparityBarChart/Legends";
 
 const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
@@ -318,6 +320,13 @@ function getSpec(
         : altLightMeasure!;
   }
 
+  const { axes } = Axes(
+    width,
+    lightMeasureDisplayName,
+    darkMeasureDisplayName,
+    stacked
+  );
+
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     title: {
@@ -380,70 +389,8 @@ function getSpec(
         range: LEGEND_COLORS,
       },
     ],
-    axes: [
-      // GRAY VERTICAL TICK BARS
-      {
-        scale: "x",
-        orient: "bottom",
-        gridScale: "y",
-        grid: true,
-        tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
-        tickMinStep: MIN_TICK_BAR_STEP,
-        domain: false,
-        labels: false,
-        aria: false,
-        maxExtent: 0,
-        minExtent: 0,
-        ticks: false,
-        zindex: sass.zMiddle,
-      },
-      //  AXIS TICKS
-      {
-        scale: "x",
-        orient: "bottom",
-        grid: false,
-        title: chartIsSmall ? axisTitle : axisTitle.join(" "),
-        titleX: chartIsSmall ? 0 : undefined,
-        titleAlign: chartIsSmall ? "left" : "center",
-        labelFlush: true,
-        labelOverlap: true,
-        tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
-        tickMinStep: MIN_TICK_STEP,
-        zindex: sass.zMiddle,
-        titleLimit: { signal: "width - 10 " },
-      },
-      {
-        scale: "y",
-        orient: "left",
-        grid: false,
-        title: breakdownVarDisplayName,
-        zindex: sass.zMiddle,
-        tickSize: 5,
-        encode: {
-          labels: {
-            update: {
-              text: { signal: MULTILINE_LABEL },
-              baseline: { value: "bottom" },
-              // Limit at which line is truncated with an ellipsis
-              limit: { value: 100 },
-              dy: { signal: AXIS_LABEL_Y_DELTA },
-            },
-          },
-        },
-      },
-    ],
-    legends: [
-      {
-        fill: "variables",
-        orient: chartIsSmall ? "none" : "top",
-        // legendX and legendY are ignored when orient isn't "none"
-        legendX: -100,
-        legendY: -35,
-        font: LEGEND_TEXT_FONT,
-        labelFont: LEGEND_TEXT_FONT,
-        labelLimit: 500,
-      },
-    ],
+    axes: [axes.verticalTickBars, axes.axisTicks, axes.yScale],
+    legends: legends(chartIsSmall),
   };
 }
 export interface DisparityBarChartProps {

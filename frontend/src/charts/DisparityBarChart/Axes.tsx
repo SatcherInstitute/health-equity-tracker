@@ -1,13 +1,27 @@
-import React from "react";
+import { MULTILINE_LABEL, AXIS_LABEL_Y_DELTA } from "../utils";
+import { BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE } from "../../data/query/Breakdowns";
 import {
   BAR_HEIGHT,
   STACKED_BAR_HEIGHT,
-  MIN_TICK_BAR_STEP,
   SMALL_MIN_TICK_BAR_STEP,
   Z_MIDDLE,
 } from "./constants";
 
-export function Axes(stacked: boolean, width: number) {
+export function Axes(
+  width: number,
+  lightMeasureDisplayName: string,
+  darkMeasureDisplayName: string,
+  stacked?: boolean
+) {
+  const chartIsSmall = width < 350;
+  const axisTitle = [lightMeasureDisplayName, "vs.", darkMeasureDisplayName];
+
+  let MIN_TICK_STEP = 5;
+  if (width > 800) MIN_TICK_STEP = 2;
+  let MIN_TICK_BAR_STEP = 10;
+  if (width > 500 && width < 800) MIN_TICK_BAR_STEP = 5;
+  else if (width >= 800) MIN_TICK_BAR_STEP = 2;
+
   const verticalTickBars = {
     scale: "x",
     orient: "bottom",
@@ -30,22 +44,25 @@ export function Axes(stacked: boolean, width: number) {
     scale: "x",
     orient: "bottom",
     grid: false,
-    title: pageIsTiny
-      ? [`${lightMeasureDisplayName}`, `vs.`, `${darkMeasureDisplayName}`]
-      : `${lightMeasureDisplayName} vs. ${darkMeasureDisplayName}`,
+    title: chartIsSmall ? axisTitle : axisTitle.join(" "),
+    titleX: chartIsSmall ? 0 : undefined,
+    titleAlign: chartIsSmall ? "left" : "center",
     labelFlush: true,
     labelOverlap: true,
-    tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
+    tickCount: {
+      signal: `ceil(width/${stacked ? STACKED_BAR_HEIGHT : BAR_HEIGHT})`,
+    },
     tickMinStep: MIN_TICK_STEP,
-    zindex: sass.zMiddle,
+    zindex: Z_MIDDLE,
+    titleLimit: { signal: "width - 10 " },
   };
 
   const yScale = {
     scale: "y",
     orient: "left",
     grid: false,
-    title: breakdownVarDisplayName,
-    zindex: sass.zMiddle,
+    title: BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE["race_and_ethnicity"],
+    zindex: Z_MIDDLE,
     tickSize: 5,
     encode: {
       labels: {

@@ -1,4 +1,4 @@
-import sass from "../styles/variables.module.scss";
+import sass from "../../styles/variables.module.scss";
 
 const ACTIONS = {
   export: { png: true, svg: true },
@@ -27,6 +27,7 @@ const Z_MIDDLE = sass.zMiddle;
 
 export {
   ACTIONS,
+  BACKGROUND_COLOR,
   BAR_HEIGHT,
   STACKED_BAR_HEIGHT,
   MIN_TICK_BAR_STEP,
