@@ -38,3 +38,14 @@ export interface getTitleProps {
   chartTitle?: string | string[];
   fontSize: number;
 }
+
+export interface MarkProps {
+  data: Readonly<Record<string, any>>[];
+  breakdownVar: BreakdownVar;
+  lightMetric: MetricConfig;
+  darkMetric: MetricConfig;
+  hasAltPop: boolean;
+  stacked?: boolean;
+  chartIsSmall: boolean;
+  metricDisplayName: string;
+}
