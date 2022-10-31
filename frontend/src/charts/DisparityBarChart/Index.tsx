@@ -21,7 +21,7 @@ export function DisparityBarChart(props: DisparityBarChartCardProps) {
   function getSpec(props: Spec) {
     return {
       $schema: "https://vega.github.io/schema/vega/v5.json",
-      axes: [axes.verticalTickBars, axes.axisTicks, axes.yScale],
+      axes: [],
       background: sass.white,
       data: [{ name: "DATASET", values: props.data }],
       description: "",
