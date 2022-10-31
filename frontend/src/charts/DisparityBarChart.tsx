@@ -81,6 +81,18 @@ function getSpec(
   const LEGEND_COLORS = [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR];
   const LEGEND_DOMAINS = [lightMeasureDisplayName, darkMeasureDisplayName];
 
+  const chartIsSmall = width < 350;
+
+  const axisTitle = [lightMeasureDisplayName, "vs.", darkMeasureDisplayName];
+
+  const createBarLabel = () => {
+    const singleLineLabel = `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`;
+    const multiLineLabel = `datum.${darkMetricDisplayColumnName} + "%"`;
+    if (chartIsSmall) {
+      return multiLineLabel;
+    } else return singleLineLabel;
+  };
+
   const ALL_MARKS = [
     {
       // ALT TEXT: verbose, invisible text for screen readers conveying "%"" vs "%pop"
@@ -235,7 +247,7 @@ function getSpec(
               : MIDDLE_OF_BAND + BAR_HEIGHT,
           },
           text: {
-            signal: `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`,
+            signal: createBarLabel(),
           },
         },
       },
@@ -390,14 +402,15 @@ function getSpec(
         scale: "x",
         orient: "bottom",
         grid: false,
-        title: pageIsTiny
-          ? [`${lightMeasureDisplayName}`, `vs.`, `${darkMeasureDisplayName}`]
-          : `${lightMeasureDisplayName} vs. ${darkMeasureDisplayName}`,
+        title: chartIsSmall ? axisTitle : axisTitle.join(" "),
+        titleX: chartIsSmall ? 0 : undefined,
+        titleAlign: chartIsSmall ? "left" : "center",
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
         tickMinStep: MIN_TICK_STEP,
         zindex: sass.zMiddle,
+        titleLimit: { signal: "width - 10 " },
       },
       {
         scale: "y",
@@ -422,9 +435,9 @@ function getSpec(
     legends: [
       {
         fill: "variables",
-        orient: pageIsTiny ? "none" : "top",
+        orient: chartIsSmall ? "none" : "top",
         // legendX and legendY are ignored when orient isn't "none"
-        legendX: -20,
+        legendX: -100,
         legendY: -35,
         font: LEGEND_TEXT_FONT,
         labelFont: LEGEND_TEXT_FONT,
