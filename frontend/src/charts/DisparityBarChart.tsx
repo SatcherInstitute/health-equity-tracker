@@ -83,21 +83,7 @@ function getSpec(
 
   const chartIsSmall = width < 350;
 
-  const createAxisTitle = () => {
-    const singleLineTitle = [
-      `${lightMeasureDisplayName}`,
-      `vs.`,
-      `${darkMeasureDisplayName}`,
-    ];
-    const multiLineTitle = [
-      `${lightMeasureDisplayName}`,
-      `vs.`,
-      `${darkMeasureDisplayName}`,
-    ];
-    if (chartIsSmall) {
-      return multiLineTitle;
-    } else return singleLineTitle;
-  };
+  const axisTitle = [lightMeasureDisplayName, "vs.", darkMeasureDisplayName];
 
   const createBarLabel = () => {
     const singleLineLabel = `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`;
@@ -416,7 +402,7 @@ function getSpec(
         scale: "x",
         orient: "bottom",
         grid: false,
-        title: createAxisTitle(),
+        title: chartIsSmall ? axisTitle : axisTitle.join(" "),
         titleX: chartIsSmall ? 0 : undefined,
         titleAlign: chartIsSmall ? "left" : "center",
         labelFlush: true,
