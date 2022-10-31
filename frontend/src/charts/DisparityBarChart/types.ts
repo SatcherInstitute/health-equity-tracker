@@ -1,4 +1,3 @@
-import { Row } from "react-table";
 import { MetricConfig } from "../../data/config/MetricConfig";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 

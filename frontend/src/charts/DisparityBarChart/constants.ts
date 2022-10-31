@@ -1,11 +1,19 @@
 import sass from "../../styles/variables.module.scss";
 
+const SCHEMA = "https://vega.github.io/schema/vega/v5.json";
+
 const ACTIONS = {
   export: { png: true, svg: true },
   source: false,
   compiled: false,
   editor: false,
 };
+
+const DATASET = "DATASET";
+const ALT_TEXT_LABELS = "alt_text_labels";
+const LIGHT_MEASURE_BARS = "lightMeasure_bars";
+const DARK_MEASURE_BARS = "darkMeasure_bars";
+const DARK_MEASURE_TEXT_LABELS = "darkMeasure_text_labels";
 
 const ALT_LIGHT_MEASURE_OPACITY = 0.8;
 const BAR_PADDING = 0.1;
@@ -24,22 +32,28 @@ const DARK_MEASURE_COLOR = sass.barChartDark;
 const LIGHT_MEASURE_COLOR = sass.barChartLight;
 const LEGEND_COLORS = [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR];
 const ALT_LIGHT_MEASURE_COLOR = sass.unknownMapMid;
-const Z_MIDDLE = sass.zMiddle;
+const Z_MIDDLE = 0;
 
 export {
   ACTIONS,
+  ALT_TEXT_LABELS,
   BACKGROUND_COLOR,
   BAR_HEIGHT,
   BAR_PADDING,
   DARK_MEASURE_COLOR,
+  DARK_MEASURE_BARS,
+  DARK_MEASURE_TEXT_LABELS,
+  DATASET,
   STACKED_BAR_HEIGHT,
   LABEL_SWAP_CUTOFF_PERCENT,
   LEGEND_COLORS,
   LIGHT_MEASURE_COLOR,
+  LIGHT_MEASURE_BARS,
   MIN_TICK_BAR_STEP,
   SMALL_MIN_TICK_BAR_STEP,
   SIDE_BY_SIDE_FULL_BAR_RATIO,
   SIDE_BY_SIDE_ONE_BAR_RATIO,
+  SCHEMA,
   THIN_RATIO,
   Z_MIDDLE,
 };

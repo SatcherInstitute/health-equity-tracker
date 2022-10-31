@@ -6,9 +6,14 @@ import {
   SMALL_MIN_TICK_BAR_STEP,
   Z_MIDDLE,
 } from "./constants";
+import { Axis } from "vega";
+import { useChartDimensions } from "../../utils/hooks/useChartDimensions";
 
 export function Axes(width: number, axisTitle: string[], stacked?: boolean) {
   const chartIsSmall = width < 350;
+
+  const { minTick, minTickBarStep } = useChartDimensions(width);
+  console.log(minTick);
 
   let MIN_TICK_STEP = 5;
   if (width > 800) MIN_TICK_STEP = 2;
@@ -70,6 +75,6 @@ export function Axes(width: number, axisTitle: string[], stacked?: boolean) {
       },
     },
   };
-  const axes = { verticalTickBars, axisTicks, yScale };
-  return { axes };
+  const axes = [verticalTickBars, axisTicks, yScale];
+  return axes as Axis[];
 }

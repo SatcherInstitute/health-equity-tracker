@@ -321,7 +321,7 @@ function getSpec(
         : altLightMeasure!;
   }
 
-  const { axes } = Axes(width, axisTitle, stacked);
+  const axes = Axes(width, axisTitle, stacked);
 
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
@@ -351,7 +351,7 @@ function getSpec(
     signals: getSignals(stacked),
     marks: ALL_MARKS,
     scales: Scales(measureWithLargerDomain, breakdownVar, LEGEND_DOMAINS),
-    axes: [axes.verticalTickBars, axes.axisTicks, axes.yScale],
+    axes: axes,
     legends: Legends(chartIsSmall),
   };
 }

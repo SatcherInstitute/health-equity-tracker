@@ -1,14 +1,18 @@
 import { MetricConfig } from "../../data/config/MetricConfig";
-import { BreakdownVar } from "../../data/query/Breakdowns";
 import {
   addLineBreakDelimitersToField,
   addMetricDisplayColumn,
   oneLineLabel,
 } from "../utils";
 import {
+  ALT_TEXT_LABELS,
   BAR_PADDING,
+  DARK_MEASURE_BARS,
   DARK_MEASURE_COLOR,
+  DARK_MEASURE_TEXT_LABELS,
+  DATASET,
   LABEL_SWAP_CUTOFF_PERCENT,
+  LIGHT_MEASURE_BARS,
   LIGHT_MEASURE_COLOR,
   SIDE_BY_SIDE_FULL_BAR_RATIO,
   SIDE_BY_SIDE_ONE_BAR_RATIO,
@@ -83,10 +87,10 @@ export function Marks(props: MarkProps) {
   };
 
   const altTextLabels = {
-    name: "alt_text_labels",
+    name: ALT_TEXT_LABELS,
     type: "text",
     style: ["text"],
-    from: { data: "DATASET" },
+    from: { data: DATASET },
     description: `${dataMarks.length} items`,
     encode: {
       update: {
@@ -134,11 +138,11 @@ export function Marks(props: MarkProps) {
   };
 
   const lightMeasureBars = {
-    name: "lightMeasure_bars",
+    name: LIGHT_MEASURE_BARS,
     aria: false,
     type: "rect",
     style: ["bar"],
-    from: { data: "DATASET" },
+    from: { data: DATASET },
     encode: {
       enter: {
         tooltip: {
@@ -169,11 +173,11 @@ export function Marks(props: MarkProps) {
   };
 
   const darkMeasureBars = {
-    name: "darkMeasure_bars",
+    name: DARK_MEASURE_BARS,
     type: "rect",
     style: ["bar"],
     aria: false,
-    from: { data: "DATASET" },
+    from: { data: DATASET },
     encode: {
       enter: {
         tooltip: {
@@ -203,11 +207,11 @@ export function Marks(props: MarkProps) {
   };
 
   const darkMeasureTextLabels = {
-    name: "darkMeasure_text_labels",
+    name: DARK_MEASURE_TEXT_LABELS,
     aria: false, // this data accessible in alt_text_labels
     type: "text",
     style: ["text"],
-    from: { data: "DATASET" },
+    from: { data: DATASET },
     encode: {
       enter: {
         tooltip: {
