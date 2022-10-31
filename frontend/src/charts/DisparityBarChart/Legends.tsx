@@ -1,4 +1,4 @@
-export const legends = (chartIsSmall: boolean) => {
+export const Legends = (chartIsSmall: boolean) => {
   return [
     {
       fill: "variables",

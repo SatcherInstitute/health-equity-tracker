@@ -22,7 +22,8 @@ import { LEGEND_TEXT_FONT } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
 import { AIAN, NHPI, RACE } from "../data/utils/Constants";
 import { Axes } from "./DisparityBarChart/Axes";
-import { legends } from "./DisparityBarChart/Legends";
+import { Legends } from "./DisparityBarChart/Legends";
+import { getSignals, Scales } from "./DisparityBarChart/helpers";
 
 const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
@@ -320,12 +321,7 @@ function getSpec(
         : altLightMeasure!;
   }
 
-  const { axes } = Axes(
-    width,
-    lightMeasureDisplayName,
-    darkMeasureDisplayName,
-    stacked
-  );
+  const { axes } = Axes(width, axisTitle, stacked);
 
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
@@ -352,45 +348,11 @@ function getSpec(
         values: data,
       },
     ],
-    signals: [
-      {
-        name: "y_step",
-        value: stacked ? BAR_HEIGHT : BAR_HEIGHT * SIDE_BY_SIDE_FULL_BAR_RATIO,
-      },
-      {
-        name: "height",
-        update: "bandspace(domain('y').length, 0.1, 0.05) * y_step",
-      },
-    ],
+    signals: getSignals(stacked),
     marks: ALL_MARKS,
-    scales: [
-      {
-        name: "x",
-        type: "linear",
-        domain: { data: DATASET, field: measureWithLargerDomain },
-        range: [0, { signal: "width" }],
-        nice: !pageIsTiny, //on desktop, extend x-axis to a "nice" value
-        zero: true,
-      },
-      {
-        name: "y",
-        type: "band",
-        domain: {
-          data: DATASET,
-          field: breakdownVar,
-        },
-        range: { step: { signal: "y_step" } },
-        paddingInner: BAR_PADDING,
-      },
-      {
-        name: "variables",
-        type: "ordinal",
-        domain: LEGEND_DOMAINS,
-        range: LEGEND_COLORS,
-      },
-    ],
+    scales: Scales(measureWithLargerDomain, breakdownVar, LEGEND_DOMAINS),
     axes: [axes.verticalTickBars, axes.axisTicks, axes.yScale],
-    legends: legends(chartIsSmall),
+    legends: Legends(chartIsSmall),
   };
 }
 export interface DisparityBarChartProps {

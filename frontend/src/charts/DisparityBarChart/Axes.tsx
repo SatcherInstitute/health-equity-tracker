@@ -7,14 +7,8 @@ import {
   Z_MIDDLE,
 } from "./constants";
 
-export function Axes(
-  width: number,
-  lightMeasureDisplayName: string,
-  darkMeasureDisplayName: string,
-  stacked?: boolean
-) {
+export function Axes(width: number, axisTitle: string[], stacked?: boolean) {
   const chartIsSmall = width < 350;
-  const axisTitle = [lightMeasureDisplayName, "vs.", darkMeasureDisplayName];
 
   let MIN_TICK_STEP = 5;
   if (width > 800) MIN_TICK_STEP = 2;

@@ -1,6 +1,6 @@
 import React from "react";
 import Alert from "@material-ui/lab/Alert";
-import { DisparityBarChart } from "../charts/DisparityBarChart";
+import { DisparityBarChart } from "../charts/DisparityBarChart/Index";
 import { CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
