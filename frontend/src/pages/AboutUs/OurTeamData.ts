@@ -12,8 +12,6 @@ import Jammie from "../../assets/team/HopkinsJammie.jpg";
 import Megan from "../../assets/team/DouglasMegan.png";
 import Christian from "../../assets/team/AmadorChristian.png";
 import Donrie from "../../assets/team/PurcellDonrie.png";
-import Madhuri from "../../assets/team/JhaMadhuri.png";
-import Aye from "../../assets/team/ObeAye.png";
 import Arnelle from "../../assets/team/KondeArnelle.jpg";
 import Elias from "../../assets/team/BerhanuElias.jpg";
 
@@ -94,16 +92,6 @@ export const LEADERSHIP_TEAM = [
     name: "Donrie Purcell, PhD, MPH",
     role: "Senior Health Systems Data Analyst",
     imageUrl: Donrie,
-  },
-  {
-    name: "Madhuri Jha, LCSW, MPH",
-    role: "Director, Kennedy-Satcher Center for Mental Health Equity",
-    imageUrl: Madhuri,
-  },
-  {
-    name: "Aye Joana Obe, LLM",
-    role: "Legal Fellow",
-    imageUrl: Aye,
   },
   {
     name: "Arnelle Konde, MPH, CHES",
