@@ -27,7 +27,7 @@
     font-size: $biggerHeader;
     line-height: $lhNormal;
 
-    @media (min-width: $sm) {
+    @media (min-width: $lg) {
       font-size: $biggestHeader;
       padding-bottom: 20px;
     }
@@ -40,6 +40,8 @@
   }
 
   .HeaderImgItem {
+    padding: 1rem 3rem;
+
     @media (min-width: $md) {
       border-left: 1px solid $border-color;
     }
@@ -66,9 +68,13 @@
 
   .RecentNewsHeaderText {
     @include tav300();
-    font-size: $biggerHeader;
+    font-size: $header;
     text-align: center;
     color: $alt-green;
+
+    @media (min-width: $lg) {
+      font-size: $biggerHeader;
+    }
   }
 
   .RecentNewsHeaderSubtext {

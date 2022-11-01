@@ -60,7 +60,14 @@ function LandingPage() {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={6}>
+          <Grid
+            item
+            className={styles.HeaderTextItem}
+            xs={12}
+            sm={12}
+            md={6}
+            lg={7}
+          >
             <Typography
               id="main"
               className={styles.HeaderText}
@@ -68,30 +75,19 @@ function LandingPage() {
               paragraph={true}
               component="h3"
             >
-              One Year of Advancing Health Equity
+              Data for All
             </Typography>
             <Typography
               className={styles.HeaderSubtext}
               variant="body1"
               paragraph={true}
             >
-              We know that the data we collect can be imperfect and at times
-              even worsen health inequities many people face if not reported or
-              analyzed correctly. We work to change that narrative by leveraging
-              the power of data and technology to identify, understand, and
-              respond to health inequities in our communities in a way that will
-              allow every person to achieve an optimum level of health.
-            </Typography>
-
-            <Typography
-              className={styles.HeaderSubtext}
-              variant="body1"
-              paragraph={true}
-            >
-              After one year of working on our award-winning Health Equity
-              Tracker, we are expanding on what we have learned and growing our
-              open-source framework to support the advancement of health equity
-              for all.
+              Built to improve access to data, and to confront health inequities
+              by linking outcomes to their root drivers, the Health Equity
+              Tracker brings together a diverse set of topics ranging from
+              chronic and infectious disease, behavioral health, social and
+              political determinants of health all on a single platform - and is
+              engineered to add more topics over time.
             </Typography>
 
             <Typography
@@ -99,12 +95,9 @@ function LandingPage() {
               variant="body1"
               paragraph={true}
             >
-              Please read more from our Executive Director Daniel E. Dawes, JD,
-              celebrating “
-              <a href="https://healthequitytracker.org/news/one-year-of-advancing-health-equity">
-                One Year of Advancing Health Equity
-              </a>
-              ”.
+              The goal: to provide policy makers, researchers, and community
+              leaders the data and tools they need to support equitable decision
+              making.
             </Typography>
 
             <Box mt={5}>
@@ -114,11 +107,18 @@ function LandingPage() {
                 className={styles.PrimaryButton}
                 href={EXPLORE_DATA_PAGE_LINK}
               >
-                Explore the Health Equity Tracker
+                Explore the data
               </Button>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={6}
+            lg={5}
+            className={styles.HeaderImgItem}
+          >
             <img
               height="601"
               width="700"
@@ -151,10 +151,7 @@ function LandingPage() {
               component="p"
             >
               News and stories from the Satcher Health Leadership Institute and
-              beyond, sharing insights into the Health Equity movement.{" "}
-              <a href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-                What is health equity?
-              </a>
+              beyond.
             </Typography>
           </Grid>
           <Grid item xs={12}>
