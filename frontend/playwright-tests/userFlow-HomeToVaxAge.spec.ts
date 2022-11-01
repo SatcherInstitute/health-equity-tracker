@@ -14,7 +14,7 @@ test.describe('Home to COVID Vax by Age', () => {
         await expect(page).toBeAccessible()
 
         const mainHeading = page.locator('#main');
-        await expect(mainHeading).toContainText('Advancing Health Equity');
+        await expect(mainHeading).toContainText('Data for All');
 
         // Clicking large CTA button takes us to the tracker
         const exploreButton = page.locator('a:has-text("Explore the Health Equity Tracker")')
