@@ -74,7 +74,9 @@ export function DisparityBarChart(props: DisparityBarChartCardProps) {
     chartIsSmall,
     metricDisplayName: props.metricDisplayName,
   });
-  const legends = Legends(chartIsSmall);
+
+  const axes = Axes(xAxisTitle, yAxisTitle, chartDimensions);
+  const legends = Legends(chartDimensions);
   const signals = getSignals(props.stacked);
 
   function maxValueInField(field: MetricId) {
@@ -103,11 +105,11 @@ export function DisparityBarChart(props: DisparityBarChartCardProps) {
     return {
       $schema: SCHEMA,
       autosize: { resize: true, type: "fit-x" } as AutoSize,
-      axes: Axes(xAxisTitle, yAxisTitle, chartDimensions),
+      axes: axes,
       background: BACKGROUND_COLOR,
       data: dataset,
       description: altText,
-      legends: legends as Legend[],
+      legends: legends,
       marks: marks,
       scales: scales as Scale[],
       signals: signals,

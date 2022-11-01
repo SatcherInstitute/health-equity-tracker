@@ -5,6 +5,7 @@ export interface ChartDimensionProps {
   axisTitleAlign: string;
   axisTitleX?: number;
   verticalTickMinStep?: number;
+  legendOrient: string;
 }
 
 export function useChartDimensions(width: number) {
@@ -15,6 +16,7 @@ export function useChartDimensions(width: number) {
     axisTickMinStep: 5,
     axisTitleAlign: "center",
     verticalTickMinStep: 10,
+    legendOrient: "top",
   });
 
   useEffect(() => {
@@ -25,6 +27,7 @@ export function useChartDimensions(width: number) {
         axisTitleAlign: "left",
         axisTitleX: 0,
         verticalTickMinStep: 10,
+        legendOrient: "center",
       });
     }
     if (chartIsMedium) {
@@ -34,6 +37,7 @@ export function useChartDimensions(width: number) {
         axisTitleAlign: "center",
         axisTitleX: undefined,
         verticalTickMinStep: 5,
+        legendOrient: "top",
       });
     }
     if (chartIsLarge) {
@@ -43,6 +47,7 @@ export function useChartDimensions(width: number) {
         axisTitleAlign: "center",
         axisTitleX: undefined,
         verticalTickMinStep: 2,
+        legendOrient: "top",
       });
     }
   }, [chartIsSmall, chartIsMedium, chartIsLarge, setDimensions]);

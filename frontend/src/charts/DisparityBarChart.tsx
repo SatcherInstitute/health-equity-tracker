@@ -350,7 +350,7 @@ function getSpec(
     marks: ALL_MARKS,
     scales: Scales(measureWithLargerDomain, breakdownVar, LEGEND_DOMAINS),
     axes: [],
-    legends: Legends(chartIsSmall),
+    legends: [],
   };
 }
 export interface DisparityBarChartProps {
