@@ -23,6 +23,7 @@ import { Article } from "../WhatIsHealthEquity/NewsTab";
 import { ArticlesSkeleton } from "../WhatIsHealthEquity/News/AllPosts";
 import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
 import { urlMap } from "../../utils/externalUrls";
+import { Link } from "react-router-dom";
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -74,19 +75,17 @@ function LandingPage() {
               paragraph={true}
               component="h3"
             >
-              Data for All
+              Better Data for Equity
             </Typography>
             <Typography
               className={styles.HeaderSubtext}
               variant="body1"
               paragraph={true}
             >
-              Built to improve access to data, and to confront health inequities
-              by linking outcomes to their root drivers, the Health Equity
-              Tracker brings together a diverse set of topics ranging from
-              chronic and infectious disease, behavioral health, social and
-              political determinants of health all on a single platform - and is
-              engineered to add more topics over time.
+              Our tracker puts Health Equity first. Envisioned by the Satcher
+              Health Leadership Institute, the Health Equity Tracker is designed
+              to boost inclusivity, highlight at-risk populations, alert users
+              to existing inequities in health data, and so much more.
             </Typography>
 
             <Typography
@@ -94,13 +93,17 @@ function LandingPage() {
               variant="body1"
               paragraph={true}
             >
-              The goal: to provide policy makers, researchers, and community
-              leaders the data and tools they need to support equitable decision
-              making.
+              Our goal for this tool is to support the work being done by
+              policymakers, community leaders, researchers, and ultimately all
+              champions for health equity.{" "}
+              <Link to={EXPLORE_DATA_PAGE_LINK}>Explore our tracker today</Link>{" "}
+              and find data to help your community reach their best level of
+              health.
             </Typography>
 
             <Box mt={5}>
               <Button
+                id="landingPageCTA"
                 variant="contained"
                 color="primary"
                 className={styles.PrimaryButton}
