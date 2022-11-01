@@ -58,6 +58,6 @@ export function Axes(
       },
     },
   };
-  const axes = [verticalTickBars, axisTicks, yScale];
-  return axes as Axis[];
+
+  return [verticalTickBars, axisTicks, yScale] as Axis[];
 }

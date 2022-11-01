@@ -1,7 +1,6 @@
-import { useMediaQuery } from "@material-ui/core";
 import { MetricId } from "../../data/config/MetricConfig";
 import { BreakdownVar } from "../../data/query/Breakdowns";
-import { BAR_PADDING, LEGEND_COLORS } from "./constants";
+import { BAR_PADDING, LEGEND_COLORS, Y_STEP } from "./constants";
 import { getTitleProps } from "./types";
 
 function getTitle(props: getTitleProps) {
@@ -19,11 +18,11 @@ function getTitle(props: getTitleProps) {
   };
 }
 
-function getSignals(stacked?: boolean) {
+function getSignals() {
   return [
     {
       name: "y_step",
-      value: stacked ? 40 : 12 * 5,
+      value: Y_STEP,
     },
     {
       name: "height",
@@ -32,39 +31,28 @@ function getSignals(stacked?: boolean) {
   ];
 }
 
-function Scales(
-  measureWithLargerDomain: MetricId,
-  breakdownVar: BreakdownVar,
-  LEGEND_DOMAINS: any
+function maxValueInField(
+  data: Readonly<Record<string, any>>[],
+  field: MetricId
 ) {
-  const pageIsTiny = useMediaQuery("(max-width:400px)");
-
-  return [
-    {
-      name: "x",
-      type: "linear",
-      domain: { data: "DATASET", field: measureWithLargerDomain },
-      range: [0, { signal: "width" }],
-      nice: !pageIsTiny, //on desktop, extend x-axis to a "nice" value
-      zero: true,
-    },
-    {
-      name: "y",
-      type: "band",
-      domain: {
-        data: "DATASET",
-        field: breakdownVar,
-      },
-      range: { step: { signal: "y_step" } },
-      paddingInner: BAR_PADDING,
-    },
-    {
-      name: "variables",
-      type: "ordinal",
-      domain: LEGEND_DOMAINS,
-      range: LEGEND_COLORS,
-    },
-  ];
+  return Math.max(
+    ...data
+      .map((row) => row[field])
+      .filter((value: number | undefined) => value !== undefined)
+  );
 }
 
-export { getTitle, getSignals, Scales };
+function getLargerMeasure(
+  data: Readonly<Record<string, any>>[],
+  lightMetricId: MetricId,
+  darkMetricId: MetricId
+) {
+  const lightValue = maxValueInField(data, lightMetricId);
+  const darkValue = maxValueInField(data, darkMetricId);
+
+  if (lightValue > darkValue) {
+    return lightMetricId;
+  } else return darkMetricId;
+}
+
+export { getTitle, getSignals, maxValueInField, getLargerMeasure };

@@ -9,6 +9,8 @@ const ACTIONS = {
   editor: false,
 };
 
+const Y_STEP = 60;
+
 const DATASET = "DATASET";
 const ALT_TEXT_LABELS = "alt_text_labels";
 const LIGHT_MEASURE_BARS = "lightMeasure_bars";
@@ -57,4 +59,5 @@ export {
   SCHEMA,
   THIN_RATIO,
   Z_MIDDLE,
+  Y_STEP,
 };

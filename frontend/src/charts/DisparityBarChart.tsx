@@ -23,7 +23,7 @@ import { useMediaQuery } from "@material-ui/core";
 import { AIAN, NHPI, RACE } from "../data/utils/Constants";
 import { Axes } from "./DisparityBarChart/Axes";
 import { Legends } from "./DisparityBarChart/Legends";
-import { getSignals, Scales } from "./DisparityBarChart/helpers";
+import { getSignals } from "./DisparityBarChart/helpers";
 
 const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
@@ -346,9 +346,9 @@ function getSpec(
         values: data,
       },
     ],
-    signals: getSignals(stacked),
+    signals: [],
     marks: ALL_MARKS,
-    scales: Scales(measureWithLargerDomain, breakdownVar, LEGEND_DOMAINS),
+    scales: [],
     axes: [],
     legends: [],
   };
