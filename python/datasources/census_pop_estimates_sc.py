@@ -72,15 +72,17 @@ class CensusPopEstimatesSC(DataSource):
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_POPULATION_URL, dtype={'STATE': str}, encoding="ISO-8859-1")
 
-        state_df = generate_state_pop_data_18plus(df)
+        for breakdown in [std_col.SEX_COL, std_col.RACE_OR_HISPANIC_COL]:
 
-        column_types = {c: 'STRING' for c in state_df.columns}
+            state_df = generate_state_pop_data_18plus(df)
 
-        if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-            column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+            column_types = {c: 'STRING' for c in state_df.columns}
 
-        gcs_to_bq_util.add_df_to_bq(
-            state_df, dataset, "race_and_ethnicity", column_types=column_types)
+            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
+            gcs_to_bq_util.add_df_to_bq(
+                state_df, dataset, "race_and_ethnicity", column_types=column_types)
 
 
 def generate_state_pop_data_18plus(df):
