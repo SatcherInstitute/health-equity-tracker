@@ -90,5 +90,5 @@ def generate_state_pop_data_18plus(df):
     Returns a standardized df with a single row for each combination of year, state, race OR sex groups, and the corresponding population estimate for only 18+ 
     """
     print("inside generate_state_pop_data_18plus()")
-    print(df)
+    # print(df)
     return df

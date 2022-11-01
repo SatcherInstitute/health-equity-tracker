@@ -11,10 +11,10 @@ import ingestion.standardized_columns as std_col
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "census_pop_estimates_sc")
 
-# STATE_POP_DATA = os.path.join(
-#     TEST_DIR, 'census_pop_estimates-race_ethnicity_age_state.csv')
-# NATIONAL_POP_DATA = os.path.join(
-#     TEST_DIR, 'census_pop_estimates-race_ethnicity_age_national.csv')
+STATE_POP_DATA = os.path.join(
+    TEST_DIR, 'census_pop_estimates_sc-race_ethnicity_age_state.csv')
+NATIONAL_POP_DATA = os.path.join(
+    TEST_DIR, 'census_pop_estimates_sc-race_ethnicity_age_national.csv')
 
 
 def get_pop_estimates_as_df():
@@ -44,12 +44,15 @@ def testWriteToBq(
     assert mock_csv.call_count == 1
     assert mock_bq.call_count == 1
 
-    # print("test results")
-    # print(mock_bq.call_args_list[0].args[0])
+    print("test results")
+    print(mock_bq.call_args_list[0].args[0])
 
-    # expected_df = pd.read_csv(STATE_POP_DATA, dtype={
-    #     'state_fips': str,
-    # })
+    expected_df = pd.read_csv(STATE_POP_DATA, dtype={
+        'state_fips': str,
+    })
 
-    # assert_frame_equal(
-    #     mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
+    print("expected")
+    print(expected_df)
+
+    assert_frame_equal(
+        mock_bq.call_args_list[0].args[0], expected_df, check_like=True)

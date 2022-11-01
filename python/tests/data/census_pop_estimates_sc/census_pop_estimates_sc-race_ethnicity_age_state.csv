@@ -1,0 +1,15 @@
+time_period,state_fips,state_name,age,population,race_category_id,race,race_includes_hispanic,race_and_ethnicity
+2020,01,Alabama,18+,9192,WHITE_NH,White,False,White (NH)
+2020,01,Alabama,18+,2842,BLACK_NH,Black or African American,False,Black or African American (NH)
+2020,01,Alabama,18+,48,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+2020,01,Alabama,18+,166,ASIAN_NH,Asian,False,Asian (NH)
+2020,01,Alabama,18+,12,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+2020,01,Alabama,18+,608,HISP,Hispanic or Latino,True,Hispanic or Latino
+2020,01,Alabama,18+,13484,ALL,All,,All
+2021,01,Alabama,18+,9192,WHITE_NH,White,False,White (NH)
+2021,01,Alabama,18+,2842,BLACK_NH,Black or African American,False,Black or African American (NH)
+2021,01,Alabama,18+,48,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+2021,01,Alabama,18+,166,ASIAN_NH,Asian,False,Asian (NH)
+2021,01,Alabama,18+,12,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+2021,01,Alabama,18+,608,HISP,Hispanic or Latino,True,Hispanic or Latino
+2021,01,Alabama,18+,13484,ALL,All,,All

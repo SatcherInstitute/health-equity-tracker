@@ -1,0 +1,15 @@
+time_period,state_fips,state_name,age,population,race_category_id,race,race_includes_hispanic,race_and_ethnicity
+2020,00,United States,18+,62,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (NH)
+2020,00,United States,18+,14263,ALL,All,,All
+2020,00,United States,18+,168,ASIAN_NH,Asian,FALSE,Asian (NH)
+2020,00,United States,18+,2842,BLACK_NH,Black or African American,FALSE,Black or African American (NH)
+2020,00,United States,18+,654,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
+2020,00,United States,18+,12,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (NH)
+2020,00,United States,18+,9868,WHITE_NH,White,FALSE,White (NH)
+2021,00,United States,18+,62,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (NH)
+2021,00,United States,18+,14263,ALL,All,,All
+2021,00,United States,18+,168,ASIAN_NH,Asian,FALSE,Asian (NH)
+2021,00,United States,18+,2842,BLACK_NH,Black or African American,FALSE,Black or African American (NH)
+2021,00,United States,18+,654,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
+2021,00,United States,18+,12,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (NH)
+2021,00,United States,18+,9868,WHITE_NH,White,FALSE,White (NH)
