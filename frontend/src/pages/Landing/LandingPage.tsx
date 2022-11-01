@@ -10,13 +10,11 @@ import {
   REACT_QUERY_OPTIONS,
 } from "../../utils/urlutils";
 import {
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
-  WIHE_JOIN_THE_EFFORT_SECTION_ID,
   NEWS_TAB_LINK,
 } from "../../utils/internalRoutes";
 import FaqSection from "../ui/FaqSection";
-import { Box, useMediaQuery, useTheme } from "@material-ui/core";
+import { Box, TextField, useMediaQuery, useTheme } from "@material-ui/core";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 import NewsPreviewCard from "../WhatIsHealthEquity/News/NewsPreviewCard";
@@ -24,6 +22,8 @@ import { useQuery } from "react-query";
 import { Article } from "../WhatIsHealthEquity/NewsTab";
 import { ArticlesSkeleton } from "../WhatIsHealthEquity/News/AllPosts";
 import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
+import { urlMap } from "../../utils/externalUrls";
+import { Link } from "react-router-dom";
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -60,7 +60,14 @@ function LandingPage() {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={6}>
+          <Grid
+            item
+            className={styles.HeaderTextItem}
+            xs={12}
+            sm={12}
+            md={6}
+            lg={7}
+          >
             <Typography
               id="main"
               className={styles.HeaderText}
@@ -68,19 +75,17 @@ function LandingPage() {
               paragraph={true}
               component="h3"
             >
-              One Year of Advancing Health Equity
+              Better Data for Equity
             </Typography>
             <Typography
               className={styles.HeaderSubtext}
               variant="body1"
               paragraph={true}
             >
-              We know that the data we collect can be imperfect and at times
-              even worsen health inequities many people face if not reported or
-              analyzed correctly. We work to change that narrative by leveraging
-              the power of data and technology to identify, understand, and
-              respond to health inequities in our communities in a way that will
-              allow every person to achieve an optimum level of health.
+              Our tracker puts Health Equity first. Envisioned by the Satcher
+              Health Leadership Institute, the Health Equity Tracker is designed
+              to boost inclusivity, highlight at-risk populations, alert users
+              to existing inequities in health data, and so much more.
             </Typography>
 
             <Typography
@@ -88,37 +93,34 @@ function LandingPage() {
               variant="body1"
               paragraph={true}
             >
-              After one year of working on our award-winning Health Equity
-              Tracker, we are expanding on what we have learned and growing our
-              open-source framework to support the advancement of health equity
-              for all.
-            </Typography>
-
-            <Typography
-              className={styles.HeaderSubtext}
-              variant="body1"
-              paragraph={true}
-            >
-              Please read more from our Executive Director Daniel E. Dawes, JD,
-              celebrating “
-              <a href="https://healthequitytracker.org/news/one-year-of-advancing-health-equity">
-                One Year of Advancing Health Equity
-              </a>
-              ”.
+              Our goal for this tool is to support the work being done by
+              policymakers, community leaders, researchers, and ultimately all
+              champions for health equity.{" "}
+              <Link to={EXPLORE_DATA_PAGE_LINK}>Explore our tracker today</Link>{" "}
+              and find data to help your community reach their best level of
+              health.
             </Typography>
 
             <Box mt={5}>
               <Button
+                id="landingPageCTA"
                 variant="contained"
                 color="primary"
                 className={styles.PrimaryButton}
                 href={EXPLORE_DATA_PAGE_LINK}
               >
-                Explore the Health Equity Tracker
+                Explore the data
               </Button>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={6}
+            lg={5}
+            className={styles.HeaderImgItem}
+          >
             <img
               height="601"
               width="700"
@@ -151,10 +153,7 @@ function LandingPage() {
               component="p"
             >
               News and stories from the Satcher Health Leadership Institute and
-              beyond, sharing insights into the Health Equity movement.{" "}
-              <a href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-                What is health equity?
-              </a>
+              beyond
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -377,39 +376,44 @@ function LandingPage() {
           container
           className={styles.NewsletterSignUpRow}
           justifyContent="center"
+          component={"aside"}
         >
-          <Grid
-            container
-            item
-            xs={12}
-            sm={12}
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            className={styles.EmailAddressBackgroundImgContainer}
-          >
-            <div className={styles.EmailAddressContentDiv}>
-              <Grid item>
-                <Typography className={styles.NewsletterRowHeader} variant="h2">
-                  <span>
-                    Join Our
-                    <br aria-hidden="true" />
-                    Movement
-                  </span>
-                </Typography>
+          <section className={styles.NewsletterSignUpBox}>
+            <h4 className={styles.NewsletterSignUpHeader}>
+              Sign up for our newsletter:
+            </h4>
+
+            <form
+              action={urlMap.newsletterSignup}
+              method="post"
+              target="_blank"
+            >
+              <Grid container justifyContent="center" alignContent="center">
+                <Grid item>
+                  <TextField
+                    id="Enter email address to sign up" // Accessibility label
+                    name="MERGE0"
+                    variant="outlined"
+                    className={styles.EmailTextField}
+                    type="email"
+                    aria-label="Enter Email Address for Newsletter signup"
+                    placeholder="Enter email address"
+                  />
+                </Grid>
+                <Grid item>
+                  <Button
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                    className={styles.EmailAddressFormSubmit}
+                    aria-label="Sign Up for Newsletter in a new window"
+                  >
+                    Sign up
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Button
-                  variant="contained"
-                  color="default"
-                  className={styles.JoinOurMovementButton}
-                  href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}
-                >
-                  Learn How To Help
-                </Button>
-              </Grid>
-            </div>
-          </Grid>{" "}
+            </form>
+          </section>
         </Grid>
       </Grid>
     </>
