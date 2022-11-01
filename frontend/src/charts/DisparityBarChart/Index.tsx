@@ -3,7 +3,12 @@ import { Vega } from "react-vega";
 import { useResponsiveWidth } from "../../utils/hooks/useResponsiveWidth";
 import { useFontSize } from "../../utils/hooks/useFontSize";
 import { DisparityBarChartCardProps } from "./types";
-import { ACTIONS, BACKGROUND_COLOR, SCHEMA } from "./constants";
+import {
+  ACTIONS,
+  BACKGROUND_COLOR,
+  LABEL_SWAP_CUTOFF_PERCENT,
+  SCHEMA,
+} from "./constants";
 import { getLargerMeasure, getTitle } from "./helpers";
 import { Axes } from "./Axes";
 import { Legends } from "./Legends";
@@ -14,6 +19,18 @@ import { AutoSize } from "vega";
 import { useChartDimensions } from "../../utils/hooks/useChartDimensions";
 import { BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE } from "../../data/query/Breakdowns";
 import { Scales } from "./Scales";
+import {
+  addLineBreakDelimitersToField,
+  addMetricDisplayColumn,
+} from "../utils";
+import { MetricConfig } from "../../data/config/MetricConfig";
+
+const altLightMetric: MetricConfig = {
+  fullCardTitleName: "Population Share (ACS)",
+  metricId: "acs_vaccine_population_pct",
+  shortLabel: "% of population (ACS)",
+  type: "pct_share",
+};
 
 export function DisparityBarChart(props: DisparityBarChartCardProps) {
   const [ref, width] = useResponsiveWidth(100);
@@ -26,21 +43,6 @@ export function DisparityBarChart(props: DisparityBarChartCardProps) {
   const lightMeasureName = lightMetric.shortLabel;
   const darkMeasureName = darkMetric.shortLabel;
   const LEGEND_DOMAINS = [lightMeasureName, darkMeasureName];
-
-  const largerMeasure = getLargerMeasure(
-    data,
-    lightMetric.metricId,
-    darkMetric.metricId
-  );
-
-  const downloadFileName = `${props.filename} - Health Equity Tracker`;
-  const dataset = [{ name: "DATASET", values: data }];
-  const altText = `Comparison bar chart showing ${props.filename}`;
-
-  const chartTitle = getTitle({ chartTitle: props.chartTitle, fontSize });
-  const axisTitleArray = [lightMeasureName, "vs.", darkMeasureName];
-  const xAxisTitle = width < 350 ? axisTitleArray : axisTitleArray.join(" ");
-  const yAxisTitle = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar];
 
   if (showAltPopCompare) {
     data = props.data.map((item) => {
@@ -61,20 +63,64 @@ export function DisparityBarChart(props: DisparityBarChartCardProps) {
     });
   }
 
+  const largerMeasure = getLargerMeasure(
+    data,
+    lightMetric.metricId,
+    darkMetric.metricId
+  );
+
+  const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
+    data,
+    breakdownVar
+  );
+
+  const [lightMetricData, lightMetricColumnName] = addMetricDisplayColumn(
+    lightMetric,
+    dataWithLineBreakDelimiter,
+    /* omitPctSymbol= */ true
+  );
+
+  const [darkMetricData, darkMetricDisplayColumnName] = addMetricDisplayColumn(
+    darkMetric,
+    lightMetricData,
+    /* omitPctSymbol= */ true
+  );
+
+  const [dataMarks, altLightMetricDisplayColumnName] = hasAltPop
+    ? addMetricDisplayColumn(
+        altLightMetric,
+        darkMetricData,
+        /* omitPctSymbol= */ true
+      )
+    : [darkMetricData, ""];
+
+  const barLabelBreakpoint =
+    Math.max(...data.map((row) => row[props.darkMetric.metricId])) *
+    (LABEL_SWAP_CUTOFF_PERCENT / 100);
+
+  const downloadFileName = `${props.filename} - Health Equity Tracker`;
+  const dataset = [{ name: "DATASET", values: data }];
+  const altText = `Comparison bar chart showing ${props.filename}`;
+
   const chartIsSmall = width < 350;
 
-  const marks = Marks({
-    data: data,
-    breakdownVar: props.breakdownVar,
-    lightMetric: props.lightMetric,
-    darkMetric: props.darkMetric,
-    hasAltPop,
-    stacked: props.stacked,
-    chartIsSmall,
-    metricDisplayName: props.metricDisplayName,
-  });
+  const chartTitle = getTitle({ chartTitle: props.chartTitle, fontSize });
+  const axisTitleArray = [lightMeasureName, "vs.", darkMeasureName];
+  const xAxisTitle = width < 350 ? axisTitleArray : axisTitleArray.join(" ");
+  const yAxisTitle = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar];
 
   const axes = Axes(xAxisTitle, yAxisTitle, chartDimensions);
+  const marks = Marks(
+    dataWithLineBreakDelimiter,
+    props.metricDisplayName,
+    breakdownVar,
+    hasAltPop,
+    chartIsSmall,
+    barLabelBreakpoint,
+    LEGEND_DOMAINS,
+    lightMetric,
+    darkMetric
+  );
   const legends = Legends(chartDimensions);
   const signals = getSignals();
   const scales = Scales(largerMeasure, breakdownVar, LEGEND_DOMAINS);

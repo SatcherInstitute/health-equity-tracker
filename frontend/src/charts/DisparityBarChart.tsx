@@ -24,6 +24,12 @@ import { AIAN, NHPI, RACE } from "../data/utils/Constants";
 import { Axes } from "./DisparityBarChart/Axes";
 import { Legends } from "./DisparityBarChart/Legends";
 import { getSignals } from "./DisparityBarChart/helpers";
+import {
+  ChartDimensionProps,
+  useChartDimensions,
+} from "../utils/hooks/useChartDimensions";
+import { Scales } from "./DisparityBarChart/Scales";
+import { Marks } from "./DisparityBarChart/Marks";
 
 const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
@@ -47,6 +53,7 @@ function getSpec(
   barLabelBreakpoint: number,
   pageIsTiny: boolean,
   fontSize: number,
+  chartDimensions: ChartDimensionProps,
   stacked?: boolean,
   // place AIAL NHPI pop compare in different color columns due to ACS not KFF
   altLightMeasure?: MetricId,
@@ -86,8 +93,7 @@ function getSpec(
 
   const chartIsSmall = width < 350;
 
-  const axisTitle = [lightMeasureDisplayName, "vs.", darkMeasureDisplayName];
-
+  const xAxisTitle = [lightMeasureDisplayName, "vs.", darkMeasureDisplayName];
   const createBarLabel = () => {
     const singleLineLabel = `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`;
     const multiLineLabel = `datum.${darkMetricDisplayColumnName} + "%"`;
@@ -257,6 +263,23 @@ function getSpec(
     },
   ];
 
+  // const marks = Marks(
+  //   darkMetricDisplayColumnName,
+  //   metricDisplayName,
+  //   breakdownVar,
+  //   lightMetricDisplayColumnName,
+  //   hasAltPop,
+  //   chartIsSmall,
+  //   lightMeasureDisplayName,
+  //   darkMeasureDisplayName,
+  //   altLightMetricDisplayColumnName,
+  //   darkMeasure,
+  //   lightMeasure,
+  //   barLabelBreakpoint,
+  //   LEGEND_DOMAINS,
+  //   data
+  // );
+
   // when needed, add ALT_LIGHT MEASURE to the VEGA SPEC
   if (hasAltPop) {
     LEGEND_COLORS.splice(1, 0, ALT_LIGHT_MEASURE_COLOR);
@@ -321,6 +344,11 @@ function getSpec(
         : altLightMeasure!;
   }
 
+  const axes = Axes(xAxisTitle, breakdownVarDisplayName, chartDimensions);
+  const legends = Legends(chartDimensions);
+  const signals = getSignals();
+  const scales = Scales(measureWithLargerDomain, breakdownVar, LEGEND_DOMAINS);
+
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     title: {
@@ -346,11 +374,11 @@ function getSpec(
         values: data,
       },
     ],
-    signals: [],
-    marks: ALL_MARKS,
-    scales: [],
-    axes: [],
-    legends: [],
+    signals: signals,
+    marks: [],
+    scales: scales,
+    axes: axes,
+    legends: legends,
   };
 }
 export interface DisparityBarChartProps {
@@ -373,6 +401,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     /* default width during initialization */ 100
   );
 
+  const [chartDimensions] = useChartDimensions(width);
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
   const fontSize = useFontSize();
@@ -473,6 +502,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           /* barLabelBreakpoint, */ barLabelBreakpoint,
           /* pageIsTiny, */ pageIsTiny,
           /* determine font size */ fontSize,
+          chartDimensions,
           /* stacked?, */ props.stacked,
           /* altLightMeasure?, */ hasAltPop
             ? altLightMetric.metricId

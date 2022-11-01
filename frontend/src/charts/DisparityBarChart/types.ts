@@ -1,4 +1,4 @@
-import { MetricConfig } from "../../data/config/MetricConfig";
+import { MetricConfig, MetricId } from "../../data/config/MetricConfig";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 
 export interface DisparityBarChartCardProps {
@@ -41,8 +41,10 @@ export interface getTitleProps {
 export interface MarkProps {
   data: Readonly<Record<string, any>>[];
   breakdownVar: BreakdownVar;
-  lightMetric: MetricConfig;
-  darkMetric: MetricConfig;
+  lightMetric: MetricId;
+  darkMetric: MetricId;
+  lightMeasureDisplayName: string;
+  darkMeasureDisplayName: string;
   hasAltPop: boolean;
   stacked?: boolean;
   chartIsSmall: boolean;

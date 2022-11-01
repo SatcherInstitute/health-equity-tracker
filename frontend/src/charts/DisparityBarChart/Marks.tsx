@@ -1,5 +1,6 @@
 import { TrailMark } from "vega";
-import { MetricConfig } from "../../data/config/MetricConfig";
+import { MetricConfig, MetricId } from "../../data/config/MetricConfig";
+import { BreakdownVar } from "../../data/query/Breakdowns";
 import {
   addLineBreakDelimitersToField,
   addMetricDisplayColumn,
@@ -8,20 +9,18 @@ import {
 import {
   ALT_LIGHT_MEASURE_COLOR,
   ALT_TEXT_LABELS,
+  BAR_HEIGHT,
   BAR_PADDING,
   DARK_MEASURE_BARS,
   DARK_MEASURE_COLOR,
   DARK_MEASURE_TEXT_LABELS,
   DATASET,
-  LABEL_SWAP_CUTOFF_PERCENT,
   LEGEND_COLORS,
   LIGHT_MEASURE_BARS,
   LIGHT_MEASURE_COLOR,
   SIDE_BY_SIDE_FULL_BAR_RATIO,
   SIDE_BY_SIDE_ONE_BAR_RATIO,
-  THIN_RATIO,
 } from "./constants";
-import { MarkProps } from "./types";
 
 const altLightMetric: MetricConfig = {
   fullCardTitleName: "Population Share (ACS)",
@@ -30,47 +29,49 @@ const altLightMetric: MetricConfig = {
   type: "pct_share",
 };
 
-export function Marks(props: MarkProps) {
-  const lightMeasureDisplayName = props.lightMetric.shortLabel;
-  const darkMeasureDisplayName = props.darkMetric.shortLabel;
-  const lightMeasure = props.lightMetric.metricId;
-  const darkMeasure = props.darkMetric.metricId;
+export function Marks(
+  dataWithLineBreakDelimiter: Readonly<Record<string, any>>[],
+  metricDisplayName: string,
+  breakdownVar: BreakdownVar,
+  hasAltPop: boolean | undefined,
+  chartIsSmall: boolean,
+  barLabelBreakpoint: number,
+  LEGEND_DOMAINS: string[],
+  lightMetric: MetricConfig,
+  darkMetric: MetricConfig
+) {
+  const lightMeasureDisplayName = lightMetric.shortLabel;
+  const darkMeasureDisplayName = darkMetric.shortLabel;
+  const lightMeasure = lightMetric.metricId;
+  const darkMeasure = darkMetric.metricId;
   const altLightMeasure = altLightMetric.metricId;
 
-  const altLightMeasureDisplayName = props.hasAltPop
-    ? altLightMetric.shortLabel
-    : "";
+  const altLightMeasureDisplayName = hasAltPop ? altLightMetric.shortLabel : "";
 
-  const LEGEND_DOMAINS = [lightMeasureDisplayName, darkMeasureDisplayName];
+  const SIDE_BY_SIDE_BAND_HEIGHT =
+    SIDE_BY_SIDE_FULL_BAR_RATIO * BAR_HEIGHT -
+    SIDE_BY_SIDE_FULL_BAR_RATIO * BAR_HEIGHT * BAR_PADDING;
 
-  const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
-    props.data,
-    props.breakdownVar
-  );
+  const MIDDLE_OF_BAND = SIDE_BY_SIDE_BAND_HEIGHT / 2;
+
+  const SIDE_BY_SIDE_OFFSET =
+    BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * (SIDE_BY_SIDE_FULL_BAR_RATIO / 2);
 
   const [dataWithLightMetric, lightMetricDisplayColumnName] =
     addMetricDisplayColumn(
-      props.lightMetric,
+      lightMetric,
       dataWithLineBreakDelimiter,
       /* omitPctSymbol= */ true
     );
 
   const [dataWithDarkMetric, darkMetricDisplayColumnName] =
     addMetricDisplayColumn(
-      props.darkMetric,
+      darkMetric,
       dataWithLightMetric,
       /* omitPctSymbol= */ true
     );
 
-  const barLabelBreakpoint =
-    Math.max(
-      ...props.data.map(
-        (row: { [x: string]: any }) => row[props.darkMetric.metricId]
-      )
-    ) *
-    (LABEL_SWAP_CUTOFF_PERCENT / 100);
-
-  const [dataMarks, altLightMetricDisplayColumnName] = props.hasAltPop
+  const [data, altLightMetricDisplayColumnName] = hasAltPop
     ? addMetricDisplayColumn(
         altLightMetric,
         dataWithDarkMetric,
@@ -78,19 +79,10 @@ export function Marks(props: MarkProps) {
       )
     : [dataWithDarkMetric, ""];
 
-  const BAR_HEIGHT = props.stacked ? 40 : 12;
-  const STACKED_BAND_HEIGHT = BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING;
-  const SIDE_BY_SIDE_BAND_HEIGHT =
-    SIDE_BY_SIDE_FULL_BAR_RATIO * BAR_HEIGHT -
-    SIDE_BY_SIDE_FULL_BAR_RATIO * BAR_HEIGHT * BAR_PADDING;
-  const MIDDLE_OF_BAND = SIDE_BY_SIDE_BAND_HEIGHT / 2;
-  const SIDE_BY_SIDE_OFFSET =
-    BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * (SIDE_BY_SIDE_FULL_BAR_RATIO / 2);
-
   const createBarLabel = () => {
-    const singleLineLabel = `datum.${darkMetricDisplayColumnName} + "${props.metricDisplayName}"`;
+    const singleLineLabel = `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`;
     const multiLineLabel = `datum.${darkMetricDisplayColumnName} + "%"`;
-    if (props.chartIsSmall) {
+    if (chartIsSmall) {
       return multiLineLabel;
     } else return singleLineLabel;
   };
@@ -100,18 +92,16 @@ export function Marks(props: MarkProps) {
     type: "text",
     style: ["text"],
     from: { data: DATASET },
-    description: `${dataMarks.length} items`,
+    description: `${data.length} items`,
     encode: {
       update: {
-        y: { scale: "y", field: props.breakdownVar, band: 0.5 },
-        opacity: {
-          signal: "0",
-        },
+        y: { scale: "y", field: breakdownVar, band: 0.5 },
+        opacity: { signal: "0" },
         fontSize: { value: 0 },
         text: {
-          signal: !props.hasAltPop
+          signal: !hasAltPop
             ? // NORMAL
-              `${oneLineLabel(props.breakdownVar)}
+              `${oneLineLabel(breakdownVar)}
               +
                 ': '
                 +
@@ -127,7 +117,7 @@ export function Marks(props: MarkProps) {
               `
             : // FOR GEOS WITH ALT POPULATIONS
               `
-                ${oneLineLabel(props.breakdownVar)}
+                ${oneLineLabel(breakdownVar)}
                 +
                 ': '
                 +
@@ -156,7 +146,7 @@ export function Marks(props: MarkProps) {
       enter: {
         tooltip: {
           signal: `${oneLineLabel(
-            props.breakdownVar
+            breakdownVar
           )} + ', ${lightMeasureDisplayName}: ' + datum.${lightMetricDisplayColumnName}`,
         },
       },
@@ -165,17 +155,15 @@ export function Marks(props: MarkProps) {
         ariaRoleDescription: { value: "bar" },
         x: { scale: "x", field: lightMeasure },
         x2: { scale: "x", value: 0 },
-        y: { scale: "y", field: props.breakdownVar },
+        y: { scale: "y", field: breakdownVar },
         yc: {
           scale: "y",
-          field: props.breakdownVar,
-          offset: props.stacked
-            ? STACKED_BAND_HEIGHT / 2
-            : MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
+          field: breakdownVar,
+          offset: MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
         },
         height: {
           scale: "y",
-          band: props.stacked ? 1 : SIDE_BY_SIDE_ONE_BAR_RATIO,
+          band: SIDE_BY_SIDE_ONE_BAR_RATIO,
         },
       },
     },
@@ -191,7 +179,7 @@ export function Marks(props: MarkProps) {
       enter: {
         tooltip: {
           signal: `${oneLineLabel(
-            props.breakdownVar
+            breakdownVar
           )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
         },
       },
@@ -202,14 +190,12 @@ export function Marks(props: MarkProps) {
         x2: { scale: "x", value: 0 },
         yc: {
           scale: "y",
-          field: props.breakdownVar,
-          offset: props.stacked
-            ? STACKED_BAND_HEIGHT / 2
-            : MIDDLE_OF_BAND + SIDE_BY_SIDE_OFFSET,
+          field: breakdownVar,
+          offset: MIDDLE_OF_BAND + SIDE_BY_SIDE_OFFSET,
         },
         height: {
           scale: "y",
-          band: props.stacked ? THIN_RATIO : SIDE_BY_SIDE_ONE_BAR_RATIO,
+          band: SIDE_BY_SIDE_ONE_BAR_RATIO,
         },
       },
     },
@@ -225,7 +211,7 @@ export function Marks(props: MarkProps) {
       enter: {
         tooltip: {
           signal: `${oneLineLabel(
-            props.breakdownVar
+            breakdownVar
           )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
         },
       },
@@ -241,13 +227,11 @@ export function Marks(props: MarkProps) {
           signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, "white", "black")`,
         },
         x: { scale: "x", field: darkMeasure },
-        y: { scale: "y", field: props.breakdownVar, band: 0.5 },
+        y: { scale: "y", field: breakdownVar, band: 0.5 },
         yc: {
           scale: "y",
-          field: props.breakdownVar,
-          offset: props.stacked
-            ? STACKED_BAND_HEIGHT / 2
-            : MIDDLE_OF_BAND + BAR_HEIGHT,
+          field: breakdownVar,
+          offset: MIDDLE_OF_BAND + BAR_HEIGHT,
         },
         text: {
           signal: createBarLabel(),
@@ -263,7 +247,7 @@ export function Marks(props: MarkProps) {
     darkMeasureTextLabels,
   ];
 
-  if (props.hasAltPop) {
+  if (hasAltPop) {
     LEGEND_COLORS.splice(1, 0, ALT_LIGHT_MEASURE_COLOR);
     LEGEND_DOMAINS[0] = `${lightMeasureDisplayName} (KFF)`;
     LEGEND_DOMAINS.splice(1, 0, altLightMeasureDisplayName!);
@@ -277,7 +261,7 @@ export function Marks(props: MarkProps) {
         enter: {
           tooltip: {
             signal: `${oneLineLabel(
-              props.breakdownVar
+              breakdownVar
             )} + ', ${altLightMeasureDisplayName}: ' + datum.${altLightMetricDisplayColumnName}`,
           },
         },
@@ -288,17 +272,15 @@ export function Marks(props: MarkProps) {
           ariaRoleDescription: { value: "bar" },
           x: { scale: "x", field: altLightMeasure! },
           x2: { scale: "x", value: 0 },
-          y: { scale: "y", field: props.breakdownVar },
+          y: { scale: "y", field: breakdownVar },
           yc: {
             scale: "y",
-            field: props.breakdownVar,
-            offset: props.stacked
-              ? STACKED_BAND_HEIGHT / 2
-              : MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
+            field: breakdownVar,
+            offset: MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
           },
           height: {
             scale: "y",
-            band: props.stacked ? 1 : SIDE_BY_SIDE_ONE_BAR_RATIO,
+            band: SIDE_BY_SIDE_ONE_BAR_RATIO,
           },
         },
       },
