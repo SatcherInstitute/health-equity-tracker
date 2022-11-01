@@ -72,14 +72,23 @@ class CensusPopEstimatesSC(DataSource):
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_POPULATION_URL, dtype={'STATE': str}, encoding="ISO-8859-1")
 
-        print(df)
+        state_df = generate_state_pop_data_18plus(df)
 
-        # state_df = generate_state_pop_data(df)
+        column_types = {c: 'STRING' for c in state_df.columns}
 
-        # column_types = {c: 'STRING' for c in state_df.columns}
+        if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+            column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-        # if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-        #     column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+        gcs_to_bq_util.add_df_to_bq(
+            state_df, dataset, "race_and_ethnicity", column_types=column_types)
 
-        # gcs_to_bq_util.add_df_to_bq(
-        #     state_df, dataset, "race_and_ethnicity", column_types=column_types)
+
+def generate_state_pop_data_18plus(df):
+    """
+    Accepts the raw census csv as a df
+
+    Returns a standardized df with a single row for each combination of year, state, race OR sex groups, and the corresponding population estimate for only 18+ 
+    """
+    print("inside generate_state_pop_data_18plus()")
+    print(df)
+    return df

@@ -1,0 +1,141 @@
+state_fips,state_name,age,population,race_category_id,race,race_includes_hispanic,race_and_ethnicity
+01,Alabama,0-9,9192,WHITE_NH,White,False,White (NH)
+01,Alabama,0-9,2842,BLACK_NH,Black or African American,False,Black or African American (NH)
+01,Alabama,0-9,48,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+01,Alabama,0-9,166,ASIAN_NH,Asian,False,Asian (NH)
+01,Alabama,0-9,12,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,0-9,608,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,0-9,13484,ALL,All,,All
+01,Alabama,10-19,10420,WHITE_NH,White,False,White (NH)
+01,Alabama,10-19,3340,BLACK_NH,Black or African American,False,Black or African American (NH)
+01,Alabama,10-19,32,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+01,Alabama,10-19,150,ASIAN_NH,Asian,False,Asian (NH)
+01,Alabama,10-19,18,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,10-19,620,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,10-19,15020,ALL,All,,All
+01,Alabama,20-29,9770,WHITE_NH,White,False,White (NH)
+01,Alabama,20-29,3210,BLACK_NH,Black or African American,False,Black or African American (NH)
+01,Alabama,20-29,58,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+01,Alabama,20-29,172,ASIAN_NH,Asian,False,Asian (NH)
+01,Alabama,20-29,4,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,20-29,474,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,20-29,13954,ALL,All,,All
+01,Alabama,30-39,10192,WHITE_NH,White,False,White (NH)
+01,Alabama,30-39,3182,BLACK_NH,Black or African American,False,Black or African American (NH)
+01,Alabama,30-39,50,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+01,Alabama,30-39,210,ASIAN_NH,Asian,False,Asian (NH)
+01,Alabama,30-39,12,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,30-39,566,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,30-39,14388,ALL,All,,All
+01,Alabama,40-49,10892,WHITE_NH,White,False,White (NH)
+01,Alabama,40-49,3136,BLACK_NH,Black or African American,False,Black or African American (NH)
+01,Alabama,40-49,48,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+01,Alabama,40-49,260,ASIAN_NH,Asian,False,Asian (NH)
+01,Alabama,40-49,16,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,40-49,466,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,40-49,14962,ALL,All,,All
+01,Alabama,50-59,11996,WHITE_NH,White,False,White (NH)
+01,Alabama,50-59,2696,BLACK_NH,Black or African American,False,Black or African American (NH)
+01,Alabama,50-59,90,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+01,Alabama,50-59,156,ASIAN_NH,Asian,False,Asian (NH)
+01,Alabama,50-59,12,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,50-59,296,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,50-59,15342,ALL,All,,All
+01,Alabama,60-69,9456,WHITE_NH,White,False,White (NH)
+01,Alabama,60-69,2262,BLACK_NH,Black or African American,False,Black or African American (NH)
+01,Alabama,60-69,66,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+01,Alabama,60-69,84,ASIAN_NH,Asian,False,Asian (NH)
+01,Alabama,60-69,4,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,60-69,142,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,60-69,12106,ALL,All,,All
+01,Alabama,70-79,6950,WHITE_NH,White,False,White (NH)
+01,Alabama,70-79,1016,BLACK_NH,Black or African American,False,Black or African American (NH)
+01,Alabama,70-79,72,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+01,Alabama,70-79,58,ASIAN_NH,Asian,False,Asian (NH)
+01,Alabama,70-79,0,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,70-79,100,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,70-79,8252,ALL,All,,All
+01,Alabama,80+,3562,WHITE_NH,White,False,White (NH)
+01,Alabama,80+,512,BLACK_NH,Black or African American,False,Black or African American (NH)
+01,Alabama,80+,22,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+01,Alabama,80+,36,ASIAN_NH,Asian,False,Asian (NH)
+01,Alabama,80+,2,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,80+,70,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,80+,4230,ALL,All,,All
+01,Alabama,All,82430,WHITE_NH,White,False,White (NH)
+01,Alabama,All,22196,BLACK_NH,Black or African American,False,Black or African American (NH)
+01,Alabama,All,486,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+01,Alabama,All,1292,ASIAN_NH,Asian,False,Asian (NH)
+01,Alabama,All,80,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,All,3342,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,111738,ALL,All,,All
+56,Wyoming,0-9,676,WHITE_NH,White,False,White (NH)
+56,Wyoming,0-9,0,BLACK_NH,Black or African American,False,Black or African American (NH)
+56,Wyoming,0-9,14,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+56,Wyoming,0-9,2,ASIAN_NH,Asian,False,Asian (NH)
+56,Wyoming,0-9,0,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+56,Wyoming,0-9,46,HISP,Hispanic or Latino,True,Hispanic or Latino
+56,Wyoming,0-9,779,ALL,All,,All
+56,Wyoming,10-19,659,WHITE_NH,White,False,White (NH)
+56,Wyoming,10-19,7,BLACK_NH,Black or African American,False,Black or African American (NH)
+56,Wyoming,10-19,12,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+56,Wyoming,10-19,4,ASIAN_NH,Asian,False,Asian (NH)
+56,Wyoming,10-19,0,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+56,Wyoming,10-19,41,HISP,Hispanic or Latino,True,Hispanic or Latino
+56,Wyoming,10-19,750,ALL,All,,All
+56,Wyoming,20-29,578,WHITE_NH,White,False,White (NH)
+56,Wyoming,20-29,8,BLACK_NH,Black or African American,False,Black or African American (NH)
+56,Wyoming,20-29,13,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+56,Wyoming,20-29,3,ASIAN_NH,Asian,False,Asian (NH)
+56,Wyoming,20-29,0,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+56,Wyoming,20-29,47,HISP,Hispanic or Latino,True,Hispanic or Latino
+56,Wyoming,20-29,668,ALL,All,,All
+56,Wyoming,30-39,811,WHITE_NH,White,False,White (NH)
+56,Wyoming,30-39,9,BLACK_NH,Black or African American,False,Black or African American (NH)
+56,Wyoming,30-39,15,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+56,Wyoming,30-39,49,ASIAN_NH,Asian,False,Asian (NH)
+56,Wyoming,30-39,0,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+56,Wyoming,30-39,43,HISP,Hispanic or Latino,True,Hispanic or Latino
+56,Wyoming,30-39,939,ALL,All,,All
+56,Wyoming,40-49,669,WHITE_NH,White,False,White (NH)
+56,Wyoming,40-49,8,BLACK_NH,Black or African American,False,Black or African American (NH)
+56,Wyoming,40-49,21,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+56,Wyoming,40-49,4,ASIAN_NH,Asian,False,Asian (NH)
+56,Wyoming,40-49,1,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+56,Wyoming,40-49,42,HISP,Hispanic or Latino,True,Hispanic or Latino
+56,Wyoming,40-49,755,ALL,All,,All
+56,Wyoming,50-59,916,WHITE_NH,White,False,White (NH)
+56,Wyoming,50-59,8,BLACK_NH,Black or African American,False,Black or African American (NH)
+56,Wyoming,50-59,12,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+56,Wyoming,50-59,3,ASIAN_NH,Asian,False,Asian (NH)
+56,Wyoming,50-59,0,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+56,Wyoming,50-59,31,HISP,Hispanic or Latino,True,Hispanic or Latino
+56,Wyoming,50-59,980,ALL,All,,All
+56,Wyoming,60-69,980,WHITE_NH,White,False,White (NH)
+56,Wyoming,60-69,5,BLACK_NH,Black or African American,False,Black or African American (NH)
+56,Wyoming,60-69,13,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+56,Wyoming,60-69,46,ASIAN_NH,Asian,False,Asian (NH)
+56,Wyoming,60-69,0,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+56,Wyoming,60-69,21,HISP,Hispanic or Latino,True,Hispanic or Latino
+56,Wyoming,60-69,1077,ALL,All,,All
+56,Wyoming,70-79,562,WHITE_NH,White,False,White (NH)
+56,Wyoming,70-79,0,BLACK_NH,Black or African American,False,Black or African American (NH)
+56,Wyoming,70-79,4,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+56,Wyoming,70-79,1,ASIAN_NH,Asian,False,Asian (NH)
+56,Wyoming,70-79,0,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+56,Wyoming,70-79,8,HISP,Hispanic or Latino,True,Hispanic or Latino
+56,Wyoming,70-79,581,ALL,All,,All
+56,Wyoming,80+,385,WHITE_NH,White,False,White (NH)
+56,Wyoming,80+,0,BLACK_NH,Black or African American,False,Black or African American (NH)
+56,Wyoming,80+,3,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+56,Wyoming,80+,1,ASIAN_NH,Asian,False,Asian (NH)
+56,Wyoming,80+,0,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+56,Wyoming,80+,6,HISP,Hispanic or Latino,True,Hispanic or Latino
+56,Wyoming,80+,398,ALL,All,,All
+56,Wyoming,All,6236,WHITE_NH,White,False,White (NH)
+56,Wyoming,All,45,BLACK_NH,Black or African American,False,Black or African American (NH)
+56,Wyoming,All,107,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+56,Wyoming,All,113,ASIAN_NH,Asian,False,Asian (NH)
+56,Wyoming,All,1,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+56,Wyoming,All,285,HISP,Hispanic or Latino,True,Hispanic or Latino
+56,Wyoming,All,6927,ALL,All,,All
