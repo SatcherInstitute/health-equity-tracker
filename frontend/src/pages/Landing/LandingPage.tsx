@@ -10,13 +10,11 @@ import {
   REACT_QUERY_OPTIONS,
 } from "../../utils/urlutils";
 import {
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
-  WIHE_JOIN_THE_EFFORT_SECTION_ID,
   NEWS_TAB_LINK,
 } from "../../utils/internalRoutes";
 import FaqSection from "../ui/FaqSection";
-import { Box, useMediaQuery, useTheme } from "@material-ui/core";
+import { Box, TextField, useMediaQuery, useTheme } from "@material-ui/core";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 import NewsPreviewCard from "../WhatIsHealthEquity/News/NewsPreviewCard";
@@ -24,6 +22,7 @@ import { useQuery } from "react-query";
 import { Article } from "../WhatIsHealthEquity/NewsTab";
 import { ArticlesSkeleton } from "../WhatIsHealthEquity/News/AllPosts";
 import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
+import { urlMap } from "../../utils/externalUrls";
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -374,39 +373,44 @@ function LandingPage() {
           container
           className={styles.NewsletterSignUpRow}
           justifyContent="center"
+          component={"aside"}
         >
-          <Grid
-            container
-            item
-            xs={12}
-            sm={12}
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            className={styles.EmailAddressBackgroundImgContainer}
-          >
-            <div className={styles.EmailAddressContentDiv}>
-              <Grid item>
-                <Typography className={styles.NewsletterRowHeader} variant="h2">
-                  <span>
-                    Join Our
-                    <br aria-hidden="true" />
-                    Movement
-                  </span>
-                </Typography>
+          <section className={styles.NewsletterSignUpBox}>
+            <h4 className={styles.NewsletterSignUpHeader}>
+              <b>Sign up for our newsletter:</b>
+            </h4>
+
+            <form
+              action={urlMap.newsletterSignup}
+              method="post"
+              target="_blank"
+            >
+              <Grid container justifyContent="center" alignContent="center">
+                <Grid item>
+                  <TextField
+                    id="Enter email address to sign up" // Accessibility label
+                    name="MERGE0"
+                    variant="outlined"
+                    className={styles.EmailTextField}
+                    type="email"
+                    aria-label="Enter Email Address for Newsletter signup"
+                    placeholder="Enter email address"
+                  />
+                </Grid>
+                <Grid item>
+                  <Button
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                    className={styles.EmailAddressFormSubmit}
+                    aria-label="Sign Up for Newsletter in a new window"
+                  >
+                    Sign up
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Button
-                  variant="contained"
-                  color="default"
-                  className={styles.JoinOurMovementButton}
-                  href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}
-                >
-                  Learn How To Help
-                </Button>
-              </Grid>
-            </div>
-          </Grid>{" "}
+            </form>
+          </section>
         </Grid>
       </Grid>
     </>
