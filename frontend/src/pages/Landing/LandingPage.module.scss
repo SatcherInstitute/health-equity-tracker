@@ -24,8 +24,12 @@
     @include tav300();
     text-align: left;
     color: $alt-green;
-    font-size: $biggerHeader;
+    font-size: $bigHeader;
     line-height: $lhNormal;
+
+    @media (min-width: $sm) {
+      font-size: $biggerHeader;
+    }
 
     @media (min-width: $lg) {
       font-size: $biggestHeader;
