@@ -168,10 +168,12 @@
 }
 
 .NewsletterSignUpHeader {
-  @include inter400();
+  @include tav300();
+
   color: $alt-green;
   margin-top: 2rem;
   font-size: $header;
+  margin-bottom: 1rem;
 }
 
 .EmailTextField input {

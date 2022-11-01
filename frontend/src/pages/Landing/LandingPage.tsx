@@ -380,7 +380,7 @@ function LandingPage() {
         >
           <section className={styles.NewsletterSignUpBox}>
             <h4 className={styles.NewsletterSignUpHeader}>
-              <b>Sign up for our newsletter:</b>
+              Sign up for our newsletter:
             </h4>
 
             <form
