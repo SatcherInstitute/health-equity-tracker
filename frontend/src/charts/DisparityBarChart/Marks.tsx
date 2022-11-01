@@ -1,3 +1,4 @@
+import { TrailMark } from "vega";
 import { MetricConfig } from "../../data/config/MetricConfig";
 import {
   addLineBreakDelimitersToField,
@@ -5,6 +6,7 @@ import {
   oneLineLabel,
 } from "../utils";
 import {
+  ALT_LIGHT_MEASURE_COLOR,
   ALT_TEXT_LABELS,
   BAR_PADDING,
   DARK_MEASURE_BARS,
@@ -12,6 +14,7 @@ import {
   DARK_MEASURE_TEXT_LABELS,
   DATASET,
   LABEL_SWAP_CUTOFF_PERCENT,
+  LEGEND_COLORS,
   LIGHT_MEASURE_BARS,
   LIGHT_MEASURE_COLOR,
   SIDE_BY_SIDE_FULL_BAR_RATIO,
@@ -33,6 +36,12 @@ export function Marks(props: MarkProps) {
   const lightMeasure = props.lightMetric.metricId;
   const darkMeasure = props.darkMetric.metricId;
   const altLightMeasure = altLightMetric.metricId;
+
+  const altLightMeasureDisplayName = props.hasAltPop
+    ? altLightMetric.shortLabel
+    : "";
+
+  const LEGEND_DOMAINS = [lightMeasureDisplayName, darkMeasureDisplayName];
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     props.data,
@@ -247,12 +256,54 @@ export function Marks(props: MarkProps) {
     },
   };
 
-  const marks = {
+  const marks = [
     altTextLabels,
     lightMeasureBars,
     darkMeasureBars,
     darkMeasureTextLabels,
-  };
+  ];
 
-  return { marks };
+  if (props.hasAltPop) {
+    LEGEND_COLORS.splice(1, 0, ALT_LIGHT_MEASURE_COLOR);
+    LEGEND_DOMAINS[0] = `${lightMeasureDisplayName} (KFF)`;
+    LEGEND_DOMAINS.splice(1, 0, altLightMeasureDisplayName!);
+    marks.push({
+      name: "altLightMeasure_bars",
+      aria: false, // this data accessible in alt_text_labels
+      type: "rect",
+      style: ["bar"],
+      from: { data: "DATASET" },
+      encode: {
+        enter: {
+          tooltip: {
+            signal: `${oneLineLabel(
+              props.breakdownVar
+            )} + ', ${altLightMeasureDisplayName}: ' + datum.${altLightMetricDisplayColumnName}`,
+          },
+        },
+        update: {
+          fill: { value: ALT_LIGHT_MEASURE_COLOR },
+          // @ts-ignore
+          fillOpacity: { value: ALT_LIGHT_MEASURE_OPACITY },
+          ariaRoleDescription: { value: "bar" },
+          x: { scale: "x", field: altLightMeasure! },
+          x2: { scale: "x", value: 0 },
+          y: { scale: "y", field: props.breakdownVar },
+          yc: {
+            scale: "y",
+            field: props.breakdownVar,
+            offset: props.stacked
+              ? STACKED_BAND_HEIGHT / 2
+              : MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
+          },
+          height: {
+            scale: "y",
+            band: props.stacked ? 1 : SIDE_BY_SIDE_ONE_BAR_RATIO,
+          },
+        },
+      },
+    });
+  }
+
+  return marks as TrailMark[];
 }

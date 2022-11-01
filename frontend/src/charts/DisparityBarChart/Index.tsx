@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import { Vega } from "react-vega";
 import { useResponsiveWidth } from "../../utils/hooks/useResponsiveWidth";
 import { useFontSize } from "../../utils/hooks/useFontSize";
@@ -11,20 +11,35 @@ import { getSignals } from "../DisparityBarChart/helpers";
 import { Marks } from "./Marks";
 import { MetricId } from "../../data/config/MetricConfig";
 import { AIAN, NHPI, RACE } from "../../data/utils/Constants";
-import { AutoSize, Legend, Scale, TrailMark } from "vega";
+import { AutoSize, Legend, Scale } from "vega";
+import { useMediaQuery } from "@material-ui/core";
+import { useChartDimensions } from "../../utils/hooks/useChartDimensions";
 
 export function DisparityBarChart(props: DisparityBarChartCardProps) {
+  const [ref, width] = useResponsiveWidth(100);
+  const [chartDimensions] = useChartDimensions(width);
+  console.log(chartDimensions);
+  const [hasAltPop, setHasAltPop] = useState(false);
+
+  const pageIsTiny = useMediaQuery("(max-width:400px)");
+  const fontSize = useFontSize();
+
+  let dataFromProps = props.data;
+  const { showAltPopCompare } = props;
+
   const downloadFileName = `${props.filename} - Health Equity Tracker`;
   const dataset = [{ name: "DATASET", values: props.data }];
   const altText = `Comparison bar chart showing ${props.filename}`;
-  const fontSize = useFontSize();
+  const lightMeasureDisplayName = props.lightMetric.shortLabel;
+  const darkMeasureDisplayName = props.darkMetric.shortLabel;
+
   const chartTitle = getTitle({ chartTitle: props.chartTitle, fontSize });
-
-  const [ref, width] = useResponsiveWidth(100);
-  const [hasAltPop, setHasAltPop] = useState(false);
-
-  const { showAltPopCompare } = props;
-  let dataFromProps = props.data;
+  const axisTitleArray = [
+    lightMeasureDisplayName,
+    "vs.",
+    darkMeasureDisplayName,
+  ];
+  const axisTitle = width < 350 ? axisTitleArray : axisTitleArray.join(" ");
 
   if (showAltPopCompare) {
     dataFromProps = props.data.map((item) => {
@@ -45,17 +60,9 @@ export function DisparityBarChart(props: DisparityBarChartCardProps) {
     });
   }
 
-  /* default width during initialization */
-
   const chartIsSmall = width < 350;
-  console.log("checking");
 
-  const lightMeasureDisplayName = props.lightMetric.shortLabel;
-  const darkMeasureDisplayName = props.darkMetric.shortLabel;
-
-  const axisTitle = [lightMeasureDisplayName, "vs.", darkMeasureDisplayName];
-  const axes = Axes(width, axisTitle, props.stacked);
-  const { marks } = Marks({
+  const marks = Marks({
     data: dataFromProps,
     breakdownVar: props.breakdownVar,
     lightMetric: props.lightMetric,
@@ -94,17 +101,12 @@ export function DisparityBarChart(props: DisparityBarChartCardProps) {
     return {
       $schema: SCHEMA,
       autosize: { resize: true, type: "fit-x" } as AutoSize,
-      axes,
+      axes: Axes(axisTitle, chartDimensions),
       background: BACKGROUND_COLOR,
       data: dataset,
       description: altText,
       legends: legends as Legend[],
-      marks: [
-        marks.altTextLabels,
-        marks.lightMeasureBars,
-        marks.darkMeasureBars,
-        marks.darkMeasureTextLabels,
-      ] as TrailMark[],
+      marks: marks,
       scales: scales as Scale[],
       signals: signals,
       style: "cell",
