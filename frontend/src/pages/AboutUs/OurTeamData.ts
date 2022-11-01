@@ -1,6 +1,5 @@
 import Daniel from "../../assets/team/DawesDaniel.png";
 import Nelson from "../../assets/team/DunlapNelson.png";
-import Ebony from "../../assets/team/RespressEbony.png";
 import Allyson from "../../assets/team/BeltonAllyson.png";
 import Mahia from "../../assets/team/ValleMahia.png";
 import Shaneeta from "../../assets/team/ShaneetaJohnson.png";
@@ -15,6 +14,8 @@ import Christian from "../../assets/team/AmadorChristian.png";
 import Donrie from "../../assets/team/PurcellDonrie.png";
 import Madhuri from "../../assets/team/JhaMadhuri.png";
 import Aye from "../../assets/team/ObeAye.png";
+import Arnelle from "../../assets/team/KondeArnelle.jpg";
+import Elias from "../../assets/team/BerhanuElias.jpg";
 
 import PartnerSatcher from "../../assets/partners/PartnerSatcher.png";
 import PartnerGilead from "../../assets/partners/PartnerGilead.png";
@@ -33,11 +34,6 @@ export const LEADERSHIP_TEAM = [
     name: "Nelson Dunlap, JD",
     role: "Co-Principal Investigator",
     imageUrl: Nelson,
-  },
-  {
-    name: "Ebony Respress, MPH",
-    role: "Project Director",
-    imageUrl: Ebony,
   },
   {
     name: "Allyson Belton, MPH",
@@ -108,6 +104,16 @@ export const LEADERSHIP_TEAM = [
     name: "Aye Joana Obe, LLM",
     role: "Legal Fellow",
     imageUrl: Aye,
+  },
+  {
+    name: "Arnelle Konde, MPH, CHES",
+    role: "Researcher",
+    imageUrl: Arnelle,
+  },
+  {
+    name: "Elias Berhanu, MPH",
+    role: "Researcher",
+    imageUrl: Elias,
   },
 ];
 
