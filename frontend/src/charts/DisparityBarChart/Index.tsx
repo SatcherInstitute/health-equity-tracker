@@ -14,6 +14,7 @@ import { AIAN, NHPI, RACE } from "../../data/utils/Constants";
 import { AutoSize, Legend, Scale } from "vega";
 import { useMediaQuery } from "@material-ui/core";
 import { useChartDimensions } from "../../utils/hooks/useChartDimensions";
+import { BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE } from "../../data/query/Breakdowns";
 
 export function DisparityBarChart(props: DisparityBarChartCardProps) {
   const [ref, width] = useResponsiveWidth(100);
@@ -39,7 +40,8 @@ export function DisparityBarChart(props: DisparityBarChartCardProps) {
     "vs.",
     darkMeasureDisplayName,
   ];
-  const axisTitle = width < 350 ? axisTitleArray : axisTitleArray.join(" ");
+  const xAxisTitle = width < 350 ? axisTitleArray : axisTitleArray.join(" ");
+  const yAxisTitle = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar];
 
   if (showAltPopCompare) {
     dataFromProps = props.data.map((item) => {
@@ -101,7 +103,7 @@ export function DisparityBarChart(props: DisparityBarChartCardProps) {
     return {
       $schema: SCHEMA,
       autosize: { resize: true, type: "fit-x" } as AutoSize,
-      axes: Axes(axisTitle, chartDimensions),
+      axes: Axes(xAxisTitle, yAxisTitle, chartDimensions),
       background: BACKGROUND_COLOR,
       data: dataset,
       description: altText,
