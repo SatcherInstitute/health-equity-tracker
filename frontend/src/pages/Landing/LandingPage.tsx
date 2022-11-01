@@ -151,7 +151,7 @@ function LandingPage() {
               component="p"
             >
               News and stories from the Satcher Health Leadership Institute and
-              beyond.
+              beyond
             </Typography>
           </Grid>
           <Grid item xs={12}>
