@@ -1,10 +1,10 @@
+import { Signal, Title } from "vega";
 import { MetricId } from "../../data/config/MetricConfig";
-import { BreakdownVar } from "../../data/query/Breakdowns";
-import { BAR_PADDING, LEGEND_COLORS, Y_STEP } from "./constants";
+import { Y_STEP } from "./constants";
 import { getTitleProps } from "./types";
 
 function getTitle(props: getTitleProps) {
-  return {
+  const title: Title = {
     text: props.chartTitle || "",
     subtitle: " ",
     encode: {
@@ -16,19 +16,22 @@ function getTitle(props: getTitleProps) {
       },
     },
   };
+  return title;
 }
 
 function getSignals() {
-  return [
-    {
-      name: "y_step",
-      value: Y_STEP,
-    },
-    {
-      name: "height",
-      update: "bandspace(domain('y').length, 0.1, 0.05) * y_step",
-    },
-  ];
+  const yStepSignal: Signal = {
+    name: "y_step",
+    value: Y_STEP,
+  };
+  const heightSignal: Signal = {
+    name: "height",
+    update: "bandspace(domain('y').length, 0.1, 0.05) * y_step",
+  };
+
+  const signal = [yStepSignal, heightSignal];
+
+  return signal;
 }
 
 function maxValueInField(

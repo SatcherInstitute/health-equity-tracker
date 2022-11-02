@@ -1,14 +1,10 @@
 import { MULTILINE_LABEL, AXIS_LABEL_Y_DELTA } from "../utils";
 import { BAR_HEIGHT, Z_MIDDLE } from "./constants";
 import { Axis } from "vega";
-import { ChartDimensionProps } from "../../utils/hooks/useChartDimensions";
+import { AxesProps } from "./types";
 
-export function Axes(
-  xAxisTitle: string | string[],
-  yAxisTitle: string,
-  chartDimensions: ChartDimensionProps
-) {
-  const verticalTickBars = {
+export function Axes({ chartDimensions, xAxisTitle, yAxisTitle }: AxesProps) {
+  const verticalTickBars: Axis = {
     scale: "x",
     orient: "bottom",
     gridScale: "y",
@@ -24,7 +20,7 @@ export function Axes(
     zindex: Z_MIDDLE,
   };
 
-  const axisTicks = {
+  const axisTicks: Axis = {
     scale: "x",
     orient: "bottom",
     grid: false,
@@ -39,7 +35,7 @@ export function Axes(
     titleLimit: { signal: "width - 10" },
   };
 
-  const yScale = {
+  const yScale: Axis = {
     scale: "y",
     orient: "left",
     grid: false,
@@ -59,5 +55,5 @@ export function Axes(
     },
   };
 
-  return [verticalTickBars, axisTicks, yScale] as Axis[];
+  return [verticalTickBars, axisTicks, yScale];
 }

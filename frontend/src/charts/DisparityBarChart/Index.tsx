@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useState } from "react";
 import { Vega } from "react-vega";
 import { useResponsiveWidth } from "../../utils/hooks/useResponsiveWidth";
 import { useFontSize } from "../../utils/hooks/useFontSize";
@@ -17,15 +17,16 @@ import { Marks } from "./Marks";
 import { AIAN, NHPI, RACE } from "../../data/utils/Constants";
 import { AutoSize } from "vega";
 import { useChartDimensions } from "../../utils/hooks/useChartDimensions";
-import { BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE } from "../../data/query/Breakdowns";
 import { Scales } from "./Scales";
 import {
   addLineBreakDelimitersToField,
   addMetricDisplayColumn,
+  PADDING_FOR_ACTIONS_MENU,
 } from "../utils";
 import { MetricConfig } from "../../data/config/MetricConfig";
+import { BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE } from "../../data/query/Breakdowns";
 
-const altLightMetric: MetricConfig = {
+export const altLightMetric: MetricConfig = {
   fullCardTitleName: "Population Share (ACS)",
   metricId: "acs_vaccine_population_pct",
   shortLabel: "% of population (ACS)",
@@ -33,19 +34,26 @@ const altLightMetric: MetricConfig = {
 };
 
 export function DisparityBarChart(props: DisparityBarChartCardProps) {
+  /* default width during initialization */
   const [ref, width] = useResponsiveWidth(100);
-  const [chartDimensions] = useChartDimensions(width);
-  const [hasAltPop, setHasAltPop] = useState(false);
   const fontSize = useFontSize();
+  // some states don't have any NHPI AIAN won't need alt light on vega even if they fit criteria
+  const [hasAltPop, setHasAltPop] = useState(false);
+  const [chartDimensions] = useChartDimensions(width);
 
-  let { data } = props;
-  const { showAltPopCompare, lightMetric, darkMetric, breakdownVar } = props;
-  const lightMeasureName = lightMetric.shortLabel;
-  const darkMeasureName = darkMetric.shortLabel;
-  const LEGEND_DOMAINS = [lightMeasureName, darkMeasureName];
+  // move AIAN and NHPI into their own properties for STATE/RACE/VACCINE (since KFF doesnt provide pop compare metrics)
+  let dataFromProps = props.data;
+  const {
+    chartTitle,
+    showAltPopCompare,
+    metricDisplayName,
+    lightMetric,
+    darkMetric,
+    breakdownVar,
+  } = props;
 
   if (showAltPopCompare) {
-    data = props.data.map((item) => {
+    dataFromProps = props.data.map((item) => {
       if (
         // AIAN, NHPI (with and without Hispanic) require use of alternate population source
         item[RACE].includes(AIAN) ||
@@ -63,83 +71,97 @@ export function DisparityBarChart(props: DisparityBarChartCardProps) {
     });
   }
 
+  // add delimiter for line breaks in column axis labels
+  const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
+    dataFromProps,
+    breakdownVar
+  );
+
+  // omit the % symbol because it's included in shortLabel
+  const [dataWithLightMetric, lightMetricDisplayColumnName] =
+    addMetricDisplayColumn(lightMetric, dataWithLineBreakDelimiter, true);
+
+  const [dataWithDarkMetric, darkMetricDisplayColumnName] =
+    addMetricDisplayColumn(darkMetric, dataWithLightMetric, true);
+
+  // only some maps need alt light
+  const [data, altLightMetricDisplayColumnName] = hasAltPop
+    ? addMetricDisplayColumn(altLightMetric, dataWithDarkMetric, true)
+    : [dataWithDarkMetric, ""];
+
+  const barLabelBreakpoint =
+    Math.max(...dataFromProps.map((row) => row[darkMetric.metricId])) *
+    (LABEL_SWAP_CUTOFF_PERCENT / 100);
+
+  const lightMeasureDisplayName = lightMetric.shortLabel;
+  const darkMeasureDisplayName = darkMetric.shortLabel;
+  const altLightMeasureDisplayName = hasAltPop ? altLightMetric.shortLabel : "";
+
+  const lightMeasure = lightMetric.metricId;
+  const darkMeasure = darkMetric.metricId;
+  const altLightMeasure = altLightMetric.metricId;
+
+  const LEGEND_DOMAINS = [lightMeasureDisplayName, darkMeasureDisplayName];
+  const xAxisTitleArray = [
+    lightMeasureDisplayName,
+    "vs.",
+    darkMeasureDisplayName,
+  ];
+  const xAxisTitle = width < 350 ? xAxisTitleArray : xAxisTitleArray.join(" ");
+  const yAxisTitle = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[breakdownVar];
+
+  const downloadFileName = `${props.filename} - Health Equity Tracker`;
+
   const largerMeasure = getLargerMeasure(
-    data,
+    dataFromProps,
     lightMetric.metricId,
     darkMetric.metricId
   );
 
-  const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
-    data,
-    breakdownVar
-  );
-
-  const [lightMetricData, lightMetricColumnName] = addMetricDisplayColumn(
-    lightMetric,
-    dataWithLineBreakDelimiter,
-    /* omitPctSymbol= */ true
-  );
-
-  const [darkMetricData, darkMetricDisplayColumnName] = addMetricDisplayColumn(
-    darkMetric,
-    lightMetricData,
-    /* omitPctSymbol= */ true
-  );
-
-  const [dataMarks, altLightMetricDisplayColumnName] = hasAltPop
-    ? addMetricDisplayColumn(
-        altLightMetric,
-        darkMetricData,
-        /* omitPctSymbol= */ true
-      )
-    : [darkMetricData, ""];
-
-  const barLabelBreakpoint =
-    Math.max(...data.map((row) => row[props.darkMetric.metricId])) *
-    (LABEL_SWAP_CUTOFF_PERCENT / 100);
-
-  const downloadFileName = `${props.filename} - Health Equity Tracker`;
-  const dataset = [{ name: "DATASET", values: data }];
-  const altText = `Comparison bar chart showing ${props.filename}`;
-
-  const chartIsSmall = width < 350;
-
-  const chartTitle = getTitle({ chartTitle: props.chartTitle, fontSize });
-  const axisTitleArray = [lightMeasureName, "vs.", darkMeasureName];
-  const xAxisTitle = width < 350 ? axisTitleArray : axisTitleArray.join(" ");
-  const yAxisTitle = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar];
-
-  const axes = Axes(xAxisTitle, yAxisTitle, chartDimensions);
-  const marks = Marks(
-    dataWithLineBreakDelimiter,
-    props.metricDisplayName,
-    breakdownVar,
-    hasAltPop,
-    chartIsSmall,
+  const markProps = {
     barLabelBreakpoint,
+    breakdownVar,
+    data,
+    hasAltPop,
+    altLightMeasure,
+    altLightMeasureDisplayName,
+    altLightMetricDisplayColumnName,
+    darkMeasure,
+    darkMeasureDisplayName,
+    darkMetricDisplayColumnName,
+    lightMeasure,
+    lightMeasureDisplayName,
+    lightMetricDisplayColumnName,
     LEGEND_DOMAINS,
-    lightMetric,
-    darkMetric
-  );
-  const legends = Legends(chartDimensions);
+    metricDisplayName,
+  };
+
+  const chartWidth = width - PADDING_FOR_ACTIONS_MENU;
+  const autosize: AutoSize = { resize: true, type: "fit-x" };
+  const altText = `Comparison bar chart showing ${props.filename}`;
+  const dataset = [{ name: "DATASET", values: data }];
+  const axes = Axes({ chartDimensions, xAxisTitle, yAxisTitle });
+  const legends = Legends({ chartDimensions });
+  const scales = Scales({ largerMeasure, breakdownVar, LEGEND_DOMAINS });
   const signals = getSignals();
-  const scales = Scales(largerMeasure, breakdownVar, LEGEND_DOMAINS);
+  const title = getTitle({ chartTitle, fontSize });
+  const marks = Marks(markProps);
 
   function getSpec() {
     return {
       $schema: SCHEMA,
-      autosize: { resize: true, type: "fit-x" } as AutoSize,
-      axes: axes,
+      autosize,
+      axes,
       background: BACKGROUND_COLOR,
       data: dataset,
       description: altText,
-      legends: legends,
-      marks: marks,
-      scales: scales,
-      signals: signals,
+      legends,
+      marks,
+      scales,
+      signals,
       style: "cell",
-      title: chartTitle,
-      width: width - 30,
+      title,
+      width: chartWidth,
     };
   }
 

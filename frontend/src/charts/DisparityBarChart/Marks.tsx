@@ -1,16 +1,10 @@
-import { TrailMark } from "vega";
-import { MetricConfig, MetricId } from "../../data/config/MetricConfig";
-import { BreakdownVar } from "../../data/query/Breakdowns";
-import {
-  addLineBreakDelimitersToField,
-  addMetricDisplayColumn,
-  oneLineLabel,
-} from "../utils";
+import { Mark, RectMark, TextMark } from "vega";
+import { oneLineLabel } from "../utils";
 import {
   ALT_LIGHT_MEASURE_COLOR,
+  ALT_LIGHT_MEASURE_OPACITY,
   ALT_TEXT_LABELS,
   BAR_HEIGHT,
-  BAR_PADDING,
   DARK_MEASURE_BARS,
   DARK_MEASURE_COLOR,
   DARK_MEASURE_TEXT_LABELS,
@@ -18,76 +12,33 @@ import {
   LEGEND_COLORS,
   LIGHT_MEASURE_BARS,
   LIGHT_MEASURE_COLOR,
-  SIDE_BY_SIDE_FULL_BAR_RATIO,
+  MIDDLE_OF_BAND,
+  SIDE_BY_SIDE_OFFSET,
   SIDE_BY_SIDE_ONE_BAR_RATIO,
 } from "./constants";
+import { MarkProps } from "./types";
 
-const altLightMetric: MetricConfig = {
-  fullCardTitleName: "Population Share (ACS)",
-  metricId: "acs_vaccine_population_pct",
-  shortLabel: "% of population (ACS)",
-  type: "pct_share",
-};
+export function Marks({
+  barLabelBreakpoint,
+  breakdownVar,
+  data,
+  hasAltPop,
+  altLightMeasure,
+  altLightMeasureDisplayName,
+  altLightMetricDisplayColumnName,
+  darkMeasure,
+  darkMeasureDisplayName,
+  darkMetricDisplayColumnName,
+  lightMeasure,
+  lightMeasureDisplayName,
+  lightMetricDisplayColumnName,
+  LEGEND_DOMAINS,
+  metricDisplayName,
+}: MarkProps) {
+  const singleLineLabel = `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`;
+  const multiLineLabel = `datum.${darkMetricDisplayColumnName} + "%"`;
 
-export function Marks(
-  dataWithLineBreakDelimiter: Readonly<Record<string, any>>[],
-  metricDisplayName: string,
-  breakdownVar: BreakdownVar,
-  hasAltPop: boolean | undefined,
-  chartIsSmall: boolean,
-  barLabelBreakpoint: number,
-  LEGEND_DOMAINS: string[],
-  lightMetric: MetricConfig,
-  darkMetric: MetricConfig
-) {
-  const lightMeasureDisplayName = lightMetric.shortLabel;
-  const darkMeasureDisplayName = darkMetric.shortLabel;
-  const lightMeasure = lightMetric.metricId;
-  const darkMeasure = darkMetric.metricId;
-  const altLightMeasure = altLightMetric.metricId;
-
-  const altLightMeasureDisplayName = hasAltPop ? altLightMetric.shortLabel : "";
-
-  const SIDE_BY_SIDE_BAND_HEIGHT =
-    SIDE_BY_SIDE_FULL_BAR_RATIO * BAR_HEIGHT -
-    SIDE_BY_SIDE_FULL_BAR_RATIO * BAR_HEIGHT * BAR_PADDING;
-
-  const MIDDLE_OF_BAND = SIDE_BY_SIDE_BAND_HEIGHT / 2;
-
-  const SIDE_BY_SIDE_OFFSET =
-    BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * (SIDE_BY_SIDE_FULL_BAR_RATIO / 2);
-
-  const [dataWithLightMetric, lightMetricDisplayColumnName] =
-    addMetricDisplayColumn(
-      lightMetric,
-      dataWithLineBreakDelimiter,
-      /* omitPctSymbol= */ true
-    );
-
-  const [dataWithDarkMetric, darkMetricDisplayColumnName] =
-    addMetricDisplayColumn(
-      darkMetric,
-      dataWithLightMetric,
-      /* omitPctSymbol= */ true
-    );
-
-  const [data, altLightMetricDisplayColumnName] = hasAltPop
-    ? addMetricDisplayColumn(
-        altLightMetric,
-        dataWithDarkMetric,
-        /* omitPctSymbol= */ true
-      )
-    : [dataWithDarkMetric, ""];
-
-  const createBarLabel = () => {
-    const singleLineLabel = `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`;
-    const multiLineLabel = `datum.${darkMetricDisplayColumnName} + "%"`;
-    if (chartIsSmall) {
-      return multiLineLabel;
-    } else return singleLineLabel;
-  };
-
-  const altTextLabels = {
+  const altTextLabels: TextMark = {
     name: ALT_TEXT_LABELS,
     type: "text",
     style: ["text"],
@@ -136,7 +87,7 @@ export function Marks(
     },
   };
 
-  const lightMeasureBars = {
+  const lightMeasureBars: RectMark = {
     name: LIGHT_MEASURE_BARS,
     aria: false,
     type: "rect",
@@ -169,7 +120,7 @@ export function Marks(
     },
   };
 
-  const darkMeasureBars = {
+  const darkMeasureBars: RectMark = {
     name: DARK_MEASURE_BARS,
     type: "rect",
     style: ["bar"],
@@ -201,7 +152,7 @@ export function Marks(
     },
   };
 
-  const darkMeasureTextLabels = {
+  const darkMeasureTextLabels: TextMark = {
     name: DARK_MEASURE_TEXT_LABELS,
     aria: false, // this data accessible in alt_text_labels
     type: "text",
@@ -234,13 +185,13 @@ export function Marks(
           offset: MIDDLE_OF_BAND + BAR_HEIGHT,
         },
         text: {
-          signal: createBarLabel(),
+          signal: `if("width < 350", ${multiLineLabel}, ${singleLineLabel} )`,
         },
       },
     },
   };
 
-  const marks = [
+  const marks: Mark[] = [
     altTextLabels,
     lightMeasureBars,
     darkMeasureBars,
@@ -267,7 +218,6 @@ export function Marks(
         },
         update: {
           fill: { value: ALT_LIGHT_MEASURE_COLOR },
-          // @ts-ignore
           fillOpacity: { value: ALT_LIGHT_MEASURE_OPACITY },
           ariaRoleDescription: { value: "bar" },
           x: { scale: "x", field: altLightMeasure! },
@@ -287,5 +237,5 @@ export function Marks(
     });
   }
 
-  return marks as TrailMark[];
+  return marks;
 }

@@ -1,26 +1,25 @@
 import { useMediaQuery } from "@material-ui/core";
 import { Scale } from "vega";
-import { MetricId } from "../../data/config/MetricConfig";
-import { BreakdownVar } from "../../data/query/Breakdowns";
 import { BAR_PADDING, DATASET, LEGEND_COLORS } from "./constants";
+import { ScalesProps } from "./types";
 
-export function Scales(
-  measureWithLargerDomain: MetricId,
-  breakdownVar: BreakdownVar,
-  LEGEND_DOMAINS: any
-) {
+export function Scales({
+  largerMeasure,
+  breakdownVar,
+  LEGEND_DOMAINS,
+}: ScalesProps) {
   const pageIsTiny = useMediaQuery("(max-width:400px)");
 
-  const xScales = {
+  const xScales: Scale = {
     name: "x",
     type: "linear",
-    domain: { data: DATASET, field: measureWithLargerDomain },
+    domain: { data: DATASET, field: largerMeasure },
     range: [0, { signal: "width" }],
     nice: !pageIsTiny, //on desktop, extend x-axis to a "nice" value
     zero: true,
   };
 
-  const yScales = {
+  const yScales: Scale = {
     name: "y",
     type: "band",
     domain: {
@@ -31,12 +30,14 @@ export function Scales(
     paddingInner: BAR_PADDING,
   };
 
-  const variables = {
+  const variables: Scale = {
     name: "variables",
     type: "ordinal",
     domain: LEGEND_DOMAINS,
     range: LEGEND_COLORS,
   };
 
-  return [xScales, yScales, variables] as Scale[];
+  const scales: Scale[] = [xScales, yScales, variables];
+
+  return scales;
 }
