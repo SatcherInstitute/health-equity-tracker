@@ -23,7 +23,7 @@ import { scaleTime, scaleLinear, extent, min, max, bisector } from "d3";
 import { FilterLegend } from "./FilterLegend";
 import { LineChart } from "./LineChart";
 import { Axes } from "./Axes";
-import { CircleChart } from "./CircleChart";
+import CircleChartDropdown from "./CircleChartDropdown";
 import { TrendsTooltip } from "./TrendsTooltip";
 import { HoverCircles } from "./HoverCircles";
 
@@ -352,17 +352,6 @@ export function TrendsChart({
             />
           </g>
           {/* Only render unknown group circles when there is data for which the group is unknown */}
-          {showUnknowns && (
-            <CircleChart
-              data={filterUnknownsByTimePeriod(unknown, dates)}
-              xScale={xScale}
-              width={width}
-              isSkinny={isSkinny}
-              groupLabel={groupLabel}
-              selectedDate={hoveredDate}
-              circleId={`${axisConfig.type}-${isCompareCard ? "b" : "a"}`}
-            />
-          )}
         </svg>
       )}
     </figure>

@@ -28,6 +28,7 @@ import { EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK } from "../utils/internalR
 import { HashLink } from "react-router-hash-link";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import CircleChartDropdown from "../charts/trendsChart/CircleChartDropdown";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -47,6 +48,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const [selectedTableGroups, setSelectedTableGroups] = useState<string[]>([]);
 
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
+  const [circleChartExpanded, setCircleChartExpanded] = useState(false);
 
   const metricConfigRates = props.variableConfig.metrics["per100k"];
   const metricConfigPctShares = props.variableConfig.metrics["pct_share"];
@@ -157,6 +159,25 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                       ],
                     yAxisLabel: metricConfigRates.shortLabel,
                   }}
+                  breakdownVar={props.breakdownVar}
+                  setSelectedTableGroups={setSelectedTableGroups}
+                  isCompareCard={props.isCompareCard || false}
+                />
+
+                <CircleChartDropdown
+                  expanded={circleChartExpanded}
+                  setExpanded={setCircleChartExpanded}
+                  data={nestedRatesData}
+                  unknown={nestedUnknownPctShareData}
+                  axisConfig={{
+                    type: metricConfigRates.type,
+                    groupLabel:
+                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                        props.breakdownVar
+                      ],
+                    yAxisLabel: metricConfigRates.shortLabel,
+                  }}
+                  chartTitle={getTitleText()}
                   breakdownVar={props.breakdownVar}
                   setSelectedTableGroups={setSelectedTableGroups}
                   isCompareCard={props.isCompareCard || false}
