@@ -13,7 +13,6 @@ import {
   EXPLORE_DATA_PAGE_LINK,
   NEWS_TAB_LINK,
 } from "../../utils/internalRoutes";
-import FaqSection from "../ui/FaqSection";
 import { Box, TextField, useMediaQuery, useTheme } from "@material-ui/core";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
@@ -365,12 +364,6 @@ function LandingPage() {
             </Button>
           </Box>
         </Grid>
-
-        <div className={styles.FaqRow}>
-          <LazyLoad offset={300} height={700} once>
-            <FaqSection />
-          </LazyLoad>
-        </div>
 
         <Grid
           container
