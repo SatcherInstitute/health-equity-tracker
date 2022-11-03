@@ -8,7 +8,8 @@ import ingestion.constants as constants
 import pandas as pd  # type: ignore
 
 """
-This datasource generates population totals, by state, by race/ethnicity, for each decade age bucket used by the CDC restrict covid dataset
+This datasource generates population totals, by state, by race/ethnicity,
+for each decade age bucket used by the CDC restrict covid dataset
 """
 
 
