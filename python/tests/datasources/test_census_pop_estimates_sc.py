@@ -4,17 +4,22 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 
-from datasources.census_pop_estimates_sc import CensusPopEstimatesSC
+from datasources.census_pop_estimates_sc import CensusPopEstimatesSC, generate_state_pop_data_18plus
 import ingestion.standardized_columns as std_col
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "census_pop_estimates_sc")
 
-STATE_POP_DATA = os.path.join(
+STATE_POP_RACE_DATA = os.path.join(
     TEST_DIR, 'census_pop_estimates_sc-race_ethnicity_age_state.csv')
-NATIONAL_POP_DATA = os.path.join(
+NATIONAL_POP_RACE_DATA = os.path.join(
     TEST_DIR, 'census_pop_estimates_sc-race_ethnicity_age_national.csv')
+
+STATE_POP_SEX_DATA = os.path.join(
+    TEST_DIR, 'census_pop_estimates_sc-sex_age_state.csv')
+NATIONAL_POP_SEX_DATA = os.path.join(
+    TEST_DIR, 'census_pop_estimates_sc-sex_age_national.csv')
 
 
 def get_pop_estimates_as_df():
@@ -25,13 +30,25 @@ def get_pop_estimates_as_df():
     })
 
 
+def get_breakdown_df():
+    return pd.DataFrame({
+        "col1": [0, 1, 2],
+        "col2": ["a", "b", "c"]
+    })
+
+
+# TEST OVERALL WRITE TO BQ
+
+@mock.patch('datasources.census_pop_estimates_sc.generate_state_pop_data_18plus',
+            return_value=get_breakdown_df())
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
             return_value=get_pop_estimates_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBq(
     mock_bq: mock.MagicMock,
-    mock_csv: mock.MagicMock
+    mock_csv: mock.MagicMock,
+    mock_gen: mock.MagicMock
 ):
 
     censusPopEstimatesSC = CensusPopEstimatesSC()
@@ -42,17 +59,39 @@ def testWriteToBq(
 
     censusPopEstimatesSC.write_to_bq('dataset', 'gcs_bucket', **kwargs)
     assert mock_csv.call_count == 1
-    assert mock_bq.call_count == 1
+    assert mock_bq.call_count == 2
+    assert mock_gen.call_count == 2
 
-    print("test results")
-    print(mock_bq.call_args_list[0].args[0])
+# TEST INNER FUNCTION - RACE
 
-    expected_df = pd.read_csv(STATE_POP_DATA, dtype={
+
+def test18PlusByRace():
+
+    mock_csv_as_df = get_pop_estimates_as_df()
+    race_df = generate_state_pop_data_18plus(
+        mock_csv_as_df, "race_category_id")
+
+    expected_race_df = pd.read_csv(STATE_POP_RACE_DATA, dtype={
         'state_fips': str,
+        'time_period': str
     })
 
-    print("expected")
-    print(expected_df)
+    assert_frame_equal(
+        race_df, expected_race_df, check_like=True)
+
+# TEST INNER FUNCTION - SEX
+
+
+def test18PlusBySex():
+
+    mock_csv_as_df = get_pop_estimates_as_df()
+    sex_df = generate_state_pop_data_18plus(
+        mock_csv_as_df, "sex")
+
+    expected_sex_df = pd.read_csv(STATE_POP_SEX_DATA, dtype={
+        'state_fips': str,
+        'time_period': str
+    })
 
     assert_frame_equal(
-        mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
+        sex_df, expected_sex_df, check_like=True)

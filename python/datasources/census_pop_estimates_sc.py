@@ -1,10 +1,8 @@
 from ingestion.standardized_columns import Race
 from datasources.data_source import DataSource
-
 from ingestion import gcs_to_bq_util
-import ingestion.standardized_columns as std_col
-import ingestion.constants as constants
-
+import ingestion.standardized_columns as s
+from ingestion.standardized_columns import Race
 import pandas as pd  # type: ignore
 
 BASE_POPULATION_URL = (
@@ -28,30 +26,32 @@ BASE_POPULATION_URL = (
 # 5 = Native Hawaiian and Other Pacific Islander Alone
 # 6 = Two or more races
 
-# RACES_MAP = {
-#     'NHWA': Race.WHITE_NH.value,
-#     'NHBA': Race.BLACK_NH.value,
-#     'NHIA': Race.AIAN_NH.value,
-#     'NHAA': Race.ASIAN_NH.value,
-#     'NHNA': Race.NHPI_NH.value,
-#     'H': Race.HISP.value,
-#     'ALL': Race.ALL.value
-# }
+census_to_het_cols = {
+    'AGE': s.AGE_COL,
+    'SEX': s.SEX_COL,
+    'STATE': s.STATE_FIPS_COL,
+    'NAME': s.STATE_NAME_COL,
+}
 
+race_map = {
+    1: Race.WHITE_NH.value,
+    2: Race.BLACK_NH.value,
+    3: Race.AIAN_NH.value,
+    4: Race.ASIAN_NH.value,
+    5: Race.NHPI_NH.value,
+    6: Race.MULTI_OR_OTHER_STANDARD_NH.value
+}
 
-# AGES_MAP = {
-#     'All': (0, ), '0-9': (1, 2), '10-19': (3, 4), '20-29': (5, 6),
-#     '30-39': (7, 8), '40-49': (9, 10), '50-59': (11, 12),
-#     '60-69': (13, 14), '70-79': (15, 16), '80+': (17, 18)}
+sex_map = {
+    0: "All",
+    1: "Male",
+    2: "Female"
+}
 
-# YEAR_2019 = 12
-
-
-# def total_race(row, race):
-#     if race == 'ALL':
-#         return row['TOT_POP']
-
-#     return row[f'{race}_MALE'] + row[f'{race}_FEMALE']
+year_map = {
+    "POPESTIMATE2020": "2020",
+    "POPESTIMATE2021": "2021"
+}
 
 
 class CensusPopEstimatesSC(DataSource):
@@ -72,25 +72,87 @@ class CensusPopEstimatesSC(DataSource):
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_POPULATION_URL, dtype={'STATE': str}, encoding="ISO-8859-1")
 
-        for breakdown in [std_col.SEX_COL, std_col.RACE_OR_HISPANIC_COL]:
-
-            state_df = generate_state_pop_data_18plus(df)
-
+        for breakdown in [
+            s.SEX_COL,
+            s.RACE_CATEGORY_ID_COL
+        ]:
+            state_df = generate_state_pop_data_18plus(df, breakdown)
             column_types = {c: 'STRING' for c in state_df.columns}
-
-            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-
+            if s.RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[s.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
             gcs_to_bq_util.add_df_to_bq(
-                state_df, dataset, "race_and_ethnicity", column_types=column_types)
+                state_df, dataset, breakdown, column_types=column_types)
 
 
-def generate_state_pop_data_18plus(df):
+def generate_state_pop_data_18plus(df, breakdown):
     """
-    Accepts the raw census csv as a df
+    Accepts:
+    df: the raw census csv as a df
+    breakdown: the demographic breakdown type for the desired table, either "sex" or "race_category_id"
 
-    Returns a standardized df with a single row for each combination of year, state, race OR sex groups, and the corresponding population estimate for only 18+ 
+    Returns: a standardized df with a single row for each combination of year, state, race OR sex groups, and the corresponding population estimate for only 18+ 
     """
-    print("inside generate_state_pop_data_18plus()")
-    # print(df)
+
+    df = df.rename(census_to_het_cols, axis='columns')
+
+    # calculate HET race/eth based on census race + eth columns
+    df[s.RACE_CATEGORY_ID_COL] = df.apply(
+        lambda row: Race.HISP.value if row["ORIGIN"] == 2 else race_map[row["RACE"]], axis="columns")
+
+    df = df[[
+        s.AGE_COL,
+        s.SEX_COL,
+        s.RACE_CATEGORY_ID_COL,
+        s.STATE_FIPS_COL,
+        s.STATE_NAME_COL,
+        "POPESTIMATE2020",
+        "POPESTIMATE2021"
+    ]]
+
+    # make two cols of pop data by year into unique rows by year
+    df = df.melt(id_vars=[
+        s.AGE_COL,
+        s.SEX_COL,
+        s.RACE_CATEGORY_ID_COL,
+        s.STATE_FIPS_COL,
+        s.STATE_NAME_COL
+    ],
+        var_name=s.TIME_PERIOD_COL,
+        value_name=s.POPULATION_COL)
+
+    # remove the "ALL" rows for SEX if RACE is the breakdown (to prevent dbl counting). Census doesn't provide rows for "ALL" races combined so no need for the reverse
+    if breakdown == s.RACE_CATEGORY_ID_COL:
+        df = df[df[s.SEX_COL] != 0]
+
+    # keep only 18+
+    df = df[df[s.AGE_COL] >= 18]
+
+    # drop unneeded columns
+    df = df[[
+        s.STATE_FIPS_COL,
+        s.STATE_NAME_COL,
+        s.TIME_PERIOD_COL,
+        s.POPULATION_COL,
+        breakdown
+    ]]
+
+    # combine all year/state/group rows into, summing the populations
+    df = df.groupby([
+        s.STATE_FIPS_COL,
+        s.STATE_NAME_COL,
+        s.TIME_PERIOD_COL,
+        breakdown
+    ])[s.POPULATION_COL].sum().reset_index()
+
+    df[s.AGE_COL] = "18+"
+
+    if breakdown == s.SEX_COL:
+        # swap census SEX number codes for HET strings
+        df[s.SEX_COL] = df[s.SEX_COL].map(sex_map)
+
+    df[s.TIME_PERIOD_COL] = df[s.TIME_PERIOD_COL].map(year_map)
+
+    if breakdown == s.RACE_CATEGORY_ID_COL:
+        s.add_race_columns_from_category_id(df)
+
     return df

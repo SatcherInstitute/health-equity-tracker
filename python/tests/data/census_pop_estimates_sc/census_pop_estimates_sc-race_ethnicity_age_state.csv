@@ -1,15 +1,29 @@
-time_period,state_fips,state_name,age,population,race_category_id,race,race_includes_hispanic,race_and_ethnicity
-2020,01,Alabama,18+,9192,WHITE_NH,White,False,White (NH)
-2020,01,Alabama,18+,2842,BLACK_NH,Black or African American,False,Black or African American (NH)
-2020,01,Alabama,18+,48,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
-2020,01,Alabama,18+,166,ASIAN_NH,Asian,False,Asian (NH)
-2020,01,Alabama,18+,12,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
-2020,01,Alabama,18+,608,HISP,Hispanic or Latino,True,Hispanic or Latino
-2020,01,Alabama,18+,13484,ALL,All,,All
-2021,01,Alabama,18+,9192,WHITE_NH,White,False,White (NH)
-2021,01,Alabama,18+,2842,BLACK_NH,Black or African American,False,Black or African American (NH)
-2021,01,Alabama,18+,48,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
-2021,01,Alabama,18+,166,ASIAN_NH,Asian,False,Asian (NH)
-2021,01,Alabama,18+,12,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
-2021,01,Alabama,18+,608,HISP,Hispanic or Latino,True,Hispanic or Latino
-2021,01,Alabama,18+,13484,ALL,All,,All
+state_fips,state_name,time_period,race_category_id,population,age,race,race_includes_hispanic,race_and_ethnicity
+01,Alabama,2020,AIAN_NH,51936,18+,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+01,Alabama,2020,ASIAN_NH,117232,18+,Asian,False,Asian (NH)
+01,Alabama,2020,BLACK_NH,2026597,18+,Black or African American,False,Black or African American (NH)
+01,Alabama,2020,HISP,140805,18+,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,2020,MULTI_OR_OTHER_STANDARD_NH,91533,18+,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (NH)
+01,Alabama,2020,NHPI_NH,5649,18+,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,2020,WHITE_NH,5366354,18+,White,False,White (NH)
+01,Alabama,2021,AIAN_NH,52597,18+,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+01,Alabama,2021,ASIAN_NH,119837,18+,Asian,False,Asian (NH)
+01,Alabama,2021,BLACK_NH,2033944,18+,Black or African American,False,Black or African American (NH)
+01,Alabama,2021,HISP,146145,18+,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,2021,MULTI_OR_OTHER_STANDARD_NH,94889,18+,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (NH)
+01,Alabama,2021,NHPI_NH,5780,18+,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,2021,WHITE_NH,5382058,18+,White,False,White (NH)
+56,Wyoming,2020,AIAN_NH,19042,18+,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+56,Wyoming,2020,ASIAN_NH,9798,18+,Asian,False,Asian (NH)
+56,Wyoming,2020,BLACK_NH,10169,18+,Black or African American,False,Black or African American (NH)
+56,Wyoming,2020,HISP,39360,18+,Hispanic or Latino,True,Hispanic or Latino
+56,Wyoming,2020,MULTI_OR_OTHER_STANDARD_NH,13659,18+,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (NH)
+56,Wyoming,2020,NHPI_NH,783,18+,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+56,Wyoming,2020,WHITE_NH,794245,18+,White,False,White (NH)
+56,Wyoming,2021,AIAN_NH,19141,18+,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+56,Wyoming,2021,ASIAN_NH,9868,18+,Asian,False,Asian (NH)
+56,Wyoming,2021,BLACK_NH,10114,18+,Black or African American,False,Black or African American (NH)
+56,Wyoming,2021,HISP,40375,18+,Hispanic or Latino,True,Hispanic or Latino
+56,Wyoming,2021,MULTI_OR_OTHER_STANDARD_NH,14235,18+,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (NH)
+56,Wyoming,2021,NHPI_NH,782,18+,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+56,Wyoming,2021,WHITE_NH,798243,18+,White,False,White (NH)
