@@ -93,7 +93,7 @@ def generate_pop_data_18plus(df, breakdown, do_sum_to_national):
     df: the raw census csv as a df
     breakdown: the demographic breakdown type for the desired table,
     either "sex" or "race_category_id"
-    do_sum_to_national: boolean for whether the returns df should be 
+    do_sum_to_national: boolean for whether the returns df should be
     at the national level, summing all states or not (returning individual states)
 
     Returns: a standardized df with a single row for each combination of
