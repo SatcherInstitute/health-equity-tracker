@@ -5,6 +5,10 @@ import ingestion.standardized_columns as s
 from ingestion.constants import US_FIPS, US_NAME, STATE_LEVEL, NATIONAL_LEVEL
 import pandas as pd  # type: ignore
 
+"""
+This datasource generates population totals, by state, for people 18+ by race/ethnicity and by sex
+"""
+
 BASE_POPULATION_URL = (
     'https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-alldata6.csv')
 

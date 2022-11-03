@@ -7,6 +7,11 @@ import ingestion.constants as constants
 
 import pandas as pd  # type: ignore
 
+"""
+This datasource generates population totals, by state, by race/ethnicity, for each decade age bucket used by the CDC restrict covid dataset
+"""
+
+
 BASE_POPULATION_URL = ('https://www2.census.gov/programs-surveys/popest/'
                        'datasets/2010-2019/counties/asrh/cc-est2019-alldata.csv')
 
@@ -88,7 +93,8 @@ def generate_state_pop_data(df):
         age_df[std_col.AGE_COL] = std_age
 
         for state_fips in age_df['STATE'].drop_duplicates().to_list():
-            state_name = age_df.loc[age_df['STATE'] == state_fips]['STNAME'].drop_duplicates().to_list()[0]
+            state_name = age_df.loc[age_df['STATE'] == state_fips]['STNAME'].drop_duplicates().to_list()[
+                0]
 
             for race in RACES_MAP.values():
                 pop_row = {}
@@ -126,7 +132,8 @@ def generate_national_pop_data(state_df, states_to_include):
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME
 
-    needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.POPULATION_COL, std_col.AGE_COL]
+    needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL,
+                   std_col.POPULATION_COL, std_col.AGE_COL]
     needed_cols.extend(std_col.RACE_COLUMNS)
 
     std_col.add_race_columns_from_category_id(df)
