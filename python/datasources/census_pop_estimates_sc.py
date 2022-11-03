@@ -2,29 +2,11 @@ from ingestion.standardized_columns import Race
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as s
-from ingestion.constants import US_FIPS, US_NAME
+from ingestion.constants import US_FIPS, US_NAME, STATE_LEVEL, NATIONAL_LEVEL
 import pandas as pd  # type: ignore
 
 BASE_POPULATION_URL = (
     'https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-alldata6.csv')
-
-# The key for SEX is as follows:
-# 0 = Total
-# 1 = Male
-# 2 = Female
-
-# The key for ORIGIN is as follows:
-# 0 = Total
-# 1 = Not Hispanic
-# 2 = Hispanic
-
-# The key for RACE is as follows:
-#  1 = White Alone
-# 2 = Black or African American Alone
-# 3 = American Indian or Alaska Native Alone
-# 4 = Asian Alone
-# 5 = Native Hawaiian and Other Pacific Islander Alone
-# 6 = Two or more races
 
 census_to_het_cols = {
     'AGE': s.AGE_COL,
@@ -72,14 +54,14 @@ class CensusPopEstimatesSC(DataSource):
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_POPULATION_URL, dtype={'STATE': str}, encoding="ISO-8859-1")
 
-        for do_sum_national in [False, True]:
+        for geo in [STATE_LEVEL, NATIONAL_LEVEL]:
             for breakdown in [
                 s.SEX_COL,
                 s.RACE_CATEGORY_ID_COL
             ]:
 
                 breakdown_df = generate_pop_data_18plus(
-                    df, breakdown, do_sum_national)
+                    df, breakdown, geo)
                 column_types = {c: 'STRING' for c in breakdown_df.columns}
                 if s.RACE_INCLUDES_HISPANIC_COL in df.columns:
                     column_types[s.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
@@ -87,14 +69,15 @@ class CensusPopEstimatesSC(DataSource):
                     breakdown_df, dataset, breakdown, column_types=column_types)
 
 
-def generate_pop_data_18plus(df, breakdown, do_sum_to_national):
+def generate_pop_data_18plus(df, breakdown, geo):
     """
     Accepts:
     df: the raw census csv as a df
     breakdown: the demographic breakdown type for the desired table,
     either "sex" or "race_category_id"
-    do_sum_to_national: boolean for whether the returns df should be
-    at the national level, summing all states or not (returning individual states)
+    geo: string "state" or "national", which determines whether the returned
+    df will include entries the United States as a whole (summing all states)
+    or if it will return each individual state
 
     Returns: a standardized df with a single row for each combination of
     year, state, race OR sex groups, and the corresponding population estimate
@@ -179,7 +162,7 @@ def generate_pop_data_18plus(df, breakdown, do_sum_to_national):
         df_alls[s.RACE_CATEGORY_ID_COL] = Race.ALL.value
         df = pd.concat([df, df_alls], axis=0, ignore_index=True)
 
-    if do_sum_to_national:
+    if geo == NATIONAL_LEVEL:
         # drop state cols
         df = df[[
             s.TIME_PERIOD_COL,
