@@ -3,7 +3,7 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as s
 from ingestion.constants import US_FIPS, US_NAME
-# import pandas as pd  # type: ignore
+import pandas as pd  # type: ignore
 
 BASE_POPULATION_URL = (
     'https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-alldata6.csv')
@@ -158,6 +158,23 @@ def generate_pop_data_18plus(df, breakdown, do_sum_to_national):
         df[s.SEX_COL] = df[s.SEX_COL].map(sex_map)
 
     df[s.TIME_PERIOD_COL] = df[s.TIME_PERIOD_COL].map(year_map)
+
+    # need to make ALL rows for race
+    if breakdown == s.RACE_CATEGORY_ID_COL:
+        df_alls = df[[
+            s.STATE_FIPS_COL,
+            s.STATE_NAME_COL,
+            s.TIME_PERIOD_COL,
+            s.POPULATION_COL
+        ]]
+        df_alls = df_alls.groupby([
+            s.STATE_FIPS_COL,
+            s.STATE_NAME_COL,
+            s.TIME_PERIOD_COL,
+        ])[s.POPULATION_COL].sum().reset_index()
+
+        df_alls[s.RACE_CATEGORY_ID_COL] = Race.ALL.value
+        df = pd.concat([df, df_alls], axis=0, ignore_index=True)
 
     if do_sum_to_national:
         # drop state cols

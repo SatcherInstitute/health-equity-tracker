@@ -1,5 +1,6 @@
 time_period,race_category_id,population,state_fips,state_name,age,race,race_includes_hispanic,race_and_ethnicity
 2020,AIAN_NH,70978,00,United States,18+,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+2020,ALL,8687162,00,United States,18+,All,,All
 2020,ASIAN_NH,127030,00,United States,18+,Asian,False,Asian (NH)
 2020,BLACK_NH,2036766,00,United States,18+,Black or African American,False,Black or African American (NH)
 2020,HISP,180165,00,United States,18+,Hispanic or Latino,True,Hispanic or Latino
@@ -7,6 +8,7 @@ time_period,race_category_id,population,state_fips,state_name,age,race,race_incl
 2020,NHPI_NH,6432,00,United States,18+,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
 2020,WHITE_NH,6160599,00,United States,18+,White,False,White (NH)
 2021,AIAN_NH,71738,00,United States,18+,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+2021,ALL,8728008,00,United States,18+,All,,All
 2021,ASIAN_NH,129705,00,United States,18+,Asian,False,Asian (NH)
 2021,BLACK_NH,2044058,00,United States,18+,Black or African American,False,Black or African American (NH)
 2021,HISP,186520,00,United States,18+,Hispanic or Latino,True,Hispanic or Latino

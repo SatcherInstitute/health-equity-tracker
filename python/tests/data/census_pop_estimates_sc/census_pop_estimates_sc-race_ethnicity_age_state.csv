@@ -27,3 +27,7 @@ state_fips,state_name,time_period,race_category_id,population,age,race,race_incl
 56,Wyoming,2021,MULTI_OR_OTHER_STANDARD_NH,14235,18+,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (NH)
 56,Wyoming,2021,NHPI_NH,782,18+,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
 56,Wyoming,2021,WHITE_NH,798243,18+,White,False,White (NH)
+01,Alabama,2020,ALL,7800106,18+,All,,All
+01,Alabama,2021,ALL,7835250,18+,All,,All
+56,Wyoming,2020,ALL,887056,18+,All,,All
+56,Wyoming,2021,ALL,892758,18+,All,,All
