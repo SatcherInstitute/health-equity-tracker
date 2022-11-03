@@ -10,15 +10,9 @@ import pandas as pd  # type: ignore
 BASE_POPULATION_URL = ('https://www2.census.gov/programs-surveys/popest/'
                        'datasets/2010-2019/counties/asrh/cc-est2019-alldata.csv')
 
-RACES_MAP = {
-    'NHWA': Race.WHITE_NH.value,
-    'NHBA': Race.BLACK_NH.value,
-    'NHIA': Race.AIAN_NH.value,
-    'NHAA': Race.ASIAN_NH.value,
-    'NHNA': Race.NHPI_NH.value,
-    'H': Race.HISP.value,
-    'ALL': Race.ALL.value
-}
+RACES_MAP = {'NHWA': Race.WHITE_NH.value, 'NHBA': Race.BLACK_NH.value, 'NHIA': Race.AIAN_NH.value,
+             'NHAA': Race.ASIAN_NH.value, 'NHNA': Race.NHPI_NH.value, 'H': Race.HISP.value,
+             'ALL': Race.ALL.value}
 
 
 AGES_MAP = {
@@ -33,7 +27,7 @@ def total_race(row, race):
     if race == 'ALL':
         return row['TOT_POP']
 
-    return row[f'{race}_MALE'] + row[f'{race}_FEMALE']
+    return row['%s_MALE' % race] + row['%s_FEMALE' % race]
 
 
 class CensusPopEstimates(DataSource):
@@ -88,18 +82,13 @@ def generate_state_pop_data(df):
     df = df[needed_cols]
     new_df = []
 
-    print("\n\n")
-
     for std_age, census_age in AGES_MAP.items():
         age_df = df.loc[df['AGEGRP'].isin(census_age)]
         age_df = age_df.groupby(['STATE', 'STNAME']).sum().reset_index()
         age_df[std_col.AGE_COL] = std_age
 
-        print(age_df)
-
         for state_fips in age_df['STATE'].drop_duplicates().to_list():
-            state_name = age_df.loc[age_df['STATE'] == state_fips]['STNAME'].drop_duplicates().to_list()[
-                0]
+            state_name = age_df.loc[age_df['STATE'] == state_fips]['STNAME'].drop_duplicates().to_list()[0]
 
             for race in RACES_MAP.values():
                 pop_row = {}
@@ -137,8 +126,7 @@ def generate_national_pop_data(state_df, states_to_include):
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME
 
-    needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL,
-                   std_col.POPULATION_COL, std_col.AGE_COL]
+    needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.POPULATION_COL, std_col.AGE_COL]
     needed_cols.extend(std_col.RACE_COLUMNS)
 
     std_col.add_race_columns_from_category_id(df)
