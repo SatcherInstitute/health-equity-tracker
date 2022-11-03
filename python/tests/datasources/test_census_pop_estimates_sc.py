@@ -68,8 +68,10 @@ def testWriteToBq(
 def test18PlusByRace():
 
     mock_csv_as_df = get_pop_estimates_as_df()
-    race_df = generate_pop_data_18plus(
+    df = generate_pop_data_18plus(
         mock_csv_as_df, "race_category_id", False)
+
+    df.to_csv('test18PlusByRace.csv', index=False)
 
     expected_race_df = pd.read_csv(STATE_POP_RACE_DATA, dtype={
         'state_fips': str,
@@ -77,7 +79,7 @@ def test18PlusByRace():
     })
 
     assert_frame_equal(
-        race_df, expected_race_df, check_like=True)
+        df, expected_race_df, check_like=True)
 
 # TEST INNER FUNCTION - SEX BY STATE
 
@@ -85,8 +87,10 @@ def test18PlusByRace():
 def test18PlusBySex():
 
     mock_csv_as_df = get_pop_estimates_as_df()
-    sex_df = generate_pop_data_18plus(
+    df = generate_pop_data_18plus(
         mock_csv_as_df, "sex", False)
+
+    df.to_csv('test18PlusBySex.csv', index=False)
 
     expected_sex_df = pd.read_csv(STATE_POP_SEX_DATA, dtype={
         'state_fips': str,
@@ -94,7 +98,7 @@ def test18PlusBySex():
     })
 
     assert_frame_equal(
-        sex_df, expected_sex_df, check_like=True)
+        df, expected_sex_df, check_like=True)
 
 # TEST INNER FUNCTION - RACE NATIONAL
 
@@ -102,8 +106,10 @@ def test18PlusBySex():
 def test18PlusByRaceNational():
 
     mock_csv_as_df = get_pop_estimates_as_df()
-    race_df = generate_pop_data_18plus(
+    df = generate_pop_data_18plus(
         mock_csv_as_df, "race_category_id", True)
+
+    df.to_csv('test18PlusByRaceNational.csv', index=False)
 
     expected_race_df = pd.read_csv(NATIONAL_POP_RACE_DATA, dtype={
         'state_fips': str,
@@ -111,7 +117,7 @@ def test18PlusByRaceNational():
     })
 
     assert_frame_equal(
-        race_df, expected_race_df, check_like=True)
+        df, expected_race_df, check_like=True)
 
 # TEST INNER FUNCTION - SEX NATIONAL
 
@@ -119,8 +125,10 @@ def test18PlusByRaceNational():
 def test18PlusBySexNational():
 
     mock_csv_as_df = get_pop_estimates_as_df()
-    sex_df = generate_pop_data_18plus(
+    df = generate_pop_data_18plus(
         mock_csv_as_df, "sex", True)
+
+    df.to_csv('test18PlusBySexNational.csv', index=False)
 
     expected_sex_df = pd.read_csv(NATIONAL_POP_SEX_DATA, dtype={
         'state_fips': str,
@@ -128,4 +136,4 @@ def test18PlusBySexNational():
     })
 
     assert_frame_equal(
-        sex_df, expected_sex_df, check_like=True)
+        df, expected_sex_df, check_like=True)

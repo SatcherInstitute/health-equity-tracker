@@ -101,6 +101,9 @@ def generate_pop_data_18plus(df, breakdown, do_sum_to_national):
     for only 18+
     """
 
+    # drop the ALL ethnicity rows to avoid double counting
+    df = df[df["ORIGIN"] != 0]
+
     df = df.rename(census_to_het_cols, axis='columns')
 
     # calculate HET race/eth based on census race + eth columns
