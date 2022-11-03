@@ -23,7 +23,9 @@ export default function DefaultHelperBox() {
       <Alert severity="info" icon={<></>} className={styles.NoTopicAlert}>
         <Grid item xs={12} container className={styles.NoTopicBox}>
           <Grid item xs={12} md={6}>
-            <h3 className={styles.BigHeadline}>Select a topic above</h3>
+            <h3 className={styles.BigHeadline}>
+              Choose a topic from the sentence above to get started
+            </h3>
 
             <h3 className={styles.LittleHeadline}>
               ...or explore one of the following reports:
@@ -91,7 +93,7 @@ export default function DefaultHelperBox() {
                 </a> or 
               */}
               <i>
-                New to the tracker? Watch the video above, or take a{" "}
+                New to the tracker? Watch the video demo, or take a{" "}
                 <a href={EXPLORE_DATA_PAGE_LINK + WARM_WELCOME_DEMO_SETTING}>
                   guided tour of a COVID-19 report.
                 </a>

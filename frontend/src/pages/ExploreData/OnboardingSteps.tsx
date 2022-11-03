@@ -10,7 +10,7 @@ export const ONBOARDING_STEPS = [
     "Start Your Search",
     <>
       <p>
-        Select a topic (and location) to start your search, such as{" "}
+        Select a topic (and region) to start your search, such as{" "}
         <i>
           ‘Investigate rates of <b>COVID-19</b> in the <b>United States</b>’
         </i>
@@ -50,13 +50,14 @@ export const ONBOARDING_STEPS = [
         .
       </p>
 
-      <LazyLoad offset={300} height={176} once>
+      <LazyLoad offset={300} height={206} once>
         <video
           autoPlay={true}
           loop
           muted
           playsInline
           className={styles.HowToStepImg}
+          height={206}
         >
           <source src={changeModes} type="video/mp4" />
         </video>
@@ -69,12 +70,16 @@ export const ONBOARDING_STEPS = [
     "#onboarding-limits-in-the-data",
     "Limits in the data",
     <>
-      The Tracker ingests and standardizes many data sets, but unfortunately
-      there is missing, incomplete, or misclassified data in our sources.{" "}
-      <i>
-        *We acknowledge that deep inequities exist in the very structure we use
-        to collect and share data. We are committed to helping fix this.
-      </i>
+      <p>
+        The Tracker ingests and standardizes many data sets, but unfortunately
+        there is missing, incomplete, or misclassified data in our sources.
+      </p>
+      <p>
+        <i>
+          *We acknowledge that deep inequities exist in the very structure we
+          use to collect and share data. We are committed to helping fix this.
+        </i>
+      </p>
     </>,
     /*hideCloseButton=*/ false,
     /*placement=*/ "auto"
@@ -84,9 +89,33 @@ export const ONBOARDING_STEPS = [
     "Explore further to see demographic trends",
     <>
       Where available, the tracker offers breakdowns by race and ethnicity, sex,
-      and age.
+      and age. Some topic may also include selectors for different data types.
     </>,
     /*hideCloseButton=*/ true,
+    /*placement=*/ "auto"
+  ),
+  onboardingStep(
+    "#madlib-carousel-container",
+    "Explore the data",
+    <>
+      <p>
+        Close this window to explore the data yourself, starting with{" "}
+        <b>COVID-19</b> in the <b>United States</b>. Want to see more? Watch our
+        demo video:
+      </p>
+      <div className={styles.StepVideoBox}>
+        <iframe
+          className={styles.ResourceVideoEmbed}
+          src="https://www.youtube.com/embed/XBoqT9Jjc8w"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write;
+	encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      </div>
+    </>,
+    /*hideCloseButton=*/ false,
     /*placement=*/ "auto"
   ),
 ];

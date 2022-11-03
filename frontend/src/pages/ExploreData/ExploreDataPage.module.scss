@@ -116,4 +116,14 @@ button[data-action="back"]:focus {
   padding: 10px;
   width: 100%;
   height: 100%;
+  max-height: 206px;
+}
+
+.StepVideoBox {
+  display: flex;
+  justify-content: center;
+
+  iframe {
+    border-radius: 20px;
+  }
 }
