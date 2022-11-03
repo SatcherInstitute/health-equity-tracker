@@ -71,7 +71,7 @@ def test18PlusByRace():
     df = generate_pop_data_18plus(
         mock_csv_as_df, "race_category_id", False)
 
-    df.to_csv('test18PlusByRace.csv', index=False)
+    # df.to_csv('test18PlusByRace.csv', index=False)
 
     expected_race_df = pd.read_csv(STATE_POP_RACE_DATA, dtype={
         'state_fips': str,
@@ -90,7 +90,7 @@ def test18PlusBySex():
     df = generate_pop_data_18plus(
         mock_csv_as_df, "sex", False)
 
-    df.to_csv('test18PlusBySex.csv', index=False)
+    # df.to_csv('test18PlusBySex.csv', index=False)
 
     expected_sex_df = pd.read_csv(STATE_POP_SEX_DATA, dtype={
         'state_fips': str,
@@ -109,7 +109,7 @@ def test18PlusByRaceNational():
     df = generate_pop_data_18plus(
         mock_csv_as_df, "race_category_id", True)
 
-    df.to_csv('test18PlusByRaceNational.csv', index=False)
+    # df.to_csv('test18PlusByRaceNational.csv', index=False)
 
     expected_race_df = pd.read_csv(NATIONAL_POP_RACE_DATA, dtype={
         'state_fips': str,
@@ -128,7 +128,7 @@ def test18PlusBySexNational():
     df = generate_pop_data_18plus(
         mock_csv_as_df, "sex", True)
 
-    df.to_csv('test18PlusBySexNational.csv', index=False)
+    # df.to_csv('test18PlusBySexNational.csv', index=False)
 
     expected_sex_df = pd.read_csv(NATIONAL_POP_SEX_DATA, dtype={
         'state_fips': str,
