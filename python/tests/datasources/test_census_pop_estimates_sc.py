@@ -1,11 +1,9 @@
 from unittest import mock
 import os
-
 import pandas as pd
 from pandas._testing import assert_frame_equal
 
-from datasources.census_pop_estimates_sc import CensusPopEstimatesSC, generate_state_pop_data_18plus
-import ingestion.standardized_columns as std_col
+from datasources.census_pop_estimates_sc import CensusPopEstimatesSC, generate_pop_data_18plus
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -39,7 +37,7 @@ def get_breakdown_df():
 
 # TEST OVERALL WRITE TO BQ
 
-@mock.patch('datasources.census_pop_estimates_sc.generate_state_pop_data_18plus',
+@mock.patch('datasources.census_pop_estimates_sc.generate_pop_data_18plus',
             return_value=get_breakdown_df())
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
             return_value=get_pop_estimates_as_df())
@@ -59,17 +57,19 @@ def testWriteToBq(
 
     censusPopEstimatesSC.write_to_bq('dataset', 'gcs_bucket', **kwargs)
     assert mock_csv.call_count == 1
-    assert mock_bq.call_count == 2
-    assert mock_gen.call_count == 2
 
-# TEST INNER FUNCTION - RACE
+    # 4 = 2 demographic breakdowns X 2 geographic breakdowns
+    assert mock_bq.call_count == 4
+    assert mock_gen.call_count == 4
+
+# TEST INNER FUNCTION - RACE BY STATE
 
 
 def test18PlusByRace():
 
     mock_csv_as_df = get_pop_estimates_as_df()
-    race_df = generate_state_pop_data_18plus(
-        mock_csv_as_df, "race_category_id")
+    race_df = generate_pop_data_18plus(
+        mock_csv_as_df, "race_category_id", False)
 
     expected_race_df = pd.read_csv(STATE_POP_RACE_DATA, dtype={
         'state_fips': str,
@@ -79,16 +79,50 @@ def test18PlusByRace():
     assert_frame_equal(
         race_df, expected_race_df, check_like=True)
 
-# TEST INNER FUNCTION - SEX
+# TEST INNER FUNCTION - SEX BY STATE
 
 
 def test18PlusBySex():
 
     mock_csv_as_df = get_pop_estimates_as_df()
-    sex_df = generate_state_pop_data_18plus(
-        mock_csv_as_df, "sex")
+    sex_df = generate_pop_data_18plus(
+        mock_csv_as_df, "sex", False)
 
     expected_sex_df = pd.read_csv(STATE_POP_SEX_DATA, dtype={
+        'state_fips': str,
+        'time_period': str
+    })
+
+    assert_frame_equal(
+        sex_df, expected_sex_df, check_like=True)
+
+# TEST INNER FUNCTION - RACE NATIONAL
+
+
+def test18PlusByRace():
+
+    mock_csv_as_df = get_pop_estimates_as_df()
+    race_df = generate_pop_data_18plus(
+        mock_csv_as_df, "race_category_id", True)
+
+    expected_race_df = pd.read_csv(NATIONAL_POP_RACE_DATA, dtype={
+        'state_fips': str,
+        'time_period': str
+    })
+
+    assert_frame_equal(
+        race_df, expected_race_df, check_like=True)
+
+# TEST INNER FUNCTION - SEX NATIONAL
+
+
+def test18PlusBySex():
+
+    mock_csv_as_df = get_pop_estimates_as_df()
+    sex_df = generate_pop_data_18plus(
+        mock_csv_as_df, "sex", True)
+
+    expected_sex_df = pd.read_csv(NATIONAL_POP_SEX_DATA, dtype={
         'state_fips': str,
         'time_period': str
     })

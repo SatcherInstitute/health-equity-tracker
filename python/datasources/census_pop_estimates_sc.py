@@ -2,8 +2,8 @@ from ingestion.standardized_columns import Race
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as s
-from ingestion.standardized_columns import Race
-import pandas as pd  # type: ignore
+from ingestion.constants import US_FIPS, US_NAME
+# import pandas as pd  # type: ignore
 
 BASE_POPULATION_URL = (
     'https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-alldata6.csv')
@@ -72,25 +72,32 @@ class CensusPopEstimatesSC(DataSource):
         df = gcs_to_bq_util.load_csv_as_df_from_web(
             BASE_POPULATION_URL, dtype={'STATE': str}, encoding="ISO-8859-1")
 
-        for breakdown in [
-            s.SEX_COL,
-            s.RACE_CATEGORY_ID_COL
-        ]:
-            state_df = generate_state_pop_data_18plus(df, breakdown)
-            column_types = {c: 'STRING' for c in state_df.columns}
-            if s.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[s.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-            gcs_to_bq_util.add_df_to_bq(
-                state_df, dataset, breakdown, column_types=column_types)
+        for do_sum_national in [False, True]:
+            for breakdown in [
+                s.SEX_COL,
+                s.RACE_CATEGORY_ID_COL
+            ]:
+
+                breakdown_df = generate_pop_data_18plus(
+                    df, breakdown, do_sum_national)
+                column_types = {c: 'STRING' for c in breakdown_df.columns}
+                if s.RACE_INCLUDES_HISPANIC_COL in df.columns:
+                    column_types[s.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+                gcs_to_bq_util.add_df_to_bq(
+                    breakdown_df, dataset, breakdown, column_types=column_types)
 
 
-def generate_state_pop_data_18plus(df, breakdown):
+def generate_pop_data_18plus(df, breakdown, do_sum_to_national):
     """
     Accepts:
     df: the raw census csv as a df
-    breakdown: the demographic breakdown type for the desired table, either "sex" or "race_category_id"
+    breakdown: the demographic breakdown type for the desired table, 
+    either "sex" or "race_category_id"
+    do_sum_to_national: boolean for whether the returns df should be at the national level, summing all states or not (returning individual states)
 
-    Returns: a standardized df with a single row for each combination of year, state, race OR sex groups, and the corresponding population estimate for only 18+ 
+    Returns: a standardized df with a single row for each combination of 
+    year, state, race OR sex groups, and the corresponding population estimate 
+    for only 18+ 
     """
 
     df = df.rename(census_to_het_cols, axis='columns')
@@ -144,14 +151,32 @@ def generate_state_pop_data_18plus(df, breakdown):
         breakdown
     ])[s.POPULATION_COL].sum().reset_index()
 
-    df[s.AGE_COL] = "18+"
-
     if breakdown == s.SEX_COL:
         # swap census SEX number codes for HET strings
         df[s.SEX_COL] = df[s.SEX_COL].map(sex_map)
 
     df[s.TIME_PERIOD_COL] = df[s.TIME_PERIOD_COL].map(year_map)
 
+    if do_sum_to_national:
+        # drop state cols
+        df = df[[
+            s.TIME_PERIOD_COL,
+            s.POPULATION_COL,
+            breakdown
+        ]]
+
+        # sum matching rows from all states to get national population per breakdown
+        df = df.groupby([
+            s.TIME_PERIOD_COL,
+            breakdown
+        ])[s.POPULATION_COL].sum().reset_index()
+        df[s.STATE_FIPS_COL] = US_FIPS
+        df[s.STATE_NAME_COL] = US_NAME
+
+    # set age for entire df
+    df[s.AGE_COL] = "18+"
+
+    # can we get rid of these ?
     if breakdown == s.RACE_CATEGORY_ID_COL:
         s.add_race_columns_from_category_id(df)
 

@@ -1,15 +1,15 @@
-time_period,state_fips,state_name,age,population,race_category_id,race,race_includes_hispanic,race_and_ethnicity
-2020,00,United States,18+,62,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (NH)
-2020,00,United States,18+,14263,ALL,All,,All
-2020,00,United States,18+,168,ASIAN_NH,Asian,FALSE,Asian (NH)
-2020,00,United States,18+,2842,BLACK_NH,Black or African American,FALSE,Black or African American (NH)
-2020,00,United States,18+,654,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
-2020,00,United States,18+,12,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (NH)
-2020,00,United States,18+,9868,WHITE_NH,White,FALSE,White (NH)
-2021,00,United States,18+,62,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (NH)
-2021,00,United States,18+,14263,ALL,All,,All
-2021,00,United States,18+,168,ASIAN_NH,Asian,FALSE,Asian (NH)
-2021,00,United States,18+,2842,BLACK_NH,Black or African American,FALSE,Black or African American (NH)
-2021,00,United States,18+,654,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
-2021,00,United States,18+,12,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (NH)
-2021,00,United States,18+,9868,WHITE_NH,White,FALSE,White (NH)
+time_period,race_category_id,population,state_fips,state_name,age,race,race_includes_hispanic,race_and_ethnicity
+2020,AIAN_NH,70978,00,United States,18+,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+2020,ASIAN_NH,127030,00,United States,18+,Asian,False,Asian (NH)
+2020,BLACK_NH,2036766,00,United States,18+,Black or African American,False,Black or African American (NH)
+2020,HISP,180165,00,United States,18+,Hispanic or Latino,True,Hispanic or Latino
+2020,MULTI_OR_OTHER_STANDARD_NH,105192,00,United States,18+,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (NH)
+2020,NHPI_NH,6432,00,United States,18+,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+2020,WHITE_NH,6160599,00,United States,18+,White,False,White (NH)
+2021,AIAN_NH,71738,00,United States,18+,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+2021,ASIAN_NH,129705,00,United States,18+,Asian,False,Asian (NH)
+2021,BLACK_NH,2044058,00,United States,18+,Black or African American,False,Black or African American (NH)
+2021,HISP,186520,00,United States,18+,Hispanic or Latino,True,Hispanic or Latino
+2021,MULTI_OR_OTHER_STANDARD_NH,109124,00,United States,18+,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (NH)
+2021,NHPI_NH,6562,00,United States,18+,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+2021,WHITE_NH,6180301,00,United States,18+,White,False,White (NH)

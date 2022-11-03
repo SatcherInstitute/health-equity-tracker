@@ -1,7 +1,7 @@
-time_period,state_fips,state_name,age,population,sex
-2020,00,United States,18+,9192,All
-2020,00,United States,18+,2842,Male
-2020,00,United States,18+,48,Female
-2021,00,United States,18+,12,All
-2021,00,United States,18+,608,Male
-2021,00,United States,18+,13484,Female
+time_period,sex,population,state_fips,state_name,age
+2020,All,8687162,00,United States,18+
+2020,Female,4496636,00,United States,18+
+2020,Male,4190526,00,United States,18+
+2021,All,8728008,00,United States,18+
+2021,Female,4521304,00,United States,18+
+2021,Male,4206704,00,United States,18+
