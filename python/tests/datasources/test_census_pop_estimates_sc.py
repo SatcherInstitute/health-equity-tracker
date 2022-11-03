@@ -69,9 +69,7 @@ def test18PlusByRace():
 
     mock_csv_as_df = get_pop_estimates_as_df()
     df = generate_pop_data_18plus(
-        mock_csv_as_df, "race_category_id", False)
-
-    df.to_csv('test18PlusByRace.csv', index=False)
+        mock_csv_as_df, "race_category_id", "state")
 
     expected_race_df = pd.read_csv(STATE_POP_RACE_DATA, dtype={
         'state_fips': str,
@@ -88,10 +86,9 @@ def test18PlusBySex():
 
     mock_csv_as_df = get_pop_estimates_as_df()
     df = generate_pop_data_18plus(
-        mock_csv_as_df, "sex", False)
+        mock_csv_as_df, "sex", "state")
 
-    df.to_csv('test18PlusBySex.csv', index=False)
-
+    # df.to_csv('test18PlusBySex.csv', index=False)
     expected_sex_df = pd.read_csv(STATE_POP_SEX_DATA, dtype={
         'state_fips': str,
         'time_period': str
@@ -100,17 +97,16 @@ def test18PlusBySex():
     assert_frame_equal(
         df, expected_sex_df, check_like=True)
 
-# TEST INNER FUNCTION - RACE NATIONAL
+# # TEST INNER FUNCTION - RACE NATIONAL
 
 
 def test18PlusByRaceNational():
 
     mock_csv_as_df = get_pop_estimates_as_df()
     df = generate_pop_data_18plus(
-        mock_csv_as_df, "race_category_id", True)
+        mock_csv_as_df, "race_category_id", "national")
 
-    df.to_csv('test18PlusByRaceNational.csv', index=False)
-
+    # df.to_csv('test18PlusByRaceNational.csv', index=False)
     expected_race_df = pd.read_csv(NATIONAL_POP_RACE_DATA, dtype={
         'state_fips': str,
         'time_period': str
@@ -119,17 +115,16 @@ def test18PlusByRaceNational():
     assert_frame_equal(
         df, expected_race_df, check_like=True)
 
-# TEST INNER FUNCTION - SEX NATIONAL
+# # TEST INNER FUNCTION - SEX NATIONAL
 
 
 def test18PlusBySexNational():
 
     mock_csv_as_df = get_pop_estimates_as_df()
     df = generate_pop_data_18plus(
-        mock_csv_as_df, "sex", True)
+        mock_csv_as_df, "sex", "national")
 
-    df.to_csv('test18PlusBySexNational.csv', index=False)
-
+    # df.to_csv('test18PlusBySexNational.csv', index=False)
     expected_sex_df = pd.read_csv(NATIONAL_POP_SEX_DATA, dtype={
         'state_fips': str,
         'time_period': str
