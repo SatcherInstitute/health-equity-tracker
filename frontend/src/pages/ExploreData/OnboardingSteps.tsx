@@ -89,6 +89,16 @@ export const ONBOARDING_STEPS = [
     /*hideCloseButton=*/ true,
     /*placement=*/ "auto"
   ),
+  onboardingStep(
+    "",
+    "",
+    <>
+      Want to see more? Watch our video demo. Otherwise, start exploring the
+      data, starting with COVID-19 in the United States, by closing this window.
+    </>,
+    /*hideCloseButton=*/ false,
+    /*placement=*/ "auto"
+  ),
 ];
 
 function onboardingStep(
