@@ -91,13 +91,14 @@ def generate_pop_data_18plus(df, breakdown, do_sum_to_national):
     """
     Accepts:
     df: the raw census csv as a df
-    breakdown: the demographic breakdown type for the desired table, 
+    breakdown: the demographic breakdown type for the desired table,
     either "sex" or "race_category_id"
-    do_sum_to_national: boolean for whether the returns df should be at the national level, summing all states or not (returning individual states)
+    do_sum_to_national: boolean for whether the returns df should be 
+    at the national level, summing all states or not (returning individual states)
 
-    Returns: a standardized df with a single row for each combination of 
-    year, state, race OR sex groups, and the corresponding population estimate 
-    for only 18+ 
+    Returns: a standardized df with a single row for each combination of
+    year, state, race OR sex groups, and the corresponding population estimate
+    for only 18+
     """
 
     df = df.rename(census_to_het_cols, axis='columns')
@@ -127,7 +128,8 @@ def generate_pop_data_18plus(df, breakdown, do_sum_to_national):
         var_name=s.TIME_PERIOD_COL,
         value_name=s.POPULATION_COL)
 
-    # remove the "ALL" rows for SEX if RACE is the breakdown (to prevent dbl counting). Census doesn't provide rows for "ALL" races combined so no need for the reverse
+    # remove the "ALL" rows for SEX if RACE is the breakdown (to prevent dbl counting).
+    # Census doesn't provide rows for "ALL" races combined so no need for the reverse
     if breakdown == s.RACE_CATEGORY_ID_COL:
         df = df[df[s.SEX_COL] != 0]
 

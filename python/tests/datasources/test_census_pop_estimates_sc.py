@@ -99,7 +99,7 @@ def test18PlusBySex():
 # TEST INNER FUNCTION - RACE NATIONAL
 
 
-def test18PlusByRace():
+def test18PlusByRaceNational():
 
     mock_csv_as_df = get_pop_estimates_as_df()
     race_df = generate_pop_data_18plus(
@@ -116,7 +116,7 @@ def test18PlusByRace():
 # TEST INNER FUNCTION - SEX NATIONAL
 
 
-def test18PlusBySex():
+def test18PlusBySexNational():
 
     mock_csv_as_df = get_pop_estimates_as_df()
     sex_df = generate_pop_data_18plus(
