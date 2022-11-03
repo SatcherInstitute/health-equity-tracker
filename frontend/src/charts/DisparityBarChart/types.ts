@@ -1,25 +1,29 @@
-import { MetricConfig, MetricId } from "../../data/config/MetricConfig";
+import {
+  MetricConfig,
+  MetricId,
+  VariableConfig,
+} from "../../data/config/MetricConfig";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 import { ChartDimensionProps } from "../../utils/hooks/useChartDimensions";
 
 type Data = Record<string, any>[];
+type Text = string | string[];
 
-export interface DisparityBarChartCardProps {
+export interface DisparityBarChartProps {
   breakdownVar: BreakdownVar;
-  chartTitle?: string | string[];
+  chartTitle?: Text;
   data: Data;
   darkMetric: MetricConfig;
-  filename: string;
   lightMetric: MetricConfig;
+  filename: string;
   metricDisplayName: string;
-  stacked?: boolean;
   showAltPopCompare?: boolean;
 }
 
 export interface AxesProps {
   chartDimensions: ChartDimensionProps;
-  xAxisTitle: string | string[];
-  yAxisTitle: string | string[];
+  xAxisTitle: Text;
+  yAxisTitle: Text;
 }
 
 export interface MarkProps {
@@ -48,26 +52,6 @@ export interface ScalesProps {
   largerMeasure: MetricId;
   breakdownVar: BreakdownVar;
   LEGEND_DOMAINS: string[];
-}
-
-export interface Spec {
-  data: Record<string, any>[];
-  chartTitle?: string | string[];
-  filename: string;
-  fontSize: number;
-  title: {
-    text: string | string[];
-    subTitle?: string;
-    encode: {
-      title: {
-        enter: {
-          fontSize: { value: number };
-          font: { value: string };
-        };
-      };
-    };
-  };
-  width: number;
 }
 
 export interface getTitleProps {
