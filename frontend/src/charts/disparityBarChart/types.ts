@@ -1,8 +1,4 @@
-import {
-  MetricConfig,
-  MetricId,
-  VariableConfig,
-} from "../../data/config/MetricConfig";
+import { MetricConfig, MetricId } from "../../data/config/MetricConfig";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 import { ChartDimensionProps } from "../../utils/hooks/useChartDimensions";
 
