@@ -85,14 +85,7 @@ export function CircleChart({
 
   return (
     <g>
-      <g
-        tabIndex={0}
-        role="list"
-        aria-label={unknownCircleLegendText + " per month"}
-        transform={`translate(0, ${
-          HEIGHT - MARGIN.bottom_with_unknowns + 4 * MAX_RADIUS
-        })`}
-      >
+      <g>
         {data &&
           data.map(([date, percent]: [string, number], i: number) => {
             const isEveryOtherBubble = i % 2 === 0;

@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useRef } from "react";
-import AnimateHeight from "react-animate-height";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 import styles from "./../../cards/ui/AltTableView.module.scss";
 import { CircleChart } from "./CircleChart";
@@ -86,15 +85,17 @@ export default function CircleChartDropdown(props: CircleChartDropdownProps) {
   const { groupLabel } = props.axisConfig || {};
 
   const [hoveredDate, setHoveredDate] = useState<string | null>(null);
-  const legendXPlacement = width / 2;
+  const unknownCircleLegendText = `Legend: unknown ${groupLabel.toLowerCase()}`;
 
   return (
     <figure className={styles.TrendsChart} ref={containerRef}>
-      <svg
-        height={CONFIG.HEIGHT}
-        width={width as number}
-        onMouseLeave={() => setHoveredDate(null)}
-        role="group"
+      <g
+        tabIndex={0}
+        role="list"
+        aria-label={unknownCircleLegendText + " per month"}
+        transform={`translate(0, ${
+          HEIGHT - MARGIN.bottom_with_unknowns + 4 * MAX_RADIUS
+        })`}
       >
         <CircleChart
           data={filterUnknownsByTimePeriod(props.unknown, dates)}
@@ -107,7 +108,7 @@ export default function CircleChartDropdown(props: CircleChartDropdownProps) {
             props.isCompareCard ? "b" : "a"
           }`}
         />
-      </svg>
+      </g>
     </figure>
   );
 }
