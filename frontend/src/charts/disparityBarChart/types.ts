@@ -37,7 +37,7 @@ export interface MarkProps {
   lightMeasureDisplayName: string;
   lightMetricDisplayColumnName: string;
   LEGEND_DOMAINS: string[];
-  metricDisplayName: string;
+  darkMeasureText: string;
 }
 
 export interface LegendsProps {

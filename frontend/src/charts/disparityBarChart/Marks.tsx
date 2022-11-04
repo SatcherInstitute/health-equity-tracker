@@ -33,11 +33,8 @@ export function Marks({
   lightMeasureDisplayName,
   lightMetricDisplayColumnName,
   LEGEND_DOMAINS,
-  metricDisplayName,
+  darkMeasureText,
 }: MarkProps) {
-  const singleLineLabel = `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`;
-  const multiLineLabel = `datum.${darkMetricDisplayColumnName} + "%"`;
-
   const altTextLabels: TextMark = {
     name: ALT_TEXT_LABELS,
     type: "text",
@@ -185,7 +182,7 @@ export function Marks({
           offset: MIDDLE_OF_BAND + BAR_HEIGHT,
         },
         text: {
-          signal: `if("width < 350", ${multiLineLabel}, ${singleLineLabel} )`,
+          signal: `datum.${darkMetricDisplayColumnName} + '${darkMeasureText}'`,
         },
       },
     },

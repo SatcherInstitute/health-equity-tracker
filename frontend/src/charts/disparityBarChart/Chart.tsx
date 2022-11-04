@@ -107,6 +107,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   ];
   const xAxisTitle = width < 350 ? xAxisTitleArray : xAxisTitleArray.join(" ");
   const yAxisTitle = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[breakdownVar];
+  const darkMeasureText = width < 350 ? "%" : metricDisplayName;
 
   const downloadFileName = `${props.filename} - Health Equity Tracker`;
 
@@ -131,7 +132,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     lightMeasureDisplayName,
     lightMetricDisplayColumnName,
     LEGEND_DOMAINS,
-    metricDisplayName,
+    darkMeasureText,
   };
 
   const chartWidth = width - PADDING_FOR_ACTIONS_MENU;
