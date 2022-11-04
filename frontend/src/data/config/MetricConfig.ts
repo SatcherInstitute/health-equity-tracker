@@ -459,6 +459,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "death_ratio_age_adjusted",
           fullCardTitleName:
             "Age-adjusted risk of COVID-19 death compared to White (NH)",
+          chartTitle: "Risk of COVID-19 death compared to White (NH)",
           shortLabel: "Risk of COVID-19 Death", // table header-row label
           type: "ratio",
           ageAdjusted: true,
