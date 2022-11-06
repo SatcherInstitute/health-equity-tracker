@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {
   ARTICLES_KEY,
-  fetchNewsData,
+  fetchLandingPageNewsData,
   ReactRouterLinkButton,
   REACT_QUERY_OPTIONS,
 } from "../../utils/urlutils";
@@ -28,7 +28,7 @@ import { Link } from "react-router-dom";
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
     ARTICLES_KEY,
-    fetchNewsData,
+    fetchLandingPageNewsData,
     REACT_QUERY_OPTIONS
   );
 

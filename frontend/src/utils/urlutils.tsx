@@ -73,6 +73,14 @@ export async function fetchNewsData() {
   );
 }
 
+export async function fetchLandingPageNewsData() {
+  return await axios.get(
+    `${
+      NEWS_URL + WP_API + ALL_POSTS
+    }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${4}`
+  );
+}
+
 export async function fetchCopyData() {
   return await axios.get(`${NEWS_URL + WP_API + ALL_PAGES}/${WIHE_PAGE_ID}`);
 }
