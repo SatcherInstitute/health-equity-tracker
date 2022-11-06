@@ -59,6 +59,7 @@ export const WIHE_PAGE_ID = 37; // hard coded id where dynamic copy is stored
 
 // REACT QUERY
 export const ARTICLES_KEY = "cached_wp_articles";
+export const ARTICLES_KEY_4 = "cached_wp_articles_first_four";
 export const DYNAMIC_COPY_KEY = "cached_wp_dynamic_copy";
 export const REACT_QUERY_OPTIONS = {
   cacheTime: 1000 * 60 * 5, // never garbage collect, always default to cache
