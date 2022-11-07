@@ -9,7 +9,11 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { MetricConfig, VariableConfig } from "../data/config/MetricConfig";
+import {
+  MetricConfig,
+  MetricId,
+  VariableConfig,
+} from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -57,18 +61,17 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     exclude(ALL, NON_HISPANIC)
   );
 
-  // Population Comparison Metric is required for the Disparity Bar Chart.
   // If MetricConfig supports known breakdown metric, prefer this metric.
-  let metricIds = [
-    metricConfig.metricId,
-    metricConfig.populationComparisonMetric!.metricId,
-  ];
-
+  const metricIds: MetricId[] = [metricConfig.metricId];
   const configs: MetricConfig[] = [metricConfig];
+
+  if (metricConfig.populationComparisonMetric) {
+    metricIds.push(metricConfig.populationComparisonMetric.metricId);
+    configs.push(metricConfig.populationComparisonMetric);
+  }
 
   if (metricConfig.knownBreakdownComparisonMetric) {
     metricIds.push(metricConfig.knownBreakdownComparisonMetric.metricId);
-    // configs.push(metricConfig.knownBreakdownComparisonMetric)
   }
   if (metricConfig.secondaryPopulationComparisonMetric) {
     metricIds.push(metricConfig.secondaryPopulationComparisonMetric.metricId);
