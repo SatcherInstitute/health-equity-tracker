@@ -54,7 +54,18 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   );
   const metricIdsToFetch: MetricId[] = [];
   metricIdsToFetch.push(metricConfig.metricId);
-  isIncarceration && metricIdsToFetch.push("total_confined_children");
+
+  const metrics = [metricConfig];
+
+  if (isIncarceration) {
+    metricIdsToFetch.push("total_confined_children");
+    metrics.push({
+      metricId: "total_confined_children",
+      fullCardTitleName: "",
+      shortLabel: "total confined children",
+      type: "count",
+    });
+  }
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -74,7 +85,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   return (
     <CardWrapper
       queries={[query]}
-      configs={[metricConfig]}
+      configs={metrics}
       title={<>{reportProviderSteps[HASH_ID].label}</>}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}

@@ -140,7 +140,7 @@ export function Sources(props: SourcesProps) {
             return (
               <span key={config.metricId}>
                 <HashLink
-                  key={config.metricId}
+                  smooth
                   to={METHODOLOGY_TAB_LINK + "#" + config.metricId}
                 >
                   {config.shortLabel}

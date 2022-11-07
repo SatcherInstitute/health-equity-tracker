@@ -47,6 +47,7 @@ import { Box, CircularProgress } from "@material-ui/core";
 // so they must load first and not be lazy loaded
 import AboutUsPage from "./pages/AboutUs/AboutUsPage";
 import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
+import DataCatalogTab from "./pages/DataCatalog/DataCatalogTab";
 
 const ExploreDataPage = React.lazy(
   () => import("./pages/ExploreData/ExploreDataPage")
@@ -57,9 +58,9 @@ const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage"));
 const TermsOfUsePage = React.lazy(
   () => import("./pages/TermsOfUsePage/TermsOfUsePage")
 );
-const DataCatalogTab = React.lazy(
-  () => import("./pages/DataCatalog/DataCatalogTab")
-);
+// const DataCatalogTab = React.lazy(
+//   () => import("./pages/DataCatalog/DataCatalogTab")
+// );
 
 export const MOBILE_BREAKPOINT = 600;
 

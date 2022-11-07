@@ -74,6 +74,12 @@ function MethodologyTab() {
                 health equity topics chosen?
               </h3>
               <div className={styles.MethodologyAnswer}>
+                <span id="covid_cases_per_100k"></span>
+                <span id="covid_deaths_per_100k"></span>
+                <span id="covid_hospitalizations_per_100k"></span>
+                <span id="covid_cases_share"></span>
+                <span id="covid_deaths_share"></span>
+                <span id="covid_hospitalizations_share"></span>
                 <h4 className={styles.MethodologySubsubheaderText}>COVID-19</h4>
                 <p>
                   For a description of some of the gaps in COVID-19 data, please
@@ -124,6 +130,9 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
+                <span id="covid_cases_pct_relative_inequity"></span>
+                <span id="covid_deaths_pct_relative_inequity"></span>
+                <span id="covid_hospitalizations_pct_relative_inequity"></span>
                 <h4 className={styles.MethodologySubsubheaderText}>
                   COVID-19 Time Series Data
                 </h4>
@@ -166,6 +175,8 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
+                <span id="vaccinated_pct_share"></span>
+                <span id="vaccinated_per_100k"></span>
                 <h4 className={styles.MethodologySubsubheaderText}>
                   COVID-19 Vaccinations
                 </h4>
@@ -284,6 +295,51 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
+                <span id="copd_pct_share"></span>
+                <span id="copd_per_100k"></span>
+
+                <span id="diabetes_pct_share"></span>
+                <span id="diabetes_per_100k"></span>
+
+                <span id="frequent_mental_distress_pct_share"></span>
+                <span id="frequent_mental_distress_per_100k"></span>
+
+                <span id="depression_pct_share"></span>
+                <span id="depression_per_100k"></span>
+
+                <span id="suicide_pct_share"></span>
+                <span id="suicide_per_100k"></span>
+
+                <span id="excessive_drinking_pct_share"></span>
+                <span id="excessive_drinking_per_100k"></span>
+
+                <span id="illicit_opioid_use_pct_share"></span>
+                <span id="illicit_opioid_use_per_100k"></span>
+
+                <span id="non_medical_drug_use_pct_share"></span>
+                <span id="non_medical_drug_use_per_100k"></span>
+
+                <span id="non_medical_rx_opioid_use_pct_share"></span>
+                <span id="non_medical_rx_opioid_use_per_100k"></span>
+
+                <span id="preventable_hospitalizations_pct_share"></span>
+                <span id="preventable_hospitalizations_per_100k"></span>
+
+                <span id="avoided_care_pct_share"></span>
+                <span id="avoided_care_per_100k"></span>
+
+                <span id="chronic_kidney_disease_pct_share"></span>
+                <span id="chronic_kidney_disease_per_100k"></span>
+
+                <span id="cardiovascular_diseases_pct_share"></span>
+                <span id="cardiovascular_diseases_per_100k"></span>
+
+                <span id="asthma_pct_share"></span>
+                <span id="asthma_per_100k"></span>
+
+                <span id="voter_participation_pct_share"></span>
+                <span id="voter_participation_per_100k"></span>
+
                 <h4 className={styles.MethodologySubsubheaderText}>
                   America's Health Rankings
                 </h4>
@@ -332,6 +388,11 @@ function MethodologyTab() {
                     </ul>
                   </li>
                 </ul>
+
+                <span id="women_state_leg_pct_share"></span>
+                <span id="women_state_leg_per_100k"></span>
+                <span id="women_us_congress_pct_share"></span>
+                <span id="women_us_congress_per_100k"></span>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
                   Women in Legislative Office
@@ -421,6 +482,10 @@ function MethodologyTab() {
                   below the 90th percentile are given a value of 0.
                 </p>
 
+                <span id="prison_pct_share"></span>
+                <span id="prison_per_100k"></span>
+                <span id="jail_pct_share"></span>
+                <span id="jail_per_100k"></span>
                 <h4 className={styles.MethodologySubsubheaderText}>
                   Incarceration
                 </h4>
@@ -610,7 +675,7 @@ function MethodologyTab() {
                   group.{" "}
                 </p>
 
-                <p>
+                <p id="total_confined_children">
                   <b>Children in Adult Facilities</b>
                 </p>
                 <p>
@@ -713,6 +778,19 @@ function MethodologyTab() {
                     round to 0%, two decimal places are used.
                   </li>
                   <li>
+                    <span id="acs_vaccine_population_pct"></span>
+                    <span id="brfss_population_pct"></span>
+                    <span id="cawp_population_pct"></span>
+                    <span id="bjs_population_pct"></span>
+                    <span id="vera_population_pct"></span>
+                    <span id="incarceration_population_pct"></span>
+                    <span id="covid_cases_reporting_population_pct"></span>
+                    <span id="covid_deaths_reporting_population_pct"></span>
+                    <span id="covid_hosp_reporting_population_pct"></span>
+                    <span id="covid_population_pct"></span>
+                    <span id="health_insurance_population_pct"></span>
+                    <span id="poverty_population_pct"></span>
+                    <span id="vaccine_population_pct"></span>
                     <b>Population share</b>: The percentage of the total
                     population that identified as a particular race/ethnicity in
                     the ACS survey. This metric is rounded to one decimal place.
