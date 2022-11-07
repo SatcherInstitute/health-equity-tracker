@@ -135,10 +135,10 @@ export function Sources(props: SourcesProps) {
       ))}
       {props.configs && (
         <p>
-          Methodology:{" "}
+          Methods:{" "}
           {props.configs.map((config: MetricConfig, metricsIndex) => {
             return (
-              <>
+              <span key={config.metricId}>
                 <HashLink
                   key={config.metricId}
                   to={METHODOLOGY_TAB_LINK + "#" + config.metricId}
@@ -146,7 +146,7 @@ export function Sources(props: SourcesProps) {
                   {config.shortLabel}
                 </HashLink>
                 {insertPunctuation(metricsIndex, props.configs!.length)}
-              </>
+              </span>
             );
           })}
         </p>

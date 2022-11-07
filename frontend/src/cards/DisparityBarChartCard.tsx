@@ -63,11 +63,16 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     metricConfig.metricId,
     metricConfig.populationComparisonMetric!.metricId,
   ];
+
+  const configs: MetricConfig[] = [metricConfig];
+
   if (metricConfig.knownBreakdownComparisonMetric) {
     metricIds.push(metricConfig.knownBreakdownComparisonMetric.metricId);
+    // configs.push(metricConfig.knownBreakdownComparisonMetric)
   }
   if (metricConfig.secondaryPopulationComparisonMetric) {
     metricIds.push(metricConfig.secondaryPopulationComparisonMetric.metricId);
+    configs.push(metricConfig.secondaryPopulationComparisonMetric);
   }
 
   const query = new MetricQuery(metricIds, breakdowns);
@@ -84,7 +89,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   return (
     <CardWrapper
       queries={[query]}
-      configs={[metricConfig]}
+      configs={configs}
       title={<>{reportProviderSteps[HASH_ID].label}</>}
       scrollToHash={HASH_ID}
       minHeight={preloadHeight}
