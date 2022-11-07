@@ -105,6 +105,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       isAgeAdjustedTable={true}
       minHeight={PRELOAD_HEIGHT}
       queries={[raceQuery, ageQuery]}
+      configs={[metrics[0]]}
       title={<>{reportProviderSteps[HASH_ID].label}</>}
       scrollToHash={HASH_ID}
     >

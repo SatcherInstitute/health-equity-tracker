@@ -74,6 +74,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   return (
     <CardWrapper
       queries={[query]}
+      configs={[metricConfig]}
       title={<>{reportProviderSteps[HASH_ID].label}</>}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}

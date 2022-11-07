@@ -82,6 +82,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   return (
     <CardWrapper
       queries={[inequityQuery, pctShareQuery]}
+      configs={[metricConfigInequitable]}
       title={<>{cardHeaderTitle}</>}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}

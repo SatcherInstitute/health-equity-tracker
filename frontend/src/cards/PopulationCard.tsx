@@ -83,6 +83,7 @@ export function PopulationCard(props: PopulationCardProps) {
     <CardWrapper
       minHeight={PRELOAD_HEIGHT}
       queries={queries}
+      configs={[POP_CONFIG.metrics.pct_share]}
       scrollToHash="location-info"
       hideNH={!expanded}
     >

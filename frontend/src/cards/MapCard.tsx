@@ -155,6 +155,7 @@ function MapCardWithKey(props: MapCardProps) {
   return (
     <CardWrapper
       queries={queries}
+      configs={[metricConfig]}
       title={<>{reportProviderSteps[HASH_ID].label}</>}
       loadGeographies={true}
       minHeight={preloadHeight}

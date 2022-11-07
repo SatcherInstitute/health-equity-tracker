@@ -84,6 +84,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   return (
     <CardWrapper
       queries={[query]}
+      configs={[metricConfig]}
       title={<>{reportProviderSteps[HASH_ID].label}</>}
       scrollToHash={HASH_ID}
       minHeight={preloadHeight}

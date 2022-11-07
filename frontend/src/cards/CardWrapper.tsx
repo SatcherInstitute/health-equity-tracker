@@ -15,6 +15,7 @@ import { Sources } from "./ui/Sources";
 import { MapOfDatasetMetadata } from "../data/utils/DatasetTypes";
 import CopyLinkButton from "./ui/CopyLinkButton";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { MetricConfig } from "../data/config/MetricConfig";
 
 function CardWrapper(props: {
   // prevent layout shift as component loads
@@ -34,6 +35,7 @@ function CardWrapper(props: {
   ) => JSX.Element;
   isAgeAdjustedTable?: boolean;
   scrollToHash: ScrollableHashId;
+  configs: MetricConfig[];
 }) {
   const popover = usePopover();
   const queries = props.queries ? props.queries : [];
@@ -114,6 +116,7 @@ function CardWrapper(props: {
                   queryResponses={queryResponses}
                   metadata={metadata}
                   hideNH={props.hideNH}
+                  configs={props.configs}
                 />
               </CardContent>
             )}

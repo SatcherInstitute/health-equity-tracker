@@ -104,6 +104,7 @@ export function TableCard(props: TableCardProps) {
     <CardWrapper
       minHeight={preloadHeight}
       queries={[query]}
+      configs={metrics}
       title={<>{reportProviderSteps[HASH_ID].label}</>}
       scrollToHash={HASH_ID}
     >

@@ -101,6 +101,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   return (
     <CardWrapper
       queries={[mapQuery, alertQuery]}
+      configs={[metricConfig]}
       title={<>{reportProviderSteps[HASH_ID].label}</>}
       loadGeographies={true}
       minHeight={preloadHeight}

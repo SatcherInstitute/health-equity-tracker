@@ -4,10 +4,15 @@ import {
   DATA_SOURCE_PRE_FILTERS,
   LinkWithStickyParams,
 } from "../../utils/urlutils";
-import { DATA_CATALOG_PAGE_LINK } from "../../utils/internalRoutes";
+import {
+  DATA_CATALOG_PAGE_LINK,
+  METHODOLOGY_TAB_LINK,
+} from "../../utils/internalRoutes";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { DatasetMetadataMap } from "../../data/config/DatasetMetadata";
+import { MetricConfig } from "../../data/config/MetricConfig";
+import { HashLink } from "react-router-hash-link";
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = "";
@@ -79,6 +84,7 @@ interface SourcesProps {
   metadata: MapOfDatasetMetadata;
   isAgeAdjustedTable?: boolean;
   hideNH?: boolean;
+  configs?: MetricConfig[];
 }
 
 export function Sources(props: SourcesProps) {
@@ -108,7 +114,7 @@ export function Sources(props: SourcesProps) {
   return (
     <>
       {Object.keys(dataSourceMap).length > 0 && <>Sources: </>}
-      {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
+      {Object.keys(dataSourceMap).map((dataSourceId, sourcesIndex) => (
         <Fragment key={dataSourceId}>
           <LinkWithStickyParams
             target="_blank"
@@ -124,9 +130,27 @@ export function Sources(props: SourcesProps) {
               {Array.from(dataSourceMap[dataSourceId].updateTimes).join(", ")})
             </>
           )}
-          {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
+          {insertPunctuation(sourcesIndex, Object.keys(dataSourceMap).length)}
         </Fragment>
       ))}
+      {props.configs && (
+        <p>
+          Methodology:{" "}
+          {props.configs.map((config: MetricConfig, metricsIndex) => {
+            return (
+              <>
+                <HashLink
+                  key={config.metricId}
+                  to={METHODOLOGY_TAB_LINK + "#" + config.metricId}
+                >
+                  {config.shortLabel}
+                </HashLink>
+                {insertPunctuation(metricsIndex, props.configs!.length)}
+              </>
+            );
+          })}
+        </p>
+      )}
       {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
     </>
   );
