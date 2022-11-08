@@ -122,15 +122,13 @@ function TheProjectTab() {
           </Grid>
           <Hidden smDown>
             <Grid item xs={12} sm={12} md={7} className={styles.HeaderImgItem}>
-              <LazyLoad offset={300} height={644} once>
-                <img
-                  width="754"
-                  height="644"
-                  src="/img/stock/woman-kids.png"
-                  className={styles.HeaderImg}
-                  alt=""
-                />
-              </LazyLoad>
+              <img
+                width="754"
+                height="644"
+                src="/img/stock/woman-kids.png"
+                className={styles.HeaderImg}
+                alt=""
+              />
             </Grid>
           </Hidden>
         </Grid>
