@@ -7,7 +7,7 @@ import {
 import {
   DisparityBarChart,
   DisparityBarChartProps,
-} from "../DisparityBarChart";
+} from "../disparityBarChart/Index";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
 import { RACE } from "../../data/utils/Constants";
 

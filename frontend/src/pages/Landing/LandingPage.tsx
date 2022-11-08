@@ -4,8 +4,8 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {
-  ARTICLES_KEY,
-  fetchNewsData,
+  ARTICLES_KEY_4,
+  fetchLandingPageNewsData,
   ReactRouterLinkButton,
   REACT_QUERY_OPTIONS,
 } from "../../utils/urlutils";
@@ -27,8 +27,8 @@ import { Link } from "react-router-dom";
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
-    ARTICLES_KEY,
-    fetchNewsData,
+    ARTICLES_KEY_4,
+    fetchLandingPageNewsData,
     REACT_QUERY_OPTIONS
   );
 
@@ -391,7 +391,7 @@ function LandingPage() {
               <Grid container justifyContent="center" alignContent="center">
                 <Grid item>
                   <TextField
-                    id="Enter email address to sign up" // Accessibility label
+                    id="Enter email address to sign up" // Accessibility label (is it tho?)
                     name="MERGE0"
                     variant="outlined"
                     className={styles.EmailTextField}
