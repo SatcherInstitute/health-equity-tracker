@@ -17,7 +17,6 @@
   .HeaderTextItem {
     justify-content: center;
     padding: 25px;
-    text-align: left !important;
   }
 
   .HeaderText {
@@ -61,6 +60,17 @@
     justify-content: center;
     padding: 10px;
   }
+}
+
+.ExploreDataButton {
+  @include dmSans500();
+  background-color: $alt-green;
+  color: white !important;
+  border-radius: 40px !important;
+  font-size: $explore-button !important;
+  padding: 18px 30px !important;
+  text-align: center;
+  min-width: 200px !important;
 }
 
 /** ------------- RECENT NEWS ROW ------------- **/
