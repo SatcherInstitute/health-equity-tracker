@@ -25,11 +25,11 @@ import {
   getNestedUnknowns,
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
-import { HashLink } from "react-router-hash-link";
 import { METHODOLOGY_TAB_LINK } from "../utils/internalRoutes";
 import AltTableView from "./ui/AltTableView";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { Link } from "react-router-dom";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -133,10 +133,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 that demographic's share of the entire population (defaulting to
                 groups with the highest / lowest historical averages). Read more
                 about this calculation in our{" "}
-                <HashLink to={`${METHODOLOGY_TAB_LINK}#metrics`}>
-                  methodology
-                </HashLink>
-                .
+                <Link to={`${METHODOLOGY_TAB_LINK}#metrics`}>methodology</Link>.
               </Alert>
             </CardContent>
 

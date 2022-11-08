@@ -25,9 +25,9 @@ import {
 import { Alert } from "@material-ui/lab";
 import AltTableView from "./ui/AltTableView";
 import { EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK } from "../utils/internalRoutes";
-import { HashLink } from "react-router-hash-link";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { Link } from "react-router-dom";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -171,9 +171,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     bubbles we show along the bottom of the time series charts
                     demonstrate prevalence of unknown demographic data at the
                     time reported. Learn more about{" "}
-                    <HashLink to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
+                    <Link to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
                       what data are missing.
-                    </HashLink>{" "}
+                    </Link>{" "}
                   </Alert>
                 </CardContent>
 

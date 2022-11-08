@@ -42,6 +42,7 @@ import AppBarLogo from "./assets/AppbarLogo.png";
 import { HelmetProvider } from "react-helmet-async";
 
 import { Box, CircularProgress } from "@material-ui/core";
+import HashLinkObserver from "react-hash-link";
 
 // these make CSS modules which are imported by other components,
 // so they must load first and not be lazy loaded
@@ -168,6 +169,7 @@ function App() {
 
   return (
     <HelmetProvider>
+      <HashLinkObserver />
       <ThemeProvider theme={MaterialTheme}>
         <CookiesProvider>
           <CssBaseline />
@@ -176,6 +178,7 @@ function App() {
               <a className={styles.SkipMainLink} href="#main">
                 Skip to main content
               </a>
+
               <Router>
                 <AppBar position="static" elevation={0}>
                   {width > MOBILE_BREAKPOINT ? (

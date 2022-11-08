@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./DataCatalogPage.module.scss";
 import {
@@ -24,6 +24,30 @@ import { Link } from "react-router-dom";
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
 function MethodologyTab() {
+  const hash = window.location.href.split("#")?.[1];
+
+  // if there is a #link anchor on the page, scroll to it
+  useEffect(() => {
+    console.log(hash);
+    if (hash) {
+      const anchorEl = document.querySelector(`#${hash}`);
+      console.log(anchorEl);
+      anchorEl?.scrollIntoView();
+    }
+    // window.history.replaceState("", document.title, window.location.pathname);
+  }, [hash]);
+
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  //   document.body.scrollTop = 0;
+  //   const href = window.location.href.substring(
+  //     window.location.href.lastIndexOf('#') + 1,
+  //   );
+  //   if (window.location.href.lastIndexOf('#') > 0) {
+  //     document.getElementById(href)?.scrollIntoView();
+  //   }
+  // });
+
   return (
     <>
       <Helmet>
