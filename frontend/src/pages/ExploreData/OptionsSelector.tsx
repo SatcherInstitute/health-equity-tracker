@@ -132,6 +132,7 @@ function OptionsSelector(props: {
                 onClose={closeAutoComplete}
                 renderInput={(params) => (
                   <TextField
+                    placeholder=""
                     autoFocus
                     margin="dense"
                     variant="outlined"
