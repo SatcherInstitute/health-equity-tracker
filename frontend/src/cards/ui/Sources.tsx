@@ -12,6 +12,7 @@ import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { DatasetMetadataMap } from "../../data/config/DatasetMetadata";
 import { MetricConfig } from "../../data/config/MetricConfig";
+import { Link } from "react-router-dom";
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = "";
@@ -141,6 +142,15 @@ export function Sources(props: SourcesProps) {
                 <a href={METHODOLOGY_TAB_LINK + "#" + config.metricId}>
                   {config.shortLabel}
                 </a>
+
+                <Link
+                  to={{
+                    pathname: METHODOLOGY_TAB_LINK,
+                    // search: "?sort=name",
+                    // hash: "#the-hash",
+                    state: { fromDashboard: true },
+                  }}
+                />
 
                 {insertPunctuation(metricsIndex, props.configs!.length)}
               </span>
