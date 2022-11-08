@@ -1,14 +1,35 @@
 @import "../../styles/variables.module.scss";
 @import "../../styles/globals.scss";
 
-.SearchForText,
-.CategoryTitleText {
+// heading for expanded TOPIC menu
+.PopoverTitle {
+  font-size: $text;
+  padding-inline: 1rem;
+
+  @media only screen and (min-width: $sm) {
+    font-size: $title;
+  }
+}
+
+// heading for expanded LOCATION menu/combobox
+.SearchForText {
   @include inter700();
-  font-size: $smallest;
+
+  margin-block: 0.3rem;
+  font-size: $text;
 
   @media only screen and (min-width: $md) {
-    font-size: $text;
+    font-size: $title;
   }
+}
+
+.CategoryTitleText {
+  @include inter700();
+  font-size: $text;
+
+  // @media only screen and (min-width: $md) {
+  //   font-size: $smallestHeader;
+  // }
 }
 
 .CategoryTitleText {
@@ -28,15 +49,6 @@
 .PopoverOverride {
   margin: 16px;
   display: flex;
-}
-
-.PopoverTitle {
-  font-size: $text;
-  padding-inline: 1rem;
-
-  @media only screen and (min-width: $sm) {
-    font-size: $smallestHeader;
-  }
 }
 
 .MadLibButton,

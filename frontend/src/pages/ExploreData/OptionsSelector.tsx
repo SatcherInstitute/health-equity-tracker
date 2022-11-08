@@ -116,7 +116,7 @@ function OptionsSelector(props: {
           {/* Location Dropdown */}
           {isFips && (
             <div className={styles.OptionsSelectorPopover}>
-              <span className={styles.SearchForText}>Search for location</span>
+              <h3 className={styles.SearchForText}>Search for location</h3>
 
               <Autocomplete
                 disableClearable={true}
@@ -132,7 +132,7 @@ function OptionsSelector(props: {
                 onClose={closeAutoComplete}
                 renderInput={(params) => (
                   <TextField
-                    placeholder="County, State, Territory, or United States"
+                    placeholder="e.g. Fulton County, Georgia"
                     margin="dense"
                     variant="outlined"
                     onChange={updateTextBox}
@@ -146,7 +146,8 @@ function OptionsSelector(props: {
                 }}
               />
               <span className={styles.NoteText}>
-                City and census tract location is currently unavailable
+                Choose a county, state, territory, or United States. Some topics
+                unavailable at county and territory levels.
               </span>
             </div>
           )}
