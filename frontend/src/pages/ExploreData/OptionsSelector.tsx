@@ -132,7 +132,7 @@ function OptionsSelector(props: {
                 onClose={closeAutoComplete}
                 renderInput={(params) => (
                   <TextField
-                    // placeholder="Search for location"
+                    autoFocus
                     margin="dense"
                     variant="outlined"
                     onChange={updateTextBox}
