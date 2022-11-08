@@ -23,8 +23,7 @@ census_pop_estimates_sc_bq_operator = util.create_bq_ingest_operator(
     'census_pop_estimates_sc_to_bq', census_pop_estimates_sc_bq_payload, data_ingestion_dag)
 
 census_pop_estimates_sc_exporter_payload = {
-    'dataset_name': _CENSUS_POP_ESTIMATES_SC_DATASET_NAME,
-    'demographic': "race"
+    'dataset_name': _CENSUS_POP_ESTIMATES_SC_DATASET_NAME
 }
 census_pop_estimates_sc_exporter_operator = util.create_exporter_operator(
     'census_pop_estimates_sc_exporter', census_pop_estimates_sc_exporter_payload, data_ingestion_dag)
