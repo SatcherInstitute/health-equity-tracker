@@ -391,7 +391,7 @@ function LandingPage() {
               <Grid container justifyContent="center" alignContent="center">
                 <Grid item>
                   <TextField
-                    id="Enter email address to sign up" // Accessibility label
+                    id="Enter email address to sign up" // Accessibility label (is it tho?)
                     name="MERGE0"
                     variant="outlined"
                     className={styles.EmailTextField}
