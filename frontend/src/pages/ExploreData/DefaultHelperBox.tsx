@@ -24,7 +24,7 @@ export default function DefaultHelperBox() {
         <Grid item xs={12} container className={styles.NoTopicBox}>
           <Grid item xs={12} md={6}>
             <h3 className={styles.BigHeadline}>
-              Choose a topic from the sentence above to get started
+              Select a topic from the sentence above
             </h3>
 
             <h3 className={styles.LittleHeadline}>

@@ -107,11 +107,11 @@ function OptionsSelector(props: {
             horizontal: "center",
           }}
         >
-          {!isFips && (
+          {/* {!isFips && (
             <Grid container justifyContent="space-between">
               <h2 className={styles.PopoverTitle}> Topics</h2>
             </Grid>
-          )}
+          )} */}
 
           {/* Location Dropdown */}
           {isFips && (
@@ -132,7 +132,7 @@ function OptionsSelector(props: {
                 onClose={closeAutoComplete}
                 renderInput={(params) => (
                   <TextField
-                    placeholder="e.g. Fulton County, Georgia"
+                    // placeholder="Search for location"
                     margin="dense"
                     variant="outlined"
                     onChange={updateTextBox}

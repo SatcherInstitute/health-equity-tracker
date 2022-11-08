@@ -36,8 +36,7 @@ export const ONBOARDING_STEPS = [
     "Compare Locations and Topics",
     <>
       <p>
-        Click the arrows to scroll left or right for more ways to search, such
-        as{" "}
+        Click the arrows for more ways to search, such as{" "}
         <i>
           ‘Compare rates of <b>Poverty</b> between{" "}
           <b>Los Angeles County, California</b> and the <b>United States</b>’
@@ -75,10 +74,9 @@ export const ONBOARDING_STEPS = [
         there is missing, incomplete, or misclassified data in our sources.
       </p>
       <p>
-        <i>
-          *We acknowledge that deep inequities exist in the very structure we
-          use to collect and share data. We are committed to helping fix this.
-        </i>
+        We acknowledge that deep inequities exist in the collection of data in
+        the United States. We are committed to highlighting these inequities
+        wherever possible.
       </p>
     </>,
     /*hideCloseButton=*/ false,
@@ -89,7 +87,7 @@ export const ONBOARDING_STEPS = [
     "Explore further to see demographic trends",
     <>
       Where available, the tracker offers breakdowns by race and ethnicity, sex,
-      and age. Some topic may also include selectors for different data types.
+      and age. Some topics may also include selectors for different data types.
     </>,
     /*hideCloseButton=*/ true,
     /*placement=*/ "auto"

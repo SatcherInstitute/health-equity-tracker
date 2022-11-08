@@ -121,7 +121,7 @@ SuggestedReportsListItem {
 }
 
 .SuggestedReportsListItem a {
-  text-decoration: none;
+  // text-decoration: none;
 
   @media only screen and (min-width: $sm) {
     line-height: $lhSuperLoose;
