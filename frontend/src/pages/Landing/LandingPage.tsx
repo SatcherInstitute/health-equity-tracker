@@ -106,7 +106,7 @@ function LandingPage() {
                 id="landingPageCTA"
                 variant="contained"
                 color="primary"
-                className={styles.PrimaryButton}
+                className={styles.ExploreDataButton}
                 href={EXPLORE_DATA_PAGE_LINK}
               >
                 Explore the data
