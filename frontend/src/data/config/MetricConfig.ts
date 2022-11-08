@@ -521,6 +521,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName:
             "Age-adjusted risk of COVID-19 hospitalization compared to White (NH)",
           shortLabel: "Risk of COVID-19 hospitalization", // Table header-row label
+          chartTitle: "Risk of COVID-19 hospitalization compared to White (NH)",
           type: "ratio",
           ageAdjusted: true,
         },

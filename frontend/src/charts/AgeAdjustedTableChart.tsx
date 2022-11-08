@@ -136,6 +136,8 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
     font: "Inter, sans-serif",
     fontSize: fontSize,
     fontWeight: "bold",
+    paddingTop: 10,
+    paddingBottom: 10,
   };
 
   return (
@@ -144,7 +146,8 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
         <h1>No Data provided</h1>
       ) : (
         <>
-          <div style={titleStyle}>{props.title}</div>
+          <figcaption style={titleStyle}>{props.title}</figcaption>
+
           <TableContainer component={Paper} style={{ maxHeight: "100%" }}>
             <Table stickyHeader {...getTableProps()}>
               <TableHead>
