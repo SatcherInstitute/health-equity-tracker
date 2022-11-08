@@ -240,12 +240,7 @@ function ExploreDataPage() {
           <Carousel
             className={`Carousel ${styles.Carousel}`}
             swipe={false}
-            NextIcon={
-              <NavigateNextIcon
-                aria-hidden="true"
-                id="onboarding-madlib-arrow"
-              />
-            }
+            NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
             timeout={200}
             autoPlay={false}
             indicators={noTopicChosen ? false : true}
@@ -271,6 +266,8 @@ function ExploreDataPage() {
                 backgroundColor: sass.white,
                 color: sass.altGreen,
                 borderRadius: 100,
+                boxShadow:
+                  "0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)",
               },
             }}
             animation="slide"
