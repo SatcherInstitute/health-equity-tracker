@@ -35,14 +35,14 @@ test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
     const location1MadlibButton = page.locator('#madlib-carousel-container button:has-text("United States")')
     await location1MadlibButton.click();
 
-    await page.fill('[placeholder="County, State, Territory, or United States"]', 'denver');
+    await page.fill('[placeholder="e.g. Fulton County, Georgia"]', 'denver');
     await page.keyboard.press('Enter');
 
     // Changing first location via madlib buttons
     const location2MadlibButton = page.locator('#madlib-carousel-container button:has-text("Georgia")')
     await location2MadlibButton.click();
 
-    await page.fill('[placeholder="County, State, Territory, or United States"]', 'Colorado');
+    await page.fill('[placeholder="e.g. Fulton County, Georgia"]', 'Colorado');
     await page.keyboard.press('Enter');
 
     // Confirm correct URL params (Denver County vs Colorado)
