@@ -71,7 +71,7 @@ class CensusPopEstimatesSC(DataSource):
                     column_types[s.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
                     breakdown = s.RACE_OR_HISPANIC_COL
                 gcs_to_bq_util.add_df_to_bq(
-                    breakdown_df, dataset, f'{breakdown}_age18plus_{geo}', column_types=column_types)
+                    breakdown_df, dataset, f'by_{breakdown}_age_{geo}', column_types=column_types)
 
 
 def generate_pop_data_18plus(df, breakdown, geo):
