@@ -28,9 +28,8 @@ import {
 const LABEL_SWAP_CUTOFF_PERCENT = 66;
 
 // nested quotation mark format needed for Vega
-const SINGLE_LINE_100K = ", per 100k";
-const MULTI_LINE_100K = " per 100k";
-const SINGLE_LINE_PERCENT = "+ %";
+const PER_100K = " per 100k";
+const SINGLE_LINE_PERCENT = "%";
 
 function getSpec(
   altText: string,
@@ -65,9 +64,9 @@ function getSpec(
 
   //create bar label as array or string
   const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} + "${
-    usePercentSuffix ? SINGLE_LINE_PERCENT : SINGLE_LINE_100K
+    usePercentSuffix ? SINGLE_LINE_PERCENT : PER_100K
   }"`;
-  const multiLineLabel = `[datum.${tooltipMetricDisplayColumnName}, "${MULTI_LINE_100K}"]`;
+  const multiLineLabel = `[datum.${tooltipMetricDisplayColumnName}, "${PER_100K}"]`;
   const createBarLabel = () => {
     if (chartIsSmall) {
       return multiLineLabel;
