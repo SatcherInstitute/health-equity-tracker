@@ -2,6 +2,7 @@ from datasources.data_source import DataSource
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, STATE_LEVEL_FIPS_LIST, US_ABBR
 import ingestion.standardized_columns as std_col
 from ingestion import gcs_to_bq_util, merge_utils
+from ingestion.standardized_columns import Race
 import pandas as pd
 
 
@@ -9,6 +10,19 @@ US_CONGRESS_CURRENT_URL = "https://theunitedstates.io/congress-legislators/legis
 US_CONGRESS_HISTORICAL_URL = "https://theunitedstates.io/congress-legislators/legislators-historical.json"
 
 CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity_time_series.csv"
+
+CAWP_RACE_GROUPS_TO_STANDARD = {
+    'Asian American/Pacific Islander': Race.ASIAN_PAC.value,
+    'Latina': Race.HISP.value,
+    'Middle Eastern/North African': Race.MENA.value,
+    # MULTI = "Multiracial Alone" + women w multiple specific races
+    'Multiracial Alone': Race.MULTI_OR_OTHER_STANDARD.value,
+    'Native American/Alaska Native/Native Hawaiian': Race.AIANNH.value,
+    'Black': Race.BLACK.value,
+    'White': Race.WHITE.value,
+    'Unavailable': Race.UNKNOWN.value,
+    'All': Race.ALL.value
+}
 
 
 def get_postal_from_cawp_phrase(cawp_place_phrase: str):
@@ -50,7 +64,7 @@ class CAWPTimeData(DataSource):
         for geo_level in [STATE_LEVEL]:
 
             # restrict index years to this list
-            time_periods = ["2018", "2019", "2020", "2021", "2022"]
+            time_periods = ["2021", "2022"]
 
             # for BQ
             table_name = f'race_and_ethnicity_{geo_level}'
@@ -128,6 +142,14 @@ class CAWPTimeData(DataSource):
             merge_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]
             df = pd.merge(df, us_congress_total_count_df, on=merge_cols)
 
+            # explode with row per race
+            df['race_ethnicity'] = [
+                list(CAWP_RACE_GROUPS_TO_STANDARD.keys())
+            ] * len(df)
+            df = df.explode('race_ethnicity').fillna("")
+
+            print(df)
+
             ###
 
             # load in CAWP counts of women by race by year by state
@@ -173,9 +195,11 @@ class CAWPTimeData(DataSource):
                 'level', axis="columns")
 
             merge_cols = [std_col.TIME_PERIOD_COL,
+                          "race_ethnicity",
                           std_col.STATE_FIPS_COL,
                           std_col.STATE_POSTAL_COL]
-            df = pd.merge(df, line_items_df_us_congress, on=merge_cols)
+            df = pd.merge(df, line_items_df_us_congress,
+                          on=merge_cols, how="left").fillna(0)
 
             # calculate rates of representation
             df[std_col.WOMEN_US_CONGRESS_PCT] = round(df["women_us_congress_count"] /
