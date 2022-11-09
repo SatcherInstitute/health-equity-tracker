@@ -23,7 +23,7 @@ export function useCreateChartTitle(
   const isComparing = window.location.href.includes("compare");
 
   const chartTitle = `${
-    metricConfig.chartTitle ? metricConfig.chartTitle : ""
+    metricConfig.chartTitle ? `${metricConfig.chartTitle} in` : ""
   } ${breakdown ? `${breakdown} in` : ""}`;
 
   const mobileChartTitle = metricConfig.mobileChartTitle || [
@@ -38,7 +38,7 @@ export function useCreateChartTitle(
   const isLarge = useMediaQuery(theme.breakpoints.only("lg"));
 
   if (isExtraSmall || (isComparing && isNotLarge)) {
-    return [...mobileChartTitle, breakdown || "", location];
+    return [...mobileChartTitle, breakdown || "", `in ${location}`];
   }
   if (isSmall || (isComparing && isLarge)) {
     return titleTextArray;
