@@ -46,20 +46,6 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    id: "propublica_congress",
-    data_source_name: "ProPublica Congress API",
-    data_source_pretty_site_name: "propublica.org",
-    data_source_link:
-      "https://www.propublica.org/datastore/api/propublica-congress-api",
-    geographic_level: "National, State",
-    demographic_granularity: "N/A",
-    update_frequency: "At Least Daily",
-    description:
-      "Total members of the United States Congress (Senate and House of Representatives including delegates) both nationally and by state/territory.",
-    dataset_ids: ["propublica_congress"],
-    downloadable: false,
-  },
-  {
     id: "acs",
     data_source_name: "American Community Survey 5-year estimates",
     data_source_pretty_site_name: "census.gov",
@@ -281,6 +267,20 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "cawp_data-race_and_ethnicity_state",
     ],
     downloadable: true,
+  },
+  {
+    id: "propublica_congress",
+    data_source_name: "ProPublica Congress API",
+    data_source_pretty_site_name: "propublica.org",
+    data_source_link:
+      "https://www.propublica.org/datastore/api/propublica-congress-api",
+    geographic_level: "National, State",
+    demographic_granularity: "N/A",
+    update_frequency: "At Least Daily",
+    description:
+      "Total members of the United States Congress (Senate and House of Representatives including delegates) both nationally and by state/territory.",
+    dataset_ids: ["propublica_congress"],
+    downloadable: false,
   },
   {
     id: "covid_tracking_project",

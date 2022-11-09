@@ -5,6 +5,7 @@ import { Fips } from "../data/utils/Fips";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
+import { useFontSize } from "../utils/hooks/useFontSize";
 import sass from "../styles/variables.module.scss";
 import {
   EQUAL_DOT_SIZE,
@@ -78,7 +79,7 @@ export interface ChoroplethMapProps {
   filename?: string;
   titles?: {
     chartTitle: string | string[];
-    subTitle: string;
+    subtitle?: string;
   };
 }
 
@@ -94,6 +95,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
+  const fontSize = useFontSize();
 
   const yOffsetNoDataLegend = pageIsTiny ? -15 : -43;
   const xOffsetNoDataLegend = pageIsTiny ? 15 : 230;
@@ -172,7 +174,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const geographyName = props.showCounties
       ? countyOrEquivalent
       : stateOrTerritory;
-    const tooltipDatum = `format(datum.${props.metric.metricId}, ',')`;
+
+    const tooltipDatum =
+      props.metric.type === "per100k"
+        ? // formatted tooltip hover 100k values above zero should display as less than 1
+          `if (datum.${props.metric.metricId} > 0, format(datum.${props.metric.metricId}, ','), '<1')`
+        : `format(datum.${props.metric.metricId}, ',')`;
+
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
     const tooltipLabel =
       props.isUnknownsMap && props.metric.unknownsVegaLabel
@@ -185,6 +193,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       }
       return `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum},}`;
     };
+
     const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}", }`;
     /* SET UP LEGEND */
     let legendList = [];
@@ -479,17 +488,22 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       marks: marks,
       title: !props.overrideShapeWithCircle && {
         text: props.titles?.chartTitle,
-        subtitle: props.titles?.subTitle,
+        subtitle: props.titles?.subtitle,
         encode: {
           title: {
             enter: {
-              fontSize: { value: pageIsTiny ? 11 : 14 },
+              fontSize: {
+                value: fontSize,
+              },
               font: { value: "Inter, sans-serif" },
             },
           },
           subtitle: {
             enter: {
               fontStyle: { value: "italic" },
+              fontSize: {
+                value: fontSize - 2,
+              },
             },
           },
         },
@@ -533,6 +547,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     legendLowerBound,
     legendUpperBound,
     pageIsTiny,
+    fontSize,
   ]);
 
   const mapStyle = {

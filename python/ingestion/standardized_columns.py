@@ -51,7 +51,7 @@ PER_100K_SUFFIX = "per_100k"
 PCT_SHARE_SUFFIX = "pct_share"
 SHARE_SUFFIX = "share"
 SHARE_OF_KNOWN_SUFFIX = "share_of_known"
-INEQUITABLE_SHARE_SUFFIX = "inequitable_share"
+PCT_REL_INEQUITY_SUFFIX = "pct_relative_inequity"
 
 COVID_CASES_PREFIX = "covid_cases"
 COVID_HOSP_PREFIX = "covid_hosp"

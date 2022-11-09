@@ -13,10 +13,9 @@ function DisclaimerAlert() {
         className={styles.ReportAlert}
         icon={<FlagIcon />}
         role="note"
+        id="onboarding-limits-in-the-data"
       >
-        <AlertTitle id="onboarding-limits-in-the-data">
-          Major gaps in the data
-        </AlertTitle>
+        <AlertTitle>Major gaps in the data</AlertTitle>
         Structural racism and oppression create health inequities, and lead to
         missing data. The maps and tables below reflect the best data we have,
         but there are major known gaps in the data. We're working to close these

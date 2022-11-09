@@ -78,13 +78,14 @@ $smallest: 0.75rem;
 $small: 0.875rem;
 $text: 1rem;
 $title: 1.125rem;
+$explore-button: 1.2rem;
 $smallestHeader: 1.5rem;
 $smallerHeader: 1.625rem;
 $smallHeader: 1.75rem;
 $header: 2rem;
 $bigHeader: 3rem;
 $biggerHeader: 3.125rem;
-$biggestHeader: 5rem;
+$biggestHeader: 4rem;
 
 // line heights
 $lhSuperLoose: 2.45;
@@ -111,6 +112,14 @@ $xl: 1920px;
 // styles
 $bottom-border-style: 1px solid $border-color;
 
+// z-index layers
+$z-bottom: -999;
+// multimap modal blur backdrop -1
+$z-middle: 0;
+$z-almost-top: 1;
+// joyride warm welcome auto-assigned 101
+$z-top: 999;
+
 /*  */
 
 // EXPORT FOR USE OUTSIDE OF CSS/SCSS (like REACT / VEGA)
@@ -127,6 +136,8 @@ $bottom-border-style: 1px solid $border-color;
   secondaryLight: $secondary-light;
   secondaryMain: $secondary-main;
   secondaryDark: $secondary-dark;
+
+  explore-button: $explore-button;
 
   alertColor: $alert-color;
   infobarColor: $infobar-color;
@@ -186,4 +197,9 @@ $bottom-border-style: 1px solid $border-color;
   md: $md;
   lg: $lg;
   xl: $xl;
+
+  zBottom: $z-bottom;
+  zMiddle: $z-middle;
+  zAlmostTop: $z-almost-top;
+  zTop: $z-top;
 }
