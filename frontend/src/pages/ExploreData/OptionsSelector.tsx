@@ -217,7 +217,9 @@ function OptionsSelector(props: {
                         }}
                       >
                         <KeyboardBackspaceIcon style={{ fontSize: "small" }} />{" "}
-                        <span className={styles.GoBackButtonText}>Go back</span>
+                        <span className={styles.GoBackButtonText}>
+                          Clear topic selection
+                        </span>
                       </Button>
                     )}
                   </Grid>
