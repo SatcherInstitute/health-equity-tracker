@@ -62,10 +62,8 @@ def testWriteToBq(
     assert mock_bq.call_count == 4
     assert mock_gen.call_count == 4
 
-# TEST INNER FUNCTION - RACE BY STATE
 
-
-def test18PlusByRace():
+def test18PlusByRaceState():
 
     mock_csv_as_df = get_pop_estimates_as_df()
     df = generate_pop_data_18plus(
@@ -79,10 +77,8 @@ def test18PlusByRace():
     assert_frame_equal(
         df, expected_race_df, check_like=True)
 
-# TEST INNER FUNCTION - SEX BY STATE
 
-
-def test18PlusBySex():
+def test18PlusBySexState():
 
     mock_csv_as_df = get_pop_estimates_as_df()
     df = generate_pop_data_18plus(
@@ -96,8 +92,6 @@ def test18PlusBySex():
 
     assert_frame_equal(
         df, expected_sex_df, check_like=True)
-
-# # TEST INNER FUNCTION - RACE NATIONAL
 
 
 def test18PlusByRaceNational():
@@ -114,8 +108,6 @@ def test18PlusByRaceNational():
 
     assert_frame_equal(
         df, expected_race_df, check_like=True)
-
-# # TEST INNER FUNCTION - SEX NATIONAL
 
 
 def test18PlusBySexNational():
