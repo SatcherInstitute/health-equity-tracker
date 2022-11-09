@@ -118,14 +118,6 @@
   }
 }
 
-SuggestedReportsListItem {
-  line-height: $lhNormal;
-}
-
-.SuggestedReportsListItem a {
-  // text-decoration: none;
-
-  @media only screen and (min-width: $sm) {
-    line-height: $lhSuperLoose;
-  }
+.SuggestedReportsListItem {
+  margin-top: 1rem;
 }
