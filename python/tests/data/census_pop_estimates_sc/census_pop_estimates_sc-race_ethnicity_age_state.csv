@@ -1,0 +1,33 @@
+state_fips,state_name,time_period,race_category_id,population,age,race,race_includes_hispanic,race_and_ethnicity
+01,Alabama,2020,AIAN_NH,23691,18+,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+01,Alabama,2020,ASIAN_NH,58179,18+,Asian,False,Asian (NH)
+01,Alabama,2020,BLACK_NH,1008196,18+,Black or African American,False,Black or African American (NH)
+01,Alabama,2020,HISP,140805,18+,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,2020,MULTI_OR_OTHER_STANDARD_NH,43615,18+,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (NH)
+01,Alabama,2020,NHPI_NH,1891,18+,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,2020,WHITE_NH,2623676,18+,White,False,White (NH)
+01,Alabama,2021,AIAN_NH,23938,18+,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+01,Alabama,2021,ASIAN_NH,59464,18+,Asian,False,Asian (NH)
+01,Alabama,2021,BLACK_NH,1011699,18+,Black or African American,False,Black or African American (NH)
+01,Alabama,2021,HISP,146145,18+,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,2021,MULTI_OR_OTHER_STANDARD_NH,45220,18+,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (NH)
+01,Alabama,2021,NHPI_NH,1930,18+,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,2021,WHITE_NH,2629229,18+,White,False,White (NH)
+56,Wyoming,2020,AIAN_NH,8477,18+,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+56,Wyoming,2020,ASIAN_NH,4764,18+,Asian,False,Asian (NH)
+56,Wyoming,2020,BLACK_NH,4790,18+,Black or African American,False,Black or African American (NH)
+56,Wyoming,2020,HISP,39360,18+,Hispanic or Latino,True,Hispanic or Latino
+56,Wyoming,2020,MULTI_OR_OTHER_STANDARD_NH,6160,18+,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (NH)
+56,Wyoming,2020,NHPI_NH,319,18+,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+56,Wyoming,2020,WHITE_NH,379658,18+,White,False,White (NH)
+56,Wyoming,2021,AIAN_NH,8498,18+,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
+56,Wyoming,2021,ASIAN_NH,4793,18+,Asian,False,Asian (NH)
+56,Wyoming,2021,BLACK_NH,4748,18+,Black or African American,False,Black or African American (NH)
+56,Wyoming,2021,HISP,40375,18+,Hispanic or Latino,True,Hispanic or Latino
+56,Wyoming,2021,MULTI_OR_OTHER_STANDARD_NH,6428,18+,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (NH)
+56,Wyoming,2021,NHPI_NH,320,18+,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (NH)
+56,Wyoming,2021,WHITE_NH,381217,18+,White,False,White (NH)
+01,Alabama,2020,ALL,3900053,18+,All,,All
+01,Alabama,2021,ALL,3917625,18+,All,,All
+56,Wyoming,2020,ALL,443528,18+,All,,All
+56,Wyoming,2021,ALL,446379,18+,All,,All
