@@ -25,14 +25,12 @@
 }
 
 .BigHeadline {
-  display: none;
+  padding-right: 1rem;
+  font-size: $small;
 
   @media (min-width: $sm) {
-    display: block;
+    font-size: $smallestHeader;
   }
-
-  font-size: $smallerHeader;
-  padding-right: 1rem;
 
   @media (min-width: $lg) {
     font-size: $bigHeader;
@@ -40,8 +38,12 @@
 }
 
 .LittleHeadline {
-  font-size: $small;
+  font-size: $smallest;
   padding-right: 1rem;
+
+  @media (min-width: $sm) {
+    font-size: $title;
+  }
 
   @media (min-width: $lg) {
     font-size: $smallestHeader;

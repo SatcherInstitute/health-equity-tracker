@@ -147,7 +147,7 @@ function OptionsSelector(props: {
                 }}
               />
               <span className={styles.NoteText}>
-                Choose a county, state, territory, or United States. Some topics
+                County, state, territory, or United States. Some source data is
                 unavailable at county and territory levels.
               </span>
             </div>
