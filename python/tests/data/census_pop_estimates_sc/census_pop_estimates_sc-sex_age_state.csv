@@ -1,0 +1,13 @@
+state_fips,state_name,time_period,sex,population,age
+01,Alabama,2020,All,3900053,18+
+01,Alabama,2020,Male,1868270,18+
+01,Alabama,2020,Female,2031783,18+
+01,Alabama,2021,All,3917625,18+
+01,Alabama,2021,Male,1875234,18+
+01,Alabama,2021,Female,2042391,18+
+56,Wyoming,2020,All,443528,18+
+56,Wyoming,2020,Male,226993,18+
+56,Wyoming,2020,Female,216535,18+
+56,Wyoming,2021,All,446379,18+
+56,Wyoming,2021,Male,228118,18+
+56,Wyoming,2021,Female,218261,18+
