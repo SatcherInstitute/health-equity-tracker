@@ -68,6 +68,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
           </div>
           {/* DATA TYPE TOGGLE */}
           <ToggleButtonGroup
+            id={props.excludeId ? undefined : "onboarding-explore-datatypes"}
             exclusive
             value={props.variableConfig.variableId}
             onChange={(e, variableId) => {

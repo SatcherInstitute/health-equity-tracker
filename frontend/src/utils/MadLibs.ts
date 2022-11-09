@@ -3,7 +3,7 @@ import {
   METRIC_CONFIG,
   VariableConfig,
 } from "../data/config/MetricConfig";
-import { FIPS_MAP, USA_FIPS } from "../data/utils/Fips";
+import { FIPS_MAP, GEORGIA_FIPS, USA_FIPS } from "../data/utils/Fips";
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>;
@@ -75,6 +75,8 @@ export function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
 If a condition contains multiple data types, they are
 treated as individual items  */
 export function getSelectedConditions(madLib: MadLib) {
+  if (madLib.activeSelections[1] === DEFAULT) return [];
+
   const condition1array: VariableConfig[] =
     METRIC_CONFIG[getPhraseValue(madLib, 1) as DropdownVarId];
   // get 2nd condition if in compare var mode
@@ -89,7 +91,11 @@ export function getSelectedConditions(madLib: MadLib) {
     : condition1array;
 }
 
-const DROPDOWN_VAR: Record<DropdownVarId, string> = {
+export type DefaultDropdownVarId = "default";
+export const DEFAULT: DefaultDropdownVarId = "default";
+
+const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
+  default: "select a topic",
   covid: "COVID-19",
   diabetes: "Diabetes",
   copd: "COPD",
@@ -170,8 +176,8 @@ const MADLIB_LIST: MadLib[] = [
   {
     id: "disparity",
     phrase: ["Investigate rates of", DROPDOWN_VAR, "in", FIPS_MAP],
-    defaultSelections: { 1: "covid", 3: USA_FIPS },
-    activeSelections: { 1: "covid", 3: USA_FIPS },
+    defaultSelections: { 1: DEFAULT, 3: USA_FIPS },
+    activeSelections: { 1: DEFAULT, 3: USA_FIPS },
   },
   {
     id: "comparegeos",
@@ -183,8 +189,8 @@ const MADLIB_LIST: MadLib[] = [
       "and",
       FIPS_MAP,
     ],
-    defaultSelections: { 1: "covid", 3: "13", 5: USA_FIPS }, // 13 is Georgia
-    activeSelections: { 1: "covid", 3: "13", 5: USA_FIPS }, // 13 is Georgia
+    defaultSelections: { 1: "covid", 3: GEORGIA_FIPS, 5: USA_FIPS },
+    activeSelections: { 1: "covid", 3: GEORGIA_FIPS, 5: USA_FIPS },
   },
   {
     id: "comparevars",
@@ -196,15 +202,13 @@ const MADLIB_LIST: MadLib[] = [
       "in",
       FIPS_MAP,
     ],
-    defaultSelections: { 1: "diabetes", 3: "covid", 5: USA_FIPS }, // 13 is Georgia
-    activeSelections: { 1: "diabetes", 3: "covid", 5: USA_FIPS }, // 13 is Georgia
+    defaultSelections: { 1: "diabetes", 3: "covid", 5: USA_FIPS },
+    activeSelections: { 1: "diabetes", 3: "covid", 5: USA_FIPS },
   },
 ];
 
-
 function insertOptionalThe(phraseSelections: PhraseSelections, index: number) {
-  return phraseSelections[index + 1] === "00" ? " the" : ""
-
+  return phraseSelections[index + 1] === USA_FIPS ? " the" : "";
 }
 
 export { MADLIB_LIST, getMadLibPhraseText, CATEGORIES_LIST, insertOptionalThe };
