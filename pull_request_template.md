@@ -3,7 +3,7 @@
 ## Preview Link
 <!--- Come back and edit this link after saving the PR -->
 <!--- Replace 1234 with this PR's actual number  -->
-<a href="https://deploy-preview-1234--health-equity-tracker.netlify.app/exploredata?onboard=false" target="_blank">
+<a href="https://deploy-preview-1234--health-equity-tracker.netlify.app/exploredata" target="_blank">
   <img width="150"  src="https://healthequitytracker.org/img/appbar/AppbarLogo.png" alt="" /><br />
 Click to demo updates </a> 
 
@@ -25,7 +25,7 @@ Click to demo updates </a>
 ## Types of changes
 <!--- What types of changes does your code introduce? Leave all that apply: -->
 - Bug fix (non-breaking change which fixes an issue)
-- New feature (non-breaking change which adds functionality or content)
+- New feature (non-breaking change which adds functionality or updates content)
 - Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - Refactor (code improvement that doesn't affect UI)
 - Chore (developer productivity fix that doesn't affect the user)
