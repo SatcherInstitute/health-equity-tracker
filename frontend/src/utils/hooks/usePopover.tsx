@@ -11,8 +11,10 @@ export interface PopoverElements {
   isOpen: boolean;
 }
 
-export function usePopover(): PopoverElements {
-  const [anchor, setAnchor] = React.useState<HTMLElement | null>(null);
+export function usePopover(anchorElement?: any): PopoverElements {
+  const [anchor, setAnchor] = React.useState<HTMLElement | null>(
+    anchorElement || null
+  );
 
   const open = (event: React.MouseEvent<HTMLElement>) => {
     setAnchor(event.currentTarget);

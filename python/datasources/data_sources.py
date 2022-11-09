@@ -2,6 +2,7 @@ from datasources.acs_population import ACSPopulation
 from datasources.acs_2010_population import ACS2010Population
 from datasources.age_adjust_cdc_restricted import AgeAdjustCDCRestricted
 from datasources.census_pop_estimates import CensusPopEstimates
+from datasources.census_pop_estimates_sc import CensusPopEstimatesSC
 from datasources.cdc_restricted import CDCRestrictedData
 from datasources.cdc_vaccination_county import CDCVaccinationCounty
 from datasources.cdc_vaccination_national import CDCVaccinationNational
@@ -23,6 +24,7 @@ DATA_SOURCES_DICT = {
     ACS2010Population.get_id(): ACS2010Population(),
     AgeAdjustCDCRestricted.get_id(): AgeAdjustCDCRestricted(),
     CensusPopEstimates.get_id(): CensusPopEstimates(),
+    CensusPopEstimatesSC.get_id(): CensusPopEstimatesSC(),
     CDCRestrictedData.get_id(): CDCRestrictedData(),
     CDCVaccinationCounty.get_id(): CDCVaccinationCounty(),
     CDCVaccinationNational.get_id(): CDCVaccinationNational(),

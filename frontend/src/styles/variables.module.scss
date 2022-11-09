@@ -78,6 +78,7 @@ $smallest: 0.75rem;
 $small: 0.875rem;
 $text: 1rem;
 $title: 1.125rem;
+$explore-button: 1.2rem;
 $smallestHeader: 1.5rem;
 $smallerHeader: 1.625rem;
 $smallHeader: 1.75rem;
@@ -135,6 +136,8 @@ $z-top: 999;
   secondaryLight: $secondary-light;
   secondaryMain: $secondary-main;
   secondaryDark: $secondary-dark;
+
+  explore-button: $explore-button;
 
   alertColor: $alert-color;
   infobarColor: $infobar-color;
