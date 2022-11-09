@@ -147,7 +147,7 @@ function OptionsSelector(props: {
                 }}
               />
               <span className={styles.NoteText}>
-                Choose a county, state, territory, or United States. Some topics
+                County, state, territory, or United States. Some source data is
                 unavailable at county and territory levels.
               </span>
             </div>
@@ -217,7 +217,9 @@ function OptionsSelector(props: {
                         }}
                       >
                         <KeyboardBackspaceIcon style={{ fontSize: "small" }} />{" "}
-                        <span className={styles.GoBackButtonText}>Go back</span>
+                        <span className={styles.GoBackButtonText}>
+                          Clear topic selection
+                        </span>
                       </Button>
                     )}
                   </Grid>
