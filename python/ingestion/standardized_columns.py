@@ -104,8 +104,11 @@ VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 # (_PCT_SHARE: % of women legislators who are black)
 WOMEN_STATE_LEG_PCT = "women_state_leg_pct"
 WOMEN_STATE_LEG_PCT_SHARE = "women_state_leg_pct_share"
-WOMEN_US_CONGRESS_PCT = "women_us_congress_pct"
-WOMEN_US_CONGRESS_PCT_SHARE = "women_us_congress_pct_share"
+# WOMEN_US_CONGRESS_PCT = "women_us_congress_pct"
+# WOMEN_US_CONGRESS_PCT_SHARE = "women_us_congress_pct_share"
+PCT_SHARE_OF_WOMEN_US_CONGRESS = "pct_share_of_women_us_congress"
+PCT_SHARE_OF_US_CONGRESS = "pct_share_of_us_congress"
+
 
 # Incarceration columns
 PRISON_PREFIX = "prison"

@@ -64,7 +64,9 @@ class CAWPTimeData(DataSource):
         for geo_level in [STATE_LEVEL]:
 
             # restrict index years to this list
-            time_periods = ["2021", "2022"]
+            # time_periods = ["2021", "2022"]
+            time_periods_ints = list(range(2021, 2022))
+            time_periods = [str(x) for x in time_periods_ints]
 
             # for BQ
             table_name = f'race_and_ethnicity_{geo_level}'
@@ -202,31 +204,30 @@ class CAWPTimeData(DataSource):
             # count the number of women leg. per year/state regardless of race for the "All"
             line_items_alls_count_df = line_items_df_us_congress[[
                 std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL]]
-            line_items_alls_count_df['women_us_congress_count'] = 1
+            line_items_alls_count_df['women_any_race_us_congress_count'] = 1
             line_items_alls_count_df = line_items_alls_count_df.groupby([std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])[
-                "women_us_congress_count"].count().reset_index()
-            line_items_alls_count_df["race_ethnicity"] = "All"
+                "women_any_race_us_congress_count"].count().reset_index()
 
             # count the number of women leg. per year/state/race
-
             # explode those race lists with one row per race
             line_items_df_us_congress = line_items_df_us_congress.explode(
                 "race_ethnicity").reset_index(drop=True)
 
             # # TODO make this counting rows concept a util fn
-            line_items_df_us_congress['women_us_congress_count'] = 1
-
+            line_items_df_us_congress['women_by_race_us_congress_count'] = 1
             line_items_df_us_congress = line_items_df_us_congress.groupby([std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, "race_ethnicity", 'level', std_col.TIME_PERIOD_COL])[
-                "women_us_congress_count"].count().reset_index()
+                "women_by_race_us_congress_count"].count().reset_index()
 
             line_items_df_us_congress = line_items_df_us_congress.drop(
                 'level', axis="columns")
 
-            # combine rows with RACE GROUPS + rows for ALLs
-            line_items_df_us_congress = pd.concat(
-                [line_items_df_us_congress, line_items_alls_count_df], ignore_index=True)
-            print("with alls")
-            print(line_items_df_us_congress.to_string())
+            # merge in the ALL totals as a column here for calculations (later we can merge as rows with race = All)
+
+            merge_cols = [std_col.TIME_PERIOD_COL,
+                          std_col.STATE_FIPS_COL,
+                          std_col.STATE_POSTAL_COL]
+            df = pd.merge(df, line_items_alls_count_df,
+                          on=merge_cols, how="left").fillna(0)
 
             merge_cols = [std_col.TIME_PERIOD_COL,
                           "race_ethnicity",
@@ -236,9 +237,21 @@ class CAWPTimeData(DataSource):
                           on=merge_cols, how="left").fillna(0)
 
             # calculate rates of representation
-            df[std_col.WOMEN_US_CONGRESS_PCT] = round(df["women_us_congress_count"] /
-                                                      df["total_us_congress_count"] * 100, 1)
-            # df[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = df["women_us_congress_count"] / need to get "ALL"
+            df[std_col.PCT_SHARE_OF_US_CONGRESS] = round(df["women_by_race_us_congress_count"] /
+                                                         df["total_us_congress_count"] * 100, 1)
+            df[std_col.PCT_SHARE_OF_WOMEN_US_CONGRESS] = round(df["women_by_race_us_congress_count"] /
+                                                               df["women_any_race_us_congress_count"] * 100, 1).fillna(0)
+
+            df[std_col.RACE_CATEGORY_ID_COL] = df["race_ethnicity"].apply(
+                lambda x: CAWP_RACE_GROUPS_TO_STANDARD[x])
+
+            std_col.add_race_columns_from_category_id(df)
+
+            df = df.drop(columns=["race_ethnicity"])
+
+            print(df.to_string())
+
+            # need to merge in the "All" races as ROWS
 
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name)
