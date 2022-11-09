@@ -145,9 +145,8 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
         <h1>No Data provided</h1>
       ) : (
-        <>
+        <figure>
           <figcaption style={titleStyle}>{props.title}</figcaption>
-
           <TableContainer component={Paper} style={{ maxHeight: "100%" }}>
             <Table stickyHeader {...getTableProps()}>
               <TableHead>
@@ -165,7 +164,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
               </TableFooter>
             </Table>
           </TableContainer>
-        </>
+        </figure>
       )}
     </>
   );
