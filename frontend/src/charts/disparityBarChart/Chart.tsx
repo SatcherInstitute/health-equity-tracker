@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Vega } from "react-vega";
 import { useResponsiveWidth } from "../../utils/hooks/useResponsiveWidth";
 import { useFontSize } from "../../utils/hooks/useFontSize";
@@ -38,8 +38,10 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   const [ref, width] = useResponsiveWidth(100);
   const fontSize = useFontSize();
   // some states don't have any NHPI AIAN won't need alt light on vega even if they fit criteria
-  const [hasAltPop, setHasAltPop] = useState(false);
+
   const [chartDimensions] = useChartDimensions(width);
+
+  let hasAltPop = false;
 
   // move AIAN and NHPI into their own properties for STATE/RACE/VACCINE (since KFF doesnt provide pop compare metrics)
   let dataFromProps = props.data;
@@ -59,7 +61,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         item[RACE].includes(AIAN) ||
         item[RACE].includes(NHPI)
       ) {
-        setHasAltPop(true);
+        hasAltPop = true;
         // remove KFF value
         const { vaccine_population_pct, ...itemWithoutKFF } = item;
         return itemWithoutKFF;
