@@ -92,7 +92,14 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   );
 
   const locationName = props.fips.getSentenceDisplayName();
-  const chartTitle = useCreateChartTitle(metricConfigs[ratioId], locationName);
+  let chartTitle = useCreateChartTitle(metricConfigs[ratioId], locationName);
+
+  // We have to do this here because vega automatically
+  // splits the titles onto each line, but here, as we are
+  // not using vega we need to do it ourselves.
+  if (Array.isArray(chartTitle)) {
+    chartTitle = chartTitle.join("\r\n");
+  }
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const ageAdjustedDataTypes: VariableConfig[] = METRIC_CONFIG[

@@ -459,10 +459,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "death_ratio_age_adjusted",
           fullCardTitleName:
             "Age-adjusted risk of COVID-19 death compared to White (NH)",
-          chartTitle: "Risk of COVID-19 death compared to White (NH)",
+          chartTitle:
+            "Age-adjusted risk of COVID-19 death compared to White (NH)",
           mobileChartTitle: [
-            "Age-adjusted risk of",
-            "COVID-19 death compared to White (NH)",
+            "Age-adjusted risk of COVID-19 death",
+            "compared to White (NH)",
           ],
           shortLabel: "Risk of COVID-19 Death", // table header-row label
           type: "ratio",
@@ -525,6 +526,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName:
             "Age-adjusted risk of COVID-19 hospitalization compared to White (NH)",
           shortLabel: "Risk of COVID-19 hospitalization", // Table header-row label
+          mobileChartTitle: [
+            "Age-adjusted risk of COVID-19 hospitalization",
+            "compared to White (NH)",
+          ],
           chartTitle: "Risk of COVID-19 hospitalization compared to White (NH)",
           type: "ratio",
           ageAdjusted: true,
