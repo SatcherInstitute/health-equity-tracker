@@ -360,7 +360,7 @@ function LandingPage() {
               className={styles.PrimaryButton}
               href={EXPLORE_DATA_PAGE_LINK}
             >
-              Explore the Tracker
+              Explore the data
             </Button>
           </Box>
         </Grid>

@@ -43,7 +43,7 @@ export default function DefaultHelperBox() {
                     EXPLORE_DATA_PAGE_LINK + PRISON_VS_POVERTY_RACE_GA_SETTING
                   }
                 >
-                  Prison & poverty by race in Georgia
+                  Prison incarceration & poverty by race in Georgia
                 </a>
               </li>
               <li className={styles.SuggestedReportsListItem}>
