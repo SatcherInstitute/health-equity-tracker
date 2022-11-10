@@ -17,10 +17,10 @@ export const CAWP_DETERMINANTS: MetricId[] = [
   "women_state_leg_pct_share",
   "women_state_leg_ratio_age_adjusted",
   "women_state_leg_pct_relative_inequity",
-  "women_us_congress_pct",
-  "women_us_congress_pct_share",
+  "pct_share_of_us_congress",
+  "pct_share_of_women_us_congress",
   "women_us_congress_ratio_age_adjusted",
-  "women_us_congress_pct_relative_inequity",
+  "pct_share_of_us_congress_relative_inequity",
 ];
 
 export const CAWP_DATA_TYPES: VariableId[] = [
@@ -60,11 +60,14 @@ class CawpProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
+    const timeView = metricQuery.timeView;
     const datasetId = this.getDatasetId(breakdowns);
     const cawp = await getDataManager().loadDataset(datasetId);
     let df = cawp.toDataFrame();
 
     df = this.filterByGeo(df, breakdowns);
+    df = this.filterByTimeView(df, timeView, "2022");
+
     df = this.renameGeoColumns(df, breakdowns);
 
     let consumedDatasetIds = [datasetId];

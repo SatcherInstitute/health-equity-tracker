@@ -164,10 +164,12 @@ export type MetricId =
   | "women_state_leg_pct_share"
   | "women_state_leg_ratio_age_adjusted"
   | "women_state_leg_pct_relative_inequity"
-  | "women_us_congress_pct"
-  | "women_us_congress_pct_share"
+  // | "pct_share_of_us_congress"
+  // | "pct_share_of_women_us_congress"
+  | "pct_share_of_us_congress"
+  | "pct_share_of_women_us_congress"
   | "women_us_congress_ratio_age_adjusted"
-  | "women_us_congress_pct_relative_inequity"
+  | "pct_share_of_us_congress_relative_inequity"
   | "prison_pct_share"
   | "prison_per_100k"
   | "prison_ratio_age_adjusted"
@@ -1563,10 +1565,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Women in US Congress",
       variableFullDisplayName: "Women in US Congress",
       surveyCollectedData: true,
+      timeSeriesData: true,
       variableDefinition: `Individuals identifying as women who are currently serving in the Congress of the United States, including members of the U.S. Senate and members, territorial delegates, and resident commissioners of the U.S. House of Representatives. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
       metrics: {
         per100k: {
-          metricId: "women_us_congress_pct",
+          metricId: "pct_share_of_us_congress",
           fullCardTitleName: "Percentage of US Congress members",
           trendsCardTitleName: "Rates of women in U.S. Congress over time",
           chartTitle: "Percentage of women US Congress members",
@@ -1575,7 +1578,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_incidence",
         },
         pct_share: {
-          metricId: "women_us_congress_pct_share",
+          metricId: "pct_share_of_women_us_congress",
           fullCardTitleName: "Percent share of women US Congress members",
           trendsCardTitleName:
             "Inequitable share of women in U.S. Congress over time",
@@ -1595,14 +1598,14 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
-            metricId: "women_us_congress_pct_share",
+            metricId: "pct_share_of_women_us_congress",
             fullCardTitleName: "Percent share of women US Congress members",
             shortLabel: "% of women members",
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
-          metricId: "women_us_congress_pct_relative_inequity",
+          metricId: "pct_share_of_us_congress_relative_inequity",
           fullCardTitleName:
             "historical data for inequitable representation of women in US Congress",
           shortLabel: "% relative inequity",
