@@ -224,9 +224,14 @@ export function getPrettyDate(timePeriod: string) {
 /* Calculate an array of demographic groups who have either the highest or lowest historical averages.  */
 export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
   const groupAveragesOverTime = data.map((groupData) => {
+    // exclude ALLs (should only be for CAWP?) from being a Highest or Lowest group
+    if (groupData[0] === "All Women" || groupData[0] === "All")
+      return [groupData[0], null];
+
     const nonNullGroupData = groupData[1].filter(
       (dataPoint) => dataPoint[1] != null
     );
+
     const nonNullGroupValues = nonNullGroupData.map(
       (dataPoint) => dataPoint[1]
     );
