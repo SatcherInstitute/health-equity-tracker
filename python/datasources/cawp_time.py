@@ -6,7 +6,7 @@ from ingestion.standardized_columns import Race
 import pandas as pd
 import numpy as np
 
-FIRST_YR = 1970
+FIRST_YR = 1917
 LAST_YR = 2022
 
 US_CONGRESS_CURRENT_URL = "https://theunitedstates.io/congress-legislators/legislators-current.json"
