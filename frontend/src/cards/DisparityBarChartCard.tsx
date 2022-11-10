@@ -24,6 +24,7 @@ import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
+import NonExclusiveRacesAlert from "./ui/NonExclusiveRacesAlert";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -170,15 +171,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               </Alert>
             )}
             {isCawp && (
-              <Alert severity="info" role="note">
-                Percentages reported for{" "}
-                {props.variableConfig.variableDisplayName} cannot be summed, as
-                these racial categories are not mutually exclusive. Individuals
-                who identify with multiple specific races (e.g. both "White" and
-                "Black") are represented multiple times in the visualization:
-                across each corresponding category, and also as "Two or more
-                races & Unrepresented race".
-              </Alert>
+              <NonExclusiveRacesAlert
+                variableDisplayName={props.variableConfig.variableDisplayName}
+              />
             )}
           </>
         );

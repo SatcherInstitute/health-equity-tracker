@@ -33,6 +33,7 @@ import {
   getWomenRaceLabel,
 } from "../data/variables/CawpProvider";
 import { Row } from "../data/utils/DatasetTypes";
+import NonExclusiveRacesAlert from "./ui/NonExclusiveRacesAlert";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -178,6 +179,16 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   setSelectedTableGroups={setSelectedTableGroups}
                   isCompareCard={props.isCompareCard || false}
                 />
+
+                <CardContent>
+                  {isCAWP && (
+                    <NonExclusiveRacesAlert
+                      variableDisplayName={
+                        props.variableConfig.variableDisplayName
+                      }
+                    />
+                  )}
+                </CardContent>
 
                 <CardContent>
                   <Alert severity="info" role="note">
