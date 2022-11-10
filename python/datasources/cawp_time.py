@@ -60,21 +60,21 @@ class CAWPTimeData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        for geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
+        for geo_level in [
+            STATE_LEVEL,
+            NATIONAL_LEVEL
+        ]:
 
             # restrict index years to this list
-            # time_periods = ["2021", "2022"]
-            time_periods_ints = list(range(2020, 2023))
-            time_periods = [str(x) for x in time_periods_ints]
+            time_periods = [str(x) for x in list(range(2010, 2020+1))]
 
             # for BQ
             table_name = f'race_and_ethnicity_{geo_level}'
 
             # start with single column of all state-level fips as our df template
-            df = pd.DataFrame(
-                {
-                    std_col.STATE_FIPS_COL: [*STATE_LEVEL_FIPS_LIST],
-                })
+            df = pd.DataFrame({
+                std_col.STATE_FIPS_COL: [*STATE_LEVEL_FIPS_LIST],
+            })
 
             # explode to every combo of state/year
             df[std_col.TIME_PERIOD_COL] = [time_periods] * len(df)
@@ -117,22 +117,9 @@ class CAWPTimeData(DataSource):
                             # add entry of service for id/year/state. this should avoid double counting and match CAWP which only has one entry per legislator per year
                             us_congress_totals_list_of_dict.append(entry)
 
-                        # and to the national count
-                        # us_congress_totals_list_of_dict.append({
-                        #     std_col.STATE_POSTAL_COL: US_ABBR,
-                        #     std_col.TIME_PERIOD_COL: year
-                        # })
-
-                        # convert to df
+            # convert to df
             us_congress_total_count_df = pd.DataFrame.from_dict(
                 us_congress_totals_list_of_dict)
-
-            # convert giant list of duplicate state/year entries into a new column with the counts for each state/year combo
-            # us_congress_total_count_df = us_congress_total_count_df.groupby(
-            #     [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL]).size().reset_index().rename(
-            #     columns={0: 'total_us_congress_count'})
-
-            # us_congress_total_count_df["total_us_congress_count"] = 1
 
             us_house_total_count_df = us_congress_total_count_df[
                 us_congress_total_count_df["type"] == "rep"]
@@ -256,11 +243,71 @@ class CAWPTimeData(DataSource):
             df[std_col.PCT_SHARE_OF_WOMEN_US_CONGRESS] = round(df["women_by_race_us_congress_count"] /
                                                                df["women_any_race_us_congress_count"] * 100, 1).fillna(0)
 
+            # melt the women_any_race_us_congress_count column into new "All" race rows
+
+            # The "All" values per year are present in every race's rows; so just use one set of race rows to melt
+            df_alls = df[df["race_ethnicity"] == "White"]
+
+            # Remove unneeded columns
+            df_alls = df_alls[[
+                std_col.TIME_PERIOD_COL,
+                std_col.STATE_FIPS_COL,
+                std_col.STATE_NAME_COL,
+                std_col.STATE_POSTAL_COL,
+                "total_us_house_count",
+                "total_us_senate_count",
+                "total_us_congress_count",
+                "women_any_race_us_congress_count",
+                "women_by_race_us_congress_count",
+            ]]
+
+            # take the "All" count from being shown via column to being shown as new "All" race rows
+            df_alls = df_alls.melt(id_vars=[
+                std_col.TIME_PERIOD_COL,
+                std_col.STATE_FIPS_COL,
+                std_col.STATE_NAME_COL,
+                std_col.STATE_POSTAL_COL,
+                "total_us_house_count",
+                "total_us_senate_count",
+                "total_us_congress_count",
+            ],
+                value_vars=["women_any_race_us_congress_count"],
+                var_name="race_ethnicity",
+
+                value_name="women_by_race_us_congress_count"
+            )
+
+            df_alls = df_alls[[
+                "race_ethnicity",
+                std_col.TIME_PERIOD_COL,
+                std_col.STATE_FIPS_COL,
+                std_col.STATE_NAME_COL,
+                std_col.STATE_POSTAL_COL,
+                "total_us_house_count",
+                "total_us_senate_count",
+                "total_us_congress_count",
+                "women_by_race_us_congress_count",
+            ]]
+
+            df_alls["race_ethnicity"] = "All"
+            # calculate rates of representation for "All"
+            df_alls[std_col.PCT_SHARE_OF_US_CONGRESS] = round(df_alls["women_by_race_us_congress_count"] /
+                                                              df_alls["total_us_congress_count"] * 100, 1)
+            df_alls[std_col.PCT_SHARE_OF_WOMEN_US_CONGRESS] = round(df_alls["women_by_race_us_congress_count"] /
+                                                                    df_alls["women_by_race_us_congress_count"] * 100, 1).fillna(0)
+
+            # append the "All" rows to the race rows
+            df = pd.concat(
+                [df.drop(columns=["women_any_race_us_congress_count"]), df_alls], axis=0, ignore_index=True)
+
             # standardize race labels
             df[std_col.RACE_CATEGORY_ID_COL] = df["race_ethnicity"].apply(
                 lambda x: CAWP_RACE_GROUPS_TO_STANDARD[x])
             std_col.add_race_columns_from_category_id(df)
             df = df.drop(columns=["race_ethnicity"])
+
+            df = df.sort_values(
+                by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL, std_col.RACE_CATEGORY_ID_COL]).reset_index(drop=True)
 
             print(df.to_string())
 
