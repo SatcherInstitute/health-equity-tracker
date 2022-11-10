@@ -90,11 +90,18 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       scrollToHash={HASH_ID}
     >
       {([queryResponseRates, queryResponsePctShares]) => {
+        const isCAWP = CAWP_DETERMINANTS.includes(metricConfigRates.metricId);
+
         const ratesData = queryResponseRates.getValidRowsForField(
           metricConfigRates.metricId
         );
 
-        const isCAWP = CAWP_DETERMINANTS.includes(metricConfigRates.metricId);
+        const pctShareData = isCAWP
+          ? ratesData
+          : queryResponsePctShares.getValidRowsForField(
+              metricConfigPctShares.metricId
+            );
+
         // swap race labels if applicable
         const ratesDataLabelled = isCAWP
           ? ratesData.map((row: Row) => {
@@ -123,8 +130,15 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
               .filter((womenRace) => womenRace !== "Women of Unknown Race")
           : demographicGroups;
 
-        const [knownRatesData, unknownPctShareData] =
-          splitIntoKnownsAndUnknowns(ratesDataLabelled, props.breakdownVar);
+        const [knownRatesData] = splitIntoKnownsAndUnknowns(
+          ratesDataLabelled,
+          props.breakdownVar
+        );
+
+        const [, unknownPctShareData] = splitIntoKnownsAndUnknowns(
+          pctShareData,
+          props.breakdownVar
+        );
 
         const nestedRatesData = getNestedData(
           knownRatesData,
