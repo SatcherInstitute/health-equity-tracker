@@ -65,7 +65,7 @@ class CAWPTimeData(DataSource):
 
             # restrict index years to this list
             # time_periods = ["2021", "2022"]
-            time_periods_ints = list(range(2021, 2022))
+            time_periods_ints = list(range(2020, 2023))
             time_periods = [str(x) for x in time_periods_ints]
 
             # for BQ
