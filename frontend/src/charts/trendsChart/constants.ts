@@ -28,7 +28,17 @@ const COLOR_DOMAIN = [
   "Native Hawaiian and Pacific Islander (NH)",
   "Two or more races & Unrepresented race (NH)",
   "White (NH)",
+  // race and ethnicity for CAWP
+  "All Women",
+  "Native American, Alaska Native, & Native Hawaiian Women",
+  "Asian American & Pacific Islander Women",
+  "Black or African American Women",
+  "Latina",
+  "Middle Eastern & North African Women",
+  "Women of Two or more races & Unrepresented race",
+  "White Women",
   // sex
+  "All",
   "Female",
   "Male",
   "Other",
@@ -47,12 +57,21 @@ const COLOR_DOMAIN = [
 const COLOR_RANGE = [
   // "All"
   black,
-  // race and ethnicity
+  // race and ethnicity NH
   timeCyanBlue,
   timePastelGreen,
   darkBlue,
   timePurple,
   timePink,
+  timeDarkRed,
+  redOrange,
+  // race and ethnicity CAWP
+  black,
+  timeCyanBlue,
+  timePastelGreen,
+  darkBlue,
+  timePurple,
+  timeYellow,
   timeDarkRed,
   redOrange,
   // sex

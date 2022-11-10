@@ -206,6 +206,8 @@ export function makeA11yTableData(
 Convert time_period style date YYYY-MM (e.g. "2020-01") to human readable Month Year (e.g. "January 2020"). Strings not matching this format are simply passed through.
 */
 export function getPrettyDate(timePeriod: string) {
+  if (!timePeriod) return;
+
   // if it's YYYY-MM
   if (timePeriod.length === MONTHLY_LENGTH && timePeriod[4] === "-") {
     const [year, monthNum] = timePeriod?.split("-") || ["", ""];

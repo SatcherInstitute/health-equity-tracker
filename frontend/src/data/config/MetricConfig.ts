@@ -1579,11 +1579,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "pct_share_of_us_congress",
           fullCardTitleName: "Percentage of US Congress members",
           trendsCardTitleName:
-            "Percent of women in U.S. Congress by race and ethnicity over time",
+            "Percent of U.S. Congress who identify as women, by race and ethnicity over time",
           chartTitle: "Percentage of women US Congress members",
           mobileChartTitle: ["Percentage of women US", "Congress members"],
           shortLabel: "% women in US congress",
-          type: "pct_incidence",
+          type: "pct_share",
         },
         pct_share: {
           metricId: "pct_share_of_women_us_congress",

@@ -28,6 +28,11 @@ import { EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK } from "../utils/internalR
 import { HashLink } from "react-router-hash-link";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from "../data/variables/CawpProvider";
+import { Row } from "../data/utils/DatasetTypes";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -88,9 +93,21 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           metricConfigRates.metricId
         );
 
-        const pctShareData = queryResponsePctShares.getValidRowsForField(
-          metricConfigPctShares.metricId
-        );
+        const isCAWP = CAWP_DETERMINANTS.includes(metricConfigRates.metricId);
+        // swap race labels if applicable
+        const ratesDataLabelled = isCAWP
+          ? ratesData.map((row: Row) => {
+              const altRow = { ...row };
+              altRow.race_and_ethnicity = getWomenRaceLabel(
+                row.race_and_ethnicity
+              );
+              return altRow;
+            })
+          : ratesData;
+
+        // const pctShareData = queryResponsePctShares.getValidRowsForField(
+        //   metricConfigPctShares.metricId
+        // );
 
         // retrieve list of all present demographic groups
         const demographicGroups: DemographicGroup[] =
@@ -99,19 +116,18 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             metricConfigRates.metricId
           ).withData;
 
-        const [knownRatesData] = splitIntoKnownsAndUnknowns(
-          ratesData,
-          props.breakdownVar
-        );
+        const demographicGroupsLabelled = isCAWP
+          ? demographicGroups
+              .map((race) => getWomenRaceLabel(race))
+              .filter((womenRace) => womenRace !== "Women of Unknown Race")
+          : demographicGroups;
 
-        const [, unknownPctShareData] = splitIntoKnownsAndUnknowns(
-          pctShareData,
-          props.breakdownVar
-        );
+        const [knownRatesData, unknownPctShareData] =
+          splitIntoKnownsAndUnknowns(ratesDataLabelled, props.breakdownVar);
 
         const nestedRatesData = getNestedData(
           knownRatesData,
-          demographicGroups,
+          demographicGroupsLabelled,
           props.breakdownVar,
           metricConfigRates.metricId
         );

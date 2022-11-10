@@ -30,6 +30,28 @@ import {
   getWidthHundredK,
 } from "./helpers";
 
+// temp
+const codeDictionary = {
+  // race and ethnicity NH
+  "Native Hawaiian and Pacific Islander (NH)": "NHPI (NH)",
+  "Hispanic or Latino": "Hisp/Lat",
+  All: "All",
+  "American Indian and Alaska Native (NH)": "AI/AN (NH)",
+  "Black or African American (NH)": "Black (NH)",
+  "Two or more races & Unrepresented race (NH)": "2/Unr (NH)",
+  "White (NH)": "White (NH)",
+  "Asian (NH)": "Asian (NH)",
+  //  race and ethnicity CAWP
+  "All Women": "All",
+  "Asian American & Pacific Islander Women": "AAPI",
+  "Middle Eastern & North African Women": "MENA",
+  "Native American, Alaska Native, & Native Hawaiian Women": "AI/AN/NH",
+  "Latinas and Hispanic Women": "Hisp/Lat",
+  "Women of Two or More Races & Unrepresented Race": "2/Unr",
+  "Black or African American Women": "Black",
+  "White Women": "White",
+};
+
 /* Define type interface */
 export interface TrendsTooltipProps {
   data: TrendsData;
@@ -47,24 +69,18 @@ export function TrendsTooltip({
 }: TrendsTooltipProps) {
   const { type, yAxisLabel = "" } = axisConfig || {};
 
-  // temp
-  const codeDictionary = {
-    "Native Hawaiian and Pacific Islander (NH)": "NHPI (NH)",
-    "Hispanic or Latino": "Hisp/Lat",
-    All: "All",
-    "American Indian and Alaska Native (NH)": "AI/AN (NH)",
-    "Black or African American (NH)": "Black (NH)",
-    "Two or more races & Unrepresented race (NH)": "2/Unr (NH)",
-    "White (NH)": "White (NH)",
-    "Asian (NH)": "Asian (NH)",
-  };
-
   const TYPE_CONFIG = {
     [TYPES.HUNDRED_K]: {
       UNIT: isSkinny ? "" : " per 100k",
       width: getWidthHundredK,
       translate_x: (d: TimeSeries) => 0,
       formatter: F.num,
+    },
+    [TYPES.PERCENT_SHARE]: {
+      UNIT: "",
+      width: getWidthHundredK,
+      translate_x: (d: TimeSeries) => 0,
+      formatter: F.pct,
     },
     [TYPES.PERCENT_RELATIVE_INEQUITY]: {
       UNIT: " %",
@@ -89,6 +105,7 @@ export function TrendsTooltip({
           sortDataDescending(data, selectedDate || "").map(
             ([group, d]: GroupData) => {
               // get value or "<1" to prevent potentially misleading "0 per 100k" on rates
+
               let value = TYPE_CONFIG[type]?.formatter(
                 getAmountsByDate(d, selectedDate)
               );
