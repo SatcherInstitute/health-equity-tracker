@@ -21,8 +21,10 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
     'Black': Race.BLACK.value,
     'White': Race.WHITE.value,
     'Unavailable': Race.UNKNOWN.value,
-    'All': Race.ALL.value
+    # 'All': Race.ALL.value
 }
+
+RACE = "race_ethnicity"
 
 
 def get_postal_from_cawp_phrase(cawp_place_phrase: str):
@@ -94,27 +96,28 @@ class CAWPTimeData(DataSource):
             us_congress_totals_list_of_dict = []
 
             # iterate through each legislator
-            for item in raw_legislators_json:
+            for legislator in raw_legislators_json:
 
                 # and each term they served
-                for term in item["terms"]:
+                for term in legislator["terms"]:
 
                     term_years = list(
                         range(int(term["start"][:4]), int(term["end"][:4])+1))
+
                     # and each year of each term
                     for year in term_years:
 
                         year = str(year)
 
                         entry = {
-                            "id": item["id"]["govtrack"],
+                            "id": legislator["id"]["govtrack"],
                             "type": term["type"],
                             std_col.STATE_POSTAL_COL: term["state"],
                             std_col.TIME_PERIOD_COL: year
                         }
-
+                        # add entry of service for id/year/state. this should avoid
+                        # double counting and match CAWP which only has one entry per legislator per year
                         if year in time_periods and entry not in us_congress_totals_list_of_dict:
-                            # add entry of service for id/year/state. this should avoid double counting and match CAWP which only has one entry per legislator per year
                             us_congress_totals_list_of_dict.append(entry)
 
             # convert to df
@@ -135,7 +138,7 @@ class CAWPTimeData(DataSource):
 
             merge_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL]
             us_congress_total_count_df = pd.merge(
-                us_house_total_count_df, us_senate_total_count_df, on=merge_cols)
+                us_house_total_count_df, us_senate_total_count_df, on=merge_cols, how="outer").fillna(0)
             us_congress_total_count_df["total_us_congress_count"] = (
                 us_congress_total_count_df["total_us_senate_count"] +
                 us_congress_total_count_df["total_us_house_count"]
@@ -147,15 +150,14 @@ class CAWPTimeData(DataSource):
 
             # merge in calculated counts by state/year
             merge_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]
-            df = pd.merge(df, us_congress_total_count_df, on=merge_cols)
+            df = pd.merge(df, us_congress_total_count_df,
+                          on=merge_cols, how="outer")
 
-            # explode with row per race
-            df['race_ethnicity'] = [
+            # explode with a new row per race
+            df[RACE] = [
                 list(CAWP_RACE_GROUPS_TO_STANDARD.keys())
             ] * len(df)
-            df = df.explode('race_ethnicity').fillna("")
-
-            ###
+            df = df.explode(RACE).fillna("")
 
             # load in CAWP counts of women by race by year by state
             line_items_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
@@ -163,7 +165,7 @@ class CAWPTimeData(DataSource):
 
             # keep only needed cols
             line_items_df = line_items_df[[
-                'id', 'year', 'level', 'state', 'race_ethnicity']]
+                'id', 'year', 'level', 'state', RACE]]
 
             # standardize CAWP state names as postal
             line_items_df[std_col.STATE_POSTAL_COL] = line_items_df["state"].apply(
@@ -179,9 +181,9 @@ class CAWPTimeData(DataSource):
             line_items_df = line_items_df.rename(
                 columns={"year": std_col.TIME_PERIOD_COL})
 
-            # make all race comma-delimited strings into lists
-            line_items_df["race_ethnicity"] = [x.split(", ")
-                                               for x in line_items_df["race_ethnicity"]]
+            # make all CAWP comma-delimited race(s) strings into lists
+            line_items_df[RACE] = [x.split(", ")
+                                   for x in line_items_df[RACE]]
 
             # remove non-Congress line items
             line_items_df_us_congress = line_items_df.loc[line_items_df['level']
@@ -194,21 +196,20 @@ class CAWPTimeData(DataSource):
             line_items_alls_count_df = line_items_alls_count_df.groupby([std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])[
                 "women_any_race_us_congress_count"].count().reset_index()
 
-            # count the number of women leg. per year/state/race
             # explode those race lists with one row per race
             line_items_df_us_congress = line_items_df_us_congress.explode(
-                "race_ethnicity").reset_index(drop=True)
+                RACE).reset_index(drop=True)
 
+            # count the number of women leg. per year/state/race
             # # TODO make this counting rows concept a util fn
             line_items_df_us_congress['women_by_race_us_congress_count'] = 1
-            line_items_df_us_congress = line_items_df_us_congress.groupby([std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, "race_ethnicity", 'level', std_col.TIME_PERIOD_COL])[
+            line_items_df_us_congress = line_items_df_us_congress.groupby([std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, RACE, 'level', std_col.TIME_PERIOD_COL])[
                 "women_by_race_us_congress_count"].count().reset_index()
 
             line_items_df_us_congress = line_items_df_us_congress.drop(
                 'level', axis="columns")
 
-            # merge in the ALL totals as a column here for calculations (later we can merge as rows with race = All)
-
+            # merge in the ALL totals as a column here for calculations (later we merge as "ALL" rows)
             merge_cols = [std_col.TIME_PERIOD_COL,
                           std_col.STATE_FIPS_COL,
                           std_col.STATE_POSTAL_COL]
@@ -216,7 +217,7 @@ class CAWPTimeData(DataSource):
                           on=merge_cols, how="left").fillna(0)
 
             merge_cols = [std_col.TIME_PERIOD_COL,
-                          "race_ethnicity",
+                          RACE,
                           std_col.STATE_FIPS_COL,
                           std_col.STATE_POSTAL_COL]
             df = pd.merge(df, line_items_df_us_congress,
@@ -224,7 +225,7 @@ class CAWPTimeData(DataSource):
 
             if geo_level == NATIONAL_LEVEL:
                 df = df.groupby(
-                    ['race_ethnicity',
+                    [RACE,
                      std_col.TIME_PERIOD_COL
                      ])[
                     "total_us_house_count",
@@ -244,9 +245,8 @@ class CAWPTimeData(DataSource):
                                                                df["women_any_race_us_congress_count"] * 100, 1).fillna(0)
 
             # melt the women_any_race_us_congress_count column into new "All" race rows
-
             # The "All" values per year are present in every race's rows; so just use one set of race rows to melt
-            df_alls = df[df["race_ethnicity"] == "White"]
+            df_alls = df[df[RACE] == "White"]
 
             # Remove unneeded columns
             df_alls = df_alls[[
@@ -272,13 +272,13 @@ class CAWPTimeData(DataSource):
                 "total_us_congress_count",
             ],
                 value_vars=["women_any_race_us_congress_count"],
-                var_name="race_ethnicity",
+                var_name=RACE,
 
                 value_name="women_by_race_us_congress_count"
             )
 
             df_alls = df_alls[[
-                "race_ethnicity",
+                RACE,
                 std_col.TIME_PERIOD_COL,
                 std_col.STATE_FIPS_COL,
                 std_col.STATE_NAME_COL,
@@ -289,7 +289,8 @@ class CAWPTimeData(DataSource):
                 "women_by_race_us_congress_count",
             ]]
 
-            df_alls["race_ethnicity"] = "All"
+            df_alls[RACE] = "All"
+
             # calculate rates of representation for "All"
             df_alls[std_col.PCT_SHARE_OF_US_CONGRESS] = round(df_alls["women_by_race_us_congress_count"] /
                                                               df_alls["total_us_congress_count"] * 100, 1)
@@ -301,10 +302,10 @@ class CAWPTimeData(DataSource):
                 [df.drop(columns=["women_any_race_us_congress_count"]), df_alls], axis=0, ignore_index=True)
 
             # standardize race labels
-            df[std_col.RACE_CATEGORY_ID_COL] = df["race_ethnicity"].apply(
-                lambda x: CAWP_RACE_GROUPS_TO_STANDARD[x])
+            df[std_col.RACE_CATEGORY_ID_COL] = df[RACE].apply(
+                lambda x: "ALL" if x == "All" else CAWP_RACE_GROUPS_TO_STANDARD[x])
             std_col.add_race_columns_from_category_id(df)
-            df = df.drop(columns=["race_ethnicity"])
+            df = df.drop(columns=[RACE])
 
             df = df.sort_values(
                 by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL, std_col.RACE_CATEGORY_ID_COL]).reset_index(drop=True)

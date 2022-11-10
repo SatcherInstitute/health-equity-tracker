@@ -163,7 +163,8 @@ def _merge_pop(df, demo, loc):
     pop_df = gcs_to_bq_util.load_df_from_bigquery(
         'acs_population', pop_table_name, pop_dtype)
 
-    needed_cols = [on_col_map[demo], std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
+    needed_cols = [on_col_map[demo],
+                   std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
 
     if std_col.STATE_FIPS_COL in df.columns:
         needed_cols.append(std_col.STATE_FIPS_COL)
