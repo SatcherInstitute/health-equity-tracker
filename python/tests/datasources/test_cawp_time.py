@@ -80,7 +80,8 @@ def testWriteStateLevelToBq(
     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
     mock_df_state = mock_bq.call_args_list[0].args[0]
 
-    mock_df_state.to_json('state.json', orient='records')
+    for arg in mock_bq.call_args_list:
+        arg[0][0].to_json(f'cawp_data-{arg[0][2]}.json', orient="records")
 
     # print("state df sent to BQ")
     # print(mock_df_state.to_string())
