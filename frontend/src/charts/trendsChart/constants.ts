@@ -33,7 +33,7 @@ const COLOR_DOMAIN = [
   "Native American, Alaska Native, & Native Hawaiian Women",
   "Asian American & Pacific Islander Women",
   "Black or African American Women",
-  "Latina",
+  "Latinas and Hispanic Women",
   "Middle Eastern & North African Women",
   "Women of Two or more races & Unrepresented race",
   "White Women",

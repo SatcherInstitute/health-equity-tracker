@@ -170,9 +170,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 {props.isCompareCard && (
                   <Box mb={2}>
                     <Alert severity="warning" role="note">
-                      Please note that the y-axis scales to fit the largest
-                      value, requiring extra attention when making visual
-                      side-by-side comparisons.
+                      Please note that both the X and Y axes scale to the data,
+                      requiring extra attention when making visual side-by-side
+                      comparisons.
                     </Alert>
                   </Box>
                 )}
@@ -186,7 +186,13 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                       BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
                         props.breakdownVar
                       ],
-                    yAxisLabel: metricConfigRates.shortLabel,
+                    yAxisLabel: `${metricConfigRates.shortLabel} ${
+                      props.fips.isUsa() ? "" : "from"
+                    } ${
+                      props.fips.isUsa()
+                        ? ""
+                        : props.fips.getSentenceDisplayName()
+                    }`,
                     xAxisIsMonthly: metricConfigRates.isMonthly,
                   }}
                   breakdownVar={props.breakdownVar}

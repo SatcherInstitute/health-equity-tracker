@@ -1586,7 +1586,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             "Current rates of US Congress",
             "identifying as women",
           ],
-          shortLabel: "% of US congress",
+          shortLabel: "% of US congress members",
           type: "pct_share",
         },
         pct_share: {

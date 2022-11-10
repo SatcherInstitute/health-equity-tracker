@@ -67,7 +67,8 @@ class CawpProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns);
 
-    df = this.filterByTimeView(df, timeView, "2015");
+    // TODO! Figure out a way to read the latest date ? is this already in place somewhere?
+    df = this.filterByTimeView(df, timeView, "2022");
 
     df = this.renameGeoColumns(df, breakdowns);
 
