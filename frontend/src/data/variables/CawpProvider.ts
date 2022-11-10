@@ -66,7 +66,7 @@ class CawpProvider extends VariableProvider {
     let df = cawp.toDataFrame();
 
     df = this.filterByGeo(df, breakdowns);
-    df = this.filterByTimeView(df, timeView, "2022");
+    df = this.filterByTimeView(df, timeView, "2021");
 
     df = this.renameGeoColumns(df, breakdowns);
 
