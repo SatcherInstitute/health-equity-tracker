@@ -16,6 +16,7 @@ type AxisConfig = {
   type: MetricType;
   groupLabel: DemographicGroup;
   yAxisLabel?: string;
+  xAxisIsMonthly?: boolean;
 };
 
 export type {

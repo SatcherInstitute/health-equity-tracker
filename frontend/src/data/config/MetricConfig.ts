@@ -203,6 +203,7 @@ export type MetricConfig = {
   type: MetricType;
   populationComparisonMetric?: MetricConfig;
   ageAdjusted?: boolean;
+  isMonthly?: boolean;
 
   // This metric is one where the denominator only includes records where
   // demographics are known. For example, for "share of covid cases" in the US
@@ -388,6 +389,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName: "Inequitable distribution of COVID-19 cases",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
+          isMonthly: true,
         },
         per100k: {
           metricId: "covid_cases_per_100k",
@@ -400,6 +402,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           trendsCardTitleName: "Monthly COVID-19 cases per 100k people",
           shortLabel: "cases per 100k",
           type: "per100k",
+          isMonthly: true,
         },
         age_adjusted_ratio: {
           metricId: "cases_ratio_age_adjusted",
@@ -444,6 +447,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName: "Inequitable distribution of COVID-19 deaths",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
+          isMonthly: true,
         },
         per100k: {
           metricId: "covid_deaths_per_100k",
@@ -456,6 +460,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           trendsCardTitleName: "Monthly COVID-19 deaths per 100k people",
           shortLabel: "deaths per 100k",
           type: "per100k",
+          isMonthly: true,
         },
         age_adjusted_ratio: {
           metricId: "death_ratio_age_adjusted",
@@ -508,6 +513,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             "Inequitable distribution of COVID-19 hospitalizations",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
+          isMonthly: true,
         },
         per100k: {
           metricId: "covid_hosp_per_100k",
@@ -522,6 +528,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             "Monthly COVID-19 hospitalizations per 100k people",
           shortLabel: "hospitalizations per 100k",
           type: "per100k",
+          isMonthly: true,
         },
         age_adjusted_ratio: {
           metricId: "hosp_ratio_age_adjusted",

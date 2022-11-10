@@ -88,8 +88,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           metricConfigRates.metricId
         );
 
-        console.log({ ratesData });
-
         const pctShareData = queryResponsePctShares.getValidRowsForField(
           metricConfigPctShares.metricId
         );
@@ -158,6 +156,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                         props.breakdownVar
                       ],
                     yAxisLabel: metricConfigRates.shortLabel,
+                    xAxisIsMonthly: metricConfigRates.isMonthly,
                   }}
                   breakdownVar={props.breakdownVar}
                   setSelectedTableGroups={setSelectedTableGroups}

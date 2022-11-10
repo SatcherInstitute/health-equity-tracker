@@ -67,7 +67,6 @@ class CawpProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns);
 
-    console.log(df.toString());
     df = this.filterByTimeView(df, timeView, "2015");
 
     df = this.renameGeoColumns(df, breakdowns);
