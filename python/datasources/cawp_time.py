@@ -1,5 +1,5 @@
 from datasources.data_source import DataSource
-from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, STATE_LEVEL_FIPS_LIST, US_ABBR
+from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, STATE_LEVEL_FIPS_LIST, US_ABBR, US_FIPS, US_NAME
 import ingestion.standardized_columns as std_col
 from ingestion import gcs_to_bq_util, merge_utils
 from ingestion.standardized_columns import Race
@@ -60,8 +60,7 @@ class CAWPTimeData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        # for geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
-        for geo_level in [STATE_LEVEL]:
+        for geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
 
             # restrict index years to this list
             # time_periods = ["2021", "2022"]
@@ -236,22 +235,34 @@ class CAWPTimeData(DataSource):
             df = pd.merge(df, line_items_df_us_congress,
                           on=merge_cols, how="left").fillna(0)
 
+            if geo_level == NATIONAL_LEVEL:
+                df = df.groupby(
+                    ['race_ethnicity',
+                     std_col.TIME_PERIOD_COL
+                     ])[
+                    "total_us_house_count",
+                    "total_us_senate_count",
+                    "total_us_congress_count",
+                    "women_any_race_us_congress_count",
+                    "women_by_race_us_congress_count"
+                ].sum().reset_index()
+                df[std_col.STATE_FIPS_COL] = US_FIPS
+                df[std_col.STATE_NAME_COL] = US_NAME
+                df[std_col.STATE_POSTAL_COL] = US_ABBR
+
             # calculate rates of representation
             df[std_col.PCT_SHARE_OF_US_CONGRESS] = round(df["women_by_race_us_congress_count"] /
                                                          df["total_us_congress_count"] * 100, 1)
             df[std_col.PCT_SHARE_OF_WOMEN_US_CONGRESS] = round(df["women_by_race_us_congress_count"] /
                                                                df["women_any_race_us_congress_count"] * 100, 1).fillna(0)
 
+            # standardize race labels
             df[std_col.RACE_CATEGORY_ID_COL] = df["race_ethnicity"].apply(
                 lambda x: CAWP_RACE_GROUPS_TO_STANDARD[x])
-
             std_col.add_race_columns_from_category_id(df)
-
             df = df.drop(columns=["race_ethnicity"])
 
             print(df.to_string())
-
-            # need to merge in the "All" races as ROWS
 
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name)
