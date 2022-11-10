@@ -4,7 +4,10 @@ import ingestion.standardized_columns as std_col
 from ingestion import gcs_to_bq_util, merge_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
+import numpy as np
 
+FIRST_YR = 1970
+LAST_YR = 2022
 
 US_CONGRESS_CURRENT_URL = "https://theunitedstates.io/congress-legislators/legislators-current.json"
 US_CONGRESS_HISTORICAL_URL = "https://theunitedstates.io/congress-legislators/legislators-historical.json"
@@ -25,6 +28,18 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
 }
 
 RACE = "race_ethnicity"
+
+
+MISSING_FIPS_MAP = {
+    "60": {
+        std_col.STATE_POSTAL_COL: "AS",
+        std_col.STATE_NAME_COL: "American Samoa"
+    },
+    "69": {
+        std_col.STATE_POSTAL_COL: "MP",
+        std_col.STATE_NAME_COL: "Mariana Islands"
+    }
+}
 
 
 def get_postal_from_cawp_phrase(cawp_place_phrase: str):
@@ -68,7 +83,7 @@ class CAWPTimeData(DataSource):
         ]:
 
             # restrict index years to this list
-            time_periods = [str(x) for x in list(range(2010, 2020+1))]
+            time_periods = [str(x) for x in list(range(FIRST_YR, LAST_YR + 1))]
 
             # for BQ
             table_name = f'race_and_ethnicity_{geo_level}'
@@ -144,20 +159,24 @@ class CAWPTimeData(DataSource):
                 us_congress_total_count_df["total_us_house_count"]
             )
 
+            df = merge_utils.merge_state_fips_codes(df, keep_postal=True)
+
             # merge in FIPS codes
             us_congress_total_count_df = merge_utils.merge_state_fips_codes(
                 us_congress_total_count_df, keep_postal=True)
 
             # merge in calculated counts by state/year
-            merge_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]
+            merge_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL,
+                          std_col.STATE_NAME_COL, std_col.STATE_POSTAL_COL]
+
             df = pd.merge(df, us_congress_total_count_df,
-                          on=merge_cols, how="outer")
+                          on=merge_cols, how="left").fillna(0)
 
             # explode with a new row per race
             df[RACE] = [
                 list(CAWP_RACE_GROUPS_TO_STANDARD.keys())
             ] * len(df)
-            df = df.explode(RACE).fillna("")
+            df = df.explode(RACE)
 
             # load in CAWP counts of women by race by year by state
             line_items_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
@@ -175,7 +194,7 @@ class CAWPTimeData(DataSource):
             line_items_df = merge_utils.merge_state_fips_codes(
                 line_items_df, keep_postal=True)
 
-            line_items_df = line_items_df.drop(columns=["state", "state_name"])
+            line_items_df = line_items_df.drop(columns=["state"])
 
             # rename year
             line_items_df = line_items_df.rename(
@@ -191,9 +210,9 @@ class CAWPTimeData(DataSource):
 
             # count the number of women leg. per year/state regardless of race for the "All"
             line_items_alls_count_df = line_items_df_us_congress[[
-                std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL]]
+                std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, std_col.STATE_NAME_COL, std_col.TIME_PERIOD_COL]]
             line_items_alls_count_df['women_any_race_us_congress_count'] = 1
-            line_items_alls_count_df = line_items_alls_count_df.groupby([std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])[
+            line_items_alls_count_df = line_items_alls_count_df.groupby([std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, std_col.STATE_NAME_COL, std_col.TIME_PERIOD_COL])[
                 "women_any_race_us_congress_count"].count().reset_index()
 
             # explode those race lists with one row per race
@@ -203,7 +222,7 @@ class CAWPTimeData(DataSource):
             # count the number of women leg. per year/state/race
             # # TODO make this counting rows concept a util fn
             line_items_df_us_congress['women_by_race_us_congress_count'] = 1
-            line_items_df_us_congress = line_items_df_us_congress.groupby([std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, RACE, 'level', std_col.TIME_PERIOD_COL])[
+            line_items_df_us_congress = line_items_df_us_congress.groupby([std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, RACE, 'level', std_col.TIME_PERIOD_COL])[
                 "women_by_race_us_congress_count"].count().reset_index()
 
             line_items_df_us_congress = line_items_df_us_congress.drop(
@@ -211,14 +230,17 @@ class CAWPTimeData(DataSource):
 
             # merge in the ALL totals as a column here for calculations (later we merge as "ALL" rows)
             merge_cols = [std_col.TIME_PERIOD_COL,
+                          std_col.STATE_NAME_COL,
                           std_col.STATE_FIPS_COL,
                           std_col.STATE_POSTAL_COL]
             df = pd.merge(df, line_items_alls_count_df,
                           on=merge_cols, how="left").fillna(0)
 
+            # merge the individual race rows
             merge_cols = [std_col.TIME_PERIOD_COL,
                           RACE,
                           std_col.STATE_FIPS_COL,
+                          std_col.STATE_NAME_COL,
                           std_col.STATE_POSTAL_COL]
             df = pd.merge(df, line_items_df_us_congress,
                           on=merge_cols, how="left").fillna(0)
@@ -239,6 +261,7 @@ class CAWPTimeData(DataSource):
                 df[std_col.STATE_POSTAL_COL] = US_ABBR
 
             # calculate rates of representation
+
             df[std_col.PCT_SHARE_OF_US_CONGRESS] = round(df["women_by_race_us_congress_count"] /
                                                          df["total_us_congress_count"] * 100, 1)
             df[std_col.PCT_SHARE_OF_WOMEN_US_CONGRESS] = round(df["women_by_race_us_congress_count"] /
@@ -309,8 +332,6 @@ class CAWPTimeData(DataSource):
 
             df = df.sort_values(
                 by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL, std_col.RACE_CATEGORY_ID_COL]).reset_index(drop=True)
-
-            print(df.to_string())
 
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name)
