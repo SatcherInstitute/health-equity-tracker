@@ -171,7 +171,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 </Grid>
 
                 {/* 100k MAP CARD */}
-                <Grid
+                {/* <Grid
                   item
                   xs={12}
                   md={SINGLE_COLUMN_WIDTH}
@@ -187,7 +187,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     }}
                     currentBreakdown={currentBreakdown}
                   />
-                </Grid>
+                </Grid> */}
 
                 {/* RATE TRENDS LINE CHART CARD */}
                 <Grid
@@ -218,7 +218,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 </Grid>
 
                 {/* 100K BAR CHART CARD */}
-                <Grid
+                {/* <Grid
                   item
                   xs={12}
                   sm={12}
@@ -241,10 +241,10 @@ export function OneVariableReport(props: OneVariableReportProps) {
                       </Fragment>
                     ))}
                   </LazyLoad>
-                </Grid>
+                </Grid> */}
 
                 {/* UNKNOWNS MAP CARD */}
-                <Grid
+                {/* <Grid
                   item
                   xs={12}
                   sm={12}
@@ -266,10 +266,10 @@ export function OneVariableReport(props: OneVariableReportProps) {
                       />
                     )}
                   </LazyLoad>
-                </Grid>
+                </Grid> */}
 
                 {/* SHARE TRENDS LINE CHART CARD */}
-                <Grid
+                {/* <Grid
                   item
                   xs={12}
                   sm={12}
@@ -296,10 +296,10 @@ export function OneVariableReport(props: OneVariableReportProps) {
                       </Fragment>
                     ))}
                   </LazyLoad>
-                </Grid>
+                </Grid> */}
 
                 {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
-                <Grid
+                {/* <Grid
                   item
                   xs={12}
                   sm={12}
@@ -322,10 +322,10 @@ export function OneVariableReport(props: OneVariableReportProps) {
                       </Fragment>
                     ))}
                   </LazyLoad>
-                </Grid>
+                </Grid> */}
 
                 {/* DATA TABLE CARD */}
-                <Grid
+                {/* <Grid
                   item
                   xs={12}
                   md={SINGLE_COLUMN_WIDTH}
@@ -346,7 +346,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                       </Fragment>
                     ))}
                   </LazyLoad>
-                </Grid>
+                </Grid> */}
 
                 {/* AGE ADJUSTED TABLE CARD */}
                 {variableConfig.metrics.age_adjusted_ratio.ageAdjusted && (
