@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
+import AnimateHeight from "react-animate-height";
+import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
+import { IconButton } from "@material-ui/core";
 import { Box, CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -28,6 +32,7 @@ import { EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK } from "../utils/internalR
 import { HashLink } from "react-router-hash-link";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import styles from "./ui/HighestLowestList.module.scss";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -47,6 +52,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const [selectedTableGroups, setSelectedTableGroups] = useState<string[]>([]);
 
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
+  const [unknownsExpanded, setUnknownsExpanded] = useState(false);
 
   const metricConfigRates = props.variableConfig.metrics["per100k"];
   const metricConfigPctShares = props.variableConfig.metrics["pct_share"];
@@ -145,6 +151,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     </Alert>
                   </Box>
                 )}
+
                 <TrendsChart
                   data={nestedRatesData}
                   chartTitle={getTitleText()}
@@ -160,21 +167,52 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   breakdownVar={props.breakdownVar}
                   setSelectedTableGroups={setSelectedTableGroups}
                   isCompareCard={props.isCompareCard || false}
+                  expanded={unknownsExpanded}
+                  setExpanded={setUnknownsExpanded}
                 />
 
-                <CardContent>
-                  <Alert severity="info" role="note">
-                    Missing and unknown data impacts Health Equity. The{" "}
-                    <b>percent unknown</b>{" "}
-                    {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]}{" "}
-                    bubbles we show along the bottom of the time series charts
-                    demonstrate prevalence of unknown demographic data at the
-                    time reported. Learn more about{" "}
-                    <HashLink to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
-                      what data are missing.
-                    </HashLink>{" "}
-                  </Alert>
-                </CardContent>
+                <AnimateHeight
+                  duration={10}
+                  height={unknownsExpanded ? "auto" : 47}
+                  onAnimationEnd={() =>
+                    window.dispatchEvent(new Event("resize"))
+                  }
+                  className={styles.ListBox}
+                >
+                  <span className={styles.HideOnMobile}>See unknowns</span>
+                  <div className={styles.CollapseButton}>
+                    <IconButton
+                      aria-label={
+                        unknownsExpanded
+                          ? `hide lists of with highest and lowest rates `
+                          : `show lists of with highest and lowest rates`
+                      }
+                      onClick={() => setUnknownsExpanded(!unknownsExpanded)}
+                      color="primary"
+                    >
+                      {unknownsExpanded ? <ArrowDropUp /> : <ArrowDropDown />}
+                    </IconButton>
+                    <CardContent>
+                      <Alert severity="info" role="note">
+                        Missing and unknown data impacts Health Equity. The{" "}
+                        <b>percent unknown</b>{" "}
+                        {
+                          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                            props.breakdownVar
+                          ]
+                        }{" "}
+                        bubbles we show along the bottom of the time series
+                        charts demonstrate prevalence of unknown demographic
+                        data at the time reported. Learn more about{" "}
+                        <HashLink
+                          to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}
+                        >
+                          what data are missing.
+                        </HashLink>{" "}
+                      </Alert>
+                    </CardContent>
+                  </div>
+                </AnimateHeight>
 
                 <AltTableView
                   expanded={a11yTableExpanded}

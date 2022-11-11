@@ -56,6 +56,8 @@ export interface TrendsChartProps {
   breakdownVar: BreakdownVar;
   setSelectedTableGroups: Function;
   isCompareCard: boolean;
+  expanded: boolean;
+  setExpanded: (expanded: boolean) => void;
 }
 
 /* Render component */
@@ -67,6 +69,8 @@ export function TrendsChart({
   breakdownVar,
   setSelectedTableGroups,
   isCompareCard,
+  expanded,
+  setExpanded,
 }: TrendsChartProps) {
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
@@ -144,8 +148,8 @@ export function TrendsChart({
 
   // Display unknowns or not - affects margin below line chart
   const showUnknowns = useMemo(
-    () => unknown && unknown.find(([, percent]) => percent > 0),
-    [unknown]
+    () => expanded && unknown && unknown.find(([, percent]) => percent > 0),
+    [unknown, expanded]
   );
 
   // Margin below line chart - create space for unknown circles
