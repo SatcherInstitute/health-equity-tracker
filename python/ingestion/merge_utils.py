@@ -5,26 +5,6 @@ import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
 
 
-def merge_state_names(df):
-    """Merges standardized state/territory names by state FIPS code found in the `census_utility`
-     big query public dataset into an existing state level dataframe. Any existing
-    'state_name' data in the incoming df will be overwritten.
-
-    Parameters:
-        df: state-level dataframe with a 'state_fips' column containing 2-digit FIPS code strings
-    Returns:
-        The same df with 'state_name' column filled with standardized state names"""
-
-    if std_col.STATE_FIPS_COL not in df.columns:
-        raise ValueError(
-            'Dataframe must be a state-level table with a `state_fips` column containing 2 digit FIPS strings.' +
-            f'This dataframe only contains these columns: {list(df.columns)}')
-    all_state_names = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
-        'census_utility', 'fips_codes_all', dtype={'state_fips_code': str, 'county_fips_code': str})
-    print(all_state_names)
-    return df
-
-
 def merge_county_names(df):
     """Merges standardized county names by county FIPS code found in the `census_utility`
      big query public dataset into an existing county level dataframe. Any existing
