@@ -6,7 +6,7 @@ from ingestion.standardized_columns import Race
 import pandas as pd
 import numpy as np
 
-FIRST_YR = 1917
+FIRST_YR = 2019
 LAST_YR = 2022
 
 US_CONGRESS_CURRENT_URL = "https://theunitedstates.io/congress-legislators/legislators-current.json"
@@ -30,21 +30,14 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
 RACE = "race_ethnicity"
 
 
-MISSING_FIPS_MAP = {
-    "60": {
-        std_col.STATE_POSTAL_COL: "AS",
-        std_col.STATE_NAME_COL: "American Samoa"
-    },
-    "69": {
-        std_col.STATE_POSTAL_COL: "MP",
-        std_col.STATE_NAME_COL: "Mariana Islands"
-    }
-}
-
-
 def get_postal_from_cawp_phrase(cawp_place_phrase: str):
-    """ Accepts a CAWP place phrase found in the LINE ITEM table
+    """ Swap CAWP place phrase found in the LINE ITEM table
     `{STATE_COL_LINE NAME} - {CODE}` with the standard 2 letter code
+
+    Parameters:
+        cawp_place_phrase: str
+    Returns: 
+        string of standard 2-letter postal code
      """
 
     # swap out non-standard 2 letter codes
@@ -124,8 +117,11 @@ class CAWPTimeData(DataSource):
 
                         year = str(year)
 
+                        full_name = f'{term["type"].capitalize()}. {legislator["name"]["first"]} {legislator["name"]["last"]}'
+
                         entry = {
                             "id": legislator["id"]["govtrack"],
+                            "name": full_name,
                             "type": term["type"],
                             std_col.STATE_POSTAL_COL: term["state"],
                             std_col.TIME_PERIOD_COL: year
@@ -139,19 +135,35 @@ class CAWPTimeData(DataSource):
             us_congress_total_count_df = pd.DataFrame.from_dict(
                 us_congress_totals_list_of_dict)
 
+            merge_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL]
+
+            # summarize US House by total count of members and a list of their names
             us_house_total_count_df = us_congress_total_count_df[
                 us_congress_total_count_df["type"] == "rep"]
             us_house_total_count_df["total_us_house_count"] = 1
-            us_house_total_count_df = us_house_total_count_df.groupby(
+            us_house_total_count_df_summed = us_house_total_count_df.groupby(
                 [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])["total_us_house_count"].count().reset_index()
+            us_house_total_count_df_names_listed = us_house_total_count_df.groupby(
+                [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])["name"].apply(list).reset_index()
+            us_house_total_count_df = pd.merge(
+                us_house_total_count_df_summed, us_house_total_count_df_names_listed, on=merge_cols)
+            us_house_total_count_df = us_house_total_count_df.rename(columns={
+                "name": "house_names"})
 
+            # summarize US House by total count of members and a list of their names
             us_senate_total_count_df = us_congress_total_count_df[
                 us_congress_total_count_df["type"] == "sen"]
             us_senate_total_count_df["total_us_senate_count"] = 1
-            us_senate_total_count_df = us_senate_total_count_df.groupby(
+            us_senate_total_count_df_summed = us_senate_total_count_df.groupby(
                 [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])["total_us_senate_count"].count().reset_index()
+            us_senate_total_count_df_names_listed = us_senate_total_count_df.groupby(
+                [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])["name"].apply(list).reset_index()
+            us_senate_total_count_df = pd.merge(
+                us_senate_total_count_df_summed, us_senate_total_count_df_names_listed, on=merge_cols)
+            us_senate_total_count_df = us_senate_total_count_df.rename(columns={
+                "name": "senate_names"})
 
-            merge_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL]
+            # combine HOUSE + SENATE into CONGRESS
             us_congress_total_count_df = pd.merge(
                 us_house_total_count_df, us_senate_total_count_df, on=merge_cols, how="outer").fillna(0)
             us_congress_total_count_df["total_us_congress_count"] = (
@@ -159,10 +171,11 @@ class CAWPTimeData(DataSource):
                 us_congress_total_count_df["total_us_house_count"]
             )
 
-            df = merge_utils.merge_state_fips_codes(df, keep_postal=True)
+            # merge in FIPS codes
+            df = merge_utils.merge_state_ids(df, keep_postal=True)
 
             # merge in FIPS codes
-            us_congress_total_count_df = merge_utils.merge_state_fips_codes(
+            us_congress_total_count_df = merge_utils.merge_state_ids(
                 us_congress_total_count_df, keep_postal=True)
 
             # merge in calculated counts by state/year
@@ -191,7 +204,7 @@ class CAWPTimeData(DataSource):
                 get_postal_from_cawp_phrase)
 
             # merge in FIPS codes
-            line_items_df = merge_utils.merge_state_fips_codes(
+            line_items_df = merge_utils.merge_state_ids(
                 line_items_df, keep_postal=True)
 
             line_items_df = line_items_df.drop(columns=["state"])

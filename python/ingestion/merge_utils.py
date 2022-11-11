@@ -70,23 +70,32 @@ def merge_county_names(df):
     return df
 
 
-def merge_state_fips_codes(df, keep_postal=False):
-    """Merges in the `state_fips` column into a dataframe, based on the
-       `census_utility` big query public dataset. Used when the source contains
-       state names or postal codes but not state FIPS codes
+def merge_state_ids(df, keep_postal=False):
+    """Accepts a df that may be lacking state info (like names, FIPS codes or postal codes)
+    and merges in the missing columns based on the
+       `census_utility` big query public dataset. 
 
     Parameters:
-       df: dataframe to merge fips codes into, with a `state_name` or`state_postal`
+       df: dataframe to missing info into, with at least one of the following columns:
+        `state_name`, `state_postal`, `state_fips`
        keep_postal: if True, keeps the `state_postal` column, default False
     Returns:
-        the same df with a 'state_fips' column containing 2-digit string FIPS codes
+        the same df with a 'state_fips' column containing 2-digit string FIPS codes, 
+        a 'state_name' columns containing the standardize name, 
+        and optionally a 'state_postal' columns with the 2-letter postal codes
     """
 
-    # if std_col.STATE_NAME_COL not in df.columns and std_col.STATE_POSTAL_COL not in df.columns:
-    #     raise ValueError(
-    #         'Dataframe must be a state-level table with a `state_name` or `state_postal`' +
-    #         'column containing 2 digit FIPS strings.' +
-    #         f'This dataframe only contains these columns: {list(df.columns)}')
+    if (
+        std_col.STATE_NAME_COL not in df.columns and
+        std_col.STATE_POSTAL_COL not in df.columns and
+        std_col.STATE_FIPS_COL not in df.columns
+    ):
+        raise ValueError(
+            'Dataframe must be a state-level table ' +
+            'with at least one of the following columns: ' +
+            '`state_name`, `state_fips` (2 digit FIPS strings), ' +
+            ' or `state_postal` containing 2 digit FIPS strings.' +
+            f'This dataframe only contains these columns: {list(df.columns)}')
 
     all_fips_codes_df = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
         'census_utility', 'fips_codes_states', dtype={'state_fips_code': str})
