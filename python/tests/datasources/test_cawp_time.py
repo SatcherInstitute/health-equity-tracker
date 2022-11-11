@@ -63,7 +63,7 @@ def _get_test_line_items_csv_as_df(*args):
              side_effect=_fetch_json_from_web)
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
-def testWriteStateLevelToBq(
+def testWriteToBq(
     mock_bq: mock.MagicMock,
     mock_web_json: mock.MagicMock,
     mock_fips: mock.MagicMock,
