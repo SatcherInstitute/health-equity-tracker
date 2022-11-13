@@ -72,7 +72,7 @@ class CAWPTimeData(DataSource):
 
         for geo_level in [
             STATE_LEVEL,
-            NATIONAL_LEVEL
+            # NATIONAL_LEVEL
         ]:
 
             # restrict index years to this list
@@ -163,12 +163,17 @@ class CAWPTimeData(DataSource):
             )
 
             # get names of all TOTAL members in lists per row
+
             us_congress_total_names_listed = us_congress_total_count_df.groupby(
                 [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])["name"].apply(list).reset_index()
+            us_congress_total_names_listed = us_congress_total_names_listed.rename(columns={
+                "name": "congress_names_all"})
+
             us_congress_total_count_df = pd.merge(
                 us_congress_total_count_df, us_congress_total_names_listed, on=merge_cols)
-            us_congress_total_count_df = us_congress_total_count_df.rename(columns={
-                "name": "congress_names_all"})
+
+            us_congress_total_count_df = us_congress_total_count_df.drop(
+                columns=["name", "type", "id"])
 
             # merge in FIPS codes to the scaffold df
             df = merge_utils.merge_state_ids(df, keep_postal=True)
@@ -232,7 +237,8 @@ class CAWPTimeData(DataSource):
 
             # line_items_df_us_congress_name_lists = line_items_df_us_congress.groupby(
             #     [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])["name"].apply(list).reset_index()
-
+            # line_items_df_us_congress_name_lists = line_items_df_us_congress_name_lists.rename(columns={
+            #     "name": "congress_names_women"})
             # print(line_items_df_us_congress_name_lists)
 
             # count the number of women leg. per year/state regardless of race for the "All"
@@ -247,19 +253,29 @@ class CAWPTimeData(DataSource):
                 RACE).reset_index(drop=True)
 
             # count the number of women leg. per year/state/race
-            # # TODO make this counting rows concept a util fn
-            line_items_df_us_congress_counts_per_race = line_items_df_us_congress[
-                "women_by_race_us_congress_count",
+            # # # TODO make this counting rows concept a util fn
+            line_items_df_us_congress_counts_per_race = line_items_df_us_congress[[
                 "time_period",
                 std_col.STATE_NAME_COL,
                 std_col.STATE_FIPS_COL,
                 std_col.STATE_POSTAL_COL,
-                RACE
-            ]
+                RACE,
+                "level"
+            ]]
 
             line_items_df_us_congress_counts_per_race['women_by_race_us_congress_count'] = 1
-            line_items_df_us_congress_counts_per_race = line_items_df_us_congress_counts_per_race.groupby([std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, RACE, 'level', std_col.TIME_PERIOD_COL])[
+            line_items_df_us_congress_counts_per_race = line_items_df_us_congress_counts_per_race.groupby([
+                std_col.STATE_NAME_COL,
+                std_col.STATE_FIPS_COL,
+                std_col.STATE_POSTAL_COL,
+                RACE,
+                'level',
+                std_col.TIME_PERIOD_COL,
+            ])[
                 "women_by_race_us_congress_count"].count().reset_index()
+
+            line_items_df_us_congress = line_items_df_us_congress.drop(
+                'level', axis="columns")
 
             merge_cols = [std_col.TIME_PERIOD_COL,
                           std_col.STATE_NAME_COL,
@@ -268,22 +284,25 @@ class CAWPTimeData(DataSource):
             df = pd.merge(
                 df, line_items_df_us_congress_counts_per_race, on=merge_cols)
 
-            print(df)
-
             # combine names by race for WOMEN legislators
             line_items_df_us_congress_name_lists_by_race = line_items_df_us_congress.groupby(
                 [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL, RACE])["name"].apply(list).reset_index()
+            line_items_df_us_congress_name_lists_by_race = line_items_df_us_congress_name_lists_by_race.rename(columns={
+                "name": "congress_names_women"})
 
-            line_items_df_us_congress = line_items_df_us_congress.drop(
-                'level', axis="columns")
+            # print(line_items_alls_count_df)
 
             # merge in the ALL totals as a column here for calculations (later we merge as "ALL" rows)
             merge_cols = [std_col.TIME_PERIOD_COL,
                           std_col.STATE_NAME_COL,
                           std_col.STATE_FIPS_COL,
-                          std_col.STATE_POSTAL_COL]
+                          std_col.STATE_POSTAL_COL,
+                          RACE
+                          ]
             df = pd.merge(df, line_items_alls_count_df,
                           on=merge_cols, how="left").fillna(0)
+
+            print(df)
 
             # merge the individual race rows
             merge_cols = [std_col.TIME_PERIOD_COL,
