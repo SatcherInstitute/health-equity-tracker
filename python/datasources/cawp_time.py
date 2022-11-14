@@ -4,7 +4,6 @@ import ingestion.standardized_columns as std_col
 from ingestion import gcs_to_bq_util, merge_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
-import numpy as np
 
 FIRST_YR = 1917
 LAST_YR = 2022
@@ -21,13 +20,11 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
     'Asian American/Pacific Islander': Race.ASIAN_PAC.value,
     'Latina': Race.HISP.value,
     'Middle Eastern/North African': Race.MENA.value,
-    # MULTI = "Multiracial Alone" + women w multiple specific races
-    'Multiracial Alone': Race.MULTI_OR_OTHER_STANDARD.value,
+    'Multiracial Alone': Race.MULTI_ALONE_OR_OTHER.value,
     'Native American/Alaska Native/Native Hawaiian': Race.AIANNH.value,
     'Black': Race.BLACK.value,
     'White': Race.WHITE.value,
     'Unavailable': Race.UNKNOWN.value,
-    # 'All': Race.ALL.value
 }
 
 POSITION_LABELS = {
@@ -79,21 +76,20 @@ class CAWPTimeData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
+        df_base = scaffold_df_by_year_by_state()
+        df_base = merge_us_congress_totals(df_base)
+        df_base = merge_us_congress_women_by_race(df_base)
+
+        # TODO confirm new MULTI behavior and that UNKNOWN are being combined
+
         for geo_level in [
             STATE_LEVEL,
             NATIONAL_LEVEL
         ]:
+            df = df_base.copy()
 
             # for BQ
             table_name = f'race_and_ethnicity_{geo_level}'
-
-            df = scaffold_df_by_year_by_state()
-
-            df = merge_us_congress_totals(df)
-
-            df = merge_us_congress_women_by_race(df)
-
-            # TODO calculate the multiple races as MULTI ALONE + WOMEN WHO SELECTED MULTIPLE RACES
 
             if geo_level == NATIONAL_LEVEL:
                 df = combine_states_to_national(df)
@@ -319,7 +315,7 @@ def merge_us_congress_women_by_race(df):
         'women_all_races_us_congress_names'
     ]], on=merge_cols)
 
-    # later we will again merge the ALL WOMEN data as ALL RACE rows
+    # later we will again merge the ALL WOMEN data as ALL RACE rows and the MULTIPLE RACE WOMEN as MULTI rows
 
     # explode those race lists with one row per race
     line_items_df_us_congress = line_items_df_us_congress.explode(
@@ -363,8 +359,13 @@ def merge_us_congress_women_by_race(df):
     line_items_df_us_congress["women_all_races_us_congress_names"] = line_items_df_us_congress["women_all_races_us_congress_names"].map(
         list)
 
+    # add in the ALL RACE rows
     line_items_df_us_congress = pd.concat(
         [line_items_df_us_congress, line_items_df_us_congress_alls_df], ignore_index=True)
+
+    # # add in the MULTIPLE RACE rows
+    # line_items_df_us_congress = pd.concat(
+    #     [line_items_df_us_congress, line_items_df_us_congress_multi_df], ignore_index=True)
 
     # explode incoming df with totals to include rows per race incl. All, (per state per year)
     races_including_all = list(
