@@ -28,8 +28,6 @@ import {
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
 import AltTableView from "./ui/AltTableView";
-import { EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK } from "../utils/internalRoutes";
-import { HashLink } from "react-router-hash-link";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import styles from "./ui/HighestLowestList.module.scss";
