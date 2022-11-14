@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 import Switch from "@material-ui/core/Switch";
-import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
-import AnimateHeight from "react-animate-height";
-import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
-import { IconButton } from "@material-ui/core";
 import { Box, CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -31,7 +27,6 @@ import { Alert } from "@material-ui/lab";
 import AltTableView from "./ui/AltTableView";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
-import styles from "./ui/HighestLowestList.module.scss";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
