@@ -8,7 +8,7 @@ import numpy as np
 
 
 # restrict index years to this list
-TIME_PERIODS = [str(x) for x in list(range(2019, 2022 + 1))]
+TIME_PERIODS = [str(x) for x in list(range(2017, 2022 + 1))]
 
 US_CONGRESS_CURRENT_URL = "https://theunitedstates.io/congress-legislators/legislators-current.json"
 US_CONGRESS_HISTORICAL_URL = "https://theunitedstates.io/congress-legislators/legislators-historical.json"
@@ -80,10 +80,12 @@ class CAWPTimeData(DataSource):
             table_name = f'race_and_ethnicity_{geo_level}'
 
             df = scaffold_df_by_year_by_state()
+
             df = merge_us_congress_totals(df)
-            # print(df)
 
             df = merge_us_congress_women_by_race(df)
+
+            # TODO calculate the multiple races as MULTI ALONE + WOMEN WHO SELECTED MULTIPLE RACES
 
             # if geo_level == NATIONAL_LEVEL:
             #     df_national_sum = df.groupby(
@@ -107,9 +109,9 @@ class CAWPTimeData(DataSource):
 
             #     # create national list of lists of names
             #     df_national_listed_congress_names = df.groupby(
-            #         [std_col.TIME_PERIOD_COL, RACE])["congress_names_all"].apply(list).reset_index()
+            #         [std_col.TIME_PERIOD_COL, RACE])["total_us_congress_names"].apply(list).reset_index()
             #     # flatten lists of lists
-            #     df_national_listed_congress_names["congress_names_all"] = df_national_listed_congress_names["congress_names_all"].apply(
+            #     df_national_listed_congress_names["total_us_congress_names"] = df_national_listed_congress_names["total_us_congress_names"].apply(
             #         lambda nested_list: [item for sublist in nested_list for item in sublist])
 
             #     df = pd.merge(df_national_sum, df_national_listed_congress_names,
@@ -128,13 +130,14 @@ class CAWPTimeData(DataSource):
             df[std_col.PCT_SHARE_OF_WOMEN_US_CONGRESS] = round(df["women_this_race_us_congress_count"] /
                                                                df["women_this_race_us_congress_count"] * 100, 1).fillna(0)
 
+            # the ALL WOMEN NAMES are already stored as THIS RACE NAMES for the ALL rows so we can drop to save filesize and complexity
+            df = df.drop(columns=["women_all_races_us_congress_names"])
+
             # only keep lists of ALL MEMBERS and ALL WOMEN on the ALL ROWS
             # only keep the lists of WOMEN BY RACE on the RACE ROWS (not the ALLS)
-            df.loc[df[RACE] == "All", "women_this_race_us_congress_names"] = np.nan
             df.loc[df[RACE] != "All", [
-                "women_all_races_us_congress_names",
-                "congress_names_all"
-            ]] = np.nan
+                "total_us_congress_names"
+            ]] = "see ALL row for this YEAR & STATE"
 
             # standardize race labels
             df[std_col.RACE_CATEGORY_ID_COL] = df[RACE].apply(
@@ -144,8 +147,6 @@ class CAWPTimeData(DataSource):
 
             df = df.sort_values(
                 by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL, std_col.RACE_CATEGORY_ID_COL]).reset_index(drop=True)
-
-            print(df.to_string())
 
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name)
@@ -208,9 +209,7 @@ def merge_us_congress_totals(df):
             for year in term_years:
 
                 year = str(year)
-
                 full_name = f'{term["type"].capitalize()}. {legislator["name"]["first"]} {legislator["name"]["last"]}'
-
                 entry = {
                     "id": legislator["id"]["govtrack"],
                     "name": full_name,
@@ -224,60 +223,26 @@ def merge_us_congress_totals(df):
                     us_congress_totals_list_of_dict.append(entry)
 
     # convert to df
-    us_congress_total_count_df = pd.DataFrame.from_dict(
+    us_congress_df = pd.DataFrame.from_dict(
         us_congress_totals_list_of_dict)
 
-    merge_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL]
-
-    # summarize US House by total count of members and a list of their names
-    us_house_total_count_df = us_congress_total_count_df[
-        us_congress_total_count_df["type"] == "rep"]
-    us_house_total_count_df["total_us_house_count"] = 1
-    us_house_total_count_df_summed = us_house_total_count_df.groupby(
-        [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])["total_us_house_count"].count().reset_index()
-
-    # summarize US House by total count of members and a list of their names
-    us_senate_total_count_df = us_congress_total_count_df[
-        us_congress_total_count_df["type"] == "sen"]
-    us_senate_total_count_df["total_us_senate_count"] = 1
-    us_senate_total_count_df_summed = us_senate_total_count_df.groupby(
-        [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])["total_us_senate_count"].count().reset_index()
-
-    # combine HOUSE + SENATE counts
-    us_congress_total_count_df = pd.merge(
-        us_congress_total_count_df, us_house_total_count_df_summed, on=merge_cols, how="outer").fillna(0)
-    us_congress_total_count_df = pd.merge(
-        us_congress_total_count_df, us_senate_total_count_df_summed, on=merge_cols, how="outer").fillna(0)
-
-    us_congress_total_count_df["total_us_congress_count"] = (
-        us_congress_total_count_df["total_us_senate_count"] +
-        us_congress_total_count_df["total_us_house_count"]
-    )
-
     # get names of all TOTAL members in lists per row
-
-    us_congress_total_names_listed = us_congress_total_count_df.groupby(
+    us_congress_df = us_congress_df.groupby(
         [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])["name"].apply(list).reset_index()
-    us_congress_total_names_listed = us_congress_total_names_listed.rename(columns={
-        "name": "congress_names_all"})
+    us_congress_df = us_congress_df.rename(columns={
+        "name": "total_us_congress_names"})
+    # get counts of all TOTAL members in lists per row
+    us_congress_df["total_us_congress_count"] = us_congress_df["total_us_congress_names"].apply(
+        lambda list: len(list))
 
-    us_congress_total_count_df = pd.merge(
-        us_congress_total_count_df, us_congress_total_names_listed, on=merge_cols)
-
-    us_congress_total_count_df = us_congress_total_count_df.drop(
-        columns=["name", "type", "id"])
-
-    # merge in FIPS codes to the CONGRESS TOTALS df
-    us_congress_total_count_df = merge_utils.merge_state_ids(
-        us_congress_total_count_df, keep_postal=True)
-
-    # merge in calculated counts by state/year where they exist;
-    # fill with 0 counts where no info available
-    merge_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL,
-                  std_col.STATE_NAME_COL, std_col.STATE_POSTAL_COL]
-
-    df = pd.merge(df, us_congress_total_count_df,
-                  on=merge_cols, how="left").fillna(0)
+    # merge in calculated counts and name lists by state/year where they exist;
+    df = pd.merge(df, us_congress_df,
+                  on=[std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL], how="left")
+    # fill counts with 0 and names with empty string where no info available
+    df["total_us_congress_count"] = df["total_us_congress_count"].fillna(
+        0)
+    df["total_us_congress_names"] = df["total_us_congress_names"].fillna(
+        "")
 
     return df
 
@@ -417,17 +382,10 @@ def merge_us_congress_women_by_race(df):
     line_items_df_us_congress["women_all_races_us_congress_names"] = line_items_df_us_congress["women_all_races_us_congress_names"].map(
         list)
 
-    # combine line items BY RACE with line item ROWS for ALL RACES calculated earlier
-    # print("race")
-    # print(line_items_df_us_congress)
-    # print("all")
-    # print(line_items_df_us_congress_alls_df)
-
     line_items_df_us_congress = pd.concat(
         [line_items_df_us_congress, line_items_df_us_congress_alls_df], ignore_index=True)
 
     # explode incoming df with totals to include rows per race incl. All, (per state per year)
-
     races_including_all = list(
         CAWP_RACE_GROUPS_TO_STANDARD.keys()) + ["All"]
     df[RACE] = [races_including_all] * len(df)
@@ -444,7 +402,7 @@ def merge_us_congress_women_by_race(df):
     df = pd.merge(
         df, line_items_df_us_congress, on=merge_cols, how="left")
 
-    # state/race/years with NO WOMEN should have counts as zero and names as empty string, not null
+    # state/race/years with NO WOMEN should have counts as zero and names as empty string
     df["women_this_race_us_congress_count"] = df["women_this_race_us_congress_count"].fillna(
         0)
     df["women_all_races_us_congress_count"] = df["women_all_races_us_congress_count"].fillna(
