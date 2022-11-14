@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Switch from "@material-ui/core/Switch";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import AnimateHeight from "react-animate-height";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
@@ -79,6 +80,10 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   const HASH_ID: ScrollableHashId = "rates-over-time";
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label;
+
+  const changeUnknownState = () => {
+    setUnknownsExpanded(!unknownsExpanded);
+  };
 
   return (
     <CardWrapper
@@ -169,30 +174,12 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   setExpanded={setUnknownsExpanded}
                 />
 
-                <AnimateHeight
-                  duration={10}
-                  height={unknownsExpanded ? "auto" : 47}
-                  onAnimationEnd={() =>
-                    window.dispatchEvent(new Event("resize"))
-                  }
-                  className={styles.ListBox}
-                >
-                  <div className={styles.CollapseButton}>
-                    <IconButton
-                      aria-label={
-                        unknownsExpanded
-                          ? `hide lists of with highest and lowest rates `
-                          : `show lists of with highest and lowest rates`
-                      }
-                      onClick={() => setUnknownsExpanded(!unknownsExpanded)}
-                      color="primary"
-                    >
-                      {unknownsExpanded ? <ArrowDropUp /> : <ArrowDropDown />}
-                    </IconButton>
-                  </div>
+                <Switch
+                  checked={unknownsExpanded}
+                  onChange={changeUnknownState}
+                />
+                <text>Show unknowns</text>
 
-                  <span className={styles.HideOnMobile}>See unknowns</span>
-                </AnimateHeight>
                 <AltTableView
                   expanded={a11yTableExpanded}
                   setExpanded={setA11yTableExpanded}
