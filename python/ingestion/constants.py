@@ -9,6 +9,10 @@ STATE_LEVEL_FIPS_LIST = [
     "66", "69", "72", "78"
 ]
 
+TERRITORY_POSTALS = [
+    "PR", "VI", "GU", "AS", "MP", "DC"
+]
+
 
 COUNTY_EQUIVALENT_FIPS_MAP = {
     "60010": "Eastern District",
