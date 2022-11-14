@@ -17,6 +17,11 @@ import React, {
 } from "react";
 import { scaleTime, scaleLinear, extent, min, max, bisector } from "d3";
 
+import { EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK } from "../../utils/internalRoutes";
+import { HashLink } from "react-router-hash-link";
+import { CardContent } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
+
 /* Local Imports */
 
 /* Components */
@@ -42,7 +47,10 @@ import {
   filterUnknownsByTimePeriod,
 } from "./helpers";
 import { MOBILE_BREAKPOINT } from "../../App";
-import { BreakdownVar } from "../../data/query/Breakdowns";
+import {
+  BreakdownVar,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+} from "../../data/query/Breakdowns";
 import useEscape from "../../utils/hooks/useEscape";
 import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
 import { useFontSize } from "../../utils/hooks/useFontSize";
@@ -312,62 +320,83 @@ export function TrendsChart({
       </div>
       {/* Chart */}
       {filteredData && xScale && yScale && (
-        <svg
-          height={CONFIG.HEIGHT}
-          width={width as number}
-          onMouseMove={handleMousemove}
-          onMouseLeave={() => setHoveredDate(null)}
-          role="group"
-          aria-labelledby={chartTitleId}
-        >
-          {/* Chart Axes */}
-          <Axes
-            data={filteredData}
-            xScale={xScale}
-            yScale={yScale}
+        <>
+          <svg
+            height={CONFIG.HEIGHT}
             width={width as number}
-            marginBottom={marginBottom}
-            marginLeft={marginLeft}
-            marginRight={marginRight}
-            axisConfig={axisConfig}
-            isSkinny={isSkinny}
-          />
-          {/* Lines */}
-          <LineChart
-            data={filteredData}
-            xScale={xScale}
-            yScale={yScale}
-            valuesArePct={axisConfig.type === "pct_share"}
-          />
-          {/* Group for hover indicator line and circles */}
-          <g
-            className={styles.Indicators}
-            // transform group to hovered x position
-            style={{
-              transform: `translateX(${xScale(new Date(hoveredDate || ""))}px)`,
-              opacity: hoveredDate ? 1 : 0,
-            }}
+            onMouseMove={handleMousemove}
+            onMouseLeave={() => setHoveredDate(null)}
+            role="group"
+            aria-labelledby={chartTitleId}
           >
-            <line y1={HEIGHT - marginBottom} y2={MARGIN.top} x1={0} x2={0} />
-            <HoverCircles
+            {/* Chart Axes */}
+            <Axes
               data={filteredData}
-              selectedDate={hoveredDate}
-              yScale={yScale}
-            />
-          </g>
-          {/* Only render unknown group circles when there is data for which the group is unknown */}
-          {showUnknowns && (
-            <CircleChart
-              data={filterUnknownsByTimePeriod(unknown, dates)}
               xScale={xScale}
-              width={width}
+              yScale={yScale}
+              width={width as number}
+              marginBottom={marginBottom}
+              marginLeft={marginLeft}
+              marginRight={marginRight}
+              axisConfig={axisConfig}
               isSkinny={isSkinny}
-              groupLabel={groupLabel}
-              selectedDate={hoveredDate}
-              circleId={`${axisConfig.type}-${isCompareCard ? "b" : "a"}`}
             />
+            {/* Lines */}
+            <LineChart
+              data={filteredData}
+              xScale={xScale}
+              yScale={yScale}
+              valuesArePct={axisConfig.type === "pct_share"}
+            />
+            {/* Group for hover indicator line and circles */}
+            <g
+              className={styles.Indicators}
+              // transform group to hovered x position
+              style={{
+                transform: `translateX(${xScale(
+                  new Date(hoveredDate || "")
+                )}px)`,
+                opacity: hoveredDate ? 1 : 0,
+              }}
+            >
+              <line y1={HEIGHT - marginBottom} y2={MARGIN.top} x1={0} x2={0} />
+              <HoverCircles
+                data={filteredData}
+                selectedDate={hoveredDate}
+                yScale={yScale}
+              />
+            </g>
+            {/* Only render unknown group circles when there is data for which the group is unknown */}
+            {showUnknowns && (
+              <>
+                <CircleChart
+                  data={filterUnknownsByTimePeriod(unknown, dates)}
+                  xScale={xScale}
+                  width={width}
+                  isSkinny={isSkinny}
+                  groupLabel={groupLabel}
+                  selectedDate={hoveredDate}
+                  circleId={`${axisConfig.type}-${isCompareCard ? "b" : "a"}`}
+                />
+              </>
+            )}
+          </svg>
+          {showUnknowns && (
+            <CardContent>
+              <Alert severity="info" role="note">
+                Missing and unknown data impacts Health Equity. The{" "}
+                <b>percent unknown</b>{" "}
+                {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[breakdownVar]} bubbles
+                we show along the bottom of the time series charts demonstrate
+                prevalence of unknown demographic data at the time reported.
+                Learn more about{" "}
+                <HashLink to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
+                  what data are missing.
+                </HashLink>{" "}
+              </Alert>
+            </CardContent>
           )}
-        </svg>
+        </>
       )}
     </figure>
   );

@@ -179,7 +179,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   }
                   className={styles.ListBox}
                 >
-                  <span className={styles.HideOnMobile}>See unknowns</span>
                   <div className={styles.CollapseButton}>
                     <IconButton
                       aria-label={
@@ -192,28 +191,10 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     >
                       {unknownsExpanded ? <ArrowDropUp /> : <ArrowDropDown />}
                     </IconButton>
-                    <CardContent>
-                      <Alert severity="info" role="note">
-                        Missing and unknown data impacts Health Equity. The{" "}
-                        <b>percent unknown</b>{" "}
-                        {
-                          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                            props.breakdownVar
-                          ]
-                        }{" "}
-                        bubbles we show along the bottom of the time series
-                        charts demonstrate prevalence of unknown demographic
-                        data at the time reported. Learn more about{" "}
-                        <HashLink
-                          to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}
-                        >
-                          what data are missing.
-                        </HashLink>{" "}
-                      </Alert>
-                    </CardContent>
                   </div>
-                </AnimateHeight>
 
+                  <span className={styles.HideOnMobile}>See unknowns</span>
+                </AnimateHeight>
                 <AltTableView
                   expanded={a11yTableExpanded}
                   setExpanded={setA11yTableExpanded}
