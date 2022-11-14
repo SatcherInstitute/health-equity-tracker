@@ -9,6 +9,7 @@ import {
   HISPANIC,
   MULTI,
   MULTI_OR_OTHER_STANDARD,
+  UNREPRESENTED,
 } from "../utils/Constants";
 
 export const CAWP_DETERMINANTS: MetricId[] = [
@@ -34,6 +35,8 @@ export function getWomenRaceLabel(raceLabel: string) {
       return "Women of Two or More Races";
     case MULTI_OR_OTHER_STANDARD:
       return "Women of Two or More Races & Unrepresented Race";
+    case UNREPRESENTED:
+      return "Women of an Unrepresented Race";
     case UNKNOWN_RACE:
       return `Women of Unknown Race`;
     case HISPANIC:

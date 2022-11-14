@@ -79,6 +79,7 @@ export const INDIGENOUS_NH = "Indigenous (NH)";
 export const MULTI_OR_OTHER_STANDARD = "Two or more races & Unrepresented race";
 export const MULTI_OR_OTHER_STANDARD_NH =
   "Two or more races & Unrepresented race (NH)";
+export const UNREPRESENTED = "Unrepresented Race";
 
 export const COMBINATION_RACES = [
   API,

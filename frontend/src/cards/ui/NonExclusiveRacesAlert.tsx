@@ -13,9 +13,7 @@ export default function NonExclusiveRacesAlert(
       Percentages reported for <b>{props.variableDisplayName}</b> cannot be
       summed, as these racial categories are not mutually exclusive. Individuals
       who identify with multiple specific races (e.g. both "White" and "Black")
-      are represented multiple times in the visualization: across each
-      corresponding category, and also as "Two or more races & Unrepresented
-      race".
+      are represented in each corresponding category.
     </Alert>
   );
 }
