@@ -1613,12 +1613,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             shortLabel: `${populationPctShortLabel} (all genders)`,
             type: "pct_share",
           },
-          knownBreakdownComparisonMetric: {
-            metricId: "pct_share_of_women_us_congress",
-            fullCardTitleName: "Percent share of women US Congress members",
-            shortLabel: "% of women members",
-            type: "pct_share",
-          },
+          // knownBreakdownComparisonMetric: {
+          //   metricId: "cawp_population_pct",
+          //   fullCardTitleName: "Percent share of women US Congress members",
+          //   shortLabel: "% of women members",
+          //   type: "pct_share",
+          // },
         },
         pct_relative_inequity: {
           metricId: "pct_share_of_us_congress_relative_inequity",
