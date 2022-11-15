@@ -5,7 +5,7 @@ from ingestion import gcs_to_bq_util, merge_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
 
-FIRST_YR = 1900
+FIRST_YR = 2020
 LAST_YR = 2022
 
 # restrict index years to this list
@@ -308,17 +308,24 @@ def merge_us_congress_women_by_race(df):
     line_items_df_us_congress_alls_df["women_this_race_us_congress_names"] = line_items_df_us_congress_alls_df["women_all_races_us_congress_names"]
     line_items_df_us_congress_alls_df["women_this_race_us_congress_count"] = line_items_df_us_congress_alls_df["women_all_races_us_congress_count"]
 
+    line_items_df_us_congress_alls_df = line_items_df_us_congress_alls_df[[
+        std_col.STATE_FIPS_COL,
+        std_col.TIME_PERIOD_COL,
+        "women_all_races_us_congress_count",
+        'women_all_races_us_congress_names',
+        "women_this_race_us_congress_count",
+        "women_this_race_us_congress_names",
+        RACE
+    ]]
+
     # merge COLUMNS with ALL WOMEN counts and names into the unexploded df so these totals will be available on every row
     merge_cols = [
         std_col.STATE_FIPS_COL,
         std_col.TIME_PERIOD_COL
     ]
-    line_items_df_us_congress = pd.merge(line_items_df_us_congress, line_items_df_us_congress_alls_df[[
-        std_col.STATE_FIPS_COL,
-        std_col.TIME_PERIOD_COL,
-        "women_all_races_us_congress_count",
-        'women_all_races_us_congress_names'
-    ]], on=merge_cols)
+
+    line_items_df_us_congress = pd.merge(
+        line_items_df_us_congress, line_items_df_us_congress_alls_df, on=merge_cols, how="left")
 
     # later we will again merge the ALL WOMEN data as ALL RACE rows and the MULTIPLE RACE WOMEN as MULTI rows
 
@@ -364,9 +371,14 @@ def merge_us_congress_women_by_race(df):
     line_items_df_us_congress["women_all_races_us_congress_names"] = line_items_df_us_congress["women_all_races_us_congress_names"].map(
         list)
 
+    print(line_items_df_us_congress)
+    print(line_items_df_us_congress_alls_df)
+
     # add in the ALL RACE rows
     line_items_df_us_congress = pd.concat(
         [line_items_df_us_congress, line_items_df_us_congress_alls_df], ignore_index=True)
+
+    print(line_items_df_us_congress)
 
     # # add in the MULTIPLE RACE rows
     # line_items_df_us_congress = pd.concat(
@@ -424,6 +436,8 @@ def combine_states_to_national(df):
     df_totals["total_us_congress_count"] = df_totals['total_us_congress_names'].apply(
         lambda list: len(list))
 
+    # print(df_totals)
+
     # combine names lists and counts for ALL WOMEN LEG ANY RACE
     df_women_all_races = df.groupby(
         [std_col.TIME_PERIOD_COL, RACE])["women_all_races_us_congress_names"].apply(list).reset_index()
@@ -433,6 +447,8 @@ def combine_states_to_national(df):
     df_women_all_races["women_all_races_us_congress_count"] = df_women_all_races['women_all_races_us_congress_names'].apply(
         lambda list: len(list))
 
+    # print(df_women_all_races)
+
     # combine names lists and counts for ALL WOMEN LEG ANY RACE
     df_women_this_race = df.groupby(
         [std_col.TIME_PERIOD_COL, RACE])["women_this_race_us_congress_names"].apply(list).reset_index()
@@ -441,6 +457,8 @@ def combine_states_to_national(df):
         lambda nested_list: [item for sublist in nested_list for item in sublist])
     df_women_this_race["women_this_race_us_congress_count"] = df_women_this_race['women_this_race_us_congress_names'].apply(
         lambda list: len(list))
+
+    # print(df_women_this_race)
 
     # merge all the columns created above together onto the df
     merge_cols = [RACE, std_col.TIME_PERIOD_COL]
