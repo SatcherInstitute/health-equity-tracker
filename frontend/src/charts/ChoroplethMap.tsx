@@ -266,13 +266,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       colorScale["domainMax"] = props.fieldRange.max;
       colorScale["domainMin"] = props.fieldRange.min;
     }
-    if (props.scaleType === "symlog") {
-      // Controls the slope of the linear behavior of symlog around 0.
-      colorScale["constant"] = 0.01;
-    }
-
-    // if there is no range, use a dot instead of a gradient bar for legend to prevent weirdness
-    if (legendLowerBound === legendUpperBound) {
+    if (legendLowerBound < legendUpperBound) {
+      // if there is a range, adjust slope of the linear behavior of symlog around 0.
+      if (props.scaleType === "symlog") colorScale["constant"] = 0.01;
+    } else {
+      // if there is no range, use a dot instead of a gradient bar
       colorScale["type"] = "ordinal";
     }
 
