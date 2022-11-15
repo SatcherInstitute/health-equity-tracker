@@ -27,11 +27,6 @@ import AltTableView from "./ui/AltTableView";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
-import { EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK } from "../utils/internalRoutes";
-import { HashLink } from "react-router-hash-link";
-
-import styles from "./../charts/trendsChart/Trends.module.scss";
-
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
 
@@ -174,24 +169,33 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   setExpanded={setUnknownsExpanded}
                 />
 
-                <div className={styles.FilterLegend}>
-                  <div className={styles.LegendTitle}>
-                    <CardContent>
-                      <Alert severity="info" role="note">
-                        {!unknownsExpanded
-                          ? `Missing and unknown data impacts Health Equity. Please
-                    consider the impact of cases reporting unknown race and
-                    ethnicity.`
-                          : `Missing and unknown data impacts Health Equity. The unknown percentage along the bottom of this chart expresses the percent of cases reporting an unknown race and ethnicity during the period reported.`}{" "}
-                        <a href="#main" onClick={changeUnknownState}>
-                          {!unknownsExpanded
-                            ? "Visualize unknown data"
-                            : "Hide unknown data"}
-                        </a>
-                      </Alert>
-                    </CardContent>
-                  </div>
-                </div>
+                <CardContent>
+                  <Alert severity="info" role="note">
+                    Missing and unknown data impacts Health Equity. Please
+                    consider the impact of{" "}
+                    {props.variableConfig.variableDisplayName.toLowerCase()}{" "}
+                    with an unknown{" "}
+                    {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]}
+                    .{" "}
+                    {unknownsExpanded && (
+                      <>
+                        The <b>unknown percentage</b> along the bottom of this
+                        chart expresses the share of total{" "}
+                        {props.variableConfig.variableDisplayName.toLowerCase()}{" "}
+                        per month that did not include{" "}
+                        {
+                          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                            props.breakdownVar
+                          ]
+                        }{" "}
+                        information.
+                      </>
+                    )}{" "}
+                    <a href="#main" onClick={changeUnknownState}>
+                      {!unknownsExpanded ? "Show unknowns" : "Hide unknowns"}
+                    </a>
+                  </Alert>
+                </CardContent>
 
                 <AltTableView
                   expanded={a11yTableExpanded}
