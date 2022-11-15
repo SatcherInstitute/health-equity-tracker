@@ -80,7 +80,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const HASH_ID: ScrollableHashId = "rates-over-time";
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label;
 
-  const changeUnknownState = () => {
+  const changeUnknownState = (event: any) => {
+    event.preventDefault();
     setUnknownsExpanded(!unknownsExpanded);
   };
 
@@ -174,37 +175,23 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 />
 
                 <div className={styles.FilterLegend}>
-                  {/*Left justify this*/}
-                  {!unknownsExpanded && (
-                    <button onClick={changeUnknownState}>Show unknowns</button>
-                  )}
+                  <div className={styles.LegendTitle}>
+                    <CardContent>
+                      <Alert severity="info" role="note">
+                        {!unknownsExpanded
+                          ? `Missing and unknown data impacts Health Equity. Please
+                    consider the impact of cases reporting unknown race and
+                    ethnicity.`
+                          : `Missing and unknown data impacts Health Equity. The unknown percentage along the bottom of this chart expresses the percent of cases reporting an unknown race and ethnicity during the period reported.`}{" "}
+                        <a href="#main" onClick={changeUnknownState}>
+                          {!unknownsExpanded
+                            ? "Visualize unknown data"
+                            : "Hide unknown data"}
+                        </a>
+                      </Alert>
+                    </CardContent>
+                  </div>
                 </div>
-
-                {unknownsExpanded && (
-                  <CardContent>
-                    <Alert severity="info" role="note">
-                      Missing and unknown data impacts Health Equity. The{" "}
-                      <b>percent unknown</b>{" "}
-                      {
-                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                          props.breakdownVar
-                        ]
-                      }{" "}
-                      bubbles we show along the bottom of the time series charts
-                      demonstrate prevalence of unknown demographic data at the
-                      time reported. Learn more about{" "}
-                      <HashLink
-                        to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}
-                      >
-                        what data are missing.
-                      </HashLink>{" "}
-                      // get an actual x here // put this on its own line
-                      <button onClick={changeUnknownState}>
-                        x Hide Unknowns
-                      </button>
-                    </Alert>
-                  </CardContent>
-                )}
 
                 <AltTableView
                   expanded={a11yTableExpanded}
