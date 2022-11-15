@@ -20,7 +20,12 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
     'Asian American/Pacific Islander': Race.ASIAN_PAC.value,
     'Latina': Race.HISP.value,
     'Middle Eastern/North African': Race.MENA.value,
-    'Multiracial Alone': Race.MULTI_ALONE_OR_OTHER.value,
+    # for now we will NOT present a multiracial category, and instead have
+    # multiple specific races in their individual races, and have "Multiracial Alone"
+    # grouped into "Unrepresented Race"
+    # need to confirm if CAWP has any other races besides "Multiracial Alone"
+    # that need to be grouped into this "Unrepresented Race" bucket
+    'Multiracial Alone': Race.OTHER_NONSTANDARD.value,
     'Native American/Alaska Native/Native Hawaiian': Race.AIANNH.value,
     'Black': Race.BLACK.value,
     'White': Race.WHITE.value,

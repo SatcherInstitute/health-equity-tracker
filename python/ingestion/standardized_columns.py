@@ -190,8 +190,6 @@ class Race(Enum):
     AIANNH = (
         "AIANNH", "Native American, Alaska Native, & Native Hawaiian", True)
     HISP_F = ("HISP_F", "Latina", True)
-    MULTI_ALONE_OR_OTHER = (
-        "MULTI_ALONE_OR_OTHER", "Multiracial (Races Unspecified) & Unrepresented Race", True)
 
     # Categories that are combinations of other categories
 
