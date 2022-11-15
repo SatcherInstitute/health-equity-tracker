@@ -47,7 +47,7 @@ const codeDictionary = {
   "Middle Eastern & North African Women": "MENA",
   "Native American, Alaska Native, & Native Hawaiian Women": "AI/AN/NH",
   "Latinas and Hispanic Women": "Hisp/Lat",
-  "Women of an Unrepresented Race": "Unrep.",
+  "Women of an Unrepresented Race": "Unrepr.",
   "Black or African American Women": "Black",
   "White Women": "White",
 };
