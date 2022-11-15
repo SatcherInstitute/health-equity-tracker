@@ -89,7 +89,6 @@ class CawpProvider extends VariableProvider {
 
     consumedDatasetIds.push(
       "acs_2010_population-by_race_and_ethnicity_territory", // We merge this in on the backend
-      // TODO: Swap this out for real new congress datasource
       "propublica_congress" // we merge on backend only for US Congress datatype; not sure how to restrict based on active datatype
     );
 
