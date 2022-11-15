@@ -5,7 +5,7 @@ from ingestion import gcs_to_bq_util, merge_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
 
-FIRST_YR = 1917
+FIRST_YR = 1900
 LAST_YR = 2022
 
 # restrict index years to this list
@@ -103,7 +103,7 @@ class CAWPTimeData(DataSource):
             df[std_col.PCT_SHARE_OF_US_CONGRESS] = round(df["women_this_race_us_congress_count"] /
                                                          df["total_us_congress_count"] * 100, 1)
             df[std_col.PCT_SHARE_OF_WOMEN_US_CONGRESS] = round(df["women_this_race_us_congress_count"] /
-                                                               df["women_this_race_us_congress_count"] * 100, 1).fillna(0)
+                                                               df["women_all_races_us_congress_count"] * 100, 1).fillna(0)
 
             # the ALL WOMEN NAMES are already stored as THIS RACE NAMES for the ALL rows so we can drop to save filesize and complexity
             df = df.drop(columns=["women_all_races_us_congress_names"])
