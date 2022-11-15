@@ -5,7 +5,7 @@ from ingestion import gcs_to_bq_util, merge_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
 
-FIRST_YR = 2002
+FIRST_YR = 1917
 LAST_YR = 2022
 
 # restrict index years to this list
@@ -109,6 +109,8 @@ class CAWPTimeData(DataSource):
             # the ALL WOMEN NAMES are already stored as THIS RACE NAMES for the ALL rows so we can drop to save filesize and complexity
             df = df.drop(columns=["women_all_races_us_congress_names"])
 
+            # print(df.to_string())
+
             # only keep lists of ALL MEMBERS and ALL WOMEN on the ALL ROWS
             # only keep the lists of WOMEN BY RACE on the RACE ROWS (not the ALLS)
             df.loc[df[RACE] != "All", [
@@ -118,13 +120,13 @@ class CAWPTimeData(DataSource):
             # standardize race labels
             df[std_col.RACE_CATEGORY_ID_COL] = df[RACE].apply(
                 lambda x: "ALL" if x == "All" else CAWP_RACE_GROUPS_TO_STANDARD[x])
-            # std_col.add_race_columns_from_category_id(df)
+            std_col.add_race_columns_from_category_id(df)
             df = df.drop(columns=[RACE])
 
             df = df.sort_values(
                 by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL, std_col.RACE_CATEGORY_ID_COL]).reset_index(drop=True)
 
-            df["total_us_congress_names"] = ""
+            # df["total_us_congress_names"] = ""
             # print(df.to_string())
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name)
