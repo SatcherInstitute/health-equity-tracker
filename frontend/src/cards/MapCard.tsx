@@ -165,6 +165,7 @@ function MapCardWithKey(props: MapCardProps) {
         const mapQueryResponse: MetricQueryResponse = queryResponses[0];
         // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
+
         const sviQueryResponse: MetricQueryResponse = queryResponses[2] || null;
 
         const sortArgs =
@@ -349,6 +350,14 @@ function MapCardWithKey(props: MapCardProps) {
             {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
               <>
                 <CardContent>
+                  {/* <Alert>
+                    {dataForActiveBreakdownFilter.map((row: Row) => {
+                      if (row["women_this_race_us_congress_names"].length < 1) return <></>
+                      return row["women_this_race_us_congress_names"].map((name: string) => {
+                        return <>{name}, </>
+                      })
+                    })}
+                  </Alert> */}
                   <ChoroplethMap
                     signalListeners={signalListeners}
                     titles={{ chartTitle, subtitle }}

@@ -84,6 +84,7 @@ export interface ChoroplethMapProps {
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
+  console.log(props.data);
   // We render the Vega map asynchronously because it can be performance
   // intensive. Loading a page with many maps on it can cause the UI to lag if
   // done synchronously.

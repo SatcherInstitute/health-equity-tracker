@@ -22,6 +22,7 @@ export const CAWP_DETERMINANTS: MetricId[] = [
   "pct_share_of_women_us_congress",
   "women_us_congress_ratio_age_adjusted",
   "pct_share_of_us_congress_relative_inequity",
+  "women_this_race_us_congress_names",
 ];
 
 export const CAWP_DATA_TYPES: VariableId[] = [
@@ -85,6 +86,7 @@ class CawpProvider extends VariableProvider {
 
     consumedDatasetIds.push(
       "acs_2010_population-by_race_and_ethnicity_territory", // We merge this in on the backend
+      // TODO: Swap this out for real new congress datasource
       "propublica_congress" // we merge on backend only for US Congress datatype; not sure how to restrict based on active datatype
     );
 
@@ -93,6 +95,8 @@ class CawpProvider extends VariableProvider {
     });
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
+
+    metricQuery.metricIds.push("women_this_race_us_congress_names");
 
     df = this.removeUnrequestedColumns(df, metricQuery);
 
