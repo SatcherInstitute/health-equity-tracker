@@ -24,6 +24,8 @@ export const CAWP_DETERMINANTS: MetricId[] = [
   "pct_share_of_us_congress_relative_inequity",
   "women_this_race_us_congress_names",
   "total_us_congress_names",
+  "women_this_race_us_congress_count",
+  "total_us_congress_count",
 ];
 
 export const CAWP_DATA_TYPES: VariableId[] = [
