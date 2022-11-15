@@ -303,29 +303,23 @@ def merge_us_congress_women_by_race(df):
     line_items_df_us_congress_alls_df['women_all_races_us_congress_count'] = line_items_df_us_congress_alls_df['women_all_races_us_congress_names'].apply(
         lambda list: len(list))
 
-    # treat the ALLs like they are a race
-    line_items_df_us_congress_alls_df[RACE] = "All"
-    line_items_df_us_congress_alls_df["women_this_race_us_congress_names"] = line_items_df_us_congress_alls_df["women_all_races_us_congress_names"]
-    line_items_df_us_congress_alls_df["women_this_race_us_congress_count"] = line_items_df_us_congress_alls_df["women_all_races_us_congress_count"]
-
-    line_items_df_us_congress_alls_df = line_items_df_us_congress_alls_df[[
+    line_items_df_us_congress_alls_cols_df = line_items_df_us_congress_alls_df[[
         std_col.STATE_FIPS_COL,
         std_col.TIME_PERIOD_COL,
         "women_all_races_us_congress_count",
         'women_all_races_us_congress_names',
-        "women_this_race_us_congress_count",
-        "women_this_race_us_congress_names",
-        RACE
+        # "women_this_race_us_congress_count",
+        # "women_this_race_us_congress_names"
     ]]
 
     # merge COLUMNS with ALL WOMEN counts and names into the unexploded df so these totals will be available on every row
     merge_cols = [
         std_col.STATE_FIPS_COL,
-        std_col.TIME_PERIOD_COL
+        std_col.TIME_PERIOD_COL,
     ]
 
     line_items_df_us_congress = pd.merge(
-        line_items_df_us_congress, line_items_df_us_congress_alls_df, on=merge_cols, how="left")
+        line_items_df_us_congress, line_items_df_us_congress_alls_cols_df, on=merge_cols, how="left")
 
     # later we will again merge the ALL WOMEN data as ALL RACE rows and the MULTIPLE RACE WOMEN as MULTI rows
 
@@ -371,18 +365,14 @@ def merge_us_congress_women_by_race(df):
     line_items_df_us_congress["women_all_races_us_congress_names"] = line_items_df_us_congress["women_all_races_us_congress_names"].map(
         list)
 
-    print(line_items_df_us_congress)
-    print(line_items_df_us_congress_alls_df)
+    # treat the ALLs like they are a race
+    line_items_df_us_congress_alls_df[RACE] = "All"
+    line_items_df_us_congress_alls_df["women_this_race_us_congress_names"] = line_items_df_us_congress_alls_df["women_all_races_us_congress_names"]
+    line_items_df_us_congress_alls_df["women_this_race_us_congress_count"] = line_items_df_us_congress_alls_df["women_all_races_us_congress_count"]
 
     # add in the ALL RACE rows
     line_items_df_us_congress = pd.concat(
         [line_items_df_us_congress, line_items_df_us_congress_alls_df], ignore_index=True)
-
-    print(line_items_df_us_congress)
-
-    # # add in the MULTIPLE RACE rows
-    # line_items_df_us_congress = pd.concat(
-    #     [line_items_df_us_congress, line_items_df_us_congress_multi_df], ignore_index=True)
 
     # explode incoming df with totals to include rows per race incl. All, (per state per year)
     races_including_all = list(
