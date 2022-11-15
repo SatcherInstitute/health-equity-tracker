@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Switch from "@material-ui/core/Switch";
 import { Box, CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -27,6 +26,11 @@ import { Alert } from "@material-ui/lab";
 import AltTableView from "./ui/AltTableView";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+
+import { EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK } from "../utils/internalRoutes";
+import { HashLink } from "react-router-hash-link";
+
+import styles from "./../charts/trendsChart/Trends.module.scss";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -169,11 +173,38 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   setExpanded={setUnknownsExpanded}
                 />
 
-                <Switch
-                  checked={unknownsExpanded}
-                  onChange={changeUnknownState}
-                />
-                <text>Show unknowns</text>
+                <div className={styles.FilterLegend}>
+                  {/*Left justify this*/}
+                  {!unknownsExpanded && (
+                    <button onClick={changeUnknownState}>Show unknowns</button>
+                  )}
+                </div>
+
+                {unknownsExpanded && (
+                  <CardContent>
+                    <Alert severity="info" role="note">
+                      Missing and unknown data impacts Health Equity. The{" "}
+                      <b>percent unknown</b>{" "}
+                      {
+                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                          props.breakdownVar
+                        ]
+                      }{" "}
+                      bubbles we show along the bottom of the time series charts
+                      demonstrate prevalence of unknown demographic data at the
+                      time reported. Learn more about{" "}
+                      <HashLink
+                        to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}
+                      >
+                        what data are missing.
+                      </HashLink>{" "}
+                      // get an actual x here // put this on its own line
+                      <button onClick={changeUnknownState}>
+                        x Hide Unknowns
+                      </button>
+                    </Alert>
+                  </CardContent>
+                )}
 
                 <AltTableView
                   expanded={a11yTableExpanded}

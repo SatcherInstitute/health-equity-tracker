@@ -17,11 +17,6 @@ import React, {
 } from "react";
 import { scaleTime, scaleLinear, extent, min, max, bisector } from "d3";
 
-import { EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK } from "../../utils/internalRoutes";
-import { HashLink } from "react-router-hash-link";
-import { CardContent } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
-
 /* Local Imports */
 
 /* Components */
@@ -47,10 +42,7 @@ import {
   filterUnknownsByTimePeriod,
 } from "./helpers";
 import { MOBILE_BREAKPOINT } from "../../App";
-import {
-  BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
-} from "../../data/query/Breakdowns";
+import { BreakdownVar } from "../../data/query/Breakdowns";
 import useEscape from "../../utils/hooks/useEscape";
 import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
 import { useFontSize } from "../../utils/hooks/useFontSize";
@@ -381,21 +373,6 @@ export function TrendsChart({
               </>
             )}
           </svg>
-          {showUnknowns && (
-            <CardContent>
-              <Alert severity="info" role="note">
-                Missing and unknown data impacts Health Equity. The{" "}
-                <b>percent unknown</b>{" "}
-                {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[breakdownVar]} bubbles
-                we show along the bottom of the time series charts demonstrate
-                prevalence of unknown demographic data at the time reported.
-                Learn more about{" "}
-                <HashLink to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
-                  what data are missing.
-                </HashLink>{" "}
-              </Alert>
-            </CardContent>
-          )}
         </>
       )}
     </figure>
