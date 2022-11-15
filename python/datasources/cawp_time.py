@@ -5,7 +5,7 @@ from ingestion import gcs_to_bq_util, merge_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
 
-FIRST_YR = 1917
+FIRST_YR = 1962
 LAST_YR = 2022
 
 # restrict index years to this list
