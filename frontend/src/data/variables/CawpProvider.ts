@@ -23,6 +23,7 @@ export const CAWP_DETERMINANTS: MetricId[] = [
   "women_us_congress_ratio_age_adjusted",
   "pct_share_of_us_congress_relative_inequity",
   "women_this_race_us_congress_names",
+  "total_us_congress_names",
 ];
 
 export const CAWP_DATA_TYPES: VariableId[] = [
@@ -97,6 +98,7 @@ class CawpProvider extends VariableProvider {
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
 
     metricQuery.metricIds.push("women_this_race_us_congress_names");
+    metricQuery.metricIds.push("total_us_congress_names");
 
     df = this.removeUnrequestedColumns(df, metricQuery);
 

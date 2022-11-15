@@ -171,6 +171,7 @@ export type MetricId =
   | "women_us_congress_ratio_age_adjusted"
   | "pct_share_of_us_congress_relative_inequity"
   | "women_this_race_us_congress_names"
+  | "total_us_congress_names"
   | "prison_pct_share"
   | "prison_per_100k"
   | "prison_ratio_age_adjusted"
