@@ -122,7 +122,7 @@ function UnknownsAlert(props: UnknownsAlertProps) {
   ) : (
     <>
       <CardContent className={styles.SmallMarginContent}>
-        <Alert severity="warning" role="note">
+        <Alert severity={"warning"} role="note">
           {percentageUnknown}
           {props.metricConfig.shortLabel}
           {" reported an unknown "}
