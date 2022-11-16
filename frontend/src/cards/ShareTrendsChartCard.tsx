@@ -28,7 +28,7 @@ import { Alert } from "@material-ui/lab";
 import { HashLink } from "react-router-hash-link";
 import { METHODOLOGY_TAB_LINK } from "../utils/internalRoutes";
 import AltTableView from "./ui/AltTableView";
-import UnknownBubbleAlert from "./ui/UnknownBubbleAlert";
+import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
@@ -176,7 +176,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                   />
 
                   <CardContent>
-                    <UnknownBubbleAlert
+                    <UnknownBubblesAlert
                       breakdownVar={props.breakdownVar}
                       variableDisplayName={props.variableConfig.variableDisplayName.toLowerCase()}
                       expanded={unknownsExpanded}

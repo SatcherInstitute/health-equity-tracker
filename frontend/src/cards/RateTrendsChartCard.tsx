@@ -24,7 +24,7 @@ import {
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
 import AltTableView from "./ui/AltTableView";
-import UnknownBubbleAlert from "./ui/UnknownBubbleAlert";
+import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
@@ -166,7 +166,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 />
 
                 <CardContent>
-                  <UnknownBubbleAlert
+                  <UnknownBubblesAlert
                     breakdownVar={props.breakdownVar}
                     variableDisplayName={props.variableConfig.variableDisplayName.toLowerCase()}
                     expanded={unknownsExpanded}
