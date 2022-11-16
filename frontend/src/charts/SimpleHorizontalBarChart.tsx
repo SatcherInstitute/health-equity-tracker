@@ -28,9 +28,8 @@ import {
 const LABEL_SWAP_CUTOFF_PERCENT = 66;
 
 // nested quotation mark format needed for Vega
-const SINGLE_LINE_100K = ",' per 100k'";
-const MULTI_LINE_100K = "+' per 100k'";
-const SINGLE_LINE_PERCENT = "+'%'";
+const PER_100K = " per 100k";
+const SINGLE_LINE_PERCENT = "%";
 
 function getSpec(
   altText: string,
@@ -55,13 +54,24 @@ function getSpec(
   const BAR_HEIGHT = 60;
   const BAR_PADDING = 0.2;
   const DATASET = "DATASET";
+  const chartIsSmall = width < 400;
 
-  // create proper datum suffix, either % or single/multi line 100k
-  const barLabelSuffix = usePercentSuffix
-    ? SINGLE_LINE_PERCENT
-    : pageIsTiny
-    ? SINGLE_LINE_100K
-    : MULTI_LINE_100K;
+  const createAxisTitle = () => {
+    if (chartIsSmall) {
+      return measureDisplayName.split(" ");
+    } else return measureDisplayName;
+  };
+
+  //create bar label as array or string
+  const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} + "${
+    usePercentSuffix ? SINGLE_LINE_PERCENT : PER_100K
+  }"`;
+  const multiLineLabel = `[datum.${tooltipMetricDisplayColumnName}, "${PER_100K}"]`;
+  const createBarLabel = () => {
+    if (chartIsSmall) {
+      return multiLineLabel;
+    } else return singleLineLabel;
+  };
 
   const legends = showLegend
     ? [
@@ -103,7 +113,10 @@ function getSpec(
       },
     ],
     signals: [
-      { name: "y_step", value: BAR_HEIGHT },
+      {
+        name: "y_step",
+        value: BAR_HEIGHT,
+      },
       {
         name: "height",
         update: "bandspace(domain('y').length, 0.1, 0.05) * y_step",
@@ -169,24 +182,27 @@ function getSpec(
             },
           },
           update: {
+            fontSize: { value: width > 250 ? 11 : 7.5 },
             align: {
               signal: `if(datum.${measure} > ${barLabelBreakpoint}, "right", "left")`,
             },
             baseline: { value: "middle" },
             dx: {
-              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5, 5)`,
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${
+                width > 250 ? "5" : "1"
+              })`,
             },
             dy: {
-              signal: pageIsTiny ? -20 : 0,
+              signal: chartIsSmall ? -15 : 0,
             },
             fill: {
               signal: `if(datum.${measure} > ${barLabelBreakpoint}, "white", "black")`,
             },
             x: { scale: "x", field: measure },
             y: { scale: "y", field: breakdownVar, band: 0.8 },
+            limit: { signal: "width / 3" },
             text: {
-              // on smallest screens send an array of strings to place on multiple lines
-              signal: `[datum.${tooltipMetricDisplayColumnName}${barLabelSuffix}]`,
+              signal: createBarLabel(),
             },
           },
         },
@@ -242,12 +258,15 @@ function getSpec(
         scale: "x",
         orient: "bottom",
         grid: false,
-        title: measureDisplayName,
-        titleAnchor: pageIsTiny ? "end" : "null",
+        title: createAxisTitle(),
+        titleX: chartIsSmall ? 0 : undefined,
+        titleAnchor: chartIsSmall ? "end" : "null",
+        titleAlign: chartIsSmall ? "left" : "center",
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: "ceil(width/40)" },
         zindex: sass.zMiddle,
+        titleLimit: { signal: "width - 10 " },
       },
       {
         scale: "y",

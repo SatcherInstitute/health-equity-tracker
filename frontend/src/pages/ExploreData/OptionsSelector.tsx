@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import TextField from "@material-ui/core/TextField";
@@ -11,17 +11,21 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { usePopover } from "../../utils/hooks/usePopover";
-import { CATEGORIES_LIST } from "../../utils/MadLibs";
+import {
+  CATEGORIES_LIST,
+  DEFAULT,
+  DefaultDropdownVarId,
+} from "../../utils/MadLibs";
 import { Box, Grid } from "@material-ui/core";
-import { DropdownVarId } from "../../data/config/MetricConfig";
+import { DropdownVarId, VariableId } from "../../data/config/MetricConfig";
+import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 
 function OptionsSelector(props: {
-  value: string;
+  value: VariableId | string | DefaultDropdownVarId; // condition data type OR fips code as string OR default setting with no topic selected
   options: Fips[] | string[][];
   onOptionUpdate: (option: string) => void;
 }) {
-  const popover = usePopover();
-
   const isFips =
     props.options[0] && props.options[0] instanceof Fips ? true : false;
   let currentDisplayName;
@@ -34,6 +38,9 @@ function OptionsSelector(props: {
     currentDisplayName = chosenOption ? chosenOption[1] : "";
   }
 
+  const popoverRef = useRef(null);
+  const popover = usePopover();
+
   const [, setTextBoxValue] = useState("");
   const updateTextBox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTextBoxValue(event.target.value);
@@ -43,6 +50,7 @@ function OptionsSelector(props: {
   const openAutoComplete = () => {
     setAutoCompleteOpen(true);
   };
+
   const closeAutoComplete = () => {
     setAutoCompleteOpen(false);
   };
@@ -56,119 +64,171 @@ function OptionsSelector(props: {
     }`;
   }
 
+  const anchorO = "bottom";
+  const transformO = "top";
+
+  const noTopic = props.value === DEFAULT;
+
+  // only pulse the condition button when no topic is selected and dropdown menu is closed (and user hasn't set their machine to prefer reduced motion)
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const doPulse =
+    !prefersReducedMotion && !isFips && noTopic && !popover.isOpen;
+
+  const dropdownId = `${props.value}-dropdown-${isFips ? "fips" : "topic"}`;
+
   return (
     <>
-      <Button
-        variant="text"
-        aria-haspopup="true"
-        className={styles.MadLibButton}
-        onClick={popover.open}
-      >
-        {currentDisplayName}{" "}
-        {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
-      </Button>
+      <span ref={popoverRef}>
+        {/* Clickable Madlib Button with Dropdown Arrow */}
+        <Button
+          id={dropdownId}
+          variant="text"
+          aria-haspopup="true"
+          className={doPulse ? styles.MadLibButtonPulse : styles.MadLibButton}
+          onClick={popover.open}
+        >
+          {currentDisplayName}{" "}
+          {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
+        </Button>
 
-      <Popover
-        className={styles.PopoverOverride}
-        aria-expanded="true"
-        open={popover.isOpen}
-        anchorEl={popover.anchor}
-        onClose={popover.close}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
-      >
-        {isFips && (
-          <div className={styles.OptionsSelectorPopover}>
-            <span className={styles.SearchForText}>Search for location</span>
+        <Popover
+          id="popoverBox"
+          className={styles.PopoverOverride}
+          aria-expanded="true"
+          open={popover.isOpen}
+          anchorEl={popover.anchor}
+          onClose={popover.close}
+          anchorOrigin={{
+            vertical: anchorO,
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: transformO,
+            horizontal: "center",
+          }}
+        >
+          {/* {!isFips && (
+            <Grid container justifyContent="space-between">
+              <h2 className={styles.PopoverTitle}> Topics</h2>
+            </Grid>
+          )} */}
 
-            <Autocomplete
-              disableClearable={true}
-              autoHighlight={true}
-              options={props.options as Fips[]}
-              groupBy={(option) => getGroupName(option)}
-              clearOnEscape={true}
-              getOptionLabel={(fips) => fips.getFullDisplayName()}
-              getOptionSelected={(fips) => fips.code === props.value}
-              renderOption={(fips) => <>{fips.getFullDisplayName()}</>}
-              open={autoCompleteOpen}
-              onOpen={openAutoComplete}
-              onClose={closeAutoComplete}
-              renderInput={(params) => (
-                <TextField
-                  placeholder="County, State, Territory, or United States"
-                  margin="dense"
-                  variant="outlined"
-                  onChange={updateTextBox}
-                  {...params}
-                />
-              )}
-              onChange={(e, fips) => {
-                props.onOptionUpdate(fips.code);
-                setTextBoxValue("");
-                popover.close();
-              }}
-            />
-            <span className={styles.NoteText}>
-              City and census tract location is currently unavailable
-            </span>
-          </div>
-        )}
-        {!isFips && (
-          <Box my={3} mx={6}>
-            <Grid container>
-              {CATEGORIES_LIST.map((category) => {
-                return (
+          {/* Location Dropdown */}
+          {isFips && (
+            <div className={styles.OptionsSelectorPopover}>
+              <h3 className={styles.SearchForText}>Search for location</h3>
+
+              <Autocomplete
+                disableClearable={true}
+                autoHighlight={true}
+                options={props.options as Fips[]}
+                groupBy={(option) => getGroupName(option)}
+                clearOnEscape={true}
+                getOptionLabel={(fips) => fips.getFullDisplayName()}
+                getOptionSelected={(fips) => fips.code === props.value}
+                renderOption={(fips) => <>{fips.getFullDisplayName()}</>}
+                open={autoCompleteOpen}
+                onOpen={openAutoComplete}
+                onClose={closeAutoComplete}
+                renderInput={(params) => (
+                  <TextField
+                    placeholder=""
+                    autoFocus
+                    margin="dense"
+                    variant="outlined"
+                    onChange={updateTextBox}
+                    {...params}
+                  />
+                )}
+                onChange={(e, fips) => {
+                  props.onOptionUpdate(fips.code);
+                  setTextBoxValue("");
+                  popover.close();
+                }}
+              />
+              <span className={styles.NoteText}>
+                County, state, territory, or United States. Some source data is
+                unavailable at county and territory levels.
+              </span>
+            </div>
+          )}
+          {/* Condition Dropdown */}
+          {!isFips && (
+            <>
+              <Box my={3} mx={3}>
+                <Grid container>
+                  {CATEGORIES_LIST.map((category) => {
+                    return (
+                      <Grid
+                        item
+                        xs={6}
+                        sm={4}
+                        key={category.title}
+                        className={styles.CategoryList}
+                      >
+                        <h3
+                          className={styles.CategoryTitleText}
+                          aria-label={category.title + " options"}
+                        >
+                          {category.title}
+                        </h3>
+                        <List dense={true} role="menu">
+                          {(props.options as string[][]).map(
+                            (item: string[]) => {
+                              const [optionId, optionDisplayName] = item;
+                              return (
+                                // place variables in their respective categories
+                                category.options.includes(
+                                  optionId as DropdownVarId
+                                ) && (
+                                  <ListItem
+                                    role="menuitem"
+                                    key={optionId}
+                                    button
+                                    selected={optionId === props.value}
+                                    onClick={() => {
+                                      popover.close();
+                                      props.onOptionUpdate(optionId);
+                                    }}
+                                  >
+                                    <ListItemText primary={optionDisplayName} />
+                                  </ListItem>
+                                )
+                              );
+                            }
+                          )}
+                        </List>
+                      </Grid>
+                    );
+                  })}
                   <Grid
                     item
                     xs={12}
-                    sm={6}
-                    md={4}
-                    key={category.title}
-                    className={styles.CategoryList}
+                    container
+                    alignItems="flex-end"
+                    justifyContent="flex-end"
                   >
-                    <h3
-                      className={styles.CategoryTitleText}
-                      aria-label={category.title + " options"}
-                    >
-                      {category.title}
-                    </h3>
-                    <List dense={true} role="menu">
-                      {(props.options as string[][]).map((item: string[]) => {
-                        const [optionId, optionDisplayName] = item;
-                        return (
-                          // place variables in their respective categories
-                          category.options.includes(
-                            optionId as DropdownVarId
-                          ) && (
-                            <ListItem
-                              role="menuitem"
-                              key={optionId}
-                              button
-                              selected={optionId === props.value}
-                              onClick={() => {
-                                popover.close();
-                                props.onOptionUpdate(optionId);
-                              }}
-                            >
-                              <ListItemText primary={optionDisplayName} />
-                            </ListItem>
-                          )
-                        );
-                      })}
-                    </List>
+                    {!noTopic && (
+                      <Button
+                        className={styles.GoBackButton}
+                        onClick={() => {
+                          popover.close();
+                          props.onOptionUpdate(DEFAULT);
+                        }}
+                      >
+                        <KeyboardBackspaceIcon style={{ fontSize: "small" }} />{" "}
+                        <span className={styles.GoBackButtonText}>
+                          Clear topic selection
+                        </span>
+                      </Button>
+                    )}
                   </Grid>
-                );
-              })}
-            </Grid>
-          </Box>
-        )}
-      </Popover>
+                </Grid>
+              </Box>
+            </>
+          )}
+        </Popover>
+      </span>
     </>
   );
 }

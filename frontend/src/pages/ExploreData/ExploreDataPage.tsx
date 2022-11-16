@@ -1,16 +1,11 @@
-import { Grid } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import React, { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { STATUS } from "react-joyride";
 import Carousel from "react-material-ui-carousel";
-import { Fips } from "../../data/utils/Fips";
 import ReportProvider from "../../reports/ReportProvider";
 import {
   getMadLibPhraseText,
-  getMadLibWithUpdatedValue,
   getSelectedConditions,
-  insertOptionalThe,
   MadLib,
   MadLibId,
   MADLIB_LIST,
@@ -25,20 +20,23 @@ import {
   MADLIB_SELECTIONS_PARAM,
   parseMls,
   psSubscribe,
+  setParameter,
   setParameters,
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
   useSearchParams,
 } from "../../utils/urlutils";
 import styles from "./ExploreDataPage.module.scss";
-import OptionsSelector from "./OptionsSelector";
-import { useLocation } from "react-router-dom";
 import { srSpeak } from "../../utils/a11yutils";
 import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
 import useScrollPosition from "../../utils/hooks/useScrollPosition";
 import { useHeaderScrollMargin } from "../../utils/hooks/useHeaderScrollMargin";
+import { useLocation } from "react-router-dom";
+import CarouselMadLib from "./CarouselMadlib";
+import sass from "../../styles/variables.module.scss";
+import DefaultHelperBox from "./DefaultHelperBox";
 
 const Onboarding = React.lazy(() => import("./Onboarding"));
 
@@ -76,6 +74,8 @@ function ExploreDataPage() {
     ...MADLIB_LIST[initialIndex],
     activeSelections: defaultValuesWithOverrides,
   });
+
+  const noTopicChosen = getSelectedConditions(madLib).length === 0;
 
   useEffect(() => {
     const readParams = () => {
@@ -117,13 +117,14 @@ function ExploreDataPage() {
   };
 
   // Set up warm welcome onboarding behaviors
-  const [cookies, setCookie] = useCookies();
-  let showOnboarding = cookies.skipOnboarding !== "true";
-  if (params[SHOW_ONBOARDING_PARAM] === "true") {
-    showOnboarding = true;
-  }
-  if (params[SHOW_ONBOARDING_PARAM] === "false") {
-    showOnboarding = false;
+  let showOnboarding = false;
+  if (noTopicChosen) {
+    if (params[SHOW_ONBOARDING_PARAM] === "true") {
+      showOnboarding = true;
+    }
+    if (params[SHOW_ONBOARDING_PARAM] === "false") {
+      showOnboarding = false;
+    }
   }
 
   // if there is an incoming #hash; bypass the warm welcome entirely
@@ -134,10 +135,7 @@ function ExploreDataPage() {
   const onboardingCallback = (data: any) => {
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
       setActivelyOnboarding(false);
-      const expirationDate = new Date();
-      // Expiration date set for a year from now
-      expirationDate.setFullYear(expirationDate.getFullYear() + 1);
-      setCookie("skipOnboarding", true, { path: "/", expires: expirationDate });
+      setParameter(SHOW_ONBOARDING_PARAM, "false");
     }
   };
 
@@ -219,7 +217,7 @@ function ExploreDataPage() {
   }, [madLib]);
 
   const headerScrollMargin = useHeaderScrollMargin(
-    "onboarding-start-your-search",
+    "madlib-carousel-container",
     sticking,
     [madLib, showIncarceratedChildrenAlert, showStickyLifeline]
   );
@@ -237,32 +235,45 @@ function ExploreDataPage() {
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
         <div
           className={styles.CarouselContainer}
-          id="onboarding-start-your-search"
+          id="madlib-carousel-container"
         >
           <Carousel
             className={`Carousel ${styles.Carousel}`}
-            NextIcon={
-              <NavigateNextIcon
-                aria-hidden="true"
-                id="onboarding-madlib-arrow"
-              />
-            }
+            swipe={false}
+            NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
             timeout={200}
             autoPlay={false}
-            indicators={true}
+            indicators={noTopicChosen ? false : true}
             indicatorIconButtonProps={{
               "aria-label": "Report Type",
-              style: { padding: "4px" },
+              style: {
+                padding: "4px",
+                color: sass.altGrey,
+              },
             }}
             activeIndicatorIconButtonProps={{
               "aria-label": "Current Selection: Report Type",
+              style: {
+                padding: "4px",
+                color: sass.altGreen,
+              },
             }}
             // ! TODO We really should be able to indicate Forward/Backward vs just "Change"
             navButtonsProps={{
               "aria-label": "Change Report Type",
+              style: {
+                border: `1px solid ${sass.altGreen}`,
+                backgroundColor: sass.white,
+                color: sass.altGreen,
+                borderRadius: 100,
+                boxShadow:
+                  "0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)",
+              },
             }}
             animation="slide"
             navButtonsAlwaysVisible={true}
+            cycleNavigation={false}
+            navButtonsAlwaysInvisible={noTopicChosen}
             index={initialIndex}
             onChange={handleCarouselChange}
           >
@@ -282,75 +293,23 @@ function ExploreDataPage() {
           )}
         </div>
         <div className={styles.ReportContainer}>
-          <ReportProvider
-            isSingleColumn={isSingleColumn}
-            madLib={madLib}
-            selectedConditions={getSelectedConditions(madLib)}
-            showLifeLineAlert={showStickyLifeline}
-            showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
-            setMadLib={setMadLibWithParam}
-            isScrolledToTop={!sticking}
-            headerScrollMargin={headerScrollMargin}
-          />
+          {noTopicChosen ? (
+            <DefaultHelperBox />
+          ) : (
+            <ReportProvider
+              isSingleColumn={isSingleColumn}
+              madLib={madLib}
+              selectedConditions={getSelectedConditions(madLib)}
+              showLifeLineAlert={showStickyLifeline}
+              showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
+              setMadLib={setMadLibWithParam}
+              isScrolledToTop={!sticking}
+              headerScrollMargin={headerScrollMargin}
+            />
+          )}
         </div>
       </div>
     </>
-  );
-}
-
-function CarouselMadLib(props: {
-  madLib: MadLib;
-  setMadLib: (updatedMadLib: MadLib) => void;
-}) {
-  // TODO - this isn't efficient, these should be stored in an ordered way
-  function getOptionsFromPhraseSegement(
-    phraseSegment: PhraseSegment
-  ): Fips[] | string[][] {
-    // check first option to tell if phraseSegment is FIPS or CONDITIONS
-    return isNaN(Object.keys(phraseSegment)[0] as any)
-      ? Object.entries(phraseSegment).sort((a, b) => a[0].localeCompare(b[0]))
-      : Object.keys(phraseSegment)
-          .sort((a: string, b: string) => {
-            if (a.length === b.length) {
-              return a.localeCompare(b);
-            }
-            return b.length > a.length ? -1 : 1;
-          })
-          .map((fipsCode) => new Fips(fipsCode));
-  }
-
-  const location = useLocation();
-
-  return (
-    <Grid container justifyContent="center" alignItems="center">
-      <div className={styles.CarouselItem}>
-        {props.madLib.phrase.map(
-          (phraseSegment: PhraseSegment, index: number) => (
-            <React.Fragment key={index}>
-              {typeof phraseSegment === "string" ? (
-                <span>
-                  {phraseSegment}
-                  {insertOptionalThe(props.madLib.activeSelections, index)}
-                </span>
-              ) : (
-                <OptionsSelector
-                  key={index}
-                  value={props.madLib.activeSelections[index]}
-                  onOptionUpdate={(fipsCode: string) => {
-                    props.setMadLib(
-                      getMadLibWithUpdatedValue(props.madLib, index, fipsCode)
-                    );
-                    location.hash = "";
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                  options={getOptionsFromPhraseSegement(phraseSegment)}
-                />
-              )}
-            </React.Fragment>
-          )
-        )}
-      </div>
-    </Grid>
   );
 }
 

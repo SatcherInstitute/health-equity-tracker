@@ -174,7 +174,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const geographyName = props.showCounties
       ? countyOrEquivalent
       : stateOrTerritory;
-    const tooltipDatum = `format(datum.${props.metric.metricId}, ',')`;
+
+    const tooltipDatum =
+      props.metric.type === "per100k"
+        ? // formatted tooltip hover 100k values above zero should display as less than 1
+          `if (datum.${props.metric.metricId} > 0, format(datum.${props.metric.metricId}, ','), '<1')`
+        : `format(datum.${props.metric.metricId}, ',')`;
+
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
     const tooltipLabel =
       props.isUnknownsMap && props.metric.unknownsVegaLabel
@@ -260,13 +266,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       colorScale["domainMax"] = props.fieldRange.max;
       colorScale["domainMin"] = props.fieldRange.min;
     }
-    if (props.scaleType === "symlog") {
-      // Controls the slope of the linear behavior of symlog around 0.
-      colorScale["constant"] = 0.01;
-    }
-
-    // if there is no range, use a dot instead of a gradient bar for legend to prevent weirdness
-    if (legendLowerBound === legendUpperBound) {
+    if (legendLowerBound < legendUpperBound) {
+      // if there is a range, adjust slope of the linear behavior of symlog around 0.
+      if (props.scaleType === "symlog") colorScale["constant"] = 0.01;
+    } else {
+      // if there is no range, use a dot instead of a gradient bar
       colorScale["type"] = "ordinal";
     }
 

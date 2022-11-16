@@ -19,6 +19,7 @@ import Table from "@material-ui/core/Table";
 import styles from "./Chart.module.scss";
 import sass from "../styles/variables.module.scss";
 import { RACE } from "../data/utils/Constants";
+import { useFontSize } from "../utils/hooks/useFontSize";
 
 const headerCellStyle = {
   width: "200px",
@@ -37,6 +38,7 @@ const altCellStyle = {
 export interface AgeAdjustedTableChartProps {
   data: Readonly<Record<string, any>>[];
   metrics: MetricConfig[];
+  title?: string | string[];
 }
 
 export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
@@ -128,28 +130,41 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
     );
   }
 
+  const fontSize = useFontSize();
+
+  const titleStyle = {
+    font: "Inter, sans-serif",
+    fontSize: fontSize,
+    fontWeight: "bold",
+    paddingTop: 10,
+    paddingBottom: 10,
+  };
+
   return (
     <>
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
         <h1>No Data provided</h1>
       ) : (
-        <TableContainer component={Paper} style={{ maxHeight: "100%" }}>
-          <Table stickyHeader {...getTableProps()}>
-            <TableHead>
-              {headerGroups.map((group, index) => (
-                <TableHeaderRow group={group} key={index} />
-              ))}
-            </TableHead>
-            <TableBody {...getTableBodyProps()}>
-              {rows.map((row: Row<any>, index) => (
-                <TableDataRow row={row} key={index} />
-              ))}
-            </TableBody>
-            <TableFooter>
-              <TableRow />
-            </TableFooter>
-          </Table>
-        </TableContainer>
+        <figure>
+          <figcaption style={titleStyle}>{props.title}</figcaption>
+          <TableContainer component={Paper} style={{ maxHeight: "100%" }}>
+            <Table stickyHeader {...getTableProps()}>
+              <TableHead>
+                {headerGroups.map((group, index) => (
+                  <TableHeaderRow group={group} key={index} />
+                ))}
+              </TableHead>
+              <TableBody {...getTableBodyProps()}>
+                {rows.map((row: Row<any>, index) => (
+                  <TableDataRow row={row} key={index} />
+                ))}
+              </TableBody>
+              <TableFooter>
+                <TableRow />
+              </TableFooter>
+            </Table>
+          </TableContainer>
+        </figure>
       )}
     </>
   );
