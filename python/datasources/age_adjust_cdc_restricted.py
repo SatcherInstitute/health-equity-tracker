@@ -1,4 +1,5 @@
 import ingestion.standardized_columns as std_col
+from ingestion.standardized_columns import Race
 import pandas as pd  # type: ignore
 
 import datasources.census_pop_estimates as census_pop_estimates
@@ -16,11 +17,12 @@ from ingestion.constants import (
     UNKNOWN,
 )
 
-REFERENCE_POPULATION = std_col.Race.ALL.value
-BASE_POPULATION = std_col.Race.WHITE_NH.value
+REFERENCE_POPULATION = Race.ALL.value
+BASE_POPULATION = Race.WHITE_NH.value
 
-AGE_ADJUST_RACES = {std_col.Race.WHITE_NH.value, std_col.Race.BLACK_NH.value, std_col.Race.HISP.value,
-                    std_col.Race.AIAN_NH.value, std_col.Race.NHPI_NH.value, std_col.Race.ASIAN_NH.value}
+AGE_ADJUST_RACES = {Race.WHITE_NH.value, Race.BLACK_NH.value,
+                    Race.HISP.value, Race.AIAN_NH.value,
+                    Race.NHPI_NH.value, Race.ASIAN_NH.value}
 
 
 class AgeAdjustCDCRestricted(DataSource):
