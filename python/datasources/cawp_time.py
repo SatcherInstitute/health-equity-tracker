@@ -5,7 +5,7 @@ from ingestion import gcs_to_bq_util, merge_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
 
-FIRST_YR = 1917
+FIRST_YR = 2017
 LAST_YR = 2022
 
 # restrict index years to this list
@@ -81,7 +81,7 @@ class CAWPTimeData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        df_base = scaffold_df_by_year_by_state()
+        df_base = scaffold_df_by_year_by_state_by_race()
         df_base = merge_us_congress_totals(df_base)
         df_base = merge_us_congress_women_by_race(df_base)
 
@@ -128,15 +128,18 @@ class CAWPTimeData(DataSource):
 
             # df["total_us_congress_names"] = ""
             # print(df.to_string())
+
+            # print(df.drop(columns=["total_us_congress_names"]).to_string())
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name)
 
 
-def scaffold_df_by_year_by_state():
+def scaffold_df_by_year_by_state_by_race():
     """
-    Creates the scaffold df with a row for every STATE/YEAR combo
+    Creates the scaffold df with a row for every STATE/YEAR/RACE combo
     Returns:
-        df with a row for every combo of years and state/territories including columns for "state_name", "state_postal" and "state_fips"
+        df with a row for every combo of CAWP race, years, and state/territories 
+        including columns for "state_name", "state_postal" and "state_fips"
     """
     # start with single column of all state-level fips as our df template
     df = pd.DataFrame({
@@ -149,6 +152,11 @@ def scaffold_df_by_year_by_state():
 
     # merge in FIPS codes to the scaffold df
     df = merge_utils.merge_state_ids(df, keep_postal=True)
+
+    races_including_all = list(
+        CAWP_RACE_GROUPS_TO_STANDARD.keys()) + ["All"]
+    df[RACE] = [races_including_all] * len(df)
+    df = df.explode(RACE)
 
     return df
 
@@ -233,7 +241,7 @@ def merge_us_congress_women_by_race(df):
     """
     Loads the line-item data from CAWP and merges as columns into exploded incoming df
     Parameters:
-        df: incoming df with rows per state/year
+        df: incoming df with rows per state/year/race
     Returns:
         df with rows per state/year/race, a column for counts of women US Congress members 
         and a columns for lists of their names
@@ -380,12 +388,6 @@ def merge_us_congress_women_by_race(df):
     line_items_df_us_congress_alls_df = pd.merge(
         line_items_df_us_congress_alls_df, df_totals, on=merge_cols, how="inner")
 
-    # explode incoming df with totals to include rows per race incl. All, (per state per year)
-    races_including_all = list(
-        CAWP_RACE_GROUPS_TO_STANDARD.keys())  # + ["All"]
-    df[RACE] = [races_including_all] * len(df)
-    df = df.explode(RACE)
-
     # merge CAWP counts by RACE with incoming df per race/year/state
     merge_cols = [
         std_col.TIME_PERIOD_COL,
@@ -405,6 +407,8 @@ def merge_us_congress_women_by_race(df):
         0)
     df["women_this_race_us_congress_names"] = df["women_this_race_us_congress_names"].fillna(
         "")
+
+    # print(df)
 
     # print(df.drop(columns=["total_us_congress_names"]).to_string())
     return df
@@ -445,7 +449,7 @@ def combine_states_to_national(df):
 
     # print(df_women_all_races)
 
-    # combine names lists and counts for ALL WOMEN LEG ANY RACE
+    # combine names lists and counts for ALL WOMEN LEG  SPECIFIC RACE
     df_women_this_race = df.groupby(
         [std_col.TIME_PERIOD_COL, RACE])["women_this_race_us_congress_names"].apply(list).reset_index()
     # flatten lists of lists
