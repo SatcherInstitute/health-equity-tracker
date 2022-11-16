@@ -218,7 +218,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 </Grid>
 
                 {/* 100K BAR CHART CARD */}
-                <Grid
+                {/* <Grid
                   item
                   xs={12}
                   sm={12}
@@ -241,7 +241,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                       </Fragment>
                     ))}
                   </LazyLoad>
-                </Grid>
+                </Grid> */}
 
                 {/* UNKNOWNS MAP CARD */}
                 <Grid

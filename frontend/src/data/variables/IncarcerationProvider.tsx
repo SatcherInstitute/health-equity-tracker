@@ -63,7 +63,7 @@ class IncarcerationProvider extends VariableProvider {
     ]);
   }
 
-  getDatasetId(breakdowns: Breakdowns, dataType: string): string {
+  getDatasetId(breakdowns: Breakdowns, dataType: VariableId | ""): string {
     let source = "";
     let dataType_ = "";
     let detail = "";
@@ -94,7 +94,7 @@ class IncarcerationProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
 
-    let dataType = "";
+    let dataType: VariableId | "" = "";
     // determine JAIL vs PRISON based on the incoming requested metric ids
 
     if (breakdowns.geography === "county") {

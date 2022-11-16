@@ -54,13 +54,17 @@ class CawpProvider extends VariableProvider {
     super("cawp_provider", ["cawp_population_pct", ...CAWP_DETERMINANTS]);
   }
 
-  getDatasetId(breakdowns: Breakdowns): string {
-    return (
+  getDatasetId(breakdowns: Breakdowns, dataType: VariableId | ""): string {
+    let id =
       "cawp_data-" +
       breakdowns.getSoleDemographicBreakdown().columnName +
       "_" +
-      breakdowns.geography
-    );
+      breakdowns.geography;
+
+    // for now only US CONGRESS has time series
+    if (dataType === "women_us_congress") id += "_time_series";
+
+    return id;
   }
 
   async getDataInternal(
@@ -68,7 +72,15 @@ class CawpProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
     const timeView = metricQuery.timeView;
-    const datasetId = this.getDatasetId(breakdowns);
+
+    // TODO: Remove this once we extend STATE LEG. over time as well
+    let dataType: VariableId | "" = "";
+
+    if (metricQuery.metricIds.some((id) => id.includes("us_congress"))) {
+      dataType = "women_us_congress";
+    }
+
+    const datasetId = this.getDatasetId(breakdowns, dataType);
     const cawp = await getDataManager().loadDataset(datasetId);
     let df = cawp.toDataFrame();
 

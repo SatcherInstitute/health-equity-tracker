@@ -23,7 +23,6 @@ import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert"
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
-import { CAWP_DATA_TYPES } from "../data/variables/CawpProvider";
 import { Row } from "../data/utils/DatasetTypes";
 
 /* minimize layout shift */
@@ -55,17 +54,17 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     props.variableConfig.variableId
   );
 
-  const isCAWP = CAWP_DATA_TYPES.includes(props.variableConfig.variableId);
+  // const isCongress = props.variableConfig.variableId === "women_us_congress"
 
   const metricIdsToFetch: MetricId[] = [];
   metricIdsToFetch.push(metricConfig.metricId);
-  isCAWP &&
-    metricIdsToFetch.push(
-      "total_us_congress_names",
-      "total_us_congress_count",
-      "women_this_race_us_congress_names",
-      "women_this_race_us_congress_count"
-    );
+  // isCongress &&
+  //   metricIdsToFetch.push(
+  //     "total_us_congress_names",
+  //     "total_us_congress_count",
+  //     "women_this_race_us_congress_names",
+  //     "women_this_race_us_congress_count"
+  //   );
   isIncarceration && metricIdsToFetch.push("total_confined_children");
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
@@ -93,56 +92,73 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
 
-        const namesWomenByRaceRows = queryResponse.getValidRowsForField(
-          "women_this_race_us_congress_names"
-        );
+        // // ONLY FOR SPOT CHECKING - DELETE NEXT CHUNK BEFORE MERGE
+        // let namesWomenByRaceRows
+        // let namesAllCongressRow
+        // let namesAllCongress
+        // let countAllCongress
 
-        const namesAllCongressRow = queryResponse.data.find(
-          (row: Row) => row["race_and_ethnicity"] === "All"
-        );
-        const namesAllCongress =
-          namesAllCongressRow?.["total_us_congress_names"];
-        const countAllCongress =
-          namesAllCongressRow?.["total_us_congress_count"];
-        // console.log(namesAllCongress);
+        // if (isCongress) {
+        //   namesWomenByRaceRows = queryResponse.getValidRowsForField(
+        //     "women_this_race_us_congress_names"
+        //   );
+
+        //   namesAllCongressRow = queryResponse.data.find(
+        //     (row: Row) => row["race_and_ethnicity"] === "All"
+        //   );
+        //   namesAllCongress =
+        //     namesAllCongressRow?.["total_us_congress_names"];
+        //   countAllCongress =
+        //     namesAllCongressRow?.["total_us_congress_count"];
+        // }
+
+        // END TEST CHUNK
 
         return (
           <CardContent>
-            {isCAWP && (
+            {/* {isCongress && (
               <>
-                {namesWomenByRaceRows.map((row: Row) => {
+                {namesWomenByRaceRows?.map((row: Row) => {
                   const names =
                     row?.["women_this_race_us_congress_names"] ?? null;
 
                   if (!names.length) return null;
 
                   return (
-                    <div key={row["race_and_ethnicity"]}>
-                      <b>
-                        <small>
-                          {row?.["race_and_ethnicity"]} Women (
-                          {row?.["women_this_race_us_congress_count"]})
-                        </small>
-                      </b>
+                    <details key={row["race_and_ethnicity"]}>
+                      <summary>
+                        <b>
+                          <small>
+                            {row?.["race_and_ethnicity"]} Women (
+                            {row?.["women_this_race_us_congress_count"]})
+                          </small>
+                        </b>
+                      </summary>
 
                       <p>
                         {names.map((name: string) => {
                           return <small key={name}>{name}, </small>;
                         })}
                       </p>
-                    </div>
+                    </details>
                   );
                 })}
-                <b>
-                  <small>All US Congress ({countAllCongress})</small>
-                </b>
-                <p>
-                  {namesAllCongress.map((name: string) => {
-                    return <small key={name}>{name}, </small>;
-                  })}
-                </p>
+
+                <details>
+                  <summary>
+                    <b>
+                      <small>All US Congress ({countAllCongress})</small>
+                    </b>
+                  </summary>
+                  <p>
+                    {namesAllCongress.map((name: string) => {
+                      return <small key={name}>{name}, </small>;
+                    })}
+                  </p>
+                </details>
+                <p></p>
               </>
-            )}
+            )} */}
 
             {queryResponse.shouldShowMissingDataMessage([
               metricConfig.metricId,
