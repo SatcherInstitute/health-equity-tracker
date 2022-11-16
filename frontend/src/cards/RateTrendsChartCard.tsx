@@ -24,6 +24,7 @@ import {
 } from "../data/utils/DatasetTimeUtils";
 import { Alert } from "@material-ui/lab";
 import AltTableView from "./ui/AltTableView";
+import UnknownBubbleAlert from "./ui/UnknownBubbleAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 
@@ -74,11 +75,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   const HASH_ID: ScrollableHashId = "rates-over-time";
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label;
-
-  const changeUnknownState = (event: any) => {
-    event.preventDefault();
-    setUnknownsExpanded(!unknownsExpanded);
-  };
 
   return (
     <CardWrapper
@@ -170,31 +166,12 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 />
 
                 <CardContent>
-                  <Alert severity="info" role="note">
-                    Missing and unknown data impacts Health Equity. Please
-                    consider the impact of{" "}
-                    {props.variableConfig.variableDisplayName.toLowerCase()}{" "}
-                    with an unknown{" "}
-                    {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]}
-                    .{" "}
-                    {unknownsExpanded && (
-                      <>
-                        The <b>unknown percentage</b> along the bottom of this
-                        chart expresses the share of total{" "}
-                        {props.variableConfig.variableDisplayName.toLowerCase()}{" "}
-                        per month that did not include{" "}
-                        {
-                          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                            props.breakdownVar
-                          ]
-                        }{" "}
-                        information.
-                      </>
-                    )}{" "}
-                    <a href="#main" onClick={changeUnknownState}>
-                      {!unknownsExpanded ? "Show unknowns" : "Hide unknowns"}
-                    </a>
-                  </Alert>
+                  <UnknownBubbleAlert
+                    breakdownVar={props.breakdownVar}
+                    variableDisplayName={props.variableConfig.variableDisplayName.toLowerCase()}
+                    expanded={unknownsExpanded}
+                    setExpanded={setUnknownsExpanded}
+                  />
                 </CardContent>
 
                 <AltTableView
