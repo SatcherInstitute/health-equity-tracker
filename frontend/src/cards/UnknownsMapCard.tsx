@@ -151,6 +151,13 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             (unknown: Row) => unknown[metricConfig.metricId] === undefined
           );
 
+        // when suppressing states with too low COVID numbers
+        const unknownsAllZero =
+          unknowns.length > 0 &&
+          unknowns.every(
+            (unknown: Row) => unknown[metricConfig.metricId] === 0
+          );
+
         // show MISSING DATA ALERT if we expect the unknowns array to be empty (breakdowns/data unavailable),
         // or if the unknowns are undefined (eg COVID suppressed states)
         const showMissingDataAlert =
@@ -166,7 +173,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
           !noDemographicInfo;
 
         // show the UNKNOWNS MAP when there is unknowns data and it's not undefined/suppressed
-        const showingVisualization = !unknownsArrayEmpty && !unknownsUndefined;
+        const showingVisualization =
+          !unknownsArrayEmpty && !unknownsUndefined && !unknownsAllZero;
 
         return (
           <>
@@ -180,24 +188,26 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             <Divider />
 
             {/* PERCENT REPORTING UNKNOWN ALERT - contains its own logic and divider/styling */}
-            <UnknownsAlert
-              queryResponse={alertQueryResponse}
-              metricConfig={metricConfig}
-              breakdownVar={currentBreakdown}
-              displayType="map"
-              known={false}
-              overrideAndWithOr={currentBreakdown === RACE}
-              raceEthDiffMap={
-                mapQueryResponse
-                  .getValidRowsForField(currentBreakdown)
-                  .filter(
-                    (row: Row) => row[currentBreakdown] === UNKNOWN_ETHNICITY
-                  ).length !== 0
-              }
-              noDemographicInfoMap={noDemographicInfo}
-              showingVisualization={showingVisualization}
-              fips={props.fips}
-            />
+            {!unknownsAllZero && (
+              <UnknownsAlert
+                queryResponse={alertQueryResponse}
+                metricConfig={metricConfig}
+                breakdownVar={currentBreakdown}
+                displayType="map"
+                known={false}
+                overrideAndWithOr={currentBreakdown === RACE}
+                raceEthDiffMap={
+                  mapQueryResponse
+                    .getValidRowsForField(currentBreakdown)
+                    .filter(
+                      (row: Row) => row[currentBreakdown] === UNKNOWN_ETHNICITY
+                    ).length !== 0
+                }
+                noDemographicInfoMap={noDemographicInfo}
+                showingVisualization={showingVisualization}
+                fips={props.fips}
+              />
+            )}
 
             <CardContent>
               {/* MISSING DATA ALERT */}
@@ -211,7 +221,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               )}
 
               {/* NO UNKNOWNS INFO BOX */}
-              {showNoUnknownsInfo && (
+              {(showNoUnknownsInfo || unknownsAllZero) && (
                 <Alert severity="info" role="note">
                   No unknown values for {breakdownString} reported in this
                   dataset.
