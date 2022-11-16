@@ -86,6 +86,8 @@ function UnknownsAlert(props: UnknownsAlertProps) {
   const secondaryAgePercentageUnknown =
     additionalAgeUnknowns?.[0]?.[props.metricConfig.metricId];
 
+  const showInfoSeverity = percentageUnknown === 0;
+
   const diffRaceEthnicityText = raceEthnicityDiff
     ? `This state reports race and ethnicity separately.
     ${unknowns[0][props.metricConfig.metricId]}${
@@ -113,7 +115,7 @@ function UnknownsAlert(props: UnknownsAlertProps) {
   return raceEthnicityDiff ? (
     <>
       <CardContent className={styles.SmallMarginContent}>
-        <Alert severity="warning" role="note">
+        <Alert severity={"warning"} role="note">
           {diffRaceEthnicityText}
         </Alert>
       </CardContent>
@@ -122,7 +124,7 @@ function UnknownsAlert(props: UnknownsAlertProps) {
   ) : (
     <>
       <CardContent className={styles.SmallMarginContent}>
-        <Alert severity={"warning"} role="note">
+        <Alert severity={showInfoSeverity ? "info" : "warning"} role="note">
           {percentageUnknown}
           {props.metricConfig.shortLabel}
           {" reported an unknown "}

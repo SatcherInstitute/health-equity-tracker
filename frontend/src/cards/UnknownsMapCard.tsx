@@ -151,7 +151,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             (unknown: Row) => unknown[metricConfig.metricId] === undefined
           );
 
-        // when suppressing states with too low COVID numbers
+        // for data sets where some geos might contain `0` for every unknown pct_share, like CAWP US Congress National
         const unknownsAllZero =
           unknowns.length > 0 &&
           unknowns.every(
