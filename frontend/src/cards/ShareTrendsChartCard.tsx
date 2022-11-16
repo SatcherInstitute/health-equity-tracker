@@ -171,6 +171,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     breakdownVar={props.breakdownVar}
                     setSelectedTableGroups={setSelectedTableGroups}
                     isCompareCard={props.isCompareCard || false}
+                    expanded={unknownsExpanded}
+                    setExpanded={setUnknownsExpanded}
                   />
 
                   <CardContent>
