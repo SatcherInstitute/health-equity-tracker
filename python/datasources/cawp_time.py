@@ -5,7 +5,7 @@ from ingestion import gcs_to_bq_util, merge_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
 
-FIRST_YR = 2017
+FIRST_YR = 2002
 LAST_YR = 2022
 
 # restrict index years to this list
@@ -47,7 +47,7 @@ def get_postal_from_cawp_phrase(cawp_place_phrase: str):
 
     Parameters:
         cawp_place_phrase: str
-    Returns: 
+    Returns:
         string of standard 2-letter postal code
      """
 
@@ -138,7 +138,7 @@ def scaffold_df_by_year_by_state_by_race():
     """
     Creates the scaffold df with a row for every STATE/YEAR/RACE combo
     Returns:
-        df with a row for every combo of CAWP race, years, and state/territories 
+        df with a row for every combo of CAWP race, years, and state/territories
         including columns for "state_name", "state_postal" and "state_fips"
     """
     # start with single column of all state-level fips as our df template
@@ -164,10 +164,10 @@ def scaffold_df_by_year_by_state_by_race():
 def merge_us_congress_totals(df):
     """
     Calculates a list of ALL US Congress members per state/year, and merges that info into the scaffold df
-    Parameters: 
+    Parameters:
         df: a scaffold df containing a row for every combo of "time_period" and "state_fips"
-    Returns: 
-        df with a column "us_congress_total_count" containing the int count of total members in the state/year, 
+    Returns:
+        df with a column "us_congress_total_count" containing the int count of total members in the state/year,
         and a string list of those same members
     """
 
@@ -243,7 +243,7 @@ def merge_us_congress_women_by_race(df):
     Parameters:
         df: incoming df with rows per state/year/race
     Returns:
-        df with rows per state/year/race, a column for counts of women US Congress members 
+        df with rows per state/year/race, a column for counts of women US Congress members
         and a columns for lists of their names
     """
 
@@ -388,6 +388,8 @@ def merge_us_congress_women_by_race(df):
     line_items_df_us_congress_alls_df = pd.merge(
         line_items_df_us_congress_alls_df, df_totals, on=merge_cols, how="inner")
 
+    # print(line_items_df_us_congress_alls_df)
+
     # merge CAWP counts by RACE with incoming df per race/year/state
     merge_cols = [
         std_col.TIME_PERIOD_COL,
@@ -400,7 +402,7 @@ def merge_us_congress_women_by_race(df):
         df, line_items_df_us_congress, on=merge_cols, how="left")
 
     # concat the ALL rows with the RACE rows
-    df = pd.concat([df, line_items_df_us_congress_alls_df])
+    # df = pd.concat([df, line_items_df_us_congress_alls_df])
 
     # state/race/years with NO WOMEN should have counts as zero and names as empty string
     df["women_this_race_us_congress_count"] = df["women_this_race_us_congress_count"].fillna(
@@ -416,10 +418,10 @@ def merge_us_congress_women_by_race(df):
 
 def combine_states_to_national(df):
     """
-    Takes the df that contains rows for every year/race by state and territory, 
+    Takes the df that contains rows for every year/race by state and territory,
     and combines those rows into a national dataset
 
-    Parameters: 
+    Parameters:
         df: dataframe containing a row for every combination of state/race/year
     Output:
         df same dataframe summed to a national level with a row per race/year
