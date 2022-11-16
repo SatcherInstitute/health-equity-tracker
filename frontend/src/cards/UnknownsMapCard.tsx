@@ -188,26 +188,24 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             <Divider />
 
             {/* PERCENT REPORTING UNKNOWN ALERT - contains its own logic and divider/styling */}
-            {!unknownsAllZero && (
-              <UnknownsAlert
-                queryResponse={alertQueryResponse}
-                metricConfig={metricConfig}
-                breakdownVar={currentBreakdown}
-                displayType="map"
-                known={false}
-                overrideAndWithOr={currentBreakdown === RACE}
-                raceEthDiffMap={
-                  mapQueryResponse
-                    .getValidRowsForField(currentBreakdown)
-                    .filter(
-                      (row: Row) => row[currentBreakdown] === UNKNOWN_ETHNICITY
-                    ).length !== 0
-                }
-                noDemographicInfoMap={noDemographicInfo}
-                showingVisualization={showingVisualization}
-                fips={props.fips}
-              />
-            )}
+            <UnknownsAlert
+              queryResponse={alertQueryResponse}
+              metricConfig={metricConfig}
+              breakdownVar={currentBreakdown}
+              displayType="map"
+              known={false}
+              overrideAndWithOr={currentBreakdown === RACE}
+              raceEthDiffMap={
+                mapQueryResponse
+                  .getValidRowsForField(currentBreakdown)
+                  .filter(
+                    (row: Row) => row[currentBreakdown] === UNKNOWN_ETHNICITY
+                  ).length !== 0
+              }
+              noDemographicInfoMap={noDemographicInfo}
+              showingVisualization={showingVisualization}
+              fips={props.fips}
+            />
 
             <CardContent>
               {/* MISSING DATA ALERT */}
@@ -221,7 +219,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               )}
 
               {/* NO UNKNOWNS INFO BOX */}
-              {(showNoUnknownsInfo || unknownsAllZero) && (
+              {showNoUnknownsInfo && (
                 <Alert severity="info" role="note">
                   No unknown values for {breakdownString} reported in this
                   dataset.
