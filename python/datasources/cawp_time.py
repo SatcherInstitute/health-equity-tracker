@@ -6,7 +6,7 @@ from ingestion import gcs_to_bq_util, merge_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
 
-FIRST_YR = 1967
+FIRST_YR = 1917
 LAST_YR = 2022
 
 # restrict index years to this list
@@ -353,6 +353,11 @@ def merge_us_congress_women_any_race_names_cols(scaffold_df):
         "state_postal",
         "time_period"
     ], how="left")
+
+    df["women_all_races_us_congress_count"] = df["women_all_races_us_congress_count"].fillna(
+        0)
+    df["women_all_races_us_congress_names"] = df["women_all_races_us_congress_names"].fillna(
+        "")
 
     # print(df)
 
