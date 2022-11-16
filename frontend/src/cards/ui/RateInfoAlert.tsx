@@ -25,6 +25,7 @@ interface RateInfoAlertProps {
   fips: Fips;
   setSmallMultiplesDialogOpen: Function;
   variableConfig: VariableConfig;
+  hideMultiMapLink?: boolean;
 }
 
 export function RateInfoAlert(props: RateInfoAlertProps) {
@@ -81,11 +82,13 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
         <Alert severity="info" role="note">
           {generateDemographicTotalPhrase()}
           {/* Compare across XYZ for all variables except vaccinated at county level */}
-          <MultiMapLink
-            setSmallMultiplesDialogOpen={props.setSmallMultiplesDialogOpen}
-            currentBreakdown={props.currentBreakdown}
-            currentVariable={props.variableConfig.variableFullDisplayName}
-          />
+          {!props.hideMultiMapLink && (
+            <MultiMapLink
+              setSmallMultiplesDialogOpen={props.setSmallMultiplesDialogOpen}
+              currentBreakdown={props.currentBreakdown}
+              currentVariable={props.variableConfig.variableFullDisplayName}
+            />
+          )}
         </Alert>
       </CardContent>
     </>

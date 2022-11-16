@@ -236,6 +236,10 @@ function MapCardWithKey(props: MapCardProps) {
         const hideGroupDropdown =
           Object.values(filterOptions).toString() === ALL;
 
+        const noChildGeoLevelData =
+          mapQueryResponse.dataIsMissing() ||
+          dataForActiveBreakdownFilter.length === 0;
+
         return (
           <>
             <MultiMapDialog
@@ -301,18 +305,18 @@ function MapCardWithKey(props: MapCardProps) {
               </>
             )}
 
-            {!mapQueryResponse.dataIsMissing() &&
-              !!dataForActiveBreakdownFilter.length && (
-                <RateInfoAlert
-                  overallQueryResponse={overallQueryResponse}
-                  currentBreakdown={props.currentBreakdown}
-                  activeBreakdownFilter={activeBreakdownFilter}
-                  metricConfig={metricConfig}
-                  fips={props.fips}
-                  setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
-                  variableConfig={props.variableConfig}
-                />
-              )}
+            {!overallQueryResponse.dataIsMissing() && (
+              <RateInfoAlert
+                overallQueryResponse={overallQueryResponse}
+                currentBreakdown={props.currentBreakdown}
+                activeBreakdownFilter={activeBreakdownFilter}
+                metricConfig={metricConfig}
+                fips={props.fips}
+                setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
+                variableConfig={props.variableConfig}
+                hideMultiMapLink={noChildGeoLevelData}
+              />
+            )}
 
             {(mapQueryResponse.dataIsMissing() ||
               dataForActiveBreakdownFilter.length === 0) && (
