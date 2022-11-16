@@ -224,10 +224,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               )}
 
               {/* NO UNKNOWNS INFO BOX */}
-              {showNoUnknownsInfo && (
+              {(showNoUnknownsInfo || unknownsAllZero) && (
                 <Alert severity="info" role="note">
                   No unknown values for {breakdownString} reported in this
-                  dataset.
+                  dataset at the {props.fips.getChildFipsTypeDisplayName()}{" "}
+                  level.
                 </Alert>
               )}
             </CardContent>
