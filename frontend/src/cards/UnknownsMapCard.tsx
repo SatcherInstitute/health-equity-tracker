@@ -179,6 +179,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         const showingVisualization =
           !unknownsArrayEmpty && !unknownsUndefined && !unknownsAllZero;
 
+        const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== "";
+
         return (
           <>
             <CardContent className={styles.SmallMarginContent}>
@@ -227,8 +229,14 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {(showNoUnknownsInfo || unknownsAllZero) && (
                 <Alert severity="info" role="note">
                   No unknown values for {breakdownString} reported in this
-                  dataset at the {props.fips.getChildFipsTypeDisplayName()}{" "}
-                  level.
+                  dataset
+                  {hasChildGeo && (
+                    <>
+                      {" "}
+                      at the {props.fips.getChildFipsTypeDisplayName()} level
+                    </>
+                  )}
+                  {"."}
                 </Alert>
               )}
             </CardContent>
