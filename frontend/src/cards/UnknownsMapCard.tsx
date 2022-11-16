@@ -107,6 +107,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       scrollToHash={HASH_ID}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
+        // MOST of the items rendered in the card refer to the unknowns at the CHILD geo level,
+        //  e.g. if you look at the United States, we are dealing with the Unknown pct_share at the state level
+        // the exception is the <UnknownsAlert /> which presents the amount of unknown demographic at the SELECTED level
         const unknownRaces = mapQueryResponse
           .getValidRowsForField(currentBreakdown)
           .filter(
@@ -188,6 +191,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             <Divider />
 
             {/* PERCENT REPORTING UNKNOWN ALERT - contains its own logic and divider/styling */}
+            {/* This alert presents the UNKNOWN PCT_SHARE for the SELECTED GEO LEVEL,
+            as opposed to the rest of this current component which deals in CHILD GEO unknowns */}
             <UnknownsAlert
               queryResponse={alertQueryResponse}
               metricConfig={metricConfig}
