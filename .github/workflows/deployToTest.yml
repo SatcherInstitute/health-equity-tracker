@@ -203,17 +203,17 @@ jobs:
           -var 'aggregator_image_digest=${{ needs.build-aggregator.outputs.image-digest }}' \
           -var 'frontend_image_digest=${{ needs.build-frontend.outputs.image-digest }}'
           data_server_url=$(terraform output data_server_url)
-          echo "::set-output name=data_server_url::$data_server_url"
+          echo "data_server_url=$data_server_url" >> $GITHUB_OUTPUT
           ingestion_url=$(terraform output ingestion_url)
-          echo "::set-output name=ingestion_url::$ingestion_url"
+          echo "ingestion_url=$ingestion_url" >> $GITHUB_OUTPUT
           gcs_to_bq_url=$(terraform output gcs_to_bq_url)
-          echo "::set-output name=gcs_to_bq_url::$gcs_to_bq_url"
+          echo "gcs_to_bq_url=$gcs_to_bq_url" >> $GITHUB_OUTPUT
           exporter_url=$(terraform output exporter_url)
-          echo "::set-output name=exporter_url::$exporter_url"
+          echo "exporter_url=$exporter_url" >> $GITHUB_OUTPUT
           aggregator_url=$(terraform output aggregator_url)
-          echo "::set-output name=aggregator_url::$aggregator_url"
+          echo "aggregator_url=$aggregator_url" >> $GITHUB_OUTPUT
           frontend_url=$(terraform output frontend_url)
-          echo "::set-output name=frontend_url::$frontend_url"
+          echo "frontend_url=$frontend_url" >> $GITHUB_OUTPUT
       - name: Airflow Environment Variables
         id: airflow-environment-variables
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
