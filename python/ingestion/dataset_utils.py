@@ -281,8 +281,11 @@ def generate_pct_relative_inequity_column(
 
     # if all of the rows for a particular time_period have rates that are 0,
     # null those years' inequitable share values
-    df['year_has_a_non_zero_100k'] = df['time_period'].isin(
-        df.loc[df[rate_col].gt(0), 'time_period'])
+
+    df["year_state"] = df["time_period"] + df["state_fips"]
+
+    df['year_has_a_non_zero_100k'] = df["year_state"].isin(
+        df.loc[df[rate_col].gt(0), "year_state"])
 
     def _filter_out_all_zeros(row):
         if row["year_has_a_non_zero_100k"] is True:
@@ -291,6 +294,6 @@ def generate_pct_relative_inequity_column(
         return row
 
     df = df.apply(_filter_out_all_zeros, axis=1)
-    df = df.drop("year_has_a_non_zero_100k", axis=1)
+    df = df.drop(["year_has_a_non_zero_100k", "year_state"], axis=1)
 
     return df

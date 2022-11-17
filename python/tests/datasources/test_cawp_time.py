@@ -26,7 +26,7 @@ def _fetch_json_from_web(*args):
     elif url == US_CONGRESS_CURRENT_URL:
         file_name = "test_legislators-current.json"
 
-    print('reading mock US CONGRESS: {file_name}')
+    print(f'reading mock US CONGRESS: {file_name}')
 
     with open(os.path.join(TEST_DIR, file_name)) as file:
         return json.load(file)

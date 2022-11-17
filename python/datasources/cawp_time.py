@@ -44,30 +44,6 @@ POSITION_LABELS = {
 RACE_ETH = "race_ethnicity"
 
 
-def get_postal_from_cawp_phrase(cawp_place_phrase: str):
-    """ Swap CAWP place phrase found in the LINE ITEM table
-    `{STATE_COL_LINE NAME} - {CODE}` with the standard 2 letter code
-
-    Parameters:
-        cawp_place_phrase: str
-    Returns:
-        string of standard 2-letter postal code
-     """
-
-    # swap out non-standard 2 letter codes
-    cawp_place_phrase = {"American Samoa - AM":
-                         "American Samoa - AS",
-                         "Northern Mariana Islands - MI":
-                         "Northern Mariana Islands - MP"}.get(
-                             cawp_place_phrase, cawp_place_phrase)
-
-    # only keep 2 letter code portion
-    place_terms_list = cawp_place_phrase.split(" - ")
-    place_code = place_terms_list[1]
-
-    return place_code
-
-
 class CAWPTimeData(DataSource):
 
     @ staticmethod
@@ -92,10 +68,12 @@ class CAWPTimeData(DataSource):
             RACE_ETH
         ]
 
+        us_congress_df = get_us_congress_df()
+
         # STATE ROWS FOR THE "ALL" RACE_ETH
         df_alls = scaffold_df_by_year_by_state_by_race_list(["All"])
         df_alls_total_cols = merge_us_congress_total_names_count_cols(
-            df_alls.copy())
+            df_alls.copy(), us_congress_df)
         df_alls_women_any_race_cols = merge_us_congress_women_any_race_names_cols(
             df_alls.copy())
         df_alls_women_this_race_cols = df_alls_women_any_race_cols.copy().rename(columns={
@@ -107,7 +85,7 @@ class CAWPTimeData(DataSource):
         df_by_races = scaffold_df_by_year_by_state_by_race_list(list(
             CAWP_RACE_GROUPS_TO_STANDARD.keys()))
         df_by_races_total_cols = merge_us_congress_total_names_count_cols(
-            df_by_races.copy())
+            df_by_races.copy(), us_congress_df)
         df_by_races_women_any_race_cols = merge_us_congress_women_any_race_names_cols(
             df_by_races.copy())
         df_by_races_women_this_race_cols = merge_us_congress_women_this_race_cols(
@@ -206,14 +184,14 @@ def scaffold_df_by_year_by_state_by_race_list(race_list: List[str]):
     return df
 
 
-def merge_us_congress_total_names_count_cols(scaffold_df):
+def get_us_congress_df():
     """
-    Calculates a list of ALL US Congress members per state/year, and merges that info into the scaffold df
-    Parameters:
-        scaffold_df: a df containing a row for every combo of "time_period" and "state_fips"
+    Fetches historic and current congress data, combines them, and iterates over each Congress member 
+    and their terms served to generate a dataframe. 
+
     Returns:
-        df with a column "us_congress_total_count" containing the int count of total members in the state/year,
-        and a string list of those same members
+        df with rows per legislator-term and
+        columns "time_period" by year and "state_postal"
     """
 
     # load US congress data for total_counts
@@ -258,17 +236,33 @@ def merge_us_congress_total_names_count_cols(scaffold_df):
                     us_congress_totals_list_of_dict.append(entry)
 
     # convert to df
-    us_congress_df = pd.DataFrame.from_dict(
+    df = pd.DataFrame.from_dict(
         us_congress_totals_list_of_dict)
 
     # get names of all TOTAL members in lists per row
-    us_congress_df = us_congress_df.groupby(
+    df = df.groupby(
         [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])["name"].apply(list).reset_index()
-    us_congress_df = us_congress_df.rename(columns={
+    df = df.rename(columns={
         "name": "total_us_congress_names"})
     # get counts of all TOTAL members in lists per row
-    us_congress_df["total_us_congress_count"] = us_congress_df["total_us_congress_names"].apply(
+    df["total_us_congress_count"] = df["total_us_congress_names"].apply(
         lambda list: len(list))
+
+    return df
+
+
+def merge_us_congress_total_names_count_cols(scaffold_df, us_congress_df):
+    """
+    Merges previously made congress df info into the incoming scaffold df
+    Parameters:
+        scaffold_df: df containing a row for every combo of 
+            "time_period" X "state_postal" X "race_ethnicity
+        congress_df: df containing a row for every legislator-term
+
+    Returns:
+        df with a column "us_congress_total_count" ints count of total members in the state/year,
+        and column "us_congress_total_names" a string list of those same members
+    """
 
     # merge in calculated counts and name lists by state/year where they exist;
     df = pd.merge(scaffold_df, us_congress_df,
@@ -491,3 +485,27 @@ def combine_states_to_national(df):
     df[std_col.STATE_POSTAL_COL] = US_ABBR
 
     return df
+
+
+def get_postal_from_cawp_phrase(cawp_place_phrase: str):
+    """ Swap CAWP place phrase found in the LINE ITEM table
+    `{STATE_COL_LINE NAME} - {CODE}` with the standard 2 letter code
+
+    Parameters:
+        cawp_place_phrase: str
+    Returns:
+        string of standard 2-letter postal code
+     """
+
+    # swap out non-standard 2 letter codes
+    cawp_place_phrase = {"American Samoa - AM":
+                         "American Samoa - AS",
+                         "Northern Mariana Islands - MI":
+                         "Northern Mariana Islands - MP"}.get(
+                             cawp_place_phrase, cawp_place_phrase)
+
+    # only keep 2 letter code portion
+    place_terms_list = cawp_place_phrase.split(" - ")
+    place_code = place_terms_list[1]
+
+    return place_code
