@@ -30,7 +30,7 @@ from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import (
     generate_per_100k_col,
     generate_pct_share_col_with_unknowns,
-    generate_pct_relative_inequity_column)
+    generate_pct_rel_inequity_col)
 
 from ingestion.merge_utils import (
     merge_state_ids,
@@ -224,7 +224,7 @@ class CDCRestrictedData(DataSource):
             for prefix in COVID_CONDITION_TO_PREFIX.values():
                 pct_relative_inequity_col = generate_column_name(
                     prefix, std_col.PCT_REL_INEQUITY_SUFFIX)
-                df = generate_pct_relative_inequity_column(
+                df = generate_pct_rel_inequity_col(
                     df, generate_column_name(prefix, std_col.SHARE_SUFFIX),
                     std_col.COVID_POPULATION_PCT,
                     pct_relative_inequity_col)

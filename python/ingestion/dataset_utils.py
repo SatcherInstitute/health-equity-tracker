@@ -252,7 +252,7 @@ def ensure_leading_zeros(df, fips_col_name: str, num_digits: int):
     return df
 
 
-def generate_pct_relative_inequity_column(
+def generate_pct_rel_inequity_col(
     df,
     pct_share_col: str,
     pct_pop_col: str,
