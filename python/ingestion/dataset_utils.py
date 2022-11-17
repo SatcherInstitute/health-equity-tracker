@@ -252,7 +252,13 @@ def ensure_leading_zeros(df, fips_col_name: str, num_digits: int):
     return df
 
 
-def generate_pct_relative_inequity_column(df, pct_share_col: str, pct_pop_col: str, pct_relative_inequity_col: str):
+def generate_pct_relative_inequity_column(
+    df,
+    pct_share_col: str,
+    pct_pop_col: str,
+    pct_relative_inequity_col: str,
+    rate_col: str
+):
     """Returns a new DataFrame with an inequitable share column.
 
        df: Pandas DataFrame to generate the column for.
@@ -260,6 +266,7 @@ def generate_pct_relative_inequity_column(df, pct_share_col: str, pct_pop_col: s
        pct_pop_col: String column name for the pct of population.
        pct_relative_inequity_col: String column name to place the calculated
                               inequitable shares in.
+       rate_col: string column name for the rate used to filter years
        """
     def calc_pct_relative_inequity(row):
         if pd.isna(row[pct_share_col]) or pd.isna(row[pct_pop_col]) or (row[pct_pop_col] == 0):
@@ -271,4 +278,19 @@ def generate_pct_relative_inequity_column(df, pct_share_col: str, pct_pop_col: s
 
     df[pct_relative_inequity_col] = df.apply(
         calc_pct_relative_inequity, axis=1)
+
+    # if all of the rows for a particular time_period have rates that are 0,
+    # null those years' inequitable share values
+    df['year_has_a_non_zero_100k'] = df['time_period'].isin(
+        df.loc[df[rate_col].gt(0), 'time_period'])
+
+    def _filter_out_all_zeros(row):
+        if row["year_has_a_non_zero_100k"] is True:
+            return row
+        row[pct_relative_inequity_col] = np.nan
+        return row
+
+    df = df.apply(_filter_out_all_zeros, axis=1)
+    df.drop("year_has_a_non_zero_100k", axis=1)
+
     return df

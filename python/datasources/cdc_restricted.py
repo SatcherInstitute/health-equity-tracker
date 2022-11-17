@@ -513,7 +513,7 @@ def zero_out_pct_relative_inequity(df, geo, demographic):
        are zero cases/deaths/hosps with a known demographic.
 
        df: Dataframe to zero rows out on.
-       geo: Geographic level. Must be `national`, `state` or`county`.
+       geo: Geographic level. Must be `national`, `state` or `county`.
        demographic: Demographic breakdown. Must be `race`, `age`, or `sex`."""
 
     geo_col_mapping = {
