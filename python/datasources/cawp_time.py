@@ -7,8 +7,8 @@ from ingestion.standardized_columns import Race
 import pandas as pd
 
 # time_period range
-# FIRST_YR = 2020
-FIRST_YR = 1915
+FIRST_YR = 2020
+# FIRST_YR = 1915
 LAST_YR = 2022
 # LAST_YR = 1925
 TIME_PERIODS = [str(x) for x in list(range(FIRST_YR, LAST_YR + 1))]
