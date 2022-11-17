@@ -2,12 +2,12 @@ from typing import List
 from datasources.data_source import DataSource
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, STATE_LEVEL_FIPS_LIST, US_ABBR, US_FIPS, US_NAME, TERRITORY_POSTALS, RACE
 import ingestion.standardized_columns as std_col
-from ingestion import gcs_to_bq_util, merge_utils
+from ingestion import gcs_to_bq_util, merge_utils, dataset_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
 
 # FIRST_YR = 2017
-FIRST_YR = 1917
+FIRST_YR = 1915
 LAST_YR = 2022
 
 # restrict index years to this list
@@ -164,6 +164,12 @@ class CAWPTimeData(DataSource):
 
             df = merge_utils.merge_current_pop_numbers(
                 df, RACE, geo_level, LAST_YR)
+
+            df = dataset_utils.generate_pct_relative_inequity_column(df,
+                                                                     std_col.PCT_SHARE_OF_WOMEN_US_CONGRESS,
+                                                                     std_col.POPULATION_PCT_COL,
+                                                                     "pct_relative_inequity_women_us_congress"
+                                                                     )
 
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, bq_table_name)
