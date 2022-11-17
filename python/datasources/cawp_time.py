@@ -5,6 +5,7 @@ import ingestion.standardized_columns as std_col
 from ingestion import gcs_to_bq_util, merge_utils, dataset_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
+import csv
 
 # time_period range
 FIRST_YR = 2020
@@ -58,7 +59,18 @@ class CAWPTimeData(DataSource):
             'upload_to_gcs should not be called for CAWPTimeData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
+        df = self.generate_base_df()
+        for geo_level in [
+            STATE_LEVEL,
+            NATIONAL_LEVEL
+        ]:
+            df, bq_table_name = self.generate_breakdown(df.copy(), geo_level)
+            gcs_to_bq_util.add_df_to_bq(
+                df, dataset, bq_table_name)
 
+    # CLASS METHODS
+
+    def generate_base_df(self):
         merge_cols = [
             std_col.TIME_PERIOD_COL,
             std_col.STATE_FIPS_COL,
@@ -73,7 +85,7 @@ class CAWPTimeData(DataSource):
 
         # STATE ROWS FOR THE "ALL" RACE_ETH
         df_alls_rows = scaffold_df_by_year_by_state_by_race_list([
-                                                                 Race.ALL.value])
+            Race.ALL.value])
         df_alls_total_cols = merge_us_congress_total_names_count_cols(
             df_alls_rows.copy(), us_congress_totals_df)
         df_alls_women_any_race_cols = merge_us_congress_women_cols(
@@ -110,56 +122,72 @@ class CAWPTimeData(DataSource):
             df_by_races_rows, df_by_races_women_this_race_cols, on=merge_cols)
 
         # combine ROWS together from ALLS ROWS and BY RACES rows
-        _df = pd.concat([df_alls_rows, df_by_races_rows])
-        _df = _df.sort_values(
+        df = pd.concat([df_alls_rows, df_by_races_rows])
+        df = df.sort_values(
             by=merge_cols).reset_index(drop=True)
 
-        for geo_level in [
-            STATE_LEVEL,
-            NATIONAL_LEVEL
-        ]:
-            df = _df.copy()
+        return df
 
-            if geo_level == NATIONAL_LEVEL:
-                df = combine_states_to_national(df)
+    def generate_breakdown(self, df, geo_level: str):
+        """
+        Takes df with rows per year/race incl ALL/state and calculates the metrics 
+        shown on the frontend
 
-            # TODO confirm new MULTI behavior and that UNKNOWN are being combined
-            bq_table_name = f'race_and_ethnicity_{geo_level}_time_series'
-            print(f'making {bq_table_name}')
+        Parameters: 
+            df: with columns for state info, CAWP "race_ethnicity", 
+                "time_period" years, along with the raw counts for total,
+                all women, and women of each race
+            geo_level: 
+                "national" or "state"
 
-            # calculate rates of representation
-            df[std_col.PCT_OF_CONGRESS] = round(df[std_col.W_THIS_RACE_CONGRESS_COUNT] /
-                                                df[std_col.CONGRESS_COUNT] * 100, 1)
-            df[std_col.PCT_OF_W_CONGRESS] = round(df[std_col.W_THIS_RACE_CONGRESS_COUNT] /
-                                                  df[std_col.W_ALL_RACES_CONGRESS_COUNT] * 100, 1).fillna(0)
+        Returns [df, bq_table_name]: 
+            df: with calculated columns for share of congress, 
+                share of women in congress, percent relative inequity
+            bq_table_name: string name used for writing each breakdown to bq
 
-            # only keep lists of ALL MEMBERS and ALL WOMEN on the ALL ROWS
-            # only keep the lists of WOMEN BY RACE_ETH on the RACE_ETH ROWS (not the ALLS)
-            df.loc[df[RACE_ETH] != Race.ALL.value, [
-                std_col.CONGRESS_NAMES
-            ]] = "see ALL row"
+        """
 
-            # standardize race labels
-            df[std_col.RACE_CATEGORY_ID_COL] = df[RACE_ETH].apply(
-                lambda x: "ALL" if x == Race.ALL.value else CAWP_RACE_GROUPS_TO_STANDARD[x])
-            std_col.add_race_columns_from_category_id(df)
-            df = df.drop(columns=[RACE_ETH])
+        if geo_level == NATIONAL_LEVEL:
+            df = combine_states_to_national(df)
 
-            target_time_periods = TIME_PERIODS
+        # TODO confirm new MULTI behavior and that UNKNOWN are being combined
+        bq_table_name = f'race_and_ethnicity_{geo_level}_time_series'
+        print(f'making {bq_table_name}')
 
-            df = merge_utils.merge_current_pop_numbers(
-                df, RACE, geo_level, target_time_periods)
+        # calculate rates of representation
+        df[std_col.PCT_OF_CONGRESS] = round(df[std_col.W_THIS_RACE_CONGRESS_COUNT] /
+                                            df[std_col.CONGRESS_COUNT] * 100, 1)
+        df[std_col.PCT_OF_W_CONGRESS] = round(df[std_col.W_THIS_RACE_CONGRESS_COUNT] /
+                                              df[std_col.W_ALL_RACES_CONGRESS_COUNT] * 100, 1).fillna(0)
 
-            df = dataset_utils.generate_pct_rel_inequity_col(df,
-                                                             std_col.PCT_OF_W_CONGRESS,
-                                                             std_col.POPULATION_PCT_COL,
-                                                             std_col.W_CONGRESS_PCT_INEQUITY,
-                                                             std_col.PCT_OF_CONGRESS
-                                                             )
+        # only keep lists of ALL MEMBERS and ALL WOMEN on the ALL ROWS
+        # only keep the lists of WOMEN BY RACE_ETH on the RACE_ETH ROWS (not the ALLS)
+        df.loc[df[RACE_ETH] != Race.ALL.value, [
+            std_col.CONGRESS_NAMES
+        ]] = "see ALL row"
 
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, bq_table_name)
+        # standardize race labels
+        df[std_col.RACE_CATEGORY_ID_COL] = df[RACE_ETH].apply(
+            lambda x: "ALL" if x == Race.ALL.value else CAWP_RACE_GROUPS_TO_STANDARD[x])
+        std_col.add_race_columns_from_category_id(df)
+        df = df.drop(columns=[RACE_ETH])
 
+        target_time_periods = TIME_PERIODS
+
+        df = merge_utils.merge_current_pop_numbers(
+            df, RACE, geo_level, target_time_periods)
+
+        df = dataset_utils.generate_pct_rel_inequity_col(df,
+                                                         std_col.PCT_OF_W_CONGRESS,
+                                                         std_col.POPULATION_PCT_COL,
+                                                         std_col.W_CONGRESS_PCT_INEQUITY,
+                                                         std_col.PCT_OF_CONGRESS
+                                                         )
+
+        return [df, bq_table_name]
+
+
+# HELPER FUNCTIONS
 
 def scaffold_df_by_year_by_state_by_race_list(race_list: List[str]):
     """
