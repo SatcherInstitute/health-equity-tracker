@@ -142,15 +142,17 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           metricConfigPctShares.metricId
         );
 
+        console.log({ nestedInequityData });
+
         return (
           <>
             <CardContent>
               <Alert severity="info" role="note">
                 This chart visualizes the disproportionate percent share of a
-                condition that is borne by a certain demographic, compared with
-                that demographic's share of the entire population (defaulting to
-                groups with the highest / lowest historical averages). Read more
-                about this calculation in our{" "}
+                condition that is borne or experienced by a certain demographic,
+                compared with that demographic's share of the entire population
+                (defaulting to groups with the highest and lowest historical
+                averages). Read more about this calculation in our{" "}
                 <HashLink to={`${METHODOLOGY_TAB_LINK}#metrics`}>
                   methodology
                 </HashLink>
@@ -184,6 +186,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                         BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
                           props.breakdownVar
                         ],
+                      xAxisIsMonthly: metricConfigInequitable.isMonthly,
                     }}
                     breakdownVar={props.breakdownVar}
                     setSelectedTableGroups={setSelectedTableGroups}

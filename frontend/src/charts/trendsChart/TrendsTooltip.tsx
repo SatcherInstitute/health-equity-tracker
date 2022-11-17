@@ -78,7 +78,7 @@ export function TrendsTooltip({
     },
     [TYPES.PERCENT_SHARE]: {
       UNIT: "",
-      width: getWidthHundredK,
+      width: getWidthPctShare,
       translate_x: (d: TimeSeries) => 0,
       formatter: F.pct,
     },
@@ -90,11 +90,16 @@ export function TrendsTooltip({
     },
   };
 
+  const isMonthly = (selectedDate?.length ?? 0) > 4;
+  const displayDate = isMonthly
+    ? F.dateFromString_MM_YYYY(selectedDate || "")
+    : F.dateFromString_YYYY(selectedDate || "");
+
   return (
     <div className={styles.Tooltip} role="tooltip">
       {/* Date title */}
       <div className={styles.title}>
-        <div>{F.dateFromString(selectedDate || "")}</div>
+        <div>{displayDate}</div>
         {/* if per 100k chart and on mobile, add subtitle with units */}
         {isSkinny && type === TYPES.HUNDRED_K && (
           <div className={styles.subtitle}>{F.capitalize(yAxisLabel)}</div>

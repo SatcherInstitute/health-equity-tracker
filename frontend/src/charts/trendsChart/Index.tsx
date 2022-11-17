@@ -169,8 +169,10 @@ export function TrendsChart({
   // TODO: look into using useCallback instead
   // Array of just dates (x values)
   const dates = getDates(filteredData);
+  console.log({ dates });
   // Array of just amounts (y values)
   const amounts = getAmounts(filteredData);
+  console.log({ amounts });
 
   /* Scales */
 
@@ -247,6 +249,8 @@ export function TrendsChart({
   const chartTitleId = `chart-title-label-${axisConfig.type}-${
     isCompareCard ? "2" : "1"
   }`;
+
+  console.log({ xScale });
 
   return (
     // Container

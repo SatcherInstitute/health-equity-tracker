@@ -132,7 +132,9 @@ const FORMATTERS = {
   pct: (d: number) => `${format(".1~f")(d)}%`, // have to treat percent as truncated number and then interpolate % b/c they are received as integers
   dateShort: utcFormat("%m/%y"),
   dateYear: utcFormat("%Y"),
-  dateFromString: (str: string) => str && utcFormat("%B %Y")(new Date(str)),
+  dateFromString_YYYY: (str: string) => str && utcFormat("%Y")(new Date(str)),
+  dateFromString_MM_YYYY: (str: string) =>
+    str && utcFormat("%B %Y")(new Date(str)),
   num: format(".1~f"),
   plusNum: (d: number) => `${d > 0 ? "+" : ""}${format(".1~f")(d)}`, // add "+" only to positive numbers (not 0)
   capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ""),
