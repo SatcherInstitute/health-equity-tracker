@@ -22,7 +22,6 @@ jobs:
       - name: Set Up gcloud
         uses: google-github-actions/setup-gcloud@v1
         with:
-          export_default_credentials: true
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: ingestion
         uses: ./.github/actions/buildAndPush
@@ -46,7 +45,6 @@ jobs:
       - name: Set Up gcloud
         uses: google-github-actions/setup-gcloud@v1
         with:
-          export_default_credentials: true
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: gcstobq
         uses: ./.github/actions/buildAndPush
@@ -70,7 +68,6 @@ jobs:
       - name: Set Up gcloud
         uses: google-github-actions/setup-gcloud@v1
         with:
-          export_default_credentials: true
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: aggregator
         uses: ./.github/actions/buildAndPush
@@ -94,7 +91,6 @@ jobs:
       - name: Set Up gcloud
         uses: google-github-actions/setup-gcloud@v1
         with:
-          export_default_credentials: true
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: exporter
         uses: ./.github/actions/buildAndPush
@@ -118,7 +114,6 @@ jobs:
       - name: Set Up gcloud
         uses: google-github-actions/setup-gcloud@v1
         with:
-          export_default_credentials: true
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: serving
         uses: ./.github/actions/buildAndPush
@@ -142,7 +137,6 @@ jobs:
       - name: Set Up gcloud
         uses: google-github-actions/setup-gcloud@v1
         with:
-          export_default_credentials: true
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: frontend
         uses: ./.github/actions/buildAndPush
@@ -169,7 +163,6 @@ jobs:
       - name: Set Up gcloud
         uses: google-github-actions/setup-gcloud@v1
         with:
-          export_default_credentials: true
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
