@@ -4,7 +4,7 @@ import LazyLoad from "react-lazyload";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
-import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
+// import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
 import { AgeAdjustedTableCard } from "../cards/AgeAdjustedTableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
 import { TableCard } from "../cards/TableCard";

@@ -30,6 +30,11 @@ import { METHODOLOGY_TAB_LINK } from "../utils/internalRoutes";
 import AltTableView from "./ui/AltTableView";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from "../data/variables/CawpProvider";
+import { Row } from "../data/utils/DatasetTypes";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -79,6 +84,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const HASH_ID: ScrollableHashId = "inequities-over-time";
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label;
 
+  const isCAWP = CAWP_DETERMINANTS.includes(metricConfigInequitable.metricId);
+
   return (
     <CardWrapper
       queries={[inequityQuery, pctShareQuery]}
@@ -90,10 +97,21 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
         const inequityData = queryResponseInequity.getValidRowsForField(
           metricConfigInequitable.metricId
         );
-        const [knownInequityData] = splitIntoKnownsAndUnknowns(
+        const [knownData] = splitIntoKnownsAndUnknowns(
           inequityData,
           props.breakdownVar
         );
+
+        // swap race labels if applicable
+        const knownInequityData = isCAWP
+          ? knownData.map((row: Row) => {
+              const altRow = { ...row };
+              altRow.race_and_ethnicity = getWomenRaceLabel(
+                row.race_and_ethnicity
+              );
+              return altRow;
+            })
+          : knownData;
 
         const pctShareData = queryResponsePctShares.getValidRowsForField(
           metricConfigPctShares.metricId
@@ -109,7 +127,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           .getFieldValues(props.breakdownVar, metricConfigInequitable.metricId)
           .withData.filter(
             (group: DemographicGroup) => !UNKNOWN_LABELS.includes(group)
-          );
+          )
+          .map((group: DemographicGroup) => getWomenRaceLabel(group));
 
         const nestedInequityData = getNestedData(
           knownInequityData,

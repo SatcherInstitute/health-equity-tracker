@@ -169,7 +169,7 @@ export type MetricId =
   | "pct_share_of_us_congress"
   | "pct_share_of_women_us_congress"
   | "women_us_congress_ratio_age_adjusted"
-  | "pct_relative_inequity_women_us_congress"
+  | "women_us_congress_pct_relative_inequity"
   | "women_this_race_us_congress_names"
   | "total_us_congress_names"
   | "women_this_race_us_congress_count"
@@ -1621,9 +1621,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           // },
         },
         pct_relative_inequity: {
-          metricId: "pct_relative_inequity_women_us_congress",
+          metricId: "women_us_congress_pct_relative_inequity",
           fullCardTitleName:
-            "historical data for inequitable representation of women in US Congress",
+            "Relative inequity over time for women in US Congress",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },

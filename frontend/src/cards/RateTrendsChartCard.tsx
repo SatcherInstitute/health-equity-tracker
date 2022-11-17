@@ -73,6 +73,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     TIME_SERIES
   );
 
+  const isCAWP = CAWP_DETERMINANTS.includes(metricConfigRates.metricId);
+
   function getTitleText() {
     return `${
       metricConfigRates.trendsCardTitleName
@@ -90,8 +92,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       scrollToHash={HASH_ID}
     >
       {([queryResponseRates, queryResponsePctShares]) => {
-        const isCAWP = CAWP_DETERMINANTS.includes(metricConfigRates.metricId);
-
         const ratesData = queryResponseRates.getValidRowsForField(
           metricConfigRates.metricId
         );

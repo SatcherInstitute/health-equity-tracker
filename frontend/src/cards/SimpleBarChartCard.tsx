@@ -23,7 +23,7 @@ import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert"
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
-import { Row } from "../data/utils/DatasetTypes";
+// import { Row } from "../data/utils/DatasetTypes";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
