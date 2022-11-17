@@ -131,37 +131,33 @@ def merge_pop_numbers(df, demo, loc):
     return _merge_pop(df, demo, loc)
 
 
-def merge_current_pop_numbers(df, demo, loc, current_time_period):
+def merge_current_pop_numbers(df, demo, loc, target_time_periods):
     """Merges the corresponding `population` and `population_pct` columns
     into the given df, only populating values for rows where the `time_period`
-    value is equal to `current_time_period`.
+    value is in `target_time_periods`.
 
       df: a pandas df with demographic column and a `state_fips` column
       demo: the demographic in the df, either `age`, `race`, or `sex`
       loc: the location level for the df, either `county`, `state`, or `national`
-      current_time_period: string YYYY or MM-YYYY used to target which rows to
-        merge population data on to (likely will be the most recent `time_period`
-        which will be used by the frontend for our DisparityBarChart comparison metric)
+      target_time_periods: list of strings in format YYYY or MM-YYYY used to target which rows to
+        merge population data on to. Most recent will be used on DisparityBarChart and all 
+        will be used to calculate pct_relative_inequity
       """
 
-    if isinstance(current_time_period, int):
-        current_time_period = str(current_time_period)
-
-    if len(current_time_period) != 7 and len(current_time_period) != 4:
-        raise ValueError(
-            f'`current_time_period` must be a string of the format YYYY or MM-YYYY; you sent the value: {current_time_period}.')
-
-    current_df = df[df[std_col.TIME_PERIOD_COL] == current_time_period]
-    historic_df = df[df[std_col.TIME_PERIOD_COL] != current_time_period]
+    target_rows_df = df[df[std_col.TIME_PERIOD_COL].isin(
+        target_time_periods)]
+    nontarget_rows_df = df[~df[std_col.TIME_PERIOD_COL].isin(
+        target_time_periods)]
 
     # merge pop cols only onto current rows
-    current_df = _merge_pop(current_df, demo, loc)
+    target_rows_df = _merge_pop(target_rows_df, demo, loc)
 
     # placeholder NaNs
-    historic_df[[std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]] = np.nan
+    nontarget_rows_df[[std_col.POPULATION_COL,
+                       std_col.POPULATION_PCT_COL]] = np.nan
 
     # reassemble the HISTORIC (null pop. data) and CURRENT (merged pop. data)
-    df = pd.concat([historic_df, current_df])
+    df = pd.concat([nontarget_rows_df, target_rows_df])
 
     return df
 

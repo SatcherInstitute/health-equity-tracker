@@ -6,8 +6,8 @@ from ingestion import gcs_to_bq_util, merge_utils, dataset_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
 
-# FIRST_YR = 2017
-FIRST_YR = 1915
+FIRST_YR = 2007
+# FIRST_YR = 1915
 LAST_YR = 2022
 
 # restrict index years to this list
@@ -162,13 +162,16 @@ class CAWPTimeData(DataSource):
             std_col.add_race_columns_from_category_id(df)
             df = df.drop(columns=[RACE_ETH])
 
+            target_time_periods = [str(x)
+                                   for x in list(range(2019, LAST_YR + 1))]
+
             df = merge_utils.merge_current_pop_numbers(
-                df, RACE, geo_level, LAST_YR)
+                df, RACE, geo_level, target_time_periods)
 
             df = dataset_utils.generate_pct_relative_inequity_column(df,
                                                                      std_col.PCT_SHARE_OF_WOMEN_US_CONGRESS,
                                                                      std_col.POPULATION_PCT_COL,
-                                                                     "pct_relative_inequity_women_us_congress"
+                                                                     "women_us_congress_pct_relative_inequity"
                                                                      )
 
             gcs_to_bq_util.add_df_to_bq(
