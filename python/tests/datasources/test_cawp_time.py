@@ -81,7 +81,8 @@ def testWriteToBq(
     mock_df_state = mock_bq.call_args_list[0].args[0]
 
     for arg in mock_bq.call_args_list:
-        arg[0][0].to_json(f'cawp_data-{arg[0][2]}.json', orient="records")
+        arg[0][0].to_json(
+            f'frontend/public/tmp/cawp_data-{arg[0][2]}.json', orient="records")
 
     # print("state df sent to BQ")
     # print(mock_df_state.to_string())
