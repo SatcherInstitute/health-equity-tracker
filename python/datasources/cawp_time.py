@@ -6,8 +6,8 @@ from ingestion import gcs_to_bq_util, merge_utils, dataset_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
 
-FIRST_YR = 2007
-# FIRST_YR = 1915
+# FIRST_YR = 2007
+FIRST_YR = 1915
 LAST_YR = 2022
 
 # restrict index years to this list
@@ -162,8 +162,7 @@ class CAWPTimeData(DataSource):
             std_col.add_race_columns_from_category_id(df)
             df = df.drop(columns=[RACE_ETH])
 
-            target_time_periods = [str(x)
-                                   for x in list(range(2019, LAST_YR + 1))]
+            target_time_periods = TIME_PERIODS
 
             df = merge_utils.merge_current_pop_numbers(
                 df, RACE, geo_level, target_time_periods)
