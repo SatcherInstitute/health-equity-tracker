@@ -141,7 +141,7 @@ class CAWPTimeData(DataSource):
                 df = combine_states_to_national(df)
 
             # TODO confirm new MULTI behavior and that UNKNOWN are being combined
-            bq_table_name = f'race_and_ethnicity_{geo_level}'
+            bq_table_name = f'race_and_ethnicity_{geo_level}_time_series'
             print(f'making {bq_table_name}')
 
             # calculate rates of representation
