@@ -74,7 +74,7 @@ def _get_pop_numbers_as_df(*args, **kwargs):
         loc = 'national'
 
     if args[0] == 'acs_2010_population':
-        return pd.read_csv(os.path.join(TEST_DIR, f'population_2010_{demo}.csv'),
+        return pd.read_csv(os.path.join(TEST_DIR, "acs_2010_population", f'population_2010_{demo}.csv'),
                            dtype={'state_fips': str,
                                   'county_fips': str,
                                   })
@@ -86,8 +86,8 @@ def _get_pop_numbers_as_df(*args, **kwargs):
 
 
 # RUN INTEGRATION TESTS ON STATE_LEVEL/TERRITORY LEVEL
-# @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-#             side_effect=_get_pop_numbers_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=_get_pop_numbers_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
              side_effect=_get_test_line_items_csv_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -101,7 +101,7 @@ def testWriteToBq(
     mock_web_json: mock.MagicMock,
     mock_fips: mock.MagicMock,
     mock_data_dir_csv: mock.MagicMock,
-    # mock_pop: mock.MagicMock
+    mock_pop: mock.MagicMock
 ):
 
     cawp_data = CAWPTimeData()

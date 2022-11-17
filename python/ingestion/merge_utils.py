@@ -226,8 +226,6 @@ def _merge_pop(df, demo, loc):
         pop_2010_df = pop_2010_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
                                    std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
 
-        pop_2010_df.to_csv(f'population_2010_race.csv', index=False)
-
         pop_df = pd.concat([pop_df, pop_2010_df])
         pop_df = pop_df.sort_values(std_col.STATE_FIPS_COL)
 
