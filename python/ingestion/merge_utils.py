@@ -1,5 +1,5 @@
 import pandas as pd  # type: ignore
-
+import numpy as np
 from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
@@ -53,15 +53,15 @@ def merge_county_names(df):
 def merge_state_ids(df, keep_postal=False):
     """Accepts a df that may be lacking state info (like names, FIPS codes or postal codes)
     and merges in the missing columns based on the
-       `census_utility` big query public dataset. 
+       `census_utility` big query public dataset.
 
     Parameters:
        df: dataframe to missing info into, with at least one of the following columns:
         `state_name`, `state_postal`, `state_fips`
        keep_postal: if True, keeps the `state_postal` column, default False
     Returns:
-        the same df with a 'state_fips' column containing 2-digit string FIPS codes, 
-        a 'state_name' columns containing the standardize name, 
+        the same df with a 'state_fips' column containing 2-digit string FIPS codes,
+        a 'state_name' columns containing the standardize name,
         and optionally a 'state_postal' columns with the 2-letter postal codes
     """
 
@@ -125,13 +125,48 @@ def merge_state_ids(df, keep_postal=False):
 def merge_pop_numbers(df, demo, loc):
     """Merges the corresponding `population` and `population_pct` column into the given df
 
-      df: a pandas df with demographic (race, sex, or age) and a `state_fips` column
+      df: a pandas df with demographic column and a `state_fips` column
       demo: the demographic in the df, either `age`, `race`, or `sex`
-      loc: the location level for the df, either `state` or `national`"""
+      loc: the location level for the df, either `county`, `state`, or `national`"""
     return _merge_pop(df, demo, loc)
 
 
-def merge_multiple_pop_cols(df, demo, pop_cols):
+def merge_current_pop_numbers(df, demo, loc, current_time_period):
+    """Merges the corresponding `population` and `population_pct` columns
+    into the given df, only populating values for rows where the `time_period`
+    value is equal to `current_time_period`.
+
+      df: a pandas df with demographic column and a `state_fips` column
+      demo: the demographic in the df, either `age`, `race`, or `sex`
+      loc: the location level for the df, either `county`, `state`, or `national`
+      current_time_period: string YYYY or MM-YYYY used to target which rows to
+        merge population data on to (likely will be the most recent `time_period`
+        which will be used by the frontend for our DisparityBarChart comparison metric)
+      """
+
+    if isinstance(current_time_period, int):
+        current_time_period = str(current_time_period)
+
+    if len(current_time_period) != 7 and len(current_time_period) != 4:
+        raise ValueError(
+            f'`current_time_period` must be a string of the format YYYY or MM-YYYY; you sent the value: {current_time_period}.')
+
+    current_df = df[df[std_col.TIME_PERIOD_COL] == current_time_period]
+    historic_df = df[df[std_col.TIME_PERIOD_COL] != current_time_period]
+
+    # merge pop cols only onto current rows
+    current_df = _merge_pop(current_df, demo, loc)
+
+    # placeholder NaNs
+    historic_df[[std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]] = np.nan
+
+    # reassemble the HISTORIC (null pop. data) and CURRENT (merged pop. data)
+    df = pd.concat([historic_df, current_df])
+
+    return df
+
+
+def merge_multiple_pop_cols(df, demo, condition_cols):
     """Merges the population of each state into a column for each condition in `condition_cols`.
        If a condition is NaN for that state the population gets counted as zero.
 
@@ -143,7 +178,7 @@ def merge_multiple_pop_cols(df, demo, pop_cols):
 
     df = _merge_pop(df, demo, 'state')
 
-    for col in pop_cols:
+    for col in condition_cols:
         df[col] = df[std_col.POPULATION_COL]
 
     df = df.drop(columns=[std_col.POPULATION_COL, std_col.POPULATION_PCT_COL])
