@@ -8,8 +8,8 @@ import pandas as pd
 
 # FIRST_YR = 2007
 FIRST_YR = 1915
-# LAST_YR = 2022
-LAST_YR = 1925
+LAST_YR = 2022
+# LAST_YR = 1925
 
 # restrict index years to this list
 TIME_PERIODS = [str(x) for x in list(range(FIRST_YR, LAST_YR + 1))]
