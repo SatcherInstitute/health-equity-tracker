@@ -142,8 +142,6 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           metricConfigPctShares.metricId
         );
 
-        console.log({ nestedInequityData });
-
         return (
           <>
             <CardContent>

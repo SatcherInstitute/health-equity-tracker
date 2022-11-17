@@ -46,6 +46,7 @@ import { BreakdownVar } from "../../data/query/Breakdowns";
 import useEscape from "../../utils/hooks/useEscape";
 import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
 import { useFontSize } from "../../utils/hooks/useFontSize";
+import { DemographicGroup } from "../../data/utils/Constants";
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -81,14 +82,14 @@ export function TrendsChart({
   const toolTipRef = useRef(null);
 
   /* State Management */
+  const allPossibleGroups = data.map(([group]) => group);
+  const isInequityWithManyGroups =
+    axisConfig.type === "pct_relative_inequity" && allPossibleGroups.length > 4;
 
   // Manages which group filters user has applied
-  const defaultGroups =
-    axisConfig.type === "pct_relative_inequity" ? getMinMaxGroups(data) : [];
+  const defaultGroups = isInequityWithManyGroups ? getMinMaxGroups(data) : [];
   const [selectedTrendGroups, setSelectedTrendGroups] =
-    useState<string[]>(defaultGroups);
-
-  const allPossibleGroups = data.map(([group]) => group);
+    useState<DemographicGroup[]>(defaultGroups);
 
   // manages dynamic svg width
   const [[width, isMobile], setWidth] = useState<[number, boolean]>([
@@ -169,10 +170,8 @@ export function TrendsChart({
   // TODO: look into using useCallback instead
   // Array of just dates (x values)
   const dates = getDates(filteredData);
-  console.log({ dates });
   // Array of just amounts (y values)
   const amounts = getAmounts(filteredData);
-  console.log({ amounts });
 
   /* Scales */
 
@@ -249,8 +248,6 @@ export function TrendsChart({
   const chartTitleId = `chart-title-label-${axisConfig.type}-${
     isCompareCard ? "2" : "1"
   }`;
-
-  console.log({ xScale });
 
   return (
     // Container
