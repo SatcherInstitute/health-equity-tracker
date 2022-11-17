@@ -291,6 +291,6 @@ def generate_pct_relative_inequity_column(
         return row
 
     df = df.apply(_filter_out_all_zeros, axis=1)
-    df.drop("year_has_a_non_zero_100k", axis=1)
+    df = df.drop("year_has_a_non_zero_100k", axis=1)
 
     return df
