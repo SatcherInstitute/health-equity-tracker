@@ -44,5 +44,5 @@ runs:
     - run: docker push ${{ inputs.image-path }}
       shell: bash
     - id: get-image-digest	
-      run: echo "::set-output name=image-digest::$(gcloud container images describe ${{ inputs.image-path }} --format='value(image_summary.digest)')"	
+      run: echo "image-digest=$(gcloud container images describe ${{ inputs.image-path }} --format='value(image_summary.digest)')" >> $GITHUB_OUTPUT
       shell: bash
