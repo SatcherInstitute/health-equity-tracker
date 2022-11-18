@@ -9,7 +9,8 @@ from test_utils import get_state_fips_codes_as_df
 from datasources.cawp_time import (
     CAWPTimeData,
     US_CONGRESS_HISTORICAL_URL,
-    US_CONGRESS_CURRENT_URL
+    US_CONGRESS_CURRENT_URL,
+    CAWP_LINE_ITEMS_FILE
 )
 
 print("\n\n...\n\n")
@@ -162,24 +163,35 @@ def testGenerateBreakdown(
     # trouble with quotes while asserting against lists of strings
     # for now just drop those cols since we will likely not ship them
     base_df = base_df.drop(
-        ["total_us_congress_names", "women_all_races_us_congress_names", "women_this_race_us_congress_names"], axis=1)
+        ["total_us_congress_names",
+         "women_all_races_us_congress_names",
+         "women_this_race_us_congress_names"], axis=1)
 
-    print(base_df)
     expected_base_df = pd.read_csv(os.path.join(
         TEST_DIR, "test_expected_base_df.csv"),
         dtype={
             "state_fips": str,
-            "time_period": str
-    }
-    )
+            "time_period": str})
     expected_base_df = expected_base_df.drop(
-        ["total_us_congress_names", "women_all_races_us_congress_names", "women_this_race_us_congress_names"], axis=1)
+        ["total_us_congress_names",
+         "women_all_races_us_congress_names",
+         "women_this_race_us_congress_names"], axis=1)
 
-    print(expected_base_df)
     assert_frame_equal(base_df,
                        expected_base_df,
                        check_like=True,
                        check_dtype=False)
+
+    assert mock_web_json.call_count == 2
+    assert mock_web_json.call_args_list[0][0][0] == US_CONGRESS_HISTORICAL_URL
+    assert mock_web_json.call_args_list[1][0][0] == US_CONGRESS_CURRENT_URL
+
+    # 2 for STATE+NATIONAL scaffold and 1 for US CONGRESS TOTALS columns
+    assert mock_fips.call_count == 3
+
+    # single fetch to /data for manually downloaded CAWP numerators
+    assert mock_data_dir_csv.call_count == 1
+    assert mock_data_dir_csv.call_args_list[0][0][1] == CAWP_LINE_ITEMS_FILE
 
 
 # TEST GENERATION OF STATE LEVEL BREAKDOWN
