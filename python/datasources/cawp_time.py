@@ -8,8 +8,8 @@ import pandas as pd
 import csv
 
 # time_period range
-FIRST_YR = 2020
-# FIRST_YR = 1915
+# FIRST_YR = 2021
+FIRST_YR = 1915
 LAST_YR = 2022
 # LAST_YR = 1925
 TIME_PERIODS = [str(x) for x in list(range(FIRST_YR, LAST_YR + 1))]
@@ -68,12 +68,20 @@ class CAWPTimeData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         _df = self.generate_base_df()
+
+        # _df.to_csv(
+        #     "python/tests/data/cawp_women_legislators/test_expected_base_df.csv", index=False)
+
         for geo_level in [
             STATE_LEVEL,
             NATIONAL_LEVEL
         ]:
             df = _df.copy()
             df, bq_table_name = self.generate_breakdown(df, geo_level)
+
+            df.to_csv(
+                f'python/tests/data/cawp_women_legislators/{bq_table_name}.csv', index=False)
+
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, bq_table_name)
 
@@ -128,22 +136,27 @@ class CAWPTimeData(DataSource):
         df = df.sort_values(
             by=MERGE_COLS).reset_index(drop=True)
 
+        df = df.drop(
+            ["total_us_congress_names",
+             "women_all_races_us_congress_names",
+             "women_this_race_us_congress_names"], axis=1)
+
         return df
 
     def generate_breakdown(self, _df, geo_level: str):
         """
-        Takes df with rows per year/race incl ALL/state and calculates the metrics 
+        Takes df with rows per year/race incl ALL/state and calculates the metrics
         shown on the frontend
 
-        Parameters: 
-            df: with columns for state info, CAWP "race_ethnicity", 
+        Parameters:
+            df: with columns for state info, CAWP "race_ethnicity",
                 "time_period" years, along with the raw counts for total,
                 all women, and women of each race
-            geo_level: 
+            geo_level:
                 "national" or "state"
 
-        Returns [df, bq_table_name]: 
-            df: with calculated columns for share of congress, 
+        Returns [df, bq_table_name]:
+            df: with calculated columns for share of congress,
                 share of women in congress, percent relative inequity
             bq_table_name: string name used for writing each breakdown to bq
 
@@ -164,29 +177,30 @@ class CAWPTimeData(DataSource):
         df[std_col.PCT_OF_W_CONGRESS] = round(df[std_col.W_THIS_RACE_CONGRESS_COUNT] /
                                               df[std_col.W_ALL_RACES_CONGRESS_COUNT] * 100, 1).fillna(0)
 
-        # only keep lists of ALL MEMBERS and ALL WOMEN on the ALL ROWS
-        # only keep the lists of WOMEN BY RACE_ETH on the RACE_ETH ROWS (not the ALLS)
-        df.loc[df[RACE_ETH] != Race.ALL.value, [
-            std_col.CONGRESS_NAMES
-        ]] = "see ALL row"
-
         # standardize race labels
         df[std_col.RACE_CATEGORY_ID_COL] = df[RACE_ETH].apply(
             lambda x: "ALL" if x == Race.ALL.value else CAWP_RACE_GROUPS_TO_STANDARD[x])
         std_col.add_race_columns_from_category_id(df)
         df = df.drop(columns=[RACE_ETH])
 
-        target_time_periods = TIME_PERIODS
+        # TODO: figure out what we are doing about historic population info
+        target_time_periods = [str(x) for x in list(range(2019, LAST_YR + 1))]
 
         df = merge_utils.merge_current_pop_numbers(
             df, RACE, geo_level, target_time_periods)
+
+        # df.to_csv(f'{geo_level}.csv')
 
         df = dataset_utils.generate_pct_rel_inequity_col(df,
                                                          std_col.PCT_OF_W_CONGRESS,
                                                          std_col.POPULATION_PCT_COL,
                                                          std_col.W_CONGRESS_PCT_INEQUITY,
-                                                         std_col.PCT_OF_CONGRESS
                                                          )
+
+        df = dataset_utils.null_rel_inequity_no_rate(df,
+                                                     std_col.W_CONGRESS_PCT_INEQUITY,
+                                                     std_col.PCT_OF_CONGRESS
+                                                     )
 
         sort_cols = [
             std_col.TIME_PERIOD_COL,
@@ -198,16 +212,6 @@ class CAWPTimeData(DataSource):
 
         df = df.sort_values(
             by=sort_cols).reset_index(drop=True)
-
-        # drop name list cols; problematic; keep code for now though as need for debugging and math checks
-        df = df.drop([
-            "total_us_congress_names",
-            #   "women_all_races_us_congress_names",
-            #   "women_this_race_us_congress_names"
-        ], axis=1)
-
-        df = df[~df.duplicated()]
-        # df.to_csv(f'{bq_table_name}.csv', index=False)
 
         return [df, bq_table_name]
 
@@ -243,8 +247,8 @@ def scaffold_df_by_year_by_state_by_race_list(race_list: List[str]):
 
 def get_us_congress_totals_df():
     """
-    Fetches historic and current congress data, combines them, and iterates over each Congress member 
-    and their terms served to generate a dataframe. 
+    Fetches historic and current congress data, combines them, and iterates over each Congress member
+    and their terms served to generate a dataframe.
 
     Returns:
         df with rows per legislator-term and
@@ -312,7 +316,7 @@ def merge_us_congress_total_names_count_cols(scaffold_df, us_congress_df):
     """
     Merges previously made congress df info into the incoming scaffold df
     Parameters:
-        scaffold_df: df containing a row for every combo of 
+        scaffold_df: df containing a row for every combo of
             "time_period" X "state_postal" X "race_ethnicity
         congress_df: df containing a row for every legislator-term
 
@@ -335,12 +339,12 @@ def merge_us_congress_total_names_count_cols(scaffold_df, us_congress_df):
 
 def get_us_congress_women_df():
     """
-    Fetches CAWP data, generates a dataframe with rows for every woman 
+    Fetches CAWP data, generates a dataframe with rows for every woman
     in U.S. Congress any year
 
     Returns:
         df with rows per woman in US Congress, and
-        columns "time_period" by year and "state_postal", "race_ethnicity" 
+        columns "time_period" by year and "state_postal", "race_ethnicity"
         with specific CAWP race strings
     """
    # load in CAWP counts of women by race by year by state
@@ -389,11 +393,11 @@ def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_rac
     """
     Merges previously made CAWP df info into the incoming scaffold df
     Parameters:
-        scaffold_df: df containing a row for every combo of 
+        scaffold_df: df containing a row for every combo of
             "time_period" X "state_postal" X "race_ethnicity
         congress_df: df containing a row for every woman in US Congress ever
-        preserve_race_breakdown: if True will calculate the counts and names 
-            per race and merge "_this_race" cols, if False  will perform the 
+        preserve_race_breakdown: if True will calculate the counts and names
+            per race and merge "_this_race" cols, if False  will perform the
             calculations for the Race.ALL.value race group and merge the "_all_races" cols
 
     Returns:
@@ -467,26 +471,23 @@ def combine_states_to_national(df):
     ]
 
     df_counts = df.copy().drop(state_cols, axis=1)
-
-    print("###")
-    print(df_counts)
-    print(df_counts.columns)
-
     df_counts = df_counts.groupby(groupby_cols, as_index=False)[
         std_col.CONGRESS_COUNT,
         std_col.W_ALL_RACES_CONGRESS_COUNT,
         std_col.W_THIS_RACE_CONGRESS_COUNT
     ].agg(sum)
 
-    df_names = df.copy().drop(state_cols, axis=1)
+    df = df_counts
 
-    df_names = df_names.groupby(groupby_cols, as_index=False)[
-        std_col.CONGRESS_NAMES,
-        std_col.W_ALL_RACES_CONGRESS_NAMES,
-        std_col.W_THIS_RACE_CONGRESS_NAMES
-    ].agg(lambda nested_list: [x for list in nested_list for x in list])
+    # df_names = df.copy().drop(state_cols, axis=1)
 
-    df = pd.merge(df_names, df_counts, on=groupby_cols)
+    # df_names = df_names.groupby(groupby_cols, as_index=False)[
+    #     std_col.CONGRESS_NAMES,
+    #     std_col.W_ALL_RACES_CONGRESS_NAMES,
+    #     std_col.W_THIS_RACE_CONGRESS_NAMES
+    # ].agg(lambda nested_list: [x for list in nested_list for x in list])
+
+    # df = pd.merge(df_names, df_counts, on=groupby_cols)
 
     df[std_col.STATE_FIPS_COL] = US_FIPS
     df[std_col.STATE_NAME_COL] = US_NAME

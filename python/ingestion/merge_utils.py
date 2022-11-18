@@ -220,14 +220,13 @@ def _merge_pop(df, demo, loc):
     if loc == 'state':
         verbose_demo = "race_and_ethnicity" if demo == 'race' else demo
         pop_2010_table_name = f'by_{verbose_demo}_territory'
-
         pop_2010_df = gcs_to_bq_util.load_df_from_bigquery(
             'acs_2010_population', pop_2010_table_name, pop_dtype)
         pop_2010_df = pop_2010_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
                                    std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
-
-        pop_df = pd.concat([pop_df, pop_2010_df])
         pop_df = pop_df.sort_values(std_col.STATE_FIPS_COL)
+        pop_2010_df = pop_2010_df.sort_values(std_col.STATE_FIPS_COL)
+        pop_df = pd.concat([pop_df, pop_2010_df])
 
     on_cols = [on_col_map[demo]]
     if std_col.STATE_FIPS_COL in df.columns:
@@ -235,6 +234,9 @@ def _merge_pop(df, demo, loc):
 
     if loc == 'county':
         on_cols.append(std_col.COUNTY_FIPS_COL)
+
+    # print(df.to_string())
+    # print(pop_df.to_string())
 
     df = pd.merge(df, pop_df, how='left', on=on_cols)
 
