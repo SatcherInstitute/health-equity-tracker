@@ -101,6 +101,8 @@ def _generate_breakdown(*args):
 #     mock_json_totals: mock.MagicMock,
 #     mock_pop_merge: mock.MagicMock
 # ):
+    # print("MOSTLY UN-MOCKED testWriteToBq()")
+
 #     # required by bigQuery
 #     kwargs = {'filename': 'test_file.csv',
 #               'metadata_table_id': 'test_metadata',
@@ -121,6 +123,8 @@ def testWriteToBq(
     mock_breakdown: mock.MagicMock,
     mock_bq: mock.MagicMock,
 ):
+    print("testWriteToBq()")
+
     kwargs_for_bq = {'filename': 'test_file.csv',
                      'metadata_table_id': 'test_metadata',
                      'table_name': 'output_table'}
