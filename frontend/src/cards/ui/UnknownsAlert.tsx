@@ -83,7 +83,6 @@ function UnknownsAlert(props: UnknownsAlertProps) {
     separately, the map shows the higher of the two metrics.`;
 
   const percentageUnknown = unknowns[0][props.metricConfig.metricId];
-  const showInfoSeverity = percentageUnknown === 0;
 
   const secondaryAgePercentageUnknown =
     additionalAgeUnknowns?.[0]?.[props.metricConfig.metricId];
