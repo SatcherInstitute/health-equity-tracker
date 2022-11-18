@@ -182,11 +182,12 @@ def testGenerateBreakdown(
                        check_like=True,
                        check_dtype=False)
 
+    # fetches for HISTORICAL and CURRENT
     assert mock_web_json.call_count == 2
     assert mock_web_json.call_args_list[0][0][0] == US_CONGRESS_HISTORICAL_URL
     assert mock_web_json.call_args_list[1][0][0] == US_CONGRESS_CURRENT_URL
 
-    # 2 for STATE+NATIONAL scaffold and 1 for US CONGRESS TOTALS columns
+    # 2 in STATE+NATIONAL scaffolds and 1 when merging US CONGRESS TOTALS columns
     assert mock_fips.call_count == 3
 
     # single fetch to /data for manually downloaded CAWP numerators
