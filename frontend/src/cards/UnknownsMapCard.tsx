@@ -107,7 +107,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       scrollToHash={HASH_ID}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
-        const unknownRaces = mapQueryResponse
+        // MOST of the items rendered in the card refer to the unknowns at the CHILD geo level,
+        //  e.g. if you look at the United States, we are dealing with the Unknown pct_share at the state level
+        // the exception is the <UnknownsAlert /> which presents the amount of unknown demographic at the SELECTED level
+        const unknownRaces: Row[] = mapQueryResponse
           .getValidRowsForField(currentBreakdown)
           .filter(
             (row: Row) =>
@@ -176,6 +179,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         const showingVisualization =
           !unknownsArrayEmpty && !unknownsUndefined && !unknownsAllZero;
 
+        const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== "";
+
         return (
           <>
             <CardContent className={styles.SmallMarginContent}>
@@ -224,7 +229,14 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {(showNoUnknownsInfo || unknownsAllZero) && (
                 <Alert severity="info" role="note">
                   No unknown values for {breakdownString} reported in this
-                  dataset.
+                  dataset
+                  {hasChildGeo && (
+                    <>
+                      {" "}
+                      at the {props.fips.getChildFipsTypeDisplayName()} level
+                    </>
+                  )}
+                  {"."}
                 </Alert>
               )}
             </CardContent>

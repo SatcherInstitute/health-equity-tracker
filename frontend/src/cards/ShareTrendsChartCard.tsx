@@ -28,6 +28,7 @@ import { Alert } from "@material-ui/lab";
 import { HashLink } from "react-router-hash-link";
 import { METHODOLOGY_TAB_LINK } from "../utils/internalRoutes";
 import AltTableView from "./ui/AltTableView";
+import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import {
@@ -54,6 +55,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const [selectedTableGroups, setSelectedTableGroups] = useState<string[]>([]);
 
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
+  const [unknownsExpanded, setUnknownsExpanded] = useState(false);
 
   const metricConfigInequitable =
     props.variableConfig.metrics["pct_relative_inequity"];
@@ -189,7 +191,18 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     breakdownVar={props.breakdownVar}
                     setSelectedTableGroups={setSelectedTableGroups}
                     isCompareCard={props.isCompareCard || false}
+                    expanded={unknownsExpanded}
+                    setExpanded={setUnknownsExpanded}
                   />
+
+                  <CardContent>
+                    <UnknownBubblesAlert
+                      breakdownVar={props.breakdownVar}
+                      variableDisplayName={props.variableConfig.variableDisplayName.toLowerCase()}
+                      expanded={unknownsExpanded}
+                      setExpanded={setUnknownsExpanded}
+                    />
+                  </CardContent>
 
                   <AltTableView
                     expanded={a11yTableExpanded}
