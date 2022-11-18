@@ -1,0 +1,28 @@
+time_period,total_us_congress_count,women_all_races_us_congress_count,women_this_race_us_congress_count,state_fips,state_name,state_postal,pct_share_of_us_congress,pct_share_of_women_us_congress,race_category_id,race,race_includes_hispanic,race_and_ethnicity,population,population_pct,women_us_congress_pct_relative_inequity
+2020,543,131.0,2.0,00,United States,US,0.4,1.5,AIANNH,"Native American, Alaska Native, & Native Hawaiian",True,"Native American, Alaska Native, & Native Hawaiian",,,
+2020,543,131.0,131.0,00,United States,US,24.1,100.0,ALL,All,,All,328016242.0,100.0,0.0
+2020,543,131.0,9.0,00,United States,US,1.7,6.9,ASIAN_PAC,Asian American & Pacific Islander,True,Asian American & Pacific Islander,,,
+2020,543,131.0,24.0,00,United States,US,4.4,18.3,BLACK,Black or African American,True,Black or African American,41621318.0,12.7,44.1
+2020,543,131.0,14.0,00,United States,US,2.6,10.7,HISP,Hispanic or Latino,True,Hispanic or Latino,61755289.0,18.8,-43.1
+2020,543,131.0,2.0,00,United States,US,0.4,1.5,MENA,Middle Eastern & North African,True,Middle Eastern & North African,,,
+2020,543,131.0,0.0,00,United States,US,0.0,0.0,OTHER_NONSTANDARD,Unrepresented race,True,Unrepresented race,,,
+2020,543,131.0,0.0,00,United States,US,0.0,0.0,UNKNOWN,Unknown race,True,Unknown race,,,
+2020,543,131.0,79.0,00,United States,US,14.5,60.3,WHITE,White,True,White,237565676.0,72.4,-16.7
+2021,612,152.0,2.0,00,United States,US,0.3,1.3,AIANNH,"Native American, Alaska Native, & Native Hawaiian",True,"Native American, Alaska Native, & Native Hawaiian",,,
+2021,612,152.0,152.0,00,United States,US,24.8,100.0,ALL,All,,All,328016242.0,100.0,0.0
+2021,612,152.0,10.0,00,United States,US,1.6,6.6,ASIAN_PAC,Asian American & Pacific Islander,True,Asian American & Pacific Islander,,,
+2021,612,152.0,27.0,00,United States,US,4.4,17.8,BLACK,Black or African American,True,Black or African American,41621318.0,12.7,40.2
+2021,612,152.0,14.0,00,United States,US,2.3,9.2,HISP,Hispanic or Latino,True,Hispanic or Latino,61755289.0,18.8,-51.1
+2021,612,152.0,1.0,00,United States,US,0.2,0.7,MENA,Middle Eastern & North African,True,Middle Eastern & North African,,,
+2021,612,152.0,0.0,00,United States,US,0.0,0.0,OTHER_NONSTANDARD,Unrepresented race,True,Unrepresented race,,,
+2021,612,152.0,0.0,00,United States,US,0.0,0.0,UNKNOWN,Unknown race,True,Unknown race,,,
+2021,612,152.0,95.0,00,United States,US,15.5,62.5,WHITE,White,True,White,237565676.0,72.4,-13.7
+2022,549,151.0,1.0,00,United States,US,0.2,0.7,AIANNH,"Native American, Alaska Native, & Native Hawaiian",True,"Native American, Alaska Native, & Native Hawaiian",,,
+2022,549,151.0,151.0,00,United States,US,27.5,100.0,ALL,All,,All,328016242.0,100.0,0.0
+2022,549,151.0,10.0,00,United States,US,1.8,6.6,ASIAN_PAC,Asian American & Pacific Islander,True,Asian American & Pacific Islander,,,
+2022,549,151.0,27.0,00,United States,US,4.9,17.9,BLACK,Black or African American,True,Black or African American,41621318.0,12.7,40.9
+2022,549,151.0,15.0,00,United States,US,2.7,9.9,HISP,Hispanic or Latino,True,Hispanic or Latino,61755289.0,18.8,-47.3
+2022,549,151.0,1.0,00,United States,US,0.2,0.7,MENA,Middle Eastern & North African,True,Middle Eastern & North African,,,
+2022,549,151.0,0.0,00,United States,US,0.0,0.0,OTHER_NONSTANDARD,Unrepresented race,True,Unrepresented race,,,
+2022,549,151.0,0.0,00,United States,US,0.0,0.0,UNKNOWN,Unknown race,True,Unknown race,,,
+2022,549,151.0,95.0,00,United States,US,17.3,62.9,WHITE,White,True,White,237565676.0,72.4,-13.1

@@ -43,6 +43,14 @@ POSITION_LABELS = {
 RACE_ETH = "race_ethnicity"
 NAME = "name"
 
+MERGE_COLS = [
+    std_col.TIME_PERIOD_COL,
+    std_col.STATE_FIPS_COL,
+    std_col.STATE_POSTAL_COL,
+    std_col.STATE_NAME_COL,
+    RACE_ETH
+]
+
 
 class CAWPTimeData(DataSource):
 
@@ -59,25 +67,19 @@ class CAWPTimeData(DataSource):
             'upload_to_gcs should not be called for CAWPTimeData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        df = self.generate_base_df()
+        _df = self.generate_base_df()
         for geo_level in [
             STATE_LEVEL,
             NATIONAL_LEVEL
         ]:
-            df, bq_table_name = self.generate_breakdown(df.copy(), geo_level)
+            df = _df.copy()
+            df, bq_table_name = self.generate_breakdown(df, geo_level)
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, bq_table_name)
 
     # CLASS METHODS
 
     def generate_base_df(self):
-        merge_cols = [
-            std_col.TIME_PERIOD_COL,
-            std_col.STATE_FIPS_COL,
-            std_col.STATE_POSTAL_COL,
-            std_col.STATE_NAME_COL,
-            RACE_ETH
-        ]
 
         # fetch and form data
         us_congress_totals_df = get_us_congress_totals_df()
@@ -107,28 +109,28 @@ class CAWPTimeData(DataSource):
 
         # combine COLUMNS for ALLS ROWS
         df_alls_rows = pd.merge(
-            df_alls_rows, df_alls_total_cols, on=merge_cols)
+            df_alls_rows, df_alls_total_cols, on=MERGE_COLS)
         df_alls_rows = pd.merge(
-            df_alls_rows, df_alls_women_any_race_cols, on=merge_cols)
+            df_alls_rows, df_alls_women_any_race_cols, on=MERGE_COLS)
         df_alls_rows = pd.merge(
-            df_alls_rows, df_alls_women_this_race_cols, on=merge_cols)
+            df_alls_rows, df_alls_women_this_race_cols, on=MERGE_COLS)
 
         # combine COLUMNS for BY RACES ROWS
         df_by_races_rows = pd.merge(
-            df_by_races_rows, df_by_races_total_cols, on=merge_cols)
+            df_by_races_rows, df_by_races_total_cols, on=MERGE_COLS)
         df_by_races_rows = pd.merge(
-            df_by_races_rows, df_by_races_women_any_race_cols, on=merge_cols)
+            df_by_races_rows, df_by_races_women_any_race_cols, on=MERGE_COLS)
         df_by_races_rows = pd.merge(
-            df_by_races_rows, df_by_races_women_this_race_cols, on=merge_cols)
+            df_by_races_rows, df_by_races_women_this_race_cols, on=MERGE_COLS)
 
         # combine ROWS together from ALLS ROWS and BY RACES rows
         df = pd.concat([df_alls_rows, df_by_races_rows])
         df = df.sort_values(
-            by=merge_cols).reset_index(drop=True)
+            by=MERGE_COLS).reset_index(drop=True)
 
         return df
 
-    def generate_breakdown(self, df, geo_level: str):
+    def generate_breakdown(self, _df, geo_level: str):
         """
         Takes df with rows per year/race incl ALL/state and calculates the metrics 
         shown on the frontend
@@ -146,6 +148,8 @@ class CAWPTimeData(DataSource):
             bq_table_name: string name used for writing each breakdown to bq
 
         """
+
+        df = _df.copy()
 
         if geo_level == NATIONAL_LEVEL:
             df = combine_states_to_national(df)
@@ -183,6 +187,27 @@ class CAWPTimeData(DataSource):
                                                          std_col.W_CONGRESS_PCT_INEQUITY,
                                                          std_col.PCT_OF_CONGRESS
                                                          )
+
+        sort_cols = [
+            std_col.TIME_PERIOD_COL,
+            std_col.STATE_FIPS_COL,
+            std_col.STATE_POSTAL_COL,
+            std_col.STATE_NAME_COL,
+            std_col.RACE_CATEGORY_ID_COL
+        ]
+
+        df = df.sort_values(
+            by=sort_cols).reset_index(drop=True)
+
+        # drop name list cols; problematic; keep code for now though as need for debugging and math checks
+        df = df.drop([
+            "total_us_congress_names",
+            #   "women_all_races_us_congress_names",
+            #   "women_this_race_us_congress_names"
+        ], axis=1)
+
+        df = df[~df.duplicated()]
+        # df.to_csv(f'{bq_table_name}.csv', index=False)
 
         return [df, bq_table_name]
 
@@ -442,6 +467,10 @@ def combine_states_to_national(df):
     ]
 
     df_counts = df.copy().drop(state_cols, axis=1)
+
+    print("###")
+    print(df_counts)
+    print(df_counts.columns)
 
     df_counts = df_counts.groupby(groupby_cols, as_index=False)[
         std_col.CONGRESS_COUNT,
