@@ -87,8 +87,6 @@ def _generate_breakdown(*args):
 
 
 # DELETE THIS - MOSTLY UN-MOCKED TEST JUST TO GENERATE FULL OUTPUT TABLES
-# @ mock.patch('ingestion.merge_utils.merge_current_pop_numbers',
-#              side_effect=_merge_current_pop_numbers)
 # @ mock.patch('ingestion.gcs_to_bq_util.fetch_json_from_web',
 #              side_effect=_fetch_json_from_web)
 # @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
@@ -99,9 +97,8 @@ def _generate_breakdown(*args):
 #     mock_bq: mock.MagicMock,
 #     mock_data_dir_CAWP: mock.MagicMock,
 #     mock_json_totals: mock.MagicMock,
-#     mock_pop_merge: mock.MagicMock
 # ):
-    # print("MOSTLY UN-MOCKED testWriteToBq()")
+#     print("MOSTLY UN-MOCKED testWriteToBq()")
 
 #     # required by bigQuery
 #     kwargs = {'filename': 'test_file.csv',
