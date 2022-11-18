@@ -79,8 +79,11 @@ class CAWPTimeData(DataSource):
             df = _df.copy()
             df, bq_table_name = self.generate_breakdown(df, geo_level)
 
-            df.to_csv(
-                f'python/tests/data/cawp_women_legislators/{bq_table_name}.csv', index=False)
+            # df.to_csv(
+            #     f'python/tests/data/cawp_women_legislators/{bq_table_name}.csv', index=False)
+
+            # df.to_json(
+            #     f'frontend/public/tmp/cawp_data-{bq_table_name}.json', orient="records")
 
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, bq_table_name)
