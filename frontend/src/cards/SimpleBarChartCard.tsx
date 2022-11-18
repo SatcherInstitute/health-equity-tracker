@@ -23,7 +23,6 @@ import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert"
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
-// import { Row } from "../data/utils/DatasetTypes";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -58,13 +57,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   const metricIdsToFetch: MetricId[] = [];
   metricIdsToFetch.push(metricConfig.metricId);
-  // isCongress &&
-  //   metricIdsToFetch.push(
-  //     "total_us_congress_names",
-  //     "total_us_congress_count",
-  //     "women_this_race_us_congress_names",
-  //     "women_this_race_us_congress_count"
-  //   );
   isIncarceration && metricIdsToFetch.push("total_confined_children");
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
@@ -92,74 +84,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
 
-        // // ONLY FOR SPOT CHECKING - DELETE NEXT CHUNK BEFORE MERGE
-        // let namesWomenByRaceRows
-        // let namesAllCongressRow
-        // let namesAllCongress
-        // let countAllCongress
-
-        // if (isCongress) {
-        //   namesWomenByRaceRows = queryResponse.getValidRowsForField(
-        //     "women_this_race_us_congress_names"
-        //   );
-
-        //   namesAllCongressRow = queryResponse.data.find(
-        //     (row: Row) => row["race_and_ethnicity"] === "All"
-        //   );
-        //   namesAllCongress =
-        //     namesAllCongressRow?.["total_us_congress_names"];
-        //   countAllCongress =
-        //     namesAllCongressRow?.["total_us_congress_count"];
-        // }
-
-        // END TEST CHUNK
-
         return (
           <CardContent>
-            {/* {isCongress && (
-              <>
-                {namesWomenByRaceRows?.map((row: Row) => {
-                  const names =
-                    row?.["women_this_race_us_congress_names"] ?? null;
-
-                  if (!names.length) return null;
-
-                  return (
-                    <details key={row["race_and_ethnicity"]}>
-                      <summary>
-                        <b>
-                          <small>
-                            {row?.["race_and_ethnicity"]} Women (
-                            {row?.["women_this_race_us_congress_count"]})
-                          </small>
-                        </b>
-                      </summary>
-
-                      <p>
-                        {names.map((name: string) => {
-                          return <small key={name}>{name}, </small>;
-                        })}
-                      </p>
-                    </details>
-                  );
-                })}
-
-                <details>
-                  <summary>
-                    <b>
-                      <small>All US Congress ({countAllCongress})</small>
-                    </b>
-                  </summary>
-                  <p>
-                    {namesAllCongress.map((name: string) => {
-                      return <small key={name}>{name}, </small>;
-                    })}
-                  </p>
-                </details>
-                <p></p>
-              </>
-            )} */}
-
             {queryResponse.shouldShowMissingDataMessage([
               metricConfig.metricId,
             ]) ? (

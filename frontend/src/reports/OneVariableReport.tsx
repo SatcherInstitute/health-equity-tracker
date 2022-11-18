@@ -4,7 +4,7 @@ import LazyLoad from "react-lazyload";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
-// import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
+import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
 import { AgeAdjustedTableCard } from "../cards/AgeAdjustedTableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
 import { TableCard } from "../cards/TableCard";
@@ -218,7 +218,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 </Grid>
 
                 {/* 100K BAR CHART CARD */}
-                {/* <Grid
+                <Grid
                   item
                   xs={12}
                   sm={12}
@@ -241,7 +241,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                       </Fragment>
                     ))}
                   </LazyLoad>
-                </Grid> */}
+                </Grid>
 
                 {/* UNKNOWNS MAP CARD */}
                 <Grid
