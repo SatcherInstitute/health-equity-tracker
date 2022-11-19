@@ -89,7 +89,7 @@ export function Axes({
   /* Axes */
   const xAxis = axisBottom(xScale)
     .tickSize(0)
-    .ticks(isSkinny ? 4 : null) // limits number of ticks on mobile
+    .ticks(isSkinny ? 4 : axisConfig.xAxisMaxTicks) // limits number of ticks on mobile
     // @ts-ignore
     .tickFormat(axisConfig.xAxisIsMonthly ? F.dateShort : F.dateYear)
     .tickPadding(TICK_PADDING);

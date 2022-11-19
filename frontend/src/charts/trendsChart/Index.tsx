@@ -194,6 +194,7 @@ export function TrendsChart({
     marginLeft,
     (width as number) - marginRight,
   ]);
+  axisConfig.xAxisMaxTicks = dates.length < 12 ? dates.length + 1 : null; // d3 was adding duplicate time period ticks to sets with very few time periods
 
   // Y-Scale
   const yScale = scaleLinear(yExtent as [number, number], [
