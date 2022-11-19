@@ -107,12 +107,6 @@ function OptionsSelector(props: {
             horizontal: "center",
           }}
         >
-          {/* {!isFips && (
-            <Grid container justifyContent="space-between">
-              <h2 className={styles.PopoverTitle}> Topics</h2>
-            </Grid>
-          )} */}
-
           {/* Location Dropdown */}
           {isFips && (
             <div className={styles.OptionsSelectorPopover}>
