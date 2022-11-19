@@ -84,6 +84,9 @@ function MapCardWithKey(props: MapCardProps) {
   const isJail = props.variableConfig.variableId === "jail";
   const isIncarceration = isJail || isPrison;
 
+  const isCawpCongress =
+    props.variableConfig.variableId === "women_us_congress";
+
   const location = useLocation();
 
   const signalListeners: any = {
@@ -113,7 +116,9 @@ function MapCardWithKey(props: MapCardProps) {
           currentBreakdown === RACE
             ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
             : exclude(UNKNOWN)
-        )
+        ),
+      /* variableId */ props.variableConfig.variableId,
+      /* timeView */ isCawpCongress ? "cross_sectional" : undefined
     );
 
   const queries = [
@@ -125,7 +130,7 @@ function MapCardWithKey(props: MapCardProps) {
     const sviBreakdowns = Breakdowns.byCounty().andAge(onlyInclude("All"));
     sviBreakdowns.filterFips = props.fips;
 
-    const sviQuery = new MetricQuery("svi", sviBreakdowns);
+    const sviQuery = new MetricQuery("svi", sviBreakdowns, "svi");
     queries.push(sviQuery);
   }
 

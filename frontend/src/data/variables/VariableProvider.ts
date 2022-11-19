@@ -1,6 +1,6 @@
 import { IDataFrame } from "data-forge";
 import { Fips } from "../../data/utils/Fips";
-import { MetricId } from "../config/MetricConfig";
+import { MetricId, VariableId } from "../config/MetricConfig";
 import { ProviderId } from "../loading/VariableProviderMap";
 import { Breakdowns, TimeView } from "../query/Breakdowns";
 import {
@@ -148,7 +148,12 @@ abstract class VariableProvider {
 
   abstract allowsBreakdowns(breakdowns: Breakdowns): boolean;
 
-  abstract getDatasetId(breakdown: Breakdowns, dataType?: string): string;
+  abstract getDatasetId(
+    breakdown: Breakdowns,
+    dataType?: string,
+    timeView?: TimeView,
+    variableId?: VariableId
+  ): string;
 }
 
 export default VariableProvider;

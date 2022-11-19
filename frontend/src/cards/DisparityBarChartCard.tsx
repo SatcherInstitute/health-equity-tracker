@@ -53,6 +53,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["pct_share"];
   const locationName = props.fips.getSentenceDisplayName();
 
+  const isCawpCongress =
+    props.variableConfig.variableId === "women_us_congress";
+
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(ALL, NON_HISPANIC)
@@ -71,7 +74,12 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     metricIds.push(metricConfig.secondaryPopulationComparisonMetric.metricId);
   }
 
-  const query = new MetricQuery(metricIds, breakdowns);
+  const query = new MetricQuery(
+    metricIds,
+    breakdowns,
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
+  );
 
   const chartTitle = useCreateChartTitle(
     metricConfig.populationComparisonMetric as MetricConfig,

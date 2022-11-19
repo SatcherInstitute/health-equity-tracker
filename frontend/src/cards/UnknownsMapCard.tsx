@@ -61,6 +61,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const breakdownString =
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown];
 
+  const isCawpCongress =
+    props.variableConfig.variableId === "women_us_congress";
+
   const location = useLocation();
   const locationName = props.fips.getSentenceDisplayName();
 
@@ -82,8 +85,18 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     currentBreakdown
   );
 
-  const mapQuery = new MetricQuery([metricConfig.metricId], mapGeoBreakdowns);
-  const alertQuery = new MetricQuery([metricConfig.metricId], alertBreakdown);
+  const mapQuery = new MetricQuery(
+    [metricConfig.metricId],
+    mapGeoBreakdowns,
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
+  );
+  const alertQuery = new MetricQuery(
+    [metricConfig.metricId],
+    alertBreakdown,
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
+  );
 
   const chartTitle = useCreateChartTitle(
     metricConfig,

@@ -1,6 +1,6 @@
 import { getDataManager } from "../../utils/globals";
 import { MetricId, VariableId } from "../config/MetricConfig";
-import { Breakdowns } from "../query/Breakdowns";
+import { Breakdowns, TimeView } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
@@ -54,7 +54,11 @@ class CawpProvider extends VariableProvider {
     super("cawp_provider", ["cawp_population_pct", ...CAWP_DETERMINANTS]);
   }
 
-  getDatasetId(breakdowns: Breakdowns, dataType: VariableId | ""): string {
+  getDatasetId(
+    breakdowns: Breakdowns,
+    variableId?: VariableId,
+    timeView?: TimeView
+  ): string {
     let id =
       "cawp_data-" +
       breakdowns.getSoleDemographicBreakdown().columnName +
@@ -62,7 +66,7 @@ class CawpProvider extends VariableProvider {
       breakdowns.geography;
 
     // for now only US CONGRESS has time series
-    if (dataType === "women_us_congress") id += "_time_series";
+    if (variableId === "women_us_congress") id += "_time_series";
 
     return id;
   }
@@ -72,15 +76,11 @@ class CawpProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
     const timeView = metricQuery.timeView;
+    const variableId = metricQuery.variableId;
 
     // TODO: Remove this once we extend STATE LEG. over time as well
-    let dataType: VariableId | "" = "";
 
-    if (metricQuery.metricIds.some((id) => id.includes("us_congress"))) {
-      dataType = "women_us_congress";
-    }
-
-    const datasetId = this.getDatasetId(breakdowns, dataType);
+    const datasetId = this.getDatasetId(breakdowns, variableId, timeView);
     const cawp = await getDataManager().loadDataset(datasetId);
     let df = cawp.toDataFrame();
 
@@ -88,7 +88,6 @@ class CawpProvider extends VariableProvider {
 
     // TODO! Figure out a way to read the latest date ? is this already in place somewhere?
     df = this.filterByTimeView(df, timeView, "2022");
-
     df = this.renameGeoColumns(df, breakdowns);
 
     let consumedDatasetIds = [datasetId];
@@ -109,10 +108,6 @@ class CawpProvider extends VariableProvider {
     });
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
-
-    metricQuery.metricIds.push("women_this_race_us_congress_names");
-    metricQuery.metricIds.push("total_us_congress_names");
-
     df = this.removeUnrequestedColumns(df, metricQuery);
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);

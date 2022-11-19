@@ -27,10 +27,7 @@ import AltTableView from "./ui/AltTableView";
 import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
-import {
-  CAWP_DETERMINANTS,
-  getWomenRaceLabel,
-} from "../data/variables/CawpProvider";
+import { getWomenRaceLabel } from "../data/variables/CawpProvider";
 import { Row } from "../data/utils/DatasetTypes";
 import NonExclusiveRacesAlert from "./ui/NonExclusiveRacesAlert";
 
@@ -65,15 +62,18 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const ratesQuery = new MetricQuery(
     metricConfigRates.metricId,
     breakdowns,
-    TIME_SERIES
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ TIME_SERIES
   );
   const pctShareQuery = new MetricQuery(
     metricConfigPctShares.metricId,
     breakdowns,
-    TIME_SERIES
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ TIME_SERIES
   );
 
-  const isCAWP = CAWP_DETERMINANTS.includes(metricConfigRates.metricId);
+  const isCawpCongress =
+    metricConfigRates.metricId === "pct_share_of_us_congress";
 
   function getTitleText() {
     return `${
@@ -96,14 +96,14 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           metricConfigRates.metricId
         );
 
-        const pctShareData = isCAWP
+        const pctShareData = isCawpCongress
           ? ratesData
           : queryResponsePctShares.getValidRowsForField(
               metricConfigPctShares.metricId
             );
 
         // swap race labels if applicable
-        const ratesDataLabelled = isCAWP
+        const ratesDataLabelled = isCawpCongress
           ? ratesData.map((row: Row) => {
               const altRow = { ...row };
               altRow.race_and_ethnicity = getWomenRaceLabel(
@@ -124,7 +124,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             metricConfigRates.metricId
           ).withData;
 
-        const demographicGroupsLabelled = isCAWP
+        const demographicGroupsLabelled = isCawpCongress
           ? demographicGroups
               .map((race) => getWomenRaceLabel(race))
               .filter((womenRace) => womenRace !== "Women of Unknown Race")
@@ -204,7 +204,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 />
 
                 <CardContent>
-                  {isCAWP && (
+                  {isCawpCongress && (
                     <NonExclusiveRacesAlert
                       variableDisplayName={
                         props.variableConfig.variableDisplayName

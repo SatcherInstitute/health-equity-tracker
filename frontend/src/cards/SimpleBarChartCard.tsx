@@ -53,7 +53,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     props.variableConfig.variableId
   );
 
-  // const isCongress = props.variableConfig.variableId === "women_us_congress"
+  const isCawpCongress =
+    props.variableConfig.variableId === "women_us_congress";
 
   const metricIdsToFetch: MetricId[] = [];
   metricIdsToFetch.push(metricConfig.metricId);
@@ -64,7 +65,12 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     exclude(NON_HISPANIC)
   );
 
-  const query = new MetricQuery(metricIdsToFetch, breakdowns);
+  const query = new MetricQuery(
+    metricIdsToFetch,
+    breakdowns,
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
+  );
 
   const chartTitle = useCreateChartTitle(metricConfig, locationName);
 

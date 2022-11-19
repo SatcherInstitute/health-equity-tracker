@@ -31,10 +31,7 @@ import AltTableView from "./ui/AltTableView";
 import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
-import {
-  CAWP_DETERMINANTS,
-  getWomenRaceLabel,
-} from "../data/variables/CawpProvider";
+import { getWomenRaceLabel } from "../data/variables/CawpProvider";
 import { Row } from "../data/utils/DatasetTypes";
 
 /* minimize layout shift */
@@ -69,12 +66,14 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const inequityQuery = new MetricQuery(
     metricConfigInequitable.metricId,
     breakdowns,
-    TIME_SERIES
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ TIME_SERIES
   );
   const pctShareQuery = new MetricQuery(
     metricConfigPctShares.metricId,
     breakdowns,
-    TIME_SERIES
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ TIME_SERIES
   );
 
   function getTitleText() {
@@ -86,7 +85,9 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const HASH_ID: ScrollableHashId = "inequities-over-time";
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label;
 
-  const isCAWP = CAWP_DETERMINANTS.includes(metricConfigInequitable.metricId);
+  const isCawpCongress =
+    metricConfigInequitable.metricId ===
+    "women_us_congress_pct_relative_inequity";
 
   return (
     <CardWrapper
@@ -105,7 +106,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
         );
 
         // swap race labels if applicable
-        const knownInequityData = isCAWP
+        const knownInequityData = isCawpCongress
           ? knownData.map((row: Row) => {
               const altRow = { ...row };
               altRow.race_and_ethnicity = getWomenRaceLabel(
@@ -131,7 +132,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             (group: DemographicGroup) => !UNKNOWN_LABELS.includes(group)
           );
 
-        const demographicGroupsLabelled = isCAWP
+        const demographicGroupsLabelled = isCawpCongress
           ? demographicGroups.map((group: DemographicGroup) =>
               getWomenRaceLabel(group)
             )
