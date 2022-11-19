@@ -150,9 +150,6 @@ def testGenerateBase(
     cawp_data = CAWPTimeData()
     base_df = cawp_data.generate_base_df()
 
-    # trouble with quotes while asserting against lists of strings
-    # for now just drop those cols since we will likely not ship them
-
     expected_base_df = pd.read_csv(os.path.join(
         TEST_DIR, "test_expected_base_df.csv"),
         dtype={
