@@ -129,12 +129,17 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           .getFieldValues(props.breakdownVar, metricConfigInequitable.metricId)
           .withData.filter(
             (group: DemographicGroup) => !UNKNOWN_LABELS.includes(group)
-          )
-          .map((group: DemographicGroup) => getWomenRaceLabel(group));
+          );
+
+        const demographicGroupsLabelled = isCAWP
+          ? demographicGroups.map((group: DemographicGroup) =>
+              getWomenRaceLabel(group)
+            )
+          : demographicGroups;
 
         const nestedInequityData = getNestedData(
           knownInequityData,
-          demographicGroups,
+          demographicGroupsLabelled,
           props.breakdownVar,
           metricConfigInequitable.metricId
         );
