@@ -283,7 +283,7 @@ def generate_pct_rel_inequity_col(
 
 def null_rel_inequity_no_rate(df, pct_rel_inequity_col: str, rate_col: str):
     """
-    Years where none of the groups have a "100k" rate should have 
+    Years where none of the groups have a "100k" rate should have
     their `pct_relative_inequity` col nulled out
 
     Parameters:
