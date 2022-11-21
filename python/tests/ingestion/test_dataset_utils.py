@@ -84,6 +84,46 @@ _expected_data_with_pct_relative_inequity_col = [
     ['01', 'Alabama', 'Race 6', 100.0, 0, None],
 ]
 
+_fake_data_with_pct_rel_inequity_with_zero_rates = [
+    ['time_period', 'state_fips', 'state_name', 'race', 'something_per_100k',
+        'pct_relative_inequity'],
+    ['2019', '01', 'Alabama', 'Race 1', 0, -100.0],
+    ['2019', '01', 'Alabama', 'Race 2', 10.001, 0.0],
+    ['2019', '01', 'Alabama', 'Race 3', 60.0, 500.0],
+    ['2019', '01', 'Alabama', 'Race 4', 60.0, None],
+    ['2019', '01', 'Alabama', 'Race 5', None, None],
+    ['2019', '01', 'Alabama', 'Race 6', 100.0, None],
+    ['2020', '01', 'Alabama', 'Race 1', 0,  -100.0],
+    ['2020', '01', 'Alabama', 'Race 2', 0, 0.0],
+    ['2020', '01', 'Alabama', 'Race 3', 0, 500.0],
+    ['2020', '01', 'Alabama', 'Race 4', 0, None],
+    ['2020', '01', 'Alabama', 'Race 5', None, None],
+    ['2020', '01', 'Alabama', 'Race 6', 0, None],
+    ['2020', '99', 'Some Other State', 'Race 6', 100_000, 50.0],
+]
+
+_expected_data_with_properly_zeroed_pct_rel_inequity = [
+    ['time_period', 'state_fips', 'state_name', 'race', 'something_per_100k',
+     'pct_relative_inequity'],
+    ['2019', '01', 'Alabama', 'Race 1', 0, -100.0],
+    ['2019', '01', 'Alabama', 'Race 2', 10.001, 0.0],
+    ['2019', '01', 'Alabama', 'Race 3', 60.0, 500.0],
+    ['2019', '01', 'Alabama', 'Race 4', 60.0, None],
+    ['2019', '01', 'Alabama', 'Race 5', None, None],
+    ['2019', '01', 'Alabama', 'Race 6', 100.0, None],
+    # all rates in Alabama in 2020 are zero, so all pct_rel_inequity are NULLED
+    ['2020', '01', 'Alabama', 'Race 1', 0, None],
+    ['2020', '01', 'Alabama', 'Race 2', 0, None],
+    ['2020', '01', 'Alabama', 'Race 3', 0, None],
+    ['2020', '01', 'Alabama', 'Race 4', 0, None],
+    ['2020', '01', 'Alabama', 'Race 5', None, None],
+    ['2020', '01', 'Alabama', 'Race 6', 0, None],
+    # each PLACE/YEAR is considered independently
+    ['2020', '99', 'Some Other State', 'Race 6', 100_000, 50.0],
+
+]
+
+
 _fake_condition_data = [
     ['state_fips', 'state_name', 'race', 'some_condition_total', 'population'],
     ['01', 'Alabama', 'Asian alone', 100, 1000],
@@ -272,6 +312,22 @@ def testGeneratePctRelInequityCol():
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_data_with_pct_relative_inequity_col)).reset_index(drop=True)
     expected_df['pct_relative_inequity'] = expected_df['pct_relative_inequity'].astype(
+        float)
+
+    assert_frame_equal(df, expected_df, check_like=True)
+
+
+def testNullRelativeInequityNoRate():
+    df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_fake_data_with_pct_rel_inequity_with_zero_rates)).reset_index(drop=True)
+    df = dataset_utils.null_rel_inequity_no_rate(
+        df, 'pct_relative_inequity', 'something_per_100k')
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_expected_data_with_properly_zeroed_pct_rel_inequity)).reset_index(drop=True)
+    expected_df['pct_relative_inequity'] = expected_df['pct_relative_inequity'].astype(
+        float)
+    expected_df['something_per_100k'] = expected_df['something_per_100k'].astype(
         float)
 
     assert_frame_equal(df, expected_df, check_like=True)
