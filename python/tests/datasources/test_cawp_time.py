@@ -19,7 +19,7 @@ print("\n\n...\n\n")
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cawp_women_legislators")
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cawp_time")
 
 
 def _fetch_json_from_web(*args):

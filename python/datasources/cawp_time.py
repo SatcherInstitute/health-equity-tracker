@@ -5,7 +5,6 @@ import ingestion.standardized_columns as std_col
 from ingestion import gcs_to_bq_util, merge_utils, dataset_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
-import csv
 
 # time_period range
 # FIRST_YR = 2021
