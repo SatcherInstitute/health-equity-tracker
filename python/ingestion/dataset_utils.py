@@ -316,8 +316,11 @@ def zero_out_pct_rel_inequity(df, geo: str, demographic: str, rate_to_inequity_c
     }
     geo_cols = geo_col_mapping[geo]
 
+    print("***")
+    print(rate_to_inequity_col_map)
     per_100k_col_names = {}
     for rate_col in rate_to_inequity_col_map.keys():
+
         per_100k_col_names[rate_col] = f'{rate_col}_grouped'
 
     demo_col = std_col.RACE_CATEGORY_ID_COL if demographic == RACE else demographic

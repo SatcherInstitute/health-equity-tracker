@@ -2,7 +2,7 @@ import json
 import pytest
 import re
 import pandas as pd
-
+import numpy as np
 from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, dataset_utils
 
@@ -74,13 +74,53 @@ _fake_data_without_pct_relative_inequity_col = [
 ]
 
 _expected_data_with_pct_relative_inequity_col = [
-    ['state_fips', 'state_name', 'race', 'pct_share', 'pct_pop', 'pct_relative_inequity'],
+    ['state_fips', 'state_name', 'race', 'pct_share',
+        'pct_pop', 'pct_relative_inequity'],
     ['01', 'Alabama', 'Race 1', 0, 10.0, -100.0],
     ['01', 'Alabama', 'Race 2', 10.001, 10.0, 0.0],
     ['01', 'Alabama', 'Race 3', 60.0, 10.0, 500.0],
     ['01', 'Alabama', 'Race 4', 60.0, None, None],
     ['01', 'Alabama', 'Race 5', None, 10.0, None],
     ['01', 'Alabama', 'Race 6', 100.0, 0, None],
+]
+
+_fake_data_with_pct_rel_inequity_with_zero_rates = [
+    ['time_period', 'state_fips', 'state_name', 'race_category_id', 'something_per_100k',
+        'something_pct_relative_inequity'],
+    ['2019', '01', 'Alabama', 'Race1', 0, -100.0],
+    ['2019', '01', 'Alabama', 'Race2', 10.001, 0.0],
+    ['2019', '01', 'Alabama', 'Race3', 60.0, 500.0],
+    ['2019', '01', 'Alabama', 'Race4', 60.0, np.nan],
+    ['2019', '01', 'Alabama', 'Race5', np.nan, np.nan],
+    ['2019', '01', 'Alabama', 'Race6', 100.0, np.nan],
+    ['2020', '01', 'Alabama', 'Race1', 0,  -100.0],
+    ['2020', '01', 'Alabama', 'Race2', 0, 0.0],
+    ['2020', '01', 'Alabama', 'Race3', 0, 500.0],
+    ['2020', '01', 'Alabama', 'Race4', 0, np.nan],
+    ['2020', '01', 'Alabama', 'Race5', np.nan, np.nan],
+    ['2020', '01', 'Alabama', 'Race6', 0, np.nan],
+    ['2020', '99', 'Some Other State', 'Race6', 100_000, 50.0],
+]
+
+_expected_data_with_properly_zeroed_pct_rel_inequity = [
+    ['time_period', 'state_fips', 'state_name', 'race_category_id', 'something_per_100k',
+     'something_pct_relative_inequity'],
+    ['2019', '01', 'Alabama', 'Race1', 0, -100.0],
+    ['2019', '01', 'Alabama', 'Race2', 10.001, 0.0],
+    ['2019', '01', 'Alabama', 'Race3', 60.0, 500.0],
+    ['2019', '01', 'Alabama', 'Race4', 60.0, np.nan],
+    ['2019', '01', 'Alabama', 'Race5', np.nan, np.nan],
+    ['2019', '01', 'Alabama', 'Race6', 100.0, np.nan],
+    # all rates in Alabama in 2020 are zero, so all pct_rel_inequity are ZEROED
+    ['2020', '01', 'Alabama', 'Race1', 0, 0],
+    ['2020', '01', 'Alabama', 'Race2', 0, 0],
+    ['2020', '01', 'Alabama', 'Race3', 0, 0],
+    ['2020', '01', 'Alabama', 'Race4', 0, np.nan],
+    ['2020', '01', 'Alabama', 'Race5', np.nan, np.nan],
+    ['2020', '01', 'Alabama', 'Race6', 0, np.nan],
+    # each PLACE/YEAR is considered independently
+    ['2020', '99', 'Some Other State', 'Race6', 100_000, 50.0],
+
 ]
 
 _fake_condition_data = [
@@ -228,7 +268,8 @@ def testGeneratePctShareColExtraTotalError():
     df = df.loc[df['race'] != 'UNKNOWN']
     df['population'] = df['population'].astype(float)
 
-    expected_error = re.escape("Fips ('01',) has 2 ALL rows, there should be 1")
+    expected_error = re.escape(
+        "Fips ('01',) has 2 ALL rows, there should be 1")
     with pytest.raises(ValueError, match=expected_error):
         df = dataset_utils.generate_pct_share_col_without_unknowns(
             df, {'population': 'pct_share'}, 'race', 'ALL')
@@ -264,10 +305,33 @@ def test_ensure_leading_zeros():
 def testGeneratePctRelInequityCol():
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_fake_data_without_pct_relative_inequity_col)).reset_index(drop=True)
-    df = dataset_utils.generate_pct_relative_inequity_column(df, 'pct_share', 'pct_pop', 'pct_relative_inequity')
+    df = dataset_utils.generate_pct_relative_inequity_column(
+        df, 'pct_share', 'pct_pop', 'pct_relative_inequity')
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-            json.dumps(_expected_data_with_pct_relative_inequity_col)).reset_index(drop=True)
-    expected_df['pct_relative_inequity'] = expected_df['pct_relative_inequity'].astype(float)
+        json.dumps(_expected_data_with_pct_relative_inequity_col)).reset_index(drop=True)
+    expected_df['pct_relative_inequity'] = expected_df['pct_relative_inequity'].astype(
+        float)
+
+    assert_frame_equal(df, expected_df, check_like=True)
+
+
+def testZeroOutPctRelInequity():
+    df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_fake_data_with_pct_rel_inequity_with_zero_rates)).reset_index(drop=True)
+
+    rate_to_inequity_cols_map = {
+        "something_per_100k": "something_pct_relative_inequity"
+    }
+
+    df = dataset_utils.zero_out_pct_rel_inequity(
+        df, 'state', 'race', rate_to_inequity_cols_map)
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_expected_data_with_properly_zeroed_pct_rel_inequity)).reset_index(drop=True)
+    expected_df['something_pct_relative_inequity'] = expected_df['something_pct_relative_inequity'].astype(
+        float)
+    expected_df['something_per_100k'] = expected_df['something_per_100k'].astype(
+        float)
 
     assert_frame_equal(df, expected_df, check_like=True)
