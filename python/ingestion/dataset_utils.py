@@ -75,7 +75,8 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
     df = df.loc[df[breakdown_col] != all_val]
 
     for share_of_known_col in raw_count_to_pct_share.values():
-        unknown_all_df.loc[unknown_all_df[breakdown_col] == all_val, share_of_known_col] = 100.0
+        unknown_all_df.loc[unknown_all_df[breakdown_col]
+                           == all_val, share_of_known_col] = 100.0
 
     df = pd.concat([df, unknown_all_df]).reset_index(drop=True)
     return df
@@ -251,7 +252,12 @@ def ensure_leading_zeros(df, fips_col_name: str, num_digits: int):
     return df
 
 
-def generate_pct_relative_inequity_column(df, pct_share_col, pct_pop_col, pct_relative_inequity_col):
+def generate_pct_rel_inequity_col(
+    df,
+    pct_share_col: str,
+    pct_pop_col: str,
+    pct_relative_inequity_col: str,
+):
     """Returns a new DataFrame with an inequitable share column.
 
        df: Pandas DataFrame to generate the column for.
@@ -260,12 +266,46 @@ def generate_pct_relative_inequity_column(df, pct_share_col, pct_pop_col, pct_re
        pct_relative_inequity_col: String column name to place the calculated
                               inequitable shares in.
        """
+
     def calc_pct_relative_inequity(row):
         if pd.isna(row[pct_share_col]) or pd.isna(row[pct_pop_col]) or (row[pct_pop_col] == 0):
             return np.NaN
 
-        pct_relative_inequity_ratio = (row[pct_share_col] - row[pct_pop_col]) / row[pct_pop_col]
+        pct_relative_inequity_ratio = (
+            row[pct_share_col] - row[pct_pop_col]) / row[pct_pop_col]
         return round(pct_relative_inequity_ratio * 100, 1)
 
-    df[pct_relative_inequity_col] = df.apply(calc_pct_relative_inequity, axis=1)
+    df[pct_relative_inequity_col] = df.apply(
+        calc_pct_relative_inequity, axis=1)
+
+    return df
+
+
+def null_rel_inequity_no_rate(df, pct_rel_inequity_col: str, rate_col: str):
+    """
+    Years where none of the groups have a "100k" rate should have 
+    their `pct_relative_inequity` col nulled out
+
+    Parameters:
+        df: dataframe containing cols `time_period`, `state_fips`
+        pct_rel_inequity_col: string column name containing the previously calculated percents
+        rate_col: string column name for the rate used to filter years
+    Returns:
+        df with relative inequity nulled for years that contain 0 rates for all groups
+    """
+
+    df["year_state"] = df["time_period"] + df["state_fips"]
+
+    df['year_has_a_non_zero_100k'] = df["year_state"].isin(
+        df.loc[df[rate_col].gt(0), "year_state"])
+
+    def _filter_out_all_zeros(row):
+        if row["year_has_a_non_zero_100k"] is True:
+            return row
+        row[pct_rel_inequity_col] = np.nan
+        return row
+
+    df = df.apply(_filter_out_all_zeros, axis=1)
+    df = df.drop(["year_has_a_non_zero_100k", "year_state"], axis=1)
+
     return df
