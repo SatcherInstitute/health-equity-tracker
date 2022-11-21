@@ -266,7 +266,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       colorScale["domainMax"] = props.fieldRange.max;
       colorScale["domainMin"] = props.fieldRange.min;
     }
-    if (legendLowerBound < legendUpperBound) {
+
+    if (legendLowerBound < legendUpperBound || isNaN(legendLowerBound)) {
       // if there is a range, adjust slope of the linear behavior of symlog around 0.
       if (props.scaleType === "symlog") colorScale["constant"] = 0.01;
     } else {
