@@ -1578,7 +1578,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: "Women in US Congress",
       surveyCollectedData: true,
       timeSeriesData: true,
-      variableDefinition: `Individuals identifying as women who are currently serving in the Congress of the United States, including members of the U.S. Senate and members, territorial delegates, and resident commissioners of the U.S. House of Representatives. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
+      variableDefinition: `Individuals identifying as women who have served in the Congress of the United States, including members of the U.S. Senate and members, territorial delegates, and resident commissioners of the U.S. House of Representatives. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
       metrics: {
         per100k: {
           metricId: "pct_share_of_us_congress",
@@ -1586,9 +1586,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           trendsCardTitleName:
             "Yearly rates of US Congress members identifying as women",
           chartTitle:
-            "Current rates of US Congress members identifying as women",
+            "Current year rates of US Congress members identifying as women",
           mobileChartTitle: [
-            "Current rates of US Congress",
+            "Current year rates of US Congress",
             "identifying as women",
           ],
           shortLabel: "% of US congress members",
