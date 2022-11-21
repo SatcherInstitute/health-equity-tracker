@@ -9,6 +9,58 @@ STATE_LEVEL_FIPS_LIST = [
     "66", "69", "72", "78"
 ]
 
+STATE_POSTALS = [
+    "AL",
+    "AK",
+    "AZ",
+    "AR",
+    "CA",
+    "CO",
+    "CT",
+    "DE",
+    "FL",
+    "GA",
+    "HI",
+    "ID",
+    "IL",
+    "IN",
+    "IA",
+    "KS",
+    "KY",
+    "LA",
+    "ME",
+    "MD",
+    "MA",
+    "MI",
+    "MN",
+    "MS",
+    "MO",
+    "MT",
+    "NV",
+    "NH",
+    "NJ",
+    "NM",
+    "NY",
+    "NC",
+    "ND",
+    "OH",
+    "OK",
+    "OR",
+    "PA",
+    "RI",
+    "SC",
+    "SD",
+    "TN",
+    "TX",
+    "UT",
+    "VT",
+    "VA",
+    "WA",
+    "WV",
+    "WI",
+    "WY"
+]
+
 TERRITORY_POSTALS = [
     "PR", "VI", "GU", "AS", "MP", "DC"
 ]

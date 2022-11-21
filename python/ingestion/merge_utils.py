@@ -61,7 +61,7 @@ def merge_state_ids(df, keep_postal=False):
        keep_postal: if True, keeps the `state_postal` column, default False
     Returns:
         the same df with a 'state_fips' column containing 2-digit string FIPS codes,
-        a 'state_name' columns containing the standardize name,
+        a 'state_name' column containing the standardize name,
         and optionally a 'state_postal' columns with the 2-letter postal codes
     """
 
