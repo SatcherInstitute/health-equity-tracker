@@ -30,7 +30,9 @@ from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import (
     generate_per_100k_col,
     generate_pct_share_col_with_unknowns,
-    generate_pct_relative_inequity_column)
+    generate_pct_relative_inequity_column,
+    zero_out_pct_rel_inequity
+)
 
 from ingestion.merge_utils import (
     merge_state_fips_codes,
@@ -50,6 +52,17 @@ COVID_CONDITION_TO_PREFIX = {
     std_col.COVID_HOSP_Y: std_col.COVID_HOSP_PREFIX,
     std_col.COVID_DEATH_Y: std_col.COVID_DEATH_PREFIX,
 }
+
+COVID_RATES_TO_PCT_REL_INEQUITY_MAP = {}
+for prefix in COVID_CONDITION_TO_PREFIX.values():
+    COVID_RATES_TO_PCT_REL_INEQUITY_MAP[
+        generate_column_name(
+            prefix,
+            std_col.PER_100K_SUFFIX
+        )] = generate_column_name(
+        prefix,
+        std_col.PCT_REL_INEQUITY_SUFFIX
+    )
 
 DEMO_COL_MAPPING = {
     RACE: (std_col.RACE_CATEGORY_ID_COL, list(RACE_NAMES_MAPPING.values())),
@@ -203,7 +216,8 @@ class CDCRestrictedData(DataSource):
 
             pop_col = std_col.POPULATION_COL
             if geo == NATIONAL_LEVEL:
-                pop_col = generate_column_name(raw_count_col, POPULATION_SUFFIX)
+                pop_col = generate_column_name(
+                    raw_count_col, POPULATION_SUFFIX)
             df = generate_per_100k_col(
                 df, raw_count_col, pop_col, per_100k_col)
 
@@ -221,11 +235,12 @@ class CDCRestrictedData(DataSource):
 
         if not cumulative:
             for prefix in COVID_CONDITION_TO_PREFIX.values():
-                pct_relative_inequity_col = generate_column_name(prefix, std_col.PCT_REL_INEQUITY_SUFFIX)
+                pct_relative_inequity_col = generate_column_name(
+                    prefix, std_col.PCT_REL_INEQUITY_SUFFIX)
                 df = generate_pct_relative_inequity_column(
-                   df, generate_column_name(prefix, std_col.SHARE_SUFFIX),
-                   std_col.COVID_POPULATION_PCT,
-                   pct_relative_inequity_col)
+                    df, generate_column_name(prefix, std_col.SHARE_SUFFIX),
+                    std_col.COVID_POPULATION_PCT,
+                    pct_relative_inequity_col)
 
                 all_columns.append(pct_relative_inequity_col)
 
@@ -239,7 +254,8 @@ class CDCRestrictedData(DataSource):
             null_out_all_unknown_deaths_hosps(df)
 
         if not cumulative:
-            df = zero_out_pct_relative_inequity(df, geo, demo)
+            df = zero_out_pct_rel_inequity(
+                df, geo, demo, COVID_RATES_TO_PCT_REL_INEQUITY_MAP)
 
         df = df[all_columns]
         self.clean_frame_column_names(df)
@@ -428,8 +444,10 @@ def remove_or_set_to_zero(df, geo, demographic):
     geo_cols = geo_col_mapping[geo]
     demog_col = DEMO_COL_MAPPING[demographic][0]
 
-    grouped_df = df.groupby(geo_cols + [demog_col]).sum(min_count=1).reset_index()
-    grouped_df = grouped_df.rename(columns={std_col.COVID_CASES: 'grouped_cases'})
+    grouped_df = df.groupby(
+        geo_cols + [demog_col]).sum(min_count=1).reset_index()
+    grouped_df = grouped_df.rename(
+        columns={std_col.COVID_CASES: 'grouped_cases'})
     grouped_df = grouped_df[geo_cols + [demog_col, 'grouped_cases']]
 
     # Remove all rows that have zero cases throughout the pandemic
@@ -465,7 +483,8 @@ def null_out_suppressed_deaths_hosps(df, modify_pop_rows):
                         rows to np.nan. Note, these population rows must have been
                         created using the `merge_multiple_pop_cols` function."""
 
-    suffixes = [std_col.PER_100K_SUFFIX, std_col.SHARE_SUFFIX, std_col.PCT_REL_INEQUITY_SUFFIX]
+    suffixes = [std_col.PER_100K_SUFFIX,
+                std_col.SHARE_SUFFIX, std_col.PCT_REL_INEQUITY_SUFFIX]
     hosp_rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
         HOSP_DATA_SUPPRESSION_STATES)
     for suffix in suffixes:
@@ -501,54 +520,3 @@ def null_out_all_unknown_deaths_hosps(df):
            df[std_col.COVID_CASES], generate_column_name(std_col.COVID_HOSP_PREFIX, std_col.PER_100K_SUFFIX)] = np.nan
     df.loc[df[std_col.COVID_HOSP_UNKNOWN] ==
            df[std_col.COVID_CASES], generate_column_name(std_col.COVID_HOSP_PREFIX, std_col.SHARE_SUFFIX)] = np.nan
-
-
-def zero_out_pct_relative_inequity(df, geo, demographic):
-    """Sets inequitable share of cases/deaths/hosps to zero if there
-       are zero cases/deaths/hosps with a known demographic.
-
-       df: Dataframe to zero rows out on.
-       geo: Geographic level. Must be `national`, `state` or`county`.
-       demographic: Demographic breakdown. Must be `race`, `age`, or `sex`."""
-
-    geo_col_mapping = {
-        NATIONAL_LEVEL: [
-            std_col.STATE_FIPS_COL,
-            std_col.STATE_NAME_COL,
-        ],
-        STATE_LEVEL: [
-            std_col.STATE_FIPS_COL,
-            std_col.STATE_NAME_COL,
-        ],
-        COUNTY_LEVEL: [
-            std_col.COUNTY_FIPS_COL,
-            std_col.COUNTY_NAME_COL,
-        ],
-    }
-    geo_cols = geo_col_mapping[geo]
-
-    per_100k_col_names = {}
-    for prefix in COVID_CONDITION_TO_PREFIX.values():
-        per_100k_col_name = generate_column_name(prefix, std_col.PER_100K_SUFFIX)
-        per_100k_col_names[per_100k_col_name] = f'{per_100k_col_name}_grouped'
-
-    demo_col = std_col.RACE_CATEGORY_ID_COL if demographic == RACE else demographic
-    unknown_val = Race.UNKNOWN.value if demographic == RACE else UNKNOWN
-    all_val = Race.ALL.value if demographic == RACE else std_col.ALL_VALUE
-
-    df_without_all_unknown = df.loc[~df[demo_col].isin({unknown_val, all_val})]
-    df_all_unknown = df.loc[df[demo_col].isin({unknown_val, all_val})]
-
-    grouped_df = df_without_all_unknown.groupby(geo_cols + [std_col.TIME_PERIOD_COL]).sum(min_count=1).reset_index()
-    grouped_df = grouped_df.rename(columns=per_100k_col_names)
-    grouped_df = grouped_df[geo_cols + list(per_100k_col_names.values()) + [std_col.TIME_PERIOD_COL]]
-
-    df = pd.merge(df_without_all_unknown, grouped_df, on=geo_cols + [std_col.TIME_PERIOD_COL])
-    for prefix in COVID_CONDITION_TO_PREFIX.values():
-        grouped_col = f'{generate_column_name(prefix, std_col.PER_100K_SUFFIX)}_grouped'
-        df.loc[df[grouped_col] == 0, generate_column_name(prefix, std_col.PCT_REL_INEQUITY_SUFFIX)] = 0
-
-    df = df.drop(columns=list(per_100k_col_names.values()))
-    df = pd.concat([df, df_all_unknown])
-
-    return df
