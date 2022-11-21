@@ -315,19 +315,3 @@ def testGeneratePctRelInequityCol():
         float)
 
     assert_frame_equal(df, expected_df, check_like=True)
-
-
-def testNullRelativeInequityNoRate():
-    df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_data_with_pct_rel_inequity_with_zero_rates)).reset_index(drop=True)
-    df = dataset_utils.null_rel_inequity_no_rate(
-        df, 'pct_relative_inequity', 'something_per_100k')
-
-    expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_data_with_properly_zeroed_pct_rel_inequity)).reset_index(drop=True)
-    expected_df['pct_relative_inequity'] = expected_df['pct_relative_inequity'].astype(
-        float)
-    expected_df['something_per_100k'] = expected_df['something_per_100k'].astype(
-        float)
-
-    assert_frame_equal(df, expected_df, check_like=True)

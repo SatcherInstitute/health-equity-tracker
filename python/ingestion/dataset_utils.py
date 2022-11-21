@@ -279,33 +279,3 @@ def generate_pct_rel_inequity_col(
         calc_pct_relative_inequity, axis=1)
 
     return df
-
-
-def null_rel_inequity_no_rate(df, pct_rel_inequity_col: str, rate_col: str):
-    """
-    Rows for YEAR/PLACE combos where none of the groups have a "100k" rate should have
-    their `pct_relative_inequity` col nulled out
-
-    Parameters:
-        df: dataframe containing cols `time_period`, `state_fips`
-        pct_rel_inequity_col: string column name containing the previously calculated percents
-        rate_col: string column name for the rate column used to trigger the "nulling" filter
-    Returns:
-        df with relative inequity nulled for years that contain 0 rates for all groups
-    """
-
-    # detect non-zero 100ks in each grouping of PLACE/YEAR
-    df["year_state"] = df["time_period"] + df["state_fips"]
-    df['yearstate_has_nonzero_100k'] = df["year_state"].isin(
-        df.loc[df[rate_col].gt(0), "year_state"])
-
-    def _filter_out_all_zeros(row):
-        if row["yearstate_has_nonzero_100k"] is True:
-            return row
-        row[pct_rel_inequity_col] = np.nan
-        return row
-
-    df = df.apply(_filter_out_all_zeros, axis=1)
-    df = df.drop(["yearstate_has_nonzero_100k", "year_state"], axis=1)
-
-    return df
