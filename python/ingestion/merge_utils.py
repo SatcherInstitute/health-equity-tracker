@@ -139,9 +139,12 @@ def merge_current_pop_numbers(df, demo, loc, target_time_periods):
       df: a pandas df with demographic column and a `state_fips` column
       demo: the demographic in the df, either `age`, `race`, or `sex`
       loc: the location level for the df, either `county`, `state`, or `national`
-      target_time_periods: list of strings in format YYYY or MM-YYYY used to target which rows to
-        merge population data on to. Most recent will be used on DisparityBarChart and all 
-        will be used to calculate pct_relative_inequity
+      target_time_periods: list of strings in format YYYY or MM-YYYY used
+      to target which rows to merge population data on to.
+      For most topics besides COVID, these will be used to calculate
+      pct_relative_inequity, and the most recent year will be
+      used on DisparityBarChart.
+
       """
 
     target_rows_df = df[df[std_col.TIME_PERIOD_COL].isin(
@@ -157,7 +160,7 @@ def merge_current_pop_numbers(df, demo, loc, target_time_periods):
                        std_col.POPULATION_PCT_COL]] = np.nan
 
     # reassemble the HISTORIC (null pop. data) and CURRENT (merged pop. data)
-    df = pd.concat([nontarget_rows_df, target_rows_df])
+    df = pd.concat([nontarget_rows_df, target_rows_df]).reset_index(drop=True)
 
     return df
 
