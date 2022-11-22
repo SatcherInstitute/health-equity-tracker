@@ -261,6 +261,14 @@
 
 /** ------------- CONTACT US ------------- **/
 
+.MoveEquityForward {
+  display: none;
+
+  @media (min-width: $md) {
+    display: block;
+  }
+}
+
 .ContactUsHeaderText {
   @include tav300();
   font-size: $biggerHeader !important;
