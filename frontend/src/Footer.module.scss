@@ -80,6 +80,13 @@
   }
 }
 
+.FooterLinkBox {
+  // mobile links should take up full width
+  @media only screen and (max-width: $sm) {
+    width: 100% !important;
+  }
+}
+
 /** ------------------ Back to top - third -------------------- **/
 
 .ScrollToTopButton {

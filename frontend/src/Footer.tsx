@@ -171,35 +171,14 @@ function LinkGridItem(props: {
   ariaLabel: string;
 }) {
   return (
-    <>
-      {/* <Hidden xsDown>
-        <Grid item>
-          <ReactRouterLinkButton
-            url={props.link}
-            className={styles.FooterLink}
-            displayName={props.text}
-            ariaLabel={props.ariaLabel}
-          />
-        </Grid>
-      </Hidden>
-      <Hidden smUp>
-        <Grid item xs={12}>
-          <ReactRouterLinkButton
-            url={props.link}
-            className={styles.FooterLink}
-            displayName={props.text}
-          />
-        </Grid>
-      </Hidden> */}
-      <Grid item>
-        <ReactRouterLinkButton
-          url={props.link}
-          className={styles.FooterLink}
-          displayName={props.text}
-          ariaLabel={props.ariaLabel}
-        />
-      </Grid>
-    </>
+    <Grid item className={styles.FooterLinkBox}>
+      <ReactRouterLinkButton
+        url={props.link}
+        className={styles.FooterLink}
+        displayName={props.text}
+        ariaLabel={props.ariaLabel}
+      />
+    </Grid>
   );
 }
 
