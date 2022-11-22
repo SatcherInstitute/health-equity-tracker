@@ -299,7 +299,7 @@ def zero_out_pct_rel_inequity(df, geo: str,
             {"something_per_100k": "something_pct_relative_inequity",
             "pct_share_of_us_congress": "women_us_congress_pct_relative_inequity"}
         pop_pct_col: option string column name that contains the population pct share,
-            used to preserve the null pct_rel_inequity on rows with no pop data
+            used to preserve the null `pct_rel_inequity` values on rows with no pop. data
 
     Returns:
         df with the pct_relative_inequities columns zeroed for the zero-rate time/place rows
