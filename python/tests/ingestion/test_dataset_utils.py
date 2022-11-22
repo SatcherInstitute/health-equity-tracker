@@ -86,7 +86,7 @@ _expected_data_with_pct_relative_inequity_col = [
 
 _fake_data_with_pct_rel_inequity_with_zero_rates = [
     ['time_period', 'state_fips', 'state_name', 'race_category_id', 'something_per_100k',
-        'something_pct_relative_inequity', 'population_pct'],
+        'something_pct_relative_inequity', 'something_pop_pct'],
     ['2018', '99', 'StateWithRates', 'RaceNoPop', 90_000, None, None],
     ['2019', '01', 'Alabama', 'Race1', 0, -100.0, 10.0],
     ['2019', '01', 'Alabama', 'Race2', 10.001, 0.0, 10.0],
@@ -105,7 +105,7 @@ _fake_data_with_pct_rel_inequity_with_zero_rates = [
 
 _expected_data_with_properly_zeroed_pct_rel_inequity = [
     ['time_period', 'state_fips', 'state_name', 'race_category_id', 'something_per_100k',
-     'something_pct_relative_inequity', 'population_pct'],
+     'something_pct_relative_inequity', 'something_pop_pct'],
     ['2018', '99', 'StateWithRates', 'RaceNoPop', 90_000, None, None],
     ['2019', '01', 'Alabama', 'Race1', 0, -100.0, 10.0],
     ['2019', '01', 'Alabama', 'Race2', 10.001, 0.0, 10.0],
@@ -326,7 +326,7 @@ def testZeroOutPctRelInequity():
     rate_to_inequity_cols_map = {
         "something_per_100k": "something_pct_relative_inequity"}
     df = dataset_utils.zero_out_pct_rel_inequity(
-        df, 'state', 'race', rate_to_inequity_cols_map)
+        df, 'state', 'race', rate_to_inequity_cols_map, pop_pct_col="something_pop_pct")
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_data_with_properly_zeroed_pct_rel_inequity)).reset_index(drop=True)
     assert_frame_equal(df, expected_df, check_like=True, check_dtype=False)

@@ -280,7 +280,10 @@ def generate_pct_relative_inequity_column(df, pct_share_col, pct_pop_col, pct_re
     return df
 
 
-def zero_out_pct_rel_inequity(df, geo: str, demographic: str, rate_to_inequity_col_map: dict):
+def zero_out_pct_rel_inequity(df, geo: str,
+                              demographic: str,
+                              rate_to_inequity_col_map: dict,
+                              pop_pct_col: str = None):
     """Sets inequitable share of targeted conditions to zero if every known
     demographic group in a particular place/time reports rates of `0` or null.
     The justification for this is that such a small number of case counts can
@@ -295,6 +298,8 @@ def zero_out_pct_rel_inequity(df, geo: str, demographic: str, rate_to_inequity_c
            to the corresponding`pct_rel_inequity`s. Example map below:
             {"something_per_100k": "something_pct_relative_inequity",
             "pct_share_of_us_congress": "women_us_congress_pct_relative_inequity"}
+        pop_pct_col: option string column name that contains the population pct share,
+            used to preserve the null pct_rel_inequity on rows with no pop data
 
     Returns:
         df with the pct_relative_inequities columns zeroed for the zero-rate time/place rows
@@ -344,8 +349,9 @@ def zero_out_pct_rel_inequity(df, geo: str, demographic: str, rate_to_inequity_c
     df = df.drop(columns=list(per_100k_col_names.values()))
     df = pd.concat([df, df_all_unknown])
 
-    # preserve null pct_inequity for race rows that have no population info
-    df.loc[df[std_col.POPULATION_PCT_COL].isnull(
-    ), pct_inequity_col] = np.nan
+    # optionally preserve null pct_inequity for race rows that have no population info
+    if pop_pct_col:
+        df.loc[df[pop_pct_col].isnull(
+        ), pct_inequity_col] = np.nan
 
     return df
