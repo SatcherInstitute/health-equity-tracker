@@ -62,22 +62,10 @@ function Footer() {
               />
             ))}
           </Grid>
-          {/* DESKTOP */}
-          <Hidden xsDown>
-            <Grid item container justifyContent="flex-end">
-              <span className={styles.CopyrightSpan}>
-                &copy;{currentYear()}
-              </span>
-            </Grid>
-          </Hidden>
-          {/* MOBILE */}
-          <Hidden smUp>
-            <Grid item container justifyContent="center">
-              <span className={styles.CopyrightSpan}>
-                &copy;{currentYear()}
-              </span>
-            </Grid>
-          </Hidden>
+
+          <Grid item container className={styles.CopyrightSpanBox}>
+            <span className={styles.CopyrightSpan}>&copy;{currentYear()}</span>
+          </Grid>
         </Grid>
 
         <Grid

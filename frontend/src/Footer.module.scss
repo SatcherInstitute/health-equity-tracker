@@ -39,11 +39,20 @@
 
 /** ------------------ Links - second -------------------- **/
 
+.CopyrightSpanBox {
+  justify-content: center;
+
+  @media only screen and (min-width: $sm) {
+    justify-content: flex-end;
+  }
+}
+
 .CopyrightSpan {
   @include inter300();
   color: $alt-dark;
   font-size: $small;
   margin-bottom: 2rem;
+
   @media only screen and (min-width: $sm) {
     // So it aligns with the button above it
     padding-right: 8px;
