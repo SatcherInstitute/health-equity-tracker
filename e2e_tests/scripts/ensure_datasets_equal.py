@@ -11,6 +11,14 @@ from pandas._testing import assert_frame_equal
 
 # You must be logged into the gcloud cli for this to work
 
+"""
+Example usage, comparing COVID datasets on DEV to those on PROD
+From directory floor in (.venv):
+`python e2e_tests/scripts/ensure_datasets_equal.py -tp het-infra-prod-f6
+-ep het-infra-test-05 -d cdc_restricted_data`
+"""
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-ep", "--expectedproject",
                     help="GCP project name with the reference data")

@@ -1,5 +1,6 @@
 from unittest import mock
 import json
+import numpy as np
 
 from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, merge_utils
@@ -80,6 +81,22 @@ _expected_merged_fips = [
     ['Unknown', 'who_am_i', 'Unknown'],
 ]
 
+_data_with_only_fips_codes = [
+    ['state_fips', 'other_col'],
+    ['00', 'something_cool'],
+    ['06', 'something'],
+    ['13', 'something_else'],
+    ['78', 'something_else_entirely'],
+]
+
+_expected_merged_names_from_fips = [
+    ['state_name', 'other_col', 'state_fips'],
+    ['United States', 'something_cool', '00'],
+    ['California', 'something', '06'],
+    ['Georgia', 'something_else', '13'],
+    ['U.S. Virgin Islands', 'something_else_entirely', '78'],
+]
+
 _data_without_pop_numbers = [
     ['state_fips', 'race_category_id', 'other_col'],
     ['01', 'BLACK_NH', 'something_cool'],
@@ -111,6 +128,45 @@ _expected_merged_with_pop_numbers_county = [
     ['01', '01000', 'BLACK_NH', 100, 25.0, 'something_cool'],
     ['01', '01000', 'WHITE_NH', 300, 75.0, 'something_else_cool'],
     ['01', '01234', 'BLACK_NH', 100, 50.0, 'something_cooler'],
+]
+
+_data_time_series_without_pop_numbers = [
+    ['time_period', 'state_fips', 'race_category_id', 'other_col'],
+    ['2018', '01', 'BLACK_NH', 'something_cool'],
+    ['2018', '01', 'WHITE_NH', 'something_else_cool'],
+    ['2018', '02', 'BLACK_NH', 'something_cooler'],
+    ['2018', '78', 'WHITE_NH', 'something_else_entirely'],
+    ['2018', '78', 'BLACK_NH', 'something_else_entirely'],
+    ['2019', '01', 'BLACK_NH', 'something_cool'],
+    ['2019', '01', 'WHITE_NH', 'something_else_cool'],
+    ['2019', '02', 'BLACK_NH', 'something_cooler'],
+    ['2019', '78', 'WHITE_NH', 'something_else_entirely'],
+    ['2019', '78', 'BLACK_NH', 'something_else_entirely'],
+    ['2020', '01', 'BLACK_NH', 'something_cool'],
+    ['2020', '01', 'WHITE_NH', 'something_else_cool'],
+    ['2020', '02', 'BLACK_NH', 'something_cooler'],
+    ['2020', '78', 'WHITE_NH', 'something_else_entirely'],
+    ['2020', '78', 'BLACK_NH', 'something_else_entirely'],
+]
+
+_expected_time_series_merged_with_pop_numbers = [
+    ['time_period', 'state_fips', 'race_category_id',
+        'population', 'population_pct', 'other_col'],
+    ['2018', '01', 'BLACK_NH', np.nan, np.nan, 'something_cool'],
+    ['2018', '01', 'WHITE_NH', np.nan, np.nan, 'something_else_cool'],
+    ['2018', '02', 'BLACK_NH', np.nan, np.nan, 'something_cooler'],
+    ['2018', '78', 'WHITE_NH', np.nan, np.nan, 'something_else_entirely'],
+    ['2018', '78', 'BLACK_NH', np.nan, np.nan, 'something_else_entirely'],
+    ['2019', '01', 'BLACK_NH', np.nan, np.nan, 'something_cool'],
+    ['2019', '01', 'WHITE_NH', np.nan, np.nan, 'something_else_cool'],
+    ['2019', '02', 'BLACK_NH', np.nan, np.nan, 'something_cooler'],
+    ['2019', '78', 'WHITE_NH', np.nan, np.nan, 'something_else_entirely'],
+    ['2019', '78', 'BLACK_NH', np.nan, np.nan, 'something_else_entirely'],
+    ['2020', '01', 'BLACK_NH', 100, 25.0, 'something_cool'],
+    ['2020', '01', 'WHITE_NH', 300, 75.0, 'something_else_cool'],
+    ['2020', '02', 'BLACK_NH', 100, 50.0, 'something_cooler'],
+    ['2020', '78', 'WHITE_NH', 300, 60.0, 'something_else_entirely'],
+    ['2020', '78', 'BLACK_NH', 200, 40.0, 'something_else_entirely']
 ]
 
 _data_without_pop_numbers_multiple_rows = [
@@ -194,7 +250,7 @@ def testMergeFipsCodesCounty(mock_bq: mock.MagicMock):
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_merged_fips_county), dtype=str).reset_index(drop=True)
 
-    df = merge_utils.merge_state_fips_codes(df)
+    df = merge_utils.merge_state_ids(df)
 
     assert mock_bq.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
@@ -202,7 +258,7 @@ def testMergeFipsCodesCounty(mock_bq: mock.MagicMock):
 
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=_get_fips_codes_as_df())
-def testMergeFipsCodesStateName(mock_bq: mock.MagicMock):
+def testMergeStateInfoByName(mock_bq: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
 
@@ -211,7 +267,7 @@ def testMergeFipsCodesStateName(mock_bq: mock.MagicMock):
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
 
-    df = merge_utils.merge_state_fips_codes(df)
+    df = merge_utils.merge_state_ids(df)
 
     assert mock_bq.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
@@ -219,7 +275,7 @@ def testMergeFipsCodesStateName(mock_bq: mock.MagicMock):
 
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=_get_fips_codes_as_df())
-def testMergeFipsCodesStatePostal(mock_bq: mock.MagicMock):
+def testMergeStateInfoByPostal(mock_bq: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
 
@@ -228,7 +284,24 @@ def testMergeFipsCodesStatePostal(mock_bq: mock.MagicMock):
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
 
-    df = merge_utils.merge_state_fips_codes(df)
+    df = merge_utils.merge_state_ids(df)
+
+    assert mock_bq.call_count == 1
+    assert_frame_equal(df, expected_df, check_like=True)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=_get_fips_codes_as_df())
+def testMergeStateInfoByFips(mock_bq: mock.MagicMock):
+    df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_data_with_only_fips_codes), dtype=str).reset_index(drop=True)
+
+    df = df[['state_fips', 'other_col']]
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_expected_merged_names_from_fips), dtype=str).reset_index(drop=True)
+
+    df = merge_utils.merge_state_ids(df)
 
     assert mock_bq.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
@@ -266,6 +339,26 @@ def testMergePopNumbersCounty(mock_bq: mock.MagicMock):
     df = merge_utils.merge_pop_numbers(df, 'race', 'county')
 
     assert mock_bq.call_count == 1
+
+    assert_frame_equal(df, expected_df, check_like=True)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=_get_pop_data_as_df)
+def testMergeCurrentPopNumbers(mock_bq: mock.MagicMock):
+    df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_data_time_series_without_pop_numbers),
+        dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_expected_time_series_merged_with_pop_numbers),
+        dtype={std_col.STATE_FIPS_COL: str, std_col.TIME_PERIOD_COL: str}).reset_index(drop=True)
+
+    df = merge_utils.merge_current_pop_numbers(
+        # should only merge population data into rows for '2020'
+        df, 'race', 'state', ['2020'])
+
+    assert mock_bq.call_count == 2  # state call and territory call
 
     assert_frame_equal(df, expected_df, check_like=True)
 
