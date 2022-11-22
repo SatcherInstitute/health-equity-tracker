@@ -58,6 +58,13 @@
     border-right: 1px solid grey;
     margin-left: 20px;
     float: right;
+
+    // divider should only show on screens wide enough to likely have name and pop info on 1 line
+    display: none;
+
+    @media only screen and (min-width: $md) {
+      display: block;
+    }
   }
 }
 
@@ -122,13 +129,25 @@
   }
 }
 
+.ProfileButtonInline {
+  display: none;
+
+  @media only screen and (min-width: $sm) {
+    display: inline;
+  }
+}
+
+.ProfileButtonBelow {
+  display: block;
+
+  @media only screen and (min-width: $sm) {
+    display: none;
+  }
+}
+
 .ProfileButton {
   padding-left: 0px;
   padding-right: 0px;
-}
-
-.ProfileButtonContainer {
-  text-align: start;
 }
 
 .SviContainer {
