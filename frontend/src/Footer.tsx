@@ -1,6 +1,5 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Hidden from "@material-ui/core/Hidden";
 import styles from "./Footer.module.scss";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
@@ -173,7 +172,7 @@ function LinkGridItem(props: {
 }) {
   return (
     <>
-      <Hidden xsDown>
+      {/* <Hidden xsDown>
         <Grid item>
           <ReactRouterLinkButton
             url={props.link}
@@ -191,7 +190,15 @@ function LinkGridItem(props: {
             displayName={props.text}
           />
         </Grid>
-      </Hidden>
+      </Hidden> */}
+      <Grid item>
+        <ReactRouterLinkButton
+          url={props.link}
+          className={styles.FooterLink}
+          displayName={props.text}
+          ariaLabel={props.ariaLabel}
+        />
+      </Grid>
     </>
   );
 }
