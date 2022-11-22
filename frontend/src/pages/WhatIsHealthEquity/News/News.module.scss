@@ -290,6 +290,20 @@
   font-size: $bigHeader;
 }
 
+.FilterBoxSideBar {
+  display: none;
+
+  @media (min-width: $md) {
+    display: block;
+  }
+}
+
+.FilterBoxBottom {
+  @media (min-width: $md) {
+    display: none;
+  }
+}
+
 .FilterListBox {
   display: flex;
   flex-direction: column;

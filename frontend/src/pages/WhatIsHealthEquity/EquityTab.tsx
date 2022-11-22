@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import Button from "@material-ui/core/Button";
-import Hidden from "@material-ui/core/Hidden";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
