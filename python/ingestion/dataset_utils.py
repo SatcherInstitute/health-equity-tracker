@@ -316,11 +316,8 @@ def zero_out_pct_rel_inequity(df, geo: str, demographic: str, rate_to_inequity_c
     }
     geo_cols = geo_col_mapping[geo]
 
-    print("***")
-    print(rate_to_inequity_col_map)
     per_100k_col_names = {}
     for rate_col in rate_to_inequity_col_map.keys():
-
         per_100k_col_names[rate_col] = f'{rate_col}_grouped'
 
     demo_col = std_col.RACE_CATEGORY_ID_COL if demographic == RACE else demographic
@@ -340,9 +337,15 @@ def zero_out_pct_rel_inequity(df, geo: str, demographic: str, rate_to_inequity_c
                   on=geo_cols + [std_col.TIME_PERIOD_COL])
     for rate_col, pct_inequity_col in rate_to_inequity_col_map.items():
         grouped_col = f'{rate_col}_grouped'
-        df.loc[df[grouped_col] == 0, pct_inequity_col] = 0
+        # set pct_inequity to 0 in a place/time_period if the summed rates are zero
+        df.loc[df[grouped_col] == 0,
+               pct_inequity_col] = 0
 
     df = df.drop(columns=list(per_100k_col_names.values()))
     df = pd.concat([df, df_all_unknown])
+
+    # preserve null pct_inequity for race rows that have no population info
+    df.loc[df[std_col.POPULATION_PCT_COL].isnull(
+    ), pct_inequity_col] = np.nan
 
     return df
