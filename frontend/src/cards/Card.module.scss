@@ -129,19 +129,9 @@
   }
 }
 
-.ProfileButtonInline {
-  display: none;
-
+.ProfileButtonContainer {
   @media only screen and (min-width: $sm) {
     display: inline;
-  }
-}
-
-.ProfileButtonBelow {
-  display: block;
-
-  @media only screen and (min-width: $sm) {
-    display: none;
   }
 }
 

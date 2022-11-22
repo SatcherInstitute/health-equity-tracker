@@ -271,7 +271,6 @@ export function PopulationCard(props: PopulationCardProps) {
                     </Box>
                   </Grid>
                 </Grid>
-                {CollapseButton}
               </AnimateHeight>
             )}
           </CardContent>
