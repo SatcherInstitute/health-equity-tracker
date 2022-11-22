@@ -86,23 +86,21 @@ function JoinTheEffortContainer(props: {
       justifyContent="space-around"
       className={styles.JoinTheEffortItemContainer}
     >
-      <Hidden smDown>
-        <Grid
-          item
-          md={5}
-          lg={5}
-          className={styles.JoinTheEffortImgContainer}
-          style={{ backgroundColor: props.imageBackground }}
-        >
-          <LazyLoad offset={300} height={500} once>
-            <img
-              src={props.imageUrl}
-              alt={props.imageAlt}
-              className={styles.JoinTheEffortImg}
-            />
-          </LazyLoad>
-        </Grid>
-      </Hidden>
+      <Grid
+        item
+        md={5}
+        lg={5}
+        className={styles.JoinTheEffortImgContainer}
+        style={{ backgroundColor: props.imageBackground }}
+      >
+        <LazyLoad offset={300} height={500} once>
+          <img
+            src={props.imageUrl}
+            alt={props.imageAlt}
+            className={styles.JoinTheEffortImg}
+          />
+        </LazyLoad>
+      </Grid>
       <Grid item sm={12} md={6} className={styles.JoinTheEffortTextContainer}>
         <Typography
           className={styles.JoinTheEffortStepHeaderText}
@@ -142,26 +140,24 @@ function EquityTab() {
             justifyContent="center"
             alignItems="center"
           >
-            <Hidden smDown>
-              <Grid
-                container
-                item
-                xs={12}
-                sm={12}
-                md={4}
-                className={styles.HeaderImgItem}
-              >
-                <LazyLoad offset={300} height={760} once>
-                  <img
-                    width="397"
-                    height="760"
-                    src="/img/stock/woman-in-wheelchair-with-tea.png"
-                    className={styles.HeaderImg}
-                    alt=""
-                  />
-                </LazyLoad>
-              </Grid>
-            </Hidden>
+            <Grid
+              container
+              item
+              xs={12}
+              sm={12}
+              md={4}
+              className={styles.HeaderImgItem}
+            >
+              <LazyLoad offset={300} height={760} once>
+                <img
+                  width="397"
+                  height="760"
+                  src="/img/stock/woman-in-wheelchair-with-tea.png"
+                  className={styles.HeaderImg}
+                  alt=""
+                />
+              </LazyLoad>
+            </Grid>
             <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
               <Box mb={5}>
                 <Typography
