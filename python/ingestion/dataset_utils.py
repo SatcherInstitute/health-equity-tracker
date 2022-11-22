@@ -1,8 +1,14 @@
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
-
 from ingestion.standardized_columns import Race
+
+from ingestion.constants import (
+    NATIONAL_LEVEL,
+    STATE_LEVEL,
+    COUNTY_LEVEL,
+    RACE,
+    UNKNOWN)
 
 
 def generate_pct_share_col_without_unknowns(df, raw_count_to_pct_share, breakdown_col, all_val):
@@ -76,6 +82,8 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
 
     for share_of_known_col in raw_count_to_pct_share.values():
         unknown_all_df.loc[unknown_all_df[breakdown_col]
+
+
                            == all_val, share_of_known_col] = 100.0
 
     df = pd.concat([df, unknown_all_df]).reset_index(drop=True)
@@ -272,40 +280,88 @@ def generate_pct_rel_inequity_col(
             return np.NaN
 
         pct_relative_inequity_ratio = (
+
+
             row[pct_share_col] - row[pct_pop_col]) / row[pct_pop_col]
         return round(pct_relative_inequity_ratio * 100, 1)
 
     df[pct_relative_inequity_col] = df.apply(
         calc_pct_relative_inequity, axis=1)
-
     return df
 
 
-def null_rel_inequity_no_rate(df, pct_rel_inequity_col: str, rate_col: str):
-    """
-    Years where none of the groups have a "100k" rate should have 
-    their `pct_relative_inequity` col nulled out
+def zero_out_pct_rel_inequity(df, geo: str,
+                              demographic: str,
+                              rate_to_inequity_col_map: dict,
+                              pop_pct_col: str = None):
+    """Sets inequitable share of targeted conditions to zero if every known
+    demographic group in a particular place/time reports rates of `0` or null.
+    The justification for this is that such a small number of case counts can
+    lead to misleading relative inequities, and it's strange to see large disparities in the
+    same time_period when we are see `<1 per 100k` of a condition.
 
     Parameters:
-        df: dataframe containing cols `time_period`, `state_fips`
-        pct_rel_inequity_col: string column name containing the previously calculated percents
-        rate_col: string column name for the rate used to filter years
+        df: Dataframe to zero rows out on.
+        geo: Geographic level. Must be `national`, `state` or `county`.
+        demographic: Demographic breakdown. Must be `race`, `age`, or `sex`.
+        rate_cols: dict mapping condition rates (usually but not always `per_100k`)
+           to the corresponding`pct_rel_inequity`s. Example map below:
+            {"something_per_100k": "something_pct_relative_inequity",
+            "pct_share_of_us_congress": "women_us_congress_pct_relative_inequity"}
+        pop_pct_col: option string column name that contains the population pct share,
+            used to preserve the null `pct_rel_inequity` values on rows with no pop. data
+
     Returns:
-        df with relative inequity nulled for years that contain 0 rates for all groups
-    """
+        df with the pct_relative_inequities columns zeroed for the zero-rate time/place rows
+       """
 
-    df["year_state"] = df["time_period"] + df["state_fips"]
+    geo_col_mapping = {
+        NATIONAL_LEVEL: [
+            std_col.STATE_FIPS_COL,
+            std_col.STATE_NAME_COL,
+        ],
+        STATE_LEVEL: [
+            std_col.STATE_FIPS_COL,
+            std_col.STATE_NAME_COL,
+        ],
+        COUNTY_LEVEL: [
+            std_col.COUNTY_FIPS_COL,
+            std_col.COUNTY_NAME_COL,
+        ],
+    }
+    geo_cols = geo_col_mapping[geo]
 
-    df['year_has_a_non_zero_100k'] = df["year_state"].isin(
-        df.loc[df[rate_col].gt(0), "year_state"])
+    per_100k_col_names = {}
+    for rate_col in rate_to_inequity_col_map.keys():
+        per_100k_col_names[rate_col] = f'{rate_col}_grouped'
 
-    def _filter_out_all_zeros(row):
-        if row["year_has_a_non_zero_100k"] is True:
-            return row
-        row[pct_rel_inequity_col] = np.nan
-        return row
+    demo_col = std_col.RACE_CATEGORY_ID_COL if demographic == RACE else demographic
+    unknown_val = Race.UNKNOWN.value if demographic == RACE else UNKNOWN
+    all_val = Race.ALL.value if demographic == RACE else std_col.ALL_VALUE
 
-    df = df.apply(_filter_out_all_zeros, axis=1)
-    df = df.drop(["year_has_a_non_zero_100k", "year_state"], axis=1)
+    df_without_all_unknown = df.loc[~df[demo_col].isin({unknown_val, all_val})]
+    df_all_unknown = df.loc[df[demo_col].isin({unknown_val, all_val})]
+
+    grouped_df = df_without_all_unknown.groupby(
+        geo_cols + [std_col.TIME_PERIOD_COL]).sum(min_count=1).reset_index()
+    grouped_df = grouped_df.rename(columns=per_100k_col_names)
+    grouped_df = grouped_df[geo_cols +
+                            list(per_100k_col_names.values()) + [std_col.TIME_PERIOD_COL]]
+
+    df = pd.merge(df_without_all_unknown, grouped_df,
+                  on=geo_cols + [std_col.TIME_PERIOD_COL])
+    for rate_col, pct_inequity_col in rate_to_inequity_col_map.items():
+        grouped_col = f'{rate_col}_grouped'
+        # set pct_inequity to 0 in a place/time_period if the summed rates are zero
+        df.loc[df[grouped_col] == 0,
+               pct_inequity_col] = 0
+
+    df = df.drop(columns=list(per_100k_col_names.values()))
+    df = pd.concat([df, df_all_unknown])
+
+    # optionally preserve null pct_inequity for race rows that have no population info
+    if pop_pct_col:
+        df.loc[df[pop_pct_col].isnull(
+        ), pct_inequity_col] = np.nan
 
     return df

@@ -227,9 +227,8 @@ def _merge_pop(df, demo, loc):
             'acs_2010_population', pop_2010_table_name, pop_dtype)
         pop_2010_df = pop_2010_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
                                    std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
-        pop_df = pop_df.sort_values(std_col.STATE_FIPS_COL)
-        pop_2010_df = pop_2010_df.sort_values(std_col.STATE_FIPS_COL)
         pop_df = pd.concat([pop_df, pop_2010_df])
+        pop_2010_df = pop_2010_df.sort_values(std_col.STATE_FIPS_COL)
 
     on_cols = [on_col_map[demo]]
     if std_col.STATE_FIPS_COL in df.columns:
