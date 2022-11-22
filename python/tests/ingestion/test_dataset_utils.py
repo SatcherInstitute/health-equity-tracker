@@ -87,29 +87,31 @@ _expected_data_with_pct_relative_inequity_col = [
 _fake_data_with_pct_rel_inequity_with_zero_rates = [
     ['time_period', 'state_fips', 'state_name', 'race_category_id', 'something_per_100k',
         'something_pct_relative_inequity', 'population_pct'],
+    ['2018', '99', 'StateWithRates', 'RaceNoPop', 90_000, None, None],
     ['2019', '01', 'Alabama', 'Race1', 0, -100.0, 10.0],
     ['2019', '01', 'Alabama', 'Race2', 10.001, 0.0, 10.0],
     ['2019', '01', 'Alabama', 'Race3', 60.0, 500.0, 10.0],
     ['2019', '01', 'Alabama', 'Race4', 60.0, None, 10.0],
-    ['2019', '01', 'Alabama', 'RaceMissingPopulationData', 1, None, None],
+    ['2019', '01', 'Alabama', 'RaceNoPop', 1, None, None],
     ['2019', '01', 'Alabama', 'Race6', 100.0, None, 10.0],
     ['2020', '01', 'Alabama', 'Race1', 0,  -100.0, 10.0],
     ['2020', '01', 'Alabama', 'Race2', 0, 0.0, 10.0],
     ['2020', '01', 'Alabama', 'Race3', 0, 500.0, 10.0],
     ['2020', '01', 'Alabama', 'Race4', 0, None, 10.0],
-    ['2020', '01', 'Alabama', 'RaceMissingPopulationData', 0, None, None],
+    ['2020', '01', 'Alabama', 'RaceNoPop', 0, None, None],
     ['2020', '01', 'Alabama', 'Race6', 0, None, 10.0],
-    ['2020', '99', 'Some Other State', 'Race6', 100_000, 50.0, 10.0],
+    ['2020', '99', 'StateWithRates', 'Race6', 100_000, 50.0, 10.0],
 ]
 
 _expected_data_with_properly_zeroed_pct_rel_inequity = [
     ['time_period', 'state_fips', 'state_name', 'race_category_id', 'something_per_100k',
      'something_pct_relative_inequity', 'population_pct'],
+    ['2018', '99', 'StateWithRates', 'RaceNoPop', 90_000, None, None],
     ['2019', '01', 'Alabama', 'Race1', 0, -100.0, 10.0],
     ['2019', '01', 'Alabama', 'Race2', 10.001, 0.0, 10.0],
     ['2019', '01', 'Alabama', 'Race3', 60.0, 500.0, 10.0],
     ['2019', '01', 'Alabama', 'Race4', 60.0, None, 10.0],
-    ['2019', '01', 'Alabama', 'RaceMissingPopulationData', 1, None, None],
+    ['2019', '01', 'Alabama', 'RaceNoPop', 1, None, None],
     ['2019', '01', 'Alabama', 'Race6', 100.0, None, 10.0],
     # all rates in Alabama in 2020 are zero, so all pct_rel_inequity are ZEROED
     # expect for races where the population_pct_share is null
@@ -117,11 +119,11 @@ _expected_data_with_properly_zeroed_pct_rel_inequity = [
     ['2020', '01', 'Alabama', 'Race2', 0, 0, 10.0],
     ['2020', '01', 'Alabama', 'Race3', 0, 0, 10.0],
     ['2020', '01', 'Alabama', 'Race4', 0, 0, 10.0],
-    ['2020', '01', 'Alabama', 'RaceMissingPopulationData', 0, None, None],
+    ['2020', '01', 'Alabama', 'RaceNoPop', 0, None, None],
     ['2020', '01', 'Alabama', 'Race6', 0, 0, 10.0],
     # each PLACE/YEAR is considered independently so the fact Race6
-    # has a rate in Some Other State doesn't prevent the zeroing above
-    ['2020', '99', 'Some Other State', 'Race6', 100_000, 50.0, 10.0],
+    # has a rate in StateWithRates doesn't prevent the zeroing above
+    ['2020', '99', 'StateWithRates', 'Race6', 100_000, 50.0, 10.0],
 
 ]
 
