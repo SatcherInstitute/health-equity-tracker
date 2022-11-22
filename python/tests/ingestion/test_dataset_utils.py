@@ -2,7 +2,6 @@ import json
 import pytest
 import re
 import pandas as pd
-import numpy as np
 from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, dataset_utils
 
