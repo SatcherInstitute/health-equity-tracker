@@ -199,10 +199,12 @@ class CAWPTimeData(DataSource):
                                                          std_col.W_CONGRESS_PCT_INEQUITY,
                                                          )
 
-        df = dataset_utils.null_rel_inequity_no_rate(df,
-                                                     std_col.W_CONGRESS_PCT_INEQUITY,
-                                                     std_col.PCT_OF_CONGRESS
-                                                     )
+        # df = dataset_utils.zero_out_pct_rel_inequity(df,
+        #                                              geo_level,
+        #                                              "race",
+        #                                              {std_col.PCT_OF_CONGRESS: std_col.W_CONGRESS_PCT_INEQUITY},
+        #                                              std_col.POPULATION_PCT_COL
+        #                                              )
 
         sort_cols = [
             std_col.TIME_PERIOD_COL,
