@@ -176,6 +176,12 @@
 
 // For each image in the "Where We Aim To Go" section
 .ImgAimToGo {
+  display: none;
+
+  @media (min-width: $md) {
+    display: block;
+  }
+
   width: 100%;
   height: auto;
   max-height: 255px;
@@ -191,6 +197,12 @@
 }
 
 .HeaderImgItem {
+  display: none;
+
+  @media (min-width: $md) {
+    display: block;
+  }
+
   @media (min-width: $md) {
     border-left: 1px solid $border-color;
   }
@@ -260,6 +272,14 @@
 }
 
 /** ------------- CONTACT US ------------- **/
+
+.MoveEquityForward {
+  display: none;
+
+  @media (min-width: $md) {
+    display: block;
+  }
+}
 
 .ContactUsHeaderText {
   @include tav300();

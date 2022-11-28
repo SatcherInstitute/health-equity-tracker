@@ -27,7 +27,6 @@ import {
   onlyIncludeStandardRaces,
 } from "../data/query/BreakdownFilter";
 import MissingDataAlert from "./ui/MissingDataAlert";
-import Hidden from "@material-ui/core/Hidden";
 import Alert from "@material-ui/lab/Alert";
 import SviAlert from "./ui/SviAlert";
 import { WHAT_DATA_ARE_MISSING_ID } from "../utils/internalRoutes";
@@ -128,9 +127,7 @@ export function PopulationCard(props: PopulationCardProps) {
                   <Grid item>
                     <div className={styles.PopulationCardTitle}>
                       {props.fips.getFullDisplayName()}
-                      <Hidden smDown>
-                        <div className={styles.VerticalDivider} />
-                      </Hidden>
+                      <div className={styles.VerticalDivider} />
                     </div>
                   </Grid>
                   <Grid item>
@@ -274,7 +271,6 @@ export function PopulationCard(props: PopulationCardProps) {
                     </Box>
                   </Grid>
                 </Grid>
-                <Hidden smUp>{CollapseButton}</Hidden>
               </AnimateHeight>
             )}
           </CardContent>
