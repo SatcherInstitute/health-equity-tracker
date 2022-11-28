@@ -6,7 +6,6 @@ from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
 from datasources.cawp import (CAWPData,
-                              get_standard_code_from_cawp_phrase,
                               count_matching_rows,
                               remove_markup,
                               pct_never_null,
@@ -28,12 +27,6 @@ def test_pct_never_null():
         pct_never_null(2, 1)
     # TODO uncomment next test once util fn is fixed
     # assert pct_never_null(1, 0) is None
-
-
-def test_get_standard_code_from_cawp_phrase():
-    assert get_standard_code_from_cawp_phrase("American Samoa - AS") == "AS"
-    assert get_standard_code_from_cawp_phrase("American Samoa - AM") == "AS"
-    assert get_standard_code_from_cawp_phrase("Anything At All - XX") == "XX"
 
 
 def test_remove_markup():

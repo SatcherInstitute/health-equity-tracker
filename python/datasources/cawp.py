@@ -6,6 +6,7 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, constants
 from ingestion.dataset_utils import percent_avoid_rounding_to_zero
 from ingestion.merge_utils import merge_state_ids, merge_pop_numbers
+from datasources.cawp_time import get_postal_from_cawp_phrase
 
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, STATE_POSTALS, TERRITORY_POSTALS
 
@@ -86,25 +87,6 @@ def pct_never_null(numerator, denominator):
     return percent_avoid_rounding_to_zero(numerator, denominator)
 
 
-def get_standard_code_from_cawp_phrase(cawp_place_phrase: str):
-    """ Accepts a CAWP place phrase found in the LINE ITEM table
-    `{STATE_COL_LINE NAME} - {CODE}` with the standard 2 letter code
-     """
-
-    # swap out non-standard 2 letter codes
-    cawp_place_phrase = {"American Samoa - AM":
-                         "American Samoa - AS",
-                         "Northern Mariana Islands - MI":
-                         "Northern Mariana Islands - MP"}.get(
-                             cawp_place_phrase, cawp_place_phrase)
-
-    # only keep 2 letter code portion
-    place_terms_list = cawp_place_phrase.split(" - ")
-    place_code = place_terms_list[1]
-
-    return place_code
-
-
 def remove_markup(datum: str):
     """Returns the string with any asterisks and/r italics markup removed """
     datum = str(datum)
@@ -167,7 +149,7 @@ def get_cawp_line_items_as_df():
     df = df[[POSITION_COL, STATE_COL_LINE, RACE_COL]]
     df = df.dropna()
     df[STATE_COL_LINE] = df[STATE_COL_LINE].apply(
-        get_standard_code_from_cawp_phrase)
+        get_postal_from_cawp_phrase)
     df = df.rename(
         columns={STATE_COL_LINE: std_col.STATE_POSTAL_COL})
     return df

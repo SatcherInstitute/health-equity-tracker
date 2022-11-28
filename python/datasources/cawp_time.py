@@ -7,10 +7,8 @@ from ingestion.standardized_columns import Race
 import pandas as pd
 
 # time_period range
-# FIRST_YR = 2021
 FIRST_YR = 1915
 LAST_YR = 2022
-# LAST_YR = 1925
 TIME_PERIODS = [str(x) for x in list(range(FIRST_YR, LAST_YR + 1))]
 
 # data urls
@@ -68,8 +66,9 @@ class CAWPTimeData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         _df = self.generate_base_df()
 
+        # to generate mock base
         # _df.to_csv(
-        #     "python/tests/data/cawp_women_legislators/test_expected_base_df.csv", index=False)
+        #     "python/tests/data/cawp_time/test_expected_base_df.csv", index=False)
 
         for geo_level in [
             STATE_LEVEL,
@@ -78,11 +77,13 @@ class CAWPTimeData(DataSource):
             df = _df.copy()
             df, bq_table_name = self.generate_breakdown(df, geo_level)
 
+            # to generate GOLDEN DATA
             # df.to_csv(
-            #     f'python/tests/data/cawp_women_legislators/{bq_table_name}.csv', index=False)
+            #     f'python/tests/data/cawp_time/{bq_table_name}.csv', index=False)
 
-            df.to_json(
-                f'frontend/public/tmp/cawp_data-{bq_table_name}.json', orient="records")
+            # to bypass GCP and test on the frontend locally
+            # df.to_json(
+            #     f'frontend/public/tmp/cawp_data-{bq_table_name}.json', orient="records")
 
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, bq_table_name)
@@ -191,7 +192,8 @@ class CAWPTimeData(DataSource):
         df = merge_utils.merge_current_pop_numbers(
             df, RACE, geo_level, target_time_periods)
 
-        # df.to_csv(f'{geo_level}.csv')
+        # to generate MOCK population responses
+        # df.to_csv(f'{geo_level}.csv', index=False)
 
         df = dataset_utils.generate_pct_rel_inequity_col(df,
                                                          std_col.PCT_OF_W_CONGRESS,
@@ -483,8 +485,8 @@ def combine_states_to_national(df):
 
     df = df_counts
 
+    # to keep lists of NAMES
     # df_names = df.copy().drop(state_cols, axis=1)
-
     # df_names = df_names.groupby(groupby_cols, as_index=False)[
     #     std_col.CONGRESS_NAMES,
     #     std_col.W_ALL_RACES_CONGRESS_NAMES,
