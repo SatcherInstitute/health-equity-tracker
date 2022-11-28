@@ -7,6 +7,12 @@
   border-bottom: $bottom-border-style;
 
   .HeaderImgItem {
+    display: none;
+
+    @media (min-width: $md) {
+      display: block;
+    }
+
     align-items: center;
     justify-content: center;
 
@@ -23,6 +29,7 @@
   .HeaderTextItem {
     justify-content: center;
     padding: 2rem 15%;
+
     @media (min-width: $md) {
       border-left: 1px solid $border-color;
       padding: 104px 66px 104px 66px;
@@ -49,10 +56,12 @@
 
     .DefinitionsItem {
       padding: 1rem 1rem 1rem 0;
+
       @media only screen and (min-width: $md) {
         padding: 1rem;
       }
     }
+
     .DefinitionsItem:first-of-type {
       padding-left: 0;
     }
@@ -189,9 +198,11 @@
       width: 100%;
       border-radius: 30px;
     }
+
     .NewsAndStoriesTitleLink {
       text-decoration: none;
     }
+
     .NewsAndStoriesTitleText {
       @include tav300();
       text-align: center;
@@ -293,10 +304,15 @@
   }
 
   .JoinTheEffortImgContainer {
+    display: none;
+
+    @media (min-width: $md) {
+      display: flex;
+    }
+
     width: $sm;
     height: 720px;
     border-radius: 30px;
-    display: flex;
     justify-content: center;
     align-items: center;
   }
@@ -325,6 +341,7 @@
     height: 56px;
     width: 260px;
   }
+
   .EmailAddressFormSubmit {
     height: 56px;
     margin-left: 5px;
