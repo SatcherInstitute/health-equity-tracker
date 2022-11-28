@@ -237,9 +237,6 @@ def _merge_pop(df, demo, loc):
     if loc == 'county':
         on_cols.append(std_col.COUNTY_FIPS_COL)
 
-    # print(df.to_string())
-    # print(pop_df.to_string())
-
     df = pd.merge(df, pop_df, how='left', on=on_cols)
 
     return df.reset_index(drop=True)

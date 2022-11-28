@@ -249,9 +249,6 @@ def testWriteStateLevelToBq(mock_bq: mock.MagicMock,
 
     mock_df_state = mock_bq.call_args_list[0].args[0]
 
-    print("mock state")
-    print(mock_df_state.to_string())
-
     # save STATE_LEVEL results to file
     # mock_df_state.to_json(
     #     "cawp-run-results-state.json", orient="records")
