@@ -81,8 +81,8 @@ class CAWPTimeData(DataSource):
             # df.to_csv(
             #     f'python/tests/data/cawp_women_legislators/{bq_table_name}.csv', index=False)
 
-            # df.to_json(
-            #     f'frontend/public/tmp/cawp_data-{bq_table_name}.json', orient="records")
+            df.to_json(
+                f'frontend/public/tmp/cawp_data-{bq_table_name}.json', orient="records")
 
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, bq_table_name)
@@ -199,12 +199,12 @@ class CAWPTimeData(DataSource):
                                                          std_col.W_CONGRESS_PCT_INEQUITY,
                                                          )
 
-        # df = dataset_utils.zero_out_pct_rel_inequity(df,
-        #                                              geo_level,
-        #                                              "race",
-        #                                              {std_col.PCT_OF_CONGRESS: std_col.W_CONGRESS_PCT_INEQUITY},
-        #                                              std_col.POPULATION_PCT_COL
-        #                                              )
+        df = dataset_utils.zero_out_pct_rel_inequity(df,
+                                                     geo_level,
+                                                     "race",
+                                                     {std_col.PCT_OF_CONGRESS: std_col.W_CONGRESS_PCT_INEQUITY},
+                                                     std_col.POPULATION_PCT_COL
+                                                     )
 
         sort_cols = [
             std_col.TIME_PERIOD_COL,
