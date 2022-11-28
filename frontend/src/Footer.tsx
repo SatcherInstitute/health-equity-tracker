@@ -1,6 +1,5 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Hidden from "@material-ui/core/Hidden";
 import styles from "./Footer.module.scss";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
@@ -62,22 +61,10 @@ function Footer() {
               />
             ))}
           </Grid>
-          {/* DESKTOP */}
-          <Hidden xsDown>
-            <Grid item container justifyContent="flex-end">
-              <span className={styles.CopyrightSpan}>
-                &copy;{currentYear()}
-              </span>
-            </Grid>
-          </Hidden>
-          {/* MOBILE */}
-          <Hidden smUp>
-            <Grid item container justifyContent="center">
-              <span className={styles.CopyrightSpan}>
-                &copy;{currentYear()}
-              </span>
-            </Grid>
-          </Hidden>
+
+          <Grid item container className={styles.CopyrightSpanBox}>
+            <span className={styles.CopyrightSpan}>&copy;{currentYear()}</span>
+          </Grid>
         </Grid>
 
         <Grid
@@ -184,27 +171,14 @@ function LinkGridItem(props: {
   ariaLabel: string;
 }) {
   return (
-    <>
-      <Hidden xsDown>
-        <Grid item>
-          <ReactRouterLinkButton
-            url={props.link}
-            className={styles.FooterLink}
-            displayName={props.text}
-            ariaLabel={props.ariaLabel}
-          />
-        </Grid>
-      </Hidden>
-      <Hidden smUp>
-        <Grid item xs={12}>
-          <ReactRouterLinkButton
-            url={props.link}
-            className={styles.FooterLink}
-            displayName={props.text}
-          />
-        </Grid>
-      </Hidden>
-    </>
+    <Grid item className={styles.FooterLinkBox}>
+      <ReactRouterLinkButton
+        url={props.link}
+        className={styles.FooterLink}
+        displayName={props.text}
+        ariaLabel={props.ariaLabel}
+      />
+    </Grid>
   );
 }
 
