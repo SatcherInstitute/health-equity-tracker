@@ -42,65 +42,75 @@ class AgeAdjustCDCRestricted(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         table_names_to_dfs = {}
 
-        for geo in [STATE_LEVEL, NATIONAL_LEVEL]:
-            with_race_age = 'by_race_age_state'
-            with_race_age_df = gcs_to_bq_util.load_df_from_bigquery(
-                'cdc_restricted_data', with_race_age, dtype={'state_fips': str})
+        for cumulative in [True, False]:
+            for geo in [STATE_LEVEL, NATIONAL_LEVEL]:
+                with_race_age = 'by_race_age_state'
+                with_race_age_df = gcs_to_bq_util.load_df_from_bigquery(
+                    'cdc_restricted_data', with_race_age, dtype={'state_fips': str})
 
-            pop_df = gcs_to_bq_util.load_df_from_bigquery(
-                'census_pop_estimates', 'race_and_ethnicity', dtype={'state_fips': str})
+                pop_df = gcs_to_bq_util.load_df_from_bigquery(
+                    'census_pop_estimates', 'race_and_ethnicity', dtype={'state_fips': str})
 
-            # Only get the covid data from states we have population data for
-            states_with_pop = set(
-                pop_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
-            with_race_age_df = with_race_age_df.loc[
-                with_race_age_df[std_col.STATE_FIPS_COL].isin(states_with_pop)
-            ].reset_index(drop=True)
+                # Only get the covid data from states we have population data for
+                states_with_pop = set(
+                    pop_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
+                with_race_age_df = with_race_age_df.loc[
+                    with_race_age_df[std_col.STATE_FIPS_COL].isin(states_with_pop)
+                ].reset_index(drop=True)
 
-            pop_df_death, pop_df_hosp = pop_df, pop_df
+                pop_df_death, pop_df_hosp = pop_df, pop_df
 
-            if geo == NATIONAL_LEVEL:
-                with_race_age_df_death = with_race_age_df.loc[~with_race_age_df[std_col.COVID_DEATH_Y].isna(
-                )]
-                states_to_include_death = set(
-                    with_race_age_df_death[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
+                if geo == NATIONAL_LEVEL:
+                    with_race_age_df_death = with_race_age_df.loc[~with_race_age_df[std_col.COVID_DEATH_Y].isna(
+                    )]
+                    states_to_include_death = set(
+                        with_race_age_df_death[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
 
-                pop_df_death = census_pop_estimates.generate_national_pop_data(
-                    pop_df, states_to_include_death)
+                    pop_df_death = census_pop_estimates.generate_national_pop_data(
+                        pop_df, states_to_include_death)
 
-                with_race_age_df_hosp = with_race_age_df.loc[~with_race_age_df[std_col.COVID_HOSP_Y].isna(
-                )]
-                states_to_include_hosp = set(
-                    with_race_age_df_hosp[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
+                    with_race_age_df_hosp = with_race_age_df.loc[~with_race_age_df[std_col.COVID_HOSP_Y].isna(
+                    )]
+                    states_to_include_hosp = set(
+                        with_race_age_df_hosp[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
 
-                pop_df_hosp = census_pop_estimates.generate_national_pop_data(
-                    pop_df, states_to_include_hosp)
+                    pop_df_hosp = census_pop_estimates.generate_national_pop_data(
+                        pop_df, states_to_include_hosp)
 
-                groupby_cols = list(std_col.RACE_COLUMNS) + [std_col.AGE_COL]
-                with_race_age_df = cdc_restricted_local.generate_national_dataset(
-                    with_race_age_df, groupby_cols)
+                    groupby_cols = [std_col.RACE_CATEGORY_ID_COL, std_col.AGE_COL]
+                    with_race_age_df = cdc_restricted_local.generate_national_dataset(
+                        with_race_age_df, groupby_cols)
 
-            # Clean with race age df
-            with_race_age_df = with_race_age_df.loc[
-                with_race_age_df[std_col.AGE_COL] != UNKNOWN
-            ].reset_index(drop=True)
+                if cumulative:
+                    groupby_cols = [
+                        std_col.STATE_FIPS_COL,
+                        std_col.STATE_NAME_COL,
+                        std_col.RACE_CATEGORY_ID_COL,
+                        std_col.AGE_COL,
+                    ]
+                    with_race_age_df = with_race_age_df.groupby(groupby_cols).sum().reset_index()
 
-            with_race_age_df = with_race_age_df.loc[
-                with_race_age_df[std_col.RACE_CATEGORY_ID_COL].isin(
-                    AGE_ADJUST_RACES)
-            ].reset_index(drop=True)
+                # Clean with race age df
+                with_race_age_df = with_race_age_df.loc[
+                    with_race_age_df[std_col.AGE_COL] != UNKNOWN
+                ].reset_index(drop=True)
 
-            df = get_expected_deaths(with_race_age_df, pop_df_death)
-            df = get_expected_hosps(df, pop_df_hosp)
-            age_adjusted_df = age_adjust_from_expected(df)
+                with_race_age_df = with_race_age_df.loc[
+                    with_race_age_df[std_col.RACE_CATEGORY_ID_COL].isin(
+                        AGE_ADJUST_RACES)
+                ].reset_index(drop=True)
 
-            only_race = f'by_race_{geo}_processed'
-            table_name = f'{only_race}-with_age_adjust'
+                df = get_expected_deaths(with_race_age_df, pop_df_death)
+                df = get_expected_hosps(df, pop_df_hosp)
+                age_adjusted_df = age_adjust_from_expected(df)
 
-            only_race_df = gcs_to_bq_util.load_df_from_bigquery(
-                'cdc_restricted_data', only_race)
-            table_names_to_dfs[table_name] = merge_age_adjusted(
-                only_race_df, age_adjusted_df)
+                only_race = f'by_race_{geo}_processed'
+                table_name = f'{only_race}-with_age_adjust'
+
+                only_race_df = gcs_to_bq_util.load_df_from_bigquery(
+                    'cdc_restricted_data', only_race)
+                table_names_to_dfs[table_name] = merge_age_adjusted(
+                    only_race_df, age_adjusted_df)
 
         # For each of the files, we load it as a dataframe and add it as a
         # table in the BigQuery dataset. We expect that all aggregation and
@@ -113,6 +123,8 @@ class AgeAdjustCDCRestricted(DataSource):
             # Clean up column names.
             self.clean_frame_column_names(df)
 
+            std_col.add_race_columns_from_category_id(df)
+
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
@@ -124,8 +136,7 @@ def merge_age_adjusted(df, age_adjusted_df):
        df: a dataframe with covid date without age adjusted numbers
        age_adjusted_df: a dataframe with age adjusted covid numbers"""
 
-    merge_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
-    merge_cols.extend(std_col.RACE_COLUMNS)
+    merge_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.RACE_CATEGORY_ID_COL]
 
     df = df.reset_index(drop=True)
     age_adjusted_df = age_adjusted_df.reset_index(drop=True)
@@ -254,8 +265,7 @@ def age_adjust_from_expected(df):
 
         return dataset_utils.ratio_round_to_None(row['expected_hosps'], ref_pop_expected_hosp)
 
-    groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
-    groupby_cols.extend(std_col.RACE_COLUMNS)
+    groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.RACE_CATEGORY_ID_COL]
 
     grouped = df.groupby(groupby_cols)
     df = grouped.sum().reset_index()
