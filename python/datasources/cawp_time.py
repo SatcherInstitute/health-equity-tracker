@@ -318,7 +318,7 @@ def get_us_congress_totals_df():
         for term in legislator["terms"]:
 
             term_years = list(
-                range(int(term["start"][:4]), int(term["end"][:4])+1))
+                range(int(term["start"][:4]), int(term["end"][:4]) + 1))
 
             # and each year of each term
             for year in term_years:
@@ -380,7 +380,8 @@ def merge_us_congress_total_names_count_cols(scaffold_df, us_congress_df):
 
 def get_us_congress_women_df():
     """
-    Fetches CAWP data, generates a dataframe with rows for every woman
+    Fetches CAWP data counts of women by race by year by state,
+    generates a dataframe with rows for every woman
     in U.S. Congress any year
 
     Returns:
@@ -388,7 +389,6 @@ def get_us_congress_women_df():
         columns "time_period" by year and "state_postal", "race_ethnicity"
         with specific CAWP race strings
     """
-   # load in CAWP counts of women by race by year by state
     df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
         'cawp', CAWP_LINE_ITEMS_FILE)
 
