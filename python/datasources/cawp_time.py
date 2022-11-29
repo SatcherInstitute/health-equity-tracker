@@ -6,10 +6,23 @@ from ingestion import gcs_to_bq_util, merge_utils, dataset_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
 
-# time_period range
-FIRST_YR = 1915
-LAST_YR = 2022
-TIME_PERIODS = [str(x) for x in list(range(FIRST_YR, LAST_YR + 1))]
+
+def get_consecutive_time_periods(first_year: int = 1915, last_year: int = 2022):
+    """
+    Generates a list of consecutive time periods in the "YYYY" format
+
+    Parameters:
+        first_year: optional int to start the list; defaults to 1915 which is two years before the first woman in US Congress
+        last_year: optional int to be the last element in the list other than the default of 2022
+
+    Returns:
+        a list of string years (e.g. ["1999", "2000", "2001"])
+    """
+    return [str(x) for x in list(range(first_year, last_year + 1))]
+
+
+TIME_PERIODS = get_consecutive_time_periods()
+
 
 # data urls
 US_CONGRESS_CURRENT_URL = "https://theunitedstates.io/congress-legislators/legislators-current.json"
@@ -91,6 +104,9 @@ class CAWPTimeData(DataSource):
     # CLASS METHODS
 
     def generate_base_df(self):
+        """
+        Creates a dataframe with the raw counts by state by year by race of: all congress members, all women congress members, and women congress members of the row's race
+        """
 
         # fetch and form data
         us_congress_totals_df = get_us_congress_totals_df()
@@ -139,6 +155,7 @@ class CAWPTimeData(DataSource):
         df = df.sort_values(
             by=MERGE_COLS).reset_index(drop=True)
 
+        # TODO: these should either be available to the user somehow; via csv download or something?
         df = df.drop(
             ["total_us_congress_names",
              "women_all_races_us_congress_names",
@@ -187,7 +204,7 @@ class CAWPTimeData(DataSource):
         df = df.drop(columns=[RACE_ETH])
 
         # TODO: figure out what we are doing about historic population info
-        target_time_periods = [str(x) for x in list(range(2019, LAST_YR + 1))]
+        target_time_periods = get_consecutive_time_periods(first_year=2019)
 
         df = merge_utils.merge_current_pop_numbers(
             df, RACE, geo_level, target_time_periods)
