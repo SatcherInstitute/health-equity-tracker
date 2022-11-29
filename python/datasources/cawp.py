@@ -53,10 +53,11 @@ CAWP_DATA_TYPES = {
 
 def get_state_level_postals():
     """
-    Returns: a list containing all state and territory 2-letter postal code strings. Mockable function for reduced number of state tests
+    Returns: a list containing all state and territory 2-letter postal code
+    strings. Mockable function for reduced number of state tests
     """
 
-    return STATE_POSTALS+TERRITORY_POSTALS
+    return STATE_POSTALS + TERRITORY_POSTALS
 
 
 def pct_never_null(numerator, denominator):
