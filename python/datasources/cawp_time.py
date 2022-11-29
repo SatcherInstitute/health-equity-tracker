@@ -78,8 +78,21 @@ class CAWPTimeData(DataSource):
             # df.to_json(
             #     f'frontend/public/tmp/cawp_data-{bq_table_name}.json', orient="records")
 
+            float_cols = [
+                "total_us_congress_count",
+                "women_all_races_us_congress_count",
+                "women_this_race_us_congress_count",
+                "pct_share_of_us_congress",
+                "pct_share_of_women_us_congress",
+                "population",
+                "population_pct",
+                "women_us_congress_pct_relative_inequity"
+            ]
+
+            column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+
             gcs_to_bq_util.add_df_to_bq(
-                df, dataset, bq_table_name)
+                df, dataset, bq_table_name, column_types=column_types)
 
     # CLASS METHODS
 
@@ -449,6 +462,13 @@ def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_rac
         NAME: names_col})
     df[count_col] = df[names_col].apply(
         lambda list: len(list))
+
+    # print("----------")
+    # print("scaffold", scaffold_df.dtypes)
+    # print(scaffold_df.to_string())
+    # print("df", df.dtypes)
+    # print(df.to_string())
+
     df = pd.merge(scaffold_df, df, on=groupby_cols, how="left")
     df[count_col] = df[count_col].fillna(
         0)

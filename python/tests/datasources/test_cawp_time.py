@@ -119,6 +119,19 @@ def testWriteToBq(
     assert mock_base.call_count == 1
     assert mock_breakdown.call_count == 2
     assert mock_bq.call_count == 2
+    for call in mock_bq.call_args_list:
+        assert call[1]["column_types"] == {
+            'fake_col1': 'STRING',
+            'fake_col2': 'STRING',
+            'total_us_congress_count': 'FLOAT',
+            'women_all_races_us_congress_count': 'FLOAT',
+            'women_this_race_us_congress_count': 'FLOAT',
+            'pct_share_of_us_congress': 'FLOAT',
+            'pct_share_of_women_us_congress': 'FLOAT',
+            'population': 'FLOAT',
+            'population_pct': 'FLOAT',
+            'women_us_congress_pct_relative_inequity': 'FLOAT'
+        }
 
 
 # # TEST GENERATION OF BASE DF

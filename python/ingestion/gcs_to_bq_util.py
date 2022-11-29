@@ -7,6 +7,7 @@ import pandas as pd
 from google.cloud import bigquery, storage
 from zipfile import ZipFile
 from io import BytesIO
+import ingestion.standardized_columns as std_col
 
 
 DATA_DIR = os.path.join(os.sep, 'app', 'data')
@@ -382,3 +383,26 @@ def fetch_json_from_web(url):
     """
     r = requests.get(url)
     return json.loads(r.text)
+
+
+def get_bq_column_types(df, float_cols: "list[str]"):
+    """ Generates the column_types dict needed for each data source's add_df_to_bq()
+    Parameters:
+        df: dataframe to be sent to BQ
+        float_cols: list of string column names for the columns that
+            should be BigQuery FLOATs. All other columns will be sent
+            as BigQuery STRINGs.
+    Returns:
+        dict of pandas column names to specific BiqQuery column types
+         {"string_column_name": "BQ_TYPE"}
+    """
+
+    column_types = {c: 'STRING' for c in df.columns}
+    for col in float_cols:
+        column_types[col] = 'FLOAT'
+
+    # TODO: remove this once we standardize on only using race_category_id on the backend
+    if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+        column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
+    return column_types
