@@ -83,7 +83,6 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
     for share_of_known_col in raw_count_to_pct_share.values():
         unknown_all_df.loc[unknown_all_df[breakdown_col]
 
-
                            == all_val, share_of_known_col] = 100.0
 
     df = pd.concat([df, unknown_all_df]).reset_index(drop=True)
@@ -280,7 +279,6 @@ def generate_pct_rel_inequity_col(
             return np.NaN
 
         pct_relative_inequity_ratio = (
-
 
             row[pct_share_col] - row[pct_pop_col]) / row[pct_pop_col]
         return round(pct_relative_inequity_ratio * 100, 1)
