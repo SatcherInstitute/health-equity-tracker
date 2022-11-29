@@ -8,7 +8,6 @@ from datasources.cawp import (CAWPData,
                               count_matching_rows,
                               remove_markup,
                               pct_never_null,
-                              #   get_state_level_postals,
                               POSITION_COL,
                               RACE_COL)
 import pytest
