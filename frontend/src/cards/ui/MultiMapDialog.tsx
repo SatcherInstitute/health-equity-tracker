@@ -84,7 +84,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             justifyContent={pageIsWide ? "flex-start" : "center"}
           >
             <Typography id="modalTitle" variant="h6" component="h2">
-              {props.metricConfig.fullCardTitleName} across all{" "}
+              {props.metricConfig.chartTitle} across all{" "}
               {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
             </Typography>
           </Grid>
@@ -127,7 +127,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     hideActions={true}
                     scaleType="quantize"
                     geoData={props.geoData}
-                    filename={`${props.metricConfig.fullCardTitleName}${
+                    filename={`${props.metricConfig.chartTitle}${
                       breakdownValue === "All" ? "" : ` for ${breakdownValue}`
                     } in ${props.fips.getSentenceDisplayName()}`}
                   />
@@ -184,7 +184,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 <Grid container justifyContent="center">
                   <Legend
                     metric={props.metricConfig}
-                    legendTitle={props.metricConfig.fullCardTitleName}
+                    legendTitle={props.metricConfig.chartTitle || ""}
                     legendData={props.data}
                     scaleType="quantize"
                     sameDotSize={true}

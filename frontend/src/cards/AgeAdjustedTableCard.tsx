@@ -174,7 +174,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               )) && (
               <CardContent>
                 <MissingDataAlert
-                  dataName={metrics[0].fullCardTitleName}
+                  dataName={metrics[0].chartTitle || ""}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }

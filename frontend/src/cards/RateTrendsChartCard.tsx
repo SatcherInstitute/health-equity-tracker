@@ -127,7 +127,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             ]) || nestedRatesData.length === 0 ? (
               <>
                 <MissingDataAlert
-                  dataName={`historical data for ${metricConfigRates.fullCardTitleName}`}
+                  dataName={`historical data for ${metricConfigRates.chartTitle}`}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }

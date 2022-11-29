@@ -146,7 +146,7 @@ function MapCardWithKey(props: MapCardProps) {
   const chartTitle = useCreateChartTitle(metricConfig, locationName);
   const subtitle = createSubtitle({ currentBreakdown, activeBreakdownFilter });
 
-  const filename = `${metricConfig.fullCardTitleName}${
+  const filename = `${metricConfig.chartTitle}${
     activeBreakdownFilter === "All" ? "" : ` for ${activeBreakdownFilter}`
   } in ${props.fips.getSentenceDisplayName()}`;
 
@@ -318,7 +318,7 @@ function MapCardWithKey(props: MapCardProps) {
               dataForActiveBreakdownFilter.length === 0) && (
               <CardContent>
                 <MissingDataAlert
-                  dataName={metricConfig.fullCardTitleName}
+                  dataName={metricConfig.chartTitle || ""}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                   }
