@@ -395,6 +395,7 @@ def get_us_congress_women_df():
     # rename year
     df = df.rename(
         columns={"year": std_col.TIME_PERIOD_COL})
+    df[std_col.TIME_PERIOD_COL] = df[std_col.TIME_PERIOD_COL].astype(str)
 
     # remove non-Congress line items
     df = df.loc[df['level']
@@ -465,9 +466,9 @@ def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_rac
 
     print("----------")
     print("scaffold", scaffold_df.dtypes)
-    print(scaffold_df.to_string())
+    print(scaffold_df)
     print("df", df.dtypes)
-    print(df.to_string())
+    print(df)
 
     df = pd.merge(scaffold_df, df, on=groupby_cols, how="left")
     df[count_col] = df[count_col].fillna(
