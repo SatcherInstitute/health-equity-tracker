@@ -1,6 +1,15 @@
 from typing import List
 from datasources.data_source import DataSource
-from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, STATE_LEVEL_FIPS_LIST, US_ABBR, US_FIPS, US_NAME, TERRITORY_POSTALS, RACE
+from ingestion.constants import (
+    NATIONAL_LEVEL,
+    STATE_LEVEL,
+    STATE_LEVEL_FIPS_LIST,
+    US_ABBR,
+    US_FIPS,
+    US_NAME,
+    TERRITORY_POSTALS,
+    RACE
+)
 import ingestion.standardized_columns as std_col
 from ingestion import gcs_to_bq_util, merge_utils, dataset_utils
 from ingestion.standardized_columns import Race
@@ -12,8 +21,10 @@ def get_consecutive_time_periods(first_year: int = 1915, last_year: int = 2022):
     Generates a list of consecutive time periods in the "YYYY" format
 
     Parameters:
-        first_year: optional int to start the list; defaults to 1915 which is two years before the first woman in US Congress
-        last_year: optional int to be the last element in the list other than the default of 2022
+        first_year: optional int to start the list; defaults to 1915
+            which is two years before the first woman in US Congress
+        last_year: optional int to be the last element in the list
+            other than the default of 2022
 
     Returns:
         a list of string years (e.g. ["1999", "2000", "2001"])
@@ -101,7 +112,9 @@ class CAWPTimeData(DataSource):
 
     def generate_base_df(self):
         """
-        Creates a dataframe with the raw counts by state by year by race of: all congress members, all women congress members, and women congress members of the row's race
+        Creates a dataframe with the raw counts by state by year by race of:
+        all congress members, all women congress members,
+        and women congress members of the row's race
         """
 
         # fetch and form data
@@ -276,8 +289,8 @@ def scaffold_df_by_year_by_state_by_race_list(race_list: List[str]):
 
 def get_us_congress_totals_df():
     """
-    Fetches historic and current congress data, combines them, and iterates over each Congress member
-    and their terms served to generate a dataframe.
+    Fetches historic and current congress data, combines them, and iterates over
+    each Congress member and their terms served to generate a dataframe.
 
     Returns:
         df with rows per legislator-term and
@@ -429,7 +442,8 @@ def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_rac
             calculations for the Race.ALL.value race group and merge the "_all_races" cols
 
     Returns:
-        df with rows for every combo of "time_period" years and "state_postal" codes, a column std_col.W_ALL_RACES_CONGRESS_COUNT ints count of total women members in the state/year,
+        df with rows for every combo of "time_period" years and "state_postal" codes,
+        a column std_col.W_ALL_RACES_CONGRESS_COUNT ints count of total women members in the state/year,
         and column std_col.W_ALL_RACES_CONGRESS_COUNT a string list of those same members
     """
 

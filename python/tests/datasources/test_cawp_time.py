@@ -1,4 +1,3 @@
-
 from unittest import mock
 import os
 import pandas as pd
@@ -13,7 +12,6 @@ from datasources.cawp_time import (
     get_postal_from_cawp_phrase,
     get_consecutive_time_periods
 )
-import numpy as np
 
 print("\n\n...\n\n")
 
