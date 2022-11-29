@@ -363,7 +363,7 @@ def get_us_congress_women_df():
         with specific CAWP race strings
     """
     df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-        'cawp', CAWP_LINE_ITEMS_FILE)
+        'cawp_time', CAWP_LINE_ITEMS_FILE)
 
     # keep only needed cols
     df = df[[
