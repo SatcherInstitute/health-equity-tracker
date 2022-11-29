@@ -21,7 +21,11 @@ def get_consecutive_time_periods(first_year: int = 1915, last_year: int = 2022):
     return [str(x) for x in list(range(first_year, last_year + 1))]
 
 
-TIME_PERIODS = get_consecutive_time_periods()
+def get_state_level_fips():
+    """
+    Returns a list of 2-letter strings for all state and territory fips codes
+    """
+    return STATE_LEVEL_FIPS_LIST
 
 
 # data urls
@@ -79,20 +83,12 @@ class CAWPTimeData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         _df = self.generate_base_df()
 
-        # to generate mock base
-        # _df.to_csv(
-        #     "python/tests/data/cawp_time/test_expected_base_df.csv", index=False)
-
         for geo_level in [
             STATE_LEVEL,
             NATIONAL_LEVEL
         ]:
             df = _df.copy()
             df, bq_table_name = self.generate_breakdown(df, geo_level)
-
-            # to generate GOLDEN DATA
-            # df.to_csv(
-            #     f'python/tests/data/cawp_time/{bq_table_name}.csv', index=False)
 
             # to bypass GCP and test on the frontend locally
             # df.to_json(
@@ -160,6 +156,10 @@ class CAWPTimeData(DataSource):
             ["total_us_congress_names",
              "women_all_races_us_congress_names",
              "women_this_race_us_congress_names"], axis=1)
+
+        # # to generate mock base
+        # df.to_csv(
+        #     "python/tests/data/cawp_time/test_expected_base_df.csv", index=False)
 
         return df
 
@@ -236,6 +236,10 @@ class CAWPTimeData(DataSource):
         df = df.sort_values(
             by=sort_cols).reset_index(drop=True)
 
+        # # to generate GOLDEN DATA
+        # df.to_csv(
+        #     f'python/tests/data/cawp_time/{bq_table_name}.csv', index=False)
+
         return [df, bq_table_name]
 
 
@@ -251,12 +255,14 @@ def scaffold_df_by_year_by_state_by_race_list(race_list: List[str]):
         including columns for "state_name", "state_postal" and "state_fips"
     """
     # start with single column of all state-level fips as our df template
+    fips_list = get_state_level_fips()
     df = pd.DataFrame({
-        std_col.STATE_FIPS_COL: [*STATE_LEVEL_FIPS_LIST],
+        std_col.STATE_FIPS_COL: [*fips_list],
     })
 
     # explode to every combo of state/year
-    df[std_col.TIME_PERIOD_COL] = [TIME_PERIODS] * len(df)
+    years = get_consecutive_time_periods()
+    df[std_col.TIME_PERIOD_COL] = [years] * len(df)
     df = df.explode(std_col.TIME_PERIOD_COL).reset_index(drop=True)
 
     # merge in FIPS codes to the scaffold df
@@ -290,6 +296,7 @@ def get_us_congress_totals_df():
     ]
 
     us_congress_totals_list_of_dict = []
+    years = get_consecutive_time_periods()
 
     # iterate through each legislator
     for legislator in raw_legislators_json:
@@ -303,9 +310,7 @@ def get_us_congress_totals_df():
             # and each year of each term
             for year in term_years:
                 year = str(year)
-
                 title = f'{term["type"].capitalize()}.' if term["state"] not in TERRITORY_POSTALS else "Del."
-
                 full_name = f'{title} {legislator[NAME]["first"]} {legislator[NAME]["last"]}'
                 entry = {
                     "id": legislator["id"]["govtrack"],
@@ -316,7 +321,7 @@ def get_us_congress_totals_df():
                 }
                 # add entry of service for id/year/state. this should avoid
                 # double counting and match CAWP which only has one entry per legislator per year
-                if year in TIME_PERIODS and entry not in us_congress_totals_list_of_dict:
+                if year in years and entry not in us_congress_totals_list_of_dict:
                     us_congress_totals_list_of_dict.append(entry)
 
     # convert to df
@@ -451,23 +456,17 @@ def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_rac
 
     # remove unneeded cols
     df = df[needed_cols]
-
     df = df.groupby(groupby_cols
                     )[NAME].apply(list).reset_index()
-
     df = df.rename(columns={
         NAME: names_col})
-
     df[count_col] = df[names_col].apply(
         lambda list: len(list))
-
     df = pd.merge(scaffold_df, df, on=groupby_cols, how="left")
-
     df[count_col] = df[count_col].fillna(
         0)
     df[names_col] = df[names_col].fillna(
         "")
-
     return df
 
 
@@ -487,19 +486,16 @@ def combine_states_to_national(df):
         std_col.STATE_NAME_COL,
         std_col.STATE_POSTAL_COL
     ]
-
     groupby_cols = [
         std_col.TIME_PERIOD_COL,
         RACE_ETH
     ]
-
     df_counts = df.copy().drop(state_cols, axis=1)
     df_counts = df_counts.groupby(groupby_cols, as_index=False)[
         std_col.CONGRESS_COUNT,
         std_col.W_ALL_RACES_CONGRESS_COUNT,
         std_col.W_THIS_RACE_CONGRESS_COUNT
     ].agg(sum)
-
     df = df_counts
 
     # to keep lists of NAMES
