@@ -8,6 +8,7 @@ from google.cloud import bigquery, storage
 from zipfile import ZipFile
 from io import BytesIO
 import ingestion.standardized_columns as std_col
+from typing import List
 
 
 DATA_DIR = os.path.join(os.sep, 'app', 'data')
@@ -385,7 +386,7 @@ def fetch_json_from_web(url):
     return json.loads(r.text)
 
 
-def get_bq_column_types(df, float_cols: "list[str]"):
+def get_bq_column_types(df, float_cols: List[str]):
     """ Generates the column_types dict needed for each data source's add_df_to_bq()
     Parameters:
         df: dataframe to be sent to BQ
