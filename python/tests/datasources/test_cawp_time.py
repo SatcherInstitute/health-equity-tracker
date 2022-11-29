@@ -205,10 +205,10 @@ def testGenerateNationalBreakdown(
     level using the mock base_df which only has mock data from
     2017-2022, in Alaska and American Samoa """
     print("testGenerateNationalBreakdown()")
+
     base_df = pd.read_csv(os.path.join(
         TEST_DIR, "test_expected_base_df.csv"),
         dtype={"state_fips": str, "time_period": str})
-
     cawp_data = CAWPTimeData()
     national_breakdown_df, national_table_name = cawp_data.generate_breakdown(
         base_df, "national")
@@ -217,6 +217,7 @@ def testGenerateNationalBreakdown(
     expected_national_breakdown_df = pd.read_csv(os.path.join(
         GOLDEN_DATA_DIR, "race_and_ethnicity_national_time_series.csv"),
         dtype={"state_fips": str, "time_period": str})
+
     assert_frame_equal(national_breakdown_df,
                        expected_national_breakdown_df,
                        check_like=True,

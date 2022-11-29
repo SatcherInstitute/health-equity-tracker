@@ -1,12 +1,9 @@
 from typing import List
 from datasources.data_source import DataSource
 from ingestion.constants import (
-    NATIONAL_LEVEL,
-    STATE_LEVEL,
+    NATIONAL_LEVEL, STATE_LEVEL,
     STATE_LEVEL_FIPS_LIST,
-    US_ABBR,
-    US_FIPS,
-    US_NAME,
+    US_ABBR, US_FIPS, US_NAME,
     TERRITORY_POSTALS,
     RACE
 )
@@ -14,30 +11,6 @@ import ingestion.standardized_columns as std_col
 from ingestion import gcs_to_bq_util, merge_utils, dataset_utils
 from ingestion.standardized_columns import Race
 import pandas as pd
-
-
-def get_consecutive_time_periods(first_year: int = 1915, last_year: int = 2022):
-    """
-    Generates a list of consecutive time periods in the "YYYY" format
-
-    Parameters:
-        first_year: optional int to start the list; defaults to 1915
-            which is two years before the first woman in US Congress
-        last_year: optional int to be the last element in the list
-            other than the default of 2022
-
-    Returns:
-        a list of string years (e.g. ["1999", "2000", "2001"])
-    """
-    return [str(x) for x in list(range(first_year, last_year + 1))]
-
-
-def get_state_level_fips():
-    """
-    Returns a list of 2-letter strings for all state and territory fips codes
-    """
-    return STATE_LEVEL_FIPS_LIST
-
 
 # data urls
 US_CONGRESS_CURRENT_URL = "https://theunitedstates.io/congress-legislators/legislators-current.json"
@@ -222,7 +195,7 @@ class CAWPTimeData(DataSource):
         df = merge_utils.merge_current_pop_numbers(
             df, RACE, geo_level, target_time_periods)
 
-        # to generate MOCK population responses
+        # # to generate MOCK population responses
         # df.to_csv(f'{geo_level}.csv', index=False)
 
         df = dataset_utils.generate_pct_rel_inequity_col(df,
@@ -510,7 +483,7 @@ def combine_states_to_national(df):
         std_col.W_ALL_RACES_CONGRESS_COUNT,
         std_col.W_THIS_RACE_CONGRESS_COUNT
     ].agg(sum)
-    df = df_counts
+    _df = df_counts
 
     # to keep lists of NAMES
     # df_names = df.copy().drop(state_cols, axis=1)
@@ -522,11 +495,11 @@ def combine_states_to_national(df):
 
     # df = pd.merge(df_names, df_counts, on=groupby_cols)
 
-    df[std_col.STATE_FIPS_COL] = US_FIPS
-    df[std_col.STATE_NAME_COL] = US_NAME
-    df[std_col.STATE_POSTAL_COL] = US_ABBR
+    _df[std_col.STATE_FIPS_COL] = US_FIPS
+    _df[std_col.STATE_NAME_COL] = US_NAME
+    _df[std_col.STATE_POSTAL_COL] = US_ABBR
 
-    return df
+    return _df
 
 
 def get_postal_from_cawp_phrase(cawp_place_phrase: str):
@@ -551,3 +524,26 @@ def get_postal_from_cawp_phrase(cawp_place_phrase: str):
     place_code = place_terms_list[1]
 
     return place_code
+
+
+def get_consecutive_time_periods(first_year: int = 1915, last_year: int = 2022):
+    """
+    Generates a list of consecutive time periods in the "YYYY" format
+
+    Parameters:
+        first_year: optional int to start the list; defaults to 1915
+            which is two years before the first woman in US Congress
+        last_year: optional int to be the last element in the list
+            other than the default of 2022
+
+    Returns:
+        a list of string years (e.g. ["1999", "2000", "2001"])
+    """
+    return [str(x) for x in list(range(first_year, last_year + 1))]
+
+
+def get_state_level_fips():
+    """
+    Returns a list of 2-letter strings for all state and territory fips codes
+    """
+    return STATE_LEVEL_FIPS_LIST
