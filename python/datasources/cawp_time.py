@@ -334,7 +334,7 @@ def get_us_congress_totals_df():
         NAME: std_col.CONGRESS_NAMES})
     # get counts of all TOTAL members in lists per row
     df[std_col.CONGRESS_COUNT] = df[std_col.CONGRESS_NAMES].apply(
-        lambda list: len(list))
+        lambda list: len(list)).astype(float)
 
     return df
 
@@ -461,13 +461,13 @@ def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_rac
     df = df.rename(columns={
         NAME: names_col})
     df[count_col] = df[names_col].apply(
-        lambda list: len(list))
+        lambda list: len(list)).astype(float)
 
-    # print("----------")
-    # print("scaffold", scaffold_df.dtypes)
-    # print(scaffold_df.to_string())
-    # print("df", df.dtypes)
-    # print(df.to_string())
+    print("----------")
+    print("scaffold", scaffold_df.dtypes)
+    print(scaffold_df.to_string())
+    print("df", df.dtypes)
+    print(df.to_string())
 
     df = pd.merge(scaffold_df, df, on=groupby_cols, how="left")
     df[count_col] = df[count_col].fillna(
