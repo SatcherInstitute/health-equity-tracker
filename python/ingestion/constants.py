@@ -92,7 +92,6 @@ STATE_NAMES = [
     "Wyoming"
 ]
 
-
 US_FIPS = '00'
 US_NAME = 'United States'
 US_ABBR = "US"
