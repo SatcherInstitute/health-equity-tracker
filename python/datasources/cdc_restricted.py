@@ -217,7 +217,6 @@ class CDCRestrictedData(DataSource):
             pop_col = std_col.POPULATION_COL
             if geo == NATIONAL_LEVEL:
                 pop_col = generate_column_name(
-
                     raw_count_col, POPULATION_SUFFIX)
             df = generate_per_100k_col(
                 df, raw_count_col, pop_col, per_100k_col)
@@ -237,6 +236,7 @@ class CDCRestrictedData(DataSource):
         if not cumulative:
             for prefix in COVID_CONDITION_TO_PREFIX.values():
                 pct_relative_inequity_col = generate_column_name(
+
                     prefix, std_col.PCT_REL_INEQUITY_SUFFIX)
                 df = generate_pct_rel_inequity_col(
                     df, generate_column_name(prefix, std_col.SHARE_SUFFIX),
@@ -447,10 +447,8 @@ def remove_or_set_to_zero(df, geo, demographic):
 
     grouped_df = df.groupby(
 
-
         geo_cols + [demog_col]).sum(min_count=1).reset_index()
     grouped_df = grouped_df.rename(
-
 
         columns={std_col.COVID_CASES: 'grouped_cases'})
     grouped_df = grouped_df[geo_cols + [demog_col, 'grouped_cases']]
@@ -489,7 +487,6 @@ def null_out_suppressed_deaths_hosps(df, modify_pop_rows):
                         created using the `merge_multiple_pop_cols` function."""
 
     suffixes = [std_col.PER_100K_SUFFIX,
-
 
                 std_col.SHARE_SUFFIX, std_col.PCT_REL_INEQUITY_SUFFIX]
     hosp_rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
