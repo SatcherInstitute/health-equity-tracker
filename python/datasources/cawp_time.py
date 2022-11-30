@@ -9,7 +9,8 @@ from ingestion.constants import (
 )
 import ingestion.standardized_columns as std_col
 from ingestion import gcs_to_bq_util, merge_utils
-from ingestion.dataset_utils import generate_pct_rel_inequity_col, zero_out_pct_rel_inequity
+from ingestion.dataset_utils import (generate_pct_rel_inequity_col,
+                                     zero_out_pct_rel_inequity)
 from ingestion.standardized_columns import Race
 import pandas as pd
 
@@ -23,15 +24,14 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
     'Asian American/Pacific Islander': Race.ASIAN_PAC.value,
     'Latina': Race.HISP.value,
     'Middle Eastern/North African': Race.MENA.value,
-    # for now we will NOT present a multiracial category, and instead have
-    # multiple specific races in their individual races, and have "Multiracial Alone"
-    # grouped into "Unrepresented Race"
-    # need to confirm if CAWP has any other races besides "Multiracial Alone"
-    # that need to be grouped into this "Unrepresented Race" bucket
-    'Multiracial Alone': Race.OTHER_NONSTANDARD.value,
     'Native American/Alaska Native/Native Hawaiian': Race.AIANNH.value,
     'Black': Race.BLACK.value,
     'White': Race.WHITE.value,
+    # no women identified as the labels below at the US CONGRESS level in any year
+    # at State Leg. level there were - Multi alone: 2, Other: 1, Unavailable: 4441
+    # TODO: combine "Multiracial Alone" with "Other" when adding STATE LEGISLATURES
+    # 'Other': Race.OTHER_NONSTANDARD.value
+    'Multiracial Alone': Race.OTHER_NONSTANDARD.value,
     'Unavailable': Race.UNKNOWN.value,
 }
 POSITION_LABELS = {
@@ -41,6 +41,20 @@ POSITION_LABELS = {
 }
 RACE_ETH = "race_ethnicity"
 NAME = "name"
+FIRST = "first"
+LAST = "last"
+TYPE = "type"
+ID = "id"
+STATE = "state"
+TERMS = "terms"
+START = "start"
+END = "end"
+FIRST_NAME = "first_name"
+LAST_NAME = "last_name"
+POSITION = "position"
+LEVEL = "level"
+YEAR = "year"
+CONGRESS = "Congress"
 
 MERGE_COLS = [
     std_col.TIME_PERIOD_COL,
@@ -75,10 +89,6 @@ class CAWPTimeData(DataSource):
             df = _df.copy()
             df, bq_table_name = self.generate_breakdown(df, geo_level)
 
-            # to bypass GCP and test on the frontend locally
-            # df.to_json(
-            #     f'frontend/public/tmp/cawp_data-{bq_table_name}.json', orient="records")
-
             float_cols = [
                 std_col.CONGRESS_COUNT,
                 std_col.W_ALL_RACES_CONGRESS_COUNT,
@@ -98,11 +108,9 @@ class CAWPTimeData(DataSource):
     # CLASS METHODS
 
     def generate_base_df(self):
-        """
-        Creates a dataframe with the raw counts by state by year by race of:
+        """ Creates a dataframe with the raw counts by state by year by race of:
         all congress members, all women congress members,
-        and women congress members of the row's race
-        """
+        and women congress members of the row's race """
 
         # fetch and form data
         us_congress_totals_df = get_us_congress_totals_df()
@@ -157,15 +165,10 @@ class CAWPTimeData(DataSource):
              std_col.W_ALL_RACES_CONGRESS_NAMES,
              std_col.W_THIS_RACE_CONGRESS_NAMES], axis=1)
 
-        # # to generate mock base
-        # df.to_csv(
-        #     "python/tests/data/cawp_time/test_expected_base_df.csv", index=False)
-
         return df
 
     def generate_breakdown(self, _df, geo_level: str):
-        """
-        Takes df with rows per year/race incl ALL/state and calculates the metrics
+        """ Takes df with rows per year/race incl ALL/state and calculates the metrics
         shown on the frontend
 
         Parameters:
@@ -174,16 +177,12 @@ class CAWPTimeData(DataSource):
                 all women, and women of each race
             geo_level:
                 "national" or "state"
-
         Returns [df, bq_table_name]:
             df: with calculated columns for share of congress,
                 share of women in congress, percent relative inequity
-            bq_table_name: string name used for writing each breakdown to bq
-
-        """
+            bq_table_name: string name used for writing each breakdown to bq """
 
         df = _df.copy()
-
         if geo_level == NATIONAL_LEVEL:
             df = combine_states_to_national(df)
 
@@ -209,9 +208,6 @@ class CAWPTimeData(DataSource):
         df = merge_utils.merge_current_pop_numbers(
             df, RACE, geo_level, target_time_periods)
 
-        # # to generate MOCK population responses
-        # df.to_csv(f'{geo_level}.csv', index=False)
-
         df = generate_pct_rel_inequity_col(df,
                                            std_col.PCT_OF_W_CONGRESS,
                                            std_col.POPULATION_PCT_COL,
@@ -236,24 +232,18 @@ class CAWPTimeData(DataSource):
         df = df.sort_values(
             by=sort_cols).reset_index(drop=True)
 
-        # # to generate GOLDEN DATA
-        # df.to_csv(
-        #     f'python/tests/data/cawp_time/{bq_table_name}.csv', index=False)
-
         return [df, bq_table_name]
 
 
 # HELPER FUNCTIONS
 
 def scaffold_df_by_year_by_state_by_race_list(race_list: List[str]):
-    """
-    Creates the scaffold df with a row for every STATE/YEAR/RACE_ETH IN race_list combo
+    """ Creates the scaffold df with a row for every STATE/YEAR/RACE_ETH IN race_list combo
     Parameters:
         race_list: list of strings to serve as values in the "race_ethnicity" column
     Returns:
         df with a row for every combo of `race_list` race, years, and state/territories
-        including columns for "state_name", "state_postal" and "state_fips"
-    """
+        including columns for "state_name", "state_postal" and "state_fips" """
     # start with single column of all state-level fips as our df template
     fips_list = get_state_level_fips()
     df = pd.DataFrame({
@@ -275,14 +265,12 @@ def scaffold_df_by_year_by_state_by_race_list(race_list: List[str]):
 
 
 def get_us_congress_totals_df():
-    """
-    Fetches historic and current congress data, combines them, and iterates over
+    """ Fetches historic and current congress data, combines them, and iterates over
     each Congress member and their terms served to generate a dataframe.
 
     Returns:
         df with rows per legislator-term and
-        columns "time_period" by year and "state_postal"
-    """
+        columns "time_period" by year and "state_postal" """
 
     # load US congress data for total_counts
     raw_historical_congress_json = gcs_to_bq_util.fetch_json_from_web(
@@ -302,25 +290,25 @@ def get_us_congress_totals_df():
     for legislator in raw_legislators_json:
 
         # and each term they served
-        for term in legislator["terms"]:
+        for term in legislator[TERMS]:
 
             term_years = list(
-                range(int(term["start"][:4]), int(term["end"][:4]) + 1))
+                range(int(term[START][:4]), int(term[END][:4]) + 1))
 
             # and each year of each term
             for year in term_years:
                 year = str(year)
-                title = f'{term["type"].capitalize()}.' if term["state"] not in TERRITORY_POSTALS else "Del."
-                full_name = f'{title} {legislator[NAME]["first"]} {legislator[NAME]["last"]}'
+                title = f'{term[TYPE].capitalize()}.' if term[STATE] not in TERRITORY_POSTALS else "Del."
+                full_name = f'{title} {legislator[NAME][FIRST]} {legislator[NAME][LAST]}'
                 entry = {
-                    "id": legislator["id"]["govtrack"],
+                    ID: legislator[ID]["govtrack"],
                     NAME: full_name,
-                    "type": term["type"],
-                    std_col.STATE_POSTAL_COL: term["state"],
+                    TYPE: term[TYPE],
+                    std_col.STATE_POSTAL_COL: term[STATE],
                     std_col.TIME_PERIOD_COL: year
                 }
-                # add entry of service for id/year/state. this should avoid
-                # double counting and match CAWP which only has one entry per legislator per year
+                # add entry of service for id/year/state.
+                # avoid double counting, CAWP only has 1 entry per leg. per year
                 if year in years and entry not in us_congress_totals_list_of_dict:
                     us_congress_totals_list_of_dict.append(entry)
 
@@ -341,8 +329,7 @@ def get_us_congress_totals_df():
 
 
 def merge_us_congress_total_names_count_cols(scaffold_df, us_congress_df):
-    """
-    Merges previously made congress df info into the incoming scaffold df
+    """ Merges previously made congress df info into the incoming scaffold df
     Parameters:
         scaffold_df: df containing a row for every combo of
             "time_period" X "state_postal" X "race_ethnicity
@@ -350,8 +337,7 @@ def merge_us_congress_total_names_count_cols(scaffold_df, us_congress_df):
 
     Returns:
         df with a column "us_congress_total_count" ints count of total members in the state/year,
-        and column "us_congress_total_names" a string list of those same members
-    """
+        and column "us_congress_total_names" a string list of those same members """
 
     # merge in calculated counts and name lists by state/year where they exist;
     df = pd.merge(scaffold_df, us_congress_df,
@@ -366,61 +352,65 @@ def merge_us_congress_total_names_count_cols(scaffold_df, us_congress_df):
 
 
 def get_us_congress_women_df():
-    """
-    Fetches CAWP data counts of women by race by year by state,
+    """ Fetches CAWP data counts of women by race by year by state,
     generates a dataframe with rows for every woman
     in U.S. Congress any year
 
     Returns:
         df with rows per woman in US Congress, and
         columns "time_period" by year and "state_postal", "race_ethnicity"
-        with specific CAWP race strings
-    """
+        with specific CAWP race strings """
     df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
         'cawp_time', CAWP_LINE_ITEMS_FILE)
 
     # keep only needed cols
     df = df[[
-        'id', 'year', 'level', 'state', 'first_name', 'last_name', 'position', RACE_ETH]]
+        ID,
+        YEAR,
+        LEVEL,
+        STATE,
+        FIRST_NAME,
+        LAST_NAME,
+        POSITION,
+        RACE_ETH]]
 
     # standardize CAWP state names as postal
-    df[std_col.STATE_POSTAL_COL] = df["state"].apply(
+    df[std_col.STATE_POSTAL_COL] = df[STATE].apply(
         get_postal_from_cawp_phrase)
 
     # merge in FIPS codes
     df = merge_utils.merge_state_ids(
         df, keep_postal=True)
 
-    df = df.drop(columns=["state"])
+    df = df.drop(columns=[STATE])
 
     # rename year
     df = df.rename(
-        columns={"year": std_col.TIME_PERIOD_COL})
+        columns={YEAR: std_col.TIME_PERIOD_COL})
     df[std_col.TIME_PERIOD_COL] = df[std_col.TIME_PERIOD_COL].astype(str)
 
     # remove non-Congress line items
-    df = df.loc[df['level']
-                == 'Congress']
+    df = df.loc[df[LEVEL]
+                == CONGRESS]
 
     # standardize gov. titles between sources
-    df["position"] = df["position"].apply(
+    df[POSITION] = df[POSITION].apply(
         lambda x: POSITION_LABELS[x])
 
     # consolidate name columns
     df[NAME] = (
-        df["position"] + " " +
-        df["first_name"] + " " +
-        df["last_name"]
+        df[POSITION] + " " +
+        df[FIRST_NAME] + " " +
+        df[LAST_NAME]
     )
     df = df.drop(
-        columns=["first_name", "last_name", "position"])
+        columns=[FIRST_NAME, LAST_NAME, POSITION])
 
     return df
 
 
 def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_race_breakdown: bool):
-    """
-    Merges previously made CAWP df info into the incoming scaffold df
+    """ Merges previously made CAWP df info into the incoming scaffold df
     Parameters:
         scaffold_df: df containing a row for every combo of
             "time_period" X "state_postal" X "race_ethnicity
@@ -432,8 +422,7 @@ def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_rac
     Returns:
         df with rows for every combo of "time_period" years and "state_postal" codes,
         a column std_col.W_ALL_RACES_CONGRESS_COUNT ints count of total women members in the state/year,
-        and column std_col.W_ALL_RACES_CONGRESS_COUNT a string list of those same members
-    """
+        and column std_col.W_ALL_RACES_CONGRESS_COUNT a string list of those same members """
 
     df = us_congress_women_df.copy()
 
@@ -521,8 +510,7 @@ def get_postal_from_cawp_phrase(cawp_place_phrase: str):
     Parameters:
         cawp_place_phrase: str
     Returns:
-        string of standard 2-letter postal code
-     """
+        string of standard 2-letter postal code """
 
     # swap out non-standard 2 letter codes
     cawp_place_phrase = {"American Samoa - AM":
@@ -539,22 +527,18 @@ def get_postal_from_cawp_phrase(cawp_place_phrase: str):
 
 
 def get_consecutive_time_periods(first_year: int = 1915, last_year: int = 2022):
-    """
-    Generates a list of consecutive time periods in the "YYYY" format
+    """ Generates a list of consecutive time periods in the "YYYY" format
 
     Parameters:
         first_year: optional int to start the list; defaults to 1915
             which is two years before the first woman in US Congress
         last_year: optional int to be the last element in the list
             other than the default of 2022
-
     Returns:
-        a list of string years (e.g. ["1999", "2000", "2001"])
-    """
+        a list of string years (e.g. ["1999", "2000", "2001"]) """
     return [str(x) for x in list(range(first_year, last_year + 1))]
 
 
 def get_state_level_fips():
-    """ Returns list of 2-letter strings for state and territory fips codes
-    """
+    """ Returns list of 2-letter strings for state and territory fips codes """
     return STATE_LEVEL_FIPS_LIST
