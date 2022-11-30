@@ -219,7 +219,7 @@ class CAWPData(DataSource):
             std_col.add_race_columns_from_category_id(breakdown_df)
 
             column_types = gcs_to_bq_util.get_bq_column_types(
-                breakdown_df, float_cols)
+                breakdown_df, float_cols=float_cols)
 
             gcs_to_bq_util.add_df_to_bq(
                 breakdown_df, dataset, table_name, column_types=column_types)

@@ -395,7 +395,7 @@ def get_bq_column_types(df, float_cols: List[str]):
             as BigQuery STRINGs.
     Returns:
         dict of pandas column names to specific BiqQuery column types
-         {"string_column_name": "BQ_TYPE"}
+         like {"something_pct_share": "FLOAT"}
     """
 
     column_types = {c: 'STRING' for c in df.columns}
