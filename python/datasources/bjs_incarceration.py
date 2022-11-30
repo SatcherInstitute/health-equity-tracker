@@ -349,11 +349,11 @@ class BJSIncarcerationData(DataSource):
                     breakdown, geo_level, table_lookup[table_name], children_tables)
 
                 float_cols = [std_col.POPULATION_PCT_COL]
-                for data_type in BJS_DATA_TYPES:
-                    float_cols.append(std_col.generate_column_name(
-                        data_type, std_col.PER_100K_SUFFIX))
-                    float_cols.append(std_col.generate_column_name(
-                        data_type, std_col.PCT_SHARE_SUFFIX))
+                for prefix in BJS_DATA_TYPES:
+                    for suffix in [std_col.PER_100K_SUFFIX, std_col.PCT_SHARE_SUFFIX]:
+                        float_cols.append(std_col.generate_column_name(
+                            prefix, suffix))
+
                 column_types = gcs_to_bq_util.get_bq_column_types(
                     df, float_cols=float_cols)
 
