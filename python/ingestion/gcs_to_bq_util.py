@@ -7,6 +7,8 @@ import pandas as pd
 from google.cloud import bigquery, storage
 from zipfile import ZipFile
 from io import BytesIO
+import ingestion.standardized_columns as std_col
+from typing import List
 
 
 DATA_DIR = os.path.join(os.sep, 'app', 'data')
@@ -298,7 +300,7 @@ def load_json_as_df_from_web(url, dtype=None, params=None):
     """Loads json data from the web underneath a given key into a dataframe
 
     url: url to download the json from
-    key: key in the json in which all data underneath will be loaded into the dataframe"""
+    """
     url = requests.Request('GET', url, params=params).prepare().url
     return pd.read_json(url, dtype=dtype)
 
@@ -374,3 +376,34 @@ def fetch_zip_as_files(url):
     response = requests.get(url)
     files = ZipFile(BytesIO(response.content))
     return files
+
+
+def fetch_json_from_web(url):
+    """
+    fetches json from a URL
+    """
+    r = requests.get(url)
+    return json.loads(r.text)
+
+
+def get_bq_column_types(df, float_cols: List[str]):
+    """ Generates the column_types dict needed for each data source's add_df_to_bq()
+    Parameters:
+        df: dataframe to be sent to BQ
+        float_cols: list of string column names for the columns that
+            should be BigQuery FLOATs. All other columns will be sent
+            as BigQuery STRINGs.
+    Returns:
+        dict of pandas column names to specific BiqQuery column types
+         like {"something_pct_share": "FLOAT"}
+    """
+
+    column_types = {c: 'STRING' for c in df.columns}
+    for col in float_cols:
+        column_types[col] = 'FLOAT'
+
+    # TODO: remove this once we standardize on only using race_category_id on the backend
+    if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+        column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
+    return column_types
