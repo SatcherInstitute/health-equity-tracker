@@ -1,13 +1,11 @@
 import pandas as pd
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
-
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, constants
 from ingestion.dataset_utils import percent_avoid_rounding_to_zero
 from ingestion.merge_utils import merge_state_ids, merge_pop_numbers
 from datasources.cawp_time import get_postal_from_cawp_phrase
-
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, STATE_POSTALS, TERRITORY_POSTALS
 
 # Tables for CAWP data and State Legislature Denominators
@@ -202,8 +200,8 @@ class CAWPData(DataSource):
         df_state_leg_totals = get_state_leg_totals_as_df()
 
         float_cols = [
-            std_col.WOMEN_STATE_LEG_PCT, std_col.WOMEN_STATE_LEG_PCT_SHARE,
-            std_col.WOMEN_US_CONGRESS_PCT, std_col.WOMEN_US_CONGRESS_PCT_SHARE,
+            std_col.WOMEN_STATE_LEG_PCT,
+            std_col.WOMEN_STATE_LEG_PCT_SHARE,
             std_col.POPULATION_PCT_COL
         ]
 
