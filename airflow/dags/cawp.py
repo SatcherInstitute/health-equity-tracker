@@ -4,8 +4,6 @@ from airflow.utils.dates import days_ago  # type: ignore
 
 import util
 
-# OLD FLOW - only CURRENT STATE LEG.
-
 _CAWP_WORKFLOW_ID = 'CAWP_DATA'
 _CAWP_DATASET_NAME = 'cawp_data'
 
