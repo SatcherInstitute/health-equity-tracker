@@ -270,17 +270,14 @@ class VeraIncarcerationCounty(DataSource):
             df = self.generate_for_bq(
                 df, data_type, demo_type, df_children_partial)
 
-            # set BigQuery types object
-            bq_column_types = {c: 'STRING' for c in df.columns}
-            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                bq_column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-            bq_column_types[RATE_COL_MAP[data_type]] = 'FLOAT'
-            bq_column_types[CHILDREN] = 'FLOAT'
-            bq_column_types[PCT_SHARE_COL_MAP[data_type]] = 'FLOAT'
-            bq_column_types[PCT_SHARE_COL_MAP[POP]] = 'FLOAT'
-
+            float_cols = [
+                RATE_COL_MAP[data_type], CHILDREN,
+                PCT_SHARE_COL_MAP[data_type], PCT_SHARE_COL_MAP[POP],
+            ]
+            column_types = gcs_to_bq_util.get_bq_column_types(
+                df, float_cols=float_cols)
             gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=bq_column_types)
+                df, dataset, table_name, column_types=column_types)
 
     def generate_for_bq(self, df, data_type, demo_type, df_children):
 

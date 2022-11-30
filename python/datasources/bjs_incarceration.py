@@ -348,16 +348,14 @@ class BJSIncarcerationData(DataSource):
                 df = self.generate_breakdown_df(
                     breakdown, geo_level, table_lookup[table_name], children_tables)
 
-                # set / add BQ types
-                column_types = {c: 'STRING' for c in df.columns}
-                for col in BJS_DATA_TYPES:
-                    column_types[std_col.generate_column_name(
-                        col, std_col.PER_100K_SUFFIX)] = 'FLOAT'
-                    column_types[std_col.generate_column_name(
-                        col, std_col.PCT_SHARE_SUFFIX)] = 'FLOAT'
-                column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
-                if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                    column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+                float_cols = [std_col.POPULATION_PCT_COL]
+                for prefix in BJS_DATA_TYPES:
+                    for suffix in [std_col.PER_100K_SUFFIX, std_col.PCT_SHARE_SUFFIX]:
+                        float_cols.append(std_col.generate_column_name(
+                            prefix, suffix))
+
+                column_types = gcs_to_bq_util.get_bq_column_types(
+                    df, float_cols=float_cols)
 
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=column_types)
