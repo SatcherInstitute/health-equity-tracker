@@ -52,7 +52,8 @@ class CDCSviCounty(DataSource):
 
         df = self.generate_for_bq(df)
 
-        column_types = gcs_to_bq_util.get_bq_column_types(df, [std_col.SVI])
+        column_types = gcs_to_bq_util.get_bq_column_types(
+            df, float_cols=[std_col.SVI])
 
         gcs_to_bq_util.add_df_to_bq(
             df, dataset, "age", column_types=column_types)
