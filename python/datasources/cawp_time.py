@@ -8,7 +8,8 @@ from ingestion.constants import (
     RACE
 )
 import ingestion.standardized_columns as std_col
-from ingestion import gcs_to_bq_util, merge_utils, dataset_utils
+from ingestion import gcs_to_bq_util, merge_utils
+from ingestion.dataset_utils import generate_pct_rel_inequity_col, zero_out_pct_rel_inequity
 from ingestion.standardized_columns import Race
 import pandas as pd
 
@@ -79,14 +80,14 @@ class CAWPTimeData(DataSource):
             #     f'frontend/public/tmp/cawp_data-{bq_table_name}.json', orient="records")
 
             float_cols = [
-                "total_us_congress_count",
-                "women_all_races_us_congress_count",
-                "women_this_race_us_congress_count",
-                "pct_share_of_us_congress",
-                "pct_share_of_women_us_congress",
-                "population",
-                "population_pct",
-                "women_us_congress_pct_relative_inequity"
+                std_col.CONGRESS_COUNT,
+                std_col.W_ALL_RACES_CONGRESS_COUNT,
+                std_col.W_THIS_RACE_CONGRESS_COUNT,
+                std_col.PCT_OF_CONGRESS,
+                std_col.PCT_OF_W_CONGRESS,
+                std_col.W_CONGRESS_PCT_INEQUITY,
+                std_col.POPULATION_COL,
+                std_col.POPULATION_PCT_COL
             ]
 
             column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
@@ -152,9 +153,9 @@ class CAWPTimeData(DataSource):
 
         # TODO: these should either be available to the user somehow; via csv download or something?
         df = df.drop(
-            ["total_us_congress_names",
-             "women_all_races_us_congress_names",
-             "women_this_race_us_congress_names"], axis=1)
+            [std_col.CONGRESS_NAMES,
+             std_col.W_ALL_RACES_CONGRESS_NAMES,
+             std_col.W_THIS_RACE_CONGRESS_NAMES], axis=1)
 
         # # to generate mock base
         # df.to_csv(
@@ -211,18 +212,18 @@ class CAWPTimeData(DataSource):
         # # to generate MOCK population responses
         # df.to_csv(f'{geo_level}.csv', index=False)
 
-        df = dataset_utils.generate_pct_rel_inequity_col(df,
-                                                         std_col.PCT_OF_W_CONGRESS,
-                                                         std_col.POPULATION_PCT_COL,
-                                                         std_col.W_CONGRESS_PCT_INEQUITY,
-                                                         )
+        df = generate_pct_rel_inequity_col(df,
+                                           std_col.PCT_OF_W_CONGRESS,
+                                           std_col.POPULATION_PCT_COL,
+                                           std_col.W_CONGRESS_PCT_INEQUITY,
+                                           )
 
-        df = dataset_utils.zero_out_pct_rel_inequity(df,
-                                                     geo_level,
-                                                     "race",
-                                                     {std_col.PCT_OF_CONGRESS: std_col.W_CONGRESS_PCT_INEQUITY},
-                                                     std_col.POPULATION_PCT_COL
-                                                     )
+        df = zero_out_pct_rel_inequity(df,
+                                       geo_level,
+                                       RACE,
+                                       {std_col.PCT_OF_CONGRESS: std_col.W_CONGRESS_PCT_INEQUITY},
+                                       std_col.POPULATION_PCT_COL
+                                       )
 
         sort_cols = [
             std_col.TIME_PERIOD_COL,
@@ -464,30 +465,20 @@ def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_rac
     df[count_col] = df[names_col].apply(
         lambda list: len(list)).astype(float)
 
-    print("----------")
-    print("scaffold", scaffold_df.dtypes)
-    print(scaffold_df)
-    print("df", df.dtypes)
-    print(df)
-
     df = pd.merge(scaffold_df, df, on=groupby_cols, how="left")
-    df[count_col] = df[count_col].fillna(
-        0)
-    df[names_col] = df[names_col].fillna(
-        "")
+    df[count_col] = df[count_col].fillna(0)
+    df[names_col] = df[names_col].fillna("")
     return df
 
 
 def combine_states_to_national(df):
-    """
-    Takes the df that contains rows for every year/race by state and territory,
+    """ Takes the df that contains rows for every year/race by state and territory,
     and combines those rows into a national dataset
 
     Parameters:
         df: dataframe containing a row for every combination of state/race/year
     Output:
-        df same dataframe summed to a national level with a row per race/year
-    """
+        df same dataframe summed to a national level with a row per race/year """
 
     state_cols = [
         std_col.STATE_FIPS_COL,
@@ -564,7 +555,6 @@ def get_consecutive_time_periods(first_year: int = 1915, last_year: int = 2022):
 
 
 def get_state_level_fips():
-    """
-    Returns a list of 2-letter strings for all state and territory fips codes
+    """ Returns list of 2-letter strings for state and territory fips codes
     """
     return STATE_LEVEL_FIPS_LIST
