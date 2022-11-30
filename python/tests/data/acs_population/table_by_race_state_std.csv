@@ -1,5 +1,6 @@
 state_fips,state_name,population,population_pct,race_category_id,race,race_includes_hispanic,race_and_ethnicity
 01,Alabama,25565,0.5,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,94073,1.9,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",True,"American Indian, Alaska Native, Asian & Pacific Islander"
 01,Alabama,22740,0.5,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
 01,Alabama,4876250,100.0,ALL,All,,All
 01,Alabama,67013,1.4,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (NH)"
@@ -20,6 +21,7 @@ state_fips,state_name,population,population_pct,race_category_id,race,race_inclu
 01,Alabama,3320247,68.1,WHITE,White,True,White
 01,Alabama,3194929,65.5,WHITE_NH,White,False,White (NH)
 72,Puerto Rico,6838,0.2,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,13344,0.4,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",True,"American Indian, Alaska Native, Asian & Pacific Islander"
 72,Puerto Rico,118,0.0,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
 72,Puerto Rico,3318447,100.0,ALL,All,,All
 72,Puerto Rico,2372,0.1,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (NH)"
