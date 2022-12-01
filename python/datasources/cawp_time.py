@@ -34,6 +34,10 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
     'Multiracial Alone': Race.OTHER_NONSTANDARD.value,
     'Unavailable': Race.UNKNOWN.value,
 }
+
+AIAN_API_RACES = ['Asian American/Pacific Islander',
+                  'Native American/Alaska Native/Native Hawaiian']
+
 POSITION_LABELS = {
     "U.S. Representative": "Rep.",
     "U.S. Delegate": "Del.",
@@ -154,6 +158,9 @@ class CAWPTimeData(DataSource):
         df_by_races_rows = pd.merge(
             df_by_races_rows, df_by_races_women_this_race_cols, on=MERGE_COLS)
 
+        print("^^^")
+        df_by_races_rows = add_aian_api_rows(df_by_races_rows)
+
         # combine ROWS together from ALLS ROWS and BY RACES rows
         df = pd.concat([df_alls_rows, df_by_races_rows])
         df = df.sort_values(
@@ -198,7 +205,7 @@ class CAWPTimeData(DataSource):
 
         # standardize race labels
         df[std_col.RACE_CATEGORY_ID_COL] = df[RACE_ETH].apply(
-            lambda x: "ALL" if x == Race.ALL.value else CAWP_RACE_GROUPS_TO_STANDARD[x])
+            lambda x: "ALL" if x == Race.ALL.value else CAWP_RACE_GROUPS_TO_STANDARD.get(x, x))
         std_col.add_race_columns_from_category_id(df)
         df = df.drop(columns=[RACE_ETH])
 
@@ -231,6 +238,11 @@ class CAWPTimeData(DataSource):
 
         df = df.sort_values(
             by=sort_cols).reset_index(drop=True)
+
+        # we will only use AIAN_API for the disparity bar chart and
+        # pct_relative_inequity calculations
+        df.loc[df[std_col.RACE_CATEGORY_ID_COL]
+               == Race.AIAN_API][std_col.PCT_OF_CONGRESS] = None
 
         return [df, bq_table_name]
 
@@ -526,7 +538,7 @@ def get_postal_from_cawp_phrase(cawp_place_phrase: str):
     return place_code
 
 
-def get_consecutive_time_periods(first_year: int = 1915, last_year: int = 2022):
+def get_consecutive_time_periods(first_year: int = 2015, last_year: int = 2022):
     """ Generates a list of consecutive time periods in the "YYYY" format
 
     Parameters:
@@ -542,3 +554,51 @@ def get_consecutive_time_periods(first_year: int = 1915, last_year: int = 2022):
 def get_state_level_fips():
     """ Returns list of 2-letter strings for state and territory fips codes """
     return STATE_LEVEL_FIPS_LIST
+
+
+def add_aian_api_rows(df):
+    """ Adds new rows for the combined AIAN_API race group """
+
+    print("in add aian_api")
+
+    df_aian_api_rows = df.loc[df[RACE_ETH].isin(AIAN_API_RACES)]
+    df_aian_api_rows = df_aian_api_rows[[std_col.TIME_PERIOD_COL,
+                                         std_col.STATE_FIPS_COL,
+                                         std_col.W_THIS_RACE_CONGRESS_NAMES]]
+
+    df_aian_api_rows = df_aian_api_rows.groupby([std_col.TIME_PERIOD_COL,
+                                                 std_col.STATE_FIPS_COL], as_index=False)[
+        std_col.W_THIS_RACE_CONGRESS_NAMES
+    ].agg(lambda nested_list: [x for list in nested_list for x in list])
+
+    # remove any potential duplicates if a women was in both of the combined race groups
+    df_aian_api_rows[std_col.W_THIS_RACE_CONGRESS_NAMES] = df_aian_api_rows[std_col.W_THIS_RACE_CONGRESS_NAMES].apply(
+        set).apply(list)
+
+    df_aian_api_rows[std_col.W_THIS_RACE_CONGRESS_COUNT] = df_aian_api_rows[std_col.W_THIS_RACE_CONGRESS_NAMES].apply(
+        lambda list: len(list)).astype(float)
+
+    df_aian_api_rows[RACE_ETH] = "AIAN_API"
+
+    df_aian_api_rows = df_aian_api_rows.reset_index(drop=True)
+
+    # re-merge with this to preserve the non-summed rows like "total_congress_count", etc
+    df_only_api_rows = df.loc[df[RACE_ETH].isin(
+        ['Asian American/Pacific Islander'])]
+
+    df_denom_cols = df_only_api_rows[[
+        std_col.TIME_PERIOD_COL,
+        std_col.STATE_FIPS_COL,
+        std_col.CONGRESS_COUNT,
+        std_col.CONGRESS_NAMES,
+        std_col.W_ALL_RACES_CONGRESS_COUNT,
+        std_col.W_ALL_RACES_CONGRESS_NAMES
+    ]].reset_index(drop=True)
+
+    df = pd.merge(df_aian_api_rows, df_denom_cols, on=[
+                  std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL])
+
+    # print(filtered_df[["time_period", "state_fips", RACE_ETH,
+    #       "total_us_congress_names", "total_us_congress_count"]].to_string())
+
+    return df
