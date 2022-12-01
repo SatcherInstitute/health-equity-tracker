@@ -150,38 +150,39 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               </CardContent>
             )}
             {dataAvailable && knownData.length !== 0 && (
-              <>
-                <CardContent>
-                  <DisparityBarChart
-                    chartTitle={chartTitle}
-                    data={knownData}
-                    lightMetric={metricConfig.populationComparisonMetric!}
-                    darkMetric={
-                      metricConfig.knownBreakdownComparisonMetric ||
-                      metricConfig
-                    }
-                    breakdownVar={props.breakdownVar}
-                    metricDisplayName={metricConfig.shortLabel}
-                    filename={filename}
-                    showAltPopCompare={shouldShowAltPopCompare(props)}
-                  />
-                </CardContent>{" "}
-              </>
+              <CardContent>
+                <DisparityBarChart
+                  chartTitle={chartTitle}
+                  data={knownData}
+                  lightMetric={metricConfig.populationComparisonMetric!}
+                  darkMetric={
+                    metricConfig.knownBreakdownComparisonMetric || metricConfig
+                  }
+                  breakdownVar={props.breakdownVar}
+                  metricDisplayName={metricConfig.shortLabel}
+                  filename={filename}
+                  showAltPopCompare={shouldShowAltPopCompare(props)}
+                />
+              </CardContent>
             )}
             {shouldShowDoesntAddUpMessage && !isCawp && (
-              <Alert severity="info" role="note">
-                Population percentages on this graph add up to over 100% because
-                the racial categories reported for{" "}
-                {metricConfig.fullCardTitleName} in{" "}
-                {props.fips.getSentenceDisplayName()} include Hispanic
-                individuals in each racial category. As a result, Hispanic
-                individuals are counted twice.
-              </Alert>
+              <CardContent>
+                <Alert severity="info" role="note">
+                  Population percentages on this graph add up to over 100%
+                  because the racial categories reported for{" "}
+                  {metricConfig.fullCardTitleName} in{" "}
+                  {props.fips.getSentenceDisplayName()} include Hispanic
+                  individuals in each racial category. As a result, Hispanic
+                  individuals are counted twice.
+                </Alert>
+              </CardContent>
             )}
             {isCawp && (
-              <NonExclusiveRacesAlert
-                variableDisplayName={props.variableConfig.variableDisplayName}
-              />
+              <CardContent>
+                <NonExclusiveRacesAlert
+                  variableDisplayName={props.variableConfig.variableDisplayName}
+                />
+              </CardContent>
             )}
           </>
         );

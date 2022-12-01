@@ -15,6 +15,7 @@ import {
   DemographicGroup,
   TIME_SERIES,
   NON_HISPANIC,
+  AIAN_API,
 } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
@@ -56,7 +57,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    exclude(NON_HISPANIC)
+    exclude(NON_HISPANIC, AIAN_API)
   );
 
   const ratesQuery = new MetricQuery(
