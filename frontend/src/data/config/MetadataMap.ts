@@ -269,18 +269,17 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    id: "propublica_congress",
-    data_source_name: "ProPublica Congress API",
-    data_source_pretty_site_name: "propublica.org",
-    data_source_link:
-      "https://www.propublica.org/datastore/api/propublica-congress-api",
+    id: "the_unitedstates_project",
+    data_source_name: "The @unitedstates Project",
+    data_source_pretty_site_name: "theunitedstates.io",
+    data_source_link: "https://github.com/unitedstates/congress-legislators",
     geographic_level: "National, State",
     demographic_granularity: "N/A",
-    update_frequency: "At Least Daily",
+    update_frequency: "At Least Monthly",
     description:
-      "Total members of the United States Congress (Senate and House of Representatives including delegates) both nationally and by state/territory.",
-    dataset_ids: ["propublica_congress"],
-    downloadable: false,
+      "Total members of the United States Congress (Senate and House of Representatives including Delegates) both nationally and by state/territory.",
+    dataset_ids: ["the_unitedstates_project"],
+    downloadable: true,
   },
   {
     id: "covid_tracking_project",

@@ -81,6 +81,9 @@ class CawpProvider extends VariableProvider {
     // TODO: Remove this once we extend STATE LEG. over time as well
 
     const datasetId = this.getDatasetId(breakdowns, variableId, timeView);
+
+    console.log({ datasetId });
+
     const cawp = await getDataManager().loadDataset(datasetId);
     let df = cawp.toDataFrame();
 
@@ -98,10 +101,10 @@ class CawpProvider extends VariableProvider {
     const acsDatasetId = GetAcsDatasetId(breakdowns);
     consumedDatasetIds.push(acsDatasetId);
 
-    consumedDatasetIds.push(
-      "acs_2010_population-by_race_and_ethnicity_territory", // We merge this in on the backend
-      "propublica_congress" // we merge on backend only for US Congress datatype; not sure how to restrict based on active datatype
-    );
+    // "acs_2010_population-by_race_and_ethnicity_territory", // We merge this in on the backend
+
+    if (variableId === "women_us_congress")
+      consumedDatasetIds.push("the_unitedstates_project");
 
     df = df.renameSeries({
       population_pct: "cawp_population_pct",
