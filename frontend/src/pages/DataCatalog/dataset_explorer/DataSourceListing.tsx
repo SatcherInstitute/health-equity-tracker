@@ -5,7 +5,6 @@ import {
   DatasetMetadata,
 } from "../../../data/utils/DatasetTypes";
 import { getLogger } from "../../../utils/globals";
-import { ReactRouterLinkButton } from "../../../utils/urlutils";
 import styles from "./DataSourceListing.module.scss";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -21,10 +20,8 @@ import Alert from "@material-ui/lab/Alert";
 import ListItemText from "@material-ui/core/ListItemText";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import GetAppIcon from "@material-ui/icons/GetApp";
-import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import { Grid, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-// import { Link } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 
 type LoadStatus = "loading" | "unloaded" | "error" | "loaded";
@@ -154,7 +151,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
       </table>
       <p className={styles.Description}>{props.source_metadata.description}</p>
       <footer className={styles.Footer}>
-        {props.source_metadata.downloadable ? (
+        {props.source_metadata.downloadable && (
           <Button
             color="primary"
             onClick={() => setDialogIsOpen(true)}
@@ -163,17 +160,6 @@ export function DataSourceListing(props: DataSourceListingProps) {
           >
             Download
           </Button>
-        ) : (
-          <ReactRouterLinkButton
-            url={props.source_metadata.data_source_link}
-            className={styles.DownloadListItem}
-            ariaLabel={
-              "Apply For Access to " + props.source_metadata.data_source_name
-            }
-          >
-            Apply For Access{"  "}
-            <OpenInNewIcon />
-          </ReactRouterLinkButton>
         )}
 
         {/* MODAL WITH DOWNLOADABLE FILES */}

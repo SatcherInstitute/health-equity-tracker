@@ -360,12 +360,22 @@ export const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "cawp_data-race_and_ethnicity_national",
-    name: "National representation of women by race/ethnicity in the US Congress and across county and territory legislatures",
+    name: "National representation of women by race/ethnicity in state and territory legislatures",
     update_time: "September 2022",
   },
   {
     id: "cawp_data-race_and_ethnicity_state",
-    name: "Representation of women by race/ethnicity from each state and territory to the US Congress and their respective state legislature",
+    name: "Representation of women by race/ethnicity from each state and territory to their respective state legislature",
+    update_time: "September 2022",
+  },
+  {
+    id: "cawp_data-race_and_ethnicity_national_time_series",
+    name: "National representation of women by race/ethnicity in the US Congress",
+    update_time: "September 2022",
+  },
+  {
+    id: "cawp_data-race_and_ethnicity_state_time_series",
+    name: "Representation of women by race/ethnicity from each state and territory to the US Congress",
     update_time: "September 2022",
   },
   {

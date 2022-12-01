@@ -82,8 +82,6 @@ class CawpProvider extends VariableProvider {
 
     const datasetId = this.getDatasetId(breakdowns, variableId, timeView);
 
-    console.log({ datasetId });
-
     const cawp = await getDataManager().loadDataset(datasetId);
     let df = cawp.toDataFrame();
 
@@ -98,12 +96,17 @@ class CawpProvider extends VariableProvider {
     let acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
 
-    const acsDatasetId = GetAcsDatasetId(breakdowns);
-    consumedDatasetIds.push(acsDatasetId);
-
-    // "acs_2010_population-by_race_and_ethnicity_territory", // We merge this in on the backend
-
-    if (variableId === "women_us_congress")
+    if (
+      metricQuery.metricIds.includes("cawp_population_pct") ||
+      metricQuery.metricIds.includes("women_us_congress_pct_relative_inequity")
+    ) {
+      consumedDatasetIds.push(GetAcsDatasetId(breakdowns));
+      if (metricQuery.breakdowns.filterFips?.isTerritory())
+        consumedDatasetIds.push(
+          "acs_2010_population-by_race_and_ethnicity_territory"
+        );
+    }
+    if (metricQuery.metricIds.includes("pct_share_of_us_congress"))
       consumedDatasetIds.push("the_unitedstates_project");
 
     df = df.renameSeries({

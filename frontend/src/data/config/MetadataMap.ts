@@ -265,6 +265,8 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     dataset_ids: [
       "cawp_data-race_and_ethnicity_national",
       "cawp_data-race_and_ethnicity_state",
+      "cawp_data-race_and_ethnicity_national_time_series",
+      "cawp_data-race_and_ethnicity_state_time_series",
     ],
     downloadable: true,
   },
@@ -277,9 +279,9 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "N/A",
     update_frequency: "At Least Monthly",
     description:
-      "Total members of the United States Congress (Senate and House of Representatives including Delegates) both nationally and by state/territory.",
+      "Total members of the United States Congress (Senate and House of Representatives including Delegates) both nationally and by state/territory. This dataset is viewable and downloadable in the CAWP datasets.",
     dataset_ids: ["the_unitedstates_project"],
-    downloadable: true,
+    downloadable: false,
   },
   {
     id: "covid_tracking_project",
