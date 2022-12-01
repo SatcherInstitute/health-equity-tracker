@@ -1,9 +1,16 @@
 import ingestion.standardized_columns as std_col
-
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import generate_pct_share_col_without_unknowns
 from ingestion.standardized_columns import Race
+
+# The 2010 ACS datasets for the smaller territories need to be manually downloaded as zip files
+# and particular values extracted from the html into json in the /data folder for processing
+
+# https://www.census.gov/data/datasets/2010/dec/american-samoa.html RACE: /AS/AS8_0000001_040.html
+# https://www.census.gov/data/datasets/2010/dec/guam.html RACE: /GU/GU8_0000001_040.html
+# https://www.census.gov/data/datasets/2010/dec/virgin-islands.html RACE: VI/VI8_0000001_040.html
+# https://www.census.gov/data/datasets/2010/dec/cnmi.html RACE: CNMI/MP8_0000001_040.html
 
 
 def get_breakdown_col(df):
@@ -41,7 +48,6 @@ class ACS2010Population(DataSource):
         print("Files that will be written to BQ:", files)
 
         for f in files:
-            # Explicitly specify county_fips is a string.
             df = gcs_to_bq_util.load_json_as_df_from_data_dir(
                 "acs_2010", f, {'state_fips': str})
 
@@ -54,19 +60,14 @@ class ACS2010Population(DataSource):
             if std_col.RACE_CATEGORY_ID_COL in df.columns:
                 std_col.add_race_columns_from_category_id(df)
 
-            # All columns are str, except outcome columns.
-            column_types = {c: 'STRING' for c in df.columns}
-            column_types[std_col.POPULATION_COL] = 'INT64'
-            column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
-            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-
             # Clean up column names.
             self.clean_frame_column_names(df)
 
             table_name = f.replace('.json', '')  # Table name is file name
             table_name = table_name.replace(
                 'acs_2010_population-', '')  # Don't need this
-            gcs_to_bq_util.add_df_to_bq(
 
+            column_types = gcs_to_bq_util.get_bq_column_types(
+                df, float_cols=[std_col.POPULATION_COL, std_col.POPULATION_PCT_COL])
+            gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types)
