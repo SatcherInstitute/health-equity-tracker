@@ -8,6 +8,12 @@
   {
     "state_fips": "60",
     "state_name": "American Samoa",
+    "population": "53397",
+    "race_category_id": "AIAN_API"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
     "population": "51403",
     "race_category_id": "NHPI"
   },
@@ -104,6 +110,12 @@
   {
     "state_fips": "78",
     "state_name": "U.S. Virgin Islands",
+    "population": null,
+    "race_category_id": "AIAN_API"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
     "population": "18504",
     "race_category_id": "HISP"
   },
@@ -172,6 +184,12 @@
     "state_name": "Northern Mariana Islands",
     "population": "53883",
     "race_category_id": "ALL"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "45708",
+    "race_category_id": "AIAN_API"
   },
   {
     "state_fips": "69",
@@ -268,6 +286,12 @@
     "state_name": "Guam",
     "population": "159358",
     "race_category_id": "ALL"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "population": "129963",
+    "race_category_id": "AIAN_API"
   },
   {
     "state_fips": "66",

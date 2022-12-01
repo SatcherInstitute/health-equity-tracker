@@ -359,14 +359,11 @@ class ACSPopulationIngester():
                     frames[state_table_name], demo)
 
         for table_name, df in frames.items():
-            # All breakdown columns are strings
-            column_types = {c: 'STRING' for c in df.columns}
-            column_types[std_col.POPULATION_COL] = 'INT64'
-            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-
+            float_cols = [std_col.POPULATION_COL]
             if std_col.POPULATION_PCT_COL in df.columns:
-                column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
+                float_cols.append(std_col.POPULATION_PCT_COL)
+            column_types = gcs_to_bq_util.get_bq_column_types(
+                df, float_cols=float_cols)
 
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types)
@@ -496,6 +493,10 @@ class ACSPopulationIngester():
             all_races, std_col.RACE_CATEGORY_ID_COL, std_col.POPULATION_COL,
             Race.API_NH.value,
             [Race.ASIAN_NH.value, Race.NHPI_NH.value])
+        all_races = add_sum_of_rows(
+            all_races, std_col.RACE_CATEGORY_ID_COL, std_col.POPULATION_COL,
+            Race.AIAN_API.value,
+            [Race.AIAN.value, Race.ASIAN.value, Race.NHPI.value])
 
         all_races = generate_pct_share_col_without_unknowns(
             all_races, {std_col.POPULATION_COL: std_col.POPULATION_PCT_COL},
