@@ -1,4 +1,4 @@
-import { Box, Card, Grid, Hidden, Typography } from "@material-ui/core";
+import { Box, Card, Grid, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import styles from "./News.module.scss";
 import {
@@ -219,15 +219,17 @@ function AllPosts() {
         <title>News - Health Equity Tracker</title>
       </Helmet>
       <Grid container className={styles.AllArticlesSection}>
-        <Hidden smDown>
-          <Grid item md={3} container direction="column" alignItems="center">
-            <ArticleFilters
-              filterType={"category"}
-              filterOptions={categories}
-            />
-            <ArticleFilters filterType={"author"} filterOptions={authors} />
-          </Grid>
-        </Hidden>
+        <Grid
+          item
+          md={3}
+          container
+          direction="column"
+          alignItems="center"
+          className={styles.FilterBoxSideBar}
+        >
+          <ArticleFilters filterType={"category"} filterOptions={categories} />
+          <ArticleFilters filterType={"author"} filterOptions={authors} />
+        </Grid>
 
         <Grid item xs={12} sm={12} md={9}>
           <Box mx={5}>
@@ -336,29 +338,28 @@ function AllPosts() {
             </Grid>
           </Grid>
         </Grid>
-        <Hidden mdUp>
-          <Grid
-            item
-            container
-            direction="row"
-            justifyContent="space-around"
-            alignContent="center"
-          >
-            <Grid item xs={12}>
-              <div className={styles.Divider}></div>
-            </Grid>
-            <Grid item xs={12} sm={6} container justifyContent="center">
-              <ArticleFilters
-                filterType={"category"}
-                filterOptions={categories}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6} container justifyContent="center">
-              <ArticleFilters filterType={"author"} filterOptions={authors} />
-            </Grid>
+        <Grid
+          item
+          container
+          direction="row"
+          justifyContent="space-around"
+          alignContent="center"
+          className={styles.FilterBoxBottom}
+        >
+          <Grid item xs={12}>
+            <div className={styles.Divider}></div>
           </Grid>
-        </Hidden>
+          <Grid item xs={12} sm={6} container justifyContent="center">
+            <ArticleFilters
+              filterType={"category"}
+              filterOptions={categories}
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={6} container justifyContent="center">
+            <ArticleFilters filterType={"author"} filterOptions={authors} />
+          </Grid>
+        </Grid>
       </Grid>
       <SignupSection />
     </Grid>

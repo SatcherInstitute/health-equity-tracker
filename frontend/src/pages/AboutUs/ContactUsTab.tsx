@@ -2,7 +2,6 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./AboutUsPage.module.scss";
 import Typography from "@material-ui/core/Typography";
-import Hidden from "@material-ui/core/Hidden";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../../utils/externalUrls";
 import { Button, TextField } from "@material-ui/core";
@@ -24,28 +23,28 @@ function ContactUsTab() {
           justifyContent="center"
           alignItems="center"
         >
-          <Hidden smDown>
-            <Grid item md={5} className={styles.GridVerticallyAlignedItem}>
-              <Typography
-                id="main"
-                className={styles.ContactUsHeaderText}
-                variant="h2"
-              >
+          <Grid item md={5} className={styles.GridVerticallyAlignedItem}>
+            <Typography
+              id="main"
+              className={styles.ContactUsHeaderText}
+              variant="h2"
+            >
+              <span className={styles.MoveEquityForward}>
                 Let's move
                 <br aria-hidden="true" />
                 equity <b style={{ fontWeight: 400 }}>forward</b>
-              </Typography>
-            </Grid>
-            <Grid item md={7} className={styles.HeaderImgItem}>
-              <img
-                width="870"
-                height="644"
-                src="/img/stock/women-laughing-in-line.png"
-                className={styles.ImgContactUsHeader}
-                alt=""
-              />
-            </Grid>
-          </Hidden>
+              </span>
+            </Typography>
+          </Grid>
+          <Grid item md={7} className={styles.HeaderImgItem}>
+            <img
+              width="870"
+              height="644"
+              src="/img/stock/women-laughing-in-line.png"
+              className={styles.ImgContactUsHeader}
+              alt=""
+            />
+          </Grid>
         </Grid>
 
         <Grid

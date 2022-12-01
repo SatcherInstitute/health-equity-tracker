@@ -14,7 +14,6 @@ import {
   POVERTY_US_SETTING,
   UNINSURANCE_US_SETTING,
 } from "../../utils/internalRoutes";
-import Hidden from "@material-ui/core/Hidden";
 import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
@@ -43,15 +42,9 @@ function GoalListItem(props: {
       component="li"
     >
       {props.src && (
-        <Hidden smDown>
-          <LazyLoad offset={300} height={255} once>
-            <img
-              className={styles.ImgAimToGo}
-              src={props.src}
-              alt={props.alt}
-            />
-          </LazyLoad>
-        </Hidden>
+        <LazyLoad offset={300} height={255} once>
+          <img className={styles.ImgAimToGo} src={props.src} alt={props.alt} />
+        </LazyLoad>
       )}
       <Typography
         className={styles.SubheaderL2Text}
@@ -120,17 +113,15 @@ function TheProjectTab() {
               and centralize it all in one place.
             </Typography>
           </Grid>
-          <Hidden smDown>
-            <Grid item xs={12} sm={12} md={7} className={styles.HeaderImgItem}>
-              <img
-                width="754"
-                height="644"
-                src="/img/stock/woman-kids.png"
-                className={styles.HeaderImg}
-                alt=""
-              />
-            </Grid>
-          </Hidden>
+          <Grid item xs={12} sm={12} md={7} className={styles.HeaderImgItem}>
+            <img
+              width="754"
+              height="644"
+              src="/img/stock/woman-kids.png"
+              className={styles.HeaderImg}
+              alt=""
+            />
+          </Grid>
         </Grid>
 
         <Grid

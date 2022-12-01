@@ -40,7 +40,7 @@ function main() {
           ;;
 
         "")
-          util::print::error "you must pass in an argument for --data-file or --all flag"
+          util::print::error "you must pass in an argument for --data-file, --data-set, or --all flag"
           ;;
 
         *)
@@ -85,7 +85,7 @@ function main() {
 function usage() {
   cat <<-USAGE
 download_data_file [OPTIONS]
-Downloads a data file from the export bucket and places it in the tmp directory for local dev use.
+Downloads data file(s) from your GCP export bucket into `frontend/tmp` and updates `.env.development` for local dev
 OPTIONS
   --help            -h  prints the command usage
   --data-file       -f  name of the data file you want to download, without the .json
