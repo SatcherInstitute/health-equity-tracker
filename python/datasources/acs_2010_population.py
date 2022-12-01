@@ -4,9 +4,8 @@ from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import generate_pct_share_col_without_unknowns
 from ingestion.standardized_columns import Race
 
-# These 2010 ACS datasets for the smaller territories need to be manually downloaded
-# into the /data folder for processing
-# ACS sites:
+# The 2010 ACS datasets for the smaller territories need to be manually downloaded as zip files
+# and particular values extracted from the html into json in the /data folder for processing
 
 # https://www.census.gov/data/datasets/2010/dec/american-samoa.html RACE: /AS/AS8_0000001_040.html
 # https://www.census.gov/data/datasets/2010/dec/guam.html RACE: /GU/GU8_0000001_040.html
