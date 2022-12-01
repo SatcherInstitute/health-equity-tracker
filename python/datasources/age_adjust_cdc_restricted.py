@@ -78,6 +78,10 @@ class AgeAdjustCDCRestricted(DataSource):
                         pop_df, states_to_include_hosp)
 
                     groupby_cols = [std_col.RACE_CATEGORY_ID_COL, std_col.AGE_COL]
+
+                    if not cumulative:
+                        groupby_cols.append(std_col.TIME_PERIOD_COL)
+
                     with_race_age_df = cdc_restricted_local.generate_national_dataset(
                         with_race_age_df, groupby_cols)
 
@@ -102,10 +106,13 @@ class AgeAdjustCDCRestricted(DataSource):
 
                 df = get_expected_deaths(with_race_age_df, pop_df_death)
                 df = get_expected_hosps(df, pop_df_hosp)
-                age_adjusted_df = age_adjust_from_expected(df)
+                age_adjusted_df = age_adjust_from_expected(df, cumulative)
 
                 only_race = f'by_race_{geo}_processed'
                 table_name = f'{only_race}-with_age_adjust'
+
+                if not cumulative:
+                    table_name += '_time_series'
 
                 only_race_df = gcs_to_bq_util.load_df_from_bigquery(
                     'cdc_restricted_data', only_race)
@@ -125,6 +132,7 @@ class AgeAdjustCDCRestricted(DataSource):
 
             std_col.add_race_columns_from_category_id(df)
 
+            print(table_name)
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
@@ -236,7 +244,7 @@ def get_expected_deaths(race_and_age_df, population_df):
     return df
 
 
-def age_adjust_from_expected(df):
+def age_adjust_from_expected(df, cumulative):
     """Calculates the age adjusted death rate against the standard population
        when given a dataframe with the expected deaths from each racial group.
        Returns a dataframe with the age adjusted death rate.
@@ -266,6 +274,9 @@ def age_adjust_from_expected(df):
         return dataset_utils.ratio_round_to_None(row['expected_hosps'], ref_pop_expected_hosp)
 
     groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.RACE_CATEGORY_ID_COL]
+
+    if not cumulative:
+        groupby_cols.append(std_col.TIME_PERIOD_COL)
 
     grouped = df.groupby(groupby_cols)
     df = grouped.sum().reset_index()
