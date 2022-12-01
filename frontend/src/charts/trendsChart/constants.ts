@@ -32,6 +32,7 @@ const COLOR_DOMAIN = [
   "All Women",
   "Native American, Alaska Native, & Native Hawaiian Women",
   "Asian American & Pacific Islander Women",
+  "American Indian, Alaska Native, Asian & Pacific Islander Women",
   "Black or African American Women",
   "Latinas and Hispanic Women",
   "Middle Eastern & North African Women",
@@ -68,6 +69,7 @@ const COLOR_RANGE = [
   // race and ethnicity CAWP
   black,
   timeCyanBlue,
+  timePastelGreen,
   timePastelGreen,
   darkBlue,
   timePurple,

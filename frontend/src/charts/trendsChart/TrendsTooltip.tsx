@@ -46,6 +46,7 @@ const codeDictionary = {
   "Asian American & Pacific Islander Women": "AAPI",
   "Middle Eastern & North African Women": "MENA",
   "Native American, Alaska Native, & Native Hawaiian Women": "AI/AN/NH",
+  "American Indian, Alaska Native, Asian & Pacific Islander Women": "AIAN_API",
   "Latinas and Hispanic Women": "Hisp/Lat",
   "Women of an Unrepresented Race": "Unrepr.",
   "Black or African American Women": "Black",
