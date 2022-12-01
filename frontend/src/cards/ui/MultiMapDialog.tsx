@@ -184,7 +184,10 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 <Grid container justifyContent="center">
                   <Legend
                     metric={props.metricConfig}
-                    legendTitle={props.metricConfig.chartTitle || ""}
+                    legendTitle={
+                      props.metricConfig.chartTitle ||
+                      props.metricConfig.shortLabel
+                    }
                     legendData={props.data}
                     scaleType="quantize"
                     sameDotSize={true}

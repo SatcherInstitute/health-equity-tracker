@@ -218,7 +218,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {/* MISSING DATA ALERT */}
               {showMissingDataAlert && (
                 <MissingDataAlert
-                  dataName={metricConfig.chartTitle || ""}
+                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
                   breakdownString={breakdownString}
                   isMapCard={true}
                   fips={props.fips}
