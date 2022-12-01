@@ -14,6 +14,14 @@ from ingestion.dataset_utils import (generate_pct_rel_inequity_col,
 from ingestion.standardized_columns import Race
 import pandas as pd
 
+# time_periods for entire dataset
+DEFAULT_FIRST_YR = 1915
+DEFAULT_LAST_YR = 2022
+
+# time_periods which are appropriate to merge ACS2019 figures onto
+ACS_FIRST_YR = 2019
+ACS_LAST_YR = 2022
+
 # data urls
 US_CONGRESS_CURRENT_URL = "https://theunitedstates.io/congress-legislators/legislators-current.json"
 US_CONGRESS_HISTORICAL_URL = "https://theunitedstates.io/congress-legislators/legislators-historical.json"
@@ -158,7 +166,7 @@ class CAWPTimeData(DataSource):
         df_by_races_rows = pd.merge(
             df_by_races_rows, df_by_races_women_this_race_cols, on=MERGE_COLS)
 
-        print("^^^")
+        # create combo race group
         df_by_races_rows = add_aian_api_rows(df_by_races_rows)
 
         # combine ROWS together from ALLS ROWS and BY RACES rows
@@ -171,6 +179,10 @@ class CAWPTimeData(DataSource):
             [std_col.CONGRESS_NAMES,
              std_col.W_ALL_RACES_CONGRESS_NAMES,
              std_col.W_THIS_RACE_CONGRESS_NAMES], axis=1)
+
+        # to generate mock base
+        # df.to_csv(
+        #     "python/tests/data/cawp_time/test_expected_base_df.csv", index=False)
 
         return df
 
@@ -210,10 +222,15 @@ class CAWPTimeData(DataSource):
         df = df.drop(columns=[RACE_ETH])
 
         # TODO: figure out what we are doing about historic population info
-        target_time_periods = get_consecutive_time_periods(first_year=2019)
+        target_time_periods = get_consecutive_time_periods(
+            first_year=ACS_FIRST_YR, last_year=ACS_LAST_YR)
 
         df = merge_utils.merge_current_pop_numbers(
             df, RACE, geo_level, target_time_periods)
+
+        # # To make mock pop. responses
+        # df.to_csv(
+        #     f'python/tests/data/cawp_time/mock_acs_merge_responses/{geo_level}.csv', index=False)
 
         df = generate_pct_rel_inequity_col(df,
                                            std_col.PCT_OF_W_CONGRESS,
@@ -243,6 +260,10 @@ class CAWPTimeData(DataSource):
         # pct_relative_inequity calculations
         df.loc[df[std_col.RACE_CATEGORY_ID_COL]
                == Race.AIAN_API][std_col.PCT_OF_CONGRESS] = None
+
+        # # to generate GOLDEN DATA
+        # df.to_csv(
+        #     f'python/tests/data/cawp_time/golden_data/{bq_table_name}.csv', index=False)
 
         return [df, bq_table_name]
 
@@ -538,7 +559,7 @@ def get_postal_from_cawp_phrase(cawp_place_phrase: str):
     return place_code
 
 
-def get_consecutive_time_periods(first_year: int = 2015, last_year: int = 2022):
+def get_consecutive_time_periods(first_year: int = DEFAULT_FIRST_YR, last_year: int = DEFAULT_LAST_YR):
     """ Generates a list of consecutive time periods in the "YYYY" format
 
     Parameters:
@@ -559,19 +580,31 @@ def get_state_level_fips():
 def add_aian_api_rows(df):
     """ Adds new rows for the combined AIAN_API race group """
 
-    print("in add aian_api")
+    # only keep rows with years that will get population
+    target_time_periods = get_consecutive_time_periods(
+        first_year=ACS_FIRST_YR, last_year=ACS_LAST_YR)
+    df_aian_api_rows = df[df[std_col.TIME_PERIOD_COL].isin(
+        target_time_periods)]
 
-    df_aian_api_rows = df.loc[df[RACE_ETH].isin(AIAN_API_RACES)]
+    # only keep rows with races to be combined
+    df_aian_api_rows = df_aian_api_rows.loc[
+        df_aian_api_rows[RACE_ETH].isin(
+            AIAN_API_RACES)]
     df_aian_api_rows = df_aian_api_rows[[std_col.TIME_PERIOD_COL,
                                          std_col.STATE_FIPS_COL,
+                                         std_col.STATE_NAME_COL,
+                                         std_col.STATE_POSTAL_COL,
                                          std_col.W_THIS_RACE_CONGRESS_NAMES]]
 
     df_aian_api_rows = df_aian_api_rows.groupby([std_col.TIME_PERIOD_COL,
-                                                 std_col.STATE_FIPS_COL], as_index=False)[
+                                                 std_col.STATE_FIPS_COL,
+                                                 std_col.STATE_NAME_COL,
+                                                 std_col.STATE_POSTAL_COL
+                                                 ], as_index=False)[
         std_col.W_THIS_RACE_CONGRESS_NAMES
     ].agg(lambda nested_list: [x for list in nested_list for x in list])
 
-    # remove any potential duplicates if a women was in both of the combined race groups
+    # remove any duplicates if a women was in both of the combined race groups
     df_aian_api_rows[std_col.W_THIS_RACE_CONGRESS_NAMES] = df_aian_api_rows[std_col.W_THIS_RACE_CONGRESS_NAMES].apply(
         set).apply(list)
 
@@ -589,16 +622,23 @@ def add_aian_api_rows(df):
     df_denom_cols = df_only_api_rows[[
         std_col.TIME_PERIOD_COL,
         std_col.STATE_FIPS_COL,
+        std_col.STATE_POSTAL_COL,
+        std_col.STATE_NAME_COL,
         std_col.CONGRESS_COUNT,
         std_col.CONGRESS_NAMES,
         std_col.W_ALL_RACES_CONGRESS_COUNT,
         std_col.W_ALL_RACES_CONGRESS_NAMES
     ]].reset_index(drop=True)
 
-    df = pd.merge(df_aian_api_rows, df_denom_cols, on=[
-                  std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL])
+    # add back on the COLUMNS that didn't need to sum
+    df_aian_api_rows = pd.merge(df_aian_api_rows, df_denom_cols, on=[
+        std_col.TIME_PERIOD_COL,
+        std_col.STATE_FIPS_COL,
+        std_col.STATE_POSTAL_COL,
+        std_col.STATE_NAME_COL
+    ]).reset_index(drop=True)
 
-    # print(filtered_df[["time_period", "state_fips", RACE_ETH,
-    #       "total_us_congress_names", "total_us_congress_count"]].to_string())
+    # add onto the original race group ROWS
+    df = pd.concat([df, df_aian_api_rows], axis="rows").reset_index(drop=True)
 
     return df
