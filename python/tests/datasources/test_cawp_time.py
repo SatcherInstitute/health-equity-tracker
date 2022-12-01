@@ -105,6 +105,8 @@ def _generate_breakdown(*args):
 """
 DELETE THIS BEFORE MERGING TO MAIN; USEFUL ONLY TO GENERATE (mostly) UN-MOCKED TEST DATA
 """
+
+
 # @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
 #              side_effect=_get_test_line_items_csv_as_df)
 # @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
@@ -122,13 +124,6 @@ DELETE THIS BEFORE MERGING TO MAIN; USEFUL ONLY TO GENERATE (mostly) UN-MOCKED T
 #                      'table_name': 'output_table'}
 #     cawp_data = CAWPTimeData()
 #     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
-
-#     # for call in mock_bq.call_args_list:
-#     #     for arg in call.args:
-#     #         print(">")
-#     #         print(arg)
-
-#     print(mock_bq.call_args_list[1][0][0].to_string())
 """
 ^^^^^
 DELETE THIS BEFORE MERGING TO MAIN; USEFUL ONLY TO GENERATE (mostly) UN-MOCKED TEST DATA

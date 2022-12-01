@@ -114,6 +114,10 @@ class CAWPTimeData(DataSource):
 
             column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
+            # to bypass GCP and test on the frontend locally
+            # df.to_json(
+            #     f'frontend/public/tmp/cawp_data-{bq_table_name}.json', orient="records")
+
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, bq_table_name, column_types=column_types)
 
