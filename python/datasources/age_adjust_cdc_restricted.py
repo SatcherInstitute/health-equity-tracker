@@ -132,7 +132,6 @@ class AgeAdjustCDCRestricted(DataSource):
 
             std_col.add_race_columns_from_category_id(df)
 
-            print(table_name)
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
