@@ -67,8 +67,7 @@ class ACS2010Population(DataSource):
             table_name = table_name.replace(
                 'acs_2010_population-', '')  # Don't need this
 
-            float_cols = [std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
             column_types = gcs_to_bq_util.get_bq_column_types(
-                df, float_cols=float_cols)
+                df, float_cols=[std_col.POPULATION_COL, std_col.POPULATION_PCT_COL])
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types)
