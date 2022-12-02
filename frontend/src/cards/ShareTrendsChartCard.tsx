@@ -154,11 +154,11 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           <>
             <CardContent>
               <Alert severity="info" role="note">
-                This chart visualizes the disproportionate percent share of a
-                condition that is borne or experienced by a certain demographic,
-                compared with that demographic's share of the entire population
-                (defaulting to highest and lowest historical averages when many
-                groups are present). Read more about this calculation in our{" "}
+                This chart visualizes the disproportionate share of a condition
+                experienced by group, compared with that group's share of the
+                entire population (defaulting to highest and lowest historical
+                averages when many groups are present). Read more about this
+                calculation in our{" "}
                 <HashLink to={`${METHODOLOGY_TAB_LINK}#metrics`}>
                   methodology
                 </HashLink>

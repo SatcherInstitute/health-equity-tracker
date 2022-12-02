@@ -24,7 +24,7 @@ import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
-import NonExclusiveRacesAlert from "./ui/NonExclusiveRacesAlert";
+import CAWPOverlappingRacesAlert from "./ui/CAWPOverlappingRacesAlert";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -179,7 +179,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             )}
             {isCawp && (
               <CardContent>
-                <NonExclusiveRacesAlert
+                <CAWPOverlappingRacesAlert
                   variableDisplayName={props.variableConfig.variableDisplayName}
                 />
               </CardContent>

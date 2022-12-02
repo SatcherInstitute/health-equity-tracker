@@ -1,12 +1,13 @@
 import { Alert } from "@material-ui/lab";
 import React from "react";
+import { urlMap } from "../../utils/externalUrls";
 
-interface NonExclusiveRacesAlertProps {
+interface CAWPOverlappingRacesAlertProps {
   variableDisplayName: string;
 }
 
-export default function NonExclusiveRacesAlert(
-  props: NonExclusiveRacesAlertProps
+export default function CAWPOverlappingRacesAlert(
+  props: CAWPOverlappingRacesAlertProps
 ) {
   return (
     <Alert severity="info" role="note">
@@ -24,8 +25,12 @@ export default function NonExclusiveRacesAlert(
         against available population data we must further combine these distinct
         racial groups. There is currently no population data collected by the
         U.S. Census for <b>Middle Eastern & North African</b>, although this
-        data equity issue has seen progress in the recent decades. Currently,{" "}
-        <b>MENA</b> individuals are counted by the ACS as <b>White</b>.
+        data equity issue has seen{" "}
+        <a href={urlMap.senateMENA} rel="noreferrer" target="_blank">
+          some progress
+        </a>{" "}
+        in recent decades. Currently, <b>MENA</b> individuals are counted by the
+        ACS as <b>White</b>.
       </p>
     </Alert>
   );
