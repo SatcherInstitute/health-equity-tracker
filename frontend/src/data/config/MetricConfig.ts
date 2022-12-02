@@ -362,7 +362,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "covid_cases_share",
-          chartTitle: "Share of total COVID-19 cases with unknown",
+          chartTitle: "Share of total COVID-19 cases",
           columnTitleHeader: "Share of total COVID-19 cases",
           unknownsVegaLabel: "% unknown",
           shortLabel: "% of COVID-19 cases",
@@ -417,7 +417,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "covid_deaths_share",
-          chartTitle: "Share of total COVID-19 deaths with unknown",
+          chartTitle: "Share of total COVID-19 deaths",
           columnTitleHeader: "Share of total COVID-19 deaths",
           shortLabel: "% of COVID-19 deaths",
           unknownsVegaLabel: "% unknown",
@@ -478,7 +478,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "covid_hosp_share",
-          chartTitle: "Share of total COVID-19 hospitalizations with unknown",
+          chartTitle: "Share of total COVID-19 hospitalizations",
           columnTitleHeader: "Share of total COVID-19 hospitalizations",
           shortLabel: "% of COVID-19 hospitalizations",
           unknownsVegaLabel: "% unknown",
@@ -565,7 +565,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "vaccinated_pct_share",
-          chartTitle: "Share of total COVID-19 vaccinations with unknown",
+          chartTitle: "Share of total COVID-19 vaccinations",
           columnTitleHeader: "Share of total COVID-19 vaccinations",
           trendsCardTitleName:
             "Inequitable share of COVID-19 vaccinations over time",
@@ -592,7 +592,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           },
           secondaryPopulationComparisonMetric: {
             metricId: "acs_vaccine_population_pct",
-            columnTitleHeader: "Population percentage According to ACS",
+            columnTitleHeader: "Population percentage according to ACS",
             shortLabel: "pop. % according to acs",
             type: "pct_share",
           },
@@ -612,7 +612,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "suicide_pct_share",
-          chartTitle: "Share of total suicides with unknown",
+          chartTitle: "Share of total suicides",
           columnTitleHeader: "Share of total suicides",
           trendsCardTitleName: "Inequitable share of suicide over time",
           shortLabel: "% of suicides",
@@ -665,7 +665,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "depression_pct_share",
           trendsCardTitleName: "Inequitable share of depression over time",
-          chartTitle: "Share of total depression cases with unknown",
+          chartTitle: "Share of total depression cases",
           columnTitleHeader: "Share of total depression cases",
           shortLabel: "% of cases",
           type: "pct_share",
@@ -718,7 +718,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "excessive_drinking_pct_share",
           trendsCardTitleName:
             "Inequitable share of excessive drinking over time",
-          chartTitle: "Share of all excessive drinking cases with unknown",
+          chartTitle: "Share of all excessive drinking cases",
           columnTitleHeader: "Share of all excessive drinking cases",
           shortLabel: "% of all cases",
           type: "pct_share",
@@ -774,7 +774,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "non_medical_drug_use_pct_share",
           trendsCardTitleName:
             "Inequitable share of non-medical drug use over time",
-          chartTitle: "Share of total non-medical drug use with unknown",
+          chartTitle: "Share of total non-medical drug use",
           columnTitleHeader: "Share of total non-medical drug use",
           shortLabel: "% of cases",
           type: "pct_share",
@@ -827,8 +827,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "non_medical_rx_opioid_use_pct_share",
           trendsCardTitleName:
             "Inequitable share of non-medical prescription opioid use over time",
-          chartTitle:
-            "Share of total non-medical prescription opioid use with unknown",
+          chartTitle: "Share of total non-medical prescription opioid use",
           columnTitleHeader:
             "Share of total non-medical prescription opioid use",
           shortLabel: "% of cases",
@@ -888,7 +887,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "illicit_opioid_use_pct_share",
           trendsCardTitleName:
             "Inequitable share of illicit opioid use over time",
-          chartTitle: "Share of total illicit opioid use with unknown",
+          chartTitle: "Share of total illicit opioid use",
           columnTitleHeader: "Share of total illicit opioid use",
           shortLabel: "% of cases",
           type: "pct_share",
@@ -944,8 +943,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "frequent_mental_distress_pct_share",
           trendsCardTitleName:
             "Inequitable share of frequent mental distress over time",
-          chartTitle:
-            "Share of all frequent mental distress cases with unknown",
+          chartTitle: "Share of all frequent mental distress cases",
           columnTitleHeader: "Share of all frequent mental distress cases",
           shortLabel: "% of cases",
           type: "pct_share",
@@ -1002,7 +1000,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "diabetes_pct_share",
           trendsCardTitleName: "Inequitable share of diabetes over time",
-          chartTitle: "Share of total diabetes cases with unknown",
+          chartTitle: "Share of total diabetes cases",
           columnTitleHeader: "Share of total diabetes cases",
           shortLabel: "% of cases",
           type: "pct_share",
@@ -1054,7 +1052,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "copd_pct_share",
           trendsCardTitleName: "Inequitable share of COPD over time",
-          chartTitle: "Share of total COPD cases with unknown",
+          chartTitle: "Share of total COPD cases",
           columnTitleHeader: "Share of total COPD cases",
           shortLabel: "% of cases",
           type: "pct_share",
@@ -1119,7 +1117,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "health_insurance_pct_share",
           trendsCardTitleName: "Inequitable share of uninsurance over time",
-          chartTitle: "Share of uninsured individuals with unknown",
+          chartTitle: "Share of uninsured individuals",
           columnTitleHeader: "Share of uninsured individuals",
           shortLabel: "% of uninsured",
           type: "pct_share",
@@ -1175,7 +1173,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "poverty_pct_share",
           trendsCardTitleName: "Inequitable share of poverty over time",
-          chartTitle: "Share of poverty with unknown",
+          chartTitle: "Share of poverty",
           columnTitleHeader: "Share of poverty",
           shortLabel: "% of impoverished",
           type: "pct_share",
@@ -1184,7 +1182,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "Population vs distribution of total individuals below the poverty line",
             mobileChartTitle: [
               "Population vs distribution of",
-              "total individuals below the provery line",
+              "total individuals below the poverty line",
             ],
             metricId: "poverty_population_pct",
             columnTitleHeader: populationPctTitle,
@@ -1228,7 +1226,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "preventable_hospitalizations_pct_share",
           trendsCardTitleName:
             "Inequitable share of preventable hospitalizations over time",
-          chartTitle: "Share of all preventable hospitalizations with unknown",
+          chartTitle: "Share of all preventable hospitalizations",
           columnTitleHeader: "Share of all preventable hospitalizations",
           shortLabel: "% of hospitalizations",
           type: "pct_share",
@@ -1283,7 +1281,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "avoided_care_pct_share",
           trendsCardTitleName: "Inequitable share of care avoidance over time",
-          chartTitle: "Share of all care avoidance due to cost with unknown",
+          chartTitle: "Share of all care avoidance due to cost",
           columnTitleHeader: "Share of all care avoidance due to cost",
           shortLabel: "% of avoidance",
           type: "pct_share",
@@ -1337,7 +1335,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "asthma_pct_share",
           trendsCardTitleName: "Inequitable share of asthma over time",
-          chartTitle: "Share of all asthma cases with unknown",
+          chartTitle: "Share of all asthma cases",
           columnTitleHeader: "Share of all asthma cases",
           shortLabel: "% of cases",
           type: "pct_share",
@@ -1345,7 +1343,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             chartTitle: "Population vs distribution of total asthma cases",
             mobileChartTitle: [
               "Population vs distribution of",
-              "total total asthma cases",
+              "total asthma cases",
             ],
             metricId: "brfss_population_pct",
             columnTitleHeader: populationPctTitle,
@@ -1393,8 +1391,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "cardiovascular_diseases_pct_share",
           trendsCardTitleName:
             "Inequitable share of cardiovascular diseases over time",
-          chartTitle:
-            "Share of all cases of cardiovascular diseases with unknown",
+          chartTitle: "Share of all cases of cardiovascular diseases",
           columnTitleHeader: "Share of all cases of cardiovascular diseases",
           shortLabel: "% of cases",
           type: "pct_share",
@@ -1450,7 +1447,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "chronic_kidney_disease_pct_share",
           trendsCardTitleName:
             "Inequitable share of chronic kidney disease over time",
-          chartTitle: "Share of all chronic kidney disease cases with unknown",
+          chartTitle: "Share of all chronic kidney disease cases",
           columnTitleHeader: "Share of all chronic kidney disease cases",
           shortLabel: "% of cases",
           type: "pct_share",
@@ -1506,7 +1503,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "voter_participation_pct_share",
           trendsCardTitleName:
             "Inequitable share of voter participation over time",
-          chartTitle: "Share of all voter participation with unknown",
+          chartTitle: "Share of all voter participation",
           columnTitleHeader: "Share of all voter participation",
           shortLabel: "% of voters",
           type: "pct_share",
@@ -1560,7 +1557,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "women_us_congress_pct_share",
           trendsCardTitleName:
             "Inequitable share of women in U.S. Congress over time",
-          chartTitle: "Percent share of women US Congress members with unknown",
+          chartTitle: "Percent share of women US Congress members",
           columnTitleHeader: "Percent share of women US Congress members",
           shortLabel: "% of women members",
           type: "pct_share",
@@ -1620,7 +1617,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "women_state_leg_pct_share",
           trendsCardTitleName:
             "Inequitable share of women in state legislatures over time",
-          chartTitle: "Percent share of women state legislators with unknown", // UNKNOWNS MAP TITLE, DISPARITY BAR TITLE
+          chartTitle: "Percent share of women state legislators", // UNKNOWNS MAP TITLE, DISPARITY BAR TITLE
           columnTitleHeader: "Percent share of women state legislators",
           shortLabel: "% of women legislators", // DISPARITY BAR LEGEND
           type: "pct_share",
@@ -1683,7 +1680,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "prison_pct_share",
           trendsCardTitleName:
             "Inequitable share of prison incarceration over time",
-          chartTitle: "Percent share of total prison population with unknown",
+          chartTitle: "Percent share of total prison population",
           columnTitleHeader: "Percent share of total prison population",
           shortLabel: "% of prison pop.",
           type: "pct_share",
@@ -1692,7 +1689,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "Population vs distribution of total individuals in prison",
             mobileChartTitle: [
               "Population vs distribution of",
-              "total total individuals in prison",
+              "total individuals in prison",
             ],
             metricId: "population_pct",
             columnTitleHeader: "Total population share",
@@ -1741,7 +1738,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "jail_pct_share",
           trendsCardTitleName:
             "Inequitable share of jail incarceration over time",
-          chartTitle: "Percent share of total jail population with unknown",
+          chartTitle: "Percent share of total jail population",
           columnTitleHeader: "Percent share of total jail population",
           shortLabel: "% of total jail population",
           type: "pct_share",

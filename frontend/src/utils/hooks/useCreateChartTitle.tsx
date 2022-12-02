@@ -22,13 +22,15 @@ export function useCreateChartTitle(
 ) {
   const isComparing = window.location.href.includes("compare");
 
-  const chartTitle = `${
-    metricConfig.chartTitle ? `${metricConfig.chartTitle} in` : ""
-  } ${breakdown ? `${breakdown} in` : ""}`;
+  const metricTitle = metricConfig.metricId.includes("share")
+    ? `${metricConfig.chartTitle} with unknown`
+    : metricConfig.chartTitle;
 
-  const mobileChartTitle = metricConfig.mobileChartTitle || [
-    metricConfig.chartTitle || "",
-  ];
+  const chartTitle = `${metricTitle ? `${metricTitle} in` : ""} ${
+    breakdown ? `${breakdown} in` : ""
+  }`;
+
+  const mobileChartTitle = metricConfig.mobileChartTitle || [metricTitle || ""];
 
   const titleTextArray = [chartTitle, location];
 
