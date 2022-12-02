@@ -279,7 +279,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_link: "https://github.com/unitedstates/congress-legislators",
     geographic_level: "National, State",
     demographic_granularity: "N/A",
-    update_frequency: "At Least Monthly",
+    update_frequency: "At least monthly",
     description:
       "Total members of the United States Congress (Senate and House of Representatives including Delegates) both nationally and by state/territory. This dataset is viewable and downloadable in the CAWP datasets.",
     dataset_ids: ["the_unitedstates_project"],
