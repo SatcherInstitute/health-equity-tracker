@@ -18,7 +18,11 @@ export default function CAWPOverlappingRacesAlert(
         "White" and "Latina") are represented in each corresponding category.
       </p>
       <p>
-        There is currently no population data collected by the U.S. Census for{" "}
+        Unfortunately CAWP and ACS use different race groupings, so we are
+        unable to provide population comparison data for{" "}
+        <b>Native American, Alaska Native, & Native Hawaiian</b> and{" "}
+        <b>Asian American & Pacific Islander</b> groupings. Additionally, there
+        is no population data collected by the U.S. Census for{" "}
         <b>Middle Eastern & North African</b>, although this data equity issue
         has seen{" "}
         <a href={urlMap.senateMENA} rel="noreferrer" target="_blank">
