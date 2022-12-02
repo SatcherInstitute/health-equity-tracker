@@ -132,45 +132,15 @@ class CAWPTimeData(DataSource):
         us_congress_totals_df = get_us_congress_totals_df()
         us_congress_women_df = get_us_congress_women_df()
 
-        # STATE ROWS FOR THE "ALL" RACE_ETH
-        df_alls_rows = scaffold_df_by_year_by_state_by_race_list([
-            Race.ALL.value])
-        df_alls_total_cols = merge_us_congress_total_names_count_cols(
-            df_alls_rows.copy(), us_congress_totals_df)
-        df_alls_women_any_race_cols = merge_us_congress_women_cols(
-            df_alls_rows.copy(), us_congress_women_df, False)
-        df_alls_women_this_race_cols = df_alls_women_any_race_cols.copy().rename(columns={
-            std_col.W_ALL_RACES_CONGRESS_NAMES: std_col.W_THIS_RACE_CONGRESS_NAMES,
-            std_col.W_ALL_RACES_CONGRESS_COUNT: std_col.W_THIS_RACE_CONGRESS_COUNT,
-        })
+        # create ROWS for the "All" race
+        df_alls_rows = build_base_rows_df(
+            us_congress_totals_df, us_congress_women_df, [Race.ALL.value])
 
-        # STATE ROWS FOR EACH CAWP RACE_ETH
-        df_by_races_rows = scaffold_df_by_year_by_state_by_race_list(list(
+        # create ROWS for each CAWP race group
+        df_by_races_rows = build_base_rows_df(us_congress_totals_df, us_congress_women_df, list(
             CAWP_RACE_GROUPS_TO_STANDARD.keys()))
-        df_by_races_total_cols = merge_us_congress_total_names_count_cols(
-            df_by_races_rows.copy(), us_congress_totals_df)
-        df_by_races_women_any_race_cols = merge_us_congress_women_cols(
-            df_by_races_rows.copy(), us_congress_women_df, False)
-        df_by_races_women_this_race_cols = merge_us_congress_women_cols(
-            df_by_races_rows.copy(), us_congress_women_df, True)
 
-        # combine COLUMNS for ALLS ROWS
-        df_alls_rows = pd.merge(
-            df_alls_rows, df_alls_total_cols, on=MERGE_COLS)
-        df_alls_rows = pd.merge(
-            df_alls_rows, df_alls_women_any_race_cols, on=MERGE_COLS)
-        df_alls_rows = pd.merge(
-            df_alls_rows, df_alls_women_this_race_cols, on=MERGE_COLS)
-
-        # combine COLUMNS for BY RACES ROWS
-        df_by_races_rows = pd.merge(
-            df_by_races_rows, df_by_races_total_cols, on=MERGE_COLS)
-        df_by_races_rows = pd.merge(
-            df_by_races_rows, df_by_races_women_any_race_cols, on=MERGE_COLS)
-        df_by_races_rows = pd.merge(
-            df_by_races_rows, df_by_races_women_this_race_cols, on=MERGE_COLS)
-
-        # create combo race group
+        # append combo race group ROWS
         df_by_races_rows = add_aian_api_rows(df_by_races_rows)
 
         # combine ROWS together from ALLS ROWS and BY RACES rows
@@ -401,15 +371,9 @@ def get_us_congress_women_df():
         'cawp_time', CAWP_LINE_ITEMS_FILE)
 
     # keep only needed cols
-    df = df[[
-        ID,
-        YEAR,
-        LEVEL,
-        STATE,
-        FIRST_NAME,
-        LAST_NAME,
-        POSITION,
-        RACE_ETH]]
+    df = df[[ID, YEAR, LEVEL, STATE,
+             FIRST_NAME, LAST_NAME,
+             POSITION, RACE_ETH]]
 
     # standardize CAWP state names as postal
     df[std_col.STATE_POSTAL_COL] = df[STATE].apply(
@@ -446,14 +410,14 @@ def get_us_congress_women_df():
     return df
 
 
-def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_race_breakdown: bool):
+def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_races: bool = False):
     """ Merges previously made CAWP df info into the incoming scaffold df
     Parameters:
         scaffold_df: df containing a row for every combo of
             "time_period" X "state_postal" X "race_ethnicity
         congress_df: df containing a row for every woman in US Congress ever
-        preserve_race_breakdown: if True will calculate the counts and names
-            per race and merge "_this_race" cols, if False  will perform the
+        preserve_races (optional boolean): if True will calculate the counts and names
+            per race and merge "_this_race" cols, if False will perform the
             calculations for the Race.ALL.value race group and merge the "_all_races" cols
 
     Returns:
@@ -473,7 +437,7 @@ def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_rac
     needed_cols = groupby_cols[:]
     needed_cols.append(NAME)
 
-    if preserve_race_breakdown is True:
+    if preserve_races is True:
         needed_cols.append(RACE_ETH)
         groupby_cols.append(RACE_ETH)
         count_col = std_col.W_THIS_RACE_CONGRESS_COUNT
@@ -644,5 +608,47 @@ def add_aian_api_rows(df):
 
     # add onto the original race group ROWS
     df = pd.concat([df, df_aian_api_rows], axis="rows").reset_index(drop=True)
+
+    return df
+
+
+def build_base_rows_df(us_congress_totals_df, us_congress_women_df, race_list: List[str]):
+    """ Builds out a scaffold of rows with YEAR/STATE/RACE combos,
+    then merges columns for TOTAL CONGRESS, WOMEN IN CONGRESS,
+    and WOMEN THIS RACE IN CONGRESS
+
+    Parameters:
+        us_congress_totals_df: previously loaded and processed df with congress info from unitedstates project
+        us_congress_women_df: previously loaded and processed df with women in congress info from CAWP
+        race_list: a list of strings representing which races should be included in this base chunk
+
+    Returns: a df with rows per year/state/race from race list, with columns incl.
+        US CONGRESS counts for TOTAL, WOMEN ALL RACE, and WOMEN THIS RACE
+    """
+
+    # create chunks with needed COLUMNS
+    df = scaffold_df_by_year_by_state_by_race_list(race_list)
+    df_total_cols = merge_us_congress_total_names_count_cols(
+        df.copy(), us_congress_totals_df)
+    df_w_any_race_cols = merge_us_congress_women_cols(
+        df.copy(), us_congress_women_df)
+
+    # for the ALL rows, the ALL_W cols will be the same as the W_THIS_RACE cols
+    # so don't need to waste time recalculating them
+    if race_list == [Race.ALL.value]:
+        df_w_this_race_cols = df_w_any_race_cols.copy().rename(columns={
+            std_col.W_ALL_RACES_CONGRESS_NAMES: std_col.W_THIS_RACE_CONGRESS_NAMES,
+            std_col.W_ALL_RACES_CONGRESS_COUNT: std_col.W_THIS_RACE_CONGRESS_COUNT})
+    else:
+        df_w_this_race_cols = merge_us_congress_women_cols(
+            df.copy(), us_congress_women_df, preserve_races=True)
+
+    # combine COLUMN chunks
+    df = pd.merge(
+        df, df_total_cols, on=MERGE_COLS)
+    df = pd.merge(
+        df, df_w_any_race_cols, on=MERGE_COLS)
+    df = pd.merge(
+        df, df_w_this_race_cols, on=MERGE_COLS)
 
     return df
