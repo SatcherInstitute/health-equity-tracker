@@ -1,5 +1,6 @@
 state_fips,state_name,population,population_pct,race_category_id,race,race_includes_hispanic,race_and_ethnicity
 00,United States,32403,0.4,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+00,United States,107417,1.3,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",True,"American Indian, Alaska Native, Asian & Pacific Islander"
 00,United States,22858,0.3,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (NH)
 00,United States,8194697,100.0,ALL,All,,All
 00,United States,69385,0.8,API_NH,"Asian, Native Hawaiian, and Pacific Islander",False,"Asian, Native Hawaiian, and Pacific Islander (NH)"
