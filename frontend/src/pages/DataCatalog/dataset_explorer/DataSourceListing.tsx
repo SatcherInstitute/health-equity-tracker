@@ -115,6 +115,15 @@ export function DataSourceListing(props: DataSourceListingProps) {
       </Typography>
       <table className={styles.MetadataTable}>
         <tbody>
+          {props.source_metadata.time_period_range && (
+            <tr>
+              <td>
+                <b>Time Series Range</b>
+              </td>
+              <td>{props.source_metadata.time_period_range}</td>
+            </tr>
+          )}
+
           <tr>
             <td>
               <b>Geographic Level</b>
