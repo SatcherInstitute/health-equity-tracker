@@ -33,7 +33,6 @@ abstract class VariableProvider {
     }
 
     // TODO - check that the metrics are all provided by this provider once we don't have providers relying on other providers
-
     let resp = await this.getDataInternal(metricQuery);
     new DatasetOrganizer(resp.data, metricQuery.breakdowns).organize();
     return resp;
