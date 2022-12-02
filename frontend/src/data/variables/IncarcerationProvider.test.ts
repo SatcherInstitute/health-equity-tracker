@@ -10,12 +10,13 @@ import {
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import { RACE, AGE, SEX } from "../utils/Constants";
-import { MetricId } from "../config/MetricConfig";
+import { MetricId, VariableId } from "../config/MetricConfig";
 
 export async function ensureCorrectDatasetsDownloaded(
   IncarcerationDatasetId: string,
   baseBreakdown: Breakdowns,
   breakdownVar: BreakdownVar,
+  variableId: VariableId,
   acsDatasetIds?: string[],
   metricIds?: MetricId[]
 ) {
@@ -29,7 +30,11 @@ export async function ensureCorrectDatasetsDownloaded(
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await incarcerationProvider.getData(
-    new MetricQuery(metricIds, baseBreakdown.addBreakdown(breakdownVar))
+    new MetricQuery(
+      metricIds,
+      baseBreakdown.addBreakdown(breakdownVar),
+      variableId
+    )
   );
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
@@ -57,6 +62,7 @@ describe("IncarcerationProvider", () => {
       "vera_incarceration_county-prison_race_and_ethnicity_county-06",
       Breakdowns.forFips(new Fips("06037")),
       RACE,
+      "prison",
       [],
       ["prison_per_100k"]
     );
@@ -67,6 +73,7 @@ describe("IncarcerationProvider", () => {
       "bjs_incarceration_data-race_and_ethnicity_state",
       Breakdowns.forFips(new Fips("37")),
       RACE,
+      "incarceration",
       ["acs_population-by_race_state_std"]
     );
   });
@@ -76,6 +83,7 @@ describe("IncarcerationProvider", () => {
       "bjs_incarceration_data-race_and_ethnicity_national",
       Breakdowns.forFips(new Fips("00")),
       RACE,
+      "incarceration",
       [
         "acs_population-by_race_national",
         "acs_2010_population-by_race_and_ethnicity_territory",
@@ -88,6 +96,7 @@ describe("IncarcerationProvider", () => {
       "vera_incarceration_county-jail_age_county-06",
       Breakdowns.forFips(new Fips("06037")),
       AGE,
+      "jail",
       [],
       ["jail_per_100k"]
     );
@@ -98,6 +107,7 @@ describe("IncarcerationProvider", () => {
       "bjs_incarceration_data-age_state",
       Breakdowns.forFips(new Fips("37")),
       AGE,
+      "incarceration",
       ["acs_population-by_age_state"]
     );
   });
@@ -107,6 +117,7 @@ describe("IncarcerationProvider", () => {
       "bjs_incarceration_data-age_national",
       Breakdowns.forFips(new Fips("00")),
       AGE,
+      "incarceration",
       [
         "acs_population-by_age_national",
         "acs_2010_population-by_race_and_ethnicity_territory",
@@ -119,6 +130,7 @@ describe("IncarcerationProvider", () => {
       "vera_incarceration_county-jail_sex_county-06",
       Breakdowns.forFips(new Fips("06037")),
       SEX,
+      "jail",
       [],
       ["jail_per_100k"]
     );
@@ -129,6 +141,7 @@ describe("IncarcerationProvider", () => {
       "bjs_incarceration_data-sex_state",
       Breakdowns.forFips(new Fips("37")),
       SEX,
+      "incarceration",
       ["acs_population-by_sex_state"]
     );
   });
@@ -138,6 +151,7 @@ describe("IncarcerationProvider", () => {
       "bjs_incarceration_data-sex_national",
       Breakdowns.forFips(new Fips("00")),
       SEX,
+      "incarceration",
       [
         "acs_population-by_sex_national",
         "acs_2010_population-by_race_and_ethnicity_territory",
