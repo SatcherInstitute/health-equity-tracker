@@ -20,9 +20,9 @@ export default function CAWPOverlappingRacesAlert(
       <p>
         Unfortunately CAWP and ACS use different race groupings, so we are
         unable to provide population comparison data for{" "}
-        <b>Native American, Alaska Native, & Native Hawaiian</b> and{" "}
-        <b>Asian American & Pacific Islander</b> groupings. Additionally, there
-        is no population data collected by the U.S. Census for{" "}
+        <b>Native American, Alaska Native, & Native Hawaiian</b> or{" "}
+        <b>Asian American & Pacific Islander</b>. Additionally, population data
+        in not collected by the U.S. Census for{" "}
         <b>Middle Eastern & North African</b>, although this data equity issue
         has seen{" "}
         <a href={urlMap.senateMENA} rel="noreferrer" target="_blank">
