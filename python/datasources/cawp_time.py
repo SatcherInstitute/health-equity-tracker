@@ -68,11 +68,15 @@ LEVEL = "level"
 YEAR = "year"
 CONGRESS = "Congress"
 
-MERGE_COLS = [
-    std_col.TIME_PERIOD_COL,
+STATE_COLS = [
     std_col.STATE_FIPS_COL,
     std_col.STATE_POSTAL_COL,
-    std_col.STATE_NAME_COL,
+    std_col.STATE_NAME_COL
+]
+
+MERGE_COLS = [
+    std_col.TIME_PERIOD_COL,
+    *STATE_COLS,
     RACE_ETH
 ]
 
@@ -113,11 +117,6 @@ class CAWPTimeData(DataSource):
             ]
 
             column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
-
-            # to bypass GCP and test on the frontend locally
-            # df.to_json(
-            #     f'frontend/public/tmp/cawp_data-{bq_table_name}.json', orient="records")
-
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, bq_table_name, column_types=column_types)
 
@@ -148,15 +147,10 @@ class CAWPTimeData(DataSource):
         df = df.sort_values(
             by=MERGE_COLS).reset_index(drop=True)
 
-        # TODO: these should either be available to the user somehow; via csv download or something?
         df = df.drop(
             [std_col.CONGRESS_NAMES,
              std_col.W_ALL_RACES_CONGRESS_NAMES,
              std_col.W_THIS_RACE_CONGRESS_NAMES], axis=1)
-
-        # to generate mock base
-        # df.to_csv(
-        #     "python/tests/data/cawp_time/test_expected_base_df.csv", index=False)
 
         return df
 
@@ -179,7 +173,6 @@ class CAWPTimeData(DataSource):
         if geo_level == NATIONAL_LEVEL:
             df = combine_states_to_national(df)
 
-        # TODO confirm new MULTI behavior and that UNKNOWN are being combined
         bq_table_name = f'race_and_ethnicity_{geo_level}_time_series'
         print(f'making {bq_table_name}')
 
@@ -195,23 +188,18 @@ class CAWPTimeData(DataSource):
         std_col.add_race_columns_from_category_id(df)
         df = df.drop(columns=[RACE_ETH])
 
-        # TODO: figure out what we are doing about historic population info
+        # TODO: expand this once we have pop. info prior to 2019
         target_time_periods = get_consecutive_time_periods(
             first_year=ACS_FIRST_YR, last_year=ACS_LAST_YR)
 
         df = merge_utils.merge_current_pop_numbers(
             df, RACE, geo_level, target_time_periods)
 
-        # # To make mock pop. responses
-        # df.to_csv(
-        #     f'python/tests/data/cawp_time/mock_acs_merge_responses/{geo_level}.csv', index=False)
-
         df = generate_pct_rel_inequity_col(df,
                                            std_col.PCT_OF_W_CONGRESS,
                                            std_col.POPULATION_PCT_COL,
                                            std_col.W_CONGRESS_PCT_INEQUITY,
                                            )
-
         df = zero_out_pct_rel_inequity(df,
                                        geo_level,
                                        RACE,
@@ -219,13 +207,9 @@ class CAWPTimeData(DataSource):
                                        std_col.POPULATION_PCT_COL
                                        )
 
-        sort_cols = [
-            std_col.TIME_PERIOD_COL,
-            std_col.STATE_FIPS_COL,
-            std_col.STATE_POSTAL_COL,
-            std_col.STATE_NAME_COL,
-            std_col.RACE_CATEGORY_ID_COL
-        ]
+        sort_cols = [std_col.TIME_PERIOD_COL,
+                     *STATE_COLS,
+                     std_col.RACE_CATEGORY_ID_COL]
 
         df = df.sort_values(
             by=sort_cols).reset_index(drop=True)
@@ -234,10 +218,6 @@ class CAWPTimeData(DataSource):
         # pct_relative_inequity calculations
         df.loc[df[std_col.RACE_CATEGORY_ID_COL]
                == Race.AIAN_API][std_col.PCT_OF_CONGRESS] = None
-
-        # # to generate GOLDEN DATA
-        # df.to_csv(
-        #     f'python/tests/data/cawp_time/golden_data/{bq_table_name}.csv', index=False)
 
         return [df, bq_table_name]
 
@@ -264,7 +244,6 @@ def scaffold_df_by_year_by_state_by_race_list(race_list: List[str]):
 
     # merge in FIPS codes to the scaffold df
     df = merge_utils.merge_state_ids(df, keep_postal=True)
-
     df[RACE_ETH] = [race_list] * len(df)
     df = df.explode(RACE_ETH)
 
@@ -285,20 +264,16 @@ def get_us_congress_totals_df():
     raw_current_congress_json = gcs_to_bq_util.fetch_json_from_web(
         US_CONGRESS_CURRENT_URL)
 
-    raw_legislators_json = [
-        *raw_historical_congress_json,
-        *raw_current_congress_json
-    ]
+    raw_legislators_json = [*raw_historical_congress_json,
+                            *raw_current_congress_json]
 
     us_congress_totals_list_of_dict = []
     years = get_consecutive_time_periods()
 
     # iterate through each legislator
     for legislator in raw_legislators_json:
-
         # and each term they served
         for term in legislator[TERMS]:
-
             term_years = list(
                 range(int(term[START][:4]), int(term[END][:4]) + 1))
 
@@ -354,7 +329,6 @@ def merge_us_congress_total_names_count_cols(scaffold_df, us_congress_df):
         0)
     df[std_col.CONGRESS_NAMES] = df[std_col.CONGRESS_NAMES].fillna(
         "")
-
     return df
 
 
@@ -382,7 +356,6 @@ def get_us_congress_women_df():
     # merge in FIPS codes
     df = merge_utils.merge_state_ids(
         df, keep_postal=True)
-
     df = df.drop(columns=[STATE])
 
     # rename year
@@ -391,8 +364,7 @@ def get_us_congress_women_df():
     df[std_col.TIME_PERIOD_COL] = df[std_col.TIME_PERIOD_COL].astype(str)
 
     # remove non-Congress line items
-    df = df.loc[df[LEVEL]
-                == CONGRESS]
+    df = df.loc[df[LEVEL] == CONGRESS]
 
     # standardize gov. titles between sources
     df[POSITION] = df[POSITION].apply(
@@ -406,7 +378,6 @@ def get_us_congress_women_df():
     )
     df = df.drop(
         columns=[FIRST_NAME, LAST_NAME, POSITION])
-
     return df
 
 
@@ -427,12 +398,7 @@ def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_rac
 
     df = us_congress_women_df.copy()
 
-    groupby_cols = [
-        std_col.STATE_FIPS_COL,
-        std_col.STATE_NAME_COL,
-        std_col.STATE_POSTAL_COL,
-        std_col.TIME_PERIOD_COL,
-    ]
+    groupby_cols = [*STATE_COLS, std_col.TIME_PERIOD_COL]
 
     needed_cols = groupby_cols[:]
     needed_cols.append(NAME)
@@ -470,11 +436,7 @@ def combine_states_to_national(df):
     Output:
         df same dataframe summed to a national level with a row per race/year """
 
-    state_cols = [
-        std_col.STATE_FIPS_COL,
-        std_col.STATE_NAME_COL,
-        std_col.STATE_POSTAL_COL
-    ]
+    state_cols = [*STATE_COLS]
     groupby_cols = [
         std_col.TIME_PERIOD_COL,
         RACE_ETH
@@ -486,16 +448,6 @@ def combine_states_to_national(df):
         std_col.W_THIS_RACE_CONGRESS_COUNT
     ].agg(sum)
     _df = df_counts
-
-    # to keep lists of NAMES
-    # df_names = df.copy().drop(state_cols, axis=1)
-    # df_names = df_names.groupby(groupby_cols, as_index=False)[
-    #     std_col.CONGRESS_NAMES,
-    #     std_col.W_ALL_RACES_CONGRESS_NAMES,
-    #     std_col.W_THIS_RACE_CONGRESS_NAMES
-    # ].agg(lambda nested_list: [x for list in nested_list for x in list])
-
-    # df = pd.merge(df_names, df_counts, on=groupby_cols)
 
     _df[std_col.STATE_FIPS_COL] = US_FIPS
     _df[std_col.STATE_NAME_COL] = US_NAME
@@ -555,39 +507,28 @@ def add_aian_api_rows(df):
         df_aian_api_rows[RACE_ETH].isin(
             AIAN_API_RACES)]
     df_aian_api_rows = df_aian_api_rows[[std_col.TIME_PERIOD_COL,
-                                         std_col.STATE_FIPS_COL,
-                                         std_col.STATE_NAME_COL,
-                                         std_col.STATE_POSTAL_COL,
+                                         *STATE_COLS,
                                          std_col.W_THIS_RACE_CONGRESS_NAMES]]
 
     df_aian_api_rows = df_aian_api_rows.groupby([std_col.TIME_PERIOD_COL,
-                                                 std_col.STATE_FIPS_COL,
-                                                 std_col.STATE_NAME_COL,
-                                                 std_col.STATE_POSTAL_COL
-                                                 ], as_index=False)[
+                                                 *STATE_COLS], as_index=False)[
         std_col.W_THIS_RACE_CONGRESS_NAMES
     ].agg(lambda nested_list: [x for list in nested_list for x in list])
 
     # remove any duplicates if a women was in both of the combined race groups
     df_aian_api_rows[std_col.W_THIS_RACE_CONGRESS_NAMES] = df_aian_api_rows[std_col.W_THIS_RACE_CONGRESS_NAMES].apply(
         set).apply(list)
-
     df_aian_api_rows[std_col.W_THIS_RACE_CONGRESS_COUNT] = df_aian_api_rows[std_col.W_THIS_RACE_CONGRESS_NAMES].apply(
         lambda list: len(list)).astype(float)
-
     df_aian_api_rows[RACE_ETH] = "AIAN_API"
-
     df_aian_api_rows = df_aian_api_rows.reset_index(drop=True)
 
     # re-merge with this to preserve the non-summed rows like "total_congress_count", etc
     df_only_api_rows = df.loc[
         df[RACE_ETH] == 'Asian American/Pacific Islander']
-
     df_denom_cols = df_only_api_rows[[
         std_col.TIME_PERIOD_COL,
-        std_col.STATE_FIPS_COL,
-        std_col.STATE_POSTAL_COL,
-        std_col.STATE_NAME_COL,
+        *STATE_COLS,
         std_col.CONGRESS_COUNT,
         std_col.CONGRESS_NAMES,
         std_col.W_ALL_RACES_CONGRESS_COUNT,
@@ -597,9 +538,7 @@ def add_aian_api_rows(df):
     # add back on the COLUMNS that didn't need to sum
     df_aian_api_rows = pd.merge(df_aian_api_rows, df_denom_cols, on=[
         std_col.TIME_PERIOD_COL,
-        std_col.STATE_FIPS_COL,
-        std_col.STATE_POSTAL_COL,
-        std_col.STATE_NAME_COL
+        *STATE_COLS
     ]).reset_index(drop=True)
 
     # add onto the original race group ROWS

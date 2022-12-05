@@ -13,8 +13,6 @@ from datasources.cawp_time import (
     get_consecutive_time_periods
 )
 
-print("\n\n...\n\n")
-
 # UNIT TESTS
 
 
@@ -101,33 +99,6 @@ def _generate_breakdown(*args):
         "fake_col2": ["a", "b", "c"]
     }), "mock_table_name"]
 
-
-"""
-DELETE THIS BEFORE MERGING TO MAIN; USEFUL ONLY TO GENERATE (mostly) UN-MOCKED TEST DATA
-"""
-
-
-# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-#              side_effect=_get_test_line_items_csv_as_df)
-# @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#              return_value=None)
-# def testRun(
-#     mock_bq: mock.MagicMock,
-#     mock_cawp_csv: mock.MagicMock
-# ):
-#     """ Ensures the correct structure and arguments were
-#     generated to be written to BigQuery """
-#     print("testRun()")
-
-#     kwargs_for_bq = {'filename': 'test_file.csv',
-#                      'metadata_table_id': 'test_metadata',
-#                      'table_name': 'output_table'}
-#     cawp_data = CAWPTimeData()
-#     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
-"""
-^^^^^
-DELETE THIS BEFORE MERGING TO MAIN; USEFUL ONLY TO GENERATE (mostly) UN-MOCKED TEST DATA
-"""
 
 # TEST OUTGOING SIDE OF BIGQUERY INTERACTION
 
