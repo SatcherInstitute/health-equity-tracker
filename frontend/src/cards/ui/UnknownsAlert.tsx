@@ -13,6 +13,7 @@ import { Fips } from "../../data/utils/Fips";
 import { VisualizationType } from "../../charts/utils";
 import { splitIntoKnownsAndUnknowns } from "../../data/utils/datasetutils";
 import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
+import { AGE } from "../../data/utils/Constants";
 
 export const RACE_OR_ETHNICITY = "race or ethnicity";
 
@@ -47,7 +48,7 @@ function UnknownsAlert(props: UnknownsAlertProps) {
     const validAgeData: Row[] = props.ageQueryResponse.getValidRowsForField(
       props.metricConfig.metricId
     );
-    const [, ageUnknowns] = splitIntoKnownsAndUnknowns(validAgeData, "age");
+    const [, ageUnknowns] = splitIntoKnownsAndUnknowns(validAgeData, AGE);
     additionalAgeUnknowns = ageUnknowns;
   }
 
