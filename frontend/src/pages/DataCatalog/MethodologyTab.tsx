@@ -106,7 +106,7 @@ function MethodologyTab() {
                     Decisions to suppress COVID-19 data for particular states in
                     the tracker are evaluated by comparing the aggregate case,
                     death, and hospitalization counts in the CDC surveillance
-                    dataset vs other sources, such as the New York Times COVID
+                    dataset vs. other sources, such as the New York Times COVID
                     Dataset, which in turn sources their data directly from
                     state and territory health departments. Data for a state are
                     suppressed if the aggregate counts for that state are &lt;
@@ -787,7 +787,7 @@ function MethodologyTab() {
                   that the complete definition of a race/ethnicity can only be
                   understood in the context of a particular dataset and how it
                   classifies race/ethnicity (e.g. the presence of "Other" within
-                  a dataset changes who might be classified as "Asian" vs
+                  a dataset changes who might be classified as "Asian" vs.
                   "Other").
                 </p>
                 <ul>
