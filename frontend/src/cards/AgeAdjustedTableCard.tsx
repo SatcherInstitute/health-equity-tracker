@@ -122,7 +122,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       {([raceQueryResponse, ageQueryResponse]) => {
         const [knownRaceData] = splitIntoKnownsAndUnknowns(
           raceQueryResponse.data,
-          props.breakdownVar
+          "race_and_ethnicity"
         );
 
         const isWrongBreakdownVar = props.breakdownVar === "sex";

@@ -47,12 +47,7 @@ function UnknownsAlert(props: UnknownsAlertProps) {
     const validAgeData: Row[] = props.ageQueryResponse.getValidRowsForField(
       props.metricConfig.metricId
     );
-
-    const [, ageUnknowns] = splitIntoKnownsAndUnknowns(
-      validAgeData,
-      props.breakdownVar
-    );
-
+    const [, ageUnknowns] = splitIntoKnownsAndUnknowns(validAgeData, "age");
     additionalAgeUnknowns = ageUnknowns;
   }
 
