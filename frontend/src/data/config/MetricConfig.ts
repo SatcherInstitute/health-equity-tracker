@@ -377,9 +377,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total COVID-19 cases since Jan 2020",
+              "Population vs. distribution of total COVID-19 cases since Jan 2020",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total COVID-19 cases",
               "since Jan 2020",
             ],
@@ -435,9 +435,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total COVID-19 deaths since Jan 2020",
+              "Population vs. distribution of total COVID-19 deaths since Jan 2020",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total COVID-19 deaths",
               "since Jan 2020",
             ],
@@ -500,9 +500,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total COVID-19 hospitalizations since Jan 2020",
+              "Population vs. distribution of total COVID-19 hospitalizations since Jan 2020",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total COVID-19 hospitalizations",
               "since Jan 2020",
             ],
@@ -594,9 +594,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total COVID-19 vaccinations",
+              "Population vs. distribution of total COVID-19 vaccinations",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total COVID-19 vaccinations",
             ],
             metricId: "vaccine_population_pct",
@@ -638,9 +638,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of suicides",
           type: "pct_share",
           populationComparisonMetric: {
-            chartTitle: "Population vs distribution of total suicide cases",
+            chartTitle: "Population vs. distribution of total suicide cases",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total suicide cases",
             ],
             metricId: "brfss_population_pct",
@@ -691,9 +691,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
-            chartTitle: "Population vs distribution of total depression cases",
+            chartTitle: "Population vs. distribution of total depression cases",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total depression",
             ],
             metricId: "brfss_population_pct",
@@ -746,9 +746,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total excessive drinking cases",
+              "Population vs. distribution of total excessive drinking cases",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total excessive drinking cases",
             ],
             metricId: "brfss_population_pct",
@@ -803,9 +803,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total non-medical drug use",
+              "Population vs. distribution of total non-medical drug use",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total non-medical drug use",
             ],
             metricId: "brfss_population_pct",
@@ -859,9 +859,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total non-medical prescription opioid use",
+              "Population vs. distribution of total non-medical prescription opioid use",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total non-medical prescription opioid use",
             ],
             metricId: "brfss_population_pct",
@@ -918,9 +918,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total illicit opioid use",
+              "Population vs. distribution of total illicit opioid use",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total illicit opioid use",
             ],
             metricId: "brfss_population_pct",
@@ -976,9 +976,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total frequent mental distress cases",
+              "Population vs. distribution of total frequent mental distress cases",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total frequent mental distress",
             ],
             metricId: "brfss_population_pct",
@@ -1033,9 +1033,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
-            chartTitle: "Population vs distribution of total diabetes cases",
+            chartTitle: "Population vs. distribution of total diabetes cases",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total diabetes cases",
             ],
             metricId: "brfss_population_pct",
@@ -1086,9 +1086,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
-            chartTitle: "Population vs distribution of total COPD cases",
+            chartTitle: "Population vs. distribution of total COPD cases",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total COPD cases",
             ],
             metricId: "brfss_population_pct",
@@ -1152,9 +1152,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total uninsured individuals",
+              "Population vs. distribution of total uninsured individuals",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total uninsured individuals",
             ],
             metricId: "health_insurance_population_pct",
@@ -1208,9 +1208,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total individuals below the poverty line",
+              "Population vs. distribution of total individuals below the poverty line",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total individuals below the provery line",
             ],
             metricId: "poverty_population_pct",
@@ -1262,9 +1262,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total preventable hospitalizations",
+              "Population vs. distribution of total preventable hospitalizations",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total preventable hospitalizations",
             ],
             metricId: "brfss_population_pct",
@@ -1318,9 +1318,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total care avoidance due to cost",
+              "Population vs. distribution of total care avoidance due to cost",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total care avoidance due to cost",
             ],
             metricId: "brfss_population_pct",
@@ -1372,9 +1372,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
-            chartTitle: "Population vs distribution of total asthma cases",
+            chartTitle: "Population vs. distribution of total asthma cases",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total total asthma cases",
             ],
             metricId: "brfss_population_pct",
@@ -1431,9 +1431,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total cases of cardiovascular diseases",
+              "Population vs. distribution of total cases of cardiovascular diseases",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total cases of cardiovascular diseases",
             ],
             metricId: "brfss_population_pct",
@@ -1487,9 +1487,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total cases of chronic kidney disease",
+              "Population vs. distribution of total cases of chronic kidney disease",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total cases of chronic kidney disease",
             ],
             metricId: "brfss_population_pct",
@@ -1543,9 +1543,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total voter participation",
+              "Population vs. distribution of total voter participation",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total voter participation",
             ],
             metricId: "brfss_population_pct",
@@ -1604,9 +1604,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total women in US Congress",
+              "Population vs. distribution of total women in US Congress",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total women in US congress",
             ],
             metricId: "cawp_population_pct",
@@ -1664,9 +1664,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total women in state legislatures",
+              "Population vs. distribution of total women in state legislatures",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total women in state legislatures",
             ],
             metricId: "cawp_population_pct",
@@ -1727,9 +1727,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total individuals in prison",
+              "Population vs. distribution of total individuals in prison",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total total individuals in prison",
             ],
             metricId: "population_pct",
@@ -1786,9 +1786,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitle:
-              "Population vs distribution of total individuals in jail",
+              "Population vs. distribution of total individuals in jail",
             mobileChartTitle: [
-              "Population vs distribution of",
+              "Population vs. distribution of",
               "total individuals in jail",
             ],
             metricId: "population_pct",
