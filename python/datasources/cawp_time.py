@@ -437,7 +437,7 @@ def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_rac
     needed_cols = groupby_cols[:]
     needed_cols.append(NAME)
 
-    if preserve_races is True:
+    if preserve_races:
         needed_cols.append(RACE_ETH)
         groupby_cols.append(RACE_ETH)
         count_col = std_col.W_THIS_RACE_CONGRESS_COUNT
@@ -520,11 +520,7 @@ def get_postal_from_cawp_phrase(cawp_place_phrase: str):
                          "Northern Mariana Islands - MP"}.get(
                              cawp_place_phrase, cawp_place_phrase)
 
-    # only keep 2 letter code portion
-    place_terms_list = cawp_place_phrase.split(" - ")
-    place_code = place_terms_list[1]
-
-    return place_code
+    return cawp_place_phrase.split(" - ")[1]
 
 
 def get_consecutive_time_periods(first_year: int = DEFAULT_FIRST_YR, last_year: int = DEFAULT_LAST_YR):
@@ -584,8 +580,8 @@ def add_aian_api_rows(df):
     df_aian_api_rows = df_aian_api_rows.reset_index(drop=True)
 
     # re-merge with this to preserve the non-summed rows like "total_congress_count", etc
-    df_only_api_rows = df.loc[df[RACE_ETH].isin(
-        ['Asian American/Pacific Islander'])]
+    df_only_api_rows = df.loc[
+        df[RACE_ETH] == 'Asian American/Pacific Islander']
 
     df_denom_cols = df_only_api_rows[[
         std_col.TIME_PERIOD_COL,
