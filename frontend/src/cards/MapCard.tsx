@@ -318,7 +318,7 @@ function MapCardWithKey(props: MapCardProps) {
               dataForActiveBreakdownFilter.length === 0) && (
               <CardContent>
                 <MissingDataAlert
-                  dataName={metricConfig.chartTitle || ""}
+                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                   }
