@@ -92,13 +92,13 @@ class CAWPTimeData(DataSource):
             'upload_to_gcs should not be called for CAWPTimeData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        _df = self.generate_base_df()
+        base_df = self.generate_base_df()
 
         for geo_level in [
             STATE_LEVEL,
             NATIONAL_LEVEL
         ]:
-            df = _df.copy()
+            df = base_df.copy()
             df, bq_table_name = self.generate_breakdown(df, geo_level)
 
             float_cols = [
