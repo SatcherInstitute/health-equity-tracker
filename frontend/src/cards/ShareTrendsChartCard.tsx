@@ -147,7 +147,10 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
               ]) || nestedInequityData.length === 0 ? (
                 <>
                   <MissingDataAlert
-                    dataName={metricConfigInequitable.chartTitle || ""}
+                    dataName={
+                      metricConfigInequitable.chartTitle ||
+                      metricConfigInequitable.shortLabel
+                    }
                     breakdownString={
                       BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                     }
