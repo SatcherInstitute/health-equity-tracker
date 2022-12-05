@@ -100,12 +100,17 @@ VACCINATED_PER_100K = "vaccinated_per_100k"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
 # CAWP Women in Legislature columns
-# (_PCT:  % state legislature who are black women)
-# (_PCT_SHARE: % of women legislators who are black)
 WOMEN_STATE_LEG_PCT = "women_state_leg_pct"
 WOMEN_STATE_LEG_PCT_SHARE = "women_state_leg_pct_share"
-WOMEN_US_CONGRESS_PCT = "women_us_congress_pct"
-WOMEN_US_CONGRESS_PCT_SHARE = "women_us_congress_pct_share"
+PCT_OF_W_CONGRESS = "pct_share_of_women_us_congress"
+PCT_OF_CONGRESS = "pct_share_of_us_congress"
+W_CONGRESS_PCT_INEQUITY = "women_us_congress_pct_relative_inequity"
+W_THIS_RACE_CONGRESS_COUNT = "women_this_race_us_congress_count"
+W_THIS_RACE_CONGRESS_NAMES = "women_this_race_us_congress_names"
+W_ALL_RACES_CONGRESS_COUNT = "women_all_races_us_congress_count"
+W_ALL_RACES_CONGRESS_NAMES = "women_all_races_us_congress_names"
+CONGRESS_COUNT = "total_us_congress_count"
+CONGRESS_NAMES = "total_us_congress_names"
 
 # Incarceration columns
 PRISON_PREFIX = "prison"
