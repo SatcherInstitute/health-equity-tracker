@@ -21,18 +21,26 @@ export function useCreateChartTitle(
   breakdown?: string
 ) {
   const isComparing = window.location.href.includes("compare");
+  const unknownMap = metricConfig.metricId.includes("share");
 
-  const metricTitle = metricConfig.metricId.includes("share")
-    ? `${metricConfig.chartTitle} with unknown`
-    : metricConfig.chartTitle;
+  const chartTitle = metricConfig.chartTitle || "";
+  const unknownchartTitle = `${chartTitle} with unknown ${breakdown}`;
+  let { mobileChartTitle } = metricConfig;
+  let titleTextArray = [chartTitle, `in ${location}`];
 
-  const chartTitle = `${metricTitle ? `${metricTitle} in` : ""} ${
-    breakdown ? `${breakdown} in` : ""
-  }`;
+  const altMobileChartTitle = [
+    chartTitle,
+    `with unknown ${breakdown || ""}`,
+    `in ${location}`,
+  ];
 
-  const mobileChartTitle = metricConfig.mobileChartTitle || [metricTitle || ""];
+  if (unknownMap && breakdown) {
+    titleTextArray = [unknownchartTitle, `in ${location}`];
+  }
 
-  const titleTextArray = [chartTitle, location];
+  mobileChartTitle = mobileChartTitle
+    ? [...mobileChartTitle, `in ${location}`]
+    : altMobileChartTitle;
 
   const isExtraSmall = useMediaQuery(theme.breakpoints.down("xs"));
   const isSmall = useMediaQuery(theme.breakpoints.only("sm"));
@@ -40,7 +48,7 @@ export function useCreateChartTitle(
   const isLarge = useMediaQuery(theme.breakpoints.only("lg"));
 
   if (isExtraSmall || (isComparing && isNotLarge)) {
-    return [...mobileChartTitle, breakdown || "", `in ${location}`];
+    return mobileChartTitle;
   }
   if (isSmall || (isComparing && isLarge)) {
     return titleTextArray;
