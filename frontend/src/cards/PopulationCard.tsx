@@ -78,7 +78,7 @@ export function PopulationCard(props: PopulationCardProps) {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Grid item xs={10}>
+              <Grid item xs={12} md={9}>
                 <Grid container justifyContent="flex-start" alignItems="center">
                   <Grid item>
                     <div className={styles.PopulationCardTitle}>
@@ -102,7 +102,7 @@ export function PopulationCard(props: PopulationCardProps) {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={12} md={3} className={styles.ViewPopulationLink}>
                 <a href="#population-vs-distribution">
                   View population by{" "}
                   {
