@@ -24,7 +24,6 @@
 
 .ViewPopulationLink {
   text-align: start;
-  // text-align: center;
 
   @media only screen and (min-width: $md) {
     text-align: center;
@@ -77,29 +76,6 @@
   }
 }
 
-.PopulationChartTitle {
-  @include inter700();
-  text-align: left;
-  font-size: $small;
-  letter-spacing: 0.00938em;
-}
-
-.PopulationAlert {
-  margin: 10px;
-}
-
-.PopulationMetric {
-  padding: 10px;
-  font-size: $small;
-  // Smallest width at which current standardized strings all fit on 3 lines
-  width: 131px;
-}
-
-.PopulationMetricValue {
-  color: $alt-green;
-  font-size: $title;
-}
-
 .CardFooter {
   text-align: left;
   padding-bottom: 10px !important;
@@ -136,17 +112,6 @@
     width: 50px;
     padding: 15px 0 0 30px;
   }
-}
-
-.ProfileButtonContainer {
-  @media only screen and (min-width: $sm) {
-    display: inline;
-  }
-}
-
-.ProfileButton {
-  padding-left: 0px;
-  padding-right: 0px;
 }
 
 .SviContainer {
