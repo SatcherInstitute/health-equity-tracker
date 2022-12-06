@@ -150,6 +150,9 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           metricConfigPctShares.metricId
         );
 
+        const hasUnknowns =
+          nestedUnknowns && nestedUnknowns.some(([, percent]) => percent > 0);
+
         return (
           <>
             <CardContent>
@@ -199,16 +202,19 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     isCompareCard={props.isCompareCard || false}
                     expanded={unknownsExpanded}
                     setExpanded={setUnknownsExpanded}
+                    hasUnknowns={hasUnknowns}
                   />
 
-                  <CardContent>
-                    <UnknownBubblesAlert
-                      breakdownVar={props.breakdownVar}
-                      variableDisplayName={props.variableConfig.variableDisplayName.toLowerCase()}
-                      expanded={unknownsExpanded}
-                      setExpanded={setUnknownsExpanded}
-                    />
-                  </CardContent>
+                  {hasUnknowns && (
+                    <CardContent>
+                      <UnknownBubblesAlert
+                        breakdownVar={props.breakdownVar}
+                        variableDisplayName={props.variableConfig.variableDisplayName.toLowerCase()}
+                        expanded={unknownsExpanded}
+                        setExpanded={setUnknownsExpanded}
+                      />
+                    </CardContent>
+                  )}
 
                   <AltTableView
                     expanded={a11yTableExpanded}

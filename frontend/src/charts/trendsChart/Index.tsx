@@ -59,6 +59,7 @@ export interface TrendsChartProps {
   isCompareCard: boolean;
   expanded: boolean;
   setExpanded: (expanded: boolean) => void;
+  hasUnknowns: boolean;
 }
 
 /* Render component */
@@ -72,6 +73,7 @@ export function TrendsChart({
   isCompareCard,
   expanded,
   setExpanded,
+  hasUnknowns,
 }: TrendsChartProps) {
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
@@ -149,8 +151,8 @@ export function TrendsChart({
 
   // Display unknowns or not - affects margin below line chart
   const showUnknowns = useMemo(
-    () => expanded && unknown && unknown.find(([, percent]) => percent > 0),
-    [unknown, expanded]
+    () => expanded && hasUnknowns,
+    [hasUnknowns, expanded]
   );
 
   // Margin below line chart - create space for unknown circles
