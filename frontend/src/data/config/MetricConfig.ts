@@ -1573,7 +1573,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "pct_share_of_women_us_congress",
-          fullCardTitleName: "Percent share of women US Congress members",
           trendsCardTitleName:
             "Inequitable share of women in U.S. Congress over time",
           chartTitle: "Percent share of women US Congress members",
@@ -1590,12 +1589,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             metricId: "cawp_population_pct",
             columnTitleHeader: "Total population share (all genders)",
             shortLabel: `${populationPctShortLabel} (all genders)`,
-            type: "pct_share",
-          },
-          knownBreakdownComparisonMetric: {
-            metricId: "women_us_congress_pct_share",
-            columnTitleHeader: "Percent share of women US Congress members",
-            shortLabel: "% of women members",
             type: "pct_share",
           },
         },
