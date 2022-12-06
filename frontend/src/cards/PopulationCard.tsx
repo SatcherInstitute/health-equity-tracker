@@ -103,7 +103,7 @@ export function PopulationCard(props: PopulationCardProps) {
                 </Grid>
               </Grid>
 
-              <Grid
+              {/* <Grid
                 item
                 xs={12}
                 md={3}
@@ -119,7 +119,7 @@ export function PopulationCard(props: PopulationCardProps) {
                     ]
                   }
                 </a>
-              </Grid>
+              </Grid> */}
 
               <Grid className={styles.SviContainer}>
                 <Grid>
