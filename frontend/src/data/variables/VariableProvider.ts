@@ -1,6 +1,6 @@
 import { IDataFrame } from "data-forge";
 import { Fips } from "../../data/utils/Fips";
-import { MetricId } from "../config/MetricConfig";
+import { MetricId, VariableId } from "../config/MetricConfig";
 import { ProviderId } from "../loading/VariableProviderMap";
 import { Breakdowns, TimeView } from "../query/Breakdowns";
 import {
@@ -33,7 +33,6 @@ abstract class VariableProvider {
     }
 
     // TODO - check that the metrics are all provided by this provider once we don't have providers relying on other providers
-
     let resp = await this.getDataInternal(metricQuery);
     new DatasetOrganizer(resp.data, metricQuery.breakdowns).organize();
     return resp;
@@ -148,7 +147,12 @@ abstract class VariableProvider {
 
   abstract allowsBreakdowns(breakdowns: Breakdowns): boolean;
 
-  abstract getDatasetId(breakdown: Breakdowns, dataType?: string): string;
+  abstract getDatasetId(
+    breakdown: Breakdowns,
+    dataType?: string,
+    timeView?: TimeView,
+    variableId?: VariableId
+  ): string;
 }
 
 export default VariableProvider;

@@ -47,7 +47,7 @@ const COLOR_DOMAIN = [
 const COLOR_RANGE = [
   // "All"
   black,
-  // race and ethnicity
+  // race and ethnicity NH
   timeCyanBlue,
   timePastelGreen,
   darkBlue,

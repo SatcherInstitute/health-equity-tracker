@@ -20,6 +20,7 @@ function filterUnknownsByTimePeriod(data: UnknownData, dates: string[]) {
 /* Returns the amount (y value) for a specific date (x value) & group */
 function getAmountsByDate(d: TimeSeries, selectedDate: string | null) {
   const [, amount] = d.find(([date]) => date === selectedDate) || [0, 0];
+
   return amount;
 }
 

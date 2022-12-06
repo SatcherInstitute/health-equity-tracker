@@ -59,12 +59,14 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const ratesQuery = new MetricQuery(
     metricConfigRates.metricId,
     breakdowns,
-    TIME_SERIES
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ TIME_SERIES
   );
   const pctShareQuery = new MetricQuery(
     metricConfigPctShares.metricId,
     breakdowns,
-    TIME_SERIES
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ TIME_SERIES
   );
 
   function getTitleText() {

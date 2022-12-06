@@ -24,6 +24,7 @@ import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
+import CAWPOverlappingRacesAlert from "./ui/CAWPOverlappingRacesAlert";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -70,7 +71,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     metricIds.push(metricConfig.secondaryPopulationComparisonMetric.metricId);
   }
 
-  const query = new MetricQuery(metricIds, breakdowns);
+  const query = new MetricQuery(
+    metricIds,
+    breakdowns,
+    /* variableId */ props.variableConfig.variableId
+  );
 
   const chartTitle = useCreateChartTitle(
     metricConfig.populationComparisonMetric as MetricConfig,
@@ -141,44 +146,39 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               </CardContent>
             )}
             {dataAvailable && knownData.length !== 0 && (
-              <>
-                <CardContent>
-                  <DisparityBarChart
-                    chartTitle={chartTitle}
-                    data={knownData}
-                    lightMetric={metricConfig.populationComparisonMetric!}
-                    darkMetric={
-                      metricConfig.knownBreakdownComparisonMetric ||
-                      metricConfig
-                    }
-                    breakdownVar={props.breakdownVar}
-                    metricDisplayName={metricConfig.shortLabel}
-                    filename={filename}
-                    showAltPopCompare={shouldShowAltPopCompare(props)}
-                  />
-                </CardContent>{" "}
-              </>
+              <CardContent>
+                <DisparityBarChart
+                  chartTitle={chartTitle}
+                  data={knownData}
+                  lightMetric={metricConfig.populationComparisonMetric!}
+                  darkMetric={
+                    metricConfig.knownBreakdownComparisonMetric || metricConfig
+                  }
+                  breakdownVar={props.breakdownVar}
+                  metricDisplayName={metricConfig.shortLabel}
+                  filename={filename}
+                  showAltPopCompare={shouldShowAltPopCompare(props)}
+                />
+              </CardContent>
             )}
-            {shouldShowDoesntAddUpMessage && !isCawp && (
-              <Alert severity="info" role="note">
-                Population percentages on this graph add up to over 100% because
-                the racial categories reported for{" "}
-                {metricConfig.fullCardTitleName} in{" "}
-                {props.fips.getSentenceDisplayName()} include Hispanic
-                individuals in each racial category. As a result, Hispanic
-                individuals are counted twice.
-              </Alert>
-            )}
+            <CardContent>
+              {shouldShowDoesntAddUpMessage && !isCawp && (
+                <Alert severity="info" role="note">
+                  Population percentages on this graph add up to over 100%
+                  because the racial categories reported for{" "}
+                  {metricConfig.fullCardTitleName} in{" "}
+                  {props.fips.getSentenceDisplayName()} include Hispanic
+                  individuals in each racial category. As a result, Hispanic
+                  individuals are counted twice.
+                </Alert>
+              )}
+            </CardContent>
             {isCawp && (
-              <Alert severity="info" role="note">
-                Percentages reported for{" "}
-                {props.variableConfig.variableDisplayName} cannot be summed, as
-                these racial categories are not mutually exclusive. Individuals
-                who identify with multiple specific races (e.g. both "White" and
-                "Black") are represented multiple times in the visualization:
-                across each corresponding category, and also as "Two or more
-                races & Unrepresented race".
-              </Alert>
+              <CardContent>
+                <CAWPOverlappingRacesAlert
+                  variableDisplayName={props.variableConfig.variableDisplayName}
+                />
+              </CardContent>
             )}
           </>
         );

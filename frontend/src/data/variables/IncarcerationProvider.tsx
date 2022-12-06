@@ -63,7 +63,10 @@ class IncarcerationProvider extends VariableProvider {
     ]);
   }
 
-  getDatasetId(breakdowns: Breakdowns, dataType: string): string {
+  getDatasetId(
+    breakdowns: Breakdowns,
+    variableId: VariableId | undefined
+  ): string {
     let source = "";
     let dataType_ = "";
     let detail = "";
@@ -78,7 +81,7 @@ class IncarcerationProvider extends VariableProvider {
 
     if (breakdowns.geography === "county") {
       source = "vera";
-      dataType_ = `${dataType}_`;
+      dataType_ = `${variableId}_`;
       detail = "county";
     }
 
@@ -94,17 +97,9 @@ class IncarcerationProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
 
-    let dataType = "";
-    // determine JAIL vs PRISON based on the incoming requested metric ids
+    let variableId: VariableId | undefined = metricQuery?.variableId;
 
-    if (breakdowns.geography === "county") {
-      if (metricQuery.metricIds.some((id) => JAIL_METRICS.includes(id)))
-        dataType = "jail";
-      else if (metricQuery.metricIds.some((id) => PRISON_METRICS.includes(id)))
-        dataType = "prison";
-    }
-
-    const datasetId = this.getDatasetId(breakdowns, dataType);
+    const datasetId = this.getDatasetId(breakdowns, variableId);
     const dataSource = await getDataManager().loadDataset(datasetId);
     let df = dataSource.toDataFrame();
 
