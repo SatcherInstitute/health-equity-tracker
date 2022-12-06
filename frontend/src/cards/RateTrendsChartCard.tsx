@@ -113,10 +113,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             })
           : ratesData;
 
-        // const pctShareData = queryResponsePctShares.getValidRowsForField(
-        //   metricConfigPctShares.metricId
-        // );
-
         // retrieve list of all present demographic groups
         const demographicGroups: DemographicGroup[] =
           queryResponseRates.getFieldValues(
@@ -202,16 +198,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   expanded={unknownsExpanded}
                   setExpanded={setUnknownsExpanded}
                 />
-
-                {/* <CardContent>
-                  {isCawpCongress && (
-                    <CAWPOverlappingRacesAlert
-                      variableDisplayName={
-                        props.variableConfig.variableDisplayName
-                      }
-                    />
-                  )}
-                </CardContent> */}
 
                 <CardContent>
                   <UnknownBubblesAlert
