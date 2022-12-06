@@ -369,12 +369,12 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: "September 2022",
   },
   {
-    id: "cawp_data-race_and_ethnicity_national_time_series",
+    id: "cawp_time_data-race_and_ethnicity_national_time_series",
     name: "National representation of women by race/ethnicity in the US Congress over time",
     update_time: "September 2022",
   },
   {
-    id: "cawp_data-race_and_ethnicity_state_time_series",
+    id: "cawp_time_data-race_and_ethnicity_state_time_series",
     name: "Representation of women by race/ethnicity from each state and territory to the US Congress over time",
     update_time: "September 2022",
   },

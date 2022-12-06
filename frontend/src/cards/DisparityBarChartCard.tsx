@@ -178,11 +178,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               </CardContent>
             )}
             {isCawp && (
-              <CardContent>
-                <CAWPOverlappingRacesAlert
-                  variableConfig={props.variableConfig}
-                />
-              </CardContent>
+              <CAWPOverlappingRacesAlert
+                variableConfig={props.variableConfig}
+              />
             )}
           </>
         );
