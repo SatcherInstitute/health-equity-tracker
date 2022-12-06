@@ -9,7 +9,7 @@ from datasources.cdc_restricted import get_col_types
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
-from ingestion import dataset_utils
+from ingestion.dataset_utils import ratio_round_to_None
 
 from ingestion.constants import (
     NATIONAL_LEVEL,
@@ -226,40 +226,40 @@ def age_adjust_from_expected(df, cumulative):
 
        df: dataframe with an 'expected_deaths' and 'expected_hosps' field"""
 
-    def get_age_adjusted_death_rate(row):
-        ref_pop_expected_deaths = df.loc[
-            (df[std_col.RACE_CATEGORY_ID_COL] == BASE_POPULATION) &
-            (df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
-        ][EXPECTED_DEATHS].values[0]
+    def get_age_adjusted_ratios(row):
+        hosp_ratio = None if not row[base_pop_expected_hosps] else \
+            ratio_round_to_None(row[EXPECTED_HOSPS], row[base_pop_expected_hosps])
 
-        if not ref_pop_expected_deaths:
-            return None
+        death_ratio = None if not row[base_pop_expected_deaths] else \
+            ratio_round_to_None(row[EXPECTED_DEATHS], row[base_pop_expected_deaths])
 
-        return dataset_utils.ratio_round_to_None(row[EXPECTED_DEATHS], ref_pop_expected_deaths)
+        row[std_col.COVID_HOSP_RATIO_AGE_ADJUSTED] = hosp_ratio
+        row[std_col.COVID_DEATH_RATIO_AGE_ADJUSTED] = death_ratio
 
-    def get_age_adjusted_hosp_rate(row):
-        ref_pop_expected_hosp = df.loc[
-            (df[std_col.RACE_CATEGORY_ID_COL] == BASE_POPULATION) &
-            (df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
-        ][EXPECTED_HOSPS].values[0]
+        return row
 
-        if not ref_pop_expected_hosp:
-            return None
-
-        return dataset_utils.ratio_round_to_None(row[EXPECTED_HOSPS], ref_pop_expected_hosp)
+    base_pop_expected_deaths, base_pop_expected_hosps = 'base_pop_expected_deaths', 'base_pop_expected_hosps'
 
     groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.RACE_CATEGORY_ID_COL]
-
     if not cumulative:
         groupby_cols.append(std_col.TIME_PERIOD_COL)
 
-    grouped = df.groupby(groupby_cols)
-    df = grouped.sum().reset_index()
+    # First, sum up expected deaths across age groups
+    df = df.groupby(groupby_cols).sum().reset_index()
 
-    df[std_col.COVID_DEATH_RATIO_AGE_ADJUSTED] = df.apply(
-        get_age_adjusted_death_rate, axis=1)
-    df[std_col.COVID_HOSP_RATIO_AGE_ADJUSTED] = df.apply(
-        get_age_adjusted_hosp_rate, axis=1)
+    base_pop_df = df.loc[df[std_col.RACE_CATEGORY_ID_COL] ==
+                         BASE_POPULATION].reset_index(drop=True)
+
+    merge_cols = [std_col.STATE_FIPS_COL]
+    if not cumulative:
+        merge_cols.append(std_col.TIME_PERIOD_COL)
+
+    base_pop_df = base_pop_df[merge_cols + [EXPECTED_DEATHS, EXPECTED_HOSPS]]
+    base_pop_df = base_pop_df.rename(columns={EXPECTED_HOSPS: base_pop_expected_hosps,
+                                              EXPECTED_DEATHS: base_pop_expected_deaths})
+
+    df = pd.merge(df, base_pop_df, on=merge_cols)
+    df = df.apply(get_age_adjusted_ratios, axis=1)
 
     needed_cols = groupby_cols
     needed_cols.extend([std_col.COVID_DEATH_RATIO_AGE_ADJUSTED,
