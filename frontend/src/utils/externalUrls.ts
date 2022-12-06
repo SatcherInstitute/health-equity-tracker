@@ -40,7 +40,8 @@ export type LinkName =
   | "bjsCensusOfJails"
   | "veraGithub"
   | "prisonPolicy"
-  | "senateMENA";
+  | "senateMENA"
+  | "unitedStatesIo";
 
 export const urlMap: Record<LinkName, string> = {
   veraGithub: "https://github.com/vera-institute/incarceration-trends",
@@ -102,4 +103,5 @@ export const urlMap: Record<LinkName, string> = {
     "https://www.propublica.org/datastore/api/propublica-congress-api",
   senateMENA:
     "https://www.hsgac.senate.gov/media/majority-media/peters-urges-omb-to-include-middle-east-north-africa-category-in-federal-standards-for-gathering-data-on-race-and-ethnicity",
+  unitedStatesIo: "https://theunitedstates.io/",
 };
