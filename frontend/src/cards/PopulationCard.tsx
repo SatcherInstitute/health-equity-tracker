@@ -78,7 +78,7 @@ export function PopulationCard(props: PopulationCardProps) {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Grid item xs={12} md={10} lg={9}>
+              <Grid item xs={12} md={9} xl={10}>
                 <Grid container justifyContent="flex-start" alignItems="center">
                   <Grid item>
                     <div className={styles.PopulationCardTitle}>
@@ -102,7 +102,15 @@ export function PopulationCard(props: PopulationCardProps) {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item className={styles.ViewPopulationLink}>
+
+              <Grid
+                item
+                xs={12}
+                md={3}
+                xl={2}
+                container
+                className={styles.ViewPopulationLink}
+              >
                 <a href="#population-vs-distribution">
                   View population by{" "}
                   {
@@ -112,6 +120,7 @@ export function PopulationCard(props: PopulationCardProps) {
                   }
                 </a>
               </Grid>
+
               <Grid className={styles.SviContainer}>
                 <Grid>
                   {sviQueryResponse && (
