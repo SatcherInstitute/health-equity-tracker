@@ -165,8 +165,6 @@ export type MetricId =
   | "women_state_leg_pct_share"
   | "women_state_leg_ratio_age_adjusted"
   | "women_state_leg_pct_relative_inequity"
-  // | "pct_share_of_us_congress"
-  // | "pct_share_of_women_us_congress"
   | "pct_share_of_us_congress"
   | "pct_share_of_women_us_congress"
   | "women_us_congress_ratio_age_adjusted"
@@ -1614,12 +1612,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             shortLabel: `${populationPctShortLabel} (all genders)`,
             type: "pct_share",
           },
-          // knownBreakdownComparisonMetric: {
-          //   metricId: "cawp_population_pct",
-          //   fullCardTitleName: "Percent share of women US Congress members",
-          //   shortLabel: "% of women members",
-          //   type: "pct_share",
-          // },
         },
         pct_relative_inequity: {
           metricId: "women_us_congress_pct_relative_inequity",
