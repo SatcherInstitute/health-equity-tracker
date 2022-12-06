@@ -53,22 +53,28 @@ def testExpectedDeathsAndHospitalizations():
     covid_data = pd.read_json(COVID_DATA_SIMPLE, dtype={'state_fips': str})
     pop_data = get_census_pop_estimates_as_df()
 
-    df = age_adjust.get_expected_deaths(covid_data, pop_data)
-    df = age_adjust.get_expected_hosps(df, pop_data)
+    df = age_adjust.get_expected_col(covid_data, pop_data, 'expected_deaths', 'death_y')
+    df = age_adjust.get_expected_col(df, pop_data, 'expected_hosps', 'hosp_y')
     expected_df = pd.read_json(EXPECTED_DEATHS_JSON, dtype={'state_fips': str})
 
-    assert_frame_equal(df, expected_df, check_like=True)
+    sortby_cols = list(df.columns)
+    assert_frame_equal(df.sort_values(sortby_cols).reset_index(drop=True),
+                       expected_df.sort_values(sortby_cols).reset_index(drop=True),
+                       check_like=True)
 
 
 def testExpectedDeathsAndHospitalizationsTimeSeries():
     covid_data = pd.read_json(COVID_DATA_SIMPLE_TIME_SERIES, dtype={'state_fips': str})
     pop_data = get_census_pop_estimates_as_df()
 
-    df = age_adjust.get_expected_deaths(covid_data, pop_data)
-    df = age_adjust.get_expected_hosps(df, pop_data)
+    df = age_adjust.get_expected_col(covid_data, pop_data, 'expected_deaths', 'death_y')
+    df = age_adjust.get_expected_col(df, pop_data, 'expected_hosps', 'hosp_y')
     expected_df = pd.read_json(EXPECTED_DEATHS_TIME_SERIES_JSON, dtype={'state_fips': str})
 
-    assert_frame_equal(df, expected_df, check_like=True)
+    sortby_cols = list(df.columns)
+    assert_frame_equal(df.sort_values(sortby_cols).reset_index(drop=True),
+                       expected_df.sort_values(sortby_cols).reset_index(drop=True),
+                       check_like=True)
 
 
 def testAgeAdjust():

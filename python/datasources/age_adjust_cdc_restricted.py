@@ -24,6 +24,9 @@ AGE_ADJUST_RACES = {Race.WHITE_NH.value, Race.BLACK_NH.value,
                     Race.HISP.value, Race.AIAN_NH.value,
                     Race.NHPI_NH.value, Race.ASIAN_NH.value}
 
+EXPECTED_HOSPS = 'expected_hosps'
+EXPECTED_DEATHS = 'expected_deaths'
+
 
 class AgeAdjustCDCRestricted(DataSource):
 
@@ -136,9 +139,8 @@ class AgeAdjustCDCRestricted(DataSource):
                 AGE_ADJUST_RACES)
         ].reset_index(drop=True)
 
-        df = get_expected_hosps_and_deaths(with_race_age_df, pop_df_death
-        df = get_expected_deaths(with_race_age_df, pop_df_death)
-        df = get_expected_hosps(df, pop_df_hosp)
+        df = get_expected_col(with_race_age_df, pop_df_hosp, EXPECTED_HOSPS, std_col.COVID_HOSP_Y)
+        df = get_expected_col(df, pop_df_death, EXPECTED_DEATHS, std_col.COVID_DEATH_Y)
         return age_adjust_from_expected(df, cumulative)
 
 
@@ -157,43 +159,64 @@ def merge_age_adjusted(df, age_adjusted_df):
     return pd.merge(df, age_adjusted_df, how='left', on=merge_cols)
 
 
-def get_expected_hosps_or_deaths(race_and_age_df, population_df, cumulative, ):
+def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_col):
     """Calculates the age adjusted expected deaths of each racial group.
-       I made this function to break up the age adjustment into smaller, more easily testable pieces.
+       I made this function to break up the age adjustment into smaller, more
+       easily testable pieces.
 
        Returns a dataframe meant to be used in memory.
 
        race_and_age_df: a dataframe with covid deaths broken down by race and age
-       population_df: a dataframe with population broken down by race and age"""
+       population_df: a dataframe with population broken down by race and age
+       expected_col: a string column name to place the output of the calculations in
+                     ie: `expected_deaths`
+       raw_number_col: string column name to get the raw number of cases to age
+                       adjust from"""
 
-    def get_expected(row, raw_number_col):
-        if not row['ref_pop_size']:
+    this_pop_size, ref_pop_size = 'this_pop_size', 'ref_pop_size'
+
+    def get_expected(row):
+        """Calculates the expcted value of each race/age split based on the
+           raw condition count, the reference population, and the race/age population
+           split."""
+
+        if not row[ref_pop_size]:
             raise ValueError(
                 f'Population size for {REFERENCE_POPULATION} demographic is 0 or nil')
 
         if not row[raw_number_col]:
             return None
 
-        true_rate = float(row[raw_number_col]) / row['this_pop_size']
-        return round(true_rate * row['ref_pop_size'], 2)
+        true_rate = float(row[raw_number_col]) / row[this_pop_size]
+        return round(true_rate * row[ref_pop_size], 2)
 
     merge_cols = [std_col.RACE_CATEGORY_ID_COL, std_col.AGE_COL, std_col.STATE_FIPS_COL]
-    if not cumulative:
-        merge_cols.append(std_col.TIME_PERIOD_COL)
 
+    population_df = population_df[merge_cols + [std_col.POPULATION_COL]]
+
+    # First, we merge the population data to get the population for each
+    # race/age split, which we put in a column called `this_pop_size`.
     df = pd.merge(race_and_age_df, population_df, on=merge_cols)
-    df = df.rename(columns={std_col.POPULATION_COL: 'this_pop_size'})
+    df = df.rename(columns={std_col.POPULATION_COL: this_pop_size})
 
     ref_pop_df = population_df.loc[population_df[std_col.RACE_CATEGORY_ID_COL] ==
                                    REFERENCE_POPULATION].reset_index(drop=True)
 
+    merge_cols = [std_col.AGE_COL, std_col.STATE_FIPS_COL]
+
+    ref_pop_df = ref_pop_df[merge_cols + [std_col.POPULATION_COL]]
+
+    # Then, we merge the population data to get the reference population
+    # for each age group, which we put in a column called `ref_pop_size`
     df = pd.merge(df, ref_pop_df, on=merge_cols)
-    df = df.rename(columns={std_col.POPULATION_COL: 'ref_pop_size'})
+    df = df.rename(columns={std_col.POPULATION_COL: ref_pop_size})
 
-    df['expected_hosps'] = df.apply(get_expected, axis=1, args=(std_col.COVID_HOSP_Y,))
-    df['expected_deaths'] = df.apply(get_expected, axis=1, args=(std_col.COVID_DEATH_Y,))
+    # Finally, we calculate the expected value of the raw count
+    # using the function `get_expected`
+    df[expected_col] = df.apply(get_expected, axis=1)
 
-    return df
+    df = df.drop(columns=[this_pop_size, ref_pop_size])
+    return df.reset_index(drop=True)
 
 
 def age_adjust_from_expected(df, cumulative):
@@ -207,23 +230,23 @@ def age_adjust_from_expected(df, cumulative):
         ref_pop_expected_deaths = df.loc[
             (df[std_col.RACE_CATEGORY_ID_COL] == BASE_POPULATION) &
             (df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
-        ]['expected_deaths'].values[0]
+        ][EXPECTED_DEATHS].values[0]
 
         if not ref_pop_expected_deaths:
             return None
 
-        return dataset_utils.ratio_round_to_None(row['expected_deaths'], ref_pop_expected_deaths)
+        return dataset_utils.ratio_round_to_None(row[EXPECTED_DEATHS], ref_pop_expected_deaths)
 
     def get_age_adjusted_hosp_rate(row):
         ref_pop_expected_hosp = df.loc[
             (df[std_col.RACE_CATEGORY_ID_COL] == BASE_POPULATION) &
             (df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
-        ]['expected_hosps'].values[0]
+        ][EXPECTED_HOSPS].values[0]
 
         if not ref_pop_expected_hosp:
             return None
 
-        return dataset_utils.ratio_round_to_None(row['expected_hosps'], ref_pop_expected_hosp)
+        return dataset_utils.ratio_round_to_None(row[EXPECTED_HOSPS], ref_pop_expected_hosp)
 
     groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.RACE_CATEGORY_ID_COL]
 
