@@ -397,7 +397,9 @@ function MethodologyTab() {
                   only for U.S. Congress) as outlined below. A member is counted
                   towards any year in which they served even a single day. This
                   results in the "bumpiness" observed as the proportions change
-                  incrementally between election and non-election years.
+                  incrementally between election and non-election years. We only
+                  track back to just before the first woman was elected to the
+                  U.S. Congress in 1917.
                 </p>
                 <ul>
                   <li>
@@ -429,6 +431,15 @@ function MethodologyTab() {
                 </p>
 
                 <ul>
+                  <li>
+                    Women are identify as multiple, specific races are listed
+                    multiple times in each respective race bar. Therefor these
+                    race/ethnicity groupings are non-exclusive, and cannot be
+                    summed. Additionally, a small number of women identify as
+                    the specific race label <b>Multiracial Alone</b>, without
+                    identifying the specific multiple races with which they
+                    identify.
+                  </li>
                   <li>
                     The composite race group{" "}
                     <b>
