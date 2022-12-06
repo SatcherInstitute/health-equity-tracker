@@ -13,6 +13,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_link:
       "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
     geographic_level: "National, State, County",
+    time_period_range: "January 2020 - Current",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Monthly",
     description:

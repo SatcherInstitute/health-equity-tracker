@@ -61,7 +61,11 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     exclude(NON_HISPANIC)
   );
 
-  const query = new MetricQuery(metricIdsToFetch, breakdowns);
+  const query = new MetricQuery(
+    metricIdsToFetch,
+    breakdowns,
+    /* variableId */ props.variableConfig.variableId
+  );
 
   const chartTitle = useCreateChartTitle(metricConfig, locationName);
 
