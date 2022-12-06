@@ -2,6 +2,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "ASIAN_PAC",
         "state_name": "Alaska",
         "state_fips": "02",
@@ -13,6 +15,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "HISP",
         "state_name": "Alaska",
         "state_fips": "02",
@@ -24,6 +28,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "MENA",
         "state_name": "Alaska",
         "state_fips": "02",
@@ -35,6 +41,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "MULTI_OR_OTHER_STANDARD",
         "state_name": "Alaska",
         "state_fips": "02",
@@ -46,6 +54,8 @@
     {
         "women_state_leg_pct": 1.7,
         "women_state_leg_pct_share": 5.6,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "AIANNH",
         "state_name": "Alaska",
         "state_fips": "02",
@@ -57,6 +67,8 @@
     {
         "women_state_leg_pct": 1.7,
         "women_state_leg_pct_share": 5.6,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "BLACK",
         "state_name": "Alaska",
         "state_fips": "02",
@@ -68,6 +80,8 @@
     {
         "women_state_leg_pct": 26.7,
         "women_state_leg_pct_share": 88.9,
+        "women_us_congress_pct": 50.0,
+        "women_us_congress_pct_share": 100.0,
         "race_category_id": "WHITE",
         "state_name": "Alaska",
         "state_fips": "02",
@@ -79,6 +93,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "UNKNOWN",
         "state_name": "Alaska",
         "state_fips": "02",
@@ -90,6 +106,8 @@
     {
         "women_state_leg_pct": 30.0,
         "women_state_leg_pct_share": 100.0,
+        "women_us_congress_pct": 50.0,
+        "women_us_congress_pct_share": 100.0,
         "race_category_id": "ALL",
         "state_name": "Alaska",
         "state_fips": "02",
@@ -101,6 +119,8 @@
     {
         "women_state_leg_pct": 2.6,
         "women_state_leg_pct_share": 50.0,
+        "women_us_congress_pct": 100.0,
+        "women_us_congress_pct_share": 100.0,
         "race_category_id": "ASIAN_PAC",
         "state_name": "American Samoa",
         "state_fips": "60",
@@ -112,6 +132,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "HISP",
         "state_name": "American Samoa",
         "state_fips": "60",
@@ -123,6 +145,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "MENA",
         "state_name": "American Samoa",
         "state_fips": "60",
@@ -134,6 +158,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "MULTI_OR_OTHER_STANDARD",
         "state_name": "American Samoa",
         "state_fips": "60",
@@ -145,6 +171,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "AIANNH",
         "state_name": "American Samoa",
         "state_fips": "60",
@@ -156,6 +184,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "BLACK",
         "state_name": "American Samoa",
         "state_fips": "60",
@@ -167,6 +197,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "WHITE",
         "state_name": "American Samoa",
         "state_fips": "60",
@@ -178,6 +210,8 @@
     {
         "women_state_leg_pct": 2.6,
         "women_state_leg_pct_share": 50.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "UNKNOWN",
         "state_name": "American Samoa",
         "state_fips": "60",
@@ -189,6 +223,8 @@
     {
         "women_state_leg_pct": 5.1,
         "women_state_leg_pct_share": 100.0,
+        "women_us_congress_pct": 100.0,
+        "women_us_congress_pct_share": 100.0,
         "race_category_id": "ALL",
         "state_name": "American Samoa",
         "state_fips": "60",
@@ -200,6 +236,8 @@
     {
         "women_state_leg_pct": 2.0,
         "women_state_leg_pct_share": 7.7,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "ASIAN_PAC",
         "state_name": "Nebraska",
         "state_fips": "31",
@@ -211,6 +249,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "HISP",
         "state_name": "Nebraska",
         "state_fips": "31",
@@ -222,6 +262,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "MENA",
         "state_name": "Nebraska",
         "state_fips": "31",
@@ -233,6 +275,8 @@
     {
         "women_state_leg_pct": 2.0,
         "women_state_leg_pct_share": 7.7,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "MULTI_OR_OTHER_STANDARD",
         "state_name": "Nebraska",
         "state_fips": "31",
@@ -244,6 +288,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "AIANNH",
         "state_name": "Nebraska",
         "state_fips": "31",
@@ -255,6 +301,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "BLACK",
         "state_name": "Nebraska",
         "state_fips": "31",
@@ -266,6 +314,8 @@
     {
         "women_state_leg_pct": 26.5,
         "women_state_leg_pct_share": 100.0,
+        "women_us_congress_pct": 20.0,
+        "women_us_congress_pct_share": 100.0,
         "race_category_id": "WHITE",
         "state_name": "Nebraska",
         "state_fips": "31",
@@ -277,6 +327,8 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
+        "women_us_congress_pct": 0.0,
+        "women_us_congress_pct_share": 0.0,
         "race_category_id": "UNKNOWN",
         "state_name": "Nebraska",
         "state_fips": "31",
@@ -288,6 +340,8 @@
     {
         "women_state_leg_pct": 26.5,
         "women_state_leg_pct_share": 100.0,
+        "women_us_congress_pct": 20.0,
+        "women_us_congress_pct_share": 100.0,
         "race_category_id": "ALL",
         "state_name": "Nebraska",
         "state_fips": "31",
