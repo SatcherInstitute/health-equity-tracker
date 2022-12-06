@@ -54,10 +54,16 @@ function AgeAdjustmentTab() {
                 expand our analysis to provide a more equitable view of the
                 impact to racial and ethnic minorities.
               </p>
-              We use an internal standardization method, meaning the population
-              we standardize to changes for each state. Thus, our age adjusted
-              ratios can only be used to compare racial groups within each
-              state, and <b>not</b> to compare racial groups between states.
+              We use an internal standardization method, with the standard
+              population for each state being that state's total population.
+              Thus, our age adjusted ratios can only be used to compare racial
+              groups within each state, and <b>not</b> to compare racial groups
+              between states. We source the standard population numbers from the
+              the 2019 population numbers from{" "}
+              <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
+                County Population by Characteristics
+              </a>
+              .
               <h4 className={styles.MethodologySubsubheaderText}>
                 Data Sourcing
               </h4>
