@@ -141,7 +141,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             ) : (
               <CardContent>
                 <MissingDataAlert
-                  dataName={metricConfig.fullCardTitleName}
+                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }
@@ -170,7 +170,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 <Alert severity="info" role="note">
                   Population percentages on this graph add up to over 100%
                   because the racial categories reported for{" "}
-                  {metricConfig.fullCardTitleName} in{" "}
+                  {metricConfig.chartTitle} in{" "}
                   {props.fips.getSentenceDisplayName()} include Hispanic
                   individuals in each racial category. As a result, Hispanic
                   individuals are counted twice.

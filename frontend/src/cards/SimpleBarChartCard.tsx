@@ -97,7 +97,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
             ]) ? (
               <>
                 <MissingDataAlert
-                  dataName={metricConfig.fullCardTitleName}
+                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }
