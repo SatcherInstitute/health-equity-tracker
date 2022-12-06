@@ -26,6 +26,7 @@ import {
   WHITE_NH,
   MULTI_OR_OTHER_STANDARD_NH,
   AGE,
+  SEX,
 } from "../data/utils/Constants";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
@@ -122,10 +123,10 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       {([raceQueryResponse, ageQueryResponse]) => {
         const [knownRaceData] = splitIntoKnownsAndUnknowns(
           raceQueryResponse.data,
-          props.breakdownVar
+          RACE
         );
 
-        const isWrongBreakdownVar = props.breakdownVar === "sex";
+        const isWrongBreakdownVar = props.breakdownVar === SEX;
         const noRatios = knownRaceData.every(
           (row) => row[ratioId] === undefined
         );
@@ -188,7 +189,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             {/* values are present or partially null, implying we have at least some age-adjustments */}
             {!raceQueryResponse.dataIsMissing() &&
               !noRatios &&
-              props.breakdownVar !== "sex" && (
+              props.breakdownVar !== SEX && (
                 <div className={styles.TableChart}>
                   <AgeAdjustedTableChart
                     data={knownRaceData}

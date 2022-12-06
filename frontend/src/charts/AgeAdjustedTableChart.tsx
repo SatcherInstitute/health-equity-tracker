@@ -148,7 +148,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
         <figure>
           <figcaption style={titleStyle}>{props.title}</figcaption>
           <TableContainer component={Paper} style={{ maxHeight: "100%" }}>
-            <Table stickyHeader {...getTableProps()}>
+            <Table {...getTableProps()}>
               <TableHead>
                 {headerGroups.map((group, index) => (
                   <TableHeaderRow group={group} key={index} />

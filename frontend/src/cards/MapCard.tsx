@@ -113,7 +113,8 @@ function MapCardWithKey(props: MapCardProps) {
           currentBreakdown === RACE
             ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
             : exclude(UNKNOWN)
-        )
+        ),
+      /* variableId */ props.variableConfig.variableId
     );
 
   const queries = [
@@ -125,7 +126,11 @@ function MapCardWithKey(props: MapCardProps) {
     const sviBreakdowns = Breakdowns.byCounty().andAge(onlyInclude("All"));
     sviBreakdowns.filterFips = props.fips;
 
-    const sviQuery = new MetricQuery("svi", sviBreakdowns);
+    const sviQuery = new MetricQuery(
+      /* MetricId(s) */ "svi",
+      /* Breakdowns */ sviBreakdowns,
+      /* variableId */ "svi"
+    );
     queries.push(sviQuery);
   }
 

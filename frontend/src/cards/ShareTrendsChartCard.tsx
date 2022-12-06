@@ -64,12 +64,14 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const inequityQuery = new MetricQuery(
     metricConfigInequitable.metricId,
     breakdowns,
-    TIME_SERIES
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ TIME_SERIES
   );
   const pctShareQuery = new MetricQuery(
     metricConfigPctShares.metricId,
     breakdowns,
-    TIME_SERIES
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ TIME_SERIES
   );
 
   function getTitleText() {
