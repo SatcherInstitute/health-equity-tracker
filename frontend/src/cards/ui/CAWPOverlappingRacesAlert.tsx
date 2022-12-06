@@ -20,12 +20,13 @@ export default function CAWPOverlappingRacesAlert(
       <p>
         The composite race group{" "}
         <b>American Indian, Alaska Native, Asian & Pacific Islander</b> is our
-        best attempt to visualize these underrepresented groups; unfortunately
-        the CAWP and ACS use different race groupings, so to accurately compare
-        against available population data we must further combine these distinct
-        racial groups. There is currently no population data collected by the
-        U.S. Census for <b>Middle Eastern & North African</b>, although this
-        data equity issue has seen{" "}
+        best attempt to visualize the impact to these under-represented groups;
+        unfortunately CAWP and ACS use different demographic groupings, so to
+        accurately compare against available population data we must further
+        combine these distinct racial identities. There is currently no
+        population data collected by the U.S. Census for{" "}
+        <b>Middle Eastern & North African</b>, although this data equity issue
+        has seen{" "}
         <a href={urlMap.senateMENA} rel="noreferrer" target="_blank">
           some progress
         </a>{" "}

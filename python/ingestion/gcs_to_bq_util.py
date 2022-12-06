@@ -378,7 +378,15 @@ def fetch_zip_as_files(url):
     return files
 
 
-def get_bq_column_types(df, float_cols: List[str] = []):
+def fetch_json_from_web(url):
+    """
+    fetches json from a URL
+    """
+    r = requests.get(url)
+    return json.loads(r.text)
+
+
+def get_bq_column_types(df, float_cols: List[str]):
     """ Generates the column_types dict needed for each data source's add_df_to_bq()
     Parameters:
         df: dataframe to be sent to BQ

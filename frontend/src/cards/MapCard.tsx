@@ -130,7 +130,11 @@ function MapCardWithKey(props: MapCardProps) {
     const sviBreakdowns = Breakdowns.byCounty().andAge(onlyInclude("All"));
     sviBreakdowns.filterFips = props.fips;
 
-    const sviQuery = new MetricQuery("svi", sviBreakdowns, "svi");
+    const sviQuery = new MetricQuery(
+      /* MetricId(s) */ "svi",
+      /* Breakdowns */ sviBreakdowns,
+      /* variableId */ "svi"
+    );
     queries.push(sviQuery);
   }
 

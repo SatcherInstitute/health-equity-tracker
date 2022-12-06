@@ -68,7 +68,7 @@ export function TableCard(props: TableCardProps) {
     )
   );
 
-  let metricConfigs: Record<string, MetricConfig> = {};
+  let metricConfigs: Partial<Record<MetricId, MetricConfig>> = {};
   metrics.forEach((metricConfig) => {
     // We prefer known breakdown metric if available.
     if (metricConfig.knownBreakdownComparisonMetric) {
