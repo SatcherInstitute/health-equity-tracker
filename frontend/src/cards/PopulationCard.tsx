@@ -1,10 +1,6 @@
 import React from "react";
 import CardWrapper from "./CardWrapper";
-import {
-  Breakdowns,
-  BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
-} from "../data/query/Breakdowns";
+import { Breakdowns, BreakdownVar } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { Fips, ACS_2010_FIPS } from "../data/utils/Fips";
 import { CardContent } from "@material-ui/core";
@@ -102,24 +98,6 @@ export function PopulationCard(props: PopulationCardProps) {
                   </Grid>
                 </Grid>
               </Grid>
-
-              {/* <Grid
-                item
-                xs={12}
-                md={3}
-                xl={2}
-                container
-                className={styles.ViewPopulationLink}
-              >
-                <a href="#population-vs-distribution">
-                  View population by{" "}
-                  {
-                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                      props.currentBreakdown
-                    ]
-                  }
-                </a>
-              </Grid> */}
 
               <Grid className={styles.SviContainer}>
                 <Grid>

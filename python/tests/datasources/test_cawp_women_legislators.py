@@ -1,3 +1,4 @@
+import json
 from unittest import mock
 import os
 import pandas as pd
@@ -5,6 +6,7 @@ from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
 from datasources.cawp import (CAWPData,
+                              get_standard_code_from_cawp_phrase,
                               count_matching_rows,
                               remove_markup,
                               pct_never_null,
@@ -25,6 +27,12 @@ def test_pct_never_null():
         pct_never_null(2, 1)
     # TODO uncomment next test once util fn is fixed
     # assert pct_never_null(1, 0) is None
+
+
+def test_get_standard_code_from_cawp_phrase():
+    assert get_standard_code_from_cawp_phrase("American Samoa - AS") == "AS"
+    assert get_standard_code_from_cawp_phrase("American Samoa - AM") == "AS"
+    assert get_standard_code_from_cawp_phrase("Anything At All - XX") == "XX"
 
 
 def test_remove_markup():
@@ -104,6 +112,17 @@ def _get_test_totals_csv_as_df(*args):
                        dtype=test_input_data_types)
 
 
+def _get_test_json_as_df_based_on_key_list(*args):
+
+    [_mock_data_folder, mock_data_filename, mock_data_keys_list] = args
+    test_json_filename = os.path.join(
+        TEST_DIR, f'test_input_{mock_data_filename}')
+    with open(test_json_filename) as data_file:
+        data = json.load(data_file)
+    df = pd.json_normalize(data, mock_data_keys_list)
+    return df
+
+
 def _get_test_pop_data_as_df(*args):
     [mock_pop_dir, mock_pop_filename, mock_pop_dtype] = args
     mock_pop_df = pd.read_json(os.path.join(
@@ -120,15 +139,12 @@ def _get_test_state_names(*args, **kwargs):
         })
 
 
-def _get_state_level_postals():
-    return ["AK", "AS", "NE"]
-
-
 # RUN INTEGRATION TESTS ON NATIONAL_LEVEL LEVEL
 
-@ mock.patch('datasources.cawp.get_state_level_postals', return_value=_get_state_level_postals())
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              side_effect=_get_test_state_names)
+@ mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key_list',
+             side_effect=_get_test_json_as_df_based_on_key_list)
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
              side_effect=_get_test_pop_data_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
@@ -141,9 +157,8 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
                                mock_web_csv: mock.MagicMock,
                                mock_data_dir_csv: mock.MagicMock,
                                mock_pop_data: mock.MagicMock,
-                               mock_bq_state_names: mock.MagicMock,
-                               mock_postals: mock.MagicMock
-                               ):
+                               mock_data_dir_based_on_key_list_data: mock.MagicMock,
+                               mock_bq_state_names: mock.MagicMock):
 
     cawp_data = CAWPData()
 
@@ -158,14 +173,16 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
     mock_web_csv.assert_called_once
     mock_data_dir_csv.assert_called_once
     mock_pop_data.assert_called_once
+    mock_data_dir_based_on_key_list_data.assert_called_once
     mock_bq_state_names.assert_called_once
-    mock_postals.assert_called_once
 
     expected_dtype = {
         'state_name': str,
         'state_fips': str,
         "women_state_leg_pct": float,
         "women_state_leg_pct_share": float,
+        "women_us_congress_pct": float,
+        "women_us_congress_pct_share": float,
         "population": object,
         "population_pct": float,
         'race_and_ethnicity': str,
@@ -193,9 +210,10 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
 
 # RUN INTEGRATION TESTS ON STATE_LEVEL/TERRITORY LEVEL
 
-@ mock.patch('datasources.cawp.get_state_level_postals', return_value=_get_state_level_postals())
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              side_effect=_get_test_state_names)
+@ mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key_list',
+             side_effect=_get_test_json_as_df_based_on_key_list)
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
              side_effect=_get_test_pop_data_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
@@ -208,9 +226,8 @@ def testWriteStateLevelToBq(mock_bq: mock.MagicMock,
                             mock_web_csv: mock.MagicMock,
                             mock_data_dir_csv: mock.MagicMock,
                             mock_pop_data: mock.MagicMock,
-                            mock_bq_state_names: mock.MagicMock,
-                            mock_postals: mock.MagicMock
-                            ):
+                            mock_data_dir_based_on_key_list_data: mock.MagicMock,
+                            mock_bq_state_names: mock.MagicMock):
 
     cawp_data = CAWPData()
 
@@ -225,14 +242,16 @@ def testWriteStateLevelToBq(mock_bq: mock.MagicMock,
     mock_web_csv.assert_called_once
     mock_data_dir_csv.assert_called_once
     mock_pop_data.assert_called_once
+    mock_data_dir_based_on_key_list_data.assert_called_once
     mock_bq_state_names.assert_called_once
-    mock_postals.assert_called_once
 
     expected_dtype = {
         'state_name': str,
         'state_fips': str,
         "women_state_leg_pct": float,
         "women_state_leg_pct_share": float,
+        "women_us_congress_pct": float,
+        "women_us_congress_pct_share": float,
         "population": object,
         "population_pct": float,
         'race_and_ethnicity': str,
