@@ -61,9 +61,9 @@ export function LineChart({
 
           const sortedDataForGroup = dCopy.sort((a, b) => a[1] - b[1]);
 
-          const minValueForGroup = sortedDataForGroup[0][1];
+          const minValueForGroup = sortedDataForGroup[0]?.[1];
           const maxValueForGroup =
-            sortedDataForGroup[sortedDataForGroup.length - 1][1];
+            sortedDataForGroup[sortedDataForGroup.length - 1]?.[1];
 
           const lowestDatesForGroup = sortedDataForGroup
             .filter((row) => row[1] === minValueForGroup)

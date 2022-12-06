@@ -82,8 +82,16 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     currentBreakdown
   );
 
-  const mapQuery = new MetricQuery([metricConfig.metricId], mapGeoBreakdowns);
-  const alertQuery = new MetricQuery([metricConfig.metricId], alertBreakdown);
+  const mapQuery = new MetricQuery(
+    [metricConfig.metricId],
+    mapGeoBreakdowns,
+    /* variableId */ props.variableConfig.variableId
+  );
+  const alertQuery = new MetricQuery(
+    [metricConfig.metricId],
+    alertBreakdown,
+    /* variableId */ props.variableConfig.variableId
+  );
 
   const chartTitle = useCreateChartTitle(
     metricConfig,
@@ -92,7 +100,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   );
 
   const chartTitleLines = [
-    `${metricConfig.fullCardTitleName}`,
+    `${metricConfig.chartTitle}`,
     `with unknown ${breakdownString}`,
   ];
 
@@ -218,7 +226,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {/* MISSING DATA ALERT */}
               {showMissingDataAlert && (
                 <MissingDataAlert
-                  dataName={metricConfig.fullCardTitleName}
+                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
                   breakdownString={breakdownString}
                   isMapCard={true}
                   fips={props.fips}

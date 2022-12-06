@@ -64,17 +64,19 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const inequityQuery = new MetricQuery(
     metricConfigInequitable.metricId,
     breakdowns,
-    TIME_SERIES
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ TIME_SERIES
   );
   const pctShareQuery = new MetricQuery(
     metricConfigPctShares.metricId,
     breakdowns,
-    TIME_SERIES
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ TIME_SERIES
   );
 
   function getTitleText() {
     return `${
-      metricConfigInequitable.fullCardTitleName
+      metricConfigInequitable.chartTitle
     } in ${props.fips.getSentenceDisplayName()}`;
   }
 
@@ -147,7 +149,10 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
               ]) || nestedInequityData.length === 0 ? (
                 <>
                   <MissingDataAlert
-                    dataName={metricConfigInequitable.fullCardTitleName}
+                    dataName={
+                      metricConfigInequitable.chartTitle ||
+                      metricConfigInequitable.shortLabel
+                    }
                     breakdownString={
                       BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                     }

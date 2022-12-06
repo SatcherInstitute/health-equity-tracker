@@ -44,7 +44,8 @@ export type VariableId =
   | "women_state_legislatures"
   | "prison"
   | "jail"
-  | "covid_vaccinations";
+  | "covid_vaccinations"
+  | "svi";
 
 export type MetricId =
   | "acs_vaccine_population_pct"
@@ -192,7 +193,7 @@ export type MetricType =
 
 export type MetricConfig = {
   metricId: MetricId;
-  fullCardTitleName: string;
+  columnTitleHeader?: string;
   trendsCardTitleName?: string;
   chartTitle?: string;
   mobileChartTitle?: string[];
@@ -231,13 +232,13 @@ export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
   metrics: {
     count: {
       metricId: "population",
-      fullCardTitleName: "Population",
+      columnTitleHeader: "Population",
       shortLabel: "people",
       type: "count",
     },
     pct_share: {
       metricId: "population_pct",
-      fullCardTitleName: populationPctTitle,
+      columnTitleHeader: populationPctTitle,
       shortLabel: populationPctShortLabel,
       type: "pct_share",
     },
@@ -251,13 +252,13 @@ export const POPULATION_VARIABLE_CONFIG_2010: VariableConfig = {
   metrics: {
     count: {
       metricId: "population_2010",
-      fullCardTitleName: "Population",
+      columnTitleHeader: "Population",
       shortLabel: "people",
       type: "count",
     },
     pct_share: {
       metricId: "population_pct_2010",
-      fullCardTitleName: populationPctTitle,
+      columnTitleHeader: populationPctTitle,
       shortLabel: populationPctShortLabel,
       type: "pct_share",
     },
@@ -362,8 +363,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "covid_cases_share",
-          fullCardTitleName: "Share of total COVID-19 cases",
-          chartTitle: "Share of total COVID-19 cases with unknown",
+          chartTitle: "Share of total COVID-19 cases",
+          columnTitleHeader: "Share of total COVID-19 cases",
           unknownsVegaLabel: "% unknown",
           shortLabel: "% of COVID-19 cases",
           type: "pct_share",
@@ -376,33 +377,32 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "since Jan 2020",
             ],
             metricId: "covid_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
           metricId: "covid_cases_pct_relative_inequity",
-          fullCardTitleName: "Inequitable distribution of COVID-19 cases",
+          chartTitle: "Inequitable distribution of COVID-19 cases",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         per100k: {
           metricId: "covid_cases_per_100k",
-          fullCardTitleName: "Rates of COVID-19 cases",
           chartTitle: "COVID-19 cases since Jan 2020 per 100k people",
           mobileChartTitle: [
             "COVID-19 cases since Jan 2020",
             "per 100k people",
           ],
           trendsCardTitleName: "Monthly COVID-19 cases per 100k people",
+          columnTitleHeader: "Rates of COVID-19 cases",
           shortLabel: "cases per 100k",
           type: "per100k",
         },
         age_adjusted_ratio: {
           metricId: "cases_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-adjusted risk of COVID-19 compared to White (NH)",
+          chartTitle: "Age-adjusted risk of COVID-19 compared to White (NH)",
           shortLabel: "Risk of COVID-19",
           type: "ratio",
         },
@@ -418,8 +418,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "covid_deaths_share",
-          fullCardTitleName: "Share of total COVID-19 deaths",
-          chartTitle: "Share of total COVID-19 deaths with unknown",
+          chartTitle: "Share of total COVID-19 deaths",
+          columnTitleHeader: "Share of total COVID-19 deaths",
           shortLabel: "% of COVID-19 deaths",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
@@ -432,33 +432,31 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "since Jan 2020",
             ],
             metricId: "covid_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
           metricId: "covid_deaths_pct_relative_inequity",
-          fullCardTitleName: "Inequitable distribution of COVID-19 deaths",
+          chartTitle: "Inequitable distribution of COVID-19 deaths",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         per100k: {
           metricId: "covid_deaths_per_100k",
-          fullCardTitleName: "Rates of COVID-19 deaths",
           chartTitle: "COVID-19 deaths since Jan 2020 per 100k people",
           mobileChartTitle: [
             "COVID-19 deaths since Jan 2020",
             "per 100k people",
           ],
+          columnTitleHeader: "Rates of COVID-19 deaths",
           trendsCardTitleName: "Monthly COVID-19 deaths per 100k people",
           shortLabel: "deaths per 100k",
           type: "per100k",
         },
         age_adjusted_ratio: {
           metricId: "death_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-adjusted risk of COVID-19 death compared to White (NH)",
           chartTitle:
             "Age-adjusted risk of COVID-19 death compared to White (NH)",
           mobileChartTitle: [
@@ -481,8 +479,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "covid_hosp_share",
-          fullCardTitleName: "Share of total COVID-19 hospitalizations",
-          chartTitle: "Share of total COVID-19 hospitalizations with unknown",
+          chartTitle: "Share of total COVID-19 hospitalizations",
+          columnTitleHeader: "Share of total COVID-19 hospitalizations",
           shortLabel: "% of COVID-19 hospitalizations",
           unknownsVegaLabel: "% unknown",
           type: "pct_share",
@@ -495,27 +493,26 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "since Jan 2020",
             ],
             metricId: "covid_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
           metricId: "covid_hosp_pct_relative_inequity",
-          fullCardTitleName:
-            "Inequitable distribution of COVID-19 hospitalizations",
+          chartTitle: "Inequitable distribution of COVID-19 hospitalizations",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         per100k: {
           metricId: "covid_hosp_per_100k",
-          fullCardTitleName: "Rates of COVID-19 hospitalizations",
           chartTitle:
             "COVID-19 hospitalizations since Jan 2020 per 100k people",
           mobileChartTitle: [
             "COVID-19 hospitalizations since Jan 2020",
             "per 100k people",
           ],
+          columnTitleHeader: "Rates of COVID-19 hospitalizations",
           trendsCardTitleName:
             "Monthly COVID-19 hospitalizations per 100k people",
           shortLabel: "hospitalizations per 100k",
@@ -523,14 +520,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "hosp_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-adjusted risk of COVID-19 hospitalization compared to White (NH)",
           shortLabel: "Risk of COVID-19 hospitalization", // Table header-row label
+          chartTitle:
+            "Age-adjusted risk of COVID-19 hospitalization compared to White (NH)",
           mobileChartTitle: [
             "Age-adjusted risk of COVID-19 hospitalization",
             "compared to White (NH)",
           ],
-          chartTitle: "Risk of COVID-19 hospitalization compared to White (NH)",
           type: "ratio",
           ageAdjusted: true,
         },
@@ -547,34 +543,33 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "vaccinated_per_100k",
-          fullCardTitleName: "COVID-19 vaccinations per 100k people",
           chartTitle: "COVID-19 vaccinations per 100k people",
           mobileChartTitle: ["COVID-19 vaccinations", "per 100k people"],
           trendsCardTitleName: "Rates of COVID-19 vaccinations over time",
+          columnTitleHeader: "COVID-19 vaccinations per 100k people",
           shortLabel: "COVID-19 vaccinations per 100k",
           type: "per100k",
         },
         age_adjusted_ratio: {
           metricId: "vaccinated_ratio_age_adjusted",
-          fullCardTitleName:
+          chartTitle:
             "Age-adjusted ratio of COVID-19 vaccination compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
         pct_relative_inequity: {
           metricId: "vaccinated_pct_relative_inequity",
-          fullCardTitleName:
+          chartTitle:
             "historical data for inequitable distribution of COVID-19 vaccinations",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         pct_share: {
           metricId: "vaccinated_pct_share",
-          fullCardTitleName: "Share of total COVID-19 vaccinations",
-          chartTitle: "Share of total COVID-19 vaccinations with unknown",
+          chartTitle: "Share of total COVID-19 vaccinations",
+          columnTitleHeader: "Share of total COVID-19 vaccinations",
           trendsCardTitleName:
             "Inequitable share of COVID-19 vaccinations over time",
-
           unknownsVegaLabel: "% unknown",
           shortLabel: "% of vaccinations",
           type: "pct_share",
@@ -586,19 +581,19 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total COVID-19 vaccinations",
             ],
             metricId: "vaccine_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
             metricId: "vaccinated_share_of_known",
-            fullCardTitleName: "Share of total COVID-19 vaccinations",
+            columnTitleHeader: "Share of total COVID-19 vaccinations",
             shortLabel: "% of vaccinations",
             type: "pct_share",
           },
           secondaryPopulationComparisonMetric: {
             metricId: "acs_vaccine_population_pct",
-            fullCardTitleName: "Population percentage According to ACS",
+            columnTitleHeader: "Population percentage according to ACS",
             shortLabel: "pop. % according to acs",
             type: "pct_share",
           },
@@ -618,8 +613,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "suicide_pct_share",
-          fullCardTitleName: "Share of total suicides",
-          chartTitle: "Share of total suicides with unknown",
+          chartTitle: "Share of total suicides",
+          columnTitleHeader: "Share of total suicides",
           trendsCardTitleName: "Inequitable share of suicide over time",
           shortLabel: "% of suicides",
           type: "pct_share",
@@ -630,30 +625,29 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total suicide cases",
             ],
             metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "suicide_per_100k",
-          fullCardTitleName: "Suicides per 100k people",
           chartTitle: "Suicides per 100k people",
           mobileChartTitle: ["Suicides", "per 100k people"],
           trendsCardTitleName: "Rates of suicide over time",
+          columnTitleHeader: "Suicides per 100k people",
           shortLabel: "suicides per 100k",
           type: "per100k",
         },
         pct_relative_inequity: {
           metricId: "suicide_pct_relative_inequity",
-          fullCardTitleName: "historical data for suicide inequity",
+          chartTitle: "historical data for suicide inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "suicide_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-adjusted risk of suicide compared to White (NH)",
+          chartTitle: "Age-adjusted risk of suicide compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -671,9 +665,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "depression_pct_share",
-          fullCardTitleName: "Share of total depression cases",
           trendsCardTitleName: "Inequitable share of depression over time",
-          chartTitle: "Share of total depression cases with unknown",
+          chartTitle: "Share of total depression cases",
+          columnTitleHeader: "Share of total depression cases",
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -683,30 +677,29 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total depression",
             ],
             metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "depression_per_100k",
-          fullCardTitleName: "Cases of depression per 100k people",
           chartTitle: "Cases of depression per 100k people",
           mobileChartTitle: ["Cases of depression", "per 100k people"],
           trendsCardTitleName: "Rates of depression over time",
+          columnTitleHeader: "Cases of depression per 100k people",
           shortLabel: "cases of depression per 100k",
           type: "per100k",
         },
         pct_relative_inequity: {
           metricId: "depression_pct_relative_inequity",
-          fullCardTitleName: "historical data for depression inequity",
+          chartTitle: "historical data for depression inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "depression_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-adjusted risk of depression compared to White (NH)",
+          chartTitle: "Age-adjusted risk of depression compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -724,10 +717,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "excessive_drinking_pct_share",
-          fullCardTitleName: "Share of all excessive drinking cases",
           trendsCardTitleName:
             "Inequitable share of excessive drinking over time",
-          chartTitle: "Share of all excessive drinking cases with unknown",
+          chartTitle: "Share of all excessive drinking cases",
+          columnTitleHeader: "Share of all excessive drinking cases",
           shortLabel: "% of all cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -738,15 +731,15 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total excessive drinking cases",
             ],
             metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "excessive_drinking_per_100k",
-          fullCardTitleName: "Cases of excessive drinking per 100k people",
           chartTitle: "Excessive drinking cases per 100k people",
+          columnTitleHeader: "Excessive drinking cases per 100k people",
           mobileChartTitle: ["Excessive drinking cases", "per 100k people"],
           trendsCardTitleName: "Rates of excessive drinking over time",
           shortLabel: "cases of excessive drinking per 100k",
@@ -754,14 +747,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           metricId: "excessive_drinking_pct_relative_inequity",
-          fullCardTitleName:
-            "historical data for inequity in excessive drinking",
+          chartTitle: "historical data for inequity in excessive drinking",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "excessive_drinking_ratio_age_adjusted",
-          fullCardTitleName:
+          chartTitle:
             "Age-adjusted risk of excessive drinking compared to White (NH)",
           shortLabel: "",
           type: "ratio",
@@ -781,10 +773,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "non_medical_drug_use_pct_share",
-          fullCardTitleName: "Share of total non-medical drug use",
           trendsCardTitleName:
             "Inequitable share of non-medical drug use over time",
-          chartTitle: "Share of total non-medical drug use with unknown",
+          chartTitle: "Share of total non-medical drug use",
+          columnTitleHeader: "Share of total non-medical drug use",
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -795,15 +787,15 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total non-medical drug use",
             ],
             metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "non_medical_drug_use_per_100k",
-          fullCardTitleName: "Cases of non-medical drug use per 100k people",
           chartTitle: "Non-medical drug use per 100k people",
+          columnTitleHeader: "Non-medical drug use per 100k people",
           mobileChartTitle: ["Non-medical drug use", "per 100k people"],
           trendsCardTitleName: "Rates of non-medical drug use over time",
           shortLabel: "cases of non-medical drug use per 100k",
@@ -811,14 +803,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           metricId: "non_medical_drug_use_pct_relative_inequity",
-          fullCardTitleName:
-            "historical data for inequity in non-medical drug use",
+          chartTitle: "historical data for inequity in non-medical drug use",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "non_medical_drug_use_ratio_age_adjusted",
-          fullCardTitleName:
+          chartTitle:
             "Age-adjusted risk of non-medical drug use compared to White (NH)",
           shortLabel: "",
           type: "ratio",
@@ -835,12 +826,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "non_medical_rx_opioid_use_pct_share",
-          fullCardTitleName:
-            "Share of total Non-medical prescription opioid use",
           trendsCardTitleName:
             "Inequitable share of non-medical prescription opioid use over time",
-          chartTitle:
-            "Share of total non-medical prescription opioid use with unknown",
+          chartTitle: "Share of total non-medical prescription opioid use",
+          columnTitleHeader:
+            "Share of total non-medical prescription opioid use",
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -851,20 +841,20 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total non-medical prescription opioid use",
             ],
             metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "non_medical_rx_opioid_use_per_100k",
-          fullCardTitleName:
-            "Cases of Non-medical prescription opioid use per 100k people",
           chartTitle: "Non-medical prescription opioid use per 100k people",
           mobileChartTitle: [
             "Non-medical prescription opioid use",
             "per 100k people",
           ],
+          columnTitleHeader:
+            "Non-medical prescription opioid use per 100k people",
           trendsCardTitleName:
             "Rates of non-medical prescription opioid use over time",
           shortLabel: "cases of non-medical rx opioid use per 100k",
@@ -872,14 +862,14 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           metricId: "non_medical_rx_opioid_use_pct_relative_inequity",
-          fullCardTitleName:
+          chartTitle:
             "historical data for inequity in non-medical prescription opioid use",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "non_medical_rx_opioid_use_ratio_age_adjusted",
-          fullCardTitleName:
+          chartTitle:
             "Age-adjusted risk of Non-medical prescription opioid use compared to White (NH)",
           shortLabel: "",
           type: "ratio",
@@ -896,10 +886,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "illicit_opioid_use_pct_share",
-          fullCardTitleName: "Share of total illicit opioid use",
           trendsCardTitleName:
             "Inequitable share of illicit opioid use over time",
-          chartTitle: "Share of total illicit opioid use with unknown",
+          chartTitle: "Share of total illicit opioid use",
+          columnTitleHeader: "Share of total illicit opioid use",
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -910,30 +900,29 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total illicit opioid use",
             ],
             metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "illicit_opioid_use_per_100k",
-          fullCardTitleName: "Cases of illicit opioid use per 100k people",
           chartTitle: "Illicit opioid use per 100k people",
           mobileChartTitle: ["Illicit opioid use", "per 100k people"],
+          columnTitleHeader: "Illicit opioid use per 100k people",
           trendsCardTitleName: "Rates of illicit opioid use over time",
           shortLabel: "cases of illicit opioid use per 100k",
           type: "per100k",
         },
         pct_relative_inequity: {
           metricId: "illicit_opioid_use_pct_relative_inequity",
-          fullCardTitleName:
-            "historical data for inequity in illicit opioid use",
+          chartTitle: "historical data for inequity in illicit opioid use",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "illicit_opioid_use_ratio_age_adjusted",
-          fullCardTitleName:
+          chartTitle:
             "Age-adjusted risk of illicit opioid use compared to White (NH)",
           shortLabel: "",
           type: "ratio",
@@ -953,11 +942,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "frequent_mental_distress_pct_share",
-          fullCardTitleName: "Share of all frequent mental distress cases",
           trendsCardTitleName:
             "Inequitable share of frequent mental distress over time",
-          chartTitle:
-            "Share of all frequent mental distress cases with unknown",
+          chartTitle: "Share of all frequent mental distress cases",
+          columnTitleHeader: "Share of all frequent mental distress cases",
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -968,33 +956,32 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total frequent mental distress",
             ],
             metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "frequent_mental_distress_per_100k",
-          fullCardTitleName: "Frequent mental distress cases per 100k people",
           chartTitle: "Frequent mental distress cases per 100k people",
           mobileChartTitle: [
             "Frequent mental distress cases",
             "per 100k people",
           ],
+          columnTitleHeader: "Frequent mental distress cases per 100k people",
           trendsCardTitleName: "Rates of frequent mental distress over time",
           shortLabel: "frequent mental distress cases per 100k",
           type: "per100k",
         },
         pct_relative_inequity: {
           metricId: "frequent_mental_distress_pct_relative_inequity",
-          fullCardTitleName:
-            "historical data for frequent mental distress inequity",
+          chartTitle: "historical data for frequent mental distress inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "frequent_mental_distress_ratio_age_adjusted",
-          fullCardTitleName:
+          chartTitle:
             "Age-adjusted risk of frequent mental distress compared to White (NH)",
           shortLabel: "",
           type: "ratio",
@@ -1013,9 +1000,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "diabetes_pct_share",
-          fullCardTitleName: "Share of total diabetes cases",
           trendsCardTitleName: "Inequitable share of diabetes over time",
-          chartTitle: "Share of total diabetes cases with unknown",
+          chartTitle: "Share of total diabetes cases",
+          columnTitleHeader: "Share of total diabetes cases",
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -1025,30 +1012,29 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total diabetes cases",
             ],
             metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "diabetes_per_100k",
-          fullCardTitleName: "Diabetes cases per 100k people",
           chartTitle: "Diabetes cases per 100k people",
           mobileChartTitle: ["Diabetes", "per 100k people"],
+          columnTitleHeader: "Diabetes cases per 100k people",
           trendsCardTitleName: "Rates of diabetes over time",
           shortLabel: "diabetes cases per 100k",
           type: "per100k",
         },
         pct_relative_inequity: {
           metricId: "diabetes_pct_relative_inequity",
-          fullCardTitleName: "historical data for diabetes inequity",
+          chartTitle: "historical data for diabetes inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "diabetes_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-adjusted risk of diabetes compared to White (NH)",
+          chartTitle: "Age-adjusted risk of diabetes compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -1066,9 +1052,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "copd_pct_share",
-          fullCardTitleName: "Share of total COPD cases",
           trendsCardTitleName: "Inequitable share of COPD over time",
-          chartTitle: "Share of total COPD cases with unknown",
+          chartTitle: "Share of total COPD cases",
+          columnTitleHeader: "Share of total COPD cases",
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -1078,29 +1064,29 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total COPD cases",
             ],
             metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "copd_per_100k",
-          fullCardTitleName: "COPD cases per 100k people",
           chartTitle: "COPD cases per 100k people",
           mobileChartTitle: ["COPD cases", "per 100k people"],
+          columnTitleHeader: "COPD cases per 100k people",
           trendsCardTitleName: "Rates of COPD over time",
           shortLabel: "COPD cases per 100k",
           type: "per100k",
         },
         pct_relative_inequity: {
           metricId: "copd_pct_relative_inequity",
-          fullCardTitleName: "historical data for COPD inequity",
+          chartTitle: "historical data for COPD inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "copd_ratio_age_adjusted",
-          fullCardTitleName: "Age-adjusted risk of COPD compared to White (NH)",
+          chartTitle: "Age-adjusted risk of COPD compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -1122,18 +1108,18 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "health_insurance_per_100k",
-          fullCardTitleName: "Uninsured individuals per 100k people",
           chartTitle: "Uninsured individuals per 100k people",
           mobileChartTitle: ["Uninsured individuals", "per 100k people"],
+          columnTitleHeader: "Uninsured individuals per 100k people",
           trendsCardTitleName: "Rates of uninsurance over time",
           shortLabel: "uninsured individuals per 100k",
           type: "per100k",
         },
         pct_share: {
           metricId: "health_insurance_pct_share",
-          fullCardTitleName: "Share of uninsured individuals",
           trendsCardTitleName: "Inequitable share of uninsurance over time",
-          chartTitle: "Share of uninsured individuals with unknown",
+          chartTitle: "Share of uninsured individuals",
+          columnTitleHeader: "Share of uninsured individuals",
           shortLabel: "% of uninsured",
           type: "pct_share",
           populationComparisonMetric: {
@@ -1144,20 +1130,20 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total uninsured individuals",
             ],
             metricId: "health_insurance_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
           metricId: "health_insurance_pct_relative_inequity",
-          fullCardTitleName: "historical data for inequity in uninsurance",
+          chartTitle: "historical data for inequity in uninsurance",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "health_insurance_ratio_age_adjusted",
-          fullCardTitleName:
+          chartTitle:
             "Age-adjusted risk of being uninsured compared to White (NH)",
           shortLabel: "",
           type: "ratio",
@@ -1174,22 +1160,22 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "poverty_per_100k",
-          fullCardTitleName:
-            "Individuals below the poverty line per 100k people",
           chartTitle: "Individuals below the poverty line per 100k people",
           mobileChartTitle: [
             "Individuals below the poverty line",
             "per 100k people",
           ],
+          columnTitleHeader:
+            "Individuals below the poverty line per 100k people",
           trendsCardTitleName: "Rates of poverty over time",
           shortLabel: "individuals below the poverty line per 100k",
           type: "per100k",
         },
         pct_share: {
           metricId: "poverty_pct_share",
-          fullCardTitleName: "Share Of Poverty",
           trendsCardTitleName: "Inequitable share of poverty over time",
-          chartTitle: "Share of poverty with unknown",
+          chartTitle: "Share of poverty",
+          columnTitleHeader: "Share of poverty",
           shortLabel: "% of impoverished",
           type: "pct_share",
           populationComparisonMetric: {
@@ -1200,21 +1186,20 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total individuals below the provery line",
             ],
             metricId: "poverty_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
           metricId: "poverty_pct_relative_inequity",
-          fullCardTitleName: "historical data for poverty inequity",
+          chartTitle: "historical data for poverty inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "poverty_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-adjusted risk of poverty compared to White (NH)",
+          chartTitle: "Age-adjusted risk of poverty compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -1230,20 +1215,20 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "preventable_hospitalizations_per_100k",
-          fullCardTitleName: "Preventable hospitalizations per 100k people",
           chartTitle: "Preventable hospitalizations per 100k people",
           mobileChartTitle: ["Preventable hospitalizations", "per 100k people"],
           trendsCardTitleName:
             "Rates of preventable hospitalizations over time",
+          columnTitleHeader: "Preventable hospitalizations per 100k people",
           shortLabel: "preventable hospitalizations per 100k",
           type: "per100k",
         },
         pct_share: {
           metricId: "preventable_hospitalizations_pct_share",
-          fullCardTitleName: "Share of all preventable hospitalizations",
           trendsCardTitleName:
             "Inequitable share of preventable hospitalizations over time",
-          chartTitle: "Share of all preventable hospitalizations with unknown",
+          chartTitle: "Share of all preventable hospitalizations",
+          columnTitleHeader: "Share of all preventable hospitalizations",
           shortLabel: "% of hospitalizations",
           type: "pct_share",
           populationComparisonMetric: {
@@ -1254,21 +1239,21 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total preventable hospitalizations",
             ],
             metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
           metricId: "preventable_hospitalizations_pct_relative_inequity",
-          fullCardTitleName:
+          chartTitle:
             "historical data for inequity in preventable hospitalizations",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "preventable_hospitalizations_ratio_age_adjusted",
-          fullCardTitleName:
+          chartTitle:
             "Age-adjusted risk of preventable Hospitalization compared to White (NH)",
           shortLabel: "",
           type: "ratio",
@@ -1287,19 +1272,18 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "avoided_care_per_100k",
-          fullCardTitleName:
-            "Individuals Who Avoided Care Due to Cost per 100k people",
           chartTitle: "Care avoidance due to cost per 100k people",
           mobileChartTitle: ["Care avoidance due to cost", "per 100k people"],
           trendsCardTitleName: "Rates of care avoidance over time",
+          columnTitleHeader: "Care avoidance due to cost per 100k people",
           shortLabel: "individuals who avoided care per 100k",
           type: "per100k",
         },
         pct_share: {
           metricId: "avoided_care_pct_share",
-          fullCardTitleName: "Share of all Care avoidance due to cost",
           trendsCardTitleName: "Inequitable share of care avoidance over time",
-          chartTitle: "Share of all care avoidance due to cost with unknown",
+          chartTitle: "Share of all care avoidance due to cost",
+          columnTitleHeader: "Share of all care avoidance due to cost",
           shortLabel: "% of avoidance",
           type: "pct_share",
           populationComparisonMetric: {
@@ -1310,21 +1294,20 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total care avoidance due to cost",
             ],
             metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
           metricId: "avoided_care_pct_relative_inequity",
-          fullCardTitleName:
-            "historical data for inequitable avoidance of care",
+          chartTitle: "historical data for inequitable avoidance of care",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "avoided_care_ratio_age_adjusted",
-          fullCardTitleName:
+          chartTitle:
             "Age-adjusted risk of care avoidance due to cost compared to White (NH)",
           shortLabel: "",
           type: "ratio",
@@ -1343,18 +1326,18 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "asthma_per_100k",
-          fullCardTitleName: "Individuals with asthma per 100k people",
           chartTitle: "Asthma cases per 100k people",
           mobileChartTitle: ["Asthma cases", "per 100k people"],
+          columnTitleHeader: "Asthma cases per 100k people",
           trendsCardTitleName: "Rates of asthma over time",
           shortLabel: "asthma per 100k",
           type: "per100k",
         },
         pct_share: {
           metricId: "asthma_pct_share",
-          fullCardTitleName: "Share of all asthma cases",
           trendsCardTitleName: "Inequitable share of asthma over time",
-          chartTitle: "Share of all asthma cases with unknown",
+          chartTitle: "Share of all asthma cases",
+          columnTitleHeader: "Share of all asthma cases",
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -1364,21 +1347,20 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total total asthma cases",
             ],
             metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
           metricId: "asthma_pct_relative_inequity",
-          fullCardTitleName: "historical data for asthma inequity",
+          chartTitle: "historical data for asthma inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "asthma_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-adjusted risk of asthma compared to White (NH)",
+          chartTitle: "Age-adjusted risk of asthma compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -1396,23 +1378,22 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "cardiovascular_diseases_per_100k",
-          fullCardTitleName: "Cases of cardiovascular diseases per 100k people",
           chartTitle: "Cases of cardiovascular diseases per 100k people",
           mobileChartTitle: [
             "Cases of cardiovascular diseases",
             "per 100k people",
           ],
           trendsCardTitleName: "Rates of cardiovascular diseases over time",
+          columnTitleHeader: "Cases of cardiovascular diseases per 100k people",
           shortLabel: "cases of cardiovascular diseases per 100k",
           type: "per100k",
         },
         pct_share: {
           metricId: "cardiovascular_diseases_pct_share",
-          fullCardTitleName: "Share of all cases of cardiovascular diseases",
           trendsCardTitleName:
             "Inequitable share of cardiovascular diseases over time",
-          chartTitle:
-            "Share of all cases of cardiovascular diseases with unknown",
+          chartTitle: "Share of all cases of cardiovascular diseases",
+          columnTitleHeader: "Share of all cases of cardiovascular diseases",
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -1423,21 +1404,21 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total cases of cardiovascular diseases",
             ],
             metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
           metricId: "cardiovascular_diseases_pct_relative_inequity",
-          fullCardTitleName:
+          chartTitle:
             "historical data for inequity distribution of cardiovascular diseases",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "cardiovascular_diseases_ratio_age_adjusted",
-          fullCardTitleName:
+          chartTitle:
             "Age-adjusted risk of cardiovascular diseases compared to White (NH)",
           shortLabel: "",
           type: "ratio",
@@ -1456,19 +1437,19 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "chronic_kidney_disease_per_100k",
-          fullCardTitleName: "Cases of chronic kidney disease per 100k people",
           chartTitle: "Chronic kidney disease per 100k people",
           mobileChartTitle: ["Chronic kidney disease", "per 100k people"],
           trendsCardTitleName: "Rates of chronic kidney disease over time",
+          columnTitleHeader: "Chronic kidney disease per 100k people",
           shortLabel: "cases of chronic kidney disease per 100k",
           type: "per100k",
         },
         pct_share: {
           metricId: "chronic_kidney_disease_pct_share",
-          fullCardTitleName: "Share of all chronic kidney disease cases",
           trendsCardTitleName:
             "Inequitable share of chronic kidney disease over time",
-          chartTitle: "Share of all chronic kidney disease cases with unknown",
+          chartTitle: "Share of all chronic kidney disease cases",
+          columnTitleHeader: "Share of all chronic kidney disease cases",
           shortLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -1479,21 +1460,21 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total cases of chronic kidney disease",
             ],
             metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
           metricId: "chronic_kidney_disease_pct_relative_inequity",
-          fullCardTitleName:
+          chartTitle:
             "historical data for inequitable distribution of chronic kidney disease",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "chronic_kidney_disease_ratio_age_adjusted",
-          fullCardTitleName:
+          chartTitle:
             "Age-adjusted risk of chronic kidney disease compared to White (NH)",
           shortLabel: "",
           type: "ratio",
@@ -1512,8 +1493,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "voter_participation_per_100k",
-          fullCardTitleName: "Participating Voters per 100k people",
           chartTitle: "Voter participation per 100k people",
+          columnTitleHeader: "Participating Voters per 100k people",
           mobileChartTitle: ["Voter participation", "per 100k people"],
           trendsCardTitleName: "Rates of voter participation over time",
           shortLabel: "voters per 100k",
@@ -1521,10 +1502,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "voter_participation_pct_share",
-          fullCardTitleName: "Share of all voter participation",
           trendsCardTitleName:
             "Inequitable share of voter participation over time",
-          chartTitle: "Share of all voter participation with unknown",
+          chartTitle: "Share of all voter participation",
+          columnTitleHeader: "Share of all voter participation",
           shortLabel: "% of voters",
           type: "pct_share",
           populationComparisonMetric: {
@@ -1535,21 +1516,20 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total voter participation",
             ],
             metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
+            columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
           metricId: "voter_participation_pct_relative_inequity",
-          fullCardTitleName:
-            "historical data for inequitable voter participation",
+          chartTitle: "historical data for inequitable voter participation",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "voter_participation_ratio_age_adjusted",
-          fullCardTitleName:
+          chartTitle:
             "Age-adjusted voter participation ratio compared to White (NH)",
           shortLabel: "",
           type: "ratio",
@@ -1567,19 +1547,19 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "women_us_congress_pct",
-          fullCardTitleName: "Percentage of US Congress members",
           trendsCardTitleName: "Rates of women in U.S. Congress over time",
           chartTitle: "Percentage of women US Congress members",
+          columnTitleHeader: "Percentage of women US Congress members",
           mobileChartTitle: ["Percentage of women US", "Congress members"],
           shortLabel: "% women in US congress",
           type: "pct_incidence",
         },
         pct_share: {
           metricId: "women_us_congress_pct_share",
-          fullCardTitleName: "Percent share of women US Congress members",
           trendsCardTitleName:
             "Inequitable share of women in U.S. Congress over time",
-          chartTitle: "Percent share of women US Congress members with unknown",
+          chartTitle: "Percent share of women US Congress members",
+          columnTitleHeader: "Percent share of women US Congress members",
           shortLabel: "% of women members",
           type: "pct_share",
           populationComparisonMetric: {
@@ -1590,27 +1570,27 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total women in US congress",
             ],
             metricId: "cawp_population_pct",
-            fullCardTitleName: "Total population share (all genders)",
+            columnTitleHeader: "Total population share (all genders)",
             shortLabel: `${populationPctShortLabel} (all genders)`,
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
             metricId: "women_us_congress_pct_share",
-            fullCardTitleName: "Percent share of women US Congress members",
+            columnTitleHeader: "Percent share of women US Congress members",
             shortLabel: "% of women members",
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
           metricId: "women_us_congress_pct_relative_inequity",
-          fullCardTitleName:
+          chartTitle:
             "historical data for inequitable representation of women in US Congress",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "women_us_congress_ratio_age_adjusted",
-          fullCardTitleName:
+          chartTitle:
             "Age-adjusted representation ratio of women in U.S. Congress compared to White (NH)",
           shortLabel: "",
           type: "ratio",
@@ -1627,19 +1607,19 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "women_state_leg_pct",
-          fullCardTitleName: "Percentage of state legislators", // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER, HI/LOW DROPDOWN FOOTNOTE
-          chartTitle: "Percentage of women state legislators",
+          chartTitle: "Percentage of women state legislators", // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER, HI/LOW DROPDOWN FOOTNOTE
           mobileChartTitle: ["Percentage of women in state", "legislators"],
           trendsCardTitleName: "Rates of women in state legislatures over time",
+          columnTitleHeader: "Percentage of women state legislators",
           shortLabel: "% of state legislators identifying as women", // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
           type: "pct_incidence",
         },
         pct_share: {
           metricId: "women_state_leg_pct_share",
-          fullCardTitleName: "Percent share of women state legislators", // UNKNOWNS MAP TITLE, DISPARITY BAR TITLE
           trendsCardTitleName:
             "Inequitable share of women in state legislatures over time",
-          chartTitle: "Percent share of women state legislators with unknown",
+          chartTitle: "Percent share of women state legislators", // UNKNOWNS MAP TITLE, DISPARITY BAR TITLE
+          columnTitleHeader: "Percent share of women state legislators",
           shortLabel: "% of women legislators", // DISPARITY BAR LEGEND
           type: "pct_share",
           populationComparisonMetric: {
@@ -1650,27 +1630,27 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total women in state legislatures",
             ],
             metricId: "cawp_population_pct",
-            fullCardTitleName: "Total population share (all genders)", // TABLE COLUMN HEADER
+            columnTitleHeader: "Total population share (all genders)", // TABLE COLUMN HEADER
             shortLabel: `${populationPctShortLabel} (all genders)`, // DISPARITY BAR LEGEND/AXIS
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
             metricId: "women_state_leg_pct_share",
-            fullCardTitleName: "Percent share of women state legislators", // TABLE COL HEADER
+            columnTitleHeader: "Percent share of women state legislators", // TABLE COL HEADER,
             shortLabel: "% of women legislators", // UNKNOWNS MAP ALERT, DISPARITY BAR LABELS/AXIS
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
           metricId: "women_state_leg_pct_relative_inequity",
-          fullCardTitleName:
+          chartTitle:
             "historical data for inequitable representation of women in state legislature",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "women_state_leg_ratio_age_adjusted",
-          fullCardTitleName:
+          chartTitle:
             "Age-adjusted representation ratio of women in state legislatures compared to White (NH)",
           shortLabel: "",
           type: "ratio",
@@ -1690,19 +1670,19 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "prison_per_100k",
-          fullCardTitleName: "Individuals in prison per 100k people",
           chartTitle: "Individuals in prison per 100k people",
           mobileChartTitle: ["Individuals in prison", "per 100k people"],
           trendsCardTitleName: "Rates of prison incarceration over time",
+          columnTitleHeader: "Individuals in prison per 100k people",
           shortLabel: "individuals in prison per 100k",
           type: "per100k",
         },
         pct_share: {
           metricId: "prison_pct_share",
-          fullCardTitleName: "Percent share of total prison population",
           trendsCardTitleName:
             "Inequitable share of prison incarceration over time",
-          chartTitle: "Percent share of total prison population with unknown",
+          chartTitle: "Percent share of total prison population",
+          columnTitleHeader: "Percent share of total prison population",
           shortLabel: "% of prison pop.",
           type: "pct_share",
           populationComparisonMetric: {
@@ -1713,27 +1693,26 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total total individuals in prison",
             ],
             metricId: "population_pct",
-            fullCardTitleName: "Total population share",
+            columnTitleHeader: "Total population share",
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
             metricId: "prison_pct_share",
-            fullCardTitleName: "Percent share of total prison population",
+            columnTitleHeader: "Percent share of total prison population",
             shortLabel: "% of total prison population",
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
           metricId: "prison_pct_relative_inequity",
-          fullCardTitleName: "historical data for prison inequity",
+          chartTitle: "historical data for prison inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "prison_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-adjusted imprisonment ratio compared to White (NH)",
+          chartTitle: "Age-adjusted imprisonment ratio compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },
@@ -1749,19 +1728,19 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "jail_per_100k",
-          fullCardTitleName: "Individuals in jail per 100k people",
           chartTitle: "Individuals in jail per 100k people",
           mobileChartTitle: ["Individuals in jail", "per 100k people"],
+          columnTitleHeader: "Individuals in jail per 100k people",
           trendsCardTitleName: "Rates of jail incarceration over time",
           shortLabel: "Individuals in jail per 100k",
           type: "per100k",
         },
         pct_share: {
           metricId: "jail_pct_share",
-          fullCardTitleName: "Percent share of total jail population",
           trendsCardTitleName:
             "Inequitable share of jail incarceration over time",
-          chartTitle: "Percent share of total jail population with unknown",
+          chartTitle: "Percent share of total jail population",
+          columnTitleHeader: "Percent share of total jail population",
           shortLabel: "% of total jail population",
           type: "pct_share",
           populationComparisonMetric: {
@@ -1772,26 +1751,26 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total individuals in jail",
             ],
             metricId: "population_pct",
-            fullCardTitleName: "Total population share",
+            columnTitleHeader: "Total population share",
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
             metricId: "jail_pct_share",
-            fullCardTitleName: "Percent share of total jail population",
+            columnTitleHeader: "Percent share of total jail population",
             shortLabel: "% of total jail population",
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
           metricId: "jail_pct_relative_inequity",
-          fullCardTitleName: "historical data for jail inequity",
+          chartTitle: "historical data for jail inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           metricId: "jail_ratio_age_adjusted",
-          fullCardTitleName: "Age-adjusted jailed ratio compared to White (NH)",
+          chartTitle: "Age-adjusted jailed ratio compared to White (NH)",
           shortLabel: "",
           type: "ratio",
         },

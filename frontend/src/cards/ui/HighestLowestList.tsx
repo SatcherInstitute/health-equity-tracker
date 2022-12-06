@@ -137,7 +137,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
           <p>
             All rates are reported as:{" "}
             <b>
-              {props.metricConfig.fullCardTitleName}
+              {props.metricConfig.chartTitle}
               {props.selectedRaceSuffix}
             </b>
             .

@@ -59,7 +59,7 @@ export function TableChart(props: TableChartProps) {
   const { data, metrics, breakdownVar } = props;
   let columns = metrics.map((metricConfig) => {
     return {
-      Header: metricConfig.fullCardTitleName,
+      Header: metricConfig.columnTitleHeader || metricConfig.shortLabel,
       Cell: (a: any) =>
         formatFieldValue(
           /* metricType: MetricType, */ metricConfig.type,
@@ -164,7 +164,7 @@ export function TableChart(props: TableChartProps) {
         <h1>Insufficient Data</h1>
       ) : (
         <TableContainer component={Paper} style={{ maxHeight: "100%" }}>
-          <Table stickyHeader {...getTableProps()}>
+          <Table {...getTableProps()}>
             <TableHead>
               {headerGroups.map((group, index) => (
                 <TableHeaderRow group={group} key={index} />

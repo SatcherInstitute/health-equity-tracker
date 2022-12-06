@@ -59,12 +59,14 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const ratesQuery = new MetricQuery(
     metricConfigRates.metricId,
     breakdowns,
-    TIME_SERIES
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ TIME_SERIES
   );
   const pctShareQuery = new MetricQuery(
     metricConfigPctShares.metricId,
     breakdowns,
-    TIME_SERIES
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ TIME_SERIES
   );
 
   function getTitleText() {
@@ -127,7 +129,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             ]) || nestedRatesData.length === 0 ? (
               <>
                 <MissingDataAlert
-                  dataName={`historical data for ${metricConfigRates.fullCardTitleName}`}
+                  dataName={`historical data for ${metricConfigRates.chartTitle}`}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }
