@@ -76,7 +76,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   function getTitleText() {
     return `${
-      metricConfigInequitable.fullCardTitleName
+      metricConfigInequitable.chartTitle
     } in ${props.fips.getSentenceDisplayName()}`;
   }
 
@@ -149,7 +149,10 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
               ]) || nestedInequityData.length === 0 ? (
                 <>
                   <MissingDataAlert
-                    dataName={metricConfigInequitable.fullCardTitleName}
+                    dataName={
+                      metricConfigInequitable.chartTitle ||
+                      metricConfigInequitable.shortLabel
+                    }
                     breakdownString={
                       BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                     }

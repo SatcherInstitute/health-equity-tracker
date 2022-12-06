@@ -100,7 +100,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   );
 
   const chartTitleLines = [
-    `${metricConfig.fullCardTitleName}`,
+    `${metricConfig.chartTitle}`,
     `with unknown ${breakdownString}`,
   ];
 
@@ -226,7 +226,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {/* MISSING DATA ALERT */}
               {showMissingDataAlert && (
                 <MissingDataAlert
-                  dataName={metricConfig.fullCardTitleName}
+                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
                   breakdownString={breakdownString}
                   isMapCard={true}
                   fips={props.fips}
