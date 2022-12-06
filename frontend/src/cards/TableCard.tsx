@@ -66,7 +66,7 @@ export function TableCard(props: TableCardProps) {
     )
   );
 
-  let metricConfigs: Record<string, MetricConfig> = {};
+  let metricConfigs: Partial<Record<MetricId, MetricConfig>> = {};
   metrics.forEach((metricConfig) => {
     // We prefer known breakdown metric if available.
     if (metricConfig.knownBreakdownComparisonMetric) {
@@ -92,7 +92,11 @@ export function TableCard(props: TableCardProps) {
 
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   isIncarceration && metricIds.push("total_confined_children");
-  const query = new MetricQuery(metricIds as MetricId[], breakdowns);
+  const query = new MetricQuery(
+    metricIds,
+    breakdowns,
+    /* variableId */ props.variableConfig.variableId
+  );
 
   const displayingCovidData = metrics
     .map((config) => config.metricId)

@@ -44,7 +44,8 @@ export type VariableId =
   | "women_state_legislatures"
   | "prison"
   | "jail"
-  | "covid_vaccinations";
+  | "covid_vaccinations"
+  | "svi";
 
 export type MetricId =
   | "acs_vaccine_population_pct"

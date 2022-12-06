@@ -1,20 +1,23 @@
 import { Breakdowns, BreakdownVar, TimeView } from "./Breakdowns";
 import { Row, FieldRange } from "../utils/DatasetTypes";
-import { MetricId } from "../config/MetricConfig";
+import { MetricId, VariableId } from "../config/MetricConfig";
 import { DemographicGroup } from "../utils/Constants";
 
 export class MetricQuery {
   readonly metricIds: MetricId[];
   readonly breakdowns: Breakdowns;
+  readonly variableId: VariableId | undefined;
   readonly timeView: TimeView;
 
   constructor(
     metricIds: MetricId | MetricId[],
     breakdowns: Breakdowns,
+    variableId?: VariableId,
     timeView?: TimeView
   ) {
     this.metricIds = [metricIds].flat();
     this.breakdowns = breakdowns;
+    this.variableId = variableId;
     this.timeView = timeView || "cross_sectional";
   }
 
