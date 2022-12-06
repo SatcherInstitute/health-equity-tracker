@@ -30,7 +30,6 @@ import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { getWomenRaceLabel } from "../data/variables/CawpProvider";
 import { Row } from "../data/utils/DatasetTypes";
-import CAWPOverlappingRacesAlert from "./ui/CAWPOverlappingRacesAlert";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -204,7 +203,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   setExpanded={setUnknownsExpanded}
                 />
 
-                <CardContent>
+                {/* <CardContent>
                   {isCawpCongress && (
                     <CAWPOverlappingRacesAlert
                       variableDisplayName={
@@ -212,7 +211,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                       }
                     />
                   )}
-                </CardContent>
+                </CardContent> */}
 
                 <CardContent>
                   <UnknownBubblesAlert

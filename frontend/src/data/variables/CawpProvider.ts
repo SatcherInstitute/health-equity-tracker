@@ -59,16 +59,24 @@ class CawpProvider extends VariableProvider {
     variableId?: VariableId,
     timeView?: TimeView
   ): string {
-    let id =
-      "cawp_data-" +
+    // let id =
+    //   "cawp_data-" +
+    //   breakdowns.getSoleDemographicBreakdown().columnName +
+    //   "_" +
+    //   breakdowns.geography;
+
+    // // for now only US CONGRESS has time series
+    // if (variableId === "women_us_congress") id += "_time_series";
+
+    const datasetId =
+      variableId === "women_us_congress" ? "cawp_time_data-" : "cawp_data-";
+    const breakdownId =
       breakdowns.getSoleDemographicBreakdown().columnName +
       "_" +
       breakdowns.geography;
+    const timeId = variableId === "women_us_congress" ? "_time_series" : "";
 
-    // for now only US CONGRESS has time series
-    if (variableId === "women_us_congress") id += "_time_series";
-
-    return id;
+    return datasetId + breakdownId + timeId;
   }
 
   async getDataInternal(
