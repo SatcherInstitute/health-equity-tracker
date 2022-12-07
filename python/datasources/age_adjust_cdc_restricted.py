@@ -176,7 +176,7 @@ def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_co
     this_pop_size, ref_pop_size = 'this_pop_size', 'ref_pop_size'
 
     def get_expected(row):
-        """Calculates the expcted value of each race/age split based on the
+        """Calculates the expected value of each race/age split based on the
            raw condition count, the reference population, and the race/age population
            split."""
 
@@ -203,7 +203,6 @@ def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_co
                                    REFERENCE_POPULATION].reset_index(drop=True)
 
     merge_cols = [std_col.AGE_COL, std_col.STATE_FIPS_COL]
-
     ref_pop_df = ref_pop_df[merge_cols + [std_col.POPULATION_COL]]
 
     # Then, we merge the population data to get the reference population
