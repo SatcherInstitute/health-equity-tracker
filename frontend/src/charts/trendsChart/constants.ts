@@ -28,7 +28,18 @@ const COLOR_DOMAIN = [
   "Native Hawaiian and Pacific Islander (NH)",
   "Two or more races & Unrepresented race (NH)",
   "White (NH)",
+  // race and ethnicity for CAWP
+  "All Women",
+  "Native American, Alaska Native, & Native Hawaiian Women",
+  "Asian American & Pacific Islander Women",
+  "American Indian, Alaska Native, Asian & Pacific Islander Women",
+  "Black or African American Women",
+  "Latinas and Hispanic Women",
+  "Middle Eastern & North African Women",
+  "Women of an Unrepresented Race",
+  "White Women",
   // sex
+  "All",
   "Female",
   "Male",
   "Other",
@@ -53,6 +64,16 @@ const COLOR_RANGE = [
   darkBlue,
   timePurple,
   timePink,
+  timeDarkRed,
+  redOrange,
+  // race and ethnicity CAWP
+  black,
+  timeCyanBlue,
+  timePastelGreen,
+  timePastelGreen,
+  darkBlue,
+  timePurple,
+  timeYellow,
   timeDarkRed,
   redOrange,
   // sex
@@ -113,7 +134,9 @@ const FORMATTERS = {
   pct: (d: number) => `${format(".1~f")(d)}%`, // have to treat percent as truncated number and then interpolate % b/c they are received as integers
   dateShort: utcFormat("%m/%y"),
   dateYear: utcFormat("%Y"),
-  dateFromString: (str: string) => str && utcFormat("%B %Y")(new Date(str)),
+  dateFromString_YYYY: (str: string) => str && utcFormat("%Y")(new Date(str)),
+  dateFromString_MM_YYYY: (str: string) =>
+    str && utcFormat("%B %Y")(new Date(str)),
   num: format(".1~f"),
   plusNum: (d: number) => `${d > 0 ? "+" : ""}${format(".1~f")(d)}`, // add "+" only to positive numbers (not 0)
   capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ""),
