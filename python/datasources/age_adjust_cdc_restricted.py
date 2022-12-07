@@ -187,8 +187,8 @@ def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_co
         if not row[raw_number_col]:
             return None
 
-        true_rate = float(row[raw_number_col]) / row[this_pop_size]
-        return round(true_rate * row[ref_pop_size], 2)
+        true_rate = float(row[raw_number_col]) / float(row[this_pop_size])
+        return round(true_rate * float(row[ref_pop_size]), 2)
 
     merge_cols = [std_col.RACE_CATEGORY_ID_COL, std_col.AGE_COL, std_col.STATE_FIPS_COL]
 
@@ -227,20 +227,21 @@ def age_adjust_from_expected(df, cumulative):
        df: dataframe with an 'expected_deaths' and 'expected_hosps' field"""
 
     def get_age_adjusted_ratios(row):
-        hosp_ratio = None if not row[base_pop_expected_hosps] else \
+        row[std_col.COVID_HOSP_RATIO_AGE_ADJUSTED] = None if \
+            not row[base_pop_expected_hosps] else \
             ratio_round_to_None(row[EXPECTED_HOSPS], row[base_pop_expected_hosps])
 
-        death_ratio = None if not row[base_pop_expected_deaths] else \
+        row[std_col.COVID_DEATH_RATIO_AGE_ADJUSTED] = None if \
+            not row[base_pop_expected_deaths] else \
             ratio_round_to_None(row[EXPECTED_DEATHS], row[base_pop_expected_deaths])
-
-        row[std_col.COVID_HOSP_RATIO_AGE_ADJUSTED] = hosp_ratio
-        row[std_col.COVID_DEATH_RATIO_AGE_ADJUSTED] = death_ratio
 
         return row
 
-    base_pop_expected_deaths, base_pop_expected_hosps = 'base_pop_expected_deaths', 'base_pop_expected_hosps'
+    base_pop_expected_deaths, base_pop_expected_hosps = \
+        'base_pop_expected_deaths', 'base_pop_expected_hosps'
 
-    groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.RACE_CATEGORY_ID_COL]
+    groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL,
+                    std_col.RACE_CATEGORY_ID_COL]
     if not cumulative:
         groupby_cols.append(std_col.TIME_PERIOD_COL)
 
