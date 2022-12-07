@@ -20,6 +20,7 @@ import {
 import { useMediaQuery } from "@material-ui/core";
 import { ORDINAL, PADDING_FOR_ACTIONS_MENU } from "./utils";
 import { getWomenRaceLabel } from "../data/variables/CawpProvider";
+import { raceNameToCodeMap } from "./trendsChart/TrendsTooltip";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
@@ -219,10 +220,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const tooltipPairs = { [tooltipLabel]: tooltipDatum };
 
     if (props.metric.metricId === "pct_share_of_us_congress") {
-      tooltipPairs[
-        `# ${getWomenRaceLabel(props.titles?.subtitle || "")} members`
-      ] = "datum.women_this_race_us_congress_count";
-      tooltipPairs["# total members"] = `datum.total_us_congress_count`;
+      const raceName = props.titles?.subtitle
+        ? getWomenRaceLabel(props.titles.subtitle)
+        : "";
+      const raceCode = raceName ? raceNameToCodeMap?.[raceName] : "";
+
+      tooltipPairs[`# ${raceCode} women members`] =
+        "datum.women_this_race_us_congress_count";
+      tooltipPairs["# Total members"] = `datum.total_us_congress_count`;
     }
 
     const tooltipValue = buildTooltipTemplate(

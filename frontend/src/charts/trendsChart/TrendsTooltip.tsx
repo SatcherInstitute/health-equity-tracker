@@ -31,7 +31,7 @@ import {
 } from "./helpers";
 
 // temp
-const codeDictionary = {
+export const raceNameToCodeMap: Record<string, string> = {
   // race and ethnicity NH
   "Native Hawaiian and Pacific Islander (NH)": "NHPI (NH)",
   "Hispanic or Latino": "Hisp/Lat",
@@ -121,7 +121,7 @@ export function TrendsTooltip({
                 <Fragment key={`tooltipRow-${group}`}>
                   {/* group label - get from dictionary, if it doesn't exist, append group as label */}
                   {/* @ts-ignore */}
-                  <div>{codeDictionary[group] || group}</div>
+                  <div>{raceNameToCodeMap[group] || group}</div>
                   {/* rectangle indicator */}
                   <div
                     style={{
