@@ -244,9 +244,8 @@ function ReportProvider(props: ReportProviderProps) {
           </p>
           <ul>
             <li>
-              Cases (interpret with caution): <b>Connecticut</b>, <b>Florida</b>
-              , <b>Kentucky</b>, <b>Michigan</b>, <b>Nebraska</b>, and{" "}
-              <b>Ohio</b>.
+              Deaths (interpret with caution): <b>Mississippi</b> and{" "}
+              <b>Georgia</b>.
             </li>
           </ul>
 
