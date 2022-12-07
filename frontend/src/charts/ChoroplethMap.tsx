@@ -8,15 +8,12 @@ import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 import { useFontSize } from "../utils/hooks/useFontSize";
 import sass from "../styles/variables.module.scss";
 import {
-  EQUAL_DOT_SIZE,
-  GREY_DOT_SCALE,
   LEGEND_TEXT_FONT,
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
-  UNKNOWN_SCALE,
 } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
-import { ORDINAL, PADDING_FOR_ACTIONS_MENU } from "./utils";
+import { PADDING_FOR_ACTIONS_MENU } from "./utils";
 import {
   addCAWPTooltipInfo,
   buildTooltipTemplate,
@@ -36,6 +33,8 @@ import {
   ScaleType,
   setupColorScale,
   VAR_DATASET,
+  GREY_DOT_SCALE_SPEC,
+  UNKNOWN_SCALE_SPEC,
 } from "./mapHelpers";
 
 const {
@@ -93,13 +92,11 @@ export interface ChoroplethMapProps {
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
-  // We render the Vega map asynchronously because it can be performance
-  // intensive. Loading a page with many maps on it can cause the UI to lag if
-  // done synchronously.
+  // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false);
 
   const [ref, width] = useResponsiveWidth(
-    90 /* default width during initialization */
+    /* default width during initialization */ 90
   );
 
   // calculate page size to determine if tiny mobile or not
@@ -199,20 +196,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     /* SET UP LEGEND */
     let legendList = [];
-
-    const unknownScale: any = {
-      name: UNKNOWN_SCALE,
-      type: ORDINAL,
-      domain: { data: MISSING_PLACEHOLDER_VALUES, field: "missing" },
-      range: [sass.unknownGrey],
-    };
-
-    const greyDotScale: any = {
-      name: GREY_DOT_SCALE,
-      type: ORDINAL,
-      domain: { data: "missing_data", field: "missing" },
-      range: [EQUAL_DOT_SIZE],
-    };
 
     const legend: any = {
       fill: COLOR_SCALE,
@@ -360,7 +343,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
       ],
       projections: [projection],
-      scales: [colorScale, greyDotScale, unknownScale],
+      scales: [colorScale, GREY_DOT_SCALE_SPEC, UNKNOWN_SCALE_SPEC],
       legends: legendList,
       marks: marks,
       title: !props.overrideShapeWithCircle && {

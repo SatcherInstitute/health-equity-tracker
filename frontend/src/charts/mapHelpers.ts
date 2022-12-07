@@ -9,8 +9,12 @@ import {
   LEGEND_TEXT_FONT,
   UNKNOWN_SCALE,
   LEGEND_COLOR_COUNT,
+  MISSING_PLACEHOLDER_VALUES,
+  EQUAL_DOT_SIZE,
 } from "./Legend";
 import { FieldRange, Row } from "../data/utils/DatasetTypes";
+import { ORDINAL } from "./utils";
+import sass from "../styles/variables.module.scss";
 
 export const MISSING_DATASET = "MISSING_DATASET";
 export const US_PROJECTION = "US_PROJECTION";
@@ -21,6 +25,20 @@ export const COLOR_SCALE = "COLOR_SCALE";
 export const LEGEND_DATASET = "LEGEND_DATASET";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
+
+export const UNKNOWN_SCALE_SPEC: any = {
+  name: UNKNOWN_SCALE,
+  type: ORDINAL,
+  domain: { data: MISSING_PLACEHOLDER_VALUES, field: "missing" },
+  range: [sass.unknownGrey],
+};
+
+export const GREY_DOT_SCALE_SPEC: any = {
+  name: GREY_DOT_SCALE,
+  type: ORDINAL,
+  domain: { data: "missing_data", field: "missing" },
+  range: [EQUAL_DOT_SIZE],
+};
 
 /*
 Vega requires a type of json to create the tooltip, where the key value pairs appear as new lines on the tooltip and render with a ":" in the middle.
@@ -76,6 +94,9 @@ export function formatPreventZero100k(
     : `format(datum.${metricId}, ',')`;
 }
 
+/* 
+
+*/
 export function getNoDataLegend(yOffset: number, xOffset: number) {
   return {
     fill: UNKNOWN_SCALE,

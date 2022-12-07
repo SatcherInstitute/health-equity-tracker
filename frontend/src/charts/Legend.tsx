@@ -10,14 +10,12 @@ const COLOR_SCALE = "color_scale";
 const DOT_SIZE_SCALE = "dot_size_scale";
 export const UNKNOWN_SCALE = "unknown_scale";
 export const GREY_DOT_SCALE = "grey_dot_scale";
-
 const RAW_VALUES = "raw_values";
 const DATASET_VALUES = "dataset_values";
 export const MISSING_PLACEHOLDER_VALUES = "missing_data";
 export const LEGEND_SYMBOL_TYPE = "square";
 export const LEGEND_TEXT_FONT = "inter";
 export const NO_DATA_MESSAGE = "insufficient data";
-
 export const EQUAL_DOT_SIZE = 200;
 export const LEGEND_COLOR_COUNT = 7;
 
