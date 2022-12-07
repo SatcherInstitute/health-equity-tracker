@@ -56,11 +56,14 @@ export function buildTooltipTemplate(
   return (template += "}");
 }
 
-export function getGeographyType(fips: Fips, showCounties: Boolean) {
+export function getCountyAddOn(fips: Fips, showCounties: Boolean) {
   if (showCounties) {
-    if (fips.code === "02") return "Borough"; // Alaska
-    else if (fips.code === "22") return "Parish"; // Louisina
-    else if (fips.isTerritory()) return "(County Equivalent)";
+    if (fips.code === "02" || fips.getParentFips().code === "02")
+      return "(County Equivalent)"; // Alaska
+    else if (fips.code === "22" || fips.getParentFips().code === "22")
+      return "Parish (County Equivalent)"; // Louisina
+    else if (fips.isTerritory() || fips.getParentFips().isTerritory())
+      return "(County Equivalent)";
     else return "County";
   }
   return "";
