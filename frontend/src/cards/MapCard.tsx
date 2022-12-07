@@ -3,7 +3,7 @@ import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { MetricId, VariableConfig } from "../data/config/MetricConfig";
 import { exclude, onlyInclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
@@ -106,9 +106,19 @@ function MapCardWithKey(props: MapCardProps) {
   const [smallMultiplesDialogOpen, setSmallMultiplesDialogOpen] =
     useAutoFocusDialog();
 
-  const metricQuery = (geographyBreakdown: Breakdowns) =>
-    new MetricQuery(
-      metricConfig.metricId,
+  const metricQuery = (
+    geographyBreakdown: Breakdowns,
+    addCountCols?: boolean
+  ) => {
+    const metricIds: MetricId[] = [metricConfig.metricId];
+    if (addCountCols)
+      metricIds.push(
+        "women_this_race_us_congress_count",
+        "total_us_congress_count"
+      );
+
+    return new MetricQuery(
+      metricIds,
       geographyBreakdown
         .copy()
         .addBreakdown(
@@ -120,9 +130,13 @@ function MapCardWithKey(props: MapCardProps) {
       /* variableId */ props.variableConfig.variableId,
       /* timeView */ isCawpCongress ? "cross_sectional" : undefined
     );
+  };
 
   const queries = [
-    metricQuery(Breakdowns.forChildrenFips(props.fips)),
+    metricQuery(
+      Breakdowns.forChildrenFips(props.fips),
+      /* addCountCols */ isCawpCongress
+    ),
     metricQuery(Breakdowns.forFips(props.fips)),
   ];
 

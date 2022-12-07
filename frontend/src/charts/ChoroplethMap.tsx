@@ -19,6 +19,7 @@ import {
 } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
 import { ORDINAL, PADDING_FOR_ACTIONS_MENU } from "./utils";
+import { getWomenRaceLabel } from "../data/variables/CawpProvider";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
@@ -136,7 +137,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         from: VAR_DATASET,
         key: VAR_FIPS,
         fields: [GEO_ID],
-        values: [props.metric.metricId, "rating"],
+        values: [
+          props.metric.metricId,
+          "rating",
+          "women_this_race_us_congress_count",
+          "total_us_congress_count",
+        ],
       },
     ];
     if (props.overrideShapeWithCircle) {
@@ -187,14 +193,51 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         ? props.metric.unknownsVegaLabel
         : props.metric.shortLabel;
 
-    const tooltipValue = () => {
-      if (props.fips.isState() || props.fips.isCounty()) {
-        return `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum}, "County SVI": datum.rating}`;
+    function buildTooltipTemplate(
+      tooltipPairs: any,
+      title?: string,
+      includeSvi?: boolean
+    ) {
+      let template = `{`;
+      if (title) template += `title: ${title},`;
+      for (const [key, value] of Object.entries(tooltipPairs)) {
+        template += `"${key}": ${value},`;
       }
-      return `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum},}`;
-    };
+      if (includeSvi) template += `"County SVI": datum.rating`;
+      return (template += "}");
+    }
 
-    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}", }`;
+    let geographyType = "";
+    if (geographyName === "County") {
+      if (props.fips.code === "02") geographyType = "Borough"; // Alaska
+      else if (props.fips.code === "22") geographyType = "Parish"; // Louisina
+      else geographyType = "County";
+    }
+    if (geographyName === "County Equivalent")
+      geographyType = "(County Equivalent)";
+
+    const tooltipPairs = { [tooltipLabel]: tooltipDatum };
+
+    if (props.metric.metricId === "pct_share_of_us_congress") {
+      tooltipPairs[
+        `# ${getWomenRaceLabel(props.titles?.subtitle || "")} members`
+      ] = "datum.women_this_race_us_congress_count";
+      tooltipPairs["# total members"] = `datum.total_us_congress_count`;
+    }
+
+    const tooltipValue = buildTooltipTemplate(
+      /* tooltipPairs */ tooltipPairs,
+      /* title */ `datum.properties.name + " ${geographyType}"`,
+      /* includeSvi */ true
+    );
+
+    // const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}", }`;
+    const missingDataTooltipValue = buildTooltipTemplate(
+      /* tooltipPairs */ { [tooltipLabel]: `"${NO_DATA_MESSAGE}"` },
+      /* title */ `datum.properties.name + " ${geographyType}"`,
+      /* includeSvi */ false
+    );
+
     /* SET UP LEGEND */
     let legendList = [];
 
@@ -375,7 +418,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         /*datasetName=*/ VALID_DATASET,
         /*fillColor=*/ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
         /*hoverColor=*/ DARK_BLUE,
-        /*tooltipExpression=*/ tooltipValue()
+        /*tooltipExpression=*/ tooltipValue
       ),
     ];
 
