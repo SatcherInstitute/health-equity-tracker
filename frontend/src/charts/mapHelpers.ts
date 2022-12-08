@@ -74,6 +74,9 @@ export function getCountyAddOn(fips: Fips, showCounties: Boolean) {
   return "";
 }
 
+/* 
+Takes an existing VEGA formatted JSON string for the tooltip template and appends two rows for # TOTAL CONGRESS and # WOMEN THIS RACE IN CONGRESS
+*/
 export function addCAWPTooltipInfo(
   tooltipPairs: Record<string, string>,
   subTitle: DemographicGroup
