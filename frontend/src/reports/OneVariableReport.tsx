@@ -148,7 +148,10 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 id="location-info"
                 className={styles.ScrollPastHeader}
               >
-                <PopulationCard fips={props.fips} />
+                <PopulationCard
+                  fips={props.fips}
+                  currentBreakdown={currentBreakdown}
+                />
               </Grid>
             )}
 

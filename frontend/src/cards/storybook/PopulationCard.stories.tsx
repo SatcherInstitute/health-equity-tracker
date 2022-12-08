@@ -8,7 +8,7 @@ import { StoryWrapper } from "../../storybook/StoryWrapper";
 
 interface PopulationCardProps {
   fips: Fips;
-  breakdownVar: BreakdownVar;
+  currentBreakdown: BreakdownVar;
   metrics: MetricConfig[];
 }
 export default {
@@ -24,24 +24,29 @@ const Template: Story<PopulationCardProps> = (args) => (
 export const Usa = Template.bind({});
 Usa.args = {
   fips: new Fips(USA_FIPS),
+  currentBreakdown: "age",
 };
 
 export const NorthCarolina = Template.bind({});
 NorthCarolina.args = {
   fips: new Fips("37"),
+  currentBreakdown: "age",
 };
 
 export const DurhamCounty = Template.bind({});
 DurhamCounty.args = {
   fips: new Fips("37063"),
+  currentBreakdown: "age",
 };
 
 export const InvalidFips = Template.bind({});
 InvalidFips.args = {
   fips: new Fips("234234"),
+  currentBreakdown: "age",
 };
 
 export const VirginIslands = Template.bind({});
 VirginIslands.args = {
   fips: new Fips("78"),
+  currentBreakdown: "age",
 };
