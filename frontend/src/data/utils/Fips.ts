@@ -106,12 +106,15 @@ class Fips {
     if (this.getParentFips().isTerritory())
       return `${COUNTY_FIPS_MAP[this.code]}`;
     // COUNTIES (with the word COUNTY added as needed)
-    const optionalCounty =
+    let optionalCounty =
       COUNTY_FIPS_MAP[this.code].includes("Borough") ||
       COUNTY_FIPS_MAP[this.code].includes("Area") ||
       COUNTY_FIPS_MAP[this.code].includes("District")
         ? ""
         : " County";
+
+    if (this.code.startsWith("22")) optionalCounty = " Parish";
+
     return `${COUNTY_FIPS_MAP[this.code]}${optionalCounty}`;
   }
 
