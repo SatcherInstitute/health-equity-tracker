@@ -30,6 +30,29 @@ import {
   getWidthHundredK,
 } from "./helpers";
 
+// temp
+export const raceNameToCodeMap: Record<string, string> = {
+  // race and ethnicity NH
+  "Native Hawaiian and Pacific Islander (NH)": "NHPI (NH)",
+  "Hispanic or Latino": "Hisp/Lat",
+  All: "All",
+  "American Indian and Alaska Native (NH)": "AI/AN (NH)",
+  "Black or African American (NH)": "Black (NH)",
+  "Two or more races & Unrepresented race (NH)": "2/Unr (NH)",
+  "White (NH)": "White (NH)",
+  "Asian (NH)": "Asian (NH)",
+  //  race and ethnicity CAWP
+  "All Women": "All",
+  "Asian American & Pacific Islander Women": "AAPI",
+  "Middle Eastern & North African Women": "MENA",
+  "Native American, Alaska Native, & Native Hawaiian Women": "AI/AN/NH",
+  "American Indian, Alaska Native, Asian & Pacific Islander Women": "AIAN_API",
+  "Latinas and Hispanic Women": "Hisp/Lat",
+  "Women of an Unrepresented Race": "Unrepr.",
+  "Black or African American Women": "Black",
+  "White Women": "White",
+};
+
 /* Define type interface */
 export interface TrendsTooltipProps {
   data: TrendsData;
@@ -47,24 +70,18 @@ export function TrendsTooltip({
 }: TrendsTooltipProps) {
   const { type, yAxisLabel = "" } = axisConfig || {};
 
-  // temp
-  const codeDictionary = {
-    "Native Hawaiian and Pacific Islander (NH)": "NHPI (NH)",
-    "Hispanic or Latino": "Hisp/Lat",
-    All: "All",
-    "American Indian and Alaska Native (NH)": "AI/AN (NH)",
-    "Black or African American (NH)": "Black (NH)",
-    "Two or more races & Unrepresented race (NH)": "2/Unr (NH)",
-    "White (NH)": "White (NH)",
-    "Asian (NH)": "Asian (NH)",
-  };
-
   const TYPE_CONFIG = {
     [TYPES.HUNDRED_K]: {
       UNIT: isSkinny ? "" : " per 100k",
       width: getWidthHundredK,
       translate_x: (d: TimeSeries) => 0,
       formatter: F.num,
+    },
+    [TYPES.PERCENT_SHARE]: {
+      UNIT: "",
+      width: getWidthPctShare,
+      translate_x: (d: TimeSeries) => 0,
+      formatter: F.pct,
     },
     [TYPES.PERCENT_RELATIVE_INEQUITY]: {
       UNIT: " %",
@@ -74,11 +91,16 @@ export function TrendsTooltip({
     },
   };
 
+  const isMonthly = (selectedDate?.length ?? 0) > 4;
+  const displayDate = isMonthly
+    ? F.dateFromString_MM_YYYY(selectedDate || "")
+    : F.dateFromString_YYYY(selectedDate || "");
+
   return (
     <div className={styles.Tooltip} role="tooltip">
       {/* Date title */}
       <div className={styles.title}>
-        <div>{F.dateFromString(selectedDate || "")}</div>
+        <div>{displayDate}</div>
         {/* if per 100k chart and on mobile, add subtitle with units */}
         {isSkinny && type === TYPES.HUNDRED_K && (
           <div className={styles.subtitle}>{F.capitalize(yAxisLabel)}</div>
@@ -89,6 +111,7 @@ export function TrendsTooltip({
           sortDataDescending(data, selectedDate || "").map(
             ([group, d]: GroupData) => {
               // get value or "<1" to prevent potentially misleading "0 per 100k" on rates
+
               let value = TYPE_CONFIG[type]?.formatter(
                 getAmountsByDate(d, selectedDate)
               );
@@ -98,7 +121,7 @@ export function TrendsTooltip({
                 <Fragment key={`tooltipRow-${group}`}>
                   {/* group label - get from dictionary, if it doesn't exist, append group as label */}
                   {/* @ts-ignore */}
-                  <div>{codeDictionary[group] || group}</div>
+                  <div>{raceNameToCodeMap[group] || group}</div>
                   {/* rectangle indicator */}
                   <div
                     style={{
