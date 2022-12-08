@@ -28,6 +28,8 @@ export function useCreateChartTitle(
   let { chartTitleLines } = metricConfig;
   let titleTextArray = [chartTitle, `in ${location}`];
 
+  console.log({ chartTitleLines, chartTitle });
+
   const altMobileChartTitle = [
     chartTitle,
     `with unknown ${breakdown || ""}`,
