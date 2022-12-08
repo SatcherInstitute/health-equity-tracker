@@ -25,7 +25,7 @@ export function useCreateChartTitle(
 
   const chartTitle = metricConfig.chartTitle || "";
   const unknownchartTitle = `${chartTitle} with unknown ${breakdown}`;
-  let { mobileChartTitle } = metricConfig;
+  let { chartTitleLines } = metricConfig;
   let titleTextArray = [chartTitle, `in ${location}`];
 
   const altMobileChartTitle = [
@@ -38,8 +38,8 @@ export function useCreateChartTitle(
     titleTextArray = [unknownchartTitle, `in ${location}`];
   }
 
-  mobileChartTitle = mobileChartTitle
-    ? [...mobileChartTitle, `in ${location}`]
+  chartTitleLines = chartTitleLines
+    ? [...chartTitleLines, `in ${location}`]
     : altMobileChartTitle;
 
   const isExtraSmall = useMediaQuery(theme.breakpoints.down("xs"));
@@ -48,9 +48,9 @@ export function useCreateChartTitle(
   const isLarge = useMediaQuery(theme.breakpoints.only("lg"));
 
   if (isExtraSmall || (isComparing && isNotLarge)) {
-    return mobileChartTitle;
+    return chartTitleLines;
   }
   if (isSmall || (isComparing && isLarge)) {
     return titleTextArray;
-  } else return titleTextArray.join(" ");
+  } else return chartTitleLines.join(" ");
 }
