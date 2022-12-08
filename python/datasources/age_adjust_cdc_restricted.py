@@ -151,7 +151,8 @@ def merge_age_adjusted(df, age_adjusted_df):
        df: a dataframe with covid date without age adjusted numbers
        age_adjusted_df: a dataframe with age adjusted covid numbers"""
 
-    merge_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.RACE_CATEGORY_ID_COL]
+    merge_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL,
+                  std_col.RACE_CATEGORY_ID_COL]
 
     df = df.reset_index(drop=True)
     age_adjusted_df = age_adjusted_df.reset_index(drop=True)
@@ -223,7 +224,9 @@ def age_adjust_from_expected(df, cumulative):
        when given a dataframe with the expected deaths from each racial group.
        Returns a dataframe with the age adjusted death rate.
 
-       df: dataframe with an 'expected_deaths' and 'expected_hosps' field"""
+       df: dataframe with an 'expected_deaths' and 'expected_hosps' field
+       cumulative: boolean representing whether the data is cumulative
+                   or time series"""
 
     def get_age_adjusted_ratios(row):
         row[std_col.COVID_HOSP_RATIO_AGE_ADJUSTED] = None if \
@@ -258,7 +261,13 @@ def age_adjust_from_expected(df, cumulative):
     base_pop_df = base_pop_df.rename(columns={EXPECTED_HOSPS: base_pop_expected_hosps,
                                               EXPECTED_DEATHS: base_pop_expected_deaths})
 
+    # Then, merge the expected deaths and hospitalizations of the 'base'
+    # or comparison population (WHITE_NH in this case)
     df = pd.merge(df, base_pop_df, on=merge_cols)
+
+    # Then, calculate the ratio of each race's
+    # expected deaths and hospitalizations compared
+    # to the base race.
     df = df.apply(get_age_adjusted_ratios, axis=1)
 
     needed_cols = groupby_cols
