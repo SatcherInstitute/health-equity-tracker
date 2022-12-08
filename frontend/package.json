@@ -21,6 +21,7 @@
     "react-query": "^3.39.2"
   },
   "dependencies": {
+    "jest-canvas-mock": "^2.4.0",
     "@benhammondmusic/feeder-react-feedback": "^1.0.63",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",

@@ -1561,9 +1561,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "pct_share_of_us_congress",
           trendsCardTitleName:
             "Yearly rates of US Congress members identifying as women",
-          chartTitle:
-            "Current year rates of US Congress members identifying as women",
           columnTitleHeader: "Percentage of women US Congress members",
+          chartTitle: "Current year rates of US Congress identifying as women",
           mobileChartTitle: [
             "Current year rates of US Congress",
             "identifying as women",
@@ -1595,7 +1594,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_relative_inequity: {
           metricId: "women_us_congress_pct_relative_inequity",
           chartTitle:
-            "historical data for inequitable representation of women in US Congress",
+            "Relative racial inequity of women in US Congress over time",
+          mobileChartTitle: [
+            "Relative racial inequity of women",
+            "in US Congress over time",
+          ],
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
