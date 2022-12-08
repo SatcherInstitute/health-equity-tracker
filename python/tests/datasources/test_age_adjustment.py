@@ -81,7 +81,7 @@ def testAgeAdjust():
     expected_deaths_df = pd.read_json(
         EXPECTED_DEATHS_JSON, dtype={'state_fips': str})
 
-    df = age_adjust.age_adjust_from_expected(expected_deaths_df, True)
+    df = age_adjust.age_adjust_from_expected(expected_deaths_df, False)
     expected_df = pd.read_json(AGE_ADJUST_JSON, dtype={'state_fips': str})
 
     assert_frame_equal(df, expected_df, check_like=True)
@@ -91,7 +91,7 @@ def testAgeAdjustTimeSeries():
     expected_deaths_df = pd.read_json(
         EXPECTED_DEATHS_TIME_SERIES_JSON, dtype={'state_fips': str})
 
-    df = age_adjust.age_adjust_from_expected(expected_deaths_df, False)
+    df = age_adjust.age_adjust_from_expected(expected_deaths_df, True)
 
     expected_df = pd.read_json(AGE_ADJUST_TIME_SERIES_JSON, dtype={'state_fips': str})
 

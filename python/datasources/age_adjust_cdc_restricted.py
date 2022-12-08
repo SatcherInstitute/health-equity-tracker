@@ -45,15 +45,15 @@ class AgeAdjustCDCRestricted(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         table_names_to_dfs = {}
 
-        for cumulative in [True, False]:
+        for time_series in [False, True]:
             for geo in [STATE_LEVEL, NATIONAL_LEVEL]:
 
-                age_adjusted_df = self.generate_age_adjustment(geo, cumulative)
+                age_adjusted_df = self.generate_age_adjustment(geo, time_series)
 
                 only_race = f'by_race_{geo}_processed'
                 table_name = f'{only_race}-with_age_adjust'
 
-                if not cumulative:
+                if time_series:
                     table_name += '_time_series'
 
                 only_race_df = gcs_to_bq_util.load_df_from_bigquery(
@@ -77,8 +77,8 @@ class AgeAdjustCDCRestricted(DataSource):
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
-    def generate_age_adjustment(self, geo, cumulative):
-        print(f'age adjusting {geo} with cumulative = {cumulative}')
+    def generate_age_adjustment(self, geo, time_series):
+        print(f'age adjusting {geo} with time_series= {time_series}')
         with_race_age = 'by_race_age_state'
         with_race_age_df = gcs_to_bq_util.load_df_from_bigquery(
             'cdc_restricted_data', with_race_age, dtype={'state_fips': str})
@@ -114,13 +114,13 @@ class AgeAdjustCDCRestricted(DataSource):
 
             groupby_cols = [std_col.RACE_CATEGORY_ID_COL, std_col.AGE_COL]
 
-            if not cumulative:
+            if time_series:
                 groupby_cols.append(std_col.TIME_PERIOD_COL)
 
             with_race_age_df = cdc_restricted_local.generate_national_dataset(
                 with_race_age_df, groupby_cols)
 
-        if cumulative:
+        if not time_series:
             groupby_cols = [
                 std_col.STATE_FIPS_COL,
                 std_col.STATE_NAME_COL,
@@ -141,7 +141,7 @@ class AgeAdjustCDCRestricted(DataSource):
 
         df = get_expected_col(with_race_age_df, pop_df_hosp, EXPECTED_HOSPS, std_col.COVID_HOSP_Y)
         df = get_expected_col(df, pop_df_death, EXPECTED_DEATHS, std_col.COVID_DEATH_Y)
-        return age_adjust_from_expected(df, cumulative)
+        return age_adjust_from_expected(df, time_series)
 
 
 def merge_age_adjusted(df, age_adjusted_df):
@@ -219,14 +219,13 @@ def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_co
     return df.reset_index(drop=True)
 
 
-def age_adjust_from_expected(df, cumulative):
+def age_adjust_from_expected(df, time_series):
     """Calculates the age adjusted death rate against the standard population
        when given a dataframe with the expected deaths from each racial group.
        Returns a dataframe with the age adjusted death rate.
 
        df: dataframe with an 'expected_deaths' and 'expected_hosps' field
-       cumulative: boolean representing whether the data is cumulative
-                   or time series"""
+       time_series: boolean representing whether the data is time_series"""
 
     def get_age_adjusted_ratios(row):
         row[std_col.COVID_HOSP_RATIO_AGE_ADJUSTED] = None if \
@@ -244,7 +243,7 @@ def age_adjust_from_expected(df, cumulative):
 
     groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL,
                     std_col.RACE_CATEGORY_ID_COL]
-    if not cumulative:
+    if time_series:
         groupby_cols.append(std_col.TIME_PERIOD_COL)
 
     # First, sum up expected deaths across age groups
@@ -254,7 +253,7 @@ def age_adjust_from_expected(df, cumulative):
                          BASE_POPULATION].reset_index(drop=True)
 
     merge_cols = [std_col.STATE_FIPS_COL]
-    if not cumulative:
+    if time_series:
         merge_cols.append(std_col.TIME_PERIOD_COL)
 
     base_pop_df = base_pop_df[merge_cols + [EXPECTED_DEATHS, EXPECTED_HOSPS]]
