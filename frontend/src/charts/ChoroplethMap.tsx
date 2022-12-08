@@ -36,6 +36,7 @@ import {
   GREY_DOT_SCALE_SPEC,
   UNKNOWN_SCALE_SPEC,
 } from "./mapHelpers";
+import { DemographicGroup } from "../data/utils/Constants";
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -87,7 +88,7 @@ export interface ChoroplethMapProps {
   filename?: string;
   titles?: {
     chartTitle: string | string[];
-    subtitle?: string;
+    subtitle?: DemographicGroup;
   };
 }
 

@@ -1,7 +1,6 @@
 import { MetricId, MetricType } from "../data/config/MetricConfig";
 import { Fips } from "../data/utils/Fips";
 import { getWomenRaceLabel } from "../data/variables/CawpProvider";
-import { raceNameToCodeMap } from "./trendsChart/TrendsTooltip";
 
 import {
   GREY_DOT_SCALE,
@@ -15,6 +14,11 @@ import {
 import { FieldRange, Row } from "../data/utils/DatasetTypes";
 import { ORDINAL } from "./utils";
 import sass from "../styles/variables.module.scss";
+import {
+  DemographicGroup,
+  RaceAndEthnicityGroup,
+  raceNameToCodeMap,
+} from "../data/utils/Constants";
 
 export const MISSING_DATASET = "MISSING_DATASET";
 export const US_PROJECTION = "US_PROJECTION";
@@ -70,14 +74,16 @@ export function getGeographyType(fips: Fips, showCounties: Boolean) {
 
 export function addCAWPTooltipInfo(
   tooltipPairs: Record<string, string>,
-  subTitle: string
+  subTitle: DemographicGroup
 ) {
   const raceName = subTitle ? getWomenRaceLabel(subTitle) : "";
-  const raceCode = raceName ? raceNameToCodeMap?.[raceName] : "";
+  const raceCode: string | undefined = (raceName as RaceAndEthnicityGroup)
+    ? raceNameToCodeMap?.[raceName as RaceAndEthnicityGroup]
+    : "";
 
   tooltipPairs[`# ${raceCode} women members`] =
     "datum.women_this_race_us_congress_count";
-  tooltipPairs["# Total members"] = `datum.total_us_congress_count`;
+  tooltipPairs["# total members"] = `datum.total_us_congress_count`;
 
   return tooltipPairs;
 }

@@ -71,6 +71,38 @@ export const NON_STANDARD_RACES = [
   OTHER_STANDARD,
 ] as const;
 
+// CAWP RACE GROUPS AND ARRAY
+
+/* 
+: "Hisp/Lat",
+: "Unrepr.",
+: "Black",
+: "White",
+ */
+export const ALL_W = "All Women";
+export const AAPI_W = "Asian American & Pacific Islander Women";
+export const MENA_W = "Middle Eastern & North African Women";
+export const AIANNH_W =
+  "Native American, Alaska Native, & Native Hawaiian Women";
+export const AIAN_API_W =
+  "American Indian, Alaska Native, Asian & Pacific Islander Women";
+export const HISP_W = "Latinas and Hispanic Women";
+export const UNREPRESENTED_W = "Women of an Unrepresented Race";
+export const BLACK_W = "Black or African American Women";
+export const WHITE_W = "White Women";
+
+export const CAWP_RACES = [
+  ALL_W,
+  AAPI_W,
+  MENA_W,
+  AIANNH_W,
+  AIAN_API_W,
+  HISP_W,
+  UNREPRESENTED_W,
+  BLACK_W,
+  WHITE_W,
+] as const;
+
 // COMBINATION RACE GROUPS AND (UNUSED) ARRAY
 export const AIAN_API =
   "American Indian, Alaska Native, Asian & Pacific Islander";
@@ -96,6 +128,7 @@ export const COMBINATION_RACES = [
 export const RACE_GROUPS = [
   ...STANDARD_RACES,
   ...NON_STANDARD_RACES,
+  ...CAWP_RACES,
   ...COMBINATION_RACES,
   UNKNOWN_RACE,
   UNKNOWN_HL,
@@ -106,6 +139,31 @@ export const RACE_GROUPS = [
 
 // ENUMERATE THOSE PROPERTIES TO CREATE A RACE-GROUP TYPE
 export type RaceAndEthnicityGroup = typeof RACE_GROUPS[number];
+
+// temp
+export const raceNameToCodeMap: Partial<Record<RaceAndEthnicityGroup, string>> =
+  {
+    // race and ethnicity NH
+    "Native Hawaiian and Pacific Islander (NH)": "NHPI (NH)",
+    "Hispanic or Latino": "Hisp/Lat",
+    All: "All",
+    "American Indian and Alaska Native (NH)": "AI/AN (NH)",
+    "Black or African American (NH)": "Black (NH)",
+    "Two or more races & Unrepresented race (NH)": "2/Unr (NH)",
+    "White (NH)": "White (NH)",
+    "Asian (NH)": "Asian (NH)",
+    //  race and ethnicity CAWP
+    "All Women": "All",
+    "Asian American & Pacific Islander Women": "AAPI",
+    "Middle Eastern & North African Women": "MENA",
+    "Native American, Alaska Native, & Native Hawaiian Women": "AI/AN/NH",
+    "American Indian, Alaska Native, Asian & Pacific Islander Women":
+      "AIAN_API",
+    "Latinas and Hispanic Women": "Hisp/Lat",
+    "Women of an Unrepresented Race": "Unrepr.",
+    "Black or African American Women": "Black",
+    "White Women": "White",
+  };
 
 // AGE DEMOGRAPHIC  GROUP OPTIONS
 export const DECADE_AGE_BUCKETS = [
