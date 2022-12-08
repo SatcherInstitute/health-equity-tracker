@@ -24,7 +24,7 @@ import {
   createShapeMarks,
   formatPreventZero100k,
   GEO_DATASET,
-  getGeographyType,
+  getCountyAddOn,
   getNoDataLegend,
   getProjection,
   LEGEND_DATASET,
@@ -178,7 +178,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         /* subTitle */ props.titles?.subtitle || ""
       );
 
-    const geographyType = getGeographyType(
+    const geographyType = getCountyAddOn(
       /* fips */ props.fips,
       /* showCounties */ props.showCounties
     );
