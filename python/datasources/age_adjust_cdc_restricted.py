@@ -43,8 +43,6 @@ class AgeAdjustCDCRestricted(DataSource):
             'upload_to_gcs should not be called for AgeAdjustCDCRestricted')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        table_names_to_dfs = {}
-
         for time_series in [False, True]:
             for geo in [STATE_LEVEL, NATIONAL_LEVEL]:
 
@@ -58,24 +56,21 @@ class AgeAdjustCDCRestricted(DataSource):
 
                 only_race_df = gcs_to_bq_util.load_df_from_bigquery(
                     'cdc_restricted_data', only_race)
-                table_names_to_dfs[table_name] = merge_age_adjusted(
+
+                df = merge_age_adjusted(
                     only_race_df, age_adjusted_df)
 
-        # For each of the files, we load it as a dataframe and add it as a
-        # table in the BigQuery dataset. We expect that all aggregation and
-        # standardization of the data has been done by this point.
-        for table_name, df in table_names_to_dfs.items():
-            column_types = get_col_types(df, True)
-            column_types[std_col.COVID_HOSP_RATIO_AGE_ADJUSTED] = 'FLOAT'
-            column_types[std_col.COVID_DEATH_RATIO_AGE_ADJUSTED] = 'FLOAT'
+                column_types = get_col_types(df)
+                column_types[std_col.COVID_HOSP_RATIO_AGE_ADJUSTED] = 'FLOAT'
+                column_types[std_col.COVID_DEATH_RATIO_AGE_ADJUSTED] = 'FLOAT'
 
-            # Clean up column names.
-            self.clean_frame_column_names(df)
+                # Clean up column names.
+                self.clean_frame_column_names(df)
 
-            std_col.add_race_columns_from_category_id(df)
+                std_col.add_race_columns_from_category_id(df)
 
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=column_types)
+                gcs_to_bq_util.add_df_to_bq(
+                    df, dataset, table_name, column_types=column_types)
 
     def generate_age_adjustment(self, geo, time_series):
         print(f'age adjusting {geo} with time_series= {time_series}')

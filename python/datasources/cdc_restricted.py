@@ -102,7 +102,7 @@ class CDCRestrictedData(DataSource):
                 if demo == RACE:
                     std_col.add_race_columns_from_category_id(df)
 
-                column_types = get_col_types(df, time_series)
+                column_types = get_col_types(df, add_rel_inequality_col=time_series)
 
                 table_name = f'by_{demo}_{geo}_processed'
                 if time_series:
@@ -287,10 +287,13 @@ def null_out_dc_county_rows(df):
            std_col.COVID_POPULATION_PCT] = np.nan
 
 
-def get_col_types(df, time_series):
+def get_col_types(df, add_rel_inequality_col=False):
     """Returns a dict of column types to send to bigquery
 
-      df: DataFrame to generate column types dict for"""
+      df: DataFrame to generate column types dict for
+      add_rel_inequality_col: Optional boolean paramater to add the
+                              `rel_inequality` parameter, defaults
+                              to False"""
     column_types = {c: 'STRING' for c in df.columns}
     for prefix in COVID_CONDITION_TO_PREFIX.values():
         column_types[generate_column_name(
@@ -298,7 +301,7 @@ def get_col_types(df, time_series):
         column_types[generate_column_name(
             prefix, std_col.SHARE_SUFFIX)] = 'FLOAT'
 
-        if time_series:
+        if add_rel_inequality_col:
             column_types[generate_column_name(
                 prefix, std_col.PCT_REL_INEQUITY_SUFFIX)] = 'FLOAT'
 
