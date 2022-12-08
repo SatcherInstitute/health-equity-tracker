@@ -30,6 +30,7 @@ import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { getWomenRaceLabel } from "../data/variables/CawpProvider";
 import { Row } from "../data/utils/DatasetTypes";
+import { hasNonZeroUnknowns } from "../charts/trendsChart/helpers";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -147,9 +148,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           metricConfigPctShares.metricId
         );
 
-        const hasUnknowns =
-          nestedUnknownPctShareData &&
-          nestedUnknownPctShareData.some(([, percent]) => percent > 0);
+        const hasUnknowns = hasNonZeroUnknowns(nestedUnknownPctShareData);
 
         return (
           <CardContent>
