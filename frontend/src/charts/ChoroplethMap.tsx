@@ -8,11 +8,9 @@ import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 import { useFontSize } from "../utils/hooks/useFontSize";
 import sass from "../styles/variables.module.scss";
 import {
-  GREY_DOT_SCALE,
   LEGEND_TEXT_FONT,
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
-  UNKNOWN_SCALE,
   ZERO_DOT_SCALE,
 } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
@@ -98,6 +96,8 @@ export interface ChoroplethMapProps {
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
+  const isCongressCAWP = props.metric.metricId === "women_us_congress_pct";
+
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false);
 
@@ -136,12 +136,15 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         fields: [GEO_ID],
         values: [
           props.metric.metricId,
-          "rating",
           "women_this_race_us_congress_count",
           "total_us_congress_count",
         ],
       },
     ];
+    // Null SVI was sho
+    if (!isCongressCAWP) {
+      geoTransformers[0].values.push("rating");
+    }
     if (props.overrideShapeWithCircle) {
       geoTransformers.push({
         type: "formula",
@@ -234,16 +237,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       legendX: xOffsetNoDataLegend,
       size: ZERO_DOT_SCALE,
     };
-    // const noDataLegend = getNoDataLegend(
-    //   /* yOffset */ yOffsetNoDataLegend,
-    //   /* xOffset */ xOffsetNoDataLegend
-    // );
+    const noDataLegend = getNoDataLegend(
+      /* yOffset */ yOffsetNoDataLegend,
+      /* xOffset */ xOffsetNoDataLegend
+    );
     if (!props.hideLegend) {
-      legendList.push(
-        legend,
-        zeroLegend
-        // noDataLegend
-      );
+      legendList.push(legend, isCongressCAWP ? zeroLegend : noDataLegend);
     }
 
     const zeroScale = {
@@ -269,22 +268,23 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     );
 
     let marks = [
-      // createShapeMarks(
-      //   /*datasetName=*/ MISSING_DATASET,
-      //   /*fillColor=*/ { value: UNKNOWN_GREY },
-      //   /*hoverColor=*/ RED_ORANGE,
-      //   /*tooltipExpression=*/ missingDataTooltipValue,
-      //   /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-      //   /* hideMissingDataTooltip */ props.hideMissingDataTooltip
-      // ),
-      createShapeMarks(
-        /*datasetName=*/ ZERO_DATASET,
-        /*fillColor=*/ { value: sass.mapMin },
-        /*hoverColor=*/ RED_ORANGE,
-        /*tooltipExpression=*/ tooltipValue,
-        /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-        /* hideMissingDataTooltip */ props.hideMissingDataTooltip
-      ),
+      isCongressCAWP
+        ? createShapeMarks(
+            /*datasetName=*/ ZERO_DATASET,
+            /*fillColor=*/ { value: sass.mapMin },
+            /*hoverColor=*/ RED_ORANGE,
+            /*tooltipExpression=*/ tooltipValue,
+            /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+            /* hideMissingDataTooltip */ props.hideMissingDataTooltip
+          )
+        : createShapeMarks(
+            /*datasetName=*/ MISSING_DATASET,
+            /*fillColor=*/ { value: UNKNOWN_GREY },
+            /*hoverColor=*/ RED_ORANGE,
+            /*tooltipExpression=*/ missingDataTooltipValue,
+            /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+            /* hideMissingDataTooltip */ props.hideMissingDataTooltip
+          ),
       createShapeMarks(
         /*datasetName=*/ VALID_DATASET,
         /*fillColor=*/ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
@@ -298,8 +298,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.overrideShapeWithCircle) {
       // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET));
-      // marks.push(createCircleTextMark(MISSING_DATASET));
-      marks.push(createCircleTextMark(ZERO_DATASET));
+      isCongressCAWP
+        ? marks.push(createCircleTextMark(ZERO_DATASET))
+        : marks.push(createCircleTextMark(MISSING_DATASET));
     } else {
       marks.push(
         createInvisibleAltMarks(
@@ -323,10 +324,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         ? `Territory: ${props.fips.getDisplayName()}`
         : altText,
       data: [
-        // {
-        //   name: MISSING_PLACEHOLDER_VALUES,
-        //   values: [{ missing: NO_DATA_MESSAGE }],
-        // },
+        {
+          name: MISSING_PLACEHOLDER_VALUES,
+          values: [{ missing: NO_DATA_MESSAGE }],
+        },
         {
           name: VAR_DATASET,
           values: props.data.filter((row) => row[props.metric.metricId] > 0),
@@ -376,23 +377,29 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             feature: props.showCounties ? "counties" : "states",
           },
         },
-        // {
-        //   name: MISSING_DATASET,
-        //   transform: [
-        //     {
-        //       type: "filter",
-        //       expr: `!isValid(datum.${props.metric.metricId})`,
-        //     },
-        //   ],
-        //   source: GEO_DATASET,
-        //   format: {
-        //     type: "topojson",
-        //     feature: props.showCounties ? "counties" : "states",
-        //   },
-        // },
+        {
+          name: MISSING_DATASET,
+          transform: [
+            {
+              type: "filter",
+              expr: `!isValid(datum.${props.metric.metricId})`,
+            },
+          ],
+          source: GEO_DATASET,
+          format: {
+            type: "topojson",
+            feature: props.showCounties ? "counties" : "states",
+          },
+        },
       ],
       projections: [projection],
-      scales: [colorScale, ZERO_DOT_SCALE_SPEC, zeroScale],
+      scales: [
+        colorScale,
+        GREY_DOT_SCALE_SPEC,
+        UNKNOWN_SCALE_SPEC,
+        ZERO_DOT_SCALE_SPEC,
+        zeroScale,
+      ],
       legends: legendList,
       marks: marks,
       title: !props.overrideShapeWithCircle && {
@@ -432,6 +439,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       setShouldRenderMap(true);
     }, 0);
   }, [
+    isCongressCAWP,
     width,
     props.metric,
     props.legendTitle,

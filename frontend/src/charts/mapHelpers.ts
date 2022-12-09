@@ -288,21 +288,22 @@ export function setupColorScale(
   fieldRange?: FieldRange,
   scaleColorScheme?: string
 ) {
+  const isCongressCAWP = metricId === "women_us_congress_pct";
   const colorScale: any = {
     name: COLOR_SCALE,
-    type: "quantile",
-    domain: [1, 20, 40, 60, 80, 99],
-    // domain: [100],
-    // domain: { data: LEGEND_DATASET, field: metricId },
+    type: isCongressCAWP ? "quantile" : "quantize",
+    domain: isCongressCAWP
+      ? [1, 20, 40, 60, 80, 99]
+      : { data: LEGEND_DATASET, field: metricId },
     range: {
       scheme: scaleColorScheme || "yellowgreen",
       count: LEGEND_COLOR_COUNT,
     },
   };
-  // if (fieldRange) {
-  //   colorScale["domainMax"] = fieldRange.max;
-  //   colorScale["domainMin"] = fieldRange.min;
-  // }
+  if (fieldRange) {
+    colorScale["domainMax"] = fieldRange.max;
+    colorScale["domainMin"] = fieldRange.min;
+  }
 
   const [legendLowerBound, legendUpperBound] = getLegendDataBounds(
     /* data */ legendData,

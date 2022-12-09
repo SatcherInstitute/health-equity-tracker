@@ -43,6 +43,8 @@ export interface LegendProps {
 }
 
 export function Legend(props: LegendProps) {
+  const isCongressCAWP = props.metric.metricId === "women_us_congress_pct";
+
   const [ref, width] = useResponsiveWidth(
     100 /* default width during initialization */
   );
@@ -66,6 +68,31 @@ export function Legend(props: LegendProps) {
       ? Array(LEGEND_COLOR_COUNT).fill(EQUAL_DOT_SIZE)
       : [70, 120, 170, 220, 270, 320, 370];
 
+    const legendList = [
+      {
+        fill: COLOR_SCALE,
+        labelOverlap: "greedy",
+        symbolType: LEGEND_SYMBOL_TYPE,
+        size: DOT_SIZE_SCALE,
+        format: "d",
+        font: LEGEND_TEXT_FONT,
+        labelFont: LEGEND_TEXT_FONT,
+        direction: props.direction,
+        orient: "left",
+      },
+      {
+        fill: UNKNOWN_SCALE,
+        symbolType: LEGEND_SYMBOL_TYPE,
+        size: GREY_DOT_SCALE,
+        font: LEGEND_TEXT_FONT,
+        labelFont: LEGEND_TEXT_FONT,
+        orient: props.direction === "vertical" ? "left" : "right",
+      },
+    ];
+
+    // 0 should appear first, then numbers, then "insufficient"
+    if (isCongressCAWP) legendList.reverse();
+
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
       description: props.description,
@@ -88,7 +115,7 @@ export function Legend(props: LegendProps) {
         },
         {
           name: MISSING_PLACEHOLDER_VALUES,
-          values: [{ missing: "Insufficient data" }],
+          values: [{ missing: isCongressCAWP ? "0" : NO_DATA_MESSAGE }],
         },
       ],
       layout: { padding: 20, bounds: "full", align: "each" },
@@ -96,27 +123,7 @@ export function Legend(props: LegendProps) {
         {
           type: "group",
           name: "mark_group",
-          legends: [
-            {
-              fill: COLOR_SCALE,
-              labelOverlap: "greedy",
-              symbolType: LEGEND_SYMBOL_TYPE,
-              size: DOT_SIZE_SCALE,
-              format: "d",
-              font: LEGEND_TEXT_FONT,
-              labelFont: LEGEND_TEXT_FONT,
-              direction: props.direction,
-              orient: "left",
-            },
-            {
-              fill: UNKNOWN_SCALE,
-              symbolType: LEGEND_SYMBOL_TYPE,
-              size: GREY_DOT_SCALE,
-              font: LEGEND_TEXT_FONT,
-              labelFont: LEGEND_TEXT_FONT,
-              orient: props.direction === "vertical" ? "left" : "right",
-            },
-          ],
+          legends: legendList,
         },
       ],
       scales: [
@@ -136,7 +143,7 @@ export function Legend(props: LegendProps) {
           name: UNKNOWN_SCALE,
           type: ORDINAL,
           domain: { data: MISSING_PLACEHOLDER_VALUES, field: "missing" },
-          range: [sass.unknownGrey],
+          range: [isCongressCAWP ? sass.mapMin : sass.unknownGrey],
         },
         {
           name: GREY_DOT_SCALE,
@@ -155,6 +162,7 @@ export function Legend(props: LegendProps) {
     props.legendData,
     props.sameDotSize,
     props,
+    isCongressCAWP,
   ]);
 
   return (
