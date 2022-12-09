@@ -97,7 +97,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     breakdownString
   );
 
-  const chartTitleLines = [`${metricConfig.chartTitle}`, breakdownString];
+  const chartTitleLines = [
+    `${metricConfig.chartTitleLines.join(" ")}`,
+    breakdownString,
+  ];
 
   const HASH_ID: ScrollableHashId = "unknown-demographic-map";
 
@@ -221,7 +224,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {/* MISSING DATA ALERT */}
               {showMissingDataAlert && (
                 <MissingDataAlert
-                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
+                  dataName={metricConfig.chartTitleLines.join(" ")}
                   breakdownString={breakdownString}
                   isMapCard={true}
                   fips={props.fips}

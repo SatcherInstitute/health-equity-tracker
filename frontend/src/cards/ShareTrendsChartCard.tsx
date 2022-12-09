@@ -75,9 +75,9 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   );
 
   function getTitleText() {
-    return `${
-      metricConfigInequitable.chartTitle
-    } in ${props.fips.getSentenceDisplayName()}`;
+    return `${metricConfigInequitable.chartTitleLines.join(
+      " "
+    )} in ${props.fips.getSentenceDisplayName()}`;
   }
 
   const HASH_ID: ScrollableHashId = "inequities-over-time";
@@ -149,10 +149,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
               ]) || nestedInequityData.length === 0 ? (
                 <>
                   <MissingDataAlert
-                    dataName={
-                      metricConfigInequitable.chartTitle ||
-                      metricConfigInequitable.shortLabel
-                    }
+                    dataName={metricConfigInequitable.chartTitleLines.join(" ")}
                     breakdownString={
                       BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                     }

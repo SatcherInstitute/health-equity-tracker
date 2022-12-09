@@ -82,7 +82,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     locationName
   );
 
-  const filename = `${metricConfig.populationComparisonMetric?.chartTitle}${locationName}`;
+  const filename = `${metricConfig.populationComparisonMetric?.chartTitleLines.join(
+    " "
+  )}${locationName}`;
 
   const HASH_ID: ScrollableHashId = "population-vs-distribution";
 
@@ -137,7 +139,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             ) : (
               <CardContent>
                 <MissingDataAlert
-                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
+                  dataName={metricConfig.chartTitleLines.join(" ")}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }
@@ -166,7 +168,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 <Alert severity="info" role="note">
                   Population percentages on this graph add up to over 100%
                   because the racial categories reported for{" "}
-                  {metricConfig.chartTitle} in{" "}
+                  {metricConfig.chartTitleLines.join(" ")} in{" "}
                   {props.fips.getSentenceDisplayName()} include Hispanic
                   individuals in each racial category. As a result, Hispanic
                   individuals are counted twice.

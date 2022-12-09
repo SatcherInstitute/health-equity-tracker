@@ -69,9 +69,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   const chartTitle = useCreateChartTitle(metricConfig, locationName);
 
-  const filename = `${metricConfig.chartTitle} ${locationName}, by ${
-    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-  }`;
+  const filename = `${metricConfig.chartTitleLines.join(
+    " "
+  )} ${locationName}, by ${BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}`;
 
   const HASH_ID: ScrollableHashId = "rate-chart";
 
@@ -92,7 +92,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
             ]) ? (
               <>
                 <MissingDataAlert
-                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
+                  dataName={metricConfig.chartTitleLines.join(" ")}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }
