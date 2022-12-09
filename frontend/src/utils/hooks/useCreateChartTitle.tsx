@@ -21,28 +21,13 @@ export function useCreateChartTitle(
   breakdown?: string
 ) {
   const isComparing = window.location.href.includes("compare");
-  const unknownMap = metricConfig.metricId.includes("share");
 
-  const chartTitle = metricConfig.chartTitle || "";
-  const unknownchartTitle = `${chartTitle} with unknown ${breakdown}`;
   let { chartTitleLines } = metricConfig;
-  let titleTextArray = [chartTitle, `in ${location}`];
 
-  console.log({ chartTitleLines, chartTitle });
+  if (breakdown)
+    chartTitleLines = [...chartTitleLines, `with unknown ${breakdown}`];
 
-  const altMobileChartTitle = [
-    chartTitle,
-    `with unknown ${breakdown || ""}`,
-    `in ${location}`,
-  ];
-
-  if (unknownMap && breakdown) {
-    titleTextArray = [unknownchartTitle, `in ${location}`];
-  }
-
-  chartTitleLines = chartTitleLines
-    ? [...chartTitleLines, `in ${location}`]
-    : altMobileChartTitle;
+  chartTitleLines = [...chartTitleLines, `in ${location}`];
 
   const isExtraSmall = useMediaQuery(theme.breakpoints.down("xs"));
   const isSmall = useMediaQuery(theme.breakpoints.only("sm"));
@@ -52,7 +37,8 @@ export function useCreateChartTitle(
   if (isExtraSmall || (isComparing && isNotLarge)) {
     return chartTitleLines;
   }
+
   if (isSmall || (isComparing && isLarge)) {
-    return titleTextArray;
+    return chartTitleLines;
   } else return chartTitleLines.join(" ");
 }
