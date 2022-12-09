@@ -50,6 +50,13 @@ export const ZERO_DOT_SCALE_SPEC: any = {
   range: [EQUAL_DOT_SIZE],
 };
 
+export const ZERO_YELLOW_SCALE = {
+  name: ZERO_SCALE,
+  type: "ordinal",
+  domain: [0],
+  range: [sass.mapMin],
+};
+
 /*
 Vega requires a type of json to create the tooltip, where the key value pairs appear as new lines on the tooltip and render with a ":" in the middle.
 Vega will render incoming strings AS CODE, meaning anything you want to appear as a literal string and not a vega function call / vega variable needs to be double quoted.
@@ -94,18 +101,25 @@ export function formatPreventZero100k(
 }
 
 /* 
-
+Get either the normal "insufficient data" legend item with a grey box, 
+or optionally the "0" item with a light yellow green box for CAWP congress or
+any other datatype where we expect and want to highlight zeros
 */
-export function getNoDataLegend(yOffset: number, xOffset: number) {
+export type HelperLegendType = "insufficient" | "zero";
+export function getHelperLegend(
+  yOffset: number,
+  xOffset: number,
+  overrideGrayMissingWithZeroYellow?: boolean
+) {
   return {
-    fill: UNKNOWN_SCALE,
+    fill: overrideGrayMissingWithZeroYellow ? ZERO_SCALE : UNKNOWN_SCALE,
     symbolType: LEGEND_SYMBOL_TYPE,
     orient: "none",
     font: LEGEND_TEXT_FONT,
     labelFont: LEGEND_TEXT_FONT,
     legendY: yOffset,
     legendX: xOffset,
-    size: GREY_DOT_SCALE,
+    size: overrideGrayMissingWithZeroYellow ? ZERO_DOT_SCALE : GREY_DOT_SCALE,
   };
 }
 

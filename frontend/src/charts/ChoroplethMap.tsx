@@ -11,7 +11,6 @@ import {
   LEGEND_TEXT_FONT,
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
-  ZERO_DOT_SCALE,
 } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
 import { PADDING_FOR_ACTIONS_MENU } from "./utils";
@@ -25,7 +24,6 @@ import {
   formatPreventZero100k,
   GEO_DATASET,
   getCountyAddOn,
-  getNoDataLegend,
   getProjection,
   LEGEND_DATASET,
   makeAltText,
@@ -37,7 +35,8 @@ import {
   UNKNOWN_SCALE_SPEC,
   ZERO_VAR_DATASET,
   ZERO_DOT_SCALE_SPEC,
-  ZERO_SCALE,
+  getHelperLegend,
+  ZERO_YELLOW_SCALE,
 } from "./mapHelpers";
 
 const {
@@ -227,30 +226,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       };
     }
 
-    const zeroLegend = {
-      fill: ZERO_SCALE,
-      symbolType: "square",
-      orient: "none",
-      font: LEGEND_TEXT_FONT,
-      labelFont: LEGEND_TEXT_FONT,
-      legendY: yOffsetNoDataLegend,
-      legendX: xOffsetNoDataLegend,
-      size: ZERO_DOT_SCALE,
-    };
-    const noDataLegend = getNoDataLegend(
+    const helperLegend = getHelperLegend(
       /* yOffset */ yOffsetNoDataLegend,
-      /* xOffset */ xOffsetNoDataLegend
+      /* xOffset */ xOffsetNoDataLegend,
+      /* overrideGrayMissingWithZeroYellow */ isCongressCAWP
     );
     if (!props.hideLegend) {
-      legendList.push(legend, isCongressCAWP ? zeroLegend : noDataLegend);
+      legendList.push(legend, helperLegend);
     }
-
-    const zeroScale = {
-      name: ZERO_SCALE,
-      type: "ordinal",
-      domain: [0],
-      range: [sass.mapMin],
-    };
 
     const colorScale = setupColorScale(
       /* legendData */ legendData,
@@ -398,7 +381,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         GREY_DOT_SCALE_SPEC,
         UNKNOWN_SCALE_SPEC,
         ZERO_DOT_SCALE_SPEC,
-        zeroScale,
+        ZERO_YELLOW_SCALE,
       ],
       legends: legendList,
       marks: marks,
