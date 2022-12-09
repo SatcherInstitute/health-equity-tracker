@@ -20,25 +20,23 @@ export function useCreateChartTitle(
   location: string,
   breakdown?: string
 ) {
-  const isComparing = window.location.href.includes("compare");
-
-  let { chartTitleLines } = metricConfig;
-
-  if (breakdown)
-    chartTitleLines = [...chartTitleLines, `with unknown ${breakdown}`];
-
-  chartTitleLines = [...chartTitleLines, `in ${location}`];
-
   const isExtraSmall = useMediaQuery(theme.breakpoints.down("xs"));
   const isSmall = useMediaQuery(theme.breakpoints.only("sm"));
   const isNotLarge = useMediaQuery(theme.breakpoints.down("md"));
   const isLarge = useMediaQuery(theme.breakpoints.only("lg"));
+  const isComparing = window.location.href.includes("compare");
+
+  let { chartTitleLines } = metricConfig;
+  if (breakdown) chartTitleLines = [...chartTitleLines, breakdown];
+
+  const multiLineTitle = [...chartTitleLines, location];
+  const twoLineTitle = [chartTitleLines.join(" "), location];
+  const oneLineTitle = twoLineTitle.join(" ");
 
   if (isExtraSmall || (isComparing && isNotLarge)) {
-    return chartTitleLines;
+    return multiLineTitle;
   }
-
   if (isSmall || (isComparing && isLarge)) {
-    return chartTitleLines;
-  } else return chartTitleLines.join(" ");
+    return twoLineTitle;
+  } else return oneLineTitle;
 }

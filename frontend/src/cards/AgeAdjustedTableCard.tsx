@@ -92,7 +92,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     config.metricId.includes("ratio")
   );
 
-  const locationName = props.fips.getSentenceDisplayName();
+  const locationName = `in ${props.fips.getSentenceDisplayName()}`;
   let chartTitle = useCreateChartTitle(metricConfigs[ratioId], locationName);
 
   // We have to do this here because vega automatically

@@ -47,7 +47,7 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
-  const locationName = props.fips.getSentenceDisplayName();
+  const locationName = `in ${props.fips.getSentenceDisplayName()}`;
 
   const isIncarceration = INCARCERATION_IDS.includes(
     props.variableConfig.variableId

@@ -58,11 +58,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const preloadHeight = useGuessPreloadHeight([700, 1000]);
   const metricConfig = props.variableConfig.metrics["pct_share"];
   const currentBreakdown = props.currentBreakdown;
-  const breakdownString =
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown];
-
+  const breakdownString = `with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`;
   const location = useLocation();
-  const locationName = props.fips.getSentenceDisplayName();
+  const locationName = `in ${props.fips.getSentenceDisplayName()}`;
 
   const signalListeners: any = {
     click: (...args: any) => {
@@ -99,10 +97,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     breakdownString
   );
 
-  const chartTitleLines = [
-    `${metricConfig.chartTitle}`,
-    `with unknown ${breakdownString}`,
-  ];
+  const chartTitleLines = [`${metricConfig.chartTitle}`, breakdownString];
 
   const HASH_ID: ScrollableHashId = "unknown-demographic-map";
 

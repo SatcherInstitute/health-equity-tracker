@@ -77,7 +77,7 @@ function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050]);
 
   const metricConfig = props.variableConfig.metrics["per100k"];
-  const locationName = props.fips.getSentenceDisplayName();
+  const locationName = `in ${props.fips.getSentenceDisplayName()}`;
   const currentBreakdown = props.currentBreakdown;
 
   const isPrison = props.variableConfig.variableId === "prison";

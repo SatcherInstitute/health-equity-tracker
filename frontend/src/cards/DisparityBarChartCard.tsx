@@ -51,7 +51,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   );
 
   const metricConfig = props.variableConfig.metrics["pct_share"];
-  const locationName = props.fips.getSentenceDisplayName();
+  const locationName = `in ${props.fips.getSentenceDisplayName()}`;
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
