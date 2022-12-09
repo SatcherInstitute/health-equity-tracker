@@ -156,7 +156,8 @@ def merge_age_adjusted(df, age_adjusted_df):
 
 
 def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_col):
-    """Calculates the age adjusted expected deaths of each racial group.
+    """Calculates the age adjusted expected cases for the condition in
+       `raw_number_col` of each racial group.
        I made this function to break up the age adjustment into smaller, more
        easily testable pieces.
 
