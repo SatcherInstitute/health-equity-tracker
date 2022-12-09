@@ -8,9 +8,12 @@ import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 import { useFontSize } from "../utils/hooks/useFontSize";
 import sass from "../styles/variables.module.scss";
 import {
+  GREY_DOT_SCALE,
   LEGEND_TEXT_FONT,
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
+  UNKNOWN_SCALE,
+  ZERO_DOT_SCALE,
 } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
 import { PADDING_FOR_ACTIONS_MENU } from "./utils";
@@ -34,6 +37,9 @@ import {
   VAR_DATASET,
   GREY_DOT_SCALE_SPEC,
   UNKNOWN_SCALE_SPEC,
+  ZERO_VAR_DATASET,
+  ZERO_DOT_SCALE_SPEC,
+  ZERO_SCALE,
 } from "./mapHelpers";
 
 const {
@@ -43,6 +49,7 @@ const {
 } = sass;
 
 const VALID_DATASET = "VALID_DATASET";
+const ZERO_DATASET = "ZERO_DATASET";
 const GEO_ID = "id";
 
 // TODO - consider moving standardized column names, like fips, to variables shared between here and VariableProvider
@@ -217,18 +224,39 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       };
     }
 
-    const noDataLegend = getNoDataLegend(
-      /* yOffset */ yOffsetNoDataLegend,
-      /* xOffset */ xOffsetNoDataLegend
-    );
+    const zeroLegend = {
+      fill: ZERO_SCALE,
+      symbolType: "square",
+      orient: "none",
+      font: LEGEND_TEXT_FONT,
+      labelFont: LEGEND_TEXT_FONT,
+      legendY: yOffsetNoDataLegend,
+      legendX: xOffsetNoDataLegend,
+      size: ZERO_DOT_SCALE,
+    };
+    // const noDataLegend = getNoDataLegend(
+    //   /* yOffset */ yOffsetNoDataLegend,
+    //   /* xOffset */ xOffsetNoDataLegend
+    // );
     if (!props.hideLegend) {
-      legendList.push(legend, noDataLegend);
+      legendList.push(
+        legend,
+        zeroLegend
+        // noDataLegend
+      );
     }
+
+    const zeroScale = {
+      name: ZERO_SCALE,
+      type: "ordinal",
+      domain: [0],
+      range: [sass.mapMin],
+    };
 
     const colorScale = setupColorScale(
       /* legendData */ legendData,
       /* metricId */ props.metric.metricId,
-      /* scaleType */ props.scaleType,
+      /* scaleType */ "quantile", //props.scaleType,
       /* fieldRange? */ props.fieldRange,
       /* scaleColorScheme? */ props.scaleColorScheme
     );
@@ -241,11 +269,19 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     );
 
     let marks = [
+      // createShapeMarks(
+      //   /*datasetName=*/ MISSING_DATASET,
+      //   /*fillColor=*/ { value: UNKNOWN_GREY },
+      //   /*hoverColor=*/ RED_ORANGE,
+      //   /*tooltipExpression=*/ missingDataTooltipValue,
+      //   /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+      //   /* hideMissingDataTooltip */ props.hideMissingDataTooltip
+      // ),
       createShapeMarks(
-        /*datasetName=*/ MISSING_DATASET,
-        /*fillColor=*/ { value: UNKNOWN_GREY },
+        /*datasetName=*/ ZERO_DATASET,
+        /*fillColor=*/ { value: sass.mapMin },
         /*hoverColor=*/ RED_ORANGE,
-        /*tooltipExpression=*/ missingDataTooltipValue,
+        /*tooltipExpression=*/ tooltipValue,
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
         /* hideMissingDataTooltip */ props.hideMissingDataTooltip
       ),
@@ -262,7 +298,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.overrideShapeWithCircle) {
       // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET));
-      marks.push(createCircleTextMark(MISSING_DATASET));
+      // marks.push(createCircleTextMark(MISSING_DATASET));
+      marks.push(createCircleTextMark(ZERO_DATASET));
     } else {
       marks.push(
         createInvisibleAltMarks(
@@ -286,13 +323,17 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         ? `Territory: ${props.fips.getDisplayName()}`
         : altText,
       data: [
-        {
-          name: MISSING_PLACEHOLDER_VALUES,
-          values: [{ missing: NO_DATA_MESSAGE }],
-        },
+        // {
+        //   name: MISSING_PLACEHOLDER_VALUES,
+        //   values: [{ missing: NO_DATA_MESSAGE }],
+        // },
         {
           name: VAR_DATASET,
-          values: props.data,
+          values: props.data.filter((row) => row[props.metric.metricId] > 0),
+        },
+        {
+          name: ZERO_VAR_DATASET,
+          values: props.data.filter((row) => row[props.metric.metricId] === 0),
         },
         {
           name: LEGEND_DATASET,
@@ -322,7 +363,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           },
         },
         {
-          name: MISSING_DATASET,
+          name: ZERO_DATASET,
           transform: [
             {
               type: "filter",
@@ -335,9 +376,23 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             feature: props.showCounties ? "counties" : "states",
           },
         },
+        // {
+        //   name: MISSING_DATASET,
+        //   transform: [
+        //     {
+        //       type: "filter",
+        //       expr: `!isValid(datum.${props.metric.metricId})`,
+        //     },
+        //   ],
+        //   source: GEO_DATASET,
+        //   format: {
+        //     type: "topojson",
+        //     feature: props.showCounties ? "counties" : "states",
+        //   },
+        // },
       ],
       projections: [projection],
-      scales: [colorScale, GREY_DOT_SCALE_SPEC, UNKNOWN_SCALE_SPEC],
+      scales: [colorScale, ZERO_DOT_SCALE_SPEC, zeroScale],
       legends: legendList,
       marks: marks,
       title: !props.overrideShapeWithCircle && {

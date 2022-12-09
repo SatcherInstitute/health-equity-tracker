@@ -9,6 +9,7 @@ import {
   LEGEND_COLOR_COUNT,
   MISSING_PLACEHOLDER_VALUES,
   EQUAL_DOT_SIZE,
+  ZERO_DOT_SCALE,
 } from "./Legend";
 import { FieldRange, Row } from "../data/utils/DatasetTypes";
 import { ORDINAL } from "./utils";
@@ -19,7 +20,11 @@ export const US_PROJECTION = "US_PROJECTION";
 export const CIRCLE_PROJECTION = "CIRCLE_PROJECTION";
 export const GEO_DATASET = "GEO_DATASET";
 export const VAR_DATASET = "VAR_DATASET";
+export const ZERO_VAR_DATASET = "ZERO_VAR_DATASET";
+
 export const COLOR_SCALE = "COLOR_SCALE";
+export const ZERO_SCALE = "ZERO_SCALE";
+
 export const LEGEND_DATASET = "LEGEND_DATASET";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
@@ -35,6 +40,13 @@ export const GREY_DOT_SCALE_SPEC: any = {
   name: GREY_DOT_SCALE,
   type: ORDINAL,
   domain: { data: "missing_data", field: "missing" },
+  range: [EQUAL_DOT_SIZE],
+};
+
+export const ZERO_DOT_SCALE_SPEC: any = {
+  name: ZERO_DOT_SCALE,
+  type: ORDINAL,
+  domain: [0, 0],
   range: [EQUAL_DOT_SIZE],
 };
 
@@ -136,7 +148,12 @@ export function createShapeMarks(
     from: { data: datasetName },
     encode: {
       enter: encodeEnter,
-      update: { fill: fillColor },
+      update: {
+        fill: fillColor,
+        opacity: {
+          signal: "1",
+        },
+      },
       hover: {
         fill: { value: hoverColor },
         cursor: { value: "pointer" },
@@ -273,17 +290,19 @@ export function setupColorScale(
 ) {
   const colorScale: any = {
     name: COLOR_SCALE,
-    type: scaleType,
-    domain: { data: LEGEND_DATASET, field: metricId },
+    type: "quantile",
+    domain: [1, 20, 40, 60, 80, 99],
+    // domain: [100],
+    // domain: { data: LEGEND_DATASET, field: metricId },
     range: {
       scheme: scaleColorScheme || "yellowgreen",
       count: LEGEND_COLOR_COUNT,
     },
   };
-  if (fieldRange) {
-    colorScale["domainMax"] = fieldRange.max;
-    colorScale["domainMin"] = fieldRange.min;
-  }
+  // if (fieldRange) {
+  //   colorScale["domainMax"] = fieldRange.max;
+  //   colorScale["domainMin"] = fieldRange.min;
+  // }
 
   const [legendLowerBound, legendUpperBound] = getLegendDataBounds(
     /* data */ legendData,

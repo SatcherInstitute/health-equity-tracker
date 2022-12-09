@@ -10,6 +10,7 @@ const COLOR_SCALE = "color_scale";
 const DOT_SIZE_SCALE = "dot_size_scale";
 export const UNKNOWN_SCALE = "unknown_scale";
 export const GREY_DOT_SCALE = "grey_dot_scale";
+export const ZERO_DOT_SCALE = "zero_dot_scale";
 const RAW_VALUES = "raw_values";
 const DATASET_VALUES = "dataset_values";
 export const MISSING_PLACEHOLDER_VALUES = "missing_data";
