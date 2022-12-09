@@ -1561,13 +1561,14 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "pct_share_of_us_congress",
           trendsCardTitleName:
             "Yearly rates of US Congress members identifying as women",
-          columnTitleHeader: "Percentage of women US Congress members",
-          chartTitle: "Current year rates of US Congress identifying as women",
+          columnTitleHeader: "Share of Congress for women of each race",
+          chartTitle:
+            "Current year rates of US Congress members identifying as women",
           mobileChartTitle: [
             "Current year rates of US Congress",
-            "identifying as women",
+            "members identifying as women",
           ],
-          shortLabel: "% of US congress members",
+          shortLabel: "% of Congress",
           type: "pct_share",
         },
         pct_share: {
@@ -1575,7 +1576,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           trendsCardTitleName:
             "Inequitable share of women in U.S. Congress over time",
           chartTitle: "Percent share of women US Congress members",
-          columnTitleHeader: "Percent share of women US Congress members",
+          columnTitleHeader: "Share of all women Congress members",
           shortLabel: "% of women members",
           type: "pct_share",
           populationComparisonMetric: {
@@ -1625,7 +1626,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           mobileChartTitle: ["Percentage of women in state", "legislators"],
           trendsCardTitleName: "Rates of women in state legislatures over time",
           columnTitleHeader: "Percentage of women state legislators",
-          shortLabel: "% of state legislators identifying as women", // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
+          shortLabel: "% of egislators", // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
           type: "pct_incidence",
         },
         pct_share: {

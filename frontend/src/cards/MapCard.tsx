@@ -30,10 +30,7 @@ import {
   COMBINED_QUALIFIER,
   PRIVATE_JAILS_QUALIFIER,
 } from "../data/variables/IncarcerationProvider";
-import {
-  CAWP_DETERMINANTS,
-  getWomenRaceLabel,
-} from "../data/variables/CawpProvider";
+import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 import { useAutoFocusDialog } from "../utils/hooks/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
@@ -152,12 +149,13 @@ function MapCardWithKey(props: MapCardProps) {
     queries.push(sviQuery);
   }
 
-  const selectedRaceSuffix = CAWP_DETERMINANTS.includes(metricConfig.metricId)
-    ? ` Identifying as ${getWomenRaceLabel(activeBreakdownFilter).replace(
-        "All ",
-        ""
-      )}`
-    : "";
+  let selectedRaceSuffix = "";
+  if (
+    CAWP_DETERMINANTS.includes(metricConfig.metricId) &&
+    activeBreakdownFilter !== "All"
+  ) {
+    selectedRaceSuffix = ` and also identifying as ${activeBreakdownFilter}`;
+  }
 
   let qualifierMessage = "";
   if (isPrison) qualifierMessage = COMBINED_QUALIFIER;
