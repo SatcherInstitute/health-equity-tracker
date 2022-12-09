@@ -8,10 +8,10 @@ test.describe('CAWP - National US Congress with Time Charts', () => {
 		await expect(page.locator('#rates-over-time')).toContainText('% of US congress members →');
 	})
 
-	test('Data Table card contains new componsite Race group', async ({ page }) => {
-		await page.goto('/exploredata?mls=1.women_in_legislative_office-3.00&dt1=women_us_congress#data-table', { waitUntil: "networkidle" });
-		await expect(page).toBeAccessible()
-		await expect(page.locator('#data-table')).toContainText('American Indian, Alaska Native, Asian & Pacific Islander');
-	})
+	// test('Data Table card contains new componsite Race group', async ({ page }) => {
+	// 	await page.goto('/exploredata?mls=1.women_in_legislative_office-3.00&dt1=women_us_congress#data-table', { waitUntil: "networkidle" });
+	// 	await expect(page).toBeAccessible()
+	// 	await expect(page.locator('#data-table')).toContainText('American Indian, Alaska Native, Asian & Pacific Islander');
+	// })
 
 });
