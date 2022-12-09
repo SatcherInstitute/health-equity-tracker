@@ -60,7 +60,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const currentBreakdown = props.currentBreakdown;
   const breakdownString = `with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`;
   const location = useLocation();
-  const locationName = `in ${props.fips.getSentenceDisplayName()}`;
+  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
 
   const signalListeners: any = {
     click: (...args: any) => {
@@ -91,16 +91,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     /* variableId */ props.variableConfig.variableId
   );
 
-  const chartTitle = useCreateChartTitle(
+  const { chartTitle, dataName, filename } = useCreateChartTitle(
     metricConfig,
-    locationName,
+    locationPhrase,
     breakdownString
   );
-
-  const chartTitleLines = [
-    `${metricConfig.chartTitleLines.join(" ")}`,
-    breakdownString,
-  ];
 
   const HASH_ID: ScrollableHashId = "unknown-demographic-map";
 
@@ -224,7 +219,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {/* MISSING DATA ALERT */}
               {showMissingDataAlert && (
                 <MissingDataAlert
-                  dataName={metricConfig.chartTitleLines.join(" ")}
+                  dataName={dataName}
                   breakdownString={breakdownString}
                   isMapCard={true}
                   fips={props.fips}
@@ -263,7 +258,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
                   geoData={geoData}
-                  filename={`${chartTitleLines.join(" ")} in ${locationName}`}
+                  filename={filename}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <div className={styles.TerritoryCirclesContainer}>

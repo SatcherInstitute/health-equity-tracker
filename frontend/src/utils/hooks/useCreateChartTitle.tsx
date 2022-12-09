@@ -27,16 +27,18 @@ export function useCreateChartTitle(
   const isComparing = window.location.href.includes("compare");
 
   let { chartTitleLines } = metricConfig;
+  const dataName = chartTitleLines.join(" ");
   if (breakdown) chartTitleLines = [...chartTitleLines, breakdown];
 
   const multiLineTitle = [...chartTitleLines, location];
   const twoLineTitle = [chartTitleLines.join(" "), location];
-  const oneLineTitle = twoLineTitle.join(" ");
+  const singleLineTitle = twoLineTitle.join(" ");
 
   if (isExtraSmall || (isComparing && isNotLarge)) {
-    return multiLineTitle;
+    return { chartTitle: multiLineTitle, filename: singleLineTitle, dataName };
   }
   if (isSmall || (isComparing && isLarge)) {
-    return twoLineTitle;
-  } else return oneLineTitle;
+    return { chartTitle: twoLineTitle, filename: singleLineTitle, dataName };
+  } else
+    return { chartTitle: singleLineTitle, filename: singleLineTitle, dataName };
 }

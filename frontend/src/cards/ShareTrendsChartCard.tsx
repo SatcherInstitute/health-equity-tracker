@@ -31,6 +31,7 @@ import AltTableView from "./ui/AltTableView";
 import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -74,11 +75,11 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     /* timeView */ TIME_SERIES
   );
 
-  function getTitleText() {
-    return `${metricConfigInequitable.chartTitleLines.join(
-      " "
-    )} in ${props.fips.getSentenceDisplayName()}`;
-  }
+  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
+  const { filename, dataName } = useCreateChartTitle(
+    metricConfigInequitable,
+    locationPhrase
+  );
 
   const HASH_ID: ScrollableHashId = "inequities-over-time";
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label;
@@ -149,7 +150,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
               ]) || nestedInequityData.length === 0 ? (
                 <>
                   <MissingDataAlert
-                    dataName={metricConfigInequitable.chartTitleLines.join(" ")}
+                    dataName={dataName}
                     breakdownString={
                       BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                     }
@@ -161,7 +162,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                   {/* @ts-ignore */}
                   <TrendsChart
                     data={nestedInequityData}
-                    chartTitle={getTitleText()}
+                    chartTitle={filename}
                     unknown={nestedUnknowns}
                     axisConfig={{
                       type: metricConfigInequitable.type,
@@ -190,7 +191,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     expanded={a11yTableExpanded}
                     setExpanded={setA11yTableExpanded}
                     expandBoxLabel={cardHeaderTitle.toLowerCase()}
-                    tableCaption={`${getTitleText()} by ${
+                    tableCaption={`${filename} by ${
                       BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                     }`}
                     knownsData={inequityData}

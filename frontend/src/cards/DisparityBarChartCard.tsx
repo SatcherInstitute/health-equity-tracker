@@ -51,7 +51,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   );
 
   const metricConfig = props.variableConfig.metrics["pct_share"];
-  const locationName = `in ${props.fips.getSentenceDisplayName()}`;
+  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -77,14 +77,10 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     /* variableId */ props.variableConfig.variableId
   );
 
-  const chartTitle = useCreateChartTitle(
+  const { chartTitle, filename } = useCreateChartTitle(
     metricConfig.populationComparisonMetric as MetricConfig,
-    locationName
+    locationPhrase
   );
-
-  const filename = `${metricConfig.populationComparisonMetric?.chartTitleLines.join(
-    " "
-  )}${locationName}`;
 
   const HASH_ID: ScrollableHashId = "population-vs-distribution";
 
