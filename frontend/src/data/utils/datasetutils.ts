@@ -177,27 +177,46 @@ export function getLatestDate(df: IDataFrame): Date {
   return new Date(dateTimes.max());
 }
 
-export const getLowestN = (
+export function getExtremeValues(
   data: Row[],
   fieldName: MetricId,
   listSize: number
-): Row[] => {
-  return data
+) {
+  // cleanup and sort the data
+  data = data
     .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
-    .sort((rowA: Row, rowB: Row) => rowA[fieldName] - rowB[fieldName])
-    .slice(0, listSize);
-};
+    .sort((rowA: Row, rowB: Row) => rowA[fieldName] - rowB[fieldName]); // ascending order
 
-export const getHighestN = (
-  data: Row[],
-  fieldName: MetricId,
-  listSize: number
-): Row[] => {
-  return data
-    .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
-    .sort((rowA: Row, rowB: Row) => rowB[fieldName] - rowA[fieldName])
-    .slice(0, listSize);
-};
+  console.log({ data });
+  const lastIndex = data.length - 1;
+
+  const lowestValue = data[0][fieldName];
+  const valuesTiedAtLowest = data.filter(
+    (row) => row[fieldName] === lowestValue
+  );
+  console.log({ valuesTiedAtLowest });
+  const lowestValues =
+    valuesTiedAtLowest.length > listSize
+      ? valuesTiedAtLowest
+      : data.slice(0, listSize);
+
+  const highestValue = data[lastIndex][fieldName];
+  const valuesTiedAtHighest = data.filter(
+    (row) => row[fieldName] === highestValue
+  );
+  console.log({ valuesTiedAtHighest });
+
+  const highestValues =
+    valuesTiedAtHighest.length > listSize
+      ? valuesTiedAtHighest
+      : // ensure the "top 5" doesn't include any of the tied lowest values
+        data
+          .reverse()
+          .slice(0, listSize)
+          .filter((row) => !lowestValues.includes(row));
+
+  return [lowestValues, highestValues];
+}
 
 /*
 Analyzes state and determines if the 2nd population source should be used

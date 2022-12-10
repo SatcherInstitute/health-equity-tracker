@@ -23,7 +23,7 @@ import {
   RACE,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
-import { getHighestN, getLowestN } from "../data/utils/datasetutils";
+import { getExtremeValues } from "../data/utils/datasetutils";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import {
   COMBINED_INCARCERATION_STATES_LIST,
@@ -217,13 +217,7 @@ function MapCardWithKey(props: MapCardProps) {
           );
         }
 
-        const highestRatesList = getHighestN(
-          dataForActiveBreakdownFilter,
-          metricConfig.metricId,
-
-          SIZE_OF_HIGHEST_LOWEST_RATES_LIST
-        );
-        const lowestRatesList = getLowestN(
+        const [lowestRatesList, highestRatesList] = getExtremeValues(
           dataForActiveBreakdownFilter,
           metricConfig.metricId,
           SIZE_OF_HIGHEST_LOWEST_RATES_LIST
@@ -376,6 +370,7 @@ function MapCardWithKey(props: MapCardProps) {
                     geoData={geoData}
                     // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
                     filename={filename}
+                    listExpanded={listExpanded}
                   />
                   {/* generate additional VEGA canvases for territories on national map */}
                   {props.fips.isUsa() && (

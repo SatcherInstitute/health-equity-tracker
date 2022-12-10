@@ -92,6 +92,7 @@ export interface ChoroplethMapProps {
     chartTitle: string | string[];
     subtitle?: string;
   };
+  listExpanded?: boolean;
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -140,8 +141,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         ],
       },
     ];
-    // Null SVI was sho
-    if (!isCongressCAWP) {
+    // Null SVI was showing
+    if (!isCongressCAWP && !props.listExpanded) {
       geoTransformers[0].values.push("rating");
     }
     if (props.overrideShapeWithCircle) {
@@ -229,7 +230,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const helperLegend = getHelperLegend(
       /* yOffset */ yOffsetNoDataLegend,
       /* xOffset */ xOffsetNoDataLegend,
-      /* overrideGrayMissingWithZeroYellow */ isCongressCAWP
+      /* overrideGrayMissingWithZeroYellow */ isCongressCAWP &&
+        !props.listExpanded
     );
     if (!props.hideLegend) {
       legendList.push(legend, helperLegend);
@@ -251,7 +253,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     );
 
     let marks = [
-      isCongressCAWP
+      isCongressCAWP && !props.listExpanded
         ? createShapeMarks(
             /*datasetName=*/ ZERO_DATASET,
             /*fillColor=*/ { value: sass.mapMin },
@@ -281,7 +283,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.overrideShapeWithCircle) {
       // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET));
-      isCongressCAWP
+      isCongressCAWP && !props.listExpanded
         ? marks.push(createCircleTextMark(ZERO_DATASET))
         : marks.push(createCircleTextMark(MISSING_DATASET));
     } else {
@@ -313,7 +315,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
         {
           name: VAR_DATASET,
-          values: props.data.filter((row) => row[props.metric.metricId] > 0),
+          values: props.listExpanded
+            ? props.data
+            : props.data.filter((row) => row[props.metric.metricId] > 0),
         },
         {
           name: ZERO_VAR_DATASET,
