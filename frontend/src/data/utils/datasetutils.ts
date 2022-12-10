@@ -185,37 +185,41 @@ export function getExtremeValues(
   // cleanup and sort the data
   data = data
     .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
-    .sort((rowA: Row, rowB: Row) => rowA[fieldName] - rowB[fieldName]); // ascending order
+    .sort((rowA: Row, rowB: Row) => rowB[fieldName] - rowA[fieldName]); // descending order
 
   console.log({ data });
   const lastIndex = data.length - 1;
 
-  const lowestValue = data[0][fieldName];
-  const valuesTiedAtLowest = data.filter(
-    (row) => row[fieldName] === lowestValue
-  );
-  console.log({ valuesTiedAtLowest });
-  const lowestValues =
-    valuesTiedAtLowest.length > listSize
-      ? valuesTiedAtLowest
-      : data.slice(0, listSize);
-
-  const highestValue = data[lastIndex][fieldName];
+  const highestValue = data[0][fieldName];
   const valuesTiedAtHighest = data.filter(
     (row) => row[fieldName] === highestValue
   );
-  console.log({ valuesTiedAtHighest });
 
   const highestValues =
     valuesTiedAtHighest.length > listSize
       ? valuesTiedAtHighest
-      : // ensure the "top 5" doesn't include any of the tied lowest values
-        data
-          .reverse()
-          .slice(0, listSize)
-          .filter((row) => !lowestValues.includes(row));
+      : data.slice(0, listSize);
 
-  return [lowestValues, highestValues];
+  const lowestValue = data[lastIndex][fieldName];
+  const valuesTiedAtLowest = data.filter(
+    (row) => row[fieldName] === lowestValue
+  );
+  const lowestValues: Row[] =
+    valuesTiedAtLowest.length > listSize
+      ? valuesTiedAtLowest
+      : data.reverse().slice(0, listSize);
+  // .filter((row) => !lowestValues.includes(row));
+
+  const overlappingValues = lowestValues.filter((value) =>
+    highestValues.includes(value)
+  );
+
+  console.log({ overlappingValues });
+
+  return [
+    lowestValues.filter((value) => !overlappingValues.includes(value)),
+    highestValues.filter((value) => !overlappingValues.includes(value)),
+  ];
 }
 
 /*
