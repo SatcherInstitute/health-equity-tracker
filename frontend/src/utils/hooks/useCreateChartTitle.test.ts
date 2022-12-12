@@ -1,48 +1,59 @@
-import { MetricConfig } from "../../data/config/MetricConfig";
-import { useCreateChartTitle } from "./useCreateChartTitle";
-import { UnknownsMapCard } from "../../cards/UnknownsMapCard";
+import { createTitle } from "./useCreateChartTitle";
 
-const metricConfig: MetricConfig = {
-  metricId: "covid_cases_per_100k",
-  chartTitleLines: ["COVID-19 cases since Jan 2020", "per 100k people"],
-  trendsCardTitleName: "Monthly COVID-19 cases per 100k people",
-  columnTitleHeader: "Rates of COVID-19 cases",
-  shortLabel: "cases per 100k",
-  type: "per100k",
-};
-const location = "";
-const breakdown = "";
+const CHART_TITLE_LINES = ["COVID-19 cases since Jan 2020", "per 100k people"];
+const LOCATION = "in the United States";
 
-describe("checkUseCreateTitle", function () {
-  test("it should return a single string for dataname", () => {
-    const dataName = "";
-    expect(useCreateChartTitle(metricConfig, location, breakdown)).toEqual(
-      dataName
-    );
+describe("Create  Chart Titles", () => {
+  describe("100K Map", () => {
+    it("Should return a single string, when screen is large", () => {
+      const output =
+        "COVID-19 cases since Jan 2020 per 100k people in the United States";
+      const chartTitleLines = CHART_TITLE_LINES;
+      const location = LOCATION;
+      const screenSize = "large";
+      expect(createTitle(chartTitleLines, location, screenSize)).toEqual(
+        output
+      );
+    });
+    it("Should return a array of two strings, when ", () => {
+      const output = [
+        "COVID-19 cases since Jan 2020 per 100k people",
+        "in the United States",
+      ];
+      const chartTitleLines = CHART_TITLE_LINES;
+      const location = LOCATION;
+      const screenSize = "medium";
+      expect(createTitle(chartTitleLines, location, screenSize)).toEqual(
+        output
+      );
+    });
+    it("Should return an array of three strings, when small", () => {
+      const output = [
+        "COVID-19 cases since Jan 2020",
+        "per 100k people",
+        "in the United States",
+      ];
+      const chartTitleLines = CHART_TITLE_LINES;
+      const location = LOCATION;
+      const screenSize = "small";
+      expect(createTitle(chartTitleLines, location, screenSize)).toEqual(
+        output
+      );
+    });
+  });
+  describe("Unknowns Map", () => {
+    it("Should return a single string, when screen is large", () => {
+      const output =
+        "Share of total COVID-19 cases with unknown race and ethnicity in the United States";
+      const chartTitleLines = [
+        "Share of total COVID-19 cases",
+        "with unknown race and ethnicity",
+      ];
+      const location = LOCATION;
+      const screenSize = "large";
+      expect(createTitle(chartTitleLines, location, screenSize)).toEqual(
+        output
+      );
+    });
   });
 });
-
-Object.defineProperty(window, "matchMedia", {
-  writable: true,
-  value: jest.fn().mockImplementation((query) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
-});
-
-// it('when image is WIDE and media match with medium', () => {
-//     window.matchMedia = jest.fn().mockImplementation(query => ({
-//       matches: query !== '(min-width: 240px) and (max-width: 767px)',
-//       media: '',
-//       onchange: null,
-//       addListener: jest.fn(),
-//       removeListener: jest.fn()
-//     }));
-
-//   });
