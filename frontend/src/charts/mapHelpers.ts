@@ -326,7 +326,7 @@ export function setupColorScale(
   fieldRange?: FieldRange,
   scaleColorScheme?: string
 ) {
-  const isCongressCAWP = metricId === "women_us_congress_pct";
+  const isCongressCAWP = metricId === "pct_share_of_us_congress";
   const colorScale: any = {
     name: COLOR_SCALE,
     type: isCongressCAWP ? "quantile" : "quantize",

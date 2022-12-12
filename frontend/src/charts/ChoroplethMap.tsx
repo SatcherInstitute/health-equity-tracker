@@ -98,7 +98,7 @@ export interface ChoroplethMapProps {
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
-  const isCongressCAWP = props.metric.metricId === "women_us_congress_pct";
+  const isCongressCAWP = props.metric.metricId === "pct_share_of_us_congress";
 
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false);
