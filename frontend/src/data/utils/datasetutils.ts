@@ -177,49 +177,45 @@ export function getLatestDate(df: IDataFrame): Date {
   return new Date(dateTimes.max());
 }
 
+/* 
+Returns the lowest `listSize` & highest `listSize` values, unless there are ties in which case the only the tied highest or lowest values are returned. If there is overlap, it is removed from the highest values.
+*/
 export function getExtremeValues(
   data: Row[],
   fieldName: MetricId,
   listSize: number
 ) {
   // cleanup and sort the data
-  data = data
+  let sortedData = data
     .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
-    .sort((rowA: Row, rowB: Row) => rowB[fieldName] - rowA[fieldName]); // descending order
+    .sort((rowA: Row, rowB: Row) => rowA[fieldName] - rowB[fieldName]); // ascending order
 
-  console.log({ data });
-  const lastIndex = data.length - 1;
-
-  const highestValue = data[0][fieldName];
-  const valuesTiedAtHighest = data.filter(
-    (row) => row[fieldName] === highestValue
-  );
-
-  const highestValues =
-    valuesTiedAtHighest.length > listSize
-      ? valuesTiedAtHighest
-      : data.slice(0, listSize);
-
-  const lowestValue = data[lastIndex][fieldName];
-  const valuesTiedAtLowest = data.filter(
+  const lowestValue = sortedData[0][fieldName];
+  const valuesTiedAtLowest = sortedData.filter(
     (row) => row[fieldName] === lowestValue
   );
-  const lowestValues: Row[] =
-    valuesTiedAtLowest.length > listSize
-      ? valuesTiedAtLowest
-      : data.reverse().slice(0, listSize);
-  // .filter((row) => !lowestValues.includes(row));
 
-  const overlappingValues = lowestValues.filter((value) =>
-    highestValues.includes(value)
+  const lowestValues =
+    valuesTiedAtLowest.length > 1
+      ? valuesTiedAtLowest
+      : sortedData.slice(0, listSize);
+
+  sortedData = sortedData.reverse();
+
+  const highestValue = sortedData[0][fieldName];
+  const valuesTiedAtHighest = sortedData.filter(
+    (row) => row[fieldName] === highestValue
+  );
+  const highestValues: Row[] =
+    valuesTiedAtHighest.length > 1
+      ? valuesTiedAtHighest
+      : sortedData.slice(0, listSize);
+
+  const highestValuesNoOverlap = highestValues.filter(
+    (value) => !lowestValues.includes(value)
   );
 
-  console.log({ overlappingValues });
-
-  return [
-    lowestValues.filter((value) => !overlappingValues.includes(value)),
-    highestValues.filter((value) => !overlappingValues.includes(value)),
-  ];
+  return [lowestValues, highestValuesNoOverlap];
 }
 
 /*

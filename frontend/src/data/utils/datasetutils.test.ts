@@ -14,65 +14,54 @@ import { Fips } from "./Fips";
 describe("DatasetUtils.getExtremeValues() Unit Tests", () => {
   const data = [
     { some_condition: 0 },
-    { some_condition: 0 },
-    { some_condition: 0 },
     { some_condition: 3 },
     { some_condition: 4 },
     { some_condition: 5 },
     { some_condition: 6 },
     { some_condition: 7 },
+    { some_condition: 0 },
+    { some_condition: 0 },
     { some_condition: 8 },
-    { some_condition: 10 },
+    { some_condition: 9 },
     { some_condition: 10 },
   ];
 
-  test("No Ties", async () => {
-    const [hi, lo] = getExtremeValues(data, "some_condition" as MetricId, 5);
+  const [lo, hi] = getExtremeValues(data, "some_condition" as MetricId, 5);
+
+  test("5 Normal Highs", async () => {
     expect(hi).toEqual([
       { some_condition: 10 },
-      { some_condition: 10 },
+      { some_condition: 9 },
       { some_condition: 8 },
       { some_condition: 7 },
       { some_condition: 6 },
     ]);
+  });
+
+  test("Tied Lows", async () => {
     expect(lo).toEqual([
       { some_condition: 0 },
       { some_condition: 0 },
       { some_condition: 0 },
-      { some_condition: 3 },
+    ]);
+  });
+
+  test("8 Normal Highs, Tied Lows Removed From Highs", async () => {
+    const [lo, hi] = getExtremeValues(data, "some_condition" as MetricId, 10);
+    expect(hi).toEqual([
+      { some_condition: 10 },
+      { some_condition: 9 },
+      { some_condition: 8 },
+      { some_condition: 7 },
+      { some_condition: 6 },
+      { some_condition: 5 },
       { some_condition: 4 },
+      { some_condition: 3 },
     ]);
-  });
-
-  test("Tied Lowest more than listsize and Highest ", async () => {
-    const [hi, lo] = getExtremeValues(data, "some_condition" as MetricId, 2);
-    expect(hi).toEqual([{ some_condition: 10 }, { some_condition: 10 }]);
     expect(lo).toEqual([
       { some_condition: 0 },
       { some_condition: 0 },
       { some_condition: 0 },
-    ]);
-  });
-
-  const dataOverlap = [
-    { some_condition: 1 },
-    { some_condition: 1 },
-    { some_condition: 1 },
-    { some_condition: 999 },
-  ];
-
-  test("Overlapping highest and lowest aren't repeated", async () => {
-    const [hi, lo] = getExtremeValues(
-      dataOverlap,
-      "some_condition" as MetricId,
-      2
-    );
-    console.log({ hi }, { lo });
-    expect(hi).toEqual([{ some_condition: 999 }]);
-    expect(lo).toEqual([
-      { some_condition: 1 },
-      { some_condition: 1 },
-      { some_condition: 1 },
     ]);
   });
 });
