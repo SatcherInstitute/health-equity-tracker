@@ -1,7 +1,76 @@
-import { METRIC_CONFIG, VariableConfig } from "../config/MetricConfig";
+import {
+  MetricId,
+  METRIC_CONFIG,
+  VariableConfig,
+} from "../config/MetricConfig";
 import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
-import { appendFipsIfNeeded, getExclusionList } from "./datasetutils";
+import {
+  appendFipsIfNeeded,
+  getExclusionList,
+  getExtremeValues,
+} from "./datasetutils";
 import { Fips } from "./Fips";
+
+describe("DatasetUtils.getExtremeValues() Unit Tests", () => {
+  const data = [
+    { some_condition: 0 },
+    { some_condition: 3 },
+    { some_condition: 4 },
+    { some_condition: 5 },
+    { some_condition: 6 },
+    { some_condition: 7 },
+    { some_condition: 0 },
+    { some_condition: 0 },
+    { some_condition: 8 },
+    { some_condition: 9 },
+    { some_condition: 10 },
+  ];
+
+  const [lo, hi] = getExtremeValues(data, "some_condition" as MetricId, 5);
+
+  test("5 Normal Highs", async () => {
+    expect(hi).toEqual([
+      { some_condition: 10 },
+      { some_condition: 9 },
+      { some_condition: 8 },
+      { some_condition: 7 },
+      { some_condition: 6 },
+    ]);
+  });
+
+  test("Tied Lows", async () => {
+    expect(lo).toEqual([
+      { some_condition: 0 },
+      { some_condition: 0 },
+      { some_condition: 0 },
+    ]);
+  });
+
+  test("8 Normal Highs, Tied Lows Removed From Highs", async () => {
+    const [lo, hi] = getExtremeValues(data, "some_condition" as MetricId, 10);
+    expect(hi).toEqual([
+      { some_condition: 10 },
+      { some_condition: 9 },
+      { some_condition: 8 },
+      { some_condition: 7 },
+      { some_condition: 6 },
+      { some_condition: 5 },
+      { some_condition: 4 },
+      { some_condition: 3 },
+    ]);
+    expect(lo).toEqual([
+      { some_condition: 0 },
+      { some_condition: 0 },
+      { some_condition: 0 },
+    ]);
+  });
+
+  test("Empty doesn't break", async () => {
+    const [lo, hi] = getExtremeValues([], "some_condition" as MetricId, 5);
+    expect(hi).toEqual([]);
+    expect(lo).toEqual([]);
+  });
+});
 
 describe("DatasetUtils.appendFipsIfNeeded() Unit Tests", () => {
   // Only county-level breakdowns should get the appended parent fips
