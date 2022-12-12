@@ -25,7 +25,6 @@ import {
   formatPreventZero100k,
   GEO_DATASET,
   getCountyAddOn,
-  getNoDataLegend,
   getProjection,
   LEGEND_DATASET,
   makeAltText,
@@ -35,6 +34,10 @@ import {
   VAR_DATASET,
   GREY_DOT_SCALE_SPEC,
   UNKNOWN_SCALE_SPEC,
+  ZERO_VAR_DATASET,
+  ZERO_DOT_SCALE_SPEC,
+  getHelperLegend,
+  ZERO_YELLOW_SCALE,
 } from "./mapHelpers";
 import { DemographicGroup } from "../data/utils/Constants";
 
@@ -45,6 +48,7 @@ const {
 } = sass;
 
 const VALID_DATASET = "VALID_DATASET";
+const ZERO_DATASET = "ZERO_DATASET";
 const GEO_ID = "id";
 
 // TODO - consider moving standardized column names, like fips, to variables shared between here and VariableProvider
@@ -90,9 +94,12 @@ export interface ChoroplethMapProps {
     chartTitle: string | string[];
     subtitle?: DemographicGroup;
   };
+  listExpanded?: boolean;
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
+  const isCongressCAWP = props.metric.metricId === "women_us_congress_pct";
+
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false);
 
@@ -131,12 +138,15 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         fields: [GEO_ID],
         values: [
           props.metric.metricId,
-          "rating",
           "women_this_race_us_congress_count",
           "total_us_congress_count",
         ],
       },
     ];
+    // Null SVI was showing
+    if (!isCongressCAWP && !props.listExpanded) {
+      geoTransformers[0].values.push("rating");
+    }
     if (props.overrideShapeWithCircle) {
       geoTransformers.push({
         type: "formula",
@@ -224,18 +234,20 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       };
     }
 
-    const noDataLegend = getNoDataLegend(
+    const helperLegend = getHelperLegend(
       /* yOffset */ yOffsetNoDataLegend,
-      /* xOffset */ xOffsetNoDataLegend
+      /* xOffset */ xOffsetNoDataLegend,
+      /* overrideGrayMissingWithZeroYellow */ isCongressCAWP &&
+        !props.listExpanded
     );
     if (!props.hideLegend) {
-      legendList.push(legend, noDataLegend);
+      legendList.push(legend, helperLegend);
     }
 
     const colorScale = setupColorScale(
       /* legendData */ legendData,
       /* metricId */ props.metric.metricId,
-      /* scaleType */ props.scaleType,
+      /* scaleType */ "quantile", //props.scaleType,
       /* fieldRange? */ props.fieldRange,
       /* scaleColorScheme? */ props.scaleColorScheme
     );
@@ -248,14 +260,23 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     );
 
     let marks = [
-      createShapeMarks(
-        /*datasetName=*/ MISSING_DATASET,
-        /*fillColor=*/ { value: UNKNOWN_GREY },
-        /*hoverColor=*/ RED_ORANGE,
-        /*tooltipExpression=*/ missingDataTooltipValue,
-        /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-        /* hideMissingDataTooltip */ props.hideMissingDataTooltip
-      ),
+      isCongressCAWP && !props.listExpanded
+        ? createShapeMarks(
+            /*datasetName=*/ ZERO_DATASET,
+            /*fillColor=*/ { value: sass.mapMin },
+            /*hoverColor=*/ RED_ORANGE,
+            /*tooltipExpression=*/ tooltipValue,
+            /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+            /* hideMissingDataTooltip */ props.hideMissingDataTooltip
+          )
+        : createShapeMarks(
+            /*datasetName=*/ MISSING_DATASET,
+            /*fillColor=*/ { value: UNKNOWN_GREY },
+            /*hoverColor=*/ RED_ORANGE,
+            /*tooltipExpression=*/ missingDataTooltipValue,
+            /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+            /* hideMissingDataTooltip */ props.hideMissingDataTooltip
+          ),
       createShapeMarks(
         /*datasetName=*/ VALID_DATASET,
         /*fillColor=*/ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
@@ -269,7 +290,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.overrideShapeWithCircle) {
       // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET));
-      marks.push(createCircleTextMark(MISSING_DATASET));
+      isCongressCAWP && !props.listExpanded
+        ? marks.push(createCircleTextMark(ZERO_DATASET))
+        : marks.push(createCircleTextMark(MISSING_DATASET));
     } else {
       marks.push(
         createInvisibleAltMarks(
@@ -299,7 +322,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
         {
           name: VAR_DATASET,
-          values: props.data,
+          values: props.listExpanded
+            ? props.data
+            : props.data.filter((row) => row[props.metric.metricId] > 0),
+        },
+        {
+          name: ZERO_VAR_DATASET,
+          values: props.data.filter((row) => row[props.metric.metricId] === 0),
         },
         {
           name: LEGEND_DATASET,
@@ -329,6 +358,20 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           },
         },
         {
+          name: ZERO_DATASET,
+          transform: [
+            {
+              type: "filter",
+              expr: `!isValid(datum.${props.metric.metricId})`,
+            },
+          ],
+          source: GEO_DATASET,
+          format: {
+            type: "topojson",
+            feature: props.showCounties ? "counties" : "states",
+          },
+        },
+        {
           name: MISSING_DATASET,
           transform: [
             {
@@ -344,7 +387,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
       ],
       projections: [projection],
-      scales: [colorScale, GREY_DOT_SCALE_SPEC, UNKNOWN_SCALE_SPEC],
+      scales: [
+        colorScale,
+        GREY_DOT_SCALE_SPEC,
+        UNKNOWN_SCALE_SPEC,
+        ZERO_DOT_SCALE_SPEC,
+        ZERO_YELLOW_SCALE,
+      ],
       legends: legendList,
       marks: marks,
       title: !props.overrideShapeWithCircle && {
@@ -384,6 +433,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       setShouldRenderMap(true);
     }, 0);
   }, [
+    isCongressCAWP,
     width,
     props.metric,
     props.legendTitle,

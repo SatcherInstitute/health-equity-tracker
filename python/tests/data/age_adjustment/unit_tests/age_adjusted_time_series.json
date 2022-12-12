@@ -1,0 +1,50 @@
+[
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "BLACK_NH",
+    "time_period": "2021-01",
+    "death_ratio_age_adjusted": 0.6,
+    "hosp_ratio_age_adjusted": 0.6
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "HISP",
+    "time_period": "2021-01",
+    "death_ratio_age_adjusted": 3.3,
+    "hosp_ratio_age_adjusted": 3.3
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "WHITE_NH",
+    "time_period": "2021-01",
+    "death_ratio_age_adjusted": 1,
+    "hosp_ratio_age_adjusted": 1
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "BLACK_NH",
+    "time_period": "2022-01",
+    "death_ratio_age_adjusted": 0.6,
+    "hosp_ratio_age_adjusted": 0.6
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "HISP",
+    "time_period": "2022-01",
+    "death_ratio_age_adjusted": 3.3,
+    "hosp_ratio_age_adjusted": 3.3
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "WHITE_NH",
+    "time_period": "2022-01",
+    "death_ratio_age_adjusted": 1,
+    "hosp_ratio_age_adjusted": 1
+  }
+]
