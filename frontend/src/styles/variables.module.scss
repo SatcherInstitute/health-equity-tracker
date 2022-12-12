@@ -47,6 +47,7 @@ $alt-grey: #bdbdbd;
 $alt-red: #d32f2f;
 
 // colors from VEGA map
+$map-min: #eceecc;
 $map-lightest: #cbea9d;
 $map-lighter: #acdc8e;
 $map-light: #87cc7f;
@@ -170,6 +171,7 @@ $z-top: 999;
   altGrey: $alt-grey;
   altRed: $alt-red;
 
+  mapMin: $map-min;
   mapLightest: $map-lightest;
   mapLighter: $map-lighter;
   mapLight: $map-light;

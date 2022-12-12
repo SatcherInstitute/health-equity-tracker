@@ -177,27 +177,49 @@ export function getLatestDate(df: IDataFrame): Date {
   return new Date(dateTimes.max());
 }
 
-export const getLowestN = (
+/* 
+Returns the lowest `listSize` & highest `listSize` values, unless there are ties in which case the only the tied highest or lowest values are returned. If there is overlap, it is removed from the highest values.
+*/
+export function getExtremeValues(
   data: Row[],
   fieldName: MetricId,
   listSize: number
-): Row[] => {
-  return data
-    .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
-    .sort((rowA: Row, rowB: Row) => rowA[fieldName] - rowB[fieldName])
-    .slice(0, listSize);
-};
+) {
+  if (data.length === 0) return [[], []];
+  listSize = listSize > data.length ? data.length : listSize;
 
-export const getHighestN = (
-  data: Row[],
-  fieldName: MetricId,
-  listSize: number
-): Row[] => {
-  return data
+  // cleanup and sort the data
+  let sortedData = data
     .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
-    .sort((rowA: Row, rowB: Row) => rowB[fieldName] - rowA[fieldName])
-    .slice(0, listSize);
-};
+    .sort((rowA: Row, rowB: Row) => rowA[fieldName] - rowB[fieldName]); // ascending order
+
+  const lowestValue = sortedData[0][fieldName];
+  const valuesTiedAtLowest = sortedData.filter(
+    (row) => row[fieldName] === lowestValue
+  );
+
+  const lowestValues =
+    valuesTiedAtLowest.length > 1
+      ? valuesTiedAtLowest
+      : sortedData.slice(0, listSize);
+
+  sortedData = sortedData.reverse();
+
+  const highestValue = sortedData[0][fieldName];
+  const valuesTiedAtHighest = sortedData.filter(
+    (row) => row[fieldName] === highestValue
+  );
+  const highestValues: Row[] =
+    valuesTiedAtHighest.length > 1
+      ? valuesTiedAtHighest
+      : sortedData.slice(0, listSize);
+
+  const highestValuesNoOverlap = highestValues.filter(
+    (value) => !lowestValues.includes(value)
+  );
+
+  return [lowestValues, highestValuesNoOverlap];
+}
 
 /*
 Analyzes state and determines if the 2nd population source should be used

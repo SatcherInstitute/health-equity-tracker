@@ -90,22 +90,22 @@ class CDCRestrictedData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demo = self.get_attr(attrs, 'demographic')
         for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
-            for cumulative in [True, False]:
+            for time_series in [False, True]:
                 geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
                 filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
 
                 df = gcs_to_bq_util.load_csv_as_df(
                     gcs_bucket, filename, dtype={'county_fips': str})
 
-                df = self.generate_breakdown(df, demo, geo, cumulative)
+                df = self.generate_breakdown(df, demo, geo, time_series)
 
                 if demo == RACE:
                     std_col.add_race_columns_from_category_id(df)
 
-                column_types = get_col_types(df, cumulative)
+                column_types = get_col_types(df, add_rel_inequality_col=time_series)
 
                 table_name = f'by_{demo}_{geo}_processed'
-                if not cumulative:
+                if time_series:
                     table_name += '_time_series'
 
                 gcs_to_bq_util.add_df_to_bq(
@@ -143,8 +143,8 @@ class CDCRestrictedData(DataSource):
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=column_types)
 
-    def generate_breakdown(self, df, demo, geo, cumulative):
-        print(f'processing {demo} {geo} cumulative = {cumulative}')
+    def generate_breakdown(self, df, demo, geo, time_series):
+        print(f'processing {demo} {geo} time_series = {time_series}')
         start = time.time()
 
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo == RACE else demo
@@ -161,7 +161,7 @@ class CDCRestrictedData(DataSource):
         geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
         df = add_missing_demographic_values(df, geo_to_pull, demo)
 
-        if cumulative:
+        if not time_series:
             groupby_cols = [
                 std_col.STATE_POSTAL_COL,
                 demo_col,
@@ -192,14 +192,14 @@ class CDCRestrictedData(DataSource):
 
             df = merge_multiple_pop_cols(df, demo, pop_cols)
             null_out_suppressed_deaths_hosps(df, True)
-            df = generate_national_dataset(df, demo_col, cumulative)
+            df = generate_national_dataset(df, demo_col, time_series)
 
         fips = std_col.COUNTY_FIPS_COL if geo == COUNTY_LEVEL else std_col.STATE_FIPS_COL
 
         # Drop annoying column that doesnt match any fips codes or have
         # an associated time period
         df = df[df[fips].notna()]
-        if not cumulative:
+        if time_series:
             df = df[df[std_col.TIME_PERIOD_COL].notna()]
 
         if geo == COUNTY_LEVEL:
@@ -230,10 +230,10 @@ class CDCRestrictedData(DataSource):
         df = generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
                                                   demo_col, all_val, unknown_val)
 
-        if not cumulative and geo != NATIONAL_LEVEL:
+        if time_series and geo != NATIONAL_LEVEL:
             df = remove_or_set_to_zero(df, geo, demo)
 
-        if not cumulative:
+        if time_series:
             for prefix in COVID_CONDITION_TO_PREFIX.values():
                 pct_relative_inequity_col = generate_column_name(
 
@@ -251,10 +251,10 @@ class CDCRestrictedData(DataSource):
         if geo == COUNTY_LEVEL:
             null_out_dc_county_rows(df)
 
-        if geo == COUNTY_LEVEL and cumulative:
+        if geo == COUNTY_LEVEL and not time_series:
             null_out_all_unknown_deaths_hosps(df)
 
-        if not cumulative:
+        if time_series:
             df = zero_out_pct_rel_inequity(
                 df, geo, demo, COVID_RATES_TO_PCT_REL_INEQUITY_MAP)
 
@@ -287,10 +287,13 @@ def null_out_dc_county_rows(df):
            std_col.COVID_POPULATION_PCT] = np.nan
 
 
-def get_col_types(df, cumulative):
+def get_col_types(df, add_rel_inequality_col=False):
     """Returns a dict of column types to send to bigquery
 
-      df: DataFrame to generate column types dict for"""
+      df: DataFrame to generate column types dict for
+      add_rel_inequality_col: Optional boolean paramater to add the
+                              `rel_inequality` parameter, defaults
+                              to False"""
     column_types = {c: 'STRING' for c in df.columns}
     for prefix in COVID_CONDITION_TO_PREFIX.values():
         column_types[generate_column_name(
@@ -298,7 +301,7 @@ def get_col_types(df, cumulative):
         column_types[generate_column_name(
             prefix, std_col.SHARE_SUFFIX)] = 'FLOAT'
 
-        if not cumulative:
+        if add_rel_inequality_col:
             column_types[generate_column_name(
                 prefix, std_col.PCT_REL_INEQUITY_SUFFIX)] = 'FLOAT'
 
@@ -323,7 +326,7 @@ def remove_bad_fips_cols(df):
     return df.reset_index(drop=True)
 
 
-def generate_national_dataset(state_df, demo_col, cumulative):
+def generate_national_dataset(state_df, demo_col, time_series):
     """Generates a national dataset based on a state_df and demographic column"""
     int_cols = [
         std_col.COVID_CASES,
@@ -339,7 +342,7 @@ def generate_national_dataset(state_df, demo_col, cumulative):
     state_df[int_cols] = state_df[int_cols].astype(int)
 
     groupby_cols = [demo_col]
-    if not cumulative:
+    if time_series:
         groupby_cols.append(std_col.TIME_PERIOD_COL)
     df = state_df.groupby(groupby_cols).sum().reset_index()
 
@@ -351,7 +354,7 @@ def generate_national_dataset(state_df, demo_col, cumulative):
         std_col.STATE_NAME_COL,
     ]
 
-    if not cumulative:
+    if time_series:
         needed_cols.append(std_col.TIME_PERIOD_COL)
 
     needed_cols.extend(int_cols)
