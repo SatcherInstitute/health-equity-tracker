@@ -220,7 +220,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {showMissingDataAlert && (
                 <MissingDataAlert
                   dataName={dataName}
-                  breakdownString={breakdownString}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
+                  }
                   isMapCard={true}
                   fips={props.fips}
                 />
@@ -229,8 +231,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {/* NO UNKNOWNS INFO BOX */}
               {(showNoUnknownsInfo || unknownsAllZero) && (
                 <Alert severity="info" role="note">
-                  No unknown values for {breakdownString} reported in this
-                  dataset
+                  No unknown values for{" "}
+                  {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}{" "}
+                  reported in this dataset
                   {hasChildGeo && (
                     <>
                       {" "}
