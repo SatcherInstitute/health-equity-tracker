@@ -64,6 +64,12 @@ describe("DatasetUtils.getExtremeValues() Unit Tests", () => {
       { some_condition: 0 },
     ]);
   });
+
+  test("Empty doesn't break", async () => {
+    const [lo, hi] = getExtremeValues([], "some_condition" as MetricId, 5);
+    expect(hi).toEqual([]);
+    expect(lo).toEqual([]);
+  });
 });
 
 describe("DatasetUtils.appendFipsIfNeeded() Unit Tests", () => {

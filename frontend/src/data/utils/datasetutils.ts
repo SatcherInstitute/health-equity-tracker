@@ -185,6 +185,9 @@ export function getExtremeValues(
   fieldName: MetricId,
   listSize: number
 ) {
+  if (data.length === 0) return [[], []];
+  listSize = listSize > data.length ? data.length : listSize;
+
   // cleanup and sort the data
   let sortedData = data
     .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
