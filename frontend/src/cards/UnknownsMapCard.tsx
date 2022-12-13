@@ -58,11 +58,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const preloadHeight = useGuessPreloadHeight([700, 1000]);
   const metricConfig = props.variableConfig.metrics["pct_share"];
   const currentBreakdown = props.currentBreakdown;
-  const breakdownString =
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown];
-
+  const breakdownString = `with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`;
   const location = useLocation();
-  const locationName = props.fips.getSentenceDisplayName();
+  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
 
   const signalListeners: any = {
     click: (...args: any) => {
@@ -93,16 +91,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     /* variableId */ props.variableConfig.variableId
   );
 
-  const chartTitle = useCreateChartTitle(
+  const { chartTitle, dataName, filename } = useCreateChartTitle(
     metricConfig,
-    locationName,
+    locationPhrase,
     breakdownString
   );
-
-  const chartTitleLines = [
-    `${metricConfig.chartTitle}`,
-    `with unknown ${breakdownString}`,
-  ];
 
   const HASH_ID: ScrollableHashId = "unknown-demographic-map";
 
@@ -226,8 +219,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {/* MISSING DATA ALERT */}
               {showMissingDataAlert && (
                 <MissingDataAlert
-                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
-                  breakdownString={breakdownString}
+                  dataName={dataName}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
+                  }
                   isMapCard={true}
                   fips={props.fips}
                 />
@@ -236,8 +231,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {/* NO UNKNOWNS INFO BOX */}
               {(showNoUnknownsInfo || unknownsAllZero) && (
                 <Alert severity="info" role="note">
-                  No unknown values for {breakdownString} reported in this
-                  dataset
+                  No unknown values for{" "}
+                  {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}{" "}
+                  reported in this dataset
                   {hasChildGeo && (
                     <>
                       {" "}
@@ -265,7 +261,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
                   geoData={geoData}
-                  filename={`${chartTitleLines.join(" ")} in ${locationName}`}
+                  filename={filename}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <div className={styles.TerritoryCirclesContainer}>
