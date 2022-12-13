@@ -9,6 +9,7 @@ import {
   LEGEND_COLOR_COUNT,
   MISSING_PLACEHOLDER_VALUES,
   EQUAL_DOT_SIZE,
+  ZERO_DOT_SCALE,
 } from "./Legend";
 import { FieldRange, Row } from "../data/utils/DatasetTypes";
 import { ORDINAL } from "./utils";
@@ -19,7 +20,11 @@ export const US_PROJECTION = "US_PROJECTION";
 export const CIRCLE_PROJECTION = "CIRCLE_PROJECTION";
 export const GEO_DATASET = "GEO_DATASET";
 export const VAR_DATASET = "VAR_DATASET";
+export const ZERO_VAR_DATASET = "ZERO_VAR_DATASET";
+
 export const COLOR_SCALE = "COLOR_SCALE";
+export const ZERO_SCALE = "ZERO_SCALE";
+
 export const LEGEND_DATASET = "LEGEND_DATASET";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
@@ -36,6 +41,20 @@ export const GREY_DOT_SCALE_SPEC: any = {
   type: ORDINAL,
   domain: { data: "missing_data", field: "missing" },
   range: [EQUAL_DOT_SIZE],
+};
+
+export const ZERO_DOT_SCALE_SPEC: any = {
+  name: ZERO_DOT_SCALE,
+  type: ORDINAL,
+  domain: [0, 0],
+  range: [EQUAL_DOT_SIZE],
+};
+
+export const ZERO_YELLOW_SCALE = {
+  name: ZERO_SCALE,
+  type: "ordinal",
+  domain: [0],
+  range: [sass.mapMin],
 };
 
 /*
@@ -82,18 +101,25 @@ export function formatPreventZero100k(
 }
 
 /* 
-
+Get either the normal "insufficient data" legend item with a grey box, 
+or optionally the "0" item with a light yellow green box for CAWP congress or
+any other datatype where we expect and want to highlight zeros
 */
-export function getNoDataLegend(yOffset: number, xOffset: number) {
+export type HelperLegendType = "insufficient" | "zero";
+export function getHelperLegend(
+  yOffset: number,
+  xOffset: number,
+  overrideGrayMissingWithZeroYellow?: boolean
+) {
   return {
-    fill: UNKNOWN_SCALE,
+    fill: overrideGrayMissingWithZeroYellow ? ZERO_SCALE : UNKNOWN_SCALE,
     symbolType: LEGEND_SYMBOL_TYPE,
     orient: "none",
     font: LEGEND_TEXT_FONT,
     labelFont: LEGEND_TEXT_FONT,
     legendY: yOffset,
     legendX: xOffset,
-    size: GREY_DOT_SCALE,
+    size: overrideGrayMissingWithZeroYellow ? ZERO_DOT_SCALE : GREY_DOT_SCALE,
   };
 }
 
@@ -136,7 +162,12 @@ export function createShapeMarks(
     from: { data: datasetName },
     encode: {
       enter: encodeEnter,
-      update: { fill: fillColor },
+      update: {
+        fill: fillColor,
+        opacity: {
+          signal: "1",
+        },
+      },
       hover: {
         fill: { value: hoverColor },
         cursor: { value: "pointer" },
@@ -271,10 +302,13 @@ export function setupColorScale(
   fieldRange?: FieldRange,
   scaleColorScheme?: string
 ) {
+  const isCongressCAWP = metricId === "women_us_congress_pct";
   const colorScale: any = {
     name: COLOR_SCALE,
-    type: scaleType,
-    domain: { data: LEGEND_DATASET, field: metricId },
+    type: isCongressCAWP ? "quantile" : "quantize",
+    domain: isCongressCAWP
+      ? [1, 20, 40, 60, 80, 99]
+      : { data: LEGEND_DATASET, field: metricId },
     range: {
       scheme: scaleColorScheme || "yellowgreen",
       count: LEGEND_COLOR_COUNT,

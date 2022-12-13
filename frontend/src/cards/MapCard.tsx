@@ -23,7 +23,7 @@ import {
   RACE,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
-import { getHighestN, getLowestN } from "../data/utils/datasetutils";
+import { getExtremeValues } from "../data/utils/datasetutils";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import {
   COMBINED_INCARCERATION_STATES_LIST,
@@ -77,7 +77,7 @@ function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050]);
 
   const metricConfig = props.variableConfig.metrics["per100k"];
-  const locationName = props.fips.getSentenceDisplayName();
+  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
   const currentBreakdown = props.currentBreakdown;
 
   const isPrison = props.variableConfig.variableId === "prison";
@@ -148,12 +148,12 @@ function MapCardWithKey(props: MapCardProps) {
   let qualifierItems: string[] = [];
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
 
-  const chartTitle = useCreateChartTitle(metricConfig, locationName);
+  let { chartTitle, filename, dataName } = useCreateChartTitle(
+    metricConfig,
+    locationPhrase
+  );
   const subtitle = createSubtitle({ currentBreakdown, activeBreakdownFilter });
-
-  const filename = `${metricConfig.chartTitle}${
-    activeBreakdownFilter === "All" ? "" : ` for ${activeBreakdownFilter}`
-  } in ${props.fips.getSentenceDisplayName()}`;
+  filename = `${filename} ${subtitle ? `for ${subtitle}` : ""}`;
 
   const HASH_ID: ScrollableHashId = "rate-map";
 
@@ -217,13 +217,7 @@ function MapCardWithKey(props: MapCardProps) {
           );
         }
 
-        const highestRatesList = getHighestN(
-          dataForActiveBreakdownFilter,
-          metricConfig.metricId,
-
-          SIZE_OF_HIGHEST_LOWEST_RATES_LIST
-        );
-        const lowestRatesList = getLowestN(
+        const [lowestRatesList, highestRatesList] = getExtremeValues(
           dataForActiveBreakdownFilter,
           metricConfig.metricId,
           SIZE_OF_HIGHEST_LOWEST_RATES_LIST
@@ -323,7 +317,7 @@ function MapCardWithKey(props: MapCardProps) {
               dataForActiveBreakdownFilter.length === 0) && (
               <CardContent>
                 <MissingDataAlert
-                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
+                  dataName={dataName}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                   }
@@ -376,6 +370,7 @@ function MapCardWithKey(props: MapCardProps) {
                     geoData={geoData}
                     // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
                     filename={filename}
+                    listExpanded={listExpanded}
                   />
                   {/* generate additional VEGA canvases for territories on national map */}
                   {props.fips.isUsa() && (
