@@ -344,7 +344,7 @@ def get_us_congress_women_df():
     df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
         'cawp_time', CAWP_LINE_ITEMS_FILE)
 
-    print(df)
+    print(df.sort_values(by=["year"]))
 
     # keep only needed cols
     df = df[[ID, YEAR, LEVEL, STATE,
