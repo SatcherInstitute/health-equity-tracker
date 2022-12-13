@@ -112,10 +112,6 @@ W_ALL_RACES_CONGRESS_NAMES = "women_all_races_us_congress_names"
 CONGRESS_COUNT = "total_us_congress_count"
 CONGRESS_NAMES = "total_us_congress_names"
 
-# TODO: Delete these once CAWP updated
-WOMEN_US_CONGRESS_PCT = "women_us_congress_pct"
-WOMEN_US_CONGRESS_PCT_SHARE = "women_us_congress_pct_share"
-
 # Incarceration columns
 PRISON_PREFIX = "prison"
 JAIL_PREFIX = "jail"
