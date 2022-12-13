@@ -10,23 +10,27 @@ from datasources.cawp_time import (
     US_CONGRESS_CURRENT_URL,
     CAWP_LINE_ITEMS_FILE,
     get_postal_from_cawp_phrase,
-    get_consecutive_time_periods
+    get_consecutive_time_periods,
+    fetch_cawp_state_total_tables,
+    FIPS_TO_STATE_TABLE_MAP
 )
+
+print("\n\n")
 
 # UNIT TESTS
 
 
-def testPostalFromCAWPPhrase():
-    assert get_postal_from_cawp_phrase("American Samoa - AS") == "AS"
-    assert get_postal_from_cawp_phrase("American Samoa - AM") == "AS"
-    assert get_postal_from_cawp_phrase("Anything At All - XX") == "XX"
+# def testPostalFromCAWPPhrase():
+#     assert get_postal_from_cawp_phrase("American Samoa - AS") == "AS"
+#     assert get_postal_from_cawp_phrase("American Samoa - AM") == "AS"
+#     assert get_postal_from_cawp_phrase("Anything At All - XX") == "XX"
 
 
-def test_get_consecutive_time_periods():
-    assert get_consecutive_time_periods(2020, 2022) == ["2020", "2021", "2022"]
-    default_time_periods = get_consecutive_time_periods()
-    assert default_time_periods[0] == "1915"
-    assert default_time_periods[-1] == "2022"
+# def test_get_consecutive_time_periods():
+#     assert get_consecutive_time_periods(2020, 2022) == ["2020", "2021", "2022"]
+#     default_time_periods = get_consecutive_time_periods()
+#     assert default_time_periods[0] == "1915"
+#     assert default_time_periods[-1] == "2022"
 
 # INTEGRATION TEST SETUP
 
@@ -99,6 +103,16 @@ def _get_full_test_line_items_csv_as_df(*args):
                        dtype=test_input_data_types, index_col=False)
 
 
+def _load_csv_as_df_from_web(*args):
+    url = args[0]
+    fips = [
+        i for i in FIPS_TO_STATE_TABLE_MAP if FIPS_TO_STATE_TABLE_MAP[i] in url][0]
+    print('read mock CAWP state leg. table:', fips, url)
+
+    return pd.read_csv(os.path.join(TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv')
+                       )
+
+
 def _merge_current_pop_numbers(*args):
     print(f'reading mock POPULATION: {args[2]}')
     return pd.read_csv(os.path.join(TEST_DIR, "mock_acs_merge_responses", f'{args[2]}.csv'),
@@ -122,22 +136,32 @@ def _generate_breakdown(*args):
 
 
 # TODO: Delete this DEV TEST RUNNER
-@ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-             return_value=None)
-@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-             side_effect=_get_full_test_line_items_csv_as_df)
-@ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
-             side_effect=_get_consecutive_time_periods)
-def testRun(
-    mock_years: mock.MagicMock,
-    mock_data_dir_csv: mock.MagicMock,
-    mock_bq: mock.MagicMock
+@ mock.patch('datasources.cawp_time.load_csv_as_df_from_web', side_effect=_load_csv_as_df_from_web)
+def test_fetch_cawp_state_total_tables(
+    mock_stateleg_tables: mock.MagicMock
 ):
-    kwargs_for_bq = {'filename': 'test_file.csv',
-                     'metadata_table_id': 'test_metadata',
-                     'table_name': 'output_table'}
-    cawp_data = CAWPTimeData()
-    cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
+    fetch_cawp_state_total_tables()
+
+    # for call in mock_stateleg_tables.call_args:
+    #     print("->", call)
+
+
+# @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+#              return_value=None)
+# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+#              side_effect=_get_full_test_line_items_csv_as_df)
+# @ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
+#              side_effect=_get_consecutive_time_periods)
+# def testRun(
+#     mock_years: mock.MagicMock,
+#     mock_data_dir_csv: mock.MagicMock,
+#     mock_bq: mock.MagicMock
+# ):
+#     kwargs_for_bq = {'filename': 'test_file.csv',
+#                      'metadata_table_id': 'test_metadata',
+#                      'table_name': 'output_table'}
+#     cawp_data = CAWPTimeData()
+#     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
 
 
 # TEST OUTGOING SIDE OF BIGQUERY INTERACTION

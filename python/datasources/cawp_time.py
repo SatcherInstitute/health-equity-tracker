@@ -1,4 +1,6 @@
+# import time
 from typing import List
+from ingestion.gcs_to_bq_util import load_csv_as_df_from_web
 from datasources.data_source import DataSource
 from ingestion.constants import (
     NATIONAL_LEVEL, STATE_LEVEL,
@@ -13,6 +15,67 @@ from ingestion.dataset_utils import (generate_pct_rel_inequity_col,
                                      zero_out_pct_rel_inequity)
 from ingestion.standardized_columns import Race
 import pandas as pd
+import numpy as np
+
+FIPS_TO_STATE_TABLE_MAP = {
+    "01": "128",
+    "02": "2312",
+    "04": "764",
+    "05": "775",
+    "06": "781",
+    "08": "787",
+    "09": "793",
+    "10": "799",
+    "12": "167",
+    "13": "805",
+    "15": "173",
+    "16": "648",
+    "17": "649",
+    "18": "650",
+    "19": "651",
+    "20": "836",
+    "21": "653",
+    "22": "654",
+    "23": "655",
+    "24": "857",
+    "25": "657",
+    "26": "658",
+    "27": "879",
+    "28": "660",
+    "29": "661",
+    "30": "662",
+    "31": "276",
+    "32": "663",
+    "33": "664",
+    "34": "665",
+    "35": "209",
+    "36": "918",
+    "37": "667",
+    "38": "668",
+    "39": "669",
+    "40": "672",
+    "41": "673",
+    "42": "679",
+    "44": "685",
+    "45": "691",
+    "46": "697",
+    "47": "703",
+    "48": "710",
+    "49": "716",
+    "50": "722",
+    "51": "233",
+    "53": "739",
+    "54": "740",
+    "55": "746",
+    "56": "752",
+    # need to find historical DC/Territory legislator totals
+    # "11": "",
+    # "60": "",
+    # "66": "",
+    # "69": "",
+    # "72": "",
+    # "78": ""
+}
 
 # time_periods for entire dataset
 DEFAULT_FIRST_YR = 1915
@@ -589,3 +652,34 @@ def build_base_rows_df(us_congress_totals_df, us_congress_women_df, race_list: L
         df, df_w_this_race_cols, on=MERGE_COLS)
 
     return df
+
+
+def fetch_cawp_state_total_tables():
+
+    # table is on https://cawp.rutgers.edu/facts/state-state-information/alabama
+    url_prefix = "https://cawp.rutgers.edu/tablefield/export/paragraph/"
+    url_suffix = "/field_table/und/0"
+
+    for fips, id in FIPS_TO_STATE_TABLE_MAP.items():
+        url = f'{url_prefix}{id}{url_suffix}'
+        # print("-----", fips)
+        # print(">>>>>", url)
+        # time.sleep(5)
+        df = load_csv_as_df_from_web(url)
+        df.columns = df.columns.str.replace('\W', '', regex=True)
+
+        # TODO: confirm this weird shifted column data; ideally get them to fix
+        df_leftIndex = df[df["10"] < 1800]
+        df_rightIndex = df[df["10"] >= 1800]
+        df_rightIndex = df_rightIndex.shift(periods=1, axis="columns")
+
+        df = pd.concat([df_leftIndex, df_rightIndex])
+
+        df[std_col.TIME_PERIOD_COL] = df["Year"]
+        df = df.drop(columns=['10', 'Year'])
+
+        # TODO: confirm this typo with CAWP; ideally get them to fix
+        if fips == "56":
+            df.at[0, "time_period"] = 2022
+
+        print(df)
