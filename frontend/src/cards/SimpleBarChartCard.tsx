@@ -47,7 +47,7 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
-  const locationName = props.fips.getSentenceDisplayName();
+  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
 
   const isIncarceration = INCARCERATION_IDS.includes(
     props.variableConfig.variableId
@@ -67,9 +67,11 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     /* variableId */ props.variableConfig.variableId
   );
 
-  const chartTitle = useCreateChartTitle(metricConfig, locationName);
-
-  const filename = `${metricConfig.chartTitle} ${locationName}, by ${
+  let { chartTitle, filename, dataName } = useCreateChartTitle(
+    metricConfig,
+    locationPhrase
+  );
+  filename = `${filename}, by ${
     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
   }`;
 
@@ -92,7 +94,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
             ]) ? (
               <>
                 <MissingDataAlert
-                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
+                  dataName={dataName}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }
