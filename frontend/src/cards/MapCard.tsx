@@ -74,7 +74,7 @@ function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050]);
 
   const metricConfig = props.variableConfig.metrics["per100k"];
-  const locationName = props.fips.getSentenceDisplayName();
+  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
   const currentBreakdown = props.currentBreakdown;
 
   const isPrison = props.variableConfig.variableId === "prison";
@@ -164,12 +164,12 @@ function MapCardWithKey(props: MapCardProps) {
   let qualifierItems: string[] = [];
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
 
-  const chartTitle = useCreateChartTitle(metricConfig, locationName);
+  let { chartTitle, filename, dataName } = useCreateChartTitle(
+    metricConfig,
+    locationPhrase
+  );
   const subtitle = createSubtitle({ currentBreakdown, activeBreakdownFilter });
-
-  const filename = `${metricConfig.chartTitle}${
-    activeBreakdownFilter === "All" ? "" : ` for ${activeBreakdownFilter}`
-  } in ${props.fips.getSentenceDisplayName()}`;
+  filename = `${filename} ${subtitle ? `for ${subtitle}` : ""}`;
 
   const HASH_ID: ScrollableHashId = "rate-map";
 
@@ -333,7 +333,7 @@ function MapCardWithKey(props: MapCardProps) {
               dataForActiveBreakdownFilter.length === 0) && (
               <CardContent>
                 <MissingDataAlert
-                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
+                  dataName={dataName}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                   }
