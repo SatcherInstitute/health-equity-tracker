@@ -90,6 +90,18 @@ US_CONGRESS_CURRENT_URL = "https://theunitedstates.io/congress-legislators/legis
 US_CONGRESS_HISTORICAL_URL = "https://theunitedstates.io/congress-legislators/legislators-historical.json"
 CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity_time_series.csv"
 
+
+def get_stleg_url(id: str):
+    """
+    Constructs the needed url for each state's table that contains the
+    total number of state legislators per year. These tables are on the
+    state info pages, for example:
+    https://cawp.rutgers.edu/facts/state-state-information/alabama
+    """
+    return ("https://cawp.rutgers.edu/tablefield/export/paragraph/" +
+            id + "/field_table/und/0")
+
+
 # CAWP labels
 CAWP_RACE_GROUPS_TO_STANDARD = {
     'Asian American/Pacific Islander': Race.ASIAN_PAC.value,
@@ -175,6 +187,12 @@ class CAWPTimeData(DataSource):
                 std_col.PCT_OF_CONGRESS,
                 std_col.PCT_OF_W_CONGRESS,
                 std_col.W_CONGRESS_PCT_INEQUITY,
+                std_col.STLEG_COUNT,
+                std_col.W_ALL_RACES_STLEG_COUNT,
+                std_col.W_THIS_RACE_STLEG_COUNT,
+                std_col.PCT_OF_STLEG,
+                std_col.PCT_OF_W_STLEG,
+                std_col.W_STLEG_PCT_INEQUITY,
                 std_col.POPULATION_COL,
                 std_col.POPULATION_PCT_COL
             ]
@@ -192,15 +210,22 @@ class CAWPTimeData(DataSource):
 
         # fetch and form data
         us_congress_totals_df = get_us_congress_totals_df()
-        us_congress_women_df = get_us_congress_women_df()
+        women_df = get_women_df()
+        state_leg_totals_df = get_state_leg_totals_df()
 
         # create ROWS for the "All" race
         df_alls_rows = build_base_rows_df(
-            us_congress_totals_df, us_congress_women_df, [Race.ALL.value])
+            us_congress_totals_df,
+            state_leg_totals_df,
+            women_df,
+            [Race.ALL.value])
 
         # create ROWS for each CAWP race group
-        df_by_races_rows = build_base_rows_df(us_congress_totals_df, us_congress_women_df, list(
-            CAWP_RACE_GROUPS_TO_STANDARD.keys()))
+        df_by_races_rows = build_base_rows_df(
+            us_congress_totals_df,
+            state_leg_totals_df,
+            women_df,
+            list(CAWP_RACE_GROUPS_TO_STANDARD.keys()))
 
         # append combo race group ROWS
         df_by_races_rows = add_aian_api_rows(df_by_races_rows)
@@ -213,7 +238,10 @@ class CAWPTimeData(DataSource):
         df = df.drop(
             [std_col.CONGRESS_NAMES,
              std_col.W_ALL_RACES_CONGRESS_NAMES,
-             std_col.W_THIS_RACE_CONGRESS_NAMES], axis=1)
+             std_col.W_THIS_RACE_CONGRESS_NAMES,
+             #  std_col.W_ALL_RACES_STLEG_NAMES,
+             #  std_col.W_THIS_RACE_STLEG_NAMES
+             ], axis=1)
 
         return df
 
@@ -373,18 +401,19 @@ def get_us_congress_totals_df():
     return df
 
 
-def merge_us_congress_total_names_count_cols(scaffold_df, us_congress_df):
+def merge_total_cols(scaffold_df, us_congress_df, state_leg_df):
     """ Merges previously made congress df info into the incoming scaffold df
     Parameters:
         scaffold_df: df containing a row for every combo of
             "time_period" X "state_postal" X "race_ethnicity
         congress_df: df containing a row for every legislator-term
+        state_leg_df: df containing a row for every "time_period" X "state_fips"
 
     Returns:
         df with a column "us_congress_total_count" ints count of total members in the state/year,
         and column "us_congress_total_names" a string list of those same members """
 
-    # merge in calculated counts and name lists by state/year where they exist;
+    # merge in CONGRESS calculated counts and name lists by state/year where they exist;
     df = pd.merge(scaffold_df, us_congress_df,
                   on=[std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL], how="left")
     # fill counts with 0 and names with empty string where no info available
@@ -392,22 +421,34 @@ def merge_us_congress_total_names_count_cols(scaffold_df, us_congress_df):
         0)
     df[std_col.CONGRESS_NAMES] = df[std_col.CONGRESS_NAMES].fillna(
         "")
+
+    print(df)
+
+    # merge in STATE LEG counts by state/year where they exist;
+    df = pd.merge(df, state_leg_df,
+                  on=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL], how="left")
+
+    print(df)
+
+    # fill counts with 0 and names with empty string where no info available
+    df[std_col.STLEG_COUNT] = df[std_col.STLEG_COUNT].fillna(
+        0)
+    df[std_col.W_ALL_RACES_STLEG_COUNT] = df[std_col.W_ALL_RACES_STLEG_COUNT].fillna(
+        0)
     return df
 
 
-def get_us_congress_women_df():
+def get_women_df():
     """ Fetches CAWP data counts of women by race by year by state,
-    generates a dataframe with rows for every woman
-    in U.S. Congress any year
+    generates a df with rows for every woman
+    in U.S. Congress or state/territory legislature in any year
 
     Returns:
-        df with rows per woman in US Congress, and
+        df with rows per woman legislator, and
         columns "time_period" by year and "state_postal", "race_ethnicity"
         with specific CAWP race strings """
     df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
         'cawp_time', CAWP_LINE_ITEMS_FILE)
-
-    print(df.sort_values(by=["year"]))
 
     # keep only needed cols
     df = df[[ID, YEAR, LEVEL, STATE,
@@ -446,7 +487,7 @@ def get_us_congress_women_df():
     return df
 
 
-def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_races: bool = False):
+def merge_us_congress_women_cols(scaffold_df, women_df, preserve_races: bool = False):
     """ Merges previously made CAWP df info into the incoming scaffold df
     Parameters:
         scaffold_df: df containing a row for every combo of
@@ -461,7 +502,7 @@ def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_rac
         a column std_col.W_ALL_RACES_CONGRESS_COUNT ints count of total women members in the state/year,
         and column std_col.W_ALL_RACES_CONGRESS_COUNT a string list of those same members """
 
-    df = us_congress_women_df.copy()
+    df = women_df.copy()
 
     groupby_cols = [*STATE_COLS, std_col.TIME_PERIOD_COL]
 
@@ -489,6 +530,58 @@ def merge_us_congress_women_cols(scaffold_df, us_congress_women_df, preserve_rac
     df = pd.merge(scaffold_df, df, on=groupby_cols, how="left")
     df[count_col] = df[count_col].fillna(0)
     df[names_col] = df[names_col].fillna("")
+    return df
+
+
+def get_state_leg_totals_df():
+    """ Fetches each individual CAWP state info page's state legislature
+    table, combines into a single cleaned df
+
+    Returns: df with "time_period", "state_fips", and stleg
+        total_ and total_women cols
+
+     """
+
+    state_dfs = []
+
+    for fips, id in FIPS_TO_STATE_TABLE_MAP.items():
+        state_df = load_csv_as_df_from_web(get_stleg_url(id))
+        state_df.columns = state_df.columns.str.replace(r'\W', '', regex=True)
+
+        # TODO: confirm this weird shifted column data; ideally get them to fix
+        df_leftIndex = state_df[state_df["10"] < 1800]
+        df_rightIndex = state_df[state_df["10"] >= 1800]
+        df_rightIndex = df_rightIndex.shift(periods=1, axis="columns")
+        state_df = pd.concat([df_leftIndex, df_rightIndex])
+
+        # standardize the year col
+        state_df[std_col.TIME_PERIOD_COL] = state_df["Year"]
+        state_df[std_col.TIME_PERIOD_COL] = state_df[
+            std_col.TIME_PERIOD_COL].astype(str).replace(
+            r'\D', '', regex=True)
+
+        # extract totals
+        state_df[[std_col.W_ALL_RACES_STLEG_COUNT, std_col.STLEG_COUNT]
+                 ] = state_df['TotalWomenTotalLegislature'].str.split('/', 1, expand=True)
+
+        # keep only needed cols
+        state_df = state_df[[std_col.TIME_PERIOD_COL,
+                            std_col.W_ALL_RACES_STLEG_COUNT,
+                            std_col.STLEG_COUNT]]
+
+        # TODO: confirm this typo with CAWP; ideally get them to fix
+        if fips == "56":
+            state_df.at[0, "time_period"] = "2022"
+
+        # append this state df to the list
+        state_df[std_col.STATE_FIPS_COL] = fips
+        state_dfs.append(state_df)
+
+    # combine all state ROWS into one big df
+    df = pd.concat(state_dfs)
+    df = df.sort_values(by=[std_col.TIME_PERIOD_COL,
+                            std_col.STATE_FIPS_COL]).reset_index(drop=True)
+
     return df
 
 
@@ -612,26 +705,28 @@ def add_aian_api_rows(df):
     return df
 
 
-def build_base_rows_df(us_congress_totals_df, us_congress_women_df, race_list: List[str]):
+def build_base_rows_df(us_congress_totals_df, state_leg_totals_df, women_df, race_list: List[str]):
     """ Builds out a scaffold of rows with YEAR/STATE/RACE combos,
-    then merges columns for TOTAL CONGRESS, WOMEN IN CONGRESS,
-    and WOMEN THIS RACE IN CONGRESS
+    then merges columns for:
+    - TOTAL CONGRESS, WOMEN IN CONGRESS, WOMEN THIS RACE IN CONGRESS
+    - TOTAL STATE LEG, WOMEN IN STATE LEG, WOMEN THIS RACE STATE LEG
 
     Parameters:
         us_congress_totals_df: previously loaded and processed df with congress info from unitedstates project
-        us_congress_women_df: previously loaded and processed df with women in congress info from CAWP
+        state_leg_totals_df: previously loaded and processed df with state legislature info from CAWP state info pages
+        women_df: previously loaded and processed df with women in congress info from CAWP database
         race_list: a list of strings representing which races should be included in this base chunk
 
     Returns: a df with rows per year/state/race from race list, with columns incl.
-        US CONGRESS counts for TOTAL, WOMEN ALL RACE, and WOMEN THIS RACE
+        US CONGRESS and STATE LEG counts for TOTAL, WOMEN ALL RACE, and WOMEN THIS RACE
     """
 
     # create chunks with needed COLUMNS
     df = scaffold_df_by_year_by_state_by_race_list(race_list)
-    df_total_cols = merge_us_congress_total_names_count_cols(
-        df.copy(), us_congress_totals_df)
+    df_total_cols = merge_total_cols(
+        df.copy(), us_congress_totals_df, state_leg_totals_df)
     df_w_any_race_cols = merge_us_congress_women_cols(
-        df.copy(), us_congress_women_df)
+        df.copy(), women_df)
 
     # for the ALL rows, the ALL_W cols will be the same as the W_THIS_RACE cols
     # so don't need to waste time recalculating them
@@ -641,7 +736,7 @@ def build_base_rows_df(us_congress_totals_df, us_congress_women_df, race_list: L
             std_col.W_ALL_RACES_CONGRESS_COUNT: std_col.W_THIS_RACE_CONGRESS_COUNT})
     else:
         df_w_this_race_cols = merge_us_congress_women_cols(
-            df.copy(), us_congress_women_df, preserve_races=True)
+            df.copy(), women_df, preserve_races=True)
 
     # combine COLUMN chunks
     df = pd.merge(
@@ -652,34 +747,3 @@ def build_base_rows_df(us_congress_totals_df, us_congress_women_df, race_list: L
         df, df_w_this_race_cols, on=MERGE_COLS)
 
     return df
-
-
-def fetch_cawp_state_total_tables():
-
-    # table is on https://cawp.rutgers.edu/facts/state-state-information/alabama
-    url_prefix = "https://cawp.rutgers.edu/tablefield/export/paragraph/"
-    url_suffix = "/field_table/und/0"
-
-    for fips, id in FIPS_TO_STATE_TABLE_MAP.items():
-        url = f'{url_prefix}{id}{url_suffix}'
-        # print("-----", fips)
-        # print(">>>>>", url)
-        # time.sleep(5)
-        df = load_csv_as_df_from_web(url)
-        df.columns = df.columns.str.replace('\W', '', regex=True)
-
-        # TODO: confirm this weird shifted column data; ideally get them to fix
-        df_leftIndex = df[df["10"] < 1800]
-        df_rightIndex = df[df["10"] >= 1800]
-        df_rightIndex = df_rightIndex.shift(periods=1, axis="columns")
-
-        df = pd.concat([df_leftIndex, df_rightIndex])
-
-        df[std_col.TIME_PERIOD_COL] = df["Year"]
-        df = df.drop(columns=['10', 'Year'])
-
-        # TODO: confirm this typo with CAWP; ideally get them to fix
-        if fips == "56":
-            df.at[0, "time_period"] = 2022
-
-        print(df)

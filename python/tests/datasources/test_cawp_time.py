@@ -11,7 +11,7 @@ from datasources.cawp_time import (
     CAWP_LINE_ITEMS_FILE,
     get_postal_from_cawp_phrase,
     get_consecutive_time_periods,
-    fetch_cawp_state_total_tables,
+    get_state_leg_totals_df,
     FIPS_TO_STATE_TABLE_MAP
 )
 
@@ -56,13 +56,13 @@ def _fetch_json_from_web(*args):
         file_name = "test_legislators-historical.json"
     elif url == US_CONGRESS_CURRENT_URL:
         file_name = "test_legislators-current.json"
-    print(f'reading mock US CONGRESS: {file_name}')
+    # print(f'reading mock US CONGRESS: {file_name}')
     with open(os.path.join(TEST_DIR, file_name)) as file:
         return json.load(file)
 
 
 def _get_test_line_items_csv_as_df(*args):
-    print("reading mock CAWP line items")
+    # print("reading mock CAWP line items")
     [_folder, filename] = args
     test_input_data_types = {
         "id": str,
@@ -107,7 +107,7 @@ def _load_csv_as_df_from_web(*args):
     url = args[0]
     fips = [
         i for i in FIPS_TO_STATE_TABLE_MAP if FIPS_TO_STATE_TABLE_MAP[i] in url][0]
-    print('read mock CAWP state leg. table:', fips, url)
+    # print('read mock CAWP state leg. table:', fips, url)
 
     return pd.read_csv(os.path.join(TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv')
                        )
@@ -135,33 +135,32 @@ def _generate_breakdown(*args):
     }), "mock_table_name"]
 
 
-# TODO: Delete this DEV TEST RUNNER
-@ mock.patch('datasources.cawp_time.load_csv_as_df_from_web', side_effect=_load_csv_as_df_from_web)
-def test_fetch_cawp_state_total_tables(
-    mock_stateleg_tables: mock.MagicMock
-):
-    fetch_cawp_state_total_tables()
-
-    # for call in mock_stateleg_tables.call_args:
-    #     print("->", call)
-
-
-# @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#              return_value=None)
-# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-#              side_effect=_get_full_test_line_items_csv_as_df)
-# @ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
-#              side_effect=_get_consecutive_time_periods)
-# def testRun(
-#     mock_years: mock.MagicMock,
-#     mock_data_dir_csv: mock.MagicMock,
-#     mock_bq: mock.MagicMock
+# # TODO: Delete this DEV TEST RUNNER
+# @ mock.patch('datasources.cawp_time.load_csv_as_df_from_web', side_effect=_load_csv_as_df_from_web)
+# def test_fetch_cawp_state_total_tables(
+#     mock_stateleg_tables: mock.MagicMock
 # ):
-#     kwargs_for_bq = {'filename': 'test_file.csv',
-#                      'metadata_table_id': 'test_metadata',
-#                      'table_name': 'output_table'}
-#     cawp_data = CAWPTimeData()
-#     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
+#     get_state_leg_totals_df()
+
+@ mock.patch('datasources.cawp_time.load_csv_as_df_from_web', side_effect=_load_csv_as_df_from_web)
+@ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+             return_value=None)
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+             side_effect=_get_full_test_line_items_csv_as_df)
+@ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
+             side_effect=_get_consecutive_time_periods)
+def testRun(
+    mock_years: mock.MagicMock,
+    mock_data_dir_csv: mock.MagicMock,
+    mock_bq: mock.MagicMock,
+    mock_stateleg_tables: mock.MagicMock
+
+):
+    kwargs_for_bq = {'filename': 'test_file.csv',
+                     'metadata_table_id': 'test_metadata',
+                     'table_name': 'output_table'}
+    cawp_data = CAWPTimeData()
+    cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
 
 
 # TEST OUTGOING SIDE OF BIGQUERY INTERACTION

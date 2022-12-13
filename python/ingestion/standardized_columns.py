@@ -99,9 +99,20 @@ VACCINATED_SHARE_OF_KNOWN = "vaccinated_share_of_known"
 VACCINATED_PER_100K = "vaccinated_per_100k"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
-# CAWP Women in Legislature columns
-WOMEN_STATE_LEG_PCT = "women_state_leg_pct"
-WOMEN_STATE_LEG_PCT_SHARE = "women_state_leg_pct_share"
+# CAWP
+
+# State Legislatures
+PCT_OF_W_STLEG = "pct_share_of_women_state_leg"
+PCT_OF_STLEG = "pct_share_of_state_leg"
+W_STLEG_PCT_INEQUITY = "women_state_leg_pct_relative_inequity"
+W_THIS_RACE_STLEG_COUNT = "women_this_race_state_leg_count"
+W_THIS_RACE_STLEG_NAMES = "women_this_race_state_leg_names"
+W_ALL_RACES_STLEG_COUNT = "women_all_races_state_leg_count"
+W_ALL_RACES_STLEG_NAMES = "women_all_races_state_leg_names"
+STLEG_COUNT = "total_state_leg_count"
+STLEG_NAMES = "total_state_leg_names"
+
+# Congress
 PCT_OF_W_CONGRESS = "pct_share_of_women_us_congress"
 PCT_OF_CONGRESS = "pct_share_of_us_congress"
 W_CONGRESS_PCT_INEQUITY = "women_us_congress_pct_relative_inequity"
