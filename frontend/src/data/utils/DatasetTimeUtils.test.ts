@@ -169,9 +169,15 @@ describe("Tests for A11y Table Data functions", () => {
     const unknownMetric = jail?.metrics.pct_share;
 
     expect(
-      makeA11yTableData(known, unknown, "sex", knownMetric!, unknownMetric!, [
-        "Male",
-      ])
+      makeA11yTableData(
+        known,
+        unknown,
+        "sex",
+        knownMetric!,
+        unknownMetric!,
+        ["Male"],
+        /* hasUnknowns */ false
+      )
     ).toEqual(expectedA11yTableDataOnlyMale);
   });
 });

@@ -163,7 +163,8 @@ export function makeA11yTableData(
   breakdownVar: BreakdownVar,
   knownMetric: MetricConfig,
   unknownMetric: MetricConfig,
-  selectedGroups: DemographicGroup[]
+  selectedGroups: DemographicGroup[],
+  hasUnknowns: boolean
 ): Row[] {
   const allTimePeriods = Array.from(
     new Set(knownsData.map((row) => row[TIME_PERIOD]))
@@ -191,10 +192,11 @@ export function makeA11yTableData(
     }
 
     // along with the unknown pct_share
-    a11yRow[`${unknownMetric.shortLabel} with unknown ${breakdownVar}`] =
-      unknownsData.find((row) => row[TIME_PERIOD] === timePeriod)?.[
-        unknownMetric.metricId
-      ];
+    if (hasUnknowns)
+      a11yRow[`${unknownMetric.shortLabel} with unknown ${breakdownVar}`] =
+        unknownsData.find((row) => row[TIME_PERIOD] === timePeriod)?.[
+          unknownMetric.metricId
+        ];
 
     return a11yRow;
   });
@@ -202,7 +204,7 @@ export function makeA11yTableData(
   return a11yData;
 }
 
-/*  
+/*
 Convert time_period style date YYYY-MM (e.g. "2020-01") to human readable Month Year (e.g. "January 2020"). Strings not matching this format are simply passed through.
 */
 export function getPrettyDate(timePeriod: string) {

@@ -171,9 +171,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 {props.isCompareCard && (
                   <Box mb={2}>
                     <Alert severity="warning" role="note">
-                      Please note that both the X and Y axes scale to the data,
-                      requiring extra attention when making visual side-by-side
-                      comparisons.
+                      Please use extra attention when making visual comparisons
+                      as the axis-scales adjust to fit the selected data set.
                     </Alert>
                   </Box>
                 )}
@@ -228,6 +227,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   knownMetricConfig={metricConfigRates}
                   unknownMetricConfig={metricConfigPctShares}
                   selectedGroups={selectedTableGroups}
+                  hasUnknowns={hasUnknowns}
                 />
               </>
             )}

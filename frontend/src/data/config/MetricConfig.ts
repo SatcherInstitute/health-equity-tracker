@@ -1601,10 +1601,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "women_state_leg_pct",
-          chartTitleLines: ["Percentage of women in state", "legislators"], // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER, HI/LOW DROPDOWN FOOTNOTE
+          chartTitleLines: [
+            "Percentage of state legislators",
+            "identifying as women",
+          ], // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER, HI/LOW DROPDOWN FOOTNOTE
           trendsCardTitleName: "Rates of women in state legislatures over time",
           columnTitleHeader: "Percentage of women state legislators",
-          shortLabel: "% of egislators", // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
+          shortLabel: "% of legislators", // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
           type: "pct_incidence",
         },
         pct_share: {
