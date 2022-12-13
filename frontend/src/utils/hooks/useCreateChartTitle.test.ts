@@ -15,7 +15,7 @@ describe("Create  Chart Titles", () => {
         output
       );
     });
-    it("Should return a array of two strings, when ", () => {
+    it("Should return a array of two strings, when medium", () => {
       const output = [
         "COVID-19 cases since Jan 2020 per 100k people",
         "in the United States",
