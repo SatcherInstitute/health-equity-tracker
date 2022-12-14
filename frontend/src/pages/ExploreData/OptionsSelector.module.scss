@@ -26,10 +26,6 @@
 .CategoryTitleText {
   @include inter700();
   font-size: $text;
-
-  // @media only screen and (min-width: $md) {
-  //   font-size: $smallestHeader;
-  // }
 }
 
 .CategoryTitleText {
@@ -39,6 +35,11 @@
 .NoteText {
   font-size: $small;
   color: grey;
+  font-style: italic;
+}
+
+.UsaLink {
+  @include buttonThatLooksLikeLink();
   font-style: italic;
 }
 
