@@ -83,6 +83,13 @@ function OptionsSelector(props: {
 
   const isUsa = props.value === "00";
 
+  function handleUsaButton() {
+    props.onOptionUpdate(USA_FIPS);
+    popover.close();
+  }
+
+  const isUsa = props.value === "00";
+
   return (
     <>
       <span ref={popoverRef}>
@@ -152,7 +159,10 @@ function OptionsSelector(props: {
                 {isUsa ? (
                   USA_DISPLAY_NAME
                 ) : (
-                  <button className={styles.UsaLink} onClick={handleUsaButton}>
+                  <button
+                    className={styles.UsaButton}
+                    onClick={handleUsaButton}
+                  >
                     United States
                   </button>
                 )}
