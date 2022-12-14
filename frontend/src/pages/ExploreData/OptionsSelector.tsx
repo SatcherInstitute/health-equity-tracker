@@ -83,13 +83,6 @@ function OptionsSelector(props: {
 
   const isUsa = props.value === "00";
 
-  function handleUsaButton() {
-    props.onOptionUpdate(USA_FIPS);
-    popover.close();
-  }
-
-  const isUsa = props.value === "00";
-
   return (
     <>
       <span ref={popoverRef}>
