@@ -2,10 +2,5 @@
 @import "../../styles/globals.scss";
 
 .UnknownBubblesLink {
-  text-decoration: underline;
-  background: none !important;
-  border: none !important;
-  padding: 0px;
-  color: $alt-green;
-  cursor: pointer;
+  @include buttonThatLooksLikeLink();
 }
