@@ -176,7 +176,7 @@ describe("Tests for A11y Table Data functions", () => {
         knownMetric!,
         unknownMetric!,
         ["Male"],
-        /* hasUnknowns */ false
+        /* hasUnknowns */ true
       )
     ).toEqual(expectedA11yTableDataOnlyMale);
   });
