@@ -152,7 +152,10 @@ function OptionsSelector(props: {
                 {isUsa ? (
                   USA_DISPLAY_NAME
                 ) : (
-                  <button className={styles.UsaLink} onClick={handleUsaButton}>
+                  <button
+                    className={styles.UsaButton}
+                    onClick={handleUsaButton}
+                  >
                     United States
                   </button>
                 )}
