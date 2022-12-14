@@ -28,7 +28,10 @@ import AltTableView from "./ui/AltTableView";
 import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
-import { getWomenRaceLabel } from "../data/variables/CawpProvider";
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from "../data/variables/CawpProvider";
 import { Row } from "../data/utils/DatasetTypes";
 import { hasNonZeroUnknowns } from "../charts/trendsChart/helpers";
 
@@ -73,8 +76,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     /* timeView */ TIME_SERIES
   );
 
-  const isCawpCongress =
-    metricConfigRates.metricId === "pct_share_of_us_congress";
+  const isCawp = CAWP_DETERMINANTS.includes(metricConfigRates.metricId);
 
   function getTitleText() {
     return `${
@@ -97,14 +99,14 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           metricConfigRates.metricId
         );
 
-        const pctShareData = isCawpCongress
+        const pctShareData = isCawp
           ? ratesData
           : queryResponsePctShares.getValidRowsForField(
               metricConfigPctShares.metricId
             );
 
         // swap race labels if applicable
-        const ratesDataLabelled = isCawpCongress
+        const ratesDataLabelled = isCawp
           ? ratesData.map((row: Row) => {
               const altRow = { ...row };
               altRow.race_and_ethnicity = getWomenRaceLabel(
@@ -121,7 +123,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             metricConfigRates.metricId
           ).withData;
 
-        const demographicGroupsLabelled = isCawpCongress
+        const demographicGroupsLabelled = isCawp
           ? demographicGroups
               .map((race) => getWomenRaceLabel(race))
               .filter((womenRace) => womenRace !== "Women of Unknown Race")

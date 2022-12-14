@@ -1,6 +1,9 @@
 import { MetricId, MetricType } from "../data/config/MetricConfig";
 import { Fips } from "../data/utils/Fips";
-import { getWomenRaceLabel } from "../data/variables/CawpProvider";
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from "../data/variables/CawpProvider";
 
 import {
   GREY_DOT_SCALE,
@@ -326,11 +329,11 @@ export function setupColorScale(
   fieldRange?: FieldRange,
   scaleColorScheme?: string
 ) {
-  const isCongressCAWP = metricId === "pct_share_of_us_congress";
+  const isCawp = CAWP_DETERMINANTS.includes(metricId);
   const colorScale: any = {
     name: COLOR_SCALE,
-    type: isCongressCAWP ? "quantile" : "quantize",
-    domain: isCongressCAWP
+    type: isCawp ? "quantile" : "quantize",
+    domain: isCawp
       ? [1, 20, 40, 60, 80, 99]
       : { data: LEGEND_DATASET, field: metricId },
     range: {

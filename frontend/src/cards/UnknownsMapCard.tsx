@@ -29,6 +29,7 @@ import { useLocation } from "react-router-dom";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
+import { CAWP_DATA_TYPES } from "../data/variables/CawpProvider";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -59,9 +60,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const metricConfig = props.variableConfig.metrics["pct_share"];
   const currentBreakdown = props.currentBreakdown;
   const breakdownString = `with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`;
-  const isCawpCongress =
-    props.variableConfig.variableId === "women_us_congress";
-
+  const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId);
   const location = useLocation();
   const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
 
@@ -87,13 +86,13 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     [metricConfig.metricId],
     mapGeoBreakdowns,
     /* variableId */ props.variableConfig.variableId,
-    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
+    /* timeView */ isCawp ? "cross_sectional" : undefined
   );
   const alertQuery = new MetricQuery(
     [metricConfig.metricId],
     alertBreakdown,
     /* variableId */ props.variableConfig.variableId,
-    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
+    /* timeView */ isCawp ? "cross_sectional" : undefined
   );
 
   const { chartTitle, dataName, filename } = useCreateChartTitle(

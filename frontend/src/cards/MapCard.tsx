@@ -30,7 +30,10 @@ import {
   COMBINED_QUALIFIER,
   PRIVATE_JAILS_QUALIFIER,
 } from "../data/variables/IncarcerationProvider";
-import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
+import {
+  CAWP_DATA_TYPES,
+  CAWP_DETERMINANTS,
+} from "../data/variables/CawpProvider";
 import { useAutoFocusDialog } from "../utils/hooks/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
@@ -81,8 +84,7 @@ function MapCardWithKey(props: MapCardProps) {
   const isJail = props.variableConfig.variableId === "jail";
   const isIncarceration = isJail || isPrison;
 
-  const isCawpCongress =
-    props.variableConfig.variableId === "women_us_congress";
+  const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId);
 
   const location = useLocation();
 
@@ -111,7 +113,9 @@ function MapCardWithKey(props: MapCardProps) {
     if (addCountCols)
       metricIds.push(
         "women_this_race_us_congress_count",
-        "total_us_congress_count"
+        "total_us_congress_count",
+        "women_this_race_state_leg_count",
+        "total_state_leg_count"
       );
 
     return new MetricQuery(
@@ -125,14 +129,14 @@ function MapCardWithKey(props: MapCardProps) {
             : exclude(UNKNOWN)
         ),
       /* variableId */ props.variableConfig.variableId,
-      /* timeView */ isCawpCongress ? "cross_sectional" : undefined
+      /* timeView */ isCawp ? "cross_sectional" : undefined
     );
   };
 
   const queries = [
     metricQuery(
       Breakdowns.forChildrenFips(props.fips),
-      /* addCountCols */ isCawpCongress
+      /* addCountCols */ isCawp
     ),
     metricQuery(Breakdowns.forFips(props.fips)),
   ];

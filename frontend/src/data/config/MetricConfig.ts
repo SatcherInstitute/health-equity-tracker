@@ -161,12 +161,14 @@ export type MetricId =
   | "voter_participation_per_100k"
   | "voter_participation_ratio_age_adjusted"
   | "voter_participation_pct_relative_inequity"
-  | "women_state_leg_pct"
-  | "women_state_leg_pct_share"
   | "women_state_leg_ratio_age_adjusted"
   | "women_state_leg_pct_relative_inequity"
+  | "women_this_race_state_leg_count"
+  | "total_state_leg_count"
   | "pct_share_of_us_congress"
   | "pct_share_of_women_us_congress"
+  | "pct_share_of_state_leg"
+  | "pct_share_of_women_state_leg"
   | "women_us_congress_ratio_age_adjusted"
   | "women_us_congress_pct_relative_inequity"
   | "women_this_race_us_congress_names"
@@ -1596,11 +1598,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Women in state legislatures", // DATA TOGGLE
       variableFullDisplayName: "Women in state legislatures", // TABLE TITLE,
       surveyCollectedData: true,
+      timeSeriesData: true,
       variableDefinition: `Individuals identifying as women currently serving in their state or territory’s legislature. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.
       `,
       metrics: {
         per100k: {
-          metricId: "women_state_leg_pct",
+          metricId: "pct_share_of_state_leg",
           chartTitleLines: [
             "Percentage of state legislators",
             "identifying as women",
@@ -1612,7 +1615,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_share: {
           chartTitleLines: ["Percent share of women state legislators"], // UNKNOWNS MAP TITLE, DISPARITY BAR TITLE
-          metricId: "women_state_leg_pct_share",
+          metricId: "pct_share_of_women_state_leg",
           trendsCardTitleName:
             "Inequitable share of women in state legislatures over time",
           columnTitleHeader: "Percent share of women state legislators",
@@ -1626,13 +1629,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             metricId: "cawp_population_pct",
             columnTitleHeader: "Total population share (all genders)", // TABLE COLUMN HEADER
             shortLabel: `${populationPctShortLabel} (all genders)`, // DISPARITY BAR LEGEND/AXIS
-            type: "pct_share",
-          },
-          knownBreakdownComparisonMetric: {
-            chartTitleLines: [],
-            metricId: "women_state_leg_pct_share",
-            columnTitleHeader: "Percent share of women state legislators", // TABLE COL HEADER,
-            shortLabel: "% of women legislators", // UNKNOWNS MAP ALERT, DISPARITY BAR LABELS/AXIS
             type: "pct_share",
           },
         },
