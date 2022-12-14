@@ -3,7 +3,7 @@ import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete"; // can't lazy load due to typing issue
-import { Fips } from "../../data/utils/Fips";
+import { Fips, USA_DISPLAY_NAME, USA_FIPS } from "../../data/utils/Fips";
 import Popover from "@material-ui/core/Popover";
 import Button from "@material-ui/core/Button";
 import styles from "./OptionsSelector.module.scss";
@@ -76,6 +76,13 @@ function OptionsSelector(props: {
 
   const dropdownId = `${props.value}-dropdown-${isFips ? "fips" : "topic"}`;
 
+  function handleUsaButton() {
+    props.onOptionUpdate(USA_FIPS);
+    popover.close();
+  }
+
+  const isUsa = props.value === "00";
+
   return (
     <>
       <span ref={popoverRef}>
@@ -141,8 +148,19 @@ function OptionsSelector(props: {
                 }}
               />
               <span className={styles.NoteText}>
-                County, state, territory, or United States. Some source data is
-                unavailable at county and territory levels.
+                County, state, territory, or{" "}
+                {isUsa ? (
+                  USA_DISPLAY_NAME
+                ) : (
+                  <button
+                    className={styles.UsaButton}
+                    onClick={handleUsaButton}
+                  >
+                    United States
+                  </button>
+                )}
+                . Some source data is unavailable at county and territory
+                levels.
               </span>
             </div>
           )}
