@@ -15,7 +15,6 @@ def testGeneratePercentFixDataset():
         CDC_DATA_RESTRICTED_GOOD, dtype={'state_fips': str})
 
     testing = check_pct_values(df)
-    print("/n")
-    print(testing.to_string())
+    print(testing)
 
     # assert_frame_equal()
