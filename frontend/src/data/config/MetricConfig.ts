@@ -1611,7 +1611,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           trendsCardTitleName: "Rates of women in state legislatures over time",
           columnTitleHeader: "Percentage of women state legislators",
           shortLabel: "% of legislators", // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
-          type: "pct_incidence",
+          type: "pct_share",
         },
         pct_share: {
           chartTitleLines: ["Percent share of women state legislators"], // UNKNOWNS MAP TITLE, DISPARITY BAR TITLE
