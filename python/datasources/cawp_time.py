@@ -122,11 +122,11 @@ AIAN_API_RACES = ['Asian American/Pacific Islander',
                   'Native American/Alaska Native/Native Hawaiian']
 
 POSITION_LABELS = {
-    "us_congress": {"U.S. Representative": "Rep.",
-                    "U.S. Senator": "Sen.",
-                    "U.S. Delegate": "Del."},
-    "state_leg": {"State Representative": "Rep.",
-                  "State Senator": "Sen.",
+    "us_congress": {"U.S. Representative": "U.S. Rep.",
+                    "U.S. Senator": "U.S. Sen.",
+                    "U.S. Delegate": "U.S. Del."},
+    "state_leg": {"State Representative": "State Rep.",
+                  "State Senator": "State Sen.",
                   "Territorial/D.C. Representative": "Rep.",
                   "Territorial/D.C. Senator": "Sen.", }
 }
@@ -206,10 +206,9 @@ class CAWPTimeData(DataSource):
                 std_col.POPULATION_PCT_COL
             ]
 
-            # print("*-*-*")
-            # print(bq_table_name)
-            # print(df.columns)
-            # print(df.to_string())
+            # cawp_time_data-race_and_ethnicity_national_time_series
+            df.to_json(
+                f'frontend/public/tmp/cawp_time_data-{bq_table_name}.json', orient="records")
 
             column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
             gcs_to_bq_util.add_df_to_bq(
@@ -239,11 +238,16 @@ class CAWPTimeData(DataSource):
             women_us_congress_df, women_state_leg_df,
             list(CAWP_RACE_GROUPS_TO_STANDARD.keys()))
 
+        # print("#####")
+        # print(df_by_races_rows.columns)
+        # print(df_by_races_rows)
+
         # append combo race group ROWS
         df_by_races_rows = add_aian_api_rows(df_by_races_rows)
 
         # combine ROWS together from ALLS ROWS and BY RACES rows
         df = pd.concat([df_alls_rows, df_by_races_rows])
+
         df = df.sort_values(
             by=MERGE_COLS).reset_index(drop=True)
 
@@ -458,8 +462,8 @@ def merge_total_cols(scaffold_df, us_congress_df, state_leg_df):
     # fill counts with 0 where no info available
     df[std_col.STLEG_COUNT] = df[std_col.STLEG_COUNT].fillna(
         0).astype(float)
-    df[std_col.W_ALL_RACES_STLEG_COUNT] = df[std_col.W_ALL_RACES_STLEG_COUNT].fillna(
-        0).astype(float)
+    # df[std_col.W_ALL_RACES_STLEG_COUNT] = df[std_col.W_ALL_RACES_STLEG_COUNT].fillna(
+    #     0).astype(float)
     return df
 
 
@@ -616,8 +620,8 @@ def get_state_leg_totals_df():
 
         # keep only needed cols
         state_df = state_df[[std_col.TIME_PERIOD_COL,
-                            std_col.W_ALL_RACES_STLEG_COUNT,
-                            std_col.STLEG_COUNT]]
+                            # std_col.W_ALL_RACES_STLEG_COUNT,
+                             std_col.STLEG_COUNT]]
 
         # TODO: confirm this typo with CAWP; ideally get them to fix
         if fips == "56":
@@ -653,7 +657,10 @@ def combine_states_to_national(df):
     df_counts = df_counts.groupby(groupby_cols, as_index=False)[
         std_col.CONGRESS_COUNT,
         std_col.W_ALL_RACES_CONGRESS_COUNT,
-        std_col.W_THIS_RACE_CONGRESS_COUNT
+        std_col.W_THIS_RACE_CONGRESS_COUNT,
+        std_col.STLEG_COUNT,
+        std_col.W_ALL_RACES_STLEG_COUNT,
+        std_col.W_THIS_RACE_STLEG_COUNT
     ].agg(sum)
     _df = df_counts
 
@@ -714,42 +721,88 @@ def add_aian_api_rows(df):
     df_aian_api_rows = df_aian_api_rows.loc[
         df_aian_api_rows[RACE_ETH].isin(
             AIAN_API_RACES)]
-    df_aian_api_rows = df_aian_api_rows[[std_col.TIME_PERIOD_COL,
-                                         *STATE_COLS,
-                                         std_col.W_THIS_RACE_CONGRESS_NAMES]]
 
-    df_aian_api_rows = df_aian_api_rows.groupby([std_col.TIME_PERIOD_COL,
-                                                 *STATE_COLS], as_index=False)[
-        std_col.W_THIS_RACE_CONGRESS_NAMES
-    ].agg(lambda nested_list: [x for list in nested_list for x in list])
+    level_names_col_map = {"us_congress": std_col.W_THIS_RACE_CONGRESS_NAMES,
+                           "state_leg": std_col.W_THIS_RACE_STLEG_NAMES}
+    level_count_col_map = {"us_congress": std_col.W_THIS_RACE_CONGRESS_COUNT,
+                           "state_leg": std_col.W_THIS_RACE_STLEG_COUNT}
+    level_denom_cols_map = {"us_congress": [std_col.CONGRESS_COUNT,
+                                            std_col.CONGRESS_NAMES,
+                                            std_col.W_ALL_RACES_CONGRESS_COUNT,
+                                            std_col.W_ALL_RACES_CONGRESS_NAMES],
+                            "state_leg": [std_col.STLEG_COUNT,
+                                          std_col.W_ALL_RACES_STLEG_COUNT,
+                                          std_col.W_ALL_RACES_STLEG_NAMES]
+                            }
 
-    # remove any duplicates if a women was in both of the combined race groups
-    df_aian_api_rows[std_col.W_THIS_RACE_CONGRESS_NAMES] = df_aian_api_rows[std_col.W_THIS_RACE_CONGRESS_NAMES].apply(
-        set).apply(list)
-    df_aian_api_rows[std_col.W_THIS_RACE_CONGRESS_COUNT] = df_aian_api_rows[std_col.W_THIS_RACE_CONGRESS_NAMES].apply(
-        lambda list: len(list)).astype(float)
-    df_aian_api_rows[RACE_ETH] = "AIAN_API"
-    df_aian_api_rows = df_aian_api_rows.reset_index(drop=True)
+    aian_api_dfs = []
 
-    # re-merge with this to preserve the non-summed rows like "total_congress_count", etc
-    df_only_api_rows = df.loc[
-        df[RACE_ETH] == 'Asian American/Pacific Islander']
-    df_denom_cols = df_only_api_rows[[
+    for gov_level in ["us_congress", "state_leg"]:
+
+        # specific columns needed for this level of government
+        names_col = level_names_col_map[gov_level]
+        count_col = level_count_col_map[gov_level]
+        level_denom_cols = level_denom_cols_map[gov_level]
+
+        # only keep needed columns
+        df_aian_api_rows_gov_level = df_aian_api_rows.copy()[[std_col.TIME_PERIOD_COL,
+                                                              *STATE_COLS,
+                                                              names_col
+                                                              ]].reset_index(
+            drop=True)
+
+        # combine the race rows, and their lists of names
+        df_aian_api_rows_gov_level = df_aian_api_rows_gov_level.groupby([
+            std_col.TIME_PERIOD_COL, *STATE_COLS], as_index=False)[
+            names_col
+        ].agg(lambda nested_list: [x for list in nested_list for x in list])
+
+        # remove any duplicates if a women was in both of the combined race groups
+        df_aian_api_rows_gov_level[names_col] = df_aian_api_rows_gov_level[
+            names_col].apply(set).apply(list)
+
+        df_aian_api_rows_gov_level[count_col] = df_aian_api_rows_gov_level[
+            names_col].apply(lambda list: len(list)).astype(float)
+        df_aian_api_rows_gov_level[RACE_ETH] = "AIAN_API"
+        df_aian_api_rows_gov_level = df_aian_api_rows_gov_level.reset_index(
+            drop=True)
+
+        # re-merge with this to preserve the non-summed rows like "total_congress_count", etc
+        # could use either Asian or AIAN, the totals would be the same
+        orig_df = df.copy()
+        df_denom_cols_aian_api_rows = orig_df.copy().loc[
+            orig_df[RACE_ETH] == 'Asian American/Pacific Islander']
+
+        denom_cols = [std_col.TIME_PERIOD_COL,
+                      *STATE_COLS,
+                      *level_denom_cols]
+
+        df_denom_cols = df_denom_cols_aian_api_rows[denom_cols].reset_index(
+            drop=True)
+
+        # print("~~~", gov_level)
+        # print(df_denom_cols.columns)
+        # print(df_denom_cols)
+
+        # add back on the COLUMNS that didn't need to sum
+        df_aian_api_rows_gov_level = pd.merge(df_aian_api_rows_gov_level, df_denom_cols, on=[
+            std_col.TIME_PERIOD_COL,
+            *STATE_COLS
+        ]).reset_index(drop=True)
+
+        # store for later merging on cols
+        aian_api_dfs.append(df_aian_api_rows_gov_level)
+
+    # merge combo race rows state_leg cols and us_congress cols
+    aian_api_rows_state_leg_cols_df, aian_api_rows_us_congress_cols_df = aian_api_dfs
+
+    df_aian_api_rows = pd.merge(aian_api_rows_state_leg_cols_df, aian_api_rows_us_congress_cols_df, on=[
         std_col.TIME_PERIOD_COL,
         *STATE_COLS,
-        std_col.CONGRESS_COUNT,
-        std_col.CONGRESS_NAMES,
-        std_col.W_ALL_RACES_CONGRESS_COUNT,
-        std_col.W_ALL_RACES_CONGRESS_NAMES
-    ]].reset_index(drop=True)
-
-    # add back on the COLUMNS that didn't need to sum
-    df_aian_api_rows = pd.merge(df_aian_api_rows, df_denom_cols, on=[
-        std_col.TIME_PERIOD_COL,
-        *STATE_COLS
+        RACE_ETH
     ]).reset_index(drop=True)
 
-    # add onto the original race group ROWS
+    # add COMBO RACE ROWS onto the original race groups ROWS
     df = pd.concat([df, df_aian_api_rows], axis="rows").reset_index(drop=True)
 
     return df
@@ -778,10 +831,13 @@ def build_base_rows_df(us_congress_totals_df,
 
     # create chunks with needed COLUMNS
     df = scaffold_df_by_year_by_state_by_race_list(race_list)
+
     df_total_cols = merge_total_cols(
         df.copy(), us_congress_totals_df, state_leg_totals_df)
+
     df_w_any_race_us_congress_cols = merge_women_cols(
         df.copy(), women_us_congress_df, "us_congress")
+
     df_w_any_race_state_leg_cols = merge_women_cols(
         df.copy(), women_state_leg_df, "state_leg")
 
@@ -792,16 +848,18 @@ def build_base_rows_df(us_congress_totals_df,
             std_col.W_ALL_RACES_CONGRESS_NAMES: std_col.W_THIS_RACE_CONGRESS_NAMES,
             std_col.W_ALL_RACES_CONGRESS_COUNT: std_col.W_THIS_RACE_CONGRESS_COUNT})
         df_w_this_race_state_leg_cols = df_w_any_race_state_leg_cols.copy().rename(columns={
-            std_col.W_ALL_RACES_CONGRESS_NAMES: std_col.W_THIS_RACE_CONGRESS_NAMES,
-            std_col.W_ALL_RACES_CONGRESS_COUNT: std_col.W_THIS_RACE_CONGRESS_COUNT})
+            std_col.W_ALL_RACES_STLEG_NAMES: std_col.W_THIS_RACE_STLEG_NAMES,
+            std_col.W_ALL_RACES_STLEG_COUNT: std_col.W_THIS_RACE_STLEG_COUNT})
     else:
         df_w_this_race_us_congress_cols = merge_women_cols(
             df.copy(), women_us_congress_df, "us_congress", preserve_races=True)
         df_w_this_race_state_leg_cols = merge_women_cols(
             df.copy(), women_state_leg_df, "state_leg", preserve_races=True)
+
     # combine COLUMN chunks
     df = pd.merge(
         df, df_total_cols, on=MERGE_COLS)
+
     df = pd.merge(
         df, df_w_any_race_us_congress_cols, on=MERGE_COLS)
     df = pd.merge(
@@ -810,4 +868,9 @@ def build_base_rows_df(us_congress_totals_df,
         df, df_w_any_race_state_leg_cols, on=MERGE_COLS)
     df = pd.merge(
         df, df_w_this_race_state_leg_cols, on=MERGE_COLS)
+
+    # print("-****-")
+    # print(df.columns)
+    # print(df)
+
     return df
