@@ -330,9 +330,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
         {
           name: VAR_DATASET,
-          values: props.listExpanded
-            ? props.data
-            : props.data.filter((row) => row[props.metric.metricId] > 0),
+          values:
+            props.listExpanded || !isCawp
+              ? props.data
+              : props.data.filter((row) => row[props.metric.metricId] > 0),
         },
         {
           name: ZERO_VAR_DATASET,
