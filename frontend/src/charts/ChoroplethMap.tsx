@@ -182,27 +182,37 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         : props.metric.shortLabel;
 
     const tooltipPairs = { [tooltipLabel]: tooltipDatum };
-    if (props.metric.metricId === "pct_share_of_us_congress")
-      addCAWPTooltipInfo(
-        /* tooltipPairs */ tooltipPairs,
-        /* subTitle */ props.titles?.subtitle || ""
-      );
 
     const geographyType = getCountyAddOn(
       /* fips */ props.fips,
       /* showCounties */ props.showCounties
     );
 
-    const tooltipValue = buildTooltipTemplate(
+    // Hover tooltip for states with expected 0 values, like CAWP Congress
+    const zeroTooltipValue = buildTooltipTemplate(
       /* tooltipPairs */ tooltipPairs,
       /* title */ `datum.properties.name + " ${geographyType}"`,
-      /* includeSvi */ true
+      /* includeSvi */ false
     );
 
+    // Hover tooltip for unexpected missing data
     const missingDataTooltipValue = buildTooltipTemplate(
       /* tooltipPairs */ { [tooltipLabel]: `"${NO_DATA_MESSAGE}"` },
       /* title */ `datum.properties.name + " ${geographyType}"`,
       /* includeSvi */ false
+    );
+
+    if (props.metric.metricId === "pct_share_of_us_congress")
+      addCAWPTooltipInfo(
+        /* tooltipPairs */ tooltipPairs,
+        /* subTitle */ props.titles?.subtitle || ""
+      );
+
+    // Hover tooltip for non-zero data
+    const tooltipValue = buildTooltipTemplate(
+      /* tooltipPairs */ tooltipPairs,
+      /* title */ `datum.properties.name + " ${geographyType}"`,
+      /* includeSvi */ true
     );
 
     /* SET UP LEGEND */
@@ -265,7 +275,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             /*datasetName=*/ ZERO_DATASET,
             /*fillColor=*/ { value: sass.mapMin },
             /*hoverColor=*/ RED_ORANGE,
-            /*tooltipExpression=*/ tooltipValue,
+            /*tooltipExpression=*/ zeroTooltipValue,
             /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
             /* hideMissingDataTooltip */ props.hideMissingDataTooltip
           )
