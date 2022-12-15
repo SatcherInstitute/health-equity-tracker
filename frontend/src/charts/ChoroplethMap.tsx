@@ -40,6 +40,7 @@ import {
   ZERO_YELLOW_SCALE,
 } from "./mapHelpers";
 import { DemographicGroup } from "../data/utils/Constants";
+import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -98,7 +99,7 @@ export interface ChoroplethMapProps {
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
-  const isCongressCAWP = props.metric.metricId === "pct_share_of_us_congress";
+  const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId);
 
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false);
@@ -144,7 +145,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       },
     ];
     // Null SVI was showing
-    if (!isCongressCAWP && !props.listExpanded) {
+    if (!isCawp && !props.listExpanded) {
       geoTransformers[0].values.push("rating");
     }
     if (props.overrideShapeWithCircle) {
@@ -202,7 +203,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* includeSvi */ false
     );
 
-    if (props.metric.metricId === "pct_share_of_us_congress")
+    if (isCawp)
       addCAWPTooltipInfo(
         /* tooltipPairs */ tooltipPairs,
         /* subTitle */ props.titles?.subtitle || ""
@@ -247,8 +248,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const helperLegend = getHelperLegend(
       /* yOffset */ yOffsetNoDataLegend,
       /* xOffset */ xOffsetNoDataLegend,
-      /* overrideGrayMissingWithZeroYellow */ isCongressCAWP &&
-        !props.listExpanded
+      /* overrideGrayMissingWithZeroYellow */ isCawp && !props.listExpanded
     );
     if (!props.hideLegend) {
       legendList.push(legend, helperLegend);
@@ -270,7 +270,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     );
 
     let marks = [
-      isCongressCAWP && !props.listExpanded
+      isCawp && !props.listExpanded
         ? createShapeMarks(
             /*datasetName=*/ ZERO_DATASET,
             /*fillColor=*/ { value: sass.mapMin },
@@ -300,7 +300,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.overrideShapeWithCircle) {
       // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET));
-      isCongressCAWP && !props.listExpanded
+      isCawp && !props.listExpanded
         ? marks.push(createCircleTextMark(ZERO_DATASET))
         : marks.push(createCircleTextMark(MISSING_DATASET));
     } else {
@@ -332,9 +332,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
         {
           name: VAR_DATASET,
-          values: props.listExpanded
-            ? props.data
-            : props.data.filter((row) => row[props.metric.metricId] > 0),
+          values:
+            props.listExpanded || !isCawp
+              ? props.data
+              : props.data.filter((row) => row[props.metric.metricId] > 0),
         },
         {
           name: ZERO_VAR_DATASET,
@@ -443,7 +444,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       setShouldRenderMap(true);
     }, 0);
   }, [
-    isCongressCAWP,
+    isCawp,
     width,
     props.metric,
     props.legendTitle,
