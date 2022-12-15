@@ -266,6 +266,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   }
                   geoData={geoData}
                   filename={filename}
+                  countColsToAdd={[]}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <div className={styles.TerritoryCirclesContainer}>
@@ -286,6 +287,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                             hideActions={true}
                             geoData={geoData}
                             overrideShapeWithCircle={true}
+                            countColsToAdd={[]}
                           />
                         </div>
                       );

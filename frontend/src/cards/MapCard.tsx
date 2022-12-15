@@ -31,8 +31,9 @@ import {
   PRIVATE_JAILS_QUALIFIER,
 } from "../data/variables/IncarcerationProvider";
 import {
-  CAWP_DATA_TYPES,
+  CAWP_CONGRESS_COUNTS,
   CAWP_DETERMINANTS,
+  CAWP_STLEG_COUNTS,
 } from "../data/variables/CawpProvider";
 import { useAutoFocusDialog } from "../utils/hooks/useAutoFocusDialog";
 import styles from "./Card.module.scss";
@@ -84,7 +85,11 @@ function MapCardWithKey(props: MapCardProps) {
   const isJail = props.variableConfig.variableId === "jail";
   const isIncarceration = isJail || isPrison;
 
-  const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId);
+  const isCawpStateLeg =
+    props.variableConfig.variableId === "women_state_legislatures";
+  const isCawpCongress =
+    props.variableConfig.variableId === "women_us_congress";
+  const isCawp = isCawpStateLeg || isCawpCongress;
 
   const location = useLocation();
 
@@ -107,16 +112,10 @@ function MapCardWithKey(props: MapCardProps) {
 
   const metricQuery = (
     geographyBreakdown: Breakdowns,
-    addCountCols?: boolean
+    countColsToAdd?: MetricId[]
   ) => {
     const metricIds: MetricId[] = [metricConfig.metricId];
-    if (addCountCols)
-      metricIds.push(
-        "women_this_race_us_congress_count",
-        "total_us_congress_count",
-        "women_this_race_state_leg_count",
-        "total_state_leg_count"
-      );
+    if (countColsToAdd) metricIds.push(...countColsToAdd);
 
     return new MetricQuery(
       metricIds,
@@ -133,10 +132,14 @@ function MapCardWithKey(props: MapCardProps) {
     );
   };
 
+  let countColsToAdd: MetricId[] = [];
+  if (isCawpCongress) countColsToAdd = CAWP_CONGRESS_COUNTS;
+  if (isCawpStateLeg) countColsToAdd = CAWP_STLEG_COUNTS;
+
   const queries = [
     metricQuery(
       Breakdowns.forChildrenFips(props.fips),
-      /* addCountCols */ isCawp
+      /* countColsToAdd */ countColsToAdd
     ),
     metricQuery(Breakdowns.forFips(props.fips)),
   ];
@@ -276,6 +279,7 @@ function MapCardWithKey(props: MapCardProps) {
               metadata={metadata}
               geoData={geoData}
               breakdownValuesNoData={fieldValues.noData}
+              countColsToAdd={countColsToAdd}
             />
 
             <CardContent className={styles.SmallMarginContent}>
@@ -391,6 +395,7 @@ function MapCardWithKey(props: MapCardProps) {
                     // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
                     filename={filename}
                     listExpanded={listExpanded}
+                    countColsToAdd={countColsToAdd}
                   />
                   {/* generate additional VEGA canvases for territories on national map */}
                   {props.fips.isUsa() && (
@@ -417,6 +422,7 @@ function MapCardWithKey(props: MapCardProps) {
                               scaleType="quantize"
                               geoData={geoData}
                               overrideShapeWithCircle={true}
+                              countColsToAdd={countColsToAdd}
                             />
                           </div>
                         );

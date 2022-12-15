@@ -12,20 +12,28 @@ import {
   UNREPRESENTED,
 } from "../utils/Constants";
 
+export const CAWP_CONGRESS_COUNTS: MetricId[] = [
+  "women_this_race_us_congress_count",
+  "total_us_congress_count",
+];
+
+export const CAWP_STLEG_COUNTS: MetricId[] = [
+  "women_this_race_state_leg_count",
+  "total_state_leg_count",
+];
+
 export const CAWP_DETERMINANTS: MetricId[] = [
   "cawp_population_pct",
   "pct_share_of_state_leg",
   "pct_share_of_women_state_leg",
   "women_state_leg_ratio_age_adjusted",
   "women_state_leg_pct_relative_inequity",
-  "women_this_race_state_leg_count",
-  "total_state_leg_count",
   "pct_share_of_us_congress",
   "pct_share_of_women_us_congress",
   "women_us_congress_ratio_age_adjusted",
   "women_us_congress_pct_relative_inequity",
-  "women_this_race_us_congress_count",
-  "total_us_congress_count",
+  ...CAWP_CONGRESS_COUNTS,
+  ...CAWP_STLEG_COUNTS,
 ];
 
 export const CAWP_DATA_TYPES: VariableId[] = [

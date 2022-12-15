@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Vega } from "react-vega";
 import { useResponsiveWidth } from "../utils/hooks/useResponsiveWidth";
 import { Fips } from "../data/utils/Fips";
-import { MetricConfig } from "../data/config/MetricConfig";
+import { MetricConfig, MetricId } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 import { useFontSize } from "../utils/hooks/useFontSize";
@@ -96,6 +96,7 @@ export interface ChoroplethMapProps {
     subtitle?: DemographicGroup;
   };
   listExpanded?: boolean;
+  countColsToAdd: MetricId[];
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -137,13 +138,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         from: VAR_DATASET,
         key: VAR_FIPS,
         fields: [GEO_ID],
-        values: [
-          props.metric.metricId,
-          "women_this_race_us_congress_count",
-          "total_us_congress_count",
-          "women_this_race_state_leg_count",
-          "total_state_leg_count",
-        ],
+        values: [props.metric.metricId, ...props.countColsToAdd],
       },
     ];
     // Null SVI was showing
@@ -188,7 +183,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (isCawp)
       addCAWPTooltipInfo(
         /* tooltipPairs */ tooltipPairs,
-        /* subTitle */ props.titles?.subtitle || ""
+        /* subTitle */ props.titles?.subtitle || "",
+        /* countCols */ props.countColsToAdd
       );
 
     const geographyType = getCountyAddOn(

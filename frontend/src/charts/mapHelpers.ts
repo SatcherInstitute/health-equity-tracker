@@ -1,6 +1,7 @@
 import { MetricId, MetricType } from "../data/config/MetricConfig";
 import { Fips } from "../data/utils/Fips";
 import {
+  CAWP_CONGRESS_COUNTS,
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
 } from "../data/variables/CawpProvider";
@@ -101,16 +102,20 @@ Takes an existing VEGA formatted JSON string for the tooltip template and append
 */
 export function addCAWPTooltipInfo(
   tooltipPairs: Record<string, string>,
-  subTitle: DemographicGroup
+  subTitle: DemographicGroup,
+  countCols: MetricId[]
 ) {
+  const members = CAWP_CONGRESS_COUNTS.includes(countCols[0])
+    ? "members"
+    : "legislators";
+
   const raceName = subTitle ? getWomenRaceLabel(subTitle) : "";
   const raceCode: string | undefined = (raceName as RaceAndEthnicityGroup)
     ? raceNameToCodeMap?.[raceName as RaceAndEthnicityGroup]
     : "";
 
-  tooltipPairs[`# ${raceCode} women members`] =
-    "datum.women_this_race_us_congress_count";
-  tooltipPairs["# total members"] = `datum.total_us_congress_count`;
+  tooltipPairs[`# ${raceCode} women ${members}`] = `datum.${countCols[0]}`;
+  tooltipPairs[`# total ${members}`] = `datum.${countCols[1]}`;
 
   return tooltipPairs;
 }
