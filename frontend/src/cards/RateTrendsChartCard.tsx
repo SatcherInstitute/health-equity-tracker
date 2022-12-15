@@ -147,7 +147,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         );
         const nestedUnknownPctShareData = getNestedUnknowns(
           unknownPctShareData,
-          metricConfigPctShares.metricId
+          isCawp ? metricConfigRates.metricId : metricConfigPctShares.metricId
         );
 
         const hasUnknowns = hasNonZeroUnknowns(nestedUnknownPctShareData);

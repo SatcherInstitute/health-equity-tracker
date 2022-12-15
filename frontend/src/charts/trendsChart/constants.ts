@@ -38,6 +38,7 @@ const COLOR_DOMAIN = [
   "Middle Eastern & North African Women",
   "Women of an Unrepresented Race",
   "White Women",
+  // "Women of Unknown Race",
   // sex
   "All",
   "Female",
@@ -76,6 +77,7 @@ const COLOR_RANGE = [
   timeYellow,
   timeDarkRed,
   redOrange,
+  // timePink,
   // sex
   timeCyanBlue,
   timePurple,
