@@ -55,12 +55,18 @@ export function LineChart({
 
   return (
     <g role="list" tabIndex={0} aria-label="Demographic group trendlines">
+      <defs>
+        <linearGradient id="header-shape-gradient" x2="0.35" y2="1">
+          <stop offset="0%" stop-color="var(--color-stop)" />
+          <stop offset="30%" stop-color="var(--color-stop)" />
+          <stop offset="100%" stop-color="var(--color-bot)" />
+        </linearGradient>
+      </defs>
       {data &&
         data.map(([group, d]: GroupData) => {
           const dCopy = [...d];
 
           const sortedDataForGroup = dCopy.sort((a, b) => a[1] - b[1]);
-
           const minValueForGroup = sortedDataForGroup[0]?.[1];
           const maxValueForGroup =
             sortedDataForGroup[sortedDataForGroup.length - 1]?.[1];
@@ -76,12 +82,14 @@ export function LineChart({
 
           const groupA11yDescription = `${group}: lowest value ${minValueForGroup}${optionalPct} in ${lowestDatesForGroup} and highest value ${maxValueForGroup}${optionalPct} in ${highestDatesForGroup}`;
 
+          const isUnknownLine = group === "Women of Unknown Race";
           return (
             <path
-              // tabIndex={0}
               role="listitem"
               aria-label={groupA11yDescription}
-              className={styles.TrendLine}
+              className={
+                isUnknownLine ? styles.TrendLineDashed : styles.TrendLine
+              }
               key={`group-${group}`}
               // @ts-ignore
               d={lineGen(d) || ""}

@@ -1634,7 +1634,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           chartTitleLines: [
-            "historical data for inequitable representation of women in state legislature",
+            "Relative racial inequity of women",
+            "state legislators over time",
           ],
           metricId: "women_state_leg_pct_relative_inequity",
           shortLabel: "% relative inequity",

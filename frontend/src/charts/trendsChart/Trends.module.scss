@@ -15,6 +15,14 @@ figure {
   margin: 0 0 0 0;
 }
 
+.GradientMainStop {
+  stop-color: $unknown-map-most;
+}
+
+.GradientAltStop {
+  stop-color: $unknown-map-mid;
+}
+
 .TrendsChart {
   // styles for trends chart container
   @include inter400;
@@ -24,6 +32,14 @@ figure {
     fill: none;
     stroke-width: 2.5;
     stroke-linecap: round;
+  }
+
+  .TrendLineDashed {
+    fill: none;
+    stroke-dasharray: 15;
+    stroke-width: 2.5;
+    stroke-linecap: square;
+    stroke: url(#gradient);
   }
 
   // axes styles
