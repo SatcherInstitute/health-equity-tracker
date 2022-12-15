@@ -42,12 +42,13 @@ GOLDEN_DATA_DIR = os.path.join(TEST_DIR, "golden_data")
 
 
 def _get_consecutive_time_periods(*args, **kwargs):
-    # for testing, we only want to look at 2018-2022 as the data time periods,
-    # but we still want to restrict the pop_merge years to 2019-2022
+
+    # we still want to restrict the pop_merge years to 2019-2022 if there are incoming kwargs
     if len(kwargs) != 0:
         return get_consecutive_time_periods(first_year=kwargs["first_year"], last_year=kwargs["last_year"])
 
-    return get_consecutive_time_periods(first_year=2018, last_year=2022)
+    # otherwise restrict to 2018-2022 for testing
+    return get_consecutive_time_periods(first_year=1983, last_year=2022)
 
 
 def _fetch_json_from_web(*args):

@@ -78,7 +78,8 @@ FIPS_TO_STATE_TABLE_MAP = {
 }
 
 # time_periods for entire dataset
-DEFAULT_FIRST_YR = 1915
+DEFAULT_CONGRESS_FIRST_YR = 1915
+DEFAULT_STLEG_FIRST_YR = 1983
 DEFAULT_LAST_YR = 2022
 
 # time_periods which are appropriate to merge ACS2019 figures onto
@@ -690,7 +691,7 @@ def get_postal_from_cawp_phrase(cawp_place_phrase: str):
     return cawp_place_phrase.split(" - ")[1]
 
 
-def get_consecutive_time_periods(first_year: int = DEFAULT_FIRST_YR, last_year: int = DEFAULT_LAST_YR):
+def get_consecutive_time_periods(first_year: int = DEFAULT_CONGRESS_FIRST_YR, last_year: int = DEFAULT_LAST_YR):
     """ Generates a list of consecutive time periods in the "YYYY" format
 
     Parameters:
