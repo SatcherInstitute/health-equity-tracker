@@ -2,7 +2,7 @@ import React from "react";
 import { CardContent } from "@material-ui/core";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { MetricId, VariableConfig } from "../data/config/MetricConfig";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import { Row } from "../data/utils/DatasetTypes";
 import CardWrapper from "./CardWrapper";
@@ -100,6 +100,15 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     locationPhrase,
     breakdownString
   );
+
+  const isCawpStateLeg =
+    props.variableConfig.variableId === "women_state_legislatures";
+  const isCawpCongress =
+    props.variableConfig.variableId === "women_us_congress";
+
+  let countColsToAdd: MetricId[] = [];
+  if (isCawpCongress) countColsToAdd = ["women_this_race_us_congress_count"];
+  if (isCawpStateLeg) countColsToAdd = ["women_this_race_state_leg_count"];
 
   const HASH_ID: ScrollableHashId = "unknown-demographic-map";
 
@@ -266,7 +275,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   }
                   geoData={geoData}
                   filename={filename}
-                  countColsToAdd={[]}
+                  countColsToAdd={countColsToAdd}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <div className={styles.TerritoryCirclesContainer}>
@@ -287,7 +296,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                             hideActions={true}
                             geoData={geoData}
                             overrideShapeWithCircle={true}
-                            countColsToAdd={[]}
+                            countColsToAdd={countColsToAdd}
                           />
                         </div>
                       );

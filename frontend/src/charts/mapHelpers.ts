@@ -114,8 +114,15 @@ export function addCAWPTooltipInfo(
     ? raceNameToCodeMap?.[raceName as RaceAndEthnicityGroup]
     : "";
 
-  tooltipPairs[`# ${raceCode} women ${members}`] = `datum.${countCols[0]}`;
-  tooltipPairs[`# total ${members}`] = `datum.${countCols[1]}`;
+  const numLines = Object.keys(countCols).length;
+
+  if (numLines > 0) {
+    tooltipPairs[`# ${raceCode} women ${members}`] = `datum.${countCols[0]}`;
+  }
+
+  if (numLines > 1) {
+    tooltipPairs[`# total ${members}`] = `datum.${countCols[1]}`;
+  }
 
   return tooltipPairs;
 }

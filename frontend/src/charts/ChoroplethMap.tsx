@@ -179,9 +179,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         ? props.metric.unknownsVegaLabel
         : props.metric.shortLabel;
 
-    const tooltipPairs = { [tooltipLabel]: tooltipDatum };
+    let tooltipPairs = { [tooltipLabel]: tooltipDatum };
+
     if (isCawp)
-      addCAWPTooltipInfo(
+      tooltipPairs = addCAWPTooltipInfo(
         /* tooltipPairs */ tooltipPairs,
         /* subTitle */ props.titles?.subtitle || "",
         /* countCols */ props.countColsToAdd
