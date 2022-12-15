@@ -426,18 +426,23 @@ function MethodologyTab() {
                 </ul>
 
                 <p>
-                  There are several ways in which we have had adjust our methods
-                  to incorporate non-standard race groupings:
+                  Unfortunately CAWP and the U.S. Census use some different
+                  race/ethnicity groupings, making direct comparisons and
+                  calculations difficult or impossible in some cases. For
+                  specific methodology on the race groups collected by CAWP,
+                  please <a href={urlMap.cawp}>visit their database directly</a>{" "}
+                  . We have made several adjustments to our methods to
+                  incorporate these non-standard race groupings when possible:
                 </p>
 
                 <ul>
                   <li>
-                    Women are identify as multiple, specific races are listed
-                    multiple times in each respective race bar. Therefor these
-                    race/ethnicity groupings are non-exclusive, and cannot be
-                    summed. Additionally, a small number of women identify as
-                    the specific race label <b>Multiracial Alone</b>, without
-                    identifying the specific multiple races with which they
+                    Women who identify as multiple specific races are listed
+                    multiple times in each corresponding race visualization.
+                    Therefor, these race/ethnicity groupings are non-exclusive,
+                    and cannot be summed. Additionally, a small number of women
+                    identify as the specific race label <b>Multiracial Alone</b>
+                    , without specifying the multiple races with which they
                     identify.
                   </li>
                   <li>
@@ -446,10 +451,9 @@ function MethodologyTab() {
                       American Indian, Alaska Native, Asian & Pacific Islander
                     </b>{" "}
                     is our best attempt to visualize the impact to these
-                    under-represented groups; unfortunately CAWP and ACS use
-                    some different demographic groupings, so to accurately
-                    compare against available population data we must further
-                    combine these distinct racial identities.
+                    under-represented groups; to accurately compare against
+                    available population data from the U.S. Census we must
+                    further combine these distinct racial identities.
                   </li>
                   <li>
                     There is currently no population data collected by the U.S.
@@ -903,6 +907,11 @@ function MethodologyTab() {
                   </li>
                   <li>
                     <b>Hispanic/Latino</b>: Any race(s), Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>Middle Eastern / North African (MENA)</b>: Race/ethnicity
+                    grouping collected by CAWP but not currently collected by
+                    the U.S. Census.
                   </li>
                   <li>
                     <b>Native Hawaiian or Other Pacific Islander (NH)</b>: A
