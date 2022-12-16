@@ -43,7 +43,7 @@ export interface LegendProps {
 }
 
 export function Legend(props: LegendProps) {
-  const isCongressCAWP = props.metric.metricId === "women_us_congress_pct";
+  const isCongressCAWP = props.metric.metricId === "pct_share_of_us_congress";
 
   const [ref, width] = useResponsiveWidth(
     100 /* default width during initialization */

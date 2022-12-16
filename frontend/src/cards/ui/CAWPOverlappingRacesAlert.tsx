@@ -1,36 +1,24 @@
+import { CardContent } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import React from "react";
-import { urlMap } from "../../utils/externalUrls";
+import { VariableConfig } from "../../data/config/MetricConfig";
 
 interface CAWPOverlappingRacesAlertProps {
-  variableDisplayName: string;
+  variableConfig: VariableConfig;
 }
 
 export default function CAWPOverlappingRacesAlert(
   props: CAWPOverlappingRacesAlertProps
 ) {
   return (
-    <Alert severity="info" role="note">
-      <p>
-        Percentages reported for <b>{props.variableDisplayName}</b> cannot be
-        summed, as these race and ethnicity groupings are not mutually
-        exclusive. Individuals who identify with more than one group (e.g. both
-        "White" and "Latina") are represented in each corresponding category.
-      </p>
-      <p>
-        Unfortunately CAWP and ACS use different race groupings, so we are
-        unable to provide population comparison data for{" "}
-        <b>Native American, Alaska Native, & Native Hawaiian</b> or{" "}
-        <b>Asian American & Pacific Islander</b>. Additionally, population data
-        in not collected by the U.S. Census for{" "}
-        <b>Middle Eastern & North African</b>, although this data equity issue
-        has seen{" "}
-        <a href={urlMap.senateMENA} rel="noreferrer" target="_blank">
-          some progress
-        </a>{" "}
-        in recent decades. Currently, <b>MENA</b> individuals are counted by the
-        ACS as <b>White</b>.
-      </p>
-    </Alert>
+    <CardContent>
+      <Alert severity="info" role="note">
+        Percentages reported for{" "}
+        <b>{props.variableConfig.variableDisplayName}</b> cannot be summed, as
+        these race/ethnicity groupings are not mutually exclusive. Individuals
+        who identify with more than one group (e.g. both "White" and "Latina")
+        are represented in each corresponding category.
+      </Alert>
+    </CardContent>
   );
 }

@@ -31,6 +31,9 @@ import AltTableView from "./ui/AltTableView";
 import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { getWomenRaceLabel } from "../data/variables/CawpProvider";
+import { Row } from "../data/utils/DatasetTypes";
+import { hasNonZeroUnknowns } from "../charts/trendsChart/helpers";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 
 /* minimize layout shift */
@@ -84,6 +87,10 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const HASH_ID: ScrollableHashId = "inequities-over-time";
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label;
 
+  const isCawpCongress =
+    metricConfigInequitable.metricId ===
+    "women_us_congress_pct_relative_inequity";
+
   return (
     <CardWrapper
       queries={[inequityQuery, pctShareQuery]}
@@ -95,10 +102,21 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
         const inequityData = queryResponseInequity.getValidRowsForField(
           metricConfigInequitable.metricId
         );
-        const [knownInequityData] = splitIntoKnownsAndUnknowns(
+        const [knownData] = splitIntoKnownsAndUnknowns(
           inequityData,
           props.breakdownVar
         );
+
+        // swap race labels if applicable
+        const knownInequityData = isCawpCongress
+          ? knownData.map((row: Row) => {
+              const altRow = { ...row };
+              altRow.race_and_ethnicity = getWomenRaceLabel(
+                row.race_and_ethnicity
+              );
+              return altRow;
+            })
+          : knownData;
 
         const pctShareData = queryResponsePctShares.getValidRowsForField(
           metricConfigPctShares.metricId
@@ -116,9 +134,15 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             (group: DemographicGroup) => !UNKNOWN_LABELS.includes(group)
           );
 
+        const demographicGroupsLabelled = isCawpCongress
+          ? demographicGroups.map((group: DemographicGroup) =>
+              getWomenRaceLabel(group)
+            )
+          : demographicGroups;
+
         const nestedInequityData = getNestedData(
           knownInequityData,
-          demographicGroups,
+          demographicGroupsLabelled,
           props.breakdownVar,
           metricConfigInequitable.metricId
         );
@@ -128,15 +152,17 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           metricConfigPctShares.metricId
         );
 
+        const hasUnknowns = hasNonZeroUnknowns(nestedUnknowns);
+
         return (
           <>
             <CardContent>
               <Alert severity="info" role="note">
-                This chart visualizes the disproportionate percent share of a
-                condition that is borne by a certain demographic, compared with
-                that demographic's share of the entire population (defaulting to
-                groups with the highest / lowest historical averages). Read more
-                about this calculation in our{" "}
+                This chart visualizes the disproportionate share of a condition
+                experienced by group, compared with that group's share of the
+                entire population (when many groups are present we default to
+                showing only the highest and lowest historical averages). Read
+                more about this calculation in our{" "}
                 <HashLink to={`${METHODOLOGY_TAB_LINK}#metrics`}>
                   methodology
                 </HashLink>
@@ -170,22 +196,26 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                         BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
                           props.breakdownVar
                         ],
+                      xAxisIsMonthly: metricConfigInequitable.isMonthly,
                     }}
                     breakdownVar={props.breakdownVar}
                     setSelectedTableGroups={setSelectedTableGroups}
                     isCompareCard={props.isCompareCard || false}
                     expanded={unknownsExpanded}
                     setExpanded={setUnknownsExpanded}
+                    hasUnknowns={hasUnknowns}
                   />
 
-                  <CardContent>
-                    <UnknownBubblesAlert
-                      breakdownVar={props.breakdownVar}
-                      variableDisplayName={props.variableConfig.variableDisplayName.toLowerCase()}
-                      expanded={unknownsExpanded}
-                      setExpanded={setUnknownsExpanded}
-                    />
-                  </CardContent>
+                  {hasUnknowns && (
+                    <CardContent>
+                      <UnknownBubblesAlert
+                        breakdownVar={props.breakdownVar}
+                        variableDisplayName={props.variableConfig.variableDisplayName.toLowerCase()}
+                        expanded={unknownsExpanded}
+                        setExpanded={setUnknownsExpanded}
+                      />
+                    </CardContent>
+                  )}
 
                   <AltTableView
                     expanded={a11yTableExpanded}
@@ -200,6 +230,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     knownMetricConfig={metricConfigInequitable}
                     unknownMetricConfig={metricConfigPctShares}
                     selectedGroups={selectedTableGroups}
+                    hasUnknowns={hasUnknowns}
                   />
                 </>
               )}

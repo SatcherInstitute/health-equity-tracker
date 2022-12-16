@@ -6,19 +6,16 @@ export const datasetMetadataList: DatasetMetadata[] = [
     id: "acs_population-by_race_county_std",
     name: "Population by Race and County",
     update_time: "2019",
-    contains_nh: true,
   },
   {
     id: "acs_population-by_race_state_std",
     name: "Population by Race and State",
     update_time: "2019",
-    contains_nh: true,
   },
   {
     id: "acs_population-by_race_national",
     name: "Population by Race Nationally",
     update_time: "2019",
-    contains_nh: true,
   },
   {
     id: "acs_population-by_age_county",
@@ -363,20 +360,28 @@ export const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "cawp_data-race_and_ethnicity_national",
-    name: "Current national representation of women by race/ethnicity in the US Congress and across county and territory legislatures",
+    name: "Current national representation of women by race/ethnicity in state and territory legislatures",
     update_time: "September 2022",
-    contains_nh: true,
   },
   {
     id: "cawp_data-race_and_ethnicity_state",
-    name: "Current representation of women by race/ethnicity from each state and territory to the US Congress and their respective state legislature",
+    name: "Current representation of women by race/ethnicity from each state and territory to their respective state legislature",
     update_time: "September 2022",
-    contains_nh: true,
   },
   {
-    id: "propublica_congress",
-    name: "The ProPublica Congress API provides near real-time access to legislative data from the House of Representatives, the Senate and the Library of Congress. It includes details about members, votes, bills and other aspects of congressional activity.",
+    id: "cawp_time_data-race_and_ethnicity_national_time_series",
+    name: "National representation of women by race/ethnicity in the US Congress over time",
     update_time: "September 2022",
+  },
+  {
+    id: "cawp_time_data-race_and_ethnicity_state_time_series",
+    name: "Representation of women by race/ethnicity from each state and territory to the US Congress over time",
+    update_time: "September 2022",
+  },
+  {
+    id: "the_unitedstates_project",
+    name: "@unitedstates is a shared commons of data and tools for the United States. Made by the public, used by the public. Featuring work from people with the Sunlight Foundation, GovTrack.us, the New York Times, the Electronic Frontier Foundation, and the Internet.",
+    update_time: "December 2022",
   },
   {
     id: GEOGRAPHIES_DATASET_ID,
