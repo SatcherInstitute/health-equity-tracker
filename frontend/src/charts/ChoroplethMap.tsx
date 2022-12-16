@@ -39,6 +39,7 @@ import {
   getHelperLegend,
   ZERO_YELLOW_SCALE,
 } from "./mapHelpers";
+import { DemographicGroup } from "../data/utils/Constants";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 
 const {
@@ -92,7 +93,7 @@ export interface ChoroplethMapProps {
   filename?: string;
   titles?: {
     chartTitle: string | string[];
-    subtitle?: string;
+    subtitle?: DemographicGroup;
   };
   listExpanded?: boolean;
 }

@@ -16,6 +16,7 @@ import { FieldRange, Row } from "../data/utils/DatasetTypes";
 import { ORDINAL } from "./utils";
 import sass from "../styles/variables.module.scss";
 import {
+  DemographicGroup,
   RaceAndEthnicityGroup,
   raceNameToCodeMap,
 } from "../data/utils/Constants";

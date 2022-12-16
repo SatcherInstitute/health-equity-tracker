@@ -29,9 +29,9 @@ import AltTableView from "./ui/AltTableView";
 import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
-import { getWomenRaceLabel } from "../data/variables/CawpProvider";
 import { Row } from "../data/utils/DatasetTypes";
 import { hasNonZeroUnknowns } from "../charts/trendsChart/helpers";
+import { getWomenRaceLabel } from "../data/variables/CawpProvider";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -177,7 +177,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   <Box mb={2}>
                     <Alert severity="warning" role="note">
                       Use care when making visual comparisons as the
-                      visualizations scale to fit the selected data set.
+                      visualizations scale to fit the selected data set. Use
+                      care when making visual comparisons as the visualizations
+                      scale to fit the selected data set.
                     </Alert>
                   </Box>
                 )}

@@ -138,7 +138,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           ) as DemographicGroup[];
 
         const demographicGroupsLabelled = isCawpCongress
-          ? demographicGroups.map((group) =>
+          ? demographicGroups.map((group: DemographicGroup) =>
               getWomenRaceLabel(group as RaceAndEthnicityGroup)
             )
           : demographicGroups;

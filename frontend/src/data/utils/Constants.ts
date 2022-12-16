@@ -148,7 +148,6 @@ export const RACE_GROUPS = [
 // ENUMERATE THOSE PROPERTIES TO CREATE A RACE-GROUP TYPE
 export type RaceAndEthnicityGroup = typeof RACE_GROUPS[number];
 
-// temp
 export const raceNameToCodeMap: Partial<Record<RaceAndEthnicityGroup, string>> =
   {
     // race and ethnicity NH
