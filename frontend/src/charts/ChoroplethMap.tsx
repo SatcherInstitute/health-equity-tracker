@@ -256,7 +256,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const colorScale = setupColorScale(
       /* legendData */ legendData,
       /* metricId */ props.metric.metricId,
-      /* scaleType */ "quantile", //props.scaleType,
+      /* scaleType */ props.scaleType,
       /* fieldRange? */ props.fieldRange,
       /* scaleColorScheme? */ props.scaleColorScheme
     );

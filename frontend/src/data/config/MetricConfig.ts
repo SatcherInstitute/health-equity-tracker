@@ -1617,6 +1617,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             "Inequitable share of women in state legislatures over time",
           columnTitleHeader: "Percent share of women state legislators",
           shortLabel: "% of women legislators", // DISPARITY BAR LEGEND
+          unknownsVegaLabel: "% unknown race",
           type: "pct_share",
           populationComparisonMetric: {
             chartTitleLines: [
