@@ -46,7 +46,7 @@ function MissingDataAlert(props: MissingDataAlertProps) {
 
   return (
     <Alert severity="warning" role="note">
-      We do not currently have
+      Our data sources do not have
       {demographicPhrase}
       <b>{props.dataName}</b>
       {breakdownPhrase}

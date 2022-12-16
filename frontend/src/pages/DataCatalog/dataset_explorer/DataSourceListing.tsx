@@ -22,7 +22,6 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { Grid, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-// import { Link } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 
 type LoadStatus = "loading" | "unloaded" | "error" | "loaded";
@@ -124,6 +123,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
               <td>{props.source_metadata.time_period_range}</td>
             </tr>
           )}
+
           <tr>
             <td>
               <b>Geographic Level</b>

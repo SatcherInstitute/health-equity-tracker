@@ -1,5 +1,6 @@
 import { MetricId, MetricType } from "../data/config/MetricConfig";
 import { Fips } from "../data/utils/Fips";
+import { getWomenRaceLabel } from "../data/variables/CawpProvider";
 
 import {
   GREY_DOT_SCALE,
@@ -14,6 +15,11 @@ import {
 import { FieldRange, Row } from "../data/utils/DatasetTypes";
 import { ORDINAL } from "./utils";
 import sass from "../styles/variables.module.scss";
+import {
+  DemographicGroup,
+  RaceAndEthnicityGroup,
+  raceNameToCodeMap,
+} from "../data/utils/Constants";
 
 export const MISSING_DATASET = "MISSING_DATASET";
 export const US_PROJECTION = "US_PROJECTION";
@@ -77,15 +83,33 @@ export function buildTooltipTemplate(
 
 export function getCountyAddOn(fips: Fips, showCounties: Boolean) {
   if (showCounties) {
-    if (fips.code === "02" || fips.getParentFips().code === "02")
-      return "(County Equivalent)"; // Alaska
-    else if (fips.code === "22" || fips.getParentFips().code === "22")
+    if (fips.code.startsWith("02")) return "(County Equivalent)"; // Alaska
+    else if (fips.code.startsWith("22"))
       return "Parish (County Equivalent)"; // Louisina
     else if (fips.isTerritory() || fips.getParentFips().isTerritory())
       return "(County Equivalent)";
     else return "County";
   }
   return "";
+}
+
+/* 
+Takes an existing VEGA formatted JSON string for the tooltip template and appends two rows for # TOTAL CONGRESS and # WOMEN THIS RACE IN CONGRESS
+*/
+export function addCAWPTooltipInfo(
+  tooltipPairs: Record<string, string>,
+  subTitle: DemographicGroup
+) {
+  const raceName = subTitle ? getWomenRaceLabel(subTitle) : "";
+  const raceCode: string | undefined = (raceName as RaceAndEthnicityGroup)
+    ? raceNameToCodeMap?.[raceName as RaceAndEthnicityGroup]
+    : "";
+
+  tooltipPairs[`# ${raceCode} women members`] =
+    "datum.women_this_race_us_congress_count";
+  tooltipPairs["# total members"] = `datum.total_us_congress_count`;
+
+  return tooltipPairs;
 }
 
 /* 
@@ -302,10 +326,10 @@ export function setupColorScale(
   fieldRange?: FieldRange,
   scaleColorScheme?: string
 ) {
-  const isCongressCAWP = metricId === "women_us_congress_pct";
+  const isCongressCAWP = metricId === "pct_share_of_us_congress";
   const colorScale: any = {
     name: COLOR_SCALE,
-    type: isCongressCAWP ? "quantile" : "quantize",
+    type: isCongressCAWP ? "quantile" : scaleType,
     domain: isCongressCAWP
       ? [1, 20, 40, 60, 80, 99]
       : { data: LEGEND_DATASET, field: metricId },
