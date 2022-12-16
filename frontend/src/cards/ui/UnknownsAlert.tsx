@@ -23,11 +23,11 @@ interface UnknownsAlertProps {
   metricConfig: MetricConfig;
   breakdownVar: BreakdownVar;
   displayType: VisualizationType;
-  known: Boolean;
-  overrideAndWithOr?: Boolean;
-  raceEthDiffMap?: Boolean;
-  noDemographicInfoMap?: Boolean;
-  showingVisualization?: Boolean;
+  known: boolean;
+  overrideAndWithOr?: boolean;
+  raceEthDiffMap?: boolean;
+  noDemographicInfoMap?: boolean;
+  showingVisualization?: boolean;
   fips: Fips;
   jumpToData?: Function;
 }

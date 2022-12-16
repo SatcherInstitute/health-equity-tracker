@@ -217,7 +217,7 @@ function MapCardWithKey(props: MapCardProps) {
           );
         }
 
-        const [lowestRatesList, highestRatesList] = getExtremeValues(
+        const { highestValues, lowestValues } = getExtremeValues(
           dataForActiveBreakdownFilter,
           metricConfig.metricId,
           SIZE_OF_HIGHEST_LOWEST_RATES_LIST
@@ -355,7 +355,7 @@ function MapCardWithKey(props: MapCardProps) {
                     legendTitle={metricConfig.shortLabel.toLowerCase()}
                     data={
                       listExpanded
-                        ? highestRatesList.concat(lowestRatesList)
+                        ? highestValues.concat(lowestValues)
                         : dataForActiveBreakdownFilter
                     }
                     hideMissingDataTooltip={listExpanded}
@@ -385,7 +385,7 @@ function MapCardWithKey(props: MapCardProps) {
                               metric={metricConfig}
                               data={
                                 listExpanded
-                                  ? highestRatesList.concat(lowestRatesList)
+                                  ? highestValues.concat(lowestValues)
                                   : dataForActiveBreakdownFilter
                               }
                               hideMissingDataTooltip={listExpanded}
@@ -412,8 +412,8 @@ function MapCardWithKey(props: MapCardProps) {
                         metricConfig={metricConfig}
                         listExpanded={listExpanded}
                         setListExpanded={setListExpanded}
-                        highestRatesList={highestRatesList}
-                        lowestRatesList={lowestRatesList}
+                        highestValues={highestValues}
+                        lowestValues={lowestValues}
                         fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
                         qualifierItems={qualifierItems}
                         qualifierMessage={qualifierMessage}
