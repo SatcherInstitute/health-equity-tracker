@@ -77,13 +77,13 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     /* timeView */ TIME_SERIES
   );
 
-  const isCawp = CAWP_DETERMINANTS.includes(metricConfigRates.metricId);
-
   function getTitleText() {
     return `${
       metricConfigRates.trendsCardTitleName
     } in ${props.fips.getSentenceDisplayName()}`;
   }
+
+  const isCawp = CAWP_DETERMINANTS.includes(metricConfigRates.metricId);
 
   const HASH_ID: ScrollableHashId = "rates-over-time";
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label;
@@ -173,8 +173,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 {props.isCompareCard && (
                   <Box mb={2}>
                     <Alert severity="warning" role="note">
-                      Please use extra attention when making visual comparisons
-                      as the axis-scales adjust to fit the selected data set.
+                      Use care when making visual comparisons as the
+                      visualizations scale to fit the selected data set.
                     </Alert>
                   </Box>
                 )}

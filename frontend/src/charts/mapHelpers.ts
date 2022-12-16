@@ -344,7 +344,7 @@ export function setupColorScale(
   const isCawp = CAWP_DETERMINANTS.includes(metricId);
   const colorScale: any = {
     name: COLOR_SCALE,
-    type: isCawp ? "quantile" : "quantize",
+    type: isCawp ? "quantile" : scaleType,
     domain: isCawp
       ? [1, 20, 40, 60, 80, 99]
       : { data: LEGEND_DATASET, field: metricId },
