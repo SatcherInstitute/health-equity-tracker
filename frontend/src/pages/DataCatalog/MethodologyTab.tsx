@@ -439,7 +439,7 @@ function MethodologyTab() {
                   <li>
                     Women who identify as multiple specific races are listed
                     multiple times in each corresponding race visualization.
-                    Therefor, these race/ethnicity groupings are non-exclusive,
+                    Therefore, these race/ethnicity groupings are non-exclusive,
                     and cannot be summed. Additionally, a small number of women
                     identify as the specific race label <b>Multiracial Alone</b>
                     , without specifying the multiple races with which they
