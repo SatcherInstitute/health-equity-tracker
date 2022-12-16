@@ -163,7 +163,8 @@ export function makeA11yTableData(
   breakdownVar: BreakdownVar,
   knownMetric: MetricConfig,
   unknownMetric: MetricConfig,
-  selectedGroups: DemographicGroup[]
+  selectedGroups: DemographicGroup[],
+  hasUnknowns: boolean
 ): Row[] {
   const allTimePeriods = Array.from(
     new Set(knownsData.map((row) => row[TIME_PERIOD]))
@@ -191,10 +192,11 @@ export function makeA11yTableData(
     }
 
     // along with the unknown pct_share
-    a11yRow[`${unknownMetric.shortLabel} with unknown ${breakdownVar}`] =
-      unknownsData.find((row) => row[TIME_PERIOD] === timePeriod)?.[
-        unknownMetric.metricId
-      ];
+    if (hasUnknowns)
+      a11yRow[`${unknownMetric.shortLabel} with unknown ${breakdownVar}`] =
+        unknownsData.find((row) => row[TIME_PERIOD] === timePeriod)?.[
+          unknownMetric.metricId
+        ];
 
     return a11yRow;
   });
@@ -202,10 +204,12 @@ export function makeA11yTableData(
   return a11yData;
 }
 
-/*  
+/*
 Convert time_period style date YYYY-MM (e.g. "2020-01") to human readable Month Year (e.g. "January 2020"). Strings not matching this format are simply passed through.
 */
 export function getPrettyDate(timePeriod: string) {
+  if (!timePeriod) return;
+
   // if it's YYYY-MM
   if (timePeriod.length === MONTHLY_LENGTH && timePeriod[4] === "-") {
     const [year, monthNum] = timePeriod?.split("-") || ["", ""];
@@ -222,9 +226,14 @@ export function getPrettyDate(timePeriod: string) {
 /* Calculate an array of demographic groups who have either the highest or lowest historical averages.  */
 export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
   const groupAveragesOverTime = data.map((groupData) => {
+    // exclude ALLs (should only be for CAWP?) from being a Highest or Lowest group
+    if (groupData[0] === "All Women" || groupData[0] === "All")
+      return [groupData[0], null];
+
     const nonNullGroupData = groupData[1].filter(
       (dataPoint) => dataPoint[1] != null
     );
+
     const nonNullGroupValues = nonNullGroupData.map(
       (dataPoint) => dataPoint[1]
     );

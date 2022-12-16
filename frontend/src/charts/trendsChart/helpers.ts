@@ -135,7 +135,13 @@ function translateXPctShare(
   return translateX;
 }
 
+/* Detect if at least one row in the time series data contains an unknown_pct value greater than 0 */
+function hasNonZeroUnknowns(data: TimeSeries | undefined) {
+  return data?.some(([, percent]) => percent > 0) ?? false;
+}
+
 export {
+  hasNonZeroUnknowns,
   filterDataByGroup,
   getAmountsByDate,
   sortDataDescending,

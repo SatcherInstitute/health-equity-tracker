@@ -393,10 +393,11 @@ export function splitIntoKnownsAndUnknowns(
     if (
       row[breakdownVar] === UNKNOWN ||
       row[breakdownVar] === UNKNOWN_RACE ||
-      row[breakdownVar] === UNKNOWN_ETHNICITY
-    )
+      row[breakdownVar] === UNKNOWN_ETHNICITY ||
+      row[breakdownVar] === "Women of Unknown Race"
+    ) {
       unknowns.push(row);
-    else knowns.push(row);
+    } else knowns.push(row);
   });
 
   return [knowns, unknowns];

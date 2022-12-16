@@ -108,7 +108,7 @@ class Fips {
     // COUNTIES (with the word COUNTY added as needed)
     let optionalCounty =
       COUNTY_FIPS_MAP[this.code].includes("Borough") ||
-      COUNTY_FIPS_MAP[this.code].includes("Area") ||
+      COUNTY_FIPS_MAP[this.code].includes("Census Area") ||
       COUNTY_FIPS_MAP[this.code].includes("District")
         ? ""
         : " County";

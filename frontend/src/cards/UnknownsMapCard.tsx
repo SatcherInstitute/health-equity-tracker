@@ -59,6 +59,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const metricConfig = props.variableConfig.metrics["pct_share"];
   const currentBreakdown = props.currentBreakdown;
   const breakdownString = `with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`;
+  const isCawpCongress =
+    props.variableConfig.variableId === "women_us_congress";
+
   const location = useLocation();
   const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
 
@@ -83,12 +86,14 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const mapQuery = new MetricQuery(
     [metricConfig.metricId],
     mapGeoBreakdowns,
-    /* variableId */ props.variableConfig.variableId
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
   );
   const alertQuery = new MetricQuery(
     [metricConfig.metricId],
     alertBreakdown,
-    /* variableId */ props.variableConfig.variableId
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
   );
 
   const { chartTitle, dataName, filename } = useCreateChartTitle(
@@ -194,26 +199,26 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             <Divider />
 
             {/* PERCENT REPORTING UNKNOWN ALERT - contains its own logic and divider/styling */}
-            {/* This alert presents the UNKNOWN PCT_SHARE for the SELECTED GEO LEVEL,
-            as opposed to the rest of this current component which deals in CHILD GEO unknowns */}
-            <UnknownsAlert
-              queryResponse={alertQueryResponse}
-              metricConfig={metricConfig}
-              breakdownVar={currentBreakdown}
-              displayType="map"
-              known={false}
-              overrideAndWithOr={currentBreakdown === RACE}
-              raceEthDiffMap={
-                mapQueryResponse
-                  .getValidRowsForField(currentBreakdown)
-                  .filter(
-                    (row: Row) => row[currentBreakdown] === UNKNOWN_ETHNICITY
-                  ).length !== 0
-              }
-              noDemographicInfoMap={noDemographicInfo}
-              showingVisualization={showingVisualization}
-              fips={props.fips}
-            />
+            {!unknownsAllZero && (
+              <UnknownsAlert
+                queryResponse={alertQueryResponse}
+                metricConfig={metricConfig}
+                breakdownVar={currentBreakdown}
+                displayType="map"
+                known={false}
+                overrideAndWithOr={currentBreakdown === RACE}
+                raceEthDiffMap={
+                  mapQueryResponse
+                    .getValidRowsForField(currentBreakdown)
+                    .filter(
+                      (row: Row) => row[currentBreakdown] === UNKNOWN_ETHNICITY
+                    ).length !== 0
+                }
+                noDemographicInfoMap={noDemographicInfo}
+                showingVisualization={showingVisualization}
+                fips={props.fips}
+              />
+            )}
 
             <CardContent>
               {/* MISSING DATA ALERT */}

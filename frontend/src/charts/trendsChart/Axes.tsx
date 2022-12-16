@@ -68,6 +68,11 @@ export function Axes({
       bottomLabel: "",
       formatter: (d: string | number) => d, // per 100k could be interpolated here
     },
+    [TYPES.PERCENT_SHARE]: {
+      topLabel: yAxisLabel + " →", // reference to shortLabel from metricConfig
+      bottomLabel: "",
+      formatter: (d: number) => F.pct(d),
+    },
     [TYPES.PERCENT_RELATIVE_INEQUITY]: {
       topLabel:
         (getMaxNumber(data) || 0) <= 0 ? "" : "disproportionately high  →", // if there are positive numbers, append positive direction label
@@ -84,9 +89,9 @@ export function Axes({
   /* Axes */
   const xAxis = axisBottom(xScale)
     .tickSize(0)
-    .ticks(isSkinny ? 4 : null) // limits number of ticks on mobile
+    .ticks(isSkinny ? 4 : axisConfig.xAxisMaxTicks) // limits number of ticks on mobile
     // @ts-ignore
-    .tickFormat(F.dateShort)
+    .tickFormat(axisConfig.xAxisIsMonthly ? F.dateShort : F.dateYear)
     .tickPadding(TICK_PADDING);
 
   const yAxis = axisLeft(yScale)

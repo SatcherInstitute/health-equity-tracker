@@ -16,6 +16,8 @@ type AxisConfig = {
   type: MetricType;
   groupLabel: DemographicGroup;
   yAxisLabel?: string;
+  xAxisIsMonthly?: boolean;
+  xAxisMaxTicks?: number | null;
 };
 
 export type {
