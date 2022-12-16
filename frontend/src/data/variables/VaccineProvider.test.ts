@@ -138,7 +138,7 @@ function stateRow(
     {
       state_fips: fips.code,
       state_name: fips.name,
-      race_and_ethnicity: breakdownValue,
+      race_category_id: breakdownValue,
       population: population,
     },
   ];
@@ -166,7 +166,7 @@ function nationalRow(
       state_fips: USA.code,
       state_name: USA.name,
       population: population,
-      race_and_ethnicity: breakdownValue,
+      race_category_id: breakdownValue,
       population_pct: population_pct,
     },
   ];

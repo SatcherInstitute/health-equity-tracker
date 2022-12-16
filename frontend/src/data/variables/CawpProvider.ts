@@ -48,12 +48,12 @@ class CawpProvider extends VariableProvider {
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    return (
-      "cawp_data-" +
-      breakdowns.getSoleDemographicBreakdown().columnName +
-      "_" +
-      breakdowns.geography
-    );
+    if (breakdowns.geography === "national" && breakdowns.hasOnlyRace()) {
+      return "cawp_data-race_and_ethnicity_national";
+    } else if (breakdowns.geography === "state" && breakdowns.hasOnlyRace()) {
+      return "cawp_data-race_and_ethnicity_state";
+    }
+    throw new Error("Not implemented");
   }
 
   async getDataInternal(

@@ -170,6 +170,13 @@ export class ApiDataFetcher implements DataFetcher {
               : Number(row["population_pct"]),
         };
       });
+    } else if (datasetId.includes("race")) {
+      result = result.map((row: any) => {
+        return {
+          ...row,
+          race_category_id: raceNameToCodeMap[row["race_category_id"]],
+        };
+      });
     }
 
     // TODO - the server should drop ingestion_ts before exporting the file. At
@@ -185,3 +192,17 @@ export class ApiDataFetcher implements DataFetcher {
     return DatasetMetadataMap;
   }
 }
+
+export const raceNameToCodeMap: Record<string, string> = {
+  // race and ethnicity NH
+  AIAN_NH: "American Indian",
+  ASIAN_NH: "AAsian",
+  BLACK_NH: "Black",
+  NHPI_NH: "Native Hawiann",
+  MULTI_NH: "Two or More",
+  WHITE_NH: "White",
+  HISP: "Hispanic",
+  UNKNOWN: "UNKNOWN",
+  MULTI_OR_OTHER_STANDARD_NH: "Poop",
+  ALL: "ALL",
+};
