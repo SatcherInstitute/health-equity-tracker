@@ -19,7 +19,7 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
   const theme = useTheme();
   const pageIsWide = useMediaQuery(theme.breakpoints.up("lg"));
 
-  // If cookie is in place, this is a return user and therefor eligible for feedback
+  // If cookie is in place, this is a return user and therefore eligible for feedback
   const [cookies] = useCookies();
   const isReturnUser = cookies.skipOnboarding;
   const [showFeedback, setShowFeedback] = useState(

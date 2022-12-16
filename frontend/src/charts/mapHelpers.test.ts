@@ -46,12 +46,20 @@ describe("Test getCountyAddOn()", () => {
     expect(louisianaAddOn).toEqual("Parish (County Equivalent)");
   });
 
-  test("A child FIPS of Puerto Rico should get equiv", () => {
+  test("A child FIPS of Puerto Rico report should get equiv", () => {
     const puertoRicoAddOn = getCountyAddOn(
       /* fips */ new Fips("72999"),
       /* showCounties */ true
     );
     expect(puertoRicoAddOn).toEqual("(County Equivalent)");
+  });
+
+  test("Puerto Rico report should get equiv for child level counties", () => {
+    const puertoRicoParentAddOn = getCountyAddOn(
+      /* fips */ new Fips("72"),
+      /* showCounties */ true
+    );
+    expect(puertoRicoParentAddOn).toEqual("(County Equivalent)");
   });
 
   test("AL should get blank string", () => {
