@@ -1,4 +1,9 @@
-import { ALL, DemographicGroup } from "../utils/Constants";
+import {
+  AgeBucket,
+  ALL,
+  DemographicGroup,
+  RaceAndEthnicityGroup,
+} from "../utils/Constants";
 
 /**
  * Specifies a set of filters to apply to a breakdown. When `include` is true,
@@ -10,7 +15,7 @@ export default interface BreakdownFilter {
   readonly include: boolean;
 }
 
-const STANDARD_RACES = [
+const STANDARD_RACES: RaceAndEthnicityGroup[] = [
   "American Indian and Alaska Native (NH)",
   "Asian (NH)",
   "Black or African American (NH)",
@@ -22,7 +27,7 @@ const STANDARD_RACES = [
   ALL,
 ];
 
-const DECADE_AGE_BRACKETS = [
+const DECADE_AGE_BRACKETS: AgeBucket[] = [
   "0-9",
   "10-19",
   "20-29",

@@ -16,6 +16,7 @@ import {
   TIME_SERIES,
   NON_HISPANIC,
   AIAN_API,
+  RaceAndEthnicityGroup,
 } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
@@ -47,7 +48,9 @@ export interface RateTrendsChartCardProps {
 // and instead D3 will handle updates to the data
 export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   // Manages which group filters user has applied
-  const [selectedTableGroups, setSelectedTableGroups] = useState<string[]>([]);
+  const [selectedTableGroups, setSelectedTableGroups] = useState<
+    DemographicGroup[]
+  >([]);
 
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
   const [unknownsExpanded, setUnknownsExpanded] = useState(false);
@@ -122,9 +125,11 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           ).withData;
 
         const demographicGroupsLabelled = isCawpCongress
-          ? demographicGroups
-              .map((race) => getWomenRaceLabel(race))
-              .filter((womenRace) => womenRace !== "Women of Unknown Race")
+          ? (demographicGroups
+              .map((race) => getWomenRaceLabel(race as RaceAndEthnicityGroup))
+              .filter(
+                (womenRace) => womenRace !== "Women of Unknown Race"
+              ) as DemographicGroup[])
           : demographicGroups;
 
         const [knownRatesData] = splitIntoKnownsAndUnknowns(
@@ -183,10 +188,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   unknown={nestedUnknownPctShareData}
                   axisConfig={{
                     type: metricConfigRates.type,
-                    groupLabel:
-                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                        props.breakdownVar
-                      ],
+                    groupLabel: BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                      props.breakdownVar
+                    ] as DemographicGroup,
                     yAxisLabel: `${metricConfigRates.shortLabel} ${
                       props.fips.isUsa() ? "" : "from"
                     } ${
