@@ -39,9 +39,13 @@ export interface HighestLowestListProps {
 */
 export function HighestLowestList(props: HighestLowestListProps) {
   const highestValuesAreTied =
-    props.highestValues?.[0] === props.highestValues?.[1];
+    props.highestValues?.[0]?.[props.metricConfig.metricId] ===
+    props.highestValues?.[1]?.[props.metricConfig.metricId];
+  console.log({ highestValuesAreTied }, props.highestValues);
   const lowestValuesAreTied =
-    props.lowestValues?.[0] === props.lowestValues?.[1];
+    props.lowestValues?.[0]?.[props.metricConfig.metricId] ===
+    props.lowestValues?.[1]?.[props.metricConfig.metricId];
+  console.log({ lowestValuesAreTied }, props.lowestValues);
 
   return (
     <AnimateHeight
@@ -139,7 +143,7 @@ function ExtremeList(props: ExtremeListProps) {
       <h4>
         {props.isTied
           ? `${props.whichExtreme} (${tiedAtVal}):`
-          : `${props.values.length} ${props.whichExtreme.toLowerCase()}:`}
+          : `${props.values.length} ${props.whichExtreme}:`}
       </h4>
 
       <ul className={styles.ExtremeList}>
