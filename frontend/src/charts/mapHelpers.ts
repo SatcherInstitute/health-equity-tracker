@@ -329,7 +329,7 @@ export function setupColorScale(
   const isCongressCAWP = metricId === "pct_share_of_us_congress";
   const colorScale: any = {
     name: COLOR_SCALE,
-    type: isCongressCAWP ? "quantile" : "quantize",
+    type: isCongressCAWP ? "quantile" : scaleType,
     domain: isCongressCAWP
       ? [1, 20, 40, 60, 80, 99]
       : { data: LEGEND_DATASET, field: metricId },
