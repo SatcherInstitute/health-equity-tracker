@@ -15,6 +15,7 @@ import {
 import { useMediaQuery } from "@material-ui/core";
 import { PADDING_FOR_ACTIONS_MENU } from "./utils";
 import {
+  addCAWPTooltipInfo,
   buildTooltipTemplate,
   CIRCLE_PROJECTION,
   COLOR_SCALE,
@@ -38,6 +39,8 @@ import {
   getHelperLegend,
   ZERO_YELLOW_SCALE,
 } from "./mapHelpers";
+import { DemographicGroup } from "../data/utils/Constants";
+import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -90,13 +93,13 @@ export interface ChoroplethMapProps {
   filename?: string;
   titles?: {
     chartTitle: string | string[];
-    subtitle?: string;
+    subtitle?: DemographicGroup;
   };
   listExpanded?: boolean;
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
-  const isCongressCAWP = props.metric.metricId === "women_us_congress_pct";
+  const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId);
 
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false);
@@ -142,7 +145,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       },
     ];
     // Null SVI was showing
-    if (!isCongressCAWP && !props.listExpanded) {
+    if (!isCawp && !props.listExpanded) {
       geoTransformers[0].values.push("rating");
     }
     if (props.overrideShapeWithCircle) {
@@ -186,16 +189,31 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* showCounties */ props.showCounties
     );
 
-    const tooltipValue = buildTooltipTemplate(
+    // Hover tooltip for states with expected 0 values, like CAWP Congress
+    const zeroTooltipValue = buildTooltipTemplate(
       /* tooltipPairs */ tooltipPairs,
       /* title */ `datum.properties.name + " ${geographyType}"`,
-      /* includeSvi */ true
+      /* includeSvi */ false
     );
 
+    // Hover tooltip for unexpected missing data
     const missingDataTooltipValue = buildTooltipTemplate(
       /* tooltipPairs */ { [tooltipLabel]: `"${NO_DATA_MESSAGE}"` },
       /* title */ `datum.properties.name + " ${geographyType}"`,
       /* includeSvi */ false
+    );
+
+    if (isCawp)
+      addCAWPTooltipInfo(
+        /* tooltipPairs */ tooltipPairs,
+        /* subTitle */ props.titles?.subtitle || ""
+      );
+
+    // Hover tooltip for non-zero data
+    const tooltipValue = buildTooltipTemplate(
+      /* tooltipPairs */ tooltipPairs,
+      /* title */ `datum.properties.name + " ${geographyType}"`,
+      /* includeSvi */ true
     );
 
     /* SET UP LEGEND */
@@ -230,8 +248,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const helperLegend = getHelperLegend(
       /* yOffset */ yOffsetNoDataLegend,
       /* xOffset */ xOffsetNoDataLegend,
-      /* overrideGrayMissingWithZeroYellow */ isCongressCAWP &&
-        !props.listExpanded
+      /* overrideGrayMissingWithZeroYellow */ isCawp && !props.listExpanded
     );
     if (!props.hideLegend) {
       legendList.push(legend, helperLegend);
@@ -240,7 +257,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const colorScale = setupColorScale(
       /* legendData */ legendData,
       /* metricId */ props.metric.metricId,
-      /* scaleType */ "quantile", //props.scaleType,
+      /* scaleType */ props.scaleType,
       /* fieldRange? */ props.fieldRange,
       /* scaleColorScheme? */ props.scaleColorScheme
     );
@@ -253,12 +270,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     );
 
     let marks = [
-      isCongressCAWP && !props.listExpanded
+      isCawp && !props.listExpanded
         ? createShapeMarks(
             /*datasetName=*/ ZERO_DATASET,
             /*fillColor=*/ { value: sass.mapMin },
             /*hoverColor=*/ RED_ORANGE,
-            /*tooltipExpression=*/ tooltipValue,
+            /*tooltipExpression=*/ zeroTooltipValue,
             /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
             /* hideMissingDataTooltip */ props.hideMissingDataTooltip
           )
@@ -283,7 +300,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.overrideShapeWithCircle) {
       // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET));
-      isCongressCAWP && !props.listExpanded
+      isCawp && !props.listExpanded
         ? marks.push(createCircleTextMark(ZERO_DATASET))
         : marks.push(createCircleTextMark(MISSING_DATASET));
     } else {
@@ -315,9 +332,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
         {
           name: VAR_DATASET,
-          values: props.listExpanded
-            ? props.data
-            : props.data.filter((row) => row[props.metric.metricId] > 0),
+          values:
+            props.listExpanded || !isCawp
+              ? props.data
+              : props.data.filter((row) => row[props.metric.metricId] > 0),
         },
         {
           name: ZERO_VAR_DATASET,
@@ -426,7 +444,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       setShouldRenderMap(true);
     }, 0);
   }, [
-    isCongressCAWP,
+    isCawp,
     width,
     props.metric,
     props.legendTitle,
