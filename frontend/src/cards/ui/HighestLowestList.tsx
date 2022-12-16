@@ -38,15 +38,6 @@ export interface HighestLowestListProps {
    Collapsible box showing lists of geographies with the highest and lowest rates
 */
 export function HighestLowestList(props: HighestLowestListProps) {
-  const highestValuesAreTied =
-    props.highestValues?.[0]?.[props.metricConfig.metricId] ===
-    props.highestValues?.[1]?.[props.metricConfig.metricId];
-  console.log({ highestValuesAreTied }, props.highestValues);
-  const lowestValuesAreTied =
-    props.lowestValues?.[0]?.[props.metricConfig.metricId] ===
-    props.lowestValues?.[1]?.[props.metricConfig.metricId];
-  console.log({ lowestValuesAreTied }, props.lowestValues);
-
   return (
     <AnimateHeight
       duration={500}
@@ -89,7 +80,6 @@ export function HighestLowestList(props: HighestLowestListProps) {
               <ExtremeList
                 whichExtreme="Highest"
                 values={props.highestValues}
-                isTied={highestValuesAreTied}
                 metricConfig={props.metricConfig}
                 qualifierMessage={props.qualifierMessage}
                 qualifierItems={props.qualifierItems}
@@ -98,7 +88,6 @@ export function HighestLowestList(props: HighestLowestListProps) {
               <ExtremeList
                 whichExtreme="Lowest"
                 values={props.lowestValues}
-                isTied={lowestValuesAreTied}
                 metricConfig={props.metricConfig}
                 qualifierMessage={props.qualifierMessage}
                 qualifierItems={props.qualifierItems}
@@ -128,7 +117,6 @@ export function HighestLowestList(props: HighestLowestListProps) {
 export interface ExtremeListProps {
   whichExtreme: "Highest" | "Lowest";
   values: Row[];
-  isTied: boolean;
   metricConfig: MetricConfig;
   qualifierItems?: string[];
   qualifierMessage?: string;
@@ -136,19 +124,25 @@ export interface ExtremeListProps {
 
 function ExtremeList(props: ExtremeListProps) {
   const { type: metricType, metricId } = props.metricConfig;
-  const tiedAtVal = formatFieldValue(metricType, props.values?.[0][metricId]);
+
+  const extremeVal = props.values?.[0]?.[props.metricConfig.metricId];
+
+  const isTie = extremeVal === props.values?.[1]?.[props.metricConfig.metricId];
+
+  const tieDisplayValue = isTie
+    ? formatFieldValue(metricType, extremeVal)
+    : null;
 
   return (
     <Grid item xs={12} sm={6}>
       <h4>
-        {props.isTied
-          ? `${props.whichExtreme} (${tiedAtVal}):`
+        {tieDisplayValue
+          ? `${props.whichExtreme} (${tieDisplayValue}):`
           : `${props.values.length} ${props.whichExtreme}:`}
       </h4>
 
       <ul className={styles.ExtremeList}>
-        {/* TIED */}
-        {props.isTied && (
+        {isTie ? (
           <li>
             <>
               {props.values.map((row, i) => {
@@ -166,25 +160,26 @@ function ExtremeList(props: ExtremeListProps) {
               })}
             </>
           </li>
+        ) : (
+          <>
+            {!isTie &&
+              props.values.map((row) => {
+                let placeName = row["fips_name"];
+                if (props.qualifierItems?.includes(placeName)) {
+                  placeName += ` ${props.qualifierMessage}`;
+                }
+
+                return (
+                  <li key={row["fips_name"]}>
+                    {placeName}: {formatFieldValue(metricType, row[metricId])}{" "}
+                    <span className={styles.Unit}>
+                      {metricType === "per100k" ? "per 100k" : ""}
+                    </span>
+                  </li>
+                );
+              })}
+          </>
         )}
-
-        {/* NORMAL */}
-        {!props.isTied &&
-          props.values.map((row) => {
-            let placeName = row["fips_name"];
-            if (props.qualifierItems?.includes(placeName)) {
-              placeName += ` ${props.qualifierMessage}`;
-            }
-
-            return (
-              <li key={row["fips_name"]}>
-                {placeName}: {formatFieldValue(metricType, row[metricId])}{" "}
-                <span className={styles.Unit}>
-                  {metricType === "per100k" ? "per 100k" : ""}
-                </span>
-              </li>
-            );
-          })}
       </ul>
     </Grid>
   );
