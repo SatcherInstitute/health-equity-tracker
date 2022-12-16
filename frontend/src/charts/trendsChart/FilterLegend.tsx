@@ -13,6 +13,7 @@ import React from "react";
 
 /* Styles */
 import styles from "./Trends.module.scss";
+import sass from "../../styles/variables.module.scss";
 
 /* Constants */
 import { TrendsData } from "./types";
@@ -97,6 +98,9 @@ export function FilterLegend({
           data.map(([group]) => {
             const groupEnabled = selectedGroups.includes(group);
 
+            const isUnknown = group === "Women of Unknown Race";
+            const gradient = `linear-gradient(${sass.unknownMapMost}, ${sass.unknownMapMid},${sass.unknownMapMost})`;
+
             // Legend Item Filter Button
             return (
               <button
@@ -115,8 +119,8 @@ export function FilterLegend({
                   className={styles.swatch}
                   aria-hidden={true}
                   style={{
-                    /* @ts-ignore */
-                    backgroundColor: C(group),
+                    backgroundImage: isUnknown ? gradient : undefined,
+                    backgroundColor: isUnknown ? undefined : C(group),
                   }}
                 />
                 {/* Legend Item Label */}

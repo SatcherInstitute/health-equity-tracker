@@ -179,7 +179,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   </Box>
                 )}
                 <svg
-                  className={styles.GradientGreen}
                   width="100"
                   height="50"
                   version="1.1"

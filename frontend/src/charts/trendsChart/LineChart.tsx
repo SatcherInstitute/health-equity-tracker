@@ -55,13 +55,6 @@ export function LineChart({
 
   return (
     <g role="list" tabIndex={0} aria-label="Demographic group trendlines">
-      <defs>
-        <linearGradient id="header-shape-gradient" x2="0.35" y2="1">
-          <stop offset="0%" stop-color="var(--color-stop)" />
-          <stop offset="30%" stop-color="var(--color-stop)" />
-          <stop offset="100%" stop-color="var(--color-bot)" />
-        </linearGradient>
-      </defs>
       {data &&
         data.map(([group, d]: GroupData) => {
           const dCopy = [...d];
@@ -88,7 +81,7 @@ export function LineChart({
               role="listitem"
               aria-label={groupA11yDescription}
               className={
-                isUnknownLine ? styles.TrendLineDashed : styles.TrendLine
+                isUnknownLine ? styles.TrendLineGradient : styles.TrendLine
               }
               key={`group-${group}`}
               // @ts-ignore

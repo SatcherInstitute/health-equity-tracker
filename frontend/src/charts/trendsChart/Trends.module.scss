@@ -34,11 +34,11 @@ figure {
     stroke-linecap: round;
   }
 
-  .TrendLineDashed {
+  .TrendLineGradient {
     fill: none;
-    stroke-dasharray: 15;
-    stroke-width: 2.5;
-    stroke-linecap: square;
+    // stroke-dasharray: 20 10;
+    stroke-width: 3.5;
+    stroke-linecap: butt;
     stroke: url(#gradient);
   }
 

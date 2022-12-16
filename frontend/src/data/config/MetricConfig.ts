@@ -1552,7 +1552,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             "Current year rates of US Congress",
             "members identifying as women",
           ],
-          shortLabel: "% of Congress",
+          shortLabel: "% women in Congress",
           type: "pct_share",
         },
         pct_share: {
@@ -1610,7 +1610,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           ], // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER, HI/LOW DROPDOWN FOOTNOTE
           trendsCardTitleName: "Rates of women in state legislatures over time",
           columnTitleHeader: "Percentage of women state legislators",
-          shortLabel: "% of legislators", // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
+          shortLabel: "% women in state legislature", // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
           type: "pct_share",
         },
         pct_share: {
