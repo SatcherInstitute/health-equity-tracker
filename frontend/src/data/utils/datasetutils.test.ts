@@ -26,10 +26,14 @@ describe("DatasetUtils.getExtremeValues() Unit Tests", () => {
     { some_condition: 10 },
   ];
 
-  const [lo, hi] = getExtremeValues(data, "some_condition" as MetricId, 5);
+  const { lowestValues, highestValues } = getExtremeValues(
+    data,
+    "some_condition" as MetricId,
+    5
+  );
 
   test("5 Normal Highs", async () => {
-    expect(hi).toEqual([
+    expect(highestValues).toEqual([
       { some_condition: 10 },
       { some_condition: 9 },
       { some_condition: 8 },
@@ -39,7 +43,7 @@ describe("DatasetUtils.getExtremeValues() Unit Tests", () => {
   });
 
   test("Tied Lows", async () => {
-    expect(lo).toEqual([
+    expect(lowestValues).toEqual([
       { some_condition: 0 },
       { some_condition: 0 },
       { some_condition: 0 },
@@ -47,8 +51,12 @@ describe("DatasetUtils.getExtremeValues() Unit Tests", () => {
   });
 
   test("8 Normal Highs, Tied Lows Removed From Highs", async () => {
-    const [lo, hi] = getExtremeValues(data, "some_condition" as MetricId, 10);
-    expect(hi).toEqual([
+    const { lowestValues, highestValues } = getExtremeValues(
+      data,
+      "some_condition" as MetricId,
+      10
+    );
+    expect(highestValues).toEqual([
       { some_condition: 10 },
       { some_condition: 9 },
       { some_condition: 8 },
@@ -58,7 +66,7 @@ describe("DatasetUtils.getExtremeValues() Unit Tests", () => {
       { some_condition: 4 },
       { some_condition: 3 },
     ]);
-    expect(lo).toEqual([
+    expect(lowestValues).toEqual([
       { some_condition: 0 },
       { some_condition: 0 },
       { some_condition: 0 },
@@ -66,9 +74,13 @@ describe("DatasetUtils.getExtremeValues() Unit Tests", () => {
   });
 
   test("Empty doesn't break", async () => {
-    const [lo, hi] = getExtremeValues([], "some_condition" as MetricId, 5);
-    expect(hi).toEqual([]);
-    expect(lo).toEqual([]);
+    const { lowestValues, highestValues } = getExtremeValues(
+      [],
+      "some_condition" as MetricId,
+      5
+    );
+    expect(highestValues).toEqual([]);
+    expect(lowestValues).toEqual([]);
   });
 });
 

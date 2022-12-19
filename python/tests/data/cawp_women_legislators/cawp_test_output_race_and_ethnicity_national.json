@@ -2,8 +2,6 @@
     {
         "women_state_leg_pct": 1.4,
         "women_state_leg_pct_share": 6.1,
-        "women_us_congress_pct": 12.5,
-        "women_us_congress_pct_share": 33.3,
         "race_category_id": "ASIAN_PAC",
         "state_name": "United States",
         "state_fips": "00",
@@ -15,8 +13,6 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
-        "women_us_congress_pct": 0.0,
-        "women_us_congress_pct_share": 0.0,
         "race_category_id": "HISP",
         "state_name": "United States",
         "state_fips": "00",
@@ -28,8 +24,6 @@
     {
         "women_state_leg_pct": 0.0,
         "women_state_leg_pct_share": 0.0,
-        "women_us_congress_pct": 0.0,
-        "women_us_congress_pct_share": 0.0,
         "race_category_id": "MENA",
         "state_name": "United States",
         "state_fips": "00",
@@ -41,8 +35,6 @@
     {
         "women_state_leg_pct": 0.7,
         "women_state_leg_pct_share": 3.0,
-        "women_us_congress_pct": 0.0,
-        "women_us_congress_pct_share": 0.0,
         "race_category_id": "MULTI_OR_OTHER_STANDARD",
         "state_name": "United States",
         "state_fips": "00",
@@ -54,8 +46,6 @@
     {
         "women_state_leg_pct": 0.7,
         "women_state_leg_pct_share": 3.0,
-        "women_us_congress_pct": 0.0,
-        "women_us_congress_pct_share": 0.0,
         "race_category_id": "AIANNH",
         "state_name": "United States",
         "state_fips": "00",
@@ -67,8 +57,6 @@
     {
         "women_state_leg_pct": 0.7,
         "women_state_leg_pct_share": 3.0,
-        "women_us_congress_pct": 0.0,
-        "women_us_congress_pct_share": 0.0,
         "race_category_id": "BLACK",
         "state_name": "United States",
         "state_fips": "00",
@@ -80,8 +68,6 @@
     {
         "women_state_leg_pct": 19.6,
         "women_state_leg_pct_share": 87.9,
-        "women_us_congress_pct": 25.0,
-        "women_us_congress_pct_share": 66.7,
         "race_category_id": "WHITE",
         "state_name": "United States",
         "state_fips": "00",
@@ -93,8 +79,6 @@
     {
         "women_state_leg_pct": 0.7,
         "women_state_leg_pct_share": 3.0,
-        "women_us_congress_pct": 0.0,
-        "women_us_congress_pct_share": 0.0,
         "race_category_id": "UNKNOWN",
         "state_name": "United States",
         "state_fips": "00",
@@ -106,8 +90,6 @@
     {
         "women_state_leg_pct": 22.3,
         "women_state_leg_pct_share": 100.0,
-        "women_us_congress_pct": 37.5,
-        "women_us_congress_pct_share": 100.0,
         "race_category_id": "ALL",
         "state_name": "United States",
         "state_fips": "00",
