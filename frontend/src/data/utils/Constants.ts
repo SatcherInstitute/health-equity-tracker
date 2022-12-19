@@ -73,12 +73,6 @@ export const NON_STANDARD_RACES = [
 
 // CAWP RACE GROUPS AND ARRAY
 
-/* 
-: "Hisp/Lat",
-: "Unrepr.",
-: "Black",
-: "White",
- */
 export const ALL_W = "All Women";
 export const AAPI_W = "Asian American & Pacific Islander Women";
 export const MENA_W = "Middle Eastern & North African Women";
@@ -87,9 +81,11 @@ export const AIANNH_W =
 export const AIAN_API_W =
   "American Indian, Alaska Native, Asian & Pacific Islander Women";
 export const HISP_W = "Latinas and Hispanic Women";
-export const UNREPRESENTED_W = "Women of an Unrepresented Race";
+export const MULTI_OR_OTHER_STANDARD_W =
+  "Women of Two or More Races & Unrepresented Race";
 export const BLACK_W = "Black or African American Women";
 export const WHITE_W = "White Women";
+export const UNKNOWN_W = "Women of Unknown Race";
 
 export const CAWP_RACES = [
   ALL_W,
@@ -98,9 +94,10 @@ export const CAWP_RACES = [
   AIANNH_W,
   AIAN_API_W,
   HISP_W,
-  UNREPRESENTED_W,
+  MULTI_OR_OTHER_STANDARD_W,
   BLACK_W,
   WHITE_W,
+  UNKNOWN_W,
 ] as const;
 
 // COMBINATION RACE GROUPS AND (UNUSED) ARRAY
@@ -160,9 +157,10 @@ export const raceNameToCodeMap: Partial<Record<RaceAndEthnicityGroup, string>> =
     "American Indian, Alaska Native, Asian & Pacific Islander Women":
       "AIAN_API",
     "Latinas and Hispanic Women": "Hisp/Lat",
-    "Women of an Unrepresented Race": "Unrepr.",
+    "Women of Two or More Races & Unrepresented Race": "2/Unr",
     "Black or African American Women": "Black",
     "White Women": "White",
+    "Women of Unknown Race": "Unknown",
   };
 
 // AGE DEMOGRAPHIC  GROUP OPTIONS

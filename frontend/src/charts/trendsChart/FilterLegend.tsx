@@ -99,7 +99,7 @@ export function FilterLegend({
             const groupEnabled = selectedGroups.includes(group);
 
             const isUnknown = group === "Women of Unknown Race";
-            const gradient = `linear-gradient(${sass.unknownMapMost}, ${sass.unknownMapMid},${sass.unknownMapMost})`;
+            const gradient = `linear-gradient(30deg, ${sass.unknownMapMost}, ${sass.unknownMapMid},${sass.unknownMapMost})`;
 
             // Legend Item Filter Button
             return (

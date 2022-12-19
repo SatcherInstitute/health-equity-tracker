@@ -36,7 +36,7 @@ const COLOR_DOMAIN = [
   "Black or African American Women",
   "Latinas and Hispanic Women",
   "Middle Eastern & North African Women",
-  "Women of an Unrepresented Race",
+  "Women of Two or More Races & Unrepresented Race",
   "White Women",
   "Women of Unknown Race",
   // sex
