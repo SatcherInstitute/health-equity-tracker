@@ -103,8 +103,7 @@ def get_stleg_url(id: str):
             id + "/field_table/und/0")
 
 
-# for HET we will sum "Multiracial Alone" with multiple specific races
-CAWP_MULTI = "Multiracial Alone"
+MULTI_OTHER_TMP = "tmp: combine multiple specificCAWP multiracial alone, and CAWP other"
 
 # CAWP labels
 CAWP_RACE_GROUPS_TO_STANDARD = {
@@ -114,27 +113,14 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
     'Native American/Alaska Native/Native Hawaiian': Race.AIANNH.value,
     'Black': Race.BLACK.value,
     'White': Race.WHITE.value,
-    # no women identified as the labels below at the US CONGRESS level in any year
-    # at State Leg. level there were - Multi alone: 2, Other: 1, Unavailable: 4441
-    'Other': Race.OTHER_STANDARD.value,
-    # TODO: combine multiple specified races with "Multiracial Alone"
-    CAWP_MULTI: Race.MULTI.value,
     'Unavailable': Race.UNKNOWN.value,
+    # will combine CAWP's "Multiracial Alone", "Other", and women who selected more than one specific race
+    MULTI_OTHER_TMP: Race.MULTI_OR_OTHER_STANDARD.value,
 }
 
 
 AIAN_API_RACES = ['Asian American/Pacific Islander',
                   'Native American/Alaska Native/Native Hawaiian']
-
-POSITION_LABELS = {
-    "us_congress": {"U.S. Representative": "U.S. Rep.",
-                    "U.S. Senator": "U.S. Sen.",
-                    "U.S. Delegate": "U.S. Del."},
-    "state_leg": {"State Representative": "State Rep.",
-                  "State Senator": "State Sen.",
-                  "Territorial/D.C. Representative": "Rep.",
-                  "Territorial/D.C. Senator": "Sen.", }
-}
 
 
 RACE_ETH = "race_ethnicity"
@@ -168,6 +154,16 @@ MERGE_COLS = [
     *STATE_COLS,
     RACE_ETH
 ]
+
+POSITION_LABELS = {
+    CONGRESS: {"U.S. Representative": "U.S. Rep.",
+               "U.S. Senator": "U.S. Sen.",
+               "U.S. Delegate": "U.S. Del."},
+    STATE_LEG: {"State Representative": "State Rep.",
+                "State Senator": "State Sen.",
+                "Territorial/D.C. Representative": "Rep.",
+                "Territorial/D.C. Senator": "Sen.", }
+}
 
 
 class CAWPTimeData(DataSource):
@@ -500,7 +496,7 @@ def get_women_dfs():
 
     women_dfs = []
 
-    for gov_level in ["us_congress", "state_leg"]:
+    for gov_level in [CONGRESS, STATE_LEG]:
         # remove non-legislative line items
         df_gov_level = df.copy().loc[df[POSITION].isin(
             POSITION_LABELS[gov_level].keys())]
@@ -556,20 +552,30 @@ def merge_women_cols(scaffold_df, women_df, gov_level: str, preserve_races: bool
 
         df = handle_multiple_specific_races(df)
 
+        # create individual race rows from multiple specific rows
+        df = df.explode(RACE_ETH)
+
+        # temp. rename "Unrepr" to get counted as MULTI_OR_OTHER
+        df[RACE_ETH] = df[RACE_ETH].replace("Other", MULTI_OTHER_TMP)
+
+        # temp. rename "Multiracial Alone" to get counted as MULTI_OR_OTHER
+        df[RACE_ETH] = df[RACE_ETH].replace(
+            "Multiracial Alone", MULTI_OTHER_TMP)
+
         needed_cols.append(RACE_ETH)
         groupby_cols.append(RACE_ETH)
 
-        if gov_level == "us_congress":
+        if gov_level == CONGRESS:
             count_col = std_col.W_THIS_RACE_CONGRESS_COUNT
             names_col = std_col.W_THIS_RACE_CONGRESS_NAMES
-        elif gov_level == "state_leg":
+        elif gov_level == STATE_LEG:
             count_col = std_col.W_THIS_RACE_STLEG_COUNT
             names_col = std_col.W_THIS_RACE_STLEG_NAMES
     else:
-        if gov_level == "us_congress":
+        if gov_level == CONGRESS:
             count_col = std_col.W_ALL_RACES_CONGRESS_COUNT
             names_col = std_col.W_ALL_RACES_CONGRESS_NAMES
-        elif gov_level == "state_leg":
+        elif gov_level == STATE_LEG:
             count_col = std_col.W_ALL_RACES_STLEG_COUNT
             names_col = std_col.W_ALL_RACES_STLEG_NAMES
 
@@ -728,22 +734,22 @@ def add_aian_api_rows(df):
         df_aian_api_rows[RACE_ETH].isin(
             AIAN_API_RACES)]
 
-    level_names_col_map = {"us_congress": std_col.W_THIS_RACE_CONGRESS_NAMES,
-                           "state_leg": std_col.W_THIS_RACE_STLEG_NAMES}
-    level_count_col_map = {"us_congress": std_col.W_THIS_RACE_CONGRESS_COUNT,
-                           "state_leg": std_col.W_THIS_RACE_STLEG_COUNT}
-    level_denom_cols_map = {"us_congress": [std_col.CONGRESS_COUNT,
-                                            std_col.CONGRESS_NAMES,
-                                            std_col.W_ALL_RACES_CONGRESS_COUNT,
-                                            std_col.W_ALL_RACES_CONGRESS_NAMES],
-                            "state_leg": [std_col.STLEG_COUNT,
-                                          std_col.W_ALL_RACES_STLEG_COUNT,
-                                          std_col.W_ALL_RACES_STLEG_NAMES]
+    level_names_col_map = {CONGRESS: std_col.W_THIS_RACE_CONGRESS_NAMES,
+                           STATE_LEG: std_col.W_THIS_RACE_STLEG_NAMES}
+    level_count_col_map = {CONGRESS: std_col.W_THIS_RACE_CONGRESS_COUNT,
+                           STATE_LEG: std_col.W_THIS_RACE_STLEG_COUNT}
+    level_denom_cols_map = {CONGRESS: [std_col.CONGRESS_COUNT,
+                                       std_col.CONGRESS_NAMES,
+                                       std_col.W_ALL_RACES_CONGRESS_COUNT,
+                                       std_col.W_ALL_RACES_CONGRESS_NAMES],
+                            STATE_LEG: [std_col.STLEG_COUNT,
+                                        std_col.W_ALL_RACES_STLEG_COUNT,
+                                        std_col.W_ALL_RACES_STLEG_NAMES]
                             }
 
     aian_api_dfs = []
 
-    for gov_level in ["us_congress", "state_leg"]:
+    for gov_level in [CONGRESS, STATE_LEG]:
 
         # specific columns needed for this level of government
         names_col = level_names_col_map[gov_level]
@@ -769,7 +775,7 @@ def add_aian_api_rows(df):
 
         df_aian_api_rows_gov_level[count_col] = df_aian_api_rows_gov_level[
             names_col].apply(lambda list: len(list)).astype(float)
-        df_aian_api_rows_gov_level[RACE_ETH] = "AIAN_API"
+        df_aian_api_rows_gov_level[RACE_ETH] = Race.AIAN_API.value
         df_aian_api_rows_gov_level = df_aian_api_rows_gov_level.reset_index(
             drop=True)
 
@@ -785,10 +791,6 @@ def add_aian_api_rows(df):
 
         df_denom_cols = df_denom_cols_aian_api_rows[denom_cols].reset_index(
             drop=True)
-
-        # print("~~~", gov_level)
-        # print(df_denom_cols.columns)
-        # print(df_denom_cols)
 
         # add back on the COLUMNS that didn't need to sum
         df_aian_api_rows_gov_level = pd.merge(df_aian_api_rows_gov_level, df_denom_cols, on=[
@@ -808,7 +810,7 @@ def add_aian_api_rows(df):
         RACE_ETH
     ]).reset_index(drop=True)
 
-    # add COMBO RACE ROWS onto the original race groups ROWS
+    # add COMBO AIAN_API RACE ROWS onto the original race groups ROWS
     df = pd.concat([df, df_aian_api_rows], axis="rows").reset_index(drop=True)
 
     return df
@@ -842,10 +844,10 @@ def build_base_rows_df(us_congress_totals_df,
         df.copy(), us_congress_totals_df, state_leg_totals_df)
 
     df_w_any_race_us_congress_cols = merge_women_cols(
-        df.copy(), women_us_congress_df, "us_congress")
+        df.copy(), women_us_congress_df, CONGRESS)
 
     df_w_any_race_state_leg_cols = merge_women_cols(
-        df.copy(), women_state_leg_df, "state_leg")
+        df.copy(), women_state_leg_df, STATE_LEG)
 
     # for the ALL rows, the ALL_W cols will be the same as the W_THIS_RACE cols
     # so don't need to waste time recalculating them
@@ -858,9 +860,9 @@ def build_base_rows_df(us_congress_totals_df,
             std_col.W_ALL_RACES_STLEG_COUNT: std_col.W_THIS_RACE_STLEG_COUNT})
     else:
         df_w_this_race_us_congress_cols = merge_women_cols(
-            df.copy(), women_us_congress_df, "us_congress", preserve_races=True)
+            df.copy(), women_us_congress_df, CONGRESS, preserve_races=True)
         df_w_this_race_state_leg_cols = merge_women_cols(
-            df.copy(), women_state_leg_df, "state_leg", preserve_races=True)
+            df.copy(), women_state_leg_df, STATE_LEG, preserve_races=True)
 
     # combine COLUMN chunks
     df = pd.merge(
@@ -875,10 +877,6 @@ def build_base_rows_df(us_congress_totals_df,
     df = pd.merge(
         df, df_w_this_race_state_leg_cols, on=MERGE_COLS)
 
-    # print("-****-")
-    # print(df.columns)
-    # print(df)
-
     return df
 
 
@@ -890,19 +888,17 @@ def handle_multiple_specific_races(df):
             CAWP races separated by commas
 
      Returns:
-         df with original the comma-containing "multiple specific race" rows replaced by rows for
-             each of the original specific races, and also adding equivalent rows labeled as CAWP_MULTI
+         df with original the comma-containing "multiple specific race" rows have their
+         RACE_ETH value replaced by a list of specific CAWP races; equivalent rows
+         are added with race labeled as MULTI_OTHER_TMP
       """
     # convert comma separated names string into list, doesn't affect single race strings
     df[RACE_ETH] = df[RACE_ETH].str.split(', ')
 
-    # temporarily encodes rows with multiple specific races as "multiracial alone"
-    # so they can be summed later with CAWP's incoming "multiracial alone" and ultimately
-    # sent to HET as a combined generalized MULTI race code
+    # rows with multiple specific races will sum later with
+    # CAWP's incoming "multiracial alone" and "unknown"
     df_multiple_specific = df[df[RACE_ETH].map(len) > 1]
-    df_multiple_specific[RACE_ETH] = CAWP_MULTI
+    df_multiple_specific[RACE_ETH] = MULTI_OTHER_TMP
     df = pd.concat([df, df_multiple_specific])
 
-    # create individual race rows from multiple specific rows
-    df = df.explode(RACE_ETH)
     return df
