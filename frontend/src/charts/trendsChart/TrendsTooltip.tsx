@@ -11,6 +11,7 @@
 import React, { Fragment } from "react";
 
 /* Local Imports */
+import { raceNameToCodeMap } from "../../data/utils/Constants";
 
 /* Styles */
 import styles from "./Trends.module.scss";
@@ -29,29 +30,6 @@ import {
   getWidthPctShare,
   getWidthHundredK,
 } from "./helpers";
-
-// temp
-export const raceNameToCodeMap: Record<string, string> = {
-  // race and ethnicity NH
-  "Native Hawaiian and Pacific Islander (NH)": "NHPI (NH)",
-  "Hispanic or Latino": "Hisp/Lat",
-  All: "All",
-  "American Indian and Alaska Native (NH)": "AI/AN (NH)",
-  "Black or African American (NH)": "Black (NH)",
-  "Two or more races & Unrepresented race (NH)": "2/Unr (NH)",
-  "White (NH)": "White (NH)",
-  "Asian (NH)": "Asian (NH)",
-  //  race and ethnicity CAWP
-  "All Women": "All",
-  "Asian American & Pacific Islander Women": "AAPI",
-  "Middle Eastern & North African Women": "MENA",
-  "Native American, Alaska Native, & Native Hawaiian Women": "AI/AN/NH",
-  "American Indian, Alaska Native, Asian & Pacific Islander Women": "AIAN_API",
-  "Latinas and Hispanic Women": "Hisp/Lat",
-  "Women of an Unrepresented Race": "Unrepr.",
-  "Black or African American Women": "Black",
-  "White Women": "White",
-};
 
 /* Define type interface */
 export interface TrendsTooltipProps {

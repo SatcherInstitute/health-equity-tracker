@@ -259,6 +259,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_pretty_site_name: "cawpdata.rutgers.edu",
     data_source_link: "https://cawpdata.rutgers.edu/",
     geographic_level: "National, State",
+    time_period_range: "1915 - Current",
     demographic_granularity: "Race/ethnicity",
     update_frequency: "Monthly",
     description:
@@ -266,21 +267,22 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     dataset_ids: [
       "cawp_data-race_and_ethnicity_national",
       "cawp_data-race_and_ethnicity_state",
+      "cawp_time_data-race_and_ethnicity_national_time_series",
+      "cawp_time_data-race_and_ethnicity_state_time_series",
     ],
     downloadable: true,
   },
   {
-    id: "propublica_congress",
-    data_source_name: "ProPublica Congress API",
-    data_source_pretty_site_name: "propublica.org",
-    data_source_link:
-      "https://www.propublica.org/datastore/api/propublica-congress-api",
+    id: "the_unitedstates_project",
+    data_source_name: "The @unitedstates Project",
+    data_source_pretty_site_name: "theunitedstates.io",
+    data_source_link: "https://github.com/unitedstates/congress-legislators",
     geographic_level: "National, State",
     demographic_granularity: "N/A",
-    update_frequency: "At Least Daily",
+    update_frequency: "At least monthly",
     description:
-      "Total members of the United States Congress (Senate and House of Representatives including delegates) both nationally and by state/territory.",
-    dataset_ids: ["propublica_congress"],
+      "Total members of the United States Congress (Senate and House of Representatives including Delegates) both nationally and by state/territory. This dataset is viewable and downloadable in the CAWP datasets.",
+    dataset_ids: ["the_unitedstates_project"],
     downloadable: false,
   },
   {

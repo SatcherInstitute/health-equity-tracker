@@ -59,6 +59,7 @@ export interface TrendsChartProps {
   isCompareCard: boolean;
   expanded: boolean;
   setExpanded: (expanded: boolean) => void;
+  hasUnknowns: boolean;
 }
 
 /* Render component */
@@ -72,6 +73,7 @@ export function TrendsChart({
   isCompareCard,
   expanded,
   setExpanded,
+  hasUnknowns,
 }: TrendsChartProps) {
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
@@ -86,14 +88,14 @@ export function TrendsChart({
   const toolTipRef = useRef(null);
 
   /* State Management */
+  const allPossibleGroups = data.map(([group]) => group);
+  const isInequityWithManyGroups =
+    axisConfig.type === "pct_relative_inequity" && allPossibleGroups.length > 4;
 
   // Manages which group filters user has applied
-  const defaultGroups =
-    axisConfig.type === "pct_relative_inequity" ? getMinMaxGroups(data) : [];
+  const defaultGroups = isInequityWithManyGroups ? getMinMaxGroups(data) : [];
   const [selectedTrendGroups, setSelectedTrendGroups] =
     useState<DemographicGroup[]>(defaultGroups);
-
-  const allPossibleGroups = data.map(([group]) => group);
 
   // manages dynamic svg width
   const [[width, isMobile], setWidth] = useState<[number, boolean]>([
@@ -149,8 +151,8 @@ export function TrendsChart({
 
   // Display unknowns or not - affects margin below line chart
   const showUnknowns = useMemo(
-    () => expanded && unknown && unknown.find(([, percent]) => percent > 0),
-    [unknown, expanded]
+    () => expanded && hasUnknowns,
+    [hasUnknowns, expanded]
   );
 
   // Margin below line chart - create space for unknown circles
@@ -194,6 +196,7 @@ export function TrendsChart({
     marginLeft,
     (width as number) - marginRight,
   ]);
+  axisConfig.xAxisMaxTicks = dates.length < 12 ? dates.length + 1 : null; // d3 was adding duplicate time period ticks to sets with very few time periods
 
   // Y-Scale
   const yScale = scaleLinear(yExtent as [number, number], [

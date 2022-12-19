@@ -3,7 +3,7 @@ import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { MetricId, VariableConfig } from "../data/config/MetricConfig";
 import { exclude, onlyInclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
@@ -30,10 +30,7 @@ import {
   COMBINED_QUALIFIER,
   PRIVATE_JAILS_QUALIFIER,
 } from "../data/variables/IncarcerationProvider";
-import {
-  CAWP_DETERMINANTS,
-  getWomenRaceLabel,
-} from "../data/variables/CawpProvider";
+import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 import { useAutoFocusDialog } from "../utils/hooks/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
@@ -84,6 +81,9 @@ function MapCardWithKey(props: MapCardProps) {
   const isJail = props.variableConfig.variableId === "jail";
   const isIncarceration = isJail || isPrison;
 
+  const isCawpCongress =
+    props.variableConfig.variableId === "women_us_congress";
+
   const location = useLocation();
 
   const signalListeners: any = {
@@ -103,9 +103,19 @@ function MapCardWithKey(props: MapCardProps) {
   const [smallMultiplesDialogOpen, setSmallMultiplesDialogOpen] =
     useAutoFocusDialog();
 
-  const metricQuery = (geographyBreakdown: Breakdowns) =>
-    new MetricQuery(
-      metricConfig.metricId,
+  const metricQuery = (
+    geographyBreakdown: Breakdowns,
+    addCountCols?: boolean
+  ) => {
+    const metricIds: MetricId[] = [metricConfig.metricId];
+    if (addCountCols)
+      metricIds.push(
+        "women_this_race_us_congress_count",
+        "total_us_congress_count"
+      );
+
+    return new MetricQuery(
+      metricIds,
       geographyBreakdown
         .copy()
         .addBreakdown(
@@ -114,11 +124,16 @@ function MapCardWithKey(props: MapCardProps) {
             ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
             : exclude(UNKNOWN)
         ),
-      /* variableId */ props.variableConfig.variableId
+      /* variableId */ props.variableConfig.variableId,
+      /* timeView */ isCawpCongress ? "cross_sectional" : undefined
     );
+  };
 
   const queries = [
-    metricQuery(Breakdowns.forChildrenFips(props.fips)),
+    metricQuery(
+      Breakdowns.forChildrenFips(props.fips),
+      /* addCountCols */ isCawpCongress
+    ),
     metricQuery(Breakdowns.forFips(props.fips)),
   ];
 
@@ -134,12 +149,13 @@ function MapCardWithKey(props: MapCardProps) {
     queries.push(sviQuery);
   }
 
-  const selectedRaceSuffix = CAWP_DETERMINANTS.includes(metricConfig.metricId)
-    ? ` Identifying as ${getWomenRaceLabel(activeBreakdownFilter).replace(
-        "All ",
-        ""
-      )}`
-    : "";
+  let selectedRaceSuffix = "";
+  if (
+    CAWP_DETERMINANTS.includes(metricConfig.metricId) &&
+    activeBreakdownFilter !== "All"
+  ) {
+    selectedRaceSuffix = ` and also identifying as ${activeBreakdownFilter}`;
+  }
 
   let qualifierMessage = "";
   if (isPrison) qualifierMessage = COMBINED_QUALIFIER;

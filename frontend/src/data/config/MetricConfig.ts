@@ -165,10 +165,14 @@ export type MetricId =
   | "women_state_leg_pct_share"
   | "women_state_leg_ratio_age_adjusted"
   | "women_state_leg_pct_relative_inequity"
-  | "women_us_congress_pct"
-  | "women_us_congress_pct_share"
+  | "pct_share_of_us_congress"
+  | "pct_share_of_women_us_congress"
   | "women_us_congress_ratio_age_adjusted"
   | "women_us_congress_pct_relative_inequity"
+  | "women_this_race_us_congress_names"
+  | "total_us_congress_names"
+  | "women_this_race_us_congress_count"
+  | "total_us_congress_count"
   | "prison_pct_share"
   | "prison_per_100k"
   | "prison_ratio_age_adjusted"
@@ -201,6 +205,7 @@ export type MetricConfig = {
   type: MetricType;
   populationComparisonMetric?: MetricConfig;
   ageAdjusted?: boolean;
+  isMonthly?: boolean;
 
   // This metric is one where the denominator only includes records where
   // demographics are known. For example, for "share of covid cases" in the US
@@ -388,6 +393,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "covid_cases_pct_relative_inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
+          isMonthly: true,
         },
         per100k: {
           metricId: "covid_cases_per_100k",
@@ -396,6 +402,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           columnTitleHeader: "Rates of COVID-19 cases",
           shortLabel: "cases per 100k",
           type: "per100k",
+          isMonthly: true,
         },
         age_adjusted_ratio: {
           chartTitleLines: [
@@ -439,6 +446,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "covid_deaths_pct_relative_inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
+          isMonthly: true,
         },
         per100k: {
           metricId: "covid_deaths_per_100k",
@@ -450,6 +458,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           trendsCardTitleName: "Monthly COVID-19 deaths per 100k people",
           shortLabel: "deaths per 100k",
           type: "per100k",
+          isMonthly: true,
         },
         age_adjusted_ratio: {
           metricId: "death_ratio_age_adjusted",
@@ -497,6 +506,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: "covid_hosp_pct_relative_inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
+          isMonthly: true,
         },
         per100k: {
           metricId: "covid_hosp_per_100k",
@@ -509,6 +519,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             "Monthly COVID-19 hospitalizations per 100k people",
           shortLabel: "hospitalizations per 100k",
           type: "per100k",
+          isMonthly: true,
         },
         age_adjusted_ratio: {
           metricId: "hosp_ratio_age_adjusted",
@@ -1527,19 +1538,24 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Women in US Congress",
       variableFullDisplayName: "Women in US Congress",
       surveyCollectedData: true,
-      variableDefinition: `Individuals identifying as women who are currently serving in the Congress of the United States, including members of the U.S. Senate and members, territorial delegates, and resident commissioners of the U.S. House of Representatives. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
+      timeSeriesData: true,
+      variableDefinition: `Individuals identifying as women who have served in the Congress of the United States, including members of the U.S. Senate and members, territorial delegates, and resident commissioners of the U.S. House of Representatives. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
       metrics: {
         per100k: {
-          metricId: "women_us_congress_pct",
-          trendsCardTitleName: "Rates of women in U.S. Congress over time",
-          columnTitleHeader: "Percentage of women US Congress members",
-          chartTitleLines: ["Percentage of women US", "Congress members"],
-          shortLabel: "% women in US congress",
-          type: "pct_incidence",
+          metricId: "pct_share_of_us_congress",
+          trendsCardTitleName:
+            "Yearly rates of US Congress members identifying as women",
+          columnTitleHeader: "Share of Congress for women of each race",
+          chartTitleLines: [
+            "Current year rates of US Congress",
+            "members identifying as women",
+          ],
+          shortLabel: "% women in Congress",
+          type: "pct_share",
         },
         pct_share: {
           chartTitleLines: ["Percent share of women US Congress members"],
-          metricId: "women_us_congress_pct_share",
+          metricId: "pct_share_of_women_us_congress",
           trendsCardTitleName:
             "Inequitable share of women in U.S. Congress over time",
           columnTitleHeader: "Percent share of women US Congress members",
@@ -1555,17 +1571,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             shortLabel: `${populationPctShortLabel} (all genders)`,
             type: "pct_share",
           },
-          knownBreakdownComparisonMetric: {
-            chartTitleLines: [],
-            metricId: "women_us_congress_pct_share",
-            columnTitleHeader: "Percent share of women US Congress members",
-            shortLabel: "% of women members",
-            type: "pct_share",
-          },
         },
         pct_relative_inequity: {
           chartTitleLines: [
-            "historical data for inequitable representation of women in US Congress",
+            "Relative racial inequity of women",
+            "in US Congress over time",
           ],
           metricId: "women_us_congress_pct_relative_inequity",
           shortLabel: "% relative inequity",
@@ -1591,10 +1601,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "women_state_leg_pct",
-          chartTitleLines: ["Percentage of women in state", "legislators"], // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER, HI/LOW DROPDOWN FOOTNOTE
+          chartTitleLines: [
+            "Percentage of state legislators",
+            "identifying as women",
+          ], // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER, HI/LOW DROPDOWN FOOTNOTE
           trendsCardTitleName: "Rates of women in state legislatures over time",
           columnTitleHeader: "Percentage of women state legislators",
-          shortLabel: "% of state legislators identifying as women", // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
+          shortLabel: "% of legislators", // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
           type: "pct_incidence",
         },
         pct_share: {
@@ -1604,6 +1617,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             "Inequitable share of women in state legislatures over time",
           columnTitleHeader: "Percent share of women state legislators",
           shortLabel: "% of women legislators", // DISPARITY BAR LEGEND
+          unknownsVegaLabel: "% unknown race",
           type: "pct_share",
           populationComparisonMetric: {
             chartTitleLines: [
