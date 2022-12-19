@@ -178,14 +178,15 @@ export function getLatestDate(df: IDataFrame): Date {
 }
 
 /* 
-Returns the lowest `listSize` & highest `listSize` values, unless there are ties in which case the only the tied highest or lowest values are returned. If there is overlap, it is removed from the highest values.
+Returns the lowest `listSize` & highest `listSize` values, unless there are ties for first and/or last in which case the only the tied values are returned. If there is overlap, it is removed from the highest values.
 */
 export function getExtremeValues(
   data: Row[],
   fieldName: MetricId,
   listSize: number
 ) {
-  if (data.length === 0) return [[], []];
+  if (data.length === 0) return { lowestValues: [], highestValues: [] };
+
   listSize = listSize > data.length ? data.length : listSize;
 
   // cleanup and sort the data
@@ -198,10 +199,11 @@ export function getExtremeValues(
     (row) => row[fieldName] === lowestValue
   );
 
-  const lowestValues =
-    valuesTiedAtLowest.length > 1
-      ? valuesTiedAtLowest
-      : sortedData.slice(0, listSize);
+  const lowestValuesAreTied = valuesTiedAtLowest.length > 1;
+
+  const lowestValues = lowestValuesAreTied
+    ? valuesTiedAtLowest
+    : sortedData.slice(0, listSize);
 
   sortedData = sortedData.reverse();
 
@@ -209,16 +211,16 @@ export function getExtremeValues(
   const valuesTiedAtHighest = sortedData.filter(
     (row) => row[fieldName] === highestValue
   );
-  const highestValues: Row[] =
-    valuesTiedAtHighest.length > 1
-      ? valuesTiedAtHighest
-      : sortedData.slice(0, listSize);
+  const highestValuesAreTied = valuesTiedAtHighest.length > 1;
+  const highestValuesPotentialOverlap: Row[] = highestValuesAreTied
+    ? valuesTiedAtHighest
+    : sortedData.slice(0, listSize);
 
-  const highestValuesNoOverlap = highestValues.filter(
+  const highestValues = highestValuesPotentialOverlap.filter(
     (value) => !lowestValues.includes(value)
   );
 
-  return [lowestValues, highestValuesNoOverlap];
+  return { lowestValues, highestValues };
 }
 
 /*
