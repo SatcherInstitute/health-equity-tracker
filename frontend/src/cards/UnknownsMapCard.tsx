@@ -41,7 +41,7 @@ export interface UnknownsMapCardProps {
   // Updates the madlib
   updateFipsCallback: (fips: Fips) => void;
   // replaces race AND ethnicity with race OR ethnicity on unknowns map title and alerts
-  overrideAndWithOr?: Boolean;
+  overrideAndWithOr?: boolean;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
