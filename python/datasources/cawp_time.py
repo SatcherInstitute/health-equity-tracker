@@ -103,6 +103,9 @@ def get_stleg_url(id: str):
             id + "/field_table/und/0")
 
 
+# for HET we will sum "Multiracial Alone" with multiple specific races
+CAWP_MULTI = "Multiracial Alone"
+
 # CAWP labels
 CAWP_RACE_GROUPS_TO_STANDARD = {
     'Asian American/Pacific Islander': Race.ASIAN_PAC.value,
@@ -113,11 +116,12 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
     'White': Race.WHITE.value,
     # no women identified as the labels below at the US CONGRESS level in any year
     # at State Leg. level there were - Multi alone: 2, Other: 1, Unavailable: 4441
-    # TODO: combine "Multiracial Alone" with "Other" when adding STATE LEGISLATURES
-    # 'Other': Race.OTHER_NONSTANDARD.value
-    'Multiracial Alone': Race.OTHER_NONSTANDARD.value,
+    'Other': Race.OTHER_STANDARD.value,
+    # TODO: combine multiple specified races with "Multiracial Alone"
+    CAWP_MULTI: Race.MULTI.value,
     'Unavailable': Race.UNKNOWN.value,
 }
+
 
 AIAN_API_RACES = ['Asian American/Pacific Islander',
                   'Native American/Alaska Native/Native Hawaiian']
@@ -239,11 +243,7 @@ class CAWPTimeData(DataSource):
             women_us_congress_df, women_state_leg_df,
             list(CAWP_RACE_GROUPS_TO_STANDARD.keys()))
 
-        # print("#####")
-        # print(df_by_races_rows.columns)
-        # print(df_by_races_rows)
-
-        # append combo race group ROWS
+        # append ROWS for combo race AIAN_API
         df_by_races_rows = add_aian_api_rows(df_by_races_rows)
 
         # combine ROWS together from ALLS ROWS and BY RACES rows
@@ -463,8 +463,6 @@ def merge_total_cols(scaffold_df, us_congress_df, state_leg_df):
     # fill counts with 0 where no info available
     df[std_col.STLEG_COUNT] = df[std_col.STLEG_COUNT].fillna(
         0).astype(float)
-    # df[std_col.W_ALL_RACES_STLEG_COUNT] = df[std_col.W_ALL_RACES_STLEG_COUNT].fillna(
-    #     0).astype(float)
     return df
 
 
@@ -520,6 +518,10 @@ def get_women_dfs():
         df_gov_level = df_gov_level.drop(
             columns=[FIRST_NAME, LAST_NAME, POSITION])
 
+        # print("***")
+        # print(df_gov_level.to_string())
+        # print("end***")
+
         women_dfs.append(df_gov_level)
 
     return women_dfs
@@ -551,6 +553,9 @@ def merge_women_cols(scaffold_df, women_df, gov_level: str, preserve_races: bool
     needed_cols.append(NAME)
 
     if preserve_races:
+
+        df = handle_multiple_specific_races(df)
+
         needed_cols.append(RACE_ETH)
         groupby_cols.append(RACE_ETH)
 
@@ -874,4 +879,30 @@ def build_base_rows_df(us_congress_totals_df,
     # print(df.columns)
     # print(df)
 
+    return df
+
+
+def handle_multiple_specific_races(df):
+    """
+     Parameters:
+         df which includes rows per women legislator, with a RACE_ETH column
+            containing a string of either: a single CAWP race or multiple
+            CAWP races separated by commas
+
+     Returns:
+         df with original the comma-containing "multiple specific race" rows replaced by rows for
+             each of the original specific races, and also adding equivalent rows labeled as CAWP_MULTI
+      """
+    # convert comma separated names string into list, doesn't affect single race strings
+    df[RACE_ETH] = df[RACE_ETH].str.split(', ')
+
+    # temporarily encodes rows with multiple specific races as "multiracial alone"
+    # so they can be summed later with CAWP's incoming "multiracial alone" and ultimately
+    # sent to HET as a combined generalized MULTI race code
+    df_multiple_specific = df[df[RACE_ETH].map(len) > 1]
+    df_multiple_specific[RACE_ETH] = CAWP_MULTI
+    df = pd.concat([df, df_multiple_specific])
+
+    # create individual race rows from multiple specific rows
+    df = df.explode(RACE_ETH)
     return df
