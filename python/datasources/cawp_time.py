@@ -650,6 +650,9 @@ def get_state_leg_totals_df():
     df = df.sort_values(by=[std_col.TIME_PERIOD_COL,
                             std_col.STATE_FIPS_COL]).reset_index(drop=True)
 
+    # drop 1982 because it's only MA and screws up national numbers
+    df = df[df[std_col.TIME_PERIOD_COL] != "1982"]
+
     return df
 
 
