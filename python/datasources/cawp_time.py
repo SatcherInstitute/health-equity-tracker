@@ -15,7 +15,6 @@ from ingestion.dataset_utils import (generate_pct_rel_inequity_col,
                                      zero_out_pct_rel_inequity)
 from ingestion.standardized_columns import Race
 import pandas as pd
-import numpy as np
 
 FIPS_TO_STATE_TABLE_MAP = {
     "01": "128",
@@ -551,18 +550,7 @@ def merge_women_cols(scaffold_df, women_df, gov_level: str, preserve_races: bool
     needed_cols.append(NAME)
 
     if preserve_races:
-        df = handle_multiple_specific_races(df)
-
-        # create individual race rows from multiple specific rows
-        df = df.explode(RACE_ETH)
-
-        # temp. rename "Unrepr" to get counted as MULTI_OR_OTHER
-        df[RACE_ETH] = df[RACE_ETH].replace("Other", MULTI_OTHER_TMP)
-
-        # temp. rename "Multiracial Alone" to get counted as MULTI_OR_OTHER
-        df[RACE_ETH] = df[RACE_ETH].replace(
-            "Multiracial Alone", MULTI_OTHER_TMP)
-
+        df = handle_other_and_multi_races(df)
         needed_cols.append(RACE_ETH)
         groupby_cols.append(RACE_ETH)
 
@@ -884,7 +872,7 @@ def build_base_rows_df(us_congress_totals_df,
     return df
 
 
-def handle_multiple_specific_races(df):
+def handle_other_and_multi_races(df):
     """
      Parameters:
          df which includes rows per women legislator, with a RACE_ETH column
@@ -892,9 +880,10 @@ def handle_multiple_specific_races(df):
             CAWP races separated by commas
 
      Returns:
-         df with original the comma-containing "multiple specific race" rows have their
-         RACE_ETH value replaced by a list of specific CAWP races; equivalent rows
-         are added with race labeled as MULTI_OTHER_TMP
+         df where the original comma-containing "multiple specific race" rows have their
+         RACE_ETH value replaced by a list of specific CAWP races. Equivalent rows
+         are added with race labeled as MULTI_OTHER_TMP, and "Other" and "Multiracial Alone"
+         are renamed, allowing these 3 types of other/multi to be combined in the aggregation
       """
     # convert comma separated names string into list, doesn't affect single race strings
     df[RACE_ETH] = df[RACE_ETH].str.split(', ')
@@ -904,5 +893,15 @@ def handle_multiple_specific_races(df):
     df_multiple_specific = df[df[RACE_ETH].map(len) > 1]
     df_multiple_specific[RACE_ETH] = MULTI_OTHER_TMP
     df = pd.concat([df, df_multiple_specific])
+
+    # create individual race rows from multiple specific rows
+    df = df.explode(RACE_ETH)
+
+    # temp. rename "Unrepr" to get counted as MULTI_OR_OTHER
+    df[RACE_ETH] = df[RACE_ETH].replace("Other", MULTI_OTHER_TMP)
+
+    # temp. rename "Multiracial Alone" to get counted as MULTI_OR_OTHER
+    df[RACE_ETH] = df[RACE_ETH].replace(
+        "Multiracial Alone", MULTI_OTHER_TMP)
 
     return df
