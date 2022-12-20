@@ -70,6 +70,7 @@ class IncarcerationProvider extends VariableProvider {
     let source = "";
     let dataType_ = "";
     let detail = "";
+    let demoBreakdown = "";
 
     if (
       breakdowns.geography === "national" ||
@@ -85,9 +86,15 @@ class IncarcerationProvider extends VariableProvider {
       detail = "county";
     }
 
-    const baseId = `${source}_incarceration_${detail}-${dataType_}${
-      breakdowns.getSoleDemographicBreakdown().columnName
-    }_${breakdowns.geography}`;
+    if (breakdowns.hasOnlyRace()) {
+      demoBreakdown = "race_and_ethnicity";
+    } else if (breakdowns.hasOnlySex()) {
+      demoBreakdown = "sex";
+    } else if (breakdowns.hasOnlyAge()) {
+      demoBreakdown = "age";
+    }
+
+    const baseId = `${source}_incarceration_${detail}-${dataType_}${demoBreakdown}_${breakdowns.geography}`;
 
     return appendFipsIfNeeded(baseId, breakdowns);
   }
