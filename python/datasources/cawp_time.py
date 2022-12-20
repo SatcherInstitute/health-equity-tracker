@@ -1,10 +1,11 @@
 # import time
 from typing import List
-from ingestion.gcs_to_bq_util import load_csv_as_df_from_web
+from ingestion.gcs_to_bq_util import load_csv_as_df_from_web, load_csv_as_df_from_data_dir
 from datasources.data_source import DataSource
 from ingestion.constants import (
     NATIONAL_LEVEL, STATE_LEVEL,
     STATE_LEVEL_FIPS_LIST,
+    TERRITORY_FIPS_LIST,
     US_ABBR, US_FIPS, US_NAME,
     TERRITORY_POSTALS,
     RACE
@@ -29,13 +30,6 @@ FIPS_TO_STATE_TABLE_MAP = {
     "45": "691", "46": "697", "47": "703", "48": "710", "49": "716",
     "50": "722", "51": "233", "53": "739", "54": "740", "55": "746",
     "56": "752"
-    # need to find historical DC/Territory legislator totals
-    # "11": "",
-    # "60": "",
-    # "66": "",
-    # "69": "",
-    # "72": "",
-    # "78": ""
 }
 
 # time_periods for entire dataset
@@ -559,8 +553,15 @@ def get_state_leg_totals_df():
 
      """
 
-    state_dfs = []
+    territory_dfs = []
 
+    for fips in TERRITORY_FIPS_LIST:
+        filename = f'cawp_state_leg_{fips}.csv'
+        territory_df = load_csv_as_df_from_data_dir("cawp_time", filename)
+        print("FIPS", fips)
+        print(territory_df)
+
+    state_dfs = []
     for fips, id in FIPS_TO_STATE_TABLE_MAP.items():
         state_df = load_csv_as_df_from_web(get_stleg_url(id))
         state_df.columns = state_df.columns.str.replace(r'\W', '', regex=True)
