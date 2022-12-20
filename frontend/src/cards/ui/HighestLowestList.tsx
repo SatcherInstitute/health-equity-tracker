@@ -24,10 +24,8 @@ export interface HighestLowestListProps {
   listExpanded: boolean;
   // Expand or collapse the list
   setListExpanded: (listExpanded: boolean) => void;
-  // List of rows with highest rates
-  highestRatesList: Row[];
-  // List of rows with lowest rates
-  lowestRatesList: Row[];
+  highestValues: Row[];
+  lowestValues: Row[];
   // items in highest/lowest list that should receive qualifiers
   qualifierItems?: string[];
   // message to display under a list with qualifiers
@@ -79,58 +77,21 @@ export function HighestLowestList(props: HighestLowestListProps) {
         <>
           <div className={styles.ListBoxLists}>
             <Grid container justifyContent="space-around">
-              <Grid item xs={12} sm={6}>
-                <h4>{props.highestRatesList.length} Highest Rates</h4>
-                <ul>
-                  {props.highestRatesList.map((row) => {
-                    let placeName = row["fips_name"];
-                    if (props.qualifierItems?.includes(placeName)) {
-                      placeName += ` ${props.qualifierMessage}`;
-                    }
+              <ExtremeList
+                whichExtreme="Highest"
+                values={props.highestValues}
+                metricConfig={props.metricConfig}
+                qualifierMessage={props.qualifierMessage}
+                qualifierItems={props.qualifierItems}
+              />
 
-                    return (
-                      <li key={row["fips_name"]}>
-                        {placeName}:{" "}
-                        {formatFieldValue(
-                          props.metricConfig.type,
-                          row[props.metricConfig.metricId]
-                        )}{" "}
-                        <span className={styles.Unit}>
-                          {props.metricConfig.type === "per100k"
-                            ? "per 100k"
-                            : ""}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <h4>{props.lowestRatesList.length} Lowest Rates</h4>
-                <ul>
-                  {props.lowestRatesList.map((row) => {
-                    let placeName = row["fips_name"];
-                    if (props.qualifierItems?.includes(placeName)) {
-                      placeName += ` ${props.qualifierMessage}`;
-                    }
-
-                    return (
-                      <li key={row["fips_name"]}>
-                        {placeName}:{" "}
-                        {formatFieldValue(
-                          props.metricConfig.type,
-                          row[props.metricConfig.metricId]
-                        )}{" "}
-                        <span className={styles.Unit}>
-                          {props.metricConfig.type === "per100k"
-                            ? "per 100k"
-                            : ""}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </Grid>
+              <ExtremeList
+                whichExtreme="Lowest"
+                values={props.lowestValues}
+                metricConfig={props.metricConfig}
+                qualifierMessage={props.qualifierMessage}
+                qualifierItems={props.qualifierItems}
+              />
             </Grid>
           </div>
 
@@ -150,5 +111,76 @@ export function HighestLowestList(props: HighestLowestListProps) {
         </>
       )}
     </AnimateHeight>
+  );
+}
+
+export interface ExtremeListProps {
+  whichExtreme: "Highest" | "Lowest";
+  values: Row[];
+  metricConfig: MetricConfig;
+  qualifierItems?: string[];
+  qualifierMessage?: string;
+}
+
+function ExtremeList(props: ExtremeListProps) {
+  const { type: metricType, metricId } = props.metricConfig;
+
+  const extremeVal = props.values?.[0]?.[props.metricConfig.metricId];
+
+  const isTie = extremeVal === props.values?.[1]?.[props.metricConfig.metricId];
+
+  const tieDisplayValue = isTie
+    ? formatFieldValue(metricType, extremeVal)
+    : null;
+
+  return (
+    <Grid item xs={12} sm={6}>
+      <h4>
+        {tieDisplayValue
+          ? `${props.whichExtreme} (${tieDisplayValue}):`
+          : `${props.values.length} ${props.whichExtreme}:`}
+      </h4>
+
+      <ul className={styles.ExtremeList}>
+        {isTie ? (
+          <li>
+            <>
+              {props.values.map((row, i) => {
+                let placeName = row["fips_name"];
+                if (props.qualifierItems?.includes(placeName)) {
+                  placeName += ` ${props.qualifierMessage}`;
+                }
+
+                return (
+                  <span key={row["fips_name"]}>
+                    {placeName}
+                    {i < props.values.length - 1 ? ", " : ""}
+                  </span>
+                );
+              })}
+            </>
+          </li>
+        ) : (
+          <>
+            {!isTie &&
+              props.values.map((row) => {
+                let placeName = row["fips_name"];
+                if (props.qualifierItems?.includes(placeName)) {
+                  placeName += ` ${props.qualifierMessage}`;
+                }
+
+                return (
+                  <li key={row["fips_name"]}>
+                    {placeName}: {formatFieldValue(metricType, row[metricId])}{" "}
+                    <span className={styles.Unit}>
+                      {metricType === "per100k" ? "per 100k" : ""}
+                    </span>
+                  </li>
+                );
+              })}
+          </>
+        )}
+      </ul>
+    </Grid>
   );
 }

@@ -26,14 +26,14 @@ class VaccineProvider extends VariableProvider {
 
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.geography === "national") {
-      return (
-        "cdc_vaccination_national-" +
-        breakdowns.getSoleDemographicBreakdown().columnName
-      );
-    } else if (
-      breakdowns.geography === "state" &&
-      breakdowns.getSoleDemographicBreakdown().columnName === RACE
-    ) {
+      if (breakdowns.hasOnlyRace()) {
+        return "cdc_vaccination_national-race_and_ethnicity";
+      } else if (breakdowns.hasOnlySex()) {
+        return "cdc_vaccination_national-sex";
+      } else if (breakdowns.hasOnlyAge()) {
+        return "cdc_vaccination_national-age";
+      }
+    } else if (breakdowns.geography === "state" && breakdowns.hasOnlyRace()) {
       return "kff_vaccination-race_and_ethnicity";
     } else if (breakdowns.geography === "county") {
       return appendFipsIfNeeded(
@@ -41,8 +41,7 @@ class VaccineProvider extends VariableProvider {
         breakdowns
       );
     }
-
-    return "";
+    throw new Error("Not implemented");
   }
 
   async getDataInternal(

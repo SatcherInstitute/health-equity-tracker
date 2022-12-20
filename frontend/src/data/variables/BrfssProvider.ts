@@ -98,12 +98,24 @@ class BrfssProvider extends VariableProvider {
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    return (
-      "uhc_data-" +
-      breakdowns.getSoleDemographicBreakdown().columnName +
-      "_" +
-      breakdowns.geography
-    );
+    if (breakdowns.geography === "national") {
+      if (breakdowns.hasOnlyRace()) {
+        return "uhc_data-race_and_ethnicity_national";
+      } else if (breakdowns.hasOnlySex()) {
+        return "uhc_data-sex_national";
+      } else if (breakdowns.hasOnlyAge()) {
+        return "uhc_data-age_national";
+      }
+    } else if (breakdowns.geography === "state") {
+      if (breakdowns.hasOnlyRace()) {
+        return "uhc_data-race_and_ethnicity_state";
+      } else if (breakdowns.hasOnlySex()) {
+        return "uhc_data-sex_state";
+      } else if (breakdowns.hasOnlyAge()) {
+        return "uhc_data-age_state";
+      }
+    }
+    throw new Error("Not implemented");
   }
 
   async getDataInternal(
