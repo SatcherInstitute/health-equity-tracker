@@ -1,38 +1,53 @@
 import numpy as np
 import pandas as pd
+import ingestion.standardized_columns as std_col
 
 
 def check_pct_values(df):
-    cols = df.columns.to_series(
-    ).loc[df.columns.str.contains('share')].tolist()
-    print(cols)
-    testing = ['county_fips', 'sex']
-    new_cols = cols + testing
+    # determine cols needed for DF
+    std_cols, share_cols, dem_col = determine_needed_cols(df)
+    cols = std_cols + [dem_col] + share_cols
+    df = df[cols]
 
-    # Return DF with select columns
-    df_test = df[new_cols]
-    # Remove all rows with All demographic
-    df_test = df_test[df_test['sex'] != 'All']
-    # Group rows by county fips and sum the rows
-    df_test = df_test.groupby(['county_fips']).sum().reset_index()
-    print("/n")
-    print(df_test)
-    # Return the row that does not equal 100
-    # df_test = df_test.loc[(df_test['covid_cases_share']
-    #                        < 99.0) | (df_test['covid_cases_share'] > 101)]
+    # remove rows with 'All', 'Unknown', & 'Other as values
+    options = ['All', 'Unknown', 'Other']
+    df = df[-df[dem_col].isin(options)]
 
-    df_test = df_test.loc[([['covid_cases_share']]
-                           < 99.0) | ([['covid_cases_share']] > 101)]
-    # df_chain = df_test.loc[lambda df_test: cols < 99]
-    # print(df_chain)
+    # # group and sum rows
+    df = df.groupby(std_cols).sum().reset_index()
+    # # filter rows that do not equal 100
+    df = df.loc[(df[share_cols].values < 99.0) | (
+        df[share_cols].values > 101.0)].drop_duplicates()
 
-    # df_chain = df_test[cols].applymap(lambda x: x if x >= 100 else None)
-    # print(df_chain)
-
-    # Return False if percent share does not equal 100
-    if len(df_test) > 0:
-        print('These percent share values do not equal 100%')
-        print(df_test['county_fips'].to_list())
+    # return False if DF exists
+    if len(df) > 0:
+        print(
+            f'These counties percent share values do not equal 100%: {df[std_cols[0]].tolist()}')
         return False
 
     return True
+
+
+def determine_needed_cols(df):
+    share_cols = df.columns.to_series(
+    ).loc[df.columns.str.contains('share')].tolist()
+
+    # determine demographic column
+    if std_col.RACE_CATEGORY_ID_COL in df.columns:
+        dem_col = std_col.RACE_CATEGORY_ID_COL
+    elif std_col.SEX_COL in df.columns:
+        dem_col = std_col.SEX_COL
+    elif std_col.AGE_COL in df.columns:
+        dem_col = std_col.AGE_COL
+
+    # determine geo column
+    if std_col.COUNTY_FIPS_COL in df.columns:
+        std_cols = [std_col.COUNTY_FIPS_COL]
+    else:
+        std_cols = [std_col.STATE_FIPS_COL]
+
+    # determine if standard columns
+    if std_col.TIME_PERIOD_COL in df.columns:
+        std_cols = std_cols + [std_col.TIME_PERIOD_COL]
+
+    return std_cols, share_cols, dem_col
