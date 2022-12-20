@@ -1,99 +1,99 @@
-state_fips,time_period,state_name,state_postal,race_ethnicity,total_us_congress_count,women_all_races_us_congress_count,women_this_race_us_congress_count
-02,2018,Alaska,AK,ALL,3.0,0.0,0.0
-02,2018,Alaska,AK,Asian American/Pacific Islander,3.0,0.0,0.0
-02,2018,Alaska,AK,Black,3.0,0.0,0.0
-02,2018,Alaska,AK,Latina,3.0,0.0,0.0
-02,2018,Alaska,AK,Middle Eastern/North African,3.0,0.0,0.0
-02,2018,Alaska,AK,Multiracial Alone,3.0,0.0,0.0
-02,2018,Alaska,AK,Native American/Alaska Native/Native Hawaiian,3.0,0.0,0.0
-02,2018,Alaska,AK,Unavailable,3.0,0.0,0.0
-02,2018,Alaska,AK,White,3.0,0.0,0.0
-60,2018,American Samoa,AS,ALL,1.0,0.0,0.0
-60,2018,American Samoa,AS,Asian American/Pacific Islander,1.0,0.0,0.0
-60,2018,American Samoa,AS,Black,1.0,0.0,0.0
-60,2018,American Samoa,AS,Latina,1.0,0.0,0.0
-60,2018,American Samoa,AS,Middle Eastern/North African,1.0,0.0,0.0
-60,2018,American Samoa,AS,Multiracial Alone,1.0,0.0,0.0
-60,2018,American Samoa,AS,Native American/Alaska Native/Native Hawaiian,1.0,0.0,0.0
-60,2018,American Samoa,AS,Unavailable,1.0,0.0,0.0
-60,2018,American Samoa,AS,White,1.0,0.0,0.0
-02,2019,Alaska,AK,AIAN_API,3.0,1.0,0.0
-02,2019,Alaska,AK,ALL,3.0,1.0,1.0
-02,2019,Alaska,AK,Asian American/Pacific Islander,3.0,1.0,0.0
-02,2019,Alaska,AK,Black,3.0,1.0,0.0
-02,2019,Alaska,AK,Latina,3.0,1.0,0.0
-02,2019,Alaska,AK,Middle Eastern/North African,3.0,1.0,0.0
-02,2019,Alaska,AK,Multiracial Alone,3.0,1.0,0.0
-02,2019,Alaska,AK,Native American/Alaska Native/Native Hawaiian,3.0,1.0,0.0
-02,2019,Alaska,AK,Unavailable,3.0,1.0,0.0
-02,2019,Alaska,AK,White,3.0,1.0,1.0
-60,2019,American Samoa,AS,AIAN_API,1.0,1.0,1.0
-60,2019,American Samoa,AS,ALL,1.0,1.0,1.0
-60,2019,American Samoa,AS,Asian American/Pacific Islander,1.0,1.0,1.0
-60,2019,American Samoa,AS,Black,1.0,1.0,0.0
-60,2019,American Samoa,AS,Latina,1.0,1.0,0.0
-60,2019,American Samoa,AS,Middle Eastern/North African,1.0,1.0,0.0
-60,2019,American Samoa,AS,Multiracial Alone,1.0,1.0,0.0
-60,2019,American Samoa,AS,Native American/Alaska Native/Native Hawaiian,1.0,1.0,0.0
-60,2019,American Samoa,AS,Unavailable,1.0,1.0,0.0
-60,2019,American Samoa,AS,White,1.0,1.0,0.0
-02,2020,Alaska,AK,AIAN_API,3.0,1.0,0.0
-02,2020,Alaska,AK,ALL,3.0,1.0,1.0
-02,2020,Alaska,AK,Asian American/Pacific Islander,3.0,1.0,0.0
-02,2020,Alaska,AK,Black,3.0,1.0,0.0
-02,2020,Alaska,AK,Latina,3.0,1.0,0.0
-02,2020,Alaska,AK,Middle Eastern/North African,3.0,1.0,0.0
-02,2020,Alaska,AK,Multiracial Alone,3.0,1.0,0.0
-02,2020,Alaska,AK,Native American/Alaska Native/Native Hawaiian,3.0,1.0,0.0
-02,2020,Alaska,AK,Unavailable,3.0,1.0,0.0
-02,2020,Alaska,AK,White,3.0,1.0,1.0
-60,2020,American Samoa,AS,AIAN_API,1.0,1.0,1.0
-60,2020,American Samoa,AS,ALL,1.0,1.0,1.0
-60,2020,American Samoa,AS,Asian American/Pacific Islander,1.0,1.0,1.0
-60,2020,American Samoa,AS,Black,1.0,1.0,0.0
-60,2020,American Samoa,AS,Latina,1.0,1.0,0.0
-60,2020,American Samoa,AS,Middle Eastern/North African,1.0,1.0,0.0
-60,2020,American Samoa,AS,Multiracial Alone,1.0,1.0,0.0
-60,2020,American Samoa,AS,Native American/Alaska Native/Native Hawaiian,1.0,1.0,0.0
-60,2020,American Samoa,AS,Unavailable,1.0,1.0,0.0
-60,2020,American Samoa,AS,White,1.0,1.0,0.0
-02,2021,Alaska,AK,AIAN_API,3.0,1.0,0.0
-02,2021,Alaska,AK,ALL,3.0,1.0,1.0
-02,2021,Alaska,AK,Asian American/Pacific Islander,3.0,1.0,0.0
-02,2021,Alaska,AK,Black,3.0,1.0,0.0
-02,2021,Alaska,AK,Latina,3.0,1.0,0.0
-02,2021,Alaska,AK,Middle Eastern/North African,3.0,1.0,0.0
-02,2021,Alaska,AK,Multiracial Alone,3.0,1.0,0.0
-02,2021,Alaska,AK,Native American/Alaska Native/Native Hawaiian,3.0,1.0,0.0
-02,2021,Alaska,AK,Unavailable,3.0,1.0,0.0
-02,2021,Alaska,AK,White,3.0,1.0,1.0
-60,2021,American Samoa,AS,AIAN_API,1.0,1.0,1.0
-60,2021,American Samoa,AS,ALL,1.0,1.0,1.0
-60,2021,American Samoa,AS,Asian American/Pacific Islander,1.0,1.0,1.0
-60,2021,American Samoa,AS,Black,1.0,1.0,0.0
-60,2021,American Samoa,AS,Latina,1.0,1.0,0.0
-60,2021,American Samoa,AS,Middle Eastern/North African,1.0,1.0,0.0
-60,2021,American Samoa,AS,Multiracial Alone,1.0,1.0,0.0
-60,2021,American Samoa,AS,Native American/Alaska Native/Native Hawaiian,1.0,1.0,0.0
-60,2021,American Samoa,AS,Unavailable,1.0,1.0,0.0
-60,2021,American Samoa,AS,White,1.0,1.0,0.0
-02,2022,Alaska,AK,AIAN_API,4.0,1.0,0.0
-02,2022,Alaska,AK,ALL,4.0,1.0,1.0
-02,2022,Alaska,AK,Asian American/Pacific Islander,4.0,1.0,0.0
-02,2022,Alaska,AK,Black,4.0,1.0,0.0
-02,2022,Alaska,AK,Latina,4.0,1.0,0.0
-02,2022,Alaska,AK,Middle Eastern/North African,4.0,1.0,0.0
-02,2022,Alaska,AK,Multiracial Alone,4.0,1.0,0.0
-02,2022,Alaska,AK,Native American/Alaska Native/Native Hawaiian,4.0,1.0,0.0
-02,2022,Alaska,AK,Unavailable,4.0,1.0,0.0
-02,2022,Alaska,AK,White,4.0,1.0,1.0
-60,2022,American Samoa,AS,AIAN_API,1.0,1.0,1.0
-60,2022,American Samoa,AS,ALL,1.0,1.0,1.0
-60,2022,American Samoa,AS,Asian American/Pacific Islander,1.0,1.0,1.0
-60,2022,American Samoa,AS,Black,1.0,1.0,0.0
-60,2022,American Samoa,AS,Latina,1.0,1.0,0.0
-60,2022,American Samoa,AS,Middle Eastern/North African,1.0,1.0,0.0
-60,2022,American Samoa,AS,Multiracial Alone,1.0,1.0,0.0
-60,2022,American Samoa,AS,Native American/Alaska Native/Native Hawaiian,1.0,1.0,0.0
-60,2022,American Samoa,AS,Unavailable,1.0,1.0,0.0
-60,2022,American Samoa,AS,White,1.0,1.0,0.0
+state_fips,time_period,state_name,state_postal,race_ethnicity,total_us_congress_count,total_state_leg_count,women_all_races_us_congress_count,women_this_race_us_congress_count,women_all_races_state_leg_count,women_this_race_state_leg_count
+02,2018,Alaska,AK,ALL,3.0,60.0,1.0,1.0,19.0,19.0
+02,2018,Alaska,AK,Asian American/Pacific Islander,3.0,60.0,1.0,0.0,19.0,0.0
+02,2018,Alaska,AK,Black,3.0,60.0,1.0,0.0,19.0,0.0
+02,2018,Alaska,AK,Latina,3.0,60.0,1.0,0.0,19.0,0.0
+02,2018,Alaska,AK,Middle Eastern/North African,3.0,60.0,1.0,0.0,19.0,0.0
+02,2018,Alaska,AK,Native American/Alaska Native/Native Hawaiian,3.0,60.0,1.0,0.0,19.0,2.0
+02,2018,Alaska,AK,Unavailable,3.0,60.0,1.0,0.0,19.0,0.0
+02,2018,Alaska,AK,White,3.0,60.0,1.0,1.0,19.0,17.0
+02,2018,Alaska,AK,"tmp: combine multiple specificCAWP multiracial alone, and CAWP other",3.0,60.0,1.0,0.0,19.0,0.0
+60,2018,American Samoa,AS,ALL,1.0,0.0,1.0,1.0,3.0,3.0
+60,2018,American Samoa,AS,Asian American/Pacific Islander,1.0,0.0,1.0,1.0,3.0,3.0
+60,2018,American Samoa,AS,Black,1.0,0.0,1.0,0.0,3.0,0.0
+60,2018,American Samoa,AS,Latina,1.0,0.0,1.0,0.0,3.0,0.0
+60,2018,American Samoa,AS,Middle Eastern/North African,1.0,0.0,1.0,0.0,3.0,0.0
+60,2018,American Samoa,AS,Native American/Alaska Native/Native Hawaiian,1.0,0.0,1.0,0.0,3.0,0.0
+60,2018,American Samoa,AS,Unavailable,1.0,0.0,1.0,0.0,3.0,0.0
+60,2018,American Samoa,AS,White,1.0,0.0,1.0,0.0,3.0,0.0
+60,2018,American Samoa,AS,"tmp: combine multiple specificCAWP multiracial alone, and CAWP other",1.0,0.0,1.0,0.0,3.0,0.0
+02,2019,Alaska,AK,AIAN_API,3.0,60.0,1.0,0.0,23.0,1.0
+02,2019,Alaska,AK,ALL,3.0,60.0,1.0,1.0,23.0,23.0
+02,2019,Alaska,AK,Asian American/Pacific Islander,3.0,60.0,1.0,0.0,23.0,0.0
+02,2019,Alaska,AK,Black,3.0,60.0,1.0,0.0,23.0,2.0
+02,2019,Alaska,AK,Latina,3.0,60.0,1.0,0.0,23.0,0.0
+02,2019,Alaska,AK,Middle Eastern/North African,3.0,60.0,1.0,0.0,23.0,0.0
+02,2019,Alaska,AK,Native American/Alaska Native/Native Hawaiian,3.0,60.0,1.0,0.0,23.0,1.0
+02,2019,Alaska,AK,Unavailable,3.0,60.0,1.0,0.0,23.0,0.0
+02,2019,Alaska,AK,White,3.0,60.0,1.0,1.0,23.0,20.0
+02,2019,Alaska,AK,"tmp: combine multiple specificCAWP multiracial alone, and CAWP other",3.0,60.0,1.0,0.0,23.0,0.0
+60,2019,American Samoa,AS,AIAN_API,1.0,0.0,1.0,1.0,2.0,1.0
+60,2019,American Samoa,AS,ALL,1.0,0.0,1.0,1.0,2.0,2.0
+60,2019,American Samoa,AS,Asian American/Pacific Islander,1.0,0.0,1.0,1.0,2.0,1.0
+60,2019,American Samoa,AS,Black,1.0,0.0,1.0,0.0,2.0,0.0
+60,2019,American Samoa,AS,Latina,1.0,0.0,1.0,0.0,2.0,0.0
+60,2019,American Samoa,AS,Middle Eastern/North African,1.0,0.0,1.0,0.0,2.0,0.0
+60,2019,American Samoa,AS,Native American/Alaska Native/Native Hawaiian,1.0,0.0,1.0,0.0,2.0,0.0
+60,2019,American Samoa,AS,Unavailable,1.0,0.0,1.0,0.0,2.0,1.0
+60,2019,American Samoa,AS,White,1.0,0.0,1.0,0.0,2.0,0.0
+60,2019,American Samoa,AS,"tmp: combine multiple specificCAWP multiracial alone, and CAWP other",1.0,0.0,1.0,0.0,2.0,0.0
+02,2020,Alaska,AK,AIAN_API,3.0,60.0,1.0,0.0,23.0,1.0
+02,2020,Alaska,AK,ALL,3.0,60.0,1.0,1.0,23.0,23.0
+02,2020,Alaska,AK,Asian American/Pacific Islander,3.0,60.0,1.0,0.0,23.0,0.0
+02,2020,Alaska,AK,Black,3.0,60.0,1.0,0.0,23.0,2.0
+02,2020,Alaska,AK,Latina,3.0,60.0,1.0,0.0,23.0,0.0
+02,2020,Alaska,AK,Middle Eastern/North African,3.0,60.0,1.0,0.0,23.0,0.0
+02,2020,Alaska,AK,Native American/Alaska Native/Native Hawaiian,3.0,60.0,1.0,0.0,23.0,1.0
+02,2020,Alaska,AK,Unavailable,3.0,60.0,1.0,0.0,23.0,0.0
+02,2020,Alaska,AK,White,3.0,60.0,1.0,1.0,23.0,20.0
+02,2020,Alaska,AK,"tmp: combine multiple specificCAWP multiracial alone, and CAWP other",3.0,60.0,1.0,0.0,23.0,0.0
+60,2020,American Samoa,AS,AIAN_API,1.0,0.0,1.0,1.0,2.0,1.0
+60,2020,American Samoa,AS,ALL,1.0,0.0,1.0,1.0,2.0,2.0
+60,2020,American Samoa,AS,Asian American/Pacific Islander,1.0,0.0,1.0,1.0,2.0,1.0
+60,2020,American Samoa,AS,Black,1.0,0.0,1.0,0.0,2.0,0.0
+60,2020,American Samoa,AS,Latina,1.0,0.0,1.0,0.0,2.0,0.0
+60,2020,American Samoa,AS,Middle Eastern/North African,1.0,0.0,1.0,0.0,2.0,0.0
+60,2020,American Samoa,AS,Native American/Alaska Native/Native Hawaiian,1.0,0.0,1.0,0.0,2.0,0.0
+60,2020,American Samoa,AS,Unavailable,1.0,0.0,1.0,0.0,2.0,1.0
+60,2020,American Samoa,AS,White,1.0,0.0,1.0,0.0,2.0,0.0
+60,2020,American Samoa,AS,"tmp: combine multiple specificCAWP multiracial alone, and CAWP other",1.0,0.0,1.0,0.0,2.0,0.0
+02,2021,Alaska,AK,AIAN_API,3.0,60.0,1.0,0.0,18.0,1.0
+02,2021,Alaska,AK,ALL,3.0,60.0,1.0,1.0,18.0,18.0
+02,2021,Alaska,AK,Asian American/Pacific Islander,3.0,60.0,1.0,0.0,18.0,0.0
+02,2021,Alaska,AK,Black,3.0,60.0,1.0,0.0,18.0,1.0
+02,2021,Alaska,AK,Latina,3.0,60.0,1.0,0.0,18.0,0.0
+02,2021,Alaska,AK,Middle Eastern/North African,3.0,60.0,1.0,0.0,18.0,0.0
+02,2021,Alaska,AK,Native American/Alaska Native/Native Hawaiian,3.0,60.0,1.0,0.0,18.0,1.0
+02,2021,Alaska,AK,Unavailable,3.0,60.0,1.0,0.0,18.0,0.0
+02,2021,Alaska,AK,White,3.0,60.0,1.0,1.0,18.0,16.0
+02,2021,Alaska,AK,"tmp: combine multiple specificCAWP multiracial alone, and CAWP other",3.0,60.0,1.0,0.0,18.0,0.0
+60,2021,American Samoa,AS,AIAN_API,1.0,0.0,1.0,1.0,2.0,1.0
+60,2021,American Samoa,AS,ALL,1.0,0.0,1.0,1.0,2.0,2.0
+60,2021,American Samoa,AS,Asian American/Pacific Islander,1.0,0.0,1.0,1.0,2.0,1.0
+60,2021,American Samoa,AS,Black,1.0,0.0,1.0,0.0,2.0,0.0
+60,2021,American Samoa,AS,Latina,1.0,0.0,1.0,0.0,2.0,0.0
+60,2021,American Samoa,AS,Middle Eastern/North African,1.0,0.0,1.0,0.0,2.0,0.0
+60,2021,American Samoa,AS,Native American/Alaska Native/Native Hawaiian,1.0,0.0,1.0,0.0,2.0,0.0
+60,2021,American Samoa,AS,Unavailable,1.0,0.0,1.0,0.0,2.0,1.0
+60,2021,American Samoa,AS,White,1.0,0.0,1.0,0.0,2.0,0.0
+60,2021,American Samoa,AS,"tmp: combine multiple specificCAWP multiracial alone, and CAWP other",1.0,0.0,1.0,0.0,2.0,0.0
+02,2022,Alaska,AK,AIAN_API,4.0,60.0,2.0,1.0,18.0,1.0
+02,2022,Alaska,AK,ALL,4.0,60.0,2.0,2.0,18.0,18.0
+02,2022,Alaska,AK,Asian American/Pacific Islander,4.0,60.0,2.0,0.0,18.0,0.0
+02,2022,Alaska,AK,Black,4.0,60.0,2.0,0.0,18.0,1.0
+02,2022,Alaska,AK,Latina,4.0,60.0,2.0,0.0,18.0,0.0
+02,2022,Alaska,AK,Middle Eastern/North African,4.0,60.0,2.0,0.0,18.0,0.0
+02,2022,Alaska,AK,Native American/Alaska Native/Native Hawaiian,4.0,60.0,2.0,1.0,18.0,1.0
+02,2022,Alaska,AK,Unavailable,4.0,60.0,2.0,0.0,18.0,0.0
+02,2022,Alaska,AK,White,4.0,60.0,2.0,1.0,18.0,16.0
+02,2022,Alaska,AK,"tmp: combine multiple specificCAWP multiracial alone, and CAWP other",4.0,60.0,2.0,0.0,18.0,0.0
+60,2022,American Samoa,AS,AIAN_API,1.0,0.0,1.0,1.0,2.0,1.0
+60,2022,American Samoa,AS,ALL,1.0,0.0,1.0,1.0,2.0,2.0
+60,2022,American Samoa,AS,Asian American/Pacific Islander,1.0,0.0,1.0,1.0,2.0,1.0
+60,2022,American Samoa,AS,Black,1.0,0.0,1.0,0.0,2.0,0.0
+60,2022,American Samoa,AS,Latina,1.0,0.0,1.0,0.0,2.0,0.0
+60,2022,American Samoa,AS,Middle Eastern/North African,1.0,0.0,1.0,0.0,2.0,0.0
+60,2022,American Samoa,AS,Native American/Alaska Native/Native Hawaiian,1.0,0.0,1.0,0.0,2.0,0.0
+60,2022,American Samoa,AS,Unavailable,1.0,0.0,1.0,0.0,2.0,1.0
+60,2022,American Samoa,AS,White,1.0,0.0,1.0,0.0,2.0,0.0
+60,2022,American Samoa,AS,"tmp: combine multiple specificCAWP multiracial alone, and CAWP other",1.0,0.0,1.0,0.0,2.0,0.0

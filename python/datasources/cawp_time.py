@@ -183,12 +183,16 @@ class CAWPTimeData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         base_df = self.generate_base_df()
 
+        # base_df.to_csv('test_expected_base_df.csv', index=False)
+
         for geo_level in [
             STATE_LEVEL,
             NATIONAL_LEVEL
         ]:
             df = base_df.copy()
             df, bq_table_name = self.generate_breakdown(df, geo_level)
+
+            # df.to_csv(f'{bq_table_name}.csv', index=False)
 
             float_cols = [
                 std_col.CONGRESS_COUNT,
@@ -302,6 +306,8 @@ class CAWPTimeData(DataSource):
 
         df = merge_utils.merge_current_pop_numbers(
             df, RACE, geo_level, target_time_periods)
+
+        # df.to_csv(f'{geo_level}.csv', index=False)
 
         df = generate_pct_rel_inequity_col(df,
                                            std_col.PCT_OF_W_CONGRESS,
@@ -497,6 +503,7 @@ def get_women_dfs():
     women_dfs = []
 
     for gov_level in [CONGRESS, STATE_LEG]:
+
         # remove non-legislative line items
         df_gov_level = df.copy().loc[df[POSITION].isin(
             POSITION_LABELS[gov_level].keys())]
@@ -513,10 +520,6 @@ def get_women_dfs():
         )
         df_gov_level = df_gov_level.drop(
             columns=[FIRST_NAME, LAST_NAME, POSITION])
-
-        # print("***")
-        # print(df_gov_level.to_string())
-        # print("end***")
 
         women_dfs.append(df_gov_level)
 
@@ -549,7 +552,6 @@ def merge_women_cols(scaffold_df, women_df, gov_level: str, preserve_races: bool
     needed_cols.append(NAME)
 
     if preserve_races:
-
         df = handle_multiple_specific_races(df)
 
         # create individual race rows from multiple specific rows
