@@ -114,6 +114,16 @@ def _load_csv_as_df_from_web(*args):
                        )
 
 
+def _load_full_csv_as_df_from_web(*args):
+    url = args[0]
+    fips = [
+        i for i in FIPS_TO_STATE_TABLE_MAP if FIPS_TO_STATE_TABLE_MAP[i] in url][0]
+    print('read mock CAWP state leg. table:', fips, url)
+
+    return pd.read_csv(os.path.join(TEST_DIR, "mock_full_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv')
+                       )
+
+
 def _merge_current_pop_numbers(*args):
     print(f'reading mock POPULATION: {args[2]}')
     return pd.read_csv(os.path.join(TEST_DIR, "mock_acs_merge_responses", f'{args[2]}.csv'),
@@ -136,18 +146,10 @@ def _generate_breakdown(*args):
     }), "mock_table_name"]
 
 
-# # TODO: Delete this DEV TEST RUNNER
-# @ mock.patch('datasources.cawp_time.load_csv_as_df_from_web', side_effect=_load_csv_as_df_from_web)
-# def test_fetch_cawp_state_total_tables(
-#     mock_stateleg_tables: mock.MagicMock
-# ):
-#     get_state_leg_totals_df()
-
-
 # # # # TODO: Delete this DEV TEST RUNNER
 # @ mock.patch('datasources.cawp_time.get_state_level_fips',
 #              return_value=["02", "60"])
-# @ mock.patch('datasources.cawp_time.load_csv_as_df_from_web', side_effect=_load_csv_as_df_from_web)
+# @ mock.patch('datasources.cawp_time.load_csv_as_df_from_web', side_effect=_load_full_csv_as_df_from_web)
 # @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
 #              return_value=None)
 # @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
