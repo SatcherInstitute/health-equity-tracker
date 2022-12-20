@@ -56,14 +56,10 @@ class CDCVaccinationCounty(DataSource):
 
         df = generate_breakdown(df)
 
-        column_types = {c: 'STRING' for c in df.columns}
-        column_types[std_col.VACCINATED_PER_100K] = 'FLOAT'
-
-        if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-            column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+        col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols=[std_col.VACCINATED_PER_100K])
 
         gcs_to_bq_util.add_df_to_bq(
-            df, dataset, 'race_and_ethnicity_processed', column_types=column_types)
+            df, dataset, 'race_and_ethnicity_processed', column_types=col_types)
 
 
 def generate_breakdown(df):

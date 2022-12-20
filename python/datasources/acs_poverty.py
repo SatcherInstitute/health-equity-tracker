@@ -154,8 +154,6 @@ class AcsPovertyIngester:
         for table_name, df in self.frames.items():
             # All breakdown columns are strings
             column_types = {c: "STRING" for c in df.columns}
-            if RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[RACE_INCLUDES_HISPANIC_COL] = "BOOL"
 
             column_types[BELOW_POVERTY_COL] = "INT64"
             column_types[ABOVE_POVERTY_COL] = "INT64"

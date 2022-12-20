@@ -120,8 +120,6 @@ INCARCERATED_PREFIX = "incarcerated"
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",
-    "race",
-    "race_includes_hispanic",
     "race_and_ethnicity"
 ])
 
@@ -280,8 +278,7 @@ class Race(Enum):
 
     def as_tuple(self) -> RaceTuple:
         """The race attributes, in the same order as `get_col_names()`."""
-        return RaceTuple(self.race_category_id, self.race,
-                         self.includes_hispanic, self.race_and_ethnicity)
+        return RaceTuple(self.race_category_id, self.race_and_ethnicity)
 
 
 def add_race_columns_from_category_id(df):
