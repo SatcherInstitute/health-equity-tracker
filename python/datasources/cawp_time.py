@@ -1,6 +1,5 @@
 # import time
 from typing import List
-from ingestion.gcs_to_bq_util import load_csv_as_df_from_web, load_csv_as_df_from_data_dir
 from datasources.data_source import DataSource
 from ingestion.constants import (
     NATIONAL_LEVEL, STATE_LEVEL,
@@ -166,8 +165,8 @@ class CAWPTimeData(DataSource):
                 std_col.POPULATION_PCT_COL
             ]
 
-            # df.to_json(
-            #     f'frontend/public/tmp/cawp_time_data-{bq_table_name}.json', orient="records")
+            df.to_json(
+                f'frontend/public/tmp/cawp_time_data-{bq_table_name}.json', orient="records")
 
             column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
             gcs_to_bq_util.add_df_to_bq(
@@ -554,16 +553,16 @@ def get_state_leg_totals_df():
      """
 
     territory_dfs = []
-
     for fips in TERRITORY_FIPS_LIST:
         filename = f'cawp_state_leg_{fips}.csv'
-        territory_df = load_csv_as_df_from_data_dir("cawp_time", filename)
-        print("FIPS", fips)
-        print(territory_df)
+        territory_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            "cawp_time", filename)
+        territory_dfs.append(territory_df)
+    df_rows_by_territory = pd.concat(territory_dfs)
 
     state_dfs = []
     for fips, id in FIPS_TO_STATE_TABLE_MAP.items():
-        state_df = load_csv_as_df_from_web(get_stleg_url(id))
+        state_df = gcs_to_bq_util.load_csv_as_df_from_web(get_stleg_url(id))
         state_df.columns = state_df.columns.str.replace(r'\W', '', regex=True)
 
         # TODO: confirm this weird shifted column data; ideally get them to fix
@@ -596,13 +595,19 @@ def get_state_leg_totals_df():
         state_dfs.append(state_df)
 
     # combine all state ROWS into one big df
-    df = pd.concat(state_dfs)
+    df_rows_by_state = pd.concat(state_dfs)
+
+    # combine all territory ROWS as well
+    df = pd.concat([df_rows_by_state, df_rows_by_territory])
     df = df.sort_values(by=[std_col.TIME_PERIOD_COL,
                             std_col.STATE_FIPS_COL]).reset_index(drop=True)
 
     # drop 1982 because it's only MA and screws up national numbers
-    df = df[df[std_col.TIME_PERIOD_COL] != "1982"]
+    restricted_state_leg_years = get_consecutive_time_periods(
+        DEFAULT_STLEG_FIRST_YR, DEFAULT_LAST_YR)
+    df = df[df[std_col.TIME_PERIOD_COL].isin(restricted_state_leg_years)]
 
+    # print(df.to_string())
     return df
 
 

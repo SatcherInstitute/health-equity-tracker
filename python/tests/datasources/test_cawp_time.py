@@ -54,7 +54,7 @@ def _fetch_json_from_web(*args):
         file_name = "test_legislators-historical.json"
     elif url == US_CONGRESS_CURRENT_URL:
         file_name = "test_legislators-current.json"
-    print(f'reading mock US CONGRESS: {file_name}')
+    # print(f'reading mock US CONGRESS: {file_name}')
     with open(os.path.join(TEST_DIR, file_name)) as file:
         return json.load(file)
 
@@ -102,58 +102,67 @@ def _generate_breakdown(*args):
     }), "mock_table_name"]
 
 
-def _load_csv_as_df_from_data_dir(*args):
-    # mocked and reduced files for testing
+# def _load_csv_as_df_from_data_dir(*args):
+#     # mocked and reduced files for testing
 
-    [_folder, filename] = args
+#     [_folder, filename] = args
 
-    if filename == "cawp-by_race_and_ethnicity_time_series.csv":
-        # READ IN CAWP DB (numerators)
-        print("reading mock CAWP FULL FILE line items")
-        test_input_data_types = {"id": str, "year": str, "first_name": str,
-                                 "middle_name": str, "last_name": str,
-                                 "party": str, "level": str, "position": str,
-                                 "state": str, "district": str, "race_ethnicity": str}
-        return pd.read_csv(os.path.join(TEST_DIR, filename),
-                           dtype=test_input_data_types, index_col=False)
-    else:
-        # READ IN MANUAL TERRITORY STATELEG TOTAL TABLES
-        print("reading mock territory stateleg total tables")
-        test_input_data_types = {"state_fips": str, "time_period": str}
-        return pd.read_csv(os.path.join(TEST_DIR, "mock_territory_leg_tables", f'test_input_{filename}.csv'),
-                           dtype=test_input_data_types, index_col=False)
+#     print("MOCK FILENAME", filename)
+
+#     if filename == "cawp-by_race_and_ethnicity_time_series.csv":
+#         # READ IN CAWP DB (numerators)
+#         print("reading mock CAWP FULL FILE line items")
+#         test_input_data_types = {"id": str, "year": str, "first_name": str,
+#                                  "middle_name": str, "last_name": str,
+#                                  "party": str, "level": str, "position": str,
+#                                  "state": str, "district": str, "race_ethnicity": str}
+#         return pd.read_csv(os.path.join(TEST_DIR, filename),
+#                            dtype=test_input_data_types, index_col=False)
+#     else:
+#         # READ IN MANUAL TERRITORY STATELEG TOTAL TABLES
+#         print("reading mock territory stateleg total tables")
+#         test_input_data_types = {"state_fips": str, "time_period": str}
+#         return pd.read_csv(os.path.join(TEST_DIR, "mock_territory_leg_tables", f'test_input_{filename}.csv'),
+#                            dtype=test_input_data_types, index_col=False)
 
 
 def _load_full_csv_as_df_from_data_dir(*args):
+
+    print("MOCKING _load_full_csv_as_df_from_data_dir()")
+    print(args)
+
     # still mocked but not the reduced test file versions
 
     [_folder, filename] = args
+    # print("MOCK FILENAME", filename)
 
     if filename == "cawp-by_race_and_ethnicity_time_series.csv":
         # READ IN CAWP DB (numerators)
-        print("reading mock CAWP FULL FILE line items")
+        # print("reading mock CAWP FULL FILE line items")
         test_input_data_types = {"id": str, "year": str, "first_name": str,
                                  "middle_name": str, "last_name": str,
                                  "party": str, "level": str, "position": str,
                                  "state": str, "district": str, "race_ethnicity": str}
+        print("* READING CAWP", filename)
         return pd.read_csv(os.path.join(TEST_DIR, filename),
                            dtype=test_input_data_types, index_col=False)
     else:
+        print("* READING TERR. TABLES", filename)
         # READ IN MANUAL TERRITORY STATELEG TOTAL TABLES
-        print("reading mock territory stateleg total tables")
+        # print("reading mock territory stateleg total tables")
         test_input_data_types = {"state_fips": str, "time_period": str}
         return pd.read_csv(os.path.join(TEST_DIR, "mock_territory_leg_tables", filename),
                            dtype=test_input_data_types, index_col=False)
 
 
-def _load_csv_as_df_from_web(*args):
-    # mocked and reduced files for testing
-    url = args[0]
-    fips = [
-        i for i in FIPS_TO_STATE_TABLE_MAP if FIPS_TO_STATE_TABLE_MAP[i] in url][0]
-    print('read mock CAWP state leg. table:', fips, url)
-    return pd.read_csv(os.path.join(TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv')
-                       )
+# def _load_csv_as_df_from_web(*args):
+#     # mocked and reduced files for testing
+#     url = args[0]
+#     fips = [
+#         i for i in FIPS_TO_STATE_TABLE_MAP if FIPS_TO_STATE_TABLE_MAP[i] in url][0]
+#     print('read mock CAWP state leg. table:', fips, url)
+#     return pd.read_csv(os.path.join(TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv')
+#                        )
 
 
 def _load_full_csv_as_df_from_web(*args):
@@ -161,21 +170,24 @@ def _load_full_csv_as_df_from_web(*args):
     url = args[0]
     fips = [
         i for i in FIPS_TO_STATE_TABLE_MAP if FIPS_TO_STATE_TABLE_MAP[i] in url][0]
-    print('read mock CAWP state leg. table:', fips, url)
+    # print('read mock CAWP state leg. table:', fips, url)
     return pd.read_csv(os.path.join(TEST_DIR, "mock_full_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv')
                        )
 
 
 # # # # TODO: Delete this DEV TEST RUNNER
-@ mock.patch('datasources.cawp_time.load_csv_as_df_from_web', side_effect=_load_full_csv_as_df_from_web)
+# @ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
+#              side_effect=_get_consecutive_time_periods)
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web', side_effect=_load_full_csv_as_df_from_web)
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
              side_effect=_load_full_csv_as_df_from_data_dir)
 def testRun(
-    mock_data_dir_csv: mock.MagicMock,
+    mock_full_data_dir_csv: mock.MagicMock,
     mock_bq: mock.MagicMock,
-    mock_stateleg_tables: mock.MagicMock,
+    mock_full_stateleg_tables: mock.MagicMock,
+    # mock_years: mock.MagicMock
 ):
     kwargs_for_bq = {'filename': 'test_file.csv',
                      'metadata_table_id': 'test_metadata',
@@ -236,7 +248,7 @@ def testRun(
 #              return_value=["02", "60"])
 # @ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
 #              side_effect=_get_consecutive_time_periods)
-# @ mock.patch('datasources.cawp_time.load_csv_as_df_from_web', side_effect=_load_csv_as_df_from_web)
+# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web', side_effect=_load_csv_as_df_from_web)
 # @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
 #              side_effect=_get_test_line_items_csv_as_df)
 # @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
