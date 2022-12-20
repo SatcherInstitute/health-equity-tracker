@@ -11,10 +11,15 @@ class Acs2010PopulationProvider extends VariableProvider {
 
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
-    const breakdownColumnName =
-      breakdowns.getSoleDemographicBreakdown().columnName;
+    if (breakdowns.hasOnlyRace()) {
+      return "acs_2010_population-by_race_and_ethnicity_territory";
+    } else if (breakdowns.hasOnlyAge()) {
+      return "acs_2010_population-by_age_territory";
+    } else if (breakdowns.hasOnlySex()) {
+      return "acs_2010_population-by_sex_territory";
+    }
 
-    return "acs_2010_population-by_" + breakdownColumnName + "_territory";
+    throw new Error("Not implemented");
   }
 
   async getDataInternal(
