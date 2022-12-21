@@ -85,7 +85,7 @@ export const BLACK_W = "Black or African American women";
 export const WHITE_W = "White women";
 export const UNKNOWN_W = "Women with unknown race";
 export const MULTI_W = "Women of two or more races";
-export const OTHER_W = "Women with an unrepresented race";
+export const OTHER_W = "Women of an unrepresented race";
 
 export const CAWP_RACES = [
   ALL_W,
