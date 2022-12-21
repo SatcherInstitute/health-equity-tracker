@@ -61,13 +61,16 @@ class CawpProvider extends VariableProvider {
   ): string {
     const datasetId =
       variableId === "women_us_congress" ? "cawp_time_data-" : "cawp_data-";
-    const breakdownId =
-      breakdowns.getSoleDemographicBreakdown().columnName +
-      "_" +
-      breakdowns.geography;
+
     const timeId = variableId === "women_us_congress" ? "_time_series" : "";
 
-    return datasetId + breakdownId + timeId;
+    if (breakdowns.geography === "national" && breakdowns.hasOnlyRace()) {
+      return datasetId + "race_and_ethnicity_national" + timeId;
+    } else if (breakdowns.geography === "state" && breakdowns.hasOnlyRace()) {
+      return datasetId + "race_and_ethnicity_state" + timeId;
+    }
+
+    throw new Error("Not implemented");
   }
 
   async getDataInternal(
