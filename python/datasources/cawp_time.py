@@ -146,13 +146,6 @@ class CAWPTimeData(DataSource):
             df = base_df.copy()
             df, bq_table_name = self.generate_breakdown(df, geo_level)
 
-            # drop 1982 because it's only MA and screws up national numbers
-            # drop state_leg info pre-1983
-            restricted_state_leg_years = get_consecutive_time_periods(
-                DEFAULT_STLEG_FIRST_YR, DEFAULT_LAST_YR)
-            df = df[df[std_col.TIME_PERIOD_COL].isin(
-                restricted_state_leg_years)]
-
             # df.to_csv(f'{bq_table_name}.csv', index=False)
 
             float_cols = [
@@ -252,7 +245,7 @@ class CAWPTimeData(DataSource):
         df[std_col.PCT_OF_STLEG] = round(df[std_col.W_THIS_RACE_STLEG_COUNT] /
                                          df[std_col.STLEG_COUNT] * 100, 1)
         df[std_col.PCT_OF_W_STLEG] = round(df[std_col.W_THIS_RACE_STLEG_COUNT] /
-                                           df[std_col.W_ALL_RACES_STLEG_COUNT] * 100, 1).fillna(0)
+                                           df[std_col.W_ALL_RACES_STLEG_COUNT] * 100, 1)
 
         # standardize race labels
         df[std_col.RACE_CATEGORY_ID_COL] = df[RACE_ETH].apply(
@@ -311,10 +304,11 @@ class CAWPTimeData(DataSource):
 
 # HELPER FUNCTIONS
 
-def scaffold_df_by_year_by_state_by_race_list(race_list: List[str]):
+def scaffold_df_by_year_by_state_by_race_list(race_list: List[str], first_year: int):
     """ Creates the scaffold df with a row for every STATE/YEAR/RACE_ETH IN race_list combo
     Parameters:
         race_list: list of strings to serve as values in the "race_ethnicity" column
+        first_year: int year to start building the scaffold e.g. 1983
     Returns:
         df with a row for every combo of `race_list` race, years, and state/territories
         including columns for "state_name", "state_postal" and "state_fips" """
@@ -325,7 +319,7 @@ def scaffold_df_by_year_by_state_by_race_list(race_list: List[str]):
     })
 
     # explode to every combo of state/year
-    years = get_consecutive_time_periods()
+    years = get_consecutive_time_periods(first_year=first_year)
     df[std_col.TIME_PERIOD_COL] = [years] * len(df)
     df = df.explode(std_col.TIME_PERIOD_COL).reset_index(drop=True)
 
@@ -397,11 +391,13 @@ def get_us_congress_totals_df():
     return df
 
 
-def merge_total_cols(scaffold_df, us_congress_df, state_leg_df):
+def merge_total_cols(scaffold_congress_df, scaffold_stleg_df, us_congress_df, state_leg_df):
     """ Merges previously made congress df and state_leg_df info into the incoming scaffold df
     Parameters:
-        scaffold_df: df containing a row for every combo of
-            "time_period" X "state_postal" X "race_ethnicity
+        scaffold_congress_df: df containing a row for every combo of
+            "time_period" for valid us congress totals X "state_postal" X "race_ethnicity
+        scaffold_stleg_df: df containing a row for every combo of
+            "time_period" for valid state leg totals X "state_postal" X "race_ethnicity
         congress_df: df containing a row for every legislator-term
         state_leg_df: df containing a row for every "time_period" X "state_fips"
 
@@ -410,21 +406,24 @@ def merge_total_cols(scaffold_df, us_congress_df, state_leg_df):
         and column "us_congress_total_names" a string list of those same members """
 
     # merge in CONGRESS calculated counts and name lists by state/year where they exist;
-    df = pd.merge(scaffold_df, us_congress_df,
-                  on=[std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL], how="left")
+    df_congress_totals = pd.merge(scaffold_congress_df, us_congress_df,
+                                  on=[std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL], how="left")
     # fill counts with 0 and names with empty string where no info available
-    df[std_col.CONGRESS_COUNT] = df[std_col.CONGRESS_COUNT].fillna(
+    df_congress_totals[std_col.CONGRESS_COUNT] = df_congress_totals[std_col.CONGRESS_COUNT].fillna(
         0)
-    df[std_col.CONGRESS_NAMES] = df[std_col.CONGRESS_NAMES].fillna(
+    df_congress_totals[std_col.CONGRESS_NAMES] = df_congress_totals[std_col.CONGRESS_NAMES].fillna(
         "")
 
     # merge in STATE LEG counts by state/year where they exist;
-    df = pd.merge(df, state_leg_df,
-                  on=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL], how="left")
+    df_stateleg_totals = pd.merge(scaffold_stleg_df, state_leg_df,
+                                  on=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL], how="left")
+
+    df = pd.merge(df_congress_totals, df_stateleg_totals,
+                  on=MERGE_COLS, how="left")
 
     # fill counts with null where no info available
-    df[std_col.STLEG_COUNT] = df[std_col.STLEG_COUNT].fillna(
-        0).astype(float)
+    df[std_col.STLEG_COUNT] = df[std_col.STLEG_COUNT].astype(float)
+
     return df
 
 
@@ -635,7 +634,7 @@ def combine_states_to_national(df):
         std_col.STLEG_COUNT,
         std_col.W_ALL_RACES_STLEG_COUNT,
         std_col.W_THIS_RACE_STLEG_COUNT
-    ].agg(sum)
+    ].agg("sum", min_count=1)
     _df = df_counts
 
     _df[std_col.STATE_FIPS_COL] = US_FIPS
@@ -800,16 +799,21 @@ def build_base_rows_df(us_congress_totals_df,
     """
 
     # create chunks with needed COLUMNS
-    df = scaffold_df_by_year_by_state_by_race_list(race_list)
+    df_congress_scaffold = scaffold_df_by_year_by_state_by_race_list(
+        race_list, 1915)
+    df_stleg_scaffold = scaffold_df_by_year_by_state_by_race_list(
+        race_list, 1983)
 
     df_total_cols = merge_total_cols(
-        df.copy(), us_congress_totals_df, state_leg_totals_df)
+        df_congress_scaffold.copy(), df_stleg_scaffold, us_congress_totals_df, state_leg_totals_df)
 
     df_w_any_race_us_congress_cols = merge_women_cols(
-        df.copy(), women_us_congress_df, CONGRESS)
+        df_congress_scaffold.copy(), women_us_congress_df, CONGRESS)
 
+    # intentionally merging onto congress scaffold because we can have
+    #  STLEG WOMEN COUNTS back further than the STLEG TOTALS
     df_w_any_race_state_leg_cols = merge_women_cols(
-        df.copy(), women_state_leg_df, STATE_LEG)
+        df_congress_scaffold.copy(), women_state_leg_df, STATE_LEG)
 
     # for the ALL rows, the ALL_W cols will be the same as the W_THIS_RACE cols
     # so don't need to waste time recalculating them
@@ -822,14 +826,13 @@ def build_base_rows_df(us_congress_totals_df,
             std_col.W_ALL_RACES_STLEG_COUNT: std_col.W_THIS_RACE_STLEG_COUNT})
     else:
         df_w_this_race_us_congress_cols = merge_women_cols(
-            df.copy(), women_us_congress_df, CONGRESS, preserve_races=True)
+            df_congress_scaffold.copy(), women_us_congress_df, CONGRESS, preserve_races=True)
         df_w_this_race_state_leg_cols = merge_women_cols(
-            df.copy(), women_state_leg_df, STATE_LEG, preserve_races=True)
+            df_congress_scaffold.copy(), women_state_leg_df, STATE_LEG, preserve_races=True)
 
     # combine COLUMN chunks
     df = pd.merge(
-        df, df_total_cols, on=MERGE_COLS)
-
+        df_congress_scaffold, df_total_cols, on=MERGE_COLS)
     df = pd.merge(
         df, df_w_any_race_us_congress_cols, on=MERGE_COLS)
     df = pd.merge(
