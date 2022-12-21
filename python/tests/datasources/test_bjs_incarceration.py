@@ -156,8 +156,6 @@ expected_dtype_age = {
 expected_dtype_race = {
     **expected_dtype,
     'race_and_ethnicity': str,
-    'race': str,
-    'race_includes_hispanic': object,
     'race_category_id': str,
 }
 
