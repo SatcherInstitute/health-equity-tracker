@@ -57,7 +57,7 @@ def get_stleg_url(id: str):
             id + "/field_table/und/0")
 
 
-MULTI_OTHER_TMP = "tmp: combine multiple specificCAWP multiracial alone, and CAWP other"
+CAWP_MULTI = "Multiracial Alone"
 
 # CAWP labels
 CAWP_RACE_GROUPS_TO_STANDARD = {
@@ -68,8 +68,9 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
     'Black': Race.BLACK.value,
     'White': Race.WHITE.value,
     'Unavailable': Race.UNKNOWN.value,
-    # will combine CAWP's "Multiracial Alone", "Other", and women who selected more than one specific race
-    MULTI_OTHER_TMP: Race.MULTI_OR_OTHER_STANDARD.value,
+    'Other': Race.OTHER_STANDARD.value,
+    # will combine CAWP's "Multiracial Alone" with women who selected more than one specific race
+    CAWP_MULTI: Race.MULTI.value,
 }
 
 
@@ -862,19 +863,12 @@ def handle_other_and_multi_races(df):
     df[RACE_ETH] = df[RACE_ETH].str.split(', ')
 
     # rows with multiple specific races will sum later with
-    # CAWP's incoming "multiracial alone" and "unknown"
+    # CAWP's incoming "multiracial alone"
     df_multiple_specific = df[df[RACE_ETH].map(len) > 1]
-    df_multiple_specific[RACE_ETH] = MULTI_OTHER_TMP
+    df_multiple_specific[RACE_ETH] = CAWP_MULTI
     df = pd.concat([df, df_multiple_specific])
 
     # create individual race rows from multiple specific rows
     df = df.explode(RACE_ETH)
-
-    # temp. rename "Unrepr" to get counted as MULTI_OR_OTHER
-    df[RACE_ETH] = df[RACE_ETH].replace("Other", MULTI_OTHER_TMP)
-
-    # temp. rename "Multiracial Alone" to get counted as MULTI_OR_OTHER
-    df[RACE_ETH] = df[RACE_ETH].replace(
-        "Multiracial Alone", MULTI_OTHER_TMP)
 
     return df
