@@ -45,7 +45,7 @@ def get_expected_data() -> pd.DataFrame:
         col_std.STATE_POSTAL_COL,
         'variable_type',
         'reports_api',
-        'race_includes_hisapnic',
+        'race_includes_hispanic',
         'race_mutually_exclusive',
         'reports_ind',
         'reports_race',
