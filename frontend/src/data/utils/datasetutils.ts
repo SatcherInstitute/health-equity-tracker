@@ -292,7 +292,7 @@ const includeAllsGroupsIds: VariableId[] = [
   "jail",
 ];
 
-const NON_STANDARD_AND_MULTI = [
+const NON_STANDARD_AND_MULTI: DemographicGroup[] = [
   ...NON_STANDARD_RACES,
   MULTI_OR_OTHER_STANDARD,
   MULTI_OR_OTHER_STANDARD_NH,
@@ -305,7 +305,11 @@ export function getExclusionList(
 ): DemographicGroup[] {
   const current100k = currentVariable.metrics.per100k.metricId;
   const currentVariableId = currentVariable.variableId;
-  let exclusionList = [UNKNOWN, UNKNOWN_ETHNICITY, UNKNOWN_RACE];
+  let exclusionList: DemographicGroup[] = [
+    UNKNOWN,
+    UNKNOWN_ETHNICITY,
+    UNKNOWN_RACE,
+  ];
 
   if (!includeAllsGroupsIds.includes(currentVariableId)) {
     exclusionList.push(ALL);

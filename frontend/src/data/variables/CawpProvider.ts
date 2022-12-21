@@ -10,6 +10,9 @@ import {
   MULTI,
   MULTI_OR_OTHER_STANDARD,
   UNREPRESENTED,
+  RaceAndEthnicityGroup,
+  MULTI_OR_OTHER_W,
+  MULTI_W,
 } from "../utils/Constants";
 
 export const CAWP_DETERMINANTS: MetricId[] = [
@@ -33,12 +36,14 @@ export const CAWP_DATA_TYPES: VariableId[] = [
   "women_us_congress",
 ];
 
-export function getWomenRaceLabel(raceLabel: string) {
+export function getWomenRaceLabel(
+  raceLabel: RaceAndEthnicityGroup
+): RaceAndEthnicityGroup {
   switch (raceLabel) {
     case MULTI:
-      return "Women of Two or More Races";
+      return MULTI_W;
     case MULTI_OR_OTHER_STANDARD:
-      return "Women of Two or More Races & Unrepresented Race";
+      return MULTI_OR_OTHER_W;
     case UNREPRESENTED:
       return "Women of an Unrepresented Race";
     case UNKNOWN_RACE:
@@ -46,7 +51,7 @@ export function getWomenRaceLabel(raceLabel: string) {
     case HISPANIC:
       return "Latinas and Hispanic Women";
   }
-  return `${raceLabel} Women`;
+  return `${raceLabel} Women` as RaceAndEthnicityGroup;
 }
 
 class CawpProvider extends VariableProvider {
