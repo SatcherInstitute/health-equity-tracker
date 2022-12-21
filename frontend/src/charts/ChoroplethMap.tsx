@@ -339,7 +339,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         {
           name: VAR_DATASET,
           values:
-            props.listExpanded || !isCawp || numUniqueNonZeroValues <= 1
+            // only use the nonZero subset if viewing high low lists, viewing CAWP,
+            // or viewing multimap with some groups having only one non-zero value
+            props.listExpanded ||
+            !isCawp ||
+            (numUniqueNonZeroValues <= 1 && !props.hideLegend)
               ? props.data
               : nonZeroData,
         },
@@ -449,6 +453,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     setTimeout(() => {
       setShouldRenderMap(true);
     }, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isCawp,
     width,
@@ -473,8 +478,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     heightWidthRatio,
     pageIsTiny,
     fontSize,
-    numUniqueNonZeroValues,
-    nonZeroData,
   ]);
 
   const mapStyle = {

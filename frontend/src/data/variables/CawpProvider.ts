@@ -13,6 +13,8 @@ import {
   OTHER_W,
   MULTI_W,
   OTHER_STANDARD,
+  UNKNOWN_W,
+  HISP_W,
 } from "../utils/Constants";
 
 export const CAWP_CONGRESS_COUNTS: MetricId[] = [
@@ -53,13 +55,13 @@ export function getWomenRaceLabel(
     case OTHER_STANDARD:
       return OTHER_W;
     case UNREPRESENTED:
-      return "Women of an Unrepresented Race";
+      return OTHER_W;
     case UNKNOWN_RACE:
-      return `Women of Unknown Race`;
+      return UNKNOWN_W;
     case HISPANIC:
-      return "Latinas and Hispanic Women";
+      return HISP_W;
   }
-  return `${raceLabel} Women` as RaceAndEthnicityGroup;
+  return `${raceLabel} women` as RaceAndEthnicityGroup;
 }
 
 class CawpProvider extends VariableProvider {

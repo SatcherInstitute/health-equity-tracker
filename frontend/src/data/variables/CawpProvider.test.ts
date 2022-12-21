@@ -8,13 +8,13 @@ import { getWomenRaceLabel } from "./CawpProvider";
 
 describe("CAWP Unit Tests", () => {
   test("Test Women Race Label Swapping", async () => {
-    expect(getWomenRaceLabel(UNKNOWN_RACE)).toEqual("Women of Unknown Race");
-    expect(getWomenRaceLabel(WHITE)).toEqual("White Women");
+    expect(getWomenRaceLabel(UNKNOWN_RACE)).toEqual("Women with unknown race");
+    expect(getWomenRaceLabel(WHITE)).toEqual("White women");
     expect(
       getWomenRaceLabel("almost_anything" as RaceAndEthnicityGroup)
-    ).toEqual("almost_anything Women");
+    ).toEqual("almost_anything women");
     expect(getWomenRaceLabel(HISPANIC)).not.toEqual(
-      "Hispanic and Latino Women"
+      "Hispanic and Latino women"
     );
   });
 });

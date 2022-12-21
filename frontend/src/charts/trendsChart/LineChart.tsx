@@ -20,6 +20,7 @@ import styles from "./Trends.module.scss";
 import { GroupData, TrendsData, XScale, YScale } from "./types";
 import { COLORS as C } from "./constants";
 import { getPrettyDate } from "../../data/utils/DatasetTimeUtils";
+import { UNKNOWN_W } from "../../data/utils/Constants";
 
 /* Define type interface */
 export interface LineChartProps {
@@ -75,7 +76,7 @@ export function LineChart({
 
           const groupA11yDescription = `${group}: lowest value ${minValueForGroup}${optionalPct} in ${lowestDatesForGroup} and highest value ${maxValueForGroup}${optionalPct} in ${highestDatesForGroup}`;
 
-          const isUnknownLine = group === "Women of Unknown Race";
+          const isUnknownLine = group === UNKNOWN_W;
           return (
             <path
               role="listitem"

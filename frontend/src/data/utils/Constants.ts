@@ -73,21 +73,19 @@ export const NON_STANDARD_RACES = [
 
 // CAWP RACE GROUPS AND ARRAY
 
-export const ALL_W = "All Women";
-export const AAPI_W = "Asian American & Pacific Islander Women";
-export const MENA_W = "Middle Eastern & North African Women";
+export const ALL_W = "All women";
+export const AAPI_W = "Asian American & Pacific Islander women";
+export const MENA_W = "Middle Eastern & North African women";
 export const AIANNH_W =
-  "Native American, Alaska Native, & Native Hawaiian Women";
+  "Native American, Alaska Native, & Native Hawaiian women";
 export const AIAN_API_W =
-  "American Indian, Alaska Native, Asian & Pacific Islander Women";
-export const HISP_W = "Latinas and Hispanic Women";
-export const MULTI_OR_OTHER_STANDARD_W =
-  "Women of Two or More Races & Unrepresented Race";
-export const BLACK_W = "Black or African American Women";
-export const WHITE_W = "White Women";
-export const UNKNOWN_W = "Women of Unknown Race";
-export const MULTI_W = "Women of Two or More Races";
-export const OTHER_W = "Women of an Unrepresented Race";
+  "American Indian, Alaska Native, Asian & Pacific Islander women";
+export const HISP_W = "Latinas and Hispanic women";
+export const BLACK_W = "Black or African American women";
+export const WHITE_W = "White women";
+export const UNKNOWN_W = "Women with unknown race";
+export const MULTI_W = "Women of two or more races";
+export const OTHER_W = "Women with an unrepresented race";
 
 export const CAWP_RACES = [
   ALL_W,
@@ -96,7 +94,6 @@ export const CAWP_RACES = [
   AIANNH_W,
   AIAN_API_W,
   HISP_W,
-  MULTI_OR_OTHER_STANDARD_W,
   BLACK_W,
   WHITE_W,
   UNKNOWN_W,
