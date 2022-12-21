@@ -99,7 +99,8 @@ needed for generate_breakdown_df()"""
 
 
 def _get_prison_app2():
-    table_app_2_data = StringIO("""ALL,WHITE_NH,BLACK_NH,HISP,AIAN_NH,ASIAN_NH,NHPI_NH,MULTI_NH,OTHER_STANDARD_NH,UNKNOWN,state_name
+    header_line = "ALL,WHITE_NH,BLACK_NH,HISP,AIAN_NH,ASIAN_NH,NHPI_NH,MULTI_NH,OTHER_STANDARD_NH,UNKNOWN,state_name"
+    table_app_2_data = StringIO(f"""{header_line}
 152156.0,44852.0,55391.0,46162.0,3488.0,2262.0,,,0.0,1.0,Federal
 ,,,,,,,,,,State
 25328.0,11607.0,13519.0,0.0,2.0,3.0,0.0,0.0,0.0,197.0,Alabama""")
@@ -108,7 +109,10 @@ def _get_prison_app2():
 
 
 def _get_jail_6():
-    table_6_data = StringIO("""state_name,jail_estimated_total,0-17,18+,Male 0-17,Male 18+,Female 0-17,Female 18+,Male Pct,Female Pct
+    header_line = ("state_name,jail_estimated_total,0-17,18+,"
+                   "Male 0-17,Male 18+,Female 0-17,Female 18+,Male Pct,Female Pct")
+
+    table_6_data = StringIO(f"""{header_line}
 United States,734470,2880,731580,2660,621070,230,110510,84.9,15.1
 Alabama,16450,34,16410,34,13680,0,2730,83.4,16.6""")
     df_6 = pd.read_csv(table_6_data, sep=",")
