@@ -248,6 +248,10 @@ class CAWPTimeData(DataSource):
         df[std_col.PCT_OF_W_STLEG] = round(df[std_col.W_THIS_RACE_STLEG_COUNT] /
                                            df[std_col.W_ALL_RACES_STLEG_COUNT] * 100, 1)
 
+        # drop the ALL WOMEN counts since that data is available on the "All" race rows
+        df = df.drop(
+            columns=[std_col.W_ALL_RACES_CONGRESS_COUNT, std_col.W_ALL_RACES_STLEG_COUNT])
+
         # standardize race labels
         df[std_col.RACE_CATEGORY_ID_COL] = df[RACE_ETH].apply(
             lambda x: "ALL" if x == Race.ALL.value else CAWP_RACE_GROUPS_TO_STANDARD.get(x, x))
@@ -260,8 +264,6 @@ class CAWPTimeData(DataSource):
 
         df = merge_utils.merge_current_pop_numbers(
             df, RACE, geo_level, target_time_periods)
-
-        # df.to_csv(f'{geo_level}.csv', index=False)
 
         df = generate_pct_rel_inequity_col(df,
                                            std_col.PCT_OF_W_CONGRESS,
