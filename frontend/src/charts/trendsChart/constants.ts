@@ -1,7 +1,26 @@
 import { format, utcFormat, scaleOrdinal } from "d3";
 import { MetricType } from "../../data/config/MetricConfig";
 import sass from "../../styles/variables.module.scss";
-import { DemographicGroup } from "../../data/utils/Constants";
+import {
+  AAPI_W,
+  AIANNH_W,
+  AIAN_API_W,
+  AIAN_NH,
+  ALL_W,
+  ASIAN_NH,
+  BLACK_NH,
+  BLACK_W,
+  DemographicGroup,
+  HISPANIC,
+  HISP_W,
+  MENA_W,
+  MULTI_OR_OTHER_STANDARD_NH,
+  NHPI_NH,
+  OTHER_W,
+  UNKNOWN_W,
+  WHITE_NH,
+  WHITE_W,
+} from "../../data/utils/Constants";
 
 // get colors from css variables
 const {
@@ -24,25 +43,24 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   All: black,
   Unknown: darkBlue,
   // race and ethnicity (NH)
-  "American Indian and Alaska Native (NH)": timeCyanBlue,
-  "Asian (NH)": timePastelGreen,
-  "Black or African American (NH)": mapLight,
-  "Hispanic or Latino": timePurple,
-  "Native Hawaiian and Pacific Islander (NH)": timePink,
-  "Two or more races & Unrepresented race (NH)": timeDarkRed,
-  "White (NH)": redOrange,
+  [AIAN_NH]: timeCyanBlue,
+  [ASIAN_NH]: timePastelGreen,
+  [BLACK_NH]: mapLight,
+  [HISPANIC]: timePurple,
+  [NHPI_NH]: timePink,
+  [MULTI_OR_OTHER_STANDARD_NH]: timeDarkRed,
+  [WHITE_NH]: redOrange,
   // race and ethnicity for CAWP
-  "All Women": black,
-  "Native American, Alaska Native, & Native Hawaiian Women": timeCyanBlue,
-  "Asian American & Pacific Islander Women": timePastelGreen,
-  "American Indian, Alaska Native, Asian & Pacific Islander Women":
-    timePastelGreen,
-  "Black or African American Women": mapLight,
-  "Latinas and Hispanic Women": timePurple,
-  "Middle Eastern & North African Women": timeYellow,
-  "Women of an Unrepresented Race": timeDarkRed,
-  "White Women": redOrange,
-  "Women of Unknown Race": darkBlue,
+  [ALL_W]: black,
+  [AIANNH_W]: timeCyanBlue,
+  [AAPI_W]: timePastelGreen,
+  [AIAN_API_W]: timePastelGreen,
+  [BLACK_W]: mapLight,
+  [HISP_W]: timePurple,
+  [MENA_W]: timeYellow,
+  [OTHER_W]: timeDarkRed,
+  [WHITE_W]: redOrange,
+  [UNKNOWN_W]: darkBlue,
   // sex
   Female: timeCyanBlue,
   Male: timePurple,

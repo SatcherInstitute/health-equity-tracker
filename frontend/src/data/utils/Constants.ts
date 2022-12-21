@@ -144,27 +144,26 @@ export type RaceAndEthnicityGroup = typeof RACE_GROUPS[number];
 
 export const raceNameToCodeMap: Partial<Record<RaceAndEthnicityGroup, string>> =
   {
-    // race and ethnicity NH
-    "Native Hawaiian and Pacific Islander (NH)": "NHPI (NH)",
-    "Hispanic or Latino": "Hisp/Lat",
+    // race and ethnicity NH CDC COVID
     All: "All",
-    "American Indian and Alaska Native (NH)": "AI/AN (NH)",
-    "Black or African American (NH)": "Black (NH)",
-    "Two or more races & Unrepresented race (NH)": "2/Unr (NH)",
-    "White (NH)": "White (NH)",
-    "Asian (NH)": "Asian (NH)",
+    [NHPI_NH]: "NHPI (NH)",
+    [HISPANIC]: "Hisp/Lat",
+    [AIAN_NH]: "AI/AN (NH)",
+    [BLACK_NH]: "Black (NH)",
+    [MULTI_OR_OTHER_STANDARD_NH]: "2/Unr (NH)",
+    [WHITE_NH]: "White (NH)",
+    [ASIAN_NH]: "Asian (NH)",
     //  race and ethnicity CAWP
-    "All Women": "All",
-    "Asian American & Pacific Islander Women": "AAPI",
-    "Middle Eastern & North African Women": "MENA",
-    "Native American, Alaska Native, & Native Hawaiian Women": "AI/AN/NH",
-    "American Indian, Alaska Native, Asian & Pacific Islander Women":
-      "AIAN_API",
-    "Latinas and Hispanic Women": "Hisp/Lat",
-    "Women of Two or More Races & Unrepresented Race": "2/Unr",
-    "Black or African American Women": "Black",
-    "White Women": "White",
-    "Women of Unknown Race": "n/a",
+    [ALL_W]: "All",
+    [AAPI_W]: "AAPI",
+    [MENA_W]: "MENA",
+    [AIANNH_W]: "AI/AN/NH",
+    [AIAN_API_W]: "AIAN_API",
+    [HISP_W]: "Hisp/Lat",
+    [MULTI_W]: "Two+",
+    [BLACK_W]: "Black",
+    [WHITE_W]: "White",
+    [UNKNOWN_W]: "n/a",
   };
 
 // AGE DEMOGRAPHIC  GROUP OPTIONS
