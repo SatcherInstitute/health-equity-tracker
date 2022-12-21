@@ -99,6 +99,15 @@ export interface ChoroplethMapProps {
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
+  const nonZeroData = props.data.filter(
+    (row) => row[props.metric.metricId] > 0
+  );
+
+  // const nonZeroDataIsAllSameValue = nonZeroData?.every((row) => row[props.metric.metricId] === nonZeroData?.[0]?.[props.metric.metricId])
+  const numUniqueNonZeroValues = new Set(
+    nonZeroData.map((row) => row[props.metric.metricId])
+  ).size;
+
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId);
 
   // render Vega map async as it can be slow
@@ -330,9 +339,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         {
           name: VAR_DATASET,
           values:
-            props.listExpanded || !isCawp
+            props.listExpanded || !isCawp || numUniqueNonZeroValues <= 1
               ? props.data
-              : props.data.filter((row) => row[props.metric.metricId] > 0),
+              : nonZeroData,
         },
         {
           name: ZERO_VAR_DATASET,
@@ -464,6 +473,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     heightWidthRatio,
     pageIsTiny,
     fontSize,
+    numUniqueNonZeroValues,
+    nonZeroData,
   ]);
 
   const mapStyle = {

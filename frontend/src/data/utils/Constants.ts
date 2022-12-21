@@ -160,10 +160,11 @@ export const raceNameToCodeMap: Partial<Record<RaceAndEthnicityGroup, string>> =
     [AIANNH_W]: "AI/AN/NH",
     [AIAN_API_W]: "AIAN_API",
     [HISP_W]: "Hisp/Lat",
-    [MULTI_W]: "Two+",
+    [MULTI_W]: "TWO+",
     [BLACK_W]: "Black",
     [WHITE_W]: "White",
-    [UNKNOWN_W]: "n/a",
+    [UNKNOWN_W]: "Unknown",
+    [OTHER_W]: "Unrepr.",
   };
 
 // AGE DEMOGRAPHIC  GROUP OPTIONS
