@@ -15,7 +15,6 @@ from ingestion.standardized_columns import (
     RACE_CATEGORY_ID_COL,
     Race,
     add_race_columns_from_category_id,
-    RACE_INCLUDES_HISPANIC_COL,
 )
 from ingestion.census import (
     fetch_acs_metadata,

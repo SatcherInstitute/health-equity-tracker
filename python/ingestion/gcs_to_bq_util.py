@@ -7,7 +7,6 @@ import pandas as pd
 from google.cloud import bigquery, storage
 from zipfile import ZipFile
 from io import BytesIO
-import ingestion.standardized_columns as std_col
 from typing import List
 
 

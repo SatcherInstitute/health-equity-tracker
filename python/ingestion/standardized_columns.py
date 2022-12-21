@@ -13,10 +13,6 @@ RACE_OR_HISPANIC_COL = "race_and_ethnicity"
 # The name of the column for Whether a person is Hispanic/Latino or not.
 HISPANIC_COL = "hispanic_or_latino"
 
-# The name of the column for whether the race category includes Hispanic/Latino
-# people.
-RACE_INCLUDES_HISPANIC_COL = "race_includes_hispanic"
-
 # The name of the column that displays the basic race name, not specifying
 # whether Hispanic/Latino people are included.
 RACE_COL = "race"
