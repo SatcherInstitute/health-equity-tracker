@@ -20,7 +20,6 @@ import { FieldRange, Row } from "../data/utils/DatasetTypes";
 import { ORDINAL } from "./utils";
 import sass from "../styles/variables.module.scss";
 import {
-  DemographicGroup,
   RaceAndEthnicityGroup,
   raceNameToCodeMap,
 } from "../data/utils/Constants";
@@ -102,14 +101,16 @@ Takes an existing VEGA formatted JSON string for the tooltip template and append
 */
 export function addCAWPTooltipInfo(
   tooltipPairs: Record<string, string>,
-  subTitle: DemographicGroup,
+  subTitle: string,
   countCols: MetricId[]
 ) {
+  const raceName = subTitle
+    ? getWomenRaceLabel(subTitle as RaceAndEthnicityGroup)
+    : "";
   const members = CAWP_CONGRESS_COUNTS.includes(countCols[0])
     ? "members"
     : "legislators";
 
-  const raceName = subTitle ? getWomenRaceLabel(subTitle) : "";
   const raceCode: string | undefined = (raceName as RaceAndEthnicityGroup)
     ? raceNameToCodeMap?.[raceName as RaceAndEthnicityGroup]
     : "";

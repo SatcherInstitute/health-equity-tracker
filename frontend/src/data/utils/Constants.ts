@@ -86,6 +86,9 @@ export const MULTI_OR_OTHER_STANDARD_W =
 export const BLACK_W = "Black or African American Women";
 export const WHITE_W = "White Women";
 export const UNKNOWN_W = "Women of Unknown Race";
+export const MULTI_W = "Women of Two or More Races";
+export const MULTI_OR_OTHER_W =
+  "Women of Two or More Races & Unrepresented Race";
 
 export const CAWP_RACES = [
   ALL_W,
@@ -98,6 +101,8 @@ export const CAWP_RACES = [
   BLACK_W,
   WHITE_W,
   UNKNOWN_W,
+  MULTI_W,
+  MULTI_OR_OTHER_W,
 ] as const;
 
 // COMBINATION RACE GROUPS AND (UNUSED) ARRAY
@@ -113,6 +118,7 @@ export const MULTI_OR_OTHER_STANDARD_NH =
 export const UNREPRESENTED = "Unrepresented race";
 
 export const COMBINATION_RACES = [
+  AIAN_API,
   API,
   API_NH,
   INDIGENOUS,
@@ -137,7 +143,6 @@ export const RACE_GROUPS = [
 // ENUMERATE THOSE PROPERTIES TO CREATE A RACE-GROUP TYPE
 export type RaceAndEthnicityGroup = typeof RACE_GROUPS[number];
 
-// temp
 export const raceNameToCodeMap: Partial<Record<RaceAndEthnicityGroup, string>> =
   {
     // race and ethnicity NH
@@ -160,7 +165,7 @@ export const raceNameToCodeMap: Partial<Record<RaceAndEthnicityGroup, string>> =
     "Women of Two or More Races & Unrepresented Race": "2/Unr",
     "Black or African American Women": "Black",
     "White Women": "White",
-    "Women of Unknown Race": "Unknown",
+    "Women of Unknown Race": "n/a",
   };
 
 // AGE DEMOGRAPHIC  GROUP OPTIONS
@@ -208,7 +213,7 @@ export const CDC_AGE_BUCKETS = [
   "75+",
   "Unknown",
   "Total",
-];
+] as const;
 
 export const BJS_NATIONAL_AGE_BUCKETS = [
   "All",
@@ -223,13 +228,19 @@ export const BJS_NATIONAL_AGE_BUCKETS = [
   "55-59",
   "60-64",
   "65+",
-];
+] as const;
 
-export const BJS_JAIL_AGE_BUCKETS = [ALL, "0-17", "18+"];
+export const BJS_JAIL_AGE_BUCKETS = [ALL, "0-17", "18+"] as const;
 
 // buckets that have been calculated in the BigQuery table but are not used in current code
 // still need to be defined here to explicitly exclude from the TABLE
-export const UNUSED_BUCKETS = ["15-17", "65-69", "70-74", "75-79", "80-84"];
+export const UNUSED_BUCKETS = [
+  "15-17",
+  "65-69",
+  "70-74",
+  "75-79",
+  "80-84",
+] as const;
 
 export const UNDER_18_PRISON = `Children in Adult Prison`;
 
@@ -251,7 +262,8 @@ export type AgeBucket = typeof AGE_BUCKETS[number];
 // SEX DEMOGRAPHIC TERMS
 export const MALE = "Male";
 export const FEMALE = "Female";
-export const SEX_GROUPS = [MALE, FEMALE, UNKNOWN, ALL] as const;
+export const OTHER = "Other";
+export const SEX_GROUPS = [MALE, FEMALE, OTHER, UNKNOWN, ALL] as const;
 // CREATE SEX-GROUP TYPE
 export type SexGroup = typeof SEX_GROUPS[number];
 

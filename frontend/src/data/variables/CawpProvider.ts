@@ -10,6 +10,9 @@ import {
   MULTI,
   MULTI_OR_OTHER_STANDARD,
   UNREPRESENTED,
+  RaceAndEthnicityGroup,
+  MULTI_OR_OTHER_W,
+  MULTI_W,
 } from "../utils/Constants";
 
 export const CAWP_CONGRESS_COUNTS: MetricId[] = [
@@ -41,12 +44,14 @@ export const CAWP_DATA_TYPES: VariableId[] = [
   "women_us_congress",
 ];
 
-export function getWomenRaceLabel(raceLabel: string) {
+export function getWomenRaceLabel(
+  raceLabel: RaceAndEthnicityGroup
+): RaceAndEthnicityGroup {
   switch (raceLabel) {
     case MULTI:
-      return "Women of Two or More Races";
+      return MULTI_W;
     case MULTI_OR_OTHER_STANDARD:
-      return "Women of Two or More Races & Unrepresented Race";
+      return MULTI_OR_OTHER_W;
     case UNREPRESENTED:
       return "Women of an Unrepresented Race";
     case UNKNOWN_RACE:
@@ -54,7 +59,7 @@ export function getWomenRaceLabel(raceLabel: string) {
     case HISPANIC:
       return "Latinas and Hispanic Women";
   }
-  return `${raceLabel} Women`;
+  return `${raceLabel} Women` as RaceAndEthnicityGroup;
 }
 
 class CawpProvider extends VariableProvider {
@@ -63,12 +68,14 @@ class CawpProvider extends VariableProvider {
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    const breakdownId =
-      breakdowns.getSoleDemographicBreakdown().columnName +
-      "_" +
-      breakdowns.geography;
+    if (breakdowns.geography === "national" && breakdowns.hasOnlyRace()) {
+      return "cawp_time_data-race_and_ethnicity_national_time_series";
+    }
+    if (breakdowns.geography === "state" && breakdowns.hasOnlyRace()) {
+      return "cawp_time_data-race_and_ethnicity_state_time_series";
+    }
 
-    return `cawp_time_data-${breakdownId}_time_series`;
+    throw new Error("Not implemented");
   }
 
   async getDataInternal(

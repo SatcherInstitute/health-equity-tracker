@@ -61,11 +61,7 @@ export function TableCard(props: TableCardProps) {
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(
-      ...(getExclusionList(
-        props.variableConfig,
-        props.breakdownVar,
-        props.fips
-      ) as string[])
+      ...getExclusionList(props.variableConfig, props.breakdownVar, props.fips)
     )
   );
 

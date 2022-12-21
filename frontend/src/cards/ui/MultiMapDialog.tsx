@@ -22,7 +22,10 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
 import { Alert } from "@material-ui/lab";
-import { DemographicGroup } from "../../data/utils/Constants";
+import {
+  DemographicGroup,
+  RaceAndEthnicityGroup,
+} from "../../data/utils/Constants";
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
@@ -96,7 +99,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             const mapLabel = CAWP_DETERMINANTS.includes(
               props.metricConfig.metricId
             )
-              ? getWomenRaceLabel(breakdownValue)
+              ? getWomenRaceLabel(breakdownValue as RaceAndEthnicityGroup)
               : breakdownValue;
 
             const dataForValue = props.data.filter(
