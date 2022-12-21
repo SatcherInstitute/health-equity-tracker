@@ -146,6 +146,13 @@ class CAWPTimeData(DataSource):
             df = base_df.copy()
             df, bq_table_name = self.generate_breakdown(df, geo_level)
 
+            # drop 1982 because it's only MA and screws up national numbers
+            # drop state_leg info pre-1983
+            restricted_state_leg_years = get_consecutive_time_periods(
+                DEFAULT_STLEG_FIRST_YR, DEFAULT_LAST_YR)
+            df = df[df[std_col.TIME_PERIOD_COL].isin(
+                restricted_state_leg_years)]
+
             # df.to_csv(f'{bq_table_name}.csv', index=False)
 
             float_cols = [
