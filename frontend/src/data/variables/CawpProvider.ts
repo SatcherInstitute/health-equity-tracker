@@ -8,11 +8,11 @@ import {
   UNKNOWN_RACE,
   HISPANIC,
   MULTI,
-  MULTI_OR_OTHER_STANDARD,
   UNREPRESENTED,
   RaceAndEthnicityGroup,
-  MULTI_OR_OTHER_W,
+  OTHER_W,
   MULTI_W,
+  OTHER_STANDARD,
 } from "../utils/Constants";
 
 export const CAWP_CONGRESS_COUNTS: MetricId[] = [
@@ -50,8 +50,8 @@ export function getWomenRaceLabel(
   switch (raceLabel) {
     case MULTI:
       return MULTI_W;
-    case MULTI_OR_OTHER_STANDARD:
-      return MULTI_OR_OTHER_W;
+    case OTHER_STANDARD:
+      return OTHER_W;
     case UNREPRESENTED:
       return "Women of an Unrepresented Race";
     case UNKNOWN_RACE:
@@ -66,7 +66,6 @@ class CawpProvider extends VariableProvider {
   constructor() {
     super("cawp_provider", ["cawp_population_pct", ...CAWP_DETERMINANTS]);
   }
-
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.geography === "national" && breakdowns.hasOnlyRace()) {
       return "cawp_time_data-race_and_ethnicity_national_time_series";
@@ -74,7 +73,6 @@ class CawpProvider extends VariableProvider {
     if (breakdowns.geography === "state" && breakdowns.hasOnlyRace()) {
       return "cawp_time_data-race_and_ethnicity_state_time_series";
     }
-
     throw new Error("Not implemented");
   }
 

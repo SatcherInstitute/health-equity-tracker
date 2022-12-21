@@ -87,8 +87,7 @@ export const BLACK_W = "Black or African American Women";
 export const WHITE_W = "White Women";
 export const UNKNOWN_W = "Women of Unknown Race";
 export const MULTI_W = "Women of Two or More Races";
-export const MULTI_OR_OTHER_W =
-  "Women of Two or More Races & Unrepresented Race";
+export const OTHER_W = "Women of an Unrepresented Race";
 
 export const CAWP_RACES = [
   ALL_W,
@@ -102,7 +101,7 @@ export const CAWP_RACES = [
   WHITE_W,
   UNKNOWN_W,
   MULTI_W,
-  MULTI_OR_OTHER_W,
+  OTHER_W,
 ] as const;
 
 // COMBINATION RACE GROUPS AND (UNUSED) ARRAY
