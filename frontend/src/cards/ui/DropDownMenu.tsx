@@ -60,7 +60,7 @@ function MenuPopover(props: MenuPopoverProps): JSX.Element {
           key={listItem}
           button
           onClick={(event) => {
-            props.onClick(event, listItem);
+            props.onClick(event, listItem as DemographicGroup);
           }}
         >
           <ListItemText primary={listItem} />

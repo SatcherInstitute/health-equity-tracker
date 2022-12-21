@@ -17,6 +17,7 @@ import {
   TIME_SERIES,
   NON_HISPANIC,
   UNKNOWN_LABELS,
+  RaceAndEthnicityGroup,
 } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
@@ -51,7 +52,9 @@ export interface ShareTrendsChartCardProps {
 // and instead D3 will handle updates to the data
 export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   // Manages which group filters user has applied
-  const [selectedTableGroups, setSelectedTableGroups] = useState<string[]>([]);
+  const [selectedTableGroups, setSelectedTableGroups] = useState<
+    DemographicGroup[]
+  >([]);
 
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
   const [unknownsExpanded, setUnknownsExpanded] = useState(false);
@@ -132,11 +135,11 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           .getFieldValues(props.breakdownVar, metricConfigInequitable.metricId)
           .withData.filter(
             (group: DemographicGroup) => !UNKNOWN_LABELS.includes(group)
-          );
+          ) as DemographicGroup[];
 
         const demographicGroupsLabelled = isCawpCongress
           ? demographicGroups.map((group: DemographicGroup) =>
-              getWomenRaceLabel(group)
+              getWomenRaceLabel(group as RaceAndEthnicityGroup)
             )
           : demographicGroups;
 
@@ -192,10 +195,9 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     unknown={nestedUnknowns}
                     axisConfig={{
                       type: metricConfigInequitable.type,
-                      groupLabel:
-                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                          props.breakdownVar
-                        ],
+                      groupLabel: BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                        props.breakdownVar
+                      ] as DemographicGroup,
                       xAxisIsMonthly: metricConfigInequitable.isMonthly,
                     }}
                     breakdownVar={props.breakdownVar}

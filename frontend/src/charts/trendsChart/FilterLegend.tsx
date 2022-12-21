@@ -19,12 +19,13 @@ import { TrendsData } from "./types";
 import { COLORS as C } from "./constants";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
+import { DemographicGroup } from "../../data/utils/Constants";
 
 /* Define type interface */
 export interface FilterLegendProps {
   data: TrendsData;
   selectedGroups: string[];
-  handleClick: (group: string | null) => void;
+  handleClick: (group: DemographicGroup | null) => void;
   handleMinMaxClick: Function;
   groupLabel: string;
   isSkinny: boolean;
