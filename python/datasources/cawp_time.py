@@ -391,7 +391,7 @@ def get_us_congress_totals_df():
 
 
 def merge_total_cols(scaffold_df, us_congress_df, state_leg_df):
-    """ Merges previously made congress df info into the incoming scaffold df
+    """ Merges previously made congress df and state_leg_df info into the incoming scaffold df
     Parameters:
         scaffold_df: df containing a row for every combo of
             "time_period" X "state_postal" X "race_ethnicity
@@ -415,7 +415,7 @@ def merge_total_cols(scaffold_df, us_congress_df, state_leg_df):
     df = pd.merge(df, state_leg_df,
                   on=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL], how="left")
 
-    # fill counts with 0 where no info available
+    # fill counts with null where no info available
     df[std_col.STLEG_COUNT] = df[std_col.STLEG_COUNT].fillna(
         0).astype(float)
     return df
@@ -545,7 +545,8 @@ def merge_women_cols(scaffold_df, women_df, gov_level: str, preserve_races: bool
 
 def get_state_leg_totals_df():
     """ Fetches each individual CAWP state info page's state legislature
-    table, combines into a single cleaned df
+    table, combines into a single cleaned df. Nulls everything before 1983;
+    CAWPs totals are problematic between 1975-1982 and missing before that.
 
     Returns: df with "time_period", "state_fips", and stleg
         total_ and total_women cols
@@ -602,12 +603,6 @@ def get_state_leg_totals_df():
     df = df.sort_values(by=[std_col.TIME_PERIOD_COL,
                             std_col.STATE_FIPS_COL]).reset_index(drop=True)
 
-    # drop 1982 because it's only MA and screws up national numbers
-    restricted_state_leg_years = get_consecutive_time_periods(
-        DEFAULT_STLEG_FIRST_YR, DEFAULT_LAST_YR)
-    df = df[df[std_col.TIME_PERIOD_COL].isin(restricted_state_leg_years)]
-
-    # print(df.to_string())
     return df
 
 
