@@ -2,26 +2,26 @@ from google.cloud import bigquery
 import pandas as pd
 import ingestion.standardized_columns as std_col
 
-dataset_list = ['bjs_incarceration_data', 'cawp_data',
-                'cawp_time_data', 'cdc_restricted_data', 'cdc_vaccination_national',
-                'kff_vaccination', 'uhc_data', 'vera_incarceration_county']
+# dataset_list = ['bjs_incarceration_data', 'cawp_data',
+#                 'cawp_time_data', 'cdc_restricted_data', 'cdc_vaccination_national',
+#                 'kff_vaccination', 'uhc_data', 'vera_incarceration_county']
 
 
-def main():
-    bq_client = bigquery.Client()
-    datasets = list(bq_client.list_datasets())
+# def main():
+#     bq_client = bigquery.Client()
+#     datasets = list(bq_client.list_datasets())
 
-    for dataset in datasets:
-        if dataset.dataset_id in dataset_list:
-            tables = bq_client.list_tables(dataset.dataset_id)
-            for table in tables:
-                table_name = "{}.{}.{}".format(
-                    table.project, table.dataset_id, table.table_id)
-                query_string_test = 'SELECT * FROM `%s`' % table_name
-                df = bq_client.query(
-                    query_string_test).result().to_dataframe()
-                result = check_pct_values(df)
-                print(result)
+#     for dataset in datasets:
+#         if dataset.dataset_id in dataset_list:
+#             tables = bq_client.list_tables(dataset.dataset_id)
+#             for table in tables:
+#                 table_name = "{}.{}.{}".format(
+#                     table.project, table.dataset_id, table.table_id)
+#                 query_string_test = 'SELECT * FROM `%s`' % table_name
+#                 df = bq_client.query(
+#                     query_string_test).result().to_dataframe()
+#                 result = check_pct_values(df)
+#                 print(result)
 
 
 def check_pct_values(df):
