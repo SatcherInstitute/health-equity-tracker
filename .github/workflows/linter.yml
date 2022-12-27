@@ -36,7 +36,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: false  # Only validate new or changed files
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_DOCKERFILE: true
-          VALIDATE_JSON: false
+          # VALIDATE_JSON: true
           VALIDATE_PYTHON_PYLINT: true
           VALIDATE_PYTHON_FLAKE8: true
           VALIDATE_TERRAFORM: true
