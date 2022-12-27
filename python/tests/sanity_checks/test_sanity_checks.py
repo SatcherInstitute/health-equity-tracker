@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-from pandas._testing import assert_frame_equal
 from sanity_checks.sanity_checks import check_pct_values
 
 
