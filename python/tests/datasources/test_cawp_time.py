@@ -14,6 +14,10 @@ from datasources.cawp_time import (
     FIPS_TO_STATE_TABLE_MAP
 )
 
+
+FIPS_TO_TEST = ["02", "60"]
+
+
 # UNIT TESTS
 
 
@@ -85,7 +89,6 @@ def _generate_breakdown(*args):
 def _load_csv_as_df_from_data_dir(*args):
     # mocked and reduced files for testing
     [_folder, filename] = args
-    print("MOCK FILENAME", filename)
     if filename == "cawp-by_race_and_ethnicity_time_series.csv":
         # READ IN CAWP DB (numerators)
         print("reading mock CAWP FULL FILE line items")
@@ -97,7 +100,10 @@ def _load_csv_as_df_from_data_dir(*args):
                            dtype=test_input_data_types, index_col=False)
     else:
         # READ IN MANUAL TERRITORY STATELEG TOTAL TABLES
-        print("reading mock territory stateleg total tables")
+        if filename == "cawp_state_leg_60.csv":
+            print("reading mock territory stateleg total tables")
+        else:
+            filename = "cawp_state_leg_ZZ_territory.csv"
         test_input_data_types = {"state_fips": str, "time_period": str}
         return pd.read_csv(os.path.join(TEST_DIR, "mock_territory_leg_tables", filename),
                            dtype=test_input_data_types, index_col=False)
@@ -108,7 +114,13 @@ def _load_csv_as_df_from_web(*args):
     url = args[0]
     fips = [
         i for i in FIPS_TO_STATE_TABLE_MAP if FIPS_TO_STATE_TABLE_MAP[i] in url][0]
-    print("\t> read mock stleg table by fips:", fips)
+
+    # mock out a placeholder file for all FIPS not included in our test files
+    if fips in FIPS_TO_TEST:
+        print("\t> read mock stleg table by fips:", fips)
+    else:
+        fips = "XX"
+
     return pd.read_csv(os.path.join(TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv')
                        )
 
@@ -158,7 +170,7 @@ def testWriteToBq(
 
 # # # TEST GENERATION OF BASE DF
 @ mock.patch('datasources.cawp_time.get_state_level_fips',
-             return_value=["02", "60"])
+             return_value=FIPS_TO_TEST)
 @ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
              side_effect=_get_consecutive_time_periods)
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web', side_effect=_load_csv_as_df_from_web)
