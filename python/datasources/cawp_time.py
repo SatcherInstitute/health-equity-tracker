@@ -151,13 +151,11 @@ class CAWPTimeData(DataSource):
 
             float_cols = [
                 std_col.CONGRESS_COUNT,
-                std_col.W_ALL_RACES_CONGRESS_COUNT,
                 std_col.W_THIS_RACE_CONGRESS_COUNT,
                 std_col.PCT_OF_CONGRESS,
                 std_col.PCT_OF_W_CONGRESS,
                 std_col.W_CONGRESS_PCT_INEQUITY,
                 std_col.STLEG_COUNT,
-                std_col.W_ALL_RACES_STLEG_COUNT,
                 std_col.W_THIS_RACE_STLEG_COUNT,
                 std_col.PCT_OF_STLEG,
                 std_col.PCT_OF_W_STLEG,

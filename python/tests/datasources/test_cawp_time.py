@@ -113,83 +113,6 @@ def _load_csv_as_df_from_web(*args):
                        )
 
 
-# # # # TODO: Delete this DEV TEST RUNNER
-# def _load_full_csv_as_df_from_data_dir(*args):
-#     print("MOCKING _load_full_csv_as_df_from_data_dir()")
-#     print(args)
-#     # still mocked but not the reduced test file versions
-#     [_folder, filename] = args
-#     # print("MOCK FILENAME", filename)
-#     if filename == "cawp-by_race_and_ethnicity_time_series.csv":
-#         # READ IN CAWP DB (numerators)
-#         # print("reading mock CAWP FULL FILE line items")
-#         test_input_data_types = {"id": str, "year": str, "first_name": str,
-#                                  "middle_name": str, "last_name": str,
-#                                  "party": str, "level": str, "position": str,
-#                                  "state": str, "district": str, "race_ethnicity": str}
-#         print("* READING CAWP", filename)
-#         return pd.read_csv(os.path.join(TEST_DIR, filename),
-#                            dtype=test_input_data_types, index_col=False)
-#     else:
-#         print("* READING TERR. TABLES", filename)
-#         # READ IN MANUAL TERRITORY STATELEG TOTAL TABLES
-#         # print("reading mock territory stateleg total tables")
-#         test_input_data_types = {"state_fips": str, "time_period": str}
-#         return pd.read_csv(os.path.join(TEST_DIR, "mock_territory_leg_tables", filename),
-#                            dtype=test_input_data_types, index_col=False)
-
-# # # # TODO: Delete this
-# def _load_full_csv_as_df_from_web(*args):
-#     # mocked but full detail files
-#     url = args[0]
-#     fips = [
-#         i for i in FIPS_TO_STATE_TABLE_MAP if FIPS_TO_STATE_TABLE_MAP[i] in url][0]
-#     # print('read mock CAWP state leg. table:', fips, url)
-#     return pd.read_csv(os.path.join(TEST_DIR, "mock_full_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv')
-#                        )
-
-# # # # # TODO: Delete this DEV TEST RUNNER
-# @ mock.patch('datasources.cawp_time.get_state_level_fips',
-#              return_value=["02", "60"])
-# @ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
-#              side_effect=_get_consecutive_time_periods)
-# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web', side_effect=_load_csv_as_df_from_web)
-# @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#              return_value=None)
-# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-#              side_effect=_load_csv_as_df_from_data_dir)
-# def testREDUCEDRun(
-#     mock_full_data_dir_csv: mock.MagicMock,
-#     mock_bq: mock.MagicMock,
-#     mock_full_stateleg_tables: mock.MagicMock,
-#     mock_years: mock.MagicMock,
-#     mock_starter_fips: mock.MagicMock
-# ):
-#     kwargs_for_bq = {'filename': 'test_file.csv',
-#                      'metadata_table_id': 'test_metadata',
-#                      'table_name': 'output_table'}
-#     cawp_data = CAWPTimeData()
-#     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
-
-# # # # TODO: Delete this DEV TEST RUNNER
-
-# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web', side_effect=_load_full_csv_as_df_from_web)
-# @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#              return_value=None)
-# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-#              side_effect=_load_full_csv_as_df_from_data_dir)
-# def testFULLISHRun(
-#     mock_full_data_dir_csv: mock.MagicMock,
-#     mock_bq: mock.MagicMock,
-#     mock_full_stateleg_tables: mock.MagicMock,
-# ):
-#     kwargs_for_bq = {'filename': 'test_file.csv',
-#                      'metadata_table_id': 'test_metadata',
-#                      'table_name': 'output_table'}
-#     cawp_data = CAWPTimeData()
-#     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
-
-
 # TEST OUTGOING SIDE OF BIGQUERY INTERACTION
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
@@ -219,13 +142,11 @@ def testWriteToBq(
             'fake_col1': 'STRING',
             'fake_col2': 'STRING',
             'total_us_congress_count': 'FLOAT',
-            'women_all_races_us_congress_count': 'FLOAT',
             'women_this_race_us_congress_count': 'FLOAT',
             'pct_share_of_us_congress': 'FLOAT',
             'pct_share_of_women_us_congress': 'FLOAT',
             'women_us_congress_pct_relative_inequity': 'FLOAT',
             'total_state_leg_count': 'FLOAT',
-            'women_all_races_state_leg_count': 'FLOAT',
             'women_this_race_state_leg_count': 'FLOAT',
             'pct_share_of_state_leg': 'FLOAT',
             'pct_share_of_women_state_leg': 'FLOAT',
