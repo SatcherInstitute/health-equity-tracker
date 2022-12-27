@@ -15,6 +15,8 @@ import {
   DemographicGroup,
   TIME_SERIES,
   NON_HISPANIC,
+  AIAN_API,
+  RaceAndEthnicityGroup,
 } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
@@ -27,6 +29,9 @@ import AltTableView from "./ui/AltTableView";
 import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { Row } from "../data/utils/DatasetTypes";
+import { hasNonZeroUnknowns } from "../charts/trendsChart/helpers";
+import { getWomenRaceLabel } from "../data/variables/CawpProvider";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -43,7 +48,9 @@ export interface RateTrendsChartCardProps {
 // and instead D3 will handle updates to the data
 export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   // Manages which group filters user has applied
-  const [selectedTableGroups, setSelectedTableGroups] = useState<string[]>([]);
+  const [selectedTableGroups, setSelectedTableGroups] = useState<
+    DemographicGroup[]
+  >([]);
 
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
   const [unknownsExpanded, setUnknownsExpanded] = useState(false);
@@ -53,7 +60,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    exclude(NON_HISPANIC)
+    exclude(NON_HISPANIC, AIAN_API)
   );
 
   const ratesQuery = new MetricQuery(
@@ -68,6 +75,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     /* variableId */ props.variableConfig.variableId,
     /* timeView */ TIME_SERIES
   );
+
+  const isCawpCongress =
+    metricConfigRates.metricId === "pct_share_of_us_congress";
 
   function getTitleText() {
     return `${
@@ -90,9 +100,22 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           metricConfigRates.metricId
         );
 
-        const pctShareData = queryResponsePctShares.getValidRowsForField(
-          metricConfigPctShares.metricId
-        );
+        const pctShareData = isCawpCongress
+          ? ratesData
+          : queryResponsePctShares.getValidRowsForField(
+              metricConfigPctShares.metricId
+            );
+
+        // swap race labels if applicable
+        const ratesDataLabelled = isCawpCongress
+          ? ratesData.map((row: Row) => {
+              const altRow = { ...row };
+              altRow.race_and_ethnicity = getWomenRaceLabel(
+                row.race_and_ethnicity
+              );
+              return altRow;
+            })
+          : ratesData;
 
         // retrieve list of all present demographic groups
         const demographicGroups: DemographicGroup[] =
@@ -101,8 +124,16 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             metricConfigRates.metricId
           ).withData;
 
+        const demographicGroupsLabelled = isCawpCongress
+          ? (demographicGroups
+              .map((race) => getWomenRaceLabel(race as RaceAndEthnicityGroup))
+              .filter(
+                (womenRace) => womenRace !== "Women of Unknown Race"
+              ) as DemographicGroup[])
+          : demographicGroups;
+
         const [knownRatesData] = splitIntoKnownsAndUnknowns(
-          ratesData,
+          ratesDataLabelled,
           props.breakdownVar
         );
 
@@ -113,7 +144,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
         const nestedRatesData = getNestedData(
           knownRatesData,
-          demographicGroups,
+          demographicGroupsLabelled,
           props.breakdownVar,
           metricConfigRates.metricId
         );
@@ -122,6 +153,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           metricConfigPctShares.metricId
         );
 
+        const hasUnknowns = hasNonZeroUnknowns(nestedUnknownPctShareData);
+
         return (
           <CardContent>
             {queryResponseRates.shouldShowMissingDataMessage([
@@ -129,7 +162,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             ]) || nestedRatesData.length === 0 ? (
               <>
                 <MissingDataAlert
-                  dataName={`historical data for ${metricConfigRates.chartTitle}`}
+                  dataName={`historical data for ${metricConfigRates.chartTitleLines.join(
+                    " "
+                  )}`}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }
@@ -141,9 +176,10 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 {props.isCompareCard && (
                   <Box mb={2}>
                     <Alert severity="warning" role="note">
-                      Please note that the y-axis scales to fit the largest
-                      value, requiring extra attention when making visual
-                      side-by-side comparisons.
+                      Use care when making visual comparisons as the
+                      visualizations scale to fit the selected data set. Use
+                      care when making visual comparisons as the visualizations
+                      scale to fit the selected data set.
                     </Alert>
                   </Box>
                 )}
@@ -154,27 +190,35 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   unknown={nestedUnknownPctShareData}
                   axisConfig={{
                     type: metricConfigRates.type,
-                    groupLabel:
-                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                        props.breakdownVar
-                      ],
-                    yAxisLabel: metricConfigRates.shortLabel,
+                    groupLabel: BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                      props.breakdownVar
+                    ] as DemographicGroup,
+                    yAxisLabel: `${metricConfigRates.shortLabel} ${
+                      props.fips.isUsa() ? "" : "from"
+                    } ${
+                      props.fips.isUsa()
+                        ? ""
+                        : props.fips.getSentenceDisplayName()
+                    }`,
+                    xAxisIsMonthly: metricConfigRates.isMonthly,
                   }}
                   breakdownVar={props.breakdownVar}
                   setSelectedTableGroups={setSelectedTableGroups}
                   isCompareCard={props.isCompareCard || false}
                   expanded={unknownsExpanded}
                   setExpanded={setUnknownsExpanded}
+                  hasUnknowns={hasUnknowns}
                 />
-
-                <CardContent>
-                  <UnknownBubblesAlert
-                    breakdownVar={props.breakdownVar}
-                    variableDisplayName={props.variableConfig.variableDisplayName.toLowerCase()}
-                    expanded={unknownsExpanded}
-                    setExpanded={setUnknownsExpanded}
-                  />
-                </CardContent>
+                {hasUnknowns && (
+                  <CardContent>
+                    <UnknownBubblesAlert
+                      breakdownVar={props.breakdownVar}
+                      variableDisplayName={props.variableConfig.variableDisplayName.toLowerCase()}
+                      expanded={unknownsExpanded}
+                      setExpanded={setUnknownsExpanded}
+                    />
+                  </CardContent>
+                )}
 
                 <AltTableView
                   expanded={a11yTableExpanded}
@@ -189,6 +233,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   knownMetricConfig={metricConfigRates}
                   unknownMetricConfig={metricConfigPctShares}
                   selectedGroups={selectedTableGroups}
+                  hasUnknowns={hasUnknowns}
                 />
               </>
             )}

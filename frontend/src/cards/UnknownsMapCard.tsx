@@ -40,7 +40,7 @@ export interface UnknownsMapCardProps {
   // Updates the madlib
   updateFipsCallback: (fips: Fips) => void;
   // replaces race AND ethnicity with race OR ethnicity on unknowns map title and alerts
-  overrideAndWithOr?: Boolean;
+  overrideAndWithOr?: boolean;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -58,11 +58,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const preloadHeight = useGuessPreloadHeight([700, 1000]);
   const metricConfig = props.variableConfig.metrics["pct_share"];
   const currentBreakdown = props.currentBreakdown;
-  const breakdownString =
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown];
+  const breakdownString = `with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`;
+  const isCawpCongress =
+    props.variableConfig.variableId === "women_us_congress";
 
   const location = useLocation();
-  const locationName = props.fips.getSentenceDisplayName();
+  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
 
   const signalListeners: any = {
     click: (...args: any) => {
@@ -85,24 +86,21 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const mapQuery = new MetricQuery(
     [metricConfig.metricId],
     mapGeoBreakdowns,
-    /* variableId */ props.variableConfig.variableId
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
   );
   const alertQuery = new MetricQuery(
     [metricConfig.metricId],
     alertBreakdown,
-    /* variableId */ props.variableConfig.variableId
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
   );
 
-  const chartTitle = useCreateChartTitle(
+  const { chartTitle, dataName, filename } = useCreateChartTitle(
     metricConfig,
-    locationName,
+    locationPhrase,
     breakdownString
   );
-
-  const chartTitleLines = [
-    `${metricConfig.chartTitle}`,
-    `with unknown ${breakdownString}`,
-  ];
 
   const HASH_ID: ScrollableHashId = "unknown-demographic-map";
 
@@ -201,33 +199,35 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             <Divider />
 
             {/* PERCENT REPORTING UNKNOWN ALERT - contains its own logic and divider/styling */}
-            {/* This alert presents the UNKNOWN PCT_SHARE for the SELECTED GEO LEVEL,
-            as opposed to the rest of this current component which deals in CHILD GEO unknowns */}
-            <UnknownsAlert
-              queryResponse={alertQueryResponse}
-              metricConfig={metricConfig}
-              breakdownVar={currentBreakdown}
-              displayType="map"
-              known={false}
-              overrideAndWithOr={currentBreakdown === RACE}
-              raceEthDiffMap={
-                mapQueryResponse
-                  .getValidRowsForField(currentBreakdown)
-                  .filter(
-                    (row: Row) => row[currentBreakdown] === UNKNOWN_ETHNICITY
-                  ).length !== 0
-              }
-              noDemographicInfoMap={noDemographicInfo}
-              showingVisualization={showingVisualization}
-              fips={props.fips}
-            />
+            {!unknownsAllZero && (
+              <UnknownsAlert
+                queryResponse={alertQueryResponse}
+                metricConfig={metricConfig}
+                breakdownVar={currentBreakdown}
+                displayType="map"
+                known={false}
+                overrideAndWithOr={currentBreakdown === RACE}
+                raceEthDiffMap={
+                  mapQueryResponse
+                    .getValidRowsForField(currentBreakdown)
+                    .filter(
+                      (row: Row) => row[currentBreakdown] === UNKNOWN_ETHNICITY
+                    ).length !== 0
+                }
+                noDemographicInfoMap={noDemographicInfo}
+                showingVisualization={showingVisualization}
+                fips={props.fips}
+              />
+            )}
 
             <CardContent>
               {/* MISSING DATA ALERT */}
               {showMissingDataAlert && (
                 <MissingDataAlert
-                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
-                  breakdownString={breakdownString}
+                  dataName={dataName}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
+                  }
                   isMapCard={true}
                   fips={props.fips}
                 />
@@ -236,8 +236,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {/* NO UNKNOWNS INFO BOX */}
               {(showNoUnknownsInfo || unknownsAllZero) && (
                 <Alert severity="info" role="note">
-                  No unknown values for {breakdownString} reported in this
-                  dataset
+                  No unknown values for{" "}
+                  {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}{" "}
+                  reported in this dataset
                   {hasChildGeo && (
                     <>
                       {" "}
@@ -265,7 +266,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
                   geoData={geoData}
-                  filename={`${chartTitleLines.join(" ")} in ${locationName}`}
+                  filename={filename}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <div className={styles.TerritoryCirclesContainer}>

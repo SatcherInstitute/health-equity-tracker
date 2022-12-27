@@ -54,15 +54,13 @@ export function TableCard(props: TableCardProps) {
   );
 
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
+  const isCawpCongress =
+    props.variableConfig.variableId === "women_us_congress";
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(
-      ...(getExclusionList(
-        props.variableConfig,
-        props.breakdownVar,
-        props.fips
-      ) as string[])
+      ...getExclusionList(props.variableConfig, props.breakdownVar, props.fips)
     )
   );
 
@@ -93,9 +91,10 @@ export function TableCard(props: TableCardProps) {
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   isIncarceration && metricIds.push("total_confined_children");
   const query = new MetricQuery(
-    metricIds,
+    metricIds as MetricId[],
     breakdowns,
-    /* variableId */ props.variableConfig.variableId
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
   );
 
   const displayingCovidData = metrics

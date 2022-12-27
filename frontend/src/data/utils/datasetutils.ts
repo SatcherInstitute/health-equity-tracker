@@ -177,27 +177,51 @@ export function getLatestDate(df: IDataFrame): Date {
   return new Date(dateTimes.max());
 }
 
-export const getLowestN = (
+/* 
+Returns the lowest `listSize` & highest `listSize` values, unless there are ties for first and/or last in which case the only the tied values are returned. If there is overlap, it is removed from the highest values.
+*/
+export function getExtremeValues(
   data: Row[],
   fieldName: MetricId,
   listSize: number
-): Row[] => {
-  return data
-    .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
-    .sort((rowA: Row, rowB: Row) => rowA[fieldName] - rowB[fieldName])
-    .slice(0, listSize);
-};
+) {
+  if (data.length === 0) return { lowestValues: [], highestValues: [] };
 
-export const getHighestN = (
-  data: Row[],
-  fieldName: MetricId,
-  listSize: number
-): Row[] => {
-  return data
+  listSize = listSize > data.length ? data.length : listSize;
+
+  // cleanup and sort the data
+  let sortedData = data
     .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
-    .sort((rowA: Row, rowB: Row) => rowB[fieldName] - rowA[fieldName])
-    .slice(0, listSize);
-};
+    .sort((rowA: Row, rowB: Row) => rowA[fieldName] - rowB[fieldName]); // ascending order
+
+  const lowestValue = sortedData[0][fieldName];
+  const valuesTiedAtLowest = sortedData.filter(
+    (row) => row[fieldName] === lowestValue
+  );
+
+  const lowestValuesAreTied = valuesTiedAtLowest.length > 1;
+
+  const lowestValues = lowestValuesAreTied
+    ? valuesTiedAtLowest
+    : sortedData.slice(0, listSize);
+
+  sortedData = sortedData.reverse();
+
+  const highestValue = sortedData[0][fieldName];
+  const valuesTiedAtHighest = sortedData.filter(
+    (row) => row[fieldName] === highestValue
+  );
+  const highestValuesAreTied = valuesTiedAtHighest.length > 1;
+  const highestValuesPotentialOverlap: Row[] = highestValuesAreTied
+    ? valuesTiedAtHighest
+    : sortedData.slice(0, listSize);
+
+  const highestValues = highestValuesPotentialOverlap.filter(
+    (value) => !lowestValues.includes(value)
+  );
+
+  return { lowestValues, highestValues };
+}
 
 /*
 Analyzes state and determines if the 2nd population source should be used
@@ -268,7 +292,7 @@ const includeAllsGroupsIds: VariableId[] = [
   "jail",
 ];
 
-const NON_STANDARD_AND_MULTI = [
+const NON_STANDARD_AND_MULTI: DemographicGroup[] = [
   ...NON_STANDARD_RACES,
   MULTI_OR_OTHER_STANDARD,
   MULTI_OR_OTHER_STANDARD_NH,
@@ -281,7 +305,11 @@ export function getExclusionList(
 ): DemographicGroup[] {
   const current100k = currentVariable.metrics.per100k.metricId;
   const currentVariableId = currentVariable.variableId;
-  let exclusionList = [UNKNOWN, UNKNOWN_ETHNICITY, UNKNOWN_RACE];
+  let exclusionList: DemographicGroup[] = [
+    UNKNOWN,
+    UNKNOWN_ETHNICITY,
+    UNKNOWN_RACE,
+  ];
 
   if (!includeAllsGroupsIds.includes(currentVariableId)) {
     exclusionList.push(ALL);
@@ -369,10 +397,11 @@ export function splitIntoKnownsAndUnknowns(
     if (
       row[breakdownVar] === UNKNOWN ||
       row[breakdownVar] === UNKNOWN_RACE ||
-      row[breakdownVar] === UNKNOWN_ETHNICITY
-    )
+      row[breakdownVar] === UNKNOWN_ETHNICITY ||
+      row[breakdownVar] === "Women of Unknown Race"
+    ) {
       unknowns.push(row);
-    else knowns.push(row);
+    } else knowns.push(row);
   });
 
   return [knowns, unknowns];

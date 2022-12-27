@@ -3,7 +3,7 @@ import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { MetricId, VariableConfig } from "../data/config/MetricConfig";
 import { exclude, onlyInclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
@@ -23,17 +23,14 @@ import {
   RACE,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
-import { getHighestN, getLowestN } from "../data/utils/datasetutils";
+import { getExtremeValues } from "../data/utils/datasetutils";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import {
   COMBINED_INCARCERATION_STATES_LIST,
   COMBINED_QUALIFIER,
   PRIVATE_JAILS_QUALIFIER,
 } from "../data/variables/IncarcerationProvider";
-import {
-  CAWP_DETERMINANTS,
-  getWomenRaceLabel,
-} from "../data/variables/CawpProvider";
+import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 import { useAutoFocusDialog } from "../utils/hooks/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
@@ -77,12 +74,15 @@ function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050]);
 
   const metricConfig = props.variableConfig.metrics["per100k"];
-  const locationName = props.fips.getSentenceDisplayName();
+  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
   const currentBreakdown = props.currentBreakdown;
 
   const isPrison = props.variableConfig.variableId === "prison";
   const isJail = props.variableConfig.variableId === "jail";
   const isIncarceration = isJail || isPrison;
+
+  const isCawpCongress =
+    props.variableConfig.variableId === "women_us_congress";
 
   const location = useLocation();
 
@@ -103,9 +103,19 @@ function MapCardWithKey(props: MapCardProps) {
   const [smallMultiplesDialogOpen, setSmallMultiplesDialogOpen] =
     useAutoFocusDialog();
 
-  const metricQuery = (geographyBreakdown: Breakdowns) =>
-    new MetricQuery(
-      metricConfig.metricId,
+  const metricQuery = (
+    geographyBreakdown: Breakdowns,
+    addCountCols?: boolean
+  ) => {
+    const metricIds: MetricId[] = [metricConfig.metricId];
+    if (addCountCols)
+      metricIds.push(
+        "women_this_race_us_congress_count",
+        "total_us_congress_count"
+      );
+
+    return new MetricQuery(
+      metricIds,
       geographyBreakdown
         .copy()
         .addBreakdown(
@@ -114,11 +124,16 @@ function MapCardWithKey(props: MapCardProps) {
             ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
             : exclude(UNKNOWN)
         ),
-      /* variableId */ props.variableConfig.variableId
+      /* variableId */ props.variableConfig.variableId,
+      /* timeView */ isCawpCongress ? "cross_sectional" : undefined
     );
+  };
 
   const queries = [
-    metricQuery(Breakdowns.forChildrenFips(props.fips)),
+    metricQuery(
+      Breakdowns.forChildrenFips(props.fips),
+      /* addCountCols */ isCawpCongress
+    ),
     metricQuery(Breakdowns.forFips(props.fips)),
   ];
 
@@ -134,12 +149,13 @@ function MapCardWithKey(props: MapCardProps) {
     queries.push(sviQuery);
   }
 
-  const selectedRaceSuffix = CAWP_DETERMINANTS.includes(metricConfig.metricId)
-    ? ` Identifying as ${getWomenRaceLabel(activeBreakdownFilter).replace(
-        "All ",
-        ""
-      )}`
-    : "";
+  let selectedRaceSuffix = "";
+  if (
+    CAWP_DETERMINANTS.includes(metricConfig.metricId) &&
+    activeBreakdownFilter !== "All"
+  ) {
+    selectedRaceSuffix = ` and also identifying as ${activeBreakdownFilter}`;
+  }
 
   let qualifierMessage = "";
   if (isPrison) qualifierMessage = COMBINED_QUALIFIER;
@@ -148,12 +164,12 @@ function MapCardWithKey(props: MapCardProps) {
   let qualifierItems: string[] = [];
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
 
-  const chartTitle = useCreateChartTitle(metricConfig, locationName);
+  let { chartTitle, filename, dataName } = useCreateChartTitle(
+    metricConfig,
+    locationPhrase
+  );
   const subtitle = createSubtitle({ currentBreakdown, activeBreakdownFilter });
-
-  const filename = `${metricConfig.chartTitle}${
-    activeBreakdownFilter === "All" ? "" : ` for ${activeBreakdownFilter}`
-  } in ${props.fips.getSentenceDisplayName()}`;
+  filename = `${filename} ${subtitle ? `for ${subtitle}` : ""}`;
 
   const HASH_ID: ScrollableHashId = "rate-map";
 
@@ -217,13 +233,7 @@ function MapCardWithKey(props: MapCardProps) {
           );
         }
 
-        const highestRatesList = getHighestN(
-          dataForActiveBreakdownFilter,
-          metricConfig.metricId,
-
-          SIZE_OF_HIGHEST_LOWEST_RATES_LIST
-        );
-        const lowestRatesList = getLowestN(
+        const { highestValues, lowestValues } = getExtremeValues(
           dataForActiveBreakdownFilter,
           metricConfig.metricId,
           SIZE_OF_HIGHEST_LOWEST_RATES_LIST
@@ -323,7 +333,7 @@ function MapCardWithKey(props: MapCardProps) {
               dataForActiveBreakdownFilter.length === 0) && (
               <CardContent>
                 <MissingDataAlert
-                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
+                  dataName={dataName}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                   }
@@ -361,7 +371,7 @@ function MapCardWithKey(props: MapCardProps) {
                     legendTitle={metricConfig.shortLabel.toLowerCase()}
                     data={
                       listExpanded
-                        ? highestRatesList.concat(lowestRatesList)
+                        ? highestValues.concat(lowestValues)
                         : dataForActiveBreakdownFilter
                     }
                     hideMissingDataTooltip={listExpanded}
@@ -376,6 +386,7 @@ function MapCardWithKey(props: MapCardProps) {
                     geoData={geoData}
                     // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
                     filename={filename}
+                    listExpanded={listExpanded}
                   />
                   {/* generate additional VEGA canvases for territories on national map */}
                   {props.fips.isUsa() && (
@@ -390,7 +401,7 @@ function MapCardWithKey(props: MapCardProps) {
                               metric={metricConfig}
                               data={
                                 listExpanded
-                                  ? highestRatesList.concat(lowestRatesList)
+                                  ? highestValues.concat(lowestValues)
                                   : dataForActiveBreakdownFilter
                               }
                               hideMissingDataTooltip={listExpanded}
@@ -417,8 +428,8 @@ function MapCardWithKey(props: MapCardProps) {
                         metricConfig={metricConfig}
                         listExpanded={listExpanded}
                         setListExpanded={setListExpanded}
-                        highestRatesList={highestRatesList}
-                        lowestRatesList={lowestRatesList}
+                        highestValues={highestValues}
+                        lowestValues={lowestValues}
                         fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
                         qualifierItems={qualifierItems}
                         qualifierMessage={qualifierMessage}

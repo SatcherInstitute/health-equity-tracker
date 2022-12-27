@@ -337,7 +337,7 @@ function MethodologyTab() {
                   Women in Legislative Office
                 </h4>
 
-                <p>
+                <Card elevation={3} className={styles.WhyBox}>
                   <a href={urlMap.doi1}>A link has been established</a> between
                   having women in government and improvements in population
                   health. <a href={urlMap.doi2}>Women in legislative office</a>{" "}
@@ -348,47 +348,134 @@ function MethodologyTab() {
                   education, poverty, social welfare, reproductive and maternal
                   health, children, and family life. These policies in turn play
                   a significant role in the advancement of health equity for
-                  all. By combining data from the{" "}
+                  all.
+                </Card>
+
+                <p>
+                  By leveraging data from the{" "}
                   <a href={urlMap.cawp}>
                     Center for American Women in Politics (CAWP)
                   </a>{" "}
-                  with data from <a href={urlMap.propublica}>ProPublica</a>, we
-                  are able to present two distinct metrics on these reports:
+                  we are able to present two primary metrics on these reports:
                 </p>
                 <ul>
                   <li>
-                    The race/ethnicity distribution or “percent share” of women
-                    (e.g. "What percent of women in the Georgia State
-                    Legislature are black?"){" "}
+                    The intersectional representation (e.g.{" "}
+                    <i>
+                      “What percent of all Georgia state legislators are black
+                      women?”
+                    </i>
+                    ).{" "}
                   </li>
-
                   <li>
-                    The intersectional representation (e.g. "What percent of all
-                    Georgia state legislators are black women?").{" "}
+                    The race/ethnicity distribution amongst women legislators
+                    (e.g.{" "}
+                    <i>
+                      “What percent of the women in the Georgia State
+                      Legislature are black?“
+                    </i>
+                    ){" "}
                   </li>
                 </ul>
 
                 <p>
-                  These metrics are calculated for two distinct data types:
-                  <b>Women in State Legislature</b>, and{" "}
+                  These metrics are calculated for two distinct data types:{" "}
+                  <b>Women in State Legislature</b> and{" "}
                   <b>Women in U.S. Congress</b>, and both of these data types
-                  are currently available at the state, territory, and national
-                  levels. Our percentage calculations at the national level
-                  specifically include legislators from the U.S. territories,
-                  which can result in slightly different results than those
-                  presented on the CAWP website. Additionally, our "total
-                  legislator" count for U.S. Congress only includes actively
-                  seated legislators, as opposed to the total number of seats
-                  which are not always filled. All gender and race/ethnicity
+                  are available at the state, territory, and national levels.
+                  Our percentage calculations at the national level specifically
+                  include legislators from the U.S. territories, which can
+                  result in slightly different results than those presented on
+                  the CAWP website. All gender and race/ethnicity
                   categorizations are self-reported, and a legislator may be
                   represented in multiple race groupings if that is how they
                   identify.
                 </p>
 
+                <p>
+                  We are also able to track these rates over time (currently
+                  only for U.S. Congress) as outlined below. A member is counted
+                  towards any year in which they served even a single day. This
+                  results in the "bumpiness" observed as the proportions change
+                  incrementally between election and non-election years. We only
+                  track back to just before the first woman was elected to the
+                  U.S. Congress in 1917.
+                </p>
+                <ul>
+                  <li>
+                    Historical, intersectional representation (e.g.{" "}
+                    <i>
+                      “In each year since 1915, what percent of all U.S.
+                      Congress members identified as black women?”
+                    </i>
+                    ). We obtain the historic counts of U.S. Congress members,
+                    by year and by state/territory, from the open-source{" "}
+                    <a href={urlMap.unitedStatesIo}>@unitedstates project</a>.
+                  </li>
+                  <li>
+                    Historical relative inequity (e.g.{" "}
+                    <i>
+                      “In each year since 2019, what percent over- or
+                      under-represented were black women when compared to their
+                      share of represention amongst all women Congress members?”
+                    </i>
+                    ) Note: we currently track this measure back only to 2019,
+                    as we are utilizing the 2019 ACS 5-year estimates for the
+                    population comparison metric.{" "}
+                  </li>
+                </ul>
+
+                <p>
+                  Unfortunately CAWP and the U.S. Census use some different
+                  race/ethnicity groupings, making direct comparisons and
+                  calculations difficult or impossible in some cases. For
+                  specific methodology on the race groups collected by CAWP,
+                  please <a href={urlMap.cawp}>visit their database directly</a>{" "}
+                  . We have made several adjustments to our methods to
+                  incorporate these non-standard race groupings when possible:
+                </p>
+
+                <ul>
+                  <li>
+                    Women who identify as multiple specific races are listed
+                    multiple times in each corresponding race visualization.
+                    Therefore, these race/ethnicity groupings are non-exclusive,
+                    and cannot be summed. Additionally, a small number of women
+                    identify as the specific race label <b>Multiracial Alone</b>
+                    , without specifying the multiple races with which they
+                    identify.
+                  </li>
+                  <li>
+                    The composite race group{" "}
+                    <b>
+                      American Indian, Alaska Native, Asian & Pacific Islander
+                    </b>{" "}
+                    is our best attempt to visualize the impact to these
+                    under-represented groups; to accurately compare against
+                    available population data from the U.S. Census we must
+                    further combine these distinct racial identities.
+                  </li>
+                  <li>
+                    There is currently no population data collected by the U.S.
+                    Census for <b>Middle Eastern & North African</b>, although
+                    this data equity issue has seen{" "}
+                    <a
+                      href={urlMap.senateMENA}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      some progress
+                    </a>{" "}
+                    in recent decades. Currently, <b>MENA</b> individuals are
+                    counted by the ACS as <b>White</b>.
+                  </li>
+                </ul>
+
                 <h4 className={styles.MethodologySubsubheaderText} id="svi">
                   Social Vulnerability Index
                 </h4>
-                <p>
+
+                <Card elevation={3} className={styles.WhyBox}>
                   The measurement of social vulnerability grants policymakers,
                   public health officials, and local planners the ability to
                   effectively decide how to best protect their most vulnerable
@@ -396,7 +483,8 @@ function MethodologyTab() {
                   crisis. This advances health equity by ensuring that the
                   communities that need resources the most, in times of
                   devastation, receive them.
-                </p>
+                </Card>
+
                 <p>
                   Percentile ranking values range from 0 to 1. The scores are
                   given a ranking of low, medium, or high.
@@ -425,46 +513,48 @@ function MethodologyTab() {
                   Incarceration
                 </h4>
 
-                <p>
-                  Incarceration is influenced by a blend of political forces,
-                  laws, and public opinion. Laws that govern sentencing policies
-                  and disenfranchisement of convicted felons are some of the
-                  political forces that determine voter participation in the
-                  justice-involved population.
-                </p>
-                <p>
-                  The ability to vote has been described as{" "}
-                  <a href={urlMap.repJohnLewisTweet}>
-                    the singular most powerful, non-violent tool in American
-                    democracy
-                  </a>
-                  . As of 2020, an estimated 5.17 million people were
-                  disenfranchised because of a prior felony conviction with
-                  minority populations of voting age being disproportionately
-                  represented.{" "}
-                  <a href={urlMap.deniedVoting}>(Sentencing Project)</a>
-                </p>
-                <p>
-                  <a href={urlMap.aafp}>Studies have also shown</a> that
-                  incarceration increases the prevalence of chronic health
-                  conditions, infectious diseases such as HIV/ AIDS, mental
-                  illnesses and substance use disorders. Incarceration has also
-                  been{" "}
-                  <a href={urlMap.rwjf}>
-                    shown to cause a reduction in life expectancy
-                  </a>
-                  , with each year spent in prison corresponding to 2 years of
-                  reduced life expectancy.
-                </p>
-                <p>
-                  The impact of incarceration on the health of the justice
-                  involved lingers long after the period of incarceration is
-                  over. Upon reentry into society, the lack of adequate access
-                  to healthcare and the resources that engender health such as
-                  health insurance coverage, housing, employment, the lack of
-                  opportunities for upward advancement etc. further exacerbates
-                  the health inequities experienced by this group.
-                </p>
+                <Card elevation={3} className={styles.WhyBox}>
+                  <p>
+                    Incarceration is influenced by a blend of political forces,
+                    laws, and public opinion. Laws that govern sentencing
+                    policies and disenfranchisement of convicted felons are some
+                    of the political forces that determine voter participation
+                    in the justice-involved population.
+                  </p>
+                  <p>
+                    The ability to vote has been described as{" "}
+                    <a href={urlMap.repJohnLewisTweet}>
+                      the singular most powerful, non-violent tool in American
+                      democracy
+                    </a>
+                    . As of 2020, an estimated 5.17 million people were
+                    disenfranchised because of a prior felony conviction with
+                    minority populations of voting age being disproportionately
+                    represented.{" "}
+                    <a href={urlMap.deniedVoting}>(Sentencing Project)</a>
+                  </p>
+                  <p>
+                    <a href={urlMap.aafp}>Studies have also shown</a> that
+                    incarceration increases the prevalence of chronic health
+                    conditions, infectious diseases such as HIV/ AIDS, mental
+                    illnesses and substance use disorders. Incarceration has
+                    also been{" "}
+                    <a href={urlMap.rwjf}>
+                      shown to cause a reduction in life expectancy
+                    </a>
+                    , with each year spent in prison corresponding to 2 years of
+                    reduced life expectancy.
+                  </p>
+                  <p>
+                    The impact of incarceration on the health of the justice
+                    involved lingers long after the period of incarceration is
+                    over. Upon reentry into society, the lack of adequate access
+                    to healthcare and the resources that engender health such as
+                    health insurance coverage, housing, employment, the lack of
+                    opportunities for upward advancement etc. further
+                    exacerbates the health inequities experienced by this group.
+                  </p>
+                </Card>
 
                 <p>
                   <b>Data Sources</b>
@@ -817,6 +907,11 @@ function MethodologyTab() {
                   </li>
                   <li>
                     <b>Hispanic/Latino</b>: Any race(s), Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>Middle Eastern / North African (MENA)</b>: Race/ethnicity
+                    grouping collected by CAWP but not currently collected by
+                    the U.S. Census.
                   </li>
                   <li>
                     <b>Native Hawaiian or Other Pacific Islander (NH)</b>: A

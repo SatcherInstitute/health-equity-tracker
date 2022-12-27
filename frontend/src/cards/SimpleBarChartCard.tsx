@@ -16,7 +16,7 @@ import {
 } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
-import { NON_HISPANIC } from "../data/utils/Constants";
+import { AIAN_API, NON_HISPANIC, UNKNOWN_RACE } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
@@ -47,29 +47,36 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
-  const locationName = props.fips.getSentenceDisplayName();
+  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
 
   const isIncarceration = INCARCERATION_IDS.includes(
     props.variableConfig.variableId
   );
+
+  const isCawpCongress =
+    props.variableConfig.variableId === "women_us_congress";
+
   const metricIdsToFetch: MetricId[] = [];
   metricIdsToFetch.push(metricConfig.metricId);
   isIncarceration && metricIdsToFetch.push("total_confined_children");
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    exclude(NON_HISPANIC)
+    exclude(NON_HISPANIC, AIAN_API, UNKNOWN_RACE)
   );
 
   const query = new MetricQuery(
     metricIdsToFetch,
     breakdowns,
-    /* variableId */ props.variableConfig.variableId
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
   );
 
-  const chartTitle = useCreateChartTitle(metricConfig, locationName);
-
-  const filename = `${metricConfig.chartTitle} ${locationName}, by ${
+  let { chartTitle, filename, dataName } = useCreateChartTitle(
+    metricConfig,
+    locationPhrase
+  );
+  filename = `${filename}, by ${
     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
   }`;
 
@@ -92,7 +99,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
             ]) ? (
               <>
                 <MissingDataAlert
-                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
+                  dataName={dataName}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }

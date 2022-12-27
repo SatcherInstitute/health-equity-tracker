@@ -23,11 +23,11 @@ interface UnknownsAlertProps {
   metricConfig: MetricConfig;
   breakdownVar: BreakdownVar;
   displayType: VisualizationType;
-  known: Boolean;
-  overrideAndWithOr?: Boolean;
-  raceEthDiffMap?: Boolean;
-  noDemographicInfoMap?: Boolean;
-  showingVisualization?: Boolean;
+  known: boolean;
+  overrideAndWithOr?: boolean;
+  raceEthDiffMap?: boolean;
+  noDemographicInfoMap?: boolean;
+  showingVisualization?: boolean;
   fips: Fips;
   jumpToData?: Function;
 }
@@ -79,10 +79,11 @@ function UnknownsAlert(props: UnknownsAlertProps) {
     separately, the map shows the higher of the two metrics.`;
 
   const percentageUnknown = unknowns[0][props.metricConfig.metricId];
-  const showInfoSeverity = percentageUnknown === 0;
 
   const secondaryAgePercentageUnknown =
     additionalAgeUnknowns?.[0]?.[props.metricConfig.metricId];
+
+  const showInfoSeverity = percentageUnknown === 0;
 
   const diffRaceEthnicityText = raceEthnicityDiff
     ? `This state reports race and ethnicity separately.

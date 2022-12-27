@@ -8,19 +8,38 @@ import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 import { useFontSize } from "../utils/hooks/useFontSize";
 import sass from "../styles/variables.module.scss";
 import {
-  EQUAL_DOT_SIZE,
-  GREY_DOT_SCALE,
-  LEGEND_COLOR_COUNT,
-  LEGEND_SYMBOL_TYPE,
   LEGEND_TEXT_FONT,
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
-  UNKNOWN_SCALE,
 } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
-import { ORDINAL, PADDING_FOR_ACTIONS_MENU } from "./utils";
-
-export type ScaleType = "quantize" | "quantile" | "symlog";
+import { PADDING_FOR_ACTIONS_MENU } from "./utils";
+import {
+  addCAWPTooltipInfo,
+  buildTooltipTemplate,
+  CIRCLE_PROJECTION,
+  COLOR_SCALE,
+  createCircleTextMark,
+  createInvisibleAltMarks,
+  createShapeMarks,
+  formatPreventZero100k,
+  GEO_DATASET,
+  getCountyAddOn,
+  getProjection,
+  LEGEND_DATASET,
+  makeAltText,
+  MISSING_DATASET,
+  ScaleType,
+  setupColorScale,
+  VAR_DATASET,
+  GREY_DOT_SCALE_SPEC,
+  UNKNOWN_SCALE_SPEC,
+  ZERO_VAR_DATASET,
+  ZERO_DOT_SCALE_SPEC,
+  getHelperLegend,
+  ZERO_YELLOW_SCALE,
+} from "./mapHelpers";
+import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -28,16 +47,10 @@ const {
   darkBlue: DARK_BLUE,
 } = sass;
 
-const MISSING_DATASET = "MISSING_DATASET";
 const VALID_DATASET = "VALID_DATASET";
-const GEO_DATASET = "GEO_DATASET";
+const ZERO_DATASET = "ZERO_DATASET";
 const GEO_ID = "id";
-const COLOR_SCALE = "COLOR_SCALE";
-const US_PROJECTION = "US_PROJECTION";
-const CIRCLE_PROJECTION = "CIRCLE_PROJECTION";
 
-const VAR_DATASET = "VAR_DATASET";
-const LEGEND_DATASET = "LEGEND_DATASET";
 // TODO - consider moving standardized column names, like fips, to variables shared between here and VariableProvider
 const VAR_FIPS = "fips";
 
@@ -81,16 +94,17 @@ export interface ChoroplethMapProps {
     chartTitle: string | string[];
     subtitle?: string;
   };
+  listExpanded?: boolean;
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
-  // We render the Vega map asynchronously because it can be performance
-  // intensive. Loading a page with many maps on it can cause the UI to lag if
-  // done synchronously.
+  const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId);
+
+  // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false);
 
   const [ref, width] = useResponsiveWidth(
-    90 /* default width during initialization */
+    /* default width during initialization */ 90
   );
 
   // calculate page size to determine if tiny mobile or not
@@ -109,20 +123,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // Dataset to use for computing the legend
   const legendData = props.legendData || props.data;
 
-  const legendLowerBound = Math.min(
-    ...legendData.map((row) => row[props.metric.metricId])
-  );
-  const legendUpperBound = Math.max(
-    ...legendData.map((row) => row[props.metric.metricId])
-  );
-
-  // Generate meaningful alt text
-  const altText = `Map showing ${props.filename}${
-    !props.fips.isCounty()
-      ? ` across ${props.fips.getPluralChildFipsTypeDisplayName()}`
-      : ""
-  }`;
-
   useEffect(() => {
     const geoData = props.geoData
       ? { values: props.geoData }
@@ -136,9 +136,17 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         from: VAR_DATASET,
         key: VAR_FIPS,
         fields: [GEO_ID],
-        values: [props.metric.metricId, "rating"],
+        values: [
+          props.metric.metricId,
+          "women_this_race_us_congress_count",
+          "total_us_congress_count",
+        ],
       },
     ];
+    // Null SVI was showing
+    if (!isCawp && !props.listExpanded) {
+      geoTransformers[0].values.push("rating");
+    }
     if (props.overrideShapeWithCircle) {
       geoTransformers.push({
         type: "formula",
@@ -162,24 +170,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }
 
     /* SET UP TOOLTIP */
-
-    /* PROPERLY LABEL THE HOVERED GEO REGION IF TERRITORY */
-    const countyOrEquivalent =
-      props.fips.isTerritory() || props.fips.getParentFips().isTerritory()
-        ? "County Equivalent"
-        : "County";
-    const stateOrTerritory = props.overrideShapeWithCircle
-      ? "Territory"
-      : "State";
-    const geographyName = props.showCounties
-      ? countyOrEquivalent
-      : stateOrTerritory;
-
-    const tooltipDatum =
-      props.metric.type === "per100k"
-        ? // formatted tooltip hover 100k values above zero should display as less than 1
-          `if (datum.${props.metric.metricId} > 0, format(datum.${props.metric.metricId}, ','), '<1')`
-        : `format(datum.${props.metric.metricId}, ',')`;
+    const tooltipDatum = formatPreventZero100k(
+      /* type */ props.metric.type,
+      /* metricId */ props.metric.metricId
+    );
 
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
     const tooltipLabel =
@@ -187,30 +181,42 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         ? props.metric.unknownsVegaLabel
         : props.metric.shortLabel;
 
-    const tooltipValue = () => {
-      if (props.fips.isState() || props.fips.isCounty()) {
-        return `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum}, "County SVI": datum.rating}`;
-      }
-      return `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum},}`;
-    };
+    const tooltipPairs = { [tooltipLabel]: tooltipDatum };
 
-    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}", }`;
+    const geographyType = getCountyAddOn(
+      /* fips */ props.fips,
+      /* showCounties */ props.showCounties
+    );
+
+    // Hover tooltip for states with expected 0 values, like CAWP Congress
+    const zeroTooltipValue = buildTooltipTemplate(
+      /* tooltipPairs */ tooltipPairs,
+      /* title */ `datum.properties.name + " ${geographyType}"`,
+      /* includeSvi */ false
+    );
+
+    // Hover tooltip for unexpected missing data
+    const missingDataTooltipValue = buildTooltipTemplate(
+      /* tooltipPairs */ { [tooltipLabel]: `"${NO_DATA_MESSAGE}"` },
+      /* title */ `datum.properties.name + " ${geographyType}"`,
+      /* includeSvi */ false
+    );
+
+    if (isCawp)
+      addCAWPTooltipInfo(
+        /* tooltipPairs */ tooltipPairs,
+        /* subTitle */ props.titles?.subtitle || ""
+      );
+
+    // Hover tooltip for non-zero data
+    const tooltipValue = buildTooltipTemplate(
+      /* tooltipPairs */ tooltipPairs,
+      /* title */ `datum.properties.name + " ${geographyType}"`,
+      /* includeSvi */ true
+    );
+
     /* SET UP LEGEND */
     let legendList = [];
-
-    const unknownScale: any = {
-      name: UNKNOWN_SCALE,
-      type: ORDINAL,
-      domain: { data: MISSING_PLACEHOLDER_VALUES, field: "missing" },
-      range: [sass.unknownGrey],
-    };
-
-    const greyDotScale: any = {
-      name: GREY_DOT_SCALE,
-      type: ORDINAL,
-      domain: { data: "missing_data", field: "missing" },
-      range: [EQUAL_DOT_SIZE],
-    };
 
     const legend: any = {
       fill: COLOR_SCALE,
@@ -238,191 +244,79 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       };
     }
 
-    const noDataLegend: any = {
-      fill: UNKNOWN_SCALE,
-      symbolType: LEGEND_SYMBOL_TYPE,
-      orient: "none",
-      font: LEGEND_TEXT_FONT,
-      labelFont: LEGEND_TEXT_FONT,
-      legendY: yOffsetNoDataLegend,
-      legendX: xOffsetNoDataLegend,
-      size: GREY_DOT_SCALE,
-    };
+    const helperLegend = getHelperLegend(
+      /* yOffset */ yOffsetNoDataLegend,
+      /* xOffset */ xOffsetNoDataLegend,
+      /* overrideGrayMissingWithZeroYellow */ isCawp && !props.listExpanded
+    );
     if (!props.hideLegend) {
-      legendList.push(legend, noDataLegend);
+      legendList.push(legend, helperLegend);
     }
 
-    /* SET UP COLOR SCALE */
-    const colorScale: any = {
-      name: COLOR_SCALE,
-      type: props.scaleType,
-      domain: { data: LEGEND_DATASET, field: props.metric.metricId },
-      range: {
-        scheme: props.scaleColorScheme || "yellowgreen",
-        count: LEGEND_COLOR_COUNT,
-      },
-    };
-    if (props.fieldRange) {
-      colorScale["domainMax"] = props.fieldRange.max;
-      colorScale["domainMin"] = props.fieldRange.min;
-    }
+    const colorScale = setupColorScale(
+      /* legendData */ legendData,
+      /* metricId */ props.metric.metricId,
+      /* scaleType */ props.scaleType,
+      /* fieldRange? */ props.fieldRange,
+      /* scaleColorScheme? */ props.scaleColorScheme
+    );
 
-    if (legendLowerBound < legendUpperBound || isNaN(legendLowerBound)) {
-      // if there is a range, adjust slope of the linear behavior of symlog around 0.
-      if (props.scaleType === "symlog") colorScale["constant"] = 0.01;
-    } else {
-      // if there is no range, use a dot instead of a gradient bar
-      colorScale["type"] = "ordinal";
-    }
+    const projection = getProjection(
+      /* fips */ props.fips,
+      /* width */ width,
+      /* heightWidthRatio */ heightWidthRatio,
+      /* overrideShapeWithCirce */ props.overrideShapeWithCircle
+    );
 
-    /* SET UP PROJECTION USED TO CREATE MARKS ON THE UI */
-    let projection = props.overrideShapeWithCircle
-      ? {
-          name: CIRCLE_PROJECTION,
-          type: "albersUsa",
-          scale: 1100,
-          translate: [{ signal: "width / 2" }, { signal: "height / 2" }],
-        }
-      : {
-          name: US_PROJECTION,
-          type:
-            props.fips.isTerritory() || props.fips.getParentFips().isTerritory()
-              ? "albers"
-              : "albersUsa",
-          fit: { signal: "data('" + GEO_DATASET + "')" },
-          size: {
-            signal: "[" + width! + ", " + width! * heightWidthRatio + "]",
-          },
-        };
-
-    /* DEFINE HOW TO CREATE A MARK ON THE UI */
-    /**
-    Function creating the Vega marks that appear on the chart (geographies or circles).
-    * datasetName: name of the dataset the marks should correspond to
-    * fillColor: schema defining how marks are filled - either a scale or static value.
-    * hoverColor: single color that should appear on hover
-    * tooltipExpression: expression defining how to render the contents of the hover tooltip
-    */
-    const createShapeMarks = (
-      datasetName: string,
-      fillColor: any,
-      hoverColor: string,
-      tooltipExpression: string
-    ) => {
-      let encodeEnter: any = {};
-      if (props.overrideShapeWithCircle) {
-        encodeEnter = {
-          size: { value: "1000" },
-          fill: fillColor,
-          stroke: { value: "white" },
-          strokeWidth: { value: 1.5 },
-          x: { field: "centroid[0]" },
-          y: { field: "centroid[1]" },
-        };
-      }
-      if (!props.hideMissingDataTooltip || datasetName !== MISSING_DATASET) {
-        encodeEnter["tooltip"] = {
-          signal: tooltipExpression,
-        };
-      }
-      let marks: any = {
-        name: datasetName + "_MARK",
-        aria: false,
-        type: props.overrideShapeWithCircle ? "symbol" : "shape",
-        from: { data: datasetName },
-        encode: {
-          enter: encodeEnter,
-          update: { fill: fillColor },
-          hover: {
-            fill: { value: hoverColor },
-            cursor: { value: "pointer" },
-          },
-        },
-      };
-      if (!props.overrideShapeWithCircle) {
-        marks["transform"] = [{ type: "geoshape", projection: US_PROJECTION }];
-      }
-      return marks;
-    };
-    const createCircleTextMark = (datasetName: string) => {
-      return {
-        type: "text",
-        interactive: false,
-        aria: false,
-        from: { data: datasetName + "_MARK" },
-        encode: {
-          enter: {
-            align: { value: "center" },
-            baseline: { value: "middle" },
-            fontSize: { value: 13 },
-            text: { field: "datum.properties.abbreviation" },
-          },
-          update: {
-            x: { field: "x" },
-            y: { field: "y" },
-          },
-        },
-      };
-    };
     let marks = [
-      createShapeMarks(
-        /*datasetName=*/ MISSING_DATASET,
-        /*fillColor=*/ { value: UNKNOWN_GREY },
-        /*hoverColor=*/ RED_ORANGE,
-        /*tooltipExpression=*/ missingDataTooltipValue
-      ),
+      isCawp && !props.listExpanded
+        ? createShapeMarks(
+            /*datasetName=*/ ZERO_DATASET,
+            /*fillColor=*/ { value: sass.mapMin },
+            /*hoverColor=*/ RED_ORANGE,
+            /*tooltipExpression=*/ zeroTooltipValue,
+            /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+            /* hideMissingDataTooltip */ props.hideMissingDataTooltip
+          )
+        : createShapeMarks(
+            /*datasetName=*/ MISSING_DATASET,
+            /*fillColor=*/ { value: UNKNOWN_GREY },
+            /*hoverColor=*/ RED_ORANGE,
+            /*tooltipExpression=*/ missingDataTooltipValue,
+            /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+            /* hideMissingDataTooltip */ props.hideMissingDataTooltip
+          ),
       createShapeMarks(
         /*datasetName=*/ VALID_DATASET,
         /*fillColor=*/ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
         /*hoverColor=*/ DARK_BLUE,
-        /*tooltipExpression=*/ tooltipValue()
+        /*tooltipExpression=*/ tooltipValue,
+        /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+        /* hideMissingDataTooltip */ props.hideMissingDataTooltip
       ),
     ];
 
     if (props.overrideShapeWithCircle) {
       // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET));
-      marks.push(createCircleTextMark(MISSING_DATASET));
+      isCawp && !props.listExpanded
+        ? marks.push(createCircleTextMark(ZERO_DATASET))
+        : marks.push(createCircleTextMark(MISSING_DATASET));
     } else {
-      // ALT TEXT: verbose, invisible text for screen readers showing valid data (incl territories)
-      marks.push({
-        name: "alt_text_labels",
-        type: "text",
-        style: ["text"],
-        role: "list-item",
-        from: { data: VAR_DATASET },
-        encode: {
-          update: {
-            opacity: {
-              signal: "0",
-            },
-            fontSize: { value: 0 },
-            text: {
-              signal: `
-              datum.fips_name
-              +
-              ': '
-              +
-              ${tooltipDatum}
-              +
-              ' '
-              +
-              '${tooltipLabel}'
-                  `,
-            },
-          },
-        },
-      });
+      marks.push(
+        createInvisibleAltMarks(
+          /* tooltipDatum */ tooltipDatum,
+          /*  tooltipLabel */ tooltipLabel
+        )
+      );
     }
 
-    let altText = props.overrideShapeWithCircle
-      ? props.fips.getDisplayName()
-      : `Map showing ${props.filename}`;
-
-    if (!props.fips.isCounty() && !props.overrideShapeWithCircle)
-      altText += `: including data from ${
-        props.data.length
-      } ${props.fips.getPluralChildFipsTypeDisplayName()}`;
+    const altText = makeAltText(
+      /* data */ props.data,
+      /* filename */ props.filename || "",
+      /* fips */ props.fips,
+      /* overrideShapeWithCircle */ props.overrideShapeWithCircle
+    );
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
@@ -437,7 +331,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
         {
           name: VAR_DATASET,
-          values: props.data,
+          values:
+            props.listExpanded || !isCawp
+              ? props.data
+              : props.data.filter((row) => row[props.metric.metricId] > 0),
+        },
+        {
+          name: ZERO_VAR_DATASET,
+          values: props.data.filter((row) => row[props.metric.metricId] === 0),
         },
         {
           name: LEGEND_DATASET,
@@ -467,6 +368,20 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           },
         },
         {
+          name: ZERO_DATASET,
+          transform: [
+            {
+              type: "filter",
+              expr: `!isValid(datum.${props.metric.metricId})`,
+            },
+          ],
+          source: GEO_DATASET,
+          format: {
+            type: "topojson",
+            feature: props.showCounties ? "counties" : "states",
+          },
+        },
+        {
           name: MISSING_DATASET,
           transform: [
             {
@@ -482,7 +397,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
       ],
       projections: [projection],
-      scales: [colorScale, greyDotScale, unknownScale],
+      scales: [
+        colorScale,
+        GREY_DOT_SCALE_SPEC,
+        UNKNOWN_SCALE_SPEC,
+        ZERO_DOT_SCALE_SPEC,
+        ZERO_YELLOW_SCALE,
+      ],
       legends: legendList,
       marks: marks,
       title: !props.overrideShapeWithCircle && {
@@ -522,6 +443,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       setShouldRenderMap(true);
     }, 0);
   }, [
+    isCawp,
     width,
     props.metric,
     props.legendTitle,
@@ -542,9 +464,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     xOffsetNoDataLegend,
     props,
     heightWidthRatio,
-    altText,
-    legendLowerBound,
-    legendUpperBound,
     pageIsTiny,
     fontSize,
   ]);

@@ -27,6 +27,7 @@ import {
   MULTI_OR_OTHER_STANDARD_NH,
   AGE,
   SEX,
+  RaceAndEthnicityGroup,
 } from "../data/utils/Constants";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
@@ -55,7 +56,12 @@ export const dataTypeLinkMap: Record<AgeAdjustedVariableId, string> = {
 const PRELOAD_HEIGHT = 600;
 
 // choose demographic groups to exclude from the table
-const exclusionList = [ALL, NON_HISPANIC, WHITE_NH, MULTI_OR_OTHER_STANDARD_NH];
+const exclusionList: RaceAndEthnicityGroup[] = [
+  ALL,
+  NON_HISPANIC,
+  WHITE_NH,
+  MULTI_OR_OTHER_STANDARD_NH,
+];
 
 export interface AgeAdjustedTableCardProps {
   fips: Fips;
@@ -92,15 +98,11 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     config.metricId.includes("ratio")
   );
 
-  const locationName = props.fips.getSentenceDisplayName();
-  let chartTitle = useCreateChartTitle(metricConfigs[ratioId], locationName);
-
-  // We have to do this here because vega automatically
-  // splits the titles onto each line, but here, as we are
-  // not using vega we need to do it ourselves.
-  if (Array.isArray(chartTitle)) {
-    chartTitle = chartTitle.join("\r\n");
-  }
+  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
+  const { filename, dataName } = useCreateChartTitle(
+    metricConfigs[ratioId],
+    locationPhrase
+  );
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const ageAdjustedDataTypes: VariableConfig[] = METRIC_CONFIG[
@@ -175,7 +177,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               )) && (
               <CardContent>
                 <MissingDataAlert
-                  dataName={metrics[0].chartTitle || metrics[0].shortLabel}
+                  dataName={dataName}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
@@ -194,7 +196,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                   <AgeAdjustedTableChart
                     data={knownRaceData}
                     metrics={metricIdsForRatiosOnly}
-                    title={chartTitle}
+                    title={filename}
                   />
                 </div>
               )}

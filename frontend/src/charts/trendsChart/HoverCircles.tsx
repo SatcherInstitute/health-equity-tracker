@@ -19,6 +19,7 @@ import { TrendsData, YScale } from "./types";
 
 /* Helpers */
 import { COLORS as C } from "./constants";
+import { DemographicGroup } from "../../data/utils/Constants";
 
 /* Define type interface */
 export interface HoverCirclesProps {
@@ -37,7 +38,7 @@ export function HoverCircles({
     <g>
       {/* iterate over data and draw circle for each group */}
       {data &&
-        data.map(([group, d]: [string, [string, number][]], i) => {
+        data.map(([group, d]: [DemographicGroup, [string, number][]], i) => {
           return (
             <g key={`hoverCircleGroup-${i}`}>
               {/* only append circle if data exists for this group & date */}

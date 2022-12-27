@@ -1,6 +1,7 @@
 import { format, utcFormat, scaleOrdinal } from "d3";
 import { MetricType } from "../../data/config/MetricConfig";
 import sass from "../../styles/variables.module.scss";
+import { DemographicGroup } from "../../data/utils/Constants";
 
 // get colors from css variables
 const {
@@ -17,59 +18,51 @@ const {
   timeYellow,
   mapLight,
 } = sass;
-// domain for color scale
-const COLOR_DOMAIN = [
-  "All",
+
+export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
+  // shared between breakdown types
+  All: black,
+  Unknown: darkBlue,
   // race and ethnicity (NH)
-  "American Indian and Alaska Native (NH)",
-  "Asian (NH)",
-  "Black or African American (NH)",
-  "Hispanic or Latino",
-  "Native Hawaiian and Pacific Islander (NH)",
-  "Two or more races & Unrepresented race (NH)",
-  "White (NH)",
+  "American Indian and Alaska Native (NH)": timeCyanBlue,
+  "Asian (NH)": timePastelGreen,
+  "Black or African American (NH)": mapLight,
+  "Hispanic or Latino": timePurple,
+  "Native Hawaiian and Pacific Islander (NH)": timePink,
+  "Two or more races & Unrepresented race (NH)": timeDarkRed,
+  "White (NH)": redOrange,
+  // race and ethnicity for CAWP
+  "All Women": black,
+  "Native American, Alaska Native, & Native Hawaiian Women": timeCyanBlue,
+  "Asian American & Pacific Islander Women": timePastelGreen,
+  "American Indian, Alaska Native, Asian & Pacific Islander Women":
+    timePastelGreen,
+  "Black or African American Women": mapLight,
+  "Latinas and Hispanic Women": timePurple,
+  "Middle Eastern & North African Women": timeYellow,
+  "Women of an Unrepresented Race": timeDarkRed,
+  "White Women": redOrange,
+  "Women of Unknown Race": darkBlue,
   // sex
-  "Female",
-  "Male",
-  "Other",
+  Female: timeCyanBlue,
+  Male: timePurple,
+  Other: timeYellow,
   // age
-  "0-9",
-  "10-19",
-  "20-29",
-  "30-39",
-  "40-49",
-  "50-59",
-  "60-69",
-  "70-79",
-  "80+",
-];
+  "0-9": timeCyanBlue,
+  "10-19": timePastelGreen,
+  "20-29": darkBlue,
+  "30-39": timePurple,
+  "40-49": timePink,
+  "50-59": timeDarkRed,
+  "60-69": redOrange,
+  "70-79": timeYellow,
+  "80+": mapLight,
+};
+
+// domain for color scale
+const COLOR_DOMAIN = Object.keys(GROUP_COLOR_MAP) as DemographicGroup[];
 // range of colors for groups
-const COLOR_RANGE = [
-  // "All"
-  black,
-  // race and ethnicity NH
-  timeCyanBlue,
-  timePastelGreen,
-  darkBlue,
-  timePurple,
-  timePink,
-  timeDarkRed,
-  redOrange,
-  // sex
-  timeCyanBlue,
-  timePurple,
-  timeYellow,
-  // age
-  timeCyanBlue,
-  timePastelGreen,
-  darkBlue,
-  timePurple,
-  timePink,
-  timeDarkRed,
-  redOrange,
-  timeYellow,
-  mapLight,
-];
+const COLOR_RANGE = Object.values(GROUP_COLOR_MAP);
 // color scale
 const COLORS = scaleOrdinal(COLOR_DOMAIN, COLOR_RANGE);
 // color range for unknowns
@@ -113,7 +106,9 @@ const FORMATTERS = {
   pct: (d: number) => `${format(".1~f")(d)}%`, // have to treat percent as truncated number and then interpolate % b/c they are received as integers
   dateShort: utcFormat("%m/%y"),
   dateYear: utcFormat("%Y"),
-  dateFromString: (str: string) => str && utcFormat("%B %Y")(new Date(str)),
+  dateFromString_YYYY: (str: string) => str && utcFormat("%Y")(new Date(str)),
+  dateFromString_MM_YYYY: (str: string) =>
+    str && utcFormat("%B %Y")(new Date(str)),
   num: format(".1~f"),
   plusNum: (d: number) => `${d > 0 ? "+" : ""}${format(".1~f")(d)}`, // add "+" only to positive numbers (not 0)
   capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ""),

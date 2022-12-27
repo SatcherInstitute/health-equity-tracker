@@ -51,7 +51,10 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   );
 
   const metricConfig = props.variableConfig.metrics["pct_share"];
-  const locationName = props.fips.getSentenceDisplayName();
+  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
+
+  const isCawpCongress =
+    props.variableConfig.variableId === "women_us_congress";
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -74,15 +77,14 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const query = new MetricQuery(
     metricIds,
     breakdowns,
-    /* variableId */ props.variableConfig.variableId
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
   );
 
-  const chartTitle = useCreateChartTitle(
+  const { chartTitle, filename } = useCreateChartTitle(
     metricConfig.populationComparisonMetric as MetricConfig,
-    locationName
+    locationPhrase
   );
-
-  const filename = `${metricConfig.populationComparisonMetric?.chartTitle}${locationName}`;
 
   const HASH_ID: ScrollableHashId = "population-vs-distribution";
 
@@ -103,10 +105,13 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           props.breakdownVar
         );
 
+        const isCawp = CAWP_DETERMINANTS.includes(metricConfig.metricId);
+
         // include a note about percents adding to over 100%
         // if race options include hispanic twice (eg "White" and "Hispanic" can both include Hispanic people)
         // also require at least some data to be available to avoid showing info on suppressed/undefined states
         const shouldShowDoesntAddUpMessage =
+          !isCawp &&
           props.breakdownVar === RACE &&
           queryResponse.data.every(
             (row) =>
@@ -114,8 +119,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               row[props.breakdownVar] === HISPANIC
           ) &&
           queryResponse.data.some((row) => row[metricConfig.metricId]);
-
-        const isCawp = CAWP_DETERMINANTS.includes(metricConfig.metricId);
 
         const dataAvailable =
           knownData.length > 0 &&
@@ -137,7 +140,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             ) : (
               <CardContent>
                 <MissingDataAlert
-                  dataName={metricConfig.chartTitle || metricConfig.shortLabel}
+                  dataName={metricConfig.chartTitleLines.join(" ")}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }
@@ -161,24 +164,22 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 />
               </CardContent>
             )}
-            <CardContent>
-              {shouldShowDoesntAddUpMessage && !isCawp && (
+            {shouldShowDoesntAddUpMessage && (
+              <CardContent>
                 <Alert severity="info" role="note">
                   Population percentages on this graph add up to over 100%
                   because the racial categories reported for{" "}
-                  {metricConfig.chartTitle} in{" "}
+                  {metricConfig.chartTitleLines.join(" ")} in{" "}
                   {props.fips.getSentenceDisplayName()} include Hispanic
                   individuals in each racial category. As a result, Hispanic
                   individuals are counted twice.
                 </Alert>
-              )}
-            </CardContent>
-            {isCawp && (
-              <CardContent>
-                <CAWPOverlappingRacesAlert
-                  variableDisplayName={props.variableConfig.variableDisplayName}
-                />
               </CardContent>
+            )}
+            {isCawp && (
+              <CAWPOverlappingRacesAlert
+                variableConfig={props.variableConfig}
+              />
             )}
           </>
         );

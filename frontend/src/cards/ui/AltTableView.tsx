@@ -34,6 +34,7 @@ interface AltTableViewProps {
   knownMetricConfig: MetricConfig;
   unknownMetricConfig: MetricConfig;
   selectedGroups: DemographicGroup[];
+  hasUnknowns: boolean;
 }
 
 export default function AltTableView(props: AltTableViewProps) {
@@ -48,7 +49,8 @@ export default function AltTableView(props: AltTableViewProps) {
     props.breakdownVar,
     props.knownMetricConfig,
     props.unknownMetricConfig,
-    props.selectedGroups
+    props.selectedGroups,
+    props.hasUnknowns
   );
 
   const firstTimePeriod = accessibleData[0][TIME_PERIOD_LABEL];
