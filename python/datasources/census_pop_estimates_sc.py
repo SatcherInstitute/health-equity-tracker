@@ -67,7 +67,7 @@ class CensusPopEstimatesSC(DataSource):
                 breakdown_df = generate_pop_data_18plus(
                     df, breakdown, geo)
 
-                col_types = gcs_to_bq_util.get_bq_column_types(df, [])
+                col_types = gcs_to_bq_util.get_bq_column_types(breakdown_df, [])
 
                 demo = breakdown if breakdown != std_col.RACE_CATEGORY_ID_COL else std_col.RACE_OR_HISPANIC_COL
 

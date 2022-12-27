@@ -159,7 +159,7 @@ class UHCData(DataSource):
 
                 float_cols.append(std_col.BRFSS_POPULATION_PCT)
 
-                col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+                col_types = gcs_to_bq_util.get_bq_column_types(breakdown_df, float_cols)
 
                 gcs_to_bq_util.add_df_to_bq(
                     breakdown_df, dataset, f'{breakdown}_{geo}', column_types=col_types)

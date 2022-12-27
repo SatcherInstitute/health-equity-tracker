@@ -56,7 +56,7 @@ class CensusPopEstimates(DataSource):
 
         state_df = generate_state_pop_data(df)
 
-        col_types = gcs_to_bq_util.get_bq_column_types(df, [])
+        col_types = gcs_to_bq_util.get_bq_column_types(state_df, [])
 
         gcs_to_bq_util.add_df_to_bq(
             state_df, dataset, "race_and_ethnicity", column_types=col_types)
