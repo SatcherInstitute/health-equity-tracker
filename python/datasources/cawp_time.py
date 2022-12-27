@@ -138,16 +138,12 @@ class CAWPTimeData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         base_df = self.generate_base_df()
 
-        # base_df.to_csv('test_expected_base_df.csv', index=False)
-
         for geo_level in [
             STATE_LEVEL,
             NATIONAL_LEVEL
         ]:
             df = base_df.copy()
             df, bq_table_name = self.generate_breakdown(df, geo_level)
-
-            # df.to_csv(f'{bq_table_name}.csv', index=False)
 
             float_cols = [
                 std_col.CONGRESS_COUNT,
@@ -163,9 +159,6 @@ class CAWPTimeData(DataSource):
                 std_col.POPULATION_COL,
                 std_col.POPULATION_PCT_COL
             ]
-
-            # df.to_json(
-            #     f'frontend/public/tmp/cawp_time_data-{bq_table_name}.json', orient="records")
 
             column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
             gcs_to_bq_util.add_df_to_bq(
@@ -463,15 +456,12 @@ def get_women_dfs():
     women_dfs = []
 
     for gov_level in [CONGRESS, STATE_LEG]:
-
         # remove non-legislative line items
         df_gov_level = df.copy().loc[df[POSITION].isin(
             POSITION_LABELS[gov_level].keys())]
-
         # standardize gov. titles between sources
         df_gov_level[POSITION] = df_gov_level[POSITION].apply(
             lambda x: POSITION_LABELS[gov_level][x])
-
         # consolidate name columns
         df_gov_level[NAME] = (
             df_gov_level[POSITION] + " " +
@@ -480,9 +470,7 @@ def get_women_dfs():
         )
         df_gov_level = df_gov_level.drop(
             columns=[FIRST_NAME, LAST_NAME, POSITION])
-
         women_dfs.append(df_gov_level)
-
     return women_dfs
 
 
