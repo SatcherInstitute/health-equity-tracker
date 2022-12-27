@@ -1,1 +1,162 @@
-[{"state_fips":"00","state_name":"United States","population":328016242,"population_pct":100.0,"race_category_id":"ALL","race_and_ethnicity":"All"},{"state_fips":"00","state_name":"United States","population":2160496,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)"},{"state_fips":"00","state_name":"United States","population":18251837,"population_pct":5.6,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)"},{"state_fips":"00","state_name":"United States","population":17711305,"population_pct":5.4,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)"},{"state_fips":"00","state_name":"United States","population":39980733,"population_pct":12.2,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)"},{"state_fips":"00","state_name":"United States","population":7943601,"population_pct":2.4,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)"},{"state_fips":"00","state_name":"United States","population":8735791,"population_pct":2.7,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races & Unrepresented race (NH)"},{"state_fips":"00","state_name":"United States","population":266260953,"population_pct":81.2,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino"},{"state_fips":"00","state_name":"United States","population":540532,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)"},{"state_fips":"00","state_name":"United States","population":792190,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)"},{"state_fips":"00","state_name":"United States","population":197132096,"population_pct":60.1,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)"},{"state_fips":"00","state_name":"United States","population":2756981,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native"},{"state_fips":"00","state_name":"United States","population":17930446,"population_pct":5.5,"race_category_id":"ASIAN","race_and_ethnicity":"Asian"},{"state_fips":"00","state_name":"United States","population":41621318,"population_pct":12.7,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American"},{"state_fips":"00","state_name":"United States","population":61755289,"population_pct":18.8,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino"},{"state_fips":"00","state_name":"United States","population":10939551,"population_pct":3.3,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races"},{"state_fips":"00","state_name":"United States","population":27541684,"population_pct":8.4,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races & Unrepresented race"},{"state_fips":"00","state_name":"United States","population":600137,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander"},{"state_fips":"00","state_name":"United States","population":16602133,"population_pct":5.1,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race"},{"state_fips":"00","state_name":"United States","population":237565676,"population_pct":72.4,"race_category_id":"WHITE","race_and_ethnicity":"White"}]
+[
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 328016242,
+    "population_pct": 100,
+    "race_category_id": "ALL",
+    "race_and_ethnicity": "All"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 2160496,
+    "population_pct": 0.7,
+    "race_category_id": "AIAN_NH",
+    "race_and_ethnicity": "American Indian and Alaska Native (NH)"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 18251837,
+    "population_pct": 5.6,
+    "race_category_id": "API_NH",
+    "race_and_ethnicity": "Asian, Native Hawaiian, and Pacific Islander (NH)"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 17711305,
+    "population_pct": 5.4,
+    "race_category_id": "ASIAN_NH",
+    "race_and_ethnicity": "Asian (NH)"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 39980733,
+    "population_pct": 12.2,
+    "race_category_id": "BLACK_NH",
+    "race_and_ethnicity": "Black or African American (NH)"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 7943601,
+    "population_pct": 2.4,
+    "race_category_id": "MULTI_NH",
+    "race_and_ethnicity": "Two or more races (NH)"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 8735791,
+    "population_pct": 2.7,
+    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH",
+    "race_and_ethnicity": "Two or more races & Unrepresented race (NH)"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 266260953,
+    "population_pct": 81.2,
+    "race_category_id": "NH",
+    "race_and_ethnicity": "Not Hispanic or Latino"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 540532,
+    "population_pct": 0.2,
+    "race_category_id": "NHPI_NH",
+    "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 792190,
+    "population_pct": 0.2,
+    "race_category_id": "OTHER_STANDARD_NH",
+    "race_and_ethnicity": "Unrepresented race (NH)"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 197132096,
+    "population_pct": 60.1,
+    "race_category_id": "WHITE_NH",
+    "race_and_ethnicity": "White (NH)"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 2756981,
+    "population_pct": 0.8,
+    "race_category_id": "AIAN",
+    "race_and_ethnicity": "American Indian and Alaska Native"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 17930446,
+    "population_pct": 5.5,
+    "race_category_id": "ASIAN",
+    "race_and_ethnicity": "Asian"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 41621318,
+    "population_pct": 12.7,
+    "race_category_id": "BLACK",
+    "race_and_ethnicity": "Black or African American"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 61755289,
+    "population_pct": 18.8,
+    "race_category_id": "HISP",
+    "race_and_ethnicity": "Hispanic or Latino"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 10939551,
+    "population_pct": 3.3,
+    "race_category_id": "MULTI",
+    "race_and_ethnicity": "Two or more races"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 27541684,
+    "population_pct": 8.4,
+    "race_category_id": "MULTI_OR_OTHER_STANDARD",
+    "race_and_ethnicity": "Two or more races & Unrepresented race"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 600137,
+    "population_pct": 0.2,
+    "race_category_id": "NHPI",
+    "race_and_ethnicity": "Native Hawaiian and Pacific Islander"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 16602133,
+    "population_pct": 5.1,
+    "race_category_id": "OTHER_STANDARD",
+    "race_and_ethnicity": "Unrepresented race"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "population": 237565676,
+    "population_pct": 72.4,
+    "race_category_id": "WHITE",
+    "race_and_ethnicity": "White"
+  }
+]

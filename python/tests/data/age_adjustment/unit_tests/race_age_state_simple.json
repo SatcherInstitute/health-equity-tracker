@@ -1,1 +1,92 @@
-[{"state_fips":"01","state_name":"Alabama","race_category_id":"BLACK_NH","cases":100,"hosp_y":20,"death_y":20,"race_and_ethnicity":"Black or African American (NH)","age":"0-29"},{"state_fips":"01","state_name":"Alabama","race_category_id":"BLACK_NH","cases":100,"hosp_y":200,"death_y":200,"race_and_ethnicity":"Black or African American (NH)","age":"30-59"},{"state_fips":"01","state_name":"Alabama","race_category_id":"BLACK_NH","cases":100,"hosp_y":800,"death_y":800,"race_and_ethnicity":"Black or African American (NH)","age":"60+"},{"state_fips":"01","state_name":"Alabama","race_category_id":"HISP","cases":100,"hosp_y":10,"death_y":10,"race_and_ethnicity":"Hispanic or Latino","age":"0-29"},{"state_fips":"01","state_name":"Alabama","race_category_id":"HISP","cases":100,"hosp_y":100,"death_y":100,"race_and_ethnicity":"Hispanic or Latino","age":"30-59"},{"state_fips":"01","state_name":"Alabama","race_category_id":"HISP","cases":100,"hosp_y":500,"death_y":500,"race_and_ethnicity":"Hispanic or Latino","age":"60+"},{"state_fips":"01","state_name":"Alabama","race_category_id":"WHITE_NH","cases":100,"hosp_y":50,"death_y":50,"race_and_ethnicity":"White (NH)","age":"0-29"},{"state_fips":"01","state_name":"Alabama","race_category_id":"WHITE_NH","cases":100,"hosp_y":500,"death_y":500,"race_and_ethnicity":"White (NH)","age":"30-59"},{"state_fips":"01","state_name":"Alabama","race_category_id":"WHITE_NH","cases":100,"hosp_y":5000,"death_y":5000,"race_and_ethnicity":"White (NH)","age":"60+"}]
+[
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "BLACK_NH",
+    "cases": 100,
+    "hosp_y": 20,
+    "death_y": 20,
+    "race_and_ethnicity": "Black or African American (NH)",
+    "age": "0-29"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "BLACK_NH",
+    "cases": 100,
+    "hosp_y": 200,
+    "death_y": 200,
+    "race_and_ethnicity": "Black or African American (NH)",
+    "age": "30-59"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "BLACK_NH",
+    "cases": 100,
+    "hosp_y": 800,
+    "death_y": 800,
+    "race_and_ethnicity": "Black or African American (NH)",
+    "age": "60+"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "HISP",
+    "cases": 100,
+    "hosp_y": 10,
+    "death_y": 10,
+    "race_and_ethnicity": "Hispanic or Latino",
+    "age": "0-29"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "HISP",
+    "cases": 100,
+    "hosp_y": 100,
+    "death_y": 100,
+    "race_and_ethnicity": "Hispanic or Latino",
+    "age": "30-59"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "HISP",
+    "cases": 100,
+    "hosp_y": 500,
+    "death_y": 500,
+    "race_and_ethnicity": "Hispanic or Latino",
+    "age": "60+"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "WHITE_NH",
+    "cases": 100,
+    "hosp_y": 50,
+    "death_y": 50,
+    "race_and_ethnicity": "White (NH)",
+    "age": "0-29"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "WHITE_NH",
+    "cases": 100,
+    "hosp_y": 500,
+    "death_y": 500,
+    "race_and_ethnicity": "White (NH)",
+    "age": "30-59"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "WHITE_NH",
+    "cases": 100,
+    "hosp_y": 5000,
+    "death_y": 5000,
+    "race_and_ethnicity": "White (NH)",
+    "age": "60+"
+  }
+]

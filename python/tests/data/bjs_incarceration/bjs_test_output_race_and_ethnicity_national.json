@@ -1,1 +1,122 @@
-[{"state_name":"United States","race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","state_fips":"00","population_pct":60.1,"prison_per_100k":29.0,"jail_per_100k":184.0,"prison_pct_share":31.8,"jail_pct_share":49.4,"total_confined_children":null},{"state_name":"United States","race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","state_fips":"00","population_pct":12.2,"prison_per_100k":172.0,"jail_per_100k":617.0,"prison_pct_share":38.9,"jail_pct_share":33.6,"total_confined_children":null},{"state_name":"United States","race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","state_fips":"00","population_pct":18.8,"prison_per_100k":75.0,"jail_per_100k":174.0,"prison_pct_share":26.0,"jail_pct_share":14.6,"total_confined_children":null},{"state_name":"United States","race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","state_fips":"00","population_pct":0.7,"prison_per_100k":162.0,"jail_per_100k":476.0,"prison_pct_share":2.0,"jail_pct_share":1.4,"total_confined_children":null},{"state_name":"United States","race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","state_fips":"00","population_pct":5.4,"prison_per_100k":13.0,"jail_per_100k":25.0,"prison_pct_share":1.3,"jail_pct_share":0.6,"total_confined_children":null},{"state_name":"United States","race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","state_fips":"00","population_pct":0.2,"prison_per_100k":0.0,"jail_per_100k":136.0,"prison_pct_share":0.0,"jail_pct_share":0.1,"total_confined_children":null},{"state_name":"United States","race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","state_fips":"00","population_pct":2.4,"prison_per_100k":0.0,"jail_per_100k":28.0,"prison_pct_share":0.0,"jail_pct_share":0.3,"total_confined_children":null},{"state_name":"United States","race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","state_fips":"00","population_pct":0.2,"prison_per_100k":0.0,"jail_per_100k":null,"prison_pct_share":0.0,"jail_pct_share":null,"total_confined_children":null},{"state_name":"United States","race_category_id":"UNKNOWN","race_and_ethnicity":"Unknown race","state_fips":"00","population_pct":null,"prison_per_100k":null,"jail_per_100k":null,"prison_pct_share":0.1,"jail_pct_share":null,"total_confined_children":null},{"state_name":"United States","race_category_id":"ALL","race_and_ethnicity":"All","state_fips":"00","population_pct":100.0,"prison_per_100k":54.0,"jail_per_100k":224.0,"prison_pct_share":100.0,"jail_pct_share":100.0,"total_confined_children":3232.0}]
+[
+  {
+    "state_name": "United States",
+    "race_category_id": "WHITE_NH",
+    "race_and_ethnicity": "White (NH)",
+    "state_fips": "00",
+    "population_pct": 60.1,
+    "prison_per_100k": 29,
+    "jail_per_100k": 184,
+    "prison_pct_share": 31.8,
+    "jail_pct_share": 49.4,
+    "total_confined_children": null
+  },
+  {
+    "state_name": "United States",
+    "race_category_id": "BLACK_NH",
+    "race_and_ethnicity": "Black or African American (NH)",
+    "state_fips": "00",
+    "population_pct": 12.2,
+    "prison_per_100k": 172,
+    "jail_per_100k": 617,
+    "prison_pct_share": 38.9,
+    "jail_pct_share": 33.6,
+    "total_confined_children": null
+  },
+  {
+    "state_name": "United States",
+    "race_category_id": "HISP",
+    "race_and_ethnicity": "Hispanic or Latino",
+    "state_fips": "00",
+    "population_pct": 18.8,
+    "prison_per_100k": 75,
+    "jail_per_100k": 174,
+    "prison_pct_share": 26,
+    "jail_pct_share": 14.6,
+    "total_confined_children": null
+  },
+  {
+    "state_name": "United States",
+    "race_category_id": "AIAN_NH",
+    "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+    "state_fips": "00",
+    "population_pct": 0.7,
+    "prison_per_100k": 162,
+    "jail_per_100k": 476,
+    "prison_pct_share": 2,
+    "jail_pct_share": 1.4,
+    "total_confined_children": null
+  },
+  {
+    "state_name": "United States",
+    "race_category_id": "ASIAN_NH",
+    "race_and_ethnicity": "Asian (NH)",
+    "state_fips": "00",
+    "population_pct": 5.4,
+    "prison_per_100k": 13,
+    "jail_per_100k": 25,
+    "prison_pct_share": 1.3,
+    "jail_pct_share": 0.6,
+    "total_confined_children": null
+  },
+  {
+    "state_name": "United States",
+    "race_category_id": "NHPI_NH",
+    "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+    "state_fips": "00",
+    "population_pct": 0.2,
+    "prison_per_100k": 0,
+    "jail_per_100k": 136,
+    "prison_pct_share": 0,
+    "jail_pct_share": 0.1,
+    "total_confined_children": null
+  },
+  {
+    "state_name": "United States",
+    "race_category_id": "MULTI_NH",
+    "race_and_ethnicity": "Two or more races (NH)",
+    "state_fips": "00",
+    "population_pct": 2.4,
+    "prison_per_100k": 0,
+    "jail_per_100k": 28,
+    "prison_pct_share": 0,
+    "jail_pct_share": 0.3,
+    "total_confined_children": null
+  },
+  {
+    "state_name": "United States",
+    "race_category_id": "OTHER_STANDARD_NH",
+    "race_and_ethnicity": "Unrepresented race (NH)",
+    "state_fips": "00",
+    "population_pct": 0.2,
+    "prison_per_100k": 0,
+    "jail_per_100k": null,
+    "prison_pct_share": 0,
+    "jail_pct_share": null,
+    "total_confined_children": null
+  },
+  {
+    "state_name": "United States",
+    "race_category_id": "UNKNOWN",
+    "race_and_ethnicity": "Unknown race",
+    "state_fips": "00",
+    "population_pct": null,
+    "prison_per_100k": null,
+    "jail_per_100k": null,
+    "prison_pct_share": 0.1,
+    "jail_pct_share": null,
+    "total_confined_children": null
+  },
+  {
+    "state_name": "United States",
+    "race_category_id": "ALL",
+    "race_and_ethnicity": "All",
+    "state_fips": "00",
+    "population_pct": 100,
+    "prison_per_100k": 54,
+    "jail_per_100k": 224,
+    "prison_pct_share": 100,
+    "jail_pct_share": 100,
+    "total_confined_children": 3232
+  }
+]

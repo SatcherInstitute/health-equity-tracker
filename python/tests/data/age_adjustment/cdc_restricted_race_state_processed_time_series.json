@@ -1,1 +1,164 @@
-[{"state_fips":"01","state_name":"Alabama","race_category_id":"BLACK_NH","time_period":"2021-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"Black or African American (NH)"},{"state_fips":"01","state_name":"Alabama","race_category_id":"HISP","time_period":"2021-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"Hispanic or Latino"},{"state_fips":"01","state_name":"Alabama","race_category_id":"WHITE_NH","time_period":"2021-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"White (NH)"},{"state_fips":"06","state_name":"California","race_category_id":"BLACK_NH","time_period":"2021-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"Black or African American (NH)"},{"state_fips":"06","state_name":"California","race_category_id":"HISP","time_period":"2021-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"Hispanic or Latino"},{"state_fips":"06","state_name":"California","race_category_id":"WHITE_NH","time_period":"2021-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"White (NH)"},{"state_fips":"10","state_name":"Delaware","race_category_id":"BLACK_NH","time_period":"2021-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"Black or African American (NH)"},{"state_fips":"10","state_name":"Delaware","race_category_id":"HISP","time_period":"2021-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"Hispanic or Latino"},{"state_fips":"10","state_name":"Delaware","race_category_id":"WHITE_NH","time_period":"2021-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"White (NH)"},{"state_fips":"01","state_name":"Alabama","race_category_id":"BLACK_NH","time_period":"2022-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"Black or African American (NH)"},{"state_fips":"01","state_name":"Alabama","race_category_id":"HISP","time_period":"2022-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"Hispanic or Latino"},{"state_fips":"01","state_name":"Alabama","race_category_id":"WHITE_NH","time_period":"2022-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"White (NH)"},{"state_fips":"06","state_name":"California","race_category_id":"BLACK_NH","time_period":"2022-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"Black or African American (NH)"},{"state_fips":"06","state_name":"California","race_category_id":"HISP","time_period":"2022-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"Hispanic or Latino"},{"state_fips":"06","state_name":"California","race_category_id":"WHITE_NH","time_period":"2022-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"White (NH)"},{"state_fips":"10","state_name":"Delaware","race_category_id":"BLACK_NH","time_period":"2022-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"Black or African American (NH)"},{"state_fips":"10","state_name":"Delaware","race_category_id":"HISP","time_period":"2022-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"Hispanic or Latino"},{"state_fips":"10","state_name":"Delaware","race_category_id":"WHITE_NH","time_period":"2022-01","covid_cases_per_100k":100,"covid_deaths_per_100k":5,"race_and_ethnicity":"White (NH)"}]
+[
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "BLACK_NH",
+    "time_period": "2021-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "Black or African American (NH)"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "HISP",
+    "time_period": "2021-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "Hispanic or Latino"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "WHITE_NH",
+    "time_period": "2021-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "White (NH)"
+  },
+  {
+    "state_fips": "06",
+    "state_name": "California",
+    "race_category_id": "BLACK_NH",
+    "time_period": "2021-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "Black or African American (NH)"
+  },
+  {
+    "state_fips": "06",
+    "state_name": "California",
+    "race_category_id": "HISP",
+    "time_period": "2021-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "Hispanic or Latino"
+  },
+  {
+    "state_fips": "06",
+    "state_name": "California",
+    "race_category_id": "WHITE_NH",
+    "time_period": "2021-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "White (NH)"
+  },
+  {
+    "state_fips": "10",
+    "state_name": "Delaware",
+    "race_category_id": "BLACK_NH",
+    "time_period": "2021-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "Black or African American (NH)"
+  },
+  {
+    "state_fips": "10",
+    "state_name": "Delaware",
+    "race_category_id": "HISP",
+    "time_period": "2021-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "Hispanic or Latino"
+  },
+  {
+    "state_fips": "10",
+    "state_name": "Delaware",
+    "race_category_id": "WHITE_NH",
+    "time_period": "2021-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "White (NH)"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "BLACK_NH",
+    "time_period": "2022-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "Black or African American (NH)"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "HISP",
+    "time_period": "2022-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "Hispanic or Latino"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "race_category_id": "WHITE_NH",
+    "time_period": "2022-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "White (NH)"
+  },
+  {
+    "state_fips": "06",
+    "state_name": "California",
+    "race_category_id": "BLACK_NH",
+    "time_period": "2022-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "Black or African American (NH)"
+  },
+  {
+    "state_fips": "06",
+    "state_name": "California",
+    "race_category_id": "HISP",
+    "time_period": "2022-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "Hispanic or Latino"
+  },
+  {
+    "state_fips": "06",
+    "state_name": "California",
+    "race_category_id": "WHITE_NH",
+    "time_period": "2022-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "White (NH)"
+  },
+  {
+    "state_fips": "10",
+    "state_name": "Delaware",
+    "race_category_id": "BLACK_NH",
+    "time_period": "2022-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "Black or African American (NH)"
+  },
+  {
+    "state_fips": "10",
+    "state_name": "Delaware",
+    "race_category_id": "HISP",
+    "time_period": "2022-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "Hispanic or Latino"
+  },
+  {
+    "state_fips": "10",
+    "state_name": "Delaware",
+    "race_category_id": "WHITE_NH",
+    "time_period": "2022-01",
+    "covid_cases_per_100k": 100,
+    "covid_deaths_per_100k": 5,
+    "race_and_ethnicity": "White (NH)"
+  }
+]
