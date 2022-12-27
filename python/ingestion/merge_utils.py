@@ -147,9 +147,6 @@ def merge_current_pop_numbers(df, demo, loc, target_time_periods):
 
       """
 
-    print("###")
-    print(df.columns)
-
     target_rows_df = df[df[std_col.TIME_PERIOD_COL].isin(
         target_time_periods)]
     nontarget_rows_df = df[~df[std_col.TIME_PERIOD_COL].isin(
