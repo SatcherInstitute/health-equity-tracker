@@ -1,4 +1,3 @@
-# import time
 from typing import List
 from datasources.data_source import DataSource
 from ingestion.constants import (
