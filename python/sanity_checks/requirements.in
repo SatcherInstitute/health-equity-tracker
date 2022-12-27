@@ -1,0 +1,8 @@
+google-cloud
+google-cloud-bigquery
+google-cloud-core
+google-cloud-pubsub
+google-cloud-storage
+pandas
+requests
+xlrd  # This is implicitly required for pandas.read_excel
