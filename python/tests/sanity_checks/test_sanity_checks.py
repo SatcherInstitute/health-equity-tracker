@@ -39,28 +39,28 @@ def get_cdc_restricted_by_age_as_df():
 def testGenerateVerifyPercentShareBySexCountyFix():
     df = get_cdc_restricted_by_sex_county_as_df()
     result = check_pct_values(df)
-    pass
+    return result
 
 
 def testGenerateVerifyPercentShareBySexCountyTimeFix():
     df = get_cdc_restricted_by_sex_county_time_as_df()
     result = check_pct_values(df)
-    pass
+    return result
 
 
 def testGenerateVerifyPercentShareByAgeStateFix():
     df = get_cdc_restricted_by_sex_state_as_df()
     result = check_pct_values(df)
-    pass
+    return result
 
 
 def testGenerateVerifyPercentShareBySexNationalFix():
     df = get_cdc_restricted_by_sex_national_as_df()
     result = check_pct_values(df)
-    pass
+    return result
 
 
 def testGenerateVerifyPercentShareByAgeCountyFix():
     df = get_cdc_restricted_by_age_as_df()
     result = check_pct_values(df)
-    pass
+    return result
