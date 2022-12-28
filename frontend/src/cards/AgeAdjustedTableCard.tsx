@@ -27,6 +27,7 @@ import {
   MULTI_OR_OTHER_STANDARD_NH,
   AGE,
   SEX,
+  RaceAndEthnicityGroup,
 } from "../data/utils/Constants";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
@@ -55,7 +56,12 @@ export const dataTypeLinkMap: Record<AgeAdjustedVariableId, string> = {
 const PRELOAD_HEIGHT = 600;
 
 // choose demographic groups to exclude from the table
-const exclusionList = [ALL, NON_HISPANIC, WHITE_NH, MULTI_OR_OTHER_STANDARD_NH];
+const exclusionList: RaceAndEthnicityGroup[] = [
+  ALL,
+  NON_HISPANIC,
+  WHITE_NH,
+  MULTI_OR_OTHER_STANDARD_NH,
+];
 
 export interface AgeAdjustedTableCardProps {
   fips: Fips;

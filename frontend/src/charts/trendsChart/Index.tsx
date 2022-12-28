@@ -205,7 +205,7 @@ export function TrendsChart({
   ]);
 
   /* Event Handlers */
-  function handleClick(selectedGroup: string | null) {
+  function handleClick(selectedGroup: DemographicGroup | null) {
     // Toggle selected group
     const newSelectedGroups =
       selectedGroup === null
