@@ -843,8 +843,8 @@ def handle_other_and_multi_races(df):
      Returns:
          df where the original comma-containing "multiple specific race" rows have their
          RACE_ETH value replaced by a list of specific CAWP races. Equivalent rows
-         are added with race labeled as MULTI_OTHER_TMP, and "Other" and "Multiracial Alone"
-         are renamed, allowing these 3 types of other/multi to be combined in the aggregation
+         are added with race labeled as MULTI_OTHER_TMP, and "Multiracial Alone"
+         are renamed, allowing these 2 types of multi- to be combined in the aggregation
       """
     # convert comma separated names string into list, doesn't affect single race strings
     df[RACE_ETH] = df[RACE_ETH].str.split(', ')
