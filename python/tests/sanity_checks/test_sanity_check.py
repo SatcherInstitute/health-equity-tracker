@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import json
 from sanity_checks.sanity_check import check_pct_values
 
 # Current working directory
@@ -18,6 +19,10 @@ CDC_RESTRICTED = {
 def testGenerateCountyDatasetAge():
     df = pd.read_json(CDC_RESTRICTED['age_county'], dtype={
                       'county_fips': str, 'state_fips': str})
+
+    with open(CDC_RESTRICTED['age_county'], 'r') as data_file:
+        data = json.loads(data_file.read())
+    df = pd.json_normalize(data)
     result = check_pct_values(df)
     return result
 
