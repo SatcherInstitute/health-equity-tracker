@@ -139,8 +139,6 @@ def testWriteToBqRaceState(
 
     # add column type for each demographic file
     expected_dtype['race_and_ethnicity'] = str
-    expected_dtype['race'] = str
-    expected_dtype['race_includes_hispanic'] = object
     expected_dtype['race_category_id'] = str
 
     expected_df = pd.read_json(

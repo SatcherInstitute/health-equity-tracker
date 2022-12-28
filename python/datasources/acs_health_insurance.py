@@ -25,7 +25,6 @@ from ingestion.standardized_columns import (
     AGE_COL,
     SEX_COL,
     RACE_CATEGORY_ID_COL,
-    RACE_INCLUDES_HISPANIC_COL,
     WITH_HEALTH_INSURANCE_COL,
     WITHOUT_HEALTH_INSURANCE_COL,
     TOTAL_HEALTH_INSURANCE_COL,
@@ -159,9 +158,6 @@ class AcsHealthInsuranceRaceIngester:
         for table_name, df in self.frames.items():
             # All breakdown columns are strings
             column_types = {c: "STRING" for c in df.columns}
-
-            if RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[RACE_INCLUDES_HISPANIC_COL] = "BOOL"
 
             column_types[WITH_HEALTH_INSURANCE_COL] = "INT64"
             column_types[WITHOUT_HEALTH_INSURANCE_COL] = "INT64"

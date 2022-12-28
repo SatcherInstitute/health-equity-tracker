@@ -160,8 +160,6 @@ class AcsPovertyIngesterTest(unittest.TestCase, AcsPovertyIngester):
             expected_default_state_cols
             + [
                 "race_category_id",
-                "race",
-                "race_includes_hispanic",
                 "race_and_ethnicity",
             ],
         )
@@ -170,8 +168,6 @@ class AcsPovertyIngesterTest(unittest.TestCase, AcsPovertyIngester):
             expected_default_county_cols
             + [
                 "race_category_id",
-                "race",
-                "race_includes_hispanic",
                 "race_and_ethnicity",
             ],
         )
@@ -240,7 +236,7 @@ class AcsPovertyIngesterTest(unittest.TestCase, AcsPovertyIngester):
 
         self.assertEqual(
             list(self.poverty_by_race_state.values.tolist()),
-            [["01", "01_state_name", "2", "1", "WHITE", "White", True, "White"]],
+            [["01", "01_state_name", "2", "1", "WHITE", "White"]],
         )
         self.assertEqual(
             list(self.poverty_by_race_county.values.tolist()),
@@ -253,8 +249,6 @@ class AcsPovertyIngesterTest(unittest.TestCase, AcsPovertyIngester):
                     "2",
                     "1",
                     "WHITE",
-                    "White",
-                    True,
                     "White",
                 ]
             ],

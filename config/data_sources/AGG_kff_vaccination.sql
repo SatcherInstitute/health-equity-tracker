@@ -9,8 +9,6 @@ WITH
         a.vaccinated_pct,
         a.vaccinated_pct_share,
         a.vaccinated_first_dose,
-        a.race,
-        a.race_includes_hispanic,
         a.race_and_ethnicity,
         a.population_pct,
     FROM `kff_vaccination.race_and_ethnicity` AS a
@@ -18,9 +16,9 @@ WITH
         ON a.state_name = b.state_name
   ),
   all_acs as (
-      SELECT state_fips, state_name, population, population_pct, race_category_id, race, race_includes_hispanic, race_and_ethnicity FROM `acs_population.by_race_state_std`
+      SELECT state_fips, state_name, population, population_pct, race_category_id, race_and_ethnicity FROM `acs_population.by_race_state_std`
     UNION ALL
-      SELECT state_fips, state_name, population, population_pct, race_category_id, race, race_includes_hispanic, race_and_ethnicity FROM `acs_2010_population.by_race_and_ethnicity_territory`
+      SELECT state_fips, state_name, population, population_pct, race_category_id, race_and_ethnicity FROM `acs_2010_population.by_race_and_ethnicity_territory`
   ),
   joined_with_acs as (
       SELECT x.*, y.population, y.population_pct as acs_vaccine_population_pct

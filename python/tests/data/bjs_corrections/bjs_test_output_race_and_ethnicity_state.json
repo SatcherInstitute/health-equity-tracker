@@ -1,222 +1,182 @@
 [
-    {
-        "state_name": "Alabama",
-        "race_category_id": "WHITE_NH",
-        "race": "White",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (NH)",
-        "state_fips": "01",
-        "population_pct": 65.5,
-        "prison_per_100k": 363.0,
-        "prison_pct_share": 46.2
-    },
-    {
-        "state_name": "American Samoa",
-        "race_category_id": "WHITE_NH",
-        "race": "White",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "White (NH)",
-        "state_fips": "60",
-        "population_pct": 0.9,
-        "prison_per_100k": null,
-        "prison_pct_share": null
-    },
-    {
-        "state_name": "Alabama",
-        "race_category_id": "BLACK_NH",
-        "race": "Black or African American",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (NH)",
-        "state_fips": "01",
-        "population_pct": 26.5,
-        "prison_per_100k": 1047.0,
-        "prison_pct_share": 53.8
-    },
-    {
-        "state_name": "American Samoa",
-        "race_category_id": "BLACK_NH",
-        "race": "Black or African American",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (NH)",
-        "state_fips": "60",
-        "population_pct": 0.02,
-        "prison_per_100k": null,
-        "prison_pct_share": null
-    },
-    {
-        "state_name": "Alabama",
-        "race_category_id": "HISP",
-        "race": "Hispanic or Latino",
-        "race_includes_hispanic": true,
-        "race_and_ethnicity": "Hispanic or Latino",
-        "state_fips": "01",
-        "population_pct": 4.3,
-        "prison_per_100k": 0.0,
-        "prison_pct_share": 0.0
-    },
-    {
-        "state_name": "American Samoa",
-        "race_category_id": "HISP",
-        "race": "Hispanic or Latino",
-        "race_includes_hispanic": true,
-        "race_and_ethnicity": "Hispanic or Latino",
-        "state_fips": "60",
-        "population_pct": 0.1,
-        "prison_per_100k": null,
-        "prison_pct_share": null
-    },
-    {
-        "state_name": "Alabama",
-        "race_category_id": "AIAN_NH",
-        "race": "American Indian and Alaska Native",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (NH)",
-        "state_fips": "01",
-        "population_pct": 0.5,
-        "prison_per_100k": 9.0,
-        "prison_pct_share": 0.01
-    },
-    {
-        "state_name": "American Samoa",
-        "race_category_id": "AIAN_NH",
-        "race": "American Indian and Alaska Native",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "American Indian and Alaska Native (NH)",
-        "state_fips": "60",
-        "population_pct": null,
-        "prison_per_100k": null,
-        "prison_pct_share": null
-    },
-    {
-        "state_name": "Alabama",
-        "race_category_id": "ASIAN_NH",
-        "race": "Asian",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (NH)",
-        "state_fips": "01",
-        "population_pct": 1.3,
-        "prison_per_100k": 5.0,
-        "prison_pct_share": 0.01
-    },
-    {
-        "state_name": "American Samoa",
-        "race_category_id": "ASIAN_NH",
-        "race": "Asian",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian (NH)",
-        "state_fips": "60",
-        "population_pct": 3.6,
-        "prison_per_100k": null,
-        "prison_pct_share": null
-    },
-    {
-        "state_name": "Alabama",
-        "race_category_id": "NHPI_NH",
-        "race": "Native Hawaiian and Pacific Islander",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
-        "state_fips": "01",
-        "population_pct": 0.03,
-        "prison_per_100k": 0.0,
-        "prison_pct_share": 0.0
-    },
-    {
-        "state_name": "American Samoa",
-        "race_category_id": "NHPI_NH",
-        "race": "Native Hawaiian and Pacific Islander",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
-        "state_fips": "60",
-        "population_pct": 92.6,
-        "prison_per_100k": null,
-        "prison_pct_share": null
-    },
-    {
-        "state_name": "Alabama",
-        "race_category_id": "MULTI_NH",
-        "race": "Two or more races",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races (NH)",
-        "state_fips": "01",
-        "population_pct": 1.7,
-        "prison_per_100k": 0.0,
-        "prison_pct_share": 0.0
-    },
-    {
-        "state_name": "American Samoa",
-        "race_category_id": "MULTI_NH",
-        "race": "Two or more races",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "Two or more races (NH)",
-        "state_fips": "60",
-        "population_pct": 2.7,
-        "prison_per_100k": null,
-        "prison_pct_share": null
-    },
-    {
-        "state_name": "Alabama",
-        "race_category_id": "OTHER_STANDARD_NH",
-        "race": "Unrepresented race",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "Unrepresented race (NH)",
-        "state_fips": "01",
-        "population_pct": 0.2,
-        "prison_per_100k": 0.0,
-        "prison_pct_share": 0.0
-    },
-    {
-        "state_name": "American Samoa",
-        "race_category_id": "OTHER_STANDARD_NH",
-        "race": "Unrepresented race",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "Unrepresented race (NH)",
-        "state_fips": "60",
-        "population_pct": 0.1,
-        "prison_per_100k": null,
-        "prison_pct_share": null
-    },
-    {
-        "state_name": "Alabama",
-        "race_category_id": "ALL",
-        "race": "All",
-        "race_includes_hispanic": null,
-        "race_and_ethnicity": "All",
-        "state_fips": "01",
-        "population_pct": 100.0,
-        "prison_per_100k": 519.0,
-        "prison_pct_share": 100.0
-    },
-    {
-        "state_name": "American Samoa",
-        "race_category_id": "ALL",
-        "race": "All",
-        "race_includes_hispanic": null,
-        "race_and_ethnicity": "All",
-        "state_fips": "60",
-        "population_pct": 100.0,
-        "prison_per_100k": 353.0,
-        "prison_pct_share": 100.0
-    },
-    {
-        "state_name": "Alabama",
-        "race_category_id": "UNKNOWN",
-        "race": "Unknown race",
-        "race_includes_hispanic": true,
-        "race_and_ethnicity": "Unknown race",
-        "state_fips": "01",
-        "population_pct": null,
-        "prison_per_100k": null,
-        "prison_pct_share": 0.8
-    },
-    {
-        "state_name": "American Samoa",
-        "race_category_id": "UNKNOWN",
-        "race": "Unknown race",
-        "race_includes_hispanic": true,
-        "race_and_ethnicity": "Unknown race",
-        "state_fips": "60",
-        "population_pct": null,
-        "prison_per_100k": null,
-        "prison_pct_share": 100.0
-    }
+  {
+    "state_name": "Alabama",
+    "race_category_id": "WHITE_NH",
+    "race_and_ethnicity": "White (NH)",
+    "state_fips": "01",
+    "population_pct": 65.5,
+    "prison_per_100k": 363,
+    "prison_pct_share": 46.2
+  },
+  {
+    "state_name": "American Samoa",
+    "race_category_id": "WHITE_NH",
+    "race_and_ethnicity": "White (NH)",
+    "state_fips": "60",
+    "population_pct": 0.9,
+    "prison_per_100k": null,
+    "prison_pct_share": null
+  },
+  {
+    "state_name": "Alabama",
+    "race_category_id": "BLACK_NH",
+    "race_and_ethnicity": "Black or African American (NH)",
+    "state_fips": "01",
+    "population_pct": 26.5,
+    "prison_per_100k": 1047,
+    "prison_pct_share": 53.8
+  },
+  {
+    "state_name": "American Samoa",
+    "race_category_id": "BLACK_NH",
+    "race_and_ethnicity": "Black or African American (NH)",
+    "state_fips": "60",
+    "population_pct": 0.02,
+    "prison_per_100k": null,
+    "prison_pct_share": null
+  },
+  {
+    "state_name": "Alabama",
+    "race_category_id": "HISP",
+    "race_and_ethnicity": "Hispanic or Latino",
+    "state_fips": "01",
+    "population_pct": 4.3,
+    "prison_per_100k": 0,
+    "prison_pct_share": 0
+  },
+  {
+    "state_name": "American Samoa",
+    "race_category_id": "HISP",
+    "race_and_ethnicity": "Hispanic or Latino",
+    "state_fips": "60",
+    "population_pct": 0.1,
+    "prison_per_100k": null,
+    "prison_pct_share": null
+  },
+  {
+    "state_name": "Alabama",
+    "race_category_id": "AIAN_NH",
+    "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+    "state_fips": "01",
+    "population_pct": 0.5,
+    "prison_per_100k": 9,
+    "prison_pct_share": 0.01
+  },
+  {
+    "state_name": "American Samoa",
+    "race_category_id": "AIAN_NH",
+    "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+    "state_fips": "60",
+    "population_pct": null,
+    "prison_per_100k": null,
+    "prison_pct_share": null
+  },
+  {
+    "state_name": "Alabama",
+    "race_category_id": "ASIAN_NH",
+    "race_and_ethnicity": "Asian (NH)",
+    "state_fips": "01",
+    "population_pct": 1.3,
+    "prison_per_100k": 5,
+    "prison_pct_share": 0.01
+  },
+  {
+    "state_name": "American Samoa",
+    "race_category_id": "ASIAN_NH",
+    "race_and_ethnicity": "Asian (NH)",
+    "state_fips": "60",
+    "population_pct": 3.6,
+    "prison_per_100k": null,
+    "prison_pct_share": null
+  },
+  {
+    "state_name": "Alabama",
+    "race_category_id": "NHPI_NH",
+    "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+    "state_fips": "01",
+    "population_pct": 0.03,
+    "prison_per_100k": 0,
+    "prison_pct_share": 0
+  },
+  {
+    "state_name": "American Samoa",
+    "race_category_id": "NHPI_NH",
+    "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+    "state_fips": "60",
+    "population_pct": 92.6,
+    "prison_per_100k": null,
+    "prison_pct_share": null
+  },
+  {
+    "state_name": "Alabama",
+    "race_category_id": "MULTI_NH",
+    "race_and_ethnicity": "Two or more races (NH)",
+    "state_fips": "01",
+    "population_pct": 1.7,
+    "prison_per_100k": 0,
+    "prison_pct_share": 0
+  },
+  {
+    "state_name": "American Samoa",
+    "race_category_id": "MULTI_NH",
+    "race_and_ethnicity": "Two or more races (NH)",
+    "state_fips": "60",
+    "population_pct": 2.7,
+    "prison_per_100k": null,
+    "prison_pct_share": null
+  },
+  {
+    "state_name": "Alabama",
+    "race_category_id": "OTHER_STANDARD_NH",
+    "race_and_ethnicity": "Unrepresented race (NH)",
+    "state_fips": "01",
+    "population_pct": 0.2,
+    "prison_per_100k": 0,
+    "prison_pct_share": 0
+  },
+  {
+    "state_name": "American Samoa",
+    "race_category_id": "OTHER_STANDARD_NH",
+    "race_and_ethnicity": "Unrepresented race (NH)",
+    "state_fips": "60",
+    "population_pct": 0.1,
+    "prison_per_100k": null,
+    "prison_pct_share": null
+  },
+  {
+    "state_name": "Alabama",
+    "race_category_id": "ALL",
+    "race_and_ethnicity": "All",
+    "state_fips": "01",
+    "population_pct": 100,
+    "prison_per_100k": 519,
+    "prison_pct_share": 100
+  },
+  {
+    "state_name": "American Samoa",
+    "race_category_id": "ALL",
+    "race_and_ethnicity": "All",
+    "state_fips": "60",
+    "population_pct": 100,
+    "prison_per_100k": 353,
+    "prison_pct_share": 100
+  },
+  {
+    "state_name": "Alabama",
+    "race_category_id": "UNKNOWN",
+    "race_and_ethnicity": "Unknown race",
+    "state_fips": "01",
+    "population_pct": null,
+    "prison_per_100k": null,
+    "prison_pct_share": 0.8
+  },
+  {
+    "state_name": "American Samoa",
+    "race_category_id": "UNKNOWN",
+    "race_and_ethnicity": "Unknown race",
+    "state_fips": "60",
+    "population_pct": null,
+    "prison_per_100k": null,
+    "prison_pct_share": 100
+  }
 ]
