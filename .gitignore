@@ -37,3 +37,4 @@ python/datasources/build/
 python/ingestion/build/
 
 /scripts/.env.secrets
+python/tests/datasources/_test_cawp_time_local.py
