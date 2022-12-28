@@ -210,7 +210,6 @@ expected_dtype = {
     "prison_pct_share": float,
     "jail_per_100k": float,
     "prison_per_100k": float,
-    "race_includes_hispanic": object,
     "total_confined_children": float
 }
 

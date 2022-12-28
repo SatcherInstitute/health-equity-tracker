@@ -1,10 +1,10 @@
-state_name,state_fips,vaccinated_first_dose,race_category_id,race,race_includes_hispanic,race_and_ethnicity,vaccinated_share_of_known,vaccinated_per_100k
-United States,00,31640980,HISP,Hispanic or Latino,TRUE,Hispanic or Latino,19.3,49600
-United States,00,1506108,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (NH),0.9,61800
-United States,00,9798756,ASIAN_NH,Asian,FALSE,Asian (NH),6.0,51600
-United States,00,16717933,BLACK_NH,Black or African American,FALSE,Black or African American (NH),10.2,40600
-United States,00,9088540,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race,FALSE,Two or more races & Unrepresented race (NH),5.5,99900
-United States,00,484651,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (NH),0.3,52200
-United States,00,94732860,WHITE_NH,White,FALSE,White (NH),57.8,48000
-United States,00,70299220,UNKNOWN,Unknown race,TRUE,Unknown race,30,
-United States,00,234269053,ALL,All,,All,100,70600
+state_name,state_fips,vaccinated_first_dose,race_category_id,race_and_ethnicity,vaccinated_share_of_known,vaccinated_per_100k
+United States,00,31640980,HISP,Hispanic or Latino,19.3,49600.0
+United States,00,1506108,AIAN_NH,American Indian and Alaska Native (NH),0.9,61800.0
+United States,00,9798756,ASIAN_NH,Asian (NH),6.0,51600.0
+United States,00,16717933,BLACK_NH,Black or African American (NH),10.2,40600.0
+United States,00,9088540,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race (NH),5.5,99900.0
+United States,00,484651,NHPI_NH,Native Hawaiian and Pacific Islander (NH),0.3,52200.0
+United States,00,94732860,WHITE_NH,White (NH),57.8,48000.0
+United States,00,70299220,UNKNOWN,Unknown race,30.0,
+United States,00,234269053,ALL,All,100.0,70600.0

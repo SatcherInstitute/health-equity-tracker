@@ -170,7 +170,6 @@ def testWriteNationalLevelToBq(mock_bq: mock.MagicMock,
         "population_pct": float,
         'race_and_ethnicity': str,
         'race': str,
-        'race_includes_hispanic': object,
         'race_category_id': str,
     }
 
@@ -237,7 +236,6 @@ def testWriteStateLevelToBq(mock_bq: mock.MagicMock,
         "population_pct": float,
         'race_and_ethnicity': str,
         'race': str,
-        'race_includes_hispanic': object,
         'race_category_id': str,
     }
 

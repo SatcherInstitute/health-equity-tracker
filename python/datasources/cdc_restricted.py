@@ -136,9 +136,6 @@ class CDCRestrictedData(DataSource):
                     if col in column_types:
                         column_types[col] = 'FLOAT'
 
-                if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-                    column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-
                 print(f'uploading {table_name}')
                 gcs_to_bq_util.add_df_to_bq(
                     df, dataset, table_name, column_types=column_types)
@@ -306,9 +303,6 @@ def get_col_types(df, add_rel_inequality_col=False):
                 prefix, std_col.PCT_REL_INEQUITY_SUFFIX)] = 'FLOAT'
 
     column_types[std_col.COVID_POPULATION_PCT] = 'FLOAT'
-
-    if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-        column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
     return column_types
 

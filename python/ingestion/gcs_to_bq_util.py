@@ -7,7 +7,6 @@ import pandas as pd
 from google.cloud import bigquery, storage
 from zipfile import ZipFile
 from io import BytesIO
-import ingestion.standardized_columns as std_col
 from typing import List
 
 
@@ -401,9 +400,5 @@ def get_bq_column_types(df, float_cols: List[str]):
     column_types = {c: 'STRING' for c in df.columns}
     for col in float_cols:
         column_types[col] = 'FLOAT'
-
-    # TODO: remove this once we standardize on only using race_category_id on the backend
-    if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-        column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
     return column_types
