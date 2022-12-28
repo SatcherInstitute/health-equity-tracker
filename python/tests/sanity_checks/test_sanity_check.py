@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from sanity_checks import sanity_check
+from sanity_checks.sanity_check import check_pct_values
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "sanity_checks")
@@ -36,29 +36,29 @@ def get_cdc_restricted_by_age_as_df():
 
 def testGenerateVerifyPercentShareBySexCountyFix():
     df = get_cdc_restricted_by_sex_county_as_df()
-    result = sanity_check.check_pct_values(df)
+    result = check_pct_values(df)
     return result
 
 
 def testGenerateVerifyPercentShareBySexCountyTimeFix():
     df = get_cdc_restricted_by_sex_county_time_as_df()
-    result = sanity_check.check_pct_values(df)
+    result = check_pct_values(df)
     return result
 
 
 def testGenerateVerifyPercentShareByAgeStateFix():
     df = get_cdc_restricted_by_sex_state_as_df()
-    result = sanity_check.check_pct_values(df)
+    result = check_pct_values(df)
     return result
 
 
 def testGenerateVerifyPercentShareBySexNationalFix():
     df = get_cdc_restricted_by_sex_national_as_df()
-    result = sanity_check.check_pct_values(df)
+    result = check_pct_values(df)
     return result
 
 
 def testGenerateVerifyPercentShareByAgeCountyFix():
     df = get_cdc_restricted_by_age_as_df()
-    result = sanity_check.check_pct_values(df)
+    result = check_pct_values(df)
     return result

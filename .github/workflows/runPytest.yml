@@ -2,43 +2,42 @@ name: Python application
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.8
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip setuptools
-        pip install pytest
-        pip install -r requirements/tests.txt
-        pip install python/ingestion python/data_server python/datasources
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools
+          pip install pytest
+          pip install -r requirements/tests.txt
+          pip install python/ingestion python/data_server python/datasources python/sanity_checks
 
-    - name: Test python packages with pytest
-      working-directory: ./python
-      run: pytest
-        
-    - name: Test data_server service with pytest
-      working-directory: ./data_server
-      run: pytest
+      - name: Test python packages with pytest
+        working-directory: ./python
+        run: pytest
 
-    - name: Test exporter service with pytest
-      working-directory: ./exporter
-      run: pytest
+      - name: Test data_server service with pytest
+        working-directory: ./data_server
+        run: pytest
 
-    - name: Test aggregator service with pytest
-      working-directory: ./aggregator
-      run: pytest
+      - name: Test exporter service with pytest
+        working-directory: ./exporter
+        run: pytest
+
+      - name: Test aggregator service with pytest
+        working-directory: ./aggregator
+        run: pytest
