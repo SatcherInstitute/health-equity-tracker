@@ -1,7 +1,6 @@
 import os
 import pandas as pd
-from python.sanity_checks.sanity_check import check_pct_values
-
+from ...sanity_checks.sanity_check import check_pct_values
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "sanity_checks")
