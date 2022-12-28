@@ -92,16 +92,14 @@ class CDCVaccinationNational(DataSource):
         for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL, std_col.AGE_COL]:
             breakdown_df = self.generate_breakdown(breakdown, df)
 
-            column_types = {c: 'STRING' for c in breakdown_df.columns}
-            column_types[std_col.VACCINATED_FIRST_DOSE] = 'INT64'
-            column_types[std_col.VACCINATED_PER_100K] = 'FLOAT'
-            column_types[std_col.VACCINATED_SHARE_OF_KNOWN] = 'FLOAT'
+            float_cols = [std_col.VACCINATED_FIRST_DOSE,
+                          std_col.VACCINATED_PER_100K,
+                          std_col.VACCINATED_SHARE_OF_KNOWN]
 
-            if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
-                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+            col_types = gcs_to_bq_util.get_bq_column_types(breakdown_df, float_cols)
 
             gcs_to_bq_util.add_df_to_bq(
-                breakdown_df, dataset, breakdown, column_types=column_types)
+                breakdown_df, dataset, breakdown, column_types=col_types)
 
     def generate_breakdown(self, breakdown, df):
         output = []

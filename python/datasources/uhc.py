@@ -150,23 +150,19 @@ class UHCData(DataSource):
                 breakdown_df = parse_raw_data(breakdown_df, breakdown)
                 breakdown_df = post_process(breakdown_df, breakdown, geo)
 
-                column_types = {c: 'STRING' for c in breakdown_df.columns}
-
+                float_cols = []
                 for col in UHC_DETERMINANTS.values():
-                    column_types[std_col.generate_column_name(
-                        col, std_col.PER_100K_SUFFIX)] = 'FLOAT'
-                    column_types[std_col.generate_column_name(
-                        col, std_col.PCT_SHARE_SUFFIX)] = 'FLOAT'
+                    float_cols.append(std_col.generate_column_name(
+                        col, std_col.PER_100K_SUFFIX))
+                    float_cols.append(std_col.generate_column_name(
+                        col, std_col.PCT_SHARE_SUFFIX))
 
-                column_types[std_col.BRFSS_POPULATION_PCT] = 'FLOAT'
+                float_cols.append(std_col.BRFSS_POPULATION_PCT)
 
-                if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
-                    column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-
-                table_name = '%s_%s' % (breakdown, geo)
+                col_types = gcs_to_bq_util.get_bq_column_types(breakdown_df, float_cols)
 
                 gcs_to_bq_util.add_df_to_bq(
-                    breakdown_df, dataset, table_name, column_types=column_types)
+                    breakdown_df, dataset, f'{breakdown}_{geo}', column_types=col_types)
 
 
 def parse_raw_data(df, breakdown):

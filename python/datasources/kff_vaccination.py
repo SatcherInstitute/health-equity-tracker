@@ -239,9 +239,7 @@ class KFFVaccination(DataSource):
         output_df = pd.DataFrame(output, columns=columns)
         std_col.add_race_columns_from_category_id(output_df)
 
-        column_types = {c: 'STRING' for c in output_df.columns}
-        column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-        column_types[std_col.VACCINATED_FIRST_DOSE] = 'INT64'
+        col_types = gcs_to_bq_util.get_bq_column_types(output_df, [std_col.VACCINATED_FIRST_DOSE])
 
         gcs_to_bq_util.add_df_to_bq(
-            output_df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=column_types)
+            output_df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=col_types)
