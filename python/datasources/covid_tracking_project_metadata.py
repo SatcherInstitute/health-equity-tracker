@@ -71,7 +71,7 @@ class CtpMetadata(DataSource):
     def _convert_to_includes_hisp(df: pd.DataFrame):
         """Translates metadata from 'race_ethnicity_[separately|combined]'
         to RACE_INCLUDES_HISPANIC_COL."""
-        includes_hisp_col = col_std.RACE_INCLUDES_HISPANIC_COL
+        includes_hisp_col = 'race_includes_hispanic'
         df[includes_hisp_col] = df.apply(
             # If both race_ethnicity_separately and race_ethnicity_combined are
             # 0, and the state doesn't report ethnicity, then we want to use

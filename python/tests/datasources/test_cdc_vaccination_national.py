@@ -50,8 +50,5 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
         })
 
     for i in range(len(demos)):
-        print(mock_bq.call_args_list[i].args[0].columns)
-        print(expected_dfs[demos[i]].columns)
-
         assert_frame_equal(
             mock_bq.call_args_list[i].args[0], expected_dfs[demos[i]], check_like=True)

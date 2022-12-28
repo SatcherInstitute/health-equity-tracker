@@ -53,7 +53,6 @@ def testWriteToBq(
     expected_df = pd.read_csv(GOLDEN_DATA, dtype={
         'county_fips': str,
         'vaccinated_per_100k': float,
-        'race_includes_hispanic': str,
     })
     assert_frame_equal(
         mock_bq.call_args_list[0].args[0], expected_df, check_like=True)

@@ -56,13 +56,10 @@ class CensusPopEstimates(DataSource):
 
         state_df = generate_state_pop_data(df)
 
-        column_types = {c: 'STRING' for c in state_df.columns}
-
-        if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
-            column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+        col_types = gcs_to_bq_util.get_bq_column_types(state_df, [])
 
         gcs_to_bq_util.add_df_to_bq(
-            state_df, dataset, "race_and_ethnicity", column_types=column_types)
+            state_df, dataset, "race_and_ethnicity", column_types=col_types)
 
 
 def generate_state_pop_data(df):
