@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-import json
 from sanity_checks.sanity_check import check_pct_values
 
 # Current working directory

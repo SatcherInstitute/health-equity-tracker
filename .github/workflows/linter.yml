@@ -47,16 +47,19 @@ jobs:
         run: |
           pip install mypy==0.902
           pip install -r data_server/requirements.txt
+          pip install -r sanity_checks/requirements.txt
           pip install -r run_ingestion/requirements.txt
           pip install -r run_gcs_to_bq/requirements.txt
           pip install -r requirements/tests.txt
 
           yes | mypy --install-types data_server/ python/data_server/
+          yes | mypy --install-types sanity_checks/ python/sanity_checks/
           yes | mypy --install-types run_ingestion/ python/ingestion/
           yes | mypy --install-types run_gcs_to_bq/ python/ingestion/
           yes | mypy --install-types airflow/dags/
 
           mypy --config-file=.github/linters/mypy.ini data_server/ python/data_server/
+          mypy --config-file=.github/linters/mypy.ini sanity_checks/ python/sanity_checks/
           mypy --config-file=.github/linters/mypy.ini run_ingestion/ python/ingestion/
           mypy --config-file=.github/linters/mypy.ini run_gcs_to_bq/ python/ingestion/
           mypy --config-file=.github/linters/mypy.ini airflow/dags/
