@@ -47,7 +47,6 @@ jobs:
         run: |
           pip install mypy==0.902
           pip install -r data_server/requirements.txt
-          pip install -r sanity_checks/requirements.txt
           pip install -r run_ingestion/requirements.txt
           pip install -r run_gcs_to_bq/requirements.txt
           pip install -r requirements/tests.txt
