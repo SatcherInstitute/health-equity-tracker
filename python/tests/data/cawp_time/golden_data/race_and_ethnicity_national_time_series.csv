@@ -1,4 +1,4 @@
-time_period,total_us_congress_count,women_this_race_us_congress_count,total_state_leg_count,women_this_race_state_leg_count,state_fips,state_name,state_postal,pct_share_of_us_congress,pct_share_of_women_us_congress,pct_share_of_state_leg,pct_share_of_women_state_leg,race_category_id,race,race_includes_hispanic,race_and_ethnicity,population,population_pct,women_us_congress_pct_relative_inequity,women_state_leg_pct_relative_inequity
+time_period,total_us_congress_count,women_this_race_us_congress_count,total_state_leg_count,women_this_race_state_leg_count,state_fips,state_name,state_postal,pct_share_of_us_congress,pct_share_of_women_us_congress,pct_share_of_state_leg,pct_share_of_women_state_leg,race_category_id,race_and_ethnicity,population,population_pct,women_us_congress_pct_relative_inequity,women_state_leg_pct_relative_inequity
 2018,4.0,0.0,99.0,2.0,00,United States,US,0.0,0.0,2.0,9.1,AIANNH,"Native American, Alaska Native, & Native Hawaiian",,,,
 2018,4.0,2.0,99.0,22.0,00,United States,US,50.0,100.0,22.2,100.0,ALL,All,,,,
 2018,4.0,1.0,99.0,3.0,00,United States,US,25.0,50.0,3.0,13.6,ASIAN_PAC,Asian American & Pacific Islander,,,,
