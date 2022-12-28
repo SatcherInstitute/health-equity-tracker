@@ -19,7 +19,7 @@ state_fips,time_period,state_name,state_postal,total_us_congress_count,total_sta
 60,2018,American Samoa,AS,1.0,39.0,0.0,0.0,0.0,0.0,0.0,0.0,OTHER_STANDARD,Unrepresented race,,
 60,2018,American Samoa,AS,1.0,39.0,0.0,0.0,0.0,0.0,0.0,0.0,UNKNOWN,Unknown race,,
 60,2018,American Samoa,AS,1.0,39.0,0.0,0.0,0.0,0.0,0.0,0.0,WHITE,White,,
-02,2019,Alaska,AK,3.0,60.0,0.0,1.0,0.0,0.0,1.7,4.3,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",True,"American Indian, Alaska Native, Asian & Pacific Islander",164875.0,22.4
+02,2019,Alaska,AK,3.0,60.0,0.0,1.0,0.0,0.0,1.7,4.3,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",164875.0,22.4
 02,2019,Alaska,AK,3.0,60.0,1.0,23.0,33.3,100.0,38.3,100.0,ALL,All,737068.0,100.0
 02,2019,Alaska,AK,3.0,60.0,0.0,0.0,0.0,0.0,0.0,0.0,ASIAN_PAC,Asian American & Pacific Islander,,
 02,2019,Alaska,AK,3.0,60.0,0.0,2.0,0.0,0.0,3.3,8.7,BLACK,Black or African American,24205.0,3.3
@@ -30,7 +30,7 @@ state_fips,time_period,state_name,state_postal,total_us_congress_count,total_sta
 02,2019,Alaska,AK,3.0,60.0,0.0,0.0,0.0,0.0,0.0,0.0,OTHER_STANDARD,Unrepresented race,11308.0,1.5
 02,2019,Alaska,AK,3.0,60.0,0.0,0.0,0.0,0.0,0.0,0.0,UNKNOWN,Unknown race,,
 02,2019,Alaska,AK,3.0,60.0,1.0,20.0,33.3,100.0,33.3,87.0,WHITE,White,476015.0,64.6
-60,2019,American Samoa,AS,1.0,39.0,1.0,1.0,100.0,100.0,2.6,50.0,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",True,"American Indian, Alaska Native, Asian & Pacific Islander",53397.0,96.2
+60,2019,American Samoa,AS,1.0,39.0,1.0,1.0,100.0,100.0,2.6,50.0,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",53397.0,96.2
 60,2019,American Samoa,AS,1.0,39.0,1.0,2.0,100.0,100.0,5.1,100.0,ALL,All,55519.0,100.0
 60,2019,American Samoa,AS,1.0,39.0,1.0,1.0,100.0,100.0,2.6,50.0,ASIAN_PAC,Asian American & Pacific Islander,,
 60,2019,American Samoa,AS,1.0,39.0,0.0,0.0,0.0,0.0,0.0,0.0,BLACK,Black or African American,13.0,0.02
@@ -41,7 +41,7 @@ state_fips,time_period,state_name,state_postal,total_us_congress_count,total_sta
 60,2019,American Samoa,AS,1.0,39.0,0.0,0.0,0.0,0.0,0.0,0.0,OTHER_STANDARD,Unrepresented race,64.0,0.1
 60,2019,American Samoa,AS,1.0,39.0,0.0,1.0,0.0,0.0,2.6,50.0,UNKNOWN,Unknown race,,
 60,2019,American Samoa,AS,1.0,39.0,0.0,0.0,0.0,0.0,0.0,0.0,WHITE,White,493.0,0.9
-02,2020,Alaska,AK,3.0,60.0,0.0,1.0,0.0,0.0,1.7,4.3,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",True,"American Indian, Alaska Native, Asian & Pacific Islander",164875.0,22.4
+02,2020,Alaska,AK,3.0,60.0,0.0,1.0,0.0,0.0,1.7,4.3,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",164875.0,22.4
 02,2020,Alaska,AK,3.0,60.0,1.0,23.0,33.3,100.0,38.3,100.0,ALL,All,737068.0,100.0
 02,2020,Alaska,AK,3.0,60.0,0.0,0.0,0.0,0.0,0.0,0.0,ASIAN_PAC,Asian American & Pacific Islander,,
 02,2020,Alaska,AK,3.0,60.0,0.0,2.0,0.0,0.0,3.3,8.7,BLACK,Black or African American,24205.0,3.3
@@ -52,7 +52,7 @@ state_fips,time_period,state_name,state_postal,total_us_congress_count,total_sta
 02,2020,Alaska,AK,3.0,60.0,0.0,0.0,0.0,0.0,0.0,0.0,OTHER_STANDARD,Unrepresented race,11308.0,1.5
 02,2020,Alaska,AK,3.0,60.0,0.0,0.0,0.0,0.0,0.0,0.0,UNKNOWN,Unknown race,,
 02,2020,Alaska,AK,3.0,60.0,1.0,20.0,33.3,100.0,33.3,87.0,WHITE,White,476015.0,64.6
-60,2020,American Samoa,AS,1.0,39.0,1.0,1.0,100.0,100.0,2.6,50.0,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",True,"American Indian, Alaska Native, Asian & Pacific Islander",53397.0,96.2
+60,2020,American Samoa,AS,1.0,39.0,1.0,1.0,100.0,100.0,2.6,50.0,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",53397.0,96.2
 60,2020,American Samoa,AS,1.0,39.0,1.0,2.0,100.0,100.0,5.1,100.0,ALL,All,55519.0,100.0
 60,2020,American Samoa,AS,1.0,39.0,1.0,1.0,100.0,100.0,2.6,50.0,ASIAN_PAC,Asian American & Pacific Islander,,
 60,2020,American Samoa,AS,1.0,39.0,0.0,0.0,0.0,0.0,0.0,0.0,BLACK,Black or African American,13.0,0.02
@@ -63,7 +63,7 @@ state_fips,time_period,state_name,state_postal,total_us_congress_count,total_sta
 60,2020,American Samoa,AS,1.0,39.0,0.0,0.0,0.0,0.0,0.0,0.0,OTHER_STANDARD,Unrepresented race,64.0,0.1
 60,2020,American Samoa,AS,1.0,39.0,0.0,1.0,0.0,0.0,2.6,50.0,UNKNOWN,Unknown race,,
 60,2020,American Samoa,AS,1.0,39.0,0.0,0.0,0.0,0.0,0.0,0.0,WHITE,White,493.0,0.9
-02,2021,Alaska,AK,3.0,60.0,0.0,1.0,0.0,0.0,1.7,5.6,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",True,"American Indian, Alaska Native, Asian & Pacific Islander",164875.0,22.4
+02,2021,Alaska,AK,3.0,60.0,0.0,1.0,0.0,0.0,1.7,5.6,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",164875.0,22.4
 02,2021,Alaska,AK,3.0,60.0,1.0,18.0,33.3,100.0,30.0,100.0,ALL,All,737068.0,100.0
 02,2021,Alaska,AK,3.0,60.0,0.0,0.0,0.0,0.0,0.0,0.0,ASIAN_PAC,Asian American & Pacific Islander,,
 02,2021,Alaska,AK,3.0,60.0,0.0,1.0,0.0,0.0,1.7,5.6,BLACK,Black or African American,24205.0,3.3
@@ -74,7 +74,7 @@ state_fips,time_period,state_name,state_postal,total_us_congress_count,total_sta
 02,2021,Alaska,AK,3.0,60.0,0.0,0.0,0.0,0.0,0.0,0.0,OTHER_STANDARD,Unrepresented race,11308.0,1.5
 02,2021,Alaska,AK,3.0,60.0,0.0,0.0,0.0,0.0,0.0,0.0,UNKNOWN,Unknown race,,
 02,2021,Alaska,AK,3.0,60.0,1.0,16.0,33.3,100.0,26.7,88.9,WHITE,White,476015.0,64.6
-60,2021,American Samoa,AS,1.0,39.0,1.0,1.0,100.0,100.0,2.6,50.0,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",True,"American Indian, Alaska Native, Asian & Pacific Islander",53397.0,96.2
+60,2021,American Samoa,AS,1.0,39.0,1.0,1.0,100.0,100.0,2.6,50.0,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",53397.0,96.2
 60,2021,American Samoa,AS,1.0,39.0,1.0,2.0,100.0,100.0,5.1,100.0,ALL,All,55519.0,100.0
 60,2021,American Samoa,AS,1.0,39.0,1.0,1.0,100.0,100.0,2.6,50.0,ASIAN_PAC,Asian American & Pacific Islander,,
 60,2021,American Samoa,AS,1.0,39.0,0.0,0.0,0.0,0.0,0.0,0.0,BLACK,Black or African American,13.0,0.02
@@ -85,7 +85,7 @@ state_fips,time_period,state_name,state_postal,total_us_congress_count,total_sta
 60,2021,American Samoa,AS,1.0,39.0,0.0,0.0,0.0,0.0,0.0,0.0,OTHER_STANDARD,Unrepresented race,64.0,0.1
 60,2021,American Samoa,AS,1.0,39.0,0.0,1.0,0.0,0.0,2.6,50.0,UNKNOWN,Unknown race,,
 60,2021,American Samoa,AS,1.0,39.0,0.0,0.0,0.0,0.0,0.0,0.0,WHITE,White,493.0,0.9
-02,2022,Alaska,AK,4.0,60.0,1.0,1.0,25.0,50.0,1.7,5.6,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",True,"American Indian, Alaska Native, Asian & Pacific Islander",164875.0,22.4
+02,2022,Alaska,AK,4.0,60.0,1.0,1.0,25.0,50.0,1.7,5.6,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",164875.0,22.4
 02,2022,Alaska,AK,4.0,60.0,2.0,18.0,50.0,100.0,30.0,100.0,ALL,All,737068.0,100.0
 02,2022,Alaska,AK,4.0,60.0,0.0,0.0,0.0,0.0,0.0,0.0,ASIAN_PAC,Asian American & Pacific Islander,,
 02,2022,Alaska,AK,4.0,60.0,0.0,1.0,0.0,0.0,1.7,5.6,BLACK,Black or African American,24205.0,3.3
@@ -96,7 +96,7 @@ state_fips,time_period,state_name,state_postal,total_us_congress_count,total_sta
 02,2022,Alaska,AK,4.0,60.0,0.0,0.0,0.0,0.0,0.0,0.0,OTHER_STANDARD,Unrepresented race,11308.0,1.5
 02,2022,Alaska,AK,4.0,60.0,0.0,0.0,0.0,0.0,0.0,0.0,UNKNOWN,Unknown race,,
 02,2022,Alaska,AK,4.0,60.0,1.0,16.0,25.0,50.0,26.7,88.9,WHITE,White,476015.0,64.6
-60,2022,American Samoa,AS,1.0,39.0,1.0,1.0,100.0,100.0,2.6,50.0,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",True,"American Indian, Alaska Native, Asian & Pacific Islander",53397.0,96.2
+60,2022,American Samoa,AS,1.0,39.0,1.0,1.0,100.0,100.0,2.6,50.0,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",53397.0,96.2
 60,2022,American Samoa,AS,1.0,39.0,1.0,2.0,100.0,100.0,5.1,100.0,ALL,All,55519.0,100.0
 60,2022,American Samoa,AS,1.0,39.0,1.0,1.0,100.0,100.0,2.6,50.0,ASIAN_PAC,Asian American & Pacific Islander,,
 60,2022,American Samoa,AS,1.0,39.0,0.0,0.0,0.0,0.0,0.0,0.0,BLACK,Black or African American,13.0,0.02
