@@ -103,7 +103,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     (row) => row[props.metric.metricId] > 0
   );
 
-  // const nonZeroDataIsAllSameValue = nonZeroData?.every((row) => row[props.metric.metricId] === nonZeroData?.[0]?.[props.metric.metricId])
   const numUniqueNonZeroValues = new Set(
     nonZeroData.map((row) => row[props.metric.metricId])
   ).size;

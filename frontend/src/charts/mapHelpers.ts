@@ -2,7 +2,6 @@ import { MetricId, MetricType } from "../data/config/MetricConfig";
 import { Fips } from "../data/utils/Fips";
 import {
   CAWP_CONGRESS_COUNTS,
-  // CAWP_DETERMINANTS,
   getWomenRaceLabel,
 } from "../data/variables/CawpProvider";
 
