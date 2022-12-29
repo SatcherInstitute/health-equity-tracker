@@ -97,6 +97,10 @@ VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
 # CAWP
 
+# TODO delete these once OLD CAWP is fully gone
+WOMEN_STATE_LEG_PCT = "women_state_leg_pct"
+WOMEN_STATE_LEG_PCT_SHARE = "women_state_leg_pct_share"
+
 # State Legislatures
 PCT_OF_W_STLEG = "pct_share_of_women_state_leg"
 PCT_OF_STLEG = "pct_share_of_state_leg"
