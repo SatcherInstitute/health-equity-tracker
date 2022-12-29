@@ -140,27 +140,29 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 {props.metricConfig &&
                 props.fips.isUsa() &&
                 dataForValue.length ? (
-                  TERRITORY_CODES.map((code) => {
-                    const fips = new Fips(code);
-                    return (
-                      <div key={code} className={styles.TerritoryMap}>
-                        <ChoroplethMap
-                          signalListeners={{ click: (...args: any) => {} }}
-                          metric={props.metricConfig}
-                          legendData={props.data}
-                          data={dataForValue}
-                          hideLegend={true}
-                          hideActions={true}
-                          showCounties={props.fips.isUsa() ? false : true}
-                          fips={fips}
-                          fieldRange={props.fieldRange}
-                          scaleType="quantize"
-                          geoData={props.geoData}
-                          overrideShapeWithCircle={true}
-                        />
-                      </div>
-                    );
-                  })
+                  <Grid container>
+                    {TERRITORY_CODES.map((code) => {
+                      const fips = new Fips(code);
+                      return (
+                        <Grid item xs={4} sm={2} key={code}>
+                          <ChoroplethMap
+                            signalListeners={{ click: (...args: any) => {} }}
+                            metric={props.metricConfig}
+                            legendData={props.data}
+                            data={dataForValue}
+                            hideLegend={true}
+                            hideActions={true}
+                            showCounties={props.fips.isUsa() ? false : true}
+                            fips={fips}
+                            fieldRange={props.fieldRange}
+                            scaleType="quantize"
+                            geoData={props.geoData}
+                            overrideShapeWithCircle={true}
+                          />
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
                 ) : (
                   <></>
                 )}
