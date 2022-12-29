@@ -45,7 +45,7 @@ def get_expected_data() -> pd.DataFrame:
         col_std.STATE_POSTAL_COL,
         'variable_type',
         'reports_api',
-        col_std.RACE_INCLUDES_HISPANIC_COL,
+        'race_includes_hispanic',
         'race_mutually_exclusive',
         'reports_ind',
         'reports_race',
@@ -77,34 +77,3 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
         expected.set_index(
             [col_std.STATE_POSTAL_COL, 'variable_type'], drop=False),
         check_like=True)
-
-
-def testConvertInclHisp():
-    ctp = CtpMetadata()
-    df = generate_test_data()
-    # Change the default so that GA doesn't report race for deaths
-    df.at[2, 'race_death'] = 0
-
-    df = ctp.standardize(df)
-    with pd.option_context('display.max_columns', None):
-        print(df.query('state_postal == "GA" and variable_type == "cases"'))
-    assert df.loc[
-        (df['state_postal'] == 'GA') & (df['variable_type'] == 'deaths'),
-        'race_includes_hispanic'].item() == 0
-    assert df.loc[
-        (df['state_postal'] == 'GA') & (df['variable_type'] == 'cases'),
-        'race_includes_hispanic'].item() == 1
-    # AL reported race_ethnicity_separately, so race_includes_hispanic should be set.
-    assert df.loc[
-        (df['state_postal'] == 'AL') & (df['variable_type'] == 'deaths'),
-        'race_includes_hispanic'].item() == 1
-    assert df.loc[
-        (df['state_postal'] == 'AL') & (df['variable_type'] == 'cases'),
-        'race_includes_hispanic'].item() == 1
-    # PA reported race_ethnicity_combined, so race_includes_hispanic should not be set.
-    assert df.loc[
-        (df['state_postal'] == 'PA') & (df['variable_type'] == 'deaths'),
-        'race_includes_hispanic'].item() == 0
-    assert df.loc[
-        (df['state_postal'] == 'PA') & (df['variable_type'] == 'cases'),
-        'race_includes_hispanic'].item() == 0
