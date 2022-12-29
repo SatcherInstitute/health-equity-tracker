@@ -1,14 +1,13 @@
-<!--- Provide a general summary of your changes in the Title above -->
+## Description
+<!--- Describe your changes in detail -->
 
 ## Preview Link
 <!--- Come back and edit this link after saving the PR -->
-<!--- Replace 1234 with this PR's actual number  -->
-<a href="https://deploy-preview-1234--health-equity-tracker.netlify.app/exploredata" target="_blank">
+<!--- Replace 234 with this PR's actual number  -->
+<a href="https://deploy-preview-234--health-equity-tracker.netlify.app/exploredata" target="_blank">
   <img width="150"  src="https://healthequitytracker.org/img/appbar/AppbarLogo.png" alt="" /><br />
 Click to demo updates </a> 
 
-## Description
-<!--- Describe your changes in detail -->
 
 ## Motivation and Context
 <!--- Why is this change required? What problem does it solve? -->
