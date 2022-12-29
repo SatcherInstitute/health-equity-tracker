@@ -52,8 +52,7 @@ def get_stleg_url(id: str):
     state info pages, for example:
     https://cawp.rutgers.edu/facts/state-state-information/alabama
     """
-    return ("https://cawp.rutgers.edu/tablefield/export/paragraph/" +
-            id + "/field_table/und/0")
+    return f'https://cawp.rutgers.edu/tablefield/export/paragraph/{id}/field_table/und/0'
 
 
 CAWP_MULTI = "Multiracial Alone"
@@ -462,11 +461,7 @@ def get_women_dfs():
         df_gov_level[POSITION] = df_gov_level[POSITION].apply(
             lambda x: POSITION_LABELS[gov_level][x])
         # consolidate name columns
-        df_gov_level[NAME] = (
-            df_gov_level[POSITION] + " " +
-            df_gov_level[FIRST_NAME] + " " +
-            df_gov_level[LAST_NAME]
-        )
+        df_gov_level[NAME] = f'{df_gov_level[POSITION]} {df_gov_level[FIRST_NAME]} {df_gov_level[LAST_NAME]}'
         df_gov_level = df_gov_level.drop(
             columns=[FIRST_NAME, LAST_NAME, POSITION])
         women_dfs.append(df_gov_level)
@@ -566,8 +561,9 @@ def get_state_leg_totals_df():
         df_rightIndex = df_rightIndex.shift(periods=1, axis="columns")
         state_df = pd.concat([df_leftIndex, df_rightIndex])
 
-        # standardize the year col
-        state_df[std_col.TIME_PERIOD_COL] = state_df["Year"]
+        # standardize the year col and remove non-digits
+        state_df = state_df.rename(
+            {'Year': std_col.TIME_PERIOD_COL}, axis='columns')
         state_df[std_col.TIME_PERIOD_COL] = state_df[
             std_col.TIME_PERIOD_COL].astype(str).replace(
             r'\D', '', regex=True)
@@ -578,7 +574,6 @@ def get_state_leg_totals_df():
 
         # keep only needed cols
         state_df = state_df[[std_col.TIME_PERIOD_COL,
-                            # std_col.W_ALL_RACES_STLEG_COUNT,
                              std_col.STLEG_COUNT]]
 
         # TODO: confirm this typo with CAWP; ideally get them to fix
@@ -623,13 +618,12 @@ def combine_states_to_national(df):
         std_col.W_ALL_RACES_STLEG_COUNT,
         std_col.W_THIS_RACE_STLEG_COUNT
     ].agg("sum", min_count=1)
-    _df = df_counts
 
-    _df[std_col.STATE_FIPS_COL] = US_FIPS
-    _df[std_col.STATE_NAME_COL] = US_NAME
-    _df[std_col.STATE_POSTAL_COL] = US_ABBR
+    df_counts[std_col.STATE_FIPS_COL] = US_FIPS
+    df_counts[std_col.STATE_NAME_COL] = US_NAME
+    df_counts[std_col.STATE_POSTAL_COL] = US_ABBR
 
-    return _df
+    return df_counts
 
 
 def get_postal_from_cawp_phrase(cawp_place_phrase: str):
@@ -788,9 +782,9 @@ def build_base_rows_df(us_congress_totals_df,
 
     # create chunks with needed COLUMNS
     df_congress_scaffold = scaffold_df_by_year_by_state_by_race_list(
-        race_list, 1915)
+        race_list, DEFAULT_CONGRESS_FIRST_YR)
     df_stleg_scaffold = scaffold_df_by_year_by_state_by_race_list(
-        race_list, 1983)
+        race_list, DEFAULT_STLEG_FIRST_YR)
 
     df_total_cols = merge_total_cols(
         df_congress_scaffold.copy(), df_stleg_scaffold, us_congress_totals_df, state_leg_totals_df)
