@@ -3,6 +3,7 @@ export const USA_DISPLAY_NAME = "United States";
 export const USA_FIPS = "00";
 export const GEORGIA_FIPS = "13";
 
+export const DC = "11";
 export const AMERICAN_SAMOA = "60";
 export const GUAM = "66";
 export const NORTHERN_MARIANA_ISLANDS = "69";
@@ -15,6 +16,7 @@ export const TERRITORY_CODES = [
   NORTHERN_MARIANA_ISLANDS,
   PUERTO_RICO,
   VIRGIN_ISLANDS,
+  DC,
 ];
 
 export const ACS_2010_FIPS = [

@@ -161,9 +161,7 @@ def percent_avoid_rounding_to_zero(numerator, denominator, default_decimals=1, m
        the percentage would round to 0, calculates with more decimal places until
        either it doesn't round to 0, or until `max_decimals`. `default_decimals`
        and `max_decimals` should be >= -1 and `max_decimals` should be >=
-       `default_decimals`.
-
-       Avoids division by zero errors and returns `0.0` instead"""
+       `default_decimals`."""
 
     if (float(denominator) == 0.0) or (numerator is None) or (denominator is None):
         return None
