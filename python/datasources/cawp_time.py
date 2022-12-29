@@ -461,7 +461,9 @@ def get_women_dfs():
         df_gov_level[POSITION] = df_gov_level[POSITION].apply(
             lambda x: POSITION_LABELS[gov_level][x])
         # consolidate name columns
-        df_gov_level[NAME] = f'{df_gov_level[POSITION]} {df_gov_level[FIRST_NAME]} {df_gov_level[LAST_NAME]}'
+        df_gov_level[NAME] = (df_gov_level[POSITION] + " " +
+                              df_gov_level[FIRST_NAME] + " " +
+                              df_gov_level[LAST_NAME])
         df_gov_level = df_gov_level.drop(
             columns=[FIRST_NAME, LAST_NAME, POSITION])
         women_dfs.append(df_gov_level)
