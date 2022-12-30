@@ -136,32 +136,18 @@ class CAWPTimeData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         base_df = self.generate_base_df()
 
+        df_names = base_df.copy()
+        df_names = self.generate_names_breakdown(df_names)
+        column_types = gcs_to_bq_util.get_bq_column_types(df_names, [])
+        gcs_to_bq_util.add_df_to_bq(
+            df_names, dataset, 'race_and_ethnicity_state_time_series_names_std.csv', column_types=column_types)
+
         for geo_level in [
             STATE_LEVEL,
             NATIONAL_LEVEL
         ]:
             df = base_df.copy()
             df, bq_table_name = self.generate_breakdown(df, geo_level)
-
-            if geo_level == STATE_LEVEL:
-                # make a second table that contains only the lists of names by race/year/state
-                df_names = df.copy()[[std_col.TIME_PERIOD_COL,
-                                      std_col.STATE_FIPS_COL,
-                                      std_col.RACE_CATEGORY_ID_COL,
-                                      std_col.RACE_OR_HISPANIC_COL,
-                                      ]]
-                column_types = gcs_to_bq_util.get_bq_column_types(df_names, [])
-                gcs_to_bq_util.add_df_to_bq(
-                    df_names, dataset, f'{bq_table_name}_std', column_types=column_types)
-
-                # and then remove the names columns for the normal data table writing.
-                # National df doesn't have names columns
-                df = df.copy().drop([
-                    std_col.CONGRESS_NAMES,
-                    std_col.W_THIS_RACE_CONGRESS_NAMES,
-                    std_col.W_THIS_RACE_STLEG_NAMES
-                ], axis=1)
-
             float_cols = [
                 std_col.CONGRESS_COUNT,
                 std_col.W_THIS_RACE_CONGRESS_COUNT,
@@ -211,21 +197,27 @@ class CAWPTimeData(DataSource):
         # combine ROWS together from ALLS ROWS and BY RACES rows
         df = pd.concat([df_alls_rows, df_by_races_rows])
 
-        df = df.sort_values(
-            by=MERGE_COLS).reset_index(drop=True)
+        # standardize race labels
+        df[std_col.RACE_CATEGORY_ID_COL] = df[RACE_ETH].apply(
+            lambda x: "ALL" if x == Race.ALL.value else CAWP_RACE_GROUPS_TO_STANDARD.get(x, x))
+        std_col.add_race_columns_from_category_id(df)
+        df = df.drop(columns=[RACE_ETH])
 
-        # df = df.drop([
-        #     std_col.CONGRESS_NAMES,
-        #     std_col.W_ALL_RACES_CONGRESS_NAMES,
-        #     std_col.W_THIS_RACE_CONGRESS_NAMES,
-        #     std_col.W_ALL_RACES_STLEG_NAMES,
-        #     std_col.W_THIS_RACE_STLEG_NAMES
-        # ], axis=1)
+        df = df.sort_values(by=[
+            std_col.TIME_PERIOD_COL,
+            *STATE_COLS,
+            std_col.RACE_OR_HISPANIC_COL
+        ]).reset_index(drop=True)
 
         df = df.drop([
             std_col.W_ALL_RACES_CONGRESS_NAMES,
             std_col.W_ALL_RACES_STLEG_NAMES,
         ], axis=1)
+
+        # we only need TOTAL CONGRESS names once, since they're the same for every race breakdown,
+        # so keep them only on the ALL race and null everything else
+        df[std_col.CONGRESS_NAMES].loc[df[std_col.RACE_CATEGORY_ID_COL]
+                                       != Race.ALL.value] = None
 
         return df
 
@@ -245,6 +237,14 @@ class CAWPTimeData(DataSource):
             bq_table_name: string name used for writing each breakdown to bq """
 
         df = _df.copy()
+
+        # we don't need the names columns anymore
+        df = df.drop([
+            std_col.CONGRESS_NAMES,
+            std_col.W_THIS_RACE_CONGRESS_NAMES,
+            std_col.W_THIS_RACE_STLEG_NAMES
+        ], axis=1)
+
         if geo_level == NATIONAL_LEVEL:
             df = combine_states_to_national(df)
 
@@ -265,18 +265,14 @@ class CAWPTimeData(DataSource):
         df = df.drop(
             columns=[std_col.W_ALL_RACES_CONGRESS_COUNT, std_col.W_ALL_RACES_STLEG_COUNT])
 
-        # standardize race labels
-        df[std_col.RACE_CATEGORY_ID_COL] = df[RACE_ETH].apply(
-            lambda x: "ALL" if x == Race.ALL.value else CAWP_RACE_GROUPS_TO_STANDARD.get(x, x))
-        std_col.add_race_columns_from_category_id(df)
-        df = df.drop(columns=[RACE_ETH])
-
         # TODO: expand this once we have pop. info prior to 2019
         target_time_periods = get_consecutive_time_periods(
             first_year=ACS_FIRST_YR, last_year=ACS_LAST_YR)
 
         df = merge_utils.merge_current_pop_numbers(
             df, RACE, geo_level, target_time_periods)
+
+        # df.to_csv(f'{geo_level}.csv', index=False)
 
         df = generate_pct_rel_inequity_col(df,
                                            std_col.PCT_OF_W_CONGRESS,
@@ -316,14 +312,18 @@ class CAWPTimeData(DataSource):
         df.loc[df[std_col.RACE_CATEGORY_ID_COL]
                == Race.AIAN_API.value][std_col.PCT_OF_STLEG] = None
 
-        # we only need TOTAL CONGRESS names once, since they're the same for every race breakdown,
-        # so keep them only on the ALL race and null everything else
-        # we dont have TOTAL state leg. names
-        if geo_level == STATE_LEVEL:
-            df[std_col.CONGRESS_NAMES].loc[df[std_col.RACE_CATEGORY_ID_COL]
-                                           != Race.ALL.value] = None
-
         return [df, bq_table_name]
+
+    def generate_names_breakdown(self, df):
+        return df[[std_col.TIME_PERIOD_COL,
+                   std_col.STATE_FIPS_COL,
+                   std_col.STATE_NAME_COL,
+                   std_col.RACE_CATEGORY_ID_COL,
+                   std_col.RACE_OR_HISPANIC_COL,
+                   std_col.CONGRESS_NAMES,
+                   std_col.W_THIS_RACE_CONGRESS_NAMES,
+                   std_col.W_THIS_RACE_STLEG_NAMES
+                   ]]
 
 
 # HELPER FUNCTIONS
@@ -641,7 +641,8 @@ def combine_states_to_national(df):
     state_cols = [*STATE_COLS]
     groupby_cols = [
         std_col.TIME_PERIOD_COL,
-        RACE_ETH
+        std_col.RACE_CATEGORY_ID_COL,
+        std_col.RACE_OR_HISPANIC_COL
     ]
     df_counts = df.copy().drop(state_cols, axis=1)
     df_counts = df_counts.groupby(groupby_cols, as_index=False)[
