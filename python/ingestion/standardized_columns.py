@@ -110,7 +110,6 @@ W_THIS_RACE_STLEG_NAMES = "women_this_race_state_leg_names"
 W_ALL_RACES_STLEG_COUNT = "women_all_races_state_leg_count"
 W_ALL_RACES_STLEG_NAMES = "women_all_races_state_leg_names"
 STLEG_COUNT = "total_state_leg_count"
-STLEG_NAMES = "total_state_leg_names"
 
 # Congress
 PCT_OF_W_CONGRESS = "pct_share_of_women_us_congress"

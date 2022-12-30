@@ -143,6 +143,25 @@ class CAWPTimeData(DataSource):
             df = base_df.copy()
             df, bq_table_name = self.generate_breakdown(df, geo_level)
 
+            if geo_level == STATE_LEVEL:
+                # make a second table that contains only the lists of names by race/year/state
+                df_names = df.copy()[[std_col.TIME_PERIOD_COL,
+                                      std_col.STATE_FIPS_COL,
+                                      std_col.RACE_CATEGORY_ID_COL,
+                                      std_col.RACE_OR_HISPANIC_COL,
+                                      ]]
+                column_types = gcs_to_bq_util.get_bq_column_types(df_names, [])
+                gcs_to_bq_util.add_df_to_bq(
+                    df_names, dataset, f'{bq_table_name}_std', column_types=column_types)
+
+                # and then remove the names columns for the normal data table writing.
+                # National df doesn't have names columns
+                df = df.copy().drop([
+                    std_col.CONGRESS_NAMES,
+                    std_col.W_THIS_RACE_CONGRESS_NAMES,
+                    std_col.W_THIS_RACE_STLEG_NAMES
+                ], axis=1)
+
             float_cols = [
                 std_col.CONGRESS_COUNT,
                 std_col.W_THIS_RACE_CONGRESS_COUNT,
@@ -195,13 +214,18 @@ class CAWPTimeData(DataSource):
         df = df.sort_values(
             by=MERGE_COLS).reset_index(drop=True)
 
-        df = df.drop(
-            [std_col.CONGRESS_NAMES,
-             std_col.W_ALL_RACES_CONGRESS_NAMES,
-             std_col.W_THIS_RACE_CONGRESS_NAMES,
-             std_col.W_ALL_RACES_STLEG_NAMES,
-             std_col.W_THIS_RACE_STLEG_NAMES
-             ], axis=1)
+        # df = df.drop([
+        #     std_col.CONGRESS_NAMES,
+        #     std_col.W_ALL_RACES_CONGRESS_NAMES,
+        #     std_col.W_THIS_RACE_CONGRESS_NAMES,
+        #     std_col.W_ALL_RACES_STLEG_NAMES,
+        #     std_col.W_THIS_RACE_STLEG_NAMES
+        # ], axis=1)
+
+        df = df.drop([
+            std_col.W_ALL_RACES_CONGRESS_NAMES,
+            std_col.W_ALL_RACES_STLEG_NAMES,
+        ], axis=1)
 
         return df
 
@@ -288,9 +312,17 @@ class CAWPTimeData(DataSource):
         # we will only use AIAN_API for the disparity bar chart and
         # pct_relative_inequity calculations
         df.loc[df[std_col.RACE_CATEGORY_ID_COL]
-               == Race.AIAN_API][std_col.PCT_OF_CONGRESS] = None
+               == Race.AIAN_API.value][std_col.PCT_OF_CONGRESS] = None
         df.loc[df[std_col.RACE_CATEGORY_ID_COL]
-               == Race.AIAN_API][std_col.PCT_OF_STLEG] = None
+               == Race.AIAN_API.value][std_col.PCT_OF_STLEG] = None
+
+        # we only need TOTAL CONGRESS names once, since they're the same for every race breakdown,
+        # so keep them only on the ALL race and null everything else
+        # we dont have TOTAL state leg. names
+        if geo_level == STATE_LEVEL:
+            df[std_col.CONGRESS_NAMES].loc[df[std_col.RACE_CATEGORY_ID_COL]
+                                           != Race.ALL.value] = None
+
         return [df, bq_table_name]
 
 
