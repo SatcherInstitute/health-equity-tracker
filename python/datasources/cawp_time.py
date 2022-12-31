@@ -138,34 +138,41 @@ class CAWPTimeData(DataSource):
 
         df_names = base_df.copy()
         df_names = self.generate_names_breakdown(df_names)
+        print("DF NAMES -------------")
+        print(df_names)
+
         column_types = gcs_to_bq_util.get_bq_column_types(df_names, [])
+        print("column_types:", column_types)
+
+        print("dataset:", dataset)
+
         gcs_to_bq_util.add_df_to_bq(
-            df_names, dataset, 'race_and_ethnicity_state_time_series_names_std.csv', column_types=column_types)
+            df_names, dataset, 'race_and_ethnicity_state_time_series_names_std', column_types=column_types)
 
-        for geo_level in [
-            STATE_LEVEL,
-            NATIONAL_LEVEL
-        ]:
-            df = base_df.copy()
-            df, bq_table_name = self.generate_breakdown(df, geo_level)
-            float_cols = [
-                std_col.CONGRESS_COUNT,
-                std_col.W_THIS_RACE_CONGRESS_COUNT,
-                std_col.PCT_OF_CONGRESS,
-                std_col.PCT_OF_W_CONGRESS,
-                std_col.W_CONGRESS_PCT_INEQUITY,
-                std_col.STLEG_COUNT,
-                std_col.W_THIS_RACE_STLEG_COUNT,
-                std_col.PCT_OF_STLEG,
-                std_col.PCT_OF_W_STLEG,
-                std_col.W_STLEG_PCT_INEQUITY,
-                std_col.POPULATION_COL,
-                std_col.POPULATION_PCT_COL
-            ]
+        # for geo_level in [
+        #     STATE_LEVEL,
+        #     NATIONAL_LEVEL
+        # ]:
+        #     df = base_df.copy()
+        #     df, bq_table_name = self.generate_breakdown(df, geo_level)
+        #     float_cols = [
+        #         std_col.CONGRESS_COUNT,
+        #         std_col.W_THIS_RACE_CONGRESS_COUNT,
+        #         std_col.PCT_OF_CONGRESS,
+        #         std_col.PCT_OF_W_CONGRESS,
+        #         std_col.W_CONGRESS_PCT_INEQUITY,
+        #         std_col.STLEG_COUNT,
+        #         std_col.W_THIS_RACE_STLEG_COUNT,
+        #         std_col.PCT_OF_STLEG,
+        #         std_col.PCT_OF_W_STLEG,
+        #         std_col.W_STLEG_PCT_INEQUITY,
+        #         std_col.POPULATION_COL,
+        #         std_col.POPULATION_PCT_COL
+        #     ]
 
-            column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, bq_table_name, column_types=column_types)
+        #     column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+        #     gcs_to_bq_util.add_df_to_bq(
+        #         df, dataset, bq_table_name, column_types=column_types)
 
     # CLASS METHODS
 

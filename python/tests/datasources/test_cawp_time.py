@@ -190,33 +190,33 @@ def _load_csv_as_df_from_web(*args):
 
 
 # # TEST OUTGOING SIDE OF BIGQUERY INTERACTION
-@ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-             return_value=None)
-@ mock.patch('datasources.cawp_time.CAWPTimeData.generate_names_breakdown',
-             side_effect=_generate_names_breakdown)
-@ mock.patch('datasources.cawp_time.CAWPTimeData.generate_breakdown',
-             side_effect=_generate_breakdown)
-@ mock.patch('datasources.cawp_time.CAWPTimeData.generate_base_df',
-             side_effect=_generate_base_df)
-def testWriteToBq(
-    mock_base: mock.MagicMock,
-    mock_breakdown: mock.MagicMock,
-    mock_names: mock.MagicMock,
-    mock_bq: mock.MagicMock
-):
-    """ Ensures the correct structure and arguments were
-    generated to be written to BigQuery """
-    print("testWriteToBq()")
+# @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+#              return_value=None)
+# @ mock.patch('datasources.cawp_time.CAWPTimeData.generate_names_breakdown',
+#              side_effect=_generate_names_breakdown)
+# @ mock.patch('datasources.cawp_time.CAWPTimeData.generate_breakdown',
+#              side_effect=_generate_breakdown)
+# @ mock.patch('datasources.cawp_time.CAWPTimeData.generate_base_df',
+#              side_effect=_generate_base_df)
+# def testWriteToBq(
+#     mock_base: mock.MagicMock,
+#     mock_breakdown: mock.MagicMock,
+#     mock_names: mock.MagicMock,
+#     mock_bq: mock.MagicMock
+# ):
+#     """ Ensures the correct structure and arguments were
+#     generated to be written to BigQuery """
+#     print("testWriteToBq()")
 
-    kwargs_for_bq = {'filename': 'test_file.csv',
-                     'metadata_table_id': 'test_metadata',
-                     'table_name': 'output_table'}
-    cawp_data = CAWPTimeData()
-    cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
-    assert mock_base.call_count == 1
-    assert mock_breakdown.call_count == 2
-    assert mock_names.call_count == 1
-    assert mock_bq.call_count == 3
+#     kwargs_for_bq = {'filename': 'test_file.csv',
+#                      'metadata_table_id': 'test_metadata',
+#                      'table_name': 'output_table'}
+#     cawp_data = CAWPTimeData()
+#     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
+#     assert mock_base.call_count == 1
+#     assert mock_breakdown.call_count == 2
+#     assert mock_names.call_count == 1
+#     assert mock_bq.call_count == 3
 
 
 # # # # TEST GENERATION OF BASE DF
