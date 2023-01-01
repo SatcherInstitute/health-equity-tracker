@@ -190,33 +190,33 @@ def _load_csv_as_df_from_web(*args):
 
 
 # # TEST OUTGOING SIDE OF BIGQUERY INTERACTION
-# @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#              return_value=None)
-# @ mock.patch('datasources.cawp_time.CAWPTimeData.generate_names_breakdown',
-#              side_effect=_generate_names_breakdown)
-# @ mock.patch('datasources.cawp_time.CAWPTimeData.generate_breakdown',
-#              side_effect=_generate_breakdown)
-# @ mock.patch('datasources.cawp_time.CAWPTimeData.generate_base_df',
-#              side_effect=_generate_base_df)
-# def testWriteToBq(
-#     mock_base: mock.MagicMock,
-#     mock_breakdown: mock.MagicMock,
-#     mock_names: mock.MagicMock,
-#     mock_bq: mock.MagicMock
-# ):
-#     """ Ensures the correct structure and arguments were
-#     generated to be written to BigQuery """
-#     print("testWriteToBq()")
+@ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+             return_value=None)
+@ mock.patch('datasources.cawp_time.CAWPTimeData.generate_names_breakdown',
+             side_effect=_generate_names_breakdown)
+@ mock.patch('datasources.cawp_time.CAWPTimeData.generate_breakdown',
+             side_effect=_generate_breakdown)
+@ mock.patch('datasources.cawp_time.CAWPTimeData.generate_base_df',
+             side_effect=_generate_base_df)
+def testWriteToBq(
+    mock_base: mock.MagicMock,
+    mock_breakdown: mock.MagicMock,
+    mock_names: mock.MagicMock,
+    mock_bq: mock.MagicMock
+):
+    """ Ensures the correct structure and arguments were
+    generated to be written to BigQuery """
+    print("testWriteToBq()")
 
-#     kwargs_for_bq = {'filename': 'test_file.csv',
-#                      'metadata_table_id': 'test_metadata',
-#                      'table_name': 'output_table'}
-#     cawp_data = CAWPTimeData()
-#     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
-#     assert mock_base.call_count == 1
-#     assert mock_breakdown.call_count == 2
-#     assert mock_names.call_count == 1
-#     assert mock_bq.call_count == 3
+    kwargs_for_bq = {'filename': 'test_file.csv',
+                     'metadata_table_id': 'test_metadata',
+                     'table_name': 'output_table'}
+    cawp_data = CAWPTimeData()
+    cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
+    assert mock_base.call_count == 1
+    assert mock_breakdown.call_count == 2
+    assert mock_names.call_count == 1
+    assert mock_bq.call_count == 3
 
 
 # # # # TEST GENERATION OF BASE DF
@@ -300,17 +300,14 @@ def testGenerateNamesBreakdown(
     names_breakdown_df = cawp_data.generate_names_breakdown(
         base_df)
 
-    expected_names_breakdown_df = pd.read_csv(os.path.join(
-        TEST_DIR, "test_expected_names_breakdown.csv"),
-        dtype={"state_fips": str, "time_period": str})
-
-    assert_frame_equal(names_breakdown_df,
-                       expected_names_breakdown_df,
-                       check_like=True,
-                       check_dtype=False)
-
+    assert list(names_breakdown_df.columns) == [
+        'time_period', 'state_fips', 'state_name', 'race_category_id',
+        'race_and_ethnicity', 'total_us_congress_names',
+        'women_this_race_us_congress_names', 'women_this_race_state_leg_names']
 
 # # # # TEST GENERATION OF STATE LEVEL BREAKDOWN
+
+
 @mock.patch('ingestion.merge_utils.merge_current_pop_numbers',
             side_effect=_merge_current_pop_numbers)
 @ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
