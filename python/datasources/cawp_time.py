@@ -272,8 +272,6 @@ class CAWPTimeData(DataSource):
         df = merge_utils.merge_current_pop_numbers(
             df, RACE, geo_level, target_time_periods)
 
-        # df.to_csv(f'{geo_level}.csv', index=False)
-
         df = generate_pct_rel_inequity_col(df,
                                            std_col.PCT_OF_W_CONGRESS,
                                            std_col.POPULATION_PCT_COL,
@@ -618,8 +616,11 @@ def get_state_leg_totals_df():
         state_df.columns = state_df.columns.str.replace(r'\W', '', regex=True)
 
         # TODO: confirm this weird shifted column data; ideally get them to fix
+        state_df["10"] = pd.to_numeric(state_df["10"])
         df_leftIndex = state_df[state_df["10"] < 1800]
         df_rightIndex = state_df[state_df["10"] >= 1800]
+        # df_leftIndex = state_df[int(state_df["10"]) < 1800]
+        # df_rightIndex = state_df[int(state_df["10"]) >= 1800]
         df_rightIndex = df_rightIndex.shift(periods=1, axis="columns")
         state_df = pd.concat([df_leftIndex, df_rightIndex])
 
