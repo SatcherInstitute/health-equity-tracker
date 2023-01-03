@@ -110,6 +110,8 @@ MERGE_COLS = [
 
 POSITION_LABELS = {
     CONGRESS: {"U.S. Representative": "U.S. Rep.",
+               "rep": "U.S. Rep.",
+               "sen": "U.S. Sen.",
                "U.S. Senator": "U.S. Sen.",
                "U.S. Delegate": "U.S. Del."},
     STATE_LEG: {"State Representative": "State Rep.",
@@ -138,17 +140,12 @@ class CAWPTimeData(DataSource):
         df_names = base_df.copy()
         df_names = self.generate_names_breakdown(df_names)
         column_types = gcs_to_bq_util.get_bq_column_types(df_names, [])
-        gcs_to_bq_util.add_df_to_bq(
-            df_names,
-            dataset,
-            'race_and_ethnicity_state_time_series_names_std',
-            column_types=column_types
-        )
+        gcs_to_bq_util.add_df_to_bq(df_names,
+                                    dataset,
+                                    'race_and_ethnicity_state_time_series_names_std',
+                                    column_types=column_types)
 
-        for geo_level in [
-            STATE_LEVEL,
-            NATIONAL_LEVEL
-        ]:
+        for geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
             df = base_df.copy()
             df, bq_table_name = self.generate_breakdown(df, geo_level)
             float_cols = [
@@ -413,7 +410,9 @@ def get_us_congress_totals_df():
             # and each year of each term
             for year in term_years:
                 year = str(year)
-                title = f'{term[TYPE].capitalize()}.' if term[STATE] not in TERRITORY_POSTALS else "Del."
+                title = (f'{POSITION_LABELS[CONGRESS][term[TYPE]]}'
+                         if term[STATE] not in TERRITORY_POSTALS
+                         else "U.S. Del.")
                 full_name = f'{title} {legislator[NAME][FIRST]} {legislator[NAME][LAST]}'
                 entry = {
                     ID: legislator[ID]["govtrack"],
@@ -436,6 +435,7 @@ def get_us_congress_totals_df():
         [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])[NAME].apply(list).reset_index()
     df = df.rename(columns={
         NAME: std_col.CONGRESS_NAMES})
+
     # get counts of all TOTAL members in lists per row
     df[std_col.CONGRESS_COUNT] = df[std_col.CONGRESS_NAMES].apply(
         lambda list: len(list)).astype(float)
