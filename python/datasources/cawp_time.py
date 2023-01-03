@@ -139,6 +139,7 @@ class CAWPTimeData(DataSource):
         base_df = self.generate_base_df()
         df_names = base_df.copy()
         df_names = self.generate_names_breakdown(df_names)
+        print(df_names.dtypes)
         column_types = gcs_to_bq_util.get_bq_column_types(df_names, [])
         gcs_to_bq_util.add_df_to_bq(df_names,
                                     dataset,
