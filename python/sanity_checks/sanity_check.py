@@ -24,6 +24,10 @@ def main():
                 print(result)
 
 
+def testing(x):
+    print(x)
+
+
 def check_pct_values(df):
     # determine cols needed for DF
     std_cols, share_cols, dem_col = generate_cols(df)
