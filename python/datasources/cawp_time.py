@@ -328,19 +328,19 @@ class CAWPTimeData(DataSource):
 
         df[std_col.CONGRESS_NAMES].loc[df[std_col.CONGRESS_NAMES].isnull(
         )] = df[std_col.CONGRESS_NAMES].loc[df[std_col.CONGRESS_NAMES].isnull()].apply(lambda x: [])
-        df[std_col.CONGRESS_NAMES] = [', '.join(map(str, item))
+        df[std_col.CONGRESS_NAMES] = [','.join(map(str, item))
                                       for item in df[std_col.CONGRESS_NAMES]]
 
         df[std_col.W_THIS_RACE_CONGRESS_NAMES].loc[
             df[std_col.W_THIS_RACE_CONGRESS_NAMES].isnull(
             )] = df[std_col.W_THIS_RACE_CONGRESS_NAMES].loc[
             df[std_col.W_THIS_RACE_CONGRESS_NAMES].isnull()].apply(lambda x: [])
-        df[std_col.W_THIS_RACE_CONGRESS_NAMES] = [', '.join(map(str, item))
+        df[std_col.W_THIS_RACE_CONGRESS_NAMES] = [','.join(map(str, item))
                                                   for item in df[std_col.W_THIS_RACE_CONGRESS_NAMES]]
 
         df[std_col.W_THIS_RACE_STLEG_NAMES].loc[df[std_col.W_THIS_RACE_STLEG_NAMES].isnull(
         )] = df[std_col.W_THIS_RACE_STLEG_NAMES].loc[df[std_col.W_THIS_RACE_STLEG_NAMES].isnull()].apply(lambda x: [])
-        df[std_col.W_THIS_RACE_STLEG_NAMES] = [', '.join(map(str, item))
+        df[std_col.W_THIS_RACE_STLEG_NAMES] = [','.join(map(str, item))
                                                for item in df[std_col.W_THIS_RACE_STLEG_NAMES]]
 
         df[names_cols] = df[names_cols].replace(
@@ -616,7 +616,7 @@ def get_state_leg_totals_df():
         state_df.columns = state_df.columns.str.replace(r'\W', '', regex=True)
 
         # TODO: confirm this weird shifted column data; ideally get them to fix
-        state_df["10"] = pd.to_numeric(state_df["10"])
+        state_df["10"] = pd.to_numeric(state_df["10"].replace("*", ""))
         df_leftIndex = state_df[state_df["10"] < 1800]
         df_rightIndex = state_df[state_df["10"] >= 1800]
         # df_leftIndex = state_df[int(state_df["10"]) < 1800]
