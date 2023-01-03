@@ -615,8 +615,12 @@ def get_state_leg_totals_df():
         state_df = gcs_to_bq_util.load_csv_as_df_from_web(get_stleg_url(id))
         state_df.columns = state_df.columns.str.replace(r'\W', '', regex=True)
 
+        # Deal with the asterisk in the buggy year column for 1982
+        state_df["10"] = state_df["10"].astype(str)
+        state_df["10"] = state_df["10"].str.replace(r'\D', '')
+
         # TODO: confirm this weird shifted column data; ideally get them to fix
-        state_df["10"] = pd.to_numeric(state_df["10"].replace("*", ""))
+        state_df["10"] = pd.to_numeric(state_df["10"])
         df_leftIndex = state_df[state_df["10"] < 1800]
         df_rightIndex = state_df[state_df["10"] >= 1800]
         # df_leftIndex = state_df[int(state_df["10"]) < 1800]
