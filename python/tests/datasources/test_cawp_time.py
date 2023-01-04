@@ -86,9 +86,11 @@ def _generate_breakdown(*args):
     }), "mock_table_name"]
 
 
-def _load_csv_as_df_from_data_dir(*args):
+def _load_csv_as_df_from_data_dir(*args, **kwargs):
     # mocked and reduced files for testing
+
     [_folder, filename] = args
+
     if filename == "cawp-by_race_and_ethnicity_time_series.csv":
         # READ IN CAWP DB (numerators)
         print("reading mock CAWP FULL FILE line items")

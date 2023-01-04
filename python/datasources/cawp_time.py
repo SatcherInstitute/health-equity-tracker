@@ -174,6 +174,9 @@ class CAWPTimeData(DataSource):
         us_congress_totals_df = get_us_congress_totals_df()
         state_leg_totals_df = get_state_leg_totals_df()
 
+        print("state_leg_totals_df")
+        print(state_leg_totals_df.to_string())
+
         # create ROWS for the "All" race
         df_alls_rows = build_base_rows_df(
             us_congress_totals_df, state_leg_totals_df,
@@ -202,6 +205,9 @@ class CAWPTimeData(DataSource):
              std_col.W_ALL_RACES_STLEG_NAMES,
              std_col.W_THIS_RACE_STLEG_NAMES
              ], axis=1)
+
+        print("base")
+        print(df.to_string())
 
         return df
 
@@ -291,6 +297,10 @@ class CAWPTimeData(DataSource):
                == Race.AIAN_API][std_col.PCT_OF_CONGRESS] = None
         df.loc[df[std_col.RACE_CATEGORY_ID_COL]
                == Race.AIAN_API][std_col.PCT_OF_STLEG] = None
+
+        print(bq_table_name)
+        print(df.to_string())
+
         return [df, bq_table_name]
 
 
@@ -548,7 +558,7 @@ def get_state_leg_totals_df():
     for fips in TERRITORY_FIPS_LIST:
         filename = f'cawp_state_leg_{fips}.csv'
         territory_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            "cawp_time", filename)
+            "cawp_time", filename, dtype={"state_fips": str, "time_period": str})
         territory_dfs.append(territory_df)
     df_rows_by_territory = pd.concat(territory_dfs)
 
