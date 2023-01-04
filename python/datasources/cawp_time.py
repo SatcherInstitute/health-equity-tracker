@@ -614,11 +614,13 @@ def get_state_leg_totals_df():
     state_dfs = []
     for fips, id in FIPS_TO_STATE_TABLE_MAP.items():
         state_df = gcs_to_bq_util.load_csv_as_df_from_web(get_stleg_url(id))
+
+        # remove weird chars from col headers
         state_df.columns = state_df.columns.str.replace(r'\W', '', regex=True)
 
-        # Deal with the asterisk in the buggy year column for 1982
-        state_df["10"] = state_df["10"].astype(str)
-        state_df["10"] = state_df["10"].str.replace(r'\D', '')
+        # Deal with non-digits in the buggy year column for 1982
+        state_df["10"] = state_df["10"].astype(str).replace(
+            r'\D', '', regex=True).astype(int)
 
         # TODO: confirm this weird shifted column data; ideally get them to fix
         state_df["10"] = pd.to_numeric(state_df["10"])
@@ -629,12 +631,11 @@ def get_state_leg_totals_df():
         df_rightIndex = df_rightIndex.shift(periods=1, axis="columns")
         state_df = pd.concat([df_leftIndex, df_rightIndex])
 
-        # standardize the year col and remove non-digits
+        # standardize the year col
         state_df = state_df.rename(
             {'Year': std_col.TIME_PERIOD_COL}, axis='columns')
         state_df[std_col.TIME_PERIOD_COL] = state_df[
-            std_col.TIME_PERIOD_COL].astype(str).replace(
-            r'\D', '', regex=True)
+            std_col.TIME_PERIOD_COL].astype(str)
 
         # extract totals
         state_df[[std_col.W_ALL_RACES_STLEG_COUNT, std_col.STLEG_COUNT]
