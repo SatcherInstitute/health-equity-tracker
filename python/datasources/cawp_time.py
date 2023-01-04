@@ -559,7 +559,7 @@ def get_state_leg_totals_df():
         # remove weird chars from col headers
         state_df.columns = state_df.columns.str.replace(r'\W', '', regex=True)
 
-        # remove non-digits from years column
+        # remove non-digits from buggy index/years column
         state_df["10"] = state_df["10"].astype(str).replace(
             r'\D', '', regex=True).astype(int)
 
