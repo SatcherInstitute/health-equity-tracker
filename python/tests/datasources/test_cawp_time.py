@@ -4,6 +4,7 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 import json
 from test_utils import get_state_fips_codes_as_df
+
 from datasources.cawp_time import (
     CAWPTimeData,
     US_CONGRESS_HISTORICAL_URL,
@@ -189,7 +190,7 @@ def _load_csv_as_df_from_web(*args):
 """  """
 
 
-# # TEST OUTGOING SIDE OF BIGQUERY INTERACTION
+# # # TEST OUTGOING SIDE OF BIGQUERY INTERACTION
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
 @ mock.patch('datasources.cawp_time.CAWPTimeData.generate_names_breakdown',
@@ -285,7 +286,15 @@ def testGenerateBase(
 
 
 # # # # TEST GENERATION OF NAMES BREAKDOWN
+@ mock.patch('datasources.cawp_time.get_state_level_fips',
+             return_value=FIPS_TO_TEST)
+@ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
+             side_effect=_get_consecutive_time_periods)
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web', side_effect=_load_csv_as_df_from_web)
 def testGenerateNamesBreakdown(
+        mock_stateleg_tables: mock.MagicMock,
+        mock_years: mock.MagicMock,
+        mock_starter_fips: mock.MagicMock
 ):
     """ Tests the generate_names_breakdown() function
     using the mock base_df which only has mock data from
@@ -294,16 +303,40 @@ def testGenerateNamesBreakdown(
 
     base_df = pd.read_csv(os.path.join(
         TEST_DIR, "test_expected_base_df.csv"),
-        dtype={"state_fips": str, "time_period": str})
+        dtype={
+            "state_fips": str,
+            "time_period": str,
+            "total_us_congress_names": str,
+            "women_this_race_us_congress_names": str,
+            "women_this_race_state_leg_names": str,
+    },
+        # # load in the names col strings as lists
+        # converters={
+        # "total_us_congress_names": lambda x: x.strip("[]").replace("'", "").split(", "),
+        # "women_this_race_us_congress_names": lambda x: x.strip("[]").replace("'", "").split(", "),
+        # "women_this_race_state_leg_names": lambda x: x.strip("[]").replace("'", "").split(", "),
+        # }
+    ).fillna('')
 
     cawp_data = CAWPTimeData()
     names_breakdown_df = cawp_data.generate_names_breakdown(
         base_df)
 
-    assert list(names_breakdown_df.columns) == [
-        'time_period', 'state_fips', 'state_name', 'race_category_id',
-        'race_and_ethnicity', 'total_us_congress_names',
-        'women_this_race_us_congress_names', 'women_this_race_state_leg_names']
+    expected_names_breakdown_df = pd.read_csv(os.path.join(
+        TEST_DIR, "test_expected_names_df.csv"),
+        dtype={
+            'state_fips': str,
+            'time_period': str,
+            'total_us_congress_names': str,
+            'women_this_race_us_congress_names': str,
+            'women_this_race_state_leg_names': str
+    }).fillna('')
+
+    assert_frame_equal(names_breakdown_df,
+                       expected_names_breakdown_df,
+                       check_like=True,
+                       check_dtype=False)
+
 
 # # # # TEST GENERATION OF STATE LEVEL BREAKDOWN
 

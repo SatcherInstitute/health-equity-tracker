@@ -139,7 +139,6 @@ class CAWPTimeData(DataSource):
         base_df = self.generate_base_df()
         df_names = base_df.copy()
         df_names = self.generate_names_breakdown(df_names)
-        print(df_names.dtypes)
         column_types = gcs_to_bq_util.get_bq_column_types(df_names, [])
         gcs_to_bq_util.add_df_to_bq(df_names,
                                     dataset,
@@ -214,6 +213,22 @@ class CAWPTimeData(DataSource):
             std_col.W_ALL_RACES_CONGRESS_NAMES,
             std_col.W_ALL_RACES_STLEG_NAMES,
         ], axis=1)
+
+        # TODO at THIS point we should convert cols with lists of string names into single,
+        # comma-separated names list strings. simpler to store for testing and to deal with
+
+        names_cols = [std_col.CONGRESS_NAMES,
+                      std_col.W_THIS_RACE_CONGRESS_NAMES, std_col.W_THIS_RACE_STLEG_NAMES]
+
+        # replace null name lists with empty list and then convert existing lists into list-like strings
+        for col in names_cols:
+            df[col].loc[df[col].isnull()] = df[col].loc[df[col].isnull()
+                                                        ].apply(lambda x: [])
+            df[col] = [','.join(map(str, item)) for item in df[col]]
+
+        # make list-like string into a single string of names concat by a comma
+        df[names_cols] = df[names_cols].replace(
+            ["'", "[", "]"], "")
 
         # we only need TOTAL CONGRESS names once, since they're the same for every race breakdown,
         # so keep them only on the ALL race and null everything else
@@ -314,6 +329,7 @@ class CAWPTimeData(DataSource):
         return [df, bq_table_name]
 
     def generate_names_breakdown(self, df):
+
         df = df[[std_col.TIME_PERIOD_COL,
                  std_col.STATE_FIPS_COL,
                  std_col.STATE_NAME_COL,
@@ -321,31 +337,7 @@ class CAWPTimeData(DataSource):
                  std_col.RACE_OR_HISPANIC_COL,
                  std_col.CONGRESS_NAMES,
                  std_col.W_THIS_RACE_CONGRESS_NAMES,
-                 std_col.W_THIS_RACE_STLEG_NAMES
-                 ]]
-
-        names_cols = [std_col.CONGRESS_NAMES,
-                      std_col.W_THIS_RACE_CONGRESS_NAMES, std_col.W_THIS_RACE_STLEG_NAMES]
-
-        df[std_col.CONGRESS_NAMES].loc[df[std_col.CONGRESS_NAMES].isnull(
-        )] = df[std_col.CONGRESS_NAMES].loc[df[std_col.CONGRESS_NAMES].isnull()].apply(lambda x: [])
-        df[std_col.CONGRESS_NAMES] = [','.join(map(str, item))
-                                      for item in df[std_col.CONGRESS_NAMES]]
-
-        df[std_col.W_THIS_RACE_CONGRESS_NAMES].loc[
-            df[std_col.W_THIS_RACE_CONGRESS_NAMES].isnull(
-            )] = df[std_col.W_THIS_RACE_CONGRESS_NAMES].loc[
-            df[std_col.W_THIS_RACE_CONGRESS_NAMES].isnull()].apply(lambda x: [])
-        df[std_col.W_THIS_RACE_CONGRESS_NAMES] = [','.join(map(str, item))
-                                                  for item in df[std_col.W_THIS_RACE_CONGRESS_NAMES]]
-
-        df[std_col.W_THIS_RACE_STLEG_NAMES].loc[df[std_col.W_THIS_RACE_STLEG_NAMES].isnull(
-        )] = df[std_col.W_THIS_RACE_STLEG_NAMES].loc[df[std_col.W_THIS_RACE_STLEG_NAMES].isnull()].apply(lambda x: [])
-        df[std_col.W_THIS_RACE_STLEG_NAMES] = [','.join(map(str, item))
-                                               for item in df[std_col.W_THIS_RACE_STLEG_NAMES]]
-
-        df[names_cols] = df[names_cols].replace(
-            ["'", "[", "]"], "")
+                 std_col.W_THIS_RACE_STLEG_NAMES]]
 
         return df
 
