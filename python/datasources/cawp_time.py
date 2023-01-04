@@ -214,9 +214,6 @@ class CAWPTimeData(DataSource):
             std_col.W_ALL_RACES_STLEG_NAMES,
         ], axis=1)
 
-        # TODO at THIS point we should convert cols with lists of string names into single,
-        # comma-separated names list strings. simpler to store for testing and to deal with
-
         names_cols = [std_col.CONGRESS_NAMES,
                       std_col.W_THIS_RACE_CONGRESS_NAMES, std_col.W_THIS_RACE_STLEG_NAMES]
 
@@ -226,7 +223,7 @@ class CAWPTimeData(DataSource):
                                                         ].apply(lambda x: [])
             df[col] = [','.join(map(str, item)) for item in df[col]]
 
-        # make list-like string into a single string of names concat by a comma
+        # remove brackets and inner quotes, leaving just comma separated names
         df[names_cols] = df[names_cols].replace(
             ["'", "[", "]"], "")
 
