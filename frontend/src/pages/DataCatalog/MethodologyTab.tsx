@@ -393,13 +393,21 @@ function MethodologyTab() {
                 </p>
 
                 <p>
-                  We are also able to track these rates over time (currently
-                  only for U.S. Congress) as outlined below. A member is counted
-                  towards any year in which they served even a single day. This
+                  We are also able to track these rates over time as outlined
+                  below. A member is counted towards the numerator any year in
+                  which they served even a single day, and similarly counted
+                  towards the denominator for U.S. Congress total counts. This
                   results in the "bumpiness" observed as the proportions change
-                  incrementally between election and non-election years. We only
-                  track back to just before the first woman was elected to the
-                  U.S. Congress in 1917.
+                  incrementally with more persons serving per year than there
+                  are available seats. For state legislators, the denominators
+                  total counts simply represent the number of seats available,
+                  and do not fluctuate with election turnover. While we can
+                  track U.S. Congress back to just before the first woman was
+                  elected to the U.S. Congress in 1917, we can only track
+                  representation in state legislators back to 1983, as that is
+                  the furthest back that our data sources reliably provide the
+                  denominator used of total state legislators count, per year,
+                  per state.
                 </p>
                 <ul>
                   <li>
@@ -443,7 +451,8 @@ function MethodologyTab() {
                     and cannot be summed. Additionally, a small number of women
                     identify as the specific race label <b>Multiracial Alone</b>
                     , without specifying the multiple races with which they
-                    identify.
+                    identify. Both of these multiple-race groups are combined
+                    into our <b>Women of two or more races</b> group.
                   </li>
                   <li>
                     The composite race group{" "}
