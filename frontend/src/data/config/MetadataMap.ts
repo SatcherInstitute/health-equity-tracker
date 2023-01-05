@@ -259,11 +259,12 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_pretty_site_name: "cawpdata.rutgers.edu",
     data_source_link: "https://cawpdata.rutgers.edu/",
     geographic_level: "National, State",
-    time_period_range: "1915 - Current",
+    time_period_range:
+      "U.S. Congress: 1915 - Current, State Legislatures: 1983 - Current",
     demographic_granularity: "Race/ethnicity",
     update_frequency: "Monthly",
     description:
-      "Representation of women, by race/ethnicity, in the US Congress and state legislatures.",
+      "Detailed information on women, by race/ethnicity, in the US Congress and state legislatures, and historic counts of total state legislators of any gender by year by state.",
     dataset_ids: [
       "cawp_data-race_and_ethnicity_national",
       "cawp_data-race_and_ethnicity_state",
