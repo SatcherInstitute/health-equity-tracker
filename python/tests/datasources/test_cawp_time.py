@@ -15,9 +15,7 @@ from datasources.cawp_time import (
     FIPS_TO_STATE_TABLE_MAP
 )
 
-
 FIPS_TO_TEST = ["02", "60"]
-
 
 # UNIT TESTS
 
@@ -114,9 +112,11 @@ def _generate_names_breakdown(*args):
     })
 
 
-def _load_csv_as_df_from_data_dir(*args):
+def _load_csv_as_df_from_data_dir(*args, **kwargs):
     # mocked and reduced files for testing
+
     [_folder, filename] = args
+
     if filename == "cawp-by_race_and_ethnicity_time_series.csv":
         # READ IN CAWP DB (numerators)
         print("reading mock CAWP FULL FILE line items")
@@ -140,57 +140,22 @@ def _load_csv_as_df_from_data_dir(*args):
 def _load_csv_as_df_from_web(*args):
     # mocked and reduced files for testing
     url = args[0]
+    # reverse lookup the FIPS based on the incoming url string arg
     fips = [
         i for i in FIPS_TO_STATE_TABLE_MAP if FIPS_TO_STATE_TABLE_MAP[i] in url][0]
 
     # mock out a placeholder file for all FIPS not included in our test files
     if fips in FIPS_TO_TEST:
-        print("\t> read mock stleg table by fips:", fips)
+        print("\t\tread mock stleg table by fips:", fips)
     else:
         fips = "XX"
 
     return pd.read_csv(os.path.join(TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv')
                        )
 
-
-"""  """
-"""  """
-"""  """
-
-
-# @ mock.patch('datasources.cawp_time.get_state_level_fips',
-#              return_value=["02", "60"])
-# @ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
-#              side_effect=_get_consecutive_time_periods)
-# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web', side_effect=_load_csv_as_df_from_web)
-# @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#              return_value=None)
-# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-#              side_effect=_load_csv_as_df_from_data_dir)
-# def testREDUCEDRun(
-#     mock_full_data_dir_csv: mock.MagicMock,
-#     mock_bq: mock.MagicMock,
-#     mock_full_stateleg_tables: mock.MagicMock,
-#     mock_years: mock.MagicMock,
-#     mock_starter_fips: mock.MagicMock
-# ):
-#     kwargs_for_bq = {'filename': 'test_file.csv',
-#                      'metadata_table_id': 'test_metadata',
-#                      'table_name': 'output_table'}
-#     cawp_data = CAWPTimeData()
-#     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
-
-#     for call in mock_bq.call_args_list:
-#         print("-")
-#         print(call)
-
-
-"""  """
-"""  """
-"""  """
-
-
 # # # TEST OUTGOING SIDE OF BIGQUERY INTERACTION
+
+
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
 @ mock.patch('datasources.cawp_time.CAWPTimeData.generate_names_breakdown',
@@ -310,12 +275,7 @@ def testGenerateNamesBreakdown(
             "women_this_race_us_congress_names": str,
             "women_this_race_state_leg_names": str,
     },
-        # # load in the names col strings as lists
-        # converters={
-        # "total_us_congress_names": lambda x: x.strip("[]").replace("'", "").split(", "),
-        # "women_this_race_us_congress_names": lambda x: x.strip("[]").replace("'", "").split(", "),
-        # "women_this_race_state_leg_names": lambda x: x.strip("[]").replace("'", "").split(", "),
-        # }
+
     ).fillna('')
 
     cawp_data = CAWPTimeData()

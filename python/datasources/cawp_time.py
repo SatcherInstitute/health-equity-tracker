@@ -596,7 +596,7 @@ def get_state_leg_totals_df():
     for fips in TERRITORY_FIPS_LIST:
         filename = f'cawp_state_leg_{fips}.csv'
         territory_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            "cawp_time", filename)
+            "cawp_time", filename, dtype={"state_fips": str, "time_period": str})
         territory_dfs.append(territory_df)
     df_rows_by_territory = pd.concat(territory_dfs)
 
@@ -607,12 +607,13 @@ def get_state_leg_totals_df():
         # remove weird chars from col headers
         state_df.columns = state_df.columns.str.replace(r'\W', '', regex=True)
 
-        # Deal with non-digits in the buggy year column for 1982
+        # TODO:notify CAWP of weird shifted column data; ideally get them to fix
+        # remove non-digits (like the * on mass. 1982) from buggy index/years column
+        # column is originally "-10" which is swapped to "10" above, this is really
+        # half of the year column that CAWP incorrectly splits over two cols
         state_df["10"] = state_df["10"].astype(str).replace(
             r'\D', '', regex=True).astype(int)
-
-        # TODO: confirm this weird shifted column data; ideally get them to fix
-        state_df["10"] = pd.to_numeric(state_df["10"])
+        # if a number is < 1800 is a buggy index value, if it's > then it's a year
         df_leftIndex = state_df[state_df["10"] < 1800]
         df_rightIndex = state_df[state_df["10"] >= 1800]
         # df_leftIndex = state_df[int(state_df["10"]) < 1800]
