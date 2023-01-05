@@ -253,7 +253,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   knownMetricConfig={metricConfigRates}
                   unknownMetricConfig={metricConfigPctShares}
                   selectedGroups={selectedTableGroups}
-                  hasUnknowns={hasUnknowns}
+                  hasUnknowns={isCawp ? false : hasUnknowns}
                 />
               </>
             )}
