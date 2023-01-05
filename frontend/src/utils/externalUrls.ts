@@ -1,6 +1,5 @@
 export type LinkName =
   | "newsletterSignup"
-  | "cdcCovidDataInfo"
   | "cdcWonder"
   | "cdcSvi"
   | "shliTwitter"
@@ -60,8 +59,6 @@ export const urlMap: Record<LinkName, string> = {
   newsletterSignup:
     "https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&",
   censusVoting: "https://www.census.gov/topics/public-sector/voting.html",
-  cdcCovidDataInfo:
-    "https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/about-us-cases-deaths.html",
   cdcWonder: "https://wonder.cdc.gov/mcd.html",
   cdcSvi:
     "https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/pdf/SVI2018Documentation_01192022_1.pdf",
