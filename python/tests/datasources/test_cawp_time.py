@@ -14,9 +14,7 @@ from datasources.cawp_time import (
     FIPS_TO_STATE_TABLE_MAP
 )
 
-
 FIPS_TO_TEST = ["02", "60"]
-
 
 # UNIT TESTS
 
@@ -86,9 +84,11 @@ def _generate_breakdown(*args):
     }), "mock_table_name"]
 
 
-def _load_csv_as_df_from_data_dir(*args):
+def _load_csv_as_df_from_data_dir(*args, **kwargs):
     # mocked and reduced files for testing
+
     [_folder, filename] = args
+
     if filename == "cawp-by_race_and_ethnicity_time_series.csv":
         # READ IN CAWP DB (numerators)
         print("reading mock CAWP FULL FILE line items")
@@ -112,12 +112,13 @@ def _load_csv_as_df_from_data_dir(*args):
 def _load_csv_as_df_from_web(*args):
     # mocked and reduced files for testing
     url = args[0]
+    # reverse lookup the FIPS based on the incoming url string arg
     fips = [
         i for i in FIPS_TO_STATE_TABLE_MAP if FIPS_TO_STATE_TABLE_MAP[i] in url][0]
 
     # mock out a placeholder file for all FIPS not included in our test files
     if fips in FIPS_TO_TEST:
-        print("\t> read mock stleg table by fips:", fips)
+        print("\t\tread mock stleg table by fips:", fips)
     else:
         fips = "XX"
 
