@@ -194,8 +194,6 @@ function MapCardWithKey(props: MapCardProps) {
         // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
 
-        console.log(overallQueryResponse);
-
         const sviQueryResponse: MetricQueryResponse = queryResponses[2] || null;
 
         const sortArgs =
