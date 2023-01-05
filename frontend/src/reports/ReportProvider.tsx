@@ -203,7 +203,7 @@ function ReportProvider(props: ReportProviderProps) {
           <p>
             For COVID-19 related reports, this tracker uses disaggregated,
             individual{" "}
-            <a href={urlMap.cdcCovidDataInfo}>
+            <a href={urlMap.cdcCovidRestricted}>
               case level data reported by states, territories, and other
               jurisdictions to the CDC
             </a>
