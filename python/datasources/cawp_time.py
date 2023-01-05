@@ -569,11 +569,13 @@ def get_state_leg_totals_df():
         # remove weird chars from col headers
         state_df.columns = state_df.columns.str.replace(r'\W', '', regex=True)
 
-        # remove non-digits from buggy index/years column
+        # TODO:notify CAWP of weird shifted column data; ideally get them to fix
+        # remove non-digits (like the * on mass. 1982) from buggy index/years column
+        # column is originally "-10" which is swapped to "10" above, this is really
+        # half of the year column that CAWP incorrectly splits over two cols
         state_df["10"] = state_df["10"].astype(str).replace(
             r'\D', '', regex=True).astype(int)
-
-        # TODO: confirm this weird shifted column data; ideally get them to fix
+        # if a number is < 1800 is a buggy index value, if it's > then it's a year
         df_leftIndex = state_df[state_df["10"] < 1800]
         df_rightIndex = state_df[state_df["10"] >= 1800]
         df_rightIndex = df_rightIndex.shift(periods=1, axis="columns")
