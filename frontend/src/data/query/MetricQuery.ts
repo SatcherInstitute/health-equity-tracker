@@ -105,8 +105,7 @@ export class MetricQueryResponse {
   // Generate two arrays of demographic groups, with and without data in the target metric field
   getFieldValues(
     fieldName: BreakdownVar,
-    targetMetric: MetricId,
-    suppressAllZeros?: boolean
+    targetMetric: MetricId
   ): { withData: DemographicGroup[]; noData: DemographicGroup[] } {
     const withData: DemographicGroup[] = [];
     const noData: DemographicGroup[] = [];

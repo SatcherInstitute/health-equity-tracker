@@ -87,6 +87,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   }
 
   const isCawp = CAWP_DETERMINANTS.includes(metricConfigRates.metricId);
+  const isCawpStateLeg =
+    metricConfigRates.metricId === "pct_share_of_state_leg";
 
   const HASH_ID: ScrollableHashId = "rates-over-time";
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label;
@@ -121,11 +123,15 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           : ratesData;
 
         // retrieve list of all present demographic groups
-        const demographicGroups: DemographicGroup[] =
+        const allDemographicGroups: DemographicGroup[] =
           queryResponseRates.getFieldValues(
             props.breakdownVar,
             metricConfigRates.metricId
           ).withData;
+
+        const demographicGroups = isCawpStateLeg
+          ? allDemographicGroups
+          : allDemographicGroups.filter((group) => group !== "Unknown race");
 
         const demographicGroupsLabelled = isCawp
           ? demographicGroups.map((race) =>
