@@ -341,14 +341,9 @@ export function setupColorScale(
   fieldRange?: FieldRange,
   scaleColorScheme?: string
 ) {
-  // const isCawp = CAWP_DETERMINANTS.includes(metricId);
   const colorScale: any = {
     name: COLOR_SCALE,
-    // type: isCawp ? "quantile" : scaleType,
     type: scaleType,
-    // domain: isCawp
-    //   ? [1, 20, 40, 60, 80, 99]
-    //   : { data: LEGEND_DATASET, field: metricId },
     domain: { data: VAR_DATASET, field: metricId },
     range: {
       scheme: scaleColorScheme || "yellowgreen",
