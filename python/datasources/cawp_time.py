@@ -613,11 +613,9 @@ def get_state_leg_totals_df():
         # half of the year column that CAWP incorrectly splits over two cols
         state_df["10"] = state_df["10"].astype(str).replace(
             r'\D', '', regex=True).astype(int)
-        # if a number is < 1800 is a buggy index value, if it's > then it's a year
+        # if a number is < 1800  is a buggy index value, if it's > then it's a year
         df_leftIndex = state_df[state_df["10"] < 1800]
         df_rightIndex = state_df[state_df["10"] >= 1800]
-        # df_leftIndex = state_df[int(state_df["10"]) < 1800]
-        # df_rightIndex = state_df[int(state_df["10"]) >= 1800]
         df_rightIndex = df_rightIndex.shift(periods=1, axis="columns")
         state_df = pd.concat([df_leftIndex, df_rightIndex])
 
