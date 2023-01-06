@@ -1,8 +1,6 @@
 from airflow import DAG
 from airflow.models import Variable
 from airflow.utils.dates import days_ago
-from airflow.operators.python import PythonOperator
-from python.sanity_checks.sanity_check import testing
 
 import util
 
@@ -46,13 +44,14 @@ cdc_bq_payload_age = util.generate_bq_payload(
 cdc_restricted_bq_op_age = util.create_bq_ingest_operator(
     'cdc_restricted_age_gcs_to_bq', cdc_bq_payload_age, data_ingestion_dag)
 
-cdc_restricted_bq_op_sanity_check = PythonOperator(
-    task_id='cdc_restricted_bq_op_sanity_check', python_callable=main(cdc_bq_payload_age), dag=data_ingestion_dag)
-
 cdc_age_adjust_payload = util.generate_bq_payload(
     _AGE_ADJUST_WORKFLOW_ID,
     _CDC_RESTRICTED_DATASET,
 )
+
+sanity_check = util.sanity_check_operator(
+    'sanity_check', _CDC_RESTRICTED_DATASET, data_ingestion_dag)
+
 cdc_restricted_age_adjust_op = util.create_bq_ingest_operator(
     'cdc_restricted_age_adjust', cdc_age_adjust_payload, data_ingestion_dag)
 
@@ -85,9 +84,9 @@ cdc_restricted_exporter_operator_sex = util.create_exporter_operator(
 # CDC Restricted Data Ingestion DAG
 (
     cdc_restricted_bq_op_race >>
+    sanity_check >>
     cdc_restricted_bq_op_sex >>
     cdc_restricted_bq_op_age >>
-    cdc_restricted_bq_op_sanity_check >>
     cdc_restricted_age_adjust_op >> [
         cdc_restricted_exporter_operator_race,
         cdc_restricted_exporter_operator_age,

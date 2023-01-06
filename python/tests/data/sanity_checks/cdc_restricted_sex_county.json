@@ -92,7 +92,7 @@
     "covid_cases_per_100k": null,
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
-    "covid_cases_share": null,
+    "covid_cases_share": 50,
     "covid_hosp_share": null,
     "covid_deaths_share": null,
     "covid_population_pct": null
@@ -106,7 +106,7 @@
     "covid_cases_per_100k": null,
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
-    "covid_cases_share": null,
+    "covid_cases_share": 50,
     "covid_hosp_share": null,
     "covid_deaths_share": null,
     "covid_population_pct": null

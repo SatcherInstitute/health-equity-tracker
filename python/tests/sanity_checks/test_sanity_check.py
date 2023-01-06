@@ -1,6 +1,10 @@
 import os
 import pandas as pd
-from sanity_checks.sanity_check import check_pct_values
+from sanity_checks.sanity_check import check_pct_values, main
+from airflow.utils.dates import days_ago
+from airflow import DAG
+from airflow.models import Variable
+
 
 # Current working directory
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))

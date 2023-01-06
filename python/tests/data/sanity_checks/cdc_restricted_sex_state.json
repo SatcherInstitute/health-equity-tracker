@@ -36,9 +36,9 @@
     "covid_population_pct": 40.0
   },
   {
-    "state_fips": "06",
-    "state_name": "California",
-    "sex": "Unknown",
+    "state_fips": "Unknown",
+    "state_name": "Unknown",
+    "sex": "Male",
     "covid_cases_per_100k": null,
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
