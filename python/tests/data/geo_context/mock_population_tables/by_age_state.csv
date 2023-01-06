@@ -1,0 +1,4 @@
+state_fips,state_name,age,population,population_pct,ingestion_ts
+01,Alabama,0-17,1096376.0,22.5,2022-11-30 22:26:50.185484+00:00
+01,Alabama,85+,84349.0,1.7,2022-11-30 22:26:50.185484+00:00
+01,Alabama,All,4876250.0,100.0,2022-11-30 22:26:50.185484+00:00

@@ -54,13 +54,13 @@ def _generate_breakdown(*args):
     })
 
 
-def _load_df_from_bigquery_national():
+def _load_df_from_bigquery_national_pop():
     print("mocking load_df_from_bigquery() for national population")
     return pd.read_csv(os.path.join(
         TEST_DIR, 'mock_population_tables', 'by_age_national.csv'), dtype={"state_fips": str})
 
 
-def _load_df_from_bigquery_state(*args):
+def _load_df_from_bigquery_state_pop(*args):
 
     _requested_dataset_name, requested_table_name = args
 
@@ -75,10 +75,20 @@ def _load_df_from_bigquery_state(*args):
             TEST_DIR, 'mock_population_tables', 'by_age_territory.csv'), dtype={"state_fips": str})
 
 
-def _load_df_from_bigquery_county():
+def _load_df_from_bigquery_county_pop():
     print("mocking load_df_from_bigquery() for county populations")
     return pd.read_csv(os.path.join(
         TEST_DIR, 'mock_population_tables', 'by_age_county.csv'), dtype={"county_fips": str})
+
+
+def _load_public_dataset_from_bigquery_as_df_state_ids():
+    print("mocking load_public_dataset_from_bigquery_as_df() for state / territory / national names")
+    return pd.read_csv(os.path.join(TEST_DIR, 'state_names.csv'), dtype={"state_fips_code": str})
+
+
+def _load_public_dataset_from_bigquery_as_df_county_names():
+    print("mocking load_public_dataset_from_bigquery_as_df() for county names")
+    return pd.read_csv(os.path.join(TEST_DIR, 'county_names.csv'), dtype={"county_fips_code": str})
 
 
 # TESTS
@@ -118,10 +128,13 @@ def testWriteToBq(
     }
 
 
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=_load_public_dataset_from_bigquery_as_df_state_ids())
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-             return_value=_load_df_from_bigquery_national())
+             return_value=_load_df_from_bigquery_national_pop())
 def testGenerateNationalBreakdown(
-    mock_pop: mock.MagicMock
+    mock_pop: mock.MagicMock,
+    mock_state_names: mock.MagicMock
 ):
     """ Tests the generation of national breakdown  """
     print("testGenerateNationalBreakdown()")
@@ -130,6 +143,7 @@ def testGenerateNationalBreakdown(
     national_df = geoContext.generate_breakdown("national")
 
     assert mock_pop.call_count == 1
+    assert mock_state_names.call_count == 1
 
     expected_national_df = pd.read_csv(GOLDEN_DATA_NATIONAL, dtype={
         'state_fips': str,
@@ -138,10 +152,13 @@ def testGenerateNationalBreakdown(
         national_df, expected_national_df, check_like=True)
 
 
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=_load_public_dataset_from_bigquery_as_df_state_ids())
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-             side_effect=_load_df_from_bigquery_state)
+             side_effect=_load_df_from_bigquery_state_pop)
 def testGenerateStateLevelBreakdown(
-    mock_pop: mock.MagicMock
+    mock_pop: mock.MagicMock,
+    mock_state_names: mock.MagicMock
 ):
     """ Tests the generation of state and territory breakdown  """
     print("testGenerateStateLevelBreakdown()")
@@ -153,17 +170,21 @@ def testGenerateStateLevelBreakdown(
     })
 
     assert mock_pop.call_count == 2
+    assert mock_state_names.call_count == 1
 
     assert_frame_equal(
         state_level_df, expected_state_level_df, check_like=True)
 
 
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=_load_public_dataset_from_bigquery_as_df_county_names())
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-             return_value=_load_df_from_bigquery_county())
+             return_value=_load_df_from_bigquery_county_pop())
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', return_value=_get_svi_as_df())
 def testGenerateCountyBreakdown(
     mock_svi_data: mock.MagicMock,
-    mock_pop: mock.MagicMock
+    mock_pop: mock.MagicMock,
+    mock_county_names: mock.MagicMock
 ):
     """ Tests the generation of county breakdown  """
     print("testGenerateCountyBreakdown()")
@@ -173,6 +194,7 @@ def testGenerateCountyBreakdown(
 
     assert mock_svi_data.call_count == 1
     assert mock_pop.call_count == 1
+    assert mock_county_names.call_count == 1
 
     expected_county_df = pd.read_csv(
         GOLDEN_DATA_COUNTY, dtype={'county_fips': str})
