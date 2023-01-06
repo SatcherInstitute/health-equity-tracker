@@ -1,4 +1,3 @@
-from google.cloud import bigquery
 import pandas as pd
 import ingestion.standardized_columns as std_col
 
