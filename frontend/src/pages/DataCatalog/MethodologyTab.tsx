@@ -416,7 +416,7 @@ function MethodologyTab() {
                       “In each year since 1915, what percent of all U.S.
                       Congress members identified as black women?”
                     </i>
-                    ). We obtain the historic counts of U.S. Congress members,
+                    ). We obtain the historical counts of U.S. Congress members,
                     by year and by state/territory, from the open-source{" "}
                     <a href={urlMap.unitedStatesIo}>@unitedstates project</a>.
                   </li>

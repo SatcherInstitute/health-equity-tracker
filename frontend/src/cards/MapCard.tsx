@@ -137,10 +137,7 @@ function MapCardWithKey(props: MapCardProps) {
   if (isCawpStateLeg) countColsToAdd = CAWP_STLEG_COUNTS;
 
   const queries = [
-    metricQuery(
-      Breakdowns.forChildrenFips(props.fips),
-      /* countColsToAdd */ countColsToAdd
-    ),
+    metricQuery(Breakdowns.forChildrenFips(props.fips), countColsToAdd),
     metricQuery(Breakdowns.forFips(props.fips)),
   ];
 

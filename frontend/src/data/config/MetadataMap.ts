@@ -264,7 +264,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity",
     update_frequency: "Monthly",
     description:
-      "Detailed information on women, by race/ethnicity, in the US Congress and state legislatures, and historic counts of total state legislators of any gender by year by state.",
+      "Detailed information on women, by race/ethnicity, in the US Congress and state legislatures, and historical counts of total state legislators of any gender by year by state.",
     dataset_ids: [
       "cawp_data-race_and_ethnicity_national",
       "cawp_data-race_and_ethnicity_state",

@@ -112,7 +112,7 @@ function UnknownsAlert(props: UnknownsAlertProps) {
   return raceEthnicityDiff ? (
     <>
       <CardContent className={styles.SmallMarginContent}>
-        <Alert severity={"warning"} role="note">
+        <Alert severity="warning" role="note">
           {diffRaceEthnicityText}
         </Alert>
       </CardContent>
