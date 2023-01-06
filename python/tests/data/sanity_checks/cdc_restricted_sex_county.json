@@ -78,10 +78,10 @@
     "covid_cases_per_100k": null,
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
-    "covid_cases_share": null,
-    "covid_hosp_share": null,
-    "covid_deaths_share": null,
-    "covid_population_pct": null
+    "covid_cases_share": 100.0,
+    "covid_hosp_share": 100.0,
+    "covid_deaths_share": 100.0,
+    "covid_population_pct": 100.0
   },
   {
     "county_fips": "11001",
@@ -92,9 +92,9 @@
     "covid_cases_per_100k": null,
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
-    "covid_cases_share": 50,
-    "covid_hosp_share": null,
-    "covid_deaths_share": null,
+    "covid_cases_share": 50.0,
+    "covid_hosp_share": 50.0,
+    "covid_deaths_share": 50.0,
     "covid_population_pct": null
   },
   {
@@ -107,8 +107,8 @@
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
     "covid_cases_share": 50,
-    "covid_hosp_share": null,
-    "covid_deaths_share": null,
+    "covid_hosp_share": 50.0,
+    "covid_deaths_share": 50.0,
     "covid_population_pct": null
   },
   {
@@ -135,7 +135,7 @@
     "covid_deaths_per_100k": 4000,
     "covid_hosp_per_100k": null,
     "covid_cases_share": 100.0,
-    "covid_hosp_share": null,
+    "covid_hosp_share": 100.0,
     "covid_deaths_share": 100.0,
     "covid_population_pct": 100.0
   },
@@ -148,9 +148,9 @@
     "covid_cases_per_100k": null,
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
-    "covid_cases_share": null,
-    "covid_hosp_share": null,
-    "covid_deaths_share": null,
+    "covid_cases_share": 50.0,
+    "covid_hosp_share": 50.0,
+    "covid_deaths_share": 50.0,
     "covid_population_pct": null
   },
   {
@@ -162,9 +162,9 @@
     "covid_cases_per_100k": null,
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
-    "covid_cases_share": null,
-    "covid_hosp_share": null,
-    "covid_deaths_share": null,
+    "covid_cases_share": 50.0,
+    "covid_hosp_share": 50.0,
+    "covid_deaths_share": 50.0,
     "covid_population_pct": null
   },
   {

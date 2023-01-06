@@ -67,8 +67,8 @@
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
     "covid_cases_share": 100.0,
-    "covid_hosp_share": null,
-    "covid_deaths_share": null,
+    "covid_hosp_share": 100.0,
+    "covid_deaths_share": 100.0,
     "covid_population_pct": 100.0
   },
   {
@@ -79,8 +79,8 @@
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
     "covid_cases_share": 50.0,
-    "covid_hosp_share": null,
-    "covid_deaths_share": null,
+    "covid_hosp_share": 50.0,
+    "covid_deaths_share": 50.0,
     "covid_population_pct": 60.0
   },
   {
@@ -91,8 +91,8 @@
     "covid_deaths_per_100k": null,
     "covid_hosp_per_100k": null,
     "covid_cases_share": 50.0,
-    "covid_hosp_share": null,
-    "covid_deaths_share": null,
+    "covid_hosp_share": 50.0,
+    "covid_deaths_share": 50.0,
     "covid_population_pct": 40.0
   },
   {

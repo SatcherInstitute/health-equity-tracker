@@ -1,17 +1,5 @@
-from google.cloud import bigquery
 import pandas as pd
 import ingestion.standardized_columns as std_col
-
-
-def main():
-    bq_client = bigquery.Client()
-    dataset_id = 'cdc_restricted_data'
-    tables = bq_client.list_tables(dataset_id)
-    for table in tables:
-        table_name = "{}.{}.{}".format(
-            table.project, table.dataset_id, table.table_id)
-        query_string = f'SELECT * FROM {table_name}'
-        print(query_string)
 
 
 def generate_cols(df: pd.DataFrame):
@@ -37,8 +25,6 @@ def generate_cols(df: pd.DataFrame):
     if std_col.TIME_PERIOD_COL in df.columns:
         std_cols = std_cols + [std_col.TIME_PERIOD_COL]
 
-    # print('/n')
-    # print(df.to_string())
     return std_cols, share_cols, dem_col, df
 
 
@@ -61,9 +47,6 @@ def check_pct_values(df: pd.DataFrame):
 
     # return False if DF exists
     if len(df) > 0:
-        # print(
-        #     f'These fips percent share values do not equal 100%: {df[std_cols[0]].tolist()}')
-        # return False
         raise RuntimeError(
             f'These fips percent share values do not equal 100%: {df[std_cols[0]].tolist()}')
 
