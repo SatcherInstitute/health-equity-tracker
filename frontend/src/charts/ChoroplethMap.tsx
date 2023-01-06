@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Vega } from "react-vega";
 import { useResponsiveWidth } from "../utils/hooks/useResponsiveWidth";
 import { Fips } from "../data/utils/Fips";
-import { MetricConfig } from "../data/config/MetricConfig";
+import { MetricConfig, MetricId } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 import { useFontSize } from "../utils/hooks/useFontSize";
@@ -95,9 +95,18 @@ export interface ChoroplethMapProps {
     subtitle?: string;
   };
   listExpanded?: boolean;
+  countColsToAdd: MetricId[];
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
+  const nonZeroData = props.data.filter(
+    (row) => row[props.metric.metricId] > 0
+  );
+
+  const numUniqueNonZeroValues = new Set(
+    nonZeroData.map((row) => row[props.metric.metricId])
+  ).size;
+
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId);
 
   // render Vega map async as it can be slow
@@ -136,11 +145,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         from: VAR_DATASET,
         key: VAR_FIPS,
         fields: [GEO_ID],
-        values: [
-          props.metric.metricId,
-          "women_this_race_us_congress_count",
-          "total_us_congress_count",
-        ],
+        values: [props.metric.metricId, ...props.countColsToAdd],
       },
     ];
     // Null SVI was showing
@@ -205,7 +210,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (isCawp)
       addCAWPTooltipInfo(
         /* tooltipPairs */ tooltipPairs,
-        /* subTitle */ props.titles?.subtitle || ""
+        /* subTitle */ props.titles?.subtitle || "",
+        /* colsToAdd */ props.countColsToAdd
       );
 
     // Hover tooltip for non-zero data
@@ -332,9 +338,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         {
           name: VAR_DATASET,
           values:
-            props.listExpanded || !isCawp
+            // only use the nonZero subset if viewing high low lists, viewing CAWP,
+            // or viewing multimap with some groups having only one non-zero value
+            props.listExpanded ||
+            !isCawp ||
+            (numUniqueNonZeroValues <= 1 && !props.hideLegend)
               ? props.data
-              : props.data.filter((row) => row[props.metric.metricId] > 0),
+              : nonZeroData,
         },
         {
           name: ZERO_VAR_DATASET,
@@ -442,6 +452,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     setTimeout(() => {
       setShouldRenderMap(true);
     }, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isCawp,
     width,

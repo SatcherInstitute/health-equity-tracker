@@ -52,14 +52,12 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
   const metricConfig = props.variableConfig.metrics["pct_share"];
   const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
-
-  const isCawpCongress =
-    props.variableConfig.variableId === "women_us_congress";
-
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(ALL, NON_HISPANIC)
   );
+
+  const isCawp = CAWP_DETERMINANTS.includes(metricConfig.metricId);
 
   // Population Comparison Metric is required for the Disparity Bar Chart.
   // If MetricConfig supports known breakdown metric, prefer this metric.
@@ -78,7 +76,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     metricIds,
     breakdowns,
     /* variableId */ props.variableConfig.variableId,
-    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
+    /* timeView */ isCawp ? "cross_sectional" : undefined
   );
 
   const { chartTitle, filename } = useCreateChartTitle(
