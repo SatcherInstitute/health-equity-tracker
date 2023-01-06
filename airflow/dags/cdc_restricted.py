@@ -84,9 +84,9 @@ cdc_restricted_exporter_operator_sex = util.create_exporter_operator(
 # CDC Restricted Data Ingestion DAG
 (
     cdc_restricted_bq_op_race >>
-    sanity_check >>
     cdc_restricted_bq_op_sex >>
     cdc_restricted_bq_op_age >>
+    sanity_check >>
     cdc_restricted_age_adjust_op >> [
         cdc_restricted_exporter_operator_race,
         cdc_restricted_exporter_operator_age,
