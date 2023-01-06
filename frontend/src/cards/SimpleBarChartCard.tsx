@@ -23,6 +23,7 @@ import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert"
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
+import { CAWP_DATA_TYPES } from "../data/variables/CawpProvider";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -53,8 +54,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     props.variableConfig.variableId
   );
 
-  const isCawpCongress =
-    props.variableConfig.variableId === "women_us_congress";
+  const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId);
 
   const metricIdsToFetch: MetricId[] = [];
   metricIdsToFetch.push(metricConfig.metricId);
@@ -69,7 +69,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     metricIdsToFetch,
     breakdowns,
     /* variableId */ props.variableConfig.variableId,
-    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
+    /* timeView */ isCawp ? "cross_sectional" : undefined
   );
 
   let { chartTitle, filename, dataName } = useCreateChartTitle(

@@ -102,15 +102,6 @@ export class MetricQueryResponse {
     );
   }
 
-  //! Is this method ever used?
-  getValidRowsForFields(fieldNames: BreakdownVar[] | MetricId[]) {
-    let data = this.data;
-    fieldNames.forEach((name: BreakdownVar | MetricId) => {
-      data = this.getValidRowsForField(name);
-    });
-    return data;
-  }
-
   // Generate two arrays of demographic groups, with and without data in the target metric field
   getFieldValues(
     fieldName: BreakdownVar,

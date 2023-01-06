@@ -1,6 +1,9 @@
 import { MetricId, MetricType } from "../data/config/MetricConfig";
 import { Fips } from "../data/utils/Fips";
-import { getWomenRaceLabel } from "../data/variables/CawpProvider";
+import {
+  CAWP_CONGRESS_COUNTS,
+  getWomenRaceLabel,
+} from "../data/variables/CawpProvider";
 
 import {
   GREY_DOT_SCALE,
@@ -97,18 +100,29 @@ Takes an existing VEGA formatted JSON string for the tooltip template and append
 */
 export function addCAWPTooltipInfo(
   tooltipPairs: Record<string, string>,
-  subTitle: string
+  subTitle: string,
+  countCols: MetricId[]
 ) {
   const raceName = subTitle
     ? getWomenRaceLabel(subTitle as RaceAndEthnicityGroup)
     : "";
+  const members = CAWP_CONGRESS_COUNTS.includes(countCols[0])
+    ? "members"
+    : "legislators";
+
   const raceCode: string | undefined = (raceName as RaceAndEthnicityGroup)
     ? raceNameToCodeMap?.[raceName as RaceAndEthnicityGroup]
     : "";
 
-  tooltipPairs[`# ${raceCode} women members`] =
-    "datum.women_this_race_us_congress_count";
-  tooltipPairs["# total members"] = `datum.total_us_congress_count`;
+  const numLines = Object.keys(countCols).length;
+
+  if (numLines > 0) {
+    tooltipPairs[`# ${raceCode} women ${members}`] = `datum.${countCols[0]}`;
+  }
+
+  if (numLines > 1) {
+    tooltipPairs[`# total ${members}`] = `datum.${countCols[1]}`;
+  }
 
   return tooltipPairs;
 }
@@ -327,13 +341,10 @@ export function setupColorScale(
   fieldRange?: FieldRange,
   scaleColorScheme?: string
 ) {
-  const isCongressCAWP = metricId === "pct_share_of_us_congress";
   const colorScale: any = {
     name: COLOR_SCALE,
-    type: isCongressCAWP ? "quantile" : scaleType,
-    domain: isCongressCAWP
-      ? [1, 20, 40, 60, 80, 99]
-      : { data: LEGEND_DATASET, field: metricId },
+    type: scaleType,
+    domain: { data: VAR_DATASET, field: metricId },
     range: {
       scheme: scaleColorScheme || "yellowgreen",
       count: LEGEND_COLOR_COUNT,

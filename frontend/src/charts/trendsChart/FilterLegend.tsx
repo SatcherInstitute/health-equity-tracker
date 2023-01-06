@@ -13,13 +13,19 @@ import React from "react";
 
 /* Styles */
 import styles from "./Trends.module.scss";
+import sass from "../../styles/variables.module.scss";
 
 /* Constants */
 import { TrendsData } from "./types";
 import { COLORS as C } from "./constants";
 import { BreakdownVar } from "../../data/query/Breakdowns";
 import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
-import { DemographicGroup } from "../../data/utils/Constants";
+import {
+  AGE,
+  ALL,
+  DemographicGroup,
+  UNKNOWN_W,
+} from "../../data/utils/Constants";
 
 /* Define type interface */
 export interface FilterLegendProps {
@@ -98,6 +104,9 @@ export function FilterLegend({
           data.map(([group]) => {
             const groupEnabled = selectedGroups.includes(group);
 
+            const isUnknown = group === UNKNOWN_W;
+            const gradient = `linear-gradient(30deg, ${sass.unknownMapMost}, ${sass.unknownMapMid},${sass.unknownMapMost})`;
+
             // Legend Item Filter Button
             return (
               <button
@@ -116,13 +125,13 @@ export function FilterLegend({
                   className={styles.swatch}
                   aria-hidden={true}
                   style={{
-                    /* @ts-ignore */
-                    backgroundColor: C(group),
+                    backgroundImage: isUnknown ? gradient : undefined,
+                    backgroundColor: isUnknown ? undefined : C(group),
                   }}
                 />
                 {/* Legend Item Label */}
                 <div>
-                  {breakdownVar === "age" && group !== "All" && "Ages "}
+                  {breakdownVar === AGE && group !== ALL && "Ages "}
                   {group}
                 </div>
               </button>

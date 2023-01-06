@@ -34,6 +34,7 @@ import {
   BJS_NATIONAL_AGE_BUCKETS,
   BJS_JAIL_AGE_BUCKETS,
   DemographicGroup,
+  UNKNOWN_W,
 } from "./Constants";
 import { Row } from "./DatasetTypes";
 import { Fips } from "./Fips";
@@ -395,10 +396,9 @@ export function splitIntoKnownsAndUnknowns(
 
   data.forEach((row: Row) => {
     if (
-      row[breakdownVar] === UNKNOWN ||
-      row[breakdownVar] === UNKNOWN_RACE ||
-      row[breakdownVar] === UNKNOWN_ETHNICITY ||
-      row[breakdownVar] === "Women of Unknown Race"
+      [UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY, UNKNOWN_W].includes(
+        row[breakdownVar]
+      )
     ) {
       unknowns.push(row);
     } else knowns.push(row);

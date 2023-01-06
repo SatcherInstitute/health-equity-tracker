@@ -29,9 +29,13 @@ import AltTableView from "./ui/AltTableView";
 import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from "../data/variables/CawpProvider";
 import { Row } from "../data/utils/DatasetTypes";
 import { hasNonZeroUnknowns } from "../charts/trendsChart/helpers";
-import { getWomenRaceLabel } from "../data/variables/CawpProvider";
+import styles from "../charts/trendsChart/Trends.module.scss";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -76,14 +80,15 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     /* timeView */ TIME_SERIES
   );
 
-  const isCawpCongress =
-    metricConfigRates.metricId === "pct_share_of_us_congress";
-
   function getTitleText() {
     return `${
       metricConfigRates.trendsCardTitleName
     } in ${props.fips.getSentenceDisplayName()}`;
   }
+
+  const isCawp = CAWP_DETERMINANTS.includes(metricConfigRates.metricId);
+  const isCawpStateLeg =
+    metricConfigRates.metricId === "pct_share_of_state_leg";
 
   const HASH_ID: ScrollableHashId = "rates-over-time";
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label;
@@ -100,14 +105,14 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           metricConfigRates.metricId
         );
 
-        const pctShareData = isCawpCongress
+        const pctShareData = isCawp
           ? ratesData
           : queryResponsePctShares.getValidRowsForField(
               metricConfigPctShares.metricId
             );
 
         // swap race labels if applicable
-        const ratesDataLabelled = isCawpCongress
+        const ratesDataLabelled = isCawp
           ? ratesData.map((row: Row) => {
               const altRow = { ...row };
               altRow.race_and_ethnicity = getWomenRaceLabel(
@@ -118,25 +123,28 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           : ratesData;
 
         // retrieve list of all present demographic groups
-        const demographicGroups: DemographicGroup[] =
+        const allDemographicGroups: DemographicGroup[] =
           queryResponseRates.getFieldValues(
             props.breakdownVar,
             metricConfigRates.metricId
           ).withData;
 
-        const demographicGroupsLabelled = isCawpCongress
-          ? (demographicGroups
-              .map((race) => getWomenRaceLabel(race as RaceAndEthnicityGroup))
-              .filter(
-                (womenRace) => womenRace !== "Women of Unknown Race"
-              ) as DemographicGroup[])
+        const demographicGroups = isCawpStateLeg
+          ? allDemographicGroups
+          : allDemographicGroups.filter((group) => group !== "Unknown race");
+
+        const demographicGroupsLabelled = isCawp
+          ? demographicGroups.map((race) =>
+              getWomenRaceLabel(race as RaceAndEthnicityGroup)
+            )
           : demographicGroups;
 
-        const [knownRatesData] = splitIntoKnownsAndUnknowns(
-          ratesDataLabelled,
-          props.breakdownVar
-        );
+        // we want to send Unknowns as Knowns for CAWP so we can plot as a line as well
+        const [knownRatesData] = isCawp
+          ? [ratesDataLabelled]
+          : splitIntoKnownsAndUnknowns(ratesDataLabelled, props.breakdownVar);
 
+        // rates for the unknown bubbles
         const [, unknownPctShareData] = splitIntoKnownsAndUnknowns(
           pctShareData,
           props.breakdownVar
@@ -150,7 +158,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         );
         const nestedUnknownPctShareData = getNestedUnknowns(
           unknownPctShareData,
-          metricConfigPctShares.metricId
+          isCawp ? metricConfigRates.metricId : metricConfigPctShares.metricId
         );
 
         const hasUnknowns = hasNonZeroUnknowns(nestedUnknownPctShareData);
@@ -183,7 +191,24 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     </Alert>
                   </Box>
                 )}
-
+                <svg
+                  height="0"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <linearGradient id="gradient">
+                    <stop className={styles.GradientMainStop} offset="0%" />
+                    <stop className={styles.GradientAltStop} offset="20%" />
+                    <stop className={styles.GradientMainStop} offset="30%" />
+                    <stop className={styles.GradientAltStop} offset="40%" />
+                    <stop className={styles.GradientMainStop} offset="50%" />
+                    <stop className={styles.GradientAltStop} offset="60%" />
+                    <stop className={styles.GradientMainStop} offset="70%" />
+                    <stop className={styles.GradientAltStop} offset="80%" />
+                    <stop className={styles.GradientMainStop} offset="90%" />
+                    <stop className={styles.GradientAltStop} offset="100%" />
+                  </linearGradient>
+                </svg>
                 <TrendsChart
                   data={nestedRatesData}
                   chartTitle={getTitleText()}
@@ -233,7 +258,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   knownMetricConfig={metricConfigRates}
                   unknownMetricConfig={metricConfigPctShares}
                   selectedGroups={selectedTableGroups}
-                  hasUnknowns={hasUnknowns}
+                  hasUnknowns={isCawp ? false : hasUnknowns}
                 />
               </>
             )}

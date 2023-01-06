@@ -90,7 +90,7 @@ export function TrendsChart({
   /* State Management */
   const allPossibleGroups = data.map(([group]) => group);
   const isInequityWithManyGroups =
-    axisConfig.type === "pct_relative_inequity" && allPossibleGroups.length > 4;
+    axisConfig.type === "pct_relative_inequity" && allPossibleGroups.length > 6;
 
   // Manages which group filters user has applied
   const defaultGroups = isInequityWithManyGroups ? getMinMaxGroups(data) : [];

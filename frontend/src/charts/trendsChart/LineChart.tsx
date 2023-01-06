@@ -20,6 +20,7 @@ import styles from "./Trends.module.scss";
 import { GroupData, TrendsData, XScale, YScale } from "./types";
 import { COLORS as C } from "./constants";
 import { getPrettyDate } from "../../data/utils/DatasetTimeUtils";
+import { UNKNOWN_W } from "../../data/utils/Constants";
 
 /* Define type interface */
 export interface LineChartProps {
@@ -60,7 +61,6 @@ export function LineChart({
           const dCopy = [...d];
 
           const sortedDataForGroup = dCopy.sort((a, b) => a[1] - b[1]);
-
           const minValueForGroup = sortedDataForGroup[0]?.[1];
           const maxValueForGroup =
             sortedDataForGroup[sortedDataForGroup.length - 1]?.[1];
@@ -76,12 +76,14 @@ export function LineChart({
 
           const groupA11yDescription = `${group}: lowest value ${minValueForGroup}${optionalPct} in ${lowestDatesForGroup} and highest value ${maxValueForGroup}${optionalPct} in ${highestDatesForGroup}`;
 
+          const isUnknownLine = group === UNKNOWN_W;
           return (
             <path
-              // tabIndex={0}
               role="listitem"
               aria-label={groupA11yDescription}
-              className={styles.TrendLine}
+              className={
+                isUnknownLine ? styles.TrendLineGradient : styles.TrendLine
+              }
               key={`group-${group}`}
               // @ts-ignore
               d={lineGen(d) || ""}

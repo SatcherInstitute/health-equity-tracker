@@ -10,6 +10,7 @@ import { Legend } from "../../charts/Legend";
 import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
 import {
   MetricConfig,
+  MetricId,
   SYMBOL_TYPE_LOOKUP,
 } from "../../data/config/MetricConfig";
 import { Row, FieldRange } from "../../data/utils/DatasetTypes";
@@ -54,6 +55,7 @@ export interface MultiMapDialogProps {
   // Metadata required for the source footer
   metadata: MapOfDatasetMetadata;
   breakdownValuesNoData: DemographicGroup[];
+  countColsToAdd: MetricId[];
   // Geography data, in topojson format. Must include both states and counties.
   // If not provided, defaults to directly loading /tmp/geographies.json
   geoData?: Record<string, any>;
@@ -133,6 +135,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     filename={`${props.metricConfig.chartTitleLines.join(" ")}${
                       breakdownValue === "All" ? "" : ` for ${breakdownValue}`
                     } in ${props.fips.getSentenceDisplayName()}`}
+                    countColsToAdd={props.countColsToAdd}
                   />
                 )}
 
@@ -158,6 +161,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                             scaleType="quantize"
                             geoData={props.geoData}
                             overrideShapeWithCircle={true}
+                            countColsToAdd={props.countColsToAdd}
                           />
                         </Grid>
                       );
