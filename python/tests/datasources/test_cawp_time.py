@@ -10,8 +10,11 @@ from datasources.cawp_time import (
     US_CONGRESS_CURRENT_URL,
     CAWP_LINE_ITEMS_FILE,
     get_postal_from_cawp_phrase,
-    get_consecutive_time_periods
+    get_consecutive_time_periods,
+    FIPS_TO_STATE_TABLE_MAP
 )
+
+FIPS_TO_TEST = ["02", "60"]
 
 # UNIT TESTS
 
@@ -38,11 +41,13 @@ GOLDEN_DATA_DIR = os.path.join(TEST_DIR, "golden_data")
 
 
 def _get_consecutive_time_periods(*args, **kwargs):
-    # for testing, we only want to look at 2018-2022 as the data time periods,
-    # but we still want to restrict the pop_merge years to 2019-2022
-    if len(kwargs) != 0:
+    print("mocking with reduced years")
+    if len(kwargs) == 1:
+        return get_consecutive_time_periods(first_year=2018)
+    # we still want to restrict the pop_merge years to 2019-2022 if there are incoming kwargs
+    if len(kwargs) == 2:
         return get_consecutive_time_periods(first_year=kwargs["first_year"], last_year=kwargs["last_year"])
-
+    # otherwise restrict to 2018-2022 for testing
     return get_consecutive_time_periods(first_year=2018, last_year=2022)
 
 
@@ -55,27 +60,6 @@ def _fetch_json_from_web(*args):
     print(f'reading mock US CONGRESS: {file_name}')
     with open(os.path.join(TEST_DIR, file_name)) as file:
         return json.load(file)
-
-
-def _get_test_line_items_csv_as_df(*args):
-    print("reading mock CAWP line items")
-    [_folder, filename] = args
-    test_input_data_types = {
-        "id": str,
-        "year": str,
-        "first_name": str,
-        "middle_name": str,
-        "last_name": str,
-        "party": str,
-        "level": str,
-        "position": str,
-        "state": str,
-        "district": str,
-        "race_ethnicity": str
-    }
-    test_input_filename = f'test_input_{filename}'
-    return pd.read_csv(os.path.join(TEST_DIR, test_input_filename),
-                       dtype=test_input_data_types)
 
 
 def _merge_current_pop_numbers(*args):
@@ -100,9 +84,49 @@ def _generate_breakdown(*args):
     }), "mock_table_name"]
 
 
+def _load_csv_as_df_from_data_dir(*args, **kwargs):
+    # mocked and reduced files for testing
+
+    [_folder, filename] = args
+
+    if filename == "cawp-by_race_and_ethnicity_time_series.csv":
+        # READ IN CAWP DB (numerators)
+        print("reading mock CAWP FULL FILE line items")
+        test_input_data_types = {"id": str, "year": str, "first_name": str,
+                                 "middle_name": str, "last_name": str,
+                                 "party": str, "level": str, "position": str,
+                                 "state": str, "district": str, "race_ethnicity": str}
+        return pd.read_csv(os.path.join(TEST_DIR, filename),
+                           dtype=test_input_data_types, index_col=False)
+    else:
+        # READ IN MANUAL TERRITORY STATELEG TOTAL TABLES
+        if filename == "cawp_state_leg_60.csv":
+            print("reading mock territory stateleg total tables")
+        else:
+            filename = "cawp_state_leg_ZZ_territory.csv"
+        test_input_data_types = {"state_fips": str, "time_period": str}
+        return pd.read_csv(os.path.join(TEST_DIR, "mock_territory_leg_tables", filename),
+                           dtype=test_input_data_types, index_col=False)
+
+
+def _load_csv_as_df_from_web(*args):
+    # mocked and reduced files for testing
+    url = args[0]
+    # reverse lookup the FIPS based on the incoming url string arg
+    fips = [
+        i for i in FIPS_TO_STATE_TABLE_MAP if FIPS_TO_STATE_TABLE_MAP[i] in url][0]
+
+    # mock out a placeholder file for all FIPS not included in our test files
+    if fips in FIPS_TO_TEST:
+        print("\t\tread mock stleg table by fips:", fips)
+    else:
+        fips = "XX"
+
+    return pd.read_csv(os.path.join(TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv')
+                       )
+
+
 # TEST OUTGOING SIDE OF BIGQUERY INTERACTION
-
-
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
 @ mock.patch('datasources.cawp_time.CAWPTimeData.generate_breakdown',
@@ -131,23 +155,28 @@ def testWriteToBq(
             'fake_col1': 'STRING',
             'fake_col2': 'STRING',
             'total_us_congress_count': 'FLOAT',
-            'women_all_races_us_congress_count': 'FLOAT',
             'women_this_race_us_congress_count': 'FLOAT',
             'pct_share_of_us_congress': 'FLOAT',
             'pct_share_of_women_us_congress': 'FLOAT',
+            'women_us_congress_pct_relative_inequity': 'FLOAT',
+            'total_state_leg_count': 'FLOAT',
+            'women_this_race_state_leg_count': 'FLOAT',
+            'pct_share_of_state_leg': 'FLOAT',
+            'pct_share_of_women_state_leg': 'FLOAT',
+            'women_state_leg_pct_relative_inequity': 'FLOAT',
             'population': 'FLOAT',
             'population_pct': 'FLOAT',
-            'women_us_congress_pct_relative_inequity': 'FLOAT'
         }
 
 
 # # # TEST GENERATION OF BASE DF
 @ mock.patch('datasources.cawp_time.get_state_level_fips',
-             return_value=["02", "60"])
+             return_value=FIPS_TO_TEST)
 @ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
              side_effect=_get_consecutive_time_periods)
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web', side_effect=_load_csv_as_df_from_web)
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-             side_effect=_get_test_line_items_csv_as_df)
+             side_effect=_load_csv_as_df_from_data_dir)
 @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
              return_value=get_state_fips_codes_as_df())
 @ mock.patch('ingestion.gcs_to_bq_util.fetch_json_from_web',
@@ -156,6 +185,7 @@ def testGenerateBase(
     mock_web_json: mock.MagicMock,
     mock_fips: mock.MagicMock,
     mock_data_dir_csv: mock.MagicMock,
+    mock_stateleg_tables: mock.MagicMock,
     mock_years: mock.MagicMock,
     mock_starter_fips: mock.MagicMock
 ):
@@ -177,18 +207,24 @@ def testGenerateBase(
     assert mock_web_json.call_count == 2
     assert mock_web_json.call_args_list[0][0][0] == US_CONGRESS_HISTORICAL_URL
     assert mock_web_json.call_args_list[1][0][0] == US_CONGRESS_CURRENT_URL
-    # 2 in STATE+NATIONAL scaffolds and 1 when merging US CONGRESS TOTALS columns
-    assert mock_fips.call_count == 3
+    # 2 in STATE+NATIONAL CONGRESS
+    # 2 in STATE+NATIONAL ST_LEG
+    # scaffolds and 1 when merging TOTALS columns
+    assert mock_fips.call_count == 5
     # single fetch to /data for manually downloaded CAWP numerators
-    assert mock_data_dir_csv.call_count == 1
+    # plus fetches to /data for each territory state leg table
+    assert mock_data_dir_csv.call_count == 7
     assert mock_data_dir_csv.call_args_list[0][0][1] == CAWP_LINE_ITEMS_FILE
-    # in scaffold ALL, scaffold EACH RACE, combine AIAN_API, and get_congress_totals
-    assert mock_years.call_count == 4
-    # in scaffold ALL, scaffold EACH RACE
-    assert mock_starter_fips.call_count == 2
+    # in scaffold ALL + EACH RACE X CONGRESS + STATELEG
+    # and in combine AIAN_API and get_congress_totals
+    assert mock_years.call_count == 6
+    # once per state
+    assert mock_stateleg_tables.call_count == 50
+    # in scaffold ALL + scaffold EACH RACE X CONGRESS + STATELEG
+    assert mock_starter_fips.call_count == 4
 
 
-# # TEST GENERATION OF STATE LEVEL BREAKDOWN
+# # # TEST GENERATION OF STATE LEVEL BREAKDOWN
 @mock.patch('ingestion.merge_utils.merge_current_pop_numbers',
             side_effect=_merge_current_pop_numbers)
 @ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
@@ -223,7 +259,7 @@ def testGenerateStateBreakdown(
                        check_dtype=False)
 
 
-# # TEST GENERATION OF NATIONAL BREAKDOWN
+# # # TEST GENERATION OF NATIONAL BREAKDOWN
 
 @mock.patch('ingestion.merge_utils.merge_current_pop_numbers',
             side_effect=_merge_current_pop_numbers)

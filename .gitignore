@@ -38,3 +38,4 @@ python/ingestion/build/
 python/sanity_checks/build/
 
 /scripts/.env.secrets
+python/tests/datasources/_test_cawp_time_local.py
