@@ -66,6 +66,7 @@ class GeoContext(DataSource):
         if geo_level == COUNTY_LEVEL:
             df = merge_svi_data(df)
             df = merge_county_names(df)
+            df = df.sort_values(std_col.COUNTY_FIPS_COL).reset_index(drop=True)
         if geo_level == STATE_LEVEL:
             df = add_territory_populations(df)
         if geo_level == STATE_LEVEL or geo_level == NATIONAL_LEVEL:
@@ -75,6 +76,7 @@ class GeoContext(DataSource):
             # drop unneeded cols
             df = df[[std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL,
                      std_col.POPULATION_COL]]
+            df = df.sort_values(std_col.STATE_FIPS_COL).reset_index(drop=True)
 
         return df
 
