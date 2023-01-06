@@ -1,5 +1,4 @@
 import ingestion.standardized_columns as std_col
-
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 import numpy as np
@@ -9,7 +8,7 @@ import pandas as pd  # type: ignore
 from ingestion.merge_utils import (merge_county_names, merge_state_ids)
 
 
-def format_svi(value):
+def format_svi(value: float):
     """
     Takes the RPL_THEMES column and formats it to match an expected number between 0.0 - 1.0,
     or null. If the RPL_THEMES column that is greater than 1.0, this function raises an
@@ -44,24 +43,25 @@ class GeoContext(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        for geo_level in [
-            "national",
-            "state",
-            "county"
-        ]:
+        float_cols = [std_col.POPULATION_COL]
 
-            df = self.generate_for_bq(geo_level)
+        for geo_level in ["national", "state", "county"]:
 
+            df = self.generate_breakdown(geo_level)
+
+            if geo_level == "county":
+                float_cols.append(std_col.SVI)
             column_types = gcs_to_bq_util.get_bq_column_types(
-                df, float_cols=[std_col.SVI, std_col.POPULATION_COL])
-
+                df, float_cols=float_cols)
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, f'{geo_level}', column_types=column_types)
 
-    def generate_for_bq(self, geo_level: str):
+    def generate_breakdown(self, geo_level: str):
 
         pop_df = gcs_to_bq_util.load_df_from_bigquery(
             'acs_population', f'by_age_{geo_level}')
+
+        pop_df.to_csv(f'pop-{geo_level}.csv', index=False)
 
         # only keep ALL rows
         pop_df = pop_df.loc[pop_df[std_col.AGE_COL] == std_col.ALL_VALUE]
@@ -94,6 +94,9 @@ class GeoContext(DataSource):
 
             pop_2010_df = gcs_to_bq_util.load_df_from_bigquery(
                 'acs_2010_population', 'by_age_territory')
+
+            pop_2010_df.to_csv('pop-terr.csv', index=False)
+
             # only keep ALL rows
             pop_2010_df = pop_2010_df.loc[pop_2010_df[std_col.AGE_COL]
                                           == std_col.ALL_VALUE]
@@ -111,8 +114,5 @@ class GeoContext(DataSource):
 
             df = df[[std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL,
                      std_col.POPULATION_COL]]
-
-        print(geo_level)
-        print(df)
 
         return df

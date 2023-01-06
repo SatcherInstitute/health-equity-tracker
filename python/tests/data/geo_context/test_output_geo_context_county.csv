@@ -1,5 +1,5 @@
-county_fips,county_name,svi
-01001,Autauga County,0.44
-24019,Dorchester County,0.75
-04021,Pinal County,0.86
-06007,Butte County,0.81
+county_fips,svi,population,county_name
+01001,0.44,55380.0,Autauga County
+24019,0.75,32138.0,Dorchester County
+04021,0.86,432793.0,Pinal County
+06007,0.81,225817.0,Butte County
