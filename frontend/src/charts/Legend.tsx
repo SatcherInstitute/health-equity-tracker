@@ -6,6 +6,7 @@ import { FieldRange } from "../data/utils/DatasetTypes";
 import sass from "../styles/variables.module.scss";
 import { ORDINAL } from "./utils";
 import { ScaleType } from "./mapHelpers";
+import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 const COLOR_SCALE = "color_scale";
 const DOT_SIZE_SCALE = "dot_size_scale";
 export const UNKNOWN_SCALE = "unknown_scale";
@@ -43,7 +44,7 @@ export interface LegendProps {
 }
 
 export function Legend(props: LegendProps) {
-  const isCongressCAWP = props.metric.metricId === "pct_share_of_us_congress";
+  const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId);
 
   const [ref, width] = useResponsiveWidth(
     100 /* default width during initialization */
@@ -91,7 +92,7 @@ export function Legend(props: LegendProps) {
     ];
 
     // 0 should appear first, then numbers, then "insufficient"
-    if (isCongressCAWP) legendList.reverse();
+    if (isCawp) legendList.reverse();
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
@@ -115,7 +116,7 @@ export function Legend(props: LegendProps) {
         },
         {
           name: MISSING_PLACEHOLDER_VALUES,
-          values: [{ missing: isCongressCAWP ? "0" : NO_DATA_MESSAGE }],
+          values: [{ missing: isCawp ? "0" : NO_DATA_MESSAGE }],
         },
       ],
       layout: { padding: 20, bounds: "full", align: "each" },
@@ -143,7 +144,7 @@ export function Legend(props: LegendProps) {
           name: UNKNOWN_SCALE,
           type: ORDINAL,
           domain: { data: MISSING_PLACEHOLDER_VALUES, field: "missing" },
-          range: [isCongressCAWP ? sass.mapMin : sass.unknownGrey],
+          range: [isCawp ? sass.mapMin : sass.unknownGrey],
         },
         {
           name: GREY_DOT_SCALE,
@@ -162,7 +163,7 @@ export function Legend(props: LegendProps) {
     props.legendData,
     props.sameDotSize,
     props,
-    isCongressCAWP,
+    isCawp,
   ]);
 
   return (

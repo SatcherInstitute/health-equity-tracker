@@ -33,6 +33,7 @@ import { Row } from "../data/utils/DatasetTypes";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { CAWP_DATA_TYPES } from "../data/variables/CawpProvider";
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -54,8 +55,8 @@ export function TableCard(props: TableCardProps) {
   );
 
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
-  const isCawpCongress =
-    props.variableConfig.variableId === "women_us_congress";
+
+  const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId);
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -94,7 +95,7 @@ export function TableCard(props: TableCardProps) {
     metricIds as MetricId[],
     breakdowns,
     /* variableId */ props.variableConfig.variableId,
-    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
+    /* timeView */ isCawp ? "cross_sectional" : undefined
   );
 
   const displayingCovidData = metrics
