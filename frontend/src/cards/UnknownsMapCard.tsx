@@ -2,7 +2,7 @@ import React from "react";
 import { CardContent } from "@material-ui/core";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { MetricId, VariableConfig } from "../data/config/MetricConfig";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import { Row } from "../data/utils/DatasetTypes";
 import CardWrapper from "./CardWrapper";
@@ -29,6 +29,7 @@ import { useLocation } from "react-router-dom";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
+import { CAWP_DATA_TYPES } from "../data/variables/CawpProvider";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -59,9 +60,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const metricConfig = props.variableConfig.metrics["pct_share"];
   const currentBreakdown = props.currentBreakdown;
   const breakdownString = `with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`;
-  const isCawpCongress =
-    props.variableConfig.variableId === "women_us_congress";
-
+  const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId);
   const location = useLocation();
   const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
 
@@ -87,13 +86,13 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     [metricConfig.metricId],
     mapGeoBreakdowns,
     /* variableId */ props.variableConfig.variableId,
-    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
+    /* timeView */ isCawp ? "cross_sectional" : undefined
   );
   const alertQuery = new MetricQuery(
     [metricConfig.metricId],
     alertBreakdown,
     /* variableId */ props.variableConfig.variableId,
-    /* timeView */ isCawpCongress ? "cross_sectional" : undefined
+    /* timeView */ isCawp ? "cross_sectional" : undefined
   );
 
   const { chartTitle, dataName, filename } = useCreateChartTitle(
@@ -101,6 +100,15 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     locationPhrase,
     breakdownString
   );
+
+  const isCawpStateLeg =
+    props.variableConfig.variableId === "women_state_legislatures";
+  const isCawpCongress =
+    props.variableConfig.variableId === "women_us_congress";
+
+  let countColsToAdd: MetricId[] = [];
+  if (isCawpCongress) countColsToAdd = ["women_this_race_us_congress_count"];
+  if (isCawpStateLeg) countColsToAdd = ["women_this_race_state_leg_count"];
 
   const HASH_ID: ScrollableHashId = "unknown-demographic-map";
 
@@ -267,6 +275,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   }
                   geoData={geoData}
                   filename={filename}
+                  countColsToAdd={countColsToAdd}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <div className={styles.TerritoryCirclesContainer}>
@@ -287,6 +296,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                             hideActions={true}
                             geoData={geoData}
                             overrideShapeWithCircle={true}
+                            countColsToAdd={countColsToAdd}
                           />
                         </div>
                       );

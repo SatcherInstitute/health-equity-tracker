@@ -14,7 +14,6 @@ from datasources.acs_poverty import ACSPovertyDataSource
 from datasources.uhc import UHCData
 from datasources.cdc_svi_county import CDCSviCounty
 from datasources.geo_context import GeoContext
-from datasources.cawp import CAWPData
 from datasources.cawp_time import CAWPTimeData
 from datasources.bjs_incarceration import BJSIncarcerationData
 from datasources.vera_incarceration_county import VeraIncarcerationCounty
@@ -38,7 +37,6 @@ DATA_SOURCES_DICT = {
     CDCSviCounty.get_id(): CDCSviCounty(),
     GeoContext.get_id(): GeoContext(),
     UHCData.get_id(): UHCData(),
-    CAWPData.get_id(): CAWPData(),
     CAWPTimeData.get_id(): CAWPTimeData(),
     BJSIncarcerationData.get_id(): BJSIncarcerationData(),
     VeraIncarcerationCounty.get_id(): VeraIncarcerationCounty(),
