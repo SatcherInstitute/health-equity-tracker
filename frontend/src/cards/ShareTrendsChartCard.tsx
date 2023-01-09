@@ -32,7 +32,10 @@ import AltTableView from "./ui/AltTableView";
 import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
-import { getWomenRaceLabel } from "../data/variables/CawpProvider";
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from "../data/variables/CawpProvider";
 import { Row } from "../data/utils/DatasetTypes";
 import { hasNonZeroUnknowns } from "../charts/trendsChart/helpers";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
@@ -90,9 +93,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const HASH_ID: ScrollableHashId = "inequities-over-time";
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label;
 
-  const isCawpCongress =
-    metricConfigInequitable.metricId ===
-    "women_us_congress_pct_relative_inequity";
+  const isCawp = CAWP_DETERMINANTS.includes(metricConfigInequitable.metricId);
 
   return (
     <CardWrapper
@@ -111,7 +112,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
         );
 
         // swap race labels if applicable
-        const knownInequityData = isCawpCongress
+        const knownInequityData = isCawp
           ? knownData.map((row: Row) => {
               const altRow = { ...row };
               altRow.race_and_ethnicity = getWomenRaceLabel(
@@ -137,7 +138,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             (group: DemographicGroup) => !UNKNOWN_LABELS.includes(group)
           ) as DemographicGroup[];
 
-        const demographicGroupsLabelled = isCawpCongress
+        const demographicGroupsLabelled = isCawp
           ? demographicGroups.map((group: DemographicGroup) =>
               getWomenRaceLabel(group as RaceAndEthnicityGroup)
             )
