@@ -1,10 +1,14 @@
 '''Collection of shared Airflow functionality.'''
 import os
+import pandas as pd
 import requests
 # Ignore the Airflow module, it is installed in both our dev and prod environments
-from airflow import DAG  # type: ignore
+from airflow import DAG
 from airflow.models import Variable  # type: ignore
 from airflow.operators.python_operator import PythonOperator  # type: ignore
+from google.cloud import bigquery
+
+from sanity_check import check_pct_values
 
 
 def get_required_attrs(workflow_id: str, gcs_bucket: str = None) -> dict:
@@ -112,6 +116,21 @@ def service_request(url: str, data: dict, **kwargs):
         raise Exception('Failed response code: {}'.format(err))
 
 
+def sanity_check_request(dataset_id: str):
+    bq_client = bigquery.Client()
+
+    tables = bq_client.list_tables(dataset_id)
+    for table in tables:
+        table_name = f'{table.project}.{table.dataset_id}.{table.table_id}'
+
+        query_string = f'SELECT * FROM {table_name}'
+
+        df: pd.DataFrame = bq_client.query(
+            query_string).result().to_dataframe()
+        output = check_pct_values(df)
+        return output
+
+
 def create_request_operator(task_id: str, url: str, payload: dict, dag: DAG, xcom_push: bool = True,
                             provide_context: bool = True) -> PythonOperator:
     return PythonOperator(
@@ -120,5 +139,14 @@ def create_request_operator(task_id: str, url: str, payload: dict, dag: DAG, xco
         python_callable=service_request,
         op_kwargs={'url': url, 'data': payload},
         xcom_push=xcom_push,
+        dag=dag,
+    )
+
+
+def sanity_check_operator(task_id: str, dataset_id: str, dag: DAG) -> PythonOperator:
+    return PythonOperator(
+        task_id=task_id,
+        python_callable=sanity_check_request,
+        op_kwargs={'dataset_id': dataset_id},
         dag=dag,
     )
