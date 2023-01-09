@@ -121,8 +121,7 @@ def sanity_check_request(dataset_id: str):
 
     tables = bq_client.list_tables(dataset_id)
     for table in tables:
-        table_name = "{}.{}.{}".format(
-            table.project, table.dataset_id, table.table_id)
+        table_name = f'{table.project}.{table.dataset_id}.{table.table_id}'
 
         query_string = f'SELECT * FROM {table_name}'
 
