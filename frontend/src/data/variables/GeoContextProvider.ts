@@ -4,44 +4,49 @@ import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { appendFipsIfNeeded } from "../utils/datasetutils";
 import VariableProvider from "./VariableProvider";
 
-class CdcSviProvider extends VariableProvider {
+class GeoContextProvider extends VariableProvider {
   constructor() {
-    super("cdc_svi_provider", ["svi"]);
+    super("geo_context_provider", ["svi", "population", "population_2010"]);
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    // get the state-specific county-level SVI file
-    return appendFipsIfNeeded("cdc_svi_county-age", breakdowns);
+    if (breakdowns.geography === "national") return "geo_context-national";
+    if (breakdowns.geography === "state") return "geo_context-state";
+    if (breakdowns.geography === "county")
+      return appendFipsIfNeeded("geo_context_county", breakdowns);
+
+    throw new Error(`Geography-level ${breakdowns.geography}: Not implemented`);
   }
 
   async getDataInternal(
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
+    console.log({ metricQuery });
+
     const breakdowns = metricQuery.breakdowns;
-
     const datasetId = this.getDatasetId(breakdowns);
-    const cdc_svi = await getDataManager().loadDataset(datasetId);
+    const geoContext = await getDataManager().loadDataset(datasetId);
 
-    let df = cdc_svi.toDataFrame();
+    let df = geoContext.toDataFrame();
 
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
 
     let consumedDatasetIds = [datasetId];
+    // add ACS datasetID
 
-    df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest = !breakdowns.time;
-
     return (
-      validDemographicBreakdownRequest && breakdowns.geography === "county"
+      breakdowns.geography === "county" ||
+      breakdowns.geography === "state" ||
+      breakdowns.geography === "national"
     );
   }
 }
 
-export default CdcSviProvider;
+export default GeoContextProvider;

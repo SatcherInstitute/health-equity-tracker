@@ -8,43 +8,29 @@ import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
 import { MetricId } from "../data/config/MetricConfig";
 import { ALL, RACE } from "../data/utils/Constants";
-import { onlyInclude } from "../data/query/BreakdownFilter";
 import Alert from "@material-ui/lab/Alert";
 import SviAlert from "./ui/SviAlert";
 
-export const POPULATION_BY_RACE = "Population by race and ethnicity";
-export const POPULATION_BY_AGE = "Population by age";
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 139;
 
 export interface PopulationCardProps {
   fips: Fips;
-  currentBreakdown: BreakdownVar;
 }
 
 export function PopulationCard(props: PopulationCardProps) {
-  const metricIds: MetricId[] = ACS_2010_FIPS.includes(props.fips.code)
-    ? ["population_2010", "population_pct_2010"]
-    : ["population", "population_pct"];
-
-  const POPULATION = ACS_2010_FIPS.includes(props.fips.code)
+  const populationId = ACS_2010_FIPS.includes(props.fips.code)
     ? "population_2010"
     : "population";
 
-  const raceQuery = new MetricQuery(
+  const metricIds: MetricId[] = [populationId];
+
+  const populationQuery = new MetricQuery(
     metricIds,
-    Breakdowns.forFips(props.fips).andRace(onlyInclude("All"))
+    Breakdowns.forFips(props.fips)
   );
 
-  const queries = [raceQuery];
-
-  if (props.fips.isCounty()) {
-    const sviQuery = new MetricQuery(
-      "svi",
-      Breakdowns.forFips(props.fips).andAge(onlyInclude("All"))
-    );
-    queries.push(sviQuery);
-  }
+  const queries = [populationQuery];
 
   return (
     <CardWrapper
@@ -53,17 +39,18 @@ export function PopulationCard(props: PopulationCardProps) {
       scrollToHash="location-info"
       hideNH={true}
     >
-      {([raceQueryResponse, sviQueryResponse]) => {
+      {([queryResponse]) => {
+        console.log(queryResponse);
         const svi =
           props.fips.isCounty() &&
-          sviQueryResponse.data.find((a) => a.age === ALL)?.svi;
+          queryResponse.data.map((row) => row?.["svi"]);
 
-        const totalPopulation = raceQueryResponse.data.find(
+        const totalPopulation = queryResponse.data.find(
           (r) => r?.[RACE] === ALL
         );
 
         const totalPopulationSize = totalPopulation
-          ? totalPopulation[POPULATION].toLocaleString("en")
+          ? totalPopulation[populationId].toLocaleString("en")
           : "Data Missing";
 
         return (
@@ -101,10 +88,10 @@ export function PopulationCard(props: PopulationCardProps) {
 
               <Grid className={styles.SviContainer}>
                 <Grid>
-                  {sviQueryResponse && (
+                  {queryResponse && (
                     <SviAlert
-                      svi={svi}
-                      sviQueryResponse={sviQueryResponse}
+                      svi={1}
+                      sviQueryResponse={queryResponse}
                       fips={props.fips}
                     />
                   )}
