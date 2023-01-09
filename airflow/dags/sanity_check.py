@@ -47,11 +47,11 @@ def check_pct_values(df):
     # # group and sum rows
     df = df.groupby(std_cols).sum().reset_index()
     # # filter rows that do not equal 100
-    df = df.loc[(df[share_cols].values < 99.0) | (
+    bad_fips_df = df.loc[(df[share_cols].values < 99.0) | (
         df[share_cols].values > 101.0)].drop_duplicates()
 
-    # return False if DF exists
-    if len(df) > 0:
+    # return error w/county info if DF exists
+    if len(bad_fips_df) > 0:
         raise RuntimeError(
             f'These fips percent share values do not equal 100%: {df[std_cols[0]].tolist()}')
 
