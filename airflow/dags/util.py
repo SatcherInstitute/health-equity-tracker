@@ -3,7 +3,7 @@ import os
 import pandas as pd
 import requests
 # Ignore the Airflow module, it is installed in both our dev and prod environments
-from airflow import DAG  # type: ignore
+from airflow import DAG
 from airflow.models import Variable  # type: ignore
 from airflow.operators.python_operator import PythonOperator  # type: ignore
 from google.cloud import bigquery
