@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import pytest
 import re
-import sanity_check
+from airflow.dags import sanity_check
 
 TEST_DIR = os.path.join(os.getcwd(), 'python', 'tests',
                         'data', 'sanity_checks')
