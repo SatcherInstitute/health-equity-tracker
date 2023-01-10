@@ -144,6 +144,7 @@ function MapCardWithKey(props: MapCardProps) {
   // state and county level reports require county-fips data for hover tooltips
   if (!props.fips.isUsa()) {
     const sviBreakdowns = Breakdowns.byCounty();
+    sviBreakdowns.filterFips = props.fips;
     const sviQuery = new MetricQuery(
       /* MetricId(s) */ "svi",
       /* Breakdowns */ sviBreakdowns

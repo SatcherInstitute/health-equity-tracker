@@ -65,6 +65,8 @@ describe("GeoContextProvider", () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips("78010"),
       "geo_context-county-78",
+      // TODO: currently county-equivalent population data is not being loaded from the ACS2010
+      // TODO: so the footer won't show on the population card. See #1954
       ["acs_2010_population-by_age_territory", "cdc_svi_county-age"]
     );
   });
