@@ -1,0 +1,9 @@
+state_fips,county_fips,county_name,age,population,population_pct,ingestion_ts
+01,01001,"Autauga County, Alabama",All,55380.0,100.0,2022-11-30 22:29:45.474961+00:00
+01,01003,"Baldwin County, Alabama",0-9,23747.0,11.2,2022-11-30 22:29:45.474961+00:00
+24,24019,"Dorchester County, Maryland",80+,1528.0,4.8,2022-11-30 22:29:45.474961+00:00
+24,24019,"Dorchester County, Maryland",All,32138.0,100.0,2022-11-30 22:29:45.474961+00:00
+04,04021,"Pinal County, Arizona",80+,15822.0,3.7,2022-11-30 22:29:45.474961+00:00
+04,04021,"Pinal County, Arizona",All,432793.0,100.0,2022-11-30 22:29:45.474961+00:00
+06,06007,"Butte County, California",80+,9845.0,4.4,2022-11-30 22:29:45.474961+00:00
+06,06007,"Butte County, California",All,225817.0,100.0,2022-11-30 22:29:45.474961+00:00
