@@ -13,6 +13,7 @@ from datasources.acs_health_insurance import ACSHealthInsurance
 from datasources.acs_poverty import ACSPovertyDataSource
 from datasources.uhc import UHCData
 from datasources.cdc_svi_county import CDCSviCounty
+from datasources.geo_context import GeoContext
 from datasources.cawp_time import CAWPTimeData
 from datasources.bjs_incarceration import BJSIncarcerationData
 from datasources.vera_incarceration_county import VeraIncarcerationCounty
@@ -34,6 +35,7 @@ DATA_SOURCES_DICT = {
     ACSHealthInsurance.get_id(): ACSHealthInsurance(),
     ACSPovertyDataSource.get_id(): ACSPovertyDataSource(),
     CDCSviCounty.get_id(): CDCSviCounty(),
+    GeoContext.get_id(): GeoContext(),
     UHCData.get_id(): UHCData(),
     CAWPTimeData.get_id(): CAWPTimeData(),
     BJSIncarcerationData.get_id(): BJSIncarcerationData(),
