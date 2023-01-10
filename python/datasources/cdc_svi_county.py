@@ -64,7 +64,7 @@ class CDCSviCounty(DataSource):
 
         df = merge_county_names(df)
 
-        df["svi"] = df["svi"].apply(format_svi)
+        df[std_col.SVI] = df[std_col.SVI].apply(format_svi)
 
         df[std_col.AGE_COL] = std_col.ALL_VALUE
         cols_to_keep = [*columns_to_standard.values(), std_col.AGE_COL]
