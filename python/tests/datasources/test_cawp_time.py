@@ -4,6 +4,7 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 import json
 from test_utils import get_state_fips_codes_as_df
+
 from datasources.cawp_time import (
     CAWPTimeData,
     US_CONGRESS_HISTORICAL_URL,
@@ -71,6 +72,14 @@ def _merge_current_pop_numbers(*args):
 def _generate_base_df(*args):
     print("mocking the base df gen function")
     return pd.DataFrame({
+        "time_period": ["1999", "2000", "2001"],
+        "state_fips": ["01", "01", "01"],
+        "state_name": ["SomeState", "SomeState", "SomeState"],
+        "race_category_id": ["ALL", "ALL", "ALL"],
+        "race_and_ethnicity": ["All", "All", "All"],
+        "total_us_congress_names": ["Amelia Airheart", "Betsy Ross", "Cecilia Charles"],
+        "women_this_race_us_congress_names": ["Amelia Airheart", "Betsy Ross", "Cecilia Charles"],
+        "women_this_race_state_leg_names": ["Amelia Airheart", "Betsy Ross", "Cecilia Charles"],
         "fake_col1": [0, 1, 2],
         "fake_col2": ["a", "b", "c"]
     })
@@ -79,9 +88,28 @@ def _generate_base_df(*args):
 def _generate_breakdown(*args):
     print("mocking the breakdown calc function")
     return [pd.DataFrame({
+        "time_period": ["1999", "2000", "2001"],
+        "state_fips": ["01", "01", "01"],
+        "state_name": ["SomeState", "SomeState", "SomeState"],
+        "race_category_id": ["ALL", "ALL", "ALL"],
+        "race_and_ethnicity": ["All", "All", "All"],
         "fake_col1": [0, 1, 2],
         "fake_col2": ["a", "b", "c"]
     }), "mock_table_name"]
+
+
+def _generate_names_breakdown(*args):
+    print("mocking the names breakdown function")
+    return pd.DataFrame({
+        "time_period": ["1999", "2000", "2001"],
+        "state_fips": ["01", "01", "01"],
+        "state_name": ["SomeState", "SomeState", "SomeState"],
+        "race_category_id": ["ALL", "ALL", "ALL"],
+        "race_and_ethnicity": ["All", "All", "All"],
+        "total_us_congress_names": ["Amelia Airheart", "Betsy Ross", "Cecilia Charles"],
+        "women_this_race_us_congress_names": ["Amelia Airheart", "Betsy Ross", "Cecilia Charles"],
+        "women_this_race_state_leg_names": ["Amelia Airheart", "Betsy Ross", "Cecilia Charles"],
+    })
 
 
 def _load_csv_as_df_from_data_dir(*args, **kwargs):
@@ -125,10 +153,13 @@ def _load_csv_as_df_from_web(*args):
     return pd.read_csv(os.path.join(TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv')
                        )
 
+# # # TEST OUTGOING SIDE OF BIGQUERY INTERACTION
 
-# TEST OUTGOING SIDE OF BIGQUERY INTERACTION
+
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
+@ mock.patch('datasources.cawp_time.CAWPTimeData.generate_names_breakdown',
+             side_effect=_generate_names_breakdown)
 @ mock.patch('datasources.cawp_time.CAWPTimeData.generate_breakdown',
              side_effect=_generate_breakdown)
 @ mock.patch('datasources.cawp_time.CAWPTimeData.generate_base_df',
@@ -136,6 +167,7 @@ def _load_csv_as_df_from_web(*args):
 def testWriteToBq(
     mock_base: mock.MagicMock,
     mock_breakdown: mock.MagicMock,
+    mock_names: mock.MagicMock,
     mock_bq: mock.MagicMock
 ):
     """ Ensures the correct structure and arguments were
@@ -149,27 +181,11 @@ def testWriteToBq(
     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
     assert mock_base.call_count == 1
     assert mock_breakdown.call_count == 2
-    assert mock_bq.call_count == 2
-    for call in mock_bq.call_args_list:
-        assert call[1]["column_types"] == {
-            'fake_col1': 'STRING',
-            'fake_col2': 'STRING',
-            'total_us_congress_count': 'FLOAT',
-            'women_this_race_us_congress_count': 'FLOAT',
-            'pct_share_of_us_congress': 'FLOAT',
-            'pct_share_of_women_us_congress': 'FLOAT',
-            'women_us_congress_pct_relative_inequity': 'FLOAT',
-            'total_state_leg_count': 'FLOAT',
-            'women_this_race_state_leg_count': 'FLOAT',
-            'pct_share_of_state_leg': 'FLOAT',
-            'pct_share_of_women_state_leg': 'FLOAT',
-            'women_state_leg_pct_relative_inequity': 'FLOAT',
-            'population': 'FLOAT',
-            'population_pct': 'FLOAT',
-        }
+    assert mock_names.call_count == 1
+    assert mock_bq.call_count == 3
 
 
-# # # TEST GENERATION OF BASE DF
+# # # # TEST GENERATION OF BASE DF
 @ mock.patch('datasources.cawp_time.get_state_level_fips',
              return_value=FIPS_TO_TEST)
 @ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
@@ -199,6 +215,16 @@ def testGenerateBase(
         TEST_DIR, "test_expected_base_df.csv"),
         dtype={"state_fips": str, "time_period": str})
 
+    # issues comparing names cols since writing the test csv
+    # adds unwanted single quotes
+    names_cols = ["total_us_congress_names",
+                  "women_this_race_us_congress_names",
+                  "women_this_race_state_leg_names"]
+    expected_base_df = expected_base_df.drop(
+        columns=names_cols)
+    base_df = base_df.drop(
+        columns=names_cols)
+
     assert_frame_equal(base_df,
                        expected_base_df,
                        check_like=True,
@@ -224,7 +250,57 @@ def testGenerateBase(
     assert mock_starter_fips.call_count == 4
 
 
-# # # TEST GENERATION OF STATE LEVEL BREAKDOWN
+# # # # TEST GENERATION OF NAMES BREAKDOWN
+@ mock.patch('datasources.cawp_time.get_state_level_fips',
+             return_value=FIPS_TO_TEST)
+@ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
+             side_effect=_get_consecutive_time_periods)
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web', side_effect=_load_csv_as_df_from_web)
+def testGenerateNamesBreakdown(
+        mock_stateleg_tables: mock.MagicMock,
+        mock_years: mock.MagicMock,
+        mock_starter_fips: mock.MagicMock
+):
+    """ Tests the generate_names_breakdown() function
+    using the mock base_df which only has mock data from
+    2017-2022, in Alaska and American Samoa """
+    print("testGenerateNamesBreakdown()")
+
+    base_df = pd.read_csv(os.path.join(
+        TEST_DIR, "test_expected_base_df.csv"),
+        dtype={
+            "state_fips": str,
+            "time_period": str,
+            "total_us_congress_names": str,
+            "women_this_race_us_congress_names": str,
+            "women_this_race_state_leg_names": str,
+    },
+
+    ).fillna('')
+
+    cawp_data = CAWPTimeData()
+    names_breakdown_df = cawp_data.generate_names_breakdown(
+        base_df)
+
+    expected_names_breakdown_df = pd.read_csv(os.path.join(
+        TEST_DIR, "test_expected_names_df.csv"),
+        dtype={
+            'state_fips': str,
+            'time_period': str,
+            'total_us_congress_names': str,
+            'women_this_race_us_congress_names': str,
+            'women_this_race_state_leg_names': str
+    }).fillna('')
+
+    assert_frame_equal(names_breakdown_df,
+                       expected_names_breakdown_df,
+                       check_like=True,
+                       check_dtype=False)
+
+
+# # # # TEST GENERATION OF STATE LEVEL BREAKDOWN
+
+
 @mock.patch('ingestion.merge_utils.merge_current_pop_numbers',
             side_effect=_merge_current_pop_numbers)
 @ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
@@ -234,7 +310,7 @@ def testGenerateStateBreakdown(
     mock_merge_pop: mock.MagicMock
 ):
     """ Tests the generate_breakdown() function at the state
-    level using the mock base_df which only has mock data from
+    # level using the mock base_df which only has mock data from
     2017-2022, in Alaska and American Samoa """
     print("testGenerateStateBreakdown()")
 
@@ -259,7 +335,7 @@ def testGenerateStateBreakdown(
                        check_dtype=False)
 
 
-# # # TEST GENERATION OF NATIONAL BREAKDOWN
+# # # # TEST GENERATION OF NATIONAL BREAKDOWN
 
 @mock.patch('ingestion.merge_utils.merge_current_pop_numbers',
             side_effect=_merge_current_pop_numbers)

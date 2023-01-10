@@ -110,6 +110,8 @@ MERGE_COLS = [
 
 POSITION_LABELS = {
     CONGRESS: {"U.S. Representative": "U.S. Rep.",
+               "rep": "U.S. Rep.",
+               "sen": "U.S. Sen.",
                "U.S. Senator": "U.S. Sen.",
                "U.S. Delegate": "U.S. Del."},
     STATE_LEG: {"State Representative": "State Rep.",
@@ -135,14 +137,17 @@ class CAWPTimeData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         base_df = self.generate_base_df()
+        df_names = base_df.copy()
+        df_names = self.generate_names_breakdown(df_names)
+        column_types = gcs_to_bq_util.get_bq_column_types(df_names, [])
+        gcs_to_bq_util.add_df_to_bq(df_names,
+                                    dataset,
+                                    'race_and_ethnicity_state_time_series_names_std',
+                                    column_types=column_types)
 
-        for geo_level in [
-            STATE_LEVEL,
-            NATIONAL_LEVEL
-        ]:
+        for geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
             df = base_df.copy()
             df, bq_table_name = self.generate_breakdown(df, geo_level)
-
             float_cols = [
                 std_col.CONGRESS_COUNT,
                 std_col.W_THIS_RACE_CONGRESS_COUNT,
@@ -192,16 +197,40 @@ class CAWPTimeData(DataSource):
         # combine ROWS together from ALLS ROWS and BY RACES rows
         df = pd.concat([df_alls_rows, df_by_races_rows])
 
-        df = df.sort_values(
-            by=MERGE_COLS).reset_index(drop=True)
+        # standardize race labels
+        df[std_col.RACE_CATEGORY_ID_COL] = df[RACE_ETH].apply(
+            lambda x: "ALL" if x == Race.ALL.value else CAWP_RACE_GROUPS_TO_STANDARD.get(x, x))
+        std_col.add_race_columns_from_category_id(df)
+        df = df.drop(columns=[RACE_ETH])
 
-        df = df.drop(
-            [std_col.CONGRESS_NAMES,
-             std_col.W_ALL_RACES_CONGRESS_NAMES,
-             std_col.W_THIS_RACE_CONGRESS_NAMES,
-             std_col.W_ALL_RACES_STLEG_NAMES,
-             std_col.W_THIS_RACE_STLEG_NAMES
-             ], axis=1)
+        df = df.sort_values(by=[
+            std_col.TIME_PERIOD_COL,
+            *STATE_COLS,
+            std_col.RACE_OR_HISPANIC_COL
+        ]).reset_index(drop=True)
+
+        df = df.drop([
+            std_col.W_ALL_RACES_CONGRESS_NAMES,
+            std_col.W_ALL_RACES_STLEG_NAMES,
+        ], axis=1)
+
+        names_cols = [std_col.CONGRESS_NAMES,
+                      std_col.W_THIS_RACE_CONGRESS_NAMES, std_col.W_THIS_RACE_STLEG_NAMES]
+
+        # replace null name lists with empty list and then convert existing lists into list-like strings
+        for col in names_cols:
+            df[col].loc[df[col].isnull()] = df[col].loc[df[col].isnull()
+                                                        ].apply(lambda x: [])
+            df[col] = [','.join(map(str, item)) for item in df[col]]
+
+        # remove brackets and inner quotes, leaving just comma separated names
+        df[names_cols] = df[names_cols].replace(
+            ["'", "[", "]"], "")
+
+        # we only need TOTAL CONGRESS names once, since they're the same for every race breakdown,
+        # so keep them only on the ALL race and null everything else
+        df[std_col.CONGRESS_NAMES].loc[df[std_col.RACE_CATEGORY_ID_COL]
+                                       != Race.ALL.value] = None
 
         return df
 
@@ -221,6 +250,14 @@ class CAWPTimeData(DataSource):
             bq_table_name: string name used for writing each breakdown to bq """
 
         df = _df.copy()
+
+        # we don't need the names columns anymore
+        df = df.drop([
+            std_col.CONGRESS_NAMES,
+            std_col.W_THIS_RACE_CONGRESS_NAMES,
+            std_col.W_THIS_RACE_STLEG_NAMES
+        ], axis=1)
+
         if geo_level == NATIONAL_LEVEL:
             df = combine_states_to_national(df)
 
@@ -240,12 +277,6 @@ class CAWPTimeData(DataSource):
         # drop the ALL WOMEN counts since that data is available on the "All" race rows
         df = df.drop(
             columns=[std_col.W_ALL_RACES_CONGRESS_COUNT, std_col.W_ALL_RACES_STLEG_COUNT])
-
-        # standardize race labels
-        df[std_col.RACE_CATEGORY_ID_COL] = df[RACE_ETH].apply(
-            lambda x: "ALL" if x == Race.ALL.value else CAWP_RACE_GROUPS_TO_STANDARD.get(x, x))
-        std_col.add_race_columns_from_category_id(df)
-        df = df.drop(columns=[RACE_ETH])
 
         # TODO: expand this once we have pop. info prior to 2019
         target_time_periods = get_consecutive_time_periods(
@@ -288,11 +319,33 @@ class CAWPTimeData(DataSource):
         # we will only use AIAN_API for the disparity bar chart and
         # pct_relative_inequity calculations
         df.loc[df[std_col.RACE_CATEGORY_ID_COL]
-               == Race.AIAN_API][std_col.PCT_OF_CONGRESS] = None
+               == Race.AIAN_API.value][std_col.PCT_OF_CONGRESS] = None
         df.loc[df[std_col.RACE_CATEGORY_ID_COL]
-               == Race.AIAN_API][std_col.PCT_OF_STLEG] = None
+               == Race.AIAN_API.value][std_col.PCT_OF_STLEG] = None
 
         return [df, bq_table_name]
+
+    def generate_names_breakdown(self, df: pd.DataFrame):
+        """ Create the state-level, names-only df which will be available for download
+        but not displayed on the tracker
+
+        Parameters:
+            df: The generate_base_df created previously that contains columns
+                for both _counts and _names along with year and state info
+        Returns:
+            the same df with the _counts removed, only the _names, state
+                and year cols remaining """
+
+        df = df[[std_col.TIME_PERIOD_COL,
+                 std_col.STATE_FIPS_COL,
+                 std_col.STATE_NAME_COL,
+                 std_col.RACE_CATEGORY_ID_COL,
+                 std_col.RACE_OR_HISPANIC_COL,
+                 std_col.CONGRESS_NAMES,
+                 std_col.W_THIS_RACE_CONGRESS_NAMES,
+                 std_col.W_THIS_RACE_STLEG_NAMES]]
+
+        return df
 
 
 # HELPER FUNCTIONS
@@ -354,7 +407,9 @@ def get_us_congress_totals_df():
             # and each year of each term
             for year in term_years:
                 year = str(year)
-                title = f'{term[TYPE].capitalize()}.' if term[STATE] not in TERRITORY_POSTALS else "Del."
+                title = (f'{POSITION_LABELS[CONGRESS][term[TYPE]]}'
+                         if term[STATE] not in TERRITORY_POSTALS
+                         else "U.S. Del.")
                 full_name = f'{title} {legislator[NAME][FIRST]} {legislator[NAME][LAST]}'
                 entry = {
                     ID: legislator[ID]["govtrack"],
@@ -377,6 +432,7 @@ def get_us_congress_totals_df():
         [std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])[NAME].apply(list).reset_index()
     df = df.rename(columns={
         NAME: std_col.CONGRESS_NAMES})
+
     # get counts of all TOTAL members in lists per row
     df[std_col.CONGRESS_COUNT] = df[std_col.CONGRESS_NAMES].apply(
         lambda list: len(list)).astype(float)
@@ -566,7 +622,7 @@ def get_state_leg_totals_df():
         # half of the year column that CAWP incorrectly splits over two cols
         state_df["10"] = state_df["10"].astype(str).replace(
             r'\D', '', regex=True).astype(int)
-        # if a number is < 1800 is a buggy index value, if it's > then it's a year
+        # if a number is < 1800  is a buggy index value, if it's > then it's a year
         df_leftIndex = state_df[state_df["10"] < 1800]
         df_rightIndex = state_df[state_df["10"] >= 1800]
         df_rightIndex = df_rightIndex.shift(periods=1, axis="columns")
@@ -617,7 +673,8 @@ def combine_states_to_national(df):
     state_cols = [*STATE_COLS]
     groupby_cols = [
         std_col.TIME_PERIOD_COL,
-        RACE_ETH
+        std_col.RACE_CATEGORY_ID_COL,
+        std_col.RACE_OR_HISPANIC_COL
     ]
     df_counts = df.copy().drop(state_cols, axis=1)
     df_counts = df_counts.groupby(groupby_cols, as_index=False)[
