@@ -52,7 +52,7 @@ class Acs2010PopulationProvider extends VariableProvider {
     );
     let acs2010DataFrame = acs2010Dataset.toDataFrame();
 
-    // If requested, filter geography by state or coacs2010ty level
+    // If requested, filter geography by state or county level
     // We apply the geo filter right away to reduce subsequent calculation times
     acs2010DataFrame = this.filterByGeo(acs2010DataFrame, breakdowns);
     acs2010DataFrame = this.renameGeoColumns(acs2010DataFrame, breakdowns);

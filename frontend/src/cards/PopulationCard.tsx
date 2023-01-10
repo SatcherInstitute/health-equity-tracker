@@ -1,13 +1,12 @@
 import React from "react";
 import CardWrapper from "./CardWrapper";
-import { Breakdowns, BreakdownVar } from "../data/query/Breakdowns";
+import { Breakdowns } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { Fips, ACS_2010_FIPS } from "../data/utils/Fips";
+import { Fips } from "../data/utils/Fips";
 import { CardContent } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
 import { MetricId } from "../data/config/MetricConfig";
-import { ALL, RACE } from "../data/utils/Constants";
 import Alert from "@material-ui/lab/Alert";
 import SviAlert from "./ui/SviAlert";
 
@@ -19,18 +18,10 @@ export interface PopulationCardProps {
 }
 
 export function PopulationCard(props: PopulationCardProps) {
-  const populationId = ACS_2010_FIPS.includes(props.fips.code)
-    ? "population_2010"
-    : "population";
-
-  const metricIds: MetricId[] = [populationId];
-
-  const populationQuery = new MetricQuery(
-    metricIds,
-    Breakdowns.forFips(props.fips)
-  );
-
-  const queries = [populationQuery];
+  const metricIds: MetricId[] = ["svi", "population"];
+  const breakdown = Breakdowns.forFips(props.fips);
+  const query = new MetricQuery(metricIds, breakdown);
+  const queries = [query];
 
   return (
     <CardWrapper
@@ -40,18 +31,9 @@ export function PopulationCard(props: PopulationCardProps) {
       hideNH={true}
     >
       {([queryResponse]) => {
-        console.log(queryResponse);
-        const svi =
-          props.fips.isCounty() &&
-          queryResponse.data.map((row) => row?.["svi"]);
-
-        const totalPopulation = queryResponse.data.find(
-          (r) => r?.[RACE] === ALL
-        );
-
-        const totalPopulationSize = totalPopulation
-          ? totalPopulation[populationId].toLocaleString("en")
-          : "Data Missing";
+        const { population, svi } = queryResponse?.data?.[0] ?? {};
+        const totalPopulationSize =
+          population?.toLocaleString("en") ?? "Data Missing";
 
         return (
           <CardContent className={styles.PopulationCardContent}>
@@ -88,9 +70,9 @@ export function PopulationCard(props: PopulationCardProps) {
 
               <Grid className={styles.SviContainer}>
                 <Grid>
-                  {queryResponse && (
+                  {props.fips.isCounty() && (
                     <SviAlert
-                      svi={1}
+                      svi={svi}
                       sviQueryResponse={queryResponse}
                       fips={props.fips}
                     />

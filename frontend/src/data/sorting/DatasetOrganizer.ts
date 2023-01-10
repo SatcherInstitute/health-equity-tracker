@@ -25,7 +25,10 @@ export class DatasetOrganizer {
   ) {
     this.breakdowns = breakdowns;
     this.data = data;
-    this.reorderingColumn = breakdowns.getSoleDemographicBreakdown().columnName;
+    // if there isn't a demographic breakdown column to sort on (like in GeoContext), instead sort on the FIPS column
+    this.reorderingColumn = breakdowns.hasNoDemographicBreakdown()
+      ? "fips"
+      : breakdowns.getSoleDemographicBreakdown().columnName;
     this.sortStrategies = [
       new AlphabeticalSorterStrategy(
         this.reorderingColumn,
