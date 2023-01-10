@@ -6,7 +6,7 @@ import VariableProvider from "./VariableProvider";
 
 class GeoContextProvider extends VariableProvider {
   constructor() {
-    super("geo_context_provider", ["svi", "population", "population_2010"]);
+    super("geo_context_provider", ["svi", "population"]);
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
@@ -40,18 +40,17 @@ class GeoContextProvider extends VariableProvider {
         ? "acs_2010_population-by_age_territory"
         : "acs_population-by_age_state",
       national: "acs_population-by_age_national",
-      // unused
+      // next entries are unused
       "state/territory": isAcs2010
         ? "acs_2010_population-by_age_territory"
         : "acs_population-by_age_state",
       territory: "acs_2010_population-by_age_territory",
     };
 
+    //  determine the consumed ACS and SVI datasets
     const consumedDatasetIds = [geographyToACSDatasetMap[breakdowns.geography]];
     if (breakdowns.geography === "county")
       consumedDatasetIds.push("cdc_svi_county-age");
-
-    // add ACS datasetID
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
