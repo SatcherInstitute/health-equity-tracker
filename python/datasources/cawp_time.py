@@ -325,7 +325,16 @@ class CAWPTimeData(DataSource):
 
         return [df, bq_table_name]
 
-    def generate_names_breakdown(self, df):
+    def generate_names_breakdown(self, df: pd.DataFrame):
+        """ Create the names-only df which will be available for download
+        but not displayed on the tracker
+
+        Parameters:
+            df: The generate_base_df created previously that contains columns
+                for both _counts and _names along with year and state info
+        Returns:
+            the same df with the _counts removed, only the _names, state
+                and year cols remaining """
 
         df = df[[std_col.TIME_PERIOD_COL,
                  std_col.STATE_FIPS_COL,
