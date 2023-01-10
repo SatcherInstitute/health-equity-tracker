@@ -87,14 +87,14 @@ def merge_svi_data(df):
     Parameters:
         df: county level df containing a "county_fips" column
     Returns:
-        original df with added "svi" column of floats
+        original df with added std_col.SVI column of floats
     """
     svi_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
         'cdc_svi_county', "cdc_svi_county_totals.csv", dtype={'FIPS': str})
     columns_to_standard = {"FIPS": std_col.COUNTY_FIPS_COL,
                            "RPL_THEMES": std_col.SVI}
     svi_df = svi_df.rename(columns=columns_to_standard)
-    svi_df["svi"] = svi_df["svi"].apply(format_svi)
+    svi_df[std_col.SVI] = svi_df[std_col.SVI].apply(format_svi)
     cols_to_keep = columns_to_standard.values()
     svi_df = svi_df[cols_to_keep]
     df = df[[std_col.COUNTY_FIPS_COL,

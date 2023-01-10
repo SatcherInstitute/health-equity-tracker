@@ -38,10 +38,6 @@ def _get_svi_as_df():
     return pd.read_csv(os.path.join(TEST_DIR, 'cdc_svi_county_test.csv'), dtype={"FIPS": str})
 
 
-# def _get_full_svi_as_df():
-#     return pd.read_csv(os.path.join(REAL_SVI_DIR, 'cdc_svi_county_totals.csv'), dtype={"FIPS": str})
-
-
 def get_county_names():
     return pd.read_csv(os.path.join(TEST_DIR, 'county_names.csv'), dtype={"county_fips_code": str})
 
