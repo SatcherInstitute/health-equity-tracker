@@ -1,0 +1,109 @@
+time_period,state_fips,state_name,race_category_id,race_and_ethnicity,total_us_congress_names,women_this_race_us_congress_names,women_this_race_state_leg_names
+2018,02,Alaska,ALL,All,"U.S. Rep. Don Young,U.S. Sen. Lisa Murkowski,U.S. Sen. Dan Sullivan",U.S. Sen. Lisa Murkowski,"State Sen. Mia Costello,State Rep. Harriet Drummond,State Sen. Berta Gardner,State Sen. Cathy Giessel,State Sen. Shelley Hughes,State Rep. DeLena Johnson,State Rep. Jennifer Johnston,State Rep. Gabrielle LeDoux,State Sen. Anna MacKinnon,State Rep. Charisse Millett,State Rep. Lora Reinbold,State Rep. Ivy Spohnholz,State Rep. Louise Stutes,State Rep. Colleen Sullivan-Leonard,State Rep. Geran Tarr,State Rep. Cathy Tilton,State Sen. Natasha Von Imhof,State Rep. Tammie Wilson,State Rep. Tiffany Zulkosky"
+2018,02,Alaska,ASIAN_PAC,Asian American & Pacific Islander,,,
+2018,02,Alaska,BLACK,Black or African American,,,
+2018,02,Alaska,HISP,Hispanic or Latino,,,
+2018,02,Alaska,MENA,Middle Eastern & North African,,,
+2018,02,Alaska,AIANNH,"Native American, Alaska Native, & Native Hawaiian",,,"State Rep. Charisse Millett,State Rep. Tiffany Zulkosky"
+2018,02,Alaska,MULTI,Two or more races,,,
+2018,02,Alaska,UNKNOWN,Unknown race,,,
+2018,02,Alaska,OTHER_STANDARD,Unrepresented race,,,
+2018,02,Alaska,WHITE,White,,U.S. Sen. Lisa Murkowski,"State Sen. Mia Costello,State Rep. Harriet Drummond,State Sen. Berta Gardner,State Sen. Cathy Giessel,State Sen. Shelley Hughes,State Rep. DeLena Johnson,State Rep. Jennifer Johnston,State Rep. Gabrielle LeDoux,State Sen. Anna MacKinnon,State Rep. Lora Reinbold,State Rep. Ivy Spohnholz,State Rep. Louise Stutes,State Rep. Colleen Sullivan-Leonard,State Rep. Geran Tarr,State Rep. Cathy Tilton,State Sen. Natasha Von Imhof,State Rep. Tammie Wilson"
+2018,60,American Samoa,ALL,All,U.S. Del. Aumua Amata Radewagen,U.S. Del. Aumua Coleman Radewagen,"Sen. Fonoti Aufata,Rep. Fialupe Lutu,Rep. Vui Saulo"
+2018,60,American Samoa,ASIAN_PAC,Asian American & Pacific Islander,,U.S. Del. Aumua Coleman Radewagen,"Sen. Fonoti Aufata,Rep. Fialupe Lutu,Rep. Vui Saulo"
+2018,60,American Samoa,BLACK,Black or African American,,,
+2018,60,American Samoa,HISP,Hispanic or Latino,,,
+2018,60,American Samoa,MENA,Middle Eastern & North African,,,
+2018,60,American Samoa,AIANNH,"Native American, Alaska Native, & Native Hawaiian",,,
+2018,60,American Samoa,MULTI,Two or more races,,,
+2018,60,American Samoa,UNKNOWN,Unknown race,,,
+2018,60,American Samoa,OTHER_STANDARD,Unrepresented race,,,
+2018,60,American Samoa,WHITE,White,,,
+2019,02,Alaska,ALL,All,"U.S. Rep. Don Young,U.S. Sen. Lisa Murkowski,U.S. Sen. Dan Sullivan",U.S. Sen. Lisa Murkowski,"State Sen. Mia Costello,State Rep. Harriet Drummond,State Sen. Cathy Giessel,State Sen. Elvi Gray-Jackson,State Rep. Sara Hannan,State Sen. Shelley Hughes,State Rep. Sharon Jackson,State Rep. DeLena Johnson,State Rep. Jennifer Johnston,State Rep. Gabrielle LeDoux,State Rep. Kelly Merrick,State Rep. Sara Rasmussen,State Sen. Lora Reinbold,State Rep. Ivy Spohnholz,State Rep. Andi Story,State Rep. Louise Stutes,State Rep. Colleen Sullivan-Leonard,State Rep. Geran Tarr,State Rep. Cathy Tilton,State Rep. Sarah Vance,State Sen. Natasha Von Imhof,State Rep. Tammie Wilson,State Rep. Tiffany Zulkosky"
+2019,02,Alaska,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,State Rep. Tiffany Zulkosky
+2019,02,Alaska,ASIAN_PAC,Asian American & Pacific Islander,,,
+2019,02,Alaska,BLACK,Black or African American,,,"State Sen. Elvi Gray-Jackson,State Rep. Sharon Jackson"
+2019,02,Alaska,HISP,Hispanic or Latino,,,
+2019,02,Alaska,MENA,Middle Eastern & North African,,,
+2019,02,Alaska,AIANNH,"Native American, Alaska Native, & Native Hawaiian",,,State Rep. Tiffany Zulkosky
+2019,02,Alaska,MULTI,Two or more races,,,
+2019,02,Alaska,UNKNOWN,Unknown race,,,
+2019,02,Alaska,OTHER_STANDARD,Unrepresented race,,,
+2019,02,Alaska,WHITE,White,,U.S. Sen. Lisa Murkowski,"State Sen. Mia Costello,State Rep. Harriet Drummond,State Sen. Cathy Giessel,State Rep. Sara Hannan,State Sen. Shelley Hughes,State Rep. DeLena Johnson,State Rep. Jennifer Johnston,State Rep. Gabrielle LeDoux,State Rep. Kelly Merrick,State Rep. Sara Rasmussen,State Sen. Lora Reinbold,State Rep. Ivy Spohnholz,State Rep. Andi Story,State Rep. Louise Stutes,State Rep. Colleen Sullivan-Leonard,State Rep. Geran Tarr,State Rep. Cathy Tilton,State Rep. Sarah Vance,State Sen. Natasha Von Imhof,State Rep. Tammie Wilson"
+2019,60,American Samoa,ALL,All,U.S. Del. Aumua Amata Radewagen,U.S. Del. Aumua Coleman Radewagen,"Sen. Fonoti Aufata,Rep. Andra Samoa"
+2019,60,American Samoa,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,U.S. Del. Aumua Coleman Radewagen,Sen. Fonoti Aufata
+2019,60,American Samoa,ASIAN_PAC,Asian American & Pacific Islander,,U.S. Del. Aumua Coleman Radewagen,Sen. Fonoti Aufata
+2019,60,American Samoa,BLACK,Black or African American,,,
+2019,60,American Samoa,HISP,Hispanic or Latino,,,
+2019,60,American Samoa,MENA,Middle Eastern & North African,,,
+2019,60,American Samoa,AIANNH,"Native American, Alaska Native, & Native Hawaiian",,,
+2019,60,American Samoa,MULTI,Two or more races,,,
+2019,60,American Samoa,UNKNOWN,Unknown race,,,Rep. Andra Samoa
+2019,60,American Samoa,OTHER_STANDARD,Unrepresented race,,,
+2019,60,American Samoa,WHITE,White,,,
+2020,02,Alaska,ALL,All,"U.S. Rep. Don Young,U.S. Sen. Lisa Murkowski,U.S. Sen. Dan Sullivan",U.S. Sen. Lisa Murkowski,"State Sen. Mia Costello,State Rep. Harriet Drummond,State Sen. Cathy Giessel,State Sen. Elvi Gray-Jackson,State Rep. Sara Hannan,State Sen. Shelley Hughes,State Rep. Sharon Jackson,State Rep. DeLena Johnson,State Rep. Jennifer Johnston,State Rep. Gabrielle LeDoux,State Rep. Kelly Merrick,State Rep. Sara Rasmussen,State Sen. Lora Reinbold,State Rep. Ivy Spohnholz,State Rep. Andi Story,State Rep. Louise Stutes,State Rep. Colleen Sullivan-Leonard,State Rep. Geran Tarr,State Rep. Cathy Tilton,State Rep. Sarah Vance,State Sen. Natasha Von Imhof,State Rep. Tammie Wilson,State Rep. Tiffany Zulkosky"
+2020,02,Alaska,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,State Rep. Tiffany Zulkosky
+2020,02,Alaska,ASIAN_PAC,Asian American & Pacific Islander,,,
+2020,02,Alaska,BLACK,Black or African American,,,"State Sen. Elvi Gray-Jackson,State Rep. Sharon Jackson"
+2020,02,Alaska,HISP,Hispanic or Latino,,,
+2020,02,Alaska,MENA,Middle Eastern & North African,,,
+2020,02,Alaska,AIANNH,"Native American, Alaska Native, & Native Hawaiian",,,State Rep. Tiffany Zulkosky
+2020,02,Alaska,MULTI,Two or more races,,,
+2020,02,Alaska,UNKNOWN,Unknown race,,,
+2020,02,Alaska,OTHER_STANDARD,Unrepresented race,,,
+2020,02,Alaska,WHITE,White,,U.S. Sen. Lisa Murkowski,"State Sen. Mia Costello,State Rep. Harriet Drummond,State Sen. Cathy Giessel,State Rep. Sara Hannan,State Sen. Shelley Hughes,State Rep. DeLena Johnson,State Rep. Jennifer Johnston,State Rep. Gabrielle LeDoux,State Rep. Kelly Merrick,State Rep. Sara Rasmussen,State Sen. Lora Reinbold,State Rep. Ivy Spohnholz,State Rep. Andi Story,State Rep. Louise Stutes,State Rep. Colleen Sullivan-Leonard,State Rep. Geran Tarr,State Rep. Cathy Tilton,State Rep. Sarah Vance,State Sen. Natasha Von Imhof,State Rep. Tammie Wilson"
+2020,60,American Samoa,ALL,All,U.S. Del. Aumua Amata Radewagen,U.S. Del. Aumua Coleman Radewagen,"Sen. Fonoti Aufata,Rep. Andra Samoa"
+2020,60,American Samoa,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,U.S. Del. Aumua Coleman Radewagen,Sen. Fonoti Aufata
+2020,60,American Samoa,ASIAN_PAC,Asian American & Pacific Islander,,U.S. Del. Aumua Coleman Radewagen,Sen. Fonoti Aufata
+2020,60,American Samoa,BLACK,Black or African American,,,
+2020,60,American Samoa,HISP,Hispanic or Latino,,,
+2020,60,American Samoa,MENA,Middle Eastern & North African,,,
+2020,60,American Samoa,AIANNH,"Native American, Alaska Native, & Native Hawaiian",,,
+2020,60,American Samoa,MULTI,Two or more races,,,
+2020,60,American Samoa,UNKNOWN,Unknown race,,,Rep. Andra Samoa
+2020,60,American Samoa,OTHER_STANDARD,Unrepresented race,,,
+2020,60,American Samoa,WHITE,White,,,
+2021,02,Alaska,ALL,All,"U.S. Rep. Don Young,U.S. Sen. Lisa Murkowski,U.S. Sen. Dan Sullivan",U.S. Sen. Lisa Murkowski,"State Sen. Mia Costello,State Rep. Harriet Drummond,State Sen. Elvi Gray-Jackson,State Rep. Sara Hannan,State Sen. Shelley Hughes,State Rep. DeLena Johnson,State Rep. Kelly Merrick,State Rep. Sara Rasmussen,State Sen. Lora Reinbold,State Rep. Liz Snyder,State Rep. Ivy Spohnholz,State Rep. Andi Story,State Rep. Louise Stutes,State Rep. Geran Tarr,State Rep. Cathy Tilton,State Rep. Sarah Vance,State Sen. Natasha Von Imhof,State Rep. Tiffany Zulkosky"
+2021,02,Alaska,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,State Rep. Tiffany Zulkosky
+2021,02,Alaska,ASIAN_PAC,Asian American & Pacific Islander,,,
+2021,02,Alaska,BLACK,Black or African American,,,State Sen. Elvi Gray-Jackson
+2021,02,Alaska,HISP,Hispanic or Latino,,,
+2021,02,Alaska,MENA,Middle Eastern & North African,,,
+2021,02,Alaska,AIANNH,"Native American, Alaska Native, & Native Hawaiian",,,State Rep. Tiffany Zulkosky
+2021,02,Alaska,MULTI,Two or more races,,,
+2021,02,Alaska,UNKNOWN,Unknown race,,,
+2021,02,Alaska,OTHER_STANDARD,Unrepresented race,,,
+2021,02,Alaska,WHITE,White,,U.S. Sen. Lisa Murkowski,"State Sen. Mia Costello,State Rep. Harriet Drummond,State Rep. Sara Hannan,State Sen. Shelley Hughes,State Rep. DeLena Johnson,State Rep. Kelly Merrick,State Rep. Sara Rasmussen,State Sen. Lora Reinbold,State Rep. Liz Snyder,State Rep. Ivy Spohnholz,State Rep. Andi Story,State Rep. Louise Stutes,State Rep. Geran Tarr,State Rep. Cathy Tilton,State Rep. Sarah Vance,State Sen. Natasha Von Imhof"
+2021,60,American Samoa,ALL,All,U.S. Del. Aumua Amata Radewagen,U.S. Del. Aumua Coleman Radewagen,"Sen. Fonoti Aufata,Rep. Andra Samoa"
+2021,60,American Samoa,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,U.S. Del. Aumua Coleman Radewagen,Sen. Fonoti Aufata
+2021,60,American Samoa,ASIAN_PAC,Asian American & Pacific Islander,,U.S. Del. Aumua Coleman Radewagen,Sen. Fonoti Aufata
+2021,60,American Samoa,BLACK,Black or African American,,,
+2021,60,American Samoa,HISP,Hispanic or Latino,,,
+2021,60,American Samoa,MENA,Middle Eastern & North African,,,
+2021,60,American Samoa,AIANNH,"Native American, Alaska Native, & Native Hawaiian",,,
+2021,60,American Samoa,MULTI,Two or more races,,,
+2021,60,American Samoa,UNKNOWN,Unknown race,,,Rep. Andra Samoa
+2021,60,American Samoa,OTHER_STANDARD,Unrepresented race,,,
+2021,60,American Samoa,WHITE,White,,,
+2022,02,Alaska,ALL,All,"U.S. Rep. Don Young,U.S. Sen. Lisa Murkowski,U.S. Sen. Dan Sullivan,U.S. Rep. Mary Peltola","U.S. Sen. Lisa Murkowski,U.S. Rep. Mary Peltola","State Sen. Mia Costello,State Rep. Harriet Drummond,State Sen. Elvi Gray-Jackson,State Rep. Sara Hannan,State Sen. Shelley Hughes,State Rep. DeLena Johnson,State Rep. Kelly Merrick,State Rep. Sara Rasmussen,State Sen. Lora Reinbold,State Rep. Liz Snyder,State Rep. Ivy Spohnholz,State Rep. Andi Story,State Rep. Louise Stutes,State Rep. Geran Tarr,State Rep. Cathy Tilton,State Rep. Sarah Vance,State Sen. Natasha Von Imhof,State Rep. Tiffany Zulkosky"
+2022,02,Alaska,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,U.S. Rep. Mary Peltola,State Rep. Tiffany Zulkosky
+2022,02,Alaska,ASIAN_PAC,Asian American & Pacific Islander,,,
+2022,02,Alaska,BLACK,Black or African American,,,State Sen. Elvi Gray-Jackson
+2022,02,Alaska,HISP,Hispanic or Latino,,,
+2022,02,Alaska,MENA,Middle Eastern & North African,,,
+2022,02,Alaska,AIANNH,"Native American, Alaska Native, & Native Hawaiian",,U.S. Rep. Mary Peltola,State Rep. Tiffany Zulkosky
+2022,02,Alaska,MULTI,Two or more races,,,
+2022,02,Alaska,UNKNOWN,Unknown race,,,
+2022,02,Alaska,OTHER_STANDARD,Unrepresented race,,,
+2022,02,Alaska,WHITE,White,,U.S. Sen. Lisa Murkowski,"State Sen. Mia Costello,State Rep. Harriet Drummond,State Rep. Sara Hannan,State Sen. Shelley Hughes,State Rep. DeLena Johnson,State Rep. Kelly Merrick,State Rep. Sara Rasmussen,State Sen. Lora Reinbold,State Rep. Liz Snyder,State Rep. Ivy Spohnholz,State Rep. Andi Story,State Rep. Louise Stutes,State Rep. Geran Tarr,State Rep. Cathy Tilton,State Rep. Sarah Vance,State Sen. Natasha Von Imhof"
+2022,60,American Samoa,ALL,All,U.S. Del. Aumua Amata Radewagen,U.S. Del. Aumua Coleman Radewagen,"Sen. Fonoti Aufata,Rep. Andra Samoa"
+2022,60,American Samoa,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,U.S. Del. Aumua Coleman Radewagen,Sen. Fonoti Aufata
+2022,60,American Samoa,ASIAN_PAC,Asian American & Pacific Islander,,U.S. Del. Aumua Coleman Radewagen,Sen. Fonoti Aufata
+2022,60,American Samoa,BLACK,Black or African American,,,
+2022,60,American Samoa,HISP,Hispanic or Latino,,,
+2022,60,American Samoa,MENA,Middle Eastern & North African,,,
+2022,60,American Samoa,AIANNH,"Native American, Alaska Native, & Native Hawaiian",,,
+2022,60,American Samoa,MULTI,Two or more races,,,
+2022,60,American Samoa,UNKNOWN,Unknown race,,,Rep. Andra Samoa
+2022,60,American Samoa,OTHER_STANDARD,Unrepresented race,,,
+2022,60,American Samoa,WHITE,White,,,
