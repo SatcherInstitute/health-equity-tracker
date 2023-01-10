@@ -326,7 +326,7 @@ class CAWPTimeData(DataSource):
         return [df, bq_table_name]
 
     def generate_names_breakdown(self, df: pd.DataFrame):
-        """ Create the names-only df which will be available for download
+        """ Create the state-level, names-only df which will be available for download
         but not displayed on the tracker
 
         Parameters:
