@@ -6,7 +6,7 @@ import VariableProvider from "./VariableProvider";
 
 class Acs2010PopulationProvider extends VariableProvider {
   constructor() {
-    super("acs_2010_pop_provider", ["population_2010", "population_pct_2010"]);
+    super("acs_2010_pop_provider", ["population_pct_2010"]);
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
