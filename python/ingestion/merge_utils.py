@@ -80,8 +80,6 @@ def merge_state_ids(df, keep_postal=False):
     all_fips_codes_df = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
         'census_utility', 'fips_codes_states', dtype={'state_fips_code': str})
 
-    all_fips_codes_df.to_csv("all_fips.csv", index=False)
-
     united_states_fips = pd.DataFrame([
         {
             'state_fips_code': constants.US_FIPS,
