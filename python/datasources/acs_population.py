@@ -354,8 +354,8 @@ class ACSPopulationIngester():
         # Generate national level datasets based on the state datasets
         if not self.county_level:
             for demo in ['age', 'race', 'sex']:
-                state_table_name = 'by_race_state_std' if demo == 'race' else 'by_%s_state' % demo
-                frames['by_%s_national' % demo] = generate_national_dataset_with_all_states(
+                state_table_name = f'by_{demo}_state'
+                frames[f'by_{demo}_national'] = generate_national_dataset_with_all_states(
                     frames[state_table_name], demo)
 
         for table_name, df in frames.items():
@@ -381,10 +381,10 @@ class ACSPopulationIngester():
         return std_col.COUNTY_NAME_COL if self.county_level else std_col.STATE_NAME_COL
 
     def get_table_name_by_race(self):
-        return "by_race" + self.get_table_geo_suffix() + "_std"
+        return "by_race" + self.get_table_geo_suffix()
 
     def get_table_name_by_sex_age_race(self):
-        return "by_sex_age_race" + self.get_table_geo_suffix() + "_std"
+        return "by_sex_age_race" + self.get_table_geo_suffix()
 
     def get_filename(self, concept):
         """Returns the name of a file for the given ACS concept

@@ -99,7 +99,8 @@ def get_cdc_restricted_by_sex_county_as_df():
 def testGenerateBreakdownSexStateTimeSeries(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
-    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', True)
+    df = cdc_restricted.generate_breakdown(
+        get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', True)
     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_STATE_TIME_SERIES, dtype={
         'state_fips': str,
         'covid_cases_share': float,
@@ -122,7 +123,8 @@ def testGenerateBreakdownSexStateTimeSeries(mock_fips: mock.MagicMock, mock_pop:
 def testGenerateBreakdownSexCountyTimeSeries(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
-    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_county_as_df(), 'sex', 'county', True)
+    df = cdc_restricted.generate_breakdown(
+        get_cdc_restricted_by_sex_county_as_df(), 'sex', 'county', True)
     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_COUNTY_TIME_SERIES, dtype={
         'state_fips': str,
         'county_fips': str,
@@ -146,7 +148,8 @@ def testGenerateBreakdownSexCountyTimeSeries(mock_fips: mock.MagicMock, mock_pop
 def testGenerateBreakdownSexNationalTimeSeries(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
-    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', True)
+    df = cdc_restricted.generate_breakdown(
+        get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', True)
     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_NATIONAL_TIME_SERIES, dtype={
         'state_fips': str,
         'covid_cases_share': float,
@@ -169,7 +172,8 @@ def testGenerateBreakdownSexNationalTimeSeries(mock_fips: mock.MagicMock, mock_p
 def testGenerateBreakdownSexStateCumulative(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
-    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', False)
+    df = cdc_restricted.generate_breakdown(
+        get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', False)
     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_STATE_CUMULATIVE, dtype={
         'state_fips': str,
         'covid_cases_share': float,
@@ -192,7 +196,8 @@ def testGenerateBreakdownSexStateCumulative(mock_fips: mock.MagicMock, mock_pop:
 def testGenerateBreakdownSexNationalCumulative(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
-    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', False)
+    df = cdc_restricted.generate_breakdown(
+        get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', False)
     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_NATIONAL_CUMULATIVE, dtype={
         'state_fips': str,
         'covid_cases_share': float,
@@ -215,7 +220,8 @@ def testGenerateBreakdownSexNationalCumulative(mock_fips: mock.MagicMock, mock_p
 def testGenerateBreakdownSexCountyCumulative(mock_fips: mock.MagicMock, mock_pop: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
-    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_county_as_df(), 'sex', 'county', False)
+    df = cdc_restricted.generate_breakdown(
+        get_cdc_restricted_by_sex_county_as_df(), 'sex', 'county', False)
     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_COUNTY_CUMULATIVE, dtype={
         'state_fips': str,
         'county_fips': str,
@@ -390,28 +396,28 @@ def testWriteToBqRace(
 
     assert mock_pop.call_count == 12
     # National, cumulative
-    assert mock_pop.call_args_list[0].args[1] == 'by_race_state_std'
+    assert mock_pop.call_args_list[0].args[1] == 'by_race_state'
     assert mock_pop.call_args_list[1].args[1] == 'by_race_and_ethnicity_territory'
     assert mock_pop.call_args_list[2].args[1] == 'by_race_national'
 
     # National, non cumulative
-    assert mock_pop.call_args_list[3].args[1] == 'by_race_state_std'
+    assert mock_pop.call_args_list[3].args[1] == 'by_race_state'
     assert mock_pop.call_args_list[4].args[1] == 'by_race_and_ethnicity_territory'
     assert mock_pop.call_args_list[5].args[1] == 'by_race_national'
 
     # State, cumulative
-    assert mock_pop.call_args_list[6].args[1] == 'by_race_state_std'
+    assert mock_pop.call_args_list[6].args[1] == 'by_race_state'
     assert mock_pop.call_args_list[7].args[1] == 'by_race_and_ethnicity_territory'
 
     # State, non cumulative
-    assert mock_pop.call_args_list[8].args[1] == 'by_race_state_std'
+    assert mock_pop.call_args_list[8].args[1] == 'by_race_state'
     assert mock_pop.call_args_list[9].args[1] == 'by_race_and_ethnicity_territory'
 
     # County, cumulative
-    assert mock_pop.call_args_list[10].args[1] == 'by_race_county_std'
+    assert mock_pop.call_args_list[10].args[1] == 'by_race_county'
 
     # County, non cumulative
-    assert mock_pop.call_args_list[11].args[1] == 'by_race_county_std'
+    assert mock_pop.call_args_list[11].args[1] == 'by_race_county'
 
     assert mock_bq.call_count == 7
     assert mock_bq.call_args_list[0].args[2] == 'by_race_national_processed'
