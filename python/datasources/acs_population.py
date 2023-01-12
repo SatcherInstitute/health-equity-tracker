@@ -351,7 +351,7 @@ class ACSPopulationIngester():
         frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
             frames[self.get_table_name_by_sex_age_race()])
 
-        # Generate national level datasets based on the state datasets
+        # Generate national level datasets based on state datasets
         if not self.county_level:
             for demo in ['age', 'race', 'sex']:
                 state_table_name = f'by_{demo}_state'
