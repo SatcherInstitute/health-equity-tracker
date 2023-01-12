@@ -95,6 +95,7 @@ class VaccineProvider extends VariableProvider {
         })
         .resetIndex();
     } else if (breakdowns.geography === "state") {
+      // console.log(df)
       df = df
         .generateSeries({
           vaccinated_pct_share: (row) =>
@@ -105,7 +106,7 @@ class VaccineProvider extends VariableProvider {
               : Math.round(row.vaccinated_pct_share * 100),
         })
         .resetIndex();
-
+      console.log(df);
       df = df
         .generateSeries({
           population_pct: (row) =>

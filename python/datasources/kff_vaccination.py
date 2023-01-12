@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
@@ -170,6 +171,36 @@ def generate_total_row(state_row_totals, state):
     return output_row
 
 
+def generate_percent_share(df):
+    # convert columns that are less than 0 to zero and NR to NaN
+    options = ['<0.01', 'NR', '0']
+    df.loc[df['vaccinated_pct_share'].isin(
+        options), 'vaccinated_pct_share'] = np.NAN
+
+    # convert percent share to numbers
+    df['vaccinated_pct_share'] = pd.to_numeric(df['vaccinated_pct_share'])
+    df['vaccinated_pct_share'] = df['vaccinated_pct_share'] * 100
+
+    pass
+
+
+def generate_population_pct(df):
+    options = ['<0.01', 'NR', '0']
+    df.loc[df['population_pct'].isin(
+        options), 'population_pct'] = np.NAN
+    df['population_pct'] = pd.to_numeric(df['population_pct'])
+    df['population_pct'] = df['population_pct'] * 100
+
+    # print(df)
+    pass
+
+
+def generate_per_100k(df):
+    df['vaccinated_per_100k'] = df['population_pct'] * 1000
+    print(df)
+    pass
+
+
 class KFFVaccination(DataSource):
 
     @staticmethod
@@ -239,7 +270,8 @@ class KFFVaccination(DataSource):
         output_df = pd.DataFrame(output, columns=columns)
         std_col.add_race_columns_from_category_id(output_df)
 
-        col_types = gcs_to_bq_util.get_bq_column_types(output_df, [std_col.VACCINATED_FIRST_DOSE])
+        col_types = gcs_to_bq_util.get_bq_column_types(
+            output_df, [std_col.VACCINATED_FIRST_DOSE])
 
         gcs_to_bq_util.add_df_to_bq(
             output_df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=col_types)
