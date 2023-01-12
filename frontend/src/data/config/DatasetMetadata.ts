@@ -3,12 +3,12 @@ import { DataSourceMetadataMap, GEOGRAPHIES_DATASET_ID } from "./MetadataMap";
 
 export const datasetMetadataList: DatasetMetadata[] = [
   {
-    id: "acs_population-by_race_county_std",
+    id: "acs_population-by_race_county",
     name: "Population by Race and County",
     update_time: "2019",
   },
   {
-    id: "acs_population-by_race_state_std",
+    id: "acs_population-by_race_state",
     name: "Population by Race and State",
     update_time: "2019",
   },

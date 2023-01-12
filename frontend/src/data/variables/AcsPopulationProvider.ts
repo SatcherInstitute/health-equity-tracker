@@ -22,7 +22,7 @@ export function GetAcsDatasetId(breakdowns: Breakdowns): string {
     id =
       breakdowns.geography === "national"
         ? "acs_population-by_race_national"
-        : "acs_population-by_race_" + breakdowns.geography + "_std";
+        : "acs_population-by_race_" + breakdowns.geography;
   }
 
   return appendFipsIfNeeded(id, breakdowns);

@@ -228,7 +228,7 @@ describe("VaccineProvider", () => {
     await evaluateWithAndWithoutAll(
       "kff_vaccination-race_and_ethnicity",
       rawData,
-      "acs_population-by_race_state_std",
+      "acs_population-by_race_state",
       [NC_ACS_ASIAN_ROW, NC_ACS_ALL_ROW],
       Breakdowns.forFips(new Fips("37")),
       RACE,
