@@ -1,0 +1,162 @@
+[
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 4876250,
+    "race_category_id": "ALL",
+    "population_pct": 100,
+    "race_and_ethnicity": "All"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 4667624,
+    "race_category_id": "NH",
+    "population_pct": 95.7,
+    "race_and_ethnicity": "Not Hispanic or Latino"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 67013,
+    "race_category_id": "API_NH",
+    "population_pct": 1.4,
+    "race_and_ethnicity": "Asian, Native Hawaiian, and Pacific Islander (NH)"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 22740,
+    "race_category_id": "AIAN_NH",
+    "population_pct": 0.5,
+    "race_and_ethnicity": "American Indian and Alaska Native (NH)"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 1603,
+    "race_category_id": "NHPI_NH",
+    "population_pct": 0.03,
+    "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 65410,
+    "race_category_id": "ASIAN_NH",
+    "population_pct": 1.3,
+    "race_and_ethnicity": "Asian (NH)"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 1291524,
+    "race_category_id": "BLACK_NH",
+    "population_pct": 26.5,
+    "race_and_ethnicity": "Black or African American (NH)"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 83335,
+    "race_category_id": "MULTI_NH",
+    "population_pct": 1.7,
+    "race_and_ethnicity": "Two or more races (NH)"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 3194929,
+    "race_category_id": "WHITE_NH",
+    "population_pct": 65.5,
+    "race_and_ethnicity": "White (NH)"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 8083,
+    "race_category_id": "OTHER_STANDARD_NH",
+    "population_pct": 0.2,
+    "race_and_ethnicity": "Unrepresented race (NH)"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 91418,
+    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH",
+    "population_pct": 1.9,
+    "race_and_ethnicity": "Two or more races & Unrepresented race (NH)"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 25565,
+    "race_category_id": "AIAN",
+    "population_pct": 0.5,
+    "race_and_ethnicity": "American Indian and Alaska Native"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 208626,
+    "race_category_id": "HISP",
+    "population_pct": 4.3,
+    "race_and_ethnicity": "Hispanic or Latino"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 2238,
+    "race_category_id": "NHPI",
+    "population_pct": 0.05,
+    "race_and_ethnicity": "Native Hawaiian and Pacific Islander"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 66270,
+    "race_category_id": "ASIAN",
+    "population_pct": 1.4,
+    "race_and_ethnicity": "Asian"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 1299048,
+    "race_category_id": "BLACK",
+    "population_pct": 26.6,
+    "race_and_ethnicity": "Black or African American"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 92220,
+    "race_category_id": "MULTI",
+    "population_pct": 1.9,
+    "race_and_ethnicity": "Two or more races"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 3320247,
+    "race_category_id": "WHITE",
+    "population_pct": 68.1,
+    "race_and_ethnicity": "White"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 70662,
+    "race_category_id": "OTHER_STANDARD",
+    "population_pct": 1.4,
+    "race_and_ethnicity": "Unrepresented race"
+  },
+  {
+    "state_fips": "01",
+    "state_name": "Alabama",
+    "population": 162882,
+    "race_category_id": "MULTI_OR_OTHER_STANDARD",
+    "population_pct": 3.3,
+    "race_and_ethnicity": "Two or more races & Unrepresented race"
+  }
+]
