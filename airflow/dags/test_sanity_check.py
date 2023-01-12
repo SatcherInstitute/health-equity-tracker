@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import pytest
 import re
-from airflow.dags import sanity_check
+from sanity_check import check_pct_values
 
 TEST_DIR = os.path.join(os.getcwd(), 'python', 'tests',
                         'data', 'sanity_checks')
@@ -20,23 +20,23 @@ test_dtype = {'county_fips': str,
 
 def testGenerateCountyDatasetAge():
     df = pd.read_json(CDC_RESTRICTED['age_county'], dtype=test_dtype)
-    assert sanity_check.check_pct_values(df)
+    assert check_pct_values(df)
 
 
 def testGenerateCountyDatasetSexTime():
     df = pd.read_json(CDC_RESTRICTED['sex_county_time'], dtype=test_dtype)
-    assert sanity_check.check_pct_values(df)
+    assert check_pct_values(df)
 
 
 def testGenerateNationalDatasetSex():
     df = pd.read_json(CDC_RESTRICTED['sex_national'], dtype={
                       'state_fips': str})
-    assert sanity_check.check_pct_values(df)
+    assert check_pct_values(df)
 
 
 def testGenerateStateDatasetSex():
     df = pd.read_json(CDC_RESTRICTED['sex_state'], dtype={'state_fips': str})
-    assert sanity_check.check_pct_values(df)
+    assert check_pct_values(df)
 
 
 def testGenerateCountyDatasetSexError():
@@ -46,4 +46,4 @@ def testGenerateCountyDatasetSexError():
     df = pd.read_json(CDC_RESTRICTED['sex_county'], dtype=test_dtype)
 
     with pytest.raises(RuntimeError, match=expected_error):
-        sanity_check.check_pct_values(df)
+        check_pct_values(df)
