@@ -123,7 +123,7 @@ def sanity_check_request(dataset_id: str):
     for table in tables:
         table_name = f'{table.project}.{table.dataset_id}.{table.table_id}'
 
-        query_string = f'SELECT * FROM {table_name}'
+        query_string = f'SELECT * FROM `{table_name}`'
 
         df: pd.DataFrame = bq_client.query(
             query_string).result().to_dataframe()
