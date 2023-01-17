@@ -4,7 +4,7 @@ import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { MetricId, VariableConfig } from "../data/config/MetricConfig";
-import { exclude, onlyInclude } from "../data/query/BreakdownFilter";
+import { exclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
   BreakdownVar,
@@ -141,14 +141,13 @@ function MapCardWithKey(props: MapCardProps) {
     metricQuery(Breakdowns.forFips(props.fips)),
   ];
 
+  // state and county level reports require county-fips data for hover tooltips
   if (!props.fips.isUsa()) {
-    const sviBreakdowns = Breakdowns.byCounty().andAge(onlyInclude("All"));
+    const sviBreakdowns = Breakdowns.byCounty();
     sviBreakdowns.filterFips = props.fips;
-
     const sviQuery = new MetricQuery(
       /* MetricId(s) */ "svi",
-      /* Breakdowns */ sviBreakdowns,
-      /* variableId */ "svi"
+      /* Breakdowns */ sviBreakdowns
     );
     queries.push(sviQuery);
   }
@@ -214,15 +213,12 @@ function MapCardWithKey(props: MapCardProps) {
             (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
           );
 
-        const dataForSvi: Row[] = sviQueryResponse
-          ? sviQueryResponse
-              .getValidRowsForField("svi")
-              .filter((row) =>
-                dataForActiveBreakdownFilter.find(
-                  ({ fips }) => row.fips === fips
-                )
-              )
-          : [];
+        const dataForSvi: Row[] =
+          sviQueryResponse
+            ?.getValidRowsForField("svi")
+            ?.filter((row) =>
+              dataForActiveBreakdownFilter.find(({ fips }) => row.fips === fips)
+            ) || [];
 
         if (!props.fips.isUsa()) {
           dataForActiveBreakdownFilter = dataForActiveBreakdownFilter.map(

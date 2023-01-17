@@ -48,6 +48,7 @@ export type VariableId =
   | "svi";
 
 export type MetricId =
+  | "geo_context"
   | "acs_vaccine_population_pct"
   | "brfss_population_pct"
   | "cawp_population_pct"
