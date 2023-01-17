@@ -7,6 +7,8 @@ import ingestion.standardized_columns as std_col
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, github_util
 
+from ingestion.merge_utils import merge_state_ids
+
 BASE_KFF_URL_TOTALS_STATE = ('https://raw.githubusercontent.com/KFFData/COVID-19-Data/'
                              'kff_master/State%20Trend%20Data/State_Trend_Data.csv')
 
@@ -96,6 +98,25 @@ def generate_pct_of_population_key(race):
     return '%s Percent of Total Population' % race
 
 
+def generate_percent_values(row_value):
+    # convert columns that are < 0.01, == 0, or 'NR' NaN
+    invalid_data = ['<0.01', 'NR', '0']
+    if row_value in invalid_data:
+        row_value = np.NAN
+
+    row_value = float(row_value) * 100
+    row_value = "{:.2f}".format(row_value)
+
+    return row_value
+
+
+def generate_per_100k(row_value):
+    row_value = float(row_value) * 1000
+    row_value = "{:.2f}".format(row_value)
+
+    return row_value
+
+
 def get_unknown_rows(df, state):
     """Gets unknown race and unknown ethnicity from the df,
     returns them in two rows
@@ -109,6 +130,8 @@ def get_unknown_rows(df, state):
         output_row[std_col.STATE_NAME_COL] = state
         output_row[std_col.RACE_CATEGORY_ID_COL] = standard
         output_row[std_col.VACCINATED_PCT_SHARE] = str(df[key].values[0])
+        output_row[std_col.VACCINATED_PCT_SHARE] = generate_percent_values(
+            output_row[std_col.VACCINATED_PCT_SHARE])
 
         rows.append(output_row)
 
@@ -132,16 +155,29 @@ def generate_output_row(state_row_pct_share, state_row_pct_total, state_row_pct_
 
     output_row = {}
     output_row[std_col.STATE_NAME_COL] = state
+
     output_row[std_col.VACCINATED_PCT_SHARE] = str(
         state_row_pct_share[generate_pct_share_key(race)].values[0])
+    output_row[std_col.VACCINATED_PCT_SHARE] = generate_percent_values(
+        output_row[std_col.VACCINATED_PCT_SHARE])
 
     if race in KFF_RACES_PCT_TOTAL:
         output_row[std_col.VACCINATED_PCT] = str(
             state_row_pct_total[generate_total_pct_key(race)].values[0])
+        output_row[std_col.VACCINATED_PCT] = generate_percent_values(
+            output_row[std_col.VACCINATED_PCT])
+
         output_row[std_col.POPULATION_PCT_COL] = str(
             state_row_pct_population[generate_pct_of_population_key(
                 race)].values[0]
         )
+        output_row[std_col.POPULATION_PCT_COL] = generate_percent_values(
+            output_row[std_col.POPULATION_PCT_COL])
+
+        output_row[std_col.VACCINATED_ACS_POPULATION_PCT] = output_row[std_col.POPULATION_PCT_COL]
+
+        output_row[std_col.VACCINATED_PER_100K] = generate_per_100k(
+            output_row[std_col.VACCINATED_PCT])
 
     if race == "Asian" and state in AAPI_STATES:
         race = 'AAPI'
@@ -167,38 +203,9 @@ def generate_total_row(state_row_totals, state):
                                       == state_row_totals['date'].max()]
     output_row[std_col.VACCINATED_FIRST_DOSE] = str(
         latest_row[TOTAL_KEY].values[0])
-    output_row[std_col.POPULATION_PCT_COL] = "1.0"
+    output_row[std_col.POPULATION_PCT_COL] = "100.0"
+    output_row[std_col.VACCINATED_ACS_POPULATION_PCT] = output_row[std_col.POPULATION_PCT_COL]
     return output_row
-
-
-def generate_percent_share(df):
-    # convert columns that are less than 0 to zero and NR to NaN
-    options = ['<0.01', 'NR', '0']
-    df.loc[df['vaccinated_pct_share'].isin(
-        options), 'vaccinated_pct_share'] = np.NAN
-
-    # convert percent share to numbers
-    df['vaccinated_pct_share'] = pd.to_numeric(df['vaccinated_pct_share'])
-    df['vaccinated_pct_share'] = df['vaccinated_pct_share'] * 100
-
-    pass
-
-
-def generate_population_pct(df):
-    options = ['<0.01', 'NR', '0']
-    df.loc[df['population_pct'].isin(
-        options), 'population_pct'] = np.NAN
-    df['population_pct'] = pd.to_numeric(df['population_pct'])
-    df['population_pct'] = df['population_pct'] * 100
-
-    # print(df)
-    pass
-
-
-def generate_per_100k(df):
-    df['vaccinated_per_100k'] = df['population_pct'] * 1000
-    print(df)
-    pass
 
 
 class KFFVaccination(DataSource):
@@ -238,6 +245,8 @@ class KFFVaccination(DataSource):
             std_col.VACCINATED_PCT,
             std_col.VACCINATED_FIRST_DOSE,
             std_col.POPULATION_PCT_COL,
+            std_col.VACCINATED_PER_100K,
+            std_col.VACCINATED_ACS_POPULATION_PCT,
         ]
 
         states = percentage_of_total_df['Location'].drop_duplicates().to_list()
@@ -269,6 +278,14 @@ class KFFVaccination(DataSource):
 
         output_df = pd.DataFrame(output, columns=columns)
         std_col.add_race_columns_from_category_id(output_df)
+        output_df = merge_state_ids(output_df)
+
+        cols = list(output_df.columns.values)
+
+        print("/n")
+        cols.pop()
+        print(cols.append(std_col.STATE_FIPS_COL))
+        print(cols)
 
         col_types = gcs_to_bq_util.get_bq_column_types(
             output_df, [std_col.VACCINATED_FIRST_DOSE])

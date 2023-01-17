@@ -5,7 +5,7 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 
 from datasources.kff_vaccination import KFFVaccination
-from datasources.kff_vaccination import get_data_url, generate_percent_share, generate_population_pct, generate_per_100k
+from datasources.kff_vaccination import get_data_url
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -68,7 +68,6 @@ def testWriteToBq(
     ]
     kffVaccination = KFFVaccination()
 
-    print(kffVaccination)
     # print("/n")
     # for mock in mock_csv.side_effect:
     #     print(mock.to_string())
@@ -89,10 +88,15 @@ def testWriteToBq(
     })
 
     df = mock_bq.call_args_list[0].args[0]
+    # print("/n")
+    # print(df)
 
-    generate_percent_share(df)
-    generate_population_pct(df)
-    generate_per_100k(df)
+    # generate_percent_share(df)
+    # generate_population_pct(df)
+    # generate_per_100k(df)
+
+    # print("/n")
+    # print(expected_df.to_string())
 
     # assert_frame_equal(
     #     mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
