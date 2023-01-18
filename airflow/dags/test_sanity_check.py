@@ -1,7 +1,5 @@
 import os
 import pandas as pd
-import pytest
-import re
 from sanity_check import check_pct_values
 from google.cloud import bigquery
 
