@@ -16,7 +16,7 @@
 
   .HeaderTextItem {
     justify-content: center;
-    padding: 25px;
+    padding: 1rem 3rem;
   }
 
   .HeaderText {
@@ -31,7 +31,6 @@
     }
 
     @media (min-width: $lg) {
-      font-size: $biggestHeader;
       padding-bottom: 20px;
     }
   }

@@ -37,7 +37,7 @@ const DATASET_METADATA: MapOfDatasetMetadata = {
 
 const DATA_SOURCE_METADATA = {
   id: "datasource_id",
-  name: "COVID-19 Deaths",
+  name: "COVID-19 deaths",
   description: LIPSUM,
   dataset_ids: ["acs1", "acs2", "unavailable dataset"],
   data_source_name: "CDC Provisional Death Counts for COVID-19",
@@ -58,7 +58,7 @@ Downloadable.args = {
 
 const NON_DOWNLOADABLE_DATA_SOURCE_METADATA = {
   id: "datasource_id",
-  name: "COVID-19 Deaths",
+  name: "COVID-19 deaths",
   description: LIPSUM,
   dataset_ids: ["acs1", "acs2", "unavailable dataset"],
   data_source_name: "CDC Provisional Death Counts for COVID-19",
@@ -79,7 +79,7 @@ NonDownloadable.args = {
 
 const NON_DOWNLOADABLE_WITH_LINK_DATA_SOURCE_METADATA = {
   id: "datasource_id",
-  name: "COVID-19 Deaths",
+  name: "COVID-19 deaths",
   description: LIPSUM,
   dataset_ids: ["acs1", "acs2", "unavailable dataset"],
   data_source_name: "CDC Provisional Death Counts for COVID-19",
