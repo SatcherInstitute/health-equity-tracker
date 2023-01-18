@@ -48,9 +48,9 @@ def check_pct_values(df, table_name):
     df = df.groupby(std_cols).sum().reset_index()
 
     # filter rows that are not within the 'expected' range
-    deviation_var = 2
-    bad_fips_df = df.loc[((df[share_cols].values < 100 - deviation_var) |
-                         (df[share_cols].values > 100 + deviation_var)) & (df[share_cols].values != 0)].drop_duplicates()
+    std_dev = 2
+    bad_fips_df = df.loc[((df[share_cols].values < 100 - std_dev) |
+                         (df[share_cols].values > 100 + std_dev)) & (df[share_cols].values != 0)].drop_duplicates()
 
     # return error w/county info if DF exists
     if len(bad_fips_df) > 0:
