@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 from sanity_check import check_pct_values
-from google.cloud import bigquery
 
 TEST_DIR = os.path.join(os.getcwd(), 'python', 'tests',
                         'data', 'sanity_checks')
