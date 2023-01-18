@@ -778,10 +778,10 @@ function MethodologyTab() {
               </h3>
               <div className={styles.MethodologyAnswer}>
                 <p>
-                  In the definitions below, we use COVID-19 Cases as the
-                  variable, and Race and Ethnicity as the demographic breakdown
-                  for simplicity; the definitions apply to all variables and
-                  demographic breakdowns.
+                  In the definitions below, we use <b>COVID-19 cases</b> as the
+                  variable, and <b>race and ethnicity</b> as the demographic
+                  breakdown for simplicity; the definitions apply to all
+                  variables and demographic breakdowns.
                 </p>
                 <ul>
                   <li>
