@@ -369,7 +369,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: "September 2022",
   },
   {
-    id: "cawp_time_data-race_and_ethnicity_state_time_series_names_std",
+    id: "cawp_time_data-race_and_ethnicity_state_time_series_names",
     name: "By-state and by-territory lists of legislator names, yearly back to 1915 including: all members of U.S Congress, regardless of race or gender; all women members of U.S. Congress, by race/ethnicity; and all women members of state and territory legislatures, by race/ethnicity",
     update_time: "September 2022",
   },

@@ -268,7 +268,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     dataset_ids: [
       "cawp_time_data-race_and_ethnicity_national_time_series",
       "cawp_time_data-race_and_ethnicity_state_time_series",
-      "cawp_time_data-race_and_ethnicity_state_time_series_names_std",
+      "cawp_time_data-race_and_ethnicity_state_time_series_names",
     ],
     downloadable: true,
   },
