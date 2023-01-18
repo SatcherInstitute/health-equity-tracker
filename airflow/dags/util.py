@@ -118,8 +118,10 @@ def service_request(url: str, data: dict, **kwargs):
 
 def sanity_check_request(dataset_id: str):
     bq_client = bigquery.Client()
+    failing_tables = []
 
     tables = bq_client.list_tables(dataset_id)
+
     for table in tables:
         table_name = f'{table.project}.{table.dataset_id}.{table.table_id}'
 
@@ -127,8 +129,17 @@ def sanity_check_request(dataset_id: str):
 
         df: pd.DataFrame = bq_client.query(
             query_string).result().to_dataframe()
-        output = check_pct_values(df)
-        return output
+
+        output = check_pct_values(df, table_name)
+        if output[0] == False:
+            failing_tables.append(output[1])
+
+    if len(failing_tables) > 0:
+        raise RuntimeError(
+            f'These percent share values do not equal 100% {failing_tables}')
+
+    else:
+        print('All checks have passed. No errors detected.')
 
 
 def create_request_operator(task_id: str, url: str, payload: dict, dag: DAG, xcom_push: bool = True,

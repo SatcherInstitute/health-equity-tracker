@@ -3,6 +3,7 @@ import pandas as pd
 import pytest
 import re
 from sanity_check import check_pct_values
+from google.cloud import bigquery
 
 TEST_DIR = os.path.join(os.getcwd(), 'python', 'tests',
                         'data', 'sanity_checks')
@@ -20,30 +21,29 @@ test_dtype = {'county_fips': str,
 
 def testGenerateCountyDatasetAge():
     df = pd.read_json(CDC_RESTRICTED['age_county'], dtype=test_dtype)
-    assert check_pct_values(df)
+    assert check_pct_values(df, 'by_cdc_restricted_age_county')
 
 
 def testGenerateCountyDatasetSexTime():
     df = pd.read_json(CDC_RESTRICTED['sex_county_time'], dtype=test_dtype)
-    assert check_pct_values(df)
+    assert check_pct_values(df, 'by_cdc_restricted_sex_county_time')
 
 
 def testGenerateNationalDatasetSex():
     df = pd.read_json(CDC_RESTRICTED['sex_national'], dtype={
                       'state_fips': str})
-    assert check_pct_values(df)
+    assert check_pct_values(df, 'by_cdc_restricted_sex_national')
 
 
 def testGenerateStateDatasetSex():
     df = pd.read_json(CDC_RESTRICTED['sex_state'], dtype={'state_fips': str})
-    assert check_pct_values(df)
+    assert check_pct_values(df, 'by_cdc_restricted_sex_state')
 
 
 def testGenerateCountyDatasetSexError():
-    expected_error = re.escape(
-        'These fips percent share values do not equal 100%')
-
     df = pd.read_json(CDC_RESTRICTED['sex_county'], dtype=test_dtype)
 
-    with pytest.raises(RuntimeError, match=expected_error):
-        check_pct_values(df)
+    output = check_pct_values(df, 'cdc_restricted_sex_county')
+    expected_output = [
+        False, {'table': 'cdc_restricted_sex_county', 'fips': ['06123']}]
+    assert output == expected_output

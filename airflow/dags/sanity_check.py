@@ -34,25 +34,30 @@ def generate_cols(df: pd.DataFrame):
     return std_cols, share_cols, dem_col, df
 
 
-def check_pct_values(df):
+def check_pct_values(df, table_name):
     # determine cols needed for DF
     std_cols, share_cols, dem_col, df = generate_cols(df)
     cols = std_cols + [dem_col] + share_cols
     df = df[cols]
 
     # remove rows with 'All', 'Unknown', & 'Other as values
-    options = ['All', 'Unknown', 'Other']
+    options = ['All', 'Unknown', 'UNKNOWN', 'ALL']
     df = df[-df[dem_col].isin(options)]
 
-    # # group and sum rows
+    # group and sum rows
     df = df.groupby(std_cols).sum().reset_index()
-    # # filter rows that do not equal 100
-    bad_fips_df = df.loc[(df[share_cols].values < 99.0) | (
-        df[share_cols].values > 101.0)].drop_duplicates()
+
+    # filter rows that are not within the 'expected' range
+    deviation_var = 2
+    bad_fips_df = df.loc[((df[share_cols].values < 100 - deviation_var) |
+                         (df[share_cols].values > 100 + deviation_var)) & (df[share_cols].values != 0)].drop_duplicates()
 
     # return error w/county info if DF exists
     if len(bad_fips_df) > 0:
-        raise RuntimeError(
-            f'These fips percent share values do not equal 100%: {df[std_cols[0]].tolist()}')
+        fip_list = [*set(bad_fips_df[std_cols[0]].tolist())]
 
-    return True
+        errors = {'table': table_name, 'fips': fip_list}
+
+        return [False, errors]
+
+    return [True, f'No errors detected on table, {table_name}']
