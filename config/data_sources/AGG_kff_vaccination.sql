@@ -16,7 +16,7 @@ WITH
         ON a.state_name = b.state_name
   ),
   all_acs as (
-      SELECT state_fips, state_name, population, population_pct, race_category_id, race_and_ethnicity FROM `acs_population.by_race_state_std`
+      SELECT state_fips, state_name, population, population_pct, race_category_id, race_and_ethnicity FROM `acs_population.by_race_state`
     UNION ALL
       SELECT state_fips, state_name, population, population_pct, race_category_id, race_and_ethnicity FROM `acs_2010_population.by_race_and_ethnicity_territory`
   ),

@@ -12,9 +12,9 @@ from ingestion import gcs_to_bq_util
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "acs_population")
 
-GOLDEN_DATA_RACE = os.path.join(TEST_DIR, 'table_by_race_state_std.csv')
+GOLDEN_DATA_RACE = os.path.join(TEST_DIR, 'table_by_race_state.csv')
 GOLDEN_DATA_SEX_AGE_RACE = os.path.join(
-    TEST_DIR, 'table_by_sex_age_race_state_std.csv')
+    TEST_DIR, 'table_by_sex_age_race_state.csv')
 GOLDEN_DATA_SEX_AGE = os.path.join(TEST_DIR, 'table_by_sex_age.csv')
 GOLDEN_DATA_AGE = os.path.join(TEST_DIR, 'table_by_age.csv')
 GOLDEN_DATA_SEX = os.path.join(TEST_DIR, 'table_by_sex.csv')
