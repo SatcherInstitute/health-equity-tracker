@@ -682,11 +682,8 @@ class ACSPopulation(DataSource):
             ingester.write_to_bq(dataset, gcs_bucket)
 
     def _create_ingesters(self):
-
         acs_pop_ingesters_list = []
-
         for is_county in [True, False]:
-
             for year, base_url in BASE_ACS_URL_MAP.items():
                 acs_pop_ingesters_list.append(
                     ACSPopulationIngester(is_county, base_url, year))
