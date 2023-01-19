@@ -12,7 +12,7 @@ from main import app, STATE_LEVEL_FIPS_LIST, get_table_name
 NUM_STATES_AND_TERRITORIES = len(STATE_LEVEL_FIPS_LIST)
 
 TEST_TABLES = [bigquery.Table("my-project.my-dataset.t1-sex"),
-               bigquery.Table("my-project.my-dataset.t2-age_std"),
+               bigquery.Table("my-project.my-dataset.t2-age"),
                bigquery.Table("my-project.my-dataset.t3-age"),
                bigquery.Table("my-project.my-county-dataset.t4-age"),
                ]
@@ -49,8 +49,8 @@ def testExportDatasetTables(
     response = client.post('/', json=payload)
 
     assert response.status_code == 204
-    # called once per "age" table plus additional time for _std files
-    assert mock_bq_instance.extract_table.call_count == 4
+    # called once per "age" table
+    assert mock_bq_instance.extract_table.call_count == 3
     # called once per "age" table, only continues for county level files
     assert mock_split_county.call_count == 3
 

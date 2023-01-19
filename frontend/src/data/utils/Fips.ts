@@ -56,7 +56,7 @@ class Fips {
   }
 
   needsACS2010() {
-    return this.isStateOrTerritory() && ACS_2010_FIPS.includes(this.code);
+    return ACS_2010_FIPS.includes(this.code.slice(0, 2));
   }
 
   isCounty() {

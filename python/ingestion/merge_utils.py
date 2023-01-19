@@ -80,8 +80,6 @@ def merge_state_ids(df, keep_postal=False):
     all_fips_codes_df = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
         'census_utility', 'fips_codes_states', dtype={'state_fips_code': str})
 
-    all_fips_codes_df.to_csv("all_fips.csv", index=False)
-
     united_states_fips = pd.DataFrame([
         {
             'state_fips_code': constants.US_FIPS,
@@ -202,11 +200,6 @@ def _merge_pop(df, demo, loc):
             demo, list(on_col_map.keys())))
 
     pop_table_name = f'by_{demo}_{loc}'
-
-    # all states, DC, PR
-    if demo == 'race' and (loc == 'state' or loc == 'county'):
-        pop_table_name += '_std'
-
     pop_df = gcs_to_bq_util.load_df_from_bigquery(
         'acs_population', pop_table_name, pop_dtype)
 

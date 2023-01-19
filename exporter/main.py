@@ -55,12 +55,6 @@ def export_dataset_tables():
             export_table(bq_client, table_ref, dest_uri,
                          'NEWLINE_DELIMITED_JSON')
 
-            std_table_suffix = "_std"
-            if not table.table_id.endswith(std_table_suffix):
-                continue
-
-            dest_uri = f'gs://{export_bucket}/{dataset_name}-{table.table_id}.csv'
-            export_table(bq_client, table_ref, dest_uri, 'CSV')
         except Exception as err:
             logging.error(err)
             return (f'Error exporting table {table.table_id} to {dest_uri}:\n{err}', 500)

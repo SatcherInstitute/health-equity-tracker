@@ -30,7 +30,7 @@ export function GetAcsDatasetId(breakdowns: Breakdowns): string {
 
 class AcsPopulationProvider extends VariableProvider {
   constructor() {
-    super("acs_pop_provider", ["population", "population_pct"]);
+    super("acs_pop_provider", ["population_pct"]);
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs

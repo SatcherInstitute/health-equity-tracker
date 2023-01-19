@@ -349,7 +349,7 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
     assert mock_pop.call_args_list[3].args[1] == 'by_sex_national'
     assert mock_pop.call_args_list[4].args[1] == 'by_age_state'
     assert mock_pop.call_args_list[5].args[1] == 'by_age_territory'
-    assert mock_pop.call_args_list[6].args[1] == 'by_race_state_std'
+    assert mock_pop.call_args_list[6].args[1] == 'by_race_state'
     assert mock_pop.call_args_list[7].args[1] == 'by_race_and_ethnicity_territory'
     assert mock_pop.call_args_list[8].args[1] == 'by_sex_state'
     assert mock_pop.call_args_list[9].args[1] == 'by_sex_territory'

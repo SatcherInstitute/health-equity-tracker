@@ -135,7 +135,7 @@ def testWriteToBqRaceState(
     assert mock_bq.call_count == 6
 
     assert mock_pop.call_count == 9
-    assert mock_pop.call_args_list[0].args[1] == 'by_race_state_std'
+    assert mock_pop.call_args_list[0].args[1] == 'by_race_state'
 
     # add column type for each demographic file
     expected_dtype['race_and_ethnicity'] = str
