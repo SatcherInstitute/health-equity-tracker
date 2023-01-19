@@ -43,12 +43,12 @@ acs_pop_exporter_payload_age = {
 acs_pop_exporter_operator_age = util.create_exporter_operator(
     'acs_population_exporter_age', acs_pop_exporter_payload_age, data_ingestion_dag)
 
-acs_pop_exporter_payload_sex = {
-    'dataset_name': _ACS_DATASET_NAME,
-    'demographic': "by_sex"
-}
-acs_pop_exporter_operator_sex = util.create_exporter_operator(
-    'acs_population_exporter_sex', acs_pop_exporter_payload_sex, data_ingestion_dag)
+# acs_pop_exporter_payload_sex = {
+#     'dataset_name': _ACS_DATASET_NAME,
+#     'demographic': "by_sex"
+# }
+# acs_pop_exporter_operator_sex = util.create_exporter_operator(
+#     'acs_population_exporter_sex', acs_pop_exporter_payload_sex, data_ingestion_dag)
 # Ingestion DAG
 (
     acs_pop_gcs_operator >>
