@@ -12,7 +12,10 @@ from ingestion.dataset_utils import add_sum_of_rows, generate_pct_share_col_with
 
 # TODO pass this in from message data.
 BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
-
+BASE_ACS_URL_MAP = {
+    "2019": "https://api.census.gov/data/2019/acs/acs5",
+    "2009": "https://api.census.gov/data/2010/acs/acs5",
+}
 
 HISPANIC_BY_RACE_CONCEPT = "HISPANIC OR LATINO ORIGIN BY RACE"
 
@@ -250,13 +253,29 @@ class ACSPopulationIngester():
     """American Community Survey population data in the United States from the
        US Census."""
 
-    def __init__(self, county_level, base_acs_url):
+    def __init__(self, county_level: bool, base_acs_url: str, year: str = None):
+        """ Create the ingester that moves data from the cached GCS
+        to a BigQuery table
+
+        ARGS
+        county_level: boolean indicating geographic level is county
+            (or state is false)
+        base_acs_url: string url for a particular year's ACS base lookup
+
+        KWARGS
+        year: (optional) string value (e.g. "2019") to use in the
+            "time_period" column indicating the year for this table
+        """
+
         # The base ACS url to use for API calls.
         self.base_acs_url = base_acs_url
 
         # Whether the data is at the county level. If false, it is at the state
         # level
         self.county_level = county_level
+
+        # the string year value to use in the "time_period" column
+        self.year = year
 
         # The base columns that are always used to group by.
         self.base_group_by_cols = (
@@ -359,6 +378,14 @@ class ACSPopulationIngester():
                     frames[state_table_name], demo)
 
         for table_name, df in frames.items():
+
+            # write "current" ACS as normal, and additionally allow
+            # for writing other years that will contain the year in
+            # a time_period column and in the table name itself
+            if self.year:
+                df[std_col.TIME_PERIOD_COL] = self.year
+                table_name += f'_{self.year}'
+
             float_cols = [std_col.POPULATION_COL]
             if std_col.POPULATION_PCT_COL in df.columns:
                 float_cols.append(std_col.POPULATION_PCT_COL)
@@ -655,10 +682,16 @@ class ACSPopulation(DataSource):
             ingester.write_to_bq(dataset, gcs_bucket)
 
     def _create_ingesters(self):
-        return [
-            ACSPopulationIngester(False, BASE_ACS_URL),
-            ACSPopulationIngester(True, BASE_ACS_URL)
-        ]
+
+        acs_pop_ingesters_list = []
+
+        for is_county in [True, False]:
+
+            for year, base_url in BASE_ACS_URL_MAP.items():
+                acs_pop_ingesters_list.append(
+                    ACSPopulationIngester(is_county, base_url, year))
+
+        return acs_pop_ingesters_list
 
 
 def generate_national_dataset_with_all_states(state_df, demographic_breakdown_category):

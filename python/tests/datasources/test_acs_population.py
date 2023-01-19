@@ -26,6 +26,9 @@ GOLDEN_DATA_RACE_NATIONAL = os.path.join(
 
 GOLDEN_DATA_AGE_COUNTY = os.path.join(TEST_DIR, 'table_by_age_county.csv')
 
+GOLDEN_DATA_RACE_ALT_YEAR = os.path.join(
+    TEST_DIR, 'table_by_race_state_alt_year.csv')
+
 
 def get_acs_metadata_as_json():
     with open(os.path.join(TEST_DIR, 'metadata.json')) as f:
@@ -183,10 +186,6 @@ def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_jso
         'state_fips': str,
     })
 
-    # # save results to file
-    # mock_bq.call_args_list[3].args[0].to_csv(
-    #     "acs-run-results-state.csv")
-
     assert_frame_equal(
         mock_bq.call_args_list[3].args[0], expected_df, check_like=True)
 
@@ -308,3 +307,41 @@ def testWriteToBqAgeCounty(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mo
 
     assert_frame_equal(
         mock_bq.call_args_list[3].args[0], expected_df, check_like=True)
+
+
+# test generation of alternate year table
+@mock.patch('ingestion.census.fetch_acs_metadata',
+            return_value=get_acs_metadata_as_json())
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
+            return_value=get_hispanic_or_latino_values_by_race_state_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+            return_value=None)
+def testWriteAltYearToBqRace(
+    mock_bq: mock.MagicMock,
+    mock_csv: mock.MagicMock,
+    mock_json: mock.MagicMock
+):
+    acsPopulationIngester = ACSPopulationIngester(
+        False, "FAKE://URL", "2009")
+
+    acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
+    assert mock_bq.call_count == 8
+
+    # all generated table names end with the specified year
+    assert mock_bq.call_args_list[0][0][2] == "by_race_state_2009"
+    assert mock_bq.call_args_list[1][0][2] == "by_sex_age_race_state_2009"
+    assert mock_bq.call_args_list[2][0][2] == "by_sex_age_state_2009"
+    assert mock_bq.call_args_list[3][0][2] == "by_age_state_2009"
+    assert mock_bq.call_args_list[4][0][2] == "by_sex_state_2009"
+    assert mock_bq.call_args_list[5][0][2] == "by_age_national_2009"
+    assert mock_bq.call_args_list[6][0][2] == "by_race_national_2009"
+    assert mock_bq.call_args_list[7][0][2] == "by_sex_national_2009"
+
+    # the generated df should contain the time_period col with year
+    expected_df = pd.read_csv(GOLDEN_DATA_RACE_ALT_YEAR, dtype={
+        'state_fips': str,
+        'time_period': str,
+    })
+
+    assert_frame_equal(
+        mock_bq.call_args_list[0].args[0], expected_df, check_like=True, check_dtype=False)
