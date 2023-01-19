@@ -22,7 +22,7 @@
     "covid_cases_per_100k": 20000,
     "covid_deaths_per_100k": 3333,
     "covid_hosp_per_100k": 6667,
-    "covid_cases_share": 50.0,
+    "covid_cases_share": 60.0,
     "covid_hosp_share": 50.0,
     "covid_deaths_share": 50.0,
     "covid_population_pct": 60.0
