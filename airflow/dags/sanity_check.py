@@ -40,7 +40,7 @@ def check_pct_values(df, table_name):
     cols = std_cols + [dem_col] + share_cols
     df = df[cols]
 
-    # remove rows with 'All', 'Unknown', & 'Other as values
+    # remove rows with 'All' & 'Unknown' as values/only known values are considered for pct share calc
     options = ['All', 'Unknown', 'UNKNOWN', 'ALL']
     df = df[-df[dem_col].isin(options)]
 
@@ -48,9 +48,9 @@ def check_pct_values(df, table_name):
     df = df.groupby(std_cols).sum().reset_index()
 
     # filter rows that are not within the 'expected' range
-    std_dev = 2
-    bad_fips_df = df.loc[((df[share_cols].values < 100 - std_dev) |
-                         (df[share_cols].values > 100 + std_dev)) & (df[share_cols].values != 0)].drop_duplicates()
+    threshold = 2
+    bad_fips_df = df.loc[((df[share_cols].values < 100 - threshold) |
+                         (df[share_cols].values > 100 + threshold)) & (df[share_cols].values != 0)].drop_duplicates()
 
     # return error w/county info if DF exists
     if len(bad_fips_df) > 0:

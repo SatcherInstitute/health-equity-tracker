@@ -131,7 +131,7 @@ def sanity_check_request(dataset_id: str):
             query_string).result().to_dataframe()
 
         output = check_pct_values(df, table_name)
-        if output[0] is False:
+        if not output[0]:
             failing_tables.append(output[1])
 
     if len(failing_tables) > 0:
