@@ -30,6 +30,14 @@ acs_pop_bq_payload = util.generate_bq_payload(
 acs_pop_bq_operator = util.create_bq_ingest_operator(
     'acs_population_to_bq', acs_pop_bq_payload, data_ingestion_dag)
 
+acs_pop_exporter_payload_multi = {
+    'dataset_name': _ACS_DATASET_NAME,
+    'demographic': "multi"
+}
+acs_pop_exporter_operator_multi = util.create_exporter_operator(
+    'acs_population_exporter_multi', acs_pop_exporter_payload_multi, data_ingestion_dag)
+
+
 acs_pop_exporter_payload_race = {
     'dataset_name': _ACS_DATASET_NAME,
     'demographic': "by_race"
@@ -54,6 +62,7 @@ acs_pop_exporter_operator_sex = util.create_exporter_operator(
 (
     acs_pop_gcs_operator >>
     acs_pop_bq_operator >> [
+        acs_pop_exporter_operator_multi,
         acs_pop_exporter_operator_race,
         acs_pop_exporter_operator_age,
         acs_pop_exporter_operator_sex,
