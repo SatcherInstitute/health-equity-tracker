@@ -6,7 +6,7 @@ import VariableProvider from "./VariableProvider";
 
 class Acs2010PopulationProvider extends VariableProvider {
   constructor() {
-    super("acs_2010_pop_provider", ["population_2010", "population_pct_2010"]);
+    super("acs_2010_pop_provider", ["population_pct_2010"]);
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
@@ -52,7 +52,7 @@ class Acs2010PopulationProvider extends VariableProvider {
     );
     let acs2010DataFrame = acs2010Dataset.toDataFrame();
 
-    // If requested, filter geography by state or coacs2010ty level
+    // If requested, filter geography by state or county level
     // We apply the geo filter right away to reduce subsequent calculation times
     acs2010DataFrame = this.filterByGeo(acs2010DataFrame, breakdowns);
     acs2010DataFrame = this.renameGeoColumns(acs2010DataFrame, breakdowns);
