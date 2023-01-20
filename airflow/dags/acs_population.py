@@ -5,6 +5,7 @@ from airflow.utils.dates import days_ago  # type: ignore
 import util
 
 _ACS_BASE_URL = 'https://api.census.gov/data/2019/acs/acs5'
+_ACS_BASE_URL_2009 = 'https://api.census.gov/data/2019/acs/acs5'
 _ACS_WORKFLOW_ID = 'ACS_POPULATION'
 _ACS_DATASET_NAME = 'acs_population'
 
