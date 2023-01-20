@@ -3,7 +3,13 @@ import pandas as pd
 
 from ingestion.constants import HealthInsurancePopulation
 from datasources.data_source import DataSource
-from ingestion import url_file_to_gcs, gcs_to_bq_util
+from ingestion import url_file_to_gcs, gcs_to_bq_util, census
+
+from ingestion.census import (
+    parse_acs_metadata,
+    get_vars_for_group,
+    standardize_frame,
+)
 
 from ingestion.acs_utils import (
     MetadataKey,
@@ -12,16 +18,12 @@ from ingestion.acs_utils import (
     get_acs_data_from_variables,
     get_params,
 )
-from ingestion.census import (
-    fetch_acs_metadata,
-    get_state_fips_mapping,
-    get_county_fips_mapping,
-)
 from ingestion.standardized_columns import (
     STATE_FIPS_COL,
     COUNTY_FIPS_COL,
     STATE_NAME_COL,
     COUNTY_NAME_COL,
+    POPULATION_COL,
     AGE_COL,
     SEX_COL,
     RACE_CATEGORY_ID_COL,
@@ -34,6 +36,19 @@ from ingestion.standardized_columns import (
 
 # TODO pass this in from message data.
 BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
+
+
+CONCEPTS_TO_RACE = {
+    'HEALTH INSURANCE COVERAGE STATUS BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)': Race.AIAN.value,
+    'HEALTH INSURANCE COVERAGE STATUS BY AGE (ASIAN ALONE)': Race.ASIAN.value,
+    'HEALTH INSURANCE COVERAGE STATUS BY AGE (HISPANIC OR LATINO)': Race.HISP.value,
+    'HEALTH INSURANCE COVERAGE STATUS BY AGE (BLACK OR AFRICAN AMERICAN ALONE)': Race.BLACK.value,
+    'HEALTH INSURANCE COVERAGE STATUS BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)': Race.NHPI.value,
+    'HEALTH INSURANCE COVERAGE STATUS BY AGE (WHITE ALONE)': Race.WHITE.value,
+    'HEALTH INSURANCE COVERAGE STATUS BY AGE (SOME OTHER RACE ALONE)': Race.OTHER_STANDARD.value,
+    'HEALTH INSURANCE COVERAGE STATUS BY AGE (TWO OR MORE RACES)': Race.MULTI.value,
+    'HEALTH INSURANCE COVERAGE STATUS BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)': Race.WHITE_NH.value,
+}
 
 
 # ACS Health Insurance By Race Prefixes.
@@ -68,21 +83,6 @@ class AcsHealthInsuranceRaceIngester:
     # prefix, suffix combos can return the entire metadata
     def __init__(self, base_url):
         self.base_url = base_url
-        metadata = fetch_acs_metadata(self.base_url)["variables"]
-        metadata = trimMetadata(
-            metadata, HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES.keys()
-        )
-        self.metadata = parseMetadata(
-            metadata, [MetadataKey.AGE,
-                       MetadataKey.RACE], self.metadataInitializer
-        )
-        for k, v in self.metadata.items():
-            if MetadataKey.POPULATION not in v:
-                self.metadata[k][
-                    MetadataKey.POPULATION
-                ] = HealthInsurancePopulation.TOTAL
-        self.state_fips = get_state_fips_mapping(base_url)
-        self.county_fips = get_county_fips_mapping(base_url)
         self.data = {}
 
     def metadataInitializer(self, key):
@@ -149,10 +149,14 @@ class AcsHealthInsuranceRaceIngester:
         return file_diff
 
     def write_to_bq(self, dataset, gcs_bucket):
-        self.getData(gcs_bucket=gcs_bucket)
+        self.metadata = census.fetch_acs_metadata(self.base_url)
+        dfs = {}
+        for is_county in [True, False]:
+            for demo in ['race']:
+                dfs[(demo, is_county)] = self.getData(is_county, gcs_bucket=gcs_bucket)
 
         # Split internal memory into data frames for sex/race by state/county
-        self.split_data_frames()
+        # self.split_data_frames()
 
         # Create BQ columns and write dataframes to BQ
         for table_name, df in self.frames.items():
@@ -169,81 +173,53 @@ class AcsHealthInsuranceRaceIngester:
 
     #   Get Health insurance data from either GCS or Directly, and aggregate the data in memory
 
-    def getData(self, gcs_bucket=None):
+    def getData(self, is_county, gcs_bucket=None):
+        dfs = []
         if gcs_bucket is not None:
-            for race in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES.values():
-                for is_county in [True, False]:
-                    # Get cached data from GCS
-                    data = gcs_to_bq_util.load_values_as_json(
-                        gcs_bucket, self.get_filename(race, is_county)
-                    )
-                    self.accumulate_acs_data(data)
-        else:
-            for prefix in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES:
-                for is_county in [True, False]:
-                    data = get_acs_data_from_variables(
-                        self.base_url, get_params(prefix, is_county)
-                    )
-                    self.accumulate_acs_data(data)
-
-    """
-    Takes data in the form of
-    [
-        [C27001A_002E, C27001A_003E, C27001B_002E, C27001B_002E][state][?county],
-        [12345, 1245, 123546, 124567, 01, 02]
-        ...
-    ]
-    This method determines the variables at the top (aka: key_row)
-    matches the value with the metadata from the prefix_suffix list
-    and stores it in the self.data as a tuple
-
-    (state_fip, county_fip, age, sex, race) example:
-    {
-        "('01', None, '0-6', 'Male', None)": {
-            "Total": "177643",
-            "With": "172850",
-            "Without": "4793"
-        },
-        "('01', None, '6-18', 'Male', None)": {
-            "Total": "414407",
-            "With": "400460",
-            "Without": "13947"
-        },
-        ...
-    } Note: This can be debugged via the total_health_insurance.json output file via local_debug
-    """
-
-    def accumulate_acs_data(self, data):
-        key_row = data[0]
-        for row in data[1::]:
-            data = {}
-            for key in key_row:
-                if key != "state" and key != "county" and key in self.metadata:
-                    data[key] = {}
-            state_fip = None
-            county_fip = None
-            for col_index in range(len(row)):
-                col = row[col_index]
-                key = key_row[col_index]
-
-                if key == "state":
-                    state_fip = col  # Extract the static key_row state
-                elif key == "county":
-                    # Extract the static key_row (county) *if exists
-                    county_fip = col
-                elif key in self.metadata:
-                    data[key] = {"value": col, "meta": self.metadata[key]}
-
-            for key in data:
-                metadata = data[key]["meta"]
-                population = data[key]["value"]
-                row = self.upsert_row(
-                    state_fip,
-                    county_fip,
-                    metadata.get(MetadataKey.AGE),
-                    metadata.get(MetadataKey.RACE),
+            for concept, race in CONCEPTS_TO_RACE.items():
+                print(race)
+                # Get cached data from GCS
+                df = gcs_to_bq_util.load_values_as_df(
+                    gcs_bucket, self.get_filename(race, is_county)
                 )
-                row[metadata[MetadataKey.POPULATION]] = population
+
+                var_map = parse_acs_metadata(self.metadata,
+                                             list(HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES.keys())
+                                             + [HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX])
+
+                group_vars = get_vars_for_group(concept, var_map, 2)
+                age_by_race = standardize_frame(df, group_vars, [AGE_COL, 'has_health_insurance'],
+                                                is_county, 'amount')
+
+                age_by_race_with_health_insurance = \
+                    age_by_race.loc[age_by_race['has_health_insurance'] ==
+                                    'With health insurance coverage'].reset_index(drop=True)
+
+                age_by_race_with_health_insurance = \
+                    age_by_race_with_health_insurance.rename(columns={'amount': WITH_HEALTH_INSURANCE_COL})
+
+                age_by_race_without_health_insurance = \
+                    age_by_race.loc[age_by_race['has_health_insurance'] ==
+                                    'No health insurance coverage'].reset_index(drop=True)
+
+                age_by_race_without_health_insurance = \
+                    age_by_race_without_health_insurance.rename(columns={'amount': WITHOUT_HEALTH_INSURANCE_COL})
+
+                group_vars_totals = get_vars_for_group(concept, var_map, 1)
+                age_by_race_totals = standardize_frame(df, group_vars_totals, [AGE_COL], is_county, POPULATION_COL)
+                age_by_race_totals = age_by_race_totals.drop(columns='has_health_insurance')
+
+                age_by_race = pd.concat([age_by_race_with_health_insurance,
+                                         age_by_race_without_health_insurance,
+                                         age_by_race_totals]).reset_index(drop=True)
+
+                age_by_race[RACE_CATEGORY_ID_COL] = race
+
+                dfs.append(age_by_race)
+                print(age_by_race.to_string())
+
+        to_return = pd.concat(dfs)
+        return to_return
 
     def upsert_row(self, state_fip, county_fip, age, race):
         if (state_fip, county_fip, age, race) not in self.data:
@@ -277,16 +253,13 @@ class AcsHealthInsuranceRaceIngester:
 
             if county_fip is None:
                 state_race_data.append(
-                    [state_fip, self.state_fips[state_fip],
-                        age, race, whi, wohi, total]
+                    [state_fip, age, race, whi, wohi, total]
                 )
             else:
                 county_race_data.append(
                     [
                         state_fip,
-                        self.state_fips[state_fip],
                         state_fip + county_fip,
-                        self.county_fips[(state_fip, county_fip)],
                         age,
                         race,
                         whi,
@@ -332,284 +305,284 @@ class AcsHealthInsuranceRaceIngester:
         }
 
 
-class AcsHealthInsuranceSexIngester:
+# class AcsHealthInsuranceSexIngester:
 
-    # Initialize variables in class instance, also merge all metadata so that lookup of the
-    # prefix, suffix combos can return the entire metadata
-    def __init__(self, base_url):
-        self.base_url = base_url
-        metadata = fetch_acs_metadata(self.base_url)["variables"]
-        metadata = trimMetadata(
-            metadata, [HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX])
-        self.metadata = parseMetadata(
-            metadata, [MetadataKey.AGE, MetadataKey.SEX], lambda key: dict()
-        )
-        for k, v in self.metadata.items():
-            if MetadataKey.POPULATION not in v:
-                self.metadata[k][
-                    MetadataKey.POPULATION
-                ] = HealthInsurancePopulation.TOTAL
-        self.state_fips = get_state_fips_mapping(base_url)
-        self.county_fips = get_county_fips_mapping(base_url)
-        self.data = {}
+#    # Initialize variables in class instance, also merge all metadata so that lookup of the
+#    # prefix, suffix combos can return the entire metadata
+#    def __init__(self, base_url):
+#        self.base_url = base_url
+#        metadata = fetch_acs_metadata(self.base_url)["variables"]
+#        metadata = trimMetadata(
+#            metadata, [HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX])
+#        self.metadata = parseMetadata(
+#            metadata, [MetadataKey.AGE, MetadataKey.SEX], lambda key: dict()
+#        )
+#        for k, v in self.metadata.items():
+#            if MetadataKey.POPULATION not in v:
+#                self.metadata[k][
+#                    MetadataKey.POPULATION
+#                ] = HealthInsurancePopulation.TOTAL
+#        self.state_fips = get_state_fips_mapping(base_url)
+#        self.county_fips = get_county_fips_mapping(base_url)
+#        self.data = {}
 
-    # Gets standardized filename
-    # If race is set, gets race filename
-    # If race is None and sex is set, gets filename for sex
-    def get_filename(self, is_county):
-        return "HEALTH_INSURANCE_BY_SEX_{0}.json".format(
-            "STATE" if is_county else "COUNTY"
-        )
+#    # Gets standardized filename
+#    # If race is set, gets race filename
+#    # If race is None and sex is set, gets filename for sex
+#    def get_filename(self, is_county):
+#        return "HEALTH_INSURANCE_BY_SEX_{0}.json".format(
+#            "STATE" if is_county else "COUNTY"
+#        )
 
-    # Method to output <Filename.csv>.  Used for debugging purposes.
-    def write_local_files_debug(self):
-        with open("acs_health_insurance_by_sex_metadata.json", "w") as f:
-            print(json.dumps(self.metadata, indent=4), file=f)
+#    # Method to output <Filename.csv>.  Used for debugging purposes.
+#    def write_local_files_debug(self):
+#        with open("acs_health_insurance_by_sex_metadata.json", "w") as f:
+#            print(json.dumps(self.metadata, indent=4), file=f)
 
-        self.getData()
+#        self.getData()
 
-        with open("acs_health_insurance_by_sex_internal_data.json", "w") as f:
-            print(
-                json.dumps({str(k): v for k, v in self.data.items()}, indent=4), file=f
-            )
+#        with open("acs_health_insurance_by_sex_internal_data.json", "w") as f:
+#            print(
+#                json.dumps({str(k): v for k, v in self.data.items()}, indent=4), file=f
+#            )
 
-        self.split_data_frames()
+#        self.split_data_frames()
 
-        for table_name, df in self.frames.items():
-            df.to_csv(table_name + ".csv", index=False)
-            df.to_json(table_name + ".json", orient="records", indent=4)
+#        for table_name, df in self.frames.items():
+#            df.to_csv(table_name + ".csv", index=False)
+#            df.to_json(table_name + ".json", orient="records", indent=4)
 
-    # Uploads the ACS data to GCS by providing
-    # the ACS Base URL
-    # Acs Query Params
-    # Standardized Filename
-    #
-    # An example file created in GCS:
-    # HEALTH_INSURANCE_BY_RACE_COUNTY_WHITE_ALONE.json
-    #
-    # Returns:
-    # FileDiff = If the data has changed by diffing the old run vs the new run.
-    # (presumably to skip the write to bq step though not 100% sure as of writing this)
-    def upload_to_gcs(self, bucket):
-        file_diff = False
-        for is_county in [True, False]:
-            params = get_params(
-                HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, is_county)
+#    # Uploads the ACS data to GCS by providing
+#    # the ACS Base URL
+#    # Acs Query Params
+#    # Standardized Filename
+#    #
+#    # An example file created in GCS:
+#    # HEALTH_INSURANCE_BY_RACE_COUNTY_WHITE_ALONE.json
+#    #
+#    # Returns:
+#    # FileDiff = If the data has changed by diffing the old run vs the new run.
+#    # (presumably to skip the write to bq step though not 100% sure as of writing this)
+#    def upload_to_gcs(self, bucket):
+#        file_diff = False
+#        for is_county in [True, False]:
+#            params = get_params(
+#                HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, is_county)
 
-            file_diff = (
-                url_file_to_gcs.url_file_to_gcs(
-                    self.base_url, params, bucket, self.get_filename(is_county)
-                )
-                or file_diff
-            )
-        return file_diff
+#            file_diff = (
+#                url_file_to_gcs.url_file_to_gcs(
+#                    self.base_url, params, bucket, self.get_filename(is_county)
+#                )
+#                or file_diff
+#            )
+#        return file_diff
 
-    def write_to_bq(self, dataset, gcs_bucket):
-        # Pull data from GCS and aggregate in memory
-        self.getData(gcs_bucket=gcs_bucket)
+#    def write_to_bq(self, dataset, gcs_bucket):
+#        # Pull data from GCS and aggregate in memory
+#        self.getData(gcs_bucket=gcs_bucket)
 
-        # Split internal memory into data frames for sex/race by state/county
-        self.split_data_frames()
+#        # Split internal memory into data frames for sex/race by state/county
+#        self.split_data_frames()
 
-        # Create BQ columns and write dataframes to BQ
-        for table_name, df in self.frames.items():
-            # All breakdown columns are strings
-            column_types = {c: "STRING" for c in df.columns}
+#        # Create BQ columns and write dataframes to BQ
+#        for table_name, df in self.frames.items():
+#            # All breakdown columns are strings
+#            column_types = {c: "STRING" for c in df.columns}
 
-            column_types[WITH_HEALTH_INSURANCE_COL] = "INT64"
-            column_types[WITHOUT_HEALTH_INSURANCE_COL] = "INT64"
-            column_types[TOTAL_HEALTH_INSURANCE_COL] = "INT64"
+#            column_types[WITH_HEALTH_INSURANCE_COL] = "INT64"
+#            column_types[WITHOUT_HEALTH_INSURANCE_COL] = "INT64"
+#            column_types[TOTAL_HEALTH_INSURANCE_COL] = "INT64"
 
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=column_types
-            )
+#            gcs_to_bq_util.add_df_to_bq(
+#                df, dataset, table_name, column_types=column_types
+#            )
 
-    # Get Health insurance By Sex from either API or GCS and aggregate it in memory
+#    # Get Health insurance By Sex from either API or GCS and aggregate it in memory
 
-    def getData(self, gcs_bucket=None):
+#    def getData(self, gcs_bucket=None):
 
-        for is_county in [True, False]:
-            if gcs_bucket is not None:  # LOAD JSON BLOBS FROM GCS
-                data = gcs_to_bq_util.load_values_as_json(
-                    gcs_bucket, self.get_filename(is_county)
-                )
-            else:  # LOAD DATA FROM ACS (useful for local debug)
-                data = get_acs_data_from_variables(
-                    self.base_url,
-                    get_params(HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, False),
-                )
+#        for is_county in [True, False]:
+#            if gcs_bucket is not None:  # LOAD JSON BLOBS FROM GCS
+#                data = gcs_to_bq_util.load_values_as_json(
+#                    gcs_bucket, self.get_filename(is_county)
+#                )
+#            else:  # LOAD DATA FROM ACS (useful for local debug)
+#                data = get_acs_data_from_variables(
+#                    self.base_url,
+#                    get_params(HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, False),
+#                )
 
-            # Aggregate and accumulate data in memory
-            self.accumulate_acs_data(data)
+#            # Aggregate and accumulate data in memory
+#            self.accumulate_acs_data(data)
 
-    """
-    Takes data in the form of
-    [
-        [C27001A_002E, C27001A_003E, C27001B_002E, C27001B_002E][state][?county],
-        [12345, 1245, 123546, 124567, 01, 02]
-        ...
-    ]
-    This method determines the variables at the top (aka: key_row)
-    matches the value with the metadata from the prefix_suffix list
-    and stores it in the self.data as a tuple
+#    """
+#    Takes data in the form of
+#    [
+#        [C27001A_002E, C27001A_003E, C27001B_002E, C27001B_002E][state][?county],
+#        [12345, 1245, 123546, 124567, 01, 02]
+#        ...
+#    ]
+#    This method determines the variables at the top (aka: key_row)
+#    matches the value with the metadata from the prefix_suffix list
+#    and stores it in the self.data as a tuple
 
-    (state_fip, county_fip, age, sex, race) example:
-    {
-        "('01', None, '0-6', 'Male', None)": {
-            "Total": "177643",
-            "With": "172850",
-            "Without": "4793"
-        },
-        "('01', None, '6-18', 'Male', None)": {
-            "Total": "414407",
-            "With": "400460",
-            "Without": "13947"
-        },
-        ...
-    } Note: This can be debugged via the total_health_insurance.json output file via local_debug
-    """
+#    (state_fip, county_fip, age, sex, race) example:
+#    {
+#        "('01', None, '0-6', 'Male', None)": {
+#            "Total": "177643",
+#            "With": "172850",
+#            "Without": "4793"
+#        },
+#        "('01', None, '6-18', 'Male', None)": {
+#            "Total": "414407",
+#            "With": "400460",
+#            "Without": "13947"
+#        },
+#        ...
+#    } Note: This can be debugged via the total_health_insurance.json output file via local_debug
+#    """
 
-    def accumulate_acs_data(self, data):
-        key_row = data[0]
-        for row in data[1::]:
-            row_data = {}
-            for key in key_row:
-                if key != "state" and key != "county" and key in self.metadata:
-                    row_data[key] = {}
-            state_fip = None
-            county_fip = None
-            for col_index in range(len(row)):
-                col = row[col_index]
-                key = key_row[col_index]
+#    def accumulate_acs_data(self, data):
+#        key_row = data[0]
+#        for row in data[1::]:
+#            row_data = {}
+#            for key in key_row:
+#                if key != "state" and key != "county" and key in self.metadata:
+#                    row_data[key] = {}
+#            state_fip = None
+#            county_fip = None
+#            for col_index in range(len(row)):
+#                col = row[col_index]
+#                key = key_row[col_index]
 
-                if key == "state":
-                    state_fip = col  # Extract the static key_row state
-                elif key == "county":
-                    # Extract the static key_row (county) *if exists
-                    county_fip = col
-                elif key in self.metadata:
-                    row_data[key] = {"value": col, "meta": self.metadata[key]}
+#                if key == "state":
+#                    state_fip = col  # Extract the static key_row state
+#                elif key == "county":
+#                    # Extract the static key_row (county) *if exists
+#                    county_fip = col
+#                elif key in self.metadata:
+#                    row_data[key] = {"value": col, "meta": self.metadata[key]}
 
-            for key in row_data:
-                metadata = row_data[key]["meta"]
-                population = row_data[key]["value"]
-                row = self.upsert_row(
-                    state_fip,
-                    county_fip,
-                    metadata.get(MetadataKey.AGE),
-                    metadata.get(MetadataKey.SEX),
-                )
-                row[metadata[MetadataKey.POPULATION]] = population
+#            for key in row_data:
+#                metadata = row_data[key]["meta"]
+#                population = row_data[key]["value"]
+#                row = self.upsert_row(
+#                    state_fip,
+#                    county_fip,
+#                    metadata.get(MetadataKey.AGE),
+#                    metadata.get(MetadataKey.SEX),
+#                )
+#                row[metadata[MetadataKey.POPULATION]] = population
 
-    def upsert_row(self, state_fip, county_fip, age, sex):
-        if (state_fip, county_fip, age, sex) not in self.data:
-            self.data[(state_fip, county_fip, age, sex)] = {
-                HealthInsurancePopulation.TOTAL: -1,
-                HealthInsurancePopulation.WITH: -1,
-                HealthInsurancePopulation.WITHOUT: -1,
-            }
-        return self.data[(state_fip, county_fip, age, sex)]
+#    def upsert_row(self, state_fip, county_fip, age, sex):
+#        if (state_fip, county_fip, age, sex) not in self.data:
+#            self.data[(state_fip, county_fip, age, sex)] = {
+#                HealthInsurancePopulation.TOTAL: -1,
+#                HealthInsurancePopulation.WITH: -1,
+#                HealthInsurancePopulation.WITHOUT: -1,
+#            }
+#        return self.data[(state_fip, county_fip, age, sex)]
 
-    # Helper method from grabbing a tuple in self.data.  If the
-    # tuple hasn't been created then it initializes an empty tuple.
-    # This is needed as each data variable will only
-    # update one of the population values at a time.
+#    # Helper method from grabbing a tuple in self.data.  If the
+#    # tuple hasn't been created then it initializes an empty tuple.
+#    # This is needed as each data variable will only
+#    # update one of the population values at a time.
 
-    # Splits the in memory aggregation into dataframes
+#    # Splits the in memory aggregation into dataframes
 
-    def split_data_frames(self):
-        state_sex_data = []
-        county_sex_data = []
+#    def split_data_frames(self):
+#        state_sex_data = []
+#        county_sex_data = []
 
-        # Extract keys from self.data Tuple
-        # (state_fip, County_fip, Age, Sex, Race): {PopulationObj}
-        for data in self.data:
-            state_fip, county_fip, age, sex = data
+#        # Extract keys from self.data Tuple
+#        # (state_fip, County_fip, Age, Sex, Race): {PopulationObj}
+#        for data in self.data:
+#            state_fip, county_fip, age, sex = data
 
-            population = self.data[data]
-            whi = population[HealthInsurancePopulation.WITH]
-            wohi = population[HealthInsurancePopulation.WITHOUT]
-            total = population[HealthInsurancePopulation.TOTAL]
+#            population = self.data[data]
+#            whi = population[HealthInsurancePopulation.WITH]
+#            wohi = population[HealthInsurancePopulation.WITHOUT]
+#            total = population[HealthInsurancePopulation.TOTAL]
 
-            if county_fip is None:
+#            if county_fip is None:
 
-                state_sex_data.append(
-                    [state_fip, self.state_fips[state_fip],
-                        age, sex, whi, wohi, total]
-                )
+#                state_sex_data.append(
+#                    [state_fip, self.state_fips[state_fip],
+#                        age, sex, whi, wohi, total]
+#                )
 
-            else:
+#            else:
 
-                county_sex_data.append(
-                    [
-                        state_fip,
-                        self.state_fips[state_fip],
-                        state_fip + county_fip,
-                        self.county_fips[(state_fip, county_fip)],
-                        age,
-                        sex,
-                        whi,
-                        wohi,
-                        total,
-                    ]
-                )
+#                county_sex_data.append(
+#                    [
+#                        state_fip,
+#                        self.state_fips[state_fip],
+#                        state_fip + county_fip,
+#                        self.county_fips[(state_fip, county_fip)],
+#                        age,
+#                        sex,
+#                        whi,
+#                        wohi,
+#                        total,
+#                    ]
+#                )
 
-        # Build Panda DataFrames with standardized cols
-        self.state_sex_frame = pd.DataFrame(
-            state_sex_data,
-            columns=[
-                STATE_FIPS_COL,
-                STATE_NAME_COL,
-                AGE_COL,
-                SEX_COL,
-                WITH_HEALTH_INSURANCE_COL,
-                WITHOUT_HEALTH_INSURANCE_COL,
-                TOTAL_HEALTH_INSURANCE_COL,
-            ],
-        )
-        self.county_sex_frame = pd.DataFrame(
-            county_sex_data,
-            columns=[
-                STATE_FIPS_COL,
-                STATE_NAME_COL,
-                COUNTY_FIPS_COL,
-                COUNTY_NAME_COL,
-                AGE_COL,
-                SEX_COL,
-                WITH_HEALTH_INSURANCE_COL,
-                WITHOUT_HEALTH_INSURANCE_COL,
-                TOTAL_HEALTH_INSURANCE_COL,
-            ],
-        )
+#        # Build Panda DataFrames with standardized cols
+#        self.state_sex_frame = pd.DataFrame(
+#            state_sex_data,
+#            columns=[
+#                STATE_FIPS_COL,
+#                STATE_NAME_COL,
+#                AGE_COL,
+#                SEX_COL,
+#                WITH_HEALTH_INSURANCE_COL,
+#                WITHOUT_HEALTH_INSURANCE_COL,
+#                TOTAL_HEALTH_INSURANCE_COL,
+#            ],
+#        )
+#        self.county_sex_frame = pd.DataFrame(
+#            county_sex_data,
+#            columns=[
+#                STATE_FIPS_COL,
+#                STATE_NAME_COL,
+#                COUNTY_FIPS_COL,
+#                COUNTY_NAME_COL,
+#                AGE_COL,
+#                SEX_COL,
+#                WITH_HEALTH_INSURANCE_COL,
+#                WITHOUT_HEALTH_INSURANCE_COL,
+#                TOTAL_HEALTH_INSURANCE_COL,
+#            ],
+#        )
 
-        # Aggregate Frames by Filename
-        self.frames = {
-            "health_insurance_by_sex_age_state": self.state_sex_frame,
-            "health_insurance_by_sex_age_county": self.county_sex_frame,
-        }
+#        # Aggregate Frames by Filename
+#        self.frames = {
+#            "health_insurance_by_sex_age_state": self.state_sex_frame,
+#            "health_insurance_by_sex_age_county": self.county_sex_frame,
+#        }
 
 
-class ACSHealthInsurance(DataSource):
-    @staticmethod
-    def get_id():
-        """Returns the data source's unique id. """
-        return "ACS_HEALTH_INSURANCE"
+#class ACSHealthInsurance(DataSource):
+#    @staticmethod
+#    def get_id():
+#        """Returns the data source's unique id. """
+#        return "ACS_HEALTH_INSURANCE"
 
-    # Uploads to GCS. Sees if the data has changed by diffing the old run vs the new run.
-    # (presumably to skip the write to bq step though not 100% sure as of writing this)
-    def upload_to_gcs(self, gcs_bucket, **attrs):
-        file_diff = False
-        for ingester in self._create_ingesters():
-            next_file_diff = ingester.upload_to_gcs(gcs_bucket)
-            file_diff = file_diff or next_file_diff
-        return file_diff
+#    # Uploads to GCS. Sees if the data has changed by diffing the old run vs the new run.
+#    # (presumably to skip the write to bq step though not 100% sure as of writing this)
+#    def upload_to_gcs(self, gcs_bucket, **attrs):
+#        file_diff = False
+#        for ingester in self._create_ingesters():
+#            next_file_diff = ingester.upload_to_gcs(gcs_bucket)
+#            file_diff = file_diff or next_file_diff
+#        return file_diff
 
-    def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        for ingester in self._create_ingesters():
-            ingester.write_to_bq(dataset, gcs_bucket)
+#    def write_to_bq(self, dataset, gcs_bucket, **attrs):
+#        for ingester in self._create_ingesters():
+#            ingester.write_to_bq(dataset, gcs_bucket)
 
-    def _create_ingesters(self):
-        return [
-            AcsHealthInsuranceRaceIngester(BASE_ACS_URL),
-            AcsHealthInsuranceSexIngester(BASE_ACS_URL),
-        ]
+#    def _create_ingesters(self):
+#        return [
+#            AcsHealthInsuranceRaceIngester(BASE_ACS_URL),
+#            AcsHealthInsuranceSexIngester(BASE_ACS_URL),
+#        ]

@@ -117,7 +117,7 @@ def get_vars_for_group(group_concept, var_map, num_breakdowns):
     return group_vars
 
 
-def standardize_frame(frame, var_to_labels_map, breakdowns, county_level, measured_var):
+def standardize_frame(df, var_to_labels_map, breakdowns, county_level, measured_var):
     """Standardizes an ACS frame that measures one variable across different
        breakdowns by reshaping so that the variable columns are converted into
        breakdown columns. For example:
@@ -138,11 +138,15 @@ def standardize_frame(frame, var_to_labels_map, breakdowns, county_level, measur
     measured_var: The column name of the measured variable."""
     # First, "melt" the frame so that each column other than the geo identifier
     # gets converted to a value with the column name "variable"
-    id_cols = ["state", "county", "NAME"] if county_level else ["state", "NAME"]
+    id_cols = ["state", "county"] if county_level else ["state"]
+    if 'NAME' in df.columns:
+        id_cols.append('NAME')
     sort_cols = (
         ["state", "county", "variable"] if county_level else ["state", "variable"]
     )
-    df = frame.melt(id_vars=id_cols)
+
+    df = df[list(var_to_labels_map.keys()) + id_cols]
+    df = df.melt(id_vars=id_cols)
     df = df.sort_values(sort_cols)
 
     # Now, create new columns for each breakdown, using the values from

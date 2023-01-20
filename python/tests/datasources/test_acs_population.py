@@ -1,5 +1,4 @@
 import os
-import json
 import pandas as pd
 from unittest import mock
 from pandas._testing import assert_frame_equal
@@ -7,10 +6,11 @@ from pandas._testing import assert_frame_equal
 from datasources.acs_population import (  # type: ignore
     ACSPopulationIngester, SEX_BY_AGE_CONCEPTS_TO_RACE, GENERATE_NATIONAL_DATASET)
 from ingestion import gcs_to_bq_util
+from test_utils import get_acs_metadata_as_json
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "acs_population")
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data', 'acs_population')
 
 GOLDEN_DATA_RACE = os.path.join(TEST_DIR, 'table_by_race_state_std.csv')
 GOLDEN_DATA_SEX_AGE_RACE = os.path.join(
@@ -25,11 +25,6 @@ GOLDEN_DATA_RACE_NATIONAL = os.path.join(
     TEST_DIR, 'table_by_race_national.csv')
 
 GOLDEN_DATA_AGE_COUNTY = os.path.join(TEST_DIR, 'table_by_age_county.csv')
-
-
-def get_acs_metadata_as_json():
-    with open(os.path.join(TEST_DIR, 'metadata.json')) as f:
-        return json.load(f)
 
 
 def get_hispanic_or_latino_values_by_race_state_as_df():

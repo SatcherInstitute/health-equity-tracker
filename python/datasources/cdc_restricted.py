@@ -304,6 +304,9 @@ def get_col_types(df, add_rel_inequality_col=False):
 
     column_types[std_col.COVID_POPULATION_PCT] = 'FLOAT'
 
+    if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+        column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
     return column_types
 
 
