@@ -5,9 +5,8 @@ from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
-from ingestion import gcs_to_bq_util, github_util
+from ingestion import gcs_to_bq_util, github_util, merge_utils
 
-from ingestion.merge_utils import merge_state_ids
 
 BASE_KFF_URL_TOTALS_STATE = ('https://raw.githubusercontent.com/KFFData/COVID-19-Data/'
                              'kff_master/State%20Trend%20Data/State_Trend_Data.csv')
@@ -174,8 +173,6 @@ def generate_output_row(state_row_pct_share, state_row_pct_total, state_row_pct_
         output_row[std_col.POPULATION_PCT_COL] = generate_percent_values(
             output_row[std_col.POPULATION_PCT_COL])
 
-        output_row[std_col.VACCINATED_ACS_POPULATION_PCT] = output_row[std_col.POPULATION_PCT_COL]
-
         output_row[std_col.VACCINATED_PER_100K] = generate_per_100k(
             output_row[std_col.VACCINATED_PCT])
 
@@ -204,7 +201,6 @@ def generate_total_row(state_row_totals, state):
     output_row[std_col.VACCINATED_FIRST_DOSE] = str(
         latest_row[TOTAL_KEY].values[0])
     output_row[std_col.POPULATION_PCT_COL] = "100.0"
-    output_row[std_col.VACCINATED_ACS_POPULATION_PCT] = output_row[std_col.POPULATION_PCT_COL]
     return output_row
 
 
@@ -241,12 +237,11 @@ class KFFVaccination(DataSource):
         columns = [
             std_col.STATE_NAME_COL,
             std_col.RACE_CATEGORY_ID_COL,
-            std_col.VACCINATED_PCT_SHARE,
             std_col.VACCINATED_PCT,
+            std_col.VACCINATED_PCT_SHARE,
             std_col.VACCINATED_FIRST_DOSE,
             std_col.POPULATION_PCT_COL,
-            std_col.VACCINATED_PER_100K,
-            std_col.VACCINATED_ACS_POPULATION_PCT,
+            std_col.VACCINATED_PER_100K
         ]
 
         states = percentage_of_total_df['Location'].drop_duplicates().to_list()
@@ -278,14 +273,14 @@ class KFFVaccination(DataSource):
 
         output_df = pd.DataFrame(output, columns=columns)
         std_col.add_race_columns_from_category_id(output_df)
-        output_df = merge_state_ids(output_df)
 
-        cols = list(output_df.columns.values)
-
-        print("/n")
-        cols.pop()
-        print(cols.append(std_col.STATE_FIPS_COL))
-        print(cols)
+        output_df = merge_utils.merge_state_ids(output_df)
+        columns.insert(0, std_col.STATE_FIPS_COL)
+        output_df = output_df[columns]
+        output_df = merge_utils.merge_pop_numbers(
+            df=output_df, demo='race', loc='state')
+        output_df = output_df.rename(
+            columns={"population_pct_x": "population_pct", "population_pct_y": "acs_vaccine_population_pct"})
 
         col_types = gcs_to_bq_util.get_bq_column_types(
             output_df, [std_col.VACCINATED_FIRST_DOSE])

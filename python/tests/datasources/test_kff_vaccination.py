@@ -68,10 +68,6 @@ def testWriteToBq(
     ]
     kffVaccination = KFFVaccination()
 
-    # print("/n")
-    # for mock in mock_csv.side_effect:
-    #     print(mock.to_string())
-
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
@@ -88,15 +84,8 @@ def testWriteToBq(
     })
 
     df = mock_bq.call_args_list[0].args[0]
-    # print("/n")
-    # print(df)
-
-    # generate_percent_share(df)
-    # generate_population_pct(df)
-    # generate_per_100k(df)
-
-    # print("/n")
-    # print(expected_df.to_string())
+    print("/n")
+    print(df)
 
     # assert_frame_equal(
     #     mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
