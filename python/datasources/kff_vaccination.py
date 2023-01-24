@@ -85,26 +85,11 @@ def get_data_url(data_type):
     return urls.values[0]
 
 
-def generate_total_pct_key(race):
-    return '%% of Total %s Population Vaccinated' % race
-
-
-def generate_pct_share_key(race):
-    return '%s %% of Vaccinations' % race
-
-
-def generate_pct_of_population_key(race):
-    return '%s Percent of Total Population' % race
-
-
-def generate_percent_values(row_value):
-    # convert columns that are < 0.01, == 0, or 'NR' NaN
+def generate_pct_values(key, row):
     invalid_data = ['<0.01', 'NR', '0']
-    if row_value in invalid_data:
-        row_value = np.NAN
-
-    row_value = float(row_value) * 100
-    row_value = float("{:.2f}".format(row_value))
+    row_value = row[key].values[0]
+    row_value = np.nan if row_value in invalid_data else row_value
+    row_value = float("{:.2f}".format(float(row_value) * 100))
 
     return row_value
 
@@ -126,9 +111,7 @@ def get_unknown_rows(df, state):
         output_row = {}
         output_row[std_col.STATE_NAME_COL] = state
         output_row[std_col.RACE_CATEGORY_ID_COL] = standard
-        output_row[std_col.VACCINATED_PCT_SHARE] = str(df[key].values[0])
-        output_row[std_col.VACCINATED_PCT_SHARE] = generate_percent_values(
-            output_row[std_col.VACCINATED_PCT_SHARE])
+        output_row[std_col.VACCINATED_PCT_SHARE] = generate_pct_values(key, df)
 
         rows.append(output_row)
 
@@ -153,24 +136,17 @@ def generate_output_row(state_row_pct_share, state_row_pct_total, state_row_pct_
     output_row = {}
     output_row[std_col.STATE_NAME_COL] = state
 
-    output_row[std_col.VACCINATED_PCT_SHARE] = str(
-        state_row_pct_share[generate_pct_share_key(race)].values[0])
-    output_row[std_col.VACCINATED_PCT_SHARE] = generate_percent_values(
-        output_row[std_col.VACCINATED_PCT_SHARE])
+    pct_key = f'{race} % of Vaccinations'
+    output_row[std_col.VACCINATED_PCT_SHARE] = generate_pct_values(
+        pct_key, state_row_pct_share)
 
     if race in KFF_RACES_PCT_TOTAL:
-        output_row[std_col.VACCINATED_PCT] = state_row_pct_total[generate_total_pct_key(
-            race)].values[0]
-        output_row[std_col.VACCINATED_PCT] = generate_percent_values(
-            output_row[std_col.VACCINATED_PCT])
-
-        output_row[std_col.POPULATION_PCT_COL] = float(
-            state_row_pct_population[generate_pct_of_population_key(
-                race)].values[0]
-        )
-        output_row[std_col.POPULATION_PCT_COL] = generate_percent_values(
-            output_row[std_col.POPULATION_PCT_COL])
-
+        vax_key = f'% of Total {race} Population Vaccinated'
+        pop_key = f'{race} Percent of Total Population'
+        output_row[std_col.VACCINATED_PCT] = generate_pct_values(
+            vax_key, state_row_pct_total)
+        output_row[std_col.POPULATION_PCT_COL] = generate_pct_values(
+            pop_key, state_row_pct_population)
         output_row[std_col.VACCINATED_PER_100K] = generate_per_100k(
             output_row[std_col.VACCINATED_PCT])
 
