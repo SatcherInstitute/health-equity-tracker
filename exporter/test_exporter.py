@@ -7,7 +7,18 @@ from flask.testing import FlaskClient
 from google.cloud import bigquery  # type: ignore
 import pandas as pd
 
-from main import app, STATE_LEVEL_FIPS_LIST, get_table_name
+from main import app, STATE_LEVEL_FIPS_LIST, get_table_name, has_multi_demographics
+
+# UNIT TESTS
+
+# has multiple (acs, census_pop)
+assert has_multi_demographics("health_insurance_by_race_age_county")
+assert has_multi_demographics("by_race_and_ethnicity_age_state")
+# has only one
+assert not has_multi_demographics("by_age_territory")
+# has no demographic (geo_context)
+assert not has_multi_demographics("county")
+
 
 NUM_STATES_AND_TERRITORIES = len(STATE_LEVEL_FIPS_LIST)
 
