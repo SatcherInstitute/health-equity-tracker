@@ -104,15 +104,13 @@ def generate_percent_values(row_value):
         row_value = np.NAN
 
     row_value = float(row_value) * 100
-    row_value = "{:.2f}".format(row_value)
+    row_value = float("{:.2f}".format(row_value))
 
     return row_value
 
 
 def generate_per_100k(row_value):
-    row_value = float(row_value) * 1000
-    row_value = "{:.2f}".format(row_value)
-
+    row_value = row_value * 1000
     return row_value
 
 
@@ -161,12 +159,12 @@ def generate_output_row(state_row_pct_share, state_row_pct_total, state_row_pct_
         output_row[std_col.VACCINATED_PCT_SHARE])
 
     if race in KFF_RACES_PCT_TOTAL:
-        output_row[std_col.VACCINATED_PCT] = str(
-            state_row_pct_total[generate_total_pct_key(race)].values[0])
+        output_row[std_col.VACCINATED_PCT] = state_row_pct_total[generate_total_pct_key(
+            race)].values[0]
         output_row[std_col.VACCINATED_PCT] = generate_percent_values(
             output_row[std_col.VACCINATED_PCT])
 
-        output_row[std_col.POPULATION_PCT_COL] = str(
+        output_row[std_col.POPULATION_PCT_COL] = float(
             state_row_pct_population[generate_pct_of_population_key(
                 race)].values[0]
         )
@@ -198,9 +196,10 @@ def generate_total_row(state_row_totals, state):
     )]
     latest_row = state_row_totals.loc[state_row_totals['date']
                                       == state_row_totals['date'].max()]
-    output_row[std_col.VACCINATED_FIRST_DOSE] = str(
+    output_row[std_col.VACCINATED_FIRST_DOSE] = float(
         latest_row[TOTAL_KEY].values[0])
-    output_row[std_col.POPULATION_PCT_COL] = "100.0"
+
+    output_row[std_col.POPULATION_PCT_COL] = 100.0
     return output_row
 
 
@@ -240,8 +239,9 @@ class KFFVaccination(DataSource):
             std_col.VACCINATED_PCT,
             std_col.VACCINATED_PCT_SHARE,
             std_col.VACCINATED_FIRST_DOSE,
+            std_col.RACE_OR_HISPANIC_COL,
+            std_col.VACCINATED_PER_100K,
             std_col.POPULATION_PCT_COL,
-            std_col.VACCINATED_PER_100K
         ]
 
         states = percentage_of_total_df['Location'].drop_duplicates().to_list()
@@ -282,8 +282,11 @@ class KFFVaccination(DataSource):
         output_df = output_df.rename(
             columns={"population_pct_x": "population_pct", "population_pct_y": "acs_vaccine_population_pct"})
 
+        testing = [std_col.VACCINATED_PCT, std_col.VACCINATED_PCT_SHARE,
+                   std_col.VACCINATED_FIRST_DOSE, std_col.POPULATION_PCT_COL]
+
         col_types = gcs_to_bq_util.get_bq_column_types(
-            output_df, [std_col.VACCINATED_FIRST_DOSE])
+            output_df, testing)
 
         gcs_to_bq_util.add_df_to_bq(
             output_df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=col_types)

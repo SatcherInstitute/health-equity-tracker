@@ -77,15 +77,10 @@ def testWriteToBq(
 
     expected_df = pd.read_csv(GOLDEN_DATA, dtype={
         'state_fips': str,
-        'vaccinated_pct_share': str,
-        'vaccinated_pct': str,
-        'vaccinated_first_dose': str,
-        'population_pct': str,
     })
 
-    df = mock_bq.call_args_list[0].args[0]
-    print("/n")
-    print(df)
+    # print("/n")
+    # print(expected_df)
 
-    # assert_frame_equal(
-    #     mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
+    assert_frame_equal(
+        mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
