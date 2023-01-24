@@ -19,6 +19,11 @@ import {
   CombinedIncarcerationStateMessage,
 } from "../../data/variables/IncarcerationProvider";
 import { Link } from "react-router-dom";
+import {
+  MissingCAWPData,
+  MissingCovidData,
+  MissingCovidVaccinationData,
+} from "./methodologyContent/missingDataBlurbs";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
@@ -42,9 +47,9 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 id="main" className={styles.MethodologyQuestion}>
-                Recommended Citation (APA) for the Health Equity Tracker:
-              </h3>
+              <h2 id="main" className={styles.MethodologyQuestion}>
+                Recommended citation (APA) for the Health Equity Tracker:
+              </h2>
 
               <div className={styles.MethodologyAnswer}>
                 <Card elevation={3}>
@@ -57,7 +62,7 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 className={styles.MethodologyQuestion}>{selectFaqs[4].q}</h3>
+              <h2 className={styles.MethodologyQuestion}>{selectFaqs[4].q}</h2>
               <div className={styles.MethodologyAnswer}>
                 {<>{getHtml(selectFaqs[4].a)}</>}
               </div>
@@ -68,12 +73,13 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 className={styles.MethodologyQuestion}>
+              <h2 className={styles.MethodologyQuestion}>
                 What are the limitations of the tracker, and why were these
                 health equity topics chosen?
-              </h3>
+              </h2>
               <div className={styles.MethodologyAnswer}>
-                <h4 className={styles.MethodologySubsubheaderText}>COVID-19</h4>
+                <h3 className={styles.MethodologySubsubheaderText}>COVID-19</h3>
+
                 <ul>
                   <li>
                     National statistics are aggregations of state-wide data. If
@@ -115,9 +121,7 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h4 className={styles.MethodologySubsubheaderText}>
-                  COVID-19 Time Series Data
-                </h4>
+                <h4>COVID-19 time-series data</h4>
                 <ul>
                   <li>
                     The CDC Restricted dataset includes a field called{" "}
@@ -157,9 +161,14 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h4 className={styles.MethodologySubsubheaderText}>
-                  COVID-19 Vaccinations
-                </h4>
+                <Card elevation={3} className={styles.MissingDataBox}>
+                  <MissingCovidData />
+                </Card>
+
+                <h3 className={styles.MethodologySubsubheaderText}>
+                  COVID-19 vaccinations
+                </h3>
+
                 <p>
                   Because there is currently no national vaccine demographic
                   dataset, we combine the best datasets we could find for each
@@ -200,10 +209,7 @@ function MethodologyTab() {
                     which provides the total number of vaccinations per county.
                   </li>
                 </ul>
-                <h4 className={styles.MethodologySubsubheaderText}>
-                  {" "}
-                  Vaccination Population Sources{" "}
-                </h4>
+                <h4> Vaccination population sources </h4>
                 <ul>
                   <li>
                     For the national numbers we use the population numbers
@@ -237,10 +243,7 @@ function MethodologyTab() {
                     estimations.
                   </li>
                 </ul>
-                <h4 className={styles.MethodologySubsubheaderText}>
-                  {" "}
-                  Vaccination Data Limitations{" "}
-                </h4>
+                <h4>Vaccination data limitations</h4>
                 <ul>
                   <li>
                     <b>New Hampshire</b> lifted its national COVID-19 emergency
@@ -275,9 +278,13 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h4 className={styles.MethodologySubsubheaderText}>
+                <Card elevation={3} className={styles.MissingDataBox}>
+                  <MissingCovidVaccinationData />
+                </Card>
+
+                <h3 className={styles.MethodologySubsubheaderText}>
                   America's Health Rankings
-                </h4>
+                </h3>
                 <p>
                   Multiple chronic disease, behavioral health, and social
                   determinants of health in the tracker are sourced from{" "}
@@ -324,9 +331,9 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h4 className={styles.MethodologySubsubheaderText}>
-                  Women in Legislative Office
-                </h4>
+                <h3 className={styles.MethodologySubsubheaderText}>
+                  Women in legislative office
+                </h3>
 
                 <Card elevation={3} className={styles.WhyBox}>
                   <a href={urlMap.doi1}>A link has been established</a> between
@@ -470,10 +477,13 @@ function MethodologyTab() {
                     counted by the ACS as <b>White</b>.
                   </li>
                 </ul>
+                <Card elevation={3} className={styles.MissingDataBox}>
+                  <MissingCAWPData />
+                </Card>
 
-                <h4 className={styles.MethodologySubsubheaderText} id="svi">
-                  Social Vulnerability Index
-                </h4>
+                <h3 className={styles.MethodologySubsubheaderText} id="svi">
+                  Social Vulnerability Index (SVI)
+                </h3>
 
                 <Card elevation={3} className={styles.WhyBox}>
                   The measurement of social vulnerability grants policymakers,
@@ -509,9 +519,9 @@ function MethodologyTab() {
                   below the 90th percentile are given a value of 0.
                 </p>
 
-                <h4 className={styles.MethodologySubsubheaderText}>
+                <h3 className={styles.MethodologySubsubheaderText}>
                   Incarceration
-                </h4>
+                </h3>
 
                 <Card elevation={3} className={styles.WhyBox}>
                   <p>
@@ -747,9 +757,9 @@ function MethodologyTab() {
                   {ALASKA_PRIVATE_JAIL_CAVEAT}
                 </p>
 
-                <h4 className={styles.MethodologySubsubheaderText}>
+                <h3 className={styles.MethodologySubsubheaderText}>
                   Visualizations
-                </h4>
+                </h3>
                 <p>
                   Please consider the impact of under-reporting and data gaps
                   when exploring the visualizations. These issues may lead to
@@ -764,9 +774,9 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 className={styles.MethodologyQuestion} id="metrics">
+              <h2 className={styles.MethodologyQuestion} id="metrics">
                 What do the metrics on the tracker mean?
-              </h3>
+              </h2>
               <div className={styles.MethodologyAnswer}>
                 <p>
                   In the definitions below, we use <b>COVID-19 cases</b> as the
@@ -842,9 +852,9 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 className={styles.MethodologyQuestion}>
+              <h2 className={styles.MethodologyQuestion}>
                 What do the condition variables on the tracker mean?
-              </h3>
+              </h2>
               <div className={styles.MethodologyAnswer}>
                 <DefinitionsList
                   variablesToDefine={Object.entries(METRIC_CONFIG)}
@@ -861,9 +871,9 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 className={styles.MethodologyQuestion}>
+              <h2 className={styles.MethodologyQuestion}>
                 What do the race/ethnicity groups mean?
-              </h3>
+              </h2>
               <div className={styles.MethodologyAnswer}>
                 <p>
                   The combined race/ethnicity groups shown on the tracker can be
