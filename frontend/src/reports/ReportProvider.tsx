@@ -29,6 +29,11 @@ import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { LinkWithStickyParams } from "../utils/urlutils";
+import {
+  MissingCovidData,
+  MissingCovidVaccinationData,
+  MissingCAWPData,
+} from "../pages/DataCatalog/methodologyContent/missingDataBlurbs";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -59,6 +64,14 @@ function ReportProvider(props: ReportProviderProps) {
     (dataTypeArray) =>
       dataTypeArray[1].some((dataType) => definedConditions.includes(dataType))
   );
+
+  const currentDropDownIds: DropdownVarId[] = metricConfigSubset.map(
+    (id) => id?.[0] as DropdownVarId
+  );
+
+  const isCovid = currentDropDownIds.includes("covid");
+  const isCovidVax = currentDropDownIds.includes("covid_vaccinations");
+  const isCAWP = currentDropDownIds.includes("women_in_legislative_office");
 
   const reportWrapper = props.isSingleColumn
     ? styles.OneColumnReportWrapper
@@ -176,12 +189,12 @@ function ReportProvider(props: ReportProviderProps) {
 
           <Box mt={10}>
             <h3 className={styles.FootnoteLargeHeading}>
-              What Data Are Missing?
+              What data are missing?
             </h3>
           </Box>
 
           <p>Unfortunately there are crucial data missing in our sources.</p>
-          <h4>Missing and Misidentified People</h4>
+          <h4>Missing and misidentified people</h4>
           <p>
             Currently, there are no required or standardized race and ethnicity
             categories for data collection across state and local jurisdictions.
@@ -196,7 +209,7 @@ function ReportProvider(props: ReportProviderProps) {
             as female, male, or other.
           </p>
 
-          <h4>Missing Population Data</h4>
+          <h4>Missing population data</h4>
           <p>
             We primarily incorporate the U.S. Census Bureau's American Community
             Survey (ACS) 5-year estimates when presenting population
@@ -212,6 +225,10 @@ function ReportProvider(props: ReportProviderProps) {
             2010 census, so we use those numbers when calculating all territory-
             and national-level rates.
           </p>
+
+          {isCovid && <MissingCovidData />}
+          {isCovidVax && <MissingCovidVaccinationData />}
+          {isCAWP && <MissingCAWPData />}
 
           <Button
             className={styles.SeeOurDataSourcesButton}

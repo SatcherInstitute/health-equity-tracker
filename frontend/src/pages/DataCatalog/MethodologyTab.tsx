@@ -3,7 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import styles from "./DataCatalogPage.module.scss";
 import {
   CONTACT_TAB_LINK,
-  EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
   HET_URL,
   DATA_TAB_LINK,
 } from "../../utils/internalRoutes";
@@ -75,14 +74,6 @@ function MethodologyTab() {
               </h3>
               <div className={styles.MethodologyAnswer}>
                 <h4 className={styles.MethodologySubsubheaderText}>COVID-19</h4>
-                <p>
-                  For a description of some of the gaps in COVID-19 data, please
-                  see the{" "}
-                  <Link to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
-                    What Data Are Missing
-                  </Link>{" "}
-                  section. Here, we provide further details:
-                </p>
                 <ul>
                   <li>
                     National statistics are aggregations of state-wide data. If
@@ -967,15 +958,6 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 className={styles.MethodologyQuestion}>
-                What data is missing?
-              </h3>
-              <div className={styles.MethodologyAnswer}>
-                <p>
-                  Our tracker will expand to include additional health
-                  variables, social and political determinants of health.
-                </p>
-              </div>
               <div className={styles.MethodologyInfoBar}>
                 <p>
                   Do you have information on health outcomes at the state and
