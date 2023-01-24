@@ -622,7 +622,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         pct_share: {
           chartTitleLines: ["Share of total HIV diagnoses"],
-          metricId: "suicide_pct_share",
+          metricId: "hiv_pct_share",
           columnTitleHeader: "Share of total HIV diagnoses",
           trendsCardTitleName: "Inequitable share of HIV diagnoses over time",
           shortLabel: "% of HIV diagnoses",
