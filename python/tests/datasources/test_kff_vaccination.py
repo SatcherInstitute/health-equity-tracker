@@ -79,8 +79,5 @@ def testWriteToBq(
         'state_fips': str,
     })
 
-    # print("/n")
-    # print(expected_df)
-
     assert_frame_equal(
         mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
