@@ -19,8 +19,8 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
       "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
-      "Surveillance Data Access, Summary, and Limitations (12/01/2022). The last case data included is 2 " +
-      "weeks before 12/01/2022. The CDC does not take responsibility for the scientific validity " +
+      "Surveillance Data Access, Summary, and Limitations (01/12/2023). The last case data included is 2 " +
+      "weeks before 01/12/2023. The CDC does not take responsibility for the scientific validity " +
       "or accuracy of methodology, results, statistical analyses, or conclusions presented. We only " +
       "present the data as rates that are calculated with the ACS 2019 5-year estimates, to view the " +
       "raw data you must apply for access on the CDC website linked above.",
@@ -58,8 +58,8 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "Population percentages, health insurance rates, and poverty rates at the state and county levels.",
     dataset_ids: [
-      "acs_population-by_race_county_std",
-      "acs_population-by_race_state_std",
+      "acs_population-by_race_county",
+      "acs_population-by_race_state",
       "acs_population-by_race_national",
       "acs_population-by_age_county",
       "acs_population-by_age_state",
@@ -268,7 +268,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     dataset_ids: [
       "cawp_time_data-race_and_ethnicity_national_time_series",
       "cawp_time_data-race_and_ethnicity_state_time_series",
-      "cawp_time_data-race_and_ethnicity_state_time_series_names_std",
+      "cawp_time_data-race_and_ethnicity_state_time_series_names",
     ],
     downloadable: true,
   },

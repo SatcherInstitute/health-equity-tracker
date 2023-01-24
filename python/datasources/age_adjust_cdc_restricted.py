@@ -53,12 +53,13 @@ class AgeAdjustCDCRestricted(DataSource):
 
                 if time_series:
                     table_name += '_time_series'
+                    only_race += '_time_series'
 
                 only_race_df = gcs_to_bq_util.load_df_from_bigquery(
                     'cdc_restricted_data', only_race)
 
                 df = merge_age_adjusted(
-                    only_race_df, age_adjusted_df)
+                    only_race_df, age_adjusted_df, time_series)
 
                 column_types = get_col_types(df)
                 column_types[std_col.COVID_HOSP_RATIO_AGE_ADJUSTED] = 'FLOAT'
@@ -139,7 +140,7 @@ class AgeAdjustCDCRestricted(DataSource):
         return age_adjust_from_expected(df, time_series)
 
 
-def merge_age_adjusted(df, age_adjusted_df):
+def merge_age_adjusted(df, age_adjusted_df, time_series):
     """Merges the age adjusted death rate into the standard COVID dataset.
        Returns a dataframe with all needed COVID info for the frontend.
 
@@ -148,6 +149,9 @@ def merge_age_adjusted(df, age_adjusted_df):
 
     merge_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL,
                   std_col.RACE_CATEGORY_ID_COL]
+
+    if time_series:
+        merge_cols.append(std_col.TIME_PERIOD_COL)
 
     df = df.reset_index(drop=True)
     age_adjusted_df = age_adjusted_df.reset_index(drop=True)
