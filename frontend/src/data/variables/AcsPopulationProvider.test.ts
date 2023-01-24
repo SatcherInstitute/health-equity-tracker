@@ -45,7 +45,7 @@ describe("AcsPopulationProvider", () => {
 
   test("County and Race Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "acs_population-by_race_county_std-01",
+      "acs_population-by_race_county-01",
       Breakdowns.forFips(new Fips("01001")),
       RACE
     );
@@ -53,7 +53,7 @@ describe("AcsPopulationProvider", () => {
 
   test("State and Race Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "acs_population-by_race_state_std",
+      "acs_population-by_race_state",
       Breakdowns.forFips(new Fips("37")),
       RACE
     );

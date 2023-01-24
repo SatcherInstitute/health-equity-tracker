@@ -3,12 +3,12 @@ import { DataSourceMetadataMap, GEOGRAPHIES_DATASET_ID } from "./MetadataMap";
 
 export const datasetMetadataList: DatasetMetadata[] = [
   {
-    id: "acs_population-by_race_county_std",
+    id: "acs_population-by_race_county",
     name: "Population by race/ethnicity and county",
     update_time: "2019",
   },
   {
-    id: "acs_population-by_race_state_std",
+    id: "acs_population-by_race_state",
     name: "Population by race/ethnicity and state",
     update_time: "2019",
   },
@@ -369,7 +369,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: "September 2022",
   },
   {
-    id: "cawp_time_data-race_and_ethnicity_state_time_series_names_std",
+    id: "cawp_time_data-race_and_ethnicity_state_time_series_names",
     name: "By-state and by-territory lists of legislator names, yearly back to 1915 including: all members of U.S Congress, regardless of race or gender; all women members of U.S. Congress, by race/ethnicity; and all women members of state and territory legislatures, by race/ethnicity",
     update_time: "September 2022",
   },
