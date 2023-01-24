@@ -46,6 +46,17 @@ def get_mock_df_from_bq_as_df(*args, **kwargs):
                 os.path.join(TEST_DIR, 'cdc_restricted_race_national_processed.json'), dtype={'state_fips': str})
     elif args[1] == 'by_race_age_state':
         return pd.read_json(os.path.join(TEST_DIR, 'cdc_restricted-race_age_state.json'), dtype={'state_fips': str})
+    elif args[1] == 'by_race_state_processed_time_series':
+        return pd.read_json(
+                os.path.join(TEST_DIR,
+                             'cdc_restricted_race_state_processed_time_series.json'),
+                dtype={'state_fips': str})
+    elif args[1] == 'by_race_national_processed_time_series':
+        return pd.read_json(
+                os.path.join(TEST_DIR,
+                             'cdc_restricted_race_national_processed_time_series.json'),
+                dtype={'state_fips': str})
+    raise ValueError('No dataset for these args')
 
 
 # "Unit" tests
