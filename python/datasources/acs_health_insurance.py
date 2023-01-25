@@ -113,7 +113,7 @@ class AcsHealthInsuranceRaceIngester:
     # If race is set, gets race filename
     # If race is None and sex is set, gets filename for sex
     def get_filename(self, race, is_county):
-        geo = "STATE" if is_county else "COUNTY"
+        geo = "COUNTY" if is_county else "STATE"
         race = race.replace(" ", "_").upper()
         return "HEALTH_INSURANCE_BY_RACE_{0}_{1}.json".format(geo, race)
 
