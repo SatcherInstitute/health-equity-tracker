@@ -229,8 +229,8 @@ class AcsHealthInsuranceRaceIngester:
                 age_by_race = pd.merge(age_by_race_without_health_insurance, age_by_race_with_health_insurance, on=merge_cols, how='left')
 
                 age_by_race = age_by_race.drop(columns=['has_health_insurance'])
-
                 group_vars_totals = get_vars_for_group(concept, var_map, 1)
+
                 age_by_race_totals = standardize_frame(df, group_vars_totals, [AGE_COL], is_county, POPULATION_COL)
 
                 age_by_race = pd.merge(age_by_race, age_by_race_totals[merge_cols + [POPULATION_COL]], on=merge_cols, how='left')
@@ -239,11 +239,9 @@ class AcsHealthInsuranceRaceIngester:
                 age_by_race = age_by_race[merge_cols + [RACE_CATEGORY_ID_COL] + [WITH_HEALTH_INSURANCE_COL, WITHOUT_HEALTH_INSURANCE_COL, POPULATION_COL]]
 
                 age_by_race = update_col_types(age_by_race)
-
                 age_by_race = age_by_race.groupby(merge_cols + [RACE_CATEGORY_ID_COL]).sum().reset_index()
 
                 dfs.append(age_by_race)
-                print(age_by_race.to_string())
 
         to_return = pd.concat(dfs)
         return to_return
