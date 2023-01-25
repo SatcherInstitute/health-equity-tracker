@@ -77,6 +77,23 @@ def get_race_from_key(key):
     return HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES[parts[0]]
 
 
+def update_col_types(df):
+    """Returns a new DataFrame with the column types replaced with int64 for
+       population columns and string for other columns.
+
+       df: The original DataFrame"""
+    colTypes = {}
+    str_cols = {STATE_FIPS_COL, COUNTY_FIPS_COL, RACE_CATEGORY_ID_COL}
+
+    for col in df.columns:
+        if col in str_cols:
+            colTypes[col] = str
+        else:
+            colTypes[col] = float
+    df = df.astype(colTypes)
+    return df
+
+
 class AcsHealthInsuranceRaceIngester:
 
     # Initialize variables in class instance, also merge all metadata so that lookup of the
@@ -177,7 +194,6 @@ class AcsHealthInsuranceRaceIngester:
         dfs = []
         if gcs_bucket is not None:
             for concept, race in CONCEPTS_TO_RACE.items():
-                print(race)
                 # Get cached data from GCS
                 df = gcs_to_bq_util.load_values_as_df(
                     gcs_bucket, self.get_filename(race, is_county)
@@ -205,15 +221,26 @@ class AcsHealthInsuranceRaceIngester:
                 age_by_race_without_health_insurance = \
                     age_by_race_without_health_insurance.rename(columns={'amount': WITHOUT_HEALTH_INSURANCE_COL})
 
+                merge_cols = [STATE_FIPS_COL]
+                if is_county:
+                    merge_cols.append(COUNTY_FIPS_COL)
+
+                age_by_race_with_health_insurance = age_by_race_with_health_insurance[merge_cols + [WITH_HEALTH_INSURANCE_COL]]
+                age_by_race = pd.merge(age_by_race_without_health_insurance, age_by_race_with_health_insurance, on=merge_cols, how='left')
+
+                age_by_race = age_by_race.drop(columns=['has_health_insurance'])
+
                 group_vars_totals = get_vars_for_group(concept, var_map, 1)
                 age_by_race_totals = standardize_frame(df, group_vars_totals, [AGE_COL], is_county, POPULATION_COL)
-                age_by_race_totals = age_by_race_totals.drop(columns='has_health_insurance')
 
-                age_by_race = pd.concat([age_by_race_with_health_insurance,
-                                         age_by_race_without_health_insurance,
-                                         age_by_race_totals]).reset_index(drop=True)
-
+                age_by_race = pd.merge(age_by_race, age_by_race_totals[merge_cols + [POPULATION_COL]], on=merge_cols, how='left')
                 age_by_race[RACE_CATEGORY_ID_COL] = race
+
+                age_by_race = age_by_race[merge_cols + [RACE_CATEGORY_ID_COL] + [WITH_HEALTH_INSURANCE_COL, WITHOUT_HEALTH_INSURANCE_COL, POPULATION_COL]]
+
+                age_by_race = update_col_types(age_by_race)
+
+                age_by_race = age_by_race.groupby(merge_cols + [RACE_CATEGORY_ID_COL]).sum().reset_index()
 
                 dfs.append(age_by_race)
                 print(age_by_race.to_string())
