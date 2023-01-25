@@ -713,6 +713,7 @@ class ACSPopulation(DataSource):
         return 'ACS_POPULATION'
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
+        """ Checks if needed ACS tables are already memoized in our GCS landing bucket and if not, adds them."""
         file_diff = False
         for ingester in self._create_ingesters():
             next_file_diff = ingester.upload_to_gcs(gcs_bucket)
@@ -720,12 +721,17 @@ class ACSPopulation(DataSource):
         return file_diff
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
+        """ Processes each individual cached table, and ultimately
+        combines them by geo/demo breakdown and uploads to BQ"""
         for ingester in self._create_ingesters():
             ingester.generate_and_queue_yearly_table(gcs_bucket)
 
         combine_queue_and_write_to_bq(dataset)
 
     def _create_ingesters(self):
+        """ this allows us to retrieve each table from our cache
+        landing GCS bucket or ACS as needed.
+        Each table is distinct in our cache. """
         acs_pop_ingesters_list = []
         for is_county in [True, False]:
             for year, base_url in BASE_ACS_URL_MAP.items():
