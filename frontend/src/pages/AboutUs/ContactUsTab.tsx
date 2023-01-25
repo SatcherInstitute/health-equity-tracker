@@ -99,19 +99,14 @@ function ContactUsTab() {
             </form>
 
             <p className={styles.ContactUsP}>
-              <b>For general requests:</b>
+              <b>For general requests and media inquiries:</b>
               <br />
               Please contact the{" "}
               <a href={urlMap.shli}>
                 Satcher Health Leadership Institute
               </a> at <a href="mailto:shli@msm.edu">shli@msm.edu</a>
             </p>
-            <p className={styles.ContactUsP}>
-              <b>For media inquiries:</b>
-              <br />
-              Please contact Mahia Valle, Senior Communications Specialist, at{" "}
-              <a href="mailto:mvalle@msm.edu">mvalle@msm.edu</a>
-            </p>
+
             <p className={styles.ContactUsP}>
               <b>Phone:</b>
               <br />

@@ -74,7 +74,7 @@ describe("IncarcerationProvider", () => {
       Breakdowns.forFips(new Fips("37")),
       RACE,
       "incarceration",
-      ["acs_population-by_race_state_std"]
+      ["acs_population-by_race_state"]
     );
   });
 

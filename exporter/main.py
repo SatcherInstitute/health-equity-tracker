@@ -31,10 +31,17 @@ def export_dataset_tables():
     dataset = bq_client.get_dataset(dataset_id)
     tables = list(bq_client.list_tables(dataset))
 
-    # filter only tables for current breakdown (if present)
-    if demographic is not None:
+    # process intersectional tables only once in their own DAG step
+    if demographic == "multi":
+        tables = [
+            table for table in tables if has_multi_demographics(table.table_id)
+        ]
+
+    # process only the single demographic tables (if present in payload)
+    elif demographic is not None:
         tables = [
             table for table in tables if (
+                not has_multi_demographics(table.table_id) and
                 demographic in table.table_id
             )
         ]
@@ -46,7 +53,8 @@ def export_dataset_tables():
 
     for table in tables:
         # split up county-level tables by state and export those individually
-        export_split_county_tables(bq_client, table, export_bucket)
+        if not has_multi_demographics(table.table_id):
+            export_split_county_tables(bq_client, table, export_bucket)
 
         # export the full table
         dest_uri = f'gs://{export_bucket}/{dataset_name}-{table.table_id}.json'
@@ -104,6 +112,22 @@ def export_split_county_tables(bq_client, table, export_bucket):
                 f'Error splitting county-level table {table_name} into {state_file_name}:\n {err}',
                 500
             )
+
+
+def has_multi_demographics(table_id: str):
+    """ Determines if a table has more than one demographic breakdown
+        (e.g. `...by_race_age...` or `...sex_age_race...`)
+
+        ARGS:
+        table_id: string table name that may contain demographic breakdowns as substrings
+
+        RETURNS:
+        boolean of whether there is more than one demographic substring found """
+    return (
+        ("age" in table_id and "sex" in table_id) or
+        ("age" in table_id and "race" in table_id) or
+        ("sex" in table_id and "race" in table_id)
+    )
 
 
 def get_table_name(table):

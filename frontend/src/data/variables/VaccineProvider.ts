@@ -169,7 +169,7 @@ class VaccineProvider extends VariableProvider {
       // We merge this in on the backend, no need to redownload it here
       // but we want to provide the proper citation
       consumedDatasetIds = consumedDatasetIds.concat(
-        "acs_population-by_race_county_std"
+        "acs_population-by_race_county"
       );
     }
 
