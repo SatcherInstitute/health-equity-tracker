@@ -249,6 +249,46 @@ def update_col_types(frame):
     return frame
 
 
+queued_yearly_table_tuples = []
+
+
+def combine_queue_and_write_to_bq(dataset: str):
+    """ the ACS source tables are cached individually by demographic
+    breakdown type / geographic level / year. However, we want to
+    combine all years so that our BQ contains tables only by
+    breakdown type / geographic level.
+
+    dataset: string name of dataset for writing to BQ
+     """
+
+    for geo_level in [
+            constants.NATIONAL_LEVEL,
+            constants.STATE_LEVEL,
+            constants.COUNTY_LEVEL]:
+
+        for breakdown_type in [
+            std_col.SEX_COL,
+            std_col.AGE_COL,
+            std_col.RACE_OR_HISPANIC_COL
+        ]:
+            breakdown_dfs_by_year = []
+            combined_years_table_name = ""
+
+            # extract only the tables for this geo/demo breakdown
+            for yearly_table_tuple in queued_yearly_table_tuples:
+                (df, table_name, column_types) = yearly_table_tuple
+
+                if geo_level in table_name and breakdown_type in table_name:
+                    breakdown_dfs_by_year.append(df)
+                    # remove the _YYYY
+                    combined_years_table_name = table_name[:-5]
+
+            # combine rows from each year into single df
+            breakdown_df = pd.concat(breakdown_dfs_by_year, axis=0)
+            gcs_to_bq_util.add_df_to_bq(
+                breakdown_df, dataset, combined_years_table_name, column_types=column_types)
+
+
 class ACSPopulationIngester():
     """American Community Survey population data in the United States from the
        US Census."""
@@ -307,8 +347,8 @@ class ACSPopulationIngester():
 
         return file_diff
 
-    def write_to_bq(self, dataset, gcs_bucket):
-        """Writes population data to BigQuery from the provided GCS bucket
+    def generate_and_queue_yearly_table(self, gcs_bucket):
+        """Generates a single year table from the provided GCS bucket
 
         dataset: The BigQuery dataset to write to
         gcs_bucket: The name of the gcs bucket to read the data from"""
@@ -379,9 +419,7 @@ class ACSPopulationIngester():
 
         for table_name, df in frames.items():
 
-            # write "current" ACS as normal, and additionally allow
-            # for writing other years that will contain the year in
-            # a time_period column and in the table name itself
+            # set a time_period column if year is provided
             if self.year:
                 df[std_col.TIME_PERIOD_COL] = self.year
                 table_name += f'_{self.year}'
@@ -392,8 +430,11 @@ class ACSPopulationIngester():
             column_types = gcs_to_bq_util.get_bq_column_types(
                 df, float_cols=float_cols)
 
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=column_types)
+            # add this yearly table to the queue
+            queued_yearly_table_tuples.append((
+                df,
+                table_name,
+                column_types))
 
     def get_table_geo_suffix(self):
         return "_county" if self.county_level else "_state"
@@ -680,7 +721,9 @@ class ACSPopulation(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         for ingester in self._create_ingesters():
-            ingester.write_to_bq(dataset, gcs_bucket)
+            ingester.generate_and_queue_yearly_table(gcs_bucket)
+
+        combine_queue_and_write_to_bq(dataset)
 
     def _create_ingesters(self):
         acs_pop_ingesters_list = []
