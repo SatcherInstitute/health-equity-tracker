@@ -37,7 +37,6 @@ from ingestion.standardized_columns import (
 # TODO pass this in from message data.
 BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
 
-
 CONCEPTS_TO_RACE = {
     'HEALTH INSURANCE COVERAGE STATUS BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)': Race.AIAN.value,
     'HEALTH INSURANCE COVERAGE STATUS BY AGE (ASIAN ALONE)': Race.ASIAN.value,
@@ -50,6 +49,9 @@ CONCEPTS_TO_RACE = {
     'HEALTH INSURANCE COVERAGE STATUS BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)': Race.WHITE_NH.value,
 }
 
+demo_to_concepts = {
+    'race': CONCEPTS_TO_RACE,
+}
 
 # ACS Health Insurance By Race Prefixes.
 # Acs variables are in the form C27001A_xxx0 C27001A_xxx2 ect
@@ -70,6 +72,8 @@ HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = {
 # Health insurance by Sex only has one prefix, and is kept
 # in the form of a dict to help with standardizing code flow
 HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX = "B27001"
+
+HAS_HEALTH_INSURANCE = 'has_health_insurance'
 
 
 def get_race_from_key(key):
@@ -170,30 +174,26 @@ class AcsHealthInsuranceRaceIngester:
         dfs = {}
         for is_county in [True, False]:
             for demo in ['race']:
-                dfs[(demo, is_county)] = self.getData(is_county, gcs_bucket=gcs_bucket)
+                table_name = f'by_{demo}'
+                if is_county:
+                    table_name += '_county'
+                else:
+                    table_name += '_state'
 
-        # Split internal memory into data frames for sex/race by state/county
-        # self.split_data_frames()
+                dfs[table_name] = self.getData(demo, is_county, gcs_bucket=gcs_bucket)
 
-        # Create BQ columns and write dataframes to BQ
-        for table_name, df in self.frames.items():
-            # All breakdown columns are strings
-            column_types = {c: "STRING" for c in df.columns}
-
-            column_types[WITH_HEALTH_INSURANCE_COL] = "INT64"
-            column_types[WITHOUT_HEALTH_INSURANCE_COL] = "INT64"
-            column_types[TOTAL_HEALTH_INSURANCE_COL] = "INT64"
-
+        for table_name, df in dfs.items():
+            float_cols = [WITH_HEALTH_INSURANCE_COL, WITH_HEALTH_INSURANCE_COL, POPULATION_COL]
             gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=column_types
+                df, dataset, table_name, column_types=gcs_to_bq_util.get_bq_column_types(df, float_cols)
             )
 
     #   Get Health insurance data from either GCS or Directly, and aggregate the data in memory
 
-    def getData(self, is_county, gcs_bucket=None):
+    def getData(self, demo, is_county, gcs_bucket=None):
         dfs = []
         if gcs_bucket is not None:
-            for concept, race in CONCEPTS_TO_RACE.items():
+            for concept, race in demo_to_concepts[demo].items():
                 # Get cached data from GCS
                 df = gcs_to_bq_util.load_values_as_df(
                     gcs_bucket, self.get_filename(race, is_county)
@@ -204,18 +204,18 @@ class AcsHealthInsuranceRaceIngester:
                                              + [HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX])
 
                 group_vars = get_vars_for_group(concept, var_map, 2)
-                age_by_race = standardize_frame(df, group_vars, [AGE_COL, 'has_health_insurance'],
+                age_by_race = standardize_frame(df, group_vars, [AGE_COL, HAS_HEALTH_INSURANCE],
                                                 is_county, 'amount')
 
                 age_by_race_with_health_insurance = \
-                    age_by_race.loc[age_by_race['has_health_insurance'] ==
+                    age_by_race.loc[age_by_race[HAS_HEALTH_INSURANCE] ==
                                     'With health insurance coverage'].reset_index(drop=True)
 
                 age_by_race_with_health_insurance = \
                     age_by_race_with_health_insurance.rename(columns={'amount': WITH_HEALTH_INSURANCE_COL})
 
                 age_by_race_without_health_insurance = \
-                    age_by_race.loc[age_by_race['has_health_insurance'] ==
+                    age_by_race.loc[age_by_race[HAS_HEALTH_INSURANCE] ==
                                     'No health insurance coverage'].reset_index(drop=True)
 
                 age_by_race_without_health_insurance = \
@@ -228,7 +228,7 @@ class AcsHealthInsuranceRaceIngester:
                 age_by_race_with_health_insurance = age_by_race_with_health_insurance[merge_cols + [WITH_HEALTH_INSURANCE_COL]]
                 age_by_race = pd.merge(age_by_race_without_health_insurance, age_by_race_with_health_insurance, on=merge_cols, how='left')
 
-                age_by_race = age_by_race.drop(columns=['has_health_insurance'])
+                age_by_race = age_by_race.drop(columns=[HAS_HEALTH_INSURANCE])
                 group_vars_totals = get_vars_for_group(concept, var_map, 1)
 
                 age_by_race_totals = standardize_frame(df, group_vars_totals, [AGE_COL], is_county, POPULATION_COL)
@@ -239,21 +239,12 @@ class AcsHealthInsuranceRaceIngester:
                 age_by_race = age_by_race[merge_cols + [RACE_CATEGORY_ID_COL] + [WITH_HEALTH_INSURANCE_COL, WITHOUT_HEALTH_INSURANCE_COL, POPULATION_COL]]
 
                 age_by_race = update_col_types(age_by_race)
-                age_by_race = age_by_race.groupby(merge_cols + [RACE_CATEGORY_ID_COL]).sum().reset_index()
+                race = age_by_race.groupby(merge_cols + [RACE_CATEGORY_ID_COL]).sum().reset_index()
 
-                dfs.append(age_by_race)
+                dfs.append(race)
 
         to_return = pd.concat(dfs)
         return to_return
-
-    def upsert_row(self, state_fip, county_fip, age, race):
-        if (state_fip, county_fip, age, race) not in self.data:
-            self.data[(state_fip, county_fip, age, race)] = {
-                HealthInsurancePopulation.TOTAL: -1,
-                HealthInsurancePopulation.WITH: -1,
-                HealthInsurancePopulation.WITHOUT: -1,
-            }
-        return self.data[(state_fip, county_fip, age, race)]
 
     # Helper method from grabbing a tuple in self.data.  If the
     # tuple hasn't been created then it initializes an empty tuple.
@@ -262,72 +253,72 @@ class AcsHealthInsuranceRaceIngester:
 
     # Splits the in memory aggregation into dataframes
 
-    def split_data_frames(self):
-        state_race_data = []
-        county_race_data = []
+    # def split_data_frames(self):
+    #     state_race_data = []
+    #     county_race_data = []
 
-        # Extract keys from self.data Tuple
-        # (state_fip, County_fip, Age, Sex, Race): {PopulationObj}
-        for data in self.data:
-            state_fip, county_fip, age, race = data
+    #     # Extract keys from self.data Tuple
+    #     # (state_fip, County_fip, Age, Sex, Race): {PopulationObj}
+    #     for data in self.data:
+    #         state_fip, county_fip, age, race = data
 
-            population = self.data[data]
-            whi = population[HealthInsurancePopulation.WITH]
-            wohi = population[HealthInsurancePopulation.WITHOUT]
-            total = population[HealthInsurancePopulation.TOTAL]
+    #         population = self.data[data]
+    #         whi = population[HealthInsurancePopulation.WITH]
+    #         wohi = population[HealthInsurancePopulation.WITHOUT]
+    #         total = population[HealthInsurancePopulation.TOTAL]
 
-            if county_fip is None:
-                state_race_data.append(
-                    [state_fip, age, race, whi, wohi, total]
-                )
-            else:
-                county_race_data.append(
-                    [
-                        state_fip,
-                        state_fip + county_fip,
-                        age,
-                        race,
-                        whi,
-                        wohi,
-                        total,
-                    ]
-                )
+    #         if county_fip is None:
+    #             state_race_data.append(
+    #                 [state_fip, age, race, whi, wohi, total]
+    #             )
+    #         else:
+    #             county_race_data.append(
+    #                 [
+    #                     state_fip,
+    #                     state_fip + county_fip,
+    #                     age,
+    #                     race,
+    #                     whi,
+    #                     wohi,
+    #                     total,
+    #                 ]
+    #             )
 
-        self.state_race_frame = pd.DataFrame(
-            state_race_data,
-            columns=[
-                STATE_FIPS_COL,
-                STATE_NAME_COL,
-                AGE_COL,
-                RACE_CATEGORY_ID_COL,
-                WITH_HEALTH_INSURANCE_COL,
-                WITHOUT_HEALTH_INSURANCE_COL,
-                TOTAL_HEALTH_INSURANCE_COL,
-            ],
-        )
-        self.county_race_frame = pd.DataFrame(
-            county_race_data,
-            columns=[
-                STATE_FIPS_COL,
-                STATE_NAME_COL,
-                COUNTY_FIPS_COL,
-                COUNTY_NAME_COL,
-                AGE_COL,
-                RACE_CATEGORY_ID_COL,
-                WITH_HEALTH_INSURANCE_COL,
-                WITHOUT_HEALTH_INSURANCE_COL,
-                TOTAL_HEALTH_INSURANCE_COL,
-            ],
-        )
+    #     self.state_race_frame = pd.DataFrame(
+    #         state_race_data,
+    #         columns=[
+    #             STATE_FIPS_COL,
+    #             STATE_NAME_COL,
+    #             AGE_COL,
+    #             RACE_CATEGORY_ID_COL,
+    #             WITH_HEALTH_INSURANCE_COL,
+    #             WITHOUT_HEALTH_INSURANCE_COL,
+    #             TOTAL_HEALTH_INSURANCE_COL,
+    #         ],
+    #     )
+    #     self.county_race_frame = pd.DataFrame(
+    #         county_race_data,
+    #         columns=[
+    #             STATE_FIPS_COL,
+    #             STATE_NAME_COL,
+    #             COUNTY_FIPS_COL,
+    #             COUNTY_NAME_COL,
+    #             AGE_COL,
+    #             RACE_CATEGORY_ID_COL,
+    #             WITH_HEALTH_INSURANCE_COL,
+    #             WITHOUT_HEALTH_INSURANCE_COL,
+    #             TOTAL_HEALTH_INSURANCE_COL,
+    #         ],
+    #     )
 
-        add_race_columns_from_category_id(self.state_race_frame)
-        add_race_columns_from_category_id(self.county_race_frame)
+    #     add_race_columns_from_category_id(self.state_race_frame)
+    #     add_race_columns_from_category_id(self.county_race_frame)
 
-        # Aggregate Frames by Filename
-        self.frames = {
-            "health_insurance_by_race_age_state": self.state_race_frame,
-            "health_insurance_by_race_age_county": self.county_race_frame,
-        }
+    #     # Aggregate Frames by Filename
+    #     self.frames = {
+    #         "health_insurance_by_race_age_state": self.state_race_frame,
+    #         "health_insurance_by_race_age_county": self.county_race_frame,
+    #     }
 
 
 # class AcsHealthInsuranceSexIngester:
