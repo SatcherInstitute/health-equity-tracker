@@ -49,11 +49,11 @@ cdc_age_adjust_payload = util.generate_bq_payload(
     _CDC_RESTRICTED_DATASET,
 )
 
-sanity_check = util.sanity_check_operator(
-    'sanity_check', _CDC_RESTRICTED_DATASET, data_ingestion_dag)
-
 cdc_restricted_age_adjust_op = util.create_bq_ingest_operator(
     'cdc_restricted_age_adjust', cdc_age_adjust_payload, data_ingestion_dag)
+
+sanity_check = util.sanity_check_operator(
+    'sanity_check', _CDC_RESTRICTED_DATASET, data_ingestion_dag)
 
 cdc_restricted_exporter_payload_race = {
     'dataset_name': _CDC_RESTRICTED_DATASET,
@@ -86,8 +86,8 @@ cdc_restricted_exporter_operator_sex = util.create_exporter_operator(
     cdc_restricted_bq_op_race >>
     cdc_restricted_bq_op_sex >>
     cdc_restricted_bq_op_age >>
-    sanity_check >>
-    cdc_restricted_age_adjust_op >> [
+    cdc_restricted_age_adjust_op >>
+    sanity_check >> [
         cdc_restricted_exporter_operator_race,
         cdc_restricted_exporter_operator_age,
         cdc_restricted_exporter_operator_sex,

@@ -31,7 +31,7 @@ acs_pop_bq_payload_2019 = util.generate_bq_payload(
 acs_pop_bq_operator_2019 = util.create_bq_ingest_operator(
     'acs_population_to_bq_2019', acs_pop_bq_payload_2019, data_ingestion_dag)
 
-# ADDED YEAR 2019
+# ADDED YEAR 2009
 acs_pop_gcs_payload_2009 = util.generate_gcs_payload(
     _ACS_WORKFLOW_ID, url=_ACS_BASE_URL_2009)
 acs_pop_gcs_operator_2009 = util.create_gcs_ingest_operator(
@@ -41,6 +41,11 @@ acs_pop_bq_payload_2009 = util.generate_bq_payload(
     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, url=_ACS_BASE_URL_2009)
 acs_pop_bq_operator_2009 = util.create_bq_ingest_operator(
     'acs_population_to_bq_2009', acs_pop_bq_payload_2009, data_ingestion_dag)
+
+acs_pop_exporter_payload_multi = {
+    'dataset_name': _ACS_DATASET_NAME,
+    'demographic': "multi"
+}
 
 acs_pop_exporter_payload_multi = {
     'dataset_name': _ACS_DATASET_NAME,

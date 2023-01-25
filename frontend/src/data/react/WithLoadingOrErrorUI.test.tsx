@@ -75,7 +75,7 @@ describe("WithLoadingOrErrorUI", () => {
     );
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
-      dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", []);
+      dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state", []);
       dataFetcher.setFakeDatasetLoaded("uhc_data-race_and_ethnicity_state", [
         {
           state_name: "Alabama",
