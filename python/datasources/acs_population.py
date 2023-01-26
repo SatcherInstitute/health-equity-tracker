@@ -249,46 +249,6 @@ def update_col_types(frame):
     return frame
 
 
-queued_yearly_table_tuples = []
-
-
-def combine_queue_and_write_to_bq(dataset: str):
-    """ the ACS source tables are cached individually by demographic
-    breakdown type / geographic level / year. However, we want to
-    combine all years so that our BQ contains tables only by
-    breakdown type / geographic level.
-
-    dataset: string name of dataset for writing to BQ
-     """
-
-    for geo_level in [
-            constants.NATIONAL_LEVEL,
-            constants.STATE_LEVEL,
-            constants.COUNTY_LEVEL]:
-
-        for breakdown_type in [
-            std_col.SEX_COL,
-            std_col.AGE_COL,
-            std_col.RACE_OR_HISPANIC_COL
-        ]:
-            breakdown_dfs_by_year = []
-            combined_years_table_name = ""
-
-            # extract only the tables for this geo/demo breakdown
-            for yearly_table_tuple in queued_yearly_table_tuples:
-                (df, table_name, column_types) = yearly_table_tuple
-
-                if geo_level in table_name and breakdown_type in table_name:
-                    breakdown_dfs_by_year.append(df)
-                    # remove the _YYYY
-                    combined_years_table_name = table_name[:-5]
-
-            # combine rows from each year into single df
-            breakdown_df = pd.concat(breakdown_dfs_by_year, axis=0)
-            gcs_to_bq_util.add_df_to_bq(
-                breakdown_df, dataset, combined_years_table_name, column_types=column_types)
-
-
 class ACSPopulationIngester():
     """American Community Survey population data in the United States from the
        US Census."""
@@ -347,7 +307,7 @@ class ACSPopulationIngester():
 
         return file_diff
 
-    def generate_and_queue_yearly_table(self, gcs_bucket):
+    def generate_yearly_table_tuple(self, gcs_bucket):
         """Generates a single year table from the provided GCS bucket
 
         dataset: The BigQuery dataset to write to
@@ -424,17 +384,8 @@ class ACSPopulationIngester():
                 df[std_col.TIME_PERIOD_COL] = self.year
                 table_name += f'_{self.year}'
 
-            float_cols = [std_col.POPULATION_COL]
-            if std_col.POPULATION_PCT_COL in df.columns:
-                float_cols.append(std_col.POPULATION_PCT_COL)
-            column_types = gcs_to_bq_util.get_bq_column_types(
-                df, float_cols=float_cols)
-
             # add this yearly table to the queue
-            queued_yearly_table_tuples.append((
-                df,
-                table_name,
-                column_types))
+            return (df, table_name)
 
     def get_table_geo_suffix(self):
         return "_county" if self.county_level else "_state"
@@ -721,12 +672,58 @@ class ACSPopulation(DataSource):
         return file_diff
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        """ Processes each individual cached table, and ultimately
-        combines them by geo/demo breakdown and uploads to BQ"""
-        for ingester in self._create_ingesters():
-            ingester.generate_and_queue_yearly_table(gcs_bucket)
+        """ Processes each individual cached table,
+        combines them by geo/demo breakdown, and uploads to BQ
+        the ACS source tables are cached individually by demographic
+    breakdown type / geographic level / year. However, we want to
+    combine all years so that our BQ contains tables only by
+    breakdown type / geographic level.
 
-        combine_queue_and_write_to_bq(dataset)
+    dataset: string name of dataset for writing to BQ
+
+        """
+
+        # collect yearly tables
+        yearly_table_tuples = []
+        for ingester in self._create_ingesters():
+            yearly_table_tuples.append(
+                ingester.generate_yearly_table_tuple(gcs_bucket))
+
+        # combine all years into single table per geo/demo breakdown
+        for geo_level in [
+                constants.NATIONAL_LEVEL,
+                constants.STATE_LEVEL,
+                constants.COUNTY_LEVEL]:
+
+            for breakdown_type in [
+                std_col.SEX_COL,
+                std_col.AGE_COL,
+                std_col.RACE_OR_HISPANIC_COL
+            ]:
+                breakdown_dfs_by_year = []
+                combined_years_table_name = ""
+
+                # extract only the tables for this geo/demo breakdown
+                for yearly_table_tuple in yearly_table_tuples:
+                    (df, table_name) = yearly_table_tuple
+
+                    if geo_level in table_name and breakdown_type in table_name:
+                        breakdown_dfs_by_year.append(df)
+                        # remove the _YYYY
+                        combined_years_table_name = table_name[:-5]
+
+                # combine rows from each year into single df
+                breakdown_df = pd.concat(breakdown_dfs_by_year, axis=0)
+
+                # get BQ column types
+                float_cols = [std_col.POPULATION_COL]
+                if std_col.POPULATION_PCT_COL in df.columns:
+                    float_cols.append(std_col.POPULATION_PCT_COL)
+                column_types = gcs_to_bq_util.get_bq_column_types(
+                    df, float_cols=float_cols)
+
+                gcs_to_bq_util.add_df_to_bq(
+                    breakdown_df, dataset, combined_years_table_name, column_types=column_types)
 
     def _create_ingesters(self):
         """ this allows us to retrieve each table from our cache
