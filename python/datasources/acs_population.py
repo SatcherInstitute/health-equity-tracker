@@ -239,6 +239,9 @@ def update_col_types(frame):
        population columns and string for other columns.
 
        frame: The original DataFrame"""
+    print("inside")
+    print(frame.columns)
+    print(frame.to_string())
     colTypes = {}
     for col in frame.columns:
         if col != "NAME" and col != "state" and col != "county":
@@ -250,12 +253,16 @@ def update_col_types(frame):
 
 
 class ACSPopulationIngester():
-    """American Community Survey population data in the United States from the
-       US Census."""
+    """Each instance of this class handles a single geo/demo/year
+    table from American Community Survey (population data in the
+    United States from the US Census)"""
 
     def __init__(self, county_level: bool, base_acs_url: str, year: str = None):
-        """ Create the ingester that moves data from the cached GCS
-        to a BigQuery table
+        """ Create the ingester that handles individual caching of yearly
+        tables from ACS to our GCS landing bucket, and also handles
+        converting those tables into yearly dfs. The actual writing back
+        to our BigQuery tables from the generating yearly dfs is handled
+        outside of this class in the ACSPopulation class.
 
         ARGS
         county_level: boolean indicating geographic level is county
@@ -310,7 +317,6 @@ class ACSPopulationIngester():
     def generate_yearly_table_tuple(self, gcs_bucket):
         """Generates a single year table from the provided GCS bucket
 
-        dataset: The BigQuery dataset to write to
         gcs_bucket: The name of the gcs bucket to read the data from"""
         # TODO change this to have it read metadata from GCS bucket
         metadata = census.fetch_acs_metadata(self.base_acs_url)
@@ -318,6 +324,8 @@ class ACSPopulationIngester():
 
         race_and_hispanic_frame = gcs_to_bq_util.load_values_as_df(
             gcs_bucket, self.get_filename(HISPANIC_BY_RACE_CONCEPT))
+        print("race_and_hispanic_frame causing issues")
+        print(race_and_hispanic_frame.to_string())
         race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
 
         race_and_hispanic_frame = standardize_frame(
@@ -653,6 +661,11 @@ class ACSPopulationIngester():
 
 class ACSPopulation(DataSource):
 
+    """ Created only once, to handle fetching each specific
+    geo/demo/yearly table from ACS or our cache, and also handle
+    combining those tables into per geo/demo tables that are
+    uploaded to our BigQuery"""
+
     @staticmethod
     def get_table_name():
         # Writes multiple tables, so this is not applicable.
@@ -675,13 +688,11 @@ class ACSPopulation(DataSource):
         """ Processes each individual cached table,
         combines them by geo/demo breakdown, and uploads to BQ
         the ACS source tables are cached individually by demographic
-    breakdown type / geographic level / year. However, we want to
-    combine all years so that our BQ contains tables only by
-    breakdown type / geographic level.
+        breakdown type / geographic level / year. However, we want to
+        combine all years so that our BQ contains tables only by
+        breakdown type / geographic level.
 
-    dataset: string name of dataset for writing to BQ
-
-        """
+        dataset: string name of dataset for writing to BQ  """
 
         # collect yearly tables
         yearly_table_tuples = []
@@ -722,6 +733,7 @@ class ACSPopulation(DataSource):
                 column_types = gcs_to_bq_util.get_bq_column_types(
                     df, float_cols=float_cols)
 
+                # write combined year table to BigQuery
                 gcs_to_bq_util.add_df_to_bq(
                     breakdown_df, dataset, combined_years_table_name, column_types=column_types)
 
