@@ -100,12 +100,12 @@ def testGenerateNationalDatasetAge():
 
 def _load_values_as_df(*args, **kwargs):
     print("mocking a call for load_values_as_df()")
-    for arg in args:
-        print("-")
-        print(arg)
-    for kwarg in kwargs:
-        print("--")
-        print(kwarg)
+    # for arg in args:
+    #     print("-")
+    #     print(arg)
+    # for kwarg in kwargs:
+    #     print("--")
+    #     print(kwarg)
 
     url, filename = args
 
@@ -155,18 +155,105 @@ def _load_values_as_df(*args, **kwargs):
     if filename == "2009_SEX_BY_AGE_(WHITE_ALONE,_NOT_HISPANIC_OR_LATINO)_county.json":
         return get_sex_by_age_county_value_as_df("SEX BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)")
 
+    if filename == "2019_HISPANIC_OR_LATINO_ORIGIN_BY_RACE_state.json":
+        return get_hispanic_or_latino_values_by_race_state_as_df()
+    if filename == "2019_SEX_BY_AGE_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE")
+    if filename == "2019_SEX_BY_AGE_(WHITE_ALONE)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (WHITE ALONE)")
+    if filename == "2019_SEX_BY_AGE_(BLACK_OR_AFRICAN_AMERICAN_ALONE)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)")
+    if filename == "2019_SEX_BY_AGE_(AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)")
+    if filename == "2019_SEX_BY_AGE_(ASIAN_ALONE)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (ASIAN ALONE)")
+    if filename == "2019_SEX_BY_AGE_(NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)")
+    if filename == "2019_SEX_BY_AGE_(SOME_OTHER_RACE_ALONE)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (SOME OTHER RACE ALONE)")
+    if filename == "2019_SEX_BY_AGE_(TWO_OR_MORE_RACES)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (TWO OR MORE RACES)")
+    if filename == "2019_SEX_BY_AGE_(HISPANIC_OR_LATINO)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (HISPANIC OR LATINO)")
+    if filename == "2019_SEX_BY_AGE_(WHITE_ALONE,_NOT_HISPANIC_OR_LATINO)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)")
+
+    if filename == "2009_HISPANIC_OR_LATINO_ORIGIN_BY_RACE_state.json":
+        return get_hispanic_or_latino_values_by_race_state_as_df()
+    if filename == "2009_SEX_BY_AGE_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE")
+    if filename == "2009_SEX_BY_AGE_(WHITE_ALONE)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (WHITE ALONE)")
+    if filename == "2009_SEX_BY_AGE_(BLACK_OR_AFRICAN_AMERICAN_ALONE)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)")
+    if filename == "2009_SEX_BY_AGE_(AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)")
+    if filename == "2009_SEX_BY_AGE_(ASIAN_ALONE)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (ASIAN ALONE)")
+    if filename == "2009_SEX_BY_AGE_(NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)")
+    if filename == "2009_SEX_BY_AGE_(SOME_OTHER_RACE_ALONE)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (SOME OTHER RACE ALONE)")
+    if filename == "2009_SEX_BY_AGE_(TWO_OR_MORE_RACES)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (TWO OR MORE RACES)")
+    if filename == "2009_SEX_BY_AGE_(HISPANIC_OR_LATINO)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (HISPANIC OR LATINO)")
+    if filename == "2009_SEX_BY_AGE_(WHITE_ALONE,_NOT_HISPANIC_OR_LATINO)_state.json":
+        return get_sex_by_age_value_as_df("SEX BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)")
+
     print("oops, requested a GCS file that's not yet mocked")
+
+
+def _get_cached_table_tuples():
+    """ Mock the whole process of creating individual ingesters and
+    gathering the tuples based on their associated df/tablename"""
+
+    cached_table_names = [
+        "SEX_BY_AGE_(AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE)_county",
+        "SEX_BY_AGE_(AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE)_state",
+        "SEX_BY_AGE_(ASIAN_ALONE)_county",
+        "SEX_BY_AGE_(ASIAN_ALONE)_state",
+        "SEX_BY_AGE_(BLACK_OR_AFRICAN_AMERICAN_ALONE)_county",
+        "SEX_BY_AGE_(BLACK_OR_AFRICAN_AMERICAN_ALONE)_state",
+        "SEX_BY_AGE_(HISPANIC_OR_LATINO)_county",
+        "SEX_BY_AGE_(HISPANIC_OR_LATINO)_state",
+        "SEX_BY_AGE_(NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE)_county",
+        "SEX_BY_AGE_(NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE)_state",
+        "SEX_BY_AGE_(SOME_OTHER_RACE_ALONE)_county",
+        "SEX_BY_AGE_(SOME_OTHER_RACE_ALONE)_state",
+        "SEX_BY_AGE_(TWO_OR_MORE_RACES)_county",
+        "SEX_BY_AGE_(TWO_OR_MORE_RACES)_state",
+        "SEX_BY_AGE_(WHITE_ALONE,_NOT_HISPANIC_OR_LATINO)_county",
+        "SEX_BY_AGE_(WHITE_ALONE,_NOT_HISPANIC_OR_LATINO)_state",
+        "SEX_BY_AGE_(WHITE_ALONE)_county",
+        "SEX_BY_AGE_(WHITE_ALONE)_state",
+        "SEX_BY_AGE_county",
+        "SEX_BY_AGE_state",
+        "HISPANIC_OR_LATINO_ORIGIN_BY_RACE_state",
+        "HISPANIC_OR_LATINO_ORIGIN_BY_RACE_county"
+    ]
+
+    cached_tuples = []
+    for table_name in cached_table_names:
+        dtype = {'county_fips': str} if 'county' in table_name else {
+            'state_fips': str}
+        df = gcs_to_bq_util.values_json_to_df(
+            os.path.join(TEST_DIR, f'{table_name}.json'), dtype=dtype).reset_index(drop=True)
+        cached_tuples.append((df, table_name))
+
+    return cached_tuples
 
 
 ###
 # ACSPopulation Tests
-###
-@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_load_values_as_df)
+##
+@mock.patch('datasources.acs_population.ACSPopulation._get_cached_table_tuples',
+            return_value=_get_cached_table_tuples())
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def test_write_to_bq(
     mock_bq: mock.MagicMock,
-    mock_cached_gcs: mock.MagicMock
+    mock_table_tuples: mock.MagicMock,
 ):
     """ ACSPopulation.write_to_bq() is responsible for iterating over
     all cached geo/demo/year files from ACS, combining the years into
@@ -176,7 +263,7 @@ def test_write_to_bq(
 
     acs.write_to_bq("some_dataset", "https://SOME-URL")
 
-    assert mock_bq.call_count == 9
+    assert mock_bq.call_count == 2
 
 
 ###
