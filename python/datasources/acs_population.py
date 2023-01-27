@@ -14,7 +14,7 @@ from ingestion.dataset_utils import add_sum_of_rows, generate_pct_share_col_with
 # BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
 BASE_ACS_URLS = [
     "https://api.census.gov/data/2019/acs/acs5",
-    # "https://api.census.gov/data/2018/acs/acs5"
+    "https://api.census.gov/data/2018/acs/acs5"
 ]
 
 
