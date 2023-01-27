@@ -125,7 +125,7 @@ INCARCERATED_PREFIX = "incarcerated"
 
 # HIV
 HIV_CASES = 'hiv_cases'
-HIV_PER_100K = 'hiv_per_100k'
+HIV_PER_100K = 'hiv_per_cases_100k'
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",

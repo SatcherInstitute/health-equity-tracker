@@ -3,8 +3,8 @@ from ingestion import constants, gcs_to_bq_util, merge_utils, standardized_colum
 import pandas as pd
 
 cols_to_std = {
-    'Geography': std_col.COUNTY_NAME_COL,
-    'FIPS': std_col.COUNTY_FIPS_COL,
+    'Geography': std_col.STATE_NAME_COL,
+    'FIPS': std_col.STATE_FIPS_COL,
     'Year': std_col.TIME_PERIOD_COL,
     'Age Group': std_col.AGE_COL,
     'Cases': std_col.HIV_CASES,
@@ -36,42 +36,27 @@ SOURCE_YEAR = '2019'
 SEX_GROUPS = {"male": constants.Sex.MALE, "female": constants.Sex.FEMALE}
 
 
-def generate_raw_breakdown(demo, geo_level, df):
+# def generate_raw_breakdown(demo, geo_level, df):
 
-    # map
-    group_dict = {
-        std_col.RACE_OR_HISPANIC_COL: RACE_GROUPS_TO_STANDARD,
-    }
+#     if demo == std_col.AGE_COL and geo_level == 'county':
+#         needed_cols = [std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL, std_col.TIME_PERIOD_COL,
+#                        std_col.AGE_COL, std_col.HIV_CASES, std_col.HIV_PER_100K, std_col.POPULATION_COL]
+#         df = df.rename(columns=cols_to_std)
+#         # df[std_col.COUNTY_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].apply(
+#         #     lambda x: x.zfill(5))
+#         df = merge_utils.merge_county_names(df)
+#         df = df[needed_cols].sort_values(
+#             [std_col.COUNTY_NAME_COL, std_col.AGE_COL]).reset_index(drop=True)
 
-    source_dfs = []
+#         # add the alls
 
-    for group in group_dict[demo].keys():
-        # load in table that is needed
-        # add table to source_dfs
-        source_dfs.append()
+#         print("/n")
+#         print(df)
 
-    source_df = pd.concat(source_dfs, axis=0)
+#     if demo == std_col.AGE_COL and geo_level == 'state':
+#         pass
 
-    if demo == std_col.AGE_COL and geo_level == 'county':
-        needed_cols = [std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL, std_col.TIME_PERIOD_COL,
-                       std_col.AGE_COL, std_col.HIV_CASES, std_col.HIV_PER_100K, std_col.POPULATION_COL]
-        df = df.rename(columns=cols_to_std)
-        df = df.astype({'county_fips': 'str'})
-        df[std_col.COUNTY_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].apply(
-            lambda x: x.zfill(5))
-        df = merge_utils.merge_county_names(df)
-        df = df[needed_cols].sort_values(
-            [std_col.COUNTY_NAME_COL, std_col.AGE_COL]).reset_index(drop=True)
-
-        # add the alls
-
-        print("/n")
-        print(df)
-
-    if demo == std_col.AGE_COL and geo_level == 'state':
-        pass
-
-    pass
+#     pass
 
 
 class CDCHIVDiagnosesData(DataSource):
@@ -93,12 +78,10 @@ class CDCHIVDiagnosesData(DataSource):
         for geo_level in [constants.STATE_LEVEL, constants.COUNTY_LEVEL]:
             for demo in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
                 table_name = f'{demo}_{geo_level}'
-                print("--")
                 print(table_name)
-
                 df = self.generate_breakdown_df(demo, geo_level)
-                print("--")
-                print(df)
+                df = self.format_df(df, demo, geo_level)
+
                 # df.to_csv(f'{demo}_{geo_level}_output.csv', index=False)
                 # float_cols = [std_col.POPULATION_PCT_COL,
                 #               std_col.POPULATION_COL,
@@ -149,5 +132,39 @@ class CDCHIVDiagnosesData(DataSource):
 
             source_dfs.append(source_df)
 
-        merged_df = pd.concat(source_dfs, ignore_index=True)
+        merged_df = pd.concat(source_dfs, axis=0)
         return merged_df
+
+    def format_df(self, df, demo, geo_level):
+
+        if demo == 'age':
+            if geo_level == 'state':
+                needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.TIME_PERIOD_COL,
+                               std_col.AGE_COL, std_col.HIV_CASES, std_col.HIV_PER_100K, std_col.POPULATION_COL]
+                sort_by_cols = [std_col.STATE_NAME_COL, std_col.AGE_COL]
+                df = df.rename(columns=cols_to_std)
+                df = df[needed_cols].sort_values(
+                    sort_by_cols).reset_index(drop=True)
+                print("--")
+                print(df)
+            if geo_level == 'county':
+                pass
+
+        # if demo == 'race_and_ethnicity' and geo_level == 'state':
+        #     needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.TIME_PERIOD_COL,
+        #                    std_col.AGE_COL, std_col.HIV_CASES, std_col.HIV_PER_100K, std_col.POPULATION_COL]
+        #     df = df.rename(columns=cols_to_std)
+        #     df = df[needed_cols].sort_values(
+        #         [std_col.STATE_NAME_COL, std_col.AGE_COL]).reset_index(drop=True)
+        #     print("--")
+
+        # if demo == 'sex' and geo_level == 'state':
+        #     needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.TIME_PERIOD_COL,
+        #                    std_col.AGE_COL, std_col.HIV_CASES, std_col.HIV_PER_100K, std_col.POPULATION_COL]
+        #     df = df.rename(columns=cols_to_std)
+        #     df = df[needed_cols].sort_values(
+        #         [std_col.STATE_NAME_COL, std_col.AGE_COL]).reset_index(drop=True)
+        #     print("--")
+        #     print(df)
+
+        return df
