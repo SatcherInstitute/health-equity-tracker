@@ -166,8 +166,10 @@ class AcsHealthInsuranceRaceIngester:
                         gcs_bucket, self.get_filename_race(race, is_county)
                     )
 
+                    df = self.generate_df_for_concept(df, demo, concept, is_county)
                     df[RACE_CATEGORY_ID_COL] = race
-                    dfs.append(self.generate_df_for_concept(df, demo, concept, is_county))
+                    dfs.append(df)
+
                 return pd.concat(dfs)
 
             else:
@@ -248,5 +250,4 @@ class AcsHealthInsuranceRaceIngester:
         if demo == 'sex':
             groupby_cols.remove('age')
 
-        df = age_by_race.groupby(groupby_cols).sum().reset_index()
-        return df
+        return age_by_race.groupby(groupby_cols).sum().reset_index()
