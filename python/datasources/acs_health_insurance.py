@@ -140,7 +140,7 @@ class AcsHealthInsuranceIngester(DataSource):
                 else:
                     table_name += '_state'
 
-                dfs[table_name] = self.getData(demo, is_county, gcs_bucket=gcs_bucket)
+                df = self.get_raw_data(demo, is_county, gcs_bucket=gcs_bucket)
 
         for table_name, df in dfs.items():
             float_cols = [std_col.WITH_HEALTH_INSURANCE_COL,
@@ -151,7 +151,7 @@ class AcsHealthInsuranceIngester(DataSource):
             )
 
     # Get Health insurance data from either GCS or Directly, and aggregate the data in memory
-    def getData(self, demo, is_county, gcs_bucket=None):
+    def get_raw_data(self, demo, is_county, gcs_bucket=None):
         var_map = parse_acs_metadata(self.metadata,
                                      list(HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES.keys())
                                      + [HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX])
@@ -169,6 +169,8 @@ class AcsHealthInsuranceIngester(DataSource):
                     df[std_col.RACE_CATEGORY_ID_COL] = race
                     dfs.append(df)
 
+                    print(df.to_string())
+
                 return pd.concat(dfs)
 
             else:
@@ -180,6 +182,24 @@ class AcsHealthInsuranceIngester(DataSource):
                                                     is_county, var_map)
 
     def generate_df_for_concept(self, df, demo, concept, is_county, var_map):
+        """Trasforms the encoded census data into a dataframe ready
+           to have post processing functions run on it.
+
+           In this case, we want a dataframe in which the condition of
+           `without health insurance` is measured for each demographic group at
+           each geographic level. Also, we will use the total numbers of people
+           measured as our population numbers, rather than the acs population
+           numbers.
+
+           df: Dataframe containing the encoded data from the acs survey
+               for the corresponsing concept.
+           demo: String representing `race/sex/age`
+           concept: String representing the acs 'concept' that represents
+                    the demographic group we are extracting data for.
+           is_county: Boolean representing if we are collecting county level
+                      data.
+           var_map: Dict generated from the `parse_acs_metadata` function"""
+
         # Health insurance by race only breaks down by 2 variables,
         # `age` and `with/without health insurance`, because the race is already
         # baked into the concept, however for sex/age, the sex is not baked into the
@@ -199,12 +219,6 @@ class AcsHealthInsuranceIngester(DataSource):
         df_with_without = standardize_frame(df, group_vars, group_cols,
                                             is_county, AMOUNT)
 
-        # Separate rows of the amount of people with health insurance into
-        # their own df and rename the 'amount' col to the correct name.
-        df_with = df_with_without.loc[df_with_without[HAS_HEALTH_INSURANCE] ==
-                                      'With health insurance coverage'].reset_index(drop=True)
-        df_with = df_with.rename(columns={AMOUNT: std_col.WITH_HEALTH_INSURANCE_COL})
-
         # Separate rows of the amount of people without health insurance into
         # their own df and rename the 'amount' col to the correct name.
         df_without = df_with_without.loc[df_with_without[HAS_HEALTH_INSURANCE] ==
@@ -217,31 +231,22 @@ class AcsHealthInsuranceIngester(DataSource):
         if demo != RACE:
             merge_cols.extend([std_col.SEX_COL, std_col.AGE_COL])
 
-        df_with = df_with[merge_cols + [std_col.WITH_HEALTH_INSURANCE_COL]]
-
-        # Merge the with and without df's into a single one with the correct
-        # column names.
-        df_with_without = pd.merge(df_without, df_with, on=merge_cols, how='left')
-        df_with_without = df_with_without.drop(columns=[HAS_HEALTH_INSURANCE])
-
         # Same reasoning as above, but because we are collecting population numbers here,
         # we need one fewer variable for `with/without health insurance`.
         num_var_groups = 1 if demo == RACE else 2
         group_vars_totals = get_vars_for_group(concept, var_map, num_var_groups)
 
         group_cols = [std_col.AGE_COL]
-        if concept == HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT:
+        if demo != RACE:
             group_cols = [std_col.SEX_COL] + group_cols
 
         df_totals = standardize_frame(df, group_vars_totals,
                                       group_cols, is_county, std_col.POPULATION_COL)
 
         df_totals = df_totals[merge_cols + [std_col.POPULATION_COL]]
-        df = pd.merge(df_with_without, df_totals, on=merge_cols, how='left')
+        df = pd.merge(df_without, df_totals, on=merge_cols, how='left')
 
-        df = df[merge_cols + [std_col.WITH_HEALTH_INSURANCE_COL,
-                              std_col.WITHOUT_HEALTH_INSURANCE_COL,
-                              std_col.POPULATION_COL]]
+        df = df[merge_cols + [std_col.WITHOUT_HEALTH_INSURANCE_COL, std_col.POPULATION_COL]]
 
         df = update_col_types(df)
 
@@ -252,3 +257,6 @@ class AcsHealthInsuranceIngester(DataSource):
             groupby_cols.remove(std_col.AGE_COL)
 
         return df.groupby(groupby_cols).sum().reset_index()
+
+    # def post_process(self, df):
+
