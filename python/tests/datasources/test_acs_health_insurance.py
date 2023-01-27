@@ -4,7 +4,7 @@ from unittest import mock
 from pandas._testing import assert_frame_equal
 from ingestion import gcs_to_bq_util
 
-from datasources.acs_health_insurance import AcsHealthInsuranceRaceIngester
+from datasources.acs_health_insurance import AcsHealthInsuranceIngester
 
 from test_utils import get_acs_metadata_as_json
 
@@ -26,9 +26,9 @@ def _get_by_race_as_df(*args):
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
-    acsHealthInsuranceRaceInestor = AcsHealthInsuranceRaceIngester("https://SOME-URL")
+    acsHealthInsuranceIngestor = AcsHealthInsuranceIngester("https://SOME-URL")
 
-    acsHealthInsuranceRaceInestor.write_to_bq('dataset', 'gcs_bucket')
+    acsHealthInsuranceIngestor.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
 
     # expected_df = pd.read_csv(GOLDEN_DATA_RACE, dtype={

@@ -1,7 +1,5 @@
-import json
 import pandas as pd
 
-from ingestion.constants import HealthInsurancePopulation
 from datasources.data_source import DataSource
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
 
@@ -28,8 +26,7 @@ from ingestion.standardized_columns import (
     add_race_columns_from_category_id,
 )
 
-# TODO pass this in from message data.
-BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
+BASE_ACS_URL = 'https://api.census.gov/data/2019/acs/acs5'
 
 CONCEPTS_TO_RACE = {
     'HEALTH INSURANCE COVERAGE STATUS BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)': Race.AIAN.value,
@@ -47,15 +44,15 @@ CONCEPTS_TO_RACE = {
 # Acs variables are in the form C27001A_xxx0 C27001A_xxx2 ect
 # to determine age buckets.  The metadata variables are merged with the suffixes to form the entire metadata.
 HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = {
-    "C27001A": Race.WHITE.value,
-    "C27001B": Race.BLACK.value,
-    "C27001C": Race.AIAN.value,
-    "C27001D": Race.ASIAN.value,
-    "C27001E": Race.NHPI.value,
-    "C27001F": Race.OTHER_STANDARD.value,
-    "C27001G": Race.MULTI.value,
-    "C27001H": Race.WHITE_NH.value,
-    "C27001I": Race.HISP.value,
+    'C27001A': Race.WHITE.value,
+    'C27001B': Race.BLACK.value,
+    'C27001C': Race.AIAN.value,
+    'C27001D': Race.ASIAN.value,
+    'C27001E': Race.NHPI.value,
+    'C27001F': Race.OTHER_STANDARD.value,
+    'C27001G': Race.MULTI.value,
+    'C27001H': Race.WHITE_NH.value,
+    'C27001I': Race.HISP.value,
 }
 
 
@@ -84,7 +81,7 @@ def update_col_types(df):
     return df
 
 
-class AcsHealthInsuranceRaceIngester:
+class AcsHealthInsuranceIngester(DataSource):
 
     # Initialize variables in class instance, also merge all metadata so that lookup of the
     # prefix, suffix combos can return the entire metadata
@@ -139,7 +136,6 @@ class AcsHealthInsuranceRaceIngester:
         self.metadata = census.fetch_acs_metadata(self.base_url)
         dfs = {}
         for is_county in [True, False]:
-            # for demo in ['race', 'sex', 'age']:
             for demo in ['race', 'age', 'sex']:
                 table_name = f'by_{demo}'
                 if is_county:
@@ -185,6 +181,11 @@ class AcsHealthInsuranceRaceIngester:
                                      list(HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES.keys())
                                      + [HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX])
 
+        # Health insurance by race only breaks down by 2 variables,
+        # `age` and `with/without health insurance`, because the race is already
+        # baked into the concept, however for sex/age, the sex is not baked into the
+        # concept but rather is another variable that needs to be broken out,
+        # so we have to pass in 3.
         num_var_groups = 2 if demo == 'race' else 3
         group_vars = get_vars_for_group(concept, var_map, num_var_groups)
 
@@ -192,22 +193,24 @@ class AcsHealthInsuranceRaceIngester:
         if demo != 'race':
             group_cols = [SEX_COL] + group_cols
 
-        age_by_race = standardize_frame(df, group_vars, group_cols,
-                                        is_county, 'amount')
+        # Creates a df with different rows for the amount of people
+        # in a demographic group with health insurance and without
+        # health insurance. We want each of these values on the same
+        # row however.
+        df_with_without = standardize_frame(df, group_vars, group_cols,
+                                            is_county, 'amount')
 
-        age_by_race_with_health_insurance = \
-            age_by_race.loc[age_by_race[HAS_HEALTH_INSURANCE] ==
-                            'With health insurance coverage'].reset_index(drop=True)
+        # Separate rows of the amount of people with health insurance into
+        # their own df and rename the 'amount' col to the correct name.
+        df_with = df_with_without.loc[df_with_without[HAS_HEALTH_INSURANCE] ==
+                                      'With health insurance coverage'].reset_index(drop=True)
+        df_with = df_with.rename(columns={'amount': WITH_HEALTH_INSURANCE_COL})
 
-        age_by_race_with_health_insurance = \
-            age_by_race_with_health_insurance.rename(columns={'amount': WITH_HEALTH_INSURANCE_COL})
-
-        age_by_race_without_health_insurance = \
-            age_by_race.loc[age_by_race[HAS_HEALTH_INSURANCE] ==
-                            'No health insurance coverage'].reset_index(drop=True)
-
-        age_by_race_without_health_insurance = \
-            age_by_race_without_health_insurance.rename(columns={'amount': WITHOUT_HEALTH_INSURANCE_COL})
+        # Separate rows of the amount of people without health insurance into
+        # their own df and rename the 'amount' col to the correct name.
+        df_without = df_with_without.loc[df_with_without[HAS_HEALTH_INSURANCE] ==
+                                         'No health insurance coverage'].reset_index(drop=True)
+        df_without = df_without.rename(columns={'amount': WITHOUT_HEALTH_INSURANCE_COL})
 
         merge_cols = [STATE_FIPS_COL]
         if is_county:
@@ -215,14 +218,15 @@ class AcsHealthInsuranceRaceIngester:
         if demo != 'race':
             merge_cols.extend([SEX_COL, AGE_COL])
 
-        age_by_race_with_health_insurance = age_by_race_with_health_insurance[merge_cols +
-                                                                              [WITH_HEALTH_INSURANCE_COL]]
+        df_with = df_with[merge_cols + [WITH_HEALTH_INSURANCE_COL]]
 
-        age_by_race = pd.merge(age_by_race_without_health_insurance,
-                               age_by_race_with_health_insurance,
-                               on=merge_cols, how='left')
+        # Merge the with and without df's into a single one with the correct
+        # column names.
+        df_with_without = pd.merge(df_without, df_with, on=merge_cols, how='left')
+        df_with_without = df_with_without.drop(columns=[HAS_HEALTH_INSURANCE])
 
-        age_by_race = age_by_race.drop(columns=[HAS_HEALTH_INSURANCE])
+        # Same reasoning as above, but because we are collecting population numbers here,
+        # we need one fewer variable for `with/without health insurance`.
         num_var_groups = 1 if demo == 'race' else 2
         group_vars_totals = get_vars_for_group(concept, var_map, num_var_groups)
 
@@ -230,19 +234,17 @@ class AcsHealthInsuranceRaceIngester:
         if concept == HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT:
             group_cols = [SEX_COL] + group_cols
 
-        age_by_race_totals = standardize_frame(df, group_vars_totals,
-                                               group_cols, is_county, POPULATION_COL)
+        df_totals = standardize_frame(df, group_vars_totals,
+                                      group_cols, is_county, POPULATION_COL)
 
-        age_by_race = pd.merge(age_by_race,
-                               age_by_race_totals[merge_cols + [POPULATION_COL]],
-                               on=merge_cols,
-                               how='left')
+        df = pd.merge(df_with_without, df_totals[merge_cols + [POPULATION_COL]],
+                      on=merge_cols, how='left')
 
-        age_by_race = age_by_race[merge_cols + [WITH_HEALTH_INSURANCE_COL,
-                                                WITHOUT_HEALTH_INSURANCE_COL,
-                                                POPULATION_COL]]
+        df = df[merge_cols + [WITH_HEALTH_INSURANCE_COL,
+                              WITHOUT_HEALTH_INSURANCE_COL,
+                              POPULATION_COL]]
 
-        age_by_race = update_col_types(age_by_race)
+        df = update_col_types(df)
 
         groupby_cols = merge_cols
         if demo == 'age':
@@ -250,4 +252,4 @@ class AcsHealthInsuranceRaceIngester:
         if demo == 'sex':
             groupby_cols.remove('age')
 
-        return age_by_race.groupby(groupby_cols).sum().reset_index()
+        return df.groupby(groupby_cols).sum().reset_index()
