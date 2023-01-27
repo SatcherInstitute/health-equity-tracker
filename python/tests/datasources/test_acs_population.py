@@ -102,7 +102,7 @@ def testGenerateNationalDatasetAge():
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
-    acsPopulationIngester = ACSPopulationIngester(False, "https://SOME-URL")
+    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
@@ -127,7 +127,7 @@ def testWriteToBqSexAgeRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, m
         side_effects.append(get_sex_by_age_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(False, "https://SOME-URL")
+    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
@@ -151,7 +151,7 @@ def testWriteToBqSexAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_
         side_effects.append(get_sex_by_age_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(False, "https://SOME-URL")
+    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
@@ -174,7 +174,7 @@ def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_jso
         side_effects.append(get_sex_by_age_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(False, "https://SOME-URL")
+    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
@@ -202,7 +202,7 @@ def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_jso
         side_effects.append(get_sex_by_age_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(False, "https://SOME-URL")
+    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
@@ -225,7 +225,7 @@ def testWriteToBqAgeNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, 
         side_effects.append(get_sex_by_age_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(False, "https://SOME-URL")
+    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
@@ -249,7 +249,7 @@ def testWriteToBqRaceNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock,
         side_effects.append(get_sex_by_age_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(False, "https://SOME-URL")
+    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
@@ -272,7 +272,7 @@ def testWriteToBqSexNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, 
         side_effects.append(get_sex_by_age_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(False, "https://SOME-URL")
+    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
@@ -296,7 +296,7 @@ def testWriteToBqAgeCounty(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mo
         side_effects.append(get_sex_by_age_county_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(True, "https://SOME-URL")
+    acsPopulationIngester = ACSPopulationIngester(True, ["https://SOME-URL"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 5

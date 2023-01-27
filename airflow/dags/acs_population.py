@@ -4,7 +4,11 @@ from airflow.utils.dates import days_ago  # type: ignore
 
 import util
 
-_ACS_BASE_URL = 'https://api.census.gov/data/2019/acs/acs5'
+# _ACS_BASE_URL = 'https://api.census.gov/data/2019/acs/acs5'
+_ACS_BASE_URLS = [
+    'https://api.census.gov/data/2019/acs/acs5',
+    # 'https://api.census.gov/data/2018/acs/acs5'
+]
 _ACS_WORKFLOW_ID = 'ACS_POPULATION'
 _ACS_DATASET_NAME = 'acs_population'
 
@@ -20,12 +24,12 @@ data_ingestion_dag = DAG(
 
 acs_pop_gcs_task_id = 'acs_population_to_gcs'
 acs_pop_gcs_payload = util.generate_gcs_payload(
-    _ACS_WORKFLOW_ID, url=_ACS_BASE_URL)
+    _ACS_WORKFLOW_ID, url=_ACS_BASE_URLS)
 acs_pop_gcs_operator = util.create_gcs_ingest_operator(
     acs_pop_gcs_task_id, acs_pop_gcs_payload, data_ingestion_dag)
 
 acs_pop_bq_payload = util.generate_bq_payload(
-    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, url=_ACS_BASE_URL)
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, url=_ACS_BASE_URLS)
 acs_pop_bq_operator = util.create_bq_ingest_operator(
     'acs_population_to_bq', acs_pop_bq_payload, data_ingestion_dag)
 

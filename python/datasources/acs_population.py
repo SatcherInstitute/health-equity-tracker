@@ -11,7 +11,11 @@ from ingestion.census import (get_census_params, parse_acs_metadata,
 from ingestion.dataset_utils import add_sum_of_rows, generate_pct_share_col_without_unknowns
 
 # TODO pass this in from message data.
-BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
+# BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
+BASE_ACS_URLS = [
+    "https://api.census.gov/data/2019/acs/acs5",
+    # "https://api.census.gov/data/2018/acs/acs5"
+]
 
 
 HISPANIC_BY_RACE_CONCEPT = "HISPANIC OR LATINO ORIGIN BY RACE"
@@ -250,9 +254,9 @@ class ACSPopulationIngester():
     """American Community Survey population data in the United States from the
        US Census."""
 
-    def __init__(self, county_level, base_acs_url):
-        # The base ACS url to use for API calls.
-        self.base_acs_url = base_acs_url
+    def __init__(self, county_level, base_acs_urls):
+        # The base ACS urls to use for API by-year calls.
+        self.base_acs_urls = base_acs_urls
 
         # Whether the data is at the county level. If false, it is at the state
         # level
@@ -270,21 +274,22 @@ class ACSPopulationIngester():
 
     def upload_to_gcs(self, gcs_bucket):
         """Uploads population data from census to GCS bucket."""
-        metadata = census.fetch_acs_metadata(self.base_acs_url)
-        var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
+        for base_acs_url in self.base_acs_urls:
+            metadata = census.fetch_acs_metadata(base_acs_url)
+            var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
-        concepts = list(SEX_BY_AGE_CONCEPTS_TO_RACE.keys())
-        concepts.append(HISPANIC_BY_RACE_CONCEPT)
+            concepts = list(SEX_BY_AGE_CONCEPTS_TO_RACE.keys())
+            concepts.append(HISPANIC_BY_RACE_CONCEPT)
 
-        file_diff = False
-        for concept in concepts:
-            group_vars = get_vars_for_group(concept, var_map, 2)
-            cols = list(group_vars.keys())
-            url_params = get_census_params(cols, self.county_level)
-            concept_file_diff = url_file_to_gcs.url_file_to_gcs(
-                self.base_acs_url, url_params, gcs_bucket,
-                self.get_filename(concept))
-            file_diff = file_diff or concept_file_diff
+            file_diff = False
+            for concept in concepts:
+                group_vars = get_vars_for_group(concept, var_map, 2)
+                cols = list(group_vars.keys())
+                url_params = get_census_params(cols, self.county_level)
+                concept_file_diff = url_file_to_gcs.url_file_to_gcs(
+                    base_acs_url, url_params, gcs_bucket,
+                    self.get_filename(concept))
+                file_diff = file_diff or concept_file_diff
 
         return file_diff
 
@@ -293,72 +298,98 @@ class ACSPopulationIngester():
 
         dataset: The BigQuery dataset to write to
         gcs_bucket: The name of the gcs bucket to read the data from"""
+
+        # collect all of the tables for later
+        # combining and uploading to bq
+        table_items_for_bq = {}
+
         # TODO change this to have it read metadata from GCS bucket
-        metadata = census.fetch_acs_metadata(self.base_acs_url)
-        var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
+        for base_acs_url in self.base_acs_urls:
+            metadata = census.fetch_acs_metadata(base_acs_url)
+            var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
-        race_and_hispanic_frame = gcs_to_bq_util.load_values_as_df(
-            gcs_bucket, self.get_filename(HISPANIC_BY_RACE_CONCEPT))
-        race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
+            race_and_hispanic_frame = gcs_to_bq_util.load_values_as_df(
+                gcs_bucket, self.get_filename(HISPANIC_BY_RACE_CONCEPT))
+            race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
 
-        race_and_hispanic_frame = standardize_frame(
-            race_and_hispanic_frame,
-            get_vars_for_group(HISPANIC_BY_RACE_CONCEPT, var_map, 2),
-            [std_col.HISPANIC_COL, std_col.RACE_COL],
-            self.county_level,
-            std_col.POPULATION_COL)
+            race_and_hispanic_frame = standardize_frame(
+                race_and_hispanic_frame,
+                get_vars_for_group(HISPANIC_BY_RACE_CONCEPT, var_map, 2),
+                [std_col.HISPANIC_COL, std_col.RACE_COL],
+                self.county_level,
+                std_col.POPULATION_COL)
 
-        sex_by_age_frames = {}
-        for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
-            sex_by_age_frame = gcs_to_bq_util.load_values_as_df(
-                gcs_bucket, self.get_filename(concept))
-            sex_by_age_frame = update_col_types(sex_by_age_frame)
-            sex_by_age_frames[concept] = sex_by_age_frame
+            sex_by_age_frames = {}
+            for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
+                sex_by_age_frame = gcs_to_bq_util.load_values_as_df(
+                    gcs_bucket, self.get_filename(concept))
+                sex_by_age_frame = update_col_types(sex_by_age_frame)
+                sex_by_age_frames[concept] = sex_by_age_frame
 
-        frames = {
-            self.get_table_name_by_race(): self.get_all_races_frame(
-                race_and_hispanic_frame),
-            self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(
-                var_map, sex_by_age_frames)
-        }
+            frames = {
+                self.get_table_name_by_race(): self.get_all_races_frame(
+                    race_and_hispanic_frame),
+                self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(
+                    var_map, sex_by_age_frames)
+            }
 
-        frames['by_sex_age_%s' % self.get_geo_name()] = self.get_by_sex_age(
-            frames[self.get_table_name_by_sex_age_race()], get_decade_age_bucket)
+            frames['by_sex_age_%s' % self.get_geo_name()] = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_decade_age_bucket)
 
-        by_sex_standard_age_uhc = None
-        by_sex_decade_plus_5_age_uhc = None
-        by_sex_voter_age_uhc = None
-        by_sex_bjs_prison_age = None
-        by_sex_bjs_jail_age = None
+            by_sex_standard_age_uhc = None
+            by_sex_decade_plus_5_age_uhc = None
+            by_sex_voter_age_uhc = None
+            by_sex_bjs_prison_age = None
+            by_sex_bjs_jail_age = None
 
-        if not self.county_level:
-            by_sex_standard_age_uhc = self.get_by_sex_age(
-                frames[self.get_table_name_by_sex_age_race()], get_uhc_standard_age_bucket)
-            by_sex_decade_plus_5_age_uhc = self.get_by_sex_age(
-                frames[self.get_table_name_by_sex_age_race()], get_uhc_decade_plus_5_age_bucket)
-            by_sex_voter_age_uhc = self.get_by_sex_age(
-                frames[self.get_table_name_by_sex_age_race()], get_uhc_voter_age_bucket)
-            by_sex_bjs_prison_age = self.get_by_sex_age(
-                frames[self.get_table_name_by_sex_age_race()], get_prison_age_bucket)
-            by_sex_bjs_jail_age = self.get_by_sex_age(
-                frames[self.get_table_name_by_sex_age_race()], get_jail_age_bucket)
+            if not self.county_level:
+                by_sex_standard_age_uhc = self.get_by_sex_age(
+                    frames[self.get_table_name_by_sex_age_race()], get_uhc_standard_age_bucket)
+                by_sex_decade_plus_5_age_uhc = self.get_by_sex_age(
+                    frames[self.get_table_name_by_sex_age_race()], get_uhc_decade_plus_5_age_bucket)
+                by_sex_voter_age_uhc = self.get_by_sex_age(
+                    frames[self.get_table_name_by_sex_age_race()], get_uhc_voter_age_bucket)
+                by_sex_bjs_prison_age = self.get_by_sex_age(
+                    frames[self.get_table_name_by_sex_age_race()], get_prison_age_bucket)
+                by_sex_bjs_jail_age = self.get_by_sex_age(
+                    frames[self.get_table_name_by_sex_age_race()], get_jail_age_bucket)
 
-        frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
-            frames['by_sex_age_%s' % self.get_geo_name()],
-            by_sex_standard_age_uhc, by_sex_decade_plus_5_age_uhc,
-            by_sex_voter_age_uhc, by_sex_bjs_prison_age, by_sex_bjs_jail_age)
+            frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
+                frames['by_sex_age_%s' % self.get_geo_name()],
+                by_sex_standard_age_uhc, by_sex_decade_plus_5_age_uhc,
+                by_sex_voter_age_uhc, by_sex_bjs_prison_age, by_sex_bjs_jail_age)
 
-        frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
-            frames[self.get_table_name_by_sex_age_race()])
+            frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
+                frames[self.get_table_name_by_sex_age_race()])
 
-        # Generate national level datasets based on state datasets
-        if not self.county_level:
-            for demo in ['age', 'race', 'sex']:
-                state_table_name = f'by_{demo}_state'
-                frames[f'by_{demo}_national'] = generate_national_dataset_with_all_states(
-                    frames[state_table_name], demo)
+            # Generate national level datasets based on state datasets
+            if not self.county_level:
+                for demo in ['age', 'race', 'sex']:
+                    state_table_name = f'by_{demo}_state'
+                    frames[f'by_{demo}_national'] = generate_national_dataset_with_all_states(
+                        frames[state_table_name], demo)
 
-        for table_name, df in frames.items():
+            for table_name, df in frames.items():
+                # queue for the combining across years / upload
+                # to bq process
+                table_items_for_bq[table_name] = df
+
+        # strip the years away from all the tables names,
+        # to get a list of the desired HET bigquery tables
+        bq_table_names = [table_name.lstrip(
+            '0123456789_') for table_name in table_items_for_bq.keys()]
+
+        # combine multiple years into geo/demo tables,
+        # and upload to BQ
+        for bq_table_name in bq_table_names:
+
+            yearly_breakdown_dfs = []
+            for yearly_table_name, yearly_df in table_items_for_bq.items():
+                if bq_table_name in yearly_table_name:
+                    yearly_breakdown_dfs.append(yearly_df)
+
+            df = pd.concat(yearly_breakdown_dfs, axis=0).reset_index(drop=True)
+
             float_cols = [std_col.POPULATION_COL]
             if std_col.POPULATION_PCT_COL in df.columns:
                 float_cols.append(std_col.POPULATION_PCT_COL)
@@ -656,8 +687,8 @@ class ACSPopulation(DataSource):
 
     def _create_ingesters(self):
         return [
-            ACSPopulationIngester(False, BASE_ACS_URL),
-            ACSPopulationIngester(True, BASE_ACS_URL)
+            ACSPopulationIngester(False, BASE_ACS_URLS),
+            ACSPopulationIngester(True, BASE_ACS_URLS)
         ]
 
 
