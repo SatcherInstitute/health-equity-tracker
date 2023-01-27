@@ -5,8 +5,16 @@ from unittest import mock
 from pandas._testing import assert_frame_equal
 
 from datasources.acs_population import (  # type: ignore
-    ACSPopulationIngester, SEX_BY_AGE_CONCEPTS_TO_RACE, GENERATE_NATIONAL_DATASET)
+    ACSPopulationIngester,
+    SEX_BY_AGE_CONCEPTS_TO_RACE,
+    GENERATE_NATIONAL_DATASET,
+    extract_year)
 from ingestion import gcs_to_bq_util
+
+
+def test_extract_year():
+    assert extract_year("https://api.census.gov/data/2019/acs/acs5") == "2019"
+
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -102,7 +110,8 @@ def testGenerateNationalDatasetAge():
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
-    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
+    acsPopulationIngester = ACSPopulationIngester(
+        False, ["https://api.census.gov/data/2019/acs/acs5"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
@@ -110,6 +119,7 @@ def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_js
     expected_df = pd.read_csv(GOLDEN_DATA_RACE, dtype={
         'county_fips': str,
         'state_fips': str,
+        'time_period': str,
     })
 
     assert_frame_equal(
@@ -127,13 +137,16 @@ def testWriteToBqSexAgeRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, m
         side_effects.append(get_sex_by_age_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
+    acsPopulationIngester = ACSPopulationIngester(
+        False, ["https://api.census.gov/data/2019/acs/acs5"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
 
     expected_df = pd.read_csv(GOLDEN_DATA_SEX_AGE_RACE, dtype={
         'state_fips': str,
+        'time_period': str,
+
     })
 
     assert_frame_equal(
@@ -151,13 +164,16 @@ def testWriteToBqSexAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_
         side_effects.append(get_sex_by_age_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
+    acsPopulationIngester = ACSPopulationIngester(
+        False, ["https://api.census.gov/data/2019/acs/acs5"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
 
     expected_df = pd.read_csv(GOLDEN_DATA_SEX_AGE, dtype={
         'state_fips': str,
+        'time_period': str,
+
     })
     assert_frame_equal(
         mock_bq.call_args_list[2].args[0], expected_df, check_like=True)
@@ -174,13 +190,16 @@ def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_jso
         side_effects.append(get_sex_by_age_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
+    acsPopulationIngester = ACSPopulationIngester(
+        False, ["https://api.census.gov/data/2019/acs/acs5"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
 
     expected_df = pd.read_csv(GOLDEN_DATA_AGE, dtype={
         'state_fips': str,
+        'time_period': str,
+
     })
 
     # # save results to file
@@ -202,13 +221,16 @@ def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_jso
         side_effects.append(get_sex_by_age_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
+    acsPopulationIngester = ACSPopulationIngester(
+        False, ["https://api.census.gov/data/2019/acs/acs5"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
 
     expected_df = pd.read_csv(GOLDEN_DATA_SEX, dtype={
         'state_fips': str,
+        'time_period': str,
+
     })
     assert_frame_equal(
         mock_bq.call_args_list[4].args[0], expected_df, check_like=True)
@@ -225,13 +247,16 @@ def testWriteToBqAgeNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, 
         side_effects.append(get_sex_by_age_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
+    acsPopulationIngester = ACSPopulationIngester(
+        False, ["https://api.census.gov/data/2019/acs/acs5"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
 
     expected_df = pd.read_csv(GOLDEN_DATA_AGE_NATIONAL, dtype={
         'state_fips': str,
+        'time_period': str,
+
     })
 
     assert_frame_equal(
@@ -249,13 +274,16 @@ def testWriteToBqRaceNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock,
         side_effects.append(get_sex_by_age_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
+    acsPopulationIngester = ACSPopulationIngester(
+        False, ["https://api.census.gov/data/2019/acs/acs5"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
 
     expected_df = pd.read_csv(GOLDEN_DATA_RACE_NATIONAL, dtype={
         'state_fips': str,
+        'time_period': str,
+
     })
     assert_frame_equal(
         mock_bq.call_args_list[6].args[0], expected_df, check_like=True)
@@ -272,13 +300,16 @@ def testWriteToBqSexNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, 
         side_effects.append(get_sex_by_age_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(False, ["https://SOME-URL"])
+    acsPopulationIngester = ACSPopulationIngester(
+        False, ["https://api.census.gov/data/2019/acs/acs5"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 8
 
     expected_df = pd.read_csv(GOLDEN_DATA_SEX_NATIONAL, dtype={
         'state_fips': str,
+        'time_period': str,
+
     })
     assert_frame_equal(
         mock_bq.call_args_list[7].args[0], expected_df, check_like=True)
@@ -296,7 +327,8 @@ def testWriteToBqAgeCounty(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mo
         side_effects.append(get_sex_by_age_county_value_as_df(concept))
     mock_csv.side_effect = side_effects
 
-    acsPopulationIngester = ACSPopulationIngester(True, ["https://SOME-URL"])
+    acsPopulationIngester = ACSPopulationIngester(
+        True, ["https://api.census.gov/data/2019/acs/acs5"])
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 5
@@ -304,6 +336,8 @@ def testWriteToBqAgeCounty(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mo
     expected_df = pd.read_csv(GOLDEN_DATA_AGE_COUNTY, dtype={
         'state_fips': str,
         'county_fips': str,
+        'time_period': str,
+
     })
 
     assert_frame_equal(

@@ -303,8 +303,15 @@ class ACSPopulationIngester():
         # combining and uploading to bq
         table_items_for_bq = {}
 
+        # collect the names needed for our HET BQ tables
+        bq_table_names = []
+
         # TODO change this to have it read metadata from GCS bucket
         for base_acs_url in self.base_acs_urls:
+
+            # extract the year from the base URL
+            year = extract_year(base_acs_url)
+
             metadata = census.fetch_acs_metadata(base_acs_url)
             var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
@@ -370,14 +377,16 @@ class ACSPopulationIngester():
                         frames[state_table_name], demo)
 
             for table_name, df in frames.items():
+
+                df[std_col.TIME_PERIOD_COL] = year
+
+                # collect table names (no duplicates)
+                if table_name not in bq_table_names:
+                    bq_table_names.append(table_name)
+
                 # queue for the combining across years / upload
                 # to bq process
-                table_items_for_bq[table_name] = df
-
-        # strip the years away from all the tables names,
-        # to get a list of the desired HET bigquery tables
-        bq_table_names = [table_name.lstrip(
-            '0123456789_') for table_name in table_items_for_bq.keys()]
+                table_items_for_bq[f'{year}___{table_name}'] = df
 
         # combine multiple years into geo/demo tables,
         # and upload to BQ
@@ -733,3 +742,17 @@ def GENERATE_NATIONAL_DATASET(state_df, states_to_include, demographic_breakdown
 
     df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].astype(str)
     return df[needed_cols].sort_values(by=breakdown_map[demographic_breakdown_category]).reset_index(drop=True)
+
+
+def extract_year(url: str):
+    """ Extract the 4 digit year from the middle of the ACS base URL """
+
+    prefix = "https://api.census.gov/data/"
+    suffix = "/acs/acs5"
+
+    if url.startswith(prefix):
+        url = url[len(prefix):]
+    if url.endswith(suffix):
+        url = url[:-len(suffix)]
+
+    return url
