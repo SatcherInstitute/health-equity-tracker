@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cdc_hiv_diagnoses",)
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data",)
 
 
 # AGE
@@ -30,17 +30,18 @@ def get_ages_over_54_county():
 
 
 def _load_csv_as_df_from_data_dir(*args, **kwargs):
-    print('mocking load from data dir')
+    # print('mocking load from data dir')
     for arg in args:
         print("-")
-        print(arg)
+        # print(arg)
 
     for kwarg in kwargs:
         print("--")
-        print(kwarg)
+        # print(kwarg)
 
     dataset, filename = args
-    return pd.read_csv(os.path.join(TEST_DIR, filename))
+    print(THIS_DIR)
+    return pd.read_csv(os.path.join(TEST_DIR, dataset, filename))
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
