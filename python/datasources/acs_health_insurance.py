@@ -58,10 +58,11 @@ HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = {
 
 # Health insurance by Sex only has one prefix, and is kept
 # in the form of a dict to help with standardizing code flow
-HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX = "B27001"
+HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX = 'B27001'
 HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT = 'HEALTH INSURANCE COVERAGE STATUS BY SEX BY AGE'
 
 HAS_HEALTH_INSURANCE = 'has_health_insurance'
+AMOUNT = 'amount'
 
 
 def update_col_types(df):
@@ -198,19 +199,19 @@ class AcsHealthInsuranceIngester(DataSource):
         # health insurance. We want each of these values on the same
         # row however.
         df_with_without = standardize_frame(df, group_vars, group_cols,
-                                            is_county, 'amount')
+                                            is_county, AMOUNT)
 
         # Separate rows of the amount of people with health insurance into
         # their own df and rename the 'amount' col to the correct name.
         df_with = df_with_without.loc[df_with_without[HAS_HEALTH_INSURANCE] ==
                                       'With health insurance coverage'].reset_index(drop=True)
-        df_with = df_with.rename(columns={'amount': WITH_HEALTH_INSURANCE_COL})
+        df_with = df_with.rename(columns={AMOUNT: WITH_HEALTH_INSURANCE_COL})
 
         # Separate rows of the amount of people without health insurance into
         # their own df and rename the 'amount' col to the correct name.
         df_without = df_with_without.loc[df_with_without[HAS_HEALTH_INSURANCE] ==
                                          'No health insurance coverage'].reset_index(drop=True)
-        df_without = df_without.rename(columns={'amount': WITHOUT_HEALTH_INSURANCE_COL})
+        df_without = df_without.rename(columns={AMOUNT: WITHOUT_HEALTH_INSURANCE_COL})
 
         merge_cols = [STATE_FIPS_COL]
         if is_county:
