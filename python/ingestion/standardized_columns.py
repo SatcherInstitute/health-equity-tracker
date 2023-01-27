@@ -123,6 +123,9 @@ PRISON_PREFIX = "prison"
 JAIL_PREFIX = "jail"
 INCARCERATED_PREFIX = "incarcerated"
 
+# HIV
+HIV_CASES = 'hiv_cases'
+HIV_PER_100K = 'hiv_per_100k'
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",
