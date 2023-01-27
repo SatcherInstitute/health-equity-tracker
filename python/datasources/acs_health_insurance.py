@@ -90,7 +90,6 @@ class AcsHealthInsuranceRaceIngester:
     # prefix, suffix combos can return the entire metadata
     def __init__(self, base_url):
         self.base_url = base_url
-        self.data = {}
 
     # Gets standardized filename
     # If race is set, gets race filename
@@ -175,9 +174,9 @@ class AcsHealthInsuranceRaceIngester:
                 df = gcs_to_bq_util.load_values_as_df(
                     gcs_bucket, self.get_filename_sex(is_county)
                 )
-                dfs.append(self.generate_df_for_concept(df, demo,
-                                                        HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT,
-                                                        is_county))
+                return self.generate_df_for_concept(df, demo,
+                                                    HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT,
+                                                    is_county)
 
     def generate_df_for_concept(self, df, demo, concept, is_county):
         var_map = parse_acs_metadata(self.metadata,
