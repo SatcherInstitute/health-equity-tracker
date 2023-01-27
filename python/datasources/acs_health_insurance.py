@@ -2,6 +2,7 @@ import pandas as pd
 
 from datasources.data_source import DataSource
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
+import ingestion.standardized_columns as std_col
 
 from ingestion.census import (
     parse_acs_metadata,
@@ -10,18 +11,12 @@ from ingestion.census import (
     get_census_params,
 )
 
+from ingestion.constants import (
+    RACE,
+    AGE,
+    SEX)
+
 from ingestion.standardized_columns import (
-    STATE_FIPS_COL,
-    COUNTY_FIPS_COL,
-    STATE_NAME_COL,
-    COUNTY_NAME_COL,
-    POPULATION_COL,
-    AGE_COL,
-    SEX_COL,
-    RACE_CATEGORY_ID_COL,
-    WITH_HEALTH_INSURANCE_COL,
-    WITHOUT_HEALTH_INSURANCE_COL,
-    TOTAL_HEALTH_INSURANCE_COL,
     Race,
     add_race_columns_from_category_id,
 )
@@ -71,7 +66,8 @@ def update_col_types(df):
 
        df: The original DataFrame"""
     colTypes = {}
-    str_cols = (STATE_FIPS_COL, COUNTY_FIPS_COL, RACE_CATEGORY_ID_COL, SEX_COL, AGE_COL)
+    str_cols = (std_col.STATE_FIPS_COL, std_col.COUNTY_FIPS_COL,
+                std_col.RACE_CATEGORY_ID_COL, std_col.SEX_COL, std_col.AGE_COL)
 
     for col in df.columns:
         if col in str_cols:
@@ -137,7 +133,7 @@ class AcsHealthInsuranceIngester(DataSource):
         self.metadata = census.fetch_acs_metadata(self.base_url)
         dfs = {}
         for is_county in [True, False]:
-            for demo in ['race', 'age', 'sex']:
+            for demo in [RACE, AGE, SEX]:
                 table_name = f'by_{demo}'
                 if is_county:
                     table_name += '_county'
@@ -147,15 +143,21 @@ class AcsHealthInsuranceIngester(DataSource):
                 dfs[table_name] = self.getData(demo, is_county, gcs_bucket=gcs_bucket)
 
         for table_name, df in dfs.items():
-            float_cols = [WITH_HEALTH_INSURANCE_COL, WITH_HEALTH_INSURANCE_COL, POPULATION_COL]
+            float_cols = [std_col.WITH_HEALTH_INSURANCE_COL,
+                          std_col.WITH_HEALTH_INSURANCE_COL,
+                          std_col.POPULATION_COL]
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=gcs_to_bq_util.get_bq_column_types(df, float_cols)
             )
 
     # Get Health insurance data from either GCS or Directly, and aggregate the data in memory
     def getData(self, demo, is_county, gcs_bucket=None):
+        var_map = parse_acs_metadata(self.metadata,
+                                     list(HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES.keys())
+                                     + [HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX])
+
         if gcs_bucket is not None:
-            if demo == 'race':
+            if demo == RACE:
                 dfs = []
                 for concept, race in CONCEPTS_TO_RACE.items():
                     # Get cached data from GCS
@@ -163,8 +165,8 @@ class AcsHealthInsuranceIngester(DataSource):
                         gcs_bucket, self.get_filename_race(race, is_county)
                     )
 
-                    df = self.generate_df_for_concept(df, demo, concept, is_county)
-                    df[RACE_CATEGORY_ID_COL] = race
+                    df = self.generate_df_for_concept(df, demo, concept, is_county, var_map)
+                    df[std_col.RACE_CATEGORY_ID_COL] = race
                     dfs.append(df)
 
                 return pd.concat(dfs)
@@ -175,24 +177,20 @@ class AcsHealthInsuranceIngester(DataSource):
                 )
                 return self.generate_df_for_concept(df, demo,
                                                     HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT,
-                                                    is_county)
+                                                    is_county, var_map)
 
-    def generate_df_for_concept(self, df, demo, concept, is_county):
-        var_map = parse_acs_metadata(self.metadata,
-                                     list(HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES.keys())
-                                     + [HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX])
-
+    def generate_df_for_concept(self, df, demo, concept, is_county, var_map):
         # Health insurance by race only breaks down by 2 variables,
         # `age` and `with/without health insurance`, because the race is already
         # baked into the concept, however for sex/age, the sex is not baked into the
         # concept but rather is another variable that needs to be broken out,
         # so we have to pass in 3.
-        num_var_groups = 2 if demo == 'race' else 3
+        num_var_groups = 2 if demo == RACE else 3
         group_vars = get_vars_for_group(concept, var_map, num_var_groups)
 
-        group_cols = [AGE_COL, HAS_HEALTH_INSURANCE]
-        if demo != 'race':
-            group_cols = [SEX_COL] + group_cols
+        group_cols = [std_col.AGE_COL, HAS_HEALTH_INSURANCE]
+        if demo != RACE:
+            group_cols = [std_col.SEX_COL] + group_cols
 
         # Creates a df with different rows for the amount of people
         # in a demographic group with health insurance and without
@@ -205,21 +203,21 @@ class AcsHealthInsuranceIngester(DataSource):
         # their own df and rename the 'amount' col to the correct name.
         df_with = df_with_without.loc[df_with_without[HAS_HEALTH_INSURANCE] ==
                                       'With health insurance coverage'].reset_index(drop=True)
-        df_with = df_with.rename(columns={AMOUNT: WITH_HEALTH_INSURANCE_COL})
+        df_with = df_with.rename(columns={AMOUNT: std_col.WITH_HEALTH_INSURANCE_COL})
 
         # Separate rows of the amount of people without health insurance into
         # their own df and rename the 'amount' col to the correct name.
         df_without = df_with_without.loc[df_with_without[HAS_HEALTH_INSURANCE] ==
                                          'No health insurance coverage'].reset_index(drop=True)
-        df_without = df_without.rename(columns={AMOUNT: WITHOUT_HEALTH_INSURANCE_COL})
+        df_without = df_without.rename(columns={AMOUNT: std_col.WITHOUT_HEALTH_INSURANCE_COL})
 
-        merge_cols = [STATE_FIPS_COL]
+        merge_cols = [std_col.STATE_FIPS_COL]
         if is_county:
-            merge_cols.append(COUNTY_FIPS_COL)
-        if demo != 'race':
-            merge_cols.extend([SEX_COL, AGE_COL])
+            merge_cols.append(std_col.COUNTY_FIPS_COL)
+        if demo != RACE:
+            merge_cols.extend([std_col.SEX_COL, std_col.AGE_COL])
 
-        df_with = df_with[merge_cols + [WITH_HEALTH_INSURANCE_COL]]
+        df_with = df_with[merge_cols + [std_col.WITH_HEALTH_INSURANCE_COL]]
 
         # Merge the with and without df's into a single one with the correct
         # column names.
@@ -228,29 +226,29 @@ class AcsHealthInsuranceIngester(DataSource):
 
         # Same reasoning as above, but because we are collecting population numbers here,
         # we need one fewer variable for `with/without health insurance`.
-        num_var_groups = 1 if demo == 'race' else 2
+        num_var_groups = 1 if demo == RACE else 2
         group_vars_totals = get_vars_for_group(concept, var_map, num_var_groups)
 
-        group_cols = [AGE_COL]
+        group_cols = [std_col.AGE_COL]
         if concept == HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT:
-            group_cols = [SEX_COL] + group_cols
+            group_cols = [std_col.SEX_COL] + group_cols
 
         df_totals = standardize_frame(df, group_vars_totals,
-                                      group_cols, is_county, POPULATION_COL)
+                                      group_cols, is_county, std_col.POPULATION_COL)
 
-        df = pd.merge(df_with_without, df_totals[merge_cols + [POPULATION_COL]],
-                      on=merge_cols, how='left')
+        df_totals = df_totals[merge_cols + [std_col.POPULATION_COL]]
+        df = pd.merge(df_with_without, df_totals, on=merge_cols, how='left')
 
-        df = df[merge_cols + [WITH_HEALTH_INSURANCE_COL,
-                              WITHOUT_HEALTH_INSURANCE_COL,
-                              POPULATION_COL]]
+        df = df[merge_cols + [std_col.WITH_HEALTH_INSURANCE_COL,
+                              std_col.WITHOUT_HEALTH_INSURANCE_COL,
+                              std_col.POPULATION_COL]]
 
         df = update_col_types(df)
 
         groupby_cols = merge_cols
-        if demo == 'age':
-            groupby_cols.remove('sex')
-        if demo == 'sex':
-            groupby_cols.remove('age')
+        if demo == AGE:
+            groupby_cols.remove(std_col.SEX_COL)
+        if demo == SEX:
+            groupby_cols.remove(std_col.AGE_COL)
 
         return df.groupby(groupby_cols).sum().reset_index()
