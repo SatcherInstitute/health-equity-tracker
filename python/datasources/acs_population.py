@@ -275,6 +275,9 @@ class ACSPopulationIngester():
     def upload_to_gcs(self, gcs_bucket):
         """Uploads population data from census to GCS bucket."""
         for base_acs_url in self.base_acs_urls:
+
+            year = extract_year(base_acs_url)
+
             metadata = census.fetch_acs_metadata(base_acs_url)
             var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
@@ -286,9 +289,10 @@ class ACSPopulationIngester():
                 group_vars = get_vars_for_group(concept, var_map, 2)
                 cols = list(group_vars.keys())
                 url_params = get_census_params(cols, self.county_level)
+                filename = self.get_filename(concept, year)
                 concept_file_diff = url_file_to_gcs.url_file_to_gcs(
                     base_acs_url, url_params, gcs_bucket,
-                    self.get_filename(concept))
+                    filename)
                 file_diff = file_diff or concept_file_diff
 
         return file_diff
@@ -309,14 +313,13 @@ class ACSPopulationIngester():
         # TODO change this to have it read metadata from GCS bucket
         for base_acs_url in self.base_acs_urls:
 
-            # extract the year from the base URL
             year = extract_year(base_acs_url)
 
             metadata = census.fetch_acs_metadata(base_acs_url)
             var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
             race_and_hispanic_frame = gcs_to_bq_util.load_values_as_df(
-                gcs_bucket, self.get_filename(HISPANIC_BY_RACE_CONCEPT))
+                gcs_bucket, self.get_filename(HISPANIC_BY_RACE_CONCEPT, year))
             race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
 
             race_and_hispanic_frame = standardize_frame(
@@ -329,7 +332,7 @@ class ACSPopulationIngester():
             sex_by_age_frames = {}
             for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
                 sex_by_age_frame = gcs_to_bq_util.load_values_as_df(
-                    gcs_bucket, self.get_filename(concept))
+                    gcs_bucket, self.get_filename(concept, year))
                 sex_by_age_frame = update_col_types(sex_by_age_frame)
                 sex_by_age_frames[concept] = sex_by_age_frame
 
@@ -378,6 +381,8 @@ class ACSPopulationIngester():
 
             for table_name, df in frames.items():
 
+                print("-=- table name:", table_name)
+
                 df[std_col.TIME_PERIOD_COL] = year
 
                 # collect table names (no duplicates)
@@ -392,9 +397,13 @@ class ACSPopulationIngester():
         # and upload to BQ
         for bq_table_name in bq_table_names:
 
+            print("^-^-^ bq table name:", bq_table_name)
+
             yearly_breakdown_dfs = []
             for yearly_table_name, yearly_df in table_items_for_bq.items():
                 if bq_table_name in yearly_table_name:
+                    print("if", bq_table_name, "in", yearly_table_name,
+                          (bq_table_name in yearly_table_name))
                     yearly_breakdown_dfs.append(yearly_df)
 
             df = pd.concat(yearly_breakdown_dfs, axis=0).reset_index(drop=True)
@@ -406,7 +415,7 @@ class ACSPopulationIngester():
                 df, float_cols=float_cols)
 
             gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=column_types)
+                df, dataset, bq_table_name, column_types=column_types)
 
     def get_table_geo_suffix(self):
         return "_county" if self.county_level else "_state"
@@ -426,11 +435,15 @@ class ACSPopulationIngester():
     def get_table_name_by_sex_age_race(self):
         return "by_sex_age_race" + self.get_table_geo_suffix()
 
-    def get_filename(self, concept):
+    def get_filename(self, concept: str, year: str):
         """Returns the name of a file for the given ACS concept
 
-        concept: The ACS concept description, eg 'SEX BY AGE'"""
-        return self.add_filename_suffix(concept.replace(" ", "_"))
+        concept: The ACS concept description, eg 'SEX BY AGE'
+        year: the 4 digit string representing what year the ACS table is from """
+
+        filename = self.add_filename_suffix(concept.replace(" ", "_"))
+
+        return f'{year}-{filename}'
 
     def add_filename_suffix(self, root_name):
         """Adds geography and file type suffix to the root name.
