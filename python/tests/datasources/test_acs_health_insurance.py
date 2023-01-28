@@ -6,11 +6,18 @@ from ingestion import gcs_to_bq_util
 
 from datasources.acs_health_insurance import AcsHealthInsuranceIngester
 
-from test_utils import get_acs_metadata_as_json
+from test_utils import get_acs_metadata_as_json, get_state_fips_codes_as_df
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data', 'acs_health_insurance')
+
+
+def get_fips_and_county_names_as_df(*args, **kwargs):
+    if args[1] == 'fips_codes_all':
+        return pd.read_csv(os.path.join(TEST_DIR, 'county_names.csv'), dtype=str)
+    else:
+        return get_state_fips_codes_as_df()
 
 
 def _get_by_race_as_df(*args):
@@ -23,9 +30,12 @@ def _get_by_race_as_df(*args):
             return_value=get_acs_metadata_as_json())
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
             side_effect=_get_by_race_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            side_effect=get_fips_and_county_names_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
-def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
+def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock,
+                      mock_pop: mock.MagicMock, mock_json: mock.MagicMock):
     acsHealthInsuranceIngestor = AcsHealthInsuranceIngester("https://SOME-URL")
 
     acsHealthInsuranceIngestor.write_to_bq('dataset', 'gcs_bucket')

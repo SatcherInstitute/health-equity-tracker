@@ -82,7 +82,6 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
 
     for share_of_known_col in raw_count_to_pct_share.values():
         unknown_all_df.loc[unknown_all_df[breakdown_col]
-
                            == all_val, share_of_known_col] = 100.0
 
     df = pd.concat([df, unknown_all_df]).reset_index(drop=True)
@@ -202,7 +201,7 @@ def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val,
        df: The DataFrame to calculate new rows from.
        breakdown_col: The name of the breakdown column that a new value is being
                       summed over.
-       value_col: The name of the column whose values should be summed.
+       value_col: The name or names of the column/s whose values should be summed.
        new_row_breakdown_val: The value to use for the breakdown column.
        breakdown_vals_to_sum: The list of breakdown values to sum across. If not
                               provided, defaults to summing across all values.
@@ -213,7 +212,12 @@ def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val,
 
     group_by_cols = list(df.columns)
     group_by_cols.remove(breakdown_col)
-    group_by_cols.remove(value_col)
+
+    if type(value_col) == str:
+        group_by_cols.remove(value_col)
+    else:
+        for col in value_col:
+            group_by_cols.remove(col)
 
     sums = filtered_df.groupby(group_by_cols).sum().reset_index()
     sums[breakdown_col] = new_row_breakdown_val
