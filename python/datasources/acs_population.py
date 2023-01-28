@@ -10,11 +10,13 @@ from ingestion.census import (get_census_params, parse_acs_metadata,
                               get_vars_for_group, standardize_frame)
 from ingestion.dataset_utils import add_sum_of_rows, generate_pct_share_col_without_unknowns
 
-# TODO pass this in from message data.
-# BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
+DEFAULT_SINGLE_YEAR_ACS_BASE_URL = "https://api.census.gov/data/2019/acs/acs5"
 BASE_ACS_URLS = [
-    "https://api.census.gov/data/2019/acs/acs5",
-    "https://api.census.gov/data/2018/acs/acs5"
+    DEFAULT_SINGLE_YEAR_ACS_BASE_URL,
+    "https://api.census.gov/data/2018/acs/acs5",
+    "https://api.census.gov/data/2017/acs/acs5",
+    "https://api.census.gov/data/2016/acs/acs5",
+    "https://api.census.gov/data/2015/acs/acs5",
 ]
 
 
@@ -305,7 +307,7 @@ class ACSPopulationIngester():
 
         # collect all of the tables for later
         # combining and uploading to bq
-        table_items_for_bq = {}
+        time_series_table_items = {}
 
         # collect the names needed for our HET BQ tables
         bq_table_names = []
@@ -381,9 +383,24 @@ class ACSPopulationIngester():
 
             for table_name, df in frames.items():
 
-                print("-=- table name:", table_name)
+                # write the default single year table without a time_period col
+                # to maintain existing merge_util functionality
+                if base_acs_url == DEFAULT_SINGLE_YEAR_ACS_BASE_URL:
 
-                df[std_col.TIME_PERIOD_COL] = year
+                    df_single_year = df.copy()
+
+                    float_cols = [std_col.POPULATION_COL]
+                    if std_col.POPULATION_PCT_COL in df_single_year.columns:
+                        float_cols.append(std_col.POPULATION_PCT_COL)
+                    column_types = gcs_to_bq_util.get_bq_column_types(
+                        df_single_year, float_cols=float_cols)
+                    gcs_to_bq_util.add_df_to_bq(
+                        df_single_year, dataset, table_name, column_types=column_types)
+
+                # additionally, prepare each yearly table for
+                # later combination into _time_series tables for bq
+                df_time_series = df.copy()
+                df_time_series[std_col.TIME_PERIOD_COL] = year
 
                 # collect table names (no duplicates)
                 if table_name not in bq_table_names:
@@ -391,19 +408,15 @@ class ACSPopulationIngester():
 
                 # queue for the combining across years / upload
                 # to bq process
-                table_items_for_bq[f'{year}___{table_name}'] = df
+                time_series_table_items[f'{year}___{table_name}'] = df_time_series
 
         # combine multiple years into geo/demo tables,
         # and upload to BQ
         for bq_table_name in bq_table_names:
 
-            print("^-^-^ bq table name:", bq_table_name)
-
             yearly_breakdown_dfs = []
-            for yearly_table_name, yearly_df in table_items_for_bq.items():
+            for yearly_table_name, yearly_df in time_series_table_items.items():
                 if bq_table_name in yearly_table_name:
-                    print("if", bq_table_name, "in", yearly_table_name,
-                          (bq_table_name in yearly_table_name))
                     yearly_breakdown_dfs.append(yearly_df)
 
             df = pd.concat(yearly_breakdown_dfs, axis=0).reset_index(drop=True)
@@ -415,7 +428,7 @@ class ACSPopulationIngester():
                 df, float_cols=float_cols)
 
             gcs_to_bq_util.add_df_to_bq(
-                df, dataset, bq_table_name, column_types=column_types)
+                df, dataset, f'{bq_table_name}_time_series', column_types=column_types)
 
     def get_table_geo_suffix(self):
         return "_county" if self.county_level else "_state"
@@ -758,14 +771,18 @@ def GENERATE_NATIONAL_DATASET(state_df, states_to_include, demographic_breakdown
 
 
 def extract_year(url: str):
-    """ Extract the 4 digit year from the middle of the ACS base URL """
+    """ Extract the 4 digit year from the middle of the specifcally formatted ACS base URL """
 
     prefix = "https://api.census.gov/data/"
     suffix = "/acs/acs5"
 
     if url.startswith(prefix):
         url = url[len(prefix):]
+    else:
+        raise ValueError(f'URL must start with {prefix}')
     if url.endswith(suffix):
         url = url[:-len(suffix)]
+    else:
+        raise ValueError(f'URL must end with {suffix}')
 
     return url

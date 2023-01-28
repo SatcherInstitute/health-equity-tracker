@@ -1,121 +1,61 @@
-time_period,state_fips,state_name,sex,age,population
-"2018",01,Alabama,All,0-9,594251
-"2018",01,Alabama,All,10-19,632942
-"2018",01,Alabama,All,20-29,660802
-"2018",01,Alabama,All,30-39,605766
-"2018",01,Alabama,All,40-49,605502
-"2018",01,Alabama,All,50-59,656313
-"2018",01,Alabama,All,60-69,582830
-"2018",01,Alabama,All,70-79,354740
-"2018",01,Alabama,All,80+,183104
-"2018",01,Alabama,All,All,4876250
-"2018",01,Alabama,Female,0-9,291667
-"2018",01,Alabama,Female,10-19,311088
-"2018",01,Alabama,Female,20-29,329775
-"2018",01,Alabama,Female,30-39,310091
-"2018",01,Alabama,Female,40-49,312695
-"2018",01,Alabama,Female,50-59,340874
-"2018",01,Alabama,Female,60-69,308991
-"2018",01,Alabama,Female,70-79,195875
-"2018",01,Alabama,Female,80+,115839
-"2018",01,Alabama,Female,All,2516895
-"2018",01,Alabama,Male,0-9,302584
-"2018",01,Alabama,Male,10-19,321854
-"2018",01,Alabama,Male,20-29,331027
-"2018",01,Alabama,Male,30-39,295675
-"2018",01,Alabama,Male,40-49,292807
-"2018",01,Alabama,Male,50-59,315439
-"2018",01,Alabama,Male,60-69,273839
-"2018",01,Alabama,Male,70-79,158865
-"2018",01,Alabama,Male,80+,67265
-"2018",01,Alabama,Male,All,2359355
-"2018",72,Puerto Rico,All,0-9,318830
-"2018",72,Puerto Rico,All,10-19,421094
-"2018",72,Puerto Rico,All,20-29,453809
-"2018",72,Puerto Rico,All,30-39,395035
-"2018",72,Puerto Rico,All,40-49,422720
-"2018",72,Puerto Rico,All,50-59,439949
-"2018",72,Puerto Rico,All,60-69,408689
-"2018",72,Puerto Rico,All,70-79,292530
-"2018",72,Puerto Rico,All,80+,165791
-"2018",72,Puerto Rico,All,All,3318447
-"2018",72,Puerto Rico,Female,0-9,156311
-"2018",72,Puerto Rico,Female,10-19,206109
-"2018",72,Puerto Rico,Female,20-29,226352
-"2018",72,Puerto Rico,Female,30-39,207604
-"2018",72,Puerto Rico,Female,40-49,221461
-"2018",72,Puerto Rico,Female,50-59,235584
-"2018",72,Puerto Rico,Female,60-69,223719
-"2018",72,Puerto Rico,Female,70-79,163248
-"2018",72,Puerto Rico,Female,80+,99741
-"2018",72,Puerto Rico,Female,All,1740129
-"2018",72,Puerto Rico,Male,0-9,162519
-"2018",72,Puerto Rico,Male,10-19,214985
-"2018",72,Puerto Rico,Male,20-29,227457
-"2018",72,Puerto Rico,Male,30-39,187431
-"2018",72,Puerto Rico,Male,40-49,201259
-"2018",72,Puerto Rico,Male,50-59,204365
-"2018",72,Puerto Rico,Male,60-69,184970
-"2018",72,Puerto Rico,Male,70-79,129282
-"2018",72,Puerto Rico,Male,80+,66050
-"2018",72,Puerto Rico,Male,All,1578318
-"2019",01,Alabama,All,0-9,594251
-"2019",01,Alabama,All,10-19,632942
-"2019",01,Alabama,All,20-29,660802
-"2019",01,Alabama,All,30-39,605766
-"2019",01,Alabama,All,40-49,605502
-"2019",01,Alabama,All,50-59,656313
-"2019",01,Alabama,All,60-69,582830
-"2019",01,Alabama,All,70-79,354740
-"2019",01,Alabama,All,80+,183104
-"2019",01,Alabama,All,All,4876250
-"2019",01,Alabama,Female,0-9,291667
-"2019",01,Alabama,Female,10-19,311088
-"2019",01,Alabama,Female,20-29,329775
-"2019",01,Alabama,Female,30-39,310091
-"2019",01,Alabama,Female,40-49,312695
-"2019",01,Alabama,Female,50-59,340874
-"2019",01,Alabama,Female,60-69,308991
-"2019",01,Alabama,Female,70-79,195875
-"2019",01,Alabama,Female,80+,115839
-"2019",01,Alabama,Female,All,2516895
-"2019",01,Alabama,Male,0-9,302584
-"2019",01,Alabama,Male,10-19,321854
-"2019",01,Alabama,Male,20-29,331027
-"2019",01,Alabama,Male,30-39,295675
-"2019",01,Alabama,Male,40-49,292807
-"2019",01,Alabama,Male,50-59,315439
-"2019",01,Alabama,Male,60-69,273839
-"2019",01,Alabama,Male,70-79,158865
-"2019",01,Alabama,Male,80+,67265
-"2019",01,Alabama,Male,All,2359355
-"2019",72,Puerto Rico,All,0-9,318830
-"2019",72,Puerto Rico,All,10-19,421094
-"2019",72,Puerto Rico,All,20-29,453809
-"2019",72,Puerto Rico,All,30-39,395035
-"2019",72,Puerto Rico,All,40-49,422720
-"2019",72,Puerto Rico,All,50-59,439949
-"2019",72,Puerto Rico,All,60-69,408689
-"2019",72,Puerto Rico,All,70-79,292530
-"2019",72,Puerto Rico,All,80+,165791
-"2019",72,Puerto Rico,All,All,3318447
-"2019",72,Puerto Rico,Female,0-9,156311
-"2019",72,Puerto Rico,Female,10-19,206109
-"2019",72,Puerto Rico,Female,20-29,226352
-"2019",72,Puerto Rico,Female,30-39,207604
-"2019",72,Puerto Rico,Female,40-49,221461
-"2019",72,Puerto Rico,Female,50-59,235584
-"2019",72,Puerto Rico,Female,60-69,223719
-"2019",72,Puerto Rico,Female,70-79,163248
-"2019",72,Puerto Rico,Female,80+,99741
-"2019",72,Puerto Rico,Female,All,1740129
-"2019",72,Puerto Rico,Male,0-9,162519
-"2019",72,Puerto Rico,Male,10-19,214985
-"2019",72,Puerto Rico,Male,20-29,227457
-"2019",72,Puerto Rico,Male,30-39,187431
-"2019",72,Puerto Rico,Male,40-49,201259
-"2019",72,Puerto Rico,Male,50-59,204365
-"2019",72,Puerto Rico,Male,60-69,184970
-"2019",72,Puerto Rico,Male,70-79,129282
-"2019",72,Puerto Rico,Male,80+,66050
-"2019",72,Puerto Rico,Male,All,1578318
+state_fips,state_name,sex,age,population
+01,Alabama,All,0-9,594251
+01,Alabama,All,10-19,632942
+01,Alabama,All,20-29,660802
+01,Alabama,All,30-39,605766
+01,Alabama,All,40-49,605502
+01,Alabama,All,50-59,656313
+01,Alabama,All,60-69,582830
+01,Alabama,All,70-79,354740
+01,Alabama,All,80+,183104
+01,Alabama,All,All,4876250
+01,Alabama,Female,0-9,291667
+01,Alabama,Female,10-19,311088
+01,Alabama,Female,20-29,329775
+01,Alabama,Female,30-39,310091
+01,Alabama,Female,40-49,312695
+01,Alabama,Female,50-59,340874
+01,Alabama,Female,60-69,308991
+01,Alabama,Female,70-79,195875
+01,Alabama,Female,80+,115839
+01,Alabama,Female,All,2516895
+01,Alabama,Male,0-9,302584
+01,Alabama,Male,10-19,321854
+01,Alabama,Male,20-29,331027
+01,Alabama,Male,30-39,295675
+01,Alabama,Male,40-49,292807
+01,Alabama,Male,50-59,315439
+01,Alabama,Male,60-69,273839
+01,Alabama,Male,70-79,158865
+01,Alabama,Male,80+,67265
+01,Alabama,Male,All,2359355
+72,Puerto Rico,All,0-9,318830
+72,Puerto Rico,All,10-19,421094
+72,Puerto Rico,All,20-29,453809
+72,Puerto Rico,All,30-39,395035
+72,Puerto Rico,All,40-49,422720
+72,Puerto Rico,All,50-59,439949
+72,Puerto Rico,All,60-69,408689
+72,Puerto Rico,All,70-79,292530
+72,Puerto Rico,All,80+,165791
+72,Puerto Rico,All,All,3318447
+72,Puerto Rico,Female,0-9,156311
+72,Puerto Rico,Female,10-19,206109
+72,Puerto Rico,Female,20-29,226352
+72,Puerto Rico,Female,30-39,207604
+72,Puerto Rico,Female,40-49,221461
+72,Puerto Rico,Female,50-59,235584
+72,Puerto Rico,Female,60-69,223719
+72,Puerto Rico,Female,70-79,163248
+72,Puerto Rico,Female,80+,99741
+72,Puerto Rico,Female,All,1740129
+72,Puerto Rico,Male,0-9,162519
+72,Puerto Rico,Male,10-19,214985
+72,Puerto Rico,Male,20-29,227457
+72,Puerto Rico,Male,30-39,187431
+72,Puerto Rico,Male,40-49,201259
+72,Puerto Rico,Male,50-59,204365
+72,Puerto Rico,Male,60-69,184970
+72,Puerto Rico,Male,70-79,129282
+72,Puerto Rico,Male,80+,66050
+72,Puerto Rico,Male,All,1578318
