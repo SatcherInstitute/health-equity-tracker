@@ -1,0 +1,1909 @@
+time_period,state_fips,state_name,sex,age,population,race_category_id,race_and_ethnicity
+"2018",01,Alabama,All,0-4,1106,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,All,10-14,1562,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,All,15-17,1526,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,All,18-19,640,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,All,20-24,1585,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,All,25-29,1874,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,All,30-34,1784,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,All,35-44,3322,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,All,45-54,3914,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,All,5-9,1096,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,All,55-64,3748,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,All,65-74,2331,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,All,75-84,792,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,All,85+,285,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,All,All,25565,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Female,0-4,571,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Female,10-14,742,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Female,15-17,865,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Female,18-19,450,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Female,20-24,831,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Female,25-29,737,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Female,30-34,855,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Female,35-44,1459,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Female,45-54,2247,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Female,5-9,716,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Female,55-64,1910,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Female,65-74,1256,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Female,75-84,362,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Female,85+,97,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Female,All,13098,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Male,0-4,535,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Male,10-14,820,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Male,15-17,661,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Male,18-19,190,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Male,20-24,754,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Male,25-29,1137,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Male,30-34,929,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Male,35-44,1863,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Male,45-54,1667,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Male,5-9,380,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Male,55-64,1838,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Male,65-74,1075,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Male,75-84,430,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Male,85+,188,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,Male,All,12467,AIAN,American Indian and Alaska Native
+"2018",01,Alabama,All,0-4,293187,ALL,All
+"2018",01,Alabama,All,10-14,310456,ALL,All
+"2018",01,Alabama,All,15-17,191669,ALL,All
+"2018",01,Alabama,All,18-19,130817,ALL,All
+"2018",01,Alabama,All,20-20,71297,ALL,All
+"2018",01,Alabama,All,21-21,68588,ALL,All
+"2018",01,Alabama,All,22-24,188295,ALL,All
+"2018",01,Alabama,All,25-29,332622,ALL,All
+"2018",01,Alabama,All,30-34,305325,ALL,All
+"2018",01,Alabama,All,35-39,300441,ALL,All
+"2018",01,Alabama,All,40-44,295947,ALL,All
+"2018",01,Alabama,All,45-49,309555,ALL,All
+"2018",01,Alabama,All,5-9,301064,ALL,All
+"2018",01,Alabama,All,50-54,323104,ALL,All
+"2018",01,Alabama,All,55-59,333209,ALL,All
+"2018",01,Alabama,All,60-61,130775,ALL,All
+"2018",01,Alabama,All,62-64,185018,ALL,All
+"2018",01,Alabama,All,65-66,112093,ALL,All
+"2018",01,Alabama,All,67-69,154944,ALL,All
+"2018",01,Alabama,All,70-74,209644,ALL,All
+"2018",01,Alabama,All,75-79,145096,ALL,All
+"2018",01,Alabama,All,80-84,98755,ALL,All
+"2018",01,Alabama,All,85+,84349,ALL,All
+"2018",01,Alabama,All,All,4876250,ALL,All
+"2018",01,Alabama,Female,0-4,144097,ALL,All
+"2018",01,Alabama,Female,10-14,151839,ALL,All
+"2018",01,Alabama,Female,15-17,93412,ALL,All
+"2018",01,Alabama,Female,18-19,65837,ALL,All
+"2018",01,Alabama,Female,20-20,35427,ALL,All
+"2018",01,Alabama,Female,21-21,33548,ALL,All
+"2018",01,Alabama,Female,22-24,93230,ALL,All
+"2018",01,Alabama,Female,25-29,167570,ALL,All
+"2018",01,Alabama,Female,30-34,155546,ALL,All
+"2018",01,Alabama,Female,35-39,154545,ALL,All
+"2018",01,Alabama,Female,40-44,153194,ALL,All
+"2018",01,Alabama,Female,45-49,159501,ALL,All
+"2018",01,Alabama,Female,5-9,147570,ALL,All
+"2018",01,Alabama,Female,50-54,166787,ALL,All
+"2018",01,Alabama,Female,55-59,174087,ALL,All
+"2018",01,Alabama,Female,60-61,69293,ALL,All
+"2018",01,Alabama,Female,62-64,96727,ALL,All
+"2018",01,Alabama,Female,65-66,59558,ALL,All
+"2018",01,Alabama,Female,67-69,83413,ALL,All
+"2018",01,Alabama,Female,70-74,113624,ALL,All
+"2018",01,Alabama,Female,75-79,82251,ALL,All
+"2018",01,Alabama,Female,80-84,59420,ALL,All
+"2018",01,Alabama,Female,85+,56419,ALL,All
+"2018",01,Alabama,Female,All,2516895,ALL,All
+"2018",01,Alabama,Male,0-4,149090,ALL,All
+"2018",01,Alabama,Male,10-14,158617,ALL,All
+"2018",01,Alabama,Male,15-17,98257,ALL,All
+"2018",01,Alabama,Male,18-19,64980,ALL,All
+"2018",01,Alabama,Male,20-20,35870,ALL,All
+"2018",01,Alabama,Male,21-21,35040,ALL,All
+"2018",01,Alabama,Male,22-24,95065,ALL,All
+"2018",01,Alabama,Male,25-29,165052,ALL,All
+"2018",01,Alabama,Male,30-34,149779,ALL,All
+"2018",01,Alabama,Male,35-39,145896,ALL,All
+"2018",01,Alabama,Male,40-44,142753,ALL,All
+"2018",01,Alabama,Male,45-49,150054,ALL,All
+"2018",01,Alabama,Male,5-9,153494,ALL,All
+"2018",01,Alabama,Male,50-54,156317,ALL,All
+"2018",01,Alabama,Male,55-59,159122,ALL,All
+"2018",01,Alabama,Male,60-61,61482,ALL,All
+"2018",01,Alabama,Male,62-64,88291,ALL,All
+"2018",01,Alabama,Male,65-66,52535,ALL,All
+"2018",01,Alabama,Male,67-69,71531,ALL,All
+"2018",01,Alabama,Male,70-74,96020,ALL,All
+"2018",01,Alabama,Male,75-79,62845,ALL,All
+"2018",01,Alabama,Male,80-84,39335,ALL,All
+"2018",01,Alabama,Male,85+,27930,ALL,All
+"2018",01,Alabama,Male,All,2359355,ALL,All
+"2018",01,Alabama,All,0-4,3816,ASIAN,Asian
+"2018",01,Alabama,All,10-14,4504,ASIAN,Asian
+"2018",01,Alabama,All,15-17,2444,ASIAN,Asian
+"2018",01,Alabama,All,18-19,1944,ASIAN,Asian
+"2018",01,Alabama,All,20-24,4612,ASIAN,Asian
+"2018",01,Alabama,All,25-29,5521,ASIAN,Asian
+"2018",01,Alabama,All,30-34,5224,ASIAN,Asian
+"2018",01,Alabama,All,35-44,11470,ASIAN,Asian
+"2018",01,Alabama,All,45-54,9746,ASIAN,Asian
+"2018",01,Alabama,All,5-9,4510,ASIAN,Asian
+"2018",01,Alabama,All,55-64,6511,ASIAN,Asian
+"2018",01,Alabama,All,65-74,4186,ASIAN,Asian
+"2018",01,Alabama,All,75-84,1431,ASIAN,Asian
+"2018",01,Alabama,All,85+,351,ASIAN,Asian
+"2018",01,Alabama,All,All,66270,ASIAN,Asian
+"2018",01,Alabama,Female,0-4,1964,ASIAN,Asian
+"2018",01,Alabama,Female,10-14,2219,ASIAN,Asian
+"2018",01,Alabama,Female,15-17,1188,ASIAN,Asian
+"2018",01,Alabama,Female,18-19,1192,ASIAN,Asian
+"2018",01,Alabama,Female,20-24,2116,ASIAN,Asian
+"2018",01,Alabama,Female,25-29,2534,ASIAN,Asian
+"2018",01,Alabama,Female,30-34,2826,ASIAN,Asian
+"2018",01,Alabama,Female,35-44,6287,ASIAN,Asian
+"2018",01,Alabama,Female,45-54,5123,ASIAN,Asian
+"2018",01,Alabama,Female,5-9,2418,ASIAN,Asian
+"2018",01,Alabama,Female,55-64,3891,ASIAN,Asian
+"2018",01,Alabama,Female,65-74,2425,ASIAN,Asian
+"2018",01,Alabama,Female,75-84,882,ASIAN,Asian
+"2018",01,Alabama,Female,85+,237,ASIAN,Asian
+"2018",01,Alabama,Female,All,35302,ASIAN,Asian
+"2018",01,Alabama,Male,0-4,1852,ASIAN,Asian
+"2018",01,Alabama,Male,10-14,2285,ASIAN,Asian
+"2018",01,Alabama,Male,15-17,1256,ASIAN,Asian
+"2018",01,Alabama,Male,18-19,752,ASIAN,Asian
+"2018",01,Alabama,Male,20-24,2496,ASIAN,Asian
+"2018",01,Alabama,Male,25-29,2987,ASIAN,Asian
+"2018",01,Alabama,Male,30-34,2398,ASIAN,Asian
+"2018",01,Alabama,Male,35-44,5183,ASIAN,Asian
+"2018",01,Alabama,Male,45-54,4623,ASIAN,Asian
+"2018",01,Alabama,Male,5-9,2092,ASIAN,Asian
+"2018",01,Alabama,Male,55-64,2620,ASIAN,Asian
+"2018",01,Alabama,Male,65-74,1761,ASIAN,Asian
+"2018",01,Alabama,Male,75-84,549,ASIAN,Asian
+"2018",01,Alabama,Male,85+,114,ASIAN,Asian
+"2018",01,Alabama,Male,All,30968,ASIAN,Asian
+"2018",01,Alabama,All,0-4,85566,BLACK,Black or African American
+"2018",01,Alabama,All,10-14,89802,BLACK,Black or African American
+"2018",01,Alabama,All,15-17,56420,BLACK,Black or African American
+"2018",01,Alabama,All,18-19,41343,BLACK,Black or African American
+"2018",01,Alabama,All,20-24,104317,BLACK,Black or African American
+"2018",01,Alabama,All,25-29,101561,BLACK,Black or African American
+"2018",01,Alabama,All,30-34,87718,BLACK,Black or African American
+"2018",01,Alabama,All,35-44,165808,BLACK,Black or African American
+"2018",01,Alabama,All,45-54,159149,BLACK,Black or African American
+"2018",01,Alabama,All,5-9,90555,BLACK,Black or African American
+"2018",01,Alabama,All,55-64,161629,BLACK,Black or African American
+"2018",01,Alabama,All,65-74,98066,BLACK,Black or African American
+"2018",01,Alabama,All,75-84,42345,BLACK,Black or African American
+"2018",01,Alabama,All,85+,14769,BLACK,Black or African American
+"2018",01,Alabama,All,All,1299048,BLACK,Black or African American
+"2018",01,Alabama,Female,0-4,42293,BLACK,Black or African American
+"2018",01,Alabama,Female,10-14,44214,BLACK,Black or African American
+"2018",01,Alabama,Female,15-17,27628,BLACK,Black or African American
+"2018",01,Alabama,Female,18-19,20858,BLACK,Black or African American
+"2018",01,Alabama,Female,20-24,53556,BLACK,Black or African American
+"2018",01,Alabama,Female,25-29,52879,BLACK,Black or African American
+"2018",01,Alabama,Female,30-34,46700,BLACK,Black or African American
+"2018",01,Alabama,Female,35-44,91785,BLACK,Black or African American
+"2018",01,Alabama,Female,45-54,87809,BLACK,Black or African American
+"2018",01,Alabama,Female,5-9,44455,BLACK,Black or African American
+"2018",01,Alabama,Female,55-64,89480,BLACK,Black or African American
+"2018",01,Alabama,Female,65-74,55230,BLACK,Black or African American
+"2018",01,Alabama,Female,75-84,26194,BLACK,Black or African American
+"2018",01,Alabama,Female,85+,10973,BLACK,Black or African American
+"2018",01,Alabama,Female,All,694054,BLACK,Black or African American
+"2018",01,Alabama,Male,0-4,43273,BLACK,Black or African American
+"2018",01,Alabama,Male,10-14,45588,BLACK,Black or African American
+"2018",01,Alabama,Male,15-17,28792,BLACK,Black or African American
+"2018",01,Alabama,Male,18-19,20485,BLACK,Black or African American
+"2018",01,Alabama,Male,20-24,50761,BLACK,Black or African American
+"2018",01,Alabama,Male,25-29,48682,BLACK,Black or African American
+"2018",01,Alabama,Male,30-34,41018,BLACK,Black or African American
+"2018",01,Alabama,Male,35-44,74023,BLACK,Black or African American
+"2018",01,Alabama,Male,45-54,71340,BLACK,Black or African American
+"2018",01,Alabama,Male,5-9,46100,BLACK,Black or African American
+"2018",01,Alabama,Male,55-64,72149,BLACK,Black or African American
+"2018",01,Alabama,Male,65-74,42836,BLACK,Black or African American
+"2018",01,Alabama,Male,75-84,16151,BLACK,Black or African American
+"2018",01,Alabama,Male,85+,3796,BLACK,Black or African American
+"2018",01,Alabama,Male,All,604994,BLACK,Black or African American
+"2018",01,Alabama,All,0-4,25140,HISP,Hispanic or Latino
+"2018",01,Alabama,All,10-14,22146,HISP,Hispanic or Latino
+"2018",01,Alabama,All,15-17,10718,HISP,Hispanic or Latino
+"2018",01,Alabama,All,18-19,6621,HISP,Hispanic or Latino
+"2018",01,Alabama,All,20-24,15881,HISP,Hispanic or Latino
+"2018",01,Alabama,All,25-29,15628,HISP,Hispanic or Latino
+"2018",01,Alabama,All,30-34,17690,HISP,Hispanic or Latino
+"2018",01,Alabama,All,35-44,31097,HISP,Hispanic or Latino
+"2018",01,Alabama,All,45-54,18932,HISP,Hispanic or Latino
+"2018",01,Alabama,All,5-9,25046,HISP,Hispanic or Latino
+"2018",01,Alabama,All,55-64,11106,HISP,Hispanic or Latino
+"2018",01,Alabama,All,65-74,5792,HISP,Hispanic or Latino
+"2018",01,Alabama,All,75-84,2145,HISP,Hispanic or Latino
+"2018",01,Alabama,All,85+,684,HISP,Hispanic or Latino
+"2018",01,Alabama,All,All,208626,HISP,Hispanic or Latino
+"2018",01,Alabama,Female,0-4,12382,HISP,Hispanic or Latino
+"2018",01,Alabama,Female,10-14,10475,HISP,Hispanic or Latino
+"2018",01,Alabama,Female,15-17,4845,HISP,Hispanic or Latino
+"2018",01,Alabama,Female,18-19,3348,HISP,Hispanic or Latino
+"2018",01,Alabama,Female,20-24,7536,HISP,Hispanic or Latino
+"2018",01,Alabama,Female,25-29,7071,HISP,Hispanic or Latino
+"2018",01,Alabama,Female,30-34,7780,HISP,Hispanic or Latino
+"2018",01,Alabama,Female,35-44,14059,HISP,Hispanic or Latino
+"2018",01,Alabama,Female,45-54,8878,HISP,Hispanic or Latino
+"2018",01,Alabama,Female,5-9,12508,HISP,Hispanic or Latino
+"2018",01,Alabama,Female,55-64,5089,HISP,Hispanic or Latino
+"2018",01,Alabama,Female,65-74,2685,HISP,Hispanic or Latino
+"2018",01,Alabama,Female,75-84,1483,HISP,Hispanic or Latino
+"2018",01,Alabama,Female,85+,404,HISP,Hispanic or Latino
+"2018",01,Alabama,Female,All,98543,HISP,Hispanic or Latino
+"2018",01,Alabama,Male,0-4,12758,HISP,Hispanic or Latino
+"2018",01,Alabama,Male,10-14,11671,HISP,Hispanic or Latino
+"2018",01,Alabama,Male,15-17,5873,HISP,Hispanic or Latino
+"2018",01,Alabama,Male,18-19,3273,HISP,Hispanic or Latino
+"2018",01,Alabama,Male,20-24,8345,HISP,Hispanic or Latino
+"2018",01,Alabama,Male,25-29,8557,HISP,Hispanic or Latino
+"2018",01,Alabama,Male,30-34,9910,HISP,Hispanic or Latino
+"2018",01,Alabama,Male,35-44,17038,HISP,Hispanic or Latino
+"2018",01,Alabama,Male,45-54,10054,HISP,Hispanic or Latino
+"2018",01,Alabama,Male,5-9,12538,HISP,Hispanic or Latino
+"2018",01,Alabama,Male,55-64,6017,HISP,Hispanic or Latino
+"2018",01,Alabama,Male,65-74,3107,HISP,Hispanic or Latino
+"2018",01,Alabama,Male,75-84,662,HISP,Hispanic or Latino
+"2018",01,Alabama,Male,85+,280,HISP,Hispanic or Latino
+"2018",01,Alabama,Male,All,110083,HISP,Hispanic or Latino
+"2018",01,Alabama,All,0-4,13425,MULTI,Two or more races
+"2018",01,Alabama,All,10-14,10119,MULTI,Two or more races
+"2018",01,Alabama,All,15-17,5889,MULTI,Two or more races
+"2018",01,Alabama,All,18-19,3871,MULTI,Two or more races
+"2018",01,Alabama,All,20-24,7666,MULTI,Two or more races
+"2018",01,Alabama,All,25-29,5443,MULTI,Two or more races
+"2018",01,Alabama,All,30-34,5013,MULTI,Two or more races
+"2018",01,Alabama,All,35-44,8280,MULTI,Two or more races
+"2018",01,Alabama,All,45-54,7101,MULTI,Two or more races
+"2018",01,Alabama,All,5-9,11815,MULTI,Two or more races
+"2018",01,Alabama,All,55-64,7130,MULTI,Two or more races
+"2018",01,Alabama,All,65-74,4103,MULTI,Two or more races
+"2018",01,Alabama,All,75-84,1759,MULTI,Two or more races
+"2018",01,Alabama,All,85+,606,MULTI,Two or more races
+"2018",01,Alabama,All,All,92220,MULTI,Two or more races
+"2018",01,Alabama,Female,0-4,6643,MULTI,Two or more races
+"2018",01,Alabama,Female,10-14,5015,MULTI,Two or more races
+"2018",01,Alabama,Female,15-17,2905,MULTI,Two or more races
+"2018",01,Alabama,Female,18-19,1707,MULTI,Two or more races
+"2018",01,Alabama,Female,20-24,3948,MULTI,Two or more races
+"2018",01,Alabama,Female,25-29,2786,MULTI,Two or more races
+"2018",01,Alabama,Female,30-34,2512,MULTI,Two or more races
+"2018",01,Alabama,Female,35-44,4394,MULTI,Two or more races
+"2018",01,Alabama,Female,45-54,3809,MULTI,Two or more races
+"2018",01,Alabama,Female,5-9,5702,MULTI,Two or more races
+"2018",01,Alabama,Female,55-64,3749,MULTI,Two or more races
+"2018",01,Alabama,Female,65-74,2345,MULTI,Two or more races
+"2018",01,Alabama,Female,75-84,1156,MULTI,Two or more races
+"2018",01,Alabama,Female,85+,458,MULTI,Two or more races
+"2018",01,Alabama,Female,All,47129,MULTI,Two or more races
+"2018",01,Alabama,Male,0-4,6782,MULTI,Two or more races
+"2018",01,Alabama,Male,10-14,5104,MULTI,Two or more races
+"2018",01,Alabama,Male,15-17,2984,MULTI,Two or more races
+"2018",01,Alabama,Male,18-19,2164,MULTI,Two or more races
+"2018",01,Alabama,Male,20-24,3718,MULTI,Two or more races
+"2018",01,Alabama,Male,25-29,2657,MULTI,Two or more races
+"2018",01,Alabama,Male,30-34,2501,MULTI,Two or more races
+"2018",01,Alabama,Male,35-44,3886,MULTI,Two or more races
+"2018",01,Alabama,Male,45-54,3292,MULTI,Two or more races
+"2018",01,Alabama,Male,5-9,6113,MULTI,Two or more races
+"2018",01,Alabama,Male,55-64,3381,MULTI,Two or more races
+"2018",01,Alabama,Male,65-74,1758,MULTI,Two or more races
+"2018",01,Alabama,Male,75-84,603,MULTI,Two or more races
+"2018",01,Alabama,Male,85+,148,MULTI,Two or more races
+"2018",01,Alabama,Male,All,45091,MULTI,Two or more races
+"2018",01,Alabama,All,0-4,202,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,All,10-14,100,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,All,15-17,123,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,All,18-19,27,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,All,20-24,80,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,All,25-29,176,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,All,30-34,283,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,All,35-44,351,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,All,45-54,257,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,All,5-9,284,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,All,55-64,167,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,All,65-74,94,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,All,75-84,72,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,All,85+,22,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,All,All,2238,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Female,0-4,57,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Female,10-14,65,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Female,15-17,87,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Female,18-19,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Female,20-24,30,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Female,25-29,118,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Female,30-34,182,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Female,35-44,246,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Female,45-54,116,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Female,5-9,172,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Female,55-64,116,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Female,65-74,57,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Female,75-84,48,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Female,85+,22,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Female,All,1316,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Male,0-4,145,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Male,10-14,35,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Male,15-17,36,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Male,18-19,27,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Male,20-24,50,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Male,25-29,58,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Male,30-34,101,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Male,35-44,105,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Male,45-54,141,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Male,5-9,112,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Male,55-64,51,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Male,65-74,37,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Male,75-84,24,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Male,85+,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,Male,All,922,NHPI,Native Hawaiian and Pacific Islander
+"2018",01,Alabama,All,0-4,8252,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,All,10-14,8063,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,All,15-17,3489,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,All,18-19,1949,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,All,20-24,5497,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,All,25-29,6068,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,All,30-34,6444,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,All,35-44,11274,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,All,45-54,5903,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,All,5-9,8997,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,All,55-64,2559,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,All,65-74,1468,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,All,75-84,485,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,All,85+,214,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,All,All,70662,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Female,0-4,4184,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Female,10-14,4054,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Female,15-17,1483,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Female,18-19,897,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Female,20-24,2560,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Female,25-29,2644,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Female,30-34,3051,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Female,35-44,4868,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Female,45-54,2681,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Female,5-9,4374,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Female,55-64,1192,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Female,65-74,909,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Female,75-84,258,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Female,85+,141,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Female,All,33296,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Male,0-4,4068,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Male,10-14,4009,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Male,15-17,2006,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Male,18-19,1052,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Male,20-24,2937,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Male,25-29,3424,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Male,30-34,3393,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Male,35-44,6406,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Male,45-54,3222,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Male,5-9,4623,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Male,55-64,1367,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Male,65-74,559,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Male,75-84,227,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Male,85+,73,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,Male,All,37366,OTHER_STANDARD,Unrepresented race
+"2018",01,Alabama,All,0-4,180820,WHITE,White
+"2018",01,Alabama,All,10-14,196306,WHITE,White
+"2018",01,Alabama,All,15-17,121778,WHITE,White
+"2018",01,Alabama,All,18-19,81043,WHITE,White
+"2018",01,Alabama,All,20-24,204423,WHITE,White
+"2018",01,Alabama,All,25-29,211979,WHITE,White
+"2018",01,Alabama,All,30-34,198859,WHITE,White
+"2018",01,Alabama,All,35-44,395883,WHITE,White
+"2018",01,Alabama,All,45-54,446589,WHITE,White
+"2018",01,Alabama,All,5-9,183807,WHITE,White
+"2018",01,Alabama,All,55-64,467258,WHITE,White
+"2018",01,Alabama,All,65-74,366433,WHITE,White
+"2018",01,Alabama,All,75-84,196967,WHITE,White
+"2018",01,Alabama,All,85+,68102,WHITE,White
+"2018",01,Alabama,All,All,3320247,WHITE,White
+"2018",01,Alabama,Female,0-4,88385,WHITE,White
+"2018",01,Alabama,Female,10-14,95530,WHITE,White
+"2018",01,Alabama,Female,15-17,59256,WHITE,White
+"2018",01,Alabama,Female,18-19,40733,WHITE,White
+"2018",01,Alabama,Female,20-24,99164,WHITE,White
+"2018",01,Alabama,Female,25-29,105872,WHITE,White
+"2018",01,Alabama,Female,30-34,99420,WHITE,White
+"2018",01,Alabama,Female,35-44,198700,WHITE,White
+"2018",01,Alabama,Female,45-54,224503,WHITE,White
+"2018",01,Alabama,Female,5-9,89733,WHITE,White
+"2018",01,Alabama,Female,55-64,239769,WHITE,White
+"2018",01,Alabama,Female,65-74,194373,WHITE,White
+"2018",01,Alabama,Female,75-84,112771,WHITE,White
+"2018",01,Alabama,Female,85+,44491,WHITE,White
+"2018",01,Alabama,Female,All,1692700,WHITE,White
+"2018",01,Alabama,Male,0-4,92435,WHITE,White
+"2018",01,Alabama,Male,10-14,100776,WHITE,White
+"2018",01,Alabama,Male,15-17,62522,WHITE,White
+"2018",01,Alabama,Male,18-19,40310,WHITE,White
+"2018",01,Alabama,Male,20-24,105259,WHITE,White
+"2018",01,Alabama,Male,25-29,106107,WHITE,White
+"2018",01,Alabama,Male,30-34,99439,WHITE,White
+"2018",01,Alabama,Male,35-44,197183,WHITE,White
+"2018",01,Alabama,Male,45-54,222086,WHITE,White
+"2018",01,Alabama,Male,5-9,94074,WHITE,White
+"2018",01,Alabama,Male,55-64,227489,WHITE,White
+"2018",01,Alabama,Male,65-74,172060,WHITE,White
+"2018",01,Alabama,Male,75-84,84196,WHITE,White
+"2018",01,Alabama,Male,85+,23611,WHITE,White
+"2018",01,Alabama,Male,All,1627547,WHITE,White
+"2018",01,Alabama,All,0-4,165786,WHITE_NH,White (NH)
+"2018",01,Alabama,All,10-14,183682,WHITE_NH,White (NH)
+"2018",01,Alabama,All,15-17,115401,WHITE_NH,White (NH)
+"2018",01,Alabama,All,18-19,76754,WHITE_NH,White (NH)
+"2018",01,Alabama,All,20-24,194756,WHITE_NH,White (NH)
+"2018",01,Alabama,All,25-29,203369,WHITE_NH,White (NH)
+"2018",01,Alabama,All,30-34,188688,WHITE_NH,White (NH)
+"2018",01,Alabama,All,35-44,377843,WHITE_NH,White (NH)
+"2018",01,Alabama,All,45-54,434524,WHITE_NH,White (NH)
+"2018",01,Alabama,All,5-9,169736,WHITE_NH,White (NH)
+"2018",01,Alabama,All,55-64,459441,WHITE_NH,White (NH)
+"2018",01,Alabama,All,65-74,362064,WHITE_NH,White (NH)
+"2018",01,Alabama,All,75-84,195294,WHITE_NH,White (NH)
+"2018",01,Alabama,All,85+,67591,WHITE_NH,White (NH)
+"2018",01,Alabama,All,All,3194929,WHITE_NH,White (NH)
+"2018",01,Alabama,Female,0-4,80906,WHITE_NH,White (NH)
+"2018",01,Alabama,Female,10-14,89516,WHITE_NH,White (NH)
+"2018",01,Alabama,Female,15-17,56324,WHITE_NH,White (NH)
+"2018",01,Alabama,Female,18-19,38517,WHITE_NH,White (NH)
+"2018",01,Alabama,Female,20-24,94583,WHITE_NH,White (NH)
+"2018",01,Alabama,Female,25-29,101883,WHITE_NH,White (NH)
+"2018",01,Alabama,Female,30-34,95146,WHITE_NH,White (NH)
+"2018",01,Alabama,Female,35-44,190431,WHITE_NH,White (NH)
+"2018",01,Alabama,Female,45-54,218795,WHITE_NH,White (NH)
+"2018",01,Alabama,Female,5-9,82661,WHITE_NH,White (NH)
+"2018",01,Alabama,Female,55-64,236227,WHITE_NH,White (NH)
+"2018",01,Alabama,Female,65-74,192526,WHITE_NH,White (NH)
+"2018",01,Alabama,Female,75-84,111563,WHITE_NH,White (NH)
+"2018",01,Alabama,Female,85+,44194,WHITE_NH,White (NH)
+"2018",01,Alabama,Female,All,1633272,WHITE_NH,White (NH)
+"2018",01,Alabama,Male,0-4,84880,WHITE_NH,White (NH)
+"2018",01,Alabama,Male,10-14,94166,WHITE_NH,White (NH)
+"2018",01,Alabama,Male,15-17,59077,WHITE_NH,White (NH)
+"2018",01,Alabama,Male,18-19,38237,WHITE_NH,White (NH)
+"2018",01,Alabama,Male,20-24,100173,WHITE_NH,White (NH)
+"2018",01,Alabama,Male,25-29,101486,WHITE_NH,White (NH)
+"2018",01,Alabama,Male,30-34,93542,WHITE_NH,White (NH)
+"2018",01,Alabama,Male,35-44,187412,WHITE_NH,White (NH)
+"2018",01,Alabama,Male,45-54,215729,WHITE_NH,White (NH)
+"2018",01,Alabama,Male,5-9,87075,WHITE_NH,White (NH)
+"2018",01,Alabama,Male,55-64,223214,WHITE_NH,White (NH)
+"2018",01,Alabama,Male,65-74,169538,WHITE_NH,White (NH)
+"2018",01,Alabama,Male,75-84,83731,WHITE_NH,White (NH)
+"2018",01,Alabama,Male,85+,23397,WHITE_NH,White (NH)
+"2018",01,Alabama,Male,All,1561657,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,All,0-4,208,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,All,10-14,302,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,All,15-17,217,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,All,18-19,134,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,All,20-24,391,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,All,25-29,513,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,All,30-34,339,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,All,35-44,1072,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,All,45-54,1078,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,All,5-9,512,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,All,55-64,968,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,All,65-74,679,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,All,75-84,289,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,All,85+,136,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,All,All,6838,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Female,0-4,93,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Female,10-14,142,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Female,15-17,150,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Female,18-19,35,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Female,20-24,276,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Female,25-29,186,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Female,30-34,176,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Female,35-44,469,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Female,45-54,572,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Female,5-9,221,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Female,55-64,477,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Female,65-74,376,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Female,75-84,144,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Female,85+,79,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Female,All,3396,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Male,0-4,115,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Male,10-14,160,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Male,15-17,67,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Male,18-19,99,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Male,20-24,115,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Male,25-29,327,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Male,30-34,163,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Male,35-44,603,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Male,45-54,506,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Male,5-9,291,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Male,55-64,491,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Male,65-74,303,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Male,75-84,145,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Male,85+,57,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,Male,All,3442,AIAN,American Indian and Alaska Native
+"2018",72,Puerto Rico,All,0-4,143623,ALL,All
+"2018",72,Puerto Rico,All,10-14,199508,ALL,All
+"2018",72,Puerto Rico,All,15-17,130008,ALL,All
+"2018",72,Puerto Rico,All,18-19,91578,ALL,All
+"2018",72,Puerto Rico,All,20-20,50183,ALL,All
+"2018",72,Puerto Rico,All,21-21,49467,ALL,All
+"2018",72,Puerto Rico,All,22-24,132914,ALL,All
+"2018",72,Puerto Rico,All,25-29,221245,ALL,All
+"2018",72,Puerto Rico,All,30-34,191951,ALL,All
+"2018",72,Puerto Rico,All,35-39,203084,ALL,All
+"2018",72,Puerto Rico,All,40-44,209447,ALL,All
+"2018",72,Puerto Rico,All,45-49,213273,ALL,All
+"2018",72,Puerto Rico,All,5-9,175207,ALL,All
+"2018",72,Puerto Rico,All,50-54,222997,ALL,All
+"2018",72,Puerto Rico,All,55-59,216952,ALL,All
+"2018",72,Puerto Rico,All,60-61,88320,ALL,All
+"2018",72,Puerto Rico,All,62-64,124954,ALL,All
+"2018",72,Puerto Rico,All,65-66,79029,ALL,All
+"2018",72,Puerto Rico,All,67-69,116386,ALL,All
+"2018",72,Puerto Rico,All,70-74,167100,ALL,All
+"2018",72,Puerto Rico,All,75-79,125430,ALL,All
+"2018",72,Puerto Rico,All,80-84,86787,ALL,All
+"2018",72,Puerto Rico,All,85+,79004,ALL,All
+"2018",72,Puerto Rico,All,All,3318447,ALL,All
+"2018",72,Puerto Rico,Female,0-4,70047,ALL,All
+"2018",72,Puerto Rico,Female,10-14,97680,ALL,All
+"2018",72,Puerto Rico,Female,15-17,63478,ALL,All
+"2018",72,Puerto Rico,Female,18-19,44951,ALL,All
+"2018",72,Puerto Rico,Female,20-20,24715,ALL,All
+"2018",72,Puerto Rico,Female,21-21,23950,ALL,All
+"2018",72,Puerto Rico,Female,22-24,65949,ALL,All
+"2018",72,Puerto Rico,Female,25-29,111738,ALL,All
+"2018",72,Puerto Rico,Female,30-34,99643,ALL,All
+"2018",72,Puerto Rico,Female,35-39,107961,ALL,All
+"2018",72,Puerto Rico,Female,40-44,109078,ALL,All
+"2018",72,Puerto Rico,Female,45-49,112383,ALL,All
+"2018",72,Puerto Rico,Female,5-9,86264,ALL,All
+"2018",72,Puerto Rico,Female,50-54,119636,ALL,All
+"2018",72,Puerto Rico,Female,55-59,115948,ALL,All
+"2018",72,Puerto Rico,Female,60-61,47753,ALL,All
+"2018",72,Puerto Rico,Female,62-64,69508,ALL,All
+"2018",72,Puerto Rico,Female,65-66,42423,ALL,All
+"2018",72,Puerto Rico,Female,67-69,64035,ALL,All
+"2018",72,Puerto Rico,Female,70-74,92647,ALL,All
+"2018",72,Puerto Rico,Female,75-79,70601,ALL,All
+"2018",72,Puerto Rico,Female,80-84,50218,ALL,All
+"2018",72,Puerto Rico,Female,85+,49523,ALL,All
+"2018",72,Puerto Rico,Female,All,1740129,ALL,All
+"2018",72,Puerto Rico,Male,0-4,73576,ALL,All
+"2018",72,Puerto Rico,Male,10-14,101828,ALL,All
+"2018",72,Puerto Rico,Male,15-17,66530,ALL,All
+"2018",72,Puerto Rico,Male,18-19,46627,ALL,All
+"2018",72,Puerto Rico,Male,20-20,25468,ALL,All
+"2018",72,Puerto Rico,Male,21-21,25517,ALL,All
+"2018",72,Puerto Rico,Male,22-24,66965,ALL,All
+"2018",72,Puerto Rico,Male,25-29,109507,ALL,All
+"2018",72,Puerto Rico,Male,30-34,92308,ALL,All
+"2018",72,Puerto Rico,Male,35-39,95123,ALL,All
+"2018",72,Puerto Rico,Male,40-44,100369,ALL,All
+"2018",72,Puerto Rico,Male,45-49,100890,ALL,All
+"2018",72,Puerto Rico,Male,5-9,88943,ALL,All
+"2018",72,Puerto Rico,Male,50-54,103361,ALL,All
+"2018",72,Puerto Rico,Male,55-59,101004,ALL,All
+"2018",72,Puerto Rico,Male,60-61,40567,ALL,All
+"2018",72,Puerto Rico,Male,62-64,55446,ALL,All
+"2018",72,Puerto Rico,Male,65-66,36606,ALL,All
+"2018",72,Puerto Rico,Male,67-69,52351,ALL,All
+"2018",72,Puerto Rico,Male,70-74,74453,ALL,All
+"2018",72,Puerto Rico,Male,75-79,54829,ALL,All
+"2018",72,Puerto Rico,Male,80-84,36569,ALL,All
+"2018",72,Puerto Rico,Male,85+,29481,ALL,All
+"2018",72,Puerto Rico,Male,All,1578318,ALL,All
+"2018",72,Puerto Rico,All,0-4,262,ASIAN,Asian
+"2018",72,Puerto Rico,All,10-14,473,ASIAN,Asian
+"2018",72,Puerto Rico,All,15-17,208,ASIAN,Asian
+"2018",72,Puerto Rico,All,18-19,195,ASIAN,Asian
+"2018",72,Puerto Rico,All,20-24,287,ASIAN,Asian
+"2018",72,Puerto Rico,All,25-29,420,ASIAN,Asian
+"2018",72,Puerto Rico,All,30-34,536,ASIAN,Asian
+"2018",72,Puerto Rico,All,35-44,1143,ASIAN,Asian
+"2018",72,Puerto Rico,All,45-54,990,ASIAN,Asian
+"2018",72,Puerto Rico,All,5-9,286,ASIAN,Asian
+"2018",72,Puerto Rico,All,55-64,760,ASIAN,Asian
+"2018",72,Puerto Rico,All,65-74,426,ASIAN,Asian
+"2018",72,Puerto Rico,All,75-84,188,ASIAN,Asian
+"2018",72,Puerto Rico,All,85+,63,ASIAN,Asian
+"2018",72,Puerto Rico,All,All,6237,ASIAN,Asian
+"2018",72,Puerto Rico,Female,0-4,173,ASIAN,Asian
+"2018",72,Puerto Rico,Female,10-14,407,ASIAN,Asian
+"2018",72,Puerto Rico,Female,15-17,175,ASIAN,Asian
+"2018",72,Puerto Rico,Female,18-19,98,ASIAN,Asian
+"2018",72,Puerto Rico,Female,20-24,234,ASIAN,Asian
+"2018",72,Puerto Rico,Female,25-29,293,ASIAN,Asian
+"2018",72,Puerto Rico,Female,30-34,386,ASIAN,Asian
+"2018",72,Puerto Rico,Female,35-44,713,ASIAN,Asian
+"2018",72,Puerto Rico,Female,45-54,708,ASIAN,Asian
+"2018",72,Puerto Rico,Female,5-9,223,ASIAN,Asian
+"2018",72,Puerto Rico,Female,55-64,540,ASIAN,Asian
+"2018",72,Puerto Rico,Female,65-74,330,ASIAN,Asian
+"2018",72,Puerto Rico,Female,75-84,96,ASIAN,Asian
+"2018",72,Puerto Rico,Female,85+,41,ASIAN,Asian
+"2018",72,Puerto Rico,Female,All,4417,ASIAN,Asian
+"2018",72,Puerto Rico,Male,0-4,89,ASIAN,Asian
+"2018",72,Puerto Rico,Male,10-14,66,ASIAN,Asian
+"2018",72,Puerto Rico,Male,15-17,33,ASIAN,Asian
+"2018",72,Puerto Rico,Male,18-19,97,ASIAN,Asian
+"2018",72,Puerto Rico,Male,20-24,53,ASIAN,Asian
+"2018",72,Puerto Rico,Male,25-29,127,ASIAN,Asian
+"2018",72,Puerto Rico,Male,30-34,150,ASIAN,Asian
+"2018",72,Puerto Rico,Male,35-44,430,ASIAN,Asian
+"2018",72,Puerto Rico,Male,45-54,282,ASIAN,Asian
+"2018",72,Puerto Rico,Male,5-9,63,ASIAN,Asian
+"2018",72,Puerto Rico,Male,55-64,220,ASIAN,Asian
+"2018",72,Puerto Rico,Male,65-74,96,ASIAN,Asian
+"2018",72,Puerto Rico,Male,75-84,92,ASIAN,Asian
+"2018",72,Puerto Rico,Male,85+,22,ASIAN,Asian
+"2018",72,Puerto Rico,Male,All,1820,ASIAN,Asian
+"2018",72,Puerto Rico,All,0-4,13717,BLACK,Black or African American
+"2018",72,Puerto Rico,All,10-14,21105,BLACK,Black or African American
+"2018",72,Puerto Rico,All,15-17,15149,BLACK,Black or African American
+"2018",72,Puerto Rico,All,18-19,10301,BLACK,Black or African American
+"2018",72,Puerto Rico,All,20-24,26179,BLACK,Black or African American
+"2018",72,Puerto Rico,All,25-29,26243,BLACK,Black or African American
+"2018",72,Puerto Rico,All,30-34,21350,BLACK,Black or African American
+"2018",72,Puerto Rico,All,35-44,50278,BLACK,Black or African American
+"2018",72,Puerto Rico,All,45-54,55320,BLACK,Black or African American
+"2018",72,Puerto Rico,All,5-9,18535,BLACK,Black or African American
+"2018",72,Puerto Rico,All,55-64,54451,BLACK,Black or African American
+"2018",72,Puerto Rico,All,65-74,42169,BLACK,Black or African American
+"2018",72,Puerto Rico,All,75-84,23416,BLACK,Black or African American
+"2018",72,Puerto Rico,All,85+,8463,BLACK,Black or African American
+"2018",72,Puerto Rico,All,All,386676,BLACK,Black or African American
+"2018",72,Puerto Rico,Female,0-4,6485,BLACK,Black or African American
+"2018",72,Puerto Rico,Female,10-14,10210,BLACK,Black or African American
+"2018",72,Puerto Rico,Female,15-17,7230,BLACK,Black or African American
+"2018",72,Puerto Rico,Female,18-19,4546,BLACK,Black or African American
+"2018",72,Puerto Rico,Female,20-24,13611,BLACK,Black or African American
+"2018",72,Puerto Rico,Female,25-29,12610,BLACK,Black or African American
+"2018",72,Puerto Rico,Female,30-34,10415,BLACK,Black or African American
+"2018",72,Puerto Rico,Female,35-44,25903,BLACK,Black or African American
+"2018",72,Puerto Rico,Female,45-54,28283,BLACK,Black or African American
+"2018",72,Puerto Rico,Female,5-9,8871,BLACK,Black or African American
+"2018",72,Puerto Rico,Female,55-64,27845,BLACK,Black or African American
+"2018",72,Puerto Rico,Female,65-74,21888,BLACK,Black or African American
+"2018",72,Puerto Rico,Female,75-84,12959,BLACK,Black or African American
+"2018",72,Puerto Rico,Female,85+,5171,BLACK,Black or African American
+"2018",72,Puerto Rico,Female,All,196027,BLACK,Black or African American
+"2018",72,Puerto Rico,Male,0-4,7232,BLACK,Black or African American
+"2018",72,Puerto Rico,Male,10-14,10895,BLACK,Black or African American
+"2018",72,Puerto Rico,Male,15-17,7919,BLACK,Black or African American
+"2018",72,Puerto Rico,Male,18-19,5755,BLACK,Black or African American
+"2018",72,Puerto Rico,Male,20-24,12568,BLACK,Black or African American
+"2018",72,Puerto Rico,Male,25-29,13633,BLACK,Black or African American
+"2018",72,Puerto Rico,Male,30-34,10935,BLACK,Black or African American
+"2018",72,Puerto Rico,Male,35-44,24375,BLACK,Black or African American
+"2018",72,Puerto Rico,Male,45-54,27037,BLACK,Black or African American
+"2018",72,Puerto Rico,Male,5-9,9664,BLACK,Black or African American
+"2018",72,Puerto Rico,Male,55-64,26606,BLACK,Black or African American
+"2018",72,Puerto Rico,Male,65-74,20281,BLACK,Black or African American
+"2018",72,Puerto Rico,Male,75-84,10457,BLACK,Black or African American
+"2018",72,Puerto Rico,Male,85+,3292,BLACK,Black or African American
+"2018",72,Puerto Rico,Male,All,190649,BLACK,Black or African American
+"2018",72,Puerto Rico,All,0-4,142015,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,All,10-14,196664,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,All,15-17,128543,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,All,18-19,90789,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,All,20-24,229906,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,All,25-29,218389,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,All,30-34,188563,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,All,35-44,406847,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,All,45-54,429354,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,All,5-9,173188,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,All,55-64,424585,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,All,65-74,358724,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,All,75-84,210220,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,All,85+,78132,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,All,All,3275919,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Female,0-4,69358,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Female,10-14,96253,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Female,15-17,62695,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Female,18-19,44588,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Female,20-24,113286,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Female,25-29,110408,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Female,30-34,97882,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Female,35-44,214566,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Female,45-54,228809,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Female,5-9,85370,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Female,55-64,230548,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Female,65-74,197286,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Female,75-84,120073,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Female,85+,48942,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Female,All,1720064,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Male,0-4,72657,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Male,10-14,100411,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Male,15-17,65848,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Male,18-19,46201,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Male,20-24,116620,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Male,25-29,107981,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Male,30-34,90681,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Male,35-44,192281,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Male,45-54,200545,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Male,5-9,87818,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Male,55-64,194037,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Male,65-74,161438,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Male,75-84,90147,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Male,85+,29190,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,Male,All,1555855,HISP,Hispanic or Latino
+"2018",72,Puerto Rico,All,0-4,7935,MULTI,Two or more races
+"2018",72,Puerto Rico,All,10-14,12010,MULTI,Two or more races
+"2018",72,Puerto Rico,All,15-17,7587,MULTI,Two or more races
+"2018",72,Puerto Rico,All,18-19,5176,MULTI,Two or more races
+"2018",72,Puerto Rico,All,20-24,11896,MULTI,Two or more races
+"2018",72,Puerto Rico,All,25-29,12845,MULTI,Two or more races
+"2018",72,Puerto Rico,All,30-34,11485,MULTI,Two or more races
+"2018",72,Puerto Rico,All,35-44,24286,MULTI,Two or more races
+"2018",72,Puerto Rico,All,45-54,22329,MULTI,Two or more races
+"2018",72,Puerto Rico,All,5-9,11168,MULTI,Two or more races
+"2018",72,Puerto Rico,All,55-64,20812,MULTI,Two or more races
+"2018",72,Puerto Rico,All,65-74,15969,MULTI,Two or more races
+"2018",72,Puerto Rico,All,75-84,8915,MULTI,Two or more races
+"2018",72,Puerto Rico,All,85+,3236,MULTI,Two or more races
+"2018",72,Puerto Rico,All,All,175649,MULTI,Two or more races
+"2018",72,Puerto Rico,Female,0-4,3712,MULTI,Two or more races
+"2018",72,Puerto Rico,Female,10-14,6058,MULTI,Two or more races
+"2018",72,Puerto Rico,Female,15-17,3287,MULTI,Two or more races
+"2018",72,Puerto Rico,Female,18-19,2391,MULTI,Two or more races
+"2018",72,Puerto Rico,Female,20-24,5945,MULTI,Two or more races
+"2018",72,Puerto Rico,Female,25-29,6368,MULTI,Two or more races
+"2018",72,Puerto Rico,Female,30-34,5857,MULTI,Two or more races
+"2018",72,Puerto Rico,Female,35-44,12742,MULTI,Two or more races
+"2018",72,Puerto Rico,Female,45-54,11470,MULTI,Two or more races
+"2018",72,Puerto Rico,Female,5-9,5284,MULTI,Two or more races
+"2018",72,Puerto Rico,Female,55-64,10581,MULTI,Two or more races
+"2018",72,Puerto Rico,Female,65-74,8594,MULTI,Two or more races
+"2018",72,Puerto Rico,Female,75-84,5132,MULTI,Two or more races
+"2018",72,Puerto Rico,Female,85+,1968,MULTI,Two or more races
+"2018",72,Puerto Rico,Female,All,89389,MULTI,Two or more races
+"2018",72,Puerto Rico,Male,0-4,4223,MULTI,Two or more races
+"2018",72,Puerto Rico,Male,10-14,5952,MULTI,Two or more races
+"2018",72,Puerto Rico,Male,15-17,4300,MULTI,Two or more races
+"2018",72,Puerto Rico,Male,18-19,2785,MULTI,Two or more races
+"2018",72,Puerto Rico,Male,20-24,5951,MULTI,Two or more races
+"2018",72,Puerto Rico,Male,25-29,6477,MULTI,Two or more races
+"2018",72,Puerto Rico,Male,30-34,5628,MULTI,Two or more races
+"2018",72,Puerto Rico,Male,35-44,11544,MULTI,Two or more races
+"2018",72,Puerto Rico,Male,45-54,10859,MULTI,Two or more races
+"2018",72,Puerto Rico,Male,5-9,5884,MULTI,Two or more races
+"2018",72,Puerto Rico,Male,55-64,10231,MULTI,Two or more races
+"2018",72,Puerto Rico,Male,65-74,7375,MULTI,Two or more races
+"2018",72,Puerto Rico,Male,75-84,3783,MULTI,Two or more races
+"2018",72,Puerto Rico,Male,85+,1268,MULTI,Two or more races
+"2018",72,Puerto Rico,Male,All,86260,MULTI,Two or more races
+"2018",72,Puerto Rico,All,0-4,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,All,10-14,21,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,All,15-17,47,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,All,18-19,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,All,20-24,89,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,All,25-29,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,All,30-34,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,All,35-44,27,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,All,45-54,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,All,5-9,22,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,All,55-64,41,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,All,65-74,22,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,All,75-84,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,All,85+,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,All,All,269,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Female,0-4,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Female,10-14,21,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Female,15-17,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Female,18-19,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Female,20-24,17,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Female,25-29,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Female,30-34,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Female,35-44,27,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Female,45-54,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Female,5-9,22,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Female,55-64,18,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Female,65-74,16,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Female,75-84,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Female,85+,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Female,All,121,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Male,0-4,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Male,10-14,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Male,15-17,47,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Male,18-19,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Male,20-24,72,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Male,25-29,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Male,30-34,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Male,35-44,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Male,45-54,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Male,5-9,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Male,55-64,23,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Male,65-74,6,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Male,75-84,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Male,85+,0,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,Male,All,148,NHPI,Native Hawaiian and Pacific Islander
+"2018",72,Puerto Rico,All,0-4,23916,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,All,10-14,36795,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,All,15-17,23655,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,All,18-19,17907,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,All,20-24,43167,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,All,25-29,36830,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,All,30-34,33935,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,All,35-44,72212,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,All,45-54,76530,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,All,5-9,32784,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,All,55-64,66416,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,All,65-74,52541,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,All,75-84,28708,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,All,85+,9368,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,All,All,554764,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Female,0-4,11656,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Female,10-14,17982,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Female,15-17,11777,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Female,18-19,9100,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Female,20-24,19999,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Female,25-29,19185,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Female,30-34,17445,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Female,35-44,38203,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Female,45-54,39500,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Female,5-9,16202,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Female,55-64,34574,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Female,65-74,27829,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Female,75-84,15753,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Female,85+,5634,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Female,All,284839,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Male,0-4,12260,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Male,10-14,18813,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Male,15-17,11878,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Male,18-19,8807,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Male,20-24,23168,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Male,25-29,17645,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Male,30-34,16490,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Male,35-44,34009,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Male,45-54,37030,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Male,5-9,16582,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Male,55-64,31842,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Male,65-74,24712,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Male,75-84,12955,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Male,85+,3734,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,Male,All,269925,OTHER_STANDARD,Unrepresented race
+"2018",72,Puerto Rico,All,0-4,97585,WHITE,White
+"2018",72,Puerto Rico,All,10-14,128802,WHITE,White
+"2018",72,Puerto Rico,All,15-17,83145,WHITE,White
+"2018",72,Puerto Rico,All,18-19,57865,WHITE,White
+"2018",72,Puerto Rico,All,20-24,150555,WHITE,White
+"2018",72,Puerto Rico,All,25-29,144394,WHITE,White
+"2018",72,Puerto Rico,All,30-34,124306,WHITE,White
+"2018",72,Puerto Rico,All,35-44,263513,WHITE,White
+"2018",72,Puerto Rico,All,45-54,280023,WHITE,White
+"2018",72,Puerto Rico,All,5-9,111900,WHITE,White
+"2018",72,Puerto Rico,All,55-64,286778,WHITE,White
+"2018",72,Puerto Rico,All,65-74,250709,WHITE,White
+"2018",72,Puerto Rico,All,75-84,150701,WHITE,White
+"2018",72,Puerto Rico,All,85+,57738,WHITE,White
+"2018",72,Puerto Rico,All,All,2188014,WHITE,White
+"2018",72,Puerto Rico,Female,0-4,47928,WHITE,White
+"2018",72,Puerto Rico,Female,10-14,62860,WHITE,White
+"2018",72,Puerto Rico,Female,15-17,40859,WHITE,White
+"2018",72,Puerto Rico,Female,18-19,28781,WHITE,White
+"2018",72,Puerto Rico,Female,20-24,74532,WHITE,White
+"2018",72,Puerto Rico,Female,25-29,73096,WHITE,White
+"2018",72,Puerto Rico,Female,30-34,65364,WHITE,White
+"2018",72,Puerto Rico,Female,35-44,138982,WHITE,White
+"2018",72,Puerto Rico,Female,45-54,151486,WHITE,White
+"2018",72,Puerto Rico,Female,5-9,55441,WHITE,White
+"2018",72,Puerto Rico,Female,55-64,159174,WHITE,White
+"2018",72,Puerto Rico,Female,65-74,140072,WHITE,White
+"2018",72,Puerto Rico,Female,75-84,86735,WHITE,White
+"2018",72,Puerto Rico,Female,85+,36630,WHITE,White
+"2018",72,Puerto Rico,Female,All,1161940,WHITE,White
+"2018",72,Puerto Rico,Male,0-4,49657,WHITE,White
+"2018",72,Puerto Rico,Male,10-14,65942,WHITE,White
+"2018",72,Puerto Rico,Male,15-17,42286,WHITE,White
+"2018",72,Puerto Rico,Male,18-19,29084,WHITE,White
+"2018",72,Puerto Rico,Male,20-24,76023,WHITE,White
+"2018",72,Puerto Rico,Male,25-29,71298,WHITE,White
+"2018",72,Puerto Rico,Male,30-34,58942,WHITE,White
+"2018",72,Puerto Rico,Male,35-44,124531,WHITE,White
+"2018",72,Puerto Rico,Male,45-54,128537,WHITE,White
+"2018",72,Puerto Rico,Male,5-9,56459,WHITE,White
+"2018",72,Puerto Rico,Male,55-64,127604,WHITE,White
+"2018",72,Puerto Rico,Male,65-74,110637,WHITE,White
+"2018",72,Puerto Rico,Male,75-84,63966,WHITE,White
+"2018",72,Puerto Rico,Male,85+,21108,WHITE,White
+"2018",72,Puerto Rico,Male,All,1026074,WHITE,White
+"2018",72,Puerto Rico,All,0-4,1340,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,All,10-14,2045,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,All,15-17,1194,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,All,18-19,672,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,All,20-24,1969,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,All,25-29,2025,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,All,30-34,2331,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,All,35-44,4141,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,All,45-54,5038,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,All,5-9,1458,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,All,55-64,4433,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,All,65-74,2911,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,All,75-84,1564,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,All,85+,602,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,All,All,31723,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Female,0-4,544,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Female,10-14,956,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Female,15-17,653,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Female,18-19,363,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Female,20-24,928,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Female,25-29,1022,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Female,30-34,1185,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Female,35-44,1860,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Female,45-54,2393,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Female,5-9,643,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Female,55-64,2168,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Female,65-74,1343,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Female,75-84,578,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Female,85+,316,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Female,All,14952,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Male,0-4,796,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Male,10-14,1089,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Male,15-17,541,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Male,18-19,309,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Male,20-24,1041,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Male,25-29,1003,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Male,30-34,1146,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Male,35-44,2281,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Male,45-54,2645,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Male,5-9,815,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Male,55-64,2265,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Male,65-74,1568,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Male,75-84,986,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Male,85+,286,WHITE_NH,White (NH)
+"2018",72,Puerto Rico,Male,All,16771,WHITE_NH,White (NH)
+"2019",01,Alabama,All,0-4,1106,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,All,10-14,1562,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,All,15-17,1526,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,All,18-19,640,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,All,20-24,1585,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,All,25-29,1874,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,All,30-34,1784,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,All,35-44,3322,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,All,45-54,3914,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,All,5-9,1096,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,All,55-64,3748,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,All,65-74,2331,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,All,75-84,792,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,All,85+,285,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,All,All,25565,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Female,0-4,571,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Female,10-14,742,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Female,15-17,865,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Female,18-19,450,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Female,20-24,831,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Female,25-29,737,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Female,30-34,855,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Female,35-44,1459,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Female,45-54,2247,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Female,5-9,716,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Female,55-64,1910,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Female,65-74,1256,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Female,75-84,362,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Female,85+,97,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Female,All,13098,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Male,0-4,535,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Male,10-14,820,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Male,15-17,661,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Male,18-19,190,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Male,20-24,754,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Male,25-29,1137,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Male,30-34,929,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Male,35-44,1863,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Male,45-54,1667,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Male,5-9,380,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Male,55-64,1838,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Male,65-74,1075,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Male,75-84,430,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Male,85+,188,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,Male,All,12467,AIAN,American Indian and Alaska Native
+"2019",01,Alabama,All,0-4,293187,ALL,All
+"2019",01,Alabama,All,10-14,310456,ALL,All
+"2019",01,Alabama,All,15-17,191669,ALL,All
+"2019",01,Alabama,All,18-19,130817,ALL,All
+"2019",01,Alabama,All,20-20,71297,ALL,All
+"2019",01,Alabama,All,21-21,68588,ALL,All
+"2019",01,Alabama,All,22-24,188295,ALL,All
+"2019",01,Alabama,All,25-29,332622,ALL,All
+"2019",01,Alabama,All,30-34,305325,ALL,All
+"2019",01,Alabama,All,35-39,300441,ALL,All
+"2019",01,Alabama,All,40-44,295947,ALL,All
+"2019",01,Alabama,All,45-49,309555,ALL,All
+"2019",01,Alabama,All,5-9,301064,ALL,All
+"2019",01,Alabama,All,50-54,323104,ALL,All
+"2019",01,Alabama,All,55-59,333209,ALL,All
+"2019",01,Alabama,All,60-61,130775,ALL,All
+"2019",01,Alabama,All,62-64,185018,ALL,All
+"2019",01,Alabama,All,65-66,112093,ALL,All
+"2019",01,Alabama,All,67-69,154944,ALL,All
+"2019",01,Alabama,All,70-74,209644,ALL,All
+"2019",01,Alabama,All,75-79,145096,ALL,All
+"2019",01,Alabama,All,80-84,98755,ALL,All
+"2019",01,Alabama,All,85+,84349,ALL,All
+"2019",01,Alabama,All,All,4876250,ALL,All
+"2019",01,Alabama,Female,0-4,144097,ALL,All
+"2019",01,Alabama,Female,10-14,151839,ALL,All
+"2019",01,Alabama,Female,15-17,93412,ALL,All
+"2019",01,Alabama,Female,18-19,65837,ALL,All
+"2019",01,Alabama,Female,20-20,35427,ALL,All
+"2019",01,Alabama,Female,21-21,33548,ALL,All
+"2019",01,Alabama,Female,22-24,93230,ALL,All
+"2019",01,Alabama,Female,25-29,167570,ALL,All
+"2019",01,Alabama,Female,30-34,155546,ALL,All
+"2019",01,Alabama,Female,35-39,154545,ALL,All
+"2019",01,Alabama,Female,40-44,153194,ALL,All
+"2019",01,Alabama,Female,45-49,159501,ALL,All
+"2019",01,Alabama,Female,5-9,147570,ALL,All
+"2019",01,Alabama,Female,50-54,166787,ALL,All
+"2019",01,Alabama,Female,55-59,174087,ALL,All
+"2019",01,Alabama,Female,60-61,69293,ALL,All
+"2019",01,Alabama,Female,62-64,96727,ALL,All
+"2019",01,Alabama,Female,65-66,59558,ALL,All
+"2019",01,Alabama,Female,67-69,83413,ALL,All
+"2019",01,Alabama,Female,70-74,113624,ALL,All
+"2019",01,Alabama,Female,75-79,82251,ALL,All
+"2019",01,Alabama,Female,80-84,59420,ALL,All
+"2019",01,Alabama,Female,85+,56419,ALL,All
+"2019",01,Alabama,Female,All,2516895,ALL,All
+"2019",01,Alabama,Male,0-4,149090,ALL,All
+"2019",01,Alabama,Male,10-14,158617,ALL,All
+"2019",01,Alabama,Male,15-17,98257,ALL,All
+"2019",01,Alabama,Male,18-19,64980,ALL,All
+"2019",01,Alabama,Male,20-20,35870,ALL,All
+"2019",01,Alabama,Male,21-21,35040,ALL,All
+"2019",01,Alabama,Male,22-24,95065,ALL,All
+"2019",01,Alabama,Male,25-29,165052,ALL,All
+"2019",01,Alabama,Male,30-34,149779,ALL,All
+"2019",01,Alabama,Male,35-39,145896,ALL,All
+"2019",01,Alabama,Male,40-44,142753,ALL,All
+"2019",01,Alabama,Male,45-49,150054,ALL,All
+"2019",01,Alabama,Male,5-9,153494,ALL,All
+"2019",01,Alabama,Male,50-54,156317,ALL,All
+"2019",01,Alabama,Male,55-59,159122,ALL,All
+"2019",01,Alabama,Male,60-61,61482,ALL,All
+"2019",01,Alabama,Male,62-64,88291,ALL,All
+"2019",01,Alabama,Male,65-66,52535,ALL,All
+"2019",01,Alabama,Male,67-69,71531,ALL,All
+"2019",01,Alabama,Male,70-74,96020,ALL,All
+"2019",01,Alabama,Male,75-79,62845,ALL,All
+"2019",01,Alabama,Male,80-84,39335,ALL,All
+"2019",01,Alabama,Male,85+,27930,ALL,All
+"2019",01,Alabama,Male,All,2359355,ALL,All
+"2019",01,Alabama,All,0-4,3816,ASIAN,Asian
+"2019",01,Alabama,All,10-14,4504,ASIAN,Asian
+"2019",01,Alabama,All,15-17,2444,ASIAN,Asian
+"2019",01,Alabama,All,18-19,1944,ASIAN,Asian
+"2019",01,Alabama,All,20-24,4612,ASIAN,Asian
+"2019",01,Alabama,All,25-29,5521,ASIAN,Asian
+"2019",01,Alabama,All,30-34,5224,ASIAN,Asian
+"2019",01,Alabama,All,35-44,11470,ASIAN,Asian
+"2019",01,Alabama,All,45-54,9746,ASIAN,Asian
+"2019",01,Alabama,All,5-9,4510,ASIAN,Asian
+"2019",01,Alabama,All,55-64,6511,ASIAN,Asian
+"2019",01,Alabama,All,65-74,4186,ASIAN,Asian
+"2019",01,Alabama,All,75-84,1431,ASIAN,Asian
+"2019",01,Alabama,All,85+,351,ASIAN,Asian
+"2019",01,Alabama,All,All,66270,ASIAN,Asian
+"2019",01,Alabama,Female,0-4,1964,ASIAN,Asian
+"2019",01,Alabama,Female,10-14,2219,ASIAN,Asian
+"2019",01,Alabama,Female,15-17,1188,ASIAN,Asian
+"2019",01,Alabama,Female,18-19,1192,ASIAN,Asian
+"2019",01,Alabama,Female,20-24,2116,ASIAN,Asian
+"2019",01,Alabama,Female,25-29,2534,ASIAN,Asian
+"2019",01,Alabama,Female,30-34,2826,ASIAN,Asian
+"2019",01,Alabama,Female,35-44,6287,ASIAN,Asian
+"2019",01,Alabama,Female,45-54,5123,ASIAN,Asian
+"2019",01,Alabama,Female,5-9,2418,ASIAN,Asian
+"2019",01,Alabama,Female,55-64,3891,ASIAN,Asian
+"2019",01,Alabama,Female,65-74,2425,ASIAN,Asian
+"2019",01,Alabama,Female,75-84,882,ASIAN,Asian
+"2019",01,Alabama,Female,85+,237,ASIAN,Asian
+"2019",01,Alabama,Female,All,35302,ASIAN,Asian
+"2019",01,Alabama,Male,0-4,1852,ASIAN,Asian
+"2019",01,Alabama,Male,10-14,2285,ASIAN,Asian
+"2019",01,Alabama,Male,15-17,1256,ASIAN,Asian
+"2019",01,Alabama,Male,18-19,752,ASIAN,Asian
+"2019",01,Alabama,Male,20-24,2496,ASIAN,Asian
+"2019",01,Alabama,Male,25-29,2987,ASIAN,Asian
+"2019",01,Alabama,Male,30-34,2398,ASIAN,Asian
+"2019",01,Alabama,Male,35-44,5183,ASIAN,Asian
+"2019",01,Alabama,Male,45-54,4623,ASIAN,Asian
+"2019",01,Alabama,Male,5-9,2092,ASIAN,Asian
+"2019",01,Alabama,Male,55-64,2620,ASIAN,Asian
+"2019",01,Alabama,Male,65-74,1761,ASIAN,Asian
+"2019",01,Alabama,Male,75-84,549,ASIAN,Asian
+"2019",01,Alabama,Male,85+,114,ASIAN,Asian
+"2019",01,Alabama,Male,All,30968,ASIAN,Asian
+"2019",01,Alabama,All,0-4,85566,BLACK,Black or African American
+"2019",01,Alabama,All,10-14,89802,BLACK,Black or African American
+"2019",01,Alabama,All,15-17,56420,BLACK,Black or African American
+"2019",01,Alabama,All,18-19,41343,BLACK,Black or African American
+"2019",01,Alabama,All,20-24,104317,BLACK,Black or African American
+"2019",01,Alabama,All,25-29,101561,BLACK,Black or African American
+"2019",01,Alabama,All,30-34,87718,BLACK,Black or African American
+"2019",01,Alabama,All,35-44,165808,BLACK,Black or African American
+"2019",01,Alabama,All,45-54,159149,BLACK,Black or African American
+"2019",01,Alabama,All,5-9,90555,BLACK,Black or African American
+"2019",01,Alabama,All,55-64,161629,BLACK,Black or African American
+"2019",01,Alabama,All,65-74,98066,BLACK,Black or African American
+"2019",01,Alabama,All,75-84,42345,BLACK,Black or African American
+"2019",01,Alabama,All,85+,14769,BLACK,Black or African American
+"2019",01,Alabama,All,All,1299048,BLACK,Black or African American
+"2019",01,Alabama,Female,0-4,42293,BLACK,Black or African American
+"2019",01,Alabama,Female,10-14,44214,BLACK,Black or African American
+"2019",01,Alabama,Female,15-17,27628,BLACK,Black or African American
+"2019",01,Alabama,Female,18-19,20858,BLACK,Black or African American
+"2019",01,Alabama,Female,20-24,53556,BLACK,Black or African American
+"2019",01,Alabama,Female,25-29,52879,BLACK,Black or African American
+"2019",01,Alabama,Female,30-34,46700,BLACK,Black or African American
+"2019",01,Alabama,Female,35-44,91785,BLACK,Black or African American
+"2019",01,Alabama,Female,45-54,87809,BLACK,Black or African American
+"2019",01,Alabama,Female,5-9,44455,BLACK,Black or African American
+"2019",01,Alabama,Female,55-64,89480,BLACK,Black or African American
+"2019",01,Alabama,Female,65-74,55230,BLACK,Black or African American
+"2019",01,Alabama,Female,75-84,26194,BLACK,Black or African American
+"2019",01,Alabama,Female,85+,10973,BLACK,Black or African American
+"2019",01,Alabama,Female,All,694054,BLACK,Black or African American
+"2019",01,Alabama,Male,0-4,43273,BLACK,Black or African American
+"2019",01,Alabama,Male,10-14,45588,BLACK,Black or African American
+"2019",01,Alabama,Male,15-17,28792,BLACK,Black or African American
+"2019",01,Alabama,Male,18-19,20485,BLACK,Black or African American
+"2019",01,Alabama,Male,20-24,50761,BLACK,Black or African American
+"2019",01,Alabama,Male,25-29,48682,BLACK,Black or African American
+"2019",01,Alabama,Male,30-34,41018,BLACK,Black or African American
+"2019",01,Alabama,Male,35-44,74023,BLACK,Black or African American
+"2019",01,Alabama,Male,45-54,71340,BLACK,Black or African American
+"2019",01,Alabama,Male,5-9,46100,BLACK,Black or African American
+"2019",01,Alabama,Male,55-64,72149,BLACK,Black or African American
+"2019",01,Alabama,Male,65-74,42836,BLACK,Black or African American
+"2019",01,Alabama,Male,75-84,16151,BLACK,Black or African American
+"2019",01,Alabama,Male,85+,3796,BLACK,Black or African American
+"2019",01,Alabama,Male,All,604994,BLACK,Black or African American
+"2019",01,Alabama,All,0-4,25140,HISP,Hispanic or Latino
+"2019",01,Alabama,All,10-14,22146,HISP,Hispanic or Latino
+"2019",01,Alabama,All,15-17,10718,HISP,Hispanic or Latino
+"2019",01,Alabama,All,18-19,6621,HISP,Hispanic or Latino
+"2019",01,Alabama,All,20-24,15881,HISP,Hispanic or Latino
+"2019",01,Alabama,All,25-29,15628,HISP,Hispanic or Latino
+"2019",01,Alabama,All,30-34,17690,HISP,Hispanic or Latino
+"2019",01,Alabama,All,35-44,31097,HISP,Hispanic or Latino
+"2019",01,Alabama,All,45-54,18932,HISP,Hispanic or Latino
+"2019",01,Alabama,All,5-9,25046,HISP,Hispanic or Latino
+"2019",01,Alabama,All,55-64,11106,HISP,Hispanic or Latino
+"2019",01,Alabama,All,65-74,5792,HISP,Hispanic or Latino
+"2019",01,Alabama,All,75-84,2145,HISP,Hispanic or Latino
+"2019",01,Alabama,All,85+,684,HISP,Hispanic or Latino
+"2019",01,Alabama,All,All,208626,HISP,Hispanic or Latino
+"2019",01,Alabama,Female,0-4,12382,HISP,Hispanic or Latino
+"2019",01,Alabama,Female,10-14,10475,HISP,Hispanic or Latino
+"2019",01,Alabama,Female,15-17,4845,HISP,Hispanic or Latino
+"2019",01,Alabama,Female,18-19,3348,HISP,Hispanic or Latino
+"2019",01,Alabama,Female,20-24,7536,HISP,Hispanic or Latino
+"2019",01,Alabama,Female,25-29,7071,HISP,Hispanic or Latino
+"2019",01,Alabama,Female,30-34,7780,HISP,Hispanic or Latino
+"2019",01,Alabama,Female,35-44,14059,HISP,Hispanic or Latino
+"2019",01,Alabama,Female,45-54,8878,HISP,Hispanic or Latino
+"2019",01,Alabama,Female,5-9,12508,HISP,Hispanic or Latino
+"2019",01,Alabama,Female,55-64,5089,HISP,Hispanic or Latino
+"2019",01,Alabama,Female,65-74,2685,HISP,Hispanic or Latino
+"2019",01,Alabama,Female,75-84,1483,HISP,Hispanic or Latino
+"2019",01,Alabama,Female,85+,404,HISP,Hispanic or Latino
+"2019",01,Alabama,Female,All,98543,HISP,Hispanic or Latino
+"2019",01,Alabama,Male,0-4,12758,HISP,Hispanic or Latino
+"2019",01,Alabama,Male,10-14,11671,HISP,Hispanic or Latino
+"2019",01,Alabama,Male,15-17,5873,HISP,Hispanic or Latino
+"2019",01,Alabama,Male,18-19,3273,HISP,Hispanic or Latino
+"2019",01,Alabama,Male,20-24,8345,HISP,Hispanic or Latino
+"2019",01,Alabama,Male,25-29,8557,HISP,Hispanic or Latino
+"2019",01,Alabama,Male,30-34,9910,HISP,Hispanic or Latino
+"2019",01,Alabama,Male,35-44,17038,HISP,Hispanic or Latino
+"2019",01,Alabama,Male,45-54,10054,HISP,Hispanic or Latino
+"2019",01,Alabama,Male,5-9,12538,HISP,Hispanic or Latino
+"2019",01,Alabama,Male,55-64,6017,HISP,Hispanic or Latino
+"2019",01,Alabama,Male,65-74,3107,HISP,Hispanic or Latino
+"2019",01,Alabama,Male,75-84,662,HISP,Hispanic or Latino
+"2019",01,Alabama,Male,85+,280,HISP,Hispanic or Latino
+"2019",01,Alabama,Male,All,110083,HISP,Hispanic or Latino
+"2019",01,Alabama,All,0-4,13425,MULTI,Two or more races
+"2019",01,Alabama,All,10-14,10119,MULTI,Two or more races
+"2019",01,Alabama,All,15-17,5889,MULTI,Two or more races
+"2019",01,Alabama,All,18-19,3871,MULTI,Two or more races
+"2019",01,Alabama,All,20-24,7666,MULTI,Two or more races
+"2019",01,Alabama,All,25-29,5443,MULTI,Two or more races
+"2019",01,Alabama,All,30-34,5013,MULTI,Two or more races
+"2019",01,Alabama,All,35-44,8280,MULTI,Two or more races
+"2019",01,Alabama,All,45-54,7101,MULTI,Two or more races
+"2019",01,Alabama,All,5-9,11815,MULTI,Two or more races
+"2019",01,Alabama,All,55-64,7130,MULTI,Two or more races
+"2019",01,Alabama,All,65-74,4103,MULTI,Two or more races
+"2019",01,Alabama,All,75-84,1759,MULTI,Two or more races
+"2019",01,Alabama,All,85+,606,MULTI,Two or more races
+"2019",01,Alabama,All,All,92220,MULTI,Two or more races
+"2019",01,Alabama,Female,0-4,6643,MULTI,Two or more races
+"2019",01,Alabama,Female,10-14,5015,MULTI,Two or more races
+"2019",01,Alabama,Female,15-17,2905,MULTI,Two or more races
+"2019",01,Alabama,Female,18-19,1707,MULTI,Two or more races
+"2019",01,Alabama,Female,20-24,3948,MULTI,Two or more races
+"2019",01,Alabama,Female,25-29,2786,MULTI,Two or more races
+"2019",01,Alabama,Female,30-34,2512,MULTI,Two or more races
+"2019",01,Alabama,Female,35-44,4394,MULTI,Two or more races
+"2019",01,Alabama,Female,45-54,3809,MULTI,Two or more races
+"2019",01,Alabama,Female,5-9,5702,MULTI,Two or more races
+"2019",01,Alabama,Female,55-64,3749,MULTI,Two or more races
+"2019",01,Alabama,Female,65-74,2345,MULTI,Two or more races
+"2019",01,Alabama,Female,75-84,1156,MULTI,Two or more races
+"2019",01,Alabama,Female,85+,458,MULTI,Two or more races
+"2019",01,Alabama,Female,All,47129,MULTI,Two or more races
+"2019",01,Alabama,Male,0-4,6782,MULTI,Two or more races
+"2019",01,Alabama,Male,10-14,5104,MULTI,Two or more races
+"2019",01,Alabama,Male,15-17,2984,MULTI,Two or more races
+"2019",01,Alabama,Male,18-19,2164,MULTI,Two or more races
+"2019",01,Alabama,Male,20-24,3718,MULTI,Two or more races
+"2019",01,Alabama,Male,25-29,2657,MULTI,Two or more races
+"2019",01,Alabama,Male,30-34,2501,MULTI,Two or more races
+"2019",01,Alabama,Male,35-44,3886,MULTI,Two or more races
+"2019",01,Alabama,Male,45-54,3292,MULTI,Two or more races
+"2019",01,Alabama,Male,5-9,6113,MULTI,Two or more races
+"2019",01,Alabama,Male,55-64,3381,MULTI,Two or more races
+"2019",01,Alabama,Male,65-74,1758,MULTI,Two or more races
+"2019",01,Alabama,Male,75-84,603,MULTI,Two or more races
+"2019",01,Alabama,Male,85+,148,MULTI,Two or more races
+"2019",01,Alabama,Male,All,45091,MULTI,Two or more races
+"2019",01,Alabama,All,0-4,202,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,All,10-14,100,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,All,15-17,123,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,All,18-19,27,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,All,20-24,80,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,All,25-29,176,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,All,30-34,283,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,All,35-44,351,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,All,45-54,257,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,All,5-9,284,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,All,55-64,167,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,All,65-74,94,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,All,75-84,72,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,All,85+,22,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,All,All,2238,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Female,0-4,57,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Female,10-14,65,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Female,15-17,87,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Female,18-19,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Female,20-24,30,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Female,25-29,118,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Female,30-34,182,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Female,35-44,246,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Female,45-54,116,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Female,5-9,172,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Female,55-64,116,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Female,65-74,57,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Female,75-84,48,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Female,85+,22,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Female,All,1316,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Male,0-4,145,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Male,10-14,35,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Male,15-17,36,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Male,18-19,27,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Male,20-24,50,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Male,25-29,58,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Male,30-34,101,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Male,35-44,105,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Male,45-54,141,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Male,5-9,112,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Male,55-64,51,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Male,65-74,37,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Male,75-84,24,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Male,85+,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,Male,All,922,NHPI,Native Hawaiian and Pacific Islander
+"2019",01,Alabama,All,0-4,8252,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,All,10-14,8063,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,All,15-17,3489,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,All,18-19,1949,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,All,20-24,5497,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,All,25-29,6068,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,All,30-34,6444,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,All,35-44,11274,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,All,45-54,5903,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,All,5-9,8997,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,All,55-64,2559,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,All,65-74,1468,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,All,75-84,485,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,All,85+,214,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,All,All,70662,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Female,0-4,4184,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Female,10-14,4054,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Female,15-17,1483,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Female,18-19,897,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Female,20-24,2560,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Female,25-29,2644,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Female,30-34,3051,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Female,35-44,4868,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Female,45-54,2681,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Female,5-9,4374,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Female,55-64,1192,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Female,65-74,909,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Female,75-84,258,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Female,85+,141,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Female,All,33296,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Male,0-4,4068,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Male,10-14,4009,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Male,15-17,2006,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Male,18-19,1052,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Male,20-24,2937,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Male,25-29,3424,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Male,30-34,3393,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Male,35-44,6406,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Male,45-54,3222,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Male,5-9,4623,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Male,55-64,1367,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Male,65-74,559,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Male,75-84,227,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Male,85+,73,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,Male,All,37366,OTHER_STANDARD,Unrepresented race
+"2019",01,Alabama,All,0-4,180820,WHITE,White
+"2019",01,Alabama,All,10-14,196306,WHITE,White
+"2019",01,Alabama,All,15-17,121778,WHITE,White
+"2019",01,Alabama,All,18-19,81043,WHITE,White
+"2019",01,Alabama,All,20-24,204423,WHITE,White
+"2019",01,Alabama,All,25-29,211979,WHITE,White
+"2019",01,Alabama,All,30-34,198859,WHITE,White
+"2019",01,Alabama,All,35-44,395883,WHITE,White
+"2019",01,Alabama,All,45-54,446589,WHITE,White
+"2019",01,Alabama,All,5-9,183807,WHITE,White
+"2019",01,Alabama,All,55-64,467258,WHITE,White
+"2019",01,Alabama,All,65-74,366433,WHITE,White
+"2019",01,Alabama,All,75-84,196967,WHITE,White
+"2019",01,Alabama,All,85+,68102,WHITE,White
+"2019",01,Alabama,All,All,3320247,WHITE,White
+"2019",01,Alabama,Female,0-4,88385,WHITE,White
+"2019",01,Alabama,Female,10-14,95530,WHITE,White
+"2019",01,Alabama,Female,15-17,59256,WHITE,White
+"2019",01,Alabama,Female,18-19,40733,WHITE,White
+"2019",01,Alabama,Female,20-24,99164,WHITE,White
+"2019",01,Alabama,Female,25-29,105872,WHITE,White
+"2019",01,Alabama,Female,30-34,99420,WHITE,White
+"2019",01,Alabama,Female,35-44,198700,WHITE,White
+"2019",01,Alabama,Female,45-54,224503,WHITE,White
+"2019",01,Alabama,Female,5-9,89733,WHITE,White
+"2019",01,Alabama,Female,55-64,239769,WHITE,White
+"2019",01,Alabama,Female,65-74,194373,WHITE,White
+"2019",01,Alabama,Female,75-84,112771,WHITE,White
+"2019",01,Alabama,Female,85+,44491,WHITE,White
+"2019",01,Alabama,Female,All,1692700,WHITE,White
+"2019",01,Alabama,Male,0-4,92435,WHITE,White
+"2019",01,Alabama,Male,10-14,100776,WHITE,White
+"2019",01,Alabama,Male,15-17,62522,WHITE,White
+"2019",01,Alabama,Male,18-19,40310,WHITE,White
+"2019",01,Alabama,Male,20-24,105259,WHITE,White
+"2019",01,Alabama,Male,25-29,106107,WHITE,White
+"2019",01,Alabama,Male,30-34,99439,WHITE,White
+"2019",01,Alabama,Male,35-44,197183,WHITE,White
+"2019",01,Alabama,Male,45-54,222086,WHITE,White
+"2019",01,Alabama,Male,5-9,94074,WHITE,White
+"2019",01,Alabama,Male,55-64,227489,WHITE,White
+"2019",01,Alabama,Male,65-74,172060,WHITE,White
+"2019",01,Alabama,Male,75-84,84196,WHITE,White
+"2019",01,Alabama,Male,85+,23611,WHITE,White
+"2019",01,Alabama,Male,All,1627547,WHITE,White
+"2019",01,Alabama,All,0-4,165786,WHITE_NH,White (NH)
+"2019",01,Alabama,All,10-14,183682,WHITE_NH,White (NH)
+"2019",01,Alabama,All,15-17,115401,WHITE_NH,White (NH)
+"2019",01,Alabama,All,18-19,76754,WHITE_NH,White (NH)
+"2019",01,Alabama,All,20-24,194756,WHITE_NH,White (NH)
+"2019",01,Alabama,All,25-29,203369,WHITE_NH,White (NH)
+"2019",01,Alabama,All,30-34,188688,WHITE_NH,White (NH)
+"2019",01,Alabama,All,35-44,377843,WHITE_NH,White (NH)
+"2019",01,Alabama,All,45-54,434524,WHITE_NH,White (NH)
+"2019",01,Alabama,All,5-9,169736,WHITE_NH,White (NH)
+"2019",01,Alabama,All,55-64,459441,WHITE_NH,White (NH)
+"2019",01,Alabama,All,65-74,362064,WHITE_NH,White (NH)
+"2019",01,Alabama,All,75-84,195294,WHITE_NH,White (NH)
+"2019",01,Alabama,All,85+,67591,WHITE_NH,White (NH)
+"2019",01,Alabama,All,All,3194929,WHITE_NH,White (NH)
+"2019",01,Alabama,Female,0-4,80906,WHITE_NH,White (NH)
+"2019",01,Alabama,Female,10-14,89516,WHITE_NH,White (NH)
+"2019",01,Alabama,Female,15-17,56324,WHITE_NH,White (NH)
+"2019",01,Alabama,Female,18-19,38517,WHITE_NH,White (NH)
+"2019",01,Alabama,Female,20-24,94583,WHITE_NH,White (NH)
+"2019",01,Alabama,Female,25-29,101883,WHITE_NH,White (NH)
+"2019",01,Alabama,Female,30-34,95146,WHITE_NH,White (NH)
+"2019",01,Alabama,Female,35-44,190431,WHITE_NH,White (NH)
+"2019",01,Alabama,Female,45-54,218795,WHITE_NH,White (NH)
+"2019",01,Alabama,Female,5-9,82661,WHITE_NH,White (NH)
+"2019",01,Alabama,Female,55-64,236227,WHITE_NH,White (NH)
+"2019",01,Alabama,Female,65-74,192526,WHITE_NH,White (NH)
+"2019",01,Alabama,Female,75-84,111563,WHITE_NH,White (NH)
+"2019",01,Alabama,Female,85+,44194,WHITE_NH,White (NH)
+"2019",01,Alabama,Female,All,1633272,WHITE_NH,White (NH)
+"2019",01,Alabama,Male,0-4,84880,WHITE_NH,White (NH)
+"2019",01,Alabama,Male,10-14,94166,WHITE_NH,White (NH)
+"2019",01,Alabama,Male,15-17,59077,WHITE_NH,White (NH)
+"2019",01,Alabama,Male,18-19,38237,WHITE_NH,White (NH)
+"2019",01,Alabama,Male,20-24,100173,WHITE_NH,White (NH)
+"2019",01,Alabama,Male,25-29,101486,WHITE_NH,White (NH)
+"2019",01,Alabama,Male,30-34,93542,WHITE_NH,White (NH)
+"2019",01,Alabama,Male,35-44,187412,WHITE_NH,White (NH)
+"2019",01,Alabama,Male,45-54,215729,WHITE_NH,White (NH)
+"2019",01,Alabama,Male,5-9,87075,WHITE_NH,White (NH)
+"2019",01,Alabama,Male,55-64,223214,WHITE_NH,White (NH)
+"2019",01,Alabama,Male,65-74,169538,WHITE_NH,White (NH)
+"2019",01,Alabama,Male,75-84,83731,WHITE_NH,White (NH)
+"2019",01,Alabama,Male,85+,23397,WHITE_NH,White (NH)
+"2019",01,Alabama,Male,All,1561657,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,All,0-4,208,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,All,10-14,302,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,All,15-17,217,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,All,18-19,134,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,All,20-24,391,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,All,25-29,513,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,All,30-34,339,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,All,35-44,1072,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,All,45-54,1078,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,All,5-9,512,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,All,55-64,968,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,All,65-74,679,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,All,75-84,289,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,All,85+,136,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,All,All,6838,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Female,0-4,93,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Female,10-14,142,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Female,15-17,150,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Female,18-19,35,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Female,20-24,276,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Female,25-29,186,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Female,30-34,176,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Female,35-44,469,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Female,45-54,572,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Female,5-9,221,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Female,55-64,477,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Female,65-74,376,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Female,75-84,144,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Female,85+,79,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Female,All,3396,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Male,0-4,115,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Male,10-14,160,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Male,15-17,67,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Male,18-19,99,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Male,20-24,115,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Male,25-29,327,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Male,30-34,163,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Male,35-44,603,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Male,45-54,506,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Male,5-9,291,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Male,55-64,491,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Male,65-74,303,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Male,75-84,145,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Male,85+,57,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,Male,All,3442,AIAN,American Indian and Alaska Native
+"2019",72,Puerto Rico,All,0-4,143623,ALL,All
+"2019",72,Puerto Rico,All,10-14,199508,ALL,All
+"2019",72,Puerto Rico,All,15-17,130008,ALL,All
+"2019",72,Puerto Rico,All,18-19,91578,ALL,All
+"2019",72,Puerto Rico,All,20-20,50183,ALL,All
+"2019",72,Puerto Rico,All,21-21,49467,ALL,All
+"2019",72,Puerto Rico,All,22-24,132914,ALL,All
+"2019",72,Puerto Rico,All,25-29,221245,ALL,All
+"2019",72,Puerto Rico,All,30-34,191951,ALL,All
+"2019",72,Puerto Rico,All,35-39,203084,ALL,All
+"2019",72,Puerto Rico,All,40-44,209447,ALL,All
+"2019",72,Puerto Rico,All,45-49,213273,ALL,All
+"2019",72,Puerto Rico,All,5-9,175207,ALL,All
+"2019",72,Puerto Rico,All,50-54,222997,ALL,All
+"2019",72,Puerto Rico,All,55-59,216952,ALL,All
+"2019",72,Puerto Rico,All,60-61,88320,ALL,All
+"2019",72,Puerto Rico,All,62-64,124954,ALL,All
+"2019",72,Puerto Rico,All,65-66,79029,ALL,All
+"2019",72,Puerto Rico,All,67-69,116386,ALL,All
+"2019",72,Puerto Rico,All,70-74,167100,ALL,All
+"2019",72,Puerto Rico,All,75-79,125430,ALL,All
+"2019",72,Puerto Rico,All,80-84,86787,ALL,All
+"2019",72,Puerto Rico,All,85+,79004,ALL,All
+"2019",72,Puerto Rico,All,All,3318447,ALL,All
+"2019",72,Puerto Rico,Female,0-4,70047,ALL,All
+"2019",72,Puerto Rico,Female,10-14,97680,ALL,All
+"2019",72,Puerto Rico,Female,15-17,63478,ALL,All
+"2019",72,Puerto Rico,Female,18-19,44951,ALL,All
+"2019",72,Puerto Rico,Female,20-20,24715,ALL,All
+"2019",72,Puerto Rico,Female,21-21,23950,ALL,All
+"2019",72,Puerto Rico,Female,22-24,65949,ALL,All
+"2019",72,Puerto Rico,Female,25-29,111738,ALL,All
+"2019",72,Puerto Rico,Female,30-34,99643,ALL,All
+"2019",72,Puerto Rico,Female,35-39,107961,ALL,All
+"2019",72,Puerto Rico,Female,40-44,109078,ALL,All
+"2019",72,Puerto Rico,Female,45-49,112383,ALL,All
+"2019",72,Puerto Rico,Female,5-9,86264,ALL,All
+"2019",72,Puerto Rico,Female,50-54,119636,ALL,All
+"2019",72,Puerto Rico,Female,55-59,115948,ALL,All
+"2019",72,Puerto Rico,Female,60-61,47753,ALL,All
+"2019",72,Puerto Rico,Female,62-64,69508,ALL,All
+"2019",72,Puerto Rico,Female,65-66,42423,ALL,All
+"2019",72,Puerto Rico,Female,67-69,64035,ALL,All
+"2019",72,Puerto Rico,Female,70-74,92647,ALL,All
+"2019",72,Puerto Rico,Female,75-79,70601,ALL,All
+"2019",72,Puerto Rico,Female,80-84,50218,ALL,All
+"2019",72,Puerto Rico,Female,85+,49523,ALL,All
+"2019",72,Puerto Rico,Female,All,1740129,ALL,All
+"2019",72,Puerto Rico,Male,0-4,73576,ALL,All
+"2019",72,Puerto Rico,Male,10-14,101828,ALL,All
+"2019",72,Puerto Rico,Male,15-17,66530,ALL,All
+"2019",72,Puerto Rico,Male,18-19,46627,ALL,All
+"2019",72,Puerto Rico,Male,20-20,25468,ALL,All
+"2019",72,Puerto Rico,Male,21-21,25517,ALL,All
+"2019",72,Puerto Rico,Male,22-24,66965,ALL,All
+"2019",72,Puerto Rico,Male,25-29,109507,ALL,All
+"2019",72,Puerto Rico,Male,30-34,92308,ALL,All
+"2019",72,Puerto Rico,Male,35-39,95123,ALL,All
+"2019",72,Puerto Rico,Male,40-44,100369,ALL,All
+"2019",72,Puerto Rico,Male,45-49,100890,ALL,All
+"2019",72,Puerto Rico,Male,5-9,88943,ALL,All
+"2019",72,Puerto Rico,Male,50-54,103361,ALL,All
+"2019",72,Puerto Rico,Male,55-59,101004,ALL,All
+"2019",72,Puerto Rico,Male,60-61,40567,ALL,All
+"2019",72,Puerto Rico,Male,62-64,55446,ALL,All
+"2019",72,Puerto Rico,Male,65-66,36606,ALL,All
+"2019",72,Puerto Rico,Male,67-69,52351,ALL,All
+"2019",72,Puerto Rico,Male,70-74,74453,ALL,All
+"2019",72,Puerto Rico,Male,75-79,54829,ALL,All
+"2019",72,Puerto Rico,Male,80-84,36569,ALL,All
+"2019",72,Puerto Rico,Male,85+,29481,ALL,All
+"2019",72,Puerto Rico,Male,All,1578318,ALL,All
+"2019",72,Puerto Rico,All,0-4,262,ASIAN,Asian
+"2019",72,Puerto Rico,All,10-14,473,ASIAN,Asian
+"2019",72,Puerto Rico,All,15-17,208,ASIAN,Asian
+"2019",72,Puerto Rico,All,18-19,195,ASIAN,Asian
+"2019",72,Puerto Rico,All,20-24,287,ASIAN,Asian
+"2019",72,Puerto Rico,All,25-29,420,ASIAN,Asian
+"2019",72,Puerto Rico,All,30-34,536,ASIAN,Asian
+"2019",72,Puerto Rico,All,35-44,1143,ASIAN,Asian
+"2019",72,Puerto Rico,All,45-54,990,ASIAN,Asian
+"2019",72,Puerto Rico,All,5-9,286,ASIAN,Asian
+"2019",72,Puerto Rico,All,55-64,760,ASIAN,Asian
+"2019",72,Puerto Rico,All,65-74,426,ASIAN,Asian
+"2019",72,Puerto Rico,All,75-84,188,ASIAN,Asian
+"2019",72,Puerto Rico,All,85+,63,ASIAN,Asian
+"2019",72,Puerto Rico,All,All,6237,ASIAN,Asian
+"2019",72,Puerto Rico,Female,0-4,173,ASIAN,Asian
+"2019",72,Puerto Rico,Female,10-14,407,ASIAN,Asian
+"2019",72,Puerto Rico,Female,15-17,175,ASIAN,Asian
+"2019",72,Puerto Rico,Female,18-19,98,ASIAN,Asian
+"2019",72,Puerto Rico,Female,20-24,234,ASIAN,Asian
+"2019",72,Puerto Rico,Female,25-29,293,ASIAN,Asian
+"2019",72,Puerto Rico,Female,30-34,386,ASIAN,Asian
+"2019",72,Puerto Rico,Female,35-44,713,ASIAN,Asian
+"2019",72,Puerto Rico,Female,45-54,708,ASIAN,Asian
+"2019",72,Puerto Rico,Female,5-9,223,ASIAN,Asian
+"2019",72,Puerto Rico,Female,55-64,540,ASIAN,Asian
+"2019",72,Puerto Rico,Female,65-74,330,ASIAN,Asian
+"2019",72,Puerto Rico,Female,75-84,96,ASIAN,Asian
+"2019",72,Puerto Rico,Female,85+,41,ASIAN,Asian
+"2019",72,Puerto Rico,Female,All,4417,ASIAN,Asian
+"2019",72,Puerto Rico,Male,0-4,89,ASIAN,Asian
+"2019",72,Puerto Rico,Male,10-14,66,ASIAN,Asian
+"2019",72,Puerto Rico,Male,15-17,33,ASIAN,Asian
+"2019",72,Puerto Rico,Male,18-19,97,ASIAN,Asian
+"2019",72,Puerto Rico,Male,20-24,53,ASIAN,Asian
+"2019",72,Puerto Rico,Male,25-29,127,ASIAN,Asian
+"2019",72,Puerto Rico,Male,30-34,150,ASIAN,Asian
+"2019",72,Puerto Rico,Male,35-44,430,ASIAN,Asian
+"2019",72,Puerto Rico,Male,45-54,282,ASIAN,Asian
+"2019",72,Puerto Rico,Male,5-9,63,ASIAN,Asian
+"2019",72,Puerto Rico,Male,55-64,220,ASIAN,Asian
+"2019",72,Puerto Rico,Male,65-74,96,ASIAN,Asian
+"2019",72,Puerto Rico,Male,75-84,92,ASIAN,Asian
+"2019",72,Puerto Rico,Male,85+,22,ASIAN,Asian
+"2019",72,Puerto Rico,Male,All,1820,ASIAN,Asian
+"2019",72,Puerto Rico,All,0-4,13717,BLACK,Black or African American
+"2019",72,Puerto Rico,All,10-14,21105,BLACK,Black or African American
+"2019",72,Puerto Rico,All,15-17,15149,BLACK,Black or African American
+"2019",72,Puerto Rico,All,18-19,10301,BLACK,Black or African American
+"2019",72,Puerto Rico,All,20-24,26179,BLACK,Black or African American
+"2019",72,Puerto Rico,All,25-29,26243,BLACK,Black or African American
+"2019",72,Puerto Rico,All,30-34,21350,BLACK,Black or African American
+"2019",72,Puerto Rico,All,35-44,50278,BLACK,Black or African American
+"2019",72,Puerto Rico,All,45-54,55320,BLACK,Black or African American
+"2019",72,Puerto Rico,All,5-9,18535,BLACK,Black or African American
+"2019",72,Puerto Rico,All,55-64,54451,BLACK,Black or African American
+"2019",72,Puerto Rico,All,65-74,42169,BLACK,Black or African American
+"2019",72,Puerto Rico,All,75-84,23416,BLACK,Black or African American
+"2019",72,Puerto Rico,All,85+,8463,BLACK,Black or African American
+"2019",72,Puerto Rico,All,All,386676,BLACK,Black or African American
+"2019",72,Puerto Rico,Female,0-4,6485,BLACK,Black or African American
+"2019",72,Puerto Rico,Female,10-14,10210,BLACK,Black or African American
+"2019",72,Puerto Rico,Female,15-17,7230,BLACK,Black or African American
+"2019",72,Puerto Rico,Female,18-19,4546,BLACK,Black or African American
+"2019",72,Puerto Rico,Female,20-24,13611,BLACK,Black or African American
+"2019",72,Puerto Rico,Female,25-29,12610,BLACK,Black or African American
+"2019",72,Puerto Rico,Female,30-34,10415,BLACK,Black or African American
+"2019",72,Puerto Rico,Female,35-44,25903,BLACK,Black or African American
+"2019",72,Puerto Rico,Female,45-54,28283,BLACK,Black or African American
+"2019",72,Puerto Rico,Female,5-9,8871,BLACK,Black or African American
+"2019",72,Puerto Rico,Female,55-64,27845,BLACK,Black or African American
+"2019",72,Puerto Rico,Female,65-74,21888,BLACK,Black or African American
+"2019",72,Puerto Rico,Female,75-84,12959,BLACK,Black or African American
+"2019",72,Puerto Rico,Female,85+,5171,BLACK,Black or African American
+"2019",72,Puerto Rico,Female,All,196027,BLACK,Black or African American
+"2019",72,Puerto Rico,Male,0-4,7232,BLACK,Black or African American
+"2019",72,Puerto Rico,Male,10-14,10895,BLACK,Black or African American
+"2019",72,Puerto Rico,Male,15-17,7919,BLACK,Black or African American
+"2019",72,Puerto Rico,Male,18-19,5755,BLACK,Black or African American
+"2019",72,Puerto Rico,Male,20-24,12568,BLACK,Black or African American
+"2019",72,Puerto Rico,Male,25-29,13633,BLACK,Black or African American
+"2019",72,Puerto Rico,Male,30-34,10935,BLACK,Black or African American
+"2019",72,Puerto Rico,Male,35-44,24375,BLACK,Black or African American
+"2019",72,Puerto Rico,Male,45-54,27037,BLACK,Black or African American
+"2019",72,Puerto Rico,Male,5-9,9664,BLACK,Black or African American
+"2019",72,Puerto Rico,Male,55-64,26606,BLACK,Black or African American
+"2019",72,Puerto Rico,Male,65-74,20281,BLACK,Black or African American
+"2019",72,Puerto Rico,Male,75-84,10457,BLACK,Black or African American
+"2019",72,Puerto Rico,Male,85+,3292,BLACK,Black or African American
+"2019",72,Puerto Rico,Male,All,190649,BLACK,Black or African American
+"2019",72,Puerto Rico,All,0-4,142015,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,All,10-14,196664,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,All,15-17,128543,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,All,18-19,90789,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,All,20-24,229906,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,All,25-29,218389,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,All,30-34,188563,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,All,35-44,406847,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,All,45-54,429354,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,All,5-9,173188,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,All,55-64,424585,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,All,65-74,358724,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,All,75-84,210220,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,All,85+,78132,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,All,All,3275919,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Female,0-4,69358,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Female,10-14,96253,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Female,15-17,62695,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Female,18-19,44588,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Female,20-24,113286,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Female,25-29,110408,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Female,30-34,97882,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Female,35-44,214566,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Female,45-54,228809,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Female,5-9,85370,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Female,55-64,230548,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Female,65-74,197286,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Female,75-84,120073,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Female,85+,48942,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Female,All,1720064,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Male,0-4,72657,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Male,10-14,100411,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Male,15-17,65848,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Male,18-19,46201,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Male,20-24,116620,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Male,25-29,107981,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Male,30-34,90681,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Male,35-44,192281,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Male,45-54,200545,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Male,5-9,87818,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Male,55-64,194037,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Male,65-74,161438,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Male,75-84,90147,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Male,85+,29190,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,Male,All,1555855,HISP,Hispanic or Latino
+"2019",72,Puerto Rico,All,0-4,7935,MULTI,Two or more races
+"2019",72,Puerto Rico,All,10-14,12010,MULTI,Two or more races
+"2019",72,Puerto Rico,All,15-17,7587,MULTI,Two or more races
+"2019",72,Puerto Rico,All,18-19,5176,MULTI,Two or more races
+"2019",72,Puerto Rico,All,20-24,11896,MULTI,Two or more races
+"2019",72,Puerto Rico,All,25-29,12845,MULTI,Two or more races
+"2019",72,Puerto Rico,All,30-34,11485,MULTI,Two or more races
+"2019",72,Puerto Rico,All,35-44,24286,MULTI,Two or more races
+"2019",72,Puerto Rico,All,45-54,22329,MULTI,Two or more races
+"2019",72,Puerto Rico,All,5-9,11168,MULTI,Two or more races
+"2019",72,Puerto Rico,All,55-64,20812,MULTI,Two or more races
+"2019",72,Puerto Rico,All,65-74,15969,MULTI,Two or more races
+"2019",72,Puerto Rico,All,75-84,8915,MULTI,Two or more races
+"2019",72,Puerto Rico,All,85+,3236,MULTI,Two or more races
+"2019",72,Puerto Rico,All,All,175649,MULTI,Two or more races
+"2019",72,Puerto Rico,Female,0-4,3712,MULTI,Two or more races
+"2019",72,Puerto Rico,Female,10-14,6058,MULTI,Two or more races
+"2019",72,Puerto Rico,Female,15-17,3287,MULTI,Two or more races
+"2019",72,Puerto Rico,Female,18-19,2391,MULTI,Two or more races
+"2019",72,Puerto Rico,Female,20-24,5945,MULTI,Two or more races
+"2019",72,Puerto Rico,Female,25-29,6368,MULTI,Two or more races
+"2019",72,Puerto Rico,Female,30-34,5857,MULTI,Two or more races
+"2019",72,Puerto Rico,Female,35-44,12742,MULTI,Two or more races
+"2019",72,Puerto Rico,Female,45-54,11470,MULTI,Two or more races
+"2019",72,Puerto Rico,Female,5-9,5284,MULTI,Two or more races
+"2019",72,Puerto Rico,Female,55-64,10581,MULTI,Two or more races
+"2019",72,Puerto Rico,Female,65-74,8594,MULTI,Two or more races
+"2019",72,Puerto Rico,Female,75-84,5132,MULTI,Two or more races
+"2019",72,Puerto Rico,Female,85+,1968,MULTI,Two or more races
+"2019",72,Puerto Rico,Female,All,89389,MULTI,Two or more races
+"2019",72,Puerto Rico,Male,0-4,4223,MULTI,Two or more races
+"2019",72,Puerto Rico,Male,10-14,5952,MULTI,Two or more races
+"2019",72,Puerto Rico,Male,15-17,4300,MULTI,Two or more races
+"2019",72,Puerto Rico,Male,18-19,2785,MULTI,Two or more races
+"2019",72,Puerto Rico,Male,20-24,5951,MULTI,Two or more races
+"2019",72,Puerto Rico,Male,25-29,6477,MULTI,Two or more races
+"2019",72,Puerto Rico,Male,30-34,5628,MULTI,Two or more races
+"2019",72,Puerto Rico,Male,35-44,11544,MULTI,Two or more races
+"2019",72,Puerto Rico,Male,45-54,10859,MULTI,Two or more races
+"2019",72,Puerto Rico,Male,5-9,5884,MULTI,Two or more races
+"2019",72,Puerto Rico,Male,55-64,10231,MULTI,Two or more races
+"2019",72,Puerto Rico,Male,65-74,7375,MULTI,Two or more races
+"2019",72,Puerto Rico,Male,75-84,3783,MULTI,Two or more races
+"2019",72,Puerto Rico,Male,85+,1268,MULTI,Two or more races
+"2019",72,Puerto Rico,Male,All,86260,MULTI,Two or more races
+"2019",72,Puerto Rico,All,0-4,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,All,10-14,21,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,All,15-17,47,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,All,18-19,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,All,20-24,89,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,All,25-29,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,All,30-34,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,All,35-44,27,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,All,45-54,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,All,5-9,22,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,All,55-64,41,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,All,65-74,22,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,All,75-84,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,All,85+,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,All,All,269,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Female,0-4,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Female,10-14,21,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Female,15-17,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Female,18-19,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Female,20-24,17,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Female,25-29,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Female,30-34,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Female,35-44,27,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Female,45-54,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Female,5-9,22,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Female,55-64,18,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Female,65-74,16,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Female,75-84,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Female,85+,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Female,All,121,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Male,0-4,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Male,10-14,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Male,15-17,47,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Male,18-19,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Male,20-24,72,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Male,25-29,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Male,30-34,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Male,35-44,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Male,45-54,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Male,5-9,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Male,55-64,23,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Male,65-74,6,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Male,75-84,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Male,85+,0,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,Male,All,148,NHPI,Native Hawaiian and Pacific Islander
+"2019",72,Puerto Rico,All,0-4,23916,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,All,10-14,36795,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,All,15-17,23655,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,All,18-19,17907,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,All,20-24,43167,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,All,25-29,36830,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,All,30-34,33935,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,All,35-44,72212,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,All,45-54,76530,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,All,5-9,32784,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,All,55-64,66416,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,All,65-74,52541,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,All,75-84,28708,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,All,85+,9368,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,All,All,554764,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Female,0-4,11656,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Female,10-14,17982,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Female,15-17,11777,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Female,18-19,9100,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Female,20-24,19999,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Female,25-29,19185,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Female,30-34,17445,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Female,35-44,38203,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Female,45-54,39500,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Female,5-9,16202,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Female,55-64,34574,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Female,65-74,27829,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Female,75-84,15753,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Female,85+,5634,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Female,All,284839,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Male,0-4,12260,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Male,10-14,18813,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Male,15-17,11878,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Male,18-19,8807,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Male,20-24,23168,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Male,25-29,17645,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Male,30-34,16490,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Male,35-44,34009,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Male,45-54,37030,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Male,5-9,16582,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Male,55-64,31842,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Male,65-74,24712,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Male,75-84,12955,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Male,85+,3734,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,Male,All,269925,OTHER_STANDARD,Unrepresented race
+"2019",72,Puerto Rico,All,0-4,97585,WHITE,White
+"2019",72,Puerto Rico,All,10-14,128802,WHITE,White
+"2019",72,Puerto Rico,All,15-17,83145,WHITE,White
+"2019",72,Puerto Rico,All,18-19,57865,WHITE,White
+"2019",72,Puerto Rico,All,20-24,150555,WHITE,White
+"2019",72,Puerto Rico,All,25-29,144394,WHITE,White
+"2019",72,Puerto Rico,All,30-34,124306,WHITE,White
+"2019",72,Puerto Rico,All,35-44,263513,WHITE,White
+"2019",72,Puerto Rico,All,45-54,280023,WHITE,White
+"2019",72,Puerto Rico,All,5-9,111900,WHITE,White
+"2019",72,Puerto Rico,All,55-64,286778,WHITE,White
+"2019",72,Puerto Rico,All,65-74,250709,WHITE,White
+"2019",72,Puerto Rico,All,75-84,150701,WHITE,White
+"2019",72,Puerto Rico,All,85+,57738,WHITE,White
+"2019",72,Puerto Rico,All,All,2188014,WHITE,White
+"2019",72,Puerto Rico,Female,0-4,47928,WHITE,White
+"2019",72,Puerto Rico,Female,10-14,62860,WHITE,White
+"2019",72,Puerto Rico,Female,15-17,40859,WHITE,White
+"2019",72,Puerto Rico,Female,18-19,28781,WHITE,White
+"2019",72,Puerto Rico,Female,20-24,74532,WHITE,White
+"2019",72,Puerto Rico,Female,25-29,73096,WHITE,White
+"2019",72,Puerto Rico,Female,30-34,65364,WHITE,White
+"2019",72,Puerto Rico,Female,35-44,138982,WHITE,White
+"2019",72,Puerto Rico,Female,45-54,151486,WHITE,White
+"2019",72,Puerto Rico,Female,5-9,55441,WHITE,White
+"2019",72,Puerto Rico,Female,55-64,159174,WHITE,White
+"2019",72,Puerto Rico,Female,65-74,140072,WHITE,White
+"2019",72,Puerto Rico,Female,75-84,86735,WHITE,White
+"2019",72,Puerto Rico,Female,85+,36630,WHITE,White
+"2019",72,Puerto Rico,Female,All,1161940,WHITE,White
+"2019",72,Puerto Rico,Male,0-4,49657,WHITE,White
+"2019",72,Puerto Rico,Male,10-14,65942,WHITE,White
+"2019",72,Puerto Rico,Male,15-17,42286,WHITE,White
+"2019",72,Puerto Rico,Male,18-19,29084,WHITE,White
+"2019",72,Puerto Rico,Male,20-24,76023,WHITE,White
+"2019",72,Puerto Rico,Male,25-29,71298,WHITE,White
+"2019",72,Puerto Rico,Male,30-34,58942,WHITE,White
+"2019",72,Puerto Rico,Male,35-44,124531,WHITE,White
+"2019",72,Puerto Rico,Male,45-54,128537,WHITE,White
+"2019",72,Puerto Rico,Male,5-9,56459,WHITE,White
+"2019",72,Puerto Rico,Male,55-64,127604,WHITE,White
+"2019",72,Puerto Rico,Male,65-74,110637,WHITE,White
+"2019",72,Puerto Rico,Male,75-84,63966,WHITE,White
+"2019",72,Puerto Rico,Male,85+,21108,WHITE,White
+"2019",72,Puerto Rico,Male,All,1026074,WHITE,White
+"2019",72,Puerto Rico,All,0-4,1340,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,All,10-14,2045,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,All,15-17,1194,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,All,18-19,672,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,All,20-24,1969,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,All,25-29,2025,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,All,30-34,2331,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,All,35-44,4141,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,All,45-54,5038,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,All,5-9,1458,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,All,55-64,4433,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,All,65-74,2911,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,All,75-84,1564,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,All,85+,602,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,All,All,31723,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Female,0-4,544,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Female,10-14,956,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Female,15-17,653,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Female,18-19,363,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Female,20-24,928,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Female,25-29,1022,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Female,30-34,1185,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Female,35-44,1860,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Female,45-54,2393,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Female,5-9,643,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Female,55-64,2168,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Female,65-74,1343,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Female,75-84,578,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Female,85+,316,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Female,All,14952,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Male,0-4,796,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Male,10-14,1089,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Male,15-17,541,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Male,18-19,309,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Male,20-24,1041,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Male,25-29,1003,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Male,30-34,1146,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Male,35-44,2281,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Male,45-54,2645,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Male,5-9,815,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Male,55-64,2265,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Male,65-74,1568,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Male,75-84,986,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Male,85+,286,WHITE_NH,White (NH)
+"2019",72,Puerto Rico,Male,All,16771,WHITE_NH,White (NH)
