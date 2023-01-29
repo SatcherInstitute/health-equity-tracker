@@ -383,8 +383,6 @@ class ACSPopulationIngester():
 
             for table_name, df in frames.items():
 
-                # write the default single year table without a time_period col
-                # to maintain existing merge_util functionality
                 if base_acs_url == DEFAULT_SINGLE_YEAR_ACS_BASE_URL:
 
                     df_single_year = df.copy()
@@ -394,6 +392,9 @@ class ACSPopulationIngester():
                         float_cols.append(std_col.POPULATION_PCT_COL)
                     column_types = gcs_to_bq_util.get_bq_column_types(
                         df_single_year, float_cols=float_cols)
+
+                    # write the default single year table without a time_period col
+                    # to maintain existing merge_util functionality
                     gcs_to_bq_util.add_df_to_bq(
                         df_single_year, dataset, table_name, column_types=column_types)
 
@@ -414,21 +415,27 @@ class ACSPopulationIngester():
         # and upload to BQ
         for bq_table_name in bq_table_names:
 
-            yearly_breakdown_dfs = []
+            # we want the first yearly df for a breakdown to start a fresh BigQuery table
+            overwrite = True
+
             for yearly_table_name, yearly_df in time_series_table_items.items():
                 if bq_table_name in yearly_table_name:
-                    yearly_breakdown_dfs.append(yearly_df)
 
-            df = pd.concat(yearly_breakdown_dfs, axis=0).reset_index(drop=True)
+                    # yearly_breakdown_dfs.append(yearly_df)
+                    # df = pd.concat(yearly_breakdown_dfs, axis=0).reset_index(drop=True)
 
-            float_cols = [std_col.POPULATION_COL]
-            if std_col.POPULATION_PCT_COL in df.columns:
-                float_cols.append(std_col.POPULATION_PCT_COL)
-            column_types = gcs_to_bq_util.get_bq_column_types(
-                df, float_cols=float_cols)
+                    float_cols = [std_col.POPULATION_COL]
+                    if std_col.POPULATION_PCT_COL in yearly_df.columns:
+                        float_cols.append(std_col.POPULATION_PCT_COL)
+                    column_types = gcs_to_bq_util.get_bq_column_types(
+                        yearly_df, float_cols=float_cols)
 
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, f'{bq_table_name}_time_series', column_types=column_types)
+                    gcs_to_bq_util.add_df_to_bq(
+                        yearly_df, dataset, f'{bq_table_name}_time_series', column_types=column_types, overwrite=overwrite)
+
+                    if overwrite is True:
+                        # subsequent yearly breakdown dfs to be APPENDED, not new BQ tables
+                        overwrite = False
 
     def get_table_geo_suffix(self):
         return "_county" if self.county_level else "_state"
