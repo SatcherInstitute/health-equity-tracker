@@ -431,10 +431,14 @@ class ACSPopulationIngester():
                         yearly_df, float_cols=float_cols)
 
                     gcs_to_bq_util.add_df_to_bq(
-                        yearly_df, dataset, f'{bq_table_name}_time_series', column_types=column_types, overwrite=overwrite)
+                        yearly_df, dataset,
+                        f'{bq_table_name}_time_series',
+                        column_types=column_types,
+                        overwrite=overwrite
+                    )
 
+                    # subsequent yearly breakdown dfs should APPEND not OVERWRITE
                     if overwrite is True:
-                        # subsequent yearly breakdown dfs to be APPENDED, not new BQ tables
                         overwrite = False
 
     def get_table_geo_suffix(self):
