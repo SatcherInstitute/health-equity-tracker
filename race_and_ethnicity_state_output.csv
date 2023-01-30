@@ -1,0 +1,449 @@
+state_fips,state_name,time_period,race_and_ethnicity,hiv_cases,hiv_per_cases_100k,population
+01,Alabama,2019,All,635,15.4,4128511.0
+01,Alabama,2019,American Indian/Alaska Native,1,4.1,24548.0
+01,Alabama,2019,Asian,1,1.6,61261.0
+01,Alabama,2019,Black/African American,453,42.2,1073141.0
+01,Alabama,2019,Hispanic/Latino,15,9.7,155027.0
+01,Alabama,2019,Multiracial,14,28,49959.0
+01,Alabama,2019,Native Hawaiian/Other Pacific Islander,0,0,2022.0
+01,Alabama,2019,White,151,5.5,2762553.0
+02,Alaska,2019,All,27,4.5,600561.0
+02,Alaska,2019,American Indian/Alaska Native,6,7.2,83301.0
+02,Alaska,2019,Asian,0,0,39970.0
+02,Alaska,2019,Black/African American,5,24.8,20151.0
+02,Alaska,2019,Hispanic/Latino,4,10.2,39403.0
+02,Alaska,2019,Multiracial,0,0,33082.0
+02,Alaska,2019,Native Hawaiian/Other Pacific Islander,0,0,7939.0
+02,Alaska,2019,White,12,3.2,376715.0
+04,Arizona,2019,All,747,12.2,6121860.0
+04,Arizona,2019,American Indian/Alaska Native,37,16.2,228588.0
+04,Arizona,2019,Asian,12,5.5,216518.0
+04,Arizona,2019,Black/African American,124,46.3,268005.0
+04,Arizona,2019,Hispanic/Latino,325,18.2,1786398.0
+04,Arizona,2019,Multiracial,10,9.6,104244.0
+04,Arizona,2019,Native Hawaiian/Other Pacific Islander,2,17.1,11699.0
+04,Arizona,2019,White,237,6.8,3506408.0
+05,Arkansas,2019,All,289,11.5,2518616.0
+05,Arkansas,2019,American Indian/Alaska Native,1,5.1,19597.0
+05,Arkansas,2019,Asian,5,12.3,40564.0
+05,Arkansas,2019,Black/African American,139,36.9,376525.0
+05,Arkansas,2019,Hispanic/Latino,20,11.6,172210.0
+05,Arkansas,2019,Multiracial,3,7.8,38458.0
+05,Arkansas,2019,Native Hawaiian/Other Pacific Islander,1,12.5,8031.0
+05,Arkansas,2019,White,120,6.4,1863231.0
+06,California,2019,All,4454,13.5,33070892.0
+06,California,2019,American Indian/Alaska Native,18,12.9,139446.0
+06,California,2019,Asian,239,4.7,5113299.0
+06,California,2019,Black/African American,751,39.5,1899258.0
+06,California,2019,Hispanic/Latino,"2,240",18.3,12213085.0
+06,California,2019,Multiracial,114,14.5,788236.0
+06,California,2019,Native Hawaiian/Other Pacific Islander,13,10.5,123404.0
+06,California,2019,White,"1,079",8.4,12794164.0
+08,Colorado,2019,All,465,9.6,4864999.0
+08,Colorado,2019,American Indian/Alaska Native,5,15.7,31880.0
+08,Colorado,2019,Asian,10,6.1,163578.0
+08,Colorado,2019,Black/African American,74,38.2,193630.0
+08,Colorado,2019,Hispanic/Latino,170,17.5,971159.0
+08,Colorado,2019,Multiracial,2,2.1,93286.0
+08,Colorado,2019,Native Hawaiian/Other Pacific Islander,1,15.1,6624.0
+08,Colorado,2019,White,203,6,3404842.0
+09,Connecticut,2019,All,212,6.9,3063295.0
+09,Connecticut,2019,American Indian/Alaska Native,0,0,6321.0
+09,Connecticut,2019,Asian,7,4.8,144591.0
+09,Connecticut,2019,Black/African American,95,30.5,311037.0
+09,Connecticut,2019,Hispanic/Latino,51,10.9,468480.0
+09,Connecticut,2019,Multiracial,3,6.9,43226.0
+09,Connecticut,2019,Native Hawaiian/Other Pacific Islander,0,0,1041.0
+09,Connecticut,2019,White,56,2.7,2088599.0
+10,Delaware,2019,All,94,11.3,830589.0
+10,Delaware,2019,American Indian/Alaska Native,0,0,2650.0
+10,Delaware,2019,Asian,0,0,33584.0
+10,Delaware,2019,Black/African American,62,34.8,178148.0
+10,Delaware,2019,Hispanic/Latino,7,10.2,68916.0
+10,Delaware,2019,Multiracial,2,13.4,14939.0
+10,Delaware,2019,Native Hawaiian/Other Pacific Islander,0,0,273.0
+10,Delaware,2019,White,23,4.3,532079.0
+11,District of Columbia,2019,All,250,41.2,606484.0
+11,District of Columbia,2019,American Indian/Alaska Native,0,0,1294.0
+11,District of Columbia,2019,Asian,4,14.3,28039.0
+11,District of Columbia,2019,Black/African American,188,71.7,262385.0
+11,District of Columbia,2019,Hispanic/Latino,31,49.9,62097.0
+11,District of Columbia,2019,Multiracial,7,58.2,12026.0
+11,District of Columbia,2019,Native Hawaiian/Other Pacific Islander,0,0,285.0
+11,District of Columbia,2019,White,20,8.3,240358.0
+12,Florida,2019,All,4361,23.6,18463032.0
+12,Florida,2019,American Indian/Alaska Native,8,16.6,48245.0
+12,Florida,2019,Asian,41,7.7,532203.0
+12,Florida,2019,Black/African American,"1,688",61.8,2729384.0
+12,Florida,2019,Hispanic/Latino,"1,554",33.2,4683194.0
+12,Florida,2019,Multiracial,59,24.2,243751.0
+12,Florida,2019,Native Hawaiian/Other Pacific Islander,2,16.9,11800.0
+12,Florida,2019,White,"1,009",9.9,10214455.0
+13,Georgia,2019,All,2407,27.2,8850817.0
+13,Georgia,2019,American Indian/Alaska Native,1,4.7,21099.0
+13,Georgia,2019,Asian,20,5.2,383552.0
+13,Georgia,2019,Black/African American,"1,732",62.6,2766698.0
+13,Georgia,2019,Hispanic/Latino,240,31,773401.0
+13,Georgia,2019,Multiracial,56,43.8,127828.0
+13,Georgia,2019,Native Hawaiian/Other Pacific Islander,2,36.1,5537.0
+13,Georgia,2019,White,356,7.5,4772702.0
+15,Hawaii,2019,All,64,5.4,1193210.0
+15,Hawaii,2019,American Indian/Alaska Native,1,37.8,2643.0
+15,Hawaii,2019,Asian,18,3.9,464759.0
+15,Hawaii,2019,Black/African American,1,4.3,23527.0
+15,Hawaii,2019,Hispanic/Latino,12,11.2,107086.0
+15,Hawaii,2019,Multiracial,7,3.3,210191.0
+15,Hawaii,2019,Native Hawaiian/Other Pacific Islander,12,10.8,110989.0
+15,Hawaii,2019,White,13,4.7,274015.0
+16,Idaho,2019,All,33,2.2,1471081.0
+16,Idaho,2019,American Indian/Alaska Native,0,0,15980.0
+16,Idaho,2019,Asian,1,4.4,22494.0
+16,Idaho,2019,Black/African American,2,19,10514.0
+16,Idaho,2019,Hispanic/Latino,10,5.9,169451.0
+16,Idaho,2019,Multiracial,1,4,25205.0
+16,Idaho,2019,Native Hawaiian/Other Pacific Islander,0,0,2599.0
+16,Idaho,2019,White,19,1.6,1224838.0
+17,Illinois,2019,All,1257,11.8,10671639.0
+17,Illinois,2019,American Indian/Alaska Native,1,6,16712.0
+17,Illinois,2019,Asian,26,4.2,625356.0
+17,Illinois,2019,Black/African American,636,43.1,1477101.0
+17,Illinois,2019,Hispanic/Latino,312,18.1,1719400.0
+17,Illinois,2019,Multiracial,52,37.7,137900.0
+17,Illinois,2019,Native Hawaiian/Other Pacific Islander,1,33.1,3023.0
+17,Illinois,2019,White,229,3.4,6692147.0
+18,Indiana,2019,All,486,8.7,5611676.0
+18,Indiana,2019,American Indian/Alaska Native,0,0,13646.0
+18,Indiana,2019,Asian,3,2.1,139843.0
+18,Indiana,2019,Black/African American,213,41.1,518641.0
+18,Indiana,2019,Hispanic/Latino,69,19.2,359474.0
+18,Indiana,2019,Multiracial,12,15,79890.0
+18,Indiana,2019,Native Hawaiian/Other Pacific Islander,2,97.8,2045.0
+18,Indiana,2019,White,187,4.2,4498137.0
+19,Iowa,2019,All,100,3.8,2637942.0
+19,Iowa,2019,American Indian/Alaska Native,1,13,7678.0
+19,Iowa,2019,Asian,2,2.9,69703.0
+19,Iowa,2019,Black/African American,30,31.9,94049.0
+19,Iowa,2019,Hispanic/Latino,12,8.3,143755.0
+19,Iowa,2019,Multiracial,6,18.1,33214.0
+19,Iowa,2019,Native Hawaiian/Other Pacific Islander,2,63.9,3130.0
+19,Iowa,2019,White,47,2.1,2286413.0
+20,Kansas,2019,All,132,5.5,2409745.0
+20,Kansas,2019,American Indian/Alaska Native,1,5.1,19746.0
+20,Kansas,2019,Asian,4,5.3,75807.0
+20,Kansas,2019,Black/African American,38,28,135750.0
+20,Kansas,2019,Hispanic/Latino,26,10,261077.0
+20,Kansas,2019,Multiracial,3,6,49840.0
+20,Kansas,2019,Native Hawaiian/Other Pacific Islander,0,0,2259.0
+20,Kansas,2019,White,60,3.2,1865266.0
+21,Kentucky,2019,All,328,8.7,3752213.0
+21,Kentucky,2019,American Indian/Alaska Native,0,0,8275.0
+21,Kentucky,2019,Asian,2,3.4,58096.0
+21,Kentucky,2019,Black/African American,90,29.8,301753.0
+21,Kentucky,2019,Hispanic/Latino,30,24,125214.0
+21,Kentucky,2019,Multiracial,14,27.3,51354.0
+21,Kentucky,2019,Native Hawaiian/Other Pacific Islander,0,0,2490.0
+21,Kentucky,2019,White,192,6,3205031.0
+22,Louisiana,2019,All,880,22.7,3868185.0
+22,Louisiana,2019,American Indian/Alaska Native,6,23.6,25466.0
+22,Louisiana,2019,Asian,4,5.7,69885.0
+22,Louisiana,2019,Black/African American,580,47.6,1219531.0
+22,Louisiana,2019,Hispanic/Latino,77,41.6,185202.0
+22,Louisiana,2019,Multiracial,8,18.3,43812.0
+22,Louisiana,2019,Native Hawaiian/Other Pacific Islander,0,0,1530.0
+22,Louisiana,2019,White,205,8.8,2322759.0
+23,Maine,2019,All,30,2.6,1171155.0
+23,Maine,2019,American Indian/Alaska Native,0,0,7358.0
+23,Maine,2019,Asian,1,6.6,15061.0
+23,Maine,2019,Black/African American,11,66.8,16477.0
+23,Maine,2019,Hispanic/Latino,2,10.7,18692.0
+23,Maine,2019,Multiracial,1,6.4,15670.0
+23,Maine,2019,Native Hawaiian/Other Pacific Islander,0,0,304.0
+23,Maine,2019,White,15,1.4,1097593.0
+24,Maryland,2019,All,915,18.0,5092825.0
+24,Maryland,2019,American Indian/Alaska Native,0,0,12730.0
+24,Maryland,2019,Asian,17,5,340862.0
+24,Maryland,2019,Black/African American,666,43.7,1522863.0
+24,Maryland,2019,Hispanic/Latino,103,21.7,474641.0
+24,Maryland,2019,Multiracial,30,30.6,97996.0
+24,Maryland,2019,Native Hawaiian/Other Pacific Islander,0,0,2506.0
+24,Maryland,2019,White,99,3.7,2641227.0
+25,Massachusetts,2019,All,538,9.1,5941888.0
+25,Massachusetts,2019,American Indian/Alaska Native,0,0,10604.0
+25,Massachusetts,2019,Asian,18,4.3,420669.0
+25,Massachusetts,2019,Black/African American,171,40.7,419944.0
+25,Massachusetts,2019,Hispanic/Latino,152,22.9,663104.0
+25,Massachusetts,2019,Multiracial,27,31,87167.0
+25,Massachusetts,2019,Native Hawaiian/Other Pacific Islander,0,0,2497.0
+25,Massachusetts,2019,White,170,3.9,4337903.0
+26,Michigan,2019,All,674,8.0,8469397.0
+26,Michigan,2019,American Indian/Alaska Native,1,2.1,48171.0
+26,Michigan,2019,Asian,9,3.2,280459.0
+26,Michigan,2019,Black/African American,386,34.3,1125139.0
+26,Michigan,2019,Hispanic/Latino,57,14.3,399328.0
+26,Michigan,2019,Multiracial,9,6,151137.0
+26,Michigan,2019,Native Hawaiian/Other Pacific Islander,0,0,2355.0
+26,Michigan,2019,White,212,3.3,6462808.0
+27,Minnesota,2019,All,273,5.8,4704092.0
+27,Minnesota,2019,American Indian/Alaska Native,11,23.9,45953.0
+27,Minnesota,2019,Asian,10,4.3,230666.0
+27,Minnesota,2019,Black/African American,97,34,285648.0
+27,Minnesota,2019,Hispanic/Latino,37,16.1,229465.0
+27,Minnesota,2019,Multiracial,10,12.3,81399.0
+27,Minnesota,2019,Native Hawaiian/Other Pacific Islander,1,44.7,2237.0
+27,Minnesota,2019,White,107,2.8,3828724.0
+28,Mississippi,2019,All,471,19.0,2479498.0
+28,Mississippi,2019,American Indian/Alaska Native,1,8.3,12065.0
+28,Mississippi,2019,Asian,0,0,27202.0
+28,Mississippi,2019,Black/African American,359,39.5,908505.0
+28,Mississippi,2019,Hispanic/Latino,18,24.6,73098.0
+28,Mississippi,2019,Multiracial,7,32,21895.0
+28,Mississippi,2019,Native Hawaiian/Other Pacific Islander,1,109.6,912.0
+28,Mississippi,2019,White,85,5.9,1435821.0
+29,Missouri,2019,All,487,9.4,5156303.0
+29,Missouri,2019,American Indian/Alaska Native,0,0,22979.0
+29,Missouri,2019,Asian,5,4.5,110524.0
+29,Missouri,2019,Black/African American,232,40.2,576707.0
+29,Missouri,2019,Hispanic/Latino,46,23.2,198135.0
+29,Missouri,2019,Multiracial,18,21,85799.0
+29,Missouri,2019,Native Hawaiian/Other Pacific Islander,1,15.4,6476.0
+29,Missouri,2019,White,185,4.5,4155683.0
+30,Montana,2019,All,25,2.8,905520.0
+30,Montana,2019,American Indian/Alaska Native,1,2,48840.0
+30,Montana,2019,Asian,0,0,8662.0
+30,Montana,2019,Black/African American,0,0,4642.0
+30,Montana,2019,Hispanic/Latino,3,9.4,31817.0
+30,Montana,2019,Multiracial,1,5.2,19054.0
+30,Montana,2019,Native Hawaiian/Other Pacific Islander,0,0,656.0
+30,Montana,2019,White,20,2.5,791849.0
+31,Nebraska,2019,All,81,5.1,1588602.0
+31,Nebraska,2019,American Indian/Alaska Native,1,8.1,12377.0
+31,Nebraska,2019,Asian,2,4.8,41260.0
+31,Nebraska,2019,Black/African American,21,28.6,73525.0
+31,Nebraska,2019,Hispanic/Latino,16,10.3,155838.0
+31,Nebraska,2019,Multiracial,3,12.9,23232.0
+31,Nebraska,2019,Native Hawaiian/Other Pacific Islander,2,206.8,967.0
+31,Nebraska,2019,White,36,2.8,1281403.0
+32,Nevada,2019,All,518,20.0,2590525.0
+32,Nevada,2019,American Indian/Alaska Native,2,8.9,22395.0
+32,Nevada,2019,Asian,17,7.4,230316.0
+32,Nevada,2019,Black/African American,170,72.7,233736.0
+32,Nevada,2019,Hispanic/Latino,155,22.3,696603.0
+32,Nevada,2019,Multiracial,10,13.6,73454.0
+32,Nevada,2019,Native Hawaiian/Other Pacific Islander,6,36,16683.0
+32,Nevada,2019,White,158,12,1317338.0
+33,New Hampshire,2019,All,31,2.6,1184113.0
+33,New Hampshire,2019,American Indian/Alaska Native,1,39,2566.0
+33,New Hampshire,2019,Asian,4,11.7,34259.0
+33,New Hampshire,2019,Black/African American,4,24.1,16619.0
+33,New Hampshire,2019,Hispanic/Latino,5,11.7,42558.0
+33,New Hampshire,2019,Multiracial,0,0,15024.0
+33,New Hampshire,2019,Native Hawaiian/Other Pacific Islander,0,0,340.0
+33,New Hampshire,2019,White,17,1.6,1072747.0
+34,New Jersey,2019,All,1083,14.4,7511106.0
+34,New Jersey,2019,American Indian/Alaska Native,1,9.1,11001.0
+34,New Jersey,2019,Asian,25,3.4,737811.0
+34,New Jersey,2019,Black/African American,428,44.3,965829.0
+34,New Jersey,2019,Hispanic/Latino,405,27.8,1459195.0
+34,New Jersey,2019,Multiracial,41,44,93147.0
+34,New Jersey,2019,Native Hawaiian/Other Pacific Islander,0,0,2537.0
+34,New Jersey,2019,White,183,4.3,4241586.0
+35,New Mexico,2019,All,174,9.9,1761350.0
+35,New Mexico,2019,American Indian/Alaska Native,28,18.5,150997.0
+35,New Mexico,2019,Asian,1,3.4,29085.0
+35,New Mexico,2019,Black/African American,12,35.6,33695.0
+35,New Mexico,2019,Hispanic/Latino,93,11.2,828412.0
+35,New Mexico,2019,Multiracial,3,12.8,23401.0
+35,New Mexico,2019,Native Hawaiian/Other Pacific Islander,0,0,1195.0
+35,New Mexico,2019,White,37,5.3,694565.0
+36,New York,2019,All,2336,14.1,16557527.0
+36,New York,2019,American Indian/Alaska Native,1,2,49008.0
+36,New York,2019,Asian,66,4.5,1476285.0
+36,New York,2019,Black/African American,948,39.8,2381381.0
+36,New York,2019,Hispanic/Latino,870,28.9,3006670.0
+36,New York,2019,Multiracial,117,49.3,237391.0
+36,New York,2019,Native Hawaiian/Other Pacific Islander,1,13.3,7527.0
+36,New York,2019,White,333,3.5,9399265.0
+37,North Carolina,2019,All,1365,15.4,8861496.0
+37,North Carolina,2019,American Indian/Alaska Native,16,16.4,97708.0
+37,North Carolina,2019,Asian,14,5.2,268874.0
+37,North Carolina,2019,Black/African American,838,44.7,1874325.0
+37,North Carolina,2019,Hispanic/Latino,162,22,736132.0
+37,North Carolina,2019,Multiracial,34,25.5,133249.0
+37,North Carolina,2019,Native Hawaiian/Other Pacific Islander,5,87.9,5691.0
+37,North Carolina,2019,White,296,5.2,5745517.0
+38,North Dakota,2019,All,40,6.4,628810.0
+38,North Dakota,2019,American Indian/Alaska Native,0,0,29004.0
+38,North Dakota,2019,Asian,0,0,10489.0
+38,North Dakota,2019,Black/African American,19,102.2,18590.0
+38,North Dakota,2019,Hispanic/Latino,4,18.3,21861.0
+38,North Dakota,2019,Multiracial,0,0,9751.0
+38,North Dakota,2019,Native Hawaiian/Other Pacific Islander,0,0,384.0
+38,North Dakota,2019,White,17,3.2,538731.0
+39,Ohio,2019,All,965,9.8,9858082.0
+39,Ohio,2019,American Indian/Alaska Native,0,0,19818.0
+39,Ohio,2019,Asian,7,2.9,242968.0
+39,Ohio,2019,Black/African American,466,38.9,1197958.0
+39,Ohio,2019,Hispanic/Latino,63,18,349210.0
+39,Ohio,2019,Multiracial,33,20.6,160489.0
+39,Ohio,2019,Native Hawaiian/Other Pacific Islander,0,0,4013.0
+39,Ohio,2019,White,396,5,7883626.0
+40,Oklahoma,2019,All,336,10.3,3272310.0
+40,Oklahoma,2019,American Indian/Alaska Native,19,7.1,267221.0
+40,Oklahoma,2019,Asian,5,6.5,76505.0
+40,Oklahoma,2019,Black/African American,94,39.2,239504.0
+40,Oklahoma,2019,Hispanic/Latino,49,15.7,312338.0
+40,Oklahoma,2019,Multiracial,36,23.2,155389.0
+40,Oklahoma,2019,Native Hawaiian/Other Pacific Islander,0,0,5405.0
+40,Oklahoma,2019,White,133,6,2215948.0
+41,Oregon,2019,All,199,5.5,3597502.0
+41,Oregon,2019,American Indian/Alaska Native,4,10.1,39735.0
+41,Oregon,2019,Asian,4,2.3,172749.0
+41,Oregon,2019,Black/African American,22,32.7,67355.0
+41,Oregon,2019,Hispanic/Latino,36,8.4,426559.0
+41,Oregon,2019,Multiracial,6,6,100596.0
+41,Oregon,2019,Native Hawaiian/Other Pacific Islander,0,0,14289.0
+41,Oregon,2019,White,127,4.6,2776219.0
+42,Pennsylvania,2019,All,993,9.1,10926551.0
+42,Pennsylvania,2019,American Indian/Alaska Native,1,6.3,15952.0
+42,Pennsylvania,2019,Asian,16,4,395777.0
+42,Pennsylvania,2019,Black/African American,463,40.4,1146033.0
+42,Pennsylvania,2019,Hispanic/Latino,185,24.6,751776.0
+42,Pennsylvania,2019,Multiracial,37,26.5,139705.0
+42,Pennsylvania,2019,Native Hawaiian/Other Pacific Islander,0,0,3214.0
+42,Pennsylvania,2019,White,291,3.4,8474094.0
+44,Rhode Island,2019,All,71,7.8,914729.0
+44,Rhode Island,2019,American Indian/Alaska Native,0,0,3797.0
+44,Rhode Island,2019,Asian,1,3.2,31679.0
+44,Rhode Island,2019,Black/African American,15,27.9,53760.0
+44,Rhode Island,2019,Hispanic/Latino,17,12.9,132286.0
+44,Rhode Island,2019,Multiracial,3,19.2,15609.0
+44,Rhode Island,2019,Native Hawaiian/Other Pacific Islander,1,183.2,546.0
+44,Rhode Island,2019,White,34,5,677052.0
+45,South Carolina,2019,All,722,16.6,4360421.0
+45,South Carolina,2019,American Indian/Alaska Native,2,12.2,16404.0
+45,South Carolina,2019,Asian,2,2.6,77596.0
+45,South Carolina,2019,Black/African American,467,41.3,1129388.0
+45,South Carolina,2019,Hispanic/Latino,49,21.6,226631.0
+45,South Carolina,2019,Multiracial,32,57.1,56042.0
+45,South Carolina,2019,Native Hawaiian/Other Pacific Islander,0,0,2428.0
+45,South Carolina,2019,White,170,6,2851932.0
+46,South Dakota,2019,All,33,4.5,727796.0
+46,South Dakota,2019,American Indian/Alaska Native,12,22.5,53256.0
+46,South Dakota,2019,Asian,0,0,11616.0
+46,South Dakota,2019,Black/African American,3,20.5,14634.0
+46,South Dakota,2019,Hispanic/Latino,5,19.7,25421.0
+46,South Dakota,2019,Multiracial,1,8.4,11925.0
+46,South Dakota,2019,Native Hawaiian/Other Pacific Islander,0,0,383.0
+46,South Dakota,2019,White,12,2,610561.0
+47,Tennessee,2019,All,773,13.4,5748728.0
+47,Tennessee,2019,American Indian/Alaska Native,2,11.7,17067.0
+47,Tennessee,2019,Asian,7,6.5,107950.0
+47,Tennessee,2019,Black/African American,406,43.4,934490.0
+47,Tennessee,2019,Hispanic/Latino,77,27.9,275755.0
+47,Tennessee,2019,Multiracial,20,25.7,77685.0
+47,Tennessee,2019,Native Hawaiian/Other Pacific Islander,0,0,3082.0
+47,Tennessee,2019,White,261,6,4332699.0
+48,Texas,2019,All,4342,18.3,23663168.0
+48,Texas,2019,American Indian/Alaska Native,3,3.7,82151.0
+48,Texas,2019,Asian,62,5.1,1225849.0
+48,Texas,2019,Black/African American,"1,517",52.7,2876296.0
+48,Texas,2019,Hispanic/Latino,"1,778",20,8868685.0
+48,Texas,2019,Multiracial,189,66,286347.0
+48,Texas,2019,Native Hawaiian/Other Pacific Islander,3,14.3,20935.0
+48,Texas,2019,White,790,7.7,10302905.0
+49,Utah,2019,All,135,5.3,2536760.0
+49,Utah,2019,American Indian/Alaska Native,3,12.5,24010.0
+49,Utah,2019,Asian,3,4.4,68566.0
+49,Utah,2019,Black/African American,9,31,29021.0
+49,Utah,2019,Hispanic/Latino,46,13.6,337565.0
+49,Utah,2019,Multiracial,3,6.9,43474.0
+49,Utah,2019,Native Hawaiian/Other Pacific Islander,3,12.1,24717.0
+49,Utah,2019,White,68,3.4,2009407.0
+50,Vermont,2019,All,11,2.0,544186.0
+50,Vermont,2019,American Indian/Alaska Native,0,0,1828.0
+50,Vermont,2019,Asian,1,9.6,10381.0
+50,Vermont,2019,Black/African American,2,30.1,6642.0
+50,Vermont,2019,Hispanic/Latino,1,9.5,10505.0
+50,Vermont,2019,Multiracial,0,0,8319.0
+50,Vermont,2019,Native Hawaiian/Other Pacific Islander,0,0,158.0
+50,Vermont,2019,White,7,1.4,506353.0
+51,Virginia,2019,All,833,11.5,7215840.0
+51,Virginia,2019,American Indian/Alaska Native,3,15,19943.0
+51,Virginia,2019,Asian,10,2,495885.0
+51,Virginia,2019,Black/African American,526,38.4,1370165.0
+51,Virginia,2019,Hispanic/Latino,89,13.9,638302.0
+51,Virginia,2019,Multiracial,24,15.8,152023.0
+51,Virginia,2019,Native Hawaiian/Other Pacific Islander,0,0,5465.0
+51,Virginia,2019,White,181,4,4534057.0
+53,Washington,2019,All,480,7.5,6407007.0
+53,Washington,2019,American Indian/Alaska Native,2,2.5,79581.0
+53,Washington,2019,Asian,24,3.9,613155.0
+53,Washington,2019,Black/African American,102,40.8,250037.0
+53,Washington,2019,Hispanic/Latino,119,16.3,730266.0
+53,Washington,2019,Multiracial,20,9.3,215979.0
+53,Washington,2019,Native Hawaiian/Other Pacific Islander,3,6.8,44203.0
+53,Washington,2019,White,210,4.7,4473786.0
+54,West Virginia,2019,All,148,9.6,1539410.0
+54,West Virginia,2019,American Indian/Alaska Native,0,0,3429.0
+54,West Virginia,2019,Asian,0,0,12993.0
+54,West Virginia,2019,Black/African American,16,29.8,53604.0
+54,West Virginia,2019,Hispanic/Latino,3,12.6,23791.0
+54,West Virginia,2019,Multiracial,7,35,20013.0
+54,West Virginia,2019,Native Hawaiian/Other Pacific Islander,0,0,344.0
+54,West Virginia,2019,White,122,8.6,1425236.0
+55,Wisconsin,2019,All,212,4.3,4926880.0
+55,Wisconsin,2019,American Indian/Alaska Native,2,4.8,42038.0
+55,Wisconsin,2019,Asian,3,2.1,139890.0
+55,Wisconsin,2019,Black/African American,100,34.4,290849.0
+55,Wisconsin,2019,Hispanic/Latino,34,11.3,301670.0
+55,Wisconsin,2019,Multiracial,6,9.5,63211.0
+55,Wisconsin,2019,Native Hawaiian/Other Pacific Islander,1,55.6,1798.0
+55,Wisconsin,2019,White,66,1.6,4087424.0
+56,Wyoming,2019,All,13,2.7,484289.0
+56,Wyoming,2019,American Indian/Alaska Native,0,0,9514.0
+56,Wyoming,2019,Asian,0,0,5168.0
+56,Wyoming,2019,Black/African American,0,0,5175.0
+56,Wyoming,2019,Hispanic/Latino,5,11.4,43975.0
+56,Wyoming,2019,Multiracial,1,14.2,7036.0
+56,Wyoming,2019,Native Hawaiian/Other Pacific Islander,0,0,352.0
+56,Wyoming,2019,White,7,1.7,413069.0
+60,American Samoa,2019,All,0,0.0,36667.0
+60,American Samoa,2019,American Indian/Alaska Native,,,
+60,American Samoa,2019,Asian,,,
+60,American Samoa,2019,Black/African American,,,
+60,American Samoa,2019,Hispanic/Latino,,,
+60,American Samoa,2019,Multiracial,,,
+60,American Samoa,2019,Native Hawaiian/Other Pacific Islander,,,
+60,American Samoa,2019,White,,,
+66,Guam,2019,All,11,8.6,127737.0
+66,Guam,2019,American Indian/Alaska Native,,,
+66,Guam,2019,Asian,,,
+66,Guam,2019,Black/African American,,,
+66,Guam,2019,Hispanic/Latino,,,
+66,Guam,2019,Multiracial,,,
+66,Guam,2019,Native Hawaiian/Other Pacific Islander,,,
+66,Guam,2019,White,,,
+69,N. Mariana Islands,2019,All,2,4.9,40868.0
+69,N. Mariana Islands,2019,American Indian/Alaska Native,,,
+69,N. Mariana Islands,2019,Asian,,,
+69,N. Mariana Islands,2019,Black/African American,,,
+69,N. Mariana Islands,2019,Hispanic/Latino,,,
+69,N. Mariana Islands,2019,Multiracial,,,
+69,N. Mariana Islands,2019,Native Hawaiian/Other Pacific Islander,,,
+69,N. Mariana Islands,2019,White,,,
+72,Puerto Rico,2019,All,391,13.9,2811456.0
+72,Puerto Rico,2019,American Indian/Alaska Native,0,,
+72,Puerto Rico,2019,Asian,0,,
+72,Puerto Rico,2019,Black/African American,0,,
+72,Puerto Rico,2019,Hispanic/Latino,387,,
+72,Puerto Rico,2019,Multiracial,0,,
+72,Puerto Rico,2019,Native Hawaiian/Other Pacific Islander,0,,
+72,Puerto Rico,2019,White,4,,
+78,U.S. Virgin Islands,2019,All,8,9.1,87918.0
+78,U.S. Virgin Islands,2019,American Indian/Alaska Native,,,
+78,U.S. Virgin Islands,2019,Asian,,,
+78,U.S. Virgin Islands,2019,Black/African American,,,
+78,U.S. Virgin Islands,2019,Hispanic/Latino,,,
+78,U.S. Virgin Islands,2019,Multiracial,,,
+78,U.S. Virgin Islands,2019,Native Hawaiian/Other Pacific Islander,,,
+78,U.S. Virgin Islands,2019,White,,,

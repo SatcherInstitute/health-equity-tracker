@@ -1,16 +1,10 @@
 from datasources.data_source import DataSource
-from ingestion import constants, gcs_to_bq_util, merge_utils, standardized_columns as std_col
+from ingestion import gcs_to_bq_util, dataset_utils, merge_utils, standardized_columns as std_col
+# from ingestion.gcs_to_bq_util import load_csv_as_df_from_data_dir
+from ingestion.constants import STATE_LEVEL, COUNTY_LEVEL, Sex
 import pandas as pd
+import numpy as np
 
-cols_to_std = {
-    'Geography': std_col.STATE_NAME_COL,
-    'FIPS': std_col.STATE_FIPS_COL,
-    'Year': std_col.TIME_PERIOD_COL,
-    'Age Group': std_col.AGE_COL,
-    'Cases': std_col.HIV_CASES,
-    'Rate per 100000': std_col.HIV_PER_100K,
-    'Population': std_col.POPULATION_COL
-}
 
 RACE_GROUPS_TO_STANDARD = {
     'White': std_col.Race.WHITE_NH.value,
@@ -30,35 +24,9 @@ AGE_GROUPS = {
     '55+': '55+',
 }
 
-state_cols_std = {
-    'Geography': std_col.STATE_NAME_COL,
-    'FIPS': std_col.STATE_FIPS_COL,
-    'Age Group': std_col.AGE_COL,
-    'Sex': std_col.SEX_COL,
-    'Race/Ethnicity': std_col.RACE_OR_HISPANIC_COL,
-    'Year': std_col.TIME_PERIOD_COL,
-    'Cases': std_col.HIV_CASES,
-    'Rate per 100000': std_col.HIV_PER_100K,
-    'Population': std_col.POPULATION_COL
-}
-
-county_cols_std = {
-    'Geography': std_col.COUNTY_NAME_COL,
-    'FIPS': std_col.COUNTY_FIPS_COL,
-    'Age Group': std_col.AGE_COL,
-    'Sex': std_col.SEX_COL,
-    'Race/Ethnicity': std_col.RACE_OR_HISPANIC_COL,
-    'Year': std_col.TIME_PERIOD_COL,
-    'Cases': std_col.HIV_CASES,
-    'Rate per 100000': std_col.HIV_PER_100K,
-    'Population': std_col.POPULATION_COL
-}
-
-
 SOURCE_YEAR = '2019'
 
-
-SEX_GROUPS = {"male": constants.Sex.MALE, "female": constants.Sex.FEMALE}
+SEX_GROUPS = {"male": Sex.MALE, "female": Sex.FEMALE}
 
 
 class CDCHIVDiagnosesData(DataSource):
@@ -77,26 +45,33 @@ class CDCHIVDiagnosesData(DataSource):
         )
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        total_county_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+        cols = ['Sex', 'Age Group', 'Race/Ethnicity']
+        dtype = {'FIPS': str}
+
+        alls_county_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             'cdc_hiv_diagnoses/county', 'totals_county_2019.csv', dtype={'FIPS': str}, skiprows=9)
-        total_county_df['Sex'] = 'All'
-        total_county_df['Age Group'] = 'All'
-        total_county_df['Race/Ethnicity'] = 'All'
+        alls_state_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            'cdc_hiv_diagnoses/state', 'totals_state_2019.csv', dtype=dtype, skiprows=9)
 
-        total_state_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            'cdc_hiv_diagnoses/state', 'totals_state_2019.csv', dtype={'FIPS': str}, skiprows=9)
-        total_state_df['Sex'] = 'All'
-        total_state_df['Age Group'] = 'All'
-        total_state_df['Race/Ethnicity'] = 'All'
+        alls_county_df[cols] = alls_state_df[cols] = 'All'
 
-        for geo_level in [constants.STATE_LEVEL, constants.COUNTY_LEVEL]:
-            for demo in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
-                table_name = f'{demo}_{geo_level}'
+        for geo_level in [STATE_LEVEL, COUNTY_LEVEL]:
+            alls_df = alls_state_df if geo_level == STATE_LEVEL else alls_county_df
+            geo_col = std_col.STATE_NAME_COL if geo_level == STATE_LEVEL else std_col.COUNTY_NAME_COL
+            fips_col = std_col.STATE_FIPS_COL if geo_level == STATE_LEVEL else std_col.COUNTY_FIPS_COL
+
+            for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
+                table_name = f'{breakdown}_{geo_level}'
+
                 df = self.generate_breakdown_df(
-                    demo, geo_level, total_county_df, total_state_df)
-                df = self.format_df(df, demo, geo_level)
+                    breakdown, geo_level, alls_df, geo_col, fips_col)
+                # print('--')
+                # print(df)
 
-                df.to_csv(f'{demo}_{geo_level}_output.csv', index=False)
+                # df = dataset_utils.generate_pct_share_col_without_unknowns(
+                #     df, {std_col.HIV_CASES: std_col.HIV_PCT_SHARE}, demo, 'All')
+
+                df.to_csv(f'{breakdown}_{geo_level}_output.csv', index=False)
 
                 # float_cols = [std_col.POPULATION_PCT_COL,
                 #               std_col.POPULATION_COL,
@@ -111,15 +86,17 @@ class CDCHIVDiagnosesData(DataSource):
                 # gcs_to_bq_util.add_df_to_bq(
                 #     df, dataset, table_name, column_types=column_types)
 
-    def generate_breakdown_df(self, breakdown, geo_level, total_county_df, total_state_df):
+    def generate_breakdown_df(self, breakdown, geo_level, alls_df, geo_col, fips_col):
+        missing_data = ['Data suppressed', 'Data not available']
+        source_dfs = []
+        needed_cols = [fips_col, geo_col, std_col.TIME_PERIOD_COL, breakdown,
+                       std_col.HIV_CASES, std_col.HIV_PER_100K, std_col.POPULATION_COL]
 
         group_dict = {
             std_col.AGE_COL: AGE_GROUPS,
             std_col.SEX_COL: SEX_GROUPS,
             std_col.RACE_OR_HISPANIC_COL: RACE_GROUPS_TO_STANDARD,
         }
-
-        source_dfs = []
 
         demo_dict = {
             'American Indian/Alaska Native': 'aian',
@@ -131,87 +108,45 @@ class CDCHIVDiagnosesData(DataSource):
             'White': 'white',
         }
 
+        cols_std = {
+            'Geography': geo_col,
+            'FIPS': fips_col,
+            'Age Group': std_col.AGE_COL,
+            'Sex': std_col.SEX_COL,
+            'Race/Ethnicity': std_col.RACE_OR_HISPANIC_COL,
+            'Year': std_col.TIME_PERIOD_COL,
+            'Cases': std_col.HIV_CASES,
+            'Rate per 100000': std_col.HIV_PER_100K,
+            'Population': std_col.POPULATION_COL
+        }
+
         for group in group_dict[breakdown].keys():
             directory = f'cdc_hiv_diagnoses/{geo_level}'
-            demo_df = {}
-            if geo_level == 'state':
-                demo_df = total_state_df
-            if geo_level == 'county':
-                demo_df = total_county_df
+            filename = f'{breakdown}_{demo_dict.get(group, group)}_{geo_level}_{SOURCE_YEAR}.csv'
 
-            if group in AGE_GROUPS:
-                filename = f'{breakdown}_{group}_{geo_level}_{SOURCE_YEAR}.csv'
-                source_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-                    directory, filename, dtype={'FIPS': str}, skiprows=9)
-                source_dfs.append(source_df)
+            source_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+                directory, filename, dtype={'FIPS': str}, skiprows=9)
 
-            if group in SEX_GROUPS:
-                filename = f'{breakdown}_{group}_{geo_level}_{SOURCE_YEAR}.csv'
-                source_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-                    directory, filename, dtype={'FIPS': str}, skiprows=9)
-                source_dfs.append(source_df)
+            source_dfs.append(source_df)
 
-            if group in RACE_GROUPS_TO_STANDARD:
-                filename = f'{breakdown}_{demo_dict[group]}_{geo_level}_{SOURCE_YEAR}.csv'
-                source_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-                    directory, filename, dtype={'FIPS': str}, skiprows=9)
-                source_dfs.append(source_df)
+        source_dfs.append(alls_df)
+        merged_df = pd.concat(source_dfs, axis=0)
 
-        source_dfs.append(demo_df)
-        source_dfs = pd.concat(source_dfs, axis=0)
-        return source_dfs
+        df = merged_df.rename(columns=cols_std)
+        df = df[needed_cols]
 
-    def format_df(self, df, demo, geo_level):
+        if std_col.STATE_FIPS_COL in df.columns:
+            df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].str.zfill(
+                2)
 
-        if geo_level == 'state':
-            if demo == 'age':
-                df = df.rename(columns=state_cols_std)
-                needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.TIME_PERIOD_COL,
-                               std_col.AGE_COL, std_col.HIV_CASES, std_col.HIV_PER_100K, std_col.POPULATION_COL]
-                df = df[needed_cols].sort_values(
-                    [std_col.STATE_FIPS_COL, std_col.AGE_COL]).reset_index(drop=True)
-                return df
-            if demo == 'sex':
-                df = df.rename(columns=state_cols_std)
-                needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.TIME_PERIOD_COL,
-                               std_col.SEX_COL, std_col.HIV_CASES, std_col.HIV_PER_100K, std_col.POPULATION_COL]
-                df = df[needed_cols].sort_values(
-                    [std_col.STATE_FIPS_COL, std_col.SEX_COL]).reset_index(drop=True)
-                return df
-            if demo == 'race_and_ethnicity':
-                df = df.rename(columns=state_cols_std)
-                needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.TIME_PERIOD_COL,
-                               std_col.RACE_OR_HISPANIC_COL, std_col.HIV_CASES, std_col.HIV_PER_100K, std_col.POPULATION_COL]
-                df = df[needed_cols].sort_values(
-                    [std_col.STATE_NAME_COL, std_col.RACE_OR_HISPANIC_COL]).reset_index(drop=True)
-                return df
+        if std_col.COUNTY_FIPS_COL in df.columns:
+            df[std_col.COUNTY_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].apply(
+                lambda x: x.zfill(5))
 
-        if geo_level == 'county':
-            if demo == 'age':
-                df = df.rename(columns=county_cols_std)
-                needed_cols = [std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL, std_col.TIME_PERIOD_COL,
-                               std_col.AGE_COL, std_col.HIV_CASES, std_col.HIV_PER_100K, std_col.POPULATION_COL]
-                df[std_col.COUNTY_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].apply(
-                    lambda x: x.zfill(5))
-                df = merge_utils.merge_county_names(df)
-                df = df[needed_cols].sort_values(
-                    [std_col.COUNTY_FIPS_COL, std_col.AGE_COL]).reset_index(drop=True)
-                return df
-            if demo == 'sex':
-                df = df.rename(columns=county_cols_std)
-                needed_cols = [std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL, std_col.TIME_PERIOD_COL,
-                               std_col.SEX_COL, std_col.HIV_CASES, std_col.HIV_PER_100K, std_col.POPULATION_COL]
-                df[std_col.COUNTY_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].apply(
-                    lambda x: x.zfill(5))
-                df = df[needed_cols].sort_values(
-                    [std_col.COUNTY_FIPS_COL, std_col.SEX_COL]).reset_index(drop=True)
-                return df
-            if demo == 'race_and_ethnicity':
-                df = df.rename(columns=county_cols_std)
-                needed_cols = [std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL, std_col.TIME_PERIOD_COL,
-                               std_col.RACE_OR_HISPANIC_COL, std_col.HIV_CASES, std_col.HIV_PER_100K, std_col.POPULATION_COL]
-                df[std_col.COUNTY_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].apply(
-                    lambda x: x.zfill(5))
-                df = df[needed_cols].sort_values(
-                    [std_col.COUNTY_FIPS_COL, std_col.RACE_OR_HISPANIC_COL]).reset_index(drop=True)
-            return df
+        df = df.sort_values([fips_col, breakdown]).reset_index(drop=True)
+        df.loc[df[std_col.HIV_CASES].isin(
+            missing_data), std_col.HIV_CASES] = np.nan
+        df.loc[df[std_col.HIV_PER_100K].isin(
+            missing_data), std_col.HIV_PER_100K] = np.nan
+
+        return df
