@@ -77,10 +77,23 @@ class CDCHIVDiagnosesData(DataSource):
         )
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
+        total_county_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            'cdc_hiv_diagnoses/county', 'totals_county_2019.csv', dtype={'FIPS': str}, skiprows=9)
+        total_county_df['Sex'] = 'All'
+        total_county_df['Age Group'] = 'All'
+        total_county_df['Race/Ethnicity'] = 'All'
+
+        total_state_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            'cdc_hiv_diagnoses/state', 'totals_state_2019.csv', dtype={'FIPS': str}, skiprows=9)
+        total_state_df['Sex'] = 'All'
+        total_state_df['Age Group'] = 'All'
+        total_state_df['Race/Ethnicity'] = 'All'
+
         for geo_level in [constants.STATE_LEVEL, constants.COUNTY_LEVEL]:
             for demo in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
                 table_name = f'{demo}_{geo_level}'
-                df = self.generate_breakdown_df(demo, geo_level)
+                df = self.generate_breakdown_df(
+                    demo, geo_level, total_county_df, total_state_df)
                 df = self.format_df(df, demo, geo_level)
 
                 df.to_csv(f'{demo}_{geo_level}_output.csv', index=False)
@@ -98,7 +111,7 @@ class CDCHIVDiagnosesData(DataSource):
                 # gcs_to_bq_util.add_df_to_bq(
                 #     df, dataset, table_name, column_types=column_types)
 
-    def generate_breakdown_df(self, breakdown, geo_level):
+    def generate_breakdown_df(self, breakdown, geo_level, total_county_df, total_state_df):
 
         group_dict = {
             std_col.AGE_COL: AGE_GROUPS,
@@ -120,6 +133,11 @@ class CDCHIVDiagnosesData(DataSource):
 
         for group in group_dict[breakdown].keys():
             directory = f'cdc_hiv_diagnoses/{geo_level}'
+            demo_df = {}
+            if geo_level == 'state':
+                demo_df = total_state_df
+            if geo_level == 'county':
+                demo_df = total_county_df
 
             if group in AGE_GROUPS:
                 filename = f'{breakdown}_{group}_{geo_level}_{SOURCE_YEAR}.csv'
@@ -139,6 +157,7 @@ class CDCHIVDiagnosesData(DataSource):
                     directory, filename, dtype={'FIPS': str}, skiprows=9)
                 source_dfs.append(source_df)
 
+        source_dfs.append(demo_df)
         source_dfs = pd.concat(source_dfs, axis=0)
         return source_dfs
 
