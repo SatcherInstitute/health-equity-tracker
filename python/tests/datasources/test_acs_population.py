@@ -151,104 +151,17 @@ DTYPE = {
 }
 
 
-# -
-# by_race_state
-# -
-# by_sex_age_race_state
-# -
-# by_sex_age_state
-# -
-# by_age_state
-# -
-# by_sex_state
-# -
-# by_age_national
-# -
-# by_race_national
-# -
-# by_sex_national
-# -
-# by_race_state_time_series
-# -
-# by_race_state_time_series
-# -
-# by_race_national_time_series
-# -
-# by_race_national_time_series
-# -
-# by_sex_age_race_state_time_series
-# -
-# by_sex_age_race_state_time_series
-# -
-# by_sex_age_state_time_series
-# -
-# by_sex_age_state_time_series
-# -
-# by_age_state_time_series
-# -
-# by_age_state_time_series
-# -
-# by_age_national_time_series
-# -
-# by_age_national_time_series
-# -
-# by_sex_state_time_series
-# -
-# by_sex_state_time_series
-# -
-# by_sex_national_time_series
-# -
-# by_sex_national_time_series
-
-
-"""
-
--
-by_race_county
--
-by_sex_age_race_county
--
-by_sex_age_county
--
-by_age_county
--
-by_sex_county
--
-by_race_county_time_series
--
-by_race_county_time_series
--
-by_sex_age_race_county_time_series
--
-by_sex_age_race_county_time_series
--
-by_sex_age_county_time_series
--
-by_sex_age_county_time_series
--
-by_age_county_time_series
--
-by_age_county_time_series
--
-by_sex_county_time_series
--
-by_sex_county_time_series
-"""
-
-
 @mock.patch('ingestion.census.fetch_acs_metadata',
             return_value=get_acs_metadata_as_json())
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
             side_effect=_load_values_as_df)
-@mock.patch('datasources.acs_population.ACSPopulationIngester.write_single_year_for_breakdown_to_bq',
-            return_value=None)
-@mock.patch('datasources.acs_population.ACSPopulationIngester.write_time_series_for_breakdown_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqStateNationalCalls(
-        mock_bq_time_series: mock.MagicMock,
-        mock_bq_single_year: mock.MagicMock,
-        mock_cache: mock.MagicMock,
-        mock_json: mock.MagicMock):
+    mock_bq: mock.MagicMock,
+    mock_cache: mock.MagicMock,
+    mock_json: mock.MagicMock
+):
     """ Test the overall function structure for a state (and national) level ingester,
     based on the order and structure of the mocked calls to ACS, our cache of ACS, and our BQ"""
 
@@ -292,50 +205,45 @@ def testWriteToBqStateNationalCalls(
         '2019-SEX_BY_AGE_(HISPANIC_OR_LATINO)_state.json',
         '2019-SEX_BY_AGE_(WHITE_ALONE,_NOT_HISPANIC_OR_LATINO)_state.json']
 
-    # wrappers for writing single year to bq
-    single_year_bq_table_names_in_order = [
-        call[0][0] for call in mock_bq_single_year.call_args_list]
-    assert single_year_bq_table_names_in_order == [
-        "by_race_state",
-        "by_sex_age_race_state",
-        "by_sex_age_state",
-        "by_age_state",
-        "by_sex_state",
-        "by_age_national",
-        "by_race_national",
-        "by_sex_national"
+    table_names_for_bq = [
+        call[0][2] for call in mock_bq.call_args_list
     ]
-
-    # wrappers for combining and writing/appending time_series to bq
-    time_series_bq_table_names_in_order = [
-        call[0][0] for call in mock_bq_time_series.call_args_list]
-    assert time_series_bq_table_names_in_order == [
-        "by_race_state",
-        "by_race_national",
-        "by_sex_age_race_state",
-        "by_sex_age_race_national",
-        "by_sex_age_state",
-        "by_sex_age_national",
-        "by_age_state",
-        "by_age_national",
-        "by_sex_state",
-        "by_sex_national"
-    ]
+    assert table_names_for_bq == ["by_race_state",
+                                  "by_sex_age_race_state",
+                                  "by_sex_age_state",
+                                  "by_age_state",
+                                  "by_sex_state",
+                                  "by_age_national",
+                                  "by_race_national",
+                                  "by_sex_national",
+                                  "by_race_state_time_series",
+                                  "by_race_state_time_series",
+                                  "by_race_national_time_series",
+                                  "by_race_national_time_series",
+                                  "by_sex_age_race_state_time_series",
+                                  "by_sex_age_race_state_time_series",
+                                  "by_sex_age_state_time_series",
+                                  "by_sex_age_state_time_series",
+                                  "by_age_state_time_series",
+                                  "by_age_state_time_series",
+                                  "by_age_national_time_series",
+                                  "by_age_national_time_series",
+                                  "by_sex_state_time_series",
+                                  "by_sex_state_time_series",
+                                  "by_sex_national_time_series",
+                                  "by_sex_national_time_series"]
 
 
 @mock.patch('ingestion.census.fetch_acs_metadata',
             return_value=get_acs_metadata_as_json())
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
             side_effect=_load_values_as_df)
-@mock.patch('datasources.acs_population.ACSPopulationIngester.write_single_year_for_breakdown_to_bq',
-            return_value=None)
-@mock.patch('datasources.acs_population.ACSPopulationIngester.write_time_series_for_breakdown_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqCountyCalls(
-        mock_bq_time_series: mock.MagicMock,
-        mock_bq_single_year: mock.MagicMock,
-        mock_cache: mock.MagicMock,
-        mock_json: mock.MagicMock
+    mock_bq: mock.MagicMock,
+    mock_cache: mock.MagicMock,
+    mock_json: mock.MagicMock
 ):
     """ Test the overall function structure for a county level ingester,
     based on the order and structure of the mocked calls to ACS, our cache of ACS, and our BQ"""
@@ -379,27 +287,24 @@ def testWriteToBqCountyCalls(
         '2019-SEX_BY_AGE_(HISPANIC_OR_LATINO)_county.json',
         '2019-SEX_BY_AGE_(WHITE_ALONE,_NOT_HISPANIC_OR_LATINO)_county.json']
 
-    # wrappers for writing single year to bq
-    single_year_bq_table_names_in_order = [
-        call[0][0] for call in mock_bq_single_year.call_args_list]
-    assert single_year_bq_table_names_in_order == [
-        "by_race_county",
-        "by_sex_age_race_county",
-        "by_sex_age_county",
-        "by_age_county",
-        "by_sex_county",
+    table_names_for_bq = [
+        call[0][2] for call in mock_bq.call_args_list
     ]
-
-    # wrappers for combining and writing/appending time_series to bq
-    time_series_bq_table_names_in_order = [
-        call[0][0] for call in mock_bq_time_series.call_args_list]
-    assert time_series_bq_table_names_in_order == [
-        "by_race_county",
-        "by_sex_age_race_county",
-        "by_sex_age_county",
-        "by_age_county",
-        "by_sex_county",
-    ]
+    assert table_names_for_bq == ["by_race_county",
+                                  "by_sex_age_race_county",
+                                  "by_sex_age_county",
+                                  "by_age_county",
+                                  "by_sex_county",
+                                  "by_race_county_time_series",
+                                  "by_race_county_time_series",
+                                  "by_sex_age_race_county_time_series",
+                                  "by_sex_age_race_county_time_series",
+                                  "by_sex_age_county_time_series",
+                                  "by_sex_age_county_time_series",
+                                  "by_age_county_time_series",
+                                  "by_age_county_time_series",
+                                  "by_sex_county_time_series",
+                                  "by_sex_county_time_series"]
 
 
 @mock.patch('ingestion.census.fetch_acs_metadata',
