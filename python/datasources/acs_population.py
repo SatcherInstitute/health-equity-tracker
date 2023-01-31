@@ -11,13 +11,6 @@ from ingestion.census import (get_census_params, parse_acs_metadata,
 from ingestion.dataset_utils import add_sum_of_rows, generate_pct_share_col_without_unknowns
 
 DEFAULT_SINGLE_YEAR_ACS_BASE_URL = "https://api.census.gov/data/2019/acs/acs5"
-BASE_ACS_URLS = [
-    DEFAULT_SINGLE_YEAR_ACS_BASE_URL,
-    "https://api.census.gov/data/2018/acs/acs5",
-    "https://api.census.gov/data/2017/acs/acs5",
-    "https://api.census.gov/data/2016/acs/acs5",
-    "https://api.census.gov/data/2015/acs/acs5",
-]
 
 
 HISPANIC_BY_RACE_CONCEPT = "HISPANIC OR LATINO ORIGIN BY RACE"
@@ -254,11 +247,12 @@ def update_col_types(frame):
 
 class ACSPopulationIngester():
     """American Community Survey population data in the United States from the
-       US Census."""
+       US Census.
 
-    def __init__(self, county_level, base_acs_urls):
-        # The base ACS urls to use for API by-year calls.
-        self.base_acs_urls = base_acs_urls
+       This class is instanciated twice by ACSPopulation; once for county level
+       and once for state+national level"""
+
+    def __init__(self, county_level, base_acs_urls=None):
 
         # Whether the data is at the county level. If false, it is at the state
         # level
@@ -273,6 +267,18 @@ class ACSPopulationIngester():
         self.base_sort_by_cols = (
             [std_col.STATE_FIPS_COL, std_col.COUNTY_FIPS_COL] if county_level
             else [std_col.STATE_FIPS_COL])
+
+        # collection of all of the tables for
+        # combining and uploading to bq
+        self.time_series_table_items = {}
+
+        self.base_acs_urls = base_acs_urls if base_acs_urls is not None else [
+            DEFAULT_SINGLE_YEAR_ACS_BASE_URL,
+            "https://api.census.gov/data/2018/acs/acs5",
+            "https://api.census.gov/data/2017/acs/acs5",
+            "https://api.census.gov/data/2016/acs/acs5",
+            "https://api.census.gov/data/2015/acs/acs5",
+        ]
 
     def upload_to_gcs(self, gcs_bucket):
         """Uploads population data from census to GCS bucket."""
@@ -305,141 +311,153 @@ class ACSPopulationIngester():
         dataset: The BigQuery dataset to write to
         gcs_bucket: The name of the gcs bucket to read the data from"""
 
-        # collect all of the tables for later
-        # combining and uploading to bq
-        time_series_table_items = {}
-
-        # collect the names needed for our HET BQ tables
-        bq_table_names = []
-
-        # TODO change this to have it read metadata from GCS bucket
+        # iterate over each year
         for base_acs_url in self.base_acs_urls:
-
             year = extract_year(base_acs_url)
+            frames = self.build_frames_for_this_year(
+                gcs_bucket, base_acs_url)
 
-            metadata = census.fetch_acs_metadata(base_acs_url)
-            var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
-
-            race_and_hispanic_frame = gcs_to_bq_util.load_values_as_df(
-                gcs_bucket, self.get_filename(HISPANIC_BY_RACE_CONCEPT, year))
-            race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
-
-            race_and_hispanic_frame = standardize_frame(
-                race_and_hispanic_frame,
-                get_vars_for_group(HISPANIC_BY_RACE_CONCEPT, var_map, 2),
-                [std_col.HISPANIC_COL, std_col.RACE_COL],
-                self.county_level,
-                std_col.POPULATION_COL)
-
-            sex_by_age_frames = {}
-            for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
-                sex_by_age_frame = gcs_to_bq_util.load_values_as_df(
-                    gcs_bucket, self.get_filename(concept, year))
-                sex_by_age_frame = update_col_types(sex_by_age_frame)
-                sex_by_age_frames[concept] = sex_by_age_frame
-
-            frames = {
-                self.get_table_name_by_race(): self.get_all_races_frame(
-                    race_and_hispanic_frame),
-                self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(
-                    var_map, sex_by_age_frames)
-            }
-
-            frames['by_sex_age_%s' % self.get_geo_name()] = self.get_by_sex_age(
-                frames[self.get_table_name_by_sex_age_race()], get_decade_age_bucket)
-
-            by_sex_standard_age_uhc = None
-            by_sex_decade_plus_5_age_uhc = None
-            by_sex_voter_age_uhc = None
-            by_sex_bjs_prison_age = None
-            by_sex_bjs_jail_age = None
-
-            if not self.county_level:
-                by_sex_standard_age_uhc = self.get_by_sex_age(
-                    frames[self.get_table_name_by_sex_age_race()], get_uhc_standard_age_bucket)
-                by_sex_decade_plus_5_age_uhc = self.get_by_sex_age(
-                    frames[self.get_table_name_by_sex_age_race()], get_uhc_decade_plus_5_age_bucket)
-                by_sex_voter_age_uhc = self.get_by_sex_age(
-                    frames[self.get_table_name_by_sex_age_race()], get_uhc_voter_age_bucket)
-                by_sex_bjs_prison_age = self.get_by_sex_age(
-                    frames[self.get_table_name_by_sex_age_race()], get_prison_age_bucket)
-                by_sex_bjs_jail_age = self.get_by_sex_age(
-                    frames[self.get_table_name_by_sex_age_race()], get_jail_age_bucket)
-
-            frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
-                frames['by_sex_age_%s' % self.get_geo_name()],
-                by_sex_standard_age_uhc, by_sex_decade_plus_5_age_uhc,
-                by_sex_voter_age_uhc, by_sex_bjs_prison_age, by_sex_bjs_jail_age)
-
-            frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
-                frames[self.get_table_name_by_sex_age_race()])
-
-            # Generate national level datasets based on state datasets
-            if not self.county_level:
-                for demo in ['age', 'race', 'sex']:
-                    state_table_name = f'by_{demo}_state'
-                    frames[f'by_{demo}_national'] = generate_national_dataset_with_all_states(
-                        frames[state_table_name], demo)
-
+            # iterate across the prepared dataframe items
+            # writing single-years and also queuing for time-series
             for table_name, df in frames.items():
-
                 if base_acs_url == DEFAULT_SINGLE_YEAR_ACS_BASE_URL:
-
-                    df_single_year = df.copy()
-
-                    float_cols = [std_col.POPULATION_COL]
-                    if std_col.POPULATION_PCT_COL in df_single_year.columns:
-                        float_cols.append(std_col.POPULATION_PCT_COL)
-                    column_types = gcs_to_bq_util.get_bq_column_types(
-                        df_single_year, float_cols=float_cols)
-
-                    # write the default single year table without a time_period col
-                    # to maintain existing merge_util functionality
-                    gcs_to_bq_util.add_df_to_bq(
-                        df_single_year, dataset, table_name, column_types=column_types)
+                    self.write_single_year_for_breakdown_to_bq(
+                        table_name, df, dataset)
 
                 # additionally, prepare each yearly table for
                 # later combination into _time_series tables for bq
                 df_time_series = df.copy()
                 df_time_series[std_col.TIME_PERIOD_COL] = year
 
-                # collect table names (no duplicates)
-                if table_name not in bq_table_names:
-                    bq_table_names.append(table_name)
-
-                # queue for the combining across years / upload
+                # queue for combining across years / upload
                 # to bq process
-                time_series_table_items[f'{year}___{table_name}'] = df_time_series
+                self.time_series_table_items[f'{year}___{table_name}'] = df_time_series
 
-        # combine multiple years into geo/demo tables,
-        # and upload to BQ
-        for bq_table_name in bq_table_names:
+        # iterate over desired HET BigQuery breakdowns and write to BQ
+        for demo_breakdown in [
+            "race",
+            "sex_age_race",
+            "sex_age",
+            "age",
+            "sex"
+        ]:
+            if self.county_level is True:
+                self.write_time_series_for_breakdown_to_bq(
+                    f'by_{demo_breakdown}_county', dataset)
+            # national datasets are a side-effect of state dataset creation
+            else:
+                self.write_time_series_for_breakdown_to_bq(
+                    f'by_{demo_breakdown}_state', dataset)
+                self.write_time_series_for_breakdown_to_bq(
+                    f'by_{demo_breakdown}_national', dataset)
 
-            # we want the first yearly df for a breakdown to start a fresh BigQuery table
-            overwrite = True
+    def build_frames_for_this_year(self, gcs_bucket: str, base_acs_url: str):
+        year = extract_year(base_acs_url)
 
-            for yearly_table_name, yearly_df in time_series_table_items.items():
-                if bq_table_name in yearly_table_name:
+        metadata = census.fetch_acs_metadata(base_acs_url)
+        var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
-                    # yearly_breakdown_dfs.append(yearly_df)
-                    # df = pd.concat(yearly_breakdown_dfs, axis=0).reset_index(drop=True)
+        race_and_hispanic_frame = gcs_to_bq_util.load_values_as_df(
+            gcs_bucket, self.get_filename(HISPANIC_BY_RACE_CONCEPT, year))
+        race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
 
-                    float_cols = [std_col.POPULATION_COL]
-                    if std_col.POPULATION_PCT_COL in yearly_df.columns:
-                        float_cols.append(std_col.POPULATION_PCT_COL)
-                    column_types = gcs_to_bq_util.get_bq_column_types(
-                        yearly_df, float_cols=float_cols)
+        race_and_hispanic_frame = standardize_frame(
+            race_and_hispanic_frame,
+            get_vars_for_group(HISPANIC_BY_RACE_CONCEPT, var_map, 2),
+            [std_col.HISPANIC_COL, std_col.RACE_COL],
+            self.county_level,
+            std_col.POPULATION_COL)
 
-                    gcs_to_bq_util.add_df_to_bq(
-                        yearly_df, dataset,
-                        f'{bq_table_name}_time_series',
-                        column_types=column_types,
-                        overwrite=overwrite
-                    )
+        sex_by_age_frames = {}
+        for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
+            sex_by_age_frame = gcs_to_bq_util.load_values_as_df(
+                gcs_bucket, self.get_filename(concept, year))
+            sex_by_age_frame = update_col_types(sex_by_age_frame)
+            sex_by_age_frames[concept] = sex_by_age_frame
 
-                    # subsequent yearly breakdown dfs should APPEND not OVERWRITE
-                    if overwrite is True:
-                        overwrite = False
+        frames = {
+            self.get_table_name_by_race(): self.get_all_races_frame(
+                race_and_hispanic_frame),
+            self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(
+                var_map, sex_by_age_frames)
+        }
+
+        frames['by_sex_age_%s' % self.get_geo_name()] = self.get_by_sex_age(
+            frames[self.get_table_name_by_sex_age_race()], get_decade_age_bucket)
+
+        by_sex_standard_age_uhc = None
+        by_sex_decade_plus_5_age_uhc = None
+        by_sex_voter_age_uhc = None
+        by_sex_bjs_prison_age = None
+        by_sex_bjs_jail_age = None
+
+        if not self.county_level:
+            by_sex_standard_age_uhc = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_uhc_standard_age_bucket)
+            by_sex_decade_plus_5_age_uhc = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_uhc_decade_plus_5_age_bucket)
+            by_sex_voter_age_uhc = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_uhc_voter_age_bucket)
+            by_sex_bjs_prison_age = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_prison_age_bucket)
+            by_sex_bjs_jail_age = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_jail_age_bucket)
+
+        frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
+            frames['by_sex_age_%s' % self.get_geo_name()],
+            by_sex_standard_age_uhc, by_sex_decade_plus_5_age_uhc,
+            by_sex_voter_age_uhc, by_sex_bjs_prison_age, by_sex_bjs_jail_age)
+
+        frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
+            frames[self.get_table_name_by_sex_age_race()])
+
+        # Generate national level datasets based on state datasets
+        if not self.county_level:
+            for demo in ['age', 'race', 'sex']:
+                state_table_name = f'by_{demo}_state'
+                frames[f'by_{demo}_national'] = generate_national_dataset_with_all_states(
+                    frames[state_table_name], demo)
+
+        return frames
+
+    def write_single_year_for_breakdown_to_bq(self, table_name: str, df, dataset: str):
+        df_single_year = df.copy()
+        float_cols = [std_col.POPULATION_COL]
+        if std_col.POPULATION_PCT_COL in df_single_year.columns:
+            float_cols.append(std_col.POPULATION_PCT_COL)
+        column_types = gcs_to_bq_util.get_bq_column_types(
+            df_single_year, float_cols=float_cols)
+
+        # write the default single year table without a time_period col
+        # to maintain existing merge_util functionality
+        gcs_to_bq_util.add_df_to_bq(
+            df_single_year, dataset, table_name, column_types=column_types)
+
+    def write_time_series_for_breakdown_to_bq(self, table_name: str, dataset: str):
+        # # combine multiple years into geo/demo tables,
+        # # and upload to BQ
+
+        # the first yearly df per breakdown should OVERWRITE
+        overwrite = True
+
+        for yearly_table_name, yearly_df in self.time_series_table_items.items():
+            if table_name in yearly_table_name:
+
+                float_cols = [std_col.POPULATION_COL]
+                if std_col.POPULATION_PCT_COL in yearly_df.columns:
+                    float_cols.append(std_col.POPULATION_PCT_COL)
+                column_types = gcs_to_bq_util.get_bq_column_types(
+                    yearly_df, float_cols=float_cols)
+                gcs_to_bq_util.add_df_to_bq(
+                    yearly_df, dataset,
+                    f'{table_name}_time_series',
+                    column_types=column_types,
+                    overwrite=overwrite
+                )
+
+                # subsequent yearly breakdown dfs should APPEND not OVERWRITE
+                if overwrite is True:
+                    overwrite = False
 
     def get_table_geo_suffix(self):
         return "_county" if self.county_level else "_state"
@@ -709,6 +727,7 @@ class ACSPopulationIngester():
 
 
 class ACSPopulation(DataSource):
+    """ Called once from the DAG  """
 
     @staticmethod
     def get_table_name():
@@ -733,8 +752,8 @@ class ACSPopulation(DataSource):
 
     def _create_ingesters(self):
         return [
-            ACSPopulationIngester(False, BASE_ACS_URLS),
-            ACSPopulationIngester(True, BASE_ACS_URLS)
+            ACSPopulationIngester(False),
+            ACSPopulationIngester(True)
         ]
 
 

@@ -1,0 +1,11 @@
+time_period,state_fips,county_fips,county_name,age,population,population_pct
+"2018",17,17051,"Fayette County, Illinois",0-9,2303,10.7
+"2018",17,17051,"Fayette County, Illinois",10-19,2582,12.0
+"2018",17,17051,"Fayette County, Illinois",20-29,2782,12.9
+"2018",17,17051,"Fayette County, Illinois",30-39,2678,12.4
+"2018",17,17051,"Fayette County, Illinois",40-49,2633,12.2
+"2018",17,17051,"Fayette County, Illinois",50-59,3135,14.5
+"2018",17,17051,"Fayette County, Illinois",60-69,2490,11.5
+"2018",17,17051,"Fayette County, Illinois",70-79,1978,9.2
+"2018",17,17051,"Fayette County, Illinois",80+,984,4.6
+"2018",17,17051,"Fayette County, Illinois",All,21565,100.0
