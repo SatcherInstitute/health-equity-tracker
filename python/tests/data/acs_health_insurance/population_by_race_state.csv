@@ -1,0 +1,43 @@
+state_fips,state_name,population,population_pct,race_category_id,race_and_ethnicity
+01,Alabama,25565,0.5,AIAN,American Indian and Alaska Native
+01,Alabama,94073,1.9,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander"
+01,Alabama,22740,0.5,AIAN_NH,American Indian and Alaska Native (NH)
+01,Alabama,4876250,100.0,ALL,All
+01,Alabama,67013,1.4,API_NH,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+01,Alabama,66270,1.4,ASIAN,Asian
+01,Alabama,65410,1.3,ASIAN_NH,Asian (NH)
+01,Alabama,1299048,26.6,BLACK,Black or African American
+01,Alabama,1291524,26.5,BLACK_NH,Black or African American (NH)
+01,Alabama,208626,4.3,HISP,Hispanic or Latino
+01,Alabama,92220,1.9,MULTI,Two or more races
+01,Alabama,83335,1.7,MULTI_NH,Two or more races (NH)
+01,Alabama,162882,3.3,MULTI_OR_OTHER_STANDARD,Two or more races & Unrepresented race
+01,Alabama,91418,1.9,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race (NH)
+01,Alabama,4667624,95.7,NH,Not Hispanic or Latino
+01,Alabama,2238,0.05,NHPI,Native Hawaiian and Pacific Islander
+01,Alabama,1603,0.03,NHPI_NH,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,70662,1.4,OTHER_STANDARD,Unrepresented race
+01,Alabama,8083,0.2,OTHER_STANDARD_NH,Unrepresented race (NH)
+01,Alabama,3320247,68.1,WHITE,White
+01,Alabama,3194929,65.5,WHITE_NH,White (NH)
+72,Puerto Rico,6838,0.2,AIAN,American Indian and Alaska Native
+72,Puerto Rico,13344,0.4,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander"
+72,Puerto Rico,118,0.0,AIAN_NH,American Indian and Alaska Native (NH)
+72,Puerto Rico,3318447,100.0,ALL,All
+72,Puerto Rico,2372,0.1,API_NH,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+72,Puerto Rico,6237,0.2,ASIAN,Asian
+72,Puerto Rico,2351,0.1,ASIAN_NH,Asian (NH)
+72,Puerto Rico,386676,11.7,BLACK,Black or African American
+72,Puerto Rico,3179,0.1,BLACK_NH,Black or African American (NH)
+72,Puerto Rico,3275919,98.7,HISP,Hispanic or Latino
+72,Puerto Rico,175649,5.3,MULTI,Two or more races
+72,Puerto Rico,1993,0.1,MULTI_NH,Two or more races (NH)
+72,Puerto Rico,730413,22.0,MULTI_OR_OTHER_STANDARD,Two or more races & Unrepresented race
+72,Puerto Rico,5136,0.2,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race (NH)
+72,Puerto Rico,42528,1.3,NH,Not Hispanic or Latino
+72,Puerto Rico,269,0.01,NHPI,Native Hawaiian and Pacific Islander
+72,Puerto Rico,21,0.0,NHPI_NH,Native Hawaiian and Pacific Islander (NH)
+72,Puerto Rico,554764,16.7,OTHER_STANDARD,Unrepresented race
+72,Puerto Rico,3143,0.1,OTHER_STANDARD_NH,Unrepresented race (NH)
+72,Puerto Rico,2188014,65.9,WHITE,White
+72,Puerto Rico,31723,1.0,WHITE_NH,White (NH)

@@ -1,0 +1,4 @@
+state_fips,county_fips,county_name,race_category_id,race_and_ethnicity,population,population_pct
+17,17051,"Fayette County, Illinois",BLACK,Black,2303,10.7
+17,17051,"Fayette County, Illinois",WHITE,White,2582,12.0
+17,17051,"Fayette County, Illinois",ALL,All,21565,100.0

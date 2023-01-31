@@ -8,18 +8,17 @@ from ingestion.census import (
     parse_acs_metadata,
     get_vars_for_group,
     standardize_frame,
-    get_census_params,
-)
+    get_census_params)
 
 from ingestion.merge_utils import (
+    merge_pop_numbers,
     merge_state_ids,
     merge_county_names)
 
 from ingestion.dataset_utils import (
     generate_per_100k_col,
     generate_pct_share_col_without_unknowns,
-    add_sum_of_rows,
-)
+    add_sum_of_rows)
 
 from ingestion.constants import (
     US_FIPS,
@@ -32,8 +31,7 @@ from ingestion.constants import (
 
 from ingestion.standardized_columns import (
     Race,
-    add_race_columns_from_category_id,
-)
+    add_race_columns_from_category_id)
 
 BASE_ACS_URL = 'https://api.census.gov/data/2019/acs/acs5'
 
@@ -59,7 +57,6 @@ HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = {
     'C27001E': Race.NHPI.value,
     'C27001F': Race.OTHER_STANDARD.value,
     'C27001G': Race.MULTI.value,
-    'C27001H': Race.WHITE_NH.value,
     'C27001I': Race.HISP.value,
 }
 
@@ -90,7 +87,7 @@ def update_col_types(df):
         if col in str_cols:
             colTypes[col] = str
         else:
-            colTypes[col] = float
+            colTypes[col] = int
     df = df.astype(colTypes)
     return df
 
@@ -151,24 +148,24 @@ class AcsHealthInsuranceIngester(DataSource):
         dfs = {}
         for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
             for demo in [RACE, AGE, SEX]:
-                table_name = f'by_{demo}'
-                if geo == COUNTY_LEVEL:
-                    table_name += '_county'
-                else:
-                    table_name += '_state'
+                table_name = f'by_{demo}_{geo}_processed'
 
                 df = self.get_raw_data(demo, geo, gcs_bucket=gcs_bucket)
                 df = self.post_process(df, demo, geo)
+
+                if demo == RACE:
+                    add_race_columns_from_category_id(df)
+
                 dfs[table_name] = df
 
         for table_name, df in dfs.items():
-            print(df.to_string())
-            # float_cols = [std_col.WITH_HEALTH_INSURANCE_COL,
-            #               std_col.WITH_HEALTH_INSURANCE_COL,
-            #               std_col.POPULATION_COL]
-            float_cols = []
+            float_cols = [std_col.UNINSURED_PER_100K_COL,
+                          std_col.UNINSURED_POPULATION_PCT,
+                          std_col.UNINSURED_PCT_SHARE_COL]
+
             gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=gcs_to_bq_util.get_bq_column_types(df, float_cols)
+                df, dataset, table_name,
+                column_types=gcs_to_bq_util.get_bq_column_types(df, float_cols)
             )
 
     # Get Health insurance data from either GCS or Directly, and aggregate the data in memory
@@ -182,6 +179,7 @@ class AcsHealthInsuranceIngester(DataSource):
                 dfs = []
                 for concept, race in CONCEPTS_TO_RACE.items():
                     # Get cached data from GCS
+                    print(concept, race, geo)
                     df = gcs_to_bq_util.load_values_as_df(
                         gcs_bucket, self.get_filename_race(race, geo == COUNTY_LEVEL)
                     )
@@ -201,7 +199,7 @@ class AcsHealthInsuranceIngester(DataSource):
                                                     var_map)
 
     def generate_df_for_concept(self, df, demo, geo, concept, var_map):
-        """Trasforms the encoded census data into a dataframe ready
+        """Transforms the encoded census data into a dataframe ready
            to have post processing functions run on it.
 
            In this case, we want a dataframe which records the condition
@@ -284,6 +282,15 @@ class AcsHealthInsuranceIngester(DataSource):
         return df.groupby(groupby_cols).sum().reset_index()
 
     def post_process(self, df, demo, geo):
+        """Merge population data, state, and county names.
+           Do all needed calculations to generate per100k and pct share
+           columns.
+           Returns a dataframe ready for the frontend.
+
+           df: Dataframe with raw health insurance numbers.
+           demo: Demographic contained in the dataframe (race/sex/age).
+           geo: Geographic level contained in the dataframe (national/state/county)."""
+
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo == RACE else demo
         all_val = Race.ALL.value if demo == RACE else std_col.ALL_VALUE
 
@@ -301,6 +308,10 @@ class AcsHealthInsuranceIngester(DataSource):
         df = add_sum_of_rows(df, demo_col,
                              [WITHOUT_HEALTH_INSURANCE, HEALTH_INSURANCE_POP],
                              all_val, breakdown_vals_to_sum)
+
+        df = merge_pop_numbers(df, demo, geo)
+        df = df.rename(columns={std_col.POPULATION_PCT_COL:
+                                std_col.UNINSURED_POPULATION_PCT})
 
         df = merge_state_ids(df)
 

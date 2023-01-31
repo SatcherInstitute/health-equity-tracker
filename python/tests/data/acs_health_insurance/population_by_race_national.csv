@@ -1,0 +1,22 @@
+state_fips,state_name,population,population_pct,race_category_id,race_and_ethnicity
+00,United States,32403,0.4,AIAN,American Indian and Alaska Native
+00,United States,107417,1.3,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander"
+00,United States,22858,0.3,AIAN_NH,American Indian and Alaska Native (NH)
+00,United States,8194697,100.0,ALL,All
+00,United States,69385,0.8,API_NH,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+00,United States,72507,0.9,ASIAN,Asian
+00,United States,67761,0.8,ASIAN_NH,Asian (NH)
+00,United States,1685724,20.6,BLACK,Black or African American
+00,United States,1294703,15.8,BLACK_NH,Black or African American (NH)
+00,United States,3484545,42.5,HISP,Hispanic or Latino
+00,United States,267869,3.3,MULTI,Two or more races
+00,United States,85328,1.0,MULTI_NH,Two or more races (NH)
+00,United States,893295,10.9,MULTI_OR_OTHER_STANDARD,Two or more races & Unrepresented race
+00,United States,96554,1.2,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race (NH)
+00,United States,4710152,57.5,NH,Not Hispanic or Latino
+00,United States,2507,0.03,NHPI,Native Hawaiian and Pacific Islander
+00,United States,1624,0.02,NHPI_NH,Native Hawaiian and Pacific Islander (NH)
+00,United States,625426,7.6,OTHER_STANDARD,Unrepresented race
+00,United States,11226,0.1,OTHER_STANDARD_NH,Unrepresented race (NH)
+00,United States,5508261,67.2,WHITE,White
+00,United States,3226652,39.4,WHITE_NH,White (NH)
