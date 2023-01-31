@@ -273,11 +273,20 @@ class ACSPopulationIngester():
         self.time_series_table_items = {}
 
         self.base_acs_urls = base_acs_urls if base_acs_urls is not None else [
+            "https://api.census.gov/data/2021/acs/acs5",
+            "https://api.census.gov/data/2020/acs/acs5",
             DEFAULT_SINGLE_YEAR_ACS_BASE_URL,
             "https://api.census.gov/data/2018/acs/acs5",
             "https://api.census.gov/data/2017/acs/acs5",
             "https://api.census.gov/data/2016/acs/acs5",
             "https://api.census.gov/data/2015/acs/acs5",
+            "https://api.census.gov/data/2014/acs/acs5",
+            "https://api.census.gov/data/2013/acs/acs5",
+            "https://api.census.gov/data/2012/acs/acs5",
+            "https://api.census.gov/data/2011/acs/acs5",
+            "https://api.census.gov/data/2010/acs/acs5",
+            "https://api.census.gov/data/2009/acs/acs5",
+
         ]
 
     def upload_to_gcs(self, gcs_bucket):
