@@ -1,0 +1,9 @@
+state_name,state_fips,time_period,race_and_ethnicity,hiv_cases,population,hiv_pct_share,population_pct
+United States,00,2019,All,36528.0,0.0,100.0,
+United States,00,2019,American Indian/Alaska Native,204.0,1996615.0,0.6,
+United States,00,2019,Asian,733.0,16234313.0,2.0,
+United States,00,2019,Black/African American,15471.0,33981764.0,42.4,
+United States,00,2019,Hispanic/Latino,10276.0,46954313.0,28.1,
+United States,00,2019,Multiracial,1102.0,4863049.0,3.0,
+United States,00,2019,Native Hawaiian/Other Pacific Islander,66.0,491319.0,0.2,
+United States,00,2019,White,9067.0,171541840.0,24.8,
