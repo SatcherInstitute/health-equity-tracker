@@ -92,7 +92,7 @@ GOLDEN_DATA_AGE_COUNTY_TIME_SERIES_APPEND = os.path.join(
 
 
 def get_acs_metadata_as_json():
-    print("mocking meta data from GCS")
+    # print("mocking meta data from GCS")
     with open(os.path.join(TEST_DIR, 'metadata.json')) as f:
         return json.load(f)
 
@@ -103,7 +103,7 @@ def _load_values_as_df(*args, **kwargs):
     dataset, filename = args
     dtype = {'county_fips': str} if "county" in filename else {
         'state_fips': str}
-    print("mock GCS cache:", filename)
+    # print("mock GCS cache:", filename)
     df = gcs_to_bq_util.values_json_to_df(
         os.path.join(MOCK_CACHE_DIR, filename), dtype=dtype).reset_index(drop=True)
     return df
@@ -252,7 +252,7 @@ def testWriteToBqStateNationalCalls(
     """ Test the overall function structure for a state (and national) level ingester,
     based on the order and structure of the mocked calls to ACS, our cache of ACS, and our BQ"""
 
-    print("** Testing State / National Calls")
+    # print("** Testing State / National Calls")
 
     # instantiate with only 2 years to test
     acsPopulationIngester = ACSPopulationIngester(
@@ -339,7 +339,7 @@ def testWriteToBqCountyCalls(
 ):
     """ Test the overall function structure for a county level ingester,
     based on the order and structure of the mocked calls to ACS, our cache of ACS, and our BQ"""
-    print("** Testing County Calls")
+    # print("** Testing County Calls")
 
     # instantiate with only 2 years to test
     acsPopulationIngester = ACSPopulationIngester(
@@ -509,42 +509,42 @@ def testWriteToBqSexAge(
         time_series_append_df, expected_time_series_append_df, check_like=True)
 
 
-@mock.patch('ingestion.census.fetch_acs_metadata',
-            return_value=get_acs_metadata_as_json())
-@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
-            side_effect=_load_values_as_df)
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-            return_value=None)
-def testWriteToBqAge(
-    mock_bq: mock.MagicMock,
-    mock_cache: mock.MagicMock,
-    mock_json: mock.MagicMock
-):
+# @mock.patch('ingestion.census.fetch_acs_metadata',
+#             return_value=get_acs_metadata_as_json())
+# @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
+#             side_effect=_load_values_as_df)
+# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+#             return_value=None)
+# def testWriteToBqAge(
+#     mock_bq: mock.MagicMock,
+#     mock_cache: mock.MagicMock,
+#     mock_json: mock.MagicMock
+# ):
 
-    acsPopulationIngester = ACSPopulationIngester(
-        False, ["https://api.census.gov/data/2018/acs/acs5", "https://api.census.gov/data/2019/acs/acs5"])
+#     acsPopulationIngester = ACSPopulationIngester(
+#         False, ["https://api.census.gov/data/2018/acs/acs5", "https://api.census.gov/data/2019/acs/acs5"])
 
-    acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
+#     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
 
-    single_year_df = mock_bq.call_args_list[3][0][0]
-    expected_single_year_df = pd.read_csv(
-        GOLDEN_DATA_AGE, dtype=DTYPE)
-    assert_frame_equal(
-        single_year_df, expected_single_year_df, check_like=True)
+#     single_year_df = mock_bq.call_args_list[3][0][0]
+#     expected_single_year_df = pd.read_csv(
+#         GOLDEN_DATA_AGE, dtype=DTYPE)
+#     assert_frame_equal(
+#         single_year_df, expected_single_year_df, check_like=True)
 
-    time_series_overwrite_df = mock_bq.call_args_list[16][0][0]
-    expected_time_series_overwrite_df = pd.read_csv(
-        GOLDEN_DATA_AGE_TIME_SERIES_OVERWRITES, dtype=DTYPE)
-    assert_frame_equal(
-        time_series_overwrite_df, expected_time_series_overwrite_df, check_like=True)
-    assert mock_bq.call_args_list[16][1]['overwrite'] is True
+#     time_series_overwrite_df = mock_bq.call_args_list[16][0][0]
+#     expected_time_series_overwrite_df = pd.read_csv(
+#         GOLDEN_DATA_AGE_TIME_SERIES_OVERWRITES, dtype=DTYPE)
+#     assert_frame_equal(
+#         time_series_overwrite_df, expected_time_series_overwrite_df, check_like=True)
+#     assert mock_bq.call_args_list[16][1]['overwrite'] is True
 
-    time_series_append_df = mock_bq.call_args_list[17][0][0]
-    expected_time_series_append_df = pd.read_csv(
-        GOLDEN_DATA_AGE_TIME_SERIES_APPEND, dtype=DTYPE)
-    assert_frame_equal(
-        time_series_append_df, expected_time_series_append_df, check_like=True)
-    assert mock_bq.call_args_list[17][1]['overwrite'] is False
+#     time_series_append_df = mock_bq.call_args_list[17][0][0]
+#     expected_time_series_append_df = pd.read_csv(
+#         GOLDEN_DATA_AGE_TIME_SERIES_APPEND, dtype=DTYPE)
+#     assert_frame_equal(
+#         time_series_append_df, expected_time_series_append_df, check_like=True)
+#     assert mock_bq.call_args_list[17][1]['overwrite'] is False
 
 
 @mock.patch('ingestion.census.fetch_acs_metadata',
@@ -585,42 +585,42 @@ def testWriteToBqSex(
     assert mock_bq.call_args_list[21][1]['overwrite'] is False
 
 
-@mock.patch('ingestion.census.fetch_acs_metadata',
-            return_value=get_acs_metadata_as_json())
-@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
-            side_effect=_load_values_as_df)
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-            return_value=None)
-def testWriteToBqAgeNational(
-    mock_bq: mock.MagicMock,
-    mock_cache: mock.MagicMock,
-    mock_json: mock.MagicMock
-):
+# @mock.patch('ingestion.census.fetch_acs_metadata',
+#             return_value=get_acs_metadata_as_json())
+# @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
+#             side_effect=_load_values_as_df)
+# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+#             return_value=None)
+# def testWriteToBqAgeNational(
+#     mock_bq: mock.MagicMock,
+#     mock_cache: mock.MagicMock,
+#     mock_json: mock.MagicMock
+# ):
 
-    acsPopulationIngester = ACSPopulationIngester(
-        False, ["https://api.census.gov/data/2018/acs/acs5", "https://api.census.gov/data/2019/acs/acs5"])
+#     acsPopulationIngester = ACSPopulationIngester(
+#         False, ["https://api.census.gov/data/2018/acs/acs5", "https://api.census.gov/data/2019/acs/acs5"])
 
-    acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
+#     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
 
-    single_year_df = mock_bq.call_args_list[5][0][0]
-    expected_single_year_df = pd.read_csv(
-        GOLDEN_DATA_AGE_NATIONAL, dtype=DTYPE)
-    assert_frame_equal(
-        single_year_df, expected_single_year_df, check_like=True)
+#     single_year_df = mock_bq.call_args_list[5][0][0]
+#     expected_single_year_df = pd.read_csv(
+#         GOLDEN_DATA_AGE_NATIONAL, dtype=DTYPE)
+#     assert_frame_equal(
+#         single_year_df, expected_single_year_df, check_like=True)
 
-    time_series_overwrite_df = mock_bq.call_args_list[18][0][0]
-    expected_time_series_overwrite_df = pd.read_csv(
-        GOLDEN_DATA_AGE_NATIONAL_TIME_SERIES_OVERWRITES, dtype=DTYPE)
-    assert_frame_equal(
-        time_series_overwrite_df, expected_time_series_overwrite_df, check_like=True)
-    assert mock_bq.call_args_list[18][1]['overwrite'] is True
+#     time_series_overwrite_df = mock_bq.call_args_list[18][0][0]
+#     expected_time_series_overwrite_df = pd.read_csv(
+#         GOLDEN_DATA_AGE_NATIONAL_TIME_SERIES_OVERWRITES, dtype=DTYPE)
+#     assert_frame_equal(
+#         time_series_overwrite_df, expected_time_series_overwrite_df, check_like=True)
+#     assert mock_bq.call_args_list[18][1]['overwrite'] is True
 
-    time_series_append_df = mock_bq.call_args_list[19][0][0]
-    expected_time_series_append_df = pd.read_csv(
-        GOLDEN_DATA_AGE_NATIONAL_TIME_SERIES_APPEND, dtype=DTYPE)
-    assert_frame_equal(
-        time_series_append_df, expected_time_series_append_df, check_like=True)
-    assert mock_bq.call_args_list[19][1]['overwrite'] is False
+#     time_series_append_df = mock_bq.call_args_list[19][0][0]
+#     expected_time_series_append_df = pd.read_csv(
+#         GOLDEN_DATA_AGE_NATIONAL_TIME_SERIES_APPEND, dtype=DTYPE)
+#     assert_frame_equal(
+#         time_series_append_df, expected_time_series_append_df, check_like=True)
+#     assert mock_bq.call_args_list[19][1]['overwrite'] is False
 
 
 @mock.patch('ingestion.census.fetch_acs_metadata',

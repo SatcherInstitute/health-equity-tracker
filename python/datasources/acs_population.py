@@ -431,7 +431,8 @@ class ACSPopulationIngester():
         return frames
 
     def write_single_year_for_breakdown_to_bq(self, table_name: str, df, dataset: str):
-        """ simple wrapper that prepares the BQ cols and executes the writing of the single year table to maintain legacy utils """
+        """ simple wrapper that prepares the BQ cols and executes the writing
+        of the single year table to maintain legacy utils """
         df_single_year = df.copy()
         float_cols = [std_col.POPULATION_COL]
         if std_col.POPULATION_PCT_COL in df_single_year.columns:
@@ -445,7 +446,8 @@ class ACSPopulationIngester():
             df_single_year, dataset, table_name, column_types=column_types)
 
     def write_time_series_for_breakdown_to_bq(self, table_name: str, dataset: str):
-        """ iterates over available tables items by year, and incrementally builds a new time-series df for the given table name """
+        """ iterates over available tables items by year, and
+        incrementally builds a new time-series df for the given table name """
         # # combine multiple years into geo/demo tables,
         # # and upload to BQ
 
