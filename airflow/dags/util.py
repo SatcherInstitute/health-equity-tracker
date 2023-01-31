@@ -47,7 +47,8 @@ def generate_gcs_payload(workflow_id: str, filename: str = None,
 
 def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
                         gcs_bucket: str = None, url: str = None,
-                        demographic: str = None) -> dict:
+                        demographic: str = None,
+                        geo_level: bool = None) -> dict:
     """Creates the payload object required for the BQ ingestion operator.
 
     workflow_id: ID of the datasource workflow. Should match ID defined in
@@ -70,6 +71,8 @@ def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
         message['url'] = url
     if demographic is not None:
         message['demographic'] = demographic
+    if geo_level is not None:
+        message['geo_level'] = geo_level
     return {'message': message}
 
 

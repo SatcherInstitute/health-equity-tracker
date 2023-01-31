@@ -272,7 +272,7 @@ class ACSPopulationIngester():
         # combining and uploading to bq
         self.time_series_table_items = {}
 
-        self.base_acs_urls = base_acs_urls if base_acs_urls is not None else [
+        self.base_acs_urls = base_acs_urls if base_acs_urls else [
             "https://api.census.gov/data/2021/acs/acs5",
             "https://api.census.gov/data/2020/acs/acs5",
             DEFAULT_SINGLE_YEAR_ACS_BASE_URL,
@@ -448,14 +448,14 @@ class ACSPopulationIngester():
     def write_time_series_for_breakdown_to_bq(self, table_name: str, dataset: str):
         """ iterates over available tables items by year, and
         incrementally builds a new time-series df for the given table name """
-        # # combine multiple years into geo/demo tables,
-        # # and upload to BQ
 
         # the first yearly df per breakdown should OVERWRITE
         overwrite = True
 
         for yearly_table_name, yearly_df in self.time_series_table_items.items():
             if table_name in yearly_table_name:
+
+                print(yearly_table_name, table_name)
 
                 float_cols = [std_col.POPULATION_COL]
                 if std_col.POPULATION_PCT_COL in yearly_df.columns:
@@ -761,14 +761,15 @@ class ACSPopulation(DataSource):
         return file_diff
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        for ingester in self._create_ingesters():
-            ingester.write_to_bq(dataset, gcs_bucket)
+        geo_level = self.get_attr(attrs, 'geo_level')
+        ingester = ACSPopulationIngester(geo_level == "county")
+        ingester.write_to_bq(dataset, gcs_bucket)
 
-    def _create_ingesters(self):
-        return [
-            ACSPopulationIngester(False),
-            ACSPopulationIngester(True)
-        ]
+    # def _create_ingesters(self):
+    #     return [
+    #         ACSPopulationIngester(False),
+    #         ACSPopulationIngester(True)
+    #     ]
 
 
 def generate_national_dataset_with_all_states(state_df, demographic_breakdown_category):

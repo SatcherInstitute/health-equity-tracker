@@ -24,10 +24,16 @@ acs_pop_gcs_payload = util.generate_gcs_payload(
 acs_pop_gcs_operator = util.create_gcs_ingest_operator(
     'acs_population_to_gcs', acs_pop_gcs_payload, data_ingestion_dag)
 
-acs_pop_bq_payload = util.generate_bq_payload(
+acs_pop_bq_payload_county = util.generate_bq_payload(
     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME)
-acs_pop_bq_operator = util.create_bq_ingest_operator(
-    'acs_population_to_bq', acs_pop_bq_payload, data_ingestion_dag)
+acs_pop_bq_operator_county = util.create_bq_ingest_operator(
+    'acs_population_to_bq', acs_pop_bq_payload_county, data_ingestion_dag)
+
+acs_pop_bq_payload_state_national = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME)
+acs_pop_bq_operator_state_national = util.create_bq_ingest_operator(
+    'acs_population_to_bq', acs_pop_bq_payload_state_national, data_ingestion_dag)
+
 
 acs_pop_exporter_payload_multi = {
     'dataset_name': _ACS_DATASET_NAME,
@@ -59,8 +65,10 @@ acs_pop_exporter_operator_sex = util.create_exporter_operator(
     'acs_population_exporter_sex', acs_pop_exporter_payload_sex, data_ingestion_dag)
 # Ingestion DAG
 (
-    acs_pop_gcs_operator >>
-    acs_pop_bq_operator >> [
+    acs_pop_gcs_operator >> [
+        acs_pop_bq_operator_county,
+        acs_pop_bq_operator_state_national,
+    ] >> [
         acs_pop_exporter_operator_multi,
         acs_pop_exporter_operator_race,
         acs_pop_exporter_operator_age,
