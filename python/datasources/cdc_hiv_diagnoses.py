@@ -1,6 +1,5 @@
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, dataset_utils, merge_utils, standardized_columns as std_col
-# from ingestion.gcs_to_bq_util import load_csv_as_df_from_data_dir
 from ingestion.constants import STATE_LEVEL, COUNTY_LEVEL, Sex
 import pandas as pd
 import numpy as np
@@ -49,7 +48,7 @@ class CDCHIVDiagnosesData(DataSource):
         dtype = {'FIPS': str}
 
         alls_county_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            'cdc_hiv_diagnoses/county', 'totals_county_2019.csv', dtype={'FIPS': str}, skiprows=9)
+            'cdc_hiv_diagnoses/county', 'totals_county_2019.csv', dtype=dtype, skiprows=9)
         alls_state_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             'cdc_hiv_diagnoses/state', 'totals_state_2019.csv', dtype=dtype, skiprows=9)
 
@@ -57,19 +56,13 @@ class CDCHIVDiagnosesData(DataSource):
 
         for geo_level in [STATE_LEVEL, COUNTY_LEVEL]:
             alls_df = alls_state_df if geo_level == STATE_LEVEL else alls_county_df
-            geo_col = std_col.STATE_NAME_COL if geo_level == STATE_LEVEL else std_col.COUNTY_NAME_COL
             fips_col = std_col.STATE_FIPS_COL if geo_level == STATE_LEVEL else std_col.COUNTY_FIPS_COL
 
             for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
                 table_name = f'{breakdown}_{geo_level}'
 
                 df = self.generate_breakdown_df(
-                    breakdown, geo_level, alls_df, geo_col, fips_col)
-                # print('--')
-                # print(df)
-
-                # df = dataset_utils.generate_pct_share_col_without_unknowns(
-                #     df, {std_col.HIV_CASES: std_col.HIV_PCT_SHARE}, demo, 'All')
+                    breakdown, geo_level, alls_df, fips_col)
 
                 df.to_csv(f'{breakdown}_{geo_level}_output.csv', index=False)
 
@@ -86,11 +79,11 @@ class CDCHIVDiagnosesData(DataSource):
                 # gcs_to_bq_util.add_df_to_bq(
                 #     df, dataset, table_name, column_types=column_types)
 
-    def generate_breakdown_df(self, breakdown, geo_level, alls_df, geo_col, fips_col):
+    def generate_breakdown_df(self, breakdown, geo_level, alls_df, fips_col):
+        format_num = 2 if geo_level == STATE_LEVEL else 5
         missing_data = ['Data suppressed', 'Data not available']
+        needed_cols = generate_needed_cols(breakdown, geo_level)
         source_dfs = []
-        needed_cols = [fips_col, geo_col, std_col.TIME_PERIOD_COL, breakdown,
-                       std_col.HIV_CASES, std_col.HIV_PER_100K, std_col.POPULATION_COL]
 
         group_dict = {
             std_col.AGE_COL: AGE_GROUPS,
@@ -109,7 +102,7 @@ class CDCHIVDiagnosesData(DataSource):
         }
 
         cols_std = {
-            'Geography': geo_col,
+            'Geography': std_col.STATE_NAME_COL,
             'FIPS': fips_col,
             'Age Group': std_col.AGE_COL,
             'Sex': std_col.SEX_COL,
@@ -117,7 +110,8 @@ class CDCHIVDiagnosesData(DataSource):
             'Year': std_col.TIME_PERIOD_COL,
             'Cases': std_col.HIV_CASES,
             'Rate per 100000': std_col.HIV_PER_100K,
-            'Population': std_col.POPULATION_COL
+            'Population': std_col.POPULATION_COL,
+            'Geography_county': std_col.COUNTY_NAME_COL,
         }
 
         for group in group_dict[breakdown].keys():
@@ -126,27 +120,45 @@ class CDCHIVDiagnosesData(DataSource):
 
             source_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
                 directory, filename, dtype={'FIPS': str}, skiprows=9)
-
+            source_df['FIPS'] = source_df['FIPS'].str.zfill(format_num)
             source_dfs.append(source_df)
 
         source_dfs.append(alls_df)
         merged_df = pd.concat(source_dfs, axis=0)
 
+        if geo_level == COUNTY_LEVEL:
+            new = merged_df['Geography'].str.split(", ", n=1, expand=True)
+            merged_df['Geography'] = new[1]
+            merged_df['Geography_county'] = new[0]
+
         df = merged_df.rename(columns=cols_std)
+
+        if geo_level == COUNTY_LEVEL:
+            df = merge_utils.merge_state_ids(df)
+
         df = df[needed_cols]
-
-        if std_col.STATE_FIPS_COL in df.columns:
-            df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].str.zfill(
-                2)
-
-        if std_col.COUNTY_FIPS_COL in df.columns:
-            df[std_col.COUNTY_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].apply(
-                lambda x: x.zfill(5))
-
+        df = df.replace(',', '', regex=True)
         df = df.sort_values([fips_col, breakdown]).reset_index(drop=True)
         df.loc[df[std_col.HIV_CASES].isin(
             missing_data), std_col.HIV_CASES] = np.nan
+        df[std_col.HIV_CASES] = df[std_col.HIV_CASES].astype(float)
         df.loc[df[std_col.HIV_PER_100K].isin(
             missing_data), std_col.HIV_PER_100K] = np.nan
 
+        df = dataset_utils.generate_pct_share_col_without_unknowns(
+            df, {std_col.HIV_CASES: std_col.HIV_PCT_SHARE, std_col.POPULATION_COL: std_col.POPULATION_PCT_COL}, breakdown, 'All')
+
         return df
+
+
+def generate_needed_cols(breakdown, geo_level):
+    cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
+    cols_county = [std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL]
+    std_cols = [std_col.TIME_PERIOD_COL, breakdown,
+                std_col.HIV_CASES, std_col.HIV_PER_100K, std_col.POPULATION_COL]
+
+    if geo_level == COUNTY_LEVEL:
+        return cols + cols_county + std_cols
+
+    else:
+        return cols + std_cols
