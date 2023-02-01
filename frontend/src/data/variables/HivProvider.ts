@@ -19,23 +19,27 @@ class HivProvider extends VariableProvider {
 
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.geography === "national") {
-      if (breakdowns.hasOnlyRace()) return "hiv-race_and_ethnicity_national";
-      if (breakdowns.hasOnlyAge()) return "hiv-age_national";
-      if (breakdowns.hasOnlySex()) return "hiv-sex_national";
+      if (breakdowns.hasOnlyRace())
+        return "cdc_hiv-race_and_ethnicity_national";
+      if (breakdowns.hasOnlyAge()) return "cdc_hiv-age_national";
+      if (breakdowns.hasOnlySex()) return "cdc_hiv-sex_national";
     }
     if (breakdowns.geography === "state") {
-      if (breakdowns.hasOnlyRace()) return "hiv-race_and_ethnicity_state";
-      if (breakdowns.hasOnlyAge()) return "hiv-age_state";
-      if (breakdowns.hasOnlySex()) return "hiv-sex_state";
+      if (breakdowns.hasOnlyRace()) return "cdc_hiv-race_and_ethnicity_state";
+      if (breakdowns.hasOnlyAge()) return "cdc_hiv-age_state";
+      if (breakdowns.hasOnlySex()) return "cdc_hiv-sex_state";
     }
 
     if (breakdowns.geography === "county") {
-      if (breakdowns.hasOnlyRace())
-        return appendFipsIfNeeded("hiv-race_and_ethnicity_county", breakdowns);
-      if (breakdowns.hasOnlyAge())
-        return appendFipsIfNeeded("hiv-age_county", breakdowns);
-      if (breakdowns.hasOnlySex())
-        return appendFipsIfNeeded("hiv-sex_county", breakdowns);
+      if (breakdowns.hasOnlyRace()) return "cdc_hiv-race_and_ethnicity_county";
+      if (breakdowns.hasOnlyAge()) return "cdc_hiv-age_county";
+      if (breakdowns.hasOnlySex()) return "cdc_hiv-sex_county";
+      // if (breakdowns.hasOnlyRace())
+      //   return appendFipsIfNeeded("cdc_hiv-race_and_ethnicity_county", breakdowns);
+      // if (breakdowns.hasOnlyAge())
+      //   return appendFipsIfNeeded("cdc_hiv-age_county", breakdowns);
+      // if (breakdowns.hasOnlySex())
+      //   return appendFipsIfNeeded("cdc_hiv-sex_county", breakdowns);
     }
     throw new Error("Not implemented");
   }
