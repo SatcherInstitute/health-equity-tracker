@@ -49,19 +49,19 @@ pct_share_dict = {
 }
 
 
-class CDCHIVDiagnosesData(DataSource):
+class CDCHIVData(DataSource):
 
     @ staticmethod
     def get_id():
-        return 'CDC_HIV_DIAGNOSES_DATA'
+        return 'CDC_HIV_DATA'
 
     @ staticmethod
     def get_table_name():
-        return 'cdc_hiv_diagnoses_data'
+        return 'cdc_hiv_data'
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
         raise NotImplementedError(
-            'upload_to_gcs should not be called for CDCHIVDiagnosesData'
+            'upload_to_gcs should not be called for CDCHIVData'
         )
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
@@ -74,8 +74,6 @@ class CDCHIVDiagnosesData(DataSource):
 
                 df = self.generate_breakdown_df(
                     breakdown, geo_level, alls_df, fips_col)
-
-                # df.to_csv(f'{breakdown}_{geo_level}_output.csv', index=False)
 
                 float_cols = [std_col.HIV_POPULATION_PCT,
                               std_col.POPULATION_COL,
