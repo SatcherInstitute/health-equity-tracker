@@ -1,7 +1,7 @@
-state_name,state_fips,time_period,age,hiv_cases,population,hiv_pct_share,population_pct
-United States,00,2019,13-24,7699.0,51550785.0,21.1,
-United States,00,2019,25-34,13185.0,46408855.0,36.1,
-United States,00,2019,35-44,7187.0,42062810.0,19.7,
-United States,00,2019,45-54,4951.0,41276346.0,13.6,
-United States,00,2019,55+,3897.0,97575873.0,10.7,
-United States,00,2019,All,36528.0,0.0,100.0,
+state_fips,state_name,time_period,age,hiv_cases,hiv_per_cases_100k,population,hiv_pct_share,hiv_population_pct
+00,United States,2019,13-24,7638.0,612.6,51056802.0,20.9,18.5
+00,United States,2019,25-34,13075.0,1164.0,46003684.0,35.8,16.7
+00,United States,2019,35-44,7114.0,702.6,41674444.0,19.5,15.1
+00,United States,2019,45-54,4887.0,502.6,40860323.0,13.4,14.8
+00,United States,2019,55+,3814.0,170.9,96467960.0,10.4,34.9
+00,United States,2019,All,36528.0,13.2,276063213.0,100.0,100.0

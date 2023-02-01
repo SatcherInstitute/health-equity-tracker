@@ -1,4 +1,4 @@
-state_fips,state_name,time_period,sex,hiv_cases,hiv_per_cases_100k,population,hiv_pct_share,population_pct
+state_fips,state_name,time_period,sex,hiv_cases,hiv_per_cases_100k,population,hiv_pct_share,hiv_population_pct
 01,Alabama,2019,All,635.0,15.4,4128511.0,100.0,100.0
 01,Alabama,2019,Female,135.0,6.3,2153898.0,21.3,52.2
 01,Alabama,2019,Male,500.0,25.3,1974613.0,78.7,47.8
