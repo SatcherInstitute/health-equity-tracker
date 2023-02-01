@@ -6,7 +6,7 @@ import { appendFipsIfNeeded } from "../utils/datasetutils";
 import VariableProvider from "./VariableProvider";
 
 const HIV_DETERMINANTS: MetricId[] = [
-  "hiv_per_100k",
+  "hiv_cases_per_100k",
   "hiv_pct_share",
   "hiv_pct_relative_inequity",
   "hiv_ratio_age_adjusted",

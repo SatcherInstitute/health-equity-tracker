@@ -85,7 +85,7 @@ export type MetricId =
   | "covid_population_pct"
   | "hosp_ratio_age_adjusted"
   | "covid_hosp_pct_relative_inequity"
-  | "hiv_per_100k"
+  | "hiv_cases_per_100k"
   | "hiv_pct_share"
   | "hiv_pct_relative_inequity"
   | "hiv_ratio_age_adjusted"
@@ -632,14 +632,14 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "Population vs. distribution of",
               "total HIV diagnoses",
             ],
-            metricId: "population_pct",
+            metricId: "hiv_population_pct",
             columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         per100k: {
-          metricId: "hiv_per_100k",
+          metricId: "hiv_cases_per_100k",
           chartTitleLines: ["HIV diagnoses", "per 100k people"],
           trendsCardTitleName: "Rates of HIV diagnoses over time",
           columnTitleHeader: "HIV diagnoses per 100k people",

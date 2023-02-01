@@ -60,7 +60,7 @@ describe("HivProvider", () => {
       Breakdowns.forFips(new Fips("06037")),
       RACE,
       "hiv_diagnoses",
-      /* metricIds */ ["hiv_per_100k"]
+      /* metricIds */ ["hiv_cases_per_100k"]
     );
   });
 
@@ -80,7 +80,7 @@ describe("HivProvider", () => {
       Breakdowns.forFips(new Fips("00")),
       RACE,
       "hiv_diagnoses",
-      /* metricIds */ ["hiv_per_100k"]
+      /* metricIds */ ["hiv_cases_per_100k"]
     );
   });
 
@@ -90,7 +90,7 @@ describe("HivProvider", () => {
       Breakdowns.forFips(new Fips("06037")),
       AGE,
       "hiv_diagnoses",
-      /* metricIds */ ["hiv_per_100k"]
+      /* metricIds */ ["hiv_cases_per_100k"]
     );
   });
 
@@ -100,7 +100,7 @@ describe("HivProvider", () => {
       Breakdowns.forFips(new Fips("37")),
       AGE,
       "hiv_diagnoses",
-      /* metricIds */ ["hiv_per_100k"]
+      /* metricIds */ ["hiv_cases_per_100k"]
     );
   });
 
@@ -110,7 +110,7 @@ describe("HivProvider", () => {
       Breakdowns.forFips(new Fips("00")),
       AGE,
       "hiv_diagnoses",
-      /* metricIds */ ["hiv_per_100k", "hiv_pct_relative_inequity"]
+      /* metricIds */ ["hiv_cases_per_100k", "hiv_pct_relative_inequity"]
     );
   });
 
@@ -120,7 +120,7 @@ describe("HivProvider", () => {
       Breakdowns.forFips(new Fips("06037")),
       SEX,
       "hiv_diagnoses",
-      /* metricIds */ ["hiv_per_100k"]
+      /* metricIds */ ["hiv_cases_per_100k"]
     );
   });
 
@@ -130,7 +130,7 @@ describe("HivProvider", () => {
       Breakdowns.forFips(new Fips("37")),
       SEX,
       "hiv_diagnoses",
-      /* metricIds */ ["hiv_per_100k"]
+      /* metricIds */ ["hiv_cases_per_100k"]
     );
   });
 
@@ -140,7 +140,7 @@ describe("HivProvider", () => {
       Breakdowns.forFips(new Fips("00")),
       SEX,
       "hiv_diagnoses",
-      /* metricIds */ ["hiv_per_100k"]
+      /* metricIds */ ["hiv_cases_per_100k"]
     );
   });
 });
