@@ -1,0 +1,16 @@
+state_fips,state_name,county_fips,county_name,time_period,sex,hiv_cases,hiv_per_cases_100k,population,hiv_pct_share,hiv_population_pct
+01,Alabama,01001,Autauga County,2019,All,7.0,15.0,46745,100.0,100.0
+01,Alabama,01001,Autauga County,2019,Female,,,24333,,52.1
+01,Alabama,01001,Autauga County,2019,Male,,,22412,,47.9
+01,Alabama,01003,Baldwin County,2019,All,15.0,7.9,189942,100.0,100.0
+01,Alabama,01003,Baldwin County,2019,Female,,,98830,,52.0
+01,Alabama,01003,Baldwin County,2019,Male,,,91113,,48.0
+01,Alabama,01005,Barbour County,2019,All,,,21044,,100.0
+01,Alabama,01005,Barbour County,2019,Female,,,9824,,46.7
+01,Alabama,01005,Barbour County,2019,Male,,,11220,,53.3
+01,Alabama,01007,Bibb County,2019,All,,,19108,,100.0
+01,Alabama,01007,Bibb County,2019,Female,,,8869,,46.4
+01,Alabama,01007,Bibb County,2019,Male,,,10239,,53.6
+01,Alabama,01009,Blount County,2019,All,,,48424,,100.0
+01,Alabama,01009,Blount County,2019,Female,,,24663,,50.9
+01,Alabama,01009,Blount County,2019,Male,,,23761,,49.1

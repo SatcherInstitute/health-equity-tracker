@@ -1,0 +1,42 @@
+state_fips,state_name,time_period,race_and_ethnicity,hiv_cases,hiv_per_cases_100k,population,hiv_pct_share,hiv_population_pct
+01,Alabama,2019,All,635.0,15.4,4128511,100.0,100.0
+01,Alabama,2019,American Indian/Alaska Native,1.0,4.1,24548,0.2,0.6
+01,Alabama,2019,Asian,1.0,1.6,61261,0.2,1.5
+01,Alabama,2019,Black/African American,453.0,42.2,1073141,71.3,26.0
+01,Alabama,2019,Hispanic/Latino,15.0,9.7,155027,2.4,3.8
+01,Alabama,2019,Multiracial,14.0,28.0,49959,2.2,1.2
+01,Alabama,2019,Native Hawaiian/Other Pacific Islander,0.0,0.0,2022,0.0,0.05
+01,Alabama,2019,White,151.0,5.5,2762553,23.8,66.9
+02,Alaska,2019,All,27.0,4.5,600561,100.0,100.0
+02,Alaska,2019,American Indian/Alaska Native,6.0,7.2,83301,22.2,13.9
+02,Alaska,2019,Asian,0.0,0.0,39970,0.0,6.7
+02,Alaska,2019,Black/African American,5.0,24.8,20151,18.5,3.4
+02,Alaska,2019,Hispanic/Latino,4.0,10.2,39403,14.8,6.6
+02,Alaska,2019,Multiracial,0.0,0.0,33082,0.0,5.5
+02,Alaska,2019,Native Hawaiian/Other Pacific Islander,0.0,0.0,7939,0.0,1.3
+02,Alaska,2019,White,12.0,3.2,376715,44.4,62.7
+04,Arizona,2019,All,747.0,12.2,6121860,100.0,100.0
+04,Arizona,2019,American Indian/Alaska Native,37.0,16.2,228588,5.0,3.7
+04,Arizona,2019,Asian,12.0,5.5,216518,1.6,3.5
+04,Arizona,2019,Black/African American,124.0,46.3,268005,16.6,4.4
+04,Arizona,2019,Hispanic/Latino,325.0,18.2,1786398,43.5,29.2
+04,Arizona,2019,Multiracial,10.0,9.6,104244,1.3,1.7
+04,Arizona,2019,Native Hawaiian/Other Pacific Islander,2.0,17.1,11699,0.3,0.2
+04,Arizona,2019,White,237.0,6.8,3506408,31.7,57.3
+05,Arkansas,2019,All,289.0,11.5,2518616,100.0,100.0
+05,Arkansas,2019,American Indian/Alaska Native,1.0,5.1,19597,0.3,0.8
+05,Arkansas,2019,Asian,5.0,12.3,40564,1.7,1.6
+05,Arkansas,2019,Black/African American,139.0,36.9,376525,48.1,14.9
+05,Arkansas,2019,Hispanic/Latino,20.0,11.6,172210,6.9,6.8
+05,Arkansas,2019,Multiracial,3.0,7.8,38458,1.0,1.5
+05,Arkansas,2019,Native Hawaiian/Other Pacific Islander,1.0,12.5,8031,0.3,0.3
+05,Arkansas,2019,White,120.0,6.4,1863231,41.5,74.0
+06,California,2019,All,4454.0,13.5,33070892,100.0,100.0
+06,California,2019,American Indian/Alaska Native,18.0,12.9,139446,0.4,0.4
+06,California,2019,Asian,239.0,4.7,5113299,5.4,15.5
+06,California,2019,Black/African American,751.0,39.5,1899258,16.9,5.7
+06,California,2019,Hispanic/Latino,2240.0,18.3,12213085,50.3,36.9
+06,California,2019,Multiracial,114.0,14.5,788236,2.6,2.4
+06,California,2019,Native Hawaiian/Other Pacific Islander,13.0,10.5,123404,0.3,0.4
+06,California,2019,White,1079.0,8.4,12794164,24.2,38.7
+08,Colorado,2019,All,465.0,9.6,4864999,100.0,100.0

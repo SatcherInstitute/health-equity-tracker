@@ -74,7 +74,8 @@ class CDCHIVDiagnosesData(DataSource):
 
                 df = self.generate_breakdown_df(
                     breakdown, geo_level, alls_df, fips_col)
-                df.to_csv(f'{breakdown}_{geo_level}_output.csv', index=False)
+
+                # df.to_csv(f'{breakdown}_{geo_level}_output.csv', index=False)
 
                 float_cols = [std_col.HIV_POPULATION_PCT,
                               std_col.POPULATION_COL,
@@ -91,6 +92,7 @@ class CDCHIVDiagnosesData(DataSource):
 
     def generate_breakdown_df(self, breakdown, geo_level, alls_df, fips_col):
         source_dfs = []
+        # county fips needs 5 digits, state digits use 2
         format_num = 5 if geo_level == COUNTY_LEVEL else 2
         missing_data = ['Data suppressed', 'Data not available']
         needed_cols = generate_needed_cols(breakdown, geo_level)
@@ -112,10 +114,12 @@ class CDCHIVDiagnosesData(DataSource):
             directory = f'cdc_hiv_diagnoses/{geo}'
             filename = f'{breakdown}_{demo_dict.get(group, group)}_{geo}_{SOURCE_YEAR}.csv'
 
-            source_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            source_group_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
                 directory, filename, dtype={'FIPS': str}, skiprows=9)
-            source_df['FIPS'] = source_df['FIPS'].str.zfill(format_num)
-            source_dfs.append(source_df)
+            # adds leading zeros to fips
+            source_group_df['FIPS'] = source_group_df['FIPS'].str.zfill(
+                format_num)
+            source_dfs.append(source_group_df)
 
         source_dfs.append(alls_df)
         merged_df = pd.concat(source_dfs, axis=0)
@@ -132,10 +136,13 @@ class CDCHIVDiagnosesData(DataSource):
         df[std_col.HIV_PER_100K] = df[std_col.HIV_PER_100K].astype(float)
 
         if geo_level == COUNTY_LEVEL:
-            new = df[std_col.STATE_NAME_COL].str.split(
+            # extract county & state names from
+            county_state_df = df[std_col.STATE_NAME_COL].str.split(
                 ", ", n=1, expand=True)
-            df[std_col.STATE_NAME_COL] = new[1]
-            df[std_col.COUNTY_NAME_COL] = new[0]
+            df[std_col.STATE_NAME_COL] = county_state_df[1]
+            df[std_col.COUNTY_NAME_COL] = county_state_df[0]
+            # look in to adding the fips so we can run merge county names
+            # df = merge_utils.merge_county_names(df)
             df = merge_utils.merge_state_ids(df)
 
         if geo_level == NATIONAL_LEVEL:
@@ -155,7 +162,14 @@ class CDCHIVDiagnosesData(DataSource):
         return df
 
 
-def generate_needed_cols(breakdown, geo_level):
+def generate_needed_cols(breakdown: str, geo_level: str):
+    """ Generates the needed columns and orders them on the dataframe 
+
+        breakdown: string of `race_and_ethnicity`, `sex`, `age`
+        geo_level: string of `state`, `county`, `national`
+
+        returns a list of column name strings
+    """
     cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
     cols_county = [std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL]
     std_cols = [std_col.TIME_PERIOD_COL, breakdown,
@@ -164,8 +178,7 @@ def generate_needed_cols(breakdown, geo_level):
     if geo_level == COUNTY_LEVEL:
         return cols + cols_county + std_cols
 
-    else:
-        return cols + std_cols
+    return cols + std_cols
 
 
 def generate_alls_df(geo_level):

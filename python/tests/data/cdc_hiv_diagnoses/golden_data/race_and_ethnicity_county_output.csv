@@ -1,0 +1,41 @@
+state_fips,state_name,county_fips,county_name,time_period,race_and_ethnicity,hiv_cases,hiv_per_cases_100k,population,hiv_pct_share,hiv_population_pct
+01,Alabama,01001,Autauga County,2019,All,7.0,15.0,46745,100.0,100.0
+01,Alabama,01001,Autauga County,2019,American Indian/Alaska Native,0.0,0.0,210,0.0,0.4
+01,Alabama,01001,Autauga County,2019,Asian,0.0,0.0,537,0.0,1.1
+01,Alabama,01001,Autauga County,2019,Black/African American,5.0,54.6,9155,71.4,19.6
+01,Alabama,01001,Autauga County,2019,Hispanic/Latino,0.0,0.0,1250,0.0,2.7
+01,Alabama,01001,Autauga County,2019,Multiracial,0.0,0.0,563,0.0,1.2
+01,Alabama,01001,Autauga County,2019,Native Hawaiian/Other Pacific Islander,,,33,,0.1
+01,Alabama,01001,Autauga County,2019,White,,,34998,,74.9
+01,Alabama,01003,Baldwin County,2019,All,15.0,7.9,189942,100.0,100.0
+01,Alabama,01003,Baldwin County,2019,American Indian/Alaska Native,0.0,0.0,1319,0.0,0.7
+01,Alabama,01003,Baldwin County,2019,Asian,,,2002,,1.1
+01,Alabama,01003,Baldwin County,2019,Black/African American,8.0,50.5,15848,53.3,8.3
+01,Alabama,01003,Baldwin County,2019,Hispanic/Latino,0.0,0.0,7603,0.0,4.0
+01,Alabama,01003,Baldwin County,2019,Multiracial,,,2320,,1.2
+01,Alabama,01003,Baldwin County,2019,Native Hawaiian/Other Pacific Islander,0.0,0.0,100,0.0,0.1
+01,Alabama,01003,Baldwin County,2019,White,5.0,3.1,160750,33.3,84.6
+01,Alabama,01005,Barbour County,2019,All,,,21044,,100.0
+01,Alabama,01005,Barbour County,2019,American Indian/Alaska Native,,,85,,0.4
+01,Alabama,01005,Barbour County,2019,Asian,,,98,,0.5
+01,Alabama,01005,Barbour County,2019,Black/African American,,,9920,,47.1
+01,Alabama,01005,Barbour County,2019,Hispanic/Latino,,,742,,3.5
+01,Alabama,01005,Barbour County,2019,Multiracial,,,182,,0.9
+01,Alabama,01005,Barbour County,2019,Native Hawaiian/Other Pacific Islander,,,24,,0.1
+01,Alabama,01005,Barbour County,2019,White,,,9993,,47.5
+01,Alabama,01007,Bibb County,2019,All,,,19108,,100.0
+01,Alabama,01007,Bibb County,2019,American Indian/Alaska Native,,,80,,0.4
+01,Alabama,01007,Bibb County,2019,Asian,,,43,,0.2
+01,Alabama,01007,Bibb County,2019,Black/African American,,,4124,,21.6
+01,Alabama,01007,Bibb County,2019,Hispanic/Latino,,,483,,2.5
+01,Alabama,01007,Bibb County,2019,Multiracial,,,151,,0.8
+01,Alabama,01007,Bibb County,2019,Native Hawaiian/Other Pacific Islander,,,4,,0.02
+01,Alabama,01007,Bibb County,2019,White,,,14224,,74.4
+01,Alabama,01009,Blount County,2019,All,,,48424,,100.0
+01,Alabama,01009,Blount County,2019,American Indian/Alaska Native,,,249,,0.5
+01,Alabama,01009,Blount County,2019,Asian,,,134,,0.3
+01,Alabama,01009,Blount County,2019,Black/African American,,,722,,1.5
+01,Alabama,01009,Blount County,2019,Hispanic/Latino,,,3969,,8.2
+01,Alabama,01009,Blount County,2019,Multiracial,,,489,,1.0
+01,Alabama,01009,Blount County,2019,Native Hawaiian/Other Pacific Islander,,,20,,0.04
+01,Alabama,01009,Blount County,2019,White,,,42841,,88.5

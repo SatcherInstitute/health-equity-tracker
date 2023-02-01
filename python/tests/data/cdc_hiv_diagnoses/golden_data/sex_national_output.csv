@@ -1,0 +1,4 @@
+state_fips,state_name,time_period,sex,hiv_cases,hiv_per_cases_100k,population,hiv_pct_share,hiv_population_pct
+00,United States,2019,All,6151.0,13.2,46440440.0,100.0,100.0
+00,United States,2019,Female,869.0,20.7,23547287.0,14.1,50.7
+00,United States,2019,Male,5283.0,94.8,22893153.0,85.9,49.3
