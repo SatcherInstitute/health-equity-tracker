@@ -1,7 +1,7 @@
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, merge_utils, standardized_columns as std_col
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL, Sex
-from ingestion.dataset_utils import generate_pct_share_col_without_unknowns, generate_pct_rel_inequity_col
+from ingestion.dataset_utils import generate_pct_share_col_without_unknowns
 import pandas as pd
 import numpy as np
 
