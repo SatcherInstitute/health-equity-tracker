@@ -2,7 +2,7 @@ import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { appendFipsIfNeeded } from "../utils/datasetutils";
+// import { appendFipsIfNeeded } from "../utils/datasetutils";
 import VariableProvider from "./VariableProvider";
 
 const HIV_DETERMINANTS: MetricId[] = [
