@@ -30,6 +30,7 @@
 .MethodologySubsubheaderText {
   @include inter500();
   font-size: $text;
+  margin-top: 5rem;
 }
 
 .MethodologyInfoBar {
@@ -48,9 +49,14 @@ p.CitationAPA:first-of-type {
   text-indent: -2rem;
 }
 
+.MissingDataBox {
+  padding: 1rem 2rem;
+  background-color: $standard-warning !important;
+}
+
 .WhyBox {
   padding: 1rem 2rem;
-  background-color: $why-box-color !important;
+  background-color: $standard-info !important;
 }
 
 /* AGE ADJUSTMENT */
