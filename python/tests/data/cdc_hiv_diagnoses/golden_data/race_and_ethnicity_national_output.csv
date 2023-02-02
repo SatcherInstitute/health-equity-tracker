@@ -1,9 +1,9 @@
 state_fips,state_name,time_period,race_and_ethnicity,hiv_cases,hiv_per_cases_100k,population,hiv_pct_share,hiv_population_pct
-00,United States,2019,All,6151.0,13.2,46440440.0,100.0,100.0
-00,United States,2019,American Indian/Alaska Native,63.0,45.5,495480.0,1.0,1.1
-00,United States,2019,Asian,257.0,24.1,5471612.0,4.2,11.8
-00,United States,2019,Black/African American,1472.0,189.7,3637080.0,23.9,7.8
-00,United States,2019,Hispanic/Latino,2604.0,68.0,14366123.0,42.3,30.9
-00,United States,2019,Multiracial,141.0,59.9,1013979.0,2.3,2.2
-00,United States,2019,Native Hawaiian/Other Pacific Islander,16.0,40.1,153095.0,0.3,0.3
-00,United States,2019,White,1599.0,30.3,21303071.0,26.0,45.9
+00,United States,2019,All,36528.0,13.2,276063213.0,100.0,100.0
+00,United States,2019,AIAN_NH,204.0,10.2,1996615.0,0.6,0.7
+00,United States,2019,ASIAN_NH,733.0,4.5,16234313.0,2.0,5.9
+00,United States,2019,BLACK_NH,15471.0,45.5,33981764.0,42.4,12.3
+00,United States,2019,HISP,9889.0,21.1,46954313.0,27.1,17.0
+00,United States,2019,MULTI_NH,1102.0,22.7,4863049.0,3.0,1.8
+00,United States,2019,NHPI_NH,66.0,13.4,491319.0,0.2,0.2
+00,United States,2019,WHITE_NH,9063.0,5.3,171541840.0,24.8,62.1

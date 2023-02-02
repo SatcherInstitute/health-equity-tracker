@@ -75,6 +75,8 @@ class CDCHIVData(DataSource):
                 df = self.generate_breakdown_df(
                     breakdown, geo_level, alls_df, fips_col)
 
+                df.to_csv(f'{breakdown}_{geo_level}_output.csv', index=False)
+
                 float_cols = [std_col.HIV_POPULATION_PCT,
                               std_col.POPULATION_COL,
                               std_col.HIV_CASES,
@@ -94,6 +96,8 @@ class CDCHIVData(DataSource):
         format_num = 5 if geo_level == COUNTY_LEVEL else 2
         missing_data = ['Data suppressed', 'Data not available']
         needed_cols = generate_needed_cols(breakdown, geo_level)
+        geo = COUNTY_LEVEL if geo_level == COUNTY_LEVEL else STATE_LEVEL
+        directory = f'cdc_hiv_diagnoses/{geo}'
 
         cols_std = {
             'Geography': std_col.STATE_NAME_COL,
@@ -108,16 +112,18 @@ class CDCHIVData(DataSource):
         }
 
         for group in group_dict[breakdown].keys():
-            geo = 'county' if geo_level == COUNTY_LEVEL else 'state'
-            directory = f'cdc_hiv_diagnoses/{geo}'
             filename = f'{breakdown}_{demo_dict.get(group, group)}_{geo}_{SOURCE_YEAR}.csv'
-
             source_group_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
                 directory, filename, dtype={'FIPS': str}, skiprows=9)
             # adds leading zeros to fips
             source_group_df['FIPS'] = source_group_df['FIPS'].str.zfill(
                 format_num)
             source_dfs.append(source_group_df)
+
+        if geo_level == NATIONAL_LEVEL:
+            national_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+                f'cdc_hiv_diagnoses/{NATIONAL_LEVEL}', f'{breakdown}_{NATIONAL_LEVEL}_{SOURCE_YEAR}.csv')
+
 
         source_dfs.append(alls_df)
         merged_df = pd.concat(source_dfs, axis=0)
@@ -148,20 +154,43 @@ class CDCHIVData(DataSource):
             df = df[-df[std_col.STATE_FIPS_COL].isin(territories)]
             df[std_col.STATE_FIPS_COL] = '00'
             df[std_col.STATE_NAME_COL] = 'United States'
+            # combine HIV cases
             df = df.groupby([std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL,
                             std_col.TIME_PERIOD_COL, breakdown]).sum().reset_index()
+            # combine population numbers
             df.loc[df[breakdown] ==
                    'All', [std_col.POPULATION_COL]] = df[std_col.POPULATION_COL].sum()
+
+            national_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+                f'cdc_hiv_diagnoses/{NATIONAL_LEVEL}', f'{breakdown}_{NATIONAL_LEVEL}_{SOURCE_YEAR}.csv')
+
+            national_df[std_col.STATE_FIPS_COL] = '00'
+            national_df[std_col.STATE_NAME_COL] = 'United States'
+            national_df = national_df.drop(columns=['Indicator'])
+            df = df.drop(columns=[std_col.HIV_PER_100K])
+            alls_df = alls_df.drop(columns=['Indicator'])
+            national_df = national_df.rename(columns=cols_std)
+            alls_df = alls_df.rename(columns=cols_std)
+            alls_df[std_col.STATE_NAME_COL] = 'United States'
+            national_df = national_df[[breakdown, 'hiv_per_cases_100k']]
+            alls_df = alls_df[[breakdown, 'hiv_per_cases_100k']]
+            national_df = pd.concat([national_df, alls_df], axis=0)
+            df = pd.merge(df, national_df, on=[
+                breakdown], how='left')
 
         df = df[needed_cols]
         df = generate_pct_share_col_without_unknowns(
             df, pct_share_dict, breakdown, 'All')
 
+        if breakdown == std_col.RACE_OR_HISPANIC_COL:
+            df = df.replace(
+                {std_col.RACE_OR_HISPANIC_COL: RACE_GROUPS_TO_STANDARD})
+
         return df
 
 
 def generate_needed_cols(breakdown: str, geo_level: str):
-    """ Generates the needed columns and orders them on the dataframe 
+    """ Generates the needed columns and orders them on the dataframe
 
         breakdown: string of `race_and_ethnicity`, `sex`, `age`
         geo_level: string of `state`, `county`, `national`
@@ -192,7 +221,6 @@ def generate_alls_df(geo_level):
 
     alls_county_df[cols] = alls_state_df[cols] = alls_national_df[cols] = 'All'
     alls_national_df['FIPS'] = '00'
-    alls_national_df['Geography'] = 'United States'
 
     if geo_level == NATIONAL_LEVEL:
         return alls_national_df
