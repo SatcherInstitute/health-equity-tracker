@@ -8,7 +8,7 @@ from ingestion.census import (
     parse_acs_metadata,
     get_vars_for_group,
     standardize_frame,
-    get_census_params)
+    get_all_params_for_group)
 
 from ingestion.merge_utils import (
     merge_pop_numbers,
@@ -87,17 +87,17 @@ def update_col_types(df):
         if col in str_cols:
             colTypes[col] = str
         else:
-            colTypes[col] = int
+            colTypes[col] = float
     df = df.astype(colTypes)
     return df
 
 
-class AcsHealthInsuranceIngester(DataSource):
+class AcsHealthInsurance(DataSource):
 
     # Initialize variables in class instance, also merge all metadata so that lookup of the
     # prefix, suffix combos can return the entire metadata
-    def __init__(self, base_url):
-        self.base_url = base_url
+    def __init__(self):
+        self.base_url = BASE_ACS_URL
 
     # Gets standardized filename
     # If race is set, gets race filename
@@ -111,6 +111,14 @@ class AcsHealthInsuranceIngester(DataSource):
         geo = 'COUNTY' if is_county else 'STATE'
         return f'HEALTH_INSURANCE_BY_SEX_{geo}.json'
 
+    @staticmethod
+    def get_id():
+        return 'ACS_HEALTH_INSURANCE'
+
+    @staticmethod
+    def get_table_name():
+        return 'acs_health_insurance'
+
     # Uploads the ACS data to GCS by providing
     # the ACS Base URL
     # Acs Query Params
@@ -122,35 +130,43 @@ class AcsHealthInsuranceIngester(DataSource):
     # Returns:
     # FileDiff = If the data has changed by diffing the old run vs the new run.
     # (presumably to skip the write to bq step though not 100% sure as of writing this)
-    def upload_to_gcs(self, bucket):
+    def upload_to_gcs(self, bucket, **attrs):
         # Iterates over the different race ACS variables,
         # retrieves the race from the metadata merged dict
         # writes the data to the GCS bucket and sees if file diff is changed
         file_diff = False
-        for group, race in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES.items():
-            for is_county in [True, False]:
-                params = get_census_params(group, is_county)
-
+        for prefix, race in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES.items():
+            for county_level in [True, False]:
+                params = get_all_params_for_group(prefix, county_level)
                 file_diff = (
                     url_file_to_gcs.url_file_to_gcs(
                         self.base_url,
                         params,
                         bucket,
-                        self.get_filename(race, is_county),
+                        self.get_filename_race(race, county_level),
                     )
                     or file_diff
                 )
 
+        for county_level in [True, False]:
+            params = get_all_params_for_group(HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, county_level)
+            file_diff = (
+                url_file_to_gcs.url_file_to_gcs(
+                    self.base_url, params, bucket, self.get_filename_sex(county_level)
+                )
+                or file_diff
+            )
+
         return file_diff
 
-    def write_to_bq(self, dataset, gcs_bucket):
-        self.metadata = census.fetch_acs_metadata(self.base_url)
+    def write_to_bq(self, dataset, gcs_bucket, **attrs):
+        metadata = census.fetch_acs_metadata(self.base_url)
         dfs = {}
         for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
             for demo in [RACE, AGE, SEX]:
                 table_name = f'by_{demo}_{geo}_processed'
 
-                df = self.get_raw_data(demo, geo, gcs_bucket=gcs_bucket)
+                df = self.get_raw_data(demo, geo, metadata, gcs_bucket=gcs_bucket)
                 df = self.post_process(df, demo, geo)
 
                 if demo == RACE:
@@ -163,14 +179,14 @@ class AcsHealthInsuranceIngester(DataSource):
                           std_col.UNINSURED_POPULATION_PCT,
                           std_col.UNINSURED_PCT_SHARE_COL]
 
+            col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name,
-                column_types=gcs_to_bq_util.get_bq_column_types(df, float_cols)
-            )
+                column_types=col_types)
 
     # Get Health insurance data from either GCS or Directly, and aggregate the data in memory
-    def get_raw_data(self, demo, geo, gcs_bucket=None):
-        var_map = parse_acs_metadata(self.metadata,
+    def get_raw_data(self, demo, geo, metadata, gcs_bucket=None):
+        var_map = parse_acs_metadata(metadata,
                                      list(HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES.keys())
                                      + [HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX])
 
@@ -179,7 +195,6 @@ class AcsHealthInsuranceIngester(DataSource):
                 dfs = []
                 for concept, race in CONCEPTS_TO_RACE.items():
                     # Get cached data from GCS
-                    print(concept, race, geo)
                     df = gcs_to_bq_util.load_values_as_df(
                         gcs_bucket, self.get_filename_race(race, geo == COUNTY_LEVEL)
                     )
@@ -298,6 +313,7 @@ class AcsHealthInsuranceIngester(DataSource):
             std_col.STATE_FIPS_COL,
             std_col.STATE_NAME_COL,
             demo_col,
+            std_col.UNINSURED_POPULATION_PCT,
         ]
 
         breakdown_vals_to_sum = None
@@ -308,10 +324,6 @@ class AcsHealthInsuranceIngester(DataSource):
         df = add_sum_of_rows(df, demo_col,
                              [WITHOUT_HEALTH_INSURANCE, HEALTH_INSURANCE_POP],
                              all_val, breakdown_vals_to_sum)
-
-        df = merge_pop_numbers(df, demo, geo)
-        df = df.rename(columns={std_col.POPULATION_PCT_COL:
-                                std_col.UNINSURED_POPULATION_PCT})
 
         df = merge_state_ids(df)
 
@@ -325,7 +337,8 @@ class AcsHealthInsuranceIngester(DataSource):
                                    std_col.UNINSURED_PER_100K_COL)
 
         df = generate_pct_share_col_without_unknowns(
-            df, {WITHOUT_HEALTH_INSURANCE: std_col.UNINSURED_PCT_SHARE_COL},
+            df, {WITHOUT_HEALTH_INSURANCE: std_col.UNINSURED_PCT_SHARE_COL,
+                 HEALTH_INSURANCE_POP: std_col.UNINSURED_POPULATION_PCT},
             demo_col, all_val)
 
         all_columns.extend([std_col.UNINSURED_PER_100K_COL, std_col.UNINSURED_PCT_SHARE_COL])

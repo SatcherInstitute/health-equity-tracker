@@ -28,6 +28,15 @@ def get_census_params(variable_ids, county_level=False):
     return params
 
 
+def get_all_params_for_group(group, county_level=False):
+    """Gets census url params to get all variables for a group.
+
+       group: String group ID to get variables for.
+       county_level: Whether to request at the county or state level."""
+    geo = 'county' if county_level else 'state'
+    return {'get': f'group({group})', 'for': geo}
+
+
 def fetch_acs_variables(base_acs_url, variable_ids, county_level):
     """Fetches ACS variables and returns them as a json string.
 
@@ -145,7 +154,6 @@ def standardize_frame(df, var_to_labels_map, breakdowns, county_level, measured_
         ["state", "county", "variable"] if county_level else ["state", "variable"]
     )
 
-    df = df[list(var_to_labels_map.keys()) + id_cols]
     df = df.melt(id_vars=id_cols)
     df = df.sort_values(sort_cols)
 

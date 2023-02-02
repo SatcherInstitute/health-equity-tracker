@@ -4,7 +4,7 @@ from unittest import mock
 from pandas._testing import assert_frame_equal
 from ingestion import gcs_to_bq_util
 
-from datasources.acs_health_insurance import AcsHealthInsuranceIngester
+from datasources.acs_health_insurance import AcsHealthInsurance
 
 from test_utils import get_acs_metadata_as_json, get_state_fips_codes_as_df
 
@@ -26,51 +26,19 @@ def _get_by_race_as_df(*args):
         os.path.join(TEST_DIR, filename), dtype={'county_fips': str}).reset_index(drop=True)
 
 
-def get_pop_numbers_as_df(*args, **kwargs):
-    demo = ''
-    if 'race' in args[1]:
-        demo = 'race'
-    elif 'age' in args[1]:
-        demo = 'age'
-    elif 'sex' in args[1]:
-        demo = 'sex'
-
-    loc = ''
-    if 'county' in args[1]:
-        loc = 'county'
-    elif 'state' in args[1]:
-        loc = 'state'
-    elif 'national' in args[1]:
-        loc = 'national'
-
-    if args[0] == 'acs_2010_population':
-        return pd.read_csv(os.path.join(TEST_DIR, f'population_2010_{demo}.csv'),
-                           dtype={'state_fips': str,
-                                  'county_fips': str,
-                                  })
-    else:
-        return pd.read_csv(os.path.join(TEST_DIR, f'population_by_{demo}_{loc}.csv'),
-                           dtype={'state_fips': str,
-                                  'county_fips': str,
-                                  })
-
-
 @mock.patch('ingestion.census.fetch_acs_metadata',
             return_value=get_acs_metadata_as_json())
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
             side_effect=_get_by_race_as_df)
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-            side_effect=get_pop_numbers_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             side_effect=get_fips_and_county_names_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBq(mock_bq: mock.MagicMock,
                   mock_fips: mock.MagicMock,
-                  mock_pop: mock.MagicMock,
                   mock_acs: mock.MagicMock,
                   mock_json: mock.MagicMock):
-    acsHealthInsuranceIngestor = AcsHealthInsuranceIngester("https://SOME-URL")
+    acsHealthInsuranceIngestor = AcsHealthInsurance()
 
     acsHealthInsuranceIngestor.write_to_bq('dataset', 'gcs_bucket')
 
@@ -114,22 +82,6 @@ def testWriteToBq(mock_bq: mock.MagicMock,
 
     assert mock_acs.call_args_list[28].args[1] == 'HEALTH_INSURANCE_BY_SEX_COUNTY.json'
     assert mock_acs.call_args_list[29].args[1] == 'HEALTH_INSURANCE_BY_SEX_COUNTY.json'
-
-    assert mock_pop.call_count == 12
-    assert mock_pop.call_args_list[0].args[1] == 'by_race_national'
-    assert mock_pop.call_args_list[1].args[1] == 'by_age_national'
-    assert mock_pop.call_args_list[2].args[1] == 'by_sex_national'
-
-    assert mock_pop.call_args_list[3].args[1] == 'by_race_state'
-    assert mock_pop.call_args_list[4].args[1] == 'by_race_and_ethnicity_territory'
-    assert mock_pop.call_args_list[5].args[1] == 'by_age_state'
-    assert mock_pop.call_args_list[6].args[1] == 'by_age_territory'
-    assert mock_pop.call_args_list[7].args[1] == 'by_sex_state'
-    assert mock_pop.call_args_list[8].args[1] == 'by_sex_territory'
-
-    assert mock_pop.call_args_list[9].args[1] == 'by_race_county'
-    assert mock_pop.call_args_list[10].args[1] == 'by_age_county'
-    assert mock_pop.call_args_list[11].args[1] == 'by_sex_county'
 
     # One state name call for each run, and then 1 county name for each county run
     assert mock_fips.call_count == 9 + 3
