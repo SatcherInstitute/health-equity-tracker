@@ -1,8 +1,6 @@
 import pandas as pd  # type: ignore
-
 import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
-
 from ingestion.standardized_columns import Race
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
 from datasources.data_source import DataSource
@@ -281,10 +279,6 @@ class ACSPopulationIngester():
         self.base_sort_by_cols = (
             [std_col.STATE_FIPS_COL, std_col.COUNTY_FIPS_COL] if county_level
             else [std_col.STATE_FIPS_COL])
-
-        # collection of all of the tables for
-        # combining and uploading to bq
-        self.time_series_table_items = {}
 
         self.base_acs_url = base_acs_url
 
