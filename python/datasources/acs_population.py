@@ -434,33 +434,6 @@ class ACSPopulationIngester():
 
         return frames
 
-    # def write_single_year_for_breakdown_to_bq(self, table_name: str, df, dataset: str):
-    #     """ simple wrapper that prepares the BQ cols and executes the writing
-    #     of the single year table to maintain legacy utils """
-
-    # def write_time_series_for_breakdown_to_bq(self, table_name: str, dataset: str):
-    #     """ iterates over available tables items by year, and
-    #     incrementally builds a new time-series df for the given table name """
-
-    #     print("writing time series", table_name)
-
-    #     # the earliest year should OVERWRITE, the subsequent years should APPEND
-    #     overwrite = self.base_acs_url == ACS_BASE_URLS[0]
-
-    #     for table_name, df in self.time_series_table_items.items():
-    #         print(table_name, table_name)
-    #         float_cols = [std_col.POPULATION_COL]
-    #         if std_col.POPULATION_PCT_COL in df.columns:
-    #             float_cols.append(std_col.POPULATION_PCT_COL)
-    #         column_types = gcs_to_bq_util.get_bq_column_types(
-    #             df, float_cols=float_cols)
-    #         gcs_to_bq_util.add_df_to_bq(
-    #             df, dataset,
-    #             f'{table_name}_time_series',
-    #             column_types=column_types,
-    #             overwrite=overwrite
-    #         )
-
     def get_table_geo_suffix(self):
         return "_county" if self.county_level else "_state"
 
@@ -742,8 +715,6 @@ class ACSPopulation(DataSource):
         return 'ACS_POPULATION'
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
-        """ called a single time from DAG, iterates over all years/geos
-        and does caching ingestion to GCS"""
 
         file_diff = False
         for url in ACS_BASE_URLS:
@@ -755,21 +726,13 @@ class ACSPopulation(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         """ Called once per year url from DAG, creates a county and non-county
-        ingester to proceed with processing the single year and time-series tables """
+        ingester to proceed with processing the time-series tables and
+        potentially single year tables """
         url = self.get_attr(attrs, 'url')
-        # ingester = ACSPopulationIngester(geo_level == "county")
-        # for ingester in self._create_ingesters():
-        #     ingester.write_to_bq(dataset, gcs_bucket)
 
         for is_county in [True, False]:
             ingester = ACSPopulationIngester(is_county, url)
             ingester.write_to_bq(dataset, gcs_bucket)
-
-    # def _create_ingesters(self):
-    #     return [
-    #         ACSPopulationIngester(False, self.base_acs_url),
-    #         ACSPopulationIngester(True, self.base_acs_url)
-    #     ]
 
 
 def generate_national_dataset_with_all_states(state_df, demographic_breakdown_category):
