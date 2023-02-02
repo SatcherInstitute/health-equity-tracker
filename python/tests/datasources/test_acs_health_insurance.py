@@ -22,6 +22,7 @@ def get_fips_and_county_names_as_df(*args, **kwargs):
 
 def _get_by_race_as_df(*args):
     _, filename = args
+    print(filename)
     return gcs_to_bq_util.values_json_to_df(
         os.path.join(TEST_DIR, filename), dtype={'county_fips': str}).reset_index(drop=True)
 
