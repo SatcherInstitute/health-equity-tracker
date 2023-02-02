@@ -11,7 +11,6 @@ from ingestion.census import (
     get_all_params_for_group)
 
 from ingestion.merge_utils import (
-    merge_pop_numbers,
     merge_state_ids,
     merge_county_names)
 
