@@ -1,4 +1,4 @@
-state_fips,state_name,county_fips,county_name,time_period,race_and_ethnicity,hiv_cases,hiv_per_cases_100k,population,hiv_pct_share,hiv_population_pct
+state_fips,state_name,county_fips,county_name,time_period,race_and_ethnicity,hiv_cases,hiv_diagnoses_per_100k,population,hiv_pct_share,hiv_diagnoses_pct_share
 01,Alabama,01001,Autauga County,2019,All,7.0,15.0,46745.0,100.0,100.0
 01,Alabama,01001,Autauga County,2019,AIAN_NH,0.0,0.0,210.0,0.0,0.4
 01,Alabama,01001,Autauga County,2019,ASIAN_NH,0.0,0.0,537.0,0.0,1.1

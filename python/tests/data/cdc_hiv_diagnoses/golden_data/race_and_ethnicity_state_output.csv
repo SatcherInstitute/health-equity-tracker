@@ -1,4 +1,4 @@
-state_fips,state_name,time_period,race_and_ethnicity,hiv_cases,hiv_per_cases_100k,population,hiv_pct_share,hiv_population_pct
+state_fips,state_name,time_period,race_and_ethnicity,hiv_cases,hiv_diagnoses_per_100k,population,hiv_pct_share,hiv_diagnoses_pct_share
 01,Alabama,2019,All,635.0,15.4,4128511.0,100.0,100.0
 01,Alabama,2019,AIAN_NH,1.0,4.1,24548.0,0.2,0.6
 01,Alabama,2019,ASIAN_NH,1.0,1.6,61261.0,0.2,1.5

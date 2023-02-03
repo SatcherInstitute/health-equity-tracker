@@ -1,4 +1,4 @@
-state_fips,state_name,time_period,age,hiv_cases,hiv_per_cases_100k,population,hiv_pct_share,hiv_population_pct
+state_fips,state_name,time_period,age,hiv_cases,hiv_diagnoses_per_100k,population,hiv_pct_share,hiv_diagnoses_pct_share
 01,Alabama,2019,13-24,165.0,21.7,760037.0,26.0,18.4
 01,Alabama,2019,25-34,219.0,33.8,648519.0,34.5,15.7
 01,Alabama,2019,35-44,118.0,19.9,593775.0,18.6,14.4
