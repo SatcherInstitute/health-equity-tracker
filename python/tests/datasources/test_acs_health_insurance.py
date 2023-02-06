@@ -22,9 +22,23 @@ def get_fips_and_county_names_as_df(*args, **kwargs):
 
 def _get_by_race_as_df(*args):
     _, filename = args
-    print(filename)
     return gcs_to_bq_util.values_json_to_df(
         os.path.join(TEST_DIR, filename), dtype={'county_fips': str}).reset_index(drop=True)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            side_effect=get_fips_and_county_names_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
+            side_effect=_get_by_race_as_df)
+def testSexState(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
+    acsHealthInsuranceIngestor = AcsHealthInsurance()
+
+    df = acsHealthInsuranceIngestor.get_raw_data('sex', 'state', get_acs_metadata_as_json(), 'some-bucket')
+    df = acsHealthInsuranceIngestor.post_process(df, 'sex', 'sate')
+
+    expected_df = 
+    assert_frame_equal(
+
 
 
 @mock.patch('ingestion.census.fetch_acs_metadata',

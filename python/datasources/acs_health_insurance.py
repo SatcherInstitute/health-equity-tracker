@@ -183,34 +183,32 @@ class AcsHealthInsurance(DataSource):
                 df, dataset, table_name,
                 column_types=col_types)
 
-    # Get Health insurance data from either GCS or Directly, and aggregate the data in memory
-    def get_raw_data(self, demo, geo, metadata, gcs_bucket=None):
+    def get_raw_data(self, demo, geo, metadata, gcs_bucket):
         var_map = parse_acs_metadata(metadata,
                                      list(HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES.keys())
                                      + [HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX])
 
-        if gcs_bucket is not None:
-            if demo == RACE:
-                dfs = []
-                for concept, race in CONCEPTS_TO_RACE.items():
-                    # Get cached data from GCS
-                    df = gcs_to_bq_util.load_values_as_df(
-                        gcs_bucket, self.get_filename_race(race, geo == COUNTY_LEVEL)
-                    )
-
-                    df = self.generate_df_for_concept(df, demo, geo, concept, var_map)
-                    df[std_col.RACE_CATEGORY_ID_COL] = race
-                    dfs.append(df)
-
-                return pd.concat(dfs)
-
-            else:
+        if demo == RACE:
+            dfs = []
+            for concept, race in CONCEPTS_TO_RACE.items():
+                # Get cached data from GCS
                 df = gcs_to_bq_util.load_values_as_df(
-                    gcs_bucket, self.get_filename_sex(geo == COUNTY_LEVEL)
+                    gcs_bucket, self.get_filename_race(race, geo == COUNTY_LEVEL)
                 )
-                return self.generate_df_for_concept(df, demo, geo,
-                                                    HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT,
-                                                    var_map)
+
+                df = self.generate_df_for_concept(df, demo, geo, concept, var_map)
+                df[std_col.RACE_CATEGORY_ID_COL] = race
+                dfs.append(df)
+
+            return pd.concat(dfs)
+
+        else:
+            df = gcs_to_bq_util.load_values_as_df(
+                gcs_bucket, self.get_filename_sex(geo == COUNTY_LEVEL)
+            )
+            return self.generate_df_for_concept(df, demo, geo,
+                                                HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT,
+                                                var_map)
 
     def generate_df_for_concept(self, df, demo, geo, concept, var_map):
         """Transforms the encoded census data into a dataframe ready
