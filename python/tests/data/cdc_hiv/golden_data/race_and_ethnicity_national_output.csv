@@ -1,0 +1,9 @@
+state_name,state_fips,time_period,race_and_ethnicity,hiv_cases,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_pop_pct,race_category_id
+United States,00,2019,American Indian and Alaska Native (NH),204.0,10200.0,0.6,0.7,AIAN_NH
+United States,00,2019,Asian (NH),733.0,4500.0,2.0,5.9,ASIAN_NH
+United States,00,2019,Black or African American (NH),15471.0,45500.0,42.4,12.3,BLACK_NH
+United States,00,2019,Hispanic or Latino,9889.0,21100.0,27.1,17.0,HISP
+United States,00,2019,Two or more races (NH),1102.0,22700.0,3.0,1.8,MULTI_NH
+United States,00,2019,Native Hawaiian and Pacific Islander (NH),66.0,13400.0,0.2,0.2,NHPI_NH
+United States,00,2019,White (NH),9063.0,5300.0,24.8,62.1,WHITE_NH
+United States,00,2019,All,36528.0,13200.0,100.0,100.0,ALL

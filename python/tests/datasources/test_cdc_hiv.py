@@ -3,23 +3,25 @@ from pandas._testing import assert_frame_equal
 from datasources.cdc_hiv import CDCHIVData
 import pandas as pd
 import os
+import ingestion.standardized_columns as std_col
+import csv
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data",)
-GOLDEN_DIR = 'cdc_hiv_diagnoses/golden_data'
+GOLDEN_DIR = 'cdc_hiv/golden_data'
 
 GOLDEN_DATA = {
     'race_national': os.path.join(TEST_DIR, GOLDEN_DIR, 'race_and_ethnicity_national_output.csv'),
     'race_state': os.path.join(TEST_DIR, GOLDEN_DIR, 'race_and_ethnicity_state_output.csv'),
     'race_county': os.path.join(TEST_DIR, GOLDEN_DIR, 'race_and_ethnicity_county_output'),
-    'alls_national': os.path.join(TEST_DIR, 'cdc_hiv_diagnoses/national', 'totals_national_2019.csv')
+    'alls_national': os.path.join(TEST_DIR, 'cdc_hiv/national', 'totals_national_2019.csv')
 }
 
 
 def _load_csv_as_df_from_data_dir(*args, **kwargs):
     dataset, filename = args
     df = pd.read_csv(os.path.join(TEST_DIR, dataset, filename),
-                     dtype={'FIPS': str}, skiprows=9, thousands=",")
+                     dtype={'FIPS': str, 'Population': float}, skiprows=9, thousands=',', quoting=1)
     return df
 
 

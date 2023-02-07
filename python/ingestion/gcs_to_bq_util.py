@@ -239,7 +239,7 @@ def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None):
     return pd.read_csv(url, dtype=dtype, encoding=encoding)
 
 
-def load_csv_as_df_from_data_dir(directory, filename, dtype=None, skiprows=None):
+def load_csv_as_df_from_data_dir(directory, filename, dtype=None, skiprows=None, thousands=None):
     """Loads csv data from /data/{directory}/{filename} into a DataFrame.
        Expects the data to be in csv format, with the first row as the column
        names.
@@ -248,7 +248,7 @@ def load_csv_as_df_from_data_dir(directory, filename, dtype=None, skiprows=None)
     filename: file to load the csv file from"""
 
     file_path = os.path.join(DATA_DIR, directory, filename)
-    return pd.read_csv(file_path, dtype=dtype, skiprows=skiprows)
+    return pd.read_csv(file_path, dtype=dtype, skiprows=skiprows, thousands=thousands)
 
 
 def load_json_as_df_from_data_dir(directory, filename, dtype=None):
