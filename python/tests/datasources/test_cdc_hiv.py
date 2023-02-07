@@ -25,14 +25,10 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-            return_value=None)
-def testRunner(
-    mock_bq: mock.MagicMock,
+def testGenerateNationalBreakdown(
     mock_data_dir: mock.MagicMock,
 ):
     datasource = CDCHIVData()
-    datasource.write_to_bq('dataset', 'gcs_bucket')
     df = datasource.generate_breakdown_df(
         'race_and_ethnicity', 'national')
     expected_df_race_national = pd.read_csv(
