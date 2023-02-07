@@ -14,5 +14,3 @@ def get_state_fips_codes_as_df():
 def get_acs_metadata_as_json():
     with open(os.path.join(TEST_DIR, 'acs_metadata.json')) as f:
         return json.load(f)
-
-
