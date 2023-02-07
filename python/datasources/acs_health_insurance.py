@@ -70,7 +70,7 @@ HAS_HEALTH_INSURANCE = 'has_health_insurance'
 # Col names for temporary df, never written to bq
 AMOUNT = 'amount'
 HEALTH_INSURANCE_POP = 'health_insurance_pop'
-WITHOUT_HEALTH_INSURANCE = 'wihout_health_insurance'
+WITHOUT_HEALTH_INSURANCE = 'without_health_insurance'
 
 
 def update_col_types(df):
