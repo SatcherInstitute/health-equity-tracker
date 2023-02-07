@@ -12,6 +12,8 @@ from test_utils import get_acs_metadata_as_json, get_state_fips_codes_as_df
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data', 'acs_health_insurance')
 
+GOLDEN_DATA_STATE_SEX = os.path.join(TEST_DIR, 'golden_data', 'sex_state.csv')
+
 
 def get_fips_and_county_names_as_df(*args, **kwargs):
     if args[1] == 'fips_codes_all':
@@ -23,7 +25,8 @@ def get_fips_and_county_names_as_df(*args, **kwargs):
 def _get_by_race_as_df(*args):
     _, filename = args
     return gcs_to_bq_util.values_json_to_df(
-        os.path.join(TEST_DIR, filename), dtype={'county_fips': str}).reset_index(drop=True)
+        os.path.join(TEST_DIR, filename),
+        dtype={'state_fips': str, 'county_fips': str}).reset_index(drop=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -36,9 +39,11 @@ def testSexState(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
     df = acsHealthInsuranceIngestor.get_raw_data('sex', 'state', get_acs_metadata_as_json(), 'some-bucket')
     df = acsHealthInsuranceIngestor.post_process(df, 'sex', 'sate')
 
-    expected_df = 
-    assert_frame_equal(
-
+    expected_df = pd.read_csv(GOLDEN_DATA_STATE_SEX, dtype={'state_fips': str})
+    cols = list(expected_df.columns)
+    assert_frame_equal(df.sort_values(cols).reset_index(drop=True),
+                       expected_df.sort_values(cols).reset_index(drop=True),
+                       check_like=True)
 
 
 @mock.patch('ingestion.census.fetch_acs_metadata',
