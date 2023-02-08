@@ -3,6 +3,7 @@ from ingestion import gcs_to_bq_util, merge_utils, standardized_columns as std_c
 from ingestion.dataset_utils import generate_pct_share_col_without_unknowns
 import pandas as pd
 import numpy as np
+import os
 
 AGE_GROUPS = {
     '13-24': '13_24',
@@ -48,6 +49,18 @@ pct_share_dict = {
     std_col.POPULATION_COL: std_col.HIV_POPULATION_PCT
 }
 
+ALLS_DICT = {
+    constants.NATIONAL_LEVEL: os.path.join('cdc_hiv/national', 'totals_national_2019.csv'),
+    constants.STATE_LEVEL: os.path.join('cdc_hiv/state', 'totals_state_2019.csv'),
+    constants.COUNTY_LEVEL: os.path.join('cdc_hiv/county', 'totals_county_2019.csv'),
+}
+
+NAT_BREAKDOWN_DICT = {
+    std_col.AGE_COL: os.path.join('cdc_hiv/national', 'age_national_2019.csv'),
+    std_col.SEX_COL: os.path.join('cdc_hiv/national', 'sex_national_2019.csv'),
+    std_col.RACE_OR_HISPANIC_COL: os.path.join('cdc_hiv/national', 'race_and_ethnicity_national_2019.csv'),
+}
+
 
 def generate_alls_df(geo_level: str):
     """
@@ -57,11 +70,8 @@ def generate_alls_df(geo_level: str):
 
     returns a formatted dataframe with total values for specified geo_level
     """
-    directory = f'cdc_hiv/{geo_level}'
-    filename = f'totals_{geo_level}_2019.csv'
-
     alls_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-        directory, filename, dtype={'FIPS': str}, skiprows=9, thousands=',')
+        subdirectory=ALLS_DICT[geo_level], dtype={'FIPS': str}, skiprows=9, thousands=',')
 
     alls_df[['Sex', 'Age Group', 'Race/Ethnicity']] = 'All'
 
@@ -74,11 +84,8 @@ def generate_alls_df(geo_level: str):
 
 
 def generate_nat_breakdown_df(breakdown: str):
-    directory = 'cdc_hiv/national'
-    filename = f'{breakdown}_national_2019.csv'
-
     nat_from_state_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-        directory, filename, skiprows=9, thousands=",")
+        subdirectory=NAT_BREAKDOWN_DICT[breakdown], skiprows=9, thousands=",")
 
     nat_from_state_df['FIPS'] = '00'
     nat_from_state_df['Geography'] = 'United States'
@@ -155,11 +162,11 @@ class CDCHIVData(DataSource):
         geo = constants.COUNTY_LEVEL if geo_level == constants.COUNTY_LEVEL else constants.STATE_LEVEL
 
         for group in GROUP_DICT[breakdown].keys():
-            directory = f'cdc_hiv/{geo}'
-            filename = f'{breakdown}_{demo_dict.get(group, group)}_{geo}_2019.csv'
+            subdirectory = os.path.join(
+                f'cdc_hiv/{geo}', f'{breakdown}_{demo_dict.get(group, group)}_{geo}_2019.csv')
             # skiprows skips unreadable rows on df/ thousands convert popuplation numbers to floats
             source_group_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-                directory, filename, skiprows=9, thousands=',', dtype={'FIPS': str})
+                subdirectory=subdirectory, skiprows=9, thousands=',', dtype={'FIPS': str})
 
             # adds leading zeros to fips
             source_group_df['FIPS'] = source_group_df['FIPS'].str.zfill(

@@ -239,13 +239,14 @@ def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None):
     return pd.read_csv(url, dtype=dtype, encoding=encoding)
 
 
-def load_csv_as_df_from_data_dir(directory, filename='', dtype=None, skiprows=None, thousands=None):
+def load_csv_as_df_from_data_dir(directory, filename, dtype=None, skiprows=None, thousands=None, subdirectory=None):
     """Loads csv data from /data/{directory}/{filename} into a DataFrame.
        Expects the data to be in csv format, with the first row as the column
        names.
 
     directory: directory within data to load from
     filename: file to load the csv file from
+    subdirectory: combined directory and filename path
     skiprows: how many rows to skip when reading csv
     thousands: reads commas in the csv file as a thousand place indicator
     """
