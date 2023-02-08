@@ -36,7 +36,7 @@ def _get_by_race_as_df(*args):
             side_effect=get_fips_and_county_names_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
             side_effect=_get_by_race_as_df)
-def testSexNatioal(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
+def testSexNational(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
     acsHealthInsurance = AcsHealthInsurance()
 
     df = acsHealthInsurance.get_raw_data('sex', 'national', get_acs_metadata_as_json(), 'some-bucket')
