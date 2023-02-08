@@ -12,6 +12,7 @@ from test_utils import get_acs_metadata_as_json, get_state_fips_codes_as_df
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data', 'acs_health_insurance')
 
+GOLDEN_DATA_NATIONAL_SEX = os.path.join(TEST_DIR, 'golden_data', 'sex_national.csv')
 GOLDEN_DATA_STATE_SEX = os.path.join(TEST_DIR, 'golden_data', 'sex_state.csv')
 GOLDEN_DATA_COUNTY_SEX = os.path.join(TEST_DIR, 'golden_data', 'sex_county.csv')
 
@@ -34,11 +35,29 @@ def _get_by_race_as_df(*args):
             side_effect=get_fips_and_county_names_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
             side_effect=_get_by_race_as_df)
-def testSexState(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
-    acsHealthInsuranceIngestor = AcsHealthInsurance()
+def testSexNatioal(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
+    acsHealthInsurance = AcsHealthInsurance()
 
-    df = acsHealthInsuranceIngestor.get_raw_data('sex', 'state', get_acs_metadata_as_json(), 'some-bucket')
-    df = acsHealthInsuranceIngestor.post_process(df, 'sex', 'state')
+    df = acsHealthInsurance.get_raw_data('sex', 'national', get_acs_metadata_as_json(), 'some-bucket')
+    print(df.to_string())
+    df = acsHealthInsurance.post_process(df, 'sex', 'national')
+
+    expected_df = pd.read_csv(GOLDEN_DATA_NATIONAL_SEX, dtype={'state_fips': str})
+    cols = list(expected_df.columns)
+    assert_frame_equal(df.sort_values(cols).reset_index(drop=True),
+                       expected_df.sort_values(cols).reset_index(drop=True),
+                       check_like=True)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            side_effect=get_fips_and_county_names_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
+            side_effect=_get_by_race_as_df)
+def testSexState(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
+    acsHealthInsurance = AcsHealthInsurance()
+
+    df = acsHealthInsurance.get_raw_data('sex', 'state', get_acs_metadata_as_json(), 'some-bucket')
+    df = acsHealthInsurance.post_process(df, 'sex', 'state')
 
     expected_df = pd.read_csv(GOLDEN_DATA_STATE_SEX, dtype={'state_fips': str})
     cols = list(expected_df.columns)
@@ -52,10 +71,10 @@ def testSexState(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
             side_effect=_get_by_race_as_df)
 def testSexCounty(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
-    acsHealthInsuranceIngestor = AcsHealthInsurance()
+    acsHealthInsurance = AcsHealthInsurance()
 
-    df = acsHealthInsuranceIngestor.get_raw_data('sex', 'county', get_acs_metadata_as_json(), 'some-bucket')
-    df = acsHealthInsuranceIngestor.post_process(df, 'sex', 'county')
+    df = acsHealthInsurance.get_raw_data('sex', 'county', get_acs_metadata_as_json(), 'some-bucket')
+    df = acsHealthInsurance.post_process(df, 'sex', 'county')
 
     expected_df = pd.read_csv(GOLDEN_DATA_COUNTY_SEX, dtype={'state_fips': str, 'county_fips': str})
     cols = list(expected_df.columns)
@@ -76,9 +95,9 @@ def testWriteToBq(mock_bq: mock.MagicMock,
                   mock_fips: mock.MagicMock,
                   mock_acs: mock.MagicMock,
                   mock_json: mock.MagicMock):
-    acsHealthInsuranceIngestor = AcsHealthInsurance()
+    acsHealthInsurance = AcsHealthInsurance()
 
-    acsHealthInsuranceIngestor.write_to_bq('dataset', 'gcs_bucket')
+    acsHealthInsurance.write_to_bq('dataset', 'gcs_bucket')
 
     assert mock_json.call_count == 1
 
