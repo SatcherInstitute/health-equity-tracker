@@ -63,9 +63,7 @@ def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
          necessary since ACS directly requests metadata during BQ upload.
     demographic: The demographic group to generate the bq pipeline for.
                  Either `race`/`race_and_ethnicity`, `sex` or `age`.
-    geo_level: string for the specific geographic level `national`,
-        `state`, or `county`
-    year: string 4 digit year that determines which year of a time series source should be processed
+    year: string 4 digit year that determines which year should be processed
         """
     message = get_required_attrs(workflow_id, gcs_bucket=gcs_bucket)
     message['dataset'] = dataset
