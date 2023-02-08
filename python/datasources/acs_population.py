@@ -296,7 +296,7 @@ class ACSPopulationIngester():
             group_vars = get_vars_for_group(concept, var_map, 2)
             cols = list(group_vars.keys())
             url_params = get_census_params(cols, self.county_level)
-            filename = self.get_filename(concept, self.year)
+            filename = self.get_filename(concept)
             concept_file_diff = url_file_to_gcs.url_file_to_gcs(
                 self.base_acs_url, url_params, gcs_bucket,
                 filename)
@@ -357,7 +357,7 @@ class ACSPopulationIngester():
         var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
         race_and_hispanic_frame = gcs_to_bq_util.load_values_as_df(
-            gcs_bucket, self.get_filename(HISPANIC_BY_RACE_CONCEPT, self.year))
+            gcs_bucket, self.get_filename(HISPANIC_BY_RACE_CONCEPT))
         race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
 
         race_and_hispanic_frame = standardize_frame(
@@ -370,7 +370,7 @@ class ACSPopulationIngester():
         sex_by_age_frames = {}
         for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
             sex_by_age_frame = gcs_to_bq_util.load_values_as_df(
-                gcs_bucket, self.get_filename(concept, self.year))
+                gcs_bucket, self.get_filename(concept))
             sex_by_age_frame = update_col_types(sex_by_age_frame)
             sex_by_age_frames[concept] = sex_by_age_frame
 
@@ -437,15 +437,14 @@ class ACSPopulationIngester():
     def get_table_name_by_sex_age_race(self):
         return "by_sex_age_race" + self.get_table_geo_suffix()
 
-    def get_filename(self, concept: str, year: str):
+    def get_filename(self, concept: str):
         """Returns the name of a file for the given ACS concept
 
-        concept: The ACS concept description, eg 'SEX BY AGE'
-        year: the 4 digit string representing what year the ACS table is from """
+        concept: The ACS concept description, eg 'SEX BY AGE' """
 
         filename = self.add_filename_suffix(concept.replace(" ", "_"))
 
-        return f'{year}-{filename}'
+        return f'{self.year}-{filename}'
 
     def add_filename_suffix(self, root_name):
         """Adds geography and file type suffix to the root name.
