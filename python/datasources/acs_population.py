@@ -8,22 +8,24 @@ from ingestion.census import (get_census_params, parse_acs_metadata,
                               get_vars_for_group, standardize_frame)
 from ingestion.dataset_utils import add_sum_of_rows, generate_pct_share_col_without_unknowns
 
-DEFAULT_SINGLE_YEAR_ACS_BASE_URL = "https://api.census.gov/data/2019/acs/acs5"
+DEFAULT_YEAR = '2019'
+EARLIEST_YEAR = '2009'
 
-ACS_BASE_URLS = ["https://api.census.gov/data/2021/acs/acs5",
-                 "https://api.census.gov/data/2020/acs/acs5",
-                 DEFAULT_SINGLE_YEAR_ACS_BASE_URL,
-                 "https://api.census.gov/data/2018/acs/acs5",
-                 "https://api.census.gov/data/2017/acs/acs5",
-                 "https://api.census.gov/data/2016/acs/acs5",
-                 "https://api.census.gov/data/2015/acs/acs5",
-                 "https://api.census.gov/data/2014/acs/acs5",
-                 "https://api.census.gov/data/2013/acs/acs5",
-                 "https://api.census.gov/data/2012/acs/acs5",
-                 "https://api.census.gov/data/2011/acs/acs5",
-                 "https://api.census.gov/data/2010/acs/acs5",
-                 "https://api.census.gov/data/2009/acs/acs5"
-                 ]
+ACS_URLS_MAP = {
+    "2009": "https://api.census.gov/data/2009/acs/acs5",
+    "2010": "https://api.census.gov/data/2010/acs/acs5",
+    "2011": "https://api.census.gov/data/2011/acs/acs5",
+    "2012": "https://api.census.gov/data/2012/acs/acs5",
+    "2013": "https://api.census.gov/data/2013/acs/acs5",
+    "2014": "https://api.census.gov/data/2014/acs/acs5",
+    "2015": "https://api.census.gov/data/2015/acs/acs5",
+    "2016": "https://api.census.gov/data/2016/acs/acs5",
+    "2017": "https://api.census.gov/data/2017/acs/acs5",
+    "2018": "https://api.census.gov/data/2018/acs/acs5",
+    "2019": "https://api.census.gov/data/2019/acs/acs5",
+    "2020": "https://api.census.gov/data/2020/acs/acs5",
+    "2021": "https://api.census.gov/data/2021/acs/acs5",
+}
 
 HISPANIC_BY_RACE_CONCEPT = "HISPANIC OR LATINO ORIGIN BY RACE"
 
@@ -259,15 +261,12 @@ def update_col_types(frame):
 
 class ACSPopulationIngester():
     """American Community Survey population data in the United States from the
-       US Census.
+       US Census. This class is instanciated twice by ACSPopulation; once for county level
+       and once for state+national level."""
 
-       This class is instanciated twice by ACSPopulation; once for county level
-       and once for state+national level"""
+    def __init__(self, county_level: bool, year: str):
 
-    def __init__(self, county_level: str, base_acs_url: str):
-
-        # Whether the data is at the county level. If false, it is at the state
-        # level
+        # Whether data is at county level. If false, it is state level
         self.county_level = county_level
 
         # The base columns that are always used to group by.
@@ -280,13 +279,11 @@ class ACSPopulationIngester():
             [std_col.STATE_FIPS_COL, std_col.COUNTY_FIPS_COL] if county_level
             else [std_col.STATE_FIPS_COL])
 
-        self.base_acs_url = base_acs_url
+        self.year = year
+        self.base_acs_url = ACS_URLS_MAP[year]
 
     def upload_to_gcs(self, gcs_bucket):
         """Uploads population data from census to GCS bucket."""
-        # for base_acs_url in self.base_acs_urls:
-
-        year = extract_year(self.base_acs_url)
 
         metadata = census.fetch_acs_metadata(self.base_acs_url)
         var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
@@ -299,7 +296,7 @@ class ACSPopulationIngester():
             group_vars = get_vars_for_group(concept, var_map, 2)
             cols = list(group_vars.keys())
             url_params = get_census_params(cols, self.county_level)
-            filename = self.get_filename(concept, year)
+            filename = self.get_filename(concept, self.year)
             concept_file_diff = url_file_to_gcs.url_file_to_gcs(
                 self.base_acs_url, url_params, gcs_bucket,
                 filename)
@@ -313,20 +310,15 @@ class ACSPopulationIngester():
         dataset: The BigQuery dataset to write to
         gcs_bucket: The name of the gcs bucket to read the data from"""
 
-        # # iterate over each year
-        # for base_acs_url in self.base_acs_urls:
-        year = extract_year(self.base_acs_url)
-
         frames = self.build_frames_for_this_year(
             gcs_bucket)
 
         # iterate across the prepared dataframe items
         # writing single-years and also queuing for time-series
         for table_name, df in frames.items():
-            # print(table_name)
 
             # SINGLE YEAR TABLE
-            if self.base_acs_url == DEFAULT_SINGLE_YEAR_ACS_BASE_URL:
+            if self.year == DEFAULT_YEAR:
                 df_single_year = df.copy()
                 float_cols = [std_col.POPULATION_COL]
                 if std_col.POPULATION_PCT_COL in df_single_year.columns:
@@ -341,10 +333,10 @@ class ACSPopulationIngester():
 
             # TIME SERIES TABLE
             df_for_time_series = df.copy()
-            df_for_time_series[std_col.TIME_PERIOD_COL] = year
+            df_for_time_series[std_col.TIME_PERIOD_COL] = self.year
 
             # the first year written should OVERWRITE, the subsequent years should APPEND
-            overwrite = self.base_acs_url == ACS_BASE_URLS[0]
+            overwrite = self.year == EARLIEST_YEAR
 
             float_cols = [std_col.POPULATION_COL]
             if std_col.POPULATION_PCT_COL in df_for_time_series.columns:
@@ -359,14 +351,13 @@ class ACSPopulationIngester():
             )
 
     def build_frames_for_this_year(self, gcs_bucket: str):
-        year = extract_year(self.base_acs_url)
         """ Builds the various breakdown frames needed for this year's URL string """
 
         metadata = census.fetch_acs_metadata(self.base_acs_url)
         var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
         race_and_hispanic_frame = gcs_to_bq_util.load_values_as_df(
-            gcs_bucket, self.get_filename(HISPANIC_BY_RACE_CONCEPT, year))
+            gcs_bucket, self.get_filename(HISPANIC_BY_RACE_CONCEPT, self.year))
         race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
 
         race_and_hispanic_frame = standardize_frame(
@@ -379,7 +370,7 @@ class ACSPopulationIngester():
         sex_by_age_frames = {}
         for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
             sex_by_age_frame = gcs_to_bq_util.load_values_as_df(
-                gcs_bucket, self.get_filename(concept, year))
+                gcs_bucket, self.get_filename(concept, self.year))
             sex_by_age_frame = update_col_types(sex_by_age_frame)
             sex_by_age_frames[concept] = sex_by_age_frame
 
@@ -710,10 +701,12 @@ class ACSPopulation(DataSource):
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
 
+        all_years = ACS_URLS_MAP.keys()
+
         file_diff = False
-        for url in ACS_BASE_URLS:
+        for year in all_years:
             for is_county in [True, False]:
-                ingester = ACSPopulationIngester(is_county, url)
+                ingester = ACSPopulationIngester(is_county, year)
                 next_file_diff = ingester.upload_to_gcs(gcs_bucket)
                 file_diff = file_diff or next_file_diff
         return file_diff
@@ -722,10 +715,10 @@ class ACSPopulation(DataSource):
         """ Called once per year url from DAG, creates a county and non-county
         ingester to proceed with processing the time-series tables and
         potentially single year tables """
-        url = self.get_attr(attrs, 'url')
+        year = self.get_attr(attrs, 'year')
 
         for is_county in [True, False]:
-            ingester = ACSPopulationIngester(is_county, url)
+            ingester = ACSPopulationIngester(is_county, year)
             ingester.write_to_bq(dataset, gcs_bucket)
 
 
@@ -770,21 +763,3 @@ def GENERATE_NATIONAL_DATASET(state_df, states_to_include, demographic_breakdown
 
     df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].astype(str)
     return df[needed_cols].sort_values(by=breakdown_map[demographic_breakdown_category]).reset_index(drop=True)
-
-
-def extract_year(url: str):
-    """ Extract the 4 digit year from the middle of the specifcally formatted ACS base URL """
-
-    prefix = "https://api.census.gov/data/"
-    suffix = "/acs/acs5"
-
-    if url.startswith(prefix):
-        url = url[len(prefix):]
-    else:
-        raise ValueError(f'URL must start with {prefix}')
-    if url.endswith(suffix):
-        url = url[:-len(suffix)]
-    else:
-        raise ValueError(f'URL must end with {suffix}')
-
-    return url
