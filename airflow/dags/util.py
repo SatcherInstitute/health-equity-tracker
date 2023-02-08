@@ -48,8 +48,7 @@ def generate_gcs_payload(workflow_id: str, filename: str = None,
 def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
                         gcs_bucket: str = None, url: str = None,
                         demographic: str = None,
-                        year: str = None,
-                        geo_level: str = None) -> dict:
+                        year: str = None) -> dict:
     """Creates the payload object required for the BQ ingestion operator.
 
     workflow_id: ID of the datasource workflow. Should match ID defined in
@@ -66,7 +65,7 @@ def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
                  Either `race`/`race_and_ethnicity`, `sex` or `age`.
     geo_level: string for the specific geographic level `national`,
         `state`, or `county`
-    year: string 4 digit year that determines which year should be processed
+    year: string 4 digit year that determines which year of a time series source should be processed
         """
     message = get_required_attrs(workflow_id, gcs_bucket=gcs_bucket)
     message['dataset'] = dataset
@@ -76,8 +75,8 @@ def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
         message['url'] = url
     if demographic is not None:
         message['demographic'] = demographic
-    if geo_level is not None:
-        message['geo_level'] = geo_level
+    if year is not None:
+        message['year'] = year
     return {'message': message}
 
 
