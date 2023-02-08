@@ -6,21 +6,20 @@ import os
 
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data",)
-GOLDEN_DIR = 'cdc_hiv/golden_data'
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data')
 
 GOLDEN_DATA = {
-    'race_national': os.path.join(TEST_DIR, GOLDEN_DIR, 'race_and_ethnicity_national_output.csv'),
-    'age_national': os.path.join(TEST_DIR, GOLDEN_DIR, 'age_national_output.csv'),
-    'sex_national': os.path.join(TEST_DIR, GOLDEN_DIR, 'sex_national_output.csv'),
-    'race_state': os.path.join(TEST_DIR, GOLDEN_DIR, 'race_and_ethnicity_state_output.csv'),
+    'race_national': os.path.join(TEST_DIR, 'cdc_hiv/golden_data', 'race_and_ethnicity_national_output.csv'),
+    'age_national': os.path.join(TEST_DIR, 'cdc_hiv/golden_data', 'age_national_output.csv'),
+    'sex_national': os.path.join(TEST_DIR, 'cdc_hiv/golden_data', 'sex_national_output.csv'),
+    'race_state': os.path.join(TEST_DIR, 'cdc_hiv/golden_data', 'race_and_ethnicity_state_output.csv'),
 }
 
 
 def _load_csv_as_df_from_data_dir(*args, **kwargs):
     dataset, filename = args
     df = pd.read_csv(os.path.join(TEST_DIR, dataset, filename),
-                     dtype={'FIPS': str, 'Population': float}, skiprows=9, thousands=',', quoting=1)
+                     dtype={'FIPS': str}, skiprows=9, thousands=',')
     return df
 
 
@@ -38,29 +37,29 @@ def testGenerateRaceNational(
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-def testGenerateSexNational(
-    mock_data_dir: mock.MagicMock,
-):
-    datasource = CDCHIVData()
-    df = datasource.generate_breakdown_df(
-        'age', 'national')
-    expected_df_race_national = pd.read_csv(
-        GOLDEN_DATA['age_national'], dtype={'state_fips': str})
-
-    assert_frame_equal(df, expected_df_race_national, check_like=True)
-
-
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
 def testGenerateAgeNational(
     mock_data_dir: mock.MagicMock,
 ):
     datasource = CDCHIVData()
     df = datasource.generate_breakdown_df(
+        'age', 'national')
+    expected_df_age_national = pd.read_csv(
+        GOLDEN_DATA['age_national'], dtype={'state_fips': str})
+
+    assert_frame_equal(df, expected_df_age_national, check_like=True)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
+def testGenerateSexNational(
+    mock_data_dir: mock.MagicMock,
+):
+    datasource = CDCHIVData()
+    df = datasource.generate_breakdown_df(
         'sex', 'national')
-    expected_df_race_national = pd.read_csv(
+    expected_df_sex_national = pd.read_csv(
         GOLDEN_DATA['sex_national'], dtype={'state_fips': str})
 
-    assert_frame_equal(df, expected_df_race_national, check_like=True)
+    assert_frame_equal(df, expected_df_sex_national, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
@@ -70,10 +69,10 @@ def testGenerateRaceState(
     datasource = CDCHIVData()
     df = datasource.generate_breakdown_df(
         'race_and_ethnicity', 'state')
-    expected_df_race_national = pd.read_csv(
+    expected_df_race_sex = pd.read_csv(
         GOLDEN_DATA['race_state'], dtype={'state_fips': str})
 
-    assert_frame_equal(df, expected_df_race_national, check_like=True)
+    assert_frame_equal(df, expected_df_race_sex, check_like=True)
 
 
 def _generate_breakdown(*args):
