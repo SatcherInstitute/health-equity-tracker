@@ -19,6 +19,9 @@ assert not has_multi_demographics("by_age_territory")
 # has no demographic (geo_context)
 assert not has_multi_demographics("county")
 
+# age adjust special case
+assert not has_multi_demographics("by_race_national_processed-with_age_adjust")
+
 
 NUM_STATES_AND_TERRITORIES = len(STATE_LEVEL_FIPS_LIST)
 
