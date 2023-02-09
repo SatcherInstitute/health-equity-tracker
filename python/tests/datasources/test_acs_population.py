@@ -1,5 +1,4 @@
 import os
-import json
 import pandas as pd
 from unittest import mock
 from pandas._testing import assert_frame_equal
@@ -8,7 +7,7 @@ from datasources.acs_population import (  # type: ignore
     ACSPopulationIngester,
     GENERATE_NATIONAL_DATASET)
 from ingestion import gcs_to_bq_util
-
+from test_utils import get_acs_metadata_as_json
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -73,12 +72,6 @@ GOLDEN_DATA_RACE_NATIONAL_TIME_SERIES_APPEND = os.path.join(
     GOLDEN_DIR, 'time_series_appends', 'table_by_race_national_time_series.csv')
 GOLDEN_DATA_AGE_COUNTY_TIME_SERIES_APPEND = os.path.join(
     GOLDEN_DIR, 'time_series_appends', 'table_by_age_county_time_series.csv')
-
-
-def get_acs_metadata_as_json():
-    # print("mocking meta data from GCS")
-    with open(os.path.join(TEST_DIR, 'metadata.json')) as f:
-        return json.load(f)
 
 
 def _load_values_as_df(*args, **kwargs):
