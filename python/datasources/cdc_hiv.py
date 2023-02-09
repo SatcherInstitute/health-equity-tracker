@@ -3,7 +3,6 @@ from ingestion import gcs_to_bq_util, merge_utils, standardized_columns as std_c
 from ingestion.dataset_utils import generate_pct_share_col_without_unknowns
 import pandas as pd
 import numpy as np
-import os
 
 AGE_GROUPS = {
     '13-24': '13_24',
