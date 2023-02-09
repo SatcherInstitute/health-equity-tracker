@@ -45,20 +45,8 @@ demo_dict = {
 }
 
 pct_share_dict = {
-    std_col.HIV_CASES: std_col.HIV_PCT_SHARE,
-    std_col.POPULATION_COL: std_col.HIV_POPULATION_PCT
-}
-
-ALLS_DICT = {
-    constants.NATIONAL_LEVEL: os.path.join('cdc_hiv/national', 'totals_national_2019.csv'),
-    constants.STATE_LEVEL: os.path.join('cdc_hiv/state', 'totals_state_2019.csv'),
-    constants.COUNTY_LEVEL: os.path.join('cdc_hiv/county', 'totals_county_2019.csv'),
-}
-
-NAT_BREAKDOWN_DICT = {
-    std_col.AGE_COL: os.path.join('cdc_hiv/national', 'age_national_2019.csv'),
-    std_col.SEX_COL: os.path.join('cdc_hiv/national', 'sex_national_2019.csv'),
-    std_col.RACE_OR_HISPANIC_COL: os.path.join('cdc_hiv/national', 'race_and_ethnicity_national_2019.csv'),
+    std_col.HIV_DIAGNOSES: std_col.HIV_DIAGNOSES_PCT_SHARE,
+    std_col.POPULATION_COL: std_col.HIV_DIAGNOSES_POPULATION_PCT
 }
 
 
@@ -71,7 +59,7 @@ def generate_alls_df(geo_level: str):
     returns a formatted dataframe with total values for specified geo_level
     """
     alls_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-        subdirectory=ALLS_DICT[geo_level], dtype={'FIPS': str}, skiprows=9, thousands=',')
+        'cdc_hiv', f'totals_{geo_level}_2019.csv', subdirectory=geo_level, dtype={'FIPS': str}, skiprows=9, thousands=',')
 
     alls_df[['Sex', 'Age Group', 'Race/Ethnicity']] = 'All'
 
@@ -85,10 +73,10 @@ def generate_alls_df(geo_level: str):
 
 def generate_nat_breakdown_df(breakdown: str):
     nat_from_state_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-        subdirectory=NAT_BREAKDOWN_DICT[breakdown], skiprows=9, thousands=",")
+        'cdc_hiv', f'{breakdown}_national_2019.csv', subdirectory='national', skiprows=9, thousands=",")
 
-    nat_from_state_df['FIPS'] = '00'
-    nat_from_state_df['Geography'] = 'United States'
+    nat_from_state_df['FIPS'] = constants.US_FIPS
+    nat_from_state_df['Geography'] = constants.US_NAME
 
     return nat_from_state_df
 
@@ -115,10 +103,12 @@ class CDCHIVData(DataSource):
 
                 df = self.generate_breakdown_df(breakdown, geo_level)
 
-                float_cols = [std_col.HIV_POPULATION_PCT,
-                              std_col.HIV_CASES,
-                              std_col.HIV_PER_100K,
-                              std_col.HIV_PCT_SHARE
+                df.to_csv(f'{breakdown}_{geo_level}_output.csv', index=False)
+
+                float_cols = [std_col.HIV_DIAGNOSES_POPULATION_PCT,
+                              std_col.HIV_DIAGNOSES,
+                              std_col.HIV_DIAGNOSES_PER_100K,
+                              std_col.HIV_DIAGNOSES_PCT_SHARE
                               ]
 
                 column_types = gcs_to_bq_util.get_bq_column_types(
@@ -138,8 +128,8 @@ class CDCHIVData(DataSource):
             'Sex': std_col.SEX_COL,
             'Race/Ethnicity': std_col.RACE_OR_HISPANIC_COL,
             'Year': std_col.TIME_PERIOD_COL,
-            'Cases': std_col.HIV_CASES,
-            'Rate per 100000': std_col.HIV_PER_100K,
+            'Cases': std_col.HIV_DIAGNOSES,
+            'Rate per 100000': std_col.HIV_DIAGNOSES_PER_100K,
             'Population': std_col.POPULATION_COL,
         }
 
@@ -148,10 +138,10 @@ class CDCHIVData(DataSource):
             FIPS,
             std_col.TIME_PERIOD_COL,
             breakdown,
-            std_col.HIV_CASES,
-            std_col.HIV_PER_100K,
-            std_col.HIV_PCT_SHARE,
-            std_col.HIV_POPULATION_PCT]
+            std_col.HIV_DIAGNOSES,
+            std_col.HIV_DIAGNOSES_PER_100K,
+            std_col.HIV_DIAGNOSES_PCT_SHARE,
+            std_col.HIV_DIAGNOSES_POPULATION_PCT]
 
         source_dfs = []
         missing_data = ['Data suppressed', 'Data not available']
@@ -165,8 +155,9 @@ class CDCHIVData(DataSource):
             subdirectory = os.path.join(
                 f'cdc_hiv/{geo}', f'{breakdown}_{demo_dict.get(group, group)}_{geo}_2019.csv')
             # skiprows skips unreadable rows on df/ thousands convert popuplation numbers to floats
-            source_group_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-                subdirectory=subdirectory, skiprows=9, thousands=',', dtype={'FIPS': str})
+            filename = f'{breakdown}_{demo_dict.get(group, group)}_{geo}_2019.csv'
+            source_group_df = gcs_to_bq_util.load_csv_as_df_from_data_dir('cdc_hiv', filename,
+                                                                          subdirectory=geo, skiprows=9, thousands=',', dtype={'FIPS': str})
 
             # adds leading zeros to fips
             source_group_df['FIPS'] = source_group_df['FIPS'].str.zfill(
@@ -220,15 +211,15 @@ class CDCHIVData(DataSource):
             combined_group_df.loc[combined_group_df[breakdown] == 'All',
                                   std_col.POPULATION_COL] = combined_group_df[std_col.POPULATION_COL].sum()
 
-        combined_group_df.loc[combined_group_df[std_col.HIV_PER_100K].isin(
-            missing_data), std_col.HIV_PER_100K] = np.nan
-        combined_group_df[std_col.HIV_CASES] = combined_group_df[std_col.HIV_CASES].replace(
+        combined_group_df.loc[combined_group_df[std_col.HIV_DIAGNOSES_PER_100K].isin(
+            missing_data), std_col.HIV_DIAGNOSES_PER_100K] = np.nan
+        combined_group_df[std_col.HIV_DIAGNOSES] = combined_group_df[std_col.HIV_DIAGNOSES].replace(
             ',', '', regex=True)
-        combined_group_df.loc[combined_group_df[std_col.HIV_CASES].isin(
-            missing_data), std_col.HIV_CASES] = np.nan
-        combined_group_df[std_col.HIV_CASES] = combined_group_df[std_col.HIV_CASES].astype(
+        combined_group_df.loc[combined_group_df[std_col.HIV_DIAGNOSES].isin(
+            missing_data), std_col.HIV_DIAGNOSES] = np.nan
+        combined_group_df[std_col.HIV_DIAGNOSES] = combined_group_df[std_col.HIV_DIAGNOSES].astype(
             float)
-        combined_group_df[std_col.HIV_PER_100K] = combined_group_df[std_col.HIV_PER_100K].astype(
+        combined_group_df[std_col.HIV_DIAGNOSES_PER_100K] = combined_group_df[std_col.HIV_DIAGNOSES_PER_100K].astype(
             float)
 
         combined_group_df = generate_pct_share_col_without_unknowns(

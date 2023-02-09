@@ -123,10 +123,10 @@ JAIL_PREFIX = "jail"
 INCARCERATED_PREFIX = "incarcerated"
 
 # HIV
-HIV_CASES = 'hiv_cases'
-HIV_PER_100K = 'hiv_diagnoses_per_100k'
-HIV_PCT_SHARE = 'hiv_diagnoses_pct_share'
-HIV_POPULATION_PCT = 'hiv_pop_pct'
+HIV_DIAGNOSES = 'hiv_diagnoses'
+HIV_DIAGNOSES_PER_100K = 'hiv_diagnoses_per_100k'
+HIV_DIAGNOSES_PCT_SHARE = 'hiv_diagnoses_pct_share'
+HIV_DIAGNOSES_POPULATION_PCT = 'hiv_diagnoses_pop_pct'
 
 
 RaceTuple = namedtuple("RaceTuple", [

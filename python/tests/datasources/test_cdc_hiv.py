@@ -18,8 +18,16 @@ GOLDEN_DATA = {
 
 def _load_csv_as_df_from_data_dir(*args, **kwargs):
     subdirectory = kwargs['subdirectory']
-    df = pd.read_csv(os.path.join(TEST_DIR, subdirectory),
+    directory, filename = args
+    df = pd.read_csv(os.path.join(TEST_DIR, directory, subdirectory, filename),
                      dtype={'FIPS': str}, skiprows=9, thousands=',')
+
+    test_dir = 'cdc_hiv'
+    test_sub_dir = ''
+    test_filename = 'age_national_2019.csv'
+
+    test_df = os.path.join(test_dir, test_sub_dir, test_filename)
+    print(test_df)
 
     return df
 

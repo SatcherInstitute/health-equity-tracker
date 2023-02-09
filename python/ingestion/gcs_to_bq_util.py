@@ -239,9 +239,9 @@ def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None):
     return pd.read_csv(url, dtype=dtype, encoding=encoding)
 
 
-def load_csv_as_df_from_data_dir(directory=None, filename=None,
-                                 dtype=None, skiprows=None,
-                                 thousands=None, subdirectory=None):
+def load_csv_as_df_from_data_dir(directory, filename,
+                                 subdirectory='', dtype=None,
+                                 skiprows=None, thousands=None):
     """Loads csv data from /data/{directory}/{filename} into a DataFrame.
        Expects the data to be in csv format, with the first row as the column
        names.
@@ -252,11 +252,8 @@ def load_csv_as_df_from_data_dir(directory=None, filename=None,
     skiprows: how many rows to skip when reading csv
     thousands: reads commas in the csv file as a thousand place indicator
     """
-    if subdirectory is None:
-        file_path = os.path.join(DATA_DIR, directory, filename)
 
-    else:
-        file_path = os.path.join(DATA_DIR, subdirectory)
+    file_path = os.path.join(DATA_DIR, directory, subdirectory, filename)
 
     return pd.read_csv(file_path, dtype=dtype, skiprows=skiprows, thousands=thousands)
 
