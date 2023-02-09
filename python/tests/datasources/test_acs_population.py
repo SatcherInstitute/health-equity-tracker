@@ -11,11 +11,11 @@ from test_utils import get_acs_metadata_as_json
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "acs_population")
-GOLDEN_DIR = os.path.join(THIS_DIR, os.pardir, "data",
-                          "acs_population", "golden_data")
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data', 'acs_population')
+GOLDEN_DIR = os.path.join(THIS_DIR, os.pardir, 'data',
+                          'acs_population', 'golden_data')
 MOCK_CACHE_DIR = os.path.join(
-    THIS_DIR, os.pardir, "data", "acs_population", "mock_cache")
+    THIS_DIR, os.pardir, 'data', 'acs_population', 'mock_cache')
 
 # single year golden data
 GOLDEN_DATA_RACE = os.path.join(GOLDEN_DIR, 'table_by_race_state.csv')
