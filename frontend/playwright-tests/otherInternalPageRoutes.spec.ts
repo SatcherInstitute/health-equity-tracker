@@ -60,7 +60,7 @@ test('Methodology Tab Loads', async ({ page }) => {
     await page.goto(METHODOLOGY_TAB_LINK, { waitUntil: "networkidle" });
     await expect(page).toBeAccessible()
     const mainHeading = page.locator('#main');
-    await expect(mainHeading).toHaveText(['Recommended Citation (APA) for the Health Equity Tracker:']);
+    await expect(mainHeading).toHaveText(['Recommended citation (APA) for the Health Equity Tracker:']);
 });
 
 test('Age-Adjustment Tab Loads', async ({ page }) => {
