@@ -9,7 +9,7 @@ from datasources.cdc_vaccination_national import CDCVaccinationNational
 from datasources.covid_tracking_project import CovidTrackingProject
 from datasources.covid_tracking_project_metadata import CtpMetadata
 from datasources.kff_vaccination import KFFVaccination
-from datasources.acs_health_insurance import ACSHealthInsurance
+from datasources.acs_health_insurance import AcsHealthInsurance
 from datasources.acs_poverty import ACSPovertyDataSource
 from datasources.uhc import UHCData
 from datasources.cdc_svi_county import CDCSviCounty
@@ -33,7 +33,7 @@ DATA_SOURCES_DICT = {
     CovidTrackingProject.get_id(): CovidTrackingProject(),
     CtpMetadata.get_id(): CtpMetadata(),
     KFFVaccination.get_id(): KFFVaccination(),
-    ACSHealthInsurance.get_id(): ACSHealthInsurance(),
+    AcsHealthInsurance.get_id(): AcsHealthInsurance(),
     ACSPovertyDataSource.get_id(): ACSPovertyDataSource(),
     CDCSviCounty.get_id(): CDCSviCounty(),
     GeoContext.get_id(): GeoContext(),

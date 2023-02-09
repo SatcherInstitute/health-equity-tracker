@@ -56,10 +56,9 @@ COVID_DEATH_PREFIX = "covid_deaths"
 COVID_DEATH_RATIO_AGE_ADJUSTED = "death_ratio_age_adjusted"
 COVID_HOSP_RATIO_AGE_ADJUSTED = "hosp_ratio_age_adjusted"
 
-# Health Insurance Population Columns
-TOTAL_HEALTH_INSURANCE_COL = "total_health_insurance"
-WITH_HEALTH_INSURANCE_COL = "with_health_insurance"
-WITHOUT_HEALTH_INSURANCE_COL = "without_health_insurance"
+UNINSURED_PER_100K_COL = 'uninsured_per_100k'
+UNINSURED_PCT_SHARE_COL = 'uninsured_pct_share'
+UNINSURED_POPULATION_PCT = 'uninsured_population_pct'
 
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"
