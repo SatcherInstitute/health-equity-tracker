@@ -59,7 +59,8 @@ def generate_alls_df(geo_level: str):
     returns a formatted dataframe with total values for specified geo_level
     """
     alls_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-        'cdc_hiv', f'totals_{geo_level}_2019.csv', subdirectory=geo_level, dtype={'FIPS': str}, skiprows=9, thousands=',')
+        'cdc_hiv', f'totals_{geo_level}_2019.csv',
+        subdirectory=geo_level, dtype={'FIPS': str}, skiprows=9, thousands=',')
 
     alls_df[['Sex', 'Age Group', 'Race/Ethnicity']] = 'All'
 
@@ -73,7 +74,8 @@ def generate_alls_df(geo_level: str):
 
 def generate_nat_breakdown_df(breakdown: str):
     nat_from_state_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-        'cdc_hiv', f'{breakdown}_national_2019.csv', subdirectory='national', skiprows=9, thousands=",")
+        'cdc_hiv', f'{breakdown}_national_2019.csv',
+        subdirectory='national', skiprows=9, thousands=",")
 
     nat_from_state_df['FIPS'] = constants.US_FIPS
     nat_from_state_df['Geography'] = constants.US_NAME
@@ -152,12 +154,11 @@ class CDCHIVData(DataSource):
         geo = constants.COUNTY_LEVEL if geo_level == constants.COUNTY_LEVEL else constants.STATE_LEVEL
 
         for group in GROUP_DICT[breakdown].keys():
-            subdirectory = os.path.join(
-                f'cdc_hiv/{geo}', f'{breakdown}_{demo_dict.get(group, group)}_{geo}_2019.csv')
             # skiprows skips unreadable rows on df/ thousands convert popuplation numbers to floats
             filename = f'{breakdown}_{demo_dict.get(group, group)}_{geo}_2019.csv'
-            source_group_df = gcs_to_bq_util.load_csv_as_df_from_data_dir('cdc_hiv', filename,
-                                                                          subdirectory=geo, skiprows=9, thousands=',', dtype={'FIPS': str})
+            source_group_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+                'cdc_hiv', filename, subdirectory=geo,
+                skiprows=9, thousands=',', dtype={'FIPS': str})
 
             # adds leading zeros to fips
             source_group_df['FIPS'] = source_group_df['FIPS'].str.zfill(
