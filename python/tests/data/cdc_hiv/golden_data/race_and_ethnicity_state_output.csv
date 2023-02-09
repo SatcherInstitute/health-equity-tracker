@@ -1,4 +1,4 @@
-state_name,state_fips,time_period,race_and_ethnicity,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_diagnoses_pop_pct,race_category_id
+state_name,state_fips,time_period,race_and_ethnicity,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,population_pct,race_category_id
 Alabama,01,2019,All,635.0,15.4,100.0,100.0,ALL
 Alabama,01,2019,American Indian and Alaska Native (NH),1.0,4.1,0.2,0.6,AIAN_NH
 Alabama,01,2019,Asian (NH),1.0,1.6,0.2,1.5,ASIAN_NH

@@ -1,4 +1,4 @@
-county_name,county_fips,time_period,race_and_ethnicity,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_diagnoses_pop_pct,race_category_id
+county_name,county_fips,time_period,race_and_ethnicity,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,population_pct,race_category_id
 Autauga County,01001,2019,All,7.0,15.0,100.0,100.0,ALL
 Autauga County,01001,2019,American Indian and Alaska Native (NH),0.0,0.0,0.0,0.4,AIAN_NH
 Autauga County,01001,2019,Asian (NH),0.0,0.0,0.0,1.1,ASIAN_NH
