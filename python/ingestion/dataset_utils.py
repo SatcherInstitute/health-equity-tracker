@@ -199,12 +199,14 @@ def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val,
        for all races in that group.
 
        df: The DataFrame to calculate new rows from.
-       breakdown_col: The name of the breakdown column that a new value is being
+       breakdown_col: String: The name of the breakdown column that a new value is being
                       summed over.
-       value_col: The name or names of the column/s whose values should be summed.
-       new_row_breakdown_val: The value to use for the breakdown column.
-       breakdown_vals_to_sum: The list of breakdown values to sum across. If not
-                              provided, defaults to summing across all values.
+       value_col: String or list[String]:
+                  The name or names of the column/s whose values should be summed.
+       new_row_breakdown_val: String: The value to use for the breakdown column.
+       breakdown_vals_to_sum: list[String]: The list of breakdown values to sum
+                              across. If not provided, defaults to summing across
+                              all values.
        """
     filtered_df = df
     if breakdown_vals_to_sum is not None:
