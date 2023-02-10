@@ -2,44 +2,46 @@ import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-// import { appendFipsIfNeeded } from "../utils/datasetutils";
+import { appendFipsIfNeeded } from "../utils/datasetutils";
 import VariableProvider from "./VariableProvider";
 
 const HIV_DETERMINANTS: MetricId[] = [
-  "hiv_cases_per_100k",
-  "hiv_pct_share",
-  "hiv_pct_relative_inequity",
-  "hiv_ratio_age_adjusted",
+  "hiv_diagnoses_per_100k",
+  "hiv_diagnoses_pct_share",
+  "hiv_diagnoses_pct_relative_inequity",
+  "hiv_diagnoses_ratio_age_adjusted",
+  "hiv_population_pct", // population shares of 13+
 ];
 
 class HivProvider extends VariableProvider {
   constructor() {
-    super("hiv_provider", ["hiv_population_pct", ...HIV_DETERMINANTS]);
+    super("hiv_provider", HIV_DETERMINANTS);
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.geography === "national") {
       if (breakdowns.hasOnlyRace())
-        return "cdc_hiv-race_and_ethnicity_national";
-      if (breakdowns.hasOnlyAge()) return "cdc_hiv-age_national";
-      if (breakdowns.hasOnlySex()) return "cdc_hiv-sex_national";
+        return "cdc_hiv_data-race_and_ethnicity_national";
+      if (breakdowns.hasOnlyAge()) return "cdc_hiv_data-age_national";
+      if (breakdowns.hasOnlySex()) return "cdc_hiv_data-sex_national";
     }
     if (breakdowns.geography === "state") {
-      if (breakdowns.hasOnlyRace()) return "cdc_hiv-race_and_ethnicity_state";
-      if (breakdowns.hasOnlyAge()) return "cdc_hiv-age_state";
-      if (breakdowns.hasOnlySex()) return "cdc_hiv-sex_state";
+      if (breakdowns.hasOnlyRace())
+        return "cdc_hiv_data-race_and_ethnicity_state";
+      if (breakdowns.hasOnlyAge()) return "cdc_hiv_data-age_state";
+      if (breakdowns.hasOnlySex()) return "cdc_hiv_data-sex_state";
     }
 
     if (breakdowns.geography === "county") {
-      if (breakdowns.hasOnlyRace()) return "cdc_hiv-race_and_ethnicity_county";
-      if (breakdowns.hasOnlyAge()) return "cdc_hiv-age_county";
-      if (breakdowns.hasOnlySex()) return "cdc_hiv-sex_county";
-      // if (breakdowns.hasOnlyRace())
-      //   return appendFipsIfNeeded("cdc_hiv-race_and_ethnicity_county", breakdowns);
-      // if (breakdowns.hasOnlyAge())
-      //   return appendFipsIfNeeded("cdc_hiv-age_county", breakdowns);
-      // if (breakdowns.hasOnlySex())
-      //   return appendFipsIfNeeded("cdc_hiv-sex_county", breakdowns);
+      if (breakdowns.hasOnlyRace())
+        return appendFipsIfNeeded(
+          "cdc_hiv_data-race_and_ethnicity_county",
+          breakdowns
+        );
+      if (breakdowns.hasOnlyAge())
+        return appendFipsIfNeeded("cdc_hiv_data-age_county", breakdowns);
+      if (breakdowns.hasOnlySex())
+        return appendFipsIfNeeded("cdc_hiv_data-sex_county", breakdowns);
     }
     throw new Error("Not implemented");
   }
@@ -53,8 +55,6 @@ class HivProvider extends VariableProvider {
     let df = hiv.toDataFrame();
 
     df = this.filterByGeo(df, breakdowns);
-
-    // TODO! Figure out a way to read the latest date ? is this already in place somewhere?
     df = this.renameGeoColumns(df, breakdowns);
 
     let consumedDatasetIds = [datasetId];

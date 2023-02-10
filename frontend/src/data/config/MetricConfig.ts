@@ -85,10 +85,10 @@ export type MetricId =
   | "covid_population_pct"
   | "hosp_ratio_age_adjusted"
   | "covid_hosp_pct_relative_inequity"
-  | "hiv_cases_per_100k"
-  | "hiv_pct_share"
-  | "hiv_pct_relative_inequity"
-  | "hiv_ratio_age_adjusted"
+  | "hiv_diagnoses_per_100k"
+  | "hiv_diagnoses_pct_share"
+  | "hiv_diagnoses_pct_relative_inequity"
+  | "hiv_diagnoses_ratio_age_adjusted"
   | "hiv_population_pct"
   | "diabetes_pct_share"
   | "diabetes_per_100k"
@@ -617,12 +617,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableId: "hiv_diagnoses",
       variableDisplayName: "HIV diagnoses (2019)",
       variableFullDisplayName: "HIV diagnoses (2019)",
-      variableDefinition: `Individuals diagnosed with HIV in 2019.`,
+      variableDefinition: `Individuals ages 13+ diagnosed with HIV in 2019.`,
 
       metrics: {
         pct_share: {
           chartTitleLines: ["Share of total HIV diagnoses"],
-          metricId: "hiv_pct_share",
+          metricId: "hiv_diagnoses_pct_share",
           columnTitleHeader: "Share of total HIV diagnoses",
           trendsCardTitleName: "Inequitable share of HIV diagnoses over time",
           shortLabel: "% of HIV diagnoses",
@@ -633,13 +633,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total HIV diagnoses",
             ],
             metricId: "hiv_population_pct",
-            columnTitleHeader: populationPctTitle,
+            columnTitleHeader: "Population share of ages 13+",
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         per100k: {
-          metricId: "hiv_cases_per_100k",
+          metricId: "hiv_diagnoses_per_100k",
           chartTitleLines: ["HIV diagnoses", "per 100k people"],
           trendsCardTitleName: "Rates of HIV diagnoses over time",
           columnTitleHeader: "HIV diagnoses per 100k people",
@@ -648,7 +648,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           chartTitleLines: ["historical data for HIV diagnosis inequity"],
-          metricId: "hiv_pct_relative_inequity",
+          metricId: "hiv_diagnoses_pct_relative_inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
@@ -656,7 +656,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           chartTitleLines: [
             "Age-adjusted risk of HIV diagnosis compared to White (NH)",
           ],
-          metricId: "hiv_ratio_age_adjusted",
+          metricId: "hiv_diagnoses_ratio_age_adjusted",
           shortLabel: "",
           type: "ratio",
         },

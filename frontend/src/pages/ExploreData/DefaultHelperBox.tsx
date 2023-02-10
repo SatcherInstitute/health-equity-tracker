@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import {
   COVID_DEATHS_AGE_USA_SETTING,
   EXPLORE_DATA_PAGE_LINK,
+  HIV_DIAGNOSES_RACE_FULTON_COUNTY_SETTING,
   METHODOLOGY_TAB_LINK,
   PRISON_VS_POVERTY_RACE_GA_SETTING,
   UNINSURANCE_SEX_FL_VS_CA_SETTING,
@@ -32,6 +33,16 @@ export default function DefaultHelperBox() {
             </h3>
 
             <ul className={styles.SuggestedReportsList}>
+              <li className={styles.SuggestedReportsListItem}>
+                <a
+                  href={
+                    EXPLORE_DATA_PAGE_LINK +
+                    HIV_DIAGNOSES_RACE_FULTON_COUNTY_SETTING
+                  }
+                >
+                  HIV diagnoses by race in Fulton County, Georgia
+                </a>
+              </li>
               <li className={styles.SuggestedReportsListItem}>
                 <a href={EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_AGE_USA_SETTING}>
                   COVID-19 deaths by age
