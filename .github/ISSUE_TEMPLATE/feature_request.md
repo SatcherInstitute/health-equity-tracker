@@ -7,16 +7,20 @@ assignees: ''
 
 ---
 
+
 ## Is your feature request related to a problem? Please describe.
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
 ## Did someone outside of the dev team ask for this? Who are they?
 
 ## Describe the solution you'd like
-A clear and concise description of what you want to happen.
 
-## Describe alternatives you've considered
-(Optional) A clear and concise description of any alternative solutions or features you've considered.
+## Describe alternatives you've considered (optional)
 
-## Additional context
-Add any other context or screenshots about the feature request here.
+## Additional context / screenshots
+
+## Which of our [user persona(s)](https://docs.google.com/document/d/1EASpK_THTE_uy_Yk0sut2GTVd3w5pKtKH7LpLtF-0co/) would this feature primarily benefit?
+
+- Data Diver: contributes to the body of knowledge surrounding health equity (e.g. analysts, researchers, professors in academic or corporate settings)
+- Data Interpreter: connects others by translating complex data into something actionable (e.g. think tank or legislative settings)
+- Informer: helps everyday people understand important current events (e.g. journalists working in storytelling settings)
+- Persuader: passage of legislation by presenting concise and compelling arguments (e.g. staff members, policy advisors in legislative or nonprofit settings)

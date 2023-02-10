@@ -123,6 +123,11 @@ def has_multi_demographics(table_id: str):
 
         RETURNS:
         boolean of whether there is more than one demographic substring found """
+
+    # Age adjusted tables always only contain one demographic.
+    if table_id.endswith('with_age_adjust'):
+        return False
+
     return (
         ("age" in table_id and "sex" in table_id) or
         ("age" in table_id and "race" in table_id) or
