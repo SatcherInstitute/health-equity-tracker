@@ -34,7 +34,7 @@ payload_age = {
     'demographic': "age"
 }
 cdc_hiv_exporter_operator_age = util.create_exporter_operator(
-    'cdc_hiv_exporter_age', payload_race, data_ingestion_dag)
+    'cdc_hiv_exporter_age', payload_age, data_ingestion_dag)
 
 
 payload_sex = {
