@@ -482,6 +482,76 @@ function MethodologyTab() {
                 </Card>
 
                 <h3 className={styles.MethodologySubsubheaderText} id="svi">
+                  HIV
+                </h3>
+
+                <p>
+                  Health departments report to the CDC all confirmed HIV
+                  infections diagnosed in their jurisdiction and clinical
+                  information about each infection. The CDC's NCHHSTP AtlasPlus
+                  database contains HIV surveillance data reported to the CDC.
+                  All HIV data come from health departments in all 50 states,
+                  the District of Columbia, and U.S. territories. The HIV data
+                  includes adolescents and adults aged 13 and older.
+                </p>
+
+                <p>
+                  <b>HIV Diagnosis</b>
+                </p>
+                <p>
+                  HIV diagnosis refers to the number of people who have received
+                  an HIV diagnosis in a given time, regardless of when they were
+                  first infected. The CDC sums and tabulates the number of
+                  diagnoses reported by health departments.
+                </p>
+                <p>
+                  Data for years 2021 and 2022 are preliminary (subject to a
+                  12-month reporting delay). For this reason we have chosen 2019
+                  as our source year.
+                </p>
+
+                <ul>
+                  <li>
+                    All metrics sourced from the CDC are calculated based on the
+                    number of HIV diagnoses provided by the CDC's Atlas
+                    database, including the <b>per 100k</b> metric and the
+                    population data.
+                    <ul>
+                      <li>
+                        To calculate the <b>percent share</b> of HIV diagnoses
+                        seen on the tracker, we divide the total number of HIV
+                        diagnoses of a given demographic by the total number of
+                        HIV diagnoses in a particular geographic location.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+
+                <Card elevation={3} className={styles.MissingDataBox}>
+                  <b>Missing data for HIV diagnoses</b>
+                  <ul>
+                    <li>
+                      The NCHHSTP AtlasPlus contains data at the national,
+                      state, regional, and county level. Data at the state or
+                      county level,for both cases and rates, may be suppressed
+                      to protect against a situation in which a person could
+                      potentially be identified (e.g., a small number of cases).
+                      Where feasible, state-level data are aggregated to the US.
+                      Census Region level+
+                    </li>
+                    <li>
+                      In order to protect personal privacy, prevent revealing
+                      information that might identify specific individuals,
+                      and/or ensure reliability of statistical estimates, small
+                      data values may not be available in some circumstances. If
+                      denominator population is less than 100, then data are
+                      suppressed. If the denominator population is less than 100
+                      or total case count is 1–4, then data are suppressed.
+                    </li>
+                  </ul>
+                </Card>
+
+                <h3 className={styles.MethodologySubsubheaderText} id="svi">
                   Social Vulnerability Index (SVI)
                 </h3>
 
