@@ -122,6 +122,11 @@ PRISON_PREFIX = "prison"
 JAIL_PREFIX = "jail"
 INCARCERATED_PREFIX = "incarcerated"
 
+# HIV
+HIV_DIAGNOSES = 'hiv_diagnoses'
+HIV_DIAGNOSES_PER_100K = 'hiv_diagnoses_per_100k'
+HIV_DIAGNOSES_PCT_SHARE = 'hiv_diagnoses_pct_share'
+
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",
