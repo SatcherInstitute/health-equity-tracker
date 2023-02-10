@@ -24,6 +24,8 @@ import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 import { CAWP_DATA_TYPES } from "../data/variables/CawpProvider";
+import PopulationSubsetAlert from "./ui/PopulationSubsetAlert";
+import { HIV_DETERMINANTS } from "../data/variables/HivProvider";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -82,6 +84,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   const HASH_ID: ScrollableHashId = "rate-chart";
 
+  const isPopulationSubset = HIV_DETERMINANTS.includes(metricConfig.metricId);
+
   return (
     <CardWrapper
       queries={[query]}
@@ -93,41 +97,44 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId);
 
         return (
-          <CardContent>
-            {queryResponse.shouldShowMissingDataMessage([
-              metricConfig.metricId,
-            ]) ? (
-              <>
-                <MissingDataAlert
-                  dataName={dataName}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
-                  }
-                  fips={props.fips}
-                />
-              </>
-            ) : (
-              <>
-                {isIncarceration && (
-                  <IncarceratedChildrenShortAlert
+          <>
+            <CardContent>
+              {queryResponse.shouldShowMissingDataMessage([
+                metricConfig.metricId,
+              ]) ? (
+                <>
+                  <MissingDataAlert
+                    dataName={dataName}
+                    breakdownString={
+                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                    }
                     fips={props.fips}
-                    queryResponse={queryResponse}
-                    breakdownVar={props.breakdownVar}
                   />
-                )}
+                </>
+              ) : (
+                <>
+                  {isIncarceration && (
+                    <IncarceratedChildrenShortAlert
+                      fips={props.fips}
+                      queryResponse={queryResponse}
+                      breakdownVar={props.breakdownVar}
+                    />
+                  )}
 
-                <SimpleHorizontalBarChart
-                  chartTitle={chartTitle}
-                  data={data}
-                  breakdownVar={props.breakdownVar}
-                  metric={metricConfig}
-                  showLegend={false}
-                  filename={filename}
-                  usePercentSuffix={isPctType(metricConfig.type)}
-                />
-              </>
-            )}
-          </CardContent>
+                  <SimpleHorizontalBarChart
+                    chartTitle={chartTitle}
+                    data={data}
+                    breakdownVar={props.breakdownVar}
+                    metric={metricConfig}
+                    showLegend={false}
+                    filename={filename}
+                    usePercentSuffix={isPctType(metricConfig.type)}
+                  />
+                </>
+              )}
+            </CardContent>
+            {isPopulationSubset && <PopulationSubsetAlert />}
+          </>
         );
       }}
     </CardWrapper>

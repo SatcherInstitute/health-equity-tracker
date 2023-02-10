@@ -615,8 +615,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   hiv_diagnoses: [
     {
       variableId: "hiv_diagnoses",
-      variableDisplayName: "HIV diagnoses (2019)",
-      variableFullDisplayName: "HIV diagnoses (2019)",
+      variableDisplayName: "HIV diagnoses",
+      variableFullDisplayName: "HIV diagnoses",
       variableDefinition: `Individuals ages 13+ diagnosed with HIV in 2019.`,
 
       metrics: {
@@ -633,16 +633,16 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total HIV diagnoses",
             ],
             metricId: "hiv_population_pct",
-            columnTitleHeader: "Population share of ages 13+",
+            columnTitleHeader: "Population share (ages 13+)", //populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "hiv_diagnoses_per_100k",
-          chartTitleLines: ["HIV diagnoses", "per 100k people"],
+          chartTitleLines: ["HIV diagnoses", "per 100k"],
           trendsCardTitleName: "Rates of HIV diagnoses over time",
-          columnTitleHeader: "HIV diagnoses per 100k people",
+          columnTitleHeader: "HIV diagnoses per 100k",
           shortLabel: "HIV diagnoses per 100k",
           type: "per100k",
         },
