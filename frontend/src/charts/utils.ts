@@ -1,7 +1,19 @@
-import { formatFieldValue, MetricConfig } from "../data/config/MetricConfig";
+import {
+  formatFieldValue,
+  MetricConfig,
+  MetricId,
+} from "../data/config/MetricConfig";
 import { BreakdownVar } from "../data/query/Breakdowns";
-import { DemographicGroup } from "../data/utils/Constants";
+import {
+  DemographicGroup,
+  RaceAndEthnicityGroup,
+} from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from "../data/variables/CawpProvider";
+import { HIV_DETERMINANTS } from "../data/variables/HivProvider";
 
 export type VisualizationType = "chart" | "map" | "table";
 
@@ -96,4 +108,20 @@ export function createSubtitle({
   } else {
     return `${activeBreakdownFilter}`;
   }
+}
+
+export function getAltGroupLabel(
+  group: DemographicGroup,
+  metricId: MetricId,
+  breakdown: BreakdownVar
+) {
+  if (CAWP_DETERMINANTS.includes(metricId))
+    return getWomenRaceLabel(group as RaceAndEthnicityGroup);
+  if (
+    HIV_DETERMINANTS.includes(metricId) &&
+    group === "All" &&
+    breakdown === "age"
+  )
+    return `${group} (13+)`;
+  return group;
 }

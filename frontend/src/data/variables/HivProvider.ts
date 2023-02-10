@@ -5,7 +5,7 @@ import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { appendFipsIfNeeded } from "../utils/datasetutils";
 import VariableProvider from "./VariableProvider";
 
-const HIV_DETERMINANTS: MetricId[] = [
+export const HIV_DETERMINANTS: MetricId[] = [
   "hiv_diagnoses_per_100k",
   "hiv_diagnoses_pct_share",
   "hiv_diagnoses_pct_relative_inequity",
