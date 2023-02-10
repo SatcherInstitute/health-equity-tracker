@@ -531,10 +531,10 @@ function MethodologyTab() {
                   <b>Missing data for HIV diagnoses</b>
                   <ul>
                     <li>
-                      The NCHHSTP AtlasPlus contains data at the national,
-                      state, regional, and county level. Data at the state or
-                      county level,for both cases and rates, may be suppressed
-                      to protect against a situation in which a person could
+                      The CDC's AtlasPlus contains data at the national, state,
+                      regional, and county level. Data at the state or county
+                      level,for both cases and rates, may be suppressed to
+                      protect against a situation in which a person could
                       potentially be identified (e.g., a small number of cases).
                       Where feasible, state-level data are aggregated to the US.
                       Census Region level+
