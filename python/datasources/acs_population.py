@@ -1,8 +1,6 @@
 import pandas as pd  # type: ignore
-
 import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
-
 from ingestion.standardized_columns import Race
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
 from datasources.data_source import DataSource
@@ -10,9 +8,24 @@ from ingestion.census import (get_census_params, parse_acs_metadata,
                               get_vars_for_group, standardize_frame)
 from ingestion.dataset_utils import add_sum_of_rows, generate_pct_share_col_without_unknowns
 
-# TODO pass this in from message data.
-BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
+DEFAULT_YEAR = '2019'
+EARLIEST_YEAR = '2009'
 
+ACS_URLS_MAP = {
+    '2009': 'https://api.census.gov/data/2009/acs/acs5',
+    '2010': 'https://api.census.gov/data/2010/acs/acs5',
+    '2011': 'https://api.census.gov/data/2011/acs/acs5',
+    '2012': 'https://api.census.gov/data/2012/acs/acs5',
+    '2013': 'https://api.census.gov/data/2013/acs/acs5',
+    '2014': 'https://api.census.gov/data/2014/acs/acs5',
+    '2015': 'https://api.census.gov/data/2015/acs/acs5',
+    '2016': 'https://api.census.gov/data/2016/acs/acs5',
+    '2017': 'https://api.census.gov/data/2017/acs/acs5',
+    '2018': 'https://api.census.gov/data/2018/acs/acs5',
+    '2019': 'https://api.census.gov/data/2019/acs/acs5',
+    '2020': 'https://api.census.gov/data/2020/acs/acs5',
+    '2021': 'https://api.census.gov/data/2021/acs/acs5',
+}
 
 HISPANIC_BY_RACE_CONCEPT = "HISPANIC OR LATINO ORIGIN BY RACE"
 
@@ -248,14 +261,12 @@ def update_col_types(frame):
 
 class ACSPopulationIngester():
     """American Community Survey population data in the United States from the
-       US Census."""
+       US Census. This class is instanciated twice by ACSPopulation; once for county level
+       and once for state+national level."""
 
-    def __init__(self, county_level, base_acs_url):
-        # The base ACS url to use for API calls.
-        self.base_acs_url = base_acs_url
+    def __init__(self, county_level: bool, year: str):
 
-        # Whether the data is at the county level. If false, it is at the state
-        # level
+        # Whether data is at county level. If false, it is state level
         self.county_level = county_level
 
         # The base columns that are always used to group by.
@@ -268,8 +279,12 @@ class ACSPopulationIngester():
             [std_col.STATE_FIPS_COL, std_col.COUNTY_FIPS_COL] if county_level
             else [std_col.STATE_FIPS_COL])
 
+        self.year = year
+        self.base_acs_url = ACS_URLS_MAP[year]
+
     def upload_to_gcs(self, gcs_bucket):
         """Uploads population data from census to GCS bucket."""
+
         metadata = census.fetch_acs_metadata(self.base_acs_url)
         var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
@@ -281,9 +296,10 @@ class ACSPopulationIngester():
             group_vars = get_vars_for_group(concept, var_map, 2)
             cols = list(group_vars.keys())
             url_params = get_census_params(cols, self.county_level)
+            filename = self.get_filename(concept)
             concept_file_diff = url_file_to_gcs.url_file_to_gcs(
                 self.base_acs_url, url_params, gcs_bucket,
-                self.get_filename(concept))
+                filename)
             file_diff = file_diff or concept_file_diff
 
         return file_diff
@@ -293,7 +309,50 @@ class ACSPopulationIngester():
 
         dataset: The BigQuery dataset to write to
         gcs_bucket: The name of the gcs bucket to read the data from"""
-        # TODO change this to have it read metadata from GCS bucket
+
+        frames = self.build_frames_for_this_year(
+            gcs_bucket)
+
+        # iterate across the prepared dataframe items
+        # writing single-years and also queuing for time-series
+        for table_name, df in frames.items():
+
+            # SINGLE YEAR TABLE
+            if self.year == DEFAULT_YEAR:
+                df_single_year = df.copy()
+                float_cols = [std_col.POPULATION_COL]
+                if std_col.POPULATION_PCT_COL in df_single_year.columns:
+                    float_cols.append(std_col.POPULATION_PCT_COL)
+                column_types = gcs_to_bq_util.get_bq_column_types(
+                    df_single_year, float_cols=float_cols)
+
+                # write the default single year table without a time_period col
+                # to maintain existing merge_util functionality
+                gcs_to_bq_util.add_df_to_bq(
+                    df_single_year, dataset, table_name, column_types=column_types)
+
+            # TIME SERIES TABLE
+            df_for_time_series = df.copy()
+            df_for_time_series[std_col.TIME_PERIOD_COL] = self.year
+
+            # the first year written should OVERWRITE, the subsequent years should APPEND
+            overwrite = self.year == EARLIEST_YEAR
+
+            float_cols = [std_col.POPULATION_COL]
+            if std_col.POPULATION_PCT_COL in df_for_time_series.columns:
+                float_cols.append(std_col.POPULATION_PCT_COL)
+            column_types = gcs_to_bq_util.get_bq_column_types(
+                df_for_time_series, float_cols=float_cols)
+            gcs_to_bq_util.add_df_to_bq(
+                df_for_time_series, dataset,
+                f'{table_name}_time_series',
+                column_types=column_types,
+                overwrite=overwrite
+            )
+
+    def build_frames_for_this_year(self, gcs_bucket: str):
+        """ Builds the various breakdown frames needed for this year's URL string """
+
         metadata = census.fetch_acs_metadata(self.base_acs_url)
         var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
@@ -358,15 +417,7 @@ class ACSPopulationIngester():
                 frames[f'by_{demo}_national'] = generate_national_dataset_with_all_states(
                     frames[state_table_name], demo)
 
-        for table_name, df in frames.items():
-            float_cols = [std_col.POPULATION_COL]
-            if std_col.POPULATION_PCT_COL in df.columns:
-                float_cols.append(std_col.POPULATION_PCT_COL)
-            column_types = gcs_to_bq_util.get_bq_column_types(
-                df, float_cols=float_cols)
-
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=column_types)
+        return frames
 
     def get_table_geo_suffix(self):
         return "_county" if self.county_level else "_state"
@@ -386,11 +437,14 @@ class ACSPopulationIngester():
     def get_table_name_by_sex_age_race(self):
         return "by_sex_age_race" + self.get_table_geo_suffix()
 
-    def get_filename(self, concept):
+    def get_filename(self, concept: str):
         """Returns the name of a file for the given ACS concept
 
-        concept: The ACS concept description, eg 'SEX BY AGE'"""
-        return self.add_filename_suffix(concept.replace(" ", "_"))
+        concept: The ACS concept description, eg 'SEX BY AGE' """
+
+        filename = self.add_filename_suffix(concept.replace(" ", "_"))
+
+        return f'{self.year}-{filename}'
 
     def add_filename_suffix(self, root_name):
         """Adds geography and file type suffix to the root name.
@@ -632,6 +686,7 @@ class ACSPopulationIngester():
 
 
 class ACSPopulation(DataSource):
+    """ Called from the DAG  """
 
     @staticmethod
     def get_table_name():
@@ -644,21 +699,26 @@ class ACSPopulation(DataSource):
         return 'ACS_POPULATION'
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
+
+        all_years = ACS_URLS_MAP.keys()
+
         file_diff = False
-        for ingester in self._create_ingesters():
-            next_file_diff = ingester.upload_to_gcs(gcs_bucket)
-            file_diff = file_diff or next_file_diff
+        for year in all_years:
+            for is_county in [True, False]:
+                ingester = ACSPopulationIngester(is_county, year)
+                next_file_diff = ingester.upload_to_gcs(gcs_bucket)
+                file_diff = file_diff or next_file_diff
         return file_diff
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        for ingester in self._create_ingesters():
-            ingester.write_to_bq(dataset, gcs_bucket)
+        """ Called once per year url from DAG, creates a county and non-county
+        ingester to proceed with processing the time-series tables and
+        potentially single year tables """
+        year = self.get_attr(attrs, 'year')
 
-    def _create_ingesters(self):
-        return [
-            ACSPopulationIngester(False, BASE_ACS_URL),
-            ACSPopulationIngester(True, BASE_ACS_URL)
-        ]
+        for is_county in [True, False]:
+            ingester = ACSPopulationIngester(is_county, year)
+            ingester.write_to_bq(dataset, gcs_bucket)
 
 
 def generate_national_dataset_with_all_states(state_df, demographic_breakdown_category):
