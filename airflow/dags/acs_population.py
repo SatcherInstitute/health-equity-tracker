@@ -115,45 +115,32 @@ acs_pop_exporter_operator_sex = util.create_exporter_operator(
     data_ingestion_dag
 )
 
-connector1 = DummyOperator(
+connector = DummyOperator(
     default_args=default_args,
     dag=data_ingestion_dag,
-    task_id='connector1'
+    task_id='connector'
 )
-connector2 = DummyOperator(
-    default_args=default_args,
-    dag=data_ingestion_dag,
-    task_id='connector2'
-)
-connector3 = DummyOperator(
-    default_args=default_args,
-    dag=data_ingestion_dag,
-    task_id='connector3'
-)
-connector4 = DummyOperator(
-    default_args=default_args,
-    dag=data_ingestion_dag,
-    task_id='connector4'
-)
+
+
 # ensure CACHING step runs, then 2009 to make new BQ tables
 # then run the rest of the years in parallel chunks
-# need to restrict number of concurrent runs to get under 8gb mem limit
+# need to restrict number of concurrent runs to get under mem limit
 (
     acs_pop_gcs_operator >>
     acs_pop_bq_operator_2009 >> [acs_pop_bq_operator_2010,
                                  acs_pop_bq_operator_2011,
-                                 acs_pop_bq_operator_2012
+                                 acs_pop_bq_operator_2012,
+                                 acs_pop_bq_operator_2013,
+                                 acs_pop_bq_operator_2014,
+                                 acs_pop_bq_operator_2015
                                  ] >>
-    connector1 >> [acs_pop_bq_operator_2013,
-                   acs_pop_bq_operator_2014,
-                   acs_pop_bq_operator_2015] >>
-    connector2 >> [acs_pop_bq_operator_2016,
-                   acs_pop_bq_operator_2017,
-                   acs_pop_bq_operator_2018] >>
-    connector3 >> [acs_pop_bq_operator_2019,
-                   acs_pop_bq_operator_2020,
-                   acs_pop_bq_operator_2021] >>
-    connector4 >> [acs_pop_exporter_operator_race,
-                   acs_pop_exporter_operator_age,
-                   acs_pop_exporter_operator_sex]
+    connector >> [acs_pop_bq_operator_2016,
+                  acs_pop_bq_operator_2017,
+                  acs_pop_bq_operator_2018,
+                  acs_pop_bq_operator_2020,
+                  acs_pop_bq_operator_2021
+                  ] >>
+    acs_pop_bq_operator_2019 >> [acs_pop_exporter_operator_race,
+                                 acs_pop_exporter_operator_age,
+                                 acs_pop_exporter_operator_sex]
 )
