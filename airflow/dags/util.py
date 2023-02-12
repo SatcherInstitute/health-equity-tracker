@@ -47,7 +47,8 @@ def generate_gcs_payload(workflow_id: str, filename: str = None,
 
 def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
                         gcs_bucket: str = None, url: str = None,
-                        demographic: str = None) -> dict:
+                        demographic: str = None,
+                        year: str = None) -> dict:
     """Creates the payload object required for the BQ ingestion operator.
 
     workflow_id: ID of the datasource workflow. Should match ID defined in
@@ -61,7 +62,9 @@ def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
          writing any metadata to GCS during the GCS step. It's temporarily
          necessary since ACS directly requests metadata during BQ upload.
     demographic: The demographic group to generate the bq pipeline for.
-                 Either `race`/`race_and_ethnicity`, `sex` or `age`."""
+                 Either `race`/`race_and_ethnicity`, `sex` or `age`.
+    year: string 4 digit year that determines which year should be processed
+        """
     message = get_required_attrs(workflow_id, gcs_bucket=gcs_bucket)
     message['dataset'] = dataset
     if filename is not None:
@@ -70,6 +73,8 @@ def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
         message['url'] = url
     if demographic is not None:
         message['demographic'] = demographic
+    if year is not None:
+        message['year'] = year
     return {'message': message}
 
 
