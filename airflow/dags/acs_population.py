@@ -4,7 +4,6 @@ from airflow.utils.dates import days_ago  # type: ignore
 
 import util
 
-_ACS_BASE_URL = 'https://api.census.gov/data/2019/acs/acs5'
 _ACS_WORKFLOW_ID = 'ACS_POPULATION'
 _ACS_DATASET_NAME = 'acs_population'
 
@@ -18,23 +17,76 @@ data_ingestion_dag = DAG(
     schedule_interval='@yearly',
     description='Ingestion configuration for ACS Population')
 
-acs_pop_gcs_task_id = 'acs_population_to_gcs'
 acs_pop_gcs_payload = util.generate_gcs_payload(
-    _ACS_WORKFLOW_ID, url=_ACS_BASE_URL)
+    _ACS_WORKFLOW_ID)
 acs_pop_gcs_operator = util.create_gcs_ingest_operator(
-    acs_pop_gcs_task_id, acs_pop_gcs_payload, data_ingestion_dag)
+    'acs_population_to_gcs', acs_pop_gcs_payload, data_ingestion_dag)
 
-acs_pop_bq_payload = util.generate_bq_payload(
-    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, url=_ACS_BASE_URL)
-acs_pop_bq_operator = util.create_bq_ingest_operator(
-    'acs_population_to_bq', acs_pop_bq_payload, data_ingestion_dag)
 
-acs_pop_exporter_payload_multi = {
-    'dataset_name': _ACS_DATASET_NAME,
-    'demographic': "multi"
-}
-acs_pop_exporter_operator_multi = util.create_exporter_operator(
-    'acs_population_exporter_multi', acs_pop_exporter_payload_multi, data_ingestion_dag)
+acs_pop_bq_payload_2009 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2009')
+acs_pop_bq_operator_2009 = util.create_bq_ingest_operator(
+    'acs_population_to_bq_2009', acs_pop_bq_payload_2009, data_ingestion_dag)
+
+acs_pop_bq_payload_2010 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2010')
+acs_pop_bq_operator_2010 = util.create_bq_ingest_operator(
+    'acs_population_to_bq_2010', acs_pop_bq_payload_2010, data_ingestion_dag)
+
+acs_pop_bq_payload_2011 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2011')
+acs_pop_bq_operator_2011 = util.create_bq_ingest_operator(
+    'acs_population_to_bq_2011', acs_pop_bq_payload_2011, data_ingestion_dag)
+
+acs_pop_bq_payload_2012 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2012')
+acs_pop_bq_operator_2012 = util.create_bq_ingest_operator(
+    'acs_population_to_bq_2012', acs_pop_bq_payload_2012, data_ingestion_dag)
+
+acs_pop_bq_payload_2013 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2013')
+acs_pop_bq_operator_2013 = util.create_bq_ingest_operator(
+    'acs_population_to_bq_2013', acs_pop_bq_payload_2013, data_ingestion_dag)
+
+acs_pop_bq_payload_2014 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2014')
+acs_pop_bq_operator_2014 = util.create_bq_ingest_operator(
+    'acs_population_to_bq_2014', acs_pop_bq_payload_2014, data_ingestion_dag)
+
+acs_pop_bq_payload_2015 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2015')
+acs_pop_bq_operator_2015 = util.create_bq_ingest_operator(
+    'acs_population_to_bq_2015', acs_pop_bq_payload_2015, data_ingestion_dag)
+
+acs_pop_bq_payload_2016 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2016')
+acs_pop_bq_operator_2016 = util.create_bq_ingest_operator(
+    'acs_population_to_bq_2016', acs_pop_bq_payload_2016, data_ingestion_dag)
+
+acs_pop_bq_payload_2017 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2017')
+acs_pop_bq_operator_2017 = util.create_bq_ingest_operator(
+    'acs_population_to_bq_2017', acs_pop_bq_payload_2017, data_ingestion_dag)
+
+acs_pop_bq_payload_2018 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2018')
+acs_pop_bq_operator_2018 = util.create_bq_ingest_operator(
+    'acs_population_to_bq_2018', acs_pop_bq_payload_2018, data_ingestion_dag)
+
+acs_pop_bq_payload_2019 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2019')
+acs_pop_bq_operator_2019 = util.create_bq_ingest_operator(
+    'acs_population_to_bq_2019', acs_pop_bq_payload_2019, data_ingestion_dag)
+
+acs_pop_bq_payload_2020 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2020')
+acs_pop_bq_operator_2020 = util.create_bq_ingest_operator(
+    'acs_population_to_bq_2020', acs_pop_bq_payload_2020, data_ingestion_dag)
+
+acs_pop_bq_payload_2021 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2021')
+acs_pop_bq_operator_2021 = util.create_bq_ingest_operator(
+    'acs_population_to_bq_2021', acs_pop_bq_payload_2021, data_ingestion_dag)
 
 
 acs_pop_exporter_payload_race = {
@@ -60,10 +112,20 @@ acs_pop_exporter_operator_sex = util.create_exporter_operator(
 # Ingestion DAG
 (
     acs_pop_gcs_operator >>
-    acs_pop_bq_operator >> [
-        acs_pop_exporter_operator_multi,
-        acs_pop_exporter_operator_race,
-        acs_pop_exporter_operator_age,
-        acs_pop_exporter_operator_sex,
-    ]
+    acs_pop_bq_operator_2009 >>
+    acs_pop_bq_operator_2010 >>
+    acs_pop_bq_operator_2011 >>
+    acs_pop_bq_operator_2012 >>
+    acs_pop_bq_operator_2013 >>
+    acs_pop_bq_operator_2014 >>
+    acs_pop_bq_operator_2015 >>
+    acs_pop_bq_operator_2016 >>
+    acs_pop_bq_operator_2017 >>
+    acs_pop_bq_operator_2018 >>
+    acs_pop_bq_operator_2019 >>
+    acs_pop_bq_operator_2020 >>
+    acs_pop_bq_operator_2021 >>
+    [acs_pop_exporter_operator_race,
+     acs_pop_exporter_operator_age,
+     acs_pop_exporter_operator_sex]
 )
