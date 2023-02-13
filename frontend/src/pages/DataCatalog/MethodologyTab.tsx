@@ -23,6 +23,7 @@ import {
   MissingCAWPData,
   MissingCovidData,
   MissingCovidVaccinationData,
+  MissingHIVData,
 } from "./methodologyContent/missingDataBlurbs";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
@@ -479,6 +480,63 @@ function MethodologyTab() {
                 </ul>
                 <Card elevation={3} className={styles.MissingDataBox}>
                   <MissingCAWPData />
+                </Card>
+
+                <h3 className={styles.MethodologySubsubheaderText}>HIV</h3>
+
+                <p>
+                  Health departments report to the CDC all confirmed HIV
+                  infections diagnosed in their jurisdiction and clinical
+                  information about each infection. The CDC's AtlasPlus database
+                  contains HIV surveillance data reported to the CDC. All HIV
+                  data come from health departments in all 50 states, the
+                  District of Columbia, and U.S. territories. The HIV data
+                  includes adolescents and adults aged 13 and older.
+                </p>
+
+                <p>
+                  <b>HIV Diagnosis</b>
+                </p>
+                <p>
+                  HIV diagnosis refers to the number of people who have received
+                  an HIV diagnosis in a given time, regardless of when they were
+                  first infected. The CDC sums and tabulates the number of
+                  diagnoses reported by health departments.
+                </p>
+                <p>
+                  Data for years 2021 and 2022 are preliminary (subject to a
+                  12-month reporting delay). For this reason we have chosen 2019
+                  as our source year.
+                </p>
+
+                <ul>
+                  <li>
+                    All metrics sourced from the CDC are calculated based on the
+                    number of HIV diagnoses provided by the CDC's Atlas
+                    database.
+                    <ul>
+                      <li>
+                        <b>Percent share</b>: To calculate the percent share of
+                        HIV diagnoses of a given location, we divide the number
+                        of HIV diagnoses of a given demographic by the total
+                        number of HIV diagnoses in that geographic location.
+                      </li>
+                      <li>
+                        <b>Population percent</b>: To calculate the population
+                        percent of a given location, we divide the total
+                        population of a given demographic by the total
+                        population in that geographic location.
+                      </li>
+                      <li>
+                        <b>Per 100k</b>: The per 100k metric is derived directly
+                        from the CDC's database.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+
+                <Card elevation={3} className={styles.MissingDataBox}>
+                  <MissingHIVData />
                 </Card>
 
                 <h3 className={styles.MethodologySubsubheaderText} id="svi">
