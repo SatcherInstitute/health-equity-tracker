@@ -45,7 +45,7 @@ demo_dict = {
 
 pct_share_dict = {
     std_col.HIV_DIAGNOSES: std_col.HIV_DIAGNOSES_PCT_SHARE,
-    std_col.POPULATION_COL: std_col.POPULATION_PCT_COL
+    std_col.POPULATION_COL: std_col.HIV_POPULATION_PCT
 }
 
 
@@ -104,7 +104,7 @@ class CDCHIVData(DataSource):
 
                 df = self.generate_breakdown_df(breakdown, geo_level)
 
-                float_cols = [std_col.POPULATION_PCT_COL,
+                float_cols = [std_col.HIV_POPULATION_PCT,
                               std_col.HIV_DIAGNOSES,
                               std_col.HIV_DIAGNOSES_PER_100K,
                               std_col.HIV_DIAGNOSES_PCT_SHARE
@@ -140,7 +140,7 @@ class CDCHIVData(DataSource):
             std_col.HIV_DIAGNOSES,
             std_col.HIV_DIAGNOSES_PER_100K,
             std_col.HIV_DIAGNOSES_PCT_SHARE,
-            std_col.POPULATION_PCT_COL]
+            std_col.HIV_POPULATION_PCT]
 
         source_dfs = []
         missing_data = ['Data suppressed', 'Data not available']
