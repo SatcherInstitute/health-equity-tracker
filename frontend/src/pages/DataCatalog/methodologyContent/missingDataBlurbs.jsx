@@ -107,3 +107,26 @@ export function MissingCAWPData() {
     </>
   );
 }
+
+export function MissingHIVData() {
+  return (
+    <>
+      <h4>Missing data for HIV diagnoses</h4>
+      <ul>
+        <li>
+          The CDC's AtlasPlus contains data at the national, state, regional,
+          and county level. Data at the state or county level,for both cases and
+          rates, may be suppressed to protect against a situation in which a
+          person could potentially be identified.
+        </li>
+        <li>
+          To protect personal privacy, prevent revealing information that might
+          identify specific individuals, and ensure the reliability of
+          statistical estimates, small data values may not be available in some
+          circumstances. Data are suppressed if the denominator population is
+          less than 100, or the total case count is 1–4.
+        </li>
+      </ul>
+    </>
+  );
+}
