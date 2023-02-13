@@ -126,6 +126,7 @@ INCARCERATED_PREFIX = "incarcerated"
 HIV_DIAGNOSES = 'hiv_diagnoses'
 HIV_DIAGNOSES_PER_100K = 'hiv_diagnoses_per_100k'
 HIV_DIAGNOSES_PCT_SHARE = 'hiv_diagnoses_pct_share'
+HIV_POPULATION_PCT = 'hiv_population_pct'
 
 
 RaceTuple = namedtuple("RaceTuple", [
