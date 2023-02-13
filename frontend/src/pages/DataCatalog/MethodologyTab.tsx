@@ -482,9 +482,7 @@ function MethodologyTab() {
                   <MissingCAWPData />
                 </Card>
 
-                <h3 className={styles.MethodologySubsubheaderText} id="svi">
-                  HIV
-                </h3>
+                <h3 className={styles.MethodologySubsubheaderText}>HIV</h3>
 
                 <p>
                   Health departments report to the CDC all confirmed HIV
