@@ -59,10 +59,6 @@ class HivProvider extends VariableProvider {
 
     let consumedDatasetIds = [datasetId];
 
-    df = df.renameSeries({
-      population_pct: "hiv_population_pct",
-    });
-
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
