@@ -513,14 +513,23 @@ function MethodologyTab() {
                   <li>
                     All metrics sourced from the CDC are calculated based on the
                     number of HIV diagnoses provided by the CDC's Atlas
-                    database, including the <b>per 100k</b> metric and the
-                    population data.
+                    database.
                     <ul>
                       <li>
-                        To calculate the <b>percent share</b> of HIV diagnoses
-                        seen on the tracker, we divide the total number of HIV
-                        diagnoses of a given demographic by the total number of
-                        HIV diagnoses in a particular geographic location.
+                        <b>Percent share</b>: To calculate the percent share of
+                        HIV diagnoses of a given location, we divide the number
+                        of HIV diagnoses of a given demographic by the total
+                        number of HIV diagnoses in that geographic location.
+                      </li>
+                      <li>
+                        <b>Population percent</b>: To calculate the population
+                        percent of a given location, we divide the total
+                        population of a given demographic by the total
+                        population in that geographic location.
+                      </li>
+                      <li>
+                        <b>Per 100k</b>: The per 100k metric is derived directly
+                        from the CDC's database.
                       </li>
                     </ul>
                   </li>
