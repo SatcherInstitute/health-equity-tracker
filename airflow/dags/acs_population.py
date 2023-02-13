@@ -127,22 +127,20 @@ connector = DummyOperator(
 # need to restrict number of concurrent runs to get under mem limit
 (
     acs_pop_gcs_operator >>
-    acs_pop_bq_operator_2009 >> [
-        acs_pop_bq_operator_2010,
-        acs_pop_bq_operator_2011,
-        acs_pop_bq_operator_2012,
-        acs_pop_bq_operator_2013,
-        acs_pop_bq_operator_2014,
-        acs_pop_bq_operator_2015,
-        acs_pop_bq_operator_2016,
-        acs_pop_bq_operator_2017,
-        acs_pop_bq_operator_2018,
-        acs_pop_bq_operator_2019,
-        acs_pop_bq_operator_2020,
-        acs_pop_bq_operator_2021
-    ] >>
-    connector >> [
-        acs_pop_exporter_operator_race,
-        acs_pop_exporter_operator_age,
-        acs_pop_exporter_operator_sex]
+    acs_pop_bq_operator_2009 >> [acs_pop_bq_operator_2010,
+                                 acs_pop_bq_operator_2011,
+                                 acs_pop_bq_operator_2012,
+                                 acs_pop_bq_operator_2013,
+                                 acs_pop_bq_operator_2014,
+                                 acs_pop_bq_operator_2015
+                                 ] >>
+    connector >> [acs_pop_bq_operator_2016,
+                  acs_pop_bq_operator_2017,
+                  acs_pop_bq_operator_2018,
+                  acs_pop_bq_operator_2020,
+                  acs_pop_bq_operator_2021
+                  ] >>
+    acs_pop_bq_operator_2019 >> [acs_pop_exporter_operator_race,
+                                 acs_pop_exporter_operator_age,
+                                 acs_pop_exporter_operator_sex]
 )
