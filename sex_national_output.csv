@@ -1,0 +1,46 @@
+time_period,state_name,state_fips,sex,hiv_diagnoses,hiv_diagnoses_per_100k,population
+2008,United States,,Both sexes,47018,18.7,251009998.0
+2009,United States,,Both sexes,44535,17.6,253253138.0
+2010,United States,,Both sexes,42877,16.7,256389865.0
+2011,United States,,Both sexes,41108,15.9,258662228.0
+2012,United States,,Both sexes,40397,15.5,261022601.0
+2013,United States,,Both sexes,39096,14.8,263340316.0
+2014,United States,,Both sexes,39844,15.0,265709949.0
+2015,United States,,Both sexes,39718,14.8,267974914.0
+2016,United States,,Both sexes,39422,14.6,270260540.0
+2017,United States,,Both sexes,38316,14.1,272395718.0
+2018,United States,,Both sexes,37417,13.6,274284600.0
+2019,United States,,Both sexes,36528,13.2,276063213.0
+2020 (COVID-19 Pandemic),United States,,Both sexes,30346,10.9,277596976.0
+2021,United States,,Both sexes,35680,Data not available,
+2022,United States,,Both sexes,23986,Data not available,
+2008,United States,,Female,11306,8.8,128222223.0
+2009,United States,,Female,10123,7.8,129285690.0
+2010,United States,,Female,9400,7.2,131356635.0
+2011,United States,,Female,8672,6.5,132481994.0
+2012,United States,,Female,8077,6.0,133620059.0
+2013,United States,,Female,7586,5.6,134746814.0
+2014,United States,,Female,7534,5.5,135915908.0
+2015,United States,,Female,7362,5.4,137019206.0
+2016,United States,,Female,7470,5.4,138154274.0
+2017,United States,,Female,7275,5.2,139222563.0
+2018,United States,,Female,7086,5.1,140176915.0
+2019,United States,,Female,6939,4.9,141074630.0
+2020 (COVID-19 Pandemic),United States,,Female,5449,3.8,141849607.0
+2021,United States,,Female,6552,Data not available,
+2022,United States,,Female,4408,Data not available,
+2008,United States,,Male,35712,29.1,122787775.0
+2009,United States,,Male,34412,27.8,123967448.0
+2010,United States,,Male,33477,26.8,125033230.0
+2011,United States,,Male,32436,25.7,126180234.0
+2012,United States,,Male,32320,25.4,127402542.0
+2013,United States,,Male,31510,24.5,128593502.0
+2014,United States,,Male,32310,24.9,129794041.0
+2015,United States,,Male,32356,24.7,130955708.0
+2016,United States,,Male,31952,24.2,132106266.0
+2017,United States,,Male,31041,23.3,133173155.0
+2018,United States,,Male,30331,22.6,134107685.0
+2019,United States,,Male,29589,21.9,134988583.0
+2020 (COVID-19 Pandemic),United States,,Male,24897,18.3,135747369.0
+2021,United States,,Male,29128,Data not available,
+2022,United States,,Male,19578,Data not available,

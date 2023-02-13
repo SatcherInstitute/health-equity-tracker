@@ -99,24 +99,32 @@ class CDCHIVData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         for geo_level in [constants.COUNTY_LEVEL, constants.STATE_LEVEL, constants.NATIONAL_LEVEL]:
+            alls_df = gcs_to_bq_util.load_csv_as_df_from_data_dir('hiv_time',
+                                                                  f'hiv-{geo_level}-all.csv',
+                                                                  skiprows=8,
+                                                                  thousands=',',
+                                                                  dtype={'FIPS': str})
+
             for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
                 table_name = f'{breakdown}_{geo_level}'
 
-                df = self.generate_breakdown_df(breakdown, geo_level)
+                df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
 
-                float_cols = [std_col.POPULATION_PCT_COL,
-                              std_col.HIV_DIAGNOSES,
-                              std_col.HIV_DIAGNOSES_PER_100K,
-                              std_col.HIV_DIAGNOSES_PCT_SHARE
-                              ]
+                df.to_csv(f'{breakdown}_{geo_level}_output.csv', index=False)
 
-                column_types = gcs_to_bq_util.get_bq_column_types(
-                    df, float_cols=float_cols)
+                # float_cols = [std_col.POPULATION_PCT_COL,
+                #               std_col.HIV_DIAGNOSES,
+                #               std_col.HIV_DIAGNOSES_PER_100K,
+                #               std_col.HIV_DIAGNOSES_PCT_SHARE
+                #               ]
 
-                gcs_to_bq_util.add_df_to_bq(
-                    df, dataset, table_name, column_types=column_types)
+                # column_types = gcs_to_bq_util.get_bq_column_types(
+                #     df, float_cols=float_cols)
 
-    def generate_breakdown_df(self, breakdown, geo_level):
+                # gcs_to_bq_util.add_df_to_bq(
+                #     df, dataset, table_name, column_types=column_types)
+
+    def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
         COL_NAME = std_col.COUNTY_NAME_COL if geo_level == constants.COUNTY_LEVEL else std_col.STATE_NAME_COL
         FIPS = std_col.COUNTY_FIPS_COL if geo_level == constants.COUNTY_LEVEL else std_col.STATE_FIPS_COL
 
@@ -132,6 +140,25 @@ class CDCHIVData(DataSource):
             'Population': std_col.POPULATION_COL,
         }
 
+        source_group_df = gcs_to_bq_util.load_csv_as_df_from_data_dir('hiv_time',
+                                                                      f'hiv-{geo_level}-{breakdown}.csv',
+                                                                      skiprows=8,
+                                                                      thousands=',',
+                                                                      dtype={'FIPS': str})
+
+        df = pd.concat([source_group_df, alls_df], axis=0)
+        df = df.rename(columns=cols_std)
+        needed_cols = [std_col.TIME_PERIOD_COL, COL_NAME, FIPS, breakdown,
+                       std_col.HIV_DIAGNOSES, std_col.HIV_DIAGNOSES_PER_100K, std_col.POPULATION_COL]
+        df = df[needed_cols]
+        df = df.sort_values(
+            [FIPS, breakdown, std_col.TIME_PERIOD_COL]).reset_index(drop=True)
+
+        if breakdown == 'age' and geo_level == 'county':
+
+            print('--')
+            print(df)
+
         cols = [
             COL_NAME,
             FIPS,
@@ -145,93 +172,90 @@ class CDCHIVData(DataSource):
         source_dfs = []
         missing_data = ['Data suppressed', 'Data not available']
 
-        # county fips needs 5 digits, state digits use 2
-        format_num = 5 if geo_level == constants.COUNTY_LEVEL else 2
-        # flag for creating only county & state level dataframes
-        geo = constants.COUNTY_LEVEL if geo_level == constants.COUNTY_LEVEL else constants.STATE_LEVEL
+        # for group in GROUP_DICT[breakdown].keys():
 
-        for group in GROUP_DICT[breakdown].keys():
-            # skiprows skips unreadable rows on df/ thousands convert popuplation numbers to floats
-            filename = f'{breakdown}_{demo_dict.get(group, group)}_{geo}_2019.csv'
-            source_group_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-                'cdc_hiv', filename, subdirectory=geo,
-                skiprows=9, thousands=',', dtype={'FIPS': str})
+        # skiprows skips unreadable rows on df/ thousands convert popuplation numbers to floats
 
-            # adds leading zeros to fips
-            source_group_df['FIPS'] = source_group_df['FIPS'].str.zfill(
-                format_num)
-            source_dfs.append(source_group_df)
+        # filename = f'{breakdown}_{demo_dict.get(group, group)}_{geo}_2019.csv'
+        # source_group_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+        #     'cdc_hiv', filename, subdirectory=geo,
+        #     skiprows=9, thousands=',', dtype={'FIPS': str})
 
-        if geo_level != constants.NATIONAL_LEVEL:
-            alls_df = generate_alls_df(geo_level)
-            source_dfs.append(alls_df)
+        # adds leading zeros to fips
+        #     source_group_df['FIPS'] = source_group_df['FIPS'].str.zfill(
+        #         format_num)
+        #     source_dfs.append(source_group_df)
 
-        combined_group_df = pd.concat(source_dfs, axis=0)
-        combined_group_df = combined_group_df.rename(columns=cols_std)
-        combined_group_df = combined_group_df.sort_values(
-            [FIPS, breakdown]).reset_index(drop=True)
+        # if geo_level != constants.NATIONAL_LEVEL:
+        #     alls_df = generate_alls_df(geo_level)
+        #     source_dfs.append(alls_df)
 
-        if geo_level == constants.COUNTY_LEVEL:
-            combined_group_df = merge_utils.merge_county_names(
-                combined_group_df)
-            combined_group_df[std_col.STATE_FIPS_COL] = combined_group_df[std_col.COUNTY_FIPS_COL].str.slice(
-                0, 2)
+        # combined_group_df = pd.concat(source_dfs, axis=0)
+        # combined_group_df = combined_group_df.rename(columns=cols_std)
+        # combined_group_df = combined_group_df.sort_values(
+        #     [FIPS, breakdown]).reset_index(drop=True)
 
-        if geo_level == constants.NATIONAL_LEVEL:
-            alls_df = generate_alls_df(constants.NATIONAL_LEVEL)
-            nat_breakdown_df = generate_nat_breakdown_df(breakdown)
+        # if geo_level == constants.COUNTY_LEVEL:
+        #     combined_group_df = merge_utils.merge_county_names(
+        #         combined_group_df)
+        #     combined_group_df[std_col.STATE_FIPS_COL] = combined_group_df[std_col.COUNTY_FIPS_COL].str.slice(
+        #         0, 2)
 
-            nat_df = pd.concat([nat_breakdown_df, alls_df])
-            nat_df = nat_df.rename(columns=cols_std)
+        # if geo_level == constants.NATIONAL_LEVEL:
+        #     alls_df = generate_alls_df(constants.NATIONAL_LEVEL)
+        #     nat_breakdown_df = generate_nat_breakdown_df(breakdown)
 
-            # remove territories (not included in national numbers)
-            combined_group_df = combined_group_df[-combined_group_df[std_col.STATE_FIPS_COL].isin(
-                set(constants.TERRITORY_FIPS_LIST))]
+        #     nat_df = pd.concat([nat_breakdown_df, alls_df])
+        #     nat_df = nat_df.rename(columns=cols_std)
 
-            combined_group_df[std_col.STATE_FIPS_COL] = constants.US_FIPS
-            combined_group_df[std_col.STATE_NAME_COL] = constants.US_NAME
+        #     # remove territories (not included in national numbers)
+        #     combined_group_df = combined_group_df[-combined_group_df[std_col.STATE_FIPS_COL].isin(
+        #         set(constants.TERRITORY_FIPS_LIST))]
 
-            # combine population numbers
-            combined_group_df.loc[combined_group_df[breakdown] == 'All',
-                                  std_col.POPULATION_COL] = combined_group_df[std_col.POPULATION_COL].sum()
+        #     combined_group_df[std_col.STATE_FIPS_COL] = constants.US_FIPS
+        #     combined_group_df[std_col.STATE_NAME_COL] = constants.US_NAME
 
-            # combine HIV cases
-            group_by_cols = [std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL,
-                             std_col.TIME_PERIOD_COL, breakdown]
-            combined_group_df = combined_group_df.groupby(
-                group_by_cols).sum().reset_index()
-            combined_group_df = combined_group_df[group_by_cols + [
-                std_col.POPULATION_COL]]
+        #     # combine population numbers
+        #     combined_group_df.loc[combined_group_df[breakdown] == 'All',
+        #                           std_col.POPULATION_COL] = combined_group_df[std_col.POPULATION_COL].sum()
 
-            # merge nat & state population dataframes
-            combined_group_df = nat_df.merge(
-                combined_group_df, on=group_by_cols, how='left')
-            combined_group_df.loc[combined_group_df[breakdown] == 'All',
-                                  std_col.POPULATION_COL] = combined_group_df[std_col.POPULATION_COL].sum()
+        #     # combine HIV cases
+        #     group_by_cols = [std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL,
+        #                      std_col.TIME_PERIOD_COL, breakdown]
+        #     combined_group_df = combined_group_df.groupby(
+        #         group_by_cols).sum().reset_index()
+        #     combined_group_df = combined_group_df[group_by_cols + [
+        #         std_col.POPULATION_COL]]
 
-        combined_group_df.loc[combined_group_df[std_col.HIV_DIAGNOSES_PER_100K].isin(
-            missing_data), std_col.HIV_DIAGNOSES_PER_100K] = np.nan
-        combined_group_df[std_col.HIV_DIAGNOSES] = combined_group_df[std_col.HIV_DIAGNOSES].replace(
-            ',', '', regex=True)
-        combined_group_df.loc[combined_group_df[std_col.HIV_DIAGNOSES].isin(
-            missing_data), std_col.HIV_DIAGNOSES] = np.nan
-        combined_group_df[std_col.HIV_DIAGNOSES] = combined_group_df[std_col.HIV_DIAGNOSES].astype(
-            float)
-        combined_group_df[std_col.HIV_DIAGNOSES_PER_100K] = combined_group_df[std_col.HIV_DIAGNOSES_PER_100K].astype(
-            float)
+        #     # merge nat & state population dataframes
+        #     combined_group_df = nat_df.merge(
+        #         combined_group_df, on=group_by_cols, how='left')
+        #     combined_group_df.loc[combined_group_df[breakdown] == 'All',
+        #                           std_col.POPULATION_COL] = combined_group_df[std_col.POPULATION_COL].sum()
 
-        combined_group_df = generate_pct_share_col_without_unknowns(
-            combined_group_df, pct_share_dict, breakdown, 'All')
+        # combined_group_df.loc[combined_group_df[std_col.HIV_DIAGNOSES_PER_100K].isin(
+        #     missing_data), std_col.HIV_DIAGNOSES_PER_100K] = np.nan
+        # combined_group_df[std_col.HIV_DIAGNOSES] = combined_group_df[std_col.HIV_DIAGNOSES].replace(
+        #     ',', '', regex=True)
+        # combined_group_df.loc[combined_group_df[std_col.HIV_DIAGNOSES].isin(
+        #     missing_data), std_col.HIV_DIAGNOSES] = np.nan
+        # combined_group_df[std_col.HIV_DIAGNOSES] = combined_group_df[std_col.HIV_DIAGNOSES].astype(
+        #     float)
+        # combined_group_df[std_col.HIV_DIAGNOSES_PER_100K] = combined_group_df[std_col.HIV_DIAGNOSES_PER_100K].astype(
+        #     float)
 
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
-            combined_group_df = combined_group_df.replace(
-                {std_col.RACE_OR_HISPANIC_COL: RACE_GROUPS_TO_STANDARD})
-            combined_group_df = combined_group_df.replace(['All'], 'ALL')
-            combined_group_df = combined_group_df.rename(
-                columns={std_col.RACE_OR_HISPANIC_COL: std_col.RACE_CATEGORY_ID_COL})
-            std_col.add_race_columns_from_category_id(combined_group_df)
-            cols.append(std_col.RACE_CATEGORY_ID_COL)
+        # combined_group_df = generate_pct_share_col_without_unknowns(
+        #     combined_group_df, pct_share_dict, breakdown, 'All')
 
-        df = combined_group_df[cols]
+        # if breakdown == std_col.RACE_OR_HISPANIC_COL:
+        #     combined_group_df = combined_group_df.replace(
+        #         {std_col.RACE_OR_HISPANIC_COL: RACE_GROUPS_TO_STANDARD})
+        #     combined_group_df = combined_group_df.replace(['All'], 'ALL')
+        #     combined_group_df = combined_group_df.rename(
+        #         columns={std_col.RACE_OR_HISPANIC_COL: std_col.RACE_CATEGORY_ID_COL})
+        #     std_col.add_race_columns_from_category_id(combined_group_df)
+        #     cols.append(std_col.RACE_CATEGORY_ID_COL)
+
+        # df = combined_group_df[cols]
 
         return df

@@ -1,0 +1,91 @@
+time_period,state_name,state_fips,age,hiv_diagnoses,hiv_diagnoses_per_100k,population
+2008,United States,,13-24,8553,16.7,51155009.0
+2009,United States,,13-24,8787,17.2,51206838.0
+2010,United States,,13-24,9133,17.6,51949460.0
+2011,United States,,13-24,9058,17.4,52082085.0
+2012,United States,,13-24,9069,17.4,52242816.0
+2013,United States,,13-24,8734,16.7,52378452.0
+2014,United States,,13-24,9116,17.4,52354810.0
+2015,United States,,13-24,9080,17.4,52045828.0
+2016,United States,,13-24,8656,16.7,51717875.0
+2017,United States,,13-24,8277,16.1,51449565.0
+2018,United States,,13-24,7848,15.3,51227904.0
+2019,United States,,13-24,7638,15.0,51056802.0
+2020 (COVID-19 Pandemic),United States,,13-24,6082,11.9,50961963.0
+2021,United States,,13-24,6854,Data not available,
+2022,United States,,13-24,4302,Data not available,
+2008,United States,,25-34,12464,30.4,40957505.0
+2009,United States,,25-34,11926,28.7,41566322.0
+2010,United States,,25-34,11653,28.3,41212154.0
+2011,United States,,25-34,11451,27.4,41800949.0
+2012,United States,,25-34,11761,27.8,42304034.0
+2013,United States,,25-34,11780,27.5,42854406.0
+2014,United States,,25-34,12578,28.9,43475811.0
+2015,United States,,25-34,13024,29.6,44073239.0
+2016,United States,,25-34,13588,30.3,44775127.0
+2017,United States,,25-34,13395,29.6,45319858.0
+2018,United States,,25-34,13384,29.3,45679060.0
+2019,United States,,25-34,13075,28.4,46003684.0
+2020 (COVID-19 Pandemic),United States,,25-34,11258,24.4,46069646.0
+2021,United States,,25-34,13114,Data not available,
+2022,United States,,25-34,8970,Data not available,
+2008,United States,,35-44,12528,29.7,42240964.0
+2009,United States,,35-44,11310,27.2,41529956.0
+2010,United States,,35-44,10064,24.6,40980656.0
+2011,United States,,35-44,9060,22.3,40633781.0
+2012,United States,,35-44,8462,20.9,40511710.0
+2013,United States,,35-44,7846,19.4,40446168.0
+2014,United States,,35-44,7958,19.7,40403298.0
+2015,United States,,35-44,7608,18.8,40440626.0
+2016,United States,,35-44,7455,18.4,40463900.0
+2017,United States,,35-44,7240,17.8,40767905.0
+2018,United States,,35-44,7180,17.4,41232094.0
+2019,United States,,35-44,7114,17.1,41674444.0
+2020 (COVID-19 Pandemic),United States,,35-44,5924,14.1,42136192.0
+2021,United States,,35-44,7585,Data not available,
+2022,United States,,35-44,5350,Data not available,
+2008,United States,,45-54,9325,21.1,44233644.0
+2009,United States,,45-54,8616,19.3,44592483.0
+2010,United States,,45-54,8166,18.2,44986457.0
+2011,United States,,45-54,7740,17.3,44725889.0
+2012,United States,,45-54,7369,16.7,44255965.0
+2013,United States,,45-54,6823,15.6,43749265.0
+2014,United States,,45-54,6471,14.9,43329465.0
+2015,United States,,45-54,6284,14.6,43013105.0
+2016,United States,,45-54,5902,13.8,42703288.0
+2017,United States,,45-54,5567,13.2,42227049.0
+2018,United States,,45-54,5235,12.6,41571660.0
+2019,United States,,45-54,4887,12.0,40860323.0
+2020 (COVID-19 Pandemic),United States,,45-54,3929,9.7,40366133.0
+2021,United States,,45-54,4418,Data not available,
+2022,United States,,45-54,2923,Data not available,
+2008,United States,,55+,4148,5.7,72422876.0
+2009,United States,,55+,3896,5.2,74357539.0
+2010,United States,,55+,3861,5.0,77261138.0
+2011,United States,,55+,3799,4.8,79419524.0
+2012,United States,,55+,3736,4.6,81708076.0
+2013,United States,,55+,3913,4.7,83912025.0
+2014,United States,,55+,3721,4.3,86146565.0
+2015,United States,,55+,3722,4.2,88402116.0
+2016,United States,,55+,3821,4.2,90600350.0
+2017,United States,,55+,3837,4.1,92631341.0
+2018,United States,,55+,3770,4.0,94573882.0
+2019,United States,,55+,3814,4.0,96467960.0
+2020 (COVID-19 Pandemic),United States,,55+,3153,3.2,98063042.0
+2021,United States,,55+,3709,Data not available,
+2022,United States,,55+,2441,Data not available,
+2008,United States,,Ages 13 years and older,47018,18.7,251009998.0
+2009,United States,,Ages 13 years and older,44535,17.6,253253138.0
+2010,United States,,Ages 13 years and older,42877,16.7,256389865.0
+2011,United States,,Ages 13 years and older,41108,15.9,258662228.0
+2012,United States,,Ages 13 years and older,40397,15.5,261022601.0
+2013,United States,,Ages 13 years and older,39096,14.8,263340316.0
+2014,United States,,Ages 13 years and older,39844,15.0,265709949.0
+2015,United States,,Ages 13 years and older,39718,14.8,267974914.0
+2016,United States,,Ages 13 years and older,39422,14.6,270260540.0
+2017,United States,,Ages 13 years and older,38316,14.1,272395718.0
+2018,United States,,Ages 13 years and older,37417,13.6,274284600.0
+2019,United States,,Ages 13 years and older,36528,13.2,276063213.0
+2020 (COVID-19 Pandemic),United States,,Ages 13 years and older,30346,10.9,277596976.0
+2021,United States,,Ages 13 years and older,35680,Data not available,
+2022,United States,,Ages 13 years and older,23986,Data not available,
