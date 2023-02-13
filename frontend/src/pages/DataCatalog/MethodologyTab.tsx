@@ -23,6 +23,7 @@ import {
   MissingCAWPData,
   MissingCovidData,
   MissingCovidVaccinationData,
+  MissingHIVData,
 } from "./methodologyContent/missingDataBlurbs";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
@@ -528,27 +529,7 @@ function MethodologyTab() {
                 </ul>
 
                 <Card elevation={3} className={styles.MissingDataBox}>
-                  <b>Missing data for HIV diagnoses</b>
-                  <ul>
-                    <li>
-                      The CDC's AtlasPlus contains data at the national, state,
-                      regional, and county level. Data at the state or county
-                      level,for both cases and rates, may be suppressed to
-                      protect against a situation in which a person could
-                      potentially be identified (e.g., a small number of cases).
-                      Where feasible, state-level data are aggregated to the US.
-                      Census Region level+
-                    </li>
-                    <li>
-                      In order to protect personal privacy, prevent revealing
-                      information that might identify specific individuals,
-                      and/or ensure reliability of statistical estimates, small
-                      data values may not be available in some circumstances. If
-                      denominator population is less than 100, then data are
-                      suppressed. If the denominator population is less than 100
-                      or total case count is 1–4, then data are suppressed.
-                    </li>
-                  </ul>
+                  <MissingHIVData />
                 </Card>
 
                 <h3 className={styles.MethodologySubsubheaderText} id="svi">
