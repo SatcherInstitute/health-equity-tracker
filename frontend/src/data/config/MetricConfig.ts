@@ -52,7 +52,7 @@ export type MetricId =
   | "geo_context"
   | "acs_vaccine_population_pct"
   | "brfss_population_pct"
-  | "cawp_population_pct"
+  | "population_pct"
   | "copd_pct_share"
   | "copd_per_100k"
   | "copd_ratio_age_adjusted"
@@ -1622,7 +1622,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "Population vs. distribution of",
               "total women in US congress",
             ],
-            metricId: "cawp_population_pct",
+            metricId: "population_pct",
             columnTitleHeader: "Total population share (all genders)",
             shortLabel: `${populationPctShortLabel} (all genders)`,
             type: "pct_share",
@@ -1681,7 +1681,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "Population vs. distribution of",
               "total women in state legislatures",
             ],
-            metricId: "cawp_population_pct",
+            metricId: "population_pct",
             columnTitleHeader: "Total population share (all genders)", // TABLE COLUMN HEADER
             shortLabel: `${populationPctShortLabel} (all genders)`, // DISPARITY BAR LEGEND/AXIS
             type: "pct_share",

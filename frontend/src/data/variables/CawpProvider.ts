@@ -28,7 +28,6 @@ export const CAWP_STLEG_COUNTS: MetricId[] = [
 ];
 
 export const CAWP_DETERMINANTS: MetricId[] = [
-  "cawp_population_pct",
   "pct_share_of_state_leg",
   "pct_share_of_women_state_leg",
   "women_state_leg_ratio_age_adjusted",
@@ -66,7 +65,7 @@ export function getWomenRaceLabel(
 
 class CawpProvider extends VariableProvider {
   constructor() {
-    super("cawp_provider", ["cawp_population_pct", ...CAWP_DETERMINANTS]);
+    super("cawp_provider", CAWP_DETERMINANTS);
   }
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.geography === "national" && breakdowns.hasOnlyRace()) {
@@ -99,7 +98,7 @@ class CawpProvider extends VariableProvider {
     acsBreakdowns.time = false;
 
     if (
-      metricQuery.metricIds.includes("cawp_population_pct") ||
+      metricQuery.metricIds.includes("population_pct") ||
       metricQuery.metricIds.includes(
         "women_us_congress_pct_relative_inequity"
       ) ||
