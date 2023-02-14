@@ -30,6 +30,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import styles from "./Chart.module.scss";
 import sass from "../styles/variables.module.scss";
+import { NO_DATA_MESSAGE } from "./Legend";
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20;
 
@@ -133,11 +134,11 @@ export function TableChart(props: TableChartProps) {
               {...cell.getCellProps()}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
-              <Tooltip title="Insufficient Data">
+              <Tooltip title={NO_DATA_MESSAGE}>
                 <WarningRoundedIcon />
               </Tooltip>
               <span className={styles.ScreenreaderTitleHeader}>
-                Insufficient Data
+                {NO_DATA_MESSAGE}
               </span>
             </TableCell>
           ) : (

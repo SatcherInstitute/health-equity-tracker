@@ -30,27 +30,38 @@ class GeoContextProvider extends VariableProvider {
     df = this.renameGeoColumns(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
-    const isAcs2010 = breakdowns.filterFips?.needsACS2010();
+    // handles both SVI and/or POPULATION requests, need to dynamically infer the consumed datasets for footer
+    const consumedDatasetIds: string[] = [];
 
-    const geographyToACSDatasetMap: Record<GeographicBreakdown, string> = {
-      county: isAcs2010
-        ? "acs_2010_population-by_age_territory"
-        : "acs_population-by_age_county",
-      state: isAcs2010
-        ? "acs_2010_population-by_age_territory"
-        : "acs_population-by_age_state",
+    if (metricQuery.metricIds.includes("svi")) {
+      //  TODO: refactor SVI to not use pretend AGE breakdown
+      consumedDatasetIds.push("cdc_svi_county-age");
+    }
+
+    const acsDatasetMap: Record<GeographicBreakdown, string> = {
+      county: "acs_population-by_age_county",
+      state: "acs_population-by_age_state",
       national: "acs_population-by_age_national",
       // next entries are unused
-      "state/territory": isAcs2010
-        ? "acs_2010_population-by_age_territory"
-        : "acs_population-by_age_state",
+      "state/territory": "acs_population-by_age_state",
       territory: "acs_2010_population-by_age_territory",
     };
 
-    //  determine the consumed ACS and SVI datasets
-    const consumedDatasetIds = [geographyToACSDatasetMap[breakdowns.geography]];
-    if (breakdowns.geography === "county")
-      consumedDatasetIds.push("cdc_svi_county-age");
+    const acs2010DatasetMap: Record<GeographicBreakdown, string> = {
+      county: "acs_2010_population-by_age_territory",
+      state: "acs_2010_population-by_age_territory",
+      national: "acs_population-by_age_national",
+      // next entries are unused
+      "state/territory": "acs_2010_population-by_age_territory",
+      territory: "acs_2010_population-by_age_territory",
+    };
+
+    if (metricQuery.metricIds.includes("population")) {
+      const datasetMap = breakdowns.filterFips?.needsACS2010()
+        ? acs2010DatasetMap
+        : acsDatasetMap;
+      consumedDatasetIds.push(datasetMap[breakdowns.geography]);
+    }
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }

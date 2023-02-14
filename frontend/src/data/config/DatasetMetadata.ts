@@ -48,6 +48,51 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019",
   },
   {
+    id: "cdc_hiv_data-race_and_ethnicity_county",
+    name: "HIV Diagnoses by race/ethnicity and county",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-race_and_ethnicity_state",
+    name: "HIV Diagnoses by race/ethnicity and state",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-race_and_ethnicity_national",
+    name: "HIV Diagnoses by race/ethnicity nationally",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-age_county",
+    name: "HIV Diagnoses by age and county",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-age_state",
+    name: "HIV Diagnoses by age and state",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-age_national",
+    name: "HIV Diagnoses by age nationally",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-sex_county",
+    name: "HIV Diagnoses by sex and county",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-sex_state",
+    name: "HIV Diagnoses by sex and state",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-sex_national",
+    name: "HIV Diagnoses by sex nationally",
+    update_time: "2019",
+  },
+  {
     id: "acs_2010_population-by_race_and_ethnicity_territory",
     name: "Population by race/ethnicity and territory",
     update_time: "2010",

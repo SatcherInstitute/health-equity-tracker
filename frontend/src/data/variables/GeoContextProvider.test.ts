@@ -14,11 +14,11 @@ import { MetricId } from "../config/MetricConfig";
 /* Given the geocontext id */
 export async function ensureCorrectDatasetsDownloaded(
   fips: Fips,
+  metricIds: MetricId[],
   expectedGeoContextId: string,
   expectedDatasetIds: string[]
 ) {
   const breakdown = Breakdowns.forFips(fips);
-  const metricIds: MetricId[] = ["svi", "population"];
   const provider = new GeoContextProvider();
 
   dataFetcher.setFakeDatasetLoaded(expectedGeoContextId, []);
@@ -45,53 +45,75 @@ describe("GeoContextProvider", () => {
     dataFetcher.setFakeMetadataLoaded(DatasetMetadataMap);
   });
 
-  test("County", async () => {
+  test("County Pop+SVI", async () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips("06037"),
+      ["svi", "population"],
       "geo_context-county-06",
-      ["acs_population-by_age_county", "cdc_svi_county-age"]
+      ["cdc_svi_county-age", "acs_population-by_age_county"]
     );
   });
 
-  test("County Equivalent ACS", async () => {
+  test("County SVI only", async () => {
+    await ensureCorrectDatasetsDownloaded(
+      new Fips("06037"),
+      ["svi"],
+      "geo_context-county-06",
+      ["cdc_svi_county-age"]
+    );
+  });
+
+  test("County Equivalent ACS Pop+SVI", async () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips("72123"),
+      ["svi", "population"],
       "geo_context-county-72",
-      ["acs_population-by_age_county", "cdc_svi_county-age"]
+      ["cdc_svi_county-age", "acs_population-by_age_county"]
     );
   });
 
-  test("County Equivalent ACS2010", async () => {
+  test("County Equivalent ACS2010 Pop+SVI", async () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips("78010"),
+      ["svi", "population"],
       "geo_context-county-78",
       // TODO: currently county-equivalent population data is not being loaded from the ACS2010
       // TODO: so the footer won't show on the population card. See #1954
-      ["acs_2010_population-by_age_territory", "cdc_svi_county-age"]
+      ["cdc_svi_county-age", "acs_2010_population-by_age_territory"]
     );
   });
 
-  test("State", async () => {
-    await ensureCorrectDatasetsDownloaded(new Fips("06"), "geo_context-state", [
-      "acs_population-by_age_state",
-    ]);
+  test("State Pop", async () => {
+    await ensureCorrectDatasetsDownloaded(
+      new Fips("06"),
+      ["population"],
+      "geo_context-state",
+      ["acs_population-by_age_state"]
+    );
   });
 
-  test("Territory ACS", async () => {
-    await ensureCorrectDatasetsDownloaded(new Fips("72"), "geo_context-state", [
-      "acs_population-by_age_state",
-    ]);
+  test("Territory ACS Pop", async () => {
+    await ensureCorrectDatasetsDownloaded(
+      new Fips("72"),
+      ["population"],
+      "geo_context-state",
+      ["acs_population-by_age_state"]
+    );
   });
 
-  test("Territory ACS2010", async () => {
-    await ensureCorrectDatasetsDownloaded(new Fips("78"), "geo_context-state", [
-      "acs_2010_population-by_age_territory",
-    ]);
+  test("Territory ACS2010 Pop", async () => {
+    await ensureCorrectDatasetsDownloaded(
+      new Fips("78"),
+      ["population"],
+      "geo_context-state",
+      ["acs_2010_population-by_age_territory"]
+    );
   });
 
-  test("National", async () => {
+  test("National Pop", async () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips("00"),
+      ["population"],
       "geo_context-national",
       ["acs_population-by_age_national"]
     );
