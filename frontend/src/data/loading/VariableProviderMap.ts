@@ -2,6 +2,7 @@ import AcsPopulationProvider from "../variables/AcsPopulationProvider";
 import Acs2010PopulationProvider from "../variables/Acs2010PopulationProvider";
 import VariableProvider from "../variables/VariableProvider";
 import CdcCovidProvider from "../variables/CdcCovidProvider";
+import HivProvider from "../variables/HivProvider";
 import BrfssProvider from "../variables/BrfssProvider";
 import CawpProvider from "../variables/CawpProvider";
 import IncarcerationProvider from "../variables/IncarcerationProvider";
@@ -16,6 +17,7 @@ export type ProviderId =
   | "acs_pop_provider"
   | "acs_poverty_provider"
   | "cdc_covid_provider"
+  | "hiv_provider"
   | "geo_context_provider"
   | "vaccine_provider"
   | "covid_provider"
@@ -36,6 +38,7 @@ export default class VariableProviderMap {
       acsProvider,
       acs2010Provider,
       new CdcCovidProvider(acsProvider),
+      new HivProvider(),
       new GeoContextProvider(),
       new CawpProvider(),
       new IncarcerationProvider(),

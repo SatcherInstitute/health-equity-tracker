@@ -167,7 +167,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
             className={styles.DownloadListItem}
             aria-label={"Download " + props.source_metadata.data_source_name}
           >
-            Download
+            View downloadable tables
           </Button>
         )}
 

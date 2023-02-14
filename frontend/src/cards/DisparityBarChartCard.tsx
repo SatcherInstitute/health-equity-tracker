@@ -25,6 +25,8 @@ import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 import CAWPOverlappingRacesAlert from "./ui/CAWPOverlappingRacesAlert";
+import { HIV_DETERMINANTS } from "../data/variables/HivProvider";
+import PopulationSubsetAlert from "./ui/PopulationSubsetAlert";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -58,6 +60,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   );
 
   const isCawp = CAWP_DETERMINANTS.includes(metricConfig.metricId);
+  const isPopulationSubset = HIV_DETERMINANTS.includes(metricConfig.metricId);
 
   // Population Comparison Metric is required for the Disparity Bar Chart.
   // If MetricConfig supports known breakdown metric, prefer this metric.
@@ -179,6 +182,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 variableConfig={props.variableConfig}
               />
             )}
+            {isPopulationSubset && <PopulationSubsetAlert />}
           </>
         );
       }}

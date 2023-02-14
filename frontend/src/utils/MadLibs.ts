@@ -19,6 +19,7 @@ export type MadLibId = "disparity" | "comparegeos" | "comparevars";
 
 // wording used for determinant categories in the selectable dropdown on /exploredata
 export type CategoryId =
+  | "HIV"
   | "COVID-19"
   | "Chronic Disease"
   | "Behavioral Health"
@@ -97,6 +98,7 @@ export const DEFAULT: DefaultDropdownVarId = "default";
 const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   default: "select a topic",
   covid: "COVID-19",
+  hiv_diagnoses: "HIV Diagnoses",
   diabetes: "Diabetes",
   copd: "COPD",
   health_insurance: "Uninsured Individuals",
@@ -124,6 +126,11 @@ export interface Category {
 }
 
 const CATEGORIES_LIST: Category[] = [
+  {
+    title: "HIV",
+    definition: "",
+    options: ["hiv_diagnoses"],
+  },
   {
     title: "COVID-19",
     definition: "",
