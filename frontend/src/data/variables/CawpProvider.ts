@@ -113,10 +113,6 @@ class CawpProvider extends VariableProvider {
     if (metricQuery.metricIds.includes("pct_share_of_us_congress"))
       consumedDatasetIds.push("the_unitedstates_project");
 
-    df = df.renameSeries({
-      population_pct: "cawp_population_pct",
-    });
-
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
