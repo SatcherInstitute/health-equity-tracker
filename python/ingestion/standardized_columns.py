@@ -118,7 +118,7 @@ CONGRESS_COUNT = "total_us_congress_count"
 CONGRESS_NAMES = "total_us_congress_names"
 
 # Incarceration columns
-BJS_POPULATION_PCT_COL = "bjs_population_pct"
+INCARCERATION_POPULATION_PCT_COL = "incarceration_population_pct"
 PRISON_PREFIX = "prison"
 JAIL_PREFIX = "jail"
 INCARCERATED_PREFIX = "incarcerated"

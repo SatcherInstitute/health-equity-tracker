@@ -151,7 +151,7 @@ expected_dtype = {
     "jail_pct_share": float,
     "total_confined_children": int,
     "bjs_population": object,
-    "bjs_population_pct": float,
+    "incarceration_population_pct": float,
 }
 expected_dtype_age = {
     **expected_dtype,

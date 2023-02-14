@@ -53,7 +53,7 @@ export type MetricId =
   | "acs_vaccine_population_pct"
   | "brfss_population_pct"
   | "cawp_population_pct"
-  | "bjs_population_pct"
+  | "incarceration_population_pct"
   | "vera_population_pct"
   | "incarceration_population_pct"
   | "copd_pct_share"
