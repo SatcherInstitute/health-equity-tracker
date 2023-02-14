@@ -57,10 +57,7 @@ export const INCARCERATION_METRICS: MetricId[] = [
 
 class IncarcerationProvider extends VariableProvider {
   constructor() {
-    super("incarceration_provider", [
-      "incarceration_population_pct",
-      ...INCARCERATION_METRICS,
-    ]);
+    super("incarceration_provider", INCARCERATION_METRICS);
   }
 
   getDatasetId(
