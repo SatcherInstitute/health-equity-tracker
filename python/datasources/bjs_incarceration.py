@@ -207,6 +207,7 @@ def post_process(df, breakdown, geo, children_tables):
         - generates `total_confined_children` column, where number will be stored under the
             "All/ALL" demographic group rows for all demographic breakdowns
         - removes temporary columns needed only for calculating our metrics
+        - makes population col name source-specific
 
        df: Dataframe with all the raw data containing:
             "state_name" column, raw values column, and demographic column
@@ -291,6 +292,9 @@ def post_process(df, breakdown, geo, children_tables):
     df = pd.merge(df, df_confined, how="left", on=[
         std_col.STATE_NAME_COL, group_col])
 
+    df = df.rename(
+        columns={std_col.POPULATION_PCT_COL: std_col.BJS_POPULATION_PCT_COL})
+
     return df
 
 
@@ -348,7 +352,7 @@ class BJSIncarcerationData(DataSource):
                 df = self.generate_breakdown_df(
                     breakdown, geo_level, table_lookup[table_name], children_tables)
 
-                float_cols = [std_col.POPULATION_PCT_COL]
+                float_cols = [std_col.BJS_POPULATION_PCT_COL]
                 for prefix in BJS_DATA_TYPES:
                     for suffix in [std_col.PER_100K_SUFFIX, std_col.PCT_SHARE_SUFFIX]:
                         float_cols.append(std_col.generate_column_name(
