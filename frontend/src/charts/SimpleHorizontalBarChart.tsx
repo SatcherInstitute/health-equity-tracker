@@ -15,14 +15,13 @@ import {
   oneLineLabel,
   addMetricDisplayColumn,
   PADDING_FOR_ACTIONS_MENU,
+  getAltGroupLabel,
 } from "./utils";
 import { useFontSize } from "../utils/hooks/useFontSize";
 import sass from "../styles/variables.module.scss";
 import { useMediaQuery } from "@material-ui/core";
-import {
-  CAWP_DETERMINANTS,
-  getWomenRaceLabel,
-} from "../data/variables/CawpProvider";
+import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
+import { HIV_DETERMINANTS } from "../data/variables/HivProvider";
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66;
@@ -311,11 +310,17 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const pageIsTiny = useMediaQuery("(max-width:400px)");
   const fontSize = useFontSize();
 
+  const altLabelDeterminants = [...CAWP_DETERMINANTS, ...HIV_DETERMINANTS];
+
   // swap race labels if applicable
-  const dataLabelled = CAWP_DETERMINANTS.includes(props.metric.metricId)
+  const dataLabelled = altLabelDeterminants.includes(props.metric.metricId)
     ? props.data.map((row: Row) => {
         const altRow = { ...row };
-        altRow.race_and_ethnicity = getWomenRaceLabel(row.race_and_ethnicity);
+        altRow[props.breakdownVar] = getAltGroupLabel(
+          row[props.breakdownVar],
+          props.metric.metricId,
+          props.breakdownVar
+        );
         return altRow;
       })
     : props.data;

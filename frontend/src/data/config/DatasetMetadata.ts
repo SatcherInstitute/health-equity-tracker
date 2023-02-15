@@ -48,6 +48,51 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019",
   },
   {
+    id: "cdc_hiv_data-race_and_ethnicity_county",
+    name: "HIV Diagnoses by race/ethnicity and county",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-race_and_ethnicity_state",
+    name: "HIV Diagnoses by race/ethnicity and state",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-race_and_ethnicity_national",
+    name: "HIV Diagnoses by race/ethnicity nationally",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-age_county",
+    name: "HIV Diagnoses by age and county",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-age_state",
+    name: "HIV Diagnoses by age and state",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-age_national",
+    name: "HIV Diagnoses by age nationally",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-sex_county",
+    name: "HIV Diagnoses by sex and county",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-sex_state",
+    name: "HIV Diagnoses by sex and state",
+    update_time: "2019",
+  },
+  {
+    id: "cdc_hiv_data-sex_national",
+    name: "HIV Diagnoses by sex nationally",
+    update_time: "2019",
+  },
+  {
     id: "acs_2010_population-by_race_and_ethnicity_territory",
     name: "Population by race/ethnicity and territory",
     update_time: "2010",
@@ -83,23 +128,48 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: "April 2021",
   },
   {
-    id: "acs_health_insurance-health_insurance_by_sex_age_county",
-    name: "Health insurance by sex, age and county",
+    id: "acs_health_insurance-by_age_county_processed",
+    name: "Health insurance by age and county",
     update_time: "2019",
   },
   {
-    id: "acs_health_insurance-health_insurance_by_sex_age_state",
-    name: "Health insurance by sex, age and state",
+    id: "acs_health_insurance-by_age_state_processed",
+    name: "Health insurance by age and state",
     update_time: "2019",
   },
   {
-    id: "acs_health_insurance-health_insurance_by_race_age_state",
-    name: "Health insurance by race/ethnicity, age and state",
+    id: "acs_health_insurance-by_age_national_processed",
+    name: "Health insurance by age at the national level",
     update_time: "2019",
   },
   {
-    id: "acs_health_insurance-health_insurance_by_race_age_county",
-    name: "Health insurance by race/ethnicity, age and county",
+    id: "acs_health_insurance-by_sex_county_processed",
+    name: "Health insurance by sex and county",
+    update_time: "2019",
+  },
+  {
+    id: "acs_health_insurance-by_sex_state_processed",
+    name: "Health insurance by sex and state",
+    update_time: "2019",
+  },
+  {
+    id: "acs_health_insurance-by_sex_national_processed",
+    name: "Health insurance by sex at the national level",
+    update_time: "2019",
+  },
+  {
+    id: "acs_health_insurance-by_race_county_processed",
+    name: "Health insurance by race and county",
+    update_time: "2019",
+  },
+  {
+    id: "acs_health_insurance-by_race_state_processed",
+    name: "Health insurance by race and state",
+    update_time: "2019",
+  },
+  {
+    id: "acs_health_insurance-by_race_national_processed",
+    name: "Health insurance by race at the national level",
     update_time: "2019",
   },
   {

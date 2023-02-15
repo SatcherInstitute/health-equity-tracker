@@ -18,7 +18,8 @@ export interface PopulationCardProps {
 }
 
 export function PopulationCard(props: PopulationCardProps) {
-  const metricIds: MetricId[] = ["svi", "population"];
+  const metricIds: MetricId[] = ["population"];
+  if (props.fips.isCounty()) metricIds.push("svi");
   const breakdown = Breakdowns.forFips(props.fips);
   const query = new MetricQuery(metricIds, breakdown);
   const queries = [query];

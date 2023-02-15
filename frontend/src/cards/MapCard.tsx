@@ -52,6 +52,7 @@ import { useLocation } from "react-router-dom";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
+import { HIV_DETERMINANTS } from "../data/variables/HivProvider";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 
@@ -171,8 +172,13 @@ function MapCardWithKey(props: MapCardProps) {
     metricConfig,
     locationPhrase
   );
-  const subtitle = createSubtitle({ currentBreakdown, activeBreakdownFilter });
+  let subtitle = createSubtitle({ currentBreakdown, activeBreakdownFilter });
   filename = `${filename} ${subtitle ? `for ${subtitle}` : ""}`;
+
+  if (HIV_DETERMINANTS.includes(metricConfig.metricId)) {
+    if (subtitle === "") subtitle = "Ages 13+";
+    else if (currentBreakdown !== "age") subtitle += ", Ages 13+";
+  }
 
   const HASH_ID: ScrollableHashId = "rate-map";
 

@@ -67,10 +67,15 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "acs_population-by_sex_county",
       "acs_population-by_sex_state",
       "acs_population-by_sex_national",
-      "acs_health_insurance-health_insurance_by_sex_age_county",
-      "acs_health_insurance-health_insurance_by_sex_age_state",
-      "acs_health_insurance-health_insurance_by_race_age_state",
-      "acs_health_insurance-health_insurance_by_race_age_county",
+      "acs_health_insurance-by_race_county_processed",
+      "acs_health_insurance-by_race_state_processed",
+      "acs_health_insurance-by_race_national_processed",
+      "acs_health_insurance-by_age_county_processed",
+      "acs_health_insurance-by_age_state_processed",
+      "acs_health_insurance-by_age_national_processed",
+      "acs_health_insurance-by_sex_county_processed",
+      "acs_health_insurance-by_sex_state_processed",
+      "acs_health_insurance-by_sex_national_processed",
       "acs_poverty_dataset-poverty_by_age_state",
       "acs_poverty_dataset-poverty_by_age_county",
       "acs_poverty_dataset-poverty_by_race_state",
@@ -150,6 +155,52 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "Federal Emergency Management Agency and Health Resources and Services " +
       "Administration partner sites, and federal entity facilities.",
     dataset_ids: ["cdc_vaccination_county-race_and_ethnicity_processed"],
+    downloadable: true,
+  },
+  {
+    id: "cdc_vaccination_national",
+    data_source_name:
+      "CDC COVID-19 Vaccination Demographics in the United States, National",
+    data_source_pretty_site_name: "data.cdc.gov",
+    data_source_link:
+      "https://data.cdc.gov/Vaccinations/COVID-19-Vaccination-Demographics-in-the-United-St/km4m-vcsb",
+    geographic_level: "National",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Daily",
+    description:
+      "Overall Demographic Characteristics of People Receiving COVID-19 Vaccinations " +
+      "in the United States at national level. Data represents all vaccine partners " +
+      "including jurisdictional partner clinics, retail pharmacies, long-term care facilities, " +
+      "dialysis centers, Federal Emergency Management Agency and Health Resources and Services " +
+      "Administration partner sites, and federal entity facilities. (CDC 2021)",
+    dataset_ids: [
+      "cdc_vaccination_national-age",
+      "cdc_vaccination_national-race_and_ethnicity",
+      "cdc_vaccination_national-sex",
+    ],
+    downloadable: true,
+  },
+  {
+    id: "cdc_atlas",
+    data_source_name: "CDC NCHHSTP AtlasPlus",
+    data_source_pretty_site_name: "cdc.gov",
+    data_source_link: "https://www.cdc.gov/nchhstp/atlas/index.htm",
+    geographic_level: "National, State, County",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Yearly",
+    description:
+      "The Centers for Disease Control and Prevention (CDC) collects, analyzes, and disseminates surveillance data on HIV infection; these data are one of the nation’s primary sources of information on HIV in the United States. The annual surveillance report, published by CDC, summarizes information about diagnosed HIV infection in the United States and dependent areas. HIV surveillance data are used by CDC and their public health partners in other federal agencies, health departments, nonprofit organizations, academic institutions, and the public to help focus prevention efforts; plan services; allocate resources; develop policy; detect, monitor, and intervene in HIV clusters; and monitor trends in HIV infection.",
+    dataset_ids: [
+      "cdc_hiv_data-age_county",
+      "cdc_hiv_data-age_national",
+      "cdc_hiv_data-age_state",
+      "cdc_hiv_data-sex_county",
+      "cdc_hiv_data-sex_national",
+      "cdc_hiv_data-sex_state",
+      "cdc_hiv_data-race_and_ethnicity_county",
+      "cdc_hiv_data-race_and_ethnicity_national",
+      "cdc_hiv_data-race_and_ethnicity_state",
+    ],
     downloadable: true,
   },
   {
