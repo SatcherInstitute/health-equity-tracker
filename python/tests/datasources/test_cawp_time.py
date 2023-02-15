@@ -45,10 +45,6 @@ def _get_consecutive_time_periods(*args, **kwargs):
     print("mocking with reduced years")
     if len(kwargs) == 1:
         return get_consecutive_time_periods(first_year=2018)
-    # we still want to restrict the pop_merge years to 2019-2022 if there are incoming kwargs
-    if len(kwargs) == 2:
-        return get_consecutive_time_periods(first_year=kwargs["first_year"], last_year=kwargs["last_year"])
-    # otherwise restrict to 2018-2022 for testing
     return get_consecutive_time_periods(first_year=2018, last_year=2022)
 
 
@@ -63,8 +59,8 @@ def _fetch_json_from_web(*args):
         return json.load(file)
 
 
-def _merge_current_pop_numbers(*args):
-    print(f'reading mock POPULATION: {args[2]}')
+def _merge_yearly_pop_numbers(*args):
+    print(f'reading mock yearly pop merge: {args[2]}')
     return pd.read_csv(os.path.join(TEST_DIR, "mock_acs_merge_responses", f'{args[2]}.csv'),
                        dtype={'state_fips': str, "time_period": str})
 
@@ -152,6 +148,22 @@ def _load_csv_as_df_from_web(*args):
 
     return pd.read_csv(os.path.join(TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv')
                        )
+
+
+# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+#              side_effect=_load_csv_as_df_from_data_dir)
+# @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+#              return_value=None)
+# def testRun(
+#     mock_bq: mock.MagicMock,
+#     mock_data: mock.MagicMock
+# ):
+#     kwargs_for_bq = {'filename': 'test_file.csv',
+#                      'metadata_table_id': 'test_metadata',
+#                      'table_name': 'output_table'}
+#     cawp_data = CAWPTimeData()
+#     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
+
 
 # # # TEST OUTGOING SIDE OF BIGQUERY INTERACTION
 
@@ -301,8 +313,8 @@ def testGenerateNamesBreakdown(
 # # # # TEST GENERATION OF STATE LEVEL BREAKDOWN
 
 
-@mock.patch('ingestion.merge_utils.merge_current_pop_numbers',
-            side_effect=_merge_current_pop_numbers)
+@mock.patch('ingestion.merge_utils.merge_yearly_pop_numbers',
+            side_effect=_merge_yearly_pop_numbers)
 @ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
              side_effect=_get_consecutive_time_periods)
 def testGenerateStateBreakdown(
@@ -335,10 +347,10 @@ def testGenerateStateBreakdown(
                        check_dtype=False)
 
 
-# # # # TEST GENERATION OF NATIONAL BREAKDOWN
+# # # TEST GENERATION OF NATIONAL BREAKDOWN
 
-@mock.patch('ingestion.merge_utils.merge_current_pop_numbers',
-            side_effect=_merge_current_pop_numbers)
+@mock.patch('ingestion.merge_utils.merge_yearly_pop_numbers',
+            side_effect=_merge_yearly_pop_numbers)
 @ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
              side_effect=_get_consecutive_time_periods)
 def testGenerateNationalBreakdown(

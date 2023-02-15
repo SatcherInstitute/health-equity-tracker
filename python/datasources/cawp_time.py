@@ -35,8 +35,8 @@ DEFAULT_CONGRESS_FIRST_YR = 1915
 DEFAULT_STLEG_FIRST_YR = 1983
 DEFAULT_LAST_YR = 2022
 
-# time_periods which are appropriate to merge ACS2019 figures onto
-ACS_FIRST_YR = 2019
+# time_periods available from ACS 5-yr time_series tables
+ACS_FIRST_YR = 2009
 ACS_LAST_YR = 2022
 
 # data urls
@@ -137,6 +137,7 @@ class CAWPTimeData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         base_df = self.generate_base_df()
+
         df_names = base_df.copy()
         df_names = self.generate_names_breakdown(df_names)
         column_types = gcs_to_bq_util.get_bq_column_types(df_names, [])
@@ -282,8 +283,10 @@ class CAWPTimeData(DataSource):
         target_time_periods = get_consecutive_time_periods(
             first_year=ACS_FIRST_YR, last_year=ACS_LAST_YR)
 
-        df = merge_utils.merge_current_pop_numbers(
-            df, RACE, geo_level, target_time_periods)
+        # df = merge_utils.merge_current_pop_numbers(
+        #     df, RACE, geo_level, target_time_periods)
+
+        df = merge_utils.merge_yearly_pop_numbers(df, RACE, geo_level)
 
         df = generate_pct_rel_inequity_col(df,
                                            std_col.PCT_OF_W_CONGRESS,
@@ -322,6 +325,8 @@ class CAWPTimeData(DataSource):
                == Race.AIAN_API.value][std_col.PCT_OF_CONGRESS] = None
         df.loc[df[std_col.RACE_CATEGORY_ID_COL]
                == Race.AIAN_API.value][std_col.PCT_OF_STLEG] = None
+
+        # df.to_csv(f'{bq_table_name}.csv', index=False)
 
         return [df, bq_table_name]
 

@@ -122,7 +122,7 @@ def merge_state_ids(df, keep_postal=False):
     return df
 
 
-def merge_pop_numbers(df, demo, loc):
+def merge_pop_numbers(df, demo: str, loc: str):
     """Merges the corresponding `population` and `population_pct` column into the given df
 
       df: a pandas df with demographic column and a `state_fips` column
@@ -165,6 +165,22 @@ def merge_current_pop_numbers(df, demo, loc, target_time_periods):
     return df
 
 
+def merge_yearly_pop_numbers(df, demo, geo_level):
+    """ Merges multiple years of ACS data (2009-2021) onto incoming df that contains a `time_period` col,
+    which contains 4 digit string year values. Any rows where the year is below 2009 or above the most recent ACS
+    time series year will be merged as `null`
+
+    df: pandas df with a demographic col, and `time_period` col, and a fips col
+    demo: the demographic in the df, either `age`, `race`, or `sex`
+    geo_level: the location level for the df, either `county`, `state`, or `national`
+    """
+    if std_col.TIME_PERIOD_COL not in df.columns:
+        raise ValueError(
+            "Cannot merge by year as the provided df does not contain a `time_period` col")
+
+    return _merge_pop(df, demo, geo_level, on_time_period=True)
+
+
 def merge_multiple_pop_cols(df, demo, condition_cols):
     """Merges the population of each state into a column for each condition in `condition_cols`.
        If a condition is NaN for that state the population gets counted as zero.
@@ -184,7 +200,8 @@ def merge_multiple_pop_cols(df, demo, condition_cols):
     return df
 
 
-def _merge_pop(df, demo, loc):
+def _merge_pop(df, demo, loc, on_time_period: bool = False):
+
     on_col_map = {
         'age': std_col.AGE_COL,
         'race': std_col.RACE_CATEGORY_ID_COL,
@@ -200,11 +217,18 @@ def _merge_pop(df, demo, loc):
             demo, list(on_col_map.keys())))
 
     pop_table_name = f'by_{demo}_{loc}'
+
+    if on_time_period:
+        pop_table_name += "_time_series"
+
     pop_df = gcs_to_bq_util.load_df_from_bigquery(
         'acs_population', pop_table_name, pop_dtype)
 
     needed_cols = [on_col_map[demo],
                    std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
+
+    if on_time_period:
+        needed_cols.append(std_col.TIME_PERIOD_COL)
 
     if std_col.STATE_FIPS_COL in df.columns:
         needed_cols.append(std_col.STATE_FIPS_COL)
@@ -231,6 +255,9 @@ def _merge_pop(df, demo, loc):
 
     if loc == 'county':
         on_cols.append(std_col.COUNTY_FIPS_COL)
+
+    if on_time_period:
+        on_cols.append(std_col.TIME_PERIOD_COL)
 
     df = pd.merge(df, pop_df, how='left', on=on_cols)
 
