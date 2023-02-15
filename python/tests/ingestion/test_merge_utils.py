@@ -41,6 +41,22 @@ _pop_data_county = [
     ['100', '10101', 'BLACK_NH', 100, 50.0],
 ]
 
+_pop_data_time_series = [
+    ['time_period', 'state_fips', 'race_category_id', 'population', 'population_pct'],
+    ['2018', '01', 'BLACK_NH', 100, 25.0],
+    ['2018', '01', 'WHITE_NH', 300, 75.0],
+    ['2018', '02', 'BLACK_NH', 100, 50.0],
+    ['2018', '100', 'BLACK_NH', 100, 50.0],
+    ['2019', '01', 'BLACK_NH', 100, 25.0],
+    ['2019', '01', 'WHITE_NH', 300, 75.0],
+    ['2019', '02', 'BLACK_NH', 100, 50.0],
+    ['2019', '100', 'BLACK_NH', 100, 50.0],
+    ['2020', '01', 'BLACK_NH', 100, 25.0],
+    ['2020', '01', 'WHITE_NH', 300, 75.0],
+    ['2020', '02', 'BLACK_NH', 100, 50.0],
+    ['2020', '100', 'BLACK_NH', 100, 50.0],
+]
+
 _data_with_bad_county_names = [
     ['state_postal', 'county_fips', 'county_name'],
     ['CA', '06123', 'drop-me'],
@@ -152,16 +168,16 @@ _data_time_series_without_pop_numbers = [
 _expected_time_series_merged_with_pop_numbers = [
     ['time_period', 'state_fips', 'race_category_id',
         'population', 'population_pct', 'other_col'],
-    ['2018', '01', 'BLACK_NH', np.nan, np.nan, 'something_cool'],
-    ['2018', '01', 'WHITE_NH', np.nan, np.nan, 'something_else_cool'],
-    ['2018', '02', 'BLACK_NH', np.nan, np.nan, 'something_cooler'],
-    ['2018', '78', 'WHITE_NH', np.nan, np.nan, 'something_else_entirely'],
-    ['2018', '78', 'BLACK_NH', np.nan, np.nan, 'something_else_entirely'],
-    ['2019', '01', 'BLACK_NH', np.nan, np.nan, 'something_cool'],
-    ['2019', '01', 'WHITE_NH', np.nan, np.nan, 'something_else_cool'],
-    ['2019', '02', 'BLACK_NH', np.nan, np.nan, 'something_cooler'],
-    ['2019', '78', 'WHITE_NH', np.nan, np.nan, 'something_else_entirely'],
-    ['2019', '78', 'BLACK_NH', np.nan, np.nan, 'something_else_entirely'],
+    ['2018', '01', 'BLACK_NH', 100, 25.0, 'something_cool'],
+    ['2018', '01', 'WHITE_NH', 300, 75.0, 'something_else_cool'],
+    ['2018', '02', 'BLACK_NH', 100, 50.0, 'something_cooler'],
+    ['2018', '78', 'WHITE_NH', 300, 60.0, 'something_else_entirely'],
+    ['2018', '78', 'BLACK_NH', 200, 40.0, 'something_else_entirely'],
+    ['2019', '01', 'BLACK_NH', 100, 25.0, 'something_cool'],
+    ['2019', '01', 'WHITE_NH', 300, 75.0, 'something_else_cool'],
+    ['2019', '02', 'BLACK_NH', 100, 50.0, 'something_cooler'],
+    ['2019', '78', 'WHITE_NH', 300, 60.0, 'something_else_entirely'],
+    ['2019', '78', 'BLACK_NH', 200, 40.0, 'something_else_entirely'],
     ['2020', '01', 'BLACK_NH', 100, 25.0, 'something_cool'],
     ['2020', '01', 'WHITE_NH', 300, 75.0, 'something_else_cool'],
     ['2020', '02', 'BLACK_NH', 100, 50.0, 'something_cooler'],
@@ -201,28 +217,35 @@ def _get_county_names_as_df(*args, **kwargs):
 
 def _get_pop_data_as_df(*args):
 
+    print("mocking call to BQ for ACS pop data", args[1])
+
     pop_dtype = {std_col.STATE_FIPS_COL: str,
                  std_col.POPULATION_COL: float,
                  std_col.POPULATION_PCT_COL: float}
+
+    if args[1].endswith('time_series'):
+        pop_dtype[std_col.TIME_PERIOD_COL] = str
+        return gcs_to_bq_util.values_json_to_df(
+            json.dumps(_pop_data_time_series), dtype=pop_dtype).reset_index(drop=True)
 
     if args[1].endswith("_territory"):
         return gcs_to_bq_util.values_json_to_df(
             json.dumps(_pop_2010_data), dtype=pop_dtype).reset_index(drop=True)
 
-    elif 'state' in args[1]:
+    if 'state' in args[1]:
         return gcs_to_bq_util.values_json_to_df(
             json.dumps(_pop_data), dtype=pop_dtype).reset_index(drop=True)
 
-    elif 'county' in args[1]:
+    if 'county' in args[1]:
         return gcs_to_bq_util.values_json_to_df(
             json.dumps(_pop_data_county), dtype=pop_dtype).reset_index(drop=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=_get_fips_codes_as_df())
-def testStandardizeCountyNames(mock_bq: mock.MagicMock):
+def testStandardizeCountyNames(mock_public_dataset: mock.MagicMock):
 
-    mock_bq.side_effect = [
+    mock_public_dataset.side_effect = [
         _get_county_names_as_df(),
     ]
 
@@ -234,14 +257,14 @@ def testStandardizeCountyNames(mock_bq: mock.MagicMock):
 
     df = merge_utils.merge_county_names(df)
 
-    assert mock_bq.call_count == 1
+    assert mock_public_dataset.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=_get_fips_codes_as_df())
-def testMergeFipsCodesCounty(mock_bq: mock.MagicMock):
-    mock_bq.side_effect = [
+def testMergeFipsCodesCounty(mock_public_dataset: mock.MagicMock):
+    mock_public_dataset.side_effect = [
         _get_fips_codes_as_df(),
     ]
     df = gcs_to_bq_util.values_json_to_df(
@@ -252,13 +275,13 @@ def testMergeFipsCodesCounty(mock_bq: mock.MagicMock):
 
     df = merge_utils.merge_state_ids(df)
 
-    assert mock_bq.call_count == 1
+    assert mock_public_dataset.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=_get_fips_codes_as_df())
-def testMergeStateInfoByName(mock_bq: mock.MagicMock):
+def testMergeStateInfoByName(mock_public_dataset: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
 
@@ -269,13 +292,13 @@ def testMergeStateInfoByName(mock_bq: mock.MagicMock):
 
     df = merge_utils.merge_state_ids(df)
 
-    assert mock_bq.call_count == 1
+    assert mock_public_dataset.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=_get_fips_codes_as_df())
-def testMergeStateInfoByPostal(mock_bq: mock.MagicMock):
+def testMergeStateInfoByPostal(mock_public_dataset: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
 
@@ -286,13 +309,13 @@ def testMergeStateInfoByPostal(mock_bq: mock.MagicMock):
 
     df = merge_utils.merge_state_ids(df)
 
-    assert mock_bq.call_count == 1
+    assert mock_public_dataset.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=_get_fips_codes_as_df())
-def testMergeStateInfoByFips(mock_bq: mock.MagicMock):
+def testMergeStateInfoByFips(mock_public_dataset: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_with_only_fips_codes), dtype=str).reset_index(drop=True)
 
@@ -303,13 +326,13 @@ def testMergeStateInfoByFips(mock_bq: mock.MagicMock):
 
     df = merge_utils.merge_state_ids(df)
 
-    assert mock_bq.call_count == 1
+    assert mock_public_dataset.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
             side_effect=_get_pop_data_as_df)
-def testMergePopNumbersState(mock_bq: mock.MagicMock):
+def testMergePopNumbersState(mock_pop: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_pop_numbers),
         dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
@@ -320,14 +343,14 @@ def testMergePopNumbersState(mock_bq: mock.MagicMock):
 
     df = merge_utils.merge_pop_numbers(df, 'race', 'state')
 
-    assert mock_bq.call_count == 2
+    assert mock_pop.call_count == 2
 
     assert_frame_equal(df, expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
             side_effect=_get_pop_data_as_df)
-def testMergePopNumbersCounty(mock_bq: mock.MagicMock):
+def testMergePopNumbersCounty(mock_pop: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_pop_numbers_county),
         dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
@@ -338,34 +361,34 @@ def testMergePopNumbersCounty(mock_bq: mock.MagicMock):
 
     df = merge_utils.merge_pop_numbers(df, 'race', 'county')
 
-    assert mock_bq.call_count == 1
-
+    assert mock_pop.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
             side_effect=_get_pop_data_as_df)
-def testMergeCurrentPopNumbers(mock_bq: mock.MagicMock):
-    df = gcs_to_bq_util.values_json_to_df(
+def testMergeYearlyPopNumbers(
+    mock_pop: mock.MagicMock
+):
+    df_no_pop = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_time_series_without_pop_numbers),
-        dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
+        dtype={std_col.STATE_FIPS_COL: str, std_col.TIME_PERIOD_COL: str}).reset_index(drop=True)
+
+    df = merge_utils.merge_yearly_pop_numbers(
+        df_no_pop, 'race', 'state')
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_time_series_merged_with_pop_numbers),
         dtype={std_col.STATE_FIPS_COL: str, std_col.TIME_PERIOD_COL: str}).reset_index(drop=True)
 
-    df = merge_utils.merge_current_pop_numbers(
-        # should only merge population data into rows for '2020'
-        df, 'race', 'state', ['2020'])
-
-    assert mock_bq.call_count == 2  # state call and territory call
-
+    # state + territory
+    assert mock_pop.call_count == 2
     assert_frame_equal(df, expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
             side_effect=_get_pop_data_as_df)
-def testMergeMultiplePopCols(mock_bq: mock.MagicMock):
+def testMergeMultiplePopCols(mock_pop: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_pop_numbers_multiple_rows),
         dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
@@ -377,6 +400,6 @@ def testMergeMultiplePopCols(mock_bq: mock.MagicMock):
     df = merge_utils.merge_multiple_pop_cols(
         df, 'race', ['cases_population', 'deaths_population'])
 
-    assert mock_bq.call_count == 2
+    assert mock_pop.call_count == 2
 
     assert_frame_equal(df, expected_df, check_like=True)

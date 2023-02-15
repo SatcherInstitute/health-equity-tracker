@@ -279,13 +279,6 @@ class CAWPTimeData(DataSource):
         df = df.drop(
             columns=[std_col.W_ALL_RACES_CONGRESS_COUNT, std_col.W_ALL_RACES_STLEG_COUNT])
 
-        # TODO: expand this once we have pop. info prior to 2019
-        target_time_periods = get_consecutive_time_periods(
-            first_year=ACS_FIRST_YR, last_year=ACS_LAST_YR)
-
-        # df = merge_utils.merge_current_pop_numbers(
-        #     df, RACE, geo_level, target_time_periods)
-
         df = merge_utils.merge_yearly_pop_numbers(df, RACE, geo_level)
 
         df = generate_pct_rel_inequity_col(df,

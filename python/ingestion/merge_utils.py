@@ -131,40 +131,6 @@ def merge_pop_numbers(df, demo: str, loc: str):
     return _merge_pop(df, demo, loc)
 
 
-def merge_current_pop_numbers(df, demo, loc, target_time_periods):
-    """Merges the corresponding `population` and `population_pct` columns
-    into the given df, only populating values for rows where the `time_period`
-    value is in `target_time_periods`.
-
-      df: a pandas df with demographic column and a `state_fips` column
-      demo: the demographic in the df, either `age`, `race`, or `sex`
-      loc: the location level for the df, either `county`, `state`, or `national`
-      target_time_periods: list of strings in format YYYY or MM-YYYY used
-      to target which rows to merge population data on to.
-      For most topics besides COVID, these will be used to calculate
-      pct_relative_inequity, and the most recent year will be
-      used on DisparityBarChart.
-
-      """
-
-    target_rows_df = df[df[std_col.TIME_PERIOD_COL].isin(
-        target_time_periods)]
-    nontarget_rows_df = df[~df[std_col.TIME_PERIOD_COL].isin(
-        target_time_periods)]
-
-    # merge pop cols only onto current rows
-    target_rows_df = _merge_pop(target_rows_df, demo, loc)
-
-    # placeholder NaNs
-    nontarget_rows_df[[std_col.POPULATION_COL,
-                       std_col.POPULATION_PCT_COL]] = np.nan
-
-    # reassemble the HISTORIC (null pop. data) and CURRENT (merged pop. data)
-    df = pd.concat([nontarget_rows_df, target_rows_df]).reset_index(drop=True)
-
-    return df
-
-
 def merge_yearly_pop_numbers(df, demo, geo_level):
     """ Merges multiple years of ACS data (2009-2021) onto incoming df that contains a `time_period` col,
     which contains 4 digit string year values. Any rows where the year is below 2009 or above the most recent ACS
@@ -174,6 +140,7 @@ def merge_yearly_pop_numbers(df, demo, geo_level):
     demo: the demographic in the df, either `age`, `race`, or `sex`
     geo_level: the location level for the df, either `county`, `state`, or `national`
     """
+
     if std_col.TIME_PERIOD_COL not in df.columns:
         raise ValueError(
             "Cannot merge by year as the provided df does not contain a `time_period` col")
@@ -200,7 +167,9 @@ def merge_multiple_pop_cols(df, demo, condition_cols):
     return df
 
 
-def _merge_pop(df, demo, loc, on_time_period: bool = False):
+def _merge_pop(df, demo, loc, on_time_period: bool = None):
+
+    print("in _merge_pop on_time_period", on_time_period)
 
     on_col_map = {
         'age': std_col.AGE_COL,
@@ -220,6 +189,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = False):
 
     if on_time_period:
         pop_table_name += "_time_series"
+        pop_dtype[std_col.TIME_PERIOD_COL] = str
 
     pop_df = gcs_to_bq_util.load_df_from_bigquery(
         'acs_population', pop_table_name, pop_dtype)
@@ -236,18 +206,29 @@ def _merge_pop(df, demo, loc, on_time_period: bool = False):
     if loc == 'county':
         needed_cols.append(std_col.COUNTY_FIPS_COL)
 
-    pop_df = pop_df[needed_cols]
-
     # other territories from ACS 2010 (VI, GU, AS, MP)
     if loc == 'state':
         verbose_demo = "race_and_ethnicity" if demo == 'race' else demo
-        pop_2010_table_name = f'by_{verbose_demo}_territory'
-        pop_2010_df = gcs_to_bq_util.load_df_from_bigquery(
-            'acs_2010_population', pop_2010_table_name, pop_dtype)
-        pop_2010_df = pop_2010_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
+        pop_terr_table_name = f'by_{verbose_demo}_territory'
+        pop_terr_df = gcs_to_bq_util.load_df_from_bigquery(
+            'acs_2010_population', pop_terr_table_name, pop_dtype)
+        pop_terr_df = pop_terr_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
                                    std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
-        pop_df = pd.concat([pop_df, pop_2010_df])
-        pop_2010_df = pop_2010_df.sort_values(std_col.STATE_FIPS_COL)
+
+        if on_time_period:
+            # re-use 2010 territory populations in every ACS year (2009-2022)
+            yearly_pop_terr_dfs = []
+            for year_num in range(2009, 2022):
+                year_str = str(year_num)
+                yearly_df = pop_terr_df.copy()
+                yearly_df[std_col.TIME_PERIOD_COL] = year_str
+                yearly_pop_terr_dfs.append(yearly_df)
+
+            # add all territory years together
+            pop_terr_df = pd.concat(yearly_pop_terr_dfs)
+
+        # add either time_series or single year territory rows to states rows
+        pop_df = pd.concat([pop_df, pop_terr_df])
 
     on_cols = [on_col_map[demo]]
     if std_col.STATE_FIPS_COL in df.columns:
