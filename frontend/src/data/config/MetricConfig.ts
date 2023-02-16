@@ -49,14 +49,12 @@ export type VariableId =
   | "svi";
 
 export type MetricId =
-  | "geo_context"
-  | "acs_vaccine_population_pct"
-  | "brfss_population_pct"
+  | "population"
   | "population_pct"
-  | "copd_pct_share"
-  | "copd_per_100k"
-  | "copd_ratio_age_adjusted"
-  | "copd_pct_relative_inequity"
+  | "population_2010"
+  | "population_pct_2010"
+  | "svi"
+  | "geo_context"
   | "covid_cases"
   | "covid_cases_per_100k"
   | "covid_cases_reporting_population"
@@ -87,14 +85,6 @@ export type MetricId =
   | "hiv_diagnoses_pct_relative_inequity"
   | "hiv_diagnoses_ratio_age_adjusted"
   | "hiv_population_pct"
-  | "diabetes_pct_share"
-  | "diabetes_per_100k"
-  | "diabetes_ratio_age_adjusted"
-  | "diabetes_pct_relative_inequity"
-  | "population"
-  | "population_pct"
-  | "population_2010"
-  | "population_pct_2010"
   | "poverty_count"
   | "poverty_pct_share"
   | "poverty_per_100k"
@@ -107,6 +97,11 @@ export type MetricId =
   | "vaccine_population_pct"
   | "vaccinated_ratio_age_adjusted"
   | "vaccinated_pct_relative_inequity"
+  | "acs_vaccine_population_pct"
+  | "copd_pct_share"
+  | "copd_per_100k"
+  | "copd_ratio_age_adjusted"
+  | "copd_pct_relative_inequity"
   | "frequent_mental_distress_pct_share"
   | "frequent_mental_distress_per_100k"
   | "frequent_mental_distress_ratio_age_adjusted"
@@ -159,6 +154,11 @@ export type MetricId =
   | "voter_participation_per_100k"
   | "voter_participation_ratio_age_adjusted"
   | "voter_participation_pct_relative_inequity"
+  | "diabetes_pct_share"
+  | "diabetes_per_100k"
+  | "diabetes_ratio_age_adjusted"
+  | "diabetes_pct_relative_inequity"
+  | "brfss_population_pct"
   | "women_state_leg_ratio_age_adjusted"
   | "women_state_leg_pct_relative_inequity"
   | "women_this_race_state_leg_count"
@@ -188,8 +188,7 @@ export type MetricId =
   | "uninsured_per_100k"
   | "uninsured_population_pct"
   | "uninsured_ratio_age_adjusted"
-  | "uninsured_pct_relative_inequity"
-  | "svi";
+  | "uninsured_pct_relative_inequity";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
