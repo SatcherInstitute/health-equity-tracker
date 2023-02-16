@@ -24,7 +24,6 @@ import {
   setParameters,
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
-  useSearchParams,
 } from "../../utils/urlutils";
 import styles from "./ExploreDataPage.module.scss";
 import { srSpeak } from "../../utils/a11yutils";
@@ -37,11 +36,8 @@ import { useLocation } from "react-router-dom";
 import CarouselMadLib from "./CarouselMadlib";
 import sass from "../../styles/variables.module.scss";
 import DefaultHelperBox from "./DefaultHelperBox";
-import { useHistory } from "react-router-dom";
-import {
-  COVID_VAX_US_SETTING,
-  EXPLORE_DATA_PAGE_LINK,
-} from "../../utils/internalRoutes";
+import useDeprecatedParamRedirects from "../../utils/hooks/useDeprecatedParamRedirects";
+
 const Onboarding = React.lazy(() => import("./Onboarding"));
 
 const EXPLORE_DATA_ID = "main";
@@ -52,14 +48,8 @@ function ExploreDataPage() {
   const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
     useState(false);
 
-  // Set up initial mad lib values based on defaults and query params
-  const params = useSearchParams();
-  const history = useHistory();
-
-  // hard redirect incoming deprecated params
-  if (params[MADLIB_SELECTIONS_PARAM]?.includes(".vaccinations")) {
-    history.push(EXPLORE_DATA_PAGE_LINK + COVID_VAX_US_SETTING);
-  }
+  // Set up initial mad lib values based on defaults and query params, redirecting from deprecated ones
+  const params = useDeprecatedParamRedirects();
 
   // swap out old variable ids for backwards compatibility of outside links
   const foundIndex = MADLIB_LIST.findIndex(
