@@ -3,7 +3,10 @@ export const USA_DISPLAY_NAME = "United States";
 export const USA_FIPS = "00";
 export const GEORGIA_FIPS = "13";
 
+// Fips code for District of Columbia (state and county).
 export const DC = "11";
+export const DC_COUNTY_FIPS = "11001";
+
 export const AMERICAN_SAMOA = "60";
 export const GUAM = "66";
 export const NORTHERN_MARIANA_ISLANDS = "69";
@@ -26,18 +29,21 @@ export const ACS_2010_FIPS = [
   AMERICAN_SAMOA,
 ];
 
-// Fips code for District of Columbia (county).
-export const DC_COUNTY_FIPS = "11001";
+export function failInvalidFips(code: string) {
+  /* NOTE: Tried testing for presense of the string key in the state and county objects below, but it caused a noticeable slowdown as the location dropdown is creating a FIPS instance for every single entry */
+  const STATE_FIPS_REGEX = new RegExp(/^[0-9]{2}$/);
+  const COUNTY_FIPS_REGEX = new RegExp(/^[0-9]{5}$/);
 
-const STATE_FIPS_REGEX = new RegExp(/^[0-9]{2}$/);
-const COUNTY_FIPS_REGEX = new RegExp(/^[0-9]{5}$/);
+  if (!STATE_FIPS_REGEX.test(code) && !COUNTY_FIPS_REGEX.test(code)) {
+    throw new Error("Invalid FIPS code");
+  }
+  return;
+}
 
 class Fips {
   code: string;
   constructor(code: string) {
-    if (!STATE_FIPS_REGEX.test(code) && !COUNTY_FIPS_REGEX.test(code)) {
-      throw new Error("Invalid FIPS code");
-    }
+    failInvalidFips(code);
     this.code = code;
   }
 
