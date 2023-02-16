@@ -1,0 +1,17 @@
+county_name,county_fips,time_period,race_and_ethnicity,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_population_pct,race_category_id
+Autauga County,01001,2019,All,7,15.0,100.0,100.0,ALL
+Autauga County,01001,2019,American Indian and Alaska Native (NH),0,0.0,0.0,0.4,AIAN_NH
+Autauga County,01001,2019,Asian (NH),0,0.0,0.0,1.1,ASIAN_NH
+Autauga County,01001,2019,Black or African American (NH),5,54.6,71.4,19.6,BLACK_NH
+Autauga County,01001,2019,Hispanic or Latino,0,0.0,0.0,2.7,HISP
+Autauga County,01001,2019,Two or more races (NH),0,0.0,0.0,1.2,MULTI_NH
+Autauga County,01001,2019,Native Hawaiian and Pacific Islander (NH),,,,0.1,NHPI_NH
+Autauga County,01001,2019,White (NH),,,,74.9,WHITE_NH
+Baldwin County,01003,2008,All,18,12.2,100.0,100.0,ALL
+Baldwin County,01003,2008,American Indian and Alaska Native (NH),0,0.0,0.0,0.5,AIAN_NH
+Baldwin County,01003,2008,Asian (NH),0,0.0,0.0,0.5,ASIAN_NH
+Baldwin County,01003,2008,Black or African American (NH),9,64.5,50.0,9.5,BLACK_NH
+Baldwin County,01003,2008,Hispanic or Latino,,,,2.5,HISP
+Baldwin County,01003,2008,Two or more races (NH),,,,0.7,MULTI_NH
+Baldwin County,01003,2008,Native Hawaiian and Pacific Islander (NH),,,,0.02,NHPI_NH
+Baldwin County,01003,2008,White (NH),6,4.7,33.3,86.3,WHITE_NH

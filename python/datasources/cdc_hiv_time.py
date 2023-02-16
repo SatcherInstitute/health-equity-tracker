@@ -1,0 +1,154 @@
+import numpy as np
+import pandas as pd
+from datasources.data_source import DataSource
+from ingestion import gcs_to_bq_util, standardized_columns as std_col
+from ingestion.dataset_utils import generate_pct_share_col_without_unknowns
+from ingestion.merge_utils import merge_county_names
+from ingestion.constants import (COUNTY_LEVEL,
+                                 STATE_LEVEL,
+                                 NATIONAL_LEVEL,
+                                 US_FIPS)
+
+HIV_DIR = 'hiv_time'
+
+RACE_GROUPS_TO_STANDARD = {
+    std_col.RACE_OR_HISPANIC_COL: {
+        'All races/ethnicities': std_col.Race.ALL,
+        'American Indian/Alaska Native': std_col.Race.AIAN_NH.value,
+        'Asian': std_col.Race.ASIAN_NH.value,
+        'Black/African American': std_col.Race.BLACK_NH.value,
+        'Hispanic/Latino': std_col.Race.HISP.value,
+        'Multiracial': std_col.Race.MULTI_NH.value,
+        'Native Hawaiian/Other Pacific Islander': std_col.Race.NHPI_NH.value,
+        'White': std_col.Race.WHITE_NH.value,
+    }
+}
+
+ALL_LABELS = ['Both sexes', 'Ages 13 years and older']
+MISSING_DATA = ['Data suppressed', 'Data not available']
+MISSING_DATA_COLS = [std_col.HIV_DIAGNOSES, std_col.HIV_DIAGNOSES_PER_100K]
+
+PCT_SHARE_DICT = {
+    std_col.HIV_DIAGNOSES: std_col.HIV_DIAGNOSES_PCT_SHARE,
+    std_col.POPULATION_COL: std_col.HIV_POPULATION_PCT}
+
+
+def generate_alls_df(geo_level: str):
+    """
+    Fetches the combined dataframe of each demographic for county & state levels
+    geo_level: string of `state` or `county`
+    returns a formatted dataframe with total values for specified geo_level
+    """
+    alls_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(HIV_DIR,
+                                                          f'hiv-{geo_level}-all.csv',
+                                                          skiprows=8,
+                                                          thousands=',',
+                                                          dtype={'FIPS': str})
+
+    return alls_df
+
+
+class CDCHIVTimeData(DataSource):
+
+    @ staticmethod
+    def get_id():
+        return 'CDC_HIV_TIME_DATA'
+
+    @ staticmethod
+    def get_table_name():
+        return 'cdc_hiv_time_data'
+
+    def upload_to_gcs(self, gcs_bucket, **attrs):
+        raise NotImplementedError(
+            'upload_to_gcs should not be called for CDCHIVTimeData')
+
+    def write_to_bq(self, dataset, gcs_bucket, **attrs):
+        print(dataset)
+        for geo_level in [COUNTY_LEVEL, STATE_LEVEL, NATIONAL_LEVEL]:
+            alls_df = generate_alls_df(geo_level)
+            for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
+                table_name = f'{breakdown}_{geo_level}'
+                df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
+
+                float_cols = [std_col.HIV_DIAGNOSES,
+                              std_col.HIV_DIAGNOSES_PCT_SHARE,
+                              std_col.HIV_DIAGNOSES_PER_100K,
+                              std_col.HIV_POPULATION_PCT]
+                column_types = gcs_to_bq_util.get_bq_column_types(df,
+                                                                  float_cols=float_cols)
+                gcs_to_bq_util.add_df_to_bq(df,
+                                            dataset,
+                                            table_name,
+                                            column_types=column_types)
+
+    def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
+        GEO_COL = std_col.COUNTY_NAME_COL if geo_level == COUNTY_LEVEL else std_col.STATE_NAME_COL
+        FIPS = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col.STATE_FIPS_COL
+
+        columns_to_standard = {
+            'Age Group': std_col.AGE_COL,
+            'Cases': std_col.HIV_DIAGNOSES,
+            'FIPS': FIPS,
+            'Geography': GEO_COL,
+            'Population': std_col.POPULATION_COL,
+            'Race/Ethnicity': std_col.RACE_OR_HISPANIC_COL,
+            'Rate per 100000': std_col.HIV_DIAGNOSES_PER_100K,
+            'Sex': std_col.SEX_COL,
+            'Year': std_col.TIME_PERIOD_COL}
+
+        columns_to_keep = [
+            GEO_COL,
+            FIPS,
+            std_col.TIME_PERIOD_COL,
+            breakdown,
+            std_col.HIV_DIAGNOSES,
+            std_col.HIV_DIAGNOSES_PER_100K,
+            std_col.HIV_DIAGNOSES_PCT_SHARE,
+            std_col.HIV_POPULATION_PCT]
+
+        breakdown_group_df = gcs_to_bq_util.load_csv_as_df_from_data_dir('hiv_time',
+                                                                         f'hiv-{geo_level}-{breakdown}.csv',
+                                                                         skiprows=8,
+                                                                         thousands=',',
+                                                                         dtype={'FIPS': str})
+        # append the alls DF
+        combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
+
+        combined_group_df = combined_group_df.rename(
+            columns=columns_to_standard)
+        combined_group_df = combined_group_df.sort_values(
+            [FIPS, breakdown]).reset_index(drop=True)
+
+        combined_group_df[MISSING_DATA_COLS] = combined_group_df[MISSING_DATA_COLS].replace(
+            MISSING_DATA, np.nan)
+        combined_group_df = combined_group_df.replace(ALL_LABELS,
+                                                      std_col.ALL_VALUE)
+        # replace string number with whole number
+        combined_group_df[std_col.HIV_DIAGNOSES] = combined_group_df[std_col.HIV_DIAGNOSES].replace(',',
+                                                                                                    '',
+                                                                                                    regex=True)
+
+        if geo_level == COUNTY_LEVEL:
+            combined_group_df = merge_county_names(combined_group_df)
+            combined_group_df[std_col.STATE_FIPS_COL] = combined_group_df[std_col.COUNTY_FIPS_COL].str.slice(
+                0, 2)
+
+        if geo_level == NATIONAL_LEVEL:
+            combined_group_df[std_col.STATE_FIPS_COL] = US_FIPS
+
+        if breakdown == std_col.RACE_OR_HISPANIC_COL:
+            combined_group_df = combined_group_df.replace(
+                RACE_GROUPS_TO_STANDARD)
+            combined_group_df = combined_group_df.rename(
+                columns={std_col.RACE_OR_HISPANIC_COL: std_col.RACE_CATEGORY_ID_COL})
+            std_col.add_race_columns_from_category_id(combined_group_df)
+            columns_to_keep.append(std_col.RACE_CATEGORY_ID_COL)
+
+        combined_group_df = generate_pct_share_col_without_unknowns(combined_group_df,
+                                                                    PCT_SHARE_DICT,
+                                                                    breakdown,
+                                                                    std_col.ALL_VALUE)
+
+        df = combined_group_df[columns_to_keep]
+
+        return df
