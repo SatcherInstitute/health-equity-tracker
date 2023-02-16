@@ -1,4 +1,4 @@
-import { Fips } from "./Fips";
+import { failInvalidFips, Fips } from "./Fips";
 
 describe("Test getDisplayName()", () => {
   test("US/STATE with no addon", async () => {
@@ -22,5 +22,30 @@ describe("Test getSentenceDisplayName()", () => {
     expect(new Fips("00").getSentenceDisplayName()).toEqual(
       " the United States"
     );
+  });
+});
+
+describe("Test failInvalidFips()", () => {
+  test("Good USA FIPS", async () => {
+    expect(failInvalidFips("00")).toEqual(undefined);
+  });
+  test("Good state FIPS", async () => {
+    expect(failInvalidFips("01")).toEqual(undefined);
+  });
+  test("Good county FIPS", async () => {
+    expect(failInvalidFips("01011")).toEqual(undefined);
+  });
+  test("KNOWN ISSUE: Bad FIPS with 2 or 5 digit format will pass", async () => {
+    expect(failInvalidFips("99999")).toEqual(undefined);
+  });
+  test("Bad number of digits FIPS", async () => {
+    expect(() => {
+      failInvalidFips("1");
+    }).toThrow("Invalid FIPS code");
+  });
+  test("Bad non-digits FIPS", async () => {
+    expect(() => {
+      failInvalidFips("1A");
+    }).toThrow("Invalid FIPS code");
   });
 });
