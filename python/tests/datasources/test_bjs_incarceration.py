@@ -151,7 +151,7 @@ expected_dtype = {
     "jail_pct_share": float,
     "total_confined_children": int,
     "population": object,
-    "population_pct": float,
+    "incarceration_population_pct": float,
 }
 expected_dtype_age = {
     **expected_dtype,
@@ -326,18 +326,7 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
-
-    # Un-comment to log output and save to file
-    # (can copy/paste into frontend /tmp )
-    # for bq_call in mock_bq.call_args_list:
-    #     df, _, table_name = bq_call[0]
-    #     print(table_name)
-    #     print(df)
-    #     df.to_json(
-    #         f'bjs_incarceration_data-{table_name}.json', orient="records")
-
     assert mock_zip.call_count == 2
-
     assert mock_fips.call_count == 7
     for call_arg in mock_fips.call_args_list:
         assert call_arg.args[1] == "fips_codes_states"
