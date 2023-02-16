@@ -46,7 +46,8 @@ import { Box, CircularProgress } from "@material-ui/core";
 // so they must load first and not be lazy loaded
 import AboutUsPage from "./pages/AboutUs/AboutUsPage";
 import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
-import ExploreDataErrorBoundary from "./pages/ExploreData/ExploreDataErrorBoundary";
+import ErrorBoundaryDropParams from "./ErrorBoundaryDropParams";
+import ExploreDataFallback from "./pages/ExploreData/ExploreDataFallback";
 
 const ExploreDataPage = React.lazy(
   () => import("./pages/ExploreData/ExploreDataPage")
@@ -220,9 +221,11 @@ function App() {
                       </Route>
 
                       <Route path={EXPLORE_DATA_PAGE_LINK}>
-                        <ExploreDataErrorBoundary>
+                        <ErrorBoundaryDropParams
+                          fallback={<ExploreDataFallback />}
+                        >
                           <ExploreDataPage />
-                        </ExploreDataErrorBoundary>
+                        </ErrorBoundaryDropParams>
                       </Route>
 
                       <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>

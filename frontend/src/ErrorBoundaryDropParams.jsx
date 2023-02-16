@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class ExploreDataErrorBoundary extends React.Component {
+export default class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
@@ -22,7 +22,7 @@ export default class ExploreDataErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      // remove params and hash
+      // You can render any custom fallback UI
       window.location = window.location.pathname;
       return this.props.fallback;
     }
