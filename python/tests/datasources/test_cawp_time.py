@@ -315,10 +315,7 @@ def testGenerateNamesBreakdown(
 
 @mock.patch('ingestion.merge_utils.merge_yearly_pop_numbers',
             side_effect=_merge_yearly_pop_numbers)
-@ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
-             side_effect=_get_consecutive_time_periods)
 def testGenerateStateBreakdown(
-    mock_years: mock.MagicMock,
     mock_merge_pop: mock.MagicMock
 ):
     """ Tests the generate_breakdown() function at the state
@@ -335,7 +332,6 @@ def testGenerateStateBreakdown(
         base_df, "state")
     assert state_table_name == "race_and_ethnicity_state_time_series"
     assert mock_merge_pop.call_count == 1
-    assert mock_years.call_count == 1
 
     expected_state_breakdown_df = pd.read_csv(os.path.join(
         GOLDEN_DATA_DIR, "race_and_ethnicity_state_time_series.csv"),
@@ -351,10 +347,7 @@ def testGenerateStateBreakdown(
 
 @mock.patch('ingestion.merge_utils.merge_yearly_pop_numbers',
             side_effect=_merge_yearly_pop_numbers)
-@ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
-             side_effect=_get_consecutive_time_periods)
 def testGenerateNationalBreakdown(
-    mock_years: mock.MagicMock,
     mock_merge_pop: mock.MagicMock
 ):
     """ Tests the generate_breakdown() function at the national
@@ -370,7 +363,6 @@ def testGenerateNationalBreakdown(
         base_df, "national")
     assert national_table_name == "race_and_ethnicity_national_time_series"
     assert mock_merge_pop.call_count == 1
-    assert mock_years.call_count == 1
     expected_national_breakdown_df = pd.read_csv(os.path.join(
         GOLDEN_DATA_DIR, "race_and_ethnicity_national_time_series.csv"),
         dtype={"state_fips": str, "time_period": str})

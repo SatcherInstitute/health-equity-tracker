@@ -169,8 +169,6 @@ def merge_multiple_pop_cols(df, demo, condition_cols):
 
 def _merge_pop(df, demo, loc, on_time_period: bool = None):
 
-    print("in _merge_pop on_time_period", on_time_period)
-
     on_col_map = {
         'age': std_col.AGE_COL,
         'race': std_col.RACE_CATEGORY_ID_COL,
@@ -205,6 +203,8 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
 
     if loc == 'county':
         needed_cols.append(std_col.COUNTY_FIPS_COL)
+
+    pop_df = pop_df[needed_cols]
 
     # other territories from ACS 2010 (VI, GU, AS, MP)
     if loc == 'state':
