@@ -29,11 +29,13 @@ export const ACS_2010_FIPS = [
 // Fips code for District of Columbia (county).
 export const DC_COUNTY_FIPS = "11001";
 
+const STATE_FIPS_REGEX = new RegExp(/^[0-9]{2}$/);
+const COUNTY_FIPS_REGEX = new RegExp(/^[0-9]{5}$/);
+
 class Fips {
   code: string;
-
   constructor(code: string) {
-    if (!RegExp("^[0-9]{2}|[0-9]{5}$").test(code)) {
+    if (!STATE_FIPS_REGEX.test(code) && !COUNTY_FIPS_REGEX.test(code)) {
       throw new Error("Invalid FIPS code");
     }
     this.code = code;
