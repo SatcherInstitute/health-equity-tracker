@@ -319,8 +319,6 @@ class CAWPTimeData(DataSource):
         df.loc[df[std_col.RACE_CATEGORY_ID_COL]
                == Race.AIAN_API.value][std_col.PCT_OF_STLEG] = None
 
-        # df.to_csv(f'{bq_table_name}.csv', index=False)
-
         return [df, bq_table_name]
 
     def generate_names_breakdown(self, df: pd.DataFrame):

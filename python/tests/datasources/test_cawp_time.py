@@ -150,21 +150,6 @@ def _load_csv_as_df_from_web(*args):
                        )
 
 
-# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-#              side_effect=_load_csv_as_df_from_data_dir)
-# @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#              return_value=None)
-# def testRun(
-#     mock_bq: mock.MagicMock,
-#     mock_data: mock.MagicMock
-# ):
-#     kwargs_for_bq = {'filename': 'test_file.csv',
-#                      'metadata_table_id': 'test_metadata',
-#                      'table_name': 'output_table'}
-#     cawp_data = CAWPTimeData()
-#     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
-
-
 # # # TEST OUTGOING SIDE OF BIGQUERY INTERACTION
 
 
