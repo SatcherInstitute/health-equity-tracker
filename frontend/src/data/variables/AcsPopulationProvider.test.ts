@@ -70,7 +70,7 @@ describe("AcsPopulationProvider", () => {
   test("County and Age Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
       "acs_population-by_age_county-02",
-      Breakdowns.forFips(new Fips("02001")),
+      Breakdowns.forFips(new Fips("02013")),
       AGE
     );
   });

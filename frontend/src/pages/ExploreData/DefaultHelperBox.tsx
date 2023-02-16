@@ -3,9 +3,9 @@ import { Alert } from "@material-ui/lab";
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  COVID_DEATHS_AGE_USA_SETTING,
+  COVID_DEATHS_AGE_FULTON_COUNTY_SETTING,
   EXPLORE_DATA_PAGE_LINK,
-  HIV_DIAGNOSES_RACE_FULTON_COUNTY_SETTING,
+  HIV_DIAGNOSES_RACE_USA_SETTING,
   METHODOLOGY_TAB_LINK,
   PRISON_VS_POVERTY_RACE_GA_SETTING,
   UNINSURANCE_SEX_FL_VS_CA_SETTING,
@@ -35,17 +35,19 @@ export default function DefaultHelperBox() {
             <ul className={styles.SuggestedReportsList}>
               <li className={styles.SuggestedReportsListItem}>
                 <a
-                  href={
-                    EXPLORE_DATA_PAGE_LINK +
-                    HIV_DIAGNOSES_RACE_FULTON_COUNTY_SETTING
-                  }
+                  href={EXPLORE_DATA_PAGE_LINK + HIV_DIAGNOSES_RACE_USA_SETTING}
                 >
-                  HIV diagnoses by race in Fulton County, Georgia
+                  HIV diagnoses by race
                 </a>
               </li>
               <li className={styles.SuggestedReportsListItem}>
-                <a href={EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_AGE_USA_SETTING}>
-                  COVID-19 deaths by age
+                <a
+                  href={
+                    EXPLORE_DATA_PAGE_LINK +
+                    COVID_DEATHS_AGE_FULTON_COUNTY_SETTING
+                  }
+                >
+                  COVID-19 deaths by age in Fulton County, Georgia
                 </a>
               </li>
               <li className={styles.SuggestedReportsListItem}>
