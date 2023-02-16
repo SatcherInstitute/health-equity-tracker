@@ -1,6 +1,7 @@
-from airflow import DAG
-from airflow.models import Variable
-from airflow.utils.dates import days_ago
+from airflow import DAG  # type: ignore
+from airflow.models import Variable  # type: ignore
+from airflow.operators.dummy_operator import DummyOperator  # type: ignore
+from airflow.utils.dates import days_ago  # type: ignore
 
 import util
 
@@ -10,11 +11,18 @@ _CDC_RESTRICTED_DATASET = 'cdc_restricted_data'
 
 default_args = {'start_date': days_ago(0)}
 
+
 data_ingestion_dag = DAG(
     'cdc_restricted_data_dag',
     default_args=default_args,
     schedule_interval=None,
     description='Ingestion configuration for CDC Restricted Data')
+
+dummy_operator = DummyOperator(
+    default_args=default_args,
+    dag=data_ingestion_dag,
+    task_id='dummy_operator'
+)
 
 # Standardize the CDC restricted data
 cdc_bq_payload_race = util.generate_bq_payload(
@@ -83,10 +91,11 @@ cdc_restricted_exporter_operator_sex = util.create_exporter_operator(
 
 # CDC Restricted Data Ingestion DAG
 (
-    cdc_restricted_bq_op_race >>
-    cdc_restricted_bq_op_sex >>
-    cdc_restricted_bq_op_age >>
-    cdc_restricted_age_adjust_op >>
+    dummy_operator >> [
+        cdc_restricted_bq_op_race,
+        cdc_restricted_bq_op_sex,
+        cdc_restricted_bq_op_age
+    ] >> cdc_restricted_age_adjust_op >>
     sanity_check >> [
         cdc_restricted_exporter_operator_race,
         cdc_restricted_exporter_operator_age,
