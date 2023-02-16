@@ -32,7 +32,7 @@ describe("Test buildTooltipTemplate()", () => {
 describe("Test getCountyAddOn()", () => {
   test("A child FIPS of Alaska should get equiv", () => {
     const alaskaAddOn = getCountyAddOn(
-      /* fips */ new Fips("02999"),
+      /* fips */ new Fips("02290"),
       /* showCounties */ true
     );
     expect(alaskaAddOn).toEqual("(County Equivalent)");
@@ -40,49 +40,7 @@ describe("Test getCountyAddOn()", () => {
 
   test("A child FIPS of Louisiana should get parish", () => {
     const louisianaAddOn = getCountyAddOn(
-      /* fips */ new Fips("22999"),
-      /* showCounties */ true
-    );
-    expect(louisianaAddOn).toEqual("Parish (County Equivalent)");
-  });
-
-  test("A child FIPS of Puerto Rico report should get equiv", () => {
-    const puertoRicoAddOn = getCountyAddOn(
-      /* fips */ new Fips("72999"),
-      /* showCounties */ true
-    );
-    expect(puertoRicoAddOn).toEqual("(County Equivalent)");
-  });
-
-  test("Puerto Rico report should get equiv for child level counties", () => {
-    const puertoRicoParentAddOn = getCountyAddOn(
-      /* fips */ new Fips("72"),
-      /* showCounties */ true
-    );
-    expect(puertoRicoParentAddOn).toEqual("(County Equivalent)");
-  });
-
-  test("AL should get blank string", () => {
-    const alabamaAddOn = getCountyAddOn(
-      /* fips */ new Fips("02"),
-      /* showCounties */ false
-    );
-    expect(alabamaAddOn).toEqual("");
-  });
-});
-
-describe("Test getCountyAddOn()", () => {
-  test("A child FIPS of Alaska should get equiv", () => {
-    const alaskaAddOn = getCountyAddOn(
-      /* fips */ new Fips("02999"),
-      /* showCounties */ true
-    );
-    expect(alaskaAddOn).toEqual("(County Equivalent)");
-  });
-
-  test("A child FIPS of Louisiana should get parish", () => {
-    const louisianaAddOn = getCountyAddOn(
-      /* fips */ new Fips("22999"),
+      /* fips */ new Fips("22001"),
       /* showCounties */ true
     );
     expect(louisianaAddOn).toEqual("Parish (County Equivalent)");
@@ -90,7 +48,7 @@ describe("Test getCountyAddOn()", () => {
 
   test("A child FIPS of Puerto Rico should get equiv", () => {
     const puertoRicoAddOn = getCountyAddOn(
-      /* fips */ new Fips("72999"),
+      /* fips */ new Fips("72001"),
       /* showCounties */ true
     );
     expect(puertoRicoAddOn).toEqual("(County Equivalent)");

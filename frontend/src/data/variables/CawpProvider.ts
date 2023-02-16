@@ -28,6 +28,7 @@ export const CAWP_STLEG_COUNTS: MetricId[] = [
 ];
 
 export const CAWP_DETERMINANTS: MetricId[] = [
+  "cawp_population_pct",
   "pct_share_of_state_leg",
   "pct_share_of_women_state_leg",
   "women_state_leg_ratio_age_adjusted",
@@ -98,7 +99,7 @@ class CawpProvider extends VariableProvider {
     acsBreakdowns.time = false;
 
     if (
-      metricQuery.metricIds.includes("population_pct") ||
+      metricQuery.metricIds.includes("cawp_population_pct") ||
       metricQuery.metricIds.includes(
         "women_us_congress_pct_relative_inequity"
       ) ||
@@ -112,10 +113,6 @@ class CawpProvider extends VariableProvider {
     }
     if (metricQuery.metricIds.includes("pct_share_of_us_congress"))
       consumedDatasetIds.push("the_unitedstates_project");
-
-    df = df.renameSeries({
-      population_pct: "cawp_population_pct",
-    });
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);

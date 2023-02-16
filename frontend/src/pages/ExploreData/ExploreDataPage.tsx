@@ -24,7 +24,6 @@ import {
   setParameters,
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
-  useSearchParams,
 } from "../../utils/urlutils";
 import styles from "./ExploreDataPage.module.scss";
 import { srSpeak } from "../../utils/a11yutils";
@@ -37,6 +36,7 @@ import { useLocation } from "react-router-dom";
 import CarouselMadLib from "./CarouselMadlib";
 import sass from "../../styles/variables.module.scss";
 import DefaultHelperBox from "./DefaultHelperBox";
+import useDeprecatedParamRedirects from "../../utils/hooks/useDeprecatedParamRedirects";
 
 const Onboarding = React.lazy(() => import("./Onboarding"));
 
@@ -48,8 +48,8 @@ function ExploreDataPage() {
   const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
     useState(false);
 
-  // Set up initial mad lib values based on defaults and query params
-  const params = useSearchParams();
+  // Set up initial mad lib values based on defaults and query params, redirecting from deprecated ones
+  const params = useDeprecatedParamRedirects();
 
   // swap out old variable ids for backwards compatibility of outside links
   const foundIndex = MADLIB_LIST.findIndex(

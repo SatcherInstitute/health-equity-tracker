@@ -23,7 +23,7 @@ import {
   psSubscribe,
   setParameter,
   setParameters,
-  swapOldParams,
+  swapOldDatatypeParams,
 } from "../utils/urlutils";
 import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
@@ -83,7 +83,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
         DATA_TYPE_1_PARAM,
         undefined,
         (val: string) => {
-          val = swapOldParams(val);
+          val = swapOldDatatypeParams(val);
           return METRIC_CONFIG[props.dropdownVarId].find(
             (cfg) => cfg.variableId === val
           );

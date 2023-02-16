@@ -91,12 +91,6 @@ export type MetricId =
   | "diabetes_per_100k"
   | "diabetes_ratio_age_adjusted"
   | "diabetes_pct_relative_inequity"
-  | "health_insurance_count"
-  | "health_insurance_pct_share"
-  | "health_insurance_per_100k"
-  | "health_insurance_population_pct"
-  | "health_insurance_ratio_age_adjusted"
-  | "health_insurance_pct_relative_inequity"
   | "population"
   | "population_pct"
   | "population_2010"
@@ -179,6 +173,7 @@ export type MetricId =
   | "total_us_congress_names"
   | "women_this_race_us_congress_count"
   | "total_us_congress_count"
+  | "cawp_population_pct"
   | "prison_pct_share"
   | "prison_per_100k"
   | "prison_ratio_age_adjusted"
@@ -188,6 +183,12 @@ export type MetricId =
   | "jail_ratio_age_adjusted"
   | "jail_pct_relative_inequity"
   | "total_confined_children"
+  | "incarceration_population_pct"
+  | "uninsured_pct_share"
+  | "uninsured_per_100k"
+  | "uninsured_population_pct"
+  | "uninsured_ratio_age_adjusted"
+  | "uninsured_pct_relative_inequity"
   | "svi";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
@@ -1164,7 +1165,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         insurance coverage.`,
       metrics: {
         per100k: {
-          metricId: "health_insurance_per_100k",
+          metricId: "uninsured_per_100k",
           chartTitleLines: ["Uninsured individuals", "per 100k people"],
           columnTitleHeader: "Uninsured individuals per 100k people",
           trendsCardTitleName: "Rates of uninsurance over time",
@@ -1173,7 +1174,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_share: {
           chartTitleLines: ["Share of uninsured individuals"],
-          metricId: "health_insurance_pct_share",
+          metricId: "uninsured_pct_share",
           trendsCardTitleName: "Inequitable share of uninsurance over time",
           columnTitleHeader: "Share of uninsured individuals",
           shortLabel: "% of uninsured",
@@ -1183,7 +1184,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "Population vs. distribution of",
               "total uninsured individuals",
             ],
-            metricId: "health_insurance_population_pct",
+            metricId: "uninsured_population_pct",
             columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
@@ -1191,7 +1192,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           chartTitleLines: ["historical data for inequity in uninsurance"],
-          metricId: "health_insurance_pct_relative_inequity",
+          metricId: "uninsured_pct_relative_inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
@@ -1199,7 +1200,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           chartTitleLines: [
             "Age-adjusted risk of being uninsured compared to White (NH)",
           ],
-          metricId: "health_insurance_ratio_age_adjusted",
+          metricId: "uninsured_ratio_age_adjusted",
           shortLabel: "",
           type: "ratio",
         },
@@ -1622,7 +1623,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "Population vs. distribution of",
               "total women in US congress",
             ],
-            metricId: "population_pct",
+            metricId: "cawp_population_pct",
             columnTitleHeader: "Total population share (all genders)",
             shortLabel: `${populationPctShortLabel} (all genders)`,
             type: "pct_share",
@@ -1681,7 +1682,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "Population vs. distribution of",
               "total women in state legislatures",
             ],
-            metricId: "population_pct",
+            metricId: "cawp_population_pct",
             columnTitleHeader: "Total population share (all genders)", // TABLE COLUMN HEADER
             shortLabel: `${populationPctShortLabel} (all genders)`, // DISPARITY BAR LEGEND/AXIS
             type: "pct_share",
@@ -1738,7 +1739,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "Population vs. distribution of",
               "total individuals in prison",
             ],
-            metricId: "population_pct",
+            metricId: "incarceration_population_pct",
             columnTitleHeader: "Total population share",
             shortLabel: populationPctShortLabel,
             type: "pct_share",
@@ -1796,7 +1797,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "Population vs. distribution of",
               "total individuals in jail",
             ],
-            metricId: "population_pct",
+            metricId: "incarceration_population_pct",
             columnTitleHeader: "Total population share",
             shortLabel: populationPctShortLabel,
             type: "pct_share",
