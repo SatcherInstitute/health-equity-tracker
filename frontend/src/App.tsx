@@ -40,13 +40,14 @@ import {
 } from "./utils/internalRoutes";
 import AppBarLogo from "./assets/AppbarLogo.png";
 import { HelmetProvider } from "react-helmet-async";
-
 import { Box, CircularProgress } from "@material-ui/core";
 
 // these make CSS modules which are imported by other components,
 // so they must load first and not be lazy loaded
 import AboutUsPage from "./pages/AboutUs/AboutUsPage";
 import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
+import ErrorBoundaryDropParams from "./ErrorBoundaryDropParams";
+import ExploreDataFallback from "./pages/ExploreData/ExploreDataFallback";
 
 const ExploreDataPage = React.lazy(
   () => import("./pages/ExploreData/ExploreDataPage")
@@ -220,7 +221,11 @@ function App() {
                       </Route>
 
                       <Route path={EXPLORE_DATA_PAGE_LINK}>
-                        <ExploreDataPage />
+                        <ErrorBoundaryDropParams
+                          fallback={<ExploreDataFallback />}
+                        >
+                          <ExploreDataPage />
+                        </ErrorBoundaryDropParams>
                       </Route>
 
                       <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>

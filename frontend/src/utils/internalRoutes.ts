@@ -32,10 +32,10 @@ export const POVERTY_US_SETTING = "?mls=1.poverty-3.00";
 export const OPIOID_US_SETTING =
   "?dt1=non_medical_drug_use&mls=1.substance-3.00";
 
-export const HIV_DIAGNOSES_RACE_FULTON_COUNTY_SETTING =
-  "?mls=1.hiv_diagnoses-3.13121&demo=race_and_ethnicity";
-export const COVID_DEATHS_AGE_USA_SETTING =
-  "?mls=1.covid-3.00&mlp=disparity&demo=age&dt1=deaths";
+export const HIV_DIAGNOSES_RACE_USA_SETTING =
+  "?mls=1.hiv_diagnoses-3.00&mlp=disparity";
+export const COVID_DEATHS_AGE_FULTON_COUNTY_SETTING =
+  "?mls=1.covid-3.13121&demo=age&dt1=covid_deaths&mlp=disparity";
 export const PRISON_VS_POVERTY_RACE_GA_SETTING =
   "?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison";
 export const UNINSURANCE_SEX_FL_VS_CA_SETTING =
