@@ -37,7 +37,11 @@ import { useLocation } from "react-router-dom";
 import CarouselMadLib from "./CarouselMadlib";
 import sass from "../../styles/variables.module.scss";
 import DefaultHelperBox from "./DefaultHelperBox";
-
+import { useHistory } from "react-router-dom";
+import {
+  COVID_VAX_US_SETTING,
+  EXPLORE_DATA_PAGE_LINK,
+} from "../../utils/internalRoutes";
 const Onboarding = React.lazy(() => import("./Onboarding"));
 
 const EXPLORE_DATA_ID = "main";
@@ -50,6 +54,12 @@ function ExploreDataPage() {
 
   // Set up initial mad lib values based on defaults and query params
   const params = useSearchParams();
+  const history = useHistory();
+
+  // hard redirect incoming deprecated params
+  if (params[MADLIB_SELECTIONS_PARAM]?.includes(".vaccinations")) {
+    history.push(EXPLORE_DATA_PAGE_LINK + COVID_VAX_US_SETTING);
+  }
 
   // swap out old variable ids for backwards compatibility of outside links
   const foundIndex = MADLIB_LIST.findIndex(
