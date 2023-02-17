@@ -5,7 +5,7 @@
     "race_category_id": "ALL",
     "prison_per_100k": 503,
     "prison_pct_share": 100,
-    "population_pct_share": 100,
+    "incarceration_population_pct": 100,
     "total_confined_children": 0,
     "race_and_ethnicity": "All"
   },
@@ -15,7 +15,7 @@
     "race_category_id": "ALL",
     "prison_per_100k": 357,
     "prison_pct_share": 100,
-    "population_pct_share": 100,
+    "incarceration_population_pct": 100,
     "total_confined_children": 54,
     "race_and_ethnicity": "All"
   },
@@ -25,7 +25,7 @@
     "race_category_id": "ALL",
     "prison_per_100k": 306,
     "prison_pct_share": 100,
-    "population_pct_share": 100,
+    "incarceration_population_pct": 100,
     "total_confined_children": 0,
     "race_and_ethnicity": "All"
   },
@@ -35,7 +35,7 @@
     "race_category_id": "API_NH",
     "prison_per_100k": null,
     "prison_pct_share": null,
-    "population_pct_share": 1.5,
+    "incarceration_population_pct": 1.5,
     "total_confined_children": null,
     "race_and_ethnicity": "Asian, Native Hawaiian, and Pacific Islander (NH)"
   },
@@ -45,7 +45,7 @@
     "race_category_id": "API_NH",
     "prison_per_100k": 47,
     "prison_pct_share": 0.8,
-    "population_pct_share": 6.4,
+    "incarceration_population_pct": 6.4,
     "total_confined_children": null,
     "race_and_ethnicity": "Asian, Native Hawaiian, and Pacific Islander (NH)"
   },
@@ -55,7 +55,7 @@
     "race_category_id": "API_NH",
     "prison_per_100k": null,
     "prison_pct_share": null,
-    "population_pct_share": 1.8,
+    "incarceration_population_pct": 1.8,
     "total_confined_children": null,
     "race_and_ethnicity": "Asian, Native Hawaiian, and Pacific Islander (NH)"
   },
@@ -65,7 +65,7 @@
     "race_category_id": "BLACK_NH",
     "prison_per_100k": 1182,
     "prison_pct_share": 47.5,
-    "population_pct_share": 20.2,
+    "incarceration_population_pct": 20.2,
     "total_confined_children": null,
     "race_and_ethnicity": "Black or African American (NH)"
   },
@@ -75,7 +75,7 @@
     "race_category_id": "BLACK_NH",
     "prison_per_100k": 810,
     "prison_pct_share": 74,
-    "population_pct_share": 32.6,
+    "incarceration_population_pct": 32.6,
     "total_confined_children": null,
     "race_and_ethnicity": "Black or African American (NH)"
   },
@@ -85,7 +85,7 @@
     "race_category_id": "BLACK_NH",
     "prison_per_100k": null,
     "prison_pct_share": null,
-    "population_pct_share": 0.9,
+    "incarceration_population_pct": 0.9,
     "total_confined_children": null,
     "race_and_ethnicity": "Black or African American (NH)"
   },
@@ -95,7 +95,7 @@
     "race_category_id": "HISP",
     "prison_per_100k": null,
     "prison_pct_share": null,
-    "population_pct_share": 2.7,
+    "incarceration_population_pct": 2.7,
     "total_confined_children": null,
     "race_and_ethnicity": "Hispanic or Latino"
   },
@@ -105,7 +105,7 @@
     "race_category_id": "HISP",
     "prison_per_100k": 332,
     "prison_pct_share": 11.4,
-    "population_pct_share": 12.2,
+    "incarceration_population_pct": 12.2,
     "total_confined_children": null,
     "race_and_ethnicity": "Hispanic or Latino"
   },
@@ -115,7 +115,7 @@
     "race_category_id": "HISP",
     "prison_per_100k": null,
     "prison_pct_share": null,
-    "population_pct_share": 4.3,
+    "incarceration_population_pct": 4.3,
     "total_confined_children": null,
     "race_and_ethnicity": "Hispanic or Latino"
   },
@@ -125,7 +125,7 @@
     "race_category_id": "AIAN_NH",
     "prison_per_100k": null,
     "prison_pct_share": null,
-    "population_pct_share": 0.4,
+    "incarceration_population_pct": 0.4,
     "total_confined_children": null,
     "race_and_ethnicity": "American Indian and Alaska Native (NH)"
   },
@@ -135,7 +135,7 @@
     "race_category_id": "AIAN_NH",
     "prison_per_100k": 374,
     "prison_pct_share": 0.4,
-    "population_pct_share": 0.4,
+    "incarceration_population_pct": 0.4,
     "total_confined_children": null,
     "race_and_ethnicity": "American Indian and Alaska Native (NH)"
   },
@@ -145,7 +145,7 @@
     "race_category_id": "AIAN_NH",
     "prison_per_100k": null,
     "prison_pct_share": null,
-    "population_pct_share": 1.5,
+    "incarceration_population_pct": 1.5,
     "total_confined_children": null,
     "race_and_ethnicity": "American Indian and Alaska Native (NH)"
   },
@@ -155,7 +155,7 @@
     "race_category_id": "WHITE_NH",
     "prison_per_100k": 340,
     "prison_pct_share": 50.8,
-    "population_pct_share": 75.2,
+    "incarceration_population_pct": 75.2,
     "total_confined_children": null,
     "race_and_ethnicity": "White (NH)"
   },
@@ -165,7 +165,7 @@
     "race_category_id": "WHITE_NH",
     "prison_per_100k": 96,
     "prison_pct_share": 13,
-    "population_pct_share": 48.4,
+    "incarceration_population_pct": 48.4,
     "total_confined_children": null,
     "race_and_ethnicity": "White (NH)"
   },
@@ -175,7 +175,7 @@
     "race_category_id": "WHITE_NH",
     "prison_per_100k": 310,
     "prison_pct_share": 92.9,
-    "population_pct_share": 91.5,
+    "incarceration_population_pct": 91.5,
     "total_confined_children": null,
     "race_and_ethnicity": "White (NH)"
   }

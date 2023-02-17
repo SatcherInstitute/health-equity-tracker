@@ -116,30 +116,6 @@ export class ApiDataFetcher implements DataFetcher {
               : Number(row["below_poverty_line"]),
         };
       });
-    } else if (datasetId.startsWith("vera_") || datasetId.startsWith("bjs_")) {
-      result = result.map((row: any) => {
-        return {
-          ...row,
-          total_confined_children:
-            row["total_confined_children"] == null
-              ? null
-              : Number(row["total_confined_children"]),
-          prison_per_100k:
-            row["prison_per_100k"] == null
-              ? null
-              : Number(row["prison_per_100k"]),
-          jail_per_100k:
-            row["jail_per_100k"] == null ? null : Number(row["jail_per_100k"]),
-          prison_pct_share:
-            row["prison_pct_share"] == null
-              ? null
-              : Number(row["prison_pct_share"]),
-          jail_pct_share:
-            row["jail_pct_share"] == null
-              ? null
-              : Number(row["jail_pct_share"]),
-        };
-      });
     } else if (datasetId.startsWith("cdc_vaccination_national")) {
       result = result.map((row: any) => {
         return {

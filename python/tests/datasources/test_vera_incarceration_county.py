@@ -205,7 +205,7 @@ def test_generate_partial_breakdown():
 
 expected_dtype = {
     "county_fips": str,
-    "population_pct_share": float,
+    "incarceration_population_pct": float,
     "jail_pct_share": float,
     "prison_pct_share": float,
     "jail_per_100k": float,
