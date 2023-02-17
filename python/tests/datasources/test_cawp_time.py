@@ -120,7 +120,7 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
                                  "middle_name": str, "last_name": str,
                                  "party": str, "level": str, "position": str,
                                  "state": str, "district": str, "race_ethnicity": str}
-        return pd.read_csv(os.path.join(TEST_DIR, filename),
+        return pd.read_csv(os.path.join(TEST_DIR, f'test_input_{filename}'),
                            dtype=test_input_data_types, index_col=False)
     else:
         # READ IN MANUAL TERRITORY STATELEG TOTAL TABLES
