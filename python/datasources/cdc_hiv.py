@@ -94,7 +94,6 @@ class CDCHIVData(DataSource):
                 table_name = f'{breakdown}_{geo_level}'
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
                 df.to_csv(f'{table_name}_output.csv', index=False)
-                
 
                 float_cols = [std_col.HIV_DIAGNOSES,
                               std_col.HIV_DIAGNOSES_PCT_INEQUITY,
