@@ -33,7 +33,7 @@ RATE_COL_MAP = {
 PCT_SHARE_COL_MAP = {
     JAIL: "jail_pct_share",
     PRISON: "prison_pct_share",
-    POP: "population_pct_share"
+    POP: "incarceration_population_pct"
 }
 
 PRISON_RAW_ALL = "total_prison_pop"

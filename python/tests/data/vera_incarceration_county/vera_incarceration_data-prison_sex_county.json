@@ -5,7 +5,7 @@
         "sex": "All",
         "prison_per_100k": 503,
         "prison_pct_share": 100.0,
-        "population_pct_share": 100.0,
+        "incarceration_population_pct": 100.0,
         "total_confined_children": 0.0
     },
     {
@@ -14,7 +14,7 @@
         "sex": "All",
         "prison_per_100k": 357,
         "prison_pct_share": 100.0,
-        "population_pct_share": 100.0,
+        "incarceration_population_pct": 100.0,
         "total_confined_children": 54.0
     },
     {
@@ -23,7 +23,7 @@
         "sex": "All",
         "prison_per_100k": 306,
         "prison_pct_share": 100.0,
-        "population_pct_share": 100.0,
+        "incarceration_population_pct": 100.0,
         "total_confined_children": 0.0
     },
     {
@@ -32,7 +32,7 @@
         "sex": "Female",
         "prison_per_100k": 81,
         "prison_pct_share": 8.2,
-        "population_pct_share": 50.7,
+        "incarceration_population_pct": 50.7,
         "total_confined_children": null
     },
     {
@@ -41,7 +41,7 @@
         "sex": "Female",
         "prison_per_100k": 32,
         "prison_pct_share": 4.6,
-        "population_pct_share": 51.7,
+        "incarceration_population_pct": 51.7,
         "total_confined_children": null
     },
     {
@@ -50,7 +50,7 @@
         "sex": "Female",
         "prison_per_100k": 0,
         "prison_pct_share": 0.0,
-        "population_pct_share": 45.5,
+        "incarceration_population_pct": 45.5,
         "total_confined_children": null
     },
     {
@@ -59,7 +59,7 @@
         "sex": "Male",
         "prison_per_100k": 936,
         "prison_pct_share": 91.8,
-        "population_pct_share": 49.3,
+        "incarceration_population_pct": 49.3,
         "total_confined_children": null
     },
     {
@@ -68,7 +68,7 @@
         "sex": "Male",
         "prison_per_100k": 705,
         "prison_pct_share": 95.4,
-        "population_pct_share": 48.3,
+        "incarceration_population_pct": 48.3,
         "total_confined_children": null
     },
     {
@@ -77,7 +77,7 @@
         "sex": "Male",
         "prison_per_100k": 561,
         "prison_pct_share": 100.0,
-        "population_pct_share": 54.5,
+        "incarceration_population_pct": 54.5,
         "total_confined_children": null
     }
 ]
