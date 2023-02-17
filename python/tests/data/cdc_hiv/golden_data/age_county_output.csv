@@ -1,4 +1,4 @@
-county_name,county_fips,time_period,age,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_population_pct
+county_name,county_fips,time_period,age,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,population_pct
 Autauga County,01001,2019,13-24,,,,18.0
 Autauga County,01001,2019,25-34,,,,15.7
 Autauga County,01001,2019,35-44,0.0,0.0,0.0,15.6
