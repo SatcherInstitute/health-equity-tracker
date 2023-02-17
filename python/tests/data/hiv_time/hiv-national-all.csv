@@ -7,5 +7,6 @@ NA - Not applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
+"HIV diagnoses","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","30,346","10.9","277,596,976"
 "HIV diagnoses","2019","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","36,528","13.2","276,063,213"
 "HIV diagnoses","2008","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","47,018","18.7","251,009,998"

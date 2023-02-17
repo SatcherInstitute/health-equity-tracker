@@ -1,13 +1,19 @@
-state_name,state_fips,time_period,age,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_population_pct
-United States,00,2019,13-24,7638,15.0,20.9,18.5
-United States,00,2008,13-24,8553,16.7,18.2,20.4
-United States,00,2019,25-34,13075,28.4,35.8,16.7
-United States,00,2008,25-34,12464,30.4,26.5,16.3
-United States,00,2019,35-44,7114,17.1,19.5,15.1
-United States,00,2008,35-44,12528,29.7,26.6,16.8
-United States,00,2019,45-54,4887,12.0,13.4,14.8
-United States,00,2008,45-54,9325,21.1,19.8,17.6
-United States,00,2019,55+,3814,4.0,10.4,34.9
-United States,00,2008,55+,4148,5.7,8.8,28.9
-United States,00,2019,All,36528,13.2,100.0,100.0
-United States,00,2008,All,47018,18.7,100.0,100.0
+state_name,state_fips,time_period,age,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_population_pct,hiv_diagnoses_pct_relative_inequity
+United States,00,2020,13-24,6082,11.9,20.0,18.4,8.7
+United States,00,2019,13-24,7638,15.0,20.9,18.5,13.0
+United States,00,2008,13-24,8553,16.7,18.2,20.4,-10.8
+United States,00,2020,25-34,11258,24.4,37.1,16.6,123.5
+United States,00,2019,25-34,13075,28.4,35.8,16.7,114.4
+United States,00,2008,25-34,12464,30.4,26.5,16.3,62.6
+United States,00,2020,35-44,5924,14.1,19.5,15.2,28.3
+United States,00,2019,35-44,7114,17.1,19.5,15.1,29.1
+United States,00,2008,35-44,12528,29.7,26.6,16.8,58.3
+United States,00,2020,45-54,3929,9.7,12.9,14.5,-11.0
+United States,00,2019,45-54,4887,12.0,13.4,14.8,-9.5
+United States,00,2008,45-54,9325,21.1,19.8,17.6,12.5
+United States,00,2020,55+,3153,3.2,10.4,35.3,-70.5
+United States,00,2019,55+,3814,4.0,10.4,34.9,-70.2
+United States,00,2008,55+,4148,5.7,8.8,28.9,-69.6
+United States,00,2020,All,30346,10.9,100.0,100.0,0.0
+United States,00,2019,All,36528,13.2,100.0,100.0,0.0
+United States,00,2008,All,47018,18.7,100.0,100.0,0.0

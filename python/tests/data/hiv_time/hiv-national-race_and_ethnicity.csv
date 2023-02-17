@@ -7,6 +7,13 @@ NA - Not applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
+"HIV diagnoses","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","792","15.8","5,025,350"
+"HIV diagnoses","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","7,831","4.6","171,354,870"
+"HIV diagnoses","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","65","13.0","500,248"
+"HIV diagnoses","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","7,999","16.7","47,931,529"
+"HIV diagnoses","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","12,824","37.4","34,261,932"
+"HIV diagnoses","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","635","3.8","16,508,736"
+"HIV diagnoses","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","200","9.9","2,014,311"
 "HIV diagnoses","2019","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","1,102","22.7","4,863,049"
 "HIV diagnoses","2019","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","9,063","5.3","171,541,840"
 "HIV diagnoses","2019","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","66","13.4","491,319"

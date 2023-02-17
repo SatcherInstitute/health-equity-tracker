@@ -7,6 +7,11 @@ NA - Not applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
+"HIV diagnoses","2020 (COVID-19 Pandemic)","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","3,153","3.2","98,063,042"
+"HIV diagnoses","2020 (COVID-19 Pandemic)","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","3,929","9.7","40,366,133"
+"HIV diagnoses","2020 (COVID-19 Pandemic)","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","5,924","14.1","42,136,192"
+"HIV diagnoses","2020 (COVID-19 Pandemic)","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","11,258","24.4","46,069,646"
+"HIV diagnoses","2020 (COVID-19 Pandemic)","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","6,082","11.9","50,961,963"
 "HIV diagnoses","2019","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","3,814","4.0","96,467,960"
 "HIV diagnoses","2019","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","4,887","12.0","40,860,323"
 "HIV diagnoses","2019","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","7,114","17.1","41,674,444"
