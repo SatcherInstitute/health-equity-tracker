@@ -45,6 +45,10 @@ US_CONGRESS_HISTORICAL_URL = "https://theunitedstates.io/congress-legislators/le
 CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity_time_series.csv"
 
 
+CAWP_POP_PCT_COL = "cawp_population_pct"
+CAWP_POP_COL = "cawp_population"
+
+
 def get_stleg_url(id: str):
     """
     Constructs the needed url for each state's table that contains the
@@ -160,8 +164,8 @@ class CAWPTimeData(DataSource):
                 std_col.PCT_OF_STLEG,
                 std_col.PCT_OF_W_STLEG,
                 std_col.W_STLEG_PCT_INEQUITY,
-                std_col.POPULATION_COL,
-                std_col.POPULATION_PCT_COL
+                CAWP_POP_COL,
+                CAWP_POP_PCT_COL
             ]
 
             column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
@@ -318,6 +322,9 @@ class CAWPTimeData(DataSource):
                == Race.AIAN_API.value][std_col.PCT_OF_CONGRESS] = None
         df.loc[df[std_col.RACE_CATEGORY_ID_COL]
                == Race.AIAN_API.value][std_col.PCT_OF_STLEG] = None
+
+        df = df.rename(columns={std_col.POPULATION_COL: CAWP_POP_COL,
+                       std_col.POPULATION_PCT_COL: CAWP_POP_PCT_COL})
 
         return [df, bq_table_name]
 

@@ -66,7 +66,7 @@ export function getWomenRaceLabel(
 
 class CawpProvider extends VariableProvider {
   constructor() {
-    super("cawp_provider", ["cawp_population_pct", ...CAWP_DETERMINANTS]);
+    super("cawp_provider", CAWP_DETERMINANTS);
   }
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.geography === "national" && breakdowns.hasOnlyRace()) {
@@ -113,10 +113,6 @@ class CawpProvider extends VariableProvider {
     }
     if (metricQuery.metricIds.includes("pct_share_of_us_congress"))
       consumedDatasetIds.push("the_unitedstates_project");
-
-    df = df.renameSeries({
-      population_pct: "cawp_population_pct",
-    });
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);

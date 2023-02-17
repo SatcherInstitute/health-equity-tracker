@@ -151,7 +151,7 @@ expected_dtype = {
     "jail_pct_share": float,
     "total_confined_children": int,
     "population": object,
-    "population_pct": float,
+    "incarceration_population_pct": float,
 }
 expected_dtype_age = {
     **expected_dtype,
@@ -327,7 +327,6 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
 
     assert mock_bq.call_count == 6
     assert mock_zip.call_count == 2
-
     assert mock_fips.call_count == 7
     for call_arg in mock_fips.call_args_list:
         assert call_arg.args[1] == "fips_codes_states"

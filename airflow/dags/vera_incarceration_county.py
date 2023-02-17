@@ -1,7 +1,7 @@
 # Ignore the Airflow module, it is installed in both dev and prod
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
-
+from airflow.operators.dummy_operator import DummyOperator  # type: ignore
 import util
 
 _VERA_WORKFLOW_ID = 'VERA_INCARCERATION_COUNTY'
@@ -55,14 +55,22 @@ vera_exporter_payload_sex = {
 vera_exporter_operator_sex = util.create_exporter_operator(
     'vera_incarceration_county_exporter_sex', vera_exporter_payload_sex, data_ingestion_dag)
 
+connector = DummyOperator(
+    default_args=default_args,
+    dag=data_ingestion_dag,
+    task_id='connector'
+)
 
 # Ingestion DAG
 (
-    vera_bq_operator_race >>
-    vera_bq_operator_age >>
-    vera_bq_operator_sex >> [
+    [
+        vera_bq_operator_race,
+        vera_bq_operator_age,
+        vera_bq_operator_sex
+    ] >> connector >>
+    [
         vera_exporter_operator_race,
         vera_exporter_operator_age,
-        vera_exporter_operator_sex,
+        vera_exporter_operator_sex
     ]
 )
