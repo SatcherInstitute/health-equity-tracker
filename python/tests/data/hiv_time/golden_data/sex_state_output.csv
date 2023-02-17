@@ -1,0 +1,7 @@
+state_name,state_fips,time_period,sex,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_population_pct,hiv_diagnoses_pct_relative_inequity
+Alabama,01,2019,All,635,15.4,100.0,100.0,0.0
+Alabama,01,2019,Female,135,6.3,21.3,52.2,-59.2
+Alabama,01,2019,Male,500,25.3,78.7,47.8,64.6
+Alaska,02,2008,All,39,7.0,100.0,100.0,0.0
+Alaska,02,2008,Female,8,3.0,20.5,47.5,-56.8
+Alaska,02,2008,Male,31,10.6,79.5,52.5,51.4

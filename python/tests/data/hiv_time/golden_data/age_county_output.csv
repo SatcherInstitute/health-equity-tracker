@@ -1,0 +1,13 @@
+county_name,county_fips,time_period,age,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_population_pct,hiv_diagnoses_pct_relative_inequity
+Autauga County,01001,2019,13-24,,,,18.0,
+Autauga County,01001,2019,25-34,,,,15.7,
+Autauga County,01001,2019,35-44,0,0.0,0.0,15.6,-100.0
+Autauga County,01001,2019,45-54,,,,16.4,
+Autauga County,01001,2019,55+,0,0.0,0.0,34.3,-100.0
+Autauga County,01001,2019,All,7,15.0,100.0,100.0,0.0
+Baldwin County,01003,2008,13-24,7,27.4,38.9,17.3,124.9
+Baldwin County,01003,2008,25-34,,,,13.8,
+Baldwin County,01003,2008,35-44,,,,15.9,
+Baldwin County,01003,2008,45-54,,,,17.6,
+Baldwin County,01003,2008,55+,0,0.0,0.0,35.5,-100.0
+Baldwin County,01003,2008,All,18,12.2,100.0,100.0,0.0

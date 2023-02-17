@@ -1,0 +1,25 @@
+state_name,state_fips,time_period,race_and_ethnicity,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_population_pct,hiv_diagnoses_pct_relative_inequity,race_category_id
+United States,00,2020,All,30346,10.9,100.0,100.0,0.0,ALL
+United States,00,2019,All,36528,13.2,100.0,100.0,0.0,ALL
+United States,00,2008,All,47018,18.7,100.0,100.0,0.0,ALL
+United States,00,2020,American Indian and Alaska Native (NH),200,9.9,0.7,0.7,0.0,AIAN_NH
+United States,00,2019,American Indian and Alaska Native (NH),204,10.2,0.6,0.7,-14.3,AIAN_NH
+United States,00,2008,American Indian and Alaska Native (NH),142,7.6,0.3,0.7,-57.1,AIAN_NH
+United States,00,2020,Asian (NH),635,3.8,2.1,5.9,-64.4,ASIAN_NH
+United States,00,2019,Asian (NH),733,4.5,2.0,5.9,-66.1,ASIAN_NH
+United States,00,2008,Asian (NH),646,5.8,1.4,4.4,-68.2,ASIAN_NH
+United States,00,2020,Black or African American (NH),12824,37.4,42.3,12.3,243.9,BLACK_NH
+United States,00,2019,Black or African American (NH),15471,45.5,42.4,12.3,244.7,BLACK_NH
+United States,00,2008,Black or African American (NH),21285,71.0,45.3,11.9,280.7,BLACK_NH
+United States,00,2020,Hispanic or Latino,7999,16.7,26.4,17.3,52.6,HISP
+United States,00,2019,Hispanic or Latino,9889,21.1,27.1,17.0,59.4,HISP
+United States,00,2008,Hispanic or Latino,9925,28.6,21.1,13.8,52.9,HISP
+United States,00,2020,Two or more races (NH),792,15.8,2.6,1.8,44.4,MULTI_NH
+United States,00,2019,Two or more races (NH),1102,22.7,3.0,1.8,66.7,MULTI_NH
+United States,00,2008,Two or more races (NH),2575,90.9,5.5,1.1,400.0,MULTI_NH
+United States,00,2020,Native Hawaiian and Pacific Islander (NH),65,13.0,0.2,0.2,0.0,NHPI_NH
+United States,00,2019,Native Hawaiian and Pacific Islander (NH),66,13.4,0.2,0.2,0.0,NHPI_NH
+United States,00,2008,Native Hawaiian and Pacific Islander (NH),46,13.1,0.1,0.1,0.0,NHPI_NH
+United States,00,2020,White (NH),7831,4.6,25.8,61.7,-58.2,WHITE_NH
+United States,00,2019,White (NH),9063,5.3,24.8,62.1,-60.1,WHITE_NH
+United States,00,2008,White (NH),12399,7.3,26.4,67.9,-61.1,WHITE_NH
