@@ -13,6 +13,7 @@ from ingestion import gcs_to_bq_util, merge_utils
 from ingestion.dataset_utils import (generate_pct_rel_inequity_col,
                                      zero_out_pct_rel_inequity)
 from ingestion.standardized_columns import Race
+from ingestion.merge_utils import ACS_EARLIEST_YEAR, ACS_LATEST_YEAR
 import pandas as pd
 
 FIPS_TO_STATE_TABLE_MAP = {
@@ -34,10 +35,6 @@ FIPS_TO_STATE_TABLE_MAP = {
 DEFAULT_CONGRESS_FIRST_YR = 1915
 DEFAULT_STLEG_FIRST_YR = 1983
 DEFAULT_LAST_YR = 2022
-
-# time_periods available from ACS 5-yr time_series tables
-ACS_FIRST_YR = 2009
-ACS_LAST_YR = 2022
 
 # data urls
 US_CONGRESS_CURRENT_URL = "https://theunitedstates.io/congress-legislators/legislators-current.json"
@@ -738,7 +735,7 @@ def add_aian_api_rows(df):
 
     # only keep rows with years that will get population
     target_time_periods = get_consecutive_time_periods(
-        first_year=ACS_FIRST_YR, last_year=ACS_LAST_YR)
+        first_year=ACS_EARLIEST_YEAR, last_year=ACS_LATEST_YEAR)
     df_aian_api_rows = df[df[std_col.TIME_PERIOD_COL].isin(
         target_time_periods)]
 
