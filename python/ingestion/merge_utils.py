@@ -254,7 +254,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
             # re-use 2010 territory populations in every ACS year
             yearly_pop_terr_dfs = []
             start_year = int(ACS_EARLIEST_YEAR)
-            end_year = int(ACS_LATEST_YEAR) + 1
+            end_year = max(df[std_col.TIME_PERIOD_COL].astype(int)) + 1
             for year_num in range(start_year, end_year):
                 year_str = str(year_num)
                 yearly_df = pop_terr_df.copy()
