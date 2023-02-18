@@ -1,56 +1,56 @@
 time_period,race_category_id,race_and_ethnicity,total_us_congress_count,women_this_race_us_congress_count,total_state_leg_count,women_this_race_state_leg_count,state_fips,state_name,state_postal,pct_share_of_us_congress,pct_share_of_women_us_congress,pct_share_of_state_leg,pct_share_of_women_state_leg,population,population_pct
-2018,AIANNH,"Native American, Alaska Native, & Native Hawaiian",551.0,0.0,7422.0,23.0,00,United States,US,0.0,0.0,0.3,1.2,,
-2018,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",551.0,11.0,7422.0,78.0,00,United States,US,2.0,9.5,1.1,4.0,20871832.0,6.4
-2018,ALL,All,551.0,116.0,7422.0,1945.0,00,United States,US,21.1,100.0,26.2,100.0,326289971.0,100.0
-2018,ASIAN_PAC,Asian American & Pacific Islander,551.0,11.0,7422.0,55.0,00,United States,US,2.0,9.5,0.7,2.8,,
-2018,BLACK,Black or African American,551.0,22.0,7422.0,285.0,00,United States,US,4.0,19.0,3.8,14.7,41281123.0,12.7
-2018,HISP,Hispanic or Latino,551.0,11.0,7422.0,139.0,00,United States,US,2.0,9.5,1.9,7.1,60867275.0,18.7
-2018,MENA,Middle Eastern & North African,551.0,0.0,7422.0,3.0,00,United States,US,0.0,0.0,0.0,0.2,,
-2018,MULTI,Two or more races,551.0,1.0,7422.0,19.0,00,United States,US,0.2,0.9,0.3,1.0,10611263.0,3.3
-2018,OTHER_STANDARD,Unrepresented race,551.0,0.0,7422.0,1.0,00,United States,US,0.0,0.0,0.0,0.1,16337215.0,5.0
-2018,UNKNOWN,Unknown race,551.0,0.0,7422.0,1.0,00,United States,US,0.0,0.0,0.0,0.1,,
-2018,WHITE,White,551.0,73.0,7422.0,1458.0,00,United States,US,13.2,62.9,19.6,75.0,237188538.0,72.7
-2019,AIANNH,"Native American, Alaska Native, & Native Hawaiian",638.0,2.0,7422.0,30.0,00,United States,US,0.3,1.5,0.4,1.4,,
-2019,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",638.0,12.0,7422.0,97.0,00,United States,US,1.9,9.2,1.3,4.4,21287564.0,6.5
-2019,ALL,All,638.0,131.0,7422.0,2207.0,00,United States,US,20.5,100.0,29.7,100.0,328016242.0,100.0
-2019,ASIAN_PAC,Asian American & Pacific Islander,638.0,10.0,7422.0,67.0,00,United States,US,1.6,7.6,0.9,3.0,,
-2019,BLACK,Black or African American,638.0,25.0,7422.0,333.0,00,United States,US,3.9,19.1,4.5,15.1,41621318.0,12.7
-2019,HISP,Hispanic or Latino,638.0,14.0,7422.0,153.0,00,United States,US,2.2,10.7,2.1,6.9,61755289.0,18.8
-2019,MENA,Middle Eastern & North African,638.0,2.0,7422.0,10.0,00,United States,US,0.3,1.5,0.1,0.5,,
-2019,MULTI,Two or more races,638.0,1.0,7422.0,33.0,00,United States,US,0.2,0.8,0.4,1.5,10939551.0,3.3
-2019,OTHER_STANDARD,Unrepresented race,638.0,0.0,7422.0,1.0,00,United States,US,0.0,0.0,0.0,0.0,16602133.0,5.1
-2019,UNKNOWN,Unknown race,638.0,0.0,7422.0,6.0,00,United States,US,0.0,0.0,0.1,0.3,,
-2019,WHITE,White,638.0,79.0,7422.0,1642.0,00,United States,US,12.4,60.3,22.1,74.4,237565676.0,72.4
-2020,AIANNH,"Native American, Alaska Native, & Native Hawaiian",543.0,2.0,7422.0,30.0,00,United States,US,0.4,1.5,0.4,1.3,,
-2020,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",543.0,12.0,7422.0,99.0,00,United States,US,2.2,9.2,1.3,4.4,21733492.0,6.6
-2020,ALL,All,543.0,131.0,7422.0,2234.0,00,United States,US,24.1,100.0,30.1,100.0,329824950.0,100.0
-2020,ASIAN_PAC,Asian American & Pacific Islander,543.0,10.0,7422.0,69.0,00,United States,US,1.8,7.6,0.9,3.1,,
-2020,BLACK,Black or African American,543.0,25.0,7422.0,337.0,00,United States,US,4.6,19.1,4.5,15.1,41595290.0,12.6
-2020,HISP,Hispanic or Latino,543.0,14.0,7422.0,152.0,00,United States,US,2.6,10.7,2.0,6.8,62573645.0,19.0
-2020,MENA,Middle Eastern & North African,543.0,2.0,7422.0,10.0,00,United States,US,0.4,1.5,0.1,0.4,,
-2020,MULTI,Two or more races,543.0,1.0,7422.0,33.0,00,United States,US,0.2,0.8,0.4,1.5,17190923.0,5.2
-2020,OTHER_STANDARD,Unrepresented race,543.0,0.0,7422.0,1.0,00,United States,US,0.0,0.0,0.0,0.0,17391981.0,5.3
-2020,UNKNOWN,Unknown race,543.0,0.0,7422.0,8.0,00,United States,US,0.0,0.0,0.1,0.4,,
-2020,WHITE,White,543.0,79.0,7422.0,1662.0,00,United States,US,14.5,60.3,22.4,74.4,231913264.0,70.3
-2021,AIANNH,"Native American, Alaska Native, & Native Hawaiian",612.0,2.0,7422.0,32.0,00,United States,US,0.3,1.3,0.4,1.3,,
-2021,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",612.0,14.0,7422.0,113.0,00,United States,US,2.3,9.2,1.5,4.7,22133057.0,6.6
-2021,ALL,All,612.0,152.0,7422.0,2400.0,00,United States,US,24.8,100.0,32.3,100.0,333036755.0,100.0
-2021,ASIAN_PAC,Asian American & Pacific Islander,612.0,12.0,7422.0,81.0,00,United States,US,2.0,7.9,1.1,3.4,,
-2021,BLACK,Black or African American,612.0,29.0,7422.0,381.0,00,United States,US,4.7,19.1,5.1,15.9,41722663.0,12.5
-2021,HISP,Hispanic or Latino,612.0,15.0,7422.0,162.0,00,United States,US,2.5,9.9,2.2,6.8,64077330.0,19.2
-2021,MENA,Middle Eastern & North African,612.0,1.0,7422.0,11.0,00,United States,US,0.2,0.7,0.1,0.5,,
-2021,MULTI,Two or more races,612.0,3.0,7422.0,51.0,00,United States,US,0.5,2.0,0.7,2.1,23600575.0,7.1
-2021,OTHER_STANDARD,Unrepresented race,612.0,0.0,7422.0,1.0,00,United States,US,0.0,0.0,0.0,0.0,19097700.0,5.7
-2021,UNKNOWN,Unknown race,612.0,0.0,7422.0,43.0,00,United States,US,0.0,0.0,0.6,1.8,,
-2021,WHITE,White,612.0,96.0,7422.0,1740.0,00,United States,US,15.7,63.2,23.4,72.5,226482760.0,68.0
-2022,AIANNH,"Native American, Alaska Native, & Native Hawaiian",552.0,2.0,7512.0,34.0,00,United States,US,0.4,1.3,0.5,1.4,,
-2022,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",558.0,13.0,7692.0,125.0,00,United States,US,2.3,8.2,1.6,5.1,,
-2022,ALL,All,552.0,154.0,7512.0,2408.0,00,United States,US,27.9,100.0,32.1,100.0,,
-2022,ASIAN_PAC,Asian American & Pacific Islander,552.0,11.0,7512.0,87.0,00,United States,US,2.0,7.1,1.2,3.6,,
-2022,BLACK,Black or African American,552.0,28.0,7512.0,388.0,00,United States,US,5.1,18.2,5.2,16.1,,
-2022,HISP,Hispanic or Latino,552.0,16.0,7512.0,160.0,00,United States,US,2.9,10.4,2.1,6.6,,
-2022,MENA,Middle Eastern & North African,552.0,1.0,7512.0,11.0,00,United States,US,0.2,0.6,0.1,0.5,,
-2022,MULTI,Two or more races,552.0,2.0,7512.0,50.0,00,United States,US,0.4,1.3,0.7,2.1,,
-2022,OTHER_STANDARD,Unrepresented race,552.0,0.0,7512.0,1.0,00,United States,US,0.0,0.0,0.0,0.0,,
-2022,UNKNOWN,Unknown race,552.0,0.0,7512.0,49.0,00,United States,US,0.0,0.0,0.7,2.0,,
-2022,WHITE,White,552.0,98.0,7512.0,1726.0,00,United States,US,17.8,63.6,23.0,71.7,,
+2018,AIANNH,"Native American, Alaska Native, & Native Hawaiian",4.0,0.0,99.0,2.0,00,United States,US,0.0,0.0,2.0,9.1,,
+2018,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",4.0,1.0,99.0,5.0,00,United States,US,25.0,50.0,5.1,22.7,20871832.0,6.4
+2018,ALL,All,4.0,2.0,99.0,22.0,00,United States,US,50.0,100.0,22.2,100.0,326289971.0,100.0
+2018,ASIAN_PAC,Asian American & Pacific Islander,4.0,1.0,99.0,3.0,00,United States,US,25.0,50.0,3.0,13.6,,
+2018,BLACK,Black or African American,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,41281123.0,12.7
+2018,HISP,Hispanic or Latino,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,60867275.0,18.7
+2018,MENA,Middle Eastern & North African,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,,
+2018,MULTI,Two or more races,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,10611263.0,3.3
+2018,OTHER_STANDARD,Unrepresented race,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,16337215.0,5.0
+2018,UNKNOWN,Unknown race,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,,
+2018,WHITE,White,4.0,1.0,99.0,17.0,00,United States,US,25.0,50.0,17.2,77.3,237188538.0,72.7
+2019,AIANNH,"Native American, Alaska Native, & Native Hawaiian",4.0,0.0,99.0,1.0,00,United States,US,0.0,0.0,1.0,4.0,,
+2019,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",4.0,1.0,99.0,2.0,00,United States,US,25.0,50.0,2.0,8.0,21287564.0,6.5
+2019,ALL,All,4.0,2.0,99.0,25.0,00,United States,US,50.0,100.0,25.3,100.0,328016242.0,100.0
+2019,ASIAN_PAC,Asian American & Pacific Islander,4.0,1.0,99.0,1.0,00,United States,US,25.0,50.0,1.0,4.0,,
+2019,BLACK,Black or African American,4.0,0.0,99.0,2.0,00,United States,US,0.0,0.0,2.0,8.0,41621318.0,12.7
+2019,HISP,Hispanic or Latino,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,61755289.0,18.8
+2019,MENA,Middle Eastern & North African,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,,
+2019,MULTI,Two or more races,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,10939551.0,3.3
+2019,OTHER_STANDARD,Unrepresented race,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,16602133.0,5.1
+2019,UNKNOWN,Unknown race,4.0,0.0,99.0,1.0,00,United States,US,0.0,0.0,1.0,4.0,,
+2019,WHITE,White,4.0,1.0,99.0,20.0,00,United States,US,25.0,50.0,20.2,80.0,237565676.0,72.4
+2020,AIANNH,"Native American, Alaska Native, & Native Hawaiian",4.0,0.0,99.0,1.0,00,United States,US,0.0,0.0,1.0,4.0,,
+2020,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",4.0,1.0,99.0,2.0,00,United States,US,25.0,50.0,2.0,8.0,21733492.0,6.6
+2020,ALL,All,4.0,2.0,99.0,25.0,00,United States,US,50.0,100.0,25.3,100.0,329824950.0,100.0
+2020,ASIAN_PAC,Asian American & Pacific Islander,4.0,1.0,99.0,1.0,00,United States,US,25.0,50.0,1.0,4.0,,
+2020,BLACK,Black or African American,4.0,0.0,99.0,2.0,00,United States,US,0.0,0.0,2.0,8.0,41595290.0,12.6
+2020,HISP,Hispanic or Latino,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,62573645.0,19.0
+2020,MENA,Middle Eastern & North African,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,,
+2020,MULTI,Two or more races,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,17190923.0,5.2
+2020,OTHER_STANDARD,Unrepresented race,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,17391981.0,5.3
+2020,UNKNOWN,Unknown race,4.0,0.0,99.0,1.0,00,United States,US,0.0,0.0,1.0,4.0,,
+2020,WHITE,White,4.0,1.0,99.0,20.0,00,United States,US,25.0,50.0,20.2,80.0,231913264.0,70.3
+2021,AIANNH,"Native American, Alaska Native, & Native Hawaiian",4.0,0.0,99.0,1.0,00,United States,US,0.0,0.0,1.0,5.0,,
+2021,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",4.0,1.0,99.0,2.0,00,United States,US,25.0,50.0,2.0,10.0,22133057.0,6.6
+2021,ALL,All,4.0,2.0,99.0,20.0,00,United States,US,50.0,100.0,20.2,100.0,333036755.0,100.0
+2021,ASIAN_PAC,Asian American & Pacific Islander,4.0,1.0,99.0,1.0,00,United States,US,25.0,50.0,1.0,5.0,,
+2021,BLACK,Black or African American,4.0,0.0,99.0,1.0,00,United States,US,0.0,0.0,1.0,5.0,41722663.0,12.5
+2021,HISP,Hispanic or Latino,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,64077330.0,19.2
+2021,MENA,Middle Eastern & North African,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,,
+2021,MULTI,Two or more races,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,23600575.0,7.1
+2021,OTHER_STANDARD,Unrepresented race,4.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,19097700.0,5.7
+2021,UNKNOWN,Unknown race,4.0,0.0,99.0,1.0,00,United States,US,0.0,0.0,1.0,5.0,,
+2021,WHITE,White,4.0,1.0,99.0,16.0,00,United States,US,25.0,50.0,16.2,80.0,226482760.0,68.0
+2022,AIANNH,"Native American, Alaska Native, & Native Hawaiian",5.0,1.0,99.0,1.0,00,United States,US,20.0,33.3,1.0,5.0,,
+2022,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",5.0,2.0,99.0,2.0,00,United States,US,40.0,66.7,2.0,10.0,22133057.0,6.6
+2022,ALL,All,5.0,3.0,99.0,20.0,00,United States,US,60.0,100.0,20.2,100.0,333036755.0,100.0
+2022,ASIAN_PAC,Asian American & Pacific Islander,5.0,1.0,99.0,1.0,00,United States,US,20.0,33.3,1.0,5.0,,
+2022,BLACK,Black or African American,5.0,0.0,99.0,1.0,00,United States,US,0.0,0.0,1.0,5.0,41722663.0,12.5
+2022,HISP,Hispanic or Latino,5.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,64077330.0,19.2
+2022,MENA,Middle Eastern & North African,5.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,,
+2022,MULTI,Two or more races,5.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,23600575.0,7.1
+2022,OTHER_STANDARD,Unrepresented race,5.0,0.0,99.0,0.0,00,United States,US,0.0,0.0,0.0,0.0,19097700.0,5.7
+2022,UNKNOWN,Unknown race,5.0,0.0,99.0,1.0,00,United States,US,0.0,0.0,1.0,5.0,,
+2022,WHITE,White,5.0,1.0,99.0,16.0,00,United States,US,20.0,33.3,16.2,80.0,226482760.0,68.0

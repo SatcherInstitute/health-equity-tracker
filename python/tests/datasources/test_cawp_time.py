@@ -272,7 +272,6 @@ def testGenerateNamesBreakdown(
             "women_this_race_us_congress_names": str,
             "women_this_race_state_leg_names": str,
     },
-
     ).fillna('')
 
     cawp_data = CAWPTimeData()
@@ -295,7 +294,7 @@ def testGenerateNamesBreakdown(
                        check_dtype=False)
 
 
-# # # # TEST GENERATION OF STATE LEVEL BREAKDOWN
+# # # # # TEST GENERATION OF STATE LEVEL BREAKDOWN
 
 
 @mock.patch('ingestion.merge_utils.merge_yearly_pop_numbers',
@@ -328,7 +327,7 @@ def testGenerateStateBreakdown(
                        check_dtype=False)
 
 
-# # # TEST GENERATION OF NATIONAL BREAKDOWN
+# # # # TEST GENERATION OF NATIONAL BREAKDOWN
 
 @mock.patch('ingestion.merge_utils.merge_yearly_pop_numbers',
             side_effect=_merge_yearly_pop_numbers)
