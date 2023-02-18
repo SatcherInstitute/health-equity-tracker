@@ -6,8 +6,6 @@ import { Helmet } from "react-helmet-async";
 import { urlMap } from "../../utils/externalUrls";
 import { Button, TextField } from "@material-ui/core";
 
-const FeedbackBox = React.lazy(() => import("../ui/FeedbackBox"));
-
 function ContactUsTab() {
   return (
     <>
@@ -126,7 +124,6 @@ function ContactUsTab() {
             </p>
           </Grid>
         </Grid>
-        <FeedbackBox alwaysShow={true} />
       </Grid>
     </>
   );
