@@ -394,10 +394,9 @@ def testMergeYearlyPopNumbers(
         json.dumps(_expected_time_series_merged_with_pop_numbers),
         dtype={std_col.STATE_FIPS_COL: str, std_col.TIME_PERIOD_COL: str}).reset_index(drop=True)
 
-    # state + territory for year to year, and again for too recent source years
+    # state + territory for ACS-matching years,
+    # and again for most recent source years merged onto most recent ACS years
     assert mock_pop.call_count == 4
-    print(df)
-    print(expected_df)
     assert_frame_equal(df, expected_df, check_like=True)
 
 
