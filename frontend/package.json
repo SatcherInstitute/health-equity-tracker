@@ -101,7 +101,7 @@
     "extends": "react-app"
   },
   "engines": {
-    "node": ">=16",
+    "node": ">=12.19.0",
     "npm": ">=6.14.8"
   },
   "browserslist": {
