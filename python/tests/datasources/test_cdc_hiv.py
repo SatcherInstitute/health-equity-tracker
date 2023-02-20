@@ -115,7 +115,7 @@ def _generate_breakdown_df(*args):
     })
 
 
-def _generate_alls_df(*args):
+def _generate_df_from_data_dir(*args):
     print("mocking the generate alls function")
     return pd.DataFrame({
         "state_fips": ["01", "02", "03"],
@@ -128,10 +128,10 @@ def _generate_alls_df(*args):
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-@mock.patch('datasources.cdc_hiv_.CDCHIVData.generate_breakdown_df', side_effect=_generate_breakdown_df)
-@mock.patch('datasources.cdc_hiv_.generate_alls_df', side_effect=_generate_alls_df)
+@mock.patch('datasources.cdc_hiv.CDCHIVData.generate_breakdown_df', side_effect=_generate_breakdown_df)
+@mock.patch('datasources.cdc_hiv.generate_df_from_data_dir', side_effect=_generate_df_from_data_dir)
 def testWriteToBqCalls(
-    mock_alls_df: mock.MagicMock,
+    mock_data_dir_df: mock.MagicMock,
     mock_breakdown_df: mock.MagicMock,
     mock_bq: mock.MagicMock,
 ):
@@ -152,29 +152,3 @@ def testWriteToBqCalls(
                                     "age_state",
                                     "race_and_ethnicity_state",
                                     "sex_state"]
-
-
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-# def testWriteToBqCalls(
-#     mock_data_dir_df: mock.MagicMock,
-#     mock_bq: mock.MagicMock,
-# ):
-#     datasource = CDCHIVData()
-#     datasource.write_to_bq('dataset', 'gcs_bucket')
-
-#     assert mock_bq.call_count == 9
-
-#     expected_table_names = [
-#         call[0][2] for call in mock_bq.call_args_list
-#     ]
-
-#     assert expected_table_names == ["age_county",
-#                                     "race_and_ethnicity_county",
-#                                     "sex_county",
-#                                     "age_national",
-#                                     "race_and_ethnicity_national",
-#                                     "sex_national",
-#                                     "age_state",
-#                                     "race_and_ethnicity_state",
-#                                     "sex_state"]
