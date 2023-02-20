@@ -212,6 +212,14 @@
       margin: 15px 0 15px 0;
     }
 
+    .NewsAndStoriesItem > a {
+      text-decoration: none !important;
+
+      :hover {
+        text-decoration: underline;
+      }
+    }
+
     .NewsAndStoriesSubtitleText {
       font-size: $text;
       margin: 0px;
@@ -222,6 +230,10 @@
       }
     }
   }
+}
+
+.MoreArticlesLink {
+  font-size: $header !important;
 }
 
 /** ------------- FAQ SECTION ------------- **/
@@ -361,16 +373,30 @@
   border-bottom: 1px solid $alt-grey;
 }
 
+.ResourcesGroup {
+  margin-top: 3rem !important;
+}
+
 .ResourcesTabHeaderText {
   @include tav300();
-  font-size: $header !important;
+  font-size: $smallestHeader !important;
   text-align: center;
   color: $alt-black;
-  padding-bottom: 20px;
+  padding: 0 2rem 0 2rem;
+
+  @media (min-width: $md) {
+    padding-bottom: 20px !important;
+  }
 }
 
 .ResourcesTabList {
   text-align: left;
+
+  padding-top: 0px !important;
+
+  @media (min-width: $md) {
+    padding-top: 40px !important;
+  }
 }
 
 .ResourcesTabListItem {

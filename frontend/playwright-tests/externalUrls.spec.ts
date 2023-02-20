@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { urlMap } from "../src/utils/externalUrls"
-import { RESOURCES, PDOH_RESOURCES, EQUITY_INDEX_RESOURCES, AIAN_RESOURCES, API_RESOURCES, HISP_RESOURCES, MENTAL_HEALTH_RESOURCES, COVID_RESOURCES, COVID_VACCINATION_RESOURCES } from "../src/pages/WhatIsHealthEquity/ResourcesData"
+import { RESOURCES, PDOH_RESOURCES, ECONOMIC_EQUITY_RESOURCES, EQUITY_INDEX_RESOURCES, AIAN_RESOURCES, API_RESOURCES, HISP_RESOURCES, MENTAL_HEALTH_RESOURCES, COVID_RESOURCES, COVID_VACCINATION_RESOURCES } from "../src/pages/WhatIsHealthEquity/ResourcesData"
 
 const knownFlakyUrls = [
     "https://satcherinstitute.github.io/analysis/cdc_case_data",
@@ -30,7 +30,7 @@ for (const url of Object.values(urlMap)) {
     });
 }
 
-for (const url of RESOURCES.filter(resource => resource.url).map(fellow => fellow.url)) {
+for (const url of RESOURCES.resources.filter(resource => resource.url).map(fellow => fellow.url)) {
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`Resource Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
@@ -39,7 +39,7 @@ for (const url of RESOURCES.filter(resource => resource.url).map(fellow => fello
     });
 }
 
-for (const url of PDOH_RESOURCES.filter(resource => resource.url).map(fellow => fellow.url)) {
+for (const url of PDOH_RESOURCES.resources.filter(resource => resource.url).map(fellow => fellow.url)) {
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`PDOH_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
@@ -48,7 +48,7 @@ for (const url of PDOH_RESOURCES.filter(resource => resource.url).map(fellow => 
     });
 }
 
-for (const url of EQUITY_INDEX_RESOURCES.filter(resource => resource.url).map(fellow => fellow.url)) {
+for (const url of EQUITY_INDEX_RESOURCES.resources.filter(resource => resource.url).map(fellow => fellow.url)) {
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`EQUITY_INDEX_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
@@ -57,7 +57,16 @@ for (const url of EQUITY_INDEX_RESOURCES.filter(resource => resource.url).map(fe
     });
 }
 
-for (const url of AIAN_RESOURCES.filter(resource => resource.url).map(fellow => fellow.url)) {
+for (const url of ECONOMIC_EQUITY_RESOURCES.resources.filter(resource => resource.url).map(fellow => fellow.url)) {
+    if (!url || knownFlakyUrls.includes(url)) continue
+    test(`ECONOMIC_EQUITY_RESOURCES Page: ${url}`, async ({ page }) => {
+        const response = await page.goto(url);
+        // @ts-ignore: Object is possibly 'null'.
+        if (response.status() !== 200) console.log(url, response.status());
+    });
+}
+
+for (const url of AIAN_RESOURCES.resources.filter(resource => resource.url).map(fellow => fellow.url)) {
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`AIAN_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
@@ -66,7 +75,7 @@ for (const url of AIAN_RESOURCES.filter(resource => resource.url).map(fellow => 
     });
 }
 
-for (const url of API_RESOURCES.filter(resource => resource.url).map(fellow => fellow.url)) {
+for (const url of API_RESOURCES.resources.filter(resource => resource.url).map(fellow => fellow.url)) {
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`API_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
@@ -75,7 +84,7 @@ for (const url of API_RESOURCES.filter(resource => resource.url).map(fellow => f
     });
 }
 
-for (const url of HISP_RESOURCES.filter(resource => resource.url).map(fellow => fellow.url)) {
+for (const url of HISP_RESOURCES.resources.filter(resource => resource.url).map(fellow => fellow.url)) {
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`HISP_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
@@ -84,7 +93,7 @@ for (const url of HISP_RESOURCES.filter(resource => resource.url).map(fellow => 
     });
 }
 
-for (const url of MENTAL_HEALTH_RESOURCES.filter(resource => resource.url).map(fellow => fellow.url)) {
+for (const url of MENTAL_HEALTH_RESOURCES.resources.filter(resource => resource.url).map(fellow => fellow.url)) {
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`MENTAL_HEALTH_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
@@ -92,14 +101,14 @@ for (const url of MENTAL_HEALTH_RESOURCES.filter(resource => resource.url).map(f
         if (response.status() !== 200) console.log(url, response.status());
     });
 }
-for (const url of COVID_RESOURCES.filter(resource => resource.url).map(fellow => fellow.url)) {
+for (const url of COVID_RESOURCES.resources.filter(resource => resource.url).map(fellow => fellow.url)) {
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`COVID_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
         // @ts-ignore: Object is possibly 'null'.
         if (response.status() !== 200) console.log(url, response.status());
     });
-} for (const url of COVID_VACCINATION_RESOURCES.filter(resource => resource.url).map(fellow => fellow.url)) {
+} for (const url of COVID_VACCINATION_RESOURCES.resources.filter(resource => resource.url).map(fellow => fellow.url)) {
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`COVID_VACCINATION_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);

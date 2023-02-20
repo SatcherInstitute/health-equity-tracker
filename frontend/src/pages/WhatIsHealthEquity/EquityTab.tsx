@@ -10,7 +10,10 @@ import {
   fetchCopyData,
   REACT_QUERY_OPTIONS,
 } from "../../utils/urlutils";
-import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "../../utils/internalRoutes";
+import {
+  NEWS_TAB_LINK,
+  WIHE_JOIN_THE_EFFORT_SECTION_ID,
+} from "../../utils/internalRoutes";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
 import { Helmet } from "react-helmet-async";
@@ -18,6 +21,7 @@ import LazyLoad from "react-lazyload";
 import { useQuery } from "react-query";
 import sass from "../../styles/variables.module.scss";
 import { urlMap } from "../../utils/externalUrls";
+import { Link } from "react-router-dom";
 
 interface WIHEWordpressCopy {
   section2_headingLevel2: string;
@@ -47,7 +51,7 @@ The object below provides fallback if that fetch fails
 */
 
 export const WIHEFallbackCopy: WIHEWordpressCopy = {
-  section2_headingLevel2: "Health equity resources",
+  section2_headingLevel2: "Health equity learning",
   section4_headingLevel2: "How do I join the movement?",
   section4_heading2_text:
     "To advance health equity, we need smart, talented, passionate folks like you on board.",
@@ -376,9 +380,22 @@ function EquityTab() {
                 >
                   News and stories
                 </Typography>
+
+                <Box mt={5}>
+                  <Typography
+                    className={styles.PrioritizeHealthEquityHeaderSubtext}
+                    variant="body1"
+                    paragraph={true}
+                  ></Typography>
+                </Box>
+
                 <span className={styles.NewsAndStoriesSubheaderText}>
-                  Read the latest news, posts, and stories related to health
-                  equity
+                  Read the{" "}
+                  <Link to={NEWS_TAB_LINK}>
+                    latest news, posts, and stories
+                  </Link>{" "}
+                  related to health equity, or learn more from the articles
+                  below.
                 </span>
               </Grid>
               <LazyLoad offset={300} height={700} once>
@@ -396,24 +413,30 @@ function EquityTab() {
                     className={styles.NewsAndStoriesItem}
                     component="article"
                   >
-                    <img
-                      className={styles.NewsAndStoriesBigImg}
-                      src="/img/stock/kid-gets-a-mask.png"
-                      alt=""
-                    />
-                    <h4 className={styles.NewsAndStoriesTitleText}>
-                      Why It Matters That Information On Race, Ethnicity, Gender
-                      And Disability Are Measured Accurately And Completely
-                    </h4>
+                    <a
+                      href="https://satcherinstitute.org/hetblog2/"
+                      aria-label="Satcher Blog Post on Why Data Matters"
+                    >
+                      <img
+                        className={styles.NewsAndStoriesBigImg}
+                        src="/img/stock/kid-gets-a-mask.png"
+                        alt=""
+                      />
+                      <h4 className={styles.NewsAndStoriesTitleText}>
+                        Why it matters that information on race, ethnicity,
+                        gender and disability are measured accurately and
+                        completely
+                      </h4>
+                    </a>
                     <p className={styles.NewsAndStoriesSubtitleText}>
-                      Why ongoing data on health and wellbeing metrics could be
+                      Why ongoing data on health and well-being metrics could be
                       used in targeting federal resources and programs to
                       address inequities due to social and economic factors.{" "}
                       <a
                         href="https://satcherinstitute.org/hetblog2/"
                         aria-label="Satcher Blog Post on Why Data Matters"
                       >
-                        Read more
+                        Read article at SatcherInstitute.org
                       </a>
                     </p>
                   </Grid>
@@ -425,15 +448,20 @@ function EquityTab() {
                     className={styles.NewsAndStoriesItem}
                     component="article"
                   >
-                    <img
-                      className={styles.NewsAndStoriesBigImg}
-                      src="/img/stock/girls-studying.jpg"
-                      alt=""
-                    />
-                    <h4 className={styles.NewsAndStoriesTitleText}>
-                      How can we use data to inform practices to advance health
-                      equity?
-                    </h4>
+                    <a
+                      href="https://satcherinstitute.org/hetblog3/"
+                      aria-label="Satcher Blog Post on Health Equity Data"
+                    >
+                      <img
+                        className={styles.NewsAndStoriesBigImg}
+                        src="/img/stock/girls-studying.jpg"
+                        alt=""
+                      />
+                      <h4 className={styles.NewsAndStoriesTitleText}>
+                        How can we use data to inform practices to advance
+                        health equity?
+                      </h4>
+                    </a>
                     <p className={styles.NewsAndStoriesSubtitleText}>
                       In public health, much of our work depends on having
                       accurate data, so we know what’s happening both on the
@@ -442,7 +470,7 @@ function EquityTab() {
                         href="https://satcherinstitute.org/hetblog3/"
                         aria-label="Satcher Blog Post on Health Equity Data"
                       >
-                        Read more
+                        Read article at SatcherInstitute.org
                       </a>
                     </p>
                   </Grid>
@@ -454,23 +482,20 @@ function EquityTab() {
                     className={styles.NewsAndStoriesItem}
                     component="article"
                   >
-                    <img
-                      className={styles.NewsAndStoriesSmallImg}
-                      src="/img/stock/filling-in-forms.png"
-                      alt=""
-                    />
-                    <h4 className={styles.NewsAndStoriesTitleText}>
-                      Data And Technology Can Help Us Make Progress On COVID
-                      Inequities
-                    </h4>
-                    <p className={styles.NewsAndStoriesSubtitleText}>
-                      <a
-                        href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/"
-                        aria-label="Read Scientific American Article"
-                      >
-                        Read more
-                      </a>
-                    </p>
+                    <a
+                      href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/"
+                      aria-label="Read Scientific American Article"
+                    >
+                      <img
+                        className={styles.NewsAndStoriesSmallImg}
+                        src="/img/stock/filling-in-forms.png"
+                        alt=""
+                      />
+                      <h4 className={styles.NewsAndStoriesTitleText}>
+                        Data and technology can help us make progress on COVID
+                        inequities
+                      </h4>
+                    </a>
                   </Grid>
                   <Grid
                     item
@@ -480,24 +505,21 @@ function EquityTab() {
                     className={styles.NewsAndStoriesItem}
                     component="article"
                   >
-                    <img
-                      className={styles.NewsAndStoriesSmallImg}
-                      src="/img/stock/kids-ukulele.png"
-                      alt=""
-                    />
-                    <h4 className={styles.NewsAndStoriesTitleText}>
-                      How Complete Are The CDC's COVID-19 Case Surveillance
-                      Datasets For Race/Ethnicity At The State And County
-                      Levels?
-                    </h4>
-                    <p className={styles.NewsAndStoriesSubtitleText}>
-                      <a
-                        href="https://satcherinstitute.github.io/analysis/cdc_case_data"
-                        aria-label="Satcher Post on COVID Data Completeness"
-                      >
-                        Learn more
-                      </a>
-                    </p>
+                    <a
+                      href="https://satcherinstitute.github.io/analysis/cdc_case_data"
+                      aria-label="Satcher Post on COVID Data Completeness"
+                    >
+                      <img
+                        className={styles.NewsAndStoriesSmallImg}
+                        src="/img/stock/kids-ukulele.png"
+                        alt=""
+                      />
+                      <h4 className={styles.NewsAndStoriesTitleText}>
+                        How complete are the CDC's COVID-19 case surveillance
+                        datasets for race/ethnicity at Tte state and county
+                        levels?
+                      </h4>
+                    </a>
                   </Grid>
                   <Grid
                     item
@@ -507,22 +529,19 @@ function EquityTab() {
                     className={styles.NewsAndStoriesItem}
                     component="article"
                   >
-                    <img
-                      className={styles.NewsAndStoriesSmallImg}
-                      src="/img/graphics/laptop-HET.png"
-                      alt=""
-                    />
-                    <h4 className={styles.NewsAndStoriesTitleText}>
-                      The Mental Fitness of Our Children
-                    </h4>
-                    <p className={styles.NewsAndStoriesSubtitleText}>
-                      <a
-                        href="https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children"
-                        aria-label="Kennedy Satcher Article: The Mental Fitness of Our Children"
-                      >
-                        Learn more
-                      </a>
-                    </p>
+                    <a
+                      href="https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children"
+                      aria-label="Kennedy Satcher Article: The Mental Fitness of Our Children"
+                    >
+                      <img
+                        className={styles.NewsAndStoriesSmallImg}
+                        src="/img/graphics/laptop-HET.png"
+                        alt=""
+                      />
+                      <h4 className={styles.NewsAndStoriesTitleText}>
+                        The mental fitness of our children
+                      </h4>
+                    </a>
                   </Grid>
                 </Grid>
               </LazyLoad>
