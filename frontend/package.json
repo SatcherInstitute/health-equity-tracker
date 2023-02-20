@@ -36,6 +36,7 @@
     "@types/react-select": "^3.1.2",
     "@types/react-table": "^7.7.12",
     "axios": "^0.24.0",
+    "chokidar": "3.5",
     "cspell": "^6.5.0",
     "d3": "^7.6.1",
     "data-forge": "^1.9.6",
@@ -100,7 +101,7 @@
     "extends": "react-app"
   },
   "engines": {
-    "node": ">=12.19.0",
+    "node": ">=16.13.0",
     "npm": ">=6.14.8"
   },
   "browserslist": {
