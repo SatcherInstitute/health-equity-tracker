@@ -1,3 +1,4 @@
+// @ts-ignore
 import VaccineProvider from "./VaccineProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
