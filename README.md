@@ -15,7 +15,7 @@ To contribute to this project:
 2. On your development machine, clone your forked repo and add the official repo as a remote.
     - Tip: our development team keeps the remote name `origin` for the original repo, and uses a different name for our forked remote like `josh`, `ben`, or `eric`.
 
-When you're ready to make changes:
+When you're ready to make some changes:
 
 1. Pull the latest changes from the official repo.
     - Tip: If your official remote is named `origin`, run `git pull origin main`
