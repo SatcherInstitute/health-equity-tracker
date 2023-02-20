@@ -22,8 +22,6 @@ import { DropdownVarId, METRIC_CONFIG } from "../../data/config/MetricConfig";
 import { DEMOGRAPHIC_BREAKDOWNS } from "../../data/query/Breakdowns";
 import { LinkWithStickyParams } from "../../utils/urlutils";
 
-const FeedbackBox = React.lazy(() => import("../ui/FeedbackBox"));
-
 function GoalListItem(props: {
   src?: string;
   alt?: string;
@@ -378,7 +376,6 @@ function TheProjectTab() {
             </Grid>
           </Grid>
         </Grid>
-        <FeedbackBox />
       </Grid>
     </>
   );
