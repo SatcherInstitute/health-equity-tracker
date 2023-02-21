@@ -5,8 +5,9 @@ import pandas as pd
 import os
 
 HIV_DIR = 'cdc_hiv'
-DTYPE = {'FIPS': str, 'Year': str, 'Cases': str}
-EXP_DTYPE = {'state_fips': str, 'time_period': str}
+DTYPE = {'FIPS': str, 'Year': str, 'Cases': str, 'Rate per 100000': str}
+EXP_DTYPE = {'state_fips': str, 'time_period': str,
+             'hiv_diagnoses': str, 'hiv_diagnoses_per_100k': str}
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data')
@@ -78,6 +79,7 @@ def testGenerateSexNational(mock_data_dir: mock.MagicMock):
                           thousands=',')
 
     df = datasource.generate_breakdown_df('sex', 'national', alls_df)
+
     expected_df_sex_national = pd.read_csv(GOLDEN_DATA['sex_national'],
                                            dtype=EXP_DTYPE)
 
@@ -98,11 +100,6 @@ def testGenerateRaceState(mock_data_dir: mock.MagicMock):
                                           alls_df)
 
     expected_df = pd.read_csv(GOLDEN_DATA['race_state'], dtype=EXP_DTYPE)
-
-    print('--df')
-    print(df.dtypes)
-    print('--expected')
-    print(expected_df.dtypes)
 
     assert_frame_equal(df, expected_df, check_like=True)
 
