@@ -381,14 +381,6 @@ function EquityTab() {
                   News and stories
                 </Typography>
 
-                <Box mt={5}>
-                  <Typography
-                    className={styles.PrioritizeHealthEquityHeaderSubtext}
-                    variant="body1"
-                    paragraph={true}
-                  ></Typography>
-                </Box>
-
                 <span className={styles.NewsAndStoriesSubheaderText}>
                   Read the{" "}
                   <Link to={NEWS_TAB_LINK}>
