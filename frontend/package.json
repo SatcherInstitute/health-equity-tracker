@@ -18,7 +18,7 @@
     "@types/node": "^18.14.0",
     "@types/react-lazyload": "^3.2.0",
     "@types/react-router-hash-link": "^2.4.5",
-    "mini-css-extract-plugin": "2.6.1",
+    "mini-css-extract-plugin": "2.7.2",
     "react-query": "^3.39.3"
   },
   "dependencies": {
@@ -49,11 +49,11 @@
     "lint-staged": "^10.5.4",
     "lru-cache": "^6.0.0",
     "normalize.css": "^8.0.1",
-    "postcss": "^8.1.9",
+    "postcss": "^8.4.21",
     "postcss-import": "12.0.1",
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.4",
     "react": "^16.14.0",
-    "react-animate-height": "^3.0.4",
+    "react-animate-height": "^3.1.0",
     "react-bottom-scroll-listener": "^5.1.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^16.14.0",
