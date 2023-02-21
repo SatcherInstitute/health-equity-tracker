@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "overrides": {
-    "react-refresh": "0.11.0"
+    "react-refresh": "0.11.0",
+    "chokidar": "3.5.3"
   },
   "devDependencies": {
     "@playwright/test": "^1.24.2",
@@ -68,7 +69,7 @@
     "react-vega": "^7.6.0",
     "sass": "^1.54.0",
     "seamless-scroll-polyfill": "^2.2.0",
-    "storybook": "^6.5.9",
+    "storybook": "^6.5.16",
     "typeface-dm-sans": "^1.1.13",
     "typeface-hind": "^1.1.13",
     "typeface-montserrat": "^1.1.13",
