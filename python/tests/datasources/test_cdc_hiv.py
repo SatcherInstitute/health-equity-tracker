@@ -5,7 +5,7 @@ import pandas as pd
 import os
 
 HIV_DIR = 'cdc_hiv'
-DTYPE = {'FIPS': str, 'Year': str}
+DTYPE = {'FIPS': str, 'Year': str, 'Cases': str}
 EXP_DTYPE = {'state_fips': str, 'time_period': str}
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))

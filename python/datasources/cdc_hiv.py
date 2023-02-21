@@ -104,7 +104,8 @@ class CDCHIVData(DataSource):
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
         df = combined_group_df.rename(columns=columns_to_standard)
-        df = df.replace(HIV_TERMS_STANDARD_BY_COL)
+
+        df = df.replace(to_replace=HIV_TERMS_STANDARD_BY_COL)
 
         if geo_level == COUNTY_LEVEL:
             df = merge_county_names(df)
