@@ -72,15 +72,12 @@ class CDCHIVData(DataSource):
                                             column_types=column_types)
 
     def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
-        """
-        generate_breakdown_df generates a HIV data frame by breakdown and geo_level that will 
-        be uploaded to bigquery. 
-
+        """generate_breakdown_df generates a HIV data frame by breakdown and geo_level that 
+        will be uploaded to bigquery. 
         breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`.
         geo_level: string equal to `county`, `national`, or `state`.
         alls_df: the data frame containing the all values for each demographic breakdown.
-        return: a data frame of time-based HIV data by breakdown and geo_level. 
-        """
+        return: a data frame of time-based HIV data by breakdown and geo_level."""
         GEO_COL = std_col.COUNTY_NAME_COL if geo_level == COUNTY_LEVEL else std_col.STATE_NAME_COL
         FIPS = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col.STATE_FIPS_COL
 
