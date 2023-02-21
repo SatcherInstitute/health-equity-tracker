@@ -23,7 +23,7 @@ jobs:
       with:
         node-version: 16
     - run: npm install
-    # - run: npm run cspell
-    # - run: npm run build
+    - run: npm run cspell
+    - run: npm run build
     - run: npm test
-    # - run: npm run e2e
+    - run: npm run e2e
