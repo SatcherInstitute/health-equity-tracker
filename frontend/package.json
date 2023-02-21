@@ -50,7 +50,7 @@
     "lru-cache": "^6.0.0",
     "normalize.css": "^8.0.1",
     "postcss": "^8.4.21",
-    "postcss-import": "12.0.1",
+    "postcss-import": "15.1.0",
     "prettier": "^2.8.4",
     "react": "^16.14.0",
     "react-animate-height": "^3.1.0",
