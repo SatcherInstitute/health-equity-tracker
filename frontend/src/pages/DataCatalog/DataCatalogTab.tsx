@@ -15,8 +15,6 @@ import DatasetExplorer from "./dataset_explorer/DatasetExplorer";
 import MethodologyTab from "./MethodologyTab";
 import AgeAdjustmentTab from "./AgeAdjustmentTab";
 
-const FeedbackBox = React.lazy(() => import("../ui/FeedbackBox"));
-
 function DataCatalogTab() {
   const params = useSearchParams();
   const datasets = params[DATA_SOURCE_PRE_FILTERS]
@@ -63,7 +61,6 @@ function DataCatalogTab() {
           <AgeAdjustmentTab />
         </Route>
       </Switch>
-      <FeedbackBox />
     </div>
   );
 }
