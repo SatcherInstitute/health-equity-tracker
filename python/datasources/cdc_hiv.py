@@ -53,18 +53,17 @@ class CDCHIVData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
         for geo_level in [COUNTY_LEVEL, NATIONAL_LEVEL, STATE_LEVEL]:
-            alls_df = generate_df_from_data_dir(f'hiv-{geo_level}-all.csv')
+            alls_df = load_df_from_data_dir(geo_level, 'all')
 
             for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
-                table_name = f'{breakdown}_{geo_level}'
+                table_name = f'{breakdown}_{geo_level}_time_series'
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
 
                 float_cols = [std_col.HIV_DIAGNOSES,
                               std_col.HIV_DIAGNOSES_PCT_INEQUITY,
                               std_col.HIV_DIAGNOSES_PCT_SHARE,
                               std_col.HIV_DIAGNOSES_PER_100K,
-                              std_col.HIV_POPULATION_PCT,
-                              std_col.HIV_DIAGNOSES_PCT_INEQUITY]
+                              std_col.HIV_POPULATION_PCT]
                 column_types = gcs_to_bq_util.get_bq_column_types(df,
                                                                   float_cols=float_cols)
                 gcs_to_bq_util.add_df_to_bq(df,
@@ -73,6 +72,15 @@ class CDCHIVData(DataSource):
                                             column_types=column_types)
 
     def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
+        """
+        generate_breakdown_df generates a HIV data frame by breakdown and geo_level that will 
+        be uploaded to bigquery. 
+
+        breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`.
+        geo_level: string equal to `county`, `national`, or `state`.
+        alls_df: the data frame containing the all values for each demographic breakdown.
+        return: a data frame of time-based HIV data by breakdown and geo_level. 
+        """
         GEO_COL = std_col.COUNTY_NAME_COL if geo_level == COUNTY_LEVEL else std_col.STATE_NAME_COL
         FIPS = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col.STATE_FIPS_COL
 
@@ -98,8 +106,7 @@ class CDCHIVData(DataSource):
             std_col.HIV_POPULATION_PCT,
             std_col.HIV_DIAGNOSES_PCT_INEQUITY]
 
-        breakdown_group_df = generate_df_from_data_dir(
-            f'hiv-{geo_level}-{breakdown}.csv')
+        breakdown_group_df = load_df_from_data_dir(geo_level, breakdown)
 
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
@@ -140,14 +147,14 @@ class CDCHIVData(DataSource):
         return df
 
 
-def generate_df_from_data_dir(filename: str):
+def load_df_from_data_dir(geo_level: str, breakdown: str):
     """
-    generate_alls_df fetches the csv file from the data dir
+    load_df_from_data_dir fetches the csv file from the data dir
 
     filename: the name of the file to load the csv file from
     return: a dataframe for specified geo_level and breakdown
     """
-
+    filename = f'hiv-{geo_level}-{breakdown}.csv'
     df = gcs_to_bq_util.load_csv_as_df_from_data_dir(HIV_DIR,
                                                      filename,
                                                      skiprows=8,
