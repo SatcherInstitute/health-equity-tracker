@@ -42,11 +42,13 @@ function ResourcesTab() {
             COVID_RESOURCES,
             COVID_VACCINATION_RESOURCES,
           ].map(({ heading, resources }) => {
+            // first heading should get a "main" id for Playwright testing and our a11y setups
+            const id = heading === "Health Equity" ? "main" : heading;
             return (
               <Grid container className={styles.ResourcesGroup} key={heading}>
                 <Grid item xs={12} sm={12} md={3}>
                   <Typography
-                    id="main"
+                    id={id}
                     tabIndex={-1}
                     className={styles.ResourcesTabHeaderText}
                   >
