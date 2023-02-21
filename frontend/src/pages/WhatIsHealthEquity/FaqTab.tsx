@@ -12,8 +12,6 @@ import { CITATION_APA } from "../DataCatalog/MethodologyTab";
 import { getHtml } from "../../utils/urlutils";
 import { urlMap } from "../../utils/externalUrls";
 
-const FeedbackBox = React.lazy(() => import("../ui/FeedbackBox"));
-
 export interface qAndA {
   q: string;
   a: string;
@@ -383,7 +381,6 @@ function FaqTab() {
           </Grid>
         </Grid>
       </Grid>
-      <FeedbackBox />
     </>
   );
 }
