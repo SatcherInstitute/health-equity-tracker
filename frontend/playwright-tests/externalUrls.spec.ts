@@ -20,6 +20,13 @@ const knownFlakyUrls = [
 
 test.describe.configure({ mode: 'parallel' });
 
+// TEST Headless Wordpress Endpoint
+test(`Fetch First 100 Blog Posts`, async ({ page }) => {
+    const url = "https://hetblog.dreamhosters.com/wp-json/wp/v2/posts?_embed&per_page=100"
+    const response = await page.goto(url, { waitUntil: "domcontentloaded" });
+    if (response?.status() !== 200) console.log(url, response?.status());
+});
+
 
 for (const url of Object.values(urlMap)) {
     if (!url || knownFlakyUrls.includes(url)) continue
