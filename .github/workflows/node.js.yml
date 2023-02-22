@@ -25,5 +25,5 @@ jobs:
     - run: npm install
     - run: npm run cspell
     - run: npm run build
-    - run: npm test
+    - run: npm test:no-watch
     - run: npm run e2e

@@ -12,7 +12,7 @@ export default defineConfig({
 	},
 	server: {
 		open: true,
-		port: 3000,
+		port: 3000
 	},
 	plugins: [
 		react(), viteTsconfigPaths(), svgrPlugin(),
