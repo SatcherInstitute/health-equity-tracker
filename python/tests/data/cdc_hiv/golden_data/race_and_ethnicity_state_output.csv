@@ -1,17 +1,17 @@
-state_name,state_fips,time_period,race_and_ethnicity,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_population_pct,race_category_id
-Alabama,01,2019,All,635.0,15.4,100.0,100.0,ALL
-Alabama,01,2019,American Indian and Alaska Native (NH),1.0,4.1,0.2,0.6,AIAN_NH
-Alabama,01,2019,Asian (NH),1.0,1.6,0.2,1.5,ASIAN_NH
-Alabama,01,2019,Black or African American (NH),453.0,42.2,71.3,26.0,BLACK_NH
-Alabama,01,2019,Hispanic or Latino,15.0,9.7,2.4,3.8,HISP
-Alabama,01,2019,Two or more races (NH),14.0,28.0,2.2,1.2,MULTI_NH
-Alabama,01,2019,Native Hawaiian and Pacific Islander (NH),0.0,0.0,0.0,0.05,NHPI_NH
-Alabama,01,2019,White (NH),151.0,5.5,23.8,66.9,WHITE_NH
-Alaska,02,2019,All,27.0,4.5,100.0,100.0,ALL
-Alaska,02,2019,American Indian and Alaska Native (NH),6.0,7.2,22.2,13.9,AIAN_NH
-Alaska,02,2019,Asian (NH),0.0,0.0,0.0,6.7,ASIAN_NH
-Alaska,02,2019,Black or African American (NH),5.0,24.8,18.5,3.4,BLACK_NH
-Alaska,02,2019,Hispanic or Latino,4.0,10.2,14.8,6.6,HISP
-Alaska,02,2019,Two or more races (NH),0.0,0.0,0.0,5.5,MULTI_NH
-Alaska,02,2019,Native Hawaiian and Pacific Islander (NH),0.0,0.0,0.0,1.3,NHPI_NH
-Alaska,02,2019,White (NH),12.0,3.2,44.4,62.7,WHITE_NH
+state_name,state_fips,time_period,race_and_ethnicity,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_population_pct,hiv_diagnoses_pct_relative_inequity,race_category_id
+Alabama,01,2019,All,635,15.4,100.0,100.0,0.0,ALL
+Alabama,01,2019,American Indian and Alaska Native (NH),1,4.1,0.2,0.6,-66.7,AIAN_NH
+Alabama,01,2019,Asian (NH),1,1.6,0.2,1.5,-86.7,ASIAN_NH
+Alabama,01,2019,Black or African American (NH),453,42.2,71.3,26.0,174.2,BLACK_NH
+Alabama,01,2019,Hispanic or Latino,15,9.7,2.4,3.8,-36.8,HISP
+Alabama,01,2019,Native Hawaiian and Pacific Islander (NH),0,0.0,0.0,0.05,-100.0,NHPI_NH
+Alabama,01,2019,Two or more races (NH),14,28.0,2.2,1.2,83.3,MULTI_NH
+Alabama,01,2019,White (NH),151,5.5,23.8,66.9,-64.4,WHITE_NH
+Alaska,02,2008,All,39,7.0,100.0,100.0,0.0,ALL
+Alaska,02,2008,American Indian and Alaska Native (NH),12,15.1,30.8,14.2,116.9,AIAN_NH
+Alaska,02,2008,Asian (NH),0,0.0,0.0,4.7,-100.0,ASIAN_NH
+Alaska,02,2008,Black or African American (NH),7,34.0,17.9,3.7,383.8,BLACK_NH
+Alaska,02,2008,Hispanic or Latino,1,3.3,2.6,5.4,-51.9,HISP
+Alaska,02,2008,Native Hawaiian and Pacific Islander (NH),0,0.0,0.0,0.6,-100.0,NHPI_NH
+Alaska,02,2008,Two or more races (NH),1,5.1,2.6,3.5,-25.7,MULTI_NH
+Alaska,02,2008,White (NH),18,4.7,46.2,68.0,-32.1,WHITE_NH
