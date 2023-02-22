@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 state_name,state_fips,time_period,sex,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_population_pct,hiv_diagnoses_pct_relative_inequity
 United States,00,2020,All,30346,10.9,100.0,100.0,0.0
 United States,00,2019,All,36528,13.2,100.0,100.0,0.0
@@ -9,9 +8,3 @@ United States,00,2008,Female,11306,8.8,24.0,51.1,-53.0
 United States,00,2020,Male,24897,18.3,82.0,48.9,67.7
 United States,00,2019,Male,29589,21.9,81.0,48.9,65.6
 United States,00,2008,Male,35712,29.1,76.0,48.9,55.4
-=======
-state_name,state_fips,time_period,sex,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,population_pct
-United States,00,2019,Female,6939.0,4.9,19.0,51.6
-United States,00,2019,Male,29589.0,21.9,81.0,48.4
-United States,00,2019,All,36528.0,13.2,100.0,100.0
->>>>>>> 4a865f7c (rebasing)
