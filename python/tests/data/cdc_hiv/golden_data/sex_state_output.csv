@@ -1,4 +1,4 @@
-state_name,state_fips,time_period,sex,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,population_pct
+state_name,state_fips,time_period,sex,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_population_pct
 Alabama,01,2019,All,635.0,15.4,100.0,100.0
 Alabama,01,2019,Female,135.0,6.3,21.3,52.2
 Alabama,01,2019,Male,500.0,25.3,78.7,47.8
