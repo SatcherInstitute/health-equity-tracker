@@ -61,9 +61,16 @@ class CDCHIVData(DataSource):
                 table_name = f'{breakdown}_{geo_level}_time_series'
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
 
+<<<<<<< HEAD
                 float_cols = [std_col.HIV_DIAGNOSES,
                               std_col.HIV_DIAGNOSES_PCT_INEQUITY,
                               std_col.HIV_DIAGNOSES_PCT_SHARE,
+=======
+                df = self.generate_breakdown_df(breakdown, geo_level)
+
+                float_cols = [std_col.POPULATION_PCT_COL,
+                              std_col.HIV_DIAGNOSES,
+>>>>>>> 4a865f7c (rebasing)
                               std_col.HIV_DIAGNOSES_PER_100K,
                               std_col.HIV_POPULATION_PCT]
                 column_types = gcs_to_bq_util.get_bq_column_types(df,
@@ -103,8 +110,12 @@ class CDCHIVData(DataSource):
             std_col.HIV_DIAGNOSES,
             std_col.HIV_DIAGNOSES_PER_100K,
             std_col.HIV_DIAGNOSES_PCT_SHARE,
+<<<<<<< HEAD
             std_col.HIV_POPULATION_PCT,
             std_col.HIV_DIAGNOSES_PCT_INEQUITY]
+=======
+            std_col.POPULATION_PCT_COL]
+>>>>>>> 4a865f7c (rebasing)
 
         breakdown_group_df = load_df_from_data_dir(geo_level, breakdown)
 
