@@ -49,11 +49,11 @@ Read more about the forking workflow [here](https://www.atlassian.com/git/tutori
 # Frontend
 
 The frontend consists of
-1. `health-equity-tracker/frontend/`: A React app that contains all code and static resources needed in the browser (html, JS, CSS, images). This app was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Documentation on Create React App can be found [here](https://create-react-app.dev/docs/getting-started/).
+1. `health-equity-tracker/frontend/`: A React app that contains all code and static resources needed in the browser (html, JS, CSS, images). This app was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and later migrated to Vite.
 2. `health-equity-tracker/frontend_server/`: A lightweight server that serves the React app as static files and forwards data requests to the data server.
 3. `health-equity-tracker/data_server/`: A data server that responds to data requests by serving data files that have been exported from the data pipeline.
 
-In addition, we have a Storybook project that also lives in `health-equity-tracker/frontend/`. Storybook is a library that allows us to explore and develop UI components in isolation. Stories for each UI component are contained in the same directory as the component in a subfolder called "storybook". The current main branch version of Storybook can be seen here: https://het-storybook.netlify.app
+In addition, we have an un-maintained Storybook project that also lives in `health-equity-tracker/frontend/`. Storybook is a library that allows us to explore and develop UI components in isolation. Stories for each UI component are contained in the same directory as the component in a subfolder called "storybook". The current main branch version of Storybook can be seen here: https://het-storybook.netlify.app
 
 ## Frontend React App Environments
 
