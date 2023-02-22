@@ -1,7 +1,3 @@
-/**
- * @jest-environment node
- */
-
 import { RESOURCES } from "./ResourcesData";
 import { getTestableUrls } from "../../utils/externalUrls.test";
 

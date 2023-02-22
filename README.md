@@ -94,13 +94,13 @@ Note: when new environment variables are added, be sure to update the `.env.exam
 
 Environment variables in `frontend/.env.development` can be tweaked as needed for local development.
 
-The `REACT_APP_BASE_API_URL` can be changed for different setups:
+The `VITE_BASE_API_URL` can be changed for different setups:
 - You can deploy the frontend server to your own GCP project
 - You can run the frontend server locally (see below)
 - You can run Docker locally (see below)
 - You can set it to an empty string or remove it to make the frontend read files from the `/public/tmp` directory. This allows testing behavior by simply dropping local files into that directory.
 
-You can also force specific dataset files to read from the `/public/tmp` directory by setting an environment variable with the name `REACT_APP_FORCE_STATIC` variable to a comma-separated list of filenames. For example, `REACT_APP_FORCE_STATIC=my_file1.json,my_file2.json` would force `my_file1.json` and `my_file2.json` to be served from `/public/tmp` even if `REACT_APP_BASE_API_URL` is set to a real server url.
+You can also force specific dataset files to read from the `/public/tmp` directory by setting an environment variable with the name `VITE_FORCE_STATIC` variable to a comma-separated list of filenames. For example, `VITE_FORCE_STATIC=my_file1.json,my_file2.json` would force `my_file1.json` and `my_file2.json` to be served from `/public/tmp` even if `VITE_BASE_API_URL` is set to a real server url.
 
 ### Running the Frontend Server locally
 
@@ -115,7 +115,7 @@ node -r dotenv/config server.js dotenv_config_path=.env.development
 ```
 
 This will start the server at `http://localhost:8080`. However, since it mostly serves static files from the `build/` directory, you will either need to
-1. run the frontend server separately and set the `REACT_APP_BASE_API_URL` url to `http://localhost:8080` (see above), or
+1. run the frontend server separately and set the `VITE_BASE_API_URL` url to `http://localhost:8080` (see above), or
 2. go to the `frontend/` directory and run `npm run build:development`. Then copy the `frontend/build/` directory to `frontend_server/build/`
 
 Similarly to the frontend React app, the frontend server can be configured for local development by changing environment variables in `frontend_server/.env.development`. Copy `frontend_server/.env.example` to get started.
@@ -174,7 +174,7 @@ To run storybook locally, switch to the `frontend/` directory and run:
 npm run storybook:development
 ```
 
-Storybook local development also uses `frontend/.env.development` for configuration. However, storybook environment variables must start with `STORYBOOK_` instead of `REACT_APP_`. Most environment variables have an equivalent `STORYBOOK_` version.
+Storybook local development also uses `frontend/.env.development` for configuration. However, storybook environment variables must start with `STORYBOOK_` instead of `VITE_`. Most environment variables have an equivalent `STORYBOOK_` version.
 
 
 ### Build
