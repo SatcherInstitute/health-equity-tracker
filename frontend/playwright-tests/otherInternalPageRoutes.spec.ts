@@ -44,7 +44,7 @@ test('Resources Tab Loads', async ({ page }) => {
     await page.goto(RESOURCES_TAB_LINK, { waitUntil: "networkidle" });
     await expect(page).toBeAccessible()
     const mainHeading = page.locator('#main');
-    await expect(mainHeading).toHaveText(['Resources']);
+    await expect(mainHeading).toHaveText(['Health Equity']);
 });
 
 
