@@ -9,7 +9,8 @@ test.describe('Home to COVID Vax by Age', () => {
 
         // Landing Page Loads
         await page.goto('/', { waitUntil: "networkidle" });
-        await expect(page).toBeAccessible()
+        // @ts-ignore
+        await expect(page).toPassAxe()
 
         const mainHeading = page.locator('#main');
         await expect(mainHeading).toContainText('Better Data for Equity');
@@ -26,7 +27,8 @@ test.describe('Home to COVID Vax by Age', () => {
 
         // Load Tracker Default helper view
         await page.goto(`${EXPLORE_DATA_PAGE_LINK}`, { waitUntil: "networkidle" });
-        await expect(page).toBeAccessible({
+        // @ts-ignore
+        await expect(page).toPassAxe({
             rules: {
                 // TODO: fix disabled filter colors to be proper contrast
                 'color-contrast': { enabled: false },

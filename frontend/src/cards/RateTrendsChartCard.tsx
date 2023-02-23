@@ -191,24 +191,27 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     </Alert>
                   </Box>
                 )}
-                <svg
-                  height="0"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <linearGradient id="gradient">
-                    <stop className={styles.GradientMainStop} offset="0%" />
-                    <stop className={styles.GradientAltStop} offset="20%" />
-                    <stop className={styles.GradientMainStop} offset="30%" />
-                    <stop className={styles.GradientAltStop} offset="40%" />
-                    <stop className={styles.GradientMainStop} offset="50%" />
-                    <stop className={styles.GradientAltStop} offset="60%" />
-                    <stop className={styles.GradientMainStop} offset="70%" />
-                    <stop className={styles.GradientAltStop} offset="80%" />
-                    <stop className={styles.GradientMainStop} offset="90%" />
-                    <stop className={styles.GradientAltStop} offset="100%" />
-                  </linearGradient>
-                </svg>
+                {/* ensure we don't render two of these in compare mode */}
+                {!props.isCompareCard && (
+                  <svg
+                    height="0"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <linearGradient id="gradient">
+                      <stop className={styles.GradientMainStop} offset="0%" />
+                      <stop className={styles.GradientAltStop} offset="20%" />
+                      <stop className={styles.GradientMainStop} offset="30%" />
+                      <stop className={styles.GradientAltStop} offset="40%" />
+                      <stop className={styles.GradientMainStop} offset="50%" />
+                      <stop className={styles.GradientAltStop} offset="60%" />
+                      <stop className={styles.GradientMainStop} offset="70%" />
+                      <stop className={styles.GradientAltStop} offset="80%" />
+                      <stop className={styles.GradientMainStop} offset="90%" />
+                      <stop className={styles.GradientAltStop} offset="100%" />
+                    </linearGradient>
+                  </svg>
+                )}
                 <TrendsChart
                   data={nestedRatesData}
                   chartTitle={getTitleText()}
