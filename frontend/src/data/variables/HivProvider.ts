@@ -21,27 +21,35 @@ class HivProvider extends VariableProvider {
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.geography === "national") {
       if (breakdowns.hasOnlyRace())
-        return "cdc_hiv_data-race_and_ethnicity_national";
-      if (breakdowns.hasOnlyAge()) return "cdc_hiv_data-age_national";
-      if (breakdowns.hasOnlySex()) return "cdc_hiv_data-sex_national";
+        return "cdc_hiv_data-race_and_ethnicity_national_time_series";
+      if (breakdowns.hasOnlyAge())
+        return "cdc_hiv_data-age_national_time_series";
+      if (breakdowns.hasOnlySex())
+        return "cdc_hiv_data-sex_national_time_series";
     }
     if (breakdowns.geography === "state") {
       if (breakdowns.hasOnlyRace())
-        return "cdc_hiv_data-race_and_ethnicity_state";
-      if (breakdowns.hasOnlyAge()) return "cdc_hiv_data-age_state";
-      if (breakdowns.hasOnlySex()) return "cdc_hiv_data-sex_state";
+        return "cdc_hiv_data-race_and_ethnicity_state_time_series";
+      if (breakdowns.hasOnlyAge()) return "cdc_hiv_data-age_state_time_series";
+      if (breakdowns.hasOnlySex()) return "cdc_hiv_data-sex_state_time_series";
     }
 
     if (breakdowns.geography === "county") {
       if (breakdowns.hasOnlyRace())
         return appendFipsIfNeeded(
-          "cdc_hiv_data-race_and_ethnicity_county",
+          "cdc_hiv_data-race_and_ethnicity_county_time_series",
           breakdowns
         );
       if (breakdowns.hasOnlyAge())
-        return appendFipsIfNeeded("cdc_hiv_data-age_county", breakdowns);
+        return appendFipsIfNeeded(
+          "cdc_hiv_data-age_county_time_series",
+          breakdowns
+        );
       if (breakdowns.hasOnlySex())
-        return appendFipsIfNeeded("cdc_hiv_data-sex_county", breakdowns);
+        return appendFipsIfNeeded(
+          "cdc_hiv_data-sex_county_time_series",
+          breakdowns
+        );
     }
     throw new Error("Not implemented");
   }
@@ -50,11 +58,14 @@ class HivProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
+    const timeView = metricQuery.timeView;
     const datasetId = this.getDatasetId(breakdowns);
     const hiv = await getDataManager().loadDataset(datasetId);
     let df = hiv.toDataFrame();
 
     df = this.filterByGeo(df, breakdowns);
+
+    df = this.filterByTimeView(df, timeView, "2019");
     df = this.renameGeoColumns(df, breakdowns);
 
     let consumedDatasetIds = [datasetId];
