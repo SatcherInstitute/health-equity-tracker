@@ -53,6 +53,7 @@ import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 import { HIV_DETERMINANTS } from "../data/variables/HivProvider";
+import PopulationSubsetAlert from "./ui/PopulationSubsetAlert";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 
@@ -91,6 +92,8 @@ function MapCardWithKey(props: MapCardProps) {
   const isCawpCongress =
     props.variableConfig.variableId === "women_us_congress";
   const isCawp = isCawpStateLeg || isCawpCongress;
+
+  const isPopulationSubset = HIV_DETERMINANTS.includes(metricConfig.metricId);
 
   const location = useLocation();
 
@@ -446,6 +449,7 @@ function MapCardWithKey(props: MapCardProps) {
                       />
                     )}
                 </CardContent>
+                {isPopulationSubset && <PopulationSubsetAlert />}
               </>
             )}
           </>

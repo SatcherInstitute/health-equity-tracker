@@ -33,6 +33,7 @@ import {
   MissingCovidData,
   MissingCovidVaccinationData,
   MissingCAWPData,
+  MissingHIVData,
 } from "../pages/DataCatalog/methodologyContent/missingDataBlurbs";
 
 export const SINGLE_COLUMN_WIDTH = 12;
@@ -72,6 +73,7 @@ function ReportProvider(props: ReportProviderProps) {
   const isCovid = currentDropDownIds.includes("covid");
   const isCovidVax = currentDropDownIds.includes("covid_vaccinations");
   const isCAWP = currentDropDownIds.includes("women_in_legislative_office");
+  const isHIV = currentDropDownIds.includes("hiv_diagnoses");
 
   const reportWrapper = props.isSingleColumn
     ? styles.OneColumnReportWrapper
@@ -229,6 +231,7 @@ function ReportProvider(props: ReportProviderProps) {
           {isCovid && <MissingCovidData />}
           {isCovidVax && <MissingCovidVaccinationData />}
           {isCAWP && <MissingCAWPData />}
+          {isHIV && <MissingHIVData />}
 
           <Button
             className={styles.SeeOurDataSourcesButton}
