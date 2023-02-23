@@ -614,7 +614,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableId: "hiv_diagnoses",
       variableDisplayName: "HIV diagnoses",
       variableFullDisplayName: "HIV diagnoses",
-      variableDefinition: `Individuals ages 13+ diagnosed with HIV in 2019.`,
+      variableDefinition: `Individuals ages 13+ diagnosed with HIV in a particular year.`,
       timeSeriesData: true,
       metrics: {
         pct_share: {
