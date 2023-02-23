@@ -56,7 +56,7 @@ describe("HivProvider", () => {
 
   test("County and Race Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-race_and_ethnicity_county-06",
+      "cdc_hiv_data-race_and_ethnicity_county_time_series-06",
       Breakdowns.forFips(new Fips("06037")),
       RACE,
       "hiv_diagnoses",
@@ -86,7 +86,7 @@ describe("HivProvider", () => {
 
   test("County and Age Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-age_county-06",
+      "cdc_hiv_data-age_county_time_series-06",
       Breakdowns.forFips(new Fips("06037")),
       AGE,
       "hiv_diagnoses",
@@ -119,7 +119,7 @@ describe("HivProvider", () => {
 
   test("County and Sex Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-sex_county-06",
+      "cdc_hiv_data-sex_county_time_series-06",
       Breakdowns.forFips(new Fips("06037")),
       SEX,
       "hiv_diagnoses",
