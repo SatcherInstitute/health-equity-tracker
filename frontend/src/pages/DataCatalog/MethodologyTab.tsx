@@ -506,7 +506,7 @@ function MethodologyTab() {
                 <p>
                   Data for years 2021 and 2022 are preliminary (subject to a
                   12-month reporting delay). For this reason we have chosen 2019
-                  as our source year.
+                  as our source year when presenting single-year figures.
                 </p>
 
                 <ul>
