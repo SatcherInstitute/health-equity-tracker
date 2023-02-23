@@ -48,7 +48,7 @@ test('Resources Tab Loads', async ({ page }) => {
     // @ts-ignore
     await expect(page).toPassAxe()
     const mainHeading = page.locator('#main');
-    await expect(mainHeading).toHaveText(['Resources']);
+    await expect(mainHeading).toHaveText(['Health Equity']);
 });
 
 
