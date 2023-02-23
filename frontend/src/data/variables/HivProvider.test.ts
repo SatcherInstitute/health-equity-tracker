@@ -66,7 +66,7 @@ describe("HivProvider", () => {
 
   test("State and Race Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-race_and_ethnicity_state",
+      "cdc_hiv_data-race_and_ethnicity_state_time_series",
       Breakdowns.forFips(new Fips("37")),
       RACE,
       "hiv_diagnoses",
@@ -76,7 +76,7 @@ describe("HivProvider", () => {
 
   test("National and Race Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-race_and_ethnicity_national",
+      "cdc_hiv_data-race_and_ethnicity_national_time_series",
       Breakdowns.forFips(new Fips("00")),
       RACE,
       "hiv_diagnoses",
@@ -96,7 +96,7 @@ describe("HivProvider", () => {
 
   test("State and Age Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-age_state",
+      "cdc_hiv_data-age_state_time_series",
       Breakdowns.forFips(new Fips("37")),
       AGE,
       "hiv_diagnoses",
@@ -106,7 +106,7 @@ describe("HivProvider", () => {
 
   test("National and Age Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-age_national",
+      "cdc_hiv_data-age_national_time_series",
       Breakdowns.forFips(new Fips("00")),
       AGE,
       "hiv_diagnoses",
@@ -129,7 +129,7 @@ describe("HivProvider", () => {
 
   test("State and Sex Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-sex_state",
+      "cdc_hiv_data-sex_state_time_series",
       Breakdowns.forFips(new Fips("37")),
       SEX,
       "hiv_diagnoses",
@@ -139,7 +139,7 @@ describe("HivProvider", () => {
 
   test("National and Sex Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-sex_national",
+      "cdc_hiv_data-sex_national_time_series",
       Breakdowns.forFips(new Fips("00")),
       SEX,
       "hiv_diagnoses",
