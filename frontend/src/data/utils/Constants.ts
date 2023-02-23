@@ -228,6 +228,15 @@ export const BJS_NATIONAL_AGE_BUCKETS = [
 
 export const BJS_JAIL_AGE_BUCKETS = [ALL, "0-17", "18+"] as const;
 
+export const CDC_HIV_AGE_BUCKETS = [
+  ALL,
+  "13-24",
+  "25-34",
+  "35-44",
+  "45-54",
+  "55+",
+];
+
 // buckets that have been calculated in the BigQuery table but are not used in current code
 // still need to be defined here to explicitly exclude from the TABLE
 export const UNUSED_BUCKETS = [
@@ -249,6 +258,7 @@ export const AGE_BUCKETS = [
   ...CDC_AGE_BUCKETS,
   ...BJS_NATIONAL_AGE_BUCKETS,
   ...BJS_JAIL_AGE_BUCKETS,
+  ...CDC_HIV_AGE_BUCKETS,
   ...UNUSED_BUCKETS,
 ] as const;
 

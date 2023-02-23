@@ -21,6 +21,7 @@ import {
   UNKNOWN_W,
   WHITE_NH,
   WHITE_W,
+  MULTI_NH,
 } from "../../data/utils/Constants";
 
 // get colors from css variables
@@ -63,6 +64,8 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   [WHITE_W]: redOrange,
   [UNKNOWN_W]: darkBlue,
   [MULTI_W]: timeDarkRed,
+  // race and ethnicity for HIV
+  [MULTI_NH]: timeDarkRed,
   // sex
   Female: timeCyanBlue,
   Male: timePurple,
@@ -77,6 +80,12 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   "60-69": redOrange,
   "70-79": timeYellow,
   "80+": mapLight,
+  // age for HIV
+  "13-24": timeCyanBlue,
+  "25-34": timePastelGreen,
+  "35-44": darkBlue,
+  "45-54": timePurple,
+  "55+": timeDarkRed,
 };
 
 // domain for color scale

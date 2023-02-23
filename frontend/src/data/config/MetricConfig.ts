@@ -614,8 +614,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableId: "hiv_diagnoses",
       variableDisplayName: "HIV diagnoses",
       variableFullDisplayName: "HIV diagnoses",
-      variableDefinition: `Individuals ages 13+ diagnosed with HIV in 2019.`,
-
+      variableDefinition: `Individuals ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
+      timeSeriesData: true,
       metrics: {
         pct_share: {
           chartTitleLines: ["Share of total HIV diagnoses"],
@@ -644,7 +644,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "per100k",
         },
         pct_relative_inequity: {
-          chartTitleLines: ["historical data for HIV diagnosis inequity"],
+          chartTitleLines: ["Historical data for HIV diagnosis inequity"],
           metricId: "hiv_diagnoses_pct_relative_inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
