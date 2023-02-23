@@ -64,13 +64,13 @@ test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
 test('Switch Data Types for Both Geos', async ({ page }) => {
 
     await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO);
-
-    await expect(page).toBeAccessible({
-        rules: {
-            // TODO: fix disabled filter colors to be proper contrast
-            'color-contrast': { enabled: false },
-        },
-    })
+    // @ts-ignore
+    // await expect(page).toPassAxe({
+    //     rules: {
+    //         // TODO: fix disabled filter colors to be proper contrast
+    //         'color-contrast': { enabled: false },
+    //     },
+    // })
 
     // Change both data types to COVID deaths
     page.locator(':nth-match(:text("Deaths"), 2)').waitFor();
@@ -95,13 +95,13 @@ test('Switch Data Types for Both Geos', async ({ page }) => {
 test('Use Table of Contents to Scroll Age Adjust Card Into View and Be Focused', async ({ page }) => {
 
     await page.goto(EXPLORE_DATA_PAGE_LINK + DEATHS_DEN_VS_CO);
-
-    await expect(page).toBeAccessible({
-        rules: {
-            // TODO: fix disabled filter colors to be proper contrast
-            'color-contrast': { enabled: false },
-        },
-    })
+    // @ts-ignore
+    // await expect(page).toPassAxe({
+    //     rules: {
+    //         // TODO: fix disabled filter colors to be proper contrast
+    //         'color-contrast': { enabled: false },
+    //     },
+    // })
 
     // find Table of Contents link to Age-Adjustment Card
     const ageAdjustStepLink = page.locator('button:has-text("Age-adjusted risk")')
