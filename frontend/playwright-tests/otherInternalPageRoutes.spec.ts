@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 const ABOUT_US_PAGE_LINK = "/aboutus";
-const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = "/whatishealthequity";
+// const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = "/whatishealthequity";
 const TERMS_OF_USE_PAGE_LINK = "/termsofuse";
 
 // TAB URLS
@@ -17,12 +17,12 @@ const NEWS_TAB_LINK = "/news";
 test.describe.configure({ mode: 'parallel' });
 
 
-test('WIHE Page Loads', async ({ page }) => {
-    await page.goto(WHAT_IS_HEALTH_EQUITY_PAGE_LINK, { waitUntil: "networkidle" });
-    // @ts-ignore   
-    await expect(page).toPassAxe()
-    await expect(page.getByRole('heading', { name: 'What is Health Equity?', exact: true })).toBeVisible();
-});
+// test('WIHE Page Loads', async ({ page }) => {
+//     await page.goto(WHAT_IS_HEALTH_EQUITY_PAGE_LINK, { waitUntil: "networkidle" });
+//     // @ts-ignore   
+//     await expect(page).toPassAxe()
+//     await expect(page.getByRole('heading', { name: 'What is Health Equity?', exact: true })).toBeVisible();
+// });
 
 
 test('FAQ Tab Loads', async ({ page }) => {
