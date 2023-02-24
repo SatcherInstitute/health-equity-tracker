@@ -13,11 +13,12 @@ test.describe('Home to COVID Vax by Age', () => {
 
         // Landing Page Loads
         await page.goto('/', { waitUntil: "networkidle" });
+
+        await expect(page.locator('#main')).toContainText('Better Data for Equity');
+
         // @ts-ignore
         await expect(page).toPassAxe()
 
-        const mainHeading = page.locator('#main');
-        await expect(mainHeading).toContainText('Better Data for Equity');
 
         // Clicking large CTA button takes us to the tracker
         const exploreButton = page.locator('a#landingPageCTA:has-text("Explore the data")')

@@ -190,11 +190,11 @@ function App() {
                 <ScrollToTop />
                 <Suspense
                   fallback={
-                    <div className={styles.FallbackPage}>
+                    <main className={styles.FallbackPage}>
                       <Box mt={10}>
                         <CircularProgress aria-label="loading" />
                       </Box>
-                    </div>
+                    </main>
                   }
                 >
                   <main>
