@@ -152,7 +152,7 @@ function dev_file::edit() {
       dev_string="${file_name},${dev_string}"
     done
 
-  echo "REACT_APP_FORCE_STATIC=${dev_string}" >> "${TRACKERDIR}/frontend/.env.development"
+  echo "VITE_FORCE_STATIC=${dev_string}" >> "${TRACKERDIR}/frontend/.env.development"
 }
 
 
