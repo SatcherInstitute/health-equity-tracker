@@ -14,7 +14,7 @@ defaults:
 
 jobs:
   playwright_tests_e2e:
-    name: Runs frontend E2@
+    name: Runs frontend E2E
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
