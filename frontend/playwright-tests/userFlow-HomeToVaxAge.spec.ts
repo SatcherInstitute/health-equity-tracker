@@ -2,8 +2,12 @@ import { test, expect } from '@playwright/test';
 const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 const VAX_USA_RACE = `mls=1.covid_vaccinations-3.00`
 
+test.describe.configure({ mode: 'parallel' });
+
 
 test.describe('Home to COVID Vax by Age', () => {
+
+
 
     test('Home to Tracker', async ({ page }) => {
 
