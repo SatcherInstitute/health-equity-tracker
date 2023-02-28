@@ -45,10 +45,6 @@ def _get_consecutive_time_periods(*args, **kwargs):
     print("mocking with reduced years")
     if len(kwargs) == 1:
         return get_consecutive_time_periods(first_year=2018)
-    # we still want to restrict the pop_merge years to 2019-2022 if there are incoming kwargs
-    if len(kwargs) == 2:
-        return get_consecutive_time_periods(first_year=kwargs["first_year"], last_year=kwargs["last_year"])
-    # otherwise restrict to 2018-2022 for testing
     return get_consecutive_time_periods(first_year=2018, last_year=2022)
 
 
@@ -63,8 +59,8 @@ def _fetch_json_from_web(*args):
         return json.load(file)
 
 
-def _merge_current_pop_numbers(*args):
-    print(f'reading mock POPULATION: {args[2]}')
+def _merge_yearly_pop_numbers(*args):
+    print(f'reading mock yearly pop merge: {args[2]}')
     return pd.read_csv(os.path.join(TEST_DIR, "mock_acs_merge_responses", f'{args[2]}.csv'),
                        dtype={'state_fips': str, "time_period": str})
 
@@ -124,7 +120,7 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
                                  "middle_name": str, "last_name": str,
                                  "party": str, "level": str, "position": str,
                                  "state": str, "district": str, "race_ethnicity": str}
-        return pd.read_csv(os.path.join(TEST_DIR, filename),
+        return pd.read_csv(os.path.join(TEST_DIR, f'test_input_{filename}'),
                            dtype=test_input_data_types, index_col=False)
     else:
         # READ IN MANUAL TERRITORY STATELEG TOTAL TABLES
@@ -152,6 +148,7 @@ def _load_csv_as_df_from_web(*args):
 
     return pd.read_csv(os.path.join(TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv')
                        )
+
 
 # # # TEST OUTGOING SIDE OF BIGQUERY INTERACTION
 
@@ -275,7 +272,6 @@ def testGenerateNamesBreakdown(
             "women_this_race_us_congress_names": str,
             "women_this_race_state_leg_names": str,
     },
-
     ).fillna('')
 
     cawp_data = CAWPTimeData()
@@ -298,15 +294,12 @@ def testGenerateNamesBreakdown(
                        check_dtype=False)
 
 
-# # # # TEST GENERATION OF STATE LEVEL BREAKDOWN
+# # # # # TEST GENERATION OF STATE LEVEL BREAKDOWN
 
 
-@mock.patch('ingestion.merge_utils.merge_current_pop_numbers',
-            side_effect=_merge_current_pop_numbers)
-@ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
-             side_effect=_get_consecutive_time_periods)
+@mock.patch('ingestion.merge_utils.merge_yearly_pop_numbers',
+            side_effect=_merge_yearly_pop_numbers)
 def testGenerateStateBreakdown(
-    mock_years: mock.MagicMock,
     mock_merge_pop: mock.MagicMock
 ):
     """ Tests the generate_breakdown() function at the state
@@ -323,7 +316,6 @@ def testGenerateStateBreakdown(
         base_df, "state")
     assert state_table_name == "race_and_ethnicity_state_time_series"
     assert mock_merge_pop.call_count == 1
-    assert mock_years.call_count == 1
 
     expected_state_breakdown_df = pd.read_csv(os.path.join(
         GOLDEN_DATA_DIR, "race_and_ethnicity_state_time_series.csv"),
@@ -337,12 +329,9 @@ def testGenerateStateBreakdown(
 
 # # # # TEST GENERATION OF NATIONAL BREAKDOWN
 
-@mock.patch('ingestion.merge_utils.merge_current_pop_numbers',
-            side_effect=_merge_current_pop_numbers)
-@ mock.patch('datasources.cawp_time.get_consecutive_time_periods',
-             side_effect=_get_consecutive_time_periods)
+@mock.patch('ingestion.merge_utils.merge_yearly_pop_numbers',
+            side_effect=_merge_yearly_pop_numbers)
 def testGenerateNationalBreakdown(
-    mock_years: mock.MagicMock,
     mock_merge_pop: mock.MagicMock
 ):
     """ Tests the generate_breakdown() function at the national
@@ -358,7 +347,6 @@ def testGenerateNationalBreakdown(
         base_df, "national")
     assert national_table_name == "race_and_ethnicity_national_time_series"
     assert mock_merge_pop.call_count == 1
-    assert mock_years.call_count == 1
     expected_national_breakdown_df = pd.read_csv(os.path.join(
         GOLDEN_DATA_DIR, "race_and_ethnicity_national_time_series.csv"),
         dtype={"state_fips": str, "time_period": str})
