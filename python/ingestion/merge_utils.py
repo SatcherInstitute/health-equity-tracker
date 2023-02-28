@@ -150,35 +150,35 @@ def merge_yearly_pop_numbers(df, demo, geo_level):
         raise ValueError(
             "Cannot merge by year as the provided df does not contain a `time_period` col")
 
-    TMP_INT_YEAR = "temp_year_as_int"
-    df[TMP_INT_YEAR] = df[std_col.TIME_PERIOD_COL].astype(int)
+    _tmp_time_period_col = "temp_time_period_col_as_int"
+    df[_tmp_time_period_col] = df[std_col.TIME_PERIOD_COL].astype(int)
 
     # dont merge pre-2019 years
-    pre_acs_rows_df = df[df[TMP_INT_YEAR] < int(ACS_EARLIEST_YEAR)]
+    pre_acs_rows_df = df[df[_tmp_time_period_col] < int(ACS_EARLIEST_YEAR)]
 
     # merge matchable years directly
-    acs_rows_df = df.loc[(df[TMP_INT_YEAR] >= int(ACS_EARLIEST_YEAR))
-                         & (df[TMP_INT_YEAR] <= int(ACS_LATEST_YEAR))]
+    acs_rows_df = df.loc[(df[_tmp_time_period_col] >= int(ACS_EARLIEST_YEAR))
+                         & (df[_tmp_time_period_col] <= int(ACS_LATEST_YEAR))]
     acs_rows_df = _merge_pop(acs_rows_df, demo, geo_level, on_time_period=True)
 
     # merge the most recent SOURCE data (without equivalent years from ACS) with the most recent ACS data
-    post_acs_rows_df = df[df[TMP_INT_YEAR] > int(ACS_LATEST_YEAR)]
+    post_acs_rows_df = df[df[_tmp_time_period_col] > int(ACS_LATEST_YEAR)]
     # temporarily save the original SOURCE years in a new column
-    TMP_SOURCE_YEAR = "temp_source_year"
-    post_acs_rows_df[TMP_SOURCE_YEAR] = post_acs_rows_df[std_col.TIME_PERIOD_COL]
+    _tmp_src_yr_col = "temp_source_year_col"
+    post_acs_rows_df[_tmp_src_yr_col] = post_acs_rows_df[std_col.TIME_PERIOD_COL]
     # set the mergeable column year to the most recent to merge that data from ACS
     post_acs_rows_df[std_col.TIME_PERIOD_COL] = ACS_LATEST_YEAR
     # merge that recent year pop data
     post_acs_rows_df = _merge_pop(
         post_acs_rows_df, demo, geo_level, on_time_period=True)
     # swap back to the real year data
-    post_acs_rows_df[std_col.TIME_PERIOD_COL] = post_acs_rows_df[TMP_SOURCE_YEAR]
-    post_acs_rows_df = post_acs_rows_df.drop(columns=[TMP_SOURCE_YEAR])
+    post_acs_rows_df[std_col.TIME_PERIOD_COL] = post_acs_rows_df[_tmp_src_yr_col]
+    post_acs_rows_df = post_acs_rows_df.drop(columns=[_tmp_src_yr_col])
 
     # combine the three sub-dfs
     df = pd.concat([pre_acs_rows_df, acs_rows_df,
                    post_acs_rows_df], axis=0).reset_index(drop=True)
-    df = df.drop(columns=[TMP_INT_YEAR])
+    df = df.drop(columns=[_tmp_time_period_col])
 
     return df
 
