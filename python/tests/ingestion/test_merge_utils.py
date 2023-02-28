@@ -2,7 +2,6 @@ from unittest import mock
 import json
 from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, merge_utils
-from ingestion.merge_utils import ACS_LATEST_YEAR
 import ingestion.standardized_columns as std_col
 
 _fips_codes_from_bq = [
@@ -46,10 +45,10 @@ _pop_data_time_series = [
     ['2019', '01', 'WHITE_NH', 200, 50.0],
     ['2019', '02', 'BLACK_NH', 200, 50.0],
     ['2019', '100', 'BLACK_NH', 200, 50.0],
-    [ACS_LATEST_YEAR, '01', 'BLACK_NH', 100, 25.0],
-    [ACS_LATEST_YEAR, '01', 'WHITE_NH', 300, 75.0],
-    [ACS_LATEST_YEAR, '02', 'BLACK_NH', 100, 50.0],
-    [ACS_LATEST_YEAR, '100', 'BLACK_NH', 100, 50.0],
+    ["2021", '01', 'BLACK_NH', 100, 25.0],
+    ["2021", '01', 'WHITE_NH', 300, 75.0],
+    ["2021", '02', 'BLACK_NH', 100, 50.0],
+    ["2021", '100', 'BLACK_NH', 100, 50.0],
 
 ]
 
@@ -154,11 +153,11 @@ _data_time_series_without_pop_numbers = [
     ['2019', '02', 'BLACK_NH', 'something_cooler'],
     ['2019', '78', 'WHITE_NH', 'something_else_entirely'],
     ['2019', '78', 'BLACK_NH', 'something_else_entirely'],
-    [ACS_LATEST_YEAR, '01', 'BLACK_NH', 'something_cool'],
-    [ACS_LATEST_YEAR, '01', 'WHITE_NH', 'something_else_cool'],
-    [ACS_LATEST_YEAR, '02', 'BLACK_NH', 'something_cooler'],
-    [ACS_LATEST_YEAR, '78', 'WHITE_NH', 'something_else_entirely'],
-    [ACS_LATEST_YEAR, '78', 'BLACK_NH', 'something_else_entirely'],
+    ["2021", '01', 'BLACK_NH', 'something_cool'],
+    ["2021", '01', 'WHITE_NH', 'something_else_cool'],
+    ["2021", '02', 'BLACK_NH', 'something_cooler'],
+    ["2021", '78', 'WHITE_NH', 'something_else_entirely'],
+    ["2021", '78', 'BLACK_NH', 'something_else_entirely'],
     ['9999', '01', 'BLACK_NH', 'something_cool'],
     ['9999', '01', 'WHITE_NH', 'something_else_cool'],
     ['9999', '02', 'BLACK_NH', 'something_cooler'],
@@ -168,29 +167,32 @@ _data_time_series_without_pop_numbers = [
 
 
 # 2008 should not get pop data because it's too early for the ACS range
-# 2009-ACS_LATEST_YEAR should get pop data that matches year for year
-# After ACS_LATEST_YEAR should get the same pop data as ACS_LATEST_YEAR
+# 2009-"2021" should get pop data that matches year for year
+# After "2021" should get the same pop data as "2021"
 _expected_time_series_merged_with_pop_numbers = [
     ['time_period', 'state_fips', 'race_category_id',
         'population', 'population_pct', 'other_col'],
+    #  Pre-2009 rows should not get population data
     ['2008', '01', 'BLACK_NH', None, None, 'something_cool'],
     ['2008', '01', 'WHITE_NH', None, None, 'something_else_cool'],
     ['2008', '02', 'BLACK_NH', None, None, 'something_cooler'],
     ['2008', '78', 'WHITE_NH', None, None, 'something_else_entirely'],
     ['2008', '78', 'BLACK_NH', None, None, 'something_else_entirely'],
+    # Years within ACS range should merge directly onto ACS years
     ['2019', '01', 'BLACK_NH', 200, 50.0, 'something_cool'],
     ['2019', '01', 'WHITE_NH', 200, 50.0, 'something_else_cool'],
     ['2019', '02', 'BLACK_NH', 200, 50.0, 'something_cooler'],
     ['2019', '78', 'WHITE_NH', 300, 60.0, 'something_else_entirely'],
     ['2019', '78', 'BLACK_NH', 200, 40.0, 'something_else_entirely'],
-    [ACS_LATEST_YEAR, '01', 'BLACK_NH', 100, 25.0, 'something_cool'],
-    [ACS_LATEST_YEAR, '01', 'WHITE_NH',
+    ["2021", '01', 'BLACK_NH', 100, 25.0, 'something_cool'],
+    ["2021", '01', 'WHITE_NH',
         300, 75.0, 'something_else_cool'],
-    [ACS_LATEST_YEAR, '02', 'BLACK_NH', 100, 50.0, 'something_cooler'],
-    [ACS_LATEST_YEAR, '78', 'WHITE_NH',
+    ["2021", '02', 'BLACK_NH', 100, 50.0, 'something_cooler'],
+    ["2021", '78', 'WHITE_NH',
         300, 60.0, 'something_else_entirely'],
-    [ACS_LATEST_YEAR, '78', 'BLACK_NH',
+    ["2021", '78', 'BLACK_NH',
         200, 40.0, 'something_else_entirely'],
+    # Years AFTER ACS range should merge against the most recent ACS year
     ['9999', '01', 'BLACK_NH', 100, 25.0, 'something_cool'],
     ['9999', '01', 'WHITE_NH', 300, 75.0, 'something_else_cool'],
     ['9999', '02', 'BLACK_NH', 100, 50.0, 'something_cooler'],
