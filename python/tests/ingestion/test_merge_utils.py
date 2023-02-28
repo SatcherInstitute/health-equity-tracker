@@ -230,8 +230,6 @@ def _get_county_names_as_df(*args, **kwargs):
 
 def _get_pop_data_as_df(*args):
 
-    print("mocking call to BQ for ACS pop data", args[1])
-
     pop_dtype = {std_col.STATE_FIPS_COL: str,
                  std_col.POPULATION_COL: float,
                  std_col.POPULATION_PCT_COL: float}
