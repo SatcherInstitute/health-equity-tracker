@@ -62,9 +62,8 @@ export class HetEnvironment implements Environment {
   }
 
   private getEnvVariable(nonPrefixedName: string): string | undefined {
-    const prefix =
-      this.deployContext === "storybook" ? "STORYBOOK_" : "REACT_APP_";
-    return process.env[prefix + nonPrefixedName];
+    const prefix = this.deployContext === "storybook" ? "STORYBOOK_" : "VITE_";
+    return import.meta.env[prefix + nonPrefixedName];
   }
 
   isUserFacingEnvironment() {
@@ -90,17 +89,17 @@ export class HetEnvironment implements Environment {
 }
 
 function getDeployContext(): DeployContext {
-  if (process.env.NODE_ENV === "test") {
+  if (import.meta.env.NODE_ENV === "test") {
     return "test";
   }
 
-  if (process.env.NODE_ENV === "development") {
+  if (import.meta.env.NODE_ENV === "development") {
     return "development";
   }
 
   const deployContextVar =
-    process.env.REACT_APP_DEPLOY_CONTEXT ||
-    process.env.STORYBOOK_DEPLOY_CONTEXT;
+    import.meta.env.VITE_DEPLOY_CONTEXT ||
+    import.meta.env.STORYBOOK_DEPLOY_CONTEXT;
   if (deployContextVar) {
     const expectedContexts = [
       "prod",

@@ -1,10 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ESNext",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
+    ],
+    "types": [
+      "vitest/globals",
+      "vite/client",
+      "vite-plugin-svgr/client"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -17,9 +22,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react-jsx"
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "**/*.test.tsx"
   ]
 }

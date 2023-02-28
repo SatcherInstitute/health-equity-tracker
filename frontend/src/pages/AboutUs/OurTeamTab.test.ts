@@ -1,7 +1,3 @@
-/**
- * @jest-environment node
- */
-
 import { GOOGLE_FELLOWS, PARTNERS } from "./OurTeamData";
 import { getTestableUrls } from "../../utils/externalUrls.test";
 
