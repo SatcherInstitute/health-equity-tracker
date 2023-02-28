@@ -736,7 +736,7 @@ def add_aian_api_rows(df):
 
     # only keep rows with years that will get population
     target_time_periods = get_consecutive_time_periods(
-        first_year=ACS_EARLIEST_YEAR, last_year=ACS_LATEST_YEAR)
+        first_year=int(ACS_EARLIEST_YEAR), last_year=int(ACS_LATEST_YEAR))
     df_aian_api_rows = df[df[std_col.TIME_PERIOD_COL].isin(
         target_time_periods)]
 
