@@ -320,9 +320,6 @@ def zero_out_pct_rel_inequity(df: pd.DataFrame,
         df with the pct_relative_inequities columns zeroed for the zero-rate time/place rows
        """
 
-    print("inside zero out fn()")
-    print(df)
-
     geo_col_mapping = {
         NATIONAL_LEVEL: [
             std_col.STATE_FIPS_COL,

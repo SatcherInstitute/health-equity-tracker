@@ -38,14 +38,6 @@ GOLDEN_DATA = {
 }
 
 
-# def get_mocked_data_as_df():
-#     df = pd.read_csv(os.path.join(
-#         TEST_DIR,
-#         'vera_incarceration_county_test_input.csv'),
-#         dtype=VERA_COL_TYPES
-#     )
-#     return df
-
 def get_mocked_data_as_df():
     df = pd.read_csv(os.path.join(
         TEST_DIR,
@@ -56,9 +48,10 @@ def get_mocked_data_as_df():
 
 
 def get_mocked_county_names_as_df():
-    df = pd.read_csv(os.path.join(TEST_DIR,
-                                  'test_input_county_names.csv'),
-                     dtype=str)
+    df = pd.read_csv(os.path.join(
+        TEST_DIR,
+        'test_input_county_names.csv'),
+        dtype=str)
     return df
 
 
@@ -307,15 +300,15 @@ def get_mocked_county_names_as_df():
 #         _generated_df, _expected_df_jail_age, check_like=True)
 
 
-# @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#              return_value=get_mocked_county_names_as_df())
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             return_value=get_mocked_county_names_as_df())
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
              return_value=get_mocked_data_as_df())
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
 def testRunner(
     mock_bq: mock.MagicMock,
-    # mock_csv: mock.MagicMock,
+    mock_csv: mock.MagicMock,
     mock_counties: mock.MagicMock
 ):
 
@@ -325,11 +318,15 @@ def testRunner(
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
 
-    # kwargs["demographic"] = "race_and_ethnicity"
-    # veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    kwargs["demographic"] = "race_and_ethnicity"
+    veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     kwargs["demographic"] = "sex"
     veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    # kwargs["demographic"] = "age"
-    # veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    kwargs["demographic"] = "age"
+    veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+
+    for call in mock_bq.call_args_list:
+        print("--")
+        print(call[0][2])

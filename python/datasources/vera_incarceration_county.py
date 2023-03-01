@@ -10,7 +10,6 @@ from ingestion.dataset_utils import (
 )
 from ingestion.merge_utils import merge_county_names
 from ingestion.constants import (Sex,
-                                 SEX_RACE_ETH_TYPE,
                                  SEX_RACE_ETH_AGE_TYPE)
 import ingestion.standardized_columns as std_col
 from functools import reduce
@@ -461,6 +460,11 @@ def generate_partial_breakdown(df,
                 vera_all_col = PRISON_RATE_ALL
                 het_value_column = PER_100K_COL_MAP[PRISON]
 
+        if property_type == PCT_SHARE:
+            col_to_demographic_map = {}
+            vera_all_col = ALL_JAIL_PCT_SHARE
+            het_value_column = PCT_SHARE_COL_MAP[JAIL]
+
     if property_type == CHILDREN:
         # treat children as All; no extra groups to calc
         col_to_demographic_map = {}
@@ -508,7 +512,7 @@ def add_confined_children_col(df):
     return df
 
 
-def add_jail_pct_share_col(df, demo_type: SEX_RACE_ETH_TYPE):
+def add_jail_pct_share_col(df, demo_type: SEX_RACE_ETH_AGE_TYPE):
     """ Jail pct_share needs to be calculated a bit differently,
     as Vera TOTAL jail counts are yearly averages, while the GROUP
     jail counts are single-day actual counts.
@@ -521,9 +525,12 @@ def add_jail_pct_share_col(df, demo_type: SEX_RACE_ETH_TYPE):
         groups_map = SEX_JAIL_RAW_COLS_TO_STANDARD
     elif demo_type == std_col.RACE_OR_HISPANIC_COL:
         groups_map = RACE_JAIL_RAW_COLS_TO_STANDARD
+    elif demo_type == std_col.AGE_COL:
+        df[ALL_JAIL_PCT_SHARE] = 100.0
+        return df
     else:
         raise ValueError(
-            f'demo_type sent as {demo_type}; must be "sex" or "race_and_ethnicity". ')
+            f'demo_type sent as {demo_type}; must be "sex", "age", or "race_and_ethnicity". ')
 
     _tmp_sum_col = "temporary_sum_of_groups_col"
 
