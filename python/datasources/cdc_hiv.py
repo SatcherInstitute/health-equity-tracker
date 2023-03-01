@@ -152,7 +152,7 @@ def load_df_from_data_dir(geo_level: str, breakdown: str):
     filename: the name of the file to load the csv file from
     return: a dataframe for specified geo_level and breakdown
     """
-    filename = f'hiv-{geo_level}-{breakdown}.csv'
+    filename = f'diagnoses-{geo_level}-{breakdown}.csv'
     df = gcs_to_bq_util.load_csv_as_df_from_data_dir(HIV_DIR,
                                                      filename,
                                                      skiprows=8,

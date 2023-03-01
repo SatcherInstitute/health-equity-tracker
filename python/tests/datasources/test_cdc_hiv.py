@@ -13,8 +13,8 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data')
 GOLDEN_DIR = os.path.join(TEST_DIR, HIV_DIR, 'golden_data')
 
 ALLS_DATA = {
-    'all_national': os.path.join(TEST_DIR, HIV_DIR, 'hiv-national-all.csv'),
-    'all_state': os.path.join(TEST_DIR, HIV_DIR, 'hiv-state-all.csv')}
+    'all_national': os.path.join(TEST_DIR, HIV_DIR, 'diagnoses-national-all.csv'),
+    'all_state': os.path.join(TEST_DIR, HIV_DIR, 'diagnoses-state-all.csv')}
 
 GOLDEN_DATA = {
     'age_national': os.path.join(GOLDEN_DIR, 'age_national_output.csv'),

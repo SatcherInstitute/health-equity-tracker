@@ -114,6 +114,14 @@ export function MissingHIVData() {
       <h4>Missing data for HIV diagnoses</h4>
       <ul>
         <li>
+          The state and county-level data are suppressed if the population is
+          less than 100.
+        </li>
+        <li>
+          The county-level data are suppressed if the total case count is
+          between 1-4 cases.
+        </li>
+        <li>
           The CDC's AtlasPlus contains data at the national, state, regional,
           and county level. Data at the state or county level,for both cases and
           rates, may be suppressed to protect against a situation in which a

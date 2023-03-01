@@ -485,13 +485,13 @@ function MethodologyTab() {
                 <h3 className={styles.MethodologySubsubheaderText}>HIV</h3>
 
                 <p>
-                  Health departments report to the CDC all confirmed HIV
+                  State Health departments report to the CDC all confirmed HIV
                   infections diagnosed in their jurisdiction and clinical
                   information about each infection. The CDC's AtlasPlus database
                   contains HIV surveillance data reported to the CDC. All HIV
                   data come from health departments in all 50 states, the
                   District of Columbia, and U.S. territories. The HIV data
-                  includes adolescents and adults aged 13 and older.
+                  includes adolescents aged 13 and older and adults.
                 </p>
 
                 <p>
@@ -501,7 +501,7 @@ function MethodologyTab() {
                   HIV diagnosis refers to the number of people who have received
                   an HIV diagnosis in a given time, regardless of when they were
                   first infected. The CDC sums and tabulates the number of
-                  diagnoses reported by health departments.
+                  diagnoses reported by state health departments.
                 </p>
                 <p>
                   Data for years 2021 and 2022 are preliminary (subject to a
