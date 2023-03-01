@@ -2,28 +2,16 @@ from unittest import mock
 import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
-# from ingestion.dataset_utils import ensure_leading_zeros
-
 from datasources.vera_incarceration_county import (
     VeraIncarcerationCounty,
     VERA_COL_TYPES,
-    JAIL,
-    PRISON,
-    CHILDREN,
 )
-
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data",
                         "vera_incarceration_county")
 
-
-FAKE_SPLIT_DF_DATA = {
-    PRISON: os.path.join(TEST_DIR, 'test_input_prison_df.csv'),
-    JAIL: os.path.join(TEST_DIR, 'test_input_jail_df.csv'),
-    CHILDREN: os.path.join(TEST_DIR, 'test_input_children_df.csv'),
-}
 
 GOLDEN_DATA = {
     'race_and_ethnicity_county': os.path.join(TEST_DIR, "golden_data", 'by_race_and_ethnicity_county_time_series.csv'),
@@ -35,7 +23,7 @@ GOLDEN_DATA = {
 def get_mocked_data_as_df():
     df = pd.read_csv(os.path.join(
         TEST_DIR,
-        'incarceration_trends.csv'),
+        'test_input_incarceration_trends.csv'),
         dtype=VERA_COL_TYPES
     )
     return df
