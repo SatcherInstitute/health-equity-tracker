@@ -187,7 +187,8 @@ location_col_types = {col: str for col in GEO_COLS_TO_STANDARD.keys()}
 data_col_types = {col: float for col in DATA_COLS}
 pop_col_types = {col: float for col in POP_COLS}
 VERA_COL_TYPES = {
-    **location_col_types,
+    "year": str,
+    ** location_col_types,
     **data_col_types,
     **pop_col_types
 }
@@ -223,18 +224,6 @@ class VeraIncarcerationCounty(DataSource):
         table_name = f'by_{demo_type}_county_time_series'
         df = self.generate_for_bq(
             df, demo_type)
-
-        # keep and sort needed cols
-        df = df[[std_col.TIME_PERIOD_COL,
-                 *GEO_COLS_TO_STANDARD.values(),
-                 demo_type,
-                 *PER_100K_COL_MAP.values(),
-                 *PCT_SHARE_COL_MAP.values(),
-                 *PCT_REL_INEQUITY_COL_MAP.values(),
-                 *RAW_COL_MAP.values(),
-                 POP,
-                 CHILDREN
-                 ]]
 
         float_cols = [
             *PER_100K_COL_MAP.values(),
@@ -319,13 +308,31 @@ class VeraIncarcerationCounty(DataSource):
                 breakdown_df, PCT_SHARE_COL_MAP[data_type], PCT_SHARE_COL_MAP[POP], PCT_REL_INEQUITY_COL_MAP[data_type])
             breakdown_df = zero_out_pct_rel_inequity(
                 breakdown_df, "county", demo_short,
-                {PER_100K_COL_MAP[data_type]: PCT_REL_INEQUITY_COL_MAP[data_type]}
+                {
+                    PER_100K_COL_MAP[data_type]: PCT_REL_INEQUITY_COL_MAP[data_type]
+                }
             )
 
+        needed_cols = [std_col.TIME_PERIOD_COL,
+                       *GEO_COLS_TO_STANDARD.values(),
+                       demo_type,
+                       *PER_100K_COL_MAP.values(),
+                       *PCT_SHARE_COL_MAP.values(),
+                       *PCT_REL_INEQUITY_COL_MAP.values(),
+                       *RAW_COL_MAP.values(),
+                       POP,
+                       CHILDREN
+                       ]
+
+        # by_race gets race and race_id cols
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(breakdown_df)
+            needed_cols.append(std_col.RACE_CATEGORY_ID_COL)
 
-        return breakdown_df
+        # keep and sort needed cols
+        breakdown_df = breakdown_df[needed_cols]
+
+        return breakdown_df.reset_index(drop=True)
 
 
 def generate_partial_breakdown(df,
