@@ -127,7 +127,17 @@ HIV_DIAGNOSES = 'hiv_diagnoses'
 HIV_DIAGNOSES_PER_100K = 'hiv_diagnoses_per_100k'
 HIV_DIAGNOSES_PCT_INEQUITY = "hiv_diagnoses_pct_relative_inequity"
 HIV_DIAGNOSES_PCT_SHARE = 'hiv_diagnoses_pct_share'
+HIV_DIAGNOSES_POPULATION = 'hiv_diagnoses_population'
 HIV_POPULATION_PCT = 'hiv_population_pct'
+HIV_DEATHS = 'hiv_deaths'
+HIV_DEATHS_PER_100K = 'hiv_deaths_per_100k'
+HIV_DEATHS_PCT_INEQUITY = "hiv_deaths_pct_relative_inequity"
+HIV_DEATHS_POPULATION = 'hiv_deaths_population'
+HIV_DEATHS_PCT_SHARE = 'hiv_deaths_pct_share'
+HIV_PREP = 'hiv_prep'
+HIV_PREP_PER_100K = 'hiv_prep_per_100k'
+HIV_PREP_PCT_INEQUITY = "hiv_prep_pct_relative_inequity"
+HIV_PREP_PCT_SHARE = 'hiv_prep_pct_share'
 
 
 RaceTuple = namedtuple("RaceTuple", [
