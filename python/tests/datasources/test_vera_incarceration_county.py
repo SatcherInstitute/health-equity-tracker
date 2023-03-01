@@ -38,10 +38,20 @@ GOLDEN_DATA = {
 }
 
 
+# def get_mocked_data_as_df():
+#     df = pd.read_csv(os.path.join(
+#         TEST_DIR,
+#         'vera_incarceration_county_test_input.csv'),
+#         dtype=VERA_COL_TYPES
+#     )
+#     return df
+
 def get_mocked_data_as_df():
-    df = pd.read_csv(os.path.join(TEST_DIR,
-                                  'vera_incarceration_county_test_input.csv'),
-                     dtype=VERA_COL_TYPES)
+    df = pd.read_csv(os.path.join(
+        TEST_DIR,
+        'incarceration_trends.csv'),
+        dtype=VERA_COL_TYPES
+    )
     return df
 
 
@@ -297,15 +307,15 @@ def get_mocked_county_names_as_df():
 #         _generated_df, _expected_df_jail_age, check_like=True)
 
 
-@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-             return_value=get_mocked_county_names_as_df())
+# @ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+#              return_value=get_mocked_county_names_as_df())
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
              return_value=get_mocked_data_as_df())
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
 def testRunner(
     mock_bq: mock.MagicMock,
-    mock_csv: mock.MagicMock,
+    # mock_csv: mock.MagicMock,
     mock_counties: mock.MagicMock
 ):
 

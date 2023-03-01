@@ -1,4 +1,3 @@
-
 TERRITORY_FIPS_LIST = ["11", "60", "66", "69", "72", "78"]
 
 STATE_LEVEL_FIPS_LIST = ["01", "02", "04", "05",
