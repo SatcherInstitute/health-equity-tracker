@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, cast
 
 SEX_RACE_AGE_TYPE = Literal["sex", "age", "race"]
 SEX_RACE_ETH_TYPE = Literal["sex", "race_and_ethnicity"]
