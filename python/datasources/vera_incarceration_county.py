@@ -217,31 +217,24 @@ class VeraIncarcerationCounty(DataSource):
         df = ensure_leading_zeros(df, std_col.COUNTY_FIPS_COL, 5)
         df = merge_county_names(df)
 
-        df = df[[std_col.TIME_PERIOD_COL,
-                 std_col.COUNTY_FIPS_COL,
-                 std_col.COUNTY_NAME_COL,
-                 *POP_COLS,
-                 PRISON_RAW_ALL,
-                 PRISON_RATE_ALL,
-                 *RACE_PRISON_RAW_COLS_TO_STANDARD.keys(),
-                 *SEX_PRISON_RAW_COLS_TO_STANDARD.keys(),
-                 *RACE_PRISON_RATE_COLS_TO_STANDARD.keys(),
-                 *SEX_PRISON_RATE_COLS_TO_STANDARD.keys(),
-                 JAIL_RAW_ALL,
-                 JAIL_RATE_ALL,
-                 *RACE_JAIL_RAW_COLS_TO_STANDARD.keys(),
-                 *SEX_JAIL_RAW_COLS_TO_STANDARD.keys(),
-                 *RACE_JAIL_RATE_COLS_TO_STANDARD.keys(),
-                 *SEX_JAIL_RATE_COLS_TO_STANDARD.keys(),
-                 *JUVENILE_COLS
-                 ]]
-
         df = add_jail_pct_share_col(df, demo_type)
         df = add_confined_children_col(df)
 
-        table_name = f'{demo_type}_county'
+        table_name = f'by_{demo_type}_county_time_series'
         df = self.generate_for_bq(
             df, demo_type)
+
+        # keep and sort needed cols
+        df = df[[std_col.TIME_PERIOD_COL,
+                 *GEO_COLS_TO_STANDARD.values(),
+                 demo_type,
+                 *PER_100K_COL_MAP.values(),
+                 *PCT_SHARE_COL_MAP.values(),
+                 *PCT_REL_INEQUITY_COL_MAP.values(),
+                 *RAW_COL_MAP.values(),
+                 POP,
+                 CHILDREN
+                 ]]
 
         float_cols = [
             *PER_100K_COL_MAP.values(),

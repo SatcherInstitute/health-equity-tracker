@@ -328,5 +328,5 @@ def testRunner(
     veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     for call in mock_bq.call_args_list:
-        print("--")
-        print(call[0][2])
+        df, _, table_name = call[0]
+        df.to_csv(f'{table_name}.csv', index=False)
