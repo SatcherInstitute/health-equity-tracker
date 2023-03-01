@@ -188,7 +188,7 @@ data_col_types = {col: float for col in DATA_COLS}
 pop_col_types = {col: float for col in POP_COLS}
 VERA_COL_TYPES = {
     "year": str,
-    ** location_col_types,
+    **location_col_types,
     **data_col_types,
     **pop_col_types
 }
