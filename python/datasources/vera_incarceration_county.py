@@ -10,22 +10,24 @@ from ingestion.dataset_utils import (
 )
 from ingestion.merge_utils import merge_county_names
 from ingestion.constants import (Sex,
-                                 SEX_RACE_ETH_AGE_TYPE)
+                                 SEX_RACE_ETH_AGE_TYPE,
+                                 SEX_RACE_AGE_TYPE)
 import ingestion.standardized_columns as std_col
 from functools import reduce
-from typing import Literal
+from typing import Literal, cast
 
 JAIL_PRISON_TYPE = Literal["jail", "prison"]
-VERA_PROPERTY_TYPE = Literal["raw", "rate", "population"]
+VERA_PROPERTY_TYPE = Literal["raw", "rate",
+                             "population", "total_confined_children"]
 
-JAIL = "jail"
+JAIL = cast(JAIL_PRISON_TYPE, "jail")
 PRISON = "prison"
 
 RAW = "raw"
 RATE = "rate"
 PCT_SHARE = "pct_share"
 POP = "population"
-CHILDREN = "total_confined_children"
+CHILDREN = cast(VERA_PROPERTY_TYPE, "total_confined_children")
 
 RAW_COL_MAP = {
     JAIL: "jail_estimated_total",
@@ -189,8 +191,8 @@ pop_col_types = {col: float for col in POP_COLS}
 VERA_COL_TYPES = {
     "year": str,
     **location_col_types,
-    **data_col_types,
-    **pop_col_types
+    **data_col_types,  # type: ignore
+    **pop_col_types  # type: ignore
 }
 
 
@@ -262,6 +264,7 @@ class VeraIncarcerationCounty(DataSource):
 
         # create and melt multiple partial dfs (to avoid column name collisions)
         for data_type in [PRISON, JAIL]:
+
             # only need population once, only need pct_share here for jail
             # (prison_pct_share and pop_pct_share later post-melt)
             needed_property_types = [RAW, RATE, POP,
@@ -271,7 +274,7 @@ class VeraIncarcerationCounty(DataSource):
             for property_type in needed_property_types:
                 partial_df = df.copy()
                 partial_df = generate_partial_breakdown(
-                    partial_df, demo_type, data_type, property_type)
+                    partial_df, demo_type, cast(JAIL_PRISON_TYPE, data_type), cast(VERA_PROPERTY_TYPE, property_type))
                 partial_breakdowns.append(partial_df)
 
         # merge all the partial DFs for POP, RAW, RATE into a single DF per datatype/breakdown
@@ -307,7 +310,9 @@ class VeraIncarcerationCounty(DataSource):
             breakdown_df = generate_pct_rel_inequity_col(
                 breakdown_df, PCT_SHARE_COL_MAP[data_type], PCT_SHARE_COL_MAP[POP], PCT_REL_INEQUITY_COL_MAP[data_type])
             breakdown_df = zero_out_pct_rel_inequity(
-                breakdown_df, "county", demo_short,
+                breakdown_df,
+                "county",
+                cast(SEX_RACE_AGE_TYPE, demo_short),
                 {
                     PER_100K_COL_MAP[data_type]: PCT_REL_INEQUITY_COL_MAP[data_type]
                 }
