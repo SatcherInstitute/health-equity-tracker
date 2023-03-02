@@ -1,4 +1,10 @@
-from typing import List
+import pandas as pd
+from ingestion.merge_utils import ACS_EARLIEST_YEAR, ACS_LATEST_YEAR
+from ingestion.standardized_columns import Race
+from ingestion.dataset_utils import (generate_pct_rel_inequity_col,
+                                     zero_out_pct_rel_inequity)
+from ingestion import gcs_to_bq_util, merge_utils
+import ingestion.standardized_columns as std_col
 from datasources.data_source import DataSource
 from ingestion.constants import (
     NATIONAL_LEVEL, STATE_LEVEL,
@@ -6,15 +12,15 @@ from ingestion.constants import (
     TERRITORY_FIPS_LIST,
     US_ABBR, US_FIPS, US_NAME,
     TERRITORY_POSTALS,
-    RACE
 )
-import ingestion.standardized_columns as std_col
-from ingestion import gcs_to_bq_util, merge_utils
-from ingestion.dataset_utils import (generate_pct_rel_inequity_col,
-                                     zero_out_pct_rel_inequity)
-from ingestion.standardized_columns import Race
-from ingestion.merge_utils import ACS_EARLIEST_YEAR, ACS_LATEST_YEAR
-import pandas as pd
+from typing import Literal, cast, List
+
+SEX_RACE_AGE_TYPE = Literal["sex", "age", "race"]
+GEO_LEVEL_TYPE = Literal["national", "state", "county"]
+
+
+RACE = cast(SEX_RACE_AGE_TYPE, "race")
+
 
 FIPS_TO_STATE_TABLE_MAP = {
     "01": "128", "02": "2312", "04": "764", "05": "775", "06": "781",
@@ -289,7 +295,7 @@ class CAWPTimeData(DataSource):
                                            std_col.W_CONGRESS_PCT_INEQUITY,
                                            )
         df = zero_out_pct_rel_inequity(df,
-                                       geo_level,
+                                       cast(GEO_LEVEL_TYPE, geo_level),
                                        RACE,
                                        {std_col.PCT_OF_CONGRESS: std_col.W_CONGRESS_PCT_INEQUITY},
                                        std_col.POPULATION_PCT_COL
@@ -301,7 +307,7 @@ class CAWPTimeData(DataSource):
                                            std_col.W_STLEG_PCT_INEQUITY,
                                            )
         df = zero_out_pct_rel_inequity(df,
-                                       geo_level,
+                                       cast(GEO_LEVEL_TYPE, geo_level),
                                        RACE,
                                        {std_col.PCT_OF_STLEG: std_col.W_STLEG_PCT_INEQUITY},
                                        std_col.POPULATION_PCT_COL

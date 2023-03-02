@@ -1,0 +1,109 @@
+time_period,county_fips,county_name,race_and_ethnicity,jail_per_100k,prison_per_100k,jail_pct_share,prison_pct_share,incarceration_population_pct,jail_pct_relative_inequity,prison_relative_inequity,jail_estimated_total,prison_estimated_total,population,total_confined_children,race_category_id
+2010,01001,Autauga County,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0,0.0,0.0,0.0,1.1,-100.0,-100.0,0.0,0.0,400.0,,API_NH
+2010,01001,Autauga County,Black or African American (NH),831.0,1543.0,40.8,53.4,18.4,121.7,190.2,55.5,103.0,6677.0,,BLACK_NH
+2010,01001,Autauga County,Hispanic or Latino,240.0,0.0,1.5,0.0,2.3,-34.8,-100.0,2.0,0.0,833.0,,HISP
+2010,01001,Autauga County,American Indian and Alaska Native (NH),556.0,0.0,0.7,0.0,0.4,75.0,-100.0,0.89,0.0,160.0,,AIAN_NH
+2010,01001,Autauga County,White (NH),274.0,319.0,57.0,46.6,77.8,-26.7,-40.1,77.5,90.0,28253.0,,WHITE_NH
+2011,01001,Autauga County,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0,0.0,0.0,0.0,1.2,-100.0,-100.0,0.0,0.0,426.0,,API_NH
+2011,01001,Autauga County,Black or African American (NH),772.0,1660.0,39.9,52.1,18.8,112.2,177.1,53.0,114.0,6868.0,,BLACK_NH
+2011,01001,Autauga County,Hispanic or Latino,238.0,0.0,1.5,0.0,2.3,-34.8,-100.0,2.0,0.0,841.0,,HISP
+2011,01001,Autauga County,American Indian and Alaska Native (NH),512.0,0.0,0.7,0.0,0.5,40.0,-100.0,0.87,0.0,170.0,,AIAN_NH
+2011,01001,Autauga County,White (NH),272.0,371.0,58.0,47.9,77.3,-25.0,-38.0,77.0,105.0,28268.0,,WHITE_NH
+2012,01001,Autauga County,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0,,0.0,,1.3,-100.0,,0.0,,454.0,,API_NH
+2012,01001,Autauga County,Black or African American (NH),732.0,1580.0,38.9,48.7,19.1,103.7,155.0,50.5,109.0,6898.0,,BLACK_NH
+2012,01001,Autauga County,Hispanic or Latino,243.0,,1.5,,2.3,-34.8,,2.0,,824.0,,HISP
+2012,01001,Autauga County,American Indian and Alaska Native (NH),491.0,,0.7,,0.5,40.0,,0.85,,173.0,,AIAN_NH
+2012,01001,Autauga County,White (NH),275.0,409.0,58.9,50.9,76.9,-23.4,-33.8,76.5,114.0,27842.0,,WHITE_NH
+2013,01001,Autauga County,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0,,0.0,,1.3,-100.0,,0.0,,481.0,,API_NH
+2013,01001,Autauga County,Black or African American (NH),695.0,1505.0,37.8,48.1,19.1,97.9,151.8,48.0,104.0,6910.0,,BLACK_NH
+2013,01001,Autauga County,Hispanic or Latino,232.0,,1.6,,2.4,-33.3,,2.0,,861.0,,HISP
+2013,01001,Autauga County,American Indian and Alaska Native (NH),454.0,,0.7,,0.5,40.0,,0.83,,183.0,,AIAN_NH
+2013,01001,Autauga County,White (NH),274.0,397.0,59.9,50.9,76.7,-21.9,-33.6,76.0,110.0,27691.0,,WHITE_NH
+2014,01001,Autauga County,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0,,0.0,,1.3,-100.0,,0.0,,488.0,,API_NH
+2014,01001,Autauga County,Black or African American (NH),688.0,1348.0,37.8,48.5,19.3,95.9,151.3,48.0,94.0,6975.0,,BLACK_NH
+2014,01001,Autauga County,Hispanic or Latino,216.0,,1.6,,2.6,-38.5,,2.0,,924.0,,HISP
+2014,01001,Autauga County,American Indian and Alaska Native (NH),472.0,,0.7,,0.5,40.0,,0.83,,176.0,,AIAN_NH
+2014,01001,Autauga County,White (NH),275.0,354.0,59.9,50.5,76.4,-21.6,-33.9,76.0,98.0,27655.0,,WHITE_NH
+2015,01001,Autauga County,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0,,0.0,,1.4,-100.0,,0.0,,501.0,,API_NH
+2015,01001,Autauga County,Black or African American (NH),669.0,1520.0,37.8,50.2,19.9,89.9,152.3,48.0,109.0,7172.0,,BLACK_NH
+2015,01001,Autauga County,Hispanic or Latino,213.0,,1.6,,2.6,-38.5,,2.0,,940.0,,HISP
+2015,01001,Autauga County,American Indian and Alaska Native (NH),529.0,,0.7,,0.4,75.0,,0.83,,157.0,,AIAN_NH
+2015,01001,Autauga County,White (NH),278.0,388.0,59.9,48.8,75.7,-20.9,-35.5,76.0,106.0,27332.0,,WHITE_NH
+2016,01001,Autauga County,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0,,0.0,,1.5,-100.0,,0.0,,532.0,,API_NH
+2016,01001,Autauga County,Black or African American (NH),652.0,1182.0,37.8,47.5,20.2,87.1,135.1,48.0,87.0,7359.0,,BLACK_NH
+2016,01001,Autauga County,Hispanic or Latino,205.0,,1.6,,2.7,-40.7,,2.0,,975.0,,HISP
+2016,01001,Autauga County,American Indian and Alaska Native (NH),532.0,,0.7,,0.4,75.0,,0.83,,156.0,,AIAN_NH
+2016,01001,Autauga County,White (NH),278.0,340.0,59.9,50.8,75.2,-20.3,-32.4,76.0,93.0,27371.0,,WHITE_NH
+2017,01001,Autauga County,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0,,0.0,,1.6,-100.0,,0.0,,585.0,,API_NH
+2017,01001,Autauga County,Black or African American (NH),645.0,,37.8,,20.5,84.4,,48.0,,7440.0,,BLACK_NH
+2017,01001,Autauga County,Hispanic or Latino,196.0,,1.6,,2.8,-42.9,,2.0,,1023.0,,HISP
+2017,01001,Autauga County,American Indian and Alaska Native (NH),557.0,,0.7,,0.4,75.0,,0.83,,149.0,,AIAN_NH
+2017,01001,Autauga County,White (NH),280.0,,59.9,,74.7,-19.8,,76.0,,27155.0,,WHITE_NH
+2018,01001,Autauga County,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0,,0.0,,1.6,-100.0,,0.0,,571.0,,API_NH
+2018,01001,Autauga County,Black or African American (NH),643.0,,37.8,,20.6,83.5,,48.0,,7462.0,,BLACK_NH
+2018,01001,Autauga County,Hispanic or Latino,188.0,,1.6,,2.9,-44.8,,2.0,,1063.0,,HISP
+2018,01001,Autauga County,American Indian and Alaska Native (NH),542.0,,0.7,,0.4,75.0,,0.83,,153.0,,AIAN_NH
+2018,01001,Autauga County,White (NH),281.0,,59.9,,74.5,-19.6,,76.0,,27030.0,,WHITE_NH
+2010,08031,Denver County,"Asian, Native Hawaiian, and Pacific Islander (NH)",58.0,252.0,0.5,0.9,3.8,-86.8,-76.3,9.44,41.0,16300.0,,API_NH
+2010,08031,Denver County,Black or African American (NH),1383.0,3857.0,30.5,34.5,9.8,211.2,252.0,583.07,1626.0,42152.0,,BLACK_NH
+2010,08031,Denver County,Hispanic or Latino,480.0,1478.0,31.2,38.9,28.9,8.0,34.6,595.23,1833.0,124045.0,,HISP
+2010,08031,Denver County,American Indian and Alaska Native (NH),589.0,4155.0,1.1,3.1,0.8,37.5,287.5,20.43,144.0,3466.0,,AIAN_NH
+2010,08031,Denver County,White (NH),287.0,440.0,36.5,22.7,56.7,-35.6,-60.0,697.19,1070.0,243117.0,,WHITE_NH
+2011,08031,Denver County,"Asian, Native Hawaiian, and Pacific Islander (NH)",71.0,250.0,0.6,1.0,3.9,-84.6,-74.4,12.26,43.0,17214.0,,API_NH
+2011,08031,Denver County,Black or African American (NH),1387.0,3571.0,29.1,35.1,9.6,203.1,265.6,590.85,1521.0,42591.0,,BLACK_NH
+2011,08031,Denver County,Hispanic or Latino,504.0,1338.0,31.6,39.2,28.8,9.7,36.1,641.15,1700.0,127095.0,,HISP
+2011,08031,Denver County,American Indian and Alaska Native (NH),600.0,3575.0,1.0,2.9,0.8,25.0,262.5,20.8,124.0,3469.0,,AIAN_NH
+2011,08031,Denver County,White (NH),303.0,378.0,37.5,21.9,56.9,-34.1,-61.5,760.34,948.0,251011.0,,WHITE_NH
+2012,08031,Denver County,"Asian, Native Hawaiian, and Pacific Islander (NH)",83.0,144.0,0.7,0.7,4.0,-82.5,-82.5,14.95,26.0,18078.0,,API_NH
+2012,08031,Denver County,Black or African American (NH),1352.0,3195.0,27.8,35.3,9.6,189.6,267.7,586.9,1387.0,43407.0,,BLACK_NH
+2012,08031,Denver County,Hispanic or Latino,523.0,1178.0,32.0,38.8,28.7,11.5,35.2,676.0,1523.0,129329.0,,HISP
+2012,08031,Denver County,American Indian and Alaska Native (NH),607.0,3214.0,1.0,2.8,0.8,25.0,250.0,20.77,110.0,3422.0,,AIAN_NH
+2012,08031,Denver County,White (NH),316.0,343.0,38.4,22.4,56.9,-32.5,-60.6,810.73,880.0,256824.0,,WHITE_NH
+2013,08031,Denver County,"Asian, Native Hawaiian, and Pacific Islander (NH)",86.0,170.0,0.8,0.8,4.1,-80.5,-80.5,16.22,32.0,18874.0,,API_NH
+2013,08031,Denver County,Black or African American (NH),1214.0,3150.0,26.5,35.8,9.5,178.9,276.8,534.0,1386.0,44000.0,,BLACK_NH
+2013,08031,Denver County,Hispanic or Latino,496.0,1137.0,32.4,38.6,28.5,13.7,35.4,652.0,1495.0,131541.0,,HISP
+2013,08031,Denver County,American Indian and Alaska Native (NH),553.0,3436.0,0.9,3.0,0.7,28.6,328.6,19.0,118.0,3434.0,,AIAN_NH
+2013,08031,Denver County,White (NH),300.0,320.0,39.2,21.7,57.1,-31.3,-62.0,790.0,841.0,262978.0,,WHITE_NH
+2014,08031,Denver County,"Asian, Native Hawaiian, and Pacific Islander (NH)",82.0,173.0,0.8,0.9,4.2,-81.0,-78.6,16.15,34.0,19648.0,,API_NH
+2014,08031,Denver County,Black or African American (NH),1122.0,3117.0,25.9,35.4,9.5,172.6,272.6,502.0,1394.0,44724.0,,BLACK_NH
+2014,08031,Denver County,Hispanic or Latino,475.0,1112.0,33.0,38.0,28.6,15.4,32.9,640.0,1499.0,134833.0,,HISP
+2014,08031,Denver County,American Indian and Alaska Native (NH),656.0,3652.0,1.2,3.2,0.7,71.4,357.1,23.0,128.0,3505.0,,AIAN_NH
+2014,08031,Denver County,White (NH),282.0,329.0,39.0,22.5,57.0,-31.6,-60.5,757.0,885.0,268729.0,,WHITE_NH
+2015,08031,Denver County,"Asian, Native Hawaiian, and Pacific Islander (NH)",59.0,185.0,0.6,1.0,4.2,-85.7,-76.2,12.14,38.0,20532.0,,API_NH
+2015,08031,Denver County,Black or African American (NH),1193.0,2887.0,28.1,34.6,9.4,198.9,268.1,544.0,1316.0,45587.0,,BLACK_NH
+2015,08031,Denver County,Hispanic or Latino,440.0,1043.0,31.4,37.8,28.4,10.6,33.1,607.0,1439.0,137952.0,,HISP
+2015,08031,Denver County,American Indian and Alaska Native (NH),596.0,3492.0,1.1,3.2,0.7,57.1,357.1,21.0,123.0,3522.0,,AIAN_NH
+2015,08031,Denver County,White (NH),268.0,318.0,38.6,23.3,57.3,-32.6,-59.3,746.0,886.0,278420.0,,WHITE_NH
+2016,08031,Denver County,"Asian, Native Hawaiian, and Pacific Islander (NH)",67.0,182.0,0.7,1.1,4.3,-83.7,-74.4,14.39,39.0,21436.0,,API_NH
+2016,08031,Denver County,Black or African American (NH),1270.0,2759.0,26.9,34.5,9.3,189.2,271.0,585.0,1271.0,46062.0,,BLACK_NH
+2016,08031,Denver County,Hispanic or Latino,515.0,987.0,33.2,37.6,28.2,17.7,33.3,722.0,1385.0,140281.0,,HISP
+2016,08031,Denver County,American Indian and Alaska Native (NH),678.0,3278.0,1.1,3.1,0.7,57.1,342.9,24.0,116.0,3539.0,,AIAN_NH
+2016,08031,Denver County,White (NH),289.0,307.0,37.9,23.8,57.5,-34.1,-58.6,825.0,876.0,285481.0,,WHITE_NH
+2017,08031,Denver County,"Asian, Native Hawaiian, and Pacific Islander (NH)",55.0,,0.6,,4.4,-86.4,,12.2,,22109.0,,API_NH
+2017,08031,Denver County,Black or African American (NH),1271.0,,27.2,,9.2,195.7,,586.0,,46110.0,,BLACK_NH
+2017,08031,Denver County,Hispanic or Latino,478.0,,31.4,,28.1,11.7,,677.5,,141791.0,,HISP
+2017,08031,Denver County,American Indian and Alaska Native (NH),555.0,,0.9,,0.7,28.6,,19.5,,3513.0,,AIAN_NH
+2017,08031,Denver County,White (NH),296.0,,39.8,,57.6,-30.9,,858.0,,290359.0,,WHITE_NH
+2018,08031,Denver County,"Asian, Native Hawaiian, and Pacific Islander (NH)",44.0,,0.5,,4.5,-88.9,,10.0,,22923.0,,API_NH
+2018,08031,Denver County,Black or African American (NH),1252.0,,27.5,,9.1,202.2,,587.0,,46872.0,,BLACK_NH
+2018,08031,Denver County,Hispanic or Latino,441.0,,29.6,,28.0,5.7,,633.0,,143574.0,,HISP
+2018,08031,Denver County,American Indian and Alaska Native (NH),421.0,,0.7,,0.7,0.0,,15.0,,3566.0,,AIAN_NH
+2018,08031,Denver County,White (NH),301.0,,41.7,,57.7,-27.7,,891.0,,295684.0,,WHITE_NH
+2010,01001,Autauga County,All,438.0,531.0,100.0,100.0,100.0,0.0,0.0,159.0,193.0,36323.0,0.0,ALL
+2011,01001,Autauga County,All,440.0,599.0,100.0,100.0,100.0,0.0,0.0,161.0,219.0,36573.0,0.0,ALL
+2012,01001,Autauga County,All,450.0,619.0,100.0,100.0,100.0,0.0,0.0,163.0,224.0,36191.0,0.0,ALL
+2013,01001,Autauga County,All,457.0,598.0,100.0,100.0,100.0,0.0,0.0,165.0,216.0,36126.0,0.0,ALL
+2014,01001,Autauga County,All,456.0,536.0,100.0,100.0,100.0,0.0,0.0,165.0,194.0,36218.0,0.0,ALL
+2015,01001,Autauga County,All,457.0,601.0,100.0,100.0,100.0,0.0,0.0,165.0,217.0,36102.0,0.0,ALL
+2016,01001,Autauga County,All,453.0,503.0,100.0,100.0,100.0,0.0,0.0,165.0,183.0,36393.0,0.0,ALL
+2017,01001,Autauga County,All,454.0,,100.0,,100.0,0.0,,165.0,,36352.0,0.0,ALL
+2018,01001,Autauga County,All,455.0,,100.0,,100.0,0.0,,165.0,,36279.0,0.0,ALL
+2010,08031,Denver County,All,490.0,1099.0,100.0,100.0,100.0,0.0,0.0,2101.0,4714.0,429080.0,2.0,ALL
+2011,08031,Denver County,All,479.0,982.0,100.0,100.0,100.0,0.0,0.0,2113.0,4336.0,441380.0,4.0,ALL
+2012,08031,Denver County,All,468.0,870.0,100.0,100.0,100.0,0.0,0.0,2113.0,3926.0,451060.0,4.0,ALL
+2013,08031,Denver County,All,492.0,840.0,100.0,100.0,100.0,0.0,0.0,2265.0,3872.0,460827.0,2.0,ALL
+2014,08031,Denver County,All,464.0,836.0,100.0,100.0,100.0,0.0,0.0,2188.0,3940.0,471439.0,0.0,ALL
+2015,08031,Denver County,All,415.0,782.0,100.0,100.0,100.0,0.0,0.0,2017.0,3802.0,486013.0,0.0,ALL
+2016,08031,Denver County,All,447.0,742.0,100.0,100.0,100.0,0.0,0.0,2221.0,3687.0,496799.0,0.0,ALL
+2017,08031,Denver County,All,430.0,,100.0,,100.0,0.0,,2168.5,,503882.0,0.0,ALL
+2018,08031,Denver County,All,413.0,,100.0,,100.0,0.0,,2116.0,,512619.0,0.0,ALL
