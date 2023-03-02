@@ -99,13 +99,19 @@ class IncarcerationProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
+    const variableId: VariableId | undefined = metricQuery?.variableId;
     const timeView = metricQuery.timeView;
     const datasetId = this.getDatasetId(breakdowns);
     const dataSource = await getDataManager().loadDataset(datasetId);
     let df = dataSource.toDataFrame();
 
     df = this.filterByGeo(df, breakdowns);
-    df = this.filterByTimeView(df, timeView, "2016");
+
+    let mostRecentYear: string = "";
+    if (variableId === "prison") mostRecentYear = "2016";
+    if (variableId === "jail") mostRecentYear = "2018";
+
+    df = this.filterByTimeView(df, timeView, mostRecentYear);
     df = this.renameGeoColumns(df, breakdowns);
 
     const consumedDatasetIds = [datasetId];

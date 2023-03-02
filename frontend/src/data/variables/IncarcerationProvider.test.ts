@@ -59,7 +59,7 @@ describe("IncarcerationProvider", () => {
 
   test("County and Race Breakdown for Prison", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "vera_incarceration_county-prison_race_and_ethnicity_county-06",
+      "vera_incarceration_county-by_race_and_ethnicity_county_time_series-06",
       Breakdowns.forFips(new Fips("06037")),
       RACE,
       "prison",
@@ -93,7 +93,7 @@ describe("IncarcerationProvider", () => {
 
   test("County and Age Breakdown for Jail", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "vera_incarceration_county-jail_age_county-06",
+      "vera_incarceration_county-by_age_county_time_series-06",
       Breakdowns.forFips(new Fips("06037")),
       AGE,
       "jail",
@@ -127,7 +127,7 @@ describe("IncarcerationProvider", () => {
 
   test("County and Sex Breakdown for Jail", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "vera_incarceration_county-jail_sex_county-06",
+      "vera_incarceration_county-by_sex_county_time_series-06",
       Breakdowns.forFips(new Fips("06037")),
       SEX,
       "jail",
