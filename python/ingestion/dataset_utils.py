@@ -7,10 +7,13 @@ from ingestion.constants import (
     STATE_LEVEL,
     COUNTY_LEVEL,
     RACE,
-    UNKNOWN,
-    GEO_LEVEL_TYPE,
-    SEX_RACE_AGE_TYPE
+    UNKNOWN
 )
+
+from typing import Literal
+
+SEX_RACE_AGE_TYPE = Literal["sex", "age", "race"]
+GEO_LEVEL_TYPE = Literal["national", "state", "county"]
 
 
 def generate_pct_share_col_without_unknowns(df, raw_count_to_pct_share, breakdown_col, all_val):

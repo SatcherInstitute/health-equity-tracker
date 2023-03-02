@@ -9,18 +9,18 @@ from ingestion.dataset_utils import (
     zero_out_pct_rel_inequity
 )
 from ingestion.merge_utils import merge_county_names
-from ingestion.constants import (Sex,
-                                 SEX_RACE_ETH_AGE_TYPE,
-                                 SEX_RACE_AGE_TYPE)
+from ingestion.constants import (Sex)
 import ingestion.standardized_columns as std_col
 from functools import reduce
 from typing import Literal, cast
 
-JAIL_PRISON_TYPE = Literal["jail", "prison"]
+SEX_RACE_AGE_TYPE = Literal["sex", "age", "race"]
+SEX_RACE_ETH_AGE_TYPE = Literal["sex", "age", "race_and_ethnicity"]
+INCARCERATION_TYPE = Literal["jail", "prison"]
 VERA_PROPERTY_TYPE = Literal["raw", "rate",
                              "population", "total_confined_children"]
 
-JAIL = cast(JAIL_PRISON_TYPE, "jail")
+JAIL = cast(INCARCERATION_TYPE, "jail")
 PRISON = "prison"
 
 RAW = "raw"
@@ -274,7 +274,7 @@ class VeraIncarcerationCounty(DataSource):
             for property_type in needed_property_types:
                 partial_df = df.copy()
                 partial_df = generate_partial_breakdown(
-                    partial_df, demo_type, cast(JAIL_PRISON_TYPE, data_type), cast(VERA_PROPERTY_TYPE, property_type))
+                    partial_df, demo_type, cast(INCARCERATION_TYPE, data_type), cast(VERA_PROPERTY_TYPE, property_type))
                 partial_breakdowns.append(partial_df)
 
         # merge all the partial DFs for POP, RAW, RATE into a single DF per datatype/breakdown
@@ -342,7 +342,7 @@ class VeraIncarcerationCounty(DataSource):
 
 def generate_partial_breakdown(df,
                                demo_type: SEX_RACE_ETH_AGE_TYPE,
-                               data_type: JAIL_PRISON_TYPE,
+                               data_type: INCARCERATION_TYPE,
                                property_type: VERA_PROPERTY_TYPE):
     """
     Takes a Vera style df with demographic groups as columns and geographies as rows, and

@@ -1,10 +1,4 @@
-from typing import Literal
 
-SEX_RACE_AGE_TYPE = Literal["sex", "age", "race"]
-SEX_RACE_ETH_TYPE = Literal["sex", "race_and_ethnicity"]
-SEX_RACE_ETH_AGE_TYPE = Literal["sex", "age", "race_and_ethnicity"]
-
-GEO_LEVEL_TYPE = Literal["national", "state", "county"]
 
 TERRITORY_FIPS_LIST = ["11", "60", "66", "69", "72", "78"]
 

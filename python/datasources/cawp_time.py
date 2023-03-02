@@ -5,9 +5,6 @@ from ingestion.dataset_utils import (generate_pct_rel_inequity_col,
                                      zero_out_pct_rel_inequity)
 from ingestion import gcs_to_bq_util, merge_utils
 import ingestion.standardized_columns as std_col
-from typing import List, cast
-from ingestion.constants import (GEO_LEVEL_TYPE,
-                                 SEX_RACE_AGE_TYPE)
 from datasources.data_source import DataSource
 from ingestion.constants import (
     NATIONAL_LEVEL, STATE_LEVEL,
@@ -16,6 +13,11 @@ from ingestion.constants import (
     US_ABBR, US_FIPS, US_NAME,
     TERRITORY_POSTALS,
 )
+from typing import Literal, cast, List
+
+SEX_RACE_AGE_TYPE = Literal["sex", "age", "race"]
+GEO_LEVEL_TYPE = Literal["national", "state", "county"]
+
 
 RACE = cast(SEX_RACE_AGE_TYPE, "race")
 
