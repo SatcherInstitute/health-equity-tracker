@@ -16,8 +16,6 @@ from ingestion.constants import (
     US_ABBR, US_FIPS, US_NAME,
     TERRITORY_POSTALS,
 )
-from typing import cast
-
 
 RACE = cast(SEX_RACE_AGE_TYPE, "race")
 
