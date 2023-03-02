@@ -133,7 +133,6 @@ HIV_DEATHS_PCT_INEQUITY = "hiv_deaths_pct_relative_inequity"
 HIV_DEATHS_PCT_SHARE = 'hiv_deaths_pct_share'
 HIV_PREP = 'hiv_prep'
 HIV_PREP_COVERAGE = 'hiv_prep_coverage'
-HIV_PREP_PCT_INEQUITY = "hiv_prep_pct_relative_inequity"
 HIV_PREP_PCT_SHARE = 'hiv_prep_pct_share'
 HIV_PREP_POPULATION = 'hiv_prep_population'
 HIV_POPULATION_PCT = 'hiv_population_pct'
