@@ -10,15 +10,16 @@ from ingestion.dataset_utils import (generate_pct_share_col_without_unknowns,
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.merge_utils import merge_county_names
 
-
+# constants
 HIV_DIR = 'cdc_hiv'
-DIAGNOSES_DIR = 'diagnoses'
+DIAGNOSES = 'diagnoses'
+DEATHS = 'deaths'
+PREP = 'prep'
+DTYPE = {'FIPS': str, 'Year': str}
 
 # a nested dictionary that contains values swaps per column name
 HIV_TERMS_STANDARD_BY_COL = {
     std_col.AGE_COL: {'Ages 13 years and older': std_col.ALL_VALUE},
-    std_col.HIV_DIAGNOSES: {'Data suppressed': np.nan, 'Data not available': np.nan},
-    std_col.HIV_DIAGNOSES_PER_100K: {'Data suppressed': np.nan, 'Data not available': np.nan},
     std_col.RACE_CATEGORY_ID_COL: {
         'All races/ethnicities': std_col.Race.ALL.value,
         'American Indian/Alaska Native': std_col.Race.AIAN_NH.value,
@@ -27,14 +28,33 @@ HIV_TERMS_STANDARD_BY_COL = {
         'Hispanic/Latino': std_col.Race.HISP.value,
         'Multiracial': std_col.Race.MULTI_NH.value,
         'Native Hawaiian/Other Pacific Islander': std_col.Race.NHPI_NH.value,
+        'Other': std_col.Race.OTHER_STANDARD_NH.value,
         'White': std_col.Race.WHITE_NH.value},
-    std_col.SEX_COL: {'Both sexes': std_col.ALL_VALUE},
-    std_col.TIME_PERIOD_COL: {'2020 (COVID-19 Pandemic)': '2020'}
+    std_col.SEX_COL: {'Both sexes': std_col.ALL_VALUE}
 }
+
+VALUES_TO_STANDARD = {'Data suppressed': np.nan, 'Data not available': np.nan}
+
+DIAGNOSES_TO_STANDARD = {
+    'Cases': std_col.HIV_DIAGNOSES,
+    'Rate per 100000': std_col.HIV_DIAGNOSES_PER_100K}
+
+DEATHS_TO_STANDARD = {
+    'Cases': std_col.HIV_DEATHS,
+    'Rate per 100000': std_col.HIV_DEATHS_PER_100K}
+
+PREP_TO_STANDARD = {
+    'Cases': std_col.HIV_PREP,
+    'Percent': std_col.HIV_PREP_COVERAGE,
+    'Population': std_col.HIV_PREP_POPULATION}
+
 
 PCT_SHARE_DICT = {
     std_col.HIV_DIAGNOSES: std_col.HIV_DIAGNOSES_PCT_SHARE,
     std_col.POPULATION_COL: std_col.HIV_POPULATION_PCT}
+
+DEATHS_SHARE_DICT = {
+    std_col.HIV_DEATHS: std_col.HIV_DEATHS_PCT_SHARE}
 
 
 class CDCHIVData(DataSource):
@@ -66,6 +86,11 @@ class CDCHIVData(DataSource):
                               std_col.HIV_DIAGNOSES_PCT_INEQUITY,
                               std_col.HIV_DIAGNOSES_PCT_SHARE,
                               std_col.HIV_DIAGNOSES_PER_100K,
+                              std_col.HIV_DEATHS,
+                              std_col.HIV_DEATHS_PCT_INEQUITY,
+                              std_col.HIV_DEATHS_PER_100K,
+                              std_col.HIV_PREP,
+                              std_col.HIV_PREP_COVERAGE,
                               std_col.HIV_POPULATION_PCT]
                 column_types = gcs_to_bq_util.get_bq_column_types(df,
                                                                   float_cols=float_cols)
@@ -94,17 +119,6 @@ class CDCHIVData(DataSource):
             'Sex': std_col.SEX_COL,
             'Year': std_col.TIME_PERIOD_COL}
 
-        columns_to_keep = [
-            GEO_COL,
-            FIPS,
-            std_col.TIME_PERIOD_COL,
-            breakdown,
-            std_col.HIV_DIAGNOSES,
-            std_col.HIV_DIAGNOSES_PER_100K,
-            std_col.HIV_DIAGNOSES_PCT_SHARE,
-            std_col.HIV_POPULATION_PCT,
-            std_col.HIV_DIAGNOSES_PCT_INEQUITY]
-
         breakdown_group_df = load_df_from_data_dir(geo_level, breakdown)
 
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
@@ -112,6 +126,7 @@ class CDCHIVData(DataSource):
         df = combined_group_df.rename(columns=columns_to_standard)
 
         df = df.replace(to_replace=HIV_TERMS_STANDARD_BY_COL)
+        df = df.replace(to_replace=VALUES_TO_STANDARD)
 
         if geo_level == COUNTY_LEVEL:
             df = merge_county_names(df)
@@ -123,25 +138,31 @@ class CDCHIVData(DataSource):
 
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(df)
-            columns_to_keep.append(std_col.RACE_CATEGORY_ID_COL)
+            # columns_to_keep.append(std_col.RACE_CATEGORY_ID_COL)
 
-            # replace string number with whole number
-            df[std_col.HIV_DIAGNOSES] = df[std_col.HIV_DIAGNOSES].replace(',',
-                                                                          '',
-                                                                          regex=True)
+        # replace string number with whole number
+        df = df.replace(',', '', regex=True)
 
+        df = generate_pct_share_col_without_unknowns(df,
+                                                     PCT_SHARE_DICT,
+                                                     breakdown,
+                                                     std_col.ALL_VALUE)
+        df = generate_pct_rel_inequity_col(df,
+                                           std_col.HIV_DIAGNOSES_PCT_SHARE,
+                                           std_col.HIV_POPULATION_PCT,
+                                           std_col.HIV_DIAGNOSES_PCT_INEQUITY)
+        if geo_level != COUNTY_LEVEL:
             df = generate_pct_share_col_without_unknowns(df,
-                                                         PCT_SHARE_DICT,
+                                                         DEATHS_SHARE_DICT,
                                                          breakdown,
                                                          std_col.ALL_VALUE)
-
             df = generate_pct_rel_inequity_col(df,
-                                               std_col.HIV_DIAGNOSES_PCT_SHARE,
+                                               std_col.HIV_DEATHS_PCT_SHARE,
                                                std_col.HIV_POPULATION_PCT,
-                                               std_col.HIV_DIAGNOSES_PCT_INEQUITY)
+                                               std_col.HIV_DEATHS_PCT_INEQUITY)
 
-            df = df[columns_to_keep]
-            df = df.sort_values([FIPS, breakdown]).reset_index(drop=True)
+        # df = df[columns_to_keep]
+        df = df.sort_values([FIPS, breakdown]).reset_index(drop=True)
 
         return df
 
@@ -153,48 +174,43 @@ def load_df_from_data_dir(geo_level: str, breakdown: str):
     filename: the name of the file to load the csv file from
     return: a dataframe for specified geo_level and breakdown
     """
-
-    deaths_df = None
-    prep_df = None
-    is_national_and_race = breakdown == std_col.RACE_OR_HISPANIC_COL and geo_level == NATIONAL_LEVEL
-    is_not_race = breakdown != std_col.RACE_OR_HISPANIC_COL
-
-    diagnoses_columns_to_standard = {
-        'Cases': std_col.HIV_DIAGNOSES,
-        'Rate per 100000': std_col.HIV_DIAGNOSES_PER_100K}
+    # data for HIV diagnoses is available at every geo level and breakdown
     diagnoses_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(HIV_DIR,
-                                                               f'diagnoses-{geo_level}-{breakdown}.csv',
-                                                               subdirectory='diagnoses',
+                                                               f'{DIAGNOSES}-{geo_level}-{breakdown}.csv',
+                                                               subdirectory=DIAGNOSES,
                                                                skiprows=8,
                                                                thousands=',',
-                                                               dtype={'FIPS': str, 'Year': str})
-    diagnoses_df = diagnoses_df.rename(columns=diagnoses_columns_to_standard)
+                                                               dtype=DTYPE)
+    df = diagnoses_df.rename(columns=DIAGNOSES_TO_STANDARD)
+    df = df.drop(columns='Indicator')
 
-    # only pull deaths data for national and state
+    # data for HIV deaths is available at the state and national-level, with every breakdown
     if geo_level != COUNTY_LEVEL:
-        deaths_columns_to_standard = {
-            'Cases': std_col.HIV_DEATHS,
-            'Rate per 100000': std_col.HIV_DEATHS_PER_100K}
         deaths_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(HIV_DIR,
-                                                                f'deaths-{geo_level}-{breakdown}.csv',
-                                                                subdirectory='deaths',
+                                                                f'{DEATHS}-{geo_level}-{breakdown}.csv',
+                                                                subdirectory=DEATHS,
                                                                 skiprows=8,
                                                                 thousands=',',
-                                                                dtype={'FIPS': str, 'Year': str})
-        deaths_df = deaths_df.rename(columns=deaths_columns_to_standard)
+                                                                dtype=DTYPE)
+        deaths_df = deaths_df.rename(columns=DEATHS_TO_STANDARD)
+        deaths_df = deaths_df.drop(columns='Indicator')
+        df = df.merge(deaths_df, how='outer')
 
-    # only pull prep data for race when on national level
+    # data for PREP is available at every geo level, but only available for race when on national
+    is_national_and_race = geo_level == NATIONAL_LEVEL and breakdown == std_col.RACE_OR_HISPANIC_COL
+    is_not_race = breakdown != std_col.RACE_OR_HISPANIC_COL
     if (is_national_and_race) or (is_not_race):
-        prep_columns_to_standard = {
-            'Cases': std_col.HIV_PREP,
-            'Percent': std_col.HIV_PREP_PER_100K, }
         prep_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(HIV_DIR,
-                                                              f'prep-{geo_level}-{breakdown}.csv',
-                                                              subdirectory='prep',
+                                                              f'{PREP}-{geo_level}-{breakdown}.csv',
+                                                              subdirectory=PREP,
                                                               skiprows=8,
                                                               thousands=',',
-                                                              dtype={'FIPS': str, 'Year': str})
+                                                              dtype=DTYPE)
+        prep_df = prep_df.rename(columns=PREP_TO_STANDARD)
+        prep_df = prep_df.drop(columns='Indicator')
+        df = df.merge(prep_df, how='outer')
 
-    df = pd.concat([diagnoses_df, deaths_df, prep_df], axis=0)
+    if geo_level == COUNTY_LEVEL:
+        df = df.drop(columns=['State', 'County'])
 
-    return diagnoses_df
+    return df

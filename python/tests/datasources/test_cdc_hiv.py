@@ -1,6 +1,6 @@
 from unittest import mock
 from pandas._testing import assert_frame_equal
-from datasources.cdc_hiv import CDCHIVData, HIV_DIR, DIAGNOSES_DIR
+from datasources.cdc_hiv import CDCHIVData, HIV_DIR, DIAGNOSES
 import pandas as pd
 import os
 
