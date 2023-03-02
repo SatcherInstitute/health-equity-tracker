@@ -61,55 +61,51 @@ class IncarcerationProvider extends VariableProvider {
     super("incarceration_provider", INCARCERATION_METRICS);
   }
 
-  getDatasetId(
-    breakdowns: Breakdowns,
-    variableId: VariableId | undefined
-  ): string {
-    let source = "";
-    let dataType_ = "";
-    let detail = "";
-    let demoBreakdown = "";
-
-    if (
-      breakdowns.geography === "national" ||
-      breakdowns.geography === "state"
-    ) {
-      source = "bjs";
-      detail = "data";
+  getDatasetId(breakdowns: Breakdowns): string {
+    if (breakdowns.geography === "national") {
+      if (breakdowns.hasOnlyRace())
+        return "bjs_incarceration_data-race_and_ethnicity_national";
+      if (breakdowns.hasOnlyAge()) return "bjs_incarceration_data-age_national";
+      if (breakdowns.hasOnlySex()) return "bjs_incarceration_data-sex_national";
+    }
+    if (breakdowns.geography === "state") {
+      if (breakdowns.hasOnlyRace())
+        return "bjs_incarceration_data-race_and_ethnicity_state";
+      if (breakdowns.hasOnlyAge()) return "bjs_incarceration_data-age_state";
+      if (breakdowns.hasOnlySex()) return "bjs_incarceration_data-sex_state";
     }
 
     if (breakdowns.geography === "county") {
-      source = "vera";
-      dataType_ = `${variableId}_`;
-      detail = "county";
+      if (breakdowns.hasOnlyRace())
+        return appendFipsIfNeeded(
+          "vera_incarceration_county-by_race_and_ethnicity_county_time_series",
+          breakdowns
+        );
+      if (breakdowns.hasOnlyAge())
+        return appendFipsIfNeeded(
+          "vera_incarceration_county-by_age_county_time_series",
+          breakdowns
+        );
+      if (breakdowns.hasOnlySex())
+        return appendFipsIfNeeded(
+          "vera_incarceration_county-by_sex_county_time_series",
+          breakdowns
+        );
     }
-
-    if (breakdowns.hasOnlyRace()) {
-      demoBreakdown = "race_and_ethnicity";
-    } else if (breakdowns.hasOnlySex()) {
-      demoBreakdown = "sex";
-    } else if (breakdowns.hasOnlyAge()) {
-      demoBreakdown = "age";
-    }
-
-    const baseId = `${source}_incarceration_${detail}-${dataType_}${demoBreakdown}_${breakdowns.geography}`;
-
-    return appendFipsIfNeeded(baseId, breakdowns);
+    throw new Error("Not implemented");
   }
 
   async getDataInternal(
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
-
-    let variableId: VariableId | undefined = metricQuery?.variableId;
-
-    const datasetId = this.getDatasetId(breakdowns, variableId);
+    const timeView = metricQuery.timeView;
+    const datasetId = this.getDatasetId(breakdowns);
     const dataSource = await getDataManager().loadDataset(datasetId);
     let df = dataSource.toDataFrame();
 
     df = this.filterByGeo(df, breakdowns);
-
+    df = this.filterByTimeView(df, timeView, "2016");
     df = this.renameGeoColumns(df, breakdowns);
 
     const consumedDatasetIds = [datasetId];
@@ -138,9 +134,9 @@ class IncarcerationProvider extends VariableProvider {
       !breakdowns.time && breakdowns.hasExactlyOneDemographic();
 
     return (
-      breakdowns.geography === "national" ||
-      breakdowns.geography === "state" ||
-      breakdowns.geography === "county" ||
+      (breakdowns.geography === "national" ||
+        breakdowns.geography === "state" ||
+        breakdowns.geography === "county") &&
       validDemographicBreakdownRequest
     );
   }

@@ -1714,6 +1714,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Prison",
       variableFullDisplayName: "Individuals in prison",
       surveyCollectedData: true,
+      timeSeriesData: true,
       variableDefinition: `Individuals of any age, including children, under the jurisdiction of an adult prison facility. ‘Age’ reports at the national level include only the subset of this jurisdictional population who have been sentenced to one year or more, which accounted for 97% of the total U.S. prison population in 2020. For all national reports, this rate includes both state and federal prisons. For state and territory level reports, only the prisoners under the jurisdiction of that geography are included. For county level reports, Vera reports the
       number of people incarcerated under the jurisdiction of a state prison system on charges arising from a criminal case in that specific county, which are not available in every state. The county of court commitment is generally where a person was convicted; it is not necessarily the person’s county of residence, and may not even be the county where the crime was committed, but nevertheless is likely to be both.  AK, CT, DE, HI, RI, and VT each operate an integrated system that combines prisons and jails; in accordance with the data sources we include those facilities as adult prisons but not as local jails. Prisons are longer-term facilities run by the state or the federal government that typically holds felons and persons with sentences of more than one year. Definitions may vary by state.`,
       metrics: {
@@ -1752,7 +1753,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           },
         },
         pct_relative_inequity: {
-          chartTitleLines: ["historical data for prison inequity"],
+          chartTitleLines: [
+            "Relative inequity of prison incarceration over time",
+          ],
           metricId: "prison_pct_relative_inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
@@ -1773,12 +1776,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Jail",
       variableFullDisplayName: "Individuals in jail",
       surveyCollectedData: true,
+      timeSeriesData: true,
       variableDefinition: `Individuals of any age, including children, confined in a local, adult jail facility. AK, CT, DE, HI, RI, and VT each operate an integrated system that combines prisons and jails; in accordance with the data sources we include those facilities as adult prisons but not as local jails. Jails are locally operated short-term facilities that hold inmates awaiting trial or sentencing or both, and inmates sentenced to a term of less than one year, typically misdemeanants. Definitions may vary by state.`,
       metrics: {
         per100k: {
           metricId: "jail_per_100k",
           chartTitleLines: ["Individuals in jail", "per 100k people"],
-          columnTitleHeader: "Individuals in jail per 100k people",
           trendsCardTitleName: "Rates of jail incarceration over time",
           shortLabel: "Individuals in jail per 100k",
           type: "per100k",
@@ -1810,7 +1813,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           },
         },
         pct_relative_inequity: {
-          chartTitleLines: ["historical data for jail inequity"],
+          chartTitleLines: [
+            "Relative inequity of jail incarceration over time",
+          ],
           metricId: "jail_pct_relative_inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
