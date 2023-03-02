@@ -8,11 +8,11 @@ from ingestion.dataset_utils import (
     generate_pct_rel_inequity_col,
     zero_out_pct_rel_inequity
 )
-from ingestion.merge_utils import merge_county_names
-from ingestion.constants import (Sex)
+from ingestion.merge_utils import merge_county_names, merge_state_ids
+from ingestion.constants import (Sex, US_FIPS, US_NAME)
 import ingestion.standardized_columns as std_col
 from functools import reduce
-from typing import Literal, cast
+from typing import Literal, cast, List
 
 SEX_RACE_AGE_TYPE = Literal["sex", "age", "race"]
 SEX_RACE_ETH_AGE_TYPE = Literal["sex", "age", "race_and_ethnicity"]
@@ -218,14 +218,11 @@ class VeraIncarcerationCounty(DataSource):
         df = df.rename(
             columns={"fips": std_col.COUNTY_FIPS_COL, "year": std_col.TIME_PERIOD_COL})
         df = ensure_leading_zeros(df, std_col.COUNTY_FIPS_COL, 5)
+
+        df[std_col.STATE_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].astype(
+            str).str[:2]
         df = merge_county_names(df)
-
-        df = add_jail_pct_share_col(df, demo_type)
-        df = add_confined_children_col(df)
-
-        table_name = f'by_{demo_type}_county_time_series'
-        df = self.generate_for_bq(
-            df, demo_type)
+        df = merge_state_ids(df)
 
         float_cols = [
             *PER_100K_COL_MAP.values(),
@@ -236,12 +233,36 @@ class VeraIncarcerationCounty(DataSource):
             PCT_SHARE_COL_MAP[POP],
             *PCT_REL_INEQUITY_COL_MAP.values()
         ]
-        column_types = gcs_to_bq_util.get_bq_column_types(
-            df, float_cols=float_cols)
-        gcs_to_bq_util.add_df_to_bq(
-            df, dataset, table_name, column_types=column_types)
 
-    def generate_for_bq(self, df: pd.DataFrame, demo_type: SEX_RACE_ETH_AGE_TYPE):
+        for geo_level in ["county", "state", "national"]:
+
+            breakdown_df = df.copy()
+
+            print(geo_level, demo_type)
+            # print(breakdown_df)
+            # print(list(breakdown_df.columns))
+
+            if geo_level != "county":
+                breakdown_df = sum_counties(breakdown_df, geo_level)
+                breakdown_df = recalculate_100k_cols(breakdown_df, demo_type)
+
+            breakdown_df = add_jail_pct_share_col(breakdown_df, demo_type)
+            breakdown_df = add_confined_children_col(breakdown_df)
+
+            breakdown_df = self.generate_for_bq(
+                breakdown_df, demo_type, geo_level)
+
+            table_name = f'by_{demo_type}_{geo_level}_time_series'
+            print("-> ", table_name)
+            print(breakdown_df.to_string())
+            # table_name = f'by_{demo_type}_county_time_series'
+
+            column_types = gcs_to_bq_util.get_bq_column_types(
+                breakdown_df, float_cols=float_cols)
+            gcs_to_bq_util.add_df_to_bq(
+                breakdown_df, dataset, table_name, column_types=column_types)
+
+    def generate_for_bq(self, df: pd.DataFrame, demo_type: SEX_RACE_ETH_AGE_TYPE, geo_level: Literal["county", "state"]):
         """ Creates the specific breakdown df needed for bigquery by iterating over needed columns
         from incoming Vera df and generating then combining multiple melted, HET-style dfs.
 
@@ -249,6 +270,7 @@ class VeraIncarcerationCounty(DataSource):
             df: Vera-style unmelted df with a column per group-metric
             demo_type: string for which demographic breakdown
                 (this is sent from the DAG payload as 'demographic' attr)
+            geo_level: string enum of which geographic level should be generated
         """
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
             all_val = Race.ALL.value
@@ -258,6 +280,11 @@ class VeraIncarcerationCounty(DataSource):
             all_val = std_col.ALL_VALUE
             demo_col = demo_type
             demo_short = demo_type
+
+        geo_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
+
+        if geo_level == "county":
+            geo_cols += list(GEO_COLS_TO_STANDARD.values())
 
         # collect partial dfs for merging
         partial_breakdowns = []
@@ -274,28 +301,35 @@ class VeraIncarcerationCounty(DataSource):
             for property_type in needed_property_types:
                 partial_df = df.copy()
                 partial_df = generate_partial_breakdown(
-                    partial_df, demo_type, cast(INCARCERATION_TYPE, data_type), cast(VERA_PROPERTY_TYPE, property_type))
+                    partial_df,
+                    demo_type,
+                    cast(INCARCERATION_TYPE, data_type),
+                    cast(VERA_PROPERTY_TYPE, property_type),
+                    geo_cols
+                )
                 partial_breakdowns.append(partial_df)
 
         # merge all the partial DFs for POP, RAW, RATE into a single DF per datatype/breakdown
         breakdown_df = reduce(lambda x, y: pd.merge(
-            x, y, on=[std_col.TIME_PERIOD_COL, *GEO_COLS_TO_STANDARD.values(), demo_col]), partial_breakdowns)
+            x, y, on=[std_col.TIME_PERIOD_COL, *geo_cols, demo_col]), partial_breakdowns)
 
         # make partial breakdown for total_confined_children
         partial_children_df = generate_partial_breakdown(
-            df.copy(), demo_type, JAIL, CHILDREN)
+            df.copy(),
+            demo_type,
+            JAIL,
+            CHILDREN,
+            geo_cols
+        )
 
         # merge in the column with confined children
         breakdown_df = pd.merge(breakdown_df, partial_children_df, how="left", on=[
-            std_col.TIME_PERIOD_COL, *GEO_COLS_TO_STANDARD.values(), demo_col])
+            std_col.TIME_PERIOD_COL, *geo_cols, demo_col])
 
         # round 100k values
         for data_type in [PRISON, JAIL]:
             breakdown_df[PER_100K_COL_MAP[data_type]
                          ] = breakdown_df[PER_100K_COL_MAP[data_type]].dropna().round()
-
-        breakdown_df[std_col.STATE_FIPS_COL] = breakdown_df[std_col.COUNTY_FIPS_COL].astype(
-            str).str[:2]
 
         # calculate pct_share cols for PRISON and POP (jail done already pre-melt)
         breakdown_df = generate_pct_share_col_without_unknowns(
@@ -308,10 +342,13 @@ class VeraIncarcerationCounty(DataSource):
         # add relative inequity cols for jail and prison
         for data_type in [PRISON, JAIL]:
             breakdown_df = generate_pct_rel_inequity_col(
-                breakdown_df, PCT_SHARE_COL_MAP[data_type], PCT_SHARE_COL_MAP[POP], PCT_REL_INEQUITY_COL_MAP[data_type])
+                breakdown_df,
+                PCT_SHARE_COL_MAP[data_type],
+                PCT_SHARE_COL_MAP[POP],
+                PCT_REL_INEQUITY_COL_MAP[data_type])
             breakdown_df = zero_out_pct_rel_inequity(
                 breakdown_df,
-                "county",
+                geo_level,
                 cast(SEX_RACE_AGE_TYPE, demo_short),
                 {
                     PER_100K_COL_MAP[data_type]: PCT_REL_INEQUITY_COL_MAP[data_type]
@@ -319,7 +356,7 @@ class VeraIncarcerationCounty(DataSource):
             )
 
         needed_cols = [std_col.TIME_PERIOD_COL,
-                       *GEO_COLS_TO_STANDARD.values(),
+                       *geo_cols,
                        demo_type,
                        *PER_100K_COL_MAP.values(),
                        *PCT_SHARE_COL_MAP.values(),
@@ -343,7 +380,8 @@ class VeraIncarcerationCounty(DataSource):
 def generate_partial_breakdown(df,
                                demo_type: SEX_RACE_ETH_AGE_TYPE,
                                data_type: INCARCERATION_TYPE,
-                               property_type: VERA_PROPERTY_TYPE):
+                               property_type: VERA_PROPERTY_TYPE,
+                               geo_cols: List[str]):
     """
     Takes a Vera style df with demographic groups as columns and geographies as rows, and
     generates a partial HET style df with each row representing a geo/demo combo and a single property
@@ -478,7 +516,7 @@ def generate_partial_breakdown(df,
 
     cols_to_keep = [
         std_col.TIME_PERIOD_COL,
-        *GEO_COLS_TO_STANDARD.values(),
+        *geo_cols,
         vera_all_col
     ]
     col_rename_map = {vera_all_col: all_val}
@@ -498,7 +536,7 @@ def generate_partial_breakdown(df,
         columns=col_rename_map)
 
     # melt into HET style df with a row per GEO/DEMO combo
-    df = df.melt(id_vars=[std_col.TIME_PERIOD_COL, *GEO_COLS_TO_STANDARD.values()],
+    df = df.melt(id_vars=[std_col.TIME_PERIOD_COL, *geo_cols],
                  value_vars=value_vars,
                  var_name=het_group_column,
                  value_name=het_value_column)
@@ -548,5 +586,76 @@ def add_jail_pct_share_col(df, demo_type: SEX_RACE_ETH_AGE_TYPE):
             vera_group].mul(100) / df[_tmp_sum_col]).round(1)
 
     df[ALL_JAIL_PCT_SHARE] = 100.0
+
+    return df
+
+
+def sum_counties(df: pd.DataFrame, geo_level: Literal["state", "national"]):
+
+    if geo_level == "national":
+        df[std_col.STATE_FIPS_COL] = US_FIPS
+        df[std_col.STATE_NAME_COL] = US_NAME
+
+    df = df.drop(columns=[
+        *GEO_COLS_TO_STANDARD.values(),
+        *RACE_PRISON_RATE_COLS_TO_STANDARD.keys(),
+        *SEX_PRISON_RATE_COLS_TO_STANDARD.keys(),
+        PRISON_RATE_ALL,
+        *RACE_JAIL_RATE_COLS_TO_STANDARD.keys(),
+        *SEX_JAIL_RATE_COLS_TO_STANDARD.keys(),
+        JAIL_RATE_ALL
+    ])
+
+    group_by_cols = [std_col.TIME_PERIOD_COL,
+                     std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
+
+    df = df.groupby(group_by_cols).sum(numeric_only=True).reset_index()
+
+    return df
+
+
+def recalculate_100k_cols(df: pd.DataFrame, demo_type: Literal["sex", "race_and_ethnicity"]):
+    df["total_prison_pop_rate"] = df[
+        "total_prison_pop"] / df[POP_ALL] * 100_000
+    df["total_jail_pop_rate"] = df[
+        "total_jail_pop"] / df[POP_ALL] * 100_000
+
+    if demo_type == "sex":
+        df["female_prison_pop_rate"] = df[
+            "female_prison_pop"] / df["female_pop_15to64"] * 100_000
+        df["male_prison_pop_rate"] = df[
+            "male_prison_pop"] / df["male_pop_15to64"] * 100_000
+
+        df["female_jail_pop_rate"] = df[
+            "female_jail_pop"] / df["female_pop_15to64"] * 100_000
+        df["male_jail_pop_rate"] = df[
+            "male_jail_pop"] / df["male_pop_15to64"] * 100_000
+
+    if demo_type == "race_and_ethnicity":
+
+        df["aapi_prison_pop_rate"] = df[
+            "aapi_prison_pop"] / df["aapi_pop_15to64"] * 100_000
+        df["aapi_jail_pop_rate"] = df[
+            "aapi_jail_pop"] / df["aapi_pop_15to64"] * 100_000
+
+        df["black_prison_pop_rate"] = df[
+            "black_prison_pop"] / df["black_pop_15to64"] * 100_000
+        df["black_jail_pop_rate"] = df[
+            "black_jail_pop"] / df["black_pop_15to64"] * 100_000
+
+        df["latinx_prison_pop_rate"] = df[
+            "latinx_prison_pop"] / df["latinx_pop_15to64"] * 100_000
+        df["latinx_jail_pop_rate"] = df[
+            "latinx_jail_pop"] / df["latinx_pop_15to64"] * 100_000
+
+        df["native_prison_pop_rate"] = df[
+            "native_prison_pop"] / df["native_pop_15to64"] * 100_000
+        df["native_jail_pop_rate"] = df[
+            "native_jail_pop"] / df["native_pop_15to64"] * 100_000
+
+        df["white_prison_pop_rate"] = df[
+            "white_prison_pop"] / df["white_pop_15to64"] * 100_000
+        df["white_jail_pop_rate"] = df[
+            "white_jail_pop"] / df["white_pop_15to64"] * 100_000
 
     return df

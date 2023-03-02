@@ -12,9 +12,6 @@ from ingestion.constants import (
 
 from typing import Literal
 
-SEX_RACE_AGE_TYPE = Literal["sex", "age", "race"]
-GEO_LEVEL_TYPE = Literal["national", "state", "county"]
-
 
 def generate_pct_share_col_without_unknowns(df, raw_count_to_pct_share, breakdown_col, all_val):
     """Returns a DataFrame with a percent share column based on the raw_count_cols
@@ -298,8 +295,8 @@ def generate_pct_rel_inequity_col(
 
 
 def zero_out_pct_rel_inequity(df: pd.DataFrame,
-                              geo: GEO_LEVEL_TYPE,
-                              demographic: SEX_RACE_AGE_TYPE,
+                              geo: Literal["national", "state", "county"],
+                              demographic: Literal["sex", "age", "race"],
                               rate_to_inequity_col_map: dict,
                               pop_pct_col: str = None):
     """Sets inequitable share of targeted conditions to zero if every known
@@ -310,8 +307,8 @@ def zero_out_pct_rel_inequity(df: pd.DataFrame,
 
     Parameters:
         df: Dataframe to zero rows out on.
-        geo: string of Geographic level.
-        demographic: Demographic breakdown. Must be `race`, `age`, or `sex`.
+        geo: specific string of Geographic level.
+        demographic: specific string of Demographic breakdown.
         rate_cols: dict mapping condition rates (usually but not always `per_100k`)
            to the corresponding`pct_rel_inequity`s. Example map below:
             {"something_per_100k": "something_pct_relative_inequity",
@@ -323,21 +320,13 @@ def zero_out_pct_rel_inequity(df: pd.DataFrame,
         df with the pct_relative_inequities columns zeroed for the zero-rate time/place rows
        """
 
-    geo_col_mapping = {
-        NATIONAL_LEVEL: [
-            std_col.STATE_FIPS_COL,
-            std_col.STATE_NAME_COL,
-        ],
-        STATE_LEVEL: [
-            std_col.STATE_FIPS_COL,
-            std_col.STATE_NAME_COL,
-        ],
-        COUNTY_LEVEL: [
-            std_col.COUNTY_FIPS_COL,
-            std_col.COUNTY_NAME_COL,
-        ],
-    }
-    geo_cols = geo_col_mapping[geo]
+    # use whatever geo_cols are coming in
+    geo_cols = [
+        col for col in [std_col.COUNTY_FIPS_COL,
+                        std_col.COUNTY_NAME_COL,
+                        std_col.STATE_FIPS_COL,
+                        std_col.STATE_NAME_COL] if col in df.columns
+    ]
 
     per_100k_col_names = {}
     for rate_col in rate_to_inequity_col_map.keys():
