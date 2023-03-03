@@ -27,9 +27,8 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
         'Asian': std_col.Race.ASIAN_NH.value,
         'Black/African American': std_col.Race.BLACK_NH.value,
         'Hispanic/Latino': std_col.Race.HISP.value,
-        'Multiracial': std_col.Race.MULTI_NH.value,
+        'Multiracial': std_col.Race.MULTI_OR_OTHER_STANDARD_NH,
         'Native Hawaiian/Other Pacific Islander': std_col.Race.NHPI_NH.value,
-        'Other': std_col.Race.MULTI_NH.value,
         'White': std_col.Race.WHITE_NH.value},
     std_col.SEX_COL: {'Both sexes': std_col.ALL_VALUE}
 }
@@ -150,6 +149,7 @@ class CDCHIVData(DataSource):
 
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(df)
+            columns_to_keep.append(std_col.RACE_CATEGORY_ID_COL)
 
         if std_col.HIV_DEATHS not in df.columns:
             df[[std_col.HIV_DEATHS, std_col.HIV_DEATHS_PER_100K]] = np.nan
