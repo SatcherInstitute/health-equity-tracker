@@ -1,6 +1,6 @@
 import React from "react";
 import { getDataManager } from "../../utils/globals";
-import { Breakdowns } from "../query/Breakdowns";
+import { Breakdowns, TimeView } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { MetricId, VariableId } from "../config/MetricConfig";
 import VariableProvider from "./VariableProvider";
@@ -61,18 +61,34 @@ class IncarcerationProvider extends VariableProvider {
     super("incarceration_provider", INCARCERATION_METRICS);
   }
 
-  getDatasetId(breakdowns: Breakdowns): string {
+  getDatasetId(breakdowns: Breakdowns, timeView: TimeView): string {
     if (breakdowns.geography === "national") {
       if (breakdowns.hasOnlyRace())
-        return "bjs_incarceration_data-race_and_ethnicity_national";
-      if (breakdowns.hasOnlyAge()) return "bjs_incarceration_data-age_national";
-      if (breakdowns.hasOnlySex()) return "bjs_incarceration_data-sex_national";
+        return timeView
+          ? "vera_incarceration_county-by_race_and_ethnicity_national_time_series"
+          : "bjs_incarceration_data-race_and_ethnicity_national";
+      if (breakdowns.hasOnlyAge())
+        return timeView
+          ? "vera_incarceration_county-by_age_national_time_series"
+          : "bjs_incarceration_data-age_national";
+      if (breakdowns.hasOnlySex())
+        return timeView
+          ? "vera_incarceration_county-by_sex_national_time_series"
+          : "bjs_incarceration_data-sex_national";
     }
     if (breakdowns.geography === "state") {
       if (breakdowns.hasOnlyRace())
-        return "bjs_incarceration_data-race_and_ethnicity_state";
-      if (breakdowns.hasOnlyAge()) return "bjs_incarceration_data-age_state";
-      if (breakdowns.hasOnlySex()) return "bjs_incarceration_data-sex_state";
+        return timeView
+          ? "vera_incarceration_county-by_race_and_ethnicity_state_time_series"
+          : "bjs_incarceration_data-race_and_ethnicity_state";
+      if (breakdowns.hasOnlyAge())
+        return timeView
+          ? "vera_incarceration_county-by_age_state_time_series"
+          : "bjs_incarceration_data-age_state";
+      if (breakdowns.hasOnlySex())
+        return timeView
+          ? "vera_incarceration_county-by_sex_state_time_series"
+          : "bjs_incarceration_data-sex_state";
     }
 
     if (breakdowns.geography === "county") {
@@ -101,7 +117,7 @@ class IncarcerationProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns;
     const variableId: VariableId | undefined = metricQuery?.variableId;
     const timeView = metricQuery.timeView;
-    const datasetId = this.getDatasetId(breakdowns);
+    const datasetId = this.getDatasetId(breakdowns, timeView);
     const dataSource = await getDataManager().loadDataset(datasetId);
     let df = dataSource.toDataFrame();
 
