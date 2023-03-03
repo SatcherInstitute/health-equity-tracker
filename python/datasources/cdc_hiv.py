@@ -16,9 +16,10 @@ DIAGNOSES = 'diagnoses'
 DEATHS = 'deaths'
 PREP = 'prep'
 DTYPE = {'FIPS': str, 'Year': str}
+NA_VALUES = ['Data suppressed', 'Data not available']
 
 # a nested dictionary that contains values swaps per column name
-HIV_TERMS_STANDARD_BY_COL = {
+BREAKDOWN_TO_STANDARD_BY_COL = {
     std_col.AGE_COL: {'Ages 13 years and older': std_col.ALL_VALUE},
     std_col.RACE_CATEGORY_ID_COL: {
         'All races/ethnicities': std_col.Race.ALL.value,
@@ -32,8 +33,6 @@ HIV_TERMS_STANDARD_BY_COL = {
         'White': std_col.Race.WHITE_NH.value},
     std_col.SEX_COL: {'Both sexes': std_col.ALL_VALUE}
 }
-
-VALUES_TO_STANDARD = {'Data suppressed': np.nan, 'Data not available': np.nan}
 
 DIAGNOSES_TO_STANDARD = {
     'Cases': std_col.HIV_DIAGNOSES,
@@ -140,8 +139,7 @@ class CDCHIVData(DataSource):
 
         df = combined_group_df.rename(columns=columns_to_standard)
 
-        df = df.replace(to_replace=HIV_TERMS_STANDARD_BY_COL)
-        df = df.replace(to_replace=VALUES_TO_STANDARD)
+        df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
 
         if geo_level == COUNTY_LEVEL:
             df = merge_county_names(df)
@@ -159,9 +157,6 @@ class CDCHIVData(DataSource):
 
         if std_col.HIV_PREP not in df.columns:
             df[[std_col.HIV_PREP, std_col.HIV_PREP_COVERAGE]] = np.nan
-
-        # replace string number with whole number
-        df = df.replace(',', '', regex=True)
 
         df = generate_pct_share_col_without_unknowns(df,
                                                      PCT_SHARE_DICT,
@@ -188,14 +183,17 @@ def load_df_from_data_dir(geo_level: str, breakdown: str):
     """
     load_df_from_data_dir fetches the csv file from the data dir
 
-    filename: the name of the file to load the csv file from
-    return: a dataframe for specified geo_level and breakdown
+    breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
+    geo_level: string equal to `county`, `national`, or `state`
+    return: a dataframe for Diagnoses, Deaths, and PrEP at the specified 
+    geo_level and breakdown
     """
     # data for HIV diagnoses is available at every geo level and breakdown
     diagnoses_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(HIV_DIR,
                                                                f'{DIAGNOSES}-{geo_level}-{breakdown}.csv',
                                                                subdirectory=DIAGNOSES,
                                                                skiprows=8,
+                                                               na_values=NA_VALUES,
                                                                thousands=',',
                                                                dtype=DTYPE)
     df = diagnoses_df.rename(columns=DIAGNOSES_TO_STANDARD)
@@ -207,11 +205,12 @@ def load_df_from_data_dir(geo_level: str, breakdown: str):
                                                                 f'{DEATHS}-{geo_level}-{breakdown}.csv',
                                                                 subdirectory=DEATHS,
                                                                 skiprows=8,
+                                                                na_values=NA_VALUES,
                                                                 thousands=',',
                                                                 dtype=DTYPE)
         deaths_df = deaths_df.rename(columns=DEATHS_TO_STANDARD)
         deaths_df = deaths_df.drop(columns='Indicator')
-        df = pd.merge(df, deaths_df, how='outer', validate='one_to_one')
+        df = pd.merge(df, deaths_df, how='outer')
 
     # data for PREP is available at every geo level, but only available for race when on national
     is_national_and_race = geo_level == NATIONAL_LEVEL and breakdown == std_col.RACE_OR_HISPANIC_COL
@@ -221,16 +220,13 @@ def load_df_from_data_dir(geo_level: str, breakdown: str):
                                                               f'{PREP}-{geo_level}-{breakdown}.csv',
                                                               subdirectory=PREP,
                                                               skiprows=8,
+                                                              na_values=NA_VALUES,
                                                               thousands=',',
                                                               dtype=DTYPE)
         prep_df = prep_df[prep_df['Race/Ethnicity'] != 'Multiracial']
         prep_df = prep_df.replace(to_replace={'Other': 'Multiracial'})
         prep_df = prep_df.rename(columns=PREP_TO_STANDARD)
         prep_df = prep_df.drop(columns='Indicator')
-        df = pd.merge(df, prep_df, how='outer', validate='one_to_one')
+        df = pd.merge(df, prep_df, how='outer')
 
-    if geo_level == COUNTY_LEVEL:
-        df = df.drop(columns=['State', 'County'])
-    print('--')
-    print(df)
     return df

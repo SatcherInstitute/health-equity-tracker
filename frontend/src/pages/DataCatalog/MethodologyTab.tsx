@@ -485,13 +485,13 @@ function MethodologyTab() {
                 <h3 className={styles.MethodologySubsubheaderText}>HIV</h3>
 
                 <p>
-                  State Health departments report to the CDC all confirmed HIV
+                  Health departments report to the CDC all confirmed HIV
                   infections diagnosed in their jurisdiction and clinical
                   information about each infection. The CDC's AtlasPlus database
                   contains HIV surveillance data reported to the CDC. All HIV
                   data come from health departments in all 50 states, the
                   District of Columbia, and U.S. territories. The HIV data
-                  includes adolescents aged 13 and older and adults.
+                  includes adolescents and adults aged 13 and older.
                 </p>
 
                 <p>

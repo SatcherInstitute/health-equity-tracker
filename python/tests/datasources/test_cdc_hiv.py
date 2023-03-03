@@ -1,6 +1,6 @@
 from unittest import mock
 from pandas._testing import assert_frame_equal
-from datasources.cdc_hiv import CDCHIVData, HIV_DIR
+from datasources.cdc_hiv import CDCHIVData, HIV_DIR, DTYPE, NA_VALUES
 import pandas as pd
 import os
 
@@ -18,7 +18,6 @@ GOLDEN_DATA = {
     'race_state': os.path.join(GOLDEN_DIR, 'race_and_ethnicity_state_output.csv'),
     'sex_national': os.path.join(GOLDEN_DIR, 'sex_national_output.csv')}
 
-DTYPE = {'FIPS': str, 'Year': str}
 EXP_DTYPE = {'state_fips': str, 'time_period': str}
 
 
@@ -29,7 +28,7 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
     df = pd.read_csv(os.path.join(TEST_DIR, directory, subdirectory, filename),
                      dtype=DTYPE,
                      skiprows=8,
-                     na_values=['Data not available'],
+                     na_values=NA_VALUES,
                      thousands=',')
 
     return df
@@ -95,8 +94,6 @@ def testGenerateRaceState(mock_data_dir: mock.MagicMock):
                           dtype=DTYPE,
                           skiprows=8,
                           thousands=',')
-    print('--')
-    print(alls_df)
 
     df = datasource.generate_breakdown_df('race_and_ethnicity',
                                           'state',
@@ -147,7 +144,7 @@ def testWriteToBqCalls(
     expected_table_names = [
         call[0][2] for call in mock_bq.call_args_list
     ]
-    print(expected_table_names)
+
     assert expected_table_names == ["age_county_time_series",
                                     "race_and_ethnicity_county_time_series",
                                     "sex_county_time_series",

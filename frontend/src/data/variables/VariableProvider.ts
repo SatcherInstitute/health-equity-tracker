@@ -82,16 +82,6 @@ abstract class VariableProvider {
     return df;
   }
 
-  filterTimeView(df: IDataFrame): IDataFrame {
-    let dataFrame = df;
-
-    dataFrame = dataFrame.where((row) => row[TIME_PERIOD] !== "2022");
-    dataFrame = dataFrame.where((row) => row[TIME_PERIOD] !== "2021");
-    dataFrame = dataFrame.where((row) => row[TIME_PERIOD] !== "2020");
-
-    return dataFrame;
-  }
-
   renameGeoColumns(df: IDataFrame, breakdowns: Breakdowns): IDataFrame {
     let newDataframe = df;
     const [fipsColumn, geoNameColumn] =

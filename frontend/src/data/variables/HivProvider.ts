@@ -65,8 +65,8 @@ class HivProvider extends VariableProvider {
     let df = hiv.toDataFrame();
 
     df = this.filterByGeo(df, breakdowns);
+
     df = this.filterByTimeView(df, timeView, "2019");
-    df = this.filterTimeView(df);
 
     df = this.renameGeoColumns(df, breakdowns);
 
