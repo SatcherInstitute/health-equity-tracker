@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 const VAX_USA_RACE = `mls=1.covid_vaccinations-3.00`
 
+test.describe.configure({ mode: 'parallel' });
 
 test.describe('Home to COVID Vax by Age', () => {
 
@@ -9,17 +10,15 @@ test.describe('Home to COVID Vax by Age', () => {
 
         // Landing Page Loads
         await page.goto('/', { waitUntil: "networkidle" });
+        await expect(page.locator('#main')).toContainText('Better Data for Equity');
+
         // @ts-ignore
         await expect(page).toPassAxe()
-
-        const mainHeading = page.locator('#main');
-        await expect(mainHeading).toContainText('Better Data for Equity');
 
         // Clicking large CTA button takes us to the tracker
         const exploreButton = page.locator('a#landingPageCTA:has-text("Explore the data")')
         exploreButton.click();
         await expect(page).toHaveURL(/.*exploredata/);
-
 
     })
 
@@ -27,13 +26,6 @@ test.describe('Home to COVID Vax by Age', () => {
 
         // Load Tracker Default helper view
         await page.goto(`${EXPLORE_DATA_PAGE_LINK}`, { waitUntil: "networkidle" });
-        // @ts-ignore
-        await expect(page).toPassAxe({
-            rules: {
-                // TODO: fix disabled filter colors to be proper contrast
-                'color-contrast': { enabled: false },
-            },
-        })
 
         // stop the pulsing button so we can target it
         await page.emulateMedia({ reducedMotion: "reduce" });
@@ -48,6 +40,15 @@ test.describe('Home to COVID Vax by Age', () => {
         // back button works properly for madlib condition changes
         await page.goBack()
         await expect(page).not.toHaveURL(/.*mls=1.covid_vaccinations-3.00/);
+
+        // @ts-ignore
+        await expect(page).toPassAxe({
+            rules: {
+                // TODO: fix disabled filter colors to be proper contrast
+                'color-contrast': { enabled: false },
+            },
+        })
+
 
     })
 

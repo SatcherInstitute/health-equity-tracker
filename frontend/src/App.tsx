@@ -83,6 +83,9 @@ function MobileAppToolbar() {
 
   return (
     <Toolbar>
+      <a className={styles.SkipMainLink} href="#main">
+        Skip to main content
+      </a>
       <IconButton
         onClick={() => setOpen(true)}
         aria-label="Expand site navigation"
@@ -113,6 +116,9 @@ function MobileAppToolbar() {
 function AppToolbar() {
   return (
     <Toolbar className={styles.AppToolbar}>
+      <a className={styles.SkipMainLink} href="#main">
+        Skip to main content
+      </a>
       <ReactRouterLinkButton url="/" className={styles.AppbarLogoImg}>
         <img
           src={AppBarLogo}
@@ -173,9 +179,6 @@ function App() {
           <CssBaseline />
           <div className={styles.App}>
             <div className={styles.Content}>
-              <a className={styles.SkipMainLink} href="#main">
-                Skip to main content
-              </a>
               <Router>
                 <AppBar position="static" elevation={0}>
                   {width > MOBILE_BREAKPOINT ? (
@@ -187,11 +190,11 @@ function App() {
                 <ScrollToTop />
                 <Suspense
                   fallback={
-                    <div className={styles.FallbackPage}>
+                    <main className={styles.FallbackPage}>
                       <Box mt={10}>
                         <CircularProgress aria-label="loading" />
                       </Box>
-                    </div>
+                    </main>
                   }
                 >
                   <main>
