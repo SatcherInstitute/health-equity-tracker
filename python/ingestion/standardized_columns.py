@@ -60,12 +60,16 @@ UNINSURED_PER_100K_COL = 'uninsured_per_100k'
 UNINSURED_PCT_SHARE_COL = 'uninsured_pct_share'
 UNINSURED_POPULATION_PCT = 'uninsured_population_pct'
 
+UNINSURED_PREFIX = 'uninsured'
+POVERTY_PREFIX = 'in_poverty'
+
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"
 
 PER_100K_SUFFIX = "per_100k"
 PCT_SHARE_SUFFIX = "pct_share"
 RAW_SUFFIX = "estimated_total"
+POP_PCT_SUFFIX = 'population_pct'
 
 # prefixes for UHC columns
 DEPRESSION_PREFIX = "depression"

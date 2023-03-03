@@ -30,19 +30,32 @@ from ingestion.constants import (
 
 from ingestion.standardized_columns import (
     Race,
-    add_race_columns_from_category_id)
+    add_race_columns_from_category_id,
+    generate_column_name)
 
 BASE_ACS_URL = 'https://api.census.gov/data/2019/acs/acs5'
 
-CONCEPTS_TO_RACE = {
-    'HEALTH INSURANCE COVERAGE STATUS BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)': Race.AIAN.value,
-    'HEALTH INSURANCE COVERAGE STATUS BY AGE (ASIAN ALONE)': Race.ASIAN.value,
-    'HEALTH INSURANCE COVERAGE STATUS BY AGE (HISPANIC OR LATINO)': Race.HISP.value,
-    'HEALTH INSURANCE COVERAGE STATUS BY AGE (BLACK OR AFRICAN AMERICAN ALONE)': Race.BLACK.value,
-    'HEALTH INSURANCE COVERAGE STATUS BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)': Race.NHPI.value,
-    'HEALTH INSURANCE COVERAGE STATUS BY AGE (WHITE ALONE)': Race.WHITE.value,
-    'HEALTH INSURANCE COVERAGE STATUS BY AGE (SOME OTHER RACE ALONE)': Race.OTHER_STANDARD.value,
-    'HEALTH INSURANCE COVERAGE STATUS BY AGE (TWO OR MORE RACES)': Race.MULTI.value,
+
+HEALTH_INSURANCE_RACE_TO_CONCEPT = {
+    Race.AIAN.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
+    Race.ASIAN.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (ASIAN ALONE)',
+    Race.BLACK.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (BLACK OR AFRICAN AMERICAN ALONE)',
+    Race.HISP.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (HISPANIC OR LATINO)',
+    Race.NHPI.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)',
+    Race.OTHER_STANDARD.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (SOME OTHER RACE ALONE)',
+    Race.MULTI.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (TWO OR MORE RACES)',
+    Race.WHITE.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (WHITE ALONE)',
+}
+
+POVERTY_RACE_TO_CONCEPT = {
+    Race.AIAN.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
+    Race.ASIAN.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (ASIAN ALONE)',
+    Race.BLACK.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)',
+    Race.HISP.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (HISPANIC OR LATINO)',
+    Race.NHPI.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)',
+    Race.OTHER_STANDARD.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (SOME OTHER RACE ALONE)',
+    Race.MULTI.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (TWO OR MORE RACES)',
+    Race.WHITE.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (WHITE ALONE)',
 }
 
 # ACS Health Insurance By Race Prefixes.
@@ -59,18 +72,62 @@ HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = {
     'C27001I': Race.HISP.value,
 }
 
+POVERTY_BY_RACE_SEX_AGE_GROUP_PREFIXES = {
+    'B17001A': Race.WHITE.value,
+    'B17001B': Race.BLACK.value,
+    'B17001C': Race.AIAN.value,
+    'B17001D': Race.ASIAN.value,
+    'B17001E': Race.NHPI.value,
+    'B17001F': Race.OTHER_STANDARD.value,
+    'B17001G': Race.MULTI.value,
+    'B17001I': Race.HISP.value,
+}
+
+
+class AcsItem():
+    def __init__(self, prefix_map, concept_map, sex_age_prefix, sex_age_concept, key, bq_prefix):
+        self.prefix_map = prefix_map
+        self.concept_map = concept_map
+        self.sex_age_prefix = sex_age_prefix
+        self.sex_age_concept = sex_age_concept
+        self.key = key
+        self.bq_prefix = bq_prefix
+
 
 # Health insurance by Sex only has one prefix, and is kept
 # in the form of a dict to help with standardizing code flow
 HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX = 'B27001'
 HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT = 'HEALTH INSURANCE COVERAGE STATUS BY SEX BY AGE'
 
+POVERY_BY_SEX_AGE_GROUPS_PREFIX = 'B17001'
+POVERTY_BY_SEX_AGE_CONCEPT = 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE'
+
 HAS_HEALTH_INSURANCE = 'has_health_insurance'
+INCOME_UNDER_POVERTY = 'under_poverty_line'
 
 # Col names for temporary df, never written to bq
 AMOUNT = 'amount'
-HEALTH_INSURANCE_POP = 'health_insurance_pop'
-WITHOUT_HEALTH_INSURANCE = 'without_health_insurance'
+POP_SUFFIX = 'pop'
+HAS_ACS_ITEM_SUFFIX = 'has_acs_item'
+
+HEALTH_INSURANCE_KEY = 'No health insurance coverage'
+POVERTY_KEY = 'Income in the past 12 months below poverty level'
+
+ACS_ITEMS = {
+    'poverty': AcsItem(POVERTY_BY_RACE_SEX_AGE_GROUP_PREFIXES,
+                       POVERTY_RACE_TO_CONCEPT,
+                       POVERY_BY_SEX_AGE_GROUPS_PREFIX,
+                       POVERTY_BY_SEX_AGE_CONCEPT,
+                       POVERTY_KEY,
+                       std_col.POVERTY_PREFIX),
+
+    'health_insurance': AcsItem(HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES,
+                                HEALTH_INSURANCE_RACE_TO_CONCEPT,
+                                HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX,
+                                HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT,
+                                HEALTH_INSURANCE_KEY,
+                                std_col.UNINSURED_PREFIX),
+}
 
 
 def update_col_types(df):
@@ -98,17 +155,14 @@ class AcsHealthInsurance(DataSource):
     def __init__(self):
         self.base_url = BASE_ACS_URL
 
-    # Gets standardized filename
-    # If race is set, gets race filename
-    # If race is None and sex is set, gets filename for sex
-    def get_filename_race(self, race, is_county):
+    def get_filename_race(self, measure, race, is_county):
         geo = 'COUNTY' if is_county else 'STATE'
         race = race.replace(" ", "_").upper()
-        return f'HEALTH_INSURANCE_BY_RACE_{geo}_{race}.json'
+        return f'{measure.upper()}_BY_RACE_{geo}_{race}.json'
 
-    def get_filename_sex(self, is_county):
+    def get_filename_sex(self, measure, is_county):
         geo = 'COUNTY' if is_county else 'STATE'
-        return f'HEALTH_INSURANCE_BY_SEX_{geo}.json'
+        return f'{measure.upper()}_BY_SEX_{geo}.json'
 
     @staticmethod
     def get_id():
@@ -128,33 +182,33 @@ class AcsHealthInsurance(DataSource):
     #
     # Returns:
     # FileDiff = If the data has changed by diffing the old run vs the new run.
-    # (presumably to skip the write to bq step though not 100% sure as of writing this)
     def upload_to_gcs(self, bucket, **attrs):
         # Iterates over the different race ACS variables,
         # retrieves the race from the metadata merged dict
         # writes the data to the GCS bucket and sees if file diff is changed
         file_diff = False
-        for prefix, race in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES.items():
+        for measure, acs_item in ACS_ITEMS.items():
+            for prefix, race in acs_item.prefix_map.items():
+                for county_level in [True, False]:
+                    params = get_all_params_for_group(prefix, county_level)
+                    file_diff = (
+                        url_file_to_gcs.url_file_to_gcs(
+                            self.base_url,
+                            params,
+                            bucket,
+                            self.get_filename_race(measure, race, county_level),
+                        )
+                        or file_diff
+                    )
+
             for county_level in [True, False]:
-                params = get_all_params_for_group(prefix, county_level)
+                params = get_all_params_for_group(acs_item.sex_age_prefix, county_level)
                 file_diff = (
                     url_file_to_gcs.url_file_to_gcs(
-                        self.base_url,
-                        params,
-                        bucket,
-                        self.get_filename_race(race, county_level),
+                        self.base_url, params, bucket, self.get_filename_sex(measure, county_level)
                     )
                     or file_diff
                 )
-
-        for county_level in [True, False]:
-            params = get_all_params_for_group(HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, county_level)
-            file_diff = (
-                url_file_to_gcs.url_file_to_gcs(
-                    self.base_url, params, bucket, self.get_filename_sex(county_level)
-                )
-                or file_diff
-            )
 
         return file_diff
 
@@ -164,7 +218,6 @@ class AcsHealthInsurance(DataSource):
         for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
             for demo in [RACE, AGE, SEX]:
                 table_name = f'by_{demo}_{geo}_processed'
-
                 df = self.get_raw_data(demo, geo, metadata, gcs_bucket=gcs_bucket)
                 df = self.post_process(df, demo, geo)
 
@@ -184,33 +237,63 @@ class AcsHealthInsurance(DataSource):
                 column_types=col_types)
 
     def get_raw_data(self, demo, geo, metadata, gcs_bucket):
-        var_map = parse_acs_metadata(metadata,
-                                     list(HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES.keys())
-                                     + [HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX])
+        groups = []
+        for acs_item in ACS_ITEMS.values():
+            groups.extend(list(acs_item.prefix_map.keys()) + [acs_item.sex_age_prefix])
+
+        var_map = parse_acs_metadata(metadata, groups)
+
+        # Create merge cols for empty df to start merging
+        # each metric in
+        merge_cols = [std_col.STATE_FIPS_COL]
+        if geo == COUNTY_LEVEL:
+            merge_cols.append(std_col.COUNTY_FIPS_COL)
 
         if demo == RACE:
-            dfs = []
-            for concept, race in CONCEPTS_TO_RACE.items():
-                # Get cached data from GCS
-                df = gcs_to_bq_util.load_values_as_df(
-                    gcs_bucket, self.get_filename_race(race, geo == COUNTY_LEVEL)
-                )
+            merge_cols.append(std_col.RACE_CATEGORY_ID_COL)
+        elif demo == AGE:
+            merge_cols.append(std_col.AGE_COL)
+        elif demo == SEX:
+            merge_cols.append(std_col.SEX_COL)
 
-                df = self.generate_df_for_concept(df, demo, geo, concept, var_map)
-                df[std_col.RACE_CATEGORY_ID_COL] = race
-                dfs.append(df)
+        df = pd.DataFrame(columns=merge_cols)
 
-            return pd.concat(dfs)
+        if demo == RACE:
+            for measure, acs_item in ACS_ITEMS.items():
+                concept_dfs = []
+                for concept, race in acs_item.concept_map.items():
+                    # Get cached data from GCS
+                    concept_df = gcs_to_bq_util.load_values_as_df(
+                        gcs_bucket, self.get_filename_race(measure, race, geo == COUNTY_LEVEL)
+                    )
+
+                    concept_df = self.generate_df_for_concept(measure,
+                                                              acs_item,
+                                                              concept_df, demo,
+                                                              geo, concept,
+                                                              var_map)
+                    concept_df[std_col.RACE_CATEGORY_ID_COL] = race
+                    concept_dfs.append(concept_df)
+
+                concept_df = pd.concat(concept_dfs)
+                df = pd.merge(df, concept_df, on=merge_cols, how='outer')
+
+            return df
 
         else:
-            df = gcs_to_bq_util.load_values_as_df(
-                gcs_bucket, self.get_filename_sex(geo == COUNTY_LEVEL)
-            )
-            return self.generate_df_for_concept(df, demo, geo,
-                                                HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT,
-                                                var_map)
+            for measure, acs_item in ACS_ITEMS.items():
+                concept_dfs = []
+                concept_df = gcs_to_bq_util.load_values_as_df(
+                    gcs_bucket, self.get_filename_sex(measure, geo == COUNTY_LEVEL)
+                )
+                concept_df = self.generate_df_for_concept(measure, acs_item, concept_df, demo, geo,
+                                                          acs_item.sex_age_concept, var_map)
 
-    def generate_df_for_concept(self, df, demo, geo, concept, var_map):
+                df = pd.merge(df, concept_df, on=merge_cols, how='outer')
+
+            return df
+
+    def generate_df_for_concept(self, measure, acs_item, df, demo, geo, concept, var_map):
         """Transforms the encoded census data into a dataframe ready
            to have post processing functions run on it.
 
@@ -233,12 +316,15 @@ class AcsHealthInsurance(DataSource):
         # baked into the concept, however for sex/age, the sex is not baked into the
         # concept but rather is another variable that needs to be broken out,
         # so we have to pass in 3.
-        num_var_groups = 2 if demo == RACE else 3
-        group_vars = get_vars_for_group(concept, var_map, num_var_groups)
+        group_vars = get_vars_for_group(concept, var_map, get_num_group_vars(measure, demo, False))
 
-        group_cols = [std_col.AGE_COL, HAS_HEALTH_INSURANCE]
-        if demo != RACE:
-            group_cols = [std_col.SEX_COL] + group_cols
+        tmp_amount_key = 'tmp_anount_key'
+        if measure == 'poverty':
+            group_cols = [tmp_amount_key, std_col.SEX_COL, std_col.AGE_COL]
+        elif measure == 'health_insurance':
+            group_cols = [std_col.AGE_COL, tmp_amount_key]
+            if demo != RACE:
+                group_cols = [std_col.SEX_COL] + group_cols
 
         # Creates a df with different rows for the amount of people
         # in a demographic group with health insurance and without
@@ -249,9 +335,11 @@ class AcsHealthInsurance(DataSource):
 
         # Separate rows of the amount of people without health insurance into
         # their own df and rename the 'amount' col to the correct name.
-        df_without = df_with_without.loc[df_with_without[HAS_HEALTH_INSURANCE] ==
-                                         'No health insurance coverage'].reset_index(drop=True)
-        df_without = df_without.rename(columns={AMOUNT: WITHOUT_HEALTH_INSURANCE})
+        df_without = df_with_without.loc[df_with_without[tmp_amount_key] ==
+                                         acs_item.key].reset_index(drop=True)
+
+        raw_count = generate_column_name(measure, HAS_ACS_ITEM_SUFFIX)
+        df_without = df_without.rename(columns={AMOUNT: raw_count})
 
         merge_cols = [std_col.STATE_FIPS_COL, std_col.AGE_COL]
         if geo == COUNTY_LEVEL:
@@ -261,20 +349,21 @@ class AcsHealthInsurance(DataSource):
 
         # Same reasoning as above, but because we are collecting population numbers here,
         # we need one fewer variable for `with/without health insurance`.
-        num_var_groups = 1 if demo == RACE else 2
-        group_vars_totals = get_vars_for_group(concept, var_map, num_var_groups)
+        group_vars_totals = get_vars_for_group(concept, var_map, get_num_group_vars(measure, demo, True))
 
         group_cols = [std_col.AGE_COL]
         if demo != RACE:
             group_cols = [std_col.SEX_COL] + group_cols
 
+        population = generate_column_name(measure, POP_SUFFIX)
         df_totals = standardize_frame(df, group_vars_totals, group_cols,
-                                      geo == COUNTY_LEVEL, HEALTH_INSURANCE_POP)
+                                      geo == COUNTY_LEVEL, population)
 
-        df_totals = df_totals[merge_cols + [HEALTH_INSURANCE_POP]]
+        df_totals = df_totals[merge_cols + [population]]
         df = pd.merge(df_without, df_totals, on=merge_cols, how='left')
 
-        df = df[merge_cols + [WITHOUT_HEALTH_INSURANCE, HEALTH_INSURANCE_POP]]
+        df = df[merge_cols + [population, raw_count]]
+
         df = update_col_types(df)
 
         if geo == NATIONAL_LEVEL:
@@ -318,8 +407,12 @@ class AcsHealthInsurance(DataSource):
             breakdown_vals_to_sum = list(CONCEPTS_TO_RACE.values())
             breakdown_vals_to_sum.remove(Race.HISP.value)
 
-        df = add_sum_of_rows(df, demo_col,
-                             [WITHOUT_HEALTH_INSURANCE, HEALTH_INSURANCE_POP],
+        value_cols = []
+        for measure in ACS_ITEMS.keys():
+            value_cols.append(generate_column_name(measure, HAS_ACS_ITEM_SUFFIX))
+            value_cols.append(generate_column_name(measure, POP_SUFFIX))
+
+        df = add_sum_of_rows(df, demo_col, value_cols,
                              all_val, breakdown_vals_to_sum)
 
         df = merge_state_ids(df)
@@ -329,14 +422,40 @@ class AcsHealthInsurance(DataSource):
                 [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
             df = merge_county_names(df)
 
-        df = generate_per_100k_col(df, WITHOUT_HEALTH_INSURANCE,
-                                   HEALTH_INSURANCE_POP,
-                                   std_col.UNINSURED_PER_100K_COL)
+        for measure, acs_item in ACS_ITEMS.items():
+            raw_count_col = generate_column_name(measure, HAS_ACS_ITEM_SUFFIX)
+            pop_col = generate_column_name(measure, POP_SUFFIX)
+
+            per_100k_col = generate_column_name(acs_item.bq_prefix, std_col.PER_100K_SUFFIX)
+
+            df = generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col)
+
+        pct_share_cols = {}
+        for measure, acs_item in ACS_ITEMS.items():
+            pct_share_cols[generate_column_name(measure, HAS_ACS_ITEM_SUFFIX)] = \
+                generate_column_name(acs_item.bq_prefix, std_col.PCT_SHARE_SUFFIX)
+
+            pct_share_cols[generate_column_name(measure, POP_SUFFIX)] = \
+                generate_column_name(acs_item.bq_prefix, std_col.POP_PCT_SUFFIX)
 
         df = generate_pct_share_col_without_unknowns(
-            df, {WITHOUT_HEALTH_INSURANCE: std_col.UNINSURED_PCT_SHARE_COL,
-                 HEALTH_INSURANCE_POP: std_col.UNINSURED_POPULATION_PCT},
-            demo_col, all_val)
+            df, pct_share_cols, demo_col, all_val)
 
         all_columns.extend([std_col.UNINSURED_PER_100K_COL, std_col.UNINSURED_PCT_SHARE_COL])
         return df[all_columns].reset_index(drop=True)
+
+
+def get_num_group_vars(measure, demo, is_total):
+    if measure == 'poverty' and not is_total:
+        return 3
+    elif measure == 'health_insurance':
+        if is_total:
+            if demo == RACE:
+                return 1
+            return 2
+        else:
+            if demo == RACE:
+                return 2
+            return 3
+
+    return 3
