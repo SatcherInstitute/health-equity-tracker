@@ -1,7 +1,3 @@
-/**
- * @jest-environment node
- */
-
 import { urlMap } from "./externalUrls";
 
 // skip some URLs we know don't provide HTTPS
