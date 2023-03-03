@@ -42,15 +42,14 @@ DEATHS_TO_STANDARD = {
     'Rate per 100000': std_col.HIV_DEATHS_PER_100K}
 PREP_TO_STANDARD = {
     'Cases': std_col.HIV_PREP,
-    'Percent': std_col.HIV_PREP_COVERAGE,
-    'Population': std_col.HIV_PREP_POPULATION}
+    'Percent': std_col.HIV_PREP_COVERAGE}
 
 
 PCT_SHARE_DICT = {
     std_col.HIV_DIAGNOSES: std_col.HIV_DIAGNOSES_PCT_SHARE,
     std_col.POPULATION_COL: std_col.HIV_POPULATION_PCT,
     std_col.HIV_DEATHS: std_col.HIV_DEATHS_PCT_SHARE,
-    std_col.HIV_PREP_POPULATION: std_col.HIV_PREP_PCT_SHARE}
+    std_col.HIV_PREP: std_col.HIV_PREP_PCT_SHARE}
 
 
 class CDCHIVData(DataSource):
@@ -131,7 +130,7 @@ class CDCHIVData(DataSource):
             std_col.HIV_PREP_PCT_SHARE,
             std_col.HIV_POPULATION_PCT,
             std_col.HIV_DIAGNOSES_PCT_INEQUITY,
-            std_col.HIV_DEATHS_PCT_INEQUITY, ]
+            std_col.HIV_DEATHS_PCT_INEQUITY]
 
         breakdown_group_df = load_df_from_data_dir(geo_level, breakdown)
 
@@ -226,7 +225,7 @@ def load_df_from_data_dir(geo_level: str, breakdown: str):
         prep_df = prep_df[prep_df['Race/Ethnicity'] != 'Multiracial']
         prep_df = prep_df.replace(to_replace={'Other': 'Multiracial'})
         prep_df = prep_df.rename(columns=PREP_TO_STANDARD)
-        prep_df = prep_df.drop(columns='Indicator')
+        prep_df = prep_df.drop(columns=['Indicator', 'Population'])
         df = pd.merge(df, prep_df, how='outer')
 
     return df
