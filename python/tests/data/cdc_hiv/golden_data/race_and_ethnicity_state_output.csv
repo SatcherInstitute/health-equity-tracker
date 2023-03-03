@@ -1,19 +1,19 @@
-time_period,state_name,state_fips,race_and_ethnicity,hiv_diagnoses,hiv_deaths,hiv_prep,hiv_diagnoses_per_100k,hiv_deaths_per_100k,hiv_prep_coverage,hiv_diagnoses_pct_share,hiv_deaths_pct_share,hiv_prep_pct_share,hiv_population_pct,hiv_diagnoses_pct_relative_inequity,hiv_deaths_pct_relative_inequity,race_category_id
-2017,Alaska,02,All,30,7,125,5.0,1.2,5.3,100.0,100.0,100.0,100.0,0.0,0.0,ALL
-2017,Alaska,02,American Indian and Alaska Native (NH),13,0,,15.7,0.0,,43.3,0.0,,13.7,216.1,-100.0,AIAN_NH
-2017,Alaska,02,Asian (NH),0,0,,0.0,0.0,,0.0,0.0,,6.6,-100.0,-100.0,ASIAN_NH
-2017,Alaska,02,Black or African American (NH),4,0,,19.6,0.0,,13.3,0.0,,3.4,291.2,-100.0,BLACK_NH
-2017,Alaska,02,Hispanic or Latino,3,1,,7.8,2.6,,10.0,14.3,,6.4,56.2,123.4,HISP
-2017,Alaska,02,Native Hawaiian and Pacific Islander (NH),0,0,,0.0,0.0,,0.0,0.0,,1.2,-100.0,-100.0,NHPI_NH
-2017,Alaska,02,Two or more races & Unrepresented race (NH),0,1,,0.0,3.1,,0.0,14.3,,5.3,-100.0,169.8,MULTI_OR_OTHER_STANDARD_NH
-2017,Alaska,02,White (NH),10,5,,2.6,1.3,,33.3,71.4,,63.4,-47.5,12.6,WHITE_NH
-2019,Alabama,01,All,635,272,1835,15.4,6.6,16.7,100.0,100.0,100.0,100.0,0.0,0.0,ALL
-2019,Alabama,01,American Indian and Alaska Native (NH),1,1,,4.1,4.1,,0.2,0.4,,0.6,-66.7,-33.3,AIAN_NH
-2019,Alabama,01,Asian (NH),1,1,,1.6,1.6,,0.2,0.4,,1.5,-86.7,-73.3,ASIAN_NH
-2019,Alabama,01,Black or African American (NH),453,170,,42.2,15.8,,71.3,62.5,,26.0,174.2,140.4,BLACK_NH
-2019,Alabama,01,Hispanic or Latino,15,5,,9.7,3.2,,2.4,1.8,,3.8,-36.8,-52.6,HISP
-2019,Alabama,01,Native Hawaiian and Pacific Islander (NH),0,0,,0.0,0.0,,0.0,0.0,,0.05,-100.0,-100.0,NHPI_NH
-2019,Alabama,01,Two or more races & Unrepresented race (NH),14,23,,28.0,46.0,,2.2,8.5,,1.2,83.3,608.3,MULTI_OR_OTHER_STANDARD_NH
-2019,Alabama,01,White (NH),151,69,,5.5,2.5,,23.8,25.4,,66.9,-64.4,-62.0,WHITE_NH
+time_period,state_name,state_fips,race_and_ethnicity,hiv_diagnoses,hiv_deaths,hiv_prep,hiv_diagnoses_per_100k,hiv_deaths_per_100k,hiv_prep_coverage,hiv_diagnoses_pct_share,hiv_deaths_pct_share,hiv_prep_pct_share,hiv_population_pct,hiv_diagnoses_pct_relative_inequity,hiv_deaths_pct_relative_inequity,hiv_prep_pct_relative_inequity,race_category_id
+2017,Alaska,02,All,30,7,125,5.0,1.2,5.3,100.0,100.0,100.0,100.0,0.0,0.0,0.0,ALL
+2017,Alaska,02,American Indian and Alaska Native (NH),13,0,,15.7,0.0,,43.3,0.0,,13.7,216.1,-100.0,,AIAN_NH
+2017,Alaska,02,Asian (NH),0,0,,0.0,0.0,,0.0,0.0,,6.6,-100.0,-100.0,,ASIAN_NH
+2017,Alaska,02,Black or African American (NH),4,0,,19.6,0.0,,13.3,0.0,,3.4,291.2,-100.0,,BLACK_NH
+2017,Alaska,02,Hispanic or Latino,3,1,,7.8,2.6,,10.0,14.3,,6.4,56.2,123.4,,HISP
+2017,Alaska,02,Native Hawaiian and Pacific Islander (NH),0,0,,0.0,0.0,,0.0,0.0,,1.2,-100.0,-100.0,,NHPI_NH
+2017,Alaska,02,Two or more races & Unrepresented race (NH),0,1,,0.0,3.1,,0.0,14.3,,5.3,-100.0,169.8,,MULTI_OR_OTHER_STANDARD_NH
+2017,Alaska,02,White (NH),10,5,,2.6,1.3,,33.3,71.4,,63.4,-47.5,12.6,,WHITE_NH
+2019,Alabama,01,All,635,272,1835,15.4,6.6,16.7,100.0,100.0,100.0,100.0,0.0,0.0,0.0,ALL
+2019,Alabama,01,American Indian and Alaska Native (NH),1,1,,4.1,4.1,,0.2,0.4,,0.6,-66.7,-33.3,,AIAN_NH
+2019,Alabama,01,Asian (NH),1,1,,1.6,1.6,,0.2,0.4,,1.5,-86.7,-73.3,,ASIAN_NH
+2019,Alabama,01,Black or African American (NH),453,170,,42.2,15.8,,71.3,62.5,,26.0,174.2,140.4,,BLACK_NH
+2019,Alabama,01,Hispanic or Latino,15,5,,9.7,3.2,,2.4,1.8,,3.8,-36.8,-52.6,,HISP
+2019,Alabama,01,Native Hawaiian and Pacific Islander (NH),0,0,,0.0,0.0,,0.0,0.0,,0.05,-100.0,-100.0,,NHPI_NH
+2019,Alabama,01,Two or more races & Unrepresented race (NH),14,23,,28.0,46.0,,2.2,8.5,,1.2,83.3,608.3,,MULTI_OR_OTHER_STANDARD_NH
+2019,Alabama,01,White (NH),151,69,,5.5,2.5,,23.8,25.4,,66.9,-64.4,-62.0,,WHITE_NH
 
 

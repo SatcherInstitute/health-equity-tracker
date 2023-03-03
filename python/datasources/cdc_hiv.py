@@ -85,6 +85,7 @@ class CDCHIVData(DataSource):
                               std_col.HIV_PREP,
                               std_col.HIV_PREP_COVERAGE,
                               std_col.HIV_PREP_PCT_SHARE,
+                              std_col.HIV_PREP_PCT_INEQUITY,
                               std_col.HIV_POPULATION_PCT]
                 column_types = gcs_to_bq_util.get_bq_column_types(df,
                                                                   float_cols=float_cols)
@@ -129,7 +130,8 @@ class CDCHIVData(DataSource):
             std_col.HIV_PREP_PCT_SHARE,
             std_col.HIV_POPULATION_PCT,
             std_col.HIV_DIAGNOSES_PCT_INEQUITY,
-            std_col.HIV_DEATHS_PCT_INEQUITY]
+            std_col.HIV_DEATHS_PCT_INEQUITY,
+            std_col.HIV_PREP_PCT_INEQUITY]
 
         breakdown_group_df = load_df_from_data_dir(geo_level, breakdown)
 
@@ -170,6 +172,11 @@ class CDCHIVData(DataSource):
                                            std_col.HIV_DEATHS_PCT_SHARE,
                                            std_col.HIV_POPULATION_PCT,
                                            std_col.HIV_DEATHS_PCT_INEQUITY)
+
+        df = generate_pct_rel_inequity_col(df,
+                                           std_col.HIV_PREP_PCT_SHARE,
+                                           std_col.HIV_POPULATION_PCT,
+                                           std_col.HIV_PREP_PCT_INEQUITY)
 
         df = df[columns_to_keep]
         df = df.sort_values(
