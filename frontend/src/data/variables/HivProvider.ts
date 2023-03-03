@@ -61,13 +61,11 @@ class HivProvider extends VariableProvider {
     const timeView = metricQuery.timeView;
     const datasetId = this.getDatasetId(breakdowns);
     const hiv = await getDataManager().loadDataset(datasetId);
-
     let df = hiv.toDataFrame();
 
     df = this.filterByGeo(df, breakdowns);
 
     df = this.filterByTimeView(df, timeView, "2019");
-
     df = this.renameGeoColumns(df, breakdowns);
 
     let consumedDatasetIds = [datasetId];

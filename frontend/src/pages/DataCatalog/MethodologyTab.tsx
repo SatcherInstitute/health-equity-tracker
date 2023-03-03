@@ -501,7 +501,7 @@ function MethodologyTab() {
                   HIV diagnosis refers to the number of people who have received
                   an HIV diagnosis in a given time, regardless of when they were
                   first infected. The CDC sums and tabulates the number of
-                  diagnoses reported by state health departments.
+                  diagnoses reported by health departments.
                 </p>
                 <p>
                   Data for years 2021 and 2022 are preliminary (subject to a
