@@ -185,7 +185,7 @@ def load_df_from_data_dir(geo_level: str, breakdown: str):
 
     breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
     geo_level: string equal to `county`, `national`, or `state`
-    return: a dataframe for Diagnoses, Deaths, and PrEP at the specified 
+    return: a dataframe for Diagnoses, Deaths, and PrEP at the specified
     geo_level and breakdown
     """
     # data for HIV diagnoses is available at every geo level and breakdown
