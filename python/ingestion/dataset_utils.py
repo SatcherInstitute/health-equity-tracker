@@ -3,9 +3,6 @@ import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
 from ingestion.standardized_columns import Race
 from ingestion.constants import (
-    NATIONAL_LEVEL,
-    STATE_LEVEL,
-    COUNTY_LEVEL,
     RACE,
     UNKNOWN
 )

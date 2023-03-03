@@ -9,7 +9,8 @@ from ingestion.dataset_utils import (
     zero_out_pct_rel_inequity
 )
 from ingestion.merge_utils import merge_county_names, merge_state_ids
-from ingestion.constants import (Sex, US_FIPS, US_NAME)
+from ingestion.constants import (
+    Sex, US_FIPS, US_NAME, NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL)
 import ingestion.standardized_columns as std_col
 from functools import reduce
 from typing import Literal, cast, List
@@ -234,7 +235,7 @@ class VeraIncarcerationCounty(DataSource):
             *PCT_REL_INEQUITY_COL_MAP.values()
         ]
 
-        for geo_level in ["county", "state", "national"]:
+        for geo_level in [COUNTY_LEVEL, STATE_LEVEL, NATIONAL_LEVEL]:
 
             breakdown_df = df.copy()
 
@@ -242,7 +243,7 @@ class VeraIncarcerationCounty(DataSource):
             # print(breakdown_df)
             # print(list(breakdown_df.columns))
 
-            if geo_level != "county":
+            if geo_level != COUNTY_LEVEL:
                 breakdown_df = sum_counties(breakdown_df, geo_level)
                 breakdown_df = recalculate_100k_cols(breakdown_df, demo_type)
 
@@ -262,7 +263,10 @@ class VeraIncarcerationCounty(DataSource):
             gcs_to_bq_util.add_df_to_bq(
                 breakdown_df, dataset, table_name, column_types=column_types)
 
-    def generate_for_bq(self, df: pd.DataFrame, demo_type: SEX_RACE_ETH_AGE_TYPE, geo_level: Literal["county", "state"]):
+    def generate_for_bq(self,
+                        df: pd.DataFrame,
+                        demo_type: SEX_RACE_ETH_AGE_TYPE,
+                        geo_level: Literal["county", "state", "national"]):
         """ Creates the specific breakdown df needed for bigquery by iterating over needed columns
         from incoming Vera df and generating then combining multiple melted, HET-style dfs.
 
@@ -283,7 +287,7 @@ class VeraIncarcerationCounty(DataSource):
 
         geo_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
 
-        if geo_level == "county":
+        if geo_level == COUNTY_LEVEL:
             geo_cols += list(GEO_COLS_TO_STANDARD.values())
 
         # collect partial dfs for merging
@@ -592,7 +596,7 @@ def add_jail_pct_share_col(df, demo_type: SEX_RACE_ETH_AGE_TYPE):
 
 def sum_counties(df: pd.DataFrame, geo_level: Literal["state", "national"]):
 
-    if geo_level == "national":
+    if geo_level == NATIONAL_LEVEL:
         df[std_col.STATE_FIPS_COL] = US_FIPS
         df[std_col.STATE_NAME_COL] = US_NAME
 
