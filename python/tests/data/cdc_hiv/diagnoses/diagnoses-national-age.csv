@@ -7,13 +7,13 @@ NA - Not applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
-"HIV diagnoses","2019","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","3,814","4.0","96,467,960"
-"HIV diagnoses","2019","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","4,887","12.0","40,860,323"
-"HIV diagnoses","2019","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","7,114","17.1","41,674,444"
-"HIV diagnoses","2019","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","13,075","28.4","46,003,684"
-"HIV diagnoses","2019","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","7,638","15.0","51,056,802"
 "HIV diagnoses","2017","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","3,837","4.1","92,631,341"
 "HIV diagnoses","2017","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","5,567","13.2","42,227,049"
 "HIV diagnoses","2017","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","7,240","17.8","40,767,905"
 "HIV diagnoses","2017","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","13,395","29.6","45,319,858"
 "HIV diagnoses","2017","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","8,277","16.1","51,449,565"
+"HIV diagnoses","2019","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","3,814","4.0","96,467,960"
+"HIV diagnoses","2019","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","4,887","12.0","40,860,323"
+"HIV diagnoses","2019","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","7,114","17.1","41,674,444"
+"HIV diagnoses","2019","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","13,075","28.4","46,003,684"
+"HIV diagnoses","2019","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","7,638","15.0","51,056,802"

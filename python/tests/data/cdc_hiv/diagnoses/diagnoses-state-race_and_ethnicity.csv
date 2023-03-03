@@ -7,12 +7,6 @@ NA - Not applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
-"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","14","28.0","49,959"
-"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","White","Both sexes","All transmission categories","151","5.5","2,762,553"
-"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","0","0.0","2,022"
-"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","15","9.7","155,027"
-"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","453","42.2","1,073,141"
-"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","Asian","Both sexes","All transmission categories","1","1.6","61,261"
 "HIV diagnoses","2017","Alaska","02","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","0","0.0","32,110"
 "HIV diagnoses","2017","Alaska","02","Ages 13 years and older","White","Both sexes","All transmission categories","10","2.6","383,162"
 "HIV diagnoses","2017","Alaska","02","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","0","0.0","7,517"
@@ -20,3 +14,10 @@ Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category
 "HIV diagnoses","2017","Alaska","02","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","4","19.6","20,427"
 "HIV diagnoses","2017","Alaska","02","Ages 13 years and older","Asian","Both sexes","All transmission categories","0","0.0","39,696"
 "HIV diagnoses","2017","Alaska","02","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","13","15.7","82,546"
+"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","14","28.0","49,959"
+"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","White","Both sexes","All transmission categories","151","5.5","2,762,553"
+"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","0","0.0","2,022"
+"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","15","9.7","155,027"
+"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","453","42.2","1,073,141"
+"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","Asian","Both sexes","All transmission categories","1","1.6","61,261"
+"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","1","4.1","24,548"

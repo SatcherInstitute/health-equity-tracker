@@ -7,13 +7,6 @@ NA - Not applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
-"HIV diagnoses","2019","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","1,102","22.7","4,863,049"
-"HIV diagnoses","2019","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","9,063","5.3","171,541,840"
-"HIV diagnoses","2019","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","66","13.4","491,319"
-"HIV diagnoses","2019","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","9,889","21.1","46,954,313"
-"HIV diagnoses","2019","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","15,471","45.5","33,981,764"
-"HIV diagnoses","2019","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","733","4.5","16,234,313"
-"HIV diagnoses","2019","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","204","10.2","1,996,615"
 "HIV diagnoses","2017","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","1,367","30.0","4,551,142"
 "HIV diagnoses","2017","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","9,628","5.6","171,531,100"
 "HIV diagnoses","2017","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","50","10.6","471,540"
@@ -21,4 +14,11 @@ Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category
 "HIV diagnoses","2017","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","16,223","48.6","33,357,534"
 "HIV diagnoses","2017","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","923","5.9","15,569,399"
 "HIV diagnoses","2017","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","200","10.2","1,958,404"
+"HIV diagnoses","2019","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","1,102","22.7","4,863,049"
+"HIV diagnoses","2019","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","9,063","5.3","171,541,840"
+"HIV diagnoses","2019","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","66","13.4","491,319"
+"HIV diagnoses","2019","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","9,889","21.1","46,954,313"
+"HIV diagnoses","2019","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","15,471","45.5","33,981,764"
+"HIV diagnoses","2019","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","733","4.5","16,234,313"
+"HIV diagnoses","2019","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","204","10.2","1,996,615"
 

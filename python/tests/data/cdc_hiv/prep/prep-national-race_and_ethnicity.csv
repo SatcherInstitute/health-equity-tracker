@@ -7,14 +7,6 @@ NA - Not Applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Percent,Population
-"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","Data not available","Data not available","NA"
-"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","Other","Both sexes","All transmission categories","12,285","9.4","131,180"
-"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","180,239","59.9","300,650"
-"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","Data not available","Data not available","NA"
-"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","45,069","14.4","312,820"
-"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","37,590","8.0","468,540"
-"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","Data not available","Data not available","NA"
-"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","Data not available","Data not available","NA"
 "PrEP coverage and number of persons prescribed","2017","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","Data not available","Data not available","NA"
 "PrEP coverage and number of persons prescribed","2017","United States","NA","Ages 13 years and older","Other","Both sexes","All transmission categories","7,052","5.3","132,040"
 "PrEP coverage and number of persons prescribed","2017","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","104,686","33.6","311,250"
@@ -23,3 +15,11 @@ Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category
 "PrEP coverage and number of persons prescribed","2017","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","19,838","4.2","475,100"
 "PrEP coverage and number of persons prescribed","2017","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","Data not available","Data not available","NA"
 "PrEP coverage and number of persons prescribed","2017","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","Data not available","Data not available","NA"
+"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","Data not available","Data not available","NA"
+"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","Other","Both sexes","All transmission categories","12,285","9.4","131,180"
+"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","180,239","59.9","300,650"
+"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","Data not available","Data not available","NA"
+"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","45,069","14.4","312,820"
+"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","37,590","8.0","468,540"
+"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","Data not available","Data not available","NA"
+"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","Data not available","Data not available","NA"

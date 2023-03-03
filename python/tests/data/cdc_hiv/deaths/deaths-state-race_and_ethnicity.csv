@@ -8,6 +8,12 @@ NA - Not Applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
+"HIV deaths","2017","Alaska","02","Ages 13 years and older","White","Both sexes","All transmission categories","5","1.3","383,162"
+"HIV deaths","2017","Alaska","02","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","0","0.0","7,517"
+"HIV deaths","2017","Alaska","02","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","1","2.6","38,626"
+"HIV deaths","2017","Alaska","02","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","0","0.0","20,427"
+"HIV deaths","2017","Alaska","02","Ages 13 years and older","Asian","Both sexes","All transmission categories","0","0.0","39,696"
+"HIV deaths","2017","Alaska","02","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","0","0.0","82,546"
 "HIV deaths","2019","Alabama","01","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","23","46.0","49,959"
 "HIV deaths","2019","Alabama","01","Ages 13 years and older","White","Both sexes","All transmission categories","69","2.5","2,762,553"
 "HIV deaths","2019","Alabama","01","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","0","0.0","2,022"
@@ -16,9 +22,3 @@ Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category
 "HIV deaths","2019","Alabama","01","Ages 13 years and older","Asian","Both sexes","All transmission categories","1","1.6","61,261"
 "HIV deaths","2019","Alabama","01","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","1","4.1","24,548"
 "HIV deaths","2017","Alaska","02","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","1","3.1","32,110"
-"HIV deaths","2017","Alaska","02","Ages 13 years and older","White","Both sexes","All transmission categories","5","1.3","383,162"
-"HIV deaths","2017","Alaska","02","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","0","0.0","7,517"
-"HIV deaths","2017","Alaska","02","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","1","2.6","38,626"
-"HIV deaths","2017","Alaska","02","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","0","0.0","20,427"
-"HIV deaths","2017","Alaska","02","Ages 13 years and older","Asian","Both sexes","All transmission categories","0","0.0","39,696"
-"HIV deaths","2017","Alaska","02","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","0","0.0","82,546"

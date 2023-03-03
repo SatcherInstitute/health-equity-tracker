@@ -8,13 +8,13 @@ NA - Not Applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
-"HIV deaths","2019","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","9,590","9.9","96,467,960"
-"HIV deaths","2019","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","3,625","8.9","40,860,323"
-"HIV deaths","2019","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","1,787","4.3","41,674,444"
-"HIV deaths","2019","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","1,095","2.4","46,003,684"
-"HIV deaths","2019","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","133","0.3","51,056,802"
 "HIV deaths","2017","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","8,850","9.6","92,631,341"
 "HIV deaths","2017","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","4,469","10.6","42,227,049"
 "HIV deaths","2017","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","1,834","4.5","40,767,905"
 "HIV deaths","2017","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","1,046","2.3","45,319,858"
 "HIV deaths","2017","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","151","0.3","51,449,565"
+"HIV deaths","2019","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","9,590","9.9","96,467,960"
+"HIV deaths","2019","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","3,625","8.9","40,860,323"
+"HIV deaths","2019","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","1,787","4.3","41,674,444"
+"HIV deaths","2019","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","1,095","2.4","46,003,684"
+"HIV deaths","2019","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","133","0.3","51,056,802"

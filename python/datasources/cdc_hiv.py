@@ -178,7 +178,8 @@ class CDCHIVData(DataSource):
                                            std_col.HIV_DEATHS_PCT_INEQUITY)
 
         df = df[columns_to_keep]
-        df = df.sort_values([FIPS, breakdown]).reset_index(drop=True)
+        df = df.sort_values(
+            [std_col.TIME_PERIOD_COL, breakdown]).reset_index(drop=True)
 
         return df
 
@@ -230,5 +231,6 @@ def load_df_from_data_dir(geo_level: str, breakdown: str):
 
     if geo_level == COUNTY_LEVEL:
         df = df.drop(columns=['State', 'County'])
-
+    print('--')
+    print(df)
     return df

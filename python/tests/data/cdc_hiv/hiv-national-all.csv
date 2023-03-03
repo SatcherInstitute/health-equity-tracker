@@ -6,6 +6,6 @@ NA - Not applicable.
 
 
 
-Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
-"HIV diagnoses","2019","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","36,528","13.2","276,063,213"
-"HIV diagnoses","2017","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","38,316","14.1","272,395,718"
+Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,hiv_diagnoses,hiv_diagnoses_per_100k,Population,hiv_deaths,hiv_deaths_per_100k,hiv_prep,hiv_prep_coverage,hiv_prep_population
+"HIV diagnoses","2017","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","38,316","14.1","272,395,718","16,350","6.0","155,062","12.7","1,221,080"
+"HIV diagnoses","2019","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","36,528","13.2","276,063,213","16,230","5.9","275,182","22.6","1,216,210"
