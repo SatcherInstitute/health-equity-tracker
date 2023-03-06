@@ -298,7 +298,8 @@ class VeraIncarcerationCounty(DataSource):
         breakdown_df[std_col.STATE_FIPS_COL] = breakdown_df[std_col.COUNTY_FIPS_COL].astype(
             str).str[:2]
 
-        # calculate pct_share cols for JAIL (share of summed group counts), and PRISON and POP (share of provided ALL counts)
+        # calculate pct_share cols for JAIL (share of summed group counts)
+        # and PRISON and POP (share of provided ALL counts)
         breakdown_df = generate_pct_share_col_without_unknowns(
             breakdown_df,
             {
