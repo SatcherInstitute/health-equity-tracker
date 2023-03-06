@@ -148,7 +148,6 @@ RACE_JAIL_PCT_SHARE_MELT_COLS_MAP = {
 
 ALL_JAIL_PCT_SHARE = "all_jail_pct_share"
 
-
 JUVENILE_COLS = [
     "female_juvenile_jail_pop",
     "male_juvenile_jail_pop"
@@ -220,7 +219,9 @@ class VeraIncarcerationCounty(DataSource):
         df = ensure_leading_zeros(df, std_col.COUNTY_FIPS_COL, 5)
         df = merge_county_names(df)
 
-        df = add_jail_pct_share_col(df, demo_type)
+        # use SUM OF GROUP COUNTS as ALL for sex/race; we only have ALLs for AGE
+        if demo_type == "sex" or demo_type == "race_and_ethnicity":
+            df = use_sum_of_jail_counts_as_all(df, demo_type)
         df = add_confined_children_col(df)
 
         table_name = f'by_{demo_type}_county_time_series'
@@ -265,10 +266,10 @@ class VeraIncarcerationCounty(DataSource):
         # create and melt multiple partial dfs (to avoid column name collisions)
         for data_type in [PRISON, JAIL]:
 
-            # only need population once, only need pct_share here for jail
-            # (prison_pct_share and pop_pct_share later post-melt)
-            needed_property_types = [RAW, RATE, POP,
-                                     PCT_SHARE] if data_type == JAIL else [RAW, RATE]
+            # only need population once
+            needed_property_types = [RAW, RATE]
+            if data_type == JAIL:
+                needed_property_types.append(POP)
 
             # collect needed partial dfs for merging
             for property_type in needed_property_types:
@@ -297,12 +298,15 @@ class VeraIncarcerationCounty(DataSource):
         breakdown_df[std_col.STATE_FIPS_COL] = breakdown_df[std_col.COUNTY_FIPS_COL].astype(
             str).str[:2]
 
-        # calculate pct_share cols for PRISON and POP (jail done already pre-melt)
+        # calculate pct_share cols for JAIL (share of summed group counts), and PRISON and POP (share of provided ALL counts)
         breakdown_df = generate_pct_share_col_without_unknowns(
             breakdown_df,
-            {**DATA_TYPE_TO_COL_MAP[PRISON],
-                POP: PCT_SHARE_COL_MAP[POP]},
-            demo_col,
+            {
+                **DATA_TYPE_TO_COL_MAP[PRISON],
+                **DATA_TYPE_TO_COL_MAP[JAIL],
+                POP: PCT_SHARE_COL_MAP[POP]
+            },
+            cast(SEX_RACE_AGE_TYPE, demo_col),
             all_val)
 
         # add relative inequity cols for jail and prison
@@ -341,9 +345,15 @@ class VeraIncarcerationCounty(DataSource):
 
 
 def generate_partial_breakdown(df,
-                               demo_type: SEX_RACE_ETH_AGE_TYPE,
-                               data_type: INCARCERATION_TYPE,
-                               property_type: VERA_PROPERTY_TYPE):
+                               demo_type: Literal["sex",
+                                                  "race_and_ethnicity",
+                                                  "age"],
+                               data_type: Literal["jail",
+                                                  "prison"],
+                               property_type: Literal["raw",
+                                                      "rate",
+                                                      "population",
+                                                      "total_confined_children"]):
     """
     Takes a Vera style df with demographic groups as columns and geographies as rows, and
     generates a partial HET style df with each row representing a geo/demo combo and a single property
@@ -381,11 +391,6 @@ def generate_partial_breakdown(df,
                 vera_all_col = JAIL_RATE_ALL
                 het_value_column = PER_100K_COL_MAP[JAIL]
 
-            if property_type == PCT_SHARE:
-                col_to_demographic_map = RACE_JAIL_PCT_SHARE_MELT_COLS_MAP
-                vera_all_col = "all_jail_pct_share"
-                het_value_column = PCT_SHARE_COL_MAP[JAIL]
-
         if data_type == PRISON:
             if property_type == RAW:
                 col_to_demographic_map = RACE_PRISON_RAW_COLS_TO_STANDARD
@@ -416,11 +421,6 @@ def generate_partial_breakdown(df,
                 col_to_demographic_map = SEX_JAIL_RATE_COLS_TO_STANDARD
                 vera_all_col = JAIL_RATE_ALL
                 het_value_column = PER_100K_COL_MAP[JAIL]
-
-            if property_type == PCT_SHARE:
-                col_to_demographic_map = SEX_JAIL_PCT_SHARE_MELT_COLS_MAP
-                vera_all_col = ALL_JAIL_PCT_SHARE
-                het_value_column = PCT_SHARE_COL_MAP[JAIL]
 
         if data_type == PRISON:
             if property_type == RAW:
@@ -464,11 +464,6 @@ def generate_partial_breakdown(df,
                 col_to_demographic_map = {}
                 vera_all_col = PRISON_RATE_ALL
                 het_value_column = PER_100K_COL_MAP[PRISON]
-
-        if property_type == PCT_SHARE:
-            col_to_demographic_map = {}
-            vera_all_col = ALL_JAIL_PCT_SHARE
-            het_value_column = PCT_SHARE_COL_MAP[JAIL]
 
     if property_type == CHILDREN:
         # treat children as All; no extra groups to calc
@@ -517,36 +512,23 @@ def add_confined_children_col(df):
     return df
 
 
-def add_jail_pct_share_col(df, demo_type: SEX_RACE_ETH_AGE_TYPE):
+def use_sum_of_jail_counts_as_all(df, demo_type: Literal["sex", "race_and_ethnicity"]):
     """ Jail pct_share needs to be calculated a bit differently,
     as Vera TOTAL jail counts are yearly averages, while the GROUP
     jail counts are single-day actual counts.
     This means that the sum of the groups might not equal the TOTAL.
-    Because of this, we will calculate pct_share as a pct of the summed group totals,
-    and due to the table structure we will do this on the Vera-shaped, pre-melted WIDE table,
-    rather than the skinny/long HET style table that is used in the util fn."""
+    Because of this, we will calculate pct_share as a pct of the summed group totals.
+
+    """
 
     if demo_type == std_col.SEX_COL:
         groups_map = SEX_JAIL_RAW_COLS_TO_STANDARD
     elif demo_type == std_col.RACE_OR_HISPANIC_COL:
         groups_map = RACE_JAIL_RAW_COLS_TO_STANDARD
-    elif demo_type == std_col.AGE_COL:
-        df[ALL_JAIL_PCT_SHARE] = 100.0
-        return df
     else:
         raise ValueError(
-            f'demo_type sent as {demo_type}; must be "sex", "age", or "race_and_ethnicity". ')
+            f'demo_type sent as "{demo_type}"; must be "sex" or "race_and_ethnicity". ')
 
-    _tmp_sum_col = "temporary_sum_of_groups_col"
-
-    df[_tmp_sum_col] = df[groups_map.keys()].sum(axis=1, numeric_only=True)
-
-    # # add new col for each group with group / sum as pct_share
-    for vera_group, het_group in groups_map.items():
-        pct_share_col = f'{het_group}_{PCT_SHARE_COL_MAP[JAIL]}'
-        df[pct_share_col] = (df[
-            vera_group].mul(100) / df[_tmp_sum_col]).round(1)
-
-    df[ALL_JAIL_PCT_SHARE] = 100.0
-
+    df[JAIL_RAW_ALL] = df[groups_map.keys()].sum(axis=1,
+                                                 numeric_only=True)
     return df
