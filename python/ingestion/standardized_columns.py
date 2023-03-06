@@ -61,7 +61,7 @@ UNINSURED_PCT_SHARE_COL = 'uninsured_pct_share'
 UNINSURED_POPULATION_PCT = 'uninsured_population_pct'
 
 UNINSURED_PREFIX = 'uninsured'
-POVERTY_PREFIX = 'in_poverty'
+POVERTY_PREFIX = 'poverty'
 
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"

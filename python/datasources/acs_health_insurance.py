@@ -85,12 +85,29 @@ POVERTY_BY_RACE_SEX_AGE_GROUP_PREFIXES = {
 
 
 class AcsItem():
-    def __init__(self, prefix_map, concept_map, sex_age_prefix, sex_age_concept, key, bq_prefix):
+    """An object that contains all of the ACS info needed to get
+       demographic data for an ACS concept.
+
+       prefix_map: A dictionary mapping the acs prefix to its corresponding race.
+       concept_map: A dictionary mapping to its corresponding census concept.
+       sex_age_prefix: The acs prefix representing the sex and age data.
+       has_condition_key: Key in acs metadata representing the tracker's "yes"
+                           state for this condition. For example, it would be the
+                           key represting that someone has poverty, or does not
+                           have health insurance.
+       bq_prefix: The prefix to use for this conditions col names in big query,
+                  should be defined in standarized_columns.py"""
+
+    def __init__(self, prefix_map, concept_map, sex_age_prefix,
+                 sex_age_concept, has_condition_key,
+                 does_not_have_condition_key, bq_prefix):
+
         self.prefix_map = prefix_map
         self.concept_map = concept_map
         self.sex_age_prefix = sex_age_prefix
         self.sex_age_concept = sex_age_concept
-        self.key = key
+        self.has_condition_key = has_condition_key
+        self.does_not_have_condition_key = does_not_have_condition_key
         self.bq_prefix = bq_prefix
 
 
@@ -111,6 +128,9 @@ POP_SUFFIX = 'pop'
 HAS_ACS_ITEM_SUFFIX = 'has_acs_item'
 
 HEALTH_INSURANCE_KEY = 'No health insurance coverage'
+WITH_HEALTH_INSURANCE_KEY = 'With health insurance coverage'
+
+NOT_IN_POVERTY_KEY = 'Income in the past 12 months at or above poverty level'
 POVERTY_KEY = 'Income in the past 12 months below poverty level'
 
 ACS_ITEMS = {
@@ -119,6 +139,7 @@ ACS_ITEMS = {
                        POVERY_BY_SEX_AGE_GROUPS_PREFIX,
                        POVERTY_BY_SEX_AGE_CONCEPT,
                        POVERTY_KEY,
+                       NOT_IN_POVERTY_KEY,
                        std_col.POVERTY_PREFIX),
 
     'health_insurance': AcsItem(HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES,
@@ -126,6 +147,7 @@ ACS_ITEMS = {
                                 HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX,
                                 HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT,
                                 HEALTH_INSURANCE_KEY,
+                                WITH_HEALTH_INSURANCE_KEY,
                                 std_col.UNINSURED_PREFIX),
 }
 
@@ -335,11 +357,17 @@ class AcsHealthInsurance(DataSource):
 
         # Separate rows of the amount of people without health insurance into
         # their own df and rename the 'amount' col to the correct name.
-        df_without = df_with_without.loc[df_with_without[tmp_amount_key] ==
-                                         acs_item.key].reset_index(drop=True)
+        df_with_condition = df_with_without.loc[df_with_without[tmp_amount_key] ==
+                                         acs_item.has_condition_key].reset_index(drop=True)
+
+        df_without_condition = df_with_without.loc[df_with_without[tmp_amount_key] ==
+                                      acs_item.does_not_have_condition_key].reset_index(drop=True)
+
+        without_condition_raw_count = generate_column_name(measure, 'without')
+        df_without_condition = df_without_condition.rename(columns={AMOUNT: without_condition_raw_count})
 
         raw_count = generate_column_name(measure, HAS_ACS_ITEM_SUFFIX)
-        df_without = df_without.rename(columns={AMOUNT: raw_count})
+        df_with_condition = df_with_condition.rename(columns={AMOUNT: raw_count})
 
         merge_cols = [std_col.STATE_FIPS_COL, std_col.AGE_COL]
         if geo == COUNTY_LEVEL:
@@ -347,20 +375,20 @@ class AcsHealthInsurance(DataSource):
         if demo != RACE:
             merge_cols.append(std_col.SEX_COL)
 
-        # Same reasoning as above, but because we are collecting population numbers here,
-        # we need one fewer variable for `with/without health insurance`.
-        group_vars_totals = get_vars_for_group(concept, var_map, get_num_group_vars(measure, demo, True))
-
-        group_cols = [std_col.AGE_COL]
-        if demo != RACE:
-            group_cols = [std_col.SEX_COL] + group_cols
+        totals_df = pd.merge(df_without_condition, df_with_condition, on=merge_cols, how='left')
 
         population = generate_column_name(measure, POP_SUFFIX)
-        df_totals = standardize_frame(df, group_vars_totals, group_cols,
-                                      geo == COUNTY_LEVEL, population)
 
-        df_totals = df_totals[merge_cols + [population]]
-        df = pd.merge(df_without, df_totals, on=merge_cols, how='left')
+        def get_total(row):
+            return int(row[raw_count]) + int(row[without_condition_raw_count])
+
+        totals_df[population] = totals_df.apply(get_total, axis=1)
+
+        totals_df = totals_df[merge_cols + [population]]
+
+        print(totals_df.to_string())
+
+        df = pd.merge(df_with_condition, totals_df, on=merge_cols, how='left')
 
         df = df[merge_cols + [population, raw_count]]
 
@@ -399,7 +427,6 @@ class AcsHealthInsurance(DataSource):
             std_col.STATE_FIPS_COL,
             std_col.STATE_NAME_COL,
             demo_col,
-            std_col.UNINSURED_POPULATION_PCT,
         ]
 
         breakdown_vals_to_sum = None
@@ -427,27 +454,32 @@ class AcsHealthInsurance(DataSource):
             pop_col = generate_column_name(measure, POP_SUFFIX)
 
             per_100k_col = generate_column_name(acs_item.bq_prefix, std_col.PER_100K_SUFFIX)
+            all_columns.append(per_100k_col)
 
             df = generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col)
 
         pct_share_cols = {}
         for measure, acs_item in ACS_ITEMS.items():
-            pct_share_cols[generate_column_name(measure, HAS_ACS_ITEM_SUFFIX)] = \
-                generate_column_name(acs_item.bq_prefix, std_col.PCT_SHARE_SUFFIX)
+            pct_share_col = generate_column_name(acs_item.bq_prefix, std_col.PCT_SHARE_SUFFIX)
+            pct_share_cols[generate_column_name(measure, HAS_ACS_ITEM_SUFFIX)] = pct_share_col
+            all_columns.append(pct_share_col)
 
-            pct_share_cols[generate_column_name(measure, POP_SUFFIX)] = \
-                generate_column_name(acs_item.bq_prefix, std_col.POP_PCT_SUFFIX)
+            pop_pct_col = generate_column_name(acs_item.bq_prefix, std_col.POP_PCT_SUFFIX)
+            pct_share_cols[generate_column_name(measure, POP_SUFFIX)] = pop_pct_col
+            all_columns.append(pop_pct_col)
 
         df = generate_pct_share_col_without_unknowns(
             df, pct_share_cols, demo_col, all_val)
 
-        all_columns.extend([std_col.UNINSURED_PER_100K_COL, std_col.UNINSURED_PCT_SHARE_COL])
-        return df[all_columns].reset_index(drop=True)
+        df = df[all_columns].reset_index(drop=True)
+        return df
 
 
 def get_num_group_vars(measure, demo, is_total):
-    if measure == 'poverty' and not is_total:
-        return 3
+    if measure == 'poverty':
+        if not is_total:
+            return 3
+        return 2
     elif measure == 'health_insurance':
         if is_total:
             if demo == RACE:
@@ -457,5 +489,3 @@ def get_num_group_vars(measure, demo, is_total):
             if demo == RACE:
                 return 2
             return 3
-
-    return 3

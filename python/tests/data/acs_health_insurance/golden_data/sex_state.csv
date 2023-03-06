@@ -1,7 +1,7 @@
-state_fips,state_name,sex,uninsured_population_pct,uninsured_per_100k,uninsured_pct_share
-01,Alabama,All,100.0,9544.0,100.0
-01,Alabama,Male,48.0,10595.0,53.3
-01,Alabama,Female,52.0,8573.0,46.7
-72,Puerto Rico,All,100.0,6553.0,100.0
-72,Puerto Rico,Male,47.4,8307.0,60.1
-72,Puerto Rico,Female,52.6,4973.0,39.9
+state_fips,state_name,sex,uninsured_population_pct,uninsured_per_100k,uninsured_pct_share,poverty_population_pct,poverty_per_100k,poverty_pct_share
+01,Alabama,All,100.0,9544.0,100.0,100.0,15141.0,100.0
+01,Alabama,Male,48.0,10595.0,53.3,48.5,13519.0,43.3
+01,Alabama,Female,52.0,8573.0,46.7,51.5,16670.0,56.7
+72,Puerto Rico,All,100.0,6553.0,100.0,100.0,44058.0,100.0
+72,Puerto Rico,Male,47.4,8307.0,60.1,47.4,42067.0,45.3
+72,Puerto Rico,Female,52.6,4973.0,39.9,52.6,45854.0,54.7
