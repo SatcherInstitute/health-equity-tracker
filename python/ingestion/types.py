@@ -1,6 +1,6 @@
 from typing import Literal
 
-""" Use these when using cast(TYPE, variable) to explicitly tell the linter 
+""" Use these when using cast(TYPE, variable) to explicitly tell the linter
 that the variable is actually the expected type.
 
 Prefer using an explicit `Literal["a", "b"]` in function signitures however, as
