@@ -13,12 +13,10 @@ from ingestion.constants import (Sex)
 import ingestion.standardized_columns as std_col
 from functools import reduce
 from typing import Literal, cast
+from ingestion.types import (
+    INCARCERATION_TYPE, VERA_PROPERTY_TYPE, SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE
+)
 
-SEX_RACE_AGE_TYPE = Literal["sex", "age", "race"]
-SEX_RACE_ETH_AGE_TYPE = Literal["sex", "age", "race_and_ethnicity"]
-INCARCERATION_TYPE = Literal["jail", "prison"]
-VERA_PROPERTY_TYPE = Literal["raw", "rate",
-                             "population", "total_confined_children"]
 
 JAIL = cast(INCARCERATION_TYPE, "jail")
 PRISON = "prison"
