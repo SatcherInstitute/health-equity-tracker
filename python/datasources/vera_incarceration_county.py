@@ -333,7 +333,7 @@ class VeraIncarcerationCounty(DataSource):
                        CHILDREN
                        ]
 
-        # by_race gets race and race_id cols
+        # by_race gets extra cols
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(breakdown_df)
             needed_cols.append(std_col.RACE_CATEGORY_ID_COL)
