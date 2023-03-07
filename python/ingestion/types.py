@@ -3,7 +3,7 @@ from typing import Literal
 """ Use these when using cast(TYPE, variable) to explicitly tell the linter
 that the variable is actually the expected type.
 
-Prefer using an explicit `Literal["a", "b"]` in function signitures however, as
+Prefer using an explicit `Literal["a", "b"]` in function signatures however, as
 it seems that (at least VSCODE) can't interpret these TYPE variables as the underlying literals. """
 
 SEX_RACE_AGE_TYPE = Literal["sex", "age", "race"]
