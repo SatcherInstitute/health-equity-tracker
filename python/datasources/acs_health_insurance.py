@@ -283,7 +283,7 @@ class AcsHealthInsurance(DataSource):
         if demo == RACE:
             for measure, acs_item in ACS_ITEMS.items():
                 concept_dfs = []
-                for concept, race in acs_item.concept_map.items():
+                for race, concept in acs_item.concept_map.items():
                     # Get cached data from GCS
                     concept_df = gcs_to_bq_util.load_values_as_df(
                         gcs_bucket, self.get_filename_race(measure, race, geo == COUNTY_LEVEL)
@@ -333,13 +333,14 @@ class AcsHealthInsurance(DataSource):
                     the demographic group we are extracting data for.
            var_map: Dict generated from the `parse_acs_metadata` function"""
 
-        # Health insurance by race only breaks down by 2 variables,
-        # `age` and `with/without health insurance`, because the race is already
-        # baked into the concept, however for sex/age, the sex is not baked into the
-        # concept but rather is another variable that needs to be broken out,
-        # so we have to pass in 3.
-        group_vars = get_vars_for_group(concept, var_map, get_num_group_vars(measure, demo, False))
+        group_vars = get_vars_for_group(concept, var_map, get_num_group_vars(measure, demo))
 
+        # Here we are representing the order of items on the `label` key of the
+        # acs metadata json.
+        # So, because the label for health insurance RACE looks like:
+        # `"label": "Estimate!!Total:!!19 to 64 years:!!No health insurance coverage"`
+        # we take the std_col.AGE_COL first, and the AMOUNT second
+        # (The Estimate and Total keys are stripped off in the standardize frame function)
         tmp_amount_key = 'tmp_anount_key'
         if measure == 'poverty':
             group_cols = [tmp_amount_key, std_col.SEX_COL, std_col.AGE_COL]
@@ -349,19 +350,18 @@ class AcsHealthInsurance(DataSource):
                 group_cols = [std_col.SEX_COL] + group_cols
 
         # Creates a df with different rows for the amount of people
-        # in a demographic group with health insurance and without
-        # health insurance. We want each of these values on the same
-        # row however.
+        # in a demographic group with and without the condition
+        # We want each of these values on the same row however.
         df_with_without = standardize_frame(df, group_vars, group_cols,
                                             geo == COUNTY_LEVEL, AMOUNT)
 
         # Separate rows of the amount of people without health insurance into
         # their own df and rename the 'amount' col to the correct name.
         df_with_condition = df_with_without.loc[df_with_without[tmp_amount_key] ==
-                                         acs_item.has_condition_key].reset_index(drop=True)
+                                                acs_item.has_condition_key].reset_index(drop=True)
 
         df_without_condition = df_with_without.loc[df_with_without[tmp_amount_key] ==
-                                      acs_item.does_not_have_condition_key].reset_index(drop=True)
+                                                   acs_item.does_not_have_condition_key].reset_index(drop=True)
 
         without_condition_raw_count = generate_column_name(measure, 'without')
         df_without_condition = df_without_condition.rename(columns={AMOUNT: without_condition_raw_count})
@@ -369,11 +369,14 @@ class AcsHealthInsurance(DataSource):
         raw_count = generate_column_name(measure, HAS_ACS_ITEM_SUFFIX)
         df_with_condition = df_with_condition.rename(columns={AMOUNT: raw_count})
 
-        merge_cols = [std_col.STATE_FIPS_COL, std_col.AGE_COL]
+        merge_cols = group_cols.copy()
+        merge_cols.append(std_col.STATE_FIPS_COL)
+        merge_cols.remove(tmp_amount_key)
         if geo == COUNTY_LEVEL:
             merge_cols.append(std_col.COUNTY_FIPS_COL)
-        if demo != RACE:
-            merge_cols.append(std_col.SEX_COL)
+
+        df_with_condition = df_with_condition[merge_cols + [raw_count]]
+        df_without_condition = df_without_condition[merge_cols + [without_condition_raw_count]]
 
         totals_df = pd.merge(df_without_condition, df_with_condition, on=merge_cols, how='left')
 
@@ -383,15 +386,10 @@ class AcsHealthInsurance(DataSource):
             return int(row[raw_count]) + int(row[without_condition_raw_count])
 
         totals_df[population] = totals_df.apply(get_total, axis=1)
-
         totals_df = totals_df[merge_cols + [population]]
 
-        print(totals_df.to_string())
-
         df = pd.merge(df_with_condition, totals_df, on=merge_cols, how='left')
-
         df = df[merge_cols + [population, raw_count]]
-
         df = update_col_types(df)
 
         if geo == NATIONAL_LEVEL:
@@ -407,6 +405,8 @@ class AcsHealthInsurance(DataSource):
             groupby_cols.remove(std_col.SEX_COL)
         if demo == SEX or demo == RACE:
             groupby_cols.remove(std_col.AGE_COL)
+
+        print(groupby_cols)
 
         return df.groupby(groupby_cols).sum().reset_index()
 
@@ -431,7 +431,8 @@ class AcsHealthInsurance(DataSource):
 
         breakdown_vals_to_sum = None
         if demo == RACE:
-            breakdown_vals_to_sum = list(CONCEPTS_TO_RACE.values())
+            all_races = HEALTH_INSURANCE_RACE_TO_CONCEPT.keys()
+            breakdown_vals_to_sum = list(all_races)
             breakdown_vals_to_sum.remove(Race.HISP.value)
 
         value_cols = []
@@ -475,17 +476,15 @@ class AcsHealthInsurance(DataSource):
         return df
 
 
-def get_num_group_vars(measure, demo, is_total):
+def get_num_group_vars(measure, demo):
+    # Health insurance by race only breaks down by 2 variables,
+    # `age` and `with/without health insurance`, because the race is already
+    # baked into the concept, however for sex/age, the sex is not baked into the
+    # concept but rather is another variable that needs to be broken out,
+    # so we have to pass in 3.
     if measure == 'poverty':
-        if not is_total:
-            return 3
-        return 2
+        return 3
     elif measure == 'health_insurance':
-        if is_total:
-            if demo == RACE:
-                return 1
+        if demo == RACE:
             return 2
-        else:
-            if demo == RACE:
-                return 2
-            return 3
+        return 3
