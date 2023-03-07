@@ -39,23 +39,23 @@ BASE_ACS_URL = 'https://api.census.gov/data/2019/acs/acs5'
 HEALTH_INSURANCE_RACE_TO_CONCEPT = {
     Race.AIAN.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
     Race.ASIAN.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (ASIAN ALONE)',
-    Race.BLACK.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (BLACK OR AFRICAN AMERICAN ALONE)',
     Race.HISP.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (HISPANIC OR LATINO)',
+    Race.BLACK.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (BLACK OR AFRICAN AMERICAN ALONE)',
     Race.NHPI.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)',
+    Race.WHITE.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (WHITE ALONE)',
     Race.OTHER_STANDARD.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (SOME OTHER RACE ALONE)',
     Race.MULTI.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (TWO OR MORE RACES)',
-    Race.WHITE.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (WHITE ALONE)',
 }
 
 POVERTY_RACE_TO_CONCEPT = {
     Race.AIAN.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
     Race.ASIAN.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (ASIAN ALONE)',
-    Race.BLACK.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)',
     Race.HISP.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (HISPANIC OR LATINO)',
+    Race.BLACK.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)',
     Race.NHPI.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)',
+    Race.WHITE.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (WHITE ALONE)',
     Race.OTHER_STANDARD.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (SOME OTHER RACE ALONE)',
     Race.MULTI.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (TWO OR MORE RACES)',
-    Race.WHITE.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (WHITE ALONE)',
 }
 
 # ACS Health Insurance By Race Prefixes.
@@ -87,6 +87,8 @@ POVERTY_BY_RACE_SEX_AGE_GROUP_PREFIXES = {
 class AcsItem():
     """An object that contains all of the ACS info needed to get
        demographic data for an ACS concept.
+       I made this a class so you have to add all of the needed
+       pieces of info.
 
        prefix_map: A dictionary mapping the acs prefix to its corresponding race.
        concept_map: A dictionary mapping to its corresponding census concept.
@@ -95,6 +97,8 @@ class AcsItem():
                            state for this condition. For example, it would be the
                            key represting that someone has poverty, or does not
                            have health insurance.
+       does_not_have_condition_key: Key in acs metadata represnting the tracker's
+                                    "no" state for this condition.
        bq_prefix: The prefix to use for this conditions col names in big query,
                   should be defined in standarized_columns.py"""
 
@@ -134,6 +138,14 @@ NOT_IN_POVERTY_KEY = 'Income in the past 12 months at or above poverty level'
 POVERTY_KEY = 'Income in the past 12 months below poverty level'
 
 ACS_ITEMS = {
+    'health_insurance': AcsItem(HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES,
+                                HEALTH_INSURANCE_RACE_TO_CONCEPT,
+                                HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX,
+                                HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT,
+                                HEALTH_INSURANCE_KEY,
+                                WITH_HEALTH_INSURANCE_KEY,
+                                std_col.UNINSURED_PREFIX),
+
     'poverty': AcsItem(POVERTY_BY_RACE_SEX_AGE_GROUP_PREFIXES,
                        POVERTY_RACE_TO_CONCEPT,
                        POVERY_BY_SEX_AGE_GROUPS_PREFIX,
@@ -142,13 +154,6 @@ ACS_ITEMS = {
                        NOT_IN_POVERTY_KEY,
                        std_col.POVERTY_PREFIX),
 
-    'health_insurance': AcsItem(HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES,
-                                HEALTH_INSURANCE_RACE_TO_CONCEPT,
-                                HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX,
-                                HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT,
-                                HEALTH_INSURANCE_KEY,
-                                WITH_HEALTH_INSURANCE_KEY,
-                                std_col.UNINSURED_PREFIX),
 }
 
 
@@ -278,6 +283,7 @@ class AcsHealthInsurance(DataSource):
         elif demo == SEX:
             merge_cols.append(std_col.SEX_COL)
 
+        # Create an empty df that we will merge each condition into
         df = pd.DataFrame(columns=merge_cols)
 
         if demo == RACE:
@@ -333,8 +339,6 @@ class AcsHealthInsurance(DataSource):
                     the demographic group we are extracting data for.
            var_map: Dict generated from the `parse_acs_metadata` function"""
 
-        group_vars = get_vars_for_group(concept, var_map, get_num_group_vars(measure, demo))
-
         # Here we are representing the order of items on the `label` key of the
         # acs metadata json.
         # So, because the label for health insurance RACE looks like:
@@ -349,14 +353,16 @@ class AcsHealthInsurance(DataSource):
             if demo != RACE:
                 group_cols = [std_col.SEX_COL] + group_cols
 
+        group_vars = get_vars_for_group(concept, var_map, len(group_cols))
+
         # Creates a df with different rows for the amount of people
         # in a demographic group with and without the condition
         # We want each of these values on the same row however.
         df_with_without = standardize_frame(df, group_vars, group_cols,
                                             geo == COUNTY_LEVEL, AMOUNT)
 
-        # Separate rows of the amount of people without health insurance into
-        # their own df and rename the 'amount' col to the correct name.
+        # Create two separate df's, one for people with the condition, and one for
+        # people without. Rename the columns so that we can merge them later.
         df_with_condition = df_with_without.loc[df_with_without[tmp_amount_key] ==
                                                 acs_item.has_condition_key].reset_index(drop=True)
 
@@ -400,13 +406,14 @@ class AcsHealthInsurance(DataSource):
             df = df.groupby(groupby_cols).sum().reset_index()
             df[std_col.STATE_FIPS_COL] = US_FIPS
 
-        groupby_cols = merge_cols
-        if demo == AGE:
-            groupby_cols.remove(std_col.SEX_COL)
-        if demo == SEX or demo == RACE:
-            groupby_cols.remove(std_col.AGE_COL)
+        groupby_cols = [std_col.STATE_FIPS_COL]
+        if geo == COUNTY_LEVEL:
+            groupby_cols.append(std_col.COUNTY_FIPS_COL)
 
-        print(groupby_cols)
+        if demo == AGE:
+            groupby_cols.append(std_col.AGE_COL)
+        elif demo == SEX:
+            groupby_cols.append(std_col.SEX_COL)
 
         return df.groupby(groupby_cols).sum().reset_index()
 
@@ -474,17 +481,3 @@ class AcsHealthInsurance(DataSource):
 
         df = df[all_columns].reset_index(drop=True)
         return df
-
-
-def get_num_group_vars(measure, demo):
-    # Health insurance by race only breaks down by 2 variables,
-    # `age` and `with/without health insurance`, because the race is already
-    # baked into the concept, however for sex/age, the sex is not baked into the
-    # concept but rather is another variable that needs to be broken out,
-    # so we have to pass in 3.
-    if measure == 'poverty':
-        return 3
-    elif measure == 'health_insurance':
-        if demo == RACE:
-            return 2
-        return 3
