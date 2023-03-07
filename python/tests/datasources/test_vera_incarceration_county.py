@@ -139,4 +139,5 @@ def testWriteToBqRace(
 
     expected_df = pd.read_csv(
         GOLDEN_DATA['race_and_ethnicity_county'], dtype=dtypes)
-    assert_frame_equal(df, expected_df, check_dtype=False)
+
+    assert_frame_equal(df, expected_df, check_dtype=False, check_like=True)

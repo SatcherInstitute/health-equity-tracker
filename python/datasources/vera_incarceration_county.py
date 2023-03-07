@@ -1,7 +1,11 @@
 import pandas as pd
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
-from ingestion.standardized_columns import Race
+from ingestion.standardized_columns import (
+    Race,
+    RACE_OR_HISPANIC_COL,
+    SEX_COL,
+)
 from ingestion.dataset_utils import (
     generate_pct_share_col_without_unknowns,
     ensure_leading_zeros,
@@ -18,36 +22,37 @@ from ingestion.types import (
 )
 
 
-JAIL = cast(INCARCERATION_TYPE, "jail")
-PRISON = "prison"
+JAIL = cast(INCARCERATION_TYPE, std_col.JAIL_PREFIX)
+PRISON = std_col.PRISON_PREFIX
 
 RAW = "raw"
 RATE = "rate"
 PCT_SHARE = "pct_share"
 POP = "population"
-CHILDREN = cast(VERA_PROPERTY_TYPE, "total_confined_children")
+CHILDREN = cast(VERA_PROPERTY_TYPE, std_col.CHILDREN)
 
 RAW_COL_MAP = {
-    JAIL: "jail_estimated_total",
-    PRISON: "prison_estimated_total"
+    JAIL: std_col.JAIL_RAW,
+    PRISON: std_col.PRISON_RAW
 }
 
 PER_100K_COL_MAP = {
-    JAIL: "jail_per_100k",
-    PRISON: "prison_per_100k"
+    JAIL: std_col.JAIL_RATE,
+    PRISON: std_col.PRISON_RATE
 }
 
 PCT_SHARE_COL_MAP = {
-    JAIL: "jail_pct_share",
-    PRISON: "prison_pct_share",
-    POP: "incarceration_population_pct"
+    JAIL: std_col.JAIL_PCT_SHARE,
+    PRISON: std_col.PRISON_PCT_SHARE,
+    POP: std_col.POP_PCT_SHARE
 }
 
 PCT_REL_INEQUITY_COL_MAP = {
-    JAIL: "jail_pct_relative_inequity",
-    PRISON: "prison_relative_inequity"
+    JAIL: std_col.JAIL_PCT_INEQUITY,
+    PRISON: std_col.PRISON_PCT_INEQUITY
 }
 
+# VERA ALL COLS
 PRISON_RAW_ALL = "total_prison_pop"
 JAIL_RAW_ALL = "total_jail_pop"
 PRISON_RATE_ALL = "total_prison_pop_rate"
@@ -218,7 +223,7 @@ class VeraIncarcerationCounty(DataSource):
         df = merge_county_names(df)
 
         # use SUM OF GROUP COUNTS as ALL for sex/race; we only have ALLs for AGE
-        if demo_type == "sex" or demo_type == "race_and_ethnicity":
+        if demo_type == SEX_COL or demo_type == RACE_OR_HISPANIC_COL:
             df = use_sum_of_jail_counts_as_all(df, demo_type)
         df = add_confined_children_col(df)
 
