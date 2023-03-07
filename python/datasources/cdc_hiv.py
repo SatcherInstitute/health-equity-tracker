@@ -9,6 +9,8 @@ from ingestion.dataset_utils import (generate_pct_share_col_without_unknowns,
                                      generate_pct_rel_inequity_col)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.merge_utils import merge_county_names
+from typing import cast
+from ingestion.types import SEX_RACE_ETH_AGE_TYPE
 
 
 HIV_DIR = 'cdc_hiv'
@@ -131,7 +133,8 @@ class CDCHIVData(DataSource):
 
         df = generate_pct_share_col_without_unknowns(df,
                                                      PCT_SHARE_DICT,
-                                                     breakdown,
+                                                     cast(SEX_RACE_ETH_AGE_TYPE,
+                                                          breakdown),
                                                      std_col.ALL_VALUE)
 
         df = generate_pct_rel_inequity_col(df,
