@@ -1,17 +1,19 @@
-time_period,state_name,state_fips,race_and_ethnicity,hiv_diagnoses,hiv_deaths,hiv_prep,hiv_diagnoses_per_100k,hiv_deaths_per_100k,hiv_prep_coverage,hiv_diagnoses_pct_share,hiv_deaths_pct_share,hiv_prep_pct_share,hiv_population_pct,hiv_diagnoses_pct_relative_inequity,hiv_deaths_pct_relative_inequity,hiv_prep_pct_relative_inequity,race_category_id
-2017,United States,00,All,38316,16350,155062,14.1,6.0,12.7,100.0,100.0,100.0,100.0,0.0,0.0,0.0,ALL
-2017,United States,00,American Indian and Alaska Native (NH),200,47,,10.2,2.4,,0.5,0.3,,0.7,-28.6,-57.1,,AIAN_NH
-2017,United States,00,Asian (NH),923,88,,5.9,0.6,,2.4,0.5,,5.7,-57.9,-91.2,,ASIAN_NH
-2017,United States,00,Black or African American (NH),16223,7198,19838,48.6,21.6,4.2,42.3,44.0,12.8,12.2,246.7,260.7,4.9,BLACK_NH
-2017,United States,00,Hispanic or Latino,9925,2694,23486,22.1,6.0,7.8,25.9,16.5,15.1,16.5,57.0,0.0,-8.5,HISP
-2017,United States,00,Native Hawaiian and Pacific Islander (NH),50,9,,10.6,1.9,,0.1,0.1,,0.2,-50.0,-50.0,,NHPI_NH
-2017,United States,00,Two or more races & Unrepresented race (NH),1367,1074,7052,30.0,23.6,5.3,3.6,6.6,4.5,1.7,111.8,288.2,164.7,MULTI_OR_OTHER_STANDARD_NH
-2017,United States,00,White (NH),9628,5238,104686,5.6,3.1,33.6,25.1,32.0,67.5,63.0,-60.2,-49.2,7.1,WHITE_NH
-2019,United States,00,All,36528,16230,275182,13.2,5.9,22.6,100.0,100.0,100.0,100.0,0.0,0.0,0.0,ALL
-2019,United States,00,American Indian and Alaska Native (NH),204,58,,10.2,2.9,,0.6,0.4,,0.7,-14.3,-42.9,,AIAN_NH
-2019,United States,00,Asian (NH),733,101,,4.5,0.6,,2.0,0.6,,5.9,-66.1,-89.8,,ASIAN_NH
-2019,United States,00,Black or African American (NH),15471,6992,37590,45.5,20.6,8.0,42.4,43.1,13.7,12.3,244.7,250.4,11.4,BLACK_NH
-2019,United States,00,Hispanic or Latino,9889,2740,45069,21.1,5.8,14.4,27.1,16.9,16.4,17.0,59.4,-0.6,-3.5,HISP
-2019,United States,00,Native Hawaiian and Pacific Islander (NH),66,14,,13.4,2.8,,0.2,0.1,,0.2,0.0,-50.0,,NHPI_NH
-2019,United States,00,Two or more races & Unrepresented race (NH),1102,1087,12285,22.7,22.4,9.4,3.0,6.7,4.5,1.8,66.7,272.2,150.0,MULTI_OR_OTHER_STANDARD_NH
-2019,United States,00,White (NH),9063,5234,180239,5.3,3.1,59.9,24.8,32.2,65.5,62.1,-60.1,-48.1,5.5,WHITE_NH
+time_period,state_name,state_fips,race_category_id,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_deaths,hiv_deaths_per_100k,hiv_prep,Percent,hiv_prep_population,age,sex,hiv_prep_coverage,race_and_ethnicity,hiv_diagnoses_pct_share,hiv_deaths_pct_share,hiv_prep_pct_share,hiv_prep_population_pct,hiv_population_pct,hiv_diagnoses_pct_relative_inequity,hiv_deaths_pct_relative_inequity,hiv_prep_pct_relative_inequity
+2017,United States,00,ALL,38316.0,14.1,16350.0,6.0,155062.0,,1221080.0,All,All,12.7,All,100.0,100.0,100.0,100.0,100.0,0.0,0.0,0.0
+2017,United States,00,AIAN_NH,200.0,10.2,47.0,2.4,,,,,,,American Indian and Alaska Native (NH),0.5,0.3,,,0.7,-28.6,-57.1,
+2017,United States,00,ASIAN_NH,923.0,5.9,88.0,0.6,,,,,,,Asian (NH),2.4,0.5,,,5.7,-57.9,-91.2,
+2017,United States,00,BLACK_NH,16223.0,48.6,7198.0,21.6,19838.0,4.2,475100.0,,,,Black or African American (NH),42.3,44.0,12.8,38.9,12.2,246.7,260.7,4.9
+2017,United States,00,HISP,9925.0,22.1,2694.0,6.0,23486.0,7.8,299580.0,,,,Hispanic or Latino,25.9,16.5,15.1,24.5,16.5,57.0,0.0,-8.5
+2017,United States,00,NHPI_NH,50.0,10.6,9.0,1.9,,,,,,,Native Hawaiian and Pacific Islander (NH),0.1,0.1,,,0.2,-50.0,-50.0,
+2017,United States,00,MULTI_NH,1367.0,30.0,1074.0,23.6,,,,,,,Two or more races (NH),3.6,6.6,,,1.7,111.8,288.2,
+2017,United States,00,RACE_ETHNICITY_UNKNOWN,,,,,7052.0,5.3,132040.0,,,,Unknown race and ethnicity,,,4.5,10.8,,,,
+2017,United States,00,WHITE_NH,9628.0,5.6,5238.0,3.1,104686.0,33.6,311250.0,,,,White (NH),25.1,32.0,67.5,25.5,63.0,-60.2,-49.2,7.1
+2019,United States,00,ALL,36528.0,13.2,16230.0,5.9,275182.0,,1216210.0,All,All,22.6,All,100.0,100.0,100.0,100.0,100.0,0.0,0.0,0.0
+2019,United States,00,AIAN_NH,204.0,10.2,58.0,2.9,,,,,,,American Indian and Alaska Native (NH),0.6,0.4,,,0.7,-14.3,-42.9,
+2019,United States,00,ASIAN_NH,733.0,4.5,101.0,0.6,,,,,,,Asian (NH),2.0,0.6,,,5.9,-66.1,-89.8,
+2019,United States,00,BLACK_NH,15471.0,45.5,6992.0,20.6,37590.0,8.0,468540.0,,,,Black or African American (NH),42.4,43.1,13.7,38.5,12.3,244.7,250.4,11.4
+2019,United States,00,HISP,9889.0,21.1,2740.0,5.8,45069.0,14.4,312820.0,,,,Hispanic or Latino,27.1,16.9,16.4,25.7,17.0,59.4,-0.6,-3.5
+2019,United States,00,NHPI_NH,66.0,13.4,14.0,2.8,,,,,,,Native Hawaiian and Pacific Islander (NH),0.2,0.1,,,0.2,0.0,-50.0,
+2019,United States,00,MULTI_NH,1102.0,22.7,1087.0,22.4,,,,,,,Two or more races (NH),3.0,6.7,,,1.8,66.7,272.2,
+2019,United States,00,RACE_ETHNICITY_UNKNOWN,,,,,12285.0,9.4,131180.0,,,,Unknown race and ethnicity,,,4.5,10.8,,,,
+2019,United States,00,WHITE_NH,9063.0,5.3,5234.0,3.1,180239.0,59.9,300650.0,,,,White (NH),24.8,32.2,65.5,24.7,62.1,-60.1,-48.1,5.5

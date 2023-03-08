@@ -123,19 +123,13 @@ JAIL_PREFIX = "jail"
 INCARCERATED_PREFIX = "incarcerated"
 
 # HIV
-HIV_DIAGNOSES = 'hiv_diagnoses'
-HIV_DIAGNOSES_PER_100K = 'hiv_diagnoses_per_100k'
-HIV_DIAGNOSES_PCT_INEQUITY = "hiv_diagnoses_pct_relative_inequity"
-HIV_DIAGNOSES_PCT_SHARE = 'hiv_diagnoses_pct_share'
-HIV_DEATHS = 'hiv_deaths'
-HIV_DEATHS_PER_100K = 'hiv_deaths_per_100k'
-HIV_DEATHS_PCT_INEQUITY = "hiv_deaths_pct_relative_inequity"
-HIV_DEATHS_PCT_SHARE = 'hiv_deaths_pct_share'
-HIV_PREP = 'hiv_prep'
+HIV_DIAGNOSES_PREFIX = 'hiv_diagnoses'
+HIV_DEATHS_PREFIX = 'hiv_deaths'
+PREP_PREFIX = 'hiv_prep'
 HIV_PREP_COVERAGE = 'hiv_prep_coverage'
-HIV_PREP_PCT_INEQUITY = 'hiv_prep_pct_relative_inequity'
-HIV_PREP_PCT_SHARE = 'hiv_prep_pct_share'
+# population of individuals with PrEP indicators
 HIV_PREP_POPULATION = 'hiv_prep_population'
+HIV_PREP_POPULATION_PCT = 'hiv_prep_population_pct'
 HIV_POPULATION_PCT = 'hiv_population_pct'
 
 
@@ -191,6 +185,8 @@ class Race(Enum):
     # someone is Hispanic or Latino)
     NH = ("NH", "Not Hispanic or Latino", False)
     ETHNICITY_UNKNOWN = ("ETHNICITY_UNKNOWN", "Unknown ethnicity", None)
+    RACE_ETHNICITY_UNKNOWN = ("RACE_ETHNICITY_UNKNOWN",
+                              "Unknown race and ethnicity", None)
 
     # OTHER_STANDARD and OTHER_STANDARD_NH define "other" in a specific way (see
     # above). Some datasets may group additional races into "other"

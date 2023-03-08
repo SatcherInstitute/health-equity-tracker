@@ -24,11 +24,13 @@ EXP_DTYPE = {'state_fips': str, 'time_period': str}
 def _load_csv_as_df_from_data_dir(*args, **kwargs):
     directory, filename = args
     subdirectory = kwargs['subdirectory']
+    usecols = kwargs['usecols']
 
     df = pd.read_csv(os.path.join(TEST_DIR, directory, subdirectory, filename),
                      dtype=DTYPE,
                      skiprows=8,
                      na_values=NA_VALUES,
+                     usecols=usecols,
                      thousands=',')
 
     return df
@@ -57,7 +59,10 @@ def testGenerateRaceNational(mock_data_dir: mock.MagicMock):
     alls_df = pd.read_csv(ALLS_DATA["all_national"],
                           dtype=DTYPE,
                           skiprows=8,
-                          thousands=',')
+                          na_values=NA_VALUES,
+                          usecols=lambda x: x not in [
+        'Indicator', 'Transmission Category'],
+        thousands=',')
 
     df = datasource.generate_breakdown_df('race_and_ethnicity',
                                           'national',
@@ -130,7 +135,7 @@ def _load_df_from_data_dir(*args):
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 @mock.patch('datasources.cdc_hiv.CDCHIVData.generate_breakdown_df', side_effect=_generate_breakdown_df)
-@mock.patch('datasources.cdc_hiv.load_df_from_data_dir', side_effect=_load_df_from_data_dir)
+@mock.patch('datasources.cdc_hiv.load_atlas_df_from_data_dir', side_effect=_load_df_from_data_dir)
 def testWriteToBqCalls(
     mock_data_dir_df: mock.MagicMock,
     mock_breakdown_df: mock.MagicMock,
