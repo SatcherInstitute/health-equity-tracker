@@ -81,7 +81,6 @@ def testWriteToBqSex(
     assert mock_counties.call_count == 1
 
     df, _, table_name = mock_bq.call_args_list[0][0]
-    df.to_csv(f'{table_name}.csv', index=False)
     assert table_name == "by_sex_county_time_series"
 
     expected_df = pd.read_csv(
@@ -109,7 +108,6 @@ def testWriteToBqAge(
     assert mock_counties.call_count == 1
 
     df, _, table_name = mock_bq.call_args_list[0][0]
-    df.to_csv(f'{table_name}.csv', index=False)
     assert table_name == "by_age_county_time_series"
 
     expected_df = pd.read_csv(
@@ -137,9 +135,9 @@ def testWriteToBqRace(
     assert mock_counties.call_count == 1
 
     df, _, table_name = mock_bq.call_args_list[0][0]
-    df.to_csv(f'{table_name}.csv', index=False)
     assert table_name == "by_race_and_ethnicity_county_time_series"
 
     expected_df = pd.read_csv(
         GOLDEN_DATA['race_and_ethnicity_county'], dtype=dtypes)
-    assert_frame_equal(df, expected_df, check_dtype=False)
+
+    assert_frame_equal(df, expected_df, check_dtype=False, check_like=True)

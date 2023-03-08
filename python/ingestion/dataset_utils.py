@@ -1,3 +1,4 @@
+from typing import Literal
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
@@ -10,13 +11,11 @@ from ingestion.constants import (
     UNKNOWN
 )
 
-from typing import Literal
 
-SEX_RACE_AGE_TYPE = Literal["sex", "age", "race"]
-GEO_LEVEL_TYPE = Literal["national", "state", "county"]
-
-
-def generate_pct_share_col_without_unknowns(df, raw_count_to_pct_share, breakdown_col, all_val):
+def generate_pct_share_col_without_unknowns(df: pd.DataFrame,
+                                            raw_count_to_pct_share: dict,
+                                            breakdown_col: Literal["sex", "age", "race", "race_and_ethnicity"],
+                                            all_val: str):
     """Returns a DataFrame with a percent share column based on the raw_count_cols
        Each row must have a corresponding 'ALL' row.
        This function is meant to be used on datasets without any rows where the
@@ -298,8 +297,8 @@ def generate_pct_rel_inequity_col(
 
 
 def zero_out_pct_rel_inequity(df: pd.DataFrame,
-                              geo: GEO_LEVEL_TYPE,
-                              demographic: SEX_RACE_AGE_TYPE,
+                              geo: Literal["national", "state", "county"],
+                              demographic: Literal["sex", "age", "race"],
                               rate_to_inequity_col_map: dict,
                               pop_pct_col: str = None):
     """Sets inequitable share of targeted conditions to zero if every known
