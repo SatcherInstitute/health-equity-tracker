@@ -37,7 +37,7 @@ export const HIV_DIAGNOSES_RACE_USA_SETTING =
 export const COVID_DEATHS_AGE_FULTON_COUNTY_SETTING =
   "?mls=1.covid-3.13121&demo=age&dt1=covid_deaths&mlp=disparity";
 export const PRISON_VS_POVERTY_RACE_GA_SETTING =
-  "?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison";
+  "?mls=1.prison-3.poverty-5.13&mlp=comparevars";
 export const UNINSURANCE_SEX_FL_VS_CA_SETTING =
   "?mls=1.health_insurance-3.12-5.06&mlp=comparegeos&demo=sex";
 
