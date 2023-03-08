@@ -84,21 +84,21 @@ def testSexCounty(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
                        check_like=True)
 
 
-# @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#             side_effect=get_fips_and_county_names_as_df)
-# @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
-#             side_effect=_get_by_race_as_df)
-# def testRaceCounty(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
-#     acsHealthInsurance = AcsHealthInsurance()
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            side_effect=get_fips_and_county_names_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
+            side_effect=_get_by_race_as_df)
+def testRaceCounty(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
+    acsHealthInsurance = AcsHealthInsurance()
 
-#     df = acsHealthInsurance.get_raw_data('race', 'county', get_acs_metadata_as_json(), 'some-bucket')
-#     df = acsHealthInsurance.post_process(df, 'race', 'county')
+    df = acsHealthInsurance.get_raw_data('race', 'county', get_acs_metadata_as_json(), 'some-bucket')
+    df = acsHealthInsurance.post_process(df, 'race', 'county')
 
-#     expected_df = pd.read_csv(GOLDEN_DATA_COUNTY_RACE, dtype={'state_fips': str, 'county_fips': str})
-#     cols = list(expected_df.columns)
-#     assert_frame_equal(df.sort_values(cols).reset_index(drop=True),
-#                        expected_df.sort_values(cols).reset_index(drop=True),
-#                        check_like=True)
+    expected_df = pd.read_csv(GOLDEN_DATA_COUNTY_RACE, dtype={'state_fips': str, 'county_fips': str})
+    cols = list(expected_df.columns)
+    assert_frame_equal(df.sort_values(cols).reset_index(drop=True),
+                       expected_df.sort_values(cols).reset_index(drop=True),
+                       check_like=True)
 
 
 @mock.patch('ingestion.census.fetch_acs_metadata',

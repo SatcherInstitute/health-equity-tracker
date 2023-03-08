@@ -97,10 +97,10 @@ class AcsItem():
                            state for this condition. For example, it would be the
                            key represting that someone has poverty, or does not
                            have health insurance.
-       does_not_have_condition_key: Key in acs metadata represnting the tracker's
+       does_not_have_condition_key: Key in acs metadata representing the tracker's
                                     "no" state for this condition.
        bq_prefix: The prefix to use for this conditions col names in big query,
-                  should be defined in standarized_columns.py"""
+                  should be defined in standardized_columns.py"""
 
     def __init__(self, prefix_map, concept_map, sex_age_prefix,
                  sex_age_concept, has_condition_key,
@@ -120,7 +120,7 @@ class AcsItem():
 HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX = 'B27001'
 HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT = 'HEALTH INSURANCE COVERAGE STATUS BY SEX BY AGE'
 
-POVERY_BY_SEX_AGE_GROUPS_PREFIX = 'B17001'
+POVERTY_BY_SEX_AGE_GROUPS_PREFIX = 'B17001'
 POVERTY_BY_SEX_AGE_CONCEPT = 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE'
 
 HAS_HEALTH_INSURANCE = 'has_health_insurance'
@@ -148,7 +148,7 @@ ACS_ITEMS = {
 
     'poverty': AcsItem(POVERTY_BY_RACE_SEX_AGE_GROUP_PREFIXES,
                        POVERTY_RACE_TO_CONCEPT,
-                       POVERY_BY_SEX_AGE_GROUPS_PREFIX,
+                       POVERTY_BY_SEX_AGE_GROUPS_PREFIX,
                        POVERTY_BY_SEX_AGE_CONCEPT,
                        POVERTY_KEY,
                        NOT_IN_POVERTY_KEY,
@@ -345,7 +345,7 @@ class AcsHealthInsurance(DataSource):
         # `"label": "Estimate!!Total:!!19 to 64 years:!!No health insurance coverage"`
         # we take the std_col.AGE_COL first, and the AMOUNT second
         # (The Estimate and Total keys are stripped off in the standardize frame function)
-        tmp_amount_key = 'tmp_anount_key'
+        tmp_amount_key = 'tmp_amount_key'
         if measure == 'poverty':
             group_cols = [tmp_amount_key, std_col.SEX_COL, std_col.AGE_COL]
         elif measure == 'health_insurance':
@@ -388,10 +388,10 @@ class AcsHealthInsurance(DataSource):
 
         population = generate_column_name(measure, POP_SUFFIX)
 
-        def get_total(row):
-            return int(row[raw_count]) + int(row[without_condition_raw_count])
+        totals_df[[raw_count, without_condition_raw_count]] = \
+            totals_df[[raw_count, without_condition_raw_count]].astype(float)
 
-        totals_df[population] = totals_df.apply(get_total, axis=1)
+        totals_df[population] = totals_df[raw_count] + totals_df[without_condition_raw_count]
         totals_df = totals_df[merge_cols + [population]]
 
         df = pd.merge(df_with_condition, totals_df, on=merge_cols, how='left')
