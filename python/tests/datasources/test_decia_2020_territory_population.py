@@ -45,12 +45,8 @@ def testGenerateSexTerritory(
 
     datasource.write_to_bq('dataset', 'gcs_bucket')
 
-    df, _dataset, table_name = mock_bq.call_args_list[0][0]
+    for call in mock_bq.call_args_list:
+        df, _dataset, table_name = call[0]
 
-    print(table_name)
-    print(df)
-
-    df, _dataset, table_name = mock_bq.call_args_list[1][0]
-
-    print(table_name)
-    print(df)
+        print(table_name)
+        print(df)

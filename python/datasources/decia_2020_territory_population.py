@@ -36,10 +36,37 @@ AGE_PCT_SHARE_COLS_TO_STD = {
 
 RACE_COUNT_COLS_TO_STD = {
     "DP1_0076C": std_col.Race.ALL.value,
+    "DP1_0105C": std_col.Race.HISP.value,
+    # Ethnicity-agnostic races
+    "DP1_0078C": std_col.Race.NHPI.value,
+    "DP1_0086C": std_col.Race.ASIAN.value,
+    "DP1_0095C": std_col.Race.WHITE.value,
+    "DP1_0096C": std_col.Race.BLACK.value,
+    "DP1_0097C": std_col.Race.AIAN.value,
+    "DP1_0098C": std_col.Race.OTHER_STANDARD.value,
+    "DP1_0099C": std_col.Race.MULTI.value,
+    # NH Races
+    # "DP1_0112C": std_col.Race.BLACK_NH.value,
+    # "DP1_0113C": std_col.Race.WHITE_NH.value,
+    # "DP1_0114C": std_col.Race.OTHER_NONSTANDARD_NH.value,
+    # "DP1_0115C": std_col.Race.MULTI_NH.value,
 }
 
 RACE_PCT_SHARE_COLS_TO_STD = {
     "DP1_0076P": std_col.Race.ALL.value,
+    "DP1_0105P": std_col.Race.HISP.value,
+    # Ethnicity-agnostic races
+    "DP1_0078P": std_col.Race.NHPI.value,
+    "DP1_0086P": std_col.Race.ASIAN.value,
+    "DP1_0095P": std_col.Race.WHITE.value,
+    "DP1_0097P": std_col.Race.AIAN.value,
+    "DP1_0098P": std_col.Race.OTHER_STANDARD.value,
+    "DP1_0099P": std_col.Race.MULTI.value,
+    # NH Races
+    # "DP1_0112P": std_col.Race.BLACK_NH.value,
+    # "DP1_0113P": std_col.Race.WHITE_NH.value,
+    # "DP1_0114P": std_col.Race.OTHER_NONSTANDARD_NH.value,
+    # "DP1_0115P": std_col.Race.MULTI_NH.value,
 }
 
 
@@ -64,8 +91,8 @@ class Decia2020TerritoryPopulationData(DataSource):
         ]:
 
             for breakdown in [
-                # std_col.AGE_COL,
-                # std_col.RACE_OR_HISPANIC_COL,
+                std_col.AGE_COL,
+                std_col.RACE_OR_HISPANIC_COL,
                 std_col.SEX_COL
             ]:
                 table_name = f'by_{breakdown}_territory_{geo_level}_level'
@@ -118,13 +145,20 @@ class Decia2020TerritoryPopulationData(DataSource):
         #     std_col.HIV_POPULATION_PCT,
         #     std_col.HIV_DIAGNOSES_PCT_INEQUITY]
 
-        american_samoa_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            "decia_2020_territory_population",
-            "DECENNIALDPAS2020.DP1-Data.csv")
+        source_files = [
+            "DECENNIALDPAS2020.DP1-Data.csv",
+            "DECENNIALDPGU2020.DP1-Data.csv",
+            "DECENNIALDPMP2020.DP1-Data.csv",
+            "DECENNIALDPVI2020.DP1-Data.csv"
+        ]
 
-        df = american_samoa_df
+        source_dfs = [
+            gcs_to_bq_util.load_csv_as_df_from_data_dir(
+                "decia_2020_territory_population",
+                file).drop([0]) for file in source_files
+        ]
 
-        df = df.drop([0])
+        df = pd.concat(source_dfs, ignore_index=True)
 
         df[FIPS] = df["GEO_ID"].str.split('US').str[1]
 
@@ -136,6 +170,12 @@ class Decia2020TerritoryPopulationData(DataSource):
         if breakdown == std_col.SEX_COL:
             count_group_cols_map = SEX_COUNT_COLS_TO_STD
             pct_share_group_cols_map = SEX_PCT_SHARE_COLS_TO_STD
+        if breakdown == std_col.AGE_COL:
+            count_group_cols_map = AGE_COUNT_COLS_TO_STD
+            pct_share_group_cols_map = AGE_PCT_SHARE_COLS_TO_STD
+        if breakdown == std_col.RACE_OR_HISPANIC_COL:
+            count_group_cols_map = RACE_COUNT_COLS_TO_STD
+            pct_share_group_cols_map = RACE_PCT_SHARE_COLS_TO_STD
 
             # df_count = df.copy().rename(columns=SEX_COUNT_COLS_TO_STD)
             # df_count = df_count[[FIPS] + list(SEX_COUNT_COLS_TO_STD.values())]
@@ -167,6 +207,8 @@ class Decia2020TerritoryPopulationData(DataSource):
             {std_col.POPULATION_COL: count_group_cols_map,
                 std_col.POPULATION_PCT_COL: pct_share_group_cols_map}
         )
+
+        df = df.replace('-', np.nan)
 
         # if geo_level == COUNTY_LEVEL:
         #     df = merge_county_names(df)
