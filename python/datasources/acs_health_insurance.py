@@ -47,12 +47,15 @@ HEALTH_INSURANCE_RACE_TO_CONCEPT = {
     Race.MULTI.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (TWO OR MORE RACES)',
 }
 
+NHPI_POVERY_VALUE = \
+    'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)'
+
 POVERTY_RACE_TO_CONCEPT = {
     Race.AIAN.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
     Race.ASIAN.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (ASIAN ALONE)',
     Race.HISP.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (HISPANIC OR LATINO)',
     Race.BLACK.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)',
-    Race.NHPI.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)',
+    Race.NHPI.value: NHPI_POVERY_VALUE,
     Race.WHITE.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (WHITE ALONE)',
     Race.OTHER_STANDARD.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (SOME OTHER RACE ALONE)',
     Race.MULTI.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (TWO OR MORE RACES)',
@@ -137,22 +140,25 @@ WITH_HEALTH_INSURANCE_KEY = 'With health insurance coverage'
 NOT_IN_POVERTY_KEY = 'Income in the past 12 months at or above poverty level'
 POVERTY_KEY = 'Income in the past 12 months below poverty level'
 
-ACS_ITEMS = {
-    'health_insurance': AcsItem(HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES,
-                                HEALTH_INSURANCE_RACE_TO_CONCEPT,
-                                HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX,
-                                HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT,
-                                HEALTH_INSURANCE_KEY,
-                                WITH_HEALTH_INSURANCE_KEY,
-                                std_col.UNINSURED_PREFIX),
+HEALTH_INSURANCE_MEASURE = 'health_insurance'
+POVERTY_MEASURE = 'poverty'
 
-    'poverty': AcsItem(POVERTY_BY_RACE_SEX_AGE_GROUP_PREFIXES,
-                       POVERTY_RACE_TO_CONCEPT,
-                       POVERTY_BY_SEX_AGE_GROUPS_PREFIX,
-                       POVERTY_BY_SEX_AGE_CONCEPT,
-                       POVERTY_KEY,
-                       NOT_IN_POVERTY_KEY,
-                       std_col.POVERTY_PREFIX),
+ACS_ITEMS = {
+    HEALTH_INSURANCE_MEASURE: AcsItem(HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES,
+                                      HEALTH_INSURANCE_RACE_TO_CONCEPT,
+                                      HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX,
+                                      HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT,
+                                      HEALTH_INSURANCE_KEY,
+                                      WITH_HEALTH_INSURANCE_KEY,
+                                      std_col.UNINSURED_PREFIX),
+
+    POVERTY_MEASURE: AcsItem(POVERTY_BY_RACE_SEX_AGE_GROUP_PREFIXES,
+                             POVERTY_RACE_TO_CONCEPT,
+                             POVERTY_BY_SEX_AGE_GROUPS_PREFIX,
+                             POVERTY_BY_SEX_AGE_CONCEPT,
+                             POVERTY_KEY,
+                             NOT_IN_POVERTY_KEY,
+                             std_col.POVERTY_PREFIX),
 
 }
 
@@ -346,9 +352,9 @@ class AcsHealthInsurance(DataSource):
         # we take the std_col.AGE_COL first, and the AMOUNT second
         # (The Estimate and Total keys are stripped off in the standardize frame function)
         tmp_amount_key = 'tmp_amount_key'
-        if measure == 'poverty':
+        if measure == POVERTY_MEASURE:
             group_cols = [tmp_amount_key, std_col.SEX_COL, std_col.AGE_COL]
-        elif measure == 'health_insurance':
+        elif measure == HEALTH_INSURANCE_MEASURE:
             group_cols = [std_col.AGE_COL, tmp_amount_key]
             if demo != RACE:
                 group_cols = [std_col.SEX_COL] + group_cols
