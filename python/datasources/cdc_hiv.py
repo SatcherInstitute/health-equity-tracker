@@ -96,7 +96,8 @@ class CDCHIVData(DataSource):
                 float_cols.extend(
                     [std_col.HIV_PREP_COVERAGE, std_col.HIV_POPULATION_PCT, std_col.HIV_PREP_POPULATION_PCT])
 
-                col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+                col_types = gcs_to_bq_util.get_bq_column_types(
+                    df, float_cols=float_cols)
 
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
