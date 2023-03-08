@@ -4,13 +4,13 @@ from unittest import mock
 from pandas._testing import assert_frame_equal
 from ingestion import gcs_to_bq_util
 
-from datasources.acs_health_insurance import AcsHealthInsurance
+from datasources.acs_condition import AcsCondition
 
 from test_utils import get_acs_metadata_as_json, get_state_fips_codes_as_df
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data', 'acs_health_insurance')
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data', 'acs_condition')
 
 GOLDEN_DATA_NATIONAL_SEX = os.path.join(TEST_DIR, 'golden_data', 'sex_national.csv')
 GOLDEN_DATA_STATE_SEX = os.path.join(TEST_DIR, 'golden_data', 'sex_state.csv')
@@ -37,7 +37,7 @@ def _get_by_race_as_df(*args):
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
             side_effect=_get_by_race_as_df)
 def testSexNational(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
-    acsHealthInsurance = AcsHealthInsurance()
+    acsHealthInsurance = AcsCondition()
 
     df = acsHealthInsurance.get_raw_data('sex', 'national', get_acs_metadata_as_json(), 'some-bucket')
     df = acsHealthInsurance.post_process(df, 'sex', 'national')
@@ -54,7 +54,7 @@ def testSexNational(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
             side_effect=_get_by_race_as_df)
 def testSexState(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
-    acsHealthInsurance = AcsHealthInsurance()
+    acsHealthInsurance = AcsCondition()
 
     df = acsHealthInsurance.get_raw_data('sex', 'state', get_acs_metadata_as_json(), 'some-bucket')
     df = acsHealthInsurance.post_process(df, 'sex', 'state')
@@ -71,7 +71,7 @@ def testSexState(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
             side_effect=_get_by_race_as_df)
 def testSexCounty(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
-    acsHealthInsurance = AcsHealthInsurance()
+    acsHealthInsurance = AcsCondition()
 
     df = acsHealthInsurance.get_raw_data('sex', 'county', get_acs_metadata_as_json(), 'some-bucket')
     df = acsHealthInsurance.post_process(df, 'sex', 'county')
@@ -89,7 +89,7 @@ def testSexCounty(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
             side_effect=_get_by_race_as_df)
 def testRaceCounty(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
-    acsHealthInsurance = AcsHealthInsurance()
+    acsHealthInsurance = AcsCondition()
 
     df = acsHealthInsurance.get_raw_data('race', 'county', get_acs_metadata_as_json(), 'some-bucket')
     df = acsHealthInsurance.post_process(df, 'race', 'county')
@@ -113,7 +113,7 @@ def testWriteToBq(mock_bq: mock.MagicMock,
                   mock_fips: mock.MagicMock,
                   mock_acs: mock.MagicMock,
                   mock_json: mock.MagicMock):
-    acsHealthInsurance = AcsHealthInsurance()
+    acsHealthInsurance = AcsCondition()
 
     acsHealthInsurance.write_to_bq('dataset', 'gcs_bucket')
 
