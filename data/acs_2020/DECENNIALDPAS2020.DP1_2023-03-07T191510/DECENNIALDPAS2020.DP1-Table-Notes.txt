@@ -1,0 +1,31 @@
+=============================================================================================================
+  TABLE INFO
+=============================================================================================================
+
+ID: DECENNIALDPAS2020.DP1
+Title: GENERAL DEMOGRAPHIC CHARACTERISTICS
+
+=============================================================================================================
+  NOTES
+=============================================================================================================
+
+Explanation of Symbols: <TABLE><TR><TD width="20px">1.</TD><TD>An "-" means the statistic could not be computed because there were an insufficient number of observations.</TD> </TR><TR></TD><TD width="20px">2.</TD><TD> An "-" following a median estimate means the median falls in the lowest interval of an open-ended distribution.</TD></TR><TR></TD><TD width="20px">3.</TD><TD> An "+" following a median estimate means the median falls in the upper interval of an open-ended distribution.</TD></TR><TR><TD width="20px">4.</TD> <TD> An "(X)" means not applicable.</TD></TR></TABLE><br/><br/>
+
+Source: U.S. Census Bureau, 2020 Census, American Samoa.<br/><br/>
+
+[6] "Family households" consist of a householder and one or more other people related to the householder by birth, marriage, or adoption. 	<br/><br/>
+
+[5] "Spouse" represents spouse of the householder.  It does not reflect all spouses in a household.<br/><br/>
+
+Note: For information on data collection, confidentiality protection, nonsampling error, and definitions, see the <a href="https://www.census.gov/programs-surveys/decennial-census/technical-documentation/island-areas-censuses.html">2020 Island Areas Censuses Technical Documentation</a>.<br/><br/>
+
+[4] "Other races alone or in combination" includes respondents who reported one race group or multiple race groups that were not classified as Native Hawaiian and Other Pacific Islander or Asian (e.g., White <b><i>and</i></b> a Black or African American group such as Jamaican), as well as respondents who reported one group that was not classified as Native Hawaiian and Other Pacific Islander or Asian and another that was classified as Native Hawaiian and Other Pacific Islander or Asian (e.g., Jamaican <b><i>and</i></b> Chamorro).<br/><br/>
+
+[3] "Asian alone or in combination" includes respondents who reported an Asian group alone (e.g., Chinese), multiple Asian groups (e.g., Chinese and Japanese), as well as respondents who reported an Asian group and one or more other groups classified as another race (e.g., Chinese <b><i>and</i></b> White).<br/><br/>
+
+[2] "Native Hawaiian and Other Pacific Islander alone or in combination" includes respondents who reported a Native Hawaiian and Other Pacific Islander group alone (e.g., Samoan), multiple Native Hawaiian and Other Pacific Islander groups (e.g., Samoan and Tongan), as well as respondents who reported one Native Hawaiian and Other Pacific Islander group and one or more other groups classified as another race (e.g., Samoan <b><i>and</i></b> White).<br/><br/>
+
+[1] People who reported multiple responses may be counted in more than one of the race alone or in combination categories. For example, a respondent who reported Samoan <b><i>and</i></b> Filipino is counted in the "Native Hawaiian and Other Pacific Islander alone or in combination" category, the "Samoan alone or in any combination" category, and the "Asian alone or in combination" category. These categories may add to more than the total population.<br/><br/>
+
+Due to COVID-19 restrictions impacting data collection for the 2020 Census of American Samoa, data tables reporting social and economic characteristics do not include the group quarters population in the table universe. As a result, impacted 2020 data tables should not be compared to 2010 and other past census data tables reporting the same characteristics. The Census Bureau advises data users to verify table universes are the same before comparing data across census years. For more information about data collection limitations and the impacts on American Samoa's data products, see the <a href="https://www.census.gov/programs-surveys/decennial-census/technical-documentation/island-areas-censuses.html">2020 Island Areas Censuses Technical Documentation</a>.<br/><br/>
+

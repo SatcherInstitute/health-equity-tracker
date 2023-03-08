@@ -1,0 +1,35 @@
+=============================================================================================================
+  TABLE INFO
+=============================================================================================================
+
+ID: DECENNIALDPVI2020.DP1
+Title: GENERAL DEMOGRAPHIC CHARACTERISTICS
+
+=============================================================================================================
+  NOTES
+=============================================================================================================
+
+Explanation of Symbols: <TABLE><TR><TD width="20px">1.</TD><TD>An "-" means the statistic could not be computed because there were an insufficient number of observations.</TD> </TR><TR></TD><TD width="20px">2.</TD><TD> An "-" following a median estimate means the median falls in the lowest interval of an open-ended distribution.</TD></TR><TR></TD><TD width="20px">3.</TD><TD> An "+" following a median estimate means the median falls in the upper interval of an open-ended distribution.</TD></TR><TR><TD width="20px">4.</TD> <TD> An "(X)" means not applicable.</TD></TR></TABLE><br/><br/>
+
+[8] "Family households" consist of a householder and one or more other people related to the householder by birth, marriage, or adoption.<br/><br/>
+
+[7] "Spouse" represents spouse of the householder.  It does not reflect all spouses in a household.<br/><br/>
+
+Source: U.S. Census Bureau, 2020 Census, U.S. Virgin Islands.<br/><br/>
+
+[6] This category includes respondents who reported one race group that was not classified as Black or African American or White.<br/><br/>
+
+[5] This category includes people who reported Cuban, Spaniard, and other detailed Hispanic responses. It also includes people who reported "Hispanic" or "Latino" and other general terms.<br/><br/>
+
+Note: For information on data collection, confidentiality protection, nonsampling error, and definitions, see the <a href="https://www.census.gov/programs-surveys/decennial-census/technical-documentation/island-areas-censuses.html">2020 Island Areas Censuses Technical Documentation</a>.<br/><br/>
+
+[4] "Other races alone or in combination" includes respondents who reported one race group or multiple race groups that were not classified as Black or African American or White (e.g., Chinese <b><i>and</i></b> Samoan), as well as respondents who reported one group that was not classified as Black or African American or White and another that was classified as Black or African American or White (e.g., Chinese <b><i>and</i></b> Haitian).<br/><br/>
+
+[3] "White alone or in combination" includes respondents who reported a White group alone (e.g., German), multiple White groups (e.g., German and Irish), as well as respondents who reported one White group and one or more other groups classified as another race (e.g., German <b><i>and</i></b> Haitian).<br/><br/>
+
+[2] "Black or African American alone or in combination" includes respondents who reported a Black or African American group alone (e.g., Haitian), multiple Black or African American groups (e.g., Haitian and Dominica Islander), as well as respondents who reported one Black or African American group and one or more other groups classified as another race (e.g., Haitian <b><i>and</i></b> German).<br/><br/>
+
+[1] People who reported multiple responses may be counted in more than one of the race alone or in combination categories. For example, a respondent reporting Anguillan <b><i>and</i></b> White is counted in both the "Black or African American alone or in combination" category and the "White alone or in combination" category. These categories may add to more than the total population.<br/><br/>
+
+Due to COVID-19 restrictions impacting data collection for the 2020 Census of the U.S. Virgin Islands, data tables reporting social and economic characteristics do not include the group quarters population in the table universe. As a result, impacted 2020 data tables should not be compared to 2010 and other past census data tables reporting the same characteristics. The Census Bureau advises data users to verify table universes are the same before comparing data across census years. For more information about data collection limitations and the impacts on the U.S. Virgin Islands' data products, see the <a href="https://www.census.gov/programs-surveys/decennial-census/technical-documentation/island-areas-censuses.html">2020 Island Areas Censuses Technical Documentation</a>.<br/><br/>
+
