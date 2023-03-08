@@ -73,7 +73,7 @@ describe("IncarcerationProvider", () => {
       "bjs_incarceration_data-race_and_ethnicity_state",
       Breakdowns.forFips(new Fips("37")),
       RACE,
-      "incarceration",
+      "jail",
       ["acs_population-by_race_state"]
     );
   });
@@ -83,7 +83,7 @@ describe("IncarcerationProvider", () => {
       "bjs_incarceration_data-race_and_ethnicity_national",
       Breakdowns.forFips(new Fips("00")),
       RACE,
-      "incarceration",
+      "jail",
       [
         "acs_population-by_race_national",
         "acs_2010_population-by_race_and_ethnicity_territory",
@@ -107,7 +107,7 @@ describe("IncarcerationProvider", () => {
       "bjs_incarceration_data-age_state",
       Breakdowns.forFips(new Fips("37")),
       AGE,
-      "incarceration",
+      "prison",
       ["acs_population-by_age_state"]
     );
   });
@@ -117,7 +117,7 @@ describe("IncarcerationProvider", () => {
       "bjs_incarceration_data-age_national",
       Breakdowns.forFips(new Fips("00")),
       AGE,
-      "incarceration",
+      "prison",
       [
         "acs_population-by_age_national",
         "acs_2010_population-by_race_and_ethnicity_territory",
@@ -141,7 +141,7 @@ describe("IncarcerationProvider", () => {
       "bjs_incarceration_data-sex_state",
       Breakdowns.forFips(new Fips("37")),
       SEX,
-      "incarceration",
+      "jail",
       ["acs_population-by_sex_state"]
     );
   });
@@ -151,7 +151,7 @@ describe("IncarcerationProvider", () => {
       "bjs_incarceration_data-sex_national",
       Breakdowns.forFips(new Fips("00")),
       SEX,
-      "incarceration",
+      "jail",
       [
         "acs_population-by_sex_national",
         "acs_2010_population-by_race_and_ethnicity_territory",
