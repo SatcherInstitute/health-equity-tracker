@@ -124,8 +124,16 @@ CONGRESS_NAMES = "total_us_congress_names"
 # Incarceration columns
 PRISON_PREFIX = "prison"
 JAIL_PREFIX = "jail"
-INCARCERATED_PREFIX = "incarcerated"
-
+CHILDREN = "total_confined_children"
+JAIL_RAW = "jail_estimated_total"
+PRISON_RAW = "prison_estimated_total"
+JAIL_RATE = "jail_per_100k"
+PRISON_RATE = "prison_per_100k"
+JAIL_PCT_SHARE = "jail_pct_share"
+PRISON_PCT_SHARE = "prison_pct_share"
+POP_PCT_SHARE = "incarceration_population_pct"
+JAIL_PCT_INEQUITY = "jail_pct_relative_inequity"
+PRISON_PCT_INEQUITY = "prison_relative_inequity"
 # HIV
 HIV_DIAGNOSES = 'hiv_diagnoses'
 HIV_DIAGNOSES_PER_100K = 'hiv_diagnoses_per_100k'

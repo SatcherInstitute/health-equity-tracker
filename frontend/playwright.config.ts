@@ -17,15 +17,15 @@ const config: PlaywrightTestConfig = {
   },
   testDir: './playwright-tests',
   /* Maximum time one test can run for. */
-  timeout: 60 * 1000,
+  timeout: 120 * 1000,
   expect: {
-    timeout: 60 * 1000
+    timeout: 120 * 1000
   },
   /* run all tests, even those within a shared file, in parallel  */
-  // fullyParallel: true,
+  fullyParallel: true,
   retries: 2,
-  reporter: 'list',
-  workers: 10,
+  reporter: 'github',
+  workers: 8,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',

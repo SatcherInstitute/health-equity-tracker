@@ -1,17 +1,21 @@
+from typing import Literal
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
 from ingestion.standardized_columns import Race
-
 from ingestion.constants import (
     NATIONAL_LEVEL,
     STATE_LEVEL,
     COUNTY_LEVEL,
     RACE,
-    UNKNOWN)
+    UNKNOWN
+)
 
 
-def generate_pct_share_col_without_unknowns(df, raw_count_to_pct_share, breakdown_col, all_val):
+def generate_pct_share_col_without_unknowns(df: pd.DataFrame,
+                                            raw_count_to_pct_share: dict,
+                                            breakdown_col: Literal["sex", "age", "race", "race_and_ethnicity"],
+                                            all_val: str):
     """Returns a DataFrame with a percent share column based on the raw_count_cols
        Each row must have a corresponding 'ALL' row.
        This function is meant to be used on datasets without any rows where the
@@ -264,7 +268,7 @@ def ensure_leading_zeros(df, fips_col_name: str, num_digits: int):
 
 
 def generate_pct_rel_inequity_col(
-    df,
+    df: pd.DataFrame,
     pct_share_col: str,
     pct_pop_col: str,
     pct_relative_inequity_col: str,
@@ -292,8 +296,9 @@ def generate_pct_rel_inequity_col(
     return df
 
 
-def zero_out_pct_rel_inequity(df, geo: str,
-                              demographic: str,
+def zero_out_pct_rel_inequity(df: pd.DataFrame,
+                              geo: Literal["national", "state", "county"],
+                              demographic: Literal["sex", "age", "race"],
                               rate_to_inequity_col_map: dict,
                               pop_pct_col: str = None):
     """Sets inequitable share of targeted conditions to zero if every known
@@ -304,13 +309,13 @@ def zero_out_pct_rel_inequity(df, geo: str,
 
     Parameters:
         df: Dataframe to zero rows out on.
-        geo: Geographic level. Must be `national`, `state` or `county`.
+        geo: string of Geographic level.
         demographic: Demographic breakdown. Must be `race`, `age`, or `sex`.
         rate_cols: dict mapping condition rates (usually but not always `per_100k`)
            to the corresponding`pct_rel_inequity`s. Example map below:
             {"something_per_100k": "something_pct_relative_inequity",
             "pct_share_of_us_congress": "women_us_congress_pct_relative_inequity"}
-        pop_pct_col: option string column name that contains the population pct share,
+        pop_pct_col: optional string column name that contains the population pct share,
             used to preserve the null `pct_rel_inequity` values on rows with no pop. data
 
     Returns:
