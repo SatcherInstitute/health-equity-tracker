@@ -7,7 +7,7 @@ from ingestion.constants import (COUNTY_LEVEL,
 
 
                                  )
-from ingestion import gcs_to_bq_util, standardized_columns as std_col
+from ingestion import gcs_to_bq_util, standardized_columns as std_col, dataset_utils
 
 from ingestion.merge_utils import merge_county_names
 from typing import Literal
@@ -134,28 +134,39 @@ class Decia2020TerritoryPopulationData(DataSource):
             df = df[df[FIPS].str.len() == 5]
 
         if breakdown == std_col.SEX_COL:
-            df_count = df.copy().rename(columns=SEX_COUNT_COLS_TO_STD)
-            df_count = df_count[[FIPS] + list(SEX_COUNT_COLS_TO_STD.values())]
-            df_count = df_count.melt(id_vars=[FIPS],
-                                     var_name=std_col.SEX_COL,
-                                     value_name=std_col.POPULATION_COL)
+            count_group_cols_map = SEX_COUNT_COLS_TO_STD
+            pct_share_group_cols_map = SEX_PCT_SHARE_COLS_TO_STD
 
-            print("df_count")
-            print(df_count)
+            # df_count = df.copy().rename(columns=SEX_COUNT_COLS_TO_STD)
+            # df_count = df_count[[FIPS] + list(SEX_COUNT_COLS_TO_STD.values())]
+            # df_count = df_count.melt(id_vars=[FIPS],
+            #                          var_name=std_col.SEX_COL,
+            #                          value_name=std_col.POPULATION_COL)
 
-            df_pct_share = df.copy().rename(columns=SEX_PCT_SHARE_COLS_TO_STD)
-            df_pct_share = df_pct_share[[FIPS] +
-                                        list(SEX_PCT_SHARE_COLS_TO_STD.values())]
-            df_pct_share = df_pct_share.melt(id_vars=[FIPS],
-                                             var_name=std_col.SEX_COL,
-                                             value_name=std_col.POPULATION_PCT_COL)
-            print("df_pct_share")
-            print(df_pct_share)
+            # print("df_count")
+            # print(df_count)
 
-            df = pd.merge(
-                df_count.reset_index(drop=True),
-                df_pct_share.reset_index(drop=True),
-                on=[std_col.SEX_COL, FIPS])
+            # df_pct_share = df.copy().rename(columns=SEX_PCT_SHARE_COLS_TO_STD)
+            # df_pct_share = df_pct_share[[FIPS] +
+            #                             list(SEX_PCT_SHARE_COLS_TO_STD.values())]
+            # df_pct_share = df_pct_share.melt(id_vars=[FIPS],
+            #                                  var_name=std_col.SEX_COL,
+            #                                  value_name=std_col.POPULATION_PCT_COL)
+            # print("df_pct_share")
+            # print(df_pct_share)
+
+            # df = pd.merge(
+            #     df_count.reset_index(drop=True),
+            #     df_pct_share.reset_index(drop=True),
+            #     on=[std_col.SEX_COL, FIPS])
+
+        df = dataset_utils.melt_to_het_style_df(
+            df,
+            breakdown,
+            [FIPS],
+            {std_col.POPULATION_COL: count_group_cols_map,
+                std_col.POPULATION_PCT_COL: pct_share_group_cols_map}
+        )
 
         # if geo_level == COUNTY_LEVEL:
         #     df = merge_county_names(df)
