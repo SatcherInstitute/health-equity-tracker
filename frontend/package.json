@@ -133,6 +133,6 @@
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write"
     ],
-    "src/**/*.{ts,tsx}": "tsc-files --noEmit"
+    "src/**/*.{ts,tsx}": "tsc --noEmit"
   }
 }
