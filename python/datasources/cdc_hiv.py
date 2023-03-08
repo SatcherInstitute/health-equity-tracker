@@ -94,7 +94,7 @@ class CDCHIVData(DataSource):
                         float_cols.append(std_col.generate_column_name(
                             col, std_col.PER_100K_SUFFIX))
                 float_cols.extend(
-                    [std_col.HIV_PREP_COVERAGE, std_col.HIV_POPULATION_PCT])
+                    [std_col.HIV_PREP_COVERAGE, std_col.HIV_POPULATION_PCT, std_col.HIV_PREP_POPULATION_PCT])
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
@@ -166,7 +166,6 @@ class CDCHIVData(DataSource):
         df = df.sort_values(
             [std_col.TIME_PERIOD_COL, breakdown]).reset_index(drop=True)
         df = df.drop(columns='population')
-        df.to_csv(f'{breakdown}_{geo_level}_output.csv', index=False)
 
         return df
 
