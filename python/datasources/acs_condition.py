@@ -190,7 +190,7 @@ def update_col_types(df):
     return df
 
 
-class AcsHealthInsurance(DataSource):
+class AcsCondition(DataSource):
 
     # Initialize variables in class instance, also merge all metadata so that lookup of the
     # prefix, suffix combos can return the entire metadata
@@ -208,11 +208,11 @@ class AcsHealthInsurance(DataSource):
 
     @staticmethod
     def get_id():
-        return 'ACS_HEALTH_INSURANCE'
+        return 'ACS_CONDITION'
 
     @staticmethod
     def get_table_name():
-        return 'acs_health_insurance'
+        return 'acs_condition'
 
     # Uploads the ACS data to GCS by providing
     # the ACS Base URL
