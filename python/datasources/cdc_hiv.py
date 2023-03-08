@@ -223,6 +223,8 @@ def generate_cols_to_exclude(breakdown):
     """
 
     cols = ['Indicator', 'Transmission Category']
-    cols.extend([x for x in CDC_DEM_COLS if x != DEM_COLS_STANDARD[breakdown]])
+    if breakdown != 'all':
+        cols.extend([x for x in CDC_DEM_COLS if x !=
+                    DEM_COLS_STANDARD[breakdown]])
 
     return cols
