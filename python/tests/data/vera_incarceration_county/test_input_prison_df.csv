@@ -1,4 +1,0 @@
-county_fips,county_name,total_pop_15to64,aapi_pop_15to64,black_pop_15to64,latinx_pop_15to64,native_pop_15to64,white_pop_15to64,female_pop_15to64,male_pop_15to64,total_prison_pop,total_prison_pop_rate,aapi_prison_pop,black_prison_pop,latinx_prison_pop,native_prison_pop,other_race_prison_pop,white_prison_pop,female_prison_pop,male_prison_pop,aapi_prison_pop_rate,black_prison_pop_rate,latinx_prison_pop_rate,native_prison_pop_rate,white_prison_pop_rate,female_prison_pop_rate,male_prison_pop_rate
-01001,Autauga County,36393.0,532.0,7359.0,975.0,156.0,27371.0,18440.0,17953.0,183.0,502.84,,87.0,,,,93.0,15.0,168.0,,1182.23,,,339.78,81.34,935.78
-37119,Mecklenburg County,730694.0,46894.0,238021.0,89170.0, 2676.0,353933.0,378054.0,352640.0,2606.0,356.65,22.0,1929.0,296.0,10.0,11.0,338.0,120.0,2486.0,46.91,810.43,331.95,373.69,95.50,31.74,704.97
-56045,Weston County,4582.0,81.0,43.0,197.0,68.0,4193.0,2086.0,2496.0,14.0,305.54,,,,,,13.0,0.0,14.0,,,,,310.04,0.0,560.9
