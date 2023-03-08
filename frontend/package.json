@@ -94,7 +94,7 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "start:development": "env-cmd -f .env.development npm run start",
-    "dev": "npm run test:watch && env-cmd -f .env.development npm run start",
+    "dev": "npm run test:watch & env-cmd -f .env.development npm run start",
     "storybook:development": "env-cmd -f .env.development npm run storybook",
     "build:staging": "env-cmd -f .env.staging npm run build",
     "build:prod": "env-cmd -f .env.prod npm run build",
