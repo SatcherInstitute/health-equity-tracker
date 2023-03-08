@@ -8,7 +8,8 @@ from ingestion.census import (
     parse_acs_metadata,
     get_vars_for_group,
     standardize_frame,
-    get_all_params_for_group)
+    get_all_params_for_group,
+    rename_age_bracket)
 
 from ingestion.merge_utils import (
     merge_state_ids,
@@ -34,7 +35,6 @@ from ingestion.standardized_columns import (
     generate_column_name)
 
 BASE_ACS_URL = 'https://api.census.gov/data/2019/acs/acs5'
-
 
 HEALTH_INSURANCE_RACE_TO_CONCEPT = {
     Race.AIAN.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
@@ -85,6 +85,15 @@ POVERTY_BY_RACE_SEX_AGE_GROUP_PREFIXES = {
     'B17001G': Race.MULTI.value,
     'B17001I': Race.HISP.value,
 }
+
+
+def get_poverty_age_range(age_range):
+    if age_range in {'0-4', '5-5'}:
+        return '0-5'
+    elif age_range in {'12-14', '15-15', '16-17'}:
+        return '12-17'
+    else:
+        return age_range
 
 
 class AcsItem():
@@ -390,17 +399,18 @@ class AcsHealthInsurance(DataSource):
         df_with_condition = df_with_condition[merge_cols + [raw_count]]
         df_without_condition = df_without_condition[merge_cols + [without_condition_raw_count]]
 
-        totals_df = pd.merge(df_without_condition, df_with_condition, on=merge_cols, how='left')
-
+        # Generate the population for each condition by adding together
+        # the raw counts of people with and without the condition.
+        population_df = pd.merge(df_without_condition, df_with_condition, on=merge_cols, how='left')
         population = generate_column_name(measure, POP_SUFFIX)
+        population_df[[raw_count, without_condition_raw_count]] = \
+            population_df[[raw_count, without_condition_raw_count]].astype(float)
+        population_df[population] = population_df[raw_count] + population_df[without_condition_raw_count]
+        population_df = population_df[merge_cols + [population]]
 
-        totals_df[[raw_count, without_condition_raw_count]] = \
-            totals_df[[raw_count, without_condition_raw_count]].astype(float)
-
-        totals_df[population] = totals_df[raw_count] + totals_df[without_condition_raw_count]
-        totals_df = totals_df[merge_cols + [population]]
-
-        df = pd.merge(df_with_condition, totals_df, on=merge_cols, how='left')
+        # Merge the population df back into the df of people with the condition
+        # to create our main df.
+        df = pd.merge(df_with_condition, population_df, on=merge_cols, how='left')
         df = df[merge_cols + [population, raw_count]]
         df = update_col_types(df)
 
@@ -421,7 +431,17 @@ class AcsHealthInsurance(DataSource):
         elif demo == SEX:
             groupby_cols.append(std_col.SEX_COL)
 
-        return df.groupby(groupby_cols).sum().reset_index()
+        df = df.groupby(groupby_cols).sum().reset_index()
+
+        # Rename age column and combine needed age ranges
+        if demo == AGE:
+            df[std_col.AGE_COL] = df[std_col.AGE_COL].apply(rename_age_bracket)
+
+            if measure == POVERTY_MEASURE:
+                df[std_col.AGE_COL] = df[std_col.AGE_COL].apply(get_poverty_age_range)
+                df = df.groupby(groupby_cols).sum().reset_index()
+
+        return df
 
     def post_process(self, df, demo, geo):
         """Merge population data, state, and county names.
