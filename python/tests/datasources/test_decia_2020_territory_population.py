@@ -38,32 +38,32 @@ def _generate_breakdown_df():
                          'col2': [1, 2, 3, 4]})
 
 
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-# @mock.patch(
-#     'datasources.decia_2020_territory_population.Decia2020TerritoryPopulationData.generate_breakdown_df',
-#     return_value=_generate_breakdown_df()
-# )
-# def testBigQueryCalls(
-#     mock_gen_breakdown: mock.MagicMock,
-#     mock_bq: mock.MagicMock
-# ):
-#     print("\n\n")
-#     datasource = Decia2020TerritoryPopulationData()
-#     datasource.write_to_bq('dataset', 'gcs_bucket')
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch(
+    'datasources.decia_2020_territory_population.Decia2020TerritoryPopulationData.generate_breakdown_df',
+    return_value=_generate_breakdown_df()
+)
+def testBigQueryCalls(
+    mock_gen_breakdown: mock.MagicMock,
+    mock_bq: mock.MagicMock
+):
+    print("\n\n")
+    datasource = Decia2020TerritoryPopulationData()
+    datasource.write_to_bq('dataset', 'gcs_bucket')
 
-#     # 6 breakdowns = 3 demos * 2 geos
-#     assert mock_gen_breakdown.call_count == 6
+    # 6 breakdowns = 3 demos * 2 geos
+    assert mock_gen_breakdown.call_count == 6
 
-#     generated_table_names = [call_arg[0][2]
-#                              for call_arg in mock_bq.call_args_list]
-#     assert generated_table_names == [
-#         'by_age_territory_county_level',
-#         'by_race_and_ethnicity_territory_county_level',
-#         'by_sex_territory_county_level',
-#         'by_age_territory_state_level',
-#         'by_race_and_ethnicity_territory_state_level',
-#         'by_sex_territory_state_level'
-#     ]
+    generated_table_names = [call_arg[0][2]
+                             for call_arg in mock_bq.call_args_list]
+    assert generated_table_names == [
+        'by_age_territory_county_level',
+        'by_race_and_ethnicity_territory_county_level',
+        'by_sex_territory_county_level',
+        'by_age_territory_state_level',
+        'by_race_and_ethnicity_territory_state_level',
+        'by_sex_territory_state_level'
+    ]
 
 
 datasource = Decia2020TerritoryPopulationData()
