@@ -19,11 +19,7 @@ def melt_to_het_style_df(
                           "sex",
                           "race",
                           "race_and_ethnicity"],
-        keep_cols: List[Literal["county_fips",
-                                "county_name",
-                                "state_fips",
-                                "state_name",
-                                "time_period"]],
+        keep_cols: List[str],
         value_to_cols: Dict[str, Dict[str, str]]
 ):
     """ Generalized util fn for melting a source df into the skinny/long

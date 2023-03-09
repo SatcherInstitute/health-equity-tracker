@@ -1,6 +1,6 @@
 from datetime import datetime
 from datetime import timezone
-import requests
+import requests  # type: ignore
 import json
 import os
 import pandas as pd
