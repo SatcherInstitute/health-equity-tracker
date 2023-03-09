@@ -7,7 +7,8 @@ from ingestion.constants import (COUNTY_LEVEL,
 from ingestion import gcs_to_bq_util, standardized_columns as std_col, dataset_utils
 
 from ingestion.merge_utils import merge_county_names, merge_state_ids
-from typing import Literal
+from typing import Literal, cast
+from ingestion.types import DEMOGRAPHIC_TYPE
 
 
 SEX_COUNT_COLS_TO_STD = {
@@ -273,7 +274,7 @@ class Decia2020TerritoryPopulationData(DataSource):
                     std_col.RACE_OR_HISPANIC_COL else breakdown)
         df = dataset_utils.melt_to_het_style_df(
             df,
-            demo_col,
+            cast(DEMOGRAPHIC_TYPE, demo_col),
             [FIPS],
             {std_col.POPULATION_COL: count_group_cols_map,
                 std_col.POPULATION_PCT_COL: pct_share_group_cols_map}
