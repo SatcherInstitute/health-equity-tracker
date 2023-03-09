@@ -7,6 +7,10 @@ import os
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data')
 GOLDEN_DIR = os.path.join(TEST_DIR, HIV_DIR, 'golden_data')
+COLS_TO_EXCLUDE = ['Indicator', 'Transmission Category']
+RACE_COLS_TO_EXCLUDE = COLS_TO_EXCLUDE + ['Age Group', 'Sex']
+AGE_COLS_TO_EXCLUDE = COLS_TO_EXCLUDE + ['Race/Ethnicity', 'Sex']
+SEX_COLS_TO_EXCLUDE = COLS_TO_EXCLUDE + ['Age Group', 'Race/Ethnicity']
 
 ALLS_DATA = {
     'all_national': os.path.join(TEST_DIR, HIV_DIR, 'hiv-national-all.csv'),
@@ -43,6 +47,7 @@ def testGenerateAgeNational(mock_data_dir: mock.MagicMock):
     alls_df = pd.read_csv(ALLS_DATA["all_national"],
                           dtype=DTYPE,
                           skiprows=8,
+                          usecols=lambda x: x not in AGE_COLS_TO_EXCLUDE,
                           thousands=',')
 
     df = datasource.generate_breakdown_df('age', 'national', alls_df)
@@ -60,16 +65,14 @@ def testGenerateRaceNational(mock_data_dir: mock.MagicMock):
                           dtype=DTYPE,
                           skiprows=8,
                           na_values=NA_VALUES,
-                          usecols=lambda x: x not in [
-        'Indicator', 'Transmission Category'],
-        thousands=',')
+                          usecols=lambda x: x not in RACE_COLS_TO_EXCLUDE,
+                          thousands=',')
 
     df = datasource.generate_breakdown_df('race_and_ethnicity',
                                           'national',
                                           alls_df)
 
-    expected_df = pd.read_csv(
-        GOLDEN_DATA['race_national'], dtype=EXP_DTYPE)
+    expected_df = pd.read_csv(GOLDEN_DATA['race_national'], dtype=EXP_DTYPE)
 
     assert_frame_equal(df, expected_df, check_like=True)
 
@@ -79,16 +82,16 @@ def testGenerateSexNational(mock_data_dir: mock.MagicMock):
     datasource = CDCHIVData()
 
     alls_df = pd.read_csv(ALLS_DATA["all_national"],
-                          dtype=DTYPE,
+                          usecols=lambda x: x not in SEX_COLS_TO_EXCLUDE,
                           skiprows=8,
-                          thousands=',')
+                          thousands=',',
+                          dtype=DTYPE)
 
     df = datasource.generate_breakdown_df('sex', 'national', alls_df)
 
-    expected_df_sex_national = pd.read_csv(GOLDEN_DATA['sex_national'],
-                                           dtype=EXP_DTYPE)
+    expected_df = pd.read_csv(GOLDEN_DATA['sex_national'], dtype=EXP_DTYPE)
 
-    assert_frame_equal(df, expected_df_sex_national, check_like=True)
+    assert_frame_equal(df, expected_df, check_like=True)
 
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
@@ -96,9 +99,10 @@ def testGenerateRaceState(mock_data_dir: mock.MagicMock):
     datasource = CDCHIVData()
 
     alls_df = pd.read_csv(ALLS_DATA['all_state'],
-                          dtype=DTYPE,
+                          usecols=lambda x: x not in RACE_COLS_TO_EXCLUDE,
                           skiprows=8,
-                          thousands=',')
+                          thousands=',',
+                          dtype=DTYPE,)
 
     df = datasource.generate_breakdown_df('race_and_ethnicity',
                                           'state',
