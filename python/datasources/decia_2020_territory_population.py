@@ -11,6 +11,60 @@ from typing import Literal, cast
 from ingestion.types import DEMOGRAPHIC_TYPE
 
 
+"""
+
+American Samoa (doesn't provide NH races?)
+"DP1_0076C","Number!!RACE!!Total population"
+"DP1_0078C","Number!!RACE!!Total population!!One Race!!Native Hawaiian and Other Pacific Islander"
+"DP1_0086C","Number!!RACE!!Total population!!One Race!!Asian"
+"DP1_0095C","Number!!RACE!!Total population!!One Race!!White"
+"DP1_0096C","Number!!RACE!!Total population!!One Race!!Black or African American"
+"DP1_0097C","Number!!RACE!!Total population!!One Race!!American Indian and Alaska Native"
+"DP1_0098C","Number!!RACE!!Total population!!One Race!!Some Other Race"
+"DP1_0099C","Number!!RACE!!Total population!!Two or More Races"
+"DP1_0105C","Number!!HISPANIC OR LATINO ORIGIN!!Total population!!Hispanic or Latino (of any race)"
+
+Guam  (doesn't provide NH races?)
+"DP1_0076C","Number!!RACE!!Total population"
+"DP1_0078C","Number!!RACE!!Total population!!One Race!!Native Hawaiian and Other Pacific Islander"
+"DP1_0090C","Number!!RACE!!Total population!!One Race!!Asian"
+"DP1_0099C","Number!!RACE!!Total population!!One Race!!White"
+"DP1_0100C","Number!!RACE!!Total population!!One Race!!Black or African American"
+"DP1_0101C","Number!!RACE!!Total population!!One Race!!American Indian and Alaska Native"
+"DP1_0102C","Number!!RACE!!Total population!!One Race!!Some Other Race"
+"DP1_0103C","Number!!RACE!!Total population!!Two or More Races"
+"DP1_0110C","Number!!HISPANIC OR LATINO ORIGIN!!Total population!!Hispanic or Latino (of any race)"
+
+Mariana Islands (doesn't provide NH races?)
+"DP1_0076C","Number!!RACE!!Total population"
+"DP1_0078C","Number!!RACE!!Total population!!One Race!!Asian"
+"DP1_0087C","Number!!RACE!!Total population!!One Race!!Native Hawaiian and Other Pacific Islander"
+"DP1_0097C","Number!!RACE!!Total population!!One Race!!White"
+"DP1_0098C","Number!!RACE!!Total population!!One Race!!Black or African American"
+"DP1_0099C","Number!!RACE!!Total population!!One Race!!American Indian and Alaska Native"
+"DP1_0100C","Number!!RACE!!Total population!!One Race!!Some Other Race"
+"DP1_0101C","Number!!RACE!!Total population!!Two or More Races"
+"DP1_0108C","Number!!HISPANIC OR LATINO ORIGIN!!Total population!!Hispanic or Latino (of any race)"
+
+Virgin Islands
+"DP1_0076C","Number!!RACE!!Total population"
+"DP1_0078C","Number!!RACE!!Total population!!One Race!!Black or African American"
+"DP1_0094C","Number!!RACE!!Total population!!One Race!!White"
+"DP1_0095C","Number!!RACE!!Total population!!One Race!!Asian"
+"DP1_0096C","Number!!RACE!!Total population!!One Race!!American Indian and Alaska Native"
+"DP1_0097C","Number!!RACE!!Total population!!One Race!!Native Hawaiian and Other Pacific Islander"
+"DP1_0098C","Number!!RACE!!Total population!!One Race!!Some Other Race"
+"DP1_0099C","Number!!RACE!!Total population!!Two or More Races"
+"DP1_0105C","Number!!HISPANIC OR LATINO ORIGIN AND RACE!!Total population!!Hispanic or Latino (of any race)"
+
+Virgin Islands NH
+"DP1_0112C","Number!!HISPANIC OR LATINO ORIGIN AND RACE!!Total population!!Not Hispanic or Latino!!One Race!!Black or African American"
+"DP1_0113C","Number!!HISPANIC OR LATINO ORIGIN AND RACE!!Total population!!Not Hispanic or Latino!!One Race!!White"
+"DP1_0114C","Number!!HISPANIC OR LATINO ORIGIN AND RACE!!Total population!!Not Hispanic or Latino!!One Race!!Other races [6]"
+"DP1_0115C","Number!!HISPANIC OR LATINO ORIGIN AND RACE!!Total population!!Not Hispanic or Latino!!Two or More Races"
+"""
+
+
 SEX_COUNT_COLS_TO_STD = {
     "DP1_0001C": std_col.ALL_VALUE,
     "DP1_0049C": Sex.FEMALE,
@@ -142,10 +196,10 @@ RACE_COUNT_COLS_TO_STD = {
     "DP1_0098C": std_col.Race.OTHER_STANDARD.value,
     "DP1_0099C": std_col.Race.MULTI.value,
     # NH Races
-    # "DP1_0112C": std_col.Race.BLACK_NH.value,
-    # "DP1_0113C": std_col.Race.WHITE_NH.value,
-    # "DP1_0114C": std_col.Race.OTHER_NONSTANDARD_NH.value,
-    # "DP1_0115C": std_col.Race.MULTI_NH.value,
+    "DP1_0112C": std_col.Race.BLACK_NH.value,
+    "DP1_0113C": std_col.Race.WHITE_NH.value,
+    "DP1_0114C": std_col.Race.OTHER_NONSTANDARD_NH.value,
+    "DP1_0115C": std_col.Race.MULTI_NH.value,
 }
 
 RACE_PCT_SHARE_COLS_TO_STD = {
@@ -155,14 +209,15 @@ RACE_PCT_SHARE_COLS_TO_STD = {
     "DP1_0078P": std_col.Race.NHPI.value,
     "DP1_0086P": std_col.Race.ASIAN.value,
     "DP1_0095P": std_col.Race.WHITE.value,
+    "DP1_0096P": std_col.Race.BLACK.value,
     "DP1_0097P": std_col.Race.AIAN.value,
     "DP1_0098P": std_col.Race.OTHER_STANDARD.value,
     "DP1_0099P": std_col.Race.MULTI.value,
     # NH Races
-    # "DP1_0112P": std_col.Race.BLACK_NH.value,
-    # "DP1_0113P": std_col.Race.WHITE_NH.value,
-    # "DP1_0114P": std_col.Race.OTHER_NONSTANDARD_NH.value,
-    # "DP1_0115P": std_col.Race.MULTI_NH.value,
+    "DP1_0112P": std_col.Race.BLACK_NH.value,
+    "DP1_0113P": std_col.Race.WHITE_NH.value,
+    "DP1_0114P": std_col.Race.OTHER_NONSTANDARD_NH.value,
+    "DP1_0115P": std_col.Race.MULTI_NH.value,
 }
 
 
