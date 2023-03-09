@@ -3,13 +3,10 @@ import pandas as pd
 from datasources.data_source import DataSource
 from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
-                                 Sex,
-
-
-                                 )
+                                 Sex)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col, dataset_utils
 
-from ingestion.merge_utils import merge_county_names
+from ingestion.merge_utils import merge_county_names, merge_state_ids
 from typing import Literal
 
 
@@ -86,7 +83,7 @@ AGE_SUMMED_COUNT_COLS_TO_STD = {
     ("DP1_0004C", "DP1_0005C"): "10-19",
     ("DP1_0006C", "DP1_0007C"): "20-29",
     ("DP1_0008C", "DP1_0009C"): "30-39",
-    ("DP1_0010C", "DP1_0011C"): "45-49",
+    ("DP1_0010C", "DP1_0011C"): "40-49",
     ("DP1_0012C", "DP1_0013C"): "50-59",
     ("DP1_0014C", "DP1_0015C"): "60-69",
     ("DP1_0016C", "DP1_0017C"): "70-79",
@@ -112,7 +109,7 @@ AGE_SUMMED_PCT_SHARE_COLS_TO_STD = {
     ("DP1_0004P", "DP1_0005P"): "10-19",
     ("DP1_0006P", "DP1_0007P"): "20-29",
     ("DP1_0008P", "DP1_0009P"): "30-39",
-    ("DP1_0010P", "DP1_0011P"): "45-49",
+    ("DP1_0010P", "DP1_0011P"): "40-49",
     ("DP1_0012P", "DP1_0013P"): "50-59",
     ("DP1_0014P", "DP1_0015P"): "60-69",
     ("DP1_0016P", "DP1_0017P"): "70-79",
@@ -184,14 +181,14 @@ class Decia2020TerritoryPopulationData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
         for geo_level in [
-            # COUNTY_LEVEL,
+            COUNTY_LEVEL,
             STATE_LEVEL
         ]:
 
             for breakdown in [
                 std_col.AGE_COL,
-                # std_col.RACE_OR_HISPANIC_COL,
-                # std_col.SEX_COL
+                std_col.RACE_OR_HISPANIC_COL,
+                std_col.SEX_COL
             ]:
                 table_name = f'by_{breakdown}_territory_{geo_level}_level'
                 df = self.generate_breakdown_df(breakdown, geo_level)
@@ -200,14 +197,14 @@ class Decia2020TerritoryPopulationData(DataSource):
                     std_col.POPULATION_COL,
                     std_col.POPULATION_PCT_COL
                 ]
-                # column_types = gcs_to_bq_util.get_bq_column_types(
-                #     df,
-                #     float_cols=float_cols
-                # )
+                column_types = gcs_to_bq_util.get_bq_column_types(
+                    df,
+                    float_cols=float_cols
+                )
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
                                             table_name,
-                                            # column_types=column_types
+                                            column_types=column_types
                                             )
 
     def generate_breakdown_df(self,
@@ -234,6 +231,12 @@ class Decia2020TerritoryPopulationData(DataSource):
         ]
 
         df = pd.concat(source_dfs, ignore_index=True)
+        value_cols = [
+            col for col in df.columns if col not in ["GEO_ID", "NAME"]]
+        df[value_cols] = df[value_cols].replace(['-', '(X)'], np.nan)
+        # df[value_cols] = df[value_cols].replace(, np.nan)
+        df[value_cols] = df[value_cols].astype(float)
+
         df[FIPS] = df["GEO_ID"].str.split('US').str[1]
         if geo_level == STATE_LEVEL:
             df = df[df[FIPS].str.len() == 2]
@@ -255,44 +258,41 @@ class Decia2020TerritoryPopulationData(DataSource):
 
             # extend the melt maps to include melting newly summed cols
             for cols_to_sum_tuple, bucket in AGE_SUMMED_COUNT_COLS_TO_STD.items():
-                tmp_sum_col_name = "+".join(cols_to_sum_tuple)
+                tmp_sum_col_name = "+++".join(cols_to_sum_tuple)
                 count_group_cols_map[tmp_sum_col_name] = bucket
             for cols_to_sum_tuple, bucket in AGE_SUMMED_PCT_SHARE_COLS_TO_STD.items():
-                tmp_sum_col_name = "+".join(cols_to_sum_tuple)
+                tmp_sum_col_name = "+++".join(cols_to_sum_tuple)
                 pct_share_group_cols_map[tmp_sum_col_name] = bucket
 
         data_cols = (list(count_group_cols_map.keys()) +
                      list(pct_share_group_cols_map.keys()))
-        df[data_cols] = df[data_cols].replace('-', np.nan)
         keep_cols = data_cols + [FIPS]
         df = df[keep_cols]
-        print(df.to_string())
 
-        df[data_cols] = df[data_cols].astype(float)
-
+        demo_col = (std_col.RACE_CATEGORY_ID_COL if breakdown ==
+                    std_col.RACE_OR_HISPANIC_COL else breakdown)
         df = dataset_utils.melt_to_het_style_df(
             df,
-            breakdown,
+            demo_col,
             [FIPS],
             {std_col.POPULATION_COL: count_group_cols_map,
                 std_col.POPULATION_PCT_COL: pct_share_group_cols_map}
         )
-        print(df)
 
-        # if geo_level == COUNTY_LEVEL:
-        #     df = merge_county_names(df)
-        #     df[std_col.STATE_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].str.slice(0,
-        #                                                                        2)
+        if geo_level == COUNTY_LEVEL:
+            df = merge_county_names(df)
+            df[std_col.STATE_FIPS_COL] = df[
+                std_col.COUNTY_FIPS_COL].str.slice(0, 2)
+
+        df = merge_state_ids(df)
 
         # if geo_level == NATIONAL_LEVEL:
         #     df[std_col.STATE_FIPS_COL] = US_FIPS
 
-        # if breakdown == std_col.RACE_OR_HISPANIC_COL:
-        #     std_col.add_race_columns_from_category_id(df)
-        #     columns_to_keep.append(std_col.RACE_CATEGORY_ID_COL)
+        if breakdown == std_col.RACE_OR_HISPANIC_COL:
+            std_col.add_race_columns_from_category_id(df)
 
-        # df = df[columns_to_keep]
-        # df = df.sort_values([FIPS, breakdown]).reset_index(drop=True)
+        df = df.sort_values([FIPS, breakdown]).reset_index(drop=True)
 
         return df
 
@@ -302,9 +302,9 @@ def generate_summed_age_cols(df: pd.DataFrame) -> pd.DataFrame:
     combining those from the source.
     Example: "10-19" = "10-14" + "15-19"
 
-    df: Needs to be a pre-melted, wide/short df that contains
+    df: pre-melted, wide/short decennial df that contains
         unique columns for each age group
-    returns same df with additional columns. The added column names
+    returns same df with additional columns. Temp added column names
         will be the the concatenation of the used columns; the added
         column values will be the mathematical sum (both COUNT and PCT_SHARE can sum)
      """
@@ -313,10 +313,8 @@ def generate_summed_age_cols(df: pd.DataFrame) -> pd.DataFrame:
         AGE_SUMMED_COUNT_COLS_TO_STD,
         AGE_SUMMED_PCT_SHARE_COLS_TO_STD
     ]:
-
         for cols_to_sum_tuple in summed_groups_map.keys():
-            tmp_sum_col_name = "+".join(cols_to_sum_tuple)
+            tmp_sum_col_name = "+++".join(cols_to_sum_tuple)
             df[tmp_sum_col_name] = df[
                 list(cols_to_sum_tuple)].sum(min_count=1, axis=1)
-
     return df

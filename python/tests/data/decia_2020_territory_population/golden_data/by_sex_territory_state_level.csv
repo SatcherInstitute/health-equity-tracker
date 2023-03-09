@@ -1,0 +1,13 @@
+state_fips,sex,population,population_pct,state_name
+60,All,49710.0,100.0,American Samoa
+60,Female,24456.0,49.2,American Samoa
+60,Male,25254.0,50.8,American Samoa
+66,All,153836.0,100.0,Guam
+66,Female,75565.0,49.1,Guam
+66,Male,78271.0,50.9,Guam
+69,All,47329.0,100.0,Northern Mariana Islands
+69,Female,22437.0,47.4,Northern Mariana Islands
+69,Male,24892.0,52.6,Northern Mariana Islands
+78,All,87146.0,100.0,U.S. Virgin Islands
+78,Female,44803.0,51.4,U.S. Virgin Islands
+78,Male,42343.0,48.6,U.S. Virgin Islands

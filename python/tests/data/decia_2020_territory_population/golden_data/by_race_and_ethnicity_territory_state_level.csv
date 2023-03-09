@@ -1,0 +1,33 @@
+state_fips,race_category_id,population,population_pct,state_name,race_and_ethnicity
+60,ALL,49710.0,100.0,American Samoa,All
+60,AIAN,13.0,0.0,American Samoa,American Indian and Alaska Native
+60,ASIAN,2878.0,5.8,American Samoa,Asian
+60,HISP,406.0,0.8,American Samoa,Hispanic or Latino
+60,NHPI,44090.0,88.7,American Samoa,Native Hawaiian and Pacific Islander
+60,MULTI,2192.0,4.4,American Samoa,Two or more races
+60,OTHER_STANDARD,139.0,0.3,American Samoa,Unrepresented race
+60,WHITE,374.0,0.8,American Samoa,White
+66,ALL,153836.0,100.0,Guam,All
+66,AIAN,283.0,0.2,Guam,American Indian and Alaska Native
+66,ASIAN,2149.0,1.4,Guam,Asian
+66,HISP,63035.0,41.0,Guam,Hispanic or Latino
+66,NHPI,70809.0,46.0,Guam,Native Hawaiian and Pacific Islander
+66,MULTI,10491.0,6.8,Guam,Two or more races
+66,OTHER_STANDARD,1600.0,1.0,Guam,Unrepresented race
+66,WHITE,227.0,0.1,Guam,White
+69,ALL,47329.0,100.0,Northern Mariana Islands,All
+69,AIAN,1015.0,2.1,Northern Mariana Islands,American Indian and Alaska Native
+69,ASIAN,586.0,1.2,Northern Mariana Islands,Asian
+69,HISP,17163.0,36.3,Northern Mariana Islands,Hispanic or Latino
+69,NHPI,22054.0,46.6,Northern Mariana Islands,Native Hawaiian and Pacific Islander
+69,MULTI,12.0,0.0,Northern Mariana Islands,Two or more races
+69,OTHER_STANDARD,65.0,0.1,Northern Mariana Islands,Unrepresented race
+69,WHITE,276.0,0.6,Northern Mariana Islands,White
+78,ALL,87146.0,100.0,U.S. Virgin Islands,All
+78,AIAN,51.0,0.1,U.S. Virgin Islands,American Indian and Alaska Native
+78,ASIAN,174.0,0.2,U.S. Virgin Islands,Asian
+78,HISP,16075.0,18.4,U.S. Virgin Islands,Hispanic or Latino
+78,NHPI,62183.0,71.4,U.S. Virgin Islands,Native Hawaiian and Pacific Islander
+78,MULTI,6569.0,7.5,U.S. Virgin Islands,Two or more races
+78,OTHER_STANDARD,5478.0,6.3,U.S. Virgin Islands,Unrepresented race
+78,WHITE,910.0,1.0,U.S. Virgin Islands,White
