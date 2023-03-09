@@ -190,11 +190,16 @@ class Race(Enum):
     # so we do not know the relationship between Hispanic/Latino and race.
     # ETHNICITY_UNKNOWN refers to data that does not know whether the person is
     # Hispanic or Latino. (Some datasets use "ethnicity" to refer to whether
-    # someone is Hispanic or Latino)
+    # someone is Hispanic or Latino).
+    # PrEP data only collects data for the following race groups: Black, White,
+    # Hispanic, and Other. The dataset does nto distinguish what constitutes as other,
+    # the other demographic does not include individuals who are hispanic.
+    # Using the a unknown race and ethnicity instead of other which is not could be anyone
+    # oustide the standard race group is preferred.
     NH = ("NH", "Not Hispanic or Latino", False)
     ETHNICITY_UNKNOWN = ("ETHNICITY_UNKNOWN", "Unknown ethnicity", None)
-    RACE_ETHNICITY_UNKNOWN = ("RACE_ETHNICITY_UNKNOWN",
-                              "Unknown race and ethnicity", None)
+    RACE_ETHNICITY_UNKNOWN_NH = ("RACE_ETHNICITY_UNKNOWN_NH",
+                                 "Unknown race and ethnicity", False)
 
     # OTHER_STANDARD and OTHER_STANDARD_NH define "other" in a specific way (see
     # above). Some datasets may group additional races into "other"
