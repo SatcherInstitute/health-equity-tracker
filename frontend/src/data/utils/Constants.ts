@@ -137,7 +137,7 @@ export const RACE_GROUPS = [
 ] as const;
 
 // ENUMERATE THOSE PROPERTIES TO CREATE A RACE-GROUP TYPE
-export type RaceAndEthnicityGroup = typeof RACE_GROUPS[number];
+export type RaceAndEthnicityGroup = (typeof RACE_GROUPS)[number];
 
 export const raceNameToCodeMap: Partial<Record<RaceAndEthnicityGroup, string>> =
   {
@@ -150,6 +150,10 @@ export const raceNameToCodeMap: Partial<Record<RaceAndEthnicityGroup, string>> =
     [MULTI_OR_OTHER_STANDARD_NH]: "2/Unr (NH)",
     [WHITE_NH]: "White (NH)",
     [ASIAN_NH]: "Asian (NH)",
+    // CDC HIV
+    [MULTI_NH]: "Two+ (NH)",
+    // Incarceration
+    [API_NH]: "A/NHPI (NH)",
     //  race and ethnicity CAWP
     [ALL_W]: "All",
     [AAPI_W]: "AAPI",
@@ -157,7 +161,7 @@ export const raceNameToCodeMap: Partial<Record<RaceAndEthnicityGroup, string>> =
     [AIANNH_W]: "AI/AN/NH",
     [AIAN_API_W]: "AIAN_API",
     [HISP_W]: "Hisp/Lat",
-    [MULTI_W]: "TWO+",
+    [MULTI_W]: "Two+",
     [BLACK_W]: "Black",
     [WHITE_W]: "White",
     [UNKNOWN_W]: "Unknown",
@@ -263,7 +267,7 @@ export const AGE_BUCKETS = [
 ] as const;
 
 // ENUMERATE THOSE PROPERTIES TO CREATE AN AGE-GROUP TYPE
-export type AgeBucket = typeof AGE_BUCKETS[number];
+export type AgeBucket = (typeof AGE_BUCKETS)[number];
 
 // SEX DEMOGRAPHIC TERMS
 export const MALE = "Male";
@@ -271,7 +275,7 @@ export const FEMALE = "Female";
 export const OTHER = "Other";
 export const SEX_GROUPS = [MALE, FEMALE, OTHER, UNKNOWN, ALL] as const;
 // CREATE SEX-GROUP TYPE
-export type SexGroup = typeof SEX_GROUPS[number];
+export type SexGroup = (typeof SEX_GROUPS)[number];
 
 // CREATE A DEMOGRAPHIC GROUP TYPE INCL ALL SEX/AGE/RACE OPTIONS
 export type DemographicGroup = AgeBucket | SexGroup | RaceAndEthnicityGroup;
