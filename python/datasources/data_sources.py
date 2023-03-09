@@ -8,6 +8,7 @@ from datasources.cdc_vaccination_county import CDCVaccinationCounty
 from datasources.cdc_vaccination_national import CDCVaccinationNational
 from datasources.covid_tracking_project import CovidTrackingProject
 from datasources.covid_tracking_project_metadata import CtpMetadata
+from datasources.decia_2020_territory_population import Decia2020TerritoryPopulationData
 from datasources.kff_vaccination import KFFVaccination
 from datasources.acs_health_insurance import AcsHealthInsurance
 from datasources.acs_poverty import ACSPovertyDataSource
@@ -32,6 +33,7 @@ DATA_SOURCES_DICT = {
     CDCVaccinationNational.get_id(): CDCVaccinationNational(),
     CovidTrackingProject.get_id(): CovidTrackingProject(),
     CtpMetadata.get_id(): CtpMetadata(),
+    Decia2020TerritoryPopulationData.get_id(): Decia2020TerritoryPopulationData(),
     KFFVaccination.get_id(): KFFVaccination(),
     AcsHealthInsurance.get_id(): AcsHealthInsurance(),
     ACSPovertyDataSource.get_id(): ACSPovertyDataSource(),
