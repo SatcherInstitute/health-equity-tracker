@@ -161,9 +161,7 @@ describe("Tests for A11y Table Data functions", () => {
       },
     ];
 
-    const jail = METRIC_CONFIG.incarceration.find(
-      (datatype) => datatype.variableId === "jail"
-    );
+    const jail = METRIC_CONFIG.jail[0];
 
     const knownMetric = jail?.metrics.per100k;
     const unknownMetric = jail?.metrics.pct_share;
