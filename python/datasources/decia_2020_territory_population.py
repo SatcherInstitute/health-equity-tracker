@@ -232,9 +232,9 @@ class Decia2020TerritoryPopulationData(DataSource):
 
         df = pd.concat(source_dfs, ignore_index=True)
         value_cols = [
-            col for col in df.columns if col not in ["GEO_ID", "NAME"]]
+            col for col in df.columns if col not in [
+                "GEO_ID", "NAME"]]
         df[value_cols] = df[value_cols].replace(['-', '(X)'], np.nan)
-        # df[value_cols] = df[value_cols].replace(, np.nan)
         df[value_cols] = df[value_cols].astype(float)
 
         df[FIPS] = df["GEO_ID"].str.split('US').str[1]
@@ -285,9 +285,6 @@ class Decia2020TerritoryPopulationData(DataSource):
                 std_col.COUNTY_FIPS_COL].str.slice(0, 2)
 
         df = merge_state_ids(df)
-
-        # if geo_level == NATIONAL_LEVEL:
-        #     df[std_col.STATE_FIPS_COL] = US_FIPS
 
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(df)

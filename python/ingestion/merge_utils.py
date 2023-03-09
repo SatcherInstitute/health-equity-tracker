@@ -26,6 +26,7 @@ def merge_county_names(df):
 
     all_county_names = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
         'census_utility', 'fips_codes_all', dtype={'state_fips_code': str, 'county_fips_code': str})
+
     all_county_names = all_county_names.loc[all_county_names['summary_level_name'] == 'state-county']
 
     all_county_names = all_county_names[['county_fips_code', 'area_name']]
