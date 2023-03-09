@@ -1,14 +1,12 @@
 from unittest import mock
 from pandas._testing import assert_frame_equal
-from datasources.decia_2020_territory_population import Decia2020TerritoryPopulationData
+from datasources.decia_2020_territory_population import (
+    Decia2020TerritoryPopulationData)
 import pandas as pd
 import os
 
 
 DTYPE = {'GEO_ID': str}
-# EXP_DTYPE = {'state_fips': str, 'time_period': str,
-#              'hiv_diagnoses': str, 'hiv_diagnoses_per_100k': str}
-
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data')
 GOLDEN_DIR = os.path.join(TEST_DIR, 'golden_data')
@@ -49,4 +47,4 @@ def testGenerateSexTerritory(
         df, _dataset, table_name = call[0]
 
         print(table_name)
-        print(df)
+        # print(df.to_string())

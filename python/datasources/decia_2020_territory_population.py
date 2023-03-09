@@ -27,11 +27,109 @@ SEX_PCT_SHARE_COLS_TO_STD = {
 
 
 AGE_COUNT_COLS_TO_STD = {
-    "DP1_0001C": std_col.ALL_VALUE
+    "DP1_0001C": std_col.ALL_VALUE,
+    "DP1_0002C": "0-4",
+    "DP1_0003C": "5-9",
+    "DP1_0004C": "10-14",
+    "DP1_0005C": "15-19",
+    "DP1_0006C": "20-24",
+    "DP1_0007C": "25-29",
+    "DP1_0008C": "30-34",
+    "DP1_0009C": "35-39",
+    "DP1_0010C": "40-44",
+    "DP1_0011C": "45-49",
+    "DP1_0012C": "50-54",
+    "DP1_0013C": "55-59",
+    "DP1_0014C": "60-64",
+    "DP1_0015C": "65-69",
+    "DP1_0016C": "70-74",
+    "DP1_0017C": "75-79",
+    "DP1_0018C": "80-84",
+    "DP1_0019C": "85+",
+    "DP1_0020C": "16+",
+    "DP1_0021C": "18+",
+    "DP1_0022C": "21+",
+    "DP1_0023C": "62+",
+    "DP1_0024C": "65+",
 }
 
 AGE_PCT_SHARE_COLS_TO_STD = {
     "DP1_0001P": std_col.ALL_VALUE,
+    "DP1_0002P": "0-4",
+    "DP1_0003P": "5-9",
+    "DP1_0004P": "10-14",
+    "DP1_0005P": "15-19",
+    "DP1_0006P": "20-24",
+    "DP1_0007P": "25-29",
+    "DP1_0008P": "30-34",
+    "DP1_0009P": "35-39",
+    "DP1_0010P": "40-44",
+    "DP1_0011P": "45-49",
+    "DP1_0012P": "50-54",
+    "DP1_0013P": "55-59",
+    "DP1_0014P": "60-64",
+    "DP1_0015P": "65-69",
+    "DP1_0016P": "70-74",
+    "DP1_0017P": "75-79",
+    "DP1_0018P": "80-84",
+    "DP1_0019P": "85+",
+    "DP1_0020P": "16+",
+    "DP1_0021P": "18+",
+    "DP1_0022P": "21+",
+    "DP1_0023P": "62+",
+    "DP1_0024P": "65+"
+}
+
+AGE_SUMMED_COUNT_COLS_TO_STD = {
+    # DECADE AGE BUCKETS
+    ("DP1_0002C", "DP1_0003C"): "0-9",
+    ("DP1_0004C", "DP1_0005C"): "10-19",
+    ("DP1_0006C", "DP1_0007C"): "20-29",
+    ("DP1_0008C", "DP1_0009C"): "30-39",
+    ("DP1_0010C", "DP1_0011C"): "45-49",
+    ("DP1_0012C", "DP1_0013C"): "50-59",
+    ("DP1_0014C", "DP1_0015C"): "60-69",
+    ("DP1_0016C", "DP1_0017C"): "70-79",
+    ("DP1_0018C", "DP1_0019C"): "80+",
+
+    # EXTRA UHC DECADE PLUS 5 AGE BUCKETS
+    ("DP1_0005C", "DP1_0006C"): "15-24",
+    ("DP1_0007C", "DP1_0008C"): "25-34",
+    ("DP1_0009C", "DP1_0010C"): "35-44",
+    ("DP1_0011C", "DP1_0012C"): "45-54",
+    ("DP1_0013C", "DP1_0014C"): "55-64",
+    ("DP1_0015C", "DP1_0016C"): "65-74",
+    ("DP1_0017C", "DP1_0018C"): "75-84",
+    # EXTRA UHC STANDARD AGE BUCKETS
+    ("DP1_0011C", "DP1_0012C", "DP1_0013C", "DP1_0014C"): "45-64",
+    # UNAVAILABLE AGE BUCKETS
+    # "18-24", "18-44"
+}
+
+AGE_SUMMED_PCT_SHARE_COLS_TO_STD = {
+    # DECADE AGE BUCKETS
+    ("DP1_0002P", "DP1_0003P"): "0-9",
+    ("DP1_0004P", "DP1_0005P"): "10-19",
+    ("DP1_0006P", "DP1_0007P"): "20-29",
+    ("DP1_0008P", "DP1_0009P"): "30-39",
+    ("DP1_0010P", "DP1_0011P"): "45-49",
+    ("DP1_0012P", "DP1_0013P"): "50-59",
+    ("DP1_0014P", "DP1_0015P"): "60-69",
+    ("DP1_0016P", "DP1_0017P"): "70-79",
+    ("DP1_0018P", "DP1_0019P"): "80+",
+
+    # EXTRA UHC DECADE PLUS 5 AGE BUCKETS
+    ("DP1_0005P", "DP1_0006P"): "15-24",
+    ("DP1_0007P", "DP1_0008P"): "25-34",
+    ("DP1_0009P", "DP1_0010P"): "35-44",
+    ("DP1_0011P", "DP1_0012P"): "45-54",
+    ("DP1_0013P", "DP1_0014P"): "55-64",
+    ("DP1_0015P", "DP1_0016P"): "65-74",
+    ("DP1_0017P", "DP1_0018P"): "75-84",
+    # EXTRA UHC STANDARD AGE BUCKETS
+    ("DP1_0011P", "DP1_0012P", "DP1_0013P", "DP1_0014P"): "45-64",
+    # UNAVAILABLE AGE BUCKETS
+    # "18-24", "18-44"
 }
 
 RACE_COUNT_COLS_TO_STD = {
@@ -86,14 +184,14 @@ class Decia2020TerritoryPopulationData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
         for geo_level in [
-            COUNTY_LEVEL,
+            # COUNTY_LEVEL,
             STATE_LEVEL
         ]:
 
             for breakdown in [
                 std_col.AGE_COL,
-                std_col.RACE_OR_HISPANIC_COL,
-                std_col.SEX_COL
+                # std_col.RACE_OR_HISPANIC_COL,
+                # std_col.SEX_COL
             ]:
                 table_name = f'by_{breakdown}_territory_{geo_level}_level'
                 df = self.generate_breakdown_df(breakdown, geo_level)
@@ -120,30 +218,7 @@ class Decia2020TerritoryPopulationData(DataSource):
         breakdown: string for type of demographic disaggregation
         geo_level: string for geographic level """
 
-        GEO_COL = std_col.COUNTY_NAME_COL if geo_level == COUNTY_LEVEL else std_col.STATE_NAME_COL
         FIPS = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col.STATE_FIPS_COL
-
-        # columns_to_standard = {
-        #     'Age Group': std_col.AGE_COL,
-        #     'Cases': std_col.HIV_DIAGNOSES,
-        #     'FIPS': FIPS,
-        #     'Geography': GEO_COL,
-        #     'Population': std_col.POPULATION_COL,
-        #     'Race/Ethnicity': std_col.RACE_CATEGORY_ID_COL,
-        #     'Rate per 100000': std_col.HIV_DIAGNOSES_PER_100K,
-        #     'Sex': std_col.SEX_COL,
-        #     'Year': std_col.TIME_PERIOD_COL}
-
-        # columns_to_keep = [
-        #     GEO_COL,
-        #     FIPS,
-        #     std_col.TIME_PERIOD_COL,
-        #     breakdown,
-        #     std_col.HIV_DIAGNOSES,
-        #     std_col.HIV_DIAGNOSES_PER_100K,
-        #     std_col.HIV_DIAGNOSES_PCT_SHARE,
-        #     std_col.HIV_POPULATION_PCT,
-        #     std_col.HIV_DIAGNOSES_PCT_INEQUITY]
 
         source_files = [
             "DECENNIALDPAS2020.DP1-Data.csv",
@@ -159,9 +234,7 @@ class Decia2020TerritoryPopulationData(DataSource):
         ]
 
         df = pd.concat(source_dfs, ignore_index=True)
-
         df[FIPS] = df["GEO_ID"].str.split('US').str[1]
-
         if geo_level == STATE_LEVEL:
             df = df[df[FIPS].str.len() == 2]
         if geo_level == COUNTY_LEVEL:
@@ -170,35 +243,32 @@ class Decia2020TerritoryPopulationData(DataSource):
         if breakdown == std_col.SEX_COL:
             count_group_cols_map = SEX_COUNT_COLS_TO_STD
             pct_share_group_cols_map = SEX_PCT_SHARE_COLS_TO_STD
-        if breakdown == std_col.AGE_COL:
-            count_group_cols_map = AGE_COUNT_COLS_TO_STD
-            pct_share_group_cols_map = AGE_PCT_SHARE_COLS_TO_STD
+
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             count_group_cols_map = RACE_COUNT_COLS_TO_STD
             pct_share_group_cols_map = RACE_PCT_SHARE_COLS_TO_STD
 
-            # df_count = df.copy().rename(columns=SEX_COUNT_COLS_TO_STD)
-            # df_count = df_count[[FIPS] + list(SEX_COUNT_COLS_TO_STD.values())]
-            # df_count = df_count.melt(id_vars=[FIPS],
-            #                          var_name=std_col.SEX_COL,
-            #                          value_name=std_col.POPULATION_COL)
+        if breakdown == std_col.AGE_COL:
+            df = generate_summed_age_cols(df)
+            count_group_cols_map = AGE_COUNT_COLS_TO_STD
+            pct_share_group_cols_map = AGE_PCT_SHARE_COLS_TO_STD
 
-            # print("df_count")
-            # print(df_count)
+            # extend the melt maps to include melting newly summed cols
+            for cols_to_sum_tuple, bucket in AGE_SUMMED_COUNT_COLS_TO_STD.items():
+                tmp_sum_col_name = "+".join(cols_to_sum_tuple)
+                count_group_cols_map[tmp_sum_col_name] = bucket
+            for cols_to_sum_tuple, bucket in AGE_SUMMED_PCT_SHARE_COLS_TO_STD.items():
+                tmp_sum_col_name = "+".join(cols_to_sum_tuple)
+                pct_share_group_cols_map[tmp_sum_col_name] = bucket
 
-            # df_pct_share = df.copy().rename(columns=SEX_PCT_SHARE_COLS_TO_STD)
-            # df_pct_share = df_pct_share[[FIPS] +
-            #                             list(SEX_PCT_SHARE_COLS_TO_STD.values())]
-            # df_pct_share = df_pct_share.melt(id_vars=[FIPS],
-            #                                  var_name=std_col.SEX_COL,
-            #                                  value_name=std_col.POPULATION_PCT_COL)
-            # print("df_pct_share")
-            # print(df_pct_share)
+        data_cols = (list(count_group_cols_map.keys()) +
+                     list(pct_share_group_cols_map.keys()))
+        df[data_cols] = df[data_cols].replace('-', np.nan)
+        keep_cols = data_cols + [FIPS]
+        df = df[keep_cols]
+        print(df.to_string())
 
-            # df = pd.merge(
-            #     df_count.reset_index(drop=True),
-            #     df_pct_share.reset_index(drop=True),
-            #     on=[std_col.SEX_COL, FIPS])
+        df[data_cols] = df[data_cols].astype(float)
 
         df = dataset_utils.melt_to_het_style_df(
             df,
@@ -207,8 +277,7 @@ class Decia2020TerritoryPopulationData(DataSource):
             {std_col.POPULATION_COL: count_group_cols_map,
                 std_col.POPULATION_PCT_COL: pct_share_group_cols_map}
         )
-
-        df = df.replace('-', np.nan)
+        print(df)
 
         # if geo_level == COUNTY_LEVEL:
         #     df = merge_county_names(df)
@@ -226,3 +295,28 @@ class Decia2020TerritoryPopulationData(DataSource):
         # df = df.sort_values([FIPS, breakdown]).reset_index(drop=True)
 
         return df
+
+
+def generate_summed_age_cols(df: pd.DataFrame) -> pd.DataFrame:
+    """ Where possible, generates alternate age-buckets by
+    combining those from the source.
+    Example: "10-19" = "10-14" + "15-19"
+
+    df: Needs to be a pre-melted, wide/short df that contains
+        unique columns for each age group
+    returns same df with additional columns. The added column names
+        will be the the concatenation of the used columns; the added
+        column values will be the mathematical sum (both COUNT and PCT_SHARE can sum)
+     """
+
+    for summed_groups_map in [
+        AGE_SUMMED_COUNT_COLS_TO_STD,
+        AGE_SUMMED_PCT_SHARE_COLS_TO_STD
+    ]:
+
+        for cols_to_sum_tuple in summed_groups_map.keys():
+            tmp_sum_col_name = "+".join(cols_to_sum_tuple)
+            df[tmp_sum_col_name] = df[
+                list(cols_to_sum_tuple)].sum(min_count=1, axis=1)
+
+    return df
