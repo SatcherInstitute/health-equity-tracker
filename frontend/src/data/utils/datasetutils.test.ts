@@ -119,7 +119,7 @@ describe("DatasetUtils.appendFipsIfNeeded() Unit Tests", () => {
 describe("DatasetUtils.getExclusionList() Tests", () => {
   test("Prison by Race in USA Exclusions", async () => {
     const sampleVariableConfigPrisonRaceUSA: VariableConfig =
-      METRIC_CONFIG.incarceration[0];
+      METRIC_CONFIG.prison[0];
     const sampleBreakdownPrisonRaceUSA: BreakdownVar = "race_and_ethnicity";
     const sampleFipsPrisonRaceUSA: Fips = new Fips("00");
     const expectedExclusionListPrisonRaceUSA = [
