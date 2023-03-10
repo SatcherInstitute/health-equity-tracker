@@ -9,7 +9,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const fetch = require('node-fetch');
 
 function assertEnvVar(name) {
-  const value = import.meta.env[name];
+  const value = process.env[name];
   console.log(`Environment variable ${name}: ${value}`);
   if (!value) {
     throw new Error(
@@ -19,7 +19,7 @@ function assertEnvVar(name) {
 }
 
 function getBooleanEnvVar(name) {
-  const value = import.meta.env[name];
+  const value = process.env[name];
   console.log(`Environment variable ${name}: ${value}`);
   if (value && value !== "true" && value !== "false") {
     throw new Error(
