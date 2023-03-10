@@ -7,7 +7,7 @@ from ingestion.constants import (COUNTY_LEVEL,
 from ingestion import gcs_to_bq_util, standardized_columns as std_col, dataset_utils
 
 from ingestion.merge_utils import merge_county_names, merge_state_ids
-from typing import Literal, cast
+from typing import Literal, cast, List
 from ingestion.types import DEMOGRAPHIC_TYPE
 
 
@@ -129,6 +129,13 @@ STD_AGES_SUM_MAP = {
     # "18-24", "18-44"
 }
 
+ISLAND_SOURCE_FILES = [
+    "DECENNIALDPAS2020.DP1-Data.csv",
+    "DECENNIALDPGU2020.DP1-Data.csv",
+    "DECENNIALDPMP2020.DP1-Data.csv",
+    "DECENNIALDPVI2020.DP1-Data.csv"
+]
+
 
 class Decia2020TerritoryPopulationData(DataSource):
     @ staticmethod
@@ -145,12 +152,7 @@ class Decia2020TerritoryPopulationData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        source_files = [
-            "DECENNIALDPAS2020.DP1-Data.csv",
-            "DECENNIALDPGU2020.DP1-Data.csv",
-            "DECENNIALDPMP2020.DP1-Data.csv",
-            "DECENNIALDPVI2020.DP1-Data.csv"
-        ]
+        df = load_and_combine_island_data_files_as_df(ISLAND_SOURCE_FILES)
 
         source_dfs = [
             gcs_to_bq_util.load_csv_as_df_from_data_dir(
@@ -258,6 +260,13 @@ class Decia2020TerritoryPopulationData(DataSource):
         df = df.sort_values([FIPS, breakdown]).reset_index(drop=True)
 
         return df
+
+
+def load_and_combine_island_data_files_as_df(source_filenames: List[str]) -> pd.DataFrame:
+
+    all_source_cols
+
+    return df
 
 
 def generate_summed_age_cols(df: pd.DataFrame) -> pd.DataFrame:
