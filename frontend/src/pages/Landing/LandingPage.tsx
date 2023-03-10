@@ -94,9 +94,9 @@ function LandingPage() {
               variant="body1"
               paragraph={true}
             >
-              Our goal for this tool is to support the work being done by
-              policymakers, community leaders, researchers, and ultimately all
-              champions for health equity.{" "}
+              Our goal is to support the work being done by policymakers,
+              community leaders, researchers, and ultimately all champions for
+              health equity.{" "}
               <Link to={EXPLORE_DATA_PAGE_LINK}>Explore our tracker today</Link>{" "}
               and find data to help your community reach their best level of
               health.
