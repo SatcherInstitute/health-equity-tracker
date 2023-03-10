@@ -1,9 +1,7 @@
 import numpy as np
 import pandas as pd
 from datasources.data_source import DataSource
-from ingestion.constants import (COUNTY_LEVEL,
-                                 STATE_LEVEL,
-                                 Sex)
+from ingestion.constants import (COUNTY_LEVEL, Sex)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col, dataset_utils
 
 from ingestion.merge_utils import merge_county_names, merge_state_ids
@@ -335,7 +333,7 @@ def generate_summed_age_cols(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def format_fips_col(df: pd.DataFrame, geo_col: str) -> pd.DataFrame:
-    """ Replace the Census `GEO_ID` col with a standardized geo_col 
+    """ Replace the Census `GEO_ID` col with a standardized geo_col
     ("state_fips" or "county_fips")"""
 
     # FIPS codes are at the end of the string
@@ -360,7 +358,7 @@ def get_value_cols(code_map: Dict):
 
 
 def get_rename_map(code_map: Dict):
-    """ Returns a map relating Census source col names 
+    """ Returns a map relating Census source col names
     to temporary, pre-melt, HET-group col names"""
     rename_map = {}
 
@@ -376,7 +374,7 @@ def get_melt_map(code_map: Dict, metric_suffix: Literal["_count", "_pct_share"])
     HET-group metric col names into HET groups used per row in the metric col
 
     code_map: dict where only the values will be used as the group to relate between
-        temp group metric col and group row value in the metric col  
+        temp group metric col and group row value in the metric col 
     metric_suffix: str determining which metric """
 
     return {
