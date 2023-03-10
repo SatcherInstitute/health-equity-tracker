@@ -8,27 +8,16 @@ import os
 from ingestion import gcs_to_bq_util
 
 
-DTYPE = {'GEO_ID': str}
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data')
 GOLDEN_DIR = os.path.join(
     TEST_DIR, 'decia_2020_territory_population', 'golden_data')
 
-GOLDEN_DATA = {
-    'sex_state': os.path.join(GOLDEN_DIR, 'by_sex_territory_state_level.csv'),
-    'sex_county': os.path.join(GOLDEN_DIR, 'by_sex_territory_county_level.csv'),
-    'age_state': os.path.join(GOLDEN_DIR, 'by_age_territory_state_level.csv'),
-    'age_county': os.path.join(GOLDEN_DIR, 'by_age_territory_county_level.csv'),
-    'race_state': os.path.join(GOLDEN_DIR, 'by_race_and_ethnicity_territory_state_level.csv'),
-    'race_county': os.path.join(GOLDEN_DIR, 'by_race_and_ethnicity_territory_county_level.csv')
-}
-
 
 def _load_csv_as_df_from_data_dir(*args, **kwargs):
     directory, filename = args
     df = pd.read_csv(
-        os.path.join(TEST_DIR, directory, filename),
-        dtype=DTYPE)
+        os.path.join(TEST_DIR, directory, filename))
     return df
 
 
@@ -71,48 +60,10 @@ kwargs = {'filename': 'test_file.csv',
           'metadata_table_id': 'test_metadata',
           'table_name': 'output_table'}
 
-# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-# def testRun(
-#     mock_bq: mock.MagicMock,
-#     mock_data_dir: mock.MagicMock
-
-# ):
-#     datasource.write_to_bq('dataset', 'gcs_bucket')
-
-#     for call_arg in mock_bq.call_args_list:
-#         df, _, table_name = call_arg[0]
-#         df.to_csv(f'{table_name}.csv', index=False)
 
 #
-# STATE_LEVEL TERRITORY TESTS
+# EACH DEMO TYPE AND GEO TYPE IS COVERED BY A TEST BELOW
 #
-
-
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            side_effect=_load_public_dataset_from_bigquery_as_df)
-def testGenerateSexTerritory(
-    mock_geo_names: mock.MagicMock,
-    mock_data_dir: mock.MagicMock,
-    mock_bq: mock.MagicMock,
-):
-    kwargs["demographic"] = "sex"
-    kwargs["geographic"] = "state"
-    datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-
-    # loads in 4 files, 1 per Island Area
-    assert mock_data_dir.call_count == 4
-    # 1 fetch for public BQ names: state
-    mock_geo_names.call_count == 1
-
-    df, _dataset, table_name = mock_bq.call_args_list[0][0]
-    assert table_name == "by_sex_territory_state_level"
-    expected_df = pd.read_csv(
-        GOLDEN_DATA['sex_state'], index_col=False, dtype=dtypes)
-    assert_frame_equal(df, expected_df, check_dtype=False)
-
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
@@ -135,7 +86,7 @@ def testGenerateAgeTerritory(
     df, _dataset, table_name = mock_bq.call_args_list[0][0]
     assert table_name == "by_age_territory_state_level"
     expected_df = pd.read_csv(
-        GOLDEN_DATA['age_state'], index_col=False, dtype=dtypes)
+        os.path.join(GOLDEN_DIR, f'{table_name}.csv'), index_col=False, dtype=dtypes)
     assert_frame_equal(df, expected_df, check_dtype=False)
 
 
@@ -160,13 +111,9 @@ def testGenerateRaceTerritory(
     df, _dataset, table_name = mock_bq.call_args_list[0][0]
     assert table_name == "by_race_and_ethnicity_territory_state_level"
     expected_df = pd.read_csv(
-        GOLDEN_DATA['race_state'], index_col=False, dtype=dtypes)
+        os.path.join(GOLDEN_DIR, f'{table_name}.csv'), index_col=False, dtype=dtypes)
     assert_frame_equal(df, expected_df, check_dtype=False)
 
-
-#
-# COUNTY_LEVEL TERRITORY TESTS
-#
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
@@ -189,55 +136,5 @@ def testGenerateSexTerritoryCountyEquivalent(
     df, _dataset, table_name = mock_bq.call_args_list[0][0]
     assert table_name == "by_sex_territory_county_level"
     expected_df = pd.read_csv(
-        GOLDEN_DATA['sex_county'], index_col=False, dtype=dtypes)
-    assert_frame_equal(df, expected_df, check_dtype=False)
-
-
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            side_effect=_load_public_dataset_from_bigquery_as_df)
-def testGenerateAgeTerritoryCountyEquivalent(
-    mock_geo_names: mock.MagicMock,
-    mock_data_dir: mock.MagicMock,
-    mock_bq: mock.MagicMock,
-):
-    kwargs["demographic"] = "age"
-    kwargs["geographic"] = "county"
-    datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-
-    # loads in 4 files, 1 per Island Area
-    assert mock_data_dir.call_count == 4
-    # 2 fetches for public BQ names: county + state
-    mock_geo_names.call_count == 2
-
-    df, _dataset, table_name = mock_bq.call_args_list[0][0]
-    assert table_name == "by_age_territory_county_level"
-    expected_df = pd.read_csv(
-        GOLDEN_DATA['age_county'], index_col=False, dtype=dtypes)
-    assert_frame_equal(df, expected_df, check_dtype=False)
-
-
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            side_effect=_load_public_dataset_from_bigquery_as_df)
-def testGenerateRaceTerritoryCountyEquivalent(
-    mock_geo_names: mock.MagicMock,
-    mock_data_dir: mock.MagicMock,
-    mock_bq: mock.MagicMock,
-):
-    kwargs["demographic"] = "race_and_ethnicity"
-    kwargs["geographic"] = "county"
-    datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-
-    # loads in 4 files, 1 per Island Area
-    assert mock_data_dir.call_count == 4
-    # 2 fetches for public BQ names: county + state
-    mock_geo_names.call_count == 2
-
-    df, _dataset, table_name = mock_bq.call_args_list[0][0]
-    assert table_name == "by_race_and_ethnicity_territory_county_level"
-    expected_df = pd.read_csv(
-        GOLDEN_DATA['race_county'], index_col=False, dtype=dtypes)
+        os.path.join(GOLDEN_DIR, f'{table_name}.csv'), index_col=False, dtype=dtypes)
     assert_frame_equal(df, expected_df, check_dtype=False)
