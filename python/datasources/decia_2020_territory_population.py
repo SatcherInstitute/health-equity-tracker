@@ -374,7 +374,7 @@ def get_melt_map(code_map: Dict, metric_suffix: Literal["_count", "_pct_share"])
     HET-group metric col names into HET groups used per row in the metric col
 
     code_map: dict where only the values will be used as the group to relate between
-        temp group metric col and group row value in the metric col 
+        temp group metric col and group row value in the metric col
     metric_suffix: str determining which metric """
 
     return {
