@@ -6,7 +6,7 @@ from airflow.operators.dummy_operator import DummyOperator  # type: ignore
 import util
 
 _DECIA_2020_TERRITORY_POPULATION_WORKFLOW_ID = 'DECIA_2020_TERRITORY_POPULATION_DATA'
-_DECIA_2020_TERRITORY_POPULATION_DATASET_NAME = 'decia_2020_population_data'
+_DECIA_2020_TERRITORY_POPULATION_DATASET_NAME = 'decia_2020_territory_population'
 
 default_args = {
     'start_date': days_ago(0),
