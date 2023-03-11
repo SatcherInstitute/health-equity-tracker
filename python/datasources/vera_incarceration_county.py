@@ -15,7 +15,6 @@ from ingestion.dataset_utils import (
 from ingestion.merge_utils import merge_county_names
 from ingestion.constants import (Sex)
 import ingestion.standardized_columns as std_col
-from functools import reduce
 from typing import Literal, cast
 from ingestion.types import (
     INCARCERATION_TYPE, VERA_PROPERTY_TYPE, SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE, DEMOGRAPHIC_TYPE
