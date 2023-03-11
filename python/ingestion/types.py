@@ -12,3 +12,4 @@ DEMOGRAPHIC_TYPE = Literal["sex", "age", "race", "race_and_ethnicity"]
 INCARCERATION_TYPE = Literal["jail", "prison"]
 VERA_PROPERTY_TYPE = Literal["raw", "rate",
                              "population", "total_confined_children"]
+GEO_TYPE = Literal["county", "state", "national"]

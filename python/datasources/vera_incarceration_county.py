@@ -9,12 +9,15 @@ from ingestion.dataset_utils import (ensure_leading_zeros,
                                      generate_pct_rel_inequity_col,
                                      zero_out_pct_rel_inequity)
 from ingestion.merge_utils import merge_county_names
-from ingestion.constants import (Sex, COUNTY_LEVEL)
+from ingestion.constants import (Sex)
 import ingestion.standardized_columns as std_col
 from typing import Literal, cast
 from ingestion.types import (SEX_RACE_AGE_TYPE,
                              SEX_RACE_ETH_AGE_TYPE,
-                             DEMOGRAPHIC_TYPE)
+                             DEMOGRAPHIC_TYPE,
+                             GEO_TYPE)
+
+COUNTY: GEO_TYPE = "county"
 
 BASE_VERA_URL = 'https://github.com/vera-institute/incarceration_trends/blob/master/incarceration_trends.csv?raw=true'
 
@@ -296,7 +299,7 @@ class VeraIncarcerationCounty(DataSource):
                                                          PCT_REL_INEQUITY_COL_MAP[data_type])
             breakdown_df = zero_out_pct_rel_inequity(
                 breakdown_df,
-                COUNTY_LEVEL,
+                COUNTY,
                 cast(SEX_RACE_AGE_TYPE, demo_short),
                 {
                     PER_100K_COL_MAP[data_type]: PCT_REL_INEQUITY_COL_MAP[data_type]
