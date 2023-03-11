@@ -142,28 +142,15 @@ class Decia2020TerritoryPopulationData(DataSource):
         # get GEO and DEMO from DAG payload
         breakdown = self.get_attr(attrs, 'demographic')
         geo_level = self.get_attr(attrs, 'geographic')
-
-        # load raw files just once, clean later based on needed demo/geo
-        raw_dfs_map = {
-            postal: gcs_to_bq_util.load_csv_as_df_from_data_dir(
-                "decia_2020_territory_population",
-                filename).drop([0]) for postal, filename in ISLAND_SOURCE_FILE_MAP.items()
-        }
-
+        raw_dfs_map = load_source_dfs()
         df = self.generate_breakdown_df(
             raw_dfs_map, breakdown, geo_level)
-
         float_cols = [std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
         column_types = gcs_to_bq_util.get_bq_column_types(
             df, float_cols=float_cols)
-
         table_name = f'by_{breakdown}_territory_{geo_level}_level'
-
-        gcs_to_bq_util.add_df_to_bq(df,
-                                    dataset,
-                                    table_name,
-                                    column_types=column_types
-                                    )
+        gcs_to_bq_util.add_df_to_bq(df, dataset, table_name,
+                                    column_types=column_types)
 
     def generate_breakdown_df(self,
                               raw_dfs_map: Dict[str, pd.DataFrame],
@@ -254,6 +241,18 @@ class Decia2020TerritoryPopulationData(DataSource):
             std_col.add_race_columns_from_category_id(df)
         df = df.sort_values([geo_col, breakdown]).reset_index(drop=True)
         return df
+
+
+def load_source_dfs() -> Dict[str, pd.DataFrame]:
+    """ Loads raw files, returns a dict mapping territory
+    postal code to its raw source df. Drops the row after the
+    source header that contains non-code semi-humanreadable col
+    details. """
+    return {
+        postal: gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            "decia_2020_territory_population",
+            filename).drop([0]) for postal, filename in ISLAND_SOURCE_FILE_MAP.items()
+    }
 
 
 def get_source_col_names(source_codes_map: Dict[str, str],
