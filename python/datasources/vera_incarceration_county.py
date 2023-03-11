@@ -300,37 +300,6 @@ class VeraIncarcerationCounty(DataSource):
             melt_map[demo_type]
         )
 
-        # # collect partial dfs for merging
-        # partial_breakdowns = []
-
-        # # create and melt multiple partial dfs (to avoid column name collisions)
-        # for data_type in [PRISON, JAIL]:
-
-        #     # only need population once
-        #     needed_property_types = [RAW, RATE]
-        #     if data_type == JAIL:
-        #         needed_property_types.append(POP)
-
-        #     # collect needed partial dfs for merging
-        #     for property_type in needed_property_types:
-        #         partial_df = df.copy()
-        #         partial_df = generate_partial_breakdown(
-        #             partial_df, demo_type, cast(
-        # INCARCERATION_TYPE, data_type), cast(VERA_PROPERTY_TYPE, property_type))
-        #         partial_breakdowns.append(partial_df)
-
-        # # merge all the partial DFs for POP, RAW, RATE into a single DF per datatype/breakdown
-        # breakdown_df = reduce(lambda x, y: pd.merge(
-        #     x, y, on=[std_col.TIME_PERIOD_COL, *GEO_COLS_TO_STANDARD.values(), demo_col]), partial_breakdowns)
-
-        # # make partial breakdown for total_confined_children
-        # partial_children_df = generate_partial_breakdown(
-        #     df.copy(), demo_type, JAIL, CHILDREN)
-
-        # # merge in the column with confined children
-        # breakdown_df = pd.merge(breakdown_df, partial_children_df, how="left", on=[
-        #     std_col.TIME_PERIOD_COL, *GEO_COLS_TO_STANDARD.values(), demo_col])
-
         # round 100k values
         for data_type in [PRISON, JAIL]:
             breakdown_df[PER_100K_COL_MAP[data_type]
@@ -381,166 +350,10 @@ class VeraIncarcerationCounty(DataSource):
             needed_cols.append(std_col.RACE_CATEGORY_ID_COL)
 
         # keep and sort needed cols
-        breakdown_df = breakdown_df[needed_cols]
+        breakdown_df = breakdown_df[needed_cols].sort_values(
+            [std_col.TIME_PERIOD_COL, std_col.COUNTY_FIPS_COL, demo_type])
 
         return breakdown_df.reset_index(drop=True)
-
-
-# def generate_partial_breakdown(df,
-#                                demo_type: Literal["sex",
-#                                                   "race_and_ethnicity",
-#                                                   "age"],
-#                                data_type: Literal["jail",
-#                                                   "prison"],
-#                                property_type: Literal["raw",
-#                                                       "rate",
-#                                                       "population",
-#                                                       "total_confined_children"]):
-#     """
-#     Takes a Vera style df with demographic groups as columns and geographies as rows, and
-#     generates a partial HET style df with each row representing a geo/demo combo and a single property
-#     and columns:
-#     | "county_name" | "county_fips" | single_property |  "sex", "age", or "race_and_ethnicity" |
-
-#     Parameters:
-#         df: dataframe with one county per row and the columns:
-#             | "county_name" | "county_fips" |
-#             plus Vera columns for relevant demographic groups, like
-#             | "female_prison_pop" | "male_prison_pop" | etc
-#         demo_type: string for which demographic breakdown type
-#         data_type: string for data type to calculate
-#         property_type: string for metric to calculate
-
-#     """
-#     # set configuration based on demo/data/property types
-#     if demo_type == std_col.RACE_OR_HISPANIC_COL:
-#         all_val = Race.ALL.value
-#         het_group_column = std_col.RACE_CATEGORY_ID_COL
-
-#         if property_type == POP:
-#             col_to_demographic_map = RACE_POP_TO_STANDARD
-#             vera_all_col = POP_ALL
-#             het_value_column = POP
-
-#         if data_type == JAIL:
-#             if property_type == RAW:
-#                 col_to_demographic_map = RACE_JAIL_RAW_COLS_TO_STANDARD
-#                 vera_all_col = JAIL_RAW_ALL
-#                 het_value_column = RAW_COL_MAP[JAIL]
-
-#             if property_type == RATE:
-#                 col_to_demographic_map = RACE_JAIL_RATE_COLS_TO_STANDARD
-#                 vera_all_col = JAIL_RATE_ALL
-#                 het_value_column = PER_100K_COL_MAP[JAIL]
-
-#         if data_type == PRISON:
-#             if property_type == RAW:
-#                 col_to_demographic_map = RACE_PRISON_RAW_COLS_TO_STANDARD
-#                 vera_all_col = PRISON_RAW_ALL
-#                 het_value_column = RAW_COL_MAP[PRISON]
-
-#             if property_type == RATE:
-#                 col_to_demographic_map = RACE_PRISON_RATE_COLS_TO_STANDARD
-#                 vera_all_col = PRISON_RATE_ALL
-#                 het_value_column = PER_100K_COL_MAP[PRISON]
-
-#     if demo_type == std_col.SEX_COL:
-#         all_val = std_col.ALL_VALUE
-#         het_group_column = demo_type
-
-#         if property_type == POP:
-#             col_to_demographic_map = SEX_POP_TO_STANDARD
-#             vera_all_col = POP_ALL
-#             het_value_column = POP
-
-#         if data_type == JAIL:
-#             if property_type == RAW:
-#                 col_to_demographic_map = SEX_JAIL_RAW_COLS_TO_STANDARD
-#                 vera_all_col = JAIL_RAW_ALL
-#                 het_value_column = RAW_COL_MAP[JAIL]
-
-#             if property_type == RATE:
-#                 col_to_demographic_map = SEX_JAIL_RATE_COLS_TO_STANDARD
-#                 vera_all_col = JAIL_RATE_ALL
-#                 het_value_column = PER_100K_COL_MAP[JAIL]
-
-#         if data_type == PRISON:
-#             if property_type == RAW:
-#                 col_to_demographic_map = SEX_PRISON_RAW_COLS_TO_STANDARD
-#                 vera_all_col = PRISON_RAW_ALL
-#                 het_value_column = RAW_COL_MAP[PRISON]
-
-#             if property_type == RATE:
-#                 col_to_demographic_map = SEX_PRISON_RATE_COLS_TO_STANDARD
-#                 vera_all_col = PRISON_RATE_ALL
-#                 het_value_column = PER_100K_COL_MAP[PRISON]
-
-#     # generate only the Alls for Age
-#     if demo_type == std_col.AGE_COL:
-#         all_val = std_col.ALL_VALUE
-#         het_group_column = demo_type
-
-#         if property_type == POP:
-#             col_to_demographic_map = {}
-#             vera_all_col = POP_ALL
-#             het_value_column = POP
-
-#         if data_type == JAIL:
-#             if property_type == RAW:
-#                 col_to_demographic_map = {}
-#                 vera_all_col = JAIL_RAW_ALL
-#                 het_value_column = RAW_COL_MAP[JAIL]
-
-#             if property_type == RATE:
-#                 col_to_demographic_map = {}
-#                 vera_all_col = JAIL_RATE_ALL
-#                 het_value_column = PER_100K_COL_MAP[JAIL]
-
-#         if data_type == PRISON:
-#             if property_type == RAW:
-#                 col_to_demographic_map = {}
-#                 vera_all_col = PRISON_RAW_ALL
-#                 het_value_column = RAW_COL_MAP[PRISON]
-
-#             if property_type == RATE:
-#                 col_to_demographic_map = {}
-#                 vera_all_col = PRISON_RATE_ALL
-#                 het_value_column = PER_100K_COL_MAP[PRISON]
-
-#     if property_type == CHILDREN:
-#         # treat children as All; no extra groups to calc
-#         col_to_demographic_map = {}
-#         vera_all_col = CHILDREN
-#         het_value_column = CHILDREN
-
-#     cols_to_keep = [
-#         std_col.TIME_PERIOD_COL,
-#         *GEO_COLS_TO_STANDARD.values(),
-#         vera_all_col
-#     ]
-#     col_rename_map = {vera_all_col: all_val}
-#     value_vars = [all_val]
-
-#     # age is only Alls; sex/race get demographic groups
-#     if demo_type != std_col.AGE_COL:
-#         cols_to_keep.extend(col_to_demographic_map.keys())
-#         col_rename_map = {**col_to_demographic_map, **col_rename_map}
-#         value_vars.extend(col_to_demographic_map.values())
-
-#     # drop extra cols
-#     df = df[cols_to_keep]
-
-#     # rename to match this breakdown
-#     df = df.rename(
-#         columns=col_rename_map)
-
-#     # melt into HET style df with a row per GEO/DEMO combo
-#     df = df.melt(id_vars=[std_col.TIME_PERIOD_COL, *GEO_COLS_TO_STANDARD.values()],
-#                  value_vars=value_vars,
-#                  var_name=het_group_column,
-#                  value_name=het_value_column)
-
-#     return df
 
 
 def add_confined_children_col(df):
@@ -550,7 +363,6 @@ def add_confined_children_col(df):
     df[CHILDREN] = df[JUVENILE_COLS].sum(
         axis="columns", numeric_only=True).round(0)
     df = df.drop(columns=JUVENILE_COLS)
-
     return df
 
 
@@ -561,10 +373,7 @@ def use_sum_of_jail_counts_as_all(df, demo_type: Literal["sex", "race_and_ethnic
     This means that the sum of the groups might not equal the TOTAL.
     Because of this, we will overwrite the given ALL JAIL ESTIMATE TOTAL with a
     SUM OF ALL GROUPS ESTIMATED TOTALS for sex and race. We don't do this for age
-    as we don't have any group breakdowns for age, only the given ALL values.
-
-    """
-
+    as we don't have any group breakdowns for age, only the given ALL values. """
     if demo_type == std_col.SEX_COL:
         groups_map = SEX_JAIL_RAW_COLS_TO_STANDARD
     elif demo_type == std_col.RACE_OR_HISPANIC_COL:
@@ -572,7 +381,6 @@ def use_sum_of_jail_counts_as_all(df, demo_type: Literal["sex", "race_and_ethnic
     else:
         raise ValueError(
             f'demo_type sent as "{demo_type}"; must be "sex" or "race_and_ethnicity". ')
-
     df[JAIL_RAW_ALL] = df[groups_map.keys()].sum(axis=1,
                                                  numeric_only=True)
     return df

@@ -75,6 +75,7 @@ def melt_to_het_style_df(
     # merge all partial_dfs
     result_df = reduce(
         lambda x, y: pd.merge(x, y,
+                              how="outer",
                               on=[*keep_cols,
                                   demo_col]), partial_dfs)
 
