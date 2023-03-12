@@ -83,10 +83,10 @@ function LandingPage() {
               variant="body1"
               paragraph={true}
             >
-              Our tracker puts Health Equity first. Envisioned by the Satcher
-              Health Leadership Institute, the Health Equity Tracker is designed
-              to boost inclusivity, highlight at-risk populations, alert users
-              to existing inequities in health data, and so much more...
+              Envisioned by the Satcher Health Leadership Institute, the Health
+              Equity Tracker is designed to boost inclusivity, highlight at-risk
+              populations, alert users to existing inequities in health data,
+              and so much more.
             </Typography>
 
             <Typography
