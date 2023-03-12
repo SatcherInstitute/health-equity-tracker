@@ -76,7 +76,7 @@ function LandingPage() {
               paragraph={true}
               component="h3"
             >
-              Better Data for Equity
+              Data for Equity
             </Typography>
             <Typography
               className={styles.HeaderSubtext}
