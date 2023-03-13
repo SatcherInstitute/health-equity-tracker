@@ -112,23 +112,28 @@ def add_territory_populations(df: pd.DataFrame, geo_level: Literal["county", "st
     Parameters:
         df: df containing a row for every location's total population, and columns
             for "population" and FIP
-        geo_level: string for which geographic level should be merged
+        geo_level: string "county" or "state" for which geographic level should be merged
 
     Returns:
         df with added rows for every territory or territory county equivalent"""
 
-    # load additional territory population table
-    pop_2010_df = gcs_to_bq_util.load_df_from_bigquery(
-        'acs_2010_population', 'by_age_territory')
+    if geo_level not in [COUNTY_LEVEL, STATE_LEVEL]:
+        raise ValueError(
+            f'Invalid argument for geo_level: {geo_level}\nMust be one of `county` or `state`')
 
-    # only keep ALL rows
-    pop_2010_df = pop_2010_df.loc[pop_2010_df[std_col.AGE_COL]
+    # load territory population table (demographic breakdown doesn't matter because we
+    # are only retrieving the ALL values which are the same for every breakdown type)
+    terr_pop_df = gcs_to_bq_util.load_df_from_bigquery(
+        'decia_2020_territory_population', f'by_age_territory_{geo_level}_level')
+
+    # only keep ALL rows,
+    terr_pop_df = terr_pop_df.loc[terr_pop_df[std_col.AGE_COL]
                                   == std_col.ALL_VALUE]
-    # drop unneeded cols
-    pop_2010_df = pop_2010_df[[
-        std_col.STATE_FIPS_COL, std_col.POPULATION_COL]]
+    geo_col = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col.STATE_FIPS_COL
+    terr_pop_df = terr_pop_df[[
+        geo_col, std_col.POPULATION_COL]]
 
-    # combine ROWS from states and territories
-    df = pd.concat([df, pop_2010_df]).reset_index(drop=True)
+    # append territory ROWS
+    df = pd.concat([df, terr_pop_df]).reset_index(drop=True)
 
     return df
