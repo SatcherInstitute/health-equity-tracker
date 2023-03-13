@@ -4,6 +4,7 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 import numpy as np
 import pandas as pd  # type: ignore
+from typing import Literal
 
 
 from ingestion.merge_utils import (merge_county_names, merge_state_ids)
@@ -105,14 +106,17 @@ def merge_svi_data(df):
     return df
 
 
-def add_territory_populations(df):
-    """ Add rows with territory populations to state level df
+def add_territory_populations(df: pd.DataFrame, geo_level: Literal["county", "state"]):
+    """ Add rows with territory populations to state and county level dfs
 
     Parameters:
-        df: state level df containing a row for every state's total population, and columns
-            "state_fips" and "population"
+        df: df containing a row for every location's total population, and columns
+            for "population" and FIP
+        geo_level: string for which geographic level should be merged
+
     Returns:
-        df with added rows for every territory"""
+        df with added rows for every territory or territory county equivalent"""
+
     # load additional territory population table
     pop_2010_df = gcs_to_bq_util.load_df_from_bigquery(
         'acs_2010_population', 'by_age_territory')
