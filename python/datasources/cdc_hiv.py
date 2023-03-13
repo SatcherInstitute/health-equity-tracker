@@ -201,7 +201,8 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
 
     for determinant in HIV_DETERMINANTS.values():
         if (determinant == std_col.HIV_DEATHS_PREFIX and geo_level == COUNTY_LEVEL) or \
-           (determinant == std_col.PREP_PREFIX and breakdown == std_col.RACE_OR_HISPANIC_COL and geo_level != NATIONAL_LEVEL):
+           (determinant == std_col.PREP_PREFIX and breakdown == std_col.RACE_OR_HISPANIC_COL
+                and geo_level != NATIONAL_LEVEL):
             continue
 
         else:
