@@ -171,6 +171,7 @@ class CDCHIVData(DataSource):
             pop_col = std_col.HIV_POPULATION_PCT
             if col == std_col.PREP_PREFIX:
                 pop_col = std_col.HIV_PREP_POPULATION_PCT
+                cols_to_keep.append(pop_col)
 
             df = generate_pct_rel_inequity_col(df,
                                                PCT_SHARE_MAP[col],
