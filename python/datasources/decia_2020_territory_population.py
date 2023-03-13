@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from datasources.data_source import DataSource
-from ingestion.constants import (COUNTY_LEVEL, Sex)
+from ingestion.constants import (COUNTY_LEVEL, STATE_LEVEL, Sex)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col, dataset_utils
 
 from ingestion.merge_utils import merge_county_names, merge_state_ids
@@ -142,9 +142,9 @@ class Decia2020TerritoryPopulationData(DataSource):
         # get GEO and DEMO from DAG payload
         breakdown = self.get_attr(attrs, 'demographic')
         geo_level = self.get_attr(attrs, 'geographic')
-        raw_dfs_map = load_source_dfs()
+        raw_dfs_by_postal_map = load_source_dfs()
         df = self.generate_breakdown_df(
-            raw_dfs_map, breakdown, geo_level)
+            raw_dfs_by_postal_map, breakdown, geo_level)
         float_cols = [std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
         column_types = gcs_to_bq_util.get_bq_column_types(
             df, float_cols=float_cols)
@@ -153,7 +153,7 @@ class Decia2020TerritoryPopulationData(DataSource):
                                     column_types=column_types)
 
     def generate_breakdown_df(self,
-                              raw_dfs_map: Dict[str, pd.DataFrame],
+                              raw_dfs_by_postal_map: Dict[str, pd.DataFrame],
                               breakdown: Literal["age", "sex", "race_and_ethnicity"],
                               geo_level: Literal["state", "county"]):
         """generate_breakdown_df generates a territory population data frame for a given combo
@@ -161,26 +161,26 @@ class Decia2020TerritoryPopulationData(DataSource):
         breakdown: string for type of demographic disaggregation
         geo_level: string for geographic level (state = territory, county = territory county equivalent) """
 
-        if geo_level == "county":
+        if geo_level == COUNTY_LEVEL:
             geo_col = std_col.COUNTY_FIPS_COL
-        if geo_level == "state":
+        if geo_level == STATE_LEVEL:
             geo_col = std_col.STATE_FIPS_COL
 
         rename_map: Dict[str, str] = {}
         value_cols = []
         cleaned_dfs: List[pd.DataFrame] = []
 
-        for postal, raw_df in raw_dfs_map.items():
+        for postal, raw_df in raw_dfs_by_postal_map.items():
             raw_df = format_fips_col(raw_df, geo_col)
 
             # determine relevant values columns and their mapping to HET groups via tmp columns
-            if breakdown == "age":
+            if breakdown == std_col.AGE_COL:
                 value_cols = get_value_cols(AGE_CODES_TO_STD)
                 rename_map = get_rename_map(AGE_CODES_TO_STD)
-            if breakdown == "sex":
+            if breakdown == std_col.SEX_COL:
                 value_cols = get_value_cols(SEX_CODES_TO_STD)
                 rename_map = get_rename_map(SEX_CODES_TO_STD)
-            if breakdown == "race_and_ethnicity":
+            if breakdown == std_col.RACE_OR_HISPANIC_COL:
                 value_cols = get_value_cols(RACE_CODES_TO_STD[postal])
                 rename_map = get_rename_map(RACE_CODES_TO_STD[postal])
 

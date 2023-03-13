@@ -23,10 +23,10 @@ def melt_to_het_style_df(
         value_to_cols: Dict[str, Dict[str, str]]
 ):
     """ Generalized util fn for melting a source df into the skinny/long
-    HET-style df that contains 1 row per FIP/GROUP (or FIPS/TIME_PERIOD/GROUP)
+    HET-style df that contains 1 row per FIPS/GROUP (or FIPS/TIME_PERIOD/GROUP)
     and a unique col per metric
 
-    df: incoming wide/short df that contains 1 row per FIP (or FIPS/TIME_PERIOD)
+    df: incoming wide/short df that contains 1 row per FIPS (or FIPS/TIME_PERIOD)
         and a unique column for each group metric
     demo_col: string column name for resulting df that will contain the
         group names. Typically "sex", "age", etc.
