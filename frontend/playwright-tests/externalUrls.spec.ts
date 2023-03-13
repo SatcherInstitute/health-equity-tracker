@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
-import { urlMap } from "../src/utils/externalUrls"
-import { RESOURCES, PDOH_RESOURCES, ECONOMIC_EQUITY_RESOURCES, EQUITY_INDEX_RESOURCES, AIAN_RESOURCES, API_RESOURCES, HISP_RESOURCES, MENTAL_HEALTH_RESOURCES, COVID_RESOURCES, COVID_VACCINATION_RESOURCES } from "../src/pages/WhatIsHealthEquity/ResourcesData"
+import { urlMap } from "../src/utils/externalUrls.js"
+import { RESOURCES, PDOH_RESOURCES, ECONOMIC_EQUITY_RESOURCES, EQUITY_INDEX_RESOURCES, AIAN_RESOURCES, API_RESOURCES, HISP_RESOURCES, MENTAL_HEALTH_RESOURCES, COVID_RESOURCES, COVID_VACCINATION_RESOURCES } from "../src/pages/WhatIsHealthEquity/ResourcesData.js"
+
 
 const knownFlakyUrls = [
     "https://satcherinstitute.github.io/analysis/cdc_case_data",
