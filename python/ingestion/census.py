@@ -8,6 +8,27 @@ from ingestion.standardized_columns import (
 )
 
 
+def rename_age_bracket(bracket):
+    """Converts ACS age bracket label to standardized bracket format of "a-b",
+       where a is the lower end of the bracket and b is the upper end,
+       inclusive.
+
+       bracket: ACS age bracket."""
+    parts = bracket.split()
+    if len(parts) == 3 and parts[0] == "Under":
+        return "0-" + str(int(parts[1]) - 1)
+    elif len(parts) == 4 and parts[1] == "to" and parts[3] == "years":
+        return parts[0] + "-" + parts[2]
+    elif len(parts) == 4 and parts[1] == "and" and parts[3] == "years":
+        return parts[0] + "-" + parts[2]
+    elif len(parts) == 2 and parts[1] == "years":
+        return parts[0] + "-" + parts[0]
+    elif len(parts) == 4 and " ".join(parts[1:]) == "years and over":
+        return parts[0] + "+"
+    else:
+        return bracket
+
+
 def get_census_params_by_county(columns):
     """Returns the base set of params for making a census API call by county.
 
