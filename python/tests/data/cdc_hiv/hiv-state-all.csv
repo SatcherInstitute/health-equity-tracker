@@ -1,11 +1,11 @@
-﻿"Date Printed: Wednesday, February 8, 2023 9:28:16 PM"
-Title: "HIV diagnoses | 2008 | 2009 | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 (COVID-19 Pandemic) | 2021 | 2022 | Alabama | Alaska | American Samoa | Arizona | Arkansas | California | Colorado | Connecticut | Delaware | District of Columbia | Florida | Georgia | Guam | Hawaii | Idaho | Illinois | Indiana | Iowa | Kansas | Kentucky | Louisiana | Maine | Maryland | Massachusetts | Michigan | Minnesota | Mississippi | Missouri | Montana | Nebraska | Nevada | New Hampshire | New Jersey | New Mexico | New York | North Carolina | North Dakota | Northern Mariana Islands | Ohio | Oklahoma | Oregon | Pennsylvania | Puerto Rico | Rhode Island | South Carolina | South Dakota | Tennessee | Texas | U.S. Virgin Islands | Utah | Vermont | Virginia | Washington | West Virginia | Wisconsin | Wyoming | All races/ethnicities | Both sexes | Ages 13 years and older | All transmission categories"
+"Date Printed: Tuesday, February 28, 2023 3:31:13 PM"
+Title: "HIV diagnoses | 2008 | 2009 | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | United States | All races/ethnicities | Both sexes | Ages 13 years and older | All transmission categories"
 Footnote(s): Data for years 2021 and 2022 are preliminary (subject to a 12-month reporting delay). Data for the year 2020 should be interpreted with caution due to the impact of the COVID-19 pandemic on access to HIV testing, care-related services, and case surveillance activities in state/local jurisdictions. Inclusion of 2020 through 2022 data in trend assessments is discouraged. Data by transmission category presented based on sex assigned at birth and are adjusted for missing transmission category. See Technical notes for more details on data availability and stratifications.
 The 'Sex' column is used for either sex at birth or gender identity.
 NA - Not applicable.
 
 
 
-Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
-"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","635","15.4","4,128,511"
-"HIV diagnoses","2008","Alaska","02","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","39","7.0","559,346"
+Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,hiv_diagnoses,hiv_diagnoses_per_100k,Population,hiv_deaths,hiv_deaths_per_100k,hiv_prep,hiv_prep_coverage,hiv_prep_population
+"HIV diagnoses","2017","Alaska","02","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","30","5.0","604,084","7","1.2","125","5.3","2,370"
+"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","635","15.4","4,128,511","272","6.6","1,835","16.7","11,020"
