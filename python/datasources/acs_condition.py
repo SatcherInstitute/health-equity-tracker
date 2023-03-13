@@ -61,7 +61,6 @@ POVERTY_RACE_TO_CONCEPT = {
     Race.MULTI.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (TWO OR MORE RACES)',
 }
 
-# ACS Health Insurance By Race Prefixes.
 # Acs variables are in the form C27001A_xxx0 C27001A_xxx2 ect
 # to determine age buckets.  The metadata variables are merged with the suffixes to form the entire metadata.
 HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = {
@@ -268,12 +267,14 @@ class AcsCondition(DataSource):
 
                 dfs[table_name] = df
 
+        suffixes = [std_col.PCT_SHARE_SUFFIX, std_col.POP_PCT_SUFFIX, std_col.PER_100K_SUFFIX]
         for table_name, df in dfs.items():
-            float_cols = [std_col.UNINSURED_PER_100K_COL,
-                          std_col.UNINSURED_POPULATION_PCT,
-                          std_col.UNINSURED_PCT_SHARE_COL]
+            float_cols = []
+            for acs_item in ACS_ITEMS.values():
+                float_cols += [generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes]
 
             col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name,
                 column_types=col_types)
@@ -449,7 +450,7 @@ class AcsCondition(DataSource):
            columns.
            Returns a dataframe ready for the frontend.
 
-           df: Dataframe with raw health insurance numbers.
+           df: Dataframe with raw acs condition.
            demo: Demographic contained in the dataframe (race/sex/age).
            geo: Geographic level contained in the dataframe (national/state/county)."""
 
