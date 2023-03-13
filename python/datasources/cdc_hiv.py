@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from typing import cast
 from datasources.data_source import DataSource
 from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
@@ -9,7 +10,6 @@ from ingestion.dataset_utils import (generate_pct_share_col_without_unknowns,
                                      generate_pct_rel_inequity_col)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.merge_utils import merge_county_names
-from typing import cast
 from ingestion.types import SEX_RACE_ETH_AGE_TYPE
 
 # constants
@@ -58,7 +58,7 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
         'Black/African American': std_col.Race.BLACK_NH.value,
         'Hispanic/Latino': std_col.Race.HISP.value,
         'Multiracial': std_col.Race.MULTI_NH.value,
-        'Other': std_col.Race.RACE_ETHNICITY_UNKNOWN_NH.value,
+        'Other': std_col.Race.MEGA_NH.value,
         'Native Hawaiian/Other Pacific Islander': std_col.Race.NHPI_NH.value,
         'White': std_col.Race.WHITE_NH.value},
     std_col.SEX_COL: {'Both sexes': std_col.ALL_VALUE}
@@ -197,17 +197,13 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
     return: a data frame of time-based HIV data by breakdown and
     geo_level with AtlasPlus columns"""
     cols_to_exclude = generate_cols_to_exclude(breakdown)
-    is_county = geo_level == COUNTY_LEVEL
-    is_not_national = geo_level != NATIONAL_LEVEL
-    is_race = breakdown == std_col.RACE_OR_HISPANIC_COL
     output_df = pd.DataFrame(columns=CDC_ATLAS_COLS)
 
     for determinant in HIV_DETERMINANTS.values():
-        deaths_unavailable = determinant == std_col.HIV_DEATHS_PREFIX and is_county
-        prep_unavailable = determinant == std_col.PREP_PREFIX and is_race and is_not_national
+        if (determinant == std_col.HIV_DEATHS_PREFIX and geo_level == COUNTY_LEVEL) or \
+           (determinant == std_col.PREP_PREFIX and breakdown == std_col.RACE_OR_HISPANIC_COL and geo_level != NATIONAL_LEVEL):
+            continue
 
-        if deaths_unavailable or prep_unavailable:
-            pass
         else:
             df = gcs_to_bq_util.load_csv_as_df_from_data_dir(HIV_DIR,
                                                              f'{determinant}-{geo_level}-{breakdown}.csv',
@@ -225,6 +221,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
             if determinant == std_col.PREP_PREFIX:
                 cols_to_standard['Population'] = std_col.HIV_PREP_POPULATION
                 df = df.replace({'13-24': '16-24'})
+
             df = df.rename(columns=cols_to_standard)
 
             output_df = output_df.merge(df, how='outer')
@@ -232,15 +229,19 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
     return output_df
 
 
-def generate_cols_to_exclude(breakdown):
+def generate_cols_to_exclude(breakdown: str):
     """
     breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
     return: a list of columns to exclude when reading csv file
     """
-
     cols = ['Indicator', 'Transmission Category']
+
     if breakdown != 'all':
-        cols.extend([x for x in CDC_DEM_COLS if x !=
-                    DEM_COLS_STANDARD[breakdown]])
+        cols.extend(
+            filter(lambda x: x != DEM_COLS_STANDARD[breakdown], CDC_DEM_COLS))
+
+    # if breakdown != 'all':
+    #     cols.extend([x for x in CDC_DEM_COLS if x !=
+    #                 DEM_COLS_STANDARD[breakdown]])
 
     return cols

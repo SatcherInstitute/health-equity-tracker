@@ -7,10 +7,10 @@ import os
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data')
 GOLDEN_DIR = os.path.join(TEST_DIR, HIV_DIR, 'golden_data')
-COLS_TO_EXCLUDE = ['Indicator', 'Transmission Category']
-RACE_COLS_TO_EXCLUDE = COLS_TO_EXCLUDE + ['Age Group', 'Sex']
-AGE_COLS_TO_EXCLUDE = COLS_TO_EXCLUDE + ['Race/Ethnicity', 'Sex']
-SEX_COLS_TO_EXCLUDE = COLS_TO_EXCLUDE + ['Age Group', 'Race/Ethnicity']
+COLS_TO_EXCLUDE = ('Indicator', 'Transmission Category')
+RACE_COLS_TO_EXCLUDE = COLS_TO_EXCLUDE + ('Age Group', 'Sex')
+AGE_COLS_TO_EXCLUDE = COLS_TO_EXCLUDE + ('Race/Ethnicity', 'Sex')
+SEX_COLS_TO_EXCLUDE = COLS_TO_EXCLUDE + ('Age Group', 'Race/Ethnicity')
 
 ALLS_DATA = {
     'all_national': os.path.join(TEST_DIR, HIV_DIR, 'hiv-national-all.csv'),
@@ -40,7 +40,7 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
     return df
 
 
-@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
 def testGenerateAgeNational(mock_data_dir: mock.MagicMock):
     datasource = CDCHIVData()
 

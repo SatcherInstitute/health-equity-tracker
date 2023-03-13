@@ -192,14 +192,10 @@ class Race(Enum):
     # Hispanic or Latino. (Some datasets use "ethnicity" to refer to whether
     # someone is Hispanic or Latino).
     # PrEP data only collects data for the following race groups: Black, White,
-    # Hispanic, and Other. The dataset does nto distinguish what constitutes as other,
+    # Hispanic, and Other. The dataset does not distinguish what constitutes as other,
     # the other demographic does not include individuals who are hispanic.
-    # Using the a unknown race and ethnicity instead of other which is not could be anyone
-    # oustide the standard race group is preferred.
     NH = ("NH", "Not Hispanic or Latino", False)
     ETHNICITY_UNKNOWN = ("ETHNICITY_UNKNOWN", "Unknown ethnicity", None)
-    RACE_ETHNICITY_UNKNOWN_NH = ("RACE_ETHNICITY_UNKNOWN_NH",
-                                 "Unknown race and ethnicity", False)
 
     # OTHER_STANDARD and OTHER_STANDARD_NH define "other" in a specific way (see
     # above). Some datasets may group additional races into "other"
@@ -225,6 +221,9 @@ class Race(Enum):
 
     HISP_F = ("HISP_F", "Latina", True)
     MENA = ("MENA", "Middle Eastern & North African", True)
+
+    # HIV Non-standard, non-exclusive Race/Eth Categories
+    MEGA_NH = ("MEGA_NH", "Asian, Native Hawaiian and Pacific Islander, American Indian and Alaska Native, , and Two or More or Unrepresented Race", False)
 
     # Categories that are combinations of other categories
 
