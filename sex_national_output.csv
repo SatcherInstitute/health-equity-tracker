@@ -1,7 +1,0 @@
-time_period,state_name,state_fips,sex,hiv_population_pct,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_diagnoses_pct_relative_inequity,hiv_deaths,hiv_deaths_per_100k,hiv_deaths_pct_share,hiv_deaths_pct_relative_inequity,hiv_prep,hiv_prep_coverage,hiv_prep_pct_share,hiv_prep_pct_relative_inequity
-2017,United States,00,All,100.0,38316,14.1,100.0,0.0,16350,6.0,100.0,0.0,155062,12.7,100.0,0.0
-2017,United States,00,Female,51.1,7275,5.2,19.0,-62.8,3999,2.9,24.5,-52.1,11274,5.0,7.3,-60.8
-2017,United States,00,Male,48.9,31041,23.3,81.0,65.6,12351,9.3,75.5,54.4,143689,14.5,92.7,13.9
-2019,United States,00,All,100.0,36528,13.2,100.0,0.0,16230,5.9,100.0,0.0,275182,22.6,100.0,0.0
-2019,United States,00,Female,51.1,6939,4.9,19.0,-62.8,3835,2.7,23.6,-53.8,21065,9.3,7.7,-58.8
-2019,United States,00,Male,48.9,29589,21.9,81.0,65.6,12395,9.2,76.4,56.2,253974,25.7,92.3,13.5
