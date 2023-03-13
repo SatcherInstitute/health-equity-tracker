@@ -1,0 +1,4 @@
+state_fips,state_name,sex,county_name,county_fips,uninsured_per_100k,poverty_per_100k,uninsured_pct_share,uninsured_population_pct,poverty_pct_share,poverty_population_pct
+17,Illinois,All,County 1,17051,8241.0,17230.0,100.0,100.0,100.0,100.0
+17,Illinois,Female,County 1,17051,6288.0,16787.0,38.4,50.3,49.1,50.4
+17,Illinois,Male,County 1,17051,10219.0,17681.0,61.6,49.7,50.9,49.6
