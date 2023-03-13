@@ -1,7 +1,0 @@
-state_fips,state_name,sex,uninsured_population_pct,uninsured_per_100k,uninsured_pct_share
-01,Alabama,All,100.0,9544.0,100.0
-01,Alabama,Male,48.0,10595.0,53.3
-01,Alabama,Female,52.0,8573.0,46.7
-72,Puerto Rico,All,100.0,6553.0,100.0
-72,Puerto Rico,Male,47.4,8307.0,60.1
-72,Puerto Rico,Female,52.6,4973.0,39.9
