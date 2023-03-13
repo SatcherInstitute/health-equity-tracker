@@ -135,10 +135,13 @@ POP_PCT_SHARE = "incarceration_population_pct"
 JAIL_PCT_INEQUITY = "jail_pct_relative_inequity"
 PRISON_PCT_INEQUITY = "prison_relative_inequity"
 # HIV
-HIV_DIAGNOSES = 'hiv_diagnoses'
-HIV_DIAGNOSES_PER_100K = 'hiv_diagnoses_per_100k'
-HIV_DIAGNOSES_PCT_INEQUITY = "hiv_diagnoses_pct_relative_inequity"
-HIV_DIAGNOSES_PCT_SHARE = 'hiv_diagnoses_pct_share'
+HIV_DIAGNOSES_PREFIX = 'hiv_diagnoses'
+HIV_DEATHS_PREFIX = 'hiv_deaths'
+PREP_PREFIX = 'hiv_prep'
+HIV_PREP_COVERAGE = 'hiv_prep_coverage'
+# population of individuals with PrEP indicators
+HIV_PREP_POPULATION = 'hiv_prep_population'
+HIV_PREP_POPULATION_PCT = 'hiv_prep_population_pct'
 HIV_POPULATION_PCT = 'hiv_population_pct'
 
 
@@ -191,7 +194,10 @@ class Race(Enum):
     # so we do not know the relationship between Hispanic/Latino and race.
     # ETHNICITY_UNKNOWN refers to data that does not know whether the person is
     # Hispanic or Latino. (Some datasets use "ethnicity" to refer to whether
-    # someone is Hispanic or Latino)
+    # someone is Hispanic or Latino).
+    # PrEP data only collects data for the following race groups: Black, White,
+    # Hispanic, and Other. The dataset does not distinguish what constitutes as other,
+    # the other demographic does not include individuals who are hispanic.
     NH = ("NH", "Not Hispanic or Latino", False)
     ETHNICITY_UNKNOWN = ("ETHNICITY_UNKNOWN", "Unknown ethnicity", None)
 
@@ -219,6 +225,11 @@ class Race(Enum):
 
     HISP_F = ("HISP_F", "Latina", True)
     MENA = ("MENA", "Middle Eastern & North African", True)
+
+    # HIV Prep Non-standard race that combines all races except for Black, White, Other, and Hispanic
+    races = "Asian, Native Hawaiian and Pacific Islander, " \
+        "American Indian and Alaska Native, Two or More or Unrepresented Race"
+    MEGA_NH = ("MEGA_NH", races, False)
 
     # Categories that are combinations of other categories
 
