@@ -137,78 +137,48 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: "April 2021",
   },
   {
-    id: "acs_health_insurance-by_age_county_processed",
+    id: "acs_condition-by_age_county_processed",
     name: "Health insurance by age and county",
     update_time: "2019",
   },
   {
-    id: "acs_health_insurance-by_age_state_processed",
+    id: "acs_condition-by_age_state_processed",
     name: "Health insurance by age and state",
     update_time: "2019",
   },
   {
-    id: "acs_health_insurance-by_age_national_processed",
+    id: "acs_condition-by_age_national_processed",
     name: "Health insurance by age at the national level",
     update_time: "2019",
   },
   {
-    id: "acs_health_insurance-by_sex_county_processed",
+    id: "acs_condition-by_sex_county_processed",
     name: "Health insurance by sex and county",
     update_time: "2019",
   },
   {
-    id: "acs_health_insurance-by_sex_state_processed",
+    id: "acs_condition-by_sex_state_processed",
     name: "Health insurance by sex and state",
     update_time: "2019",
   },
   {
-    id: "acs_health_insurance-by_sex_national_processed",
+    id: "acs_condition-by_sex_national_processed",
     name: "Health insurance by sex at the national level",
     update_time: "2019",
   },
   {
-    id: "acs_health_insurance-by_race_county_processed",
+    id: "acs_condition-by_race_county_processed",
     name: "Health insurance by race and county",
     update_time: "2019",
   },
   {
-    id: "acs_health_insurance-by_race_state_processed",
+    id: "acs_condition-by_race_state_processed",
     name: "Health insurance by race and state",
     update_time: "2019",
   },
   {
-    id: "acs_health_insurance-by_race_national_processed",
+    id: "acs_condition-by_race_national_processed",
     name: "Health insurance by race at the national level",
-    update_time: "2019",
-  },
-  {
-    id: "acs_poverty_dataset-poverty_by_race_state",
-    name: "Poverty by race/ethnicity and state",
-    update_time: "2019",
-  },
-  {
-    id: "acs_poverty_dataset-poverty_by_race_county",
-    name: "Poverty by race/ethnicity and county",
-    update_time: "2019",
-  },
-  {
-    id: "acs_poverty_dataset-poverty_by_sex_state",
-    name: "Poverty by sex and state",
-    update_time: "2019",
-  },
-  {
-    id: "acs_poverty_dataset-poverty_by_sex_county",
-    name: "Poverty by sex and county",
-    update_time: "2019",
-  },
-  {
-    id: "acs_poverty_dataset-poverty_by_age_state",
-    name: "Poverty by age and state",
-    update_time: "2019",
-  },
-  {
-    id: "acs_poverty_dataset-poverty_by_age_county",
-    name: "Poverty by age and county",
     update_time: "2019",
   },
   {
