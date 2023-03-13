@@ -240,8 +240,4 @@ def generate_cols_to_exclude(breakdown: str):
         cols.extend(
             filter(lambda x: x != DEM_COLS_STANDARD[breakdown], CDC_DEM_COLS))
 
-    # if breakdown != 'all':
-    #     cols.extend([x for x in CDC_DEM_COLS if x !=
-    #                 DEM_COLS_STANDARD[breakdown]])
-
     return cols
