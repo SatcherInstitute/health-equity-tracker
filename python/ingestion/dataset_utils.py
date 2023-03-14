@@ -14,7 +14,11 @@ from ingestion.constants import (
 
 
 def scaffold_fips_df(geo_level: Literal["national", "state", "county"]) -> pd.DataFrame:
-    """ Build the FIPS column first, so we have something to merge population info onto """
+    """ Build the FIPS column first, so we have something to merge population info onto
+
+    geo_level: str for which geographic level df should be created
+    Returns: a df consisting of a single column with either `state_fips` (for national / state)
+     or `county_fips` for county request, and a row for every FIPS code at that level """
 
     if geo_level == NATIONAL_LEVEL:
         return pd.DataFrame({
