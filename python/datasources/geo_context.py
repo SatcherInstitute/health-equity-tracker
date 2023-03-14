@@ -56,11 +56,10 @@ class GeoContext(DataSource):
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, f'{geo_level}', column_types=column_types)
 
-    def generate_breakdown(self, geo_level: str):
+    def generate_breakdown(self, geo_level: Literal["national", "state", "county"]):
 
         df = dataset_utils.scaffold_fips_df(geo_level)
         df[std_col.AGE_COL] = std_col.ALL_VALUE
-
         df = merge_pop_numbers(df, std_col.AGE_COL, geo_level)
         fips_col = (std_col.COUNTY_FIPS_COL
                     if geo_level == COUNTY_LEVEL
@@ -70,9 +69,9 @@ class GeoContext(DataSource):
         if geo_level == COUNTY_LEVEL:
             df = merge_svi_data(df)
             df = merge_county_names(df)
-            df[std_col.STATE_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].str[:2]
+        else:
+            df = merge_state_ids(df)
 
-        df = merge_state_ids(df)
         df = df.sort_values(fips_col).reset_index(drop=True)
 
         return df
