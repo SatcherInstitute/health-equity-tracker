@@ -1,7 +1,7 @@
 '''Collection of shared Airflow functionality.'''
 import os
 import pandas as pd
-import requests
+import requests  # type: ignore
 # Ignore the Airflow module, it is installed in both our dev and prod environments
 from airflow import DAG
 from airflow.models import Variable  # type: ignore
@@ -48,6 +48,7 @@ def generate_gcs_payload(workflow_id: str, filename: str = None,
 def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
                         gcs_bucket: str = None, url: str = None,
                         demographic: str = None,
+                        geographic: str = None,
                         year: str = None) -> dict:
     """Creates the payload object required for the BQ ingestion operator.
 
@@ -61,8 +62,10 @@ def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
     url: The URL used for ingestion. This should be deprecated in favor of
          writing any metadata to GCS during the GCS step. It's temporarily
          necessary since ACS directly requests metadata during BQ upload.
-    demographic: The demographic group to generate the bq pipeline for.
+    demographic: The demographic breakdown type to generate the bq pipeline for.
                  Either `race`/`race_and_ethnicity`, `sex` or `age`.
+    geographic: The geographic level to generate the bq pipeline for.
+                 Either `national`, `state` or `county`.
     year: string 4 digit year that determines which year should be processed
         """
     message = get_required_attrs(workflow_id, gcs_bucket=gcs_bucket)
@@ -73,6 +76,8 @@ def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
         message['url'] = url
     if demographic is not None:
         message['demographic'] = demographic
+    if geographic is not None:
+        message['geographic'] = geographic
     if year is not None:
         message['year'] = year
     return {'message': message}

@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, List, Dict
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
@@ -10,6 +10,76 @@ from ingestion.constants import (
     RACE,
     UNKNOWN
 )
+from functools import reduce
+
+
+def melt_to_het_style_df(
+        source_df: pd.DataFrame,
+        demo_col: Literal["age",
+                          "sex",
+                          "race",
+                          "race_and_ethnicity"],
+        keep_cols: List[str],
+        value_to_cols: Dict[str, Dict[str, str]]
+):
+    """ Generalized util fn for melting a source df into the skinny/long
+    HET-style df that contains 1 row per FIPS/GROUP (or FIPS/TIME_PERIOD/GROUP)
+    and a unique col per metric
+
+    df: incoming wide/short df that contains 1 row per FIPS (or FIPS/TIME_PERIOD)
+        and a unique column for each group metric
+    demo_col: string column name for resulting df that will contain the
+        group names. Typically "sex", "age", etc.
+    keep_cols: list of string column names for columns that will remain from
+        the old df to the new df (getting exploded across new rows in the
+        new df). Typically a combination of geo columns plus time_period
+        for time-series dfs. Prefer `time_period` first in the list, as this list
+        is used for sorting the resulting df.
+    value_to_cols: nested dict relating keys of new string column names
+        for the resulting df (typically a metric like "population_pct_share")
+        to the col name mapping that is a dict of old_group_metric column names
+        to new_group_names
+
+    Example:
+
+    -- source_df --
+    1|state_fips  | black_A_100k  | white_A_100k  | black_B_100k  | white_B_100k
+    2|"99"        | 100           | 50            | 999           | 2222
+
+    -- args --
+    demo_col = "race"
+    keep_cols = ["state_fips"]
+    value_to_cols = {
+        "A_100k": { "black_A_100k" : "black", "white_A_100k" : "white"},
+        "B_100k": { "black_B_100k" : "black", "white_B_100k" : "white"},
+    }
+
+    -- resulting het-style df --
+    1|state_fips  | A_100k        | B_100k        | race
+    2|"99"        | 100           | 999           | black
+    3|"99"        | 50            | 2222          | white
+
+    """
+
+    # each resulting metric col melted individually
+    partial_dfs = []
+    for value_name, group_cols_map in value_to_cols.items():
+        df = source_df.copy().rename(columns=group_cols_map)
+        needed_cols = keep_cols + list(group_cols_map.values())
+        df = df[needed_cols]
+        df = df.melt(id_vars=keep_cols,
+                     var_name=demo_col,
+                     value_name=value_name)
+        partial_dfs.append(df)
+
+    # merge all partial_dfs
+    result_df = reduce(
+        lambda x, y: pd.merge(x, y,
+                              how="outer",
+                              on=[*keep_cols,
+                                  demo_col]), partial_dfs)
+
+    return result_df.sort_values(by=keep_cols).reset_index(drop=True)
 
 
 def generate_pct_share_col_without_unknowns(df: pd.DataFrame,
