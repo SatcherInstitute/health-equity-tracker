@@ -94,7 +94,7 @@ _fake_data_with_pct_rel_inequity_with_zero_rates = [
     ['2019', '01', 'Alabama', 'Race4', 60.0, None, 10.0],
     ['2019', '01', 'Alabama', 'RaceNoPop', 1, None, None],
     ['2019', '01', 'Alabama', 'Race6', 100.0, None, 10.0],
-    ['2020', '01', 'Alabama', 'Race1', 0,  -100.0, 10.0],
+    ['2020', '01', 'Alabama', 'Race1', 0, -100.0, 10.0],
     ['2020', '01', 'Alabama', 'Race2', 0, 0.0, 10.0],
     ['2020', '01', 'Alabama', 'Race3', 0, 500.0, 10.0],
     ['2020', '01', 'Alabama', 'Race4', 0, None, 10.0],
@@ -331,3 +331,44 @@ def testZeroOutPctRelInequity():
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_data_with_properly_zeroed_pct_rel_inequity)).reset_index(drop=True)
     assert_frame_equal(df, expected_df, check_like=True, check_dtype=False)
+
+
+_fake_wide_short_source_data = [
+    ['time_period', 'state_fips', 'state_name', 'black_A_100k',
+        'white_A_100k', 'black_B_100k', 'white_B_100k'],
+    ['1999', '88', 'North Somestate', 100, 50, 999, 2222],
+    ['1999', '99', 'South Somestate', 101, 51, 998, 2221],
+    ['2000', '88', 'North Somestate', 100, 50, 999, 2222],
+    ['2000', '99', 'South Somestate', 101, 51, 998, 2221],
+]
+
+_expected_HET_style_data = [
+    ['time_period', 'state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
+    ['1999', '88', 'North Somestate', 'black', 100, 999],
+    ['1999', '88', 'North Somestate', 'white', 50, 2222],
+    ['1999', '99', 'South Somestate', 'black', 101, 998],
+    ['1999', '99', 'South Somestate', 'white', 51, 2221],
+    ['2000', '88', 'North Somestate', 'black', 100, 999],
+    ['2000', '88', 'North Somestate', 'white', 50, 2222],
+    ['2000', '99', 'South Somestate', 'black', 101, 998],
+    ['2000', '99', 'South Somestate', 'white', 51, 2221],
+]
+
+
+def test_melt_to_het_style_df():
+
+    source_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_fake_wide_short_source_data)).reset_index(drop=True)
+
+    df = dataset_utils.melt_to_het_style_df(
+        source_df,
+        "race",
+        ["time_period", "state_fips", "state_name"],
+        {"A_100k": {"black_A_100k": "black", "white_A_100k": "white"},
+            "B_100k": {"black_B_100k": "black", "white_B_100k": "white"}}
+    )
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_expected_HET_style_data)).reset_index(drop=True)
+
+    assert_frame_equal(df, expected_df, check_dtype=False)

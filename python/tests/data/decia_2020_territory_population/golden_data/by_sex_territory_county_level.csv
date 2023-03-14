@@ -1,0 +1,40 @@
+county_fips,sex,population,population_pct,county_name,state_fips,state_name
+60010,All,17059.0,100.0,Eastern District,60,American Samoa
+60010,Female,8296.0,48.6,Eastern District,60,American Samoa
+60010,Male,8763.0,51.4,Eastern District,60,American Samoa
+60020,All,832.0,100.0,Manu'a District,60,American Samoa
+60020,Female,397.0,47.7,Manu'a District,60,American Samoa
+60020,Male,435.0,52.3,Manu'a District,60,American Samoa
+60030,All,0.0,,Rose Atoll (Rose Island),60,American Samoa
+60030,Female,0.0,,Rose Atoll (Rose Island),60,American Samoa
+60030,Male,0.0,,Rose Atoll (Rose Island),60,American Samoa
+60040,All,0.0,,Swain's Island,60,American Samoa
+60040,Female,0.0,,Swain's Island,60,American Samoa
+60040,Male,0.0,,Swain's Island,60,American Samoa
+60050,All,31819.0,100.0,Western District,60,American Samoa
+60050,Female,15763.0,49.5,Western District,60,American Samoa
+60050,Male,16056.0,50.5,Western District,60,American Samoa
+66010,All,153836.0,100.0,Guam,66,Guam
+66010,Female,75565.0,49.1,Guam,66,Guam
+66010,Male,78271.0,50.9,Guam,66,Guam
+69085,All,7.0,100.0,Northern Islands Municipality,69,Northern Mariana Islands
+69085,Female,0.0,0.0,Northern Islands Municipality,69,Northern Mariana Islands
+69085,Male,7.0,100.0,Northern Islands Municipality,69,Northern Mariana Islands
+69100,All,1893.0,100.0,Rota Municipality,69,Northern Mariana Islands
+69100,Female,884.0,46.7,Rota Municipality,69,Northern Mariana Islands
+69100,Male,1009.0,53.3,Rota Municipality,69,Northern Mariana Islands
+69110,All,43385.0,100.0,Saipan Municipality,69,Northern Mariana Islands
+69110,Female,20590.0,47.5,Saipan Municipality,69,Northern Mariana Islands
+69110,Male,22795.0,52.5,Saipan Municipality,69,Northern Mariana Islands
+69120,All,2044.0,100.0,Tinian Municipality,69,Northern Mariana Islands
+69120,Female,963.0,47.1,Tinian Municipality,69,Northern Mariana Islands
+69120,Male,1081.0,52.9,Tinian Municipality,69,Northern Mariana Islands
+78010,All,41004.0,100.0,St. Croix,78,U.S. Virgin Islands
+78010,Female,20842.0,50.8,St. Croix,78,U.S. Virgin Islands
+78010,Male,20162.0,49.2,St. Croix,78,U.S. Virgin Islands
+78020,All,3881.0,100.0,St. John,78,U.S. Virgin Islands
+78020,Female,1915.0,49.3,St. John,78,U.S. Virgin Islands
+78020,Male,1966.0,50.7,St. John,78,U.S. Virgin Islands
+78030,All,42261.0,100.0,St. Thomas,78,U.S. Virgin Islands
+78030,Female,22046.0,52.2,St. Thomas,78,U.S. Virgin Islands
+78030,Male,20215.0,47.8,St. Thomas,78,U.S. Virgin Islands
