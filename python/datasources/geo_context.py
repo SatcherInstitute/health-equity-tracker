@@ -56,7 +56,7 @@ class GeoContext(DataSource):
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, f'{geo_level}', column_types=column_types)
 
-    def generate_breakdown(self, geo_level: Literal["national", "state", "county"]):
+    def generate_breakdown(self, geo_level: Literal["national", "state", "county"]) -> pd.DataFrame:
 
         df = dataset_utils.scaffold_fips_df(geo_level)
         df[std_col.AGE_COL] = std_col.ALL_VALUE
