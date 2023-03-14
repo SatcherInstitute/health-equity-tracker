@@ -178,9 +178,12 @@ function MapCardWithKey(props: MapCardProps) {
   let subtitle = createSubtitle({ currentBreakdown, activeBreakdownFilter });
   filename = `${filename} ${subtitle ? `for ${subtitle}` : ""}`;
 
-  if (HIV_DETERMINANTS.includes(metricConfig.metricId)) {
-    if (subtitle === "") subtitle = "Ages 13+";
-    else if (currentBreakdown !== "age") subtitle += ", Ages 13+";
+  if (isPopulationSubset) {
+    let ageTitle = metricConfig.metricId.includes("prep")
+      ? "Ages 16+"
+      : "Ages 13+";
+    if (subtitle === "") subtitle = ageTitle;
+    else if (currentBreakdown !== "age") subtitle += `, ${ageTitle}`;
   }
 
   const HASH_ID: ScrollableHashId = "rate-map";

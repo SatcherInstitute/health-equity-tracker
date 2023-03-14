@@ -99,6 +99,8 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   default: "select a topic",
   covid: "COVID-19",
   hiv_diagnoses: "HIV Diagnoses",
+  hiv_deaths: "HIV Deaths",
+  hiv_prep: "PrEP Coverage",
   diabetes: "Diabetes",
   copd: "COPD",
   health_insurance: "Uninsured Individuals",
@@ -129,7 +131,7 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: "HIV",
     definition: "",
-    options: ["hiv_diagnoses"],
+    options: ["hiv_diagnoses", "hiv_deaths", "hiv_prep"],
   },
   {
     title: "COVID-19",

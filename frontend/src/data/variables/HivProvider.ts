@@ -5,11 +5,31 @@ import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { appendFipsIfNeeded } from "../utils/datasetutils";
 import VariableProvider from "./VariableProvider";
 
-export const HIV_DETERMINANTS: MetricId[] = [
+export const DEATHS_METRICS: MetricId[] = [
+  "hiv_deaths_per_100k",
+  "hiv_deaths_pct_share",
+  "hiv_deaths_pct_relative_inequity",
+  "hiv_deaths_ratio_age_adjusted",
+];
+
+export const DIAGNOSES_METRICS: MetricId[] = [
   "hiv_diagnoses_per_100k",
   "hiv_diagnoses_pct_share",
   "hiv_diagnoses_pct_relative_inequity",
   "hiv_diagnoses_ratio_age_adjusted",
+];
+
+export const PREP_METRICS: MetricId[] = [
+  "hiv_prep_coverage",
+  "hiv_prep_pct_share",
+  "hiv_prep_pct_relative_inequity",
+  "hiv_prep_ratio_age_adjusted",
+];
+
+export const HIV_DETERMINANTS: MetricId[] = [
+  ...DEATHS_METRICS,
+  ...DIAGNOSES_METRICS,
+  ...PREP_METRICS,
   "hiv_population_pct", // population shares of 13+
 ];
 
@@ -65,7 +85,9 @@ class HivProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns);
 
-    df = this.filterByTimeView(df, timeView, "2019");
+    const mostRecentYear = "2019";
+
+    df = this.filterByTimeView(df, timeView, mostRecentYear);
     df = this.renameGeoColumns(df, breakdowns);
 
     let consumedDatasetIds = [datasetId];
