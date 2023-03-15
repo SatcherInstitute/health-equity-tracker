@@ -187,5 +187,6 @@ def testGenerateCountyBreakdown(
 
     expected_county_df = pd.read_csv(
         GOLDEN_DATA_COUNTY, dtype={'county_fips': str})
+
     assert_frame_equal(
         county_df, expected_county_df, check_like=True)
