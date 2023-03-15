@@ -495,7 +495,7 @@ function MethodologyTab() {
                 </p>
 
                 <p>
-                  <b>HIV Diagnosis</b>
+                  <b>HIV Deaths & Diagnosis</b>
                 </p>
                 <p>
                   HIV diagnosis refers to the number of people who have received
@@ -530,6 +530,73 @@ function MethodologyTab() {
                       <li>
                         <b>Per 100k</b>: The per 100k metric is derived directly
                         from the CDC's database.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                <p>
+                  <b>PrEP Coverage</b>
+                </p>
+                <p>
+                  The percentage of PrEP coverage is an important measure for
+                  evaluating the success of PrEP implementation and uptake
+                  efforts, as well as for identifying disparities in PrEP access
+                  and use among different demographic groups or geographic
+                  regions. It can also be used to monitor changes in PrEP
+                  coverage over time and to inform targeted interventions to
+                  increase PrEP uptake and reduce HIV incidence among high-risk
+                  populations. Using PrEP coverage as a percentage helps to
+                  convey the actual proportion of individuals who are covered by
+                  PrEP relative to the total population of interest. Creating a
+                  clear picture of the proportion of individuals who are
+                  eligible for PrEP and have access to it
+                </p>
+                <p>
+                  PrEP coverage is often considered a necessary precursor to
+                  PrEP usage. Without adequate PrEP coverage, individuals who
+                  are at high risk for HIV may not have access to PrEP or may
+                  not be aware of its availability. As a result, PrEP usage may
+                  be lower in populations with low PrEP coverage.
+                </p>
+                <ul>
+                  <li>
+                    All metrics sourced from the CDC are calculated based on the
+                    number of PrEP prescriptions provided by the CDC's Atlas
+                    database.
+                    <ul>
+                      <li>
+                        <b>Percent share</b>: Calculating the percent share of
+                        PrEP prescriptions involves dividing the number of PrEP
+                        prescriptions filled by a specific population or
+                        demographic group by the total number of PrEP
+                        prescriptions filled and multiplying the result by 100.
+                      </li>
+                      <li>
+                        <b>PrEP-eligible population percent</b>: Calculating the
+                        percent share of the PrEP-eligible population involves
+                        dividing the number of individuals within a specific
+                        population or demographic group eligible for PrEP by the
+                        total number of individuals eligible for PrEP and
+                        multiplying the result by 100.
+                      </li>
+                      <li>
+                        <b>PrEP coverage</b>: This percentage is obtained
+                        directly from the CDC. It involves dividing the number
+                        of individuals within a specific population or
+                        demographic group using PrEP at a given time by the
+                        total number of individuals in the same population or
+                        demographic group eligible for PrEP based on their HIV
+                        risk and multiplying the result by 100.
+                      </li>
+                      <li>
+                        <b>Relative Inequity</b>: Calculating the percentage of
+                        relative inequity involves subtracting the proportion of
+                        all PrEP prescriptions filled by a specific population
+                        or group from the proportion of a specific population or
+                        group in the PrEP-eligible population. The value is
+                        divided by the proportion of a specific population or
+                        group in the PrEP-eligible population multiplied by 100
+                        to express it as a percentage.
                       </li>
                     </ul>
                   </li>
