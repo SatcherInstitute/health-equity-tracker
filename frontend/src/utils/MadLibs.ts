@@ -118,7 +118,8 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   asthma: "Asthma",
   voter_participation: "Voter Participation",
   women_in_legislative_office: "Women in Legislative Office",
-  incarceration: "Incarceration",
+  jail: "Jail Incarceration",
+  prison: "Prison Incarceration",
 };
 
 export interface Category {
@@ -144,7 +145,8 @@ const CATEGORIES_LIST: Category[] = [
     options: [
       "voter_participation",
       "women_in_legislative_office",
-      "incarceration",
+      "prison",
+      "jail",
     ],
   },
   {

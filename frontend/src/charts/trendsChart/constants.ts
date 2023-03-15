@@ -22,6 +22,7 @@ import {
   WHITE_NH,
   WHITE_W,
   MULTI_NH,
+  API_NH,
 } from "../../data/utils/Constants";
 
 // get colors from css variables
@@ -66,6 +67,8 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   [MULTI_W]: timeDarkRed,
   // race and ethnicity for HIV
   [MULTI_NH]: timeDarkRed,
+  //  race and ethnicity for INCARCERATION
+  [API_NH]: timePink,
   // sex
   Female: timeCyanBlue,
   Male: timePurple,

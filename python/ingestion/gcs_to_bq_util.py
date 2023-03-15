@@ -1,6 +1,6 @@
 from datetime import datetime
 from datetime import timezone
-import requests
+import requests  # type: ignore
 import json
 import os
 import pandas as pd
@@ -241,7 +241,7 @@ def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None):
 
 def load_csv_as_df_from_data_dir(directory, filename,
                                  subdirectory='', dtype=None,
-                                 skiprows=None, thousands=None):
+                                 skiprows=None, na_values=None, thousands=None, usecols=None):
     """Loads csv data from /data/{directory}/{filename} into a DataFrame.
        Expects the data to be in csv format, with the first row as the column
        names.
@@ -250,12 +250,17 @@ def load_csv_as_df_from_data_dir(directory, filename,
     filename: file to load the csv file from
     subdirectory: combined directory and filename path
     skiprows: how many rows to skip when reading csv
+    na_values: additional strings to recognize as NA/NaN
     thousands: reads commas in the csv file as a thousand place indicator
+    usecols: list of columns to use or callable function against column names
+    (using this lambda results in much faster parsing time and lower memory usage)
     """
 
     file_path = os.path.join(DATA_DIR, directory, subdirectory, filename)
 
-    return pd.read_csv(file_path, dtype=dtype, skiprows=skiprows, thousands=thousands)
+    return pd.read_csv(file_path, dtype=dtype,
+                       skiprows=skiprows, na_values=na_values,
+                       usecols=usecols, thousands=thousands)
 
 
 def load_json_as_df_from_data_dir(directory, filename, dtype=None):
