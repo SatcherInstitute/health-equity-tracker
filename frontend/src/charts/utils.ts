@@ -35,7 +35,9 @@ export function oneLineLabel(field: string) {
 }
 
 // We use nested ternaries to determine the label's y axis delta based on the number of lines in the label to vertically align
-export const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? -3 : length(${MULTILINE_LABEL}) > 2 ? -7 : 5`;
+export const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? -3 : length(${MULTILINE_LABEL}) > 2 ? -20 : 5`;
+
+export const LABEL_HEIGHT = `length(${MULTILINE_LABEL}) > 2 ? 9 : 10`;
 
 export function addLineBreakDelimitersToField(
   rawData: Row[],

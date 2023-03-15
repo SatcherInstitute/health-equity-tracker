@@ -14,6 +14,7 @@ import {
   HISPANIC,
   HISP_W,
   MENA_W,
+  MEGA_NH,
   MULTI_OR_OTHER_STANDARD_NH,
   MULTI_W,
   NHPI_NH,
@@ -67,6 +68,7 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   [MULTI_W]: timeDarkRed,
   // race and ethnicity for HIV
   [MULTI_NH]: timeDarkRed,
+  [MEGA_NH]: timePastelGreen,
   //  race and ethnicity for INCARCERATION
   [API_NH]: timePink,
   // sex

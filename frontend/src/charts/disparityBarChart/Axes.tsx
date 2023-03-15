@@ -1,4 +1,4 @@
-import { MULTILINE_LABEL, AXIS_LABEL_Y_DELTA } from "../utils";
+import { MULTILINE_LABEL, AXIS_LABEL_Y_DELTA, LABEL_HEIGHT } from "../utils";
 import { BAR_HEIGHT, Z_MIDDLE } from "./constants";
 import { Axis } from "vega";
 import { AxesProps } from "./types";
@@ -42,14 +42,15 @@ export function Axes({ chartDimensions, xAxisTitle, yAxisTitle }: AxesProps) {
     title: yAxisTitle,
     zindex: Z_MIDDLE,
     tickSize: 5,
+    labelBaseline: "bottom",
+    labelLimit: 100,
     encode: {
       labels: {
         update: {
           text: { signal: MULTILINE_LABEL },
-          baseline: { value: "bottom" },
           // Limit at which line is truncated with an ellipsis
-          limit: { value: 100 },
           dy: { signal: AXIS_LABEL_Y_DELTA },
+          lineHeight: { signal: LABEL_HEIGHT },
         },
       },
     },
