@@ -1,0 +1,21 @@
+﻿"Date Printed: Wednesday, March 1, 2023 11:19:49 AM"
+Title: "PrEP coverage and number of persons prescribed | 2017 | 2018 | 2019 | United States | All races/ethnicities | Both sexes | 13-24 | 25-34 | 35-44 | 45-54 | 55+ | All transmission categories"
+Footnote(s): PrEP coverage, reported as a percentage, is calculated as the number of persons aged &ge;16 years classified as having been prescribed PrEP divided by the estimated number of persons aged &ge;16 years who had indications for PrEP. Number prescribed, or “cases”, is defined as the number of persons aged &ge;16 years classified as having been prescribed PrEP during the specified year and includes all FDA-approved drugs for PrEP. “Population” is the annual estimated number of persons with PrEP indications. Total includes people categorized by IQVIA as Black, White, Hispanic, or Other race. Race/ethnicity data are adjusted due to large proportion of missing race/ethnicity. To allow for comparison with other HIV indicators, data are presented for &ge;13- and 13–24-year-olds, but represent &ge;16- and 16-24-years-olds, respectively. Number prescribed are reported through June 2022
+NA - Not Applicable.
+
+
+
+
+Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Percent,Population
+"PrEP coverage and number of persons prescribed","2017","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","12,316","10.1","121,830"
+"PrEP coverage and number of persons prescribed","2017","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","23,772","13.1","180,870"
+"PrEP coverage and number of persons prescribed","2017","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","36,481","15.6","233,560"
+"PrEP coverage and number of persons prescribed","2017","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","62,353","14.6","425,690"
+"PrEP coverage and number of persons prescribed","2017","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","20,083","7.8","259,130"
+"PrEP coverage and number of persons prescribed","2019","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","24,202","19.6","123,350"
+"PrEP coverage and number of persons prescribed","2019","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","37,437","21.6","173,420"
+"PrEP coverage and number of persons prescribed","2019","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","64,091","26.9","238,470"
+"PrEP coverage and number of persons prescribed","2019","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","111,733","25.7","434,680"
+"PrEP coverage and number of persons prescribed","2019","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","37,628","15.3","246,290"
+
+

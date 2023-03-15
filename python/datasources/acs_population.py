@@ -5,7 +5,7 @@ from ingestion.standardized_columns import Race
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
 from datasources.data_source import DataSource
 from ingestion.census import (get_census_params, parse_acs_metadata,
-                              get_vars_for_group, standardize_frame)
+                              get_vars_for_group, standardize_frame, rename_age_bracket)
 from ingestion.dataset_utils import add_sum_of_rows, generate_pct_share_col_without_unknowns
 from ingestion.merge_utils import (ACS_DEFAULT_YEAR,
                                    ACS_EARLIEST_YEAR,
@@ -222,27 +222,6 @@ def get_jail_age_bucket(age_range):
         return '18+'
     elif age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
-
-
-def rename_age_bracket(bracket):
-    """Converts ACS age bracket label to standardized bracket format of "a-b",
-       where a is the lower end of the bracket and b is the upper end,
-       inclusive.
-
-       bracket: ACS age bracket."""
-    parts = bracket.split()
-    if len(parts) == 3 and parts[0] == "Under":
-        return "0-" + str(int(parts[1]) - 1)
-    elif len(parts) == 4 and parts[1] == "to" and parts[3] == "years":
-        return parts[0] + "-" + parts[2]
-    elif len(parts) == 4 and parts[1] == "and" and parts[3] == "years":
-        return parts[0] + "-" + parts[2]
-    elif len(parts) == 2 and parts[1] == "years":
-        return parts[0] + "-" + parts[0]
-    elif len(parts) == 4 and " ".join(parts[1:]) == "years and over":
-        return parts[0] + "+"
-    else:
-        return bracket
 
 
 def update_col_types(frame):

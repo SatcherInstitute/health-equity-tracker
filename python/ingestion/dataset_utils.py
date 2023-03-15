@@ -8,7 +8,8 @@ from ingestion.constants import (
     STATE_LEVEL,
     COUNTY_LEVEL,
     RACE,
-    UNKNOWN
+    UNKNOWN,
+    STATE_LEVEL_FIPS_LIST, COUNTY_LEVEL_FIPS_LIST
 )
 from functools import reduce
 
@@ -23,10 +24,10 @@ def melt_to_het_style_df(
         value_to_cols: Dict[str, Dict[str, str]]
 ):
     """ Generalized util fn for melting a source df into the skinny/long
-    HET-style df that contains 1 row per FIP/GROUP (or FIPS/TIME_PERIOD/GROUP)
+    HET-style df that contains 1 row per FIPS/GROUP (or FIPS/TIME_PERIOD/GROUP)
     and a unique col per metric
 
-    df: incoming wide/short df that contains 1 row per FIP (or FIPS/TIME_PERIOD)
+    df: incoming wide/short df that contains 1 row per FIPS (or FIPS/TIME_PERIOD)
         and a unique column for each group metric
     demo_col: string column name for resulting df that will contain the
         group names. Typically "sex", "age", etc.
@@ -80,6 +81,30 @@ def melt_to_het_style_df(
                                   demo_col]), partial_dfs)
 
     return result_df.sort_values(by=keep_cols).reset_index(drop=True)
+
+
+def scaffold_fips_df(geo_level: Literal["national", "state", "county"]) -> pd.DataFrame:
+    """ Build the FIPS column first, so we have something to merge population info onto
+
+    geo_level: str for which geographic level df should be created
+    Returns: a df consisting of a single column with either `state_fips` (for national / state)
+     or `county_fips` for county request, and a row for every FIPS code at that level """
+
+    if geo_level == NATIONAL_LEVEL:
+        return pd.DataFrame({
+            std_col.STATE_FIPS_COL: ["00"],
+        })
+    if geo_level == STATE_LEVEL:
+        return pd.DataFrame({
+            std_col.STATE_FIPS_COL: STATE_LEVEL_FIPS_LIST,
+        })
+    if geo_level == COUNTY_LEVEL:
+        return pd.DataFrame({
+            std_col.COUNTY_FIPS_COL: COUNTY_LEVEL_FIPS_LIST,
+        })
+
+    raise ValueError(
+        f'The provided geo_level: {geo_level} in invalid; it must be `national`, `state`, or `county`.')
 
 
 def generate_pct_share_col_without_unknowns(df: pd.DataFrame,
