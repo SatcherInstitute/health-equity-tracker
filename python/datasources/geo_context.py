@@ -1,15 +1,17 @@
 import ingestion.standardized_columns as std_col
-from ingestion.constants import (NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL)
+from ingestion.constants import (
+    NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL)
 from datasources.data_source import DataSource
-from ingestion import gcs_to_bq_util
+from ingestion import gcs_to_bq_util, dataset_utils
 import numpy as np
 import pandas as pd  # type: ignore
+from typing import Literal
+
+from ingestion.merge_utils import (
+    merge_county_names, merge_state_ids, merge_pop_numbers)
 
 
-from ingestion.merge_utils import (merge_county_names, merge_state_ids)
-
-
-def format_svi(value: float):
+def format_svi(value: float) -> float:
     """
     Takes the RPL_THEMES column and formats it to match an expected number between 0.0 - 1.0,
     or null. If the RPL_THEMES column that is greater than 1.0, this function raises an
@@ -54,29 +56,23 @@ class GeoContext(DataSource):
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, f'{geo_level}', column_types=column_types)
 
-    def generate_breakdown(self, geo_level: str):
+    def generate_breakdown(self, geo_level: Literal["national", "state", "county"]) -> pd.DataFrame:
 
-        # load population table
-        df = gcs_to_bq_util.load_df_from_bigquery(
-            'acs_population', f'by_age_{geo_level}')
+        df = dataset_utils.scaffold_fips_df(geo_level)
+        df[std_col.AGE_COL] = std_col.ALL_VALUE
+        df = merge_pop_numbers(df, std_col.AGE_COL, geo_level)
+        fips_col = (std_col.COUNTY_FIPS_COL
+                    if geo_level == COUNTY_LEVEL
+                    else std_col.STATE_FIPS_COL)
 
-        # only keep ALL rows
-        df = df.loc[df[std_col.AGE_COL] == std_col.ALL_VALUE]
-
+        df = df[[fips_col, std_col.POPULATION_COL]]
         if geo_level == COUNTY_LEVEL:
             df = merge_svi_data(df)
             df = merge_county_names(df)
-            df = df.sort_values(std_col.COUNTY_FIPS_COL).reset_index(drop=True)
-        if geo_level == STATE_LEVEL:
-            df = add_territory_populations(df)
-        if geo_level == STATE_LEVEL or geo_level == NATIONAL_LEVEL:
-            # drop initial state_names to standardize on merge_state_ids()
-            df = df.drop(columns=[std_col.STATE_NAME_COL])
+        else:
             df = merge_state_ids(df)
-            # drop unneeded cols
-            df = df[[std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL,
-                     std_col.POPULATION_COL]]
-            df = df.sort_values(std_col.STATE_FIPS_COL).reset_index(drop=True)
+
+        df = df.sort_values(fips_col).reset_index(drop=True)
 
         return df
 
@@ -101,30 +97,5 @@ def merge_svi_data(df):
              std_col.POPULATION_COL]]
     df = pd.merge(svi_df, df, how="outer", on=[
         std_col.COUNTY_FIPS_COL])
-
-    return df
-
-
-def add_territory_populations(df):
-    """ Add rows with territory populations to state level df
-
-    Parameters:
-        df: state level df containing a row for every state's total population, and columns
-            "state_fips" and "population"
-    Returns:
-        df with added rows for every territory"""
-    # load additional territory population table
-    pop_2010_df = gcs_to_bq_util.load_df_from_bigquery(
-        'acs_2010_population', 'by_age_territory')
-
-    # only keep ALL rows
-    pop_2010_df = pop_2010_df.loc[pop_2010_df[std_col.AGE_COL]
-                                  == std_col.ALL_VALUE]
-    # drop unneeded cols
-    pop_2010_df = pop_2010_df[[
-        std_col.STATE_FIPS_COL, std_col.POPULATION_COL]]
-
-    # combine ROWS from states and territories
-    df = pd.concat([df, pop_2010_df]).reset_index(drop=True)
 
     return df

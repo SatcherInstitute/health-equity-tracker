@@ -1,0 +1,4 @@
+county_fips,age,population,population_pct,county_name,state_fips,state_name
+78010,All,41004.0,100.0,St. Croix,78,U.S. Virgin Islands
+78020,All,3881.0,100.0,St. John,78,U.S. Virgin Islands
+78030,All,42261.0,100.0,St. Thomas,78,U.S. Virgin Islands
