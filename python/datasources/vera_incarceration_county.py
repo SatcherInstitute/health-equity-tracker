@@ -344,7 +344,7 @@ def use_sum_of_jail_counts_as_all(df, demo_type: Literal["sex", "race_and_ethnic
     as Vera TOTAL jail counts are yearly averages, while the GROUP
     jail counts are single-day actual counts.
     This means that the sum of the groups might not equal the TOTAL.
-    Because of this, we will overwrite the given ALL JAIL ESTIMATE TOTAL with a
+    Because of this, we will overwrite the given ALL std_col.JAIL_PREFIX ESTIMATE TOTAL with a
     SUM OF ALL GROUPS ESTIMATED TOTALS for sex and race. We don't do this for age
     as we don't have any group breakdowns for age, only the given ALL values. """
     if demo_type == std_col.SEX_COL:
