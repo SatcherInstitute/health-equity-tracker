@@ -85,10 +85,11 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   "80+": mapLight,
   // age for HIV
   "13-24": timeCyanBlue,
-  "25-34": timePastelGreen,
-  "35-44": darkBlue,
-  "45-54": timePurple,
-  "55+": timeDarkRed,
+  "16-24": timePastelGreen,
+  "25-34": darkBlue,
+  "35-44": timePurple,
+  "45-54": timeDarkRed,
+  "55+": redOrange,
 };
 
 // domain for color scale

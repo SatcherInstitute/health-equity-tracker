@@ -24,6 +24,7 @@ export const PREP_METRICS: MetricId[] = [
   "hiv_prep_pct_share",
   "hiv_prep_pct_relative_inequity",
   "hiv_prep_ratio_age_adjusted",
+  "hiv_prep_population_pct",
 ];
 
 export const HIV_DETERMINANTS: MetricId[] = [
@@ -91,6 +92,8 @@ class HivProvider extends VariableProvider {
     df = this.renameGeoColumns(df, breakdowns);
 
     let consumedDatasetIds = [datasetId];
+
+    // console.log(new MetricQueryResponse(df.toArray(), consumedDatasetIds))
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);

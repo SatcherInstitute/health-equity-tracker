@@ -93,6 +93,7 @@ export type MetricId =
   | "hiv_prep_pct_share"
   | "hiv_prep_pct_relative_inequity"
   | "hiv_prep_ratio_age_adjusted"
+  | "hiv_prep_population_pct"
   | "hiv_population_pct"
   | "poverty_count"
   | "poverty_pct_share"
@@ -738,12 +739,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             chartTitleLines: [
-              "Eligible population vs. distribution of",
+              "PrEP eligible population vs. distribution of",
               "total PrEP prescriptions",
             ],
-            metricId: "hiv_population_pct",
-            columnTitleHeader: "Eligible population share (ages 16+)", //populationPctTitle,
-            shortLabel: "% of eligible population",
+            metricId: "hiv_prep_population_pct",
+            columnTitleHeader: "PrEP eligible population share (ages 16+)", //populationPctTitle,
+            shortLabel: "% of PrEP eligible population",
             type: "pct_share",
           },
         },
