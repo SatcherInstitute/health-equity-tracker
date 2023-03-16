@@ -93,8 +93,6 @@ class HivProvider extends VariableProvider {
 
     let consumedDatasetIds = [datasetId];
 
-    // console.log(new MetricQueryResponse(df.toArray(), consumedDatasetIds))
-
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 

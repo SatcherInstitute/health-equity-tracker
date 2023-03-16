@@ -68,7 +68,7 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   [MULTI_W]: timeDarkRed,
   // race and ethnicity for HIV
   [MULTI_NH]: timeDarkRed,
-  [MEGA_NH]: timePastelGreen,
+  [MEGA_NH]: timePink,
   //  race and ethnicity for INCARCERATION
   [API_NH]: timePink,
   // sex
