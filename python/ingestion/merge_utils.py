@@ -261,6 +261,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
 
     # other territories from DECIA_2020 (VI, GU, AS, MP)
     if loc != 'national':
+
         verbose_demo = "race_and_ethnicity" if demo == 'race' else demo
         pop_terr_table_name = f'by_{verbose_demo}_territory_{loc}_level'
 
