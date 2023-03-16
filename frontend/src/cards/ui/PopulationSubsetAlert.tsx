@@ -23,7 +23,7 @@ export default function PopulationSubsetAlert({
     ageGroup = "13";
   }
   if (variableId === "hiv_prep") {
-    variable = "PrEP coverageGroup";
+    variable = "PrEP coverage";
     ageGroup = "16";
   }
 
