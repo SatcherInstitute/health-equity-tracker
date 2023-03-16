@@ -675,7 +675,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableId: "hiv_deaths",
       variableDisplayName: "HIV deaths",
       variableFullDisplayName: "HIV deaths",
-      variableDefinition: `Individuals ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
+      variableDefinition: `Individuals ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
       metrics: {
         pct_share: {
