@@ -52,7 +52,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_pretty_site_name: "census.gov",
     data_source_link:
       "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-    geographic_level: "State",
+    geographic_level: "National, State, County",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annual",
     description:
