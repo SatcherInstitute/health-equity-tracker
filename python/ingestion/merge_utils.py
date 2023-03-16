@@ -2,6 +2,7 @@ import pandas as pd  # type: ignore
 from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
+from typing import Literal
 
 ACS_DEFAULT_YEAR = '2019'
 ACS_EARLIEST_YEAR = '2009'
@@ -126,12 +127,13 @@ def merge_state_ids(df, keep_postal=False):
     return df
 
 
-def merge_pop_numbers(df, demo: str, loc: str):
+def merge_pop_numbers(df, demo: Literal['age', 'race', 'sex'], loc: Literal['county', 'state', 'national']):
     """Merges the corresponding `population` and `population_pct` column into the given df
 
       df: a pandas df with demographic column and a `state_fips` column
       demo: the demographic in the df, either `age`, `race`, or `sex`
       loc: the location level for the df, either `county`, `state`, or `national`"""
+
     return _merge_pop(df, demo, loc)
 
 
@@ -205,6 +207,8 @@ def merge_multiple_pop_cols(df, demo, condition_cols):
 
 def _merge_pop(df, demo, loc, on_time_period: bool = None):
 
+    print("in merge pop")
+
     on_col_map = {
         'age': std_col.AGE_COL,
         'race': std_col.RACE_CATEGORY_ID_COL,
@@ -220,6 +224,8 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
             demo, list(on_col_map.keys())))
 
     pop_table_name = f'by_{demo}_{loc}'
+
+    print("pop_terr_table_name", pop_table_name)
 
     if on_time_period:
         pop_table_name += "_time_series"
@@ -242,14 +248,17 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
 
     pop_df = pop_df[needed_cols]
 
-    # other territories from ACS 2010 (VI, GU, AS, MP)
-    if loc == 'state':
+    # other territories from DECIA_2020 (VI, GU, AS, MP)
+    if loc != 'national':
         verbose_demo = "race_and_ethnicity" if demo == 'race' else demo
-        pop_terr_table_name = f'by_{verbose_demo}_territory'
+        pop_terr_table_name = f'by_{verbose_demo}_territory_{loc}_level'
+
+        print("pop_terr_table_name", pop_terr_table_name)
+
         pop_terr_df = gcs_to_bq_util.load_df_from_bigquery(
-            'acs_2010_population', pop_terr_table_name, pop_dtype)
-        pop_terr_df = pop_terr_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
-                                   std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
+            'decia_2020_territory', pop_terr_table_name, pop_dtype)
+
+        pop_terr_df = pop_terr_df[needed_cols]
 
         if on_time_period:
             # re-use 2010 territory populations in every ACS year
