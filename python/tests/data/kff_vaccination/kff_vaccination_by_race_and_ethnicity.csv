@@ -5,8 +5,8 @@ Alabama,WHITE,0.65,0.37,,White,0.681
 Alabama,BLACK,0.25,0.37,,Black or African American,0.266
 Alabama,HISP,0.06,0.34,,Hispanic or Latino,0.044
 Alabama,ASIAN,0.02,0.68,,Asian,0.014
-Alabama,AIAN,<0.01,,,American Indian and Alaska Native,
-Alabama,NHPI,<0.01,,,Native Hawaiian and Pacific Islander,
+Alabama,AIAN,,,,American Indian and Alaska Native,
+Alabama,NHPI,,,,Native Hawaiian and Pacific Islander,
 Alabama,OTHER_NONSTANDARD,0.07,,,Unrepresented race,
 Alabama,ALL,,,2380869,All,1.0
 Arizona,UNKNOWN,0.11,,,Unknown race,
@@ -16,7 +16,7 @@ Arizona,BLACK_NH,0.03,0.34,,Black or African American (NH),0.043
 Arizona,HISP,0.19,0.29,,Hispanic or Latino,0.318
 Arizona,API_NH,0.04,0.61,,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.033
 Arizona,AIAN_NH,0.03,,,American Indian and Alaska Native (NH),
-Arizona,NHPI_NH,NR,,,Native Hawaiian and Pacific Islander (NH),
+Arizona,NHPI_NH,,,,Native Hawaiian and Pacific Islander (NH),
 Arizona,OTHER_NONSTANDARD_NH,0.19,,,Unrepresented race (NH),
 Arizona,ALL,,,4085580,All,1.0
 Indiana,UNKNOWN,0.05,,,Unknown race,
@@ -25,8 +25,8 @@ Indiana,WHITE,0.82,0.47,,White,0.83
 Indiana,BLACK,0.07,0.37,,Black or African American,0.094
 Indiana,HISP,0.06,0.41,,Hispanic or Latino,0.072
 Indiana,ASIAN,0.03,0.67,,Asian,0.025
-Indiana,AIAN,NR,,,American Indian and Alaska Native,
-Indiana,NHPI,NR,,,Native Hawaiian and Pacific Islander,
+Indiana,AIAN,,,,American Indian and Alaska Native,
+Indiana,NHPI,,,,Native Hawaiian and Pacific Islander,
 Indiana,OTHER_NONSTANDARD,0.07,,,Unrepresented race,
 Indiana,ALL,,,3334275,All,1.0
 Guam,ALL,,,112184,All,1.0

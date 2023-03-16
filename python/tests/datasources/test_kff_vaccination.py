@@ -77,8 +77,8 @@ def testWriteToBq(
 
     expected_df = pd.read_csv(GOLDEN_DATA, dtype={
         'state_fips': str,
-        'vaccinated_pct_share': str,
-        'vaccinated_pct': str,
+        'vaccinated_pct_share': float,
+        'vaccinated_pct': float,
         'vaccinated_first_dose': str,
         'population_pct': str,
     })
