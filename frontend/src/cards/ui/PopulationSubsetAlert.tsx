@@ -2,14 +2,36 @@ import { CardContent } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import React from "react";
 import { HashLink } from "react-router-hash-link";
+import { VariableId } from "../../data/config/MetricConfig";
 import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";
 
-export default function PopulationSubsetAlert() {
+interface PopulationSubsetAlertProps {
+  variableId: VariableId;
+}
+
+export default function PopulationSubsetAlert({
+  variableId,
+}: PopulationSubsetAlertProps) {
+  let variable, ageGroup;
+
+  if (variableId === "hiv_deaths") {
+    variable = "HIV deaths";
+    ageGroup = "13";
+  }
+  if (variableId === "hiv_diagnoses") {
+    variable = "HIV diagnoses";
+    ageGroup = "13";
+  }
+  if (variableId === "hiv_prep") {
+    variable = "PrEP coverageGroup";
+    ageGroup = "16";
+  }
+
   return (
     <CardContent>
       <Alert severity="info" role="note">
-        All values presented for <b>HIV diagnoses</b> are calculated on the
-        population of individuals ages 13 and older. Read more on our{" "}
+        All values presented for <b>{variable}</b> are calculated on the
+        population of individuals ages {ageGroup} and older. Read more on our{" "}
         <HashLink to={METHODOLOGY_TAB_LINK}>methodology.</HashLink>
       </Alert>
     </CardContent>

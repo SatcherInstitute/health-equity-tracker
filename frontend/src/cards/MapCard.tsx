@@ -452,7 +452,11 @@ function MapCardWithKey(props: MapCardProps) {
                       />
                     )}
                 </CardContent>
-                {isPopulationSubset && <PopulationSubsetAlert />}
+                {isPopulationSubset && (
+                  <PopulationSubsetAlert
+                    variableId={props.variableConfig.variableId}
+                  />
+                )}
               </>
             )}
           </>

@@ -24,6 +24,7 @@ import {
   MissingCovidData,
   MissingCovidVaccinationData,
   MissingHIVData,
+  MissingPrepData,
 } from "./methodologyContent/missingDataBlurbs";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
@@ -485,57 +486,93 @@ function MethodologyTab() {
                 <h3 className={styles.MethodologySubsubheaderText}>HIV</h3>
 
                 <p>
-                  Health departments report to the CDC all confirmed HIV
-                  infections diagnosed in their jurisdiction and clinical
-                  information about each infection. The CDC's AtlasPlus database
-                  contains HIV surveillance data reported to the CDC. All HIV
-                  data come from health departments in all 50 states, the
-                  District of Columbia, and U.S. territories. The HIV data
-                  includes adolescents and adults aged 13 and older.
+                  The CDC collects and studies information on the number of
+                  people diagnosed with HIV in the United States. This
+                  information is gathered from state and local HIV surveillance
+                  programs and is used to better understand the impact of HIV
+                  across the country. To protect people's privacy, the CDC and
+                  these programs have agreed to limit the amount of data
+                  released at the state and county levels. It takes 12 months
+                  for the data to become official, so the numbers reported
+                  before this time are not final and should be interpreted with
+                  caution. Additionally, some of the data is adjusted to account
+                  for missing information on how people became infected with
+                  HIV. This means that the data may change as more information
+                  becomes available.
+                </p>
+                <p>
+                  Data for the years 2020, 2021, and 2022 are preliminary. For
+                  this reason, we have chosen 2019 as our source year when
+                  presenting single-year figures.
                 </p>
 
                 <p>
                   <b>HIV Deaths & Diagnosis</b>
                 </p>
                 <p>
-                  HIV diagnosis refers to the number of people who have received
-                  an HIV diagnosis in a given time, regardless of when they were
-                  first infected. The CDC sums and tabulates the number of
-                  diagnoses reported by health departments.
+                  HIV diagnoses refer to the number of HIV infections confirmed
+                  by laboratory or clinical evidence during a specific calendar
+                  year. Diagnoses of HIV infection are counted for individuals
+                  who are 13 years of age or older and have received a confirmed
+                  diagnosis of HIV during the specified year. For incidence
+                  estimates, age is based on the person’s age at infection.
                 </p>
                 <p>
-                  Data for years 2021 and 2022 are preliminary (subject to a
-                  12-month reporting delay). For this reason we have chosen 2019
-                  as our source year when presenting single-year figures.
+                  Death data include deaths of persons aged 13 years and older
+                  with diagnosed HIV infection or AIDS classification,
+                  regardless of the cause of death. Death data are based on a
+                  12-month reporting delay to allow data to be reported to CDC.
+                  For death data, age is based on the person’s age at the time
+                  of death.
                 </p>
-
                 <ul>
                   <li>
                     All metrics sourced from the CDC are calculated based on the
-                    number of HIV diagnoses provided by the CDC's Atlas
-                    database.
+                    number of HIV deaths and diagnoses provided by the CDC's
+                    AtlasPlus database.
                     <ul>
                       <li>
                         <b>Percent share</b>: To calculate the percent share of
-                        HIV diagnoses of a given location, we divide the number
-                        of HIV diagnoses of a given demographic by the total
-                        number of HIV diagnoses in that geographic location.
+                        HIV deaths or diagnoses, we divide the number of HIV
+                        deaths or diagnoses in a specific demographic group by
+                        the total number of HIV deaths or diagnoses and multiply
+                        the result by 100.
                       </li>
                       <li>
-                        <b>Population percent</b>: To calculate the population
-                        percent of a given location, we divide the total
-                        population of a given demographic by the total
-                        population in that geographic location.
+                        <b>Population percent</b>: The population data is
+                        obtained directly from the CDC. To calculate the
+                        population percent share, we divide the number of
+                        individuals in a specific population by the total number
+                        of individuals in the larger population and multiply the
+                        result by 100.
                       </li>
                       <li>
-                        <b>Per 100k</b>: The per 100k metric is derived directly
-                        from the CDC's database.
+                        <b>Rate Per 100k</b>: The rate per 100k for HIV deaths
+                        and diagnoses is obtained directly from the CDC.
+                        Calculating the rate per 100k of HIV deaths and
+                        diagnoses involves dividing the number of deaths or
+                        diagnoses within a specific population by the total
+                        population of that group, multiplying the result by
+                        100,000, and then expressing it as a rate per 100,000
+                        people.
                       </li>
                     </ul>
                   </li>
                 </ul>
+
+                <Card elevation={3} className={styles.MissingDataBox}>
+                  <MissingHIVData />
+                </Card>
+
                 <p>
                   <b>PrEP Coverage</b>
+                </p>
+                <p>
+                  PrEP coverage, reported as a percentage, is defined as the
+                  number of persons aged 16 years and older classified as having
+                  been prescribed PrEP during the specified year divided by the
+                  estimated annual number of persons aged 16 years and older
+                  with indications for PrEP during the specified year.
                 </p>
                 <p>
                   The percentage of PrEP coverage is an important measure for
@@ -549,7 +586,7 @@ function MethodologyTab() {
                   convey the actual proportion of individuals who are covered by
                   PrEP relative to the total population of interest. Creating a
                   clear picture of the proportion of individuals who are
-                  eligible for PrEP and have access to it
+                  eligible for PrEP and have access to it.
                 </p>
                 <p>
                   PrEP coverage is often considered a necessary precursor to
@@ -603,7 +640,7 @@ function MethodologyTab() {
                 </ul>
 
                 <Card elevation={3} className={styles.MissingDataBox}>
-                  <MissingHIVData />
+                  <MissingPrepData />
                 </Card>
 
                 <h3 className={styles.MethodologySubsubheaderText} id="svi">
