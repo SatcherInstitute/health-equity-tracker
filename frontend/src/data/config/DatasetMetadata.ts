@@ -102,19 +102,49 @@ export const datasetMetadataList: DatasetMetadata[] = [
     contains_nh: true,
   },
   {
-    id: "acs_2010_population-by_race_and_ethnicity_territory",
+    id: "acs_2010_population-by_race_and_ethnicity_territory_state_level",
     name: "Population by race/ethnicity and territory",
     update_time: "2010",
   },
   {
-    id: "acs_2010_population-by_sex_territory",
+    id: "acs_2010_population-by_sex_territory_state_level",
     name: "Population by sex and territory",
     update_time: "2010",
   },
   {
-    id: "acs_2010_population-by_age_territory",
+    id: "acs_2010_population-by_age_territory_state_level",
     name: "Population by age and territory",
     update_time: "2010",
+  },
+  {
+    id: "decia_2020_territory_population-by_race_and_ethnicity_territory_state_level",
+    name: "Population by race/ethnicity and territory",
+    update_time: "2020",
+  },
+  {
+    id: "decia_2020_territory_population-by_sex_territory_state_level",
+    name: "Population by sex and territory",
+    update_time: "2020",
+  },
+  {
+    id: "decia_2020_territory_population-by_age_territory_state_level",
+    name: "Population by age and territory",
+    update_time: "2020",
+  },
+  {
+    id: "decia_2020_territory_population-by_race_and_ethnicity_territory_county_level",
+    name: "Population by race/ethnicity and territory county-equivalent",
+    update_time: "2020",
+  },
+  {
+    id: "decia_2020_territory_population-by_sex_territory_county_level",
+    name: "Population by sex and territory county-equivalent",
+    update_time: "2020",
+  },
+  {
+    id: "decia_2020_territory_population-by_age_territory_county_level",
+    name: "Population by age and territory county-equivalent",
+    update_time: "2020",
   },
   {
     id: "covid_tracking_project-cases_by_race_state",
