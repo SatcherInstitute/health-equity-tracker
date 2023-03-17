@@ -1,6 +1,6 @@
 from airflow import DAG
-from airflow.models import Variable
-from airflow.utils.dates import days_ago
+from airflow.models import Variable  # type: ignore
+from airflow.utils.dates import days_ago  # type: ignore
 
 import util
 

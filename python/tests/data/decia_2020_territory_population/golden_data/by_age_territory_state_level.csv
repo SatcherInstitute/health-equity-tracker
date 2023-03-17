@@ -1,0 +1,165 @@
+state_fips,age,population,population_pct,state_name
+60,0-4,4569.0,9.2,American Samoa
+60,0-9,9559.0,19.2,American Samoa
+60,10-14,5350.0,10.8,American Samoa
+60,10-19,10373.0,20.9,American Samoa
+60,15-19,5023.0,10.1,American Samoa
+60,15-24,8232.0,16.6,American Samoa
+60,16+,33690.0,67.8,American Samoa
+60,18+,31486.0,63.3,American Samoa
+60,20-24,3209.0,6.5,American Samoa
+60,20-29,6388.0,12.9,American Samoa
+60,21+,29049.0,58.4,American Samoa
+60,25-29,3179.0,6.4,American Samoa
+60,25-34,6187.0,12.5,American Samoa
+60,30-34,3008.0,6.1,American Samoa
+60,30-39,5976.0,12.1,American Samoa
+60,35-39,2968.0,6.0,American Samoa
+60,35-44,6209.0,12.5,American Samoa
+60,40-44,3241.0,6.5,American Samoa
+60,40-49,6449.0,13.0,American Samoa
+60,45-49,3208.0,6.5,American Samoa
+60,45-54,6372.0,12.9,American Samoa
+60,45-64,11026.0,22.2,American Samoa
+60,5-9,4990.0,10.0,American Samoa
+60,50-54,3164.0,6.4,American Samoa
+60,50-59,5814.0,11.7,American Samoa
+60,55-59,2650.0,5.3,American Samoa
+60,55-64,4654.0,9.3,American Samoa
+60,60-64,2004.0,4.0,American Samoa
+60,60-69,3349.0,6.7,American Samoa
+60,62+,4249.0,8.5,American Samoa
+60,65+,3147.0,6.3,American Samoa
+60,65-69,1345.0,2.7,American Samoa
+60,65-74,2238.0,4.5,American Samoa
+60,70-74,893.0,1.8,American Samoa
+60,70-79,1379.0,2.8,American Samoa
+60,75-79,486.0,1.0,American Samoa
+60,75-84,764.0,1.6,American Samoa
+60,80+,423.0,0.8999999999999999,American Samoa
+60,80-84,278.0,0.6,American Samoa
+60,85+,145.0,0.3,American Samoa
+60,All,49710.0,100.0,American Samoa
+66,0-4,10626.0,6.9,Guam
+66,0-9,22065.0,14.3,Guam
+66,10-14,12232.0,8.0,Guam
+66,10-19,24014.0,15.7,Guam
+66,15-19,11782.0,7.7,Guam
+66,15-24,23671.0,15.4,Guam
+66,16+,117126.0,76.1,Guam
+66,18+,112349.0,73.0,Guam
+66,20-24,11889.0,7.7,Guam
+66,20-29,23352.0,15.2,Guam
+66,21+,105364.0,68.5,Guam
+66,25-29,11463.0,7.5,Guam
+66,25-34,21491.0,14.0,Guam
+66,30-34,10028.0,6.5,Guam
+66,30-39,19484.0,12.6,Guam
+66,35-39,9456.0,6.1,Guam
+66,35-44,18656.0,12.1,Guam
+66,40-44,9200.0,6.0,Guam
+66,40-49,19345.0,12.6,Guam
+66,45-49,10145.0,6.6,Guam
+66,45-54,20382.0,13.3,Guam
+66,45-64,38531.0,25.1,Guam
+66,5-9,11439.0,7.4,Guam
+66,50-54,10237.0,6.7,Guam
+66,50-59,20102.0,13.100000000000001,Guam
+66,55-59,9865.0,6.4,Guam
+66,55-64,18149.0,11.8,Guam
+66,60-64,8284.0,5.4,Guam
+66,60-69,14970.0,9.7,Guam
+66,62+,21945.0,14.3,Guam
+66,65+,17190.0,11.2,Guam
+66,65-69,6686.0,4.3,Guam
+66,65-74,11571.0,7.5,Guam
+66,70-74,4885.0,3.2,Guam
+66,70-79,7522.0,4.9,Guam
+66,75-79,2637.0,1.7,Guam
+66,75-84,4402.0,2.8,Guam
+66,80+,2982.0,1.9000000000000001,Guam
+66,80-84,1765.0,1.1,Guam
+66,85+,1217.0,0.8,Guam
+66,All,153836.0,100.0,Guam
+69,0-4,3218.0,6.8,Northern Mariana Islands
+69,0-9,6916.0,14.6,Northern Mariana Islands
+69,10-14,4222.0,8.9,Northern Mariana Islands
+69,10-19,8056.0,17.0,Northern Mariana Islands
+69,15-19,3834.0,8.1,Northern Mariana Islands
+69,15-24,6742.0,14.2,Northern Mariana Islands
+69,16+,35396.0,74.8,Northern Mariana Islands
+69,18+,33709.0,71.2,Northern Mariana Islands
+69,20-24,2908.0,6.1,Northern Mariana Islands
+69,20-29,6024.0,12.7,Northern Mariana Islands
+69,21+,31744.0,67.1,Northern Mariana Islands
+69,25-29,3116.0,6.6,Northern Mariana Islands
+69,25-34,6138.0,13.0,Northern Mariana Islands
+69,30-34,3022.0,6.4,Northern Mariana Islands
+69,30-39,6125.0,13.0,Northern Mariana Islands
+69,35-39,3103.0,6.6,Northern Mariana Islands
+69,35-44,6596.0,14.0,Northern Mariana Islands
+69,40-44,3493.0,7.4,Northern Mariana Islands
+69,40-49,7437.0,15.700000000000001,Northern Mariana Islands
+69,45-49,3944.0,8.3,Northern Mariana Islands
+69,45-54,8060.0,17.0,Northern Mariana Islands
+69,45-64,13923.0,29.400000000000002,Northern Mariana Islands
+69,5-9,3698.0,7.8,Northern Mariana Islands
+69,50-54,4116.0,8.7,Northern Mariana Islands
+69,50-59,7490.0,15.799999999999999,Northern Mariana Islands
+69,55-59,3374.0,7.1,Northern Mariana Islands
+69,55-64,5863.0,12.399999999999999,Northern Mariana Islands
+69,60-64,2489.0,5.3,Northern Mariana Islands
+69,60-69,3923.0,8.3,Northern Mariana Islands
+69,62+,4141.0,8.7,Northern Mariana Islands
+69,65+,2792.0,5.9,Northern Mariana Islands
+69,65-69,1434.0,3.0,Northern Mariana Islands
+69,65-74,2201.0,4.6,Northern Mariana Islands
+69,70-74,767.0,1.6,Northern Mariana Islands
+69,70-79,1066.0,2.2,Northern Mariana Islands
+69,75-79,299.0,0.6,Northern Mariana Islands
+69,75-84,479.0,1.0,Northern Mariana Islands
+69,80+,292.0,0.6000000000000001,Northern Mariana Islands
+69,80-84,180.0,0.4,Northern Mariana Islands
+69,85+,112.0,0.2,Northern Mariana Islands
+69,All,47329.0,100.0,Northern Mariana Islands
+78,0-4,4468.0,5.1,U.S. Virgin Islands
+78,0-9,9068.0,10.399999999999999,U.S. Virgin Islands
+78,10-14,5097.0,5.8,U.S. Virgin Islands
+78,10-19,9969.0,11.399999999999999,U.S. Virgin Islands
+78,15-19,4872.0,5.6,U.S. Virgin Islands
+78,15-24,9025.0,10.399999999999999,U.S. Virgin Islands
+78,16+,72049.0,82.7,U.S. Virgin Islands
+78,18+,70060.0,80.4,U.S. Virgin Islands
+78,20-24,4153.0,4.8,U.S. Virgin Islands
+78,20-29,8723.0,10.0,U.S. Virgin Islands
+78,21+,67214.0,77.1,U.S. Virgin Islands
+78,25-29,4570.0,5.2,U.S. Virgin Islands
+78,25-34,9259.0,10.600000000000001,U.S. Virgin Islands
+78,30-34,4689.0,5.4,U.S. Virgin Islands
+78,30-39,9751.0,11.2,U.S. Virgin Islands
+78,35-39,5062.0,5.8,U.S. Virgin Islands
+78,35-44,10209.0,11.7,U.S. Virgin Islands
+78,40-44,5147.0,5.9,U.S. Virgin Islands
+78,40-49,10850.0,12.4,U.S. Virgin Islands
+78,45-49,5703.0,6.5,U.S. Virgin Islands
+78,45-54,12354.0,14.1,U.S. Virgin Islands
+78,45-64,25947.0,29.700000000000003,U.S. Virgin Islands
+78,5-9,4600.0,5.3,U.S. Virgin Islands
+78,50-54,6651.0,7.6,U.S. Virgin Islands
+78,50-59,13647.0,15.6,U.S. Virgin Islands
+78,55-59,6996.0,8.0,U.S. Virgin Islands
+78,55-64,13593.0,15.6,U.S. Virgin Islands
+78,60-64,6597.0,7.6,U.S. Virgin Islands
+78,60-69,12350.0,14.2,U.S. Virgin Islands
+78,62+,22349.0,25.6,U.S. Virgin Islands
+78,65+,18541.0,21.3,U.S. Virgin Islands
+78,65-69,5753.0,6.6,U.S. Virgin Islands
+78,65-74,11005.0,12.6,U.S. Virgin Islands
+78,70-74,5252.0,6.0,U.S. Virgin Islands
+78,70-79,9145.0,10.5,U.S. Virgin Islands
+78,75-79,3893.0,4.5,U.S. Virgin Islands
+78,75-84,6008.0,6.9,U.S. Virgin Islands
+78,80+,3643.0,4.2,U.S. Virgin Islands
+78,80-84,2115.0,2.4,U.S. Virgin Islands
+78,85+,1528.0,1.8,U.S. Virgin Islands
+78,All,87146.0,100.0,U.S. Virgin Islands

@@ -182,7 +182,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 variableConfig={props.variableConfig}
               />
             )}
-            {isPopulationSubset && <PopulationSubsetAlert />}
+            {isPopulationSubset && (
+              <PopulationSubsetAlert
+                variableId={props.variableConfig.variableId}
+              />
+            )}
           </>
         );
       }}

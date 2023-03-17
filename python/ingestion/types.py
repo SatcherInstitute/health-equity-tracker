@@ -8,6 +8,8 @@ it seems that (at least VSCODE) can't interpret these TYPE variables as the unde
 
 SEX_RACE_AGE_TYPE = Literal["sex", "age", "race"]
 SEX_RACE_ETH_AGE_TYPE = Literal["sex", "age", "race_and_ethnicity"]
+DEMOGRAPHIC_TYPE = Literal["sex", "age", "race", "race_and_ethnicity"]
 INCARCERATION_TYPE = Literal["jail", "prison"]
 VERA_PROPERTY_TYPE = Literal["raw", "rate",
                              "population", "total_confined_children"]
+GEO_TYPE = Literal["county", "state", "national"]

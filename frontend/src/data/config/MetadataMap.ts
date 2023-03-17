@@ -19,8 +19,8 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
       "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
-      "Surveillance Data Access, Summary, and Limitations (02/03/2023). The last case data included is 2 " +
-      "weeks before 02/03/2023. The CDC does not take responsibility for the scientific validity " +
+      "Surveillance Data Access, Summary, and Limitations (03/03/2023). The last case data included is 2 " +
+      "weeks before 03/03/2023. The CDC does not take responsibility for the scientific validity " +
       "or accuracy of methodology, results, statistical analyses, or conclusions presented. We only " +
       "present the data as rates that are calculated with the ACS 2019 5-year estimates, to view the " +
       "raw data you must apply for access on the CDC website linked above.",
@@ -52,7 +52,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_pretty_site_name: "census.gov",
     data_source_link:
       "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-    geographic_level: "State",
+    geographic_level: "National, State, County",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annual",
     description:
@@ -67,21 +67,15 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "acs_population-by_sex_county",
       "acs_population-by_sex_state",
       "acs_population-by_sex_national",
-      "acs_health_insurance-by_race_county_processed",
-      "acs_health_insurance-by_race_state_processed",
-      "acs_health_insurance-by_race_national_processed",
-      "acs_health_insurance-by_age_county_processed",
-      "acs_health_insurance-by_age_state_processed",
-      "acs_health_insurance-by_age_national_processed",
-      "acs_health_insurance-by_sex_county_processed",
-      "acs_health_insurance-by_sex_state_processed",
-      "acs_health_insurance-by_sex_national_processed",
-      "acs_poverty_dataset-poverty_by_age_state",
-      "acs_poverty_dataset-poverty_by_age_county",
-      "acs_poverty_dataset-poverty_by_race_state",
-      "acs_poverty_dataset-poverty_by_race_county",
-      "acs_poverty_dataset-poverty_by_sex_state",
-      "acs_poverty_dataset-poverty_by_sex_county",
+      "acs_condition-by_race_county_processed",
+      "acs_condition-by_race_state_processed",
+      "acs_condition-by_race_national_processed",
+      "acs_condition-by_age_county_processed",
+      "acs_condition-by_age_state_processed",
+      "acs_condition-by_age_national_processed",
+      "acs_condition-by_sex_county_processed",
+      "acs_condition-by_sex_state_processed",
+      "acs_condition-by_sex_national_processed",
     ],
     downloadable: true,
   },
@@ -189,7 +183,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Yearly",
     description:
-      "The Centers for Disease Control and Prevention (CDC) collects, analyzes, and disseminates surveillance data on HIV infection; these data are one of the nation’s primary sources of information on HIV in the United States. The annual surveillance report, published by CDC, summarizes information about diagnosed HIV infection in the United States and dependent areas. HIV surveillance data are used by CDC and their public health partners in other federal agencies, health departments, nonprofit organizations, academic institutions, and the public to help focus prevention efforts; plan services; allocate resources; develop policy; detect, monitor, and intervene in HIV clusters; and monitor trends in HIV infection.",
+      "The Centers for Disease Control and Prevention (CDC) is a primary source of HIV data in the United States, gathering and sharing essential information on HIV diagnoses, deaths, and PrEP coverage. Their annual surveillance report comprehensively summarizes diagnosed HIV cases nationwide and its dependent areas. This crucial data enables public health partners, government agencies, nonprofits, academia, and the public to effectively target prevention strategies, allocate resources, develop policies, and track HIV trends, ensuring a well-informed and coordinated response to the epidemic.",
     dataset_ids: [
       "cdc_hiv_data-age_county_time_series",
       "cdc_hiv_data-age_national_time_series",
