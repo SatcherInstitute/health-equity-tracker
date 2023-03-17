@@ -22,6 +22,7 @@ export interface DatasetMetadata {
   readonly name: string;
   readonly update_time: string;
   readonly contains_nh?: boolean;
+  readonly contains_mega?: boolean;
   // Source ID is added programmatically based on DataSourceMetadata config
   source_id?: string;
 }
