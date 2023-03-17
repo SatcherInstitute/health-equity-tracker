@@ -66,6 +66,8 @@ class ACS2010Population(DataSource):
             table_name = f.replace('.json', '')  # Table name is file name
             table_name = table_name.replace(
                 'acs_2010_population-', '')  # Don't need this
+            # ACS 2010 only makes state equivalent level, but not county equivalent level
+            table_name += "_state_level"
 
             column_types = gcs_to_bq_util.get_bq_column_types(
                 df, float_cols=[std_col.POPULATION_COL, std_col.POPULATION_PCT_COL])
