@@ -55,7 +55,7 @@ def get_pop_numbers_as_df(*args, **kwargs):
     elif 'national' in args[1]:
         loc = 'national'
 
-    if args[0] == 'acs_2010_population':
+    if args[0] == 'decia_2010_territory_population':
         return pd.read_csv(os.path.join(TEST_DIR, f'population_2010_by_{demo}_{loc}_level.csv'),
                            dtype={'state_fips': str,
                                   'county_fips': str,

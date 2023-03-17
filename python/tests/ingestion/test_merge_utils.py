@@ -199,7 +199,7 @@ _expected_time_series_merged_with_pop_numbers = [
     ['2008', '02', 'BLACK_NH', None, None, 'something_cooler'],
     ['2008', '78', 'WHITE_NH', None, None, 'something_else_entirely'],
     ['2008', '78', 'BLACK_NH', None, None, 'something_else_entirely'],
-    # Territories / Years 2009-2015 should merge against 2010 Decennial (acs_2010)
+    # Territories / Years 2009-2015 should merge against 2010 Decennial (decia_2010)
     ["2010", '78', 'WHITE_NH', 150, 50.0, 'something_something'],
     ["2010", '78', 'BLACK_NH', 150, 50.0, 'something_something'],
     # States / Years within ACS range should merge directly onto ACS years
@@ -266,7 +266,7 @@ def _get_pop_data_as_df(*args):
             json.dumps(_pop_data_time_series), dtype=pop_dtype).reset_index(drop=True)
 
     if args[1].endswith("_territory_state_level"):
-        if args[0] == "acs_2010_population":
+        if args[0] == "decia_2010_territory_population":
             return gcs_to_bq_util.values_json_to_df(
                 json.dumps(_terr_pop_2010_state_data), dtype=pop_dtype).reset_index(drop=True)
         if args[0] == "decia_2020_territory_population":
@@ -274,7 +274,7 @@ def _get_pop_data_as_df(*args):
                 json.dumps(_terr_pop_2020_state_data), dtype=pop_dtype).reset_index(drop=True)
 
     if args[1].endswith("_territory_county_level"):
-        if args[0] == "acs_2010_population":
+        if args[0] == "decia_2010_territory_population":
             return gcs_to_bq_util.values_json_to_df(
                 json.dumps(_terr_pop_2010_county_data), dtype=pop_dtype).reset_index(drop=True)
         if args[0] == "decia_2020_territory_population":
@@ -431,7 +431,7 @@ def testMergeYearlyPopNumbers(
         json.dumps(_expected_time_series_merged_with_pop_numbers),
         dtype={std_col.STATE_FIPS_COL: str, std_col.TIME_PERIOD_COL: str}).reset_index(drop=True)
 
-    # 3 calls to acs, acs_2010, decia_2020 x
+    # 3 calls to acs, decia_2010, decia_2020 x
     # df of matchable ACS years + df of more recent than ACS years
     assert mock_pop.call_count == 6
     assert_frame_equal(df, expected_df, check_like=True)

@@ -152,7 +152,7 @@ def merge_yearly_pop_numbers(
     - Any rows where the year is later than most recent ACS year will be merged
     with that most recent year of ACS population data
     - Any rows with year 2009-2015 for Island Area territories will
-        merge against the 2010 Decennial from `acs_2010`
+        merge against the 2010 Decennial from `decia_2010`
     - Any rows with year 2016-current for Island Area territories / county-equivalents
         will merge against the 2020 Decennial from `decia_2020`
 
@@ -274,7 +274,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
             # re-use 2020 territory populations in every ACS year 2016-current
             # load and use 2010 territory populations in every ACS year 2009-2015
             pop_terr_2010_df = gcs_to_bq_util.load_df_from_bigquery(
-                'acs_2010_population', pop_terr_table_name, pop_dtype)
+                'decia_2010_territory_population', pop_terr_table_name, pop_dtype)
             pop_terr_2010_df = pop_terr_2010_df[needed_cols]
 
             yearly_pop_terr_dfs = []

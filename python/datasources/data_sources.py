@@ -1,5 +1,5 @@
 from datasources.acs_population import ACSPopulation
-from datasources.acs_2010_population import ACS2010Population
+from datasources.decia_2010_territory_population import DECIA2010Population
 from datasources.age_adjust_cdc_restricted import AgeAdjustCDCRestricted
 from datasources.census_pop_estimates import CensusPopEstimates
 from datasources.census_pop_estimates_sc import CensusPopEstimatesSC
@@ -23,7 +23,7 @@ from datasources.vera_incarceration_county import VeraIncarcerationCounty
 # that data source.
 DATA_SOURCES_DICT = {
     ACSPopulation.get_id(): ACSPopulation(),
-    ACS2010Population.get_id(): ACS2010Population(),
+    DECIA2010Population.get_id(): DECIA2010Population(),
     AgeAdjustCDCRestricted.get_id(): AgeAdjustCDCRestricted(),
     CensusPopEstimates.get_id(): CensusPopEstimates(),
     CensusPopEstimatesSC.get_id(): CensusPopEstimatesSC(),
