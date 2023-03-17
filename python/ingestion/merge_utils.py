@@ -151,7 +151,7 @@ def merge_yearly_pop_numbers(
     - Any rows where the year is present in our ACS tables will be merged directly
     - Any rows where the year is later than most recent ACS year will be merged
     with that most recent year of ACS population data
-    - Any rows with year 2015-2024 for Island Area territories will
+    - Any rows with year 2009-2015 for Island Area territories will
         merge against the 2010 Decennial from `acs_2010`
     - Any rows with year 2016-current for Island Area territories / county-equivalents
         will merge against the 2020 Decennial from `decia_2020`
@@ -206,8 +206,7 @@ def merge_multiple_pop_cols(df: pd.DataFrame, demo: Literal['age', 'race', 'sex'
 
       df: a pandas df with demographic (race, sex, or age) and a `state_fips` column
       demo: the demographic in the df, either `age`, `race`, or `sex`
-      condition_cols: a list of condition column names to generate
-    population cols for, e.g.:
+      condition_cols: a list of strings which will serve as the col names to be added e.g.:
     ['condition_a_population', 'condition_b_population'] """
 
     df = _merge_pop(df, demo, 'state')
@@ -259,7 +258,8 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
 
     pop_df = pop_df[keep_cols]
 
-    # other territories from DECIA_2020 (VI, GU, AS, MP)
+    # merge pop data for other territories/county-equivalents
+    # from DECIA_2020 (VI, GU, AS, MP)
     if loc != 'national':
 
         verbose_demo = "race_and_ethnicity" if demo == 'race' else demo
