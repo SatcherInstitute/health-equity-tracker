@@ -110,6 +110,17 @@ STD_AGES_SUM_MAP = {
     # "18-24", "18-44"
 }
 
+NON_NH_TO_NH_RACE_MAP = {
+    std_col.Race.NHPI.value: std_col.Race.NHPI_NH.value,
+    std_col.Race.ASIAN.value: std_col.Race.ASIAN_NH.value,
+    std_col.Race.WHITE.value: std_col.Race.WHITE_NH.value,
+    std_col.Race.BLACK.value: std_col.Race.BLACK_NH.value,
+    std_col.Race.AIAN.value: std_col.Race.AIAN_NH.value,
+    std_col.Race.OTHER_STANDARD.value: std_col.Race.OTHER_STANDARD_NH.value,
+    std_col.Race.MULTI.value: std_col.Race.MULTI_NH.value,
+}
+
+
 ISLAND_SOURCE_FILE_MAP = {
     "AS": "DECENNIALDPAS2020.DP1-Data.csv",
     "GU": "DECENNIALDPGU2020.DP1-Data.csv",
@@ -191,6 +202,9 @@ class Decia2020TerritoryPopulationData(DataSource):
             needed_cols = [geo_col] + value_cols
             raw_df = raw_df[needed_cols]
             raw_df = raw_df.rename(columns=rename_map)
+
+            if postal in ["AS", "GU", "MP"] and breakdown == std_col.RACE_OR_HISPANIC_COL:
+                raw_df = use_nonNH_as_NH(raw_df)
             cleaned_dfs.append(raw_df)
 
         # combine cleaned per-island dfs into one
@@ -202,10 +216,17 @@ class Decia2020TerritoryPopulationData(DataSource):
             pct_share_group_cols_map = get_melt_map(
                 SEX_CODES_TO_STD, TMP_PCT_SHARE_SUFFIX)
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
+
+            race_map = {**RACE_CODES_TO_STD[postal], **NON_NH_TO_NH_RACE_MAP}
+
+            print("race_map")
+            print(race_map)
+
             count_group_cols_map = get_melt_map(
-                RACE_CODES_TO_STD[postal], TMP_COUNT_SUFFIX)
+                race_map, TMP_COUNT_SUFFIX)
             pct_share_group_cols_map = get_melt_map(
-                RACE_CODES_TO_STD[postal], TMP_PCT_SHARE_SUFFIX)
+                race_map, TMP_PCT_SHARE_SUFFIX)
+
         if breakdown == std_col.AGE_COL:
             df = generate_summed_age_cols(df)
             count_group_cols_map = get_melt_map(
@@ -334,3 +355,17 @@ def get_melt_map(code_map: Dict, metric_suffix: Literal["_count", "_pct_share"])
     return {
         f'{group}{metric_suffix}': group for group in code_map.values()
     }
+
+
+def use_nonNH_as_NH(df: pd.DataFrame) -> pd.DataFrame:
+    """ For AS, GU, MP, the Census does not provide _NH specific races;
+    only races that don't account for ethnicity. This is likely due to the
+    extremely small number of Hispanic people in these areas. To allow for
+    merging these island populations onto more of our data sources, we use
+    the non-NH races AS the NH races as well when they are not provided (as in VI) """
+
+    for non_nh_col, nh_col in NON_NH_TO_NH_RACE_MAP.items():
+        df[f'{nh_col}_count'] = df[f'{non_nh_col}_count']
+        df[f'{nh_col}_pct_share'] = df[f'{non_nh_col}_pct_share']
+
+    return df
