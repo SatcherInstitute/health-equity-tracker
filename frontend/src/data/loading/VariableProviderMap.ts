@@ -1,3 +1,4 @@
+import AcsConditionProvider from "../variables/AcsConditionProvider";
 import AcsPopulationProvider from "../variables/AcsPopulationProvider";
 import Acs2010PopulationProvider from "../variables/Acs2010PopulationProvider";
 import VariableProvider from "../variables/VariableProvider";
@@ -7,15 +8,12 @@ import BrfssProvider from "../variables/BrfssProvider";
 import CawpProvider from "../variables/CawpProvider";
 import IncarcerationProvider from "../variables/IncarcerationProvider";
 import { MetricId } from "../config/MetricConfig";
-import AcsHealthInsuranceProvider from "../variables/AcsHealthInsuranceProvider";
-import AcsPovertyProvider from "../variables/AcsPovertyProvider";
 import VaccineProvider from "../variables/VaccineProvider";
 import GeoContextProvider from "../variables/GeoContextProvider";
 
 export type ProviderId =
-  | "acs_health_insurance_provider"
+  | "acs_condition_provider"
   | "acs_pop_provider"
-  | "acs_poverty_provider"
   | "cdc_covid_provider"
   | "hiv_provider"
   | "geo_context_provider"
@@ -37,14 +35,13 @@ export default class VariableProviderMap {
     this.providers = [
       acsProvider,
       acs2010Provider,
+      new AcsConditionProvider(),
       new CdcCovidProvider(acsProvider),
       new HivProvider(),
       new GeoContextProvider(),
       new CawpProvider(),
       new IncarcerationProvider(),
       new BrfssProvider(),
-      new AcsHealthInsuranceProvider(),
-      new AcsPovertyProvider(),
       new VaccineProvider(acsProvider),
     ];
     this.providersById = this.getProvidersById();

@@ -47,6 +47,81 @@ export async function ensureCorrectDatasetsDownloaded(
 autoInitGlobals();
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
+const testCases = [
+  {
+    name: "County and Race Breakdown for Diagnoses",
+    datasetId: "cdc_hiv_data-race_and_ethnicity_county_time_series-06",
+    breakdowns: Breakdowns.forFips(new Fips("06037")),
+    breakdownVar: RACE,
+    metricName: "hiv_diagnoses",
+    metricIds: ["hiv_diagnoses_per_100k"],
+  },
+  {
+    name: "County and Age Breakdown for Deaths",
+    datasetId: "cdc_hiv_data-age_county_time_series-06",
+    breakdowns: Breakdowns.forFips(new Fips("06037")),
+    breakdownVar: AGE,
+    metricName: "hiv_deaths",
+    metricIds: ["hiv_deaths_per_100k"],
+  },
+  {
+    name: "County and Sex Breakdown for Prep",
+    datasetId: "cdc_hiv_data-sex_county_time_series-06",
+    breakdowns: Breakdowns.forFips(new Fips("06037")),
+    breakdownVar: SEX,
+    metricName: "hiv_prep",
+    metricIds: ["hiv_prep_coverage"],
+  },
+  {
+    name: "State and Race Breakdown Deaths",
+    datasetId: "cdc_hiv_data-race_and_ethnicity_state_time_series",
+    breakdowns: Breakdowns.forFips(new Fips("37")),
+    breakdownVar: RACE,
+    metricName: "hiv_deaths",
+    metricIds: ["hiv_deaths_pct_share"],
+  },
+  {
+    name: "State and Age Breakdown PrEP",
+    datasetId: "cdc_hiv_data-age_state_time_series",
+    breakdowns: Breakdowns.forFips(new Fips("37")),
+    breakdownVar: AGE,
+    metricName: "hiv_prep",
+    metricIds: ["hiv_prep_pct_share"],
+  },
+  {
+    name: "State and Sex Breakdown Diagnoses",
+    datasetId: "cdc_hiv_data-sex_state_time_series",
+    breakdowns: Breakdowns.forFips(new Fips("37")),
+    breakdownVar: SEX,
+    metricName: "hiv_diagnoses",
+    metricIds: ["hiv_diagnoses_pct_share"],
+  },
+  {
+    name: "National and Race Breakdown PrEP",
+    datasetId: "cdc_hiv_data-race_and_ethnicity_national_time_series",
+    breakdowns: Breakdowns.forFips(new Fips("00")),
+    breakdownVar: RACE,
+    metricName: "hiv_prep",
+    metricIds: ["hiv_prep_pct_relative_inequity"],
+  },
+  {
+    name: "National and Age Breakdown Diagnoses",
+    datasetId: "cdc_hiv_data-race_and_ethnicity_national_time_series",
+    breakdowns: Breakdowns.forFips(new Fips("00")),
+    breakdownVar: RACE,
+    metricName: "hiv_diagnoses",
+    metricIds: ["hiv_diagnoses_pct_relative_inequity"],
+  },
+  {
+    name: "National and Race Breakdown Deaths",
+    datasetId: "cdc_hiv_data-race_and_ethnicity_national_time_series",
+    breakdowns: Breakdowns.forFips(new Fips("00")),
+    breakdownVar: RACE,
+    metricName: "hiv_deaths",
+    metricIds: ["hiv_deaths_pct_relative_inequity"],
+  },
+];
+
 describe("HivProvider", () => {
   beforeEach(() => {
     resetCacheDebug();
@@ -54,96 +129,15 @@ describe("HivProvider", () => {
     dataFetcher.setFakeMetadataLoaded(DatasetMetadataMap);
   });
 
-  test("County and Race Breakdown", async () => {
-    await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-race_and_ethnicity_county_time_series-06",
-      Breakdowns.forFips(new Fips("06037")),
-      RACE,
-      "hiv_diagnoses",
-      /* metricIds */ ["hiv_diagnoses_per_100k"]
-    );
-  });
-
-  test("State and Race Breakdown", async () => {
-    await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-race_and_ethnicity_state_time_series",
-      Breakdowns.forFips(new Fips("37")),
-      RACE,
-      "hiv_diagnoses",
-      /* metricIds */ ["hiv_diagnoses_pct_share"]
-    );
-  });
-
-  test("National and Race Breakdown", async () => {
-    await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-race_and_ethnicity_national_time_series",
-      Breakdowns.forFips(new Fips("00")),
-      RACE,
-      "hiv_diagnoses",
-      /* metricIds */ ["hiv_diagnoses_per_100k"]
-    );
-  });
-
-  test("County and Age Breakdown", async () => {
-    await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-age_county_time_series-06",
-      Breakdowns.forFips(new Fips("06037")),
-      AGE,
-      "hiv_diagnoses",
-      /* metricIds */ ["hiv_diagnoses_per_100k"]
-    );
-  });
-
-  test("State and Age Breakdown", async () => {
-    await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-age_state_time_series",
-      Breakdowns.forFips(new Fips("37")),
-      AGE,
-      "hiv_diagnoses",
-      /* metricIds */ ["hiv_diagnoses_per_100k"]
-    );
-  });
-
-  test("National and Age Breakdown", async () => {
-    await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-age_national_time_series",
-      Breakdowns.forFips(new Fips("00")),
-      AGE,
-      "hiv_diagnoses",
-      /* metricIds */ [
-        "hiv_diagnoses_per_100k",
-        "hiv_diagnoses_pct_relative_inequity",
-      ]
-    );
-  });
-
-  test("County and Sex Breakdown", async () => {
-    await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-sex_county_time_series-06",
-      Breakdowns.forFips(new Fips("06037")),
-      SEX,
-      "hiv_diagnoses",
-      /* metricIds */ ["hiv_diagnoses_per_100k"]
-    );
-  });
-
-  test("State and Sex Breakdown", async () => {
-    await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-sex_state_time_series",
-      Breakdowns.forFips(new Fips("37")),
-      SEX,
-      "hiv_diagnoses",
-      /* metricIds */ ["hiv_diagnoses_per_100k"]
-    );
-  });
-
-  test("National and Sex Breakdown", async () => {
-    await ensureCorrectDatasetsDownloaded(
-      "cdc_hiv_data-sex_national_time_series",
-      Breakdowns.forFips(new Fips("00")),
-      SEX,
-      "hiv_diagnoses",
-      /* metricIds */ ["hiv_diagnoses_per_100k"]
-    );
+  testCases.forEach((testCase) => {
+    test(testCase.name, async () => {
+      await ensureCorrectDatasetsDownloaded(
+        testCase.datasetId,
+        testCase.breakdowns,
+        testCase.breakdownVar as BreakdownVar,
+        testCase.metricName as VariableId,
+        testCase.metricIds as MetricId[]
+      );
+    });
   });
 });

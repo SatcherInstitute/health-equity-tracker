@@ -7,6 +7,8 @@
 export type DropdownVarId =
   | "covid"
   | "hiv_diagnoses"
+  | "hiv_deaths"
+  | "hiv_prep"
   | "diabetes"
   | "copd"
   | "health_insurance"
@@ -83,6 +85,15 @@ export type MetricId =
   | "hiv_diagnoses_pct_share"
   | "hiv_diagnoses_pct_relative_inequity"
   | "hiv_diagnoses_ratio_age_adjusted"
+  | "hiv_deaths_per_100k"
+  | "hiv_deaths_pct_share"
+  | "hiv_deaths_pct_relative_inequity"
+  | "hiv_deaths_ratio_age_adjusted"
+  | "hiv_prep_coverage"
+  | "hiv_prep_pct_share"
+  | "hiv_prep_pct_relative_inequity"
+  | "hiv_prep_ratio_age_adjusted"
+  | "hiv_prep_population_pct"
   | "hiv_population_pct"
   | "poverty_count"
   | "poverty_pct_share"
@@ -653,6 +664,109 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             "Age-adjusted risk of HIV diagnosis compared to White (NH)",
           ],
           metricId: "hiv_diagnoses_ratio_age_adjusted",
+          shortLabel: "",
+          type: "ratio",
+        },
+      },
+    },
+  ],
+  hiv_deaths: [
+    {
+      variableId: "hiv_deaths",
+      variableDisplayName: "HIV deaths",
+      variableFullDisplayName: "HIV deaths",
+      variableDefinition: `Individuals ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
+      timeSeriesData: true,
+      metrics: {
+        pct_share: {
+          chartTitleLines: ["Share of total HIV deaths"],
+          metricId: "hiv_deaths_pct_share",
+          columnTitleHeader: "Share of total HIV deaths",
+          trendsCardTitleName: "Inequitable share of HIV deaths over time",
+          shortLabel: "% of HIV deaths",
+          type: "pct_share",
+          populationComparisonMetric: {
+            chartTitleLines: [
+              "Population vs. distribution of",
+              "total HIV deaths",
+            ],
+            metricId: "hiv_population_pct",
+            columnTitleHeader: "Population share (ages 13+)", //populationPctTitle,
+            shortLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+        per100k: {
+          metricId: "hiv_deaths_per_100k",
+          chartTitleLines: ["HIV deaths", "per 100k"],
+          trendsCardTitleName: "Rates of HIV deaths over time",
+          columnTitleHeader: "HIV deaths per 100k",
+          shortLabel: "HIV deaths per 100k",
+          type: "per100k",
+        },
+        pct_relative_inequity: {
+          chartTitleLines: ["Historical data for HIV deaths inequity"],
+          metricId: "hiv_deaths_pct_relative_inequity",
+          shortLabel: "% relative inequity",
+          type: "pct_relative_inequity",
+        },
+        age_adjusted_ratio: {
+          chartTitleLines: [
+            "Age-adjusted risk of HIV deaths compared to White (NH)",
+          ],
+          metricId: "hiv_deaths_ratio_age_adjusted",
+          shortLabel: "",
+          type: "ratio",
+        },
+      },
+    },
+  ],
+  hiv_prep: [
+    {
+      variableId: "hiv_prep",
+      variableDisplayName: "PrEP coverage",
+      variableFullDisplayName: "PrEP coverage",
+      variableDefinition: `Individuals ages 16+ prescribed PrEP medication in a particular year (single-year charts use data from 2019).`,
+      timeSeriesData: true,
+      metrics: {
+        pct_share: {
+          chartTitleLines: ["Share of total PrEP prescriptions"],
+          metricId: "hiv_prep_pct_share",
+          columnTitleHeader: "Share of total PrEP prescriptions",
+          trendsCardTitleName:
+            "Inequitable share of PrEP prescriptions over time",
+          shortLabel: "% of PrEP prescriptions",
+          type: "pct_share",
+          populationComparisonMetric: {
+            chartTitleLines: [
+              "PrEP-eligible population vs. distribution of",
+              "total PrEP prescriptions",
+            ],
+            metricId: "hiv_prep_population_pct",
+            columnTitleHeader: "PrEP-eligible population share (ages 16+)", //populationPctTitle,
+            shortLabel: "% of PrEP-eligible population",
+            type: "pct_share",
+          },
+        },
+        per100k: {
+          metricId: "hiv_prep_coverage",
+          chartTitleLines: ["Rates of PrEP coverage"],
+          trendsCardTitleName: "Rates of PrEP coverage over time",
+          columnTitleHeader: "PrEP coverage",
+          shortLabel: "% PrEP coverage",
+          type: "pct_share",
+        },
+        pct_relative_inequity: {
+          chartTitleLines: ["Historical data for PrEP coverage inequity"],
+          metricId: "hiv_prep_pct_relative_inequity",
+          shortLabel: "% relative inequity",
+          type: "pct_relative_inequity",
+        },
+        age_adjusted_ratio: {
+          chartTitleLines: [
+            "Age-adjusted risk of PrEP coverage compared to White (NH)",
+          ],
+          metricId: "hiv_prep_ratio_age_adjusted",
           shortLabel: "",
           type: "ratio",
         },
