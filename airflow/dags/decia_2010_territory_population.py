@@ -15,7 +15,7 @@ _DECIA_2010_POPULATION_DATASET = 'decia_2010_territory_population'
 default_args = {'start_date': days_ago(0)}
 
 data_ingestion_dag = DAG(
-    'decia_2010_territory_population_dag',
+    'decia_2010_population_data_ingestion_dag',
     default_args=default_args,
     schedule_interval=None,
     description='Ingestion configuration for ACS 2010 Population Data')
