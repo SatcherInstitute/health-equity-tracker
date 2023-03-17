@@ -103,10 +103,9 @@ export const CAWP_RACES = [
 
 // HIV RACE GROUPS AND ARRAY
 
-export const MEGA_NH =
-  "Asian, Native Hawaiian and Pacific Islander, American Indian and Alaska Native, Two or More or Unrepresented Race (NH)";
+export const OTHER_NONSTANDARD_NH = "Unrepresented race (NH)";
 
-export const HIV_RACES = [MEGA_NH];
+export const HIV_RACES = [OTHER_NONSTANDARD_NH];
 
 // COMBINATION RACE GROUPS AND (UNUSED) ARRAY
 export const AIAN_API =
@@ -160,7 +159,7 @@ export const raceNameToCodeMap: Partial<Record<RaceAndEthnicityGroup, string>> =
     [ASIAN_NH]: "Asian (NH)",
     // CDC HIV
     [MULTI_NH]: "Two+ (NH)",
-    [MEGA_NH]: "A/NHPI/AIAN (NH)",
+    [OTHER_NONSTANDARD_NH]: "OTHER (NH)",
     // Incarceration
     [API_NH]: "A/NHPI (NH)",
     //  race and ethnicity CAWP
