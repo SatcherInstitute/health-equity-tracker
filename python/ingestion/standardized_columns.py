@@ -227,9 +227,7 @@ class Race(Enum):
     MENA = ("MENA", "Middle Eastern & North African", True)
 
     # HIV Prep Non-standard race that combines all races except for Black, White, Other, and Hispanic
-    races = "Asian, Native Hawaiian and Pacific Islander, " \
-        "American Indian and Alaska Native, Two or More or Unrepresented Race"
-    MEGA_NH = ("MEGA_NH", races, False)
+    MEGA_NH = ("MEGA_NH", "Neither Black, White, nor Hispanic", True)
 
     # Categories that are combinations of other categories
 
