@@ -115,7 +115,7 @@ export function MissingHIVData() {
       <ul>
         <li>
           County-level data is suppressed when the population denominator is
-          less than 100; the total case count is between 1–4 cases, or when
+          less than 100, the total case count is between 1–4 cases, or when
           querying HIV or AIDS deaths.
         </li>
         <li>
@@ -125,8 +125,11 @@ export function MissingHIVData() {
           circumstances.
         </li>
         <li>
-          Due to the lack of data cell sizes, subpopulation rates by age, sex,
-          and race/ethnicity are not calculated for the dependent areas
+          There isn't enough data to accurately calculate subpopulation rates by
+          age, sex, and race/ethnicity for the dependent areas(US territories
+          other than Puerto Rico). As a result, the analysis or report will not
+          provide detailed information about these specific groups in those
+          regions.
         </li>
       </ul>
     </>

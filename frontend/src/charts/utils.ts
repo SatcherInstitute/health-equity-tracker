@@ -96,20 +96,36 @@ export function addMetricDisplayColumn(
 type subtitleProps = {
   activeBreakdownFilter: DemographicGroup;
   currentBreakdown: BreakdownVar;
+  isPopulationSubset?: boolean;
+  metricId: MetricId;
 };
 
-export function createSubtitle({
+export function generateSubtitle({
   activeBreakdownFilter,
   currentBreakdown,
+  isPopulationSubset,
+  metricId,
 }: subtitleProps) {
+  let subtitle = "";
+
   if (activeBreakdownFilter === "All") {
-    return "";
-  }
-  if (currentBreakdown === "age") {
-    return `Ages ${activeBreakdownFilter}`;
+    subtitle = "";
+  } else if (currentBreakdown === "age") {
+    subtitle = `Ages ${activeBreakdownFilter}`;
   } else {
-    return `${activeBreakdownFilter}`;
+    subtitle = `${activeBreakdownFilter}`;
   }
+
+  if (isPopulationSubset) {
+    let ageTitle = metricId === "hiv_prep_coverage" ? "Ages 16+" : "Ages 13+";
+    if (subtitle === "") {
+      subtitle = ageTitle;
+    } else if (currentBreakdown !== "age") {
+      subtitle += `, ${ageTitle}`;
+    }
+  }
+
+  return subtitle;
 }
 
 export function getAltGroupLabel(

@@ -16,22 +16,22 @@ export default function PopulationSubsetAlert({
 
   if (variableId === "hiv_deaths") {
     variable = "HIV deaths";
-    ageGroup = "13";
+    ageGroup = "ages 13 and older";
   }
   if (variableId === "hiv_diagnoses") {
     variable = "HIV diagnoses";
-    ageGroup = "13";
+    ageGroup = " ages 13 and older";
   }
   if (variableId === "hiv_prep") {
     variable = "PrEP coverage";
-    ageGroup = "16";
+    ageGroup = "eligible for PrEP, ages 16 and older";
   }
 
   return (
     <CardContent>
       <Alert severity="info" role="note">
         All values presented for <b>{variable}</b> are calculated on the
-        population of individuals ages {ageGroup} and older. Read more on our{" "}
+        population of individuals {ageGroup}. Read more on our{" "}
         <HashLink to={METHODOLOGY_TAB_LINK}>methodology.</HashLink>
       </Alert>
     </CardContent>

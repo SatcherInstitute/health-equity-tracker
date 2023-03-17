@@ -48,7 +48,6 @@ export function Axes({ chartDimensions, xAxisTitle, yAxisTitle }: AxesProps) {
       labels: {
         update: {
           text: { signal: MULTILINE_LABEL },
-          // Limit at which line is truncated with an ellipsis
           dy: { signal: AXIS_LABEL_Y_DELTA },
           lineHeight: { signal: LABEL_HEIGHT },
         },
