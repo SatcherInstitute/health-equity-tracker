@@ -22,7 +22,7 @@ def get_breakdown_col(df):
         return std_col.AGE_COL
 
 
-class DECIA2010Population(DataSource):
+class Decia2010TerritoryPopulationData(DataSource):
 
     @staticmethod
     def get_id():
@@ -34,7 +34,7 @@ class DECIA2010Population(DataSource):
 
     def upload_to_gcs(self, _, **attrs):
         raise NotImplementedError(
-            'upload_to_gcs should not be called for DECIA2010Population')
+            'upload_to_gcs should not be called for Decia2010TerritoryPopulationData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         gcs_files = self.get_attr(attrs, 'filename')
