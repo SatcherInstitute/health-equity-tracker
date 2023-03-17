@@ -189,7 +189,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Yearly",
     description:
-      "The Centers for Disease Control and Prevention (CDC) collects, analyzes, and disseminates surveillance data on HIV infection; these data are one of the nation’s primary sources of information on HIV in the United States. The annual surveillance report, published by CDC, summarizes information about diagnosed HIV infection in the United States and dependent areas. HIV surveillance data are used by CDC and their public health partners in other federal agencies, health departments, nonprofit organizations, academic institutions, and the public to help focus prevention efforts; plan services; allocate resources; develop policy; detect, monitor, and intervene in HIV clusters; and monitor trends in HIV infection.",
+      "The Centers for Disease Control and Prevention (CDC) is a primary source of HIV data in the United States, gathering and sharing essential information on HIV diagnoses, deaths, and PrEP coverage. Their annual surveillance report comprehensively summarizes diagnosed HIV cases nationwide and its dependent areas. This crucial data enables public health partners, government agencies, nonprofits, academia, and the public to effectively target prevention strategies, allocate resources, develop policies, and track HIV trends, ensuring a well-informed and coordinated response to the epidemic.",
     dataset_ids: [
       "cdc_hiv_data-age_county_time_series",
       "cdc_hiv_data-age_national_time_series",
