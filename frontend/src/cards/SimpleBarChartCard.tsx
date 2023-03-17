@@ -133,7 +133,11 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 </>
               )}
             </CardContent>
-            {isPopulationSubset && <PopulationSubsetAlert />}
+            {isPopulationSubset && (
+              <PopulationSubsetAlert
+                variableId={props.variableConfig.variableId}
+              />
+            )}
           </>
         );
       }}

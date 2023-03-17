@@ -4,53 +4,57 @@ import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import VariableProvider from "./VariableProvider";
 import { appendFipsIfNeeded } from "../utils/datasetutils";
 
-class AcsHealthInsuranceProvider extends VariableProvider {
+class AcsConditionProvider extends VariableProvider {
   constructor() {
-    super("acs_health_insurance_provider", [
+    super("acs_condition_provider", [
       "uninsured_population_pct",
       "uninsured_per_100k",
       "uninsured_pct_share",
       "uninsured_ratio_age_adjusted",
       "uninsured_pct_relative_inequity",
+      "poverty_population_pct",
+      "poverty_per_100k",
+      "poverty_pct_share",
+      "poverty_ratio_age_adjusted",
+      "poverty_pct_relative_inequity",
     ]);
   }
 
-  // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.hasOnlyRace()) {
       if (breakdowns.geography === "county") {
         return appendFipsIfNeeded(
-          "acs_health_insurance-by_race_county_processed",
+          "acs_condition-by_race_county_processed",
           breakdowns
         );
       } else if (breakdowns.geography === "state") {
-        return "acs_health_insurance-by_race_state_processed";
+        return "acs_condition-by_race_state_processed";
       } else if (breakdowns.geography === "national") {
-        return "acs_health_insurance-by_race_national_processed";
+        return "acs_condition-by_race_national_processed";
       }
     }
     if (breakdowns.hasOnlyAge()) {
       if (breakdowns.geography === "county") {
         return appendFipsIfNeeded(
-          "acs_health_insurance-by_age_county_processed",
+          "acs_condition-by_age_county_processed",
           breakdowns
         );
       } else if (breakdowns.geography === "state") {
-        return "acs_health_insurance-by_age_state_processed";
+        return "acs_condition-by_age_state_processed";
       } else if (breakdowns.geography === "national") {
-        return "acs_health_insurance-by_age_national_processed";
+        return "acs_condition-by_age_national_processed";
       }
     }
     if (breakdowns.hasOnlySex()) {
       if (breakdowns.geography === "county") {
         return appendFipsIfNeeded(
-          "acs_health_insurance-by_sex_county_processed",
+          "acs_condition-by_sex_county_processed",
           breakdowns
         );
       } else if (breakdowns.geography === "state") {
-        return "acs_health_insurance-by_sex_state_processed";
+        return "acs_condition-by_sex_state_processed";
       } else if (breakdowns.geography === "national") {
-        return "acs_health_insurance-by_sex_national_processed";
+        return "acs_condition-by_sex_national_processed";
       }
     }
 
@@ -83,4 +87,4 @@ class AcsHealthInsuranceProvider extends VariableProvider {
   }
 }
 
-export default AcsHealthInsuranceProvider;
+export default AcsConditionProvider;

@@ -16,6 +16,7 @@ import {
   addMetricDisplayColumn,
   PADDING_FOR_ACTIONS_MENU,
   getAltGroupLabel,
+  LABEL_HEIGHT,
 } from "./utils";
 import { useFontSize } from "../utils/hooks/useFontSize";
 import sass from "../styles/variables.module.scss";
@@ -62,9 +63,8 @@ function getSpec(
   };
 
   //create bar label as array or string
-  const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} + "${
-    usePercentSuffix ? SINGLE_LINE_PERCENT : PER_100K
-  }"`;
+  const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} + 
+  "${usePercentSuffix ? SINGLE_LINE_PERCENT : PER_100K}"`;
   const multiLineLabel = `[datum.${tooltipMetricDisplayColumnName}, "${PER_100K}"]`;
   const createBarLabel = () => {
     if (chartIsSmall) {
@@ -281,6 +281,7 @@ function getSpec(
               // Limit at which line is truncated with an ellipsis
               limit: { value: 100 },
               dy: { signal: AXIS_LABEL_Y_DELTA },
+              lineHeight: { signal: LABEL_HEIGHT },
             },
           },
         },

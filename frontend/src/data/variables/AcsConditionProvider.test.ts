@@ -1,4 +1,4 @@
-import AcsHealthInsuranceProvider from "./AcsHealthInsuranceProvider";
+import AcsConditionProvider from "./AcsConditionProvider";
 import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import { MetricQuery } from "../query/MetricQuery";
 import { Fips } from "../utils/Fips";
@@ -9,7 +9,7 @@ import {
   resetCacheDebug,
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
-import { CHATAM, NC, VI, USA } from "./TestUtils";
+import { CHATAM, NC, USA } from "./TestUtils";
 import { RACE, SEX, AGE } from "../utils/Constants";
 
 export async function ensureCorrectDatasetsDownloaded(
@@ -17,7 +17,7 @@ export async function ensureCorrectDatasetsDownloaded(
   baseBreakdown: Breakdowns,
   breakdownVar: BreakdownVar
 ) {
-  const acsProvider = new AcsHealthInsuranceProvider();
+  const acsProvider = new AcsConditionProvider();
 
   dataFetcher.setFakeDatasetLoaded(cdcDatasetId, []);
 
@@ -32,7 +32,7 @@ export async function ensureCorrectDatasetsDownloaded(
 autoInitGlobals();
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
-describe("cdcCovidProvider", () => {
+describe("acsConditionProvider", () => {
   beforeEach(() => {
     resetCacheDebug();
     dataFetcher.resetState();
@@ -41,7 +41,7 @@ describe("cdcCovidProvider", () => {
 
   test("National and Sex Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "acs_health_insurance-by_sex_national_processed",
+      "acs_condition-by_sex_national_processed",
       Breakdowns.forFips(new Fips(USA.code)),
       SEX
     );
@@ -49,7 +49,7 @@ describe("cdcCovidProvider", () => {
 
   test("National and Age Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "acs_health_insurance-by_age_national_processed",
+      "acs_condition-by_age_national_processed",
       Breakdowns.forFips(new Fips(USA.code)),
       AGE
     );
@@ -57,7 +57,7 @@ describe("cdcCovidProvider", () => {
 
   test("National and Race Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "acs_health_insurance-by_race_national_processed",
+      "acs_condition-by_race_national_processed",
       Breakdowns.forFips(new Fips(USA.code)),
       RACE
     );
@@ -65,7 +65,7 @@ describe("cdcCovidProvider", () => {
 
   test("State and Age Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "acs_health_insurance-by_age_state_processed",
+      "acs_condition-by_age_state_processed",
       Breakdowns.forFips(new Fips(NC.code)),
       AGE
     );
@@ -73,7 +73,7 @@ describe("cdcCovidProvider", () => {
 
   test("State and Sex Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "acs_health_insurance-by_sex_state_processed",
+      "acs_condition-by_sex_state_processed",
       Breakdowns.forFips(new Fips(NC.code)),
       SEX
     );
@@ -81,7 +81,7 @@ describe("cdcCovidProvider", () => {
 
   test("State and Race Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "acs_health_insurance-by_race_state_processed",
+      "acs_condition-by_race_state_processed",
       Breakdowns.forFips(new Fips(NC.code)),
       RACE
     );
@@ -89,7 +89,7 @@ describe("cdcCovidProvider", () => {
 
   test("County and Age Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "acs_health_insurance-by_age_county_processed-37",
+      "acs_condition-by_age_county_processed-37",
       Breakdowns.forFips(new Fips(CHATAM.code)),
       AGE
     );
@@ -97,7 +97,7 @@ describe("cdcCovidProvider", () => {
 
   test("County and Sex Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "acs_health_insurance-by_sex_county_processed-37",
+      "acs_condition-by_sex_county_processed-37",
       Breakdowns.forFips(new Fips(CHATAM.code)),
       SEX
     );
@@ -105,7 +105,7 @@ describe("cdcCovidProvider", () => {
 
   test("County and Race Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "acs_health_insurance-by_race_county_processed-37",
+      "acs_condition-by_race_county_processed-37",
       Breakdowns.forFips(new Fips(CHATAM.code)),
       RACE
     );
