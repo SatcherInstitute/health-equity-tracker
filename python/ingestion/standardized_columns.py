@@ -226,9 +226,6 @@ class Race(Enum):
     HISP_F = ("HISP_F", "Latina", True)
     MENA = ("MENA", "Middle Eastern & North African", True)
 
-    # HIV Prep Non-standard race that combines all races except for Black, White, Other, and Hispanic
-    MEGA_NH = ("MEGA_NH", "Neither Black, White, nor Hispanic", True)
-
     # Categories that are combinations of other categories
 
     # Combines AIAN and NHPI

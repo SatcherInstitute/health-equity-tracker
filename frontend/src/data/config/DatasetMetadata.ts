@@ -58,14 +58,14 @@ export const datasetMetadataList: DatasetMetadata[] = [
     name: "HIV diagnoses, deaths, and PrEP coverage by race/ethnicity and state",
     update_time: "2019",
     contains_nh: true,
-    contains_mega: true,
+    contains_other_nh: true,
   },
   {
     id: "cdc_hiv_data-race_and_ethnicity_national_time_series",
     name: "HIV diagnoses, deaths, and PrEP coverage by race/ethnicity nationally",
     update_time: "2019",
     contains_nh: true,
-    contains_mega: true,
+    contains_other_nh: true,
   },
   {
     id: "cdc_hiv_data-age_county_time_series",
