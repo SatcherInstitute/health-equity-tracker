@@ -1,7 +1,0 @@
-state_name,state_fips,time_period,sex,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,population_pct
-Alabama,01,2019,All,635.0,15.4,100.0,100.0
-Alabama,01,2019,Female,135.0,6.3,21.3,52.2
-Alabama,01,2019,Male,500.0,25.3,78.7,47.8
-Alaska,02,2019,All,27.0,4.5,100.0,100.0
-Alaska,02,2019,Female,7.0,2.4,25.9,47.6
-Alaska,02,2019,Male,20.0,6.4,74.1,52.4
