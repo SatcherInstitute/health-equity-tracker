@@ -47,7 +47,7 @@ import { MultiMapLink } from "./ui/MultiMapLink";
 import { RateInfoAlert } from "./ui/RateInfoAlert";
 import { findVerboseRating } from "./ui/SviAlert";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
-import { createSubtitle } from "../charts/utils";
+import { generateSubtitle } from "../charts/utils";
 import { useLocation } from "react-router-dom";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
 import { ScrollableHashId } from "../utils/hooks/useStepObserver";
@@ -175,13 +175,16 @@ function MapCardWithKey(props: MapCardProps) {
     metricConfig,
     locationPhrase
   );
-  let subtitle = createSubtitle({ currentBreakdown, activeBreakdownFilter });
-  filename = `${filename} ${subtitle ? `for ${subtitle}` : ""}`;
 
-  if (HIV_DETERMINANTS.includes(metricConfig.metricId)) {
-    if (subtitle === "") subtitle = "Ages 13+";
-    else if (currentBreakdown !== "age") subtitle += ", Ages 13+";
-  }
+  const { metricId } = metricConfig;
+  let subtitle = generateSubtitle({
+    activeBreakdownFilter,
+    currentBreakdown,
+    isPopulationSubset,
+    metricId,
+  });
+
+  filename = `${filename} ${subtitle ? `for ${subtitle}` : ""}`;
 
   const HASH_ID: ScrollableHashId = "rate-map";
 
@@ -449,7 +452,11 @@ function MapCardWithKey(props: MapCardProps) {
                       />
                     )}
                 </CardContent>
-                {isPopulationSubset && <PopulationSubsetAlert />}
+                {isPopulationSubset && (
+                  <PopulationSubsetAlert
+                    variableId={props.variableConfig.variableId}
+                  />
+                )}
               </>
             )}
           </>
