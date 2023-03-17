@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 time_period,state_name,state_fips,age,hiv_population_pct,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_diagnoses_pct_relative_inequity,hiv_deaths,hiv_deaths_per_100k,hiv_deaths_pct_share,hiv_deaths_pct_relative_inequity,hiv_prep_population_pct,hiv_prep,hiv_prep_coverage,hiv_prep_pct_share,hiv_prep_pct_relative_inequity
 2017,United States,00,13-24,18.9,8277.0,16.1,21.6,14.3,151.0,0.3,0.9,-95.2,,,,,
 2017,United States,00,16-24,,,,,,,,,,21.2,20083.0,7.8,13.0,-38.7
@@ -16,6 +17,8 @@ time_period,state_name,state_fips,age,hiv_population_pct,hiv_diagnoses,hiv_diagn
 2019,United States,00,All,100.0,36528.0,13.2,100.0,0.0,16230.0,5.9,100.0,0.0,100.0,275182.0,22.6,100.0,0.0
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 79169ebf (rebasing)
 state_name,state_fips,time_period,age,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_population_pct,hiv_diagnoses_pct_relative_inequity
 United States,00,2020,13-24,6082,11.9,20.0,18.4,8.7
 United States,00,2019,13-24,7638,15.0,20.9,18.5,13.0
@@ -35,6 +38,7 @@ United States,00,2008,55+,4148,5.7,8.8,28.9,-69.6
 United States,00,2020,All,30346,10.9,100.0,100.0,0.0
 United States,00,2019,All,36528,13.2,100.0,100.0,0.0
 United States,00,2008,All,47018,18.7,100.0,100.0,0.0
+<<<<<<< HEAD
 =======
 state_name,state_fips,time_period,age,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,population_pct
 United States,00,2019,13-24,7638.0,15.0,20.9,18.5
@@ -45,3 +49,6 @@ United States,00,2019,55+,3814.0,4.0,10.4,35.8
 United States,00,2019,All,36528.0,13.2,100.0,100.0
 >>>>>>> 4a865f7c (rebasing)
 >>>>>>> 2a93d0ed (rebasing)
+=======
+
+>>>>>>> 79169ebf (rebasing)
