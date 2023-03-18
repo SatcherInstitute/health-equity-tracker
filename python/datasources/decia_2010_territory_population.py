@@ -49,7 +49,7 @@ class Decia2010TerritoryPopulationData(DataSource):
 
         for f in files:
             df = gcs_to_bq_util.load_json_as_df_from_data_dir(
-                "decia_2010", f, {'state_fips': str})
+                "decia_2010_territory_population", f, {'state_fips': str})
 
             total_val = (
                 Race.ALL.value if get_breakdown_col(df) == std_col.RACE_CATEGORY_ID_COL else std_col.ALL_VALUE)
