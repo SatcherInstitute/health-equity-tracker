@@ -38,6 +38,7 @@ def get_fips_and_county_names_as_df(*args, **kwargs):
 
 
 def get_pop_numbers_as_df(*args, **kwargs):
+
     demo = ''
     if 'race' in args[1]:
         demo = 'race'
@@ -54,8 +55,13 @@ def get_pop_numbers_as_df(*args, **kwargs):
     elif 'national' in args[1]:
         loc = 'national'
 
-    if args[0] == 'acs_2010_population':
-        return pd.read_csv(os.path.join(TEST_DIR, f'population_2010_{demo}.csv'),
+    if args[0] == 'decia_2010_territory_population':
+        return pd.read_csv(os.path.join(TEST_DIR, f'population_2010_by_{demo}_{loc}_level.csv'),
+                           dtype={'state_fips': str,
+                                  'county_fips': str,
+                                  })
+    elif args[0] == 'decia_2020_territory_population':
+        return pd.read_csv(os.path.join(TEST_DIR, f'population_2020_by_{demo}_{loc}_level.csv'),
                            dtype={'state_fips': str,
                                   'county_fips': str,
                                   })
@@ -246,7 +252,7 @@ def testGenerateBreakdownSexCountyCumulative(mock_fips: mock.MagicMock, mock_pop
             side_effect=get_cdc_numbers_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
-def testWriteToBqAge(
+def testWriteToBqAgeNational(
         mock_bq: mock.MagicMock,
         mock_csv: mock.MagicMock,
         mock_fips: mock.MagicMock,
@@ -256,49 +262,30 @@ def testWriteToBqAge(
 
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
-              'table_name': 'output_table', 'demographic': 'age'}
+              'table_name': 'output_table', 'demographic': 'age',
+              'geographic': 'national'}
     cdc_restricted.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    assert mock_csv.call_count == 6
+    assert mock_csv.call_count == 2
     assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_age_state.csv'
     assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_age_state.csv'
-    assert mock_csv.call_args_list[2].args[1] == 'cdc_restricted_by_age_state.csv'
-    assert mock_csv.call_args_list[3].args[1] == 'cdc_restricted_by_age_state.csv'
-    assert mock_csv.call_args_list[4].args[1] == 'cdc_restricted_by_age_county.csv'
-    assert mock_csv.call_args_list[5].args[1] == 'cdc_restricted_by_age_county.csv'
 
-    assert mock_pop.call_count == 12
+    assert mock_fips.call_count == 2
+
+    assert mock_pop.call_count == 6
     # National, cumulative
     assert mock_pop.call_args_list[0].args[1] == 'by_age_state'
-    assert mock_pop.call_args_list[1].args[1] == 'by_age_territory'
+    assert mock_pop.call_args_list[1].args[1] == 'by_age_territory_state_level'
     assert mock_pop.call_args_list[2].args[1] == 'by_age_national'
 
     # National, non cumulative
     assert mock_pop.call_args_list[3].args[1] == 'by_age_state'
-    assert mock_pop.call_args_list[4].args[1] == 'by_age_territory'
+    assert mock_pop.call_args_list[4].args[1] == 'by_age_territory_state_level'
     assert mock_pop.call_args_list[5].args[1] == 'by_age_national'
 
-    # State, cumulative
-    assert mock_pop.call_args_list[6].args[1] == 'by_age_state'
-    assert mock_pop.call_args_list[7].args[1] == 'by_age_territory'
-
-    # State, non cumulative
-    assert mock_pop.call_args_list[8].args[1] == 'by_age_state'
-    assert mock_pop.call_args_list[9].args[1] == 'by_age_territory'
-
-    # County, cumulative
-    assert mock_pop.call_args_list[10].args[1] == 'by_age_county'
-
-    # County, non cumulative
-    assert mock_pop.call_args_list[11].args[1] == 'by_age_county'
-
-    assert mock_bq.call_count == 6
+    assert mock_bq.call_count == 2
     assert mock_bq.call_args_list[0].args[2] == 'by_age_national_processed'
     assert mock_bq.call_args_list[1].args[2] == 'by_age_national_processed_time_series'
-    assert mock_bq.call_args_list[2].args[2] == 'by_age_state_processed'
-    assert mock_bq.call_args_list[3].args[2] == 'by_age_state_processed_time_series'
-    assert mock_bq.call_args_list[4].args[2] == 'by_age_county_processed'
-    assert mock_bq.call_args_list[5].args[2] == 'by_age_county_processed_time_series'
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
@@ -309,7 +296,7 @@ def testWriteToBqAge(
             side_effect=get_cdc_numbers_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
-def testWriteToBqSex(
+def testWriteToBqAgeState(
         mock_bq: mock.MagicMock,
         mock_csv: mock.MagicMock,
         mock_fips: mock.MagicMock,
@@ -319,49 +306,27 @@ def testWriteToBqSex(
 
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
-              'table_name': 'output_table', 'demographic': 'sex'}
+              'table_name': 'output_table', 'demographic': 'age',
+              'geographic': 'state'}
     cdc_restricted.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    assert mock_csv.call_count == 6
-    assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_sex_state.csv'
-    assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_sex_state.csv'
-    assert mock_csv.call_args_list[2].args[1] == 'cdc_restricted_by_sex_state.csv'
-    assert mock_csv.call_args_list[3].args[1] == 'cdc_restricted_by_sex_state.csv'
-    assert mock_csv.call_args_list[4].args[1] == 'cdc_restricted_by_sex_county.csv'
-    assert mock_csv.call_args_list[5].args[1] == 'cdc_restricted_by_sex_county.csv'
+    assert mock_csv.call_count == 2
+    assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_age_state.csv'
+    assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_age_state.csv'
 
-    assert mock_pop.call_count == 12
-    # National, cumulative
-    assert mock_pop.call_args_list[0].args[1] == 'by_sex_state'
-    assert mock_pop.call_args_list[1].args[1] == 'by_sex_territory'
-    assert mock_pop.call_args_list[2].args[1] == 'by_sex_national'
-
-    # National, non cumulative
-    assert mock_pop.call_args_list[3].args[1] == 'by_sex_state'
-    assert mock_pop.call_args_list[4].args[1] == 'by_sex_territory'
-    assert mock_pop.call_args_list[5].args[1] == 'by_sex_national'
+    assert mock_pop.call_count == 4
 
     # State, cumulative
-    assert mock_pop.call_args_list[6].args[1] == 'by_sex_state'
-    assert mock_pop.call_args_list[7].args[1] == 'by_sex_territory'
+    assert mock_pop.call_args_list[0].args[1] == 'by_age_state'
+    assert mock_pop.call_args_list[1].args[1] == 'by_age_territory_state_level'
 
     # State, non cumulative
-    assert mock_pop.call_args_list[8].args[1] == 'by_sex_state'
-    assert mock_pop.call_args_list[9].args[1] == 'by_sex_territory'
+    assert mock_pop.call_args_list[2].args[1] == 'by_age_state'
+    assert mock_pop.call_args_list[3].args[1] == 'by_age_territory_state_level'
 
-    # County, cumulative
-    assert mock_pop.call_args_list[10].args[1] == 'by_sex_county'
-
-    # County, non cumulative
-    assert mock_pop.call_args_list[11].args[1] == 'by_sex_county'
-
-    assert mock_bq.call_count == 6
-    assert mock_bq.call_args_list[0].args[2] == 'by_sex_national_processed'
-    assert mock_bq.call_args_list[1].args[2] == 'by_sex_national_processed_time_series'
-    assert mock_bq.call_args_list[2].args[2] == 'by_sex_state_processed'
-    assert mock_bq.call_args_list[3].args[2] == 'by_sex_state_processed_time_series'
-    assert mock_bq.call_args_list[4].args[2] == 'by_sex_county_processed'
-    assert mock_bq.call_args_list[5].args[2] == 'by_sex_county_processed_time_series'
+    assert mock_bq.call_count == 2
+    assert mock_bq.call_args_list[0].args[2] == 'by_age_state_processed'
+    assert mock_bq.call_args_list[1].args[2] == 'by_age_state_processed_time_series'
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
@@ -372,7 +337,7 @@ def testWriteToBqSex(
             side_effect=get_cdc_numbers_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
-def testWriteToBqRace(
+def testWriteToBqAgeCounty(
         mock_bq: mock.MagicMock,
         mock_csv: mock.MagicMock,
         mock_fips: mock.MagicMock,
@@ -382,48 +347,109 @@ def testWriteToBqRace(
 
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
-              'table_name': 'output_table', 'demographic': 'race'}
+              'table_name': 'output_table', 'demographic': 'age',
+              'geographic': 'county'}
     cdc_restricted.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    assert mock_csv.call_count == 7
+    assert mock_csv.call_count == 2
+    assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_age_county.csv'
+    assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_age_county.csv'
+
+    assert mock_pop.call_count == 4
+
+    # County, cumulative
+    assert mock_pop.call_args_list[0].args[1] == 'by_age_county'
+    assert mock_pop.call_args_list[1].args[1] == 'by_age_territory_county_level'
+
+    # County, non cumulative
+    assert mock_pop.call_args_list[2].args[1] == 'by_age_county'
+    assert mock_pop.call_args_list[3].args[1] == 'by_age_territory_county_level'
+
+    assert mock_bq.call_count == 2
+    assert mock_bq.call_args_list[0].args[2] == 'by_age_county_processed'
+    assert mock_bq.call_args_list[1].args[2] == 'by_age_county_processed_time_series'
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=get_pop_numbers_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            side_effect=get_fips_and_county_names_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df',
+            side_effect=get_cdc_numbers_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+            return_value=None)
+def testWriteToBqSexCounty(
+        mock_bq: mock.MagicMock,
+        mock_csv: mock.MagicMock,
+        mock_fips: mock.MagicMock,
+        mock_pop: mock.MagicMock):
+
+    cdc_restricted = CDCRestrictedData()
+
+    kwargs = {'filename': 'test_file.csv',
+              'metadata_table_id': 'test_metadata',
+              'table_name': 'output_table', 'demographic': 'sex',
+              'geographic': 'county'}
+    cdc_restricted.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+
+    assert mock_csv.call_count == 2
+    assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_sex_county.csv'
+    assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_sex_county.csv'
+
+    assert mock_pop.call_count == 4
+
+    # County, cumulative
+    assert mock_pop.call_args_list[0].args[1] == 'by_sex_county'
+    assert mock_pop.call_args_list[1].args[1] == 'by_sex_territory_county_level'
+
+    # County, non cumulative
+    assert mock_pop.call_args_list[2].args[1] == 'by_sex_county'
+    assert mock_pop.call_args_list[3].args[1] == 'by_sex_territory_county_level'
+
+    assert mock_bq.call_count == 2
+    assert mock_bq.call_args_list[0].args[2] == 'by_sex_county_processed'
+    assert mock_bq.call_args_list[1].args[2] == 'by_sex_county_processed_time_series'
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=get_pop_numbers_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            side_effect=get_fips_and_county_names_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df',
+            side_effect=get_cdc_numbers_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+            return_value=None)
+def testWriteToBqRaceNational(
+        mock_bq: mock.MagicMock,
+        mock_csv: mock.MagicMock,
+        mock_fips: mock.MagicMock,
+        mock_pop: mock.MagicMock):
+
+    cdc_restricted = CDCRestrictedData()
+
+    kwargs = {'filename': 'test_file.csv',
+              'metadata_table_id': 'test_metadata',
+              'table_name': 'output_table', 'demographic': 'race',
+              'geographic': 'national'}
+    cdc_restricted.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+
+    assert mock_csv.call_count == 3
     assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_race_state.csv'
     assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_race_state.csv'
-    assert mock_csv.call_args_list[2].args[1] == 'cdc_restricted_by_race_state.csv'
-    assert mock_csv.call_args_list[3].args[1] == 'cdc_restricted_by_race_state.csv'
-    assert mock_csv.call_args_list[4].args[1] == 'cdc_restricted_by_race_county.csv'
-    assert mock_csv.call_args_list[5].args[1] == 'cdc_restricted_by_race_county.csv'
-    assert mock_csv.call_args_list[6].args[1] == 'cdc_restricted_by_race_and_age_state.csv'
+    assert mock_csv.call_args_list[2].args[1] == 'cdc_restricted_by_race_and_age_state.csv'
 
-    assert mock_pop.call_count == 12
+    assert mock_pop.call_count == 6
     # National, cumulative
     assert mock_pop.call_args_list[0].args[1] == 'by_race_state'
-    assert mock_pop.call_args_list[1].args[1] == 'by_race_and_ethnicity_territory'
+    assert mock_pop.call_args_list[1].args[1] == 'by_race_and_ethnicity_territory_state_level'
     assert mock_pop.call_args_list[2].args[1] == 'by_race_national'
 
     # National, non cumulative
     assert mock_pop.call_args_list[3].args[1] == 'by_race_state'
-    assert mock_pop.call_args_list[4].args[1] == 'by_race_and_ethnicity_territory'
+    assert mock_pop.call_args_list[4].args[1] == 'by_race_and_ethnicity_territory_state_level'
     assert mock_pop.call_args_list[5].args[1] == 'by_race_national'
 
-    # State, cumulative
-    assert mock_pop.call_args_list[6].args[1] == 'by_race_state'
-    assert mock_pop.call_args_list[7].args[1] == 'by_race_and_ethnicity_territory'
-
-    # State, non cumulative
-    assert mock_pop.call_args_list[8].args[1] == 'by_race_state'
-    assert mock_pop.call_args_list[9].args[1] == 'by_race_and_ethnicity_territory'
-
-    # County, cumulative
-    assert mock_pop.call_args_list[10].args[1] == 'by_race_county'
-
-    # County, non cumulative
-    assert mock_pop.call_args_list[11].args[1] == 'by_race_county'
-
-    assert mock_bq.call_count == 7
+    assert mock_bq.call_count == 3
     assert mock_bq.call_args_list[0].args[2] == 'by_race_national_processed'
     assert mock_bq.call_args_list[1].args[2] == 'by_race_national_processed_time_series'
-    assert mock_bq.call_args_list[2].args[2] == 'by_race_state_processed'
-    assert mock_bq.call_args_list[3].args[2] == 'by_race_state_processed_time_series'
-    assert mock_bq.call_args_list[4].args[2] == 'by_race_county_processed'
-    assert mock_bq.call_args_list[5].args[2] == 'by_race_county_processed_time_series'
-    assert mock_bq.call_args_list[6].args[2] == 'by_race_age_state'
+    assert mock_bq.call_args_list[2].args[2] == 'by_race_age_state'
