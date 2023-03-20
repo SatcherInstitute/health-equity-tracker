@@ -111,20 +111,50 @@ export function MissingCAWPData() {
 export function MissingHIVData() {
   return (
     <>
-      <h4>Missing data for HIV diagnoses</h4>
+      <h4>Missing data for HIV deaths and diagnoses</h4>
       <ul>
         <li>
-          The CDC's AtlasPlus contains data at the national, state, regional,
-          and county level. Data at the state or county level,for both cases and
-          rates, may be suppressed to protect against a situation in which a
-          person could potentially be identified.
+          County-level data is suppressed when the population denominator is
+          less than 100, the total case count is between 1–4 cases, or when
+          querying HIV or AIDS deaths.
         </li>
         <li>
           To protect personal privacy, prevent revealing information that might
           identify specific individuals, and ensure the reliability of
           statistical estimates, small data values may not be available in some
-          circumstances. Data are suppressed if the denominator population is
-          less than 100, or the total case count is 1–4.
+          circumstances.
+        </li>
+        <li>
+          There isn't enough data to accurately calculate subpopulation rates by
+          age, sex, and race/ethnicity for the dependent areas(US territories
+          other than Puerto Rico). As a result, the analysis or report will not
+          provide detailed information about these specific groups in those
+          regions.
+        </li>
+      </ul>
+    </>
+  );
+}
+
+export function MissingPrepData() {
+  return (
+    <>
+      <h4>PrEP Coverage and Prescriptions</h4>
+      <ul>
+        <li>
+          The race and ethnicity of individuals prescribed PrEP are only
+          available for less than 40% of all people prescribed PrEP and are
+          limited to four categories: White, Black, Hispanic/Latino, and Other.
+        </li>
+        <li>
+          State-level and county-level PrEP data are not available for race and
+          ethnicity.
+        </li>
+        <li>
+          PrEP coverage data are suppressed at any level if the number of
+          persons prescribed PrEP is suppressed, the estimated number of persons
+          with indications for PrEP (PreEP-eligible population) is suppressed,
+          or if the number of persons prescribed PrEP is less than 40.
         </li>
       </ul>
     </>

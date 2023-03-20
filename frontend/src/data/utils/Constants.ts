@@ -101,6 +101,12 @@ export const CAWP_RACES = [
   OTHER_W,
 ] as const;
 
+// HIV RACE GROUPS AND ARRAY
+
+export const OTHER_NONSTANDARD_NH = "Unrepresented race (NH)";
+
+export const HIV_RACES = [OTHER_NONSTANDARD_NH];
+
 // COMBINATION RACE GROUPS AND (UNUSED) ARRAY
 export const AIAN_API =
   "American Indian, Alaska Native, Asian & Pacific Islander";
@@ -129,6 +135,7 @@ export const RACE_GROUPS = [
   ...NON_STANDARD_RACES,
   ...CAWP_RACES,
   ...COMBINATION_RACES,
+  ...HIV_RACES,
   UNKNOWN_RACE,
   UNKNOWN_HL,
   UNKNOWN_ETHNICITY,
@@ -152,6 +159,7 @@ export const raceNameToCodeMap: Partial<Record<RaceAndEthnicityGroup, string>> =
     [ASIAN_NH]: "Asian (NH)",
     // CDC HIV
     [MULTI_NH]: "Two+ (NH)",
+    [OTHER_NONSTANDARD_NH]: "OTHER (NH)",
     // Incarceration
     [API_NH]: "A/NHPI (NH)",
     //  race and ethnicity CAWP
@@ -235,6 +243,7 @@ export const BJS_JAIL_AGE_BUCKETS = [ALL, "0-17", "18+"] as const;
 export const CDC_HIV_AGE_BUCKETS = [
   ALL,
   "13-24",
+  "16-24",
   "25-34",
   "35-44",
   "45-54",
