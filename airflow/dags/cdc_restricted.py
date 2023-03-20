@@ -141,12 +141,13 @@ cdc_restricted_exporter_operator_sex = util.create_exporter_operator(
 
 # CDC Restricted Data Ingestion DAG
 (
-    cdc_restricted_bq_op_sex_county >>
-    cdc_restricted_bq_op_age_county >> [
+    [
+        cdc_restricted_bq_op_race_county,
+        cdc_restricted_bq_op_sex_county,
+        cdc_restricted_bq_op_age_county,
         cdc_restricted_bq_op_race_state,
         cdc_restricted_bq_op_sex_state,
-        cdc_restricted_bq_op_age_state
-    ] >> cdc_restricted_bq_op_race_county >> [
+        cdc_restricted_bq_op_age_state,
         cdc_restricted_bq_op_race_national,
         cdc_restricted_bq_op_sex_national,
         cdc_restricted_bq_op_age_national

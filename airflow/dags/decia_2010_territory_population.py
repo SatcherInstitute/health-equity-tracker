@@ -4,7 +4,8 @@ from airflow.utils.dates import days_ago  # type: ignore
 
 import util
 
-_DECIA_2010_POPULATION_GCS_FILENAMES = (
+# one very long comma separated string
+_DECIA_2010_POPULATION_GCS_FILENAMES: str = (
     'decia_2010_territory_population-by_race_and_ethnicity_territory.json,'
     'decia_2010_territory_population-by_sex_territory.json,'
     'decia_2010_territory_population-by_age_territory.json'

@@ -218,10 +218,6 @@ class Decia2020TerritoryPopulationData(DataSource):
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
 
             race_map = {**RACE_CODES_TO_STD[postal], **NON_NH_TO_NH_RACE_MAP}
-
-            print("race_map")
-            print(race_map)
-
             count_group_cols_map = get_melt_map(
                 race_map, TMP_COUNT_SUFFIX)
             pct_share_group_cols_map = get_melt_map(
@@ -361,8 +357,8 @@ def use_nonNH_as_NH(df: pd.DataFrame) -> pd.DataFrame:
     """ For AS, GU, MP, the Census does not provide _NH specific races;
     only races that don't account for ethnicity. This is likely due to the
     extremely small number of Hispanic people in these areas. To allow for
-    merging these island populations onto more of our data sources, we use
-    the non-NH races AS the NH races as well when they are not provided (as in VI) """
+    merging these island populations onto more of our data sources, we duplicate
+    the non-NH races as the NH races when they are not provided (as in VI) """
 
     for non_nh_col, nh_col in NON_NH_TO_NH_RACE_MAP.items():
         df[f'{nh_col}_count'] = df[f'{non_nh_col}_count']

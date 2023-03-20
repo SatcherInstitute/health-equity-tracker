@@ -128,7 +128,7 @@ def merge_state_ids(df, keep_postal=False):
     return df
 
 
-def merge_pop_numbers(df, demo: Literal['age', 'race', 'sex'], loc: Literal['county', 'state', 'national']):
+def merge_pop_numbers(df, demo: Literal['age', 'sex', 'race'], loc: Literal['county', 'state', 'national']):
     """Merges the corresponding `population` and `population_pct` column into the given df
 
       df: a pandas df with demographic column and a `state_fips` column
