@@ -105,6 +105,9 @@ class IncarcerationProvider extends VariableProvider {
     const dataSource = await getDataManager().loadDataset(datasetId);
     let df = dataSource.toDataFrame();
 
+    console.log(breakdowns);
+    console.log(timeView);
+
     df = this.filterByGeo(df, breakdowns);
 
     let mostRecentYear: string = "";
@@ -116,16 +119,21 @@ class IncarcerationProvider extends VariableProvider {
 
     const consumedDatasetIds = [datasetId];
 
-    if (breakdowns.geography !== "county") {
+    if (
+      breakdowns.geography !== "county" &&
+      !breakdowns.filterFips?.isIslandArea()
+    ) {
       consumedDatasetIds.push(GetAcsDatasetId(breakdowns));
     }
 
-    if (
-      breakdowns.geography === "national" ||
-      breakdowns.geography === "territory"
-    ) {
+    if (breakdowns.filterFips?.isIslandArea()) {
+      // territories only get TOTALS so we only need one breakdown (using race here)
+      if (timeView === "time_series")
+        consumedDatasetIds.push(
+          "decia_2010_territory_population-by_race_and_ethnicity_territory_state_level"
+        );
       consumedDatasetIds.push(
-        "decia_2010_territory_population-by_race_and_ethnicity_territory_state_level"
+        "decia_2020_territory_population-by_race_and_ethnicity_territory_state_level"
       );
     }
 
