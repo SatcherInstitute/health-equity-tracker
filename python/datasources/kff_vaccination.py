@@ -196,6 +196,9 @@ class KFFVaccination(DataSource):
             'upload_to_gcs should not be called for KFFVaccination')
 
     def parse_data(self):
+        """Parses vaccine data from all needed data sources and places
+           all needed info into HET style df."""
+
         percentage_of_total_url = get_data_url('pct_total')
         percentage_of_total_df = github_util.decode_json_from_url_into_df(
             percentage_of_total_url)
@@ -250,6 +253,10 @@ class KFFVaccination(DataSource):
         return pd.DataFrame(output, columns=columns)
 
     def post_process(self, df):
+        """Takes in dataframe with raw vaccine data and runs all needed operations
+           on it.
+           Returns an dataframe reeady for the frontend."""
+
         df = merge_state_ids(df)
 
         df = clean_row(df, std_col.VACCINATED_PCT_SHARE)
@@ -292,13 +299,19 @@ class KFFVaccination(DataSource):
                                                             std_col.VACCINATED_POP_PCT, std_col.ACS_VACCINATED_POP_PCT])
 
         gcs_to_bq_util.add_df_to_bq(
-            df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=col_types)
+            df, dataset, f'{std_col.RACE_OR_HISPANIC_COL}_processed', column_types=col_types)
 
 
-def clean_row(df, row):
-    df[row] = df[row].fillna(np.nan)
-    df[row] = df[row].replace(0, np.nan)
-    df[row] = df[row].replace('<0.01', np.nan)
-    df[row] = df[row].replace('NR', np.nan)
-    df[row] = df[row].astype(float)
+def clean_row(df, column):
+    """Removes non float KFF data from the raw data and replaces
+       them with np.nan, as that is how we have chosen to display the
+       data to the user.
+
+       df: KFF Dataframe to clean data notes from.
+       column: Column name to clean."""
+    df[column] = df[column].fillna(np.nan)
+    df[column] = df[column].replace(0, np.nan)
+    df[column] = df[column].replace('<0.01', np.nan)
+    df[column] = df[column].replace('NR', np.nan)
+    df[column] = df[column].astype(float)
     return df
