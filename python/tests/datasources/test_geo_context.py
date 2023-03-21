@@ -181,7 +181,8 @@ def testGenerateCountyBreakdown(
     county_df = geoContext.generate_breakdown("county")
 
     assert mock_svi_data.call_count == 1
-    assert mock_pop.call_count == 1
+    # 1 for counties + 1 for county-equivalents
+    assert mock_pop.call_count == 2
     assert mock_county_names.call_count == 1
     assert mock_scaffold.call_count == 1
 

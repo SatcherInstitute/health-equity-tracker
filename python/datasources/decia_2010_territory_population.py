@@ -22,19 +22,19 @@ def get_breakdown_col(df):
         return std_col.AGE_COL
 
 
-class ACS2010Population(DataSource):
+class Decia2010TerritoryPopulationData(DataSource):
 
     @staticmethod
     def get_id():
-        return 'ACS_2010_POPULATION'
+        return 'DECIA_2010_POPULATION'
 
     @staticmethod
     def get_table_name():
-        return 'acs_2010_population'
+        return 'decia_2010_territory_population'
 
     def upload_to_gcs(self, _, **attrs):
         raise NotImplementedError(
-            'upload_to_gcs should not be called for ACS2010Population')
+            'upload_to_gcs should not be called for Decia2010TerritoryPopulationData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         gcs_files = self.get_attr(attrs, 'filename')
@@ -49,7 +49,7 @@ class ACS2010Population(DataSource):
 
         for f in files:
             df = gcs_to_bq_util.load_json_as_df_from_data_dir(
-                "acs_2010", f, {'state_fips': str})
+                "decia_2010_territory_population", f, {'state_fips': str})
 
             total_val = (
                 Race.ALL.value if get_breakdown_col(df) == std_col.RACE_CATEGORY_ID_COL else std_col.ALL_VALUE)
@@ -65,7 +65,9 @@ class ACS2010Population(DataSource):
 
             table_name = f.replace('.json', '')  # Table name is file name
             table_name = table_name.replace(
-                'acs_2010_population-', '')  # Don't need this
+                'decia_2010_territory_population-', '')  # Don't need this
+            # ACS 2010 only makes state equivalent level, but not county equivalent level
+            table_name += "_state_level"
 
             column_types = gcs_to_bq_util.get_bq_column_types(
                 df, float_cols=[std_col.POPULATION_COL, std_col.POPULATION_PCT_COL])

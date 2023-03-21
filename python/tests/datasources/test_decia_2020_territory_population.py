@@ -112,6 +112,7 @@ def testGenerateRaceTerritory(
     assert table_name == "by_race_and_ethnicity_territory_state_level"
     expected_df = pd.read_csv(
         os.path.join(GOLDEN_DIR, f'{table_name}.csv'), index_col=False, dtype=dtypes)
+
     assert_frame_equal(df, expected_df, check_dtype=False)
 
 

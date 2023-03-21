@@ -1,53 +1,69 @@
 state_fips,race_category_id,population,population_pct,state_name,race_and_ethnicity
 60,ALL,49710.0,100.0,American Samoa,All
 60,AIAN,13.0,0.0,American Samoa,American Indian and Alaska Native
+60,AIAN_NH,13.0,0.0,American Samoa,American Indian and Alaska Native (NH)
 60,ASIAN,2878.0,5.8,American Samoa,Asian
+60,ASIAN_NH,2878.0,5.8,American Samoa,Asian (NH)
 60,BLACK,24.0,0.0,American Samoa,Black or African American
-60,BLACK_NH,,,American Samoa,Black or African American (NH)
+60,BLACK_NH,24.0,0.0,American Samoa,Black or African American (NH)
 60,HISP,406.0,0.8,American Samoa,Hispanic or Latino
 60,NHPI,44090.0,88.7,American Samoa,Native Hawaiian and Pacific Islander
+60,NHPI_NH,44090.0,88.7,American Samoa,Native Hawaiian and Pacific Islander (NH)
 60,MULTI,2192.0,4.4,American Samoa,Two or more races
-60,MULTI_NH,,,American Samoa,Two or more races (NH)
+60,MULTI_NH,2192.0,4.4,American Samoa,Two or more races (NH)
 60,OTHER_STANDARD,139.0,0.3,American Samoa,Unrepresented race
 60,OTHER_NONSTANDARD_NH,,,American Samoa,Unrepresented race (NH)
+60,OTHER_STANDARD_NH,139.0,0.3,American Samoa,Unrepresented race (NH)
 60,WHITE,374.0,0.8,American Samoa,White
-60,WHITE_NH,,,American Samoa,White (NH)
+60,WHITE_NH,374.0,0.8,American Samoa,White (NH)
 66,ALL,153836.0,100.0,Guam,All
 66,AIAN,214.0,0.1,Guam,American Indian and Alaska Native
+66,AIAN_NH,214.0,0.1,Guam,American Indian and Alaska Native (NH)
 66,ASIAN,54586.0,35.5,Guam,Asian
+66,ASIAN_NH,54586.0,35.5,Guam,Asian (NH)
 66,BLACK,1340.0,0.9,Guam,Black or African American
-66,BLACK_NH,,,Guam,Black or African American (NH)
+66,BLACK_NH,1340.0,0.9,Guam,Black or African American (NH)
 66,HISP,4522.0,2.9,Guam,Hispanic or Latino
 66,NHPI,70809.0,46.0,Guam,Native Hawaiian and Pacific Islander
+66,NHPI_NH,70809.0,46.0,Guam,Native Hawaiian and Pacific Islander (NH)
 66,MULTI,15441.0,10.0,Guam,Two or more races
-66,MULTI_NH,,,Guam,Two or more races (NH)
+66,MULTI_NH,15441.0,10.0,Guam,Two or more races (NH)
 66,OTHER_STANDARD,955.0,0.6,Guam,Unrepresented race
 66,OTHER_NONSTANDARD_NH,,,Guam,Unrepresented race (NH)
+66,OTHER_STANDARD_NH,955.0,0.6,Guam,Unrepresented race (NH)
 66,WHITE,10491.0,6.8,Guam,White
-66,WHITE_NH,,,Guam,White (NH)
+66,WHITE_NH,10491.0,6.8,Guam,White (NH)
 69,ALL,47329.0,100.0,Northern Mariana Islands,All
 69,AIAN,12.0,0.0,Northern Mariana Islands,American Indian and Alaska Native
+69,AIAN_NH,12.0,0.0,Northern Mariana Islands,American Indian and Alaska Native (NH)
 69,ASIAN,22054.0,46.6,Northern Mariana Islands,Asian
+69,ASIAN_NH,22054.0,46.6,Northern Mariana Islands,Asian (NH)
 69,BLACK,65.0,0.1,Northern Mariana Islands,Black or African American
-69,BLACK_NH,,,Northern Mariana Islands,Black or African American (NH)
+69,BLACK_NH,65.0,0.1,Northern Mariana Islands,Black or African American (NH)
 69,HISP,554.0,1.2,Northern Mariana Islands,Hispanic or Latino
 69,NHPI,20665.0,43.7,Northern Mariana Islands,Native Hawaiian and Pacific Islander
+69,NHPI_NH,20665.0,43.7,Northern Mariana Islands,Native Hawaiian and Pacific Islander (NH)
 69,MULTI,3453.0,7.3,Northern Mariana Islands,Two or more races
-69,MULTI_NH,,,Northern Mariana Islands,Two or more races (NH)
+69,MULTI_NH,3453.0,7.3,Northern Mariana Islands,Two or more races (NH)
 69,OTHER_STANDARD,65.0,0.1,Northern Mariana Islands,Unrepresented race
 69,OTHER_NONSTANDARD_NH,,,Northern Mariana Islands,Unrepresented race (NH)
+69,OTHER_STANDARD_NH,65.0,0.1,Northern Mariana Islands,Unrepresented race (NH)
 69,WHITE,1015.0,2.1,Northern Mariana Islands,White
-69,WHITE_NH,,,Northern Mariana Islands,White (NH)
+69,WHITE_NH,1015.0,2.1,Northern Mariana Islands,White (NH)
 78,ALL,87146.0,100.0,U.S. Virgin Islands,All
 78,AIAN,371.0,0.4,U.S. Virgin Islands,American Indian and Alaska Native
+78,AIAN_NH,,,U.S. Virgin Islands,American Indian and Alaska Native (NH)
 78,ASIAN,910.0,1.0,U.S. Virgin Islands,Asian
+78,ASIAN_NH,,,U.S. Virgin Islands,Asian (NH)
 78,BLACK,62183.0,71.4,U.S. Virgin Islands,Black or African American
 78,BLACK_NH,55936.0,64.2,U.S. Virgin Islands,Black or African American (NH)
 78,HISP,16075.0,18.4,U.S. Virgin Islands,Hispanic or Latino
 78,NHPI,51.0,0.1,U.S. Virgin Islands,Native Hawaiian and Pacific Islander
+78,NHPI_NH,,,U.S. Virgin Islands,Native Hawaiian and Pacific Islander (NH)
 78,MULTI,6569.0,7.5,U.S. Virgin Islands,Two or more races
 78,MULTI_NH,2349.0,2.7,U.S. Virgin Islands,Two or more races (NH)
 78,OTHER_STANDARD,5478.0,6.3,U.S. Virgin Islands,Unrepresented race
 78,OTHER_NONSTANDARD_NH,1750.0,2.0,U.S. Virgin Islands,Unrepresented race (NH)
+78,OTHER_STANDARD_NH,,,U.S. Virgin Islands,Unrepresented race (NH)
 78,WHITE,11584.0,13.3,U.S. Virgin Islands,White
 78,WHITE_NH,11036.0,12.7,U.S. Virgin Islands,White (NH)
