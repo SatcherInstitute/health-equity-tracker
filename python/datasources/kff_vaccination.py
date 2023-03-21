@@ -255,7 +255,7 @@ class KFFVaccination(DataSource):
     def post_process(self, df):
         """Takes in dataframe with raw vaccine data and runs all needed operations
            on it.
-           Returns an dataframe reeady for the frontend."""
+           Returns an dataframe ready for the frontend."""
 
         df = merge_state_ids(df)
 
@@ -313,5 +313,6 @@ def clean_row(df, column):
     df[column] = df[column].replace(0, np.nan)
     df[column] = df[column].replace('<0.01', np.nan)
     df[column] = df[column].replace('NR', np.nan)
+    df[column] = df[column].replace('>.99', 1.0)
     df[column] = df[column].astype(float)
     return df
