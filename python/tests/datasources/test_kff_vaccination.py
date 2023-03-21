@@ -38,8 +38,8 @@ def get_population_numbers_as_df():
 
 
 def get_acs_population_numbers_as_df(*args):
-    if args[0] == 'acs_2010_population':
-        return pd.read_csv(os.path.join(TEST_DIR, 'population_state_2010.csv'), dtype=str)
+    if args[0] == 'decia_2020_territory_population':
+        return pd.read_csv(os.path.join(TEST_DIR, 'population_territory_2020.csv'), dtype=str)
     return pd.read_csv(os.path.join(TEST_DIR, 'population_state_race.csv'), dtype=str)
 
 
