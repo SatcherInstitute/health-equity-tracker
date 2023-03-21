@@ -13,6 +13,10 @@ from ingestion.merge_utils import (
     merge_state_ids,
     merge_pop_numbers)
 
+from ingestion.constants import (
+    STATE_LEVEL,
+    RACE)
+
 BASE_KFF_URL_TOTALS_STATE = ('https://raw.githubusercontent.com/KFFData/COVID-19-Data/'
                              'kff_master/State%20Trend%20Data/State_Trend_Data.csv')
 
@@ -258,7 +262,7 @@ class KFFVaccination(DataSource):
         df[std_col.VACCINATED_PER_100K] = df[std_col.VACCINATED_PER_100K] * 1000 * 100
 
         total_df = df.loc[~df[std_col.VACCINATED_FIRST_DOSE].isnull()].reset_index(drop=True)
-        total_df = merge_pop_numbers(total_df, 'race', 'state')
+        total_df = merge_pop_numbers(total_df, RACE, STATE_LEVEL)
         total_df = generate_per_100k_col(total_df, std_col.VACCINATED_FIRST_DOSE,
                                          std_col.POPULATION_COL, std_col.VACCINATED_PER_100K)
 
@@ -267,7 +271,7 @@ class KFFVaccination(DataSource):
 
         df = df.drop(columns=std_col.POPULATION_PCT_COL)
 
-        df = merge_pop_numbers(df, 'race', 'state')
+        df = merge_pop_numbers(df, RACE, STATE_LEVEL)
         df = df.rename(columns={std_col.POPULATION_PCT_COL: std_col.ACS_VACCINATED_POP_PCT})
 
         df = df[[std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL,
