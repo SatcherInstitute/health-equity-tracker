@@ -116,7 +116,7 @@ describe("Decia2010PopulationProvider", () => {
     );
 
     await evaluatePopulationCountAndPctWithAndWithoutTotal(
-      "decia_2010_population-by_race_and_ethnicity_territory",
+      "decia_2010_territory_population-by_race_and_ethnicity_territory_state_level",
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
       RACE,
@@ -151,7 +151,7 @@ describe("Decia2010PopulationProvider", () => {
     const NC_ALL_FINAL = finalPopulationCountAndPctRow(NC, AGE, ALL, 25, 100);
 
     await evaluatePopulationCountAndPctWithAndWithoutTotal(
-      "decia_2010_population-by_age_territory",
+      "decia_2010_territory_population-by_age_territory_state_level",
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
       AGE,
@@ -180,7 +180,7 @@ describe("Decia2010PopulationProvider", () => {
     const NC_ALL = finalPopulationCountAndPctRow(NC, SEX, ALL, 25, 100);
 
     await evaluatePopulationCountAndPctWithAndWithoutTotal(
-      "decia_2010_population-by_sex_territory",
+      "decia_2010_territory_population-by_sex_territory_state_level",
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
       SEX,
