@@ -5,10 +5,12 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, dataset_utils
 import numpy as np
 import pandas as pd  # type: ignore
-from typing import Literal
-
+from typing import Literal, cast
 from ingestion.merge_utils import (
     merge_county_names, merge_state_ids, merge_pop_numbers)
+from ingestion.types import SEX_RACE_AGE_TYPE
+
+AGE = cast(SEX_RACE_AGE_TYPE, std_col.AGE_COL)
 
 
 def format_svi(value: float) -> float:
@@ -59,8 +61,8 @@ class GeoContext(DataSource):
     def generate_breakdown(self, geo_level: Literal["national", "state", "county"]) -> pd.DataFrame:
 
         df = dataset_utils.scaffold_fips_df(geo_level)
-        df[std_col.AGE_COL] = std_col.ALL_VALUE
-        df = merge_pop_numbers(df, std_col.AGE_COL, geo_level)
+        df[AGE] = std_col.ALL_VALUE
+        df = merge_pop_numbers(df, AGE, geo_level)
         fips_col = (std_col.COUNTY_FIPS_COL
                     if geo_level == COUNTY_LEVEL
                     else std_col.STATE_FIPS_COL)

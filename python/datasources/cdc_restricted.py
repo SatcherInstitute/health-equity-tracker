@@ -89,27 +89,28 @@ class CDCRestrictedData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demo = self.get_attr(attrs, 'demographic')
-        for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
-            for time_series in [False, True]:
-                geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
-                filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
+        geo = self.get_attr(attrs, 'geographic')
+        for time_series in [False, True]:
+            geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
+            filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
 
-                df = gcs_to_bq_util.load_csv_as_df(
-                    gcs_bucket, filename, dtype={'county_fips': str})
+            df = gcs_to_bq_util.load_csv_as_df(
+                gcs_bucket, filename, dtype={'county_fips': str})
 
-                df = self.generate_breakdown(df, demo, geo, time_series)
+            df = self.generate_breakdown(df, demo, geo, time_series)
 
-                if demo == RACE:
-                    std_col.add_race_columns_from_category_id(df)
+            if demo == RACE:
+                std_col.add_race_columns_from_category_id(df)
 
-                column_types = get_col_types(df, add_rel_inequality_col=time_series)
+            column_types = get_col_types(
+                df, add_rel_inequality_col=time_series)
 
-                table_name = f'by_{demo}_{geo}_processed'
-                if time_series:
-                    table_name += '_time_series'
+            table_name = f'by_{demo}_{geo}_processed'
+            if time_series:
+                table_name += '_time_series'
 
-                gcs_to_bq_util.add_df_to_bq(
-                    df, dataset, table_name, column_types=column_types)
+            gcs_to_bq_util.add_df_to_bq(
+                df, dataset, table_name, column_types=column_types)
 
         # Only do this once, open to a less weird way of doing this
         if demo == RACE:

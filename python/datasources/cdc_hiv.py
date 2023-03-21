@@ -58,7 +58,7 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
         'Black/African American': std_col.Race.BLACK_NH.value,
         'Hispanic/Latino': std_col.Race.HISP.value,
         'Multiracial': std_col.Race.MULTI_NH.value,
-        'Other': std_col.Race.MEGA_NH.value,
+        'Other': std_col.Race.OTHER_NONSTANDARD_NH.value,
         'Native Hawaiian/Other Pacific Islander': std_col.Race.NHPI_NH.value,
         'White': std_col.Race.WHITE_NH.value},
     std_col.SEX_COL: {'Both sexes': std_col.ALL_VALUE}

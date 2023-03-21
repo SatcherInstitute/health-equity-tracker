@@ -18,7 +18,7 @@ WITH
   all_acs as (
       SELECT state_fips, state_name, population, population_pct, race_category_id, race_and_ethnicity FROM `acs_population.by_race_state`
     UNION ALL
-      SELECT state_fips, state_name, population, population_pct, race_category_id, race_and_ethnicity FROM `acs_2010_population.by_race_and_ethnicity_territory`
+      SELECT state_fips, state_name, population, population_pct, race_category_id, race_and_ethnicity FROM `decia_2020_territory_population.by_race_and_ethnicity_territory_state_level`
   ),
   joined_with_acs as (
       SELECT x.*, y.population, y.population_pct as acs_vaccine_population_pct

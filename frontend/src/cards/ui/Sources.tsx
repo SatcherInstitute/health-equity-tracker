@@ -105,6 +105,10 @@ export function Sources(props: SourcesProps) {
     !props.hideNH &&
     datasetIds.some((set) => DatasetMetadataMap[set]?.contains_nh);
 
+  const showOtherNhFootnote =
+    !props.hideNH &&
+    datasetIds.some((set) => DatasetMetadataMap[set]?.contains_other_nh);
+
   return (
     <>
       {Object.keys(dataSourceMap).length > 0 && <>Sources: </>}
@@ -128,6 +132,12 @@ export function Sources(props: SourcesProps) {
         </Fragment>
       ))}
       {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
+      {showOtherNhFootnote && (
+        <p>
+          Unrepresented race (NH): Individuals who do not identify as part of
+          the Black, White, or Hispanic ethnic or racial groups.
+        </p>
+      )}
     </>
   );
 }

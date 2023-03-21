@@ -1,3 +1,6 @@
+# TODO: THIS FILE SCHEDULED FOR DELETION ONCE DECIA_2010 IS UP AND RUNNING
+
+
 # Resources and routines for ACS population ingestion.
 
 # Create a BigQuery dataset for ACS population data.

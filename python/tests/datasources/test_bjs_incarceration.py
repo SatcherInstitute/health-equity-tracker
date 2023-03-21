@@ -235,7 +235,7 @@ def testGenerateBreakdownSexNational(mock_fips: mock.MagicMock, mock_pop: mock.M
     assert_frame_equal(df, expected_df_sex_national, check_like=True)
 
 
-# INTEGRATION TEST - STATE LEVEL
+# # INTEGRATION TEST - STATE LEVEL
 
 
 # - SEX
@@ -337,8 +337,8 @@ def testWriteToBqNetworkCalls(mock_bq: mock.MagicMock,
     assert mock_pop.call_args_list[2].args[1] == 'by_race_national'
     assert mock_pop.call_args_list[3].args[1] == 'by_sex_national'
     assert mock_pop.call_args_list[4].args[1] == 'by_age_state'
-    assert mock_pop.call_args_list[5].args[1] == 'by_age_territory'
+    assert mock_pop.call_args_list[5].args[1] == 'by_age_territory_state_level'
     assert mock_pop.call_args_list[6].args[1] == 'by_race_state'
-    assert mock_pop.call_args_list[7].args[1] == 'by_race_and_ethnicity_territory'
+    assert mock_pop.call_args_list[7].args[1] == 'by_race_and_ethnicity_territory_state_level'
     assert mock_pop.call_args_list[8].args[1] == 'by_sex_state'
-    assert mock_pop.call_args_list[9].args[1] == 'by_sex_territory'
+    assert mock_pop.call_args_list[9].args[1] == 'by_sex_territory_state_level'
