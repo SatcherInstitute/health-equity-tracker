@@ -93,7 +93,7 @@ export class ApiDataFetcher implements DataFetcher {
 
     if (
       datasetId.startsWith("acs_population") ||
-      datasetId.startsWith("acs_2010_population")
+      datasetId.startsWith("decia_2010")
     ) {
       result = result.map((row: any) => {
         return {

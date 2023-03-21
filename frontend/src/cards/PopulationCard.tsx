@@ -82,7 +82,7 @@ export function PopulationCard(props: PopulationCardProps) {
               </Grid>
             </Grid>
 
-            {props.fips.needsACS2010() && (
+            {props.fips.isIslandArea() && (
               <CardContent>
                 <Alert severity="warning" role="note">
                   Population data for U.S. Virgin Islands, Guam, and the

@@ -72,14 +72,17 @@ describe("GeoContextProvider", () => {
     );
   });
 
-  test("County Equivalent ACS2010 Pop+SVI", async () => {
+  test("County Equivalent Island Area Pop+SVI", async () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips("78010"),
       ["svi", "population"],
       "geo_context-county-78",
-      // TODO: currently county-equivalent population data is not being loaded from the ACS2010
+      // TODO: currently county-equivalent population data is not being loaded from the DECIA2010
       // TODO: so the footer won't show on the population card. See #1954
-      ["cdc_svi_county-age", "acs_2010_population-by_age_territory"]
+      [
+        "cdc_svi_county-age",
+        "decia_2010_territory_population-by_age_territory_county_level",
+      ]
     );
   });
 
@@ -101,12 +104,12 @@ describe("GeoContextProvider", () => {
     );
   });
 
-  test("Territory ACS2010 Pop", async () => {
+  test("Territory Island Area Pop", async () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips("78"),
       ["population"],
       "geo_context-state",
-      ["acs_2010_population-by_age_territory"]
+      ["decia_2010_territory_population-by_age_territory_state_level"]
     );
   });
 

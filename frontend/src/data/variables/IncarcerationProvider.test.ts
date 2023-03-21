@@ -86,7 +86,7 @@ describe("IncarcerationProvider", () => {
       "jail",
       [
         "acs_population-by_race_national",
-        "acs_2010_population-by_race_and_ethnicity_territory",
+        "decia_2010_territory_population-by_race_and_ethnicity_territory_state_level",
       ]
     );
   });
@@ -120,7 +120,7 @@ describe("IncarcerationProvider", () => {
       "prison",
       [
         "acs_population-by_age_national",
-        "acs_2010_population-by_race_and_ethnicity_territory",
+        "decia_2010_territory_population-by_race_and_ethnicity_territory_state_level",
       ]
     );
   });
@@ -154,7 +154,7 @@ describe("IncarcerationProvider", () => {
       "jail",
       [
         "acs_population-by_sex_national",
-        "acs_2010_population-by_race_and_ethnicity_territory",
+        "decia_2010_territory_population-by_race_and_ethnicity_territory_state_level",
       ]
     );
   });

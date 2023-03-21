@@ -71,7 +71,7 @@ export async function evaluateWithAndWithoutAll(
 
   if (baseBreakdown.geography === "national") {
     consumedDatasetIds.push(
-      "acs_2010_population-by_race_and_ethnicity_territory"
+      "decia_2010_territory_population-by_race_and_ethnicity_territory_state_level"
     );
   }
 

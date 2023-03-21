@@ -44,21 +44,22 @@ class GeoContextProvider extends VariableProvider {
       national: "acs_population-by_age_national",
       // next entries are unused
       "state/territory": "acs_population-by_age_state",
-      territory: "acs_2010_population-by_age_territory",
+      territory: "decia_2010_territory_population-by_age_territory_state_level",
     };
 
-    const acs2010DatasetMap: Record<GeographicBreakdown, string> = {
-      county: "acs_2010_population-by_age_territory",
-      state: "acs_2010_population-by_age_territory",
+    const decia2010DatasetMap: Record<GeographicBreakdown, string> = {
+      county: "decia_2010_territory_population-by_age_territory_county_level",
+      state: "decia_2010_territory_population-by_age_territory_state_level",
       national: "acs_population-by_age_national",
       // next entries are unused
-      "state/territory": "acs_2010_population-by_age_territory",
-      territory: "acs_2010_population-by_age_territory",
+      "state/territory":
+        "decia_2010_territory_population-by_age_territory_state_level",
+      territory: "decia_2010_territory_population-by_age_territory_state_level",
     };
 
     if (metricQuery.metricIds.includes("population")) {
-      const datasetMap = breakdowns.filterFips?.needsACS2010()
-        ? acs2010DatasetMap
+      const datasetMap = breakdowns.filterFips?.isIslandArea()
+        ? decia2010DatasetMap
         : acsDatasetMap;
       consumedDatasetIds.push(datasetMap[breakdowns.geography]);
     }

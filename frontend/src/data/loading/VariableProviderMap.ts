@@ -1,6 +1,6 @@
 import AcsConditionProvider from "../variables/AcsConditionProvider";
 import AcsPopulationProvider from "../variables/AcsPopulationProvider";
-import Acs2010PopulationProvider from "../variables/Acs2010PopulationProvider";
+import Decia2010PopulationProvider from "../variables/Decia2010PopulationProvider";
 import VariableProvider from "../variables/VariableProvider";
 import CdcCovidProvider from "../variables/CdcCovidProvider";
 import HivProvider from "../variables/HivProvider";
@@ -22,7 +22,7 @@ export type ProviderId =
   | "brfss_provider"
   | "cawp_provider"
   | "incarceration_provider"
-  | "acs_2010_pop_provider";
+  | "decia_2010_pop_provider";
 
 export default class VariableProviderMap {
   private providers: VariableProvider[];
@@ -31,10 +31,10 @@ export default class VariableProviderMap {
 
   constructor() {
     const acsProvider = new AcsPopulationProvider();
-    const acs2010Provider = new Acs2010PopulationProvider();
+    const decia2010Provider = new Decia2010PopulationProvider();
     this.providers = [
       acsProvider,
-      acs2010Provider,
+      decia2010Provider,
       new AcsConditionProvider(),
       new CdcCovidProvider(acsProvider),
       new HivProvider(),

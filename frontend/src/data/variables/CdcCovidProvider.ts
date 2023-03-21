@@ -1,7 +1,7 @@
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns, TimeView } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { ACS_2010_FIPS } from "../utils/Fips";
+import { ISLAND_AREAS_FIPS } from "../utils/Fips";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
@@ -147,11 +147,13 @@ class CdcCovidProvider extends VariableProvider {
       breakdowns.geography === "state" &&
       // hacky but there should only be one fips code if
       // its for a state
-      ACS_2010_FIPS.includes(stateFips)
+      ISLAND_AREAS_FIPS.includes(stateFips)
     ) {
-      const acs2010BreakdownId =
-        "acs_2010_population-by_" + breakdownColumnName + "_territory";
-      consumedDatasetIds = consumedDatasetIds.concat(acs2010BreakdownId);
+      const decia2010BreakdownId =
+        "decia_2010_territory_population-by_" +
+        breakdownColumnName +
+        "_territory_state_level";
+      consumedDatasetIds = consumedDatasetIds.concat(decia2010BreakdownId);
     } else {
       const acsDatasetId = GetAcsDatasetId(breakdowns);
       consumedDatasetIds = consumedDatasetIds.concat(acsDatasetId);

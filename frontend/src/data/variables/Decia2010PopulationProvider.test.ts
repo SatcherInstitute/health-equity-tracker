@@ -19,7 +19,7 @@ import {
   WHITE_NH,
 } from "../utils/Constants";
 import { Fips } from "../utils/Fips";
-import Acs2010PopulationProvider from "./Acs2010PopulationProvider";
+import Decia2010PopulationProvider from "./Decia2010PopulationProvider";
 import {
   AL,
   createWithAndWithoutAllEvaluator,
@@ -67,10 +67,10 @@ const evaluatePopulationCountAndPctWithAndWithoutTotal =
   createWithAndWithoutAllEvaluator(
     ["population", "population_pct"],
     dataFetcher,
-    new Acs2010PopulationProvider()
+    new Decia2010PopulationProvider()
   );
 
-describe("Acs2010PopulationProvider", () => {
+describe("Decia2010PopulationProvider", () => {
   beforeEach(() => {
     resetCacheDebug();
     dataFetcher.resetState();
@@ -78,14 +78,14 @@ describe("Acs2010PopulationProvider", () => {
   });
 
   test("Invalid Breakdown", async () => {
-    const acsProvider = new Acs2010PopulationProvider();
+    const acsProvider = new Decia2010PopulationProvider();
 
     const response = await acsProvider.getData(
       new MetricQuery(["population", "population_pct"], Breakdowns.national())
     );
     expect(response).toEqual(
       createMissingDataResponse(
-        "Breakdowns not supported for provider acs_2010_pop_provider: geography:national"
+        "Breakdowns not supported for provider decia_2010_pop_provider: geography:national"
       )
     );
   });
@@ -116,7 +116,7 @@ describe("Acs2010PopulationProvider", () => {
     );
 
     await evaluatePopulationCountAndPctWithAndWithoutTotal(
-      "acs_2010_population-by_race_and_ethnicity_territory",
+      "decia_2010_population-by_race_and_ethnicity_territory",
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
       RACE,
@@ -151,7 +151,7 @@ describe("Acs2010PopulationProvider", () => {
     const NC_ALL_FINAL = finalPopulationCountAndPctRow(NC, AGE, ALL, 25, 100);
 
     await evaluatePopulationCountAndPctWithAndWithoutTotal(
-      "acs_2010_population-by_age_territory",
+      "decia_2010_population-by_age_territory",
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
       AGE,
@@ -180,7 +180,7 @@ describe("Acs2010PopulationProvider", () => {
     const NC_ALL = finalPopulationCountAndPctRow(NC, SEX, ALL, 25, 100);
 
     await evaluatePopulationCountAndPctWithAndWithoutTotal(
-      "acs_2010_population-by_sex_territory",
+      "decia_2010_population-by_sex_territory",
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
       SEX,

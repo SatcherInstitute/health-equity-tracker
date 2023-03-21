@@ -22,7 +22,7 @@ export const TERRITORY_CODES = [
   DC,
 ];
 
-export const ACS_2010_FIPS = [
+export const ISLAND_AREAS_FIPS = [
   GUAM,
   VIRGIN_ISLANDS,
   NORTHERN_MARIANA_ISLANDS,
@@ -63,8 +63,8 @@ class Fips {
     return this.isStateOrTerritory() && TERRITORY_CODES.includes(this.code);
   }
 
-  needsACS2010() {
-    return ACS_2010_FIPS.includes(this.code.slice(0, 2));
+  isIslandArea() {
+    return ISLAND_AREAS_FIPS.includes(this.code.slice(0, 2));
   }
 
   isCounty() {
