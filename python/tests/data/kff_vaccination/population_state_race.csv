@@ -1,0 +1,85 @@
+state_fips,state_name,population,race_category_id,population_pct,race_and_ethnicity,ingestion_ts
+01,Alabama,4667624.0,NH,95.7,Not Hispanic or Latino,2023-03-21 00:13:33.766522 UTC
+04,Arizona,4841636.0,NH,68.7,Not Hispanic or Latino,2023-03-21 00:13:33.766522 UTC
+18,Indiana,6203853.0,NH,93.1,Not Hispanic or Latino,2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,42528.0,NH,1.3,Not Hispanic or Latino,2023-03-21 00:13:33.766522 UTC
+01,Alabama,4876250.0,ALL,100.0,All,2023-03-21 00:13:33.766522 UTC
+04,Arizona,7050299.0,ALL,100.0,All,2023-03-21 00:13:33.766522 UTC
+18,Indiana,6665703.0,ALL,100.0,All,2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,3318447.0,ALL,100.0,All,2023-03-21 00:13:33.766522 UTC
+01,Alabama,25565.0,AIAN,0.5,American Indian and Alaska Native,2023-03-21 00:13:33.766522 UTC
+04,Arizona,317414.0,AIAN,4.5,American Indian and Alaska Native,2023-03-21 00:13:33.766522 UTC
+18,Indiana,15782.0,AIAN,0.2,American Indian and Alaska Native,2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,6838.0,AIAN,0.2,American Indian and Alaska Native,2023-03-21 00:13:33.766522 UTC
+01,Alabama,208626.0,HISP,4.3,Hispanic or Latino,2023-03-21 00:13:33.766522 UTC
+04,Arizona,2208663.0,HISP,31.3,Hispanic or Latino,2023-03-21 00:13:33.766522 UTC
+18,Indiana,461850.0,HISP,6.9,Hispanic or Latino,2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,3275919.0,HISP,98.7,Hispanic or Latino,2023-03-21 00:13:33.766522 UTC
+01,Alabama,2238.0,NHPI,0.05,Native Hawaiian and Pacific Islander,2023-03-21 00:13:33.766522 UTC
+04,Arizona,14458.0,NHPI,0.2,Native Hawaiian and Pacific Islander,2023-03-21 00:13:33.766522 UTC
+18,Indiana,2506.0,NHPI,0.04,Native Hawaiian and Pacific Islander,2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,269.0,NHPI,0.01,Native Hawaiian and Pacific Islander,2023-03-21 00:13:33.766522 UTC
+01,Alabama,66270.0,ASIAN,1.4,Asian,2023-03-21 00:13:33.766522 UTC
+04,Arizona,233213.0,ASIAN,3.3,Asian,2023-03-21 00:13:33.766522 UTC
+18,Indiana,151979.0,ASIAN,2.3,Asian,2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,6237.0,ASIAN,0.2,Asian,2023-03-21 00:13:33.766522 UTC
+01,Alabama,1299048.0,BLACK,26.6,Black or African American,2023-03-21 00:13:33.766522 UTC
+04,Arizona,317462.0,BLACK,4.5,Black or African American,2023-03-21 00:13:33.766522 UTC
+18,Indiana,626587.0,BLACK,9.4,Black or African American,2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,386676.0,BLACK,11.7,Black or African American,2023-03-21 00:13:33.766522 UTC
+01,Alabama,92220.0,MULTI,1.9,Two or more races,2023-03-21 00:13:33.766522 UTC
+04,Arizona,263037.0,MULTI,3.7,Two or more races,2023-03-21 00:13:33.766522 UTC
+18,Indiana,169711.0,MULTI,2.5,Two or more races,2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,175649.0,MULTI,5.3,Two or more races,2023-03-21 00:13:33.766522 UTC
+01,Alabama,3320247.0,WHITE,68.1,White,2023-03-21 00:13:33.766522 UTC
+04,Arizona,5444453.0,WHITE,77.2,White,2023-03-21 00:13:33.766522 UTC
+18,Indiana,5553391.0,WHITE,83.3,White,2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,2188014.0,WHITE,65.9,White,2023-03-21 00:13:33.766522 UTC
+01,Alabama,67013.0,API_NH,1.4,"Asian, Native Hawaiian, and Pacific Islander (NH)",2023-03-21 00:13:33.766522 UTC
+04,Arizona,239475.0,API_NH,3.4,"Asian, Native Hawaiian, and Pacific Islander (NH)",2023-03-21 00:13:33.766522 UTC
+18,Indiana,152821.0,API_NH,2.3,"Asian, Native Hawaiian, and Pacific Islander (NH)",2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,2372.0,API_NH,0.1,"Asian, Native Hawaiian, and Pacific Islander (NH)",2023-03-21 00:13:33.766522 UTC
+01,Alabama,22740.0,AIAN_NH,0.5,American Indian and Alaska Native (NH),2023-03-21 00:13:33.766522 UTC
+04,Arizona,276396.0,AIAN_NH,3.9,American Indian and Alaska Native (NH),2023-03-21 00:13:33.766522 UTC
+18,Indiana,12348.0,AIAN_NH,0.2,American Indian and Alaska Native (NH),2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,118.0,AIAN_NH,0.0,American Indian and Alaska Native (NH),2023-03-21 00:13:33.766522 UTC
+01,Alabama,1603.0,NHPI_NH,0.03,Native Hawaiian and Pacific Islander (NH),2023-03-21 00:13:33.766522 UTC
+04,Arizona,12878.0,NHPI_NH,0.2,Native Hawaiian and Pacific Islander (NH),2023-03-21 00:13:33.766522 UTC
+18,Indiana,1981.0,NHPI_NH,0.03,Native Hawaiian and Pacific Islander (NH),2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,21.0,NHPI_NH,0.0,Native Hawaiian and Pacific Islander (NH),2023-03-21 00:13:33.766522 UTC
+01,Alabama,94073.0,AIAN_API,1.9,"American Indian, Alaska Native, Asian & Pacific Islander",2023-03-21 00:13:33.766522 UTC
+04,Arizona,565085.0,AIAN_API,8.0,"American Indian, Alaska Native, Asian & Pacific Islander",2023-03-21 00:13:33.766522 UTC
+18,Indiana,170267.0,AIAN_API,2.6,"American Indian, Alaska Native, Asian & Pacific Islander",2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,13344.0,AIAN_API,0.4,"American Indian, Alaska Native, Asian & Pacific Islander",2023-03-21 00:13:33.766522 UTC
+01,Alabama,65410.0,ASIAN_NH,1.3,Asian (NH),2023-03-21 00:13:33.766522 UTC
+04,Arizona,226597.0,ASIAN_NH,3.2,Asian (NH),2023-03-21 00:13:33.766522 UTC
+18,Indiana,150840.0,ASIAN_NH,2.3,Asian (NH),2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,2351.0,ASIAN_NH,0.1,Asian (NH),2023-03-21 00:13:33.766522 UTC
+01,Alabama,1291524.0,BLACK_NH,26.5,Black or African American (NH),2023-03-21 00:13:33.766522 UTC
+04,Arizona,297107.0,BLACK_NH,4.2,Black or African American (NH),2023-03-21 00:13:33.766522 UTC
+18,Indiana,616545.0,BLACK_NH,9.2,Black or African American (NH),2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,3179.0,BLACK_NH,0.1,Black or African American (NH),2023-03-21 00:13:33.766522 UTC
+01,Alabama,83335.0,MULTI_NH,1.7,Two or more races (NH),2023-03-21 00:13:33.766522 UTC
+04,Arizona,161029.0,MULTI_NH,2.3,Two or more races (NH),2023-03-21 00:13:33.766522 UTC
+18,Indiana,140282.0,MULTI_NH,2.1,Two or more races (NH),2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,1993.0,MULTI_NH,0.1,Two or more races (NH),2023-03-21 00:13:33.766522 UTC
+01,Alabama,3194929.0,WHITE_NH,65.5,White (NH),2023-03-21 00:13:33.766522 UTC
+04,Arizona,3857007.0,WHITE_NH,54.7,White (NH),2023-03-21 00:13:33.766522 UTC
+18,Indiana,5271071.0,WHITE_NH,79.1,White (NH),2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,31723.0,WHITE_NH,1.0,White (NH),2023-03-21 00:13:33.766522 UTC
+01,Alabama,70662.0,OTHER_STANDARD,1.4,Unrepresented race,2023-03-21 00:13:33.766522 UTC
+04,Arizona,460262.0,OTHER_STANDARD,6.5,Unrepresented race,2023-03-21 00:13:33.766522 UTC
+18,Indiana,145747.0,OTHER_STANDARD,2.2,Unrepresented race,2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,554764.0,OTHER_STANDARD,16.7,Unrepresented race,2023-03-21 00:13:33.766522 UTC
+01,Alabama,8083.0,OTHER_STANDARD_NH,0.2,Unrepresented race (NH),2023-03-21 00:13:33.766522 UTC
+04,Arizona,10622.0,OTHER_STANDARD_NH,0.2,Unrepresented race (NH),2023-03-21 00:13:33.766522 UTC
+18,Indiana,10786.0,OTHER_STANDARD_NH,0.2,Unrepresented race (NH),2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,3143.0,OTHER_STANDARD_NH,0.1,Unrepresented race (NH),2023-03-21 00:13:33.766522 UTC
+01,Alabama,162882.0,MULTI_OR_OTHER_STANDARD,3.3,Two or more races & Unrepresented race,2023-03-21 00:13:33.766522 UTC
+04,Arizona,723299.0,MULTI_OR_OTHER_STANDARD,10.3,Two or more races & Unrepresented race,2023-03-21 00:13:33.766522 UTC
+18,Indiana,315458.0,MULTI_OR_OTHER_STANDARD,4.7,Two or more races & Unrepresented race,2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,730413.0,MULTI_OR_OTHER_STANDARD,22.0,Two or more races & Unrepresented race,2023-03-21 00:13:33.766522 UTC
+01,Alabama,91418.0,MULTI_OR_OTHER_STANDARD_NH,1.9,Two or more races & Unrepresented race (NH),2023-03-21 00:13:33.766522 UTC
+04,Arizona,171651.0,MULTI_OR_OTHER_STANDARD_NH,2.4,Two or more races & Unrepresented race (NH),2023-03-21 00:13:33.766522 UTC
+18,Indiana,151068.0,MULTI_OR_OTHER_STANDARD_NH,2.3,Two or more races & Unrepresented race (NH),2023-03-21 00:13:33.766522 UTC
+72,Puerto Rico,5136.0,MULTI_OR_OTHER_STANDARD_NH,0.2,Two or more races & Unrepresented race (NH),2023-03-21 00:13:33.766522 UTC
