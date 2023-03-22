@@ -28,7 +28,7 @@ import { BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE } from "../../data/query/Breakdo
 
 export const altLightMetric: MetricConfig = {
   chartTitleLines: ["Population Share (ACS)"],
-  metricId: "acs_vaccine_population_pct",
+  metricId: "acs_vaccinated_pop_pct",
   shortLabel: "% of population (ACS)",
   type: "pct_share",
 };
@@ -63,11 +63,11 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
       ) {
         hasAltPop = true;
         // remove KFF value
-        const { vaccine_population_pct, ...itemWithoutKFF } = item;
+        const { vaccinated_pop_pct, ...itemWithoutKFF } = item;
         return itemWithoutKFF;
       } else {
         // remove ACS value
-        const { acs_vaccine_population_pct, ...itemWithoutACS } = item;
+        const { acs_vaccinated_pop_pct, ...itemWithoutACS } = item;
         return itemWithoutACS;
       }
     });

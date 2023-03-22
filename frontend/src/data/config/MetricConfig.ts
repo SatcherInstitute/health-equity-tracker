@@ -104,10 +104,10 @@ export type MetricId =
   | "vaccinated_pct_share"
   | "vaccinated_share_of_known"
   | "vaccinated_per_100k"
-  | "vaccine_population_pct"
+  | "vaccinated_pop_pct"
   | "vaccinated_ratio_age_adjusted"
   | "vaccinated_pct_relative_inequity"
-  | "acs_vaccine_population_pct"
+  | "acs_vaccinated_pop_pct"
   | "copd_pct_share"
   | "copd_per_100k"
   | "copd_ratio_age_adjusted"
@@ -596,21 +596,21 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "Population vs. distribution of",
               "total COVID-19 vaccinations",
             ],
-            metricId: "vaccine_population_pct",
+            metricId: "vaccinated_pop_pct",
             columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
             chartTitleLines: [],
-            metricId: "vaccinated_share_of_known",
+            metricId: "vaccinated_pct_share",
             columnTitleHeader: "Share of total COVID-19 vaccinations",
             shortLabel: "% of vaccinations",
             type: "pct_share",
           },
           secondaryPopulationComparisonMetric: {
             chartTitleLines: [],
-            metricId: "acs_vaccine_population_pct",
+            metricId: "acs_vaccinated_pop_pct",
             columnTitleHeader: "Population percentage according to ACS",
             shortLabel: "pop. % according to acs",
             type: "pct_share",
