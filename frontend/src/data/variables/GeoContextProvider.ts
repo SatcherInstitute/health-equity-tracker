@@ -35,31 +35,31 @@ class GeoContextProvider extends VariableProvider {
 
     if (metricQuery.metricIds.includes("svi")) {
       //  TODO: refactor SVI to not use pretend AGE breakdown
-      consumedDatasetIds.push("cdc_svi_county-age");
+      consumedDatasetIds.push("cdc_svi_county-sex");
     }
 
     const acsDatasetMap: Record<GeographicBreakdown, string> = {
-      county: "acs_population-by_age_county",
-      state: "acs_population-by_age_state",
-      national: "acs_population-by_age_national",
+      county: "acs_population-by_sex_county",
+      state: "acs_population-by_sex_state",
+      national: "acs_population-by_sex_national",
       // next entries are unused
-      "state/territory": "acs_population-by_age_state",
-      territory: "decia_2010_territory_population-by_age_territory_state_level",
+      "state/territory": "acs_population-by_sex_state",
+      territory: "decia_2020_territory_population-by_sex_territory_state_level",
     };
 
-    const decia2010DatasetMap: Record<GeographicBreakdown, string> = {
-      county: "decia_2010_territory_population-by_age_territory_county_level",
-      state: "decia_2010_territory_population-by_age_territory_state_level",
-      national: "acs_population-by_age_national",
+    const decia2020DatasetMap: Record<GeographicBreakdown, string> = {
+      county: "decia_2020_territory_population-by_sex_territory_county_level",
+      state: "decia_2020_territory_population-by_sex_territory_state_level",
+      national: "acs_population-by_sex_national",
       // next entries are unused
       "state/territory":
-        "decia_2010_territory_population-by_age_territory_state_level",
-      territory: "decia_2010_territory_population-by_age_territory_state_level",
+        "decia_2020_territory_population-by_sex_territory_state_level",
+      territory: "decia_2020_territory_population-by_sex_territory_state_level",
     };
 
     if (metricQuery.metricIds.includes("population")) {
       const datasetMap = breakdowns.filterFips?.isIslandArea()
-        ? decia2010DatasetMap
+        ? decia2020DatasetMap
         : acsDatasetMap;
       consumedDatasetIds.push(datasetMap[breakdowns.geography]);
     }

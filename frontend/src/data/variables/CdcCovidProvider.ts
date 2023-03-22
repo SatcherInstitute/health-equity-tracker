@@ -149,11 +149,11 @@ class CdcCovidProvider extends VariableProvider {
       // its for a state
       ISLAND_AREAS_FIPS.includes(stateFips)
     ) {
-      const decia2010BreakdownId =
-        "decia_2010_territory_population-by_" +
+      const decia2020BreakdownId =
+        "decia_2020_territory_population-by_" +
         breakdownColumnName +
         "_territory_state_level";
-      consumedDatasetIds = consumedDatasetIds.concat(decia2010BreakdownId);
+      consumedDatasetIds = consumedDatasetIds.concat(decia2020BreakdownId);
     } else {
       const acsDatasetId = GetAcsDatasetId(breakdowns);
       consumedDatasetIds = consumedDatasetIds.concat(acsDatasetId);

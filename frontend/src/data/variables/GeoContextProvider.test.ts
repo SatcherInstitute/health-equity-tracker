@@ -50,7 +50,7 @@ describe("GeoContextProvider", () => {
       new Fips("06037"),
       ["svi", "population"],
       "geo_context-county-06",
-      ["cdc_svi_county-age", "acs_population-by_age_county"]
+      ["cdc_svi_county-sex", "acs_population-by_sex_county"]
     );
   });
 
@@ -59,7 +59,7 @@ describe("GeoContextProvider", () => {
       new Fips("06037"),
       ["svi"],
       "geo_context-county-06",
-      ["cdc_svi_county-age"]
+      ["cdc_svi_county-sex"]
     );
   });
 
@@ -68,7 +68,7 @@ describe("GeoContextProvider", () => {
       new Fips("72123"),
       ["svi", "population"],
       "geo_context-county-72",
-      ["cdc_svi_county-age", "acs_population-by_age_county"]
+      ["cdc_svi_county-sex", "acs_population-by_sex_county"]
     );
   });
 
@@ -77,11 +77,9 @@ describe("GeoContextProvider", () => {
       new Fips("78010"),
       ["svi", "population"],
       "geo_context-county-78",
-      // TODO: currently county-equivalent population data is not being loaded from the DECIA2010
-      // TODO: so the footer won't show on the population card. See #1954
       [
-        "cdc_svi_county-age",
-        "decia_2010_territory_population-by_age_territory_county_level",
+        "cdc_svi_county-sex",
+        "decia_2020_territory_population-by_sex_territory_county_level",
       ]
     );
   });
@@ -91,7 +89,7 @@ describe("GeoContextProvider", () => {
       new Fips("06"),
       ["population"],
       "geo_context-state",
-      ["acs_population-by_age_state"]
+      ["acs_population-by_sex_state"]
     );
   });
 
@@ -100,7 +98,7 @@ describe("GeoContextProvider", () => {
       new Fips("72"),
       ["population"],
       "geo_context-state",
-      ["acs_population-by_age_state"]
+      ["acs_population-by_sex_state"]
     );
   });
 
@@ -109,7 +107,7 @@ describe("GeoContextProvider", () => {
       new Fips("78"),
       ["population"],
       "geo_context-state",
-      ["decia_2010_territory_population-by_age_territory_state_level"]
+      ["decia_2020_territory_population-by_sex_territory_state_level"]
     );
   });
 
@@ -118,7 +116,7 @@ describe("GeoContextProvider", () => {
       new Fips("00"),
       ["population"],
       "geo_context-national",
-      ["acs_population-by_age_national"]
+      ["acs_population-by_sex_national"]
     );
   });
 });
