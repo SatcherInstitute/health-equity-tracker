@@ -1,0 +1,35 @@
+state_fips,state_name,population,race_category_id,population_pct,race_and_ethnicity,ingestion_ts
+69,Northern Mariana Islands,53883.0,ALL,100.0,All,2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,45708.0,AIAN_API,84.8,"American Indian, Alaska Native, Asian & Pacific Islander",2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,26908.0,ASIAN,49.9,Asian,2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,26908.0,ASIAN_NH,49.9,Asian (NH),2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,55.0,BLACK,0.1,Black or African American,2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,55.0,BLACK_NH,0.1,Black or African American (NH),2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,18800.0,NHPI,34.9,Native Hawaiian and Pacific Islander,2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,18800.0,NHPI_NH,34.9,Native Hawaiian and Pacific Islander (NH),2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,1117.0,WHITE,2.1,White,2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,1117.0,WHITE_NH,2.1,White (NH),2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,6832.0,MULTI,12.7,Two or more races,2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,6832.0,MULTI_NH,12.7,Two or more races (NH),2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,117.0,OTHER_STANDARD,0.2,Unrepresented race,2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,117.0,OTHER_STANDARD_NH,0.2,Unrepresented race (NH),2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,6949.0,MULTI_OR_OTHER_STANDARD,12.9,Two or more races & Unrepresented race,2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,6949.0,MULTI_OR_OTHER_STANDARD_NH,12.9,Two or more races & Unrepresented race (NH),2023-03-20 23:09:27.089521 UTC
+69,Northern Mariana Islands,54.0,HISP,0.1,Hispanic or Latino,2023-03-20 23:09:27.089521 UTC
+66,Guam,159358.0,ALL,100.0,All,2023-03-20 23:09:27.089521 UTC
+66,Guam,129963.0,AIAN_API,81.6,"American Indian, Alaska Native, Asian & Pacific Islander",2023-03-20 23:09:27.089521 UTC
+66,Guam,51381.0,ASIAN,32.2,Asian,2023-03-20 23:09:27.089521 UTC
+66,Guam,51381.0,ASIAN_NH,32.2,Asian (NH),2023-03-20 23:09:27.089521 UTC
+66,Guam,1540.0,BLACK,1.0,Black or African American,2023-03-20 23:09:27.089521 UTC
+66,Guam,1540.0,BLACK_NH,1.0,Black or African American (NH),2023-03-20 23:09:27.089521 UTC
+66,Guam,78582.0,NHPI,49.3,Native Hawaiian and Pacific Islander,2023-03-20 23:09:27.089521 UTC
+66,Guam,78582.0,NHPI_NH,49.3,Native Hawaiian and Pacific Islander (NH),2023-03-20 23:09:27.089521 UTC
+66,Guam,11321.0,WHITE,7.1,White,2023-03-20 23:09:27.089521 UTC
+66,Guam,11321.0,WHITE_NH,7.1,White (NH),2023-03-20 23:09:27.089521 UTC
+66,Guam,14929.0,MULTI,9.4,Two or more races,2023-03-20 23:09:27.089521 UTC
+66,Guam,14929.0,MULTI_NH,9.4,Two or more races (NH),2023-03-20 23:09:27.089521 UTC
+66,Guam,404.0,OTHER_STANDARD,0.3,Unrepresented race,2023-03-20 23:09:27.089521 UTC
+66,Guam,404.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH),2023-03-20 23:09:27.089521 UTC
+66,Guam,15333.0,MULTI_OR_OTHER_STANDARD,9.6,Two or more races & Unrepresented race,2023-03-20 23:09:27.089521 UTC
+66,Guam,15333.0,MULTI_OR_OTHER_STANDARD_NH,9.6,Two or more races & Unrepresented race (NH),2023-03-20 23:09:27.089521 UTC
+66,Guam,1201.0,HISP,0.8,Hispanic or Latino,2023-03-20 23:09:27.089521 UTC

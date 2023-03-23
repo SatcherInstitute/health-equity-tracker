@@ -144,11 +144,13 @@ export default function AltTableView(props: AltTableViewProps) {
                     <TableRow key={row[TIME_PERIOD_LABEL]}>
                       {keys.map((key, j) => {
                         const isTimePeriod = key === TIME_PERIOD_LABEL;
-                        const isLastCol = j === keys.length - 1;
                         const appendPct =
-                          isLastCol ||
-                          props.knownMetricConfig.type ===
-                            "pct_relative_inequity";
+                          key.includes("with unknown ") ||
+                          [
+                            "pct_relative_inequity",
+                            "pct_share",
+                            "pct_incidence",
+                          ].includes(props.knownMetricConfig.type);
                         return (
                           <TableCell
                             key={key}
