@@ -4,9 +4,13 @@ import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import VariableProvider from "./VariableProvider";
 
+// TODO: Once all vaxx sources are being calculated on the backend, we should no longer need any population providers right?
+// Area total population comes from geo_context and population pct shares used on the comparison bar charts and tables are
+// now embedded within each fetched data source json table.
+
 class Decia2010PopulationProvider extends VariableProvider {
   constructor() {
-    super("decia_2010_pop_provider", ["population_pct_2010"]);
+    super("decia_2010_pop_provider", ["population_pct_decia"]);
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
@@ -29,11 +33,11 @@ class Decia2010PopulationProvider extends VariableProvider {
     let df = await this.getDataInternalWithoutPercents(breakdowns);
 
     df = df
-      .generateSeries({ population_2010: (row) => row["population"] })
+      .generateSeries({ population_decia: (row) => row["population"] })
       .resetIndex();
     df = df
       .generateSeries({
-        population_pct_2010: (row) => row["population_pct"],
+        population_pct_decia: (row) => row["population_pct"],
       })
       .resetIndex();
 

@@ -36,7 +36,7 @@ export type VariableId =
   | DropdownVarId
   | AgeAdjustedVariableId
   | "population"
-  | "population_2010"
+  | "population_decia"
   | "covid_cases"
   | "non_medical_drug_use"
   | "non_medical_rx_opioid_use"
@@ -52,8 +52,8 @@ export type VariableId =
 export type MetricId =
   | "population"
   | "population_pct"
-  | "population_2010"
-  | "population_pct_2010"
+  | "population_decia"
+  | "population_pct_decia"
   | "svi"
   | "geo_context"
   | "covid_cases"
@@ -267,21 +267,21 @@ export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
   },
 };
 
-export const POPULATION_VARIABLE_CONFIG_2010: VariableConfig = {
-  variableId: "population_2010",
+export const POPULATION_VARIABLE_CONFIG_decia: VariableConfig = {
+  variableId: "population_decia",
   variableDisplayName: "Population",
   variableFullDisplayName: "Population",
   metrics: {
     count: {
       chartTitleLines: [],
-      metricId: "population_2010",
+      metricId: "population_decia",
       columnTitleHeader: "Population",
       shortLabel: "people",
       type: "count",
     },
     pct_share: {
       chartTitleLines: [],
-      metricId: "population_pct_2010",
+      metricId: "population_pct_decia",
       columnTitleHeader: populationPctTitle,
       shortLabel: populationPctShortLabel,
       type: "pct_share",

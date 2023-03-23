@@ -222,10 +222,11 @@ function ReportProvider(props: ReportProviderProps) {
           <p>
             Population data for <b>Northern Mariana Islands</b>, <b>Guam</b>,{" "}
             <b>American Samoa</b>, and the <b>U.S. Virgin Islands</b> are not
-            reported in the ACS five year estimates. The last reliable
-            population numbers we could find for these territories is from the
-            2010 census, so we use those numbers when calculating all territory-
-            and national-level rates.
+            reported in the ACS five year estimates, so we instead source
+            current population data for territories and their county-equivalents
+            from the 2020 Decennial Island Areas report. For time-series data
+            that includes years 2009-2015, we rely on the 2010 release of the
+            Decennial census.
           </p>
 
           {isCovid && <MissingCovidData />}
