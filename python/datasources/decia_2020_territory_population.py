@@ -205,6 +205,7 @@ class Decia2020TerritoryPopulationData(DataSource):
 
             if postal in ["AS", "GU", "MP"] and breakdown == std_col.RACE_OR_HISPANIC_COL:
                 raw_df = use_nonNH_as_NH(raw_df)
+                raw_df = add_multi_other_tmp_cols(raw_df)
             cleaned_dfs.append(raw_df)
 
         # combine cleaned per-island dfs into one
@@ -363,5 +364,22 @@ def use_nonNH_as_NH(df: pd.DataFrame) -> pd.DataFrame:
     for non_nh_col, nh_col in NON_NH_TO_NH_RACE_MAP.items():
         df[f'{nh_col}_count'] = df[f'{non_nh_col}_count']
         df[f'{nh_col}_pct_share'] = df[f'{non_nh_col}_pct_share']
+
+    return df
+
+
+def add_multi_other_tmp_cols(df: pd.DataFrame) -> pd.DataFrame:
+    """ CDC Restricted COVID dataset uses a composite race group that combines
+    the some other race / unrepresented race group with the two or more races /
+     multiracial group. We want the individual groups and the combined group
+      available so that all of our datasets can utilize this data.
+
+    Returns df with 4 new columns for the combined group _count and_pct_share for both NH and nonNH """
+
+    for suffix in ["_count", "pct_share"]:
+        df[f'{std_col.Race.MULTI_OR_OTHER_STANDARD}{suffix}'] = df[
+            f'{std_col.Race.MULTI}{suffix}'] + df[f'{std_col.Race.OTHER_STANDARD}{suffix}']
+        df[f'{std_col.Race.MULTI_OR_OTHER_STANDARD_NH}{suffix}'] = df[
+            f'{std_col.Race.MULTI_NH}{suffix}'] + df[f'{std_col.Race.OTHER_STANDARD_NH}{suffix}']
 
     return df
