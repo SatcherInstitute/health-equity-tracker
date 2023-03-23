@@ -1,5 +1,5 @@
 import IncarcerationProvider from "./IncarcerationProvider";
-import { Breakdowns, BreakdownVar, TimeView } from "../query/Breakdowns";
+import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { Fips } from "../utils/Fips";
 import { DatasetMetadataMap } from "../config/DatasetMetadata";
@@ -17,7 +17,6 @@ export async function ensureCorrectDatasetsDownloaded(
   baseBreakdown: Breakdowns,
   breakdownVar: BreakdownVar,
   variableId: VariableId,
-  timeView: TimeView,
   acsDatasetIds?: string[],
   metricIds?: MetricId[]
 ) {
@@ -34,8 +33,7 @@ export async function ensureCorrectDatasetsDownloaded(
     new MetricQuery(
       metricIds,
       baseBreakdown.addBreakdown(breakdownVar),
-      variableId,
-      timeView
+      variableId
     )
   );
 
@@ -59,13 +57,23 @@ describe("IncarcerationProvider", () => {
     dataFetcher.setFakeMetadataLoaded(DatasetMetadataMap);
   });
 
+  test("County and Race Breakdown for Prison", async () => {
+    await ensureCorrectDatasetsDownloaded(
+      "vera_incarceration_county-by_race_and_ethnicity_county_time_series-06",
+      Breakdowns.forFips(new Fips("06037")),
+      RACE,
+      "prison",
+      [],
+      ["prison_per_100k"]
+    );
+  });
+
   test("State and Race Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
       "bjs_incarceration_data-race_and_ethnicity_state",
       Breakdowns.forFips(new Fips("37")),
       RACE,
       "jail",
-      "cross_sectional",
       ["acs_population-by_race_state"]
     );
   });
@@ -76,8 +84,18 @@ describe("IncarcerationProvider", () => {
       Breakdowns.forFips(new Fips("00")),
       RACE,
       "jail",
-      "cross_sectional",
       ["acs_population-by_race_national"]
+    );
+  });
+
+  test("County and Age Breakdown for Jail", async () => {
+    await ensureCorrectDatasetsDownloaded(
+      "vera_incarceration_county-by_age_county_time_series-06",
+      Breakdowns.forFips(new Fips("06037")),
+      AGE,
+      "jail",
+      [],
+      ["jail_per_100k"]
     );
   });
 
@@ -87,8 +105,6 @@ describe("IncarcerationProvider", () => {
       Breakdowns.forFips(new Fips("37")),
       AGE,
       "prison",
-      "cross_sectional",
-
       ["acs_population-by_age_state"]
     );
   });
@@ -99,9 +115,18 @@ describe("IncarcerationProvider", () => {
       Breakdowns.forFips(new Fips("00")),
       AGE,
       "prison",
-      "cross_sectional",
-
       ["acs_population-by_age_national"]
+    );
+  });
+
+  test("County and Sex Breakdown for Jail", async () => {
+    await ensureCorrectDatasetsDownloaded(
+      "vera_incarceration_county-by_sex_county_time_series-06",
+      Breakdowns.forFips(new Fips("06037")),
+      SEX,
+      "jail",
+      [],
+      ["jail_per_100k"]
     );
   });
 
@@ -111,8 +136,6 @@ describe("IncarcerationProvider", () => {
       Breakdowns.forFips(new Fips("37")),
       SEX,
       "jail",
-      "cross_sectional",
-
       ["acs_population-by_sex_state"]
     );
   });
@@ -123,52 +146,7 @@ describe("IncarcerationProvider", () => {
       Breakdowns.forFips(new Fips("00")),
       SEX,
       "jail",
-      "cross_sectional",
-
       ["acs_population-by_sex_national"]
     );
   });
-
-  /* County level tests were timing out using the test function at the top of the file
-  For now at least have these simple tests in place */
-
-  test("County and Sex Breakdown", async () => {
-    await ensureCorrectDatasetsDownloaded(
-      "vera_incarceration_county-by_race_and_ethnicity_county_time_series",
-      Breakdowns.forFips(new Fips("06037")),
-      SEX,
-      "jail",
-      "cross_sectional",
-      ["decia_2020_territory_population-by_sex_territory_county_level"]
-    );
-  });
-  // test("County and Race Breakdown", async () => {
-  //   const countyBreakdowns = Breakdowns.forFips(new Fips("06037")).addBreakdown(
-  //     RACE
-  //   );
-  //   const provider = new IncarcerationProvider();
-  //   expect(provider.getDatasetId(countyBreakdowns)).toEqual(
-  //     "vera_incarceration_county-by_race_and_ethnicity_county_time_series"
-  //   );
-  // });
-
-  // test("County and Age Breakdown", async () => {
-  //   const countyBreakdowns = Breakdowns.forFips(new Fips("06037")).addBreakdown(
-  //     AGE
-  //   );
-  //   const provider = new IncarcerationProvider();
-  //   expect(provider.getDatasetId(countyBreakdowns)).toEqual(
-  //     "vera_incarceration_county-by_age_county_time_series"
-  //   );
-  // });
-
-  // test("County and Sex Breakdown", async () => {
-  //   const countyBreakdowns = Breakdowns.forFips(new Fips("06037")).addBreakdown(
-  //     SEX
-  //   );
-  //   const provider = new IncarcerationProvider();
-  //   expect(provider.getDatasetId(countyBreakdowns)).toEqual(
-  //     "vera_incarceration_county-by_sex_county_time_series"
-  //   );
-  // });
 });
