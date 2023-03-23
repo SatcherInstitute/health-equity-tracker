@@ -77,11 +77,20 @@ class IncarcerationProvider extends VariableProvider {
 
     if (breakdowns.geography === "county") {
       if (breakdowns.hasOnlyRace())
-        return "vera_incarceration_county-by_race_and_ethnicity_county_time_series";
+        return appendFipsIfNeeded(
+          "vera_incarceration_county-by_race_and_ethnicity_county_time_series",
+          breakdowns
+        );
       if (breakdowns.hasOnlyAge())
-        return "vera_incarceration_county-by_age_county_time_series";
+        return appendFipsIfNeeded(
+          "vera_incarceration_county-by_age_county_time_series",
+          breakdowns
+        );
       if (breakdowns.hasOnlySex())
-        return "vera_incarceration_county-by_sex_county_time_series";
+        return appendFipsIfNeeded(
+          "vera_incarceration_county-by_sex_county_time_series",
+          breakdowns
+        );
     }
     throw new Error("Not implemented");
   }
@@ -93,9 +102,7 @@ class IncarcerationProvider extends VariableProvider {
     const variableId: VariableId | undefined = metricQuery?.variableId;
     const timeView = metricQuery.timeView;
     const datasetId = this.getDatasetId(breakdowns);
-    const dataSource = await getDataManager().loadDataset(
-      appendFipsIfNeeded(datasetId, breakdowns)
-    );
+    const dataSource = await getDataManager().loadDataset(datasetId);
     let df = dataSource.toDataFrame();
 
     df = this.filterByGeo(df, breakdowns);
