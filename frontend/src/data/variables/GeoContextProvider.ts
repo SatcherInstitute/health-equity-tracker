@@ -34,7 +34,7 @@ class GeoContextProvider extends VariableProvider {
     const consumedDatasetIds: string[] = [];
 
     if (metricQuery.metricIds.includes("svi")) {
-      //  TODO: refactor SVI to not use pretend AGE breakdown
+      //  TODO: refactor SVI to not use pretend SEX breakdown, use some sort of true ALL breakdown
       consumedDatasetIds.push("cdc_svi_county-sex");
     }
 
