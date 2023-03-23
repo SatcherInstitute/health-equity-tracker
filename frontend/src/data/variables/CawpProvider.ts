@@ -69,7 +69,6 @@ class CawpProvider extends VariableProvider {
     super("cawp_provider", CAWP_DETERMINANTS);
   }
   getDatasetId(breakdowns: Breakdowns): string {
-    console.log(breakdowns);
     if (breakdowns.geography === "national" && breakdowns.hasOnlyRace()) {
       return "cawp_time_data-race_and_ethnicity_national_time_series";
     }
@@ -96,7 +95,7 @@ class CawpProvider extends VariableProvider {
 
     let consumedDatasetIds = [datasetId];
 
-    // no population umbers used for rates, only comparison pop. and pct_rel_inequity
+    // no population numbers used for rates, only comparison pop. and pct_rel_inequity
     if (
       metricQuery.metricIds.includes("cawp_population_pct") ||
       metricQuery.metricIds.includes(
