@@ -113,6 +113,9 @@ def testGenerateRaceTerritory(
     expected_df = pd.read_csv(
         os.path.join(GOLDEN_DIR, f'{table_name}.csv'), index_col=False, dtype=dtypes)
 
+    print(df.to_string())
+    print(expected_df.to_string())
+
     assert_frame_equal(df, expected_df, check_dtype=False)
 
 

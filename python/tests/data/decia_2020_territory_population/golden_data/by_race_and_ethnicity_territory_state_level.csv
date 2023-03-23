@@ -11,6 +11,8 @@ state_fips,race_category_id,population,population_pct,state_name,race_and_ethnic
 60,NHPI_NH,44090.0,88.7,American Samoa,Native Hawaiian and Pacific Islander (NH)
 60,MULTI,2192.0,4.4,American Samoa,Two or more races
 60,MULTI_NH,2192.0,4.4,American Samoa,Two or more races (NH)
+60,MULTI_OR_OTHER_STANDARD,2331.0,4.7,American Samoa,Two or more races & Unrepresented race
+60,MULTI_OR_OTHER_STANDARD_NH,2331.0,4.7,American Samoa,Two or more races & Unrepresented race (NH)
 60,OTHER_STANDARD,139.0,0.3,American Samoa,Unrepresented race
 60,OTHER_NONSTANDARD_NH,,,American Samoa,Unrepresented race (NH)
 60,OTHER_STANDARD_NH,139.0,0.3,American Samoa,Unrepresented race (NH)
@@ -28,6 +30,8 @@ state_fips,race_category_id,population,population_pct,state_name,race_and_ethnic
 66,NHPI_NH,70809.0,46.0,Guam,Native Hawaiian and Pacific Islander (NH)
 66,MULTI,15441.0,10.0,Guam,Two or more races
 66,MULTI_NH,15441.0,10.0,Guam,Two or more races (NH)
+66,MULTI_OR_OTHER_STANDARD,16396.0,10.6,Guam,Two or more races & Unrepresented race
+66,MULTI_OR_OTHER_STANDARD_NH,16396.0,10.6,Guam,Two or more races & Unrepresented race (NH)
 66,OTHER_STANDARD,955.0,0.6,Guam,Unrepresented race
 66,OTHER_NONSTANDARD_NH,,,Guam,Unrepresented race (NH)
 66,OTHER_STANDARD_NH,955.0,0.6,Guam,Unrepresented race (NH)
@@ -45,6 +49,8 @@ state_fips,race_category_id,population,population_pct,state_name,race_and_ethnic
 69,NHPI_NH,20665.0,43.7,Northern Mariana Islands,Native Hawaiian and Pacific Islander (NH)
 69,MULTI,3453.0,7.3,Northern Mariana Islands,Two or more races
 69,MULTI_NH,3453.0,7.3,Northern Mariana Islands,Two or more races (NH)
+69,MULTI_OR_OTHER_STANDARD,3518.0,7.4,Northern Mariana Islands,Two or more races & Unrepresented race
+69,MULTI_OR_OTHER_STANDARD_NH,3518.0,7.4,Northern Mariana Islands,Two or more races & Unrepresented race (NH)
 69,OTHER_STANDARD,65.0,0.1,Northern Mariana Islands,Unrepresented race
 69,OTHER_NONSTANDARD_NH,,,Northern Mariana Islands,Unrepresented race (NH)
 69,OTHER_STANDARD_NH,65.0,0.1,Northern Mariana Islands,Unrepresented race (NH)
