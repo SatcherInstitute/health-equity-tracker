@@ -219,9 +219,11 @@ class Decia2020TerritoryPopulationData(DataSource):
             raw_df = raw_df[needed_cols]
             raw_df = raw_df.rename(columns=rename_map)
 
-            if postal in ["AS", "GU", "MP"] and breakdown == std_col.RACE_OR_HISPANIC_COL:
-                raw_df = use_nonNH_as_NH(raw_df)
-            if postal in ["AS", "GU", "MP", "VI"] and breakdown == std_col.RACE_OR_HISPANIC_COL:
+            if breakdown == std_col.RACE_OR_HISPANIC_COL:
+                # non-VI gets nh/non-nh fill ins
+                if postal in ["AS", "GU", "MP"]:
+                    raw_df = use_nonNH_as_NH(raw_df)
+                # every island gets needed combo races
                 raw_df = add_combo_race_cols(raw_df)
             cleaned_dfs.append(raw_df)
 
