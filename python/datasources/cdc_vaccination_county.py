@@ -19,11 +19,12 @@ CDC_COUNTY_FIPS_COL = 'fips'
 CDC_COUNTY_COL = 'recip_county'
 CDC_DOSE_ONE_COL = 'administered_dose1_recip'
 CDC_DATE_COL = 'date'
+CDC_ONE_DOSE = 'one_dose'
 
 COL_NAME_MAPPING = {
     CDC_COUNTY_FIPS_COL: std_col.COUNTY_FIPS_COL,
     CDC_COUNTY_COL: std_col.COUNTY_NAME_COL,
-    CDC_DOSE_ONE_COL: std_col.VACCINATED_FIRST_DOSE,
+    CDC_DOSE_ONE_COL: CDC_ONE_DOSE,
 }
 
 
@@ -66,13 +67,13 @@ def generate_breakdown(df):
     df = df.rename(columns=COL_NAME_MAPPING)
     df[std_col.RACE_CATEGORY_ID_COL] = Race.ALL.value
 
-    df[std_col.VACCINATED_FIRST_DOSE] = df[std_col.VACCINATED_FIRST_DOSE].astype(float)
+    df[CDC_ONE_DOSE] = df[CDC_ONE_DOSE].astype(float)
     df = df[list(COL_NAME_MAPPING.values()) + [std_col.RACE_CATEGORY_ID_COL]]
 
     df = merge_county_names(df)
     df = merge_pop_numbers(df, RACE, COUNTY_LEVEL)
 
-    df = generate_per_100k_col(df, std_col.VACCINATED_FIRST_DOSE,
+    df = generate_per_100k_col(df, CDC_ONE_DOSE,
                                std_col.POPULATION_COL, std_col.VACCINATED_PER_100K)
 
     df = df[[std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL,
