@@ -114,9 +114,15 @@ STD_AGES_SUM_MAP = {
 COMBO_RACES_SUM_MAP = {
     # note each territry only has other_standard or other_nonstandard but not both,
     # so we can include both in the sum
-    (std_col.Race.MULTI.value, std_col.Race.OTHER_STANDARD.value, std_col.Race.OTHER_NONSTANDARD.value): std_col.Race.MULTI_OR_OTHER_STANDARD.value,
-    (std_col.Race.MULTI_NH.value, std_col.Race.OTHER_STANDARD_NH.value, std_col.Race.OTHER_NONSTANDARD_NH.value): std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
-    (std_col.Race.AIAN.value, std_col.Race.ASIAN.value, std_col.Race.NHPI.value): std_col.Race.AIAN_API.value
+    (std_col.Race.MULTI.value,
+     std_col.Race.OTHER_STANDARD.value,
+     std_col.Race.OTHER_NONSTANDARD.value): std_col.Race.MULTI_OR_OTHER_STANDARD.value,
+    (std_col.Race.MULTI_NH.value,
+     std_col.Race.OTHER_STANDARD_NH.value,
+     std_col.Race.OTHER_NONSTANDARD_NH.value): std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
+    (std_col.Race.AIAN.value,
+     std_col.Race.ASIAN.value,
+     std_col.Race.NHPI.value): std_col.Race.AIAN_API.value
 }
 
 NON_NH_TO_NH_RACE_MAP = {
