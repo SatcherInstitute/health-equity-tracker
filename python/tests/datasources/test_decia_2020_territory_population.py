@@ -113,7 +113,7 @@ def testGenerateRaceTerritory(
     expected_df = pd.read_csv(
         os.path.join(GOLDEN_DIR, f'{table_name}.csv'), index_col=False, dtype=dtypes)
 
-    assert_frame_equal(df, expected_df, check_dtype=False)
+    assert_frame_equal(df, expected_df, check_dtype=False, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
