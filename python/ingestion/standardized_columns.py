@@ -92,9 +92,6 @@ VOTER_PARTICIPATION_PREFIX = "voter_participation"
 BRFSS_POPULATION_PCT = "brfss_population_pct"
 
 # Vaccination columns
-VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
-VACCINATED_PCT = "vaccinated_pct"
-VACCINATED_SHARE_OF_KNOWN = "vaccinated_share_of_known"
 VACCINATED_PER_100K = "vaccinated_per_100k"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 VACCINATED_POP_PCT = 'vaccinated_pop_pct'

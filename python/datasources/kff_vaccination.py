@@ -67,6 +67,7 @@ AAPI_STATES = {'Arizona', 'Connecticut', 'District of Columbia', 'Michigan', 'Mi
                'New Mexico', 'North Carolina', 'Oklahoma', 'South Carolina', 'Virginia'}
 
 KFF_TERRITORIES = ['Guam', 'Puerto Rico', 'Northern Mariana Islands']
+VACCINATED_FIRST_DOSE = 'one_dose'
 
 
 def get_data_url(data_type):
@@ -175,7 +176,7 @@ def generate_total_row(state_row_totals, state):
     )]
     latest_row = state_row_totals.loc[state_row_totals['date']
                                       == state_row_totals['date'].max()]
-    output_row[std_col.VACCINATED_FIRST_DOSE] = str(
+    output_row[VACCINATED_FIRST_DOSE] = str(
         latest_row[TOTAL_KEY].values[0])
     output_row[std_col.VACCINATED_POP_PCT] = "1.0"
     return output_row
@@ -219,7 +220,7 @@ class KFFVaccination(DataSource):
             std_col.RACE_CATEGORY_ID_COL,
             std_col.VACCINATED_PCT_SHARE,
             std_col.VACCINATED_PER_100K,
-            std_col.VACCINATED_FIRST_DOSE,
+            VACCINATED_FIRST_DOSE,
             std_col.VACCINATED_POP_PCT,
         ]
 
@@ -268,12 +269,12 @@ class KFFVaccination(DataSource):
         df = clean_row(df, std_col.VACCINATED_PER_100K)
         df[std_col.VACCINATED_PER_100K] = df[std_col.VACCINATED_PER_100K] * 1000 * 100
 
-        total_df = df.loc[~df[std_col.VACCINATED_FIRST_DOSE].isnull()].reset_index(drop=True)
+        total_df = df.loc[~df[VACCINATED_FIRST_DOSE].isnull()].reset_index(drop=True)
         total_df = merge_pop_numbers(total_df, RACE, STATE_LEVEL)
-        total_df = generate_per_100k_col(total_df, std_col.VACCINATED_FIRST_DOSE,
+        total_df = generate_per_100k_col(total_df, VACCINATED_FIRST_DOSE,
                                          std_col.POPULATION_COL, std_col.VACCINATED_PER_100K)
 
-        df = df.loc[df[std_col.VACCINATED_FIRST_DOSE].isnull()].reset_index(drop=True)
+        df = df.loc[df[VACCINATED_FIRST_DOSE].isnull()].reset_index(drop=True)
         df = pd.concat([df, total_df])
 
         df = df.drop(columns=std_col.POPULATION_PCT_COL)
