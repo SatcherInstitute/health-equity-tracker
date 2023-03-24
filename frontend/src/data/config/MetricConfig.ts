@@ -267,28 +267,6 @@ export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
   },
 };
 
-export const POPULATION_VARIABLE_CONFIG_decia: VariableConfig = {
-  variableId: "population_decia",
-  variableDisplayName: "Population",
-  variableFullDisplayName: "Population",
-  metrics: {
-    count: {
-      chartTitleLines: [],
-      metricId: "population_decia",
-      columnTitleHeader: "Population",
-      shortLabel: "people",
-      type: "count",
-    },
-    pct_share: {
-      chartTitleLines: [],
-      metricId: "population_pct_decia",
-      columnTitleHeader: populationPctTitle,
-      shortLabel: populationPctShortLabel,
-      type: "pct_share",
-    },
-  },
-};
-
 export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {
   per100k: "per 100k",
   pct_share: "% share",
