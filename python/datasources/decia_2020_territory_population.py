@@ -5,7 +5,7 @@ from ingestion.constants import (COUNTY_LEVEL, STATE_LEVEL, Sex)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col, dataset_utils
 
 from ingestion.merge_utils import merge_county_names, merge_state_ids
-from typing import Literal, cast, List, Dict, Final
+from typing import Literal, cast, List, Dict, Final, Any
 from ingestion.types import DEMOGRAPHIC_TYPE
 
 
@@ -132,7 +132,6 @@ NON_NH_TO_NH_RACE_MAP = {
     std_col.Race.BLACK.value: std_col.Race.BLACK_NH.value,
     std_col.Race.AIAN.value: std_col.Race.AIAN_NH.value,
     std_col.Race.OTHER_STANDARD.value: std_col.Race.OTHER_STANDARD_NH.value,
-    # std_col.Race.OTHER_NONSTANDARD.value: std_col.Race.OTHER_NONSTANDARD_NH.value,
     std_col.Race.MULTI.value: std_col.Race.MULTI_NH.value,
 
 }
@@ -223,7 +222,7 @@ class Decia2020TerritoryPopulationData(DataSource):
             if postal in ["AS", "GU", "MP"] and breakdown == std_col.RACE_OR_HISPANIC_COL:
                 raw_df = use_nonNH_as_NH(raw_df)
             if postal in ["AS", "GU", "MP", "VI"] and breakdown == std_col.RACE_OR_HISPANIC_COL:
-                raw_df = add_combo_race_cols(raw_df, postal)
+                raw_df = add_combo_race_cols(raw_df)
             cleaned_dfs.append(raw_df)
 
         # combine cleaned per-island dfs into one
@@ -236,7 +235,7 @@ class Decia2020TerritoryPopulationData(DataSource):
                 SEX_CODES_TO_STD, TMP_PCT_SHARE_SUFFIX)
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
 
-            race_map = {
+            race_map: Dict[Any, str] = {
                 **RACE_CODES_TO_STD[postal],
                 **NON_NH_TO_NH_RACE_MAP,
                 **COMBO_RACES_SUM_MAP
@@ -390,7 +389,7 @@ def use_nonNH_as_NH(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def add_combo_race_cols(df: pd.DataFrame, postal: str) -> pd.DataFrame:
+def add_combo_race_cols(df: pd.DataFrame) -> pd.DataFrame:
     """ Certain data sources use composite race groups that combine
     standard Census race/ethnicity groups into composite groups.
 
