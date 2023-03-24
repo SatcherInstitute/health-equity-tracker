@@ -1,8 +1,8 @@
-import { DataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { appendFipsIfNeeded, joinOnCols } from "../utils/datasetutils";
+import { appendFipsIfNeeded } from "../utils/datasetutils";
+import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 import { RACE } from "../utils/Constants";
@@ -14,7 +14,6 @@ class VaccineProvider extends VariableProvider {
     super("vaccine_provider", [
       "acs_vaccinated_pop_pct",
       "vaccinated_pct_share",
-      "vaccinated_share_of_known",
       "vaccinated_per_100k",
       "vaccinated_pop_pct",
       "vaccinated_ratio_age_adjusted",
@@ -26,11 +25,11 @@ class VaccineProvider extends VariableProvider {
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.geography === "national") {
       if (breakdowns.hasOnlyRace()) {
-        return "cdc_vaccination_national-race_and_ethnicity";
+        return "cdc_vaccination_national-race_processed";
       } else if (breakdowns.hasOnlySex()) {
-        return "cdc_vaccination_national-sex";
+        return "cdc_vaccination_national-sex_processed";
       } else if (breakdowns.hasOnlyAge()) {
-        return "cdc_vaccination_national-age";
+        return "cdc_vaccination_national-age_processed";
       }
     } else if (breakdowns.geography === "state" && breakdowns.hasOnlyRace()) {
       return "kff_vaccination-race_and_ethnicity_processed";
@@ -53,8 +52,6 @@ class VaccineProvider extends VariableProvider {
     const vaxData = await getDataManager().loadDataset(datasetId);
     let df = vaxData.toDataFrame();
 
-    const breakdownColumnName =
-      breakdowns.getSoleDemographicBreakdown().columnName;
     df = this.filterByTimeView(df, timeView);
 
     df = this.filterByGeo(df, breakdowns);
@@ -66,33 +63,9 @@ class VaccineProvider extends VariableProvider {
     let consumedDatasetIds = [datasetId];
 
     if (breakdowns.geography === "national") {
-      if (breakdownColumnName !== "age") {
-        const acsQueryResponse = await this.acsProvider.getData(
-          new MetricQuery(["population_pct"], acsBreakdowns)
-        );
-
-        consumedDatasetIds = consumedDatasetIds.concat(
-          acsQueryResponse.consumedDatasetIds
-        );
-
-        // We merge this in on the backend
-        consumedDatasetIds = consumedDatasetIds.concat(
-          "acs_2010_population-by_race_and_ethnicity_territory"
-        );
-
-        const acs = new DataFrame(acsQueryResponse.data);
-        df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
-      }
-
-      df = df.renameSeries({
-        population_pct: "vaccine_population_pct",
-      });
-
-      df = df
-        .generateSeries({
-          vaccinated_pct_share: (row) => row["vaccinated_share_of_known"],
-        })
-        .resetIndex();
+      consumedDatasetIds = consumedDatasetIds.concat(
+        GetAcsDatasetId(breakdowns)
+      );
     } else if (breakdowns.geography === "state") {
       consumedDatasetIds = consumedDatasetIds.concat(
         "acs_population-by_race_state",
@@ -105,8 +78,6 @@ class VaccineProvider extends VariableProvider {
         "acs_population-by_race_county"
       );
     }
-
-    df = df.dropSeries(["population"]).resetIndex();
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
