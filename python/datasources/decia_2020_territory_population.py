@@ -110,6 +110,15 @@ STD_AGES_SUM_MAP = {
     # "18-24", "18-44"
 }
 
+
+COMBO_RACES_SUM_MAP = {
+    # note each territry only has other_standard or other_nonstandard but not both,
+    # so we can include both in the sum
+    (std_col.Race.MULTI.value, std_col.Race.OTHER_STANDARD.value, std_col.Race.OTHER_NONSTANDARD.value): std_col.Race.MULTI_OR_OTHER_STANDARD.value,
+    (std_col.Race.MULTI_NH.value, std_col.Race.OTHER_STANDARD_NH.value, std_col.Race.OTHER_NONSTANDARD_NH.value): std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
+    (std_col.Race.AIAN.value, std_col.Race.ASIAN.value, std_col.Race.NHPI.value): std_col.Race.AIAN_API.value
+}
+
 NON_NH_TO_NH_RACE_MAP = {
     std_col.Race.NHPI.value: std_col.Race.NHPI_NH.value,
     std_col.Race.ASIAN.value: std_col.Race.ASIAN_NH.value,
@@ -117,8 +126,7 @@ NON_NH_TO_NH_RACE_MAP = {
     std_col.Race.BLACK.value: std_col.Race.BLACK_NH.value,
     std_col.Race.AIAN.value: std_col.Race.AIAN_NH.value,
     std_col.Race.OTHER_STANDARD.value: std_col.Race.OTHER_STANDARD_NH.value,
-    std_col.Race.OTHER_NONSTANDARD.value: std_col.Race.OTHER_NONSTANDARD_NH.value,
-
+    # std_col.Race.OTHER_NONSTANDARD.value: std_col.Race.OTHER_NONSTANDARD_NH.value,
     std_col.Race.MULTI.value: std_col.Race.MULTI_NH.value,
 
 }
@@ -209,7 +217,7 @@ class Decia2020TerritoryPopulationData(DataSource):
             if postal in ["AS", "GU", "MP"] and breakdown == std_col.RACE_OR_HISPANIC_COL:
                 raw_df = use_nonNH_as_NH(raw_df)
             if postal in ["AS", "GU", "MP", "VI"] and breakdown == std_col.RACE_OR_HISPANIC_COL:
-                raw_df = add_multi_other_tmp_cols(raw_df, postal)
+                raw_df = add_combo_race_cols(raw_df, postal)
             cleaned_dfs.append(raw_df)
 
         # combine cleaned per-island dfs into one
@@ -222,8 +230,11 @@ class Decia2020TerritoryPopulationData(DataSource):
                 SEX_CODES_TO_STD, TMP_PCT_SHARE_SUFFIX)
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
 
-            race_map = {**RACE_CODES_TO_STD[postal], **NON_NH_TO_NH_RACE_MAP,
-                        std_col.Race.MULTI_OR_OTHER_STANDARD.value: std_col.Race.MULTI_OR_OTHER_STANDARD.value, std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value: std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value}
+            race_map = {
+                **RACE_CODES_TO_STD[postal],
+                **NON_NH_TO_NH_RACE_MAP,
+                **COMBO_RACES_SUM_MAP
+            }
             count_group_cols_map = get_melt_map(
                 race_map, TMP_COUNT_SUFFIX)
             pct_share_group_cols_map = get_melt_map(
@@ -373,21 +384,16 @@ def use_nonNH_as_NH(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def add_multi_other_tmp_cols(df: pd.DataFrame, postal: str) -> pd.DataFrame:
-    """ CDC Restricted COVID dataset uses a composite race group that combines
-    the some other race / unrepresented race group with the two or more races /
-     multiracial group. We want the individual groups and the combined group
-      available so that all of our datasets can utilize this data.
+def add_combo_race_cols(df: pd.DataFrame, postal: str) -> pd.DataFrame:
+    """ Certain data sources use composite race groups that combine
+    standard Census race/ethnicity groups into composite groups.
 
-    Returns df with 4 new columns for the combined group _count and_pct_share for both NH and nonNH """
-
-    other_col = std_col.Race.OTHER_NONSTANDARD.value if postal == "VI" else std_col.Race.OTHER_STANDARD.value
-    other_nh_col = std_col.Race.OTHER_NONSTANDARD_NH.value if postal == "VI" else std_col.Race.OTHER_STANDARD_NH.value
+    Returns df with new tmp columns for each combo-group-metric; which will later be melted into HET style table """
 
     for suffix in ["_count", "_pct_share"]:
-        df[f'{std_col.Race.MULTI_OR_OTHER_STANDARD.value}{suffix}'] = df[
-            f'{std_col.Race.MULTI.value}{suffix}'] + df[f'{other_col}{suffix}']
-        df[f'{std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value}{suffix}'] = df[
-            f'{std_col.Race.MULTI_NH.value}{suffix}'] + df[f'{other_nh_col}{suffix}']
+        for races_to_sum_tuple, combo_race in COMBO_RACES_SUM_MAP.items():
+            race_cols_to_sum = [
+                f'{race}{suffix}' for race in races_to_sum_tuple if f'{race}{suffix}' in df.columns]
+            df[f'{combo_race}{suffix}'] = df[race_cols_to_sum].sum(axis=1)
 
     return df
