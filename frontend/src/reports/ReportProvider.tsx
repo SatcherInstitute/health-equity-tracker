@@ -222,11 +222,18 @@ function ReportProvider(props: ReportProviderProps) {
           <p>
             Population data for <b>Northern Mariana Islands</b>, <b>Guam</b>,{" "}
             <b>American Samoa</b>, and the <b>U.S. Virgin Islands</b> are not
-            reported in the ACS five year estimates; in these territories for
+            reported in the ACS five year estimates; in these territories, for
             current and time-series based population figures back to 2016, we
             incorporate the 2020 Decennial Island Areas report. For time-series
-            data from 2009-2015, we rely on the 2010 release of the Decennial
-            report.
+            data from 2009-2015, we incorporate the 2010 release of the
+            Decennial report. Note: The NH, or Non-Hispanic race groups are only
+            provided by the Decennial report for <b>VI</b> but not the other
+            Island Areas. As the overall number of Hispanic-identifying people
+            is very low in these Island Areas (hence the Census not providing
+            these race groups), we use the ethnicity-agnostic race groups (e.g.{" "}
+            <b>Black or African American</b>) even though the condition data may
+            use Non-Hispanic race groups (e.g.{" "}
+            <b>Black or African American (NH)</b>).
           </p>
 
           {isCovid && <MissingCovidData />}
