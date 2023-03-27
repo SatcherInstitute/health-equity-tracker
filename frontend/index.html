@@ -62,6 +62,10 @@
   <!-- End Google Tag Manager (noscript) - HET -->
   <noscript>You need to enable JavaScript to run the Health Equity Tracker.</noscript>
   <div id="root"></div>
+  <!--Vite doesn't provide global so manually shim here -->
+  <script>
+    var global = global || window
+    </script>
   <script type="module" src="/src/index.tsx"></script>
 </body>
 
