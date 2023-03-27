@@ -1,5 +1,5 @@
-state_name,state_fips,vaccinated_first_dose,sex,vaccinated_share_of_known,vaccinated_per_100k
-United States,00,121625508,Female,52.4,72200
-United States,00,110475379,Male,47.6,67600
-United States,00,2168166,Unknown,0.9,
-United States,00,234269053,All,100,70600
+state_name,state_fips,sex,vaccinated_pct_share,vaccinated_per_100k,vaccinated_pop_pct
+United States,00,Female,52.4,72200,50.8
+United States,00,Male,47.6,67600,49.2
+United States,00,Unknown,0.9,
+United States,00,All,100,70600,100.0

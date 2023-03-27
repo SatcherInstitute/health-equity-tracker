@@ -95,9 +95,7 @@ class CawpProvider extends VariableProvider {
 
     let consumedDatasetIds = [datasetId];
 
-    let acsBreakdowns = breakdowns.copy();
-    acsBreakdowns.time = false;
-
+    // no population numbers used for rates, only comparison pop. and pct_rel_inequity
     if (
       metricQuery.metricIds.includes("cawp_population_pct") ||
       metricQuery.metricIds.includes(
@@ -105,11 +103,24 @@ class CawpProvider extends VariableProvider {
       ) ||
       metricQuery.metricIds.includes("women_state_leg_pct_relative_inequity")
     ) {
-      consumedDatasetIds.push(GetAcsDatasetId(breakdowns));
-      if (metricQuery.breakdowns.filterFips?.isTerritory())
+      let acsBreakdowns = breakdowns.copy();
+      acsBreakdowns.time = false;
+      if (metricQuery.breakdowns.filterFips?.isIslandArea()) {
+        // all CAWP island areas use DECIA_2020
         consumedDatasetIds.push(
-          "acs_2010_population-by_race_and_ethnicity_territory"
+          "decia_2020_territory_population-by_race_and_ethnicity_territory_state_level"
         );
+
+        // CAWP time-series also use DECIA_2010
+        if (timeView === "time_series") {
+          consumedDatasetIds.push(
+            "decia_2010_territory_population-by_race_and_ethnicity_territory_state_level"
+          );
+        }
+      } else {
+        // Non-Island Areas use ACS
+        consumedDatasetIds.push(GetAcsDatasetId(breakdowns));
+      }
     }
     if (metricQuery.metricIds.includes("pct_share_of_us_congress"))
       consumedDatasetIds.push("the_unitedstates_project");

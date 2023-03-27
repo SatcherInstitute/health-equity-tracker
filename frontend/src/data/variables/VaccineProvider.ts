@@ -78,7 +78,7 @@ class VaccineProvider extends VariableProvider {
 
         // We merge this in on the backend
         consumedDatasetIds = consumedDatasetIds.concat(
-          "acs_2010_population-by_race_and_ethnicity_territory"
+          "decia_2010_territory_population-by_race_and_ethnicity_territory_state_level"
         );
 
         const acs = new DataFrame(acsQueryResponse.data);
