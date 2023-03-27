@@ -18,6 +18,11 @@ export default defineConfig({
 	plugins: [
 		react(), viteTsconfigPaths(), svgrPlugin(),
 	],
+	define: {
+    // Some libraries (like Joyride) use the global object, even though it doesn't exist in the browser.
+    // https://github.com/vitejs/vite/discussions/5912
+    global: {},
+  },
 	test: {
 		exclude: [
 			...configDefaults.exclude,
