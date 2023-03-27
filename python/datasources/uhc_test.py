@@ -134,6 +134,7 @@ class UHCData(DataSource):
         df[STATE_POSTAL_COL].replace('ALL', US_ABBR, inplace=True)
 
         for geo in [STATE_LEVEL, NATIONAL_LEVEL]:
+            table_name = f'{breakdown}_{geo}'
             loc_df = df.copy()
 
             if geo == 'national':
@@ -144,7 +145,7 @@ class UHCData(DataSource):
             for breakdown in [RACE_OR_HISPANIC_COL, AGE_COL, SEX_COL]:
                 breakdown_df = loc_df.copy()
                 breakdown_df = parse_raw_data(breakdown_df, breakdown)
-                breakdown_df = post_process(breakdown_df, breakdown)
+                breakdown_df = post_process(breakdown_df, breakdown, geo)
 
                 breakdown_df.to_json(
                     f'{breakdown}_{geo}_output.json', orient='records')
@@ -156,11 +157,9 @@ class UHCData(DataSource):
                 col_types = gcs_to_bq_util.get_bq_column_types(
                     breakdown_df, float_cols)
 
-                breakdown_geo_table = f'{breakdown}_{geo}'
-
                 gcs_to_bq_util.add_df_to_bq(breakdown_df,
                                             dataset,
-                                            breakdown_geo_table,
+                                            table_name,
                                             column_types=col_types)
 
 
@@ -216,7 +215,7 @@ def parse_raw_data(df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE):
     return output_df
 
 
-def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE):
+def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE, geo: str):
     """
     Merges the state IDs with population data and performs necessary calculations
     to create a processed dataframe ready for the frontend. If the given breakdown
@@ -235,6 +234,13 @@ def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE):
         add_race_columns_from_category_id(breakdown_df)
 
     breakdown_df = merge_state_ids(breakdown_df)
+
+    breakdown_name = 'race' if breakdown == RACE_OR_HISPANIC_COL else breakdown
+    breakdown_df = merge_pop_numbers(
+        breakdown_df, breakdown_name, geo)
+
+    breakdown_df = breakdown_df.rename(
+        columns={POPULATION_PCT_COL: BRFSS_POPULATION_PCT})
 
     return breakdown_df
 
