@@ -1,26 +1,17 @@
 import VaccineProvider from "./VaccineProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { MetricQuery } from "../query/MetricQuery";
 import { Fips } from "../utils/Fips";
 import { DatasetMetadataMap } from "../config/DatasetMetadata";
-import { excludeAll } from "../query/BreakdownFilter";
 import {
   autoInitGlobals,
   getDataFetcher,
   resetCacheDebug,
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
-import { FipsSpec, NC, USA, MARIN } from "./TestUtils";
+import { NC, USA, MARIN } from "./TestUtils";
 import { RACE, SEX, AGE } from "../utils/Constants";
-import { MetricId } from "../config/MetricConfig";
-
-const METRIC_IDS: MetricId[] = [
-  "vaccinated_pct_share",
-  "vaccinated_share_of_known",
-  "vaccinated_per_100k",
-  "vaccinated_pop_pct",
-];
 
 export async function ensureCorrectDatasetsDownloaded(
   vaccinationDatasetId: string,

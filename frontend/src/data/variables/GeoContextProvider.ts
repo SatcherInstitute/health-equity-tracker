@@ -34,31 +34,32 @@ class GeoContextProvider extends VariableProvider {
     const consumedDatasetIds: string[] = [];
 
     if (metricQuery.metricIds.includes("svi")) {
-      //  TODO: refactor SVI to not use pretend AGE breakdown
-      consumedDatasetIds.push("cdc_svi_county-age");
+      //  TODO: refactor SVI to not use pretend SEX breakdown, use some sort of true ALL breakdown
+      consumedDatasetIds.push("cdc_svi_county-sex");
     }
 
     const acsDatasetMap: Record<GeographicBreakdown, string> = {
-      county: "acs_population-by_age_county",
-      state: "acs_population-by_age_state",
-      national: "acs_population-by_age_national",
+      county: "acs_population-by_sex_county",
+      state: "acs_population-by_sex_state",
+      national: "acs_population-by_sex_national",
       // next entries are unused
-      "state/territory": "acs_population-by_age_state",
-      territory: "acs_2010_population-by_age_territory",
+      "state/territory": "acs_population-by_sex_state",
+      territory: "decia_2020_territory_population-by_sex_territory_state_level",
     };
 
-    const acs2010DatasetMap: Record<GeographicBreakdown, string> = {
-      county: "acs_2010_population-by_age_territory",
-      state: "acs_2010_population-by_age_territory",
-      national: "acs_population-by_age_national",
+    const decia2020DatasetMap: Record<GeographicBreakdown, string> = {
+      county: "decia_2020_territory_population-by_sex_territory_county_level",
+      state: "decia_2020_territory_population-by_sex_territory_state_level",
+      national: "acs_population-by_sex_national",
       // next entries are unused
-      "state/territory": "acs_2010_population-by_age_territory",
-      territory: "acs_2010_population-by_age_territory",
+      "state/territory":
+        "decia_2020_territory_population-by_sex_territory_state_level",
+      territory: "decia_2020_territory_population-by_sex_territory_state_level",
     };
 
     if (metricQuery.metricIds.includes("population")) {
-      const datasetMap = breakdowns.filterFips?.needsACS2010()
-        ? acs2010DatasetMap
+      const datasetMap = breakdowns.filterFips?.isIslandArea()
+        ? decia2020DatasetMap
         : acsDatasetMap;
       consumedDatasetIds.push(datasetMap[breakdowns.geography]);
     }

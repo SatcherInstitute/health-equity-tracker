@@ -1,7 +1,6 @@
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns, TimeView } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { ACS_2010_FIPS } from "../utils/Fips";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
@@ -130,9 +129,6 @@ class CdcCovidProvider extends VariableProvider {
     let consumedDatasetIds = [datasetId];
     let df = covidDataset.toDataFrame();
 
-    const breakdownColumnName =
-      breakdowns.getSoleDemographicBreakdown().columnName;
-
     // If requested, filter geography by state or county level. We apply the
     // geo filter right away to reduce subsequent calculation times.
     df = this.filterByGeo(df, breakdowns);
@@ -142,20 +138,44 @@ class CdcCovidProvider extends VariableProvider {
     }
     df = this.renameGeoColumns(df, breakdowns);
 
-    const stateFips = df.getSeries("fips").toArray()[0];
-    if (
-      breakdowns.geography === "state" &&
-      // hacky but there should only be one fips code if
-      // its for a state
-      ACS_2010_FIPS.includes(stateFips)
-    ) {
-      const acs2010BreakdownId =
-        "acs_2010_population-by_" + breakdownColumnName + "_territory";
-      consumedDatasetIds = consumedDatasetIds.concat(acs2010BreakdownId);
-    } else {
-      const acsDatasetId = GetAcsDatasetId(breakdowns);
-      consumedDatasetIds = consumedDatasetIds.concat(acsDatasetId);
-    }
+    /* We use DECIA_2020 populations OR ACS on the backend; add the correct id so footer is correct */
+    const isIslandArea = breakdowns.filterFips?.isIslandArea();
+
+    // TODO: this should be a reusable function that can work for all Providers, just like GetAcsDatasetId() does
+    if (isIslandArea) {
+      if (breakdowns.hasOnlyRace()) {
+        if (breakdowns.geography === "state")
+          consumedDatasetIds.push(
+            "decia_2020_territory_population-by_race_and_ethnicity_territory_state_level"
+          );
+        if (breakdowns.geography === "county")
+          consumedDatasetIds.push(
+            "decia_2020_territory_population-by_race_and_ethnicity_territory_county_level"
+          );
+      }
+
+      if (breakdowns.hasOnlySex()) {
+        if (breakdowns.geography === "state")
+          consumedDatasetIds.push(
+            "decia_2020_territory_population-by_sex_territory_state_level"
+          );
+        if (breakdowns.geography === "county")
+          consumedDatasetIds.push(
+            "decia_2020_territory_population-by_sex_territory_county_level"
+          );
+      }
+
+      if (breakdowns.hasOnlyAge()) {
+        if (breakdowns.geography === "state")
+          consumedDatasetIds.push(
+            "decia_2020_territory_population-by_age_territory_state_level"
+          );
+        if (breakdowns.geography === "county")
+          consumedDatasetIds.push(
+            "decia_2020_territory_population-by_age_territory_county_level"
+          );
+      }
+    } else consumedDatasetIds.push(GetAcsDatasetId(breakdowns));
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);

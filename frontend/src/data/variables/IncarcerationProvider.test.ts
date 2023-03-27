@@ -84,10 +84,7 @@ describe("IncarcerationProvider", () => {
       Breakdowns.forFips(new Fips("00")),
       RACE,
       "jail",
-      [
-        "acs_population-by_race_national",
-        "acs_2010_population-by_race_and_ethnicity_territory",
-      ]
+      ["acs_population-by_race_national"]
     );
   });
 
@@ -118,10 +115,7 @@ describe("IncarcerationProvider", () => {
       Breakdowns.forFips(new Fips("00")),
       AGE,
       "prison",
-      [
-        "acs_population-by_age_national",
-        "acs_2010_population-by_race_and_ethnicity_territory",
-      ]
+      ["acs_population-by_age_national"]
     );
   });
 
@@ -152,10 +146,7 @@ describe("IncarcerationProvider", () => {
       Breakdowns.forFips(new Fips("00")),
       SEX,
       "jail",
-      [
-        "acs_population-by_sex_national",
-        "acs_2010_population-by_race_and_ethnicity_territory",
-      ]
+      ["acs_population-by_sex_national"]
     );
   });
 });

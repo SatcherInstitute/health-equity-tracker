@@ -80,26 +80,41 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    id: "acs_2010",
-    data_source_name:
-      "American Community Survey 5-year estimates from 2010, U.S. Territories",
+    id: "decia_2010_territory_population",
+    data_source_name: "Census 2010 Decennial Island Areas",
     data_source_pretty_site_name: "census.gov",
     data_source_link:
       "https://www.census.gov/data/datasets/2010/dec/virgin-islands.html",
-    geographic_level: "State, County",
+    geographic_level: "Territory",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "None",
     description:
-      "Population percentages at the territory level: " +
-      "the census bureau has not included population data from " +
-      "the U.S. Virgin Islands, Guam, American Samoa, or the Northern Mariana Islands " +
-      "in its 5 year ACS estimates, so the most up to date population " +
-      "estimates are from 2010. Interpret any metrics from " +
-      "these territories with caution.",
+      "Population totals and percent shares for 2010 at the territory level for U.S. Virgin Islands, Guam, American Samoa, and the Northern Mariana Islands, which are not available in the Census 5 year ACS estimates.",
     dataset_ids: [
-      "acs_2010_population-by_race_and_ethnicity_territory",
-      "acs_2010_population-by_sex_territory",
-      "acs_2010_population-by_age_territory",
+      "decia_2010_territory_population-by_race_and_ethnicity_territory_state_level",
+      "decia_2010_territory_population-by_sex_territory_state_level",
+      "decia_2010_territory_population-by_age_territory_state_level",
+    ],
+    downloadable: true,
+  },
+  {
+    id: "decia_2020_territory_population",
+    data_source_name: "Census 2020 Decennial Island Areas",
+    data_source_pretty_site_name: "census.gov",
+    data_source_link:
+      "https://www.census.gov/data/datasets/2020/dec/virgin-islands.html",
+    geographic_level: "Territory/County-Equivalent",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "None",
+    description:
+      "Population totals and percent shares for 2020 at the territory and county-equivalent level for U.S. Virgin Islands, Guam, American Samoa, and the Northern Mariana Islands, which are not available in the Census 5 year ACS estimates.",
+    dataset_ids: [
+      "decia_2020_territory_population-by_race_and_ethnicity_territory_state_level",
+      "decia_2020_territory_population-by_sex_territory_state_level",
+      "decia_2020_territory_population-by_age_territory_state_level",
+      "decia_2020_territory_population-by_race_and_ethnicity_territory_county_level",
+      "decia_2020_territory_population-by_sex_territory_county_level",
+      "decia_2020_territory_population-by_age_territory_county_level",
     ],
     downloadable: true,
   },

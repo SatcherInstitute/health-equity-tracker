@@ -116,17 +116,31 @@ class IncarcerationProvider extends VariableProvider {
 
     const consumedDatasetIds = [datasetId];
 
-    if (breakdowns.geography !== "county") {
+    // everything uses ACS except county-level reports and territory-reports
+    if (
+      breakdowns.geography !== "county" &&
+      !breakdowns.filterFips?.isIslandArea()
+    ) {
       consumedDatasetIds.push(GetAcsDatasetId(breakdowns));
     }
 
-    if (
-      breakdowns.geography === "national" ||
-      breakdowns.geography === "territory"
-    ) {
+    // National Level - Map of all states + territory bubbles
+    if (breakdowns.geography === "state" && !breakdowns.filterFips) {
       consumedDatasetIds.push(
-        "acs_2010_population-by_race_and_ethnicity_territory"
+        "decia_2020_territory_population-by_sex_territory_state_level"
       );
+    }
+
+    // Territory Level (Island Areas) - All cards
+    if (breakdowns.filterFips?.isIslandArea()) {
+      consumedDatasetIds.push(
+        "decia_2020_territory_population-by_sex_territory_state_level"
+      );
+      // only time-series cards use decia 2010
+      if (timeView === "time_series")
+        consumedDatasetIds.push(
+          "decia_2010_territory_population-by_sex_territory_state_level"
+        );
     }
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);

@@ -113,7 +113,7 @@ describe("cdcCovidProvider", () => {
     );
   });
 
-  test("population source acs 2010", async () => {
+  test("population source acs 2020", async () => {
     await ensureCorrectDatasetsDownloaded(
       "cdc_restricted_data-by_sex_state_processed",
       Breakdowns.forFips(new Fips(VI.code)),
