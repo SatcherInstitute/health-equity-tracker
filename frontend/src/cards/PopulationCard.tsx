@@ -81,16 +81,6 @@ export function PopulationCard(props: PopulationCardProps) {
                 </Grid>
               </Grid>
             </Grid>
-
-            {props.fips.needsACS2010() && (
-              <CardContent>
-                <Alert severity="warning" role="note">
-                  Population data for U.S. Virgin Islands, Guam, and the
-                  Northern Mariana Islands is from 2010; interpret metrics with
-                  caution.
-                </Alert>
-              </CardContent>
-            )}
           </CardContent>
         );
       }}
