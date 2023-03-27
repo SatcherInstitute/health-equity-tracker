@@ -9,9 +9,6 @@ echo "Using Fetched Data: ${GCS_TO_BQ_URL}"
 EXPORTER_URL=$(gcloud run services list --platform managed --filter exporter-service --format 'value(status.url)')
 echo "Using Fetched Data: ${EXPORTER_URL}"
 
-AGGREGATOR_URL=$(gcloud run services list --platform managed --filter aggregator-service --format 'value(status.url)')
-echo "Using Fetched Data: ${AGGREGATOR_URL}"
-
 LANDING_BUCKET=$(gsutil ls | grep -o ".*landing.*" | cut -d "/" -f 3)
 echo "Using Landing Bucket: $LANDING_BUCKET"
 
