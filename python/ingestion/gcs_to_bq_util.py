@@ -71,12 +71,11 @@ def __dataframe_to_bq(frame, dataset, table_name, column_types, col_modes,
     load_job.result()  # Wait for table load to complete.
 
 
-def add_df_to_bq_as_str_values(frame, dataset, table_name,
+def add_df_to_bq_as_str_values(frame, dataset: str, table_name: str,
                                column_types=None, col_modes=None,
                                project=None, overwrite=True):
     """Adds (either overwrites or appends) the provided DataFrame to the table
-       specified by `dataset.table_name`. Automatically adds an ingestion time
-       column and coverts all other values to a string.
+       specified by `dataset.table_name`. Converts all other values to a string.
 
        frame: pd.DataFrame representing the data to add.
        dataset: The BigQuery dataset to write to.
@@ -88,7 +87,6 @@ def add_df_to_bq_as_str_values(frame, dataset, table_name,
                   NULLABLE, REQUIRED, and REPEATED. Must also specify
                   column_types to specify col_modes.
        overwrite: Whether to overwrite or append to the BigQuery table."""
-    __add_ingestion_ts(frame, column_types)
     json_data = __convert_frame_to_json(frame)
     for sub in json_data:
         for key in sub:
@@ -101,8 +99,7 @@ def add_df_to_bq_as_str_values(frame, dataset, table_name,
 def add_df_to_bq(frame, dataset, table_name, column_types=None,
                  col_modes=None, project=None, overwrite=True):
     """Adds (either overwrites or appends) the provided DataFrame to the table
-       specified by `dataset.table_name`. Automatically adds an ingestion time
-       column.
+       specified by `dataset.table_name`.
 
        frame: pd.DataFrame representing the data to add.
        dataset: The BigQuery dataset to write to.
@@ -114,7 +111,6 @@ def add_df_to_bq(frame, dataset, table_name, column_types=None,
                   NULLABLE, REQUIRED, and REPEATED. Must also specify
                   column_types to specify col_modes.
        overwrite: Whether to overwrite or append to the BigQuery table."""
-    __add_ingestion_ts(frame, column_types)
     json_data = __convert_frame_to_json(frame)
     __dataframe_to_bq(frame, dataset, table_name, column_types, col_modes,
                       project, json_data, overwrite)
