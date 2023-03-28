@@ -5,7 +5,9 @@
 // so ALL related topic data is contained in a single object
 
 export type DropdownVarId =
-  | "covid"
+  | "covid_cases"
+  | "covid_deaths"
+  | "covid_hospitalizations"
   | "hiv_diagnoses"
   | "hiv_deaths"
   | "hiv_prep"
@@ -38,10 +40,7 @@ export type VariableId =
   | AgeAdjustedVariableId
   | "population"
   | "population_decia"
-  | "covid_cases"
   | "non_medical_drug_use"
-  | "non_medical_rx_opioid_use"
-  | "illicit_opioid_use"
   | "health_coverage"
   | "poverty"
   | "suicides"
@@ -127,18 +126,10 @@ export type MetricId =
   | "excessive_drinking_per_100k"
   | "excessive_drinking_ratio_age_adjusted"
   | "excessive_drinking_pct_relative_inequity"
-  | "illicit_opioid_use_pct_share"
-  | "illicit_opioid_use_per_100k"
-  | "illicit_opioid_use_ratio_age_adjusted"
-  | "illicit_opioid_use_pct_relative_inequity"
   | "non_medical_drug_use_pct_share"
   | "non_medical_drug_use_per_100k"
   | "non_medical_drug_use_ratio_age_adjusted"
   | "non_medical_drug_use_pct_relative_inequity"
-  | "non_medical_rx_opioid_use_pct_share"
-  | "non_medical_rx_opioid_use_per_100k"
-  | "non_medical_rx_opioid_use_ratio_age_adjusted"
-  | "non_medical_rx_opioid_use_pct_relative_inequity"
   | "preventable_hospitalizations_pct_share"
   | "preventable_hospitalizations_per_100k"
   | "preventable_hospitalizations_ratio_age_adjusted"
@@ -354,7 +345,7 @@ export function getAgeAdjustedRatioMetric(
 // on this to build toggles.
 // TODO: make the UI consistent regardless of metric config order.
 export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
-  covid: [
+  covid_cases: [
     {
       variableId: "covid_cases",
       variableDisplayName: "Cases",
@@ -407,6 +398,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
       },
     },
+  ],
+  covid_deaths: [
     {
       variableId: "covid_deaths",
       variableDisplayName: "Deaths",
@@ -465,6 +458,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
       },
     },
+  ],
+  covid_hospitalizations: [
     {
       variableId: "covid_hospitalizations",
       variableDisplayName: "Hospitalizations",
@@ -913,9 +908,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     {
       // parent data type
       variableId: "non_medical_drug_use",
-      variableDisplayName: "Non-medical drugs",
-      variableFullDisplayName: "Non-medical drug use",
-      variableDefinition: `Adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months. Note: This data type includes both of the other opioid-related data types: “Non-medical use of prescription opioids” and “Use of Illicit opioids”.`,
+      variableDisplayName: "Opioid and other non-medical drug use",
+      variableFullDisplayName: "Opioid and other non-medical drug use",
+      variableDefinition: `Adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months.`,
       surveyCollectedData: true,
 
       metrics: {
@@ -959,120 +954,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             "Age-adjusted risk of non-medical drug use compared to White (NH)",
           ],
           metricId: "non_medical_drug_use_ratio_age_adjusted",
-          shortLabel: "",
-          type: "ratio",
-        },
-      },
-    },
-    {
-      variableId: "non_medical_rx_opioid_use",
-      variableDisplayName: "Non-medical prescription opioids",
-      variableFullDisplayName: "Non-medical prescription opioid use",
-      variableDefinition: `Adults who reported using illicit opioids. Note: This is a subset of the “Non-medical drug use” data type.`,
-      surveyCollectedData: true,
-
-      metrics: {
-        pct_share: {
-          chartTitleLines: [
-            "Share of total non-medical prescription opioid use",
-          ],
-          metricId: "non_medical_rx_opioid_use_pct_share",
-          trendsCardTitleName:
-            "Inequitable share of non-medical prescription opioid use over time",
-          columnTitleHeader:
-            "Share of total non-medical prescription opioid use",
-          shortLabel: "% of cases",
-          type: "pct_share",
-          populationComparisonMetric: {
-            chartTitleLines: [
-              "Population vs. distribution of",
-              "total non-medical prescription opioid use",
-            ],
-            metricId: "brfss_population_pct",
-            columnTitleHeader: populationPctTitle,
-            shortLabel: populationPctShortLabel,
-            type: "pct_share",
-          },
-        },
-        per100k: {
-          metricId: "non_medical_rx_opioid_use_per_100k",
-          chartTitleLines: [
-            "Non-medical prescription opioid use",
-            "per 100k people",
-          ],
-          columnTitleHeader:
-            "Non-medical prescription opioid use per 100k people",
-          trendsCardTitleName:
-            "Rates of non-medical prescription opioid use over time",
-          shortLabel: "cases of non-medical rx opioid use per 100k",
-          type: "per100k",
-        },
-        pct_relative_inequity: {
-          chartTitleLines: [
-            "historical data for inequity in non-medical prescription opioid use",
-          ],
-          metricId: "non_medical_rx_opioid_use_pct_relative_inequity",
-          shortLabel: "% relative inequity",
-          type: "pct_relative_inequity",
-        },
-        age_adjusted_ratio: {
-          chartTitleLines: [
-            "Age-adjusted risk of Non-medical prescription opioid use compared to White (NH)",
-          ],
-          metricId: "non_medical_rx_opioid_use_ratio_age_adjusted",
-          shortLabel: "",
-          type: "ratio",
-        },
-      },
-    },
-    {
-      variableId: "illicit_opioid_use",
-      variableDisplayName: "Illicit opioids",
-      variableFullDisplayName: "Illicit opioid use",
-      variableDefinition: `Adults who reported using prescription opioids non-medically. Note: This is a subset of the “Non-medical drug use” data type.`,
-      surveyCollectedData: true,
-
-      metrics: {
-        pct_share: {
-          chartTitleLines: ["Share of total illicit opioid use"],
-          metricId: "illicit_opioid_use_pct_share",
-          trendsCardTitleName:
-            "Inequitable share of illicit opioid use over time",
-          columnTitleHeader: "Share of total illicit opioid use",
-          shortLabel: "% of cases",
-          type: "pct_share",
-          populationComparisonMetric: {
-            chartTitleLines: [
-              "Population vs. distribution of",
-              "total illicit opioid use",
-            ],
-            metricId: "brfss_population_pct",
-            columnTitleHeader: populationPctTitle,
-            shortLabel: populationPctShortLabel,
-            type: "pct_share",
-          },
-        },
-        per100k: {
-          metricId: "illicit_opioid_use_per_100k",
-          chartTitleLines: ["Illicit opioid use", "per 100k people"],
-          columnTitleHeader: "Illicit opioid use per 100k people",
-          trendsCardTitleName: "Rates of illicit opioid use over time",
-          shortLabel: "cases of illicit opioid use per 100k",
-          type: "per100k",
-        },
-        pct_relative_inequity: {
-          chartTitleLines: [
-            "historical data for inequity in illicit opioid use",
-          ],
-          metricId: "illicit_opioid_use_pct_relative_inequity",
-          shortLabel: "% relative inequity",
-          type: "pct_relative_inequity",
-        },
-        age_adjusted_ratio: {
-          chartTitleLines: [
-            "Age-adjusted risk of illicit opioid use compared to White (NH)",
-          ],
-          metricId: "illicit_opioid_use_ratio_age_adjusted",
           shortLabel: "",
           type: "ratio",
         },

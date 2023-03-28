@@ -97,7 +97,9 @@ export const DEFAULT: DefaultDropdownVarId = "default";
 
 const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   default: "select a topic",
-  covid: "COVID-19",
+  covid_cases: "COVID-19 Cases",
+  covid_hospitalizations: "COVID-19 Hospitalizations",
+  covid_deaths: "COVID-19 Deaths",
   hiv_diagnoses: "HIV Diagnoses",
   hiv_deaths: "HIV Deaths",
   hiv_prep: "PrEP Coverage",
@@ -138,7 +140,12 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: "COVID-19",
     definition: "",
-    options: ["covid", "covid_vaccinations"],
+    options: [
+      "covid_cases",
+      "covid_hospitalizations",
+      "covid_deaths",
+      "covid_vaccinations",
+    ],
   },
   {
     title: "Political Determinants of Health",
