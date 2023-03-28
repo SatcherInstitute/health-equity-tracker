@@ -49,15 +49,6 @@ def __create_bq_load_job_config(frame, column_types, col_modes, overwrite):
     return job_config
 
 
-def __add_ingestion_ts(frame, column_types):
-    """Adds a timestamp for when the given DataFrame was ingested."""
-    # Formatting to a string helps BQ autodetection.
-    frame['ingestion_ts'] = datetime.now(
-        timezone.utc).strftime("%Y-%m-%d %H:%M:%S.%f %Z")
-    if column_types is not None:
-        column_types['ingestion_ts'] = 'TIMESTAMP'
-
-
 def __dataframe_to_bq(frame, dataset, table_name, column_types, col_modes,
                       project, json_data, overwrite):
     job_config = __create_bq_load_job_config(
