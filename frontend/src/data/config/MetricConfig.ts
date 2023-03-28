@@ -25,7 +25,8 @@ export type DropdownVarId =
   | "cardiovascular_diseases"
   | "asthma"
   | "voter_participation"
-  | "women_in_legislative_office"
+  | "women_in_us_congress"
+  | "women_in_state_legislature"
   | "prison"
   | "jail";
 
@@ -44,8 +45,6 @@ export type VariableId =
   | "health_coverage"
   | "poverty"
   | "suicides"
-  | "women_us_congress"
-  | "women_state_legislatures"
   | "covid_vaccinations"
   | "svi";
 
@@ -1679,9 +1678,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
   ],
-  women_in_legislative_office: [
+  women_in_us_congress: [
     {
-      variableId: "women_us_congress",
+      variableId: "women_in_us_congress",
       variableDisplayName: "Women in US Congress",
       variableFullDisplayName: "Women in US Congress",
       surveyCollectedData: true,
@@ -1738,8 +1737,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
       },
     },
+  ],
+  women_in_state_legislature: [
     {
-      variableId: "women_state_legislatures",
+      variableId: "women_in_state_legislature",
       variableDisplayName: "Women in state legislatures", // DATA TOGGLE
       variableFullDisplayName: "Women in state legislatures", // TABLE TITLE,
       surveyCollectedData: true,

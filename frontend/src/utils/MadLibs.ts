@@ -72,7 +72,7 @@ export function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
     : madLib.activeSelections[segmentIndex];
 }
 
-/* Returns an array of all currently selected conditions. 
+/* Returns an array of all currently selected conditions.
 If a condition contains multiple data types, they are
 treated as individual items  */
 export function getSelectedConditions(madLib: MadLib) {
@@ -117,7 +117,8 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   cardiovascular_diseases: "Cardiovascular Diseases",
   asthma: "Asthma",
   voter_participation: "Voter Participation",
-  women_in_legislative_office: "Women in Legislative Office",
+  women_in_state_legislature: "Women in State Legislatures",
+  women_in_us_congress: "Women in U.S. Congress",
   jail: "Jail Incarceration",
   prison: "Prison Incarceration",
 };
@@ -144,7 +145,8 @@ const CATEGORIES_LIST: Category[] = [
     definition: "",
     options: [
       "voter_participation",
-      "women_in_legislative_office",
+      "women_in_us_congress",
+      "women_in_state_legislature",
       "prison",
       "jail",
     ],
