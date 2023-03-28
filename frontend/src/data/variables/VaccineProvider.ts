@@ -68,9 +68,19 @@ class VaccineProvider extends VariableProvider {
       );
     } else if (breakdowns.geography === "state") {
       consumedDatasetIds = consumedDatasetIds.concat(
-        "acs_population-by_race_state",
-        "acs_2010_population-by_race_and_ethnicity_territory"
+        "acs_population-by_race_state"
       );
+
+      if (breakdowns.filterFips === undefined) {
+        consumedDatasetIds = consumedDatasetIds.concat(
+          "decia_2020_territory_population-by_race_and_ethnicity_territory_state_level"
+        );
+      }
+      if (breakdowns.filterFips?.isIslandArea()) {
+        consumedDatasetIds = consumedDatasetIds.concat(
+          "decia_2020_territory_population-by_race_and_ethnicity_territory_state_level"
+        );
+      }
     } else if (breakdowns.geography === "county") {
       // We merge this in on the backend, no need to redownload it here
       // but we want to provide the proper citation
