@@ -1,14 +1,12 @@
 import json
-from datetime import datetime, timezone
 from textwrap import dedent
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock, patch
 import pandas as pd
 import numpy as np
-from freezegun import freeze_time
+from freezegun import freeze_time  # type: ignore
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
-
 from ingestion import gcs_to_bq_util  # pylint: disable=no-name-in-module
 
 
@@ -64,9 +62,6 @@ class GcsToBqTest(TestCase):
 
             mock_instance.load_table_from_json.assert_called()
             call_args = mock_instance.load_table_from_json.call_args
-            test_frame['ingestion_ts'] = datetime(
-                2020, 1, 1, tzinfo=timezone.utc).strftime(
-                    "%Y-%m-%d %H:%M:%S.%f %Z")
             self.assertEqual(call_args.args[0],
                              json.loads(test_frame.to_json(orient='records')))
             job_config = call_args.kwargs['job_config']
@@ -92,9 +87,6 @@ class GcsToBqTest(TestCase):
 
             mock_instance.load_table_from_json.assert_called()
             call_args = mock_instance.load_table_from_json.call_args
-            test_frame['ingestion_ts'] = datetime(
-                2020, 1, 1, tzinfo=timezone.utc).strftime(
-                    "%Y-%m-%d %H:%M:%S.%f %Z")
             self.assertEqual(call_args.args[0],
                              json.loads(test_frame.to_json(orient='records')))
             job_config = call_args.kwargs['job_config']
@@ -123,17 +115,14 @@ class GcsToBqTest(TestCase):
 
             mock_instance.load_table_from_json.assert_called()
             call_args = mock_instance.load_table_from_json.call_args
-            test_frame['ingestion_ts'] = datetime(
-                2020, 1, 1, tzinfo=timezone.utc).strftime(
-                    '%Y-%m-%d %H:%M:%S.%f %Z')
             self.assertEqual(call_args.args[0],
                              json.loads(test_frame.to_json(orient='records')))
             job_config = call_args.kwargs['job_config']
             self.assertFalse(job_config.autodetect)
 
-            expected_cols = ['label1', 'label2', 'label3', 'ingestion_ts']
-            expected_types = ['STRING', 'STRING', 'STRING', 'TIMESTAMP']
-            expected_modes = ['REPEATED', 'REQUIRED', 'NULLABLE', 'NULLABLE']
+            expected_cols = ['label1', 'label2', 'label3']
+            expected_types = ['STRING', 'STRING', 'STRING']
+            expected_modes = ['REPEATED', 'REQUIRED', 'NULLABLE']
             self.assertListEqual([field.name for field in job_config.schema],
                                  expected_cols)
             self.assertListEqual(

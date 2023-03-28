@@ -6,6 +6,9 @@ from pandas._testing import assert_frame_equal
 # Makes sure datasets across gcp projects are the same, ignores order and any
 # columns called `ingestion_ts`.
 
+# TODO: once all prod and dev tables have been re-ran and no longer contain
+# TODO: `ingestion_ts` this script could be simplified
+
 # Good for making sure any refactor didn't accidentally change the output
 # of a data pipeline.
 
