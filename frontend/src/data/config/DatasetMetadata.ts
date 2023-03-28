@@ -322,17 +322,17 @@ export const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "cdc_vaccination_national-age_processed",
-    name: "COVID-19 vaccinations by age nationally",
+    name: "COVID-19 vaccinations by age, nationally",
     update_time: "March 2023",
   },
   {
     id: "cdc_vaccination_national-sex_processed",
-    name: "COVID-19 vaccinations by sexnationally",
+    name: "COVID-19 vaccinations by sex, nationally",
     update_time: "March 2023",
   },
   {
     id: "cdc_vaccination_national-race_processed",
-    name: "COVID-19 vaccinations by race and ethnicity nationally",
+    name: "COVID-19 vaccinations by race and ethnicity, nationally",
     update_time: "March 2023",
     contains_nh: true,
   },
@@ -344,18 +344,18 @@ export const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "uhc_data-age_national",
-    name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by age, national",
+    name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by age, nationally",
     update_time: "2021",
   },
   {
     id: "uhc_data-race_and_ethnicity_national",
-    name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by race/ethnicity, national",
+    name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by race/ethnicity, nationally",
     update_time: "2021",
     contains_nh: true,
   },
   {
     id: "uhc_data-sex_national",
-    name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by sex, national",
+    name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by sex, nationally",
     update_time: "2021",
   },
   {
