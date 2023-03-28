@@ -1,5 +1,3 @@
-from datetime import datetime
-from datetime import timezone
 import requests  # type: ignore
 import json
 import os
