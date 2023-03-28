@@ -1,14 +1,12 @@
 import json
-from datetime import datetime, timezone
 from textwrap import dedent
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock, patch
 import pandas as pd
 import numpy as np
-from freezegun import freeze_time
+from freezegun import freeze_time  # type: ignore
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
-
 from ingestion import gcs_to_bq_util  # pylint: disable=no-name-in-module
 
 
