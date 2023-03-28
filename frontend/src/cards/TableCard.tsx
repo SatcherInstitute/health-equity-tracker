@@ -196,14 +196,9 @@ export function TableCard(props: TableCardProps) {
 function fillInAltPops(data: any[]) {
   // This should only happen in the vaccine kff state case
   return data.map((item) => {
-    const {
-      vaccine_population_pct,
-      acs_vaccine_population_pct,
-      ...restOfItem
-    } = item;
+    const { vaccinated_pop_pct, acs_vaccinated_pop_pct, ...restOfItem } = item;
     return {
-      vaccine_population_pct:
-        vaccine_population_pct || acs_vaccine_population_pct,
+      vaccinated_pop_pct: vaccinated_pop_pct || acs_vaccinated_pop_pct,
       ...restOfItem,
     };
   });
