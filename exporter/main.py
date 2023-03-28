@@ -94,7 +94,7 @@ def export_split_county_tables(bq_client, table, export_bucket):
     for fips in STATE_LEVEL_FIPS_LIST:
         state_file_name = f'{table.dataset_id}-{table.table_id}-{fips}.json'
         query = f"""
-            SELECT *
+            SELECT * EXCEPT (ingestion_ts)
             FROM {table_name}
             WHERE county_fips LIKE '{fips}___'
             """
