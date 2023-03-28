@@ -5,8 +5,6 @@
 import { MapOfDatasetMetadata, Row } from "../utils/DatasetTypes";
 import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import { Environment } from "../../utils/Environment";
-import { DataFrame } from "data-forge";
-import { GEOGRAPHIES_DATASET_ID } from "../config/MetadataMap";
 
 type FileFormat = "json" | "csv";
 
@@ -80,63 +78,10 @@ export class ApiDataFetcher implements DataFetcher {
   async loadDataset(datasetId: string): Promise<Row[]> {
     let result = await this.fetchDataset(datasetId);
 
-    // Don't apply any of the below processing to the geography dataset.
     // Note that treating geographies as a normal dataset is a bit weird
     // because it doesn't fit the normal dataset model, so the dataset "rows"
     // aren't really rows. But in practice there aren't issues with it.
-    if (datasetId === GEOGRAPHIES_DATASET_ID) {
-      return result;
-    }
-
-    // TODO remove these once we figure out how to make BQ export integers as
-    // integers
-
-    if (datasetId.startsWith("acs_population")) {
-      result = result.map((row: any) => {
-        return {
-          ...row,
-          population:
-            row["population"] == null ? null : Number(row["population"]),
-        };
-      });
-    } else if (datasetId.startsWith("cdc_vaccination_national")) {
-      result = result.map((row: any) => {
-        return {
-          ...row,
-          vaccinated_first_dose:
-            row["vaccinated_first_dose"] == null
-              ? null
-              : Number(row["vaccinated_first_dose"]),
-          vaccinated_per_100k:
-            row["vaccinated_per_100k"] == null
-              ? null
-              : Number(row["vaccinated_per_100k"]),
-        };
-      });
-    } else if (datasetId.startsWith("kff_vaccination")) {
-      result = result.map((row: any) => {
-        return {
-          ...row,
-          vaccinated_first_dose:
-            row["vaccinated_first_dose"] == null
-              ? null
-              : Number(row["vaccinated_first_dose"]),
-          population:
-            row["population"] == null ? null : Number(row["population"]),
-          population_pct:
-            row["population_pct"] == null
-              ? null
-              : Number(row["population_pct"]),
-        };
-      });
-    }
-
-    // TODO - the server should drop ingestion_ts before exporting the file. At
-    // that point we can drop this code.
-    return new DataFrame(result)
-      .dropSeries(["ingestion_ts"])
-      .resetIndex()
-      .toArray();
+    return result;
   }
 
   async getMetadata(): Promise<MapOfDatasetMetadata> {
