@@ -5,7 +5,7 @@ from ingestion import gcs_to_bq_util
 import ingestion.constants as constants
 from ingestion.merge_utils import merge_pop_numbers, merge_state_ids
 import ingestion.standardized_columns as std_col
-from ingestion.types import SEX_RACE_ETH_AGE_TYPE
+from ingestion.types import SEX_RACE_ETH_AGE_TYPE, GEO_TYPE
 
 AHR_RACE_GROUPS = [
     'American Indian/Alaska Native',
@@ -127,7 +127,10 @@ class AHRData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         df = gcs_to_bq_util.load_csv_as_df_from_data_dir('ahr',
-                                                         'ahr_annual_2022.csv')
+                                                         'ahr_annual_2022.csv',
+                                                         dtype={'StateCode': str,
+                                                                "Measure": str,
+                                                                "Value": float})
 
         df.rename(
             columns={'StateCode': std_col.STATE_POSTAL_COL}, inplace=True)
@@ -156,9 +159,6 @@ class AHRData(DataSource):
 
                 col_types = gcs_to_bq_util.get_bq_column_types(
                     breakdown_df, float_cols)
-
-                breakdown_df.to_json(
-                    f'ahr_test_output_{breakdown}_{geo}.json', orient="records")
 
                 gcs_to_bq_util.add_df_to_bq(breakdown_df,
                                             dataset,
@@ -218,7 +218,7 @@ def parse_raw_data(df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE):
     return output_df
 
 
-def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE, geo: str):
+def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE, geo: GEO_TYPE):
     """
     Merges the state IDs with population data and performs necessary calculations
     to create a processed dataframe ready for the frontend. If the given breakdown
