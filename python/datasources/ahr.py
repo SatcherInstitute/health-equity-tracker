@@ -197,6 +197,10 @@ def parse_raw_data(df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE):
                 pct_share_col_name = std_col.generate_column_name(prefix,
                                                                   std_col.PCT_SHARE_SUFFIX)
 
+                # replace extra space to match 65+ column correctly
+                df.replace('Voter Participation (Presidential) - Ages 65+ ',
+                           'Voter Participation (Presidential) - Ages 65+', inplace=True)
+
                 matched_row = get_matched_row(df,
                                               state,
                                               determinant,
@@ -237,10 +241,12 @@ def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE, g
 
     breakdown_df = merge_state_ids(breakdown_df)
 
-    breakdown_name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
-
-    breakdown_df = merge_pop_numbers(
-        breakdown_df, breakdown_name, geo)
+    if breakdown == std_col.AGE_COL:
+        breakdown_df = merge_pop_numbers(breakdown_df, std_col.AGE_COL, geo)
+    elif breakdown == std_col.SEX_COL:
+        breakdown_df = merge_pop_numbers(breakdown_df, std_col.SEX_COL, geo)
+    elif breakdown == std_col.RACE_OR_HISPANIC_COL:
+        breakdown_df = merge_pop_numbers(breakdown_df, std_col.RACE_COL, geo)
 
     breakdown_df = breakdown_df.rename(
         columns={std_col.POPULATION_PCT_COL: std_col.BRFSS_POPULATION_PCT})

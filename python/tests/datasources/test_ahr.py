@@ -22,9 +22,9 @@ GOLDEN_DATA_SEX = os.path.join(
 
 def get_test_data_as_df():
 
-    df = pd.read_csv(os.path.join(TEST_DIR, 'ahr_annual_2022.csv'), dtype={'StateCode': str,
-                                                                           "Measure": str,
-                                                                           "Value": float})
+    df = pd.read_csv(os.path.join(TEST_DIR, 'ahr_test_input.csv'), dtype={'StateCode': str,
+                                                                          "Measure": str,
+                                                                          "Value": float})
     df_national = df.copy().reset_index(drop=True)
     df_national['StateCode'] = 'ALL'
     df = pd.concat([df, df_national]).reset_index(drop=True)
