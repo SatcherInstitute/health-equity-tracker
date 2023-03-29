@@ -195,6 +195,7 @@ function OptionsSelector(props: {
                                 ) && (
                                   <ListItem
                                     role="menuitem"
+                                    className={styles.ListItem}
                                     key={optionId}
                                     button
                                     selected={optionId === props.value}
@@ -203,7 +204,10 @@ function OptionsSelector(props: {
                                       props.onOptionUpdate(optionId);
                                     }}
                                   >
-                                    <ListItemText primary={optionDisplayName} />
+                                    <ListItemText
+                                      className={styles.ListItemText}
+                                      primary={optionDisplayName}
+                                    />
                                   </ListItem>
                                 )
                               );
