@@ -119,7 +119,7 @@ export default function SinglePost() {
             )}
             {!isLoading && !error && (
               <img
-                src={articleImage}
+                src={articleImage || hetLogo}
                 className={styles.SingleArticleHeaderImg || hetLogo}
                 alt={articleImageAltText}
                 width={200}

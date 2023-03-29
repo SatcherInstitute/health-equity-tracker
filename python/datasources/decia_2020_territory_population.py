@@ -5,7 +5,7 @@ from ingestion.constants import (COUNTY_LEVEL, STATE_LEVEL, Sex)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col, dataset_utils
 
 from ingestion.merge_utils import merge_county_names, merge_state_ids
-from typing import Literal, cast, List, Dict, Final
+from typing import Literal, cast, List, Dict, Final, Any
 from ingestion.types import DEMOGRAPHIC_TYPE
 
 
@@ -110,6 +110,33 @@ STD_AGES_SUM_MAP = {
     # "18-24", "18-44"
 }
 
+
+COMBO_RACES_SUM_MAP = {
+    # note each territry only has other_standard or other_nonstandard but not both,
+    # so we can include both in the sum
+    (std_col.Race.MULTI.value,
+     std_col.Race.OTHER_STANDARD.value,
+     std_col.Race.OTHER_NONSTANDARD.value): std_col.Race.MULTI_OR_OTHER_STANDARD.value,
+    (std_col.Race.MULTI_NH.value,
+     std_col.Race.OTHER_STANDARD_NH.value,
+     std_col.Race.OTHER_NONSTANDARD_NH.value): std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
+    (std_col.Race.AIAN.value,
+     std_col.Race.ASIAN.value,
+     std_col.Race.NHPI.value): std_col.Race.AIAN_API.value
+}
+
+NON_NH_TO_NH_RACE_MAP = {
+    std_col.Race.NHPI.value: std_col.Race.NHPI_NH.value,
+    std_col.Race.ASIAN.value: std_col.Race.ASIAN_NH.value,
+    std_col.Race.WHITE.value: std_col.Race.WHITE_NH.value,
+    std_col.Race.BLACK.value: std_col.Race.BLACK_NH.value,
+    std_col.Race.AIAN.value: std_col.Race.AIAN_NH.value,
+    std_col.Race.OTHER_STANDARD.value: std_col.Race.OTHER_STANDARD_NH.value,
+    std_col.Race.MULTI.value: std_col.Race.MULTI_NH.value,
+
+}
+
+
 ISLAND_SOURCE_FILE_MAP = {
     "AS": "DECENNIALDPAS2020.DP1-Data.csv",
     "GU": "DECENNIALDPGU2020.DP1-Data.csv",
@@ -191,6 +218,13 @@ class Decia2020TerritoryPopulationData(DataSource):
             needed_cols = [geo_col] + value_cols
             raw_df = raw_df[needed_cols]
             raw_df = raw_df.rename(columns=rename_map)
+
+            if breakdown == std_col.RACE_OR_HISPANIC_COL:
+                # non-VI gets nh/non-nh fill ins
+                if postal in ["AS", "GU", "MP"]:
+                    raw_df = use_nonNH_as_NH(raw_df)
+                # every island gets needed combo races
+                raw_df = add_combo_race_cols(raw_df)
             cleaned_dfs.append(raw_df)
 
         # combine cleaned per-island dfs into one
@@ -202,10 +236,17 @@ class Decia2020TerritoryPopulationData(DataSource):
             pct_share_group_cols_map = get_melt_map(
                 SEX_CODES_TO_STD, TMP_PCT_SHARE_SUFFIX)
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
+
+            race_map: Dict[Any, str] = {
+                **RACE_CODES_TO_STD[postal],
+                **NON_NH_TO_NH_RACE_MAP,
+                **COMBO_RACES_SUM_MAP
+            }
             count_group_cols_map = get_melt_map(
-                RACE_CODES_TO_STD[postal], TMP_COUNT_SUFFIX)
+                race_map, TMP_COUNT_SUFFIX)
             pct_share_group_cols_map = get_melt_map(
-                RACE_CODES_TO_STD[postal], TMP_PCT_SHARE_SUFFIX)
+                race_map, TMP_PCT_SHARE_SUFFIX)
+
         if breakdown == std_col.AGE_COL:
             df = generate_summed_age_cols(df)
             count_group_cols_map = get_melt_map(
@@ -334,3 +375,32 @@ def get_melt_map(code_map: Dict, metric_suffix: Literal["_count", "_pct_share"])
     return {
         f'{group}{metric_suffix}': group for group in code_map.values()
     }
+
+
+def use_nonNH_as_NH(df: pd.DataFrame) -> pd.DataFrame:
+    """ For AS, GU, MP, the Census does not provide _NH specific races;
+    only races that don't account for ethnicity. This is likely due to the
+    extremely small number of Hispanic people in these areas. To allow for
+    merging these island populations onto more of our data sources, we duplicate
+    the non-NH races as the NH races when they are not provided (as in VI) """
+
+    for non_nh_col, nh_col in NON_NH_TO_NH_RACE_MAP.items():
+        df[f'{nh_col}_count'] = df[f'{non_nh_col}_count']
+        df[f'{nh_col}_pct_share'] = df[f'{non_nh_col}_pct_share']
+
+    return df
+
+
+def add_combo_race_cols(df: pd.DataFrame) -> pd.DataFrame:
+    """ Certain data sources use composite race groups that combine
+    standard Census race/ethnicity groups into composite groups.
+
+    Returns df with new tmp columns for each combo-group-metric; which will later be melted into HET style table """
+
+    for suffix in ["_count", "_pct_share"]:
+        for races_to_sum_tuple, combo_race in COMBO_RACES_SUM_MAP.items():
+            race_cols_to_sum = [
+                f'{race}{suffix}' for race in races_to_sum_tuple if f'{race}{suffix}' in df.columns]
+            df[f'{combo_race}{suffix}'] = df[race_cols_to_sum].sum(axis=1)
+
+    return df

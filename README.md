@@ -53,8 +53,6 @@ The frontend consists of
 2. `health-equity-tracker/frontend_server/`: A lightweight server that serves the React app as static files and forwards data requests to the data server.
 3. `health-equity-tracker/data_server/`: A data server that responds to data requests by serving data files that have been exported from the data pipeline.
 
-In addition, we have an unmaintained Storybook project that also lives in `health-equity-tracker/frontend/`. Storybook is a library that allows us to explore and develop UI components in isolation. Stories for each UI component are contained in the same directory as the component in a subfolder called "storybook". The current main branch version of Storybook can be seen here: https://het-storybook.netlify.app
-
 ## Frontend React App Environments
 
 The frontend React App runs in different environments. We use configuration files (`frontend/.env.prod`, `frontend/.env.staging`, etc) to control settings in different environments. These include things like the data server URL and logging settings. These can be overridden for local development using a `frontend/.env.development` file.
@@ -154,7 +152,7 @@ To run e2e tests, switch to the `frontend/` directory and run:
 npm run e2e
 ```
 
-This will use Playwright test runner to launch the React app if needed, and then confirm routing/rendering is working as expected. These tests are run on GitHub pull request commits. 
+This will use Playwright test runner to launch the React app if needed, and then confirm routing/rendering is working as expected. These tests are run on GitHub pull request commits.
 
 ### Outgoing Links Tests
 
@@ -164,17 +162,6 @@ npm run url
 ```
 
 This will use Playwright test runner to launch the React app if needed, and then confirm all outgoing links are returning successful responses. This runs weekly on GitHub.
-
-### Running Storybook locally
-
-Storybook is currently not actively maintained and may not function properly. 
-
-To run storybook locally, switch to the `frontend/` directory and run:
-```bash
-npm run storybook:development
-```
-
-Storybook local development also uses `frontend/.env.development` for configuration. However, storybook environment variables must start with `STORYBOOK_` instead of `VITE_`. Most environment variables have an equivalent `STORYBOOK_` version.
 
 
 ### Build
@@ -186,12 +173,6 @@ npm run build:${DEPLOY_CONTEXT}
 ```
 
 This will use the `frontend/.env.${DEPLOY_CONTEXT}` file for environment variables and outputs bundled files in the `frontend/build/` directory. These are the files that are used for hosting the app in production environments.
-
-### Ejecting Create React App
-
-_Note: this is a one-way operation. Once you `eject`, you can’t go back!_
-
-Don't do this unless there's a strong need to. See https://create-react-app.dev/docs/available-scripts/#npm-run-eject for further information.
 
 
 # Backend

@@ -80,26 +80,41 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    id: "acs_2010",
-    data_source_name:
-      "American Community Survey 5-year estimates from 2010, U.S. Territories",
+    id: "decia_2010_territory_population",
+    data_source_name: "Census 2010 Decennial Island Areas",
     data_source_pretty_site_name: "census.gov",
     data_source_link:
       "https://www.census.gov/data/datasets/2010/dec/virgin-islands.html",
-    geographic_level: "State, County",
+    geographic_level: "Territory",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "None",
     description:
-      "Population percentages at the territory level: " +
-      "the census bureau has not included population data from " +
-      "the U.S. Virgin Islands, Guam, American Samoa, or the Northern Mariana Islands " +
-      "in its 5 year ACS estimates, so the most up to date population " +
-      "estimates are from 2010. Interpret any metrics from " +
-      "these territories with caution.",
+      "Population totals and percent shares for 2010 at the territory level for U.S. Virgin Islands, Guam, American Samoa, and the Northern Mariana Islands, which are not available in the Census 5 year ACS estimates.",
     dataset_ids: [
-      "acs_2010_population-by_race_and_ethnicity_territory",
-      "acs_2010_population-by_sex_territory",
-      "acs_2010_population-by_age_territory",
+      "decia_2010_territory_population-by_race_and_ethnicity_territory_state_level",
+      "decia_2010_territory_population-by_sex_territory_state_level",
+      "decia_2010_territory_population-by_age_territory_state_level",
+    ],
+    downloadable: true,
+  },
+  {
+    id: "decia_2020_territory_population",
+    data_source_name: "Census 2020 Decennial Island Areas",
+    data_source_pretty_site_name: "census.gov",
+    data_source_link:
+      "https://www.census.gov/data/datasets/2020/dec/virgin-islands.html",
+    geographic_level: "Territory/County-Equivalent",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "None",
+    description:
+      "Population totals and percent shares for 2020 at the territory and county-equivalent level for U.S. Virgin Islands, Guam, American Samoa, and the Northern Mariana Islands, which are not available in the Census 5 year ACS estimates.",
+    dataset_ids: [
+      "decia_2020_territory_population-by_race_and_ethnicity_territory_state_level",
+      "decia_2020_territory_population-by_sex_territory_state_level",
+      "decia_2020_territory_population-by_age_territory_state_level",
+      "decia_2020_territory_population-by_race_and_ethnicity_territory_county_level",
+      "decia_2020_territory_population-by_sex_territory_county_level",
+      "decia_2020_territory_population-by_age_territory_county_level",
     ],
     downloadable: true,
   },
@@ -168,9 +183,9 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "dialysis centers, Federal Emergency Management Agency and Health Resources and Services " +
       "Administration partner sites, and federal entity facilities. (CDC 2021)",
     dataset_ids: [
-      "cdc_vaccination_national-age",
-      "cdc_vaccination_national-race_and_ethnicity",
-      "cdc_vaccination_national-sex",
+      "cdc_vaccination_national-age_processed",
+      "cdc_vaccination_national-race_processed",
+      "cdc_vaccination_national-sex_processed",
     ],
     downloadable: true,
   },
@@ -198,29 +213,6 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    id: "cdc_vaccination_national",
-    data_source_name:
-      "CDC COVID-19 Vaccination Demographics in the United States, National",
-    data_source_pretty_site_name: "data.cdc.gov",
-    data_source_link:
-      "https://data.cdc.gov/Vaccinations/COVID-19-Vaccination-Demographics-in-the-United-St/km4m-vcsb",
-    geographic_level: "National",
-    demographic_granularity: "Race/ethnicity, age, sex",
-    update_frequency: "Daily",
-    description:
-      "Overall Demographic Characteristics of People Receiving COVID-19 Vaccinations " +
-      "in the United States at national level. Data represents all vaccine partners " +
-      "including jurisdictional partner clinics, retail pharmacies, long-term care facilities, " +
-      "dialysis centers, Federal Emergency Management Agency and Health Resources and Services " +
-      "Administration partner sites, and federal entity facilities. (CDC 2021)",
-    dataset_ids: [
-      "cdc_vaccination_national-age",
-      "cdc_vaccination_national-race_and_ethnicity",
-      "cdc_vaccination_national-sex",
-    ],
-    downloadable: true,
-  },
-  {
     id: "kff_vaccination",
     data_source_name: "Kaiser Family Foundation COVID-19 Indicators",
     data_source_pretty_site_name: "kff.org",
@@ -234,7 +226,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "'COVID-19 Vaccinations by Race/Ethnicity', percent share metrics are found on " +
       "'Percent of Total Population that has Received a COVID-19 Vaccine by Race/Ethnicity' " +
       "and the All metric is found on 'COVID-19 Vaccines Delivered and Administered'",
-    dataset_ids: ["kff_vaccination-race_and_ethnicity"],
+    dataset_ids: ["kff_vaccination-race_and_ethnicity_processed"],
     downloadable: true,
   },
   {

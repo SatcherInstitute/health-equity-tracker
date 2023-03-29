@@ -5,7 +5,18 @@ import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
-from ingestion.constants import Sex
+from ingestion.merge_utils import (
+    merge_pop_numbers)
+
+from ingestion.constants import (
+    Sex,
+    NATIONAL_LEVEL,
+    US_FIPS,
+    US_NAME,
+    RACE,
+    AGE,
+    SEX,
+    UNKNOWN)
 
 
 CDC_SEX_GROUPS_TO_STANDARD = {
@@ -45,23 +56,25 @@ CDC_AGE_GROUPS_TO_STANDARD = {
 # and they don't publish these population numbers directly anywhere, so I am
 # taking the population percentages directly off of the chart here:
 # https://covid.cdc.gov/covid-data-tracker/#vaccination-demographic
-CDC_AGE_GROUPS_TO_POP_PCT = {
-    'Ages_<2yrs': '2.3',
-    'Ages_2-4_yrs': '3.6',
-    'Ages_5-11_yrs': '8.7',
-    'Ages_12-17_yrs': '7.6',
-    'Ages_18-24_yrs': '9.2',
-    'Ages_25-49_yrs': '32.9',
-    'Ages_50-64_yrs': '19.2',
-    'Ages_65+_yrs': '16.5',
-    'US': '100',
+AGE_GROUPS_TO_POP_PCT = {
+    '0-1': '2.3',
+    '2-4': '3.6',
+    '5-11': '8.7',
+    '12-17': '7.6',
+    '18-24': '9.2',
+    '25-49': '32.9',
+    '50-64': '19.2',
+    '65+': '16.5',
+    std_col.ALL_VALUE: '100',
 }
 
 BREAKDOWN_MAP = {
-    'race_and_ethnicity': CDC_RACE_GROUPS_TO_STANDARD,
-    'sex': CDC_SEX_GROUPS_TO_STANDARD,
-    'age': CDC_AGE_GROUPS_TO_STANDARD,
+    RACE: CDC_RACE_GROUPS_TO_STANDARD,
+    SEX: CDC_SEX_GROUPS_TO_STANDARD,
+    AGE: CDC_AGE_GROUPS_TO_STANDARD,
 }
+
+ALLS = {std_col.ALL_VALUE, Race.ALL.value}
 
 BASE_CDC_URL = "https://data.cdc.gov/resource/km4m-vcsb.json"
 
@@ -89,74 +102,56 @@ class CDCVaccinationNational(DataSource):
         latest_date = df['date'].max()
         df = df.loc[df['date'] == latest_date]
 
-        for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL, std_col.AGE_COL]:
+        for breakdown in [RACE, SEX, AGE]:
             breakdown_df = self.generate_breakdown(breakdown, df)
 
-            float_cols = [std_col.VACCINATED_FIRST_DOSE,
-                          std_col.VACCINATED_PER_100K,
-                          std_col.VACCINATED_SHARE_OF_KNOWN]
+            float_cols = [std_col.VACCINATED_PER_100K,
+                          std_col.VACCINATED_PCT_SHARE,
+                          std_col.VACCINATED_POP_PCT]
 
             col_types = gcs_to_bq_util.get_bq_column_types(breakdown_df, float_cols)
 
             gcs_to_bq_util.add_df_to_bq(
-                breakdown_df, dataset, breakdown, column_types=col_types)
+                breakdown_df, dataset, f'{breakdown}_processed', column_types=col_types)
 
     def generate_breakdown(self, breakdown, df):
-        output = []
+        demo_col = std_col.RACE_CATEGORY_ID_COL if breakdown == RACE else breakdown
+        unknown = Race.UNKNOWN.value if breakdown == RACE else UNKNOWN
 
-        columns = [
-            std_col.STATE_NAME_COL,
-            std_col.STATE_FIPS_COL,
-            std_col.VACCINATED_FIRST_DOSE,
-            std_col.VACCINATED_SHARE_OF_KNOWN,
-            std_col.VACCINATED_PER_100K,
-        ]
+        df = df.rename(columns={'demographic_category': demo_col})
 
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
-            columns.append(std_col.RACE_CATEGORY_ID_COL)
+        demo_rows = set(BREAKDOWN_MAP[breakdown].keys())
+        df = df.loc[df[demo_col].isin(demo_rows)].reset_index(drop=True)
+        df = df.replace(BREAKDOWN_MAP[breakdown])
+
+        known_df = df.loc[df[demo_col] != unknown].reset_index(drop=True)
+        unknown_df = df.loc[df[demo_col] == unknown].reset_index(drop=True)
+
+        known_df = known_df.rename(columns={'administered_dose1_pct_known': std_col.VACCINATED_PCT_SHARE})
+        unknown_df = unknown_df.rename(columns={'administered_dose1_pct_us': std_col.VACCINATED_PCT_SHARE})
+        df = pd.concat([known_df, unknown_df])
+
+        df[std_col.VACCINATED_PER_100K] = df['administered_dose1_pct'].apply(calc_per_100k)
+
+        df.loc[df[demo_col].isin(ALLS), std_col.VACCINATED_PCT_SHARE] = 100.0
+
+        if breakdown == AGE:
+            df[std_col.VACCINATED_POP_PCT] = df[demo_col].map(AGE_GROUPS_TO_POP_PCT)
         else:
-            columns.append(breakdown)
+            df = merge_pop_numbers(df, breakdown, NATIONAL_LEVEL)
+            df = df.rename(columns={std_col.POPULATION_PCT_COL: std_col.VACCINATED_POP_PCT})
 
-        if breakdown == std_col.AGE_COL:
-            columns.append(std_col.POPULATION_PCT_COL)
+        df[std_col.STATE_FIPS_COL] = US_FIPS
+        df[std_col.STATE_NAME_COL] = US_NAME
 
-        for cdc_group, standard_group in BREAKDOWN_MAP[breakdown].items():
-            output_row = {}
-            output_row[std_col.STATE_NAME_COL] = 'United States'
-            output_row[std_col.STATE_FIPS_COL] = '00'
+        df = df[[std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL, demo_col,
+                 std_col.VACCINATED_PCT_SHARE, std_col.VACCINATED_POP_PCT,
+                 std_col.VACCINATED_PER_100K]]
 
-            if breakdown == std_col.RACE_OR_HISPANIC_COL:
-                output_row[std_col.RACE_CATEGORY_ID_COL] = standard_group
-            else:
-                output_row[breakdown] = standard_group
+        if breakdown == RACE:
+            std_col.add_race_columns_from_category_id(df)
 
-            row = df.loc[df['demographic_category'] == cdc_group]
-            output_row[std_col.VACCINATED_FIRST_DOSE] = int(
-                row['administered_dose1'].values[0])
-            output_row[std_col.VACCINATED_PER_100K] = calc_per_100k(
-                row['administered_dose1_pct'].values[0])
-
-            # We want the Total number of unknowns, not the unknowns of what is known
-            if standard_group == "Unknown" or standard_group == Race.UNKNOWN.value:
-                output_row[std_col.VACCINATED_SHARE_OF_KNOWN] = row['administered_dose1_pct_us'].values[0]
-            else:
-                output_row[std_col.VACCINATED_SHARE_OF_KNOWN] = row['administered_dose1_pct_known'].values[0]
-
-            # Manually set this to 100%
-            if standard_group == std_col.ALL_VALUE or standard_group == Race.ALL.value:
-                output_row[std_col.VACCINATED_SHARE_OF_KNOWN] = 100.0
-
-            if breakdown == std_col.AGE_COL and standard_group != "Unknown":
-                output_row[std_col.POPULATION_PCT_COL] = CDC_AGE_GROUPS_TO_POP_PCT[cdc_group]
-
-            output.append(output_row)
-
-        output_df = pd.DataFrame(output, columns=columns)
-
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
-            std_col.add_race_columns_from_category_id(output_df)
-
-        return output_df
+        return df
 
 
 def calc_per_100k(pct_value):
