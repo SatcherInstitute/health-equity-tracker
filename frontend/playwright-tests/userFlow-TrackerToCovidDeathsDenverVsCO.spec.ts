@@ -63,17 +63,8 @@ test('Compare Mode Default Geos to Denver County and CO and back', async ({ page
 test('Use Table of Contents to Scroll Age Adjust Card Into View and Be Focused', async ({ page }) => {
 
     await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO);
-    // @ts-ignore
-    // await expect(page).toPassAxe({
-    //     rules: {
-    //         // TODO: fix disabled filter colors to be proper contrast
-    //         'color-contrast': { enabled: false },
-    //     },
-    // })
 
     // find Table of Contents link to Age-Adjustment Card
-    // const ageAdjustStepLink = page.locator('button:has-text("Age-adjusted risk")')
-    // await ageAdjustStepLink.click()
     await page.getByText("Age-adjusted risk").click();
 
     // Find Age-Adjust Card
