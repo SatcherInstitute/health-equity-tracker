@@ -146,32 +146,6 @@ resource "google_cloud_run_service" "exporter_service" {
   autogenerate_revision_name = true
 }
 
-# Cloud Run service for running aggregation queries on BQ datasets.
-resource "google_cloud_run_service" "aggregator_service" {
-  name     = var.aggregator_service_name
-  location = var.compute_region
-  project  = var.project_id
-
-  template {
-    spec {
-      containers {
-        image = format("gcr.io/%s/%s@%s", var.project_id, var.aggregator_image_name, var.aggregator_image_digest)
-        env {
-          # GCP project that contains the dataset we are querying.
-          name  = "PROJECT_ID"
-          value = var.project_id
-        }
-      }
-      service_account_name = google_service_account.aggregator_runner_identity.email
-    }
-  }
-
-  traffic {
-    percent         = 100
-    latest_revision = true
-  }
-  autogenerate_revision_name = true
-}
 
 # Cloud Run service that serves the frontend
 resource "google_cloud_run_service" "frontend_service" {
@@ -228,10 +202,6 @@ output "gcs_to_bq_url" {
 
 output "exporter_url" {
   value = google_cloud_run_service.exporter_service.status.0.url
-}
-
-output "aggregator_url" {
-  value = google_cloud_run_service.aggregator_service.status.0.url
 }
 
 /* [END] Cloud Run Setup */
