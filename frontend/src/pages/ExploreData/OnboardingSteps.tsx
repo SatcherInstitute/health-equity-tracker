@@ -6,7 +6,7 @@ import changeModes from "../../assets/screengrabs/changeModes.mp4";
 
 export const ONBOARDING_STEPS = [
   onboardingStep(
-    "#covid-dropdown-topic",
+    "#covid_cases-dropdown-topic",
     "Start Your Search",
     <>
       <p>

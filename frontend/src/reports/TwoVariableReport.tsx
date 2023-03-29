@@ -115,10 +115,10 @@ function TwoVariableReport(props: {
 
       const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, RACE);
       setVariableConfig1(
-        demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId1][0]
+        demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
       );
       setVariableConfig2(
-        demoParam2 ? demoParam2 : METRIC_CONFIG[props.dropdownVarId2][0]
+        demoParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
       );
       setCurrentBreakdown(demo);
     };

@@ -87,7 +87,7 @@ export function getSelectedConditions(madLib: MadLib) {
       : [];
 
   // make a list of conditions and sub-conditions, including #2 if it's unique
-  return condition2array.length && condition2array !== condition1array
+  return condition2array?.length && condition2array !== condition1array
     ? [...condition1array, ...condition2array]
     : condition1array;
 }
@@ -209,8 +209,8 @@ const MADLIB_LIST: MadLib[] = [
       "and",
       FIPS_MAP,
     ],
-    defaultSelections: { 1: "covid", 3: GEORGIA_FIPS, 5: USA_FIPS },
-    activeSelections: { 1: "covid", 3: GEORGIA_FIPS, 5: USA_FIPS },
+    defaultSelections: { 1: "covid_cases", 3: GEORGIA_FIPS, 5: USA_FIPS },
+    activeSelections: { 1: "covid_cases", 3: GEORGIA_FIPS, 5: USA_FIPS },
   },
   {
     id: "comparevars",
@@ -222,8 +222,8 @@ const MADLIB_LIST: MadLib[] = [
       "in",
       FIPS_MAP,
     ],
-    defaultSelections: { 1: "diabetes", 3: "covid", 5: USA_FIPS },
-    activeSelections: { 1: "diabetes", 3: "covid", 5: USA_FIPS },
+    defaultSelections: { 1: "diabetes", 3: "covid_cases", 5: USA_FIPS },
+    activeSelections: { 1: "diabetes", 3: "covid_cases", 5: USA_FIPS },
   },
 ];
 

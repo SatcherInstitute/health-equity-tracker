@@ -75,7 +75,7 @@ function ExploreDataPage() {
     activeSelections: defaultValuesWithOverrides,
   });
 
-  const noTopicChosen = getSelectedConditions(madLib).length === 0;
+  const noTopicChosen = getSelectedConditions(madLib)?.length === 0;
 
   useEffect(() => {
     const readParams = () => {
@@ -169,7 +169,7 @@ function ExploreDataPage() {
         : madLib.activeSelections[3];
 
     // default non-duplicate settings for compare modes
-    const var2 = var1 === "covid" ? "covid_vaccinations" : "covid";
+    const var2 = var1 === "covid_cases" ? "covid_vaccinations" : "covid_cases";
     const geo2 = geo1 === "00" ? "13" : "00"; // default to US or Georgia
 
     // Construct UPDATED madlib based on the future carousel Madlib shape
@@ -202,13 +202,13 @@ function ExploreDataPage() {
 
     // hide/display the sticky suicide lifeline link based on selected condition
     setShowStickyLifeline(
-      getSelectedConditions(madLib).some(
+      getSelectedConditions(madLib)?.some(
         (condition: VariableConfig) => condition?.variableId === "suicide"
       )
     );
 
     setShowIncarceratedChildrenAlert(
-      getSelectedConditions(madLib).some((condition: VariableConfig) =>
+      getSelectedConditions(madLib)?.some((condition: VariableConfig) =>
         INCARCERATION_IDS.includes(condition?.variableId)
       )
     );
