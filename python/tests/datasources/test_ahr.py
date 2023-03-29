@@ -1,33 +1,35 @@
 from unittest import mock
 import os
 
-import pandas as pd  # type: ignore
-from pandas._testing import assert_frame_equal  # type: ignore
+import pandas as pd
+from pandas._testing import assert_frame_equal
 
 from test_utils import get_state_fips_codes_as_df
-from datasources.uhc import UHCData  # type: ignore
-import ingestion.standardized_columns as std_col  # type: ignore
+from datasources.ahr import AHRData
+import ingestion.standardized_columns as std_col
 
-# Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "uhc_brfss")
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "ahr")
+GOLDEN_DIR = os.path.join(TEST_DIR, 'golden_data')
 
 GOLDEN_DATA_RACE = os.path.join(
-    TEST_DIR, 'uhc_test_output_race_and_ethnicity.json')
-GOLDEN_DATA_AGE = os.path.join(TEST_DIR, 'uhc_test_output_age.json')
-GOLDEN_DATA_SEX = os.path.join(TEST_DIR, 'uhc_test_output_sex.json')
+    GOLDEN_DIR, 'ahr_test_output_race_and_ethnicity.json')
+GOLDEN_DATA_AGE = os.path.join(
+    GOLDEN_DIR, 'ahr_test_output_age.json')
+GOLDEN_DATA_SEX = os.path.join(
+    GOLDEN_DIR, 'ahr_test_output_sex.json')
 
 
 def get_test_data_as_df():
-    df = pd.read_csv(os.path.join(TEST_DIR, 'uhc_test_input.csv'),
-                     dtype={"State Name": str,
-                            "Measure Name": str,
-                            "Value": float})
 
+    df = pd.read_csv(os.path.join(TEST_DIR, 'ahr_test_input.csv'), dtype={'StateCode': str,
+                                                                          "Measure": str,
+                                                                          "Value": float})
     df_national = df.copy().reset_index(drop=True)
-    df_national['State Name'] = 'United States'
+    df_national['StateCode'] = 'ALL'
+    df = pd.concat([df, df_national]).reset_index(drop=True)
 
-    return pd.concat([df, df_national]).reset_index(drop=True)
+    return df
 
 
 def get_race_pop_data_as_df_state():
@@ -83,7 +85,6 @@ EXPECTED_DTYPE = {
     "frequent_mental_distress_per_100k": float,
     "depression_per_100k": float,
     "suicide_per_100k": float,
-    "illicit_opioid_use_per_100k": float,
     "non_medical_rx_opioid_use_per_100k": float,
     "non_medical_drug_use_per_100k": float,
     "excessive_drinking_per_100k": float,
@@ -98,17 +99,15 @@ EXPECTED_DTYPE = {
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-            return_value=get_test_data_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-            return_value=None)
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', return_value=get_test_data_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqRaceState(
         mock_bq: mock.MagicMock,
-        mock_csv: mock.MagicMock,
+        mock_data_dir_df: mock.MagicMock,
         mock_fips: mock.MagicMock,
-        mock_pop: mock.MagicMock):
+        mock_pop: mock.MagicMock
+):
 
     mock_pop.side_effect = [
         get_race_pop_data_as_df_state(),
@@ -122,18 +121,15 @@ def testWriteToBqRaceState(
         get_sex_pop_data_as_df_national(),
     ]
 
-    uhc_data = UHCData()
-
     expected_dtype = EXPECTED_DTYPE.copy()
-    # pretend arguments required by bigQuery
+
+    datasource = AHRData()
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
-
-    uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
-
     assert mock_pop.call_count == 9
     assert mock_pop.call_args_list[0].args[1] == 'by_race_state'
 
@@ -141,20 +137,16 @@ def testWriteToBqRaceState(
     expected_dtype['race_and_ethnicity'] = str
     expected_dtype['race_category_id'] = str
 
-    expected_df = pd.read_json(
-        GOLDEN_DATA_RACE, dtype=expected_dtype)
+    expected_df = pd.read_json(GOLDEN_DATA_RACE, dtype=expected_dtype)
 
     assert_frame_equal(
         mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-            return_value=get_test_data_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-            return_value=None)
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', return_value=get_test_data_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqAgeState(
         mock_bq: mock.MagicMock,
         mock_csv: mock.MagicMock,
@@ -173,10 +165,9 @@ def testWriteToBqAgeState(
         get_sex_pop_data_as_df_national(),
     ]
 
-    uhc_data = UHCData()
+    uhc_data = AHRData()
 
     expected_dtype = EXPECTED_DTYPE.copy()
-    # pretend arguments required by bigQuery
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
@@ -184,7 +175,6 @@ def testWriteToBqAgeState(
     uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
-
     assert mock_pop.call_count == 9
     assert mock_pop.call_args_list[2].args[1] == 'by_age_state'
 
@@ -193,17 +183,16 @@ def testWriteToBqAgeState(
     expected_df = pd.read_json(
         GOLDEN_DATA_AGE, dtype=expected_dtype)
 
+    print(mock_bq.call_args_list[1].args[0])
+
     assert_frame_equal(
         mock_bq.call_args_list[1].args[0], expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-            return_value=get_test_data_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-            return_value=None)
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', return_value=get_test_data_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqSexState(
         mock_bq: mock.MagicMock,
         mock_csv: mock.MagicMock,
@@ -222,10 +211,9 @@ def testWriteToBqSexState(
         get_sex_pop_data_as_df_national(),
     ]
 
-    uhc_data = UHCData()
+    uhc_data = AHRData()
 
     expected_dtype = EXPECTED_DTYPE.copy()
-    # pretend arguments required by bigQuery
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
@@ -233,7 +221,6 @@ def testWriteToBqSexState(
     uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
-
     assert mock_pop.call_count == 9
     assert mock_pop.call_args_list[4].args[1] == 'by_sex_state'
 
@@ -251,12 +238,9 @@ def testWriteToBqSexState(
 # test. There is no need to maintain GOLDEN files for this, as there is no
 # special parsing logic for national data.
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-            return_value=get_test_data_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-            return_value=None)
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', return_value=get_test_data_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqRaceNational(
         mock_bq: mock.MagicMock,
         mock_csv: mock.MagicMock,
@@ -275,9 +259,8 @@ def testWriteToBqRaceNational(
         get_sex_pop_data_as_df_national(),
     ]
 
-    uhc_data = UHCData()
+    uhc_data = AHRData()
 
-    # pretend arguments required by bigQuery
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
@@ -291,12 +274,9 @@ def testWriteToBqRaceNational(
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-            return_value=get_test_data_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-            return_value=None)
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', return_value=get_test_data_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqAgeNational(
         mock_bq: mock.MagicMock,
         mock_csv: mock.MagicMock,
@@ -315,9 +295,8 @@ def testWriteToBqAgeNational(
         get_sex_pop_data_as_df_national(),
     ]
 
-    uhc_data = UHCData()
+    uhc_data = AHRData()
 
-    # pretend arguments required by bigQuery
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
@@ -331,12 +310,9 @@ def testWriteToBqAgeNational(
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-            return_value=get_test_data_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-            return_value=None)
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', return_value=get_test_data_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqSexNational(
         mock_bq: mock.MagicMock,
         mock_csv: mock.MagicMock,
@@ -355,9 +331,8 @@ def testWriteToBqSexNational(
         get_sex_pop_data_as_df_national(),
     ]
 
-    uhc_data = UHCData()
+    uhc_data = AHRData()
 
-    # pretend arguments required by bigQuery
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}

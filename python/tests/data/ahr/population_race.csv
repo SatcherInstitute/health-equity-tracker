@@ -1,0 +1,21 @@
+state_fips,state_name,population,population_pct,race_category_id,race_and_ethnicity
+06,California,25565,0.4,AIAN,American Indian and Alaska Native
+06,California,22740,0.4,AIAN_NH,American Indian and Alaska Native (NH)
+06,California,67013,14.6,API_NH,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+06,California,66270,14.3,ASIAN,Asian
+06,California,65410,14.3,ASIAN_NH,Asian (NH)
+06,California,1299048,5.5,BLACK,Black or African American
+06,California,1291524,5.5,BLACK_NH,Black or African American (NH)
+06,California,208626,39.0,HISP,Hispanic or Latino
+06,California,92220,3.0,MULTI,Two or more races
+06,California,83335,3.0,MULTI_NH,Two or more races (NH)
+06,California,162882,3.3,MULTI_OR_OTHER_STANDARD,Two or more races & Unrepresented race
+06,California,91418,1.9,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Unrepresented race (NH)
+06,California,4667624,95.7,NH,Not Hispanic or Latino
+06,California,2238,0.4,NHPI,Native Hawaiian and Pacific Islander
+06,California,1603,0.4,NHPI_NH,Native Hawaiian and Pacific Islander (NH)
+06,California,70662,0.3,OTHER_STANDARD,Unrepresented race
+06,California,8083,0.3,OTHER_STANDARD_NH,Unrepresented race (NH)
+06,California,4876250,100.0,ALL,All
+06,California,3320247,37.2,WHITE,White
+06,California,3194929,37.2,WHITE_NH,White (NH)
