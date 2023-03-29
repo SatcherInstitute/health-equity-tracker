@@ -1,11 +1,10 @@
-import numpy as np
 import pandas as pd
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
-from ingestion.constants import *
+import ingestion.constants as constants
 from ingestion.merge_utils import merge_pop_numbers, merge_state_ids
-from ingestion.standardized_columns import *
+import ingestion.standardized_columns as std_col
 from ingestion.types import SEX_RACE_ETH_AGE_TYPE
 
 AHR_RACE_GROUPS = [
@@ -43,7 +42,7 @@ VOTER_AGE_GROUPS = [
 
 # single list of all unique age group options
 AHR_AGE_GROUPS = list(dict.fromkeys([
-    ALL_VALUE,
+    std_col.ALL_VALUE,
     *SUICIDE_AGE_GROUPS,
     *VOTER_AGE_GROUPS,
     *BROAD_AGE_GROUPS
@@ -51,38 +50,38 @@ AHR_AGE_GROUPS = list(dict.fromkeys([
 
 # # No Age Breakdowns for: Non-medical Drug (including Non-Medical Rx Opioid)
 
-AHR_SEX_GROUPS = ['Male', 'Female', ALL_VALUE]
+AHR_SEX_GROUPS = ['Male', 'Female', std_col.ALL_VALUE]
 
 RACE_GROUPS_TO_STANDARD = {
-    'American Indian/Alaska Native': Race.AIAN_NH.value,
-    'Asian': Race.ASIAN_NH.value,
-    'Asian/Pacific Islander': Race.API_NH.value,
-    'Black': Race.BLACK_NH.value,
-    'Hispanic': Race.HISP.value,
-    'Hawaiian/Pacific Islander': Race.NHPI_NH.value,
-    'Other Race': Race.OTHER_STANDARD_NH.value,
-    'White': Race.WHITE_NH.value,
-    'Multiracial': Race.MULTI_NH.value,
-    'All': Race.ALL.value,
+    'American Indian/Alaska Native': std_col.Race.AIAN_NH.value,
+    'Asian': std_col.Race.ASIAN_NH.value,
+    'Asian/Pacific Islander': std_col.Race.API_NH.value,
+    'Black': std_col.Race.BLACK_NH.value,
+    'Hispanic': std_col.Race.HISP.value,
+    'Hawaiian/Pacific Islander': std_col.Race.NHPI_NH.value,
+    'Other Race': std_col.Race.OTHER_STANDARD_NH.value,
+    'White': std_col.Race.WHITE_NH.value,
+    'Multiracial': std_col.Race.MULTI_NH.value,
+    'All': std_col.Race.ALL.value,
 }
 
 
 AHR_DETERMINANTS = {
-    "Chronic Obstructive Pulmonary Disease": COPD_PREFIX,
-    "Diabetes": DIABETES_PREFIX,
-    "Frequent Mental Distress": FREQUENT_MENTAL_DISTRESS_PREFIX,
-    "Depression": DEPRESSION_PREFIX,
-    "Excessive Drinking": EXCESSIVE_DRINKING_PREFIX,
-    "Non-medical Drug Use": NON_MEDICAL_DRUG_USE_PREFIX,
+    "Chronic Obstructive Pulmonary Disease": std_col.COPD_PREFIX,
+    "Diabetes": std_col.DIABETES_PREFIX,
+    "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PREFIX,
+    "Depression": std_col.DEPRESSION_PREFIX,
+    "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PREFIX,
+    "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PREFIX,
     # NOTE: both opioid conditions below are subsets of Non-medical Drug Use above
-    "Non-medical Use of Prescription Opioids": NON_MEDICAL_RX_OPIOID_USE_PREFIX,
-    "Asthma": ASTHMA_PREFIX,
-    "Cardiovascular Diseases": CARDIOVASCULAR_PREFIX,
-    "Chronic Kidney Disease": CHRONIC_KIDNEY_PREFIX,
-    "Avoided Care Due to Cost": AVOIDED_CARE_PREFIX,
-    "Suicide": SUICIDE_PREFIX,
-    "Preventable Hospitalizations": PREVENTABLE_HOSP_PREFIX,
-    "Voter Participation": VOTER_PARTICIPATION_PREFIX,
+    "Non-medical Use of Prescription Opioids": std_col.NON_MEDICAL_RX_OPIOID_USE_PREFIX,
+    "Asthma": std_col.ASTHMA_PREFIX,
+    "Cardiovascular Diseases": std_col.CARDIOVASCULAR_PREFIX,
+    "Chronic Kidney Disease": std_col.CHRONIC_KIDNEY_PREFIX,
+    "Avoided Care Due to Cost": std_col.AVOIDED_CARE_PREFIX,
+    "Suicide": std_col.SUICIDE_PREFIX,
+    "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PREFIX,
+    "Voter Participation": std_col.VOTER_PARTICIPATION_PREFIX,
 }
 
 # When parsing Measure Names from rows with a demographic breakdown
@@ -97,12 +96,12 @@ ALT_ROWS_WITH_DEMO = {
 }
 
 PER100K_DETERMINANTS = {
-    "Suicide": SUICIDE_PREFIX,
-    "Preventable Hospitalizations": PREVENTABLE_HOSP_PREFIX
+    "Suicide": std_col.SUICIDE_PREFIX,
+    "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PREFIX
 }
 
 PLUS_5_AGE_DETERMINANTS = {
-    "Suicide": SUICIDE_PREFIX,
+    "Suicide": std_col.SUICIDE_PREFIX,
 }
 
 BREAKDOWN_MAP = {
@@ -130,26 +129,30 @@ class AHRData(DataSource):
         df = gcs_to_bq_util.load_csv_as_df_from_data_dir('ahr',
                                                          'ahr_annual_2022.csv')
 
-        df.rename(columns={'StateCode': STATE_POSTAL_COL}, inplace=True)
-        df[STATE_POSTAL_COL].replace('ALL', US_ABBR, inplace=True)
+        df.rename(
+            columns={'StateCode': std_col.STATE_POSTAL_COL}, inplace=True)
+        df[std_col.STATE_POSTAL_COL].replace(
+            'ALL', constants.US_ABBR, inplace=True)
 
-        for geo in [STATE_LEVEL, NATIONAL_LEVEL]:
+        for geo in [constants.STATE_LEVEL, constants.NATIONAL_LEVEL]:
             loc_df = df.copy()
 
-            if geo == NATIONAL_LEVEL:
-                loc_df = loc_df.loc[loc_df[STATE_POSTAL_COL] == US_ABBR]
+            if geo == constants.NATIONAL_LEVEL:
+                loc_df = loc_df.loc[loc_df[std_col.STATE_POSTAL_COL]
+                                    == constants.US_ABBR]
             else:
-                loc_df = loc_df.loc[loc_df[STATE_POSTAL_COL] != US_ABBR]
+                loc_df = loc_df.loc[loc_df[std_col.STATE_POSTAL_COL]
+                                    != constants.US_ABBR]
 
-            for breakdown in [RACE_OR_HISPANIC_COL, AGE_COL, SEX_COL]:
+            for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
                 table_name = f'{breakdown}_{geo}'
                 breakdown_df = loc_df.copy()
                 breakdown_df = parse_raw_data(breakdown_df, breakdown)
                 breakdown_df = post_process(breakdown_df, breakdown, geo)
 
-                float_cols = [generate_column_name(col, suffix) for col in AHR_DETERMINANTS.values(
-                ) for suffix in [PER_100K_SUFFIX, PCT_SHARE_SUFFIX]]
-                float_cols.append(BRFSS_POPULATION_PCT)
+                float_cols = [std_col.generate_column_name(col, suffix) for col in AHR_DETERMINANTS.values(
+                ) for suffix in [std_col.PER_100K_SUFFIX, std_col.PCT_SHARE_SUFFIX]]
+                float_cols.append(std_col.BRFSS_POPULATION_PCT)
 
                 col_types = gcs_to_bq_util.get_bq_column_types(
                     breakdown_df, float_cols)
@@ -175,24 +178,24 @@ def parse_raw_data(df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE):
         A pandas DataFrame with processed data ready for the frontend.
     """
     output = []
-    states = df[STATE_POSTAL_COL].drop_duplicates().to_list()
+    states = df[std_col.STATE_POSTAL_COL].drop_duplicates().to_list()
 
     for state in states:
         for breakdown_value in BREAKDOWN_MAP[breakdown]:
             output_row = {}
-            output_row[STATE_POSTAL_COL] = state
+            output_row[std_col.STATE_POSTAL_COL] = state
 
-            if breakdown == RACE_OR_HISPANIC_COL:
-                output_row[RACE_CATEGORY_ID_COL] = RACE_GROUPS_TO_STANDARD[breakdown_value]
+            if breakdown == std_col.RACE_OR_HISPANIC_COL:
+                output_row[std_col.RACE_CATEGORY_ID_COL] = RACE_GROUPS_TO_STANDARD[breakdown_value]
 
             else:
                 output_row[breakdown] = breakdown_value
 
             for determinant, prefix in AHR_DETERMINANTS.items():
-                per_100k_col_name = generate_column_name(prefix,
-                                                         PER_100K_SUFFIX)
-                pct_share_col_name = generate_column_name(prefix,
-                                                          PCT_SHARE_SUFFIX)
+                per_100k_col_name = std_col.generate_column_name(prefix,
+                                                                 std_col.PER_100K_SUFFIX)
+                pct_share_col_name = std_col.generate_column_name(prefix,
+                                                                  std_col.PCT_SHARE_SUFFIX)
 
                 matched_row = get_matched_row(df,
                                               state,
@@ -229,21 +232,21 @@ def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE, g
     Returns:
         A pandas DataFrame with processed data ready for use in the frontend.
     """
-    if breakdown == RACE_OR_HISPANIC_COL:
-        add_race_columns_from_category_id(breakdown_df)
+    if breakdown == std_col.RACE_OR_HISPANIC_COL:
+        std_col.add_race_columns_from_category_id(breakdown_df)
 
     breakdown_df = merge_state_ids(breakdown_df)
 
-    breakdown_name = 'race' if breakdown == RACE_OR_HISPANIC_COL else breakdown
+    breakdown_name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
 
     breakdown_df = merge_pop_numbers(
         breakdown_df, breakdown_name, geo)
 
     breakdown_df = breakdown_df.rename(
-        columns={POPULATION_PCT_COL: BRFSS_POPULATION_PCT})
-    breakdown_df[BRFSS_POPULATION_PCT] = breakdown_df[BRFSS_POPULATION_PCT].astype(
+        columns={std_col.POPULATION_PCT_COL: std_col.BRFSS_POPULATION_PCT})
+    breakdown_df[std_col.BRFSS_POPULATION_PCT] = breakdown_df[std_col.BRFSS_POPULATION_PCT].astype(
         float)
-    breakdown_df = breakdown_df.drop(columns=POPULATION_COL)
+    breakdown_df = breakdown_df.drop(columns=std_col.POPULATION_COL)
 
     return breakdown_df
 
@@ -263,10 +266,10 @@ def get_matched_row(df: pd.DataFrame, state: str, determinant: str, breakdown_va
     Returns:
         A pandas dataframe that matches the given criteria.
     """
-    if breakdown_value in {ALL_VALUE, 'Total'}:
+    if breakdown_value in {std_col.ALL_VALUE, 'Total'}:
         # find row that matches current nested iterations
         matched_row = df.loc[
-            (df[STATE_POSTAL_COL] == state) &
+            (df[std_col.STATE_POSTAL_COL] == state) &
             (df['Measure'] == ALT_ROWS_ALL.get(determinant, determinant))
         ]
 
@@ -276,7 +279,7 @@ def get_matched_row(df: pd.DataFrame, state: str, determinant: str, breakdown_va
         # We build that string to perfectly match the field,
         # using any alias for the determinant as needed
         space_or_ages = " "
-        if breakdown == AGE_COL:
+        if breakdown == std_col.AGE_COL:
             space_or_ages += "Ages "
         measure_name = (
             f"{ALT_ROWS_WITH_DEMO.get(determinant, determinant)}"
@@ -285,7 +288,7 @@ def get_matched_row(df: pd.DataFrame, state: str, determinant: str, breakdown_va
         )
 
         matched_row = df.loc[
-            (df[STATE_POSTAL_COL] == state) &
+            (df[std_col.STATE_POSTAL_COL] == state) &
             (df['Measure'] == measure_name)
         ]
 
