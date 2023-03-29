@@ -88,9 +88,9 @@ function MapCardWithKey(props: MapCardProps) {
   const isIncarceration = isJail || isPrison;
 
   const isCawpStateLeg =
-    props.variableConfig.variableId === "women_state_legislatures";
+    props.variableConfig.variableId === "women_in_state_legislature";
   const isCawpCongress =
-    props.variableConfig.variableId === "women_us_congress";
+    props.variableConfig.variableId === "women_in_us_congress";
   const isCawp = isCawpStateLeg || isCawpCongress;
 
   const isPopulationSubset = HIV_DETERMINANTS.includes(metricConfig.metricId);

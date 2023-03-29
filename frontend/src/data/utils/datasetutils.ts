@@ -178,7 +178,7 @@ export function getLatestDate(df: IDataFrame): Date {
   return new Date(dateTimes.max());
 }
 
-/* 
+/*
 Returns the lowest `listSize` & highest `listSize` values, unless there are ties for first and/or last in which case the only the tied values are returned. If there is overlap, it is removed from the highest values.
 */
 export function getExtremeValues(
@@ -241,22 +241,20 @@ export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
   );
 }
 
-/* 
+/*
 There are many gaps in the data, and not every variable contains info at each demographic breakdown by each geographic level.
 This nested dictionary keeps track of known gaps, and is utilized by the UI (e.g. disable demographic toggle options)
 */
 const missingAgeAllGeos: VariableId[] = [
   "non_medical_drug_use",
-  "non_medical_rx_opioid_use",
-  "illicit_opioid_use",
   "preventable_hospitalizations",
-  "women_state_legislatures",
-  "women_us_congress",
+  "women_in_state_legislature",
+  "women_in_us_congress",
 ];
 
 const missingSexAllGeos: VariableId[] = [
-  "women_state_legislatures",
-  "women_us_congress",
+  "women_in_state_legislature",
+  "women_in_us_congress",
 ];
 
 export const DATA_GAPS: Partial<
@@ -281,14 +279,14 @@ export const DATA_GAPS: Partial<
   },
 };
 
-/* 
+/*
 
 Conditionally hide some of the extra buckets from the table card, which generally should be showing only 1 complete set of buckets that show the entire population's comparison values.
 
 */
 const includeAllsGroupsIds: VariableId[] = [
-  "women_state_legislatures",
-  "women_us_congress",
+  "women_in_state_legislature",
+  "women_in_us_congress",
   "prison",
   "jail",
 ];
