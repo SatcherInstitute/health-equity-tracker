@@ -169,14 +169,14 @@ def testWriteToBqAgeState(
         get_sex_pop_data_as_df_national(),
     ]
 
-    uhc_data = AHRData()
+    ahr_data = AHRData()
 
     expected_dtype = EXPECTED_DTYPE.copy()
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
 
-    uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    ahr_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
     assert mock_pop.call_count == 9
@@ -217,14 +217,14 @@ def testWriteToBqSexState(
         get_sex_pop_data_as_df_national(),
     ]
 
-    uhc_data = AHRData()
+    ahr_data = AHRData()
 
     expected_dtype = EXPECTED_DTYPE.copy()
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
 
-    uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    ahr_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
     assert mock_pop.call_count == 9
@@ -267,13 +267,13 @@ def testWriteToBqRaceNational(
         get_sex_pop_data_as_df_national(),
     ]
 
-    uhc_data = AHRData()
+    ahr_data = AHRData()
 
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
 
-    uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    ahr_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
 
@@ -305,13 +305,13 @@ def testWriteToBqAgeNational(
         get_sex_pop_data_as_df_national(),
     ]
 
-    uhc_data = AHRData()
+    ahr_data = AHRData()
 
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
 
-    uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    ahr_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
 
@@ -343,13 +343,13 @@ def testWriteToBqSexNational(
         get_sex_pop_data_as_df_national(),
     ]
 
-    uhc_data = AHRData()
+    ahr_data = AHRData()
 
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
 
-    uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    ahr_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
 

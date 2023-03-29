@@ -71,7 +71,7 @@ PCT_SHARE_SUFFIX = "pct_share"
 RAW_SUFFIX = "estimated_total"
 POP_PCT_SUFFIX = 'population_pct'
 
-# prefixes for UHC columns
+# prefixes for AHR columns
 DEPRESSION_PREFIX = "depression"
 ILLICIT_OPIOID_USE_PREFIX = "illicit_opioid_use"
 NON_MEDICAL_RX_OPIOID_USE_PREFIX = "non_medical_rx_opioid_use"

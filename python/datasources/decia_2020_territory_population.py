@@ -96,7 +96,7 @@ STD_AGES_SUM_MAP = {
     ("70-74", "75-79"): "70-79",
     ("80-84", "85+"): "80+",
 
-    # EXTRA UHC DECADE PLUS 5 AGE BUCKETS
+    # EXTRA AHR DECADE PLUS 5 AGE BUCKETS
     ("15-19", "20-24"): "15-24",
     ("25-29", "30-34"): "25-34",
     ("35-39", "40-44"): "35-44",
@@ -104,7 +104,7 @@ STD_AGES_SUM_MAP = {
     ("55-59", "60-64"): "55-64",
     ("65-69", "70-74"): "65-74",
     ("75-79", "80-84"): "75-84",
-    # EXTRA UHC STANDARD AGE BUCKETS
+    # EXTRA AHR STANDARD AGE BUCKETS
     ("45-49", "50-54", "55-59", "60-64"): "45-64",
     # UNAVAILABLE AGE BUCKETS
     # "18-24", "18-44"
