@@ -99,8 +99,10 @@ EXPECTED_DTYPE = {
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', return_value=get_test_data_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+            return_value=get_test_data_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqRaceState(
         mock_bq: mock.MagicMock,
@@ -144,8 +146,10 @@ def testWriteToBqRaceState(
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', return_value=get_test_data_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+            return_value=get_test_data_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqAgeState(
         mock_bq: mock.MagicMock,
@@ -190,8 +194,10 @@ def testWriteToBqAgeState(
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', return_value=get_test_data_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+            return_value=get_test_data_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqSexState(
         mock_bq: mock.MagicMock,
@@ -238,8 +244,10 @@ def testWriteToBqSexState(
 # test. There is no need to maintain GOLDEN files for this, as there is no
 # special parsing logic for national data.
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', return_value=get_test_data_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+            return_value=get_test_data_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqRaceNational(
         mock_bq: mock.MagicMock,
@@ -274,8 +282,10 @@ def testWriteToBqRaceNational(
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', return_value=get_test_data_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+            return_value=get_test_data_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqAgeNational(
         mock_bq: mock.MagicMock,
@@ -310,8 +320,10 @@ def testWriteToBqAgeNational(
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', return_value=get_test_data_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+            return_value=get_test_data_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqSexNational(
         mock_bq: mock.MagicMock,

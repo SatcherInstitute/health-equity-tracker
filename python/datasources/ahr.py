@@ -239,9 +239,6 @@ def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE, g
     breakdown_df = merge_pop_numbers(
         breakdown_df, breakdown_name, geo)
 
-    print(breakdown, geo)
-    print(breakdown_df)
-
     breakdown_df = breakdown_df.rename(
         columns={POPULATION_PCT_COL: BRFSS_POPULATION_PCT})
     breakdown_df[BRFSS_POPULATION_PCT] = breakdown_df[BRFSS_POPULATION_PCT].astype(
