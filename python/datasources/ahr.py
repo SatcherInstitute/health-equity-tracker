@@ -5,7 +5,8 @@ from ingestion import gcs_to_bq_util
 import ingestion.constants as constants
 from ingestion.merge_utils import merge_pop_numbers, merge_state_ids
 import ingestion.standardized_columns as std_col
-from ingestion.types import SEX_RACE_ETH_AGE_TYPE, GEO_TYPE
+from ingestion.types import SEX_RACE_ETH_AGE_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE
+from typing import cast
 
 AHR_RACE_GROUPS = [
     'American Indian/Alaska Native',
@@ -243,7 +244,8 @@ def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE, g
 
     breakdown_name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
 
-    breakdown_df = merge_pop_numbers(breakdown_df, breakdown_name, geo)
+    breakdown_df = merge_pop_numbers(breakdown_df, cast(
+        SEX_RACE_AGE_TYPE, breakdown_name), geo)
 
     breakdown_df = breakdown_df.rename(
         columns={std_col.POPULATION_PCT_COL: std_col.BRFSS_POPULATION_PCT})
