@@ -9,9 +9,6 @@ echo "Using Fetched Data: ${GCS_TO_BQ_URL}"
 EXPORTER_URL=$(gcloud run services list --platform managed --filter exporter-service --format 'value(status.url)')
 echo "Using Fetched Data: ${EXPORTER_URL}"
 
-AGGREGATOR_URL=$(gcloud run services list --platform managed --filter aggregator-service --format 'value(status.url)')
-echo "Using Fetched Data: ${AGGREGATOR_URL}"
-
 LANDING_BUCKET=$(gsutil ls | grep -o ".*landing.*" | cut -d "/" -f 3)
 echo "Using Landing Bucket: $LANDING_BUCKET"
 
@@ -22,7 +19,6 @@ gcloud composer environments update data-ingestion-environment \
 --update-env-variables=AIRFLOW_VAR_INGEST_TO_GCS_SERVICE_ENDPOINT=${INGESTION_URL} \
 --update-env-variables=AIRFLOW_VAR_GCS_TO_BQ_SERVICE_ENDPOINT=${GCS_TO_BQ_URL} \
 --update-env-variables=AIRFLOW_VAR_EXPORTER_SERVICE_ENDPOINT=${EXPORTER_URL} \
---update-env-variables=AIRFLOW_VAR_AGGREGATOR_SERVICE_ENDPOINT=${AGGREGATOR_URL} \
 --update-env-variables=AIRFLOW_VAR_GCS_LANDING_BUCKET=${LANDING_BUCKET} \
 --update-env-variables=AIRFLOW_VAR_GCS_MANUAL_UPLOADS_BUCKET=${MANUAL_BUCKET} \
 --location=us-central1
