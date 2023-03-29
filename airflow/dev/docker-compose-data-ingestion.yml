@@ -46,19 +46,6 @@ services:
             # Ensure that the executing shell sets a GCP_KEY_PATH value. (export GCP_KEY_PATH=/absolute/path/to/service/account/key.json)
             - ${GCP_KEY_PATH}:/root/keys/keyfile.json:ro
     
-    aggregator:
-        image: het/aggregator:latest
-        depends_on:
-            - scheduler
-            - webserver
-        environment:
-            - PORT=8080
-            # Ensure that the executing shell sets a PROJECT_ID value. (export PROJECT_ID=example-project-id)
-            - PROJECT_ID=${PROJECT_ID}
-            - GOOGLE_APPLICATION_CREDENTIALS=/root/keys/keyfile.json
-        volumes:
-            # Ensure that the executing shell sets a GCP_KEY_PATH value. (export GCP_KEY_PATH=/absolute/path/to/service/account/key.json)
-            - ${GCP_KEY_PATH}:/root/keys/keyfile.json:ro
 
     postgres:
         image: postgres:9.6

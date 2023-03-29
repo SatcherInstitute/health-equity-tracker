@@ -52,29 +52,6 @@ jobs:
           dockerfile: 'run_gcs_to_bq/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/gcs-to-bq'
 
-  build-aggregator:
-    if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Build and Push Aggregator Image
-    runs-on: ubuntu-latest
-    outputs:
-      image-digest: ${{ steps.aggregator.outputs.image-digest }}
-    steps: 
-      - name: Check Out Code
-        uses: actions/checkout@v3
-      - id: auth
-        uses: google-github-actions/auth@v1
-        with:
-          credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
-      - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          project_id: ${{ secrets.TEST_PROJECT_ID }}
-      - id: aggregator
-        uses: ./.github/actions/buildAndPush
-        with:
-          dockerfile: 'aggregator/Dockerfile'
-          image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/aggregator'
-
   build-exporter:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Build and Push Exporter Image
@@ -151,7 +128,7 @@ jobs:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Deploy to Test Environment
     runs-on: ubuntu-latest
-    needs: [build-ingestion, build-gcs-to-bq, build-aggregator, build-exporter, build-data-server, build-frontend]
+    needs: [build-ingestion, build-gcs-to-bq, build-exporter, build-data-server, build-frontend]
 
     steps: 
       - name: Check Out Code
@@ -193,7 +170,6 @@ jobs:
           -var 'gcs_to_bq_image_digest=${{ needs.build-gcs-to-bq.outputs.image-digest }}' \
           -var 'data_server_image_digest=${{ needs.build-data-server.outputs.image-digest }}' \
           -var 'exporter_image_digest=${{ needs.build-exporter.outputs.image-digest }}' \
-          -var 'aggregator_image_digest=${{ needs.build-aggregator.outputs.image-digest }}' \
           -var 'frontend_image_digest=${{ needs.build-frontend.outputs.image-digest }}'
           data_server_url=$(terraform output data_server_url)
           echo "data_server_url=$data_server_url" >> $GITHUB_OUTPUT
@@ -203,8 +179,6 @@ jobs:
           echo "gcs_to_bq_url=$gcs_to_bq_url" >> $GITHUB_OUTPUT
           exporter_url=$(terraform output exporter_url)
           echo "exporter_url=$exporter_url" >> $GITHUB_OUTPUT
-          aggregator_url=$(terraform output aggregator_url)
-          echo "aggregator_url=$aggregator_url" >> $GITHUB_OUTPUT
           frontend_url=$(terraform output frontend_url)
           echo "frontend_url=$frontend_url" >> $GITHUB_OUTPUT
       - name: Airflow Environment Variables
@@ -216,7 +190,6 @@ jobs:
           --update-env-variables=AIRFLOW_VAR_INGEST_TO_GCS_SERVICE_ENDPOINT=${{ steps.terraform.outputs.ingestion_url }} \
           --update-env-variables=AIRFLOW_VAR_GCS_TO_BQ_SERVICE_ENDPOINT=${{ steps.terraform.outputs.gcs_to_bq_url }} \
           --update-env-variables=AIRFLOW_VAR_EXPORTER_SERVICE_ENDPOINT=${{ steps.terraform.outputs.exporter_url }} \
-          --update-env-variables=AIRFLOW_VAR_AGGREGATOR_SERVICE_ENDPOINT=${{ steps.terraform.outputs.aggregator_url }} \
           --update-env-variables=AIRFLOW_VAR_GCS_LANDING_BUCKET=msm-test-landing-bucket \
           --update-env-variables=AIRFLOW_VAR_GCS_MANUAL_UPLOADS_BUCKET=msm-test-manual-data-bucket \
           --location=us-central1
