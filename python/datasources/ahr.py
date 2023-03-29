@@ -222,7 +222,7 @@ def parse_raw_data(df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE):
     return output_df
 
 
-def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE, geo: GEO_TYPE):
+def post_process(breakdown_df: pd.DataFrame, breakdown: str, geo: GEO_TYPE):
     """
     Merges the state IDs with population data and performs necessary calculations
     to create a processed dataframe ready for the frontend. If the given breakdown
@@ -241,15 +241,13 @@ def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE, g
 
     breakdown_df = merge_state_ids(breakdown_df)
 
-    if breakdown == std_col.AGE_COL:
-        breakdown_df = merge_pop_numbers(breakdown_df, std_col.AGE_COL, geo)
-    elif breakdown == std_col.SEX_COL:
-        breakdown_df = merge_pop_numbers(breakdown_df, std_col.SEX_COL, geo)
-    elif breakdown == std_col.RACE_OR_HISPANIC_COL:
-        breakdown_df = merge_pop_numbers(breakdown_df, std_col.RACE_COL, geo)
+    breakdown_name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
+
+    breakdown_df = merge_pop_numbers(breakdown_df, breakdown_name, geo)
 
     breakdown_df = breakdown_df.rename(
         columns={std_col.POPULATION_PCT_COL: std_col.BRFSS_POPULATION_PCT})
+
     breakdown_df[std_col.BRFSS_POPULATION_PCT] = breakdown_df[std_col.BRFSS_POPULATION_PCT].astype(
         float)
     breakdown_df = breakdown_df.drop(columns=std_col.POPULATION_COL)
