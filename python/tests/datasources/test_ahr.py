@@ -98,8 +98,6 @@ EXPECTED_DTYPE = {
 }
 
 
-
-
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=get_state_fips_codes_as_df())
@@ -129,8 +127,8 @@ def testWriteToBqRaceState(
 
     datasource = AHRData()
     kwargs = {'filename': 'test_file.csv',
-                'metadata_table_id': 'test_metadata',
-                'table_name': 'output_table'}
+              'metadata_table_id': 'test_metadata',
+              'table_name': 'output_table'}
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
@@ -145,6 +143,7 @@ def testWriteToBqRaceState(
 
     assert_frame_equal(
         mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
+
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -174,8 +173,8 @@ def testWriteToBqAgeState(
 
     expected_dtype = EXPECTED_DTYPE.copy()
     kwargs = {'filename': 'test_file.csv',
-                'metadata_table_id': 'test_metadata',
-                'table_name': 'output_table'}
+              'metadata_table_id': 'test_metadata',
+              'table_name': 'output_table'}
 
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
@@ -190,6 +189,7 @@ def testWriteToBqAgeState(
 
     assert_frame_equal(
         mock_bq.call_args_list[1].args[0], expected_df, check_like=True)
+
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -219,8 +219,8 @@ def testWriteToBqSexState(
 
     expected_dtype = EXPECTED_DTYPE.copy()
     kwargs = {'filename': 'test_file.csv',
-                'metadata_table_id': 'test_metadata',
-                'table_name': 'output_table'}
+              'metadata_table_id': 'test_metadata',
+              'table_name': 'output_table'}
 
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
@@ -235,6 +235,7 @@ def testWriteToBqSexState(
 
     assert_frame_equal(
         mock_bq.call_args_list[2].args[0], expected_df, check_like=True)
+
 
 # For the national level we only need to make sure that we are making the
 # correct call to bigquery to get population data, so that is all we need to
@@ -267,8 +268,8 @@ def testWriteToBqRaceNational(
     datasource = AHRData()
 
     kwargs = {'filename': 'test_file.csv',
-                'metadata_table_id': 'test_metadata',
-                'table_name': 'output_table'}
+              'metadata_table_id': 'test_metadata',
+              'table_name': 'output_table'}
 
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
@@ -276,6 +277,7 @@ def testWriteToBqRaceNational(
 
     assert mock_pop.call_count == 9
     assert mock_pop.call_args_list[6].args[1] == 'by_race_national'
+
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -304,8 +306,8 @@ def testWriteToBqAgeNational(
     datasource = AHRData()
 
     kwargs = {'filename': 'test_file.csv',
-                'metadata_table_id': 'test_metadata',
-                'table_name': 'output_table'}
+              'metadata_table_id': 'test_metadata',
+              'table_name': 'output_table'}
 
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
@@ -313,6 +315,7 @@ def testWriteToBqAgeNational(
 
     assert mock_pop.call_count == 9
     assert mock_pop.call_args_list[7].args[1] == 'by_age_national'
+
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -341,8 +344,8 @@ def testWriteToBqSexNational(
     datasource = AHRData()
 
     kwargs = {'filename': 'test_file.csv',
-                'metadata_table_id': 'test_metadata',
-                'table_name': 'output_table'}
+              'metadata_table_id': 'test_metadata',
+              'table_name': 'output_table'}
 
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
