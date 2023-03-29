@@ -30,15 +30,11 @@ jobs:
     - name: Test python packages with pytest
       working-directory: ./python
       run: pytest
-        
+
     - name: Test data_server service with pytest
       working-directory: ./data_server
       run: pytest
 
     - name: Test exporter service with pytest
       working-directory: ./exporter
-      run: pytest
-
-    - name: Test aggregator service with pytest
-      working-directory: ./aggregator
       run: pytest

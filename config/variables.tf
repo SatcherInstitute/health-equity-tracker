@@ -160,32 +160,6 @@ variable "exporter_runner_role_id" {
   type        = string
 }
 
-# Aggregator Cloud Run Service Vars
-variable "aggregator_service_name" {
-  description = "Name of the Cloud Run service for exporting tables from BQ to GCS"
-  type        = string
-}
-
-variable "aggregator_image_name" {
-  description = "Name of container image for the Cloud Run aggregator service"
-  type        = string
-}
-
-variable "aggregator_image_digest" {
-  description = "Digest of container image for the Cloud Run aggregator service"
-  type        = string
-}
-
-variable "aggregator_runner_identity_id" {
-  description = "Account id of the service account used when running the aggregator service"
-  type        = string
-}
-
-variable "aggregator_runner_role_id" {
-  description = "Id of custom role given to the aggregator runner service account"
-  type        = string
-}
-
 # Frontend Cloud Run Service Vars
 variable "frontend_service_name" {
   description = "Name of the Cloud Run service that serves the frontend"

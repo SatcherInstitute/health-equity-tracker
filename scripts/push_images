@@ -78,7 +78,6 @@ function images::build() {
   docker build -t "gcr.io/${project_id}/gcs-to-bq-service" -f "${TRACKERDIR}/run_gcs_to_bq/Dockerfile" .
   docker build -t "gcr.io/${project_id}/data-server-service" -f "${TRACKERDIR}/data_server/Dockerfile" .
   docker build -t "gcr.io/${project_id}/exporter-service" -f "${TRACKERDIR}/exporter/Dockerfile" .
-  docker build -t "gcr.io/${project_id}/aggregator-service" -f "${TRACKERDIR}/aggregator/Dockerfile" .
 
   if [[ -n "${build_frontend}" ]]; then
     docker build -t "gcr.io/${project_id}/frontend-service" -f "${TRACKERDIR}/frontend_server/Dockerfile" . --build-arg="DEPLOY_CONTEXT=development"
@@ -95,7 +94,6 @@ function images::build_m1() {
   docker buildx build --platform linux/amd64 -t "gcr.io/${project_id}/gcs-to-bq-service" -f "${TRACKERDIR}/run_gcs_to_bq/Dockerfile" --push .
   docker buildx build --platform linux/amd64 -t "gcr.io/${project_id}/data-server-service" -f "${TRACKERDIR}/data_server/Dockerfile" --push .
   docker buildx build --platform linux/amd64 -t "gcr.io/${project_id}/exporter-service" -f "${TRACKERDIR}/exporter/Dockerfile" --push .
-  docker buildx build --platform linux/amd64 -t "gcr.io/${project_id}/aggregator-service" -f "${TRACKERDIR}/aggregator/Dockerfile" --push .
 
   if [[ -n "${build_frontend}" ]]; then
     docker buildx build --platform linux/amd64 -t "gcr.io/${project_id}/frontend-service" -f "${TRACKERDIR}/frontend_server/Dockerfile" . --build-arg="DEPLOY_CONTEXT=development" --push
@@ -113,7 +111,6 @@ function images::push() {
   docker push "gcr.io/${project_id}/gcs-to-bq-service"
   docker push "gcr.io/${project_id}/data-server-service"
   docker push "gcr.io/${project_id}/exporter-service"
-  docker push "gcr.io/${project_id}/aggregator-service"
 
   if [[ -n "${build_frontend}" ]]; then
     docker push "gcr.io/${project_id}/frontend-service"
@@ -133,7 +130,6 @@ function digest::write() {
   gcs_to_bq_digest=$(gcloud container images describe "gcr.io/${project_id}/gcs-to-bq-service" --format="value(image_summary.digest)")
   data_server_digest=$(gcloud container images describe "gcr.io/${project_id}/data-server-service" --format="value(image_summary.digest)")
   exporter_digest=$(gcloud container images describe "gcr.io/${project_id}/exporter-service" --format="value(image_summary.digest)")
-  aggregator_digest=$(gcloud container images describe "gcr.io/${project_id}/aggregator-service" --format="value(image_summary.digest)")
   frontend_digest=$(gcloud container images describe "gcr.io/${project_id}/frontend-service" --format="value(image_summary.digest)")
 
   # Write them to digest.tfvars. Note this overwrites digest.tfvars if it exists.
@@ -141,7 +137,6 @@ function digest::write() {
   echo "gcs_to_bq_image_digest=\"${gcs_to_bq_digest}\"" >> "${digest_file}"
   echo "data_server_image_digest=\"${data_server_digest}\"" >> "${digest_file}"
   echo "exporter_image_digest=\"${exporter_digest}\"" >> "${digest_file}"
-  echo "aggregator_image_digest=\"${aggregator_digest}\"" >> "${digest_file}"
   echo "frontend_image_digest=\"${frontend_digest}\"" >> "${digest_file}"
 }
 
