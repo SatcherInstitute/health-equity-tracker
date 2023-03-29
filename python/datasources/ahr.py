@@ -222,7 +222,7 @@ def parse_raw_data(df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE):
     return output_df
 
 
-def post_process(breakdown_df: pd.DataFrame, breakdown: str, geo: GEO_TYPE):
+def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE, geo: GEO_TYPE):
     """
     Merges the state IDs with population data and performs necessary calculations
     to create a processed dataframe ready for the frontend. If the given breakdown
