@@ -29,14 +29,12 @@ ahr_exporter_payload_race = {
 ahr_exporter_operator_race = util.create_exporter_operator(
     'ahr_exporter_race', ahr_exporter_payload_race, data_ingestion_dag)
 
-
 ahr_exporter_payload_age = {
     'dataset_name': _AHR_DATASET_NAME,
     'demographic': "age"
 }
 ahr_exporter_operator_age = util.create_exporter_operator(
     'ahr_exporter_age', ahr_exporter_payload_age, data_ingestion_dag)
-
 
 ahr_exporter_payload_sex = {
     'dataset_name': _AHR_DATASET_NAME,

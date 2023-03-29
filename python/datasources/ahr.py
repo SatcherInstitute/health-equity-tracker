@@ -251,7 +251,11 @@ def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE, g
     return breakdown_df
 
 
-def get_matched_row(df: pd.DataFrame, state: str, determinant: str, breakdown_value: str, breakdown: SEX_RACE_ETH_AGE_TYPE):
+def get_matched_row(df: pd.DataFrame,
+                    state: str,
+                    determinant: str,
+                    breakdown_value: str,
+                    breakdown: SEX_RACE_ETH_AGE_TYPE):
     """
     Find the row in the AHR dataframe that matches the given state, determinant,
     and breakdown values.
@@ -261,7 +265,7 @@ def get_matched_row(df: pd.DataFrame, state: str, determinant: str, breakdown_va
         state: The state abbreviation to search for (e.g. "CA").
         determinant: The AHR determinant to search for (e.g. "Asthma").
         breakdown_value: The breakdown value to search for (e.g. "65+).
-        breakdown: string equal to race_and_ethnicity, sex, or age. 
+        breakdown: string equal to race_and_ethnicity, sex, or age.
 
     Returns:
         A pandas dataframe that matches the given criteria.
