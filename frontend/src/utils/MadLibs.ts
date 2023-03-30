@@ -72,7 +72,7 @@ export function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
     : madLib.activeSelections[segmentIndex];
 }
 
-/* Returns an array of all currently selected conditions. 
+/* Returns an array of all currently selected conditions.
 If a condition contains multiple data types, they are
 treated as individual items  */
 export function getSelectedConditions(madLib: MadLib) {
@@ -87,7 +87,7 @@ export function getSelectedConditions(madLib: MadLib) {
       : [];
 
   // make a list of conditions and sub-conditions, including #2 if it's unique
-  return condition2array.length && condition2array !== condition1array
+  return condition2array?.length && condition2array !== condition1array
     ? [...condition1array, ...condition2array]
     : condition1array;
 }
@@ -97,10 +97,12 @@ export const DEFAULT: DefaultDropdownVarId = "default";
 
 const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   default: "select a topic",
-  covid: "COVID-19",
+  covid_cases: "COVID-19 Cases",
+  covid_hospitalizations: "COVID-19 Hospitalizations",
+  covid_deaths: "COVID-19 Deaths",
+  hiv_prep: "PrEP Coverage",
   hiv_diagnoses: "HIV Diagnoses",
   hiv_deaths: "HIV Deaths",
-  hiv_prep: "PrEP Coverage",
   diabetes: "Diabetes",
   copd: "COPD",
   health_insurance: "Uninsured Individuals",
@@ -117,7 +119,8 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   cardiovascular_diseases: "Cardiovascular Diseases",
   asthma: "Asthma",
   voter_participation: "Voter Participation",
-  women_in_legislative_office: "Women in Legislative Office",
+  women_in_state_legislature: "Women in State Legislatures",
+  women_in_us_congress: "Women in U.S. Congress",
   jail: "Jail Incarceration",
   prison: "Prison Incarceration",
 };
@@ -137,14 +140,20 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: "COVID-19",
     definition: "",
-    options: ["covid", "covid_vaccinations"],
+    options: [
+      "covid_cases",
+      "covid_hospitalizations",
+      "covid_deaths",
+      "covid_vaccinations",
+    ],
   },
   {
     title: "Political Determinants of Health",
     definition: "",
     options: [
       "voter_participation",
-      "women_in_legislative_office",
+      "women_in_us_congress",
+      "women_in_state_legislature",
       "prison",
       "jail",
     ],
@@ -200,8 +209,8 @@ const MADLIB_LIST: MadLib[] = [
       "and",
       FIPS_MAP,
     ],
-    defaultSelections: { 1: "covid", 3: GEORGIA_FIPS, 5: USA_FIPS },
-    activeSelections: { 1: "covid", 3: GEORGIA_FIPS, 5: USA_FIPS },
+    defaultSelections: { 1: "covid_cases", 3: GEORGIA_FIPS, 5: USA_FIPS },
+    activeSelections: { 1: "covid_cases", 3: GEORGIA_FIPS, 5: USA_FIPS },
   },
   {
     id: "comparevars",
@@ -213,8 +222,8 @@ const MADLIB_LIST: MadLib[] = [
       "in",
       FIPS_MAP,
     ],
-    defaultSelections: { 1: "diabetes", 3: "covid", 5: USA_FIPS },
-    activeSelections: { 1: "diabetes", 3: "covid", 5: USA_FIPS },
+    defaultSelections: { 1: "diabetes", 3: "covid_cases", 5: USA_FIPS },
+    activeSelections: { 1: "diabetes", 3: "covid_cases", 5: USA_FIPS },
   },
 ];
 

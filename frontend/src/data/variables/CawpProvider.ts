@@ -42,8 +42,8 @@ export const CAWP_DETERMINANTS: MetricId[] = [
 ];
 
 export const CAWP_DATA_TYPES: VariableId[] = [
-  "women_state_legislatures",
-  "women_us_congress",
+  "women_in_state_legislature",
+  "women_in_us_congress",
 ];
 
 export function getWomenRaceLabel(

@@ -19,11 +19,11 @@ export const NEWS_TAB_LINK = "/news";
 
 // TRACKER SETTINGS
 export const COVID_DEATHS_US_SETTING =
-  "?mls=1.covid-3.00&dt1=covid_deaths&demo=race_and_ethnicity";
+  "?mls=1.covid_deaths-3.00&demo=race_and_ethnicity";
 export const COVID_HOSP_US_SETTING =
-  "?mls=1.covid-3.00&dt1=covid_hospitalizations&demo=race_and_ethnicity";
+  "?mls=1.covid_hospitalizations-3.00&demo=race_and_ethnicity";
 export const COVID_HOSP_NY_COUNTY_SETTING =
-  "?dt1=covid_hospitalizations&mls=1.covid-3.36061";
+  "?mls=1.covid_hospitalizations-3.36061";
 export const COVID_VAX_US_SETTING = "?mls=1.covid_vaccinations-3.00";
 export const COPD_US_SETTING = "?mls=1.copd-3.00";
 export const DIABETES_US_SETTING = "?mls=1.diabetes-3.00";
@@ -35,7 +35,7 @@ export const OPIOID_US_SETTING =
 export const HIV_DIAGNOSES_RACE_USA_SETTING =
   "?mls=1.hiv_diagnoses-3.00&mlp=disparity";
 export const COVID_DEATHS_AGE_FULTON_COUNTY_SETTING =
-  "?mls=1.covid-3.13121&demo=age&dt1=covid_deaths&mlp=disparity";
+  "?mls=1.covid_deaths-3.13121&demo=age&mlp=disparity";
 export const PRISON_VS_POVERTY_RACE_GA_SETTING =
   "?mls=1.prison-3.poverty-5.13&mlp=comparevars";
 export const UNINSURANCE_SEX_FL_VS_CA_SETTING =
@@ -43,7 +43,7 @@ export const UNINSURANCE_SEX_FL_VS_CA_SETTING =
 
 // warm welcome demo setting
 export const WARM_WELCOME_DEMO_SETTING =
-  "?mls=1.covid-3.00&dt1=covid_cases&mlp=disparity&onboard=true";
+  "?mls=1.covid_cases-3.00&mlp=disparity&onboard=true";
 
 // SECTION IDS
 export const WHAT_DATA_ARE_MISSING_ID = "definitions-missing-data";

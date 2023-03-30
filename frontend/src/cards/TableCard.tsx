@@ -100,7 +100,7 @@ export function TableCard(props: TableCardProps) {
 
   const displayingCovidData = metrics
     .map((config) => config.metricId)
-    .some((metricId) => metricId.includes("covid"));
+    .some((metricId) => metricId.includes("covid_"));
 
   const HASH_ID: ScrollableHashId = "data-table";
 
