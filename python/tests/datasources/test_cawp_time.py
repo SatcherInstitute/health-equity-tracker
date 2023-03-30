@@ -150,7 +150,7 @@ def _load_csv_as_df_from_web(*args):
                        )
 
 
-# # # TEST OUTGOING SIDE OF BIGQUERY INTERACTION
+# # TEST OUTGOING SIDE OF BIGQUERY INTERACTION
 
 
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',

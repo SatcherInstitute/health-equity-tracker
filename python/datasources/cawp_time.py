@@ -140,7 +140,6 @@ class CAWPTimeData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         base_df = self.generate_base_df()
-
         df_names = base_df.copy()
         df_names = self.generate_names_breakdown(df_names)
         column_types = gcs_to_bq_util.get_bq_column_types(df_names, [])
@@ -267,7 +266,6 @@ class CAWPTimeData(DataSource):
             df = combine_states_to_national(df)
 
         bq_table_name = f'race_and_ethnicity_{geo_level}_time_series'
-        print(f'making {bq_table_name}')
 
         # calculate rates of representation
         df[std_col.PCT_OF_CONGRESS] = round(df[std_col.W_THIS_RACE_CONGRESS_COUNT] /
@@ -620,21 +618,9 @@ def get_state_leg_totals_df():
         # remove weird chars from col headers
         state_df.columns = state_df.columns.str.replace(r'\W', '', regex=True)
 
-        # TODO:notify CAWP of weird shifted column data; ideally get them to fix
-        # remove non-digits (like the * on mass. 1982) from buggy index/years column
-        # column is originally "-10" which is swapped to "10" above, this is really
-        # half of the year column that CAWP incorrectly splits over two cols
-        state_df["10"] = state_df["10"].astype(str).replace(
-            r'\D', '', regex=True).astype(int)
-        # if a number is < 1800  is a buggy index value, if it's > then it's a year
-        df_leftIndex = state_df[state_df["10"] < 1800]
-        df_rightIndex = state_df[state_df["10"] >= 1800]
-        df_rightIndex = df_rightIndex.shift(periods=1, axis="columns")
-        state_df = pd.concat([df_leftIndex, df_rightIndex])
-
         # standardize the year col
         state_df = state_df.rename(
-            {'Year': std_col.TIME_PERIOD_COL}, axis='columns')
+            columns={'Year': std_col.TIME_PERIOD_COL})
         state_df[std_col.TIME_PERIOD_COL] = state_df[
             std_col.TIME_PERIOD_COL].astype(str)
 
