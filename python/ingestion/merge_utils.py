@@ -265,8 +265,12 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
         verbose_demo = "race_and_ethnicity" if demo == 'race' else demo
         pop_terr_table_name = f'by_{verbose_demo}_territory_{loc}_level'
 
+        terr_pop_dtype = {std_col.STATE_FIPS_COL: str,
+                          std_col.POPULATION_COL: float,
+                          std_col.POPULATION_PCT_COL: float}
+
         pop_terr_2020_df = gcs_to_bq_util.load_df_from_bigquery(
-            'decia_2020_territory_population', pop_terr_table_name, pop_dtype)
+            'decia_2020_territory_population', pop_terr_table_name, terr_pop_dtype)
 
         pop_terr_df = pop_terr_2020_df[needed_cols]
 
@@ -274,7 +278,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
             # re-use 2020 territory populations in every ACS year 2016-current
             # load and use 2010 territory populations in every ACS year 2009-2015
             pop_terr_2010_df = gcs_to_bq_util.load_df_from_bigquery(
-                'decia_2010_territory_population', pop_terr_table_name, pop_dtype)
+                'decia_2010_territory_population', pop_terr_table_name, terr_pop_dtype)
             pop_terr_2010_df = pop_terr_2010_df[needed_cols]
 
             yearly_pop_terr_dfs = []
