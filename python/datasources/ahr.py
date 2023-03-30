@@ -106,9 +106,9 @@ PLUS_5_AGE_DETERMINANTS = {
 }
 
 BREAKDOWN_MAP = {
-    "race_and_ethnicity": AHR_RACE_GROUPS,
-    "age": AHR_AGE_GROUPS,
-    "sex": AHR_SEX_GROUPS,
+    std_col.RACE_OR_HISPANIC_COL: AHR_RACE_GROUPS,
+    std_col.AGE_COL: AHR_AGE_GROUPS,
+    std_col.SEX_COL: AHR_SEX_GROUPS,
 }
 
 
@@ -156,7 +156,7 @@ class AHRData(DataSource):
 
                 float_cols = [std_col.generate_column_name(col, suffix) for col in AHR_DETERMINANTS.values(
                 ) for suffix in [std_col.PER_100K_SUFFIX, std_col.PCT_SHARE_SUFFIX]]
-                float_cols.append(std_col.BRFSS_POPULATION_PCT)
+                float_cols.append(std_col.AHR_POPULATION_PCT)
 
                 col_types = gcs_to_bq_util.get_bq_column_types(
                     breakdown_df, float_cols)
@@ -244,13 +244,12 @@ def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE, g
 
     breakdown_name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
 
-    breakdown_df = merge_pop_numbers(breakdown_df, cast(
-        SEX_RACE_AGE_TYPE, breakdown_name), geo)
+    breakdown_df = merge_pop_numbers(breakdown_df, breakdown_name, geo)
 
     breakdown_df = breakdown_df.rename(
-        columns={std_col.POPULATION_PCT_COL: std_col.BRFSS_POPULATION_PCT})
+        columns={std_col.POPULATION_PCT_COL: std_col.AHR_POPULATION_PCT})
 
-    breakdown_df[std_col.BRFSS_POPULATION_PCT] = breakdown_df[std_col.BRFSS_POPULATION_PCT].astype(
+    breakdown_df[std_col.AHR_POPULATION_PCT] = breakdown_df[std_col.AHR_POPULATION_PCT].astype(
         float)
     breakdown_df = breakdown_df.drop(columns=std_col.POPULATION_COL)
 

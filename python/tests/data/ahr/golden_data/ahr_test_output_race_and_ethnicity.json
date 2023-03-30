@@ -32,7 +32,7 @@
         "race_and_ethnicity": "American Indian and Alaska Native (NH)",
         "state_fips": "06",
         "state_name": "California",
-        "brfss_population_pct": 0.4
+        "ahr_population_pct": 0.4
     },
     {
         "race_category_id": "ASIAN_NH",
@@ -67,7 +67,7 @@
         "race_and_ethnicity": "Asian (NH)",
         "state_fips": "06",
         "state_name": "California",
-        "brfss_population_pct": 14.3
+        "ahr_population_pct": 14.3
     },
     {
         "race_category_id": "API_NH",
@@ -102,7 +102,7 @@
         "race_and_ethnicity": "Asian, Native Hawaiian, and Pacific Islander (NH)",
         "state_fips": "06",
         "state_name": "California",
-        "brfss_population_pct": 14.6
+        "ahr_population_pct": 14.6
     },
     {
         "race_category_id": "BLACK_NH",
@@ -137,7 +137,7 @@
         "race_and_ethnicity": "Black or African American (NH)",
         "state_fips": "06",
         "state_name": "California",
-        "brfss_population_pct": 5.5
+        "ahr_population_pct": 5.5
     },
     {
         "race_category_id": "NHPI_NH",
@@ -172,7 +172,7 @@
         "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
         "state_fips": "06",
         "state_name": "California",
-        "brfss_population_pct": 0.4
+        "ahr_population_pct": 0.4
     },
     {
         "race_category_id": "HISP",
@@ -207,7 +207,7 @@
         "race_and_ethnicity": "Hispanic or Latino",
         "state_fips": "06",
         "state_name": "California",
-        "brfss_population_pct": 39.0
+        "ahr_population_pct": 39.0
     },
     {
         "race_category_id": "MULTI_NH",
@@ -242,7 +242,7 @@
         "race_and_ethnicity": "Two or more races (NH)",
         "state_fips": "06",
         "state_name": "California",
-        "brfss_population_pct": 3.0
+        "ahr_population_pct": 3.0
     },
     {
         "race_category_id": "OTHER_STANDARD_NH",
@@ -277,7 +277,7 @@
         "race_and_ethnicity": "Unrepresented race (NH)",
         "state_fips": "06",
         "state_name": "California",
-        "brfss_population_pct": 0.3
+        "ahr_population_pct": 0.3
     },
     {
         "race_category_id": "WHITE_NH",
@@ -312,7 +312,7 @@
         "race_and_ethnicity": "White (NH)",
         "state_fips": "06",
         "state_name": "California",
-        "brfss_population_pct": 37.2
+        "ahr_population_pct": 37.2
     },
     {
         "race_category_id": "ALL",
@@ -347,6 +347,6 @@
         "race_and_ethnicity": "All",
         "state_fips": "06",
         "state_name": "California",
-        "brfss_population_pct": 100.0
+        "ahr_population_pct": 100.0
     }
 ]

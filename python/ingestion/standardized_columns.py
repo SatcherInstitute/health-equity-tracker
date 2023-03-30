@@ -89,7 +89,7 @@ CARDIOVASCULAR_PREFIX = "cardiovascular_diseases"
 ASTHMA_PREFIX = "asthma"
 VOTER_PARTICIPATION_PREFIX = "voter_participation"
 
-BRFSS_POPULATION_PCT = "brfss_population_pct"
+AHR_POPULATION_PCT = "ahr_population_pct"
 
 # Vaccination columns
 VACCINATED_PER_100K = "vaccinated_per_100k"
