@@ -230,7 +230,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    id: "uhc",
+    id: "ahr",
     data_source_name: "America's Health Rankings",
     data_source_pretty_site_name: "americashealthrankings.org",
     data_source_link:
@@ -241,12 +241,12 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The prevalence of multiple conditions at the state level, including chronic diseases (COPD, diabetes, chronic kidney disease, cardiovascular diseases), behavioral health indicators (suicide, depression, frequent mental distress, excessive drinking, opioid and other substance misuse), and other social determinants of health (care avoidance due to cost, preventable hospitalizations).",
     dataset_ids: [
-      "uhc_data-age_national",
-      "uhc_data-race_and_ethnicity_national",
-      "uhc_data-sex_national",
-      "uhc_data-age_state",
-      "uhc_data-race_and_ethnicity_state",
-      "uhc_data-sex_state",
+      "ahr_data-age_national",
+      "ahr_data-race_and_ethnicity_national",
+      "ahr_data-sex_national",
+      "ahr_data-age_state",
+      "ahr_data-race_and_ethnicity_state",
+      "ahr_data-sex_state",
     ],
     downloadable: true,
   },

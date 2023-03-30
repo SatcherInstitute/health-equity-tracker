@@ -115,10 +115,10 @@ def get_decade_age_bucket(age_range):
         return std_col.ALL_VALUE
 
 
-def get_uhc_standard_age_bucket(age_range):
+def get_ahr_standard_age_bucket(age_range):
     if age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
-    # buckets for most UHC / AHR determinants
+    # buckets for most AHR determinants
     elif age_range in {'18-19', '20-24', '20-20', '21-21', '22-24',
                        '25-29', '30-34', '35-44', '35-39', '40-44'}:
         return '18-44'
@@ -128,7 +128,7 @@ def get_uhc_standard_age_bucket(age_range):
         return '65+'
 
 
-def get_uhc_decade_plus_5_age_bucket(age_range):
+def get_ahr_decade_plus_5_age_bucket(age_range):
     if age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
     # buckets for Suicide
@@ -150,7 +150,7 @@ def get_uhc_decade_plus_5_age_bucket(age_range):
         return '85+'
 
 
-def get_uhc_voter_age_bucket(age_range):
+def get_ahr_voter_age_bucket(age_range):
     if age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
     # buckets for Voter Participation
@@ -364,19 +364,19 @@ class ACSPopulationIngester():
         frames['by_sex_age_%s' % self.get_geo_name()] = self.get_by_sex_age(
             frames[self.get_table_name_by_sex_age_race()], get_decade_age_bucket)
 
-        by_sex_standard_age_uhc = None
-        by_sex_decade_plus_5_age_uhc = None
-        by_sex_voter_age_uhc = None
+        by_sex_standard_age_ahr = None
+        by_sex_decade_plus_5_age_ahr = None
+        by_sex_voter_age_ahr = None
         by_sex_bjs_prison_age = None
         by_sex_bjs_jail_age = None
 
         if not self.county_level:
-            by_sex_standard_age_uhc = self.get_by_sex_age(
-                frames[self.get_table_name_by_sex_age_race()], get_uhc_standard_age_bucket)
-            by_sex_decade_plus_5_age_uhc = self.get_by_sex_age(
-                frames[self.get_table_name_by_sex_age_race()], get_uhc_decade_plus_5_age_bucket)
-            by_sex_voter_age_uhc = self.get_by_sex_age(
-                frames[self.get_table_name_by_sex_age_race()], get_uhc_voter_age_bucket)
+            by_sex_standard_age_ahr = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_ahr_standard_age_bucket)
+            by_sex_decade_plus_5_age_ahr = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_ahr_decade_plus_5_age_bucket)
+            by_sex_voter_age_ahr = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_ahr_voter_age_bucket)
             by_sex_bjs_prison_age = self.get_by_sex_age(
                 frames[self.get_table_name_by_sex_age_race()], get_prison_age_bucket)
             by_sex_bjs_jail_age = self.get_by_sex_age(
@@ -384,8 +384,8 @@ class ACSPopulationIngester():
 
         frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
             frames['by_sex_age_%s' % self.get_geo_name()],
-            by_sex_standard_age_uhc, by_sex_decade_plus_5_age_uhc,
-            by_sex_voter_age_uhc, by_sex_bjs_prison_age, by_sex_bjs_jail_age)
+            by_sex_standard_age_ahr, by_sex_decade_plus_5_age_ahr,
+            by_sex_voter_age_ahr, by_sex_bjs_prison_age, by_sex_bjs_jail_age)
 
         frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
             frames[self.get_table_name_by_sex_age_race()])
@@ -593,9 +593,9 @@ class ACSPopulationIngester():
 
     def get_by_age(self,
                    by_sex_age,
-                   by_sex_standard_age_uhc=None,
-                   by_sex_decade_plus_5_age_uhc=None,
-                   by_sex_voter_age_uhc=None,
+                   by_sex_standard_age_ahr=None,
+                   by_sex_decade_plus_5_age_ahr=None,
+                   by_sex_voter_age_ahr=None,
                    by_sex_bjs_prison_age=None,
                    by_sex_bjs_jail_age=None
                    ):
@@ -613,15 +613,15 @@ class ACSPopulationIngester():
         by_age = by_age[cols] if self.county_level else by_age[cols[1:]]
 
         if not self.county_level:
-            by_standard_age_uhc = by_sex_standard_age_uhc.loc[
-                by_sex_standard_age_uhc[std_col.SEX_COL] == std_col.ALL_VALUE]
-            by_standard_age_uhc = by_standard_age_uhc[cols[1:]]
-            by_decade_plus_5_age_uhc = by_sex_decade_plus_5_age_uhc.loc[
-                by_sex_decade_plus_5_age_uhc[std_col.SEX_COL] == std_col.ALL_VALUE]
-            by_decade_plus_5_age_uhc = by_decade_plus_5_age_uhc[cols[1:]]
-            by_voter_age_uhc = by_sex_voter_age_uhc.loc[
-                by_sex_voter_age_uhc[std_col.SEX_COL] == std_col.ALL_VALUE]
-            by_voter_age_uhc = by_voter_age_uhc[cols[1:]]
+            by_standard_age_ahr = by_sex_standard_age_ahr.loc[
+                by_sex_standard_age_ahr[std_col.SEX_COL] == std_col.ALL_VALUE]
+            by_standard_age_ahr = by_standard_age_ahr[cols[1:]]
+            by_decade_plus_5_age_ahr = by_sex_decade_plus_5_age_ahr.loc[
+                by_sex_decade_plus_5_age_ahr[std_col.SEX_COL] == std_col.ALL_VALUE]
+            by_decade_plus_5_age_ahr = by_decade_plus_5_age_ahr[cols[1:]]
+            by_voter_age_ahr = by_sex_voter_age_ahr.loc[
+                by_sex_voter_age_ahr[std_col.SEX_COL] == std_col.ALL_VALUE]
+            by_voter_age_ahr = by_voter_age_ahr[cols[1:]]
             by_bjs_prison_age = by_sex_bjs_prison_age.loc[
                 by_sex_bjs_prison_age[std_col.SEX_COL] == std_col.ALL_VALUE]
             by_bjs_prison_age = by_bjs_prison_age[cols[1:]]
@@ -630,9 +630,9 @@ class ACSPopulationIngester():
             by_bjs_jail_age = by_bjs_jail_age[cols[1:]]
 
             by_age = pd.concat([by_age,
-                                by_standard_age_uhc,
-                                by_decade_plus_5_age_uhc,
-                                by_voter_age_uhc,
+                                by_standard_age_ahr,
+                                by_decade_plus_5_age_ahr,
+                                by_voter_age_ahr,
                                 by_bjs_prison_age,
                                 by_bjs_jail_age
                                 ]).drop_duplicates().reset_index(drop=True)

@@ -31,7 +31,7 @@ test("DatasetExplorer renders all data sources", async () => {
   expect(await queryByText("View All Datasets")).not.toBeInTheDocument();
   expect(await findByTestId("acs")).toBeInTheDocument();
   expect(await findByTestId("covid_tracking_project")).toBeInTheDocument();
-  expect(await findByTestId("uhc")).toBeInTheDocument();
+  expect(await findByTestId("ahr")).toBeInTheDocument();
 });
 
 test("DatasetExplorer renders subset of data sources", async () => {
@@ -51,5 +51,5 @@ test("DatasetExplorer renders subset of data sources", async () => {
   expect(await findByText("View All Datasets")).toBeInTheDocument();
   expect(await findByTestId("acs")).toBeInTheDocument();
   expect(await queryByTestId("covid_tracking_project")).not.toBeInTheDocument();
-  expect(await queryByTestId("uhc")).not.toBeInTheDocument();
+  expect(await queryByTestId("ahr")).not.toBeInTheDocument();
 });
