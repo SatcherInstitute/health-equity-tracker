@@ -102,9 +102,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   );
 
   const isCawpStateLeg =
-    props.variableConfig.variableId === "women_state_legislatures";
+    props.variableConfig.variableId === "women_in_state_legislature";
   const isCawpCongress =
-    props.variableConfig.variableId === "women_us_congress";
+    props.variableConfig.variableId === "women_in_us_congress";
 
   let countColsToAdd: MetricId[] = [];
   if (isCawpCongress) countColsToAdd = ["women_this_race_us_congress_count"];

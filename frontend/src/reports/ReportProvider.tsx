@@ -55,7 +55,7 @@ function ReportProvider(props: ReportProviderProps) {
   >([]);
 
   // only show determinants that have definitions
-  const definedConditions = props.selectedConditions.filter(
+  const definedConditions = props.selectedConditions?.filter(
     (condition) => condition?.variableDefinition
   );
 
@@ -63,16 +63,21 @@ function ReportProvider(props: ReportProviderProps) {
   // that matches only the selected, defined conditions
   const metricConfigSubset = Object.entries(METRIC_CONFIG).filter(
     (dataTypeArray) =>
-      dataTypeArray[1].some((dataType) => definedConditions.includes(dataType))
+      dataTypeArray[1].some((dataType) => definedConditions?.includes(dataType))
   );
 
   const currentDropDownIds: DropdownVarId[] = metricConfigSubset.map(
     (id) => id?.[0] as DropdownVarId
   );
 
-  const isCovid = currentDropDownIds.includes("covid");
+  const isCovid =
+    currentDropDownIds.includes("covid_cases") ||
+    currentDropDownIds.includes("covid_hospitalizations") ||
+    currentDropDownIds.includes("covid_deaths");
   const isCovidVax = currentDropDownIds.includes("covid_vaccinations");
-  const isCAWP = currentDropDownIds.includes("women_in_legislative_office");
+  const isCAWP =
+    currentDropDownIds.includes("women_in_us_congress") ||
+    currentDropDownIds.includes("women_in_state_legislature");
   const isHIV = currentDropDownIds.includes("hiv_diagnoses");
 
   const reportWrapper = props.isSingleColumn
@@ -174,7 +179,7 @@ function ReportProvider(props: ReportProviderProps) {
         <aside className={styles.MissingDataInfo}>
           {/* Display condition definition(s) based on the tracker madlib settings */}
           <div>
-            {definedConditions.length > 0 && (
+            {definedConditions?.length > 0 && (
               <Box mb={5}>
                 <h3
                   id="definitions-missing-data"

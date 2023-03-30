@@ -5,6 +5,7 @@ import { expect } from '@playwright/test'
 import matchers from 'expect-axe-playwright'
 expect.extend(matchers)
 
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -23,9 +24,9 @@ const config: PlaywrightTestConfig = {
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
-  retries: 2,
-  reporter: 'github',
-  workers: 8,
+  retries: process.env.CI ? 2 : 0,
+  reporter: process.env.CI ? 'github' : 'line',
+  workers: process.env.CI  ? 8 : 20,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
