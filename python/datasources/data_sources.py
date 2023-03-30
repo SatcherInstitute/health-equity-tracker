@@ -9,7 +9,7 @@ from datasources.cdc_vaccination_county import CDCVaccinationCounty
 from datasources.cdc_vaccination_national import CDCVaccinationNational
 from datasources.kff_vaccination import KFFVaccination
 from datasources.acs_condition import AcsCondition
-from datasources.uhc import UHCData
+from datasources.ahr import AHRData
 from datasources.cdc_svi_county import CDCSviCounty
 from datasources.geo_context import GeoContext
 from datasources.cdc_hiv import CDCHIVData
@@ -34,7 +34,7 @@ DATA_SOURCES_DICT = {
     CDCSviCounty.get_id(): CDCSviCounty(),
     GeoContext.get_id(): GeoContext(),
     CDCHIVData.get_id(): CDCHIVData(),
-    UHCData.get_id(): UHCData(),
+    AHRData.get_id(): AHRData(),
     CAWPTimeData.get_id(): CAWPTimeData(),
     BJSIncarcerationData.get_id(): BJSIncarcerationData(),
     VeraIncarcerationCounty.get_id(): VeraIncarcerationCounty(),
