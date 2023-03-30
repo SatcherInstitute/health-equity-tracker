@@ -327,7 +327,7 @@ function MethodologyTab() {
                       <li>
                         For many of the measures we track, such as COPD,
                         diabetes, frequent mental distress, depression,
-                        excessive drinking, asthma, avoided Care, and suicide,
+                        excessive drinking, asthma, avoided care, and suicide,
                         we source the <b>percent share</b> metrics directly from
                         AHR. However, AHR does not have population data for some
                         metrics such as preventable hospitalizations, voter
