@@ -325,9 +325,17 @@ function MethodologyTab() {
                         metric if it is presented as a per 100k in the data API.
                       </li>
                       <li>
-                        We have chosen to not show any <b>percent share</b>{" "}
-                        metrics for these conditions because the source only
-                        provides the metrics as rates.
+                        For many of the measures we track, such as COPD,
+                        diabetes, frequent mental distress, depression,
+                        excessive drinking, asthma, avoided Care, and suicide,
+                        we source the <b>percent share</b> metrics directly from
+                        AHR. However, AHR does not have population data for some
+                        metrics such as preventable hospitalizations, voter
+                        participation, non-medical drug use, and non-medical
+                        prescription drug use. We have chosen not to show any
+                        percent share metrics for the measures without
+                        population data because the source only provides the
+                        metrics as rates.
                       </li>
                     </ul>
                   </li>
