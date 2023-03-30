@@ -1,6 +1,6 @@
 ## Description
 
-- bullet high-level changes
+- bulleted high-level changes
 
 ## Motivation and Context
 <!--- use keywords (eg "closes #144" or "fixes #4323") -->
