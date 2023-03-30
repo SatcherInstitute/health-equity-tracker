@@ -244,7 +244,9 @@ def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE, g
 
     breakdown_name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
 
-    breakdown_df = merge_pop_numbers(breakdown_df, breakdown_name, geo)
+    breakdown_df = merge_pop_numbers(breakdown_df,
+                                     cast(SEX_RACE_AGE_TYPE, breakdown_name),
+                                     geo)
 
     breakdown_df = breakdown_df.rename(
         columns={std_col.POPULATION_PCT_COL: std_col.AHR_POPULATION_PCT})
