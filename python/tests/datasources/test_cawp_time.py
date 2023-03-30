@@ -355,3 +355,22 @@ def testGenerateNationalBreakdown(
                        expected_national_breakdown_df,
                        check_like=True,
                        check_dtype=False)
+
+
+# @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+#              return_value=None)
+# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+#              side_effect=_load_csv_as_df_from_data_dir)
+# def testRun(
+#     mock_data_dir_csv: mock.MagicMock,
+#     mock_bq: mock.MagicMock
+# ):
+#     """ Ensures the correct structure and arguments were
+#     generated to be written to BigQuery """
+#     print("testWriteToBq()")
+
+#     kwargs_for_bq = {'filename': 'test_file.csv',
+#                      'metadata_table_id': 'test_metadata',
+#                      'table_name': 'output_table'}
+#     cawp_data = CAWPTimeData()
+#     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
