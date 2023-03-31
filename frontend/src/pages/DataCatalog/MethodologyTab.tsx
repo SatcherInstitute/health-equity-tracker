@@ -95,7 +95,7 @@ function MethodologyTab() {
                     population of states that do not have a suppressed case,
                     hospitalization, or death count as part of the total
                     population for each respective measure. See the{" "}
-                    <br>What data are missing</br> section for further details.
+                    <b>What data are missing</b> section for further details.
                   </li>
                   <li>
                     To protect the privacy of affected individuals, COVID-19
