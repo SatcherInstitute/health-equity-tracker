@@ -6,32 +6,37 @@ import { Accordion, AccordionSummary } from "@mui/material";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { FAQ_TAB_LINK } from "../../utils/internalRoutes";
-import { ReactRouterLinkButton } from "../../utils/urlutils";
+import { ReactRouterLinkButton, getHtml } from "../../utils/urlutils";
 
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
-import { getHtml } from "../../utils/urlutils";
 
 function Question(props: {
-  questionText: string;
-  ariaControls: string;
-  id: string;
-  answer: JSX.Element;
+  questionText: string
+  ariaControls: string
+  id: string
+  answer: JSX.Element
 }) {
   return (
-    <Accordion component="li" className={styles.FaqListItem}>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls={props.ariaControls}
-        id={props.id}
-      >
-        <Typography className={styles.FaqQuestion} variant="h2" component="h4">
-          {props.questionText}
-        </Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <div className={styles.FaqAnswer}>{props.answer}</div>
-      </AccordionDetails>
-    </Accordion>
+    <li>
+      <Accordion className={styles.FaqListItem}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={props.ariaControls}
+          id={props.id}
+        >
+          <Typography
+            className={styles.FaqQuestion}
+            variant="h2"
+            component="h4"
+          >
+            {props.questionText}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <div className={styles.FaqAnswer}>{props.answer}</div>
+        </AccordionDetails>
+      </Accordion>
+    </li>
   );
 }
 

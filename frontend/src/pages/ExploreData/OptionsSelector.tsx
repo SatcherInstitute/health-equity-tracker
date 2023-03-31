@@ -14,20 +14,22 @@ import { usePopover } from "../../utils/hooks/usePopover";
 import {
   CATEGORIES_LIST,
   DEFAULT,
-  DefaultDropdownVarId,
+  type DefaultDropdownVarId,
 } from "../../utils/MadLibs";
 import { Box, Grid } from "@mui/material";
-import { DropdownVarId, VariableId } from "../../data/config/MetricConfig";
+import {
+  type DropdownVarId,
+  type VariableId,
+} from "../../data/config/MetricConfig";
 import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 function OptionsSelector(props: {
-  value: VariableId | string | DefaultDropdownVarId; // condition  data type OR fips code as string OR default setting with no topic selected
-  options: Fips[] | string[][];
-  onOptionUpdate: (option: string) => void;
+  value: VariableId | string | DefaultDropdownVarId // condition  data type OR fips code as string OR default setting with no topic selected
+  options: Fips[] | string[][]
+  onOptionUpdate: (option: string) => void
 }) {
-  const isFips =
-    props.options[0] && props.options[0] instanceof Fips ? true : false;
+  const isFips = !!(props.options[0] && props.options[0] instanceof Fips);
   let currentDisplayName;
   if (isFips) {
     currentDisplayName = new Fips(props.value).getFullDisplayName();
@@ -59,8 +61,9 @@ function OptionsSelector(props: {
     if (option.isUsa()) return "National";
     if (option.isState()) return "States";
     if (option.isTerritory()) return "Territories";
-    return `${option.getParentFips().getDisplayName()} ${option.getParentFips().isTerritory() ? " County Equivalents" : " Counties"
-      }`;
+    return `${option.getParentFips().getDisplayName()} ${
+      option.getParentFips().isTerritory() ? " County Equivalents" : " Counties"
+    }`;
   }
 
   const anchorO = "bottom";
@@ -82,168 +85,174 @@ function OptionsSelector(props: {
 
   const isUsa = props.value === "00";
 
-  return <>
-    <span ref={popoverRef}>
-      {/* Clickable Madlib Button with Dropdown Arrow */}
-      <Button
-        id={dropdownId}
-        variant="text"
-        aria-haspopup="true"
-        className={doPulse ? styles.MadLibButtonPulse : styles.MadLibButton}
-        onClick={popover.open}
-      >
-        {currentDisplayName}{" "}
-        {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
-      </Button>
+  return (
+    <>
+      <span ref={popoverRef}>
+        {/* Clickable Madlib Button with Dropdown Arrow */}
+        <Button
+          id={dropdownId}
+          variant="text"
+          aria-haspopup="true"
+          className={doPulse ? styles.MadLibButtonPulse : styles.MadLibButton}
+          onClick={popover.open}
+        >
+          {currentDisplayName}{" "}
+          {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
+        </Button>
 
-      <Popover
-        id="popoverBox"
-        className={styles.PopoverOverride}
-        aria-expanded="true"
-        open={popover.isOpen}
-        anchorEl={popover.anchor}
-        onClose={popover.close}
-        anchorOrigin={{
-          vertical: anchorO,
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: transformO,
-          horizontal: "center",
-        }}
-      >
-        {/* Location Dropdown */}
-        {isFips && (
-          <div className={styles.OptionsSelectorPopover}>
-            <h3 className={styles.SearchForText}>Search for location</h3>
+        <Popover
+          id="popoverBox"
+          className={styles.PopoverOverride}
+          aria-expanded="true"
+          open={popover.isOpen}
+          anchorEl={popover.anchor}
+          onClose={popover.close}
+          anchorOrigin={{
+            vertical: anchorO,
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: transformO,
+            horizontal: "center",
+          }}
+        >
+          {/* Location Dropdown */}
+          {isFips && (
+            <div className={styles.OptionsSelectorPopover}>
+              <h3 className={styles.SearchForText}>Search for location</h3>
 
-            <Autocomplete
-              disableClearable={true}
-              autoHighlight={true}
-              options={props.options as Fips[]}
-              groupBy={(option) => getGroupName(option)}
-              clearOnEscape={true}
-              getOptionLabel={(fips) => fips.getFullDisplayName()}
-              isOptionEqualToValue={(fips) => fips.code === props.value}
-              renderOption={(fips) => <>{fips.getFullDisplayName()}</>}
-              open={autoCompleteOpen}
-              onOpen={openAutoComplete}
-              onClose={closeAutoComplete}
-              renderInput={(params) => (
-                <TextField
-                  placeholder=""
-                  autoFocus
-                  margin="dense"
-                  variant="outlined"
-                  onChange={updateTextBox}
-                  {...params}
-                />
-              )}
-              onChange={(e, fips) => {
-                props.onOptionUpdate(fips.code);
-                setTextBoxValue("");
-                popover.close();
-              }}
-            />
-            <span className={styles.NoteText}>
-              County, state, territory, or{" "}
-              {isUsa ? (
-                USA_DISPLAY_NAME
-              ) : (
-                <button
-                  className={styles.UsaButton}
-                  onClick={handleUsaButton}
-                >
-                  United States
-                </button>
-              )}
-              . Some source data is unavailable at county and territory
-              levels.
-            </span>
-          </div>
-        )}
-        {/* Condition Dropdown */}
-        {!isFips && (
-          <>
-            <Box my={3} mx={3}>
-              <Grid container>
-                {CATEGORIES_LIST.map((category) => {
-                  return (
-                    <Grid
-                      item
-                      xs={6}
-                      sm={4}
-                      key={category.title}
-                      className={styles.CategoryList}
-                    >
-                      <h3
-                        className={styles.CategoryTitleText}
-                        aria-label={category.title + " options"}
+              <Autocomplete
+                disableClearable={true}
+                autoHighlight={true}
+                options={props.options as Fips[]}
+                groupBy={(option) => getGroupName(option)}
+                clearOnEscape={true}
+                getOptionLabel={(fips) => fips.getFullDisplayName()}
+                isOptionEqualToValue={(fips) => fips.code === props.value}
+                renderOption={(_props, fips: Fips) => (
+                  <>{fips.getFullDisplayName()}</>
+                )}
+                open={autoCompleteOpen}
+                onOpen={openAutoComplete}
+                onClose={closeAutoComplete}
+                renderInput={(params) => (
+                  <TextField
+                    placeholder=""
+                    autoFocus
+                    margin="dense"
+                    variant="outlined"
+                    onChange={updateTextBox}
+                    {...params}
+                  />
+                )}
+                onChange={(e, fips) => {
+                  props.onOptionUpdate(fips.code);
+                  setTextBoxValue("");
+                  popover.close();
+                }}
+              />
+              <span className={styles.NoteText}>
+                County, state, territory, or{" "}
+                {isUsa
+? (
+                  USA_DISPLAY_NAME
+                )
+: (
+                  <button
+                    className={styles.UsaButton}
+                    onClick={handleUsaButton}
+                  >
+                    United States
+                  </button>
+                )}
+                . Some source data is unavailable at county and territory
+                levels.
+              </span>
+            </div>
+          )}
+          {/* Condition Dropdown */}
+          {!isFips && (
+            <>
+              <Box my={3} mx={3}>
+                <Grid container>
+                  {CATEGORIES_LIST.map((category) => {
+                    return (
+                      <Grid
+                        item
+                        xs={6}
+                        sm={4}
+                        key={category.title}
+                        className={styles.CategoryList}
                       >
-                        {category.title}
-                      </h3>
-                      <List dense={true} role="menu">
-                        {(props.options as string[][]).map(
-                          (item: string[]) => {
-                            const [optionId, optionDisplayName] = item;
-                            return (
-                              // place variables in their respective categories
-                              category.options.includes(
-                                optionId as DropdownVarId
-                              ) && (
-                                <ListItem
-                                  role="menuitem"
-                                  className={styles.ListItem}
-                                  key={optionId}
-                                  button
-                                  selected={optionId === props.value}
-                                  onClick={() => {
-                                    popover.close();
-                                    props.onOptionUpdate(optionId);
-                                  }}
-                                >
-                                  <ListItemText
-                                    className={styles.ListItemText}
-                                    primary={optionDisplayName}
-                                  />
-                                </ListItem>
-                              )
-                            );
-                          }
-                        )}
-                      </List>
-                    </Grid>
-                  );
-                })}
-                <Grid
-                  item
-                  xs={12}
-                  container
-                  alignItems="flex-end"
-                  justifyContent="flex-end"
-                >
-                  {!noTopic && (
-                    <Button
-                      className={styles.GoBackButton}
-                      onClick={() => {
-                        popover.close();
-                        props.onOptionUpdate(DEFAULT);
-                      }}
-                    >
-                      <KeyboardBackspaceIcon style={{ fontSize: "small" }} />{" "}
-                      <span className={styles.GoBackButtonText}>
-                        Clear topic selection
-                      </span>
-                    </Button>
-                  )}
+                        <h3
+                          className={styles.CategoryTitleText}
+                          aria-label={category.title + " options"}
+                        >
+                          {category.title}
+                        </h3>
+                        <List dense={true} role="menu">
+                          {(props.options as string[][]).map(
+                            (item: string[]) => {
+                              const [optionId, optionDisplayName] = item;
+                              return (
+                                // place variables in their respective categories
+                                category.options.includes(
+                                  optionId as DropdownVarId
+                                ) && (
+                                  <ListItem
+                                    role="menuitem"
+                                    className={styles.ListItem}
+                                    key={optionId}
+                                    button
+                                    selected={optionId === props.value}
+                                    onClick={() => {
+                                      popover.close();
+                                      props.onOptionUpdate(optionId);
+                                    }}
+                                  >
+                                    <ListItemText
+                                      className={styles.ListItemText}
+                                      primary={optionDisplayName}
+                                    />
+                                  </ListItem>
+                                )
+                              );
+                            }
+                          )}
+                        </List>
+                      </Grid>
+                    );
+                  })}
+                  <Grid
+                    item
+                    xs={12}
+                    container
+                    alignItems="flex-end"
+                    justifyContent="flex-end"
+                  >
+                    {!noTopic && (
+                      <Button
+                        className={styles.GoBackButton}
+                        onClick={() => {
+                          popover.close();
+                          props.onOptionUpdate(DEFAULT);
+                        }}
+                      >
+                        <KeyboardBackspaceIcon style={{ fontSize: "small" }} />{" "}
+                        <span className={styles.GoBackButtonText}>
+                          Clear topic selection
+                        </span>
+                      </Button>
+                    )}
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Box>
-          </>
-        )}
-      </Popover>
-    </span>
-  </>;
+              </Box>
+            </>
+          )}
+        </Popover>
+      </span>
+    </>
+  );
 }
 
 export default OptionsSelector;
