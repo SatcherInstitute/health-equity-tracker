@@ -25,6 +25,7 @@ import {
   MissingCovidVaccinationData,
   MissingHIVData,
   MissingPrepData,
+  MissingAHRData,
 } from "./methodologyContent/missingDataBlurbs";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
@@ -290,8 +291,8 @@ function MethodologyTab() {
                 <p>
                   Multiple chronic disease, behavioral health, and social
                   determinants of health in the tracker are sourced from{" "}
-                  <a href={urlMap.amr}>America's Health Rankings</a>, who in
-                  turn source the majority of their data from the{" "}
+                  <a href={urlMap.amr}>America's Health Rankings (AHR)</a>, who
+                  in turn source the majority of their data from the{" "}
                   <a href={urlMap.cdcBrfss}>
                     Behavioral Risk Factor Surveillance System (BRFSS)
                   </a>
@@ -325,21 +326,18 @@ function MethodologyTab() {
                         metric if it is presented as a per 100k in the data API.
                       </li>
                       <li>
-                        For many of the measures we track, such as COPD,
-                        diabetes, frequent mental distress, depression,
-                        excessive drinking, asthma, avoided care, and suicide,
-                        we source the <b>percent share</b> metrics directly from
-                        AHR. However, AHR does not have population data for some
-                        metrics such as preventable hospitalizations, voter
-                        participation, non-medical drug use, and non-medical
-                        prescription drug use. We have chosen not to show any
-                        percent share metrics for the measures without
-                        population data because the source only provides the
-                        metrics as rates.
+                        For COPD, diabetes, frequent mental distress,
+                        depression, excessive drinking, asthma, avoided care,
+                        and suicide, we source the <b>percent share</b> metrics
+                        directly from AHR.
                       </li>
                     </ul>
                   </li>
                 </ul>
+
+                <Card elevation={3} className={styles.MissingDataBox}>
+                  <MissingAHRData />
+                </Card>
 
                 <h3 className={styles.MethodologySubsubheaderText}>
                   Women in legislative office
