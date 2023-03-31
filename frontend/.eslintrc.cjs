@@ -28,7 +28,8 @@ module.exports = {
     '@typescript-eslint/indent': "off",
     "react/react-in-jsx-scope": "off",
     '@typescript-eslint/restrict-plus-operands': "off",
-    'react/no-unescaped-entities': "off"
+    'react/no-unescaped-entities': "off",
+    "multiline-ternary": "off"
 
   }
 }
