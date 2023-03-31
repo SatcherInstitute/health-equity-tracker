@@ -1,11 +1,11 @@
 import React from "react";
-import { Alert, Color } from "@mui/lab";
+import { Alert, type AlertColor } from "@mui/material";
 import {
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
-import { Fips, USA_DISPLAY_NAME } from "../../data/utils/Fips";
-import { VariableId } from "../../data/config/MetricConfig";
+import { type Fips, USA_DISPLAY_NAME } from "../../data/utils/Fips";
+import { type VariableId } from "../../data/config/MetricConfig";
 import { AGE } from "../../data/utils/Constants";
 import {
   COMBINED_INCARCERATION_STATES_LIST,
@@ -19,9 +19,9 @@ const combinedAlertFipsList = [
 ];
 
 interface IncarcerationAlertProps {
-  dataType: VariableId;
-  breakdown: BreakdownVar;
-  fips: Fips;
+  dataType: VariableId
+  breakdown: BreakdownVar
+  fips: Fips
 }
 
 function IncarcerationAlert(props: IncarcerationAlertProps) {
@@ -33,7 +33,7 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
     ? "Vera Institute of Justice"
     : "Bureau of Justice Statistics";
 
-  const severity: Color =
+  const severity: AlertColor =
     props.breakdown === "age" && props.dataType === "prison"
       ? "warning"
       : "info";
@@ -58,8 +58,8 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
 export default IncarcerationAlert;
 
 interface IncarcerationDetailsTextProps {
-  dataType: VariableId;
-  breakdown: BreakdownVar;
+  dataType: VariableId
+  breakdown: BreakdownVar
 }
 
 function IncarcerationDetailsText(props: IncarcerationDetailsTextProps) {
