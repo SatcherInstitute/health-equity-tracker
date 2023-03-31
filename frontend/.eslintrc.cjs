@@ -29,7 +29,8 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     '@typescript-eslint/restrict-plus-operands': "off",
     'react/no-unescaped-entities': "off",
-    "multiline-ternary": "off"
+    "multiline-ternary": "off",
+    "react/prop-types": "off"
 
   }
 }
