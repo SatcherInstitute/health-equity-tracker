@@ -1,8 +1,8 @@
 import React from "react";
-import Alert from "@material-ui/lab/Alert";
-import AlertTitle from "@material-ui/lab/AlertTitle";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/lab/AlertTitle";
 import styles from "./LifelineAlert.module.scss";
-import PhoneIcon from "@material-ui/icons/Phone";
+import PhoneIcon from "@mui/icons-material/Phone";
 import { urlMap } from "../../utils/externalUrls";
 
 function LifelineAlert() {

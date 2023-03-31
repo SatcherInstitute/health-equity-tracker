@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./WhatIsHealthEquityPage.module.scss";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import FaqSection from "../ui/FaqSection";
 import {
   DYNAMIC_COPY_KEY,
@@ -14,7 +14,7 @@ import {
   NEWS_TAB_LINK,
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
 } from "../../utils/internalRoutes";
-import { Box } from "@material-ui/core";
+import { Box } from "@mui/material";
 import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
@@ -45,7 +45,7 @@ interface WIHEWordpressCopy {
   section4_c_heading3_text: string;
 }
 
-/* 
+/*
 Some of the copy for this tab page is loaded from https://hetblog.dreamhosters.com/wp-json/wp/v2/pages/37
 The object below provides fallback if that fetch fails
 */

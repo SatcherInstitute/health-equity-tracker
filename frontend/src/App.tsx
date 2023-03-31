@@ -1,16 +1,15 @@
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Drawer from "@material-ui/core/Drawer";
-import IconButton from "@material-ui/core/IconButton";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import MenuIcon from "@material-ui/icons/Menu";
-import { ThemeProvider } from "@material-ui/styles";
+import AppBar from "@mui/material/AppBar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import MenuIcon from "@mui/icons-material/Menu";
 import React, { Suspense, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -40,7 +39,8 @@ import {
 } from "./utils/internalRoutes";
 import AppBarLogo from "./assets/AppbarLogo.png";
 import { HelmetProvider } from "react-helmet-async";
-import { Box, CircularProgress } from "@material-ui/core";
+import { Box, CircularProgress, StyledEngineProvider } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
 
 // these make CSS modules which are imported by other components,
 // so they must load first and not be lazy loaded
@@ -48,6 +48,19 @@ import AboutUsPage from "./pages/AboutUs/AboutUsPage";
 import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
 import ErrorBoundaryDropParams from "./ErrorBoundaryDropParams";
 import ExploreDataFallback from "./pages/ExploreData/ExploreDataFallback";
+
+
+// declare module '@mui/styles/defaultTheme' {
+//   // eslint-disable-next-line @typescript-eslint/no-empty-interface
+//   interface DefaultTheme extends Theme { }
+// }
+
+// import { Theme } from '@mui/material/styles';
+
+// declare module '@mui/styles' {
+//   interface DefaultTheme extends Theme {}
+// }
+
 
 const ExploreDataPage = React.lazy(
   () => import("./pages/ExploreData/ExploreDataPage")
@@ -89,7 +102,7 @@ function MobileAppToolbar() {
       <IconButton
         onClick={() => setOpen(true)}
         aria-label="Expand site navigation"
-      >
+        size="large">
         <MenuIcon className={styles.MenuIconForMobile} />
       </IconButton>
       <Drawer variant="persistent" anchor="left" open={open}>
@@ -174,109 +187,111 @@ function App() {
 
   return (
     <HelmetProvider>
-      <ThemeProvider theme={MaterialTheme}>
-        <CookiesProvider>
-          <CssBaseline />
-          <div className={styles.App}>
-            <div className={styles.Content}>
-              <Router>
-                <AppBar position="static" elevation={0}>
-                  {width > MOBILE_BREAKPOINT ? (
-                    <AppToolbar />
-                  ) : (
-                    <MobileAppToolbar />
-                  )}
-                </AppBar>
-                <ScrollToTop />
-                <Suspense
-                  fallback={
-                    <main className={styles.FallbackPage}>
-                      <Box mt={10}>
-                        <CircularProgress aria-label="loading" />
-                      </Box>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={MaterialTheme}>
+          <CookiesProvider>
+            <CssBaseline />
+            <div className={styles.App}>
+              <div className={styles.Content}>
+                <Router>
+                  <AppBar position="static" elevation={0}>
+                    {width > MOBILE_BREAKPOINT ? (
+                      <AppToolbar />
+                    ) : (
+                      <MobileAppToolbar />
+                    )}
+                  </AppBar>
+                  <ScrollToTop />
+                  <Suspense
+                    fallback={
+                      <main className={styles.FallbackPage}>
+                        <Box mt={10}>
+                          <CircularProgress aria-label="loading" />
+                        </Box>
+                      </main>
+                    }
+                  >
+                    <main>
+                      <Switch>
+                        <Route path={ABOUT_US_PAGE_LINK}>
+                          <AboutUsPage />
+                        </Route>
+
+                        <Route path={OURTEAM_TAB_LINK}>
+                          <AboutUsPage />
+                        </Route>
+
+                        <Route path={CONTACT_TAB_LINK}>
+                          <AboutUsPage />
+                        </Route>
+
+                        <Route path={DATA_CATALOG_PAGE_LINK}>
+                          <DataCatalogTab />
+                        </Route>
+
+                        <Route path={METHODOLOGY_TAB_LINK}>
+                          <DataCatalogTab />
+                        </Route>
+
+                        <Route path={AGE_ADJUSTMENT_TAB_LINK}>
+                          <DataCatalogTab />
+                        </Route>
+
+                        <Route path={EXPLORE_DATA_PAGE_LINK}>
+                          <ErrorBoundaryDropParams
+                            fallback={<ExploreDataFallback />}
+                          >
+                            <ExploreDataPage />
+                          </ErrorBoundaryDropParams>
+                        </Route>
+
+                        <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
+                          <WhatIsHealthEquityPage />
+                        </Route>
+
+                        <Route path={FAQ_TAB_LINK}>
+                          <WhatIsHealthEquityPage />
+                        </Route>
+
+                        <Route path={RESOURCES_TAB_LINK}>
+                          <WhatIsHealthEquityPage />
+                        </Route>
+
+                        <Route path={NEWS_TAB_LINK}>
+                          <WhatIsHealthEquityPage />
+                        </Route>
+
+                        <Route path={TERMS_OF_USE_PAGE_LINK}>
+                          <TermsOfUsePage />
+                        </Route>
+
+                        {/* redirect the old URL for possible outside links */}
+                        <Route path={`/termsofservice`}>
+                          <Redirect to={TERMS_OF_USE_PAGE_LINK} />
+                        </Route>
+
+                        <Route path="/">
+                          <LandingPage />
+                        </Route>
+
+                        {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
+                        <Route>
+                          <NotFoundPage />
+                        </Route>
+                      </Switch>
                     </main>
-                  }
-                >
-                  <main>
-                    <Switch>
-                      <Route path={ABOUT_US_PAGE_LINK}>
-                        <AboutUsPage />
-                      </Route>
-
-                      <Route path={OURTEAM_TAB_LINK}>
-                        <AboutUsPage />
-                      </Route>
-
-                      <Route path={CONTACT_TAB_LINK}>
-                        <AboutUsPage />
-                      </Route>
-
-                      <Route path={DATA_CATALOG_PAGE_LINK}>
-                        <DataCatalogTab />
-                      </Route>
-
-                      <Route path={METHODOLOGY_TAB_LINK}>
-                        <DataCatalogTab />
-                      </Route>
-
-                      <Route path={AGE_ADJUSTMENT_TAB_LINK}>
-                        <DataCatalogTab />
-                      </Route>
-
-                      <Route path={EXPLORE_DATA_PAGE_LINK}>
-                        <ErrorBoundaryDropParams
-                          fallback={<ExploreDataFallback />}
-                        >
-                          <ExploreDataPage />
-                        </ErrorBoundaryDropParams>
-                      </Route>
-
-                      <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-                        <WhatIsHealthEquityPage />
-                      </Route>
-
-                      <Route path={FAQ_TAB_LINK}>
-                        <WhatIsHealthEquityPage />
-                      </Route>
-
-                      <Route path={RESOURCES_TAB_LINK}>
-                        <WhatIsHealthEquityPage />
-                      </Route>
-
-                      <Route path={NEWS_TAB_LINK}>
-                        <WhatIsHealthEquityPage />
-                      </Route>
-
-                      <Route path={TERMS_OF_USE_PAGE_LINK}>
-                        <TermsOfUsePage />
-                      </Route>
-
-                      {/* redirect the old URL for possible outside links */}
-                      <Route path={`/termsofservice`}>
-                        <Redirect to={TERMS_OF_USE_PAGE_LINK} />
-                      </Route>
-
-                      <Route path="/">
-                        <LandingPage />
-                      </Route>
-
-                      {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
-                      <Route>
-                        <NotFoundPage />
-                      </Route>
-                    </Switch>
-                  </main>
+                  </Suspense>
+                </Router>
+              </div>
+              <footer>
+                <Suspense fallback={<span></span>}>
+                  <Footer />
                 </Suspense>
-              </Router>
+              </footer>
             </div>
-            <footer>
-              <Suspense fallback={<span></span>}>
-                <Footer />
-              </Suspense>
-            </footer>
-          </div>
-        </CookiesProvider>
-      </ThemeProvider>
+          </CookiesProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </HelmetProvider>
   );
 }

@@ -1,10 +1,10 @@
 import React from "react";
-import { Alert } from "@material-ui/lab";
+import { Alert } from "@mui/lab";
 import { Row } from "../../data/utils/DatasetTypes";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { MetricConfig } from "../../data/config/MetricConfig";
 import styles from "../Card.module.scss";
-import { CardContent, Divider } from "@material-ui/core";
+import { CardContent, Divider } from "@mui/material";
 import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
@@ -61,19 +61,16 @@ function UnknownsAlert(props: UnknownsAlertProps) {
   const raceEthnicityDiff =
     unknowns.length === 2 &&
     unknowns[0][props.metricConfig.metricId] !==
-      unknowns[1][props.metricConfig.metricId];
+    unknowns[1][props.metricConfig.metricId];
 
   const cardHelperText = props.known
-    ? `The ${
-        props.displayType
-      } below only displays data for cases where ${breakdownVarDisplayName} ${
-        props.overrideAndWithOr ? "were both" : "was"
-      } known.`
-    : `The ${props.displayType} below displays data for cases where ${
-        props.overrideAndWithOr
-          ? ` either ${RACE_OR_ETHNICITY}`
-          : breakdownVarDisplayName
-      } was unknown.`;
+    ? `The ${props.displayType
+    } below only displays data for cases where ${breakdownVarDisplayName} ${props.overrideAndWithOr ? "were both" : "was"
+    } known.`
+    : `The ${props.displayType} below displays data for cases where ${props.overrideAndWithOr
+      ? ` either ${RACE_OR_ETHNICITY}`
+      : breakdownVarDisplayName
+    } was unknown.`;
 
   const raceEthDiffMapText = `In cases where race and ethnicity are reported
     separately, the map shows the higher of the two metrics.`;
@@ -87,13 +84,11 @@ function UnknownsAlert(props: UnknownsAlertProps) {
 
   const diffRaceEthnicityText = raceEthnicityDiff
     ? `This state reports race and ethnicity separately.
-    ${unknowns[0][props.metricConfig.metricId]}${
-        props.metricConfig.shortLabel
-      } reported an
+    ${unknowns[0][props.metricConfig.metricId]}${props.metricConfig.shortLabel
+    } reported an
     ${unknowns[0][props.breakdownVar].toLowerCase()} and
-    ${unknowns[1][props.metricConfig.metricId]}${
-        props.metricConfig.knownBreakdownComparisonMetric!.shortLabel
-      } reported an
+    ${unknowns[1][props.metricConfig.metricId]}${props.metricConfig.knownBreakdownComparisonMetric!.shortLabel
+    } reported an
     ${unknowns[1][props.breakdownVar].toLowerCase()}.`
     : "";
 

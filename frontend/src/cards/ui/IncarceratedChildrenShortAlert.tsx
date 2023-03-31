@@ -1,13 +1,13 @@
 import React from "react";
-import { Alert } from "@material-ui/lab";
+import { Alert } from "@mui/lab";
 import { Fips } from "../../data/utils/Fips";
 import { urlMap } from "../../utils/externalUrls";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { Row } from "../../data/utils/DatasetTypes";
 import { ALL } from "../../data/utils/Constants";
-import FlagIcon from "@material-ui/icons/Flag";
+import FlagIcon from "@mui/icons-material/Flag";
 import { BreakdownVar } from "../../data/query/Breakdowns";
-import { CardContent } from "@material-ui/core";
+import { CardContent } from "@mui/material";
 
 interface IncarceratedChildrenShortAlertProps {
   queryResponse: MetricQueryResponse;

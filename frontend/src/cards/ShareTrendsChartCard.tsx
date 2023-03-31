@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CardContent } from "@material-ui/core";
+import { CardContent } from "@mui/material";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -25,7 +25,7 @@ import {
   getNestedData,
   getNestedUnknowns,
 } from "../data/utils/DatasetTimeUtils";
-import { Alert } from "@material-ui/lab";
+import { Alert } from "@mui/lab";
 import { HashLink } from "react-router-hash-link";
 import { METHODOLOGY_TAB_LINK } from "../utils/internalRoutes";
 import AltTableView from "./ui/AltTableView";
@@ -114,12 +114,12 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
         // swap race labels if applicable
         const knownInequityData = isCawp
           ? knownData.map((row: Row) => {
-              const altRow = { ...row };
-              altRow.race_and_ethnicity = getWomenRaceLabel(
-                row.race_and_ethnicity
-              );
-              return altRow;
-            })
+            const altRow = { ...row };
+            altRow.race_and_ethnicity = getWomenRaceLabel(
+              row.race_and_ethnicity
+            );
+            return altRow;
+          })
           : knownData;
 
         const pctShareData = queryResponsePctShares.getValidRowsForField(
@@ -140,8 +140,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
         const demographicGroupsLabelled = isCawp
           ? demographicGroups.map((group: DemographicGroup) =>
-              getWomenRaceLabel(group as RaceAndEthnicityGroup)
-            )
+            getWomenRaceLabel(group as RaceAndEthnicityGroup)
+          )
           : demographicGroups;
 
         const nestedInequityData = getNestedData(
@@ -224,9 +224,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     expanded={a11yTableExpanded}
                     setExpanded={setA11yTableExpanded}
                     expandBoxLabel={cardHeaderTitle.toLowerCase()}
-                    tableCaption={`${filename} by ${
-                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
-                    }`}
+                    tableCaption={`${filename} by ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                      }`}
                     knownsData={inequityData}
                     unknownsData={unknownPctShareData}
                     breakdownVar={props.breakdownVar}

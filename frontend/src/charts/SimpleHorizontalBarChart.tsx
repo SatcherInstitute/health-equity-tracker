@@ -20,7 +20,7 @@ import {
 } from "./utils";
 import { useFontSize } from "../utils/hooks/useFontSize";
 import sass from "../styles/variables.module.scss";
-import { useMediaQuery } from "@material-ui/core";
+import { useMediaQuery } from "@mui/material";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 import { HIV_DETERMINANTS } from "../data/variables/HivProvider";
 
@@ -63,7 +63,7 @@ function getSpec(
   };
 
   //create bar label as array or string
-  const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} + 
+  const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} +
   "${usePercentSuffix ? SINGLE_LINE_PERCENT : PER_100K}"`;
   const multiLineLabel = `[datum.${tooltipMetricDisplayColumnName}, "${PER_100K}"]`;
   const createBarLabel = () => {
@@ -74,12 +74,12 @@ function getSpec(
 
   const legends = showLegend
     ? [
-        {
-          fill: "variables",
-          orient: "top",
-          padding: 4,
-        },
-      ]
+      {
+        fill: "variables",
+        orient: "top",
+        padding: 4,
+      },
+    ]
     : [];
 
   const onlyZeros = data.every((row) => {
@@ -187,9 +187,8 @@ function getSpec(
             },
             baseline: { value: "middle" },
             dx: {
-              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${
-                width > 250 ? "5" : "1"
-              })`,
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${width > 250 ? "5" : "1"
+                })`,
             },
             dy: {
               signal: chartIsSmall ? -15 : 0,
@@ -316,14 +315,14 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   // swap race labels if applicable
   const dataLabelled = altLabelDeterminants.includes(props.metric.metricId)
     ? props.data.map((row: Row) => {
-        const altRow = { ...row };
-        altRow[props.breakdownVar] = getAltGroupLabel(
-          row[props.breakdownVar],
-          props.metric.metricId,
-          props.breakdownVar
-        );
-        return altRow;
-      })
+      const altRow = { ...row };
+      altRow[props.breakdownVar] = getAltGroupLabel(
+        row[props.breakdownVar],
+        props.metric.metricId,
+        props.breakdownVar
+      );
+      return altRow;
+    })
     : props.data;
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
@@ -355,7 +354,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           /* width  */ width,
           /* breakdownVar  */ props.breakdownVar,
           /* breakdownVarDisplayName  */ BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-            props.breakdownVar
+          props.breakdownVar
           ],
           /* measure  */ props.metric.metricId,
           /* measureDisplayName  */ props.metric.shortLabel,
@@ -372,11 +371,11 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           props.hideActions
             ? false
             : {
-                export: { png: true, svg: true },
-                source: false,
-                compiled: false,
-                editor: false,
-              }
+              export: { png: true, svg: true },
+              source: false,
+              compiled: false,
+              editor: false,
+            }
         }
       />
     </div>

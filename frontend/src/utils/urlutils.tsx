@@ -1,4 +1,4 @@
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import axios from "axios";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -67,16 +67,14 @@ export const REACT_QUERY_OPTIONS = {
 
 export async function fetchNewsData() {
   return await axios.get(
-    `${
-      NEWS_URL + WP_API + ALL_POSTS
+    `${NEWS_URL + WP_API + ALL_POSTS
     }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
   );
 }
 
 export async function fetchLandingPageNewsData() {
   return await axios.get(
-    `${
-      NEWS_URL + WP_API + ALL_POSTS
+    `${NEWS_URL + WP_API + ALL_POSTS
     }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${4}`
   );
 }

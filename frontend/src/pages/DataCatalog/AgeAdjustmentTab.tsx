@@ -1,5 +1,5 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import styles from "./DataCatalogPage.module.scss";
 import { Helmet } from "react-helmet-async";
 import {
@@ -7,7 +7,7 @@ import {
   COVID_HOSP_US_SETTING,
   EXPLORE_DATA_PAGE_LINK,
 } from "../../utils/internalRoutes";
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
 function AgeAdjustmentTab() {

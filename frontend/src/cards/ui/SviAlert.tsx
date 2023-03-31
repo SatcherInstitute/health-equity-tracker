@@ -1,5 +1,5 @@
 import React from "react";
-import Alert from "@material-ui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { Fips } from "../../data/utils/Fips";
 import { urlMap } from "../../utils/externalUrls";

@@ -3,14 +3,14 @@ import DataSourceListing from "./DataSourceListing";
 import styles from "./DatasetExplorer.module.scss";
 import { DataSourceMetadataMap } from "../../../data/config/MetadataMap";
 import { DataSourceMetadata } from "../../../data/utils/DatasetTypes";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import {
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
 } from "../../../utils/internalRoutes";
 import { WithMetadata } from "../../../data/react/WithLoadingOrErrorUI";
-import { Box, Grid } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
+import { Box, Grid } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
 // Map of filter id to list of datasets selected by that filter, or empty list

@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { Fips } from "../../data/utils/Fips";
@@ -23,13 +23,13 @@ export default function CarouselMadLib(props: {
     return isNaN(Object.keys(phraseSegment)[0] as any)
       ? Object.entries(phraseSegment).sort((a, b) => a[0].localeCompare(b[0]))
       : Object.keys(phraseSegment)
-          .sort((a: string, b: string) => {
-            if (a.length === b.length) {
-              return a.localeCompare(b);
-            }
-            return b.length > a.length ? -1 : 1;
-          })
-          .map((fipsCode) => new Fips(fipsCode));
+        .sort((a: string, b: string) => {
+          if (a.length === b.length) {
+            return a.localeCompare(b);
+          }
+          return b.length > a.length ? -1 : 1;
+        })
+        .map((fipsCode) => new Fips(fipsCode));
   }
 
   const location = useLocation();

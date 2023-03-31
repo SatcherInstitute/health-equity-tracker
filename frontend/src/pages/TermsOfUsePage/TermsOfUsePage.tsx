@@ -1,7 +1,7 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import styles from "./TermsOfUsePage.module.scss";
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import { HET_URL } from "../../utils/internalRoutes";
 import { Helmet } from "react-helmet-async";
 

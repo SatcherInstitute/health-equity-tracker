@@ -3,11 +3,11 @@ import CardWrapper from "./CardWrapper";
 import { Breakdowns } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { Fips } from "../data/utils/Fips";
-import { CardContent } from "@material-ui/core";
-import { Grid } from "@material-ui/core";
+import { CardContent } from "@mui/material";
+import { Grid } from "@mui/material";
 import styles from "./Card.module.scss";
 import { MetricId } from "../data/config/MetricConfig";
-import Alert from "@material-ui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import SviAlert from "./ui/SviAlert";
 
 /* minimize layout shift */

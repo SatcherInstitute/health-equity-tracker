@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import React, { useEffect, useState, Fragment } from "react";
 import LazyLoad from "react-lazyload";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
@@ -118,9 +118,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
   const breakdownIsShown = (breakdownVar: BreakdownVar) =>
     currentBreakdown === breakdownVar;
 
-  const browserTitle = `${variableConfig?.variableFullDisplayName} by ${
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
-  } in ${props.fips.getFullDisplayName()}`;
+  const browserTitle = `${variableConfig?.variableFullDisplayName} by ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
+    } in ${props.fips.getFullDisplayName()}`;
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { Box, Card, Grid, Typography } from "@material-ui/core";
+import { Box, Card, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import styles from "./News.module.scss";
 import {
@@ -14,7 +14,7 @@ import ArticleFilters from "./ArticleFilters";
 import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";
 import { Article } from "../NewsTab";
-import { Skeleton } from "@material-ui/lab";
+import { Skeleton } from "@mui/lab";
 import SignupSection from "../../ui/SignupSection";
 import { Link } from "react-router-dom";
 
@@ -48,7 +48,7 @@ export function ArticlesSkeleton(props: {
           >
             <Skeleton
               animation={props.doPulse && "wave"}
-              variant="rect"
+              variant="rectangular"
               height={100}
               width={150}
             ></Skeleton>

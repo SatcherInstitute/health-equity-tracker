@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert } from "@material-ui/lab";
+import { Alert } from "@mui/lab";
 import {
   EXPLORE_DATA_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
@@ -83,9 +83,8 @@ function AltDataTypesMessage(props: AltDataTypesMessageProps) {
         return (
           <span key={dataType.variableDisplayName}>
             <a
-              href={`${EXPLORE_DATA_PAGE_LINK}${
-                dataTypeLinkMap[dataType.variableId as AgeAdjustedVariableId]
-              }#age-adjusted-risk`}
+              href={`${EXPLORE_DATA_PAGE_LINK}${dataTypeLinkMap[dataType.variableId as AgeAdjustedVariableId]
+                }#age-adjusted-risk`}
             >
               {dataType.variableFullDisplayName}
             </a>

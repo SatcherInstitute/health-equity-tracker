@@ -1,4 +1,4 @@
-import { useMediaQuery, useTheme } from "@material-ui/core";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 // calculate page size for responsive layout and minimized CLS
 export function useGuessPreloadHeight(

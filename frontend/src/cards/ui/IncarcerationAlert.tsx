@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Color } from "@material-ui/lab";
+import { Alert, Color } from "@mui/lab";
 import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,

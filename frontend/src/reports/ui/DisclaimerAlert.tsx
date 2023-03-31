@@ -1,8 +1,8 @@
 import React from "react";
-import Alert from "@material-ui/lab/Alert";
-import AlertTitle from "@material-ui/lab/AlertTitle";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/lab/AlertTitle";
 import styles from "./DisclaimerAlert.module.scss";
-import FlagIcon from "@material-ui/icons/Flag";
+import FlagIcon from "@mui/icons-material/Flag";
 import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 
 function DisclaimerAlert() {

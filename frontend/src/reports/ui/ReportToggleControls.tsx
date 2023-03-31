@@ -1,7 +1,7 @@
 import React from "react";
-import ToggleButton from "@material-ui/lab/ToggleButton";
-import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
-import { Grid } from "@material-ui/core";
+import ToggleButton from "@mui/lab/ToggleButton";
+import ToggleButtonGroup from "@mui/lab/ToggleButtonGroup";
+import { Grid } from "@mui/material";
 import {
   DropdownVarId,
   METRIC_CONFIG,
@@ -21,8 +21,8 @@ import { DATA_GAPS } from "../../data/utils/datasetutils";
 export const DATA_TYPE_LABEL = "Data Type";
 export const DEMOGRAPHIC_LABEL = "Demographic";
 
-/* 
-Checks for data gaps at current Datatype/Demographic/GeoLevel and 
+/*
+Checks for data gaps at current Datatype/Demographic/GeoLevel and
 */
 function getToggleOptionStatus(
   breakdownVar: BreakdownVar,

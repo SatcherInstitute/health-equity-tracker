@@ -1,4 +1,4 @@
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import React, { useEffect, useState } from "react";
 import { STATUS } from "react-joyride";
 import Carousel from "react-material-ui-carousel";

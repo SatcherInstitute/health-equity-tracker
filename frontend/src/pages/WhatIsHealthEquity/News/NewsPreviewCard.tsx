@@ -4,7 +4,7 @@ import styles from "./News.module.scss";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
 import { getHtml, ReactRouterLinkButton } from "../../../utils/urlutils";
 import { Article } from "../NewsTab";
-import { Box, Grid } from "@material-ui/core";
+import { Box, Grid } from "@mui/material";
 import LazyLoad from "react-lazyload";
 
 export interface NewsPreviewCardProps {

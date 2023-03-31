@@ -8,7 +8,7 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
-import { CardContent } from "@material-ui/core";
+import { CardContent } from "@mui/material";
 import {
   MetricConfig,
   MetricId,
@@ -29,8 +29,8 @@ import {
   SEX,
   RaceAndEthnicityGroup,
 } from "../data/utils/Constants";
-import Alert from "@material-ui/lab/Alert";
-import Divider from "@material-ui/core/Divider";
+import Alert from "@mui/material/Alert";
+import Divider from "@mui/material/Divider";
 import styles from "./Card.module.scss";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import {
@@ -175,18 +175,18 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               raceQueryResponse.shouldShowMissingDataMessage(
                 metricIds as MetricId[]
               )) && (
-              <CardContent>
-                <MissingDataAlert
-                  dataName={dataName}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-                  }
-                  dropdownVarId={props.dropdownVarId}
-                  ageAdjustedDataTypes={ageAdjustedDataTypes}
-                  fips={props.fips}
-                />
-              </CardContent>
-            )}
+                <CardContent>
+                  <MissingDataAlert
+                    dataName={dataName}
+                    breakdownString={
+                      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                    }
+                    dropdownVarId={props.dropdownVarId}
+                    ageAdjustedDataTypes={ageAdjustedDataTypes}
+                    fips={props.fips}
+                  />
+                </CardContent>
+              )}
 
             {/* values are present or partially null, implying we have at least some age-adjustments */}
             {!raceQueryResponse.dataIsMissing() &&

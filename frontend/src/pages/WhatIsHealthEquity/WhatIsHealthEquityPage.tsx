@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import { useUrlSearchParams } from "../../utils/urlutils";
 import {
   NEWS_TAB_LINK,
@@ -8,8 +8,8 @@ import {
   RESOURCES_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "../../utils/internalRoutes";
-import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
 
 // can't lazy load (yet) due to scss loading issues
@@ -45,7 +45,7 @@ export default function WhatIsHealthEquityPage() {
           textColor="primary"
           value={
             window.location.pathname.includes(NEWS_TAB_LINK) &&
-            window.location.pathname !== NEWS_TAB_LINK
+              window.location.pathname !== NEWS_TAB_LINK
               ? false
               : window.location.pathname
           }

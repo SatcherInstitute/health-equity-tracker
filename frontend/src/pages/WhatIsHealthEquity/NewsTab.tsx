@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./WhatIsHealthEquityPage.module.scss";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import { NEWS_TAB_LINK } from "../../utils/internalRoutes";
 import { Route, Switch } from "react-router-dom";
 

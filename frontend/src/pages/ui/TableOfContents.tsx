@@ -5,7 +5,7 @@ import {
   Stepper,
   useMediaQuery,
   useTheme,
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
 import { reportProviderSteps } from "../../reports/ReportProviderSteps";
 import {
@@ -17,7 +17,7 @@ import { scrollIntoView } from "seamless-scroll-polyfill";
 
 const TABLE_OF_CONTENT_PADDING = 15;
 
-/* 
+/*
   reportStepHashIds: ScrollableHashId[]; Array of TOC "hashIds" used to map the hashId to the step display name
   isScrolledToTop?: boolean; Optionally send in top scroll status; when true none of the steps will be highlighted
 */

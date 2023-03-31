@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import React, { useEffect, useState, Fragment } from "react";
 import LazyLoad from "react-lazyload";
 import { AgeAdjustedTableCard } from "../cards/AgeAdjustedTableCard";
@@ -549,7 +549,7 @@ function RowOfTwoOptionalMetrics(props: {
   }
 
   // Needed for type safety, used when the card does not need to use the fips update callback
-  const unusedFipsCallback = () => {};
+  const unusedFipsCallback = () => { };
 
   const dontLazyLoadCard = NON_LAZYLOADED_CARDS.includes(props.id);
   return (

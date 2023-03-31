@@ -1,5 +1,5 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import styles from "./DataCatalogPage.module.scss";
 import {
   CONTACT_TAB_LINK,
@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet-async";
 import { getHtml, LinkWithStickyParams } from "../../utils/urlutils";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
-import { Card } from "@material-ui/core";
+import { Card } from "@mui/material";
 import { urlMap } from "../../utils/externalUrls";
 import DefinitionsList from "../../reports/ui/DefinitionsList";
 import { currentYear } from "../../Footer";

@@ -8,7 +8,7 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
-import { CardContent } from "@material-ui/core";
+import { CardContent } from "@mui/material";
 import {
   METRIC_CONFIG,
   MetricConfig,
@@ -19,8 +19,8 @@ import {
 import { exclude } from "../data/query/BreakdownFilter";
 import { ALL, RACE } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
-import Alert from "@material-ui/lab/Alert";
-import Divider from "@material-ui/core/Divider";
+import Alert from "@mui/material/Alert";
+import Divider from "@mui/material/Divider";
 import { urlMap } from "../utils/externalUrls";
 import {
   getExclusionList,

@@ -6,23 +6,23 @@ import {
 } from "../../../data/utils/DatasetTypes";
 import { getLogger } from "../../../utils/globals";
 import styles from "./DataSourceListing.module.scss";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import Typography from "@material-ui/core/Typography";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import Typography from "@mui/material/Typography";
 import downloadDataset from "./downloadDataset";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Dialog from "@material-ui/core/Dialog";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Alert from "@material-ui/lab/Alert";
-import ListItemText from "@material-ui/core/ListItemText";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import GetAppIcon from "@material-ui/icons/GetApp";
-import { Grid, IconButton } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
-import Link from "@material-ui/core/Link";
+import DialogTitle from "@mui/material/DialogTitle";
+import Dialog from "@mui/material/Dialog";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import CircularProgress from "@mui/material/CircularProgress";
+import Alert from "@mui/material/Alert";
+import ListItemText from "@mui/material/ListItemText";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import GetAppIcon from "@mui/icons-material/GetApp";
+import { Grid, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import Link from "@mui/material/Link";
 
 type LoadStatus = "loading" | "unloaded" | "error" | "loaded";
 
@@ -109,7 +109,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
           href={props.source_metadata.data_source_link}
           target="_blank"
           rel="noopener noreferrer"
-        >
+          underline="hover">
           {props.source_metadata.data_source_name}
         </Link>
       </Typography>
@@ -151,7 +151,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
                 href={props.source_metadata.data_source_link}
                 target="_blank"
                 rel="noopener noreferrer"
-              >
+                underline="hover">
                 {props.source_metadata.data_source_pretty_site_name}
               </Link>
             </td>
@@ -196,7 +196,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
                 <IconButton
                   aria-label="close dialogue"
                   onClick={() => setDialogIsOpen(false)}
-                >
+                  size="large">
                   <CloseIcon />
                 </IconButton>
               </Grid>

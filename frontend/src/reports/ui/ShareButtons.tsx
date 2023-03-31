@@ -9,7 +9,7 @@ import {
   LinkedinIcon,
   TwitterIcon,
 } from "react-share";
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import { getMadLibPhraseText, MadLib } from "../../utils/MadLibs";
 import styles from "./ShareButtons.module.scss";
 import sass from "../../styles/variables.module.scss";

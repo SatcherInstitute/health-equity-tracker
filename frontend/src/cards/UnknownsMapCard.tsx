@@ -1,5 +1,5 @@
 import React from "react";
-import { CardContent } from "@material-ui/core";
+import { CardContent } from "@mui/material";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import { MetricId, VariableConfig } from "../data/config/MetricConfig";
@@ -21,8 +21,8 @@ import {
   RACE,
 } from "../data/utils/Constants";
 import styles from "./Card.module.scss";
-import Divider from "@material-ui/core/Divider";
-import Alert from "@material-ui/lab/Alert";
+import Divider from "@mui/material/Divider";
+import Alert from "@mui/material/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { useLocation } from "react-router-dom";
@@ -142,12 +142,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
           unknownEthnicities.length === 0
             ? unknownRaces
             : unknownRaces.map((unknownRaceRow, index) => {
-                return unknownRaceRow[metricConfig.metricId] >
-                  unknownEthnicities[index][metricConfig.metricId] ||
-                  unknownEthnicities[index][metricConfig.metricId] == null
-                  ? unknownRaceRow
-                  : unknownEthnicities[index];
-              });
+              return unknownRaceRow[metricConfig.metricId] >
+                unknownEthnicities[index][metricConfig.metricId] ||
+                unknownEthnicities[index][metricConfig.metricId] == null
+                ? unknownRaceRow
+                : unknownEthnicities[index];
+            });
 
         const dataIsMissing = mapQueryResponse.dataIsMissing();
         const unknownsArrayEmpty = unknowns.length === 0;

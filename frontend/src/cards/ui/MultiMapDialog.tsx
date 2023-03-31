@@ -1,9 +1,9 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import Typography from "@material-ui/core/Typography";
-import { Box, Grid, useMediaQuery, useTheme } from "@material-ui/core";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import Typography from "@mui/material/Typography";
+import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 import { ChoroplethMap } from "../../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
@@ -21,7 +21,7 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
-import { Alert } from "@material-ui/lab";
+import { Alert } from "@mui/lab";
 import {
   DemographicGroup,
   RaceAndEthnicityGroup,
@@ -121,7 +121,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 {props.metricConfig && dataForValue.length > 0 && (
                   <ChoroplethMap
                     key={breakdownValue}
-                    signalListeners={{ click: (...args: any) => {} }}
+                    signalListeners={{ click: (...args: any) => { } }}
                     metric={props.metricConfig}
                     legendData={props.data}
                     data={dataForValue}
@@ -132,24 +132,23 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     hideActions={true}
                     scaleType="quantize"
                     geoData={props.geoData}
-                    filename={`${props.metricConfig.chartTitleLines.join(" ")}${
-                      breakdownValue === "All" ? "" : ` for ${breakdownValue}`
-                    } in ${props.fips.getSentenceDisplayName()}`}
+                    filename={`${props.metricConfig.chartTitleLines.join(" ")}${breakdownValue === "All" ? "" : ` for ${breakdownValue}`
+                      } in ${props.fips.getSentenceDisplayName()}`}
                     countColsToAdd={props.countColsToAdd}
                   />
                 )}
 
                 {/* TERRITORIES (IF NATIONAL VIEW) */}
                 {props.metricConfig &&
-                props.fips.isUsa() &&
-                dataForValue.length ? (
+                  props.fips.isUsa() &&
+                  dataForValue.length ? (
                   <Grid container>
                     {TERRITORY_CODES.map((code) => {
                       const fips = new Fips(code);
                       return (
                         <Grid item xs={4} sm={2} key={code}>
                           <ChoroplethMap
-                            signalListeners={{ click: (...args: any) => {} }}
+                            signalListeners={{ click: (...args: any) => { } }}
                             metric={props.metricConfig}
                             legendData={props.data}
                             data={dataForValue}

@@ -1,5 +1,5 @@
-import { Box, Grid } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+import { Box, Grid } from "@mui/material";
+import { Alert } from "@mui/lab";
 import React from "react";
 import { Link } from "react-router-dom";
 import {
@@ -99,11 +99,11 @@ export default function DefaultHelperBox() {
               ></iframe>
             </div>
             <p>
-              {/* 
+              {/*
               Watch a{" "}
                 <a href="https://www.youtube.com/embed/XBoqT9Jjc8w">
                   video demo
-                </a> or 
+                </a> or
               */}
               <i>
                 New to the tracker? Watch the video demo, or take a{" "}

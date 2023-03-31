@@ -1,11 +1,11 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import styles from "./Footer.module.scss";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import YouTubeIcon from "@material-ui/icons/YouTube";
-import ArrowUpwardRoundedIcon from "@material-ui/icons/ArrowUpwardRounded";
-import { Button } from "@material-ui/core";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import ArrowUpwardRoundedIcon from "@mui/icons-material/ArrowUpwardRounded";
+import { Button } from "@mui/material";
 import { ReactRouterLinkButton } from "./utils/urlutils";
 import {
   EXPLORE_DATA_PAGE_LINK,

@@ -1,6 +1,6 @@
 import React from "react";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
-import { CardContent } from "@material-ui/core";
+import { CardContent } from "@mui/material";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -78,9 +78,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     metricConfig,
     locationPhrase
   );
-  filename = `${filename}, by ${
-    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-  }`;
+  filename = `${filename}, by ${BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+    }`;
 
   const HASH_ID: ScrollableHashId = "rate-chart";
 

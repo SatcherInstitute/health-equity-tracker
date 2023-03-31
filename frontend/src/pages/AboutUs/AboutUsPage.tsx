@@ -1,6 +1,6 @@
 import React from "react";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import { useUrlSearchParams } from "../../utils/urlutils";
 import {
   ABOUT_US_PAGE_LINK,

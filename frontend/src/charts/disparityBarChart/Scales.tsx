@@ -1,4 +1,4 @@
-import { useMediaQuery } from "@material-ui/core";
+import { useMediaQuery } from "@mui/material";
 import { Scale } from "vega";
 import { BAR_PADDING, DATASET, LEGEND_COLORS } from "./constants";
 import { ScalesProps } from "./types";

@@ -1,21 +1,21 @@
 import React, { useMemo } from "react";
 import { Column, HeaderGroup, Row, useSortBy, useTable } from "react-table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableFooter from "@material-ui/core/TableFooter";
-import Paper from "@material-ui/core/Paper";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableFooter from "@mui/material/TableFooter";
+import Paper from "@mui/material/Paper";
 import {
   MetricConfig,
   MetricId,
   formatFieldValue,
 } from "../data/config/MetricConfig";
 import { BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/query/Breakdowns";
-import { Tooltip } from "@material-ui/core";
-import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
-import TableContainer from "@material-ui/core/TableContainer";
-import Table from "@material-ui/core/Table";
+import { Tooltip } from "@mui/material";
+import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
+import TableContainer from "@mui/material/TableContainer";
+import Table from "@mui/material/Table";
 import styles from "./Chart.module.scss";
 import sass from "../styles/variables.module.scss";
 import { RACE } from "../data/utils/Constants";

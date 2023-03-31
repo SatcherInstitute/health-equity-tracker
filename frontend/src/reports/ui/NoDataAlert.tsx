@@ -1,7 +1,7 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import { Grid } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
+import Button from "@mui/material/Button";
+import { Grid } from "@mui/material";
+import Alert from "@mui/material/Alert";
 
 function NoDataAlert(props: { dropdownVarId: string }) {
   return (

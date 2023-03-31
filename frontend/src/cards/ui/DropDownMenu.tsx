@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
-import ArrowRight from "@material-ui/icons/ArrowRight";
-import Button from "@material-ui/core/Button";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Popover, { PopoverOrigin } from "@material-ui/core/Popover";
+import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
+import ArrowRight from "@mui/icons-material/ArrowRight";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Popover, { PopoverOrigin } from "@mui/material/Popover";
 import { usePopover, PopoverElements } from "../../utils/hooks/usePopover";
 import styles from "./DropDownMenu.module.scss";
-import { useMediaQuery, useTheme } from "@material-ui/core";
+import { useMediaQuery, useTheme } from "@mui/material";
 import { DemographicGroup } from "../../data/utils/Constants";
 import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
 
@@ -16,8 +16,8 @@ interface MenuPopoverProps {
   popover: PopoverElements;
   // Map type indicates items are first level menu items, array indicates second level
   items:
-    | Record<BreakdownVarDisplayName, DemographicGroup[]>
-    | DemographicGroup[];
+  | Record<BreakdownVarDisplayName, DemographicGroup[]>
+  | DemographicGroup[];
   onClick: (
     event: React.MouseEvent<HTMLElement>,
     value: DemographicGroup

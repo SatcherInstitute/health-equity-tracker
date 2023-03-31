@@ -12,8 +12,8 @@ import {
   DATA_CATALOG_PAGE_LINK,
   CONTACT_TAB_LINK,
 } from "../utils/internalRoutes";
-import Button from "@material-ui/core/Button";
-import ArrowForward from "@material-ui/icons/ArrowForward";
+import Button from "@mui/material/Button";
+import ArrowForward from "@mui/icons-material/ArrowForward";
 import styles from "./Report.module.scss";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
 import {
@@ -22,7 +22,7 @@ import {
   VariableConfig,
 } from "../data/config/MetricConfig";
 import ShareButtons from "./ui/ShareButtons";
-import { Box } from "@material-ui/core";
+import { Box } from "@mui/material";
 import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";

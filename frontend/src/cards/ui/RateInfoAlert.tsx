@@ -1,5 +1,5 @@
-import { CardContent, Divider } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+import { CardContent, Divider } from "@mui/material";
+import { Alert } from "@mui/lab";
 import React from "react";
 import {
   formatFieldValue,

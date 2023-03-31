@@ -1,6 +1,6 @@
-import { CardContent, Grid } from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
-import Alert from "@material-ui/lab/Alert";
+import { CardContent, Grid } from "@mui/material";
+import Divider from "@mui/material/Divider";
+import Alert from "@mui/material/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { MetricId, VariableConfig } from "../data/config/MetricConfig";
@@ -345,17 +345,17 @@ function MapCardWithKey(props: MapCardProps) {
 
             {(mapQueryResponse.dataIsMissing() ||
               dataForActiveBreakdownFilter.length === 0) && (
-              <CardContent>
-                <MissingDataAlert
-                  dataName={dataName}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-                  }
-                  isMapCard={true}
-                  fips={props.fips}
-                />
-              </CardContent>
-            )}
+                <CardContent>
+                  <MissingDataAlert
+                    dataName={dataName}
+                    breakdownString={
+                      BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+                    }
+                    isMapCard={true}
+                    fips={props.fips}
+                  />
+                </CardContent>
+              )}
 
             {!mapQueryResponse.dataIsMissing() &&
               dataForActiveBreakdownFilter.length === 0 &&

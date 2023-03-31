@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./HighestLowestList.module.scss";
 import AnimateHeight from "react-animate-height";
-import { Grid } from "@material-ui/core";
-import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
-import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
-import { IconButton } from "@material-ui/core";
+import { Grid } from "@mui/material";
+import ArrowDropUp from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
+import { IconButton } from "@mui/material";
 import {
   MetricConfig,
   VariableConfig,
@@ -54,7 +54,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
           }
           onClick={() => props.setListExpanded(!props.listExpanded)}
           color="primary"
-        >
+          size="large">
           {props.listExpanded ? <ArrowDropUp /> : <ArrowDropDown />}
         </IconButton>
       </div>

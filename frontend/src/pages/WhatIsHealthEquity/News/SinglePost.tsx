@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from "@material-ui/core";
+import { Box, Button, Grid, Typography } from "@mui/material";
 
 import React from "react";
 import { useState } from "react";
@@ -15,10 +15,10 @@ import { NEWS_TAB_LINK } from "../../../utils/internalRoutes";
 import { Helmet } from "react-helmet-async";
 import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";
-import OpenInNewIcon from "@material-ui/icons/OpenInNew";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Article } from "../NewsTab";
 import hetLogo from "../../../assets/AppbarLogo.png";
-import { Skeleton } from "@material-ui/lab";
+import { Skeleton } from "@mui/lab";
 import SignupSection from "../../ui/SignupSection";
 import ShareButtons, {
   ARTICLE_DESCRIPTION,
@@ -55,9 +55,9 @@ export default function SinglePost() {
       // previous and next articles wrap around both ends of the array
       setPrevArticle(
         data.data[
-          fullArticleIndex - 1 >= 0
-            ? fullArticleIndex - 1
-            : data.data.length - 1
+        fullArticleIndex - 1 >= 0
+          ? fullArticleIndex - 1
+          : data.data.length - 1
         ]
       );
       setNextArticle(data.data[(fullArticleIndex + 1) % data.data.length]);
@@ -87,9 +87,8 @@ export default function SinglePost() {
       )}
       <Grid container className={styles.Grid}>
         <Helmet>
-          <title>{`News${
-            fullArticle ? ` - ${fullArticle?.title?.rendered}` : ""
-          } - Health Equity Tracker`}</title>
+          <title>{`News${fullArticle ? ` - ${fullArticle?.title?.rendered}` : ""
+            } - Health Equity Tracker`}</title>
           {/* if cross-posted from external site, should be input on WP as canonical_url */}
           {fullArticle && (
             <link
@@ -172,7 +171,7 @@ export default function SinglePost() {
               )}
 
               {fullArticle?.acf?.contributing_author &&
-              fullArticle?.acf?.post_nominals
+                fullArticle?.acf?.post_nominals
                 ? `, ${fullArticle.acf.post_nominals}`
                 : ""}
             </Typography>

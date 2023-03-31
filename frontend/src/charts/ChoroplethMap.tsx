@@ -12,7 +12,7 @@ import {
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
 } from "./Legend";
-import { useMediaQuery } from "@material-ui/core";
+import { useMediaQuery } from "@mui/material";
 import { PADDING_FOR_ACTIONS_MENU } from "./utils";
 import {
   addCAWPTooltipInfo,
@@ -283,7 +283,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             /*tooltipExpression=*/ zeroTooltipValue,
             /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
             /* hideMissingDataTooltip */ props.hideMissingDataTooltip
-          )
+        )
         : createShapeMarks(
             /*datasetName=*/ MISSING_DATASET,
             /*fillColor=*/ { value: UNKNOWN_GREY },
@@ -291,10 +291,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             /*tooltipExpression=*/ missingDataTooltipValue,
             /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
             /* hideMissingDataTooltip */ props.hideMissingDataTooltip
-          ),
+        ),
       createShapeMarks(
         /*datasetName=*/ VALID_DATASET,
-        /*fillColor=*/ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
+        /*fillColor=*/[{ scale: COLOR_SCALE, field: props.metric.metricId }],
         /*hoverColor=*/ DARK_BLUE,
         /*tooltipExpression=*/ tooltipValue,
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
@@ -341,8 +341,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             // only use the nonZero subset if viewing high low lists, viewing CAWP,
             // or viewing multimap with some groups having only one non-zero value
             props.listExpanded ||
-            !isCawp ||
-            (numUniqueNonZeroValues <= 1 && !props.hideLegend)
+              !isCawp ||
+              (numUniqueNonZeroValues <= 1 && !props.hideLegend)
               ? props.data
               : nonZeroData,
         },

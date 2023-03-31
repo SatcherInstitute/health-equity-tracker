@@ -7,9 +7,9 @@ import {
   TableHead,
   TableRow,
   Tooltip,
-} from "@material-ui/core";
-import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
-import { ArrowDropDown, ArrowDropUp } from "@material-ui/icons";
+} from "@mui/material";
+import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
+import { ArrowDropDown, ArrowDropUp } from "@mui/icons-material";
 import React, { useRef } from "react";
 import AnimateHeight from "react-animate-height";
 import { MetricConfig } from "../../data/config/MetricConfig";
@@ -66,13 +66,12 @@ export default function AltTableView(props: AltTableViewProps) {
     >
       <div className={styles.CollapseButton}>
         <IconButton
-          aria-label={`${
-            !props.expanded ? "Expand" : "Collapse"
-          } data table view of ${props.expandBoxLabel}`}
+          aria-label={`${!props.expanded ? "Expand" : "Collapse"
+            } data table view of ${props.expandBoxLabel}`}
           aria-expanded={props.expanded}
           onClick={() => props.setExpanded(!props.expanded)}
           color="primary"
-        >
+          size="large">
           {props.expanded ? <ArrowDropUp /> : <ArrowDropDown />}
         </IconButton>
       </div>

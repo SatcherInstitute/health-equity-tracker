@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, CardContent } from "@material-ui/core";
+import { Box, CardContent } from "@mui/material";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -24,7 +24,7 @@ import {
   getNestedData,
   getNestedUnknowns,
 } from "../data/utils/DatasetTimeUtils";
-import { Alert } from "@material-ui/lab";
+import { Alert } from "@mui/lab";
 import AltTableView from "./ui/AltTableView";
 import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
@@ -81,9 +81,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   );
 
   function getTitleText() {
-    return `${
-      metricConfigRates.trendsCardTitleName
-    } in ${props.fips.getSentenceDisplayName()}`;
+    return `${metricConfigRates.trendsCardTitleName
+      } in ${props.fips.getSentenceDisplayName()}`;
   }
 
   const isCawp = CAWP_DETERMINANTS.includes(metricConfigRates.metricId);
@@ -108,18 +107,18 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         const pctShareData = isCawp
           ? ratesData
           : queryResponsePctShares.getValidRowsForField(
-              metricConfigPctShares.metricId
-            );
+            metricConfigPctShares.metricId
+          );
 
         // swap race labels if applicable
         const ratesDataLabelled = isCawp
           ? ratesData.map((row: Row) => {
-              const altRow = { ...row };
-              altRow.race_and_ethnicity = getWomenRaceLabel(
-                row.race_and_ethnicity
-              );
-              return altRow;
-            })
+            const altRow = { ...row };
+            altRow.race_and_ethnicity = getWomenRaceLabel(
+              row.race_and_ethnicity
+            );
+            return altRow;
+          })
           : ratesData;
 
         // retrieve list of all present demographic groups
@@ -135,8 +134,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
         const demographicGroupsLabelled = isCawp
           ? demographicGroups.map((race) =>
-              getWomenRaceLabel(race as RaceAndEthnicityGroup)
-            )
+            getWomenRaceLabel(race as RaceAndEthnicityGroup)
+          )
           : demographicGroups;
 
         // we want to send Unknowns as Knowns for CAWP so we can plot as a line as well
@@ -221,13 +220,11 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     groupLabel: BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
                       props.breakdownVar
                     ] as DemographicGroup,
-                    yAxisLabel: `${metricConfigRates.shortLabel} ${
-                      props.fips.isUsa() ? "" : "from"
-                    } ${
-                      props.fips.isUsa()
+                    yAxisLabel: `${metricConfigRates.shortLabel} ${props.fips.isUsa() ? "" : "from"
+                      } ${props.fips.isUsa()
                         ? ""
                         : props.fips.getSentenceDisplayName()
-                    }`,
+                      }`,
                     xAxisIsMonthly: metricConfigRates.isMonthly,
                   }}
                   breakdownVar={props.breakdownVar}
@@ -252,9 +249,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   expanded={a11yTableExpanded}
                   setExpanded={setA11yTableExpanded}
                   expandBoxLabel={cardHeaderTitle.toLowerCase()}
-                  tableCaption={`${getTitleText()} by ${
-                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
-                  }`}
+                  tableCaption={`${getTitleText()} by ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                    }`}
                   knownsData={knownRatesData}
                   unknownsData={unknownPctShareData}
                   breakdownVar={props.breakdownVar}

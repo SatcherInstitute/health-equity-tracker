@@ -1,7 +1,7 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import styles from "./WhatIsHealthEquityPage.module.scss";
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import {
   AGE_ADJUSTMENT_TAB_LINK,
   CONTACT_TAB_LINK,

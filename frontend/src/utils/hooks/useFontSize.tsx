@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { createTheme, useMediaQuery } from "@material-ui/core";
+import { adaptV4Theme } from '@mui/material/styles';
+import { createTheme, useMediaQuery } from "@mui/material";
 
-const theme = createTheme({
+const theme = createTheme(adaptV4Theme({
   breakpoints: {
     values: {
       xs: 0,
@@ -11,7 +12,7 @@ const theme = createTheme({
       xl: 1850,
     },
   },
-});
+}));
 
 export function useFontSize() {
   const isComparing = window.location.href.includes("compare");

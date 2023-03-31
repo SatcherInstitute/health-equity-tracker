@@ -1,10 +1,10 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import styles from "./AboutUsPage.module.scss";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../../utils/externalUrls";
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField } from "@mui/material";
 
 function ContactUsTab() {
   return (

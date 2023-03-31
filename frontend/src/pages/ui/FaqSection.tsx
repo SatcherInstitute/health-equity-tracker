@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./FaqSection.module.scss";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { Accordion, AccordionSummary } from "@material-ui/core";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import { Accordion, AccordionSummary } from "@mui/material";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { FAQ_TAB_LINK } from "../../utils/internalRoutes";
 import { ReactRouterLinkButton } from "../../utils/urlutils";
 

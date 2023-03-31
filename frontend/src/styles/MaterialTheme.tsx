@@ -1,8 +1,8 @@
-import { createTheme } from "@material-ui/core/styles";
+import { createTheme, adaptV4Theme } from "@mui/material/styles";
 import "typeface-dm-sans";
 import sass from "./variables.module.scss";
 
-const MaterialTheme = createTheme({
+const MaterialTheme = createTheme(adaptV4Theme({
   palette: {
     primary: {
       light: sass.barChartLight,
@@ -14,9 +14,6 @@ const MaterialTheme = createTheme({
       main: sass.secondaryMain,
       dark: sass.secondaryDark,
     },
-  },
-  Typography: {
-    fontFamily: "DM Sans",
   },
   overrides: {
     MuiCssBaseline: {
@@ -71,7 +68,7 @@ const MaterialTheme = createTheme({
         border: `1px solid ${sass.unknownGrey} !important`,
         color: sass.black,
         textTransform: "none",
-        "&$selected": {
+        "&.Mui-selected": {
           backgroundColor: sass.toggleColor,
           color: sass.altGreen,
         },
@@ -96,6 +93,6 @@ const MaterialTheme = createTheme({
       },
     },
   },
-});
+}));
 
 export default MaterialTheme;
