@@ -94,7 +94,7 @@ EXPECTED_DTYPE = {
     "cardiovascular_diseases_per_100k": float,
     "asthma_per_100k": float,
     "voter_participation_per_100k": float,
-    'brfss_population_pct': float,
+    'ahr_population_pct': float,
 }
 
 

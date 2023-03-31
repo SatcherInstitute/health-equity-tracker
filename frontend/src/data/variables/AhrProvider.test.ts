@@ -1,4 +1,4 @@
-import BrfssProvider from "./BrfssProvider";
+import AhrProvider from "./AhrProvider";
 import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { Fips } from "../utils/Fips";
@@ -12,22 +12,22 @@ import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import { RACE, AGE, SEX } from "../utils/Constants";
 
 export async function ensureCorrectDatasetsDownloaded(
-  brfssDatasetId: string,
+  ahrDatasetId: string,
   baseBreakdown: Breakdowns,
   breakdownVar: BreakdownVar
 ) {
-  const brfssProvider = new BrfssProvider();
+  const ahrProvider = new AhrProvider();
 
-  dataFetcher.setFakeDatasetLoaded(brfssDatasetId, []);
+  dataFetcher.setFakeDatasetLoaded(ahrDatasetId, []);
 
   // Evaluate the response with requesting "All" field
-  const responseIncludingAll = await brfssProvider.getData(
+  const responseIncludingAll = await ahrProvider.getData(
     new MetricQuery([], baseBreakdown.addBreakdown(breakdownVar))
   );
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
 
-  const consumedDatasetIds = [brfssDatasetId];
+  const consumedDatasetIds = [ahrDatasetId];
   expect(responseIncludingAll).toEqual(
     new MetricQueryResponse([], consumedDatasetIds)
   );
@@ -36,7 +36,7 @@ export async function ensureCorrectDatasetsDownloaded(
 autoInitGlobals();
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
-describe("BrfssProvider", () => {
+describe("AhrProvider", () => {
   beforeEach(() => {
     resetCacheDebug();
     dataFetcher.resetState();
@@ -45,7 +45,7 @@ describe("BrfssProvider", () => {
 
   test("State and Race Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "uhc_data-race_and_ethnicity_state",
+      "ahr_data-race_and_ethnicity_state",
       Breakdowns.forFips(new Fips("37")),
       RACE
     );
@@ -53,7 +53,7 @@ describe("BrfssProvider", () => {
 
   test("National and Race Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "uhc_data-race_and_ethnicity_national",
+      "ahr_data-race_and_ethnicity_national",
       Breakdowns.forFips(new Fips("00")),
       RACE
     );
@@ -61,7 +61,7 @@ describe("BrfssProvider", () => {
 
   test("State and Age Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "uhc_data-age_state",
+      "ahr_data-age_state",
       Breakdowns.forFips(new Fips("37")),
       AGE
     );
@@ -69,7 +69,7 @@ describe("BrfssProvider", () => {
 
   test("National and Age Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "uhc_data-age_national",
+      "ahr_data-age_national",
       Breakdowns.forFips(new Fips("00")),
       AGE
     );
@@ -77,7 +77,7 @@ describe("BrfssProvider", () => {
 
   test("State and Sex Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "uhc_data-sex_state",
+      "ahr_data-sex_state",
       Breakdowns.forFips(new Fips("37")),
       SEX
     );
@@ -85,7 +85,7 @@ describe("BrfssProvider", () => {
 
   test("National and Sex Breakdown", async () => {
     await ensureCorrectDatasetsDownloaded(
-      "uhc_data-sex_national",
+      "ahr_data-sex_national",
       Breakdowns.forFips(new Fips("00")),
       SEX
     );
