@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./LandingPage.module.scss";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
