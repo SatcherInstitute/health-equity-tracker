@@ -18,13 +18,13 @@ import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 import NewsPreviewCard from "../WhatIsHealthEquity/News/NewsPreviewCard";
 import { useQuery } from "react-query";
-import { Article } from "../WhatIsHealthEquity/NewsTab";
+import type { Article } from "../WhatIsHealthEquity/NewsTab";
 import { ArticlesSkeleton } from "../WhatIsHealthEquity/News/AllPosts";
 import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
 import { urlMap } from "../../utils/externalUrls";
 import { Link } from "react-router-dom";
 
-//
+// TRIGGER BUILD
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -164,7 +164,8 @@ function LandingPage() {
               direction="row"
               justifyContent="space-around"
             >
-              {recentArticles && !isLoading ? (
+              {recentArticles && !isLoading
+? (
                 recentArticles.map((article: Article) => {
                   return (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={article.id}>
@@ -172,7 +173,8 @@ function LandingPage() {
                     </Grid>
                   );
                 })
-              ) : (
+              )
+: (
                 <ArticlesSkeleton
                   doPulse={!error}
                   numberLoading={numberOfArticlePreviews}

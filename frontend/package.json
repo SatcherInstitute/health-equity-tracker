@@ -63,7 +63,6 @@
     "typeface-dm-sans": "^1.1.13",
     "typeface-hind": "^1.1.13",
     "typeface-montserrat": "^1.1.13",
-    "typescript": "^4.9.5",
     "vega": "^5.22.1",
     "vega-lite": "^5.6.1",
     "vite": "^4.1.4",
@@ -90,9 +89,6 @@
     "build:prod": "env-cmd -f .env.prod npm run build",
     "build:development": "env-cmd -f .env.development npm run build",
     "build:deploy_preview": "env-cmd -f .env.deploy_preview npm run build"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "engines": {
     "node": ">=16",
@@ -124,6 +120,14 @@
     ]
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "eslint": "^8.37.0",
+    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "typescript": "^5.0.3",
     "vitest-canvas-mock": "^0.2.2"
   }
 }
