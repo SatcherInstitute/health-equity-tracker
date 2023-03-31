@@ -59,6 +59,8 @@ export interface MultiMapDialogProps {
   // Geography data, in topojson format. Must include both states and counties.
   // If not provided, defaults to directly loading /tmp/geographies.json
   geoData?: Record<string, any>;
+  // optional to show state data when county not available
+  hasSelfButNotChildGeoData?: boolean;
 }
 
 /*
@@ -126,7 +128,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     legendData={props.data}
                     data={dataForValue}
                     hideLegend={true}
-                    showCounties={props.fips.isUsa() ? false : true}
+                    showCounties={
+                      !props.fips.isUsa() && !props.hasSelfButNotChildGeoData
+                    }
                     fips={props.fips}
                     fieldRange={props.fieldRange}
                     hideActions={true}
@@ -155,7 +159,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                             data={dataForValue}
                             hideLegend={true}
                             hideActions={true}
-                            showCounties={props.fips.isUsa() ? false : true}
+                            showCounties={false}
                             fips={fips}
                             fieldRange={props.fieldRange}
                             scaleType="quantize"

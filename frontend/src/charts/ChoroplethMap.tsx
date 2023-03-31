@@ -218,7 +218,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const tooltipValue = buildTooltipTemplate(
       /* tooltipPairs */ tooltipPairs,
       /* title */ `datum.properties.name + " ${geographyType}"`,
-      /* includeSvi */ true
+      /* includeSvi */ props.showCounties
     );
 
     /* SET UP LEGEND */
