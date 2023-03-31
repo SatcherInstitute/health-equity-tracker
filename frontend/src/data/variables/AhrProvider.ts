@@ -4,8 +4,8 @@ import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import VariableProvider from "./VariableProvider";
 
-export const UHC_DETERMINANTS: MetricId[] = [
-  "brfss_population_pct",
+export const AHR_DETERMINANTS: MetricId[] = [
+  "ahr_population_pct",
   "copd_pct_share",
   "copd_per_100k",
   "copd_ratio_age_adjusted",
@@ -52,59 +52,59 @@ export const UHC_DETERMINANTS: MetricId[] = [
   "asthma_pct_relative_inequity",
 ];
 
-export const UHC_VOTER_AGE_DETERMINANTS: MetricId[] = [
+export const AHR_VOTER_AGE_DETERMINANTS: MetricId[] = [
   "voter_participation_pct_share",
   "voter_participation_per_100k",
   "voter_participation_ratio_age_adjusted",
   "voter_participation_pct_relative_inequity",
 ];
 
-export const UHC_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [
+export const AHR_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [
   "suicide_pct_share",
   "suicide_per_100k",
   "suicide_ratio_age_adjusted",
   "suicide_pct_relative_inequity",
 ];
 
-export const UHC_API_NH_DETERMINANTS: MetricId[] = [
+export const AHR_API_NH_DETERMINANTS: MetricId[] = [
   "preventable_hospitalizations_pct_share",
   "preventable_hospitalizations_per_100k",
   "preventable_hospitalizations_ratio_age_adjusted",
   "preventable_hospitalizations_pct_relative_inequity",
 ];
 
-export const ALL_UHC_DETERMINANTS = [
-  ...UHC_VOTER_AGE_DETERMINANTS,
-  ...UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
-  ...UHC_DETERMINANTS,
+export const ALL_AHR_DETERMINANTS = [
+  ...AHR_VOTER_AGE_DETERMINANTS,
+  ...AHR_DECADE_PLUS_5_AGE_DETERMINANTS,
+  ...AHR_DETERMINANTS,
 ];
 
-class BrfssProvider extends VariableProvider {
+class AhrProvider extends VariableProvider {
   constructor() {
-    super("brfss_provider", [
-      "brfss_population_pct",
-      ...UHC_DETERMINANTS,
-      ...UHC_VOTER_AGE_DETERMINANTS,
-      ...UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
+    super("ahr_provider", [
+      "ahr_population_pct",
+      ...AHR_DETERMINANTS,
+      ...AHR_VOTER_AGE_DETERMINANTS,
+      ...AHR_DECADE_PLUS_5_AGE_DETERMINANTS,
     ]);
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.geography === "national") {
       if (breakdowns.hasOnlyRace()) {
-        return "uhc_data-race_and_ethnicity_national";
+        return "ahr_data-race_and_ethnicity_national";
       } else if (breakdowns.hasOnlySex()) {
-        return "uhc_data-sex_national";
+        return "ahr_data-sex_national";
       } else if (breakdowns.hasOnlyAge()) {
-        return "uhc_data-age_national";
+        return "ahr_data-age_national";
       }
     } else if (breakdowns.geography === "state") {
       if (breakdowns.hasOnlyRace()) {
-        return "uhc_data-race_and_ethnicity_state";
+        return "ahr_data-race_and_ethnicity_state";
       } else if (breakdowns.hasOnlySex()) {
-        return "uhc_data-sex_state";
+        return "ahr_data-sex_state";
       } else if (breakdowns.hasOnlyAge()) {
-        return "uhc_data-age_state";
+        return "ahr_data-age_state";
       }
     }
     throw new Error("Not implemented");
@@ -116,8 +116,8 @@ class BrfssProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns;
     const timeView = metricQuery.timeView;
     const datasetId = this.getDatasetId(breakdowns);
-    const brfss = await getDataManager().loadDataset(datasetId);
-    let df = brfss.toDataFrame();
+    const ahr = await getDataManager().loadDataset(datasetId);
+    let df = ahr.toDataFrame();
 
     const consumedDatasetIds = [datasetId];
 
@@ -144,4 +144,4 @@ class BrfssProvider extends VariableProvider {
   }
 }
 
-export default BrfssProvider;
+export default AhrProvider;

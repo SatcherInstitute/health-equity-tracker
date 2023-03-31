@@ -160,3 +160,22 @@ export function MissingPrepData() {
     </>
   );
 }
+
+export function MissingAHRData() {
+  return (
+    <>
+      <h4>Missing America's Health Rankings data</h4>
+      <ul>
+        <li>
+          <b>Population data:</b> AHR does not have population data preventable
+          hospitalizations, voter participation, non-medical drug use, and
+          non-medical prescription drug use. We have chosen not to show any
+          percent share metrics for the measures without population data because
+          the source only provides the metrics as rates. Without population
+          data, it is difficult to accurately calculate percent share measures,
+          which could potentially result in misleading data.
+        </li>
+      </ul>
+    </>
+  );
+}
