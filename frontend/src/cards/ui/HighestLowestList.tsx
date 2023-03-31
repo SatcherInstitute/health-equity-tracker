@@ -1,37 +1,36 @@
 import React from "react";
 import styles from "./HighestLowestList.module.scss";
 import AnimateHeight from "react-animate-height";
-import { Grid } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import ArrowDropUp from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
-import { IconButton } from "@mui/material";
 import {
-  MetricConfig,
-  VariableConfig,
+  type MetricConfig,
+  type VariableConfig,
   formatFieldValue,
 } from "../../data/config/MetricConfig";
-import { Row } from "../../data/utils/DatasetTypes";
+import { type Row } from "../../data/utils/DatasetTypes";
 import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 
 export interface HighestLowestListProps {
   // MetricConfig for data
-  metricConfig: MetricConfig;
+  metricConfig: MetricConfig
   // VariableConfig for data
-  variableConfig: VariableConfig;
+  variableConfig: VariableConfig
   // Display name for geo type in as "see the ___ with the highest rates"
-  fipsTypePluralDisplayName: string;
+  fipsTypePluralDisplayName: string
   // Whether or not list is expanded
-  listExpanded: boolean;
+  listExpanded: boolean
   // Expand or collapse the list
-  setListExpanded: (listExpanded: boolean) => void;
-  highestValues: Row[];
-  lowestValues: Row[];
+  setListExpanded: (listExpanded: boolean) => void
+  highestValues: Row[]
+  lowestValues: Row[]
   // items in highest/lowest list that should receive qualifiers
-  qualifierItems?: string[];
+  qualifierItems?: string[]
   // message to display under a list with qualifiers
-  qualifierMessage?: string;
+  qualifierMessage?: string
   // optional suffix to alter the selected metric (used for CAWP "identifying as Black women")
-  selectedRaceSuffix?: string;
+  selectedRaceSuffix?: string
 }
 
 /*
@@ -52,14 +51,19 @@ export function HighestLowestList(props: HighestLowestListProps) {
               ? `hide lists of ${props.fipsTypePluralDisplayName} with highest and lowest rates `
               : `show lists of ${props.fipsTypePluralDisplayName} with highest and lowest rates`
           }
-          onClick={() => props.setListExpanded(!props.listExpanded)}
+          onClick={() => {
+            props.setListExpanded(!props.listExpanded);
+          }}
           color="primary"
-          size="large">
+          size="large"
+        >
           {props.listExpanded ? <ArrowDropUp /> : <ArrowDropDown />}
         </IconButton>
       </div>
       <div
-        onClick={() => props.setListExpanded(!props.listExpanded)}
+        onClick={() => {
+          props.setListExpanded(!props.listExpanded);
+        }}
         aria-hidden={true}
         className={
           props.listExpanded ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
@@ -115,11 +119,11 @@ export function HighestLowestList(props: HighestLowestListProps) {
 }
 
 export interface ExtremeListProps {
-  whichExtreme: "Highest" | "Lowest";
-  values: Row[];
-  metricConfig: MetricConfig;
-  qualifierItems?: string[];
-  qualifierMessage?: string;
+  whichExtreme: "Highest" | "Lowest"
+  values: Row[]
+  metricConfig: MetricConfig
+  qualifierItems?: string[]
+  qualifierMessage?: string
 }
 
 function ExtremeList(props: ExtremeListProps) {
@@ -142,17 +146,18 @@ function ExtremeList(props: ExtremeListProps) {
       </h4>
 
       <ul className={styles.ExtremeList}>
-        {isTie ? (
+        {isTie
+? (
           <li>
             <>
               {props.values.map((row, i) => {
-                let placeName = row["fips_name"];
+                let placeName = row.fips_name;
                 if (props.qualifierItems?.includes(placeName)) {
-                  placeName += ` ${props.qualifierMessage}`;
+                  placeName += ` ${props.qualifierMessage ?? ""}`;
                 }
 
                 return (
-                  <span key={row["fips_name"]}>
+                  <span key={row.fips_name}>
                     {placeName}
                     {i < props.values.length - 1 ? ", " : ""}
                   </span>
@@ -160,17 +165,18 @@ function ExtremeList(props: ExtremeListProps) {
               })}
             </>
           </li>
-        ) : (
+        )
+: (
           <>
             {!isTie &&
               props.values.map((row) => {
-                let placeName = row["fips_name"];
+                let placeName = row.fips_name;
                 if (props.qualifierItems?.includes(placeName)) {
-                  placeName += ` ${props.qualifierMessage}`;
+                  placeName += ` ${props.qualifierMessage ?? ""}`;
                 }
 
                 return (
-                  <li key={row["fips_name"]}>
+                  <li key={row.fips_name}>
                     {placeName}: {formatFieldValue(metricType, row[metricId])}{" "}
                     <span className={styles.Unit}>
                       {metricType === "per100k" ? "per 100k" : ""}

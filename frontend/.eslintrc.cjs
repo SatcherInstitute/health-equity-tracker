@@ -11,11 +11,24 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
+    project: ['tsconfig.json']
   },
   plugins: [
     'react'
   ],
   rules: {
+    quotes: 'off',
+    '@typescript-eslint/quotes': 'off',
+    '@typescript-eslint/comma-dangle': 'off',
+    '@typescript-eslint/semi': 'off',
+    '@typescript-eslint/explicit-function-return-type': "off",
+    '@typescript-eslint/space-before-function-paren': "off",
+    '@typescript-eslint/strict-boolean-expressions': "off",
+    '@typescript-eslint/restrict-plus-operands': "off",
+    'react/no-unescaped-entities': "off",
+    '@typescript-eslint/indent': "off",
+    "react/react-in-jsx-scope": "off"
+
   }
 }

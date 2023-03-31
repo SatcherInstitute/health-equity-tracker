@@ -25,6 +25,7 @@ import {
   MissingCovidVaccinationData,
   MissingHIVData,
   MissingPrepData,
+  MissingAHRData,
 } from "./methodologyContent/missingDataBlurbs";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
@@ -93,8 +94,8 @@ function MethodologyTab() {
                     cases, deaths, and hospitalizations, we only include the
                     population of states that do not have a suppressed case,
                     hospitalization, or death count as part of the total
-                    population for each respective measure. See the 'What data
-                    are missing' section for further details.
+                    population for each respective measure. See the{" "}
+                    <b>What data are missing</b> section for further details.
                   </li>
                   <li>
                     To protect the privacy of affected individuals, COVID-19
@@ -248,7 +249,7 @@ function MethodologyTab() {
                 <h4>Vaccination data limitations</h4>
                 <ul>
                   <li>
-                    <b>New Hampshire</b> lifted its national COVID-19 emergency
+                    <b>New Hampshire</b> lifted its national COVID-19 emergency
                     response declaration in May 2021, which allows vaccine
                     recipients to opt out of having their COVID-19 vaccinations
                     included in the state’s IIS. As such, data submitted by New
@@ -290,8 +291,8 @@ function MethodologyTab() {
                 <p>
                   Multiple chronic disease, behavioral health, and social
                   determinants of health in the tracker are sourced from{" "}
-                  <a href={urlMap.amr}>America's Health Rankings</a>, who in
-                  turn source the majority of their data from the{" "}
+                  <a href={urlMap.amr}>America's Health Rankings (AHR)</a>, who
+                  in turn source the majority of their data from the{" "}
                   <a href={urlMap.cdcBrfss}>
                     Behavioral Risk Factor Surveillance System (BRFSS)
                   </a>
@@ -325,13 +326,18 @@ function MethodologyTab() {
                         metric if it is presented as a per 100k in the data API.
                       </li>
                       <li>
-                        We have chosen to not show any <b>percent share</b>{" "}
-                        metrics for these conditions because the source only
-                        provides the metrics as rates.
+                        For COPD, diabetes, frequent mental distress,
+                        depression, excessive drinking, asthma, avoided care,
+                        and suicide, we source the <b>percent share</b> metrics
+                        directly from AHR.
                       </li>
                     </ul>
                   </li>
                 </ul>
+
+                <Card elevation={3} className={styles.MissingDataBox}>
+                  <MissingAHRData />
+                </Card>
 
                 <h3 className={styles.MethodologySubsubheaderText}>
                   Women in legislative office

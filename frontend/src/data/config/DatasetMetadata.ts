@@ -1,4 +1,4 @@
-import { DatasetMetadata } from "../utils/DatasetTypes";
+import { type DatasetMetadata } from "../utils/DatasetTypes";
 import { DataSourceMetadataMap, GEOGRAPHIES_DATASET_ID } from "./MetadataMap";
 
 export const datasetMetadataList: DatasetMetadata[] = [
@@ -343,34 +343,34 @@ export const datasetMetadataList: DatasetMetadata[] = [
     contains_nh: true,
   },
   {
-    id: "uhc_data-age_national",
+    id: "ahr_data-age_national",
     name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by age, nationally",
     update_time: "2021",
   },
   {
-    id: "uhc_data-race_and_ethnicity_national",
+    id: "ahr_data-race_and_ethnicity_national",
     name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by race/ethnicity, nationally",
     update_time: "2021",
     contains_nh: true,
   },
   {
-    id: "uhc_data-sex_national",
+    id: "ahr_data-sex_national",
     name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by sex, nationally",
     update_time: "2021",
   },
   {
-    id: "uhc_data-age_state",
+    id: "ahr_data-age_state",
     name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by age and state",
     update_time: "2021",
   },
   {
-    id: "uhc_data-race_and_ethnicity_state",
+    id: "ahr_data-race_and_ethnicity_state",
     name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by race/ethnicity and state",
     update_time: "2021",
     contains_nh: true,
   },
   {
-    id: "uhc_data-sex_state",
+    id: "ahr_data-sex_state",
     name: "Prevalence of multiple chronic disease, behavioral health, and social determinants of health by sex and state",
     update_time: "2021",
   },
@@ -460,7 +460,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
 export const DatasetMetadataMap: Record<string, DatasetMetadata> =
   Object.fromEntries(
     datasetMetadataList.map((m) => {
-      let metadataWithSource = m;
+      const metadataWithSource = m;
       const dataSource = Object.values(DataSourceMetadataMap).find((metadata) =>
         metadata.dataset_ids.includes(m.id)
       );
