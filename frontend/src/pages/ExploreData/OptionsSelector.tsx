@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import ArrowDropUp from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
 import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete"; // can't lazy load due to typing issue
+import Autocomplete from "@mui/lab/Autocomplete"; // can't lazy load due to typing issue
 import { Fips, USA_DISPLAY_NAME, USA_FIPS } from "../../data/utils/Fips";
 import Popover from "@mui/material/Popover";
 import Button from "@mui/material/Button";
@@ -22,7 +22,7 @@ import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMoti
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 function OptionsSelector(props: {
-  value: VariableId | string | DefaultDropdownVarId; // condition data type OR fips code as string OR default setting with no topic selected
+  value: VariableId | string | DefaultDropdownVarId; // condition  data type OR fips code as string OR default setting with no topic selected
   options: Fips[] | string[][];
   onOptionUpdate: (option: string) => void;
 }) {

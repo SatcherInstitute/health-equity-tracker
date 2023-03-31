@@ -1,5 +1,5 @@
-import { Box, Card, Grid, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Card, Grid, Typography, Skeleton } from "@mui/material";
+import { useEffect, useState } from "react";
 import styles from "./News.module.scss";
 import {
   fetchNewsData,
@@ -14,7 +14,6 @@ import ArticleFilters from "./ArticleFilters";
 import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";
 import { Article } from "../NewsTab";
-import { Skeleton } from "@mui/lab";
 import SignupSection from "../../ui/SignupSection";
 import { Link } from "react-router-dom";
 
