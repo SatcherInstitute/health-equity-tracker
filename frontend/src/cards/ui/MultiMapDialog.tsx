@@ -7,25 +7,25 @@ import { Box, Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import { ChoroplethMap } from "../../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
-import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
 import {
-  MetricConfig,
-  MetricId,
+  type MapOfDatasetMetadata,
+  type Row,
+  type FieldRange,
+} from "../../data/utils/DatasetTypes";
+import {
+  type MetricConfig,
+  type MetricId,
   SYMBOL_TYPE_LOOKUP,
 } from "../../data/config/MetricConfig";
-import { Row, FieldRange } from "../../data/utils/DatasetTypes";
 import { Sources } from "./Sources";
 import styles from "./MultiMapDialog.module.scss";
-import { MetricQueryResponse } from "../../data/query/MetricQuery";
+import { type MetricQueryResponse } from "../../data/query/MetricQuery";
 import {
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
 import { Alert } from "@material-ui/lab";
-import {
-  DemographicGroup,
-  RaceAndEthnicityGroup,
-} from "../../data/utils/Constants";
+import { type DemographicGroup } from "../../data/utils/Constants";
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
@@ -33,32 +33,32 @@ import {
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
-  metricConfig: MetricConfig;
+  metricConfig: MetricConfig
   // Whether or not the data was collected via survey
-  useSmallSampleMessage: boolean;
+  useSmallSampleMessage: boolean
   // Demographic breakdown upon which we're dividing the data, i.e. "age"
-  breakdown: BreakdownVar;
+  breakdown: BreakdownVar
   // Unique values for breakdown, each one will have it's own map
-  breakdownValues: DemographicGroup[];
+  breakdownValues: DemographicGroup[]
   // Geographic region of maps
-  fips: Fips;
+  fips: Fips
   // Data that populates maps
-  data: Row[];
+  data: Row[]
   // Range of metric's values, used for creating a common legend across maps
-  fieldRange: FieldRange | undefined;
+  fieldRange: FieldRange | undefined
   // Whether or not dialog is currently open
-  open: boolean;
+  open: boolean
   // Closes the dialog in the parent component
-  handleClose: () => void;
+  handleClose: () => void
   // Dataset IDs required the source footer
-  queryResponses: MetricQueryResponse[];
+  queryResponses: MetricQueryResponse[]
   // Metadata required for the source footer
-  metadata: MapOfDatasetMetadata;
-  breakdownValuesNoData: DemographicGroup[];
-  countColsToAdd: MetricId[];
+  metadata: MapOfDatasetMetadata
+  breakdownValuesNoData: DemographicGroup[]
+  countColsToAdd: MetricId[]
   // Geography data, in topojson format. Must include both states and counties.
   // If not provided, defaults to directly loading /tmp/geographies.json
-  geoData?: Record<string, any>;
+  geoData?: Record<string, any>
 }
 
 /*
@@ -99,7 +99,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             const mapLabel = CAWP_DETERMINANTS.includes(
               props.metricConfig.metricId
             )
-              ? getWomenRaceLabel(breakdownValue as RaceAndEthnicityGroup)
+              ? getWomenRaceLabel(breakdownValue)
               : breakdownValue;
 
             const dataForValue = props.data.filter(
@@ -126,7 +126,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     legendData={props.data}
                     data={dataForValue}
                     hideLegend={true}
-                    showCounties={props.fips.isUsa() ? false : true}
+                    showCounties={!props.fips.isUsa()}
                     fips={props.fips}
                     fieldRange={props.fieldRange}
                     hideActions={true}
@@ -155,7 +155,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                             data={dataForValue}
                             hideLegend={true}
                             hideActions={true}
-                            showCounties={props.fips.isUsa() ? false : true}
+                            showCounties={!props.fips.isUsa()}
                             fips={fips}
                             fieldRange={props.fieldRange}
                             scaleType="quantize"
