@@ -6,12 +6,12 @@ import {
   GeographicBreakdown,
 } from "../query/Breakdowns";
 import {
-  UHC_API_NH_DETERMINANTS,
-  UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
-  UHC_DETERMINANTS,
-  UHC_VOTER_AGE_DETERMINANTS,
-  ALL_UHC_DETERMINANTS,
-} from "../variables/BrfssProvider";
+  AHR_API_NH_DETERMINANTS,
+  AHR_DECADE_PLUS_5_AGE_DETERMINANTS,
+  AHR_DETERMINANTS,
+  AHR_VOTER_AGE_DETERMINANTS,
+  ALL_AHR_DETERMINANTS,
+} from "../variables/AhrProvider";
 import {
   RACE,
   ALL,
@@ -358,21 +358,21 @@ export function getExclusionList(
     }
   }
 
-  // UHC/BRFSS/AHR
-  if (ALL_UHC_DETERMINANTS.includes(current100k) && currentBreakdown === RACE) {
-    UHC_API_NH_DETERMINANTS.includes(current100k)
+  // AHR
+  if (ALL_AHR_DETERMINANTS.includes(current100k) && currentBreakdown === RACE) {
+    AHR_API_NH_DETERMINANTS.includes(current100k)
       ? exclusionList.push(ASIAN_NH, NHPI_NH)
       : exclusionList.push(API_NH);
   }
 
-  if (ALL_UHC_DETERMINANTS.includes(current100k) && currentBreakdown === AGE) {
+  if (ALL_AHR_DETERMINANTS.includes(current100k) && currentBreakdown === AGE) {
     // get correct age buckets for this determinant
     let determinantBuckets: any[] = [];
-    if (UHC_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k))
+    if (AHR_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k))
       determinantBuckets.push(...DECADE_PLUS_5_AGE_BUCKETS);
-    else if (UHC_VOTER_AGE_DETERMINANTS.includes(current100k))
+    else if (AHR_VOTER_AGE_DETERMINANTS.includes(current100k))
       determinantBuckets.push(...VOTER_AGE_BUCKETS);
-    else if (UHC_DETERMINANTS.includes(current100k))
+    else if (AHR_DETERMINANTS.includes(current100k))
       determinantBuckets.push(...BROAD_AGE_BUCKETS);
 
     // remove all of the other age groups

@@ -3,7 +3,7 @@ import AcsPopulationProvider from "../variables/AcsPopulationProvider";
 import VariableProvider from "../variables/VariableProvider";
 import CdcCovidProvider from "../variables/CdcCovidProvider";
 import HivProvider from "../variables/HivProvider";
-import BrfssProvider from "../variables/BrfssProvider";
+import AhrProvider from "../variables/AhrProvider";
 import CawpProvider from "../variables/CawpProvider";
 import IncarcerationProvider from "../variables/IncarcerationProvider";
 import { MetricId } from "../config/MetricConfig";
@@ -18,7 +18,7 @@ export type ProviderId =
   | "geo_context_provider"
   | "vaccine_provider"
   | "covid_provider"
-  | "brfss_provider"
+  | "ahr_provider"
   | "cawp_provider"
   | "incarceration_provider";
 
@@ -37,7 +37,7 @@ export default class VariableProviderMap {
       new GeoContextProvider(),
       new CawpProvider(),
       new IncarcerationProvider(),
-      new BrfssProvider(),
+      new AhrProvider(),
       new VaccineProvider(acsProvider),
     ];
     this.providersById = this.getProvidersById();

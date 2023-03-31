@@ -182,7 +182,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
           (!unknownsArrayEmpty && unknownsUndefined) ||
           noDemographicInfo;
 
-        // show NO UNKNOWNS INFO BOX for an expected empty array of UNKNOWNS (eg the BRFSS survey)
+        // show NO UNKNOWNS INFO BOX for an expected empty array of UNKNOWNS (eg the AHR data)
         const showNoUnknownsInfo =
           unknownsArrayEmpty &&
           !dataIsMissing &&

@@ -76,7 +76,7 @@ describe("WithLoadingOrErrorUI", () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state", []);
-      dataFetcher.setFakeDatasetLoaded("uhc_data-race_and_ethnicity_state", [
+      dataFetcher.setFakeDatasetLoaded("ahr_data-race_and_ethnicity_state", [
         {
           state_name: "Alabama",
           race_and_ethnicity: "AmIn",
@@ -115,7 +115,7 @@ describe("WithLoadingOrErrorUI", () => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded("acs_population-by_race_national", []);
       dataFetcher.setFakeDatasetLoaded(
-        "uhc_data-race_and_ethnicity_national",
+        "ahr_data-race_and_ethnicity_national",
         []
       );
     });
@@ -137,11 +137,11 @@ describe("WithLoadingOrErrorUI", () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded("acs_population-by_age_county", []);
-      dataFetcher.setFakeDatasetLoaded("uhc_data-race_and_ethnicity", []);
+      dataFetcher.setFakeDatasetLoaded("ahr_data-race_and_ethnicity", []);
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
-      "Error: Breakdowns not supported for provider brfss_provider: age:no filters,geography:county"
+      "Error: Breakdowns not supported for provider ahr_provider: age:no filters,geography:county"
     );
     expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);
   });
