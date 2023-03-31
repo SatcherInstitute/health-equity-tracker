@@ -26,7 +26,9 @@ module.exports = {
     '@typescript-eslint/space-before-function-paren': "off",
     '@typescript-eslint/strict-boolean-expressions': "off",
     '@typescript-eslint/indent': "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    '@typescript-eslint/restrict-plus-operands': "off",
+    'react/no-unescaped-entities': "off"
 
   }
 }
