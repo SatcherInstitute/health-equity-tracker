@@ -1,4 +1,4 @@
-import { DatasetMetadata } from "../utils/DatasetTypes";
+import { type DatasetMetadata } from "../utils/DatasetTypes";
 import { DataSourceMetadataMap, GEOGRAPHIES_DATASET_ID } from "./MetadataMap";
 
 export const datasetMetadataList: DatasetMetadata[] = [
@@ -460,7 +460,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
 export const DatasetMetadataMap: Record<string, DatasetMetadata> =
   Object.fromEntries(
     datasetMetadataList.map((m) => {
-      let metadataWithSource = m;
+      const metadataWithSource = m;
       const dataSource = Object.values(DataSourceMetadataMap).find((metadata) =>
         metadata.dataset_ids.includes(m.id)
       );

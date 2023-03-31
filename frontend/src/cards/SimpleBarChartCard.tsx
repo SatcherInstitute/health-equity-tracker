@@ -1,18 +1,18 @@
 import React from "react";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import { CardContent } from "@material-ui/core";
-import { Fips } from "../data/utils/Fips";
+import { type Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import {
   isPctType,
-  MetricId,
-  VariableConfig,
+  type MetricId,
+  type VariableConfig,
 } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -21,7 +21,7 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
-import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 import { CAWP_DATA_TYPES } from "../data/variables/CawpProvider";
 import PopulationSubsetAlert from "./ui/PopulationSubsetAlert";
@@ -31,10 +31,10 @@ import { HIV_DETERMINANTS } from "../data/variables/HivProvider";
 const PRELOAD_HEIGHT = 668;
 
 export interface SimpleBarChartCardProps {
-  key?: string;
-  breakdownVar: BreakdownVar;
-  variableConfig: VariableConfig;
-  fips: Fips;
+  key?: string
+  breakdownVar: BreakdownVar
+  variableConfig: VariableConfig
+  fips: Fips
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -49,7 +49,7 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 }
 
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
-  const metricConfig = props.variableConfig.metrics["per100k"];
+  const metricConfig = props.variableConfig.metrics.per100k;
   const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
 
   const isIncarceration = INCARCERATION_IDS.includes(

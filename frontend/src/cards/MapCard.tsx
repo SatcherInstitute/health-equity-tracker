@@ -3,15 +3,21 @@ import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { MetricId, VariableConfig } from "../data/config/MetricConfig";
+import {
+  type MetricId,
+  type VariableConfig,
+} from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
-  BreakdownVarDisplayName,
+  type BreakdownVarDisplayName,
 } from "../data/query/Breakdowns";
-import { MetricQuery, MetricQueryResponse } from "../data/query/MetricQuery";
+import {
+  MetricQuery,
+  type MetricQueryResponse,
+} from "../data/query/MetricQuery";
 import { AgeSorterStrategy } from "../data/sorting/AgeSorterStrategy";
 import {
   ALL,
@@ -19,10 +25,10 @@ import {
   UNKNOWN,
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
-  DemographicGroup,
+  type DemographicGroup,
   RACE,
 } from "../data/utils/Constants";
-import { Row } from "../data/utils/DatasetTypes";
+import { type Row } from "../data/utils/DatasetTypes";
 import { getExtremeValues } from "../data/utils/datasetutils";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import {
@@ -50,7 +56,7 @@ import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { generateSubtitle } from "../charts/utils";
 import { useLocation } from "react-router-dom";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
-import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 import { HIV_DETERMINANTS } from "../data/variables/HivProvider";
 import PopulationSubsetAlert from "./ui/PopulationSubsetAlert";
@@ -58,11 +64,11 @@ import PopulationSubsetAlert from "./ui/PopulationSubsetAlert";
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 
 export interface MapCardProps {
-  key?: string;
-  fips: Fips;
-  variableConfig: VariableConfig;
-  updateFipsCallback: (fips: Fips) => void;
-  currentBreakdown: BreakdownVar;
+  key?: string
+  fips: Fips
+  variableConfig: VariableConfig
+  updateFipsCallback: (fips: Fips) => void
+  currentBreakdown: BreakdownVar
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -79,7 +85,7 @@ export function MapCard(props: MapCardProps) {
 function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050]);
 
-  const metricConfig = props.variableConfig.metrics["per100k"];
+  const metricConfig = props.variableConfig.metrics.per100k;
   const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
   const currentBreakdown = props.currentBreakdown;
 
@@ -177,7 +183,7 @@ function MapCardWithKey(props: MapCardProps) {
   );
 
   const { metricId } = metricConfig;
-  let subtitle = generateSubtitle({
+  const subtitle = generateSubtitle({
     activeBreakdownFilter,
     currentBreakdown,
     isPopulationSubset,
@@ -271,13 +277,15 @@ function MapCardWithKey(props: MapCardProps) {
               metricConfig={metricConfig}
               useSmallSampleMessage={
                 !mapQueryResponse.dataIsMissing() &&
-                (props.variableConfig.surveyCollectedData || false)
+                (props.variableConfig.surveyCollectedData ?? false)
               }
               data={mapQueryResponse.getValidRowsForField(
                 metricConfig.metricId
               )}
               breakdown={props.currentBreakdown}
-              handleClose={() => setSmallMultiplesDialogOpen(false)}
+              handleClose={() => {
+                setSmallMultiplesDialogOpen(false);
+              }}
               open={smallMultiplesDialogOpen}
               breakdownValues={breakdownValues}
               fieldRange={mapQueryResponse.getFieldRange(metricConfig.metricId)}
@@ -292,9 +300,7 @@ function MapCardWithKey(props: MapCardProps) {
               <MapBreadcrumbs
                 fips={props.fips}
                 updateFipsCallback={props.updateFipsCallback}
-                ariaLabel={
-                  props.variableConfig.variableFullDisplayName as string
-                }
+                ariaLabel={props.variableConfig.variableFullDisplayName}
                 scrollToHashId={HASH_ID}
               />
             </CardContent>
@@ -394,7 +400,7 @@ function MapCardWithKey(props: MapCardProps) {
                       mapQueryResponse.dataIsMissing() ||
                       dataForActiveBreakdownFilter.length <= 1
                     }
-                    showCounties={props.fips.isUsa() ? false : true}
+                    showCounties={!props.fips.isUsa()}
                     fips={props.fips}
                     scaleType="quantize"
                     geoData={geoData}
@@ -423,7 +429,7 @@ function MapCardWithKey(props: MapCardProps) {
                               legendData={dataForActiveBreakdownFilter}
                               hideLegend={true}
                               hideActions={true}
-                              showCounties={props.fips.isUsa() ? false : true}
+                              showCounties={!props.fips.isUsa()}
                               fips={fips}
                               scaleType="quantize"
                               geoData={geoData}
