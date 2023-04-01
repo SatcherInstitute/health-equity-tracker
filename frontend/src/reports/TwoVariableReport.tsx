@@ -11,18 +11,18 @@ import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
 import { TableCard } from "../cards/TableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
 import {
-  DropdownVarId,
+  type DropdownVarId,
   METRIC_CONFIG,
-  VariableConfig,
-  VariableId,
+  type VariableConfig,
+  type VariableId,
 } from "../data/config/MetricConfig";
 import {
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
   DEMOGRAPHIC_BREAKDOWNS,
 } from "../data/query/Breakdowns";
 import { RACE } from "../data/utils/Constants";
-import { Fips } from "../data/utils/Fips";
+import { type Fips } from "../data/utils/Fips";
 import { TableOfContents } from "../pages/ui/TableOfContents";
 import {
   DATA_TYPE_1_PARAM,
@@ -36,7 +36,7 @@ import {
 import { reportProviderSteps } from "./ReportProviderSteps";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
-import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 import styles from "./Report.module.scss";
 import { Helmet } from "react-helmet-async";
 
@@ -48,17 +48,17 @@ const NON_LAZYLOADED_CARDS: ScrollableHashId[] = [
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
 function TwoVariableReport(props: {
-  key: string;
-  dropdownVarId1: DropdownVarId;
-  dropdownVarId2: DropdownVarId;
-  fips1: Fips;
-  fips2: Fips;
-  updateFips1Callback: (fips: Fips) => void;
-  updateFips2Callback: (fips: Fips) => void;
-  isScrolledToTop: boolean;
-  reportStepHashIds?: ScrollableHashId[];
-  setReportStepHashIds?: Function;
-  headerScrollMargin: number;
+  key: string
+  dropdownVarId1: DropdownVarId
+  dropdownVarId2: DropdownVarId
+  fips1: Fips
+  fips2: Fips
+  updateFips1Callback: (fips: Fips) => void
+  updateFips2Callback: (fips: Fips) => void
+  isScrolledToTop: boolean
+  reportStepHashIds?: ScrollableHashId[]
+  setReportStepHashIds?: (reportStepHashIds: ScrollableHashId[]) => void
+  headerScrollMargin: number
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
@@ -138,7 +138,6 @@ function TwoVariableReport(props: {
     );
 
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variableConfig1, variableConfig2]);
 
   if (variableConfig1 === null) {
@@ -160,9 +159,9 @@ function TwoVariableReport(props: {
     currentBreakdown === breakdownVar;
 
   const showTrendCardRow =
-    variableConfig1?.timeSeriesData || variableConfig2?.timeSeriesData;
+    variableConfig1?.timeSeriesData ?? variableConfig2?.timeSeriesData;
   const showAgeAdjustCardRow =
-    variableConfig1?.metrics?.age_adjusted_ratio?.ageAdjusted ||
+    variableConfig1?.metrics?.age_adjusted_ratio?.ageAdjusted ??
     variableConfig2?.metrics?.age_adjusted_ratio?.ageAdjusted;
 
   const dt1 = variableConfig1.variableFullDisplayName;
@@ -526,23 +525,23 @@ function TwoVariableReport(props: {
 }
 
 function RowOfTwoOptionalMetrics(props: {
-  id: ScrollableHashId;
-  variableConfig1: VariableConfig | undefined;
-  variableConfig2: VariableConfig | undefined;
-  fips1: Fips;
-  fips2: Fips;
-  updateFips1?: (fips: Fips) => void;
-  updateFips2?: (fips: Fips) => void;
+  id: ScrollableHashId
+  variableConfig1: VariableConfig | undefined
+  variableConfig2: VariableConfig | undefined
+  fips1: Fips
+  fips2: Fips
+  updateFips1?: (fips: Fips) => void
+  updateFips2?: (fips: Fips) => void
   createCard: (
     variableConfig: VariableConfig,
     fips: Fips,
     updateFips: (fips: Fips) => void,
     dropdownVarId?: DropdownVarId,
     isCompareCard?: boolean
-  ) => JSX.Element;
-  dropdownVarId1?: DropdownVarId;
-  dropdownVarId2?: DropdownVarId;
-  headerScrollMargin: number;
+  ) => JSX.Element
+  dropdownVarId1?: DropdownVarId
+  dropdownVarId2?: DropdownVarId
+  headerScrollMargin: number
 }) {
   if (!props.variableConfig1 && !props.variableConfig2) {
     return <></>;
@@ -568,7 +567,7 @@ function RowOfTwoOptionalMetrics(props: {
             {props.createCard(
               props.variableConfig1,
               props.fips1,
-              props.updateFips1 || unusedFipsCallback,
+              props.updateFips1 ?? unusedFipsCallback,
               props.dropdownVarId1,
               /* isCompareCard */ false
             )}
@@ -581,7 +580,7 @@ function RowOfTwoOptionalMetrics(props: {
               {props.createCard(
                 props.variableConfig1,
                 props.fips1,
-                props.updateFips1 || unusedFipsCallback,
+                props.updateFips1 ?? unusedFipsCallback,
                 props.dropdownVarId1,
                 /* isCompareCard */ false
               )}
@@ -602,7 +601,7 @@ function RowOfTwoOptionalMetrics(props: {
             {props.createCard(
               props.variableConfig2,
               props.fips2,
-              props.updateFips2 || unusedFipsCallback,
+              props.updateFips2 ?? unusedFipsCallback,
               props.dropdownVarId2,
               /* isCompareCard */ true
             )}
@@ -615,7 +614,7 @@ function RowOfTwoOptionalMetrics(props: {
               {props.createCard(
                 props.variableConfig2,
                 props.fips2,
-                props.updateFips2 || unusedFipsCallback,
+                props.updateFips2 ?? unusedFipsCallback,
                 props.dropdownVarId2,
                 /* isCompareCard */ true
               )}

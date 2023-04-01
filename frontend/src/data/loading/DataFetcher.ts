@@ -2,9 +2,9 @@
 // untyped for now, but we should define types for the API calls once we
 // establish the API types.
 
-import { MapOfDatasetMetadata, Row } from "../utils/DatasetTypes";
+import { type MapOfDatasetMetadata, type Row } from "../utils/DatasetTypes";
 import { DatasetMetadataMap } from "../config/DatasetMetadata";
-import { Environment } from "../../utils/Environment";
+import { type Environment } from "../../utils/Environment";
 
 type FileFormat = "json" | "csv";
 
@@ -13,10 +13,10 @@ export interface DataFetcher {
    * Fetches and returns the dataset associated with the provided ID.
    * @param datasetId The id of the dataset to load.
    */
-  loadDataset(datasetId: string): Promise<Row[]>;
+  loadDataset: (datasetId: string) => Promise<Row[]>
 
   /** Fetches and returns the MetadataMap for all datasets. */
-  getMetadata(): Promise<MapOfDatasetMetadata>;
+  getMetadata: () => Promise<MapOfDatasetMetadata>
 }
 
 export class ApiDataFetcher implements DataFetcher {
@@ -76,7 +76,7 @@ export class ApiDataFetcher implements DataFetcher {
 
   // TODO build in retries, timeout before showing error to user.
   async loadDataset(datasetId: string): Promise<Row[]> {
-    let result = await this.fetchDataset(datasetId);
+    const result = await this.fetchDataset(datasetId);
 
     // Note that treating geographies as a normal dataset is a bit weird
     // because it doesn't fit the normal dataset model, so the dataset "rows"

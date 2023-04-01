@@ -1,8 +1,8 @@
-import { urlMap } from "../../../utils/externalUrls";
-import { Link } from "react-router-dom";
-import { METHODOLOGY_TAB_LINK } from "../../../utils/internalRoutes";
+import { urlMap } from "../../../utils/externalUrls"
+import { Link } from "react-router-dom"
+import { METHODOLOGY_TAB_LINK } from "../../../utils/internalRoutes"
 
-export function MissingCovidData() {
+export function MissingCovidData () {
   return (
     <>
       <h4>Missing and suppressed COVID data</h4>
@@ -53,10 +53,10 @@ export function MissingCovidData() {
         </li>
       </ul>
     </>
-  );
+  )
 }
 
-export function MissingCovidVaccinationData() {
+export function MissingCovidVaccinationData () {
   return (
     <>
       <h4>Missing COVID-19 vaccination data</h4>
@@ -81,10 +81,10 @@ export function MissingCovidVaccinationData() {
         </li>
       </ul>
     </>
-  );
+  )
 }
 
-export function MissingCAWPData() {
+export function MissingCAWPData () {
   return (
     <>
       <h4>Missing data for women in legislative office</h4>
@@ -105,10 +105,10 @@ export function MissingCAWPData() {
         </li>
       </ul>
     </>
-  );
+  )
 }
 
-export function MissingHIVData() {
+export function MissingHIVData () {
   return (
     <>
       <h4>Missing data for HIV deaths and diagnoses</h4>
@@ -133,10 +133,10 @@ export function MissingHIVData() {
         </li>
       </ul>
     </>
-  );
+  )
 }
 
-export function MissingPrepData() {
+export function MissingPrepData () {
   return (
     <>
       <h4>PrEP Coverage and Prescriptions</h4>
@@ -158,10 +158,10 @@ export function MissingPrepData() {
         </li>
       </ul>
     </>
-  );
+  )
 }
 
-export function MissingAHRData() {
+export function MissingAHRData () {
   return (
     <>
       <h4>Missing America's Health Rankings data</h4>
@@ -177,5 +177,5 @@ export function MissingAHRData() {
         </li>
       </ul>
     </>
-  );
+  )
 }

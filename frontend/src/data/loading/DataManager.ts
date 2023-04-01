@@ -1,9 +1,9 @@
-import { DataFrame, IDataFrame } from "data-forge";
+import { DataFrame, type IDataFrame } from "data-forge";
 import LRU from "lru-cache";
 import { getDataFetcher, getDataManager, getLogger } from "../../utils/globals";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { type MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
-import { Dataset, MapOfDatasetMetadata } from "../utils/DatasetTypes";
+import { Dataset, type MapOfDatasetMetadata } from "../utils/DatasetTypes";
 import { joinOnCols } from "../utils/datasetutils";
 import VariableProviderMap from "./VariableProviderMap";
 
@@ -41,6 +41,7 @@ export abstract class ResourceCache<K, R> {
         // It is recommended that if a single entry is larger than cache size,
         // it get split up into smaller chunks to avoid poor performance when
         // multiple cards try to use the same large resource.
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         getLogger().logError(
           new Error(
             "Resource loaded that is larger than the maximum cache size: " + key
@@ -105,6 +106,7 @@ export abstract class ResourceCache<K, R> {
         return resource;
       }
       const loadingResource = this.loadingResources[resourceId];
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       if (loadingResource) {
         return await loadingResource;
       }
@@ -115,6 +117,7 @@ export abstract class ResourceCache<K, R> {
       const result = await loadPromise;
 
       this.lruCache.set(resourceId, result);
+      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete this.loadingResources[resourceId];
       getLogger().debugLog(
         "Loaded " + resourceId + ". Cache size: " + this.lruCache.length
@@ -122,6 +125,7 @@ export abstract class ResourceCache<K, R> {
 
       return result;
     } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete this.loadingResources[resourceId];
       this.failedResources.add(resourceId);
       await getLogger().logError(e as Error, "WARNING", {
@@ -192,7 +196,7 @@ class DatasetCache extends ResourceCache<string, Dataset> {
 }
 
 class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
-  private providerMap: VariableProviderMap;
+  private readonly providerMap: VariableProviderMap;
 
   constructor(providerMap: VariableProviderMap, maxSize: number) {
     super(maxSize);
@@ -206,8 +210,8 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
 
     // Yield thread so the UI can respond. This prevents long calculations
     // from causing UI elements to look laggy.
-    await new Promise((res) => {
-      setTimeout(res, 0);
+    await new Promise((resolve) => {
+      setTimeout(resolve, 0);
     });
     // TODO potentially improve caching by caching the individual results
     // before joining so those can be reused, or caching the results under
@@ -215,8 +219,8 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
     // you request covid cases we could also cache it under covid deaths
     // since they're provided together. Also, it would be nice to cache ACS
     // when it's used from within another provider.
-    const promises: Promise<MetricQueryResponse>[] = providers.map((provider) =>
-      provider.getData(query)
+    const promises: Array<Promise<MetricQueryResponse>> = providers.map(
+      async (provider) => await provider.getData(query)
     );
 
     const queryResponses: MetricQueryResponse[] = await Promise.all(promises);

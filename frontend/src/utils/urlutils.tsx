@@ -2,10 +2,10 @@ import Button from "@material-ui/core/Button";
 import axios from "axios";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { VariableId } from "../data/config/MetricConfig";
+import { type VariableId } from "../data/config/MetricConfig";
 import { getLogger } from "./globals";
 import { EXPLORE_DATA_PAGE_LINK } from "./internalRoutes";
-import { MadLibId, PhraseSelections } from "./MadLibs";
+import { type MadLibId, type PhraseSelections } from "./MadLibs";
 
 export const STICKY_VERSION_PARAM = "sv";
 
@@ -90,13 +90,13 @@ export function useUrlSearchParams() {
 }
 
 export function LinkWithStickyParams(props: {
-  to: string;
-  target?: string;
-  className?: string;
-  children: React.ReactNode;
+  to: string
+  target?: string
+  className?: string
+  children: React.ReactNode
 }) {
-  let linkProps = { ...props };
-  let params = useSearchParams();
+  const linkProps = { ...props };
+  const params = useSearchParams();
   let newUrl = props.to;
   if (params[STICKY_VERSION_PARAM]) {
     // Note: doesn't handle urls that already have params on them.
@@ -109,11 +109,11 @@ export function LinkWithStickyParams(props: {
 }
 
 export function ReactRouterLinkButton(props: {
-  url: string;
-  className?: string;
-  displayName?: string;
-  children?: React.ReactNode;
-  ariaLabel?: string;
+  url: string
+  className?: string
+  displayName?: string
+  children?: React.ReactNode
+  ariaLabel?: string
 }) {
   return (
     <Button
@@ -121,7 +121,7 @@ export function ReactRouterLinkButton(props: {
       className={props.className}
       aria-label={props.ariaLabel}
     >
-      {props.displayName || props.children}
+      {props.displayName ?? props.children}
     </Button>
   );
 }
@@ -163,14 +163,17 @@ export function setParameter(
   setParameters([{ name: paramName, value: paramValue }]);
 }
 
-export type ParamKeyValue = { name: string; value: string | null };
+export interface ParamKeyValue {
+  name: string
+  value: string | null
+}
 
 export function setParameters(paramMap: ParamKeyValue[]) {
-  let searchParams = new URLSearchParams(window.location.search);
+  const searchParams = new URLSearchParams(window.location.search);
 
   paramMap.forEach((kv) => {
-    let paramName = kv.name;
-    let paramValue = kv.value;
+    const paramName = kv.name;
+    const paramValue = kv.value;
 
     if (paramValue) {
       searchParams.set(paramName, paramValue);
@@ -179,7 +182,7 @@ export function setParameters(paramMap: ParamKeyValue[]) {
     }
   });
 
-  let base =
+  const base =
     window.location.protocol +
     "//" +
     window.location.host +
@@ -188,7 +191,7 @@ export function setParameters(paramMap: ParamKeyValue[]) {
   window.history.pushState({}, "", base + "?" + searchParams.toString());
 }
 
-const defaultHandler = <T extends unknown>(inp: string | null): T => {
+const defaultHandler = <T,>(inp: string | null): T => {
   return inp as unknown as T;
 };
 
@@ -205,7 +208,7 @@ export function getParameter<T1>(
   defaultValue: T1,
   formatter: (x: any) => T1 = defaultHandler
 ): T1 {
-  let searchParams = new URLSearchParams(window.location.search);
+  const searchParams = new URLSearchParams(window.location.search);
   try {
     return searchParams.has(paramName)
       ? formatter(searchParams.get(paramName))
@@ -216,14 +219,14 @@ export function getParameter<T1>(
   }
 }
 
-let kvSeparator = ".";
-let partsSeparator = "-";
+const kvSeparator = ".";
+const partsSeparator = "-";
 
 export const parseMls = (param: string) => {
-  let parts = param.split(partsSeparator);
-  let selection: PhraseSelections = {};
+  const parts = param.split(partsSeparator);
+  const selection: PhraseSelections = {};
   parts.forEach((part) => {
-    let p = part.split(kvSeparator);
+    const p = part.split(kvSeparator);
     selection[Number(p[0])] = p[1];
   });
 
@@ -231,7 +234,7 @@ export const parseMls = (param: string) => {
 };
 
 export const stringifyMls = (selection: PhraseSelections): string => {
-  let kvPair: Array<string> = [];
+  const kvPair: string[] = [];
 
   Object.keys(selection).forEach((key: any) => {
     kvPair.push(key + kvSeparator + selection[key]);
@@ -262,6 +265,7 @@ export const psSubscribe = (
 
 export const psUnsubscribe = (k: string) => {
   getLogger().debugLog("Removing PSHandler: " + k);
+  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
   delete psSubscriptions[k];
 };
 
@@ -280,11 +284,12 @@ Dumps a string of HTML into a div (or string with optional boolean)
 */
 export function getHtml(item: any, asString?: boolean) {
   // if div is needed
-  if (!asString)
+  if (!asString) {
     return <div dangerouslySetInnerHTML={{ __html: item || "" }}></div>;
+  }
 
   // if only string is needed, create an HTML element and then extract the text
   const span = document.createElement("span");
   span.innerHTML = item;
-  return span.textContent || span.innerText;
+  return span.textContent ?? span.innerText;
 }

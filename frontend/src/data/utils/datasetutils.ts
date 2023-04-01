@@ -1,9 +1,13 @@
-import { IDataFrame } from "data-forge";
-import { MetricId, VariableConfig, VariableId } from "../config/MetricConfig";
+import { type IDataFrame } from "data-forge";
 import {
-  Breakdowns,
-  BreakdownVar,
-  GeographicBreakdown,
+  type MetricId,
+  type VariableConfig,
+  type VariableId,
+} from "../config/MetricConfig";
+import {
+  type Breakdowns,
+  type BreakdownVar,
+  type GeographicBreakdown,
 } from "../query/Breakdowns";
 import {
   AHR_API_NH_DETERMINANTS,
@@ -25,7 +29,7 @@ import {
   NON_STANDARD_RACES,
   MULTI_OR_OTHER_STANDARD,
   MULTI_OR_OTHER_STANDARD_NH,
-  AgeBucket,
+  type AgeBucket,
   NON_HISPANIC,
   UNKNOWN,
   UNKNOWN_ETHNICITY,
@@ -33,11 +37,11 @@ import {
   AGE,
   BJS_NATIONAL_AGE_BUCKETS,
   BJS_JAIL_AGE_BUCKETS,
-  DemographicGroup,
+  type DemographicGroup,
   UNKNOWN_W,
 } from "./Constants";
-import { Row } from "./DatasetTypes";
-import { Fips } from "./Fips";
+import { type Row } from "./DatasetTypes";
+import { type Fips } from "./Fips";
 
 /**
  * Reshapes the data frame by creating a new column for each value in
@@ -228,9 +232,9 @@ export function getExtremeValues(
 Analyzes state and determines if the 2nd population source should be used
 */
 export interface ShouldShowAltPopCompareI {
-  fips: { isState: () => boolean };
-  breakdownVar: BreakdownVar;
-  variableConfig: { variableId: VariableId };
+  fips: { isState: () => boolean }
+  breakdownVar: BreakdownVar
+  variableConfig: { variableId: VariableId }
 }
 
 export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
@@ -304,7 +308,7 @@ export function getExclusionList(
 ): DemographicGroup[] {
   const current100k = currentVariable.metrics.per100k.metricId;
   const currentVariableId = currentVariable.variableId;
-  let exclusionList: DemographicGroup[] = [
+  const exclusionList: DemographicGroup[] = [
     UNKNOWN,
     UNKNOWN_ETHNICITY,
     UNKNOWN_RACE,
@@ -367,13 +371,14 @@ export function getExclusionList(
 
   if (ALL_AHR_DETERMINANTS.includes(current100k) && currentBreakdown === AGE) {
     // get correct age buckets for this determinant
-    let determinantBuckets: any[] = [];
-    if (AHR_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k))
+    const determinantBuckets: any[] = [];
+    if (AHR_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k)) {
       determinantBuckets.push(...DECADE_PLUS_5_AGE_BUCKETS);
-    else if (AHR_VOTER_AGE_DETERMINANTS.includes(current100k))
+    } else if (AHR_VOTER_AGE_DETERMINANTS.includes(current100k)) {
       determinantBuckets.push(...VOTER_AGE_BUCKETS);
-    else if (AHR_DETERMINANTS.includes(current100k))
+    } else if (AHR_DETERMINANTS.includes(current100k)) {
       determinantBuckets.push(...BROAD_AGE_BUCKETS);
+    }
 
     // remove all of the other age groups
     const irrelevantAgeBuckets = AGE_BUCKETS.filter(

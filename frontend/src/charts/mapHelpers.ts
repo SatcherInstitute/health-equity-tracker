@@ -1,5 +1,5 @@
-import { MetricId, MetricType } from "../data/config/MetricConfig";
-import { Fips } from "../data/utils/Fips";
+import { type MetricId, type MetricType } from "../data/config/MetricConfig";
+import { type Fips } from "../data/utils/Fips";
 import {
   CAWP_CONGRESS_COUNTS,
   getWomenRaceLabel,
@@ -15,13 +15,10 @@ import {
   EQUAL_DOT_SIZE,
   ZERO_DOT_SCALE,
 } from "./Legend";
-import { FieldRange, Row } from "../data/utils/DatasetTypes";
+import { type FieldRange, type Row } from "../data/utils/DatasetTypes";
 import { ORDINAL } from "./utils";
 import sass from "../styles/variables.module.scss";
-import {
-  RaceAndEthnicityGroup,
-  raceNameToCodeMap,
-} from "../data/utils/Constants";
+import { raceNameToCodeMap } from "../data/utils/Constants";
 
 export const MISSING_DATASET = "MISSING_DATASET";
 export const US_PROJECTION = "US_PROJECTION";
@@ -83,19 +80,22 @@ export function buildTooltipTemplate(
   return (template += "}");
 }
 
-export function getCountyAddOn(fips: Fips, showCounties: Boolean) {
+export function getCountyAddOn(fips: Fips, showCounties: boolean) {
   if (showCounties) {
-    if (fips.code.startsWith("02")) return "(County Equivalent)"; // Alaska
-    else if (fips.code.startsWith("22"))
-      return "Parish (County Equivalent)"; // Louisina
-    else if (fips.isTerritory() || fips.getParentFips().isTerritory())
+    if (fips.code.startsWith("02")) {
+      // Alaska
       return "(County Equivalent)";
-    else return "County";
+    } else if (fips.code.startsWith("22")) {
+      // Louisina
+      return "Parish (County Equivalent)";
+    } else if (fips.isTerritory() || fips.getParentFips().isTerritory()) {
+      return "(County Equivalent)";
+    } else return "County";
   }
   return "";
 }
 
-/* 
+/*
 Takes an existing VEGA formatted JSON string for the tooltip template and appends two rows for # TOTAL CONGRESS and # WOMEN THIS RACE IN CONGRESS
 */
 export function addCAWPTooltipInfo(
@@ -103,21 +103,21 @@ export function addCAWPTooltipInfo(
   subTitle: string,
   countCols: MetricId[]
 ) {
-  const raceName = subTitle
-    ? getWomenRaceLabel(subTitle as RaceAndEthnicityGroup)
-    : "";
+  const raceName = subTitle ? getWomenRaceLabel(subTitle) : "";
   const members = CAWP_CONGRESS_COUNTS.includes(countCols[0])
     ? "members"
     : "legislators";
 
-  const raceCode: string | undefined = (raceName as RaceAndEthnicityGroup)
-    ? raceNameToCodeMap?.[raceName as RaceAndEthnicityGroup]
+  const raceCode: string | undefined = raceName
+    ? raceNameToCodeMap?.[raceName]
     : "";
 
   const numLines = Object.keys(countCols).length;
 
   if (numLines > 0) {
-    tooltipPairs[`# ${raceCode} women ${members}`] = `datum.${countCols[0]}`;
+    tooltipPairs[
+      `# ${raceCode ?? ""} women ${members}`
+    ] = `datum.${countCols[0]}`;
   }
 
   if (numLines > 1) {
@@ -127,7 +127,7 @@ export function addCAWPTooltipInfo(
   return tooltipPairs;
 }
 
-/* 
+/*
  formatted tooltip hover 100k values above zero should display as less than 1, otherwise should get pretty commas
 */
 export function formatPreventZero100k(
@@ -139,8 +139,8 @@ export function formatPreventZero100k(
     : `format(datum.${metricId}, ',')`;
 }
 
-/* 
-Get either the normal "insufficient data" legend item with a grey box, 
+/*
+Get either the normal "insufficient data" legend item with a grey box,
 or optionally the "0" item with a light yellow green box for CAWP congress or
 any other datatype where we expect and want to highlight zeros
 */
@@ -190,11 +190,11 @@ export function createShapeMarks(
     };
   }
   if (!hideMissingDataTooltip || datasetName !== MISSING_DATASET) {
-    encodeEnter["tooltip"] = {
+    encodeEnter.tooltip = {
       signal: tooltipExpression,
     };
   }
-  let marks: any = {
+  const marks: any = {
     name: datasetName + "_MARK",
     aria: false,
     type: overrideShapeWithCircle ? "symbol" : "shape",
@@ -214,7 +214,7 @@ export function createShapeMarks(
     },
   };
   if (!overrideShapeWithCircle) {
-    marks["transform"] = [{ type: "geoshape", projection: US_PROJECTION }];
+    marks.transform = [{ type: "geoshape", projection: US_PROJECTION }];
   }
   return marks;
 }
@@ -258,24 +258,14 @@ export function createInvisibleAltMarks(
         },
         fontSize: { value: 0 },
         text: {
-          signal: `
-					datum.fips_name
-					+
-					': '
-					+
-					${tooltipDatum}
-					+
-					' '
-					+
-					'${tooltipLabel}'
-							`,
+          signal: `datum.fips_name + ': ' + ${tooltipDatum} + ' ' + '${tooltipLabel}'`,
         },
       },
     },
   };
 }
 
-/* 
+/*
 Generate meaningful alt text
 */
 export function makeAltText(
@@ -288,10 +278,11 @@ export function makeAltText(
     ? fips.getDisplayName()
     : `Map showing ${filename}`;
 
-  if (!fips.isCounty() && !overrideShapeWithCircle)
+  if (!fips.isCounty() && !overrideShapeWithCircle) {
     altText += `: including data from ${
       data.length
     } ${fips.getPluralChildFipsTypeDisplayName()}`;
+  }
 
   return altText;
 }
@@ -318,12 +309,12 @@ export function getProjection(
             : "albersUsa",
         fit: { signal: "data('" + GEO_DATASET + "')" },
         size: {
-          signal: "[" + width! + ", " + width! * heightWidthRatio + "]",
+          signal: "[" + width + ", " + width * heightWidthRatio + "]",
         },
       };
 }
 
-/* 
+/*
 Calculate the min and max value for the given metricId
 */
 export function getLegendDataBounds(data: Row[], metricId: MetricId) {
@@ -346,13 +337,13 @@ export function setupColorScale(
     type: scaleType,
     domain: { data: VAR_DATASET, field: metricId },
     range: {
-      scheme: scaleColorScheme || "yellowgreen",
+      scheme: scaleColorScheme ?? "yellowgreen",
       count: LEGEND_COLOR_COUNT,
     },
   };
   if (fieldRange) {
-    colorScale["domainMax"] = fieldRange.max;
-    colorScale["domainMin"] = fieldRange.min;
+    colorScale.domainMax = fieldRange.max;
+    colorScale.domainMin = fieldRange.min;
   }
 
   const [legendLowerBound, legendUpperBound] = getLegendDataBounds(
@@ -362,10 +353,10 @@ export function setupColorScale(
 
   if (legendLowerBound < legendUpperBound || isNaN(legendLowerBound)) {
     // if there is a range, adjust slope of the linear behavior of symlog around 0.
-    if (scaleType === "symlog") colorScale["constant"] = 0.01;
+    if (scaleType === "symlog") colorScale.constant = 0.01;
   } else {
     // if there is no range, use a dot instead of a gradient bar
-    colorScale["type"] = "ordinal";
+    colorScale.type = "ordinal";
   }
 
   return colorScale;

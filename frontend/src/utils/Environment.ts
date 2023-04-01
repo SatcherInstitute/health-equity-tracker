@@ -24,22 +24,22 @@ export type DeployContext =
 
 export interface Environment {
   /** The context the frontend is currently running in. */
-  readonly deployContext: DeployContext;
+  readonly deployContext: DeployContext
 
   /**
    * The base url for API calls. Empty string if API calls are relative to the
    * current domain.
    */
-  getBaseApiUrl(): string;
+  getBaseApiUrl: () => string
 
   /** Whether to enable sending error or metric data to the server. */
-  getEnableServerLogging(): boolean;
+  getEnableServerLogging: () => boolean
 
   /** Whether to enable logging error and debug data to the dev console. */
-  getEnableConsoleLogging(): boolean;
+  getEnableConsoleLogging: () => boolean
 
   /** Whether the environment is exposed to any real users. */
-  isUserFacingEnvironment(): boolean;
+  isUserFacingEnvironment: () => boolean
 
   /**
    * Whether to fetch the dataset as a static file from the public/tmp/
@@ -48,12 +48,12 @@ export interface Environment {
    * This should only be used for local development or in-progress datasets. In
    * production, all datasets should be fetched from the data server.
    */
-  forceFetchDatasetAsStaticFile(fileName: string): boolean;
+  forceFetchDatasetAsStaticFile: (fileName: string) => boolean
 }
 
 export class HetEnvironment implements Environment {
   readonly deployContext: DeployContext;
-  private forceStaticFiles: string[];
+  private readonly forceStaticFiles: string[];
 
   constructor(deployContext: DeployContext) {
     this.deployContext = deployContext;
@@ -72,7 +72,7 @@ export class HetEnvironment implements Environment {
 
   getBaseApiUrl() {
     // If the API url isn't provided, requests are relative to current domain.
-    return this.getEnvVariable("BASE_API_URL") || "";
+    return this.getEnvVariable("BASE_API_URL") ?? "";
   }
 
   getEnableServerLogging() {

@@ -1,14 +1,14 @@
 import { getDataManager } from "../../utils/globals";
-import { Breakdowns } from "../query/Breakdowns";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { type Breakdowns } from "../query/Breakdowns";
+import { type MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { appendFipsIfNeeded } from "../utils/datasetutils";
+import type AcsPopulationProvider from "./AcsPopulationProvider";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
-import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 import { RACE } from "../utils/Constants";
 
 class VaccineProvider extends VariableProvider {
-  private acsProvider: AcsPopulationProvider;
+  private readonly acsProvider: AcsPopulationProvider;
 
   constructor(acsProvider: AcsPopulationProvider) {
     super("vaccine_provider", [
@@ -57,7 +57,7 @@ class VaccineProvider extends VariableProvider {
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
 
-    let acsBreakdowns = breakdowns.copy();
+    const acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
 
     let consumedDatasetIds = [datasetId];

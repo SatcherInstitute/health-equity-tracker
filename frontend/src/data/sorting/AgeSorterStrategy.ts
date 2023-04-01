@@ -1,5 +1,5 @@
-import { Breakdowns } from "../query/Breakdowns";
-import { Row } from "../utils/DatasetTypes";
+import { type Breakdowns } from "../query/Breakdowns";
+import { type Row } from "../utils/DatasetTypes";
 import { AbstractSortStrategy } from "./AbstractDataSorter";
 
 export class AgeSorterStrategy extends AbstractSortStrategy {
@@ -20,22 +20,22 @@ export class AgeSorterStrategy extends AbstractSortStrategy {
   }
 
   readonly compareFn = (l: Row | string, r: Row | string) => {
-    const lAge = typeof l === "string" ? l : l["age"];
-    const rAge = typeof r === "string" ? r : r["age"]; //Rage hehe
+    const lAge = typeof l === "string" ? l : l.age;
+    const rAge = typeof r === "string" ? r : r.age; // Rage hehe
 
-    const front_left = this.frontValues.indexOf(lAge);
-    const front_right = this.frontValues.indexOf(rAge);
+    const frontLeft = this.frontValues.indexOf(lAge);
+    const frontRight = this.frontValues.indexOf(rAge);
 
-    let diff = front_right - front_left;
+    let diff = frontRight - frontLeft;
 
     if (diff !== 0) {
       return diff;
     }
 
-    const back_left = this.backValues.indexOf(lAge);
-    const back_right = this.backValues.indexOf(rAge);
+    const backLeft = this.backValues.indexOf(lAge);
+    const backRight = this.backValues.indexOf(rAge);
 
-    diff = back_left - back_right;
+    diff = backLeft - backRight;
     if (diff !== 0) {
       return diff;
     }

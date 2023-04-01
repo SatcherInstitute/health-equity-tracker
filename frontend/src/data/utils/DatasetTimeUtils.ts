@@ -1,14 +1,17 @@
-import { TimeSeries, TrendsData } from "../../charts/trendsChart/types";
-import { MetricConfig, MetricId } from "../config/MetricConfig";
-import { BreakdownVar } from "../query/Breakdowns";
+import {
+  type TimeSeries,
+  type TrendsData,
+} from "../../charts/trendsChart/types";
+import { type MetricConfig, type MetricId } from "../config/MetricConfig";
+import { type BreakdownVar } from "../query/Breakdowns";
 import {
   ALL,
   ALL_W,
-  DemographicGroup,
+  type DemographicGroup,
   TIME_PERIOD,
   TIME_PERIOD_LABEL,
 } from "./Constants";
-import { Row } from "./DatasetTypes";
+import { type Row } from "./DatasetTypes";
 
 const MONTHLY_LENGTH = 7;
 const YEARLY_LENGTH = 4;
@@ -23,9 +26,9 @@ const MONTHS: Record<string, string> = {
   "07": "July",
   "08": "August",
   "09": "September",
-  "10": "October",
-  "11": "November",
-  "12": "December",
+  10: "October",
+  11: "November",
+  12: "December",
 };
 
 /*
@@ -75,7 +78,7 @@ export function generateConsecutivePeriods(data: Row[]): string[] {
   const shippedTimePeriods = data.map((row) => row.time_period).sort();
   const minPeriod = shippedTimePeriods[0];
   const maxPeriod = shippedTimePeriods[shippedTimePeriods.length - 1];
-  let consecutivePeriods = [];
+  const consecutivePeriods = [];
 
   // can only plot based on the least specific time periods.
   // However, all "time_periods" should already be same TimeUnit from backend
@@ -88,7 +91,7 @@ export function generateConsecutivePeriods(data: Row[]): string[] {
     while (currentPeriod <= maxPeriod) {
       consecutivePeriods.push(currentPeriod);
       let [yyyy, mm]: string[] = currentPeriod.split("-");
-      let nextMonth: number = +mm + 1;
+      const nextMonth: number = +mm + 1;
       if (+nextMonth === 13) {
         yyyy = (+yyyy + 1).toString();
         mm = "01";
@@ -124,7 +127,7 @@ export function interpolateTimePeriods(data: Row[]) {
   return interpolatedData;
 }
 
-/* 
+/*
 Accepts fetched, "known" data, along with all expected groups, the current demographic breakdown type, and a target metric, and restructures the data into the nested array format required by d3 for the time-series charts
 */
 export function getNestedData(
@@ -148,7 +151,7 @@ export function getNestedData(
   return nestedRates as TrendsData;
 }
 
-/* 
+/*
 Accepts fetched, prefiltered data that only contains rows with unknown pct_share data, and a target metric, and restructures the data into the nested array format required by d3 for the time-series "unknown bubbles" at the bottom of the charts
 */
 export function getNestedUnknowns(
@@ -160,7 +163,7 @@ export function getNestedUnknowns(
   return unknownsData.map((row) => [row[TIME_PERIOD], row[metricId]]);
 }
 
-/* 
+/*
 To present the data from the visual charts in a more accessible manner (including but not restricted to screen reader users) we need to once again recstructure the data so that each rows represents a time_period, and the columns can present the available demographic groups, along with the "unknown_pct_share" context we present visually in the blue bubbles
 */
 export function makeA11yTableData(
@@ -190,7 +193,7 @@ export function makeA11yTableData(
     const a11yRow: any = { [TIME_PERIOD_LABEL]: getPrettyDate(timePeriod) };
 
     // and shows value per demographic group
-    for (let group of filteredDemographicGroups) {
+    for (const group of filteredDemographicGroups) {
       const rowForGroupTimePeriod = knownsData.find(
         (row) => row[breakdownVar] === group && row[TIME_PERIOD] === timePeriod
       );
@@ -198,11 +201,12 @@ export function makeA11yTableData(
     }
 
     // along with the unknown pct_share
-    if (hasUnknowns)
+    if (hasUnknowns) {
       a11yRow[`${unknownMetric.shortLabel} with unknown ${breakdownVar}`] =
         unknownsData.find((row) => row[TIME_PERIOD] === timePeriod)?.[
           unknownMetric.metricId
         ];
+    }
 
     return a11yRow;
   });
@@ -213,8 +217,8 @@ export function makeA11yTableData(
 /*
 Convert time_period style date YYYY-MM (e.g. "2020-01") to human readable Month Year (e.g. "January 2020"). Strings not matching this format are simply passed through.
 */
-export function getPrettyDate(timePeriod: string) {
-  if (!timePeriod) return;
+export function getPrettyDate(timePeriod: string): string {
+  if (!timePeriod) return "";
 
   // if it's YYYY-MM
   if (timePeriod.length === MONTHLY_LENGTH && timePeriod[4] === "-") {
@@ -233,8 +237,9 @@ export function getPrettyDate(timePeriod: string) {
 export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
   const groupAveragesOverTime = data.map((groupData) => {
     // exclude ALLs (should only be for CAWP?) from being a Highest or Lowest group
-    if (groupData[0] === ALL_W || groupData[0] === ALL)
+    if (groupData[0] === ALL_W || groupData[0] === ALL) {
       return [groupData[0], null];
+    }
 
     const nonNullGroupData = groupData[1].filter(
       (dataPoint) => dataPoint[1] != null
@@ -243,7 +248,6 @@ export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
     const nonNullGroupValues = nonNullGroupData.map(
       (dataPoint) => dataPoint[1]
     );
-    // @ts-ignore
     const sumOfGroupValues = nonNullGroupValues.reduce((a, b) => a + b, 0);
     const numberOfGroupValues = nonNullGroupValues.length;
     const groupAverage =

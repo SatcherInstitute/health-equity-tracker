@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 import {
-  Column,
-  HeaderGroup,
-  Row,
+  type Column,
+  type HeaderGroup,
+  type Row,
   usePagination,
   useSortBy,
   useTable,
@@ -15,14 +15,14 @@ import TableFooter from "@material-ui/core/TableFooter";
 import TablePagination from "@material-ui/core/TablePagination";
 import Paper from "@material-ui/core/Paper";
 import {
-  MetricConfig,
-  MetricId,
+  type MetricConfig,
+  type MetricId,
   formatFieldValue,
   SYMBOL_TYPE_LOOKUP,
 } from "../data/config/MetricConfig";
 import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
-  BreakdownVar,
+  type BreakdownVar,
 } from "../data/query/Breakdowns";
 import { Tooltip, useMediaQuery } from "@material-ui/core";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
@@ -49,9 +49,9 @@ export const altCellStyle = {
 };
 
 export interface TableChartProps {
-  data: Readonly<Record<string, any>>[];
-  breakdownVar: BreakdownVar;
-  metrics: MetricConfig[];
+  data: Array<Readonly<Record<string, any>>>
+  breakdownVar: BreakdownVar
+  metrics: MetricConfig[]
 }
 
 export function TableChart(props: TableChartProps) {
@@ -60,7 +60,7 @@ export function TableChart(props: TableChartProps) {
   const { data, metrics, breakdownVar } = props;
   let columns = metrics.map((metricConfig) => {
     return {
-      Header: metricConfig.columnTitleHeader || metricConfig.shortLabel,
+      Header: metricConfig.columnTitleHeader ?? metricConfig.shortLabel,
       Cell: (a: any) =>
         formatFieldValue(
           /* metricType: MetricType, */ metricConfig.type,
@@ -132,6 +132,7 @@ export function TableChart(props: TableChartProps) {
           cell.value == null ? (
             <TableCell
               {...cell.getCellProps()}
+              key={`no-data-${index}`}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
               <Tooltip title={NO_DATA_MESSAGE}>
@@ -144,6 +145,7 @@ export function TableChart(props: TableChartProps) {
           ) : (
             <TableCell
               {...cell.getCellProps()}
+              key={`data-${index}`}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
               {cell.render("Cell")}
@@ -207,9 +209,9 @@ export function TableChart(props: TableChartProps) {
 }
 
 interface UnitsProps {
-  column: number;
-  metric: MetricConfig[];
-  wrap100kUnit: boolean;
+  column: number
+  metric: MetricConfig[]
+  wrap100kUnit: boolean
 }
 function Units(props: UnitsProps) {
   if (!props.column) return null;

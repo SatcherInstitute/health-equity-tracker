@@ -1,7 +1,7 @@
 import { getDataManager } from "../../utils/globals";
-import { MetricId } from "../config/MetricConfig";
-import { Breakdowns } from "../query/Breakdowns";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { type MetricId } from "../config/MetricConfig";
+import { type Breakdowns } from "../query/Breakdowns";
+import { type MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import VariableProvider from "./VariableProvider";
 
 export const AHR_DETERMINANTS: MetricId[] = [

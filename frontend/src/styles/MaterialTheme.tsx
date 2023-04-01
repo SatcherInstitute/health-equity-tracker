@@ -24,10 +24,10 @@ const MaterialTheme = createTheme({
         body: {
           fontFamily: '"Inter", sans-serif',
         },
-        ".MuiAlert-standardInfo	.MuiAlert-icon": {
+        ".MuiAlert-standardInfo .MuiAlert-icon": {
           color: `${sass.altGreen} !important`,
         },
-        ".MuiAlert-standardWarning	.MuiAlert-icon": {
+        ".MuiAlert-standardWarning .MuiAlert-icon": {
           color: `${sass.alertColor} !important`,
         },
       },
@@ -61,7 +61,7 @@ const MaterialTheme = createTheme({
         },
       },
     },
-    //@ts-ignore - ts doesn't like MuiToggleButton type even though it works
+    // @ts-expect-error - ts doesn't like MuiToggleButton type even though it works
     MuiToggleButton: {
       root: {
         fontWeight: "normal",

@@ -1,12 +1,12 @@
 import AcsConditionProvider from "../variables/AcsConditionProvider";
 import AcsPopulationProvider from "../variables/AcsPopulationProvider";
-import VariableProvider from "../variables/VariableProvider";
+import type VariableProvider from "../variables/VariableProvider";
 import CdcCovidProvider from "../variables/CdcCovidProvider";
 import HivProvider from "../variables/HivProvider";
 import AhrProvider from "../variables/AhrProvider";
 import CawpProvider from "../variables/CawpProvider";
 import IncarcerationProvider from "../variables/IncarcerationProvider";
-import { MetricId } from "../config/MetricConfig";
+import { type MetricId } from "../config/MetricConfig";
 import VaccineProvider from "../variables/VaccineProvider";
 import GeoContextProvider from "../variables/GeoContextProvider";
 
@@ -23,9 +23,9 @@ export type ProviderId =
   | "incarceration_provider";
 
 export default class VariableProviderMap {
-  private providers: VariableProvider[];
-  private providersById: Record<ProviderId, VariableProvider>;
-  private metricsToProviderIds: Record<MetricId, ProviderId>;
+  private readonly providers: VariableProvider[];
+  private readonly providersById: Record<ProviderId, VariableProvider>;
+  private readonly metricsToProviderIds: Record<MetricId, ProviderId>;
 
   constructor() {
     const acsProvider = new AcsPopulationProvider();

@@ -1,4 +1,4 @@
-/* 
+/*
 https://www.joshwcomeau.com/react/prefers-reduced-motion/
 */
 

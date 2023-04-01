@@ -1,7 +1,7 @@
 import {
-  DropdownVarId,
+  type DropdownVarId,
   METRIC_CONFIG,
-  VariableConfig,
+  type VariableConfig,
 } from "../data/config/MetricConfig";
 import { FIPS_MAP, GEORGIA_FIPS, USA_FIPS } from "../data/utils/Fips";
 
@@ -27,10 +27,10 @@ export type CategoryId =
   | "Social Determinants of Health";
 
 export interface MadLib {
-  readonly id: MadLibId;
-  readonly phrase: PhraseSegment[];
-  readonly defaultSelections: PhraseSelections;
-  readonly activeSelections: PhraseSelections;
+  readonly id: MadLibId
+  readonly phrase: PhraseSegment[]
+  readonly defaultSelections: PhraseSelections
+  readonly activeSelections: PhraseSelections
 }
 
 function getMadLibPhraseText(madLib: MadLib): string {
@@ -39,8 +39,8 @@ function getMadLibPhraseText(madLib: MadLib): string {
     if (typeof phraseSegment === "string") {
       madLibText += phraseSegment;
     } else {
-      const phraseSelector = phraseSegment as PhraseSelector;
-      let selectionKey: string = madLib.activeSelections[index]
+      const phraseSelector = phraseSegment;
+      const selectionKey: string = madLib.activeSelections[index]
         ? madLib.activeSelections[index]
         : madLib.defaultSelections[index];
       madLibText += " " + phraseSelector[selectionKey] + " ";
@@ -55,7 +55,7 @@ export function getMadLibWithUpdatedValue(
   phraseSegementIndex: number,
   newValue: DropdownVarId | string // condition or numeric-string FIPS code
 ) {
-  let updatePhraseSelections: PhraseSelections = {
+  const updatePhraseSelections: PhraseSelections = {
     ...originalMadLib.activeSelections,
   };
   updatePhraseSelections[phraseSegementIndex] = newValue;
@@ -126,9 +126,9 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
 };
 
 export interface Category {
-  readonly title: CategoryId;
-  readonly options: DropdownVarId[];
-  readonly definition?: string;
+  readonly title: CategoryId
+  readonly options: DropdownVarId[]
+  readonly definition?: string
 }
 
 const CATEGORIES_LIST: Category[] = [

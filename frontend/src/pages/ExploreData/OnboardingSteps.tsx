@@ -1,4 +1,3 @@
-import React from "react";
 import LazyLoad from "react-lazyload";
 import styles from "./ExploreDataPage.module.scss";
 import covidClick from "../../assets/screengrabs/covidClick.mp4";
@@ -28,8 +27,8 @@ export const ONBOARDING_STEPS = [
         </video>
       </LazyLoad>
     </>,
-    /*hideCloseButton=*/ true,
-    /*placement=*/ "auto"
+    /* hideCloseButton= */ true,
+    /* placement= */ "auto"
   ),
   onboardingStep(
     "#onboarding-madlib-arrow",
@@ -62,8 +61,8 @@ export const ONBOARDING_STEPS = [
         </video>
       </LazyLoad>
     </>,
-    /*hideCloseButton=*/ true,
-    /*placement=*/ "auto"
+    /* hideCloseButton= */ true,
+    /* placement= */ "auto"
   ),
   onboardingStep(
     "#onboarding-limits-in-the-data",
@@ -79,8 +78,8 @@ export const ONBOARDING_STEPS = [
         wherever possible.
       </p>
     </>,
-    /*hideCloseButton=*/ false,
-    /*placement=*/ "auto"
+    /* hideCloseButton= */ false,
+    /* placement= */ "auto"
   ),
   onboardingStep(
     "#onboarding-explore-trends",
@@ -89,8 +88,8 @@ export const ONBOARDING_STEPS = [
       Where available, the tracker offers breakdowns by race and ethnicity, sex,
       and age. Some topics may also include selectors for different data types.
     </>,
-    /*hideCloseButton=*/ true,
-    /*placement=*/ "auto"
+    /* hideCloseButton= */ true,
+    /* placement= */ "auto"
   ),
   onboardingStep(
     "#madlib-carousel-container",
@@ -106,15 +105,13 @@ export const ONBOARDING_STEPS = [
           className={styles.ResourceVideoEmbed}
           src="https://www.youtube.com/embed/XBoqT9Jjc8w"
           title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write;
-	encrypted-media; gyroscope; picture-in-picture"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe>
       </div>
     </>,
-    /*hideCloseButton=*/ false,
-    /*placement=*/ "auto"
+    /* hideCloseButton= */ false,
+    /* placement= */ "auto"
   ),
 ];
 
@@ -141,9 +138,9 @@ function onboardingStep(
     | undefined
 ) {
   return {
-    hideCloseButton: hideCloseButton,
+    hideCloseButton,
     target: targetId,
-    placement: placement,
+    placement,
     content: (
       <div style={{ textAlign: "left" }}>
         <h4>{title}</h4>

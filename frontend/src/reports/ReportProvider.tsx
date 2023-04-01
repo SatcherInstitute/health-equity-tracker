@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { OneVariableReport } from "./OneVariableReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
-  MadLib,
+  type MadLib,
   getMadLibWithUpdatedValue,
-  MadLibId,
   getPhraseValue,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
@@ -17,9 +16,9 @@ import ArrowForward from "@material-ui/icons/ArrowForward";
 import styles from "./Report.module.scss";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
 import {
-  DropdownVarId,
+  type DropdownVarId,
   METRIC_CONFIG,
-  VariableConfig,
+  type VariableConfig,
 } from "../data/config/MetricConfig";
 import ShareButtons from "./ui/ShareButtons";
 import { Box } from "@material-ui/core";
@@ -27,7 +26,7 @@ import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import IncarceratedChildrenLongAlert from "./ui/IncarceratedChildrenLongAlert";
-import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { LinkWithStickyParams } from "../utils/urlutils";
 import {
   MissingCovidData,
@@ -39,14 +38,14 @@ import {
 export const SINGLE_COLUMN_WIDTH = 12;
 
 interface ReportProviderProps {
-  isSingleColumn: boolean;
-  madLib: MadLib;
-  selectedConditions: VariableConfig[];
-  showLifeLineAlert: boolean;
-  setMadLib: Function;
-  showIncarceratedChildrenAlert: boolean;
-  isScrolledToTop: boolean;
-  headerScrollMargin: number;
+  isSingleColumn: boolean
+  madLib: MadLib
+  selectedConditions: VariableConfig[]
+  showLifeLineAlert: boolean
+  setMadLib: (madLib: MadLib) => void
+  showIncarceratedChildrenAlert: boolean
+  isScrolledToTop: boolean
+  headerScrollMargin: number
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -87,26 +86,27 @@ function ReportProvider(props: ReportProviderProps) {
   function getReport() {
     // Each report has a unique key based on its props so it will create a
     // new instance and reset its state when the provided props change.
-    switch (props.madLib.id as MadLibId) {
-      case "disparity":
+    switch (props.madLib.id) {
+      case "disparity": {
         const dropdownOption = getPhraseValue(props.madLib, 1);
         return (
           <OneVariableReport
             key={dropdownOption}
             dropdownVarId={dropdownOption as DropdownVarId}
             fips={new Fips(getPhraseValue(props.madLib, 3))}
-            updateFipsCallback={(fips: Fips) =>
+            updateFipsCallback={(fips: Fips) => {
               props.setMadLib(
                 getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
-              )
-            }
+              );
+            }}
             isScrolledToTop={props.isScrolledToTop}
             reportStepHashIds={reportStepHashIds}
             setReportStepHashIds={setReportStepHashIds}
             headerScrollMargin={props.headerScrollMargin}
           />
         );
-      case "comparegeos":
+      }
+      case "comparegeos": {
         const compareDisparityVariable = getPhraseValue(props.madLib, 1);
         const fipsCode1 = getPhraseValue(props.madLib, 3);
         const fipsCode2 = getPhraseValue(props.madLib, 5);
@@ -117,30 +117,32 @@ function ReportProvider(props: ReportProviderProps) {
             dropdownVarId2={compareDisparityVariable as DropdownVarId}
             fips1={new Fips(fipsCode1)}
             fips2={new Fips(fipsCode2)}
-            updateFips1Callback={(fips: Fips) =>
+            updateFips1Callback={(fips: Fips) => {
               props.setMadLib(
                 getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
-              )
-            }
-            updateFips2Callback={(fips: Fips) =>
+              );
+            }}
+            updateFips2Callback={(fips: Fips) => {
               props.setMadLib(
                 getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
-              )
-            }
+              );
+            }}
             isScrolledToTop={props.isScrolledToTop}
             reportStepHashIds={reportStepHashIds}
             setReportStepHashIds={setReportStepHashIds}
             headerScrollMargin={props.headerScrollMargin}
           />
         );
-      case "comparevars":
+      }
+      case "comparevars": {
         const compareDisparityVariable1 = getPhraseValue(props.madLib, 1);
         const compareDisparityVariable2 = getPhraseValue(props.madLib, 3);
         const fipsCode = getPhraseValue(props.madLib, 5);
-        const updateFips = (fips: Fips) =>
+        const updateFips = (fips: Fips) => {
           props.setMadLib(
             getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
           );
+        };
         return (
           <TwoVariableReport
             key={
@@ -158,8 +160,10 @@ function ReportProvider(props: ReportProviderProps) {
             headerScrollMargin={props.headerScrollMargin}
           />
         );
-      default:
+      }
+      default: {
         return <p>Report not found</p>;
+      }
     }
   }
 

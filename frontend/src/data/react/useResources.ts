@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import {
+  type MetricQuery,
+  type MetricQueryResponse,
+} from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 
 export type IncompleteLoadStatus = "loading" | "error";
@@ -24,7 +27,9 @@ export function useResources<K, R>(
 
   async function loadResources() {
     try {
-      const promises = resources.map((resource) => loadFn(resource));
+      const promises = resources.map(
+        async (resource) => await loadFn(resource)
+      );
       const results = await Promise.all(promises);
       setResourceState(results);
     } catch (e) {
@@ -33,8 +38,11 @@ export function useResources<K, R>(
   }
 
   useEffect(() => {
-    loadResources();
-    // eslint-disable-next-line
+    async function asyncLoadResources() {
+      await loadResources();
+    }
+
+    asyncLoadResources().catch(console.error);
   }, [...resources.map((resource) => depIdFn(resource))]);
 
   return resourceState;
