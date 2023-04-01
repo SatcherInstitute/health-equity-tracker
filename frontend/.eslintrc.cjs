@@ -34,10 +34,8 @@ module.exports = {
     'react/no-unescaped-entities': "off",
     '@typescript-eslint/indent': "off",
     "react/react-in-jsx-scope": "off",
-    '@typescript-eslint/restrict-plus-operands': "off",
     '@typescript-eslint/require-array-sort-compare': "off",
     '@typescript-eslint/ban-ts-comment': "off",
-    'react/no-unescaped-entities': "off",
     "multiline-ternary": "off",
     "react/prop-types": "off"
   }
