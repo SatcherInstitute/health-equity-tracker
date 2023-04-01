@@ -25,9 +25,9 @@ import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMoti
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 
 function OptionsSelector(props: {
-  value: VariableId | string | DefaultDropdownVarId // condition data type OR fips code as string OR default setting with no topic selected
-  options: Fips[] | string[][]
-  onOptionUpdate: (option: string) => void
+  value: VariableId | string | DefaultDropdownVarId; // condition data type OR fips code string OR default setting with no topic selected
+  options: Fips[] | string[][];
+  onOptionUpdate: (option: string) => void;
 }) {
   const isFips = !!(props.options[0] && props.options[0] instanceof Fips);
   let currentDisplayName;
