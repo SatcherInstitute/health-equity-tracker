@@ -132,9 +132,9 @@ function OptionsSelector(props: {
                 clearOnEscape={true}
                 getOptionLabel={(fips) => fips.getFullDisplayName()}
                 isOptionEqualToValue={(fips) => fips.code === props.value}
-                renderOption={(_props, fips: Fips) => (
-                  <>{fips.getFullDisplayName()}</>
-                )}
+                renderOption={(props, fips: Fips) => {
+                  return <li {...props}>{fips.getFullDisplayName()}</li>;
+                }}
                 open={autoCompleteOpen}
                 onOpen={openAutoComplete}
                 onClose={closeAutoComplete}
