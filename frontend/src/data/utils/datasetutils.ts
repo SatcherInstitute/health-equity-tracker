@@ -1,3 +1,4 @@
+import { type IDataFrame } from "data-forge";
 import {
   type MetricId,
   type VariableConfig,
@@ -41,6 +42,42 @@ import {
 } from "./Constants";
 import { type Row } from "./DatasetTypes";
 import { type Fips } from "./Fips";
+
+export type JoinType = "inner" | "left" | "outer";
+
+// TODO consider finding different library for joins, or write our own. This
+// library doesn't support multi-col joins naturally, so this uses a workaround.
+// I've also seen occasional issues with the page hanging that have been
+// difficult to consistently reproduce.
+/**
+ * Joins two data frames on the specified columns, keeping all the remaining
+ * columns from both.
+ */
+export function joinOnCols(
+  df1: IDataFrame,
+  df2: IDataFrame,
+  cols: BreakdownVar[],
+  joinType: JoinType = "inner"
+): IDataFrame {
+  const keySelector = (row: any) => {
+    const keys = cols.map((col) => col + ": " + row[col]);
+    return keys.join(",");
+  };
+  const aggFn = (row1: any, row2: any) => ({ ...row2, ...row1 });
+  let joined;
+  switch (joinType) {
+    case "inner":
+      joined = df1.join(df2, keySelector, keySelector, aggFn);
+      break;
+    case "left":
+      joined = df1.joinOuterLeft(df2, keySelector, keySelector, aggFn);
+      break;
+    case "outer":
+      joined = df1.joinOuter(df2, keySelector, keySelector, aggFn);
+      break;
+  }
+  return joined.resetIndex();
+}
 
 /*
 Returns the lowest `listSize` & highest `listSize` values, unless there are ties for first and/or last in which case the only the tied values are returned. If there is overlap, it is removed from the highest values.
