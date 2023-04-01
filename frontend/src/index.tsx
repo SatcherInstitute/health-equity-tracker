@@ -22,7 +22,7 @@ VERY IMPORTANT: This utility is currently in an experimental stage. This means t
 const localStoragePersistor = createWebStoragePersistor({
   storage: window.localStorage,
 });
-await persistQueryClient({
+void persistQueryClient({
   queryClient,
   persistor: localStoragePersistor,
 });

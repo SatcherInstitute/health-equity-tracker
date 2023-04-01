@@ -242,7 +242,7 @@ export class Breakdowns {
     return this.demographicBreakdownCount() === 1;
   }
 
-  getSoleDemographicBreakdown(): DemographicBreakdown | null {
+  getSoleDemographicBreakdown(): DemographicBreakdown {
     if (!this.hasExactlyOneDemographic()) {
       throw new Error("Invalid assertion of only one demographic breakdown");
     }
@@ -250,7 +250,7 @@ export class Breakdowns {
     return (
       Object.values(this.demographicBreakdowns).find(
         (breakdown) => breakdown.enabled
-      ) ?? null
+      ) ?? createDemographicBreakdown("race_and_ethnicity")
     );
   }
 
