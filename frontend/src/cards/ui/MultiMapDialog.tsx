@@ -1,9 +1,14 @@
-import React from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import Typography from "@mui/material/Typography";
-import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Grid,
+  useMediaQuery,
+  useTheme,
+  Button,
+  Dialog,
+  DialogContent,
+  Typography,
+  Alert,
+} from "@mui/material";
 import { ChoroplethMap } from "../../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
@@ -24,7 +29,6 @@ import {
   type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
-import { Alert } from "@mui/lab";
 import { type DemographicGroup } from "../../data/utils/Constants";
 import {
   CAWP_DETERMINANTS,

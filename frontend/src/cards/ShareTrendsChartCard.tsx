@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { CardContent } from "@mui/material";
+import { useState } from "react";
+import { CardContent, Alert } from "@mui/material";
 import { type Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -24,7 +24,6 @@ import {
   getNestedData,
   getNestedUnknowns,
 } from "../data/utils/DatasetTimeUtils";
-import { Alert } from "@mui/lab";
 import { HashLink } from "react-router-hash-link";
 import { METHODOLOGY_TAB_LINK } from "../utils/internalRoutes";
 import AltTableView from "./ui/AltTableView";

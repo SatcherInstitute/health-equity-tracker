@@ -1,11 +1,9 @@
-import React from "react";
-import { Alert } from "@mui/lab";
 import styles from "./UnknownBubblesAlert.module.scss";
-
 import {
   type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
+import { Alert } from "@mui/material";
 
 interface UnknownBubblesAlertProps {
   breakdownVar: BreakdownVar

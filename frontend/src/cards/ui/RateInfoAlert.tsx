@@ -1,6 +1,4 @@
-import { CardContent, Divider } from "@mui/material";
-import { Alert } from "@mui/lab";
-import React from "react";
+import { CardContent, Divider, Alert } from "@mui/material";
 import {
   formatFieldValue,
   type MetricConfig,

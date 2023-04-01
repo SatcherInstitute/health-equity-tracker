@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, CardContent } from "@mui/material";
+import { useState } from "react";
+import { Box, CardContent, Alert } from "@mui/material";
 import { type Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -23,7 +23,6 @@ import {
   getNestedData,
   getNestedUnknowns,
 } from "../data/utils/DatasetTimeUtils";
-import { Alert } from "@mui/lab";
 import AltTableView from "./ui/AltTableView";
 import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";

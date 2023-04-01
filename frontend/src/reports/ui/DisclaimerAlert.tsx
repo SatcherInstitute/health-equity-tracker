@@ -1,6 +1,4 @@
-import React from "react";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/lab/AlertTitle";
+import { Alert, AlertTitle } from "@mui/material";
 import styles from "./DisclaimerAlert.module.scss";
 import FlagIcon from "@mui/icons-material/Flag";
 import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";

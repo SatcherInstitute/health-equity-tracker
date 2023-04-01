@@ -1,6 +1,4 @@
-import React from "react";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/lab/AlertTitle";
+import { Alert, AlertTitle } from "@mui/material";
 import styles from "./IncarceratedChildrenLongAlert.module.scss";
 import FlagIcon from "@mui/icons-material/Flag";
 import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";

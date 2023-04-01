@@ -1,22 +1,25 @@
 import React, { useRef, useState } from "react";
 import ArrowDropUp from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/lab/Autocomplete"; // can't lazy load due to typing issue
 import { Fips, USA_DISPLAY_NAME, USA_FIPS } from "../../data/utils/Fips";
-import Popover from "@mui/material/Popover";
-import Button from "@mui/material/Button";
 import styles from "./OptionsSelector.module.scss";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import { usePopover } from "../../utils/hooks/usePopover";
 import {
   CATEGORIES_LIST,
   DEFAULT,
   type DefaultDropdownVarId,
 } from "../../utils/MadLibs";
-import { Box, Grid } from "@mui/material";
+import {
+  Box,
+  Grid,
+  ListItemText,
+  ListItem,
+  List,
+  Button,
+  Popover,
+  Autocomplete,
+  TextField,
+} from "@mui/material";
 import {
   type DropdownVarId,
   type VariableId,

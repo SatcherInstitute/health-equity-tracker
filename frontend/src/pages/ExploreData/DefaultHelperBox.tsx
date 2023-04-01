@@ -1,6 +1,4 @@
-import { Box, Grid } from "@mui/material";
-import { Alert } from "@mui/lab";
-import React from "react";
+import { Box, Grid, Alert } from "@mui/material";
 import { Link } from "react-router-dom";
 import {
   COVID_DEATHS_AGE_FULTON_COUNTY_SETTING,

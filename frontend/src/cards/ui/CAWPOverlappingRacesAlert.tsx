@@ -1,6 +1,4 @@
-import { CardContent } from "@mui/material";
-import { Alert } from "@mui/lab";
-import React from "react";
+import { CardContent, Alert } from "@mui/material";
 import { type VariableConfig } from "../../data/config/MetricConfig";
 
 interface CAWPOverlappingRacesAlertProps {

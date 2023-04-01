@@ -1,5 +1,4 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
-
+import { Box, Button, Grid, Typography, Skeleton } from "@mui/material";
 import { useState, useEffect } from "react";
 import styles from "./News.module.scss";
 import { Link, Redirect, useParams } from "react-router-dom";
@@ -17,7 +16,6 @@ import { useQuery } from "react-query";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { type Article } from "../NewsTab";
 import hetLogo from "../../../assets/AppbarLogo.png";
-import { Skeleton } from "@mui/lab";
 import SignupSection from "../../ui/SignupSection";
 import ShareButtons, {
   ARTICLE_DESCRIPTION,

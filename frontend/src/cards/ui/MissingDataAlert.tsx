@@ -1,5 +1,3 @@
-import React from "react";
-import { Alert } from "@mui/lab";
 import {
   EXPLORE_DATA_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
@@ -13,6 +11,7 @@ import {
 } from "../../data/config/MetricConfig";
 import { dataTypeLinkMap } from "../AgeAdjustedTableCard";
 import { LinkWithStickyParams } from "../../utils/urlutils";
+import { Alert } from "@mui/material";
 
 interface MissingDataAlertProps {
   dataName: string

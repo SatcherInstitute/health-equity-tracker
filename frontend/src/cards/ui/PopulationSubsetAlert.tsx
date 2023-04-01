@@ -1,6 +1,4 @@
-import { CardContent } from "@mui/material";
-import { Alert } from "@mui/lab";
-import React from "react";
+import { CardContent, Alert } from "@mui/material";
 import { HashLink } from "react-router-hash-link";
 import { type VariableId } from "../../data/config/MetricConfig";
 import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";
