@@ -28,8 +28,6 @@ import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMoti
 import { urlMap } from "../../utils/externalUrls";
 import { Link } from "react-router-dom";
 
-// TRIGGER BUILD
-
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
     ARTICLES_KEY_4,
@@ -168,8 +166,7 @@ function LandingPage() {
               direction="row"
               justifyContent="space-around"
             >
-              {recentArticles && !isLoading
-? (
+              {recentArticles && !isLoading ? (
                 recentArticles.map((article: Article) => {
                   return (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={article.id}>
@@ -177,8 +174,7 @@ function LandingPage() {
                     </Grid>
                   );
                 })
-              )
-: (
+              ) : (
                 <ArticlesSkeleton
                   doPulse={!error}
                   numberLoading={numberOfArticlePreviews}
