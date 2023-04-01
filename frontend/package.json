@@ -135,5 +135,11 @@
     "eslint-plugin-react": "^7.32.2",
     "typescript": "^5.0.3",
     "vitest-canvas-mock": "^0.2.2"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "semi": false,
+    "singleQuote": true
   }
 }
