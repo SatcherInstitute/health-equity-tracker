@@ -59,7 +59,6 @@ const MaterialTheme = createTheme(
           },
         },
       },
-      // @ts-expect-error - ts doesn't like MuiToggleButton type even though it works
       MuiToggleButton: {
         root: {
           fontWeight: "normal",
